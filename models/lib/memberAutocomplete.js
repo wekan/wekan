@@ -36,7 +36,7 @@ function filterMembersByTerm(users, term) {
   return users.filter(user => memberMatchesTerm(user, term));
 }
 
-module.exports = {
+export {
   memberMatchesTerm,
   filterMembersByTerm,
 };

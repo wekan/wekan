@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for copying a card's subtasks.
 // Run: node tests/subtaskCopy.test.cjs
@@ -12,7 +13,7 @@ const assert = require('assert');
 const {
   buildCopiedSubtaskFields,
   subtaskCopyChildKinds,
-} = require('../models/lib/subtaskCopy');
+} = await import('../models/lib/subtaskCopy.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -80,3 +81,5 @@ test('NEGATIVE: ... nor the SOURCE board id (would strand the subtask)', () => {
 });
 
 console.log(`\n${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

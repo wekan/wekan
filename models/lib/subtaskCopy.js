@@ -29,4 +29,4 @@ function subtaskCopyChildKinds() {
   return ['checklists'];
 }
 
-module.exports = { buildCopiedSubtaskFields, subtaskCopyChildKinds };
+export { buildCopiedSubtaskFields, subtaskCopyChildKinds };

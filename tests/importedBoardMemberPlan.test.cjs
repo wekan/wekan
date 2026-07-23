@@ -1,10 +1,11 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for how an imported board member becomes a member of
 // the new board. Run: node tests/importedBoardMemberPlan.test.cjs
 
 const assert = require('assert');
-const { planImportedBoardMember } = require('../models/lib/importedBoardMemberPlan');
+const { planImportedBoardMember } = await import('../models/lib/importedBoardMemberPlan.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -56,3 +57,5 @@ test('null / undefined member is dropped', () => {
 });
 
 console.log(`\nimportedBoardMemberPlan: ${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

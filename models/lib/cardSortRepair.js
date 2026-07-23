@@ -86,7 +86,7 @@ function computeRepairedDropIndex(orderedCards, prevCard, nextCard, nCards = 1) 
   return { updates, base, increment };
 }
 
-module.exports = {
+export {
   isDegenerateSortGap,
   computeMonotonicSortRepair,
   computeRepairedDropIndex,

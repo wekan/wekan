@@ -19,4 +19,4 @@ function commentActivityDisplayText(activity) {
   return '';
 }
 
-module.exports = { commentActivityDisplayText };
+export { commentActivityDisplayText };

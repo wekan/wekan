@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the board-import card date helper.
 // Run: node tests/importedCardDates.test.cjs
@@ -15,7 +16,7 @@ const assert = require('assert');
 const {
   importedCardDates,
   toValidDateOrNull,
-} = require('../models/lib/importedCardDates');
+} = await import('../models/lib/importedCardDates.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -116,3 +117,5 @@ test('toValidDateOrNull: valid ISO string gives the matching Date', () => {
 });
 
 console.log(`\n${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

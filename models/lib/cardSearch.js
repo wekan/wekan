@@ -48,4 +48,4 @@ function buildCardSearchOr(term) {
   return or;
 }
 
-module.exports = { parseNumericSearchTerm, buildCardSearchOr };
+export { parseNumericSearchTerm, buildCardSearchOr };

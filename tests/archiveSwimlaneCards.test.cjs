@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the swimlane archive/restore card
 // cascade. Run: node tests/archiveSwimlaneCards.test.cjs
@@ -18,7 +19,7 @@ const assert = require('assert');
 const {
   cardsToArchiveWithSwimlane,
   cardsToRestoreWithSwimlane,
-} = require('../models/lib/swimlaneArchive');
+} = await import('../models/lib/swimlaneArchive.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -186,3 +187,5 @@ test('re-archiving after restore archives the restored cards again', () => {
 });
 
 console.log(`\n${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

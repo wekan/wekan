@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Unit + negative tests for the "@" member autocomplete matcher (#5116
 // follow-up): typing "@ann" must suggest the member "Anna" and username
@@ -11,7 +12,7 @@ const path = require('path');
 const {
   memberMatchesTerm,
   filterMembersByTerm,
-} = require('../models/lib/memberAutocomplete');
+} = await import('../models/lib/memberAutocomplete.js');
 
 let passed = 0;
 function check(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -91,3 +92,5 @@ function read(rel) {
 }
 
 console.log(`\nmemberAutocompleteMatch: ${passed} checks passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

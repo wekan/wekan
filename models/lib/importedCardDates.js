@@ -48,4 +48,4 @@ function importedCardDates(card, activityCreatedAt, now) {
   };
 }
 
-module.exports = { importedCardDates, toValidDateOrNull };
+export { importedCardDates, toValidDateOrNull };

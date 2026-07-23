@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the pure color helpers behind #5514
 // (custom color-wheel / RGB hex picker with automatically readable text).
@@ -10,7 +11,7 @@ const {
   normalizeHex,
   toHex,
   contrastText,
-} = require('../models/lib/contrastColor');
+} = await import('../models/lib/contrastColor.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -128,3 +129,5 @@ test('toHex passes hex through (normalized) and rejects unknown names', () => {
 });
 
 console.log(`\n${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

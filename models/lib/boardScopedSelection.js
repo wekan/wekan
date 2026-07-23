@@ -53,7 +53,7 @@ function cardIdsOnBoard(cardIds, boardId, getCard) {
   });
 }
 
-module.exports = {
+export {
   boardScopedFilterSelector,
   boardScopedSelectionSelector,
   cardIdsOnBoard,

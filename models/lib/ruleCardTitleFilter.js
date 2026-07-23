@@ -72,7 +72,7 @@ function appendCardTitleFilterToDesc(desc, cardTitle, label) {
   return `${base} (${tag}: "${cardTitle}")`;
 }
 
-module.exports = {
+export {
   cardTitleFilterOrWildcard,
   cardTitleMatchList,
   cardTitleFilterMatches,

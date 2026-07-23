@@ -70,4 +70,4 @@ function buildCustomFieldsWD(customFields, definitions) {
   return ret;
 }
 
-module.exports = { buildCustomFieldsWD, resolveTrueValue };
+export { buildCustomFieldsWD, resolveTrueValue };

@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the Calendar view's card selector
 // builders. Run: node tests/calendarFilter.test.cjs
@@ -15,7 +16,7 @@ const assert = require('assert');
 const {
   cardsDueInBetweenSelector,
   cardsInIntervalSelector,
-} = require('../models/lib/calendarFilter');
+} = await import('../models/lib/calendarFilter.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -134,3 +135,5 @@ test('#5656: without a filter, both users\' cards are shown (pre-fix behaviour p
 });
 
 console.log(`\n${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

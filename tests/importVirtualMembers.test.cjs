@@ -64,8 +64,11 @@ test('import is bounded on the server by a hard deadline', () => {
   assert.ok(/'import-timeout'/.test(srv), 'server raises import-timeout');
 });
 
-test('the deadline + map-plan helpers are CommonJS (importable + testable)', () => {
-  assert.ok(/module\.exports = \{ withDeadline \}/.test(read('models/lib/withDeadline.js')));
+test('the deadline + map-plan helpers are importable + testable', () => {
+  // withDeadline is a client-reachable helper, so it is an ES module (export) to keep
+  // rspack from flagging module.exports as an ES-module assignment; boardMemberMapPlan is
+  // server-only and stays CommonJS.
+  assert.ok(/export \{ withDeadline \}/.test(read('models/lib/withDeadline.js')));
   assert.ok(/module\.exports = \{ planBoardMemberMapping \}/.test(read('models/lib/boardMemberMapPlan.js')));
 });
 

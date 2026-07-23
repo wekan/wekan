@@ -17,7 +17,7 @@
 // filter is active (or on the server) and the base selector is returned
 // unchanged.
 
-const { combineWithFilter } = require('./swimlaneFilter');
+import { combineWithFilter } from './swimlaneFilter.js';
 
 // Cards whose due date falls within [start, end].
 function cardsDueInBetweenSelector(boardId, start, end, filterSelector) {
@@ -47,7 +47,7 @@ function cardsInIntervalSelector(boardId, start, end, filterSelector) {
   );
 }
 
-module.exports = {
+export {
   cardsDueInBetweenSelector,
   cardsInIntervalSelector,
 };

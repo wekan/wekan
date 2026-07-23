@@ -79,7 +79,7 @@ function isValidCustomColors(color, customColors) {
   return customColors.every(c => typeof c === 'string' && HEX_RE.test(c));
 }
 
-module.exports = {
+export {
   THEME_CATEGORIES,
   THEME_CATEGORY_ORDER,
   CUSTOM_COLOR_COUNT,

@@ -105,7 +105,7 @@ function contrastText(bgHexOrNamed) {
   return luminance > 0.179 ? '#000000' : '#ffffff';
 }
 
-module.exports = {
+export {
   NAMED_COLOR_HEX,
   isHexColor,
   normalizeHex,

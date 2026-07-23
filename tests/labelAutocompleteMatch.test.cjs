@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Unit + negative tests for the card-title "#" label autocomplete matcher
 // (issue #5116): typing "#test" must suggest a label named "Testing".
@@ -8,7 +9,7 @@ const assert = require('assert');
 const {
   labelMatchesTerm,
   filterLabelsByTerm,
-} = require('../models/lib/labelAutocomplete');
+} = await import('../models/lib/labelAutocomplete.js');
 
 let passed = 0;
 function check(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -92,3 +93,5 @@ check('listBody.js label strategy routes through labelMatchesTerm (no case-sensi
 });
 
 console.log(`\nlabelAutocompleteMatch: ${passed} checks passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

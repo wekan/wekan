@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the default-swimlane self-heal helpers.
 // Run: node tests/defaultSwimlane.test.cjs
@@ -17,7 +18,7 @@ const {
   defaultSwimlaneId,
   defaultSwimlaneFields,
   pickDefaultSwimlane,
-} = require('../models/lib/defaultSwimlane');
+} = await import('../models/lib/defaultSwimlane.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -204,3 +205,5 @@ test('#1971 source guard: boards.js getDefaultSwimline uses pickDefaultSwimlane'
 });
 
 console.log(`\n${passed} passing`);
+
+})().catch(e => { console.error(e); process.exit(1); });

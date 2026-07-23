@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the board-background descriptor.
 // Run: node tests/boardBackground.test.cjs
@@ -13,7 +14,7 @@
 // image. The old code only ever SET a background, never reset it.
 
 const assert = require('assert');
-const { computeBoardBackground } = require('../models/lib/boardBackground');
+const { computeBoardBackground } = await import('../models/lib/boardBackground.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -70,3 +71,5 @@ test('NEGATIVE: null / undefined board is handled without throwing', () => {
 });
 
 console.log(`\n${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

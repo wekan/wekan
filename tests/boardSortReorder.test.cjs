@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the All Boards drag-reorder helpers.
 // Run: node tests/boardSortReorder.test.cjs
@@ -17,7 +18,7 @@ const {
   computeReorderedIds,
   computeSortIndexMapping,
   computeReorderedSortIndex,
-} = require('../models/lib/boardSortReorder');
+} = await import('../models/lib/boardSortReorder.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -132,3 +133,5 @@ test('#6442: ordered ids read from the wrong DOM class (all "js-board") never re
 });
 
 console.log(`\n${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

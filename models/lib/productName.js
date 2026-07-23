@@ -12,4 +12,4 @@ function productNameOrDefault(productName) {
   return 'WeKan';
 }
 
-module.exports = { productNameOrDefault };
+export { productNameOrDefault };

@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Unit tests for the Product-name helper (models/lib/productName.js) and the
 // migration-progress modal branding that uses it.
@@ -11,7 +12,7 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
-const { productNameOrDefault } = require('../models/lib/productName');
+const { productNameOrDefault } = await import('../models/lib/productName.js');
 
 let passed = 0;
 function check(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -55,3 +56,5 @@ check('migrationProgress.jade shows the Product name in the title', () => {
 });
 
 console.log(`\nproductName: ${passed} checks passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

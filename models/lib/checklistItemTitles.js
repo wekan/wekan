@@ -44,4 +44,4 @@ function buildChecklistItemPayload(title, checklist, sort) {
   };
 }
 
-module.exports = { parseChecklistItemTitles, buildChecklistItemPayload };
+export { parseChecklistItemTitles, buildChecklistItemPayload };

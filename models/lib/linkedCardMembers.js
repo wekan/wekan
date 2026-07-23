@@ -45,4 +45,4 @@ function memberTargetBoardId(card, resolveCard) {
   return card.boardId || null;
 }
 
-module.exports = { memberTargetCardId, memberTargetBoardId };
+export { memberTargetCardId, memberTargetBoardId };

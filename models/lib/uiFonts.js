@@ -109,7 +109,7 @@ function colorValue(value) {
   return isHexColor6(value) ? value : '';
 }
 
-module.exports = {
+export {
   UI_FONTS,
   SAFE_FONT_RE,
   isSafeFontName,

@@ -1,3 +1,4 @@
+(async () => {
 /**
  * Test: sortCardsByTitle (models/lib/sortCardsByTitle.js).
  *
@@ -10,7 +11,7 @@
  */
 
 const assert = require('assert');
-const { sortCardsByTitle, compareCardTitle } = require('../models/lib/sortCardsByTitle');
+const { sortCardsByTitle, compareCardTitle } = await import('../models/lib/sortCardsByTitle.js');
 
 const titles = cards => cards.map(c => c.title);
 
@@ -89,3 +90,5 @@ if (failed) {
   process.exit(1);
 }
 console.log('\nAll ' + tests.length + ' tests passed');
+
+})().catch(e => { console.error(e); process.exit(1); });

@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the board-rule card-title filter.
 // Run: ELECTRON_RUN_AS_NODE=1 <node> tests/rulesCardTitleFilter.test.cjs
@@ -21,7 +22,7 @@ const {
   cardTitleMatchList,
   cardTitleFilterMatches,
   appendCardTitleFilterToDesc,
-} = require('../models/lib/ruleCardTitleFilter');
+} = await import('../models/lib/ruleCardTitleFilter.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -141,3 +142,5 @@ test('server matching uses the shared helper for the cardTitle field', () => {
 });
 
 console.log(`\n${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

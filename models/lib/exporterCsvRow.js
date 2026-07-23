@@ -140,7 +140,7 @@ function buildCsvCardRow(card, result, customFieldMap) {
   return currentRow;
 }
 
-module.exports = {
+export {
   lookupProp,
   buildCsvCardRow,
 };

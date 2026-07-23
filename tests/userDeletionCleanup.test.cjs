@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the user-deletion cleanup planner.
 // Run: ELECTRON_RUN_AS_NODE=1 <node> tests/userDeletionCleanup.test.cjs
@@ -16,7 +17,7 @@ const {
   isValidUserId,
   buildUserDeletionCleanupPlan,
   applyUserDeletionCleanup,
-} = require('../models/lib/userDeletionCleanup');
+} = await import('../models/lib/userDeletionCleanup.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -267,3 +268,5 @@ run.catch(err => {
   console.error(err);
   process.exit(1);
 });
+
+})().catch(e => { console.error(e); process.exit(1); });

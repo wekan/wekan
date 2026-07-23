@@ -47,7 +47,7 @@ function pickDefaultSwimlane(swimlanes) {
   return active || swimlanes[0];
 }
 
-module.exports = {
+export {
   defaultSwimlaneId,
   defaultSwimlaneFields,
   pickDefaultSwimlane,

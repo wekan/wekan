@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the board card-search query builder.
 // Run: node tests/cardSearch.test.cjs
@@ -15,7 +16,7 @@ const assert = require('assert');
 const {
   parseNumericSearchTerm,
   buildCardSearchOr,
-} = require('../models/lib/cardSearch');
+} = await import('../models/lib/cardSearch.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -133,3 +134,5 @@ test('non-numeric term against a numeric-only card finds nothing', () => {
 });
 
 console.log(`\n${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

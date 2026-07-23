@@ -81,7 +81,7 @@ function resolveListWidth(options) {
   return normalizeListWidth(personalWidth, shared);
 }
 
-module.exports = {
+export {
   DEFAULT_LIST_WIDTH,
   MIN_LIST_WIDTH,
   isValidListWidth,

@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the Card.move() modifier builder.
 // Run: node tests/cardMoveModifier.test.cjs
@@ -14,7 +15,7 @@
 // the caller skips entirely.
 
 const assert = require('assert');
-const { computeCardMoveModifier } = require('../models/lib/cardMoveModifier');
+const { computeCardMoveModifier } = await import('../models/lib/cardMoveModifier.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -115,3 +116,5 @@ test('NEGATIVE: undefined target fields are ignored, not written as undefined', 
 });
 
 console.log(`\n${passed} passing`);
+
+})().catch(e => { console.error(e); process.exit(1); });

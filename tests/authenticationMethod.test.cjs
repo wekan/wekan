@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the default authentication-method helpers.
 // Run: node tests/authenticationMethod.test.cjs
@@ -15,7 +16,7 @@ const assert = require('assert');
 const {
   normalizeAuthenticationMethod,
   resolveDefaultAuthenticationMethod,
-} = require('../models/lib/authenticationMethod');
+} = await import('../models/lib/authenticationMethod.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -78,3 +79,5 @@ test('NEGATIVE: a real selected value still overrides the stored one', () => {
 });
 
 console.log(`\n${passed} passing`);
+
+})().catch(e => { console.error(e); process.exit(1); });

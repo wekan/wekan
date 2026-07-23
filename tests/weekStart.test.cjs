@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the start-day-of-week math.
 // Run: node tests/weekStart.test.cjs
@@ -19,7 +20,7 @@ const {
   startOfWeek,
   weekRange,
   weekNumberByFirstDay,
-} = require('../models/lib/weekStart');
+} = await import('../models/lib/weekStart.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -128,3 +129,5 @@ test('NEGATIVE: start day changes the number for Saturday 2023-01-07 (#4946)', (
 });
 
 console.log(`\n${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

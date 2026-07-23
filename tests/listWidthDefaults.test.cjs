@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node regression test (no Meteor) for issue #5659:
 // "Bug: List Width settings do not affect Public Board".
@@ -31,7 +32,7 @@ const {
   isValidListWidth,
   normalizeListWidth,
   resolveListWidth,
-} = require('../models/lib/listWidth');
+} = await import('../models/lib/listWidth.js');
 
 const repoRoot = path.resolve(__dirname, '..');
 const read = rel => fs.readFileSync(path.join(repoRoot, rel), 'utf8');
@@ -208,3 +209,5 @@ test('the lists schema default matches the shared default', () => {
 });
 
 console.log(`\n${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

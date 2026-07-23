@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the "Link to this card" target guard.
 // Run: node tests/linkedCardTarget.test.cjs
@@ -14,7 +15,7 @@ const assert = require('assert');
 const {
   isLinkPointerCard,
   isLinkableCardTarget,
-} = require('../models/lib/linkedCardTarget');
+} = await import('../models/lib/linkedCardTarget.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -76,3 +77,5 @@ test('NEGATIVE: cannot link to a template card, or to nothing', () => {
 });
 
 console.log(`\n${passed} passing`);
+
+})().catch(e => { console.error(e); process.exit(1); });

@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the editor submit-key rule.
 // Run: node tests/editorSubmitKey.test.cjs
@@ -10,7 +11,7 @@
 // ONLY on Enter + Ctrl/Cmd; plain Enter and Shift+Enter make a newline.
 
 const assert = require('assert');
-const { isSubmitKey } = require('../models/lib/editorSubmitKey');
+const { isSubmitKey } = await import('../models/lib/editorSubmitKey.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -84,3 +85,5 @@ test('submitOnEnter defaults off: explicit false and omitted both require Ctrl/C
 });
 
 console.log(`\n${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

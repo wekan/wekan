@@ -29,4 +29,4 @@ function isSubmitKey(event, opts = {}) {
   return !!(event.ctrlKey || event.metaKey);
 }
 
-module.exports = { isSubmitKey };
+export { isSubmitKey };

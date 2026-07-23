@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the board-copy default-pointer remap.
 // Run: node tests/boardCopyDefaults.test.cjs
@@ -11,7 +12,7 @@
 // copy (and clear the paired list id so it self-heals on the new board).
 
 const assert = require('assert');
-const { remapCopiedBoardDefaults } = require('../models/lib/boardCopyDefaults');
+const { remapCopiedBoardDefaults } = await import('../models/lib/boardCopyDefaults.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -81,3 +82,5 @@ test('NEGATIVE: the new board must NOT keep the template board id', () => {
 });
 
 console.log(`\n${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

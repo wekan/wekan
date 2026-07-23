@@ -35,4 +35,4 @@ function isLinkableCardTarget(target, ownRealCardIds = []) {
   return true;
 }
 
-module.exports = { isLinkPointerCard, isLinkableCardTarget };
+export { isLinkPointerCard, isLinkableCardTarget };

@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the card relative-URL builder.
 // Run: node tests/cardUrl.test.cjs
@@ -12,7 +13,7 @@
 // The client was unaffected because there Card.board() is synchronous.
 
 const assert = require('assert');
-const { isThenable, buildCardRelativeUrl } = require('../models/lib/cardUrl');
+const { isThenable, buildCardRelativeUrl } = await import('../models/lib/cardUrl.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -105,3 +106,5 @@ test('NEGATIVE: returns undefined for a missing card', () => {
 });
 
 console.log(`\n${passed} passing`);
+
+})().catch(e => { console.error(e); process.exit(1); });

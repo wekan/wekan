@@ -22,4 +22,4 @@ function planImportedBoardMember(wekanMember, importerId) {
   };
 }
 
-module.exports = { planImportedBoardMember };
+export { planImportedBoardMember };

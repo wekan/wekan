@@ -38,7 +38,7 @@ function resolveDefaultAuthenticationMethod(preferred, current, fallback = 'pass
   );
 }
 
-module.exports = {
+export {
   normalizeAuthenticationMethod,
   resolveDefaultAuthenticationMethod,
 };

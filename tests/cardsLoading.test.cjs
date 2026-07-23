@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the CARDS_LOADING / lazy card-loading
 // helpers. Run: node tests/cardsLoading.test.cjs
@@ -20,7 +21,7 @@ const {
   cardsLoadingLazyThreshold,
   effectiveBoardCardsMode,
   windowCountId,
-} = require('../models/lib/cardsLoading');
+} = await import('../models/lib/cardsLoading.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -117,3 +118,5 @@ test('different lists never collide', () => {
 });
 
 console.log(`\ncardsLoading: ${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

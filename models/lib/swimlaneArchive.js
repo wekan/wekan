@@ -49,4 +49,4 @@ function cardsToRestoreWithSwimlane(cards, swimlaneArchivedAt) {
   });
 }
 
-module.exports = { cardsToArchiveWithSwimlane, cardsToRestoreWithSwimlane };
+export { cardsToArchiveWithSwimlane, cardsToRestoreWithSwimlane };

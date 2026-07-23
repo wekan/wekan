@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the minicard/card-detail "add checklist
 // item" text parsing and payload builder.
@@ -15,7 +16,7 @@ const assert = require('assert');
 const {
   parseChecklistItemTitles,
   buildChecklistItemPayload,
-} = require('../models/lib/checklistItemTitles');
+} = await import('../models/lib/checklistItemTitles.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -104,3 +105,5 @@ test('payload does NOT target a different checklist/card', () => {
 });
 
 console.log(`\n${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

@@ -31,7 +31,7 @@ function filterLabelsByTerm(labels, term) {
   return labels.filter(label => labelMatchesTerm(label, term));
 }
 
-module.exports = {
+export {
   labelMatchesTerm,
   filterLabelsByTerm,
 };

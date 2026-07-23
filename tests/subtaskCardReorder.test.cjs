@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the #3826 drag-sort repair helpers.
 // Run: ELECTRON_RUN_AS_NODE=1 <node> tests/subtaskCardReorder.test.cjs
@@ -24,8 +25,8 @@ const {
   isDegenerateSortGap,
   computeMonotonicSortRepair,
   computeRepairedDropIndex,
-} = require('../models/lib/cardSortRepair');
-const { computeCardMoveModifier } = require('../models/lib/cardMoveModifier');
+} = await import('../models/lib/cardSortRepair.js');
+const { computeCardMoveModifier } = await import('../models/lib/cardMoveModifier.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -198,3 +199,5 @@ test('NEGATIVE: the repair must not rewrite cards without an _id (defensive)', (
 });
 
 console.log(`\n${passed} passing`);
+
+})().catch(e => { console.error(e); process.exit(1); });

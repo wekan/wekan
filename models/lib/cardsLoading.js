@@ -62,7 +62,7 @@ function windowCountId(listId, swimlaneId) {
   return `${listId}::${swimlaneId || ''}`;
 }
 
-module.exports = {
+export {
   DEFAULT_LAZY_THRESHOLD,
   resolveCardsLoadingMode,
   parseCardsLoadingEnv,

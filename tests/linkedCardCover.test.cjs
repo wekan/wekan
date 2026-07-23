@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the linked-card cover resolver.
 // Run: node tests/linkedCardCover.test.cjs
@@ -13,7 +14,7 @@ const assert = require('assert');
 const {
   coverSourceCard,
   resolveCoverId,
-} = require('../models/lib/linkedCardCover');
+} = await import('../models/lib/linkedCardCover.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -72,3 +73,5 @@ test('null / typeless cards are handled without throwing', () => {
 });
 
 console.log(`\n${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

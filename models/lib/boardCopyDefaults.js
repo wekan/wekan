@@ -26,4 +26,4 @@ function remapCopiedBoardDefaults(board, oldId, newId) {
   return patch;
 }
 
-module.exports = { remapCopiedBoardDefaults };
+export { remapCopiedBoardDefaults };

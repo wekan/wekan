@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the "customFields with definitions"
 // matcher used by Cards.customFieldsWD().
@@ -22,7 +23,7 @@ const assert = require('assert');
 const {
   buildCustomFieldsWD,
   resolveTrueValue,
-} = require('../models/lib/customFieldsWD');
+} = await import('../models/lib/customFieldsWD.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -172,3 +173,5 @@ test('resolveTrueValue: non-dropdown and unmatched ids keep the raw value', () =
 });
 
 console.log(`\n${passed} passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

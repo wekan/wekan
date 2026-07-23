@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node regression test (no Meteor) for issue #3843:
 // "Keep the link between global attachment and attachment in a comment" —
@@ -31,7 +32,7 @@ const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
 
-const { buildCardAttachmentMeta } = require('../models/lib/attachmentMeta');
+const { buildCardAttachmentMeta } = await import('../models/lib/attachmentMeta.js');
 
 const repoRoot = path.resolve(__dirname, '..');
 const read = rel => fs.readFileSync(path.join(repoRoot, rel), 'utf8');
@@ -215,3 +216,5 @@ test('NEGATIVE: a linked card whose real card is gone still links by id and does
 });
 
 console.log(`\n${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

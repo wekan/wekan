@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Unit + negative tests for the due-date reminder config parsers (#3192).
 // Run: node tests/dueNotificationConfig.test.cjs
@@ -9,7 +10,7 @@ const path = require('path');
 const {
   parseNotifyDueDays,
   parseNotifyDueHour,
-} = require('../models/lib/dueNotificationConfig');
+} = await import('../models/lib/dueNotificationConfig.js');
 
 let passed = 0;
 function check(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -78,3 +79,5 @@ check('#3192: due-card notifications include card ASSIGNEES as participants', ()
 });
 
 console.log(`\ndueNotificationConfig: ${passed} checks passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

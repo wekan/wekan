@@ -28,4 +28,4 @@ function sortWithIdTiebreaker(sort) {
   return { _id: 1 };
 }
 
-module.exports = { sortWithIdTiebreaker };
+export { sortWithIdTiebreaker };

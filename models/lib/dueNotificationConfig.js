@@ -35,4 +35,4 @@ function parseNotifyDueHour(envValue, defaultHour = 8) {
   return hour;
 }
 
-module.exports = { parseNotifyDueDays, parseNotifyDueHour };
+export { parseNotifyDueDays, parseNotifyDueHour };

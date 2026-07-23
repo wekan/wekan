@@ -60,7 +60,7 @@ function computeReorderedSortIndex(orderedIds, draggedId, targetId) {
   return computeSortIndexMapping(reordered);
 }
 
-module.exports = {
+export {
   isDragReorderEnabled,
   computeReorderedIds,
   computeSortIndexMapping,

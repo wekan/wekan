@@ -75,7 +75,7 @@ function weekNumberByFirstDay(date, firstDay) {
   return Math.floor(diffDays / 7) + 1;
 }
 
-module.exports = {
+export {
   normalizeFirstDay,
   startOfWeek,
   weekRange,

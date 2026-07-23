@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the per-list / per-swimlane card
 // selector builder. Run: node tests/swimlaneFilter.test.cjs
@@ -20,7 +21,7 @@ const {
   listCardsSelector,
   combineWithFilter,
   filteredListCardsSelector,
-} = require('../models/lib/swimlaneFilter');
+} = await import('../models/lib/swimlaneFilter.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -246,3 +247,5 @@ test('#6443: label filter still applies alongside the first-swimlane orphaned cl
 });
 
 console.log(`\n${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

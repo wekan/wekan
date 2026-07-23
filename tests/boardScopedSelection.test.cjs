@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for models/lib/boardScopedSelection.js.
 // Run: ELECTRON_RUN_AS_NODE=1 <node> tests/boardScopedSelection.test.cjs
@@ -16,7 +17,7 @@ const {
   boardScopedFilterSelector,
   boardScopedSelectionSelector,
   cardIdsOnBoard,
-} = require('../models/lib/boardScopedSelection');
+} = await import('../models/lib/boardScopedSelection.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -210,3 +211,5 @@ test('#2306: selection built from the scoped filter query holds only current-boa
 });
 
 console.log(`\n${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

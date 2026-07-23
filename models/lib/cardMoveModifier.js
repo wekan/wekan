@@ -31,4 +31,4 @@ function computeCardMoveModifier(card, target = {}) {
   return fields;
 }
 
-module.exports = { computeCardMoveModifier };
+export { computeCardMoveModifier };

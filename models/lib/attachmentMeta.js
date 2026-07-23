@@ -47,4 +47,4 @@ function buildCardAttachmentMeta(card, getCardById) {
   return meta;
 }
 
-module.exports = { buildCardAttachmentMeta };
+export { buildCardAttachmentMeta };

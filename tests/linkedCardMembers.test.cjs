@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the linked-card member target helpers.
 // Run: node tests/linkedCardMembers.test.cjs
@@ -16,7 +17,7 @@ const assert = require('assert');
 const {
   memberTargetCardId,
   memberTargetBoardId,
-} = require('../models/lib/linkedCardMembers');
+} = await import('../models/lib/linkedCardMembers.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -94,3 +95,5 @@ test('memberTargetBoardId is null-safe', () => {
 });
 
 console.log(`\n${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

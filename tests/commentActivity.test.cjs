@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for comment-activity display text.
 // Run: node tests/commentActivity.test.cjs
@@ -10,7 +11,7 @@
 // stored text, else the live comment's text, else '' — never "undefined".
 
 const assert = require('assert');
-const { commentActivityDisplayText } = require('../models/lib/commentActivity');
+const { commentActivityDisplayText } = await import('../models/lib/commentActivity.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -71,3 +72,5 @@ test('NEGATIVE: non-string commentText / malformed comment do not leak "undefine
 });
 
 console.log(`\n${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

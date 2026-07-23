@@ -34,4 +34,4 @@ function computeTitleUpdateTargets(card) {
   return targets;
 }
 
-module.exports = { computeTitleUpdateTargets };
+export { computeTitleUpdateTargets };

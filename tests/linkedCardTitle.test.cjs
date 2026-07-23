@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for linked-card title update targets.
 // Run: node tests/linkedCardTitle.test.cjs
@@ -11,7 +12,7 @@
 // document, plus the linked target.
 
 const assert = require('assert');
-const { computeTitleUpdateTargets } = require('../models/lib/linkedCardTitle');
+const { computeTitleUpdateTargets } = await import('../models/lib/linkedCardTitle.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -79,3 +80,5 @@ test('NEGATIVE: null / id-less card yields no targets, no throw', () => {
 });
 
 console.log(`\n${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

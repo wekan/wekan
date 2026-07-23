@@ -25,7 +25,7 @@ function sortCardsByTitle(cards) {
   return cards.slice().sort(compareCardTitle);
 }
 
-module.exports = {
+export {
   compareCardTitle,
   sortCardsByTitle,
 };

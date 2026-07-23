@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Tests for models/lib/cardSortTiebreaker.js (#6511).
 //
@@ -13,7 +14,7 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
-const { sortWithIdTiebreaker } = require('../models/lib/cardSortTiebreaker');
+const { sortWithIdTiebreaker } = await import('../models/lib/cardSortTiebreaker.js');
 
 let passed = 0;
 function check(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -62,3 +63,5 @@ check('the server card window tiebreaks its limited sort too', () => {
 });
 
 console.log(`\ncardSortTiebreaker: ${passed} checks passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

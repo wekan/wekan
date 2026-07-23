@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the IFTTT-Rules board selector logic.
 // Run: node tests/rulesBoardSelector.test.cjs
@@ -16,7 +17,7 @@ const assert = require('assert');
 const {
   canSelectBoardInRules,
   boardVisibleToUserContext,
-} = require('../models/lib/rulesBoardSelector');
+} = await import('../models/lib/rulesBoardSelector.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -132,3 +133,5 @@ test('missing org/team/domain arrays on ctx do not throw', () => {
 });
 
 console.log(`\n${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

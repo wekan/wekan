@@ -38,4 +38,4 @@ function computeBoardBackground(board) {
   return { type: 'none' };
 }
 
-module.exports = { computeBoardBackground };
+export { computeBoardBackground };

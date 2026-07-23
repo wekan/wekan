@@ -34,4 +34,4 @@ function resolveCoverId(card, getCard) {
   return source && source.coverId ? source.coverId : null;
 }
 
-module.exports = { coverSourceCard, resolveCoverId };
+export { coverSourceCard, resolveCoverId };

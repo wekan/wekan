@@ -122,7 +122,7 @@ async function applyUserDeletionCleanup(plan, collections) {
   return result;
 }
 
-module.exports = {
+export {
   isValidUserId,
   buildUserDeletionCleanupPlan,
   applyUserDeletionCleanup,

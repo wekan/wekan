@@ -102,7 +102,7 @@ function filteredListCardsSelector(listId, swimlaneId, filterSelector, otherSwim
   );
 }
 
-module.exports = {
+export {
   swimlaneMembershipSelector,
   listCardsSelector,
   combineWithFilter,

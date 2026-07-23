@@ -49,4 +49,4 @@ function withDeadline(promise, ms, onTimeout) {
   });
 }
 
-module.exports = { withDeadline };
+export { withDeadline };

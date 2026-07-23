@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the CSV export row builder.
 // Run: node tests/exporterCsvRow.test.cjs
@@ -14,7 +15,7 @@
 // still produce the correct cells for well-formed cards.
 
 const assert = require('assert');
-const { buildCsvCardRow, lookupProp } = require('../models/lib/exporterCsvRow');
+const { buildCsvCardRow, lookupProp } = await import('../models/lib/exporterCsvRow.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -156,3 +157,5 @@ test('lookupProp returns the property for a present id and fallback otherwise', 
 });
 
 console.log(`\n${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

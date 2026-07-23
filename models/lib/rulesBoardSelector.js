@@ -50,4 +50,4 @@ function canSelectBoardInRules(board, ctx, templatesBoardId) {
   return boardVisibleToUserContext(board, ctx);
 }
 
-module.exports = { canSelectBoardInRules, boardVisibleToUserContext };
+export { canSelectBoardInRules, boardVisibleToUserContext };

@@ -32,4 +32,4 @@ function buildCardRelativeUrl(card, board) {
   return `/b/${boardId}/${slug}/${card._id}`;
 }
 
-module.exports = { isThenable, buildCardRelativeUrl };
+export { isThenable, buildCardRelativeUrl };
