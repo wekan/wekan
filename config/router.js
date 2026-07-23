@@ -45,11 +45,15 @@ FlowRouter.triggers.exit([
 // redirected to; the chosen view is passed to boardList through the
 // `boardListMenu` Session value.
 function renderBoardList(ctx, menu) {
-  // Redirect to sign-in immediately if user is not logged in — except on Sandstorm,
-  // where the platform authenticates asynchronously (see isSandstorm note above) and
-  // there is no sign-in page. There we render the All Boards list, which reactively
-  // fills in once the grain login lands, instead of bouncing to atSignIn.
-  if (!Meteor.userId() && !isSandstorm) {
+  // Redirect to sign-in if the user is not logged in — except on Sandstorm, where
+  // the platform authenticates asynchronously (see isSandstorm note above) and there
+  // is no sign-in page. Also do NOT bounce while a login is IN PROGRESS
+  // (Meteor.loggingIn(), e.g. auto-login from a stored token on a fresh page load, or
+  // the tick right after submitting the login form): the userId lands a moment later
+  // and the All Boards list fills in reactively, whereas bouncing here stranded a
+  // returning / just-logged-in user on the sign-in page showing only the language
+  // selector until a manual reload (WeKan 10.30 login regression).
+  if (!Meteor.userId() && !Meteor.loggingIn() && !isSandstorm) {
     FlowRouter.go('atSignIn');
     return;
   }

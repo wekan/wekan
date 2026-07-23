@@ -161,6 +161,35 @@ if (Meteor.isClient) {
   });
 }
 
+// After a successful login/register, navigate to All Boards — but only once
+// Meteor.userId() is actually set. The home route's sign-in guard
+// (config/router.js renderBoardList) checks Meteor.userId() NON-reactively and
+// bounces to the sign-in page when it is still null. Right after login the client
+// userId can lag the onSubmitHook callback by a tick, so navigating immediately
+// landed the user back on the login page — which then showed only the language
+// selector until a manual reload (the WeKan 10.30 "after login it shows language
+// selection, requires reload" regression). Wait reactively for userId, with a
+// timeout fallback so a login that never lands userId still navigates (and the
+// guard then correctly shows the sign-in page).
+function goHomeWhenSignedIn() {
+  if (Meteor.userId()) {
+    FlowRouter.go('/');
+    return;
+  }
+  let done = false;
+  let comp;
+  const finish = () => {
+    if (done) return;
+    done = true;
+    if (comp) comp.stop();
+    FlowRouter.go('/');
+  };
+  comp = Tracker.autorun(() => {
+    if (Meteor.userId()) finish();
+  });
+  Meteor.setTimeout(finish, 5000);
+}
+
 AccountsTemplates.configure({
   defaultLayout: 'userFormsLayout',
   defaultContentRegion: 'content',
@@ -172,7 +201,7 @@ AccountsTemplates.configure({
   homeRoutePath: '/',
   onSubmitHook(error, state) {
     if (!error && (state === 'signUp' || state === 'signIn')) {
-      FlowRouter.go('/');
+      goHomeWhenSignedIn();
       return;
     }
     if (error) {
