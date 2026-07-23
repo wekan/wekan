@@ -38,18 +38,15 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   [#3001](https://github.com/wekan/wekan/issues/3001) (manipulated headers / high traffic behind an
   Apache reverse proxy — an Apache proxy-configuration concern, not reproducible from WeKan code
   alone; needs the reporter's proxy setup to investigate),
-  [#6514](https://github.com/wekan/wekan/issues/6514) &
-  [#6512](https://github.com/wekan/wekan/issues/6512) (after a 10.27→10.28 upgrade the login page shows
-  ONLY the "Change Language" selector — no username/password/login fields (#6512) — and, when jam:offline
-  replays cached boards, the top header renders empty with no user/settings menu (#6514, gated on
-  `if currentUser` in `client/components/main/header.jade`). The reporter's own `snap run wekan.problems`
-  shows `ROOT_URL is not set` even after `snap set wekan root-url=…`, which is the root cause: with a
-  wrong/absent ROOT_URL the client cannot complete DDP, so useraccounts never supplies the router
-  `content` template that `+Template.dynamic(template=content)` renders in `userFormsLayout`, and
-  `currentUser` stays null. The operational fix is to set ROOT_URL to the exact external URL and restart;
-  the diagnostic itself is already improved by the `wekan.problems` settings-loading fix in this release
-  (so it reports the real value). Needs live confirmation that login + header recover once ROOT_URL is
-  set — not reproducible in the sandbox without the running snap and a browser),
+  [#6514](https://github.com/wekan/wekan/issues/6514) (after upgrade the login page shows only the
+  "Change Language" selector and, when jam:offline replays cached boards, the top header renders empty
+  with no user/settings menu, gated on `if currentUser` in `client/components/main/header.jade`).
+  UPDATE: the same symptoms reproduce on the official `boards.wekan.team` at the ROOT domain with a
+  correct ROOT_URL, so ROOT_URL-not-set was at most a contributing factor for the original reporter, not
+  the whole story. Two v10.30-feedback fixes address the actual causes: the post-login redirect race
+  (#6512, fixed — the sign-in guard bounced back to the language selector before `Meteor.userId()`
+  propagated) and the module-format build error behind the board failure (#6511). Needs live
+  re-confirmation that the header + login recover with those fixes),
   [#6500](https://github.com/wekan/wekan/issues/6500) (Docker `latest` does not load in the browser on a
   fresh `docker compose up -d` — "Connection reset by peer"; xet7 is actively fixing the bundled FerretDB
   Docker startup, and MongoDB / other backends work as a workaround, so this needs the running Docker
@@ -93,18 +90,16 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   says it persists, so it needs a large board in a browser to profile; related to the #6480 adaptive card
   loading and #5421),
   [#6511](https://github.com/wekan/wekan/issues/6511) (board loads but shows NO cards; console
-  `Error: No such template: swimlane` on 10.28 — previously `Bad index in range.removeMember`, which the
-  card-sort `_id` tiebreaker in this release addressed. `swimlane` is a CORE Blaze template
-  (`client/components/swimlanes/swimlanes.jade`, included statically as `+swimlane` in
-  `client/components/boards/boardBody.jade`), so it lives in the MAIN bundle — not a lazy `build-chunks/`
-  chunk — yet Blaze's `lookupTemplate` reports it missing at render time. The report is a `/wekan`
-  SUB-PATH deployment showing `wss://…/wekan/sockjs/…/websocket 400 Bad Request` plus wasm/source-map
-  errors, which points at the reverse-proxy WebSocket upgrade / sub-path bundle delivery rather than a
-  WeKan source bug; needs the reporter's proxy config and a live board to reproduce. Reinforced by
-  #6515's secondary symptom (`No such template: notifications` on 10.28): a SECOND core template, also
-  correctly defined in the main bundle and statically included, reported missing at render time on a
-  different deployment — two distinct templates failing this way is a client-bundle delivery / init
-  problem on those deployments, not a per-template source bug),
+  `Error: No such template: swimlane`. ROOT CAUSE now identified (correcting the earlier sub-path/proxy
+  guess): a MODULE-FORMAT build error. The 10.29 console shows
+  `Uncaught Error: ES Modules may not assign module.exports or exports.*, Use ESM export syntax,
+  instead: 43130` — a bundled module assigns CommonJS `module.exports` while loaded as an ES module in
+  the Meteor 3.5 + rspack build; when it throws during evaluation it ABORTS the module chain, so
+  `Template.swimlane` (and `notifications`, #6515's secondary symptom) never register → `lookupTemplate`
+  throws "No such template". It reproduces on the official `boards.wekan.team` at the ROOT domain, so it
+  is a real global build bug, NOT a reverse-proxy/sub-path issue. Pinpointing the exact module needs the
+  rspack build artifacts (module id 43130 → source file); xet7 is fixing it. The board-body render should
+  be resilient so one unresolved template does not blank the whole board),
   [#6509](https://github.com/wekan/wekan/issues/6509) (fresh v10.27 on FerretDB v2 + PostgreSQL: a new
   board's lists/cards do not appear until reload, and an imported board shows lists but no cards, with
   `Cannot read properties of undefined (reading 'remove')` — the same Blaze ordered-diff reactive-render
