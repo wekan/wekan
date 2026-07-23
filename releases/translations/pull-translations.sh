@@ -38,6 +38,19 @@ if command -v node >/dev/null 2>&1; then
       ../tx push -t -l "$lang" -f
     done
   fi
+
+  # Machine-translate ONLY the English placeholders left after the merge (the strings
+  # untranslated everywhere, incl. every string of a language that has no translation at
+  # all). Because the merge left English ONLY on those placeholders, this can never
+  # overwrite a human translation. Opt-in: it runs only when a translation endpoint is
+  # configured (WEKAN_MT_URL, or the LibreTranslate default is reachable). Machine output
+  # stays LOCAL and is NOT pushed to Transifex, so it can never masquerade as human there.
+  if [ "${WEKAN_MT:-}" = "1" ] || [ -n "${WEKAN_MT_URL:-}" ]; then
+    echo "[i18n] machine-translating remaining English placeholders (human strings untouched)…"
+    node releases/translations/machine-translate.mjs || true
+  else
+    echo "[i18n] machine-translation step skipped (set WEKAN_MT=1 or WEKAN_MT_URL to enable)."
+  fi
 else
   echo "[i18n] node not found - skipping the merge + English-regression report."
 fi
