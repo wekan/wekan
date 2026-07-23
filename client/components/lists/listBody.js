@@ -11,6 +11,7 @@ import { MultiSelection } from '/client/lib/multiSelection';
 import { Utils } from '/client/lib/utils';
 import { isLinkableCardTarget } from '/models/lib/linkedCardTarget';
 import { listCardsSelector } from '/models/lib/swimlaneFilter';
+import { sortWithIdTiebreaker } from '/models/lib/cardSortTiebreaker';
 import { sortCardsByTitle } from '/models/lib/sortCardsByTitle';
 import { labelMatchesTerm } from '/models/lib/labelAutocomplete';
 import { memberMatchesTerm } from '/models/lib/memberAutocomplete';
@@ -348,6 +349,13 @@ Template.listBody.helpers({
     if (!sortBy) {
       sortBy = defaultSort;
     }
+    // #6511: append a UNIQUE `_id` tiebreaker so the LIMITED, ordered card cursor
+    // never has ambiguous ties. Equal `sort` (or equal due-date, etc.) values would
+    // otherwise order non-deterministically across observe cycles, and Blaze's #each
+    // ordered diff throws "Bad index in range.removeMember" — leaving the board with
+    // no cards. Applied before BOTH the server window subscription and the client
+    // cursor below, so they agree on a deterministic order.
+    sortBy = sortWithIdTiebreaker(sortBy);
     // #6441: build the swimlane-membership fallback as a single `swimlaneId:
     // { $in: [...] }` clause (via the shared, unit-tested helper) instead of a
     // bare top-level `$or`, so it never competes with the board Filter's own

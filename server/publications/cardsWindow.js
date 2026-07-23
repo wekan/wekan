@@ -4,6 +4,7 @@ import Boards from '/models/boards';
 import Cards from '/models/cards';
 const { hasWhere } = require('/models/lib/mongoSelectorSafety');
 const { boardCardScope } = require('/models/lib/boardCardScope');
+const { sortWithIdTiebreaker } = require('/models/lib/cardSortTiebreaker');
 const {
   effectiveBoardCardsMode,
   DEFAULT_LAZY_THRESHOLD,
@@ -47,7 +48,10 @@ publishComposite('boardCardsWindow', function(boardId, cardSelector, sort, limit
   const userId = this.userId;
   const lim = Math.max(1, Math.min(Math.floor(limit) || 1, MAX_WINDOW));
   const safe = hasWhere(cardSelector) ? { _id: { $in: [] } } : cardSelector;
-  const sortOpt = sort || { sort: 1 };
+  // #6511: a UNIQUE _id tiebreaker so the LIMITED published window is deterministic
+  // (equal-`sort` ties would otherwise make the "first N cards" vary between polls,
+  // feeding the client's #each an inconsistent ordered set).
+  const sortOpt = sortWithIdTiebreaker(sort || { sort: 1 });
 
   // The window's card selector, scoped to the board. Merge the board scope with the
   // client selector at the TOP level (rather than wrapping both in a `$and`) so
