@@ -119,6 +119,25 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   `language-*` classes on `<span>` inside `pre>code` only, which is a security trade-off xet7 has not
   decided on yet (adds a dependency + loosens the XSS sanitizer + needs a browser build to verify).
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Activity feed pushes down on FerretDB: the comment-only feed selected activities with a top-level
+  `$and`, which FerretDB v1 (SQLite) does not push down, so the activities collection was
+  full-scanned on every poll (slow board/card history on a big board). The scope and `activityType`
+  are now at the top level — exactly equivalent, and both push down to the
+  index](https://github.com/wekan/wekan/commit/03d56ed0d).
+  Thanks to xet7.
+
+- [`snap run wekan.problems`: the login-page checks used affirmative titles, so a FAILING check
+  printed e.g. "[error] ROOT_URL is set: ROOT_URL is not set" — confusing. Titles are now neutral
+  subjects ("ROOT_URL", "Migration or repair") so each line reads correctly whether the check passes
+  or fails](https://github.com/wekan/wekan/commit/7f082f24b).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.27 2026-07-23 WeKan ® release
 
 This release fixes the following bugs:
