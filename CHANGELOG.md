@@ -188,6 +188,18 @@ This release adds the following updates:
 
 and fixes the following bugs:
 
+- [List header card count is now scoped to the swimlane it is shown in, so a shared list
+  no longer shows the whole-list count over an empty second swimlane (the "5 Cards" header
+  above a swimlane with no cards). A shared list — one whose `swimlaneId` is empty, the
+  pre-per-swimlane-lists layout — renders under every swimlane, but `cardsCount()` counted
+  by the list's OWN `swimlaneId` (`''`), giving the whole-list total in every swimlane while
+  the cards rendered below were correctly swimlane-scoped. It now takes the container
+  swimlane id (the same `../../_id` the card body already uses) and counts that swimlane's
+  cards, matching what is rendered; `list.cards()` and the lazy (#6480) server count both
+  already scope by that id, including first-swimlane shared/orphaned
+  surfacing](https://github.com/wekan/wekan/commit/99e04ec98).
+  Thanks to xet7.
+
 - [Re-attach mouse drag-scrolling (dragscroll) when a board's swimlanes/lists render or
   change, so lower swimlanes stay reachable by dragging. `@wekanteam/dragscroll` attaches
   its mouse handlers per element in `reset()`, but the board's reset autorun only depended
