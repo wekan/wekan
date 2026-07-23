@@ -37,7 +37,19 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   environment-specific, no repro on a clean install),
   [#3001](https://github.com/wekan/wekan/issues/3001) (manipulated headers / high traffic behind an
   Apache reverse proxy — an Apache proxy-configuration concern, not reproducible from WeKan code
-  alone; needs the reporter's proxy setup to investigate).
+  alone; needs the reporter's proxy setup to investigate),
+  [#6514](https://github.com/wekan/wekan/issues/6514) &
+  [#6512](https://github.com/wekan/wekan/issues/6512) (after a 10.27→10.28 upgrade the login page shows
+  ONLY the "Change Language" selector — no username/password/login fields (#6512) — and, when jam:offline
+  replays cached boards, the top header renders empty with no user/settings menu (#6514, gated on
+  `if currentUser` in `client/components/main/header.jade`). The reporter's own `snap run wekan.problems`
+  shows `ROOT_URL is not set` even after `snap set wekan root-url=…`, which is the root cause: with a
+  wrong/absent ROOT_URL the client cannot complete DDP, so useraccounts never supplies the router
+  `content` template that `+Template.dynamic(template=content)` renders in `userFormsLayout`, and
+  `currentUser` stays null. The operational fix is to set ROOT_URL to the exact external URL and restart;
+  the diagnostic itself is already improved by the `wekan.problems` settings-loading fix in this release
+  (so it reports the real value). Needs live confirmation that login + header recover once ROOT_URL is
+  set — not reproducible in the sandbox without the running snap and a browser).
 - **Need the running app to reproduce/verify (runtime UI or publication/mergebox state), not unit-testable here:**
   [#4959](https://github.com/wekan/wekan/issues/4959) (per-list card counts on the All Boards page — the
   `boardLists`/`boardMembers` helpers in `client/components/boards/boardsList.js` were deliberately stubbed
@@ -85,6 +97,22 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   SUB-PATH deployment showing `wss://…/wekan/sockjs/…/websocket 400 Bad Request` plus wasm/source-map
   errors, which points at the reverse-proxy WebSocket upgrade / sub-path bundle delivery rather than a
   WeKan source bug; needs the reporter's proxy config and a live board to reproduce).
+- **In-progress dev work carried forward (FerretDB v1 fork backend parity — not an issue, recorded so
+  the next session can resume):** the OpLog `ts` index + declared-index usability across the
+  PostgreSQL / MySQL / SAP HANA backends. DONE so far: range (`$gt/$gte/$lt/$lte`) and `$in` pushdown are
+  implemented and unit-tested on sqlite/postgresql/mysql/hana, the external-DB snap launcher
+  (`wekan-ferretdb-handler` / `wekan-ferretdb-url`) is in, and `ROADMAP.md` + `docs/pushdown.md` are
+  updated. NEXT: add the oplog `ts` index in each backend's `metadata/registry.go` `collectionCreate`,
+  special-cased for `local.oplog.rs`, best-effort with a descriptive WARN log naming the backend + SQL +
+  error if creation fails (per xet7's instruction to ship it blind with descriptive errors). Authoritative
+  syntax already web-searched: PostgreSQL btree `CREATE INDEX … (((_jsonb->>'ts')::numeric))` — matches
+  the fork's range-pushdown expression byte-for-byte so it will actually be used; MySQL needs a functional
+  index on a CAST (`… ((CAST(_ferretdb_sjson->>'$.ts' AS DECIMAL(65,10))))`) because a JSON expression
+  cannot be indexed directly, and the range pushdown expression must be aligned to that CAST for the
+  optimizer to use it; SAP HANA DocStore uses `CREATE HASH INDEX` on the collection. Also pending: assess
+  MariaDB vs the mysql backend. VERIFICATION BOUNDARY: the sandbox can only run/EXPLAIN the SQLite backend;
+  the PostgreSQL/MySQL/HANA index usability must be confirmed with live `EXPLAIN` on each engine by the
+  maintainer.
 - **Already correct in the current code (could not reproduce; endpoint/logic verified by reading):**
   [#4774](https://github.com/wekan/wekan/issues/4774) (`POST /users/register` is a native handler that returns 403 only
   when registration is disabled via `forbidClientAccountCreation`; it works by default),
