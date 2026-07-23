@@ -3940,7 +3940,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 This release fixes the following bugs:
 
-- **[Fix #3624 swimlane REST regression: await the async board.swimlanes()](https://github.com/wekan/wekan/commit/6a6db32884f68dadd5911ec3487225c908f40176)**:
+- **[Fix #3624 swimlane REST regression: await the async board.swimlanes()](https://github.com/wekan/wekan/commit/05fd6fd3a5435aa48acff26e2f15fe028cd6b08d)**:
 
   The swimlanes CRUD e2e test (23-rest-api-more.e2e.js:209) regressed on all
   browsers. Root cause: on the server ReactiveCache.getSwimlanes is async, so
@@ -3967,7 +3967,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 This release fixes the following bugs:
 
-- **[Fix #5536: automated rule can now move/link a card to a different board](https://github.com/wekan/wekan/commit/18153cbc556823318a31766935dd3d718a88eaee)**:
+- **[Fix #5536: automated rule can now move/link a card to a different board](https://github.com/wekan/wekan/commit/9f7eac158e99f1ae38dedf586bc43225e267722c)**:
   The rules "move card to top/bottom of a list on another board" and "link
   card to another board" actions failed for boards the rule creator did not
   own. The action showed BLANK after creating the rule (the wizard's optimistic
@@ -3980,7 +3980,7 @@ This release fixes the following bugs:
   resolution now uses the board's real default swimlane via a Meteor-free
   resolver `models/lib/ruleActionResolve.js`, unit tested in
   `tests/ruleActionResolve.test.cjs`. Thanks to DarthKillian and xet7.
-- **[Fix #4978: board background updates when switching boards via the favorites bar](https://github.com/wekan/wekan/commit/af6ed501c6f341c3c1fbceade704ef0ae69a5669)**:
+- **[Fix #4978: board background updates when switching boards via the favorites bar](https://github.com/wekan/wekan/commit/8a8470772627aa4b315bdd01712d31051be87a74)**:
   Switching directly between two boards via the favorites bar reused the same
   boardBody template instance, so the one-shot `setBackgroundImage()` in
   onRendered never re-ran and the previous board's background stuck. It is now
@@ -3988,7 +3988,7 @@ This release fixes the following bugs:
   the new board has no image. The decision is a Meteor-free helper
   `models/lib/boardBackground.js`, unit tested in `tests/boardBackground.test.cjs`.
   Thanks to dasarne and xet7.
-- **[Fix #4881: Due this week / next week filter respects the start day of week](https://github.com/wekan/wekan/commit/b4a83462c39fb4be2e1c33aa7c90e690abffc79e)**:
+- **[Fix #4881: Due this week / next week filter respects the start day of week](https://github.com/wekan/wekan/commit/e5c844fca7190d158302472862bab380707ff3aa)**:
   The "Due this week" filter selected next week's cards and ignored the
   configured start weekday, because it derived its window from
   `startOf(now(), 'week')` — which the native dateUtils never implemented, so
@@ -3996,13 +3996,13 @@ This release fixes the following bugs:
   `models/lib/weekStart.js` computes the correct week window for any start day
   of week; the this/next-week buttons now toggle per week too. Unit tested in
   `tests/weekStart.test.cjs`. Thanks to mimZD and xet7.
-- **[Fix #4946: calendar week numbers respect the defined start day of week](https://github.com/wekan/wekan/commit/9f9430595507d5e305f3919bd0d3f5298239e971)**:
+- **[Fix #4946: calendar week numbers respect the defined start day of week](https://github.com/wekan/wekan/commit/75df523ef0324dd018955c82370df97fb3a3b8cc)**:
   In the Calendar view the week-number column was numbered from Sunday
   regardless of the start-day-of-week setting. The calendar now computes the
   number with `weekNumberByFirstDay()` (in `models/lib/weekStart.js`) from the
   same firstDay used to lay out the grid, unit tested in
   `tests/weekStart.test.cjs`. Thanks to helioguardabaxo and xet7.
-- **[Fix #4653: LDAP username with a hyphen no longer becomes a dot](https://github.com/wekan/wekan/commit/a780c8b2a2c558a2b6e79f64b075007836af24d1)**:
+- **[Fix #4653: LDAP username with a hyphen no longer becomes a dot](https://github.com/wekan/wekan/commit/0119e62da5b6021d6a1fd7f67a9e6960efa50322)**:
   With `LDAP_UTF8_NAMES_SLUGIFY` enabled, `limax(text, { separator: '.' })`
   turned every non-alphanumeric run — hyphens included — into `.`, so an LDAP
   username like `p.parta-partb` became `p.parta.partb` and the user could not
@@ -4010,26 +4010,26 @@ This release fixes the following bugs:
   rejoined with `-`, preserving hyphens while still transliterating UTF-8. Pure
   helper `packages/wekan-ldap/server/usernameSlug.js`, unit tested in
   `tests/ldapUsernameSlug.test.cjs`. Thanks to RowhamD and xet7.
-- **[Fix #4236: Enter adds a new line in the card title, consistent with the description](https://github.com/wekan/wekan/commit/aa5241a1ef3a8611701d4fb28e5d5b9e67f74900)**:
+- **[Fix #4236: Enter adds a new line in the card title, consistent with the description](https://github.com/wekan/wekan/commit/a9a5ac7a07050cbea746ab0a0a33e2e1f0f8dc1f)**:
   The card title textarea submitted on plain Enter (only Shift+Enter made a new
   line), unlike the description field which inserts a new line on Enter and
   saves on Ctrl/Cmd+Enter. The title now uses the same shared, Meteor-free rule
   `isSubmitKey()` (`models/lib/editorSubmitKey.js`): submit only on
   Ctrl/Cmd+Enter, newline otherwise. Unit tested in
   `tests/editorSubmitKey.test.cjs`. Thanks to listenerri and xet7.
-- **[Fix #4055: ISO week-number regression test (already correct in current code)](https://github.com/wekan/wekan/commit/4e9614894a3b8eb23286f834c6bc4183f861d7eb)**:
+- **[Fix #4055: ISO week-number regression test (already correct in current code)](https://github.com/wekan/wekan/commit/84ab805ec1f123f738d12a3a1b6c45a128fa58f3)**:
   #4055 reported the week number was one/two weeks too high for 2021-10-25..31
   (ISO week 43). That was the old moment-based math; the current native,
   DST-safe `getISOWeek()` computes it correctly. Added
   `tests/isoWeek.test.cjs` pinning the reported dates so it cannot regress.
   Thanks to marcungeschikts and xet7.
-- **[Fix #4394: Register / Forgot Password links stay hidden after a failed login](https://github.com/wekan/wekan/commit/9e754e69b60509e3cb7abc9bef3bc61e27d3fa84)**:
+- **[Fix #4394: Register / Forgot Password links stay hidden after a failed login](https://github.com/wekan/wekan/commit/e014d5c8169053805da407facdee98531c6c7d14)**:
   Security. With registration / forgot-password disabled in the Admin Panel, the
   links were hidden by a one-shot `.hide()` that a useraccounts form re-render
   (e.g. an LDAP failed login) dropped, so the links reappeared. The disable
   state is now a class on the stable `<body>` ancestor with matching CSS, so the
   links are re-hidden on every re-render. Thanks to Alsterdetektive1 and xet7.
-- **[Fix #4494: creating a board from a template no longer breaks subtasks](https://github.com/wekan/wekan/commit/032f06feb825ba62aebddfdc24f494812195542b)**:
+- **[Fix #4494: creating a board from a template no longer breaks subtasks](https://github.com/wekan/wekan/commit/25cdc4db0d490b4bbd1cf3c66ac57325fd52cd04)**:
   A board created from a template inherited the template's
   subtasksDefaultBoardId / dateSettingsDefaultBoardId; when those pointed at the
   template board itself, subtasks created on the new board were dropped onto the
@@ -4037,33 +4037,33 @@ This release fixes the following bugs:
   self-referential defaults to the copy and clears the paired list id so it
   self-heals on the new board. Pure helper `models/lib/boardCopyDefaults.js`,
   unit tested in `tests/boardCopyDefaults.test.cjs`. Thanks to Xilef11 and xet7.
-- **[Fix #4249: filter by card title now works for renamed linked cards](https://github.com/wekan/wekan/commit/e089e176345452956889f709f0eb05b1687bec2c)**:
+- **[Fix #4249: filter by card title now works for renamed linked cards](https://github.com/wekan/wekan/commit/14b4f5b5ed34a31d6e077114c42ab80a6a965091)**:
   Renaming a linked card wrote the new title only to the linked target, leaving
   the linking card's own title field stale; filter-by-title queries the own
   field, so linked cards dropped out of title filters after a rename.
   Card.setTitle() now also writes the linking card's own title. Pure helper
   `models/lib/linkedCardTitle.js`, unit tested in
   `tests/linkedCardTitle.test.cjs`. Thanks to Ben0it-T and xet7.
-- **[Fix #3606: activity feed no longer shows "edited/deleted comment undefined"](https://github.com/wekan/wekan/commit/4c721b997514d5e6659cf1725c719238d6db3e58)**:
+- **[Fix #3606: activity feed no longer shows "edited/deleted comment undefined"](https://github.com/wekan/wekan/commit/3117e419bbf6e0b0db53b2d1b8328dac1a5bfd8d)**:
   The feed passed the comment id (absent on old activities, and gone for a
   deleted comment) into the activity string. Edit/delete activities now store
   the comment text and render it via `Activities.commentDisplayText()`, which
   falls back to the live comment text and then to an empty string — never
   "undefined". Pure helper `models/lib/commentActivity.js`, unit tested in
   `tests/commentActivity.test.cjs`. Thanks to janchuelo and xet7.
-- **[Fix #3624: new_swimlane REST API appends the swimlane last and accepts a sort](https://github.com/wekan/wekan/commit/04021f8c1df4b8e8f285a4cfffc03404ada4188e)**:
+- **[Fix #3624: new_swimlane REST API appends the swimlane last and accepts a sort](https://github.com/wekan/wekan/commit/e3f17be14d9841b33be9dc93c2e55759778c5bdc)**:
   `POST /api/boards/:boardId/swimlanes` set the sort to the swimlane count, so a
   new swimlane appeared FIRST when existing sort values were non-contiguous. It
   now appends at max(existing sort)+1 and honors an optional explicit `sort` in
   the body. Pure helper `models/lib/swimlaneSort.js`, unit tested in
   `tests/swimlaneSort.test.cjs`. Thanks to tamasberesoebb and xet7.
-- **[Fix #3185: copying a card (or template) now copies its subtasks' checklists](https://github.com/wekan/wekan/commit/fae7bcaa416d766c32d46b29b91e3fc6b7d022ce)**:
+- **[Fix #3185: copying a card (or template) now copies its subtasks' checklists](https://github.com/wekan/wekan/commit/38471577534cfb558c41abe45f3c6cc064dbed50)**:
   Copying a card inserted each subtask as a bare card document, so the subtasks'
   checklists (and items) were dropped and the copied subtasks came out empty.
   Card.copy() now copies each subtask's checklists onto the new subtask. Pure
   helper `models/lib/subtaskCopy.js`, unit tested in `tests/subtaskCopy.test.cjs`.
   Thanks to ramses345 and xet7.
-- **[Fix #5439: list scrollbar is always visible on desktop and mobile browsers](https://github.com/wekan/wekan/commit/82e0afa38f50223959cc3cc0091c52da7af93840)**:
+- **[Fix #5439: list scrollbar is always visible on desktop and mobile browsers](https://github.com/wekan/wekan/commit/1621f3784a824fa6f2e23bbd4107c16bf869ccf6)**:
   List bodies used `overflow-y: auto`, so overlay scrollbars (macOS/iOS/Android/
   Firefox) auto-hid. The list body now keeps a scrollbar visible across all
   engines — `overflow-y: scroll`, `::-webkit-scrollbar` (Chrome/Safari/Edge/
@@ -4081,7 +4081,7 @@ This release fixes the following bugs:
   the composer now use `unicode-bidi: isolate`. Locked in (positive + negative)
   by `tests/minicardBidiIsolation.test.cjs`; browser RTL behaviour is covered by
   `tests/playwright/specs/18-rtl-layout.e2e.js`. Thanks to xet7.
-- **[Fix the Playwright CI test failures introduced by the #3624 and #4236 fixes above](https://github.com/wekan/wekan/commit/6a6db32884f68dadd5911ec3487225c908f40176)**:
+- **[Fix the Playwright CI test failures introduced by the #3624 and #4236 fixes above](https://github.com/wekan/wekan/commit/05fd6fd3a5435aa48acff26e2f15fe028cd6b08d)**:
   Two browser tests failed on Chromium, Firefox and WebKit after this release's
   changes. (1) `23-rest-api-more.e2e.js:209` (swimlanes CRUD): on the server
   `ReactiveCache.getSwimlanes` is async, so `board.swimlanes()` returns a Promise
@@ -5096,7 +5096,7 @@ This release adds the following updates and developer tooling:
   `WEKAN_CHROMIUM_DOCKER` / `WEKAN_FIREFOX_DOCKER` / `WEKAN_WEBKIT_DOCKER`. Defaults are unchanged (Chromium/Firefox
   native, WebKit via Docker on Linux arm64). Adds an "Install Playwright browsers" menu item that does
   `playwright install --with-deps` and/or pulls the Playwright Docker image.
-  [commit c3e6d97bd](https://github.com/wekan/wekan/commit/c3e6d97bd).
+  [commit e28b3bc21](https://github.com/wekan/wekan/commit/e28b3bc21).
 - **E2E reliability:** the Playwright suite was red on `main` because the **rspack client JS bundle was not being
   served** by `meteor run` (dev mode) in headless CI — browser requests for the bundle returned the SPA HTML fallback
   (`Unexpected token '<'`), so Meteor never initialised and all ~212 specs timed out in `waitForMeteor` (confirmed: a
@@ -5727,7 +5727,7 @@ This release adds the following features:
   [#4737](https://github.com/wekan/wekan/issues/4737),
   [#2339](https://github.com/wekan/wekan/issues/2339)). Thanks to xet7.
 
-- [Enforce the per-org/team "Shared Templates" flag for drag-to-share](https://github.com/wekan/wekan/commit/8af4d7bfd).
+- [Enforce the per-org/team "Shared Templates" flag for drag-to-share](https://github.com/wekan/wekan/commit/ddb88af15).
   The All Boards / Templates drag-to-share now offers only the Organizations and
   Teams whose **Shared Templates** flag is enabled (previously the flag had no
   effect). A new non-admin `getMyShareableGroups` method returns the
@@ -5745,7 +5745,7 @@ This release adds the following features:
   [#4737](https://github.com/wekan/wekan/issues/4737)).
   Thanks to xet7.
 
-- [Drag a Template Board onto an Organization, Team or Domain to share it](https://github.com/wekan/wekan/commit/0d0f5c8a5).
+- [Drag a Template Board onto an Organization, Team or Domain to share it](https://github.com/wekan/wekan/commit/4aa8c5eed).
   On the **All Boards / Templates** view, the left menu shows the user's
   Organizations, Teams and Domains as drop targets (gated by the admin's Shared
   Templates scopes). Dragging a Template Board onto one shares the board with that
@@ -5753,7 +5753,7 @@ This release adds the following features:
   and adding no individual members ([#5850](https://github.com/wekan/wekan/issues/5850)).
   Thanks to xet7.
 
-- [GlobalAdmin REST API for the Admin Panel global settings](https://github.com/wekan/wekan/commit/89481302d).
+- [GlobalAdmin REST API for the Admin Panel global settings](https://github.com/wekan/wekan/commit/dbaa27dd6).
   Adds `GET /api/settings` and `PUT /api/settings`, restricted to the global
   admin, to read and update the Admin Panel global settings (registration,
   product name, logos, custom head/manifest, accessibility and support pages,
@@ -5778,7 +5778,7 @@ This release adds the following features:
   Boards sharing feature ([#5850](https://github.com/wekan/wekan/issues/5850)).
   Thanks to xet7.
 
-- [Template boards: members tab is group-only and shows only the creator](https://github.com/wekan/wekan/commit/3d7087365).
+- [Template boards: members tab is group-only and shows only the creator](https://github.com/wekan/wekan/commit/cf4494721).
   On template boards (template-board / template-container) the board members
   **People** tab now shows only the original creator and hides the
   add-individual-member button, so these shared boards are shared only with
@@ -5795,7 +5795,7 @@ This release adds the following features:
   ([#5850](https://github.com/wekan/wekan/issues/5850)).
   Thanks to xet7.
 
-- [Domain-based board sharing: board can be shared with an email domain](https://github.com/wekan/wekan/commit/c7c43fe78).
+- [Domain-based board sharing: board can be shared with an email domain](https://github.com/wekan/wekan/commit/50c5d0738).
   Adds a `board.domains` field (mirroring `board.orgs`/`board.teams`) so a board
   can be shared with an email-address domain — every user whose primary email is
   in an active domain on the board gets access. Adds a `User.emailDomains()`
@@ -5804,7 +5804,7 @@ This release adds the following features:
   ([#5850](https://github.com/wekan/wekan/issues/5850)).
   Thanks to xet7.
 
-- [Auth sync marks the orgs/teams it manages as "Sync Members From Auth Provider"](https://github.com/wekan/wekan/commit/4973f68a2).
+- [Auth sync marks the orgs/teams it manages as "Sync Members From Auth Provider"](https://github.com/wekan/wekan/commit/04b26f470).
   When the LDAP/OIDC group sync creates or assigns an Organization or Team, it now
   sets that org/team's `orgSyncMembersFromAuth` / `teamSyncMembersFromAuth` flag,
   so the **Sync Members From Auth Provider** column in Admin Panel > People
@@ -5930,7 +5930,7 @@ This release adds the following features:
   injection) ([#5236](https://github.com/wekan/wekan/issues/5236)).
   Thanks to xet7.
 
-- [Fix snap build failing to download Node.js (404)](https://github.com/wekan/wekan/commit/f74467837).
+- [Fix snap build failing to download Node.js (404)](https://github.com/wekan/wekan/commit/9ddf28845).
   The snapcraft Node.js download used the floating `latest-v24.x/` path with a
   pinned `node-v24.16.0` filename, which 404'd once upstream Node advanced past
   that release — failing the amd64 and arm64 snap builds. Pinned to the explicit,
@@ -5974,7 +5974,7 @@ This release adds the following features:
 
 and updates the documentation:
 
-- [Documented the new LDAP/OAuth2 env vars and template-sharing features](https://github.com/wekan/wekan/commit/fb856e3f7).
+- [Documented the new LDAP/OAuth2 env vars and template-sharing features](https://github.com/wekan/wekan/commit/6b093bd13).
   Documents `LDAP_SYNC_ORGANIZATIONS`/`LDAP_SYNC_TEAMS` (+ group allowlists),
   `LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS`, the LDAP admin-status and
   group-filter-escaping fixes, `OAUTH2_AUTO_REGISTRATION`, `OAUTH2_ADMIN_GROUPS`,
