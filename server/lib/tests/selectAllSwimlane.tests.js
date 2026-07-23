@@ -9,9 +9,16 @@ import { filterCardsByListAndSwimlane } from '../cardScope';
  * of that list, because models/lists.js `allCards()` filtered by listId only.
  * The pure helper `filterCardsByListAndSwimlane` scopes a set of cards to a
  * list and (optionally) a single swimlane. When invoked from a swimlane
- * context the handler passes the current swimlaneId so only cards in that
- * swimlane (plus orphaned cards with no swimlane) are selected; without a
- * swimlaneId the historical list-wide behavior is preserved.
+ * context the handler passes the current swimlaneId; without a swimlaneId the
+ * historical list-wide behavior is preserved.
+ *
+ * Shared/orphaned cards (swimlaneId null / '' / missing / a deleted swimlane)
+ * surface ONCE, in the FIRST swimlane, to match the doubled-cards render fix
+ * (c90d6eaa4). `allCards()` conveys this by passing the OTHER swimlanes' ids as
+ * the 4th `otherSwimlaneIds` argument, which `orphanedCardsSwimlaneIds()`
+ * returns only for the first swimlane (undefined otherwise). So:
+ *   - FIRST swimlane (otherSwimlaneIds passed) -> own + shared/orphaned cards;
+ *   - NON-first swimlane (no otherSwimlaneIds) -> ONLY its own cards.
  */
 describe('select all cards scoped to swimlane (#5623)', function() {
   const cards = [
@@ -27,10 +34,17 @@ describe('select all cards scoped to swimlane (#5623)', function() {
   const ids = result => result.map(c => c._id);
 
   describe('with a swimlaneId (swimlane context)', function() {
-    it('returns only cards in that list AND swimlane, plus orphaned cards', function() {
-      const result = filterCardsByListAndSwimlane(cards, 'L1', 'S1');
+    it('in the FIRST swimlane, returns cards in that list AND swimlane, plus orphaned cards', function() {
+      // First swimlane: allCards() passes the OTHER swimlanes' ids (['S2']).
+      const result = filterCardsByListAndSwimlane(cards, 'L1', 'S1', ['S2']);
       // c1, c2 (S1) + c5 (null), c6 ('') c7 (missing). Not c3 (S2), not c4 (L2).
       expect(ids(result).sort()).to.deep.equal(['c1', 'c2', 'c5', 'c6', 'c7']);
+    });
+
+    it('in a NON-first swimlane, returns ONLY its own cards (orphaned surface in the first)', function() {
+      // No otherSwimlaneIds: shared/orphaned cards are not duplicated here.
+      const result = filterCardsByListAndSwimlane(cards, 'L1', 'S1');
+      expect(ids(result).sort()).to.deep.equal(['c1', 'c2']);
     });
 
     it('does not leak cards from other swimlanes of the same list', function() {
@@ -41,7 +55,7 @@ describe('select all cards scoped to swimlane (#5623)', function() {
     });
 
     it('does not leak cards from other lists', function() {
-      const result = filterCardsByListAndSwimlane(cards, 'L1', 'S1');
+      const result = filterCardsByListAndSwimlane(cards, 'L1', 'S1', ['S2']);
       expect(ids(result)).to.not.include('c4');
     });
   });
