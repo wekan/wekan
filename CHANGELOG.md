@@ -186,6 +186,22 @@ This release adds the following updates:
   [Part 2](https://github.com/wekan/wekan/commit/3ada9b5b2c866e438abd09ed52bfdf230780de33).
   Thanks to anypamme.
 
+and fixes the following bugs:
+
+- [Re-attach mouse drag-scrolling (dragscroll) when a board's swimlanes/lists render or
+  change, so lower swimlanes stay reachable by dragging. `@wekanteam/dragscroll` attaches
+  its mouse handlers per element in `reset()`, but the board's reset autorun only depended
+  on the touch/permission reads — not the swimlanes/lists — so when they rendered AFTER
+  `onRendered` (adaptive lazy card loading, the on-open data-repair adding a default
+  swimlane, or a board switch that reuses the template instance without re-firing
+  `onRendered`) the new `.dragscroll` containers never got mouse handlers: dragging no
+  longer scrolled and, with the vertical scrollbar hidden, only the top swimlane was
+  reachable (touch still worked via the document-delegated `dragscrollTouch`). The autorun
+  now reads the board view + swimlanes + lists, so `reset()` re-runs and re-attaches when
+  the rendered containers
+  change](https://github.com/wekan/wekan/commit/98b160c36).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v10.32 2026-07-23 WeKan ® release
