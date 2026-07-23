@@ -60,6 +60,3 @@ ejson@1.2.0
 logging@1.3.6
 wekan-fullcalendar
 wekan-fontawesome
-jam:offline
-jam:method
-jam:pub-sub
