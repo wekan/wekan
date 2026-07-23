@@ -115,6 +115,50 @@ server {
 }
 ```
 
+### Troubleshooting: `WebSocket connection to 'wss://HOST/sockjs/.../websocket' failed`
+
+If the browser console shows `WebSocket connection to 'wss://HOST/sockjs/016/.../websocket'
+failed`, Nginx is not upgrading the connection to a WebSocket, so WeKan falls back to slow
+long-polling (or the realtime connection keeps dropping). This is almost always a missing or
+wrong `Connection` header — the two lines that hand the WebSocket `Upgrade` through the proxy:
+
+```
+proxy_http_version 1.1;
+proxy_set_header Upgrade    $http_upgrade;
+proxy_set_header Connection $connection_upgrade;
+```
+
+Checklist:
+
+- The `map $http_upgrade $connection_upgrade { default upgrade; '' close; }` block MUST be present
+  in the `http { }` context (in `nginx.conf` or an included file), because a `map` cannot live
+  inside a `server`/`location` block. Defining it but never using it does nothing.
+- In the `location` that proxies to WeKan, use **`proxy_set_header Connection $connection_upgrade;`**
+  — NOT `proxy_set_header Connection "";` and NOT `Connection "upgrade"` hard-coded. A hard-coded
+  empty or `keep-alive` value stops the upgrade for the SockJS `/sockjs/.../websocket` request. The
+  `$connection_upgrade` map sends `upgrade` for a WebSocket request and `close` otherwise, which is
+  what SockJS needs.
+- `proxy_http_version 1.1;` is required (WebSockets need HTTP/1.1); the default 1.0 cannot upgrade.
+- If WeKan is behind more than one proxy/load balancer, EACH hop needs these three lines.
+
+A minimal correct `location` (see the full example above):
+
+```
+map $http_upgrade $connection_upgrade { default upgrade; '' close; }   # in http { } context
+
+server {
+    location / {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade    $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;   # NOT "" and NOT hard-coded
+        proxy_set_header Host       $host;
+        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
 ### /etc/nginx/nginx.conf
 
 ```
