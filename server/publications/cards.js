@@ -1183,11 +1183,28 @@ Meteor.publish('cardsReport', async function(searchTerm = '', limit, skip = 0) {
   // report re-subscribes on every page/search change, so it needs no live cursor.
   const cards = await ReactiveCache.getCards(
     query,
-    // Sort by the EXISTING { boardId:1, createdAt:-1 } index (see
-    // server/models/cards.js) so one page is a bounded index scan. The old
-    // { boardId:1, sort:1 } sort had no index, so every page load full-sorted all
-    // cards in memory — the Admin Panel → Problems → Cards spinner on big sites.
-    { sort: { boardId: 1, createdAt: -1 }, limit, skip: skip || 0 },
+    {
+      // Only the six columns the report table renders. Without this projection
+      // every page shipped WHOLE card documents — description, customFields,
+      // vote/poker sub-documents, date fields, the lot — so a 25-row page could
+      // be hundreds of kilobytes on boards with long descriptions. That, not the
+      // row count, is what made the report feel like it was loading everything.
+      fields: {
+        title: 1,
+        boardId: 1,
+        listId: 1,
+        swimlaneId: 1,
+        members: 1,
+        assignees: 1,
+      },
+      // Sort by the EXISTING { boardId:1, createdAt:-1 } index (see
+      // server/models/cards.js) so one page is a bounded index scan. The old
+      // { boardId:1, sort:1 } sort had no index, so every page load full-sorted all
+      // cards in memory — the Admin Panel → Problems → Cards spinner on big sites.
+      sort: { boardId: 1, createdAt: -1 },
+      limit,
+      skip: skip || 0,
+    },
     false,
   );
 

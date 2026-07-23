@@ -109,10 +109,21 @@ Template.adminReports.onCreated(function () {
   this.impersonationSearch = new ReactiveVar('');
   this.recoverySearch = new ReactiveVar('');
 
+  // Which search term each report's total count was last computed for, so
+  // paging does not recount. See loadReport().
+  this.countedFor = {};
+
   // (Re)subscribe the given report for its current page and refresh its total
   // count. Server-side search + limit/skip means only the matching page ever
   // reaches minimongo.
-  this.loadReport = (reportId) => {
+  //
+  // `recount` (opening a report, or searching in it) re-runs the count method;
+  // plain prev/next paging does NOT. The count is a full collection count —
+  // getCardsReportCount counts every card in the database — and the total cannot
+  // change just because you moved to the next page, so re-running it on every
+  // click only added a second server round trip to each prev/next. That is what
+  // made paging through a big Cards report feel slow.
+  this.loadReport = (reportId, { recount = false } = {}) => {
     const cfg = reportConfig(this)[reportId];
     if (!cfg) {
       return;
@@ -143,11 +154,15 @@ Template.adminReports.onCreated(function () {
         this.loading.set(false);
       },
     });
+    if (!recount && this.countedFor[reportId] === searchTerm) {
+      return;
+    }
     Meteor.call(cfg.countMethod, searchTerm, (error, count) => {
       if (error) {
         console.error(`Failed to load ${cfg.countMethod}:`, error);
         return;
       }
+      this.countedFor[reportId] = searchTerm;
       const total = count || 0;
       const totalPages = Math.max(1, Math.ceil(total / REPORTS_PER_PAGE));
       // If rows were removed while on a now-out-of-range page, clamp and reload.
@@ -345,7 +360,8 @@ function runSearch(tmpl, reportId, inputSelector) {
   const value = (tmpl.$(inputSelector).val() || '').trim();
   cfg.search.set(value);
   cfg.page.set(1);
-  tmpl.loadReport(reportId);
+  // A different search term means a different total: recount.
+  tmpl.loadReport(reportId, { recount: true });
 }
 
 function switchMenu(event, tmpl) {
@@ -404,32 +420,32 @@ function switchMenu(event, tmpl) {
       tmpl.showFilesReport.set(true);
       tmpl.filesPage.set(1);
       tmpl.filesSearch.set('');
-      tmpl.loadReport('report-files');
+      tmpl.loadReport('report-files', { recount: true });
     } else if ('report-rules' === targetID) {
       tmpl.showRulesReport.set(true);
       tmpl.rulesPage.set(1);
       tmpl.rulesSearch.set('');
-      tmpl.loadReport('report-rules');
+      tmpl.loadReport('report-rules', { recount: true });
     } else if ('report-boards' === targetID) {
       tmpl.showBoardsReport.set(true);
       tmpl.boardsPage.set(1);
       tmpl.boardsSearch.set('');
-      tmpl.loadReport('report-boards');
+      tmpl.loadReport('report-boards', { recount: true });
     } else if ('report-cards' === targetID) {
       tmpl.showCardsReport.set(true);
       tmpl.cardsPage.set(1);
       tmpl.cardsSearch.set('');
-      tmpl.loadReport('report-cards');
+      tmpl.loadReport('report-cards', { recount: true });
     } else if ('report-impersonation' === targetID) {
       tmpl.showImpersonationReport.set(true);
       tmpl.impersonationPage.set(1);
       tmpl.impersonationSearch.set('');
-      tmpl.loadReport('report-impersonation');
+      tmpl.loadReport('report-impersonation', { recount: true });
     } else if ('report-recovery' === targetID) {
       tmpl.showRecoveryReport.set(true);
       tmpl.recoveryPage.set(1);
       tmpl.recoverySearch.set('');
-      tmpl.loadReport('report-recovery');
+      tmpl.loadReport('report-recovery', { recount: true });
     }
   }
 }
@@ -681,6 +697,7 @@ Template.eventStreamReport.onCreated(function () {
     });
   };
   this.load();
+
 });
 
 Template.eventStreamReport.helpers({
