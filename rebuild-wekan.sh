@@ -78,13 +78,20 @@ function port_in_use(){
 
 # Kill whatever is LISTENING on TCP port $1. Optional $2 = signal name (default
 # TERM; pass KILL to force). fuser is preferred on Linux (kills by port with no
-# PID parsing); lsof -nP is the macOS fallback.
+# PID parsing); lsof -nP is the macOS fallback; ss is the last resort so this still
+# works on a minimal Linux that has neither fuser (psmisc) nor lsof installed — which
+# is exactly when the old code silently did nothing and the port never freed, even
+# though port_in_use (which DOES use ss) kept reporting it in use. ss -p shows the pid
+# of the owning process for the current user without root.
 function free_tcp_port(){
 	local p="$1" sig="${2:-TERM}" pids
 	if command -v fuser >/dev/null 2>&1; then
 		fuser -k -"$sig" "$p/tcp" >/dev/null 2>&1
 	elif command -v lsof >/dev/null 2>&1; then
 		pids="$(lsof -nP -iTCP:"$p" -sTCP:LISTEN -t 2>/dev/null)"
+		[ -n "$pids" ] && kill -"$sig" $pids 2>/dev/null
+	elif command -v ss >/dev/null 2>&1; then
+		pids="$(ss -ltnpH "sport = :$p" 2>/dev/null | grep -oE 'pid=[0-9]+' | cut -d= -f2 | sort -u)"
 		[ -n "$pids" ] && kill -"$sig" $pids 2>/dev/null
 	fi
 	return 0
