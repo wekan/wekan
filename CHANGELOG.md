@@ -123,6 +123,15 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
 
 This release fixes the following bugs:
 
+- [Fix #6511: a board showed NO cards, with `Error: Bad index in range.removeMember: 0` in the console.
+  The card list is a Blaze `{{#each}}` over a LIMITED, ordered reactive cursor sorted by `{ sort: 1 }`,
+  which has TIES — when several cards share the same `sort` value (or due date, etc.) their order is
+  non-deterministic across observe/poll cycles, so Meteor's ordered diff computes an out-of-range index
+  and the `#each` throws, rendering no cards (and cascading into the `undefined.remove()` teardown
+  error). A unique `_id` tiebreaker is now appended to the card-list sort (client cursor and server
+  window), making the order deterministic](https://github.com/wekan/wekan/commit/11cb33616).
+  Thanks to mueschel and xet7.
+
 - Opening a card no longer takes ~40 seconds on FerretDB v1 (SQLite). A card's attachments are
   looked up with the dotted key `{'meta.cardId': ...}`, which the bundled FerretDB dropped from the
   WHERE (it skipped any dotted-path key), so it full-scanned the whole `attachments` collection with
