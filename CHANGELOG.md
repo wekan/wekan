@@ -259,10 +259,13 @@ This release improves the translation workflow:
   that are untranslated everywhere are now translated DIRECTLY (no external service, key or
   password), using each language's existing translations and general kanban terminology as
   the reference, and applied with a new `fill-translations.mjs` that writes ONLY into
-  English-placeholder keys — so a fill can never overwrite a human translation. The pull
-  always fetches the newest Transifex translations first and `merge-translations.mjs`
-  keeps/restores the human ones, restoring the two-way process; `verify-human-preference.mjs`
-  proves both directions with 10
+  English-placeholder keys — so a fill can never overwrite a human translation. In the
+  `releases/translations/` scripts a HUMAN translation is ALWAYS PREFERRED and merged: the
+  pull always fetches the newest Transifex translations first, `merge-translations.mjs`
+  keeps a real Transifex translation and restores a committed human translation the pull
+  reverted to English (leaving English only where a string is untranslated everywhere), and
+  filled strings stay LOCAL — they are never pushed to Transifex as if human. This restores
+  the two-way process; `verify-human-preference.mjs` proves both directions with 10
   cases](https://github.com/wekan/wekan/commit/4146c5374).
   Thanks to s2ldan and xet7.
 
