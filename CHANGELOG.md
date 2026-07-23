@@ -169,6 +169,16 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
 
 This release fixes the following bugs:
 
+- [Fix #6512 for OAuth / OIDC logins: after "Login with Google" (or any redirect-style
+  social login) the user is now sent to All Boards instead of being left on the sign-in
+  route showing only the language selector until a manual reload. The earlier #6512 fix
+  covered only the password/register flow (`onSubmitHook`); OAuth logins do not go through
+  it, so a client `Accounts.onLogin` handler (fires for every login method after
+  `Meteor.userId()` is set) now navigates home when still on an auth route — guarded so an
+  auto-login on a deep-linked board URL is not redirected
+  away](https://github.com/wekan/wekan/commit/79410e73d067723a23d6f5b58f0ad34bdd509db4).
+  Thanks to xet7.
+
 - [Fix #6511 (and the v10.30–10.31 Docker / Sandstorm / production "board maintenance
   spinner", missing top user/settings bar, and login-form-not-rendering reports): the whole
   client broke with `Uncaught Error: ES Modules may not assign module.exports or exports.*`
