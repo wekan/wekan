@@ -194,7 +194,7 @@ This release fixes the following bugs:
   automatic repair no longer clears any list's `swimlaneId` (the safe card repairs stay);
   the #6484 code bug is already fixed, and an admin can still deliberately un-bind a
   specific board. Affected boards keep their bindings now, and a restore from a pre-upgrade
-  backup will stick](https://github.com/wekan/wekan/commit/34f8af006abd48f0405fdac2c6eb73bdfec1d4c3).
+  backup will stick](https://github.com/wekan/wekan/commit/337035eb4c09f2ce410b2bb28f1af88738928d01).
   Thanks to jullbo and xet7.
 
 - [Fixed a stale `#5623` "select all cards scoped to swimlane" unit test that failed after
