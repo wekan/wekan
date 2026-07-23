@@ -18,9 +18,10 @@
  *       -> restore the committed translation. A pull never reverts a human translation.
  *   - No translation anywhere (untranslated on Transifex AND none committed)
  *       -> leave the English source as the placeholder. This is the ONLY case where a
- *          non-human value is used; a separate machine-translation step may fill these,
- *          and because they are the only English-placeholder strings left, machine
- *          translation can never overwrite a human translation.
+ *          non-human value is used; a separate fill step (fill-translations.mjs — an
+ *          LLM/human translating directly, no external service) may fill these, and
+ *          because they are the only English-placeholder strings left, that fill can
+ *          never overwrite a human translation.
  *
  * Writes each merged file in place (2-space indent, key order preserved, trailing
  * newline — matching the repo's i18n files) and prints each restored language code
@@ -81,7 +82,7 @@ for (const f of changed) {
       newJson[key] = oldV;
       restored += 1;
     }
-    // else: missing everywhere → leave the English placeholder for machine translation.
+    // else: missing everywhere → leave the English placeholder for the fill step.
   }
 
   if (restored) {

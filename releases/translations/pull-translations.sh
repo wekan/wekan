@@ -39,18 +39,18 @@ if command -v node >/dev/null 2>&1; then
     done
   fi
 
-  # Machine-translate ONLY the English placeholders left after the merge (the strings
-  # untranslated everywhere, incl. every string of a language that has no translation at
-  # all). Because the merge left English ONLY on those placeholders, this can never
-  # overwrite a human translation. Opt-in: it runs only when a translation endpoint is
-  # configured (WEKAN_MT_URL, or the LibreTranslate default is reachable). Machine output
-  # stays LOCAL and is NOT pushed to Transifex, so it can never masquerade as human there.
-  if [ "${WEKAN_MT:-}" = "1" ] || [ -n "${WEKAN_MT_URL:-}" ]; then
-    echo "[i18n] machine-translating remaining English placeholders (human strings untouched)…"
-    node releases/translations/machine-translate.mjs || true
-  else
-    echo "[i18n] machine-translation step skipped (set WEKAN_MT=1 or WEKAN_MT_URL to enable)."
-  fi
+  # After the merge, the ONLY English-valued strings left are placeholders untranslated
+  # everywhere (incl. every string of a language that has no translation at all). Those are
+  # translated WITHOUT any external service, API or password: the maintainer/assistant (an
+  # LLM) translates them directly into each language file, using that language's existing
+  # translations and general kanban terminology as the reference, and applies them with
+  #   node releases/translations/fill-translations.mjs --list <lang>   # what still needs it
+  #   node releases/translations/fill-translations.mjs --apply <lang> translated.json
+  # --apply writes ONLY into placeholder keys, so it can NEVER overwrite a human
+  # translation, and these filled strings stay LOCAL — they are NOT pushed to Transifex, so
+  # they can never masquerade as human there. List what remains across all languages with:
+  echo "[i18n] remaining untranslated strings per language (translate + fill-translations.mjs, no service):"
+  node releases/translations/fill-translations.mjs --missing || true
 else
   echo "[i18n] node not found - skipping the merge + English-regression report."
 fi

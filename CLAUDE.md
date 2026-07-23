@@ -65,12 +65,12 @@ Fix from source and test — do not guess. If the environment cannot run the rel
 test (e.g. Docker is unavailable in this sandbox), reproduce as closely as possible
 from source and say clearly what was and was not verified.
 
-## Translations (Transifex ↔ machine translations)
+## Translations (Transifex ↔ direct LLM fill, no external service)
 
 WeKan translations live in `imports/i18n/data/<lang>.i18n.json` (flat
 `key -> string`, 2-space indent, key order matches `en.i18n.json`). Transifex holds
 the human translations. **The policy is: never overwrite a human translation with a
-machine (or English) one, but always take the newest translations from Transifex.**
+filled (or English) one, but always take the newest translations from Transifex.**
 
 - Pull with `releases/translations/pull-translations.sh`. It runs `tx pull -a -f`
   (which fills every string that is UNtranslated on Transifex with the English source)
@@ -83,12 +83,38 @@ machine (or English) one, but always take the newest translations from Transifex
     even in files that also received real new Transifex translations);
   - **no translation anywhere** (untranslated on Transifex AND never committed) → leave
     the English source as a placeholder. **This is the only case a non-human value is
-    used.** A separate machine-translation step may fill *only* these English
-    placeholders, so machine translation can never overwrite a human translation.
+    used.** A separate fill step may fill *only* these English placeholders, so a filled
+    string can never overwrite a human translation.
 - Restored languages are pushed back to Transifex so they stop reverting.
-- So: **only missing strings are machine-translated, and only when missing everywhere.**
-  Do not add machine translations over existing human/Transifex strings, and do not let
-  a pull drop existing translations.
+
+### Filling the remaining untranslated strings — directly, no translation service
+
+The strings still equal to the English source after the merge are the ones untranslated
+**everywhere** (Transifex + git). Translate these **directly** — the maintainer or the
+assistant (an LLM) writes the translation itself, using that language's **existing
+translations** and general **kanban terminology** for the language as the reference.
+**Do NOT wire up any external translation service, API, endpoint, key or password** — an
+earlier `machine-translate.mjs` that called LibreTranslate/DeepL is removed on purpose
+(it did not work and needed a password). There is **no `WEKAN_MT*` env var** anymore.
+
+- `node releases/translations/fill-translations.mjs --missing` — per-language count of
+  strings still needing translation (English + `en-*` variants are skipped: English by
+  design). Also printed at the end of `pull-translations.sh`.
+- `node releases/translations/fill-translations.mjs --list <lang> [--limit N]` — dump the
+  untranslated keys of a language as `{ key: englishSource }` for the translator to fill.
+- `node releases/translations/fill-translations.mjs --apply <lang> <translated.json>` —
+  merge the translations back. It writes **only** into placeholder keys, so it can
+  **never** overwrite a human translation, and a value still equal to English/empty is
+  ignored. Key order and 2-space indent are preserved.
+
+**Both directions are safe, and it is verified:**
+`node releases/translations/verify-human-preference.mjs` proves (pure-logic, no network)
+that the pull-merge keeps/restores human translations and that a fill only touches
+placeholders. Filled strings stay **local** — they are **NOT** pushed to Transifex (only
+the merge-restored human languages are pushed), so a filled string can never masquerade
+as human there. So: **only missing strings are ever filled, only when missing
+everywhere, human strings are always preferred and merged**, and nothing you fill is
+pushed to Transifex as if it were human.
 
 ## General practices (from ../log/v10/Claude.txt)
 
