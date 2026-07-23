@@ -179,6 +179,20 @@ This release updates the following dependencies:
 
 This release fixes the following bugs:
 
+- [Fix #6515: the startup / board-open board repair no longer unbinds per-swimlane lists.
+  `repairBoardsOnStartup` ran the shared repair over every board and cleared `swimlaneId`
+  to `null` on EVERY list that had one — treating any swimlane-bound list as #6484
+  corruption. But a list with a `swimlaneId` is a legitimate PER-SWIMLANE list (rendered
+  only in its own swimlane), indistinguishable from a #6484-corrupted board-wide list at
+  the data level, so on upgrade to v10.26+ the routine silently unbound every per-swimlane
+  list (`listsUnbound: 24` in the reporter's log) and all lists then rendered in every
+  swimlane; board open re-ran the repair, so even a manual restore was nulled again. The
+  automatic repair no longer clears any list's `swimlaneId` (the safe card repairs stay);
+  the #6484 code bug is already fixed, and an admin can still deliberately un-bind a
+  specific board. Affected boards keep their bindings now, and a restore from a pre-upgrade
+  backup will stick](https://github.com/wekan/wekan/commit/34f8af006abd48f0405fdac2c6eb73bdfec1d4c3).
+  Thanks to jullbo and xet7.
+
 - [Fixed a stale `#5623` "select all cards scoped to swimlane" unit test that failed after
   the doubled-cards render fix: shared/orphaned cards (no swimlane, or a deleted swimlane)
   now surface ONCE in the FIRST swimlane, so the helper returns them only when the first
