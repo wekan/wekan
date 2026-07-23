@@ -177,6 +177,17 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   `language-*` classes on `<span>` inside `pre>code` only, which is a security trade-off xet7 has not
   decided on yet (adds a dependency + loosens the XSS sanitizer + needs a browser build to verify).
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Added anupamme of OrbisAI Security](https://github.com/wekan/wekan/pull/6517) to [Hall of Shame: Fake AI](https://github.com/wekan/wekan/blob/main/docs/FAQ/Hall-of-Shame.md).
+  [Part 1](https://github.com/wekan/wekan/commit/ca94cf33329bcd51dd351edbacd39fe984ccf126),
+  [Part 2](https://github.com/wekan/wekan/commit/).
+  Thanks to anypamme.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.32 2026-07-23 WeKan ® release
 
 This release fixes the following bugs:
