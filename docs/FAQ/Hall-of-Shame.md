@@ -20,6 +20,22 @@ Problem is, fake companies try to register WeKan these domains, or other domains
 
 Usually those fake companies setup virus webpages, or other fake webpages.
 
+## Fake AI
+
+- 2026-07-23: OrbiasAI Security
+  - https://github.com/wekan/wekan/pull/6517
+  - anupamme: "Production code: This file is in the production codebase, not test-only code."
+    - Claude AI: brace-expansion here is a build-time transitive dependency (via minimatch/glob) of the vendored jade template compiler — not runtime code that processes untrusted input. 
+  - anypamme: Opened public pull request for security fix
+    - WeKan:
+      - anypamme did not read https://github.com/wekan/wekan/blob/main/SECURITY.md
+      - Only creating "New draft security advisory" allowed at https://github.com/wekan/wekan/security/advisories
+  - anypamme: "Verification: Build passes"
+    - Claude AI: Potential to break build:
+      - One caution: it edits a vendored lockfile by hand — worth a quick check that the jade loader still builds after the bump
+      -  (the PR claims "Build passes," but it's an automated claim).
+      - Since meteor-jade-loader compiles every .jade template, a broken bump there would break the whole client build.
+
 ## Fake mobile apps that do not work
 
 SMI TEAMWORK at [iOS App Store](https://itunes.apple.com/de/app/smi-teamwork/id1232167123?mt=8) and [Google Play Store](https://play.google.com/store/apps/details?id=com.siliconmotion.teamwork) . xet7 has notified them to remove it.
