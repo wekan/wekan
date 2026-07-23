@@ -113,6 +113,22 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   MariaDB vs the mysql backend. VERIFICATION BOUNDARY: the sandbox can only run/EXPLAIN the SQLite backend;
   the PostgreSQL/MySQL/HANA index usability must be confirmed with live `EXPLAIN` on each engine by the
   maintainer.
+- **Fill the remaining untranslated strings directly, no external service — not an issue, deferred
+  because bug fixes are more important than translations (recorded so the next session can resume):**
+  after the #6494 fix the translation tooling is safe and ready, but the strings themselves are not yet
+  filled. As of this writing 142 languages have 12,254 strings still equal to the English source
+  (avg ~86 per language, max 305 for Walloon `wa-RR`; 141 of 142 languages have ≤200 missing), dominated
+  by ~65 recently-added English keys shared across almost every language. These must be translated
+  DIRECTLY — the maintainer/assistant (an LLM) writes each translation using that language's existing
+  translations and general kanban terminology as the reference, with NO external translation service,
+  API, endpoint, key or password (the old `machine-translate.mjs` service was removed on purpose). Use
+  `node releases/translations/fill-translations.mjs --missing` to list what remains, `--list <lang>` to
+  dump a language's placeholder keys, translate them (preserving every interpolation placeholder such as
+  `__count__` / `{{var}}` / `%s` and any HTML verbatim), and `--apply <lang> <file.json>` to merge them
+  back — it writes ONLY into English-placeholder keys, so it can never overwrite a human translation, and
+  filled strings stay LOCAL (never pushed to Transifex). `node
+  releases/translations/verify-human-preference.mjs` proves the safety of both directions. Best done as a
+  per-language batch (one language at a time, or one agent per language) once the bug backlog is clear.
 - **Already correct in the current code (could not reproduce; endpoint/logic verified by reading):**
   [#4774](https://github.com/wekan/wekan/issues/4774) (`POST /users/register` is a native handler that returns 403 only
   when registration is disabled via `forbidClientAccountCreation`; it works by default),
