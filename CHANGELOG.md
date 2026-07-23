@@ -183,8 +183,17 @@ This release fixes the following bugs:
   board stayed on the spinner, the top bar was missing and the board went blank grey after
   login. It reproduced on the official root-domain `boards.wekan.team` and on plain Docker
   with no reverse proxy (`ROOT_URL=http://neptun:4001`), so it was a global build bug, not a
-  reverse-proxy / sub-path issue. The shim now uses `export {}` instead of
-  `module.exports = {}`](https://github.com/wekan/wekan/commit/e62c77575297319cb967b031bafa91421424abe9).
+  reverse-proxy / sub-path issue. `collectionHelpers` (the first such file) was fixed to use
+  `export {}`, and then a transitive walk from `client/main.js` found and converted EVERY
+  remaining client-reachable CommonJS helper (~55 files under `models/lib`, `client/lib`,
+  `imports/lib`, `imports/`) from `module.exports = { … }` to `export { … }`, so nothing in
+  the client bundle assigns `module.exports` any more. Server-only helpers (the `server/lib`
+  files Meteor never ships to the client, and the `fs`-using file-storage helpers) stay
+  CommonJS. Their plain-Node `.cjs` unit tests now use `await import(…js)`; the full
+  `tests/*.test.cjs` suite has no new failures. This is NOT an rspack version regression —
+  the lockfile has pinned `@rspack/core ~1.7.x` since v8.40, unchanged between the working
+  v10.17 and the broken v10.27 — so the rspack deps are also pinned to exact versions to
+  prevent future drift](https://github.com/wekan/wekan/commit/8d1fae4f7d8a1ebf9a5aa850c8ef2bc475ab0a8e).
   Thanks to mueschel, jullbo, akshat-goel, AmigaAbattoir and xet7.
 
 This release has the following developer-tooling fix:
