@@ -123,6 +123,14 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
 
 This release fixes the following bugs:
 
+- [Fix #6508 (follow-up): the board member popup now shows "Remap User" for an imported (placeholder)
+  member. The action is gated on the member's `authenticationMethod === 'imported'`, but the board
+  publication shipped board members' user docs without `authenticationMethod`, so the field was
+  undefined on the client and the action never appeared. It is now published with the board members'
+  user fields (already part of `Users.safeFields`), so the in-board Remap → map-to-existing-user flow
+  works](https://github.com/wekan/wekan/commit/5433dfbc5).
+  Thanks to AmigaAbattoir and xet7.
+
 - [Fix #6511: a board showed NO cards, with `Error: Bad index in range.removeMember: 0` in the console.
   The card list is a Blaze `{{#each}}` over a LIMITED, ordered reactive cursor sorted by `{ sort: 1 }`,
   which has TIES — when several cards share the same `sort` value (or due date, etc.) their order is
