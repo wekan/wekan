@@ -156,6 +156,39 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   `language-*` classes on `<span>` inside `pre>code` only, which is a security trade-off xet7 has not
   decided on yet (adds a dependency + loosens the XSS sanitizer + needs a browser build to verify).
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [Snap: run the bundled FerretDB v1 against an EXTERNAL PostgreSQL / MySQL / SAP HANA
+  server instead of the embedded SQLite backend. Two new snap settings —
+  `snap set wekan wekan-ferretdb-handler=postgresql|mysql|hana` and
+  `wekan-ferretdb-url=…` — point FerretDB at a database you run; the default stays the
+  zero-dependency `sqlite` backend, so existing installs are
+  unchanged](https://github.com/wekan/wekan/commit/2538e2434406010887bc3d827a15841b35ff1666).
+  Thanks to xet7.
+
+- [Translations: machine translation now only fills the English strings that are
+  untranslated EVERYWHERE, so it can never overwrite a human translation. A new
+  `releases/translations/machine-translate.mjs` step (run after the per-key Transifex
+  merge, opt-in via `WEKAN_MT=1` / `WEKAN_MT_URL`) translates exactly the leftover
+  English placeholders — which also fully fills any language that has no translation at
+  all — while a string a human already translated is never selected. Machine output
+  stays local and is not pushed to
+  Transifex](https://github.com/wekan/wekan/commit/cbfe3600fc5602ebe64ffc35f77c9fe05c1d73e5).
+  Thanks to xet7.
+
+This release fixes the following bugs:
+
+- [`snap run wekan.problems` now loads the snap settings before its checks, so ROOT_URL /
+  LDAP and the other login-page checks read the SAME configuration WeKan runs with.
+  Without this the command read an empty environment and reported `ROOT_URL is not set`
+  even after `snap set wekan root-url=…`, which was confusing when diagnosing a blank
+  login page or missing header controls (#6512, #6514)](https://github.com/wekan/wekan/commit/d69c83f949291837eb24409562ecd4b42c5d2033).
+  Thanks to akshat-goel and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.28 2026-07-23 WeKan ® release
 
 This release fixes the following bugs:
