@@ -36,6 +36,11 @@ import '/client/components/main/header.css';
 import '/client/components/main/keyboardShortcuts.css';
 import '/client/components/main/layouts.css';
 import '/client/components/main/myCards.css';
+// Shared themed prev/next buttons for every paginated table (admin reports,
+// people/org/team/domain, All Boards, board Table view, cron tables). Loaded
+// after forms.css on purpose: it overrides the global button:focus / :active
+// rules there, which otherwise leave a clicked pagination button black or grey.
+import '/client/components/main/paginationControls.css';
 import '/client/components/main/popup.css';
 import '/client/components/main/spinner_bounce.css';
 import '/client/components/main/spinner_cube.css';

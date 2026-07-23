@@ -1,0 +1,156 @@
+/* Shared look for EVERY prev/next pagination control in WeKan.
+   Admin Panel reports, People/Org/Team/Domain, All Boards, Board Table view,
+   Archived boards and the Cron settings tables all page the same way, so they
+   all get the same themed buttons here instead of each stylesheet inventing its
+   own greys.
+
+   Why this file exists at all: the global button rules in
+   client/components/forms/forms.css set
+
+     button          { background: var(--theme-accent, #000) }
+     button:focus    { background: var(--theme-accent, #222) }
+     button:active   { background: var(--theme-accent, #111) }
+     button:active:hover { background: #e6e6e6 }
+
+   With no custom theme colour chosen those fall back to BLACK / dark grey /
+   grey. `button:focus` and `button:active` have the same specificity as a
+   `.some-pagination button` rule, and `button:active:hover` has a HIGHER one, so
+   the per-page pagination rules lost as soon as the button was clicked: pressing
+   "next" left the button sitting there with a black or grey background until it
+   lost focus. Every state is therefore spelled out below, at a specificity that
+   beats the global button rules, and every colour comes from the theme accent
+   (Member Settings -> Change color sets --theme-accent on :root) with the WeKan
+   blue as the fallback. */
+
+.admin-report-pagination button,
+.admin-event-pagination button,
+.people-pagination button,
+.org-pagination button,
+.team-pagination button,
+.domain-pagination button,
+.boards-pagination button,
+.table-view-pagination button,
+.cron-settings .pagination button {
+  min-width: 32px;
+  height: 30px;
+  padding: 0 10px;
+  border: 1px solid var(--theme-accent, #01628c);
+  border-radius: 0.4vw;
+  background: transparent;
+  background-image: none;
+  color: var(--theme-accent, #01628c);
+  font-weight: 700;
+  line-height: 1.3;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+/* Hover, keyboard focus and the pressed state all use the accent as the FILL,
+   so a clicked "next" button reads as themed instead of black. :focus-visible is
+   listed separately so a mouse click does not leave a permanent focus ring, but
+   keyboard users still get one. */
+.admin-report-pagination button:hover:not(.disabled),
+.admin-report-pagination button:focus:not(.disabled),
+.admin-report-pagination button:active:not(.disabled),
+.admin-event-pagination button:hover:not(.disabled),
+.admin-event-pagination button:focus:not(.disabled),
+.admin-event-pagination button:active:not(.disabled),
+.people-pagination button:hover:not(.disabled),
+.people-pagination button:focus:not(.disabled),
+.people-pagination button:active:not(.disabled),
+.org-pagination button:hover:not(.disabled),
+.org-pagination button:focus:not(.disabled),
+.org-pagination button:active:not(.disabled),
+.team-pagination button:hover:not(.disabled),
+.team-pagination button:focus:not(.disabled),
+.team-pagination button:active:not(.disabled),
+.domain-pagination button:hover:not(.disabled),
+.domain-pagination button:focus:not(.disabled),
+.domain-pagination button:active:not(.disabled),
+.boards-pagination button:hover:not(.disabled),
+.boards-pagination button:focus:not(.disabled),
+.boards-pagination button:active:not(.disabled),
+.table-view-pagination button:hover:not(.disabled),
+.table-view-pagination button:focus:not(.disabled),
+.table-view-pagination button:active:not(.disabled),
+.cron-settings .pagination button:hover,
+.cron-settings .pagination button:focus,
+.cron-settings .pagination button:active {
+  background: var(--theme-accent, #01628c);
+  background-image: none;
+  border-color: var(--theme-accent, #01628c);
+  color: #fff;
+  box-shadow: none;
+}
+
+/* forms.css turns a held-down button grey (#e6e6e6) with a higher specificity
+   than a plain `.pagination button` rule - keep the accent instead. */
+.admin-report-pagination button:active:hover,
+.admin-report-pagination button:active:focus,
+.admin-event-pagination button:active:hover,
+.admin-event-pagination button:active:focus,
+.people-pagination button:active:hover,
+.people-pagination button:active:focus,
+.org-pagination button:active:hover,
+.org-pagination button:active:focus,
+.team-pagination button:active:hover,
+.team-pagination button:active:focus,
+.domain-pagination button:active:hover,
+.domain-pagination button:active:focus,
+.boards-pagination button:active:hover,
+.boards-pagination button:active:focus,
+.table-view-pagination button:active:hover,
+.table-view-pagination button:active:focus,
+.cron-settings .pagination button:active:hover,
+.cron-settings .pagination button:active:focus {
+  background: var(--theme-accent, #01628c);
+  background-image: none;
+  color: #fff;
+}
+
+/* The current page in a numbered pager. */
+.admin-report-pagination button.active,
+.people-pagination button.active,
+.org-pagination button.active,
+.team-pagination button.active,
+.domain-pagination button.active,
+.boards-pagination button.active,
+.table-view-pagination button.active {
+  background: var(--theme-accent, #01628c);
+  background-image: none;
+  border-color: var(--theme-accent, #01628c);
+  color: #fff;
+}
+
+/* Disabled = the same themed outline, faded. Not a grey block. */
+.admin-report-pagination button.disabled,
+.admin-event-pagination button.disabled,
+.people-pagination button.disabled,
+.org-pagination button.disabled,
+.team-pagination button.disabled,
+.domain-pagination button.disabled,
+.boards-pagination button.disabled,
+.table-view-pagination button.disabled {
+  background: transparent;
+  background-image: none;
+  border-color: var(--theme-accent, #01628c);
+  color: var(--theme-accent, #01628c);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* "3 / 42" between the buttons: inherit the surrounding text colour so it stays
+   readable in both the light and the dark theme (it used to be hard-coded #333,
+   which disappears on a dark background). */
+.admin-report-page-info,
+.people-page-info,
+.org-page-info,
+.team-page-info,
+.domain-page-info,
+.boards-page-info,
+.table-view-page-info,
+.cron-settings .pagination .page-info {
+  min-width: 72px;
+  text-align: center;
+  color: inherit;
+}

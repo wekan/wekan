@@ -27,6 +27,12 @@ import '/client/components/settings/problemsSummary.jade';
 import '/client/components/settings/problemsSummary.js';
 import '/client/components/settings/translationBody.js';
 
+// adminReports.css was missing here, so NONE of the Admin Panel report styling
+// was in the bundle (package.json sets meteor.mainModule, so a CSS file that is
+// never imported is simply not loaded). That is why the report search box and
+// the prev/next pagination buttons fell back to the global `button` rule in
+// forms.css and rendered with a black/grey background instead of the theme.
+import '/client/components/settings/adminReports.css';
 import '/client/components/settings/attachments.css';
 import '/client/components/settings/cronSettings.css';
 import '/client/components/settings/lockedUsersBody.css';
