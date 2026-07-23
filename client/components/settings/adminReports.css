@@ -59,6 +59,39 @@
   text-align: center;
 }
 
+/* Admin Panel → Problems → CPU usage: the live figure between the page title and
+   the search box. The table underneath is a history of past high-CPU periods, so
+   this line is the only place the page says what the CPU is doing right now. */
+.admin-cpu-current {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding: 8px 10px;
+  border: 1px solid var(--theme-accent, #01628c);
+  border-radius: 0.4vw;
+}
+
+.admin-cpu-label {
+  font-weight: 700;
+}
+
+.admin-cpu-percent {
+  font-size: 1.4em;
+  font-weight: 700;
+  color: var(--theme-accent, #01628c);
+}
+
+/* Sustained high CPU: warn without inventing a second colour system. */
+.admin-cpu-current.admin-cpu-high {
+  border-color: #b04632;
+}
+
+.admin-cpu-current.admin-cpu-high .admin-cpu-percent {
+  color: #b04632;
+}
+
 /* Problems page: menu separator between the event streams (Summary/Security/
    Speed/Tests) and the moved report items, and the read-only event table. */
 .admin-reports-content .side-menu .admin-reports-separator hr {

@@ -304,6 +304,16 @@ template(name="boardsReport")
 template(name="eventStreamReport")
   .global-search-results-list-wrapper
     h1 {{streamTitle}}
+    //- CPU usage page: the live figure, between the title and the search box.
+    //- The table below lists past high-CPU periods, not the current state.
+    if cpuCurrent
+      .admin-cpu-current(class="{{#if cpuCurrent.high}}admin-cpu-high{{/if}}")
+        span.admin-cpu-label {{_ 'cpu-usage-current'}}
+        span.admin-cpu-percent {{cpuCurrent.percent}}%
+        span.quiet
+          | {{cpuCurrent.cores}} {{_ 'cpu-cores'}} · {{_ 'cpu-load-average'}} {{cpuLoadAverage}}
+        if cpuCurrent.activity
+          span.quiet  · {{cpuCurrent.activity}}
     .admin-event-controls
       input.js-event-search(type="search" placeholder="{{_ 'search'}}" value="{{searchTerm}}")
       span.admin-event-pagination

@@ -6,6 +6,7 @@ import {
   getInProgress,
   getLoginProblems,
 } from '/server/lib/systemStatus';
+import { getCurrentCpu } from '/server/lib/cpuMonitor';
 
 // Admin-gated methods behind the Admin Panel / Problems "Status" overview. The
 // same data is available without the Admin Panel via `snap run wekan.problems`.
@@ -26,6 +27,10 @@ function cpuDetail() {
   return {
     area: 'cpu',
     title: 'CPU usage',
+    // The live figure shown above the search box on the CPU usage page. Same
+    // sample the CPU monitor writes its event rows from, so the header and the
+    // rows below it never disagree.
+    current: getCurrentCpu(),
     loadAverage: os.loadavg(), // 1 / 5 / 15 min
     cpuCount: cpus.length,
     cpuModel: cpus.length ? cpus[0].model : '',

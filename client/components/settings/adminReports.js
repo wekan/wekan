@@ -685,6 +685,10 @@ Template.eventStreamReport.onCreated(function () {
   this.total = new ReactiveVar(0);
   this.rows = new ReactiveVar([]);
   this.search = new ReactiveVar('');
+  // CPU usage page only: the live figure shown between the title and the search
+  // box. The event rows below it are a HISTORY of high-CPU periods, so without
+  // this the page could not answer "what is the CPU doing right now?" at all.
+  this.cpu = new ReactiveVar(null);
   this.load = () => {
     const stream = this.stream;
     const search = this.search.get();
@@ -698,6 +702,21 @@ Template.eventStreamReport.onCreated(function () {
   };
   this.load();
 
+  if (this.stream === 'cpu') {
+    this.loadCpu = () => {
+      Meteor.call('problemDetailReport', 'cpu', (err, res) => {
+        if (!err && res) this.cpu.set(res.current || null);
+      });
+    };
+    this.loadCpu();
+    // The monitor samples the system every CPU_SAMPLE_MS; refreshing on the same
+    // order keeps the header live without polling the server pointlessly often.
+    this.cpuTimer = Meteor.setInterval(this.loadCpu, 5000);
+  }
+});
+
+Template.eventStreamReport.onDestroyed(function () {
+  if (this.cpuTimer) Meteor.clearInterval(this.cpuTimer);
 });
 
 Template.eventStreamReport.helpers({
@@ -707,6 +726,16 @@ Template.eventStreamReport.helpers({
   totalPages() { return Math.max(1, Math.ceil(Template.instance().total.get() / EVENTS_PER_PAGE)); },
   searchTerm() { return Template.instance().search.get(); },
   streamTitle() { return TAPi18n.__(eventStreamTitleKey(Template.instance().stream)); },
+  // Live CPU figure for the CPU usage page header; null on every other stream,
+  // so the block simply does not render there.
+  cpuCurrent() { return Template.instance().cpu.get(); },
+  // "37% of 8 cores · load 1.42 / 1.10 / 0.98" — one line, no chart, matching
+  // the plain-table look of the rest of the Problems pages.
+  cpuLoadAverage() {
+    const cpu = Template.instance().cpu.get();
+    if (!cpu || !Array.isArray(cpu.loadAverage)) return '';
+    return cpu.loadAverage.map(n => (Number.isFinite(n) ? n.toFixed(2) : '?')).join(' / ');
+  },
   prevDisabled() { return Template.instance().page.get() <= 1 ? 'disabled' : ''; },
   nextDisabled() {
     const t = Template.instance();

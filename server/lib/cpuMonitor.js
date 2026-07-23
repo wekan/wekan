@@ -314,6 +314,45 @@ export function isHighCpu() {
   return tracker.isHigh();
 }
 
+// The latest CPU sample, for the Admin Panel → Problems → CPU usage header.
+// `percent` is the same system-wide figure the monitor logs its rows from
+// (measured from os.cpus() idle/total deltas by the sampling interval below), so
+// the number an admin sees at the top of the page and the numbers in the event
+// rows always agree. Reads module state only — no sampling of its own, so
+// polling it from the client is cheap.
+export function getCurrentCpu() {
+  const cpus = os.cpus() || [];
+  return {
+    percent: ENABLED ? lastPct : sampleOnDemandPercent(),
+    cores: cpus.length,
+    model: cpus.length ? cpus[0].model : '',
+    loadAverage: os.loadavg(), // 1 / 5 / 15 min
+    high: tracker.isHigh(),
+    highPercent: HIGH_PCT,
+    activity: currentActivity,
+    // false when WEKAN_CPU_MONITOR=false: the percentage is then measured
+    // between calls to this function instead of by the background monitor, and
+    // no high-CPU events are being recorded at all.
+    monitored: ENABLED,
+  };
+}
+
+// CPU% between two calls of THIS function, for when the background monitor is
+// disabled. It keeps its own baseline so it can never disturb the monitor's
+// delta (they would otherwise steal each other's idle/total snapshot and both
+// report nonsense).
+let lastCpuOnDemand = null;
+function sampleOnDemandPercent() {
+  const now = cpuTotals();
+  const prev = lastCpuOnDemand;
+  lastCpuOnDemand = now;
+  if (!prev) return 0; // first call has no delta to measure
+  const idleDelta = now.idle - prev.idle;
+  const totalDelta = now.total - prev.total;
+  if (totalDelta <= 0) return 0;
+  return Math.round(Math.max(0, Math.min(100, 100 * (1 - idleDelta / totalDelta))));
+}
+
 // Await a short pause when the CPU is busy (else resolve immediately), so a long
 // loop yields time to other software. Never throws.
 export function pauseIfBusy(ms) {
@@ -424,4 +463,4 @@ if (Meteor.isServer && ENABLED) {
   });
 }
 
-export default { isHighCpu, pauseIfBusy, setActivity };
+export default { isHighCpu, pauseIfBusy, setActivity, getCurrentCpu };
