@@ -183,7 +183,7 @@ This release adds the following updates:
 
 - [Added anupamme of OrbisAI Security](https://github.com/wekan/wekan/pull/6517) to [Hall of Shame: Fake AI](https://github.com/wekan/wekan/blob/main/docs/FAQ/Hall-of-Shame.md).
   [Part 1](https://github.com/wekan/wekan/commit/ca94cf33329bcd51dd351edbacd39fe984ccf126),
-  [Part 2](https://github.com/wekan/wekan/commit/).
+  [Part 2](https://github.com/wekan/wekan/commit/3ada9b5b2c866e438abd09ed52bfdf230780de33).
   Thanks to anypamme.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
