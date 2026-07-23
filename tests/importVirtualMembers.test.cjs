@@ -80,6 +80,17 @@ test('the board-scoped map method is board-scoped and no-escalation', () => {
   assert.ok(/\{ boardId, userId: placeholderId \}/.test(srv), 'activities/comments reassignment is board-scoped');
 });
 
+test('#6508: the board publishes authenticationMethod so the member popup can detect a virtual member', () => {
+  const pub = read('server/publications/boards.js');
+  // The board composite's member-user cursor must publish authenticationMethod, or
+  // isImportedMember() reads undefined and the in-board "Remap User" action never shows.
+  const at = pub.indexOf("'profile.fullname': 1");
+  assert.ok(at > -1, 'board member user fields exist');
+  const block = pub.slice(at, at + 800);
+  assert.ok(/authenticationMethod: 1/.test(block),
+    'the board member user fields must include authenticationMethod (for in-board Remap)');
+});
+
 test('the sidebar offers mapping only for virtual members, to existing real board users', () => {
   const js = read('client/components/sidebar/sidebar.js');
   const jade = read('client/components/sidebar/sidebar.jade');

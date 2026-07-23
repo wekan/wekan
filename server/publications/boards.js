@@ -899,6 +899,14 @@ publishComposite('board', async function(boardId, isArchived) {
                   'profile.fullname': 1,
                   'profile.avatarUrl': 1,
                   'profile.initials': 1,
+                  // #6508: needed so the board member popup can offer "Remap User"
+                  // for an imported (placeholder) member. isImportedMember() checks
+                  // authenticationMethod === 'imported'; without this field the board
+                  // members' user docs reach the client without it (user-miniprofile,
+                  // which publishes safeFields incl. authenticationMethod, is only
+                  // subscribed on the import screen), so the action never showed.
+                  // Already in Users.safeFields, so publishing it here is consistent.
+                  authenticationMethod: 1,
                 },
               },
               true,
