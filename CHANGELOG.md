@@ -165,16 +165,7 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   `language-*` classes on `<span>` inside `pre>code` only, which is a security trade-off xet7 has not
   decided on yet (adds a dependency + loosens the XSS sanitizer + needs a browser build to verify).
 
-# v10.30 2026-07-23 WeKan ® release
-
-This release updates the following dependencies:
-
-- The bundled FerretDB v1 fork now creates the OpLog `ts` index on the PostgreSQL, MySQL
-  and SAP HANA backends too (previously only SQLite), so an idle Meteor OpLog tail resumes
-  with an index range scan instead of re-scanning the whole capped collection on every
-  poll. Best-effort per backend, with a descriptive log if a live engine rejects the index
-  syntax (see the FerretDB fork changelog). Ships with the bundled FerretDB update. Thanks
-  to xet7.
+# Upcoming WeKan ® release
 
 This release fixes the following bugs:
 
@@ -202,6 +193,21 @@ This release fixes the following bugs:
   specific board. Affected boards keep their bindings now, and a restore from a pre-upgrade
   backup will stick](https://github.com/wekan/wekan/commit/337035eb4c09f2ce410b2bb28f1af88738928d01).
   Thanks to jullbo and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v10.30 2026-07-23 WeKan ® release
+
+This release updates the following dependencies:
+
+- The bundled FerretDB v1 fork now creates the OpLog `ts` index on the PostgreSQL, MySQL
+  and SAP HANA backends too (previously only SQLite), so an idle Meteor OpLog tail resumes
+  with an index range scan instead of re-scanning the whole capped collection on every
+  poll. Best-effort per backend, with a descriptive log if a live engine rejects the index
+  syntax (see the FerretDB fork changelog). Ships with the bundled FerretDB update. Thanks
+  to xet7.
+
+This release fixes the following bugs:
 
 - [Fixed a stale `#5623` "select all cards scoped to swimlane" unit test that failed after
   the doubled-cards render fix: shared/orphaned cards (no swimlane, or a deleted swimlane)
