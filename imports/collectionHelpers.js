@@ -120,4 +120,15 @@ if (Mongo && Mongo.Collection && CollectionHooks && !Mongo.Collection._wekanHook
   }
 }
 
-module.exports = {};
+// This is a side-effect-only shim (it patches Mongo.Collection.prototype); it exports
+// nothing. It MUST NOT assign `module.exports`: it references the Meteor pseudo-global
+// `Package` bare, which the client rspack build's ProvidePlugin rewrites into an injected
+// ESM `import`, marking this file an ES module — and an ES module assigning
+// `module.exports` throws `ES Modules may not assign module.exports or exports.*` at
+// evaluation time. Because this is the FIRST import in client/main.js, that throw aborted
+// the whole module chain, so app templates (swimlane, notifications, …) never registered
+// and Blaze reported "No such template" across the board (#6511, and the Sandstorm/Docker
+// v10.30–10.31 "board maintenance spinner" reports). An `export {}` marks it a clean ES
+// module with no CommonJS export, working under both the client (import) and server
+// (require) module systems.
+export {};
