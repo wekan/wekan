@@ -38,15 +38,6 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   [#3001](https://github.com/wekan/wekan/issues/3001) (manipulated headers / high traffic behind an
   Apache reverse proxy — an Apache proxy-configuration concern, not reproducible from WeKan code
   alone; needs the reporter's proxy setup to investigate),
-  [#6514](https://github.com/wekan/wekan/issues/6514) (after upgrade the login page shows only the
-  "Change Language" selector and, when jam:offline replays cached boards, the top header renders empty
-  with no user/settings menu, gated on `if currentUser` in `client/components/main/header.jade`).
-  UPDATE: the same symptoms reproduce on the official `boards.wekan.team` at the ROOT domain with a
-  correct ROOT_URL, so ROOT_URL-not-set was at most a contributing factor for the original reporter, not
-  the whole story. Two v10.30-feedback fixes address the actual causes: the post-login redirect race
-  (#6512, fixed — the sign-in guard bounced back to the language selector before `Meteor.userId()`
-  propagated) and the module-format build error behind the board failure (#6511). Needs live
-  re-confirmation that the header + login recover with those fixes),
   [#6500](https://github.com/wekan/wekan/issues/6500) (Docker `latest` does not load in the browser on a
   fresh `docker compose up -d` — "Connection reset by peer"; xet7 is actively fixing the bundled FerretDB
   Docker startup, and MongoDB / other backends work as a workaround, so this needs the running Docker
