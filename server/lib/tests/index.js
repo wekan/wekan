@@ -54,3 +54,4 @@ import './dnsbleed.security.tests';
 import './fileValidationBypass.security.tests';
 import './importExportSecurity.tests';
 import './impersonationReportQuery.tests';
+import './brokenCardsRepair.tests';

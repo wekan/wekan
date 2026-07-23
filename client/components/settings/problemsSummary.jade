@@ -25,6 +25,20 @@ template(name="problemsSummary")
                 span.admin-problem-count {{problem.count}}
               br
               span.quiet {{problem.detail}}
+              //- Broken cards are the one detected problem the admin can fix
+              //- from here: run the repair migration over every board.
+              if isBrokenCards problem
+                .admin-problem-actions
+                  button.js-repair-broken-cards.primary(disabled="{{#if repairRunning}}disabled{{/if}}")
+                    if repairRunning
+                      i.fa.fa-spinner.fa-spin
+                      | {{_ 'repairing'}}
+                    else
+                      i.fa.fa-wrench
+                      | {{_ 'repair-broken-cards'}}
+                  if repairResult
+                    br
+                    span.quiet {{repairResult}}
 
     h2 {{_ 'problems'}}
     if hasProblems

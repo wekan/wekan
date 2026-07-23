@@ -5,6 +5,7 @@ import TextMigrationStatus from '/models/textMigrationStatus';
 import Cards from '/models/cards';
 import { loginProblemChecks } from '/models/lib/loginProblems';
 import { buildProblemsOverview } from '/models/lib/problemsOverview';
+import { brokenCardsSelector } from '/models/lib/brokenCardsRepair';
 
 // Server hub for the Admin Panel / Problems "Status" overview and the
 // `snap run wekan.problems` command. It PERSISTS the text-migration and
@@ -111,15 +112,12 @@ export async function getLoginProblems() {
   });
 }
 
+// What counts as broken lives in models/lib/brokenCardsRepair.js, shared with
+// the Repair button on the Summary page, so the count and the repair can never
+// disagree about which cards they mean.
 async function countBrokenCards() {
   try {
-    return await Cards.find({
-      $or: [
-        { boardId: { $in: [null, ''] } },
-        { swimlaneId: { $in: [null, ''] } },
-        { listId: { $in: [null, ''] } },
-      ],
-    }).countAsync();
+    return await Cards.find(brokenCardsSelector()).countAsync();
   } catch (_) {
     return 0;
   }

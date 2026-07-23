@@ -16,6 +16,10 @@ const STREAM_LABEL_KEY = {
 
 Template.problemsSummary.onCreated(function () {
   this.areas = new ReactiveVar([]);
+  // "Broken cards N" repair button state (see the repairBrokenCards method in
+  // server/methods/repairBrokenCards.js).
+  this.repairRunning = new ReactiveVar(false);
+  this.repairResult = new ReactiveVar('');
   // Status overview: everything in progress (migrations / repairs) + detected
   // problems (broken cards, login-page "Must be logged in" causes). Same data as
   // `snap run wekan.problems`.
@@ -58,9 +62,52 @@ Template.problemsSummary.helpers({
     const s = Template.instance().status.get();
     return s && s.overview ? s.overview.problems : [];
   },
+  // Only the broken-cards problem gets a Repair button — the other detected
+  // problems (login-page causes) are configuration, not repairable data.
+  isBrokenCards(problem) {
+    return !!problem && problem.id === 'broken-cards';
+  },
+  repairRunning() {
+    return Template.instance().repairRunning.get();
+  },
+  repairResult() {
+    return Template.instance().repairResult.get();
+  },
 });
 
 Template.problemsSummary.events({
+  // Run the broken-card repair migration over every board. The button stays
+  // disabled while it runs; when it finishes the overview is reloaded so the
+  // "Broken cards N" count reflects the repair straight away.
+  'click .js-repair-broken-cards'(event, templateInstance) {
+    event.preventDefault();
+    if (templateInstance.repairRunning.get()) return;
+    templateInstance.repairRunning.set(true);
+    templateInstance.repairResult.set('');
+    Meteor.call('repairBrokenCards', (error, res) => {
+      templateInstance.repairRunning.set(false);
+      if (error) {
+        templateInstance.repairResult.set(error.reason || error.message || String(error));
+        return;
+      }
+      const fixed =
+        (res.cardsAssigned || 0) +
+        (res.cardsRescued || 0) +
+        (res.archivedCardsFixed || 0) +
+        (res.listsAssigned || 0) +
+        (res.swimlanesAssigned || 0);
+      // Cards with no boardId at all cannot be placed on any board, so say so
+      // explicitly instead of leaving a count that never reaches zero unexplained.
+      const unfixable = res.unfixable || 0;
+      templateInstance.repairResult.set(
+        unfixable > 0
+          ? TAPi18n.__('repair-broken-cards-done-unfixable', { fixed, unfixable })
+          : TAPi18n.__('repair-broken-cards-done', { fixed }),
+      );
+      templateInstance.reload();
+    });
+  },
+
   'click .js-ack-checked'(event, templateInstance) {
     const streams = Array.from(templateInstance.findAll('.js-problem-check:checked'))
       .map(el => el.getAttribute('data-stream'))
