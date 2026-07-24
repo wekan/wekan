@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { check } from 'meteor/check';
 import { ReactiveCache } from '/imports/reactiveCache';
 
 // Method to find locked users and release them if needed
@@ -52,6 +53,7 @@ Meteor.methods({
   },
 
   async unlockUser(userId) {
+    check(userId, String);
     // Check if user has admin rights
     const adminId = this.userId;
     if (!adminId) {

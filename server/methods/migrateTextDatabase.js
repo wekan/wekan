@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { check } from 'meteor/check';
 import { MongoInternals } from 'meteor/mongo';
 import { MongoClient } from 'mongodb';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -148,6 +149,7 @@ Meteor.methods({
   },
 
   async migrateTextDatabase(direction) {
+    check(direction, String);
     const user = await ReactiveCache.getCurrentUser();
     if (!user || !user.isAdmin) throw new Meteor.Error('not-authorized');
     if (progress.running) throw new Meteor.Error('already-running', 'A database migration is already in progress.');

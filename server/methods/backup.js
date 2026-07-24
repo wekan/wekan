@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { check, Match } from 'meteor/check';
 import { Mongo } from 'meteor/mongo';
 import { MongoInternals } from 'meteor/mongo';
 import { EJSON } from 'meteor/ejson';
@@ -289,6 +290,8 @@ Meteor.methods({
     return { ...progress };
   },
   async runBackup(opts, storageName) {
+    check(opts, Object);
+    check(storageName, Match.OneOf(String, null, undefined));
     await requireAdmin();
     if (progress.running) throw new Meteor.Error('already-running');
     if (!opts || (!opts.attachments && !opts.avatars && !opts.data)) throw new Meteor.Error('nothing-selected', 'Select at least one of Attachments, Avatars, Data.');
@@ -296,6 +299,8 @@ Meteor.methods({
     return { started: true };
   },
   async restoreBackup(zipPath, mode) {
+    check(zipPath, String);
+    check(mode, String);
     await requireAdmin();
     if (progress.running) throw new Meteor.Error('already-running');
     if (!zipPath || !fs.existsSync(zipPath)) throw new Meteor.Error('not-found', 'Backup file not found.');
@@ -312,6 +317,7 @@ Meteor.methods({
     return await BackupSettings.findOneAsync({ _id: 'schedule' }) || null;
   },
   async saveBackupSchedule(schedule) {
+    check(schedule, Object);
     await requireAdmin();
     const doc = {
       _id: 'schedule',

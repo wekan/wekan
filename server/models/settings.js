@@ -443,6 +443,7 @@ Meteor.methods({
   },
 
   async getServiceConfiguration(service) {
+    check(service, String);
     const config = await loadOidcConfig(service);
     if (!config) return null;
     // Never expose the client secret to the caller

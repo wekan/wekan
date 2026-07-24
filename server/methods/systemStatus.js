@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { check, Match } from 'meteor/check';
 import os from 'os';
 import { ReactiveCache } from '/imports/reactiveCache';
 import {
@@ -59,7 +60,12 @@ Meteor.methods({
   },
 
   // Detail for one problem area (currently 'cpu'); mirrors the snap sub-command.
+  // `area` MUST be check()ed: Meteor runs with audit-argument-checks, so a method
+  // that receives an argument it never checks throws "Did not check() all arguments"
+  // on every call. Nothing passed an argument here until the CPU usage page started
+  // polling problemDetailReport('cpu'), which then failed every 5 seconds.
   async problemDetailReport(area) {
+    check(area, Match.OneOf(String, null, undefined));
     await requireAdmin();
     if (area === 'cpu') return cpuDetail();
     if (area === 'login') return { area: 'login', checks: await getLoginProblems() };
