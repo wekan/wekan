@@ -1380,3 +1380,74 @@ body.mobile-mode #header-quick-access .allBoards {
 #headerIsSettingDatabaseCallDone {
   display: none;
 }
+
+/* ── Small screens: home ICON only, never the "All Boards" label ─────────────
+   This block is last in the file on purpose.
+
+   The label lives in the quick-access bar as a BARE TEXT NODE inside the home
+   link (not a span), so it cannot be selected on its own. Collapsing the link's
+   font-size hides it and the icon's own font-size brings the icon back; the text
+   stays in the DOM, so screen readers still announce "All Boards".
+
+   Doing that needs !important and the last word, because eleven other rules in
+   this file set a font-size on the same link and most of them are !important -
+   including three that target the All Boards page specifically via
+   `body:not(.board-view)` / `.wrapper ~`, and one that sets 16px "Much larger
+   text". A plain rule (which is what the first attempt at this used) loses to
+   every one of them, so the label kept showing on exactly the page it was
+   reported on. Each competing selector shape is repeated here so that where
+   specificity ties, source order decides in favour of hiding.
+
+   Width, not mobile MODE: this is for "all smartphones, small width". The
+   separate `body.mobile-mode` rule above covers the explicit phone/desktop
+   toggle at any width. */
+@media screen and (max-width: 800px) {
+  #header-quick-access .home-icon a,
+  .wrapper ~ #header-quick-access .home-icon a,
+  body:not(.board-view) #header-quick-access .home-icon a,
+  .iphone-device #header-quick-access .home-icon a,
+  .iphone-device .wrapper ~ #header-quick-access .home-icon a,
+  .iphone-device body:not(.board-view) #header-quick-access .home-icon a {
+    font-size: 0 !important;
+    padding: 4px 6px !important;
+  }
+
+  #header-quick-access .home-icon a .fa-home,
+  #header-quick-access .home-icon .fa-home,
+  .wrapper ~ #header-quick-access .home-icon .fa-home,
+  body:not(.board-view) #header-quick-access .home-icon .fa-home,
+  .iphone-device #header-quick-access .home-icon .fa-home,
+  .iphone-device .wrapper ~ #header-quick-access .home-icon .fa-home,
+  .iphone-device body:not(.board-view) #header-quick-access .home-icon .fa-home {
+    font-size: 16px !important;
+    margin-inline-end: 0 !important;
+    padding: 0 !important;
+  }
+
+  #header-quick-access .home-icon,
+  #header-quick-access .allBoards {
+    margin-inline-end: 0 !important;
+    padding-inline-start: 0 !important;
+    padding-inline-end: 0 !important;
+  }
+
+  /* The notification bell sat in 36px of margin around a 28px icon: 10px on each
+     side of the button itself (notifications.css) PLUS 0.5rem on each side of its
+     `#notifications` wrapper, applied by several of the mobile blocks above. That
+     is more empty space than icon, and on a 375px bar it is space the other
+     buttons need. Both layers are trimmed here; 2px each side keeps the icons
+     from touching without wasting a tenth of the bar. */
+  #header-quick-access #notifications,
+  .wrapper ~ #header-quick-access #notifications,
+  body:not(.board-view) #header-quick-access #notifications,
+  .iphone-device #header-quick-access #notifications,
+  .iphone-device .wrapper ~ #header-quick-access #notifications,
+  .iphone-device body:not(.board-view) #header-quick-access #notifications {
+    margin: 0 !important;
+  }
+
+  #header-quick-access #notifications .notifications-drawer-toggle,
+  .iphone-device #header-quick-access #notifications .notifications-drawer-toggle {
+    margin: 0 2px !important;
+  }
+}
