@@ -1,5 +1,18 @@
 # WeKan Migration System - Comprehensive Review Complete ✅
 
+> **OBSOLETE — historical record.** This documents the old cron-driven migration
+> system and the **per-swimlane-lists** migration, both since **removed**. The cron
+> migration subsystem (`server/cronMigrationManager.js`) was deleted, and the
+> per-swimlane-lists board migrations (`comprehensiveBoardMigration`,
+> `fixMissingListsMigration`, `restoreLostCards`, `restoreAllArchived`) were removed
+> in [#6521](https://github.com/wekan/wekan/issues/6521). **WeKan lists are
+> board-wide — the same lists appear in every swimlane; there is no per-swimlane
+> lists model.** Current data repair lives in the startup schema upgrade
+> (`merge-per-swimlane-lists`, which reverts any per-swimlane duplication) and the
+> board-open self-heal (`repairBoardData`); see
+> [Repairs](../../Features/Admin-Panel/Problems/Repairs.md).
+
+
 ## Executive Summary
 
 The WeKan migration system has been comprehensively reviewed and improved to ensure:

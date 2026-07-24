@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# OBSOLETE (historical): verifies the old cron-driven migration system and the
+# per-swimlane-lists migration, both removed. The cron migration subsystem was
+# deleted and the per-swimlane-lists board migrations were removed in wekan#6521.
+# WeKan lists are board-wide (the same lists appear in every swimlane); there is
+# no per-swimlane lists model. Kept only as a record of the former system.
+
 # Verification script for WeKan migration system improvements
 # This script checks that all 13 migrations have proper implementations
 

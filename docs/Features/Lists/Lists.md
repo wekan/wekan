@@ -2,6 +2,16 @@
 
 **Lists** are the columns of a board. Cards move between lists as work progresses.
 
+**Lists are board-wide (shared across swimlanes).** A list is shared across the
+whole board: the same lists (columns) appear in **every swimlane**, and a card
+belongs to **one list and one swimlane** (the swimlane is its horizontal band).
+WeKan does **not** have per-swimlane lists — an earlier experiment that gave each
+swimlane its own lists (#4049) was reverted, because it duplicated columns per
+swimlane and moved cards unexpectedly. If a list ever gets bound to a single
+swimlane (so it disappears from the others), the board-open repair re-shares it
+across all swimlanes — see
+[Repairs](../Admin-Panel/Problems/Repairs.md).
+
 ## Add, archive, restore and delete lists
 
 - **Add** a list with the list composer at the side of the board.
