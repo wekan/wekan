@@ -187,6 +187,33 @@ body:not(.board-view) #header #header-main-bar h1 {
   font-size: 14px;
   padding: 4px 15px;
 }
+
+/* Mobile mode: the home ICON only, never the "All Boards" label.
+   `body.mobile-mode` is set by Utils.applyMobileMode() from the phone/desktop
+   toggle in this same bar, so it is a deliberate user choice and applies at ANY
+   viewport width - a narrow-viewport media query would miss it on a wide screen
+   in mobile mode, and miss the point: the user asked for mobile MODE, not for a
+   width. The label is the widest item in the bar and longer still in most
+   languages ("Kaikki taulut"), and the house icon alone is unambiguous.
+
+   The label is a bare text node inside the link, not a span, so it cannot be
+   selected on its own: font-size:0 on the link collapses it, and the icon's own
+   font-size brings the icon back. The text stays in the DOM, so screen readers
+   and the accessibility tree still announce "All Boards". */
+body.mobile-mode #header-quick-access .home-icon a {
+  font-size: 0;
+  padding: 4px 6px;
+}
+
+body.mobile-mode #header-quick-access .home-icon a .fa-home,
+body.mobile-mode #header-quick-access .home-icon .fa-home {
+  font-size: 16px;
+  margin-inline-end: 0;
+}
+
+body.mobile-mode #header-quick-access .allBoards {
+  padding: 4px 6px;
+}
 #header-quick-access a {
   text-decoration: none;
 }
