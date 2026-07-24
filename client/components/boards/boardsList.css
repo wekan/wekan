@@ -1013,7 +1013,7 @@ body.grey-icons-enabled .checkmark-no-grey {
        menu read as cramped, while the board column had more width than two 4rem
        tiles need. 42% gives the menu ~157px - enough for the longest label on one
        line - and still leaves ~200px for the tiles. */
-    grid-template-columns: minmax(140px, 42%) 1fr;
+    grid-template-columns: minmax(140px, min(42%, 210px)) 1fr;
     gap: 8px;
   }
   .board-list {
@@ -1158,7 +1158,7 @@ body.grey-icons-enabled .checkmark-no-grey {
      collapsing to one column is no longer needed. The board list stays in its own
      right-hand column with its own overflow-y:auto scroll. */
   .boards-layout {
-    grid-template-columns: minmax(140px, 42%) 1fr !important; /* #6523: wider menu, narrower boards */
+    grid-template-columns: minmax(140px, min(42%, 210px)) 1fr !important; /* #6523: wider menu, narrower boards; capped so landscape (~844px) does not balloon it */
   }
 }
 .AllBoardTeamsOrgs {
@@ -1530,7 +1530,8 @@ body.grey-icons-enabled .checkmark-no-grey {
    two rows were separated by a tall empty band. That came from `.path-right`
    being free to grow; pinning `row-gap` and letting each part take exactly one
    full-width row puts them directly above one another. */
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 800px),
+       screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
   .boards-path-header {
     flex-wrap: wrap;
     gap: 6px;
@@ -1566,4 +1567,26 @@ body.grey-icons-enabled .checkmark-no-grey {
 .board-list .board-list-item:not(:has(.board-handle)) .details,
 .board-list.mobile-view .board-list-item:not(:has(.board-handle)) .details {
   padding-inline-end: 0;
+}
+
+/* #6523: on a phone (either orientation) the count chip sits right after its
+   label, not pushed to the far edge. The menu item is `justify-content:
+   space-between` with a `flex: 1` label, which spreads the label and the count
+   apart across the whole column - fine on a narrow portrait menu, but a wide gap
+   on a landscape iPhone where the column is wider. Packing them left keeps the
+   number beside the text at any menu width. Scoped to the mobile layout so the
+   desktop 260px menu is untouched. */
+@media screen and (max-width: 800px),
+       screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
+  .boards-left-menu .menu-item a {
+    justify-content: flex-start;
+    gap: 8px;
+  }
+  .boards-left-menu .menu-item .menu-label {
+    flex: 0 1 auto;
+  }
+  /* No extra left margin now that a flex `gap` sets the spacing. */
+  .boards-left-menu .menu-item .menu-count {
+    margin-inline-start: 0;
+  }
 }
