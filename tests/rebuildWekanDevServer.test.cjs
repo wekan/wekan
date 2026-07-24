@@ -38,19 +38,28 @@ test('the handler runs Meteor with the answers, not with hard-coded 3000', () =>
   assert.ok(!/localhost:3000/.test(commands), 'the handler must not pin localhost:3000');
 });
 
-test('a bare host answer becomes a subdomain of localhost, a dotted one is used as-is', () => {
-  assert.ok(/case "\$host" in\s*\n\s*localhost\|\*\.\*\) : ;;/.test(sh),
-    'a host containing a dot (or plain localhost) is left alone');
-  assert.ok(/\*\) host="\$host\.localhost" ;;/.test(sh),
-    'a bare label becomes <label>.localhost');
+// The port Meteor LISTENS on and the URL a BROWSER uses are different things
+// behind a reverse proxy: Caddy serves https://wekan.example.com on 443 and
+// forwards to localhost:PORT, so appending the local port to that ROOT_URL would
+// produce https://wekan.example.com:4000, which nothing serves.
+test('a full URL answer is used verbatim - no port appended (the reported bug)', () => {
+  assert.ok(/\*:\/\/\*\)\s*\n(?:\s*#[^\n]*\n)*\s*url="\$answer" ;;/.test(sh),
+    'an answer containing a scheme must be used exactly as given');
 });
 
-test('a pasted URL is reduced to a host (negative)', () => {
-  // http://board.localhost:9999/ must not end up inside ROOT_URL verbatim.
-  assert.ok(/host="\$\{host#http:\/\/\}"/.test(sh), 'strips http://');
-  assert.ok(/host="\$\{host#https:\/\/\}"/.test(sh), 'strips https://');
-  assert.ok(/host="\$\{host%%\/\*\}"/.test(sh), 'strips a path');
-  assert.ok(/host="\$\{host%%:\*\}"/.test(sh), 'strips a port');
+test('a dotted host with no scheme is treated as public, not local', () => {
+  assert.ok(/\*\.\*\)\s*\n(?:\s*#[^\n]*\n)*\s*url="https:\/\/\$answer" ;;/.test(sh),
+    'a public name gets https:// and NO local port');
+});
+
+test('only a local answer gets the port appended', () => {
+  assert.ok(/url="http:\/\/localhost:\$port" ;;/.test(sh), 'empty answer -> localhost:PORT');
+  assert.ok(/url="http:\/\/\$answer\.localhost:\$port" ;;/.test(sh),
+    'a bare label -> <label>.localhost:PORT');
+});
+
+test('a trailing slash is removed so built URLs do not double up (negative)', () => {
+  assert.ok(/answer="\$\{answer%\/\}"/.test(sh), 'strips one trailing slash');
 });
 
 test('a non-numeric or out-of-range port falls back to 3000 (negative)', () => {
@@ -60,7 +69,8 @@ test('a non-numeric or out-of-range port falls back to 3000 (negative)', () => {
 
 test('it can be driven non-interactively', () => {
   assert.ok(/port="\$\{WEKAN_DEV_PORT:-\}"/.test(sh), 'WEKAN_DEV_PORT skips the port prompt');
-  assert.ok(/host="\$\{WEKAN_DEV_HOST:-\}"/.test(sh), 'WEKAN_DEV_HOST skips the host prompt');
+  assert.ok(/answer="\$\{WEKAN_DEV_ROOT_URL:-\$\{WEKAN_DEV_HOST:-\}\}"/.test(sh),
+    'WEKAN_DEV_ROOT_URL (or WEKAN_DEV_HOST) skips the ROOT_URL prompt');
 });
 
 // --- the inotify limit check (added alongside; same file, no other coverage) ---

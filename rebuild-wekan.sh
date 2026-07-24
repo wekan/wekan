@@ -1150,29 +1150,38 @@ function ensure_inotify_watches(){
 }
 
 # ── Dev server URL ───────────────────────────────────────────────────────────
-# Ask for the port and the ROOT_URL host, so a dev server can run somewhere other
-# than http://localhost:3000 without editing this script. Sets DEV_PORT and
-# DEV_ROOT_URL for the caller.
+# Ask for the port Meteor LISTENS on and for ROOT_URL, so a dev server can run
+# somewhere other than http://localhost:3000 without editing this script. Sets
+# DEV_PORT and DEV_ROOT_URL for the caller.
 #
-# ROOT_URL matters beyond cosmetics: Meteor builds absolute URLs from it
-# (e-mail links, OAuth redirects, attachment URLs), so a subdomain setup has to
-# be told about it or those links point at localhost.
+# The two are NOT the same thing, and that is the point:
+#   * DEV_PORT is local - what `meteor run --port` binds on this machine.
+#   * DEV_ROOT_URL is the address a BROWSER uses. Meteor builds absolute URLs
+#     from it (e-mail links, OAuth redirects, attachment URLs), so it has to be
+#     the public address, not the local socket.
 #
-# The host answer accepts either form:
-#   <empty>            -> localhost
-#   wekan              -> wekan.localhost   (a BARE label becomes a subdomain of
-#                         localhost; browsers and systemd-resolved resolve
-#                         *.localhost to 127.0.0.1 with no /etc/hosts entry)
-#   wekan.example.com  -> used AS-IS (anything containing a dot is a full host)
+# Behind a reverse proxy those differ completely: Caddy terminates
+# https://wekan.example.com on 443 and forwards to localhost:PORT, so ROOT_URL
+# must be exactly https://wekan.example.com — appending the local port would
+# produce https://wekan.example.com:4000, which nothing serves.
 #
-# Non-interactive: WEKAN_DEV_PORT / WEKAN_DEV_HOST skip the matching prompt, so
-# this can be scripted.
+# So the port is appended ONLY when you browse the dev server directly:
+#   <empty>                    -> http://localhost:PORT          (port appended)
+#   wekan                      -> http://wekan.localhost:PORT    (port appended)
+#                                 (browsers and systemd-resolved resolve
+#                                 *.localhost to 127.0.0.1, no /etc/hosts entry)
+#   https://wekan.example.com  -> used EXACTLY as given          (no port)
+#   wekan.example.com          -> https://wekan.example.com      (no port; a
+#                                 dotted name is assumed to be proxied)
+#
+# Non-interactive: WEKAN_DEV_PORT / WEKAN_DEV_ROOT_URL (or WEKAN_DEV_HOST, the
+# same answer as the prompt) skip the matching prompt.
 function ask_dev_url(){
-	local port host
+	local port answer url
 
 	port="${WEKAN_DEV_PORT:-}"
 	if [ -z "$port" ]; then
-		read -r -p "Port for the dev server [3000]: " port
+		read -r -p "Port for the dev server to listen on [3000]: " port
 	fi
 	port="${port:-3000}"
 	case "$port" in
@@ -1182,27 +1191,40 @@ function ask_dev_url(){
 		   fi ;;
 	esac
 
-	host="${WEKAN_DEV_HOST:-}"
-	if [ -z "$host" ]; then
-		echo "ROOT_URL host: a bare name becomes <name>.localhost, a name with a dot is used as-is."
-		read -r -p "ROOT_URL host [localhost]: " host
+	answer="${WEKAN_DEV_ROOT_URL:-${WEKAN_DEV_HOST:-}}"
+	if [ -z "$answer" ]; then
+		echo "ROOT_URL: empty or a bare name = local (the port is added);"
+		echo "          a full URL or a dotted name = public/proxied (the port is NOT added)."
+		read -r -p "ROOT_URL [http://localhost:$port]: " answer
 	fi
-	host="${host:-localhost}"
-	# Strip anything the user pasted around the name: scheme, port, trailing slash.
-	host="${host#http://}"; host="${host#https://}"
-	host="${host%%/*}"; host="${host%%:*}"
-	[ -z "$host" ] && host="localhost"
-	case "$host" in
-		localhost|*.*) : ;;              # already a full host
-		*) host="$host.localhost" ;;     # bare label -> subdomain of localhost
+	answer="${answer%/}"          # a trailing slash would double up in built URLs
+
+	case "$answer" in
+		'')
+			url="http://localhost:$port" ;;
+		*://*)
+			# A complete URL: the user has said exactly what the browser uses.
+			# Never touch it - not the scheme, not the port, not a port they left
+			# off on purpose because a proxy serves 80/443.
+			url="$answer" ;;
+		*.*)
+			# A dotted host with no scheme: a public name, so assume it is proxied
+			# (that is what a public name is for) and do NOT append the local port.
+			url="https://$answer" ;;
+		*)
+			# A bare label: a subdomain of localhost, browsed directly.
+			url="http://$answer.localhost:$port" ;;
 	esac
 
 	DEV_PORT="$port"
-	DEV_ROOT_URL="http://$host:$port"
-	echo "==> ROOT_URL=$DEV_ROOT_URL   (Meteor listens on port $port)"
-	case "$host" in
-		localhost|*.localhost) : ;;
-		*) echo "    NOTE: '$host' must resolve to this machine - add it to /etc/hosts if it does not." ;;
+	DEV_ROOT_URL="$url"
+	echo "==> Meteor listens on port $port"
+	echo "==> ROOT_URL=$DEV_ROOT_URL"
+	case "$url" in
+		*localhost*) : ;;
+		*)
+			echo "    (no port appended: a public ROOT_URL is expected to be served by a"
+			echo "     reverse proxy - e.g. Caddy forwarding it to localhost:$port)" ;;
 	esac
 }
 
