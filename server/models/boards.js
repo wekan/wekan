@@ -1150,8 +1150,16 @@ WebApp.handlers.post('/api/boards/:boardId/copy', async function(req, res) {
       data: ret,
     });
   } catch (error) {
+    // An exception must NOT be reported as HTTP 200: sendJsonResult defaults the
+    // status to 200 when no `code` is given, so `catch { data: error }` returned
+    // 200 with the error object as the body — a failed copy looked like a success
+    // whose response happened to be an error (the copy REST test then saw an
+    // object, not the new board id). Return 500 with the message, and log the
+    // stack server-side so a failing copy is diagnosable instead of swallowed.
+    console.error('POST /api/boards/:boardId/copy failed:', error);
     sendJsonResult(res, {
-      data: error,
+      code: 500,
+      data: { error: (error && error.message) || String(error) },
     });
   }
 });

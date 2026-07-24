@@ -1118,6 +1118,12 @@ Boards.helpers({
     }
     const cards = await ReactiveCache.getCards({ boardId: _id });
     for (const card of cards) {
+      // Guard against a card with no customFields (the schema defaults it to []
+      // but a card copied via `.direct` / seeded raw can lack it) — otherwise
+      // `.map` throws and the whole board copy fails. Skip cards that have none,
+      // matching the `!this.customFields || !Array.isArray(...)` guard used
+      // elsewhere in this model.
+      if (!Array.isArray(card.customFields) || card.customFields.length === 0) continue;
       await Cards.updateAsync(card._id, {
         $set: {
           customFields: card.customFields.map(cf => {
