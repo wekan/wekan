@@ -28,10 +28,9 @@ if (errors.length > 0) {
 
 
 // Import migrations - COMMENTED OUT
-// import './migrations/fixMissingListsMigration';
 // import './migrations/fixAvatarUrls';
 // import './migrations/fixAllFileUrls';
-// import './migrations/comprehensiveBoardMigration';
+// (fixMissingListsMigration / comprehensiveBoardMigration removed in #6521)
 
 // Import file serving routes
 import './routes/universalFileServer';

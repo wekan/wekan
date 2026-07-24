@@ -198,16 +198,22 @@ import '/server/startup/repairBoardsOnStartup';
 // ----------------------------------------------------------------------------
 // 11. Server — migrations
 // ----------------------------------------------------------------------------
-import '/server/migrations/comprehensiveBoardMigration';
+// #6521: the per-swimlane-lists-era board migrations (comprehensiveBoardMigration,
+// fixMissingListsMigration, restoreLostCards, restoreAllArchived) are removed. They
+// converted today's board-wide SHARED lists (swimlaneId '') back into per-swimlane
+// DUPLICATE columns and created "Lost Cards" / "Restored Items" columns, moving
+// real cards into them (they even treated cards on archived lists as "orphaned" and
+// shared-swimlane cards as "lost"). That is exactly the damage the startup schema
+// step `merge-per-swimlane-lists` now UNDOES, and the board-open self-heal
+// (repairBoardData) fixes genuinely missing swimlaneId / orphaned cards correctly.
+// The migrations had no callers left (their admin migration dashboard was removed),
+// so they were dead, admin-callable footguns.
 import '/server/migrations/correctFileExtensions';
 import '/server/migrations/deleteDuplicateEmptyLists';
 import '/server/migrations/ensureValidSwimlaneIds';
 import '/server/migrations/fixAllFileUrls';
 import '/server/migrations/fixAvatarUrls';
-import '/server/migrations/fixMissingListsMigration';
 import '/server/migrations/migrateAttachments';
-import '/server/migrations/restoreAllArchived';
-import '/server/migrations/restoreLostCards';
 // #6473: startup schema upgrade — checks what old-version data is already
 // migrated and migrates only the rest (all platforms, both databases).
 import '/server/startupSchemaUpgrade';
