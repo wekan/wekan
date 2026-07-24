@@ -1355,6 +1355,54 @@ body.mobile-mode #header-quick-access .allBoards {
   }
 
 }
+
+/* ── Tablet widths: keep the board bar (second bar) on ONE line ──────────────
+   Reported on iPad landscape: the board title, edit, visibility, watch, star and
+   sort sat on the first row and Filter / Search / view / dependencies /
+   multi-selection / hamburger wrapped onto a second row.
+
+   Measured from that screenshot (1180 CSS px viewport): the two rows needed
+   ~613px + ~691px = ~1304px on one line, i.e. ~124px more than the viewport. But
+   most of that is per-button CHROME, not text - every .board-header-btn carries
+   12px side margins (24px), its icon another 10px on each side (20px) and a 10px
+   gap after the label: ~54px of empty space around a ~60px icon+label. Halving
+   that chrome frees ~295px, which puts the bar on one line at 1180px with room to
+   spare for languages whose labels are longer than the Finnish ones.
+
+   Only the empty space shrinks - icon and label sizes are untouched, so a button
+   is still a comfortable target, and rows below 801px keep the existing phone
+   treatment (that block already hides the labels and grows the buttons to 44px).
+   Bounded at 1400px so wide desktops, which have never wrapped, look exactly as
+   before; 1400px covers iPad Pro 12.9" landscape (1366px). */
+@media screen and (min-width: 801px) and (max-width: 1400px) {
+  #header #header-main-bar .board-header-btn {
+    margin: 0 6px;
+  }
+  #header #header-main-bar .board-header-btn i.fa {
+    margin: 0 5px;
+  }
+  #header #header-main-bar .board-header-btn i.fa + span {
+    margin-inline-end: 5px;
+  }
+  #header #header-main-bar h1 {
+    padding: 0 5px;
+    margin-inline-end: 5px;
+  }
+  #header #header-main-bar .separator {
+    margin: 2px 2px;
+  }
+}
+
+/* Tablet PORTRAIT (e.g. iPad 820px, iPad Pro 12.9" 1024px is wide enough for the
+   labels): even with the chrome halved above, ~1009px of icons+labels does not
+   fit. Drop the labels to icons only - the same thing the phone block does below
+   801px - so the bar still holds one line instead of wrapping. The title, the
+   tooltips and the popups are unchanged, so nothing becomes unreachable. */
+@media screen and (min-width: 801px) and (max-width: 1000px) {
+  #header #header-main-bar .board-header-btn i.fa + span {
+    display: none;
+  }
+}
 @media print {
   #header-quick-access .allBoards,
   #header-quick-access ul,
