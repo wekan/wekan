@@ -237,6 +237,27 @@ and fixes the following bugs:
   dropped](https://github.com/wekan/wekan/commit/1fb382f0e).
   Thanks to Alishara and xet7.
 
+- [Upgrading no longer grows a spurious "Restored Items" column full of cards that look
+  empty but are not. Four obsolete per-swimlane-lists-era board migrations fought today's
+  data model and are removed. `restoreLostCards` created a "Lost Cards" swimlane and a
+  "Restored Items" list and moved cards into them — it counted a card "orphaned" when its
+  list was merely ARCHIVED (archived lists are excluded from the set it checks) and "lost"
+  when its `swimlaneId` was `''` (which is NORMAL for a board-wide shared card), so it
+  dragged real, healthy cards into "Restored Items", where they rendered oddly.
+  `comprehensiveBoardMigration` and `fixMissingListsMigration` converted today's board-wide
+  SHARED lists (`swimlaneId ''`) back into per-swimlane DUPLICATE columns — the exact damage
+  the startup schema step `merge-per-swimlane-lists` now UNDOES — and `restoreAllArchived`
+  un-archived every swimlane / list / card at once. All four had NO callers left (their admin
+  migration dashboard was already removed), so they were dead code exposed only as
+  admin-callable Meteor methods that could re-corrupt a board if invoked. The correct paths
+  remain: the board-open self-heal (`repairBoardData`) relinks a genuinely missing swimlaneId
+  or an orphaned card to the board's real first list/swimlane, and `merge-per-swimlane-lists`
+  merges any per-swimlane duplicate columns back into one shared list while cards keep their
+  swimlaneId; it still keys off the era's board markers in existing data, so removing the code
+  that once wrote them changes nothing for already-migrated boards. A test keeps the four from
+  coming back](https://github.com/wekan/wekan/commit/88a076561).
+  Thanks to hmeunier95 and xet7.
+
 - ["Map to existing user" for an imported (virtual) member now searches every user
   instead of listing only board members. After importing a Trello board and choosing to
   map users later, the picker offered nothing but the admin: it listed only the ACTIVE
