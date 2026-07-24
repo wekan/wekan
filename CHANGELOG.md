@@ -802,6 +802,17 @@ and has the following developer-tooling changes:
   and are untouched](https://github.com/wekan/wekan/commit/aa356d715).
   Thanks to xet7.
 
+- [Pushing the English source to Transifex works again. `tx push -s` failed with
+  `parse_error: Duplicate string key` because `en.i18n.json` had two `cpu-cores` keys — the
+  existing `"CPU Cores"` (already on Transifex with human translations) and a second `"cores"`
+  added by the CPU-usage feature. A JavaScript JSON parser silently keeps the last, so the
+  app never noticed, but Transifex rejects duplicates — and the collision also made
+  `cpu-cores` resolve to `"cores"` everywhere. The CPU-usage string needs a different value,
+  so it moves to a new unique key `cpu-cores-suffix`; the pre-existing `cpu-cores` is left
+  untouched, matching every other language file, so no human translation is
+  disturbed](https://github.com/wekan/wekan/commit/8f6f4a126).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v10.33 2026-07-23 WeKan ® release
