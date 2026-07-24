@@ -196,7 +196,7 @@ This release adds the following new features:
   as unfixable and left alone, never deleted, instead of leaving a count that never reaches
   zero unexplained. What counts as broken now lives in ONE pure module used by both the
   count and the repair, so they can no longer drift apart, with unit and negative tests for
-  the rule](https://github.com/wekan/wekan/commit/44b20e593).
+  the rule](https://github.com/wekan/wekan/commit/d168a9d30).
   Thanks to xet7.
 
 - [Admin Panel → Problems → CPU usage now shows the CURRENT CPU usage between the page
@@ -208,7 +208,7 @@ This release adds the following new features:
   monitor writes its event rows from, so the header and the rows below it can never
   disagree, and with the background monitor disabled (`WEKAN_CPU_MONITOR=false`) it
   measures between calls using a separate baseline instead of always reading
-  0%](https://github.com/wekan/wekan/commit/e7f485a88).
+  0%](https://github.com/wekan/wekan/commit/f04c48451).
   Thanks to xet7.
 
 and fixes the following bugs:
@@ -231,7 +231,7 @@ and fixes the following bugs:
   dropping `profile` from every search result — it read the Mongo-style paths in its
   allowlist (`profile.fullname`) as FLAT keys, so both this picker and the add-member
   typeahead showed a blank name with only the username in
-  brackets](https://github.com/wekan/wekan/commit/e68fba9e0).
+  brackets](https://github.com/wekan/wekan/commit/642fa8e93).
   Thanks to AmigaAbattoir and xet7.
 
 - [Admin Panel report styles were never loaded, so every report's prev/next pagination
@@ -247,7 +247,7 @@ and fixes the following bugs:
   "next" left it dark grey until it lost focus. Disabled is now the same themed outline
   faded rather than a grey block, and the "3 / 42" page info inherits the surrounding text
   colour instead of a hard-coded `#333` that vanishes on dark
-  backgrounds](https://github.com/wekan/wekan/commit/5af48abd0).
+  backgrounds](https://github.com/wekan/wekan/commit/1fb32b226).
   Thanks to xet7.
 
 - [Admin Panel → Problems → Cards report loads and pages faster. The report already
@@ -260,7 +260,7 @@ and fixes the following bugs:
   count plus a second server round trip even though the total cannot change just because
   you moved to the next page; opening a report and searching in it now recount, plain
   paging does not. Both changes also apply to the files, rules, boards, impersonation and
-  recovery reports, which share the same loader](https://github.com/wekan/wekan/commit/b0407209c).
+  recovery reports, which share the same loader](https://github.com/wekan/wekan/commit/668802cd7).
   Thanks to xet7.
 
 and fixes the following bugs:
@@ -277,7 +277,7 @@ and fixes the following bugs:
   (Admin Panel → Attachments) and `migrateTextDatabase` (the MongoDB ↔ FerretDB text
   migration), plus `getServiceConfiguration`, which has no current client caller. Each now
   checks its arguments against the types its call sites actually pass
-  ](https://github.com/wekan/wekan/commit/9389e8224).
+  ](https://github.com/wekan/wekan/commit/49e576b3c).
   Thanks to xet7.
 
 and removes the following dead code:
@@ -301,7 +301,7 @@ and removes the following dead code:
   SyncedCron itself, used by the backup schedule and scheduled rules. The Problems
   in-progress list no longer reads `cronJobStatus`, because a leftover `status:'running'`
   doc from an older version would now have nothing to clear it and would report a
-  migration running forever](https://github.com/wekan/wekan/commit/430a1559f).
+  migration running forever](https://github.com/wekan/wekan/commit/a440d44ea).
   Thanks to xet7.
 
 and has the following developer-tooling addition:
@@ -319,7 +319,7 @@ and has the following developer-tooling addition:
   is deleted before anything is written, and the reports directory is gitignored because
   these files describe unfixed vulnerabilities. Needed because the VSCode Flatpak sandbox
   has neither `gh` nor network access to
-  api.github.com](https://github.com/wekan/wekan/commit/896918215).
+  api.github.com](https://github.com/wekan/wekan/commit/f793c4bac).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
