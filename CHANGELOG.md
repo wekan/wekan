@@ -583,6 +583,18 @@ and fixes the following bugs:
   change](https://github.com/wekan/wekan/commit/ab1b2dc4e).
   Thanks to xet7.
 
+- [All Boards drag-reorder now persists and can move a board to the end, and the header is
+  decluttered. Dropping one board onto another threw `INVALID [400]` because
+  `profile.boardSortIndex` (written on reorder) had no schema entry while the user
+  `profile` enumerates its subfields — a schema field is added. Dropping on a board can
+  only place it BEFORE that board, so a dashed "drop here to move to the end" placeholder
+  now sits after the last board (custom sort only) as a reachable last slot. And the
+  current folder's NAME beside its icon in the header ("Starred"/"Remaining"/a workspace
+  name) is hidden — redundant with the icon, the highlighted menu row and the "My Boards"
+  title, and it crowded the Multi-Selection / Sort / search controls — kept for screen
+  readers only](https://github.com/wekan/wekan/commit/e571420c9).
+  Thanks to xet7.
+
 and removes the following dead code:
 
 - [Removed the cron migration subsystem: it never ran and had no UI, yet every logged-in
