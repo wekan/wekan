@@ -488,7 +488,17 @@ and fixes the following bugs:
   and the results list are now width-constrained, bounded scroll containers carrying
   `.dragscroll`; the query form shares the class but is a short fixed header, so it is
   explicitly excluded from becoming a scroll box of its
-  own](https://github.com/wekan/wekan/commit/1d022d3e5).
+  own](https://github.com/wekan/wekan/commit/1d022d3e5). Giving each panel its own scroll
+  box turned out not to work — the panels start BELOW the search form, so their bottoms and
+  their scrollbars ended up past the bottom of the clipped wrapper, leaving text cut
+  mid-character after "Notes" on iPhone and the list ending at "Differing operators … red
+  label." on Fairphone 4. The page now has exactly ONE scroll container: its wrapper is
+  tagged `global-search-wrapper` and is `height: auto; min-height: 100vh; overflow-y: auto`
+  at phone widths, with the panels back to plain content. `.dragscroll` moved to that
+  wrapper and was REMOVED from the panels, which is required rather than tidying —
+  `dragscrollTouch.js` takes the nearest `.dragscroll` ancestor and gives up if it cannot
+  scroll, so leaving the class on a now-static panel would have disabled finger dragging on
+  the whole page](https://github.com/wekan/wekan/commit/be07356cc).
   Thanks to xet7.
 
 and removes the following dead code:
