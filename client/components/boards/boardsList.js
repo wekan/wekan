@@ -1153,12 +1153,20 @@ Template.boardList.events({
     evt.stopPropagation();
     if (dt) dt.dropEffect = 'move';
     const tile = evt.currentTarget;
-    const rect = tile.getBoundingClientRect();
-    // Inline axis: RTL-aware. Past the centre => insert after this tile.
-    const ltr = getComputedStyle(tile).direction !== 'rtl';
-    const mid = rect.left + rect.width / 2;
-    const x = evt.originalEvent.clientX;
-    const after = ltr ? x > mid : x < mid;
+    // Hovering a tile opens the gap AT that tile's slot (insert before it), so a
+    // board dropped anywhere on a card lands in that card's place - no need to
+    // aim the card's left half. The only exception is the LAST tile: its trailing
+    // half inserts AFTER it, so the end of the order stays reachable.
+    const allTiles = Array.from(tile.parentNode.querySelectorAll('.js-board'));
+    const isLast = allTiles[allTiles.length - 1] === tile;
+    let after = false;
+    if (isLast) {
+      const rect = tile.getBoundingClientRect();
+      const ltr = getComputedStyle(tile).direction !== 'rtl';
+      const mid = rect.left + rect.width / 2;
+      const x = evt.originalEvent.clientX;
+      after = ltr ? x > mid : x < mid;
+    }
     showBoardPlaceholder(tile, after);
   },
   'drop .js-board'(evt, tpl) {
