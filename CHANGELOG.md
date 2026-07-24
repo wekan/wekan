@@ -213,6 +213,27 @@ This release adds the following new features:
 
 and fixes the following bugs:
 
+- ["Map to existing user" for an imported (virtual) member now searches every user
+  instead of listing only board members. After importing a Trello board and choosing to
+  map users later, the picker offered nothing but the admin: it listed only the ACTIVE
+  REAL MEMBERS of the board, and right after an import the real people have no membership
+  at all — the placeholders do — so on a board whose only real member is the importing
+  admin there was literally nobody to pick, and no search box either. The picker now has a
+  search box that goes through the same permission-checked `searchUsers` method the normal
+  add-member typeahead uses, so the same board-membership check and the same #6116
+  same-org/team restriction apply; with the box empty it still lists the board's real
+  members (which changes no roles at all), and typing searches every real user and labels
+  the ones who are not on this board yet. Mapping onto a user who is not a board member
+  adds them with the PLACEHOLDER's own role — the role the import recorded for that
+  person, never a higher one — and only after passing exactly the checks inviting them
+  would: the Admin Panel "roles allowed to invite" setting, the same-org/team restriction,
+  and the refusal to add a deactivated account. This also fixes `sanitizeUserForSearch`
+  dropping `profile` from every search result — it read the Mongo-style paths in its
+  allowlist (`profile.fullname`) as FLAT keys, so both this picker and the add-member
+  typeahead showed a blank name with only the username in
+  brackets](https://github.com/wekan/wekan/commit/e68fba9e0).
+  Thanks to AmigaAbattoir and xet7.
+
 - [Admin Panel report styles were never loaded, so every report's prev/next pagination
   button rendered with a black background. `client/components/settings/adminReports.css`
   was not imported anywhere, and `package.json` sets `meteor.mainModule`, which disables
