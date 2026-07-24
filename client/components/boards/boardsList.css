@@ -1039,26 +1039,38 @@ body.grey-icons-enabled .checkmark-no-grey {
      the rendered height rather than a floor to add padding to. This covers every
      tab of All Boards - Starred, Templates, Remaining and Workspaces all render
      the same `.board-list` tiles. */
+  /* `.board-list.mobile-view .board-list-item` (set by isMiniScreen on the <ul>,
+     outside any media query) also declares `height: 8rem` and is MORE specific
+     (0,3,0) than `.board-list .board-list-item` (0,2,0), so it won on board tiles
+     while the add tile - matched by `.board-list .js-add-board .label`, also
+     (0,3,0) but later in the file - shrank. That is why one board icon ended up
+     several times the height of "+ Add Board" instead of equal to it. Both
+     `.mobile-view` shapes are therefore spelled out here. */
   .board-list .board-list-item,
+  .board-list.mobile-view .board-list-item,
   .board-list .js-add-board .label,
-  .board-list .js-add-board .label.is-template-container {
+  .board-list.mobile-view .js-add-board .label,
+  .board-list .js-add-board .label.is-template-container,
+  .board-list.mobile-view .js-add-board .label.is-template-container {
     box-sizing: border-box;
     height: 4rem;
     min-height: 4rem;
   }
 
-  .board-list .board-list-item {
+  .board-list .board-list-item,
+  .board-list.mobile-view .board-list-item {
     overflow: visible;
     width: 100%;
     margin: 0;
-    padding: 6px 40px 6px 8px; /* was 24px/18px vertical: too tall for a 4rem tile */
-    padding-inline-end: 40px; /* Ensure content doesn't overlap with drag handle */
+    padding: 6px 30px 6px 8px; /* was 24px/18px vertical: too tall for a 4rem tile */
   }
 
   /* The add tile centres its label, so it only needs enough padding not to touch
      the edges; the flex centring already positions the text. */
   .board-list .js-add-board .label,
-  .board-list .js-add-board .label.is-template-container {
+  .board-list.mobile-view .js-add-board .label,
+  .board-list .js-add-board .label.is-template-container,
+  .board-list.mobile-view .js-add-board .label.is-template-container {
     padding: 6px 8px;
   }
 
@@ -1374,4 +1386,30 @@ body.grey-icons-enabled .checkmark-no-grey {
   background: rgba(0, 0, 0, 0.25);
   border-radius: inherit;
   z-index: 0;
+}
+
+/* ── Equal, short tiles whenever the list renders in mobile view ─────────────
+   `.mobile-view` is put on the <ul> by the template from Utils.isMiniScreen(),
+   which also weighs mobile MODE and the device - so it can be set on a wide
+   screen, where a `max-width: 800px` media query does not apply. The 8rem rule
+   this overrides (`.board-list.mobile-view .board-list-item`, further up) is
+   itself outside any media query, so the override has to be too, or a board tile
+   stays 8rem while "+ Add Board" is 4rem and the two do not match.
+
+   Last in the file so that, at equal specificity, source order decides. */
+.board-list.mobile-view .board-list-item,
+.board-list.mobile-view .js-add-board .label,
+.board-list.mobile-view .js-add-board .label.is-template-container {
+  box-sizing: border-box;
+  height: 4rem;
+  min-height: 4rem;
+}
+
+.board-list.mobile-view .board-list-item {
+  padding: 6px 30px 6px 8px;
+}
+
+.board-list.mobile-view .js-add-board .label,
+.board-list.mobile-view .js-add-board .label.is-template-container {
+  padding: 6px 8px;
 }
