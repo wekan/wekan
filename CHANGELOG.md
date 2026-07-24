@@ -341,6 +341,25 @@ and fixes the following bugs:
   focused](https://github.com/wekan/wekan/commit/5a1a661e0).
   Thanks to xet7.
 
+- [The quick-access top bar now fits on ONE row on phones. On an iPhone 12 mini (375px) it
+  wrapped to two rows — home + logo + mobile/desktop toggle on the first, drag-handle
+  toggle + zoom + notifications + user menu on the second. The mobile CSS chose that
+  deliberately (a nowrap row overflowed and was clipped), but that treated the symptom: the
+  row did not fit because the home link kept its full "All Boards" label — the widest item
+  in the bar, and longer still in most languages — the logo was allowed 120px of a 375px
+  bar, TWO items had `margin-inline-start: auto` (an auto margin absorbs all remaining
+  space on its line, so the first one filled row 1 and pushed the rest onto row 2), and
+  items carried 8px gaps plus 0.5rem margins on both sides on the iPhone path. The row now
+  fits: icon-only home link, an 84×20 logo cap, exactly one auto margin, 6px gaps and 3px
+  margins — 342px of 375px by the declared sizes. The home label is a bare text node so it
+  cannot be selected directly; `font-size: 0` on the link collapses it and the icon's own
+  size brings the icon back, with the text still in the DOM for screen readers. Both the
+  `@media` path and the `.iphone-device` path (added by boardBody.js, so present on a board
+  page and absent on All Boards) were changed together, or the bar would have changed
+  height when navigating between those two
+  screens](https://github.com/wekan/wekan/commit/21be1e57b).
+  Thanks to xet7.
+
 and removes the following dead code:
 
 - [Removed the cron migration subsystem: it never ran and had no UI, yet every logged-in
