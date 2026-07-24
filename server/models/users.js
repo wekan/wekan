@@ -2102,11 +2102,36 @@ const sanitizeUserForSearch = userData => {
     orgs: 1,
   };
 
+  // safeFields lists Mongo-style paths, so 'profile.fullname' has to be read as a NESTED
+  // value: a flat userData['profile.fullname'] lookup is always undefined on a real
+  // document, so `profile` was silently dropped from every search result and the
+  // add-member typeahead (and the #6519 map-to-existing-user picker) showed a blank name
+  // with only the username in brackets. Copy dotted paths into the same nested shape,
+  // still allowlisting exactly the listed leaves and nothing else.
   const sanitized = {};
   for (const field of Object.keys(safeFields)) {
-    if (userData[field] !== undefined) {
-      sanitized[field] = userData[field];
+    if (!field.includes('.')) {
+      if (userData[field] !== undefined) {
+        sanitized[field] = userData[field];
+      }
+      continue;
     }
+    const [parent, leaf] = field.split('.');
+    const parentValue = userData[parent];
+    if (parentValue === undefined || parentValue === null) continue;
+    if (Array.isArray(parentValue)) {
+      // e.g. 'emails.address' and 'emails.verified' -> keep those leaves of every entry.
+      // Indexes are preserved so a second listed leaf merges into the same entry.
+      const existing = Array.isArray(sanitized[parent]) ? sanitized[parent] : [];
+      sanitized[parent] = parentValue.map((entry, i) => {
+        const out = { ...(existing[i] || {}) };
+        if (entry && entry[leaf] !== undefined) out[leaf] = entry[leaf];
+        return out;
+      });
+      continue;
+    }
+    if (parentValue[leaf] === undefined) continue;
+    sanitized[parent] = { ...(sanitized[parent] || {}), [leaf]: parentValue[leaf] };
   }
 
   delete sanitized.services;

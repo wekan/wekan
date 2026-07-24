@@ -873,6 +873,10 @@ template(name="memberPopup")
 
 template(name="mapImportedMemberPopup")
   p.quiet {{_ 'map-to-existing-user-desc'}}
+  .js-map-target-search
+    input.js-map-target-search-input(type="text" placeholder="{{_ 'map-to-existing-user-search'}}" autocomplete="off")
+  if searching
+    .map-target-status.quiet {{_ 'loading'}}
   ul.pop-over-list
     each u in mapTargets
       li
@@ -880,9 +884,11 @@ template(name="mapImportedMemberPopup")
           +userAvatar(userId=u._id)
           span.full-name= u.profile.fullname
           |  (@#{u.username})
+          unless u.isBoardMember
+            span.quiet  — {{_ 'map-to-existing-user-not-member'}}
     unless hasMapTargets
       li
-        p.quiet {{_ 'map-to-existing-user-none'}}
+        p.quiet {{mapTargetsEmptyText}}
 
 template(name="removeMemberPopup")
   p {{_ 'remove-member-pop' name=user.profile.fullname username=user.username boardTitle=board.title}}

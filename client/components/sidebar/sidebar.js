@@ -618,35 +618,109 @@ Template.memberPopup.events({
 
 });
 
-// Existing REAL (non-imported), active members of the current board that a virtual
-// (placeholder) member can be mapped onto. Excludes imported placeholders and the
-// placeholder itself, so a mapping never creates a new member or maps to another virtual
-// user — which, with the board-admin gate and unchanged target role, makes it impossible
-// to gain privileges via mapping.
+// REAL (non-imported), active members of the current board that a virtual (placeholder)
+// member can be mapped onto. Shown when the search box is empty, because mapping onto
+// someone who is already on the board is the common case and changes no roles at all.
 function importedMapTargets(placeholderId) {
   const board = Utils.getCurrentBoard();
   if (!board) return [];
   return (board.activeMembers() || [])
     .map(m => ReactiveCache.getUser(m.userId))
-    .filter(u => u && u._id !== placeholderId && u.authenticationMethod !== 'imported');
+    .filter(u => u && u._id !== placeholderId && u.authenticationMethod !== 'imported')
+    .map(u => ({ ...u, isBoardMember: true }));
 }
+
+// #6519: after a Trello/CSV import the real people usually are NOT board members yet, so
+// a list limited to board members showed nothing but the admin and there was no way to
+// reach anyone else. Typing searches every real user through the same `searchUsers`
+// method (and therefore the same permission and same-org/team rules) the normal
+// add-member typeahead uses; picking a non-member maps AND adds them to the board with
+// the imported member's own role. Imported placeholders are filtered out — mapping a
+// virtual member onto another virtual member would only move the problem.
+Template.mapImportedMemberPopup.onCreated(function () {
+  this.searchResults = new ReactiveVar(null); // null = not searching, show board members
+  this.searching = new ReactiveVar(false);
+  this.searchTimeout = null;
+
+  this.runSearch = query => {
+    if (!query || query.length < 2) {
+      this.searchResults.set(null);
+      this.searching.set(false);
+      return;
+    }
+    const boardId = Session.get('currentBoard');
+    const placeholderId = this.data && this.data.userId;
+    this.searching.set(true);
+    Meteor.call('searchUsers', query, boardId, (error, results) => {
+      this.searching.set(false);
+      if (error) {
+        console.error('mapImportedMemberPopup search failed:', error);
+        this.searchResults.set([]);
+        return;
+      }
+      const board = Utils.getCurrentBoard();
+      const memberIds = new Set(
+        ((board && board.activeMembers()) || []).map(m => m.userId),
+      );
+      this.searchResults.set(
+        (results || [])
+          .filter(u => u && u._id !== placeholderId && u.authenticationMethod !== 'imported')
+          .map(u => ({ ...u, isBoardMember: memberIds.has(u._id) })),
+      );
+    });
+  };
+});
+
+Template.mapImportedMemberPopup.onDestroyed(function () {
+  if (this.searchTimeout) clearTimeout(this.searchTimeout);
+});
 
 Template.mapImportedMemberPopup.helpers({
   mapTargets() {
-    return importedMapTargets(this.userId);
+    const tpl = Template.instance();
+    const found = tpl.searchResults.get();
+    return found === null ? importedMapTargets(this.userId) : found;
   },
   hasMapTargets() {
-    return importedMapTargets(this.userId).length > 0;
+    const tpl = Template.instance();
+    const found = tpl.searchResults.get();
+    return (found === null ? importedMapTargets(this.userId) : found).length > 0;
+  },
+  searching() {
+    return Template.instance().searching.get();
+  },
+  // Empty for a different reason depending on whether a search ran: "nobody matched"
+  // is not the same message as "this board has no other real members yet".
+  mapTargetsEmptyText() {
+    const tpl = Template.instance();
+    return TAPi18n.__(
+      tpl.searchResults.get() === null
+        ? 'map-to-existing-user-none'
+        : 'map-to-existing-user-no-results',
+    );
   },
 });
 
 Template.mapImportedMemberPopup.events({
+  'keyup .js-map-target-search-input'(event, tpl) {
+    const query = (event.target.value || '').trim();
+    if (tpl.searchTimeout) clearTimeout(tpl.searchTimeout);
+    // Same 300ms debounce as the add-member typeahead.
+    tpl.searchTimeout = setTimeout(() => tpl.runSearch(query), 300);
+  },
   'click .js-pick-map-target'(event) {
     const targetId = event.currentTarget.dataset.id;
     const placeholderId = this.userId;
     const boardId = Session.get('currentBoard');
     if (targetId && placeholderId && boardId) {
-      Meteor.call('mapImportedBoardMember', boardId, placeholderId, targetId, () => {
+      Meteor.call('mapImportedBoardMember', boardId, placeholderId, targetId, error => {
+        // Surface a refused mapping (e.g. the same-org/team restriction) instead of
+        // closing the popup as if it had worked.
+        if (error) {
+          console.error('mapImportedBoardMember failed:', error);
+          window.alert(error.reason || error.message || String(error));
+          return;
+        }
         Popup.back();
       });
     }

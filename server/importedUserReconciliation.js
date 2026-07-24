@@ -6,6 +6,7 @@ import Boards from '/models/boards';
 import Cards from '/models/cards';
 import Activities from '/models/activities';
 import CardComments from '/models/cardComments';
+import InviteToBoardRolesSettings from '/models/inviteToBoardRolesSettings';
 import { planReconciliation } from '/models/lib/importedUserReconciliationPlan';
 import { planBoardMemberMapping } from '/models/lib/boardMemberMapPlan';
 
@@ -69,14 +70,53 @@ export async function mergeImportedUserInto(placeholderId, targetId) {
   return { ok: true, mergedInto: targetId };
 }
 
-// Board-scoped mapping of one imported VIRTUAL (placeholder) member to an existing REAL
-// user on the SAME board, done by a board admin from the sidebar member-avatar popup.
-// Unlike mergeImportedUserInto (global, site-admin-only), this only ever touches the one
-// board and can never grant privileges: the target must already be an active real member
-// of the board and keeps their own role (see models/lib/boardMemberMapPlan.js). The
-// placeholder's work ON THIS BOARD (card membership/assignment, activities, comments) is
-// reassigned to the target, and the placeholder is removed from this board's members.
-// Server-only.
+// The invite policy a board admin is already subject to when adding someone to a board.
+// Mapping onto a user who is not a board member yet CREATES a membership, so it must pass
+// exactly the same checks as the normal add-member flow (Users.inviteUserToBoard) — a
+// deactivated account is never added, the Admin Panel "roles allowed to invite" setting is
+// honoured, and #6116's same-org/team restriction still applies. Site admins bypass, as
+// they do everywhere else. Throws the same error keys the invite flow throws.
+async function checkMayAddBoardMember(board, caller, target) {
+  if (caller && caller.isAdmin) return; // site admin
+  if (!target || target.loginDisabled) {
+    throw new Meteor.Error('error-user-disabled');
+  }
+
+  const allowedRoles = await InviteToBoardRolesSettings.allowedRoles();
+  if (!allowedRoles.includes(board.memberRole(caller._id))) {
+    throw new Meteor.Error('error-notAllowed');
+  }
+
+  const setting = await ReactiveCache.getCurrentSetting();
+  if (setting && setting.boardMembersFromSameOrgOrTeamOnly) {
+    let shares = caller.sharesOrgOrTeamWith(target);
+    if (!shares) {
+      // Same fallback as inviteUserToBoard: any ACTIVE board member sharing an
+      // org/team is enough, so a caller with no orgs/teams set can still map.
+      for (const m of board.members || []) {
+        if (!m.isActive || m.userId === caller._id) continue;
+        const existingMember = await ReactiveCache.getUser(m.userId);
+        if (existingMember && existingMember.sharesOrgOrTeamWith(target)) {
+          shares = true;
+          break;
+        }
+      }
+    }
+    if (!shares) {
+      throw new Meteor.Error('error-user-notSameOrgOrTeam');
+    }
+  }
+}
+
+// Board-scoped mapping of one imported VIRTUAL (placeholder) member to a REAL user, done
+// by a board admin from the sidebar member-avatar popup. Unlike mergeImportedUserInto
+// (global, site-admin-only), this only ever touches the one board and can never grant
+// privileges: an existing active member keeps their own role untouched, and a user who is
+// not a member yet is added with the PLACEHOLDER's role — never a higher one — after
+// passing the same invite policy as the normal add-member flow (see
+// models/lib/boardMemberMapPlan.js and checkMayAddBoardMember above). The placeholder's
+// work ON THIS BOARD (card membership/assignment, activities, comments) is reassigned to
+// the target, and the placeholder is removed from this board's members. Server-only.
 export async function mapImportedBoardMemberInto(boardId, placeholderId, targetId, callerId) {
   if (!Meteor.isServer) return { ok: false };
 
@@ -98,6 +138,12 @@ export async function mapImportedBoardMemberInto(boardId, placeholderId, targetI
   });
   if (!plan.ok) {
     throw new Meteor.Error(plan.error || 'not-authorized');
+  }
+
+  // #6519: mapping onto a non-member adds them to the board, so it must clear the same
+  // bar as inviting them would. Checked BEFORE anything is written.
+  if (plan.addedMember) {
+    await checkMayAddBoardMember(board, caller, target);
   }
 
   // Reassign the placeholder's references, scoped to THIS board only.
