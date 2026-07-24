@@ -161,25 +161,32 @@ code {
     padding-inline: 8px;
   }
 
-  /* The page could not be scrolled down AT ALL on a phone. `.wrapper` - the
-     global layout element - is given `height: 100vh; overflow: hidden` by the
-     All Boards stylesheet at this width, so anything below the fold on ANY page
-     is unreachable unless that page provides its own scroll container. The board
-     list has one; this page did not.
-     A bounded height plus `overflow-y: auto` makes each panel its own scroller,
-     and the `.dragscroll` class on them (see globalSearch.jade) is what
-     client/lib/dragscrollTouch.js looks for, so a finger can drag to pan as it
-     does on a board. */
-  .global-search-page,
-  .global-search-results-list-wrapper.global-search-results-list {
-    max-height: calc(100vh - 120px);
+  /* ONE scroll container for the whole page, not one per panel.
+     `.wrapper` - the global layout element - is pinned to
+     `height: 100vh; overflow: hidden` at this width by the All Boards
+     stylesheet, so a page without its own scroller cannot reach its lower
+     content at all. Giving each inner panel `max-height: calc(100vh - 120px)`
+     did not fix that: the panels start BELOW the search form, so their own
+     bottoms (and their scrollbars) ended up past the bottom of the clipped
+     wrapper - which is why the text after "Notes" was cut mid-character with no
+     way to scroll to it.
+     Instead this page's wrapper scrolls: `height: auto` + `min-height: 100vh`
+     so it is at least a screen tall and grows with its content, and
+     `overflow-y: auto` on it. The panels inside are then plain content with no
+     height of their own, so there is exactly one scroller and nothing can be
+     clipped between two of them. */
+  .wrapper.global-search-wrapper {
+    height: auto;
+    min-height: 100vh;
+    max-height: none;
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
+    padding-bottom: 24px; /* the last line clears the browser's bottom bar */
   }
 
-  /* The query form is a `.global-search-page` too, but it is a short fixed
-     header - it must not become a scroll box of its own. */
+  .global-search-page,
+  .global-search-results-list-wrapper.global-search-results-list,
   form.global-search-page.js-search-query-form {
     max-height: none;
     overflow: visible;

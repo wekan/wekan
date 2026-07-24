@@ -58,7 +58,12 @@ template(name="resultsPaged")
 
 template(name="globalSearch")
   if currentUser
-    .wrapper(class=boardColorClass)
+    //- `global-search-wrapper` gives this page a scoped hook: `.wrapper` is the
+      GLOBAL layout element and is pinned to `height: 100vh; overflow: hidden`
+      at phone widths by the All Boards stylesheet, which leaves any page
+      without its own scroller unable to reach its lower content. `dragscroll`
+      lets client/lib/dragscrollTouch.js pan it with a finger.
+    .wrapper.global-search-wrapper.dragscroll(class=boardColorClass)
       form.global-search-page.js-search-query-form(role="search" onsubmit="return false;")
         label.sr-only(for="global-search-input") {{_ 'globalSearch-title'}}
         input.global-search-query-input(
@@ -76,7 +81,7 @@ template(name="globalSearch")
       if searching
         +spinner
       else if hasResults
-        .global-search-results-list-wrapper.global-search-results-list.dragscroll
+        .global-search-results-list-wrapper.global-search-results-list
           if hasQueryErrors
             ul
               each msg in errorMessages
@@ -84,13 +89,13 @@ template(name="globalSearch")
                   = msg
           +resultsPaged getSearchData
       else if serverError
-        .global-search-page.dragscroll
+        .global-search-page
           .global-search-help
             h1 {{_ 'server-error' }}
             +viewer
               | {{_ 'server-error-troubleshooting' }}
       else
-        .global-search-page.dragscroll
+        .global-search-page
           .global-search-help
             h2 {{_ 'boards' }}
             .lists-wrapper
