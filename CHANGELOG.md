@@ -232,6 +232,19 @@ This release fixes the following bugs:
   wrapped, look exactly as before, and phones keep their 44px touch
   targets](https://github.com/wekan/wekan/commit/f75b28cc8).
   Thanks to xet7.
+- [A long board title now moves ALL of the board bar's buttons to its second row,
+  under the title. Before, the controls were split across the two rows: the title kept
+  the left group (edit, visibility, watch, star, sort) beside it and only the right
+  group (Filter, Search, view, dependencies, multi-selection, hamburger) wrapped
+  underneath. That is what separate flex items do - the title and the three button
+  groups were four children of the header row, so the row broke wherever it ran out of
+  width. The three groups now live inside one wrapper, so the row has just two items,
+  the title and the buttons, and either the buttons fit beside the title or the whole
+  set moves down together. A short title is unaffected, because the wrapper measures as
+  its own content width and only moves down when it genuinely does not fit. A title
+  longer than the whole bar now wraps inside the title instead of overflowing the
+  viewport](https://github.com/wekan/wekan/commit/9df568c0c).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their
 translations.
