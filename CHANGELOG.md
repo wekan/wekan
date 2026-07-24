@@ -475,6 +475,22 @@ and fixes the following bugs:
   cannot fit](https://github.com/wekan/wekan/commit/33d95e4eb).
   Thanks to xet7.
 
+- [Search All Boards on a phone now fits the width, scrolls down, and drags with a finger.
+  Label Colors ran off the right edge because `.global-search-page` is
+  `width: 40%; min-width: 400px` — sized for a desktop column — so on a 375px phone the
+  block was already wider than the screen and the palette's `flex-wrap: wrap` had nothing
+  to wrap into. The page could not be scrolled down AT ALL because `.wrapper`, the GLOBAL
+  layout element, is given `height: 100vh; overflow: hidden` by the All Boards stylesheet at
+  this width: fine for the boards page, which has its own scroll container, but it applies
+  to every page and this one had none, so everything below the fold was unreachable. And
+  dragscroll did nothing because `dragscrollTouch.js` scrolls the nearest `.dragscroll`
+  ancestor that can actually scroll, and no element here carried the class. The help panel
+  and the results list are now width-constrained, bounded scroll containers carrying
+  `.dragscroll`; the query form shares the class but is a short fixed header, so it is
+  explicitly excluded from becoming a scroll box of its
+  own](https://github.com/wekan/wekan/commit/1d022d3e5).
+  Thanks to xet7.
+
 and removes the following dead code:
 
 - [Removed the cron migration subsystem: it never ran and had no UI, yet every logged-in
