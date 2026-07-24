@@ -850,7 +850,18 @@ Template.workspaceTree.helpers({
   },
 });
 
+// #6521: HTML5 dragstart's `target` is the DRAGGABLE element (the whole
+// `li.js-board`) in Chrome/Firefox, NOT the sub-element the pointer was on - so
+// checking `dragstart.target.closest('.board-handle')` is always null and the
+// handle-only drag gate cancelled EVERY handle drag. Record instead where the
+// mousedown began (which does fire on the handle), and read that in dragstart.
+let boardPressStartedOnHandle = false;
+
 Template.boardList.events({
+  'mousedown .js-board'(evt) {
+    boardPressStartedOnHandle = !!(evt.target && evt.target.closest &&
+      evt.target.closest('.board-handle'));
+  },
   'click .js-select-menu'(evt, tpl) {
     const type = evt.currentTarget.getAttribute('data-type');
     tpl.selectedWorkspaceIdVar.set(null);
@@ -1003,14 +1014,13 @@ Template.boardList.events({
     // start from a draggable element, and moving that attribute onto the handle
     // would drag the handle rather than the board. Instead the drag is cancelled
     // unless it began on the handle.
-    if (Utils.showDragHandles()) {
-      const target = evt.originalEvent && evt.originalEvent.target;
-      const startedOnHandle = !!(target && target.closest &&
-        target.closest('.board-handle'));
-      if (!startedOnHandle) {
-        evt.preventDefault();
-        return;
-      }
+    // With handles ON, only a drag that BEGAN on the handle may reorder. The
+    // mousedown handler above recorded that (dragstart.target is unreliable - it
+    // is the whole li, not the handle). A drag that started elsewhere on the tile
+    // is cancelled, leaving the rest of the tile free to scroll.
+    if (Utils.showDragHandles() && !boardPressStartedOnHandle) {
+      evt.preventDefault();
+      return;
     }
 
     // Support multi-drag
@@ -1045,6 +1055,7 @@ Template.boardList.events({
     });
   },
   'dragend .js-board'() {
+    boardPressStartedOnHandle = false;
     document.querySelectorAll('.workspace-node.board-drag-hint, .js-select-menu.board-drag-hint').forEach((el) => {
       el.classList.remove('board-drag-hint');
     });
