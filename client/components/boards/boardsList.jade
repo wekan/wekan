@@ -122,7 +122,11 @@ template(name="boardList")
             .board-search
               span.emoji-icon
                 i.fa.fa-search
-              input.js-board-search-input(type="text" placeholder="{{_ 'search-boards'}}" value="{{boardSearch}}" autocomplete="off")
+              //- No placeholder text: the magnifier icon beside the field already
+                says what it is, and the label took the whole width of the box on a
+                phone. `aria-label` keeps it named for screen readers, which a
+                placeholder is not a substitute for anyway.
+              input.js-board-search-input(type="text" placeholder="" aria-label="{{_ 'search-boards'}}" value="{{boardSearch}}" autocomplete="off")
               if boardSearch
                 a.board-search-clear.js-board-search-clear(title="{{_ 'filter-clear'}}")
                   span.emoji-icon

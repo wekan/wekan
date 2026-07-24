@@ -1447,3 +1447,85 @@ body.grey-icons-enabled .checkmark-no-grey {
   align-self: start;
   height: auto;
 }
+
+/* ── Mobile tile text and "+ Add Board" width (#6523) ────────────────────────
+   Board titles were breaking ONE LETTER PER LINE. The drag handle is a single
+   ~26px absolutely-positioned circle, but space for it was reserved THREE times
+   over on the way down: 32px on `li`, 30px on the tile's padding, and 30px again
+   on `.details`. On a ~96px tile that is 92px of reservation, leaving about
+   nothing for the text, so every character wrapped onto its own line.
+
+   The handle is absolutely positioned, so only the innermost text container has
+   to keep clear of it. Reserve it once, on `.details`, and the title reads
+   left-to-right again with roughly eight characters per line. */
+.board-list.mobile-view li,
+.board-list li {
+  padding-inline-end: 0;
+}
+
+.board-list.mobile-view .board-list-item {
+  padding: 6px 8px;
+}
+
+.board-list.mobile-view .board-list-item .details,
+.board-list .board-list-item .details {
+  padding-inline-end: 28px; /* the one reservation the handle actually needs */
+}
+
+/* Keep long titles on horizontal lines that clip, rather than breaking mid-word
+   into a vertical stack. `break-word` only splits a word that cannot fit, which
+   is what a starved container made of every character. */
+.board-list.mobile-view .board-list-item-name,
+.board-list .board-list-item-name {
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: none;
+}
+
+/* "+ Add Board" spans the full width of the two-column grid, so it is twice the
+   width of a board tile (and reads as an action rather than another board). */
+.board-list.mobile-view li.js-add-board,
+.board-list li.js-add-board {
+  grid-column: 1 / -1;
+}
+
+/* ── Keep the header on ONE row on phones, as it is on a wide screen ─────────
+   `.boards-path-header` is a flex row that is allowed to wrap, so on a phone the
+   search box (`.path-right`) dropped onto a second row below "Remaining" and the
+   two were separated by a tall empty band - while on a wide screen the folder
+   name and the search sit side by side, which is the arrangement to keep.
+
+   Wrapping happened because the search box would not shrink: a flex item's
+   default `min-width: auto` refuses to go below its content width. `min-width: 0`
+   plus `flex: 1 1 auto` lets it take whatever is left beside the title instead of
+   demanding its natural width and wrapping. */
+@media screen and (max-width: 800px) {
+  .boards-path-header {
+    flex-wrap: nowrap;
+    gap: 6px;
+    row-gap: 0;
+  }
+
+  .boards-path-header .path-left {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+
+  .boards-path-header .path-right {
+    flex: 1 1 auto;
+    min-width: 0;
+    justify-content: flex-end;
+  }
+
+  .boards-path-header .board-search {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  /* The menu title can ellipsize rather than force the row wider. */
+  .boards-path-header .path-left .boards-path-title,
+  .boards-path-header .path-left span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
