@@ -588,7 +588,11 @@ and fixes the following bugs:
   `profile.boardSortIndex` (written on reorder) had no schema entry while the user
   `profile` enumerates its subfields — a schema field is added. Dropping on a board can
   only place it BEFORE that board, so a dashed "drop here to move to the end" placeholder
-  now sits after the last board (custom sort only) as a reachable last slot. And the
+  follows the drag: while a board is dragged, an empty gap opens up before or after the tile
+  under the cursor — anywhere in the current view (Starred / Templates / Remaining / a
+  workspace), the end included — showing where it will land, backed by a pure
+  `computeReorderedIds(..., after)` that inserts on either side and no-ops a drop into the
+  board's own slot. And the
   current folder's NAME beside its icon in the header ("Starred"/"Remaining"/a workspace
   name) is hidden — redundant with the icon, the highlighted menu row and the "My Boards"
   title, and it crowded the Multi-Selection / Sort / search controls — kept for screen
