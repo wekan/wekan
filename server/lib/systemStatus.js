@@ -5,6 +5,7 @@ import Cards from '/models/cards';
 import { loginProblemChecks } from '/models/lib/loginProblems';
 import { buildProblemsOverview } from '/models/lib/problemsOverview';
 import { brokenCardsSelector } from '/models/lib/brokenCardsRepair';
+import { isStatusActive } from '/models/lib/statusActive';
 
 // Server hub for the Admin Panel / Problems "Status" overview and the
 // `snap run wekan.problems` command. It PERSISTS the text-migration and
@@ -61,13 +62,17 @@ function describeTextMigration(tm) {
 export async function getInProgress() {
   const items = [];
 
+  // #6520: use isStatusActive, not the raw `running` flag, so a stale
+  // running:true (a completion write that lost a race with a late progress write,
+  // or a process killed mid-run) does not show the migration/repair "in progress"
+  // forever — e.g. "Board data-repair — 146/146 boards" that never clears.
   const tm = await TextMigrationStatus.findOneAsync({ _id: TEXT_MIGRATION_ID });
-  if (tm && tm.running) {
+  if (isStatusActive(tm)) {
     items.push({ kind: 'database-migration', active: true, message: describeTextMigration(tm) });
   }
 
   const br = await TextMigrationStatus.findOneAsync({ _id: BOARD_REPAIR_ID });
-  if (br && br.running) {
+  if (isStatusActive(br)) {
     items.push({
       kind: 'board-repair',
       active: true,

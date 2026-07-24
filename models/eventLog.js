@@ -2,6 +2,7 @@ import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 const { SimpleSchema } = require('/imports/simpleSchema');
+const { newProblemsSelector } = require('/models/lib/eventLogProblems');
 
 // ============================================================================
 // EventLog — the single collection backing the Admin Panel → Reports →
@@ -90,9 +91,13 @@ if (Meteor.isServer) {
       const areas = [];
       for (const stream of EVENT_STREAMS) {
         const ack = await EventLogAcks.findOneAsync({ stream });
-        const selector = { stream };
-        if (ack && ack.at) selector.at = { $gt: ack.at };
-        const count = await EventLog.find(selector).countAsync();
+        // #6520: count actual problems, not the severity:'info' rows that record a
+        // problem being mitigated or clearing (the CPU stream writes several of
+        // those per short spike), so an idle server does not report dozens of
+        // "new problems".
+        const count = await EventLog.find(
+          newProblemsSelector(stream, ack && ack.at),
+        ).countAsync();
         if (count > 0) areas.push({ stream, count });
       }
       return areas;

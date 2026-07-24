@@ -45,7 +45,13 @@ Meteor.startup(() => {
         });
 
         const summary = await repairAllBoards((boardsDone, boardsTotal, totals) => {
-          if (boardsDone === boardsTotal || boardsDone % PERSIST_EVERY === 0) {
+          // Persist INTERMEDIATE progress only. The terminal (boardsDone ===
+          // boardsTotal) update is deliberately NOT written here: it carries
+          // running:true and, being fire-and-forget, could land AFTER the awaited
+          // "completed, running:false" write below and pin the status at "running
+          // 146/146 boards" forever (#6520). The completion write owns the final
+          // state; the getInProgress read guard (isStatusActive) is the backstop.
+          if (boardsDone < boardsTotal && boardsDone % PERSIST_EVERY === 0) {
             setBoardRepairStatus({
               running: true, phase: 'repairing', kind: 'startup-repair',
               boardsDone, boardsTotal, repaired: { ...totals },
