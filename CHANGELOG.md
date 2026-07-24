@@ -278,6 +278,27 @@ and fixes the following bugs:
   ](https://github.com/wekan/wekan/commit/49e576b3c).
   Thanks to xet7.
 
+- [Every bundled binary now runs through `cpu-exec` on Sandstorm and in the snap, so a CPU
+  missing an instruction-set feature falls back to qemu-user instead of killing the app
+  with SIGILL. `cpu-exec` (#6458) exists for exactly that — AVX masked by a hypervisor
+  (QEMU/KVM/Proxmox), an old CPU, ARMv8.0 on a Raspberry Pi — and with no features
+  declared it is a plain exec, which is why the design is to route everything through it.
+  Sandstorm SHIPPED `cpu-exec` and `qemu-x86_64` but its grain launcher spawned all eight
+  bundled binaries directly (ferretdb, mongod 3.0 twice, niscud, the legacy mongo CLI
+  twice, and node for the bridge and the importer), so the safety net sat in the package
+  unreachable — on the platform with the least control over its hardware, since a grain
+  runs on whatever CPU the host has. The snap routed mongod but not FerretDB
+  (`ferretdb-control`, both the external-DB and SQLite launches) and not node
+  (`wekan-control`, the main application start and both maintenance-page starts). Both are
+  routed now, each with a direct-exec fallback so an older deps image or snap revision
+  still works; on Sandstorm the guard also requires `/bin/bash`, since `cpu-exec` is a bash
+  script, and the snap's main start keeps its `ulimit -s 65500`. Docker and the bundle
+  launcher already routed their binaries and were rechecked for other unrouted launches.
+  The wiring guard previously asserted only that the Sandstorm build SHIPS `cpu-exec` —
+  exactly how the gap survived — and now asserts that each launcher actually uses
+  it](https://github.com/wekan/wekan/commit/51116657c).
+  Thanks to xet7.
+
 and removes the following dead code:
 
 - [Removed the cron migration subsystem: it never ran and had no UI, yet every logged-in
