@@ -76,7 +76,7 @@ template(name="globalSearch")
       if searching
         +spinner
       else if hasResults
-        .global-search-results-list-wrapper.global-search-results-list
+        .global-search-results-list-wrapper.global-search-results-list.dragscroll
           if hasQueryErrors
             ul
               each msg in errorMessages
@@ -84,13 +84,13 @@ template(name="globalSearch")
                   = msg
           +resultsPaged getSearchData
       else if serverError
-        .global-search-page
+        .global-search-page.dragscroll
           .global-search-help
             h1 {{_ 'server-error' }}
             +viewer
               | {{_ 'server-error-troubleshooting' }}
       else
-        .global-search-page
+        .global-search-page.dragscroll
           .global-search-help
             h2 {{_ 'boards' }}
             .lists-wrapper

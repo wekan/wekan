@@ -141,3 +141,69 @@ code {
   outline-offset: -2px;
   background-color: rgba(33, 102, 148, 0.08);
 }
+
+/* ── Search All Boards on a phone ────────────────────────────────────────────
+   `.global-search-page` is `width: 40%; min-width: 400px`, sized for a desktop
+   column. On a 375px phone the min-width alone pushes the whole block past the
+   right edge, so everything inside it - the Label Colors palette most visibly -
+   sits partly in the invisible area off-screen. The palette already has
+   `flex-wrap: wrap`; it could not help, because its container was wider than the
+   screen, so there was nothing to wrap into.
+
+   At small width the page block is simply as wide as the screen. The wrappers
+   with their own desktop minimums are released too, or they would re-create the
+   overflow one level down. */
+@media screen and (max-width: 800px) {
+  .global-search-page {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding-inline: 8px;
+  }
+
+  /* The page could not be scrolled down AT ALL on a phone. `.wrapper` - the
+     global layout element - is given `height: 100vh; overflow: hidden` by the
+     All Boards stylesheet at this width, so anything below the fold on ANY page
+     is unreachable unless that page provides its own scroll container. The board
+     list has one; this page did not.
+     A bounded height plus `overflow-y: auto` makes each panel its own scroller,
+     and the `.dragscroll` class on them (see globalSearch.jade) is what
+     client/lib/dragscrollTouch.js looks for, so a finger can drag to pan as it
+     does on a board. */
+  .global-search-page,
+  .global-search-results-list-wrapper.global-search-results-list {
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* The query form is a `.global-search-page` too, but it is a short fixed
+     header - it must not become a scroll box of its own. */
+  form.global-search-page.js-search-query-form {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .global-search-board-wrapper,
+  .global-search-results-list-wrapper {
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Chips wrap onto as many rows as they need and never force a row wider than
+     the screen. `min-width: 0` lets a chip shrink below its content width, which
+     a flex item otherwise refuses to do. */
+  .global-search-page .palette-colors {
+    flex-wrap: wrap;
+    max-width: 100%;
+  }
+
+  .global-search-page .palette-colors .palette-color,
+  .global-search-page .lists-wrapper .card-label {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+}
