@@ -1658,3 +1658,11 @@ body.grey-icons-enabled .checkmark-no-grey {
 .board-list .js-board.board-dragging-hidden {
   display: none !important;
 }
+
+/* The touch-drag ghost (client/lib/dragDropTouch.js) is a clone that follows the
+   finger while dragging a board icon. Keep it above everything and let it fully
+   colour a board tile clone rather than show a dashed placeholder. */
+.touch-drag-ghost {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  border-radius: 3px;
+}

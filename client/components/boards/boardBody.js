@@ -3,6 +3,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { TAPi18n } from '/imports/i18n';
 import dragscroll from '@wekanteam/dragscroll';
 import '/client/lib/dragscrollTouch';
+import '/client/lib/dragDropTouch';
 import { boardConverter } from '/client/lib/boardConverter';
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 import { toFullCalendarFirstDay } from '/client/lib/calendarFirstDay';

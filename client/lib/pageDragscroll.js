@@ -1,5 +1,6 @@
 import dragscroll from '@wekanteam/dragscroll';
 import '/client/lib/dragscrollTouch';
+import '/client/lib/dragDropTouch';
 
 // Enable / disable mouse drag-to-scroll for whole-page layouts (All Boards,
 // My Cards, Login, Register).

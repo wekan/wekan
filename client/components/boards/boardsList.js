@@ -6,6 +6,7 @@ import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { BoardMultiSelection } from '/client/lib/boardMultiSelection';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { Utils } from '/client/lib/utils';
+import '/client/lib/dragDropTouch'; // touch -> HTML5 DnD so board icons drag by finger
 import {
   isDragReorderEnabled,
   computeSortIndexMapping,
