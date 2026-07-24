@@ -114,11 +114,14 @@ test('the tablet block only shrinks empty space, never the touch target', () => 
   }
   // Every rule that targets a BUTTON may declare margins and nothing else (the
   // h1 title's horizontal padding is fine - it is not a touch target).
-  const rules = tablet.body.match(/[^{}]+\{[^}]*\}/g) || [];
-  for (const rule of rules) {
-    const [selector, body] = rule.split('{');
+  // Capture selector and body directly, so neither brace ends up in the text and
+  // there is nothing to strip afterwards.
+  const RULE = /([^{}]+)\{([^{}]*)\}/g;
+  let rule;
+  while ((rule = RULE.exec(tablet.body)) !== null) {
+    const [, selector, body] = rule;
     if (!/board-header-btn/.test(selector)) continue;
-    for (const decl of body.replace('}', '').split(';')) {
+    for (const decl of body.split(';')) {
       if (!decl.trim()) continue;
       const prop = decl.split(':')[0].trim();
       assert.ok(/^margin/.test(prop),

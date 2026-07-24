@@ -24,6 +24,14 @@ const ROOT = path.join(__dirname, '..');
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
+// Escape a literal string for use inside a RegExp. The backslash MUST be in the
+// character class (and, being first in the alternation order of the class, is
+// escaped along with everything else) - escaping only some metacharacters leaves
+// the rest able to change the meaning of the pattern it is spliced into.
+function escapeRegExp(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 function suiteDir(dir) {
   const abs = path.join(ROOT, dir);
   const index = fs.readFileSync(path.join(abs, 'index.js'), 'utf8');
@@ -33,7 +41,9 @@ function suiteDir(dir) {
   const missing = files.filter(f => {
     const stem = f.replace(/\.js$/, '');
     // The index imports without the extension: import './foo.tests';
-    return !new RegExp(`(['"])\\./${stem.replace(/\./g, '\\.')}\\1`).test(index);
+    // Escape EVERY regex metacharacter, backslash included - escaping only dots
+    // left a backslash in a file name able to alter the pattern it is spliced into.
+    return !new RegExp(`(['"])\\./${escapeRegExp(stem)}\\1`).test(index);
   });
   return { files, missing };
 }
