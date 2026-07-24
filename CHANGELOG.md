@@ -320,6 +320,27 @@ and fixes the following bugs:
   inotify](https://github.com/wekan/wekan/commit/8ed253709).
   Thanks to xet7.
 
+- [Drag handles: the "Show desktop drag handles" toggle now works on touch screens, the card
+  body pans the board when handles are on, the handle is finger-sized on touch, and tab
+  order no longer jumps to invisible controls. The rule was
+  `isTouchScreen() || preference`, so on a touch screen the OR was already true and the
+  toggle could never hide the handles — and every handle in the app plus every sortable
+  handle selector goes through that one helper. The setting is now three states (on, off,
+  never-chosen): an explicit choice always wins, including OFF on touch, and only
+  never-chosen lets the device decide, where a touch screen still gets handles by default.
+  Handles also decide what a DRAG MEANS, and that half was broken too: `.minicard` and
+  `.list-header` carried `nodragscroll` unconditionally, so with handles ON a finger
+  dragging across a card neither moved the card (only the handle does) nor panned the board
+  — it did nothing; they now opt out only when handles are OFF, i.e. only when the element
+  IS the drag source. The handle itself was a 20–28px icon in the bottom-right corner, a
+  mouse-sized target that is close to unusable on a wall-mounted infoscreen; on a coarse
+  pointer it becomes a 48px full-height strip down the leading edge with the card content
+  padded to match, while a mouse keeps the compact corner handle. And the keyboard
+  card/list move buttons are focusable but `opacity: 0` at the START of the card content,
+  so tabbing went card → invisible → invisible → next card; they are now revealed while
+  focused](https://github.com/wekan/wekan/commit/5a1a661e0).
+  Thanks to xet7.
+
 and removes the following dead code:
 
 - [Removed the cron migration subsystem: it never ran and had no UI, yet every logged-in
@@ -345,6 +366,19 @@ and removes the following dead code:
   Thanks to xet7.
 
 and has the following developer-tooling changes:
+
+- [`rebuild-wekan.sh` Dev server menu can now run on a custom port with a custom ROOT_URL
+  host. It could only offer localhost:3000, the current IP, or a custom IP:PORT, so running
+  on a different local port with a different ROOT_URL host meant editing the script.
+  ROOT_URL is not cosmetic — Meteor builds absolute URLs from it (e-mail links, OAuth
+  redirects, attachment URLs) — so a subdomain setup has to be told about it. The host
+  answer takes either form: a bare label becomes `<label>.localhost` (browsers and
+  systemd-resolved resolve `*.localhost` to 127.0.0.1 with no `/etc/hosts` entry), and
+  anything containing a dot is used as-is with a note that it must resolve locally. A
+  pasted URL is reduced to its host, a bad port falls back to 3000, the chosen port is
+  freed first like the other dev options, and `WEKAN_DEV_PORT` / `WEKAN_DEV_HOST` skip the
+  prompts so it can be scripted](https://github.com/wekan/wekan/commit/523122b95).
+  Thanks to xet7.
 
 - [`releases/release-all.sh` now repoints stale CHANGELOG commit links before releasing.
   Every bullet links the commit it describes, and those links are written BEFORE the
