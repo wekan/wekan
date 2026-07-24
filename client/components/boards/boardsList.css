@@ -1433,16 +1433,13 @@ body.grey-icons-enabled .checkmark-no-grey {
    the leftover space between them, and `align-items: start` stops each tile from
    stretching to its row. The list still scrolls, because the fixed height plus
    `overflow-y: auto` is what makes it a scroll container. */
-.board-list,
 .board-list.mobile-view {
   align-content: start;
   align-items: start;
 }
 
 /* The tile fills its grid cell horizontally but not vertically. */
-.board-list li,
 .board-list.mobile-view li,
-.board-list li.js-board,
 .board-list.mobile-view li.js-board {
   align-self: start;
   height: auto;
@@ -1458,8 +1455,7 @@ body.grey-icons-enabled .checkmark-no-grey {
    The handle is absolutely positioned, so only the innermost text container has
    to keep clear of it. Reserve it once, on `.details`, and the title reads
    left-to-right again with roughly eight characters per line. */
-.board-list.mobile-view li,
-.board-list li {
+.board-list.mobile-view li {
   padding-inline-end: 0;
 }
 
@@ -1467,16 +1463,14 @@ body.grey-icons-enabled .checkmark-no-grey {
   padding: 6px 8px;
 }
 
-.board-list.mobile-view .board-list-item .details,
-.board-list .board-list-item .details {
+.board-list.mobile-view .board-list-item .details {
   padding-inline-end: 28px; /* the one reservation the handle actually needs */
 }
 
 /* Keep long titles on horizontal lines that clip, rather than breaking mid-word
    into a vertical stack. `break-word` only splits a word that cannot fit, which
    is what a starved container made of every character. */
-.board-list.mobile-view .board-list-item-name,
-.board-list .board-list-item-name {
+.board-list.mobile-view .board-list-item-name {
   overflow-wrap: break-word;
   word-break: normal;
   hyphens: none;
@@ -1490,9 +1484,7 @@ body.grey-icons-enabled .checkmark-no-grey {
    columns; identical tiles is what the wide-screen layout does, and what was
    asked for.) */
 .board-list.mobile-view li.js-add-board,
-.board-list li.js-add-board,
-.board-list.mobile-view li.js-board,
-.board-list li.js-board {
+.board-list.mobile-view li.js-board {
   grid-column: auto;
   /* BOTH get the same margin. `.js-add-board` has `margin: 8px !important` and
      `.js-board` has `margin: 8px`, so zeroing only one of them would break the
