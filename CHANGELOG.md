@@ -217,6 +217,22 @@ This release fixes the following bugs:
   coming back](https://github.com/wekan/wekan/commit/52d68be75).
   Thanks to hmeunier95 and xet7.
 
+and has the following developer-tooling change:
+
+- [`rebuild-wekan.sh` and `rebuild-wekan.bat` gain a Setup → "Update git" action that makes
+  the working copy current in one step: `git fetch --all --prune`, `git pull --rebase
+  --autostash` onto `origin/<branch>`, then it repoints any CHANGELOG commit links the rebase
+  made stale, then shows `git status`. It never commits — if the hash fix changed CHANGELOG.md
+  it says so and leaves it for review — and on a rebase conflict it stops with the exact
+  commands to continue or abort. The commit-link repair that lived inline in
+  `releases/release-all.sh` is extracted to `releases/fix-changelog-hashes.sh` so there is ONE
+  implementation, now called by both the release script and the new menu action; behaviour is
+  unchanged (only the unreleased section is touched, stale links are repointed to the
+  same-subject rewritten commit, unresolved links warn and never abort). The Windows `.bat`
+  runs the shared bash script via Git Bash and degrades gracefully with instructions when bash
+  is not on PATH](https://github.com/wekan/wekan/commit/c2ad9dddb).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v10.34 2026-07-24 WeKan ® release
