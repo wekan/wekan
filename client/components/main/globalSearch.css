@@ -161,40 +161,44 @@ code {
     padding-inline: 8px;
   }
 
-  /* Do NOT make this page's wrapper a scroll box - let the page's existing
-     scroller (`#content`, which is `overflow-y: auto` in mobile mode) scroll it
-     natively, which is also what a finger scrolls on touch.
+  /* Make #content itself the scroller, but ONLY on this page (scoped with
+     :has), and size the viewport with dvh so its bottom tracks Safari's toolbar
+     instead of hiding behind it.
 
-     The bug was two nested scrollers fighting. `.wrapper` is pinned to
-     `height: 100vh; overflow: hidden` by the All Boards stylesheet, which clips
-     every page's content to one screen. The previous attempt un-clipped it by
-     making `.wrapper` its OWN scroller at `min-height: 100vh; overflow-y: auto`
-     - but that box is taller than its parent `#content`, so BOTH scrolled: on
-     iOS Safari, scrolling to the bottom of the inner box handed off to `#content`
-     and then rubber-banded back to "Differing operators", which is exactly the
-     reported jump. (Fairphone Firefox does not rubber-band, so it merely reached
-     the end.)
+     The bottom of the page was unreachable in every mode for two reasons:
+       * #content is a flex child, and a flex child defaults to `min-height:
+         auto` - it grows to fit its content and therefore NEVER scrolls, so
+         content past the fold simply overflowed out of reach. `min-height: 0` is
+         what lets it shrink below its content and become a real scroller. This
+         was the missing piece behind every earlier attempt.
+       * `body`/#content were sized with `100vh`, which on iOS is the LARGE
+         viewport (toolbars hidden), so the scroller extended behind the toolbar.
+         `100dvh` is the DYNAMIC viewport - it shrinks when the toolbar shows -
+         so the last line stays above it.
+     overscroll-behavior: contain stops the drag from chaining to the document,
+     which is what fired pull-to-refresh in landscape. All of this is behind
+     `body:has(.global-search-wrapper)`, so no other page is touched. */
+  body:has(.wrapper.global-search-wrapper) {
+    height: 100dvh;
+  }
 
-     Releasing the clip WITHOUT adding a second scroller - `height: auto` so the
-     wrapper grows to its real content height, `overflow: visible` so it neither
-     clips nor scrolls - leaves `#content` as the single, native scroller. One
-     scroller cannot fight itself, so there is no jump, and the last line is
-     reachable on both phones. */
+  body:has(.wrapper.global-search-wrapper) #content {
+    min-height: 0;
+    height: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  /* The wrapper is plain content: its full height feeds #content's scroll range.
+     The trailing space keeps the last line clear of the home indicator. */
   .wrapper.global-search-wrapper {
     height: auto;
-    min-height: 100%;
+    min-height: 0;
     max-height: none;
     overflow: visible;
-    /* Clear iOS Safari's bottom toolbar. The scroller (#content) is sized with
-       `calc(100vh - 48px)`, and on iOS `100vh` is the LARGE viewport (toolbar
-       hidden), so the scroller's bottom edge sits BEHIND the toolbar when it is
-       shown - the last line ("By default archived cards are not searched.") ends
-       up under it with no way to scroll it clear. This much empty scrollable
-       space after the content lets the last real line scroll up above the
-       toolbar. env(safe-area-inset-bottom) covers the home-indicator devices;
-       the fixed part covers the toolbar itself, which the inset does NOT
-       include. */
-    padding-bottom: calc(120px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
   }
 
   .global-search-page,
