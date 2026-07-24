@@ -518,7 +518,12 @@ and fixes the following bugs:
   `body:has(.wrapper.global-search-wrapper)` so no other page is affected) it becomes a
   real scroller, inside a `100dvh` body so the bottom tracks Safari's toolbar instead of
   hiding behind the large-viewport `100vh`, with `overscroll-behavior: contain` to stop the
-  landscape pull-to-refresh](https://github.com/wekan/wekan/commit/762547b92).
+  landscape pull-to-refresh. A finger drag over the grey content area still did nothing
+  while the header bars scrolled — because the header sits outside `#content`, that proved
+  the body is the real scroller and `#content`'s own `overflow-y: auto` was trapping the
+  touch; `#content` is now a pass-through (`overflow: visible; flex: 0 0 auto`) so the body
+  is the single scroller, draggable by a finger
+  anywhere](https://github.com/wekan/wekan/commit/762547b92).
   Thanks to xet7.
 
 and removes the following dead code:
