@@ -375,9 +375,13 @@ and has the following developer-tooling changes:
   answer takes either form: a bare label becomes `<label>.localhost` (browsers and
   systemd-resolved resolve `*.localhost` to 127.0.0.1 with no `/etc/hosts` entry), and
   anything containing a dot is used as-is with a note that it must resolve locally. A
-  pasted URL is reduced to its host, a bad port falls back to 3000, the chosen port is
-  freed first like the other dev options, and `WEKAN_DEV_PORT` / `WEKAN_DEV_HOST` skip the
-  prompts so it can be scripted](https://github.com/wekan/wekan/commit/523122b95).
+  a bad port falls back to 3000, the chosen port is freed first like the other dev options,
+  and `WEKAN_DEV_PORT` / `WEKAN_DEV_ROOT_URL` skip the prompts so it can be scripted. The
+  listen port and ROOT_URL are treated as the different things they are: the port is
+  appended ONLY when the dev server is browsed directly, so `https://wekan.example.com`
+  stays exactly that instead of becoming `http://wekan.example.com:4000` — behind a Caddy
+  proxy the public URL has no port, is https, and nothing listens on that host:port at
+  all](https://github.com/wekan/wekan/commit/a3dfc2b19).
   Thanks to xet7.
 
 - [`releases/release-all.sh` now repoints stale CHANGELOG commit links before releasing.
