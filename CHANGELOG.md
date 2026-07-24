@@ -569,6 +569,20 @@ and fixes the following bugs:
   queries](https://github.com/wekan/wekan/commit/04e658b03).
   Thanks to xet7.
 
+- [All Boards drag-and-drop and touch targets. A mouse drag can reorder boards again: the
+  board list `<ul>` is a `.dragscroll` element so the mouse dragscroll library was panning
+  it instead of starting the tile's HTML5 drag, and `a.js-open-board` being a link meant
+  grabbing the title dragged the URL — the tile is now `.nodragscroll` and the link
+  `draggable="false"`. With drag handles ON, dragging the handle did nothing because the
+  gate checked `dragstart.target`, which in Chrome/Firefox is the whole draggable `li`, not
+  the handle; the press location is now recorded on `mousedown` and read in `dragstart`.
+  And "+ Add workspace" is now a 44px touch target instead of a ~20px "+" a finger kept
+  missing. Reordering by FINGER still does not work — board reorder uses HTML5
+  drag-and-drop, which browsers do not fire from touch; that needs a move to
+  jQuery-UI-sortable + the bundled touch-punch, called out for a separate, tested
+  change](https://github.com/wekan/wekan/commit/ab1b2dc4e).
+  Thanks to xet7.
+
 and removes the following dead code:
 
 - [Removed the cron migration subsystem: it never ran and had no UI, yet every logged-in
