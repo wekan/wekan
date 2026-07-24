@@ -526,6 +526,18 @@ and fixes the following bugs:
   anywhere](https://github.com/wekan/wekan/commit/762547b92).
   Thanks to xet7.
 
+- [All Boards in iPhone landscape: the left menu no longer balloons and the folder header no
+  longer collides. Landscape is ~844px CSS-wide — above the 800px breakpoint but still an
+  iPhone, so the device-width media query applies while the `max-width: 800px` rules do not.
+  That split made the left menu `42%` of 844px (~354px), flinging each count chip ~250px
+  from its label, and left the folder header ("Remaining" + multi-selection buttons +
+  search) on a single row where the buttons overlapped the title. The menu is now
+  `minmax(140px, min(42%, 210px))` (portrait unchanged at 158px, landscape capped at 210px)
+  with the count packed next to its label, and the header's stacking media query carries the
+  same device-width branch as the grid so it stacks in landscape
+  too](https://github.com/wekan/wekan/commit/6580c445c).
+  Thanks to xet7.
+
 and removes the following dead code:
 
 - [Removed the cron migration subsystem: it never ran and had no UI, yet every logged-in
