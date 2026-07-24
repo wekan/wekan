@@ -1520,43 +1520,41 @@ body.grey-icons-enabled .checkmark-no-grey {
   min-height: 4rem;
 }
 
-/* ── Keep the header on ONE row on phones, as it is on a wide screen ─────────
-   `.boards-path-header` is a flex row that is allowed to wrap, so on a phone the
-   search box (`.path-right`) dropped onto a second row below "Remaining" and the
-   two were separated by a tall empty band - while on a wide screen the folder
-   name and the search sit side by side, which is the arrangement to keep.
+/* ── Header on a phone: menu title ABOVE the search box ─────────────────────
+   A wide screen has room to put "Remaining" and the search side by side. A phone
+   does not: squeezed onto one row the title was ellipsised down to "R.." and the
+   search box still had barely any width. So on a phone the row stacks - title
+   first, search under it - each taking the full width of the card.
 
-   Wrapping happened because the search box would not shrink: a flex item's
-   default `min-width: auto` refuses to go below its content width. `min-width: 0`
-   plus `flex: 1 1 auto` lets it take whatever is left beside the title instead of
-   demanding its natural width and wrapping. */
+   The earlier problem with stacking was not the stacking itself but the gap: the
+   two rows were separated by a tall empty band. That came from `.path-right`
+   being free to grow; pinning `row-gap` and letting each part take exactly one
+   full-width row puts them directly above one another. */
 @media screen and (max-width: 800px) {
   .boards-path-header {
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     gap: 6px;
-    row-gap: 0;
+    row-gap: 6px;
   }
 
-  .boards-path-header .path-left {
-    flex: 0 1 auto;
-    min-width: 0;
-  }
-
+  /* Each part gets its own full-width row. */
+  .boards-path-header .path-left,
   .boards-path-header .path-right {
-    flex: 1 1 auto;
+    flex: 1 1 100%;
     min-width: 0;
-    justify-content: flex-end;
   }
 
+  /* The title now has a whole row, so it needs no ellipsis - but keep it able to
+     shrink rather than widen the card if a menu name is very long. */
+  .boards-path-header .path-left {
+    overflow: hidden;
+  }
+
+  /* The search fills what is left of its row beside the multi-selection buttons.
+     `min-width: 0` is what lets it shrink at all: a flex item defaults to
+     `min-width: auto` and refuses to go below its content width. */
   .boards-path-header .board-search {
     flex: 1 1 auto;
     min-width: 0;
-  }
-
-  /* The menu title can ellipsize rather than force the row wider. */
-  .boards-path-header .path-left .boards-path-title,
-  .boards-path-header .path-left span {
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 }
