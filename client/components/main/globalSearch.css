@@ -161,27 +161,30 @@ code {
     padding-inline: 8px;
   }
 
-  /* ONE scroll container for the whole page, not one per panel.
-     `.wrapper` - the global layout element - is pinned to
-     `height: 100vh; overflow: hidden` at this width by the All Boards
-     stylesheet, so a page without its own scroller cannot reach its lower
-     content at all. Giving each inner panel `max-height: calc(100vh - 120px)`
-     did not fix that: the panels start BELOW the search form, so their own
-     bottoms (and their scrollbars) ended up past the bottom of the clipped
-     wrapper - which is why the text after "Notes" was cut mid-character with no
-     way to scroll to it.
-     Instead this page's wrapper scrolls: `height: auto` + `min-height: 100vh`
-     so it is at least a screen tall and grows with its content, and
-     `overflow-y: auto` on it. The panels inside are then plain content with no
-     height of their own, so there is exactly one scroller and nothing can be
-     clipped between two of them. */
+  /* Do NOT make this page's wrapper a scroll box - let the page's existing
+     scroller (`#content`, which is `overflow-y: auto` in mobile mode) scroll it
+     natively, which is also what a finger scrolls on touch.
+
+     The bug was two nested scrollers fighting. `.wrapper` is pinned to
+     `height: 100vh; overflow: hidden` by the All Boards stylesheet, which clips
+     every page's content to one screen. The previous attempt un-clipped it by
+     making `.wrapper` its OWN scroller at `min-height: 100vh; overflow-y: auto`
+     - but that box is taller than its parent `#content`, so BOTH scrolled: on
+     iOS Safari, scrolling to the bottom of the inner box handed off to `#content`
+     and then rubber-banded back to "Differing operators", which is exactly the
+     reported jump. (Fairphone Firefox does not rubber-band, so it merely reached
+     the end.)
+
+     Releasing the clip WITHOUT adding a second scroller - `height: auto` so the
+     wrapper grows to its real content height, `overflow: visible` so it neither
+     clips nor scrolls - leaves `#content` as the single, native scroller. One
+     scroller cannot fight itself, so there is no jump, and the last line is
+     reachable on both phones. */
   .wrapper.global-search-wrapper {
     height: auto;
-    min-height: 100vh;
+    min-height: 100%;
     max-height: none;
-    overflow-y: auto;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
+    overflow: visible;
     padding-bottom: 24px; /* the last line clears the browser's bottom bar */
   }
 
