@@ -598,7 +598,9 @@ and fixes the following bugs:
   (drop to take its place), rather than needing to aim the icon's left half; only the last
   icon's trailing half inserts after, to keep the end reachable. The dragged icon is taken
   out of the grid flow while dragging (the other icons reflow as if it were gone), so the
-  gap lands exactly where the icon will go rather than one slot to the left. And the
+  gap lands exactly where the icon will go rather than one slot to the left, and the drag
+  ghost is centred on the cursor (`setDragImage`) so the gap opens for the icon the ghost is
+  over rather than needing to aim the target's left edge. And the
   current folder's NAME beside its icon in the header ("Starred"/"Remaining"/a workspace
   name) is hidden — redundant with the icon, the highlighted menu row and the "My Boards"
   title, and it crowded the Multi-Selection / Sort / search controls — kept for screen
