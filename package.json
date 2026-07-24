@@ -83,7 +83,7 @@
     "i18next": "^26.3.6",
     "i18next-sprintf-postprocessor": "^0.2.2",
     "archiver": "^8.0.0",
-    "jquery": "^3.7.1",
+    "jquery": "^4.0.0",
     "jquery-ui": "^1.14.2",
     "jszip": "^3.7.1",
     "unzipper": "^0.12.3",
