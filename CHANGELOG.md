@@ -263,8 +263,6 @@ and fixes the following bugs:
   recovery reports, which share the same loader](https://github.com/wekan/wekan/commit/668802cd7).
   Thanks to xet7.
 
-and fixes the following bugs:
-
 - [Six Meteor methods threw `Did not check() all arguments during call to '<method>'`,
   because this app runs with the `audit-argument-checks` package: a method that RECEIVES
   an argument it never `check()`s fails the call outright. `problemDetailReport(area)` had
@@ -304,7 +302,7 @@ and removes the following dead code:
   migration running forever](https://github.com/wekan/wekan/commit/a440d44ea).
   Thanks to xet7.
 
-and has the following developer-tooling fixes:
+and has the following developer-tooling changes:
 
 - [`releases/release-all.sh` now repoints stale CHANGELOG commit links before releasing.
   Every bullet links the commit it describes, and those links are written BEFORE the
@@ -322,8 +320,6 @@ and has the following developer-tooling fixes:
   link is never a reason to abort a
   release](https://github.com/wekan/wekan/commit/2f3c2d49a).
   Thanks to xet7.
-
-and has the following developer-tooling addition:
 
 - [Added `docs/Security/gh/pull-security-reports.sh`, which downloads every security and
   code-quality report GitHub exposes for a repo — open AND closed — into a timestamped run
