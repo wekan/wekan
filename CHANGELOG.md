@@ -361,7 +361,15 @@ and fixes the following bugs:
   hidden whenever mobile MODE is on, which is a different thing from a narrow viewport:
   `body.mobile-mode` comes from the phone/desktop toggle in that same bar, is a deliberate
   user choice and applies at any width, so on a wide screen in mobile mode the label was
-  still showing](https://github.com/wekan/wekan/commit/b9f178ef5).
+  still showing](https://github.com/wekan/wekan/commit/b9f178ef5). Hiding the label needed
+  `!important` and the last word in the file: ELEVEN rules in `header.css` set a font-size
+  on that same link, most of them `!important`, including three scoped to the All Boards
+  page itself (`body:not(.board-view)` / `.wrapper ~`) and one setting `16px !important`
+  — so the first attempt lost to all of them and the label kept showing on exactly the page
+  it was reported on. The notification bell also sat in 36px of margin around a 28px icon
+  (10px each side of the button plus 0.5rem each side of its wrapper); both layers now give
+  2px a side, taking the measured one-row budget from 342px to 320px of
+  375px](https://github.com/wekan/wekan/commit/76516a1a2).
   Thanks to xet7.
 
 and removes the following dead code:
