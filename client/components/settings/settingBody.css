@@ -331,3 +331,38 @@ li.has-error .form-group .wekan-form-control {
     overflow-x: auto !important;
   }
 }
+
+/* ── Admin tables on a phone: fit the width, wrap the text ───────────────────
+   The rules above deliberately force EVERY admin table to `min-width: 1200px`
+   with `white-space: nowrap` cells, to guarantee a horizontal scrollbar for the
+   wide data tables. On a 375px phone that also applies to a two-column table
+   like Admin Panel / Version, where "WeKan Version" and its value sit ~1000px
+   apart and you have to scroll right to read a value you already have room for.
+
+   At small width the table is instead allowed to be as wide as the screen and no
+   wider, and cells may use as many lines as they need. Long unbroken values -
+   version strings, paths, URLs - break rather than push the table wide again.
+   Horizontal scrolling still works if a genuinely wide table cannot fit; it is
+   just no longer forced on tables that would fit comfortably. */
+@media screen and (max-width: 800px) {
+  .setting-content .content-body .main-body table {
+    min-width: 0 !important;
+    width: 100% !important;
+    table-layout: auto !important;
+  }
+
+  .setting-content .content-body .main-body table td,
+  .setting-content .content-body .main-body table th {
+    white-space: normal !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  /* The label column keeps a sensible share rather than collapsing to one
+     character per line when a value is long. */
+  .setting-content .content-body .main-body table th {
+    width: 45%;
+  }
+}
