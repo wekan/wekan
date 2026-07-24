@@ -1149,6 +1149,63 @@ function ensure_inotify_watches(){
 	return 0
 }
 
+# ── Dev server URL ───────────────────────────────────────────────────────────
+# Ask for the port and the ROOT_URL host, so a dev server can run somewhere other
+# than http://localhost:3000 without editing this script. Sets DEV_PORT and
+# DEV_ROOT_URL for the caller.
+#
+# ROOT_URL matters beyond cosmetics: Meteor builds absolute URLs from it
+# (e-mail links, OAuth redirects, attachment URLs), so a subdomain setup has to
+# be told about it or those links point at localhost.
+#
+# The host answer accepts either form:
+#   <empty>            -> localhost
+#   wekan              -> wekan.localhost   (a BARE label becomes a subdomain of
+#                         localhost; browsers and systemd-resolved resolve
+#                         *.localhost to 127.0.0.1 with no /etc/hosts entry)
+#   wekan.example.com  -> used AS-IS (anything containing a dot is a full host)
+#
+# Non-interactive: WEKAN_DEV_PORT / WEKAN_DEV_HOST skip the matching prompt, so
+# this can be scripted.
+function ask_dev_url(){
+	local port host
+
+	port="${WEKAN_DEV_PORT:-}"
+	if [ -z "$port" ]; then
+		read -r -p "Port for the dev server [3000]: " port
+	fi
+	port="${port:-3000}"
+	case "$port" in
+		''|*[!0-9]*) echo "Not a number: '$port' - using 3000."; port=3000 ;;
+		*) if [ "$port" -lt 1 ] || [ "$port" -gt 65535 ]; then
+			echo "Port out of range: $port - using 3000."; port=3000
+		   fi ;;
+	esac
+
+	host="${WEKAN_DEV_HOST:-}"
+	if [ -z "$host" ]; then
+		echo "ROOT_URL host: a bare name becomes <name>.localhost, a name with a dot is used as-is."
+		read -r -p "ROOT_URL host [localhost]: " host
+	fi
+	host="${host:-localhost}"
+	# Strip anything the user pasted around the name: scheme, port, trailing slash.
+	host="${host#http://}"; host="${host#https://}"
+	host="${host%%/*}"; host="${host%%:*}"
+	[ -z "$host" ] && host="localhost"
+	case "$host" in
+		localhost|*.*) : ;;              # already a full host
+		*) host="$host.localhost" ;;     # bare label -> subdomain of localhost
+	esac
+
+	DEV_PORT="$port"
+	DEV_ROOT_URL="http://$host:$port"
+	echo "==> ROOT_URL=$DEV_ROOT_URL   (Meteor listens on port $port)"
+	case "$host" in
+		localhost|*.localhost) : ;;
+		*) echo "    NOTE: '$host' must resolve to this machine - add it to /etc/hosts if it does not." ;;
+	esac
+}
+
 echo
 PS3='Please enter your choice: '
 
@@ -1218,6 +1275,7 @@ while [ -z "$opt" ]; do
 					"CURRENT-IP:3000|Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000" \
 					"CURRENT-IP:3000 + MONGO_URL 27019|Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" \
 					"CUSTOM-IP:PORT|Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" \
+					"CUSTOM PORT + SUBDOMAIN|Run Meteor for dev on a custom port and ROOT_URL host (asks)" \
 					"Kill all dev servers|Kill all dev servers (free ports 3000/3001/3100/3101/4000/4001/8080)" ;;
 			"Tests")
 				choose "Tests" \
@@ -1384,6 +1442,20 @@ for _once in 1; do
                 #---------------------------------------------------------------------
                 break
                 ;;
+
+    "Run Meteor for dev on a custom port and ROOT_URL host (asks)")
+		ensure_rspack_public_dirs
+		ask_dev_url
+		kill_meteor_on_port "$DEV_PORT" || break
+		#---------------------------------------------------------------------
+		# Same environment as the plain localhost:3000 option; only the port and
+		# ROOT_URL differ. Logging of terminal output to console and to
+		# ../log/wekan-log.log at the end of the line: 2>&1 | tee ../log/wekan-log.log
+		#---------------------------------------------------------------------
+		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL="$DEV_ROOT_URL" meteor run --port "$DEV_PORT" 2>&1 | tee ../log/wekan-log.log
+		#---------------------------------------------------------------------
+		break
+		;;
 
     "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT")
 		ensure_rspack_public_dirs
