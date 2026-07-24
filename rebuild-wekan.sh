@@ -1228,6 +1228,59 @@ function ask_dev_url(){
 	esac
 }
 
+# ── Update git: make the working copy current in one step ────────────────────
+# Fetch + rebase the current branch onto its upstream, then repoint any CHANGELOG
+# commit links the rebase made stale (same shared script release-all.sh uses), and
+# show the resulting status. One menu action instead of the fetch/pull/rebase/
+# hash-fix/status dance by hand.
+function update_git(){
+	git rev-parse --git-dir >/dev/null 2>&1 || { echo "Not a git repository."; return 0; }
+	local branch upstream here
+	here="$(cd "$(dirname "$0")" && pwd)"
+	branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
+	echo "== Update git — branch: ${branch:-?} =="
+
+	# Do not surprise anyone: a dirty tree is stashed by --autostash below, but say
+	# so first and let the user opt out.
+	if [ -n "$(git status --porcelain 2>/dev/null)" ]; then
+		echo "Working tree has uncommitted changes:"
+		git status --short
+		printf "They will be auto-stashed for the rebase and re-applied after. Continue? [y/N] "
+		read -r ans
+		case "$ans" in y|Y|yes|YES) : ;; *) echo "Aborted (nothing changed)."; return 0 ;; esac
+	fi
+
+	echo "--- git fetch --all --prune ---"
+	git fetch --all --prune || { echo "fetch failed - check network/remote and retry."; return 0; }
+
+	upstream="origin/$branch"
+	if git rev-parse --verify --quiet "$upstream" >/dev/null 2>&1; then
+		echo "--- git pull --rebase --autostash origin $branch ---"
+		if ! git pull --rebase --autostash origin "$branch"; then
+			echo
+			echo "Rebase stopped (conflicts or autostash conflict). Resolve them, then:"
+			echo "    git rebase --continue     # or: git rebase --abort"
+			echo "and run this option again to finish the hash fix + status."
+			return 0
+		fi
+	else
+		echo "No upstream '$upstream' - skipping rebase (nothing to pull for this branch)."
+	fi
+
+	# The rebase may have rewritten commits the CHANGELOG links to; repoint the
+	# stale links in the unreleased section (shared with releases/release-all.sh).
+	echo "--- Fixing CHANGELOG commit links (releases/fix-changelog-hashes.sh) ---"
+	bash "$here/releases/fix-changelog-hashes.sh" || true
+
+	echo "--- git status ---"
+	git status
+	if [ -n "$(git status --porcelain -- CHANGELOG.md 2>/dev/null)" ]; then
+		echo
+		echo "NOTE: CHANGELOG.md was updated by the hash fix above."
+		echo "      Review 'git diff CHANGELOG.md' and commit it (this script never commits for you)."
+	fi
+}
+
 echo
 PS3='Please enter your choice: '
 
@@ -1288,7 +1341,8 @@ while [ -z "$opt" ]; do
 			"Setup")
 				choose "Setup" \
 					"Install dependencies|Install WeKan dependencies" \
-					"Build WeKan|Build WeKan" ;;
+					"Build WeKan|Build WeKan" \
+					"Update git|Update git: fetch + rebase onto origin, fix CHANGELOG hashes, show status" ;;
 			"Dev server")
 				choose "Dev server" \
 					"localhost:3000|Run Meteor for dev on http://localhost:3000" \
@@ -1388,6 +1442,11 @@ for _once in 1; do
 
     "Build WeKan")
 		build_wekan
+		break
+		;;
+
+    "Update git: fetch + rebase onto origin, fix CHANGELOG hashes, show status")
+		update_git
 		break
 		;;
 
