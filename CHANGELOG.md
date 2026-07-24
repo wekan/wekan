@@ -596,7 +596,9 @@ and fixes the following bugs:
   works — the placeholder is not a board tile, which had made the board snap back to its
   original position). Hovering anywhere on a board icon opens the gap at THAT icon's slot
   (drop to take its place), rather than needing to aim the icon's left half; only the last
-  icon's trailing half inserts after, to keep the end reachable. And the
+  icon's trailing half inserts after, to keep the end reachable. The dragged icon is taken
+  out of the grid flow while dragging (the other icons reflow as if it were gone), so the
+  gap lands exactly where the icon will go rather than one slot to the left. And the
   current folder's NAME beside its icon in the header ("Starred"/"Remaining"/a workspace
   name) is hidden — redundant with the icon, the highlighted menu row and the "My Boards"
   title, and it crowded the Multi-Selection / Sort / search controls — kept for screen
