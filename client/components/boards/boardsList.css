@@ -540,12 +540,25 @@
   color: #000;
 }
 
+/* #6523: a responsive grid instead of `float: width 20%`. The float layout was
+   a FIXED 5 columns (wrapping to 4 with margins), so as the window widened the
+   tiles just stretched wider instead of more fitting per row. `auto-fill` +
+   `minmax(200px, 1fr)` fills each row with as many ~200px tiles as fit, so more
+   width means more boards per row and the tiles stay a steady size. The 8px
+   `gap` replaces the per-tile margins (set to 0 below). */
 .board-list {
   margin: 0 8px;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+  align-content: start;
 }
 .board-list li {
-  float: inline-start;
-  width: 20%;
+  float: none;
+  width: auto;
+  margin: 0;
   box-sizing: border-box;
   position: relative;
 }
@@ -898,10 +911,11 @@ body.grey-icons-enabled .checkmark-no-grey {
 
 /* Mobile view styles - applied when isMiniScreen is true (iPhone, etc.) */
 .board-list.mobile-view {
-  /* #6488: a real 2-column grid — robust regardless of float support or how narrow
-     the boards column is (at least 2 board icons per row on phones). */
+  /* #6488/#6523: a responsive grid. `min(46%, 200px)` keeps ~2 columns on a narrow
+     phone board-column (46% of it) but caps the tile at 200px, so a wider screen
+     (e.g. a laptop in mobile mode) gets more columns instead of two stretched ones. */
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(46%, 200px), 1fr));
   gap: 8px;
   height: calc(100vh - 120px);
   overflow-y: auto !important;
@@ -1211,7 +1225,7 @@ body.grey-icons-enabled .checkmark-no-grey {
   background-color: #999; /* Default gray background if no color class is applied */
   border-radius: 3px; /* Rounded corners for board items */
   overflow: hidden; /* Ensure children respect rounded corners */
-  margin: 8px; /* Space between board items */
+  margin: 0; /* grid gap spaces the tiles now (#6523) */
 }
 
 /* #6439: highlight the board a dragged board will be dropped before, when
@@ -1224,7 +1238,7 @@ body.grey-icons-enabled .checkmark-no-grey {
 /* Reset background for add-board button */
 .js-add-board {
   background-color: transparent !important;
-  margin: 8px !important; /* Keep margin for add-board */
+  margin: 0 !important; /* grid gap spaces the tiles now (#6523) */
 }
 
 /* Apply board colors to li.js-board parent instead of just the link */
