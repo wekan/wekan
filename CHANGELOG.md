@@ -181,17 +181,22 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
 
 This release fixes the following bugs:
 
-- [Copying a board no longer reports a failure as success. `POST /api/boards/:boardId/copy`
-  caught any error with `sendJsonResult(res, { data: error })`, and that helper defaults the
-  HTTP status to 200 when no `code` is given — so a copy that THREW was returned as 200 with
-  the error object as the body, indistinguishable from success (the REST client got an object
-  where it expected the new board id string). The route now returns 500 with the error message
-  and logs the stack server-side, so a failed copy is a clean error instead of a wrong 200.
-  `board.copy()` is also hardened: the custom-field remap did `card.customFields.map(...)`,
-  which throws for a card whose `customFields` is absent (the schema defaults it to `[]`, but a
-  card copied via `.direct` or seeded raw can lack it) and failed the whole copy — it now skips
-  cards that have none, matching the `!Array.isArray(this.customFields)` guard used elsewhere in
-  the model](https://github.com/wekan/wekan/commit/a6d9da4e9).
+- [Copying a board works again (`POST /api/boards/:boardId/copy`). `swimlane.copy()`, which
+  runs on the server, called the SYNCHRONOUS `getDefaultSwimline()` on the source board to
+  detect its default swimlane; for a board with no pickable swimlane that getter self-heals via
+  a synchronous `Swimlanes.upsert()`, which Meteor 3 rejects on the server (`update is not
+  available on the server. Please use updateAsync() instead.`), so the whole copy threw. It now
+  calls the existing `getDefaultSwimlineAsync()` (same pick + idempotent `upsertAsync`
+  self-heal). Two related hardenings landed with it: the copy REST route caught the error with
+  `sendJsonResult(res, { data: error })`, and that helper defaults the HTTP status to 200 when
+  no `code` is given — so a copy that THREW was returned as 200 with the error object as the
+  body, indistinguishable from success (that is what the REST test caught); the route now
+  returns 500 with the message and logs the stack, so a failed copy is a clean, diagnosable
+  error. And `board.copy()`'s custom-field remap did `card.customFields.map(...)`, which throws
+  for a card whose `customFields` is absent (the schema defaults it to `[]`, but a card copied
+  via `.direct` or seeded raw can lack it) — it now skips cards that have none, matching the
+  `!Array.isArray(this.customFields)` guard used elsewhere in the
+  model](https://github.com/wekan/wekan/commit/f92b49d1b).
   Thanks to xet7.
 
 - [All Boards header on a phone, follow-up: the section icon and the Multi-Selection / Sort
