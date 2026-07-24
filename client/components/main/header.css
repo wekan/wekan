@@ -1241,13 +1241,21 @@ body.mobile-mode #header-quick-access .allBoards {
   /* ---- Small-screen quick-access bar (ALL browsers, width-based) ----
      These rules use width-based selectors (not the .iphone-device class) so
      they apply to every browser at small width — Fairphone/Android, narrow
-     desktop and iPhone alike. Keep every item visible: let the bar wrap and
-     grow instead of pinning its height and clipping the overflow. */
+     desktop and iPhone alike.
+
+     This used to force `flex-wrap: wrap !important` ("so ~7 items fit in two
+     wrapped rows"), which was the reason the avatar dropped to a second line
+     even with space left beside the bell: an !important wrap beats any nowrap,
+     and a wrapping row breaks BEFORE the last item rather than shrinking. The
+     items are now made to fit instead (icon-only home link, capped logo, trimmed
+     bell and username hidden below), so the bar can stay one row: ~320px of a
+     375px iPhone 12 mini bar. `overflow: visible` stays, so if a translation or
+     a custom logo ever does overflow, the items spill rather than disappear. */
   #header-quick-access {
     height: auto !important;
     min-height: 28px !important;
     overflow: visible !important;
-    flex-wrap: wrap !important;
+    flex-wrap: nowrap !important;
     align-items: center !important;
     row-gap: 4px !important;
   }
@@ -1449,5 +1457,28 @@ body.mobile-mode #header-quick-access .allBoards {
   #header-quick-access #notifications .notifications-drawer-toggle,
   .iphone-device #header-quick-access #notifications .notifications-drawer-toggle {
     margin: 0 2px !important;
+  }
+
+  /* Avatar only - no username/full name beside it. The template already hides it
+     `unless isMiniScreen`, but that is a JS/Session decision (Utils.isMiniScreen
+     also weighs mobile mode and device), so it can be true while the bar is
+     narrow. A full name is easily 100px+ of a 375px bar, which is what pushed the
+     avatar onto a second row. Same bare-text-node situation as the home link:
+     font-size:0 on the link collapses the name, and the avatar has its own size,
+     so it is unaffected. The name stays in the DOM for screen readers. */
+  #header-quick-access #header-user-bar .header-user-bar-name,
+  .wrapper ~ #header-quick-access #header-user-bar .header-user-bar-name,
+  body:not(.board-view) #header-quick-access #header-user-bar .header-user-bar-name,
+  .iphone-device #header-quick-access #header-user-bar .header-user-bar-name,
+  .iphone-device body:not(.board-view) #header-quick-access #header-user-bar .header-user-bar-name {
+    font-size: 0 !important;
+    gap: 0 !important;
+    padding-inline-end: 0 !important;
+  }
+
+  #header-quick-access #header-user-bar .header-user-bar-avatar,
+  .iphone-device #header-quick-access #header-user-bar .header-user-bar-avatar {
+    font-size: 12px !important;
+    margin-inline-end: 0 !important;
   }
 }
