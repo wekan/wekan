@@ -55,3 +55,10 @@ import './fileValidationBypass.security.tests';
 import './importExportSecurity.tests';
 import './impersonationReportQuery.tests';
 import './brokenCardsRepair.tests';
+
+// #6520: these three suites existed but were never imported here, so `meteor test`
+// silently skipped them - including two *bleed security regression suites, exactly
+// the kind of test whose absence lets a fixed vulnerability come back unnoticed.
+import './checklistbleed.security.tests';
+import './proxybleed.security.tests';
+import './filenameTruncation.tests';

@@ -15,3 +15,7 @@ import './mentionEnterGuard.tests';
 import './subtaskViewTarget.tests';
 import './cardCloseGuard.tests';
 import './bsonBrowserShim.tests';
+
+// #6520: existed but were never imported here, so `meteor test` skipped them.
+import './alwaysShowCodeAsText.tests';
+import './renderLinksPlainText.tests';
