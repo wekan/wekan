@@ -548,6 +548,16 @@ and fixes the following bugs:
   unchanged](https://github.com/wekan/wekan/commit/b1435dce7).
   Thanks to xet7.
 
+- [The top-bar zoom %, notification bell and user/avatar menu now stay at the END of the
+  quick-access bar — the right edge in LTR, the left edge in RTL. They are the last items
+  in the bar and the middle starred-boards list normally pushes them there with `flex: 1`,
+  but that list is `display: none` on a phone, so with nothing filling the middle the group
+  bunched at the start with empty bar beside it. A single `margin-inline-start: auto`
+  (logical, so it flips for RTL automatically) on the first item of the group pushes the
+  whole group to the end, with the row's other auto margin cleared so they do not split
+  apart](https://github.com/wekan/wekan/commit/940437865).
+  Thanks to xet7.
+
 and removes the following dead code:
 
 - [Removed the cron migration subsystem: it never ran and had no UI, yet every logged-in
