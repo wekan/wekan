@@ -146,6 +146,14 @@ say ""
 #   failing endpoint (feature disabled, missing scope) is recorded in
 #   00-summary.txt and in <dir>/<name>.error.txt instead.
 # ---------------------------------------------------------------------------
+# How many records a dump holds. Always prints a number, so an unreadable or
+# empty file shows as 0 instead of a blank column in the summary.
+count() {
+  n=$(jq 'if type=="array" then length else 1 end' < "$1" 2>/dev/null)
+  [ -n "$n" ] || n=0
+  echo "$n"
+}
+
 fetch() {
   dir=$1; name=$2; endpoint=$3; desc=$4
   raw="$RUN/$dir/$name.json"
@@ -155,8 +163,23 @@ fetch() {
   if gh api --paginate --slurp -H "Accept: application/vnd.github+json" \
        "$endpoint" > "$raw" 2>"$err.tmp"; then
     rm -f "$err.tmp"
-    n=$(jq 'if type=="array" then length else 1 end' < "$raw" 2>/dev/null)
-    say "OK    $dir/$name  ($n)  - $desc"
+    # `--slurp` returns ONE ARRAY PER PAGE, so a list endpoint arrives as
+    # [[alert,...],[alert,...]]. Without flattening, `.[]` yields PAGES rather
+    # than alerts: every later `select(.state == ...)` was applied to an array,
+    # jq failed, its error went to /dev/null and the redirect left a 0-byte file -
+    # which is why every split dump came out empty and every count blank, while
+    # the fetch itself reported OK. Concatenate the pages into one list.
+    # Endpoints returning a single object are slurped to [ {...} ] and must be
+    # left alone, so only flatten when EVERY element is itself an array.
+    if jq -e 'type == "array" and length > 0 and all(.[]; type == "array")' \
+         < "$raw" >/dev/null 2>&1; then
+      if jq 'add' < "$raw" > "$raw.flat" 2>/dev/null; then
+        mv "$raw.flat" "$raw"
+      else
+        rm -f "$raw.flat"
+      fi
+    fi
+    say "OK    $dir/$name  ($(count "$raw"))  - $desc"
     return 0
   fi
 
@@ -173,9 +196,20 @@ fetch() {
 # ---------------------------------------------------------------------------
 split() {
   src=$1; dir=$2; name=$3; filter=$4
+  out="$RUN/$dir/$name.json"
   [ -f "$src" ] || return 1
-  jq "[ .[] | select($filter) ]" < "$src" > "$RUN/$dir/$name.json" 2>/dev/null
-  say "      $dir/$name.json  ($(jq 'length' < "$RUN/$dir/$name.json" 2>/dev/null))"
+  # Write through a temp file: a failing jq used to truncate the destination to
+  # 0 bytes, which is not valid JSON and made every later step on it fail too.
+  # On failure keep an empty ARRAY and the jq error next to it, so a broken
+  # filter is visible instead of silently looking like "no findings".
+  if jq "[ .[] | select($filter) ]" < "$src" > "$out.tmp" 2>"$out.error.txt"; then
+    rm -f "$out.error.txt"
+  else
+    echo '[]' > "$out.tmp"
+    say "      WARN $dir/$name.json - filter failed, see $name.json.error.txt"
+  fi
+  mv "$out.tmp" "$out"
+  say "      $dir/$name.json  ($(count "$out"))"
 }
 
 # ---------------------------------------------------------------------------
@@ -406,9 +440,23 @@ if fetch Raw secret-scanning-alerts-with-secrets \
      "/repos/$REPO/secret-scanning/alerts?per_page=100" \
      "every secret scanning alert, all states (secret values redacted)"; then
 
-  jq 'map(del(.secret))' < "$RUN/Raw/secret-scanning-alerts-with-secrets.json" \
-    > "$RUN/Raw/secret-scanning-alerts.json" 2>/dev/null
-  rm -f "$RUN/Raw/secret-scanning-alerts-with-secrets.json"
+  # Redact, and only drop the file that still holds the live secrets once the
+  # redacted copy is known to be valid JSON. Previously a failing jq wrote an
+  # empty file and the source was deleted anyway, so the alerts vanished with no
+  # sign that anything had gone wrong.
+  if jq 'map(del(.secret))' < "$RUN/Raw/secret-scanning-alerts-with-secrets.json" \
+       > "$RUN/Raw/secret-scanning-alerts.json.tmp" 2>/dev/null \
+     && jq -e 'type == "array"' < "$RUN/Raw/secret-scanning-alerts.json.tmp" \
+       >/dev/null 2>&1; then
+    mv "$RUN/Raw/secret-scanning-alerts.json.tmp" "$RUN/Raw/secret-scanning-alerts.json"
+    rm -f "$RUN/Raw/secret-scanning-alerts-with-secrets.json"
+  else
+    rm -f "$RUN/Raw/secret-scanning-alerts.json.tmp"
+    # Never leave the unredacted dump lying around, even when redaction fails.
+    rm -f "$RUN/Raw/secret-scanning-alerts-with-secrets.json"
+    echo '[]' > "$RUN/Raw/secret-scanning-alerts.json"
+    say "      WARN Raw/secret-scanning-alerts.json - redaction failed, dump discarded"
+  fi
 
   split "$RUN/Raw/secret-scanning-alerts.json" SecretScanning/open   alerts '.state == "open"'
   split "$RUN/Raw/secret-scanning-alerts.json" SecretScanning/closed alerts '.state != "open"'
@@ -466,12 +514,11 @@ render DependencyGraph sbom \
 say ""
 say "Counts (open / closed):"
 for c in $ALERT_CATEGORIES; do
-  o="-"; c_=""
+  o="-"; c_="-"
   for name in alerts advisories; do
-    [ -f "$RUN/$c/open/$name.json" ]   && o=$(jq 'length' < "$RUN/$c/open/$name.json" 2>/dev/null)
-    [ -f "$RUN/$c/closed/$name.json" ] && c_=$(jq 'length' < "$RUN/$c/closed/$name.json" 2>/dev/null)
+    [ -f "$RUN/$c/open/$name.json" ]   && o=$(count "$RUN/$c/open/$name.json")
+    [ -f "$RUN/$c/closed/$name.json" ] && c_=$(count "$RUN/$c/closed/$name.json")
   done
-  [ -n "$c_" ] || c_="-"
   say "  $c: $o / $c_"
 done
 
