@@ -177,6 +177,48 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   `language-*` classes on `<span>` inside `pre>code` only, which is a security trade-off xet7 has not
   decided on yet (adds a dependency + loosens the XSS sanitizer + needs a browser build to verify).
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [All Boards header on a phone, follow-up: the section icon and the Multi-Selection / Sort
+  buttons really do share ONE row now, with the Search box on the row below, and a workspace
+  name no longer hides under its "bars" menu button. The buttons and search box live inside a
+  `.path-right` wrapper, so the v10.34 attempt (giving that wrapper `flex`) only made the
+  WRAPPER wrap as a two-line block beneath the section icon, leaving the icon alone on row 1.
+  On a phone `.path-right` is now `display: contents`, which dissolves the wrapper so its
+  buttons and search field become direct items of the header's own flex row; the header then
+  wraps them itself — section icon + buttons on row 1, full-width search on row 2. And the
+  narrow-left-menu workspace NAME had a min-width floor that stopped it shrinking, so in the
+  cramped row its box overflowed onto the "bars" workspace-menu button to its right and the
+  hamburger looked like it sat on top of the name; the floor is removed and the name's box is
+  clipped, so the name truncates with an ellipsis and can never cover the menu, while the menu
+  button and count never shrink](https://github.com/wekan/wekan/commit/33ca42a32).
+  Thanks to xet7.
+
+- [Upgrading no longer grows a spurious "Restored Items" column full of cards that look
+  empty but are not. Four obsolete per-swimlane-lists-era board migrations fought today's
+  data model and are removed. `restoreLostCards` created a "Lost Cards" swimlane and a
+  "Restored Items" list and moved cards into them — it counted a card "orphaned" when its
+  list was merely ARCHIVED (archived lists are excluded from the set it checks) and "lost"
+  when its `swimlaneId` was `''` (which is NORMAL for a board-wide shared card), so it
+  dragged real, healthy cards into "Restored Items", where they rendered oddly.
+  `comprehensiveBoardMigration` and `fixMissingListsMigration` converted today's board-wide
+  SHARED lists (`swimlaneId ''`) back into per-swimlane DUPLICATE columns — the exact damage
+  the startup schema step `merge-per-swimlane-lists` now UNDOES — and `restoreAllArchived`
+  un-archived every swimlane / list / card at once. All four had NO callers left (their admin
+  migration dashboard was already removed), so they were dead code exposed only as
+  admin-callable Meteor methods that could re-corrupt a board if invoked. The correct paths
+  remain: the board-open self-heal (`repairBoardData`) relinks a genuinely missing swimlaneId
+  or an orphaned card to the board's real first list/swimlane, and `merge-per-swimlane-lists`
+  merges any per-swimlane duplicate columns back into one shared list while cards keep their
+  swimlaneId; it still keys off the era's board markers in existing data, so removing the code
+  that once wrote them changes nothing for already-migrated boards. A test keeps the four from
+  coming back](https://github.com/wekan/wekan/commit/88a076561).
+  Thanks to hmeunier95 and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.34 2026-07-24 WeKan ® release
 
 This release adds the following new features:
@@ -236,27 +278,6 @@ and fixes the following bugs:
   problems — while rows with no severity still count, so nothing unclassified is
   dropped](https://github.com/wekan/wekan/commit/1fb382f0e).
   Thanks to Alishara and xet7.
-
-- [Upgrading no longer grows a spurious "Restored Items" column full of cards that look
-  empty but are not. Four obsolete per-swimlane-lists-era board migrations fought today's
-  data model and are removed. `restoreLostCards` created a "Lost Cards" swimlane and a
-  "Restored Items" list and moved cards into them — it counted a card "orphaned" when its
-  list was merely ARCHIVED (archived lists are excluded from the set it checks) and "lost"
-  when its `swimlaneId` was `''` (which is NORMAL for a board-wide shared card), so it
-  dragged real, healthy cards into "Restored Items", where they rendered oddly.
-  `comprehensiveBoardMigration` and `fixMissingListsMigration` converted today's board-wide
-  SHARED lists (`swimlaneId ''`) back into per-swimlane DUPLICATE columns — the exact damage
-  the startup schema step `merge-per-swimlane-lists` now UNDOES — and `restoreAllArchived`
-  un-archived every swimlane / list / card at once. All four had NO callers left (their admin
-  migration dashboard was already removed), so they were dead code exposed only as
-  admin-callable Meteor methods that could re-corrupt a board if invoked. The correct paths
-  remain: the board-open self-heal (`repairBoardData`) relinks a genuinely missing swimlaneId
-  or an orphaned card to the board's real first list/swimlane, and `merge-per-swimlane-lists`
-  merges any per-swimlane duplicate columns back into one shared list while cards keep their
-  swimlaneId; it still keys off the era's board markers in existing data, so removing the code
-  that once wrote them changes nothing for already-migrated boards. A test keeps the four from
-  coming back](https://github.com/wekan/wekan/commit/88a076561).
-  Thanks to hmeunier95 and xet7.
 
 - ["Map to existing user" for an imported (virtual) member now searches every user
   instead of listing only board members. After importing a Trello board and choosing to
@@ -675,19 +696,14 @@ and fixes the following bugs:
   Thanks to xet7.
 
 - [All Boards header on a phone: the section icon and the Multi-Selection / Sort buttons now
-  share ONE row with the Search box on its own row below, instead of the section icon sitting
-  alone on a wasted first line with the buttons stranded on a second row. The buttons and the
-  search box live inside a `.path-right` wrapper, so giving that wrapper `flex` still let it
-  wrap as a two-line block beneath the icon; it is now `display: contents` on a phone, which
-  dissolves the wrapper so its buttons and search field become direct items of the header's
-  own flex row — the header then wraps them directly (icon + buttons on row 1, full-width
-  search on row 2). The blue Sort button always shows a sort icon (the plain `fa-sort` glyph,
-  as a direct `i.fa` child like the Multi-Selection button beside it, rather than the wrapped
-  `fa-sort-alpha-asc` that showed as a blank blue square). And on the narrow left menu the
-  workspace NAME is clipped to its own box so it can no longer spill over the "bars" workspace
-  menu button on its right (which had made the hamburger look like it sat on top of the name);
-  the name takes the space left by the fixed drag handle / icon / menu / count and truncates
-  with an ellipsis](https://github.com/wekan/wekan/commit/79c5c278e).
+  share ONE row with the Search box on its own row below, instead of the section icon
+  sitting alone on a wasted first line; the blue Sort button always shows a sort icon (the
+  plain `fa-sort` glyph, as a direct `i.fa` child like the Multi-Selection button beside it,
+  rather than the wrapped `fa-sort-alpha-asc` that showed as a blank blue square); and on the
+  narrow left menu each workspace NAME keeps a small floor of width so at least the first few
+  characters stay visible (with the trailing menu button and count shrinking first), so a
+  workspace can be told apart while it is dragged — an unnamed workspace still shows just its
+  icon](https://github.com/wekan/wekan/commit/79c5c278e).
   Thanks to xet7.
 
 and removes the following dead code:
