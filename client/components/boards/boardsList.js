@@ -862,21 +862,11 @@ Template.boardList.events({
     tpl.selectedMenu.set(id);
   },
   'click .js-open-workspace-menu': Popup.open('workspaceActions'),
-  'click .js-add-workspace'(evt, tpl) {
-    evt.preventDefault();
-    const name = prompt(
-      TAPi18n.__('allboards.add-workspace-prompt') || 'New Space name',
-    );
-    if (name && name.trim()) {
-      Meteor.call(
-        'createWorkspace',
-        { parentId: null, name: name.trim() },
-        (err, res) => {
-          if (err) console.error(err);
-        },
-      );
-    }
-  },
+  // #6524: opens a popup with a real input. This used to call window.prompt(),
+  // which a browser may simply refuse to show - iOS Safari offers "don't allow
+  // further prompts" and then suppresses every later one for that page, so the
+  // "+" beside Workspaces did nothing at all and no input field ever appeared.
+  'click .js-add-workspace': Popup.open('addWorkspace'),
   'click .js-add-board'(evt, tpl) {
     // Store the currently selected workspace/menu for board creation
     const selectedWorkspaceId = tpl.selectedWorkspaceIdVar.get();
@@ -1469,6 +1459,24 @@ Template.workspaceActionsPopup.helpers({
   },
   workspaceIcon() {
     return this.icon || DEFAULT_WORKSPACE_ICON;
+  },
+});
+
+Template.addWorkspacePopup.events({
+  'submit .js-add-workspace-form'(evt) {
+    evt.preventDefault();
+    const input = evt.currentTarget.querySelector('.js-new-workspace-name');
+    const name = (input && input.value ? input.value : '').trim();
+    if (!name) {
+      // Nothing typed: keep the popup open and the field focused rather than
+      // silently closing, which is what a cancelled prompt() used to look like.
+      if (input) input.focus();
+      return;
+    }
+    Meteor.call('createWorkspace', { parentId: null, name }, err => {
+      if (err) console.error(err);
+    });
+    Popup.back();
   },
 });
 

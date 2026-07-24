@@ -325,6 +325,17 @@ template(name="workspaceTree")
           if children
             +workspaceTree(nodes=children selectedWorkspaceId=selectedWorkspaceId)
 
+//- #6524: creating a workspace used window.prompt(), which a browser may refuse
+  to show at all - iOS Safari lets the user suppress further prompts for a page,
+  and then the "+" beside Workspaces did nothing visible. This is a normal popup
+  with a real input, like every other create flow in WeKan.
+template(name="addWorkspacePopup")
+  form.js-add-workspace-form
+    label
+      | {{_ 'allboards.add-workspace-prompt'}}
+      input.js-new-workspace-name(type="text" autocomplete="off" autofocus required)
+    input.primary.wide(type="submit" value="{{_ 'allboards.add-workspace'}}")
+
 template(name="workspaceActionsPopup")
   form.workspace-actions-form.js-workspace-actions-form(data-id="{{id}}")
     label
