@@ -423,7 +423,13 @@ and fixes the following bugs:
   its content width), so `min-width: 0` plus `flex: 1 1 auto` lets it take what is left
   beside the title. The "Search boards" placeholder filled the whole box on a phone and is
   replaced by an `aria-label`, which is what a placeholder should never have been standing
-  in for](https://github.com/wekan/wekan/commit/1ad93ef67).
+  in for](https://github.com/wekan/wekan/commit/1ad93ef67). "+ Add Board" and a board tile
+  are then made identical in size: the add tile is one grid cell again rather than spanning
+  both columns, and — since `.js-add-board` carries `margin: 8px !important` while
+  `.js-board` carries `margin: 8px` — both are zeroed at small width rather than only one,
+  which would have made the add tile the odd one out instead. The grid's own 8px gap
+  already separates the cells, so every tile is one 96×64px cell at 375px, add and board
+  alike](https://github.com/wekan/wekan/commit/8fd2982ec).
   Thanks to xet7.
 
 and removes the following dead code:
