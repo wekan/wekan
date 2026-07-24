@@ -1277,6 +1277,48 @@ body:not(.board-view) #header #header-main-bar h1 {
   .iphone-device body:not(.board-view) #header-quick-access .zoom-controls .zoom-input {
     font-size: 0.7em !important; /* ~30% smaller than surrounding text */
   }
+
+  /* ── One-row quick-access bar on phones (#6522) ─────────────────────────────
+     The bar wrapped to two rows on an iPhone 12 mini: the home link carried its
+     full "All Boards" label (longer still in most languages), the logo was
+     allowed 120px of a 375px bar, and several items had 0.5rem margins on BOTH
+     sides. layouts.css now makes the row fit; these repeat it for the
+     `.iphone-device` fallback, which sets font-size and per-item margins with
+     !important and would otherwise re-expand the bar straight back to two rows.
+     `.iphone-device` is added by boardBody.js, so it is present on a board page
+     and absent on All Boards - both paths have to agree, or the header would
+     change height when navigating between them.
+
+     The home LABEL is a bare text node, not a span, so it cannot be selected:
+     font-size:0 on the link collapses it and the icon's own size brings the icon
+     back. The text stays in the DOM, so screen readers still announce it. */
+  .iphone-device #header-quick-access .home-icon a {
+    font-size: 0 !important;
+    padding: 4px 6px !important;
+  }
+  .iphone-device #header-quick-access .home-icon a .fa-home,
+  .iphone-device #header-quick-access .home-icon .fa-home {
+    font-size: 16px !important;
+    margin-inline-end: 0 !important;
+  }
+  /* 0.5rem on both sides of five items was ~80px of a 375px bar. */
+  .iphone-device #header-quick-access .home-icon,
+  .iphone-device #header-quick-access .zoom-controls,
+  .iphone-device #header-quick-access .mobile-mode-toggle,
+  .iphone-device #header-quick-access #notifications,
+  .iphone-device #header-quick-access #header-user-bar {
+    margin: 0 3px !important;
+  }
+  /* One auto margin, so the user menu still sits at the end when there is room
+     and collapses to nothing when there is not. */
+  .iphone-device #header-quick-access #header-user-bar {
+    margin-inline-start: auto !important;
+  }
+  .iphone-device #header-quick-access img {
+    max-height: 20px !important;
+    max-width: 84px !important;
+  }
+
 }
 @media print {
   #header-quick-access .allBoards,

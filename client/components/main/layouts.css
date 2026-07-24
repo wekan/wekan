@@ -758,15 +758,19 @@ a:not(.disabled).is-active i.fa {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 8px;
+    /* Tight but still tappable spacing: on a 375px phone (iPhone 12 mini) the
+       gaps alone were 8px x 6 = 48px, an eighth of the whole bar. */
+    gap: 6px;
     width: 100%;
-    /* On narrow screens (e.g. iPhone 12 mini, 375px) the icon buttons cannot
-       shrink below their min-width, so a single nowrap row overflows and the
-       base rule's overflow:hidden clips the right-side items (mobile/desktop
-       toggle, notifications, member/user menu). Allow wrapping to a second row
-       and let the bar grow so nothing is ever hidden. */
-    flex-wrap: wrap;
-    overflow: visible;
+    /* ONE row. This used to wrap to a second row because the items did not fit:
+       the home link kept its full "All Boards" label, the logo was allowed 120px,
+       and TWO items had `margin-inline-start: auto`, each eating all remaining
+       space on its line and pushing everything after it down. Rather than let the
+       bar grow to two rows (or clip the right-hand items, which is what nowrap
+       did before that), the items below are made to FIT: icon-only home link,
+       smaller logo cap, one auto margin, tighter padding. */
+    flex-wrap: nowrap;
+    overflow: hidden;
     height: auto;
     min-height: 28px;
   }
@@ -777,26 +781,47 @@ a:not(.disabled).is-active i.fa {
     display: none !important;
   }
 
-  /* Show the home link with its full "All Boards" text on mobile. The label is
-     a bare text node (not a span), so the old max-width:28px + overflow:hidden
-     clip revealed only "A"; removing it shows the whole label. The bar wraps,
-     so the extra width is fine. */
+  /* Home link: icon only. The label ("All Boards" / "Kaikki taulut" - it is
+     longer in most languages than in English) is the single widest item in the
+     bar, and the home icon on its own is unambiguous. The label is a bare text
+     node rather than a span, so it cannot be targeted directly: font-size:0 on
+     the link collapses it and the icon's own font-size brings the icon back.
+     The text stays in the DOM, so screen readers still announce it. */
+  #header-quick-access .home-icon {
+    margin-inline-end: 0;
+    flex-shrink: 0;
+  }
   #header-quick-access .home-icon a {
     display: inline-flex;
     align-items: center;
     max-width: none;
     overflow: visible;
     white-space: nowrap;
+    font-size: 0;
+    padding: 4px 6px;
+  }
+  #header-quick-access .home-icon a .fa-home {
+    font-size: 16px;
+    margin-inline-end: 0;
+  }
+  /* `.allBoards` is the same element as `.home-icon`; its 15px side padding is
+     desktop spacing. */
+  #header-quick-access .allBoards {
+    padding: 4px 6px;
   }
 
-  /* Ensure proper spacing for mobile header elements */
+  /* Exactly ONE auto margin in the row. Two of them (zoom AND user bar) each
+     absorbed the remaining space on their line, which is what forced the wrap:
+     the first auto margin filled line 1, so everything after it started line 2.
+     The single one here right-aligns the user menu when there is space left and
+     collapses to 0 when there is not. */
   #header-quick-access .zoom-controls {
-    margin-inline-start: auto;
-    margin-inline-end: 8px;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
   }
 
   .mobile-mode-toggle {
-    margin-inline-end: 8px;
+    margin-inline-end: 0;
   }
 
   #header-user-bar {
@@ -808,10 +833,10 @@ a:not(.disabled).is-active i.fa {
     min-width: 0; /* Allow flexbox to shrink */
   }
 
-  /* Make sure logo doesn't take too much space on mobile */
+  /* The logo is decorative here and was allowed a third of a 375px bar. */
   #header-quick-access img {
-    max-height: 24px;
-    max-width: 120px;
+    max-height: 20px;
+    max-width: 84px;
   }
 
   /* Ensure zoom controls are compact on mobile */
