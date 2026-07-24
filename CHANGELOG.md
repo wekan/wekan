@@ -195,7 +195,7 @@ scanning:
   `escapeRegExp()` that escapes the full set, backslash included.
 - Both are test helpers, so neither was reachable by an attacker, but both were
   genuinely wrong string handling
-  ([commit](https://github.com/wekan/wekan/commit/32c63e6d8)).
+  ([commit](https://github.com/wekan/wekan/commit/23bcb83c8)).
 - Thanks to **GitHub CodeQL** (alerts #427 and #428) and **xet7**.
 
 and resolves the following GitHub Dependabot alerts in npm dependencies:
@@ -251,7 +251,7 @@ and has the following developer-tooling fix:
   redaction validates the redacted copy before deleting the dump that still holds
   live secrets (and removes it on the failure path too), and counts always print a
   number. The same shape had also broken the newest-analysis lookup and the
-  codeql-databases dump](https://github.com/wekan/wekan/commit/ba3219552).
+  codeql-databases dump](https://github.com/wekan/wekan/commit/e876b6029).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their
