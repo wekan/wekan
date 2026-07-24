@@ -89,6 +89,64 @@
 .member.add-member.is-active {
   box-shadow: 0 0 0 2px #666 inset;
 }
+/* Change profile image popup (changeAvatarPopup / adminChangeAvatarPopup).
+   One row per avatar: thumbnail, file name, a check when it is the one in use,
+   and a delete button. The delete button is a SIBLING of the select link (see
+   userAvatar.jade), so it needs its own row-level flex layout here. */
+.avatar-list .avatar-list-item {
+  display: flex;
+  align-items: stretch;
+}
+.avatar-list .avatar-list-select {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.avatar-list .avatar-list-select > .member {
+  align-self: center;
+  margin: 0;
+}
+.avatar-list .avatar-list-info {
+  flex: 1 1 auto;
+  min-width: 0;
+  line-height: 18px;
+  padding: 4px 0;
+}
+.avatar-list .avatar-list-name {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.avatar-list .avatar-list-check {
+  flex: 0 0 auto;
+  color: #3cb500;
+}
+/* Marks the avatar in use; :not(:hover) so the popup's own hover colour still wins. */
+.avatar-list .avatar-list-item.selected .avatar-list-select:not(:hover) {
+  background-color: #e2e6e9;
+}
+.avatar-list .avatar-list-delete {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  color: #8c8c8c !important;
+}
+/* Outweighs .pop-over-list li > a:not(.disabled):hover, which would otherwise
+   paint the delete button with the generic blue row-hover colour. */
+.avatar-list.pop-over-list li > a.avatar-list-delete:hover {
+  color: #fff !important;
+  background-color: #b04632;
+}
+.avatar-upload-hints {
+  color: #8c8c8c;
+  font-size: 12px;
+  line-height: 16px;
+  margin: 6px 0;
+}
 .atMention {
   background: #dbdbdb;
   border-radius: 3px;

@@ -221,6 +221,12 @@ Template.boardDomainRow.events({
   'click .js-manage-board-removeDomain': Popup.open('removeBoardDomain'),
 });
 
+// Avatar links may carry a ?boardId= query parameter (added so public-board viewers
+// can load them), which must not affect "is this the avatar in use?" comparisons.
+function normalizeAvatarUrl(url) {
+  return url ? url.split('?')[0] : '';
+}
+
 Template.changeAvatarPopup.onCreated(function () {
   this.error = new ReactiveVar('');
   this.avatarUpdateCounter = new ReactiveVar(0);  // Trigger to force helper re-evaluation
@@ -257,10 +263,7 @@ Template.changeAvatarPopup.helpers({
     const userProfile = ReactiveCache.getCurrentUser().profile;
     const avatarUrl = userProfile && userProfile.avatarUrl;
     const currentAvatarUrl = this.link && typeof this.link === 'function' ? this.link() : '';
-    // Normalize URLs by removing query parameters for comparison
-    // (they may be added for boardId but shouldn't affect selection comparison)
-    const normalizeUrl = (url) => url ? url.split('?')[0] : '';
-    return normalizeUrl(avatarUrl) === normalizeUrl(currentAvatarUrl);
+    return normalizeAvatarUrl(avatarUrl) === normalizeAvatarUrl(currentAvatarUrl);
   },
   noAvatarUrl() {
     Template.instance().avatarUpdateCounter.get();  // Create dependency on update counter
@@ -332,9 +335,19 @@ Template.changeAvatarPopup.events({
   'click .js-delete-avatar': Popup.afterConfirm('deleteAvatar', async function() {
     // Inside the each loop, 'this' is the avatar object
     const avatarId = this._id;
+    const deletedUrl = typeof this.link === 'function' ? this.link() : '';
     if (avatarId) {
       await Avatars.removeAsync(avatarId);
     }
+    // Any uploaded avatar can be deleted now, including the one in use. Deleting
+    // the one in use would leave profile.avatarUrl pointing at a file that no
+    // longer exists (a broken image everywhere), so fall back to the initials.
+    const user = ReactiveCache.getCurrentUser();
+    const currentUrl = normalizeAvatarUrl(user && user.profile && user.profile.avatarUrl);
+    if (currentUrl && currentUrl === normalizeAvatarUrl(deletedUrl)) {
+      Meteor.call('setAvatarUrl', '');
+    }
+    avatarUpdateCounter.set(avatarUpdateCounter.get() + 1);
     Popup.back();
   }),
 });
@@ -405,8 +418,7 @@ Template.adminChangeAvatarPopup.helpers({
     const userProfile = user.profile;
     const avatarUrl = userProfile && userProfile.avatarUrl;
     const currentAvatarUrl = this.link && typeof this.link === 'function' ? this.link() : '';
-    const normalizeUrl = (url) => url ? url.split('?')[0] : '';
-    return normalizeUrl(avatarUrl) === normalizeUrl(currentAvatarUrl);
+    return normalizeAvatarUrl(avatarUrl) === normalizeAvatarUrl(currentAvatarUrl);
   },
   noAvatarUrl() {
     Template.instance().avatarUpdateCounter.get();
@@ -487,11 +499,21 @@ Template.adminChangeAvatarPopup.events({
     adminChangeAvatarSetAvatar(tpl, '');
   },
   'click .js-delete-avatar': Popup.afterConfirm('deleteAvatar', async function() {
-    // Inside the each loop, 'this' is the avatar object
+    // Inside the each loop, 'this' is the avatar object, which carries the userId
+    // of the person the admin is editing.
     const avatarId = this._id;
+    const targetUserId = this.userId;
+    const deletedUrl = typeof this.link === 'function' ? this.link() : '';
     if (avatarId) {
       await Avatars.removeAsync(avatarId);
     }
+    // Same as in changeAvatarPopup: never leave the user pointing at a deleted file.
+    const user = targetUserId && ReactiveCache.getUser(targetUserId);
+    const currentUrl = normalizeAvatarUrl(user && user.profile && user.profile.avatarUrl);
+    if (currentUrl && currentUrl === normalizeAvatarUrl(deletedUrl)) {
+      Meteor.call('adminSetAvatarUrl', targetUserId, '');
+    }
+    avatarUpdateCounter.set(avatarUpdateCounter.get() + 1);
     Popup.back();
   }),
 });

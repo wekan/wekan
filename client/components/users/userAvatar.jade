@@ -68,36 +68,44 @@ template(name="memberName")
   else
     = user.username
 
+//- The avatar rows keep the select link and the delete button as SIBLINGS: an
+//- `a` inside an `a` is invalid HTML, the parser closes the outer anchor and the
+//- file name / delete link escape the row's flex layout. Delete is offered for
+//- every uploaded avatar, not only the selected one.
 template(name="changeAvatarPopup")
   if error.get
     .warning {{_ error.get}}
-  ul.pop-over-list
+  ul.pop-over-list.avatar-list
     each uploadedAvatars
-      li: a.js-select-avatar
+      li.avatar-list-item(class="{{#if isSelected}}selected{{/if}}")
+        a.js-select-avatar.avatar-list-select(title="{{name}}")
+          .member
+            img.avatar.avatar-image(src="{{avatarLink}}")
+          .avatar-list-info
+            span.avatar-list-name= name
+          if isSelected
+            i.fa.fa-check.avatar-list-check
+        a.js-delete-avatar.avatar-list-delete(data-avatar-id="{{_id}}" title="{{_ 'delete'}}")
+          i.fa.fa-trash
+    li.avatar-list-item(class="{{#if noAvatarUrl}}selected{{/if}}")
+      a.js-select-initials.avatar-list-select
         .member
-          img.avatar.avatar-image(src="{{avatarLink}}")
-        if isSelected
-          i.fa.fa-check
-          p.sub-name
-          a.js-delete-avatar(data-avatar-id="{{_id}}") {{_ 'delete'}}
-          |  -
-          = name
-    li: a.js-select-initials
-      .member
-        +userAvatarInitials(userId=currentUser._id)
-      | {{_ 'initials' }}
-      if noAvatarUrl
-        i.fa.fa-check
-        p.sub-name {{_ 'default-avatar'}}
+          +userAvatarInitials(userId=currentUser._id)
+        .avatar-list-info
+          span.avatar-list-name {{_ 'initials' }}
+          span.sub-name {{_ 'default-avatar'}}
+        if noAvatarUrl
+          i.fa.fa-check.avatar-list-check
   unless avatarUploadBlocked
     input.hide.js-upload-avatar-input(accept="image/*;capture=camera" type="file")
-    if Meteor.settings.public.avatarsUploadMaxSize
-      | {{_ 'max-avatar-filesize'}} {{Meteor.settings.public.avatarsUploadMaxSize}}
-      br
-    if Meteor.settings.public.avatarsUploadMimeTypes
-      | {{_ 'allowed-avatar-filetypes'}} {{Meteor.settings.public.avatarsUploadMimeTypes}}
-      br
-    | {{_ 'invalid-file'}}
+    p.avatar-upload-hints
+      if Meteor.settings.public.avatarsUploadMaxSize
+        | {{_ 'max-avatar-filesize'}} {{Meteor.settings.public.avatarsUploadMaxSize}}
+        br
+      if Meteor.settings.public.avatarsUploadMimeTypes
+        | {{_ 'allowed-avatar-filetypes'}} {{Meteor.settings.public.avatarsUploadMimeTypes}}
+        br
+      | {{_ 'invalid-file'}}
     button.full.primary.js-upload-avatar
       i.fa.fa-upload
       | {{_ 'upload-avatar' }}
@@ -111,32 +119,36 @@ template(name="adminChangeAvatarPopup")
     h3 {{_ 'change-avatar'}} - {{ username }}
   if error.get
     .warning {{_ error.get}}
-  ul.pop-over-list
+  ul.pop-over-list.avatar-list
     each uploadedAvatars
-      li: a.js-select-avatar
+      li.avatar-list-item(class="{{#if isSelected}}selected{{/if}}")
+        a.js-select-avatar.avatar-list-select(title="{{name}}")
+          .member
+            img.avatar.avatar-image(src="{{avatarLink}}")
+          .avatar-list-info
+            span.avatar-list-name= name
+          if isSelected
+            i.fa.fa-check.avatar-list-check
+        a.js-delete-avatar.avatar-list-delete(data-avatar-id="{{_id}}" title="{{_ 'delete'}}")
+          i.fa.fa-trash
+    li.avatar-list-item(class="{{#if noAvatarUrl}}selected{{/if}}")
+      a.js-select-initials.avatar-list-select
         .member
-          img.avatar.avatar-image(src="{{avatarLink}}")
-        if isSelected
-          i.fa.fa-check
-          p.sub-name
-          a.js-delete-avatar(data-avatar-id="{{_id}}") {{_ 'delete'}}
-          |  -
-          = name
-    li: a.js-select-initials
-      .member
-        +userAvatarInitials(userData=userData)
-      | {{_ 'initials' }}
-      if noAvatarUrl
-        i.fa.fa-check
-        p.sub-name {{_ 'default-avatar'}}
+          +userAvatarInitials(userId=userId)
+        .avatar-list-info
+          span.avatar-list-name {{_ 'initials' }}
+          span.sub-name {{_ 'default-avatar'}}
+        if noAvatarUrl
+          i.fa.fa-check.avatar-list-check
   input.hide.js-upload-avatar-input(accept="image/*;capture=camera" type="file")
-  if Meteor.settings.public.avatarsUploadMaxSize
-    | {{_ 'max-avatar-filesize'}} {{Meteor.settings.public.avatarsUploadMaxSize}}
-    br
-  if Meteor.settings.public.avatarsUploadMimeTypes
-    | {{_ 'allowed-avatar-filetypes'}} {{Meteor.settings.public.avatarsUploadMimeTypes}}
-    br
-  | {{_ 'invalid-file'}}
+  p.avatar-upload-hints
+    if Meteor.settings.public.avatarsUploadMaxSize
+      | {{_ 'max-avatar-filesize'}} {{Meteor.settings.public.avatarsUploadMaxSize}}
+      br
+    if Meteor.settings.public.avatarsUploadMimeTypes
+      | {{_ 'allowed-avatar-filetypes'}} {{Meteor.settings.public.avatarsUploadMimeTypes}}
+      br
+    | {{_ 'invalid-file'}}
   button.full.primary.js-upload-avatar
     i.fa.fa-upload
     | {{_ 'upload-avatar' }}
