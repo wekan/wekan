@@ -1565,24 +1565,26 @@ body.grey-icons-enabled .checkmark-no-grey {
     row-gap: 6px;
   }
 
-  /* Each part gets its own full-width row. */
-  .boards-path-header .path-left,
-  .boards-path-header .path-right {
-    flex: 1 1 100%;
-    min-width: 0;
-  }
-
-  /* The title now has a whole row, so it needs no ellipsis - but keep it able to
-     shrink rather than widen the card if a menu name is very long. */
+  /* The section icon and the Multi-Selection / Sort buttons share ONE row; the
+     search box wraps onto its own row beneath them (see .board-search below),
+     instead of the section icon sitting alone on a wasted first line. */
   .boards-path-header .path-left {
+    flex: 0 0 auto; /* just the section icon - stay on the buttons' row */
+    min-width: 0;
     overflow: hidden;
   }
-
-  /* The search fills what is left of its row beside the multi-selection buttons.
-     `min-width: 0` is what lets it shrink at all: a flex item defaults to
-     `min-width: auto` and refuses to go below its content width. */
-  .boards-path-header .board-search {
+  .boards-path-header .path-right {
     flex: 1 1 auto;
+    min-width: 0;
+    justify-content: flex-start; /* buttons pack next to the section icon */
+  }
+
+  /* Search takes the whole width of the header, so it drops below the icons.
+     `flex-basis: 100%` forces the wrap; `min-width: 0` lets it then shrink to fit
+     (a flex item defaults to `min-width: auto` and refuses to go below its
+     content width). */
+  .boards-path-header .board-search {
+    flex: 1 1 100%;
     min-width: 0;
   }
 }
@@ -1615,6 +1617,24 @@ body.grey-icons-enabled .checkmark-no-grey {
   /* No extra left margin now that a flex `gap` sets the spacing. */
   .boards-left-menu .menu-item .menu-count {
     margin-inline-start: 0;
+  }
+
+  /* Keep at least part of each workspace NAME visible on the narrow phone menu,
+     so a workspace can be told apart while dragging it. The row packs a drag
+     handle, folder icon, a "bars" menu button and a count chip beside the name;
+     the name takes the remaining space and truncates with an ellipsis, but give
+     it a floor so it never collapses to nothing, and let the trailing menu
+     button/count shrink first. (The name only shows when the workspace HAS a
+     name - an unnamed workspace still shows just its icon.) */
+  .workspace-node .js-select-space {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .workspace-node .workspace-name {
+    min-width: 3.5em; /* ~ a few characters, e.g. "Roa…" */
+  }
+  .workspace-node .js-open-workspace-menu {
+    flex: 0 0 auto;
   }
 }
 

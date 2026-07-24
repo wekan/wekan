@@ -118,8 +118,10 @@ template(name="boardList")
                     a.selected-action.js-home-selected(title="{{_ 'set-selected-home'}}")
                       i.fa.fa-home
             a.board-header-btn.js-open-boards-sort(title="{{_ 'sort-boards'}}" class="{{#unless isBoardsSort 'custom'}}emphasis{{/unless}}")
-              span.emoji-icon
-                i.fa.fa-sort-alpha-asc
+              //- Icon as a direct `i.fa` child (like the Multi-Selection button
+              //- beside it), not wrapped in span.emoji-icon, and the plain
+              //- fa-sort glyph so the blue Sort button always shows a sort icon.
+              i.fa.fa-sort
               span {{_ 'sort'}}
             //- Search boards is placed to the RIGHT of the Multi-Selection button.
             .board-search
