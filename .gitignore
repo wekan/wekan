@@ -84,3 +84,8 @@ _build-local-test
 /FerretDB/
 /mongo-tools/
 /mongosh/
+
+# Linux core dumps (core.<pid>), e.g. from a crashing Playwright/WebKit browser
+# process. Written into the crashing process CWD (tests/playwright/) by
+# kernel.core_pattern; never source files.
+core.[0-9]*

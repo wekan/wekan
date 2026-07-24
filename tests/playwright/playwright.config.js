@@ -5,6 +5,19 @@ const { execFileSync } = require('child_process');
 const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
 const RUN_ALL_BROWSERS = process.env.WEKAN_PLAYWRIGHT_ALL === '1';
 
+// WPE WebKit (the `webkit` project) aborts its WPEWebProcess renderer in headless
+// software-GL environments — notably ARM hosts using Mesa llvmpipe (observed
+// crashing with SIGTRAP on Apple Silicon / Asahi). That shows up as mid-test
+// "renderer gone" click/navigation TIMEOUTS, i.e. false WebKit failures, not real
+// WeKan bugs. Disabling WPE's DMABUF renderer path is the standard fix for
+// headless / containerized / VM WebKit. It is harmless for Chromium and Firefox
+// (they ignore it), and Playwright passes process.env to the launched browser, so
+// setting it here covers every way these tests are run (rebuild-wekan.sh, direct
+// `npx playwright test`, CI). An explicit value already in the environment wins.
+if (process.env.WEBKIT_DISABLE_DMABUF_RENDERER === undefined) {
+  process.env.WEBKIT_DISABLE_DMABUF_RENDERER = '1';
+}
+
 // Some hosts can't run every bundled browser — e.g. the WebKit build ships
 // against older system libraries (libicu 74, libxml2 v2, libevent 2.1) that
 // newer distros no longer provide, so it fails to launch with
