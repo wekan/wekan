@@ -558,6 +558,17 @@ and fixes the following bugs:
   apart](https://github.com/wekan/wekan/commit/940437865).
   Thanks to xet7.
 
+- [Board tiles on All Boards are now a responsive grid, so widening the window adds more
+  boards per row instead of stretching the tiles. Both layouts were fixed-column — desktop
+  `float: width 20%` (5, wrapping to 4) and the mobile grid `repeat(2, 1fr)` (always 2) — so
+  more width just made the tiles wider. They are now
+  `repeat(auto-fill, minmax(…, 1fr))`: desktop `minmax(200px, 1fr)` (~3 columns at 1000px up
+  to ~11 at 2500px) and mobile-view `minmax(min(46%, 200px), 1fr)` (keeps ~2 columns on a
+  narrow phone but scales up on a wider one), with the 8px grid `gap` replacing the per-tile
+  margins. Phones still pin two columns via the small-width media
+  queries](https://github.com/wekan/wekan/commit/04e658b03).
+  Thanks to xet7.
+
 and removes the following dead code:
 
 - [Removed the cron migration subsystem: it never ran and had no UI, yet every logged-in
