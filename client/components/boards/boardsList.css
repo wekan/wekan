@@ -1028,12 +1028,38 @@ body.grey-icons-enabled .checkmark-no-grey {
     margin-bottom: 0.5rem;
     padding-inline-end: 32px; /* Space for drag handle */
   }
+  /* #6523: shorter tiles on mobile, and the SAME height for a board tile and the
+     grey "+ Add Board" / "+ Add Template Container" tile.
+     They were neither: a board tile was 8rem (128px) here, while the add tile got
+     no mobile height at all and fell back to the desktop `min-height: 72px` plus
+     42px of padding - then grew further around its wrapped label, so the two
+     never lined up and both wasted vertical space on a phone.
+     Both are now a flat 4rem (64px), half the board tile's previous height, with
+     the padding folded into that box (box-sizing: border-box) so the number IS
+     the rendered height rather than a floor to add padding to. This covers every
+     tab of All Boards - Starred, Templates, Remaining and Workspaces all render
+     the same `.board-list` tiles. */
+  .board-list .board-list-item,
+  .board-list .js-add-board .label,
+  .board-list .js-add-board .label.is-template-container {
+    box-sizing: border-box;
+    height: 4rem;
+    min-height: 4rem;
+  }
+
   .board-list .board-list-item {
     overflow: visible;
-    height: 8rem;
     width: 100%;
     margin: 0;
+    padding: 6px 40px 6px 8px; /* was 24px/18px vertical: too tall for a 4rem tile */
     padding-inline-end: 40px; /* Ensure content doesn't overlap with drag handle */
+  }
+
+  /* The add tile centres its label, so it only needs enough padding not to touch
+     the edges; the flex centring already positions the text. */
+  .board-list .js-add-board .label,
+  .board-list .js-add-board .label.is-template-container {
+    padding: 6px 8px;
   }
 
   .board-list .board-list-item .details {
