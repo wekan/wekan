@@ -390,7 +390,15 @@ and fixes the following bugs:
   padding is added to, and the board tile's 24px/18px vertical padding (what made it tall)
   is cut to 6px. One rule covers every All Boards tab — Starred, Templates, Remaining and
   Workspaces all render the same `.board-list`
-  tiles](https://github.com/wekan/wekan/commit/c229285b5).
+  tiles](https://github.com/wekan/wekan/commit/c229285b5). Only the add tile actually shrank
+  at first, leaving a board icon towering over "+ Add Board" on the Remaining tab: two
+  selectors set that height and they are not equally specific —
+  `.board-list.mobile-view .board-list-item` (0,3,0) beat `.board-list .board-list-item`
+  (0,2,0), while the add tile escaped because its own selector is also (0,3,0) and came
+  later. Both `.mobile-view` shapes are now spelled out, and because that 8rem rule sits
+  outside any media query — `.mobile-view` comes from `Utils.isMiniScreen()`, which weighs
+  mobile mode and the device as well as width — the override is repeated outside the media
+  query too](https://github.com/wekan/wekan/commit/000a29129).
   Thanks to xet7.
 
 and removes the following dead code:
