@@ -381,6 +381,18 @@ and fixes the following bugs:
   budget: 328px of 375px](https://github.com/wekan/wekan/commit/fff495127).
   Thanks to xet7.
 
+- [Board tiles and the "+ Add Board" / "+ Add Template Container" tile are now the same,
+  shorter height on mobile. A board tile was 8rem (128px) on a phone while the add tile had
+  no mobile height at all — it fell back to the desktop `min-height: 72px` plus 42px of
+  padding and then grew further around its wrapped label — so the two were never the same
+  height and both wasted vertical space. Both are now a flat 4rem (64px) with
+  `box-sizing: border-box`, so the number is the rendered height rather than a floor that
+  padding is added to, and the board tile's 24px/18px vertical padding (what made it tall)
+  is cut to 6px. One rule covers every All Boards tab — Starred, Templates, Remaining and
+  Workspaces all render the same `.board-list`
+  tiles](https://github.com/wekan/wekan/commit/c229285b5).
+  Thanks to xet7.
+
 and removes the following dead code:
 
 - [Removed the cron migration subsystem: it never ran and had no UI, yet every logged-in
