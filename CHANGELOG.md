@@ -213,6 +213,30 @@ This release adds the following new features:
 
 and fixes the following bugs:
 
+- [Admin Panel → Problems no longer shows a finished board-repair as still running,
+  nor counts informational CPU rows as "new problems". On an idle server with far
+  fewer than 146 boards the Status page showed "Board data-repair — 146/146 boards"
+  running forever (with a matching "Migration or repair" login warning), and the CPU
+  area showed dozens of "new problems". The repair actually finishes and writes
+  `running:false`, but the startup pass ALSO fired a non-awaited `running:true`
+  progress write at the last board (`boardsDone === boardsTotal`); being
+  fire-and-forget it could land after the awaited completion write and pin the doc at
+  "running, 146/146" — and a process killed mid-repair leaves `running:true` too. The
+  startup pass now persists only intermediate progress (the completion write owns the
+  final state), and the Status page asks a pure `isStatusActive()` instead of reading
+  the raw flag: a migration/repair counts as in progress only while it is running AND
+  not in a terminal phase AND not already finished by count (`done >= total`) AND
+  updated recently (a running flag with no recent progress write is a crashed run), so
+  a doc already stuck on an instance heals itself and the "Migration or repair" warning
+  clears with it. The CPU "new problems" count excluded nothing: the monitor writes one
+  `detected` row when a high-CPU period starts and several `severity:'info'` rows
+  (`remediated` when it ends, mitigation and FerretDB-governor rows), so each brief,
+  already-over spike looked like several problems; the count now excludes
+  `severity:'info'` rows — notices that a problem was handled or cleared are not
+  problems — while rows with no severity still count, so nothing unclassified is
+  dropped](https://github.com/wekan/wekan/commit/1fb382f0e).
+  Thanks to Alishara and xet7.
+
 - ["Map to existing user" for an imported (virtual) member now searches every user
   instead of listing only board members. After importing a Trello board and choosing to
   map users later, the picker offered nothing but the admin: it listed only the ACTIVE
