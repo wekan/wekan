@@ -177,6 +177,48 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   `language-*` classes on `<span>` inside `pre>code` only, which is a security trade-off xet7 has not
   decided on yet (adds a dependency + loosens the XSS sanitizer + needs a browser build to verify).
 
+# Upcoming WeKan ® release
+
+This release resolves the following GitHub Dependabot alerts in npm dependencies:
+
+- **brace-expansion 5.0.7 → 5.0.8** (RUNTIME dependency, transitive via `minimatch`):
+  fixes [CVE-2026-14257](https://github.com/wekan/wekan/security/dependabot/119)
+  (GHSA-mh99-v99m-4gvg, High, CVSS 7.5, alert #119) — `expand()` bounds how MANY
+  results it produces (`max`, 100000) but not how LONG they get, so chained brace
+  groups keep the count under the cap while every result grows one character per
+  group. A ~7.5 KB input (`'{a,b}'.repeat(1500)`) exhausts memory and kills the Node
+  process with a fatal, uncatchable out-of-memory error that `try`/`catch` cannot
+  contain. 5.0.8 bounds the total characters one `expand()` call may accumulate
+  (`maxLength`, default 4000000) inside the output-building loops, so intermediate
+  arrays are bounded too and oversized input is truncated rather than fatal. Patch
+  release in the same major line; the only other change is `engines.node`, which drops
+  Node 18 — WeKan builds and ships on Node 24 (Dockerfile `NODE_VERSION=v24.18.0`, CI
+  `NODE_VERSION: '24'`), so nothing is affected
+  (#6523).
+- **postcss 8.5.15 → 8.5.22** (dev dependency; enters only through `css-loader`, which
+  the rspack build uses for `.css`, and is not itself part of the shipped bundle):
+  fixes [GHSA-r28c-9q8g-f849](https://github.com/advisories/GHSA-r28c-9q8g-f849)
+  (High, CVSS 7.5) — postcss follows a `/*# sourceMappingURL=... */` comment in the CSS
+  it parses and builds the path with `path.join(dirname(from), annotation)`, which
+  normalises but does not sandbox `..`, so a crafted comment discloses arbitrary `.map`
+  files. Affected `<= 8.5.17`, patched in 8.5.18. `nanoid 3.3.12 → 3.3.16` rides along
+  as postcss's own dependency
+  (#6522, [merge commit](https://github.com/wekan/wekan/commit/10af0bc2a)).
+- Both are lock-only changes whose tarball integrity hashes were verified against the
+  npm registry, and the brace-expansion lock edit was reproduced independently with
+  `npm update brace-expansion --package-lock-only`, which produced a byte-identical
+  diff. `elliptic` (alert #55, CVE-2025-14505) is still left pinned for the reason
+  recorded in v10.14: no fixed version is published upstream — the latest release is
+  still 6.6.1 and the advisory lists no patched version. It is a dev-only transitive
+  polyfill (`@meteorjs/rspack` → `node-stdlib-browser` → `crypto-browserify` →
+  `browserify-sign`/`create-ecdh`), no WeKan client module imports node `crypto`, and
+  the built client bundle contains no `elliptic`/`secp256k1`/`crypto-browserify` code
+  at all, so it never reaches users.
+- Thanks to **GitHub Dependabot** and **xet7**.
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.36 2026-07-25 WeKan ® release
 
 This release fixes the following bugs:
