@@ -193,7 +193,7 @@ This release fixes the following bugs:
   cramped row its box overflowed onto the "bars" workspace-menu button to its right and the
   hamburger looked like it sat on top of the name; the floor is removed and the name's box is
   clipped, so the name truncates with an ellipsis and can never cover the menu, while the menu
-  button and count never shrink](https://github.com/wekan/wekan/commit/33ca42a32).
+  button and count never shrink](https://github.com/wekan/wekan/commit/e28181734).
   Thanks to xet7.
 
 - [Upgrading no longer grows a spurious "Restored Items" column full of cards that look
@@ -214,7 +214,7 @@ This release fixes the following bugs:
   merges any per-swimlane duplicate columns back into one shared list while cards keep their
   swimlaneId; it still keys off the era's board markers in existing data, so removing the code
   that once wrote them changes nothing for already-migrated boards. A test keeps the four from
-  coming back](https://github.com/wekan/wekan/commit/88a076561).
+  coming back](https://github.com/wekan/wekan/commit/52d68be75).
   Thanks to hmeunier95 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
