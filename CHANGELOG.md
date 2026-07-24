@@ -266,7 +266,7 @@ and has the following developer-tooling changes:
   Raspberry Pi, etc.), `README.md`, `CONTRIBUTING.md`, `CLAUDE.md`, `releases/release-all.sh` and
   `releases/fix-changelog-hashes.sh`, `tools/forge-mirror.js`, and the tests (the guard suite is
   renamed to `tests/buildDevServer.test.cjs`). If you invoke it by the old name, use `./build.sh`
-  / `build.bat` now](https://github.com/wekan/wekan/commit/RENAME_HASH).
+  / `build.bat` now](https://github.com/wekan/wekan/commit/c29f5c7a6).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
