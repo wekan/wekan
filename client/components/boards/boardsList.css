@@ -1650,3 +1650,11 @@ body.grey-icons-enabled .checkmark-no-grey {
   list-style: none;
   margin: 0;
 }
+
+/* #6439: while a board icon is being dragged, take it out of the grid flow so
+   the other icons reflow as if it were gone and the live gap sits exactly where
+   the icon will land. Added on a timeout after dragstart (hiding it immediately
+   cancels the drag), removed on dragend. */
+.board-list .js-board.board-dragging-hidden {
+  display: none !important;
+}

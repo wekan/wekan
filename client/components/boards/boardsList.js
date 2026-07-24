@@ -1109,6 +1109,15 @@ Template.boardList.events({
       try {
         evt.originalEvent.dataTransfer.setData('text/plain', boardId);
       } catch (e) {}
+      // Take the dragged icon OUT of the grid flow while dragging, so the other
+      // icons reflow as if it were gone and the gap sits exactly where the icon
+      // will land - instead of the original icon staying put and pushing the gap
+      // one slot over. Done on a timeout so the browser has already captured the
+      // drag image (hiding it synchronously in dragstart cancels the drag).
+      if (isDragReorderEnabled(currentAllBoardsSortBy())) {
+        const el = evt.currentTarget;
+        setTimeout(() => el.classList.add('board-dragging-hidden'), 0);
+      }
     }
     // Highlight valid drop targets in the sidebar so users know where to drop
     document.querySelectorAll('.workspace-node').forEach((el) => {
@@ -1120,9 +1129,14 @@ Template.boardList.events({
       }
     });
   },
-  'dragend .js-board'() {
+  'dragend .js-board'(evt) {
     boardPressStartedOnHandle = false;
     removeBoardPlaceholder();
+    if (evt && evt.currentTarget) {
+      evt.currentTarget.classList.remove('board-dragging-hidden');
+    }
+    document.querySelectorAll('.js-board.board-dragging-hidden').forEach((el) =>
+      el.classList.remove('board-dragging-hidden'));
     document.querySelectorAll('.workspace-node.board-drag-hint, .js-select-menu.board-drag-hint').forEach((el) => {
       el.classList.remove('board-drag-hint');
     });
@@ -1157,7 +1171,10 @@ Template.boardList.events({
     // board dropped anywhere on a card lands in that card's place - no need to
     // aim the card's left half. The only exception is the LAST tile: its trailing
     // half inserts AFTER it, so the end of the order stays reachable.
-    const allTiles = Array.from(tile.parentNode.querySelectorAll('.js-board'));
+    // Exclude the hidden dragged tile: it is still in the DOM (display:none)
+    // but not visually present, so it must not count as the last tile.
+    const allTiles = Array.from(tile.parentNode.querySelectorAll('.js-board'))
+      .filter((t) => !t.classList.contains('board-dragging-hidden'));
     const isLast = allTiles[allTiles.length - 1] === tile;
     let after = false;
     if (isLast) {
