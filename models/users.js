@@ -668,6 +668,18 @@ Users.attachSchema(
       defaultValue: {},
       blackbox: true,
     },
+    'profile.boardSortIndex': {
+      /**
+       * #6439: per-user manual board order on the All Boards page, set by drag-
+       * reorder. profile.boardSortIndex[boardId] = sortIndex. Missing before, so
+       * a reorder write was rejected by the schema (INVALID [400]) since
+       * `profile` enumerates its subfields and is not blackbox.
+       */
+      type: Object,
+      defaultValue: {},
+      blackbox: true,
+      optional: true,
+    },
     'profile.fixedListWidthBoards': {
       /**
        * #5729 Per-user flag enabling "same width for all lists" (fixed width)
