@@ -437,6 +437,21 @@ and fixes the following bugs:
   the title](https://github.com/wekan/wekan/commit/9d0908e4b).
   Thanks to xet7.
 
+- ["Show desktop drag handles" now works on the All Boards page too. It governed swimlanes,
+  lists and cards on a board, but board TILES always showed their handle and were always
+  draggable from anywhere, so turning handles off did nothing there. The handle markup is
+  now behind the same helper in both places it appears, and — the half that matters — so is
+  the drag source: with handles ON the handle is the only place a board drag may start, so
+  a finger dragging across the rest of the tile scrolls the list instead of picking the
+  board up, the same contract cards and lists follow. Boards use HTML5 drag-and-drop rather
+  than jQuery sortable, so this could not be done by swapping a `handle` option: the `li`
+  keeps `draggable="true"` (a drag can only start from a draggable element, and moving the
+  attribute onto the handle would drag the handle rather than the board) and `dragstart`
+  cancels the drag unless it began inside `.board-handle`. With no handle rendered, the
+  title reclaims the 28px reserved for
+  it](https://github.com/wekan/wekan/commit/66d8709fa).
+  Thanks to xet7.
+
 and removes the following dead code:
 
 - [Removed the cron migration subsystem: it never ran and had no UI, yet every logged-in
