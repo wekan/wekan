@@ -24,6 +24,15 @@
    But there was bug that something still disappeared when moving. It remains to be seen,
    can there continue to be showing all data without migrations, can that code be made to work,
    or is it really necessary to reintroduce migrations that take too much time.
+11. The Per-Swimlane Lists model was reverted: it duplicated columns per swimlane and moved cards
+   unexpectedly, so lists are once again **board-wide (shared)** — the same lists appear in every
+   swimlane, and a card belongs to one list and one swimlane. The per-swimlane-lists board migrations
+   (`comprehensiveBoardMigration`, `fixMissingListsMigration`, `restoreLostCards`, `restoreAllArchived`)
+   were removed ([#6521](https://github.com/wekan/wekan/issues/6521)). Data is still shown WITHOUT slow
+   migrations: a startup schema step (`merge-per-swimlane-lists`) merges any leftover per-swimlane
+   duplicate columns back into one shared list (cards keep their `swimlaneId`), and the board-open
+   self-heal (`repairBoardData`) relinks genuinely missing / orphaned cards to the board's first
+   list/swimlane.
 
 How should migrations work?
 
