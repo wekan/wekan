@@ -26,7 +26,7 @@ function isDragReorderEnabled(sortBy) {
 // Given the currently displayed board ids (in display order), move `draggedId`
 // so it sits immediately before `targetId` (the board it was dropped on). Returns
 // the new ordered array, or null when the drop is a no-op or the ids are unknown.
-function computeReorderedIds(orderedIds, draggedId, targetId) {
+function computeReorderedIds(orderedIds, draggedId, targetId, after = false) {
   if (!Array.isArray(orderedIds)) return null;
   if (!draggedId || !targetId || draggedId === targetId) return null;
   const from = orderedIds.indexOf(draggedId);
@@ -34,10 +34,14 @@ function computeReorderedIds(orderedIds, draggedId, targetId) {
   if (from === -1 || to === -1) return null;
   const result = orderedIds.slice();
   result.splice(from, 1);
-  // Insert before the target's current position (after the dragged id has been
-  // removed), so the dragged board takes the target's slot and pushes it down.
-  const insertAt = result.indexOf(targetId);
-  result.splice(insertAt, 0, draggedId);
+  // Insert relative to the target's current position (after the dragged id has
+  // been removed). `after` inserts on the target's trailing side, so a board can
+  // be dropped either before or after the tile the cursor is over - including
+  // after the LAST tile, which reaches the end of the order.
+  const at = result.indexOf(targetId);
+  result.splice(after ? at + 1 : at, 0, draggedId);
+  // A drop that lands the board back in its own slot is a no-op.
+  if (result.every((id, i) => id === orderedIds[i])) return null;
   return result;
 }
 
@@ -52,30 +56,10 @@ function computeSortIndexMapping(orderedIds) {
   return mapping;
 }
 
-// Move `draggedId` to the END of the list (dropped on the trailing placeholder).
-// Returns the new order, or null when it is already last or unknown.
-function computeReorderedIdsToEnd(orderedIds, draggedId) {
-  if (!Array.isArray(orderedIds) || !draggedId) return null;
-  const from = orderedIds.indexOf(draggedId);
-  if (from === -1) return null;
-  if (from === orderedIds.length - 1) return null; // already last: no-op
-  const result = orderedIds.slice();
-  result.splice(from, 1);
-  result.push(draggedId);
-  return result;
-}
-
 // Convenience: compute the persisted boardSortIndex mapping for a drop, or null
 // when the drop changes nothing (so callers can skip the write).
-function computeReorderedSortIndex(orderedIds, draggedId, targetId) {
-  const reordered = computeReorderedIds(orderedIds, draggedId, targetId);
-  if (!reordered) return null;
-  return computeSortIndexMapping(reordered);
-}
-
-// Same, for a drop on the trailing end placeholder.
-function computeReorderedSortIndexToEnd(orderedIds, draggedId) {
-  const reordered = computeReorderedIdsToEnd(orderedIds, draggedId);
+function computeReorderedSortIndex(orderedIds, draggedId, targetId, after = false) {
+  const reordered = computeReorderedIds(orderedIds, draggedId, targetId, after);
   if (!reordered) return null;
   return computeSortIndexMapping(reordered);
 }
@@ -83,8 +67,6 @@ function computeReorderedSortIndexToEnd(orderedIds, draggedId) {
 export {
   isDragReorderEnabled,
   computeReorderedIds,
-  computeReorderedIdsToEnd,
   computeSortIndexMapping,
   computeReorderedSortIndex,
-  computeReorderedSortIndexToEnd,
 };

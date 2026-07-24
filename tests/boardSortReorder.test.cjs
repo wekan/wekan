@@ -66,6 +66,27 @@ test('the reordered list keeps exactly the same ids (nothing lost/duplicated)', 
   assert.deepStrictEqual(out.slice().sort(), order.slice().sort());
 });
 
+// --- computeReorderedIds: the live-placeholder before/after side (#6439) -----
+test('after=true drops the board on the target\'s trailing side', () => {
+  assert.deepStrictEqual(
+    computeReorderedIds(['A', 'B', 'C', 'D'], 'A', 'C', true),
+    ['B', 'C', 'A', 'D'],
+  );
+});
+
+test('after=true past the LAST tile reaches the end of the order', () => {
+  assert.deepStrictEqual(
+    computeReorderedIds(['A', 'B', 'C', 'D'], 'A', 'D', true),
+    ['B', 'C', 'D', 'A'],
+  );
+});
+
+test('a drop that lands the board back in its own slot is a no-op (negative)', () => {
+  // before its own right-hand neighbour, or after its own left-hand neighbour.
+  assert.strictEqual(computeReorderedIds(['A', 'B', 'C'], 'A', 'B', false), null);
+  assert.strictEqual(computeReorderedIds(['A', 'B', 'C'], 'B', 'A', true), null);
+});
+
 // --- computeSortIndexMapping / computeReorderedSortIndex ---------------------
 test('computeSortIndexMapping numbers ids sequentially from 0', () => {
   assert.deepStrictEqual(computeSortIndexMapping(['X', 'Y', 'Z']), {

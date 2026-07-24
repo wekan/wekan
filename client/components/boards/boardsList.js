@@ -9,7 +9,6 @@ import { Utils } from '/client/lib/utils';
 import {
   isDragReorderEnabled,
   computeReorderedSortIndex,
-  computeReorderedSortIndexToEnd,
 } from '/models/lib/boardSortReorder';
 
 // SubsManager removed for Meteor 3 migration
@@ -858,6 +857,30 @@ Template.workspaceTree.helpers({
 // mousedown began (which does fire on the handle), and read that in dragstart.
 let boardPressStartedOnHandle = false;
 
+// The live drop-gap element (a plain div, not Blaze-managed) and which side of
+// its reference tile it currently sits on.
+let boardPlaceholderEl = null;
+function ensureBoardPlaceholder() {
+  if (!boardPlaceholderEl) {
+    boardPlaceholderEl = document.createElement('li');
+    boardPlaceholderEl.className = 'js-board-placeholder board-drop-placeholder';
+  }
+  return boardPlaceholderEl;
+}
+function showBoardPlaceholder(tile, after) {
+  const ph = ensureBoardPlaceholder();
+  ph._afterTarget = after;
+  const ref = after ? tile.nextSibling : tile;
+  // Do not insert the gap immediately next to the dragged tile's own slot.
+  if (ref === ph) return;
+  tile.parentNode.insertBefore(ph, ref);
+}
+function removeBoardPlaceholder() {
+  if (boardPlaceholderEl && boardPlaceholderEl.parentNode) {
+    boardPlaceholderEl.parentNode.removeChild(boardPlaceholderEl);
+  }
+}
+
 Template.boardList.events({
   'mousedown .js-board'(evt) {
     boardPressStartedOnHandle = !!(evt.target && evt.target.closest &&
@@ -1057,6 +1080,7 @@ Template.boardList.events({
   },
   'dragend .js-board'() {
     boardPressStartedOnHandle = false;
+    removeBoardPlaceholder();
     document.querySelectorAll('.workspace-node.board-drag-hint, .js-select-menu.board-drag-hint').forEach((el) => {
       el.classList.remove('board-drag-hint');
     });
@@ -1070,18 +1094,30 @@ Template.boardList.events({
   // target (which is why, before this, the browser showed the not-allowed cursor
   // and nothing persisted). The reorder decision/index math lives in the pure,
   // unit-tested models/lib/boardSortReorder.js.
+  // #6439: live insertion placeholder. While a board is dragged, an empty gap
+  // opens up before/after the tile under the cursor, showing exactly where the
+  // board will land - the standard sortable feel - instead of only highlighting
+  // a target. The gap is a plain DOM node inserted next to Blaze-managed tiles
+  // and removed on dragend, so it never fights Blaze's reactive list.
+  //
+  // `after` (cursor past the tile's inline-centre) lets a board drop on either
+  // side of a tile, so the end of the order is reachable by dropping past the
+  // last tile - no separate end target needed.
   'dragover .js-board'(evt, tpl) {
     if (!isDragReorderEnabled(currentAllBoardsSortBy())) return;
-    // A multi-board drag is a share/assign gesture, not a reorder.
     const dt = evt.originalEvent.dataTransfer;
     if (dt && dt.getData('application/x-board-multi') === 'true') return;
     evt.preventDefault();
     evt.stopPropagation();
     if (dt) dt.dropEffect = 'move';
-    evt.currentTarget.classList.add('board-reorder-over');
-  },
-  'dragleave .js-board'(evt) {
-    evt.currentTarget.classList.remove('board-reorder-over');
+    const tile = evt.currentTarget;
+    const rect = tile.getBoundingClientRect();
+    // Inline axis: RTL-aware. Past the centre => insert after this tile.
+    const ltr = getComputedStyle(tile).direction !== 'rtl';
+    const mid = rect.left + rect.width / 2;
+    const x = evt.originalEvent.clientX;
+    const after = ltr ? x > mid : x < mid;
+    showBoardPlaceholder(tile, after);
   },
   'drop .js-board'(evt, tpl) {
     if (!isDragReorderEnabled(currentAllBoardsSortBy())) return;
@@ -1091,53 +1127,15 @@ Template.boardList.events({
     if (!draggedId) return;
     evt.preventDefault();
     evt.stopPropagation();
-    evt.currentTarget.classList.remove('board-reorder-over');
-    const targetId = this._id;
-    // #6442: current display order of the board grid. Read each board's _id from
-    // its Blaze data context (the same source dragstart uses via `this._id`) —
-    // NOT el.classList[0]. On `li.js-board(class="{{_id}} …")` Jade emits the
-    // literal `js-board` class FIRST, so classList[0] is the string "js-board"
-    // for every board; the old code therefore produced ['js-board','js-board',…],
-    // computeReorderedSortIndex could not find the dragged/target ids among them,
-    // returned null, and the drop silently did nothing (board snapped back).
+    const tile = evt.currentTarget;
+    const targetId = Blaze.getData(tile) && Blaze.getData(tile)._id;
+    const after = !!(boardPlaceholderEl && boardPlaceholderEl._afterTarget);
+    removeBoardPlaceholder();
+    // See the #6442 note: read ids from each tile's Blaze data, not classList.
     const orderedIds = Array.from(tpl.findAll('.js-board'))
       .map((el) => Blaze.getData(el)?._id)
       .filter(Boolean);
-    const mapping = computeReorderedSortIndex(orderedIds, draggedId, targetId);
-    if (!mapping) return;
-    const currentUser = ReactiveCache.getCurrentUser();
-    if (currentUser && typeof currentUser.setBoardSortIndexes === 'function') {
-      currentUser.setBoardSortIndexes(mapping);
-    }
-  },
-  // #6439: the trailing empty placeholder is a drop target for moving a board to
-  // the END of the order - dropping on another board can only put it BEFORE that
-  // board, so without this the last slot was unreachable.
-  'dragover .js-board-drop-end'(evt) {
-    if (!isDragReorderEnabled(currentAllBoardsSortBy())) return;
-    const dt = evt.originalEvent.dataTransfer;
-    if (dt && dt.getData('application/x-board-multi') === 'true') return;
-    evt.preventDefault();
-    evt.stopPropagation();
-    if (dt) dt.dropEffect = 'move';
-    evt.currentTarget.classList.add('board-reorder-over');
-  },
-  'dragleave .js-board-drop-end'(evt) {
-    evt.currentTarget.classList.remove('board-reorder-over');
-  },
-  'drop .js-board-drop-end'(evt, tpl) {
-    if (!isDragReorderEnabled(currentAllBoardsSortBy())) return;
-    const dt = evt.originalEvent.dataTransfer;
-    if (dt && dt.getData('application/x-board-multi') === 'true') return;
-    const draggedId = dt ? dt.getData('text/plain') : '';
-    if (!draggedId) return;
-    evt.preventDefault();
-    evt.stopPropagation();
-    evt.currentTarget.classList.remove('board-reorder-over');
-    const orderedIds = Array.from(tpl.findAll('.js-board'))
-      .map((el) => Blaze.getData(el)?._id)
-      .filter(Boolean);
-    const mapping = computeReorderedSortIndexToEnd(orderedIds, draggedId);
+    const mapping = computeReorderedSortIndex(orderedIds, draggedId, targetId, after);
     if (!mapping) return;
     const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser && typeof currentUser.setBoardSortIndexes === 'function') {
