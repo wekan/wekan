@@ -174,6 +174,41 @@
     display: block;
   }
 }
+/* #6521: on a touch device the handle is the ONLY way to drag a card - the rest
+   of the minicard deliberately pans the board instead - so it has to be a target
+   a finger can actually hit. A 20-28px icon in the bottom-right corner is a
+   mouse-sized target; on a wall-mounted infoscreen it is close to unusable.
+   On a coarse pointer it becomes a full-height strip down the leading (left in
+   LTR) edge: ~48px wide, the Material minimum, and the easiest edge to reach
+   with a thumb. The icon stays centred in it. Mouse users keep the compact
+   corner handle, since `pointer: coarse` does not match a mouse. */
+@media (pointer: coarse) {
+  .minicard .handle {
+    width: 48px;
+    height: 100%;
+    top: 0;
+    inset-inline-end: auto;
+    inset-inline-start: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Faint tint so the strip is discoverable without shouting. */
+    background: rgba(127, 127, 127, 0.08);
+    border-start-start-radius: inherit;
+    border-end-start-radius: inherit;
+  }
+  /* The card's own content must not sit under the strip. Keyed off the class,
+     not a sibling selector: the details menu and the dependency handle are
+     absolutely positioned, and a margin would move them. */
+  .minicard.minicard-with-handle {
+    padding-inline-start: 48px;
+  }
+  .minicard .handle .drag-handle,
+  .minicard .handle .fa {
+    font-size: 22px;
+  }
+}
+
 .minicard .handle .drag-handle {
   font-size: clamp(16px, 3vw, 20px);
   color: #ccc;

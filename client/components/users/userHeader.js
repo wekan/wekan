@@ -376,13 +376,17 @@ Template.changeSettingsPopup.events({
     return ret;
   },
   'click .js-toggle-desktop-drag-handles'() {
+    // Toggle the EFFECTIVE state and store it EXPLICITLY, so the choice sticks on
+    // a touch screen too. Storing "off" as a real `false` (rather than removing
+    // the setting) is what lets Utils.showDragHandles() tell "turned off" apart
+    // from "never chosen", which is the only reason the toggle could not hide the
+    // handles on a touch device.
+    const show = !Utils.showDragHandles();
     const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
-      Meteor.call('toggleDesktopDragHandles');
-    } else if (window.localStorage.getItem('showDesktopDragHandles')) {
-      window.localStorage.removeItem('showDesktopDragHandles');
+      Meteor.call('toggleDesktopDragHandles', show);
     } else {
-      window.localStorage.setItem('showDesktopDragHandles', 'true');
+      window.localStorage.setItem('showDesktopDragHandles', show ? 'true' : 'false');
     }
   },
   'click .js-toggle-submit-on-enter'() {

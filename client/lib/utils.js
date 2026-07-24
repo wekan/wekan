@@ -6,6 +6,7 @@ import Settings from '/models/settings';
 import Users from '/models/users';
 import { computeBoardBackground } from '/models/lib/boardBackground';
 import { buildCardAttachmentMeta } from '/models/lib/attachmentMeta';
+import { resolveShowDragHandles, readDragHandlesPreference } from '/models/lib/dragHandles';
 
 export const Utils = {
   async setBackgroundImage(url) {
@@ -748,20 +749,43 @@ export const Utils = {
     return hasTouchScreen;
   },
 
-  // returns if desktop drag handles are enabled
-  isShowDesktopDragHandles() {
+  // The user's EXPLICIT drag-handle choice: true, false, or null when they have
+  // never chosen. The three states matter — see showDragHandles() below.
+  dragHandlesPreference() {
     const currentUser = Meteor.user();
-    if (currentUser) {
-      return currentUser.hasShowDesktopDragHandles();
-    } else {
-      // For non-logged-in users, check localStorage
-      return window.localStorage.getItem('showDesktopDragHandles') === 'true';
-    }
+    const stored = currentUser
+      ? (currentUser.profile || {}).showDesktopDragHandles
+      // Not logged in: the same three states, kept in localStorage. A MISSING
+      // key is "never chosen"; the string 'false' is a deliberate "off".
+      : window.localStorage.getItem('showDesktopDragHandles');
+    return readDragHandlesPreference(stored);
   },
 
-  // returns if mini screen or desktop drag handles
+  // Should drag handles be shown? An explicit choice always wins — including
+  // turning them OFF on a touch screen. Only when the user has never chosen does
+  // the device decide, and then a touch screen gets handles by default (a finger
+  // needs a handle to grab; a mouse does not).
+  //
+  // This used to be `isTouchScreen() || preference`, which meant the toggle did
+  // NOTHING on a touch screen: the OR was already true, so "Show desktop drag
+  // handles" could never hide them there.
+  showDragHandles() {
+    return resolveShowDragHandles(
+      Utils.dragHandlesPreference(),
+      Utils.isTouchScreen(),
+    );
+  },
+
+  // returns if desktop drag handles are enabled (the EFFECTIVE state, so the
+  // menu checkmark matches what is actually on screen)
+  isShowDesktopDragHandles() {
+    return Utils.showDragHandles();
+  },
+
+  // Legacy name kept because it is used across the board templates; it now means
+  // exactly showDragHandles().
   isTouchScreenOrShowDesktopDragHandles() {
-    return Utils.isTouchScreen() || Utils.isShowDesktopDragHandles();
+    return Utils.showDragHandles();
   },
 
   calculateIndexData(prevData, nextData, nItems = 1) {

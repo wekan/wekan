@@ -1,5 +1,8 @@
 template(name="listHeader")
-  .list-header.js-list-header.nodragscroll(
+  //- Same rule as the minicard: the list header is the LIST's drag source only
+  //- when drag handles are OFF, so only then must it opt out of dragscroll.
+  .list-header.js-list-header(
+    class="{{#unless isTouchScreenOrShowDesktopDragHandles}}nodragscroll{{/unless}}"
     class="{{#if limitToShowCardsCount}}list-header-card-count{{/if}}"
     class=colorClass
     style=colorStyle)

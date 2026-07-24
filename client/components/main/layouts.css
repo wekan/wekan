@@ -112,6 +112,32 @@ summary:focus-visible,
   z-index: 30;
 }
 
+/* #6521: these controls are focusable but `opacity: 0`, and they sit at the
+   START of the card/list content. Tabbing therefore went: card (visible focus)
+   -> invisible -> invisible -> next card, so the focus ring kept vanishing and
+   reappearing at a position that looked like it had gone BACKWARDS. Reveal them
+   while focused - the same pattern the skip-to-content link below already uses -
+   so every tab stop is somewhere the eye can follow. They stay invisible to the
+   mouse, and :focus-visible keeps a mouse click from popping them open. */
+.minicard-move-buttons.sr-only a:focus,
+.list-move-buttons.sr-only a:focus,
+.minicard-move-buttons.sr-only a:focus-visible,
+.list-move-buttons.sr-only a:focus-visible {
+  opacity: 1;
+  width: auto;
+  height: auto;
+  min-width: 1.6em;
+  padding: 0 0.3em;
+  overflow: visible;
+  text-indent: 0;
+  line-height: 1.6;
+  border-radius: 3px;
+  background: var(--theme-accent, #01628c);
+  color: #fff;
+  outline: 2px solid var(--theme-accent, #01628c);
+  outline-offset: 1px;
+}
+
 /* Skip-to-content link (WCAG 2.4.1 Bypass Blocks): hidden until focused, then
  * pinned to the top-left so keyboard users can jump past the header chrome. */
 .skip-link {

@@ -537,9 +537,22 @@ Meteor.methods({
     };
   },
 
-  async toggleDesktopDragHandles() {
+  // `show` is the EXPLICIT new state the client computed from what is actually on
+  // screen. It must be stored as a real boolean, including `false`: the client
+  // tells "never chosen" (undefined) apart from "deliberately off" (false), and
+  // only the second one may hide the handles on a touch screen, where they are
+  // the default. Called with no argument by older clients, which keeps the old
+  // flip-the-stored-value behaviour.
+  async toggleDesktopDragHandles(show) {
+    check(show, Match.OneOf(Boolean, null, undefined));
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
     const user = await ReactiveCache.getCurrentUser();
-    user.toggleDesktopHandles(user.hasShowDesktopDragHandles());
+    const next = typeof show === 'boolean'
+      ? show
+      : !user.hasShowDesktopDragHandles();
+    await Users.updateAsync(this.userId, {
+      $set: { 'profile.showDesktopDragHandles': next },
+    });
   },
 
   // Per-user "submit editors on plain Enter" preference (Member Settings).

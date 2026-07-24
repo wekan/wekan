@@ -29,6 +29,14 @@ function getMinicardFlag(board, onMinicardField, legacyField, defaultValue) {
 // });
 
 Template.minicard.helpers({
+  // True exactly when the drag handle is rendered (see minicard.jade): the user
+  // may move the card AND drag handles are on. On a coarse pointer the handle is
+  // a 48px strip down the leading edge, so the card's own content needs matching
+  // padding - keyed off this so a card the user cannot move never gets a gutter
+  // for a handle that is not there.
+  showMinicardHandle() {
+    return Utils.canMoveCard() && Utils.showDragHandles();
+  },
   // #3392: show a drag-to-connect handle on the minicard when the board's
   // dependency overlay is on and the user can edit the board. Dragging it onto
   // another card creates a dependency (handled in dependencyOverlay.js).

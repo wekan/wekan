@@ -1,5 +1,13 @@
 template(name="minicard")
-  .minicard.nodragscroll(
+  //- `nodragscroll` ONLY when the minicard itself is the card's drag source, i.e.
+  //- when drag handles are OFF (list.js then sets the sortable handle to
+  //- `.minicard`). That is the whole point of drag handles: with handles ON the
+  //- card body is free, so a finger dragging across it PANS the board
+  //- (dragscroll) instead of doing nothing. It used to be unconditional, so with
+  //- handles on, a drag starting on a card neither panned nor moved the card.
+  .minicard(
+    class="{{#unless isTouchScreenOrShowDesktopDragHandles}}nodragscroll{{/unless}}"
+    class="{{#if showMinicardHandle}}minicard-with-handle{{/if}}"
     class="{{#if isLinkedCard}}linked-card{{/if}}"
     class="{{#if isLinkedBoard}}linked-board{{/if}}"
     class="{{agingClass}}"
