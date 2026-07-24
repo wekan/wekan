@@ -41,7 +41,7 @@ Download newest VirtualBox scripts:
 
 [https://github.com/wekan/wekan-maintainer/tree/master/virtualbox](https://github.com/wekan/wekan-maintainer/tree/master/virtualbox)
 
-There is script rebuild-wekan-meteor-1.6.sh
+There is script build-meteor-1.6.sh
 
 First do some sudo command so you get to insert sudo password, for example:
 ```
@@ -50,7 +50,7 @@ sudo ls
 
 Then run script as as normal user:
 ```
-./rebuild-wekan-meteor-1.6.sh
+./build-meteor-1.6.sh
 ```
 
 Run it with option 1 at first to install dependencies, and then option 3 to rebuild source code.

@@ -232,7 +232,7 @@ This release fixes the following bugs:
 
 and has the following developer-tooling changes:
 
-- [`rebuild-wekan.sh` and `rebuild-wekan.bat` gain a Setup → "Update git" action that makes
+- [`build.sh` and `build.bat` gain a Setup → "Update git" action that makes
   the working copy current in one step: `git fetch --all --prune`, `git pull --rebase
   --autostash` onto `origin/<branch>`, then it repoints any CHANGELOG commit links the rebase
   made stale, then shows `git status`. It never commits — if the hash fix changed CHANGELOG.md
@@ -258,6 +258,15 @@ and has the following developer-tooling changes:
   Firefox. `.gitignore` now ignores core dumps (`core.<pid>`) so a crashing test browser can no
   longer leave untracked multi-MB files to be committed by
   accident](https://github.com/wekan/wekan/commit/0cd2b513b).
+  Thanks to xet7.
+
+- [The developer build/test helper is renamed `rebuild-wekan.sh` → `build.sh` and
+  `rebuild-wekan.bat` → `build.bat` (a shorter name; the menu and every option are unchanged).
+  All references were updated across the repo — the docs (Build-from-source, Windows, Sandstorm,
+  Raspberry Pi, etc.), `README.md`, `CONTRIBUTING.md`, `CLAUDE.md`, `releases/release-all.sh` and
+  `releases/fix-changelog-hashes.sh`, `tools/forge-mirror.js`, and the tests (the guard suite is
+  renamed to `tests/buildDevServer.test.cjs`). If you invoke it by the old name, use `./build.sh`
+  / `build.bat` now](https://github.com/wekan/wekan/commit/RENAME_HASH).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
@@ -408,7 +417,7 @@ and fixes the following bugs:
   it](https://github.com/wekan/wekan/commit/51116657c).
   Thanks to xet7.
 
-- [`rebuild-wekan.sh` now raises the inotify watch limit when it is too low, and
+- [`build.sh` now raises the inotify watch limit when it is too low, and
   `.meteorignore` stops Meteor watching `.tools/` and `FerretDB/`. Meteor's file watcher
   takes ONE inotify watch per DIRECTORY, and `fs.inotify.max_user_watches` is per USER,
   shared with every other watcher — an editor is usually the other big consumer. When it
@@ -420,7 +429,7 @@ and fixes the following bugs:
   with its caches, build logs) and `FerretDB/` (9,148 dirs, 3.4 GB: the Go fork checkout).
   Both were already in `.gitignore`, but the watcher only honours `.meteorignore`, so
   Meteor kept walking them; excluding them takes the count to 11,213. And
-  `rebuild-wekan.sh` now checks the limit on every run and raises it to 524288 (plus
+  `build.sh` now checks the limit on every run and raises it to 524288 (plus
   `max_user_instances` to 1024) with sysctl, persisting it to
   `/etc/sysctl.d/60-wekan-inotify.conf`. It never aborts a build: it is a silent no-op
   when the limit is already high, uses sudo only when it can, prints the exact commands to
@@ -775,7 +784,7 @@ and removes the following dead code:
 
 and has the following developer-tooling changes:
 
-- [`rebuild-wekan.sh` Dev server menu can now run on a custom port with a custom ROOT_URL
+- [`build.sh` Dev server menu can now run on a custom port with a custom ROOT_URL
   host. It could only offer localhost:3000, the current IP, or a custom IP:PORT, so running
   on a different local port with a different ROOT_URL host meant editing the script.
   ROOT_URL is not cosmetic — Meteor builds absolute URLs from it (e-mail links, OAuth
@@ -968,7 +977,7 @@ and updates the following dependencies:
 
 and has the following developer-tooling fix:
 
-- [`rebuild-wekan.sh` can now stop a running dev server on a minimal Linux that has neither
+- [`build.sh` can now stop a running dev server on a minimal Linux that has neither
   `fuser` (psmisc) nor `lsof` installed: `free_tcp_port` gained an `ss` fallback that parses
   the owning pid from `ss -ltnpH "sport = :PORT"` and kills it. Previously it did nothing on
   such a host — while `port_in_use` (which uses `ss`) kept reporting the port busy — so the
@@ -2422,10 +2431,10 @@ and fixes the following bugs:
   - [Changelog: bundled FerretDB now pushes date range filters down too](https://github.com/wekan/wekan/commit/5730f7dcc54e551ca5b4cc6ede307ebe7e078310)
 
 - **Snap release, CI and dev tooling.** The exotic `ppc64el`/`s390x` snaps now build on **GitHub Actions under
-  QEMU** instead of Launchpad (which returned exit 0 with no artifact); `rebuild-wekan.sh` CURRENT-IP detection is
+  QEMU** instead of Launchpad (which returned exit 0 with no artifact); `build.sh` CURRENT-IP detection is
   subnet-agnostic (no more `http://:3000`); and the **Playwright E2E workflow was disabled**. Commits:
   - [Snap release: build ppc64el and s390x under QEMU on GitHub Actions, not Launchpad](https://github.com/wekan/wekan/commit/d7f36d70a04ee96669d75c2dea675cf7e7b76d7a)
-  - [rebuild-wekan.sh: robust CURRENT-IP detection (fix http://:3000 Invalid URL)](https://github.com/wekan/wekan/commit/c6f960bbe10d5ff36a92314c0a21380e914a89e3)
+  - [build.sh: robust CURRENT-IP detection (fix http://:3000 Invalid URL)](https://github.com/wekan/wekan/commit/c6f960bbe10d5ff36a92314c0a21380e914a89e3)
   - [ci: disable Playwright E2E Tests workflow](https://github.com/wekan/wekan/commit/ef81c25232c7f5f26b6b33d9e9b945b8e769dd35)
 
 - **Changelog, docs and test housekeeping.** Commits:
@@ -3597,7 +3606,7 @@ and adds the following updates:
 and fixes the following tests:
 
 - **Test / dev infrastructure: starting a dev server now also frees the MongoDB port,
-  not just the app and rspack ports** (`rebuild-wekan.sh`, `kill_meteor_on_port`).
+  not just the app and rspack ports** (`build.sh`, `kill_meteor_on_port`).
   Picking a "Run Meteor for dev" option stops any server already on the app port, but it
   only freed the app port (3000) and the rspack dev-server port (8080) — not Meteor's
   bundled MongoDB on app-port+1 (3001). When the previous meteor parent is SIGKILLed its
@@ -3820,7 +3829,7 @@ and fixes the following tests:
   bypass regression, the import/export privacy settings, and the impersonation report query
   are now registered. With all of the above, the server suite boots and runs clean:
   **450 passing, 0 failing** (411 before the three files were wired in). Thanks to xet7.
-- **Test infrastructure: `rebuild-wekan.sh` and `rebuild-wekan.bat` now show live
+- **Test infrastructure: `build.sh` and `build.bat` now show live
   progress in every test path**. Several places used to sit silent for minutes, which
   looked like a hang. Audited both scripts and closed every gap:
   - **Server-start wait** (both "Run ALL tests" modes). While the `:3000` server came
@@ -3852,8 +3861,8 @@ and fixes the following tests:
     browser) already stream straight to the terminal, and the parallel-mode combined
     progress table is unchanged. Thanks to xet7.
 - **Test infrastructure: "Run ALL tests" reuses the precompiled `.build/bundle` for the
-  :3000 server instead of recompiling with `meteor run`** (both `rebuild-wekan.sh` and
-  `rebuild-wekan.bat`). Node E2E
+  :3000 server instead of recompiling with `meteor run`** (both `build.sh` and
+  `build.bat`). Node E2E
   and Playwright drive a live WeKan over HTTP; that server is now started from the
   production bundle you already built with `meteor build .build --directory` — `node
   main.js` boots in seconds with no recompile, using Meteor's bundled `node` and `mongod`
@@ -4386,7 +4395,7 @@ This release adds the following features and fixes:
   The other files are unchanged: `docker-compose-ferretdb-v2-postgresql.yml` (FerretDB 2
   + PostgreSQL) and `docker-compose-multitenancy.yml` (MongoDB multitenancy). To use
   MongoDB 7, run `docker compose -f docker-compose-mongodb-v7.yml up -d` or rename that
-  file to `docker-compose.yml`. `rebuild-wekan.sh` / `rebuild-wekan.bat` Docker menus now
+  file to `docker-compose.yml`. `build.sh` / `build.bat` Docker menus now
   list FerretDB v1 SQLite first (default) and point at the new filenames, the compose
   files' own header comments were updated, and the Docker docs now describe which
   compose file maps to which database. The Docker menus also gained a **Build from
@@ -4400,7 +4409,7 @@ This release adds the following features and fixes:
   `docker-compose-multitenancy.yml`, `.devcontainer/docker-compose.yml`, and the
   ToroDB docs example).
 
-- **rebuild-wekan.sh / rebuild-wekan.bat: reorganized into category submenus + Docker start/logs/stop**:
+- **build.sh / build.bat: reorganized into category submenus + Docker start/logs/stop**:
 
   The long flat menu is now grouped into a short top-level menu — **Setup**,
   **Dev server**, **Tests**, **Docker**, **Tools**, **Quit** — each opening a small
@@ -4412,7 +4421,7 @@ This release adds the following features and fixes:
   repetition of 12 near-identical entries. The `.sh` auto-detects `docker compose`
   vs legacy `docker-compose`. All existing actions are unchanged, just regrouped.
 
-- **rebuild-wekan.sh / rebuild-wekan.bat: Dev server options now stop the previous
+- **build.sh / build.bat: Dev server options now stop the previous
   server (including the rspack :8080 dev server) before starting, plus a new "Kill
   all dev servers" option, and docs updated for the new menu**:
 
@@ -6036,7 +6045,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 This release adds the following updates and developer tooling:
 
-- **rebuild-wekan.sh / rebuild-wekan.bat: multi-forge mirroring.** Two new menu options: *Install forge CLI
+- **build.sh / build.bat: multi-forge mirroring.** Two new menu options: *Install forge CLI
   tools* (installs the gh-like CLIs `gh`, `glab`, `tea`, `git-bug`, and the unified [`forge`](https://github.com/git-pkgs/forge)
   via the detected package manager / `go install`), and *Mirror repo GitHub → GitLab/Codeberg/Forgejo/Gitea*. The
   mirror flow selects source + target by number (e.g. `1 3` = GitHub → Codeberg), pushes all branches/tags with
@@ -6054,7 +6063,7 @@ This release adds the following updates and developer tooling:
   risks Blaze / jQuery-UI compatibility), `@babel/runtime` 7 → 8 ([#6415](https://github.com/wekan/wekan/pull/6415)),
   and `@tweedegolf/sab-adapter-amazon-s3` 1 → 3 ([#6414](https://github.com/wekan/wekan/pull/6414), S3 storage is not
   exercised by CI).
-- **rebuild-wekan.sh: run the Chromium / Firefox / WebKit Playwright matrix with or without Docker.** The
+- **build.sh: run the Chromium / Firefox / WebKit Playwright matrix with or without Docker.** The
   WebKit-only Docker support is generalized so any browser can run natively or inside the official Playwright Docker
   image, selectable via `WEKAN_PLAYWRIGHT_DOCKER=1/0` (whole matrix) or per-browser
   `WEKAN_CHROMIUM_DOCKER` / `WEKAN_FIREFOX_DOCKER` / `WEKAN_WEBKIT_DOCKER`. Defaults are unchanged (Chromium/Firefox
@@ -6264,10 +6273,10 @@ This release fixes the following bugs:
     Auto-width follows the same Shared/Personal scope (per-board for everyone, or per-user) and is carried through
     export/import. Documented in `docs/Features/Lists/Lists.md`.
 
-- `rebuild-wekan.sh` / `rebuild-wekan.bat` menu option 2 ("Build WeKan") now also clears the rspack dev-build caches
+- `build.sh` / `build.bat` menu option 2 ("Build WeKan") now also clears the rspack dev-build caches
   (`_build` and `node_modules/.cache`) in addition to `node_modules` / `.meteor/local` / `.build`, so the next
   `meteor run` recompiles from scratch instead of occasionally serving stale modules after a `git` checkout/merge.
-- `rebuild-wekan.sh` / `rebuild-wekan.bat` now give the Meteor build tool and Node a larger heap by default
+- `build.sh` / `build.bat` now give the Meteor build tool and Node a larger heap by default
   (`TOOL_NODE_FLAGS` and `NODE_OPTIONS` = `--max-old-space-size=8192`) for every dev-run, test and build option, so
   long development sessions and test runs no longer crash with "FATAL ERROR: ... JavaScript heap out of memory".
   Both honor an existing value, so you can lower it on machines with less RAM.
@@ -7279,7 +7288,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 This release adds the following updates:
 
 - [Developer test tooling: "Run ALL tests" now stops an existing dev server on port 3000 instead of aborting](https://github.com/wekan/wekan/commit/64aa784b2b2b9f96040aad066101aef3f8444da0):
-  `rebuild-wekan.sh` menu option 9 ("Run ALL tests") previously errored out with
+  `build.sh` menu option 9 ("Run ALL tests") previously errored out with
   "Port 3000 is already in use" when a dev server was already running, forcing the
   user to stop it manually. It now detects and stops the existing Meteor dev server
   before starting its own. Thanks to xet7. Details:
@@ -7315,7 +7324,7 @@ This release adds the following updates:
     second-session list-order check) now wait for the board subscription to
     populate before acting, instead of reading once after a fixed delay.
 - [Developer test tooling: run all tests in parallel against a single dev server](https://github.com/wekan/wekan/commit/19fe2e2b6f21b5206e29dcd568576f001abbf37a):
-  `rebuild-wekan.sh` and `rebuild-wekan.bat` now run all tests in parallel
+  `build.sh` and `build.bat` now run all tests in parallel
   against a single dev server, and fix the WebKit/Docker permission fallout.
   Thanks to xet7. Details:
   - "Run ALL tests" (menu option 9) now starts **one** WeKan server on
@@ -7343,8 +7352,8 @@ This release adds the following updates:
   of dots during the readiness wait. Mocha and the import regression do not need
   the server, so they are now launched only after the server build is underway;
   the server builds alone and boots fast again, while they still run in parallel
-  with the E2E and browser jobs. Applied to both `rebuild-wekan.sh` and
-  `rebuild-wekan.bat`. Thanks to xet7.
+  with the E2E and browser jobs. Applied to both `build.sh` and
+  `build.bat`. Thanks to xet7.
 - [Fix #6380: login page missing username/password fields after upgrade](https://github.com/wekan/wekan/commit/8e70a2b6a95373125be222534cc2fd4da6c278e8):
   the password form is hidden by default in CSS and only revealed by JS when
   `isPasswordLoginEnabled` returns truthy; a slow/failed method call or a
@@ -7373,13 +7382,13 @@ This release adds the following updates:
   like Ubuntu 26.04 no longer ship), removing false WebKit failures locally while
   still running every browser on CI. Override with `WEKAN_PLAYWRIGHT_PROBE=1`/`0`.
   Thanks to xet7.
-- [rebuild-wekan.sh: platform detection, Docker WebKit on Linux arm64, all browsers in ALL tests](https://github.com/wekan/wekan/commit/dac356ed061167cdf994bd9f82a849514922a92e):
+- [build.sh: platform detection, Docker WebKit on Linux arm64, all browsers in ALL tests](https://github.com/wekan/wekan/commit/dac356ed061167cdf994bd9f82a849514922a92e):
   detect OS/arch (Linux amd64/arm64, macOS arm64); run the WebKit Playwright specs
   via the official Playwright Docker image on Linux arm64 where the bundled WebKit
   cannot launch natively; and run Chromium, Firefox and WebKit in the "Run ALL
   tests" option. Thanks to xet7.
-- [rebuild-wekan.bat: Windows menu parity for building, running and testing WeKan](https://github.com/wekan/wekan/commit/d5e5df6549f0496e4eaa54675eee2392cbebdd8d):
-  the Windows batch script now mirrors rebuild-wekan.sh's interactive menu so
+- [build.bat: Windows menu parity for building, running and testing WeKan](https://github.com/wekan/wekan/commit/d5e5df6549f0496e4eaa54675eee2392cbebdd8d):
+  the Windows batch script now mirrors build.sh's interactive menu so
   building, running and testing WeKan (Mocha, import regression, Node E2E and
   Playwright Chromium/Firefox/WebKit) works on Windows amd64/arm64 too. Thanks to
   xet7.
@@ -7779,7 +7788,7 @@ and fixes the following bugs:
 - [Added missing `alt` text to the user avatar image](https://github.com/wekan/wekan/commit/255de2062ff9b54393fd603bfc6cabddb8ede66a) (the surrounding link already
   carries the accessible name).
 - [Fixed several bugs in the new features above](https://github.com/wekan/wekan/commit/073842b3c54f07205c5b0a9c519a665f920c768e) that were surfaced by running the full
-  test suite (`./rebuild-wekan.sh` → "Run ALL tests"), so the Playwright suite is
+  test suite (`./build.sh` → "Run ALL tests"), so the Playwright suite is
   green again:
   - **Board JSON export returned empty lists, swimlanes and rules.** A previous fix
     that made attachment export use `meta.boardId` accidentally applied the same
@@ -8425,7 +8434,7 @@ and fixes the following bugs:
   browser is launched, so they run fast). The pure data/permission helpers they rely
   on live in `server/lib/utils.js` (`boardMemberRoleToFlags`, `computeSortForIndex`,
   `mergeLabelIds`, `canAssignCardMember`, `isCardDateClear`).
-- **`rebuild-wekan.sh` test menu reorganized.** There is now a menu option per test
+- **`build.sh` test menu reorganized.** There is now a menu option per test
   type so each can be run on its own: "Run ALL tests on http://localhost:3000 (start
   server, progress + summary)" (starts the server and runs import regression + Mocha +
   Node E2E + Playwright Chromium, streaming progress and printing a per-suite PASS/FAIL
@@ -9132,7 +9141,7 @@ and adds the following updates:
 
 - [Added test menu options](https://github.com/wekan/wekan/commit/b0918686a2e3e39511964be14321f30b5520c644).
   "Test Playwright Chromium", "Test Playwright Firefox" and "Test
-  Playwright Webkit" to `rebuild-wekan.sh` for running the
+  Playwright Webkit" to `build.sh` for running the
   Playwright end-to-end test suite per browser.
   Thanks to xet7.
 - [Copy wepica style of hide/show password to WeKan login and register pages](https://github.com/wekan/wekan/commit/9d3587086377c6c677ee03d4cb6f43c34f468558).
@@ -9413,7 +9422,7 @@ This release adds the following updates:
   Thanks to developers of dependencies.
 - [Isolate Playwright from root node_modules to fix E2E Rspack bundling errors](https://github.com/wekan/wekan/pull/6344).
   Thanks to xet7.
-- [rebuild-wekan.sh: At macOS, add paths to Node.js 24.x](https://github.com/wekan/wekan/commit/7f1dd16dfcb844051c763f1dd5670a7a41921e2f).
+- [build.sh: At macOS, add paths to Node.js 24.x](https://github.com/wekan/wekan/commit/7f1dd16dfcb844051c763f1dd5670a7a41921e2f).
   Thanks to xet7.
 - [Updated tests dependencies](https://github.com/wekan/wekan/commit/8e4404ab49037c6558e1789548d73138aab12412).
   Thanks to xet7.
@@ -10114,7 +10123,7 @@ This release fixes the following bugs:
   Thanks to hmeunier95 and xet7.
 - [Fix 8.72 Bug: Can not save Card Date](https://github.com/wekan/wekan/commit/8da0f34ee6ca66884ab8a2dcdf1a724a0c9fcc81).
   Thanks to xet7.
-- [Removed exclude-archs from rebuild-wekan.sh, it is not necessary anymore](https://github.com/wekan/wekan/commit/028b404377651d34e334b048ecc960d3ff5b2eab).
+- [Removed exclude-archs from build.sh, it is not necessary anymore](https://github.com/wekan/wekan/commit/028b404377651d34e334b048ecc960d3ff5b2eab).
   Thanks to xet7.
 - [Fix 8.72 Bug: LDAP login does not work. ReactiveCache is not defined](https://github.com/wekan/wekan/commit/bcbf4771ea88fb617ddc44650c8ac139b0cfc998).
   Thanks to poc-sm and xet7.
@@ -10518,7 +10527,7 @@ This release adds the following updates:
   Thanks to xet7.
 - [Updated @meteorjs/rspack](https://github.com/wekan/wekan/commit/21ab640686d868ee46e16e812b36a1c3820952a5).
   Thanks to Meteor developers.
-- [Updated rebuild-wekan.sh for macOS 26.4](https://github.com/wekan/wekan/commit/f1e71247c70043634e040bd12f7d065b30ed6fc2).
+- [Updated build.sh for macOS 26.4](https://github.com/wekan/wekan/commit/f1e71247c70043634e040bd12f7d065b30ed6fc2).
   Thanks to xet7.
 - [Moved Meteor 3 migration docs to docs/Upgrade/](https://github.com/wekan/wekan/commit/517d1483876926cdbf6ce4774c8c52540eaec593).
   Thanks to xet7.
@@ -10535,7 +10544,7 @@ This release adds the following updates:
 
 and fixes the following bugs:
 
-- [Fixed rebuild-wekan.sh to build WeKan correctly](https://github.com/wekan/wekan/commit/4a8293f8812276f08d8a77a2c8be56441d7e87c1).
+- [Fixed build.sh to build WeKan correctly](https://github.com/wekan/wekan/commit/4a8293f8812276f08d8a77a2c8be56441d7e87c1).
   Thanks to xet7.
 - [Export Card to Excel. Part 3. Also, fixed uploading attachments](https://github.com/wekan/wekan/commit/5c5ed102cabd07e1be00d3fdb01ea599da0a5517).
   Thanks to xet7.
@@ -11987,7 +11996,7 @@ and fixes the following bugs:
   Thanks to dassio and xet7.
 - [Reorganized docs to fix building WeKan](https://github.com/wekan/wekan/commit/6e11aa27f896e41c57980b45b59dc8248259421f).
   Thanks to xet7.
-- Fixed rebuild-wekan.sh install deps for macOS.
+- Fixed build.sh install deps for macOS.
   [Part 1](https://github.com/wekan/wekan/commit/938fe49b2c0dd523e3402b514b13ba5b605dac2b),
   [Part 2](https://github.com/wekan/wekan/commit/2df73bedeebf6e6da2e4003bd236668e185f6701).
   Thanks to xet7.
@@ -13595,7 +13604,7 @@ This release adds the following new features:
 
 and adds the following updates:
 
-- [In rebuild-wekan.sh, option 9 to Save Meteor dependency chain to ../meteor-deps.txt](https://github.com/wekan/wekan/commit/7c80a34cf238cbccfe4fed0fb92cf73ddff6beed).
+- [In build.sh, option 9 to Save Meteor dependency chain to ../meteor-deps.txt](https://github.com/wekan/wekan/commit/7c80a34cf238cbccfe4fed0fb92cf73ddff6beed).
   Thanks to xet7.
 - [Update FullCalendar version to 3.10.5](https://github.com/wekan/wekan/pull/5100).
   Thanks to helioguardabaxo.
@@ -14016,14 +14025,14 @@ This release adds the following new features:
   Thanks xet7.
 - [Preview PDF to have full width, close at top, and improve viewing at mobile](https://github.com/wekan/wekan/commit/4be5727a18472920ed775b8a2024b9c8ca2fdf0a).
   Thanks to xet7.
-- [Show Meteor dependency chain with rebuild-wekan.sh](https://github.com/wekan/wekan/commit/ba9f9705d43189d2491266af1fd4817ff34a3b59).
+- [Show Meteor dependency chain with build.sh](https://github.com/wekan/wekan/commit/ba9f9705d43189d2491266af1fd4817ff34a3b59).
   Thanks to xet7.
 
 and adds the following updates:
 
 - [Updated dependencies](https://github.com/wekan/wekan/commit/92c57fc91ea063914730647d0add8dae77187424).
   Thanks to developers of dependencies.
-- Added Snap MONGO_URL to rebuild-wekan.sh dev options.
+- Added Snap MONGO_URL to build.sh dev options.
   [Part 1](https://github.com/wekan/wekan/commit/7d59ae93f9263c383a1c8c8605490d54b1e09ed7),
   [Part 2](https://github.com/wekan/wekan/commit/3c2cc351f4bbe82b6870bab0e1891823c359e789).
   Thanks to xet7.
@@ -14087,7 +14096,7 @@ This release adds the following new features:
 
 and adds the following updates:
 
-- [Update rebuild-wekan.sh to use local network IP address](https://github.com/wekan/wekan/commit/6479c6a5c516ade68d50849115367be90d3199a2).
+- [Update build.sh to use local network IP address](https://github.com/wekan/wekan/commit/6479c6a5c516ade68d50849115367be90d3199a2).
   Thanks to xet7.
 - Update GitHub Actions.
   [Part 1](https://github.com/wekan/wekan/pull/4970),
@@ -15770,7 +15779,7 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Not ZFS, it uses many gigabytes of RAM](https://github.com/wekan/wekan/commit/747a3b17d52c972db5c9b460e88d02bd52fb35bb).
   Thanks to xet7.
-- [Added WRITABLE_PATH to rebuild-wekan.sh meteor commands](https://github.com/wekan/wekan/commit/9ab2d5fab09f5c9a245f841df912a9b04bc9b3f0).
+- [Added WRITABLE_PATH to build.sh meteor commands](https://github.com/wekan/wekan/commit/9ab2d5fab09f5c9a245f841df912a9b04bc9b3f0).
   Thanks to xet7.
 - [Fix list color too close with moderndark theme on mobile view](https://github.com/wekan/wekan/commit/5d3d5e4b2db22564b669c93e083c3d40215454f4).
   Thanks to gerald41, Meeques, Go-rom, mfilser, jghaanstra and xet7.
@@ -15880,7 +15889,7 @@ and adds the following updates:
 
 - [Updated to Node.js v14.19.0](https://github.com/wekan/wekan/commit/492997922129f4076c61c1bd8822851d39ce3f11).
   Thanks to Node.js developers.
-- [Use Node 14 at rebuild-wekan.sh](https://github.com/wekan/wekan/commit/ab33866d1a5a9080688c0c5f857d12c4117b9311).
+- [Use Node 14 at build.sh](https://github.com/wekan/wekan/commit/ab33866d1a5a9080688c0c5f857d12c4117b9311).
   Thanks to xet7.
 - Updated dependencies.
   [Part 1](https://github.com/wekan/wekan/commit/1a7a41698c1a5180e5ffa7d6b84820e05864ac77),
@@ -16020,7 +16029,7 @@ This release adds the following changes:
 
 and fixes the following bugs:
 
-- [Remove not working options from rebuild-wekan.sh](https://github.com/wekan/wekan/commit/af598b13e8266654ab52425f71840c3628c9835a).
+- [Remove not working options from build.sh](https://github.com/wekan/wekan/commit/af598b13e8266654ab52425f71840c3628c9835a).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
@@ -16183,7 +16192,7 @@ and adds the following updates:
 
 - [Added release scripts for starting and stopping services](https://github.com/wekan/wekan/commit/33f47414bbecdc3bca10e807c38562e833997db4).
   Thanks to xet7.
-- Updated rebuild-wekan.sh script about installing dependencies.
+- Updated build.sh script about installing dependencies.
   [Part1](https://github.com/wekan/wekan/commit/9979193df5b896efb1a8c0ac9c244972fa08aae1),
   [Part2](https://github.com/wekan/wekan/commit/6f7292db5e8427fb63305e1e0e41d2337d8d9a60).
   Thanks to xet7.
@@ -17142,7 +17151,7 @@ and fixes the following bugs:
 - [Fixed Line break which is wrongly added in Cards description and Cards
   comments](https://github.com/wekan/wekan/commit/ec01e5182d6b8c848d752540887a8113472b0226).
   Thanks to Emile840 and xet7.
-- [Fixed rebuild-wekan.sh](https://github.com/wekan/wekan/commit/1d5dd5e60fec151de6c7dce7ef4e758b562923b9).
+- [Fixed build.sh](https://github.com/wekan/wekan/commit/1d5dd5e60fec151de6c7dce7ef4e758b562923b9).
   Thanks to xet7.
 - [Small fixes for ModernDark theme](https://github.com/wekan/wekan/pull/3902).
   Thanks to jghaanstra.
@@ -18236,7 +18245,7 @@ This release adds the following improvements:
 
 and adds the following updates:
 
-- [Use Node 12.20.1 in rebuild-wekan.sh](https://github.com/wekan/wekan/commit/37d76e9e061d31c11fca8e704e9b4c54f17c0023).
+- [Use Node 12.20.1 in build.sh](https://github.com/wekan/wekan/commit/37d76e9e061d31c11fca8e704e9b4c54f17c0023).
   Thanks to xet7.
 
 and fixes the following bugs:
@@ -18846,9 +18855,9 @@ This release adds the following updates:
   Thanks to xet7.
 - [Use latest MongoDB on Docker](https://github.com/wekan/wekan/commit/8250cbcf6e417d21ffdc4f14495792768b0bc9ef).
   Thanks to xet7.
-- [In rebuild-wekan.sh install dependencies, Install npm](https://github.com/wekan/wekan/commit/345e2357c8fd030e943f9729f790db980d3a727c).
+- [In build.sh install dependencies, Install npm](https://github.com/wekan/wekan/commit/345e2357c8fd030e943f9729f790db980d3a727c).
   Thanks to xet7.
-- [In rebuild-wekan.sh install dependencies, uncomment chown](https://github.com/wekan/wekan/commit/21aebe845f3f4911d9bb824f0f33bdb19a3a9af6).
+- [In build.sh install dependencies, uncomment chown](https://github.com/wekan/wekan/commit/21aebe845f3f4911d9bb824f0f33bdb19a3a9af6).
   Thanks to xet7.
 - [Update markdown-it and markdown-it-emoji dependencies](https://github.com/wekan/wekan/commit/222fca3ad7aa2b67329dca64e84eb72899fd8137).
   Thanks to developers of markdown-it and markdown-it-emoji.
@@ -19340,7 +19349,7 @@ and fixes the following bugs:
   This fix was already included to Wekan v4.21 to get it released.
   TODO: Sometime migrate from Caddy v1 to Caddy v2.
   Thanks to xet7.
-- [Fix detecting current IP address on rebuild-wekan.sh](https://github.com/wekan/wekan/commit/ec1d8f275ff4cd720a8cd3bc918b32f9c5f5d099).
+- [Fix detecting current IP address on build.sh](https://github.com/wekan/wekan/commit/ec1d8f275ff4cd720a8cd3bc918b32f9c5f5d099).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
@@ -19407,7 +19416,7 @@ and fixes the following bugs:
 
 - [All logged in users are now allowed to reorder boards by dragging at All Boards page and Public Boards page](https://github.com/wekan/wekan/commit/ba24c4e40c728d030504ed21ccf79247d0449e1b).
   Thanks to xet7.
-- [Fix running meteor for dev in rebuild-wekan.sh](https://github.com/wekan/wekan/commit/a77cf56fbdaf0b74d8b97aa41b0a88fee85e3ee1).
+- [Fix running meteor for dev in build.sh](https://github.com/wekan/wekan/commit/a77cf56fbdaf0b74d8b97aa41b0a88fee85e3ee1).
   Thanks to xet7.
 - [Fix start-wekan.bat](https://github.com/wekan/wekan/commit/0be1c00fccef8797a1b3612593a6623a9b465e0d) and
   [Windows bundle install](https://github.com/wekan/wekan/wiki/Windows#a-bundle-with-windows-nodemongodb).
@@ -19746,7 +19755,7 @@ and adds the following features:
   PWA](https://github.com/wekan/wekan/commit/8d5adc04645e3e71423f16869f39b8d79969bccd).
   [Docs for iOS and Android at wiki PWA page](https://github.com/wekan/wekan/wiki/PWA).
   Thanks to xet7.
-- [Add options to rebuild-wekan.sh to run Meteor in development mode where after
+- [Add options to build.sh to run Meteor in development mode where after
   file change it rebuilds](https://github.com/wekan/wekan/commit/5f915ef966170ea7baca7ddeb11319bc08a26fef).
   Thanks to xet7.
 

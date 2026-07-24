@@ -282,7 +282,7 @@ https://github.com/wekan/php/blob/main/page/allboardschar.php
   - main.js makes database queries to many databases
   - Database drivers:
     - MongoDB driver for Legacy MongoDB 3.2.x, using MongoDB from `sudo snap install wekan`
-    - MongoDB driver for newest MongoDB included, using MongoDB 6.x from rebuild-wekan.sh from https://github.com/wekan/wekan
+    - MongoDB driver for newest MongoDB included, using MongoDB 6.x from build.sh from https://github.com/wekan/wekan
     - FerretDB proxy to PostgreSQL, from docker-compose.yml
     - FerretDB proxy to SQLite, from docker-compose.yml
 - Bun size is about 93 MB

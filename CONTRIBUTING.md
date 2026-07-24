@@ -34,7 +34,7 @@ and click send PR.
 
 ## Contributing code
 
-Use rebuild-wekan.sh to run all tests to verify you don't break any features, before sending PR.
+Use build.sh to run all tests to verify you don't break any features, before sending PR.
 
 Only send one feature or fix at one PR. Do not add many unrelated changes.
 

@@ -149,7 +149,7 @@ Related RocketChat docs about MinIO:
 
 Storage path during developing WeKan, for example:
 ```
-./rebuild-wekan.sh
+./build.sh
 
 rclone mount minio:wekan/files /home/wekan/repos/wekan/.meteor/local/.build-garbage-uslyxi.uokel/programs --vfs-cache-mode minimal
 ```

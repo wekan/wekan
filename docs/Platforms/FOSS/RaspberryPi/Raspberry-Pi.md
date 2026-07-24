@@ -564,9 +564,9 @@ Well, you could get some other newest Meteor x64 bundle, like RocketChat, and th
 git clone https://github.com/wekan/wekan
 cd wekan
 git checkout meteor-1.8
-./rebuild-wekan.sh
+./build.sh
 # 1 and Enter to install deps
-./rebuild-wekan.sh
+./build.sh
 # 2 and Enter to build Wekan
 cd .build
 ```

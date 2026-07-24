@@ -12,7 +12,7 @@
 //
 // Only items that do NOT already exist at the target (matched by title) are
 // created, so it is safe to re-run. Code history itself is mirrored by
-// rebuild-wekan.sh / rebuild-wekan.bat with `git push --mirror`.
+// build.sh / build.bat with `git push --mirror`.
 //
 // It drives the *authenticated* forge CLIs (gh, glab, tea) instead of raw REST
 // APIs, so authentication is whatever those tools already use:

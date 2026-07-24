@@ -1,22 +1,22 @@
 'use strict';
 
-// Source guards for the two rebuild-wekan.sh helpers that have no other coverage:
+// Source guards for the two build.sh helpers that have no other coverage:
 // the dev-server URL prompt (custom port + ROOT_URL host) and the inotify watch
 // limit check. Both are plain shell, so these assert the wiring; the behaviour of
 // each was exercised by sourcing the function against fake input.
 //
-// Run: node tests/rebuildWekanDevServer.test.cjs
+// Run: node tests/buildDevServer.test.cjs
 
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
 
-const sh = fs.readFileSync(path.join(__dirname, '..', 'rebuild-wekan.sh'), 'utf8');
+const sh = fs.readFileSync(path.join(__dirname, '..', 'build.sh'), 'utf8');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
-console.log('rebuildWekanDevServer:');
+console.log('buildDevServer:');
 
 test('the Dev server menu offers a custom port + ROOT_URL host', () => {
   assert.ok(sh.includes('CUSTOM PORT + SUBDOMAIN|Run Meteor for dev on a custom port and ROOT_URL host (asks)'),

@@ -69,7 +69,7 @@ mapfile -t RELEASED < <(grep -oE '^# v[0-9]+\.[0-9]+ ' CHANGELOG.md | grep -oE '
 # pushed. Just before the release is prepared, repoint each stale link in the
 # unreleased section to the rewritten copy of the same commit (matched by commit
 # subject). The logic lives in releases/fix-changelog-hashes.sh — shared with
-# rebuild-wekan.sh's "Update git ..." option so there is ONE implementation.
+# build.sh's "Update git ..." option so there is ONE implementation.
 bash "$(dirname "$0")/fix-changelog-hashes.sh" || true
 
 # ── Determine PREVIOUS (OLD) and NEW version — no version argument needed ────

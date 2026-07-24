@@ -57,21 +57,21 @@ Because it downgrades @meteorjs/rspack and breaks builds.
 
 ### 3. Install dependencies, build WeKan, and run the dev server
 
-`rebuild-wekan.sh` shows a two-level menu. The top level is `1) Setup 2) Dev server 3) Tests 4) Docker 5) Tools 6) Quit`; pick a category number, then the item number inside it (each submenu also has a `Back` entry).
+`build.sh` shows a two-level menu. The top level is `1) Setup 2) Dev server 3) Tests 4) Docker 5) Tools 6) Quit`; pick a category number, then the item number inside it (each submenu also has a `Back` entry).
 
 ```
 # Setup -> Install dependencies
-./rebuild-wekan.sh
+./build.sh
 1        # Setup
 1        # Install dependencies
 
 # Setup -> Build WeKan
-./rebuild-wekan.sh
+./build.sh
 1        # Setup
 2        # Build WeKan
 
 # Dev server -> localhost:3000
-./rebuild-wekan.sh
+./build.sh
 2        # Dev server
 1        # localhost:3000
 ```
@@ -84,7 +84,7 @@ And then [register and login](../Login/Adding-users.md) with webbrowser at http:
 
 ### 4. Make and test your changes
 
-Use `rebuild-wekan.sh` to run all tests.
+Use `build.sh` to run all tests.
 
 ### 5. If it works, create pull request
 

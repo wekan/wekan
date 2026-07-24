@@ -12,7 +12,7 @@ const RUN_ALL_BROWSERS = process.env.WEKAN_PLAYWRIGHT_ALL === '1';
 // WeKan bugs. Disabling WPE's DMABUF renderer path is the standard fix for
 // headless / containerized / VM WebKit. It is harmless for Chromium and Firefox
 // (they ignore it), and Playwright passes process.env to the launched browser, so
-// setting it here covers every way these tests are run (rebuild-wekan.sh, direct
+// setting it here covers every way these tests are run (build.sh, direct
 // `npx playwright test`, CI). An explicit value already in the environment wins.
 if (process.env.WEBKIT_DISABLE_DMABUF_RENDERER === undefined) {
   process.env.WEBKIT_DISABLE_DMABUF_RENDERER = '1';

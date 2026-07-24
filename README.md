@@ -106,7 +106,7 @@ By working directly with WeKan ® you get the benefit of active maintenance and 
 The main branch uses Meteor 3.5 with Node.js 24.x.
 See [CHANGELOG.md](https://github.com/wekan/wekan/blob/main/CHANGELOG.md) for the latest runtime updates.
 
-To contribute, [create a fork](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Build-and-Create-Pull-Request.md#2-create-fork-of-httpsgithubcomwekanwekan-at-github-web-page) and run `./rebuild-wekan.sh` (or `./rebuild-wekan.bat` on Windows) as detailed [here](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Build-and-Create-Pull-Request.md#3-install-dependencies-build-wekan-and-run-the-dev-server). Once you're ready, please test your code and [submit a pull request (PR)](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Build-and-Create-Pull-Request.md#7-test).
+To contribute, [create a fork](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Build-and-Create-Pull-Request.md#2-create-fork-of-httpsgithubcomwekanwekan-at-github-web-page) and run `./build.sh` (or `./build.bat` on Windows) as detailed [here](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Build-and-Create-Pull-Request.md#3-install-dependencies-build-wekan-and-run-the-dev-server). Once you're ready, please test your code and [submit a pull request (PR)](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Build-and-Create-Pull-Request.md#7-test).
 
 Please refer to the [developer documentation](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Developer-Documentation.md) for more information.
 
@@ -138,7 +138,7 @@ curl https://install.meteor.com/ | sh
 
 ### Building WeKan
 
-The `rebuild-wekan.sh` script shows a two-level menu. The top level groups options into categories:
+The `build.sh` script shows a two-level menu. The top level groups options into categories:
 
 ```
 1) Setup   2) Dev server   3) Tests   4) Docker   5) Tools   6) Quit
@@ -156,18 +156,18 @@ git clone git@github.com:YOUR_USERNAME/wekan.git
 cd wekan
 
 # Make the script executable
-chmod +x rebuild-wekan.sh
+chmod +x build.sh
 
 # Step 1: Install dependencies (Setup -> Install dependencies)
-./rebuild-wekan.sh
+./build.sh
 # Press 1 (Setup) and Enter, then 1 (Install dependencies) and Enter
 
 # Step 2: Build WeKan (Setup -> Build WeKan, after dependencies complete)
-./rebuild-wekan.sh
+./build.sh
 # Press 1 (Setup) and Enter, then 2 (Build WeKan) and Enter
 
 # Step 3: Run WeKan in development mode (Dev server -> localhost:3000)
-./rebuild-wekan.sh
+./build.sh
 # Press 2 (Dev server) and Enter, then 1 (localhost:3000) and Enter
 ```
 

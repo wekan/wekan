@@ -80,21 +80,21 @@ cd wekan
 ```
 ### 3. Run the menu: Setup -> Install dependencies, Setup -> Build WeKan, Dev server -> localhost:3000
 
-`rebuild-wekan.sh` shows a two-level menu (`1) Setup 2) Dev server 3) Tests 4) Docker 5) Tools 6) Quit`); pick a category number, then the item number inside it.
+`build.sh` shows a two-level menu (`1) Setup 2) Dev server 3) Tests 4) Docker 5) Tools 6) Quit`); pick a category number, then the item number inside it.
 
 ```
 # Setup -> Install dependencies
-./rebuild-wekan.sh
+./build.sh
 1        # Setup
 1        # Install dependencies
 
 # Setup -> Build WeKan
-./rebuild-wekan.sh
+./build.sh
 1        # Setup
 2        # Build WeKan
 
 # Dev server -> localhost:3000
-./rebuild-wekan.sh
+./build.sh
 2        # Dev server
 1        # localhost:3000
 ```
@@ -153,7 +153,7 @@ git checkout feature-meteor3
 ```
 Build wekan:
 ```
-./rebuild-wekan.sh
+./build.sh
 
 2
 ```
@@ -161,7 +161,7 @@ If there are errors, try to fix them.
 
 Or try to run wekan:
 ```
-./rebuild-wekan.sh
+./build.sh
 
 3
 ```

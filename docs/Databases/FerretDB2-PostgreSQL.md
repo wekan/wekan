@@ -170,4 +170,4 @@ And also about Windows bundle:
 
 - Machine must have at least 3 gigs of ram. Crashes at npm installing meteor, with 384 megs.
 - Machine must have at least 4 gigs of ram. Crashes at meteor build with 3 gigs.
-- Be ready to read rebuild-wekan.sh if you want to actually get it running.
+- Be ready to read build.sh if you want to actually get it running.

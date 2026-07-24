@@ -58,7 +58,7 @@ jobs:
         # TEST_WATCH=0 turns ON watch mode and the process never exits — that is
         # what made this job hang until the 45-minute timeout. With TEST_WATCH
         # unset, `meteor test --once` runs the server tests and exits with the
-        # correct status (matching the local rebuild-wekan.sh run).
+        # correct status (matching the local build.sh run).
         run: meteor test --once --driver-package meteortesting:mocha
 
   e2e-tests:
@@ -142,7 +142,7 @@ jobs:
           # WeKan's server/00checkStartup.js refuses to start unless WRITABLE_PATH
           # (used for attachment/file storage) is set and writable.
           mkdir -p "$PWD/wekan-writable"
-          # Match the env the dev runner (rebuild-wekan.sh) and the specs expect:
+          # Match the env the dev runner (build.sh) and the specs expect:
           # WITH_API enables the REST API (specs 17/23/24/28), comment-editor
           # flag matches dev.
           MONGO_URL=mongodb://localhost:27017/wekan_test \

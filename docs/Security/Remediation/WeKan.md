@@ -326,7 +326,7 @@ test". It uses the same `events` schema and the same disk-space discipline, in t
     (sanitized, ≤500 chars — never the full stack or secret values).
   - The **node** `.test.cjs` guards call `testLog.record()` from their failure branch; **mocha**
     tests use a small custom reporter (`onFail → testLog.record`); **Playwright** uses a reporter
-    hook. A wrapper in `rebuild-wekan.sh` can also parse each suite's summary and insert failures,
+    hook. A wrapper in `build.sh` can also parse each suite's summary and insert failures,
     so the collection is populated even when a runner cannot `require` the logger (it then inserts
     through the running WeKan server's method instead).
 - **Report:** Admin Panel → Reports → **Tests** shows the same summary + paginated details

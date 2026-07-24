@@ -122,7 +122,7 @@ In the menu, pick **Setup -> Build WeKan** (press `1` then `2`):
 
 ```
 cd ~/repos
-./rebuild-wekan.sh
+./build.sh
 ```
 
 

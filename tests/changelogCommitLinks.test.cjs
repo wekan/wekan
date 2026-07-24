@@ -10,7 +10,7 @@
 // against the commits now on the branch.
 //
 // The logic lives in ONE place, releases/fix-changelog-hashes.sh, shared by
-// releases/release-all.sh (before a release) and rebuild-wekan.sh (Setup → "Update
+// releases/release-all.sh (before a release) and build.sh (Setup → "Update
 // git ..."). These are source guards (the behaviour itself is exercised by running
 // the script against a git repo with rewritten history).
 //
@@ -27,7 +27,7 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
 const fix = read('releases/fix-changelog-hashes.sh');
 const rel = read('releases/release-all.sh');
-const rebuild = read('rebuild-wekan.sh');
+const rebuild = read('build.sh');
 
 console.log('changelogCommitLinks:');
 
@@ -48,7 +48,7 @@ test('release-all.sh runs the shared repair before renaming and before commit/pu
     'release-all.sh must not keep a duplicate implementation');
 });
 
-test('rebuild-wekan.sh reuses the same shared repair script', () => {
+test('build.sh reuses the same shared repair script', () => {
   assert.ok(/fix-changelog-hashes\.sh/.test(rebuild),
     'the Update-git option calls the shared repair, not its own copy');
 });

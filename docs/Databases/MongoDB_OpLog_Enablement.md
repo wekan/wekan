@@ -11,7 +11,7 @@ MongoDB oplog has been documented and configured across all Wekan deployment pla
 **Files Updated:**
 - `start-wekan.sh` - Added MONGO_OPLOG_URL documentation
 - `start-wekan.bat` - Added MONGO_OPLOG_URL documentation
-- `rebuild-wekan.sh` - Documentation reference
+- `build.sh` - Documentation reference
 
 **Configuration:**
 ```bash

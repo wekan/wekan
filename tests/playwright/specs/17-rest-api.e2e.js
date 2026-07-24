@@ -18,7 +18,7 @@
  *  - #3062  board card settings GET/PUT
  *  - #4815  GET /api/user/cards (My Cards / Due Cards)
  *
- * The API requires WITH_API=true (the rebuild-wekan.sh "Run tests" server sets it).
+ * The API requires WITH_API=true (the build.sh "Run tests" server sets it).
  * The Bearer token is the user's MongoDB resume token (seedUser returns the raw
  * token, whose sha256 matches Accounts._hashLoginToken on the server).
  *

@@ -18,7 +18,7 @@ b) Docker for Windows, [prebuilt without --build option, or build from source](h
 Questions, comments to old closed issue about nexe https://github.com/wekan/wekan/issues/710
 
 Beginnings of build and run scripts, please add PRs for additional fixes etc:
-- https://github.com/wekan/wekan/blob/edge/rebuild-wekan.bat
+- https://github.com/wekan/wekan/blob/edge/build.bat
 - https://github.com/wekan/wekan/blob/edge/start-wekan.bat
 
 Script for using MongoDB portable:

@@ -3,7 +3,7 @@ SETLOCAL EnableDelayedExpansion
 
 REM ============================================================================
 REM  WeKan rebuild / run / test helper for Windows.
-REM  Mirrors the menu of rebuild-wekan.sh so building, running and testing
+REM  Mirrors the menu of build.sh so building, running and testing
 REM  WeKan works on Windows too.
 REM
 REM  Notes:
@@ -14,7 +14,7 @@ REM   - 'curl' ships with Windows 10 1803+ and is used for server readiness.
 REM   - Playwright runs Chromium, Firefox AND WebKit natively on Windows
 REM     (unlike Linux arm64, no Docker is needed here).
 REM   - If Meteor does not run well natively on your Windows, WSL2 + Ubuntu
-REM     with rebuild-wekan.sh is the recommended alternative.
+REM     with build.sh is the recommended alternative.
 REM ============================================================================
 
 REM --- Repo root = folder of this script (strip trailing backslash) ---
@@ -236,7 +236,7 @@ REM ===========================================================================
 REM Make the working copy current in one step: fetch + rebase the current branch
 REM onto its upstream, repoint any CHANGELOG commit links the rebase made stale
 REM (the same shared releases\fix-changelog-hashes.sh release-all.sh uses), and
-REM show the status. Parity with rebuild-wekan.sh's Setup -> "Update git ...".
+REM show the status. Parity with build.sh's Setup -> "Update git ...".
 :updategit
 echo Updating git: fetch + rebase onto origin, fix CHANGELOG hashes, show status.
 git rev-parse --git-dir >nul 2>&1
@@ -944,7 +944,7 @@ if "!SERVER_READY!"=="1" echo ==^> WeKan test server is ready on http://localhos
 exit /b 0
 
 :start_bundle_server
-REM Parity with rebuild-wekan.sh: run the :3000 test server from the PRECOMPILED
+REM Parity with build.sh: run the :3000 test server from the PRECOMPILED
 REM .build\bundle (NOT `meteor run`), so Node E2E + Playwright reuse the WeKan you
 REM already built with `meteor build .build --directory` - no recompile. The bundle is
 REM a plain Node server, so it needs its own MongoDB (Meteor's bundled mongod on :3001,
@@ -1043,13 +1043,13 @@ exit /b 0
 REM ===========================================================================
 :count_tests
 REM Print a "by category" summary table for all four test categories that
-REM rebuild-wekan runs, then the detailed Playwright per-spec table.
-REM Counting rules (kept identical to rebuild-wekan.sh):
+REM build runs, then the detailed Playwright per-spec table.
+REM Counting rules (kept identical to build.sh):
 REM   Mocha            it( lines across client/lib/tests + server/lib/tests + imports/i18n
 REM   Import regression ^function test lines in tests/wekanCreator.import.test.js
 REM   Node E2E         logStep('Testing lines in tests/e2e/list-regressions.js
 REM   Playwright       test( / test.only( / test.skip( / test.fixme( lines per spec
-REM Uses node (always present here) so parsing matches rebuild-wekan.sh exactly;
+REM Uses node (always present here) so parsing matches build.sh exactly;
 REM findstr's limited regex engine cannot reproduce these expressions.
 node -e "const fs=require('fs'),p=require('path');function rd(f){try{return fs.readFileSync(f,'utf8');}catch(e){return null;}}function cnt(f,re){const s=rd(f);if(s===null)return null;return s.split(/\r?\n/).filter(l=>re.test(l)).length;}function ls(d,suf){try{return fs.readdirSync(d).filter(x=>x.endsWith(suf)).map(x=>p.join(d,x));}catch(e){return [];}}let mocha=0;const mfiles=[].concat(ls('client/lib/tests','.tests.js'),ls('server/lib/tests','.tests.js'),['imports/i18n/i18n.test.js']);for(const f of mfiles){const c=cnt(f,/(^|[^A-Za-z.])it\s*\(/);if(c!==null)mocha+=c;}let imp=cnt('tests/wekanCreator.import.test.js',/^function test/);if(imp===null)imp=0;let ne=cnt('tests/e2e/list-regressions.js',/logStep\('Testing/);if(ne===null)ne=0;const d='tests/playwright/specs';let files=[];try{files=fs.readdirSync(d).filter(f=>f.endsWith('.e2e.js')).sort();}catch(e){}let pw=0;const rows=[];for(const f of files){const m=f.match(/^([0-9]+)/);const spec=m?m[1]:'';let area=f.replace(/^[0-9]+[-_]?/,'').replace(/\.e2e\.js$/,'').replace(/[-_]+/g,' ');area=area.charAt(0).toUpperCase()+area.slice(1);const src=fs.readFileSync(p.join(d,f),'utf8');const c=src.split(/\r?\n/).filter(l=>/(^|[^a-zA-Z.])test(\.(only|skip|fixme))?\s*\(/.test(l)).length;rows.push('| '+spec+' | '+area+' | '+c+' |');pw+=c;}const gt=mocha+imp+ne+pw;console.log('| Category | Tests |');console.log('|----------|-------|');console.log('| Mocha (server + client, meteortesting:mocha) | '+mocha+' |');console.log('| Import regression (tests/wekanCreator.import.test.js) | '+imp+' |');console.log('| Node E2E regressions (tests/e2e/list-regressions.js) | '+ne+' |');console.log('| Playwright e2e specs (tests/playwright/specs/*.e2e.js) | '+pw+' |');console.log('| **Total** | **'+gt+'** |');console.log('');console.log('| Spec | Area | Tests |');console.log('|------|------|-------|');for(const r of rows)console.log(r);console.log('');console.log('**Total: '+pw+' tests**');"
 goto end

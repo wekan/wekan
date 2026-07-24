@@ -9,7 +9,7 @@ This can happen, when there is too much or incompatible code at browserside, for
 To fix it:
 
 1. Move ExcelJS from browserside to run at serverside https://github.com/wekan/wekan/pull/3871
-2. Use Bundle Visualizer to see what is the size of dependencies, and try what can be moved to serverside like at step 1, that bundle visualizer is used in this script [rebuild-wekan.sh](../../rebuild-wekan.sh)
+2. Use Bundle Visualizer to see what is the size of dependencies, and try what can be moved to serverside like at step 1, that bundle visualizer is used in this script [build.sh](../../build.sh)
 ```
 meteor run --exclude-archs web.browser.legacy,web.cordova --port 4000 --extra-packages bundle-visualizer --production  2>&1 | tee ../log.txt
 ```

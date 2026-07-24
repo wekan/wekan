@@ -20,7 +20,7 @@
 # link that cannot be resolved is reported and left alone — a doc link is never
 # a reason to fail.
 #
-# Used by BOTH releases/release-all.sh (before a release) and rebuild-wekan.sh
+# Used by BOTH releases/release-all.sh (before a release) and build.sh
 # (Setup → "Update git ..."), so the logic lives in ONE place.
 #
 # Usage: releases/fix-changelog-hashes.sh [CHANGELOG_FILE]

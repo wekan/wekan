@@ -342,7 +342,7 @@ function install_playwright_browsers(){
 			echo "      Install Docker, or set WEKAN_PLAYWRIGHT_DOCKER=0 to run all browsers natively."
 		fi
 	fi
-	echo "Done. Run a browser suite from the menu, or: WEKAN_PLAYWRIGHT_DOCKER=1 ./rebuild-wekan.sh"
+	echo "Done. Run a browser suite from the menu, or: WEKAN_PLAYWRIGHT_DOCKER=1 ./build.sh"
 }
 
 # Reset test-results/ ownership when an older WebKit-in-Docker run left it owned
@@ -1126,7 +1126,7 @@ function ensure_inotify_watches(){
 
 	# Persist it, so the next boot does not go back to failing builds.
 	local conf=/etc/sysctl.d/60-wekan-inotify.conf
-	if ! "${SUDO[@]}" sh -c "printf '%s\n' '# Raised by WeKan rebuild-wekan.sh: Meteor watches one inotify watch per directory.' 'fs.inotify.max_user_watches=$want' > '$conf'" 2>/dev/null; then
+	if ! "${SUDO[@]}" sh -c "printf '%s\n' '# Raised by WeKan build.sh: Meteor watches one inotify watch per directory.' 'fs.inotify.max_user_watches=$want' > '$conf'" 2>/dev/null; then
 		echo "    Applied for this boot only - could not write $conf."
 	fi
 

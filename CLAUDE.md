@@ -222,7 +222,7 @@ All publishing / release steps below are maintainer-only. Contributors never run
 
 ### Tests
 
-- `rebuild-wekan.sh` / `rebuild-wekan.bat` have a menu to install dependencies, build
+- `build.sh` / `build.bat` have a menu to install dependencies, build
   WeKan and run tests.
 - Add tests, negative tests and UI tests for all new features and fixes that do not yet
   have tests. When adding a test, run or validate it and fix it until it works.
