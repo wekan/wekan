@@ -199,7 +199,17 @@ Swimlanes.helpers({
     const newSwimlaneId = await Swimlanes.insertAsync(this);
 
     const sourceBoard = oldBoardId ? await ReactiveCache.getBoard(oldBoardId) : null;
-    const sourceDefaultSwimlaneId = sourceBoard?.getDefaultSwimline?.()?._id;
+    // Use the ASYNC default-swimlane getter here (this runs on the server): the
+    // sync getDefaultSwimline() self-heals a swimlane-less board via a synchronous
+    // Swimlanes.upsert(), which throws "update is not available on the server.
+    // Please use updateAsync() instead." on Meteor 3 and aborted the whole board
+    // copy (POST /api/boards/:id/copy). getDefaultSwimlineAsync() does the same
+    // pick + idempotent upsertAsync self-heal.
+    const sourceDefaultSwimlane =
+      sourceBoard && typeof sourceBoard.getDefaultSwimlineAsync === 'function'
+        ? await sourceBoard.getDefaultSwimlineAsync()
+        : null;
+    const sourceDefaultSwimlaneId = sourceDefaultSwimlane?._id;
     const isDefaultSourceSwimlane = sourceDefaultSwimlaneId === oldId;
 
     const listQuery = {
