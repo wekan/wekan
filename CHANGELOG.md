@@ -716,6 +716,26 @@ and has the following developer-tooling changes:
   api.github.com](https://github.com/wekan/wekan/commit/f793c4bac).
   Thanks to xet7.
 
+- [Five mocha suites that sat in the tree looking like they ran, but were not, are now
+  actually run, and a guard keeps it that way. `meteor.testModule` points at the two
+  `lib/tests/index.js` files, which list their suites with explicit imports, and five suites
+  were never added to those lists (`server/lib/tests` had 49 suite files but 48 imports).
+  Two are *bleed security regression suites — checklistbleed (cross-board checklist /
+  checklist-item move denial) and proxybleed (header-login trusted-source and request-IP
+  handling) — exactly the kind of test whose silent absence lets a fixed vulnerability come
+  back unnoticed; the other three are filenameTruncation, alwaysShowCodeAsText and
+  renderLinksPlainText. All five are now imported (every symbol they use was checked to still
+  exist first), and `tests/testsAreRegistered.test.cjs` now fails if any `*.tests.js` in
+  either directory is not imported by its index — naming the two *bleed suites explicitly so
+  a future tidy-up cannot drop them again quietly. This also deletes three files nothing
+  loads: `client/components/main/responsiveFixes.css` (imported by nothing, so never bundled
+  — `meteor.mainModule` disables eager loading) and the empty `models/backgrounds.js` /
+  `models/backgrounds.server.js` / `server/permissions/backgrounds.js` tombstones, left over
+  from board backgrounds becoming board-level Attachments; the live
+  `server/boardBackgrounds.js` and `server/publications/backgrounds.js` are different files
+  and are untouched](https://github.com/wekan/wekan/commit/aa356d715).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v10.33 2026-07-23 WeKan ® release
