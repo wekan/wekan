@@ -357,7 +357,11 @@ and fixes the following bugs:
   `@media` path and the `.iphone-device` path (added by boardBody.js, so present on a board
   page and absent on All Boards) were changed together, or the bar would have changed
   height when navigating between those two
-  screens](https://github.com/wekan/wekan/commit/21be1e57b).
+  screens](https://github.com/wekan/wekan/commit/21be1e57b). The "All Boards" label is also
+  hidden whenever mobile MODE is on, which is a different thing from a narrow viewport:
+  `body.mobile-mode` comes from the phone/desktop toggle in that same bar, is a deliberate
+  user choice and applies at any width, so on a wide screen in mobile mode the label was
+  still showing](https://github.com/wekan/wekan/commit/b9f178ef5).
   Thanks to xet7.
 
 and removes the following dead code:
