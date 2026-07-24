@@ -311,7 +311,7 @@ template(name="eventStreamReport")
         span.admin-cpu-label {{_ 'cpu-usage-current'}}
         span.admin-cpu-percent {{cpuCurrent.percent}}%
         span.quiet
-          | {{cpuCurrent.cores}} {{_ 'cpu-cores'}} · {{_ 'cpu-load-average'}} {{cpuLoadAverage}}
+          | {{cpuCurrent.cores}} {{_ 'cpu-cores-suffix'}} · {{_ 'cpu-load-average'}} {{cpuLoadAverage}}
         if cpuCurrent.activity
           span.quiet  · {{cpuCurrent.activity}}
     .admin-event-controls
