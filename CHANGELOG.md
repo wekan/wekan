@@ -538,6 +538,16 @@ and fixes the following bugs:
   too](https://github.com/wekan/wekan/commit/6580c445c).
   Thanks to xet7.
 
+- [Board tiles no longer merge on a laptop. The phone equal-tile work had six rule groups
+  whose selector lists carried a bare `.board-list ...` variant next to the intended
+  `.board-list.mobile-view ...` one, so they also hit the desktop float layout where
+  `.mobile-view` is absent — `margin: 0 !important` on `.board-list li.js-board` killed the
+  8px gap that `.board-list li { width: 20%; margin: 8px }` relies on, so adjacent coloured
+  tiles touched and read as one block. All six are now `.mobile-view`-only, restoring the
+  desktop layout while leaving the phone layout
+  unchanged](https://github.com/wekan/wekan/commit/b1435dce7).
+  Thanks to xet7.
+
 and removes the following dead code:
 
 - [Removed the cron migration subsystem: it never ran and had no UI, yet every logged-in
