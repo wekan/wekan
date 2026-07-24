@@ -177,6 +177,35 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   `language-*` classes on `<span>` inside `pre>code` only, which is a security trade-off xet7 has not
   decided on yet (adds a dependency + loosens the XSS sanitizer + needs a browser build to verify).
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [The Change profile image window (Member settings > Change Avatar, and the same
+  window in Admin Panel > People) rendered each avatar row's "Delete" link and file
+  name INSIDE the row's select link. An `<a>` inside an `<a>` is invalid HTML: the
+  browser closes the outer anchor, so the file name and the Delete link fell out of
+  the row's flex layout and rendered as bold text floating at the right edge, and a
+  click on Delete also selected that avatar. Delete and the file name were shown only
+  for the avatar currently in use, so no other upload could ever be deleted, and an
+  empty `p.sub-name` added a stray block in the middle of the row. Each row is now one
+  flex line - thumbnail, file name (truncated with the full name as a tooltip), a
+  check mark when it is the avatar in use, and a delete button that is a SIBLING of
+  the select link, so deleting never also selects and every uploaded avatar can be
+  deleted. The row in use is highlighted like in the other pop-over lists, the
+  initials row shows its "Default avatar" label under the name, and the upload hints
+  (max filesize, allowed filetypes, invalid filename) are grouped into one muted
+  paragraph above the upload button. Deleting the avatar in use left
+  `profile.avatarUrl` pointing at a file that no longer existed - a broken image
+  everywhere - so both windows now fall back to the initials when the deleted file is
+  the one in use. The Admin Panel window also passed `userData=` to
+  `userAvatarInitials`, which reads `this.userId`, so its initials rendered
+  empty](https://github.com/wekan/wekan/commit/8e58456c4).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.35 2026-07-24 WeKan ® release
 
 This release fixes the following bugs:
