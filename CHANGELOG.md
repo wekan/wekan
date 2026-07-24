@@ -654,14 +654,19 @@ and fixes the following bugs:
   Thanks to xet7.
 
 - [All Boards header on a phone: the section icon and the Multi-Selection / Sort buttons now
-  share ONE row with the Search box on its own row below, instead of the section icon
-  sitting alone on a wasted first line; the blue Sort button always shows a sort icon (the
-  plain `fa-sort` glyph, as a direct `i.fa` child like the Multi-Selection button beside it,
-  rather than the wrapped `fa-sort-alpha-asc` that showed as a blank blue square); and on the
-  narrow left menu each workspace NAME keeps a small floor of width so at least the first few
-  characters stay visible (with the trailing menu button and count shrinking first), so a
-  workspace can be told apart while it is dragged — an unnamed workspace still shows just its
-  icon](https://github.com/wekan/wekan/commit/79c5c278e).
+  share ONE row with the Search box on its own row below, instead of the section icon sitting
+  alone on a wasted first line with the buttons stranded on a second row. The buttons and the
+  search box live inside a `.path-right` wrapper, so giving that wrapper `flex` still let it
+  wrap as a two-line block beneath the icon; it is now `display: contents` on a phone, which
+  dissolves the wrapper so its buttons and search field become direct items of the header's
+  own flex row — the header then wraps them directly (icon + buttons on row 1, full-width
+  search on row 2). The blue Sort button always shows a sort icon (the plain `fa-sort` glyph,
+  as a direct `i.fa` child like the Multi-Selection button beside it, rather than the wrapped
+  `fa-sort-alpha-asc` that showed as a blank blue square). And on the narrow left menu the
+  workspace NAME is clipped to its own box so it can no longer spill over the "bars" workspace
+  menu button on its right (which had made the hamburger look like it sat on top of the name);
+  the name takes the space left by the fixed drag handle / icon / menu / count and truncates
+  with an ellipsis](https://github.com/wekan/wekan/commit/79c5c278e).
   Thanks to xet7.
 
 and removes the following dead code:

@@ -1563,26 +1563,33 @@ body.grey-icons-enabled .checkmark-no-grey {
     flex-wrap: wrap;
     gap: 6px;
     row-gap: 6px;
+    justify-content: flex-start; /* pack the icons at the start of row 1 */
   }
 
-  /* The section icon and the Multi-Selection / Sort buttons share ONE row; the
-     search box wraps onto its own row beneath them (see .board-search below),
-     instead of the section icon sitting alone on a wasted first line. */
   .boards-path-header .path-left {
-    flex: 0 0 auto; /* just the section icon - stay on the buttons' row */
+    flex: 0 0 auto; /* just the section icon - stays at the start of row 1 */
     min-width: 0;
     overflow: hidden;
   }
+
+  /* Flatten path-right so its Multi-Selection / Sort buttons and the search box
+     become direct items of the header's OWN flex row. Then the header controls
+     the wrap directly and deterministically: the section icon and the buttons sit
+     together on row 1, and the full-width search box drops to row 2 - instead of
+     path-right wrapping as a two-line block BELOW the section icon (which left the
+     icon alone on row 1 and the buttons on row 2). */
   .boards-path-header .path-right {
-    flex: 1 1 auto;
-    min-width: 0;
-    justify-content: flex-start; /* buttons pack next to the section icon */
+    display: contents;
+  }
+  .boards-path-header .multiselection-group,
+  .boards-path-header .js-open-boards-sort,
+  .boards-path-header .board-header-btn {
+    flex: 0 0 auto;
   }
 
-  /* Search takes the whole width of the header, so it drops below the icons.
-     `flex-basis: 100%` forces the wrap; `min-width: 0` lets it then shrink to fit
-     (a flex item defaults to `min-width: auto` and refuses to go below its
-     content width). */
+  /* Search takes the whole header width, so it wraps onto its own row under the
+     icons. `min-width: 0` lets it then shrink to fit (a flex item defaults to
+     `min-width: auto` and refuses to go below its content width). */
   .boards-path-header .board-search {
     flex: 1 1 100%;
     min-width: 0;
@@ -1619,21 +1626,23 @@ body.grey-icons-enabled .checkmark-no-grey {
     margin-inline-start: 0;
   }
 
-  /* Keep at least part of each workspace NAME visible on the narrow phone menu,
-     so a workspace can be told apart while dragging it. The row packs a drag
-     handle, folder icon, a "bars" menu button and a count chip beside the name;
-     the name takes the remaining space and truncates with an ellipsis, but give
-     it a floor so it never collapses to nothing, and let the trailing menu
-     button/count shrink first. (The name only shows when the workspace HAS a
-     name - an unnamed workspace still shows just its icon.) */
+  /* The workspace row packs a drag handle, folder icon, the NAME, a "bars" menu
+     button and a count chip. On the narrow phone menu the name must give way to
+     the fixed items around it: it takes the remaining space and truncates with an
+     ellipsis, while the name's own box is CLIPPED so it can never spill over the
+     "bars" menu button on its right (the overlap that made the hamburger look like
+     it sat on top of the name). The menu button and count never shrink. */
   .workspace-node .js-select-space {
     flex: 1 1 auto;
     min-width: 0;
+    overflow: hidden; /* clip the name to this box; it cannot cover the menu */
   }
   .workspace-node .workspace-name {
-    min-width: 3.5em; /* ~ a few characters, e.g. "Roa…" */
+    flex: 1 1 auto;
+    min-width: 0; /* shrink + ellipsis; no fixed floor that would force overlap */
   }
-  .workspace-node .js-open-workspace-menu {
+  .workspace-node .js-open-workspace-menu,
+  .workspace-node .workspace-count {
     flex: 0 0 auto;
   }
 }
