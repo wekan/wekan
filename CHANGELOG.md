@@ -594,7 +594,9 @@ and fixes the following bugs:
   `computeReorderedIds(..., after)` that inserts on either side and no-ops a drop into the
   board's own slot; the drop reads the gap's real DOM position (so releasing OVER the gap
   works — the placeholder is not a board tile, which had made the board snap back to its
-  original position). And the
+  original position). Hovering anywhere on a board icon opens the gap at THAT icon's slot
+  (drop to take its place), rather than needing to aim the icon's left half; only the last
+  icon's trailing half inserts after, to keep the end reachable. And the
   current folder's NAME beside its icon in the header ("Starred"/"Remaining"/a workspace
   name) is hidden — redundant with the icon, the highlighted menu row and the "My Boards"
   title, and it crowded the Multi-Selection / Sort / search controls — kept for screen
