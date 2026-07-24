@@ -592,7 +592,9 @@ and fixes the following bugs:
   under the cursor — anywhere in the current view (Starred / Templates / Remaining / a
   workspace), the end included — showing where it will land, backed by a pure
   `computeReorderedIds(..., after)` that inserts on either side and no-ops a drop into the
-  board's own slot. And the
+  board's own slot; the drop reads the gap's real DOM position (so releasing OVER the gap
+  works — the placeholder is not a board tile, which had made the board snap back to its
+  original position). And the
   current folder's NAME beside its icon in the header ("Starred"/"Remaining"/a workspace
   name) is hidden — redundant with the icon, the highlighted menu row and the "My Boards"
   title, and it crowded the Multi-Selection / Sort / search controls — kept for screen
