@@ -185,7 +185,16 @@ code {
     min-height: 100%;
     max-height: none;
     overflow: visible;
-    padding-bottom: 24px; /* the last line clears the browser's bottom bar */
+    /* Clear iOS Safari's bottom toolbar. The scroller (#content) is sized with
+       `calc(100vh - 48px)`, and on iOS `100vh` is the LARGE viewport (toolbar
+       hidden), so the scroller's bottom edge sits BEHIND the toolbar when it is
+       shown - the last line ("By default archived cards are not searched.") ends
+       up under it with no way to scroll it clear. This much empty scrollable
+       space after the content lets the last real line scroll up above the
+       toolbar. env(safe-area-inset-bottom) covers the home-indicator devices;
+       the fixed part covers the toolbar itself, which the inset does NOT
+       include. */
+    padding-bottom: calc(120px + env(safe-area-inset-bottom, 0px));
   }
 
   .global-search-page,
