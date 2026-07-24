@@ -151,7 +151,7 @@ template(name="boardList")
                   i.fa.fa-plus
                 | &nbsp;{{_ 'add-board'}}
           each boards
-            li.js-board(class="{{_id}} {{#if isStarred}}starred{{/if}} {{colorClass}} {{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}", draggable="true")
+            li.js-board.nodragscroll(class="{{_id}} {{#if isStarred}}starred{{/if}} {{colorClass}} {{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}", draggable="true")
               if isInvited
                 .board-list-item
                   if BoardMultiSelection.isActive
@@ -183,7 +183,7 @@ template(name="boardList")
                         span.emoji-icon
                           i.fa.fa-arrows
 
-                    a.js-open-board(href="{{pathFor 'board' id=_id slug=slug}}")
+                    a.js-open-board(href="{{pathFor 'board' id=_id slug=slug}}" draggable="false")
                       span.details
                         span.board-list-item-name(title="{{_ 'template-container'}}")
                           +viewer
@@ -224,7 +224,7 @@ template(name="boardList")
                         span.emoji-icon
                           i.fa.fa-arrows
 
-                    a.js-open-board(href="{{pathFor 'board' id=_id slug=slug}}")
+                    a.js-open-board(href="{{pathFor 'board' id=_id slug=slug}}" draggable="false")
                       span.details
                         span.board-list-item-name(title="{{boardOpenAndMoveHint}}")
                           +viewer
