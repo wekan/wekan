@@ -8,24 +8,6 @@ import Announcements from '/models/announcements';
 import Settings from '/models/settings';
 import { resolveDefaultAuthenticationMethod } from '/models/lib/authenticationMethod';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
-// import {
-//   cronMigrationProgress,
-//   cronMigrationStatus,
-//   cronMigrationCurrentStep,
-//   cronMigrationSteps,
-//   cronIsMigrating,
-//   cronJobs,
-//   cronMigrationCurrentStepNum,
-//   cronMigrationTotalSteps,
-//   cronMigrationCurrentAction,
-//   cronMigrationJobProgress,
-//   cronMigrationJobStepNum,
-//   cronMigrationJobTotalSteps,
-//   cronMigrationEtaSeconds,
-//   cronMigrationElapsedSeconds,
-//   cronMigrationCurrentNumber,
-//   cronMigrationCurrentName,
-// } from '/imports/cronMigrationClient';
 import { format } from '/imports/lib/dateUtils';
 
 // Helper functions shared across the template
@@ -275,9 +257,6 @@ Template.setting.onCreated(function () {
     apiUploadMaxBytes: false,
     apiDownloadMaxBytes: false,
   });
-  // this.cronSettings = new ReactiveVar(false);
-  // this.migrationErrorsList = new ReactiveVar([]);
-
   Meteor.subscribe('setting');
   Meteor.subscribe('mailServer');
   Meteor.subscribe('accountSettings');
@@ -288,16 +267,6 @@ Template.setting.onCreated(function () {
   Meteor.subscribe('lockoutSettings');
   Meteor.subscribe('attachmentStorageSettings');
 
-  // Poll for migration errors
-  // this.errorPollInterval = Meteor.setInterval(() => {
-  //   if (this.cronSettings.get()) {
-  //     Meteor.call('cron.getAllMigrationErrors', 50, (error, result) => {
-  //       if (!error && result) {
-  //         this.migrationErrorsList.set(result);
-  //       }
-  //     });
-  //   }
-  // }, 5000); // Poll every 5 seconds
 });
 
 Template.setting.onDestroyed(function () {
@@ -391,10 +360,6 @@ Template.setting.helpers({
     const inst = Template.instance();
     return inst.attachmentSettings && inst.attachmentSettings.get();
   },
-  // isCronSettings() {
-  //   const inst = Template.instance();
-  //   return inst.cronSettings && inst.cronSettings.get();
-  // },
   isLoading() {
     const inst = Template.instance();
     return inst.loading && inst.loading.get();
@@ -468,127 +433,6 @@ Template.setting.helpers({
     const enabledMap = tpl.attachmentLimitEnabled.get() || {};
     return enabledMap[fieldName] === true;
   },
-
-  // Cron settings helpers
-  // migrationStatus() {
-  //   return cronMigrationStatus.get() || TAPi18n.__('idle');
-  // },
-  //
-  // migrationProgress() {
-  //   return cronMigrationProgress.get() || 0;
-  // },
-  //
-  // migrationCurrentStep() {
-  //   return cronMigrationCurrentStep.get() || '';
-  // },
-  //
-  // isMigrating() {
-  //   return cronIsMigrating.get() || false;
-  // },
-  //
-  // migrationSteps() {
-  //   return cronMigrationSteps.get() || [];
-  // },
-  //
-  // migrationStepsWithIndex() {
-  //   const steps = cronMigrationSteps.get() || [];
-  //   return steps.map((step, idx) => ({
-  //     ...step,
-  //     index: idx + 1,
-  //   }));
-  // },
-  //
-  // cronJobs() {
-  //   return cronJobs.get() || [];
-  // },
-  //
-  // isCronJobPaused(status) {
-  //   return status === 'paused';
-  // },
-  //
-  // migrationCurrentStepNum() {
-  //   return cronMigrationCurrentStepNum.get() || 0;
-  // },
-  //
-  // migrationTotalSteps() {
-  //   return cronMigrationTotalSteps.get() || 0;
-  // },
-  //
-  // migrationCurrentAction() {
-  //   return cronMigrationCurrentAction.get() || '';
-  // },
-  //
-  // migrationJobProgress() {
-  //   return cronMigrationJobProgress.get() || 0;
-  // },
-  //
-  // migrationJobStepNum() {
-  //   return cronMigrationJobStepNum.get() || 0;
-  // },
-  //
-  // migrationJobTotalSteps() {
-  //   return cronMigrationJobTotalSteps.get() || 0;
-  // },
-  //
-  // migrationEtaSeconds() {
-  //   return cronMigrationEtaSeconds.get();
-  // },
-  //
-  // migrationElapsedSeconds() {
-  //   return cronMigrationElapsedSeconds.get();
-  // },
-  //
-  // migrationNumber() {
-  //   return cronMigrationCurrentNumber.get();
-  // },
-  //
-  // migrationName() {
-  //   return cronMigrationCurrentName.get() || '';
-  // },
-  //
-  // migrationStatusLine() {
-  //   const number = cronMigrationCurrentNumber.get();
-  //   const name = cronMigrationCurrentName.get();
-  //   if (number && name) {
-  //     return `${number} - ${name}`;
-  //   }
-  //   return cronMigrationStatus.get() || TAPi18n.__('idle');
-  // },
-  //
-  // isUpdatingMigrationDropdown() {
-  //   const status = cronMigrationStatus.get() || TAPi18n.__('idle');
-  //   return (
-  //     status && status.startsWith('Updating Select Migration dropdown menu')
-  //   );
-  // },
-  //
-  // migrationErrors() {
-  //   return Template.instance().migrationErrorsList ? Template.instance().migrationErrorsList.get() : [];
-  // },
-  //
-  // hasErrors() {
-  //   const inst = Template.instance();
-  //   const errors = inst.migrationErrorsList ? inst.migrationErrorsList.get() : [];
-  //   return errors && errors.length > 0;
-  // },
-  //
-  // formatDateTime(date) {
-  //   if (!date) return '';
-  //   return format(date, 'YYYY-MM-DD HH:mm:ss');
-  // },
-  //
-  // formatDurationSeconds(seconds) {
-  //   if (seconds === null || seconds === undefined) return '';
-  //   const total = Math.max(0, Math.floor(seconds));
-  //   const hrs = Math.floor(total / 3600);
-  //   const mins = Math.floor((total % 3600) / 60);
-  //   const secs = total % 60;
-  //   const parts = [];
-  //   if (hrs > 0) parts.push(String(hrs).padStart(2, '0'));
-  //   parts.push(String(mins).padStart(2, '0'));
-  //   parts.push(String(secs).padStart(2, '0'));
-  //   return parts.join(':');
-  // },
 
   boards() {
     const ret = ReactiveCache.getBoards(
@@ -672,8 +516,6 @@ Template.setting.events({
       tpl.layoutSetting.set(false);
       tpl.webhookSetting.set(false);
       tpl.attachmentSettings.set(false);
-      // tpl.cronSettings.set(false);
-
       // Set the selected setting to true
       if (targetID === 'registration-setting') {
         tpl.generalSetting.set(true);
@@ -696,10 +538,7 @@ Template.setting.events({
         refreshAttachmentStorageSettings(tpl, true);
         // Set default sub-menu state for attachment settings
         console.log('Initializing attachment sub-menu');
-      } // else if (targetID === 'cron-settings') {
-      //   tpl.cronSettings.set(true);
-      //   console.log('Initializing cron sub-menu');
-      // }
+      }
     }
   },
   'click a.js-toggle-board-choose'(event) {
@@ -1125,189 +964,6 @@ Template.setting.events({
     });
   },
 
-  // Event handlers for cron settings
-  // 'click button.js-start-migration'(event, tpl) {
-  //   event.preventDefault();
-  //   tpl.loading.set(true);
-  //   cronIsMigrating.set(true);
-  //   cronMigrationStatus.set(TAPi18n.__('migration-starting'));
-  //   cronMigrationCurrentAction.set('');
-  //   cronMigrationJobProgress.set(0);
-  //   cronMigrationJobStepNum.set(0);
-  //   cronMigrationJobTotalSteps.set(0);
-  //   const selectedIndex = parseInt($('.js-migration-select').val() || '0', 10);
-  //
-  //   if (selectedIndex === 0) {
-  //     // Run all migrations
-  //     Meteor.call('cron.startAllMigrations', (error, result) => {
-  //       tpl.loading.set(false);
-  //       if (error) {
-  //         alert(TAPi18n.__('migration-start-failed') + ': ' + error.reason);
-  //       } else {
-  //         alert(TAPi18n.__('migration-started'));
-  //       }
-  //     });
-  //   } else {
-  //     // Run specific migration
-  //     Meteor.call(
-  //       'cron.startSpecificMigration',
-  //       selectedIndex - 1,
-  //       (error, result) => {
-  //         tpl.loading.set(false);
-  //         if (error) {
-  //           alert(TAPi18n.__('migration-start-failed') + ': ' + error.reason);
-  //         } else if (result && result.skipped) {
-  //           cronIsMigrating.set(false);
-  //           cronMigrationStatus.set(TAPi18n.__('migration-not-needed'));
-  //           alert(TAPi18n.__('migration-not-needed'));
-  //         } else {
-  //           alert(TAPi18n.__('migration-started'));
-  //         }
-  //       },
-  //     );
-  //   }
-  // },
-  //
-  // 'click button.js-start-all-migrations'(event, tpl) {
-  //   event.preventDefault();
-  //   tpl.loading.set(true);
-  //   Meteor.call('cron.startAllMigrations', (error) => {
-  //     tpl.loading.set(false);
-  //     if (error) {
-  //       alert(TAPi18n.__('migration-start-failed') + ': ' + error.reason);
-  //     } else {
-  //       alert(TAPi18n.__('migration-started'));
-  //     }
-  //   });
-  // },
-  //
-  // 'click button.js-pause-all-migrations'(event, tpl) {
-  //   event.preventDefault();
-  //   tpl.loading.set(true);
-  //   Meteor.call('cron.pauseAllMigrations', (error) => {
-  //     tpl.loading.set(false);
-  //     if (error) {
-  //       alert(TAPi18n.__('migration-pause-failed') + ': ' + error.reason);
-  //     } else {
-  //       alert(TAPi18n.__('migration-paused'));
-  //     }
-  //   });
-  // },
-  //
-  // 'click button.js-stop-all-migrations'(event, tpl) {
-  //   event.preventDefault();
-  //   if (confirm(TAPi18n.__('migration-stop-confirm'))) {
-  //     tpl.loading.set(true);
-  //     Meteor.call('cron.stopAllMigrations', (error) => {
-  //       tpl.loading.set(false);
-  //       if (error) {
-  //         alert(TAPi18n.__('migration-stop-failed') + ': ' + error.reason);
-  //       } else {
-  //         alert(TAPi18n.__('migration-stopped'));
-  //       }
-  //     });
-  //   }
-  // },
-  //
-  // 'click button.js-pause-migration'(event, tpl) {
-  //   event.preventDefault();
-  //   tpl.loading.set(true);
-  //   cronIsMigrating.set(false);
-  //   cronMigrationStatus.set(TAPi18n.__('migration-pausing'));
-  //   Meteor.call('cron.pauseAllMigrations', (error, result) => {
-  //     tpl.loading.set(false);
-  //     if (error) {
-  //       alert(TAPi18n.__('migration-pause-failed') + ': ' + error.reason);
-  //     } else {
-  //       alert(TAPi18n.__('migration-paused'));
-  //     }
-  //   });
-  // },
-  //
-  // 'click button.js-stop-migration'(event, tpl) {
-  //   event.preventDefault();
-  //   if (confirm(TAPi18n.__('migration-stop-confirm'))) {
-  //     tpl.loading.set(true);
-  //     cronIsMigrating.set(false);
-  //     cronMigrationStatus.set(TAPi18n.__('migration-stopping'));
-  //     cronMigrationCurrentAction.set('');
-  //     cronMigrationJobProgress.set(0);
-  //     cronMigrationJobStepNum.set(0);
-  //     cronMigrationJobTotalSteps.set(0);
-  //     Meteor.call('cron.stopAllMigrations', (error, result) => {
-  //       tpl.loading.set(false);
-  //       if (error) {
-  //         alert(TAPi18n.__('migration-stop-failed') + ': ' + error.reason);
-  //       } else {
-  //         alert(TAPi18n.__('migration-stopped'));
-  //       }
-  //     });
-  //   }
-  // },
-  //
-  // 'click button.js-start-job'(event, tpl) {
-  //   event.preventDefault();
-  //   const jobName = $(event.target).data('job-name');
-  //   tpl.loading.set(true);
-  //   Meteor.call('cron.startJob', jobName, (error) => {
-  //     tpl.loading.set(false);
-  //     if (error) {
-  //       alert(TAPi18n.__('cron-job-start-failed') + ': ' + error.reason);
-  //     } else {
-  //       alert(TAPi18n.__('cron-job-started'));
-  //     }
-  //   });
-  // },
-  //
-  // 'click button.js-pause-job'(event, tpl) {
-  //   event.preventDefault();
-  //   const jobName = $(event.target).data('job-name');
-  //   tpl.loading.set(true);
-  //   Meteor.call('cron.pauseJob', jobName, (error) => {
-  //     tpl.loading.set(false);
-  //     if (error) {
-  //       alert(TAPi18n.__('cron-job-pause-failed') + ': ' + error.reason);
-  //     } else {
-  //       alert(TAPi18n.__('cron-job-paused'));
-  //     }
-  //   });
-  // },
-  //
-  // 'click button.js-resume-job'(event, tpl) {
-  //   event.preventDefault();
-  //   const jobName = $(event.target).data('job-name');
-  //   tpl.loading.set(true);
-  //   Meteor.call('cron.resumeJob', jobName, (error) => {
-  //     tpl.loading.set(false);
-  //     if (error) {
-  //       alert(TAPi18n.__('cron-job-resume-failed') + ': ' + error.reason);
-  //     } else {
-  //       alert(TAPi18n.__('cron-job-resumed'));
-  //     }
-  //   });
-  // },
-  //
-  // 'click button.js-delete-job'(event, tpl) {
-  //   event.preventDefault();
-  //   const jobName = $(event.target).data('job-name');
-  //   if (confirm(TAPi18n.__('cron-job-delete-confirm'))) {
-  //     tpl.loading.set(true);
-  //     Meteor.call('cron.removeJob', jobName, (error) => {
-  //       tpl.loading.set(false);
-  //       if (error) {
-  //         alert(TAPi18n.__('cron-job-delete-failed') + ': ' + error.reason);
-  //       } else {
-  //         alert(TAPi18n.__('cron-job-deleted'));
-  //       }
-  //     });
-  //   }
-  // },
-  //
-  // 'click button.js-add-cron-job'(event) {
-  //   event.preventDefault();
-  //   // Placeholder for adding a new cron job (e.g., open a modal)
-  //   alert(TAPi18n.__('add-cron-job-placeholder'));
-  // },
 });
 
 Template.accountSettings.helpers({

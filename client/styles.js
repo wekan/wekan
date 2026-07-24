@@ -55,7 +55,6 @@ import '/client/components/notifications/notifications.css';
 import '/client/components/notifications/notificationsDrawer.css';
 import '/client/components/rules/rules.css';
 import '/client/components/settings/attachments.css';
-import '/client/components/settings/cronSettings.css';
 import '/client/components/settings/lockedUsersBody.css';
 import '/client/components/settings/migrationProgress.css';
 import '/client/components/settings/peopleBody.css';

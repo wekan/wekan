@@ -3,7 +3,6 @@ import '/client/components/settings/adminReports.jade';
 import '/client/components/settings/attachments.jade';
 import '/client/components/settings/attachmentSettings.jade';
 import '/client/components/settings/connectionMethod.jade';
-import '/client/components/settings/cronSettings.jade';
 import '/client/components/settings/informationBody.jade';
 import '/client/components/settings/invitationCode.jade';
 import '/client/components/settings/migrationProgress.jade';
@@ -34,7 +33,6 @@ import '/client/components/settings/translationBody.js';
 // forms.css and rendered with a black/grey background instead of the theme.
 import '/client/components/settings/adminReports.css';
 import '/client/components/settings/attachments.css';
-import '/client/components/settings/cronSettings.css';
 import '/client/components/settings/lockedUsersBody.css';
 import '/client/components/settings/migrationProgress.css';
 import '/client/components/settings/peopleBody.css';

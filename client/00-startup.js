@@ -68,8 +68,6 @@ import { Utils } from '/client/lib/utils';
 // import '/client/lib/attachmentMigrationManager';
 // import '/client/components/settings/migrationProgress';
 
-// Import cron settings - COMMENTED OUT
-// import '/client/components/settings/cronSettings';
 // Custom head tags
 
 // Mirror Meteor login token into a cookie for server-side file route auth

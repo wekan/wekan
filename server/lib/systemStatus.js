@@ -1,5 +1,4 @@
 import RecoveryStatus from '/models/recoveryStatus';
-import CronJobStatus from '/models/cronJobStatus';
 import AttachmentMigrationStatus from '/models/attachmentMigrationStatus';
 import TextMigrationStatus from '/models/textMigrationStatus';
 import Cards from '/models/cards';
@@ -83,12 +82,11 @@ export async function getInProgress() {
     }
   } catch (_) {}
 
-  try {
-    const jobs = await CronJobStatus.find({ status: 'running' }).fetchAsync();
-    for (const j of jobs) {
-      items.push({ kind: 'cron-migration', active: true, message: `Migration job ${j.jobId || j.jobType || j._id} running` });
-    }
-  } catch (_) {}
+  // The cron-driven migration subsystem that wrote `cronJobStatus` docs is gone (it
+  // never ran and had no UI), so this no longer looks there. Leaving the check in
+  // would have been worse than useless: a leftover status:'running' doc from an older
+  // version has nothing to clear it now, so Problems would show "Migration job X
+  // running" forever.
 
   try {
     const att = await AttachmentMigrationStatus.findOneAsync({ $or: [{ running: true }, { status: 'running' }] });

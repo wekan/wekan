@@ -26,8 +26,6 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
-// Import cron job storage for persistent job tracking
-// import './cronJobStorage';
 
 // Import migrations - COMMENTED OUT
 // import './migrations/fixMissingListsMigration';
@@ -46,5 +44,3 @@ import './lib/customHeadRender';
 import './import-users-for-methods';
 
 // Note: Automatic migrations are disabled - migrations only run when opening boards
-// import './boardMigrationDetector';
-// import './cronMigrationManager';

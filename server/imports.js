@@ -143,20 +143,25 @@ import '/server/attachmentApi';
 import '/server/attachmentMigration';
 import '/server/attachmentMigrationStatus';
 import '/server/attachmentBulkMove';
-import '/server/boardMigrationDetector';
 
 // ----------------------------------------------------------------------------
-// 6. Server — cron & migration
+// 6. Server — cron
 // ----------------------------------------------------------------------------
-import '/server/cronJobStorage';
-import '/server/cronMigrationManager';
+// SyncedCron itself, used by the backup schedule (server/methods/backup.js) and
+// scheduled rules (server/scheduledRules.js). The old cron-driven MIGRATION
+// subsystem that also lived here was removed: it never ran (its
+// initializeCronJobs() was never called and the board-migration detector's
+// startup hook was commented out) and had no UI, while its client module still
+// subscribed and polled on every client. Migrations run from Admin Panel ->
+// Attachments and on board open instead, reported by the shared
+// migrationProgress dashboard.
+import '/server/cron/syncedCron';
 
 // ----------------------------------------------------------------------------
 // 7. Server — webhooks
 // ----------------------------------------------------------------------------
 import '/server/card-opened-webhook';
 import '/server/cards-loading';
-import '/server/cron/syncedCron';
 
 // ----------------------------------------------------------------------------
 // 8. Server — import helpers
@@ -231,8 +236,6 @@ import '/server/publications/backgrounds';
 import '/server/publications/boards';
 import '/server/publications/cards';
 import '/server/publications/cardsWindow';
-import '/server/publications/cronJobs';
-import '/server/publications/cronMigrationStatus';
 import '/server/publications/customUI';
 import '/server/publications/impersonationReport';
 import '/server/publications/recoveryReport';
@@ -240,7 +243,6 @@ import '/server/publications/recoveryMaintenance';
 import '/server/recovery';
 import '/server/publications/inviteToBoardRolesSettings';
 import '/server/publications/lockoutSettings';
-import '/server/publications/migrationProgress';
 import '/server/publications/notifications';
 import '/server/publications/org';
 import '/server/publications/people';

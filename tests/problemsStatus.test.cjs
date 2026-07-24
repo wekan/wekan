@@ -89,8 +89,12 @@ check('server status hub persists status + aggregates in-progress', () => {
   assert.ok(/export async function setBoardRepairStatus/.test(src));
   assert.ok(/export async function getInProgress/.test(src));
   assert.ok(/export async function getProblemsOverview/.test(src));
-  assert.ok(/RecoveryStatus|cronJobStatus|CronJobStatus|attachmentMigrationStatus|AttachmentMigrationStatus/.test(src),
+  // cronJobStatus is deliberately NOT here: the cron-driven migration subsystem that
+  // wrote those docs was removed, so nothing would ever clear a leftover
+  // status:'running' doc and Problems would report a migration running forever.
+  assert.ok(/RecoveryStatus|attachmentMigrationStatus|AttachmentMigrationStatus/.test(src),
     'must aggregate the persisted status collections');
+  assert.ok(!/CronJobStatus/.test(src), 'the removed cron migration collection is not read');
 });
 
 check('systemStatusReport method is admin-gated and offers cpu/login detail', () => {
