@@ -498,7 +498,16 @@ and fixes the following bugs:
   wrapper and was REMOVED from the panels, which is required rather than tidying —
   `dragscrollTouch.js` takes the nearest `.dragscroll` ancestor and gives up if it cannot
   scroll, so leaving the class on a now-static panel would have disabled finger dragging on
-  the whole page](https://github.com/wekan/wekan/commit/be07356cc).
+  the whole page](https://github.com/wekan/wekan/commit/be07356cc). That single-inner-scroller
+  still fought the ancestor: the wrapper box (`min-height: 100vh`) is taller than its parent
+  `#content`, which is itself a scroller in mobile mode, so both scrolled — on iOS Safari
+  the page rubber-banded back to "Differing operators" at the bottom, while Fairphone
+  Firefox merely reached the end. The clip is now released WITHOUT adding any scroller
+  (`.wrapper` for this page is `height: auto; overflow: visible`), leaving `#content` — the
+  page's existing scroller, and what a finger scrolls natively on touch — as the single
+  scroller, which cannot fight itself. The `.dragscroll` class is dropped from the wrapper
+  since native scrolling now handles
+  it](https://github.com/wekan/wekan/commit/762547b92).
   Thanks to xet7.
 
 and removes the following dead code:
