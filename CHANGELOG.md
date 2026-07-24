@@ -511,7 +511,14 @@ and fixes the following bugs:
   and on iOS `100vh` is the large viewport (toolbar hidden), so its bottom edge sits behind
   the toolbar — the wrapper now has `calc(120px + env(safe-area-inset-bottom, 0px))` of
   trailing space so the last line scrolls clear of
-  it](https://github.com/wekan/wekan/commit/762547b92).
+  it. The bottom stayed unreachable through several attempts because the cause was
+  `#content`, not the wrapper: `#content` is a flex child, and a flex child defaults to
+  `min-height: auto` — it grows to fit its content and never scrolls, so anything past the
+  fold overflowed out of reach. On this page (`min-height: 0` on `#content`, scoped with
+  `body:has(.wrapper.global-search-wrapper)` so no other page is affected) it becomes a
+  real scroller, inside a `100dvh` body so the bottom tracks Safari's toolbar instead of
+  hiding behind the large-viewport `100vh`, with `overscroll-behavior: contain` to stop the
+  landscape pull-to-refresh](https://github.com/wekan/wekan/commit/762547b92).
   Thanks to xet7.
 
 and removes the following dead code:
