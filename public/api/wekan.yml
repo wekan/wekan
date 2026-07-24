@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v10.33
+  version: v10.34
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -6641,6 +6641,13 @@ definitions:
         description: |
            User-specified flag for enabling auto-width for boards (false is the default).
            profile[boardId][listId] = constraint;
+        type: object
+      boardSortIndex:
+        description: |
+           #6439: per-user manual board order on the All Boards page, set by drag-
+           reorder. profile.boardSortIndex[boardId] = sortIndex. Missing before, so
+           a reorder write was rejected by the schema (INVALID [400]) since
+           `profile` enumerates its subfields and is not blackbox.
         type: object
       fixedListWidthBoards:
         description: |
