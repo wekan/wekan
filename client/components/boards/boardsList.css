@@ -416,8 +416,22 @@
   font-size: 18px;
 }
 
+/* #6524: hide the current-folder NAME next to its icon in the header. The folder
+   icon already shows which section this is, the left menu highlights it, and the
+   "My Boards" bar names the page - so the repeated "Starred"/"Remaining"/workspace
+   name was redundant and crowded the Multi-Selection / Sort / search controls
+   beside it. Visually hidden rather than removed, so a screen reader still
+   announces which folder is shown (the icon alone has no text alternative). */
 .boards-path-header .path-text {
-  color: #333;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .boards-path-header .board-header-btn {
