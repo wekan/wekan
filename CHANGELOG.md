@@ -629,6 +629,17 @@ and fixes the following bugs:
   scroll-coexistence and handle-gate properties](https://github.com/wekan/wekan/commit/1c2e1e204).
   Thanks to xet7.
 
+- [All Boards header on a phone: the section icon and the Multi-Selection / Sort buttons now
+  share ONE row with the Search box on its own row below, instead of the section icon
+  sitting alone on a wasted first line; the blue Sort button always shows a sort icon (the
+  plain `fa-sort` glyph, as a direct `i.fa` child like the Multi-Selection button beside it,
+  rather than the wrapped `fa-sort-alpha-asc` that showed as a blank blue square); and on the
+  narrow left menu each workspace NAME keeps a small floor of width so at least the first few
+  characters stay visible (with the trailing menu button and count shrinking first), so a
+  workspace can be told apart while it is dragged — an unnamed workspace still shows just its
+  icon](https://github.com/wekan/wekan/commit/79c5c278e).
+  Thanks to xet7.
+
 and removes the following dead code:
 
 - [Removed the cron migration subsystem: it never ran and had no UI, yet every logged-in
