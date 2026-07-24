@@ -230,7 +230,7 @@ This release fixes the following bugs:
   coming back](https://github.com/wekan/wekan/commit/52d68be75).
   Thanks to hmeunier95 and xet7.
 
-and has the following developer-tooling change:
+and has the following developer-tooling changes:
 
 - [`rebuild-wekan.sh` and `rebuild-wekan.bat` gain a Setup → "Update git" action that makes
   the working copy current in one step: `git fetch --all --prune`, `git pull --rebase
@@ -244,6 +244,20 @@ and has the following developer-tooling change:
   same-subject rewritten commit, unresolved links warn and never abort). The Windows `.bat`
   runs the shared bash script via Git Bash and degrades gracefully with instructions when bash
   is not on PATH](https://github.com/wekan/wekan/commit/c2ad9dddb).
+  Thanks to xet7.
+
+- [The Playwright WebKit tests no longer fail spuriously from renderer crashes on a headless
+  ARM host. A test run left eight core dumps in `tests/playwright/`, all of WebKit's
+  WPEWebProcess renderer, aborting (SIGTRAP) from the Mesa llvmpipe software-GL stack on this
+  Apple Silicon / Asahi host; a renderer that dies mid-test makes the next click/navigation time
+  out, so it looked like WebKit-only failures (admin users, checklist delete, rules, All Boards
+  sort) rather than real WeKan bugs. `playwright.config.js` now defaults
+  `WEBKIT_DISABLE_DMABUF_RENDERER=1` (unless already set) — the standard fix for WPE WebKit
+  aborting in headless / containerized / VM / software-GL environments; Playwright passes
+  `process.env` to the browser so it covers every run path, and it is harmless for Chromium and
+  Firefox. `.gitignore` now ignores core dumps (`core.<pid>`) so a crashing test browser can no
+  longer leave untracked multi-MB files to be committed by
+  accident](https://github.com/wekan/wekan/commit/0cd2b513b).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
