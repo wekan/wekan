@@ -216,6 +216,22 @@ This release fixes the following bugs:
   and still shows every other runtime error and all compile
   errors](https://github.com/wekan/wekan/commit/1551e142f).
   Thanks to xet7.
+- [The board bar (the second header bar) fits on one line on iPad. In landscape it
+  wrapped onto two rows - board title, edit, visibility, watch, star and sort on the
+  first, Filter / Search / view / dependencies / multi-selection / hamburger on the
+  second. Measured at a 1180 CSS px viewport the two rows needed about 1304px on one
+  line, ~124px more than the viewport, and nearly all of that is per-button empty space
+  rather than text: each button carries 12px side margins, 10px on each side of its icon
+  and a 10px gap after its label, about 54px of chrome around a ~60px icon+label. So
+  nothing has to be hidden at that width: halving the chrome between 801px and 1400px
+  frees ~295px, which fits the bar on one line with room to spare for languages with
+  longer labels, and icon and label sizes are untouched so the buttons stay comfortable
+  to tap. In tablet portrait (820px), where even the halved chrome cannot fit the labels,
+  they drop to icons only between 801px and 1000px - the same treatment phones already
+  get below 801px, with titles, tooltips and popups unchanged. Wide desktops, which never
+  wrapped, look exactly as before, and phones keep their 44px touch
+  targets](https://github.com/wekan/wekan/commit/f75b28cc8).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their
 translations.
