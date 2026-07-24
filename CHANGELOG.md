@@ -304,6 +304,25 @@ and removes the following dead code:
   migration running forever](https://github.com/wekan/wekan/commit/a440d44ea).
   Thanks to xet7.
 
+and has the following developer-tooling fixes:
+
+- [`releases/release-all.sh` now repoints stale CHANGELOG commit links before releasing.
+  Every bullet links the commit it describes, and those links are written BEFORE the
+  release, so anything that rewrites history in between — a rebase onto an upstream
+  change, an amend, a squash — changes the hashes and every link in the not-yet-released
+  section 404s once pushed (which is exactly what happened to all eight links of this
+  section). As its first local step, before the Upcoming heading is renamed and before the
+  release commit is made, the script now leaves alone any hash that is still an ancestor of
+  HEAD, and resolves a stale one by reading the OLD commit's subject (the pre-rewrite
+  object is still in the clone) and finding the commit on this branch with exactly that
+  subject — the rewritten copy of the same commit. The substitution is bounded to the
+  section being released, so the same hash quoted in an older, already-pushed entry is
+  never touched; it works whether or not the heading has already been renamed; and
+  anything it cannot resolve is reported as a WARNING and left as-is, because a broken doc
+  link is never a reason to abort a
+  release](https://github.com/wekan/wekan/commit/2f3c2d49a).
+  Thanks to xet7.
+
 and has the following developer-tooling addition:
 
 - [Added `docs/Security/gh/pull-security-reports.sh`, which downloads every security and
