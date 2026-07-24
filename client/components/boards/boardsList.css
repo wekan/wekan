@@ -1596,3 +1596,21 @@ body.grey-icons-enabled .checkmark-no-grey {
     margin-inline-start: 0;
   }
 }
+
+/* #6524: "+ Add workspace" (and the per-node "+ add subspace") were ~20px "+"
+   links - far below the 44px minimum touch target, so a finger tap usually
+   missed them while the larger menu rows registered fine. On a touch-capable
+   layout they become proper 44px targets with the "+" centred. */
+@media screen and (max-width: 800px),
+       screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
+  .workspaces-header .js-add-workspace {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 8px;
+    font-size: 20px;
+    line-height: 1;
+  }
+}
