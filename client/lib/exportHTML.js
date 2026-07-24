@@ -129,8 +129,13 @@ window.ExportHtml = Popup => {
     const headerQuickAccess = clonedElement.querySelector('#header-quick-access');
     if (headerQuickAccess) headerQuickAccess.remove();
 
+    // .board-header-btns-group is the wrapper that keeps the board bar's button
+    // groups on one flex line; remove it too so the export is not left with an
+    // empty div where the buttons were.
     Array.from(
-      clonedElement.querySelectorAll('#header-main-bar .board-header-btns'),
+      clonedElement.querySelectorAll(
+        '#header-main-bar .board-header-btns, #header-main-bar .board-header-btns-group',
+      ),
     ).forEach(elem => elem.remove());
     Array.from(
       clonedElement.querySelectorAll('.js-pop-over, .pop-over'),

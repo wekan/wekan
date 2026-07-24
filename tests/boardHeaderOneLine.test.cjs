@@ -176,4 +176,76 @@ test('every button the bar shows is a .board-header-btn (so the rules reach it)'
     'the bar should still hold at least the buttons this fix was measured with');
 });
 
+// ── A long board title moves ALL the buttons to the second row ──────────────
+// Reported on iPad landscape: with a long title, the left group (edit, visibility,
+// watch, star, sort) stayed beside the title and only the right group wrapped, so
+// the controls were split across both rows. The groups are now nested in ONE flex
+// item, which as a single item either fits beside the title or moves down whole.
+
+const bar = jade.slice(jade.indexOf('template(name="boardHeaderBar")'),
+  jade.indexOf('template(name="boardVisibilityList")'));
+
+test('all three button groups are inside one wrapper', () => {
+  const wrapperAt = bar.indexOf('.board-header-btns-group');
+  assert.ok(wrapperAt >= 0, 'the .board-header-btns-group wrapper must exist');
+  const wrapperIndent = (() => {
+    const line = bar.slice(0, wrapperAt).split('\n').pop();
+    return line.length;
+  })();
+  for (const group of ['left', 'center', 'right']) {
+    const at = bar.indexOf(`.board-header-btns.${group}`);
+    assert.ok(at > wrapperAt,
+      `.board-header-btns.${group} must come after the wrapper`);
+    const indent = bar.slice(0, at).split('\n').pop().length;
+    assert.ok(indent > wrapperIndent,
+      `.board-header-btns.${group} must be nested INSIDE the wrapper (indent ` +
+      `${indent} vs wrapper ${wrapperIndent}) - as a sibling it wraps on its own ` +
+      'and splits the controls across both rows');
+  }
+});
+
+test('the title is a sibling of the wrapper, not inside it', () => {
+  const titleAt = bar.indexOf('h1.header-board-menu');
+  const wrapperAt = bar.indexOf('.board-header-btns-group');
+  assert.ok(titleAt >= 0 && titleAt < wrapperAt,
+    'the board title must stay its own flex item, before the button wrapper');
+  const titleIndent = bar.slice(0, titleAt).split('\n').pop().length;
+  const wrapperIndent = bar.slice(0, wrapperAt).split('\n').pop().length;
+  assert.strictEqual(titleIndent, wrapperIndent,
+    'title and wrapper must be siblings so the flex row can break between them');
+});
+
+test('the wrapper is a flex item that can move down as a whole', () => {
+  const rule = /#header #header-main-bar \.board-header-btns-group\s*\{([^}]*)\}/.exec(css);
+  assert.ok(rule, '.board-header-btns-group must be styled in header.css');
+  const body = rule[1];
+  assert.ok(/display:\s*flex/.test(body), 'the wrapper must be a flex container');
+  assert.ok(/flex-wrap:\s*wrap/.test(body),
+    'its own groups must still be able to wrap when even the buttons alone do not fit');
+  // flex-basis must stay content-based: with `flex: 1 1 0` the wrapper would
+  // measure as zero-width and never move down, so the split would come back.
+  const flex = /flex:\s*([^;]+);/.exec(body);
+  assert.ok(flex, 'the wrapper must declare flex');
+  assert.ok(/auto\s*$/.test(flex[1].trim()),
+    `flex-basis must be auto (content width), got "${flex[1].trim()}" - a 0 basis ` +
+    'would keep the buttons glued beside the title');
+});
+
+test('a title wider than the bar wraps instead of overflowing', () => {
+  const rule = /#header #header-main-bar h1 \{([^}]*)\}/.exec(css);
+  assert.ok(rule, 'the h1 rule must exist');
+  assert.ok(/min-width:\s*0/.test(rule[1]),
+    'without min-width:0 a flex item cannot shrink below its min-content width');
+  assert.ok(/max-width:\s*100%/.test(rule[1]), 'the title must not exceed the bar');
+  assert.ok(/overflow-wrap:\s*(break-word|anywhere)/.test(rule[1]),
+    'a single very long word in a title must break rather than overflow');
+});
+
+test('the HTML export still strips the whole button area', () => {
+  const exportHTML = fs.readFileSync(
+    path.join(root, 'client/lib/exportHTML.js'), 'utf8');
+  assert.ok(/board-header-btns-group/.test(exportHTML),
+    'exportHTML must remove the wrapper too, or the export keeps an empty div');
+});
+
 console.log(`\nboardHeaderOneLine: ${passed} tests passed`);

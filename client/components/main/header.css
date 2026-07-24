@@ -24,6 +24,24 @@
   margin-inline-end: 10px;
   float: inline-start;
   border-radius: 3px;
+  /* A title longer than the whole bar wraps inside the h1 instead of overflowing
+     the viewport (flex items do not shrink below min-content without min-width:0). */
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+/* The board bar's button groups are ONE flex item (see boardHeader.jade), so a
+   board title long enough to fill the row pushes ALL the buttons down to the second
+   row together, under the title, instead of leaving the left group beside the title
+   and wrapping only the right group. When the title is short, title + buttons still
+   share one line exactly as before: this item's base size is its content width, so
+   it only moves down when it genuinely does not fit beside the title. */
+#header #header-main-bar .board-header-btns-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 #header #header-main-bar h1 .board-header-watch-icon {
   padding-inline-start: 7px;
