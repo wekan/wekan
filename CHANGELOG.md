@@ -429,7 +429,12 @@ and fixes the following bugs:
   `.js-board` carries `margin: 8px` — both are zeroed at small width rather than only one,
   which would have made the add tile the odd one out instead. The grid's own 8px gap
   already separates the cells, so every tile is one 96×64px cell at 375px, add and board
-  alike](https://github.com/wekan/wekan/commit/8fd2982ec).
+  alike](https://github.com/wekan/wekan/commit/8fd2982ec). The menu title also goes ABOVE
+  the search box on a phone rather than beside it: squeezed onto one row, "Remaining" was
+  ellipsised to "R.." and the search still had barely any width. They stack again, but
+  without the tall empty band that made stacking look wrong before — each part takes
+  exactly one full-width row with a fixed 6px `row-gap`, so the search sits directly under
+  the title](https://github.com/wekan/wekan/commit/9d0908e4b).
   Thanks to xet7.
 
 and removes the following dead code:
