@@ -412,6 +412,20 @@ and fixes the following bugs:
   side](https://github.com/wekan/wekan/commit/534b80f92).
   Thanks to xet7.
 
+- [All Boards on a phone now matches what a wide screen already does: board titles read
+  left to right instead of breaking one letter per line, "+ Add Board" spans both columns,
+  the folder name and the search box share one row, and the search placeholder is gone. The
+  titles broke because space for the single ~26px absolutely-positioned drag handle was
+  reserved THREE times on the way down — 32px on the `li`, 30px in the tile padding and
+  30px again on `.details` — which on a ~96px tile left about nothing for text; it is now
+  reserved once, on the innermost container, leaving ~52px. The header wrapped because the
+  search box would not shrink (a flex item's default `min-width: auto` refuses to go below
+  its content width), so `min-width: 0` plus `flex: 1 1 auto` lets it take what is left
+  beside the title. The "Search boards" placeholder filled the whole box on a phone and is
+  replaced by an `aria-label`, which is what a placeholder should never have been standing
+  in for](https://github.com/wekan/wekan/commit/1ad93ef67).
+  Thanks to xet7.
+
 and removes the following dead code:
 
 - [Removed the cron migration subsystem: it never ran and had no UI, yet every logged-in
