@@ -76,7 +76,10 @@ template(name="boardList")
         .boards-path-header
           .path-left
             span.path-title
-              span.path-icon.emoji-icon {{currentMenuPath.icon}}
+              //- #6524: the current section's Font Awesome icon (same glyph and
+                colour as the matching left-menu item), not a Unicode emoji.
+              span.path-icon
+                i.fa(class="{{currentMenuPath.faIcon}}")
               span.path-text {{currentMenuPath.text}}
           .path-right
             //- Order (left -> right): Multi-Selection, Sort, Search boards.

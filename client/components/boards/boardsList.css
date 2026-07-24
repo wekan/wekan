@@ -415,6 +415,13 @@
 .boards-path-header .path-icon {
   font-size: 18px;
 }
+/* #6524: the header section icon is a Font Awesome glyph matching the left menu.
+   The left-menu icons inherit the default text colour (#4d4d4d), so this one is
+   set to the same, and sized like a menu icon rather than the old emoji. */
+.boards-path-header .path-icon i.fa {
+  color: #4d4d4d;
+  font-size: 16px;
+}
 
 /* #6524: hide the current-folder NAME next to its icon in the header. The folder
    icon already shows which section this is, the left menu highlights it, and the

@@ -423,7 +423,7 @@ Template.boardList.helpers({
       const tpl = Template.instance();
       const selectedMenuVar = tpl.selectedMenu;
       if (!selectedMenuVar || typeof selectedMenuVar.get !== 'function') {
-        return { icon: '🗂️', text: 'Workspaces' };
+        return { faIcon: 'fa-folder-open', icon: '🗂️', text: 'Workspaces' };
       }
       const sel = selectedMenuVar.get();
       const currentUser = ReactiveCache.getCurrentUser();
@@ -456,30 +456,31 @@ Template.boardList.helpers({
       };
 
       if (sel === 'starred') {
-        return { icon: '⭐', text: safeTranslate('allboards.starred', 'Starred') };
+        return { faIcon: 'fa-star', icon: '⭐', text: safeTranslate('allboards.starred', 'Starred') };
       } else if (sel === 'templates') {
-        return { icon: '📋', text: safeTranslate('allboards.templates', 'Templates') };
+        return { faIcon: 'fa-clipboard', icon: '📋', text: safeTranslate('allboards.templates', 'Templates') };
       } else if (sel === 'remaining') {
-        return { icon: '📂', text: safeTranslate('allboards.remaining', 'Remaining') };
+        return { faIcon: 'fa-folder', icon: '📂', text: safeTranslate('allboards.remaining', 'Remaining') };
       } else {
         // sel is a workspaceId, build path
         if (!tpl.workspacesTreeVar || typeof tpl.workspacesTreeVar.get !== 'function') {
-          return { icon: '🗂️', text: safeTranslate('allboards.workspaces', 'Workspaces') };
+          return { faIcon: 'fa-folder-open', icon: '🗂️', text: safeTranslate('allboards.workspaces', 'Workspaces') };
         }
         const tree = tpl.workspacesTreeVar.get();
         const spacePath = findSpaceById(tree, sel);
         if (spacePath && spacePath.length > 0) {
           const pathText = spacePath.map((s) => s.name).join(' / ');
           return {
+            faIcon: 'fa-folder-open',
             icon: '🗂️',
             text: `${safeTranslate('allboards.workspaces', 'Workspaces')} / ${pathText}`,
           };
         }
-        return { icon: '🗂️', text: safeTranslate('allboards.workspaces', 'Workspaces') };
+        return { faIcon: 'fa-folder-open', icon: '🗂️', text: safeTranslate('allboards.workspaces', 'Workspaces') };
       }
     } catch (error) {
       console.error('Error in currentMenuPath:', error);
-      return { icon: '🗂️', text: 'Workspaces' };
+      return { faIcon: 'fa-folder-open', icon: '🗂️', text: 'Workspaces' };
     }
   },
   boards() {
