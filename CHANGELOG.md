@@ -263,6 +263,23 @@ and fixes the following bugs:
   recovery reports, which share the same loader](https://github.com/wekan/wekan/commit/b0407209c).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Six Meteor methods threw `Did not check() all arguments during call to '<method>'`,
+  because this app runs with the `audit-argument-checks` package: a method that RECEIVES
+  an argument it never `check()`s fails the call outright. `problemDetailReport(area)` had
+  the defect but nothing had ever passed it an argument, so it surfaced only when the new
+  Admin Panel → Problems → CPU usage header started polling `problemDetailReport('cpu')`
+  every 5 seconds and filled the server log with the exception. Auditing every server
+  method for the same defect found five more that ARE called with arguments from the
+  client, so those features were failing outright: `unlockUser` (Admin Panel → People,
+  unlocking a locked-out user), `runBackup`, `restoreBackup` and `saveBackupSchedule`
+  (Admin Panel → Attachments) and `migrateTextDatabase` (the MongoDB ↔ FerretDB text
+  migration), plus `getServiceConfiguration`, which has no current client caller. Each now
+  checks its arguments against the types its call sites actually pass
+  ](https://github.com/wekan/wekan/commit/9389e8224).
+  Thanks to xet7.
+
 and removes the following dead code:
 
 - [Removed the cron migration subsystem: it never ran and had no UI, yet every logged-in
