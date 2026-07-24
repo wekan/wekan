@@ -452,6 +452,16 @@ and fixes the following bugs:
   it](https://github.com/wekan/wekan/commit/66d8709fa).
   Thanks to xet7.
 
+- [Adding a workspace now shows a real input field. The "+" beside Workspaces called
+  `window.prompt()`, which a browser is free to refuse — iOS Safari offers "don't allow
+  further prompts" for a page and then suppresses every later one, so the button did
+  nothing at all and no input field ever appeared. It now opens a normal WeKan popup with a
+  text input and a submit button, the same pattern every other create flow uses; submitting
+  it empty keeps the popup open and refocuses the field rather than closing silently, which
+  is what a cancelled prompt looked like. This was the only `window.prompt()` left in the
+  client](https://github.com/wekan/wekan/commit/c5f40aa58).
+  Thanks to xet7.
+
 and removes the following dead code:
 
 - [Removed the cron migration subsystem: it never ran and had no UI, yet every logged-in
