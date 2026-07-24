@@ -369,7 +369,16 @@ and fixes the following bugs:
   it was reported on. The notification bell also sat in 36px of margin around a 28px icon
   (10px each side of the button plus 0.5rem each side of its wrapper); both layers now give
   2px a side, taking the measured one-row budget from 342px to 320px of
-  375px](https://github.com/wekan/wekan/commit/76516a1a2).
+  375px](https://github.com/wekan/wekan/commit/76516a1a2). Finally, the avatar still
+  dropped to a second line with space left beside the bell, because a width-based rule
+  forced `flex-wrap: wrap !important` on that bar — added deliberately, "so ~7 items fit in
+  two wrapped rows". An `!important` wrap beats any `nowrap`, so none of the one-row work
+  took effect at small width, and a wrapping flex row breaks BEFORE the last item rather
+  than shrinking anything. All eight flex-wrap rules on the bar are now `nowrap`, and the
+  username/full name beside the avatar is hidden at small width too (the template hides it
+  `unless isMiniScreen`, but that also weighs mobile mode and the device, so it can be true
+  while the bar is narrow, and a full name is easily 100px+ of a 375px bar). Measured
+  budget: 328px of 375px](https://github.com/wekan/wekan/commit/fff495127).
   Thanks to xet7.
 
 and removes the following dead code:
