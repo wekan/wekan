@@ -598,7 +598,10 @@ and fixes the following bugs:
   current folder's NAME beside its icon in the header ("Starred"/"Remaining"/a workspace
   name) is hidden — redundant with the icon, the highlighted menu row and the "My Boards"
   title, and it crowded the Multi-Selection / Sort / search controls — kept for screen
-  readers only](https://github.com/wekan/wekan/commit/e571420c9).
+  readers only. The section icon left of the Multi-Selection button is now the same Font
+  Awesome glyph and colour as the matching left-menu item (fa-star / fa-clipboard /
+  fa-folder / fa-folder-open, #4d4d4d) instead of a Unicode
+  emoji](https://github.com/wekan/wekan/commit/e571420c9).
   Thanks to xet7.
 
 and removes the following dead code:
