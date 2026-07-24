@@ -398,7 +398,18 @@ and fixes the following bugs:
   later. Both `.mobile-view` shapes are now spelled out, and because that 8rem rule sits
   outside any media query — `.mobile-view` comes from `Utils.isMiniScreen()`, which weighs
   mobile mode and the device as well as width — the override is repeated outside the media
-  query too](https://github.com/wekan/wekan/commit/000a29129).
+  query too](https://github.com/wekan/wekan/commit/000a29129). The tiles STILL differed for
+  a reason unrelated to either height: the mobile board list is a grid with a fixed height
+  and no `align-content`, so it defaulted to `stretch` and its single row filled the whole
+  column — "+ Add Board" showed a 4rem grey label at the top of a stretched cell, while a
+  board's `li` carries the board colour itself and painted the entire cell. `align-content:
+  start` plus `align-items: start` keeps rows at their content height, and the list still
+  scrolls because that comes from the fixed height plus `overflow-y: auto`. The two mobile
+  columns are also rebalanced from `minmax(84px, 30%)` to `minmax(140px, 42%)`: at 30% of a
+  375px phone the left menu was ~112px so "Workspaces" and the counts wrapped, while the
+  board column had more width than two 4rem tiles need — it is now ~158px of menu and
+  ~209px of boards, still fitting two ~96px tiles side by
+  side](https://github.com/wekan/wekan/commit/534b80f92).
   Thanks to xet7.
 
 and removes the following dead code:
