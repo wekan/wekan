@@ -7,3 +7,21 @@ npm-packages/
 # package.json). A naked "tests/" would match a dir named tests at any depth and
 # would hide those suites, making `meteor test` report "0 passing".
 /tests/
+
+# Build/tool scratch space: a full Node 24 install (headers for EVERY openssl arch),
+# a Go toolchain with its module/build caches, build logs and repro dirs. 20,535
+# DIRECTORIES, none of it app code. Meteor's watcher takes one inotify watch per
+# directory, and the per-user limit (fs.inotify.max_user_watches, 65536 here) is
+# shared with every other watcher the user runs - editors included. Watching this
+# tree is what made `meteor` fail with
+#   inotify_add_watch on '.tools/node-.../openssl/archs/BSD-x86_64/asm_avx2'
+#   failed: No space left on device
+# ENOSPC from inotify_add_watch means "watch limit reached", NOT a full disk.
+/.tools/
+
+# The FerretDB v1 fork checkout: a complete Go project + its docs, 9,148 more
+# directories. Nothing in WeKan imports from it - the FerretDB binary is
+# downloaded from its GitHub releases at build time - so Meteor has no reason to
+# watch or scan it. Both are already in .gitignore, but the watcher only honours
+# .meteorignore.
+/FerretDB/
