@@ -179,7 +179,26 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
 
 # Upcoming WeKan ® release
 
-This release resolves the following GitHub Dependabot alerts in npm dependencies:
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code
+scanning:
+
+- **`js/incomplete-sanitization` (High), alert #428**, in
+  `tests/boardHeaderOneLine.test.cjs`: the CSS rule bodies were split with
+  `rule.split('{')` and the trailing brace removed with `body.replace('}', '')`,
+  which strips only the FIRST `}`. The block is now matched with one regex that
+  captures selector and body as separate groups, so no brace ends up in the text
+  and there is nothing to strip.
+- **`js/incomplete-sanitization` (High), alert #427**, in
+  `tests/testsAreRegistered.test.cjs`: a file name was spliced into a `RegExp`
+  after escaping only dots, leaving every other metacharacter — the backslash
+  above all — able to change the meaning of the pattern. It now goes through an
+  `escapeRegExp()` that escapes the full set, backslash included.
+- Both are test helpers, so neither was reachable by an attacker, but both were
+  genuinely wrong string handling
+  ([commit](https://github.com/wekan/wekan/commit/32c63e6d8)).
+- Thanks to **GitHub CodeQL** (alerts #427 and #428) and **xet7**.
+
+and resolves the following GitHub Dependabot alerts in npm dependencies:
 
 - **brace-expansion 5.0.7 → 5.0.8** (RUNTIME dependency, transitive via `minimatch`):
   fixes [CVE-2026-14257](https://github.com/wekan/wekan/security/dependabot/119)
@@ -215,6 +234,25 @@ This release resolves the following GitHub Dependabot alerts in npm dependencies
   the built client bundle contains no `elliptic`/`secp256k1`/`crypto-browserify` code
   at all, so it never reaches users.
 - Thanks to **GitHub Dependabot** and **xet7**.
+
+and has the following developer-tooling fix:
+
+- [`docs/Security/gh/pull-security-reports.sh` reported `OK` for every endpoint and
+  then wrote empty split files and blank counts. `gh api --paginate --slurp` returns
+  ONE ARRAY PER PAGE, so a list endpoint arrives as `[[alert,...],[alert,...]]`;
+  nothing flattened that, so `.[]` yielded PAGES rather than alerts and every
+  `select(.state == "open")` ran against an array. jq failed, its error went to
+  `/dev/null`, and the `>` redirect left a 0-byte file — not valid JSON, so every
+  later step on it failed too and printed nothing. A security report that quietly
+  claims there is nothing to see is worse than one that fails. The pages are now
+  concatenated (only when every element is itself an array, so single-object
+  endpoints like the SBOM are untouched), a failed filter leaves a valid empty array
+  plus a readable error instead of truncating the file, the secret-scanning
+  redaction validates the redacted copy before deleting the dump that still holds
+  live secrets (and removes it on the failure path too), and counts always print a
+  number. The same shape had also broken the newest-analysis lookup and the
+  codeql-databases dump](https://github.com/wekan/wekan/commit/ba3219552).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their
 translations.
