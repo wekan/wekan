@@ -577,10 +577,10 @@ and fixes the following bugs:
   gate checked `dragstart.target`, which in Chrome/Firefox is the whole draggable `li`, not
   the handle; the press location is now recorded on `mousedown` and read in `dragstart`.
   And "+ Add workspace" is now a 44px touch target instead of a ~20px "+" a finger kept
-  missing. Reordering by FINGER still does not work — board reorder uses HTML5
-  drag-and-drop, which browsers do not fire from touch; that needs a move to
-  jQuery-UI-sortable + the bundled touch-punch, called out for a separate, tested
-  change](https://github.com/wekan/wekan/commit/ab1b2dc4e).
+  missing. Reordering by FINGER did not work yet at this point — board reorder uses HTML5
+  drag-and-drop, which browsers do not fire from touch; that is fixed by the touch
+  drag-and-drop bridge in a later entry below (a separate, tested change, without discarding
+  any of the mouse fixes here)](https://github.com/wekan/wekan/commit/ab1b2dc4e).
   Thanks to xet7.
 
 - [All Boards drag-reorder now persists and can move a board to the end, and the header is
@@ -608,6 +608,25 @@ and fixes the following bugs:
   Awesome glyph and colour as the matching left-menu item (fa-star / fa-clipboard /
   fa-folder / fa-folder-open, #4d4d4d) instead of a Unicode
   emoji](https://github.com/wekan/wekan/commit/e571420c9).
+  Thanks to xet7.
+
+- [Board icons can now be reordered by FINGER, not just with a mouse — and the same fix
+  makes every other HTML5 drag-and-drop in WeKan work from touch. HTML5 drag-and-drop
+  (`draggable="true"` + dragstart/dragover/drop) is never fired from touch by any browser,
+  so on a touchscreen the board-icon reorder above, the workspace drag-to-share and the
+  card/rule drags could only be driven with a mouse. Rather than rewrite reorder onto
+  jQuery-UI-sortable (which would have discarded every mouse fix in the two entries above), a
+  small bridge, `client/lib/dragDropTouch.js`, makes a finger drive the SAME handlers: a
+  long press (250 ms) on a draggable element starts a synthetic drag that dispatches real,
+  bubbling dragstart/dragenter/dragover/dragleave/drop/dragend events with a `dataTransfer`
+  shim, so the delegated handlers run unchanged. It is deliberately safe beside the existing
+  touch scrolling — a quick swipe on a draggable tile still scrolls, and it only calls
+  `preventDefault` once a drag is actually under way; it fires a `mousedown` on the pressed
+  element first so the reorder's handle gate (which records the press location) works from
+  touch too; it honours `setDragImage` so the ghost is centred on the finger as it is on the
+  cursor; and it leaves form fields and jQuery-UI sortables (lists / swimlanes / cards,
+  already covered by touch-punch) alone. Loaded globally, with source-guard tests pinning the
+  scroll-coexistence and handle-gate properties](https://github.com/wekan/wekan/commit/1c2e1e204).
   Thanks to xet7.
 
 and removes the following dead code:
