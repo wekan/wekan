@@ -1060,8 +1060,101 @@ wekan_docker_build_image() {
 	return 0
 }
 
+# ── inotify watch limit ──────────────────────────────────────────────────────
+# Meteor's file watcher takes ONE inotify watch per DIRECTORY it watches, and the
+# limit (fs.inotify.max_user_watches) is per USER, shared with every other
+# watcher that user runs - VS Code and other editors are usually the biggest
+# other consumer. On a stock kernel it is 8192 or 65536, and a WeKan checkout
+# (node_modules, .meteor/local, plus whatever else lives under the repo) can sit
+# close to that on its own. When it runs out, Meteor fails with a message that
+# blames the DISK and sends people looking in the wrong place:
+#
+#   Failed to start watcher for <repo>: [Error: inotify_add_watch on '<path>'
+#   failed: No space left on device]
+#
+# ENOSPC from inotify_add_watch means "watch limit reached", NOT a full disk.
+#
+# So: check the limit on every run and raise it when it is too low. Each watch
+# costs ~1 KB of kernel memory ONLY while in use, so a high ceiling is not a
+# reservation - 524288 is the value VS Code documents for the same problem.
+# Override with WEKAN_INOTIFY_WATCHES=<n> (or 0 to skip this entirely).
+#
+# This never aborts the script: if it cannot raise the limit (no sudo, no TTY to
+# prompt on, a read-only /etc) it prints the one command to run by hand and
+# carries on. Nothing here applies on macOS/BSD, which have no inotify.
+function ensure_inotify_watches(){
+	[ "$(uname -s)" = "Linux" ] || return 0
+
+	local want="${WEKAN_INOTIFY_WATCHES:-524288}"
+	[ "$want" = "0" ] && return 0
+
+	local proc=/proc/sys/fs/inotify/max_user_watches
+	[ -r "$proc" ] || return 0
+	local have; have="$(cat "$proc" 2>/dev/null)"
+	case "$have" in ''|*[!0-9]*) return 0 ;; esac   # unreadable/odd: leave it alone
+	[ "$have" -ge "$want" ] && return 0
+
+	echo
+	echo "==> inotify watch limit is $have, which is too low for Meteor's file watcher."
+	echo "    Raising fs.inotify.max_user_watches to $want (this is what makes"
+	echo "    'inotify_add_watch ... No space left on device' go away - that error"
+	echo "    means the WATCH LIMIT is exhausted, not the disk)."
+
+	# How to run a privileged command: already root, sudo without a password, or
+	# sudo with a prompt when there is a terminal to prompt on.
+	local -a SUDO=()
+	if [ "$(id -u)" = "0" ]; then
+		SUDO=()
+	elif command -v sudo >/dev/null 2>&1 && sudo -n true 2>/dev/null; then
+		SUDO=(sudo)
+	elif command -v sudo >/dev/null 2>&1 && [ -t 0 ]; then
+		echo "    (sudo will ask for your password)"
+		SUDO=(sudo)
+	else
+		echo "    Cannot raise it automatically (no root and no usable sudo). Run:"
+		echo "      echo 'fs.inotify.max_user_watches=$want' | sudo tee /etc/sysctl.d/60-wekan-inotify.conf"
+		echo "      sudo sysctl --system"
+		return 0
+	fi
+
+	# Apply now, for this boot.
+	if ! "${SUDO[@]}" sysctl -q -w "fs.inotify.max_user_watches=$want" 2>/dev/null; then
+		echo "    Could not apply it (sysctl refused). Run this by hand:"
+		echo "      sudo sysctl -w fs.inotify.max_user_watches=$want"
+		return 0
+	fi
+
+	# Persist it, so the next boot does not go back to failing builds.
+	local conf=/etc/sysctl.d/60-wekan-inotify.conf
+	if ! "${SUDO[@]}" sh -c "printf '%s\n' '# Raised by WeKan rebuild-wekan.sh: Meteor watches one inotify watch per directory.' 'fs.inotify.max_user_watches=$want' > '$conf'" 2>/dev/null; then
+		echo "    Applied for this boot only - could not write $conf."
+	fi
+
+	# max_user_instances is the other half of the same limit family: each watcher
+	# process needs an instance, and editors + Meteor + chokidar add up. Only
+	# raised when it is at the low stock default, and never fatal.
+	local iproc=/proc/sys/fs/inotify/max_user_instances
+	if [ -r "$iproc" ]; then
+		local ihave; ihave="$(cat "$iproc" 2>/dev/null)"
+		case "$ihave" in ''|*[!0-9]*) ihave="" ;; esac
+		if [ -n "$ihave" ] && [ "$ihave" -lt 1024 ]; then
+			"${SUDO[@]}" sysctl -q -w fs.inotify.max_user_instances=1024 2>/dev/null \
+				&& "${SUDO[@]}" sh -c "printf '%s\n' 'fs.inotify.max_user_instances=1024' >> '$conf'" 2>/dev/null \
+				&& echo "    Also raised fs.inotify.max_user_instances from $ihave to 1024."
+		fi
+	fi
+
+	echo "    inotify watch limit is now $(cat "$proc" 2>/dev/null)."
+	echo
+	return 0
+}
+
 echo
 PS3='Please enter your choice: '
+
+# Checked on every run: a too-low inotify limit breaks `meteor run` with a
+# misleading "No space left on device".
+ensure_inotify_watches
 
 # ── Menu: pick a category, then an action (the handlers below are unchanged) ──
 # choose <title> <"short|full"...>: show the short labels, set $opt to the chosen
