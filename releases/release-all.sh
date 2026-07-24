@@ -16,12 +16,15 @@
 #        ./releases/release-all.sh 9.35 9.36       # PREVIOUS NEW
 #
 # What this script does locally (the only local steps):
-#   1. Determines PREVIOUS and NEW version automatically: renames the "# Upcoming
+#   1. Repoints stale commit links in the CHANGELOG section being released: a rebase,
+#      amend or squash between writing an entry and releasing it changes the hashes,
+#      and the links would 404 once pushed. Each is remapped by commit subject.
+#   2. Determines PREVIOUS and NEW version automatically: renames the "# Upcoming
 #      WeKan ® release" heading to the next version, or (if already renamed) uses the
 #      newest release heading. An explicit "PREVIOUS NEW" pair overrides this.
-#   2. Commits and pushes pending changes (your CHANGELOG.md edit) to main so the
+#   3. Commits and pushes pending changes (your CHANGELOG.md edit) to main so the
 #      workflow can read them.
-#   3. Triggers .github/workflows/release-all.yml.
+#   4. Triggers .github/workflows/release-all.yml.
 #
 # GitHub Actions (release-all.yml) then does everything else remotely, in
 # parallel where possible:
@@ -59,6 +62,82 @@ wekan_dec() { printf '%d.%02d' $(( $1 / 100 )) $(( $1 % 100 )); }
 # The RELEASED versions from CHANGELOG.md ("# vNN.MM <date> ..." headings), newest
 # first. The "# Upcoming ..." heading has no version, so it is skipped.
 mapfile -t RELEASED < <(grep -oE '^# v[0-9]+\.[0-9]+ ' CHANGELOG.md | grep -oE '[0-9]+\.[0-9]+')
+
+# ── Repoint stale commit links in the section about to be released ───────────
+# Every CHANGELOG bullet links the commit it describes. Those links are written
+# BEFORE the release, so anything that rewrites history in between — a rebase
+# onto an upstream change, an amend, a squash — changes the hashes and leaves
+# every link in the not-yet-released section pointing at a commit that no longer
+# exists. Pushed like that, all of them 404.
+#
+# So, just before the release is prepared: for each commit link in the section
+# being released, if the hash is no longer an ancestor of HEAD, look up that old
+# commit's SUBJECT (the pre-rewrite object is still in the clone, reachable via
+# the reflog) and find the commit on this branch with the same subject. That is
+# the rewritten copy of the same commit, so the link is repointed to it.
+#
+# Only the unreleased section is touched — earlier sections are already pushed
+# and their hashes are correct. A link that cannot be resolved is reported and
+# left alone: a doc link is never a reason to abort a release.
+CHANGELOG_FILE="${CHANGELOG_FILE:-CHANGELOG.md}"
+fix_upcoming_commit_hashes() {
+  [ -f "$CHANGELOG_FILE" ] || return 0
+  git rev-parse --git-dir >/dev/null 2>&1 || return 0
+
+  # The section to check: "# Upcoming ..." when it is still there, otherwise the
+  # newest "# vNN.MM ..." heading (the release may already have been renamed).
+  local start end
+  start="$(grep -nE '^# Upcoming WeKan' "$CHANGELOG_FILE" | head -1 | cut -d: -f1)"
+  [ -z "$start" ] && start="$(grep -nE '^# v[0-9]+\.[0-9]+ ' "$CHANGELOG_FILE" | head -1 | cut -d: -f1)"
+  [ -z "$start" ] && return 0
+  end="$(awk -v s="$start" 'NR>s && /^# v[0-9]+\.[0-9]+ /{print NR-1; exit}' "$CHANGELOG_FILE")"
+  [ -z "$end" ] && end="$(wc -l < "$CHANGELOG_FILE")"
+
+  local hashes
+  hashes="$(sed -n "${start},${end}p" "$CHANGELOG_FILE" \
+    | grep -oE 'commit/[0-9a-f]{7,40}' | sed 's|commit/||' | sort -u)"
+  [ -z "$hashes" ] && return 0
+
+  local h subject new fixed=0 unresolved=()
+  for h in $hashes; do
+    # Still on this branch: the link is fine.
+    git merge-base --is-ancestor "$h" HEAD >/dev/null 2>&1 && continue
+    subject="$(git log -1 --format=%s "$h" 2>/dev/null || true)"
+    if [ -z "$subject" ]; then
+      unresolved+=("$h (commit object is no longer in this clone)")
+      continue
+    fi
+    # The rewritten copy: same subject, on this branch. Newest match wins.
+    new="$(git log -n 300 --format='%h%x09%s' \
+           | awk -F'\t' -v s="$subject" '$2==s {print $1; exit}')"
+    if [ -z "$new" ]; then
+      unresolved+=("$h (no commit on this branch with subject: $subject)")
+      continue
+    fi
+    # Replace only inside the section, so an identical hash elsewhere is untouched.
+    local _tmp
+    _tmp="$(mktemp)"
+    awk -v s="$start" -v e="$end" -v old="$h" -v repl="$new" '
+      NR>=s && NR<=e { gsub("commit/" old, "commit/" repl) } { print }
+    ' "$CHANGELOG_FILE" > "$_tmp" && mv "$_tmp" "$CHANGELOG_FILE"
+    echo "    $h -> $new   ${subject:0:60}"
+    fixed=$((fixed + 1))
+  done
+
+  if [ "$fixed" -gt 0 ]; then
+    echo "--- Repointed $fixed stale commit link(s) in CHANGELOG.md (history was rewritten since they were written) ---"
+  fi
+  if [ "${#unresolved[@]}" -gt 0 ]; then
+    echo ""
+    echo "WARNING: ${#unresolved[@]} commit link(s) in the section being released could not be resolved:"
+    printf '    %s\n' "${unresolved[@]}"
+    echo "         They are left as-is and will 404 on GitHub. Fix them by hand if they matter."
+    echo ""
+  fi
+}
+
+echo "--- Checking CHANGELOG.md commit links against this branch ---"
+fix_upcoming_commit_hashes
 
 # ── Determine PREVIOUS (OLD) and NEW version — no version argument needed ────
 # Explicit args still win. Otherwise:
