@@ -263,6 +263,30 @@ and fixes the following bugs:
   recovery reports, which share the same loader](https://github.com/wekan/wekan/commit/b0407209c).
   Thanks to xet7.
 
+and removes the following dead code:
+
+- [Removed the cron migration subsystem: it never ran and had no UI, yet every logged-in
+  client paid for it. `initializeCronJobs()` was NEVER called, so its `SyncedCron.add()`
+  registrations and the 5-second job-queue processor never started; the board-migration
+  detector sat behind a commented-out startup hook noting *"Automatic migration detector
+  is disabled — migrations only run when opening boards"*; and the Admin Panel had no Cron
+  page at all — no route, no menu button, no template ever included, and every helper and
+  event for it commented out. Despite that, `imports/cronMigrationClient.js` WAS imported
+  by `client/imports.js`, so every client subscribed to three publications and polled
+  `cron.getMigrationProgress` every 10 seconds forever for a feature with no user
+  interface. Migrations already run and are already reported through the paths that work:
+  Admin Panel → Attachments and the on-board-open repair, both driven by the shared
+  `migrationProgress` overlay mounted app-wide, plus the in-progress list on Admin Panel →
+  Problems → Summary. Removed the templates and styles, the client module, the
+  `cronJobStatus` model, the cron migration manager (28 admin-gated `cron.*` methods no UI
+  called), the job storage, the board-migration detector and the three publications that
+  fed only the deleted client module. `server/cron/syncedCron.js` is KEPT — it is
+  SyncedCron itself, used by the backup schedule and scheduled rules. The Problems
+  in-progress list no longer reads `cronJobStatus`, because a leftover `status:'running'`
+  doc from an older version would now have nothing to clear it and would report a
+  migration running forever](https://github.com/wekan/wekan/commit/430a1559f).
+  Thanks to xet7.
+
 and has the following developer-tooling addition:
 
 - [Added `docs/Security/gh/pull-security-reports.sh`, which downloads every security and
