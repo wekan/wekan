@@ -1109,13 +1109,23 @@ Template.boardList.events({
       try {
         evt.originalEvent.dataTransfer.setData('text/plain', boardId);
       } catch (e) {}
-      // Take the dragged icon OUT of the grid flow while dragging, so the other
-      // icons reflow as if it were gone and the gap sits exactly where the icon
-      // will land - instead of the original icon staying put and pushing the gap
-      // one slot over. Done on a timeout so the browser has already captured the
-      // drag image (hiding it synchronously in dragstart cancels the drag).
       if (isDragReorderEnabled(currentAllBoardsSortBy())) {
         const el = evt.currentTarget;
+        // Centre the drag ghost on the cursor. dragover fires for whatever is
+        // under the CURSOR, but the icon was grabbed off-centre (often at the
+        // handle), so the ghost sat beside the cursor and the gap opened for the
+        // wrong icon - you had to aim the target's left edge. With the ghost
+        // centred on the cursor, the gap opens for the icon the ghost is over.
+        try {
+          const rect = el.getBoundingClientRect();
+          evt.originalEvent.dataTransfer.setDragImage(
+            el, rect.width / 2, rect.height / 2,
+          );
+        } catch (e) {}
+        // Take the dragged icon OUT of the grid flow while dragging, so the other
+        // icons reflow as if it were gone and the gap sits exactly where the icon
+        // will land. On a timeout so the drag image is already captured (hiding it
+        // synchronously in dragstart cancels the drag).
         setTimeout(() => el.classList.add('board-dragging-hidden'), 0);
       }
     }
