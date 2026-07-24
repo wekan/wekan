@@ -462,6 +462,19 @@ and fixes the following bugs:
   client](https://github.com/wekan/wekan/commit/c5f40aa58).
   Thanks to xet7.
 
+- [Admin Panel tables fit the screen and wrap their text on a phone. Admin Panel / Version
+  needed a horizontal scroll to read a value that easily fits on screen — "WeKan Version"
+  at the left edge and its version number about a thousand pixels away — because every
+  admin table is forced to `min-width: 1200px !important` with `white-space: nowrap` cells,
+  to guarantee a scrollbar for the wide data tables. Reasonable for those, but a two-column
+  table is pushed to 1200px for nothing and nowrap cells can never use a second line. At
+  small width the table is now at most as wide as the screen and cells may use as many
+  lines as they need, with long unbroken values (version strings, paths, URLs) breaking
+  rather than pushing it wide again; the label column keeps a 45% share so it does not
+  collapse beside a long value. Horizontal scrolling still works where a table genuinely
+  cannot fit](https://github.com/wekan/wekan/commit/33d95e4eb).
+  Thanks to xet7.
+
 and removes the following dead code:
 
 - [Removed the cron migration subsystem: it never ran and had no UI, yet every logged-in
