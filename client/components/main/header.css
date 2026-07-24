@@ -1482,3 +1482,25 @@ body.mobile-mode #header-quick-access .allBoards {
     margin-inline-end: 0 !important;
   }
 }
+
+/* ── Trailing group hugs the END of the top bar (LTR right, RTL left) ─────────
+   The zoom %, notification bell and user/avatar menu are the last items in the
+   quick-access bar. When the middle starred-boards list is shown it fills the
+   gap (`flex: 1`) and pushes them to the end; but that list is `display: none`
+   on a phone, so with nothing filling the middle the group bunched at the START
+   (left in LTR) with empty bar to its right.
+
+   `margin-inline-start: auto` on the FIRST item of the group (the zoom control)
+   pushes the whole group - zoom, bell, avatar - to the end. It is a LOGICAL
+   margin, so it is the RIGHT edge in LTR and the LEFT edge in RTL automatically,
+   which is exactly the requested behaviour. There must be exactly ONE auto
+   margin in the row, so any auto margin an earlier rule put on the user bar is
+   cleared here - two autos would split the free space and separate the group.
+   Last in the file, so it wins on source order at equal specificity. */
+#header-quick-access .zoom-controls {
+  margin-inline-start: auto !important;
+}
+#header-quick-access #notifications,
+#header-quick-access #header-user-bar {
+  margin-inline-start: 0 !important;
+}
