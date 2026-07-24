@@ -173,9 +173,15 @@ template(name="boardList")
                     if BoardMultiSelection.isActive
                       .materialCheckBox.multi-selection-checkbox.js-toggle-board-multi-selection(
                         class="{{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}")
-                    span.board-handle.nodragscroll(title="{{boardWorkspaceDragHint}}")
-                      span.emoji-icon
-                        i.fa.fa-arrows
+                    //- The drag handle obeys the same "Show desktop drag handles"
+                      setting as swimlanes, lists and cards. With handles ON it is
+                      the only place a board drag may start, so the rest of the
+                      tile is free to dragscroll; with handles OFF there is no
+                      handle and the whole tile is the drag source.
+                    if isTouchScreenOrShowDesktopDragHandles
+                      span.board-handle.nodragscroll(title="{{boardWorkspaceDragHint}}")
+                        span.emoji-icon
+                          i.fa.fa-arrows
 
                     a.js-open-board(href="{{pathFor 'board' id=_id slug=slug}}")
                       span.details
@@ -208,9 +214,15 @@ template(name="boardList")
                     if isDefaultBoard
                       span.board-home-badge(title="{{_ 'home-board-badge'}}")
                         i.fa.fa-home
-                    span.board-handle.nodragscroll(title="{{boardWorkspaceDragHint}}")
-                      span.emoji-icon
-                        i.fa.fa-arrows
+                    //- The drag handle obeys the same "Show desktop drag handles"
+                      setting as swimlanes, lists and cards. With handles ON it is
+                      the only place a board drag may start, so the rest of the
+                      tile is free to dragscroll; with handles OFF there is no
+                      handle and the whole tile is the drag source.
+                    if isTouchScreenOrShowDesktopDragHandles
+                      span.board-handle.nodragscroll(title="{{boardWorkspaceDragHint}}")
+                        span.emoji-icon
+                          i.fa.fa-arrows
 
                     a.js-open-board(href="{{pathFor 'board' id=_id slug=slug}}")
                       span.details

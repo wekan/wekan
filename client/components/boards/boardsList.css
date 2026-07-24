@@ -1558,3 +1558,12 @@ body.grey-icons-enabled .checkmark-no-grey {
     min-width: 0;
   }
 }
+
+/* With drag handles OFF there is no handle on a board tile, so the title should
+   use the width that was reserved for it. `:has()` keeps this to one rule
+   instead of a second class on the tile; browsers without it simply keep the
+   reservation, which is the old behaviour and harmless. */
+.board-list .board-list-item:not(:has(.board-handle)) .details,
+.board-list.mobile-view .board-list-item:not(:has(.board-handle)) .details {
+  padding-inline-end: 0;
+}

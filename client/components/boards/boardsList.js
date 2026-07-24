@@ -1002,6 +1002,27 @@ Template.boardList.events({
   'dragstart .js-board'(evt) {
     const boardId = this._id;
 
+    // Honour the "Show desktop drag handles" setting here too. With handles ON
+    // the handle is the ONLY drag source - the rest of the tile stays free, so a
+    // finger dragging across it scrolls the board list instead of picking the
+    // board up. That is the same contract swimlanes, lists and cards follow on a
+    // board. With handles OFF there is no handle to grab, so the whole tile
+    // drags, exactly as before.
+    //
+    // The `li` keeps `draggable="true"` either way: HTML5 drag-and-drop can only
+    // start from a draggable element, and moving that attribute onto the handle
+    // would drag the handle rather than the board. Instead the drag is cancelled
+    // unless it began on the handle.
+    if (Utils.showDragHandles()) {
+      const target = evt.originalEvent && evt.originalEvent.target;
+      const startedOnHandle = !!(target && target.closest &&
+        target.closest('.board-handle'));
+      if (!startedOnHandle) {
+        evt.preventDefault();
+        return;
+      }
+    }
+
     // Support multi-drag
     if (
       BoardMultiSelection.isActive() &&
