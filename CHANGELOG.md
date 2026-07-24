@@ -299,6 +299,27 @@ and fixes the following bugs:
   it](https://github.com/wekan/wekan/commit/51116657c).
   Thanks to xet7.
 
+- [`rebuild-wekan.sh` now raises the inotify watch limit when it is too low, and
+  `.meteorignore` stops Meteor watching `.tools/` and `FerretDB/`. Meteor's file watcher
+  takes ONE inotify watch per DIRECTORY, and `fs.inotify.max_user_watches` is per USER,
+  shared with every other watcher — an editor is usually the other big consumer. When it
+  runs out, Meteor fails with a message that blames the disk and sends people looking in
+  the wrong place: `inotify_add_watch on '<path>' failed: No space left on device`. ENOSPC
+  from `inotify_add_watch` means the WATCH LIMIT is exhausted, not that the disk is full.
+  Two non-app trees were 72% of this repo's 41,040 watched directories — `.tools/` (20,535
+  dirs, 4.1 GB: a full Node install with headers for every openssl arch, a Go toolchain
+  with its caches, build logs) and `FerretDB/` (9,148 dirs, 3.4 GB: the Go fork checkout).
+  Both were already in `.gitignore`, but the watcher only honours `.meteorignore`, so
+  Meteor kept walking them; excluding them takes the count to 11,213. And
+  `rebuild-wekan.sh` now checks the limit on every run and raises it to 524288 (plus
+  `max_user_instances` to 1024) with sysctl, persisting it to
+  `/etc/sysctl.d/60-wekan-inotify.conf`. It never aborts a build: it is a silent no-op
+  when the limit is already high, uses sudo only when it can, prints the exact commands to
+  run by hand when it cannot, honours `WEKAN_INOTIFY_WATCHES=0` to skip, and returns
+  immediately on macOS/BSD, which have no
+  inotify](https://github.com/wekan/wekan/commit/8ed253709).
+  Thanks to xet7.
+
 and removes the following dead code:
 
 - [Removed the cron migration subsystem: it never ran and had no UI, yet every logged-in
