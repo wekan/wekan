@@ -8,7 +8,7 @@ import { EscapeActions } from '/client/lib/escapeActions';
 import { Utils } from '/client/lib/utils';
 import {
   isDragReorderEnabled,
-  computeReorderedSortIndex,
+  computeSortIndexMapping,
 } from '/models/lib/boardSortReorder';
 
 // SubsManager removed for Meteor 3 migration
@@ -869,7 +869,6 @@ function ensureBoardPlaceholder() {
 }
 function showBoardPlaceholder(tile, after) {
   const ph = ensureBoardPlaceholder();
-  ph._afterTarget = after;
   const ref = after ? tile.nextSibling : tile;
   // Do not insert the gap immediately next to the dragged tile's own slot.
   if (ref === ph) return;
@@ -878,6 +877,48 @@ function showBoardPlaceholder(tile, after) {
 function removeBoardPlaceholder() {
   if (boardPlaceholderEl && boardPlaceholderEl.parentNode) {
     boardPlaceholderEl.parentNode.removeChild(boardPlaceholderEl);
+  }
+}
+// Read the intended order from the DOM: every board id in list order, with the
+// dragged id taken from its old slot and placed where the gap currently sits.
+// Using the gap's real position is what makes releasing OVER the gap work - the
+// drop does not have to land on a specific tile.
+function orderFromDomWithPlaceholder(tpl, draggedId) {
+  const nodes = Array.from(tpl.findAll('.js-board, .js-board-placeholder'));
+  const ids = [];
+  let placed = false;
+  for (const el of nodes) {
+    if (el.classList.contains('js-board-placeholder')) {
+      ids.push(draggedId);
+      placed = true;
+    } else {
+      const id = Blaze.getData(el) && Blaze.getData(el)._id;
+      if (id && id !== draggedId) ids.push(id);
+    }
+  }
+  // No gap shown (e.g. a drop with no prior dragover): leave the order untouched.
+  return placed ? ids : null;
+}
+function persistBoardOrderFromDom(evt, tpl) {
+  if (!isDragReorderEnabled(currentAllBoardsSortBy())) return;
+  const dt = evt.originalEvent.dataTransfer;
+  if (dt && dt.getData('application/x-board-multi') === 'true') return;
+  const draggedId = dt ? dt.getData('text/plain') : '';
+  if (!draggedId) return;
+  evt.preventDefault();
+  evt.stopPropagation();
+  const order = orderFromDomWithPlaceholder(tpl, draggedId);
+  removeBoardPlaceholder();
+  if (!order) return;
+  const before = (ReactiveCache.getCurrentUser()?.profile || {}).boardSortIndex || {};
+  const mapping = computeSortIndexMapping(order);
+  // No-op if the visible order did not actually change.
+  const unchanged = order.every((id, i) => before[id] === i) &&
+    Object.keys(mapping).length === order.length;
+  if (unchanged) return;
+  const currentUser = ReactiveCache.getCurrentUser();
+  if (currentUser && typeof currentUser.setBoardSortIndexes === 'function') {
+    currentUser.setBoardSortIndexes(mapping);
   }
 }
 
@@ -1120,27 +1161,20 @@ Template.boardList.events({
     showBoardPlaceholder(tile, after);
   },
   'drop .js-board'(evt, tpl) {
+    persistBoardOrderFromDom(evt, tpl);
+  },
+  // Releasing OVER the gap must also drop: the placeholder is not a `.js-board`,
+  // so without these the drop landed on nothing and the board snapped back.
+  'dragover .js-board-placeholder'(evt) {
     if (!isDragReorderEnabled(currentAllBoardsSortBy())) return;
     const dt = evt.originalEvent.dataTransfer;
     if (dt && dt.getData('application/x-board-multi') === 'true') return;
-    const draggedId = dt ? dt.getData('text/plain') : '';
-    if (!draggedId) return;
     evt.preventDefault();
     evt.stopPropagation();
-    const tile = evt.currentTarget;
-    const targetId = Blaze.getData(tile) && Blaze.getData(tile)._id;
-    const after = !!(boardPlaceholderEl && boardPlaceholderEl._afterTarget);
-    removeBoardPlaceholder();
-    // See the #6442 note: read ids from each tile's Blaze data, not classList.
-    const orderedIds = Array.from(tpl.findAll('.js-board'))
-      .map((el) => Blaze.getData(el)?._id)
-      .filter(Boolean);
-    const mapping = computeReorderedSortIndex(orderedIds, draggedId, targetId, after);
-    if (!mapping) return;
-    const currentUser = ReactiveCache.getCurrentUser();
-    if (currentUser && typeof currentUser.setBoardSortIndexes === 'function') {
-      currentUser.setBoardSortIndexes(mapping);
-    }
+    if (dt) dt.dropEffect = 'move';
+  },
+  'drop .js-board-placeholder'(evt, tpl) {
+    persistBoardOrderFromDom(evt, tpl);
   },
   'click .js-clone-board'(evt) {
     if (confirm(TAPi18n.__('duplicate-board-confirm'))) {
