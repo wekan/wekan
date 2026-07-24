@@ -161,38 +161,40 @@ code {
     padding-inline: 8px;
   }
 
-  /* Make #content itself the scroller, but ONLY on this page (scoped with
-     :has), and size the viewport with dvh so its bottom tracks Safari's toolbar
-     instead of hiding behind it.
+  /* ONE scroller: the body. Dragging the header bars (which sit OUTSIDE
+     #content) already scrolls the page, which proves the body is the real
+     scroller. The previous attempt made #content its own `overflow-y: auto`
+     scroller - but in the grey content area that TRAPPED the touch: #content
+     caught the gesture and, when it had nothing of its own to scroll, did not
+     pass it on to the body, so a finger drag over the text did nothing while the
+     same drag over the header still scrolled.
 
-     The bottom of the page was unreachable in every mode for two reasons:
-       * #content is a flex child, and a flex child defaults to `min-height:
-         auto` - it grows to fit its content and therefore NEVER scrolls, so
-         content past the fold simply overflowed out of reach. `min-height: 0` is
-         what lets it shrink below its content and become a real scroller. This
-         was the missing piece behind every earlier attempt.
-       * `body`/#content were sized with `100vh`, which on iOS is the LARGE
-         viewport (toolbars hidden), so the scroller extended behind the toolbar.
-         `100dvh` is the DYNAMIC viewport - it shrinks when the toolbar shows -
-         so the last line stays above it.
-     overscroll-behavior: contain stops the drag from chaining to the document,
-     which is what fired pull-to-refresh in landscape. All of this is behind
-     `body:has(.global-search-wrapper)`, so no other page is touched. */
+     So #content is made a pass-through again: `overflow: visible` (do not catch
+     the touch) and `flex: 0 0 auto` with `min-height: auto` so it takes its
+     content's full natural height rather than being squeezed to the viewport by
+     the default `flex: 1`. That makes the body's content taller than the body,
+     so the BODY scrolls - one scroller, reachable by a finger anywhere, header or
+     content alike.
+
+     The body is `100dvh` so its bottom tracks Safari's toolbar (not the large
+     `100vh`), `overflow-y: auto` so it scrolls, and `overscroll-behavior:
+     contain` so the drag does not chain out to pull-to-refresh. All scoped with
+     `:has`, so only this page is affected. */
   body:has(.wrapper.global-search-wrapper) {
     height: 100dvh;
-  }
-
-  body:has(.wrapper.global-search-wrapper) #content {
-    min-height: 0;
-    height: auto;
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
   }
 
-  /* The wrapper is plain content: its full height feeds #content's scroll range.
-     The trailing space keeps the last line clear of the home indicator. */
+  body:has(.wrapper.global-search-wrapper) #content {
+    flex: 0 0 auto;
+    min-height: auto;
+    height: auto;
+    overflow: visible;
+  }
+
   .wrapper.global-search-wrapper {
     height: auto;
     min-height: 0;
