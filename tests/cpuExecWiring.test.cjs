@@ -67,6 +67,52 @@ test('sandstorm build-deps ships cpu-exec and (tolerantly) qemu-x86_64', () => {
     'missing qemu on the build host must not fail the spk build');
 });
 
+// Shipping cpu-exec is not enough - the grain launcher must actually USE it.
+// It shipped it and spawned every binary directly, so a grain on a CPU without a
+// needed feature died with SIGILL and the bundled qemu-user was never reached.
+test('the sandstorm grain launcher routes every bundled binary through cpu-exec', () => {
+  const start = read('sandstorm-src/start.js');
+  assert.ok(/const CPU_EXEC = path\.join\(APPROOT, 'bin\/cpu-exec'\)/.test(start),
+    'the launcher locates cpu-exec in the package');
+  assert.ok(/function cpuExec\(bin, args\)/.test(start), 'has the wrap helper');
+  // cpu-exec is a bash script: both it and bash must be executable, else run direct.
+  assert.ok(/fs\.accessSync\('\/bin\/bash', fs\.constants\.X_OK\)/.test(start),
+    'falls back when bash is missing');
+  assert.ok(/HAVE_CPU_EXEC \? \[CPU_EXEC, \[bin, \.\.\.args\]\] : \[bin, args\]/.test(start),
+    'direct-exec fallback keeps older deps images working');
+  // Every bundled binary the launcher starts must go through the helper.
+  for (const bin of ['NODE, [BRIDGE]', 'FERRETDB, args', 'MONGO_CLI', 'NISCUD', 'MONGOD3',
+                     'NODE, [IMPORTER]']) {
+    assert.ok(start.includes(`cpuExec(${bin}`), `not routed through cpu-exec: ${bin}`);
+  }
+  // ...and nothing bundled is still spawned directly. /bin/sleep is a grain
+  // utility, not a bundled binary, so it is exempt.
+  const direct = start.match(/spawn(?:Sync)?\((?!\.\.\.cpuExec|'\/bin\/sleep')/g) || [];
+  assert.deepStrictEqual(direct, [], 'a bundled binary is still spawned directly');
+});
+
+// --- Snap: FerretDB + node, not just mongod --------------------------------------
+
+test('the snap runs FerretDB through cpu-exec', () => {
+  const ferretdbControl = read('snap-src/bin/ferretdb-control');
+  assert.ok(/CPU_EXEC="\$SNAP\/bin\/cpu-exec"/.test(ferretdbControl));
+  assert.ok(/\[ -x "\$CPU_EXEC" \] \|\| CPU_EXEC=""/.test(ferretdbControl),
+    'missing cpu-exec must fall back to a direct exec');
+  const routed = ferretdbControl.match(/exec \$\{CPU_EXEC:\+bash "\$CPU_EXEC"\} "\$FERRETDB_BIN"/g) || [];
+  assert.strictEqual(routed.length, 2, 'both the external-DB and SQLite launches are routed');
+});
+
+test('the snap runs node (the app and the maintenance page) through cpu-exec', () => {
+  const wekanControl = read('snap-src/bin/wekan-control');
+  assert.ok(/CPU_EXEC="\$SNAP\/bin\/cpu-exec"/.test(wekanControl));
+  assert.ok(/\[ -x "\$CPU_EXEC" \] \|\| CPU_EXEC=""/.test(wekanControl));
+  // The main application start, which keeps its ulimit -s 65500.
+  assert.ok(/ulimit -s 65500; exec \$\{CPU_EXEC:\+bash \\"\$CPU_EXEC\\"\} \$NODE_PATH\/node \$APPLICATION_START/
+    .test(wekanControl), 'the main app start is routed and keeps its stack ulimit');
+  const pages = wekanControl.match(/\$\{CPU_EXEC:\+bash "\$CPU_EXEC"\} "\$SNAP\/bin\/node"/g) || [];
+  assert.strictEqual(pages.length, 2, 'both maintenance-page launches are routed');
+});
+
 // --- Docker entrypoint ----------------------------------------------------------
 
 test('Docker entrypoint routes ferretdb and node through cpu-exec when present', () => {

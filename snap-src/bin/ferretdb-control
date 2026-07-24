@@ -46,6 +46,16 @@ if [ ! -x "$FERRETDB_BIN" ]; then
     exit 1
 fi
 
+# #6458: run FerretDB through cpu-exec, which exec's it directly when the CPU has
+# every instruction-set feature it needs and falls back to bundled qemu-user when
+# it does not (AVX masked by a hypervisor, an old CPU, ARMv8.0). FerretDB is a
+# baseline Go build and declares no required features, so this is a plain exec
+# today - the point is that the launch is feature-safe if a future build stops
+# being baseline. mongodb-control already does this for mongod. Falls back to a
+# direct exec when cpu-exec is missing (older snap revisions).
+CPU_EXEC="$SNAP/bin/cpu-exec"
+[ -x "$CPU_EXEC" ] || CPU_EXEC=""
+
 # FerretDB binds the same address WeKan's MONGO_URL points at (wekan-control
 # builds mongodb://$MONGODB_BIND_IP:$MONGODB_PORT/wekan), so no other setting
 # needs to change to switch backends.
@@ -84,7 +94,7 @@ if [ "sqlite" != "${FERRETDB_HANDLER}" ]; then
     fi
 
     echo "Starting FerretDB v1 (${FERRETDB_HANDLER}) on ${BIND_IP}:${PORT} -> external ${DB_URL} (${OPLOG_MODE}) ..."
-    exec "$FERRETDB_BIN" \
+    exec ${CPU_EXEC:+bash "$CPU_EXEC"} "$FERRETDB_BIN" \
         --handler="${FERRETDB_HANDLER}" \
         "${URL_FLAG}=${DB_URL}" \
         --listen-addr="${BIND_IP}:${PORT}" \
@@ -204,7 +214,7 @@ fi
 
 echo "Starting FerretDB v1 (SQLite) on ${BIND_IP}:${PORT} (${OPLOG_MODE}) ..."
 echo "  SQLite data dir: ${SQLITE_DIR}"
-exec "$FERRETDB_BIN" \
+exec ${CPU_EXEC:+bash "$CPU_EXEC"} "$FERRETDB_BIN" \
     --handler=sqlite \
     --sqlite-url="file:${SQLITE_DIR}/" \
     --listen-addr="${BIND_IP}:${PORT}" \

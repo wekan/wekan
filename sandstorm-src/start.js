@@ -37,6 +37,39 @@ const IMPORTER     = path.join(APPROOT, 'migrate-mongo3-to-ferretdb.mjs');
 const BRIDGE       = path.join(APPROOT, 'migration-bridge.js'); // "please wait" page on APP_PORT
 const NODE_MODULES = path.join(APPROOT, 'programs/server/node_modules');
 
+// #6458: run every bundled binary through cpu-exec when it is available, so a
+// grain landing on a host whose CPU lacks a feature a binary needs — AVX masked
+// by a hypervisor (QEMU/KVM/Proxmox) is the reported case — transparently falls
+// back to bundled qemu-user instead of dying instantly with SIGILL (exit 132).
+// Sandstorm has the least control over its hardware of any WeKan platform, and
+// was the only launcher still spawning binaries directly: Docker
+// (releases/ferretdb/wekan-entrypoint.sh), the bundle
+// (releases/ferretdb/start-wekan.sh) and the snap (snap-src/bin/mongodb-control)
+// already route through it.
+//
+// None of these binaries DECLARES a required feature, so cpu-exec exec's them
+// directly with zero overhead today; the point is that the launch path is
+// feature-safe if that ever stops being true (a newer FerretDB build, a Node
+// built for a higher baseline, a future bundled mongod).
+//
+// cpu-exec is a bash script, so it needs both itself and bash to be executable;
+// if either is missing the binary is run directly, exactly as before.
+const CPU_EXEC = path.join(APPROOT, 'bin/cpu-exec');
+const HAVE_CPU_EXEC = (() => {
+  try {
+    fs.accessSync(CPU_EXEC, fs.constants.X_OK);
+    fs.accessSync('/bin/bash', fs.constants.X_OK);
+    return true;
+  } catch (_) {
+    return false;
+  }
+})();
+
+// Spread into spawn/spawnSync: spawnSync(...cpuExec(BIN, [args]), opts).
+function cpuExec(bin, args) {
+  return HAVE_CPU_EXEC ? [CPU_EXEC, [bin, ...args]] : [bin, args];
+}
+
 // Writable grain state (only /var is writable in a grain).
 const NISCU_DBPATH = '/var';                                   // legacy niscu data dir
 const NISCU_MARKER = '/var/journal';                           // presence ⇒ niscu-era data
@@ -99,7 +132,7 @@ let bridge = null;
 function startBridge(message) {
   if (bridge || !fs.existsSync(BRIDGE)) return;          // already up, or not bundled
   try {
-    bridge = spawn(NODE, [BRIDGE], {
+    bridge = spawn(...cpuExec(NODE, [BRIDGE]), {
       stdio: 'inherit',
       env: { ...process.env, PORT: APP_PORT, BRIDGE_MESSAGE: message || '' },
     });
@@ -126,7 +159,7 @@ function startFerret(port, opts = {}) {
   // Only the steady-state instance enables the OpLog; the migration target does
   // not, so bulk inserts are not slowed by oplog recording.
   if (opts.oplog && FERRET_OPLOG) args.push(`--repl-set-name=${REPL_SET_NAME}`);
-  return spawn(FERRETDB, args,
+  return spawn(...cpuExec(FERRETDB, args),
     { stdio: 'inherit',
       env: { ...process.env, DO_NOT_TRACK: '1', FERRETDB_TELEMETRY: 'disable',
              FERRETDB_STATE_DIR: STATE_DIR } });
@@ -135,8 +168,8 @@ function startFerret(port, opts = {}) {
 // Wait until a mongod (3.x) answers a ping via the legacy mongo shell.
 function waitMongoReady(port, tries = 30) {
   for (let i = 0; i < tries; i++) {
-    const r = spawnSync(MONGO_CLI,
-      ['--port', String(port), '--quiet', '--eval', 'db.adminCommand({ping:1}).ok'],
+    const r = spawnSync(...cpuExec(MONGO_CLI,
+      ['--port', String(port), '--quiet', '--eval', 'db.adminCommand({ping:1}).ok']),
       { env: oldLibEnv(), encoding: 'utf8' });
     if (r.status === 0 && /1/.test(r.stdout || '')) return true;
     sleep(1);
@@ -145,9 +178,9 @@ function waitMongoReady(port, tries = 30) {
 }
 
 function stopMongo(port) {
-  spawnSync(MONGO_CLI,
+  spawnSync(...cpuExec(MONGO_CLI,
     ['--port', String(port), '--quiet', '--eval',
-     'db.getSiblingDB("admin").shutdownServer()'],
+     'db.getSiblingDB("admin").shutdownServer()']),
     { env: oldLibEnv(), encoding: 'utf8' });
   sleep(2);
 }
@@ -160,13 +193,13 @@ async function migrateNiscuToMongo3() {
   console.log('** WeKan: migrating niscu (MongoDB 2.x) -> MongoDB 3.0 ...');
   const MongoClient = require('mongodb').MongoClient;
 
-  spawnSync(NISCUD,
+  spawnSync(...cpuExec(NISCUD,
     ['--fork', '--port', NISCU_PORT, '--dbpath', NISCU_DBPATH, '--noauth',
      '--bind_ip', '127.0.0.1', '--nohttpinterface', '--noprealloc',
-     '--logpath', '/var/niscu.log'],
+     '--logpath', '/var/niscu.log']),
     { stdio: 'inherit', env: process.env });
   fs.mkdirSync(OLD_MONGO, { recursive: true });
-  spawnSync(MONGOD3,
+  spawnSync(...cpuExec(MONGOD3,
     ['--fork', '--port', SRC_PORT, '--dbpath', OLD_MONGO, '--noauth',
      '--bind_ip', '127.0.0.1', '--storageEngine', 'wiredTiger',
      // Pin the WiredTiger cache. mongod 3.0 sizes it from detected RAM
@@ -179,7 +212,7 @@ async function migrateNiscuToMongo3() {
      // RAM detection.
      '--wiredTigerCacheSizeGB', '1',
      '--wiredTigerEngineConfigString', 'log=(prealloc=false,file_max=200KB)',
-     '--logpath', MIGRATE_LOG],
+     '--logpath', MIGRATE_LOG]),
     { stdio: 'inherit', env: process.env });
   if (!waitMongoReady(SRC_PORT)) throw new Error('mongod 3.0 did not become ready for niscu import');
   sleep(2); // give niscud a moment (old 2.x, not pingable with the 3.x shell)
@@ -204,7 +237,7 @@ async function migrateNiscuToMongo3() {
 // ── Stage 2: MongoDB 3.0 → FerretDB v1 (SQLite) ──────────────────────────────
 function migrateMongo3ToFerret() {
   console.log('** WeKan: migrating MongoDB 3 -> FerretDB (one-time) ...');
-  const started = spawnSync(MONGOD3,
+  const started = spawnSync(...cpuExec(MONGOD3,
     ['--dbpath', OLD_MONGO, '--bind_ip', '127.0.0.1', '--port', SRC_PORT,
      '--storageEngine', 'wiredTiger',
      // Pin the WiredTiger cache to 1 GB: in a Sandstorm grain sandbox mongod 3.0's
@@ -215,7 +248,7 @@ function migrateMongo3ToFerret() {
      // (0.25 fails to parse), and it is a cap not a preallocation. See the niscu
      // stage above for the same fix.
      '--wiredTigerCacheSizeGB', '1',
-     '--fork', '--logpath', MIGRATE_LOG],
+     '--fork', '--logpath', MIGRATE_LOG]),
     { stdio: 'inherit', env: process.env });
   if (started.status !== 0 || !waitMongoReady(SRC_PORT)) {
     console.error(`** Migration: could not start/reach mongod 3.0 on the old data (see ${MIGRATE_LOG}). Old data kept; retry next start.`);
@@ -227,7 +260,7 @@ function migrateMongo3ToFerret() {
   // The importer binds APP_PORT itself for its own progress dashboard
   // (MIGRATION_PORT below), so release our please-wait bridge first.
   stopBridge();
-  const rc = spawnSync(NODE, [IMPORTER], {
+  const rc = spawnSync(...cpuExec(NODE, [IMPORTER]), {
     stdio: 'inherit',
     env: { ...process.env,
       NODE_PATH:        NODE_MODULES,

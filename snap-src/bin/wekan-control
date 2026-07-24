@@ -15,12 +15,22 @@ WEKAN_SNAP_SVC="${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}"
 # URLs, so end users see a maintenance message while an admin runs MongoDB or FerretDB by hand
 # (on DB port 27019) for data access over the MongoDB wire protocol. Toggle with
 # `snap run wekan.maintenance on|off`.
+# #6458: run bundled binaries through cpu-exec, which exec's them directly when
+# the CPU has every instruction-set feature they need and falls back to bundled
+# qemu-user when it does not (AVX masked by a hypervisor, an old CPU, ARMv8.0).
+# node and the WeKan bundle declare no required features, so this is a plain exec
+# today; it makes the launch feature-safe if that ever changes. mongodb-control
+# already does this for mongod and ferretdb-control for FerretDB. Empty (direct
+# exec) when cpu-exec is missing, e.g. an older snap revision.
+CPU_EXEC="$SNAP/bin/cpu-exec"
+[ -x "$CPU_EXEC" ] || CPU_EXEC=""
+
 if [ -f "$SNAP_COMMON/.wekan-maintenance" ]; then
     echo "MAINTENANCE MODE (.wekan-maintenance present): serving the maintenance page instead of WeKan."
     export PORT="${PORT:-80}"
     # The maintenance page reads the product name from $SNAP_COMMON/.product-name (cached during
     # normal operation) so it shows a custom Admin Panel product name, not "WeKan".
-    exec "$SNAP/bin/node" "$SNAP/bin/wekan-maintenance-page.mjs"
+    exec ${CPU_EXEC:+bash "$CPU_EXEC"} "$SNAP/bin/node" "$SNAP/bin/wekan-maintenance-page.mjs"
 fi
 
 # ---------------------------------------------------------------------------------------
@@ -303,7 +313,7 @@ RECOVERY_MARKER="$SNAP_COMMON/files/db/RECOVERY_IN_PROGRESS"
 if [ -f "$RECOVERY_MARKER" ]; then
     _rgrace="${WEKAN_RECOVERY_BRIDGE_SECONDS:-20}"
     echo "RECOVERY IN PROGRESS ($RECOVERY_MARKER present): bridging with the recovery page for up to ${_rgrace}s before starting WeKan."
-    WEKAN_MAINTENANCE_REASON=recovery "$SNAP/bin/node" "$SNAP/bin/wekan-maintenance-page.mjs" &
+    WEKAN_MAINTENANCE_REASON=recovery ${CPU_EXEC:+bash "$CPU_EXEC"} "$SNAP/bin/node" "$SNAP/bin/wekan-maintenance-page.mjs" &
     _mp_pid=$!
     _rwait=0
     while [ -f "$RECOVERY_MARKER" ] && [ "$_rwait" -lt "$_rgrace" ]; do
@@ -328,4 +338,4 @@ cd $APPLICATION_DIRECTORY
 #---------------------------------------------------------------------
 #bash -c "ulimit -s 65500; exec $NODE_PATH/node --stack-size=65500 $APPLICATION_START"
 #bash -c "ulimit -s 65500; exec $NODE_PATH/node --stack-size=65500 --max-old-space-size=8192 $APPLICATION_START"
-bash -c "ulimit -s 65500; exec $NODE_PATH/node $APPLICATION_START"
+bash -c "ulimit -s 65500; exec ${CPU_EXEC:+bash \"$CPU_EXEC\"} $NODE_PATH/node $APPLICATION_START"
