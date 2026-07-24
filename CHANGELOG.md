@@ -202,6 +202,20 @@ This release fixes the following bugs:
   `userAvatarInitials`, which reads `this.userId`, so its initials rendered
   empty](https://github.com/wekan/wekan/commit/8e58456c4).
   Thanks to xet7.
+- [On iPad Safari a full-screen "Uncaught runtime errors: ERROR Script error." panel
+  appeared after login, and again when the Safari Share sheet was opened on All Boards
+  to add WeKan to the home screen. That panel is webpack-dev-server's error overlay,
+  shipped by the rspack DEV server only - a production build has no dev server and no
+  overlay. It opens for every window `error` event, including ones that carry no
+  information: a browser sanitises an error thrown by a CROSS-ORIGIN script to the bare
+  message "Script error." with no error object and no stack, and iOS Safari raises those
+  from its own machinery and from content blockers and extensions, which is what the
+  Share sheet triggered. It cannot come from WeKan's own code, because the bundle is
+  served same-origin (no `CDN_URL`), so a real WeKan error always reaches the overlay
+  with its actual message and stack. The overlay now ignores exactly that one message
+  and still shows every other runtime error and all compile
+  errors](https://github.com/wekan/wekan/commit/1551e142f).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their
 translations.
