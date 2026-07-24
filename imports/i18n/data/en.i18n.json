@@ -764,6 +764,7 @@
   "no-archived-lists": "No lists in Archive.",
   "no-archived-swimlanes": "No swimlanes in Archive.",
   "no-results": "No results",
+  "drop-board-to-end": "Drop here to move to the end",
   "normal": "Normal",
   "normal-desc": "Can view and edit cards. Can't change settings.",
   "normal-assigned-only": "Only Assigned Normal",

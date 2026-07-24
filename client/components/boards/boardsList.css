@@ -1614,3 +1614,31 @@ body.grey-icons-enabled .checkmark-no-grey {
     line-height: 1;
   }
 }
+
+/* #6439: the trailing "drop here to move to the end" placeholder tile. A dashed
+   empty cell that lines up with the board grid; it lights up when a board is
+   dragged over it (`.board-reorder-over`, the same class the board tiles use). */
+.board-list .js-board-drop-end.board-drop-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 4rem;
+  border: 2px dashed #b8b8b8;
+  border-radius: 3px;
+  color: #888;
+  background: transparent;
+  text-align: center;
+  padding: 8px;
+  cursor: default;
+}
+.board-list .js-board-drop-end.board-drop-placeholder .board-drop-placeholder-label {
+  font-size: 13px;
+  font-weight: normal;
+}
+.board-list .js-board-drop-end.board-reorder-over {
+  border-color: #3498db;
+  background: rgba(52, 152, 219, 0.08);
+  color: #3498db;
+}

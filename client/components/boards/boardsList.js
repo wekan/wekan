@@ -9,6 +9,7 @@ import { Utils } from '/client/lib/utils';
 import {
   isDragReorderEnabled,
   computeReorderedSortIndex,
+  computeReorderedSortIndexToEnd,
 } from '/models/lib/boardSortReorder';
 
 // SubsManager removed for Meteor 3 migration
@@ -1103,6 +1104,40 @@ Template.boardList.events({
       .map((el) => Blaze.getData(el)?._id)
       .filter(Boolean);
     const mapping = computeReorderedSortIndex(orderedIds, draggedId, targetId);
+    if (!mapping) return;
+    const currentUser = ReactiveCache.getCurrentUser();
+    if (currentUser && typeof currentUser.setBoardSortIndexes === 'function') {
+      currentUser.setBoardSortIndexes(mapping);
+    }
+  },
+  // #6439: the trailing empty placeholder is a drop target for moving a board to
+  // the END of the order - dropping on another board can only put it BEFORE that
+  // board, so without this the last slot was unreachable.
+  'dragover .js-board-drop-end'(evt) {
+    if (!isDragReorderEnabled(currentAllBoardsSortBy())) return;
+    const dt = evt.originalEvent.dataTransfer;
+    if (dt && dt.getData('application/x-board-multi') === 'true') return;
+    evt.preventDefault();
+    evt.stopPropagation();
+    if (dt) dt.dropEffect = 'move';
+    evt.currentTarget.classList.add('board-reorder-over');
+  },
+  'dragleave .js-board-drop-end'(evt) {
+    evt.currentTarget.classList.remove('board-reorder-over');
+  },
+  'drop .js-board-drop-end'(evt, tpl) {
+    if (!isDragReorderEnabled(currentAllBoardsSortBy())) return;
+    const dt = evt.originalEvent.dataTransfer;
+    if (dt && dt.getData('application/x-board-multi') === 'true') return;
+    const draggedId = dt ? dt.getData('text/plain') : '';
+    if (!draggedId) return;
+    evt.preventDefault();
+    evt.stopPropagation();
+    evt.currentTarget.classList.remove('board-reorder-over');
+    const orderedIds = Array.from(tpl.findAll('.js-board'))
+      .map((el) => Blaze.getData(el)?._id)
+      .filter(Boolean);
+    const mapping = computeReorderedSortIndexToEnd(orderedIds, draggedId);
     if (!mapping) return;
     const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser && typeof currentUser.setBoardSortIndexes === 'function') {

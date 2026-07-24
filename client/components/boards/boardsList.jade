@@ -262,6 +262,14 @@ template(name="boardList")
                         i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
                     //- #2220 Home-board toggle is disabled: the icon and the
                     //- set-default-board action are intentionally not rendered.
+          //- #6439: a trailing empty tile that accepts a drop to move a board to
+            the END of the order (dropping on a board can only place it before that
+            board). Only in the manual "custom" sort, where drag-reorder applies.
+          if isBoardsSort 'custom'
+            li.js-board-drop-end.board-drop-placeholder.nodragscroll(title="{{_ 'drop-board-to-end'}}")
+              span.emoji-icon
+                i.fa.fa-arrow-down
+              span.board-drop-placeholder-label {{_ 'drop-board-to-end'}}
 
 template(name="boardsSortPopup")
   ul.pop-over-list

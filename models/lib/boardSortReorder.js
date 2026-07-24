@@ -52,6 +52,19 @@ function computeSortIndexMapping(orderedIds) {
   return mapping;
 }
 
+// Move `draggedId` to the END of the list (dropped on the trailing placeholder).
+// Returns the new order, or null when it is already last or unknown.
+function computeReorderedIdsToEnd(orderedIds, draggedId) {
+  if (!Array.isArray(orderedIds) || !draggedId) return null;
+  const from = orderedIds.indexOf(draggedId);
+  if (from === -1) return null;
+  if (from === orderedIds.length - 1) return null; // already last: no-op
+  const result = orderedIds.slice();
+  result.splice(from, 1);
+  result.push(draggedId);
+  return result;
+}
+
 // Convenience: compute the persisted boardSortIndex mapping for a drop, or null
 // when the drop changes nothing (so callers can skip the write).
 function computeReorderedSortIndex(orderedIds, draggedId, targetId) {
@@ -60,9 +73,18 @@ function computeReorderedSortIndex(orderedIds, draggedId, targetId) {
   return computeSortIndexMapping(reordered);
 }
 
+// Same, for a drop on the trailing end placeholder.
+function computeReorderedSortIndexToEnd(orderedIds, draggedId) {
+  const reordered = computeReorderedIdsToEnd(orderedIds, draggedId);
+  if (!reordered) return null;
+  return computeSortIndexMapping(reordered);
+}
+
 export {
   isDragReorderEnabled,
   computeReorderedIds,
+  computeReorderedIdsToEnd,
   computeSortIndexMapping,
   computeReorderedSortIndex,
+  computeReorderedSortIndexToEnd,
 };
