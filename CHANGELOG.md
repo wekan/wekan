@@ -213,7 +213,7 @@ and resolves the following GitHub Dependabot alerts in npm dependencies:
   release in the same major line; the only other change is `engines.node`, which drops
   Node 18 — WeKan builds and ships on Node 24 (Dockerfile `NODE_VERSION=v24.18.0`, CI
   `NODE_VERSION: '24'`), so nothing is affected
-  (#6523).
+  (#6523, [merge commit](https://github.com/wekan/wekan/commit/56cbcdb7e)).
 - **postcss 8.5.15 → 8.5.22** (dev dependency; enters only through `css-loader`, which
   the rspack build uses for `.css`, and is not itself part of the shipped bundle):
   fixes [GHSA-r28c-9q8g-f849](https://github.com/advisories/GHSA-r28c-9q8g-f849)
