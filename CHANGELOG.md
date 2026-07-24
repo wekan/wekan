@@ -506,7 +506,11 @@ and fixes the following bugs:
   (`.wrapper` for this page is `height: auto; overflow: visible`), leaving `#content` — the
   page's existing scroller, and what a finger scrolls natively on touch — as the single
   scroller, which cannot fight itself. The `.dragscroll` class is dropped from the wrapper
-  since native scrolling now handles
+  since native scrolling now handles it. A last touch clears iOS Safari's bottom toolbar,
+  which was still covering the final line: the scroller `#content` is `calc(100vh - 48px)`
+  and on iOS `100vh` is the large viewport (toolbar hidden), so its bottom edge sits behind
+  the toolbar — the wrapper now has `calc(120px + env(safe-area-inset-bottom, 0px))` of
+  trailing space so the last line scrolls clear of
   it](https://github.com/wekan/wekan/commit/762547b92).
   Thanks to xet7.
 
