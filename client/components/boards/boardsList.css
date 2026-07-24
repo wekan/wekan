@@ -1482,11 +1482,42 @@ body.grey-icons-enabled .checkmark-no-grey {
   hyphens: none;
 }
 
-/* "+ Add Board" spans the full width of the two-column grid, so it is twice the
-   width of a board tile (and reads as an action rather than another board). */
+/* "+ Add Board" is one grid cell like any board tile, so the two are the same
+   width as well as the same height. `.js-add-board` carries `margin: 8px
+   !important` globally while board `li`s have only a bottom margin, which made
+   its box narrower than a board tile inside an identically sized cell - so the
+   margin is matched here too. (An earlier version made this tile span both
+   columns; identical tiles is what the wide-screen layout does, and what was
+   asked for.) */
 .board-list.mobile-view li.js-add-board,
-.board-list li.js-add-board {
-  grid-column: 1 / -1;
+.board-list li.js-add-board,
+.board-list.mobile-view li.js-board,
+.board-list li.js-board {
+  grid-column: auto;
+  /* BOTH get the same margin. `.js-add-board` has `margin: 8px !important` and
+     `.js-board` has `margin: 8px`, so zeroing only one of them would break the
+     match in the other direction. The grid's own 8px gap already separates the
+     tiles, so a margin on top of it only shrinks them unevenly. */
+  margin: 0 !important;
+}
+
+/* Every tile - board or add - is one cell wide and 4rem tall, with nothing
+   inside it able to change that. */
+.board-list.mobile-view li,
+.board-list.mobile-view li.js-board,
+.board-list.mobile-view li.js-add-board {
+  width: auto;
+  min-width: 0;
+  max-width: none;
+}
+
+.board-list.mobile-view li.js-add-board .board-list-item,
+.board-list.mobile-view li.js-add-board .label,
+.board-list.mobile-view li.js-board .board-list-item {
+  width: 100%;
+  box-sizing: border-box;
+  height: 4rem;
+  min-height: 4rem;
 }
 
 /* ── Keep the header on ONE row on phones, as it is on a wide screen ─────────
