@@ -1,6 +1,6 @@
 'use strict';
 
-// The shared table page — docs/Design/Table-Page.md.
+// The shared table page — docs/Design/Page/Table.md.
 //
 // Files, Rules, Boards, Cards, Impersonation, Recovery and the four event streams
 // (Security, Speed, Tests, CPU usage) used to be ten copies of the same page: the
@@ -22,7 +22,7 @@
 // removed from the app code.
 //
 // Files under test are the ones listed in the Related files table of
-// docs/Design/Table-Page.md.
+// docs/Design/Page/Table.md.
 //
 // Run: node tests/tablePage.test.cjs
 
@@ -45,7 +45,7 @@ const jade = read('client/components/settings/tablePage.jade');
 const css = read('client/components/settings/tablePage.css');
 const reportsJade = read('client/components/settings/adminReports.jade');
 const reportsJs = read('client/components/settings/adminReports.js');
-const doc = read('docs/Design/Table-Page.md');
+const doc = read('docs/Design/Page/Table.md');
 
 // Load the ES module helpers without a bundler: strip the export keywords.
 const lib = {};
@@ -247,7 +247,7 @@ test('the subscribed window comes from the same helper as the counter', () => {
 test('the design doc lists the pages and they exist in code', () => {
   for (const name of ['Security', 'Speed', 'Tests', 'CPU usage', 'Files Report',
     'Rules Report', 'Boards Report', 'Cards Report', 'Impersonation Report', 'Recovery']) {
-    assert.ok(doc.includes(name), `${name} must be listed in Table-Page.md`);
+    assert.ok(doc.includes(name), `${name} must be listed in Table.md`);
   }
   assert.ok(/\| Table name \| Menu path \| Description \|/.test(doc),
     'the listing must be a table with those three columns');
@@ -264,9 +264,9 @@ test('pages that use the design link back to it', () => {
     'docs/Features/Admin-Panel/Problems/CPU-usage.md',
     'docs/Features/Admin-Panel/Problems/Recovery.md']) {
     const src = read(p);
-    assert.ok(/\[Table Page\]\((\.\.\/)+Design\/Table-Page\.md\)/.test(src),
+    assert.ok(/\[Table Page\]\((\.\.\/)+Design\/Page\/Table\.md\)/.test(src),
       `${p} must link to the shared design with a relative path`);
-    const rel = /\[Table Page\]\(((?:\.\.\/)+Design\/Table-Page\.md)\)/.exec(src)[1];
+    const rel = /\[Table Page\]\(((?:\.\.\/)+Design\/Page\/Table\.md)\)/.exec(src)[1];
     const target = path.resolve(path.dirname(path.join(root, p)), rel);
     assert.ok(fs.existsSync(target), `${p}: link target ${rel} must exist`);
   }
@@ -327,7 +327,7 @@ test('the table page stylesheet does not restate button colours', () => {
 });
 
 test('the design doc explains the theming', () => {
-  assert.ok(/## Theme/.test(doc), 'Table-Page.md must have a Theme section');
+  assert.ok(/## Theme/.test(doc), 'Table.md must have a Theme section');
   assert.ok(/--theme-accent/.test(doc) && /Change color/.test(doc),
     'it must name the per-user override and where it is set');
   assert.ok(/#01628c/.test(doc), 'and the WeKan default fallback');
@@ -345,7 +345,7 @@ test('the design doc explains the theming', () => {
 // is the split this whole change removed. The last three cover the OTHER pagers
 // (People/Org/Team/Domain, the board Table view, Translation): those are not
 // table pages, but they share the themed pager stylesheet listed in
-// docs/Design/Table-Page.md, so a change there reaches them too.
+// docs/Design/Page/Table.md, so a change there reaches them too.
 // ═══════════════════════════════════════════════════════════════════════════
 
 // ── performance: paginated + index-backed sorts ─────────────────────────────
@@ -373,7 +373,7 @@ test('eventlog has a {stream,at} index so Security/Speed/Tests pages stay fast',
 // ── one controls row, defined once for every report ──
 test('report tables have no Search button (Enter searches) and ONE shared controls row', () => {
   // The six reports used to carry six copies of this row. They now render
-  // through the shared table page (docs/Design/Table-Page.md), so the row exists
+  // through the shared table page (docs/Design/Page/Table.md), so the row exists
   // once, in one template, with one set of handlers.
   const jade = read('client/components/settings/tablePage.jade');
   assert.ok(!/-search-button/.test(jade), 'the Search button must be gone (typing + Enter searches)');

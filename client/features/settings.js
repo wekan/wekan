@@ -9,6 +9,7 @@ import '/client/components/settings/migrationProgress.jade';
 import '/client/components/settings/peopleBody.jade';
 import '/client/components/settings/settingBody.jade';
 import '/client/components/settings/settingHeader.jade';
+import '/client/components/settings/leftMenu.jade';
 import '/client/components/settings/tablePage.jade';
 import '/client/components/settings/translationBody.jade';
 

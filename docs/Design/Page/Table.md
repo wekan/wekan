@@ -54,7 +54,7 @@ Menu path is what you click to reach the page.
 
 ### Card, board and member history
 
-Designed, not yet implemented — see [History](../Features/Reports/History/History.md).
+Designed, not yet implemented — see [History](../../Features/Reports/History/History.md).
 
 | Table name | Menu path | Description |
 | --- | --- | --- |

@@ -105,7 +105,7 @@ check('filename/content sanitization is logged to Admin Panel / Problems with co
   assert.ok(/logFilenameSanitized/.test(read('server/migrations/correctFileExtensions.js')), 'existing-file');
   assert.ok(/logContentSanitized/.test(read('models/lib/httpStream.js')), 'viewing/serve');
   // The report shows the uploader column. It is now a column in the shared
-  // table page's event-stream spec (docs/Design/Table-Page.md), rendered as a
+  // table page's event-stream spec (docs/Design/Page/Table.md), rendered as a
   // link via the shared .js-table-page-edit-user handler.
   const reportsJs = read('client/components/settings/adminReports.js');
   assert.ok(/EVENT_STREAM_COLUMNS[\s\S]*labelKey: 'username'[\s\S]*userId: r => r.userId/.test(reportsJs), 'uploader column in report');

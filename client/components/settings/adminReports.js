@@ -278,7 +278,7 @@ Template.adminReports.events({
   },
 
   // --- Controls: ONE handler each, for every table page ---
-  // The shared table page (docs/Design/Table-Page.md) emits the same three
+  // The shared table page (docs/Design/Page/Table.md) emits the same three
   // controls for every report, so the report is identified by activeReport
   // rather than by a per-report js- class. Twelve prev/next handlers and six
   // search handlers collapsed to these.
@@ -412,7 +412,7 @@ function switchMenu(event, tmpl) {
 // currentPage/totalPages helpers, and the same click/keydown handlers, retyped
 // with a different js- prefix each time. They now differ only in the COLUMN
 // SPEC below; everything else - markup, layout, paging, search - comes from the
-// shared table page. See docs/Design/Table-Page.md.
+// shared table page. See docs/Design/Page/Table.md.
 //
 // A column is { label | labelKey, value(doc), align, nowrap, cls, userId(doc) }.
 

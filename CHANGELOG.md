@@ -213,7 +213,7 @@ and has the following developer-facing change:
   table is a few dozen pixels wide. Rows run title, status, controls, table. Paging
   still fetches only the current page, and now takes that window from the same helper
   that renders "page X / N". The design, and the list of every page that uses it, is
-  in `docs/Design/Table-Page.md`; the History, CPU usage and Recovery design docs link
+  in `docs/Design/Page/Table.md`; the History, CPU usage and Recovery design docs link
   to it and keep only what is specific to
   them](https://github.com/wekan/wekan/commit/9791993d5).
   Thanks to xet7.

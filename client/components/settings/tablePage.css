@@ -1,4 +1,4 @@
-/* The ONE table page layout. Design: docs/Design/Table-Page.md
+/* The ONE table page layout. Design: docs/Design/Page/Table.md
    Used by every paginated admin table (Security, Speed, Tests, CPU usage, Files,
    Rules, Boards, Cards, Impersonation, Recovery). Defined once here so a fix to
    the layout reaches every page instead of one report at a time. */

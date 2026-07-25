@@ -1,6 +1,6 @@
 # Design: SQLite corruption/bloat safety, automatic recovery, and Admin Panel → Problems → Recovery
 
-> **This page uses the shared [Table Page](../../../Design/Table-Page.md) design.**
+> **This page uses the shared [Table Page](../../../Design/Page/Table.md) design.**
 > The layout, search, pagination, column spec and per-page data loading are defined
 > there and are not repeated here.
 

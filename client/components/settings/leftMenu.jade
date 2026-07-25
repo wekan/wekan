@@ -1,0 +1,22 @@
+//- The ONE left menu used by every Admin Panel page.
+//- Design + the list of pages that use it: docs/Design/Page/Left-Menu.md
+//-
+//- "Left" is the reading order, not a side: under a right-to-left language the
+//- whole panel mirrors and this menu sits on the RIGHT. That comes from logical
+//- CSS on .side-menu, not from anything here — see the design doc.
+//-
+//- Data context: { items } from buildMenuItems() in models/lib/leftMenu.js.
+//- Each item is { id, icon, labelKey, active, jsClass, cls } or { separator }.
+template(name="leftMenu")
+  .side-menu
+    ul
+      each items
+        if separator
+          li.left-menu-separator
+            hr
+        else
+          li(class="{{#if active}}active{{/if}} {{cls}}")
+            a.js-left-menu-item(class="{{jsClass}}" data-id="{{id}}")
+              span.emoji-icon
+              i.fa(class="{{icon}}")
+              | {{_ labelKey}}
