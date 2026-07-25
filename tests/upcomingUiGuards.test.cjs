@@ -37,9 +37,11 @@ test('#6465: header add-list button + inline composer template exist', () => {
 
 test('#6465: the standing leading Add List column is replaced by empty-state gating', () => {
   const swim = read('client/components/swimlanes/swimlanes.jade');
-  // The non-mini swimlane + listsGroup branches now only show the composer for an
-  // empty swimlane/board (swimlaneHasNoLists / boardHasNoLists), instead of an
-  // unconditional leading +addListForm column. (The mini-screen path is unchanged.)
+  // Every branch - mini and non-mini, swimlane and listsGroup - now shows the composer
+  // only for an empty swimlane/board (swimlaneHasNoLists / boardHasNoLists), instead of
+  // an unconditional leading Add List column (desktop) or row (mobile). Otherwise it is
+  // opened from a list header + . The addListForm template that rendered that standing
+  // column/row is gone.
   assert.ok(/if swimlaneHasNoLists/.test(swim) && /if boardHasNoLists/.test(swim),
     'non-mini branches gate the composer on the empty state');
 });

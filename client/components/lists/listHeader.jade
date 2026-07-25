@@ -75,6 +75,16 @@ template(name="listHeader")
         else
           a.list-header-menu-icon.js-select-list
             i.fa.fa-caret-right
+          //- The add-list + sits BETWEEN the caret and the drag handle, so mobile
+          //- mode needs no "Add List" row of its own. Same class, same handler and
+          //- the same Font Awesome icon as the desktop list header uses, so the two
+          //- are one button in two layouts rather than two lookalikes.
+          unless currentUser.isCommentOnly
+            unless currentUser.isReadOnly
+              unless currentUser.isReadAssignedOnly
+                unless currentUser.isWorker
+                  a.js-add-list-here.list-header-add-list(title="{{_ 'add-list'}}")
+                    i.fa.fa-plus-square-o
           unless currentUser.isWorker
             if isTouchScreenOrShowDesktopDragHandles
               a.list-header-handle.handle.js-list-handle

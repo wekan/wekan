@@ -220,7 +220,9 @@
   padding: 1rem !important;
   font-size: 18px !important;
   display: grid !important;
-  grid-template-columns: 30px 1fr auto auto !important;
+  /* title | caret | add-list + | drag handle. The grid follows the INLINE axis, so
+     under dir="rtl" column 1 is on the right and the whole row mirrors by itself. */
+  grid-template-columns: 30px 1fr auto auto auto !important;
   gap: 10px !important;
   align-items: center !important;
   position: relative !important;
@@ -275,13 +277,24 @@
   opacity: 1 !important;
 }
 
+/* The add-list + between the caret (column 3) and the drag handle (column 5). */
+.mobile-mode .list-header .list-header-add-list {
+  position: static !important;
+  grid-row: 1/3 !important;
+  grid-column: 4 !important;
+  padding: 14px !important;
+  font-size: 24px !important;
+  text-align: center !important;
+  display: block !important;
+}
+
 .mobile-mode .list-header .list-header-handle {
   position: static !important;
   inset-inline-end: auto !important;
   top: auto !important;
   transform: none !important;
   grid-row: 1/3 !important;
-  grid-column: 4 !important;
+  grid-column: 5 !important;
   padding: 14px !important;
   font-size: 28px !important;
   text-align: center !important;

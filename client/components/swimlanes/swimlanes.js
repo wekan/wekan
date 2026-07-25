@@ -21,7 +21,7 @@ function saveSorting(ui) {
   // of the previous and the following list -- if any.
   // Use prevAll/nextAll (not prev/next) so non-list siblings between lists do
   // not break neighbour detection: the lists container also renders the
-  // +addListForm composer and, when a card is open, a +cardDetails element.
+  // +addListInline composer and, when a card is open, a +cardDetails element.
   // jQuery's .prev('.js-list') only matches an *immediately* adjacent sibling,
   // so an interspersed composer/cardDetails made calculateIndex mis-detect the
   // first/last position and compute a wrong sort, so the reordered list landed
@@ -856,63 +856,6 @@ Template.swimlane.events({
 });
 
 
-Template.addListForm.onCreated(function () {
-  this.currentBoard = Utils.getCurrentBoard();
-  this.isListTemplatesSwimlane =
-    this.currentBoard.isTemplatesBoard() &&
-    Template.currentData().isListTemplatesSwimlane();
-  this.currentSwimlane = Template.currentData();
-});
-
-Template.addListForm.helpers({
-  swimlaneLists() {
-    const swimlane = Template.instance().currentSwimlane;
-    if (!swimlane?._id) return [];
-    return ReactiveCache.getLists(
-      { swimlaneId: swimlane._id, archived: false },
-      { sort: { sort: 1 } },
-    );
-  },
-});
-
-Template.addListForm.events({
-  async submit(evt, tpl) {
-    evt.preventDefault();
-
-    const titleInput = tpl.find('.list-name-input');
-    const title = titleInput?.value.trim();
-
-    if (!title) return;
-
-    const positionInput = tpl.find('.list-position-input');
-    const afterListId =
-      positionInput && positionInput.value ? positionInput.value.trim() : null;
-    const nextListId =
-      positionInput &&
-      positionInput.selectedIndex >= 0 &&
-      positionInput.options[positionInput.selectedIndex + 1]
-        ? positionInput.options[positionInput.selectedIndex + 1].value
-        : null;
-
-    try {
-      await Meteor.callAsync('createListAfter', {
-        title,
-        boardId: Session.get('currentBoard'),
-        swimlaneId: tpl.currentSwimlane._id,
-        afterListId,
-        nextListId,
-        type: tpl.isListTemplatesSwimlane ? 'template-list' : 'list',
-      });
-
-      titleInput.value = '';
-      titleInput.focus();
-    } catch (error) {
-      console.error('Failed to create list after selected list:', error);
-    }
-  },
-  'click .js-list-template': Popup.open('searchElement'),
-});
-
 // #6465: the inline add-list composer that opens after a specific list (or at the
 // start of an empty swimlane). Its data context is the swimlane it creates the
 // list in; the target list (for positioning) is Session 'wekan-add-list-after'.
@@ -995,7 +938,7 @@ Template.listsGroup.helpers({
   // Issue #6142: the add-list composer needs a swimlane as its data context
   // (it creates the list in that swimlane). In Lists mode the listsGroup data
   // context is the board, not a swimlane, so resolve the board's default
-  // swimlane here and hand it to +addListForm.
+  // swimlane here, for the empty-board + button and the inline composer.
   defaultSwimlane() {
     const board = Template.currentData();
     const swimlaneId = defaultSwimlaneIdForBoard(board);

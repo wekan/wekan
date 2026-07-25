@@ -26,8 +26,9 @@ const jade = fs.readFileSync(
 const js = fs.readFileSync(
   path.join(root, 'client/components/swimlanes/swimlanes.js'), 'utf8');
 
-// Isolate the addListInline template block from the .jade so we assert on IT,
-// not on the still-present addListForm template.
+// Isolate the addListInline template block from the .jade so we assert on IT and not
+// on a neighbouring template. (The pre-#6465 addListForm template is gone: mobile mode
+// was its last caller, and it now uses the per-list-header + like desktop.)
 function templateBlock(src, name) {
   const start = src.indexOf(`template(name="${name}")`);
   assert.ok(start >= 0, `template ${name} must exist`);

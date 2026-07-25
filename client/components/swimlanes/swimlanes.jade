@@ -9,11 +9,25 @@ template(name="swimlane")
         if currentListIsInThisSwimlane _id
           +list(currentList)
         unless currentList
-          if currentUser.isBoardMember
-            unless currentUser.isCommentOnly
-              +addListForm
+          //- #6465 in mobile mode too: no standing "Add List" row of its own. The
+          //- + lives in each list header (between the caret and the drag handle),
+          //- and opens the inline composer after that list - the same behaviour as
+          //- desktop. An empty swimlane has no list header to host a +, so it keeps
+          //- one of its own; without it the first list could never be created.
+          if swimlaneHasNoLists
+            if currentUser.isBoardMember
+              unless currentUser.isCommentOnly
+                if isEmptyAddListOpen _id
+                  +addListInline
+                else
+                  .list.list-composer.js-list-composer.js-empty-add-list-button.mini-list
+                    .list-header-add
+                      a.open-list-composer.js-open-empty-add-list(title="{{_ 'add-list'}}" data-swimlane="{{_id}}")
+                        i.fa.fa-plus
           each lists
             +miniList(this)
+            if isAddListAfter _id
+              +addListInline
       else
         //- #6465: no standing Add List column. Empty swimlane gets the inline
         //- composer at the start; otherwise it opens after a list via its header
@@ -45,13 +59,24 @@ template(name="listsGroup")
       if currentList
         +list(currentList)
       else
-        //- Issue #6142: allow adding a list in Lists (board-view-lists) mode too.
-        if defaultSwimlane
-          if currentUser.isBoardMember
-            unless currentUser.isCommentOnly
-              +addListForm(defaultSwimlane)
+        //- Issue #6142: adding a list is possible in Lists (board-view-lists) mode
+        //- too - now from each list header's + rather than a standing row, as in
+        //- the swimlane view above and on desktop.
+        if boardHasNoLists
+          if defaultSwimlane
+            if currentUser.isBoardMember
+              unless currentUser.isCommentOnly
+                if isEmptyAddListOpen defaultSwimlane._id
+                  +addListInline
+                else
+                  .list.list-composer.js-list-composer.js-empty-add-list-button.mini-list
+                    .list-header-add
+                      a.open-list-composer.js-open-empty-add-list(title="{{_ 'add-list'}}" data-swimlane="{{defaultSwimlane._id}}")
+                        i.fa.fa-plus
         each lists
           +miniList(this)
+          if isAddListAfter _id
+            +addListInline
     else
       //- #6465: Lists view — empty board gets the inline composer at the start;
       //- otherwise it opens after a list via that list's header add-list button.
@@ -75,34 +100,6 @@ template(name="listsGroup")
           +addListInline(defaultSwimlane)
         if currentCardIsInThisList _id null
           +cardDetails(currentCard)
-
-template(name="addListForm")
-  unless currentUser.isWorker
-    unless currentUser.isCommentOnly
-      unless currentUser.isReadOnly
-        unless currentUser.isReadAssignedOnly
-          .list.list-composer.js-list-composer(class="{{#if isMiniScreen}}mini-list{{/if}}")
-        .list-header-add
-          +inlinedForm(autoclose=false)
-            input.list-name-input.full-line(type="text" placeholder="{{_ 'add-list'}}"
-              autocomplete="off" autofocus)
-            if swimlaneLists.length
-              | {{_ 'add-after-list'}}
-              select.list-position-input.full-line
-                each swimlaneLists
-                  option(value="{{_id}}") {{title}}
-            .edit-controls.clearfix
-              button.primary.confirm(type="submit") {{_ 'save'}}
-              .js-close-inlined-form
-                i.fa.fa-times-thin
-              unless currentBoard.isTemplatesBoard
-                unless currentBoard.isTemplateBoard
-                  span.quiet
-                    | {{_ 'or'}}
-                    a.js-list-template {{_ 'template'}}
-          else
-            a.open-list-composer.js-open-inlined-form(title="{{_ 'add-list'}}")
-              i.fa.fa-plus
 
 //- #6465: always-open inline Add List composer, rendered AFTER a list (right in
 //- LTR / left in RTL, via the flex-row lists lane) when that list's header
