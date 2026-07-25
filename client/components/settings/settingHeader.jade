@@ -24,10 +24,6 @@ template(name="settingHeaderBar")
         i.fa.fa-paperclip
         span {{_ 'attachments'}}
 
-      a.setting-header-btn.informations(class=isTranslationActive href="{{pathFor 'translation'}}")
-        span.emoji-icon
-        i.fa.fa-globe
-        span {{_ 'translation'}}
 
       a.setting-header-btn.informations(class=isInformationActive href="{{pathFor 'information'}}")
         span.emoji-icon

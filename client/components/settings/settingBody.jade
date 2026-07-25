@@ -58,6 +58,8 @@ template(name="setting")
             +announcementSettings
           else if isAccessibilitySetting
             +accessibilitySettings
+          else if isTranslationSetting
+            +translationSettings
           else if isLayoutSetting
             +pwaSettings
           else if isWebhookSetting

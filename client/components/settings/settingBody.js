@@ -232,6 +232,7 @@ Template.setting.onCreated(function () {
   this.emailSetting = new ReactiveVar(false);
   this.tableVisibilityModeSetting = new ReactiveVar(false);
   this.hideBoardActivitiesSetting = new ReactiveVar(false);
+  this.translationSetting = new ReactiveVar(false);
   this.announcementSetting = new ReactiveVar(false);
   this.accessibilitySetting = new ReactiveVar(false);
   this.layoutSetting = new ReactiveVar(false);
@@ -347,6 +348,7 @@ function settingsMenu() {
     { id: 'accessibility-setting', icon: 'fa-universal-access', labelKey: 'accessibility', emoji: true },
     // PWA is an acronym, not a translated string - a literal label, like the
     // Sandstorm entry in Admin Panel / Attachments.
+    { id: 'translation-setting', icon: 'fa-globe', labelKey: 'translation', emoji: true },
     { id: 'layout-setting', icon: 'fa-mobile', label: 'PWA', emoji: true },
     { id: 'webhook-setting', icon: 'fa-globe', labelKey: 'global-webhook', emoji: true },
   ];
@@ -363,6 +365,7 @@ function activeSettingId(inst) {
     ['hideBoardActivitiesSetting', 'hideBoardActivities-setting'],
     ['announcementSetting', 'announcement-setting'],
     ['accessibilitySetting', 'accessibility-setting'],
+    ['translationSetting', 'translation-setting'],
     ['layoutSetting', 'layout-setting'],
     ['webhookSetting', 'webhook-setting'],
   ];
@@ -384,6 +387,10 @@ Template.setting.helpers({
   isEmailSetting() {
     const inst = Template.instance();
     return inst.emailSetting && inst.emailSetting.get();
+  },
+  isTranslationSetting() {
+    const inst = Template.instance();
+    return inst.translationSetting && inst.translationSetting.get();
   },
   isHideBoardActivitiesSetting() {
     const inst = Template.instance();
@@ -566,6 +573,7 @@ Template.setting.events({
       tpl.emailSetting.set(false);
       tpl.tableVisibilityModeSetting.set(false);
     tpl.hideBoardActivitiesSetting.set(false);
+    tpl.translationSetting.set(false);
       tpl.announcementSetting.set(false);
       tpl.accessibilitySetting.set(false);
       tpl.layoutSetting.set(false);
@@ -580,6 +588,8 @@ Template.setting.events({
         tpl.tableVisibilityModeSetting.set(true);
       } else if (targetID === 'hideBoardActivities-setting') {
         tpl.hideBoardActivitiesSetting.set(true);
+      } else if (targetID === 'translation-setting') {
+        tpl.translationSetting.set(true);
       } else if (targetID === 'announcement-setting') {
         tpl.announcementSetting.set(true);
       } else if (targetID === 'accessibility-setting') {

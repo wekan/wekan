@@ -228,11 +228,10 @@ test('the shared menu reproduces each page icon shape', () => {
   assert.strictEqual(red.iconWrapCls, 'text-red');
 });
 
-test('Settings, Features, Translation and Info render the shared menu too', () => {
+test('Settings, Features and Info render the shared menu too', () => {
   const pages = [
     ['settingBody', 'settingsMenu()', 'js-setting-menu'],
     ['adminFeatures', 'FEATURES_MENU', 'js-features-menu'],
-    ['translationBody', 'TRANSLATION_MENU', 'js-translation-menu'],
     ['informationBody', 'INFO_MENU', 'js-setting-menu'],
   ];
   for (const [file, list, jsClass] of pages) {
@@ -291,8 +290,10 @@ test('Admin Panel / People renders the shared menu from data', () => {
 
 test('ALL seven Admin Panel pages now render the shared menu', () => {
   // The design is only worth having if nothing is left outside it.
+  // Translation moved INTO Settings as a pane, so it no longer has a menu of its
+  // own - it is one entry in the Settings menu now.
   const pages = ['settingBody', 'peopleBody', 'adminFeatures', 'attachments',
-    'adminReports', 'translationBody', 'informationBody'];
+    'adminReports', 'informationBody'];
   for (const page of pages) {
     const pageJade = read(`client/components/settings/${page}.jade`);
     assert.ok(/\+leftMenu\(menuItems\)/.test(pageJade), `${page}: renders the shared menu`);
@@ -312,6 +313,26 @@ test('Attachments keeps its Sandstorm entry and its literal label', () => {
   const [lit] = lib.buildMenuItems([{ id: 's', label: 'Sandstorm' }], 's');
   assert.strictEqual(lit.label, 'Sandstorm');
   assert.strictEqual(lit.labelKey, '');
+});
+
+test('Translation is a Settings pane, not a page of its own', () => {
+  const js = read('client/components/settings/settingBody.js');
+  const jadeSrc = read('client/components/settings/settingBody.jade');
+  assert.ok(/id: 'translation-setting'/.test(js), 'it is an entry in the Settings menu');
+  assert.ok(/\+translationSettings/.test(jadeSrc), 'and Settings renders the pane');
+  // The old top-level tab and its helper are gone.
+  const header = read('client/components/settings/settingHeader.jade');
+  assert.ok(!/pathFor 'translation'/.test(header), 'the Admin Panel tab must be gone');
+  assert.ok(!/isTranslationActive/.test(read('client/components/settings/settingHeader.js')));
+  // The pane carries the state that feeds its table - a child template cannot
+  // see a parent page that no longer renders it.
+  const body = read('client/components/settings/translationBody.js');
+  assert.ok(/Template\.translationSettings\.onCreated/.test(body));
+  assert.ok(!/Template\.translation\./.test(body), 'the old page template must be gone');
+  // The URL still resolves, redirecting rather than rendering a dead template.
+  const router = read('config/router.js');
+  assert.ok(!/content: 'translation'/.test(router), 'it must not render the old template');
+  assert.ok(/FlowRouter\.go\('setting'\)/.test(router), 'a bookmark must land in Settings');
 });
 
 console.log(`\nleftMenu: ${passed} tests passed`);

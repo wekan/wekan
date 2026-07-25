@@ -39,9 +39,6 @@ Template.settingHeaderBar.helpers({
   isAttachmentsActive() {
     return FlowRouter.getRouteName() === 'attachments' ? 'active' : '';
   },
-  isTranslationActive() {
-    return FlowRouter.getRouteName() === 'translation' ? 'active' : '';
-  },
   isInformationActive() {
     return FlowRouter.getRouteName() === 'information' ? 'active' : '';
   },

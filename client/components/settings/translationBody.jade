@@ -1,31 +1,20 @@
-template(name="translation")
-  .setting-content
-    unless currentUser.isAdmin
-      | {{_ 'error-notAuthorized'}}
-    else
-      .content-title.ext-box
-        .ext-box-left
-          if loading.get
-            +spinner
-          else if translationSetting.get
-            span
-              i.fa.fa-globe
-              unless isMiniScreen
-                | {{_ 'translation'}}
-            input#searchTranslationInput(placeholder="{{_ 'search'}}")
-            button#searchTranslationButton
-              i.fa.fa-search
-              | {{_ 'search'}}
-            .ext-box-right
-              span {{#unless isMiniScreen}}{{_ 'translation-number'}}{{/unless}} #{translationNumber}
-
-      .content-body
-        +leftMenu(menuItems)
-        .main-body
-          if loading.get
-            +spinner
-          else if translationSetting.get
-            +translationGeneral
+//- Admin Panel / Settings / Translation. Was a top-level Admin Panel page with
+//- its own shell and left menu; it is a pane now, so Settings owns both. The
+//- state that feeds the table lives on THIS template, which is why the whole
+//- page became one - a child cannot see a parent page that no longer renders it.
+template(name="translationSettings")
+  ul#translation-setting.setting-detail
+    li
+      input#searchTranslationInput(placeholder="{{_ 'search'}}")
+      button#searchTranslationButton
+        i.fa.fa-search
+        | {{_ 'search'}}
+      span.translation-number {{_ 'translation-number'}} #{translationNumber}
+    li
+      if loading.get
+        +spinner
+      else
+        +translationGeneral
 
 template(name="translationGeneral")
   table

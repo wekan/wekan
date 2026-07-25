@@ -1,12 +1,13 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import { buildMenuItems } from '/models/lib/leftMenu';
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
 
 const translationsPerPage = 25;
 
-Template.translation.onCreated(function () {
+Template.translationSettings.onCreated(function () {
   this.error = new ReactiveVar('');
   this.loading = new ReactiveVar(false);
+  // Kept true: the pane only exists while Settings is showing it, so there is no
+  // longer a flag to toggle - the old value came from its own menu handler.
   this.translationSetting = new ReactiveVar(true);
   this.findTranslationsOptions = new ReactiveVar({});
   this.numberTranslations = new ReactiveVar(0);
@@ -47,16 +48,7 @@ Template.translation.onCreated(function () {
   });
 });
 
-// A single-entry side menu, still built the shared way so the page has no
-// menu markup of its own (docs/Design/Page/Left-Menu.md).
-const TRANSLATION_MENU = [
-  { id: 'translation-setting', icon: 'fa-globe', labelKey: 'translation' },
-];
-
-Template.translation.helpers({
-  menuItems() {
-    return buildMenuItems(TRANSLATION_MENU, 'translation-setting', 'js-translation-menu');
-  },
+Template.translationSettings.helpers({
   loading() {
     return Template.instance().loading;
   },
@@ -83,7 +75,7 @@ Template.translation.helpers({
   },
 });
 
-Template.translation.events({
+Template.translationSettings.events({
   'click #searchTranslationButton'(event, tpl) {
     _filterTranslation(tpl);
   },
@@ -94,15 +86,6 @@ Template.translation.events({
   },
   'click #newTranslationButton'() {
     Popup.open('newTranslation');
-  },
-  'click a.js-translation-menu'(event, tpl) {
-    const target = $(event.target);
-    if (!target.hasClass('active')) {
-      $('.side-menu li.active').removeClass('active');
-      target.parent().addClass('active');
-      const targetID = target.data('id');
-      tpl.translationSetting.set('translation-setting' === targetID);
-    }
   },
   'scroll .main-body'(event, tpl) {
     tpl.infiniteScrolling.checkScrollPosition(event.currentTarget, () => {
