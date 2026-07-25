@@ -32,6 +32,35 @@ Everything that makes a table page work. Paths are from the repository root.
 | `models/eventLog.js` | `.js` model + methods | The Security / Speed / Tests / CPU usage streams: `eventLogPage`, `eventLogCount`, and the `{stream, at}` index that keeps them fast. |
 | `tests/tablePage.test.cjs` | `.cjs` Node test | The **one** suite for all of the above: the pure helpers, the template, the layout rules this page promises, the themed pager, that paging stays server-side and index-backed, and the "one implementation" guarantee. It also checks that every path in this table still exists. |
 
+## Pages that do not use this design
+
+Pages with a paginated table that are **not** built from this design, and why.
+Listed so nobody has to re-derive the answer by reading the code, and so the gap
+is visible rather than forgotten.
+
+| Table name | Menu path | Why it does not use this design |
+| --- | --- | --- |
+| People | Admin Panel / People | Predates this design and has its own controls and table markup, one per pane (Organizations, Teams, People, Domains, Locked users, Roles, Shared templates) — so it is several tables on one page rather than one. It also carries four things this template has no slot for: a **filter dropdown** (all / locked / active / inactive / admin), **action buttons** ("Unlock all users", "Add / Remove Teams"), a **result count** beside the controls, and a separate **Search button** where a table page searches on Enter. |
+
+What People already shares, and what converting it would take:
+
+- It **does** page server-side with `limit`/`skip`, one page at a time, exactly as
+  [Data loading](#data-loading) requires — that part needs no change.
+- Its prev/next buttons **are** themed by the shared pager stylesheet, through the
+  `.people-pagination` class listed in `paginationControls.css` — so it already
+  follows the per-user theme and the WeKan default.
+- What is missing is on this side: the shared template needs optional slots in the
+  controls row for a **filter**, for extra **actions**, and for a **total**, all
+  rendered only when a page supplies them. Those are general — a Boards or Cards
+  report could use them too — so they belong here rather than in a per-page copy.
+  The Search button is not worth carrying over: every table page searches on Enter,
+  and People should join that rather than the template growing a second way to
+  search.
+
+Until then People keeps its own markup. Do **not** copy this design's classes into
+it piecemeal: half-converted is how the ten report pages drifted apart in the first
+place.
+
 ## Pages that use this design
 
 ### Admin Panel

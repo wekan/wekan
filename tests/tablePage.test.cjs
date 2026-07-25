@@ -442,4 +442,23 @@ test('archivedBoards is server-side paginated with BOTH search and pagination co
   assert.ok(/js-archived-boards-prev-page/.test(jade) && /js-archived-boards-next-page/.test(jade), 'prev/next controls');
 });
 
+test('the doc records which pages do NOT use this design, and why', () => {
+  // A page with a paginated table that is not built from this design is a gap.
+  // Writing it down keeps it visible instead of being re-derived from the code.
+  const at = doc.indexOf('## Pages that do not use this design');
+  assert.ok(at > 0, 'the section must exist');
+  assert.ok(at < doc.indexOf('## Pages that use this design'),
+    'it comes before the pages that DO use the design');
+  const section = doc.slice(at, doc.indexOf('## Pages that use this design'));
+  assert.ok(/\| People \| Admin Panel \/ People \|/.test(section),
+    'People must be listed with its menu path and a reason');
+  // The reason has to say something; a row with an empty why is worse than none.
+  const why = /\| People \| Admin Panel \/ People \| ([^|]+) \|/.exec(section);
+  assert.ok(why && why[1].trim().length > 80, 'the reason must actually explain');
+  // And it must still be true: People has none of this design's markup.
+  const people = read('client/components/settings/peopleBody.jade');
+  assert.ok(!/table-page-controls|table-page-table/.test(people),
+    'if People ever gains this markup, move it to the other section');
+});
+
 console.log(`\ntablePage: ${passed} tests passed`);
