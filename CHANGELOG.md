@@ -226,6 +226,42 @@ This release fixes the following CRITICAL SECURITY ISSUE of [ZipBleed](https://w
 
 and fixes the following bugs:
 
+- [Admin Panel / People / People showed nothing at all — no table, no search box, no
+  pager. `buildFilters` and `buildActions` were used to declare that pane's filter
+  dropdown and its two action buttons, but were never imported. That is not a build
+  error: it is a ReferenceError thrown inside a helper while rendering, which Blaze
+  answers by rendering nothing. Organizations, Teams and Domains use neither function,
+  which is what made it look like a People-only
+  problem](https://github.com/wekan/wekan/commit/d23219407).
+  Thanks to xet7.
+- [The right-hand side of an Admin Panel table is no longer off screen. Reported on
+  Domains, and just as true of Admin Panel / Version, where the value column was cut
+  off at the window edge: two admin stylesheets forced `min-width: 1200px !important;
+  width: max-content !important` with nowrap cells on a bare `table` selector — one of
+  them with no page in the selector at all, so it reached every table in WeKan, and
+  `!important` beat the shared table page's own width:100% + table-layout:fixed. The
+  same rules made a SHORT table shrink to its content instead of filling the panel. No
+  admin table is forced wide any more: it fits its panel and its cells wrap, at every
+  width, and the shared table page's width and wrapping are `!important` so a
+  stylesheet in another folder cannot silently override
+  them](https://github.com/wekan/wekan/commit/d23219407).
+  Thanks to xet7.
+- [An empty Admin Panel table now still shows its header, so Organizations, Teams,
+  People and Translation can create their FIRST row: the "New" link is a column
+  header, and the table used to be hidden entirely when there were no rows — leaving a
+  pane with no way to add anything. The "no items" message sits below the table
+  now](https://github.com/wekan/wekan/commit/d23219407).
+  Thanks to xet7.
+- [Every control in an Admin Panel table's controls row sits at the same height, and
+  the action buttons follow the theme instead of coming out black. "Unlock all users"
+  was lower and shorter than "Teams" beside it: it carried a 20px top margin and a
+  28px height from the old hand-written page header, and the buttons that kept the
+  global `margin-bottom: 14px` of forms.css were centred higher than the ones that did
+  not. The action buttons are themed with the pager, in the one stylesheet that owns
+  those colours, with every state spelled out — a bare `button` otherwise falls
+  through to the forms.css fallback, which is literally
+  black](https://github.com/wekan/wekan/commit/d23219407).
+  Thanks to xet7.
 - [A long Admin Panel left menu scrolls inside its panel instead of spilling out of it.
   Admin Panel / Problems is the longest — fifteen entries since Performance, Security and
   Notifications joined it — and its last four sat on the page’s grey with no panel behind
@@ -526,6 +562,40 @@ and has the following developer-facing change:
   in `docs/Design/Page/Table.md`; the History, CPU usage and Recovery design docs link
   to it and keep only what is specific to
   them](https://github.com/wekan/wekan/commit/9791993d5).
+  Thanks to xet7.
+
+and changes the Admin Panel as follows:
+
+- [Every Admin Panel pane opens with the same heading, and the heading is the open
+  left-menu entry's own label. Before this only the paginated table pages had a title
+  at all: Domains said "Domains" while Login, Announcement, Accessibility, PWA and
+  Version opened with no heading. Deriving it from the menu is what keeps them
+  identical — a pane cannot end up with a title of a different size, in different
+  words, or with none at all, and renaming a menu entry renames its pane title with
+  it. One class sizes it, and the shared table page's own title carries that class
+  too, so a table pane and a form pane look the same. Described in
+  `docs/Design/Page/Left-Menu.md`](https://github.com/wekan/wekan/commit/d23219407).
+  Thanks to xet7.
+- [Admin Panel / Settings / Translation renders through the shared table page
+  (`docs/Design/Page/Table.md`) instead of a hand-written table: the layout, the
+  search box, the themed pager and the total are the shared ones, and the pane keeps
+  only its four columns, its interactive row and its "New" link. It also pages ONE
+  page of 25 rows server-side with limit/skip and a count method, where it used to
+  grow a window by infinite scroll, and the publication publishes the field it is
+  sorted by so the client's order matches the server's
+  page](https://github.com/wekan/wekan/commit/d23219407).
+  Thanks to xet7.
+- [Version is the FIRST pane of Admin Panel / Settings and the one that opens with the
+  page, so what an admin sees when opening the Admin Panel is the version, database
+  and system information they usually came for. Its own page, its one-entry left menu
+  and its tab in the Admin Panel bar are gone — a page whose menu had a single entry
+  was a page in name only — and the `/information` URL redirects to Settings, the same
+  move Translation made](https://github.com/wekan/wekan/commit/d23219407).
+  Thanks to xet7.
+- [Admin Panel / People: Domains moves up beside E-mail, the settings it is about,
+  instead of sitting at the end after the Roles and Shared templates checkbox lists;
+  and Admin Panel / Attachments: Backup moves to the top of its
+  menu](https://github.com/wekan/wekan/commit/d23219407).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their
