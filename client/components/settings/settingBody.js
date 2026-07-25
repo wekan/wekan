@@ -231,7 +231,6 @@ Template.setting.onCreated(function () {
   this.generalSetting = new ReactiveVar(true);
   this.emailSetting = new ReactiveVar(false);
   this.tableVisibilityModeSetting = new ReactiveVar(false);
-  this.hideBoardActivitiesSetting = new ReactiveVar(false);
   this.translationSetting = new ReactiveVar(false);
   this.announcementSetting = new ReactiveVar(false);
   this.accessibilitySetting = new ReactiveVar(false);
@@ -343,7 +342,6 @@ function settingsMenu() {
     // key are unchanged, so the 141 translations of the pane's own contents are
     // untouched; only the menu label points at the new key.
     { id: 'tableVisibilityMode-setting', icon: 'fa-eye', labelKey: 'visibility', emoji: true },
-    { id: 'hideBoardActivities-setting', icon: 'fa-eye-slash', labelKey: 'hide-activities-of-all-boards', emoji: true },
     { id: 'announcement-setting', icon: 'fa-bullhorn', labelKey: 'admin-announcement', emoji: true },
     { id: 'accessibility-setting', icon: 'fa-universal-access', labelKey: 'accessibility', emoji: true },
     // PWA is an acronym, not a translated string - a literal label, like the
@@ -362,7 +360,6 @@ function activeSettingId(inst) {
     ['generalSetting', 'registration-setting'],
     ['emailSetting', 'email-setting'],
     ['tableVisibilityModeSetting', 'tableVisibilityMode-setting'],
-    ['hideBoardActivitiesSetting', 'hideBoardActivities-setting'],
     ['announcementSetting', 'announcement-setting'],
     ['accessibilitySetting', 'accessibility-setting'],
     ['translationSetting', 'translation-setting'],
@@ -391,10 +388,6 @@ Template.setting.helpers({
   isTranslationSetting() {
     const inst = Template.instance();
     return inst.translationSetting && inst.translationSetting.get();
-  },
-  isHideBoardActivitiesSetting() {
-    const inst = Template.instance();
-    return inst.hideBoardActivitiesSetting && inst.hideBoardActivitiesSetting.get();
   },
   isTableVisibilityModeSetting() {
     const inst = Template.instance();
@@ -572,7 +565,6 @@ Template.setting.events({
       tpl.generalSetting.set(false);
       tpl.emailSetting.set(false);
       tpl.tableVisibilityModeSetting.set(false);
-    tpl.hideBoardActivitiesSetting.set(false);
     tpl.translationSetting.set(false);
       tpl.announcementSetting.set(false);
       tpl.accessibilitySetting.set(false);
@@ -586,8 +578,6 @@ Template.setting.events({
         tpl.emailSetting.set(true);
             } else if (targetID === 'tableVisibilityMode-setting') {
         tpl.tableVisibilityModeSetting.set(true);
-      } else if (targetID === 'hideBoardActivities-setting') {
-        tpl.hideBoardActivitiesSetting.set(true);
       } else if (targetID === 'translation-setting') {
         tpl.translationSetting.set(true);
       } else if (targetID === 'announcement-setting') {

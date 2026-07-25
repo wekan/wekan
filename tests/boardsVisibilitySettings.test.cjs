@@ -102,14 +102,30 @@ test('the i18n keys are unchanged (the strings only moved)', () => {
   assert.strictEqual(en['hide-board-member-list'], 'Hide board member list on All Boards');
 });
 
-test('hide board activities is its own pane, not a Layout button', () => {
-  assert.ok(jade.includes("template(name='hideBoardActivitiesSettings')"),
-    'it has its own pane now');
-  assert.ok(!pwa.includes('js-all-boards-hide-activities'),
-    'the Layout button must be gone');
-  assert.ok(!js.includes('js-all-boards-hide-activities'),
-    'and its handler with it');
-  assert.ok(/id: 'hideBoardActivities-setting'/.test(js), 'it has a menu entry');
+test('hide board activities sits in Visibility, under the visibility choice', () => {
+  // It had a pane of its own for one radio pair. It is a visibility setting, so it
+  // lives in the Visibility pane now - directly BELOW "allow private boards only".
+  assert.ok(!jade.includes("template(name='hideBoardActivitiesSettings')"),
+    'the one-setting pane is gone');
+  assert.ok(!/id: 'hideBoardActivities-setting'/.test(js),
+    'and so is its left-menu entry');
+  const pane = jade.slice(jade.indexOf("ul#tableVisibilityMode-setting"),
+    jade.indexOf("template(name='announcementSettings')"));
+  const allow = pane.indexOf("tableVisibilityMode-allowPrivateOnly");
+  const activities = pane.indexOf("hide-activities-of-all-boards");
+  assert.ok(activities > -1, 'it renders in the Visibility pane');
+  assert.ok(allow > -1 && activities > allow, 'directly below the visibility choice');
+  // Branding fields the pane also owns go ABOVE that choice.
+  for (const key of ['custom-product-name', 'hide-logo']) {
+    const at = pane.indexOf(key);
+    assert.ok(at > -1 && at < allow, key + ' belongs above the visibility choice');
+  }
+  // The old Layout button and handler stay gone.
+  assert.ok(!pwa.includes('js-all-boards-hide-activities'), 'the Layout button must be gone');
+  assert.ok(!js.includes('js-all-boards-hide-activities'), 'and its handler with it');
+  // Its Save button moved with it, so the handler still has something to fire on.
+  assert.ok(pane.includes('js-hide-board-activities-save'),
+    'its save button came along, or the setting could not be saved');
 });
 
 test('hide board activities is ONE global setting, not a write per board', () => {

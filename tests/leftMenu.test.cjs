@@ -291,7 +291,7 @@ test('Settings keeps its Sandstorm exception and one active pane', () => {
   // No 'account-setting': its three settings moved to Email and Login, so the
   // pane was removed rather than left empty.
   for (const id of ['registration-setting', 'email-setting',
-    'tableVisibilityMode-setting', 'hideBoardActivities-setting',
+    'tableVisibilityMode-setting',
     'announcement-setting', 'accessibility-setting',
     'layout-setting', 'webhook-setting']) {
     assert.ok(js.includes(`'${id}'`), `${id} must be in both the menu and the id map`);
