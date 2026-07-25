@@ -177,6 +177,50 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   `language-*` classes on `<span>` inside `pre>code` only, which is a security trade-off xet7 has not
   decided on yet (adds a dependency + loosens the XSS sanitizer + needs a browser build to verify).
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [A finished MongoDB → FerretDB migration on Snap no longer leaves WeKan on 503.
+  Upgrading from 6.09 to 10.37 migrated successfully and then served 503 until the
+  admin ran `snap restart wekan` by hand, with WeKan looping "MongoDB not ready yet,
+  retrying in 5 seconds..." against a MongoDB the migration had just shut down for
+  good. `mongodb-control` ends with `exec bash $SNAP/bin/migration-control`, so the
+  migration script IS the `wekan.mongodb` service process — and the switch stopped
+  that service before restarting WeKan, so systemd killed the script at the stop and
+  the restart on the next line never ran. WeKan is now handed over to FerretDB BEFORE
+  MongoDB is stopped, the stop is the last command in the switch, and the traps are
+  disarmed first so being stopped there no longer logs "Interrupted (snap refresh,
+  stop or reboot)" after a migration that in fact succeeded. Because that restart is
+  the last act of a script being killed, it is no longer the only way out: WeKan's
+  MongoDB wait now re-reads the live `database` setting each round and re-execs onto
+  FerretDB when it has been switched, so a migration finishing mid-wait recovers on
+  its own within five seconds](https://github.com/wekan/wekan/commit/403831afb).
+  Thanks to S0QR2 and xet7.
+
+and has the following developer-facing change:
+
+- [Every paginated admin table — Security, Speed, Tests, CPU usage, Files Report,
+  Rules Report, Boards Report, Cards Report, Impersonation Report and Recovery — now
+  renders through ONE shared table page instead of ten copies of the same markup,
+  helpers and handlers. They differ only in a column list. That made three long-
+  standing layout complaints fixable in one place: the table is full width with
+  `table-layout: fixed`, so every column gets the same percentage of the width and a
+  long id or file name can no longer widen the table past the panel and push its
+  right-hand columns outside the browser window; cell text wraps instead of
+  stretching its column; and on windows ≤ 800px the left menu goes full width on top
+  with the table BELOW it, rather than the two being squeezed side by side until the
+  table is a few dozen pixels wide. Rows run title, status, controls, table. Paging
+  still fetches only the current page, and now takes that window from the same helper
+  that renders "page X / N". The design, and the list of every page that uses it, is
+  in `docs/Design/Table-Page.md`; the History, CPU usage and Recovery design docs link
+  to it and keep only what is specific to
+  them](https://github.com/wekan/wekan/commit/abe7815f0).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.37 2026-07-25 WeKan ® release
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code
