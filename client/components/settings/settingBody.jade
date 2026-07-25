@@ -12,11 +12,6 @@ template(name="setting")
         .main-body
           if isLoading
             +spinner
-          else if isGeneralSetting
-            +general
-          else if isEmailSetting
-            unless isSandstorm
-              +email
           else if isTableVisibilityModeSetting
             +tableVisibilityModeSettings
           else if isAnnouncementSetting
@@ -34,6 +29,9 @@ template(name="webhookSettings")
   span
      +outgoingWebhooksPopup
 
+//- The Login pane. Admin Panel / PEOPLE renders this now (peopleBody.jade); it is
+//- defined here, with the other admin settings panes, because Blaze templates are
+//- global and its handlers sit beside the other settings handlers in settingBody.js.
 template(name="general")
   ul#registration-setting.setting-detail
     li
@@ -97,6 +95,7 @@ template(name="general")
         input.wekan-form-control#oidcBtnTextvalue(type="text", placeholder="" value="{{currentSetting.oidcBtnText}}")
       button.js-account-access-save.primary {{_ 'save'}}
 
+//- The E-mail pane. Rendered by Admin Panel / People too - see the note above.
 template(name='email')
   ul#email-setting.setting-detail
     //if isSandstorm

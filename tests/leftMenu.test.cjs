@@ -294,20 +294,32 @@ test('Settings, Features and Info render the shared menu too', () => {
   }
 });
 
-test('Settings keeps its Sandstorm exception and one active pane', () => {
+test('the Sandstorm exception moved to People with the E-mail pane', () => {
+  // Login and E-mail are People panes now, so the entry that is dropped on a
+  // Sandstorm deployment lives with them.
+  const people = read('client/components/settings/peopleBody.js');
+  assert.ok(/isSandstorm \? null :/.test(people),
+    'the e-mail entry is still absent on Sandstorm - a dropped null, not empty markup');
+  assert.ok(/function peopleMenu\(\)/.test(people),
+    'so the menu is built by a function, which can read Meteor.settings at call time');
+  const settings = read('client/components/settings/settingBody.js');
+  assert.ok(!/isSandstorm/.test(settings),
+    'and Settings no longer needs the check - its conditional entry left');
+});
+
+test('Settings still maps every pane it can open to one active id', () => {
   const js = read('client/components/settings/settingBody.js');
-  assert.ok(/isSandstorm \? null :/.test(js),
-    'the e-mail entry is still absent on Sandstorm - as a dropped null, not empty markup');
   assert.ok(/function activeSettingId/.test(js),
-    'the eight per-pane vars are mapped to ONE active id');
+    'the per-pane vars are mapped to ONE active id');
   // Every pane the menu can open must be mapped, or that entry never highlights.
-  // No 'account-setting': its three settings moved to Email and Login, so the
-  // pane was removed rather than left empty.
-  for (const id of ['registration-setting', 'email-setting',
-    'tableVisibilityMode-setting',
+  // No registration-setting/email-setting: those two moved to Admin Panel / People.
+  for (const id of ['tableVisibilityMode-setting',
     'announcement-setting', 'accessibility-setting',
     'layout-setting', 'webhook-setting']) {
     assert.ok(js.includes(`'${id}'`), `${id} must be in both the menu and the id map`);
+  }
+  for (const gone of ['registration-setting', 'email-setting']) {
+    assert.ok(!js.includes(`'${gone}'`), `${gone} moved to People and must not linger here`);
   }
 });
 
@@ -316,7 +328,9 @@ test('Admin Panel / People renders the shared menu from data', () => {
   const pageJs = read('client/components/settings/peopleBody.js').replace(/^\s*\/\/.*$/gm, '');
   assert.ok(/\+leftMenu\(menuItems\)/.test(pageJade), 'renders the shared menu');
   assert.ok(!/\.side-menu/.test(pageJade), 'no hand-written menu markup left');
-  assert.ok(/PEOPLE_MENU = \[/.test(pageJs) && /leftMenuData\(PEOPLE_MENU/.test(pageJs),
+  // A function rather than a bare array since the E-mail entry it gained is dropped
+  // on Sandstorm, which has to be read at call time.
+  assert.ok(/function peopleMenu\(\)/.test(pageJs) && /leftMenuData\(peopleMenu\(\)/.test(pageJs),
     'its entries are data, built by the shared helper');
   // Seven near-identical handlers collapsed to one.
   for (const old of ['js-org-menu', 'js-team-menu', 'js-people-menu',
@@ -329,9 +343,15 @@ test('Admin Panel / People renders the shared menu from data', () => {
   for (const extra of ['refreshOrgsCount', 'refreshTeamsCount', 'refreshUsersCount']) {
     assert.ok(pageJs.includes(extra), `${extra} must still run on its pane`);
   }
-  // Active row from state, not from a hand-toggled class.
-  assert.ok(/activeMenuId = new ReactiveVar\('org-setting'\)/.test(pageJs),
-    'the open pane is state now, and starts on the pane orgSetting starts true for');
+  // Active row from state, not from a hand-toggled class. Login is the first entry
+  // since it moved here from Settings, so it is the pane the page opens on - and the
+  // var it reads must be the one that starts true.
+  assert.ok(/activeMenuId = new ReactiveVar\('registration-setting'\)/.test(pageJs),
+    'the open pane is state, and starts on the first entry in the menu');
+  assert.ok(/registrationSetting = new ReactiveVar\(true\)/.test(pageJs),
+    'and that pane is the one whose var starts true');
+  assert.ok(/orgSetting = new ReactiveVar\(false\)/.test(pageJs),
+    'the pane that used to open first must no longer also start true');
   assert.ok(!/side-menu li\.active'\)\.removeClass/.test(pageJs),
     'no manual active-class toggling');
   assert.ok(/iconWrapCls: 'text-red'/.test(pageJs),

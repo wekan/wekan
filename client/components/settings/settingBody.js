@@ -228,9 +228,9 @@ Template.setting.onCreated(function () {
   this.error = new ReactiveVar('');
   this.loading = new ReactiveVar(false);
   this.forgotPasswordSetting = new ReactiveVar(false);
-  this.generalSetting = new ReactiveVar(true);
-  this.emailSetting = new ReactiveVar(false);
-  this.tableVisibilityModeSetting = new ReactiveVar(false);
+  // Visibility is the FIRST pane now that Login and E-mail moved to People, so it
+  // is the one that opens with the page.
+  this.tableVisibilityModeSetting = new ReactiveVar(true);
   this.translationSetting = new ReactiveVar(false);
   this.announcementSetting = new ReactiveVar(false);
   this.accessibilitySetting = new ReactiveVar(false);
@@ -328,16 +328,7 @@ Template.setting.onRendered(function () {
 // `emoji: true` reproduces the empty span.emoji-icon this page always rendered
 // before the icon, so the conversion changes no pixel.
 function settingsMenu() {
-  const isSandstorm =
-    Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm;
   return [
-    // Labelled 'Login': this pane is the sign-in configuration (authentication
-    // method, password login, self-registration, forgot-password), not only
-    // registration. Uses the existing 'login' key, so every language that already
-    // translates it is covered - no new string to translate.
-    { id: 'registration-setting', icon: 'fa-key', labelKey: 'login', emoji: true },
-    // No e-mail settings on Sandstorm; a null entry is dropped, not rendered empty.
-    isSandstorm ? null : { id: 'email-setting', icon: 'fa-envelope', labelKey: 'email', emoji: true },
     // Labelled just 'Visibility' now. The pane id and the tableVisibilityMode
     // key are unchanged, so the 141 translations of the pane's own contents are
     // untouched; only the menu label points at the new key.
@@ -357,8 +348,6 @@ function settingsMenu() {
 // still highlight exactly one row.
 function activeSettingId(inst) {
   const panes = [
-    ['generalSetting', 'registration-setting'],
-    ['emailSetting', 'email-setting'],
     ['tableVisibilityModeSetting', 'tableVisibilityMode-setting'],
     ['announcementSetting', 'announcement-setting'],
     ['accessibilitySetting', 'accessibility-setting'],
@@ -376,14 +365,6 @@ Template.setting.helpers({
   menuItems() {
     const inst = Template.instance();
     return leftMenuData(settingsMenu(), activeSettingId(inst), 'js-setting-menu');
-  },
-  isGeneralSetting() {
-    const inst = Template.instance();
-    return inst.generalSetting && inst.generalSetting.get();
-  },
-  isEmailSetting() {
-    const inst = Template.instance();
-    return inst.emailSetting && inst.emailSetting.get();
   },
   isTranslationSetting() {
     const inst = Template.instance();
@@ -505,42 +486,6 @@ Template.setting.helpers({
 });
 
 Template.setting.events({
-  'click a.js-toggle-forgot-password'(event, tpl) {
-    tpl.loading.set(true);
-    const forgotPasswordClosed =
-      ReactiveCache.getCurrentSetting().disableForgotPassword;
-    Settings.update(ReactiveCache.getCurrentSetting()._id, {
-      $set: { disableForgotPassword: !forgotPasswordClosed },
-    });
-    tpl.loading.set(false);
-  },
-  'click a.js-toggle-registration'(event, tpl) {
-    tpl.loading.set(true);
-    const registrationClosed =
-      ReactiveCache.getCurrentSetting().disableRegistration;
-    Settings.update(ReactiveCache.getCurrentSetting()._id, {
-      $set: { disableRegistration: !registrationClosed },
-    });
-    tpl.loading.set(false);
-    if (registrationClosed) {
-      $('.invite-people').slideUp();
-    } else {
-      $('.invite-people').slideDown();
-    }
-  },
-  'click a.js-toggle-board-members-same-org-team'(event, tpl) {
-    // #6116: toggle the global "add board members from same Org/Team only" setting.
-    tpl.loading.set(true);
-    const current =
-      ReactiveCache.getCurrentSetting().boardMembersFromSameOrgOrTeamOnly;
-    Settings.update(ReactiveCache.getCurrentSetting()._id, {
-      $set: { boardMembersFromSameOrgOrTeamOnly: !current },
-    });
-    tpl.loading.set(false);
-  },
-  'click a.js-toggle-tls'() {
-    $('#mail-server-tls').toggleClass('is-checked');
-  },
   'click a.js-toggle-hide-logo'() {
     $('#hide-logo').toggleClass('is-checked');
   },
@@ -549,9 +494,6 @@ Template.setting.events({
   },
   'click a.js-toggle-hide-board-member-list'() {
     $('#hide-board-member-list').toggleClass('is-checked');
-  },
-  'click a.js-toggle-display-authentication-method'() {
-    $('#display-authentication-method').toggleClass('is-checked');
   },
   'click a.js-setting-menu'(event, tpl) {
     const target = $(event.target);
@@ -562,8 +504,6 @@ Template.setting.events({
 
       // Reset all settings to false
       tpl.forgotPasswordSetting.set(false);
-      tpl.generalSetting.set(false);
-      tpl.emailSetting.set(false);
       tpl.tableVisibilityModeSetting.set(false);
     tpl.translationSetting.set(false);
       tpl.announcementSetting.set(false);
@@ -572,11 +512,7 @@ Template.setting.events({
       tpl.webhookSetting.set(false);
       tpl.attachmentSettings.set(false);
       // Set the selected setting to true
-      if (targetID === 'registration-setting') {
-        tpl.generalSetting.set(true);
-      } else if (targetID === 'email-setting') {
-        tpl.emailSetting.set(true);
-            } else if (targetID === 'tableVisibilityMode-setting') {
+      if (targetID === 'tableVisibilityMode-setting') {
         tpl.tableVisibilityModeSetting.set(true);
       } else if (targetID === 'translation-setting') {
         tpl.translationSetting.set(true);
@@ -595,88 +531,6 @@ Template.setting.events({
         console.log('Initializing attachment sub-menu');
       }
     }
-  },
-  'click a.js-toggle-board-choose'(event) {
-    let target = $(event.target);
-    if (!target.hasClass('js-toggle-board-choose')) {
-      target = target.parent();
-    }
-    const checkboxId = target.attr('id');
-    $(`#${checkboxId} .materialCheckBox`).toggleClass('is-checked');
-    $(`#${checkboxId}`).toggleClass('is-checked');
-  },
-  'click button.js-email-invite'(event, tpl) {
-    const emails = $('#email-to-invite')
-      .val()
-      .toLowerCase()
-      .trim()
-      .split('\n')
-      .join(',')
-      .split(',');
-    const boardsToInvite = [];
-    $('.js-toggle-board-choose .materialCheckBox.is-checked').each(function () {
-      boardsToInvite.push($(this).data('id'));
-    });
-    const validEmails = [];
-    emails.forEach((email) => {
-      if (email && /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(email.trim())) {
-        validEmails.push(email.trim());
-      }
-    });
-    if (validEmails.length) {
-      tpl.loading.set(true);
-      Meteor.call('sendInvitation', validEmails, boardsToInvite, () => {
-        // if (!err) {
-        //   TODO - show more info to user
-        // }
-        tpl.loading.set(false);
-      });
-    }
-  },
-  'click button.js-save'(event, tpl) {
-    tpl.loading.set(true);
-    $('li').removeClass('has-error');
-
-    try {
-      const host = checkField('#mail-server-host');
-      const port = checkField('#mail-server-port');
-      const username = $('#mail-server-username').val().trim();
-      const password = $('#mail-server-password').val().trim();
-      const from = checkField('#mail-server-from');
-      const tls = $('#mail-server-tls.is-checked').length > 0;
-      Settings.update(ReactiveCache.getCurrentSetting()._id, {
-        $set: {
-          'mailServer.host': host,
-          'mailServer.port': port,
-          'mailServer.username': username,
-          'mailServer.password': password,
-          'mailServer.enableTLS': tls,
-          'mailServer.from': from,
-          // Moved here with its input: the Layout save used to read
-          // #mailDomainNamevalue, which is not in that pane any more - so saving
-          // Layout would have written an empty domain over the stored one.
-          ...($('#mailDomainNamevalue').length
-            ? { mailDomainName: ($('#mailDomainNamevalue').val() || '').trim() }
-            : {}),
-        },
-      });
-    } catch (e) {
-      return;
-    } finally {
-      tpl.loading.set(false);
-    }
-  },
-  'click button.js-send-smtp-test-email'() {
-    Meteor.call('sendSMTPTestEmail', (err, ret) => {
-      if (!err && ret) {
-        const message = `${TAPi18n.__(ret.message)}: ${ret.email}`;
-        alert(message);
-      } else {
-        const reason = err.reason || '';
-        const message = `${TAPi18n.__(err.error)}\n${reason}`;
-        alert(message);
-      }
-    });
   },
 
   'click a.js-toggle-support'(event, tpl) {
@@ -961,6 +815,8 @@ const accountAccessHelpers = {
     return AccountSettings.findOne('accounts-allowUserDelete')?.booleanValue || false;
   },
 };
+// Both panes show account-access settings, so both need these helpers.
+Template.general.helpers(accountAccessHelpers);
 Template.email.helpers(accountAccessHelpers);
 Template.setting.helpers(accountAccessHelpers);
 
@@ -973,48 +829,6 @@ Template.setting.helpers(accountAccessHelpers);
 // The button lives in the Login pane, which Template.setting renders, so the
 // handler belongs there.
 Template.setting.events({
-  // Login pane: the two account-access settings that moved here.
-  'click button.js-account-access-save'() {
-    // Moved here from Layout with their inputs. Both are Settings fields, unlike
-    // the two AccountSettings ones below, so they are a separate write - and each
-    // is written only when its input is actually on screen.
-    const $settings = {};
-    const display = $('input[name=displayAuthenticationMethod]:checked').val();
-    if (display !== undefined) {
-      $settings.displayAuthenticationMethod = display === 'true';
-    }
-    if ($('#defaultAuthenticationMethod').length) {
-      // value can still be '' / null when Save is clicked. Saving that empty value
-      // over the required `defaultAuthenticationMethod` string silently failed
-      // validation, so the Layout save looked like it hung / did nothing. Fall back
-      // to the currently stored method so a real value is never overwritten by ''.
-      const currentDefaultAuthenticationMethod =
-        ReactiveCache.getCurrentSetting()?.defaultAuthenticationMethod;
-      const defaultAuthenticationMethod = resolveDefaultAuthenticationMethod(
-        $('#defaultAuthenticationMethod').val(),
-        currentDefaultAuthenticationMethod,
-      );
-      $settings.defaultAuthenticationMethod = defaultAuthenticationMethod;
-    }
-    if ($('#oidcBtnTextvalue').length) {
-      $settings.oidcBtnText = ($('#oidcBtnTextvalue').val() || '').trim();
-    }
-    if (Object.keys($settings).length) {
-      Settings.update(ReactiveCache.getCurrentSetting()._id, { $set: $settings });
-    }
-    const uname = $('input[name=allowUserNameChange]:checked').val();
-    const del = $('input[name=allowUserDelete]:checked').val();
-    if (uname !== undefined) {
-      AccountSettings.update('accounts-allowUserNameChange', {
-        $set: { booleanValue: uname === 'true' },
-      });
-    }
-    if (del !== undefined) {
-      AccountSettings.update('accounts-allowUserDelete', {
-        $set: { booleanValue: del === 'true' },
-      });
-    }
-  },
 
 });
 
@@ -1232,5 +1046,183 @@ Template.selectSpinnerName.helpers({
   },
   isSelected(match) {
     return Template.instance().data.spinnerName === match;
+  },
+});
+
+// The Login pane's own behaviour. These handlers were registered on
+// Template.setting, which is fine only while Settings renders the pane. Admin Panel /
+// People renders it now, and Blaze delivers an event to the handlers of the template
+// the element is IN - so on Template.setting they would simply never fire. A pane
+// owning its own handlers works wherever the pane is rendered.
+Template.general.events({
+  'click a.js-toggle-forgot-password'(event, tpl) {
+    tpl.loading.set(true);
+    const forgotPasswordClosed =
+      ReactiveCache.getCurrentSetting().disableForgotPassword;
+    Settings.update(ReactiveCache.getCurrentSetting()._id, {
+      $set: { disableForgotPassword: !forgotPasswordClosed },
+    });
+    tpl.loading.set(false);
+  },
+  'click a.js-toggle-registration'(event, tpl) {
+    tpl.loading.set(true);
+    const registrationClosed =
+      ReactiveCache.getCurrentSetting().disableRegistration;
+    Settings.update(ReactiveCache.getCurrentSetting()._id, {
+      $set: { disableRegistration: !registrationClosed },
+    });
+    tpl.loading.set(false);
+    if (registrationClosed) {
+      $('.invite-people').slideUp();
+    } else {
+      $('.invite-people').slideDown();
+    }
+  },
+  'click a.js-toggle-board-members-same-org-team'(event, tpl) {
+    // #6116: toggle the global "add board members from same Org/Team only" setting.
+    tpl.loading.set(true);
+    const current =
+      ReactiveCache.getCurrentSetting().boardMembersFromSameOrgOrTeamOnly;
+    Settings.update(ReactiveCache.getCurrentSetting()._id, {
+      $set: { boardMembersFromSameOrgOrTeamOnly: !current },
+    });
+    tpl.loading.set(false);
+  },
+  'click a.js-toggle-display-authentication-method'() {
+    $('#display-authentication-method').toggleClass('is-checked');
+  },
+  'click a.js-toggle-board-choose'(event) {
+    let target = $(event.target);
+    if (!target.hasClass('js-toggle-board-choose')) {
+      target = target.parent();
+    }
+    const checkboxId = target.attr('id');
+    $(`#${checkboxId} .materialCheckBox`).toggleClass('is-checked');
+    $(`#${checkboxId}`).toggleClass('is-checked');
+  },
+  'click button.js-email-invite'(event, tpl) {
+    const emails = $('#email-to-invite')
+      .val()
+      .toLowerCase()
+      .trim()
+      .split('\n')
+      .join(',')
+      .split(',');
+    const boardsToInvite = [];
+    $('.js-toggle-board-choose .materialCheckBox.is-checked').each(function () {
+      boardsToInvite.push($(this).data('id'));
+    });
+    const validEmails = [];
+    emails.forEach((email) => {
+      if (email && /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(email.trim())) {
+        validEmails.push(email.trim());
+      }
+    });
+    if (validEmails.length) {
+      tpl.loading.set(true);
+      Meteor.call('sendInvitation', validEmails, boardsToInvite, () => {
+        // if (!err) {
+        //   TODO - show more info to user
+        // }
+        tpl.loading.set(false);
+      });
+    }
+  },
+  // Login pane: the two account-access settings that moved here.
+  'click button.js-account-access-save'() {
+    // Moved here from Layout with their inputs. Both are Settings fields, unlike
+    // the two AccountSettings ones below, so they are a separate write - and each
+    // is written only when its input is actually on screen.
+    const $settings = {};
+    const display = $('input[name=displayAuthenticationMethod]:checked').val();
+    if (display !== undefined) {
+      $settings.displayAuthenticationMethod = display === 'true';
+    }
+    if ($('#defaultAuthenticationMethod').length) {
+      // value can still be '' / null when Save is clicked. Saving that empty value
+      // over the required `defaultAuthenticationMethod` string silently failed
+      // validation, so the Layout save looked like it hung / did nothing. Fall back
+      // to the currently stored method so a real value is never overwritten by ''.
+      const currentDefaultAuthenticationMethod =
+        ReactiveCache.getCurrentSetting()?.defaultAuthenticationMethod;
+      const defaultAuthenticationMethod = resolveDefaultAuthenticationMethod(
+        $('#defaultAuthenticationMethod').val(),
+        currentDefaultAuthenticationMethod,
+      );
+      $settings.defaultAuthenticationMethod = defaultAuthenticationMethod;
+    }
+    if ($('#oidcBtnTextvalue').length) {
+      $settings.oidcBtnText = ($('#oidcBtnTextvalue').val() || '').trim();
+    }
+    if (Object.keys($settings).length) {
+      Settings.update(ReactiveCache.getCurrentSetting()._id, { $set: $settings });
+    }
+    const uname = $('input[name=allowUserNameChange]:checked').val();
+    const del = $('input[name=allowUserDelete]:checked').val();
+    if (uname !== undefined) {
+      AccountSettings.update('accounts-allowUserNameChange', {
+        $set: { booleanValue: uname === 'true' },
+      });
+    }
+    if (del !== undefined) {
+      AccountSettings.update('accounts-allowUserDelete', {
+        $set: { booleanValue: del === 'true' },
+      });
+    }
+  },
+});
+// The E-mail pane's own behaviour. These handlers were registered on
+// Template.setting, which is fine only while Settings renders the pane. Admin Panel /
+// People renders it now, and Blaze delivers an event to the handlers of the template
+// the element is IN - so on Template.setting they would simply never fire. A pane
+// owning its own handlers works wherever the pane is rendered.
+Template.email.events({
+  'click a.js-toggle-tls'() {
+    $('#mail-server-tls').toggleClass('is-checked');
+  },
+  'click button.js-save'(event, tpl) {
+    tpl.loading.set(true);
+    $('li').removeClass('has-error');
+
+    try {
+      const host = checkField('#mail-server-host');
+      const port = checkField('#mail-server-port');
+      const username = $('#mail-server-username').val().trim();
+      const password = $('#mail-server-password').val().trim();
+      const from = checkField('#mail-server-from');
+      const tls = $('#mail-server-tls.is-checked').length > 0;
+      Settings.update(ReactiveCache.getCurrentSetting()._id, {
+        $set: {
+          'mailServer.host': host,
+          'mailServer.port': port,
+          'mailServer.username': username,
+          'mailServer.password': password,
+          'mailServer.enableTLS': tls,
+          'mailServer.from': from,
+          // Moved here with its input: the Layout save used to read
+          // #mailDomainNamevalue, which is not in that pane any more - so saving
+          // Layout would have written an empty domain over the stored one.
+          ...($('#mailDomainNamevalue').length
+            ? { mailDomainName: ($('#mailDomainNamevalue').val() || '').trim() }
+            : {}),
+        },
+      });
+    } catch (e) {
+      return;
+    } finally {
+      tpl.loading.set(false);
+    }
+  },
+  'click button.js-send-smtp-test-email'() {
+    Meteor.call('sendSMTPTestEmail', (err, ret) => {
+      if (!err && ret) {
+        const message = `${TAPi18n.__(ret.message)}: ${ret.email}`;
+        alert(message);
+      } else {
+        const reason = err.reason || '';
+        const message = `${TAPi18n.__(err.error)}\n${reason}`;
+        alert(message);
+      }
+    });
   },
 });

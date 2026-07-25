@@ -11,6 +11,14 @@ template(name="people")
         .main-body
           if loading.get
             +spinner
+          //- Login and E-mail moved here from Admin Panel / Settings. Their templates
+          //- still live in settingBody.jade beside the other settings panes - Blaze
+          //- templates are global - and their handlers moved onto those templates so
+          //- they fire wherever the pane is rendered.
+          else if registrationSetting.get
+            +general
+          else if emailSetting.get
+            +email
           else if orgSetting.get
             +orgGeneral(orgTablePageData)
           else if teamSetting.get

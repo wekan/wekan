@@ -25,7 +25,9 @@ Template.people.onCreated(function () {
 
   this.error = new ReactiveVar('');
   this.loading = new ReactiveVar(false);
-  this.orgSetting = new ReactiveVar(true);
+  this.registrationSetting = new ReactiveVar(true);
+  this.emailSetting = new ReactiveVar(false);
+  this.orgSetting = new ReactiveVar(false);
   this.teamSetting = new ReactiveVar(false);
   this.peopleSetting = new ReactiveVar(false);
   this.lockedUsersSetting = new ReactiveVar(false);
@@ -231,7 +233,7 @@ Template.people.onCreated(function () {
   // Which pane is open. The seven booleans below are derived from it; the shared
   // left menu (docs/Design/Page/Left-Menu.md) renders the active row from it, so
   // the menu no longer has to be highlighted by hand.
-  this.activeMenuId = new ReactiveVar('org-setting');
+  this.activeMenuId = new ReactiveVar('registration-setting');
 
   this.switchMenu = (event) => {
     // data-id is on the anchor; event.target may be the icon inside it.
@@ -241,6 +243,8 @@ Template.people.onCreated(function () {
     // activeMenuId now, so compare ids instead of reading a DOM class.
     if (targetID && targetID !== this.activeMenuId.get()) {
       this.activeMenuId.set(targetID);
+      this.registrationSetting.set('registration-setting' === targetID);
+      this.emailSetting.set('email-setting' === targetID);
       this.orgSetting.set('org-setting' === targetID);
       this.teamSetting.set('team-setting' === targetID);
       this.peopleSetting.set('people-setting' === targetID);
@@ -310,15 +314,27 @@ Template.people.onCreated(function () {
 
 // The People side menu, as data (docs/Design/Page/Left-Menu.md). Locked users
 // keeps the red lock it always had, via the coloured icon wrapper.
-const PEOPLE_MENU = [
-  { id: 'org-setting', icon: 'fa-globe', labelKey: 'organizations' },
-  { id: 'team-setting', icon: 'fa-users', labelKey: 'teams' },
-  { id: 'people-setting', icon: 'fa-user', labelKey: 'people' },
-  { id: 'locked-users-setting', icon: 'fa-lock', labelKey: 'accounts-lockout-locked-users', iconWrapCls: 'text-red' },
-  { id: 'roles-setting', icon: 'fa-key', labelKey: 'roles' },
-  { id: 'templates-setting', icon: 'fa-clone', labelKey: 'shared-templates' },
-  { id: 'domains-setting', icon: 'fa-at', labelKey: 'domains' },
-];
+// A function, not a bare array: the E-mail entry depends on whether this is a
+// Sandstorm deployment, which has to be read at call time from Meteor.settings.
+function peopleMenu() {
+  const isSandstorm =
+    Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm;
+  return [
+    // Moved here from Admin Panel / Settings: both panes are about the people who can
+    // sign in and how they are reached, which is what this page is for. The ids and
+    // i18n keys are unchanged, so every existing translation still applies.
+    { id: 'registration-setting', icon: 'fa-key', labelKey: 'login', emoji: true },
+    // No e-mail settings on Sandstorm; a null entry is dropped, not rendered empty.
+    isSandstorm ? null : { id: 'email-setting', icon: 'fa-envelope', labelKey: 'email', emoji: true },
+    { id: 'org-setting', icon: 'fa-globe', labelKey: 'organizations' },
+    { id: 'team-setting', icon: 'fa-users', labelKey: 'teams' },
+    { id: 'people-setting', icon: 'fa-user', labelKey: 'people' },
+    { id: 'locked-users-setting', icon: 'fa-lock', labelKey: 'accounts-lockout-locked-users', iconWrapCls: 'text-red' },
+    { id: 'roles-setting', icon: 'fa-key', labelKey: 'roles' },
+    { id: 'templates-setting', icon: 'fa-clone', labelKey: 'shared-templates' },
+    { id: 'domains-setting', icon: 'fa-at', labelKey: 'domains' },
+  ];
+}
 
 // Organizations through the shared table page (docs/Design/Page/Table.md). Its
 // rows are interactive - inline checkboxes and edit links - so it supplies a
@@ -482,10 +498,16 @@ Template.people.helpers({
     };
   },
   menuItems() {
-    return leftMenuData(PEOPLE_MENU, Template.instance().activeMenuId.get());
+    return leftMenuData(peopleMenu(), Template.instance().activeMenuId.get());
   },
   loading() {
     return Template.instance().loading;
+  },
+  registrationSetting() {
+    return Template.instance().registrationSetting;
+  },
+  emailSetting() {
+    return Template.instance().emailSetting;
   },
   orgSetting() {
     return Template.instance().orgSetting;
