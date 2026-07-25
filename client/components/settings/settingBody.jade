@@ -197,30 +197,34 @@ template(name='email')
 template(name='tableVisibilityModeSettings')
   ul#tableVisibilityMode-setting.setting-detail
     li
-      h2.admin-pane-group-title {{_ 'all-boards'}}
+      h2.admin-pane-group-title {{_ 'all-boards-hide'}}
     li.tableVisibilityMode-form
-      .title {{_ 'tableVisibilityMode-allowPrivateOnly'}}
+      //- "Public boards", under the "All Boards: Hide" title above: Yes hides
+      //- them, which is what allowPrivateOnly does. The setting's own key keeps its
+      //- sentence - boardBody.jade shows it as the message on a board you may not
+      //- open, where a two-word label would say nothing.
+      .title {{_ 'public-boards'}}
       .form-group.flex
         input.wekan-form-control#accounts-allowPrivateOnly(type="radio" name="allowPrivateOnly" value="true" checked="{{#if allowPrivateOnly}}checked{{/if}}")
         label {{_ 'yes'}}
         input.wekan-form-control#accounts-allowPrivateOnly(type="radio" name="allowPrivateOnly" value="false" checked="{{#unless allowPrivateOnly}}checked{{/unless}}")
         label {{_ 'no'}}
     li.hideBoardActivities-form
-      .title {{_ 'hide-activities-of-all-boards'}}
+      .title {{_ 'board-activities'}}
       .form-group.flex
         input.wekan-form-control#hide-board-activities(type="radio" name="hideBoardActivitiesOnAllBoards" value="true" checked="{{#if currentSetting.hideBoardActivitiesOnAllBoards}}checked{{/if}}")
         label {{_ 'yes'}}
         input.wekan-form-control#hide-board-activities(type="radio" name="hideBoardActivitiesOnAllBoards" value="false" checked="{{#unless currentSetting.hideBoardActivitiesOnAllBoards}}checked{{/unless}}")
         label {{_ 'no'}}
     li.tableVisibilityMode-form
-      .title {{_ 'hide-card-counter-list'}}
+      .title {{_ 'card-counter-list'}}
       .form-group.flex
         input.wekan-form-control#hide-card-counter-list(type="radio" name="hideCardCounterList" value="true" checked="{{#if currentSetting.hideCardCounterList}}checked{{/if}}")
         label {{_ 'yes'}}
         input.wekan-form-control#hide-card-counter-list(type="radio" name="hideCardCounterList" value="false" checked="{{#unless currentSetting.hideCardCounterList}}checked{{/unless}}")
         label {{_ 'no'}}
     li.tableVisibilityMode-form
-      .title {{_ 'hide-board-member-list'}}
+      .title {{_ 'board-member-list'}}
       .form-group.flex
         input.wekan-form-control#hide-board-member-list(type="radio" name="hideBoardMemberList" value="true" checked="{{#if currentSetting.hideBoardMemberList}}checked{{/if}}")
         label {{_ 'yes'}}

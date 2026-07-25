@@ -62,8 +62,13 @@ test('the pane is the one shown as "Visibility"', () => {
 });
 
 test('both settings are now in the Visibility pane', () => {
+  // The INPUT ids are unchanged - only the labels were renamed - so both the id and
+  // the new label key have to be there.
   for (const id of ['hide-card-counter-list', 'hide-board-member-list']) {
     assert.ok(boardsVisibility.includes(id), `${id} must be in the Visibility pane`);
+  }
+  for (const key of ['card-counter-list', 'board-member-list']) {
+    assert.ok(boardsVisibility.includes(`{{_ '${key}'}}`), `${key} must label its row`);
   }
   // Radios, with both states bound to the stored value as before.
   assert.ok(/name="hideCardCounterList"[\s\S]*?checked="\{\{#if currentSetting\.hideCardCounterList\}\}/.test(boardsVisibility));
@@ -132,9 +137,33 @@ test('each section of Visibility has its own Save, above its rule', () => {
   }
 });
 
-test('the i18n keys are unchanged (the strings only moved)', () => {
-  assert.strictEqual(en['hide-card-counter-list'], 'Hide card counter list on All Boards');
-  assert.strictEqual(en['hide-board-member-list'], 'Hide board member list on All Boards');
+test('the All Boards labels are short, under a title that says "Hide"', () => {
+  // The rows all sat under a title reading "All Boards" and each repeated it:
+  // "Hide card counter list on All Boards". The title says "All Boards: Hide" and
+  // each row says only what is hidden. Keys were renamed with their values, so no
+  // language is left showing the old sentence under the new title - they fall back
+  // to English until retranslated.
+  assert.strictEqual(en['all-boards-hide'], 'All Boards: Hide');
+  assert.strictEqual(en['public-boards'], 'Public boards');
+  assert.strictEqual(en['board-activities'], 'Board activities');
+  assert.strictEqual(en['card-counter-list'], 'Card counter list');
+  assert.strictEqual(en['board-member-list'], 'Board member list');
+  for (const gone of ['hide-card-counter-list', 'hide-board-member-list',
+    'hide-activities-of-all-boards']) {
+    assert.ok(!(gone in en), `${gone} was renamed, so it must be gone from en`);
+    assert.ok(!new RegExp(`\\{\\{_ '${gone}'\\}\\}`).test(jade),
+      `${gone} must not still be rendered anywhere`);
+  }
+  // 'all-boards' keeps its own value: the menus and the All Boards page use it.
+  assert.strictEqual(en['all-boards'], 'All Boards');
+  // ...and so does the boards-visibility setting's own key, which is the message
+  // boardBody.jade shows on a board you may not open - where "Public boards" alone
+  // would say nothing.
+  assert.strictEqual(en['tableVisibilityMode-allowPrivateOnly'],
+    'Boards visibility: Allow private boards only');
+  assert.ok(read('client/components/boards/boardBody.jade')
+    .includes("{{_ 'tableVisibilityMode-allowPrivateOnly'}}"),
+    'which is why that key had to keep its sentence');
 });
 
 test('Visibility is four named groups, in order, and nothing was dropped', () => {
@@ -146,7 +175,7 @@ test('Visibility is four named groups, in order, and nothing was dropped', () =>
   const groups = [...pane.matchAll(/h2\.admin-pane-group-title \{\{_ '([\w-]+)'\}\}/g)]
     .map(m => m[1]);
   assert.deepStrictEqual(groups,
-    ['all-boards', 'settings-group-url', 'custom-product-name', 'settings-group-logo'],
+    ['all-boards-hide', 'settings-group-url', 'custom-product-name', 'settings-group-logo'],
     'four groups, top to bottom');
   // Product name holds ONE field, so its group title IS that field's label - with
   // the label's existing translation, at the group title's size. Printing both said
@@ -167,11 +196,11 @@ test('Visibility is four named groups, in order, and nothing was dropped', () =>
   const at = key => pane.indexOf(key);
   const group = key => groups.filter(g => at(g) > -1 && at(g) < at(key)).pop();
   for (const [key, expected] of [
-    ['tableVisibilityMode-allowPrivateOnly', 'all-boards'],
-    ['hide-activities-of-all-boards', 'all-boards'],
-    ['hide-card-counter-list', 'all-boards'],
-    ['hide-board-member-list', 'all-boards'],
-    ['wait-spinner', 'all-boards'],
+    ['public-boards', 'all-boards-hide'],
+    ['board-activities', 'all-boards-hide'],
+    ['card-counter-list', 'all-boards-hide'],
+    ['board-member-list', 'all-boards-hide'],
+    ['wait-spinner', 'all-boards-hide'],
     ['support-page-enabled', 'settings-group-url'],
     ['custom-help-link-url', 'settings-group-url'],
     ['custom-legal-notice-link-url', 'settings-group-url'],
@@ -193,7 +222,7 @@ test('Visibility is four named groups, in order, and nothing was dropped', () =>
     groups.length - 1,
     'a horizontal rule above URL, Product name and Logo, but not above All Boards');
   const firstRule = pane.indexOf('li.admin-pane-group-separator');
-  assert.ok(firstRule > pane.indexOf("_ 'all-boards'") && firstRule < pane.indexOf("settings-group-url"),
+  assert.ok(firstRule > pane.indexOf("_ 'all-boards-hide'") && firstRule < pane.indexOf("settings-group-url"),
     'the first rule sits between the All Boards group and the URL title');
   assert.ok(pane.indexOf('js-visibility-logo-save') > at('custom-top-left-corner-logo-height'),
     'the Logo section Save sits below every field it writes');
@@ -208,8 +237,8 @@ test('hide board activities sits in Visibility, under the visibility choice', ()
     'and so is its left-menu entry');
   const pane = jade.slice(jade.indexOf("ul#tableVisibilityMode-setting"),
     jade.indexOf("template(name='announcementSettings')"));
-  const allow = pane.indexOf("tableVisibilityMode-allowPrivateOnly");
-  const activities = pane.indexOf("hide-activities-of-all-boards");
+  const allow = pane.indexOf("_ 'public-boards'");
+  const activities = pane.indexOf("_ 'board-activities'");
   assert.ok(activities > -1, 'it renders in the Visibility pane');
   assert.ok(allow > -1 && activities > allow, 'directly below the visibility choice');
   // The pane is in four named groups now (All Boards, URL, Product name, Logo), so
