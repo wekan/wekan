@@ -149,6 +149,28 @@ test('no band of grey follows the swimlane resize bar', () => {
   assert.ok(!/margin-bottom:\s*2rem/.test(all), 'the old 2rem band must be gone');
 });
 
+test('NO mobile rule leaves a bottom margin on a swimlane, header or list', () => {
+  // boardHeader.css restates the same selectors in several later blocks - the mobile
+  // overrides, a media query, a "force mobile mode" block. Later rules of equal
+  // specificity WIN, so zeroing the margin in the first block only looks fixed: the
+  // duplicates put the band straight back. This checks every block, not the first one.
+  const offenders = [];
+  const src = boardHeader.replace(/\/\*[\s\S]*?\*\//g, c => c.replace(/[^\n]/g, ' '));
+  const targets = /\.mobile-mode [^{}]*\.(swimlane|swimlane-header|list)\b[^{}]*\{/;
+  for (const block of src.split('}')) {
+    const head = block.slice(block.lastIndexOf('\n', block.indexOf('{')) + 1);
+    if (!targets.test(head + '{')) continue;
+    const body = block.slice(block.indexOf('{') + 1);
+    // A non-zero bottom margin, written either way round.
+    const m = /margin-bottom:\s*(?!0)([\w.]+)/.exec(body)
+      || /margin:\s*[\w.]+\s+[\w.]+\s+(?!0)([\w.]+)/.exec(body);
+    if (m) offenders.push(`${head.trim()} -> ${m[0]}`);
+  }
+  assert.deepStrictEqual(offenders, [],
+    'these put a fixed band of grey below a swimlane, header or list:\n  '
+    + offenders.join('\n  '));
+});
+
 test('the resize bar still resizes', () => {
   // The height being dragged is an INLINE style. Overriding it with
   // `height: auto !important` would make the bar do nothing at all, so the container

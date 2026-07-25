@@ -223,7 +223,9 @@
   max-width: 100% !important;
   font-size: 18px !important;
   padding: 1rem !important;
-  margin-bottom: 1rem !important;
+  /* No margin under the header bar: it is a fixed band of the swimlane's lighter
+     grey between the bar and the first list, with nothing in it. */
+  margin-bottom: 0 !important;
   /* Flex, not block: the title is a bare text node / .viewer, and as a block it sat
      at the TOP of a band whose height comes from the padding and the menu icons
      beside it. Centred on its line instead. */
@@ -243,7 +245,11 @@
   max-width: 100% !important;
   display: block !important;
   float: none !important;
-  margin-bottom: 2rem !important;
+  /* No margin under a list either. Lists are separated by the 2px border below, and
+     on the LAST list this margin was a fixed band of empty grey between it and the
+     swimlane resize bar - the band that travelled with the bar when the swimlane was
+     resized. */
+  margin-bottom: 0 !important;
   border-inline-start: none !important;
   border-bottom: 2px solid #ccc !important;
   clear: both !important;
@@ -604,7 +610,7 @@
     width: 100% !important;
     max-width: 100% !important;
     min-width: 100% !important;
-    margin: 0 0 2rem 0 !important;
+    margin: 0 !important;
     padding: 0 !important;
     float: none !important;
     clear: both !important;
@@ -615,7 +621,7 @@
     width: 100% !important;
     max-width: 100% !important;
     min-width: 100% !important;
-    margin: 0 0 1rem 0 !important;
+    margin: 0 !important;
     padding: 1rem !important;
     font-size: 18px !important;
     font-weight: bold !important;
@@ -640,7 +646,7 @@
     width: 100% !important;
     max-width: 100% !important;
     min-width: 100% !important;
-    margin: 0 0 2rem 0 !important;
+    margin: 0 !important;
     padding: 0 !important;
     float: none !important;
     clear: both !important;
@@ -677,7 +683,7 @@
   min-width: 100% !important;
   height: auto !important;
   min-height: 60px !important;
-  margin: 0 0 2rem 0 !important;
+  margin: 0 !important;
   padding: 0 !important;
   float: none !important;
   clear: both !important;
@@ -695,7 +701,7 @@
   min-width: 100% !important;
   height: auto !important;
   min-height: 60px !important;
-  margin: 0 0 2rem 0 !important;
+  margin: 0 !important;
   padding: 0 !important;
   float: none !important;
   clear: both !important;
@@ -726,7 +732,7 @@
   width: 100% !important;
   max-width: 100% !important;
   min-width: 100% !important;
-  margin: 0 0 2rem 0 !important;
+  margin: 0 !important;
   padding: 0 !important;
   float: none !important;
   clear: both !important;
@@ -766,7 +772,7 @@
     width: 100% !important;
     max-width: 100% !important;
     min-width: 100% !important;
-    margin: 0 0 2rem 0 !important;
+    margin: 0 !important;
     padding: 0 !important;
     float: none !important;
     clear: both !important;
@@ -790,7 +796,7 @@
     width: 100% !important;
     max-width: 100% !important;
     min-width: 100% !important;
-    margin: 0 0 2rem 0 !important;
+    margin: 0 !important;
     padding: 0 !important;
     float: none !important;
     clear: both !important;
