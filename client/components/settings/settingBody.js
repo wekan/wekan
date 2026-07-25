@@ -974,7 +974,15 @@ const accountAccessHelpers = {
 Template.email.helpers(accountAccessHelpers);
 Template.setting.helpers(accountAccessHelpers);
 
-Template.accountSettings.events({
+// The accountSettings TEMPLATE was removed when its three settings moved to Email
+// and Login, but this handler was left registered on it. Template.accountSettings
+// is undefined, so the module threw at load - and because it threw, the rest of
+// the client module graph never ran: passwordInput.jade was never registered and
+// the password fields vanished from /sign-in and /sign-up.
+//
+// The button lives in the Login pane, which Template.setting renders, so the
+// handler belongs there.
+Template.setting.events({
   // Login pane: the two account-access settings that moved here.
   'click button.js-account-access-save'() {
     // Moved here from Layout with their inputs. Both are Settings fields, unlike
