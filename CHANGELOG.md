@@ -196,6 +196,22 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
 
 This release fixes the following bugs:
 
+- [The password field is back on the Sign In and Register pages. Removing the Accounts
+  pane from Admin Panel / Settings — its three settings having moved to E-mail and
+  Login — left that pane's save handler registered on the template that went with it,
+  `Template.accountSettings.events({…})`. Registering a handler on a template that no
+  longer exists throws at MODULE LOAD, and because it threw, no module after it in the
+  client bundle ran: `client/features/users.js` never executed, so the `passwordInput`
+  template was never registered, useraccounts logged "Warning no template passwordInput
+  found!", and both password fields — Password and Password (again) — rendered as
+  nothing. One dead reference in the Admin Panel took out the login form for everyone.
+  The handler now belongs to the template that renders the Login pane. A new guard,
+  `tests/templateHandlersExist.test.cjs`, asserts every
+  `Template.X.events/helpers/onCreated/onRendered/onDestroyed` has a matching
+  `template(name="X")`, because this class of bug parses cleanly, passes every unit
+  test, and shows up only in a browser
+  console](https://github.com/wekan/wekan/commit/696c49038).
+  Thanks to xet7.
 - [A finished MongoDB → FerretDB migration on Snap no longer leaves WeKan on 503.
   Upgrading from 6.09 to 10.37 migrated successfully and then served 503 until the
   admin ran `snap restart wekan` by hand, with WeKan looping "MongoDB not ready yet,
