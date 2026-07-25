@@ -592,6 +592,16 @@ and changes the Admin Panel as follows:
   was a page in name only — and the `/information` URL redirects to Settings, the same
   move Translation made](https://github.com/wekan/wekan/commit/d23219407).
   Thanks to xet7.
+- [Admin Panel / Settings / Visibility is four named groups instead of one long
+  list: **All Boards** (boards visibility, board activities, card counter list,
+  board member list, wait spinner), **URL** (Support, custom help link, custom legal
+  notice, custom URL schemes), then a rule and **Product name**, then a rule and
+  **Logo** (hide logo and the login / top-left-corner logo fields). The settings and
+  their ids are untouched, so the one Save button at the bottom still writes exactly
+  what it did. A group title is smaller than the pane title above it, so the page
+  reads as one heading with groups under it rather than as several pages
+  stacked](https://github.com/wekan/wekan/commit/671262ddb).
+  Thanks to xet7.
 - [Admin Panel / Problems' left menu is two named groups: Summary, then a rule and a
   "Settings" title over the two panes that came from the removed Features tab, then a
   rule and a "Reports" title over the reports. A title is a new kind of menu item with
