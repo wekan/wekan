@@ -221,7 +221,7 @@ This release fixes the following CRITICAL SECURITY ISSUE of [ZipBleed](https://w
   code, not any dependency. `tests/zipbleed.test.cjs` asserts the exact traversal that
   motivated the fix is refused, that a plain entry still restores where it belongs,
   and that the restore really calls both
-  guards](https://github.com/wekan/wekan/commit/COMMITHASH).
+  guards](https://github.com/wekan/wekan/commit/f1c89548e).
   Thanks to xet7.
 
 and fixes the following bugs:
