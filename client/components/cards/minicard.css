@@ -176,32 +176,57 @@
 }
 /* #6521: on a touch device the handle is the ONLY way to drag a card - the rest
    of the minicard deliberately pans the board instead - so it has to be a target
-   a finger can actually hit. A 20-28px icon in the bottom-right corner is a
-   mouse-sized target; on a wall-mounted infoscreen it is close to unusable.
-   On a coarse pointer it becomes a full-height strip down the leading (left in
-   LTR) edge: ~48px wide, the Material minimum, and the easiest edge to reach
-   with a thumb. The icon stays centred in it. Mouse users keep the compact
-   corner handle, since `pointer: coarse` does not match a mouse. */
+   a finger can actually hit. A 20-28px icon in the corner is a mouse-sized
+   target; on a wall-mounted infoscreen it is close to unusable.
+
+   On a coarse pointer the card's two controls become one column down the
+   TRAILING (right in LTR) edge: the details menu on top, the drag handle
+   directly BELOW it. That is where the handle already is for a mouse - just
+   under the menu button - so both pointer kinds put it in the same place, and
+   the thumb-sized version does not move it somewhere else to be looked for.
+   (It was a full-height strip on the LEADING edge, which reached the size goal
+   but put the handle on the opposite side from every other card control.)
+
+   The handle runs from under the menu to the bottom of the card, so on a tall
+   card it is a large target, and a minimum height keeps it a real one on a card
+   with nothing but a title. Mouse users keep the compact corner handle, since
+   `pointer: coarse` does not match a mouse. */
 @media (pointer: coarse) {
-  .minicard .handle {
-    width: 48px;
-    height: 100%;
+  /* Pinned rather than floated: the card gets trailing padding below to keep its
+     text out of this column, and a float would be pushed inward by it. */
+  .minicard .minicard-details-menu-with-handle {
+    position: absolute;
+    float: none;
     top: 0;
-    inset-inline-end: auto;
-    inset-inline-start: 0;
+    inset-inline-end: 0;
+    width: 44px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Faint tint so the strip is discoverable without shouting. */
-    background: rgba(127, 127, 127, 0.08);
-    border-start-start-radius: inherit;
-    border-end-start-radius: inherit;
+    padding: 0;
   }
-  /* The card's own content must not sit under the strip. Keyed off the class,
-     not a sibling selector: the details menu and the dependency handle are
-     absolutely positioned, and a margin would move them. */
+  .minicard .handle {
+    width: 44px;
+    /* From just below the menu button down to the bottom of the card. */
+    top: 32px;
+    bottom: 0;
+    height: auto;
+    min-height: 36px;
+    inset-inline-start: auto;
+    inset-inline-end: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Faint tint so the target is discoverable without shouting. */
+    background: rgba(127, 127, 127, 0.08);
+    border-end-end-radius: inherit;
+  }
+  /* The card's own content must not sit under the column, and the card must be
+     tall enough to hold menu + handle at their minimum sizes (32 + 36). */
   .minicard.minicard-with-handle {
-    padding-inline-start: 48px;
+    padding-inline-end: 44px;
+    min-height: 68px;
   }
   .minicard .handle .drag-handle,
   .minicard .handle .fa {
