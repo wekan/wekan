@@ -68,8 +68,8 @@ test('both settings are now in the Visibility pane', () => {
   // Radios, with both states bound to the stored value as before.
   assert.ok(/name="hideCardCounterList"[\s\S]*?checked="\{\{#if currentSetting\.hideCardCounterList\}\}/.test(boardsVisibility));
   assert.ok(/name="hideBoardMemberList"[\s\S]*?checked="\{\{#if currentSetting\.hideBoardMemberList\}\}/.test(boardsVisibility));
-  // And they are saved by the pane's own button.
-  assert.ok(/js-tableVisibilityMode-save/.test(boardsVisibility));
+  // And they are saved by their section's button - All Boards.
+  assert.ok(/js-visibility-all-boards-save/.test(boardsVisibility));
 });
 
 test('neither setting is left behind in Layout', () => {
@@ -84,17 +84,52 @@ test('the Layout save no longer writes them (this is the trap)', () => {
     'the Layout save is gone entirely - its fields moved with their inputs');
 });
 
-test('the Visibility save writes them, and only what it found', () => {
-  const save = js.slice(js.indexOf("'click button.js-tableVisibilityMode-save'"));
-  const body = save.slice(0, save.indexOf('\n  },') + 4);
+test('the All Boards save writes them, and only what it found', () => {
+  const body = handler('js-visibility-all-boards-save');
   assert.ok(/allowPrivateOnly/.test(body), 'it still saves its own setting');
-  assert.ok(/Settings\.update\(ReactiveCache\.getCurrentSetting\(\)\._id/.test(body),
-    'the two flags live in Settings, so they are a second write');
+  assert.ok(/TableVisibilityModeSettings\.update/.test(body),
+    'boards visibility lives in its own collection, so it is a separate write');
   // Guarded: an input that is not on screen must not be written as false.
   assert.ok(/!== undefined/.test(body),
     'a missing radio must be skipped, never saved as false');
-  assert.ok(/Object\.keys\(\$set\)\.length/.test(body),
-    'and no empty update is sent');
+  assert.ok(/saveVisibilitySettings\(\$set\)/.test(body),
+    'and the Settings write goes through the helper that sends no empty update');
+  assert.ok(/Object\.keys\(\$set\)\.length/.test(js), 'which is what that helper checks');
+});
+
+test('each section of Visibility has its own Save, above its rule', () => {
+  // One Save for the whole pane meant pressing Save in one group also wrote
+  // whatever was half-typed in another. Every section ends with its own button.
+  const pane = boardsVisibility;
+  const buttons = ['js-visibility-all-boards-save', 'js-visibility-url-save',
+    'js-visibility-product-name-save', 'js-visibility-logo-save'];
+  for (const cls of buttons) {
+    assert.ok(pane.includes(cls), `${cls} must be in the pane`);
+    assert.ok(handler(cls).length > 0, `${cls} must have a handler`);
+  }
+  // In section order, each above the rule that closes its section.
+  const at = t => pane.indexOf(t);
+  for (let i = 1; i < buttons.length; i += 1) {
+    assert.ok(at(buttons[i - 1]) < at(buttons[i]), 'the buttons follow the sections');
+  }
+  const rules = [...pane.matchAll(/li\.admin-pane-group-separator/g)].map(m => m.index);
+  assert.strictEqual(rules.length, 3);
+  for (let i = 0; i < rules.length; i += 1) {
+    assert.ok(at(buttons[i]) < rules[i],
+      `${buttons[i]} must sit above the rule that closes its section`);
+  }
+  // The three buttons this replaces are gone - jade AND handler, together.
+  for (const gone of ['js-tableVisibilityMode-save', 'js-hide-board-activities-save',
+    'js-support-save']) {
+    assert.ok(!pane.includes(gone), `${gone} must be gone from the pane`);
+    assert.ok(!js.includes(`'click button.${gone}'`), `${gone}'s handler must be gone too`);
+  }
+  // No section may write another's field: the product name save writes exactly one.
+  const product = handler('js-visibility-product-name-save');
+  for (const foreign of ['hideLogo', 'legalNotice', 'spinnerName', 'allowPrivateOnly']) {
+    assert.ok(!product.includes(foreign),
+      `the Product name save must not write ${foreign}`);
+  }
 });
 
 test('the i18n keys are unchanged (the strings only moved)', () => {
@@ -160,8 +195,8 @@ test('Visibility is four named groups, in order, and nothing was dropped', () =>
   const firstRule = pane.indexOf('li.admin-pane-group-separator');
   assert.ok(firstRule > pane.indexOf("_ 'all-boards'") && firstRule < pane.indexOf("settings-group-url"),
     'the first rule sits between the All Boards group and the URL title');
-  assert.ok(pane.indexOf('js-tableVisibilityMode-save') > at('custom-top-left-corner-logo-height'),
-    'the pane Save button stays at the bottom, below every field it writes');
+  assert.ok(pane.indexOf('js-visibility-logo-save') > at('custom-top-left-corner-logo-height'),
+    'the Logo section Save sits below every field it writes');
 });
 
 test('hide board activities sits in Visibility, under the visibility choice', () => {
@@ -187,20 +222,23 @@ test('hide board activities sits in Visibility, under the visibility choice', ()
   // The old Layout button and handler stay gone.
   assert.ok(!pwa.includes('js-all-boards-hide-activities'), 'the Layout button must be gone');
   assert.ok(!js.includes('js-all-boards-hide-activities'), 'and its handler with it');
-  // Its Save button moved with it, so the handler still has something to fire on.
-  assert.ok(pane.includes('js-hide-board-activities-save'),
-    'its save button came along, or the setting could not be saved');
+  // Its own Save is folded into the All Boards section save, which is what writes
+  // the setting now - the section, not the single setting, owns the button.
+  assert.ok(pane.includes('js-visibility-all-boards-save'),
+    'the section save must exist, or the setting could not be saved');
 });
 
 test('hide board activities is ONE global setting, not a write per board', () => {
   // The old implementation bulk-updated showActivities:false on every board
   // document. That could not be undone - the per-board values were overwritten
   // and gone - and did nothing for boards created afterwards.
-  const body = handler('js-hide-board-activities-save');
-  assert.ok(/Settings\.update\(ReactiveCache\.getCurrentSetting\(\)\._id/.test(body),
+  const body = handler('js-visibility-all-boards-save');
+  assert.ok(/hideBoardActivitiesOnAllBoards/.test(body), 'the section save writes it');
+  assert.ok(/saveVisibilitySettings/.test(body)
+    && /Settings\.update\(ReactiveCache\.getCurrentSetting\(\)\._id/.test(js),
     'it writes ONE global setting');
   assert.ok(!/Boards\.update/.test(body), 'and never touches board documents');
-  assert.ok(/=== undefined/.test(body), 'a missing radio is skipped, not saved as false');
+  assert.ok(/!== undefined/.test(body), 'a missing radio is skipped, not saved as false');
   // Schema field exists, and the read side consults it FIRST.
   assert.ok(/hideBoardActivitiesOnAllBoards: \{\s*type: Boolean/.test(read('models/settings.js')),
     'the global flag must be in the Settings schema');
@@ -264,7 +302,8 @@ test('Support, Email domain name and Legal notice moved out of Layout', () => {
   // it controls - so all of it moved, not just the two visible rows.
   assert.ok(visibility.includes('js-toggle-support'), 'Support enable toggle is in Visibility');
   assert.ok(visibility.includes('href="/support"'), 'the Support link with it');
-  assert.ok(visibility.includes('js-support-save'), 'and the content editor it controls');
+  assert.ok(visibility.includes('js-visibility-url-save'),
+    'and the content editor it controls, saved with the rest of the URL section');
   assert.ok(visibility.includes('custom-legal-notice-link-url'), 'Legal notice URL is in Visibility');
   assert.ok(email.includes('can-invite-if-same-mailDomainName'), 'Email domain name is in Email');
   for (const gone of ['js-toggle-support', 'can-invite-if-same-mailDomainName',
@@ -312,8 +351,8 @@ test('Wait Spinner moved to Visibility', () => {
   assert.ok(visibility.includes('+selectSpinnerName'), 'with its dropdown');
   assert.ok(!pwa.includes('wait-spinner'), 'not in PWA');
   assert.ok(!js.includes('js-save-layout'), 'the Layout save is gone');
-  assert.ok(/\$\('#spinnerName'\)\.length/.test(handler('js-tableVisibilityMode-save')),
-    'the Visibility save writes it only when the input is on screen');
+  assert.ok(/\$\('#spinnerName'\)\.length/.test(handler('js-visibility-all-boards-save')),
+    'the All Boards save writes it only when the input is on screen');
 });
 
 test('every Layout text field the panes took is guarded in its new home', () => {
@@ -359,9 +398,13 @@ test('the branding group landed in Visibility with a guarded save', () => {
     'automatic-linked-url-schemes']) {
     assert.ok(visibility.includes(moved), `${moved} must be in Visibility`);
   }
-  const save = handler('js-tableVisibilityMode-save');
+  const save = handler('js-visibility-product-name-save');
   assert.ok(/\$\('#product-name'\)\.length/.test(save), 'each field is written only when shown');
   assert.ok(/document\.title = /.test(save), 'the product name still retitles the page');
+  // The logo fields are the Logo section's, guarded the same way - by the shared
+  // helper that only collects an input that is actually on screen.
+  assert.ok(/visibilityTextFields\(\[/.test(handler('js-visibility-logo-save')));
+  assert.ok(/if \(\$\(sel\)\.length\)/.test(js), 'and that helper is the guard');
   // OIDC button text went to Login instead.
   assert.ok(/\$\('#oidcBtnTextvalue'\)\.length/.test(handler('js-account-access-save')),
     'the OIDC button text is saved by Login, guarded the same way');

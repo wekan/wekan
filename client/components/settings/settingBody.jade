@@ -212,7 +212,6 @@ template(name='tableVisibilityModeSettings')
         label {{_ 'yes'}}
         input.wekan-form-control#hide-board-activities(type="radio" name="hideBoardActivitiesOnAllBoards" value="false" checked="{{#unless currentSetting.hideBoardActivitiesOnAllBoards}}checked{{/unless}}")
         label {{_ 'no'}}
-      button.js-hide-board-activities-save.primary {{_ 'save'}}
     li.tableVisibilityMode-form
       .title {{_ 'hide-card-counter-list'}}
       .form-group.flex
@@ -230,6 +229,11 @@ template(name='tableVisibilityModeSettings')
     li.tableVisibilityMode-form
       .title {{_ 'wait-spinner'}}
       +selectSpinnerName(spinnerName=currentSetting.spinnerName)
+    li
+      //- One Save per section, at its end, above the rule that closes it. It writes
+      //- this section's fields and nothing else, so saving one group can never
+      //- overwrite what you were editing in another.
+      button.js-visibility-all-boards-save.primary {{_ 'save'}}
 
     li.admin-pane-group-separator
       hr
@@ -256,8 +260,6 @@ template(name='tableVisibilityModeSettings')
           li
             .title {{_ 'support-content'}}
             textarea#support-page-text.wekan-form-control= currentSetting.supportPageText
-          li
-            button.js-support-save.primary {{_ 'save'}}
     li.tableVisibilityMode-form
       .title {{_ 'custom-help-link-url'}}
       .form-group
@@ -270,6 +272,8 @@ template(name='tableVisibilityModeSettings')
       .title {{_ 'automatic-linked-url-schemes'}}
       .form-group
         textarea#automatic-linked-url-schemes.wekan-form-control= currentSetting.automaticLinkedUrlSchemes
+    li
+      button.js-visibility-url-save.primary {{_ 'save'}}
 
     li.admin-pane-group-separator
       hr
@@ -281,6 +285,8 @@ template(name='tableVisibilityModeSettings')
     li.tableVisibilityMode-form
       .form-group
         input.wekan-form-control#product-name(type="text", placeholder="" value="{{currentSetting.productName}}")
+    li
+      button.js-visibility-product-name-save.primary {{_ 'save'}}
 
     li.admin-pane-group-separator
       hr
@@ -317,9 +323,8 @@ template(name='tableVisibilityModeSettings')
       .title {{_ 'custom-top-left-corner-logo-height'}}
       .form-group
         input.wekan-form-control#custom-top-left-corner-logo-height(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoHeight}}")
-      //- One Save for the pane: it writes every field above that is rendered,
-      //- looked up by id - so grouping them changed nothing about what it saves.
-      button.js-tableVisibilityMode-save.primary {{_ 'save'}}
+    li
+      button.js-visibility-logo-save.primary {{_ 'save'}}
 
 template(name='announcementSettings')
   ul#announcement-setting.setting-detail

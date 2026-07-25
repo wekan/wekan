@@ -576,23 +576,10 @@ Template.setting.events({
     });
     tpl.loading.set(false);
   },
-  'click button.js-support-save'(event, tpl) {
-    tpl.loading.set(true);
-    const supportTitle = ($('#support-title').val() || '').trim();
-    const supportPageText = ($('#support-page-text').val() || '').trim();
-    try {
-      Settings.update(Settings.findOne()._id, {
-        $set: {
-          supportTitle,
-          supportPageText,
-        },
-      });
-    } catch (e) {
-      return;
-    } finally {
-      tpl.loading.set(false);
-    }
-  },
+  // The Support page's title and text are saved by the URL section's Save now
+  // (Template.tableVisibilityModeSettings): every section of the Visibility pane
+  // ends with one Save, and a second button inside a section was one of the three
+  // that made the pane look like it saved in pieces.
   'click a.js-toggle-custom-head'(event, tpl) {
     tpl.loading.set(true);
     const customHeadEnabled = !$(
@@ -860,78 +847,107 @@ Template.tableVisibilityModeSettings.helpers({
   },
 });
 
-Template.tableVisibilityModeSettings.events({
-  // Instance-wide 'hide board activities'. This used to be a button that bulk
-  // updated showActivities:false on EVERY board document - which could not be
-  // undone (the per-board values were overwritten and gone) and did nothing for
-  // boards created later. It is one global setting now, read once by the activity
-  // feed, so turning it off restores every board's own value.
-  'click button.js-hide-board-activities-save'() {
-    const value = $('input[name=hideBoardActivitiesOnAllBoards]:checked').val();
-    if (value === undefined) {
-      return;
+// Admin Panel / Settings / Visibility saves per SECTION: All Boards, URL, Product
+// name, Logo each end with their own Save, above the rule that closes the section.
+// Every handler writes only its own fields, so saving one group can never carry
+// half-finished edits from another - which is what one Save for the whole pane did.
+//
+// Each field is written only when its input is actually RENDERED (`$(sel).length`,
+// `!== undefined` for a radio). That guard is not decoration: a read of an absent
+// input returns '' or undefined, and writing that would blank a stored setting or
+// silently turn it off. It is the bug this pane hit every time a field moved here.
+const visibilityText = sel => ($(sel).val() || '').trim();
+
+// Collect the text/textarea fields of a section that are on screen.
+function visibilityTextFields(pairs) {
+  const $set = {};
+  for (const [sel, key] of pairs) {
+    if ($(sel).length) {
+      $set[key] = visibilityText(sel);
     }
-    Settings.update(ReactiveCache.getCurrentSetting()._id, {
-      $set: { hideBoardActivitiesOnAllBoards: value === 'true' },
-    });
-  },
-  'click button.js-tableVisibilityMode-save'() {
+  }
+  return $set;
+}
+
+function saveVisibilitySettings($set) {
+  if (Object.keys($set).length) {
+    Settings.update(ReactiveCache.getCurrentSetting()._id, { $set });
+  }
+}
+
+Template.tableVisibilityModeSettings.events({
+  // ── All Boards ────────────────────────────────────────────────────────────
+  // Boards visibility, board activities, the two All Boards lists and the spinner.
+  //
+  // 'hide board activities' used to be a button that bulk updated
+  // showActivities:false on EVERY board document - which could not be undone (the
+  // per-board values were overwritten and gone) and did nothing for boards created
+  // later. It is one global setting, read once by the activity feed, so turning it
+  // off restores every board's own value.
+  'click button.js-visibility-all-boards-save'() {
+    // Boards visibility lives in its own collection, so it is a separate write.
     const allowPrivateOnly =
       $('input[name=allowPrivateOnly]:checked').val() === 'true';
     TableVisibilityModeSettings.update('tableVisibilityMode-allowPrivateOnly', {
       $set: { booleanValue: allowPrivateOnly },
     });
-    // Moved here from Layout: these two are about what All Boards SHOWS, which is
-    // what this pane is for. They live in Settings, not in
-    // TableVisibilityModeSettings, so they are a second write - guarded so a
-    // missing input can never silently turn a setting off (that is what would
-    // have happened had the reads been left behind in the Layout save).
-    const hideCardCounterList = $('input[name=hideCardCounterList]:checked').val();
-    const hideBoardMemberList = $('input[name=hideBoardMemberList]:checked').val();
     const $set = {};
-    if (hideCardCounterList !== undefined) {
-      $set.hideCardCounterList = hideCardCounterList === 'true';
+    for (const [name, key] of [
+      ['hideBoardActivitiesOnAllBoards', 'hideBoardActivitiesOnAllBoards'],
+      ['hideCardCounterList', 'hideCardCounterList'],
+      ['hideBoardMemberList', 'hideBoardMemberList'],
+    ]) {
+      const value = $(`input[name=${name}]:checked`).val();
+      if (value !== undefined) {
+        $set[key] = value === 'true';
+      }
     }
-    if (hideBoardMemberList !== undefined) {
-      $set.hideBoardMemberList = hideBoardMemberList === 'true';
+    if ($('#spinnerName').length) {
+      $set.spinnerName = visibilityText('#spinnerName');
     }
-    // Moved here with their inputs (same reason as the domain name above): the
-    // Layout save read them, and a missing input reads as '' - which would have
-    // been written over the stored value.
-    // The branding group moved here from the old Layout pane together with its
-    // inputs. Each field is written only when its input is actually rendered, so
-    // this pane can never blank a setting it is not showing.
-    const text = sel => ($(sel).val() || '').trim();
-    if ($('#product-name').length) {
-      $set.productName = text('#product-name');
-      document.title = $set.productName;
+    saveVisibilitySettings($set);
+  },
+
+  // ── URL ───────────────────────────────────────────────────────────────────
+  // The Support page's title and text (its two checkboxes save on click, above),
+  // the help link, the legal notice and the URL schemes that are auto-linked.
+  'click button.js-visibility-url-save'() {
+    saveVisibilitySettings(visibilityTextFields([
+      ['#support-title', 'supportTitle'],
+      ['#support-page-text', 'supportPageText'],
+      ['#custom-help-link-url', 'customHelpLinkUrl'],
+      ['#legalNoticevalue', 'legalNotice'],
+      ['#automatic-linked-url-schemes', 'automaticLinkedUrlSchemes'],
+    ]));
+  },
+
+  // ── Product name ──────────────────────────────────────────────────────────
+  'click button.js-visibility-product-name-save'() {
+    if (!$('#product-name').length) {
+      return;
     }
-    if ($('input[name=hideLogo]:checked').val() !== undefined) {
-      $set.hideLogo = $('input[name=hideLogo]:checked').val() === 'true';
-    }
-    for (const [sel, key] of [
+    const productName = visibilityText('#product-name');
+    // The browser tab says the product name, so it changes with the setting rather
+    // than at the next full page load.
+    document.title = productName;
+    saveVisibilitySettings({ productName });
+  },
+
+  // ── Logo ──────────────────────────────────────────────────────────────────
+  'click button.js-visibility-logo-save'() {
+    const $set = visibilityTextFields([
       ['#custom-login-logo-image-url', 'customLoginLogoImageUrl'],
       ['#custom-login-logo-link-url', 'customLoginLogoLinkUrl'],
-      ['#custom-help-link-url', 'customHelpLinkUrl'],
       ['#text-below-custom-login-logo', 'textBelowCustomLoginLogo'],
       ['#custom-top-left-corner-logo-image-url', 'customTopLeftCornerLogoImageUrl'],
       ['#custom-top-left-corner-logo-link-url', 'customTopLeftCornerLogoLinkUrl'],
       ['#custom-top-left-corner-logo-height', 'customTopLeftCornerLogoHeight'],
-      ['#automatic-linked-url-schemes', 'automaticLinkedUrlSchemes'],
-    ]) {
-      if ($(sel).length) {
-        $set[key] = text(sel);
-      }
+    ]);
+    const hideLogo = $('input[name=hideLogo]:checked').val();
+    if (hideLogo !== undefined) {
+      $set.hideLogo = hideLogo === 'true';
     }
-    if ($('#spinnerName').length) {
-      $set.spinnerName = ($('#spinnerName').val() || '').trim();
-    }
-    if ($('#legalNoticevalue').length) {
-      $set.legalNotice = ($('#legalNoticevalue').val() || '').trim();
-    }
-    if (Object.keys($set).length) {
-      Settings.update(ReactiveCache.getCurrentSetting()._id, { $set });
-    }
+    saveVisibilitySettings($set);
   },
 });
 
