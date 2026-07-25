@@ -1,3 +1,29 @@
+/* The Search button follows the theme instead of coming out BLACK.
+   forms.css styles every bare <button> from var(--theme-accent, #000) - with no
+   per-user theme chosen that fallback is literally black, which is what this button
+   was. It gets the same colours as the other admin buttons
+   (settingBody.css, .setting-detail button.btn): the accent when one is set, the
+   WeKan button blue when it is not.
+   Every state is spelled out because forms.css sets :hover, :focus and :active from
+   the same variable with black-ish fallbacks of their own; overriding only the base
+   would leave a button that turns black the moment you touch it. */
+#translation-setting button#searchTranslationButton {
+  background: var(--theme-accent, #005377);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+}
+#translation-setting button#searchTranslationButton:hover,
+#translation-setting button#searchTranslationButton:focus {
+  background: var(--theme-accent, #004766);
+  color: #fff;
+}
+#translation-setting button#searchTranslationButton:active,
+#translation-setting button#searchTranslationButton:active:hover {
+  background: var(--theme-accent, #01628c);
+  color: #fff;
+}
+
 /* Scrollbar styles are now handled by settingBody.css for all admin pages */
 table {
   color: #000;

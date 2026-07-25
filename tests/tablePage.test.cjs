@@ -659,6 +659,35 @@ test('People uses the shared controls row - search, filter, actions, total', () 
   }
 });
 
+test('the admin panel does not force the shared table wide', () => {
+  // Reported on Domains: the right-hand columns were off screen until you scrolled.
+  // settingBody.css gives every table in the admin body a 1200px floor,
+  // width:max-content and nowrap cells - written to FORCE a horizontal scrollbar,
+  // long before this design existed. Applied to `.table-page-table` it overrode
+  // exactly what makes the shared page fit: width:100%, table-layout:fixed and
+  // wrapping cells.
+  const settings = read('client/components/settings/settingBody.css');
+  const wide = /\.main-body table(:not\([^)]*\))? \{([^}]*)\}/.exec(settings);
+  assert.ok(wide, 'the wide-table rule must still exist for the genuinely wide tables');
+  assert.ok(/min-width:\s*1200px/.test(wide[2]), 'those still get their floor');
+  assert.ok(wide[1] === ':not(.table-page-table)',
+    'and the shared table page must be excluded from it');
+  // The td/th rules that force nowrap and per-column minimums are excluded too -
+  // one of them alone is enough to push the table past the panel.
+  for (const cell of ['td', 'th']) {
+    const rule = new RegExp(`\\.main-body table(:not\\([^)]*\\))? ${cell} \\{`).exec(settings);
+    assert.ok(rule && rule[1] === ':not(.table-page-table)',
+      `the ${cell} rule must exclude the shared table page too`);
+  }
+  // ...and the panel no longer shows a scrollbar for content that fits.
+  const body = /\.main-body \{([^}]*)\}/.exec(settings);
+  assert.ok(/overflow-x:\s*auto/.test(body[1]),
+    'a page whose content fits must not get a scrollbar with nothing to scroll to');
+  // The shared table still owns its own sideways scrolling, as a last resort.
+  assert.ok(/\.table-page-table-wrap \{[^}]*overflow-x:\s*auto/.test(css),
+    'the table wrapper is the one element allowed to scroll sideways');
+});
+
 test('every +tablePage(name) resolves where it is written', () => {
   // Organizations, Teams and People rendered their search box and their pager but NO
   // TABLE. Their wrappers said `+tablePage(orgTablePageData)` while that helper was

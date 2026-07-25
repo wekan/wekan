@@ -14,7 +14,11 @@ template(name="translationSettings")
       if loading.get
         +spinner
       else
-        +translationGeneral
+        //- The list is a helper of THIS template, so it has to be handed down:
+        //- Blaze resolves a name against the current template and the data context,
+        //- never an enclosing template, so `each translation in translationList`
+        //- inside translationGeneral found nothing and the table stayed empty.
+        +translationGeneral(translationList=translationList)
 
 template(name="translationGeneral")
   table

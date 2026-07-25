@@ -88,15 +88,19 @@
   -ms-user-select: text;
   user-select: text;
   max-height: 100%;
-  overflow-x: scroll !important;
+  /* auto, not scroll: a page whose content fits - which every shared table page now
+     does - showed a horizontal scrollbar with nothing to scroll to. The wide admin
+     tables (GridFS stats, Version, Translation) still get one when they need it, and
+     scrollbar-gutter keeps the layout from jumping as it appears. */
+  overflow-x: auto !important;
   overflow-y: scroll !important;
   scrollbar-gutter: stable;
-  /* Grow into the space left next to the side menu. flex-basis MUST be 0 here:
-     this element holds a min-width:1200px table and a 100vw ::after, so a
-     content-based (auto) basis is huge and, as an overflow:scroll flex item,
-     resolves unpredictably (collapsing the panel). Basis 0 + grow makes the
-     width = container - side menu, deterministically. min-width:0 lets it
-     shrink so the side menu is never pushed out on narrow windows. */
+  /* Grow into the space left next to the side menu. flex-basis MUST be 0 here: this
+     element can hold a min-width:1200px table, so a content-based (auto) basis is
+     huge and, as an overflow flex item, resolves unpredictably (collapsing the
+     panel). Basis 0 + grow makes the width = container - side menu,
+     deterministically. min-width:0 lets it shrink so the side menu is never pushed
+     out on narrow windows. */
   flex: 1 1 0;
   min-width: 0;
 }
@@ -131,21 +135,29 @@
   background: #f1f1f1;
 }
 
-/* Ensure tables and content are wide enough to trigger horizontal scrolling */
-.setting-content .content-body .main-body table {
+/* The wide-table treatment is for the admin tables that are NOT the shared table
+   page: the GridFS statistics on Attachments, the counters on Version, the strings on
+   Translation. Those are genuinely wide and are meant to scroll sideways.
+
+   `.table-page-table` is excluded. It is width:100% + table-layout:fixed with equal,
+   wrapping columns precisely so it CANNOT push its right edge off screen (see
+   docs/Design/Page/Table.md), and these three rules overrode all of that: a 1200px
+   floor, width:max-content and nowrap cells put every table page - Domains,
+   Organizations, Teams, People, the Problems reports - behind a horizontal scrollbar,
+   with its right-hand columns out of sight until you scrolled. */
+.setting-content .content-body .main-body table:not(.table-page-table) {
   min-width: 1200px !important;
   width: max-content !important;
   table-layout: auto !important;
 }
 
-/* Force tables to always trigger horizontal scrolling */
-.setting-content .content-body .main-body table td {
+.setting-content .content-body .main-body table:not(.table-page-table) td {
   white-space: nowrap;
   min-width: 120px;
 }
 /* #6465: headers may wrap — nowrap on long header labels (e.g. the org/team
    feature columns) blew the column widths up to the whole label length. */
-.setting-content .content-body .main-body table th {
+.setting-content .content-body .main-body table:not(.table-page-table) th {
   white-space: normal;
   min-width: 120px;
   max-width: 240px;

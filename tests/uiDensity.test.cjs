@@ -124,10 +124,13 @@ test('org/team feature column headers use compact icon links', () => {
 });
 
 test('admin table headers may wrap (td keeps nowrap for scrolling)', () => {
-  const th = settingBody.match(/\.setting-content \.content-body \.main-body table th \{[\s\S]*?\}/);
+  // These apply to the WIDE admin tables only - GridFS stats, Version, Translation.
+  // The shared table page is excluded: it is width:100% with wrapping cells so that
+  // it fits, and nowrap + a per-column minimum pushed its right edge off screen.
+  const th = settingBody.match(/\.main-body table:not\(\.table-page-table\) th \{[\s\S]*?\}/);
   assert.ok(th, 'th rule found');
   assert.ok(th[0].includes('white-space: normal'));
-  const td = settingBody.match(/\.setting-content \.content-body \.main-body table td \{[\s\S]*?\}/);
+  const td = settingBody.match(/\.main-body table:not\(\.table-page-table\) td \{[\s\S]*?\}/);
   assert.ok(td, 'td rule found');
   assert.ok(td[0].includes('white-space: nowrap'));
 });
