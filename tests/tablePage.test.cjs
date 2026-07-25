@@ -796,6 +796,34 @@ test('every +tablePage(name) resolves where it is written', () => {
   }
 });
 
+test('Broken cards is a report like the ones beside it', () => {
+  // It was the one entry in the Problems menu with a different set of controls: no
+  // search box, no total, no "page X / N", just its own prev/next - because it ran
+  // on the global-search machinery instead of a column spec.
+  const js = read('client/components/settings/adminReports.js');
+  assert.ok(/'report-broken': \{ page: tmpl\.brokenPage[\s\S]*?pub: 'brokenCardsReport'[\s\S]*?countMethod: 'getBrokenCardsReportCount' \}/.test(js),
+    'it must be driven by the same loadReport() config as the other reports');
+  assert.ok(/'report-broken': \{\n\s+emptyKey/.test(js), 'and have a column spec');
+  assert.ok(!/CardSearchPaged/.test(js) && !/Template\.brokenCardsReport/.test(js),
+    'the global-search machinery must be gone from the Problems page');
+  const jadeSrc = read('client/components/settings/adminReports.jade');
+  assert.ok(!/brokenCardsReport/.test(jadeSrc), 'and its template with it');
+  // Server: one page, searchable, admin-only, with a count method beside it.
+  const pub = read('server/publications/cards.js');
+  assert.ok(/publish\('brokenCardsReport', async function\(searchTerm = '', limit, skip = 0\)/.test(pub),
+    'the report publication takes searchTerm + limit/skip');
+  const block = pub.slice(pub.indexOf("publish('brokenCardsReport'"));
+  assert.ok(/isAdmin/.test(block.slice(0, 600)), 'admin-only, like every report publication');
+  assert.ok(/getBrokenCardsReportCount\(searchTerm/.test(pub), 'and a count method takes the search term');
+  // What "broken" means is ONE definition, shared with the standalone page - which
+  // still runs on the global search and must keep its own publication.
+  assert.ok(/const BROKEN_CARDS_SELECTOR =/.test(pub), 'one selector');
+  assert.strictEqual((pub.match(/type: \{ \$nin: CARD_TYPES \}/g) || []).length, 1,
+    'defined once, not copied into the report');
+  assert.ok(/publish\('brokenCards', async function\(sessionId\)/.test(pub),
+    'the standalone /broken-cards page keeps its publication');
+});
+
 // ── one row of controls, one height, one theme ─────────────────────────────
 
 test('every control in the row shares one height and no margin', () => {

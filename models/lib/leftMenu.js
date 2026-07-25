@@ -9,6 +9,7 @@
 // An item is:
 //   { id, icon, labelKey, cls }     a normal entry
 //   { separator: true }             a horizontal rule between groups
+//   { heading: true, labelKey }     a group title: text only, NOT clickable
 //
 // `id` is what the page's click handler reads from data-id; `icon` is the Font
 // Awesome class; `labelKey` is an i18n key.
@@ -25,6 +26,16 @@ export function buildMenuItems(items, activeId, jsClass = '') {
     .map(item => {
       if (item.separator) {
         return { separator: true };
+      }
+      // A group title. It has no id and no handler class on purpose: it names the
+      // entries below it and must not look or behave like a row you can open. It
+      // can never be the active row either, so `paneTitle()` cannot pick it.
+      if (item.heading) {
+        return {
+          heading: true,
+          labelKey: item.labelKey || '',
+          label: item.label || '',
+        };
       }
       return {
         id: item.id || '',

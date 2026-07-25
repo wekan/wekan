@@ -962,22 +962,115 @@ async function buildQuery(queryParams, userId) {
   return buildProjection(query);
 }
 
+// What makes a card broken: it has no board, swimlane or list to belong to, or a
+// type that is not a card type at all. Shared by the standalone /broken-cards page
+// and by the Admin Panel report below, so the two can never disagree about what
+// "broken" means. Unchanged from before the report was converted - only the way the
+// report FETCHES its rows changed.
+const BROKEN_CARDS_SELECTOR = {
+  $or: [
+    { boardId: { $in: [null, ''] } },
+    { swimlaneId: { $in: [null, ''] } },
+    { listId: { $in: [null, ''] } },
+    { type: { $nin: CARD_TYPES } },
+  ],
+};
+
+// The standalone /broken-cards PAGE (client/components/main/brokenCards.js) still
+// runs on the global-search machinery, so its publication stays exactly as it was.
+// Admin Panel / Problems / Broken cards is a separate, admin-only REPORT below.
 Meteor.publish('brokenCards', async function(sessionId) {
   check(sessionId, String);
 
   const params = new QueryParams();
   params.addPredicate(OPERATOR_STATUS, PREDICATE_ALL);
   const query = await buildQuery(params, this.userId);
-  query.selector.$or = [
-    { boardId: { $in: [null, ''] } },
-    { swimlaneId: { $in: [null, ''] } },
-    { listId: { $in: [null, ''] } },
-    { type: { $nin: CARD_TYPES } },
-  ];
+  query.selector.$or = BROKEN_CARDS_SELECTOR.$or;
 
   const { cursors: brokenCursors, sessionData: brokenSessionData } = await findCards(sessionId, query, this.userId);
   if (brokenSessionData) this.added('sessiondata', brokenSessionData._id, brokenSessionData);
   return brokenCursors;
+});
+
+function brokenCardsQuery(searchTerm) {
+  if (!searchTerm) {
+    return { ...BROKEN_CARDS_SELECTOR };
+  }
+  // Both conditions, and both are an $or - so they are $and-ed explicitly rather
+  // than written as two $or keys, where the second would silently replace the first.
+  return {
+    $and: [
+      BROKEN_CARDS_SELECTOR,
+      { title: new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i') },
+    ],
+  };
+}
+
+// Broken cards, as a REPORT: one page, server-side, searchable and counted - the
+// same shape as the Files / Rules / Boards / Cards reports beside it in Admin Panel
+// / Problems (docs/Design/Page/Table.md). It used to run on the global-search
+// machinery instead (a session document, nextPage/previousPage publications), which
+// is why it was the one report there with a different set of controls.
+Meteor.publish('brokenCardsReport', async function(searchTerm = '', limit, skip = 0) {
+  check(searchTerm, Match.OneOf(String, null, undefined));
+  check(limit, Number);
+  check(skip, Match.OneOf(Number, null, undefined));
+  if (!this.userId || !(await ReactiveCache.getUser(this.userId))?.isAdmin) {
+    return this.ready();
+  }
+
+  // Published MANUALLY (fetch + this.added + this.ready) for the same reason as
+  // cardsReport above: a returned sorted+limited cursor triggers a limited live
+  // observe that hangs on FerretDB's OpLog and leaves the report on its spinner.
+  const cards = await ReactiveCache.getCards(
+    brokenCardsQuery(searchTerm),
+    {
+      fields: {
+        title: 1,
+        type: 1,
+        boardId: 1,
+        listId: 1,
+        swimlaneId: 1,
+        createdAt: 1,
+      },
+      sort: { boardId: 1, createdAt: -1 },
+      limit,
+      skip: skip || 0,
+    },
+    false,
+  );
+
+  // A broken card's board / swimlane / list is exactly what may be missing, so
+  // only the ids that ARE set are looked up; the rest render as an empty cell.
+  const boardIds = new Set();
+  const listIds = new Set();
+  const swimlaneIds = new Set();
+  cards.forEach(card => {
+    if (card.boardId) boardIds.add(card.boardId);
+    if (card.listId) listIds.add(card.listId);
+    if (card.swimlaneId) swimlaneIds.add(card.swimlaneId);
+  });
+
+  const boards = await ReactiveCache.getBoards({ _id: { $in: [...boardIds] } }, { fields: { title: 1 } }, false);
+  const lists = await ReactiveCache.getLists({ _id: { $in: [...listIds] } }, { fields: { title: 1 } }, false);
+  const swimlanes = await ReactiveCache.getSwimlanes({ _id: { $in: [...swimlaneIds] } }, { fields: { title: 1 } }, false);
+
+  for (const doc of cards) { const { _id, ...fields } = doc; this.added('cards', _id, fields); }
+  for (const doc of boards) { const { _id, ...fields } = doc; this.added('boards', _id, fields); }
+  for (const doc of lists) { const { _id, ...fields } = doc; this.added('lists', _id, fields); }
+  for (const doc of swimlanes) { const { _id, ...fields } = doc; this.added('swimlanes', _id, fields); }
+  this.ready();
+});
+
+Meteor.methods({
+  async getBrokenCardsReportCount(searchTerm = '') {
+    check(searchTerm, Match.OneOf(String, null, undefined));
+    if (!this.userId || !(await ReactiveCache.getUser(this.userId))?.isAdmin) {
+      throw new Meteor.Error('not-authorized');
+    }
+    const cursor = await ReactiveCache.getCards(brokenCardsQuery(searchTerm), {}, true);
+    return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
+  },
 });
 
 Meteor.publish('nextPage', async function(sessionId) {

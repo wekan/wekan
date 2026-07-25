@@ -1,8 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import Attachments, { AttachmentStorage } from '/models/attachments';
-import { CardSearchPaged } from '/client/lib/cardSearch';
-import SessionData from '/models/usersessiondata';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
 import Rules from '/models/rules';
@@ -66,6 +64,7 @@ function reportConfig(tmpl) {
     'report-rules': { page: tmpl.rulesPage, count: tmpl.rulesCount, search: tmpl.rulesSearch, pub: 'rulesReport', countMethod: 'getRulesReportCount' },
     'report-boards': { page: tmpl.boardsPage, count: tmpl.boardsCount, search: tmpl.boardsSearch, pub: 'boardsReport', countMethod: 'getBoardsReportCount' },
     'report-cards': { page: tmpl.cardsPage, count: tmpl.cardsCount, search: tmpl.cardsSearch, pub: 'cardsReport', countMethod: 'getCardsReportCount' },
+    'report-broken': { page: tmpl.brokenPage, count: tmpl.brokenCount, search: tmpl.brokenSearch, pub: 'brokenCardsReport', countMethod: 'getBrokenCardsReportCount' },
     'report-impersonation': { page: tmpl.impersonationPage, count: tmpl.impersonationCount, search: tmpl.impersonationSearch, pub: 'impersonationReport', countMethod: 'getImpersonationReportCount' },
     'report-recovery': { page: tmpl.recoveryPage, count: tmpl.recoveryCount, search: tmpl.recoverySearch, pub: 'recoveryReport', countMethod: 'getRecoveryReportCount' },
   };
@@ -83,8 +82,6 @@ Template.adminReports.onCreated(function () {
   this.showSpeed = new ReactiveVar(false);
   this.showTests = new ReactiveVar(false);
   this.showCpu = new ReactiveVar(false);
-  this.showBrokenCardsReport = new ReactiveVar(false);
-  this.sessionId = SessionData.getSessionId();
   this.error = new ReactiveVar('');
   this.loading = new ReactiveVar(false);
 
@@ -94,12 +91,14 @@ Template.adminReports.onCreated(function () {
   this.rulesPage = new ReactiveVar(1);
   this.boardsPage = new ReactiveVar(1);
   this.cardsPage = new ReactiveVar(1);
+  this.brokenPage = new ReactiveVar(1);
   this.impersonationPage = new ReactiveVar(1);
   this.recoveryPage = new ReactiveVar(1);
   this.filesCount = new ReactiveVar(0);
   this.rulesCount = new ReactiveVar(0);
   this.boardsCount = new ReactiveVar(0);
   this.cardsCount = new ReactiveVar(0);
+  this.brokenCount = new ReactiveVar(0);
   this.impersonationCount = new ReactiveVar(0);
   this.recoveryCount = new ReactiveVar(0);
   // Current search term per report (empty string = no filter).
@@ -107,6 +106,7 @@ Template.adminReports.onCreated(function () {
   this.rulesSearch = new ReactiveVar('');
   this.boardsSearch = new ReactiveVar('');
   this.cardsSearch = new ReactiveVar('');
+  this.brokenSearch = new ReactiveVar('');
   this.impersonationSearch = new ReactiveVar('');
   this.recoverySearch = new ReactiveVar('');
 
@@ -184,20 +184,28 @@ Template.adminReports.onCreated(function () {
 // are now the single .js-left-menu-item one below.
 const PROBLEMS_MENU = [
   { id: 'report-summary', icon: 'fa-list', labelKey: 'summary' },
-  // Moved here from Admin Panel / Features. They are settings rather than reports,
-  // but they are what an admin reaches for when something is slow, unsafe or noisy -
-  // which is what this page is about.
-  { id: 'features-performance', icon: 'fa-tachometer', labelKey: 'features-performance', emoji: true },
+  { separator: true },
+  // Two groups, each named by a heading rather than by another entry: there is
+  // nothing to click on a group title (docs/Design/Page/Left-Menu.md). Both use an
+  // i18n key the app already has.
+  { heading: true, labelKey: 'settings' },
+  // Moved here from Admin Panel / Features. They are settings rather than reports -
+  // which is what this heading says - but they are what an admin reaches for when
+  // something is unsafe or noisy, which is what this page is about. Performance
+  // sits with the reports below, beside the Speed / Tests / CPU usage streams it is
+  // about.
   { id: 'features-security', icon: 'fa-shield', labelKey: 'features-security', emoji: true },
   { id: 'features-notifications', icon: 'fa-bell', labelKey: 'features-notifications', emoji: true },
+  { separator: true },
+  { heading: true, labelKey: 'reports' },
+  // "Security Report", not "Security": the Features pane above is also called
+  // Security, and the two sit in the same menu.
+  { id: 'report-security', icon: 'fa-shield', labelKey: 'securityReportTitle' },
+  { id: 'report-impersonation', icon: 'fa-user-secret', labelKey: 'impersonationReportTitle' },
+  { id: 'features-performance', icon: 'fa-tachometer', labelKey: 'features-performance', emoji: true },
   { id: 'report-speed', icon: 'fa-tachometer', labelKey: 'speedReportTitle' },
   { id: 'report-tests', icon: 'fa-flask', labelKey: 'testsReportTitle' },
   { id: 'report-cpu', icon: 'fa-tachometer', labelKey: 'cpuReportTitle' },
-  { separator: true },
-  // "Security Report", not "Security": the Features pane above is also called
-  // Security, and the two now sit in the same menu.
-  { id: 'report-security', icon: 'fa-shield', labelKey: 'securityReportTitle' },
-  { id: 'report-impersonation', icon: 'fa-user-secret', labelKey: 'impersonationReportTitle' },
   { id: 'report-broken', icon: 'fa-chain-broken', labelKey: 'broken-cards' },
   { id: 'report-files', icon: 'fa-paperclip', labelKey: 'filesReportTitle' },
   { id: 'report-rules', icon: 'fa-magic', labelKey: 'rulesReportTitle' },
@@ -248,9 +256,6 @@ Template.adminReports.helpers({
   },
   showCpu() {
     return Template.instance().showCpu;
-  },
-  showBrokenCardsReport() {
-    return Template.instance().showBrokenCardsReport;
   },
   loading() {
     return Template.instance().loading;
@@ -373,7 +378,6 @@ function switchMenu(event, tmpl) {
     tmpl.showSpeed.set(false);
     tmpl.showTests.set(false);
     tmpl.showCpu.set(false);
-    tmpl.showBrokenCardsReport.set(false);
     if (tmpl.subscription) {
       tmpl.subscription.stop();
     }
@@ -408,14 +412,10 @@ function switchMenu(event, tmpl) {
       tmpl.showCpu.set(true);
       tmpl.loading.set(false);
     } else if ('report-broken' === targetID) {
-      tmpl.showBrokenCardsReport.set(true);
-      tmpl.subscription = Meteor.subscribe(
-        'brokenCards',
-        SessionData.getSessionId(),
-        () => {
-          tmpl.loading.set(false);
-        },
-      );
+      // A report like the others now: same controls, same paging, same loader.
+      tmpl.brokenPage.set(1);
+      tmpl.brokenSearch.set('');
+      tmpl.loadReport('report-broken', { recount: true });
     } else if ('report-files' === targetID) {
       tmpl.filesPage.set(1);
       tmpl.filesSearch.set('');
@@ -546,6 +546,21 @@ const REPORT_TABLES = {
           .map(t => ReactiveCache.getTeam(t.teamId)?.teamDisplayName || t.teamId).join(', ') },
     ],
   },
+  'report-broken': {
+    emptyKey: 'no-results',
+    // A broken card is one with no board, swimlane or list - so those cells are
+    // exactly the ones that may be empty, and that is the point of the row.
+    docs: () => collectionResults(Cards, { boardId: 1, createdAt: -1 }).fetch(),
+    columns: [
+      { label: 'Card Title', value: d => abbreviate(d.title) },
+      { label: 'Id', value: d => abbreviate(d._id) },
+      { label: 'Board', value: d => abbreviate(d.board()?.title) },
+      { label: 'Swimlane', value: d => abbreviate(d.swimlane()?.title) },
+      { label: 'List', value: d => abbreviate(d.list()?.title) },
+      { label: 'Type', value: d => d.type },
+      { labelKey: 'createdAt', nowrap: true, value: d => formatDate(d.createdAt) },
+    ],
+  },
   'report-cards': {
     emptyKey: 'no-results',
     // Match the server publication's index-backed sort (see cards.js).
@@ -613,44 +628,12 @@ function reportTablePageData(tmpl) {
     hasNext: info.hasNext,
   };
 }
-// --- brokenCardsReport template ---
-
-Template.brokenCardsReport.onCreated(function () {
-  const search = new CardSearchPaged(this);
-  this.search = search;
-});
-
-Template.brokenCardsReport.helpers({
-  resultsCount() {
-    return Template.instance().search.resultsCount;
-  },
-  resultsHeading() {
-    return Template.instance().search.resultsHeading;
-  },
-  results() {
-    return Template.instance().search.results;
-  },
-  getSearchHref() {
-    return Template.instance().search.getSearchHref();
-  },
-  hasPreviousPage() {
-    return Template.instance().search.hasPreviousPage;
-  },
-  hasNextPage() {
-    return Template.instance().search.hasNextPage;
-  },
-});
-
-Template.brokenCardsReport.events({
-  'click .js-next-page'(evt, tpl) {
-    evt.preventDefault();
-    tpl.search.nextPage();
-  },
-  'click .js-previous-page'(evt, tpl) {
-    evt.preventDefault();
-    tpl.search.previousPage();
-  },
-});
+// Broken cards has no template of its own any more: it is a column spec in
+// REPORT_TABLES like every other report, rendered by the shared table page. It
+// used to run on the global-search machinery (CardSearchPaged, a session document
+// and the nextPage/previousPage publications), which is why it was the one report
+// in this menu with a different set of controls - its own prev/next, no search
+// box, no total, no "page X / N".
 
 // --- Read-only event stream report (Security / Speed / Tests) ---
 // Reads the eventlog collection through the admin-only eventLogPage/eventLogCount

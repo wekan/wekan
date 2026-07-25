@@ -3,13 +3,10 @@
    pagination controls, and the table itself - now lives in tablePage.css and is
    defined once. See docs/Design/Page/Table.md. */
 
-/* Problems page: menu separator between the event streams (Summary/Security/
-   Speed/Tests/CPU) and the moved report items. */
-.admin-reports-content .side-menu .admin-reports-separator hr {
-  margin: 6px 0;
-  border: 0;
-  border-top: 1px solid rgba(0,0,0,0.15);
-}
+/* The menu separator and the "Reports" group title are styled with the menu itself
+   (settingBody.css): the shared left menu renders `li.left-menu-separator` and
+   `li.left-menu-heading`, not the `.admin-reports-separator` this file used to
+   target - so the rule that lived here, twice, never applied to anything. */
 
 /* Admin Panel → Problems → CPU usage: the live figure between the page title and
    the search box. The table underneath is a history of past high-CPU periods, so
@@ -42,12 +39,4 @@
 
 .admin-cpu-current.admin-cpu-high .admin-cpu-percent {
   color: #b04632;
-}
-
-/* Problems page: menu separator between the event streams (Summary/Security/
-   Speed/Tests) and the moved report items, and the read-only event table. */
-.admin-reports-content .side-menu .admin-reports-separator hr {
-  margin: 6px 0;
-  border: 0;
-  border-top: 1px solid rgba(0,0,0,0.15);
 }

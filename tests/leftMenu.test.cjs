@@ -430,6 +430,31 @@ test('no pane repeats the title the section already rendered', () => {
   }
 });
 
+test('a heading names a group and cannot be clicked or selected', () => {
+  const [heading] = lib.buildMenuItems([{ heading: true, labelKey: 'reports' }], 'reports');
+  assert.strictEqual(heading.heading, true);
+  assert.strictEqual(heading.labelKey, 'reports');
+  // No id, no icon, no handler class - so there is nothing to click, and the page's
+  // click handler has no data-id to read even if something reached it.
+  assert.strictEqual(heading.id, undefined);
+  assert.strictEqual(heading.jsClass, undefined);
+  // And it can never be the active row, or a group name could become a pane title.
+  assert.strictEqual(heading.active, undefined);
+  assert.deepStrictEqual(lib.paneTitle([{ heading: true, labelKey: 'reports' }], 'reports'), {});
+  assert.strictEqual(lib.activeCount(lib.buildMenuItems(
+    [{ heading: true, labelKey: 'reports' }, { id: 'a', labelKey: 'x' }], 'a')), 1);
+  // The template renders it as text in an <li>, with no anchor.
+  const block = /else if heading\n([\s\S]*?)\n        else\n/.exec(jade);
+  assert.ok(block, 'the template must have a heading branch');
+  assert.ok(/li\.left-menu-heading/.test(block[1]), 'as its own row class');
+  assert.ok(!/a\./.test(block[1]) && !/data-id/.test(block[1]),
+    'a heading must not render an anchor or a data-id');
+  // ...and it does not light up under the pointer like a row you can open.
+  assert.ok(/li\.left-menu-heading:hover \{[^}]*background:\s*transparent/.test(css)
+    || /li\.left-menu-separator:hover,\s*\n[^{]*li\.left-menu-heading:hover \{[^}]*background:\s*transparent/.test(css),
+    'the heading must opt out of the entry hover highlight');
+});
+
 test('the first entry of a menu is the pane that opens', () => {
   // Settings opens on Version, Attachments on Backup: the row at the top of the
   // menu and the pane on the right must be the same one, or the page opens with a

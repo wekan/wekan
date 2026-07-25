@@ -157,6 +157,7 @@ A page describes its menu as data, not as markup:
 ```js
 { id, icon, labelKey, cls }   // one entry
 { separator: true }           // a horizontal rule between groups
+{ heading: true, labelKey }   // a group title: text only, NOT clickable
 ```
 
 - `id` is what the page's click handler reads from `data-id`.
@@ -166,6 +167,13 @@ A page describes its menu as data, not as markup:
   which is what happens when each entry has its own `isXActive` helper.
 - A conditional entry may be `null` (e.g. the E-mail entry is absent on
   Sandstorm); holes are dropped rather than rendered as an empty row.
+- A **heading** names the group below it — "Reports" above the report entries of
+  Admin Panel / Problems. It carries no `id`, no icon and no handler class, so
+  there is nothing to click, nothing for the page's click handler to read a
+  `data-id` from, and it can never be the active row (or `paneTitle()` could pick a
+  group name as a pane title). It renders smaller and quieter than an entry, and
+  opts out of the hover highlight — a row that lights up under the pointer reads as
+  one you can open. Use an existing i18n key: a heading is a label like any other.
 
 ## Clicks
 

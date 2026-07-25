@@ -21,6 +21,14 @@ template(name="leftMenu")
         if separator
           li.left-menu-separator
             hr
+        else if heading
+          //- A group title: text, not a row. No anchor, so there is nothing to
+          //- click and nothing for the page's click handler to read a data-id from.
+          li.left-menu-heading
+            if labelKey
+              | {{_ labelKey}}
+            else
+              | {{label}}
         else
           li(class="{{#if active}}active{{/if}} {{cls}}")
             a.js-left-menu-item(class="{{jsClass}}" data-id="{{id}}")

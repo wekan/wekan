@@ -28,18 +28,8 @@ template(name="adminReports")
             +eventStreamReport(stream="tests")
           else if showCpu.get
             +eventStreamReport(stream="cpu")
-          else if showBrokenCardsReport.get
-            +brokenCardsReport
           else if tablePageData
             +tablePage(tablePageData)
-
-
-template(name="brokenCardsReport")
-  .global-search-results-list-wrapper
-    if resultsCount
-      +resultsPaged(this)
-    else
-      div {{_ 'no-results' }}
 
 template(name="eventStreamReport")
   //- Security / Speed / Tests / CPU usage all render through the shared table

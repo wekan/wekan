@@ -29,7 +29,7 @@ Everything that makes a table page work. Paths are from the repository root.
 | `server/publications/attachments.js` | `.js` publication + method | Files Report: one page of attachments, and `getAttachmentsReportCount`. |
 | `server/publications/rules.js` | `.js` publication + method | Rules Report: one page of rules, and `getRulesReportCount`. |
 | `server/publications/boards.js` | `.js` publication + method | Boards Report: one page of boards, and `getBoardsReportCount`. |
-| `server/publications/cards.js` | `.js` publication + method | Cards Report: one page of cards, and `getCardsReportCount`. |
+| `server/publications/cards.js` | `.js` publication + method | Cards Report and Broken cards: one page of cards each, with `getCardsReportCount` / `getBrokenCardsReportCount`. |
 | `server/publications/impersonationReport.js` | `.js` publication + method | Impersonation Report: one page of events, and `getImpersonationReportCount`. |
 | `server/publications/recoveryReport.js` | `.js` publication + method | Recovery: one page of recovery events, and `getRecoveryReportCount`. |
 | `models/eventLog.js` | `.js` model + methods | The Security / Speed / Tests / CPU usage streams: `eventLogPage`, `eventLogCount`, and the `{stream, at}` index that keeps them fast. |
@@ -65,7 +65,7 @@ Menu path is what you click to reach the page.
 | Speed | Admin Panel / Problems / Speed | Slow-operation events — what took too long, where, and for how long. |
 | Tests | Admin Panel / Problems / Tests | Test-run events recorded on the server. |
 | CPU usage | Admin Panel / Problems / CPU usage | Past high-CPU periods. Adds a **status row**: the live CPU percent, core count and load average, because the table itself is history, not the current state. |
-| Broken cards | Admin Panel / Problems / Broken cards | Cards whose board, swimlane or list no longer exists. Uses the shared search/paging of the global-search results list rather than a column spec. |
+| Broken cards | Admin Panel / Problems / Broken cards | Cards with no board, swimlane or list, or a type that is not a card type. A column spec like the reports beside it — it used to run on the global-search results list, which is why it was the one report here with a different set of controls. |
 | Files Report | Admin Panel / Problems / Files Report | Every attachment: file name, size, MIME type, and the attachment / board / card ids. |
 | Rules Report | Admin Panel / Problems / Rules Report | Every automation rule with its board, action type and trigger type. |
 | Boards Report | Admin Panel / Problems / Boards Report | Every board with its id, permission, archived state, members, organizations and teams. |

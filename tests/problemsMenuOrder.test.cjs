@@ -7,6 +7,9 @@
 //   * "Security" renamed to "Security Report" and moved ABOVE "Broken Cards"
 //   * "Impersonation Report" moved BELOW "Security Report"
 //   * Performance, Security and Notifications moved here, below "Summary"
+//   * Performance, Speed, Tests and CPU usage moved below "Impersonation Report"
+//   * a "Settings" title below Summary and a "Reports" title above Security Report,
+//     each after a horizontal rule - titles, not entries: nothing to click
 //
 // The rename is what makes the rest safe: the pane arriving from Features is ALSO
 // called Security, and the two now sit in one menu. Renaming the report is the source
@@ -41,6 +44,7 @@ const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
 const menu = reportsJs.slice(reportsJs.indexOf('const PROBLEMS_MENU'),
   reportsJs.indexOf('];', reportsJs.indexOf('const PROBLEMS_MENU')));
 const at = id => menu.indexOf(`id: '${id}'`);
+const headingAt = key => menu.indexOf(`{ heading: true, labelKey: '${key}' }`);
 
 console.log('problemsMenuOrder:');
 
@@ -52,7 +56,8 @@ test('Security Report sits above Broken Cards, with Impersonation between', () =
   assert.ok(at('report-impersonation') > at('report-security'),
     'Impersonation Report is below Security Report');
   assert.ok(at('report-impersonation') < at('report-broken'),
-    'and still above Broken Cards, i.e. directly between the two');
+    'and still above Broken Cards - Performance, Speed, Tests and CPU usage sit '
+    + 'between it and Broken Cards now, but the order of these three is unchanged');
 });
 
 test('the report is called Security Report, in the source string', () => {
@@ -65,15 +70,42 @@ test('the report is called Security Report, in the source string', () => {
     'two entries in one menu must not both read "Security"');
 });
 
-test('Performance, Security and Notifications sit below Summary', () => {
-  for (const id of ['features-performance', 'features-security', 'features-notifications']) {
+test('the menu is two named groups: Settings, then Reports', () => {
+  // Summary, then a rule and a "Settings" title over the two panes that came from
+  // Admin Panel / Features, then a rule and a "Reports" title over everything else.
+  for (const id of ['features-security', 'features-notifications']) {
     assert.ok(at(id) > -1, `${id} must be a Problems entry`);
     assert.ok(at(id) > at('report-summary'), `${id} must be below Summary`);
   }
-  // In their original order, and above the reports that were already here.
-  assert.ok(at('features-performance') < at('features-security'));
-  assert.ok(at('features-security') < at('features-notifications'));
-  assert.ok(at('features-notifications') < at('report-speed'));
+  assert.ok(headingAt('settings') > -1 && headingAt('reports') > -1,
+    'both group titles must exist, as headings rather than entries');
+  assert.ok(headingAt('settings') > at('report-summary'),
+    'the Settings title comes after Summary');
+  assert.ok(headingAt('settings') < at('features-security'),
+    'and above the settings panes it names');
+  assert.ok(at('features-notifications') < headingAt('reports'),
+    'the Reports title comes after them');
+  assert.ok(headingAt('reports') < at('report-security'),
+    'and above Security Report, the first report');
+  // A rule before each title, so the groups read as groups: two in the menu.
+  assert.strictEqual((menu.match(/\{ separator: true \}/g) || []).length, 2,
+    'one horizontal rule above each group title');
+  // Existing i18n keys - a heading is a label like any other, not a new string.
+  assert.strictEqual(en.settings, 'Settings');
+  assert.strictEqual(en.reports, 'Reports');
+});
+
+test('Performance sits with the streams it is about, below Impersonation Report', () => {
+  // Performance, Speed, Tests and CPU usage are one subject; Performance was up with
+  // the other two Features panes, three groups away from the streams it configures.
+  assert.ok(at('features-performance') > at('report-impersonation'),
+    'Performance moved below Impersonation Report');
+  assert.ok(at('features-performance') < at('report-speed'),
+    'and directly above Speed');
+  assert.ok(at('report-speed') < at('report-tests'));
+  assert.ok(at('report-tests') < at('report-cpu'));
+  assert.ok(at('report-cpu') < at('report-broken'),
+    'the four sit together, above the remaining reports');
 });
 
 test('Problems renders all three right-hand pages', () => {
