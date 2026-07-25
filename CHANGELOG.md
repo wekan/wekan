@@ -196,6 +196,38 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
 
 This release fixes the following bugs:
 
+- [The second header bar in mobile mode is the same on a phone as in mobile mode on a
+  desktop window. On an iPhone it held a handful of icons and no board title, while a
+  desktop Firefox window in mobile mode showed the title and the full set of buttons.
+  Mobile layout is driven from three switches that did not agree — the mobile-mode
+  toggle, the mini-screen check that picks which template branch renders, and the
+  800px-wide media query, which is true on a phone and false on a wide desktop window
+  even with mobile mode on. The rule hiding the left button group deleted edit title,
+  visibility, watch, star and sort from the bar with no replacement whenever those
+  switches disagreed, and is removed; the bar's fixed height on a phone, added for
+  bigger touch targets, clipped the second row it wraps to when the title and the
+  buttons do not fit, and is now a minimum height, so the bar still sits on one row
+  whenever the content
+  fits](https://github.com/wekan/wekan/commit/72315d8f9).
+  Thanks to xet7.
+- [The list title is visible in mobile mode again, both on a phone and on a desktop.
+  The list header has two markup shapes — on a mini screen the title is a direct child
+  of the header, otherwise it is wrapped in the div that rotates when a list is
+  collapsed. Mobile mode lays that header out as a grid and places the title by grid
+  row and column, which only applies to a direct grid item, so inside the wrapper the
+  placement was ignored and the title landed in the 30px first column, squeezed to
+  nothing. The wrapper is now dropped from the layout so the title is placed in both
+  shapes, while a collapsed list keeps the box it needs to
+  rotate](https://github.com/wekan/wekan/commit/72315d8f9).
+  Thanks to xet7.
+- [The board in mobile mode reflows sideways again instead of overflowing by a sliver.
+  The canvas, swimlanes, lists and list headers were sized with `100vw` — the viewport
+  width including the vertical scrollbar. The canvas scrolls vertically, so each of
+  those was about a scrollbar's width wider than the box it sat in, at every nesting
+  level, and a matching `min-width` meant it could not shrink. They now use `100%`,
+  which resolves against the parent's content box and already excludes the
+  scrollbar](https://github.com/wekan/wekan/commit/72315d8f9).
+  Thanks to xet7.
 - [The minicard drag handle is below the minicard menu button, on the same edge. On a
   touch pointer it was a full-height strip down the leading (left in LTR) edge — added
   because on a touch device the handle is the only way to drag a card, the card body
