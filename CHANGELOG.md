@@ -226,6 +226,13 @@ This release fixes the following CRITICAL SECURITY ISSUE of [ZipBleed](https://w
 
 and fixes the following bugs:
 
+- [A long Admin Panel left menu scrolls inside its panel instead of spilling out of it.
+  Admin Panel / Problems is the longest — fifteen entries since Performance, Security and
+  Notifications joined it — and its last four sat on the page’s grey with no panel behind
+  them. The panel is stretched to the height of the page, so its background, border and
+  rounded corners end there, and the entries simply kept rendering past that edge
+](https://github.com/wekan/wekan/commit/a4990a474).
+  Thanks to xet7.
 - [The build stopped with `Can't use the built-in 'if' here` on the People page: a comment
   had been left between an `if` and its `else if`, which splits the chain and orphans the
   else. The comment moved above the chain. The more useful half of the fix is the test:
