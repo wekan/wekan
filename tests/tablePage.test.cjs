@@ -262,4 +262,24 @@ test('pages that use the design link back to it', () => {
   }
 });
 
+test('the related-files table lists files that exist', () => {
+  // The doc opens with a File Path / File Type / Description table. A path that
+  // has moved or been renamed makes the page lie about where the code is, which
+  // is the one thing a reference table must not do.
+  assert.ok(doc.includes('| File Path | File Type | Description |'),
+    'the related-files table must have those three columns');
+  const paths = [...doc.matchAll(/\| `([a-z][\w./-]+\.(?:jade|css|js|cjs))` \|/g)].map(m => m[1]);
+  assert.ok(paths.length >= 15, `expected the full file list, found ${paths.length}`);
+  for (const rel of paths) {
+    assert.ok(fs.existsSync(path.join(root, rel)), `related file missing: ${rel}`);
+  }
+  // The shared implementation must be among them.
+  for (const must of ['client/components/settings/tablePage.jade',
+    'client/components/settings/tablePage.css', 'models/lib/tablePage.js']) {
+    assert.ok(paths.includes(must), `${must} must be listed`);
+  }
+  // Listed once each - the old duplicate 'Where the code is' table is gone.
+  assert.strictEqual(new Set(paths).size, paths.length, 'no file listed twice');
+});
+
 console.log(`\ntablePage: ${passed} tests passed`);

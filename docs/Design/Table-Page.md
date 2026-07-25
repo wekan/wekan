@@ -8,6 +8,29 @@ A page-specific design doc describes only what is different about *that* page an
 links back here — it must not restate the layout, the controls or the paging
 rules, because they are defined once, here and in one template.
 
+## Related files
+
+Everything that makes a table page work. Paths are from the repository root.
+
+| File Path | File Type | Description |
+| --- | --- | --- |
+| `client/components/settings/tablePage.jade` | `.jade` template | **The** table page: title, optional status row, controls, table. The row order is defined here, once. |
+| `client/components/settings/tablePage.css` | `.css` stylesheet | The layout: full width, equal columns, wrapping cells, and the ≤ 800px stacking of menu and table. |
+| `models/lib/tablePage.js` | `.js` module, pure helpers | `pageInfo()`, `buildRows()`, `buildHeader()`, `columnWidthPercent()`. No DOM and no database, so they are unit-testable. |
+| `client/components/settings/adminReports.js` | `.js` Blaze template logic | The column spec for each Admin Panel table, the paging state, the subscriptions, and the shared control handlers. |
+| `client/components/settings/adminReports.jade` | `.jade` template | Admin Panel / Problems: the side menu, and which page it renders. |
+| `client/components/settings/adminReports.css` | `.css` stylesheet | Only what is **not** shared: the CPU status card and the side-menu separator. |
+| `client/features/settings.js` | `.js` import list | Registers the template, its stylesheet and the logic into the client bundle. A file that is never imported is simply not loaded. |
+| `server/publications/attachments.js` | `.js` publication + method | Files Report: one page of attachments, and `getAttachmentsReportCount`. |
+| `server/publications/rules.js` | `.js` publication + method | Rules Report: one page of rules, and `getRulesReportCount`. |
+| `server/publications/boards.js` | `.js` publication + method | Boards Report: one page of boards, and `getBoardsReportCount`. |
+| `server/publications/cards.js` | `.js` publication + method | Cards Report: one page of cards, and `getCardsReportCount`. |
+| `server/publications/impersonationReport.js` | `.js` publication + method | Impersonation Report: one page of events, and `getImpersonationReportCount`. |
+| `server/publications/recoveryReport.js` | `.js` publication + method | Recovery: one page of recovery events, and `getRecoveryReportCount`. |
+| `models/eventLog.js` | `.js` model + methods | The Security / Speed / Tests / CPU usage streams: `eventLogPage`, `eventLogCount`, and the `{stream, at}` index that keeps them fast. |
+| `tests/tablePage.test.cjs` | `.cjs` Node test | The pure helpers, the layout rules this page promises, and the "one implementation" guarantee. |
+| `tests/adminReportsPagination.test.cjs` | `.cjs` Node test | That paging stays server-side and the controls row is not duplicated again. |
+
 ## Pages that use this design
 
 ### Admin Panel
@@ -139,12 +162,4 @@ table page therefore adds **no** new event handler, no new markup and no new CSS
 
 Nothing else: no template, no CSS, no handlers, no paging code.
 
-## Where the code is
-
-| Part | File |
-| --- | --- |
-| Pure helpers (`pageInfo`, `buildRows`, `buildHeader`, `columnWidthPercent`) | `models/lib/tablePage.js` |
-| The template (title, status, controls, table) | `client/components/settings/tablePage.jade` |
-| The layout (widths, wrapping, responsive stacking) | `client/components/settings/tablePage.css` |
-| Column specs + wiring for the Admin Panel tables | `client/components/settings/adminReports.js` |
-| Tests | `tests/tablePage.test.cjs` |
+The files are listed at the top of this page.
