@@ -9,65 +9,7 @@ template(name="attachments")
           i.fa.fa-paperclip
           | {{_ 'attachments'}}
       .content-body
-        .side-menu
-          ul
-            li(class="{{#if isMoveActive}}active{{/if}}")
-              a.js-attachments-menu(data-id="move")
-                span.emoji-icon
-                i.fa.fa-arrow-right
-                | {{_ 'attachment-move'}}
-            li(class="{{#if isDefaultStorageActive}}active{{/if}}")
-              a.js-attachments-menu(data-id="default-save-storage")
-                span.emoji-icon
-                i.fa.fa-save
-                | {{_ 'default-save-storage'}}
-            li(class="{{#if isLimitsActive}}active{{/if}}")
-              a.js-attachments-menu(data-id="limits")
-                span.emoji-icon
-                i.fa.fa-sliders
-                | {{_ 'attachment-limits'}}
-            li(class="{{#if isGridFsActive}}active{{/if}}")
-              a.js-attachments-menu(data-id="gridfs")
-                span.emoji-icon
-                i.fa.fa-database
-                | {{_ 'mongodb-gridfs-storage'}}
-            li(class="{{#if isFilesystemActive}}active{{/if}}")
-              a.js-attachments-menu(data-id="filesystem")
-                span.emoji-icon
-                i.fa.fa-folder-open
-                | {{_ 'filesystem-storage'}}
-            li(class="{{#if isS3Active}}active{{/if}}")
-              a.js-attachments-menu(data-id="s3")
-                span.emoji-icon
-                i.fa.fa-cloud
-                | {{_ 's3-minio-storage'}}
-            li(class="{{#if isAzureActive}}active{{/if}}")
-              a.js-attachments-menu(data-id="azure")
-                span.emoji-icon
-                i.fa.fa-cloud
-                | {{_ 'azure-blob-storage'}}
-            li(class="{{#if isGcsActive}}active{{/if}}")
-              a.js-attachments-menu(data-id="gcs")
-                span.emoji-icon
-                i.fa.fa-cloud
-                | {{_ 'gcs-storage'}}
-            li(class="{{#if isDatabaseMigrationActive}}active{{/if}}")
-              a.js-attachments-menu(data-id="database-migration")
-                span.emoji-icon
-                i.fa.fa-exchange
-                | {{_ 'database-migration'}}
-            li(class="{{#if isBackupActive}}active{{/if}}")
-              a.js-attachments-menu(data-id="backup")
-                span.emoji-icon
-                i.fa.fa-archive
-                | {{_ 'backup'}}
-            if isSandstorm
-              li(class="{{#if isSandstormActive}}active{{/if}}")
-                a.js-attachments-menu(data-id="sandstorm")
-                  span.emoji-icon
-                  i.fa.fa-hdd-o
-                  | Sandstorm
-
+        +leftMenu(menuItems)
         .main-body
           if loading.get
             +spinner

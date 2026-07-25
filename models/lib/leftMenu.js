@@ -30,6 +30,9 @@ export function buildMenuItems(items, activeId, jsClass = '') {
         id: item.id || '',
         icon: item.icon || '',
         labelKey: item.labelKey || '',
+        // A literal label, for the rare entry that is a proper noun rather than a
+        // translated string (Admin Panel / Attachments -> Sandstorm).
+        label: item.label || '',
         // Only one entry can be active. Compared as strings so a page storing its
         // active id as a number still highlights the right row.
         active: !!item.id && String(item.id) === String(activeId),

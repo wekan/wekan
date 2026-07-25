@@ -31,4 +31,7 @@ template(name="leftMenu")
                 if emoji
                   span.emoji-icon
                 i.fa(class="{{icon}}")
-              | {{_ labelKey}}
+              if labelKey
+                | {{_ labelKey}}
+              else
+                | {{label}}

@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { buildMenuItems } from '/models/lib/leftMenu';
 import AttachmentBulkMoveStatus from '/models/attachmentBulkMoveStatus';
 import { TAPi18n } from '/imports/i18n';
 import { migrationProgressManager } from '/client/components/settings/migrationProgress';
@@ -414,7 +415,31 @@ function pollBackupStatus(tpl) {
   });
 }
 
+// The Attachments side menu, as data (docs/Design/Page/Left-Menu.md).
+// emoji:true reproduces the empty span.emoji-icon this page always rendered.
+function attachmentsMenu() {
+  const isSandstorm =
+    Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm;
+  return [
+    { id: 'move', icon: 'fa-arrow-right', labelKey: 'attachment-move', emoji: true },
+    { id: 'default-save-storage', icon: 'fa-save', labelKey: 'default-save-storage', emoji: true },
+    { id: 'limits', icon: 'fa-sliders', labelKey: 'attachment-limits', emoji: true },
+    { id: 'gridfs', icon: 'fa-database', labelKey: 'mongodb-gridfs-storage', emoji: true },
+    { id: 'filesystem', icon: 'fa-folder-open', labelKey: 'filesystem-storage', emoji: true },
+    { id: 's3', icon: 'fa-cloud', labelKey: 's3-minio-storage', emoji: true },
+    { id: 'azure', icon: 'fa-cloud', labelKey: 'azure-blob-storage', emoji: true },
+    { id: 'gcs', icon: 'fa-cloud', labelKey: 'gcs-storage', emoji: true },
+    { id: 'database-migration', icon: 'fa-exchange', labelKey: 'database-migration', emoji: true },
+    { id: 'backup', icon: 'fa-archive', labelKey: 'backup', emoji: true },
+    // Sandstorm only, and a proper noun rather than a translated string.
+    isSandstorm ? { id: 'sandstorm', icon: 'fa-hdd-o', label: 'Sandstorm', emoji: true } : null,
+  ];
+}
+
 Template.attachments.helpers({
+  menuItems() {
+    return buildMenuItems(attachmentsMenu(), Template.instance().activeSection.get(), 'js-attachments-menu');
+  },
   loading() {
     return Template.instance().loading;
   },

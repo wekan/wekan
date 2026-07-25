@@ -286,4 +286,29 @@ test('Admin Panel / People renders the shared menu from data', () => {
     'Locked users keeps its red lock');
 });
 
+test('ALL seven Admin Panel pages now render the shared menu', () => {
+  // The design is only worth having if nothing is left outside it.
+  const pages = ['settingBody', 'peopleBody', 'adminFeatures', 'attachments',
+    'adminReports', 'translationBody', 'informationBody'];
+  for (const page of pages) {
+    const pageJade = read(`client/components/settings/${page}.jade`);
+    assert.ok(/\+leftMenu\(menuItems\)/.test(pageJade), `${page}: renders the shared menu`);
+    assert.ok(!/\.side-menu/.test(pageJade), `${page}: no hand-written menu markup left`);
+  }
+});
+
+test('Attachments keeps its Sandstorm entry and its literal label', () => {
+  const js = read('client/components/settings/attachments.js');
+  assert.ok(/isSandstorm \? \{ id: 'sandstorm'/.test(js),
+    'the Sandstorm entry is still Sandstorm-only, as a dropped null elsewhere');
+  assert.ok(/label: 'Sandstorm'/.test(js),
+    'a proper noun uses label, not an i18n key');
+  // The template must render a literal label when there is no key.
+  assert.ok(/if labelKey[\s\S]*\{\{_ labelKey\}\}[\s\S]*else[\s\S]*\{\{label\}\}/.test(jade),
+    'the template falls back to a literal label');
+  const [lit] = lib.buildMenuItems([{ id: 's', label: 'Sandstorm' }], 's');
+  assert.strictEqual(lit.label, 'Sandstorm');
+  assert.strictEqual(lit.labelKey, '');
+});
+
 console.log(`\nleftMenu: ${passed} tests passed`);
