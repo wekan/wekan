@@ -165,7 +165,32 @@ hand-written table gets its columns shifted by one.
 
 ## Controls
 
-Three controls, one implementation, the same class names on every page:
+The controls row holds, in reading order: the search field, any **filters**, any
+**actions**, the **total**, and the pagination pushed to the end side.
+
+Filters, actions and the total are **on by default** — there is no flag to turn
+them on. A page that supplies a filter or an action gets it rendered, and the
+total is shown whenever the page knows one. They came from Admin Panel / People,
+where they were hand-written into that page's own markup; they are general enough
+for any table, so they live here.
+
+```js
+filters: buildFilters([{ id, labelKey, options: [{ value, labelKey|label }] }], current)
+actions: buildActions([{ id, labelKey, icon, cls }])
+total:   <number>          // shown when non-zero
+totalLabelKey: 'people-number'   // optional label before it
+```
+
+- A **filter** is one `<select>`; the page reads `data-filter` and the selected
+  value. The option matching `current` is selected, compared as strings so a
+  numeric value still matches.
+- An **action** is one button; the page reads `data-action` to know which was
+  pressed.
+- The **total** counts the whole result set, not the page — it sits with the
+  controls for that reason, and inherits its colour so it stays readable on a dark
+  theme.
+
+Three controls are always present, with the same class names on every page:
 
 - `.js-table-page-search` — type and press Enter. Searching resets to page 1 and
   recounts.

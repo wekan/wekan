@@ -23,6 +23,27 @@ template(name="tablePage")
         +Template.dynamic(template=statusTemplate data=statusData)
     .table-page-controls
       input.js-table-page-search(type="search" placeholder="{{_ 'search'}}" value="{{searchTerm}}")
+      //- Filters, actions and the total are ON by default: supply them and they
+      //- render. They came from Admin Panel / People, where they were hand-written
+      //- into that page's own markup; they are general enough for any table.
+      each filters
+        select.js-table-page-filter(data-filter="{{id}}" title="{{_ labelKey}}")
+          each options
+            option(value="{{value}}" selected="{{selected}}")
+              if labelKey
+                | {{_ labelKey}}
+              else
+                | {{label}}
+      each actions
+        button.js-table-page-action(data-action="{{id}}" class="{{cls}}")
+          if icon
+            i.fa(class="{{icon}}")
+          | {{_ labelKey}}
+      if total
+        span.table-page-total
+          if totalLabelKey
+            | {{_ totalLabelKey}}
+          | &nbsp;{{total}}
       .table-page-pagination
         button.js-table-page-prev(class="{{#unless hasPrev}}disabled{{/unless}}" title="{{_ 'previous'}}")
           | &lt;

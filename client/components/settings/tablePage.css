@@ -62,6 +62,29 @@
   gap: 6px;
 }
 
+/* Filter dropdowns, action buttons and the total: the controls-row features that
+   came from Admin Panel / People. Same height as the search field so the row
+   reads as one strip, and all of them shrink before the row wraps. */
+.table-page-controls select.js-table-page-filter {
+  height: 34px;
+  min-width: 0;
+  max-width: 100%;
+  padding: 0 6px;
+}
+
+.table-page-controls button.js-table-page-action {
+  height: 34px;
+  padding: 0 12px;
+  white-space: nowrap;
+}
+
+/* The total sits with the controls, not in the table: it counts the whole result
+   set, not the page. Inherits its colour so it stays readable on a dark theme. */
+.table-page-total {
+  color: inherit;
+  white-space: nowrap;
+}
+
 /* Last-resort sideways scroll for the table only - never the whole page. */
 .table-page-table-wrap {
   max-width: 100%;

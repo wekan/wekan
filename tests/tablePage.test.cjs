@@ -54,7 +54,9 @@ new Function('exports', libSrc.replace(/export (const|function)/g, '$1') +
   '\nexports.columnWidthPercent = columnWidthPercent;' +
   '\nexports.pageInfo = pageInfo;' +
   '\nexports.buildRows = buildRows;' +
-  '\nexports.buildHeader = buildHeader;')(lib);
+  '\nexports.buildHeader = buildHeader;' +
+  '\nexports.buildFilters = buildFilters;' +
+  '\nexports.buildActions = buildActions;')(lib);
 
 console.log('tablePage:');
 
@@ -319,12 +321,16 @@ test('the pager is themed by the ONE shared pager stylesheet', () => {
 
 test('the table page stylesheet does not restate button colours', () => {
   // A partial copy looks right until the button is clicked and then loses to
-  // forms.css. Layout here, colour in the shared pager stylesheet.
-  const block = css.slice(css.indexOf('.table-page-pagination'));
-  const pagerRules = block.slice(0, block.indexOf('.table-page-table-wrap'));
-  for (const prop of ['background', 'color:', 'border:']) {
-    assert.ok(!new RegExp(`\\n\\s*${prop}`).test(pagerRules),
-      `tablePage.css must not set ${prop} on the pager - that belongs to paginationControls.css`);
+  // forms.css. Layout here, colour in the shared pager stylesheet. Matched by
+  // SELECTOR, not by position: other rules live around these.
+  const rules = css.match(/[^{}]+\{[^}]*\}/g) || [];
+  for (const rule of rules) {
+    const [selector, body] = rule.split('{');
+    if (!/\.table-page-pagination/.test(selector)) continue;
+    for (const prop of ['background', 'color:', 'border:']) {
+      assert.ok(!body.includes(prop),
+        `${selector.trim()} sets ${prop} - that belongs to paginationControls.css`);
+    }
   }
 });
 
@@ -459,6 +465,54 @@ test('the doc records which pages do NOT use this design, and why', () => {
   const people = read('client/components/settings/peopleBody.jade');
   assert.ok(!/table-page-controls|table-page-table/.test(people),
     'if People ever gains this markup, move it to the other section');
+});
+
+// ── controls-row features taken from People ─────────────────────────────────
+
+test('buildFilters selects the current option, as strings', () => {
+  const [filter] = lib.buildFilters([{ id: 'user', labelKey: 'show', options: [
+    { value: 'all', labelKey: 'all' },
+    { value: 'locked', labelKey: 'locked' },
+  ] }], 'locked');
+  assert.strictEqual(filter.id, 'user');
+  assert.deepStrictEqual(filter.options.map(o => o.selected), [false, true]);
+  // A numeric value still selects.
+  const [num] = lib.buildFilters([{ id: 'n', options: [{ value: 1 }, { value: 2 }] }], '2');
+  assert.deepStrictEqual(num.options.map(o => o.selected), [false, true]);
+});
+
+test('buildFilters and buildActions survive junk (negative)', () => {
+  assert.deepStrictEqual(lib.buildFilters(null, 'x'), []);
+  assert.deepStrictEqual(lib.buildActions(undefined), []);
+  // A filter with no options renders an empty select, not a crash.
+  const [f] = lib.buildFilters([{ id: 'a' }], '');
+  assert.deepStrictEqual(f.options, []);
+  const [a] = lib.buildActions([{ id: 'unlock', labelKey: 'x' }, null]);
+  assert.strictEqual(a.id, 'unlock');
+  assert.strictEqual(lib.buildActions([{ id: 'unlock', labelKey: 'x' }, null]).length, 1);
+});
+
+test('the three features are ON by default in the template', () => {
+  // No enabling flag: supply them and they render, in reading order between the
+  // search field and the pagination.
+  const at = i => jade.indexOf(i);
+  assert.ok(at('js-table-page-search') < at('each filters'), 'filters follow the search field');
+  assert.ok(at('each filters') < at('each actions'), 'then the actions');
+  assert.ok(at('each actions') < at('table-page-total'), 'then the total');
+  assert.ok(at('table-page-total') < at('table-page-pagination'), 'pagination last');
+  assert.ok(!/if (filtersEnabled|showFilters|hasActions)/.test(jade),
+    'no opt-in flag - the features are on by default');
+  assert.ok(/data-filter=/.test(jade) && /data-action=/.test(jade),
+    'a page identifies which filter/action was used by its data attribute');
+});
+
+test('the doc documents the three features as on by default', () => {
+  const at = doc.indexOf('## Controls');
+  const section = doc.slice(at, doc.indexOf('##', at + 5));
+  assert.ok(/on by default/i.test(section), 'the doc must say they are on by default');
+  for (const name of ['buildFilters', 'buildActions', 'total']) {
+    assert.ok(section.includes(name), `${name} must be documented`);
+  }
 });
 
 console.log(`\ntablePage: ${passed} tests passed`);

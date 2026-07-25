@@ -88,6 +88,46 @@ export function buildRows(docs, columns, options = {}) {
   }));
 }
 
+// ── controls-row features (from People, generalised) ───────────────────────
+//
+// A filter dropdown, extra action buttons and a total were features only Admin
+// Panel / People had, hand-written into its own markup. They are general — a
+// Boards or Cards report wants them just as much — so they live here, in the
+// shared controls row, and are ON by default: a page that supplies a filter or
+// an action gets it rendered, and the total is shown whenever the page knows one.
+
+// One <select> in the controls row. `current` is the selected option's value.
+export function buildFilters(filters, current) {
+  const list = Array.isArray(filters) ? filters : [];
+  return list.filter(Boolean).map(filter => ({
+    id: filter.id || '',
+    labelKey: filter.labelKey || '',
+    options: (Array.isArray(filter.options) ? filter.options : [])
+      .filter(Boolean)
+      .map(option => ({
+        value: option.value === undefined ? '' : String(option.value),
+        labelKey: option.labelKey || '',
+        label: option.label || '',
+        // Compared as strings so a numeric value still selects.
+        selected: String(option.value) === String(
+          // A filter may carry its own current value; otherwise the row's.
+          filter.current === undefined ? current : filter.current),
+      })),
+  }));
+}
+
+// Extra buttons in the controls row (People's "Unlock all users",
+// "Add / Remove Teams"). The page identifies which was pressed by data-action.
+export function buildActions(actions) {
+  const list = Array.isArray(actions) ? actions : [];
+  return list.filter(Boolean).map(action => ({
+    id: action.id || '',
+    labelKey: action.labelKey || '',
+    icon: action.icon || '',
+    cls: action.cls || '',
+  }));
+}
+
 // Header cells, with the equal width the design doc requires.
 export function buildHeader(columns) {
   const cols = Array.isArray(columns) ? columns : [];
