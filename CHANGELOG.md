@@ -196,6 +196,22 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
 
 This release fixes the following bugs:
 
+- [The Admin Panel left menu, the page-title bars, the People tables and the
+  Translation pane. Every Admin Panel page except Problems drew a bar under the top bar
+  repeating the name of the pane you were already looking at; they are gone, and the
+  controls that lived in People’s bar moved into the shared table page’s controls row.
+  Organizations, Teams, People and Translation drew their search box and pager but no
+  table at all: each referenced a helper that belongs to its parent template, and Blaze
+  never searches an enclosing template for a name, so the data came out undefined and a
+  table with no rows draws its chrome and stops. Domains and the other table pages
+  needed scrolling right to see their last columns, because a rule written years ago
+  forces every admin table to a 1200px minimum with non-wrapping cells — the shared
+  table page is excluded from it now. The Translation search button was black, from the
+  black fallback in the shared button style, and follows the theme like every other
+  admin button. The selected left-menu entry is filled with the theme colour and its
+  label and icon go white, matching the selected tab in the bar above
+  it](https://github.com/wekan/wekan/commit/73cd930a4).
+  Thanks to xet7.
 - [The Admin Panel left menu is back on every page. Settings, People, Features,
   Attachments, Version and Problems all rendered an empty panel where their menu
   belongs. The seam between the two halves of the shared menu was wrong: the template
