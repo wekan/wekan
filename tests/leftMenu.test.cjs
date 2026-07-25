@@ -148,10 +148,19 @@ test('the design doc states which side, both ways', () => {
 
 // ── theme ───────────────────────────────────────────────────────────────────
 
-test('the active entry follows the theme, and the default look is unchanged', () => {
-  assert.ok(/\.side-menu ul li\.active > a \{\s*color: var\(--theme-accent, inherit\);/.test(css),
-    'the active entry takes the per-user accent, falling back to inherit so the ' +
-    'WeKan default look is untouched when no colour is chosen');
+test('the selected entry is darker and bold, and still themeable', () => {
+  // The white background and shadow on the active row are subtle; with the label the
+  // same grey as every other entry, which page you were on was easy to miss.
+  const active = /\.side-menu ul li\.active > a \{([^}]*)\}/.exec(css);
+  assert.ok(active, 'the active entry must be styled');
+  assert.ok(/font-weight:\s*bold/.test(active[1]), 'the selected label is bold');
+  assert.ok(/color: var\(--theme-accent, #[0-9a-f]{6}\)/.test(active[1]),
+    'a per-user accent still wins, over a DARKER fallback - "inherit" was what made ' +
+    'the selected entry identical to the unselected ones');
+  assert.ok(!/inherit/.test(active[1]), 'the fallback must not inherit the panel grey');
+  // The icon goes with the label rather than keeping its own colour.
+  assert.ok(/\.side-menu ul li\.active > a i \{[^}]*color: inherit/.test(css),
+    'the icon takes the same colour as the label');
   const menu = css.slice(css.indexOf('.side-menu {'), css.indexOf('.content-body .main-body {'));
   // No brand colour may be hard-coded into the menu.
   assert.ok(!/#0079bf|#2980b9|#01628c/.test(menu),

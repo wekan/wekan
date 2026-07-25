@@ -548,7 +548,7 @@ test('Organizations renders through the shared table page', () => {
   const people = read('client/components/settings/peopleBody.jade');
   const org = people.slice(people.indexOf('template(name="orgGeneral")'),
     people.indexOf('template(name="orgFeatureHeader")'));
-  assert.ok(/\+tablePage\(orgTablePageData\)/.test(org), 'renders the shared page');
+  assert.ok(/\+tablePage\(this\)/.test(org), 'renders the shared page from the context it was given');
   assert.ok(!/thead|org-pagination/.test(org), 'and keeps no table markup of its own');
   const js = read('client/components/settings/peopleBody.js');
   assert.ok(/rowTemplate: 'orgRow'/.test(js), 'its interactive rows use the row slot');
@@ -563,7 +563,7 @@ test('Teams renders through the shared table page, and gains a working prev', ()
   const people = read('client/components/settings/peopleBody.jade');
   const team = people.slice(people.indexOf('template(name="teamGeneral")'),
     people.indexOf('template(name="teamFeatureHeader")'));
-  assert.ok(/\+tablePage\(teamTablePageData\)/.test(team), 'renders the shared page');
+  assert.ok(/\+tablePage\(this\)/.test(team), 'renders the shared page from the context it was given');
   assert.ok(!/thead|team-pagination/.test(team), 'and keeps no table markup of its own');
   const js = read('client/components/settings/peopleBody.js');
   assert.ok(/rowTemplate: 'teamRow'/.test(js) && /headerTemplate: 'teamFeatureHeader'/.test(js));
@@ -579,7 +579,7 @@ test('the People pane renders through the shared table page', () => {
   const people = read('client/components/settings/peopleBody.jade');
   const pane = people.slice(people.indexOf('template(name="peopleGeneral")'),
     people.indexOf('template(name="selectAllUser")'));
-  assert.ok(/\+tablePage\(peopleTablePageData\)/.test(pane));
+  assert.ok(/\+tablePage\(this\)/.test(pane));
   assert.ok(!/thead|people-pagination/.test(pane), 'no table markup of its own');
   const js = read('client/components/settings/peopleBody.js');
   assert.ok(/rowTemplate: 'peopleRow'/.test(js));
@@ -656,6 +656,43 @@ test('People uses the shared controls row - search, filter, actions, total', () 
   // ...and the removed inputs must not be read any more.
   for (const gone of ['#searchOrgInput', '#searchTeamInput']) {
     assert.ok(!js.includes(gone), `${gone} is gone with the title bar`);
+  }
+});
+
+test('every +tablePage(name) resolves where it is written', () => {
+  // Organizations, Teams and People rendered their search box and their pager but NO
+  // TABLE. Their wrappers said `+tablePage(orgTablePageData)` while that helper was
+  // registered on Template.people - the PARENT. Blaze resolves a name against the
+  // current template's helpers, the global helpers and the data context; it never
+  // searches an enclosing template. So the context was undefined, and a table page
+  // with no rowCount draws its chrome and stops. Nothing threw, and every test passed.
+  //
+  // Domains is the control: its helper sits on Template.domainGeneral, the template
+  // that uses it, and Domains kept working throughout.
+  const jadeSrc = read('client/components/settings/peopleBody.jade');
+  const jsSrc = read('client/components/settings/peopleBody.js');
+  // Which template each `+tablePage(...)` call is inside.
+  const templates = [];
+  for (const line of jadeSrc.split('\n')) {
+    const t = /^template\(name="(\w+)"\)/.exec(line);
+    if (t) templates.push({ name: t[1], args: [] });
+    const call = /\+tablePage\((\w+)\)/.exec(line);
+    if (call && templates.length) templates[templates.length - 1].args.push(call[1]);
+  }
+  const calls = templates.filter(t => t.args.length);
+  assert.ok(calls.length >= 4, 'the People panes must render the shared table page');
+  for (const { name, args } of calls) {
+    for (const arg of args) {
+      // `this` is the context handed down by the parent - always resolvable.
+      if (arg === 'this') continue;
+      // Otherwise the helper must be registered on THIS template.
+      const owner = new RegExp(`Template\\.${name}\\.helpers\\(\\{[\\s\\S]*?\\n\\}\\);`)
+        .exec(jsSrc);
+      assert.ok(owner && owner[0].includes(`${arg}()`),
+        `${name} renders +tablePage(${arg}) but ${arg} is not a helper of ${name} - `
+        + 'Blaze will not find it on an enclosing template, and the table silently '
+        + 'disappears');
+    }
   }
 });
 

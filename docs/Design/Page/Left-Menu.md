@@ -74,16 +74,18 @@ Most of the menu is deliberately **neutral**: the panel is a light grey card
 soft shadow. That is the WeKan default look and it does not change with the theme
 — a menu is chrome, and tinting the whole card would fight the content beside it.
 
-The **themeable part is the active entry's label**:
+The **themeable part is the active entry's label**, which is also **darker and
+bold** so the menu says at a glance which page is showing on the right:
 
 ```css
-.side-menu ul li.active > a { color: var(--theme-accent, inherit); }
+.side-menu ul li.active > a { color: var(--theme-accent, #2c2e33); font-weight: bold; }
 ```
 
 - **Per-user theme** — Member Settings → Change color sets `--theme-accent` on
   `:root`, and the entry you are on picks it up, for that user only.
-- **WeKan default** — with no custom colour the fallback is `inherit`, so the
-  label keeps the normal text colour and the menu looks exactly as it always has.
+- **WeKan default** — the fallback is a grey darker than the panel's `#727479`.
+  It used to be `inherit`, which made the selected entry exactly the same colour as
+  every other one; the white background and soft shadow alone were easy to miss.
 
 So: nothing in the menu is hard-coded to a *brand* colour, and the one part that
 should follow a chosen theme does. If you add a themeable part, take the colour

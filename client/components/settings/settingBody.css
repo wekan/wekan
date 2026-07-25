@@ -45,12 +45,22 @@
   background: #fff;
   box-shadow: 0 2px 3px rgba(0,0,0,0.15);
 }
-/* The one themeable part of the menu: the entry you are on takes the per-user
-   theme accent (Member Settings -> Change color sets --theme-accent on :root).
-   The fallback is "inherit", so with no custom colour the menu looks exactly as
-   it always has - the WeKan default. See docs/Design/Page/Left-Menu.md. */
+/* The entry you are on - the one whose page is showing on the right - is DARKER and
+   BOLD, so the menu says where you are at a glance. The white background and shadow
+   above are subtle enough that, when the text was the same grey as every other entry,
+   the selected row was easy to miss.
+   Still the one themeable part of the menu: a per-user theme accent (Member Settings
+   -> Change color sets --theme-accent on :root) wins. The fallback is a darker grey
+   than the panel's #727479, not "inherit" - inheriting is what made it identical to
+   the unselected entries. See docs/Design/Page/Left-Menu.md. */
 .setting-content .content-body .side-menu ul li.active > a {
-  color: var(--theme-accent, inherit);
+  color: var(--theme-accent, #2c2e33);
+  font-weight: bold;
+}
+/* The icon takes the same colour: it is inside the <a>, so it inherits unless
+   something sets it, and stating it here keeps icon and label in step. */
+.setting-content .content-body .side-menu ul li.active > a i {
+  color: inherit;
 }
 .setting-content .content-body .side-menu ul li:hover {
   background: #fff;

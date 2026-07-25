@@ -12,11 +12,11 @@ template(name="people")
           if loading.get
             +spinner
           else if orgSetting.get
-            +orgGeneral(orgList=orgList orgCurrentPage=orgCurrentPage orgTotalPages=orgTotalPages hasOrgPrevPage=hasOrgPrevPage hasOrgNextPage=hasOrgNextPage)
+            +orgGeneral(orgTablePageData)
           else if teamSetting.get
-            +teamGeneral(teamList=teamList teamCurrentPage=teamCurrentPage teamTotalPages=teamTotalPages hasTeamPrevPage=hasTeamPrevPage hasTeamNextPage=hasTeamNextPage)
+            +teamGeneral(teamTablePageData)
           else if peopleSetting.get
-            +peopleGeneral(peopleList=peopleList peopleCurrentPage=peopleCurrentPage peopleTotalPages=peopleTotalPages hasPeoplePrevPage=hasPeoplePrevPage hasPeopleNextPage=hasPeopleNextPage)
+            +peopleGeneral(peopleTablePageData)
           else if lockedUsersSetting.get
             +lockedUsersGeneral
           else if rolesSetting.get
@@ -28,7 +28,7 @@ template(name="people")
 
 
 template(name="orgGeneral")
-  +tablePage(orgTablePageData)
+  +tablePage(this)
 
 //- One header cell for an Organization feature column: the label plus its
 //- select-all / unselect-all pair. Rendered by the shared table page through the
@@ -44,7 +44,7 @@ template(name="orgFeatureHeader")
     i.fa.fa-square-o
 
 template(name="teamGeneral")
-  +tablePage(teamTablePageData)
+  +tablePage(this)
 
 //- The Teams equivalent of orgFeatureHeader: label plus its select-all pair,
 //- parameterised by feature. Rendered through the shared table page.
@@ -61,7 +61,7 @@ template(name="peopleGeneral")
   //- Not part of the table: the Add/Remove Teams panel this pane opens.
   #divAddOrRemoveTeamContainer
     +modifyTeamsUsers
-  +tablePage(peopleTablePageData)
+  +tablePage(this)
 
 template(name="selectAllUser")
   | {{_ 'dueCardsViewChange-choice-all'}}
