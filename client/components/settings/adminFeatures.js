@@ -13,14 +13,12 @@ Template.adminFeatures.onCreated(function () {
 });
 
 // The Features side menu, as data (docs/Design/Page/Left-Menu.md).
-const FEATURES_MENU = [
-  { id: 'performance', icon: 'fa-tachometer', labelKey: 'features-performance', emoji: true },
-  { id: 'security', icon: 'fa-shield', labelKey: 'features-security', emoji: true },
-  { id: 'notifications', icon: 'fa-bell', labelKey: 'features-notifications', emoji: true },
-];
+// Admin Panel / Features has no panes of its own any more: Performance, Security and
+// Notifications all moved to Admin Panel / Problems, below Summary. The page and its
+// menu stay so nothing that links here breaks, and so a future feature has a home.
+const FEATURES_MENU = [];
 
-Template.adminFeatures.helpers({
-  menuItems() {
+Template.adminFeatures.helpers({  menuItems() {
     return leftMenuData(FEATURES_MENU, Template.instance().activePane.get(), 'js-features-menu');
   },
   isPerformanceActive() {
@@ -32,6 +30,27 @@ Template.adminFeatures.helpers({
   isNotificationsActive() {
     return Template.instance().activePane.get() === 'notifications';
   },
+});
+
+// Toggle one boolean setting field, saving immediately.
+function toggleSettingField(field) {
+  const setting = ReactiveCache.getCurrentSetting();
+  if (setting) {
+    Settings.update(setting._id, { $set: { [field]: !setting[field] } });
+  }
+}
+
+Template.adminFeatures.events({  'click .js-features-menu'(event, tpl) {
+    tpl.activePane.set(event.currentTarget.dataset.id);
+  },
+});
+
+// The three panes moved to Admin Panel / Problems, which renders them from
+// adminReports.jade. Blaze resolves a helper, and delivers an event, against the
+// template the element is IN - never an enclosing one - so each pane needs these ON
+// it. One shared pair registered on all three: a handler whose element is not in a
+// given pane simply never fires there, so splitting them per pane would buy nothing.
+const featurePaneHelpers = {
   renderLinksAsPlainText() {
     return (ReactiveCache.getCurrentSetting() || {}).renderLinksAsPlainText;
   },
@@ -65,20 +84,8 @@ Template.adminFeatures.helpers({
   disableWatch() {
     return (ReactiveCache.getCurrentSetting() || {}).disableWatch;
   },
-});
-
-// Toggle one boolean setting field, saving immediately.
-function toggleSettingField(field) {
-  const setting = ReactiveCache.getCurrentSetting();
-  if (setting) {
-    Settings.update(setting._id, { $set: { [field]: !setting[field] } });
-  }
-}
-
-Template.adminFeatures.events({
-  'click .js-features-menu'(event, tpl) {
-    tpl.activePane.set(event.currentTarget.dataset.id);
-  },
+};
+const featurePaneEvents = {
   'click .js-toggle-render-links-as-plain-text'() {
     toggleSettingField('renderLinksAsPlainText');
   },
@@ -112,4 +119,9 @@ Template.adminFeatures.events({
   'click .js-toggle-disable-watch'() {
     toggleSettingField('disableWatch');
   },
-});
+};
+for (const tpl of [Template.featuresPerformance, Template.featuresSecurity,
+  Template.featuresNotifications]) {
+  tpl.helpers(featurePaneHelpers);
+  tpl.events(featurePaneEvents);
+}

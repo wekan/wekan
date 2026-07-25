@@ -1604,7 +1604,7 @@
   "filename-invisible-legend": "Red: filename has invisible characters",
   "reports": "Reports",
   "problems": "Problems",
-  "securityReportTitle": "Security",
+  "securityReportTitle": "Security Report",
   "speedReportTitle": "Speed",
   "testsReportTitle": "Tests",
   "cpuReportTitle": "CPU usage",

@@ -11,6 +11,14 @@ template(name="adminReports")
             +spinner
           else if showSummary.get
             +problemsSummary
+          //- Moved here from Admin Panel / Features; the pane templates live in
+          //- adminFeatures.jade with their handlers.
+          else if showFeaturesPerformance.get
+            +featuresPerformance
+          else if showFeaturesSecurity.get
+            +featuresSecurity
+          else if showFeaturesNotifications.get
+            +featuresNotifications
           else if showSecurity.get
             +eventStreamReport(stream="security")
           else if showSpeed.get

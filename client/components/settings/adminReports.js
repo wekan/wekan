@@ -74,6 +74,10 @@ Template.adminReports.onCreated(function () {
   this.subscription = null;
   // Problems page opens on the Summary tab (the acknowledge checkbox list).
   this.showSummary = new ReactiveVar(true);
+  // The three panes moved here from Admin Panel / Features.
+  this.showFeaturesPerformance = new ReactiveVar(false);
+  this.showFeaturesSecurity = new ReactiveVar(false);
+  this.showFeaturesNotifications = new ReactiveVar(false);
   this.showSecurity = new ReactiveVar(false);
   this.showSpeed = new ReactiveVar(false);
   this.showTests = new ReactiveVar(false);
@@ -179,17 +183,25 @@ Template.adminReports.onCreated(function () {
 // are now the single .js-left-menu-item one below.
 const PROBLEMS_MENU = [
   { id: 'report-summary', icon: 'fa-list', labelKey: 'summary' },
-  { id: 'report-security', icon: 'fa-shield', labelKey: 'securityReportTitle' },
+  // Moved here from Admin Panel / Features. They are settings rather than reports,
+  // but they are what an admin reaches for when something is slow, unsafe or noisy -
+  // which is what this page is about.
+  { id: 'features-performance', icon: 'fa-tachometer', labelKey: 'features-performance', emoji: true },
+  { id: 'features-security', icon: 'fa-shield', labelKey: 'features-security', emoji: true },
+  { id: 'features-notifications', icon: 'fa-bell', labelKey: 'features-notifications', emoji: true },
   { id: 'report-speed', icon: 'fa-tachometer', labelKey: 'speedReportTitle' },
   { id: 'report-tests', icon: 'fa-flask', labelKey: 'testsReportTitle' },
   { id: 'report-cpu', icon: 'fa-tachometer', labelKey: 'cpuReportTitle' },
   { separator: true },
+  // "Security Report", not "Security": the Features pane above is also called
+  // Security, and the two now sit in the same menu.
+  { id: 'report-security', icon: 'fa-shield', labelKey: 'securityReportTitle' },
+  { id: 'report-impersonation', icon: 'fa-user-secret', labelKey: 'impersonationReportTitle' },
   { id: 'report-broken', icon: 'fa-chain-broken', labelKey: 'broken-cards' },
   { id: 'report-files', icon: 'fa-paperclip', labelKey: 'filesReportTitle' },
   { id: 'report-rules', icon: 'fa-magic', labelKey: 'rulesReportTitle' },
   { id: 'report-boards', icon: 'fa-columns', labelKey: 'boardsReportTitle' },
   { id: 'report-cards', icon: 'fa-id-card-o', labelKey: 'cardsReportTitle' },
-  { id: 'report-impersonation', icon: 'fa-user-secret', labelKey: 'impersonationReportTitle' },
   { id: 'report-recovery', icon: 'fa-medkit', labelKey: 'recoveryReportTitle' },
 ];
 
@@ -206,6 +218,15 @@ Template.adminReports.helpers({
   },
   showSummary() {
     return Template.instance().showSummary;
+  },
+  showFeaturesPerformance() {
+    return Template.instance().showFeaturesPerformance;
+  },
+  showFeaturesSecurity() {
+    return Template.instance().showFeaturesSecurity;
+  },
+  showFeaturesNotifications() {
+    return Template.instance().showFeaturesNotifications;
   },
   showSecurity() {
     return Template.instance().showSecurity;
@@ -336,6 +357,9 @@ function switchMenu(event, tmpl) {
   if (targetID && targetID !== tmpl.activeReport.get()) {
     tmpl.loading.set(true);
     tmpl.showSummary.set(false);
+    tmpl.showFeaturesPerformance.set(false);
+    tmpl.showFeaturesSecurity.set(false);
+    tmpl.showFeaturesNotifications.set(false);
     tmpl.showSecurity.set(false);
     tmpl.showSpeed.set(false);
     tmpl.showTests.set(false);
@@ -351,6 +375,16 @@ function switchMenu(event, tmpl) {
     // not a subscription), so just show them and clear the spinner.
     if ('report-summary' === targetID) {
       tmpl.showSummary.set(true);
+      tmpl.loading.set(false);
+    } else if ('features-performance' === targetID) {
+      // Settings panes: nothing to fetch, so show and clear the spinner.
+      tmpl.showFeaturesPerformance.set(true);
+      tmpl.loading.set(false);
+    } else if ('features-security' === targetID) {
+      tmpl.showFeaturesSecurity.set(true);
+      tmpl.loading.set(false);
+    } else if ('features-notifications' === targetID) {
+      tmpl.showFeaturesNotifications.set(true);
       tmpl.loading.set(false);
     } else if ('report-security' === targetID) {
       tmpl.showSecurity.set(true);
