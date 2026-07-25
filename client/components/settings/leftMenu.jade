@@ -5,8 +5,15 @@
 //- whole panel mirrors and this menu sits on the RIGHT. That comes from logical
 //- CSS on .side-menu, not from anything here — see the design doc.
 //-
+//- The three icon shapes below are the ones the pages already used, reproduced
+//- exactly so converting a page changes no pixel:
+//-   emoji:true            an empty span.emoji-icon before the icon (Settings,
+//-                         Features) — the span carries its own font-size rule
+//-   iconWrapCls:'text-red' the icon wrapped in a coloured span.emoji-icon
+//-                         (People → Locked users)
+//-   neither               a bare i.fa (Problems, People, Translation, Info)
+//-
 //- Data context: { items } from buildMenuItems() in models/lib/leftMenu.js.
-//- Each item is { id, icon, labelKey, active, jsClass, cls } or { separator }.
 template(name="leftMenu")
   .side-menu
     ul
@@ -17,6 +24,11 @@ template(name="leftMenu")
         else
           li(class="{{#if active}}active{{/if}} {{cls}}")
             a.js-left-menu-item(class="{{jsClass}}" data-id="{{id}}")
-              span.emoji-icon
-              i.fa(class="{{icon}}")
+              if iconWrapCls
+                span.emoji-icon(class="{{iconWrapCls}}")
+                  i.fa(class="{{icon}}")
+              else
+                if emoji
+                  span.emoji-icon
+                i.fa(class="{{icon}}")
               | {{_ labelKey}}

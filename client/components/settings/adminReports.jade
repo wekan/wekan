@@ -4,70 +4,7 @@ template(name="adminReports")
       | {{_ 'error-notAuthorized'}}
     else
       .content-body
-        .side-menu
-          ul
-            li
-              a.js-report-summary(data-id="report-summary")
-                i.fa.fa-list
-                | {{_ 'summary'}}
-
-            li
-              a.js-report-security(data-id="report-security")
-                i.fa.fa-shield
-                | {{_ 'securityReportTitle'}}
-
-            li
-              a.js-report-speed(data-id="report-speed")
-                i.fa.fa-tachometer
-                | {{_ 'speedReportTitle'}}
-
-            li
-              a.js-report-tests(data-id="report-tests")
-                i.fa.fa-flask
-                | {{_ 'testsReportTitle'}}
-
-            li
-              a.js-report-cpu(data-id="report-cpu")
-                i.fa.fa-tachometer
-                | {{_ 'cpuReportTitle'}}
-
-            li.admin-reports-separator
-              hr
-
-            li
-              a.js-report-broken(data-id="report-broken")
-                i.fa.fa-chain-broken
-                | {{_ 'broken-cards'}}
-
-            li
-              a.js-report-files(data-id="report-files")
-                i.fa.fa-paperclip
-                | {{_ 'filesReportTitle'}}
-
-            li
-              a.js-report-rules(data-id="report-rules")
-                i.fa.fa-magic
-                | {{_ 'rulesReportTitle'}}
-
-            li
-              a.js-report-boards(data-id="report-boards")
-                i.fa.fa-columns
-                | {{_ 'boardsReportTitle'}}
-
-            li
-              a.js-report-cards(data-id="report-cards")
-                i.fa.fa-id-card-o
-                | {{_ 'cardsReportTitle'}}
-
-            li
-              a.js-report-impersonation(data-id="report-impersonation")
-                i.fa.fa-user-secret
-                | {{_ 'impersonationReportTitle'}}
-
-            li
-              a.js-report-recovery(data-id="report-recovery")
-                i.fa.fa-medkit
-                | {{_ 'recoveryReportTitle'}}
+        +leftMenu(menuItems)
 
         .main-body
           if loading.get

@@ -98,7 +98,9 @@ check('FerretDB self-regulates its own CPU and reports its operations summary', 
 check('CPU usage report is wired into Admin Panel / Problems', () => {
   assert.ok(/'security', 'speed', 'tests', 'cpu'/.test(read('models/eventLog.js')), 'cpu event stream registered');
   const jade = read('client/components/settings/adminReports.jade');
-  assert.ok(/js-report-cpu/.test(jade) && /stream="cpu"/.test(jade), 'menu item + report template');
+  assert.ok(/stream="cpu"/.test(jade), 'report template');
+  // The side menu is data now (docs/Design/Page/Left-Menu.md).
+  assert.ok(/'report-cpu'/.test(read('client/components/settings/adminReports.js')), 'menu item');
   const js = read('client/components/settings/adminReports.js');
   assert.ok(/showCpu/.test(js) && /cpuReportTitle/.test(js), 'show state + title');
   assert.ok(/"cpuReportTitle": "CPU usage"/.test(read('imports/i18n/data/en.i18n.json')), 'title string');

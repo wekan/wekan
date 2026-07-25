@@ -255,7 +255,9 @@ test('the design doc lists the pages and they exist in code', () => {
   for (const id of ['report-security', 'report-speed', 'report-tests', 'report-cpu',
     'report-files', 'report-rules', 'report-boards', 'report-cards',
     'report-impersonation', 'report-recovery']) {
-    assert.ok(reportsJade.includes(id), `${id} must exist in the Problems side menu`);
+    // The menu is DATA now (PROBLEMS_MENU, docs/Design/Page/Left-Menu.md),
+    // not markup, so it lives in the .js.
+    assert.ok(reportsJs.includes(`'${id}'`), `${id} must exist in the Problems side menu`);
   }
 });
 

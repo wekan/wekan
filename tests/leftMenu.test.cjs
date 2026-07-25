@@ -193,4 +193,39 @@ test('the two page designs cross-link', () => {
   assert.ok(fs.existsSync(path.join(root, 'docs/Design/Page/Table.md')));
 });
 
+// ── pages converted to the shared menu ──────────────────────────────────────
+
+test('Admin Panel / Problems renders the shared menu from data', () => {
+  const jade = read('client/components/settings/adminReports.jade');
+  // Strip line comments: the collapsed handlers are DESCRIBED in a comment there.
+  const js = read('client/components/settings/adminReports.js').replace(/^\s*\/\/.*$/gm, '');
+  assert.ok(/\+leftMenu\(menuItems\)/.test(jade), 'renders the shared menu');
+  assert.ok(!/\.side-menu/.test(jade), 'no hand-written .side-menu markup left');
+  assert.ok(/PROBLEMS_MENU = \[/.test(js), 'its entries are a data list');
+  assert.ok(/buildMenuItems\(PROBLEMS_MENU/.test(js), 'built by the shared helper');
+  // Twelve identical per-entry handlers collapsed to one on the shared class.
+  assert.strictEqual((js.match(/'click a\.js-report-/g) || []).length, 0,
+    'the per-entry handlers must be gone');
+  assert.strictEqual((js.match(/'click \.js-left-menu-item'/g) || []).length, 1,
+    'exactly one menu handler');
+  // The active row is rendered from activeReport, so the hand DOM toggling that
+  // used to fight a re-render must be gone.
+  assert.ok(!/side-menu li\.active'\)\.removeClass/.test(js),
+    'no manual active-class toggling');
+});
+
+test('the shared menu reproduces each page icon shape', () => {
+  // Same styling after conversion: an empty span.emoji-icon (Settings,
+  // Features), a coloured wrapper (People / Locked users), or a bare icon.
+  assert.ok(/if iconWrapCls/.test(jade) && /if emoji/.test(jade),
+    'all three icon shapes must be supported');
+  const [plain] = lib.buildMenuItems([{ id: 'a', icon: 'fa-list', labelKey: 'x' }], 'a');
+  assert.strictEqual(plain.emoji, false);
+  assert.strictEqual(plain.iconWrapCls, '');
+  const [emoji] = lib.buildMenuItems([{ id: 'b', icon: 'fa-key', labelKey: 'y', emoji: true }], 'b');
+  assert.strictEqual(emoji.emoji, true);
+  const [red] = lib.buildMenuItems([{ id: 'c', icon: 'fa-lock', labelKey: 'z', iconWrapCls: 'text-red' }], 'c');
+  assert.strictEqual(red.iconWrapCls, 'text-red');
+});
+
 console.log(`\nleftMenu: ${passed} tests passed`);

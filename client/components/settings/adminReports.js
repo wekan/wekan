@@ -9,6 +9,7 @@ import Rules from '/models/rules';
 import ImpersonatedUsers from '/models/impersonatedUsers';
 import RecoveryEvents from '/models/recoveryEvents';
 import { buildHeader, buildRows, pageInfo } from '/models/lib/tablePage';
+import { buildMenuItems } from '/models/lib/leftMenu';
 const { cleanFileName } = require('/imports/lib/fileNameDisplay');
 const { filesize } = require('filesize');
 
@@ -173,7 +174,31 @@ Template.adminReports.onCreated(function () {
   };
 });
 
+// The Problems side menu, as data (docs/Design/Page/Left-Menu.md). Every entry
+// used to be six lines of markup plus its own click handler; the twelve handlers
+// are now the single .js-left-menu-item one below.
+const PROBLEMS_MENU = [
+  { id: 'report-summary', icon: 'fa-list', labelKey: 'summary' },
+  { id: 'report-security', icon: 'fa-shield', labelKey: 'securityReportTitle' },
+  { id: 'report-speed', icon: 'fa-tachometer', labelKey: 'speedReportTitle' },
+  { id: 'report-tests', icon: 'fa-flask', labelKey: 'testsReportTitle' },
+  { id: 'report-cpu', icon: 'fa-tachometer', labelKey: 'cpuReportTitle' },
+  { separator: true },
+  { id: 'report-broken', icon: 'fa-chain-broken', labelKey: 'broken-cards' },
+  { id: 'report-files', icon: 'fa-paperclip', labelKey: 'filesReportTitle' },
+  { id: 'report-rules', icon: 'fa-magic', labelKey: 'rulesReportTitle' },
+  { id: 'report-boards', icon: 'fa-columns', labelKey: 'boardsReportTitle' },
+  { id: 'report-cards', icon: 'fa-id-card-o', labelKey: 'cardsReportTitle' },
+  { id: 'report-impersonation', icon: 'fa-user-secret', labelKey: 'impersonationReportTitle' },
+  { id: 'report-recovery', icon: 'fa-medkit', labelKey: 'recoveryReportTitle' },
+];
+
 Template.adminReports.helpers({
+  menuItems() {
+    // The pane opens on Summary, before any menu click has set activeReport.
+    return buildMenuItems(PROBLEMS_MENU,
+      Template.instance().activeReport.get() || 'report-summary');
+  },
   // The shared table page for whichever paginated report is open (null for the
   // Summary / Broken cards panes, which are not table pages).
   tablePageData() {
@@ -240,40 +265,10 @@ Template.adminReports.helpers({
 });
 
 Template.adminReports.events({
-  'click a.js-report-summary'(event) {
-    switchMenu(event, Template.instance());
-  },
-  'click a.js-report-security'(event) {
-    switchMenu(event, Template.instance());
-  },
-  'click a.js-report-speed'(event) {
-    switchMenu(event, Template.instance());
-  },
-  'click a.js-report-tests'(event) {
-    switchMenu(event, Template.instance());
-  },
-  'click a.js-report-cpu'(event) {
-    switchMenu(event, Template.instance());
-  },
-  'click a.js-report-broken'(event) {
-    switchMenu(event, Template.instance());
-  },
-  'click a.js-report-files'(event) {
-    switchMenu(event, Template.instance());
-  },
-  'click a.js-report-rules'(event) {
-    switchMenu(event, Template.instance());
-  },
-  'click a.js-report-cards'(event) {
-    switchMenu(event, Template.instance());
-  },
-  'click a.js-report-boards'(event) {
-    switchMenu(event, Template.instance());
-  },
-  'click a.js-report-impersonation'(event) {
-    switchMenu(event, Template.instance());
-  },
-  'click a.js-report-recovery'(event) {
+  // One handler for the whole menu: the shared left menu gives every entry the
+  // same class and puts the pane id in data-id, so the twelve identical
+  // 'click a.js-report-<name>' handlers collapsed to this.
+  'click .js-left-menu-item'(event) {
     switchMenu(event, Template.instance());
   },
 
@@ -333,8 +328,12 @@ function runSearch(tmpl, reportId, inputSelector) {
 }
 
 function switchMenu(event, tmpl) {
-  const target = $(event.target);
-  if (!target.hasClass('active')) {
+  // data-id is on the anchor; event.target may be the icon inside it.
+  const target = $(event.currentTarget || event.target).closest('.js-left-menu-item');
+  const targetID = target.data('id');
+  // Re-clicking the open pane must do nothing. The active row is rendered from
+  // activeReport now, so compare ids instead of reading a DOM class.
+  if (targetID && targetID !== tmpl.activeReport.get()) {
     tmpl.loading.set(true);
     tmpl.showSummary.set(false);
     tmpl.showSecurity.set(false);
@@ -346,9 +345,6 @@ function switchMenu(event, tmpl) {
       tmpl.subscription.stop();
     }
 
-    $('.side-menu li.active').removeClass('active');
-    target.parent().addClass('active');
-    const targetID = target.data('id');
     tmpl.activeReport.set(targetID);
 
     // Summary + the Security/Speed/Tests streams load their own data (via methods,

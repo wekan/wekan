@@ -37,6 +37,10 @@ export function buildMenuItems(items, activeId, jsClass = '') {
         // existing `click a.js-<page>-menu` handler goes on working.
         jsClass: item.jsClass || jsClass || '',
         cls: item.cls || '',
+        // Icon shape, reproducing exactly what each page already rendered so a
+        // conversion changes no pixel. See leftMenu.jade.
+        emoji: !!item.emoji,
+        iconWrapCls: item.iconWrapCls || '',
       };
     });
 }

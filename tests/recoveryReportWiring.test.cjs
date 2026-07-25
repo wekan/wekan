@@ -66,7 +66,8 @@ test('client report is wired: config, columns, menu, rendering', () => {
     'severity row class');
 
   const jade = read('client/components/settings/adminReports.jade');
-  assert.ok(/js-report-recovery/.test(jade), 'menu link');
+  // The side menu is data now (docs/Design/Page/Left-Menu.md).
+  assert.ok(/'report-recovery'/.test(js), 'menu entry');
   assert.ok(/\+tablePage\(tablePageData\)/.test(jade), 'rendered through the shared table page');
 });
 
