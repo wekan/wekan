@@ -33,9 +33,6 @@ Template.settingHeaderBar.helpers({
   isPeopleActive() {
     return FlowRouter.getRouteName() === 'people' ? 'active' : '';
   },
-  isFeaturesActive() {
-    return FlowRouter.getRouteName() === 'admin-features' ? 'active' : '';
-  },
   isAttachmentsActive() {
     return FlowRouter.getRouteName() === 'attachments' ? 'active' : '';
   },

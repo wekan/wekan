@@ -10,6 +10,7 @@ import ImpersonatedUsers from '/models/impersonatedUsers';
 import RecoveryEvents from '/models/recoveryEvents';
 import { buildHeader, buildRows, pageInfo } from '/models/lib/tablePage';
 import { leftMenuData } from '/models/lib/leftMenu';
+import Settings from '/models/settings';
 const { cleanFileName } = require('/imports/lib/fileNameDisplay');
 const { filesize } = require('filesize');
 
@@ -772,3 +773,92 @@ Template.eventStreamReport.events({
     if (info.hasNext) { tmpl.page.set(tmpl.page.get() + 1); tmpl.load(); }
   },
 });
+
+function toggleSettingField(field) {
+  const setting = ReactiveCache.getCurrentSetting();
+  if (setting) {
+    Settings.update(setting._id, { $set: { [field]: !setting[field] } });
+  }
+}
+
+// Performance, Security and Notifications - the three panes that were Admin Panel /
+// Features before it was removed. Blaze resolves a helper, and delivers an event,
+// against the template the element is IN - never an enclosing one - so each pane needs
+// these ON it. One shared pair registered on all three: a handler whose element is not
+// in a given pane simply never fires there, so splitting them per pane would buy
+// nothing.
+const featurePaneHelpers = {
+  renderLinksAsPlainText() {
+    return (ReactiveCache.getCurrentSetting() || {}).renderLinksAsPlainText;
+  },
+  alwaysShowCodeAsText() {
+    return (ReactiveCache.getCurrentSetting() || {}).alwaysShowCodeAsText;
+  },
+  disableAllImport() {
+    return (ReactiveCache.getCurrentSetting() || {}).disableAllImport;
+  },
+  disableAllExport() {
+    return (ReactiveCache.getCurrentSetting() || {}).disableAllExport;
+  },
+  disableImportAvatars() {
+    return (ReactiveCache.getCurrentSetting() || {}).disableImportAvatars;
+  },
+  disableExportAvatars() {
+    return (ReactiveCache.getCurrentSetting() || {}).disableExportAvatars;
+  },
+  anonymizeImportUsers() {
+    return (ReactiveCache.getCurrentSetting() || {}).anonymizeImportUsers;
+  },
+  anonymizeExportUsers() {
+    return (ReactiveCache.getCurrentSetting() || {}).anonymizeExportUsers;
+  },
+  disableActivities() {
+    return (ReactiveCache.getCurrentSetting() || {}).disableActivities;
+  },
+  disableNotifications() {
+    return (ReactiveCache.getCurrentSetting() || {}).disableNotifications;
+  },
+  disableWatch() {
+    return (ReactiveCache.getCurrentSetting() || {}).disableWatch;
+  },
+};
+const featurePaneEvents = {
+  'click .js-toggle-render-links-as-plain-text'() {
+    toggleSettingField('renderLinksAsPlainText');
+  },
+  'click .js-toggle-always-show-code-as-text'() {
+    toggleSettingField('alwaysShowCodeAsText');
+  },
+  'click .js-toggle-disable-all-import'() {
+    toggleSettingField('disableAllImport');
+  },
+  'click .js-toggle-disable-all-export'() {
+    toggleSettingField('disableAllExport');
+  },
+  'click .js-toggle-disable-import-avatars'() {
+    toggleSettingField('disableImportAvatars');
+  },
+  'click .js-toggle-disable-export-avatars'() {
+    toggleSettingField('disableExportAvatars');
+  },
+  'click .js-toggle-anonymize-import-users'() {
+    toggleSettingField('anonymizeImportUsers');
+  },
+  'click .js-toggle-anonymize-export-users'() {
+    toggleSettingField('anonymizeExportUsers');
+  },
+  'click .js-toggle-disable-activities'() {
+    toggleSettingField('disableActivities');
+  },
+  'click .js-toggle-disable-notifications'() {
+    toggleSettingField('disableNotifications');
+  },
+  'click .js-toggle-disable-watch'() {
+    toggleSettingField('disableWatch');
+  },
+};
+for (const tpl of [Template.featuresPerformance, Template.featuresSecurity,
+  Template.featuresNotifications]) {
+  tpl.helpers(featurePaneHelpers);
+  tpl.events(featurePaneEvents);
+}

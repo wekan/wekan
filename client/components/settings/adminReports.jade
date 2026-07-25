@@ -11,8 +11,6 @@ template(name="adminReports")
             +spinner
           else if showSummary.get
             +problemsSummary
-          //- Moved here from Admin Panel / Features; the pane templates live in
-          //- adminFeatures.jade with their handlers.
           else if showFeaturesPerformance.get
             +featuresPerformance
           else if showFeaturesSecurity.get
@@ -55,3 +53,78 @@ template(name="cpuCurrentStatus")
       | {{cores}} {{_ 'cpu-cores-suffix'}} &middot; {{_ 'cpu-load-average'}} {{loadAverage}}
     if activity
       span.quiet  &middot; {{activity}}
+
+//- Performance, Security and Notifications. They were the whole of Admin Panel /
+//- Features, which is gone; they are Problems panes now and live with the page that
+//- renders them. Each is its own template so its helpers and handlers can live ON it -
+//- Blaze resolves both against the template an element is IN, never an enclosing one.
+
+//- Admin Panel / Problems / Performance.
+template(name="featuresPerformance")
+  ul.setting-detail
+    li.layout-form
+      .title {{_ 'cards-loading'}}
+      p.description {{_ 'cards-loading-description'}}
+
+//- Admin Panel / Problems / Security.
+template(name="featuresSecurity")
+  ul.setting-detail
+    li
+      a.flex.js-toggle-render-links-as-plain-text
+        .materialCheckBox(class="{{#if renderLinksAsPlainText}}is-checked{{/if}}")
+        span {{_ 'render-links-as-plain-text'}}
+      p.description {{_ 'render-links-as-plain-text-description'}}
+    li
+      a.flex.js-toggle-always-show-code-as-text
+        .materialCheckBox(class="{{#if alwaysShowCodeAsText}}is-checked{{/if}}")
+        span {{_ 'always-show-code-as-text'}}
+      p.description {{_ 'always-show-code-as-text-description'}}
+    li
+      a.flex.js-toggle-disable-all-import
+        .materialCheckBox(class="{{#if disableAllImport}}is-checked{{/if}}")
+        span {{_ 'disable-all-import'}}
+      p.description {{_ 'disable-all-import-description'}}
+    li
+      a.flex.js-toggle-disable-all-export
+        .materialCheckBox(class="{{#if disableAllExport}}is-checked{{/if}}")
+        span {{_ 'disable-all-export'}}
+      p.description {{_ 'disable-all-export-description'}}
+    li
+      a.flex.js-toggle-disable-import-avatars
+        .materialCheckBox(class="{{#if disableImportAvatars}}is-checked{{/if}}")
+        span {{_ 'disable-import-avatars'}}
+      p.description {{_ 'disable-import-avatars-description'}}
+    li
+      a.flex.js-toggle-disable-export-avatars
+        .materialCheckBox(class="{{#if disableExportAvatars}}is-checked{{/if}}")
+        span {{_ 'disable-export-avatars'}}
+      p.description {{_ 'disable-export-avatars-description'}}
+    li
+      a.flex.js-toggle-anonymize-import-users
+        .materialCheckBox(class="{{#if anonymizeImportUsers}}is-checked{{/if}}")
+        span {{_ 'anonymize-import-users'}}
+      p.description {{_ 'anonymize-import-users-description'}}
+    li
+      a.flex.js-toggle-anonymize-export-users
+        .materialCheckBox(class="{{#if anonymizeExportUsers}}is-checked{{/if}}")
+        span {{_ 'anonymize-export-users'}}
+      p.description {{_ 'anonymize-export-users-description'}}
+
+//- Admin Panel / Problems / Notifications.
+template(name="featuresNotifications")
+  ul.setting-detail
+    li
+      a.flex.js-toggle-disable-activities
+        .materialCheckBox(class="{{#if disableActivities}}is-checked{{/if}}")
+        span {{_ 'disable-activities'}}
+      p.description {{_ 'disable-activities-description'}}
+    li
+      a.flex.js-toggle-disable-notifications
+        .materialCheckBox(class="{{#if disableNotifications}}is-checked{{/if}}")
+        span {{_ 'disable-notifications'}}
+      p.description {{_ 'disable-notifications-description'}}
+    li
+      a.flex.js-toggle-disable-watch
+        .materialCheckBox(class="{{#if disableWatch}}is-checked{{/if}}")
+        span {{_ 'disable-watch'}}
+      p.description {{_ 'disable-watch-description'}}

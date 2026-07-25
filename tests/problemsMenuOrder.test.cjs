@@ -32,8 +32,10 @@ const read = rel => fs.readFileSync(path.join(root, rel), 'utf8');
 
 const reportsJs = read('client/components/settings/adminReports.js');
 const reportsJade = read('client/components/settings/adminReports.jade');
-const featuresJs = read('client/components/settings/adminFeatures.js');
-const featuresJade = read('client/components/settings/adminFeatures.jade');
+// Admin Panel / Features was removed once its last three panes moved here, so the
+// panes and their handlers live with the page that renders them.
+const featuresJs = read('client/components/settings/adminReports.js');
+const featuresJade = read('client/components/settings/adminReports.jade');
 const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
 
 const menu = reportsJs.slice(reportsJs.indexOf('const PROBLEMS_MENU'),
@@ -100,28 +102,17 @@ test('each pane took its helpers and handlers with it', () => {
   assert.ok(/for \(const tpl of \[Template\.featuresPerformance, Template\.featuresSecurity,[\s\S]{0,80}tpl\.helpers\(featurePaneHelpers\);[\s\S]{0,40}tpl\.events\(featurePaneEvents\);/
     .test(featuresJs), 'registered on all three pane templates');
   // They must NOT be left on the page template.
-  const pageHelpers = /Template\.adminFeatures\.helpers\(\{([\s\S]*?)\n\}\);/.exec(featuresJs)[1];
-  const pageEvents = /Template\.adminFeatures\.events\(\{([\s\S]*?)\n\}\);/.exec(featuresJs)[1];
-  for (const helper of ['renderLinksAsPlainText', 'disableAllImport', 'disableWatch']) {
-    assert.ok(!pageHelpers.includes(`${helper}()`), `${helper} must be on the pane, not the page`);
-    assert.ok(/const featurePaneHelpers[\s\S]*?/.test(featuresJs)
-      && featuresJs.slice(featuresJs.indexOf('const featurePaneHelpers')).includes(`${helper}()`),
-    `${helper} must be in the pane helpers`);
-  }
-  for (const cls of ['js-toggle-render-links-as-plain-text', 'js-toggle-disable-all-export',
-    'js-toggle-disable-notifications']) {
-    assert.ok(!pageEvents.includes(cls), `${cls} must be on the pane, not the page`);
-  }
-  // The menu handler is the page's own and stays.
-  assert.ok(pageEvents.includes('js-features-menu'), 'the page keeps its own menu handler');
+  // There is no page template left to leave them on: the pane templates are the only
+  // place they can be.
+  assert.ok(!/Template\.adminFeatures/.test(featuresJs),
+    'the removed page template must not be referenced at all');
 });
 
-test('Features is left empty but intact (negative)', () => {
-  assert.ok(/const FEATURES_MENU = \[\];/.test(featuresJs),
-    'its menu has no entries left - all three moved');
-  // The page still renders, so nothing linking to it breaks.
-  assert.ok(/template\(name="adminFeatures"\)/.test(featuresJade), 'the page still exists');
-  assert.ok(/leftMenuData\(FEATURES_MENU/.test(featuresJs), 'and still builds its menu the shared way');
+test('the Features page is removed entirely (negative)', () => {
+  // It had nothing left once these three moved. tests/templateIncludesResolve.test.cjs
+  // checks the route, tab and imports went with it.
+  assert.ok(!/FEATURES_MENU/.test(featuresJs), 'no menu left behind');
+  assert.ok(!/template\(name="adminFeatures"\)/.test(featuresJade), 'no page template');
 });
 
 console.log(`\nproblemsMenuOrder: ${passed} tests passed`);

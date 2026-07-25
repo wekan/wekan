@@ -1,4 +1,3 @@
-import '/client/components/settings/adminFeatures.jade';
 import '/client/components/settings/adminReports.jade';
 import '/client/components/settings/attachments.jade';
 import '/client/components/settings/attachmentSettings.jade';
@@ -13,7 +12,6 @@ import '/client/components/settings/leftMenu.jade';
 import '/client/components/settings/tablePage.jade';
 import '/client/components/settings/translationBody.jade';
 
-import '/client/components/settings/adminFeatures.js';
 import '/client/components/settings/adminReports.js';
 import '/client/components/settings/attachments.js';
 import '/client/components/settings/connectionMethod.js';

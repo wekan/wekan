@@ -14,11 +14,6 @@ template(name="settingHeaderBar")
         i.fa.fa-users
         span {{_ 'people'}}
 
-      a.setting-header-btn.informations(class=isFeaturesActive href="{{pathFor 'admin-features'}}")
-        span.emoji-icon
-        i.fa.fa-flask
-        span {{_ 'features'}}
-
       a.setting-header-btn.informations(class=isAttachmentsActive href="{{pathFor 'attachments'}}")
         span.emoji-icon
         i.fa.fa-paperclip

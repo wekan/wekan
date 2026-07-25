@@ -22,7 +22,6 @@ table beside it.
 | `client/components/settings/tablePage.css` | `.css` stylesheet | The ≤ 800px rule that stacks the menu above the content instead of squeezing both onto one row. |
 | `client/components/settings/settingBody.jade` | `.jade` template | Admin Panel / Settings. |
 | `client/components/settings/peopleBody.jade` | `.jade` template | Admin Panel / People (People, Organizations, Teams, Domains, Locked users, Roles, Templates). |
-| `client/components/settings/adminFeatures.jade` | `.jade` template | Admin Panel / Features. |
 | `client/components/settings/attachments.jade` | `.jade` template | Admin Panel / Attachments. |
 | `client/components/settings/adminReports.jade` | `.jade` template | Admin Panel / Problems. |
 | `client/components/settings/translationBody.jade` | `.jade` template | Admin Panel / Translation. |

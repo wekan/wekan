@@ -230,7 +230,7 @@ test('what the pages pass is what the template iterates', () => {
 test('every page builds its context through that one helper', () => {
   // Six pages, one shape. Calling buildMenuItems directly returns the array again and
   // silently empties that page's menu, so no page may do it.
-  const pages = ['settingBody', 'peopleBody', 'adminFeatures', 'attachments',
+  const pages = ['settingBody', 'peopleBody', 'attachments',
     'adminReports', 'informationBody'];
   for (const page of pages) {
     const src = read(`client/components/settings/${page}.js`);
@@ -281,7 +281,6 @@ test('the shared menu reproduces each page icon shape', () => {
 test('Settings, Features and Info render the shared menu too', () => {
   const pages = [
     ['settingBody', 'settingsMenu()', 'js-setting-menu'],
-    ['adminFeatures', 'FEATURES_MENU', 'js-features-menu'],
     ['informationBody', 'INFO_MENU', 'js-setting-menu'],
   ];
   for (const [file, list, jsClass] of pages) {
@@ -362,7 +361,7 @@ test('ALL seven Admin Panel pages now render the shared menu', () => {
   // The design is only worth having if nothing is left outside it.
   // Translation moved INTO Settings as a pane, so it no longer has a menu of its
   // own - it is one entry in the Settings menu now.
-  const pages = ['settingBody', 'peopleBody', 'adminFeatures', 'attachments',
+  const pages = ['settingBody', 'peopleBody', 'attachments',
     'adminReports', 'informationBody'];
   for (const page of pages) {
     const pageJade = read(`client/components/settings/${page}.jade`);
