@@ -186,30 +186,35 @@
   width: 100% !important;
   min-width: 100% !important;
   max-width: 100% !important;
-  margin-bottom: 2rem !important;
+  /* No 2rem band of grey between swimlanes. On a phone every swimlane already begins
+     with its own darker header bar, which separates them perfectly well, and the
+     margin only ever showed up as dead space: below the blue resize bar before the
+     next swimlane's header, and - since this selector matches the header wrapper too -
+     between a swimlane's own header and its lists. */
+  margin-bottom: 0 !important;
   display: block !important;
   float: none !important;
 }
 
-/* The lists container takes the height of the lists in it, so the blue resize bar -
-   which is pinned to its bottom edge - sits directly under the last list, with no
-   band of empty grey above it.
-   Two things made that gap. The container carries an INLINE `height` from the stored
-   swimlane height, which is a height chosen for the desktop layout where lists sit
-   side by side; stacked full-width in mobile mode the content is a different height
-   entirely, and the leftover showed as dead space. And `min-height: 150px` held a
-   short swimlane open even when its content was smaller. An inline style only loses
-   to !important, hence these. */
-.mobile-mode .swimlane.js-lists {
+/* The header wrapper is exactly as tall as the header bar inside it. It is a
+   `.swimlane` as well, so it picks up that element's sizing, and anything left over
+   renders as the lighter grey of `.swimlane` around the darker bar. */
+.mobile-mode .swimlane.nodragscroll {
   height: auto !important;
   min-height: 0 !important;
+  padding: 0 !important;
 }
 
-/* No gap between a swimlane's header and its own lists either: the 2rem above is
-   meant to separate one swimlane from the NEXT, but it applies to the header wrapper
-   too, which put the same 32px band between a header and the lists belonging to it. */
-.mobile-mode .swimlane.nodragscroll {
-  margin-bottom: 0 !important;
+/* The lists container is exactly the height it was resized to - no floor under it and
+   no margin after it, so the blue resize bar sits flush between the last list and the
+   next swimlane's header.
+   `min-height: 150px` (from .swimlane.js-lists.js-swimlane) held a short swimlane open
+   below the height that was chosen for it, and that leftover was the grey band above
+   the bar. Removing the floor is enough; the inline `height` from the stored swimlane
+   height is deliberately NOT overridden, because that is the height being dragged - an
+   `height: auto !important` here would make the resize bar do nothing at all. */
+.mobile-mode .swimlane.js-lists {
+  min-height: 0 !important;
 }
 
 .mobile-mode .swimlane-header {
