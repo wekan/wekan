@@ -17,12 +17,10 @@ template(name="attachments")
           else if isMoveActive
             ul#attachment-move-setting.setting-detail
               li
-                h3 {{_ 'attachment-move'}}
                 +moveAttachments
           else if isDefaultStorageActive
             ul#attachment-default-storage-setting.setting-detail
               li
-                h3 {{_ 'default-save-storage'}}
                 .description {{_ 'default-save-storage-description'}}
                 .form-group
                   select.wekan-form-control.js-default-save-storage
@@ -96,7 +94,6 @@ template(name="attachments")
           else if isFilesystemActive
             ul#attachment-filesystem-setting.setting-detail
               li
-                h3 {{_ 'filesystem-storage'}}
                 .storage-rw-row
                   .storage-rw-item
                     input.js-toggle-filesystem-read#filesystem-read(type="checkbox" checked="{{filesystemRead}}")
@@ -138,7 +135,6 @@ template(name="attachments")
           else if isGridFsActive
             ul#attachment-gridfs-setting.setting-detail
               li
-                h3 {{_ 'mongodb-gridfs-storage'}}
                 .description {{_ 'gridfs-move-collectionfs-note'}}
                 .storage-rw-row
                   .storage-rw-item
@@ -185,7 +181,6 @@ template(name="attachments")
           else if isS3Active
             ul#attachment-s3-setting.setting-detail
               li
-                h3 {{_ 's3-minio-storage'}}
                 .description {{_ 's3-minio-storage-description'}}
                 .storage-rw-row
                   .storage-rw-item
@@ -278,7 +273,6 @@ template(name="attachments")
           else if isAzureActive
             ul#attachment-azure-setting.setting-detail
               li
-                h3 {{_ 'azure-blob-storage'}}
                 .storage-rw-row
                   .storage-rw-item
                     input#azure-enabled(type="checkbox" checked=cloudEnabled.azure)
@@ -356,7 +350,6 @@ template(name="attachments")
           else if isGcsActive
             ul#attachment-gcs-setting.setting-detail
               li
-                h3 {{_ 'gcs-storage'}}
                 .description Give WeKan's service account read/write access to the bucket: Google Cloud Console → Cloud Storage → Buckets → your bucket → Permissions → Grant access. In "New principals", paste the service account email — the "client_email" value from your JSON key — then choose the role "Storage Object Admin" and Save.
                 .description {{_ 'gcs-permissions-note'}}
                 .storage-rw-row
@@ -437,7 +430,6 @@ template(name="attachments")
           else if isDatabaseMigrationActive
             ul#attachment-database-migration-setting.setting-detail
               li
-                h3 {{_ 'database-migration'}}
                 .description {{_ 'database-migration-description'}}
                 .form-group
                   button.js-migrate-to-ferretdb.btn.btn-primary(type="button" disabled=migrateRunning) {{_ 'database-migrate-to-ferretdb'}}
@@ -456,7 +448,6 @@ template(name="attachments")
           else if isBackupActive
             ul#attachment-backup-setting.setting-detail
               li
-                h3 {{_ 'backup'}}
                 .description {{_ 'backup-description'}}
                 .form-group
                   label
@@ -532,7 +523,6 @@ template(name="attachments")
           else if isSandstormActive
             ul#attachment-sandstorm-setting.setting-detail
               li
-                h3 Sandstorm
                 .description {{_ 'sandstorm-migration-description'}}
                 if sandstormStatus
                   .form-group

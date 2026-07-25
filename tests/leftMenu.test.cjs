@@ -397,6 +397,39 @@ test('Attachments keeps its Sandstorm entry and its literal label', () => {
   assert.strictEqual(lit.labelKey, '');
 });
 
+test('no pane repeats the title the section already rendered', () => {
+  // The heading comes from the menu entry now, so a pane that also prints its own
+  // name shows the same word twice - every Attachments pane did (`h3 Backup` under
+  // a title reading "Backup"). A heading that says something the label does not -
+  // Limits' "Attachment And API File Size Limits", Locked users' "Brute Force
+  // Protection Settings" - is not a repeat, and stays.
+  const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
+  const pages = ['settingBody', 'peopleBody', 'attachments', 'adminReports',
+    'informationBody', 'translationBody'];
+  // Every menu label rendered anywhere in the Admin Panel.
+  const labels = new Set();
+  for (const page of ['settingBody', 'peopleBody', 'attachments', 'adminReports']) {
+    const src = read(`client/components/settings/${page}.js`);
+    for (const m of src.matchAll(/labelKey: '([\w-]+)'/g)) labels.add(m[1]);
+    for (const m of src.matchAll(/label: '([^']+)'/g)) labels.add(m[1]);
+  }
+  for (const page of pages) {
+    const pageJade = read(`client/components/settings/${page}.jade`);
+    for (const m of pageJade.matchAll(/^\s*h[1-3] (?:\{\{_ '([\w-]+)'\}\}|(\S.*))$/gm)) {
+      const [, key, literal] = m;
+      if (key) {
+        assert.ok(!labels.has(key),
+          `${page}: a heading of {{_ '${key}'}} repeats the menu label above it`);
+      } else if (literal) {
+        const text = literal.trim();
+        assert.ok(!labels.has(text) && !Object.entries(en).some(
+          ([k, v]) => labels.has(k) && v === text),
+          `${page}: a heading of "${text}" repeats the menu label above it`);
+      }
+    }
+  }
+});
+
 test('the first entry of a menu is the pane that opens', () => {
   // Settings opens on Version, Attachments on Backup: the row at the top of the
   // menu and the pane on the right must be the same one, or the page opens with a

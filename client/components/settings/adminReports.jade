@@ -36,7 +36,6 @@ template(name="adminReports")
 
 template(name="brokenCardsReport")
   .global-search-results-list-wrapper
-    h1 {{_ 'broken-cards'}}
     if resultsCount
       +resultsPaged(this)
     else

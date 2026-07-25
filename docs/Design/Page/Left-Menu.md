@@ -142,6 +142,14 @@ Before this, only the paginated table pages had a title at all: Domains showed
 "Domains" while Login, Announcement, Accessibility, PWA, Version and the rest
 opened with no heading.
 
+**A pane must not repeat it.** Once the section renders the heading, a pane that
+also prints its own name says the same word twice — which is what every Admin
+Panel / Attachments pane did (`h3 Backup` under a title reading "Backup"), and
+Roles, Shared templates and Broken cards with it. Those headings are gone. A
+heading that says something the menu label does not — Limits' "Attachment And API
+File Size Limits", Locked users' "Brute Force Protection Settings" — is not a
+repeat and stays.
+
 ## Entries
 
 A page describes its menu as data, not as markup:
