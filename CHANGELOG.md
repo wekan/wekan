@@ -196,6 +196,22 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
 
 This release fixes the following bugs:
 
+- [Elements no longer change size when the browser window is resized — this time the
+  ones hidden inside `clamp()`. Reported on a board in mobile mode: widening the window
+  made the swimlanes, lists and cards taller, and narrowing it shrank them again. Same
+  complaint as the Sign In and Register pages, and the same cause. The earlier sweep
+  converted 355 bare `vh`/`vw` values but allowed `clamp()` as a cap — which it is only
+  at its two ends; between them it tracks the window exactly like a bare `vw`. So a
+  swimlane header, a list header and a minicard sized with `font-size: clamp(18px,
+  2.5vw, 32px)` grew with the window, and the rows grew with the text. All 75 of these,
+  across 17 stylesheets, now use the size they already rendered at on a phone. The
+  board sidebar, a collapsed list, the settings body, the search popover and the
+  minicard custom-field chip had the same behaviour spelled other ways and are fixed
+  too. The guard test no longer accepts `clamp()` or a viewport minimum; a full-viewport
+  box, a max-height/max-width cap, and a shrink-only `min(400px, 52vw)` — flat above the
+  crossover width — are still
+  allowed](https://github.com/wekan/wekan/commit/d03cd0300).
+  Thanks to xet7.
 - [The second header bar in mobile mode is the same on a phone as in mobile mode on a
   desktop window. On an iPhone it held a handful of icons and no board title, while a
   desktop Firefox window in mobile mode showed the title and the full set of buttons.
