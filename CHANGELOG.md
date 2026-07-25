@@ -196,15 +196,19 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
 
 This release fixes the following bugs:
 
-- [In mobile mode there is no band of grey following the blue swimlane-resize bar, and
-  none between a swimlane header and its own lists. The bar is pinned to the bottom edge
-  of the lists container, so the margin after that container was a fixed band of grey
-  sitting under the bar and travelling with it as the swimlane was resized. On a phone
-  every swimlane already begins with its own darker header bar, which separates them
-  perfectly well. The header wrapper is also only as tall as the bar inside it, and the
-  minimum height that held a short swimlane open below the height chosen for it is gone —
-  while the height being dragged is left alone, so the resize bar still
-  resizes](https://github.com/wekan/wekan/commit/bdcce440f).
+- [In mobile mode the fixed-size light grey bands around a swimlane are gone: the one
+  between the blue resize bar and the next swimlane’s dark header, which travelled with
+  the bar as the swimlane was resized, and its twin between a swimlane’s header bar and
+  its first list. They were plain bottom margins on the swimlane header and on each list;
+  on the last list that margin is exactly the band between the content and the resize
+  bar, and being a fixed size it moved with the bar rather than growing. Lists are
+  separated by the border under each of them, so nothing is lost. The board stylesheet
+  restates these selectors in several later blocks, and later rules of equal specificity
+  win, so eight duplicates had been putting the bands straight back; the guard test now
+  checks every block rather than the first one. The swimlane header wrapper is also only
+  as tall as its bar, and the minimum height that held a short swimlane open below the
+  height chosen for it is gone — while the height being dragged is left alone, so the
+  resize bar still resizes](https://github.com/wekan/wekan/commit/6837198bf).
   Thanks to xet7.
 - [In mobile mode the board fits the width again. The lists area was slightly too wide,
   giving a horizontal scrollbar with a small amount to scroll right and nothing there to
