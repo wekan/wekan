@@ -156,6 +156,22 @@ body.list-resizing-active * {
   flex-direction: column !important;
 }
 
+/* ...but NOT in mobile mode, where a list is always full width.
+   `.mobile-mode .list` (in boardHeader.css) already says width:100% !important, but
+   the rule above is !important too and more specific, so it won. On a phone that did
+   not show, because a phone gets `list-auto-width` and no inline --list-width at all;
+   in mobile mode on a desktop browser the inline width was there and the lists stayed
+   at their desktop width while everything else was in mobile layout. Same three
+   selectors, prefixed with body.mobile-mode so this one is the more specific. */
+body.mobile-mode .js-swimlane .list[style*="--list-width"]:not(.list-collapsed),
+body.mobile-mode .dragscroll .list[style*="--list-width"]:not(.list-collapsed),
+body.mobile-mode [id^="swimlane-"] .list[style*="--list-width"]:not(.list-collapsed) {
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  float: none !important;
+}
+
 /* Ensure consistent header height for all lists */
 .list-header {
   /* Maintain consistent height and padding for all lists */

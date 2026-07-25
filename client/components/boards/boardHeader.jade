@@ -8,6 +8,18 @@ template(name="boardHeaderBar")
           +viewer
             = title
 
+    //- The sidebar hamburger is its own flex item, right after the title in the
+    //- markup, with `order` putting it last on a wide screen. That is what lets it sit
+    //- in the TOP RIGHT of the bar in mobile mode - on the first row beside the title,
+    //- with its divider to its left - while every other button wraps to the second
+    //- row. Inside the right-hand group it could only ever wrap along with them.
+    .board-header-btns.board-header-sidebar-toggle
+      .separator
+      //- Board Settings cog removed: Board Settings is available in the right
+      //- sidebar (the hamburger), so the header no longer duplicates it.
+      a.board-header-btn.js-toggle-sidebar(title="{{_ 'sidebar-open'}} {{_ 'or'}} {{_ 'sidebar-close'}}")
+        i.fa.fa-bars
+
     //- Every button group lives inside ONE flex item so that, when the board title
     //- is long enough that title + buttons no longer fit on a line, ALL the buttons
     //- move down to the second row together, under the title. As separate flex items
@@ -168,11 +180,10 @@ template(name="boardHeaderBar")
                 a.board-header-btn-close.js-multiselection-reset(title="{{_ 'filter-clear'}}")
                   i.fa.fa-times-thin
 
-          .separator
-          //- Board Settings cog removed: Board Settings is available in the right
-          //- sidebar (the hamburger), so the header no longer duplicates it.
-          a.board-header-btn.js-toggle-sidebar(title="{{_ 'sidebar-open'}} {{_ 'or'}} {{_ 'sidebar-close'}}")
-            i.fa.fa-bars
+          //- The separator and the sidebar hamburger used to end this group. They are
+          //- now their own flex item (.board-header-sidebar-toggle, above) so that in
+          //- mobile mode the hamburger can stay in the top right corner of the bar,
+          //- beside the title, while the rest of the buttons wrap to the second row.
 
 template(name="boardVisibilityList")
   ul.pop-over-list

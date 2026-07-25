@@ -130,6 +130,22 @@ export const Utils = {
     return Boolean(narrow || (coarse && window.innerWidth <= 1024));
   },
 
+  // The user's EXPLICIT mobile-mode choice, or null if they have never made one.
+  // getMobileMode() cannot answer this: it falls back to viewport detection and so
+  // always returns a boolean, which is why the "has the user chosen?" test inside
+  // isMiniScreen() was always true.
+  getExplicitMobileMode() {
+    const stored = localStorage.getItem('wekan-mobile-mode');
+    if (stored !== null) {
+      return stored === 'true';
+    }
+    const user = ReactiveCache.getCurrentUser();
+    if (user && user.profile && user.profile.mobileMode !== undefined) {
+      return user.profile.mobileMode;
+    }
+    return null;
+  },
+
   setMobileMode(enabled) {
     const user = ReactiveCache.getCurrentUser();
     if (user) {
@@ -686,6 +702,17 @@ export const Utils = {
     // 2. Mobile phones in portrait mode
     // 3. iPad in very small screens (≤ 600px)
     // 4. All iPhone models by default (including largest models), but respect user preference
+    // An explicit choice wins on EVERY device, not just on an iPhone. Turning mobile
+    // mode on in desktop Firefox set body.mobile-mode but left this false, because the
+    // branches below only look at screen width and user agent. The two disagreed, and
+    // the parts of the mobile layout driven from here - the `mobile-view` class on
+    // each list, swimlane and minicard - never appeared, so lists and cards stayed
+    // their desktop width while the rest of the UI was in mobile mode.
+    const explicitMobileMode = this.getExplicitMobileMode();
+    if (explicitMobileMode !== null) {
+      return explicitMobileMode;
+    }
+
     const isSmallScreen = window.innerWidth <= 800;
     const isVerySmallScreen = window.innerWidth <= 600;
     const isPortrait = window.innerWidth < window.innerHeight || window.matchMedia("(orientation: portrait)").matches;
@@ -694,18 +721,11 @@ export const Utils = {
     const isIPad = /iPad/i.test(navigator.userAgent);
     const isUbuntuTouch = /Ubuntu/i.test(navigator.userAgent);
 
-    // Check if user has explicitly set mobile mode preference
-    const userMobileMode = this.getMobileMode();
+    // Below here the user has made no explicit choice (that is handled above), so
+    // these are the per-device DEFAULTS.
 
-    // For iPhone: default to mobile view, but respect user's mobile mode toggle preference
-    // This ensures all iPhone models (including iPhone 15 Pro Max, 14 Pro Max, etc.) start with mobile view
-    // but users can still switch to desktop mode if they prefer
+    // iPhone: mobile view by default, on every model including the largest.
     if (isIPhone) {
-      // If user has explicitly set a preference, respect it
-      if (userMobileMode !== null && userMobileMode !== undefined) {
-        return userMobileMode;
-      }
-      // Otherwise, default to mobile view for iPhones
       return true;
     } else if (isMobilePhone) {
       return isPortrait; // Other mobile phones: portrait = mobile, landscape = desktop

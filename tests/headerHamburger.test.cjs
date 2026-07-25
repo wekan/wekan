@@ -58,11 +58,24 @@ test('the board-settings cog is removed from the header (it is in the sidebar)',
   assert.ok(!/js-open-board-menu/.test(js), 'no dead cog handler in the board header');
 });
 
-test('the hamburger lives in the right group in the board header', () => {
+test('the hamburger is its own flex item, still last on a wide screen', () => {
+  // It used to sit at the end of the `.right` group. It was lifted out so that in
+  // mobile mode it can stay in the top right corner while the other buttons wrap to
+  // the second row - inside that group it could only wrap down along with them.
   const jade = read('client/components/boards/boardHeader.jade');
-  const rightAt = jade.indexOf('.board-header-btns.right');
+  const wrapperAt = jade.indexOf('.board-header-btns.board-header-sidebar-toggle');
   const hamburgerAt = jade.indexOf('js-toggle-sidebar');
-  assert.ok(rightAt !== -1 && hamburgerAt > rightAt, 'js-toggle-sidebar is inside the .right group');
+  assert.ok(wrapperAt !== -1, 'the hamburger has its own wrapper');
+  assert.ok(hamburgerAt > wrapperAt, 'and sits inside it');
+  // Its divider goes with it, on its left.
+  assert.ok(jade.indexOf('.separator', wrapperAt) < hamburgerAt,
+    'the divider is to the left of the hamburger');
+  // The visible result on a wide screen is unchanged: last item, hugging the right
+  // edge. The wrapper comes BEFORE the other buttons in the markup (so it can share
+  // the first row with the title on a phone), so `order` puts it back at the end.
+  const wrapper = block('#header #header-main-bar .board-header-sidebar-toggle');
+  assert.ok(/order:\s*1/.test(wrapper), 'ordered last on a wide screen');
+  assert.ok(/margin-inline-start:\s*auto/.test(wrapper), 'hugging the right edge');
 });
 
 test('board header button text labels are NOT hidden (icons-only reverted)', () => {

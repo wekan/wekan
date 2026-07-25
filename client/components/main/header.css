@@ -43,6 +43,15 @@
   flex: 1 1 auto;
   min-width: 0;
 }
+/* The sidebar hamburger comes right after the title in the markup, so that on a
+   phone it can share the first row with it (see boardHeader.css). On a wide screen
+   `order` puts it back at the end of the bar, and the auto start margin pins it to
+   the right edge - visually identical to when it lived inside the right group. */
+#header #header-main-bar .board-header-sidebar-toggle {
+  order: 1;
+  flex: 0 0 auto;
+  margin-inline-start: auto;
+}
 #header #header-main-bar h1 .board-header-watch-icon {
   padding-inline-start: 7px;
 }

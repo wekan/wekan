@@ -7,6 +7,9 @@ import Announcements, {
   shouldShowAnnouncement,
 } from '/models/announcements';
 import { Utils } from '/client/lib/utils';
+// Drag-to-scroll on the two top header bars (they are not scroll containers
+// themselves, so the drag is forwarded to the board canvas / page scroller).
+import '/client/lib/headerDragscroll';
 
 Meteor.subscribe('user-admin');
 Meteor.subscribe('boards');

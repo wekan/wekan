@@ -892,25 +892,44 @@
   display: none !important;
 }
 
-/* The board title IS shown in mobile mode. It used to be hidden here to save a
-   row on a phone, which left the second header bar with nothing but icons - you
-   could not tell which board you were on. It fits now: the header bar wraps, and
-   the button groups are one flex item (see boardHeader.jade), so a title too long
-   to sit beside them pushes ALL the icons onto the next row together instead of
-   splitting them across both. Keep it wrapping rather than truncating - a board
-   name is how you know where you are. */
+/* The second header bar on a phone: board title at the left, buttons flowing from
+   the right of the title, sidebar hamburger pinned in the top right corner with its
+   divider to its left.
+   The title used to be hidden here to save a row, which left the bar with nothing but
+   icons - you could not tell which board you were on. A board name is how you know
+   where you are, so it is shown, and it wraps rather than truncating. */
 .mobile-mode .header-board-menu {
-  /* Two rows on a phone, deliberately: the title takes the WHOLE first row, so
-     the button group - one flex item - wraps to the second row entire. Sharing a
-     row squeezed the title down to a few characters. */
-  flex: 1 1 100%;
+  /* Only as wide as the title needs, so the buttons can start beside it; it may
+     shrink and wrap when the title is long. */
+  flex: 0 1 auto;
   min-width: 0;
   overflow-wrap: break-word;
 }
 
-/* ...and the buttons take the second row. */
+/* The buttons take the space left between the title and the hamburger, and drop to
+   the second row as a block once that space runs out - they are one flex item (see
+   boardHeader.jade), so they never split across the two rows. */
 .mobile-mode #header #header-main-bar .board-header-btns-group {
-  flex: 1 1 100%;
+  flex: 1 1 auto;
+}
+
+/* The hamburger is taken OUT of the flow and pinned to the top right corner, so it
+   stays there whether the buttons fit on the first row or wrap below. Leaving it in
+   the flow it would follow the buttons down to the second row, since a flex line
+   breaks in order. The bar reserves its width as end padding so a long title or a
+   full row of buttons never runs underneath it. Only on a board: the same bar on All
+   Boards / My Cards / ... has no hamburger, and would just gain empty end padding. */
+body.board-view.mobile-mode #header #header-main-bar {
+  position: relative;
+  /* separator (1px + 8px margins) + button (~20px) + the 8px edge gap. */
+  padding-inline-end: 44px;
+}
+
+body.board-view.mobile-mode #header #header-main-bar .board-header-sidebar-toggle {
+  position: absolute;
+  top: 7px;
+  inset-inline-end: 8px;
+  margin: 0;
 }
 
 /* Ensure the board header takes full width in mobile mode */
