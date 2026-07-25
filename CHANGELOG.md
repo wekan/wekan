@@ -602,6 +602,11 @@ and changes the Admin Panel as follows:
   reads as one heading with groups under it rather than as several pages
   stacked](https://github.com/wekan/wekan/commit/671262ddb).
   Thanks to xet7.
+- ["Product name" appears once in that pane, not twice: the group holds one field,
+  so its group title is that field's label — at the group title's size, with the
+  translation the field already has in every
+  language](https://github.com/wekan/wekan/commit/bbb1b3ff0).
+  Thanks to xet7.
 - [Admin Panel / Problems' left menu is two named groups: Summary, then a rule and a
   "Settings" title over the two panes that came from the removed Features tab, then a
   rule and a "Reports" title over the reports. A title is a new kind of menu item with
