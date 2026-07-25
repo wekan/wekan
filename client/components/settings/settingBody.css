@@ -176,7 +176,9 @@
 .setting-content .content-body .main-body::after {
   content: '';
   display: block;
-  width: 100vw;
+  /* 100%, not 100vw: this is absolutely positioned INSIDE .main-body, so a
+     viewport-wide hairline stuck out past it and made the page scroll sideways. */
+  width: 100%;
   height: 1px;
   position: absolute;
   bottom: 0;

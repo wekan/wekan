@@ -198,7 +198,17 @@
   font-size: 18px !important;
   padding: 1rem !important;
   margin-bottom: 1rem !important;
-  display: block !important;
+  /* Flex, not block: the title is a bare text node / .viewer, and as a block it sat
+     at the TOP of a band whose height comes from the padding and the menu icons
+     beside it. Centred on its line instead. */
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* ...and the band itself centres what sits in it, so the title and the icon row
+   share one centre line. */
+.mobile-mode .swimlane-header-wrap {
+  align-items: center !important;
 }
 
 .mobile-mode .list {
@@ -246,7 +256,7 @@
   font-weight: bold !important;
   grid-row: 1 !important;
   grid-column: 2 !important;
-  align-self: end !important;
+  align-self: center !important;
   display: block !important;
   visibility: visible !important;
   opacity: 1 !important;
@@ -256,7 +266,7 @@
   font-size: 14px !important;
   grid-row: 2 !important;
   grid-column: 2 !important;
-  align-self: start !important;
+  align-self: center !important;
   display: block !important;
   visibility: visible !important;
   opacity: 1 !important;
@@ -522,6 +532,23 @@
   max-width: 100% !important;
   width: 100% !important;
   min-width: 100% !important;
+}
+
+/* Every full-width box on a mobile board measures its padding INSIDE its width.
+   `* { box-sizing: unset }` (layouts.css) makes content-box the default, so a rule
+   that sets `width: 100%` AND `padding: 1rem` - which the swimlane header, the list
+   header, the list body and the minicard all do below - comes out 32px wider than its
+   parent. Stacked over four nesting levels that is what put a horizontal scrollbar
+   under the lists, with a small amount to scroll right and nothing there to see. */
+.mobile-mode .board-canvas,
+.mobile-mode .swimlane,
+.mobile-mode .swimlane-header,
+.mobile-mode .swimlane .lists,
+.mobile-mode .list,
+.mobile-mode .list-header,
+.mobile-mode .list-body,
+.mobile-mode .minicard {
+  box-sizing: border-box !important;
 }
 
 /* Force mobile mode list styling on all screen sizes - override desktop CSS.

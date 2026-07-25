@@ -837,9 +837,9 @@ form.inlined-form .list-composer {
 .mini-list.mobile-view {
   flex: 0 0 60px;
   height: auto;
-  width: 100vw;
-  max-width: 100vw;
-  min-width: 100vw;
+  width: 100%;
+  max-width: 100%;
+  min-width: 100%;
   border-inline-start: 0px !important;
   border-bottom: 1px solid #ccc;
   display: block !important;
@@ -847,9 +847,9 @@ form.inlined-form .list-composer {
 .list.mobile-view {
   display: block !important;
   flex-basis: auto;
-  width: 100vw;
-  max-width: 100vw;
-  min-width: 100vw;
+  width: 100%;
+  max-width: 100%;
+  min-width: 100%;
   border-inline-start: 0px !important;
   margin: 0 !important;
   padding: 0 !important;
@@ -860,8 +860,8 @@ form.inlined-form .list-composer {
 .list.mobile-view.ui-sortable-helper {
   flex: 0 0 60px;
   height: 60px;
-  width: 100vw;
-  max-width: 100vw;
+  width: 100%;
+  max-width: 100%;
   border-inline-start: 0px !important;
   border-bottom: 1px solid #ccc;
   display: block !important;
@@ -872,17 +872,17 @@ form.inlined-form .list-composer {
 .list.mobile-view.placeholder {
   flex: 0 0 60px;
   height: 60px;
-  width: 100vw;
-  max-width: 100vw;
+  width: 100%;
+  max-width: 100%;
   border-inline-start: 0px !important;
   border-bottom: 1px solid #ccc;
   display: block !important;
 }
 .list.mobile-view .list-body {
   padding: 15px 19px;
-  width: 100vw;
-  max-width: 100vw;
-  min-width: 100vw;
+  width: 100%;
+  max-width: 100%;
+  min-width: 100%;
 }
 .list.mobile-view .list-header {
   /*Updated padding values for mobile devices, this should fix text grouping issue*/
@@ -891,9 +891,9 @@ form.inlined-form .list-composer {
   min-height: 30px;
   margin-top: 10px;
   align-items: center;
-  width: 100vw;
-  max-width: 100vw;
-  min-width: 100vw;
+  width: 100%;
+  max-width: 100%;
+  min-width: 100%;
   /* Force grid layout for iPhone */
   display: grid !important;
   grid-template-columns: 30px 1fr auto auto !important;
@@ -977,9 +977,9 @@ form.inlined-form .list-composer {
   .mini-list {
     flex: 0 0 60px;
     height: auto;
-    width: 100vw;
-    max-width: 100vw;
-    min-width: 100vw;
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
     border-inline-start: 0px !important;
     border-bottom: 1px solid #ccc;
     display: block !important;
@@ -987,9 +987,9 @@ form.inlined-form .list-composer {
   .list {
     display: block !important;
     flex-basis: auto;
-    width: 100vw;
-    max-width: 100vw;
-    min-width: 100vw;
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
     border-inline-start: 0px !important;
     margin: 0 !important;
     padding: 0 !important;
@@ -1000,8 +1000,8 @@ form.inlined-form .list-composer {
   .list.ui-sortable-helper {
     flex: 0 0 60px;
     height: 60px;
-    width: 100vw;
-    max-width: 100vw;
+    width: 100%;
+    max-width: 100%;
     border-inline-start: 0px !important;
     border-bottom: 1px solid #ccc;
     display: block !important;
@@ -1012,17 +1012,17 @@ form.inlined-form .list-composer {
   .list.placeholder {
     flex: 0 0 60px;
     height: 60px;
-    width: 100vw;
-    max-width: 100vw;
+    width: 100%;
+    max-width: 100%;
     border-inline-start: 0px !important;
     border-bottom: 1px solid #ccc;
     display: block !important;
   }
   .list-body {
     padding: 15px 19px;
-    width: 100vw;
-    max-width: 100vw;
-    min-width: 100vw;
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
   }
   .list-header {
 	  /*Updated padding values for mobile devices, this should fix text grouping issue*/
@@ -1031,9 +1031,9 @@ form.inlined-form .list-composer {
     min-height: 30px;
     margin-top: 10px;
     align-items: center;
-    width: 100vw;
-    max-width: 100vw;
-    min-width: 100vw;
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
   }
   .list-header .list-header-left-icon {
     padding: 7px;

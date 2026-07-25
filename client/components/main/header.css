@@ -184,6 +184,36 @@ body:not(.board-view) #header #header-main-bar h1 {
   min-height: 28px;
   overflow: hidden; /* Prevent content from overflowing */
 }
+/* Mobile mode: everything in BOTH top bars sits on the vertical centre of its row.
+   The quick-access bar declares `height: 28px`, and with box-sizing globally unset
+   that 28px is the CONTENT box. Its children are taller than that on a phone (the
+   mode toggle and the action buttons are ~40-44px for touch), so they overflowed a
+   short box, were clipped by its `overflow: hidden`, and read as sitting high. Let
+   the bar take its content's height with a floor instead of pinning it. */
+.mobile-mode #header-quick-access {
+  height: auto;
+  min-height: 48px;
+  /* Symmetric, so `align-items: center` centres on the bar's true middle. */
+  padding-block: 4px;
+  align-items: center;
+}
+
+/* Same for the board bar: it centred its items inside a content box that had 7px of
+   padding above and none below, which put everything half that distance high. */
+.mobile-mode #header #header-main-bar {
+  padding-block: 4px;
+  align-items: center;
+}
+
+/* The board title is a flex item of that bar, so it centres with the rest - but only
+   if its own line box does not tower over the text. */
+.mobile-mode #header #header-main-bar h1 {
+  display: flex;
+  align-items: center;
+  line-height: 1.3;
+  margin-block: 0;
+}
+
 #header-quick-access .home-icon {
   display: flex;
   align-items: center;

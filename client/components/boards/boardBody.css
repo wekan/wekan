@@ -334,9 +334,9 @@ body.desktop-mode .board-wrapper .board-canvas .board-overlay {
 }
 /* Mobile view styles - applied when isMiniScreen is true (iPhone, etc.) */
 .board-wrapper.mobile-view {
-  width: 100vw !important;
-  max-width: 100vw !important;
-  min-width: 100vw !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 100% !important;
   inset-inline-start: 0 !important;
   inset-inline-end: 0 !important;
   overflow-x: hidden !important;
@@ -344,9 +344,9 @@ body.desktop-mode .board-wrapper .board-canvas .board-overlay {
 }
 
 .board-wrapper.mobile-view .board-canvas {
-  width: 100vw !important;
-  max-width: 100vw !important;
-  min-width: 100vw !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 100% !important;
   inset-inline-start: 0 !important;
   inset-inline-end: 0 !important;
   overflow-x: hidden !important;
@@ -361,17 +361,17 @@ body.desktop-mode .board-wrapper .board-canvas .board-overlay {
   padding: 0;
   overflow-x: hidden !important;
   overflow-y: auto;
-  width: 100vw !important;
-  max-width: 100vw !important;
-  min-width: 100vw !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 100% !important;
 }
 
 @media screen and (max-width: 800px),
        screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
   .board-wrapper {
-    width: 100vw !important;
-    max-width: 100vw !important;
-    min-width: 100vw !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
     inset-inline-start: 0 !important;
     inset-inline-end: 0 !important;
     overflow-x: hidden !important;
@@ -379,9 +379,9 @@ body.desktop-mode .board-wrapper .board-canvas .board-overlay {
   }
 
   .board-wrapper .board-canvas {
-    width: 100vw !important;
-    max-width: 100vw !important;
-    min-width: 100vw !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
     inset-inline-start: 0 !important;
     inset-inline-end: 0 !important;
     overflow-x: hidden !important;
@@ -396,9 +396,9 @@ body.desktop-mode .board-wrapper .board-canvas .board-overlay {
     padding: 0;
     overflow-x: hidden !important;
     overflow-y: auto;
-    width: 100vw !important;
-    max-width: 100vw !important;
-    min-width: 100vw !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
   }
 }
 .calendar-event-green {
