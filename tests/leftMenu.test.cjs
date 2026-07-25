@@ -252,8 +252,11 @@ test('Settings keeps its Sandstorm exception and one active pane', () => {
   assert.ok(/function activeSettingId/.test(js),
     'the eight per-pane vars are mapped to ONE active id');
   // Every pane the menu can open must be mapped, or that entry never highlights.
-  for (const id of ['registration-setting', 'email-setting', 'account-setting',
-    'tableVisibilityMode-setting', 'announcement-setting', 'accessibility-setting',
+  // No 'account-setting': its three settings moved to Email and Login, so the
+  // pane was removed rather than left empty.
+  for (const id of ['registration-setting', 'email-setting',
+    'tableVisibilityMode-setting', 'hideBoardActivities-setting',
+    'announcement-setting', 'accessibility-setting',
     'layout-setting', 'webhook-setting']) {
     assert.ok(js.includes(`'${id}'`), `${id} must be in both the menu and the id map`);
   }

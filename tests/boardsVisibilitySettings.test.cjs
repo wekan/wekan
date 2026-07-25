@@ -136,4 +136,37 @@ test('the Settings menu labels use existing translated keys', () => {
     'the pane ids are unchanged');
 });
 
+test('the three account-access settings moved to Email and Login', () => {
+  const email = template('email');
+  const login = jade.slice(jade.indexOf('ul#registration-setting'), jade.indexOf("template(name='email')"));
+  assert.ok(email.includes('accounts-allowEmailChange'), 'Allow Email Change is in Email');
+  assert.ok(login.includes('accounts-allowUserNameChange'), 'Allow Username Change is in Login');
+  assert.ok(login.includes('accounts-allowUserDelete'), 'Allow user self delete is in Login');
+  // Each host pane has a Save that reaches them.
+  assert.ok(/js-save\.primary/.test(email) && /js-account-access-save/.test(login));
+  // The Accounts pane had nothing left, so it is gone - not left empty with a
+  // stray Save button.
+  assert.ok(!jade.includes("template(name='accountSettings')"), 'the empty pane is removed');
+  assert.ok(!js.includes('js-accounts-save'), 'and its save handler with it');
+  assert.ok(!/isAccountSetting/.test(jade) && !/isAccountSetting/.test(js),
+    'and every reference to it');
+});
+
+test('the moved radios still see their values, and save what they found', () => {
+  // A radio bound to a helper the HOST template does not have renders unchecked -
+  // it would silently show the wrong value. The helpers moved with the settings.
+  assert.ok(/Template\.email\.helpers\(accountAccessHelpers\)/.test(js),
+    'Email gets the helpers');
+  assert.ok(/Template\.setting\.helpers\(accountAccessHelpers\)/.test(js),
+    'the Settings template (which hosts the Login pane) gets them too');
+  const save = js.slice(js.indexOf("'click button.js-account-access-save'"));
+  const body = save.slice(0, save.indexOf('\n  },') + 4);
+  assert.ok(/!== undefined/.test(body),
+    'a radio that is not on screen must be skipped, never saved as false');
+  assert.ok(/accounts-allowUserNameChange/.test(body) && /accounts-allowUserDelete/.test(body));
+  // The settings still live in AccountSettings; only where they are SHOWN changed.
+  assert.ok(/Meteor\.subscribe\('accountSettings'\)/.test(js),
+    'the subscription must stay - the collection is unchanged');
+});
+
 console.log(`\nboardsVisibilitySettings: ${passed} tests passed`);

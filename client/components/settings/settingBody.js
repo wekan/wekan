@@ -230,7 +230,6 @@ Template.setting.onCreated(function () {
   this.forgotPasswordSetting = new ReactiveVar(false);
   this.generalSetting = new ReactiveVar(true);
   this.emailSetting = new ReactiveVar(false);
-  this.accountSetting = new ReactiveVar(false);
   this.tableVisibilityModeSetting = new ReactiveVar(false);
   this.hideBoardActivitiesSetting = new ReactiveVar(false);
   this.announcementSetting = new ReactiveVar(false);
@@ -339,7 +338,6 @@ function settingsMenu() {
     { id: 'registration-setting', icon: 'fa-key', labelKey: 'login', emoji: true },
     // No e-mail settings on Sandstorm; a null entry is dropped, not rendered empty.
     isSandstorm ? null : { id: 'email-setting', icon: 'fa-envelope', labelKey: 'email', emoji: true },
-    { id: 'account-setting', icon: 'fa-users', labelKey: 'accounts', emoji: true },
     // Labelled just 'Visibility' now. The pane id and the tableVisibilityMode
     // key are unchanged, so the 141 translations of the pane's own contents are
     // untouched; only the menu label points at the new key.
@@ -359,7 +357,6 @@ function activeSettingId(inst) {
   const panes = [
     ['generalSetting', 'registration-setting'],
     ['emailSetting', 'email-setting'],
-    ['accountSetting', 'account-setting'],
     ['tableVisibilityModeSetting', 'tableVisibilityMode-setting'],
     ['hideBoardActivitiesSetting', 'hideBoardActivities-setting'],
     ['announcementSetting', 'announcement-setting'],
@@ -385,10 +382,6 @@ Template.setting.helpers({
   isEmailSetting() {
     const inst = Template.instance();
     return inst.emailSetting && inst.emailSetting.get();
-  },
-  isAccountSetting() {
-    const inst = Template.instance();
-    return inst.accountSetting && inst.accountSetting.get();
   },
   isHideBoardActivitiesSetting() {
     const inst = Template.instance();
@@ -569,7 +562,6 @@ Template.setting.events({
       tpl.forgotPasswordSetting.set(false);
       tpl.generalSetting.set(false);
       tpl.emailSetting.set(false);
-      tpl.accountSetting.set(false);
       tpl.tableVisibilityModeSetting.set(false);
     tpl.hideBoardActivitiesSetting.set(false);
       tpl.announcementSetting.set(false);
@@ -582,9 +574,7 @@ Template.setting.events({
         tpl.generalSetting.set(true);
       } else if (targetID === 'email-setting') {
         tpl.emailSetting.set(true);
-      } else if (targetID === 'account-setting') {
-        tpl.accountSetting.set(true);
-      } else if (targetID === 'tableVisibilityMode-setting') {
+            } else if (targetID === 'tableVisibilityMode-setting') {
         tpl.tableVisibilityModeSetting.set(true);
       } else if (targetID === 'hideBoardActivities-setting') {
         tpl.hideBoardActivitiesSetting.set(true);
@@ -1023,46 +1013,41 @@ Template.setting.events({
 
 });
 
-Template.accountSettings.helpers({
+// These three settings moved out of the Accounts pane: allowEmailChange to
+// Email, the other two to Login. The helpers move with them - a radio bound to
+// a helper the host template does not have renders unchecked, i.e. silently
+// shows the wrong value.
+const accountAccessHelpers = {
   allowEmailChange() {
-    return (
-      AccountSettings.findOne('accounts-allowEmailChange')?.booleanValue ||
-      false
-    );
+    return AccountSettings.findOne('accounts-allowEmailChange')?.booleanValue || false;
   },
-
   allowUserNameChange() {
-    return (
-      AccountSettings.findOne('accounts-allowUserNameChange')?.booleanValue ||
-      false
-    );
+    return AccountSettings.findOne('accounts-allowUserNameChange')?.booleanValue || false;
   },
-
   allowUserDelete() {
-    return (
-      AccountSettings.findOne('accounts-allowUserDelete')?.booleanValue || false
-    );
+    return AccountSettings.findOne('accounts-allowUserDelete')?.booleanValue || false;
   },
-});
+};
+Template.email.helpers(accountAccessHelpers);
+Template.setting.helpers(accountAccessHelpers);
 
 Template.accountSettings.events({
-  'click button.js-accounts-save'() {
-    const allowEmailChange =
-      $('input[name=allowEmailChange]:checked').val() === 'true';
-    const allowUserNameChange =
-      $('input[name=allowUserNameChange]:checked').val() === 'true';
-    const allowUserDelete =
-      $('input[name=allowUserDelete]:checked').val() === 'true';
-    AccountSettings.update('accounts-allowEmailChange', {
-      $set: { booleanValue: allowEmailChange },
-    });
-    AccountSettings.update('accounts-allowUserNameChange', {
-      $set: { booleanValue: allowUserNameChange },
-    });
-    AccountSettings.update('accounts-allowUserDelete', {
-      $set: { booleanValue: allowUserDelete },
-    });
+  // Login pane: the two account-access settings that moved here.
+  'click button.js-account-access-save'() {
+    const uname = $('input[name=allowUserNameChange]:checked').val();
+    const del = $('input[name=allowUserDelete]:checked').val();
+    if (uname !== undefined) {
+      AccountSettings.update('accounts-allowUserNameChange', {
+        $set: { booleanValue: uname === 'true' },
+      });
+    }
+    if (del !== undefined) {
+      AccountSettings.update('accounts-allowUserDelete', {
+        $set: { booleanValue: del === 'true' },
+      });
+    }
   },
+
 });
 
 Template.tableVisibilityModeSettings.helpers({
