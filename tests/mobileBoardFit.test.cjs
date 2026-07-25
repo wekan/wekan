@@ -136,4 +136,40 @@ test('the board title itself is centred, not just its box', () => {
     'a tall line box would leave the text high inside a centred element');
 });
 
+test('the swimlane resize bar sits directly under the last list', () => {
+  // The bar is pinned to the bottom edge of the lists container, so any height that
+  // container has BEYOND its content shows as a band of empty grey above the bar.
+  const handle = rule(read('client/components/swimlanes/swimlanes.css'),
+    '.swimlane-resize-handle');
+  assert.ok(/bottom:\s*0/.test(handle), 'the bar is pinned to the bottom edge');
+  const lists = rule(boardHeader, '.mobile-mode .swimlane.js-lists');
+  // Two things gave it extra height: an inline height carrying the swimlane height
+  // chosen for the DESKTOP layout, where lists sit side by side rather than stacked...
+  assert.ok(/height:\s*auto !important/.test(lists),
+    'the container takes its content height');
+  // ...and a floor that held a short swimlane open.
+  assert.ok(/min-height:\s*0 !important/.test(lists), 'with no minimum holding it open');
+  // !important is required: an inline style loses to nothing else.
+  const base = read('client/components/swimlanes/swimlanes.css');
+  assert.ok(/\.swimlane\.js-lists\.js-swimlane \{[^}]*min-height:\s*150px/.test(base),
+    'the 150px floor this overrides must still be the desktop behaviour');
+  const jade = read('client/components/swimlanes/swimlanes.jade');
+  assert.ok(/style="height:\{\{swimlaneHeight\}\};"/.test(jade),
+    'the inline height being overridden is really there');
+});
+
+test('no gap between a swimlane header and its own lists', () => {
+  // The 2rem separates one swimlane from the NEXT, but it lands on the header wrapper
+  // too, which put the same band between a header and the lists belonging to it.
+  const all = rule(boardHeader, '.mobile-mode .swimlane');
+  assert.ok(/margin-bottom:\s*2rem/.test(all), 'swimlanes are still separated');
+  const headerWrap = rule(boardHeader, '.mobile-mode .swimlane.nodragscroll');
+  assert.ok(/margin-bottom:\s*0 !important/.test(headerWrap),
+    'but not between a header and its own lists');
+  // .nodragscroll is what the header-only swimlane element carries.
+  const jade = read('client/components/swimlanes/swimlanes.jade');
+  assert.ok(/\.swimlane\.nodragscroll\n\s*\+swimlaneHeader/.test(jade),
+    'the header wrapper is the .nodragscroll one');
+});
+
 console.log(`\nmobileBoardFit: ${passed} tests passed`);
