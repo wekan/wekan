@@ -81,8 +81,10 @@ template(name="userFormsLayout")
                   option(value="{{tag}}") {{name}}
     //- Extra space below the login / register dialog so its bottom scrolls
     //- fully into view and scrolling continues a little past the form.
-    br
-    br
+    //- A real element, not <br>: body is display:flex, so a <br> becomes a
+    //- flex item, gets blockified and collapses to zero height - which is why
+    //- the two <br> that used to be here added no space at all.
+    .auth-bottom-space
 
 template(name="defaultLayout")
   +recoveryMaintenance

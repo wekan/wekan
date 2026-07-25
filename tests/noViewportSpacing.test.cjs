@@ -90,4 +90,23 @@ test('legitimate viewport use is still permitted (negative)', () => {
   assert.ok(!allowed('  border-radius: 0.4vw;'));
 });
 
+test('Sign In / Register keep scrollable room below the form', () => {
+  // body is display:flex, so a <br> at the end of the layout becomes a flex item,
+  // gets blockified and collapses to ZERO height - two of them used to sit there
+  // adding nothing. It has to be a real element with a height.
+  const jade = fs.readFileSync(path.join(root, 'client/components/main/layouts.jade'), 'utf8');
+  const layout = jade.slice(jade.indexOf('template(name="userFormsLayout")'),
+    jade.indexOf('template(name="defaultLayout")'));
+  assert.ok(/\.auth-bottom-space/.test(layout), 'the spacer element must be there');
+  // Only at the LAYOUT ROOT (4-space indent): a <br> nested inside an h1 - used
+  // when the logo is hidden - is in normal flow and works fine.
+  assert.ok(!/^ {4}br *$/m.test(layout),
+    'a bare <br> at the layout root collapses to zero height in a flex body');
+  const css = fs.readFileSync(path.join(root, 'client/components/users/userForm.css'), 'utf8');
+  const rule = /\.auth-bottom-space \{([^}]*)\}/.exec(css);
+  assert.ok(rule, 'and it must be given a height');
+  assert.ok(/height:\s*\d+px/.test(rule[1]), 'a fixed height, so it does not resize with the window');
+  assert.ok(/flex:\s*0 0 auto/.test(rule[1]), 'and it must not be flex-shrunk back to nothing');
+});
+
 console.log(`\nnoViewportSpacing: ${passed} tests passed`);

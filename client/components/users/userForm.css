@@ -1,3 +1,12 @@
+/* Scrollable room below the form on Sign In / Register, so the bottom of the
+   dialog - and the language selector under it - can be scrolled clear of the
+   window edge, and of the on-screen keyboard on a phone. A fixed height, not
+   vh: this is spacing, and spacing must not change with the window (see
+   tests/noViewportSpacing.test.cjs). */
+.auth-bottom-space {
+  flex: 0 0 auto;
+  height: 96px;
+}
 .auth-layout .at-form-landing-logo {
   width: min(249px, 32vw);
   margin: auto;
