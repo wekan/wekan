@@ -196,6 +196,19 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
 
 This release fixes the following bugs:
 
+- [The minicard drag handle is below the minicard menu button, on the same edge. On a
+  touch pointer it was a full-height strip down the leading (left in LTR) edge — added
+  because on a touch device the handle is the only way to drag a card, the card body
+  deliberately panning the board instead, so the small corner icon was too small a
+  target. That reached the size goal but put the handle on the opposite side of the card
+  from every other card control, and from where a mouse user's handle already sits. Both
+  pointer kinds now use the same column: details menu on top, drag handle directly
+  below. The touch target is not given up — the handle is 44px wide and runs from under
+  the menu button to the bottom of the card, with a floor for a card holding nothing but
+  a title, and the card reserves that column so its text never runs underneath. It
+  mirrors to the other edge on an RTL
+  board](https://github.com/wekan/wekan/commit/114a0af31).
+  Thanks to xet7.
 - [Drag-to-scroll now works on both top header bars, not only below them. Everywhere
   else a drag scrolls — the board canvas on a board, the page on All Boards / My Cards
   / … — but the two header bars were dead, and on a phone they are a large share of
