@@ -169,4 +169,35 @@ test('the moved radios still see their values, and save what they found', () => 
     'the subscription must stay - the collection is unchanged');
 });
 
+test('Support, Email domain name and Legal notice moved out of Layout', () => {
+  const email = template('email');
+  const visibility = template('tableVisibilityModeSettings');
+  // Support is one feature - the link, the enable toggle AND the content editor
+  // it controls - so all of it moved, not just the two visible rows.
+  assert.ok(visibility.includes('js-toggle-support'), 'Support enable toggle is in Visibility');
+  assert.ok(visibility.includes('href="/support"'), 'the Support link with it');
+  assert.ok(visibility.includes('js-support-save'), 'and the content editor it controls');
+  assert.ok(visibility.includes('custom-legal-notice-link-url'), 'Legal notice URL is in Visibility');
+  assert.ok(email.includes('can-invite-if-same-mailDomainName'), 'Email domain name is in Email');
+  for (const gone of ['js-toggle-support', 'can-invite-if-same-mailDomainName',
+    'custom-legal-notice-link-url']) {
+    assert.ok(!layout.includes(gone), `${gone} must be gone from Layout`);
+  }
+});
+
+test('the Layout save cannot wipe the two moved text fields', () => {
+  // These are TEXT inputs, so the trap is worse than for a radio: a missing
+  // input reads as undefined, ('' || '').trim() is '', and saving Layout would
+  // have written an EMPTY string over the stored value.
+  const save = js.slice(js.indexOf("'click button.js-save-layout'"),
+    js.indexOf("'click button.js-hide-board-activities-save'"));
+  assert.ok(!/mailDomainName/.test(save) && !/legalNotice/.test(save),
+    'the Layout save must not read or write either field any more');
+  // Their new homes write them only when the input is actually present.
+  assert.ok(/\$\('#mailDomainNamevalue'\)\.length/.test(js),
+    'the Email save guards on the input existing');
+  assert.ok(/\$\('#legalNoticevalue'\)\.length/.test(js),
+    'the Visibility save guards on the input existing');
+});
+
 console.log(`\nboardsVisibilitySettings: ${passed} tests passed`);

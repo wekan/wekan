@@ -650,6 +650,12 @@ Template.setting.events({
           'mailServer.password': password,
           'mailServer.enableTLS': tls,
           'mailServer.from': from,
+          // Moved here with its input: the Layout save used to read
+          // #mailDomainNamevalue, which is not in that pane any more - so saving
+          // Layout would have written an empty domain over the stored one.
+          ...($('#mailDomainNamevalue').length
+            ? { mailDomainName: ($('#mailDomainNamevalue').val() || '').trim() }
+            : {}),
         },
       });
     } catch (e) {
@@ -699,8 +705,6 @@ Template.setting.events({
     ).trim();
 
     const oidcBtnText = ($('#oidcBtnTextvalue').val() || '').trim();
-    const mailDomainName = ($('#mailDomainNamevalue').val() || '').trim();
-    const legalNotice = ($('#legalNoticevalue').val() || '').trim();
     const hideLogoChange = $('input[name=hideLogo]:checked').val() === 'true';
     const displayAuthenticationMethod =
       $('input[name=displayAuthenticationMethod]:checked').val() === 'true';
@@ -734,8 +738,6 @@ Template.setting.events({
           automaticLinkedUrlSchemes,
           spinnerName,
           oidcBtnText,
-          mailDomainName,
-          legalNotice,
         },
       });
     } catch (e) {
@@ -1092,6 +1094,10 @@ Template.tableVisibilityModeSettings.events({
     }
     if (hideBoardMemberList !== undefined) {
       $set.hideBoardMemberList = hideBoardMemberList === 'true';
+    }
+    // Moved here with its input (same reason as the domain name above).
+    if ($('#legalNoticevalue').length) {
+      $set.legalNotice = ($('#legalNoticevalue').val() || '').trim();
     }
     if (Object.keys($set).length) {
       Settings.update(ReactiveCache.getCurrentSetting()._id, { $set });

@@ -181,6 +181,10 @@ template(name='email')
     //
       li
     //
+    li.smtp-form
+      .title {{_ 'can-invite-if-same-mailDomainName'}}
+      .form-group
+        input.wekan-form-control#mailDomainNamevalue(type="text", placeholder="" value="{{currentSetting.mailDomainName}}")
     li.accounts-form
       .title {{_ 'accounts-allowEmailChange'}}
       .form-group.flex
@@ -216,6 +220,33 @@ template(name='tableVisibilityModeSettings')
         label {{_ 'yes'}}
         input.wekan-form-control#hide-board-member-list(type="radio" name="hideBoardMemberList" value="false" checked="{{#unless currentSetting.hideBoardMemberList}}checked{{/unless}}")
         label {{_ 'no'}}
+    li
+      a(href="/support" style="text-decoration: underline; color: blue;") {{_ 'support'}}
+    li
+      a.flex.js-toggle-support
+        .materialCheckBox(class="{{#if currentSetting.supportPageEnabled}}is-checked{{/if}}")
+
+        span {{_ 'support-page-enabled'}}
+    li
+      .support-content(class="{{#if currentSetting.supportPageEnabled}}{{else}}hide{{/if}}")
+        ul
+          li
+            a.flex.js-toggle-support-public
+              .materialCheckBox(class="{{#if currentSetting.supportPagePublic}}is-checked{{/if}}")
+
+              span {{_ 'public'}}
+          li
+            .title {{_ 'support-title'}}
+            textarea#support-title.wekan-form-control= currentSetting.supportTitle
+          li
+            .title {{_ 'support-content'}}
+            textarea#support-page-text.wekan-form-control= currentSetting.supportPageText
+          li
+            button.js-support-save.primary {{_ 'save'}}
+    li.tableVisibilityMode-form
+      .title {{_ 'custom-legal-notice-link-url'}}
+      .form-group
+        input.wekan-form-control#legalNoticevalue(type="text", placeholder="" value="{{currentSetting.legalNotice}}")
       button.js-tableVisibilityMode-save.primary {{_ 'save'}}
 
 template(name='announcementSettings')
@@ -269,29 +300,6 @@ template(name='hideBoardActivitiesSettings')
 template(name='layoutSettings')
   ul#layout-setting.setting-detail
     li
-      a(href="/support" style="text-decoration: underline; color: blue;") {{_ 'support'}}
-    li
-      a.flex.js-toggle-support
-        .materialCheckBox(class="{{#if currentSetting.supportPageEnabled}}is-checked{{/if}}")
-
-        span {{_ 'support-page-enabled'}}
-    li
-      .support-content(class="{{#if currentSetting.supportPageEnabled}}{{else}}hide{{/if}}")
-        ul
-          li
-            a.flex.js-toggle-support-public
-              .materialCheckBox(class="{{#if currentSetting.supportPagePublic}}is-checked{{/if}}")
-
-              span {{_ 'public'}}
-          li
-            .title {{_ 'support-title'}}
-            textarea#support-title.wekan-form-control= currentSetting.supportTitle
-          li
-            .title {{_ 'support-content'}}
-            textarea#support-page-text.wekan-form-control= currentSetting.supportPageText
-          li
-            button.js-support-save.primary {{_ 'save'}}
-    li
       a.flex.js-toggle-custom-head
         .materialCheckBox(class="{{#if currentSetting.customHeadEnabled}}is-checked{{/if}}")
         span {{_ 'custom-head-tags-enabled'}}
@@ -330,14 +338,6 @@ template(name='layoutSettings')
       .title {{_ 'oidc-button-text'}}
       .form-group
         input.wekan-form-control#oidcBtnTextvalue(type="text", placeholder="" value="{{currentSetting.oidcBtnText}}")
-    li.layout-form
-      .title {{_ 'can-invite-if-same-mailDomainName'}}
-      .form-group
-        input.wekan-form-control#mailDomainNamevalue(type="text", placeholder="" value="{{currentSetting.mailDomainName}}")
-    li.layout-form
-      .title {{_ 'custom-legal-notice-link-url'}}
-      .form-group
-        input.wekan-form-control#legalNoticevalue(type="text", placeholder="" value="{{currentSetting.legalNotice}}")
     li.layout-form
       .title {{_ 'display-authentication-method'}}
       .form-group.flex
