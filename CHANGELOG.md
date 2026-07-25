@@ -194,7 +194,37 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release fixes the following CRITICAL SECURITY ISSUE of [ZipBleed](https://wekan.fi/hall-of-fame/zipbleed/):
+
+- **[ZipBleed](https://wekan.fi/hall-of-fame/zipbleed/): arbitrary file write when
+  restoring a backup archive (zip-slip)** (CWE-22 Improper Limitation of a Pathname to
+  a Restricted Directory). A zip entry carries its own path, chosen by whoever built
+  the archive, and `path.join()` RESOLVES `..` segments instead of rejecting them. The
+  restore in `server/methods/backup.js` checked only that an entry's first path
+  segment was `attachments` or `avatars`, then joined the rest onto the target
+  directory. An entry named
+  `2026-07-25_12-00-00/attachments/../../../../etc/cron.d/wekan` therefore passed that
+  check — its first segment really is `attachments` — and joined its way clean out of
+  the files directory, and the entry's contents were streamed to whatever path came
+  out. A crafted `backup.zip` could drop or overwrite a file anywhere the WeKan
+  process could write. Restoring a backup is exactly the moment nobody inspects the
+  file they were handed, and `restoreBackup` is behind `requireAdmin()`, so the
+  archive arrives the normal way: offered to an admin as a backup to restore. Fixed by
+  resolving each entry to an absolute path and requiring it to sit under the directory
+  it belongs in — compared against the base plus a separator, so a sibling directory
+  whose name merely starts with the same letters (`/data/files/attachments-evil`) is
+  not accepted either. The data half of an archive names the Mongo collection to
+  restore into, so that is now constrained to a plain name, which also keeps a restore
+  out of the database's internal `system.*` collections. A refused entry is skipped
+  and reported rather than thrown on, so one hostile entry cannot abort a genuine
+  restore. Found while reviewing the open dependency pull requests — it is WeKan's own
+  code, not any dependency. `tests/zipbleed.test.cjs` asserts the exact traversal that
+  motivated the fix is refused, that a plain entry still restores where it belongs,
+  and that the restore really calls both
+  guards](https://github.com/wekan/wekan/commit/COMMITHASH).
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - [The Admin Panel left menu, the page-title bars, the People tables and the
   Translation pane. Every Admin Panel page except Problems drew a bar under the top bar

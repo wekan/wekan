@@ -11,7 +11,8 @@ import readline from 'readline';
 import { Readable } from 'stream';
 import { ZipArchive } from 'archiver';
 import unzipper from 'unzipper';
-const { filesRootFrom, scheduleText } = require('/models/lib/backupPaths');
+const { filesRootFrom, scheduleText, safeEntryPath, safeCollectionName } =
+  require('/models/lib/backupPaths');
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Admin Panel / Attachments / Backup.
@@ -212,13 +213,22 @@ async function doRestore(zipPath, mode) {
     // unzipper.Open reads the central directory, then streams each entry on
     // demand — a 5 GB attachment is piped straight to disk, never buffered.
     const directory = await unzipper.Open.file(zipPath);
+    // ZipBleed: entries refused for naming a path outside the directory they belong
+    // in, or a collection WeKan does not write. Collected and reported at the end
+    // rather than thrown on, so one hostile entry cannot abort a genuine restore.
+    const skipped = [];
     // Files first (attachments/avatars), then data.
     for (const entry of directory.files) {
       if (entry.type !== 'File') continue;
       const rel = entry.path.split('/').slice(1); // drop the <stamp> top folder
       const kind = rel[0];
       if (kind !== 'attachments' && kind !== 'avatars') continue;
-      const destPath = path.join(kind === 'attachments' ? attachmentsDir() : avatarsDir(), ...rel.slice(1));
+      // The entry names its own path and path.join RESOLVES `..`, so
+      // `<stamp>/attachments/../../../etc/x` satisfied the check above and then wrote
+      // outside the files directory. safeEntryPath refuses anything that escapes.
+      const destPath = safeEntryPath(
+        kind === 'attachments' ? attachmentsDir() : avatarsDir(), rel.slice(1));
+      if (!destPath) { skipped.push(entry.path); continue; }
       if (mode === 'add-missing' && fs.existsSync(destPath)) continue;
       fs.mkdirSync(path.dirname(destPath), { recursive: true });
       setProgress({ detail: entry.path });
@@ -230,11 +240,20 @@ async function doRestore(zipPath, mode) {
       if (entry.type !== 'File') continue;
       const rel = entry.path.split('/').slice(1);
       if (rel[0] !== 'data' || !rel[1] || !rel[1].endsWith('.ndjson')) continue;
-      const coll = rel[1].replace(/\.ndjson$/, '');
+      // The entry also names the collection to restore into. Only a plain name is
+      // accepted - `system.*` is internal to the database (and excluded from backups
+      // in the first place), and a name carrying a separator is not one WeKan writes.
+      const coll = safeCollectionName(rel[1].replace(/\.ndjson$/, ''));
+      if (!coll) { skipped.push(entry.path); continue; }
       setProgress({ detail: 'data: ' + coll });
       await restoreDataLines(entry.stream(), coll, mode);
     }
-    setProgress({ phase: 'completed', success: true });
+    if (skipped.length) {
+      console.warn('Backup restore refused ' + skipped.length +
+        ' archive entry/entries that pointed outside the restore directory: ' +
+        skipped.slice(0, 10).join(', '));
+    }
+    setProgress({ phase: 'completed', success: true, skipped: skipped.length });
   } catch (e) {
     setProgress({ phase: 'error', success: false, error: String(e && e.message ? e.message : e).slice(0, 500) });
     throw e;
