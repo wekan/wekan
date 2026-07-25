@@ -196,6 +196,18 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
 
 This release fixes the following bugs:
 
+- [In mobile mode the blue swimlane-resize bar sits directly under the last list, with
+  no band of empty grey above it, and there is no gap between a swimlane header and its
+  own lists. The bar is pinned to the bottom edge of the lists container, so any height
+  that container has beyond its content shows as dead space — and it had two sources,
+  both desktop assumptions: an inline height carrying the swimlane height the user chose
+  for the desktop layout, where lists sit side by side rather than stacked full width,
+  and a 150px floor that held a short swimlane open. The container now takes its content
+  height, which also stops it scrolling vertically on its own. The margin that separates
+  one swimlane from the next was landing on the header wrapper too, putting the same band
+  between a header and the lists belonging to
+  it](https://github.com/wekan/wekan/commit/4d67952ec).
+  Thanks to xet7.
 - [In mobile mode the board fits the width again. The lists area was slightly too wide,
   giving a horizontal scrollbar with a small amount to scroll right and nothing there to
   see. Two causes: `100vw` sizing, which had been fixed in one stylesheet but was still
