@@ -60,18 +60,32 @@ template(name="tablePage")
             tr
               each header
                 th(style="width: {{width}}" class="{{cls}}")
-                  if labelKey
+                  //- A column may render its own header - a select-all pair, an
+                  //- "add row" form - instead of a plain label. Used by the People
+                  //- panes, whose headers carry controls.
+                  if template
+                    +Template.dynamic(template=template data=data)
+                  else if labelKey
                     | {{_ labelKey}}
                   else
                     | {{label}}
           tbody
-            each rows
-              tr(class="{{cls}}")
-                each cells
-                  td(class="{{cls}}" data-sev="{{data}}")
-                    if userId
-                      a.edit-user.js-table-page-edit-user(data-user-id="{{userId}}") {{text}}
-                    else
-                      | {{text}}
+            //- Two ways to render a row. `cells` (a column spec) is the default and
+            //- keeps the guarantee that a row can never be shorter than the header.
+            //- `rowTemplate` is for panes whose rows are interactive - inline
+            //- checkboxes, edit links - which a text-cell spec cannot express; that
+            //- page owns its <tr> and is responsible for matching the columns.
+            if rowTemplate
+              each docs
+                +Template.dynamic(template=../rowTemplate data=this)
+            else
+              each rows
+                tr(class="{{cls}}")
+                  each cells
+                    td(class="{{cls}}" data-sev="{{data}}")
+                      if userId
+                        a.edit-user.js-table-page-edit-user(data-user-id="{{userId}}") {{text}}
+                      else
+                        | {{text}}
     else
       .table-page-empty {{_ emptyKey}}

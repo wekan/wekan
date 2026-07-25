@@ -135,6 +135,11 @@ export function buildHeader(columns) {
   return cols.map(column => ({
     label: column.label || '',
     labelKey: column.labelKey || '',
+    // A column may render its own header instead of a label - a select-all pair,
+    // an "add row" form. The template name and its data context come from the
+    // column spec, so the shared template still owns the <th> itself.
+    template: column.headerTemplate || '',
+    data: column.headerData || {},
     width,
     cls: [column.align === 'end' ? 'table-page-end' : ''].filter(Boolean).join(' '),
   }));

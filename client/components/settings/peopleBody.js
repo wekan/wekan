@@ -286,7 +286,53 @@ const PEOPLE_MENU = [
   { id: 'domains-setting', icon: 'fa-at', labelKey: 'domains' },
 ];
 
+// Organizations through the shared table page (docs/Design/Page/Table.md). Its
+// rows are interactive - inline checkboxes and edit links - so it supplies a
+// rowTemplate instead of a text-cell spec, and three of its headers carry a
+// select-all pair, supplied as headerTemplate. Everything else - the layout, the
+// pager, the search, the total - comes from the shared page.
+const ORG_COLUMNS = [
+  { headerTemplate: 'newOrgRow' },
+  { labelKey: 'displayName' },
+  { labelKey: 'description' },
+  { labelKey: 'shortName' },
+  { labelKey: 'website' },
+  { labelKey: 'createdAt' },
+  { labelKey: 'active-org' },
+  { headerTemplate: 'orgFeatureHeader',
+    headerData: { labelKey: 'org-shared-templates', feature: 'orgSharedTemplates' } },
+  { headerTemplate: 'orgFeatureHeader',
+    headerData: { labelKey: 'org-propagate-members-to-boards', feature: 'orgPropagateMembersToBoards' } },
+  { headerTemplate: 'orgFeatureHeader',
+    headerData: { labelKey: 'org-sync-members-from-auth', feature: 'orgSyncMembersFromAuth' } },
+];
+
 Template.people.helpers({
+  orgTablePageData() {
+    const tpl = Template.instance();
+    // The 'org' publication already returns only the current page (server-side
+    // limit/skip, sorted createdAt:-1), so display exactly what it published.
+    const orgs = ReactiveCache.getOrgs(tpl.findOrgsOptions.get(), {
+      sort: { createdAt: -1 },
+    });
+    const total = tpl.numberOrgs.get() || 0;
+    const totalPages = Math.max(1, Math.ceil(total / orgsPerPage));
+    return {
+      titleKey: 'organizations',
+      emptyKey: 'no-items-message',
+      header: buildHeader(ORG_COLUMNS),
+      // Interactive rows: orgRow owns its <tr>, and takes { org } as its context.
+      rowTemplate: 'orgRow',
+      docs: orgs.map(org => ({ org })),
+      rowCount: orgs.length,
+      page: tpl.orgPage.get(),
+      totalPages,
+      hasPrev: tpl.orgPage.get() > 1,
+      hasNext: tpl.orgPage.get() < totalPages,
+      total,
+      totalLabelKey: 'org-number',
+    };
+  },
   menuItems() {
     return buildMenuItems(PEOPLE_MENU, Template.instance().activeMenuId.get());
   },
@@ -514,27 +560,25 @@ Template.people.events({
     const value = event.currentTarget.getAttribute('data-value') === 'true';
     Meteor.call('setAllTeamsFeature', field, value);
   },
-  'click .js-org-prev-page'(event, tpl) {
+  // The shared table page emits the same control classes on every pane, and all
+  // of People's panes render inside THIS template - so a click would otherwise
+  // page every converted pane at once. Act only for the pane that is open.
+  'click .js-table-page-prev'(event, tpl) {
+    if (tpl.activeMenuId.get() !== 'org-setting') return;
     event.preventDefault();
     const current = tpl.orgPage.get();
     if (current > 1) {
       tpl.orgPage.set(current - 1);
     }
   },
-  'click .js-org-next-page'(event, tpl) {
+  'click .js-table-page-next'(event, tpl) {
+    if (tpl.activeMenuId.get() !== 'org-setting') return;
     event.preventDefault();
     const totalOrgs = tpl.numberOrgs.get() || 0;
     const totalPages = Math.max(1, Math.ceil(totalOrgs / orgsPerPage));
     const current = tpl.orgPage.get();
     if (current < totalPages) {
       tpl.orgPage.set(current + 1);
-    }
-  },
-  'click .js-team-prev-page'(event, tpl) {
-    event.preventDefault();
-    const current = tpl.teamPage.get();
-    if (current > 1) {
-      tpl.teamPage.set(current - 1);
     }
   },
   'click .js-team-next-page'(event, tpl) {

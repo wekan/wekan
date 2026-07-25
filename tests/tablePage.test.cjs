@@ -404,7 +404,8 @@ test('People/Org/Team/Domain pagination buttons use var(--theme-accent)', () => 
   const css = read('client/components/settings/peopleBody.css');
   // No 'domain': the Domains pane renders through the shared table page now, so
   // its pager is the shared one.
-  for (const sel of ['people', 'org', 'team']) {
+  // No 'org' either: Organizations renders through the shared table page now.
+  for (const sel of ['people', 'team']) {
     const m = new RegExp('\\.' + sel + '-pagination button\\s*\\{[^}]*var\\(--theme-accent');
     assert.ok(m.test(css), `${sel}-pagination button must use the theme accent`);
   }
@@ -465,7 +466,7 @@ test('the doc records which pages do NOT use this design, and why', () => {
   assert.ok(why && why[1].trim().length > 80, 'the reason must actually explain');
   // Domains IS converted, so the entry must say so and the pane must render
   // through the shared template - not carry markup of its own.
-  assert.ok(/Domains is converted/.test(section), 'the entry must record the converted pane');
+  assert.ok(/Domains and Organizations are converted/.test(section), 'the entry must record the converted pane');
   const people = read('client/components/settings/peopleBody.jade');
   const domains = people.slice(people.indexOf('template(name="domainGeneral")'),
     people.indexOf('template(name="newOrgRow")'));
@@ -519,6 +520,39 @@ test('the doc documents the three features as on by default', () => {
   for (const name of ['buildFilters', 'buildActions', 'total']) {
     assert.ok(section.includes(name), `${name} must be documented`);
   }
+});
+
+test('interactive panes get row and header slots, cells stay the default', () => {
+  // Option A: a pane whose rows are interactive supplies a rowTemplate; a column
+  // whose header carries controls supplies a headerTemplate. The <tr> guarantee
+  // (a row can never be shorter than the header) applies to the CELLS form only,
+  // and the doc has to say so.
+  assert.ok(/if rowTemplate/.test(jade), 'the template supports a row slot');
+  assert.ok(/each docs/.test(jade) && /\.\.\/rowTemplate/.test(jade),
+    'rows come from the page own template, one per doc');
+  assert.ok(/if template\n\s+\+Template\.dynamic/.test(jade),
+    'a column may render its own header');
+  const [h] = lib.buildHeader([{ headerTemplate: 'orgFeatureHeader', headerData: { feature: 'x' } }]);
+  assert.strictEqual(h.template, 'orgFeatureHeader');
+  assert.deepStrictEqual(h.data, { feature: 'x' });
+  // A plain column still has no template, so the default path is unchanged.
+  const [plain] = lib.buildHeader([{ labelKey: 'date' }]);
+  assert.strictEqual(plain.template, '');
+});
+
+test('Organizations renders through the shared table page', () => {
+  const people = read('client/components/settings/peopleBody.jade');
+  const org = people.slice(people.indexOf('template(name="orgGeneral")'),
+    people.indexOf('template(name="orgFeatureHeader")'));
+  assert.ok(/\+tablePage\(orgTablePageData\)/.test(org), 'renders the shared page');
+  assert.ok(!/thead|org-pagination/.test(org), 'and keeps no table markup of its own');
+  const js = read('client/components/settings/peopleBody.js');
+  assert.ok(/rowTemplate: 'orgRow'/.test(js), 'its interactive rows use the row slot');
+  assert.ok(/headerTemplate: 'orgFeatureHeader'/.test(js), 'its control headers use the header slot');
+  // All of People's panes render inside ONE template, so a shared-class handler
+  // must act only for the pane that is open - otherwise one click pages them all.
+  assert.ok(/activeMenuId\.get\(\) !== 'org-setting'/.test(js),
+    'the org pager must be scoped to the open pane');
 });
 
 console.log(`\ntablePage: ${passed} tests passed`);

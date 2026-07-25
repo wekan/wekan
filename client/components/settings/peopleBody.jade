@@ -96,51 +96,20 @@ template(name="people")
 
 
 template(name="orgGeneral")
-  .org-pagination
-    button.js-org-prev-page(class="{{#if hasOrgPrevPage}}{{else}}disabled{{/if}}")
-      | &lt;
-    span.org-page-info {{orgCurrentPage}} / {{orgTotalPages}}
-    button.js-org-next-page(class="{{#if hasOrgNextPage}}{{else}}disabled{{/if}}")
-      | &gt;
-  table
-    thead
-      tr
-        th
-          +newOrgRow
-        th {{_ 'displayName'}}
-        th {{_ 'description'}}
-        th {{_ 'shortName'}}
-        th {{_ 'website'}}
-        th {{_ 'createdAt'}}
-        th {{_ 'active-org'}}
-        th
-          | {{_ 'org-shared-templates'}}
-          br
-          a.js-org-feature-all(href="#", data-feature="orgSharedTemplates", data-value="true", title="{{_ 'select-all'}}")
-            i.fa.fa-check-square-o
-          |  
-          a.js-org-feature-all(href="#", data-feature="orgSharedTemplates", data-value="false", title="{{_ 'unselect-all'}}")
-            i.fa.fa-square-o
-        th
-          | {{_ 'org-propagate-members-to-boards'}}
-          br
-          a.js-org-feature-all(href="#", data-feature="orgPropagateMembersToBoards", data-value="true", title="{{_ 'select-all'}}")
-            i.fa.fa-check-square-o
-          |  
-          a.js-org-feature-all(href="#", data-feature="orgPropagateMembersToBoards", data-value="false", title="{{_ 'unselect-all'}}")
-            i.fa.fa-square-o
-        th
-          | {{_ 'org-sync-members-from-auth'}}
-          br
-          a.js-org-feature-all(href="#", data-feature="orgSyncMembersFromAuth", data-value="true", title="{{_ 'select-all'}}")
-            i.fa.fa-check-square-o
-          |  
-          a.js-org-feature-all(href="#", data-feature="orgSyncMembersFromAuth", data-value="false", title="{{_ 'unselect-all'}}")
-            i.fa.fa-square-o
-    tbody
-      tr
-      each org in orgList
-        +orgRow(org=org)
+  +tablePage(orgTablePageData)
+
+//- One header cell for an Organization feature column: the label plus its
+//- select-all / unselect-all pair. Rendered by the shared table page through the
+//- column spec (headerTemplate), so the <th> itself still belongs to that
+//- template. `feature` and `labelKey` come from headerData.
+template(name="orgFeatureHeader")
+  | {{_ labelKey}}
+  br
+  a.js-org-feature-all(href="#", data-feature="{{feature}}", data-value="true", title="{{_ 'select-all'}}")
+    i.fa.fa-check-square-o
+  |  
+  a.js-org-feature-all(href="#", data-feature="{{feature}}", data-value="false", title="{{_ 'unselect-all'}}")
+    i.fa.fa-square-o
 
 template(name="teamGeneral")
   .team-pagination

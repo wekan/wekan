@@ -40,7 +40,7 @@ is visible rather than forgotten.
 
 | Table name | Menu path | Why it does not use this design |
 | --- | --- | --- |
-| People — six of its seven panes | Admin Panel / People | Organizations, Teams, People, Locked users, Roles and Shared templates still have their own controls and table markup, one set per pane, so People is several tables on one page rather than one. The pane-specific extras it needed — a filter dropdown, action buttons and a result count — are now part of this design (see [Controls](#controls)), so nothing blocks the remaining six; they are simply not converted yet. **Domains is converted** and is listed in the table below. |
+| People — five of its seven panes | Admin Panel / People | Teams, People, Locked users, Roles and Shared templates still have their own controls and table markup, one set per pane, so People is several tables on one page rather than one. The pane-specific extras it needed — a filter dropdown, action buttons and a result count — are now part of this design (see [Controls](#controls)), so nothing blocks the remaining six; they are simply not converted yet. **Domains and Organizations are converted** and is listed in the table below. |
 
 What People already shares, and what converting it would take:
 
@@ -69,6 +69,7 @@ Menu path is what you click to reach the page.
 
 | Table name | Menu path | Description |
 | --- | --- | --- |
+| Organizations | Admin Panel / People / Organizations | Every organization with its details and per-organization feature switches. Interactive rows, so it supplies a `rowTemplate`; three of its headers carry a select-all pair, supplied as `headerTemplate`. |
 | Domains | Admin Panel / People / Domains | Every e-mail domain in use with the number of users on it. The first People pane converted to this design. |
 | Security | Admin Panel / Problems / Security | Security events from the event log: blocked uploads, rejected URL schemes, auth failures. One row per event, newest first. |
 | Speed | Admin Panel / Problems / Speed | Slow-operation events — what took too long, where, and for how long. |
@@ -163,6 +164,23 @@ A page differs from another **only** in its column list:
 template iterates. Both are pure functions in `models/lib/tablePage.js` with unit
 tests, so a row can never end up with fewer cells than the header — which is how a
 hand-written table gets its columns shifted by one.
+
+### Interactive rows and headers
+
+Some panes cannot be expressed as text cells: their rows carry inline checkboxes
+and edit links, and their headers carry controls. Two slots cover that without
+every page reinventing the table:
+
+- **`rowTemplate`** — a template name plus `docs`, an array of data contexts. The
+  page owns its `<tr>` and is then responsible for matching the column count;
+  the guarantee that a row can never be shorter than the header applies only to
+  the `cells` form.
+- **`headerTemplate` / `headerData`** on a column — the `<th>` still belongs to the
+  shared template; only its contents come from the page.
+
+Everything else — layout, paging, search, the themed pager, the total — is shared
+either way. Prefer the column spec; reach for these only when the pane is genuinely
+interactive.
 
 ## Controls
 
