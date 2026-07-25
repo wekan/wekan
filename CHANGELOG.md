@@ -226,6 +226,15 @@ This release fixes the following CRITICAL SECURITY ISSUE of [ZipBleed](https://w
 
 and fixes the following bugs:
 
+- [The Admin Panel Features tab is removed. Its last three panes — Performance,
+  Security and Notifications — moved to Admin Panel / Problems, leaving a tab that
+  opened an empty page. The route, the tab, its active-tab helper, the imports and both
+  files are gone; the three pane templates and their handlers moved to the page that
+  renders them, since deleting them would have left Problems rendering templates that
+  no longer exist — which is not a build error, but a throw when the pane is opened. A
+  new test requires every template include to name a template that exists, the mirror of
+  the existing check that every template handler targets one](https://github.com/wekan/wekan/commit/b72a4996d).
+  Thanks to xet7.
 - [Admin Panel / Problems: the Security report is renamed **Security Report** and moved
   above Broken Cards, with Impersonation Report directly between the two; and the
   Performance, Security and Notifications panes moved here from Admin Panel / Features,
