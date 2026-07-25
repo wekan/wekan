@@ -40,31 +40,36 @@ check('eventlog has a {stream,at} index so Security/Speed/Tests pages stay fast'
   assert.ok(/ensureIndex\(EventLogAcks, \{ stream: 1 \}\)/.test(src));
 });
 
-// ── no redundant Search button; pagination on the right of the search field ──
-check('report tables have no Search button (Enter searches) and a single controls row', () => {
-  const jade = read('client/components/settings/adminReports.jade');
+// ── one controls row, defined once for every report ──
+check('report tables have no Search button (Enter searches) and ONE shared controls row', () => {
+  // The six reports used to carry six copies of this row. They now render
+  // through the shared table page (docs/Design/Table-Page.md), so the row exists
+  // once, in one template, with one set of handlers.
+  const jade = read('client/components/settings/tablePage.jade');
   assert.ok(!/-search-button/.test(jade), 'the Search button must be gone (typing + Enter searches)');
-  // each of the 5 reports uses one .admin-report-controls row (search + pagination)
-  assert.strictEqual((jade.match(/\.admin-report-controls/g) || []).length, 6);
-  assert.ok(!/\.admin-report-search\b/.test(jade), 'the old two-block layout must be gone');
+  assert.strictEqual((jade.match(/table-page-controls/g) || []).length, 1,
+    'exactly one controls row, in the one shared template');
+  const reports = read('client/components/settings/adminReports.jade');
+  assert.ok(!/admin-report-controls/.test(reports), 'no per-report copy may come back');
   const js = read('client/components/settings/adminReports.js');
   assert.ok(!/-search-button'\(event, tmpl\)/.test(js), 'dead search-button handlers removed');
-  assert.ok(/keydown \.js-cards-search-input/.test(js), 'Enter-to-search kept');
+  assert.ok(/keydown \.js-table-page-search/.test(js), 'Enter-to-search kept');
 });
 check('pagination controls sit at the end of the row (right; RTL-mirrored)', () => {
-  const css = read('client/components/settings/adminReports.css');
-  assert.ok(/\.admin-report-pagination\s*\{[^}]*margin-inline-start:\s*auto/.test(css),
+  const css = read('client/components/settings/tablePage.css');
+  assert.ok(/\.table-page-pagination\s*\{[^}]*margin-inline-start:\s*auto/.test(css),
     'pagination must be pushed to the end of the controls row');
 });
 
 // ── theme colors: controls follow --theme-accent (Member change-color override) ──
-check('report + event pagination controls use var(--theme-accent)', () => {
-  const css = read('client/components/settings/adminReports.css');
-  assert.ok(/\.admin-report-pagination button\s*\{[^}]*var\(--theme-accent/.test(css),
-    'report pagination buttons must use the theme accent');
-  assert.ok(/\.admin-event-pagination a\s*\{[^}]*var\(--theme-accent/.test(css),
-    'event-stream pagination links must use the theme accent');
-  assert.ok(!/#bbb|background:\s*#fff/.test(css), 'no hardcoded grey/white in the report controls');
+check('pagination controls use var(--theme-accent)', () => {
+  // One rule now, in the shared stylesheet, instead of one per report family.
+  const css = read('client/components/settings/tablePage.css');
+  assert.ok(/\.table-page-pagination button\s*\{[^}]*var\(--theme-accent/.test(css),
+    'pagination buttons must use the theme accent');
+  assert.ok(/input\.js-table-page-search/.test(read('client/components/settings/tablePage.jade')),
+    'the search field is part of the shared controls row');
+  assert.ok(!/#bbb/.test(css), 'no hardcoded grey in the shared controls');
 });
 check('People/Org/Team/Domain pagination buttons use var(--theme-accent)', () => {
   const css = read('client/components/settings/peopleBody.css');

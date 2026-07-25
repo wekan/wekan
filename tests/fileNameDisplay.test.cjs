@@ -147,8 +147,11 @@ check('global filename helpers registered and used across the UI', () => {
   assert.ok(/\{\{ cleanFilename name \}\}/.test(cards), 'card attachment name uses cleanFilename');
   assert.ok(/download="\{\{downloadFilename name\}\}"/.test(cards), 'download uses the clean name');
   assert.ok(/title="\{\{cleanFilename name\}\}"/.test(cards), 'thumbnail titles use cleanFilename');
-  assert.ok(/\{\{ cleanFilename att\.name \}\}/.test(read('client/components/settings/adminReports.jade')),
-    'Files report uses cleanFilename');
+  // The Files report renders through the shared table page, so its filename
+  // cell is a column spec calling cleanFileName() rather than markup calling the
+  // {{cleanFilename}} helper. Same function, same guarantee.
+  assert.ok(/cleanFileName\(d\.name\)/.test(read('client/components/settings/adminReports.js')),
+    'Files report uses cleanFileName');
 });
 
 check('download routes sanitize the Content-Disposition filename', () => {

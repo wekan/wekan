@@ -1,62 +1,14 @@
-/* Search + pagination controls for the admin report tabs (files, rules,
-   boards, cards). Styled to match the admin People panel (peopleBody.css). */
+/* Admin Panel → Problems: the few styles that are NOT part of the shared table
+   page. Everything the reports have in common - title, status row, search +
+   pagination controls, and the table itself - now lives in tablePage.css and is
+   defined once. See docs/Design/Table-Page.md. */
 
-/* One controls row per report: the search field on the left, the pagination
-   controls pushed to the right (margin-inline-start:auto mirrors automatically in
-   RTL). No separate Search button — typing + Enter searches. The controls use the
-   theme accent (Member Settings → Change color sets --theme-accent on :root),
-   falling back to WeKan blue when no custom theme is chosen. */
-.admin-report-controls {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
-.admin-report-controls input {
-  flex: 0 1 320px;
-  max-width: 320px;
-  padding: 0 8px;
-  height: 34px;
-}
-
-.admin-report-pagination {
-  margin-inline-start: auto; /* push pagination to the end of the controls row */
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.admin-report-pagination button {
-  min-width: 32px;
-  height: 30px;
-  border: 1px solid var(--theme-accent, #01628c);
-  background: transparent;
-  color: var(--theme-accent, #01628c);
-  border-radius: 0.4vw;
-  cursor: pointer;
-}
-
-.admin-report-pagination button:hover:not(.disabled) {
-  background: var(--theme-accent, #01628c);
-  color: #fff;
-}
-
-.admin-report-pagination button.active {
-  background: var(--theme-accent, #01628c);
-  border-color: var(--theme-accent, #01628c);
-  color: #fff;
-}
-
-.admin-report-pagination button.disabled {
-  opacity: 0.5;
-  pointer-events: none;
-}
-
-.admin-report-page-info {
-  min-width: 72px;
-  text-align: center;
+/* Problems page: menu separator between the event streams (Summary/Security/
+   Speed/Tests/CPU) and the moved report items. */
+.admin-reports-content .side-menu .admin-reports-separator hr {
+  margin: 6px 0;
+  border: 0;
+  border-top: 1px solid rgba(0,0,0,0.15);
 }
 
 /* Admin Panel → Problems → CPU usage: the live figure between the page title and
@@ -99,36 +51,3 @@
   border: 0;
   border-top: 1px solid rgba(0,0,0,0.15);
 }
-.admin-event-controls {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
-}
-.admin-event-controls input {
-  flex: 0 1 320px;
-  max-width: 320px;
-  height: 34px;
-  padding: 0 8px;
-}
-.admin-event-controls .admin-event-pagination {
-  margin-inline-start: auto;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.admin-event-controls .admin-event-pagination a {
-  cursor: pointer;
-  color: var(--theme-accent, #01628c);
-  font-weight: bold;
-  padding: 0 6px;
-}
-.admin-event-controls .admin-event-pagination a.disabled { opacity: 0.4; pointer-events: none; }
-table.admin-event-table { width: 100%; border-collapse: collapse; }
-table.admin-event-table th, table.admin-event-table td {
-  text-align: start; padding: 4px 8px; border-bottom: 1px solid rgba(0,0,0,0.08); vertical-align: top;
-}
-table.admin-event-table .admin-event-at { white-space: nowrap; }
-table.admin-event-table .admin-event-sev[data-sev="high"],
-table.admin-event-table .admin-event-sev[data-sev="critical"] { color: #c0392b; font-weight: bold; }
-table.admin-event-table .admin-event-detail { word-break: break-word; }

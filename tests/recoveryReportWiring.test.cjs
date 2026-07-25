@@ -51,17 +51,23 @@ test('recordRecoveryEvent method is admin-gated', () => {
   assert.ok(/not-authorized/.test(src) && /isAdmin/.test(src), 'admin-only');
 });
 
-test('client report is wired: config, menu, template, helpers', () => {
+test('client report is wired: config, columns, menu, rendering', () => {
+  // The report no longer has a template of its own: it renders through the
+  // shared table page (docs/Design/Table-Page.md) and differs from the other
+  // reports only in its column list. Same wiring, one implementation.
   const js = read('client/components/settings/adminReports.js');
   assert.ok(/'report-recovery':/.test(js), 'reportConfig has report-recovery');
   assert.ok(/pub: 'recoveryReport'/.test(js) && /getRecoveryReportCount/.test(js), 'points at pub + count');
-  assert.ok(/Template\.recoveryReport\.helpers/.test(js), 'recoveryReport helpers');
-  assert.ok(/showRecoveryReport/.test(js), 'show flag');
+  assert.ok(/REPORT_TABLES = \{[\s\S]*'report-recovery': \{[\s\S]*columns:/.test(js),
+    'report-recovery has a column spec in REPORT_TABLES');
+  assert.ok(/titleKey: 'recoveryReportTitle'/.test(js), 'title key');
+  assert.ok(/emptyKey: 'recovery-no-events'/.test(js), 'empty-state key');
+  assert.ok(/rowClass: d => `recovery-severity-\$\{d\.severity \|\| 'info'\}`/.test(js),
+    'severity row class');
 
   const jade = read('client/components/settings/adminReports.jade');
   assert.ok(/js-report-recovery/.test(jade), 'menu link');
-  assert.ok(/template\(name="recoveryReport"\)/.test(jade), 'template defined');
-  assert.ok(/showRecoveryReport\.get/.test(jade), 'rendered in main-body');
+  assert.ok(/\+tablePage\(tablePageData\)/.test(jade), 'rendered through the shared table page');
 });
 
 test('i18n keys exist', () => {

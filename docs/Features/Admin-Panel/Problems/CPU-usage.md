@@ -1,5 +1,9 @@
 # Design: CPU-usage monitor, governor, and Admin Panel → Problems report
 
+> **This page uses the shared [Table Page](../../../Design/Table-Page.md) design.**
+> The layout, search, pagination, column spec and per-page data loading are defined
+> there and are not repeated here.
+
 Status: **Implemented** · Owner: xet7 · Related: `server/lib/cpuMonitor.js`,
 `server/lib/cpuLog.js`, `models/lib/cpuHighTracker.js`, `models/eventLog.js`,
 Admin Panel → Problems.

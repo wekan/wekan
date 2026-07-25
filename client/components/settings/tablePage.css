@@ -1,0 +1,160 @@
+/* The ONE table page layout. Design: docs/Design/Table-Page.md
+   Used by every paginated admin table (Security, Speed, Tests, CPU usage, Files,
+   Rules, Boards, Cards, Impersonation, Recovery). Defined once here so a fix to
+   the layout reaches every page instead of one report at a time. */
+
+/* Rows, top to bottom: title, status, controls, table. Plain block order - no
+   flex `order` anywhere, so the DOM order in tablePage.jade IS the visual order,
+   in both LTR and RTL. */
+.table-page {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  /* min-width:0 lets this shrink inside the flex .main-body; without it a wide
+     table sets a min-content floor and pushes the panel's right edge past the
+     window, which is exactly the "table runs off-screen" report. */
+  min-width: 0;
+  max-width: 100%;
+}
+
+.table-page-title {
+  margin: 0;
+}
+
+.table-page-desc {
+  margin: 0;
+}
+
+/* Search on the start side, pagination pushed to the end. margin-inline-start
+   mirrors automatically in RTL. Wraps to a second line rather than overflowing
+   when the panel is narrow. */
+.table-page-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-width: 0;
+}
+
+.table-page-controls input.js-table-page-search {
+  flex: 0 1 320px;
+  min-width: 0;
+  max-width: 100%;
+  padding: 0 8px;
+  height: 34px;
+}
+
+.table-page-pagination {
+  margin-inline-start: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.table-page-pagination button {
+  min-width: 32px;
+  height: 30px;
+  border: 1px solid var(--theme-accent, #01628c);
+  background: transparent;
+  color: var(--theme-accent, #01628c);
+  border-radius: 0.4vw;
+  cursor: pointer;
+}
+
+.table-page-pagination button:hover:not(.disabled) {
+  background: var(--theme-accent, #01628c);
+  color: #fff;
+}
+
+.table-page-pagination button.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.table-page-page-info {
+  min-width: 72px;
+  text-align: center;
+}
+
+/* Last-resort sideways scroll for the table only - never the whole page. */
+.table-page-table-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* Full width, equal columns, wrapping text.
+   `table-layout: fixed` is what makes the columns an equal share of the width AND
+   what makes width:100% binding: with the default `auto` layout the browser sizes
+   columns to their content, so one long id or file name widened the table past
+   the panel and the right-hand columns ended up outside the window. */
+.table-page-table {
+  width: 100%;
+  max-width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.table-page-table th,
+.table-page-table td {
+  text-align: start;
+  padding: 4px 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  vertical-align: top;
+  /* Long unbroken text (ids, URLs, file names, stack details) must wrap inside
+     its cell instead of widening the column. `anywhere` breaks a long word that
+     has no space in it; `break-word` is the older spelling kept for Safari. */
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.table-page-table th {
+  font-weight: 700;
+}
+
+/* Opt-in per column from the column spec. */
+.table-page-table .table-page-end {
+  text-align: end;
+}
+
+.table-page-table .table-page-nowrap {
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+/* Severity, coloured from the cell's own data attribute so the rule lives with
+   the table rather than in each report's stylesheet. */
+.table-page-table td[data-sev='high'],
+.table-page-table td[data-sev='critical'] {
+  color: #c0392b;
+  font-weight: bold;
+}
+
+.table-page-empty {
+  padding: 8px 0;
+}
+
+/* Narrow windows: the side menu goes full width on top and the table sits BELOW
+   it, instead of the two being squeezed side by side. Above this width the menu
+   stays on the start side with the table next to it.
+
+   This deliberately overrides the older "always side by side, even on narrow
+   windows" rule in settingBody.css: keeping both on one row left the table a few
+   dozen pixels wide on a phone, with its right-hand columns unreachable. 800px is
+   the same phone breakpoint the rest of WeKan uses. */
+@media screen and (max-width: 800px) {
+  .setting-content .content-body {
+    flex-wrap: wrap;
+  }
+  .setting-content .content-body .side-menu {
+    width: 100%;
+    flex: 1 1 100%;
+  }
+  .setting-content .content-body .main-body {
+    flex: 1 1 100%;
+    /* The table wraps now, so the panel itself never needs to scroll sideways. */
+    overflow-x: auto !important;
+  }
+}

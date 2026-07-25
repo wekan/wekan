@@ -8,6 +8,8 @@ import Cards from '/models/cards';
 import Rules from '/models/rules';
 import ImpersonatedUsers from '/models/impersonatedUsers';
 import RecoveryEvents from '/models/recoveryEvents';
+import { buildHeader, buildRows, pageInfo } from '/models/lib/tablePage';
+const { cleanFileName } = require('/imports/lib/fileNameDisplay');
 const { filesize } = require('filesize');
 
 // --- Shared helper functions (formerly AdminReport base class methods) ---
@@ -75,14 +77,7 @@ Template.adminReports.onCreated(function () {
   this.showSpeed = new ReactiveVar(false);
   this.showTests = new ReactiveVar(false);
   this.showCpu = new ReactiveVar(false);
-  this.showFilesReport = new ReactiveVar(false);
   this.showBrokenCardsReport = new ReactiveVar(false);
-  this.showOrphanedFilesReport = new ReactiveVar(false);
-  this.showRulesReport = new ReactiveVar(false);
-  this.showCardsReport = new ReactiveVar(false);
-  this.showBoardsReport = new ReactiveVar(false);
-  this.showImpersonationReport = new ReactiveVar(false);
-  this.showRecoveryReport = new ReactiveVar(false);
   this.sessionId = SessionData.getSessionId();
   this.error = new ReactiveVar('');
   this.loading = new ReactiveVar(false);
@@ -136,8 +131,10 @@ Template.adminReports.onCreated(function () {
       this.subscription.stop();
     }
     const searchTerm = cfg.search.get();
-    const limit = REPORTS_PER_PAGE;
-    const skip = (cfg.page.get() - 1) * REPORTS_PER_PAGE;
+    // Same helper the controls row uses, so the window that is SUBSCRIBED and the
+    // "page X / N" that is DISPLAYED can never disagree. Only this page of rows is
+    // requested from the server - the publications apply the limit/skip.
+    const { limit, skip } = pageInfo(cfg.count.get(), cfg.page.get(), REPORTS_PER_PAGE);
     this.subscription = Meteor.subscribe(cfg.pub, searchTerm, limit, skip, {
       onReady: () => {
         this.loading.set(false);
@@ -177,6 +174,11 @@ Template.adminReports.onCreated(function () {
 });
 
 Template.adminReports.helpers({
+  // The shared table page for whichever paginated report is open (null for the
+  // Summary / Broken cards panes, which are not table pages).
+  tablePageData() {
+    return reportTablePageData(Template.instance());
+  },
   showSummary() {
     return Template.instance().showSummary;
   },
@@ -192,77 +194,44 @@ Template.adminReports.helpers({
   showCpu() {
     return Template.instance().showCpu;
   },
-  showFilesReport() {
-    return Template.instance().showFilesReport;
-  },
   showBrokenCardsReport() {
     return Template.instance().showBrokenCardsReport;
-  },
-  showOrphanedFilesReport() {
-    return Template.instance().showOrphanedFilesReport;
-  },
-  showRulesReport() {
-    return Template.instance().showRulesReport;
-  },
-  showCardsReport() {
-    return Template.instance().showCardsReport;
-  },
-  showBoardsReport() {
-    return Template.instance().showBoardsReport;
-  },
-  showImpersonationReport() {
-    return Template.instance().showImpersonationReport;
-  },
-  showRecoveryReport() {
-    return Template.instance().showRecoveryReport;
   },
   loading() {
     return Template.instance().loading;
   },
 
   // --- Pagination helpers, passed down into each report sub-template ---
-  filesCurrentPage() { return Template.instance().filesPage.get(); },
-  filesTotalPages() { return Math.max(1, Math.ceil((Template.instance().filesCount.get() || 0) / REPORTS_PER_PAGE)); },
   hasFilesPrevPage() { return Template.instance().filesPage.get() > 1; },
   hasFilesNextPage() {
     const tpl = Template.instance();
     return tpl.filesPage.get() < Math.max(1, Math.ceil((tpl.filesCount.get() || 0) / REPORTS_PER_PAGE));
   },
 
-  rulesCurrentPage() { return Template.instance().rulesPage.get(); },
-  rulesTotalPages() { return Math.max(1, Math.ceil((Template.instance().rulesCount.get() || 0) / REPORTS_PER_PAGE)); },
   hasRulesPrevPage() { return Template.instance().rulesPage.get() > 1; },
   hasRulesNextPage() {
     const tpl = Template.instance();
     return tpl.rulesPage.get() < Math.max(1, Math.ceil((tpl.rulesCount.get() || 0) / REPORTS_PER_PAGE));
   },
 
-  boardsCurrentPage() { return Template.instance().boardsPage.get(); },
-  boardsTotalPages() { return Math.max(1, Math.ceil((Template.instance().boardsCount.get() || 0) / REPORTS_PER_PAGE)); },
   hasBoardsPrevPage() { return Template.instance().boardsPage.get() > 1; },
   hasBoardsNextPage() {
     const tpl = Template.instance();
     return tpl.boardsPage.get() < Math.max(1, Math.ceil((tpl.boardsCount.get() || 0) / REPORTS_PER_PAGE));
   },
 
-  cardsCurrentPage() { return Template.instance().cardsPage.get(); },
-  cardsTotalPages() { return Math.max(1, Math.ceil((Template.instance().cardsCount.get() || 0) / REPORTS_PER_PAGE)); },
   hasCardsPrevPage() { return Template.instance().cardsPage.get() > 1; },
   hasCardsNextPage() {
     const tpl = Template.instance();
     return tpl.cardsPage.get() < Math.max(1, Math.ceil((tpl.cardsCount.get() || 0) / REPORTS_PER_PAGE));
   },
 
-  impersonationCurrentPage() { return Template.instance().impersonationPage.get(); },
-  impersonationTotalPages() { return Math.max(1, Math.ceil((Template.instance().impersonationCount.get() || 0) / REPORTS_PER_PAGE)); },
   hasImpersonationPrevPage() { return Template.instance().impersonationPage.get() > 1; },
   hasImpersonationNextPage() {
     const tpl = Template.instance();
     return tpl.impersonationPage.get() < Math.max(1, Math.ceil((tpl.impersonationCount.get() || 0) / REPORTS_PER_PAGE));
   },
 
-  recoveryCurrentPage() { return Template.instance().recoveryPage.get(); },
-  recoveryTotalPages() { return Math.max(1, Math.ceil((Template.instance().recoveryCount.get() || 0) / REPORTS_PER_PAGE)); },
   hasRecoveryPrevPage() { return Template.instance().recoveryPage.get() > 1; },
   hasRecoveryNextPage() {
     const tpl = Template.instance();
@@ -308,28 +277,27 @@ Template.adminReports.events({
     switchMenu(event, Template.instance());
   },
 
-  // --- Pagination controls (buttons live inside the report sub-templates,
-  // their clicks bubble up to this parent template) ---
-  'click .js-files-prev-page'(event, tmpl) { goPrevPage(event, tmpl, 'report-files'); },
-  'click .js-files-next-page'(event, tmpl) { goNextPage(event, tmpl, 'report-files'); },
-  'click .js-rules-prev-page'(event, tmpl) { goPrevPage(event, tmpl, 'report-rules'); },
-  'click .js-rules-next-page'(event, tmpl) { goNextPage(event, tmpl, 'report-rules'); },
-  'click .js-boards-prev-page'(event, tmpl) { goPrevPage(event, tmpl, 'report-boards'); },
-  'click .js-boards-next-page'(event, tmpl) { goNextPage(event, tmpl, 'report-boards'); },
-  'click .js-cards-prev-page'(event, tmpl) { goPrevPage(event, tmpl, 'report-cards'); },
-  'click .js-cards-next-page'(event, tmpl) { goNextPage(event, tmpl, 'report-cards'); },
-  'click .js-impersonation-prev-page'(event, tmpl) { goPrevPage(event, tmpl, 'report-impersonation'); },
-  'click .js-impersonation-next-page'(event, tmpl) { goNextPage(event, tmpl, 'report-impersonation'); },
-  'click .js-recovery-prev-page'(event, tmpl) { goPrevPage(event, tmpl, 'report-recovery'); },
-  'click .js-recovery-next-page'(event, tmpl) { goNextPage(event, tmpl, 'report-recovery'); },
-
-  // --- Search (one input + button per report, mirrors the People panel) ---
-  'keydown .js-files-search-input'(event, tmpl) { if (event.keyCode === 13 && !event.shiftKey) runSearch(tmpl, 'report-files', '.js-files-search-input'); },
-  'keydown .js-rules-search-input'(event, tmpl) { if (event.keyCode === 13 && !event.shiftKey) runSearch(tmpl, 'report-rules', '.js-rules-search-input'); },
-  'keydown .js-boards-search-input'(event, tmpl) { if (event.keyCode === 13 && !event.shiftKey) runSearch(tmpl, 'report-boards', '.js-boards-search-input'); },
-  'keydown .js-cards-search-input'(event, tmpl) { if (event.keyCode === 13 && !event.shiftKey) runSearch(tmpl, 'report-cards', '.js-cards-search-input'); },
-  'keydown .js-impersonation-search-input'(event, tmpl) { if (event.keyCode === 13 && !event.shiftKey) runSearch(tmpl, 'report-impersonation', '.js-impersonation-search-input'); },
-  'keydown .js-recovery-search-input'(event, tmpl) { if (event.keyCode === 13 && !event.shiftKey) runSearch(tmpl, 'report-recovery', '.js-recovery-search-input'); },
+  // --- Controls: ONE handler each, for every table page ---
+  // The shared table page (docs/Design/Table-Page.md) emits the same three
+  // controls for every report, so the report is identified by activeReport
+  // rather than by a per-report js- class. Twelve prev/next handlers and six
+  // search handlers collapsed to these.
+  'click .js-table-page-prev'(event, tmpl) { goPrevPage(event, tmpl, tmpl.activeReport.get()); },
+  'click .js-table-page-next'(event, tmpl) { goNextPage(event, tmpl, tmpl.activeReport.get()); },
+  'keydown .js-table-page-search'(event, tmpl) {
+    if (event.keyCode === 13 && !event.shiftKey) {
+      runSearch(tmpl, tmpl.activeReport.get(), '.js-table-page-search');
+    }
+  },
+  // Clicking a username in any table opens the same "Edit user" popup as
+  // Admin Panel / People.
+  'click .js-table-page-edit-user'(event) {
+    event.preventDefault();
+    const userId = event.currentTarget.getAttribute('data-user-id');
+    if (userId) {
+      Popup.open('editUser').call({ userId }, event);
+    }
+  },
 });
 
 function goPrevPage(event, tmpl, reportId) {
@@ -373,14 +341,7 @@ function switchMenu(event, tmpl) {
     tmpl.showSpeed.set(false);
     tmpl.showTests.set(false);
     tmpl.showCpu.set(false);
-    tmpl.showFilesReport.set(false);
     tmpl.showBrokenCardsReport.set(false);
-    tmpl.showOrphanedFilesReport.set(false);
-    tmpl.showRulesReport.set(false);
-    tmpl.showRecoveryReport.set(false);
-    tmpl.showBoardsReport.set(false);
-    tmpl.showCardsReport.set(false);
-    tmpl.showImpersonationReport.set(false);
     if (tmpl.subscription) {
       tmpl.subscription.stop();
     }
@@ -417,32 +378,26 @@ function switchMenu(event, tmpl) {
         },
       );
     } else if ('report-files' === targetID) {
-      tmpl.showFilesReport.set(true);
       tmpl.filesPage.set(1);
       tmpl.filesSearch.set('');
       tmpl.loadReport('report-files', { recount: true });
     } else if ('report-rules' === targetID) {
-      tmpl.showRulesReport.set(true);
       tmpl.rulesPage.set(1);
       tmpl.rulesSearch.set('');
       tmpl.loadReport('report-rules', { recount: true });
     } else if ('report-boards' === targetID) {
-      tmpl.showBoardsReport.set(true);
       tmpl.boardsPage.set(1);
       tmpl.boardsSearch.set('');
       tmpl.loadReport('report-boards', { recount: true });
     } else if ('report-cards' === targetID) {
-      tmpl.showCardsReport.set(true);
       tmpl.cardsPage.set(1);
       tmpl.cardsSearch.set('');
       tmpl.loadReport('report-cards', { recount: true });
     } else if ('report-impersonation' === targetID) {
-      tmpl.showImpersonationReport.set(true);
       tmpl.impersonationPage.set(1);
       tmpl.impersonationSearch.set('');
       tmpl.loadReport('report-impersonation', { recount: true });
     } else if ('report-recovery' === targetID) {
-      tmpl.showRecoveryReport.set(true);
       tmpl.recoveryPage.set(1);
       tmpl.recoverySearch.set('');
       tmpl.loadReport('report-recovery', { recount: true });
@@ -450,186 +405,174 @@ function switchMenu(event, tmpl) {
   }
 }
 
-// --- filesReport template ---
+// --- The six paginated reports: ONE implementation ---
+//
+// Files, Rules, Boards, Cards, Impersonation and Recovery used to be six copies
+// of the same page: the same title + search + prev/next markup, the same
+// currentPage/totalPages helpers, and the same click/keydown handlers, retyped
+// with a different js- prefix each time. They now differ only in the COLUMN
+// SPEC below; everything else - markup, layout, paging, search - comes from the
+// shared table page. See docs/Design/Table-Page.md.
+//
+// A column is { label | labelKey, value(doc), align, nowrap, cls, userId(doc) }.
 
-Template.filesReport.helpers({
-  results() {
-    // The filename cell renders via the global {{cleanFilename}} helper: the name
-    // is URL-decoded, homoglyphs are folded, and invisible / exploit characters
-    // are removed, so it is always shown as a plain, readable name.
-    //
-    // Prefer the UNDERLYING reactive minimongo collection (Attachments.collection):
-    // the 'attachmentsList' publication delivers the page via this.added, and a
-    // plain Mongo.Collection cursor reacts to those adds and yields plain docs,
-    // whereas the ostrio FilesCursor (Attachments.find()) does not reliably re-run
-    // in a Blaze helper. Fall back to the wrapper if .collection is unavailable and
-    // NEVER throw: a throwing helper would abort the whole filesReport render
-    // (blank pane instead of the report + its "no results" state).
-    const coll = (Attachments && Attachments.collection) || Attachments;
-    try {
-      return collectionResults(coll, { name: 1 });
-    } catch (e) {
-      return [];
-    }
+function memberNames(members) {
+  return (members || [])
+    // #5122: removing a member from a board marks it `isActive: false` (the entry
+    // stays in board.members for role history / re-activation). Removed members
+    // must not be listed as current members.
+    .filter(member => member.isActive !== false)
+    .map(member => ReactiveCache.getUser(member.userId)?.username || member.userId)
+    .join(', ');
+}
+
+function userIdNames(userIds) {
+  return (userIds || [])
+    .map(userId => ReactiveCache.getUser(userId)?.username || userId)
+    .join(', ');
+}
+
+function userName(userId) {
+  if (!userId) return '';
+  return ReactiveCache.getUser(userId)?.username || userId;
+}
+
+function formatDate(date) {
+  return date ? new Date(date).toLocaleString() : '';
+}
+
+// Every table on the Problems tab, keyed by its side-menu id. `docs` returns the
+// page that is already in minimongo - the publication sent only that page.
+const REPORT_TABLES = {
+  'report-files': {
+    titleKey: 'filesReportTitle',
+    emptyKey: 'no-results',
+    docs: () => {
+      // Prefer the UNDERLYING reactive minimongo collection: the
+      // 'attachmentsList' publication delivers the page via this.added, and a
+      // plain Mongo.Collection cursor reacts to those adds and yields plain docs,
+      // whereas the ostrio FilesCursor does not reliably re-run in a helper.
+      // Never throw: a throwing helper blanks the whole pane.
+      const coll = (Attachments && Attachments.collection) || Attachments;
+      try {
+        return collectionResults(coll, { name: 1 }).fetch();
+      } catch (e) {
+        return [];
+      }
+    },
+    columns: [
+      // The name is URL-decoded, homoglyphs folded and invisible / exploit
+      // characters removed, so it is always shown as a plain, readable name.
+      { label: 'Filename', value: d => cleanFileName(d.name) },
+      { label: 'Size (kB)', align: 'end', value: d => fileSizeHelper(d.size) },
+      { label: 'MIME Type', value: d => d.type },
+      { label: 'Attachment ID', value: d => d._id },
+      { label: 'Board ID', value: d => d.meta?.boardId },
+      { label: 'Card ID', value: d => d.meta?.cardId },
+    ],
   },
-  resultsCount() {
-    const coll = (Attachments && Attachments.collection) || Attachments;
-    try {
-      return collectionResultsCount(coll);
-    } catch (e) {
-      return 0;
-    }
-  },
-  fileSize(size) {
-    return fileSizeHelper(size);
-  },
-});
-
-// --- rulesReport template ---
-
-Template.rulesReport.helpers({
-  results() {
-    const rules = [];
-
-    ReactiveCache.getRules({}, { sort: { boardId: 1 } }).forEach(rule => {
-      rules.push({
+  'report-rules': {
+    titleKey: 'rulesReportTitle',
+    emptyKey: 'no-results',
+    docs: () =>
+      ReactiveCache.getRules({}, { sort: { boardId: 1 } }).map(rule => ({
         _id: rule._id,
         title: rule.title,
-        boardId: rule.boardId,
         boardTitle: rule.board()?.title,
         action: rule.action(),
         trigger: rule.trigger(),
-      });
-    });
-
-    return rules;
+      })),
+    columns: [
+      { label: 'Rule Title', value: d => d.title },
+      { label: 'Board Title', value: d => d.boardTitle },
+      { label: 'actionType', value: d => d.action?.actionType },
+      { label: 'activityType', value: d => d.trigger?.activityType },
+    ],
   },
-  resultsCount() {
-    return collectionResultsCount(Rules);
+  'report-boards': {
+    titleKey: 'boardsReportTitle',
+    emptyKey: 'no-results',
+    docs: () => collectionResults(Boards, { sort: 1 }).fetch(),
+    columns: [
+      { label: 'Title', value: d => abbreviate(d.title) },
+      { label: 'Id', value: d => abbreviate(d._id) },
+      { label: 'Permission', value: d => d.permission },
+      { label: 'Archived?', value: d => yesOrNo(d.archived) },
+      { label: 'Members', value: d => memberNames(d.members) },
+      { label: 'Organizations', value: d => (d.orgs || [])
+          .map(o => ReactiveCache.getOrg(o.orgId)?.orgDisplayName || o.orgId).join(', ') },
+      { label: 'Teams', value: d => (d.teams || [])
+          .map(t => ReactiveCache.getTeam(t.teamId)?.teamDisplayName || t.teamId).join(', ') },
+    ],
   },
-});
-
-// --- boardsReport template ---
-
-Template.boardsReport.helpers({
-  results() {
-    return collectionResults(Boards, { sort: 1 });
-  },
-  resultsCount() {
-    return collectionResultsCount(Boards);
-  },
-  yesOrNo(value) {
-    return yesOrNo(value);
-  },
-  abbreviate(text) {
-    return abbreviate(text);
-  },
-  userNames(members) {
-    const ret = (members || [])
-      // #5122: removing a member from a board marks it `isActive: false` (the
-      // entry stays in board.members for role history / re-activation). The
-      // boards report must not list those removed members as current members.
-      .filter(_member => _member.isActive !== false)
-      .map(_member => {
-        const _ret = ReactiveCache.getUser(_member.userId)?.username || _member.userId;
-        return _ret;
-      })
-      .join(", ");
-    return ret;
-  },
-  teams(memberTeams) {
-    const ret = (memberTeams || [])
-      .map(_memberTeam => {
-        const _ret = ReactiveCache.getTeam(_memberTeam.teamId)?.teamDisplayName || _memberTeam.teamId;
-        return _ret;
-      })
-      .join(", ");
-    return ret;
-  },
-  orgs(orgs) {
-    const ret = (orgs || [])
-      .map(_orgs => {
-        const _ret = ReactiveCache.getOrg(_orgs.orgId)?.orgDisplayName || _orgs.orgId;
-        return _ret;
-      })
-      .join(", ");
-    return ret;
-  },
-});
-
-// --- cardsReport template ---
-
-Template.cardsReport.helpers({
-  results() {
+  'report-cards': {
+    titleKey: 'cardsReportTitle',
+    emptyKey: 'no-results',
     // Match the server publication's index-backed sort (see cards.js).
-    return collectionResults(Cards, { boardId: 1, createdAt: -1 });
+    docs: () => collectionResults(Cards, { boardId: 1, createdAt: -1 }).fetch(),
+    columns: [
+      { label: 'Card Title', value: d => abbreviate(d.title) },
+      { label: 'Board', value: d => abbreviate(d.board()?.title) },
+      { label: 'Swimlane', value: d => abbreviate(d.swimlane()?.title) },
+      { label: 'List', value: d => abbreviate(d.list()?.title) },
+      { label: 'Members', value: d => userIdNames(d.members) },
+      { label: 'Assignees', value: d => userIdNames(d.assignees) },
+    ],
   },
-  resultsCount() {
-    return collectionResultsCount(Cards);
-  },
-  abbreviate(text) {
-    return abbreviate(text);
-  },
-  userNames(userIds) {
-    const ret = (userIds || [])
-      .map(_userId => {
-        const _ret = ReactiveCache.getUser(_userId)?.username;
-        return _ret;
-      })
-      .join(", ");
-    return ret;
-  },
-});
-
-// --- impersonationReport template ---
-
-Template.impersonationReport.helpers({
-  results() {
+  'report-impersonation': {
+    titleKey: 'impersonationReportTitle',
+    emptyKey: 'no-results',
     // The publication already paginates + sorts newest-first; mirror that sort.
-    return collectionResults(ImpersonatedUsers, { createdAt: -1 });
+    docs: () => collectionResults(ImpersonatedUsers, { createdAt: -1 }).fetch(),
+    columns: [
+      { labelKey: 'date', nowrap: true, value: d => formatDate(d.createdAt) },
+      // Clicking a username opens the same "Edit user" popup as Admin Panel / People.
+      { labelKey: 'impersonation-admin', value: d => userName(d.adminId), userId: d => d.adminId },
+      { labelKey: 'impersonation-user', value: d => userName(d.userId), userId: d => d.userId },
+      { labelKey: 'board', value: d => d.boardId },
+      { labelKey: 'reason', value: d => d.reason },
+    ],
   },
-  resultsCount() {
-    return collectionResultsCount(ImpersonatedUsers);
+  'report-recovery': {
+    titleKey: 'recoveryReportTitle',
+    descKey: 'recovery-report-desc',
+    emptyKey: 'recovery-no-events',
+    docs: () => collectionResults(RecoveryEvents, { createdAt: -1 }).fetch(),
+    rowClass: d => `recovery-severity-${d.severity || 'info'}`,
+    columns: [
+      { labelKey: 'date', nowrap: true, value: d => formatDate(d.createdAt) },
+      { labelKey: 'recovery-event', value: d => d.type },
+      { labelKey: 'recovery-severity', value: d => d.severity, data: d => d.severity },
+      { labelKey: 'recovery-db', value: d => d.db },
+      { labelKey: 'recovery-detail', value: d => d.detail },
+    ],
   },
-  userName(userId) {
-    if (!userId) return '';
-    return ReactiveCache.getUser(userId)?.username || userId;
-  },
-  formatDate(date) {
-    return date ? new Date(date).toLocaleString() : '';
-  },
-});
+};
 
-Template.impersonationReport.events({
-  // Clicking a username opens the same "Edit user" popup as Admin Panel / People.
-  'click .js-impersonation-edit-user'(event) {
-    event.preventDefault();
-    const userId = event.currentTarget.getAttribute('data-user-id');
-    if (userId) {
-      Popup.open('editUser').call({ userId }, event);
-    }
-  },
-});
-
-// --- recoveryReport template (#6492) ---
-
-Template.recoveryReport.helpers({
-  results() {
-    // Publication paginates + sorts newest-first; mirror that sort. RecoveryEvents is
-    // a plain Mongo.Collection, so its cursor reacts to the published page.
-    return collectionResults(RecoveryEvents, { createdAt: -1 });
-  },
-  resultsCount() {
-    return collectionResultsCount(RecoveryEvents);
-  },
-  formatDate(date) {
-    return date ? new Date(date).toLocaleString() : '';
-  },
-  severityClass(severity) {
-    return `recovery-severity-${severity || 'info'}`;
-  },
-});
-
+// Build the shared table page context for whichever report is open. Registered
+// on the PARENT template, which already tracks activeReport - so there is one
+// helper, not six, and no child has to reach back up for its parent instance.
+function reportTablePageData(tmpl) {
+  const reportId = tmpl.activeReport.get();
+  const spec = REPORT_TABLES[reportId];
+  const cfg = reportConfig(tmpl)[reportId];
+  if (!spec || !cfg) return null;
+  const docs = spec.docs() || [];
+  const info = pageInfo(cfg.count.get(), cfg.page.get(), REPORTS_PER_PAGE);
+  return {
+    titleKey: spec.titleKey,
+    descKey: spec.descKey,
+    emptyKey: spec.emptyKey,
+    searchTerm: cfg.search.get(),
+    header: buildHeader(spec.columns),
+    rows: buildRows(docs, spec.columns, { rowClass: spec.rowClass }),
+    rowCount: docs.length,
+    page: info.page,
+    totalPages: info.totalPages,
+    hasPrev: info.hasPrev,
+    hasNext: info.hasNext,
+  };
+}
 // --- brokenCardsReport template ---
 
 Template.brokenCardsReport.onCreated(function () {
@@ -719,59 +662,83 @@ Template.eventStreamReport.onDestroyed(function () {
   if (this.cpuTimer) Meteor.clearInterval(this.cpuTimer);
 });
 
+// The event streams (Security, Speed, Tests, CPU usage) use the SAME shared
+// table page as the six reports - same markup, same controls, same layout - so
+// their only difference is these columns and the CPU status row.
+const EVENT_STREAM_COLUMNS = [
+  { labelKey: 'event-datetime', nowrap: true, value: r => formatEventAt(r.at) },
+  { labelKey: 'event-category', value: r => r.category },
+  { labelKey: 'event-bleed', value: r => r.bleed },
+  { labelKey: 'event-severity', value: r => r.severity, data: r => r.severity },
+  { labelKey: 'event-action', value: r => r.action },
+  { labelKey: 'event-source', value: r => r.source },
+  // The user who triggered the event (e.g. who uploaded a sanitized file).
+  { labelKey: 'username', value: r => userName(r.userId), userId: r => r.userId },
+  { labelKey: 'event-detail', value: r => r.detail },
+];
+
+function formatEventAt(at) {
+  if (!at) return '';
+  try { return new Date(at).toISOString().replace('T', ' ').slice(0, 19); }
+  catch (e) { return String(at); }
+}
+
 Template.eventStreamReport.helpers({
-  rows() { return Template.instance().rows.get(); },
-  rowCount() { return (Template.instance().rows.get() || []).length; },
-  currentPage() { return Template.instance().page.get(); },
-  totalPages() { return Math.max(1, Math.ceil(Template.instance().total.get() / EVENTS_PER_PAGE)); },
-  searchTerm() { return Template.instance().search.get(); },
-  streamTitle() { return TAPi18n.__(eventStreamTitleKey(Template.instance().stream)); },
-  // Live CPU figure for the CPU usage page header; null on every other stream,
-  // so the block simply does not render there.
-  cpuCurrent() { return Template.instance().cpu.get(); },
-  // "37% of 8 cores · load 1.42 / 1.10 / 0.98" — one line, no chart, matching
-  // the plain-table look of the rest of the Problems pages.
-  cpuLoadAverage() {
-    const cpu = Template.instance().cpu.get();
-    if (!cpu || !Array.isArray(cpu.loadAverage)) return '';
-    return cpu.loadAverage.map(n => (Number.isFinite(n) ? n.toFixed(2) : '?')).join(' / ');
-  },
-  prevDisabled() { return Template.instance().page.get() <= 1 ? 'disabled' : ''; },
-  nextDisabled() {
+  tablePageData() {
     const t = Template.instance();
-    return t.page.get() >= Math.max(1, Math.ceil(t.total.get() / EVENTS_PER_PAGE)) ? 'disabled' : '';
-  },
-  formatAt(at) {
-    if (!at) return '';
-    try { return new Date(at).toISOString().replace('T', ' ').slice(0, 19); } catch (e) { return String(at); }
-  },
-  // The user who triggered the event (e.g. who uploaded a sanitized file). Empty
-  // for events with no associated user.
-  userName(userId) {
-    if (!userId) return '';
-    return ReactiveCache.getUser(userId)?.username || userId;
+    const rows = t.rows.get() || [];
+    const info = pageInfo(t.total.get(), t.page.get(), EVENTS_PER_PAGE);
+    const cpu = t.cpu.get();
+    return {
+      title: TAPi18n.__(eventStreamTitleKey(t.stream)),
+      emptyKey: 'no-new-problems',
+      searchTerm: t.search.get(),
+      header: buildHeader(EVENT_STREAM_COLUMNS),
+      rows: buildRows(rows, EVENT_STREAM_COLUMNS),
+      rowCount: rows.length,
+      page: info.page,
+      totalPages: info.totalPages,
+      hasPrev: info.hasPrev,
+      hasNext: info.hasNext,
+      // CPU usage is the only stream with a live status row: the table below it
+      // lists PAST high-CPU periods, so this line is the only place the page says
+      // what the CPU is doing right now. Null on the other streams, so the shared
+      // page simply renders no status row there.
+      statusTemplate: cpu ? 'cpuCurrentStatus' : null,
+      statusData: cpu ? {
+        high: cpu.high,
+        percent: cpu.percent,
+        cores: cpu.cores,
+        activity: cpu.activity,
+        // "1.42 / 1.10 / 0.98" - one line, no chart, matching the plain-table
+        // look of the rest of the Problems pages.
+        loadAverage: Array.isArray(cpu.loadAverage)
+          ? cpu.loadAverage.map(n => (Number.isFinite(n) ? n.toFixed(2) : '?')).join(' / ')
+          : '',
+      } : null,
+    };
   },
 });
 
 Template.eventStreamReport.events({
-  // Clicking the uploader opens the same "Edit user" popup as Admin Panel / People.
-  'click .js-event-edit-user'(event) {
+  // Same three controls as every other table page, so the same class names.
+  'click .js-table-page-edit-user'(event) {
     event.preventDefault();
     const userId = event.currentTarget.getAttribute('data-user-id');
     if (userId) {
       Popup.open('editUser').call({ userId }, event);
     }
   },
-  'input .js-event-search'(event, tmpl) {
+  'input .js-table-page-search'(event, tmpl) {
     tmpl.search.set(event.currentTarget.value.trim());
     tmpl.page.set(1);
     tmpl.load();
   },
-  'click .js-event-prev'(event, tmpl) {
+  'click .js-table-page-prev'(event, tmpl) {
     if (tmpl.page.get() > 1) { tmpl.page.set(tmpl.page.get() - 1); tmpl.load(); }
   },
-  'click .js-event-next'(event, tmpl) {
-    const totalPages = Math.max(1, Math.ceil(tmpl.total.get() / EVENTS_PER_PAGE));
-    if (tmpl.page.get() < totalPages) { tmpl.page.set(tmpl.page.get() + 1); tmpl.load(); }
+  'click .js-table-page-next'(event, tmpl) {
+    const info = pageInfo(tmpl.total.get(), tmpl.page.get(), EVENTS_PER_PAGE);
+    if (info.hasNext) { tmpl.page.set(tmpl.page.get() + 1); tmpl.load(); }
   },
 });

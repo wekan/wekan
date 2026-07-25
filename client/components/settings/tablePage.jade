@@ -1,0 +1,56 @@
+//- The ONE table page used by every paginated admin table.
+//- Design + the list of pages that use it: docs/Design/Table-Page.md
+//-
+//- Rows, top to bottom: title, status, controls (search + pagination), table.
+//- That order is the design; it is defined here once instead of being retyped in
+//- each report, which is how the reports had drifted apart.
+//-
+//- Data context (see tablePage.js / models/lib/tablePage.js):
+//-   title / titleKey, descKey, statusTemplate + statusData,
+//-   header[], rows[], rowCount, searchTerm, page, totalPages, hasPrev, hasNext,
+//-   emptyKey
+template(name="tablePage")
+  .table-page
+    h1.table-page-title
+      if titleKey
+        | {{_ titleKey}}
+      else
+        | {{title}}
+    if descKey
+      p.quiet.table-page-desc {{_ descKey}}
+    if statusTemplate
+      .table-page-status
+        +Template.dynamic(template=statusTemplate data=statusData)
+    .table-page-controls
+      input.js-table-page-search(type="search" placeholder="{{_ 'search'}}" value="{{searchTerm}}")
+      .table-page-pagination
+        button.js-table-page-prev(class="{{#unless hasPrev}}disabled{{/unless}}" title="{{_ 'previous'}}")
+          | &lt;
+        span.table-page-page-info {{page}} / {{totalPages}}
+        button.js-table-page-next(class="{{#unless hasNext}}disabled{{/unless}}" title="{{_ 'next'}}")
+          | &gt;
+    if rowCount
+      //- The wrapper is the only element allowed to scroll sideways, and only as
+      //- a last resort: the table itself is width:100% + table-layout:fixed, so
+      //- it cannot grow past the panel and push its right edge off-screen.
+      .table-page-table-wrap
+        table.table-page-table
+          thead
+            tr
+              each header
+                th(style="width: {{width}}" class="{{cls}}")
+                  if labelKey
+                    | {{_ labelKey}}
+                  else
+                    | {{label}}
+          tbody
+            each rows
+              tr(class="{{cls}}")
+                each cells
+                  td(class="{{cls}}" data-sev="{{data}}")
+                    if userId
+                      a.edit-user.js-table-page-edit-user(data-user-id="{{userId}}") {{text}}
+                    else
+                      | {{text}}
+    else
+      .table-page-empty {{_ emptyKey}}

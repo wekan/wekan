@@ -104,8 +104,12 @@ check('filename/content sanitization is logged to Admin Panel / Problems with co
   assert.ok(/logFilenameSanitized|logContentSanitized/.test(read('models/lib/fileStoreStrategy.js')), 'migration');
   assert.ok(/logFilenameSanitized/.test(read('server/migrations/correctFileExtensions.js')), 'existing-file');
   assert.ok(/logContentSanitized/.test(read('models/lib/httpStream.js')), 'viewing/serve');
-  // The report shows the uploader column.
-  assert.ok(/js-event-edit-user/.test(read('client/components/settings/adminReports.jade')), 'uploader column in report');
+  // The report shows the uploader column. It is now a column in the shared
+  // table page's event-stream spec (docs/Design/Table-Page.md), rendered as a
+  // link via the shared .js-table-page-edit-user handler.
+  const reportsJs = read('client/components/settings/adminReports.js');
+  assert.ok(/EVENT_STREAM_COLUMNS[\s\S]*labelKey: 'username'[\s\S]*userId: r => r.userId/.test(reportsJs), 'uploader column in report');
+  assert.ok(/js-table-page-edit-user/.test(reportsJs), 'uploader cell opens the edit-user popup');
 });
 
 console.log(`\nfileHardeningGuards: ${passed} checks passed`);

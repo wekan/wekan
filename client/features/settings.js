@@ -9,6 +9,7 @@ import '/client/components/settings/migrationProgress.jade';
 import '/client/components/settings/peopleBody.jade';
 import '/client/components/settings/settingBody.jade';
 import '/client/components/settings/settingHeader.jade';
+import '/client/components/settings/tablePage.jade';
 import '/client/components/settings/translationBody.jade';
 
 import '/client/components/settings/adminFeatures.js';
@@ -38,4 +39,5 @@ import '/client/components/settings/migrationProgress.css';
 import '/client/components/settings/peopleBody.css';
 import '/client/components/settings/settingBody.css';
 import '/client/components/settings/settingHeader.css';
+import '/client/components/settings/tablePage.css';
 import '/client/components/settings/translationBody.css';
