@@ -226,6 +226,19 @@
   position: relative !important;
 }
 
+/* The list title must be visible in mobile mode whichever markup rendered it.
+   listHeader.jade has TWO shapes: on a mini screen the `h2.list-header-name` is a
+   direct child of `.list-header`, and otherwise it is wrapped in a `div` (the one
+   that rotates when a list is collapsed). The rules below place the title by grid
+   row/column, which only works on a direct grid ITEM - inside the wrapper the title
+   was not one, so the placement was ignored and the wrapper landed in the 30px first
+   column, squeezing the title to nothing. `display: contents` drops the wrapper from
+   the layout so its children become grid items in both shapes.
+   Not when collapsed: `.list-rotated` needs the wrapper to be a real box to rotate. */
+.mobile-mode .list-header > div:not(.list-rotated):not(.list-move-buttons) {
+  display: contents;
+}
+
 .mobile-mode .list-header .list-header-name {
   font-size: clamp(18px, 2.5vw, 32px) !important;
   font-weight: bold !important;
@@ -498,25 +511,33 @@
   min-width: 100% !important;
 }
 
-/* Force mobile mode list styling on all screen sizes - override desktop CSS */
+/* Force mobile mode list styling on all screen sizes - override desktop CSS.
+
+   These are `100%`, NOT `100vw`. `100vw` is the width of the viewport INCLUDING the
+   vertical scrollbar, and the board canvas scrolls vertically - so every element
+   forced to 100vw was about a scrollbar's width wider than the box it sat in, at each
+   nesting level (canvas > swimlane > lists > list). The result was a board that
+   always overflowed sideways by a sliver and, with `min-width` pinned to the same
+   value, could not reflow narrower. `100%` resolves against the parent's content box,
+   which already excludes the scrollbar. */
 .mobile-mode .board-canvas {
   display: block !important;
   flex-direction: column !important;
   flex-wrap: nowrap !important;
   align-items: stretch !important;
   justify-content: flex-start !important;
-  width: 100vw !important;
-  max-width: 100vw !important;
-  min-width: 100vw !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 100% !important;
   overflow-x: hidden !important;
   overflow-y: auto !important;
 }
 
   .mobile-mode .swimlane {
     display: block !important;
-    width: 100vw !important;
-    max-width: 100vw !important;
-    min-width: 100vw !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
     margin: 0 0 2rem 0 !important;
     padding: 0 !important;
     float: none !important;
@@ -525,9 +546,9 @@
 
   .mobile-mode .swimlane .swimlane-header {
     display: block !important;
-    width: 100vw !important;
-    max-width: 100vw !important;
-    min-width: 100vw !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
     margin: 0 0 1rem 0 !important;
     padding: 1rem !important;
     font-size: clamp(18px, 2.5vw, 32px) !important;
@@ -537,9 +558,9 @@
 
   .mobile-mode .swimlane .lists {
     display: block !important;
-    width: 100vw !important;
-    max-width: 100vw !important;
-    min-width: 100vw !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
     flex-direction: column !important;
@@ -550,9 +571,9 @@
 
   .mobile-mode .list {
     display: block !important;
-    width: 100vw !important;
-    max-width: 100vw !important;
-    min-width: 100vw !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
     margin: 0 0 2rem 0 !important;
     padding: 0 !important;
     float: none !important;
@@ -667,9 +688,9 @@
     flex-wrap: nowrap !important;
     align-items: stretch !important;
     justify-content: flex-start !important;
-    width: 100vw !important;
-    max-width: 100vw !important;
-    min-width: 100vw !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
     overflow-x: hidden !important;
     overflow-y: auto !important;
   }
@@ -768,10 +789,15 @@
   display: none !important;
 }
 
-/* Hide desktop-specific board header buttons in mobile mode */
-.mobile-mode .board-header-btns.left {
-  display: none !important;
-}
+/* The left group is NOT hidden in mobile mode.
+   It holds edit title / visibility / watch / star / sort, and boardHeader.jade renders
+   them in EXACTLY ONE of the two groups: the left one `unless isMiniScreen`, the right
+   one `if isMiniScreen`. So in mobile mode the left group is already empty and hiding
+   it changes nothing - EXCEPT when the two mobile switches disagree, and then it
+   deletes those five buttons from the bar with no replacement. That is what made the
+   second header bar on a phone hold fewer buttons than the same bar in mobile mode on
+   a desktop window. They now agree (see Utils.isMiniScreen), and this rule is gone so
+   that if they ever drift again the buttons survive instead of vanishing. */
 
 .mobile-mode .board-header-btns.center {
   display: none !important;

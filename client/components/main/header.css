@@ -573,8 +573,12 @@ body.mobile-mode #header-quick-access .allBoards {
 @media screen and (max-width: 800px),
        screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
   #header #header-main-bar {
-    /* #6419: taller bar so the action icons can use ~44px touch targets. */
-    height: 48px;
+    /* #6419: taller bar so the action icons can use ~44px touch targets.
+       min-height, NOT height: the bar wraps to a second row when the board title and
+       the buttons do not fit on one, and a fixed height CLIPPED that second row - on
+       a phone the title or the icons simply were not there. It still sits on one row
+       whenever they fit, which is the normal case. */
+    min-height: 48px;
   }
   #header #header-main-bar .board-header-btns {
     margin-top: 0px;
