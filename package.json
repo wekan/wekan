@@ -86,7 +86,7 @@
     "jquery": "^3.7.1",
     "jquery-ui": "^1.14.2",
     "jszip": "^3.7.1",
-    "unzipper": "^0.12.3",
+    "unzipper": "^0.12.5",
     "limax": "^4.2.3",
     "markdown-it": "^14.1.1",
     "markdown-it-emoji": "^3.0.0",
