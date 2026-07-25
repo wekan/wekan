@@ -162,7 +162,12 @@ check('download routes sanitize the Content-Disposition filename', () => {
 
 // ── the removed invisible-filter feature must be gone ────────────────────────
 check('the old invisible-character filter / warning / legend are fully removed', () => {
-  const jade = read('client/components/settings/adminReports.jade');
+  // The Files report's markup now lives in the shared table page
+  // (docs/Design/Table-Page.md), so check BOTH files - against adminReports.jade
+  // alone this guard would pass no matter what, because that file no longer holds
+  // any report markup at all.
+  const jade = read('client/components/settings/adminReports.jade')
+    + read('client/components/settings/tablePage.jade');
   const js = read('client/components/settings/adminReports.js');
   const pub = read('server/publications/attachments.js');
   assert.ok(!/js-files-invisible-filter/.test(jade) && !/admin-report-legend/.test(jade), 'no filter button / legend');

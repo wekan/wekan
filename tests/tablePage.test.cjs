@@ -14,6 +14,16 @@
 // promises (equal column widths, wrapping cells, no second paginator, the fixed
 // row order) are actually in the template and the CSS.
 //
+// This is the COMBINED suite for the table page design: the shared helpers, the
+// shared template and stylesheet, the shared themed pager, the server-side paging
+// behind it, and the design doc that describes all of it. The former
+// tests/adminReportsPagination.test.cjs was merged in here - it asserted against
+// the same pages from a second file, which is exactly the split this change
+// removed from the app code.
+//
+// Files under test are the ones listed in the Related files table of
+// docs/Design/Table-Page.md.
+//
 // Run: node tests/tablePage.test.cjs
 
 const assert = require('assert');
@@ -300,6 +310,9 @@ test('the pager is themed by the ONE shared pager stylesheet', () => {
   }
   assert.ok(/var\(--theme-accent, #01628c\)/.test(pager),
     'colours come from the theme accent with the WeKan blue as fallback');
+  assert.ok(!/#bbb/.test(pager), 'no hardcoded grey in the shared controls');
+  assert.ok(/input\.js-table-page-search/.test(jade),
+    'the search field is part of the shared controls row');
 });
 
 test('the table page stylesheet does not restate button colours', () => {
@@ -320,6 +333,111 @@ test('the design doc explains the theming', () => {
   assert.ok(/#01628c/.test(doc), 'and the WeKan default fallback');
   assert.ok(/paginationControls\.css/.test(doc),
     'and point at the one stylesheet that owns the pager colours');
+});
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Merged in from the former tests/adminReportsPagination.test.cjs.
+//
+// Those guards were written when each report had its own markup, its own
+// controls row and its own stylesheet. Every one of them is about a paginated
+// table, so they belong with the design they now share - and keeping them in a
+// separate file meant the same page was asserted against from two places, which
+// is the split this whole change removed. The last three cover the OTHER pagers
+// (People/Org/Team/Domain, the board Table view, Translation): those are not
+// table pages, but they share the themed pager stylesheet listed in
+// docs/Design/Table-Page.md, so a change there reaches them too.
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ── performance: paginated + index-backed sorts ─────────────────────────────
+test('Cards report sorts by an INDEXED field (boardId,createdAt), not the unindexed {boardId,sort}', () => {
+  const pub = read('server/publications/cards.js');
+  const block = pub.slice(pub.indexOf("publish('cardsReport'"), pub.indexOf("getCardsReportCount"));
+  assert.ok(/sort:\s*\{\s*boardId:\s*1,\s*createdAt:\s*-1\s*\}/.test(block),
+    'cardsReport must sort by the { boardId:1, createdAt:-1 } index');
+  assert.ok(!/sort:\s*\{\s*boardId:\s*1,\s*sort:\s*1\s*\}/.test(block),
+    'the unindexed { boardId:1, sort:1 } sort must be gone');
+  // publication is bounded (limit/skip)
+  assert.ok(/limit,\s*skip/.test(block), 'publication must page with limit/skip');
+  const client = read('client/components/settings/adminReports.js');
+  assert.ok(/collectionResults\(Cards, \{ boardId: 1, createdAt: -1 \}\)/.test(client),
+    'client sort must match the publication');
+});
+
+test('eventlog has a {stream,at} index so Security/Speed/Tests pages stay fast', () => {
+  const src = read('models/eventLog.js');
+  assert.ok(/ensureIndex\(EventLog, \{ stream: 1, at: -1 \}\)/.test(src),
+    'the stream+at index must be created for the streamSelector sort');
+  assert.ok(/ensureIndex\(EventLogAcks, \{ stream: 1 \}\)/.test(src));
+});
+
+// ── one controls row, defined once for every report ──
+test('report tables have no Search button (Enter searches) and ONE shared controls row', () => {
+  // The six reports used to carry six copies of this row. They now render
+  // through the shared table page (docs/Design/Table-Page.md), so the row exists
+  // once, in one template, with one set of handlers.
+  const jade = read('client/components/settings/tablePage.jade');
+  assert.ok(!/-search-button/.test(jade), 'the Search button must be gone (typing + Enter searches)');
+  assert.strictEqual((jade.match(/table-page-controls/g) || []).length, 1,
+    'exactly one controls row, in the one shared template');
+  const reports = read('client/components/settings/adminReports.jade');
+  assert.ok(!/admin-report-controls/.test(reports), 'no per-report copy may come back');
+  const js = read('client/components/settings/adminReports.js');
+  assert.ok(!/-search-button'\(event, tmpl\)/.test(js), 'dead search-button handlers removed');
+  assert.ok(/keydown \.js-table-page-search/.test(js), 'Enter-to-search kept');
+});
+test('pagination controls sit at the end of the row (right; RTL-mirrored)', () => {
+  const css = read('client/components/settings/tablePage.css');
+  assert.ok(/\.table-page-pagination\s*\{[^}]*margin-inline-start:\s*auto/.test(css),
+    'pagination must be pushed to the end of the controls row');
+});
+
+// ── theme colors: controls follow --theme-accent (Member change-color override) ──
+test('People/Org/Team/Domain pagination buttons use var(--theme-accent)', () => {
+  const css = read('client/components/settings/peopleBody.css');
+  for (const sel of ['people', 'org', 'team', 'domain']) {
+    const m = new RegExp('\\.' + sel + '-pagination button\\s*\\{[^}]*var\\(--theme-accent');
+    assert.ok(m.test(css), `${sel}-pagination button must use the theme accent`);
+  }
+});
+
+// ── column-header sorting removed everywhere ────────────────────────────────
+test('clickable column-header sorting is removed from the board Table view', () => {
+  const jade = read('client/components/boards/tableView.jade');
+  const js = read('client/components/boards/tableView.js');
+  assert.ok(!/js-table-view-sort/.test(jade) && !/js-table-view-sort/.test(js), 'no sortable headers/handler');
+  assert.ok(!/sortField|sortDirection|sortIndicator/.test(js), 'sort state/helper removed');
+});
+test('clickable column-header sorting is removed from the Admin Domains table', () => {
+  const jade = read('client/components/settings/peopleBody.jade');
+  const js = read('client/components/settings/peopleBody.js');
+  assert.ok(!/js-domain-sort/.test(jade) && !/js-domain-sort/.test(js), 'no sortable headers/handler');
+  assert.ok(!/domainSortIndicator/.test(js), 'sort indicator removed');
+  // the server method no longer takes sort params
+  const srv = read('server/models/users.js');
+  const m = srv.slice(srv.indexOf('getDomainsWithUserCountsPage'), srv.indexOf('getDomainsWithUserCountsPage') + 900);
+  assert.ok(!/sortField|sortDirection/.test(m), 'server method drops sort params (fixed order)');
+});
+
+// ── over-fetch: Translation page must not load the whole collection ─────────
+test('Translation page subscribes with a bounded window, not limit 0 (whole collection)', () => {
+  const js = read('client/components/settings/translationBody.js');
+  assert.ok(/subscribe\('translation',[^,]+,\s*limitTranslations/.test(js),
+    'must pass the infinite-scroll window limit');
+  assert.ok(!/subscribe\('translation',[^,]+,\s*0\b/.test(js),
+    'the limit-0 (= no limit = whole collection) load must be gone');
+});
+
+// ── over-fetch: Board Archive → Boards is now server-side paginated ─────────
+test('archivedBoards is server-side paginated with BOTH search and pagination controls', () => {
+  const pub = read('server/publications/boards.js');
+  assert.ok(/publish\('archivedBoards', async function\(searchTerm = '', limit = \d+, skip = 0\)/.test(pub),
+    'archivedBoards must take searchTerm + limit/skip');
+  assert.ok(/getArchivedBoardsCount\(searchTerm/.test(pub), 'count method takes searchTerm');
+  const js = read('client/components/boards/boardArchive.js');
+  assert.ok(/subscribe\('archivedBoards', searchTerm, ARCHIVED_BOARDS_PER_PAGE, skip\)/.test(js), 'client subscribes one page with search');
+  const jade = read('client/components/boards/boardArchive.jade');
+  assert.ok(/js-archived-boards-search/.test(jade), 'search box present');
+  assert.ok(/js-archived-boards-prev-page/.test(jade) && /js-archived-boards-next-page/.test(jade), 'prev/next controls');
 });
 
 console.log(`\ntablePage: ${passed} tests passed`);

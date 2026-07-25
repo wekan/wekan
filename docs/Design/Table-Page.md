@@ -30,8 +30,7 @@ Everything that makes a table page work. Paths are from the repository root.
 | `server/publications/impersonationReport.js` | `.js` publication + method | Impersonation Report: one page of events, and `getImpersonationReportCount`. |
 | `server/publications/recoveryReport.js` | `.js` publication + method | Recovery: one page of recovery events, and `getRecoveryReportCount`. |
 | `models/eventLog.js` | `.js` model + methods | The Security / Speed / Tests / CPU usage streams: `eventLogPage`, `eventLogCount`, and the `{stream, at}` index that keeps them fast. |
-| `tests/tablePage.test.cjs` | `.cjs` Node test | The pure helpers, the layout rules this page promises, and the "one implementation" guarantee. |
-| `tests/adminReportsPagination.test.cjs` | `.cjs` Node test | That paging stays server-side and the controls row is not duplicated again. |
+| `tests/tablePage.test.cjs` | `.cjs` Node test | The **one** suite for all of the above: the pure helpers, the template, the layout rules this page promises, the themed pager, that paging stays server-side and index-backed, and the "one implementation" guarantee. It also checks that every path in this table still exists. |
 
 ## Pages that use this design
 
