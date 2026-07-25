@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { buildMenuItems } from '/models/lib/leftMenu';
 import { TAPi18n } from '/imports/i18n';
 import { ALLOWED_WAIT_SPINNERS } from '/config/const';
 import LockoutSettings from '/models/lockoutSettings';
@@ -321,7 +322,52 @@ Template.setting.onRendered(function () {
   });
 });
 
+
+// The Settings side menu, as data (docs/Design/Page/Left-Menu.md). Each entry
+// used to be six lines of markup; the pane it opens is its `id`.
+// `emoji: true` reproduces the empty span.emoji-icon this page always rendered
+// before the icon, so the conversion changes no pixel.
+function settingsMenu() {
+  const isSandstorm =
+    Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm;
+  return [
+    { id: 'registration-setting', icon: 'fa-key', labelKey: 'registration', emoji: true },
+    // No e-mail settings on Sandstorm; a null entry is dropped, not rendered empty.
+    isSandstorm ? null : { id: 'email-setting', icon: 'fa-envelope', labelKey: 'email', emoji: true },
+    { id: 'account-setting', icon: 'fa-users', labelKey: 'accounts', emoji: true },
+    { id: 'tableVisibilityMode-setting', icon: 'fa-eye', labelKey: 'tableVisibilityMode', emoji: true },
+    { id: 'announcement-setting', icon: 'fa-bullhorn', labelKey: 'admin-announcement', emoji: true },
+    { id: 'accessibility-setting', icon: 'fa-universal-access', labelKey: 'accessibility', emoji: true },
+    { id: 'layout-setting', icon: 'fa-link', labelKey: 'layout', emoji: true },
+    { id: 'webhook-setting', icon: 'fa-globe', labelKey: 'global-webhook', emoji: true },
+  ];
+}
+
+// Which pane is open. This page keeps one ReactiveVar per pane rather than an
+// active id, so derive the id from them - no behaviour change, and the menu can
+// still highlight exactly one row.
+function activeSettingId(inst) {
+  const panes = [
+    ['generalSetting', 'registration-setting'],
+    ['emailSetting', 'email-setting'],
+    ['accountSetting', 'account-setting'],
+    ['tableVisibilityModeSetting', 'tableVisibilityMode-setting'],
+    ['announcementSetting', 'announcement-setting'],
+    ['accessibilitySetting', 'accessibility-setting'],
+    ['layoutSetting', 'layout-setting'],
+    ['webhookSetting', 'webhook-setting'],
+  ];
+  for (const [varName, id] of panes) {
+    if (inst[varName] && inst[varName].get()) return id;
+  }
+  return '';
+}
+
 Template.setting.helpers({
+  menuItems() {
+    const inst = Template.instance();
+    return buildMenuItems(settingsMenu(), activeSettingId(inst), 'js-setting-menu');
+  },
   isGeneralSetting() {
     const inst = Template.instance();
     return inst.generalSetting && inst.generalSetting.get();

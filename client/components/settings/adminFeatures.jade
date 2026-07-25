@@ -9,23 +9,7 @@ template(name="adminFeatures")
           i.fa.fa-flask
           | {{_ 'features'}}
       .content-body
-        .side-menu
-          ul
-            li(class="{{#if isPerformanceActive}}active{{/if}}")
-              a.js-features-menu(data-id="performance")
-                span.emoji-icon
-                i.fa.fa-tachometer
-                | {{_ 'features-performance'}}
-            li(class="{{#if isSecurityActive}}active{{/if}}")
-              a.js-features-menu(data-id="security")
-                span.emoji-icon
-                i.fa.fa-shield
-                | {{_ 'features-security'}}
-            li(class="{{#if isNotificationsActive}}active{{/if}}")
-              a.js-features-menu(data-id="notifications")
-                span.emoji-icon
-                i.fa.fa-bell
-                | {{_ 'features-notifications'}}
+        +leftMenu(menuItems)
         .main-body
           if isPerformanceActive
             ul.setting-detail

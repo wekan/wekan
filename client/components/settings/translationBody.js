@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { buildMenuItems } from '/models/lib/leftMenu';
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
 
 const translationsPerPage = 25;
@@ -46,7 +47,16 @@ Template.translation.onCreated(function () {
   });
 });
 
+// A single-entry side menu, still built the shared way so the page has no
+// menu markup of its own (docs/Design/Page/Left-Menu.md).
+const TRANSLATION_MENU = [
+  { id: 'translation-setting', icon: 'fa-globe', labelKey: 'translation' },
+];
+
 Template.translation.helpers({
+  menuItems() {
+    return buildMenuItems(TRANSLATION_MENU, 'translation-setting', 'js-translation-menu');
+  },
   loading() {
     return Template.instance().loading;
   },

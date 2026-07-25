@@ -20,12 +20,7 @@ template(name="translation")
               span {{#unless isMiniScreen}}{{_ 'translation-number'}}{{/unless}} #{translationNumber}
 
       .content-body
-        .side-menu
-          ul
-            li.active
-              a.js-translation-menu(data-id="translation-setting")
-                i.fa.fa-globe
-                | {{_ 'translation'}}
+        +leftMenu(menuItems)
         .main-body
           if loading.get
             +spinner

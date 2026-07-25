@@ -46,50 +46,7 @@ template(name="setting")
             | {{_ 'global-webhook'}}
         //- COMMENTED OUT: Migration settings title section
       .content-body
-        .side-menu
-          ul
-            li(class="{{#if isGeneralSetting}}active{{/if}}")
-              a.js-setting-menu(data-id="registration-setting")
-                span.emoji-icon
-                i.fa.fa-key
-                | {{_ 'registration'}}
-            unless isSandstorm
-              li(class="{{#if isEmailSetting}}active{{/if}}")
-                a.js-setting-menu(data-id="email-setting")
-                  span.emoji-icon
-                  i.fa.fa-envelope
-                  | {{_ 'email'}}
-            li(class="{{#if isAccountSetting}}active{{/if}}")
-              a.js-setting-menu(data-id="account-setting")
-                span.emoji-icon
-                i.fa.fa-users
-                | {{_ 'accounts'}}
-            li(class="{{#if isTableVisibilityModeSetting}}active{{/if}}")
-              a.js-setting-menu(data-id="tableVisibilityMode-setting")
-                span.emoji-icon
-                i.fa.fa-eye
-                | {{_ 'tableVisibilityMode'}}
-            li(class="{{#if isAnnouncementSetting}}active{{/if}}")
-              a.js-setting-menu(data-id="announcement-setting")
-                span.emoji-icon
-                i.fa.fa-bullhorn
-                | {{_ 'admin-announcement'}}
-            li(class="{{#if isAccessibilitySetting}}active{{/if}}")
-              a.js-setting-menu(data-id="accessibility-setting")
-                span.emoji-icon
-                i.fa.fa-universal-access
-                | {{_ 'accessibility'}}
-            li(class="{{#if isLayoutSetting}}active{{/if}}")
-              a.js-setting-menu(data-id="layout-setting")
-                span.emoji-icon
-                i.fa.fa-link
-                | {{_ 'layout'}}
-            li(class="{{#if isWebhookSetting}}active{{/if}}")
-              a.js-setting-menu(data-id="webhook-setting")
-                span.emoji-icon
-                i.fa.fa-globe
-                | {{_ 'global-webhook'}}
-            //- COMMENTED OUT: Migration menu item
+        +leftMenu(menuItems)
         .main-body
           if isLoading
             +spinner

@@ -228,4 +228,35 @@ test('the shared menu reproduces each page icon shape', () => {
   assert.strictEqual(red.iconWrapCls, 'text-red');
 });
 
+test('Settings, Features, Translation and Info render the shared menu too', () => {
+  const pages = [
+    ['settingBody', 'settingsMenu()', 'js-setting-menu'],
+    ['adminFeatures', 'FEATURES_MENU', 'js-features-menu'],
+    ['translationBody', 'TRANSLATION_MENU', 'js-translation-menu'],
+    ['informationBody', 'INFO_MENU', 'js-setting-menu'],
+  ];
+  for (const [file, list, jsClass] of pages) {
+    const pageJade = read(`client/components/settings/${file}.jade`);
+    const pageJs = read(`client/components/settings/${file}.js`);
+    assert.ok(/\+leftMenu\(menuItems\)/.test(pageJade), `${file}: renders the shared menu`);
+    assert.ok(!/\.side-menu/.test(pageJade), `${file}: no hand-written menu markup left`);
+    assert.ok(pageJs.includes(`buildMenuItems(${list}`), `${file}: built by the shared helper`);
+    assert.ok(pageJs.includes(jsClass), `${file}: keeps its own handler class`);
+  }
+});
+
+test('Settings keeps its Sandstorm exception and one active pane', () => {
+  const js = read('client/components/settings/settingBody.js');
+  assert.ok(/isSandstorm \? null :/.test(js),
+    'the e-mail entry is still absent on Sandstorm - as a dropped null, not empty markup');
+  assert.ok(/function activeSettingId/.test(js),
+    'the eight per-pane vars are mapped to ONE active id');
+  // Every pane the menu can open must be mapped, or that entry never highlights.
+  for (const id of ['registration-setting', 'email-setting', 'account-setting',
+    'tableVisibilityMode-setting', 'announcement-setting', 'accessibility-setting',
+    'layout-setting', 'webhook-setting']) {
+    assert.ok(js.includes(`'${id}'`), `${id} must be in both the menu and the id map`);
+  }
+});
+
 console.log(`\nleftMenu: ${passed} tests passed`);

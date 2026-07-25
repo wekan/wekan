@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { buildMenuItems } from '/models/lib/leftMenu';
 import { ReactiveVar } from 'meteor/reactive-var';
 import Settings from '/models/settings';
 
@@ -11,7 +12,17 @@ Template.adminFeatures.onCreated(function () {
   Meteor.subscribe('setting');
 });
 
+// The Features side menu, as data (docs/Design/Page/Left-Menu.md).
+const FEATURES_MENU = [
+  { id: 'performance', icon: 'fa-tachometer', labelKey: 'features-performance', emoji: true },
+  { id: 'security', icon: 'fa-shield', labelKey: 'features-security', emoji: true },
+  { id: 'notifications', icon: 'fa-bell', labelKey: 'features-notifications', emoji: true },
+];
+
 Template.adminFeatures.helpers({
+  menuItems() {
+    return buildMenuItems(FEATURES_MENU, Template.instance().activePane.get(), 'js-features-menu');
+  },
   isPerformanceActive() {
     return Template.instance().activePane.get() === 'performance';
   },

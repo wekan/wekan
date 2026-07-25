@@ -1,4 +1,5 @@
 import { TAPi18n } from '/imports/i18n';
+import { buildMenuItems } from '/models/lib/leftMenu';
 const { filesize } = require('filesize');
 
 Template.statistics.onCreated(function () {
@@ -8,6 +9,17 @@ Template.statistics.onCreated(function () {
       this.info.set(ret);
     }
   });
+});
+
+// A single-entry side menu (docs/Design/Page/Left-Menu.md).
+const INFO_MENU = [
+  { id: 'information-display', icon: 'fa-info-circle', labelKey: 'info' },
+];
+
+Template.information.helpers({
+  menuItems() {
+    return buildMenuItems(INFO_MENU, 'information-display', 'js-setting-menu');
+  },
 });
 
 Template.statistics.helpers({

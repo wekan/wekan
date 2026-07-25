@@ -8,12 +8,7 @@ template(name='information')
           i.fa.fa-info-circle
           | {{_ 'info'}}
       .content-body
-        .side-menu
-          ul
-            li.active
-              a.js-setting-menu(data-id="information-display")
-                i.fa.fa-info-circle
-                | {{_ 'info'}}
+        +leftMenu(menuItems)
         .main-body
           +statistics
 
