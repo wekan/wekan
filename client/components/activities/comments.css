@@ -110,7 +110,7 @@
 }
 .comments .comment .comment-desc .reactions .open-comment-reaction-popup span {
   display: inline-block;
-  font-size: clamp(14px, 2vw, 18px);
+  font-size: 14px;
   font-weight: 500;
   line-height: 1;
   margin-inline-start: 4px;

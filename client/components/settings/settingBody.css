@@ -17,7 +17,7 @@
   position: absolute;
 }
 .setting-content .content-title {
-  font-size: clamp(16px, 3.5vw, 22px);
+  font-size: 16px;
 }
 .setting-content .content-body {
   display: flex;
@@ -341,7 +341,7 @@ li.has-error .form-group .wekan-form-control {
   .setting-content .content-body .main-body {
     width: 100%;
     flex: 1 1 auto;
-    min-height: 60vh;
+    min-height: 540px;
     overflow-x: auto !important;
   }
 }

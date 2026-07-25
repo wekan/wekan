@@ -11,10 +11,20 @@
 // 355 such values across 24 stylesheets were converted to the pixel sizes they
 // rendered at on the window they were tuned for. This keeps them from coming back.
 //
-// Viewport units are still right for three things, and those are allowed:
+// Viewport units are still right for two things, and those are allowed:
 //   - a full-viewport box: 100vh / 100vw
-//   - a CAP that stops content overflowing a small screen: min(), max(), clamp()
-//   - max-/min-height and max-/min-width limits
+//   - a max-height / max-width CAP that stops content overflowing a small screen
+//
+// clamp() USED to be allowed here, and it let the same bug straight back in. Reported
+// later, on a board in mobile mode: widening the window made the swimlanes, lists and
+// cards taller. The cause was 75 values like `font-size: clamp(18px, 2.5vw, 32px)` -
+// a font that grows with the WINDOW, so every row grows with it. A clamp is only a
+// cap at its two ends; between them it resizes exactly like a bare `vw`. All 75 were
+// converted to the size they already used on a phone, so they are now one size
+// everywhere.
+//
+// min-height / min-width are no longer blanket-allowed either: `min-height: 3vh` on a
+// minicard is a height that tracks the window just as much as `height: 3vh` does.
 //
 // Run: node tests/noViewportSpacing.test.cjs
 
@@ -38,9 +48,19 @@ function cssFiles(dir, out = []) {
 
 // A declaration line may use viewport units only in these shapes.
 function allowed(line) {
-  return /\b100vh\b|\b100vw\b/.test(line)
-    || /\b(min|max|clamp)\(/.test(line)
-    || /^\s*(max|min)-(height|width)\s*:/.test(line);
+  // A full-viewport box.
+  if (/\b100vh\b|\b100vw\b/.test(line)) return true;
+  // A cap that keeps content inside a small window - a popup that must not grow
+  // taller than the screen.
+  if (/^\s*max-(height|width)\s*:/.test(line)) return true;
+  // `min(400px, 52vw)` is a SHRINK-ONLY cap: above the crossover width it is flat at
+  // 400px, and only below it does it give way so the box fits a narrow screen. It
+  // never grows with the window, so it is not this bug. `clamp(a, Xvw, b)` is a
+  // different animal - between its two ends it tracks the window exactly like a bare
+  // vw - and `max(...)` grows without bound, so neither is allowed.
+  if (/\bmin\(\s*(?:[0-9.]+(?:px|rem|em)\s*,\s*[0-9.]+v[hw]|[0-9.]+v[hw]\s*,\s*[0-9.]+(?:px|rem|em))\s*\)/.test(line)
+    && !/\b(clamp|max)\(/.test(line)) return true;
+  return false;
 }
 
 console.log('noViewportSpacing:');
@@ -81,13 +101,23 @@ test('legitimate viewport use is still permitted (negative)', () => {
   // The rule must not be so blunt that a full-height container or a responsive
   // cap has to be written some other way.
   assert.ok(allowed('  height: 100vh;'));
-  assert.ok(allowed('  width: min(250px, 32vw);'));
-  assert.ok(allowed('  font-size: clamp(16px, 3.5vw, 22px);'));
   assert.ok(allowed('  max-height: 40vh;'));
-  // And it must still catch the shapes that caused the report.
+  // A shrink-only cap, in either argument order: flat at the px above the crossover
+  // width, giving way only below it so the box fits a narrow screen.
+  assert.ok(allowed('  width: min(250px, 32vw);'));
+  assert.ok(allowed('  width: min(90vw, 1100px);'));
+  // And it must still catch the shapes that caused the reports.
   assert.ok(!allowed('  padding: 3vh 3vw;'));
   assert.ok(!allowed('  margin-top: 6vh;'));
   assert.ok(!allowed('  border-radius: 0.4vw;'));
+  // clamp() is NOT a cap between its ends - it tracks the window there, which is what
+  // made a board's rows grow taller as the window got wider.
+  assert.ok(!allowed('  font-size: clamp(16px, 3.5vw, 22px);'));
+  // max() grows without bound, so it is the wrong way round.
+  assert.ok(!allowed('  width: max(250px, 32vw);'));
+  // A viewport MINIMUM is still a size that tracks the window.
+  assert.ok(!allowed('  min-height: 60vh;'));
+  assert.ok(!allowed('  min-width: 30vw;'));
 });
 
 test('Sign In / Register keep scrollable room below the form', () => {

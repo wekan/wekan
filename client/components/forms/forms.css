@@ -295,7 +295,7 @@ textarea::-moz-placeholder {
 }
 .edit-controls .fa-times-thin,
 .add-controls .fa-times-thin {
-  font-size: clamp(20px, 4vw, 26px);
+  font-size: 20px;
   margin: 5px 21px;
 }
 /* CJK (Japanese/Chinese/Korean) labels contain no spaces, so browsers may

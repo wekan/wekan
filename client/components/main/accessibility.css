@@ -9,14 +9,14 @@
   border-color: #a2a2a2;
 }
 .my-cards-board-title {
-  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  font-size: 1.2rem;
   font-weight: bold;
   padding: 6px 10px;
   background-color: #808080;
   color: #fff;
 }
 .my-cards-swimlane-title {
-  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-size: 1rem;
   font-weight: bold;
   padding: 6px 10px;
   padding-bottom: 5px;
@@ -29,7 +29,7 @@
 }
 .my-cards-list-title {
   font-weight: bold;
-  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-size: 1rem;
   text-align: center;
   margin-bottom: 8px;
 }

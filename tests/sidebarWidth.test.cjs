@@ -5,7 +5,9 @@
 //
 // - The panel used `width: 30vw`, which scaled with the viewport: on very wide
 //   screens it grew to ~double the intended width (looking right only at mid
-//   widths). It must be BOUNDED (clamp) so it stays a sensible size everywhere.
+//   widths). A clamp() bounded it, but between its two ends a clamp still tracks the
+//   window - the same "elements resize when I resize the browser" behaviour reported
+//   later for the board. It is now a fixed 420px: the width it was designed at.
 // - The filter text inputs (Filter List by Title, Filter by card title, ...) had
 //   no width, so they rendered at the browser's default narrow width with a big
 //   empty gap on the right instead of equal spacing on both sides. Sidebar text
@@ -35,14 +37,16 @@ function block(selector) {
 
 console.log('sidebarWidth:');
 
-test('.board-sidebar width is bounded (clamp), not an unbounded 30vw', () => {
+test('.board-sidebar width is fixed, not scaling with the viewport', () => {
   const b = block('.board-sidebar');
-  assert.ok(/width:\s*clamp\(/.test(b),
-    '.board-sidebar width must use clamp() so it does not scale without bound');
+  assert.ok(/width:\s*\d+px/.test(b),
+    '.board-sidebar must have a fixed px width, so it does not resize with the window');
+  assert.ok(!/width:[^;]*v[hw]/.test(b),
+    'and no viewport unit in it, clamped or otherwise');
 });
 
-test('no bare unbounded `width: 30vw;` remains (only inside the clamp)', () => {
-  // A standalone `width: 30vw;` declaration would reintroduce the doubling bug.
+test('no `width: 30vw;` remains anywhere', () => {
+  // The declaration that caused the doubling, in any form.
   assert.ok(!/width:\s*30vw\s*;/.test(css),
     'a bare width: 30vw; must not be present (must be clamped)');
 });

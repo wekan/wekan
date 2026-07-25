@@ -279,7 +279,7 @@ body.mobile-mode [id^="swimlane-"] .list[style*="--list-width"]:not(.list-collap
   min-width: 30px !important;
   max-width: 30px !important;
   width: 30px !important;
-  min-height: 60vh;
+  min-height: 540px;
   height: 540px;
   overflow: visible;
   position: relative;
@@ -454,7 +454,7 @@ form.inlined-form .list-composer {
 }
 .list-header .list-header-name {
   display: block;
-  font-size: clamp(14px, 3vw, 18px);
+  font-size: 14px;
   line-height: 1.2;
   margin: 0;
   font-weight: bold;
@@ -577,7 +577,7 @@ form.inlined-form .list-composer {
     min-width: 30px;
     max-width: 30px;
     width: 30px;
-    min-height: 60vh;
+    min-height: 540px;
     height: 540px;
   }
   .list.list-collapsed .list-header {
@@ -629,7 +629,7 @@ form.inlined-form .list-composer {
     min-width: 30px;
     max-width: 30px;
     width: 30px;
-    min-height: 60vh;
+    min-height: 540px;
     height: 540px;
   }
   .list.list-collapsed .list-header {
@@ -680,7 +680,7 @@ form.inlined-form .list-composer {
     min-width: 30px;
     max-width: 30px;
     width: 30px;
-    min-height: 60vh;
+    min-height: 540px;
     height: 540px;
   }
   .list.list-collapsed .list-header {

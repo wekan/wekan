@@ -23,7 +23,7 @@
   margin: 8px 0 0;
   width: 1.2em;
   height: 1.2em;
-  font-size: clamp(14px, 2vw, 17px);
+  font-size: 14px;
   display: block;
   color: #000;
 }

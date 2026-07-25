@@ -87,7 +87,7 @@
   color: #333;
   min-width: 42px;
   text-align: center;
-  font-size: clamp(12px, 2vw, 14px);
+  font-size: 12px;
   cursor: pointer;
   padding: 3px 7px;
   border-radius: 4px;
@@ -110,18 +110,18 @@
 }
 
 .mobile-mode .minicard {
-  font-size: clamp(16px, 4vw, 20px);
+  font-size: 16px;
   padding: 11px 21px 5px;
-  min-height: 3vh;
+  min-height: 24px;
 }
 
 .mobile-mode .list-header-name {
-  font-size: clamp(18px, 4.5vw, 24px);
+  font-size: 18px;
 }
 
 .mobile-mode .board-header-btn {
   padding: 9px 21px;
-  font-size: clamp(14px, 3.5vw, 18px);
+  font-size: 14px;
 }
 
 .mobile-mode .zoom-controls {
@@ -131,7 +131,7 @@
 
 .mobile-mode .zoom-controls .board-header-btn {
   padding: 9px 21px !important;
-  font-size: clamp(14px, 3.5vw, 18px) !important;
+  font-size: 14px !important;
   background: #fff !important;
   border: 1px solid #000 !important;
   color: #000 !important;
@@ -161,7 +161,7 @@
 }
 
 .mobile-mode .zoom-level {
-  font-size: clamp(14px, 3.5vw, 18px);
+  font-size: 14px;
   min-width: 56px;
 }
 
@@ -195,7 +195,7 @@
   width: 100% !important;
   min-width: 100% !important;
   max-width: 100% !important;
-  font-size: clamp(18px, 2.5vw, 32px) !important;
+  font-size: 18px !important;
   padding: 1rem !important;
   margin-bottom: 1rem !important;
   display: block !important;
@@ -218,7 +218,7 @@
   min-width: 100% !important;
   max-width: 100% !important;
   padding: 1rem !important;
-  font-size: clamp(18px, 2.5vw, 32px) !important;
+  font-size: 18px !important;
   display: grid !important;
   grid-template-columns: 30px 1fr auto auto !important;
   gap: 10px !important;
@@ -240,7 +240,7 @@
 }
 
 .mobile-mode .list-header .list-header-name {
-  font-size: clamp(18px, 2.5vw, 32px) !important;
+  font-size: 18px !important;
   font-weight: bold !important;
   grid-row: 1 !important;
   grid-column: 2 !important;
@@ -251,7 +251,7 @@
 }
 
 .mobile-mode .list-header .cardCount {
-  font-size: clamp(14px, 2vw, 24px) !important;
+  font-size: 14px !important;
   grid-row: 2 !important;
   grid-column: 2 !important;
   align-self: start !important;
@@ -268,7 +268,7 @@
   grid-row: 1/3 !important;
   grid-column: 3 !important;
   padding: 14px !important;
-  font-size: clamp(24px, 3vw, 48px) !important;
+  font-size: 24px !important;
   text-align: center !important;
   display: block !important;
   visibility: visible !important;
@@ -283,7 +283,7 @@
   grid-row: 1/3 !important;
   grid-column: 4 !important;
   padding: 14px !important;
-  font-size: clamp(28px, 3.5vw, 56px) !important;
+  font-size: 28px !important;
   text-align: center !important;
   display: block !important;
   visibility: visible !important;
@@ -302,25 +302,25 @@
   width: 100% !important;
   min-width: 100% !important;
   max-width: 100% !important;
-  font-size: clamp(16px, 2vw, 24px) !important;
+  font-size: 16px !important;
   padding: 11px 21px 5px !important;
-  min-height: 3vh !important;
+  min-height: 24px !important;
   margin-bottom: 0.5rem !important;
   display: block !important;
   float: none !important;
 }
 
 .mobile-mode .minicard .minicard-title {
-  font-size: clamp(16px, 2vw, 24px) !important;
+  font-size: 16px !important;
   font-weight: bold !important;
 }
 
 .mobile-mode .minicard .minicard-members {
-  font-size: clamp(12px, 1.5vw, 18px) !important;
+  font-size: 12px !important;
 }
 
 .mobile-mode .minicard .minicard-lists {
-  font-size: clamp(12px, 1.5vw, 18px) !important;
+  font-size: 12px !important;
 }
 
 /* Desktop Mode Styles */
@@ -348,12 +348,12 @@
   width: auto !important;
   min-width: auto !important;
   padding: 23px 21px 5px !important;
-  font-size: clamp(14px, 3vw, 18px) !important;
+  font-size: 14px !important;
   display: block !important;
 }
 
 .desktop-mode .list-header .list-header-name {
-  font-size: clamp(14px, 3vw, 18px) !important;
+  font-size: 14px !important;
   display: inline !important;
   grid-row: auto !important;
   grid-column: auto !important;
@@ -386,7 +386,7 @@
   grid-row: auto !important;
   grid-column: auto !important;
   padding: 7px !important;
-  font-size: clamp(16px, 3vw, 20px) !important;
+  font-size: 16px !important;
 }
 
 .desktop-mode .list-body {
@@ -398,14 +398,14 @@
 .desktop-mode .minicard {
   width: auto !important;
   min-width: auto !important;
-  font-size: clamp(12px, 2.5vw, 16px) !important;
+  font-size: 12px !important;
   padding: 5px 11px !important;
   min-height: auto !important;
   margin-bottom: 9px !important;
 }
 
 .desktop-mode .minicard .minicard-title {
-  font-size: clamp(12px, 2.5vw, 16px) !important;
+  font-size: 12px !important;
 }
 
 .desktop-mode .minicard .minicard-members {
@@ -418,7 +418,7 @@
 
 /* Additional Mobile Mode Styles for Other Elements - Works on all screen sizes */
 .mobile-mode .swimlane-header .swimlane-title {
-  font-size: clamp(18px, 2.5vw, 32px) !important;
+  font-size: 18px !important;
   font-weight: bold !important;
   display: block !important;
   visibility: visible !important;
@@ -426,21 +426,21 @@
 }
 
 .mobile-mode .swimlane-header .swimlane-description {
-  font-size: clamp(14px, 2vw, 24px) !important;
+  font-size: 14px !important;
   display: block !important;
   visibility: visible !important;
   opacity: 1 !important;
 }
 
 .mobile-mode .board-header {
-  font-size: clamp(18px, 2.5vw, 32px) !important;
+  font-size: 18px !important;
   padding: 1rem !important;
   width: 100% !important;
   max-width: 100% !important;
 }
 
 .mobile-mode .board-header .board-header-title {
-  font-size: clamp(18px, 2.5vw, 32px) !important;
+  font-size: 18px !important;
   font-weight: bold !important;
   display: block !important;
   visibility: visible !important;
@@ -448,14 +448,14 @@
 }
 
 .mobile-mode .board-header .board-header-description {
-  font-size: clamp(14px, 2vw, 24px) !important;
+  font-size: 14px !important;
   display: block !important;
   visibility: visible !important;
   opacity: 1 !important;
 }
 
 .mobile-mode .board-header .board-header-btn {
-  font-size: clamp(14px, 2vw, 24px) !important;
+  font-size: 14px !important;
   padding: 9px 21px !important;
   display: inline-block !important;
   visibility: visible !important;
@@ -463,7 +463,7 @@
 }
 
 .mobile-mode .board-header .board-header-btn i {
-  font-size: clamp(14px, 2vw, 24px) !important;
+  font-size: 14px !important;
   display: inline !important;
   visibility: visible !important;
   opacity: 1 !important;
@@ -485,7 +485,7 @@
   grid-row: 1/3 !important;
   grid-column: 3 !important;
   padding: 14px !important;
-  font-size: clamp(24px, 3vw, 48px) !important;
+  font-size: 24px !important;
   text-align: center !important;
 }
 
@@ -493,7 +493,7 @@
   grid-row: 1/3 !important;
   grid-column: 4 !important;
   padding: 14px !important;
-  font-size: clamp(28px, 3.5vw, 56px) !important;
+  font-size: 28px !important;
   text-align: center !important;
 }
 
@@ -551,7 +551,7 @@
     min-width: 100% !important;
     margin: 0 0 1rem 0 !important;
     padding: 1rem !important;
-    font-size: clamp(18px, 2.5vw, 32px) !important;
+    font-size: 18px !important;
     font-weight: bold !important;
     border-bottom: 2px solid #ccc !important;
   }
@@ -970,7 +970,7 @@ body.board-view.mobile-mode #header #header-main-bar .board-header-sidebar-toggl
 
 /* Additional Desktop Mode Styles for Other Elements */
 .desktop-mode .swimlane-header .swimlane-title {
-  font-size: clamp(14px, 3vw, 18px) !important;
+  font-size: 14px !important;
 }
 
 .desktop-mode .swimlane-header .swimlane-description {
@@ -978,12 +978,12 @@ body.board-view.mobile-mode #header #header-main-bar .board-header-sidebar-toggl
 }
 
 .desktop-mode .board-header {
-  font-size: clamp(14px, 3vw, 18px) !important;
+  font-size: 14px !important;
   padding: 23px 21px 5px !important;
 }
 
 .desktop-mode .board-header .board-header-title {
-  font-size: clamp(14px, 3vw, 18px) !important;
+  font-size: 14px !important;
 }
 
 .desktop-mode .board-header .board-header-description {
@@ -991,12 +991,12 @@ body.board-view.mobile-mode #header #header-main-bar .board-header-sidebar-toggl
 }
 
 .desktop-mode .board-header .board-header-btn {
-  font-size: clamp(12px, 2.5vw, 16px) !important;
+  font-size: 12px !important;
   padding: 5px 11px !important;
 }
 
 .desktop-mode .board-header .board-header-btn i {
-  font-size: clamp(12px, 2.5vw, 16px) !important;
+  font-size: 12px !important;
 }
 
 /* #6419: make the board-header action buttons touch-friendly by VIEWPORT WIDTH,

@@ -58,13 +58,13 @@
 .minicard-details-menu-with-handle {
   float: inline-end;
   padding-inline-start: 10px;
-  font-size: clamp(14px, 3vw, 18px);
+  font-size: 14px;
   padding: 0;
   z-index: 1;
 }
 .minicard-details-menu {
   float: inline-end;
-  font-size: clamp(14px, 3vw, 18px);
+  font-size: 14px;
   padding-inline-start: 10px;
 }
 @media print {
@@ -113,8 +113,8 @@
   margin-inline-end: 84px;
 }
 .minicard .minicard-labels .minicard-label {
-  width: clamp(12px, 1.5vw, 16px);
-  height: clamp(12px, 1.5vw, 16px);
+  width: 12px;
+  height: 12px;
   border-radius: 4px;
   margin-inline-end: 6px;
   margin-bottom: 4px;
@@ -150,7 +150,8 @@
   flex-grow: 1;
   display: block;
   word-wrap: break-word;
-  max-width: 13vw;
+  /* Fixed, not 13vw: a chip that grew with the window made the card reflow. */
+  max-width: 160px;
   margin-inline-end: 7px;
 }
 .minicard .minicard-custom-field-item-fullwidth {
@@ -161,8 +162,8 @@
   margin-inline-end: 7px;
 }
 .minicard .handle {
-  width: clamp(20px, 2.5vw, 28px);
-  height: clamp(20px, 2.5vw, 28px);
+  width: 20px;
+  height: 20px;
   position: absolute;
   inset-inline-end: 1px;
   top: 28px;
@@ -235,7 +236,7 @@
 }
 
 .minicard .handle .drag-handle {
-  font-size: clamp(16px, 3vw, 20px);
+  font-size: 16px;
   color: #ccc;
   display: inline-block;
   width: 1.4em;
@@ -464,8 +465,8 @@
 .minicard .minicard-creator .member {
   float: inline-end;
   border-radius: 50%;
-  height: clamp(24px, 3.5vw, 32px);
-  width: clamp(24px, 3.5vw, 32px);
+  height: 24px;
+  width: 24px;
   margin-bottom: 4px;
 }
 .minicard .minicard-members .assignee,
@@ -473,8 +474,8 @@
 .minicard .minicard-creator .assignee {
   float: inline-end;
   border-radius: 50%;
-  height: clamp(24px, 3.5vw, 32px);
-  width: clamp(24px, 3.5vw, 32px);
+  height: 24px;
+  width: 24px;
 }
 .minicard .minicard-members + .badges,
 .minicard .minicard-assignees + .badges,

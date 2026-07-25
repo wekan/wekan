@@ -485,7 +485,7 @@
 }
 .pop-over.search-over {
   background: #f0f0f0;
-  min-height: 14vh;
+  min-height: 126px;
 }
 .pop-over.search-over .header {
   display: none;

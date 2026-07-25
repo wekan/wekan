@@ -201,12 +201,12 @@ body.grey-icons-enabled .sidebar .sidebar-content ul.sidebar-list li > a .fa.fa-
 }
 .board-sidebar {
   display: none;
-  /* Keep a sensible sidebar width at every screen size. A bare 420px scaled with
-     the viewport, so on very wide screens it grew to ~double the intended width
-     while looking right only at mid widths; clamp keeps the mid-width look and
-     caps it (and floors it) instead of scaling without bound. Phones (<800px)
-     are handled by the 100vw rule in the media query below. */
-  width: clamp(320px, 30vw, 560px);
+  /* A fixed sidebar width at every screen size. It was a bare 420px that scaled with
+     the viewport, so on very wide screens it grew to ~double the intended width; a
+     clamp() then kept the mid-width look but still resized with the window, which is
+     the behaviour being removed everywhere. 420px is the width it was designed at.
+     Phones (<800px) are handled by the 100% rule in the media query below. */
+  width: 420px;
   z-index: 100;
   transition: top 0.1s, right 0.1s, width 0.1s;
 }

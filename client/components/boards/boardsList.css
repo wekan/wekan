@@ -549,7 +549,7 @@
   color: #333;
   min-width: 42px;
   text-align: center;
-  font-size: clamp(12px, 2vw, 14px);
+  font-size: 12px;
   cursor: pointer;
   padding: 3px 7px;
   border-radius: 4px;

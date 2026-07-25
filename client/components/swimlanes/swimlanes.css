@@ -131,7 +131,7 @@
 }
 .swimlane .swimlane-header-wrap .swimlane-header-handle {
   padding: 2px 5px;
-  font-size: clamp(16px, 3vw, 20px);
+  font-size: 16px;
   display: inline-block;
   vertical-align: middle;
   margin-inline-start: 30px;

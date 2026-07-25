@@ -420,7 +420,7 @@ body.mobile-mode #header-quick-access .allBoards {
   color: #333;
   min-width: 42px;
   text-align: center;
-  font-size: clamp(12px, 2vw, 14px);
+  font-size: 12px;
   cursor: pointer;
   padding: 3px 7px;
   border-radius: 4px;
@@ -450,7 +450,7 @@ body.mobile-mode #header-quick-access .allBoards {
       text-align: center;
       width: 100%;
       min-width: 42px;
-      font-size: clamp(12px, 2vw, 14px);
+      font-size: 12px;
       box-sizing: border-box;
       -webkit-appearance: none;
       appearance: none;
@@ -508,7 +508,7 @@ body.mobile-mode #header-quick-access .allBoards {
   line-height: normal !important;
   margin: 0 !important;
   transition: all 0.2s ease !important;
-  font-size: clamp(14px, 2.8vw, 18px) !important;
+  font-size: 14px !important;
 }
 
 #header-quick-access .mobile-mode-toggle .board-header-btn i.active {
