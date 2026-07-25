@@ -242,6 +242,33 @@
   margin-bottom: 12px;
 }
 
+/* A GROUP title inside a pane - "All Boards", "URL", "Product name", "Logo" on
+   Visibility. Deliberately smaller than the pane title above it, so the page reads
+   as one heading with groups under it rather than as several pages stacked. */
+.admin-pane-group-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: inherit;
+}
+
+/* The first group starts right under the pane title; every later one needs air
+   above it, and the rule between two groups is the pane's own, not a menu rule. */
+.setting-detail li + li > .admin-pane-group-title {
+  margin-top: 14px;
+}
+
+.setting-detail li.admin-pane-group-separator {
+  margin: 14px 0 0;
+}
+
+.setting-detail li.admin-pane-group-separator hr {
+  margin: 0;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+}
+
 /* Admin panel buttons should use theme darker color */
 .setting-content .content-body .main-body .setting-detail button.btn {
   background: var(--theme-accent, #005377);

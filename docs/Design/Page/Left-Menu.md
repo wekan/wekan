@@ -138,6 +138,13 @@ renaming a menu entry renames its pane title with it. It is also why a table pag
 inside the Admin Panel passes **no** `titleKey` — the section already rendered the
 heading, and the page would print the same words a second time.
 
+**Inside a pane, a group of settings may have its own title** —
+`.admin-pane-group-title`, deliberately **smaller** than the pane title, with a
+`<hr>` above it where a group needs separating from the one before. Admin Panel /
+Settings / Visibility is the example: All Boards, URL, Product name, Logo. The
+page then reads as one heading with groups under it, rather than as several pages
+stacked.
+
 Before this, only the paginated table pages had a title at all: Domains showed
 "Domains" while Login, Announcement, Accessibility, PWA, Version and the rest
 opened with no heading.

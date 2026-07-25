@@ -185,19 +185,19 @@ template(name='email')
     li
       button.js-send-smtp-test-email.primary {{_ 'send-smtp-test'}}
 
+//- Admin Panel / Settings / Visibility, in four named groups: what All Boards
+//- shows, the URLs, the product name and the logos. The groups are what makes a
+//- long single list readable - the settings themselves are unchanged, and so are
+//- their ids, so the one Save button at the bottom still reads every field it did
+//- before (it looks them up by id, not by position).
+//-
+//- A group title is smaller than the pane title above it (.admin-pane-group-title
+//- vs .admin-pane-title, settingBody.css), so the page reads as one heading with
+//- groups under it rather than as several pages.
 template(name='tableVisibilityModeSettings')
   ul#tableVisibilityMode-setting.setting-detail
-    li.tableVisibilityMode-form
-      .title {{_ 'custom-product-name'}}
-      .form-group
-        input.wekan-form-control#product-name(type="text", placeholder="" value="{{currentSetting.productName}}")
-    li.tableVisibilityMode-form
-      .title {{_ 'hide-logo'}}
-      .form-group.flex
-        input.wekan-form-control#hide-logo(type="radio" name="hideLogo" value="true" checked="{{#if currentSetting.hideLogo}}checked{{/if}}")
-        label {{_ 'yes'}}
-        input.wekan-form-control#hide-logo(type="radio" name="hideLogo" value="false" checked="{{#unless currentSetting.hideLogo}}checked{{/unless}}")
-        label {{_ 'no'}}
+    li
+      h2.admin-pane-group-title {{_ 'all-boards'}}
     li.tableVisibilityMode-form
       .title {{_ 'tableVisibilityMode-allowPrivateOnly'}}
       .form-group.flex
@@ -213,7 +213,6 @@ template(name='tableVisibilityModeSettings')
         input.wekan-form-control#hide-board-activities(type="radio" name="hideBoardActivitiesOnAllBoards" value="false" checked="{{#unless currentSetting.hideBoardActivitiesOnAllBoards}}checked{{/unless}}")
         label {{_ 'no'}}
       button.js-hide-board-activities-save.primary {{_ 'save'}}
-
     li.tableVisibilityMode-form
       .title {{_ 'hide-card-counter-list'}}
       .form-group.flex
@@ -228,6 +227,12 @@ template(name='tableVisibilityModeSettings')
         label {{_ 'yes'}}
         input.wekan-form-control#hide-board-member-list(type="radio" name="hideBoardMemberList" value="false" checked="{{#unless currentSetting.hideBoardMemberList}}checked{{/unless}}")
         label {{_ 'no'}}
+    li.tableVisibilityMode-form
+      .title {{_ 'wait-spinner'}}
+      +selectSpinnerName(spinnerName=currentSetting.spinnerName)
+
+    li
+      h2.admin-pane-group-title {{_ 'settings-group-url'}}
     li
       a(href="/support" style="text-decoration: underline; color: blue;") {{_ 'support'}}
     li
@@ -252,12 +257,38 @@ template(name='tableVisibilityModeSettings')
           li
             button.js-support-save.primary {{_ 'save'}}
     li.tableVisibilityMode-form
+      .title {{_ 'custom-help-link-url'}}
+      .form-group
+        input.wekan-form-control#custom-help-link-url(type="text", placeholder="" value="{{currentSetting.customHelpLinkUrl}}")
+    li.tableVisibilityMode-form
       .title {{_ 'custom-legal-notice-link-url'}}
       .form-group
         input.wekan-form-control#legalNoticevalue(type="text", placeholder="" value="{{currentSetting.legalNotice}}")
     li.tableVisibilityMode-form
-      .title {{_ 'wait-spinner'}}
-      +selectSpinnerName(spinnerName=currentSetting.spinnerName)
+      .title {{_ 'automatic-linked-url-schemes'}}
+      .form-group
+        textarea#automatic-linked-url-schemes.wekan-form-control= currentSetting.automaticLinkedUrlSchemes
+
+    li.admin-pane-group-separator
+      hr
+    li
+      h2.admin-pane-group-title {{_ 'settings-group-product-name'}}
+    li.tableVisibilityMode-form
+      .title {{_ 'custom-product-name'}}
+      .form-group
+        input.wekan-form-control#product-name(type="text", placeholder="" value="{{currentSetting.productName}}")
+
+    li.admin-pane-group-separator
+      hr
+    li
+      h2.admin-pane-group-title {{_ 'settings-group-logo'}}
+    li.tableVisibilityMode-form
+      .title {{_ 'hide-logo'}}
+      .form-group.flex
+        input.wekan-form-control#hide-logo(type="radio" name="hideLogo" value="true" checked="{{#if currentSetting.hideLogo}}checked{{/if}}")
+        label {{_ 'yes'}}
+        input.wekan-form-control#hide-logo(type="radio" name="hideLogo" value="false" checked="{{#unless currentSetting.hideLogo}}checked{{/unless}}")
+        label {{_ 'no'}}
     li.tableVisibilityMode-form
       .title {{_ 'custom-login-logo-image-url'}}
       .form-group
@@ -266,10 +297,6 @@ template(name='tableVisibilityModeSettings')
       .title {{_ 'custom-login-logo-link-url'}}
       .form-group
         input.wekan-form-control#custom-login-logo-link-url(type="text", placeholder="" value="{{currentSetting.customLoginLogoLinkUrl}}")
-    li.tableVisibilityMode-form
-      .title {{_ 'custom-help-link-url'}}
-      .form-group
-        input.wekan-form-control#custom-help-link-url(type="text", placeholder="" value="{{currentSetting.customHelpLinkUrl}}")
     li.tableVisibilityMode-form
       .title {{_ 'text-below-custom-login-logo'}}
       .form-group
@@ -286,10 +313,8 @@ template(name='tableVisibilityModeSettings')
       .title {{_ 'custom-top-left-corner-logo-height'}}
       .form-group
         input.wekan-form-control#custom-top-left-corner-logo-height(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoHeight}}")
-    li.tableVisibilityMode-form
-      .title {{_ 'automatic-linked-url-schemes'}}
-      .form-group
-        textarea#automatic-linked-url-schemes.wekan-form-control= currentSetting.automaticLinkedUrlSchemes
+      //- One Save for the pane: it writes every field above that is rendered,
+      //- looked up by id - so grouping them changed nothing about what it saves.
       button.js-tableVisibilityMode-save.primary {{_ 'save'}}
 
 template(name='announcementSettings')

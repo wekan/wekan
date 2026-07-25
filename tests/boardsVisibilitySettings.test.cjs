@@ -102,6 +102,56 @@ test('the i18n keys are unchanged (the strings only moved)', () => {
   assert.strictEqual(en['hide-board-member-list'], 'Hide board member list on All Boards');
 });
 
+test('Visibility is four named groups, in order, and nothing was dropped', () => {
+  // A long flat list of settings with no grouping is the complaint this answers.
+  // The settings themselves are untouched - so is every id, which is what the one
+  // Save button at the bottom reads.
+  const pane = jade.slice(jade.indexOf("ul#tableVisibilityMode-setting"),
+    jade.indexOf("template(name='announcementSettings')"));
+  const groups = [...pane.matchAll(/h2\.admin-pane-group-title \{\{_ '([\w-]+)'\}\}/g)]
+    .map(m => m[1]);
+  assert.deepStrictEqual(groups,
+    ['all-boards', 'settings-group-url', 'settings-group-product-name', 'settings-group-logo'],
+    'four groups, top to bottom');
+  for (const key of groups) {
+    assert.ok(typeof en[key] === 'string' && en[key], `${key} must have an English string`);
+  }
+  // A group title is SMALLER than the pane title above it, or the page reads as
+  // several pages stacked rather than one with groups.
+  const css = read('client/components/settings/settingBody.css');
+  const size = cls => parseFloat(/font-size:\s*([\d.]+)rem/
+    .exec(new RegExp(`\\.${cls} \\{([^}]*)\\}`).exec(css)[1])[1]);
+  assert.ok(size('admin-pane-group-title') < size('admin-pane-title'),
+    'the group title must be smaller than the pane title');
+  // Each setting is in the group it belongs to.
+  const at = key => pane.indexOf(key);
+  const group = key => groups.filter(g => at(g) > -1 && at(g) < at(key)).pop();
+  for (const [key, expected] of [
+    ['tableVisibilityMode-allowPrivateOnly', 'all-boards'],
+    ['hide-activities-of-all-boards', 'all-boards'],
+    ['hide-card-counter-list', 'all-boards'],
+    ['hide-board-member-list', 'all-boards'],
+    ['wait-spinner', 'all-boards'],
+    ['support-page-enabled', 'settings-group-url'],
+    ['custom-help-link-url', 'settings-group-url'],
+    ['custom-legal-notice-link-url', 'settings-group-url'],
+    ['automatic-linked-url-schemes', 'settings-group-url'],
+    ['custom-product-name', 'settings-group-product-name'],
+    ['hide-logo', 'settings-group-logo'],
+    ['custom-login-logo-image-url', 'settings-group-logo'],
+    ['text-below-custom-login-logo', 'settings-group-logo'],
+    ['custom-top-left-corner-logo-height', 'settings-group-logo'],
+  ]) {
+    assert.ok(at(key) > -1, `${key} must still be in the pane`);
+    assert.strictEqual(group(key), expected, `${key} belongs under ${expected}`);
+  }
+  // A rule above the last two groups, and the pane's Save still last.
+  assert.strictEqual((pane.match(/li\.admin-pane-group-separator/g) || []).length, 2,
+    'a horizontal rule above Product name and above Logo');
+  assert.ok(pane.indexOf('js-tableVisibilityMode-save') > at('custom-top-left-corner-logo-height'),
+    'the pane Save button stays at the bottom, below every field it writes');
+});
+
 test('hide board activities sits in Visibility, under the visibility choice', () => {
   // It had a pane of its own for one radio pair. It is a visibility setting, so it
   // lives in the Visibility pane now - directly BELOW "allow private boards only".
@@ -115,10 +165,12 @@ test('hide board activities sits in Visibility, under the visibility choice', ()
   const activities = pane.indexOf("hide-activities-of-all-boards");
   assert.ok(activities > -1, 'it renders in the Visibility pane');
   assert.ok(allow > -1 && activities > allow, 'directly below the visibility choice');
-  // Branding fields the pane also owns go ABOVE that choice.
+  // The pane is in four named groups now (All Boards, URL, Product name, Logo), so
+  // the branding fields sit in their OWN groups, below the All Boards one.
   for (const key of ['custom-product-name', 'hide-logo']) {
     const at = pane.indexOf(key);
-    assert.ok(at > -1 && at < allow, key + ' belongs above the visibility choice');
+    assert.ok(at > -1 && at > allow,
+      key + ' belongs to a group of its own, below the All Boards settings');
   }
   // The old Layout button and handler stay gone.
   assert.ok(!pwa.includes('js-all-boards-hide-activities'), 'the Layout button must be gone');
