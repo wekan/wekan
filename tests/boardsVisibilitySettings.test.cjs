@@ -111,8 +111,13 @@ test('Visibility is four named groups, in order, and nothing was dropped', () =>
   const groups = [...pane.matchAll(/h2\.admin-pane-group-title \{\{_ '([\w-]+)'\}\}/g)]
     .map(m => m[1]);
   assert.deepStrictEqual(groups,
-    ['all-boards', 'settings-group-url', 'settings-group-product-name', 'settings-group-logo'],
+    ['all-boards', 'settings-group-url', 'custom-product-name', 'settings-group-logo'],
     'four groups, top to bottom');
+  // Product name holds ONE field, so its group title IS that field's label - with
+  // the label's existing translation, at the group title's size. Printing both said
+  // "Product name" twice.
+  assert.strictEqual((pane.match(/custom-product-name/g) || []).length, 1,
+    'the product name string must appear once in the pane, not as title AND label');
   for (const key of groups) {
     assert.ok(typeof en[key] === 'string' && en[key], `${key} must have an English string`);
   }
@@ -136,7 +141,9 @@ test('Visibility is four named groups, in order, and nothing was dropped', () =>
     ['custom-help-link-url', 'settings-group-url'],
     ['custom-legal-notice-link-url', 'settings-group-url'],
     ['automatic-linked-url-schemes', 'settings-group-url'],
-    ['custom-product-name', 'settings-group-product-name'],
+    // custom-product-name is not listed here: it is the Product name group's TITLE,
+    // checked in the group list above - the group holds one field, so the title is
+    // its label.
     ['hide-logo', 'settings-group-logo'],
     ['custom-login-logo-image-url', 'settings-group-logo'],
     ['text-below-custom-login-logo', 'settings-group-logo'],

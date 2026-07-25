@@ -272,9 +272,11 @@ template(name='tableVisibilityModeSettings')
     li.admin-pane-group-separator
       hr
     li
-      h2.admin-pane-group-title {{_ 'settings-group-product-name'}}
+      //- The group title IS the field's label here: the group holds one field, so a
+      //- title above a label that says the same thing said it twice. The group title
+      //- keeps its size and takes the field's existing translation.
+      h2.admin-pane-group-title {{_ 'custom-product-name'}}
     li.tableVisibilityMode-form
-      .title {{_ 'custom-product-name'}}
       .form-group
         input.wekan-form-control#product-name(type="text", placeholder="" value="{{currentSetting.productName}}")
 
