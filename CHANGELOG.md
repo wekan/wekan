@@ -196,6 +196,31 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
 
 This release fixes the following bugs:
 
+- [In mobile mode the board fits the width again. The lists area was slightly too wide,
+  giving a horizontal scrollbar with a small amount to scroll right and nothing there to
+  see. Two causes: `100vw` sizing, which had been fixed in one stylesheet but was still
+  in two more — including the mobile list rows themselves — and which is the viewport
+  width INCLUDING the vertical scrollbar, so each of those was a scrollbar wider than the
+  box it sat in; and box-sizing, which is globally unset, so every rule setting both a
+  full width and padding came out 32px wider than its parent, at four nesting levels.
+  Viewport width is kept where it is correct — a position:fixed overlay such as the
+  mobile card details, a popover, the sidebar or the notifications drawer is sized to the
+  viewport by definition](https://github.com/wekan/wekan/commit/a5850296a).
+  Thanks to xet7.
+- [In mobile mode the swimlane title, the list title, the board title and everything in
+  the top bar sit on the vertical centre of their row instead of high up. The swimlane
+  title was a block at the top of a band sized by its padding and the icons beside it;
+  the list title was pinned to the bottom of one grid row with the card count pinned to
+  the top of the next, so the pair hugged the middle and, with no card count, the title
+  sat in the upper half; and the two header bars centred their contents inside boxes that
+  were shorter than the touch-sized buttons in them, or padded above but not
+  below](https://github.com/wekan/wekan/commit/a5850296a).
+  Thanks to xet7.
+- [In mobile mode, clicking the Add List + no longer opens the list as well. The whole
+  list row is a link that opens the list and the + sits inside it, so one click did both.
+  The handler prevented the link default, which is a different thing from stopping the
+  click travelling up to the row](https://github.com/wekan/wekan/commit/df27e349d).
+  Thanks to xet7.
 - [In mobile mode the "Add List" + moved into each list header, between the caret and
   the drag handle, and the row it used to occupy is gone — a whole row of a phone screen
   spent on one button. Desktop had already done this, so the two had drifted apart; the
