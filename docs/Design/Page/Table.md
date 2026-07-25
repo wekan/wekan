@@ -40,26 +40,16 @@ is visible rather than forgotten.
 
 | Table name | Menu path | Why it does not use this design |
 | --- | --- | --- |
-| People — three of its seven panes | Admin Panel / People | Locked users, Roles and Shared templates still have their own controls and table markup, one set per pane, so People is several tables on one page rather than one. The pane-specific extras it needed — a filter dropdown, action buttons and a result count — are now part of this design (see [Controls](#controls)), so nothing blocks the rest; they are simply not converted yet. **Domains, Organizations, Teams and People are converted** and are listed in the table below. |
+| People — its three non-table panes | Admin Panel / People | Locked users, Roles and Shared templates are **not tables**: Locked users is a form of numeric lockout settings with a Save button, Roles is a checkbox list, and Shared templates is a checkbox list of scopes. There is no paginated set of rows to render, so this design does not apply to them and forcing it would only add a table around a form. All four of People's TABLE panes — Domains, Organizations, Teams and People — are converted and listed below. |
 
-What People already shares, and what converting it would take:
+People's four table panes are converted. What is left there is one loose end, not
+a blocker:
 
-- It **does** page server-side with `limit`/`skip`, one page at a time, exactly as
-  [Data loading](#data-loading) requires — that part needs no change.
-- Its prev/next buttons **are** themed by the shared pager stylesheet, through the
-  `.people-pagination` class listed in `paginationControls.css` — so it already
-  follows the per-user theme and the WeKan default.
-- What is missing is on this side: the shared template needs optional slots in the
-  controls row for a **filter**, for extra **actions**, and for a **total**, all
-  rendered only when a page supplies them. Those are general — a Boards or Cards
-  report could use them too — so they belong here rather than in a per-page copy.
-  The Search button is not worth carrying over: every table page searches on Enter,
-  and People should join that rather than the template growing a second way to
-  search.
-
-Until then People keeps its own markup. Do **not** copy this design's classes into
-it piecemeal: half-converted is how the ten report pages drifted apart in the first
-place.
+- Its **search box, filter dropdown and two action buttons** still live in the page
+  header rather than in the shared controls row. The slots for all three exist —
+  they were added to this design *from* People — so this is wiring, not design.
+- Its Search BUTTON should go when they move: every table page searches on Enter,
+  and a second way to search is the divergence this design removes.
 
 ## Pages that use this design
 

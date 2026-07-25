@@ -469,7 +469,8 @@ test('the doc records which pages do NOT use this design, and why', () => {
   assert.ok(why && why[1].trim().length > 80, 'the reason must actually explain');
   // Domains IS converted, so the entry must say so and the pane must render
   // through the shared template - not carry markup of its own.
-  assert.ok(/Domains, Organizations, Teams and People are converted/.test(section), 'the entry must record the converted pane');
+  assert.ok(/are converted and listed below/.test(section),
+    'the entry must record that the table panes are converted');
   const people = read('client/components/settings/peopleBody.jade');
   const domains = people.slice(people.indexOf('template(name="domainGeneral")'),
     people.indexOf('template(name="newOrgRow")'));
@@ -589,6 +590,26 @@ test('the People pane renders through the shared table page', () => {
   // All four table panes share one scoped pager pair.
   for (const pane of ['org-setting', 'team-setting', 'people-setting']) {
     assert.ok(js.includes(`pane === '${pane}'`), `${pane} must be handled by the shared pager`);
+  }
+});
+
+test('the three non-table People panes are recorded as such, not forced in', () => {
+  // Locked users is a form, Roles and Shared templates are checkbox lists. There
+  // is no paginated set of rows, so the design does not apply - and the doc has to
+  // say WHY, or someone will try to convert them.
+  const at = doc.indexOf('## Pages that do not use this design');
+  const section = doc.slice(at, doc.indexOf('## Pages that use this design'));
+  for (const pane of ['Locked users', 'Roles', 'Shared templates']) {
+    assert.ok(section.includes(pane), `${pane} must be listed with its reason`);
+  }
+  assert.ok(/not tables/i.test(section), 'and the reason must be that they are not tables');
+  // Still true in the code: none of them renders the shared table page.
+  const people = read('client/components/settings/peopleBody.jade');
+  for (const [name, next] of [['lockedUsersGeneral', 'rolesGeneral'],
+    ['rolesGeneral', 'templatesGeneral']]) {
+    const pane = people.slice(people.indexOf(`template(name="${name}")`),
+      people.indexOf(`template(name="${next}")`));
+    assert.ok(!/\+tablePage/.test(pane), `${name} must not render a table page`);
   }
 });
 
