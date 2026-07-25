@@ -152,9 +152,14 @@ test('Visibility is four named groups, in order, and nothing was dropped', () =>
     assert.ok(at(key) > -1, `${key} must still be in the pane`);
     assert.strictEqual(group(key), expected, `${key} belongs under ${expected}`);
   }
-  // A rule above the last two groups, and the pane's Save still last.
-  assert.strictEqual((pane.match(/li\.admin-pane-group-separator/g) || []).length, 2,
-    'a horizontal rule above Product name and above Logo');
+  // A rule above every group but the first - All Boards opens the pane directly
+  // under its title, so a rule there would separate it from nothing.
+  assert.strictEqual((pane.match(/li\.admin-pane-group-separator/g) || []).length,
+    groups.length - 1,
+    'a horizontal rule above URL, Product name and Logo, but not above All Boards');
+  const firstRule = pane.indexOf('li.admin-pane-group-separator');
+  assert.ok(firstRule > pane.indexOf("_ 'all-boards'") && firstRule < pane.indexOf("settings-group-url"),
+    'the first rule sits between the All Boards group and the URL title');
   assert.ok(pane.indexOf('js-tableVisibilityMode-save') > at('custom-top-left-corner-logo-height'),
     'the pane Save button stays at the bottom, below every field it writes');
 });
