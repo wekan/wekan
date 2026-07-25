@@ -187,6 +187,15 @@ Settings.attachSchema(
       type: Boolean,
       optional: true,
     },
+    // Hide the activity feed on EVERY board, instance-wide. Read once from this
+    // global setting instead of being written into every board document: the old
+    // implementation bulk-updated showActivities:false on all boards, which could
+    // not be undone (the previous per-board values were gone) and did nothing for
+    // boards created afterwards.
+    hideBoardActivitiesOnAllBoards: {
+      type: Boolean,
+      optional: true,
+    },
     customLoginLogoImageUrl: {
       type: String,
       optional: true,

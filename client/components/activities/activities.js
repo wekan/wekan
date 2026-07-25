@@ -74,6 +74,12 @@ Template.activities.onCreated(function () {
 });
 
 function _showActivities(data) {
+  // Instance-wide switch (Admin Panel / Settings / Hide board activities on all
+  // boards). Read ONCE from the global settings; when it is on, no board shows
+  // its activities and the per-board value is not consulted at all.
+  if (ReactiveCache.getCurrentSetting()?.hideBoardActivitiesOnAllBoards) {
+    return false;
+  }
   let ret = false;
   let mode = data?.mode;
   if (mode) {

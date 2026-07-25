@@ -2,8 +2,12 @@
 
 // "Hide card counter list on All Boards" and "Hide board member list on All
 // Boards" moved from Admin Panel / Settings / Layout to Admin Panel / Settings /
-// Boards visibility, which is where the rest of "what All Boards shows" lives
-// (the pane's i18n key is tableVisibilityMode; its label is "Boards visibility").
+// Visibility, which is where the rest of "what All Boards shows" lives (the
+// pane id and its own i18n key are still tableVisibilityMode; the menu label is
+// now the "visibility" key).
+//
+// "Don't show the board activities on all boards" moved out of Layout too, into
+// its own pane, and stopped being a bulk write over every board.
 //
 // The move has a trap worth guarding: the Layout save read those two radios with
 //   $('input[name=hideCardCounterList]:checked').val() === 'true'
@@ -38,14 +42,18 @@ const layout = template('layoutSettings');
 
 console.log('boardsVisibilitySettings:');
 
-test('the pane really is the one shown as "Boards visibility"', () => {
-  assert.strictEqual(en.tableVisibilityMode, 'Boards visibility',
-    'if this label changes, this test is pointing at the wrong pane');
+test('the pane is the one shown as "Visibility"', () => {
+  // The menu label is the 'visibility' key; the pane id and its own
+  // tableVisibilityMode key are unchanged, so its 141 translations still apply.
+  assert.strictEqual(en.visibility, 'Visibility');
+  const js = read('client/components/settings/settingBody.js');
+  assert.ok(/id: 'tableVisibilityMode-setting'[^}]*labelKey: 'visibility'/.test(js),
+    'the menu entry for this pane must be labelled with the visibility key');
 });
 
-test('both settings are now in Boards visibility', () => {
+test('both settings are now in the Visibility pane', () => {
   for (const id of ['hide-card-counter-list', 'hide-board-member-list']) {
-    assert.ok(boardsVisibility.includes(id), `${id} must be in the Boards visibility pane`);
+    assert.ok(boardsVisibility.includes(id), `${id} must be in the Visibility pane`);
   }
   // Radios, with both states bound to the stored value as before.
   assert.ok(/name="hideCardCounterList"[\s\S]*?checked="\{\{#if currentSetting\.hideCardCounterList\}\}/.test(boardsVisibility));
@@ -69,7 +77,7 @@ test('the Layout save no longer writes them (this is the trap)', () => {
     'settings OFF every time Layout is saved');
 });
 
-test('the Boards visibility save writes them, and only what it found', () => {
+test('the Visibility save writes them, and only what it found', () => {
   const save = js.slice(js.indexOf("'click button.js-tableVisibilityMode-save'"));
   const body = save.slice(0, save.indexOf('\n  },') + 4);
   assert.ok(/allowPrivateOnly/.test(body), 'it still saves its own setting');
@@ -85,6 +93,35 @@ test('the Boards visibility save writes them, and only what it found', () => {
 test('the i18n keys are unchanged (the strings only moved)', () => {
   assert.strictEqual(en['hide-card-counter-list'], 'Hide card counter list on All Boards');
   assert.strictEqual(en['hide-board-member-list'], 'Hide board member list on All Boards');
+});
+
+test('hide board activities is its own pane, not a Layout button', () => {
+  assert.ok(jade.includes("template(name='hideBoardActivitiesSettings')"),
+    'it has its own pane now');
+  assert.ok(!layout.includes('js-all-boards-hide-activities'),
+    'the Layout button must be gone');
+  assert.ok(!js.includes('js-all-boards-hide-activities'),
+    'and its handler with it');
+  assert.ok(/id: 'hideBoardActivities-setting'/.test(js), 'it has a menu entry');
+});
+
+test('hide board activities is ONE global setting, not a write per board', () => {
+  // The old implementation bulk-updated showActivities:false on every board
+  // document. That could not be undone - the per-board values were overwritten
+  // and gone - and did nothing for boards created afterwards.
+  const save = js.slice(js.indexOf("'click button.js-hide-board-activities-save'"));
+  const body = save.slice(0, save.indexOf('\n  },') + 4);
+  assert.ok(/Settings\.update\(ReactiveCache\.getCurrentSetting\(\)\._id/.test(body),
+    'it writes ONE global setting');
+  assert.ok(!/Boards\.update/.test(body), 'and never touches board documents');
+  assert.ok(/=== undefined/.test(body), 'a missing radio is skipped, not saved as false');
+  // Schema field exists, and the read side consults it FIRST.
+  assert.ok(/hideBoardActivitiesOnAllBoards: \{\s*type: Boolean/.test(read('models/settings.js')),
+    'the global flag must be in the Settings schema');
+  const activities = read('client/components/activities/activities.js');
+  const fn = activities.slice(activities.indexOf('function _showActivities'));
+  assert.ok(fn.indexOf('hideBoardActivitiesOnAllBoards') < fn.indexOf('let ret = false'),
+    'the global flag is read once, before any per-board value');
 });
 
 console.log(`\nboardsVisibilitySettings: ${passed} tests passed`);

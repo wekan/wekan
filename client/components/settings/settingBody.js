@@ -232,6 +232,7 @@ Template.setting.onCreated(function () {
   this.emailSetting = new ReactiveVar(false);
   this.accountSetting = new ReactiveVar(false);
   this.tableVisibilityModeSetting = new ReactiveVar(false);
+  this.hideBoardActivitiesSetting = new ReactiveVar(false);
   this.announcementSetting = new ReactiveVar(false);
   this.accessibilitySetting = new ReactiveVar(false);
   this.layoutSetting = new ReactiveVar(false);
@@ -335,7 +336,11 @@ function settingsMenu() {
     // No e-mail settings on Sandstorm; a null entry is dropped, not rendered empty.
     isSandstorm ? null : { id: 'email-setting', icon: 'fa-envelope', labelKey: 'email', emoji: true },
     { id: 'account-setting', icon: 'fa-users', labelKey: 'accounts', emoji: true },
-    { id: 'tableVisibilityMode-setting', icon: 'fa-eye', labelKey: 'tableVisibilityMode', emoji: true },
+    // Labelled just 'Visibility' now. The pane id and the tableVisibilityMode
+    // key are unchanged, so the 141 translations of the pane's own contents are
+    // untouched; only the menu label points at the new key.
+    { id: 'tableVisibilityMode-setting', icon: 'fa-eye', labelKey: 'visibility', emoji: true },
+    { id: 'hideBoardActivities-setting', icon: 'fa-eye-slash', labelKey: 'hide-activities-of-all-boards', emoji: true },
     { id: 'announcement-setting', icon: 'fa-bullhorn', labelKey: 'admin-announcement', emoji: true },
     { id: 'accessibility-setting', icon: 'fa-universal-access', labelKey: 'accessibility', emoji: true },
     { id: 'layout-setting', icon: 'fa-link', labelKey: 'layout', emoji: true },
@@ -352,6 +357,7 @@ function activeSettingId(inst) {
     ['emailSetting', 'email-setting'],
     ['accountSetting', 'account-setting'],
     ['tableVisibilityModeSetting', 'tableVisibilityMode-setting'],
+    ['hideBoardActivitiesSetting', 'hideBoardActivities-setting'],
     ['announcementSetting', 'announcement-setting'],
     ['accessibilitySetting', 'accessibility-setting'],
     ['layoutSetting', 'layout-setting'],
@@ -379,6 +385,10 @@ Template.setting.helpers({
   isAccountSetting() {
     const inst = Template.instance();
     return inst.accountSetting && inst.accountSetting.get();
+  },
+  isHideBoardActivitiesSetting() {
+    const inst = Template.instance();
+    return inst.hideBoardActivitiesSetting && inst.hideBoardActivitiesSetting.get();
   },
   isTableVisibilityModeSetting() {
     const inst = Template.instance();
@@ -557,6 +567,7 @@ Template.setting.events({
       tpl.emailSetting.set(false);
       tpl.accountSetting.set(false);
       tpl.tableVisibilityModeSetting.set(false);
+    tpl.hideBoardActivitiesSetting.set(false);
       tpl.announcementSetting.set(false);
       tpl.accessibilitySetting.set(false);
       tpl.layoutSetting.set(false);
@@ -571,6 +582,8 @@ Template.setting.events({
         tpl.accountSetting.set(true);
       } else if (targetID === 'tableVisibilityMode-setting') {
         tpl.tableVisibilityModeSetting.set(true);
+      } else if (targetID === 'hideBoardActivities-setting') {
+        tpl.hideBoardActivitiesSetting.set(true);
       } else if (targetID === 'announcement-setting') {
         tpl.announcementSetting.set(true);
       } else if (targetID === 'accessibility-setting') {
@@ -1046,22 +1059,6 @@ Template.accountSettings.events({
       $set: { booleanValue: allowUserDelete },
     });
   },
-  'click button.js-all-boards-hide-activities'() {
-    Meteor.call('setAllBoardsHideActivities', (err, ret) => {
-      if (!err && ret) {
-        if (ret === true) {
-          const message = `${TAPi18n.__(
-            'now-activities-of-all-boards-are-hidden',
-          )}`;
-          alert(message);
-        }
-      } else {
-        const reason = err.reason || '';
-        const message = `${TAPi18n.__(err.error)}\n${reason}`;
-        alert(message);
-      }
-    });
-  },
 });
 
 Template.tableVisibilityModeSettings.helpers({
@@ -1073,6 +1070,20 @@ Template.tableVisibilityModeSettings.helpers({
 });
 
 Template.tableVisibilityModeSettings.events({
+  // Instance-wide 'hide board activities'. This used to be a button that bulk
+  // updated showActivities:false on EVERY board document - which could not be
+  // undone (the per-board values were overwritten and gone) and did nothing for
+  // boards created later. It is one global setting now, read once by the activity
+  // feed, so turning it off restores every board's own value.
+  'click button.js-hide-board-activities-save'() {
+    const value = $('input[name=hideBoardActivitiesOnAllBoards]:checked').val();
+    if (value === undefined) {
+      return;
+    }
+    Settings.update(ReactiveCache.getCurrentSetting()._id, {
+      $set: { hideBoardActivitiesOnAllBoards: value === 'true' },
+    });
+  },
   'click button.js-tableVisibilityMode-save'() {
     const allowPrivateOnly =
       $('input[name=allowPrivateOnly]:checked').val() === 'true';
@@ -1096,22 +1107,6 @@ Template.tableVisibilityModeSettings.events({
     if (Object.keys($set).length) {
       Settings.update(ReactiveCache.getCurrentSetting()._id, { $set });
     }
-  },
-  'click button.js-all-boards-hide-activities'() {
-    Meteor.call('setAllBoardsHideActivities', (err, ret) => {
-      if (!err && ret) {
-        if (ret === true) {
-          const message = `${TAPi18n.__(
-            'now-activities-of-all-boards-are-hidden',
-          )}`;
-          alert(message);
-        }
-      } else {
-        const reason = err.reason || '';
-        const message = `${TAPi18n.__(err.error)}\n${reason}`;
-        alert(message);
-      }
-    });
   },
 });
 

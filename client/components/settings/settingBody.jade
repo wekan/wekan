@@ -59,6 +59,8 @@ template(name="setting")
             +accountSettings
           else if isTableVisibilityModeSetting
             +tableVisibilityModeSettings
+          else if isHideBoardActivitiesSetting
+            +hideBoardActivitiesSettings
           else if isAnnouncementSetting
             +announcementSettings
           else if isAccessibilitySetting
@@ -264,10 +266,19 @@ template(name='accessibilitySettings')
           li
             button.js-accessibility-save.primary {{_ 'save'}}
 
+template(name='hideBoardActivitiesSettings')
+  ul#hideBoardActivities-setting.setting-detail
+    li.hideBoardActivities-form
+      .title {{_ 'hide-activities-of-all-boards'}}
+      .form-group.flex
+        input.wekan-form-control#hide-board-activities(type="radio" name="hideBoardActivitiesOnAllBoards" value="true" checked="{{#if currentSetting.hideBoardActivitiesOnAllBoards}}checked{{/if}}")
+        label {{_ 'yes'}}
+        input.wekan-form-control#hide-board-activities(type="radio" name="hideBoardActivitiesOnAllBoards" value="false" checked="{{#unless currentSetting.hideBoardActivitiesOnAllBoards}}checked{{/unless}}")
+        label {{_ 'no'}}
+      button.js-hide-board-activities-save.primary {{_ 'save'}}
+
 template(name='layoutSettings')
   ul#layout-setting.setting-detail
-    li
-      button.js-all-boards-hide-activities.primary {{_ 'hide-activities-of-all-boards'}}
     li
       a(href="/support" style="text-decoration: underline; color: blue;") {{_ 'support'}}
     li

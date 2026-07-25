@@ -299,28 +299,14 @@ Meteor.methods({
     return [...new Set(boards.map(board => board.title))].sort();
   },
 
-  async setAllBoardsHideActivities() {
-    const currentUser = await ReactiveCache.getCurrentUser();
-    if (!(currentUser || {}).isAdmin) {
-      return false;
-    }
-
-    await Boards.updateAsync(
-      {
-        showActivities: true,
-      },
-      {
-        $set: {
-          showActivities: false,
-        },
-      },
-      {
-        multi: true,
-      },
-    );
-    return true;
-  },
-
+  // setAllBoardsHideActivities() was here. It bulk-set showActivities:false on
+  // EVERY board document, which overwrote each board's own value for good and
+  // still did nothing for boards created afterwards. Hiding activities
+  // everywhere is one global setting now - Admin Panel / Settings / Hide board
+  // activities on all boards, stored as Settings.hideBoardActivitiesOnAllBoards
+  // and read once by the activity feed - so turning it off restores every
+  // board's own setting. The method is removed rather than left callable: it is
+  // unreachable from the UI and its only effect was the destructive write.
   async archiveBoard(boardId) {
     check(boardId, String);
     const board = await ReactiveCache.getBoard(boardId);
