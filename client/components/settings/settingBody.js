@@ -345,7 +345,9 @@ function settingsMenu() {
     { id: 'hideBoardActivities-setting', icon: 'fa-eye-slash', labelKey: 'hide-activities-of-all-boards', emoji: true },
     { id: 'announcement-setting', icon: 'fa-bullhorn', labelKey: 'admin-announcement', emoji: true },
     { id: 'accessibility-setting', icon: 'fa-universal-access', labelKey: 'accessibility', emoji: true },
-    { id: 'layout-setting', icon: 'fa-link', labelKey: 'layout', emoji: true },
+    // PWA is an acronym, not a translated string - a literal label, like the
+    // Sandstorm entry in Admin Panel / Attachments.
+    { id: 'layout-setting', icon: 'fa-mobile', label: 'PWA', emoji: true },
     { id: 'webhook-setting', icon: 'fa-globe', labelKey: 'global-webhook', emoji: true },
   ];
 }
@@ -676,62 +678,7 @@ Template.setting.events({
       }
     });
   },
-  'click button.js-save-layout'(event, tpl) {
-    tpl.loading.set(true);
-    $('li').removeClass('has-error');
 
-    const productName = ($('#product-name').val() || '').trim();
-    const customLoginLogoImageUrl = (
-      $('#custom-login-logo-image-url').val() || ''
-    ).trim();
-    const customLoginLogoLinkUrl = (
-      $('#custom-login-logo-link-url').val() || ''
-    ).trim();
-    const customHelpLinkUrl = ($('#custom-help-link-url').val() || '').trim();
-    const textBelowCustomLoginLogo = (
-      $('#text-below-custom-login-logo').val() || ''
-    ).trim();
-    const automaticLinkedUrlSchemes = (
-      $('#automatic-linked-url-schemes').val() || ''
-    ).trim();
-    const customTopLeftCornerLogoImageUrl = (
-      $('#custom-top-left-corner-logo-image-url').val() || ''
-    ).trim();
-    const customTopLeftCornerLogoLinkUrl = (
-      $('#custom-top-left-corner-logo-link-url').val() || ''
-    ).trim();
-    const customTopLeftCornerLogoHeight = (
-      $('#custom-top-left-corner-logo-height').val() || ''
-    ).trim();
-
-    const oidcBtnText = ($('#oidcBtnTextvalue').val() || '').trim();
-    const hideLogoChange = $('input[name=hideLogo]:checked').val() === 'true';
-    // #5879: the <select> options are populated by an async Meteor.call, so its
-
-    try {
-      Settings.update(ReactiveCache.getCurrentSetting()._id, {
-        $set: {
-          productName,
-          hideLogo: hideLogoChange,
-          customLoginLogoImageUrl,
-          customLoginLogoLinkUrl,
-          customHelpLinkUrl,
-          textBelowCustomLoginLogo,
-          customTopLeftCornerLogoImageUrl,
-          customTopLeftCornerLogoLinkUrl,
-          customTopLeftCornerLogoHeight,
-          automaticLinkedUrlSchemes,
-          oidcBtnText,
-        },
-      });
-    } catch (e) {
-      return;
-    } finally {
-      tpl.loading.set(false);
-    }
-
-    document.title = productName;
-  },
   'click a.js-toggle-support'(event, tpl) {
     tpl.loading.set(true);
     const supportPageEnabled = !$(
@@ -1041,6 +988,9 @@ Template.accountSettings.events({
       );
       $settings.defaultAuthenticationMethod = defaultAuthenticationMethod;
     }
+    if ($('#oidcBtnTextvalue').length) {
+      $settings.oidcBtnText = ($('#oidcBtnTextvalue').val() || '').trim();
+    }
     if (Object.keys($settings).length) {
       Settings.update(ReactiveCache.getCurrentSetting()._id, { $set: $settings });
     }
@@ -1106,6 +1056,31 @@ Template.tableVisibilityModeSettings.events({
     // Moved here with their inputs (same reason as the domain name above): the
     // Layout save read them, and a missing input reads as '' - which would have
     // been written over the stored value.
+    // The branding group moved here from the old Layout pane together with its
+    // inputs. Each field is written only when its input is actually rendered, so
+    // this pane can never blank a setting it is not showing.
+    const text = sel => ($(sel).val() || '').trim();
+    if ($('#product-name').length) {
+      $set.productName = text('#product-name');
+      document.title = $set.productName;
+    }
+    if ($('input[name=hideLogo]:checked').val() !== undefined) {
+      $set.hideLogo = $('input[name=hideLogo]:checked').val() === 'true';
+    }
+    for (const [sel, key] of [
+      ['#custom-login-logo-image-url', 'customLoginLogoImageUrl'],
+      ['#custom-login-logo-link-url', 'customLoginLogoLinkUrl'],
+      ['#custom-help-link-url', 'customHelpLinkUrl'],
+      ['#text-below-custom-login-logo', 'textBelowCustomLoginLogo'],
+      ['#custom-top-left-corner-logo-image-url', 'customTopLeftCornerLogoImageUrl'],
+      ['#custom-top-left-corner-logo-link-url', 'customTopLeftCornerLogoLinkUrl'],
+      ['#custom-top-left-corner-logo-height', 'customTopLeftCornerLogoHeight'],
+      ['#automatic-linked-url-schemes', 'automaticLinkedUrlSchemes'],
+    ]) {
+      if ($(sel).length) {
+        $set[key] = text(sel);
+      }
+    }
     if ($('#spinnerName').length) {
       $set.spinnerName = ($('#spinnerName').val() || '').trim();
     }

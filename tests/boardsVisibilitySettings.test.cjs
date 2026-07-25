@@ -13,7 +13,7 @@
 //   $('input[name=hideCardCounterList]:checked').val() === 'true'
 // If that read is left behind after the inputs move, :checked matches nothing,
 // .val() is undefined, the comparison yields FALSE, and pressing Save on Layout
-// silently turns both settings OFF. So the reads must be gone from Layout, and
+// silently turns both settings OFF. So the reads must not be in PWA, and
 // the new ones must not write a value they did not find.
 //
 // Run: node tests/boardsVisibilitySettings.test.cjs
@@ -46,7 +46,9 @@ function handler(name) {
   return js.slice(at, js.indexOf('\n  },', at) + 5);
 }
 const boardsVisibility = template('tableVisibilityModeSettings');
-const layout = template('layoutSettings');
+// The old Layout pane is now PWA and holds only the PWA settings, so every
+// 'must not be in PWA' check becomes 'must not be in PWA'.
+const pwa = template('pwaSettings');
 
 console.log('boardsVisibilitySettings:');
 
@@ -73,15 +75,13 @@ test('both settings are now in the Visibility pane', () => {
 test('neither setting is left behind in Layout', () => {
   for (const id of ['hide-card-counter-list', 'hide-board-member-list',
     'hideCardCounterList', 'hideBoardMemberList']) {
-    assert.ok(!layout.includes(id), `${id} must be gone from the Layout pane`);
+    assert.ok(!pwa.includes(id), `${id} must not be in the PWA pane`);
   }
 });
 
 test('the Layout save no longer writes them (this is the trap)', () => {
-  const save = handler('js-save-layout');
-  assert.ok(!/hideCardCounterList/.test(save) && !/hideBoardMemberList/.test(save),
-    'a leftover read would resolve to undefined, compare false, and turn both ' +
-    'settings OFF every time Layout is saved');
+  assert.ok(!js.includes('js-save-layout'),
+    'the Layout save is gone entirely - its fields moved with their inputs');
 });
 
 test('the Visibility save writes them, and only what it found', () => {
@@ -105,7 +105,7 @@ test('the i18n keys are unchanged (the strings only moved)', () => {
 test('hide board activities is its own pane, not a Layout button', () => {
   assert.ok(jade.includes("template(name='hideBoardActivitiesSettings')"),
     'it has its own pane now');
-  assert.ok(!layout.includes('js-all-boards-hide-activities'),
+  assert.ok(!pwa.includes('js-all-boards-hide-activities'),
     'the Layout button must be gone');
   assert.ok(!js.includes('js-all-boards-hide-activities'),
     'and its handler with it');
@@ -186,7 +186,7 @@ test('Support, Email domain name and Legal notice moved out of Layout', () => {
   assert.ok(email.includes('can-invite-if-same-mailDomainName'), 'Email domain name is in Email');
   for (const gone of ['js-toggle-support', 'can-invite-if-same-mailDomainName',
     'custom-legal-notice-link-url']) {
-    assert.ok(!layout.includes(gone), `${gone} must be gone from Layout`);
+    assert.ok(!pwa.includes(gone), `${gone} must not be in PWA`);
   }
 });
 
@@ -194,9 +194,7 @@ test('the Layout save cannot wipe the two moved text fields', () => {
   // These are TEXT inputs, so the trap is worse than for a radio: a missing
   // input reads as undefined, ('' || '').trim() is '', and saving Layout would
   // have written an EMPTY string over the stored value.
-  const save = handler('js-save-layout');
-  assert.ok(!/mailDomainName/.test(save) && !/legalNotice/.test(save),
-    'the Layout save must not read or write either field any more');
+  assert.ok(!js.includes('js-save-layout'), 'the Layout save is gone');
   // Their new homes write them only when the input is actually present.
   assert.ok(/\$\('#mailDomainNamevalue'\)\.length/.test(js),
     'the Email save guards on the input existing');
@@ -208,13 +206,12 @@ test('the authentication-method settings moved to Login', () => {
   const login = jade.slice(jade.indexOf('ul#registration-setting'), jade.indexOf("template(name='email')"));
   assert.ok(login.includes('display-authentication-method'), 'the Yes/No is in Login');
   assert.ok(login.includes('+selectAuthenticationMethod'), 'the method dropdown with it');
-  assert.ok(!layout.includes('display-authentication-method'), 'gone from Layout');
-  assert.ok(!layout.includes('selectAuthenticationMethod'), 'dropdown gone from Layout');
+  assert.ok(!pwa.includes('display-authentication-method'), 'not in PWA');
+  assert.ok(!pwa.includes('selectAuthenticationMethod'), 'dropdown not in PWA');
 });
 
 test('the Login save keeps the empty-value guard the Layout save had', () => {
-  const laySave = handler('js-save-layout');
-  assert.ok(!/AuthenticationMethod/.test(laySave), 'Layout no longer saves either');
+  assert.ok(!js.includes('js-save-layout'), 'the Layout save is gone');
   const body = handler('js-account-access-save');
   // The dropdown can read '' when nothing is chosen; saving that over the
   // REQUIRED defaultAuthenticationMethod string fails validation silently, which
@@ -230,10 +227,8 @@ test('Wait Spinner moved to Visibility', () => {
   const visibility = template('tableVisibilityModeSettings');
   assert.ok(visibility.includes("{{_ 'wait-spinner'}}"), 'the setting is in Visibility');
   assert.ok(visibility.includes('+selectSpinnerName'), 'with its dropdown');
-  assert.ok(!layout.includes('wait-spinner'), 'gone from Layout');
-  const laySave = handler('js-save-layout');
-  assert.ok(!/spinnerName/.test(laySave),
-    'the Layout save must not write it - a missing input reads as an empty string');
+  assert.ok(!pwa.includes('wait-spinner'), 'not in PWA');
+  assert.ok(!js.includes('js-save-layout'), 'the Layout save is gone');
   assert.ok(/\$\('#spinnerName'\)\.length/.test(handler('js-tableVisibilityMode-save')),
     'the Visibility save writes it only when the input is on screen');
 });
@@ -241,12 +236,48 @@ test('Wait Spinner moved to Visibility', () => {
 test('every Layout text field the panes took is guarded in its new home', () => {
   // The recurring hazard across all of these moves: the save handler left
   // behind. Each field that moved must be written only where its input now is.
-  const laySave = handler('js-save-layout');
-  for (const field of ['mailDomainName', 'legalNotice', 'spinnerName',
-    'displayAuthenticationMethod', 'defaultAuthenticationMethod',
-    'hideCardCounterList', 'hideBoardMemberList']) {
-    assert.ok(!laySave.includes(field), `Layout must no longer write ${field}`);
+  assert.ok(!js.includes('js-save-layout'),
+    'no handler may be left reading inputs that now live in other panes');
+});
+
+test('Layout is now PWA, holding only PWA settings', () => {
+  assert.ok(jade.includes("template(name='pwaSettings')"), 'the pane is pwaSettings');
+  assert.ok(!jade.includes("template(name='layoutSettings')"), 'the old name is gone');
+  // What it keeps: the custom head tags, the manifest and assetlinks.
+  for (const keep of ['js-toggle-custom-head', 'custom-head-manifest-content',
+    'js-toggle-custom-assetlinks', 'custom-assetlinks-content']) {
+    assert.ok(pwa.includes(keep), `${keep} belongs in PWA`);
   }
+  // What it must not: anything about branding or sign-in.
+  for (const gone of ['custom-product-name', 'hide-logo', 'custom-login-logo-image-url',
+    'custom-top-left-corner-logo-height', 'oidc-button-text', 'automatic-linked-url-schemes']) {
+    assert.ok(!pwa.includes(gone), `${gone} must have moved out of PWA`);
+  }
+});
+
+test('PWA is a literal label, never a translated string', () => {
+  assert.ok(/label: 'PWA'/.test(js), 'the menu entry uses a literal label');
+  assert.ok(!/labelKey: 'layout'/.test(js), 'not the layout i18n key any more');
+  assert.ok(jade.includes('| PWA'), 'and the pane header is literal too');
+  // No new i18n key was invented for an acronym.
+  assert.ok(!('pwa' in en), 'PWA must not be added as a translatable string');
+});
+
+test('the branding group landed in Visibility with a guarded save', () => {
+  const visibility = template('tableVisibilityModeSettings');
+  for (const moved of ['custom-product-name', 'hide-logo', 'custom-login-logo-image-url',
+    'custom-login-logo-link-url', 'text-below-custom-login-logo',
+    'custom-top-left-corner-logo-image-url', 'custom-top-left-corner-logo-link-url',
+    'custom-top-left-corner-logo-height', 'custom-help-link-url',
+    'automatic-linked-url-schemes']) {
+    assert.ok(visibility.includes(moved), `${moved} must be in Visibility`);
+  }
+  const save = handler('js-tableVisibilityMode-save');
+  assert.ok(/\$\('#product-name'\)\.length/.test(save), 'each field is written only when shown');
+  assert.ok(/document\.title = /.test(save), 'the product name still retitles the page');
+  // OIDC button text went to Login instead.
+  assert.ok(/\$\('#oidcBtnTextvalue'\)\.length/.test(handler('js-account-access-save')),
+    'the OIDC button text is saved by Login, guarded the same way');
 });
 
 console.log(`\nboardsVisibilitySettings: ${passed} tests passed`);
