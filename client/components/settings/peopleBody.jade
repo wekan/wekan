@@ -9,6 +9,9 @@ template(name="people")
       .content-body
         +leftMenu(menuItems)
         .main-body
+          //- Every Admin Panel pane opens with the same heading, and it is the
+          //- open menu entry's own label (docs/Design/Page/Left-Menu.md).
+          +paneTitle(paneTitleData)
           //- Login and E-mail moved here from Admin Panel / Settings. Their templates
           //- still live in settingBody.jade beside the other settings panes - Blaze
           //- templates are global - and their handlers moved onto those templates so

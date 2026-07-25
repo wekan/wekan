@@ -1,21 +1,27 @@
 'use strict';
 
-// Admin Panel / Settings / Translation.
+// Admin Panel / Settings / Translation — what is specific to THIS pane.
 //
-// Two things were reported: the table showed no rows and no way to add one, and the
-// Search button was BLACK.
+// The pane renders through the shared table page now
+// (docs/Design/Page/Table.md): the title, the search box, the pager, the total and
+// the table itself are that design's, and tests/tablePage.test.cjs owns them —
+// including that this pane subscribes to ONE page server-side and gets its total
+// from a count method. Nothing here may restate those.
 //
-//   * The rows. `translationList` is a helper of Template.translationSettings, but
-//     `each translation in translationList` is written inside translationGeneral - a
-//     DIFFERENT template. Blaze resolves a name against the current template's
-//     helpers, the global helpers and the data context; it never searches an
-//     enclosing template. So the list came out undefined and the table body was
-//     empty. This is the same bug that emptied Organizations, Teams and People
-//     (tests/tablePage.test.cjs), from the same cause.
+// What is left, and is only true of Translation:
 //
-//   * The button. forms.css styles every bare <button> from
-//     `var(--theme-accent, #000)`, and with no per-user theme chosen that fallback is
-//     literally black. It now takes the same colours as the other admin buttons.
+//   * the four columns, the interactive row and the "New" link in the header;
+//   * the three popups behind them and the handlers that open them, each
+//     registered on the template that actually renders the link — Blaze resolves a
+//     name against the current template, never an enclosing one, which is how this
+//     pane once ended up with an empty table and a dead + New link;
+//   * the admin-only model methods the popups call;
+//   * no black button background left over from the hand-written pane. forms.css
+//     styles every bare <button> from `var(--theme-accent, #000)`, and with no
+//     per-user theme chosen that fallback is literally black — which is what the
+//     pane's own Search button used to be. That button is gone (the shared row
+//     searches on Enter), so its themed-button rules had to go with it rather than
+//     linger as dead CSS.
 //
 // Run: node tests/translationPane.test.cjs
 
@@ -33,6 +39,7 @@ const jade = read('client/components/settings/translationBody.jade');
 const js = read('client/components/settings/translationBody.js');
 const css = read('client/components/settings/translationBody.css');
 const forms = read('client/components/forms/forms.css');
+const model = read('server/models/translation.js');
 
 function template(name) {
   const start = jade.indexOf(`template(name="${name}")`);
@@ -43,19 +50,40 @@ function template(name) {
 
 console.log('translationPane:');
 
-test('the list is handed to the template that iterates it', () => {
-  // The helper is on the parent...
-  assert.ok(/Template\.translationSettings\.helpers\(\{[\s\S]*?translationList\(\)/.test(js),
-    'translationList is a helper of translationSettings');
-  // ...so the child cannot look it up itself and must be given it.
-  assert.ok(/\+translationGeneral\(translationList=translationList\)/.test(jade),
-    'translationGeneral must be passed the list, not left to find it');
-  const general = template('translationGeneral');
-  assert.ok(/each translation in translationList/.test(general),
-    'and it iterates what it was given');
-  // It must NOT be a helper of the child - that would be a second source of truth.
-  assert.ok(!/Template\.translationGeneral\.helpers/.test(js),
-    'no duplicate helper on the child');
+test('the pane is the shared table page, plus its own columns', () => {
+  const pane = template('translationSettings');
+  assert.ok(/\+tablePage\(tablePageData\)/.test(pane),
+    'the pane renders the shared table page and nothing else');
+  assert.ok(!/table|thead|tbody|input#|button#/.test(pane),
+    'no hand-written table, search box or button may come back');
+  // Four columns: language, text, translation, and the actions column whose
+  // header is the "New" link.
+  for (const key of ["labelKey: 'language'", "labelKey: 'text'",
+    "labelKey: 'translation-text'", "headerTemplate: 'newTranslationRow'"]) {
+    assert.ok(js.includes(key), `the column spec must have ${key}`);
+  }
+  // The helper belongs to the template that renders it: Blaze never looks at an
+  // enclosing template, and a missing context draws the chrome and no table.
+  assert.ok(/Template\.translationSettings\.helpers\(\{[\s\S]*?tablePageData\(\)/.test(js),
+    'tablePageData must be a helper of translationSettings itself');
+  // The old parent/child split that emptied this table is gone entirely.
+  assert.ok(!/translationGeneral/.test(jade) && !/translationGeneral/.test(js),
+    'the intermediate template must be gone, not left unused');
+});
+
+test('the row matches the header, and its cells come from the row context', () => {
+  const row = template('translationRow');
+  assert.strictEqual((row.match(/^    td/gm) || []).length, 4,
+    'a row template owns its <tr> and must match the four columns');
+  for (const field of ['translationData.language', 'translationData.text',
+    'translationData.translationText']) {
+    assert.ok(row.includes(field), `${field} must be shown`);
+  }
+  assert.ok(/Template\.translationRow\.helpers\(\{[\s\S]*?translationData\(\)/.test(js),
+    'and that helper is registered on the row template');
+  // The row context is what the popups read, so it has to be the id.
+  assert.ok(/docs: translations\.map\(translation => \(\{ translationId: translation\._id \}\)\)/.test(js),
+    'each row is given { translationId }, which its popups look up');
 });
 
 test('rows and the add button have working handlers', () => {
@@ -67,7 +95,8 @@ test('rows and the add button have working handlers', () => {
   assert.ok(/Template\.translationRow\.events\(\{[\s\S]*?'click a\.edit-translation'/.test(js),
     'and each row can be edited');
   // The popups it opens have to exist, or the click does nothing visible.
-  for (const popup of ['newTranslationPopup', 'editTranslationPopup']) {
+  for (const popup of ['newTranslationPopup', 'editTranslationPopup',
+    'settingsTranslationPopup']) {
     assert.ok(jade.includes(`template(name="${popup}")`), `${popup} must exist`);
   }
   // The new-translation form asks for language and text, which is what is added.
@@ -78,33 +107,48 @@ test('rows and the add button have working handlers', () => {
   }
 });
 
-test('the Search button follows the theme instead of being black', () => {
-  // This is the shape being overridden.
-  assert.ok(/button \{[\s\S]{0,120}background: var\(--theme-accent, #000\)/.test(forms),
-    'forms.css really does default a bare button to black');
-  const rule = /#translation-setting button#searchTranslationButton \{([^}]*)\}/.exec(css);
-  assert.ok(rule, 'the Search button must be themed');
-  assert.ok(/background: var\(--theme-accent, #005377\)/.test(rule[1]),
-    'the per-user accent wins, falling back to the WeKan button blue - not black');
-  assert.ok(/color: #fff/.test(rule[1]), 'with white text on it');
+test('an empty pane can still add the FIRST translation', () => {
+  // The + New link is a column HEADER. The shared table page used to render no
+  // table at all when there were no rows, so a pane with no custom strings had no
+  // New link and no way to get one. The table is unconditional now.
+  const tableJade = read('client/components/settings/tablePage.jade');
+  const at = tableJade.indexOf('.table-page-table-wrap');
+  assert.ok(at > 0);
+  assert.ok(!/if rowCount/.test(tableJade.slice(0, at)),
+    'the table - and with it this header - must render even with zero rows');
 });
 
-test('every state is overridden, not just the resting one', () => {
-  // forms.css sets :hover, :focus and :active from the same variable with their own
-  // black-ish fallbacks, so overriding only the base leaves a button that turns black
-  // the moment you touch it.
-  for (const state of [':hover', ':focus', ':active']) {
-    assert.ok(css.includes(`button#searchTranslationButton${state}`),
-      `${state} must be overridden too`);
+test('every method behind the popups is admin-only', () => {
+  for (const method of ['setCreateTranslation', 'setTranslationText',
+    'deleteTranslation', 'getTranslationsCollectionCount']) {
+    const at = model.indexOf(`async ${method}(`);
+    assert.ok(at > 0, `${method} must exist`);
+    const body = model.slice(at, at + 700);
+    assert.ok(/isAdmin/.test(body) && /not-authorized/.test(body),
+      `${method} must refuse a non-admin caller`);
   }
-  // ...including the compound one, which forms.css also styles.
-  assert.ok(css.includes('button#searchTranslationButton:active:hover'),
-    ':active:hover is a separate rule in forms.css and needs the same treatment');
-  // No black BACKGROUND left in this pane. Black text is a different thing and is
-  // used legitimately for the table, so this checks backgrounds only.
+  // Creating a duplicate string for the same language is rejected, and the popup
+  // shows that instead of silently doing nothing.
+  assert.ok(/text-already-taken/.test(model), 'a duplicate must be refused');
+  assert.ok(/text-already-taken/.test(js), 'and the form must show it');
+});
+
+test('no black button background is left in this pane', () => {
+  // This is the shape that would be inherited.
+  assert.ok(/button \{[\s\S]{0,120}background: var\(--theme-accent, #000\)/.test(forms),
+    'forms.css really does default a bare button to black');
+  // The pane has no button of its own any more - it searches on Enter, like every
+  // table page - so it must carry no button rules at all, themed or not.
+  assert.ok(!/searchTranslationButton/.test(css) && !/searchTranslationButton/.test(jade),
+    'the pane Search button and its stylesheet rules are gone together');
   const code = css.replace(/\/\*[\s\S]*?\*\//g, '');
   const black = code.split('\n').filter(l => /background[^:]*:\s*[^;]*#000\b/.test(l));
   assert.deepStrictEqual(black, [], 'no black button backgrounds:\n  ' + black.join('\n  '));
+  // ...and what is left in this app-wide stylesheet must not reach a table page.
+  for (const line of code.split('\n')) {
+    assert.ok(!/^table[ ,{]/.test(line),
+      `"${line.trim()}" is an app-wide table rule - scope it with :not(.table-page-table)`);
+  }
 });
 
 console.log(`\ntranslationPane: ${passed} tests passed`);

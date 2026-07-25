@@ -20,15 +20,14 @@ template(name="settingHeaderBar")
         span {{_ 'attachments'}}
 
 
-      a.setting-header-btn.informations(class=isInformationActive href="{{pathFor 'information'}}")
-        span.emoji-icon
-        i.fa.fa-info-circle
-        span {{_ 'info'}}
-
       a.setting-header-btn.problems(class="{{isProblemsActive}} {{problemsClass}}" href="{{pathFor 'admin-reports'}}")
         span.emoji-icon
         i.fa.fa-exclamation-triangle
         span {{_ 'problems'}}
+
+      //- No Version tab: Version is the FIRST pane of Admin Panel / Settings now,
+      //- and the one that opens with the page, so the tab would have led to a
+      //- second copy of what Settings already shows. Same move Translation made.
 
     else
       a.setting-header-btn.js-log-in(

@@ -604,28 +604,17 @@ FlowRouter.route('/setting', {
   },
 });
 
+// Version is the FIRST pane inside Admin Panel / Settings now, not a page of its
+// own - the same move Translation made. The old URL stays valid and redirects
+// there, so a bookmark does not land on a template that no longer exists.
 FlowRouter.route('/information', {
   name: 'information',
   triggersEnter: [
-    ensureSignedInUnlessSandstorm,
     () => {
-      Session.set('currentBoard', null);
-      Session.set('currentList', null);
-      Session.set('currentCard', null);
-      Session.set('popupCardId', null);
-      Session.set('popupCardBoardId', null);
-
-      Filter.reset();
-      Session.set('sortBy', '');
-      EscapeActions.executeAll();
+      FlowRouter.go('setting');
     },
   ],
-  action() {
-    this.render('defaultLayout', {
-      headerBar: 'settingHeaderBar',
-      content: 'information',
-    });
-  },
+  action() {},
 });
 
 FlowRouter.route('/people', {

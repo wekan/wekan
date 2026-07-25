@@ -1,5 +1,4 @@
 import { TAPi18n } from '/imports/i18n';
-import { leftMenuData } from '/models/lib/leftMenu';
 const { filesize } = require('filesize');
 
 Template.statistics.onCreated(function () {
@@ -11,16 +10,9 @@ Template.statistics.onCreated(function () {
   });
 });
 
-// A single-entry side menu (docs/Design/Page/Left-Menu.md).
-const INFO_MENU = [
-  { id: 'information-display', icon: 'fa-info-circle', labelKey: 'info' },
-];
-
-Template.information.helpers({
-  menuItems() {
-    return leftMenuData(INFO_MENU, 'information-display', 'js-setting-menu');
-  },
-});
+// No page template and no menu of its own any more: Version is the first pane of
+// Admin Panel / Settings, whose menu (docs/Design/Page/Left-Menu.md) carries the
+// entry that opens it. This file is just the statistics pane now.
 
 Template.statistics.helpers({
   statistics() {

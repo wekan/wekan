@@ -1,40 +1,23 @@
-/* The Search button follows the theme instead of coming out BLACK.
-   forms.css styles every bare <button> from var(--theme-accent, #000) - with no
-   per-user theme chosen that fallback is literally black, which is what this button
-   was. It gets the same colours as the other admin buttons
-   (settingBody.css, .setting-detail button.btn): the accent when one is set, the
-   WeKan button blue when it is not.
-   Every state is spelled out because forms.css sets :hover, :focus and :active from
-   the same variable with black-ish fallbacks of their own; overriding only the base
-   would leave a button that turns black the moment you touch it. */
-#translation-setting button#searchTranslationButton {
-  background: var(--theme-accent, #005377);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-}
-#translation-setting button#searchTranslationButton:hover,
-#translation-setting button#searchTranslationButton:focus {
-  background: var(--theme-accent, #004766);
-  color: #fff;
-}
-#translation-setting button#searchTranslationButton:active,
-#translation-setting button#searchTranslationButton:active:hover {
-  background: var(--theme-accent, #01628c);
-  color: #fff;
-}
+/* The pane's own Search button is gone: Translation renders through the shared
+   table page (docs/Design/Page/Table.md), where you type in the search field and
+   press Enter, like every other table page. Its themed-button rules went with it.
 
-/* Scrollbar styles are now handled by settingBody.css for all admin pages */
-table {
+   Scrollbar styles are handled by settingBody.css for all admin pages.
+
+   These three rules have no page in their selector - this stylesheet is bundled for
+   the whole app, so a bare `table` rule hits EVERY table in WeKan. The shared table
+   page is excluded: it brings its own cell padding and borders, and `color: #000`
+   would pin its text to black on a dark theme. */
+table:not(.table-page-table) {
   color: #000;
 }
-table td,
-table th {
+table:not(.table-page-table) td,
+table:not(.table-page-table) th {
   border: 1px solid #d2d0d0;
   text-align: start;
   padding: 8px;
 }
-table tr:nth-child(even) {
+table:not(.table-page-table) tr:nth-child(even) {
   background-color: #ddd;
 }.content-wrapper {
   margin-top: 10px;

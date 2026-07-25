@@ -165,6 +165,22 @@ test('the template puts the rows in the designed order', () => {
   }
 });
 
+test('an empty table still renders its header, so the New link is reachable', () => {
+  // Organizations, Teams, People and Translation put their "New" link IN the
+  // header (headerTemplate). The table used to be inside `if rowCount`, so an
+  // empty pane rendered no table, no header and therefore no way to create the
+  // FIRST organization, team, user or translation.
+  const at = jade.indexOf('.table-page-table-wrap');
+  const emptyAt = jade.indexOf('.table-page-empty');
+  assert.ok(at > 0 && emptyAt > at,
+    'the empty message comes BELOW the table, not instead of it');
+  assert.ok(/unless rowCount\n\s+\.table-page-empty/.test(jade),
+    'the message is what is conditional - the table is not');
+  const before = jade.slice(0, at);
+  assert.ok(!/if rowCount/.test(before),
+    'nothing may gate the table itself on there being rows');
+});
+
 test('the shared controls exist exactly once', () => {
   for (const cls of ['js-table-page-search', 'js-table-page-prev', 'js-table-page-next']) {
     const count = (jade.match(new RegExp(cls, 'g')) || []).length;
@@ -432,13 +448,61 @@ test('clickable column-header sorting is removed from the Admin Domains table', 
   assert.ok(!/sortField|sortDirection/.test(m), 'server method drops sort params (fixed order)');
 });
 
-// ── over-fetch: Translation page must not load the whole collection ─────────
-test('Translation page subscribes with a bounded window, not limit 0 (whole collection)', () => {
+// ── Admin Panel / Settings / Translation ────────────────────────────────────
+test('Translation renders through the shared table page', () => {
+  const jadeSrc = read('client/components/settings/translationBody.jade');
   const js = read('client/components/settings/translationBody.js');
-  assert.ok(/subscribe\('translation',[^,]+,\s*limitTranslations/.test(js),
-    'must pass the infinite-scroll window limit');
+  const pane = jadeSrc.slice(jadeSrc.indexOf('template(name="translationSettings")'),
+    jadeSrc.indexOf('template(name="newTranslationRow")'));
+  assert.ok(/\+tablePage\(tablePageData\)/.test(pane), 'the pane IS the shared table page');
+  assert.ok(!/thead|table-page-controls|searchTranslationButton/.test(pane),
+    'and keeps no table, controls row or Search button of its own');
+  // Its rows are interactive and its "New" link is a column header: the two slots.
+  assert.ok(/rowTemplate: 'translationRow'/.test(js), 'interactive rows use the row slot');
+  assert.ok(/headerTemplate: 'newTranslationRow'/.test(js), 'the New link uses the header slot');
+  // The helper is on the template that renders it - Blaze never looks at an
+  // enclosing template, and a missing context draws the chrome and no table.
+  assert.ok(/Template\.translationSettings\.helpers\(\{[\s\S]*?tablePageData\(\)/.test(js),
+    'tablePageData must be a helper of translationSettings');
+  // Shared control classes, so no new markup and no new handler names.
+  for (const cls of ['js-table-page-search', 'js-table-page-prev', 'js-table-page-next']) {
+    assert.ok(js.includes(cls), `${cls} must be handled by the pane`);
+  }
+  assert.ok(!/searchTranslationInput|searchTranslationButton/.test(js),
+    'the hand-written search box and its button are gone');
+  // The row template still owns four cells, one per column.
+  const row = jadeSrc.slice(jadeSrc.indexOf('template(name="translationRow")'),
+    jadeSrc.indexOf('template(name="editTranslationPopup")'));
+  assert.strictEqual((row.match(/^    td/gm) || []).length, 4,
+    'the row must match the four columns of the header');
+});
+
+test('Translation pages ONE page server-side, with a count method', () => {
+  // It used to grow a window by infinite scroll (and before that subscribed with
+  // limit 0 - in Mongo, NO limit: every custom string of every language at once).
+  const js = read('client/components/settings/translationBody.js');
+  assert.ok(/const \{ limit, skip \} = pageInfo\(/.test(js),
+    'the subscribed window comes from pageInfo, like the counter');
+  assert.ok(/subscribe\('translation',[^,]+,\s*limit,\s*skip\)/.test(js),
+    'one page, server-side');
+  assert.ok(!/InfiniteScrolling|loadNextPage/.test(js),
+    'the infinite scrolling must be gone - two paging mechanisms would fight');
   assert.ok(!/subscribe\('translation',[^,]+,\s*0\b/.test(js),
-    'the limit-0 (= no limit = whole collection) load must be gone');
+    'the limit-0 (= no limit = whole collection) load must stay gone');
+  const pub = read('server/publications/translation.js');
+  assert.ok(/publish\('translation', async function\(query, limit, skip = 0\)/.test(pub),
+    'the publication must take a skip');
+  assert.ok(/skip:\s*skip \|\| 0/.test(pub), 'and apply it server-side');
+  // The client re-applies the publication's sort, so the field must be published
+  // or minimongo has nothing to sort by.
+  assert.ok(/sort:\s*\{\s*modifiedAt:\s*-1\s*\}/.test(pub) && /modifiedAt:\s*1,/.test(pub),
+    'the sort field must be published too');
+  assert.ok(/sort:\s*\{\s*modifiedAt:\s*-1\s*\}/.test(js),
+    'and the client must sort the same way the server paged');
+  const model = read('server/models/translation.js');
+  assert.ok(/getTranslationsCollectionCount/.test(model), 'the total comes from a count method');
+  assert.ok(/not-authorized/.test(model.slice(model.indexOf('getTranslationsCollectionCount'))),
+    'which is admin-only, like the publication');
 });
 
 // ── over-fetch: Board Archive → Boards is now server-side paginated ─────────
@@ -659,26 +723,33 @@ test('People uses the shared controls row - search, filter, actions, total', () 
   }
 });
 
-test('the admin panel does not force the shared table wide', () => {
-  // Reported on Domains: the right-hand columns were off screen until you scrolled.
-  // settingBody.css gives every table in the admin body a 1200px floor,
-  // width:max-content and nowrap cells - written to FORCE a horizontal scrollbar,
-  // long before this design existed. Applied to `.table-page-table` it overrode
-  // exactly what makes the shared page fit: width:100%, table-layout:fixed and
-  // wrapping cells.
+test('the admin panel does not force ANY table wide', () => {
+  // Reported on Domains, and again on Admin Panel / Version: the right-hand
+  // columns were off screen until you scrolled. settingBody.css used to give every
+  // table in the admin body a 1200px floor, width:max-content and nowrap cells -
+  // written to FORCE a horizontal scrollbar, long before this design existed. On
+  // `.table-page-table` it overrode exactly what makes the shared page fit; on a
+  // two-column Version table it put the value a thousand pixels from its label.
+  // A 1200px floor is not a property of the data. It is gone for every admin
+  // table, and the shared page is excluded from what remains.
   const settings = read('client/components/settings/settingBody.css');
   const wide = /\.main-body table(:not\([^)]*\))? \{([^}]*)\}/.exec(settings);
-  assert.ok(wide, 'the wide-table rule must still exist for the genuinely wide tables');
-  assert.ok(/min-width:\s*1200px/.test(wide[2]), 'those still get their floor');
+  assert.ok(wide, 'admin tables must still be sized somewhere');
+  assert.ok(!/min-width:\s*1200px/.test(wide[2]), 'no table gets a 1200px floor any more');
+  assert.ok(!/max-content/.test(wide[2]), 'and none is sized to its content');
+  assert.ok(/width:\s*100%/.test(wide[2]), 'an admin table fits its panel');
   assert.ok(wide[1] === ':not(.table-page-table)',
-    'and the shared table page must be excluded from it');
-  // The td/th rules that force nowrap and per-column minimums are excluded too -
-  // one of them alone is enough to push the table past the panel.
+    'and the shared table page keeps its own layout');
+  // The cell rules wrap now instead of forcing nowrap and per-column minimums -
+  // either one alone is enough to push a table past the panel.
   for (const cell of ['td', 'th']) {
-    const rule = new RegExp(`\\.main-body table(:not\\([^)]*\\))? ${cell} \\{`).exec(settings);
+    const rule = new RegExp(`\\.main-body table(:not\\([^)]*\\))? ${cell}[ ,]`).exec(settings);
     assert.ok(rule && rule[1] === ':not(.table-page-table)',
       `the ${cell} rule must exclude the shared table page too`);
   }
+  const cells = /\.main-body table:not\(\.table-page-table\) td,\s*\n[^{]*\{([^}]*)\}/.exec(settings);
+  assert.ok(cells && /white-space:\s*normal/.test(cells[1]) && /overflow-wrap/.test(cells[1]),
+    'admin table cells wrap rather than push the table wide');
   // ...and the panel no longer shows a scrollbar for content that fits.
   const body = /\.main-body \{([^}]*)\}/.exec(settings);
   assert.ok(/overflow-x:\s*auto/.test(body[1]),
@@ -722,6 +793,83 @@ test('every +tablePage(name) resolves where it is written', () => {
         + 'Blaze will not find it on an enclosing template, and the table silently '
         + 'disappears');
     }
+  }
+});
+
+// ── one row of controls, one height, one theme ─────────────────────────────
+
+test('every control in the row shares one height and no margin', () => {
+  // forms.css is `button { display: block; margin-bottom: 14px; min-height: 41px }`,
+  // written for stacked form buttons. In this row that margin is part of the flex
+  // item, so a button that keeps it is centred HIGHER than one that does not -
+  // People's "Unlock all users" sat lower than "Teams" beside it.
+  const rule = /\.table-page-controls button,[\s\S]*?\{([^}]*)\}/.exec(css);
+  assert.ok(rule, 'the controls row must set the button geometry itself');
+  assert.ok(/margin:\s*0/.test(rule[1]), 'no button may keep a margin of its own');
+  assert.ok(/height:\s*34px/.test(rule[1]), 'and they are all the search field height');
+  // The pager is spelled out: paginationControls.css sizes it at the same
+  // specificity, and load order must not decide the layout.
+  assert.ok(/\.table-page-controls \.table-page-pagination button/.test(css),
+    'the pager must be covered at a specificity that cannot lose');
+  // A page may not bring geometry of its own for an action button.
+  const people = read('client/components/settings/peopleBody.js');
+  assert.ok(!/cls: 'unlock-all-btn'/.test(people),
+    'the action must not carry a class with its own margin and height');
+  assert.ok(!/\.unlock-all-btn \{/.test(read('client/components/settings/peopleBody.css')),
+    'and that class must be gone from the stylesheet');
+});
+
+test('action buttons are themed, not black', () => {
+  // Bare <button>s fall through to forms.css, whose fallback is literally #000.
+  const pager = read('client/components/main/paginationControls.css');
+  const at = pager.indexOf('.table-page-controls button.js-table-page-action');
+  assert.ok(at > 0, 'the action buttons must be themed with the rest of the row');
+  const block = pager.slice(at);
+  assert.ok(/background:\s*var\(--theme-accent, #01628c\)/.test(block),
+    'filled with the theme accent, WeKan blue as the fallback');
+  for (const state of [':hover', ':focus', ':active', ':active:hover']) {
+    assert.ok(pager.includes(`.table-page-controls button.js-table-page-action${state}`),
+      `every state must be spelled out - ${state} is missing, so forms.css wins there`);
+  }
+  // Layout stays in the table page stylesheet.
+  assert.ok(!/background/.test(/\.table-page-controls button\.js-table-page-action \{([^}]*)\}/.exec(css)[1]),
+    'tablePage.css must not restate the colour');
+});
+
+// ── nothing outside the design may decide the width ─────────────────────────
+
+test('no admin stylesheet forces a table wider than its panel', () => {
+  // Reported twice: Domains with its right-hand columns off screen, and Admin
+  // Panel / Version with the value column cut off at the window edge. Both came
+  // from `min-width: 1200px !important; width: max-content !important` on a bare
+  // `table` selector - one of them (peopleBody.css) with no page in the selector
+  // at all, so it reached every table in the app AND beat this design's own
+  // layout through !important.
+  // Comments are stripped first: these files EXPLAIN the rules they used to have,
+  // and the explanation is not a rule.
+  const rules = sheet => read(sheet).replace(/\/\*[\s\S]*?\*\//g, '');
+  for (const sheet of ['client/components/settings/peopleBody.css',
+    'client/components/settings/settingBody.css',
+    'client/components/settings/translationBody.css']) {
+    const src = rules(sheet);
+    assert.ok(!/min-width:\s*1200px/.test(src), `${sheet}: the 1200px floor must be gone`);
+    assert.ok(!/width:\s*max-content/.test(src), `${sheet}: max-content width must be gone`);
+  }
+  // What is left in those sheets must not reach a table page either.
+  for (const sheet of ['client/components/settings/peopleBody.css',
+    'client/components/settings/translationBody.css']) {
+    const src = rules(sheet);
+    for (const line of src.split('\n')) {
+      assert.ok(!/^table[ ,{]/.test(line),
+        `${sheet}: "${line.trim()}" is an app-wide table rule - scope it with `
+        + ':not(.table-page-table)');
+    }
+  }
+  // And the design defends itself: its own width cannot be overridden from outside.
+  const rule = /\.table-page-table \{([^}]*)\}/.exec(css)[1];
+  for (const prop of ['width', 'max-width', 'table-layout']) {
+    assert.ok(new RegExp(`${prop}:[^;]*!important`).test(rule),
+      `${prop} must be !important - it IS the design`);
   }
 });
 

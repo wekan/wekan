@@ -17,15 +17,15 @@ table beside it.
 | File Path | File Type | Description |
 | --- | --- | --- |
 | `client/components/settings/leftMenu.jade` | `.jade` template | **The** left menu: the `.side-menu` list, its entries and the active row. |
-| `models/lib/leftMenu.js` | `.js` module, pure helpers | `buildMenuItems()` turns a plain item list plus the active id into what the template renders. `activeCount()` proves only one row is ever active. |
-| `client/components/settings/settingBody.css` | `.css` stylesheet | The `.side-menu` look and width, and the flex row that places it beside `.main-body`. Shared by every Admin Panel page. |
+| `models/lib/leftMenu.js` | `.js` module, pure helpers | `buildMenuItems()` turns a plain item list plus the active id into what the template renders. `paneTitle()` picks the active entry's label for the pane heading. `activeCount()` proves only one row is ever active. |
+| `client/components/settings/settingBody.css` | `.css` stylesheet | The `.side-menu` look and width, the flex row that places it beside `.main-body`, and `.admin-pane-title` — the ONE heading style every Admin Panel pane uses. Shared by every Admin Panel page. |
 | `client/components/settings/tablePage.css` | `.css` stylesheet | The ≤ 800px rule that stacks the menu above the content instead of squeezing both onto one row. |
 | `client/components/settings/settingBody.jade` | `.jade` template | Admin Panel / Settings. |
 | `client/components/settings/peopleBody.jade` | `.jade` template | Admin Panel / People (People, Organizations, Teams, Domains, Locked users, Roles, Templates). |
 | `client/components/settings/attachments.jade` | `.jade` template | Admin Panel / Attachments. |
 | `client/components/settings/adminReports.jade` | `.jade` template | Admin Panel / Problems. |
-| `client/components/settings/translationBody.jade` | `.jade` template | Admin Panel / Translation. |
-| `client/components/settings/informationBody.jade` | `.jade` template | Admin Panel / Info. |
+| `client/components/settings/translationBody.jade` | `.jade` template | The Translation pane of Admin Panel / Settings — a pane, not a page: the menu beside it is the Settings one. |
+| `client/components/settings/informationBody.jade` | `.jade` template | The Version pane of Admin Panel / Settings — likewise a pane, rendered by `settingBody.jade`. |
 | `tests/leftMenu.test.cjs` | `.cjs` Node test | The one suite: the pure helpers, the template, the side placement and mirroring, and that no page re-implements the menu. |
 
 ## Pages that use this design
@@ -34,13 +34,15 @@ table beside it.
 
 | Menu name | Menu path | Description |
 | --- | --- | --- |
-| Settings | Admin Panel / Settings | Registration, E-mail, Accounts, Table visibility mode, Announcement, Accessibility, Layout, Webhook. |
-| People | Admin Panel / People | People, Organizations, Teams, Domains, Locked users, Roles, Shared templates. |
-| Features | Admin Panel / Features | Performance, Security, Notifications. |
+| Settings | Admin Panel / Settings | **Version** (first, and the pane that opens with the Admin Panel), Visibility, Announcement, Accessibility, Translation, PWA, Global Webhooks. |
+| People | Admin Panel / People | Login, E-mail, Domains, Organizations, Teams, People, Locked users, Roles, Shared templates. |
 | Attachments | Admin Panel / Attachments | The storage backends and the attachment/avatar tools. |
 | Problems | Admin Panel / Problems | Summary, Security, Speed, Tests, CPU usage, then the reports — see [Table](Table.md). |
-| Translation | Admin Panel / Translation | The single Translation entry. |
-| Info | Admin Panel / Info | The single Info entry. |
+
+Four pages, not seven: **Translation** and **Version** became panes of Settings, and
+**Features** was removed (its three panes are in Problems). A page whose menu had a
+single entry was a page in name only — the entry belongs in the menu of the section
+it is part of, and the tab that led to it is one tab fewer in the bar above.
 
 ## Which side the menu is on
 
@@ -114,6 +116,32 @@ rule, so the two can never drift apart.
   lives in `tablePage.css` and applies to the whole `.content-body`, so both
   designs stack the same way.
 
+## The pane title
+
+**Every Admin Panel pane opens with a heading, and the heading is the active menu
+entry's own label.** The menu says which pane is open on the side you clicked; the
+title says it on the side you are reading.
+
+- `paneTitle(items, activeId)` in `models/lib/leftMenu.js` returns the active
+  entry's `{ titleKey, label }` — the same two forms an entry has — or an empty
+  object when nothing is active, so a page with no selection renders no heading
+  rather than an empty one.
+- The page renders `+paneTitle(paneTitleData)` as the first thing inside
+  `.main-body`, above whatever pane is showing.
+- One class, `.admin-pane-title` (`settingBody.css`), sets the size and weight. The
+  shared table page puts that class on its own `h1` too
+  ([Table](Table.md)), so a **table pane and a form pane have the same title**.
+
+Deriving it from the menu is what keeps the panes identical: a pane cannot end up
+with a title of a different size, in different words, or with none at all, and
+renaming a menu entry renames its pane title with it. It is also why a table page
+inside the Admin Panel passes **no** `titleKey` — the section already rendered the
+heading, and the page would print the same words a second time.
+
+Before this, only the paginated table pages had a title at all: Domains showed
+"Domains" while Login, Announcement, Accessibility, PWA, Version and the rest
+opened with no heading.
+
 ## Entries
 
 A page describes its menu as data, not as markup:
@@ -147,4 +175,6 @@ handler.
 
 1. Build the item list.
 2. Render `+leftMenu(menuItems)` beside `.main-body` inside `.content-body`.
-3. Handle `click .js-left-menu-item` and switch on `data-id`.
+3. Render `+paneTitle(paneTitleData)` as the first thing inside `.main-body`, with
+   a `paneTitleData()` helper that calls `paneTitle(items, activeId)`.
+4. Handle `click .js-left-menu-item` and switch on `data-id`.

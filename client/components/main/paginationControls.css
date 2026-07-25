@@ -100,6 +100,36 @@
   pointer-events: none;
 }
 
+/* The ACTION buttons of the shared controls row (docs/Design/Page/Table.md):
+   Admin Panel / People's "Unlock all users" and "Teams". They sit in the same row
+   as the pager and are bare <button>s too, so without a rule here they fell
+   through to the forms.css fallbacks above and came out BLACK - then dark grey
+   while focused, then grey while held down. Filled with the accent (they are
+   actions, not navigation), every state spelled out for the same specificity
+   reason, and the WeKan blue when no per-user theme colour is set. */
+.table-page-controls button.js-table-page-action {
+  border: 1px solid var(--theme-accent, #01628c);
+  border-radius: 6px;
+  background: var(--theme-accent, #01628c);
+  background-image: none;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.table-page-controls button.js-table-page-action:hover,
+.table-page-controls button.js-table-page-action:focus,
+.table-page-controls button.js-table-page-action:active,
+.table-page-controls button.js-table-page-action:active:hover,
+.table-page-controls button.js-table-page-action:active:focus {
+  background: var(--theme-accent, #005377);
+  background-image: none;
+  border-color: var(--theme-accent, #005377);
+  color: #fff;
+  box-shadow: none;
+}
+
 /* "3 / 42" between the buttons: inherit the surrounding text colour so it stays
    readable in both the light and the dark theme (it used to be hard-coded #333,
    which disappears on a dark background). */

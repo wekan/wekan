@@ -1,43 +1,25 @@
-//- Admin Panel / Settings / Translation. Was a top-level Admin Panel page with
-//- its own shell and left menu; it is a pane now, so Settings owns both. The
-//- state that feeds the table lives on THIS template, which is why the whole
-//- page became one - a child cannot see a parent page that no longer renders it.
+//- Admin Panel / Settings / Translation. It renders through the shared table page
+//- now - docs/Design/Page/Table.md - so the title, the search box, the pager and
+//- the table itself all come from ONE template, and this pane only says what is
+//- different about it: its four columns, its interactive rows and its "New" link.
+//-
+//- It kept a hand-written table until then, which is why its right-hand side was
+//- off screen: the shared page is width:100% + table-layout:fixed with equal,
+//- wrapping columns, and a hand-written table in the admin body gets the
+//- wide-table treatment (a 1200px floor, nowrap cells) instead.
 template(name="translationSettings")
-  ul#translation-setting.setting-detail
-    li
-      input#searchTranslationInput(placeholder="{{_ 'search'}}")
-      button#searchTranslationButton
-        i.fa.fa-search
-        | {{_ 'search'}}
-      span.translation-number {{_ 'translation-number'}} #{translationNumber}
-    li
-      if loading.get
-        +spinner
-      else
-        //- The list is a helper of THIS template, so it has to be handed down:
-        //- Blaze resolves a name against the current template and the data context,
-        //- never an enclosing template, so `each translation in translationList`
-        //- inside translationGeneral found nothing and the table stayed empty.
-        +translationGeneral(translationList=translationList)
+  +tablePage(tablePageData)
 
-template(name="translationGeneral")
-  table
-    thead
-      tr
-        th {{_ 'language'}}
-        th {{_ 'text'}}
-        th {{_ 'translation-text'}}
-        th
-          +newTranslationRow
-    tbody
-      each translation in translationList
-        +translationRow(translationId=translation._id)
-
+//- The header of the last column: the shared page owns the <th>, this owns what is
+//- inside it (docs/Design/Page/Table.md, headerTemplate).
 template(name="newTranslationRow")
   a.new-translation
     i.fa.fa-plus
     | {{_ 'new'}}
 
+//- Interactive row: an Edit link and the ⋯ menu, which a text-cell column spec
+//- cannot express - so this pane owns its <tr> (rowTemplate) and is responsible
+//- for matching the four columns of the header.
 template(name="translationRow")
   tr
     td {{translationData.language}}

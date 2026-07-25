@@ -1,6 +1,13 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import { leftMenuData } from '/models/lib/leftMenu';
-import { buildHeader, buildRows, pageInfo } from "/models/lib/tablePage";
+import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
+// buildFilters and buildActions are imported like the rest of them. The People
+// pane declares its filter dropdown and its two action buttons to the shared
+// controls row with these, and a missing import is not a build error: it is a
+// ReferenceError thrown INSIDE the helper at render time, which Blaze answers by
+// rendering nothing. That is what left Admin Panel / People / People with no
+// table, no search box and no pager, while Organizations, Teams and Domains -
+// which use neither function - drew theirs normally.
+import { buildActions, buildFilters, buildHeader, buildRows, pageInfo } from "/models/lib/tablePage";
 import { avatarUpdateCounter } from '/client/components/users/avatarUpdateCounter';
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
 import LockoutSettings from '/models/lockoutSettings';
@@ -326,13 +333,16 @@ function peopleMenu() {
     { id: 'registration-setting', icon: 'fa-key', labelKey: 'login', emoji: true },
     // No e-mail settings on Sandstorm; a null entry is dropped, not rendered empty.
     isSandstorm ? null : { id: 'email-setting', icon: 'fa-envelope', labelKey: 'email', emoji: true },
+    // Domains sits with E-mail: it lists the e-mail domains the users sign in
+    // with, so it belongs beside the e-mail settings rather than at the end of
+    // the menu, after the roles and template checkbox lists.
+    { id: 'domains-setting', icon: 'fa-at', labelKey: 'domains' },
     { id: 'org-setting', icon: 'fa-globe', labelKey: 'organizations' },
     { id: 'team-setting', icon: 'fa-users', labelKey: 'teams' },
     { id: 'people-setting', icon: 'fa-user', labelKey: 'people' },
     { id: 'locked-users-setting', icon: 'fa-lock', labelKey: 'accounts-lockout-locked-users', iconWrapCls: 'text-red' },
     { id: 'roles-setting', icon: 'fa-key', labelKey: 'roles' },
     { id: 'templates-setting', icon: 'fa-clone', labelKey: 'shared-templates' },
-    { id: 'domains-setting', icon: 'fa-at', labelKey: 'domains' },
   ];
 }
 
@@ -415,7 +425,9 @@ Template.people.helpers({
     const total = tpl.numberPeople.get() || 0;
     const totalPages = Math.max(1, Math.ceil(total / usersPerPage));
     return {
-      titleKey: 'people',
+      // No titleKey: the pane heading is rendered once for every Admin Panel pane
+      // from the open menu entry (docs/Design/Page/Left-Menu.md), so a title here
+      // would print the same words a second time.
       emptyKey: 'no-items-message',
       searchTerm: tpl.peopleSearchTerm.get(),
       // The filter, the two actions and the total were this pane's own markup in
@@ -432,8 +444,12 @@ Template.people.helpers({
           { value: 'admin', label: 'Admin' },
         ],
       }], tpl.userFilterType.get()),
+      // No per-action class: both buttons are sized and themed by the shared
+      // controls row. The old `unlock-all-btn` carried a 20px top margin and a
+      // 28px height from the hand-written page header, which left "Unlock all
+      // users" lower and shorter than "Teams" beside it.
       actions: buildActions([
-        { id: 'unlock-all', icon: 'fa-unlock', labelKey: 'accounts-lockout-unlock-all', cls: 'unlock-all-btn' },
+        { id: 'unlock-all', icon: 'fa-unlock', labelKey: 'accounts-lockout-unlock-all' },
         { id: 'add-remove-teams', icon: 'fa-pencil-square-o', labelKey: 'teams' },
       ]),
       header: buildHeader(PEOPLE_COLUMNS),
@@ -456,7 +472,9 @@ Template.people.helpers({
     const total = tpl.numberTeams.get() || 0;
     const totalPages = Math.max(1, Math.ceil(total / teamsPerPage));
     return {
-      titleKey: 'teams',
+      // No titleKey: the pane heading is rendered once for every Admin Panel pane
+      // from the open menu entry (docs/Design/Page/Left-Menu.md), so a title here
+      // would print the same words a second time.
       searchTerm: tpl.teamSearchTerm.get(),
       emptyKey: 'no-items-message',
       header: buildHeader(TEAM_COLUMNS),
@@ -481,7 +499,9 @@ Template.people.helpers({
     const total = tpl.numberOrgs.get() || 0;
     const totalPages = Math.max(1, Math.ceil(total / orgsPerPage));
     return {
-      titleKey: 'organizations',
+      // No titleKey: the pane heading is rendered once for every Admin Panel pane
+      // from the open menu entry (docs/Design/Page/Left-Menu.md), so a title here
+      // would print the same words a second time.
       searchTerm: tpl.orgSearchTerm.get(),
       emptyKey: 'no-items-message',
       header: buildHeader(ORG_COLUMNS),
@@ -499,6 +519,13 @@ Template.people.helpers({
   },
   menuItems() {
     return leftMenuData(peopleMenu(), Template.instance().activeMenuId.get());
+  },
+  // The heading above the pane: the open menu entry's own label
+  // (docs/Design/Page/Left-Menu.md). Every Admin Panel page renders one, so no pane
+  // has to write a title of its own - and the table panes stopped passing a
+  // titleKey to the shared table page, which would have printed it a second time.
+  paneTitleData() {
+    return paneTitle(peopleMenu(), Template.instance().activeMenuId.get());
   },
   loading() {
     return Template.instance().loading;
@@ -2107,7 +2134,9 @@ Template.domainGeneral.helpers({
     // for the counter - the rows are displayed as published.
     const info = pageInfo(data.total || 0, tpl.page.get());
     return {
-      titleKey: "domains",
+      // No titleKey: the pane heading is rendered once for every Admin Panel pane
+      // from the open menu entry (docs/Design/Page/Left-Menu.md), so a title here
+      // would print the same words a second time.
       emptyKey: "no-items-message",
       searchTerm: tpl.searchQuery.get(),
       header: buildHeader(DOMAIN_COLUMNS),

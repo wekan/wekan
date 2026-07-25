@@ -7,6 +7,9 @@ template(name="adminReports")
         +leftMenu(menuItems)
 
         .main-body
+          //- Every Admin Panel pane opens with the same heading, and it is the
+          //- open menu entry's own label (docs/Design/Page/Left-Menu.md).
+          +paneTitle(paneTitleData)
           if loading.get
             +spinner
           else if showSummary.get

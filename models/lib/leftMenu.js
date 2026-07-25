@@ -59,6 +59,26 @@ export function leftMenuData(items, activeId, jsClass = '') {
   return { items: buildMenuItems(items, activeId, jsClass) };
 }
 
+// The title of the pane beside the menu: the ACTIVE entry's own label.
+//
+// Every Admin Panel page shows one heading at the top of its content, and it is
+// the same words, in the same style, as the menu row that opened it - so the pane
+// always says what it is. Deriving it from the menu instead of writing a heading
+// into each pane is what keeps them identical: a pane cannot end up with a title
+// of a different size, or with none at all, and renaming a menu entry renames its
+// pane title with it.
+//
+// Returns { titleKey, label } - a translation key or a literal label, the same two
+// forms a menu entry has - or an empty object when nothing is active, so a page
+// with no selection renders no heading rather than an empty one.
+export function paneTitle(items, activeId) {
+  const active = buildMenuItems(items, activeId).find(item => item.active);
+  if (!active) {
+    return {};
+  }
+  return { titleKey: active.labelKey || '', label: active.label || '' };
+}
+
 // True when exactly one entry is active. Used by the test to prove a menu can
 // never highlight two rows at once, which is what happens when each page keeps
 // its own `isXActive` helper per entry.

@@ -1,117 +1,144 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
+import { buildHeader, pageInfo, TABLE_PAGE_ROWS_PER_PAGE } from '/models/lib/tablePage';
 
-const translationsPerPage = 25;
+// Admin Panel / Settings / Translation, through the shared table page
+// (docs/Design/Page/Table.md). The pane differs from every other table page only
+// in this column list: its rows are interactive - an Edit link and the ⋯ menu -
+// so it supplies a rowTemplate, and the "New" link is the header of the last
+// column, supplied as a headerTemplate. The layout, the search box, the themed
+// pager and the total all come from the shared page.
+const TRANSLATION_COLUMNS = [
+  { labelKey: 'language' },
+  { labelKey: 'text' },
+  { labelKey: 'translation-text' },
+  { headerTemplate: 'newTranslationRow' },
+];
 
 Template.translationSettings.onCreated(function () {
   this.error = new ReactiveVar('');
-  this.loading = new ReactiveVar(false);
-  // Kept true: the pane only exists while Settings is showing it, so there is no
-  // longer a flag to toggle - the old value came from its own menu handler.
-  this.translationSetting = new ReactiveVar(true);
   this.findTranslationsOptions = new ReactiveVar({});
   this.numberTranslations = new ReactiveVar(0);
-
+  // The search box belongs to the shared controls row, so the term is state here
+  // rather than a DOM id read back out of another template.
+  this.searchTerm = new ReactiveVar('');
   this.page = new ReactiveVar(1);
-  this.loadNextPageLocked = false;
-  this.infiniteScrolling = new InfiniteScrolling();
 
-  this.loadNextPage = () => {
-    if (this.loadNextPageLocked === false) {
-      this.page.set(this.page.get() + 1);
-      this.loadNextPageLocked = true;
-    }
+  // The total counts the whole result set, not the page. It is refreshed when the
+  // pane opens and when the search changes - never on a prev/next click: moving to
+  // another page cannot change the total, and recounting there would only add a
+  // second round trip to every click.
+  this.refreshCount = () => {
+    Meteor.call('getTranslationsCollectionCount', this.findTranslationsOptions.get(),
+      (error, count) => {
+        if (error) {
+          console.error('Failed to load translations count:', error);
+          return;
+        }
+        const total = count || 0;
+        const { totalPages } = pageInfo(total, this.page.get());
+        // Strings deleted while you were on the last page must land on a real page.
+        if (this.page.get() > totalPages) {
+          this.page.set(totalPages);
+        }
+        this.numberTranslations.set(total);
+      });
   };
 
-  this.calculateNextPeak = () => {
-    const element = this.find('.main-body');
-    if (element) {
-      this.infiniteScrolling.setNextPeak(element.scrollHeight);
+  this.filterTranslations = () => {
+    const value = this.searchTerm.get();
+    if (value === '') {
+      this.findTranslationsOptions.set({});
+    } else {
+      const regex = new RegExp(value, 'i');
+      this.findTranslationsOptions.set({
+        $or: [
+          { language: regex },
+          { text: regex },
+          { translationText: regex },
+        ],
+      });
     }
+    this.page.set(1);
+    this.refreshCount();
   };
 
   this.autorun(() => {
-    const limitTranslations = this.page.get() * translationsPerPage;
-
-    // #perf: pass the infinite-scroll window (not 0). A hardcoded 0 meant
-    // Mongo `limit: 0` = NO limit, so the Admin Panel → Translation page loaded
-    // the ENTIRE Translations collection (all strings × all languages) at once.
-    this.subscribe('translation', this.findTranslationsOptions.get(), limitTranslations, () => {
-      this.loadNextPageLocked = false;
-      const nextPeakBefore = this.infiniteScrolling.getNextPeak();
-      this.calculateNextPeak();
-      const nextPeakAfter = this.infiniteScrolling.getNextPeak();
-      if (nextPeakBefore === nextPeakAfter) {
-        this.infiniteScrolling.resetNextPeak();
-      }
-    });
+    // ONE page of rows, never the whole collection - and the SAME pageInfo() call
+    // feeds the subscription and the "page X / N" counter, so what is fetched and
+    // what is shown cannot drift apart. This page used to grow a window by
+    // infinite scroll instead (and before that subscribed with limit 0, which in
+    // Mongo means no limit at all: every custom string of every language at once).
+    const { limit, skip } = pageInfo(this.numberTranslations.get(), this.page.get(),
+      TABLE_PAGE_ROWS_PER_PAGE);
+    this.subscribe('translation', this.findTranslationsOptions.get(), limit, skip);
   });
+
+  this.refreshCount();
 });
 
 Template.translationSettings.helpers({
-  loading() {
-    return Template.instance().loading;
-  },
-  translationSetting() {
-    return Template.instance().translationSetting;
-  },
-  translationList() {
+  tablePageData() {
     const tpl = Template.instance();
+    // The publication already returns exactly this page (server-side limit/skip,
+    // sorted modifiedAt:-1). Re-apply that same sort so the displayed order matches
+    // the published one - and do NOT re-slice what the server already paginated.
     const translations = ReactiveCache.getTranslations(tpl.findTranslationsOptions.get(), {
-      sort: { modifiedAt: 1 },
-      fields: { _id: true },
+      sort: { modifiedAt: -1 },
     });
-    tpl.numberTranslations.set(translations.length);
-    return translations;
-  },
-  translationNumber() {
-    return Template.instance().numberTranslations.get();
-  },
-  setError(error) {
-    Template.instance().error.set(error);
-  },
-  setLoading(w) {
-    Template.instance().loading.set(w);
+    const info = pageInfo(tpl.numberTranslations.get(), tpl.page.get(),
+      TABLE_PAGE_ROWS_PER_PAGE);
+    return {
+      // No titleKey: the pane heading is rendered once for every Admin Panel pane
+      // from the open menu entry (docs/Design/Page/Left-Menu.md), so a title here
+      // would print the same words a second time.
+      emptyKey: 'no-items-message',
+      searchTerm: tpl.searchTerm.get(),
+      header: buildHeader(TRANSLATION_COLUMNS),
+      // Interactive rows: translationRow owns its <tr> and takes { translationId }
+      // as its context - the same context its Edit and ⋯ popups read.
+      rowTemplate: 'translationRow',
+      docs: translations.map(translation => ({ translationId: translation._id })),
+      rowCount: translations.length,
+      page: info.page,
+      totalPages: info.totalPages,
+      hasPrev: info.hasPrev,
+      hasNext: info.hasNext,
+      total: info.total,
+      totalLabelKey: 'translation-number',
+    };
   },
 });
 
+// The controls come from the shared row, so the handlers are the shared class
+// names too - no page-specific search button, no page-specific pager ids.
 Template.translationSettings.events({
-  'click #searchTranslationButton'(event, tpl) {
-    _filterTranslation(tpl);
+  'keydown .js-table-page-search'(event, tpl) {
+    if (event.keyCode !== 13 || event.shiftKey) return;
+    event.preventDefault();
+    tpl.searchTerm.set($(event.currentTarget).val() || '');
+    tpl.filterTranslations();
   },
-  'keydown #searchTranslationInput'(event, tpl) {
-    if (event.keyCode === 13 && !event.shiftKey) {
-      _filterTranslation(tpl);
+  'click .js-table-page-prev'(event, tpl) {
+    event.preventDefault();
+    if (tpl.page.get() > 1) {
+      tpl.page.set(tpl.page.get() - 1);
     }
   },
-  'click #newTranslationButton'() {
-    Popup.open('newTranslation');
-  },
-  'scroll .main-body'(event, tpl) {
-    tpl.infiniteScrolling.checkScrollPosition(event.currentTarget, () => {
-      tpl.loadNextPage();
-    });
+  'click .js-table-page-next'(event, tpl) {
+    event.preventDefault();
+    const { totalPages } = pageInfo(tpl.numberTranslations.get(), tpl.page.get(),
+      TABLE_PAGE_ROWS_PER_PAGE);
+    if (tpl.page.get() < totalPages) {
+      tpl.page.set(tpl.page.get() + 1);
+    }
   },
 });
-
-function _filterTranslation(tpl) {
-  const value = $('#searchTranslationInput').first().val();
-  if (value === '') {
-    tpl.findTranslationsOptions.set({});
-  } else {
-    const regex = new RegExp(value, 'i');
-    tpl.findTranslationsOptions.set({
-      $or: [
-        { language: regex },
-        { text: regex },
-        { translationText: regex },
-      ],
-    });
-  }
-}
 
 Template.translationRow.helpers({
   translationData() {
+    return ReactiveCache.getTranslation(this.translationId);
+  },
+  translation() {
     return ReactiveCache.getTranslation(this.translationId);
   },
 });
@@ -135,12 +162,6 @@ Template.newTranslationPopup.helpers({
   },
   errorMessage() {
     return Template.instance().errorMessage.get();
-  },
-});
-
-Template.translationRow.helpers({
-  translation() {
-    return ReactiveCache.getTranslation(this.translationId);
   },
 });
 

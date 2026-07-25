@@ -9,7 +9,7 @@ import Rules from '/models/rules';
 import ImpersonatedUsers from '/models/impersonatedUsers';
 import RecoveryEvents from '/models/recoveryEvents';
 import { buildHeader, buildRows, pageInfo } from '/models/lib/tablePage';
-import { leftMenuData } from '/models/lib/leftMenu';
+import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
 import Settings from '/models/settings';
 const { cleanFileName } = require('/imports/lib/fileNameDisplay');
 const { filesize } = require('filesize');
@@ -210,6 +210,14 @@ Template.adminReports.helpers({
   menuItems() {
     // The pane opens on Summary, before any menu click has set activeReport.
     return leftMenuData(PROBLEMS_MENU,
+      Template.instance().activeReport.get() || 'report-summary');
+  },
+  // The heading above the pane: the open menu entry's own label
+  // (docs/Design/Page/Left-Menu.md). The report tables and the event streams
+  // stopped passing a title to the shared table page when this arrived - the menu
+  // entry and the report title were the same i18n key, and both would have printed.
+  paneTitleData() {
+    return paneTitle(PROBLEMS_MENU,
       Template.instance().activeReport.get() || 'report-summary');
   },
   // The shared table page for whichever paginated report is open (null for the
@@ -474,9 +482,13 @@ function formatDate(date) {
 
 // Every table on the Problems tab, keyed by its side-menu id. `docs` returns the
 // page that is already in minimongo - the publication sent only that page.
+//
+// No titleKey here: the pane heading is rendered once for every Admin Panel pane
+// from the open menu entry (docs/Design/Page/Left-Menu.md), and PROBLEMS_MENU
+// carries these reports' i18n keys already - the same keys this table used to
+// repeat.
 const REPORT_TABLES = {
   'report-files': {
-    titleKey: 'filesReportTitle',
     emptyKey: 'no-results',
     docs: () => {
       // Prefer the UNDERLYING reactive minimongo collection: the
@@ -503,7 +515,6 @@ const REPORT_TABLES = {
     ],
   },
   'report-rules': {
-    titleKey: 'rulesReportTitle',
     emptyKey: 'no-results',
     docs: () =>
       ReactiveCache.getRules({}, { sort: { boardId: 1 } }).map(rule => ({
@@ -521,7 +532,6 @@ const REPORT_TABLES = {
     ],
   },
   'report-boards': {
-    titleKey: 'boardsReportTitle',
     emptyKey: 'no-results',
     docs: () => collectionResults(Boards, { sort: 1 }).fetch(),
     columns: [
@@ -537,7 +547,6 @@ const REPORT_TABLES = {
     ],
   },
   'report-cards': {
-    titleKey: 'cardsReportTitle',
     emptyKey: 'no-results',
     // Match the server publication's index-backed sort (see cards.js).
     docs: () => collectionResults(Cards, { boardId: 1, createdAt: -1 }).fetch(),
@@ -551,7 +560,6 @@ const REPORT_TABLES = {
     ],
   },
   'report-impersonation': {
-    titleKey: 'impersonationReportTitle',
     emptyKey: 'no-results',
     // The publication already paginates + sorts newest-first; mirror that sort.
     docs: () => collectionResults(ImpersonatedUsers, { createdAt: -1 }).fetch(),
@@ -565,7 +573,6 @@ const REPORT_TABLES = {
     ],
   },
   'report-recovery': {
-    titleKey: 'recoveryReportTitle',
     descKey: 'recovery-report-desc',
     emptyKey: 'recovery-no-events',
     docs: () => collectionResults(RecoveryEvents, { createdAt: -1 }).fetch(),
@@ -591,7 +598,9 @@ function reportTablePageData(tmpl) {
   const docs = spec.docs() || [];
   const info = pageInfo(cfg.count.get(), cfg.page.get(), REPORTS_PER_PAGE);
   return {
-    titleKey: spec.titleKey,
+    // No title: the pane heading comes from the open menu entry, once, for every
+    // Admin Panel pane (docs/Design/Page/Left-Menu.md) - and this report's menu
+    // entry carries the very same i18n key, so both would have printed it.
     descKey: spec.descKey,
     emptyKey: spec.emptyKey,
     searchTerm: cfg.search.get(),
@@ -649,9 +658,11 @@ Template.brokenCardsReport.events({
 // that lives only on the Summary page). See docs/Security/Remediation/WeKan.md.
 const EVENTS_PER_PAGE = 25;
 
-function eventStreamTitleKey(stream) {
-  return { security: 'securityReportTitle', speed: 'speedReportTitle', tests: 'testsReportTitle', cpu: 'cpuReportTitle' }[stream] || 'summary';
-}
+// The stream's title is not needed here any more: the pane heading is rendered
+// once for every Admin Panel pane from the open menu entry
+// (docs/Design/Page/Left-Menu.md), and PROBLEMS_MENU already carries these exact
+// i18n keys - securityReportTitle, speedReportTitle, testsReportTitle,
+// cpuReportTitle - so the words are unchanged and there is only one of them.
 
 Template.eventStreamReport.onCreated(function () {
   this.stream = this.data.stream;
@@ -721,7 +732,8 @@ Template.eventStreamReport.helpers({
     const info = pageInfo(t.total.get(), t.page.get(), EVENTS_PER_PAGE);
     const cpu = t.cpu.get();
     return {
-      title: TAPi18n.__(eventStreamTitleKey(t.stream)),
+      // No title: the pane heading comes from the open menu entry, once, for
+      // every Admin Panel pane (docs/Design/Page/Left-Menu.md).
       emptyKey: 'no-new-problems',
       searchTerm: t.search.get(),
       header: buildHeader(EVENT_STREAM_COLUMNS),

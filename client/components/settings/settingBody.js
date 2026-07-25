@@ -1,5 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import { leftMenuData } from '/models/lib/leftMenu';
+import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
 import { TAPi18n } from '/imports/i18n';
 import { ALLOWED_WAIT_SPINNERS } from '/config/const';
 import LockoutSettings from '/models/lockoutSettings';
@@ -228,9 +228,12 @@ Template.setting.onCreated(function () {
   this.error = new ReactiveVar('');
   this.loading = new ReactiveVar(false);
   this.forgotPasswordSetting = new ReactiveVar(false);
-  // Visibility is the FIRST pane now that Login and E-mail moved to People, so it
-  // is the one that opens with the page.
-  this.tableVisibilityModeSetting = new ReactiveVar(true);
+  // Version is the FIRST pane, and the one that opens with the page: Admin Panel
+  // opens on Settings, so what an admin sees first is now the version, database
+  // and system information they are usually here to read or to paste into an
+  // issue - not a settings form they did not ask for.
+  this.versionSetting = new ReactiveVar(true);
+  this.tableVisibilityModeSetting = new ReactiveVar(false);
   this.translationSetting = new ReactiveVar(false);
   this.announcementSetting = new ReactiveVar(false);
   this.accessibilitySetting = new ReactiveVar(false);
@@ -329,6 +332,8 @@ Template.setting.onRendered(function () {
 // before the icon, so the conversion changes no pixel.
 function settingsMenu() {
   return [
+    // First, and open by default - see Template.setting.onCreated.
+    { id: 'version-setting', icon: 'fa-info-circle', labelKey: 'info', emoji: true },
     // Labelled just 'Visibility' now. The pane id and the tableVisibilityMode
     // key are unchanged, so the 141 translations of the pane's own contents are
     // untouched; only the menu label points at the new key.
@@ -348,6 +353,7 @@ function settingsMenu() {
 // still highlight exactly one row.
 function activeSettingId(inst) {
   const panes = [
+    ['versionSetting', 'version-setting'],
     ['tableVisibilityModeSetting', 'tableVisibilityMode-setting'],
     ['announcementSetting', 'announcement-setting'],
     ['accessibilitySetting', 'accessibility-setting'],
@@ -365,6 +371,17 @@ Template.setting.helpers({
   menuItems() {
     const inst = Template.instance();
     return leftMenuData(settingsMenu(), activeSettingId(inst), 'js-setting-menu');
+  },
+  // The heading above the pane: the open menu entry's own label
+  // (docs/Design/Page/Left-Menu.md), so every pane on this page has a title, and
+  // the same one the menu row that opened it carries.
+  paneTitleData() {
+    const inst = Template.instance();
+    return paneTitle(settingsMenu(), activeSettingId(inst));
+  },
+  isVersionSetting() {
+    const inst = Template.instance();
+    return inst.versionSetting && inst.versionSetting.get();
   },
   isTranslationSetting() {
     const inst = Template.instance();
@@ -504,15 +521,18 @@ Template.setting.events({
 
       // Reset all settings to false
       tpl.forgotPasswordSetting.set(false);
+      tpl.versionSetting.set(false);
       tpl.tableVisibilityModeSetting.set(false);
-    tpl.translationSetting.set(false);
+      tpl.translationSetting.set(false);
       tpl.announcementSetting.set(false);
       tpl.accessibilitySetting.set(false);
       tpl.layoutSetting.set(false);
       tpl.webhookSetting.set(false);
       tpl.attachmentSettings.set(false);
       // Set the selected setting to true
-      if (targetID === 'tableVisibilityMode-setting') {
+      if (targetID === 'version-setting') {
+        tpl.versionSetting.set(true);
+      } else if (targetID === 'tableVisibilityMode-setting') {
         tpl.tableVisibilityModeSetting.set(true);
       } else if (targetID === 'translation-setting') {
         tpl.translationSetting.set(true);

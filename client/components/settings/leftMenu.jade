@@ -35,3 +35,17 @@ template(name="leftMenu")
                 | {{_ labelKey}}
               else
                 | {{label}}
+
+//- The title of the open pane, at the top of the content beside the menu. Its text
+//- is the ACTIVE menu entry's own label (paneTitle() in models/lib/leftMenu.js), so
+//- every Admin Panel pane has a heading, in the same words as the row that opened
+//- it and - through the one .admin-pane-title class - at the same size. The shared
+//- table page puts that class on its own title, so a table pane and a form pane
+//- look the same.
+//-
+//- Data context: { titleKey } or { label } from paneTitle().
+template(name="paneTitle")
+  if titleKey
+    h1.admin-pane-title {{_ titleKey}}
+  else if label
+    h1.admin-pane-title {{label}}

@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { leftMenuData } from '/models/lib/leftMenu';
+import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
 import AttachmentBulkMoveStatus from '/models/attachmentBulkMoveStatus';
 import { TAPi18n } from '/imports/i18n';
 import { migrationProgressManager } from '/client/components/settings/migrationProgress';
@@ -421,6 +421,9 @@ function attachmentsMenu() {
   const isSandstorm =
     Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm;
   return [
+    // Backup first: it is what an admin comes to this page for most often, and it
+    // is the one action here that has to be reachable in a hurry.
+    { id: 'backup', icon: 'fa-archive', labelKey: 'backup', emoji: true },
     { id: 'move', icon: 'fa-arrow-right', labelKey: 'attachment-move', emoji: true },
     { id: 'default-save-storage', icon: 'fa-save', labelKey: 'default-save-storage', emoji: true },
     { id: 'limits', icon: 'fa-sliders', labelKey: 'attachment-limits', emoji: true },
@@ -430,7 +433,6 @@ function attachmentsMenu() {
     { id: 'azure', icon: 'fa-cloud', labelKey: 'azure-blob-storage', emoji: true },
     { id: 'gcs', icon: 'fa-cloud', labelKey: 'gcs-storage', emoji: true },
     { id: 'database-migration', icon: 'fa-exchange', labelKey: 'database-migration', emoji: true },
-    { id: 'backup', icon: 'fa-archive', labelKey: 'backup', emoji: true },
     // Sandstorm only, and a proper noun rather than a translated string.
     isSandstorm ? { id: 'sandstorm', icon: 'fa-hdd-o', label: 'Sandstorm', emoji: true } : null,
   ];
@@ -439,6 +441,11 @@ function attachmentsMenu() {
 Template.attachments.helpers({
   menuItems() {
     return leftMenuData(attachmentsMenu(), Template.instance().activeSection.get(), 'js-attachments-menu');
+  },
+  // The heading above the pane: the open menu entry's own label
+  // (docs/Design/Page/Left-Menu.md).
+  paneTitleData() {
+    return paneTitle(attachmentsMenu(), Template.instance().activeSection.get());
   },
   loading() {
     return Template.instance().loading;

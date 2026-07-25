@@ -1,21 +1,31 @@
 /* Scrollbar styles are now handled by settingBody.css for all admin pages */
-table {
+
+/* These rules have no page in their selector: they are plain `table` rules in a
+   stylesheet that is bundled for the whole app, so they hit EVERY table in WeKan -
+   the People panes they were written for, but also Admin Panel / Version and
+   anything else with a <table> in it.
+
+   What they used to say was `min-width: 1200px !important; width: max-content
+   !important` with nowrap cells, to force a horizontal scrollbar. With
+   `!important` that beat even the shared table page's own layout, which is
+   width:100% + table-layout:fixed with equal, wrapping columns precisely so it
+   CANNOT grow past the panel (docs/Design/Page/Table.md): every table page in the
+   Admin Panel - Domains, Organizations, Teams, People, the Problems reports - had
+   its right-hand columns outside the window until you scrolled. The geometry is
+   gone; a table fits its panel and wraps (settingBody.css), and the People panes
+   are shared table pages now anyway. What is left here is the look - borders,
+   striping, padding - and the shared table page brings its own. */
+table:not(.table-page-table) {
   color: #000;
-  min-width: 1200px !important;
-  width: max-content !important;
-  table-layout: auto !important;
 }
 
-/* Force People/Organizations/Teams tables to always trigger horizontal scrolling */
-table td,
-table th {
-  white-space: nowrap;
-  min-width: 120px;
+table:not(.table-page-table) td,
+table:not(.table-page-table) th {
   border: 1px solid #d2d0d0;
   text-align: start;
   padding: 8px;
 }
-table tr:nth-child(even) {
+table:not(.table-page-table) tr:nth-child(even) {
   background-color: #ddd;
 }.content-wrapper {
   margin-top: 10px;
@@ -50,9 +60,11 @@ table tr:nth-child(even) {
   display: block !important;
 }
 
-/* Make checkbox column fit content */
-table th:first-child,
-table td:first-child {
+/* Make checkbox column fit content. Unscoped like the rules at the top of this
+   file, so the shared table page is excluded here too - its columns are an equal
+   share of the width by design. */
+table:not(.table-page-table) th:first-child,
+table:not(.table-page-table) td:first-child {
   width: auto;
   min-width: auto;
 }
@@ -111,29 +123,12 @@ table td:first-child {
   background-color: white;
 }
 
-.unlock-all-btn {
-  margin-top: 20px;
-  margin-inline-start: 15px;
-  background-color: var(--theme-accent, #01628c);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 0 14px 0 14px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  height: 28px;
-  min-width: 90px;
-}
-
-.unlock-all-btn:hover {
-  background-color: var(--theme-accent, #005377);
-}
-
-.unlock-all-btn .fa {
-  color: #fff;
-}
+/* `.unlock-all-btn` is gone. "Unlock all users" is an action of the shared
+   controls row now (docs/Design/Page/Table.md), and this rule was written for the
+   old hand-written page header: a 20px top margin and a 28px height, next to a
+   "Teams" button that takes the shared 34px. In one flex row that put the two
+   buttons at visibly different heights AND on different baselines. The shared row
+   sizes and themes both, so neither carries geometry of its own any more. */
 
 .account-active-status {
   width: auto;

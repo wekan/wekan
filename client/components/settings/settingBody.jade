@@ -10,8 +10,16 @@ template(name="setting")
       .content-body
         +leftMenu(menuItems)
         .main-body
+          //- Every Admin Panel pane opens with the same heading, and it is the
+          //- open menu entry's own label (docs/Design/Page/Left-Menu.md).
+          +paneTitle(paneTitleData)
           if isLoading
             +spinner
+          else if isVersionSetting
+            //- The version, database and system information. Its template lives in
+            //- informationBody.jade, with the code that loads the statistics; Blaze
+            //- templates are global, so the pane renders here.
+            +statistics
           else if isTableVisibilityModeSetting
             +tableVisibilityModeSettings
           else if isAnnouncementSetting

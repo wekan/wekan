@@ -145,31 +145,41 @@
   background: #f1f1f1;
 }
 
-/* The wide-table treatment is for the admin tables that are NOT the shared table
-   page: the GridFS statistics on Attachments, the counters on Version, the strings on
-   Translation. Those are genuinely wide and are meant to scroll sideways.
+/* NO admin table is forced wider than the panel any more.
 
-   `.table-page-table` is excluded. It is width:100% + table-layout:fixed with equal,
-   wrapping columns precisely so it CANNOT push its right edge off screen (see
-   docs/Design/Page/Table.md), and these three rules overrode all of that: a 1200px
-   floor, width:max-content and nowrap cells put every table page - Domains,
-   Organizations, Teams, People, the Problems reports - behind a horizontal scrollbar,
-   with its right-hand columns out of sight until you scrolled. */
+   These rules used to be the opposite: `min-width: 1200px !important` with
+   `width: max-content` and nowrap cells, to GUARANTEE a horizontal scrollbar for
+   the wide data tables. What that guaranteed in practice was a table whose right
+   part is off screen - reported on Domains, and just as true on Admin Panel /
+   Version, a two-column table where "WeKan ® Version" and its value sat ~1000px
+   apart with the value cut off at the window edge. A 1200px floor is not a
+   property of the DATA; it was a property of the browser window someone had open.
+   The phone-width exception that used to undo it (at ≤ 800px) is now simply the
+   rule at every width.
+
+   So: fit the panel, wrap the text, and let a genuinely wide table scroll inside
+   `.main-body`, which keeps `overflow-x: auto` for exactly that. The shared table
+   page (docs/Design/Page/Table.md) already does this for itself - width:100% +
+   table-layout:fixed with equal, wrapping columns - and is excluded so its equal
+   columns are not turned back into content-sized ones. */
 .setting-content .content-body .main-body table:not(.table-page-table) {
-  min-width: 1200px !important;
-  width: max-content !important;
-  table-layout: auto !important;
+  width: 100%;
+  max-width: 100%;
+  table-layout: auto;
 }
 
-.setting-content .content-body .main-body table:not(.table-page-table) td {
-  white-space: nowrap;
-  min-width: 120px;
+/* Long unbroken values - version strings, paths, URLs, ids - break inside their
+   cell instead of widening the column and pushing the table off screen again. */
+.setting-content .content-body .main-body table:not(.table-page-table) td,
+.setting-content .content-body .main-body table:not(.table-page-table) th {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
+
 /* #6465: headers may wrap — nowrap on long header labels (e.g. the org/team
    feature columns) blew the column widths up to the whole label length. */
 .setting-content .content-body .main-body table:not(.table-page-table) th {
-  white-space: normal;
-  min-width: 120px;
   max-width: 240px;
 }
 
@@ -177,6 +187,29 @@
 .setting-content .content-body .main-body {
   min-height: calc(100vh - 200px);
   padding-bottom: 50px;
+}
+
+/* The pane title: ONE size and weight for the heading at the top of every Admin
+   Panel pane, whether that pane is a shared table page (Domains, People, the
+   Problems reports - their h1 carries this class too, see tablePage.jade) or a form
+   (Login, Announcement, Accessibility, PWA). Before this, only the table pages had a
+   title at all, so half the panes opened with no heading and the other half with an
+   unstyled browser-default h1 twice the size of anything around it.
+   Sized in rem so it follows the user's browser font size, and `color: inherit` so
+   it stays readable on a dark theme. */
+.admin-pane-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: inherit;
+}
+
+/* A pane that is not a table page has no row gap of its own, so the heading brings
+   its own space below it. The shared table page is a flex column with a 12px gap,
+   which is why the rule is scoped to a title that IS the direct child. */
+.setting-content .content-body .main-body > .admin-pane-title {
+  margin-bottom: 12px;
 }
 
 /* Admin panel buttons should use theme darker color */
@@ -378,37 +411,15 @@ li.has-error .form-group .wekan-form-control {
   }
 }
 
-/* ── Admin tables on a phone: fit the width, wrap the text ───────────────────
-   The rules above deliberately force EVERY admin table to `min-width: 1200px`
-   with `white-space: nowrap` cells, to guarantee a horizontal scrollbar for the
-   wide data tables. On a 375px phone that also applies to a two-column table
-   like Admin Panel / Version, where "WeKan Version" and its value sit ~1000px
-   apart and you have to scroll right to read a value you already have room for.
-
-   At small width the table is instead allowed to be as wide as the screen and no
-   wider, and cells may use as many lines as they need. Long unbroken values -
-   version strings, paths, URLs - break rather than push the table wide again.
-   Horizontal scrolling still works if a genuinely wide table cannot fit; it is
-   just no longer forced on tables that would fit comfortably. */
+/* ── Admin tables on a phone ─────────────────────────────────────────────────
+   "Fit the width, wrap the text" is the rule at EVERY width now (see the table
+   rules above), so this block no longer has to undo a 1200px floor. What is still
+   phone-specific is the label column: on a narrow screen a two-column table like
+   Admin Panel / Version needs its label side pinned to a share of the width, or a
+   long value squeezes the labels down to one character per line. */
 @media screen and (max-width: 800px) {
-  .setting-content .content-body .main-body table {
-    min-width: 0 !important;
-    width: 100% !important;
-    table-layout: auto !important;
-  }
-
-  .setting-content .content-body .main-body table td,
-  .setting-content .content-body .main-body table th {
-    white-space: normal !important;
-    min-width: 0 !important;
-    max-width: none !important;
-    overflow-wrap: break-word;
-    word-break: break-word;
-  }
-
-  /* The label column keeps a sensible share rather than collapsing to one
-     character per line when a value is long. */
-  .setting-content .content-body .main-body table th {
+  .setting-content .content-body .main-body table:not(.table-page-table) th {
     width: 45%;
+    max-width: none;
   }
 }

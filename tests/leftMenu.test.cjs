@@ -36,7 +36,7 @@ const doc = read('docs/Design/Page/Left-Menu.md');
 const lib = {};
 new Function('exports', libSrc.replace(/export function/g, 'function') +
   '\nexports.buildMenuItems = buildMenuItems;\nexports.activeCount = activeCount;' +
-  '\nexports.leftMenuData = leftMenuData;')(lib);
+  '\nexports.leftMenuData = leftMenuData;\nexports.paneTitle = paneTitle;')(lib);
 
 console.log('leftMenu:');
 
@@ -246,8 +246,7 @@ test('what the pages pass is what the template iterates', () => {
 test('every page builds its context through that one helper', () => {
   // Six pages, one shape. Calling buildMenuItems directly returns the array again and
   // silently empties that page's menu, so no page may do it.
-  const pages = ['settingBody', 'peopleBody', 'attachments',
-    'adminReports', 'informationBody'];
+  const pages = ['settingBody', 'peopleBody', 'attachments', 'adminReports'];
   for (const page of pages) {
     const src = read(`client/components/settings/${page}.js`);
     const helper = /menuItems\(\) \{[\s\S]*?\n  \},/.exec(src);
@@ -294,10 +293,9 @@ test('the shared menu reproduces each page icon shape', () => {
   assert.strictEqual(red.iconWrapCls, 'text-red');
 });
 
-test('Settings, Features and Info render the shared menu too', () => {
+test('Settings renders the shared menu too', () => {
   const pages = [
     ['settingBody', 'settingsMenu()', 'js-setting-menu'],
-    ['informationBody', 'INFO_MENU', 'js-setting-menu'],
   ];
   for (const [file, list, jsClass] of pages) {
     const pageJade = read(`client/components/settings/${file}.jade`);
@@ -373,12 +371,11 @@ test('Admin Panel / People renders the shared menu from data', () => {
     'Locked users keeps its red lock');
 });
 
-test('ALL seven Admin Panel pages now render the shared menu', () => {
+test('EVERY Admin Panel page renders the shared menu', () => {
   // The design is only worth having if nothing is left outside it.
-  // Translation moved INTO Settings as a pane, so it no longer has a menu of its
-  // own - it is one entry in the Settings menu now.
-  const pages = ['settingBody', 'peopleBody', 'attachments',
-    'adminReports', 'informationBody'];
+  // Translation and Version moved INTO Settings as panes, so neither has a menu of
+  // its own any more - they are entries in the Settings menu.
+  const pages = ['settingBody', 'peopleBody', 'attachments', 'adminReports'];
   for (const page of pages) {
     const pageJade = read(`client/components/settings/${page}.jade`);
     assert.ok(/\+leftMenu\(menuItems\)/.test(pageJade), `${page}: renders the shared menu`);
@@ -418,6 +415,135 @@ test('Translation is a Settings pane, not a page of its own', () => {
   const router = read('config/router.js');
   assert.ok(!/content: 'translation'/.test(router), 'it must not render the old template');
   assert.ok(/FlowRouter\.go\('setting'\)/.test(router), 'a bookmark must land in Settings');
+});
+
+// ── the pane title: every Admin Panel pane has one, and they are identical ──
+
+test('paneTitle returns the ACTIVE entry label, in either of its two forms', () => {
+  const menu = [
+    { id: 'a', labelKey: 'people' },
+    { id: 'b', labelKey: 'teams' },
+    { id: 'c', label: 'Sandstorm' },
+  ];
+  assert.deepStrictEqual(lib.paneTitle(menu, 'b'), { titleKey: 'teams', label: '' });
+  // A literal label (a proper noun) comes back as a label, not as an i18n key.
+  assert.deepStrictEqual(lib.paneTitle(menu, 'c'), { titleKey: '', label: 'Sandstorm' });
+});
+
+test('paneTitle gives nothing rather than an empty heading (negative)', () => {
+  // No selection, an id that is not in the menu, junk: a page renders NO title
+  // rather than an empty <h1> with a stray margin under it.
+  assert.deepStrictEqual(lib.paneTitle([{ id: 'a', labelKey: 'x' }], 'nope'), {});
+  assert.deepStrictEqual(lib.paneTitle([], 'a'), {});
+  assert.deepStrictEqual(lib.paneTitle(null, undefined), {});
+  // A separator can never become a title.
+  assert.deepStrictEqual(lib.paneTitle([{ separator: true }], ''), {});
+});
+
+test('the title template renders the active label, and only when there is one', () => {
+  const at = jade.indexOf('template(name="paneTitle")');
+  assert.ok(at > 0, 'the shared title template must exist beside the menu');
+  const tpl = jade.slice(at);
+  assert.ok(/if titleKey/.test(tpl) && /else if label/.test(tpl),
+    'both forms of an entry label must render');
+  assert.ok(/h1\.admin-pane-title/.test(tpl), 'one class, so every pane title matches');
+  assert.strictEqual((tpl.match(/h1\./g) || []).length, 2,
+    'the heading exists once per branch and nowhere else');
+});
+
+test('EVERY Admin Panel page renders the shared pane title', () => {
+  // The point of deriving it from the menu: no pane can end up without a heading,
+  // or with one of its own size. Before this only the table pages had a title.
+  const pages = ['settingBody', 'peopleBody', 'attachments', 'adminReports'];
+  for (const page of pages) {
+    const pageJade = read(`client/components/settings/${page}.jade`);
+    const pageJs = read(`client/components/settings/${page}.js`);
+    assert.ok(/\+paneTitle\(paneTitleData\)/.test(pageJade),
+      `${page}: must render +paneTitle(paneTitleData) inside .main-body`);
+    // ...as the FIRST thing in the pane, above whatever is showing.
+    const body = pageJade.indexOf('.main-body');
+    assert.ok(pageJade.indexOf('+paneTitle(paneTitleData)') > body,
+      `${page}: the title belongs inside .main-body`);
+    // Blaze resolves a name against the CURRENT template, so the helper has to be
+    // registered on the template that renders it - not on an enclosing one.
+    assert.ok(/paneTitleData\(\) \{[\s\S]*?paneTitle\(/.test(pageJs),
+      `${page}: paneTitleData must call the shared paneTitle helper`);
+    assert.ok(/import \{[^}]*paneTitle[^}]*\} from '\/models\/lib\/leftMenu'/.test(pageJs),
+      `${page}: paneTitle must be IMPORTED - an undeclared name throws inside the `
+      + 'helper at render time, and Blaze answers that by rendering nothing');
+  }
+});
+
+test('the pane title has ONE size, shared with the table page', () => {
+  const rule = /\.admin-pane-title \{([^}]*)\}/.exec(css);
+  assert.ok(rule, '.admin-pane-title must be styled in the shared admin stylesheet');
+  assert.ok(/font-size:/.test(rule[1]) && /font-weight:/.test(rule[1]),
+    'size and weight are what make every pane title match');
+  assert.ok(/color:\s*inherit/.test(rule[1]),
+    'it must inherit its colour so it stays readable on a dark theme');
+  // The shared table page uses the same class on its own title, so a table pane
+  // and a form pane look the same.
+  const tableJade = read('client/components/settings/tablePage.jade');
+  assert.ok(/h1\.table-page-title\.admin-pane-title/.test(tableJade),
+    'the table page title must carry the shared class too');
+});
+
+test('a table page inside the Admin Panel does not print the title twice', () => {
+  // The section renders the heading for every pane, so a table page there must
+  // pass no titleKey - and the template must render one only if it is given.
+  const tableJade = read('client/components/settings/tablePage.jade');
+  assert.ok(/if titleKey\n\s+h1\./.test(tableJade),
+    'the table page title is conditional, not unconditional markup');
+  for (const [file, panes] of [
+    ['peopleBody', ["titleKey: 'people'", "titleKey: 'teams'", "titleKey: 'organizations'", 'titleKey: "domains"']],
+    ['adminReports', ['titleKey: spec.titleKey', 'title: TAPi18n.__(eventStreamTitleKey']],
+    ['translationBody', ["titleKey: 'translation'"]],
+  ]) {
+    const src = read(`client/components/settings/${file}.js`);
+    for (const gone of panes) {
+      assert.ok(!src.includes(gone),
+        `${file}: ${gone} would print the pane heading a second time`);
+    }
+  }
+});
+
+test('the doc explains where a pane title comes from', () => {
+  const at = doc.indexOf('## The pane title');
+  assert.ok(at > 0, 'the design doc must have a pane-title section');
+  const section = doc.slice(at, doc.indexOf('## Entries'));
+  assert.ok(/paneTitle\(items, activeId\)/.test(section), 'it must name the helper');
+  assert.ok(/admin-pane-title/.test(section), 'and the one class that sizes it');
+  assert.ok(/Table\.md/.test(section), 'and link to the table page that shares it');
+  assert.ok(/no.*titleKey/i.test(section),
+    'and say why a table page inside the Admin Panel passes no title');
+});
+
+test('Version is the FIRST Settings pane, and has no page of its own', () => {
+  const js = read('client/components/settings/settingBody.js');
+  const jadeSrc = read('client/components/settings/settingBody.jade');
+  // First entry in the menu, and the pane that opens with the page: Admin Panel
+  // opens on Settings, so this is what an admin sees first.
+  const menu = /function settingsMenu\(\) \{[\s\S]*?\n\}/.exec(js)[0];
+  const ids = [...menu.matchAll(/id: '([\w-]+)'/g)].map(m => m[1]);
+  assert.strictEqual(ids[0], 'version-setting', 'Version must be the first entry');
+  assert.ok(/this\.versionSetting = new ReactiveVar\(true\)/.test(js),
+    'and the pane that is open when the page loads');
+  assert.ok(/this\.tableVisibilityModeSetting = new ReactiveVar\(false\)/.test(js),
+    'so Visibility no longer opens by default');
+  assert.ok(/\+statistics/.test(jadeSrc), 'Settings renders the statistics pane');
+  // The old page, its tab and its menu are gone; the URL redirects.
+  const info = read('client/components/settings/informationBody.jade');
+  assert.ok(!/template\(name='information'\)/.test(info), 'the page template is gone');
+  assert.ok(!/\+leftMenu/.test(info), 'and with it the one-entry menu');
+  assert.ok(/template\(name='statistics'\)/.test(info), 'the pane itself stays');
+  const header = read('client/components/settings/settingHeader.jade');
+  assert.ok(!/pathFor 'information'/.test(header), 'the Admin Panel tab must be gone');
+  assert.ok(!/isInformationActive/.test(read('client/components/settings/settingHeader.js')));
+  const router = read('config/router.js');
+  assert.ok(!/content: 'information'/.test(router), 'it must not render the old template');
+  const route = router.slice(router.indexOf("FlowRouter.route('/information'"));
+  assert.ok(/FlowRouter\.go\('setting'\)/.test(route.slice(0, 400)),
+    'a bookmarked /information must land in Settings');
 });
 
 console.log(`\nleftMenu: ${passed} tests passed`);

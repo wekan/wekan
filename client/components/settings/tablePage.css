@@ -45,6 +45,30 @@
   height: 34px;
 }
 
+/* ONE height and NO margins for everything in the controls row, so the search
+   field, the action buttons and the prev/next buttons share the same top and
+   bottom edge instead of each floating at its own y.
+
+   The global `button` rule in forms.css is `display: block; margin-bottom: 14px;
+   min-height: 41px` - written for stacked form buttons. In this row that margin is
+   part of the flex item's box, so a button carrying it is centred HIGHER than one
+   without: the pager buttons kept the 14px and the action buttons did not, which is
+   exactly the "Teams is higher, Unlock all is lower" misalignment. Height and
+   margin belong to the layout, so they are set here, once, for every control in the
+   row; the colours stay in paginationControls.css.
+
+   The pager selector is spelled out because paginationControls.css sizes
+   `.table-page-pagination button` at the same specificity as a plain
+   `.table-page-controls button` - whichever file happened to load last would win,
+   which is not something a layout rule may depend on. */
+.table-page-controls button,
+.table-page-controls .table-page-pagination button,
+.table-page-controls button.js-table-page-action {
+  margin: 0;
+  height: 34px;
+  min-height: 34px;
+}
+
 /* Layout only. The COLOURS of the prev/next buttons and of the "3 / 42" counter
    come from the one shared pager stylesheet, client/components/main/
    paginationControls.css, which every pager in WeKan uses: they follow the
@@ -72,8 +96,17 @@
   padding: 0 6px;
 }
 
+/* The icon centred beside the label, on one line. Height and margin come from the
+   shared control rule above, so an action button lines up with the search field and
+   with the prev/next pair. (People's "Unlock all users" used to bring its own 20px
+   top margin and 28px height from the old page header, and sat lower and shorter
+   than "Teams" next to it.) Layout only; the colours are in paginationControls.css
+   with the pager. */
 .table-page-controls button.js-table-page-action {
-  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   padding: 0 12px;
   white-space: nowrap;
 }
@@ -91,30 +124,48 @@
   overflow-x: auto;
 }
 
-/* Full width, equal columns, wrapping text.
+/* Full width, equal columns, wrapping text - at EVERY window width.
    `table-layout: fixed` is what makes the columns an equal share of the width AND
    what makes width:100% binding: with the default `auto` layout the browser sizes
    columns to their content, so one long id or file name widened the table past
-   the panel and the right-hand columns ended up outside the window. */
+   the panel and the right-hand columns ended up outside the window - and a table
+   with two short columns shrank to a third of the panel instead of filling it.
+
+   `!important` on the three properties that ARE this design: they have twice been
+   overridden from outside by app-wide `table { width: max-content !important;
+   min-width: 1200px !important }` rules that a page stylesheet declared with no
+   page in the selector. Those are fixed, but an unscoped `table` rule anywhere in
+   the app must never be able to decide the width of a table page again - a rule
+   that a stylesheet in another folder can silently break is not a guarantee. */
 .table-page-table {
-  width: 100%;
-  max-width: 100%;
-  table-layout: fixed;
+  width: 100% !important;
+  max-width: 100% !important;
+  table-layout: fixed !important;
   border-collapse: collapse;
 }
 
+/* Cells wrap and carry no minimum of their own - `white-space: nowrap` or a
+   `min-width` on a cell is the other way a table grows past its panel, and admin
+   stylesheets used to set both on every `table td` in the app.
+
+   The wrapping is `!important` for the same reason the width above is: it IS the
+   design, and it was being switched off from outside by app-wide `table td`
+   rules. A cut-off id or a value that runs under the next column is the same
+   report as a table running off the right edge - and it is the wrapping, not the
+   width, that fixes it once a column is narrow. */
 .table-page-table th,
 .table-page-table td {
   text-align: start;
   padding: 4px 8px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   vertical-align: top;
+  min-width: 0 !important;
   /* Long unbroken text (ids, URLs, file names, stack details) must wrap inside
      its cell instead of widening the column. `anywhere` breaks a long word that
      has no space in it; `break-word` is the older spelling kept for Safari. */
-  white-space: normal;
-  overflow-wrap: anywhere;
-  word-break: break-word;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
 }
 
 .table-page-table th {
@@ -126,10 +177,13 @@
   text-align: end;
 }
 
+/* The one opt-out, per column from the column spec (the datetime columns). Two
+   classes plus !important, so it still beats the !important wrapping above - a
+   guarantee that cannot be opted out of on purpose is a bug of its own. */
 .table-page-table .table-page-nowrap {
-  white-space: nowrap;
-  overflow-wrap: normal;
-  word-break: normal;
+  white-space: nowrap !important;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
 }
 
 /* Severity, coloured from the cell's own data attribute so the rule lives with

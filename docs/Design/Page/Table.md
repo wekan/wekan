@@ -22,6 +22,9 @@ Everything that makes a table page work. Paths are from the repository root.
 | `client/components/settings/adminReports.js` | `.js` Blaze template logic | The column spec for each Admin Panel table, the paging state, the subscriptions, and the shared control handlers. |
 | `client/components/settings/adminReports.jade` | `.jade` template | Admin Panel / Problems: the side menu, and which page it renders. |
 | `client/components/settings/adminReports.css` | `.css` stylesheet | Only what is **not** shared: the CPU status card and the side-menu separator. |
+| `client/components/settings/translationBody.jade` | `.jade` template | Admin Panel / Settings / Translation: the pane, its interactive row and its "New" header. |
+| `client/components/settings/translationBody.js` | `.js` Blaze template logic | The Translation column spec, its paging state and its share of the shared control handlers. |
+| `server/publications/translation.js` | `.js` publication | Translation: one page of custom translation strings (`limit`/`skip`). |
 | `client/features/settings.js` | `.js` import list | Registers the template, its stylesheet and the logic into the client bundle. A file that is never imported is simply not loaded. |
 | `server/publications/attachments.js` | `.js` publication + method | Files Report: one page of attachments, and `getAttachmentsReportCount`. |
 | `server/publications/rules.js` | `.js` publication + method | Rules Report: one page of rules, and `getRulesReportCount`. |
@@ -69,6 +72,7 @@ Menu path is what you click to reach the page.
 | Cards Report | Admin Panel / Problems / Cards Report | Every card with its board, swimlane, list, members and assignees. |
 | Impersonation Report | Admin Panel / Problems / Impersonation Report | Who impersonated whom, on which board, when and why. |
 | Recovery | Admin Panel / Problems / Recovery | Database recovery events with severity, database and detail. |
+| Translation | Admin Panel / Settings / Translation | The custom translation strings: language, source text, translation. Interactive rows (an Edit link and the ⋯ menu) and one template header, the "New" link. |
 
 ### Card, board and member history
 
@@ -87,13 +91,25 @@ Designed, not yet implemented — see [History](../../Features/Reports/History/H
 Rows, top to bottom. This order is fixed, and is defined once in
 `client/components/settings/tablePage.jade`:
 
-1. **Title** — what the page is.
+1. **Title** — what the page is. Rendered **only when the page supplies one**
+   (`titleKey` or `title`). Inside the **Admin Panel it does not**: every pane
+   there gets one heading from the **active left-menu entry**, rendered by the
+   section around it — see [Left Menu](Left-Menu.md). A table page that printed a
+   title of its own as well would show the same words twice, which is why People,
+   Organizations, Teams, Domains, Translation and the Problems reports pass no
+   title. The heading carries `.admin-pane-title` either way, so a table pane and a
+   form pane have the same title at the same size.
 2. **Status** (optional) — live state that the table itself cannot show, e.g. the
    current CPU percent on the CPU usage page. Rendered from a named template
    passed in as `statusTemplate`; pages without one render no status row.
 3. **Controls** — the search field on the start side, pagination
    (`‹  page X / N  ›`) pushed to the end side.
-4. **Table** — header row plus one row per record.
+4. **Table** — header row plus one row per record. It is **always rendered, empty
+   or not**: several pages put controls in the header — the "New" link of
+   Organizations, Teams, People and Translation, the select-all pairs — so hiding
+   the table when there are no rows hid the only way to create the **first** row.
+   An empty pane shows the header and the "no items" message **below** the table,
+   not instead of it.
 
 Width behaviour:
 
@@ -108,10 +124,33 @@ Width behaviour:
   panel. That is what keeps the right-hand side of the table inside the browser
   window instead of off the right edge.
 - Cell text wraps: `overflow-wrap: anywhere` breaks even a long unbroken id, URL
-  or file name inside its column instead of widening it. A column can opt out
-  with `nowrap` (used for the datetime columns).
+  or file name inside its column instead of widening it — so a long value wraps
+  onto a second line rather than being cut off at the column edge. Like the width,
+  the wrapping is `!important`: app-wide `table td { white-space: nowrap }` rules
+  had been switching it off. A column can opt out with `nowrap` (used for the
+  datetime columns), which is `!important` too so the opt-out still works.
 - Only the table's own wrapper may scroll sideways, and only as a last resort;
   the page itself never does.
+- **Nothing outside this design may force a width.** Two admin stylesheets used to
+  set `min-width: 1200px !important; width: max-content !important` on a bare
+  `table` selector — one of them (`peopleBody.css`) with no page in the selector at
+  all, so it reached every table in WeKan and its `!important` beat this page's own
+  layout. The result was the report this design exists to prevent: the right-hand
+  columns off screen until you scrolled. Both are scoped away from
+  `.table-page-table` now, and neither forces a floor on any admin table any more.
+  The same rules also made a *short* table shrink: with `width: max-content` a
+  two-column table sat at a third of the panel instead of filling it. `width`,
+  `max-width` and `table-layout` on `.table-page-table` are therefore `!important`
+  — a guarantee a stylesheet in another folder can silently override is not a
+  guarantee.
+
+The controls row shares one height (34px) and no margins, set in
+`tablePage.css`: the search field, the filter, every action button and the
+prev/next pair line up on the same top and bottom edge. The global `button` rule in
+`forms.css` is `display: block; margin-bottom: 14px`, written for stacked form
+buttons — a control that keeps that margin is centred higher than one that does
+not, which is exactly how People's "Unlock all users" ended up lower than "Teams"
+beside it.
 
 ## Data loading
 
@@ -191,7 +230,10 @@ totalLabelKey: 'people-number'   // optional label before it
   value. The option matching `current` is selected, compared as strings so a
   numeric value still matches.
 - An **action** is one button; the page reads `data-action` to know which was
-  pressed.
+  pressed. It is **filled with the theme accent** (an action, not navigation), and
+  it brings **no geometry of its own** — a page that gave its action button a class
+  with a margin and a height of its own put it at a different height from every
+  other control in the row.
 - The **total** counts the whole result set, not the page — it sits with the
   controls for that reason, and inherits its colour so it stays readable on a dark
   theme.
@@ -220,8 +262,9 @@ theme is in force:
   every rule falls back to the WeKan blue `#01628c` through
   `var(--theme-accent, #01628c)`.
 
-The prev/next buttons and the "3 / 42" counter are styled in **one** place for the
-whole app — `client/components/main/paginationControls.css` — which the Admin
+The prev/next buttons, the **action buttons** and the "3 / 42" counter are styled
+in **one** place for the whole app —
+`client/components/main/paginationControls.css` — which the Admin
 Panel tables, People / Organizations / Teams / Domains, All Boards, the board
 Table view, Archived boards and the Cron settings tables all share. A table page
 gets that look by using the shared class names (`.table-page-pagination`,

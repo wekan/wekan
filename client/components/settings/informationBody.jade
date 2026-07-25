@@ -1,16 +1,10 @@
-template(name='information')
-  .setting-content
-    unless currentUser.isAdmin
-      | {{_ 'error-notAuthorized'}}
-    else
-      //- No page-title bar. The Admin Panel top bar already names the section and
-      //- the left menu highlights the open pane, so a third line repeating the pane
-      //- name only cost vertical space. Admin Panel / Problems never had one.
-      .content-body
-        +leftMenu(menuItems)
-        .main-body
-          +statistics
-
+//- The version, database and system information. It is a PANE of Admin Panel /
+//- Settings now - the first one, and the one that opens with the page - so this
+//- file no longer carries a page of its own: no .setting-content shell, no
+//- one-entry left menu, no route. settingBody.jade renders `+statistics` (Blaze
+//- templates are global) inside the Settings page, which brings the left menu, the
+//- pane title and the admin check with it. The /information URL redirects to
+//- Settings, the same way the old /translation URL does.
 template(name='statistics')
     table
       tbody
