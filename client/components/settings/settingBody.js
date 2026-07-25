@@ -695,10 +695,6 @@ Template.setting.events({
     const mailDomainName = ($('#mailDomainNamevalue').val() || '').trim();
     const legalNotice = ($('#legalNoticevalue').val() || '').trim();
     const hideLogoChange = $('input[name=hideLogo]:checked').val() === 'true';
-    const hideCardCounterListChange =
-      $('input[name=hideCardCounterList]:checked').val() === 'true';
-    const hideBoardMemberListChange =
-      $('input[name=hideBoardMemberList]:checked').val() === 'true';
     const displayAuthenticationMethod =
       $('input[name=displayAuthenticationMethod]:checked').val() === 'true';
     // #5879: the <select> options are populated by an async Meteor.call, so its
@@ -719,8 +715,6 @@ Template.setting.events({
         $set: {
           productName,
           hideLogo: hideLogoChange,
-          hideCardCounterList: hideCardCounterListChange,
-          hideBoardMemberList: hideBoardMemberListChange,
           customLoginLogoImageUrl,
           customLoginLogoLinkUrl,
           customHelpLinkUrl,
@@ -1085,6 +1079,23 @@ Template.tableVisibilityModeSettings.events({
     TableVisibilityModeSettings.update('tableVisibilityMode-allowPrivateOnly', {
       $set: { booleanValue: allowPrivateOnly },
     });
+    // Moved here from Layout: these two are about what All Boards SHOWS, which is
+    // what this pane is for. They live in Settings, not in
+    // TableVisibilityModeSettings, so they are a second write - guarded so a
+    // missing input can never silently turn a setting off (that is what would
+    // have happened had the reads been left behind in the Layout save).
+    const hideCardCounterList = $('input[name=hideCardCounterList]:checked').val();
+    const hideBoardMemberList = $('input[name=hideBoardMemberList]:checked').val();
+    const $set = {};
+    if (hideCardCounterList !== undefined) {
+      $set.hideCardCounterList = hideCardCounterList === 'true';
+    }
+    if (hideBoardMemberList !== undefined) {
+      $set.hideBoardMemberList = hideBoardMemberList === 'true';
+    }
+    if (Object.keys($set).length) {
+      Settings.update(ReactiveCache.getCurrentSetting()._id, { $set });
+    }
   },
   'click button.js-all-boards-hide-activities'() {
     Meteor.call('setAllBoardsHideActivities', (err, ret) => {
