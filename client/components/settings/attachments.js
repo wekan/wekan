@@ -233,7 +233,11 @@ function refreshAttachmentStorageSettings(tpl) {
 }
 
 Template.attachments.onCreated(function () {
-  this.activeSection = new ReactiveVar('move');
+  // Backup is the FIRST entry of the menu and the pane that opens with the page -
+  // the same rule Admin Panel / Settings follows for Version. It is what an admin
+  // comes to this page for most often, and the one action here that has to be
+  // reachable in a hurry.
+  this.activeSection = new ReactiveVar('backup');
   this.storageSettingsSubscription = Meteor.subscribe('attachmentStorageSettings');
   this.attachmentStorageSettings = new ReactiveVar(null);
   // #6473: the real storage paths only exist on the SERVER (WRITABLE_PATH is a
@@ -286,6 +290,10 @@ Template.attachments.onCreated(function () {
   this.selectedBackup = new ReactiveVar('');
   this.backupPoll = null;
   Meteor.call('getBackupSchedule', (err, s) => { if (!err && s) this.backupSchedule.set(s); });
+  // Backup is the pane the page opens on, so ask once whether one is running -
+  // otherwise landing here during a backup showed an idle-looking pane until you
+  // pressed something. pollBackupStatus only keeps polling while it IS running.
+  pollBackupStatus(this);
 
   // Sandstorm: MongoDB 3 -> FerretDB migration status + raw-MongoDB disk usage.
   this.sandstormStatus = new ReactiveVar(null);

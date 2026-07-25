@@ -397,6 +397,24 @@ test('Attachments keeps its Sandstorm entry and its literal label', () => {
   assert.strictEqual(lit.labelKey, '');
 });
 
+test('the first entry of a menu is the pane that opens', () => {
+  // Settings opens on Version, Attachments on Backup: the row at the top of the
+  // menu and the pane on the right must be the same one, or the page opens with a
+  // pane nobody chose while the menu highlights a different row.
+  const firstId = (src, fn) => {
+    const menu = new RegExp(`function ${fn}\\(\\) \\{[\\s\\S]*?\\n\\}`).exec(src)[0];
+    return /id: '([\w-]+)'/.exec(menu)[1];
+  };
+  const attachments = read('client/components/settings/attachments.js');
+  assert.strictEqual(firstId(attachments, 'attachmentsMenu'), 'backup',
+    'Backup must be the first Attachments entry');
+  assert.ok(/this\.activeSection = new ReactiveVar\('backup'\)/.test(attachments),
+    'and the section the page opens on');
+  const settings = read('client/components/settings/settingBody.js');
+  assert.strictEqual(firstId(settings, 'settingsMenu'), 'version-setting',
+    'Version must be the first Settings entry');
+});
+
 test('Translation is a Settings pane, not a page of its own', () => {
   const js = read('client/components/settings/settingBody.js');
   const jadeSrc = read('client/components/settings/settingBody.jade');
