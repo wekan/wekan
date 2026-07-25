@@ -170,7 +170,11 @@ template(name='email')
       li
     //
     li.smtp-form
-      .title {{_ 'can-invite-if-same-mailDomainName'}}
+      //- Not "Email domain name": the field decides who may INVITE. A non-admin
+      //- whose address ends with this domain can send board invitations, and only
+      //- while self-registration is disabled - see isNonAdminAllowedToSendMail()
+      //- in server/models/settings.js. It restricts nothing about signing in.
+      .title {{_ 'email-domain-allowed-to-invite'}}
       .form-group
         input.wekan-form-control#mailDomainNamevalue(type="text", placeholder="" value="{{currentSetting.mailDomainName}}")
     li.accounts-form
@@ -180,7 +184,11 @@ template(name='email')
         label {{_ 'yes'}}
         input.wekan-form-control#accounts-allowEmailChange(type="radio" name="allowEmailChange" value="false" checked="{{#unless allowEmailChange}}checked{{/unless}}")
         label {{_ 'no'}}
-        button.js-save.primary {{_ 'save'}}
+    li
+      //- One Save, BELOW both settings it writes - the invite domain above and the
+      //- Yes/No beside it. It used to sit inside the Yes/No row, where it read as
+      //- part of that one radio pair.
+      button.js-save.primary {{_ 'save'}}
 
     li
       button.js-send-smtp-test-email.primary {{_ 'send-smtp-test'}}

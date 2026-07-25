@@ -1216,33 +1216,49 @@ Template.email.events({
   'click a.js-toggle-tls'() {
     $('#mail-server-tls').toggleClass('is-checked');
   },
+  // The pane's one Save, below both settings it writes: the invite domain and the
+  // allow-email-change Yes/No.
+  //
+  // It wrote NEITHER before. The SMTP fields above are commented out of this pane's
+  // markup, `checkField()` THROWS on an input that is not there, and the throw was
+  // caught and swallowed - so the handler returned before its Settings.update and
+  // pressing Save silently did nothing at all. Each field is written only when its
+  // input is actually rendered, which is the same guard every other pane here uses.
   'click button.js-save'(event, tpl) {
     tpl.loading.set(true);
     $('li').removeClass('has-error');
 
     try {
-      const host = checkField('#mail-server-host');
-      const port = checkField('#mail-server-port');
-      const username = $('#mail-server-username').val().trim();
-      const password = $('#mail-server-password').val().trim();
-      const from = checkField('#mail-server-from');
-      const tls = $('#mail-server-tls.is-checked').length > 0;
-      Settings.update(ReactiveCache.getCurrentSetting()._id, {
-        $set: {
-          'mailServer.host': host,
-          'mailServer.port': port,
-          'mailServer.username': username,
-          'mailServer.password': password,
-          'mailServer.enableTLS': tls,
-          'mailServer.from': from,
-          // Moved here with its input: the Layout save used to read
-          // #mailDomainNamevalue, which is not in that pane any more - so saving
-          // Layout would have written an empty domain over the stored one.
-          ...($('#mailDomainNamevalue').length
-            ? { mailDomainName: ($('#mailDomainNamevalue').val() || '').trim() }
-            : {}),
-        },
-      });
+      const $set = {};
+      // Only when the SMTP block is rendered (it is commented out at the moment).
+      // checkField marks a blank required field and throws, which is what should
+      // abort the save - but only when the field is on screen to be blank.
+      if ($('#mail-server-host').length) {
+        $set['mailServer.host'] = checkField('#mail-server-host');
+        $set['mailServer.port'] = checkField('#mail-server-port');
+        $set['mailServer.from'] = checkField('#mail-server-from');
+        $set['mailServer.username'] = ($('#mail-server-username').val() || '').trim();
+        $set['mailServer.password'] = ($('#mail-server-password').val() || '').trim();
+        $set['mailServer.enableTLS'] = $('#mail-server-tls.is-checked').length > 0;
+      }
+      // Moved here with its input: the Layout save used to read
+      // #mailDomainNamevalue, which is not in that pane any more - so saving
+      // Layout would have written an empty domain over the stored one.
+      if ($('#mailDomainNamevalue').length) {
+        $set.mailDomainName = ($('#mailDomainNamevalue').val() || '').trim();
+      }
+      if (Object.keys($set).length) {
+        Settings.update(ReactiveCache.getCurrentSetting()._id, { $set });
+      }
+      // Allow e-mail change lives in AccountSettings, so it is a second write - and
+      // nothing wrote it at all until now: the radios rendered the stored value and
+      // no handler in the app ever saved a change to them.
+      const allowEmailChange = $('input[name=allowEmailChange]:checked').val();
+      if (allowEmailChange !== undefined) {
+        AccountSettings.update('accounts-allowEmailChange', {
+          $set: { booleanValue: allowEmailChange === 'true' },
+        });
+      }
     } catch (e) {
       return;
     } finally {

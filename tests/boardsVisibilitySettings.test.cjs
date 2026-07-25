@@ -334,8 +334,9 @@ test('Support, Email domain name and Legal notice moved out of Layout', () => {
   assert.ok(visibility.includes('js-visibility-url-save'),
     'and the content editor it controls, saved with the rest of the URL section');
   assert.ok(visibility.includes('custom-legal-notice-link-url'), 'Legal notice URL is in Visibility');
-  assert.ok(email.includes('can-invite-if-same-mailDomainName'), 'Email domain name is in Email');
-  for (const gone of ['js-toggle-support', 'can-invite-if-same-mailDomainName',
+  assert.ok(email.includes('email-domain-allowed-to-invite'),
+    'the invite-domain field is in Email');
+  for (const gone of ['js-toggle-support', 'email-domain-allowed-to-invite',
     'custom-legal-notice-link-url']) {
     assert.ok(!pwa.includes(gone), `${gone} must not be in PWA`);
   }
@@ -351,6 +352,48 @@ test('the Layout save cannot wipe the two moved text fields', () => {
     'the Email save guards on the input existing');
   assert.ok(/\$\('#legalNoticevalue'\)\.length/.test(js),
     'the Visibility save guards on the input existing');
+});
+
+test('the E-mail pane Save writes BOTH settings above it, and is below them', () => {
+  // It wrote NEITHER. The SMTP fields are commented out of this pane, checkField()
+  // throws on an input that is not there, and the throw was caught and swallowed -
+  // so the handler returned before its Settings.update and pressing Save did
+  // nothing at all. Allow email change was never written by anything in the app.
+  const email = template('email');
+  const at = t => email.indexOf(t);
+  assert.ok(at('js-save') > at('email-domain-allowed-to-invite'),
+    'the Save button sits below the invite-domain field');
+  assert.ok(at('js-save') > at('accounts-allowEmailChange'),
+    'and below the allow-email-change radios, not inside their row');
+  const save = js.slice(js.indexOf("'click button.js-save'"));
+  const body = save.slice(0, save.indexOf('\n  },') + 5);
+  assert.ok(/\$\('#mail-server-host'\)\.length/.test(body),
+    'the SMTP fields are written only when that block is rendered - checkField '
+    + 'throws on a missing input, and that throw is what swallowed the whole save');
+  assert.ok(/\$\('#mailDomainNamevalue'\)\.length/.test(body),
+    'the invite domain is written when its input is on screen');
+  assert.ok(/AccountSettings\.update\('accounts-allowEmailChange'/.test(body),
+    'and allow email change is written too - it lives in AccountSettings, so it is '
+    + 'a second write');
+  assert.ok(/allowEmailChange !== undefined/.test(body),
+    'a missing radio is skipped, never saved as false');
+  assert.ok(/Object\.keys\(\$set\)\.length/.test(body), 'no empty update is sent');
+});
+
+test('the invite-domain label says what the setting does', () => {
+  // "Email domain name" said nothing about what it decides, and read as if it
+  // limited who may sign in. It decides who may INVITE, and only while
+  // self-registration is disabled (isNonAdminAllowedToSendMail).
+  assert.strictEqual(en['email-domain-allowed-to-invite'],
+    'Email domain allowed to invite people, when self-registration is disabled');
+  assert.ok(!('can-invite-if-same-mailDomainName' in en), 'the old key is renamed');
+  assert.ok(!/can-invite-if-same-mailDomainName/.test(jade),
+    'and nothing renders it any more');
+  // The behaviour the label now describes, in the code it describes.
+  const settings = read('server/models/settings.js');
+  assert.ok(/disableRegistration &&\s*\n\s*currSett\.mailDomainName/.test(settings),
+    'the domain only grants invites while self-registration is disabled');
+  assert.ok(/isNonAdminAllowedToSendMail/.test(settings), 'and only for non-admins');
 });
 
 test('the authentication-method settings moved to Login', () => {
