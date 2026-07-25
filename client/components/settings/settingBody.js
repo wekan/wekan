@@ -1,5 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import { buildMenuItems } from '/models/lib/leftMenu';
+import { leftMenuData } from '/models/lib/leftMenu';
 import { TAPi18n } from '/imports/i18n';
 import { ALLOWED_WAIT_SPINNERS } from '/config/const';
 import LockoutSettings from '/models/lockoutSettings';
@@ -378,7 +378,7 @@ function activeSettingId(inst) {
 Template.setting.helpers({
   menuItems() {
     const inst = Template.instance();
-    return buildMenuItems(settingsMenu(), activeSettingId(inst), 'js-setting-menu');
+    return leftMenuData(settingsMenu(), activeSettingId(inst), 'js-setting-menu');
   },
   isGeneralSetting() {
     const inst = Template.instance();

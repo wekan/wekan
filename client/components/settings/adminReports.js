@@ -9,7 +9,7 @@ import Rules from '/models/rules';
 import ImpersonatedUsers from '/models/impersonatedUsers';
 import RecoveryEvents from '/models/recoveryEvents';
 import { buildHeader, buildRows, pageInfo } from '/models/lib/tablePage';
-import { buildMenuItems } from '/models/lib/leftMenu';
+import { leftMenuData } from '/models/lib/leftMenu';
 const { cleanFileName } = require('/imports/lib/fileNameDisplay');
 const { filesize } = require('filesize');
 
@@ -196,7 +196,7 @@ const PROBLEMS_MENU = [
 Template.adminReports.helpers({
   menuItems() {
     // The pane opens on Summary, before any menu click has set activeReport.
-    return buildMenuItems(PROBLEMS_MENU,
+    return leftMenuData(PROBLEMS_MENU,
       Template.instance().activeReport.get() || 'report-summary');
   },
   // The shared table page for whichever paginated report is open (null for the

@@ -1,5 +1,5 @@
 import { TAPi18n } from '/imports/i18n';
-import { buildMenuItems } from '/models/lib/leftMenu';
+import { leftMenuData } from '/models/lib/leftMenu';
 const { filesize } = require('filesize');
 
 Template.statistics.onCreated(function () {
@@ -18,7 +18,7 @@ const INFO_MENU = [
 
 Template.information.helpers({
   menuItems() {
-    return buildMenuItems(INFO_MENU, 'information-display', 'js-setting-menu');
+    return leftMenuData(INFO_MENU, 'information-display', 'js-setting-menu');
   },
 });
 

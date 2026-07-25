@@ -1,5 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import { buildMenuItems } from '/models/lib/leftMenu';
+import { leftMenuData } from '/models/lib/leftMenu';
 import { buildHeader, buildRows, pageInfo } from "/models/lib/tablePage";
 import { avatarUpdateCounter } from '/client/components/users/avatarUpdateCounter';
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
@@ -475,7 +475,7 @@ Template.people.helpers({
     };
   },
   menuItems() {
-    return buildMenuItems(PEOPLE_MENU, Template.instance().activeMenuId.get());
+    return leftMenuData(PEOPLE_MENU, Template.instance().activeMenuId.get());
   },
   loading() {
     return Template.instance().loading;

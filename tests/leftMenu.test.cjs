@@ -35,7 +35,8 @@ const doc = read('docs/Design/Page/Left-Menu.md');
 
 const lib = {};
 new Function('exports', libSrc.replace(/export function/g, 'function') +
-  '\nexports.buildMenuItems = buildMenuItems;\nexports.activeCount = activeCount;')(lib);
+  '\nexports.buildMenuItems = buildMenuItems;\nexports.activeCount = activeCount;' +
+  '\nexports.leftMenuData = leftMenuData;')(lib);
 
 console.log('leftMenu:');
 
@@ -193,6 +194,42 @@ test('the two page designs cross-link', () => {
   assert.ok(fs.existsSync(path.join(root, 'docs/Design/Page/Table.md')));
 });
 
+// ── the template and the pages must agree on the data shape ─────────────────
+
+test('what the pages pass is what the template iterates', () => {
+  // The whole Admin Panel lost its left menu to this. leftMenu.jade iterates
+  // `each items`, and every page handed it the bare ARRAY from buildMenuItems - so
+  // Spacebars looked `items` up ON the array, found nothing, and rendered an empty
+  // panel on Settings, People, Features, Attachments, Version and Problems alike.
+  // Nothing failed: the template was fine, the helper was fine, only the seam between
+  // them was wrong. Neither half can be checked alone, so check the seam.
+  const iterated = /^\s*each (\w+)\s*$/m.exec(jade);
+  assert.ok(iterated, 'the template must iterate a named variable');
+  const key = iterated[1];
+  const context = lib.leftMenuData([{ id: 'a', labelKey: 'x' }], 'a');
+  assert.ok(!Array.isArray(context),
+    'a bare array cannot carry a named property for the template to iterate');
+  assert.ok(Array.isArray(context[key]),
+    `the template iterates \`${key}\`, so the data context must have a \`${key}\` array`);
+  assert.strictEqual(context[key].length, 1, 'and it must hold the built entries');
+});
+
+test('every page builds its context through that one helper', () => {
+  // Six pages, one shape. Calling buildMenuItems directly returns the array again and
+  // silently empties that page's menu, so no page may do it.
+  const pages = ['settingBody', 'peopleBody', 'adminFeatures', 'attachments',
+    'adminReports', 'informationBody'];
+  for (const page of pages) {
+    const src = read(`client/components/settings/${page}.js`);
+    const helper = /menuItems\(\) \{[\s\S]*?\n  \},/.exec(src);
+    assert.ok(helper, `${page}: must have a menuItems helper`);
+    assert.ok(/leftMenuData\(/.test(helper[0]),
+      `${page}: must build its context with leftMenuData`);
+    assert.ok(!/return buildMenuItems\(/.test(helper[0]),
+      `${page}: returning the bare array renders an empty menu`);
+  }
+});
+
 // ── pages converted to the shared menu ──────────────────────────────────────
 
 test('Admin Panel / Problems renders the shared menu from data', () => {
@@ -202,7 +239,7 @@ test('Admin Panel / Problems renders the shared menu from data', () => {
   assert.ok(/\+leftMenu\(menuItems\)/.test(jade), 'renders the shared menu');
   assert.ok(!/\.side-menu/.test(jade), 'no hand-written .side-menu markup left');
   assert.ok(/PROBLEMS_MENU = \[/.test(js), 'its entries are a data list');
-  assert.ok(/buildMenuItems\(PROBLEMS_MENU/.test(js), 'built by the shared helper');
+  assert.ok(/leftMenuData\(PROBLEMS_MENU/.test(js), 'built by the shared helper');
   // Twelve identical per-entry handlers collapsed to one on the shared class.
   assert.strictEqual((js.match(/'click a\.js-report-/g) || []).length, 0,
     'the per-entry handlers must be gone');
@@ -239,7 +276,7 @@ test('Settings, Features and Info render the shared menu too', () => {
     const pageJs = read(`client/components/settings/${file}.js`);
     assert.ok(/\+leftMenu\(menuItems\)/.test(pageJade), `${file}: renders the shared menu`);
     assert.ok(!/\.side-menu/.test(pageJade), `${file}: no hand-written menu markup left`);
-    assert.ok(pageJs.includes(`buildMenuItems(${list}`), `${file}: built by the shared helper`);
+    assert.ok(pageJs.includes(`leftMenuData(${list}`), `${file}: built by the shared helper`);
     assert.ok(pageJs.includes(jsClass), `${file}: keeps its own handler class`);
   }
 });
@@ -266,7 +303,7 @@ test('Admin Panel / People renders the shared menu from data', () => {
   const pageJs = read('client/components/settings/peopleBody.js').replace(/^\s*\/\/.*$/gm, '');
   assert.ok(/\+leftMenu\(menuItems\)/.test(pageJade), 'renders the shared menu');
   assert.ok(!/\.side-menu/.test(pageJade), 'no hand-written menu markup left');
-  assert.ok(/PEOPLE_MENU = \[/.test(pageJs) && /buildMenuItems\(PEOPLE_MENU/.test(pageJs),
+  assert.ok(/PEOPLE_MENU = \[/.test(pageJs) && /leftMenuData\(PEOPLE_MENU/.test(pageJs),
     'its entries are data, built by the shared helper');
   // Seven near-identical handlers collapsed to one.
   for (const old of ['js-org-menu', 'js-team-menu', 'js-people-menu',

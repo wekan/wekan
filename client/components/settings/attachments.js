@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { buildMenuItems } from '/models/lib/leftMenu';
+import { leftMenuData } from '/models/lib/leftMenu';
 import AttachmentBulkMoveStatus from '/models/attachmentBulkMoveStatus';
 import { TAPi18n } from '/imports/i18n';
 import { migrationProgressManager } from '/client/components/settings/migrationProgress';
@@ -438,7 +438,7 @@ function attachmentsMenu() {
 
 Template.attachments.helpers({
   menuItems() {
-    return buildMenuItems(attachmentsMenu(), Template.instance().activeSection.get(), 'js-attachments-menu');
+    return leftMenuData(attachmentsMenu(), Template.instance().activeSection.get(), 'js-attachments-menu');
   },
   loading() {
     return Template.instance().loading;

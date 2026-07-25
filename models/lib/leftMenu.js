@@ -48,6 +48,17 @@ export function buildMenuItems(items, activeId, jsClass = '') {
     });
 }
 
+// The data context the shared template expects, which is NOT a bare array.
+// leftMenu.jade iterates `each items`, so handing it the array directly makes
+// Spacebars look `items` up ON the array, find nothing, and render an empty menu -
+// which is exactly what every Admin Panel page did: Settings, People, Features,
+// Attachments, Version and Problems all showed a blank panel where the menu belongs.
+// Every page builds its context through here, so the shape is stated once instead of
+// being retyped - and got wrong - at each call site.
+export function leftMenuData(items, activeId, jsClass = '') {
+  return { items: buildMenuItems(items, activeId, jsClass) };
+}
+
 // True when exactly one entry is active. Used by the test to prove a menu can
 // never highlight two rows at once, which is what happens when each page keeps
 // its own `isXActive` helper per entry.

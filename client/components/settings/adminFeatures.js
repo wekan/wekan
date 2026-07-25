@@ -1,5 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import { buildMenuItems } from '/models/lib/leftMenu';
+import { leftMenuData } from '/models/lib/leftMenu';
 import { ReactiveVar } from 'meteor/reactive-var';
 import Settings from '/models/settings';
 
@@ -21,7 +21,7 @@ const FEATURES_MENU = [
 
 Template.adminFeatures.helpers({
   menuItems() {
-    return buildMenuItems(FEATURES_MENU, Template.instance().activePane.get(), 'js-features-menu');
+    return leftMenuData(FEATURES_MENU, Template.instance().activePane.get(), 'js-features-menu');
   },
   isPerformanceActive() {
     return Template.instance().activePane.get() === 'performance';
