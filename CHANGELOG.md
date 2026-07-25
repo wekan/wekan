@@ -603,6 +603,17 @@ and changes the Admin Panel as follows:
   under it rather than as several pages
   stacked](https://github.com/wekan/wekan/commit/671262ddb).
   Thanks to xet7.
+- [Admin Panel / Settings / Visibility, All Boards group: every row repeated the
+  group title and the word "Hide" — "Hide card counter list on All Boards" under a
+  title reading "All Boards". The title is "All Boards: Hide" and each row says only
+  what is hidden: Public boards, Board activities, Card counter list, Board member
+  list. The three i18n keys used only by this pane were renamed with their values,
+  so no language shows the old sentence under the new title; they fall back to
+  English until retranslated. `all-boards` (the menu label everywhere else) and
+  `tableVisibilityMode-allowPrivateOnly` (the message shown on a board you may not
+  open) keep their own strings, so the group title and the row label are new
+  keys](https://github.com/wekan/wekan/commit/2ef34924d).
+  Thanks to xet7.
 - [Each section of Admin Panel / Settings / Visibility has its own Save, directly
   above the rule that closes it, and it writes only that section's fields. One Save
   for the whole pane meant pressing it in one group also wrote whatever was
