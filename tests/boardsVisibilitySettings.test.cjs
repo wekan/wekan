@@ -124,4 +124,16 @@ test('hide board activities is ONE global setting, not a write per board', () =>
     'the global flag is read once, before any per-board value');
 });
 
+test('the Settings menu labels use existing translated keys', () => {
+  // Renaming a menu entry must not invent a string that only English has. Both
+  // renames point at keys that already exist in en.i18n.json.
+  assert.ok(/id: 'registration-setting'[^}]*labelKey: 'login'/.test(js),
+    'the sign-in pane is labelled with the existing login key');
+  assert.strictEqual(en.login, 'Login');
+  assert.strictEqual(en.visibility, 'Visibility');
+  // The pane ids never changed, so no pane content lost its translations.
+  assert.ok(js.includes("'registration-setting'") && js.includes("'tableVisibilityMode-setting'"),
+    'the pane ids are unchanged');
+});
+
 console.log(`\nboardsVisibilitySettings: ${passed} tests passed`);

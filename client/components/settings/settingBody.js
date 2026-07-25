@@ -332,7 +332,11 @@ function settingsMenu() {
   const isSandstorm =
     Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm;
   return [
-    { id: 'registration-setting', icon: 'fa-key', labelKey: 'registration', emoji: true },
+    // Labelled 'Login': this pane is the sign-in configuration (authentication
+    // method, password login, self-registration, forgot-password), not only
+    // registration. Uses the existing 'login' key, so every language that already
+    // translates it is covered - no new string to translate.
+    { id: 'registration-setting', icon: 'fa-key', labelKey: 'login', emoji: true },
     // No e-mail settings on Sandstorm; a null entry is dropped, not rendered empty.
     isSandstorm ? null : { id: 'email-setting', icon: 'fa-envelope', labelKey: 'email', emoji: true },
     { id: 'account-setting', icon: 'fa-users', labelKey: 'accounts', emoji: true },
