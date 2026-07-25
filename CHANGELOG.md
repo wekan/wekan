@@ -593,9 +593,14 @@ and changes the Admin Panel as follows:
   move Translation made](https://github.com/wekan/wekan/commit/d23219407).
   Thanks to xet7.
 - [Admin Panel / People: Domains moves up beside E-mail, the settings it is about,
-  instead of sitting at the end after the Roles and Shared templates checkbox lists;
-  and Admin Panel / Attachments: Backup moves to the top of its
-  menu](https://github.com/wekan/wekan/commit/d23219407).
+  instead of sitting at the end after the Roles and Shared templates checkbox
+  lists](https://github.com/wekan/wekan/commit/d23219407).
+  Thanks to xet7.
+- [Admin Panel / Attachments opens on Backup, which is also the first entry of its
+  menu — the first row of a menu and the pane that opens are the same one now, on
+  Attachments as on Settings. Landing there asks once whether a backup is already
+  running, so an in-progress backup shows its status instead of an idle-looking
+  pane](https://github.com/wekan/wekan/commit/a9680fa3d).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their
