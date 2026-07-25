@@ -594,12 +594,13 @@ and changes the Admin Panel as follows:
   Thanks to xet7.
 - [Admin Panel / Settings / Visibility is four named groups instead of one long
   list: **All Boards** (boards visibility, board activities, card counter list,
-  board member list, wait spinner), **URL** (Support, custom help link, custom legal
-  notice, custom URL schemes), then a rule and **Product name**, then a rule and
-  **Logo** (hide logo and the login / top-left-corner logo fields). The settings and
-  their ids are untouched, so the one Save button at the bottom still writes exactly
-  what it did. A group title is smaller than the pane title above it, so the page
-  reads as one heading with groups under it rather than as several pages
+  board member list, wait spinner), then **URL** (Support, custom help link, custom
+  legal notice, custom URL schemes), then **Product name**, then **Logo** (hide logo
+  and the login / top-left-corner logo fields) — each group after the first
+  separated by a horizontal rule. The settings and their ids are untouched, so the
+  one Save button at the bottom still writes exactly what it did. A group title is
+  smaller than the pane title above it, so the page reads as one heading with groups
+  under it rather than as several pages
   stacked](https://github.com/wekan/wekan/commit/671262ddb).
   Thanks to xet7.
 - ["Product name" appears once in that pane, not twice: the group holds one field,
