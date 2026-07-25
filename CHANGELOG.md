@@ -196,6 +196,19 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
 
 This release fixes the following bugs:
 
+- [In mobile mode the "Add List" + moved into each list header, between the caret and
+  the drag handle, and the row it used to occupy is gone — a whole row of a phone screen
+  spent on one button. Desktop had already done this, so the two had drifted apart; the
+  mobile button now uses the same class, and therefore the same handler and behaviour,
+  and the same Font Awesome icon, rather than being a lookalike that can drift again. The
+  list header row mirrors in RTL by itself, being a CSS grid, which lays out along the
+  inline axis — handle, +, caret, then the title — and no control is pinned to a physical
+  side. An empty swimlane and an empty board keep a + of their own, since there is no
+  list header to host one and otherwise the first list could never be created. The
+  template that rendered the old row is removed along with its handlers, mobile mode
+  having been its last
+  caller](https://github.com/wekan/wekan/commit/61979c0f6).
+  Thanks to xet7.
 - [Checked for the same window-resizing bug everywhere else it could hide, and closed
   the gap that made the question unanswerable: the guard test only ever looked at the
   client stylesheets. A viewport unit renders exactly the same from an inline `style=`
