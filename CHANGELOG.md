@@ -226,6 +226,15 @@ This release fixes the following CRITICAL SECURITY ISSUE of [ZipBleed](https://w
 
 and fixes the following bugs:
 
+- [The build stopped with `Can't use the built-in 'if' here` on the People page: a comment
+  had been left between an `if` and its `else if`, which splits the chain and orphans the
+  else. The comment moved above the chain. The more useful half of the fix is the test:
+  the guard that compiles every template was calling only the PARSE step, and this error
+  comes from the code-generation step that runs after it, so the suite was green while
+  the build was red. It now runs both steps, exactly as the build's own loader does, and
+  a negative test feeds the broken chain through both to show that parsing alone does not
+  see it](https://github.com/wekan/wekan/commit/f8793bec4).
+  Thanks to xet7.
 - [The Admin Panel Features tab is removed. Its last three panes — Performance,
   Security and Notifications — moved to Admin Panel / Problems, leaving a tab that
   opened an empty page. The route, the tab, its active-tab helper, the imports and both
