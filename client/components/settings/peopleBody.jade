@@ -9,12 +9,15 @@ template(name="people")
       .content-body
         +leftMenu(menuItems)
         .main-body
-          if loading.get
-            +spinner
           //- Login and E-mail moved here from Admin Panel / Settings. Their templates
           //- still live in settingBody.jade beside the other settings panes - Blaze
           //- templates are global - and their handlers moved onto those templates so
           //- they fire wherever the pane is rendered.
+          //- The comment lives ABOVE the chain on purpose: a comment BETWEEN `if` and
+          //- `else if` splits them, and the orphaned `else if` fails the build with
+          //- "Can't use the built-in 'if' here".
+          if loading.get
+            +spinner
           else if registrationSetting.get
             +general
           else if emailSetting.get

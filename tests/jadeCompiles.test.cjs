@@ -27,8 +27,31 @@ let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
 const root = path.join(__dirname, '..');
-const { JadeCompiler } = require(
+const { JadeCompiler, SpacebarsCompiler } = require(
   path.join(root, 'npm-packages/meteor-jade-loader/lib/jade-compiler'))();
+
+// PARSING IS NOT ENOUGH. The loader parses and then runs SpacebarsCompiler.codeGen on
+// the body and on every template, and some errors only surface in that second step:
+//
+//   Jade compilation error in peopleBody.jade: Can't use the built-in 'if' here
+//
+// which is what a `//-` comment placed BETWEEN `if` and `else if` produces - it splits
+// the chain and orphans the else. This suite parsed only, so it passed while the build
+// failed. Do what the loader does.
+function compile(source, file, fileMode) {
+  const result = JadeCompiler.parse(source, { filename: file, fileMode });
+  if (!fileMode) {
+    SpacebarsCompiler.codeGen(result, { isTemplate: true, sourceName: file });
+    return;
+  }
+  if (result.body !== null && result.body !== undefined) {
+    SpacebarsCompiler.codeGen(result.body, { isBody: true, sourceName: '<body>' });
+  }
+  for (const name of Object.keys(result.templates || {})) {
+    SpacebarsCompiler.codeGen(result.templates[name],
+      { isTemplate: true, sourceName: `Template "${name}"` });
+  }
+}
 
 function jadeFiles(dir, out = []) {
   if (!fs.existsSync(dir)) return out;
@@ -61,8 +84,7 @@ test('every .jade template compiles', () => {
   const broken = [];
   for (const file of files) {
     try {
-      JadeCompiler.parse(fs.readFileSync(file, 'utf8'),
-        { filename: file, fileMode: fileMode(file) });
+      compile(fs.readFileSync(file, 'utf8'), file, fileMode(file));
     } catch (e) {
       broken.push(`${path.relative(root, file)}: ${String(e.message).split('\n')[0]}`);
     }
@@ -78,22 +100,36 @@ test('the header templates that were broken compile (negative)', () => {
     'client/components/boards/boardHeader.jade']) {
     const full = path.join(root, rel);
     assert.ok(fs.existsSync(full), `${rel} must exist`);
-    JadeCompiler.parse(fs.readFileSync(full, 'utf8'),
-      { filename: full, fileMode: true });
+    compile(fs.readFileSync(full, 'utf8'), full, true);
   }
   // And the check must really reject the shape that broke: a tag-like `<body>` in an
   // INDENTED comment BLOCK, which is what "Expected \"body\" end tag" was about. The
   // block's text lines are lexed, so the angle brackets open a tag that never closes.
-  assert.throws(() => JadeCompiler.parse(
+  assert.throws(() => compile(
     'template(name="t")\n  //-\n    a comment mentioning <body>\n  div x\n',
-    { filename: 'broken.jade', fileMode: true }),
+    'broken.jade', true),
   'a raw tag inside a comment block must be rejected');
   // A one-line `//-` comment is lexed differently and tolerates it - which is why the
   // fix was to reword the block, and why this suite checks whole files rather than
   // grepping for angle brackets.
-  JadeCompiler.parse(
-    'template(name="t")\n  //- a comment mentioning <body> inline\n  div x\n',
-    { filename: 'ok.jade', fileMode: true });
+  compile('template(name="t")\n  //- a comment mentioning <body> inline\n  div x\n',
+    'ok.jade', true);
+});
+
+test('a comment between if and else if is caught (negative)', () => {
+  // The break this suite missed. `//-` between `if` and `else if` splits the chain and
+  // orphans the else, and the build stops with "Can't use the built-in 'if' here".
+  const broken = 'template(name="t")\n  div\n    if a\n      span x\n'
+    + '    //- a comment splitting the chain\n    else if b\n      span y\n';
+  assert.throws(() => compile(broken, 'broken.jade', true),
+    'a comment splitting an if/else chain must be rejected');
+  // PARSING ALONE DOES NOT SEE IT - which is exactly why this suite was green while
+  // the build failed. If this ever stops throwing, the check above has been weakened
+  // back to a parse.
+  JadeCompiler.parse(broken, { filename: 'broken.jade', fileMode: true });
+  // The same chain with the comment ABOVE it is fine, which is the fix.
+  compile('template(name="t")\n  div\n    //- a comment about the chain\n'
+    + '    if a\n      span x\n    else if b\n      span y\n', 'ok.jade', true);
 });
 
 console.log(`\njadeCompiles: ${passed} tests passed`);
