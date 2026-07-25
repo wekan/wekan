@@ -40,7 +40,7 @@ is visible rather than forgotten.
 
 | Table name | Menu path | Why it does not use this design |
 | --- | --- | --- |
-| People — five of its seven panes | Admin Panel / People | Teams, People, Locked users, Roles and Shared templates still have their own controls and table markup, one set per pane, so People is several tables on one page rather than one. The pane-specific extras it needed — a filter dropdown, action buttons and a result count — are now part of this design (see [Controls](#controls)), so nothing blocks the remaining six; they are simply not converted yet. **Domains and Organizations are converted** and is listed in the table below. |
+| People — four of its seven panes | Admin Panel / People | People, Locked users, Roles and Shared templates still have their own controls and table markup, one set per pane, so People is several tables on one page rather than one. The pane-specific extras it needed — a filter dropdown, action buttons and a result count — are now part of this design (see [Controls](#controls)), so nothing blocks the remaining four; they are simply not converted yet. **Domains, Organizations and Teams are converted** and are listed in the table below. |
 
 What People already shares, and what converting it would take:
 
@@ -69,6 +69,7 @@ Menu path is what you click to reach the page.
 
 | Table name | Menu path | Description |
 | --- | --- | --- |
+| Teams | Admin Panel / People / Teams | Every team with its details and per-team feature switches. Same shape as Organizations: a `rowTemplate` and three `headerTemplate` columns. |
 | Organizations | Admin Panel / People / Organizations | Every organization with its details and per-organization feature switches. Interactive rows, so it supplies a `rowTemplate`; three of its headers carry a select-all pair, supplied as `headerTemplate`. |
 | Domains | Admin Panel / People / Domains | Every e-mail domain in use with the number of users on it. The first People pane converted to this design. |
 | Security | Admin Panel / Problems / Security | Security events from the event log: blocked uploads, rejected URL schemes, auth failures. One row per event, newest first. |

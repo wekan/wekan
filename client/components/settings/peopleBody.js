@@ -291,6 +291,24 @@ const PEOPLE_MENU = [
 // rowTemplate instead of a text-cell spec, and three of its headers carry a
 // select-all pair, supplied as headerTemplate. Everything else - the layout, the
 // pager, the search, the total - comes from the shared page.
+// Teams: same shape as Organizations - interactive rows, three headers carrying
+// a select-all pair. Same two slots (docs/Design/Page/Table.md).
+const TEAM_COLUMNS = [
+  { headerTemplate: 'newTeamRow' },
+  { labelKey: 'displayName' },
+  { labelKey: 'description' },
+  { labelKey: 'shortName' },
+  { labelKey: 'website' },
+  { labelKey: 'createdAt' },
+  { labelKey: 'active-team' },
+  { headerTemplate: 'teamFeatureHeader',
+    headerData: { labelKey: 'team-shared-templates', feature: 'teamSharedTemplates' } },
+  { headerTemplate: 'teamFeatureHeader',
+    headerData: { labelKey: 'team-propagate-members-to-boards', feature: 'teamPropagateMembersToBoards' } },
+  { headerTemplate: 'teamFeatureHeader',
+    headerData: { labelKey: 'team-sync-members-from-auth', feature: 'teamSyncMembersFromAuth' } },
+];
+
 const ORG_COLUMNS = [
   { headerTemplate: 'newOrgRow' },
   { labelKey: 'displayName' },
@@ -308,6 +326,28 @@ const ORG_COLUMNS = [
 ];
 
 Template.people.helpers({
+  teamTablePageData() {
+    const tpl = Template.instance();
+    const teams = ReactiveCache.getTeams(tpl.findTeamsOptions.get(), {
+      sort: { createdAt: -1 },
+    });
+    const total = tpl.numberTeams.get() || 0;
+    const totalPages = Math.max(1, Math.ceil(total / teamsPerPage));
+    return {
+      titleKey: 'teams',
+      emptyKey: 'no-items-message',
+      header: buildHeader(TEAM_COLUMNS),
+      rowTemplate: 'teamRow',
+      docs: teams.map(team => ({ team })),
+      rowCount: teams.length,
+      page: tpl.teamPage.get(),
+      totalPages,
+      hasPrev: tpl.teamPage.get() > 1,
+      hasNext: tpl.teamPage.get() < totalPages,
+      total,
+      totalLabelKey: 'team-number',
+    };
+  },
   orgTablePageData() {
     const tpl = Template.instance();
     // The 'org' publication already returns only the current page (server-side
@@ -560,34 +600,32 @@ Template.people.events({
     const value = event.currentTarget.getAttribute('data-value') === 'true';
     Meteor.call('setAllTeamsFeature', field, value);
   },
-  // The shared table page emits the same control classes on every pane, and all
-  // of People's panes render inside THIS template - so a click would otherwise
-  // page every converted pane at once. Act only for the pane that is open.
+  // Every People pane renders inside THIS template, and the shared table page
+  // gives them all the same control classes - so one handler serves them all and
+  // switches on the pane that is open. A separate handler per pane is impossible
+  // here anyway: they would be duplicate keys in one event map.
+  //
+  // Teams gains a working PREV in the process: it had a prev button in its old
+  // markup and no handler behind it, so paging back was silently dead.
   'click .js-table-page-prev'(event, tpl) {
-    if (tpl.activeMenuId.get() !== 'org-setting') return;
+    const pane = tpl.activeMenuId.get();
     event.preventDefault();
-    const current = tpl.orgPage.get();
-    if (current > 1) {
-      tpl.orgPage.set(current - 1);
+    if (pane === 'org-setting' && tpl.orgPage.get() > 1) {
+      tpl.orgPage.set(tpl.orgPage.get() - 1);
+    } else if (pane === 'team-setting' && tpl.teamPage.get() > 1) {
+      tpl.teamPage.set(tpl.teamPage.get() - 1);
     }
   },
   'click .js-table-page-next'(event, tpl) {
-    if (tpl.activeMenuId.get() !== 'org-setting') return;
+    const pane = tpl.activeMenuId.get();
     event.preventDefault();
-    const totalOrgs = tpl.numberOrgs.get() || 0;
-    const totalPages = Math.max(1, Math.ceil(totalOrgs / orgsPerPage));
-    const current = tpl.orgPage.get();
-    if (current < totalPages) {
-      tpl.orgPage.set(current + 1);
-    }
-  },
-  'click .js-team-next-page'(event, tpl) {
-    event.preventDefault();
-    const totalTeams = tpl.numberTeams.get() || 0;
-    const totalPages = Math.max(1, Math.ceil(totalTeams / teamsPerPage));
-    const current = tpl.teamPage.get();
-    if (current < totalPages) {
-      tpl.teamPage.set(current + 1);
+    const pages = (total, per) => Math.max(1, Math.ceil((total || 0) / per));
+    if (pane === 'org-setting') {
+      const totalPages = pages(tpl.numberOrgs.get(), orgsPerPage);
+      if (tpl.orgPage.get() < totalPages) tpl.orgPage.set(tpl.orgPage.get() + 1);
+    } else if (pane === 'team-setting') {
+      const totalPages = pages(tpl.numberTeams.get(), teamsPerPage);
+      if (tpl.teamPage.get() < totalPages) tpl.teamPage.set(tpl.teamPage.get() + 1);
     }
   },
   'click #unlockAllUsers'(event) {

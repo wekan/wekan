@@ -405,7 +405,8 @@ test('People/Org/Team/Domain pagination buttons use var(--theme-accent)', () => 
   // No 'domain': the Domains pane renders through the shared table page now, so
   // its pager is the shared one.
   // No 'org' either: Organizations renders through the shared table page now.
-  for (const sel of ['people', 'team']) {
+  // Only People keeps its own pager: the other panes render through the shared page.
+  for (const sel of ['people']) {
     const m = new RegExp('\\.' + sel + '-pagination button\\s*\\{[^}]*var\\(--theme-accent');
     assert.ok(m.test(css), `${sel}-pagination button must use the theme accent`);
   }
@@ -466,7 +467,7 @@ test('the doc records which pages do NOT use this design, and why', () => {
   assert.ok(why && why[1].trim().length > 80, 'the reason must actually explain');
   // Domains IS converted, so the entry must say so and the pane must render
   // through the shared template - not carry markup of its own.
-  assert.ok(/Domains and Organizations are converted/.test(section), 'the entry must record the converted pane');
+  assert.ok(/Domains, Organizations and Teams are converted/.test(section), 'the entry must record the converted pane');
   const people = read('client/components/settings/peopleBody.jade');
   const domains = people.slice(people.indexOf('template(name="domainGeneral")'),
     people.indexOf('template(name="newOrgRow")'));
@@ -551,8 +552,24 @@ test('Organizations renders through the shared table page', () => {
   assert.ok(/headerTemplate: 'orgFeatureHeader'/.test(js), 'its control headers use the header slot');
   // All of People's panes render inside ONE template, so a shared-class handler
   // must act only for the pane that is open - otherwise one click pages them all.
-  assert.ok(/activeMenuId\.get\(\) !== 'org-setting'/.test(js),
+  assert.ok(/pane === 'org-setting'/.test(js),
     'the org pager must be scoped to the open pane');
+});
+
+test('Teams renders through the shared table page, and gains a working prev', () => {
+  const people = read('client/components/settings/peopleBody.jade');
+  const team = people.slice(people.indexOf('template(name="teamGeneral")'),
+    people.indexOf('template(name="teamFeatureHeader")'));
+  assert.ok(/\+tablePage\(teamTablePageData\)/.test(team), 'renders the shared page');
+  assert.ok(!/thead|team-pagination/.test(team), 'and keeps no table markup of its own');
+  const js = read('client/components/settings/peopleBody.js');
+  assert.ok(/rowTemplate: 'teamRow'/.test(js) && /headerTemplate: 'teamFeatureHeader'/.test(js));
+  // Teams had a prev BUTTON and no handler behind it - paging back was dead.
+  // Folding both panes into one scoped handler pair fixed that.
+  assert.ok(/pane === 'team-setting' && tpl\.teamPage\.get\(\) > 1/.test(js),
+    'Teams must now page backwards');
+  assert.strictEqual((js.match(/'click \.js-table-page-prev'/g) || []).length, 1,
+    'one handler for every pane - duplicate keys in one event map would overwrite');
 });
 
 console.log(`\ntablePage: ${passed} tests passed`);

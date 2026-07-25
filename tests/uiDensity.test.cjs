@@ -113,7 +113,11 @@ test('org/team feature column headers use compact icon links', () => {
   for (const feature of ['orgSharedTemplates', 'orgPropagateMembersToBoards', 'orgSyncMembersFromAuth']) {
     assert.ok(js.includes(`feature: '${feature}'`), `${feature} must still have a header`);
   }
-  assert.ok(/a\.js-team-feature-all\(href="#", data-feature="teamSyncMembersFromAuth", data-value="false", title="\{\{_ 'unselect-all'\}\}"\)\s*\n\s*i\.fa\.fa-square-o/.test(peopleBody));
+  // Teams the same way: one parameterised header template, not three copies.
+  assert.ok(/a\.js-team-feature-all\(href="#", data-feature="\{\{feature\}\}", data-value="false", title="\{\{_ 'unselect-all'\}\}"\)\s*\n\s*i\.fa\.fa-square-o/.test(peopleBody));
+  for (const feature of ['teamSharedTemplates', 'teamPropagateMembersToBoards', 'teamSyncMembersFromAuth']) {
+    assert.ok(js.includes(`feature: '${feature}'`), `${feature} must still have a header`);
+  }
   // negative: no full-text links blowing the column width up
   assert.ok(!/data-value="true"\) \{\{_ 'select-all'\}\}/.test(peopleBody));
   assert.ok(!/data-value="false"\) \{\{_ 'unselect-all'\}\}/.test(peopleBody));

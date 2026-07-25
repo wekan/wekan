@@ -24,7 +24,6 @@
 
 .table-page-pagination button,
 .people-pagination button,
-.team-pagination button,
 .boards-pagination button,
 .table-view-pagination button,
 .cron-settings .pagination button {
@@ -52,9 +51,6 @@
 .people-pagination button:hover:not(.disabled),
 .people-pagination button:focus:not(.disabled),
 .people-pagination button:active:not(.disabled),
-.team-pagination button:hover:not(.disabled),
-.team-pagination button:focus:not(.disabled),
-.team-pagination button:active:not(.disabled),
 .boards-pagination button:hover:not(.disabled),
 .boards-pagination button:focus:not(.disabled),
 .boards-pagination button:active:not(.disabled),
@@ -77,8 +73,6 @@
 .table-page-pagination button:active:focus,
 .people-pagination button:active:hover,
 .people-pagination button:active:focus,
-.team-pagination button:active:hover,
-.team-pagination button:active:focus,
 .boards-pagination button:active:hover,
 .boards-pagination button:active:focus,
 .table-view-pagination button:active:hover,
@@ -93,7 +87,6 @@
 /* The current page in a numbered pager. */
 .table-page-pagination button.active,
 .people-pagination button.active,
-.team-pagination button.active,
 .boards-pagination button.active,
 .table-view-pagination button.active {
   background: var(--theme-accent, #01628c);
@@ -105,7 +98,6 @@
 /* Disabled = the same themed outline, faded. Not a grey block. */
 .table-page-pagination button.disabled,
 .people-pagination button.disabled,
-.team-pagination button.disabled,
 .boards-pagination button.disabled,
 .table-view-pagination button.disabled {
   background: transparent;
@@ -121,7 +113,6 @@
    which disappears on a dark background). */
 .table-page-page-info,
 .people-page-info,
-.team-page-info,
 .boards-page-info,
 .table-view-page-info,
 .cron-settings .pagination .page-info {
