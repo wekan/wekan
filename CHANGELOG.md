@@ -196,6 +196,17 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
 
 This release fixes the following bugs:
 
+- [The Admin Panel left menu is back on every page. Settings, People, Features,
+  Attachments, Version and Problems all rendered an empty panel where their menu
+  belongs. The seam between the two halves of the shared menu was wrong: the template
+  iterates `items`, and every page handed it the bare array the builder returns, so the
+  lookup found nothing and rendered nothing. Nothing failed anywhere — the template was
+  correct, the builder was correct, every test passed, and six pages simply lost their
+  navigation to one mismatched shape. That shape is now stated once and used by all six
+  pages, and the missing guard checks the seam rather than either half: it reads which
+  variable the template iterates and asserts the data context really has an array under
+  that name](https://github.com/wekan/wekan/commit/d34d28159).
+  Thanks to xet7.
 - [In mobile mode the fixed-size light grey bands around a swimlane are gone: the one
   between the blue resize bar and the next swimlane’s dark header, which travelled with
   the bar as the swimlane was resized, and its twin between a swimlane’s header bar and
