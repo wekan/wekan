@@ -1,5 +1,5 @@
 .integration-form {
-  padding: 0.7vh 0.7vw;
+  padding: 6px 10px;
   border-bottom: 1px solid #ccc;
 }
 .flex,
@@ -12,14 +12,14 @@
   display: flex;
 }
 .option {
-  -webkit-border-radius: 0.4vw;
-  border-radius: 0.4vw;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
   background: #fff;
   text-decoration: none;
-  -webkit-box-shadow: 0 0.2vh 0.3vh rgba(0,0,0,0.2);
-  box-shadow: 0 0.2vh 0.3vh rgba(0,0,0,0.2);
-  margin-top: 0.7vh;
-  padding: 0.7vh 0.7vw;
+  -webkit-box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+  margin-top: 6px;
+  padding: 6px 10px;
 }
 
 /* Zoom and Mobile Mode Controls */
@@ -33,16 +33,16 @@
 .zoom-controls {
   display: flex;
   align-items: center;
-  gap: 0.5vw;
+  gap: 7px;
   background: rgba(255, 255, 255, 0.9);
-  padding: 0.5vh 1vw;
-  border-radius: 0.5vw;
-  box-shadow: 0 0.2vh 0.5vh rgba(0,0,0,0.1);
+  padding: 5px 14px;
+  border-radius: 7px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .zoom-controls .board-header-btn {
-  padding: 0.5vh 0.8vw !important;
-  border-radius: 0.3vw !important;
+  padding: 5px 11px !important;
+  border-radius: 4px !important;
   background: #fff !important;
   border: 1px solid #000 !important;
   transition: all 0.2s ease !important;
@@ -85,12 +85,12 @@
 .zoom-level {
   font-weight: bold;
   color: #333;
-  min-width: 3vw;
+  min-width: 42px;
   text-align: center;
   font-size: clamp(12px, 2vw, 14px);
   cursor: pointer;
-  padding: 0.3vh 0.5vw;
-  border-radius: 0.3vw;
+  padding: 3px 7px;
+  border-radius: 4px;
   transition: all 0.2s ease;
 }
 
@@ -111,7 +111,7 @@
 
 .mobile-mode .minicard {
   font-size: clamp(16px, 4vw, 20px);
-  padding: 1.2vh 1.5vw 0.5vh;
+  padding: 11px 21px 5px;
   min-height: 3vh;
 }
 
@@ -120,17 +120,17 @@
 }
 
 .mobile-mode .board-header-btn {
-  padding: 1vh 1.5vw;
+  padding: 9px 21px;
   font-size: clamp(14px, 3.5vw, 18px);
 }
 
 .mobile-mode .zoom-controls {
-  padding: 1vh 1.5vw;
-  gap: 1vw;
+  padding: 9px 21px;
+  gap: 14px;
 }
 
 .mobile-mode .zoom-controls .board-header-btn {
-  padding: 1vh 1.5vw !important;
+  padding: 9px 21px !important;
   font-size: clamp(14px, 3.5vw, 18px) !important;
   background: #fff !important;
   border: 1px solid #000 !important;
@@ -162,7 +162,7 @@
 
 .mobile-mode .zoom-level {
   font-size: clamp(14px, 3.5vw, 18px);
-  min-width: 4vw;
+  min-width: 56px;
 }
 
 /* Comprehensive Mobile Mode Styles - Works on all screen sizes */
@@ -290,7 +290,7 @@
   min-width: 100% !important;
   max-width: 100% !important;
   font-size: clamp(16px, 2vw, 24px) !important;
-  padding: 1.2vh 1.5vw 0.5vh !important;
+  padding: 11px 21px 5px !important;
   min-height: 3vh !important;
   margin-bottom: 0.5rem !important;
   display: block !important;
@@ -334,7 +334,7 @@
 .desktop-mode .list-header {
   width: auto !important;
   min-width: auto !important;
-  padding: 2.5vh 1.5vw 0.5vh !important;
+  padding: 23px 21px 5px !important;
   font-size: clamp(14px, 3vw, 18px) !important;
   display: block !important;
 }
@@ -386,7 +386,7 @@
   width: auto !important;
   min-width: auto !important;
   font-size: clamp(12px, 2.5vw, 16px) !important;
-  padding: 0.5vh 0.8vw !important;
+  padding: 5px 11px !important;
   min-height: auto !important;
   margin-bottom: 9px !important;
 }
@@ -443,7 +443,7 @@
 
 .mobile-mode .board-header .board-header-btn {
   font-size: clamp(14px, 2vw, 24px) !important;
-  padding: 1vh 1.5vw !important;
+  padding: 9px 21px !important;
   display: inline-block !important;
   visibility: visible !important;
   opacity: 1 !important;
@@ -918,7 +918,7 @@
 
 .desktop-mode .board-header {
   font-size: clamp(14px, 3vw, 18px) !important;
-  padding: 2.5vh 1.5vw 0.5vh !important;
+  padding: 23px 21px 5px !important;
 }
 
 .desktop-mode .board-header .board-header-title {
@@ -931,7 +931,7 @@
 
 .desktop-mode .board-header .board-header-btn {
   font-size: clamp(12px, 2.5vw, 16px) !important;
-  padding: 0.5vh 0.8vw !important;
+  padding: 5px 11px !important;
 }
 
 .desktop-mode .board-header .board-header-btn i {

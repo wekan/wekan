@@ -26,28 +26,28 @@
      the rest, so both stay visible without switching to a stacked layout. */
   flex-direction: row;
   flex-wrap: nowrap;
-  padding-top: 2vh;
+  padding-top: 18px;
   height: 100%;
-  gap: 1.3vw;
+  gap: 18px;
 }
 .setting-content .content-body .side-menu {
   background-color: #f7f7f7;
   border: 1px solid #f0f0f0;
-  border-radius: 0.5vw;
+  border-radius: 7px;
   width: min(250px, 32vw);
   /* Never let the menu be squeezed away on narrow windows; keep it visible. */
   flex: 0 0 auto;
   /* No X offset: an inset shadow offset sideways is a PHYSICAL direction and does
      not mirror under dir=rtl, so it shaded the wrong inner edge once the menu moved
      to the right. See docs/Design/Page/Left-Menu.md. */
-  box-shadow: inset 0 -0.2vh 0.4vh rgba(0,0,0,0.05);
+  box-shadow: inset 0 -2px 4px rgba(0,0,0,0.05);
 }
 .setting-content .content-body .side-menu ul li {
-  margin: 0.2vh 0.3vw;
+  margin: 2px 4px;
 }
 .setting-content .content-body .side-menu ul li.active {
   background: #fff;
-  box-shadow: 0 0.2vh 0.3vh rgba(0,0,0,0.15);
+  box-shadow: 0 2px 3px rgba(0,0,0,0.15);
 }
 /* The one themeable part of the menu: the entry you are on takes the per-user
    theme accent (Member Settings -> Change color sets --theme-accent on :root).
@@ -58,13 +58,13 @@
 }
 .setting-content .content-body .side-menu ul li:hover {
   background: #fff;
-  box-shadow: 0 0.2vh 0.3vh rgba(0,0,0,0.15);
+  box-shadow: 0 2px 3px rgba(0,0,0,0.15);
 }
 .setting-content .content-body .side-menu ul li a {
   /* Logical, so the indent follows the reading direction instead of staying on
      the left when the menu mirrors to the right. */
-  padding-block: 1.3vh;
-  padding-inline-start: 1.3vw;
+  padding-block: 12px;
+  padding-inline-start: 18px;
   padding-inline-end: 0;
   width: 95%;
 }
@@ -315,7 +315,7 @@ li.has-error .form-group .wekan-form-control {
     flex-wrap: nowrap;
     gap: 8px;
     height: auto;
-    padding-top: 1vh;
+    padding-top: 9px;
   }
   .setting-content .content-body .side-menu {
     width: 100%;

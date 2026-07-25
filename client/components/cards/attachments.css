@@ -293,16 +293,16 @@
   max-width: 100%;
 }
 #pdf-viewer {
-  width: 40vw;
+  width: 560px;
   height: 100%;
 }
 #txt-viewer {
   background-color: white;
-  width: 40vw;
+  width: 560px;
   height: 100%;
 }
 .pdf-preview-error {
-  margin-top: 20vh;
+  margin-top: 180px;
   display: block;
   font-size: 2em;
   color: white;
@@ -310,7 +310,7 @@
 
 @media screen and (max-width: 1600px) {
   #pdf-viewer {
-    width: 60vw;
+    width: 840px;
   }
 }
 

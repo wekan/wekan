@@ -201,7 +201,7 @@ body.grey-icons-enabled .sidebar .sidebar-content ul.sidebar-list li > a .fa.fa-
 }
 .board-sidebar {
   display: none;
-  /* Keep a sensible sidebar width at every screen size. A bare 30vw scaled with
+  /* Keep a sensible sidebar width at every screen size. A bare 420px scaled with
      the viewport, so on very wide screens it grew to ~double the intended width
      while looking right only at mid widths; clamp keeps the mid-width look and
      caps it (and floors it) instead of scaling without bound. Phones (<800px)

@@ -7,7 +7,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 12px;
-  margin: 1vh 0;
+  margin: 9px 0;
 }
 
 .table-view-search-box {
@@ -18,7 +18,7 @@
 
 .table-view-search-box input {
   border: 1px solid #ccc;
-  border-radius: 0.4vw;
+  border-radius: 6px;
   padding: 0 8px;
 }
 
@@ -28,7 +28,7 @@
   background: #01628c;
   color: #fff;
   border: none;
-  border-radius: 0.4vw;
+  border-radius: 6px;
   cursor: pointer;
   padding: 0 12px;
 }
@@ -48,7 +48,7 @@
   height: 30px;
   border: 1px solid #bbb;
   background: #fff;
-  border-radius: 0.4vw;
+  border-radius: 6px;
   cursor: pointer;
 }
 

@@ -161,7 +161,7 @@ body.list-resizing-active * {
   /* Maintain consistent height and padding for all lists */
   min-height: 30px !important;
   height: auto !important;
-  padding: 28px 1.5vw 6px !important;
+  padding: 28px 21px 6px !important;
   /* Make sure the background covers the full height */
   background-color: #e4e4e4 !important;
   border-bottom: 8px solid #e4e4e4 !important;
@@ -230,7 +230,7 @@ body.list-resizing-active * {
   position: absolute !important;
 }
 [id^="swimlane-"] .list:first-child {
-  min-width: 2.5vw;
+  min-width: 35px;
 }
 .list.list-auto-width {
   flex: 1;
@@ -254,7 +254,7 @@ body.list-resizing-active * {
   background-color: rgba(0,0,0,0.2);
   border-color: transparent;
   box-shadow: none;
-  height: 15vh;
+  height: 135px;
 }
 .list.list-collapsed {
   flex: none !important;
@@ -264,7 +264,7 @@ body.list-resizing-active * {
   max-width: 30px !important;
   width: 30px !important;
   min-height: 60vh;
-  height: 60vh;
+  height: 540px;
   overflow: visible;
   position: relative;
 }
@@ -414,13 +414,13 @@ form.inlined-form .list-composer {
 }
 .list-header-add {
   flex: 0 0 auto;
-  padding: 14px 1.5vw;
+  padding: 14px 21px;
   position: relative;
   min-height: 30px;
 }
 .list-header {
   flex: 0 0 auto;
-  padding: 28px 1.5vw 6px;
+  padding: 28px 21px 6px;
   position: relative;
   min-height: 30px;
   background-color: #e4e4e4;
@@ -443,7 +443,7 @@ form.inlined-form .list-composer {
   margin: 0;
   font-weight: bold;
   min-height: 14px;
-  min-width: 4vw;
+  min-width: 56px;
   overflow-wrap: break-word;
   word-wrap: break-word;
   vertical-align: top;
@@ -462,10 +462,10 @@ form.inlined-form .list-composer {
   vertical-align: middle;
 }
 .list-rotated {
-  width: 1.3vw;
-  height: 35vh;
-  margin-top: -12vh;
-  margin-inline-start: -14vw;
+  width: 18px;
+  height: 315px;
+  margin-top: -108px;
+  margin-inline-start: -196px;
   margin-inline-end: 0;
   transform: rotate(90deg);
   position: relative;
@@ -562,7 +562,7 @@ form.inlined-form .list-composer {
     max-width: 30px;
     width: 30px;
     min-height: 60vh;
-    height: 60vh;
+    height: 540px;
   }
   .list.list-collapsed .list-header {
     width: 30px;
@@ -614,7 +614,7 @@ form.inlined-form .list-composer {
     max-width: 30px;
     width: 30px;
     min-height: 60vh;
-    height: 60vh;
+    height: 540px;
   }
   .list.list-collapsed .list-header {
     width: 30px;
@@ -665,7 +665,7 @@ form.inlined-form .list-composer {
     max-width: 30px;
     width: 30px;
     min-height: 60vh;
-    height: 60vh;
+    height: 540px;
   }
   .list.list-collapsed .list-header {
     width: 30px;

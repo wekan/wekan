@@ -74,8 +74,13 @@ assert.match(
 // explicit so the two are not accidentally decoupled without thought.
 assert.match(
   layoutsCss,
-  /\.viewer\s*\{[^}]*min-height:\s*2\.5vh/,
-  '#6424: expected the global `.viewer { min-height: 2.5vh }` (the rule the minicard override compensates for)',
+    // The global floor is PX now, not 2.5vh: as a percentage of window height it
+  // grew the empty band under one-line text as the window got taller, which is the
+  // resize behaviour reported on the auth pages and described in minicard.css.
+  // The dependency this assertion documents is unchanged - there is still a global
+  // floor that the minicard override compensates for.
+  /\.viewer\s*\{[^}]*min-height:\s*\d+px/,
+  '#6424: expected a global `.viewer` min-height (the rule the minicard override compensates for)',
 );
 
 console.log('minicardLabelHeight.test.cjs: all assertions passed');

@@ -5,17 +5,17 @@
 .map-members .mapping-list {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 -0.5vw;
+  margin: 0 -7px;
 }
 .map-members .mapping-list .mapping-item {
   max-width: min(300px, 40vw);
   min-width: min(200px, 26vw);
-  padding: 0.8vh 0.8vw;
-  margin: 0.7vh;
+  padding: 7px 11px;
+  margin: 6px;
   flex: 1;
   background: #fff;
-  border-radius: 0.4vw;
-  box-shadow: 0 0.2vh 0.3vh rgba(0,0,0,0.15);
+  border-radius: 6px;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.15);
 }
 .map-members .mapping-list .mapping-item:hover {
   background: #f2f2f2;
@@ -37,7 +37,7 @@
 }
 .map-members .mapping-list .wekan {
   display: inline-block;
-  width: 4.5vw;
+  width: 63px;
 }
 .map-members .mapping-list .wekan .member {
   float: none;

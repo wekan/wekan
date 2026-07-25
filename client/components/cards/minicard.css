@@ -7,7 +7,7 @@
 }
 .minicard-wrapper.placeholder {
   background: #ccc;
-  border-radius: 1.2vw;
+  border-radius: 17px;
 }
 .minicard-wrapper.ui-sortable-helper {
   cursor: grabbing;
@@ -20,13 +20,13 @@
   padding: 5px;
   background-color: #f2f2f2;
   text-align: center;
-  border-radius: 0.4vw;
+  border-radius: 6px;
 }
 .minicard-wrapper.ui-sortable-helper .multi-selection-checkbox {
   display: none;
 }
 .minicard-wrapper .multi-selection-checkbox + .minicard {
-  margin-inline-start: 1vw;
+  margin-inline-start: 14px;
 }
 /* Enlarge the clickable area of the small selection checkbox so it can be
    reliably clicked at the left side of the minicard. The visible 13px box (and
@@ -42,14 +42,14 @@
 }
 @media only screen {
   .minicard {
-    padding: 8px 1vw 3px;
+    padding: 8px 14px 3px;
     position: relative;
     flex: 1;
     flex-wrap: wrap;
     background-color: #fff;
     min-height: 25px;
     box-shadow: 0 2px 3px rgba(0,0,0,0.15);
-    border-radius: 0.3vw;
+    border-radius: 4px;
     color: #4d4d4d;
     overflow: hidden;
     transition: transform 0.2s, border-radius 0.2s;
@@ -57,7 +57,7 @@
 }
 .minicard-details-menu-with-handle {
   float: inline-end;
-  padding-inline-start: 0.7vw;
+  padding-inline-start: 10px;
   font-size: clamp(14px, 3vw, 18px);
   padding: 0;
   z-index: 1;
@@ -65,7 +65,7 @@
 .minicard-details-menu {
   float: inline-end;
   font-size: clamp(14px, 3vw, 18px);
-  padding-inline-start: 0.7vw;
+  padding-inline-start: 10px;
 }
 @media print {
   .minicard-details-menu,
@@ -76,7 +76,7 @@
 .minicard.linked-board .linked-icon,
 .minicard.linked-card .linked-icon {
   display: inline-block;
-  margin-inline-end: 1.5vw;
+  margin-inline-end: 21px;
   vertical-align: baseline;
   font-size: 0.9em;
 }
@@ -85,11 +85,11 @@
   color: #937760;
 }
 .is-selected .minicard {
-  transform: translateX(1.5vw);
+  transform: translateX(21px);
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
   z-index: 25;
-  box-shadow: -0.3vw 2px 3px rgba(0,0,0,0.2);
+  box-shadow: -4px 2px 3px rgba(0,0,0,0.2);
 }
 .minicard:hover:not(.minicard-composer),
 .is-selected .minicard,
@@ -105,18 +105,18 @@
   background-size: contain;
   height: 150px;
   user-select: none;
-  margin: 8px -1vw 8px -1vw;
-  border-radius: top 0.3vw;
+  margin: 8px -14px 8px -14px;
+  border-radius: top 4px;
 }
 .minicard .minicard-labels {
   float: none;
-  margin-inline-end: 6vw;
+  margin-inline-end: 84px;
 }
 .minicard .minicard-labels .minicard-label {
   width: clamp(12px, 1.5vw, 16px);
   height: clamp(12px, 1.5vw, 16px);
-  border-radius: 0.3vw;
-  margin-inline-end: 0.4vw;
+  border-radius: 4px;
+  margin-inline-end: 6px;
   margin-bottom: 4px;
 }
 /* Keep text labels on a single compact line. The label name is rendered
@@ -141,7 +141,7 @@
 }
 .minicard .minicard-custom-fields {
   display: block;
-  margin-inline-end: 6vw;
+  margin-inline-end: 84px;
 }
 .minicard .minicard-custom-field {
   display: flex;
@@ -151,20 +151,20 @@
   display: block;
   word-wrap: break-word;
   max-width: 13vw;
-  margin-inline-end: 0.5vw;
+  margin-inline-end: 7px;
 }
 .minicard .minicard-custom-field-item-fullwidth {
   flex-grow: 1;
   display: block;
   word-wrap: break-word;
   max-width: 100%;
-  margin-inline-end: 0.5vw;
+  margin-inline-end: 7px;
 }
 .minicard .handle {
   width: clamp(20px, 2.5vw, 28px);
   height: clamp(20px, 2.5vw, 28px);
   position: absolute;
-  inset-inline-end: 0vw;
+  inset-inline-end: 1px;
   top: 28px;
   display: none;
   z-index: 1;
@@ -217,7 +217,7 @@
   text-align: center;
 }
 .minicard .minicard-title {
-  margin-inline-end: 1.5vw;
+  margin-inline-end: 21px;
   /* #6444: isolate each title's bidirectional context. The title is a
      dir="auto" .viewer; under a global dir="rtl" document, non-isolated
      dir="auto" runs share bidi state, so typing a strong RTL (e.g. Arabic)
@@ -229,7 +229,7 @@
 .minicard .minicard-title .card-number {
   color: #b3b3b3;
   display: inline-block;
-  margin-inline-end: 0.7vw;
+  margin-inline-end: 10px;
 }
 @media only screen {
   .minicard .minicard-title p:last-child {
@@ -252,11 +252,11 @@
   flex-wrap: wrap;
   position: relative;
   z-index: 5;
-  margin-inline-end: 6vw;
+  margin-inline-end: 84px;
   clear: both;
 }
 .minicard .date {
-  margin-inline-end: 0.4vw;
+  margin-inline-end: 6px;
 }
 
 /* Unicode icons for minicard dates - matching cardDate.css */
@@ -397,14 +397,14 @@
 }
 .minicard .badges .badge {
   float: inline-start;
-  margin-inline-end: 1.5vw;
+  margin-inline-end: 21px;
   margin-bottom: 4px;
   font-size: 0.9em;
 }
 .minicard .badges .badge.is-finished {
   background: #3cb500;
-  padding: 0 0.4vw;
-  border-radius: 0.4vw;
+  padding: 0 6px;
+  border-radius: 6px;
   color: #fff;
 }
 .minicard .badges .badge:last-of-type {
@@ -420,7 +420,7 @@
 }
 .minicard .badges .badge .badge-text {
   font-size: 0.9em;
-  padding-inline-start: 0.3vw;
+  padding-inline-start: 4px;
   line-height: 1.2;
 }
 .minicard .badges .badge .check-list-text {
@@ -431,7 +431,7 @@
 .minicard .minicard-assignees,
 .minicard .minicard-creator {
   float: inline-end;
-  margin-inline-start: 0.7vw;
+  margin-inline-start: 10px;
   margin-bottom: 4px;
 }
 .minicard .minicard-members .member,
@@ -467,13 +467,13 @@
   display: none;
 }
 .minicard .minicard-description {
-  padding: 8px 0 0 1vw;
+  padding: 8px 0 0 14px;
   color: #000;
   background-color: #eee;
   width: 100%;
   margin-bottom: 3px;
-  margin-inline-start: -0.5vw;
-  border-radius: 0.4vw;
+  margin-inline-start: -7px;
+  border-radius: 6px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -819,7 +819,7 @@
   margin-top: 2px;
   display: flex;
   align-items: center;
-  gap: 0.3vw;
+  gap: 4px;
 }
 
 /* Checklist display on minicard */
@@ -829,9 +829,9 @@
   clear: both;
   margin-top: 2px;
   margin-bottom: 5px;
-  padding: 3px 0.5vw;
+  padding: 3px 7px;
   background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 0.3vw;
+  border-radius: 4px;
   border: 1px solid #e0e0e0;
 }
 
@@ -854,8 +854,8 @@
   font-size: 1.2em;
   color: #666;
   cursor: pointer;
-  padding: 0 0.3vw;
-  border-radius: 0.2vw;
+  padding: 0 4px;
+  border-radius: 3px;
   transition: background-color 0.2s;
 }
 
@@ -869,11 +869,11 @@
   margin-bottom: 2px;
   display: flex;
   align-items: flex-start;
-  gap: 0.3vw;
+  gap: 4px;
   line-height: 1.2;
   cursor: pointer;
   padding: 2px 0;
-  border-radius: 0.2vw;
+  border-radius: 3px;
   transition: background-color 0.2s;
 }
 

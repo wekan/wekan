@@ -34,7 +34,7 @@
   float: inline-start;
   height: clamp(24px, 3.5vw, 36px);
   width: clamp(24px, 3.5vw, 36px);
-  margin: 0.3vh;
+  margin: 3px;
   cursor: pointer;
   user-select: none;
   z-index: 1;
@@ -106,10 +106,10 @@
 }
 .copied-tooltip {
   display: none;
-  padding: 0 1.3vw;
+  padding: 0 18px;
   background-color: rgba(0,0,0,0.875);
   color: #fff;
-  border-radius: 0.7vw;
+  border-radius: 10px;
   font-size: 0.98em;
 }
 
@@ -121,10 +121,10 @@
   overflow-y: auto;
   overflow-x: hidden;
   background: #f7f7f7;
-  border-radius: 0 0 0.4vw 0.4vw;
+  border-radius: 0 0 6px 6px;
   z-index: 30;
   animation: flexGrowIn 0.1s;
-  box-shadow: 0 0 0.9vh 0 #b3b3b3;
+  box-shadow: 0 0 8px 0 #b3b3b3;
   transition: flex-basis 0.1s, box-shadow 0.15s;
   box-sizing: border-box;
 }
@@ -224,7 +224,7 @@ body.desktop-mode .card-details.card-details-collapsed {
 }
 .card-details .card-details-canvas {
   width: auto;
-  /* #6465: fixed 20px as in 6.09 — 2.5vw was ~48px of white border per side
+  /* #6465: fixed 20px as in 6.09 — 35px was ~48px of white border per side
      on a FullHD screen. */
   padding: 0 20px;
 }

@@ -5,11 +5,11 @@ button {
   box-sizing: border-box;
   background-color: #ebebeb;
   border: 1px solid #ccc;
-  border-radius: 0.4vw;
+  border-radius: 6px;
   display: block;
-  margin-bottom: 1.5vh;
-  min-height: 4.5vh;
-  padding: 1vh 1vw;
+  margin-bottom: 14px;
+  min-height: 41px;
+  padding: 9px 14px;
 }
 select.full,
 textarea.full,
@@ -31,7 +31,7 @@ button:focus {
   outline: 0;
 }
 input[type="file"] {
-  margin-bottom: 2vh;
+  margin-bottom: 18px;
 }
 input[type="radio"] {
   -webkit-appearance: radio;
@@ -50,9 +50,9 @@ input[type="email"].inline-input {
   background: none;
   border: 0;
   margin: 0;
-  padding: 0.3vh;
+  padding: 3px;
   min-height: 0;
-  height: 2.5vh;
+  height: 23px;
   width: min(200px, 25vw);
 }
 input[type="text"].full-line,
@@ -105,7 +105,7 @@ textarea:disabled {
 select {
   max-height: 40vh;
   width: min(256px, 32vw);
-  margin-bottom: 1vh;
+  margin-bottom: 9px;
 }
 select.inline {
   width: 100%;
@@ -114,14 +114,14 @@ option[disabled] {
   color: #222;
 }
 textarea {
-  height: 20vh;
+  height: 180px;
   transition: background 85ms ease-in, border-color 85ms ease-in;
   resize: vertical;
   width: 100%;
 }
 textarea.editor {
   resize: none;
-  padding-bottom: 3vh;
+  padding-bottom: 27px;
 }
 .button {
   border-radius: 3px;
@@ -137,14 +137,14 @@ button {
   display: inline-block;
   font-weight: 700;
   line-height: 1.3;
-  padding: 1vh 2.5vw;
+  padding: 9px 35px;
   text-align: center;
   color: #fff;
 }
 input[type="submit"] .wide,
 button .wide {
-  padding-inline-start: 4vw;
-  padding-inline-end: 4vw;
+  padding-inline-start: 56px;
+  padding-inline-end: 56px;
 }
 input[type="submit"]:hover,
 button:hover,
@@ -233,8 +233,8 @@ button.disabled:active,
 }
 fieldset {
   border: 1px solid #bfbfbf;
-  padding: 2vh 2vw;
-  margin-bottom: 2vh;
+  padding: 18px 28px;
+  margin-bottom: 18px;
 }
 input[type="hidden"] {
   display: none;
@@ -242,18 +242,18 @@ input[type="hidden"] {
 .radio-div,
 .check-div {
   display: block;
-  margin: 0 0 0.5vh 2.5vw;
-  min-height: 2.5vh;
+  margin: 0 0 5px 35px;
+  min-height: 23px;
   position: relative;
 }
 .radio-div input,
 .check-div input {
-  inset-inline-start: -2.5vw;
+  inset-inline-start: -35px;
   min-height: 0;
   margin: 0;
   padding: 0;
   position: absolute;
-  top: 0.3vh;
+  top: 3px;
 }
 .radio-div label,
 .check-div label {
@@ -262,7 +262,7 @@ input[type="hidden"] {
 label {
   display: block;
   font-weight: 700;
-  margin-bottom: 0.5vh;
+  margin-bottom: 5px;
 }
 label.form-error {
   color: #d32f2f;
@@ -278,7 +278,7 @@ textarea::-moz-placeholder {
   display: flex;
   align-items: center;
   margin-top: 0px;
-  margin-bottom: 1.5vh;
+  margin-bottom: 14px;
 }
 @media print {
   .add-controls {
@@ -290,13 +290,13 @@ textarea::-moz-placeholder {
 .edit-controls input[type=button],
 .add-controls input[type=button] {
   float: inline-start;
-  height: 4.5vh;
+  height: 41px;
   margin-bottom: 0px;
 }
 .edit-controls .fa-times-thin,
 .add-controls .fa-times-thin {
   font-size: clamp(20px, 4vw, 26px);
-  margin: 0.5vh 1.5vw;
+  margin: 5px 21px;
 }
 /* CJK (Japanese/Chinese/Korean) labels contain no spaces, so browsers may
    insert a line break between any two characters. In the narrow add-card /

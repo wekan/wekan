@@ -1,17 +1,17 @@
 .pop-over {
   background: #fff;
-  border-radius: 0.4vw;
+  border-radius: 6px;
   border: 1px solid #dbdbdb;
   border-bottom-color: #c2c2c2;
-  box-shadow: 0 0.2vh 0.8vh rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
   position: absolute;
   /* Wider default to fit full color palette */
   width: min(380px, 55vw);
   z-index: 99999;
-  margin-top: 0.7vh;
+  margin-top: 6px;
 }
 .pop-over hr {
-  margin: 0.5vh 0px;
+  margin: 5px 0px;
 }
 .pop-over p,
 .pop-over textarea,
@@ -23,27 +23,27 @@
 }
 .pop-over select {
   width: 100%;
-  margin-bottom: 1.8vh;
+  margin-bottom: 16px;
 }
 .pop-over textarea {
-  height: 9vh;
+  height: 81px;
 }
 .pop-over form a span {
-  padding: 0 0.7vw;
+  padding: 0 10px;
 }
 .pop-over .header {
-  height: 4.5vh;
+  height: 41px;
   position: relative;
-  margin-bottom: 1vh;
+  margin-bottom: 9px;
   background: #f7f7f7;
   border-bottom: 1px solid #dcdcdc;
   color: #666;
 }
 .pop-over .header .header-title {
   display: block;
-  line-height: 4vh;
-  padding-top: 0.5vh;
-  margin: 0 1.3vw;
+  line-height: 36px;
+  padding-top: 5px;
+  margin: 0 18px;
   font-weight: bold;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -52,18 +52,18 @@
 .pop-over .header .back-btn {
   float: inline-start;
   overflow: hidden;
-  width: 4vw;
+  width: 56px;
   transition: width 0.2s;
 }
 .pop-over .header .back-btn i.fa {
-  margin: 1.3vw;
-  margin-top: 1.5vh;
+  margin: 18px;
+  margin-top: 14px;
 }
 .pop-over .header .back-btn.is-hidden {
   width: 0;
 }
 .pop-over .header .close-btn {
-  padding: 1.3vh 1.3vw 1.3vh 0.5vw;
+  padding: 12px 18px 12px 7px;
   position: absolute;
   top: 0;
   inset-inline-end: 0;
@@ -132,7 +132,7 @@
   z-index: 1;
 }
 .pop-over[data-popup='memberMenuPopup'] > .content-wrapper {
-  padding-top: calc(4.5vh + 1vh);
+  padding-top: calc(41px + 9px);
   box-sizing: border-box;
 }
 
@@ -420,7 +420,7 @@
 .pop-over .content-container .content {
   /* Match wider popover, leave padding */
   width: 100%;
-  padding: 1.3vh 1.3vw 1.3vh;
+  padding: 12px 18px 12px;
   box-sizing: border-box;
   /* Ensure content is not shifted left */
   margin-inline-start: 0 !important;

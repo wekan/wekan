@@ -5,7 +5,7 @@
   float: inline-start;
   height: clamp(24px, 3.5vw, 36px);
   width: clamp(24px, 3.5vw, 36px);
-  margin: .3vh;
+  margin: 3px;
   cursor: pointer;
   user-select: none;
   z-index: 1;

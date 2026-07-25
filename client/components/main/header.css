@@ -371,8 +371,8 @@ body.mobile-mode #header-quick-access .allBoards {
 }
 
 #header-quick-access .zoom-controls .board-header-btn {
-  padding: 0.5vh 0.8vw !important;
-  border-radius: 0.3vw !important;
+  padding: 5px 11px !important;
+  border-radius: 4px !important;
   background: #fff !important;
   border: 1px solid #000 !important;
   transition: all 0.2s ease !important;
@@ -385,7 +385,7 @@ body.mobile-mode #header-quick-access .allBoards {
   text-decoration: none !important;
   display: flex !important;
   align-items: center !important;
-  gap: 0.3vw !important;
+  gap: 4px !important;
 }
 
 #header-quick-access .zoom-controls .board-header-btn i {
@@ -409,12 +409,12 @@ body.mobile-mode #header-quick-access .allBoards {
 #header-quick-access .zoom-controls .zoom-level {
   font-weight: bold;
   color: #333;
-  min-width: 3vw;
+  min-width: 42px;
   text-align: center;
   font-size: clamp(12px, 2vw, 14px);
   cursor: pointer;
-  padding: 0.3vh 0.5vw;
-  border-radius: 0.3vw;
+  padding: 3px 7px;
+  border-radius: 4px;
   transition: all 0.2s ease;
   position: relative;
   display: flex;
@@ -435,12 +435,12 @@ body.mobile-mode #header-quick-access .allBoards {
       background: #fff;
       color: #000;
       border: 1px solid #ccc;
-      border-radius: 0.3vw;
-      padding: 0.3vh 0.5vw;
+      border-radius: 4px;
+      padding: 3px 7px;
       font-weight: bold;
       text-align: center;
       width: 100%;
-      min-width: 3vw;
+      min-width: 42px;
       font-size: clamp(12px, 2vw, 14px);
       box-sizing: border-box;
       -webkit-appearance: none;
@@ -468,13 +468,13 @@ body.mobile-mode #header-quick-access .allBoards {
 #header-quick-access .mobile-mode-toggle {
   display: flex;
   align-items: center;
-  margin: 0 1vw;
+  margin: 0 14px;
   float: inline-start;
 }
 
 #header-quick-access .mobile-mode-toggle .board-header-btn {
-  padding: 0.5vh 0.8vw !important;
-  border-radius: 0.3vw !important;
+  padding: 5px 11px !important;
+  border-radius: 4px !important;
   background: #fff !important;
   border: 1px solid #000 !important;
   transition: all 0.2s ease !important;
@@ -949,19 +949,19 @@ body.mobile-mode #header-quick-access .allBoards {
 
     /* Make zoom controls larger */
     #header-quick-access .zoom-controls {
-      padding: 0.8vh 1.5vw !important;
-      margin: 0 1.5vw !important;
+      padding: 7px 21px !important;
+      margin: 0 21px !important;
     }
 
     #header-quick-access .zoom-controls .zoom-level {
       font-size: 16px !important; /* Larger zoom text */
-      padding: 0.5vh 0.8vw !important;
-      min-width: 4vw !important;
+      padding: 5px 11px !important;
+      min-width: 56px !important;
     }
 
     #header-quick-access .zoom-controls .zoom-input {
       font-size: 16px !important; /* Larger input text */
-      padding: 0.5vh 0.8vw !important;
+      padding: 5px 11px !important;
       min-width: 80px !important; /* Wider to fit 100 */
       width: 80px !important; /* Fixed width to show 100 fully */
       flex: 0 0 80px !important; /* Prevent shrinking in flex */
@@ -969,7 +969,7 @@ body.mobile-mode #header-quick-access .allBoards {
 
     /* Make mobile mode toggle larger */
     #header-quick-access .mobile-mode-toggle .board-header-btn {
-      padding: 0.8vh 1.2vw !important;
+      padding: 7px 17px !important;
       font-size: 16px !important;
     }
 

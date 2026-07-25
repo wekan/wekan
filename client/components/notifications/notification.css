@@ -4,7 +4,7 @@
 #notifications-drawer .notification {
   display: flex;
   float: none;
-  padding: 2vh 1vw 1vh;
+  padding: 18px 14px 9px;
   color: #000;
   border-bottom: 1px solid #dbdbdb;
 }
@@ -12,12 +12,12 @@
   display: none;
 }
 #notifications-drawer .notification .read-status {
-  width: 2vw;
-  padding: 0 0.5vw 0 0;
+  width: 28px;
+  padding: 0 7px 0 0;
 }
 #notifications-drawer .notification .read-status input {
-  width: 3vw;
-  height: 3vw;
+  width: 42px;
+  height: 42px;
 }
 #notifications-drawer .notification .read-status .activity-type {
   margin: 8px 0 0;
@@ -35,20 +35,20 @@
   padding: 0px;
 }
 #notifications-drawer .notification .details .activity a.member svg {
-  padding: 0.4vw;
+  padding: 6px;
 }
 #notifications-drawer .notification .details .activity .activity-desc {
-  margin: 0 0 0 0.7vw;
+  margin: 0 0 0 10px;
 }
 #notifications-drawer .notification .details .activity .activity-comment {
   display: block;
   width: 100%;
-  border-radius: 0.4vw;
+  border-radius: 6px;
   background: #fff;
   text-decoration: none;
-  box-shadow: 0 0.2vh 0.3vh rgba(0,0,0,0.2);
-  margin-top: 0.7vh;
-  padding: 0.7vh 0.7vw;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+  margin-top: 6px;
+  padding: 6px 10px;
 }
 #notifications-drawer .notification .details .activity .activity-meta {
   display: block;

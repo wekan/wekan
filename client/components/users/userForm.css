@@ -1,25 +1,25 @@
 .auth-layout .at-form-landing-logo {
   width: min(249px, 32vw);
   margin: auto;
-  margin-top: 6vh;
-  margin-bottom: 2.5vh;
+  margin-top: 54px;
+  margin-bottom: 22px;
 }
 .auth-layout .auth-dialog {
   width: min(275px, 36vw);
-  padding: 3vh 3vw;
+  padding: 24px 24px;
   margin: auto;
-  margin-bottom: 2.5vh;
+  margin-bottom: 22px;
   background: #fff;
-  border-radius: 0.4vw;
+  border-radius: 3px;
   border: 1px solid #dbdbdb;
   border-bottom-color: #c2c2c2;
-  box-shadow: 0 0.2vh 0.8vh rgba(0,0,0,0.3);
+  box-shadow: 0 2px 7px rgba(0,0,0,0.3);
 }
 .auth-layout .auth-dialog .at-form .at-link {
   color: #17683a;
 }
 .auth-layout .auth-dialog .at-form label {
-  margin-bottom: 0.4vh;
+  margin-bottom: 4px;
 }
 .auth-layout .auth-dialog .at-form input {
   width: 100%;
@@ -84,9 +84,9 @@ body.mobile-mode .auth-layout .auth-dialog .at-form .password-input-container .p
 }
 .auth-layout .auth-dialog .at-form .at-title {
   background: #f7f7f7;
-  margin: -3vh -3vw;
-  padding: 2vh 3vw 0.7vh;
-  margin-bottom: 2.5vh;
+  margin: -24px -24px;
+  padding: 18px 24px 6px;
+  margin-bottom: 22px;
   border-bottom: 1px solid #dcdcdc;
   color: #4d4d4d;
   font-weight: bold;
@@ -95,7 +95,7 @@ body.mobile-mode .auth-layout .auth-dialog .at-form .password-input-container .p
 .auth-layout .auth-dialog .at-form .at-signin-link,
 .auth-layout .auth-dialog .at-form .at-forgotPwd {
   font-size: 0.9em;
-  margin-top: 2vh;
+  margin-top: 18px;
   color: #4d4d4d;
 }
 /* #4394 (security): when registration / forgot-password are disabled in the

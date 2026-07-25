@@ -3,16 +3,16 @@
 .rules-page {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 1vh 1vw 4vh;
+  padding: 9px 14px 36px;
 }
 .rules-page h2 {
-  margin-bottom: 1vh;
+  margin-bottom: 9px;
 }
 .rules-toolbar {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-bottom: 1vh;
+  margin-bottom: 9px;
 }
 .rules-toolbar button {
   cursor: pointer;
@@ -21,7 +21,7 @@
   overflow: hidden;
   overflow-y: auto;
   max-height: 65vh;
-  padding-inline-end: 0.7vw;
+  padding-inline-end: 10px;
 }
 .rules-lists-item .js-rule-select {
   float: inline-start;
@@ -32,12 +32,12 @@
 }
 /* Visual workflow view */
 .rules-workflow .workflow-group {
-  margin-bottom: 2vh;
+  margin-bottom: 18px;
 }
 .rules-workflow .workflow-group-title {
   border-bottom: 2px solid #cfcfcf;
   padding-bottom: 4px;
-  margin-bottom: 1vh;
+  margin-bottom: 9px;
 }
 .rules-workflow .workflow-rule {
   display: flex;
@@ -79,14 +79,14 @@
 .rules-workflow .workflow-help {
   color: #727479;
   font-size: 13px;
-  margin-bottom: 1vh;
+  margin-bottom: 9px;
 }
 .rules-workflow .workflow-builder {
   background: #f7f7f7;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   padding: 12px;
-  margin-bottom: 1.5vh;
+  margin-bottom: 14px;
 }
 .rules-workflow .workflow-builder-row {
   display: flex;
@@ -128,7 +128,7 @@
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
-  margin-bottom: 1.5vh;
+  margin-bottom: 14px;
 }
 .rules-workflow .workflow-palette {
   flex: 1 1 240px;
@@ -155,7 +155,7 @@
   border-inline-start: 4px solid #2e7d32;
 }
 .rules-workflow .workflow-existing-title {
-  margin-top: 1vh;
+  margin-top: 9px;
 }
 .rules-workflow .workflow-rule {
   position: relative;
@@ -195,14 +195,14 @@
 .rules-add {
   display: block;
   overflow: auto;
-  margin-top: 2vh;
-  margin-bottom: 0.7vh;
+  margin-top: 18px;
+  margin-bottom: 6px;
 }
 .rules-add input {
   display: inline-block;
   float: inline-end;
   margin: auto;
-  margin-inline-end: 1.3vw;
+  margin-inline-end: 18px;
 }
 .rules-add button {
   display: inline-block;

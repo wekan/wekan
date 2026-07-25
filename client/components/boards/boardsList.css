@@ -397,7 +397,7 @@
   height: 30px;
   border: 1px solid #bbb;
   background: #fff;
-  border-radius: 0.4vw;
+  border-radius: 6px;
   cursor: pointer;
 }
 
@@ -491,16 +491,16 @@
 .zoom-controls {
   display: flex;
   align-items: center;
-  gap: 0.5vw;
+  gap: 7px;
   background: rgba(255, 255, 255, 0.9);
-  padding: 0.5vh 1vw;
-  border-radius: 0.5vw;
-  box-shadow: 0 0.2vh 0.5vh rgba(0,0,0,0.1);
+  padding: 5px 14px;
+  border-radius: 7px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .zoom-controls .board-header-btn {
-  padding: 0.5vh 0.8vw !important;
-  border-radius: 0.3vw !important;
+  padding: 5px 11px !important;
+  border-radius: 4px !important;
   background: #fff !important;
   border: 1px solid #000 !important;
   transition: all 0.2s ease !important;
@@ -508,7 +508,7 @@
   color: #000 !important;
   display: flex !important;
   align-items: center !important;
-  gap: 0.3vw !important;
+  gap: 4px !important;
   height: auto !important;
   line-height: normal !important;
   margin: 0 !important;
@@ -547,12 +547,12 @@
 .zoom-level {
   font-weight: bold;
   color: #333;
-  min-width: 3vw;
+  min-width: 42px;
   text-align: center;
   font-size: clamp(12px, 2vw, 14px);
   cursor: pointer;
-  padding: 0.3vh 0.5vw;
-  border-radius: 0.3vw;
+  padding: 3px 7px;
+  border-radius: 4px;
   transition: all 0.2s ease;
 }
 

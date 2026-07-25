@@ -41,7 +41,7 @@ table tr:nth-child(even) {
   background: var(--theme-accent, #01628c);
   color: #fff;
   border: none;
-  border-radius: 0.4vw;
+  border-radius: 6px;
   cursor: pointer;
   padding: 0 12px;
 }
@@ -153,7 +153,7 @@ table td:first-child {
   background-color: var(--theme-accent, #01628c);
   color: #fff;
   border: none;
-  border-radius: 0.4vw;
+  border-radius: 6px;
   padding: 0 14px 0 14px;
   cursor: pointer;
   display: flex;

@@ -30,7 +30,7 @@
   height: 30px;
   padding: 0 10px;
   border: 1px solid var(--theme-accent, #01628c);
-  border-radius: 0.4vw;
+  border-radius: 6px;
   background: transparent;
   background-image: none;
   color: var(--theme-accent, #01628c);
