@@ -226,6 +226,17 @@ This release fixes the following CRITICAL SECURITY ISSUE of [ZipBleed](https://w
 
 and fixes the following bugs:
 
+- [Admin Panel: the Login and E-mail panes moved from Settings to People, above
+  Organizations — both are about the people who can sign in and how they are reached,
+  which is what that page is for. The move was only half markup: every handler the two
+  panes need was registered on the Settings template, and Blaze delivers an event to the
+  handlers of the template the element is in, so left there each pane would have
+  rendered on People and then quietly done nothing — no toggle sticking, no Save saving,
+  nothing in the console. All ten moved onto the pane templates themselves, where they
+  work wherever the pane is rendered. Settings now opens on Visibility, the first entry
+  it has left; the pane ids and translation keys are unchanged, so nothing lost its
+  translations](https://github.com/wekan/wekan/commit/47b03ef89).
+  Thanks to xet7.
 - [The Admin Panel left menu, the page-title bars, the People tables and the
   Translation pane. Every Admin Panel page except Problems drew a bar under the top bar
   repeating the name of the pane you were already looking at; they are gone, and the
