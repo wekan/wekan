@@ -258,13 +258,38 @@ finish_success() {
   # service can terminate us). Use the instance name so parallel snaps (wekan_customer, …)
   # target their own services.
   local svc="${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}"
+  # ORDER MATTERS, and it is not the obvious one (#6525).
+  #
+  # This script IS the wekan.mongodb service: mongodb-control ends with
+  # `exec bash $SNAP/bin/migration-control`. So `snapctl stop --disable
+  # ${svc}.mongodb` stops the service THIS PROCESS is running in - systemd sends
+  # us SIGTERM and we are killed at that line. Every command AFTER it silently
+  # never runs.
+  #
+  # That is what left #6525 on a 503: the switch stopped MongoDB, the process
+  # died there, and the `snapctl restart ${svc}.wekan` that used to be on the NEXT
+  # line never happened. WeKan stayed pointed at the MongoDB that had just been
+  # shut down and looped "MongoDB not ready yet, retrying in 5 seconds..." until
+  # the admin noticed and ran `snap restart wekan` by hand. The reporter's log
+  # shows exactly that: "Migration succeeded. Switching to FerretDB" at 13:15:12,
+  # "Terminated" one second later, then WeKan waiting for MongoDB for minutes.
+  #
+  # So: bring FerretDB up, hand WeKan over to it, and only THEN stop MongoDB -
+  # the one command that can terminate us goes LAST.
   snapctl start --enable "${svc}.ferretdb" 2>/dev/null || true
   snapctl restart "${svc}.ferretdb" 2>/dev/null || true
-  snapctl stop --disable "${svc}.mongodb" 2>/dev/null || true
-  # WeKan (wekan.wekan) was waiting for MongoDB (which is now gone); restart it so it re-reads
-  # database=ferretdb and connects to FerretDB, instead of waiting forever for MongoDB.
+  # WeKan is still waiting for MongoDB; restart it so it re-reads database=ferretdb
+  # and connects to the FerretDB that is now running.
   snapctl restart "${svc}.wekan" 2>/dev/null || true
-  log "FerretDB (SQLite) service enabled and started; MongoDB stopped/disabled; WeKan restarted onto FerretDB."
+  # The migration is finished and the switch is recorded, so a SIGTERM from here on
+  # is expected, not an interruption: disarm the traps. Otherwise being stopped at
+  # the next line logs the misleading "Interrupted (snap refresh, stop or reboot)"
+  # after a migration that in fact SUCCEEDED, and runs cleanup for a run that has
+  # nothing left to clean up.
+  trap - EXIT INT TERM
+  log "FerretDB (SQLite) service enabled and started; WeKan restarted onto FerretDB. Stopping MongoDB last (that stops this service too)."
+  snapctl stop --disable "${svc}.mongodb" 2>/dev/null || true
+  log "MongoDB stopped/disabled. Migration complete."
 }
 # A FAILED migration may have written a PARTIAL FerretDB SQLite (some collections copied before
 # the error). Left in place it looks "non-empty" to ferretdb-has-data and would wrongly make the

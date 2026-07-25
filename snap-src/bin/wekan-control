@@ -285,6 +285,17 @@ elif [ "true" != "${DISABLE_MONGODB}" ]; then
             echo ""
             db_hint_shown=true
         fi
+        # #6525: the database may have been switched to FerretDB WHILE we wait here.
+        # A migration that finishes mid-wait stops MongoDB for good, so continuing to
+        # wait for it is waiting for something that is never coming back — the site
+        # stays on 503 until an admin runs `snap restart wekan` by hand. The
+        # migration does restart us, but that restart is the LAST step of a script
+        # that is itself being stopped, so it must not be the only thing that can get
+        # us out of this loop: notice the switch ourselves and re-exec onto FerretDB.
+        if [ "ferretdb" = "$(snapctl get database 2>/dev/null)" ]; then
+            echo "database is now set to ferretdb (migration finished while WeKan was waiting for MongoDB); restarting onto FerretDB."
+            exec "$0" "$@"
+        fi
         echo "MongoDB not ready yet, retrying in 5 seconds..."
         sleep 5
         db_waited=$((db_waited + 5))
