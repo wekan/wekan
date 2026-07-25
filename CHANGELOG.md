@@ -196,6 +196,16 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
 
 This release fixes the following bugs:
 
+- [Checked for the same window-resizing bug everywhere else it could hide, and closed
+  the gap that made the question unanswerable: the guard test only ever looked at the
+  client stylesheets. A viewport unit renders exactly the same from an inline `style=`
+  in a template, from CSS built as a JavaScript string (the HTML export builds a card
+  modal that way, the Sandstorm migration bridge builds a whole page) and from the
+  stylesheets in our own packages and public/css. All three are now scanned, and all
+  three are clean — what they contain is the allowed shapes. One further test proves
+  the new scans are not silently reading nothing, since a scan that finds no files
+  passes forever](https://github.com/wekan/wekan/commit/7dcd9da67).
+  Thanks to xet7.
 - [Elements no longer change size when the browser window is resized — this time the
   ones hidden inside `clamp()`. Reported on a board in mobile mode: widening the window
   made the swimlanes, lists and cards taller, and narrowing it shrank them again. Same
