@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "Թույլատրել օգտվողի անվան փոփոխությունը",
   "tableVisibilityMode-allowPrivateOnly": "Տախտակների տեսանելիություն. Թույլատրել միայն մասնավոր տախտակները",
   "tableVisibilityMode": "Տախտակների տեսանելիությունը",
+  "visibility": "Visibility",
   "createdAt": "Ստեղծվել է",
   "modifiedAt": "Փոփոխված է",
   "verified": "Ստուգված է",

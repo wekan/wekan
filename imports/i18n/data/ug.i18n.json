@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "ئىشلەتكۈچى نامىنى ئۆزگەرتىشكە يول قويۇڭ",
   "tableVisibilityMode-allowPrivateOnly": "تاختاينىڭ كۆرۈنۈشچانلىقى: پەقەت شەخسىي تاختايلارغا يول قويۇڭ",
   "tableVisibilityMode": "تاختاينىڭ كۆرۈنۈشچانلىقى",
+  "visibility": "Visibility",
   "createdAt": "قۇرۇلدى",
   "modifiedAt": "ئۆزگەرتىلگەن",
   "verified": "دەلىللەندى",

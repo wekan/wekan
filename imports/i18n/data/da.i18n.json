@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "Tillad ændring af brugernavn",
   "tableVisibilityMode-allowPrivateOnly": "Tavlens synlighed: Tillad kun private tavler",
   "tableVisibilityMode": "Tavlens synlighed",
+  "visibility": "Visibility",
   "createdAt": "Oprettet per",
   "modifiedAt": "Senest ændret per",
   "verified": "Verificeret",

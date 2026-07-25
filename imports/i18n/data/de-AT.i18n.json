@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "Ändern des Benutzernamens erlauben",
   "tableVisibilityMode-allowPrivateOnly": "Board-Sichtbarkeit: Erlaube ausschließlich private Boards",
   "tableVisibilityMode": "Sichtbarkeit der Boards",
+  "visibility": "Visibility",
   "createdAt": "Erstellt am",
   "modifiedAt": "Geändert am",
   "verified": "Geprüft",

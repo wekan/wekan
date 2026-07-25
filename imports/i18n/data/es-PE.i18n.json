@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "Permitir cambiar el nombre de usuario",
   "tableVisibilityMode-allowPrivateOnly": "Visibilidad de los tableros: permitir solo tableros privados",
   "tableVisibilityMode": "Visibilidad de los tableros",
+  "visibility": "Visibility",
   "createdAt": "Creado en",
   "modifiedAt": "Modificado el",
   "verified": "Verificado",

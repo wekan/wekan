@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "Autoriser le changement d'identifiant",
   "tableVisibilityMode-allowPrivateOnly": "Visibilité des tableaux: N'autoriser que des tableaux privés",
   "tableVisibilityMode": "Visibilité des tableaux",
+  "visibility": "Visibility",
   "createdAt": "Créé le",
   "modifiedAt": "Modifié le",
   "verified": "Vérifié",

@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "اجازه تغییر نام کاربری",
   "tableVisibilityMode-allowPrivateOnly": "قابلیت مشاهده بردها: فقط بردهای خصوصی مجاز",
   "tableVisibilityMode": "قابلیت مشاهده بردها",
+  "visibility": "Visibility",
   "createdAt": "ساخته شده در",
   "modifiedAt": "تغییر یافته در",
   "verified": "معتبر",

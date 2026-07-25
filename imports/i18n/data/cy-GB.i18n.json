@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "Caniatáu Newid Enw Defnyddiwr",
   "tableVisibilityMode-allowPrivateOnly": "Amlygrwydd Byrddau: Caniatáu byrddau preifat yn unig",
   "tableVisibilityMode": "Gwelededd Byrddau",
+  "visibility": "Visibility",
   "createdAt": "Crëwyd yn",
   "modifiedAt": "Wedi'i addasu yn",
   "verified": "Wedi'i wirio",

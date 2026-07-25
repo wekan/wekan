@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "Ļaut lietotājvārda maiņu",
   "tableVisibilityMode-allowPrivateOnly": "Lentų matomumas: leisti tik privačias lentas",
   "tableVisibilityMode": "Lentų matomumas",
+  "visibility": "Visibility",
   "createdAt": "Izveidots",
   "modifiedAt": "Pakeistas adresu",
   "verified": "Apstiprināts",

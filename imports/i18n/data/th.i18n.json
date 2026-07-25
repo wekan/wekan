@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "Cho phép thay đổi tên người dùng",
   "tableVisibilityMode-allowPrivateOnly": "การมองเห็นบอร์ด: อนุญาตเฉพาะบอร์ดส่วนตัวเท่านั้น",
   "tableVisibilityMode": "การมองเห็นบอร์ด",
+  "visibility": "Visibility",
   "createdAt": "Được tạo lúc",
   "modifiedAt": "Được sửa đổi lúc",
   "verified": "Đã xác minh",

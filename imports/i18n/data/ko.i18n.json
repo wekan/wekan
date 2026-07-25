@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "유저 이름 변경 허용",
   "tableVisibilityMode-allowPrivateOnly": "ボードの公開設定：プライベートのボードのみを許可",
   "tableVisibilityMode": "ボードの公開設定",
+  "visibility": "Visibility",
   "createdAt": "作成日時",
   "modifiedAt": "에 변경됨",
   "verified": "認証状況",

@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "Kullanıcı adı değiştirmeye izin ver",
   "tableVisibilityMode-allowPrivateOnly": "Tahta Görünürlüğü: Sadece özel tahtalara izin ver",
   "tableVisibilityMode": "Tahta Görünürlüğü",
+  "visibility": "Visibility",
   "createdAt": "Oluşturulma tarihi",
   "modifiedAt": "Değiştirilme zamanı",
   "verified": "Doğrulanmış",

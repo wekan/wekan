@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "Permitir Alteração de Nome de Utilizador",
   "tableVisibilityMode-allowPrivateOnly": "Visibilidade do Quadro: Permitir apenas quadros privados",
   "tableVisibilityMode": "Visibilidade do Quadro",
+  "visibility": "Visibility",
   "createdAt": "Criado em",
   "modifiedAt": "Modificado em",
   "verified": "Verificado",

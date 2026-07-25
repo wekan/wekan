@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "Tillåt användarnamnändring",
   "tableVisibilityMode-allowPrivateOnly": "Tavlans synlighet: Tillåt enbart privata tavlor",
   "tableVisibilityMode": "Tavlans synlighet",
+  "visibility": "Visibility",
   "createdAt": "Skapad vid",
   "modifiedAt": "Senast ändrad",
   "verified": "Verifierad",

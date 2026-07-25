@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "Tillat endring brukernavn",
   "tableVisibilityMode-allowPrivateOnly": "Synlighet Tavle: Tillat kun private tavler",
   "tableVisibilityMode": "Synlighet Tavler",
+  "visibility": "Visibility",
   "createdAt": "Opprettet på",
   "modifiedAt": "Endret kl.",
   "verified": "Verifisert",

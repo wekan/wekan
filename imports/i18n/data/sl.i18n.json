@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "Dovoli spremembo up. imena",
   "tableVisibilityMode-allowPrivateOnly": "Тајност списа: Дозволи приступ искључиво затвореном кругу сарадника",
   "tableVisibilityMode": "Тајност списа",
+  "visibility": "Visibility",
   "createdAt": "Ustvarjen ob",
   "modifiedAt": "Време измене",
   "verified": "Preverjeno",

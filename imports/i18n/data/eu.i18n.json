@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "Baimendu erabiltzaile-izena aldatzea",
   "tableVisibilityMode-allowPrivateOnly": "Arbelen ikusgarritasuna: gaitu bakarri arbel pribatuak",
   "tableVisibilityMode": "Arbelen ikusgarritasuna",
+  "visibility": "Visibility",
   "createdAt": "Noiz sortua",
   "modifiedAt": "Modificat a",
   "verified": "Egiaztatuta",

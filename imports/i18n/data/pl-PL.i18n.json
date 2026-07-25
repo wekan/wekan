@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "Zezwól na zmianę nazwy użytkownika",
   "tableVisibilityMode-allowPrivateOnly": "Widoczność tablic: Tylko tablice prywatne",
   "tableVisibilityMode": "Widoczność tablic",
+  "visibility": "Visibility",
   "createdAt": "Utworzone o",
   "modifiedAt": "Zmodyfikowano",
   "verified": "Zweryfikowane",

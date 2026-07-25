@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "允许变更用户名",
   "tableVisibilityMode-allowPrivateOnly": "看板可见性：仅显示私人看板",
   "tableVisibilityMode": "看板可见性",
+  "visibility": "Visibility",
   "createdAt": "创建于",
   "modifiedAt": "修改时间",
   "verified": "已验证",

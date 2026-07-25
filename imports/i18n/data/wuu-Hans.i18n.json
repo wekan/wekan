@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "允许更改用户名",
   "tableVisibilityMode-allowPrivateOnly": "董事会可见性：仅允许私人董事会",
   "tableVisibilityMode": "董事会可见性",
+  "visibility": "Visibility",
   "createdAt": "创建于",
   "modifiedAt": "修改于",
   "verified": "已验证",

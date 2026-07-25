@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "მომხმარებლის სახელის ცვლილების უფლების  დაშვება",
   "tableVisibilityMode-allowPrivateOnly": "Видимость досок: Показывать только частные доски",
   "tableVisibilityMode": "Видимость досок",
+  "visibility": "Visibility",
   "createdAt": "შექმნილია",
   "modifiedAt": "Изменено",
   "verified": "შემოწმებული",

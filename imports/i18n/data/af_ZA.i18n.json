@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "Laat gebruikernaamverandering toe",
   "tableVisibilityMode-allowPrivateOnly": "Bordsigbaarheid: Laat slegs private borde toe",
   "tableVisibilityMode": "Borde sigbaarheid",
+  "visibility": "Visibility",
   "createdAt": "Geskep by",
   "modifiedAt": "Gewysig by",
   "verified": "Geverifieer",

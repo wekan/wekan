@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "వినియోగదారు పేరు మార్పును అనుమతించండి",
   "tableVisibilityMode-allowPrivateOnly": "బోర్డుల దృశ్యమానత: ప్రైవేట్ బోర్డులను మాత్రమే అనుమతించండి",
   "tableVisibilityMode": "బోర్డుల దృశ్యమానత",
+  "visibility": "Visibility",
   "createdAt": "వద్ద సృష్టించబడింది",
   "modifiedAt": "వద్ద సవరించబడింది",
   "verified": "ధృవీకరించబడింది",

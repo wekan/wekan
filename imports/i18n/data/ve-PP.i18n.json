@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "Salli käyttäjätunnuksen muuttaminen",
   "tableVisibilityMode-allowPrivateOnly": "Taulujen näkyvyys: Salli vain yksityiset taulut",
   "tableVisibilityMode": "Taulujen näkyvyys",
+  "visibility": "Visibility",
   "createdAt": "Luotu",
   "modifiedAt": "Muokattu",
   "verified": "Varmistettu",

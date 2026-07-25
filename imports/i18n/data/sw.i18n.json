@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "Ruhusu Kubadilisha Jina la Mtumiaji",
   "tableVisibilityMode-allowPrivateOnly": "Mwonekano wa bodi: Ruhusu bodi za kibinafsi pekee",
   "tableVisibilityMode": "Mwonekano wa bodi",
+  "visibility": "Visibility",
   "createdAt": "Imeundwa saa",
   "modifiedAt": "Imebadilishwa saa",
   "verified": "Imethibitishwa",

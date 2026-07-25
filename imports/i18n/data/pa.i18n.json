@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "ਉਪਭੋਗਤਾ ਨਾਮ ਬਦਲਣ ਦੀ ਆਗਿਆ ਦਿਓ",
   "tableVisibilityMode-allowPrivateOnly": "ਬੋਰਡਾਂ ਦੀ ਦਿੱਖ: ਸਿਰਫ਼ ਪ੍ਰਾਈਵੇਟ ਬੋਰਡਾਂ ਨੂੰ ਹੀ ਇਜਾਜ਼ਤ ਦਿਓ",
   "tableVisibilityMode": "ਬੋਰਡਾਂ ਦੀ ਦਿੱਖ",
+  "visibility": "Visibility",
   "createdAt": "'ਤੇ ਬਣਾਇਆ ਗਿਆ",
   "modifiedAt": "'ਤੇ ਸੋਧਿਆ ਗਿਆ",
   "verified": "ਪ੍ਰਮਾਣਿਤ",

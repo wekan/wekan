@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "Felhasználónév megváltoztatásának engedélyezése",
   "tableVisibilityMode-allowPrivateOnly": "Tábla láthatóság: Csak privát táblák engedélyezettek",
   "tableVisibilityMode": "Táblák láthatósága",
+  "visibility": "Visibility",
   "createdAt": "Létrehozva",
   "modifiedAt": "Módosult",
   "verified": "Ellenőrizve",

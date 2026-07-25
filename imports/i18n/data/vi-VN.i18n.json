@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "Cho phép thay đổi tên người dùng",
   "tableVisibilityMode-allowPrivateOnly": "Kebolehlihatan Papan: Hanya Benarkan Papan Peribadi",
   "tableVisibilityMode": "Kebolehlihatan Papan",
+  "visibility": "Visibility",
   "createdAt": "Được tạo lúc",
   "modifiedAt": "Được sửa đổi lúc",
   "verified": "Đã xác minh",

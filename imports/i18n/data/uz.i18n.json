@@ -976,6 +976,7 @@
   "accounts-allowUserNameChange": "Foydalanuvchi nomini o'zgartirishga ruxsat berish",
   "tableVisibilityMode-allowPrivateOnly": "Kengashlarning ko'rinishi: faqat shaxsiy taxtalarga ruxsat bering",
   "tableVisibilityMode": "Kengashlarning ko'rinishi",
+  "visibility": "Visibility",
   "createdAt": "Yaratilgan",
   "modifiedAt": "O'zgartirilgan",
   "verified": "Tasdiqlangan",
