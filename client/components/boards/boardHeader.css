@@ -892,9 +892,25 @@
   display: none !important;
 }
 
-/* Hide the board title in mobile mode to match mobile view */
+/* The board title IS shown in mobile mode. It used to be hidden here to save a
+   row on a phone, which left the second header bar with nothing but icons - you
+   could not tell which board you were on. It fits now: the header bar wraps, and
+   the button groups are one flex item (see boardHeader.jade), so a title too long
+   to sit beside them pushes ALL the icons onto the next row together instead of
+   splitting them across both. Keep it wrapping rather than truncating - a board
+   name is how you know where you are. */
 .mobile-mode .header-board-menu {
-  display: none !important;
+  /* Two rows on a phone, deliberately: the title takes the WHOLE first row, so
+     the button group - one flex item - wraps to the second row entire. Sharing a
+     row squeezed the title down to a few characters. */
+  flex: 1 1 100%;
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+/* ...and the buttons take the second row. */
+.mobile-mode #header #header-main-bar .board-header-btns-group {
+  flex: 1 1 100%;
 }
 
 /* Ensure the board header takes full width in mobile mode */

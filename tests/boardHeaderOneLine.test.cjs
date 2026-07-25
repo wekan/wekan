@@ -251,4 +251,28 @@ test('the HTML export still strips the whole button area', () => {
     'exportHTML must remove the wrapper too, or the export keeps an empty div');
 });
 
+test('the board title is shown in mobile mode, not hidden', () => {
+  // It used to be display:none there, which left the second header bar with
+  // nothing but icons - you could not tell which board you were on.
+  // The mobile rules live in boardHeader.css, not the header.css this suite
+  // otherwise reads.
+  const boardCss = fs.readFileSync(path.join(root, 'client/components/boards/boardHeader.css'), 'utf8');
+  const rule = /\.mobile-mode \.header-board-menu \{([^}]*)\}/.exec(boardCss);
+  assert.ok(rule, 'the mobile rule must still exist to size the title');
+  assert.ok(!/display:\s*none/.test(rule[1]), 'the title must not be hidden in mobile mode');
+  // It takes its own row and wraps, rather than being squeezed by the icons.
+  assert.ok(/flex:\s*1 1 100%/.test(rule[1]), 'it takes the full row');
+  assert.ok(/overflow-wrap/.test(rule[1]), 'and a long name wraps rather than overflowing');
+  // Two rows on a phone: title first, buttons second. Both take a full row, so
+  // they cannot end up sharing one and squeezing the title to a few characters.
+  const group = /\.mobile-mode #header #header-main-bar \.board-header-btns-group \{([^}]*)\}/.exec(boardCss);
+  assert.ok(group, 'the button group needs its own mobile rule');
+  assert.ok(/flex:\s*1 1 100%/.test(group[1]), 'the buttons take the second row');
+  assert.ok(boardCss.indexOf('.mobile-mode .header-board-menu') < boardCss.indexOf('.mobile-mode #header #header-main-bar .board-header-btns-group'),
+    'title rule before buttons rule, matching the row order');
+  // Nothing else may hide it either.
+  assert.ok(!/header-board-menu[^{]*\{[^}]*display:\s*none/.test(boardCss + css),
+    'no rule may hide the board title');
+});
+
 console.log(`\nboardHeaderOneLine: ${passed} tests passed`);
