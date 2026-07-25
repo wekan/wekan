@@ -45,36 +45,21 @@
   height: 34px;
 }
 
+/* Layout only. The COLOURS of the prev/next buttons and of the "3 / 42" counter
+   come from the one shared pager stylesheet, client/components/main/
+   paginationControls.css, which every pager in WeKan uses: they follow the
+   per-user theme accent (Member Settings -> Change color sets --theme-accent on
+   :root) and fall back to the WeKan default blue when no custom theme is chosen.
+   Do NOT restate the button colours here. That stylesheet spells out :hover,
+   :focus, :active and :active:hover on purpose, because the global button rules
+   in forms.css set those states from --theme-accent with a BLACK/grey fallback at
+   equal or higher specificity - a partial copy loses the moment the button is
+   clicked and leaves a black button sitting on the page. */
 .table-page-pagination {
   margin-inline-start: auto;
   display: flex;
   align-items: center;
   gap: 6px;
-}
-
-.table-page-pagination button {
-  min-width: 32px;
-  height: 30px;
-  border: 1px solid var(--theme-accent, #01628c);
-  background: transparent;
-  color: var(--theme-accent, #01628c);
-  border-radius: 0.4vw;
-  cursor: pointer;
-}
-
-.table-page-pagination button:hover:not(.disabled) {
-  background: var(--theme-accent, #01628c);
-  color: #fff;
-}
-
-.table-page-pagination button.disabled {
-  opacity: 0.5;
-  pointer-events: none;
-}
-
-.table-page-page-info {
-  min-width: 72px;
-  text-align: center;
 }
 
 /* Last-resort sideways scroll for the table only - never the whole page. */

@@ -15,7 +15,9 @@ Everything that makes a table page work. Paths are from the repository root.
 | File Path | File Type | Description |
 | --- | --- | --- |
 | `client/components/settings/tablePage.jade` | `.jade` template | **The** table page: title, optional status row, controls, table. The row order is defined here, once. |
-| `client/components/settings/tablePage.css` | `.css` stylesheet | The layout: full width, equal columns, wrapping cells, and the ≤ 800px stacking of menu and table. |
+| `client/components/settings/tablePage.css` | `.css` stylesheet | The **layout**: full width, equal columns, wrapping cells, and the ≤ 800px stacking of menu and table. No button colours — see the next row. |
+| `client/components/main/paginationControls.css` | `.css` stylesheet | The **colours** of every prev/next pager in WeKan, table pages included: the per-user theme accent, falling back to the WeKan default blue. |
+| `client/components/forms/forms.css` | `.css` stylesheet | The global `button` rules the pager stylesheet has to out-specify. Read the note in `paginationControls.css` before touching either. |
 | `models/lib/tablePage.js` | `.js` module, pure helpers | `pageInfo()`, `buildRows()`, `buildHeader()`, `columnWidthPercent()`. No DOM and no database, so they are unit-testable. |
 | `client/components/settings/adminReports.js` | `.js` Blaze template logic | The column spec for each Admin Panel table, the paging state, the subscriptions, and the shared control handlers. |
 | `client/components/settings/adminReports.jade` | `.jade` template | Admin Panel / Problems: the side menu, and which page it renders. |
@@ -146,6 +148,48 @@ Three controls, one implementation, the same class names on every page:
 Because the class names are shared, the handlers are shared too: the page being
 acted on is identified by which report is open, not by a per-page class. Adding a
 table page therefore adds **no** new event handler, no new markup and no new CSS.
+
+## Theme
+
+**A table page never invents a colour.** Its buttons and counter follow whatever
+theme is in force:
+
+- **Per-user theme** — Member Settings → Change color sets `--theme-accent` (and
+  `--theme-accent-2`) on `:root`. Everything themed picks that up immediately, for
+  that user only.
+- **WeKan default** — with no custom colour chosen, `--theme-accent` is unset and
+  every rule falls back to the WeKan blue `#01628c` through
+  `var(--theme-accent, #01628c)`.
+
+The prev/next buttons and the "3 / 42" counter are styled in **one** place for the
+whole app — `client/components/main/paginationControls.css` — which the Admin
+Panel tables, People / Organizations / Teams / Domains, All Boards, the board
+Table view, Archived boards and the Cron settings tables all share. A table page
+gets that look by using the shared class names (`.table-page-pagination`,
+`.table-page-page-info`); it adds nothing of its own.
+
+**Do not restate those colours in a page stylesheet.** That file spells out
+`:hover`, `:focus`, `:active` *and* `:active:hover` deliberately, because the
+global `button` rules in `client/components/forms/forms.css` set the same states
+from `--theme-accent` with a **black / dark-grey fallback**, at equal or higher
+specificity:
+
+```css
+button              { background: var(--theme-accent, #000) }
+button:focus        { background: var(--theme-accent, #222) }
+button:active       { background: var(--theme-accent, #111) }
+button:active:hover { background: #e6e6e6 }
+```
+
+A partial copy — say only the base state and `:hover` — therefore looks right
+until the button is *clicked*, and then loses to `button:focus` /
+`button:active:hover` and leaves a black or grey button sitting on the page for as
+long as it keeps focus. That is why the colours live in one file that covers every
+state, and why `tablePage.css` carries layout only.
+
+The rest of the page inherits: the title and cell text take the surrounding text
+colour, and the counter uses `color: inherit` so it stays readable in both the
+light and the dark theme rather than being pinned to a hard-coded grey.
 
 ## RTL and dates
 

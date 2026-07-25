@@ -22,8 +22,7 @@
    (Member Settings -> Change color sets --theme-accent on :root) with the WeKan
    blue as the fallback. */
 
-.admin-report-pagination button,
-.admin-event-pagination button,
+.table-page-pagination button,
 .people-pagination button,
 .org-pagination button,
 .team-pagination button,
@@ -49,12 +48,9 @@
    so a clicked "next" button reads as themed instead of black. :focus-visible is
    listed separately so a mouse click does not leave a permanent focus ring, but
    keyboard users still get one. */
-.admin-report-pagination button:hover:not(.disabled),
-.admin-report-pagination button:focus:not(.disabled),
-.admin-report-pagination button:active:not(.disabled),
-.admin-event-pagination button:hover:not(.disabled),
-.admin-event-pagination button:focus:not(.disabled),
-.admin-event-pagination button:active:not(.disabled),
+.table-page-pagination button:hover:not(.disabled),
+.table-page-pagination button:focus:not(.disabled),
+.table-page-pagination button:active:not(.disabled),
 .people-pagination button:hover:not(.disabled),
 .people-pagination button:focus:not(.disabled),
 .people-pagination button:active:not(.disabled),
@@ -85,10 +81,8 @@
 
 /* forms.css turns a held-down button grey (#e6e6e6) with a higher specificity
    than a plain `.pagination button` rule - keep the accent instead. */
-.admin-report-pagination button:active:hover,
-.admin-report-pagination button:active:focus,
-.admin-event-pagination button:active:hover,
-.admin-event-pagination button:active:focus,
+.table-page-pagination button:active:hover,
+.table-page-pagination button:active:focus,
 .people-pagination button:active:hover,
 .people-pagination button:active:focus,
 .org-pagination button:active:hover,
@@ -109,7 +103,7 @@
 }
 
 /* The current page in a numbered pager. */
-.admin-report-pagination button.active,
+.table-page-pagination button.active,
 .people-pagination button.active,
 .org-pagination button.active,
 .team-pagination button.active,
@@ -123,8 +117,7 @@
 }
 
 /* Disabled = the same themed outline, faded. Not a grey block. */
-.admin-report-pagination button.disabled,
-.admin-event-pagination button.disabled,
+.table-page-pagination button.disabled,
 .people-pagination button.disabled,
 .org-pagination button.disabled,
 .team-pagination button.disabled,
@@ -142,7 +135,7 @@
 /* "3 / 42" between the buttons: inherit the surrounding text colour so it stays
    readable in both the light and the dark theme (it used to be hard-coded #333,
    which disappears on a dark background). */
-.admin-report-page-info,
+.table-page-page-info,
 .people-page-info,
 .org-page-info,
 .team-page-info,

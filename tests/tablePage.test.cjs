@@ -282,4 +282,44 @@ test('the related-files table lists files that exist', () => {
   assert.strictEqual(new Set(paths).size, paths.length, 'no file listed twice');
 });
 
+test('the pager is themed by the ONE shared pager stylesheet', () => {
+  // Buttons follow the per-user theme accent (Member Settings -> Change color
+  // sets --theme-accent) and fall back to the WeKan default blue. That is owned
+  // by paginationControls.css for every pager in the app.
+  const pager = read('client/components/main/paginationControls.css');
+  assert.ok(pager.includes('.table-page-pagination button,'),
+    'the table page pager must be covered by the shared themed selectors');
+  assert.ok(pager.includes('.table-page-page-info,'),
+    'the page counter must be covered too');
+  // Every state, or a clicked button falls through to the black/grey fallback in
+  // forms.css, which has equal or higher specificity.
+  for (const state of [':hover:not(.disabled)', ':focus:not(.disabled)',
+    ':active:not(.disabled)', ':active:hover', '.disabled']) {
+    assert.ok(pager.includes(`.table-page-pagination button${state}`),
+      `the shared pager must style ${state}`);
+  }
+  assert.ok(/var\(--theme-accent, #01628c\)/.test(pager),
+    'colours come from the theme accent with the WeKan blue as fallback');
+});
+
+test('the table page stylesheet does not restate button colours', () => {
+  // A partial copy looks right until the button is clicked and then loses to
+  // forms.css. Layout here, colour in the shared pager stylesheet.
+  const block = css.slice(css.indexOf('.table-page-pagination'));
+  const pagerRules = block.slice(0, block.indexOf('.table-page-table-wrap'));
+  for (const prop of ['background', 'color:', 'border:']) {
+    assert.ok(!new RegExp(`\\n\\s*${prop}`).test(pagerRules),
+      `tablePage.css must not set ${prop} on the pager - that belongs to paginationControls.css`);
+  }
+});
+
+test('the design doc explains the theming', () => {
+  assert.ok(/## Theme/.test(doc), 'Table-Page.md must have a Theme section');
+  assert.ok(/--theme-accent/.test(doc) && /Change color/.test(doc),
+    'it must name the per-user override and where it is set');
+  assert.ok(/#01628c/.test(doc), 'and the WeKan default fallback');
+  assert.ok(/paginationControls\.css/.test(doc),
+    'and point at the one stylesheet that owns the pager colours');
+});
+
 console.log(`\ntablePage: ${passed} tests passed`);

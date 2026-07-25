@@ -4,12 +4,12 @@ template(name="archivedBoards")
       i.fa.fa-archive
     | {{_ 'archived-boards'}}
 
-  .admin-report-controls
+  .table-page-controls
     input.js-archived-boards-search(type="search" placeholder="{{_ 'search'}}")
-    .admin-report-pagination
+    .table-page-pagination
       button.js-archived-boards-prev-page(class="{{#if hasPrevPage}}{{else}}disabled{{/if}}")
         | &lt;
-      span.admin-report-page-info {{currentPage}} / {{totalPages}}
+      span.table-page-page-info {{currentPage}} / {{totalPages}}
       button.js-archived-boards-next-page(class="{{#if hasNextPage}}{{else}}disabled{{/if}}")
         | &gt;
   ul.archived-lists

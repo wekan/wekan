@@ -63,13 +63,14 @@ check('pagination controls sit at the end of the row (right; RTL-mirrored)', () 
 
 // ── theme colors: controls follow --theme-accent (Member change-color override) ──
 check('pagination controls use var(--theme-accent)', () => {
-  // One rule now, in the shared stylesheet, instead of one per report family.
-  const css = read('client/components/settings/tablePage.css');
-  assert.ok(/\.table-page-pagination button\s*\{[^}]*var\(--theme-accent/.test(css),
-    'pagination buttons must use the theme accent');
+  // The colours live in the ONE shared pager stylesheet that every pager in the
+  // app uses, not in the table page's own layout stylesheet.
+  const pager = read('client/components/main/paginationControls.css');
+  assert.ok(/\.table-page-pagination button,[\s\S]*?var\(--theme-accent, #01628c\)/.test(pager),
+    'table page pagination buttons must use the theme accent with the WeKan blue fallback');
   assert.ok(/input\.js-table-page-search/.test(read('client/components/settings/tablePage.jade')),
     'the search field is part of the shared controls row');
-  assert.ok(!/#bbb/.test(css), 'no hardcoded grey in the shared controls');
+  assert.ok(!/#bbb/.test(pager), 'no hardcoded grey in the shared controls');
 });
 check('People/Org/Team/Domain pagination buttons use var(--theme-accent)', () => {
   const css = read('client/components/settings/peopleBody.css');
