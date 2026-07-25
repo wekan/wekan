@@ -603,6 +603,21 @@ and changes the Admin Panel as follows:
   under it rather than as several pages
   stacked](https://github.com/wekan/wekan/commit/671262ddb).
   Thanks to xet7.
+- [Admin Panel / People / E-mail saved neither of the two settings it shows. Its
+  Save handler starts by reading the SMTP fields, which are commented out of that
+  pane — the read throws on an input that is not there, and the throw was caught and
+  swallowed, so the handler returned before ever writing anything, including the
+  e-mail domain. "Allow Email Change" was worse: the radios showed the stored value
+  and no handler in the app ever wrote them back. The Save button moves out of the
+  Yes/No row to its own line below both settings and writes both, each field only
+  when its input is actually rendered](https://github.com/wekan/wekan/commit/f15b37e4e).
+  Thanks to xet7.
+- [That pane's "Email domain name" is renamed to say what it does: "Email domain
+  allowed to invite people, when self-registration is disabled". It limits nothing
+  about signing in — a non-admin whose address ends with this domain may send board
+  invitations, and only while self-registration is
+  disabled](https://github.com/wekan/wekan/commit/f15b37e4e).
+  Thanks to xet7.
 - [Admin Panel / Settings / Visibility, All Boards group: every row repeated the
   group title and the word "Hide" — "Hide card counter list on All Boards" under a
   title reading "All Boards". The title is "All Boards: Hide" and each row says only
