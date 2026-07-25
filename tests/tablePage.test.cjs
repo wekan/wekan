@@ -613,4 +613,31 @@ test('the three non-table People panes are recorded as such, not forced in', () 
   }
 });
 
+test('People uses the shared controls row - search, filter, actions, total', () => {
+  const jadeSrc = read('client/components/settings/peopleBody.jade');
+  const js = read('client/components/settings/peopleBody.js');
+  // The page header no longer carries this pane's controls.
+  for (const gone of ['input#searchInput', 'button#searchButton', '#userFilterSelect',
+    'button#unlockAllUsers', 'button#addOrRemoveTeam']) {
+    assert.ok(!jadeSrc.includes(gone), `${gone} must be gone from the page header`);
+  }
+  // They are declared to the shared row instead.
+  assert.ok(/filters: buildFilters\(/.test(js) && /actions: buildActions\(/.test(js));
+  for (const action of ['unlock-all', 'add-remove-teams']) {
+    assert.ok(js.includes(`id: '${action}'`), `${action} must be a shared action`);
+  }
+  // Search is state now, not a DOM id read from another template.
+  assert.ok(/peopleSearchTerm = new ReactiveVar/.test(js));
+  assert.ok(!/\$\('#searchInput'\)/.test(js), 'filterPeople must not read a removed input');
+  // And the filter reset sets state rather than poking a select that is gone.
+  assert.ok(/userFilterType\.set\('all'\)/.test(js));
+  // Scoped like the pager: one template hosts every pane.
+  for (const cls of ['js-table-page-search', 'js-table-page-filter', 'js-table-page-action']) {
+    const at = js.indexOf(`'${cls === 'js-table-page-search' ? 'keydown' : cls === 'js-table-page-filter' ? 'change' : 'click'} .${cls}'`);
+    assert.ok(at > 0, `${cls} must have a handler`);
+    assert.ok(js.slice(at, at + 220).includes('people-setting'),
+      `${cls} must be scoped to the open pane`);
+  }
+});
+
 console.log(`\ntablePage: ${passed} tests passed`);

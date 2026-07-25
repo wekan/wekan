@@ -42,6 +42,35 @@ Template.people.onCreated(function () {
   this.numberTeams = new ReactiveVar(0);
   this.numberPeople = new ReactiveVar(0);
   this.userFilterType = new ReactiveVar('all');
+  // The search box lives in the shared controls row now, so keep the term in
+  // state rather than reading it back out of a DOM id.
+  this.peopleSearchTerm = new ReactiveVar('');
+
+  // Was the body of a 'click #unlockAllUsers' handler. That button is a shared
+  // controls-row action now, identified by data-action, so the work moves here and
+  // the action handler just calls it.
+  this.unlockAllUsers = () => {
+    if (confirm(TAPi18n.__('accounts-lockout-confirm-unlock-all'))) {
+      Meteor.call('unlockAllUsers', (error) => {
+        if (error) {
+          console.error('Error unlocking all users:', error);
+        } else {
+          // Show a brief success message
+          const message = document.createElement('div');
+          message.className = 'unlock-all-success';
+          message.textContent = TAPi18n.__('accounts-lockout-all-users-unlocked');
+          document.body.appendChild(message);
+
+          // Remove the message after a short delay
+          setTimeout(() => {
+            if (message.parentNode) {
+              message.parentNode.removeChild(message);
+            }
+          }, 3000);
+        }
+      });
+    }
+  };
   this.peoplePage = new ReactiveVar(1);
   this.orgPage = new ReactiveVar(1);
   this.teamPage = new ReactiveVar(1);
@@ -148,7 +177,7 @@ Template.people.onCreated(function () {
   };
 
   this.filterPeople = () => {
-    const value = $('#searchInput').first().val();
+    const value = this.peopleSearchTerm.get();
     const filterType = this.userFilterType.get();
     const currentTime = Number(new Date());
 
@@ -367,6 +396,25 @@ Template.people.helpers({
     return {
       titleKey: 'people',
       emptyKey: 'no-items-message',
+      searchTerm: tpl.peopleSearchTerm.get(),
+      // The filter, the two actions and the total were this pane's own markup in
+      // the page header. They are controls-row features of the shared design now -
+      // added to it FROM here - so the pane just declares them.
+      filters: buildFilters([{
+        id: 'user',
+        labelKey: 'admin-people-filter-show',
+        options: [
+          { value: 'all', labelKey: 'admin-people-filter-all' },
+          { value: 'locked', labelKey: 'admin-people-filter-locked' },
+          { value: 'active', labelKey: 'admin-people-filter-active' },
+          { value: 'inactive', labelKey: 'admin-people-filter-inactive' },
+          { value: 'admin', label: 'Admin' },
+        ],
+      }], tpl.userFilterType.get()),
+      actions: buildActions([
+        { id: 'unlock-all', icon: 'fa-unlock', labelKey: 'accounts-lockout-unlock-all', cls: 'unlock-all-btn' },
+        { id: 'add-remove-teams', icon: 'fa-pencil-square-o', labelKey: 'teams' },
+      ]),
       header: buildHeader(PEOPLE_COLUMNS),
       rowTemplate: 'peopleRow',
       docs: users.map(user => ({ user })),
@@ -589,21 +637,31 @@ Template.people.events({
       tpl.filterTeam();
     }
   },
-  'click #searchButton'(event, tpl) {
-    tpl.filterPeople();
-  },
-  'click #addOrRemoveTeam'(){
-    document.getElementById("divAddOrRemoveTeamContainer").style.display = 'block';
-  },
-  'keydown #searchInput'(event, tpl) {
+  // Search, filter and the two actions come from the shared controls row now.
+  // Scoped to the open pane, like the pager: every People pane renders inside this
+  // one template and they all carry the same classes.
+  'keydown .js-table-page-search'(event, tpl) {
+    if (tpl.activeMenuId.get() !== 'people-setting') return;
     if (event.keyCode === 13 && !event.shiftKey) {
+      event.preventDefault();
+      tpl.peopleSearchTerm.set($(event.currentTarget).val() || '');
       tpl.filterPeople();
     }
   },
-  'change #userFilterSelect'(event, tpl) {
-    const filterType = $(event.target).val();
-    tpl.userFilterType.set(filterType);
+  'change .js-table-page-filter'(event, tpl) {
+    if (tpl.activeMenuId.get() !== 'people-setting') return;
+    tpl.userFilterType.set($(event.currentTarget).val());
     tpl.filterPeople();
+  },
+  'click .js-table-page-action'(event, tpl) {
+    if (tpl.activeMenuId.get() !== 'people-setting') return;
+    event.preventDefault();
+    const action = event.currentTarget.getAttribute('data-action');
+    if (action === 'add-remove-teams') {
+      document.getElementById('divAddOrRemoveTeamContainer').style.display = 'block';
+    } else if (action === 'unlock-all') {
+      tpl.unlockAllUsers();
+    }
   },
 
   // #4737/#5850: select-all / unselect-all for a team feature column.
@@ -646,29 +704,7 @@ Template.people.events({
       if (tpl.peoplePage.get() < totalPages) tpl.peoplePage.set(tpl.peoplePage.get() + 1);
     }
   },
-  'click #unlockAllUsers'(event) {
-    event.preventDefault();
-    if (confirm(TAPi18n.__('accounts-lockout-confirm-unlock-all'))) {
-      Meteor.call('unlockAllUsers', (error) => {
-        if (error) {
-          console.error('Error unlocking all users:', error);
-        } else {
-          // Show a brief success message
-          const message = document.createElement('div');
-          message.className = 'unlock-all-success';
-          message.textContent = TAPi18n.__('accounts-lockout-all-users-unlocked');
-          document.body.appendChild(message);
 
-          // Remove the message after a short delay
-          setTimeout(() => {
-            if (message.parentNode) {
-              message.parentNode.removeChild(message);
-            }
-          }, 3000);
-        }
-      });
-    }
-  },
   'click #newOrgButton'() {
     Popup.open('newOrg');
   },
@@ -961,12 +997,9 @@ Template.peopleRow.helpers({
 Template.people.rendered = function() {
   const template = this;
 
-  // Set the initial value of the dropdown
-  Tracker.afterFlush(function() {
-    if (template.findAll('#userFilterSelect').length) {
-      $('#userFilterSelect').val('all');
-    }
-  });
+  // The filter is rendered by the shared controls row from userFilterType, so
+  // reset the STATE - there is no #userFilterSelect to poke at any more.
+  template.userFilterType.set('all');
 };
 
 Template.editUserPopup.onCreated(function () {

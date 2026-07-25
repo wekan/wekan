@@ -42,14 +42,9 @@ is visible rather than forgotten.
 | --- | --- | --- |
 | People — its three non-table panes | Admin Panel / People | Locked users, Roles and Shared templates are **not tables**: Locked users is a form of numeric lockout settings with a Save button, Roles is a checkbox list, and Shared templates is a checkbox list of scopes. There is no paginated set of rows to render, so this design does not apply to them and forcing it would only add a table around a form. All four of People's TABLE panes — Domains, Organizations, Teams and People — are converted and listed below. |
 
-People's four table panes are converted. What is left there is one loose end, not
-a blocker:
-
-- Its **search box, filter dropdown and two action buttons** still live in the page
-  header rather than in the shared controls row. The slots for all three exist —
-  they were added to this design *from* People — so this is wiring, not design.
-- Its Search BUTTON should go when they move: every table page searches on Enter,
-  and a second way to search is the divergence this design removes.
+People is fully converted: its four table panes render through this design, and its
+search, filter dropdown, action buttons and total are the shared controls row. Its
+separate Search button is gone — every table page searches on Enter.
 
 ## Pages that use this design
 

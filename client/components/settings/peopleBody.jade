@@ -34,29 +34,6 @@ template(name="people")
               i.fa.fa-user
               unless isMiniScreen
                 | {{_ 'people'}}
-            input#searchInput(placeholder="{{_ 'search'}}")
-            button#searchButton
-              i.fa.fa-search
-              | {{_ 'search'}}
-            .divLockedUsersFilter
-              .flex-container
-                span.people-filter {{_ 'admin-people-filter-show'}}
-                select.user-filter#userFilterSelect
-                  option(value="all") {{_ 'admin-people-filter-all'}}
-                  option(value="locked") {{_ 'admin-people-filter-locked'}}
-                  option(value="active") {{_ 'admin-people-filter-active'}}
-                  option(value="inactive") {{_ 'admin-people-filter-inactive'}}
-                  option(value="admin") Admin
-              button#unlockAllUsers.unlock-all-btn
-                span.emoji-icon
-                i.fa.fa-unlock
-                | {{_ 'accounts-lockout-unlock-all'}}
-            .ext-box-right
-              span {{#unless isMiniScreen}}{{_ 'people-number'}}{{/unless}} #{peopleNumber}
-            .divAddOrRemoveTeam#divAddOrRemoveTeam
-              button#addOrRemoveTeam
-                i.fa.fa-pencil-square-o
-                | {{_ 'add'}} / {{_ 'delete'}} {{_ 'teams'}}
           else if lockedUsersSetting.get
             span
               span.emoji-icon.text-red
