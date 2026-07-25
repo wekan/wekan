@@ -592,9 +592,28 @@ and changes the Admin Panel as follows:
   was a page in name only — and the `/information` URL redirects to Settings, the same
   move Translation made](https://github.com/wekan/wekan/commit/d23219407).
   Thanks to xet7.
+- [Admin Panel / Problems' left menu is two named groups: Summary, then a rule and a
+  "Settings" title over the two panes that came from the removed Features tab, then a
+  rule and a "Reports" title over the reports. A title is a new kind of menu item with
+  no id, no icon and no handler class — there is nothing to click, and it can never
+  become the active row — and both use an i18n key the app already has, so no
+  language has to translate anything new. Performance moves down to sit with the
+  Speed, Tests and CPU usage streams it is about, below Impersonation
+  Report](https://github.com/wekan/wekan/commit/fc0fe3177).
+  Thanks to xet7.
 - [Admin Panel / People: Domains moves up beside E-mail, the settings it is about,
   instead of sitting at the end after the Roles and Shared templates checkbox
   lists](https://github.com/wekan/wekan/commit/d23219407).
+  Thanks to xet7.
+- [Admin Panel / Problems / Broken cards has the same controls as the Files Report
+  beside it: a search box, the total, "page X / N" and the shared themed pager. It
+  was the one entry in that menu with a different set, because it ran on the
+  global-search machinery instead of the shared table page. It is a column spec like
+  the other reports now, behind an admin-only publication that takes a search term
+  plus limit/skip and a count method for the total; what "broken" means — no board,
+  swimlane or list, or a type that is not a card type — is one selector shared with
+  the standalone /broken-cards page, which is
+  unchanged](https://github.com/wekan/wekan/commit/fc0fe3177).
   Thanks to xet7.
 - [No Admin Panel pane repeats the title above it. Attachments / Backup showed
   "Backup" twice — the pane heading comes from the open left-menu entry now, and
