@@ -225,6 +225,11 @@ Template.listHeader.events({
   // list in the DOM (right in LTR / left in RTL).
   'click .js-add-list-here'(event) {
     event.preventDefault();
+    // In mobile mode the whole list row is an `a.js-select-list` and this button sits
+    // INSIDE it, so without this the same click also opened the list - you asked to
+    // add a list and got taken into one. preventDefault alone does not help: the
+    // click still bubbles to the ancestor's handler.
+    event.stopPropagation();
     const list = Template.currentData();
     const swimlaneDom = $(event.currentTarget).closest('.js-swimlane');
     const swimlaneId = swimlaneDom.length

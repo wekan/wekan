@@ -121,4 +121,20 @@ test('the composer opens after the list whose + was clicked', () => {
   assert.ok(/isAddListAfter\(listId\)/.test(swimJs), 'and the helper still exists');
 });
 
+test('clicking the + does not also open the list', () => {
+  // In mobile mode the whole row is an `a.js-select-list` and the + sits INSIDE it, so
+  // the click bubbled to the ancestor and opened the list as well - you asked to add a
+  // list and got taken into one. preventDefault does not stop that; only
+  // stopPropagation does.
+  const js = read('client/components/lists/listHeader.js');
+  const handler = /'click \.js-add-list-here'\(event\) \{[\s\S]*?\n  \},/.exec(js);
+  assert.ok(handler, 'the add-list handler must exist');
+  assert.ok(/event\.stopPropagation\(\)/.test(handler[0]),
+    'the click must not reach the row js-select-list handler');
+  // The row really is a select-list anchor, which is why this is needed.
+  const listJade = read('client/components/lists/list.jade');
+  assert.ok(/a\.mini-list\.js-select-list/.test(listJade),
+    'the mobile row is an anchor that opens the list');
+});
+
 console.log(`\nmobileAddList: ${passed} tests passed`);
