@@ -400,16 +400,18 @@ test('pagination controls sit at the end of the row (right; RTL-mirrored)', () =
 });
 
 // ── theme colors: controls follow --theme-accent (Member change-color override) ──
-test('People/Org/Team/Domain pagination buttons use var(--theme-accent)', () => {
+test('no People pane keeps a pager of its own', () => {
+  // All four of its table panes render through the shared table page now, so
+  // their pagers are the shared one - themed by paginationControls.css like every
+  // other pager in the app.
   const css = read('client/components/settings/peopleBody.css');
-  // No 'domain': the Domains pane renders through the shared table page now, so
-  // its pager is the shared one.
-  // No 'org' either: Organizations renders through the shared table page now.
-  // Only People keeps its own pager: the other panes render through the shared page.
-  for (const sel of ['people']) {
-    const m = new RegExp('\\.' + sel + '-pagination button\\s*\\{[^}]*var\\(--theme-accent');
-    assert.ok(m.test(css), `${sel}-pagination button must use the theme accent`);
+  for (const sel of ['people', 'org', 'team', 'domain']) {
+    assert.ok(!css.includes(`.${sel}-pagination`),
+      `.${sel}-pagination must be gone - that pane uses the shared pager`);
   }
+  const pager = read('client/components/main/paginationControls.css');
+  assert.ok(/\.table-page-pagination button,/.test(pager),
+    'and the shared pager is still themed');
 });
 
 // ── column-header sorting removed everywhere ────────────────────────────────
@@ -467,7 +469,7 @@ test('the doc records which pages do NOT use this design, and why', () => {
   assert.ok(why && why[1].trim().length > 80, 'the reason must actually explain');
   // Domains IS converted, so the entry must say so and the pane must render
   // through the shared template - not carry markup of its own.
-  assert.ok(/Domains, Organizations and Teams are converted/.test(section), 'the entry must record the converted pane');
+  assert.ok(/Domains, Organizations, Teams and People are converted/.test(section), 'the entry must record the converted pane');
   const people = read('client/components/settings/peopleBody.jade');
   const domains = people.slice(people.indexOf('template(name="domainGeneral")'),
     people.indexOf('template(name="newOrgRow")'));
@@ -570,6 +572,24 @@ test('Teams renders through the shared table page, and gains a working prev', ()
     'Teams must now page backwards');
   assert.strictEqual((js.match(/'click \.js-table-page-prev'/g) || []).length, 1,
     'one handler for every pane - duplicate keys in one event map would overwrite');
+});
+
+test('the People pane renders through the shared table page', () => {
+  const people = read('client/components/settings/peopleBody.jade');
+  const pane = people.slice(people.indexOf('template(name="peopleGeneral")'),
+    people.indexOf('template(name="selectAllUser")'));
+  assert.ok(/\+tablePage\(peopleTablePageData\)/.test(pane));
+  assert.ok(!/thead|people-pagination/.test(pane), 'no table markup of its own');
+  const js = read('client/components/settings/peopleBody.js');
+  assert.ok(/rowTemplate: 'peopleRow'/.test(js));
+  // The page of users is ONE query now, shared by the table context and the old
+  // helper - and it must not re-slice what the publication already paginated.
+  assert.strictEqual((js.match(/function peopleDocs/g) || []).length, 1);
+  assert.ok(!/peopleDocs\(tpl\)[\s\S]{0,200}slice\(/.test(js), 'never re-slice a published page');
+  // All four table panes share one scoped pager pair.
+  for (const pane of ['org-setting', 'team-setting', 'people-setting']) {
+    assert.ok(js.includes(`pane === '${pane}'`), `${pane} must be handled by the shared pager`);
+  }
 });
 
 console.log(`\ntablePage: ${passed} tests passed`);

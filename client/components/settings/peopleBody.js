@@ -293,6 +293,39 @@ const PEOPLE_MENU = [
 // pager, the search, the total - comes from the shared page.
 // Teams: same shape as Organizations - interactive rows, three headers carrying
 // a select-all pair. Same two slots (docs/Design/Page/Table.md).
+// People: interactive rows again, and two of its headers are templates - the
+// new-user row and the select-all checkbox (docs/Design/Page/Table.md).
+// One page of users, as published. The 'people' publication already applies
+// server-side limit/skip sorted createdAt:-1, so this must NOT re-slice: doing so
+// paginated an already-paginated set, which is why page 2 once showed a single
+// stray doc (the admin's own user record, always in minimongo) and later pages
+// were empty.
+function peopleDocs(tpl) {
+  return Users.find(tpl.findUsersOptions.get(), {
+    sort: { createdAt: -1 },
+    fields: {
+      _id: 1,
+      username: 1,
+      emails: 1,
+      isAdmin: 1,
+      createdAt: 1,
+      loginDisabled: 1,
+      services: 1,
+    },
+  }).fetch();
+}
+
+const PEOPLE_COLUMNS = [
+  { headerTemplate: 'newUserRow' },
+  { labelKey: 'username' },
+  { labelKey: 'email' },
+  { labelKey: 'admin' },
+  { labelKey: 'active-person' },
+  { labelKey: 'accounts-lockout-status' },
+  { labelKey: 'createdAt' },
+  { headerTemplate: 'selectAllUser' },
+];
+
 const TEAM_COLUMNS = [
   { headerTemplate: 'newTeamRow' },
   { labelKey: 'displayName' },
@@ -326,6 +359,26 @@ const ORG_COLUMNS = [
 ];
 
 Template.people.helpers({
+  peopleTablePageData() {
+    const tpl = Template.instance();
+    const users = peopleDocs(tpl);
+    const total = tpl.numberPeople.get() || 0;
+    const totalPages = Math.max(1, Math.ceil(total / usersPerPage));
+    return {
+      titleKey: 'people',
+      emptyKey: 'no-items-message',
+      header: buildHeader(PEOPLE_COLUMNS),
+      rowTemplate: 'peopleRow',
+      docs: users.map(user => ({ user })),
+      rowCount: users.length,
+      page: tpl.peoplePage.get(),
+      totalPages,
+      hasPrev: tpl.peoplePage.get() > 1,
+      hasNext: tpl.peoplePage.get() < totalPages,
+      total,
+      totalLabelKey: 'people-number',
+    };
+  },
   teamTablePageData() {
     const tpl = Template.instance();
     const teams = ReactiveCache.getTeams(tpl.findTeamsOptions.get(), {
@@ -447,25 +500,7 @@ Template.people.helpers({
     return teams;
   },
   peopleList() {
-    const tpl = Template.instance();
-    // The 'people' publication already returns only the current page (server-side
-    // limit/skip, sorted createdAt:-1). Display exactly what it published:
-    // re-applying skip/limit here paginated an already-paginated set — that is
-    // why page 1 showed 25, page 2 showed a single stray doc (the admin's own
-    // user record, always present in minimongo) and later pages were empty.
-    const users = Users.find(tpl.findUsersOptions.get(), {
-      sort: { createdAt: -1 },
-      fields: {
-        _id: 1,
-        username: 1,
-        emails: 1,
-        isAdmin: 1,
-        createdAt: 1,
-        loginDisabled: 1,
-        services: 1,
-      },
-    }).fetch();
-    return users;
+    return peopleDocs(Template.instance());
   },
   orgNumber() {
     return Template.instance().numberOrgs.get();
@@ -570,29 +605,7 @@ Template.people.events({
     tpl.userFilterType.set(filterType);
     tpl.filterPeople();
   },
-  'click .js-people-prev-page'(event, tpl) {
-    event.preventDefault();
-    const current = tpl.peoplePage.get();
-    if (current > 1) {
-      tpl.peoplePage.set(current - 1);
-    }
-  },
-  'click .js-people-next-page'(event, tpl) {
-    event.preventDefault();
-    const totalUsers = tpl.numberPeople.get() || 0;
-    const totalPages = Math.max(1, Math.ceil(totalUsers / usersPerPage));
-    const current = tpl.peoplePage.get();
-    if (current < totalPages) {
-      tpl.peoplePage.set(current + 1);
-    }
-  },
-  // #4737/#5850: select-all / unselect-all for an org feature column.
-  'click .js-org-feature-all'(event) {
-    event.preventDefault();
-    const field = event.currentTarget.getAttribute('data-feature');
-    const value = event.currentTarget.getAttribute('data-value') === 'true';
-    Meteor.call('setAllOrgsFeature', field, value);
-  },
+
   // #4737/#5850: select-all / unselect-all for a team feature column.
   'click .js-team-feature-all'(event) {
     event.preventDefault();
@@ -614,6 +627,8 @@ Template.people.events({
       tpl.orgPage.set(tpl.orgPage.get() - 1);
     } else if (pane === 'team-setting' && tpl.teamPage.get() > 1) {
       tpl.teamPage.set(tpl.teamPage.get() - 1);
+    } else if (pane === 'people-setting' && tpl.peoplePage.get() > 1) {
+      tpl.peoplePage.set(tpl.peoplePage.get() - 1);
     }
   },
   'click .js-table-page-next'(event, tpl) {
@@ -626,6 +641,9 @@ Template.people.events({
     } else if (pane === 'team-setting') {
       const totalPages = pages(tpl.numberTeams.get(), teamsPerPage);
       if (tpl.teamPage.get() < totalPages) tpl.teamPage.set(tpl.teamPage.get() + 1);
+    } else if (pane === 'people-setting') {
+      const totalPages = pages(tpl.numberPeople.get(), usersPerPage);
+      if (tpl.peoplePage.get() < totalPages) tpl.peoplePage.set(tpl.peoplePage.get() + 1);
     }
   },
   'click #unlockAllUsers'(event) {

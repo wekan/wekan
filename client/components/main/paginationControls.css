@@ -23,7 +23,6 @@
    blue as the fallback. */
 
 .table-page-pagination button,
-.people-pagination button,
 .boards-pagination button,
 .table-view-pagination button,
 .cron-settings .pagination button {
@@ -48,9 +47,6 @@
 .table-page-pagination button:hover:not(.disabled),
 .table-page-pagination button:focus:not(.disabled),
 .table-page-pagination button:active:not(.disabled),
-.people-pagination button:hover:not(.disabled),
-.people-pagination button:focus:not(.disabled),
-.people-pagination button:active:not(.disabled),
 .boards-pagination button:hover:not(.disabled),
 .boards-pagination button:focus:not(.disabled),
 .boards-pagination button:active:not(.disabled),
@@ -71,8 +67,6 @@
    than a plain `.pagination button` rule - keep the accent instead. */
 .table-page-pagination button:active:hover,
 .table-page-pagination button:active:focus,
-.people-pagination button:active:hover,
-.people-pagination button:active:focus,
 .boards-pagination button:active:hover,
 .boards-pagination button:active:focus,
 .table-view-pagination button:active:hover,
@@ -86,7 +80,6 @@
 
 /* The current page in a numbered pager. */
 .table-page-pagination button.active,
-.people-pagination button.active,
 .boards-pagination button.active,
 .table-view-pagination button.active {
   background: var(--theme-accent, #01628c);
@@ -97,7 +90,6 @@
 
 /* Disabled = the same themed outline, faded. Not a grey block. */
 .table-page-pagination button.disabled,
-.people-pagination button.disabled,
 .boards-pagination button.disabled,
 .table-view-pagination button.disabled {
   background: transparent;
@@ -112,7 +104,6 @@
    readable in both the light and the dark theme (it used to be hard-coded #333,
    which disappears on a dark background). */
 .table-page-page-info,
-.people-page-info,
 .boards-page-info,
 .table-view-page-info,
 .cron-settings .pagination .page-info {

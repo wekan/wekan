@@ -126,31 +126,10 @@ template(name="teamFeatureHeader")
     i.fa.fa-square-o
 
 template(name="peopleGeneral")
+  //- Not part of the table: the Add/Remove Teams panel this pane opens.
   #divAddOrRemoveTeamContainer
     +modifyTeamsUsers
-  .people-pagination
-    button.js-people-prev-page(class="{{#if hasPeoplePrevPage}}{{else}}disabled{{/if}}")
-      | &lt;
-    span.people-page-info {{peopleCurrentPage}} / {{peopleTotalPages}}
-    button.js-people-next-page(class="{{#if hasPeopleNextPage}}{{else}}disabled{{/if}}")
-      | &gt;
-  table
-    thead
-      tr
-        th
-          +newUserRow
-        th {{_ 'username'}}
-        th {{_ 'email'}}
-        th {{_ 'admin'}}
-        th {{_ 'active-person'}}
-        th {{_ 'accounts-lockout-status'}}
-        th {{_ 'createdAt'}}
-        th
-          +selectAllUser
-    tbody
-      tr
-      each user in peopleList
-        +peopleRow(user=user)
+  +tablePage(peopleTablePageData)
 
 template(name="selectAllUser")
   | {{_ 'dueCardsViewChange-choice-all'}}
