@@ -226,6 +226,19 @@ This release fixes the following CRITICAL SECURITY ISSUE of [ZipBleed](https://w
 
 and fixes the following bugs:
 
+- [Admin Panel / Problems: the Security report is renamed **Security Report** and moved
+  above Broken Cards, with Impersonation Report directly between the two; and the
+  Performance, Security and Notifications panes moved here from Admin Panel / Features,
+  below Summary. The rename is what makes that safe — the pane arriving from Features is
+  also called Security, and the two now sit in one menu. Only the English source string
+  changed, so every other language keeps its existing translation until that string is
+  retranslated. The panes brought their helpers and handlers with them, which is the
+  half that fails silently: all twenty-four were registered on the Features page
+  template, and Blaze resolves a helper, and delivers an event, against the template the
+  element is in — left there, each pane would have rendered on Problems with every
+  checkbox reading as unchecked and no click doing anything. Admin Panel / Features is
+  left with no panes; its page and route stay so nothing linking there breaks](https://github.com/wekan/wekan/commit/4df87fd6b).
+  Thanks to xet7.
 - [Admin Panel: the Login and E-mail panes moved from Settings to People, above
   Organizations — both are about the people who can sign in and how they are reached,
   which is what that page is for. The move was only half markup: every handler the two
