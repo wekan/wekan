@@ -37,6 +37,16 @@
      not mirror under dir=rtl, so it shaded the wrong inner edge once the menu moved
      to the right. See docs/Design/Page/Left-Menu.md. */
   box-shadow: inset 0 -2px 4px rgba(0,0,0,0.05);
+  /* A long menu SCROLLS inside the panel instead of spilling out of it.
+     The menu is a flex item stretched to the row's height, so its box - and with it
+     its background, border and rounded corners - stops at the bottom of the page.
+     With the default `overflow: visible` the entries kept rendering past that edge,
+     which is why Admin Panel / Problems, the longest menu, showed its last four
+     entries sitting on the page's grey with no panel behind them.
+     min-height:0 because a flex item will not shrink below its content otherwise, and
+     an overflow that never engages leaves the spill exactly as it was. */
+  overflow-y: auto;
+  min-height: 0;
 }
 .setting-content .content-body .side-menu ul li {
   margin: 2px 4px;

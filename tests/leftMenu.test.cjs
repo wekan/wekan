@@ -139,6 +139,22 @@ test('the menu mirrors under a right-to-left language', () => {
     'an inset shadow must not be offset on the X axis');
 });
 
+test('a long menu scrolls inside the panel instead of spilling out of it', () => {
+  // Admin Panel / Problems is the longest menu: 15 entries. The panel is a flex item
+  // stretched to the row height, so its background, border and rounded corners stop at
+  // the bottom of the page - and with the default `overflow: visible` the entries kept
+  // rendering past that edge, on the page's grey with no panel behind them.
+  const panel = /\.side-menu \{([^}]*)\}/.exec(css);
+  assert.ok(panel, 'the panel must be styled');
+  assert.ok(/overflow-y:\s*auto/.test(panel[1]),
+    'a menu taller than the page must scroll inside its own panel');
+  assert.ok(/min-height:\s*0/.test(panel[1]),
+    'without min-height:0 a flex item will not shrink below its content, and the '
+    + 'overflow never engages');
+  // The panel keeps its own background, so whatever is visible always sits on it.
+  assert.ok(/background-color:/.test(panel[1]), 'the panel still has its background');
+});
+
 test('the design doc states which side, both ways', () => {
   assert.ok(/left-to-right/i.test(doc) && /right-to-left/i.test(doc),
     'both directions must be described');
