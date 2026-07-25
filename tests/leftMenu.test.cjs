@@ -148,23 +148,27 @@ test('the design doc states which side, both ways', () => {
 
 // ── theme ───────────────────────────────────────────────────────────────────
 
-test('the selected entry is darker and bold, and still themeable', () => {
-  // The white background and shadow on the active row are subtle; with the label the
-  // same grey as every other entry, which page you were on was easy to miss.
-  const active = /\.side-menu ul li\.active > a \{([^}]*)\}/.exec(css);
-  assert.ok(active, 'the active entry must be styled');
-  assert.ok(/font-weight:\s*bold/.test(active[1]), 'the selected label is bold');
-  assert.ok(/color: var\(--theme-accent, #[0-9a-f]{6}\)/.test(active[1]),
-    'a per-user accent still wins, over a DARKER fallback - "inherit" was what made ' +
-    'the selected entry identical to the unselected ones');
-  assert.ok(!/inherit/.test(active[1]), 'the fallback must not inherit the panel grey');
-  // The icon goes with the label rather than keeping its own colour.
-  assert.ok(/\.side-menu ul li\.active > a i \{[^}]*color: inherit/.test(css),
-    'the icon takes the same colour as the label');
-  const menu = css.slice(css.indexOf('.side-menu {'), css.indexOf('.content-body .main-body {'));
-  // No brand colour may be hard-coded into the menu.
-  assert.ok(!/#0079bf|#2980b9|#01628c/.test(menu),
-    'no hard-coded WeKan blue in the menu - themeable parts use --theme-accent');
+test('the selected entry looks like the selected tab in the bar above', () => {
+  // Filled with the theme colour, label and icon white - the same treatment
+  // settingHeader.css gives `.setting-header-btn.active`. Before this the entry kept
+  // the panel grey on white, which is easy to miss.
+  const fill = /\.side-menu ul li\.active,\s*[^{]*li\.active:hover \{([^}]*)\}/.exec(css);
+  assert.ok(fill, 'the selected entry must be filled');
+  assert.ok(/background: var\(--theme-accent, #[0-9a-f]{6}\)/.test(fill[1]),
+    'a per-user accent fills it, falling back to the WeKan header blue so the menu ' +
+    'matches the bar when no colour is chosen');
+  // :hover must be in that same selector list. `li:hover` sets white at the SAME
+  // specificity and comes later, so without it the fill vanishes under the pointer.
+  assert.ok(/li\.active:hover/.test(css),
+    'hovering the selected entry must not wash it back to white');
+  // Label AND icon go white together. Comments are stripped first: the rule explains
+  // in prose why it is not `inherit`, which a naive text search would trip over.
+  const code = css.replace(/\/\*[\s\S]*?\*\//g, '');
+  const text = /\.side-menu ul li\.active > a,\s*[^{]*li\.active > a i \{([^}]*)\}/.exec(code);
+  assert.ok(text, 'label and icon must be coloured together');
+  assert.ok(/color: #fff/.test(text[1]), 'white on the filled background');
+  assert.ok(!/inherit/.test(text[1]),
+    'inheriting the panel grey is what made the selected entry invisible');
 });
 
 test('the design doc explains the theming', () => {

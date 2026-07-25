@@ -42,25 +42,27 @@
   margin: 2px 4px;
 }
 .setting-content .content-body .side-menu ul li.active {
-  background: #fff;
   box-shadow: 0 2px 3px rgba(0,0,0,0.15);
 }
-/* The entry you are on - the one whose page is showing on the right - is DARKER and
-   BOLD, so the menu says where you are at a glance. The white background and shadow
-   above are subtle enough that, when the text was the same grey as every other entry,
-   the selected row was easy to miss.
-   Still the one themeable part of the menu: a per-user theme accent (Member Settings
-   -> Change color sets --theme-accent on :root) wins. The fallback is a darker grey
-   than the panel's #727479, not "inherit" - inheriting is what made it identical to
-   the unselected entries. See docs/Design/Page/Left-Menu.md. */
-.setting-content .content-body .side-menu ul li.active > a {
-  color: var(--theme-accent, #2c2e33);
-  font-weight: bold;
+/* The entry you are on is filled with the theme colour and its label and icon go
+   white - the same treatment the selected tab gets in the Admin Panel bar above
+   (settingHeader.css: `.setting-header-btn.active`, white text on the header's own
+   colour). One selected-thing look in both places.
+   The colour is the per-user theme accent (Member Settings -> Change color sets
+   --theme-accent on :root); the fallback is the WeKan header blue, so with no chosen
+   colour the menu matches the bar exactly. See docs/Design/Page/Left-Menu.md.
+   `:hover` is listed too: `li:hover` below sets a white background at the SAME
+   specificity as `li.active`, and being later in the file it would otherwise wash the
+   selected entry back to white as soon as the pointer crossed it. */
+.setting-content .content-body .side-menu ul li.active,
+.setting-content .content-body .side-menu ul li.active:hover {
+  background: var(--theme-accent, #2980b9);
 }
-/* The icon takes the same colour: it is inside the <a>, so it inherits unless
-   something sets it, and stating it here keeps icon and label in step. */
+.setting-content .content-body .side-menu ul li.active > a,
 .setting-content .content-body .side-menu ul li.active > a i {
-  color: inherit;
+  /* Not `inherit`: that is what made the selected entry the same grey as every
+     unselected one, on a background that is now dark. */
+  color: #fff;
 }
 .setting-content .content-body .side-menu ul li:hover {
   background: #fff;

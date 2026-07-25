@@ -74,26 +74,37 @@ Most of the menu is deliberately **neutral**: the panel is a light grey card
 soft shadow. That is the WeKan default look and it does not change with the theme
 — a menu is chrome, and tinting the whole card would fight the content beside it.
 
-The **themeable part is the active entry's label**, which is also **darker and
-bold** so the menu says at a glance which page is showing on the right:
+The **themeable part is the selected entry**, which is **filled with the theme
+colour with a white label and icon** — the same treatment the selected tab gets in
+the Admin Panel bar above it (`settingHeader.css`, `.setting-header-btn.active`).
+One selected-thing look in both places, so the menu says at a glance which page is
+showing on the right:
 
 ```css
-.side-menu ul li.active > a { color: var(--theme-accent, #2c2e33); font-weight: bold; }
+.side-menu ul li.active,
+.side-menu ul li.active:hover      { background: var(--theme-accent, #2980b9); }
+.side-menu ul li.active > a,
+.side-menu ul li.active > a i      { color: #fff; }
 ```
 
 - **Per-user theme** — Member Settings → Change color sets `--theme-accent` on
   `:root`, and the entry you are on picks it up, for that user only.
-- **WeKan default** — the fallback is a grey darker than the panel's `#727479`.
-  It used to be `inherit`, which made the selected entry exactly the same colour as
-  every other one; the white background and soft shadow alone were easy to miss.
+- **WeKan default** — the fallback is the WeKan header blue, so with no chosen
+  colour the menu matches the bar exactly.
+- **`:hover` is in the selector list on purpose** — `li:hover` sets a white
+  background at the same specificity and comes later in the file, so without it the
+  fill would vanish as soon as the pointer crossed the selected entry.
+
+The label used to be `var(--theme-accent, inherit)`, and that `inherit` made the
+selected entry exactly the same grey as every unselected one.
 
 So: nothing in the menu is hard-coded to a *brand* colour, and the one part that
 should follow a chosen theme does. If you add a themeable part, take the colour
 from `var(--theme-accent, …)` with a fallback that reproduces today's look, and
 never introduce a second accent variable.
 
-The Font Awesome icons inherit their colour from the entry, so an active entry's
-icon follows the accent with the label.
+The Font Awesome icon of the selected entry is coloured with its label, in the same
+rule, so the two can never drift apart.
 
 ## Layout
 
