@@ -706,20 +706,7 @@ Template.setting.events({
 
     const oidcBtnText = ($('#oidcBtnTextvalue').val() || '').trim();
     const hideLogoChange = $('input[name=hideLogo]:checked').val() === 'true';
-    const displayAuthenticationMethod =
-      $('input[name=displayAuthenticationMethod]:checked').val() === 'true';
     // #5879: the <select> options are populated by an async Meteor.call, so its
-    // value can still be '' / null when Save is clicked. Saving that empty value
-    // over the required `defaultAuthenticationMethod` string silently failed
-    // validation, so the Layout save looked like it hung / did nothing. Fall back
-    // to the currently stored method so a real value is never overwritten by ''.
-    const currentDefaultAuthenticationMethod =
-      ReactiveCache.getCurrentSetting()?.defaultAuthenticationMethod;
-    const defaultAuthenticationMethod = resolveDefaultAuthenticationMethod(
-      $('#defaultAuthenticationMethod').val(),
-      currentDefaultAuthenticationMethod,
-    );
-    const spinnerName = ($('#spinnerName').val() || '').trim();
 
     try {
       Settings.update(ReactiveCache.getCurrentSetting()._id, {
@@ -733,10 +720,7 @@ Template.setting.events({
           customTopLeftCornerLogoImageUrl,
           customTopLeftCornerLogoLinkUrl,
           customTopLeftCornerLogoHeight,
-          displayAuthenticationMethod,
-          defaultAuthenticationMethod,
           automaticLinkedUrlSchemes,
-          spinnerName,
           oidcBtnText,
         },
       });
@@ -1036,6 +1020,30 @@ Template.setting.helpers(accountAccessHelpers);
 Template.accountSettings.events({
   // Login pane: the two account-access settings that moved here.
   'click button.js-account-access-save'() {
+    // Moved here from Layout with their inputs. Both are Settings fields, unlike
+    // the two AccountSettings ones below, so they are a separate write - and each
+    // is written only when its input is actually on screen.
+    const $settings = {};
+    const display = $('input[name=displayAuthenticationMethod]:checked').val();
+    if (display !== undefined) {
+      $settings.displayAuthenticationMethod = display === 'true';
+    }
+    if ($('#defaultAuthenticationMethod').length) {
+      // value can still be '' / null when Save is clicked. Saving that empty value
+      // over the required `defaultAuthenticationMethod` string silently failed
+      // validation, so the Layout save looked like it hung / did nothing. Fall back
+      // to the currently stored method so a real value is never overwritten by ''.
+      const currentDefaultAuthenticationMethod =
+        ReactiveCache.getCurrentSetting()?.defaultAuthenticationMethod;
+      const defaultAuthenticationMethod = resolveDefaultAuthenticationMethod(
+        $('#defaultAuthenticationMethod').val(),
+        currentDefaultAuthenticationMethod,
+      );
+      $settings.defaultAuthenticationMethod = defaultAuthenticationMethod;
+    }
+    if (Object.keys($settings).length) {
+      Settings.update(ReactiveCache.getCurrentSetting()._id, { $set: $settings });
+    }
     const uname = $('input[name=allowUserNameChange]:checked').val();
     const del = $('input[name=allowUserDelete]:checked').val();
     if (uname !== undefined) {
@@ -1095,7 +1103,12 @@ Template.tableVisibilityModeSettings.events({
     if (hideBoardMemberList !== undefined) {
       $set.hideBoardMemberList = hideBoardMemberList === 'true';
     }
-    // Moved here with its input (same reason as the domain name above).
+    // Moved here with their inputs (same reason as the domain name above): the
+    // Layout save read them, and a missing input reads as '' - which would have
+    // been written over the stored value.
+    if ($('#spinnerName').length) {
+      $set.spinnerName = ($('#spinnerName').val() || '').trim();
+    }
     if ($('#legalNoticevalue').length) {
       $set.legalNotice = ($('#legalNoticevalue').val() || '').trim();
     }

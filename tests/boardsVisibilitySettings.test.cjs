@@ -37,6 +37,14 @@ function template(name) {
   const after = jade.indexOf('\ntemplate(name=', start + 1);
   return jade.slice(start, after === -1 ? undefined : after);
 }
+// One handler's body: from its key to the '  },' that closes it. Slicing to the
+// next handler instead would include that handler's code, so an assertion like
+// "Layout no longer writes X" would fail on the pane that legitimately does.
+function handler(name) {
+  const at = js.indexOf("'click button." + name + "'");
+  assert.ok(at >= 0, `handler ${name} must exist`);
+  return js.slice(at, js.indexOf('\n  },', at) + 5);
+}
 const boardsVisibility = template('tableVisibilityModeSettings');
 const layout = template('layoutSettings');
 
@@ -70,8 +78,7 @@ test('neither setting is left behind in Layout', () => {
 });
 
 test('the Layout save no longer writes them (this is the trap)', () => {
-  const save = js.slice(js.indexOf("'click button.js-save-layout'"),
-    js.indexOf("'click button.js-tableVisibilityMode-save'"));
+  const save = handler('js-save-layout');
   assert.ok(!/hideCardCounterList/.test(save) && !/hideBoardMemberList/.test(save),
     'a leftover read would resolve to undefined, compare false, and turn both ' +
     'settings OFF every time Layout is saved');
@@ -109,8 +116,7 @@ test('hide board activities is ONE global setting, not a write per board', () =>
   // The old implementation bulk-updated showActivities:false on every board
   // document. That could not be undone - the per-board values were overwritten
   // and gone - and did nothing for boards created afterwards.
-  const save = js.slice(js.indexOf("'click button.js-hide-board-activities-save'"));
-  const body = save.slice(0, save.indexOf('\n  },') + 4);
+  const body = handler('js-hide-board-activities-save');
   assert.ok(/Settings\.update\(ReactiveCache\.getCurrentSetting\(\)\._id/.test(body),
     'it writes ONE global setting');
   assert.ok(!/Boards\.update/.test(body), 'and never touches board documents');
@@ -159,8 +165,7 @@ test('the moved radios still see their values, and save what they found', () => 
     'Email gets the helpers');
   assert.ok(/Template\.setting\.helpers\(accountAccessHelpers\)/.test(js),
     'the Settings template (which hosts the Login pane) gets them too');
-  const save = js.slice(js.indexOf("'click button.js-account-access-save'"));
-  const body = save.slice(0, save.indexOf('\n  },') + 4);
+  const body = handler('js-account-access-save');
   assert.ok(/!== undefined/.test(body),
     'a radio that is not on screen must be skipped, never saved as false');
   assert.ok(/accounts-allowUserNameChange/.test(body) && /accounts-allowUserDelete/.test(body));
@@ -189,8 +194,7 @@ test('the Layout save cannot wipe the two moved text fields', () => {
   // These are TEXT inputs, so the trap is worse than for a radio: a missing
   // input reads as undefined, ('' || '').trim() is '', and saving Layout would
   // have written an EMPTY string over the stored value.
-  const save = js.slice(js.indexOf("'click button.js-save-layout'"),
-    js.indexOf("'click button.js-hide-board-activities-save'"));
+  const save = handler('js-save-layout');
   assert.ok(!/mailDomainName/.test(save) && !/legalNotice/.test(save),
     'the Layout save must not read or write either field any more');
   // Their new homes write them only when the input is actually present.
@@ -198,6 +202,51 @@ test('the Layout save cannot wipe the two moved text fields', () => {
     'the Email save guards on the input existing');
   assert.ok(/\$\('#legalNoticevalue'\)\.length/.test(js),
     'the Visibility save guards on the input existing');
+});
+
+test('the authentication-method settings moved to Login', () => {
+  const login = jade.slice(jade.indexOf('ul#registration-setting'), jade.indexOf("template(name='email')"));
+  assert.ok(login.includes('display-authentication-method'), 'the Yes/No is in Login');
+  assert.ok(login.includes('+selectAuthenticationMethod'), 'the method dropdown with it');
+  assert.ok(!layout.includes('display-authentication-method'), 'gone from Layout');
+  assert.ok(!layout.includes('selectAuthenticationMethod'), 'dropdown gone from Layout');
+});
+
+test('the Login save keeps the empty-value guard the Layout save had', () => {
+  const laySave = handler('js-save-layout');
+  assert.ok(!/AuthenticationMethod/.test(laySave), 'Layout no longer saves either');
+  const body = handler('js-account-access-save');
+  // The dropdown can read '' when nothing is chosen; saving that over the
+  // REQUIRED defaultAuthenticationMethod string fails validation silently, which
+  // is why the fallback exists. It had to travel with the setting.
+  assert.ok(/resolveDefaultAuthenticationMethod\(/.test(body),
+    'the fallback to the stored method must come along');
+  assert.ok(/\$\('#defaultAuthenticationMethod'\)\.length/.test(body),
+    'and it writes only when the dropdown is on screen');
+  assert.ok(/display !== undefined/.test(body), 'same for the Yes/No radio');
+});
+
+test('Wait Spinner moved to Visibility', () => {
+  const visibility = template('tableVisibilityModeSettings');
+  assert.ok(visibility.includes("{{_ 'wait-spinner'}}"), 'the setting is in Visibility');
+  assert.ok(visibility.includes('+selectSpinnerName'), 'with its dropdown');
+  assert.ok(!layout.includes('wait-spinner'), 'gone from Layout');
+  const laySave = handler('js-save-layout');
+  assert.ok(!/spinnerName/.test(laySave),
+    'the Layout save must not write it - a missing input reads as an empty string');
+  assert.ok(/\$\('#spinnerName'\)\.length/.test(handler('js-tableVisibilityMode-save')),
+    'the Visibility save writes it only when the input is on screen');
+});
+
+test('every Layout text field the panes took is guarded in its new home', () => {
+  // The recurring hazard across all of these moves: the save handler left
+  // behind. Each field that moved must be written only where its input now is.
+  const laySave = handler('js-save-layout');
+  for (const field of ['mailDomainName', 'legalNotice', 'spinnerName',
+    'displayAuthenticationMethod', 'defaultAuthenticationMethod',
+    'hideCardCounterList', 'hideBoardMemberList']) {
+    assert.ok(!laySave.includes(field), `Layout must no longer write ${field}`);
+  }
 });
 
 console.log(`\nboardsVisibilitySettings: ${passed} tests passed`);
