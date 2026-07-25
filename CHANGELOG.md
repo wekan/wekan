@@ -26,6 +26,21 @@ batch), #4825/#4897 (All Boards/OAuth2 data), #4822 (maximized card position), #
 reorder), #5282/#5547 (mergebox/features batch), #3453/#3199/#3843 (linked-card/archive/comment
 attachments), #4593 (late-joining team member board membership) and #3037 (REST card board-move).
 
+- **Documentation and website not yet updated for the Admin Panel / Settings reorganisation:** the
+  settings themselves have moved and are tested, but the prose describing them has not been swept.
+  `docs/Features/Admin-Panel/` and the wekan.fi pages still describe the **Layout** pane (now
+  **PWA**), the **Accounts** pane (removed — its three settings are in Email and Login), and the old
+  homes of about a dozen settings: Hide card counter list, Hide board member list, Hide board
+  activities, Support, Email domain name, Legal notice URL, Wait Spinner, Display Authentication
+  Method and the default-method dropdown, the branding/logo group, and the OIDC button text. The two
+  renames need reflecting too: "Boards visibility" → **Visibility**, "Registration" → **Login**.
+  Both the text and the links.
+- **`docs/Features/` directory structure does not mirror the current menu:** the folders grew before
+  the Admin Panel panes were reorganised, so a reader cannot map a menu path to a docs path.
+  Restructuring it to follow the menu (Admin Panel / Settings / …, Admin Panel / People / …, and so
+  on) is a rename-and-relink sweep over every internal link into those folders — the design docs
+  under `docs/Design/Page/` link into them and their tests assert those links resolve, so the two
+  have to move in the same commit.
 - **Need specific infrastructure / a running server stack we cannot reproduce here (left for
   environment owners):**
   [#3707](https://github.com/wekan/wekan/issues/3707) & [#3700](https://github.com/wekan/wekan/issues/3700)
