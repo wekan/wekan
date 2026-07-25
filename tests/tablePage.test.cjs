@@ -402,7 +402,9 @@ test('pagination controls sit at the end of the row (right; RTL-mirrored)', () =
 // ── theme colors: controls follow --theme-accent (Member change-color override) ──
 test('People/Org/Team/Domain pagination buttons use var(--theme-accent)', () => {
   const css = read('client/components/settings/peopleBody.css');
-  for (const sel of ['people', 'org', 'team', 'domain']) {
+  // No 'domain': the Domains pane renders through the shared table page now, so
+  // its pager is the shared one.
+  for (const sel of ['people', 'org', 'team']) {
     const m = new RegExp('\\.' + sel + '-pagination button\\s*\\{[^}]*var\\(--theme-accent');
     assert.ok(m.test(css), `${sel}-pagination button must use the theme accent`);
   }
@@ -456,15 +458,19 @@ test('the doc records which pages do NOT use this design, and why', () => {
   assert.ok(at < doc.indexOf('## Pages that use this design'),
     'it comes before the pages that DO use the design');
   const section = doc.slice(at, doc.indexOf('## Pages that use this design'));
-  assert.ok(/\| People \| Admin Panel \/ People \|/.test(section),
+  assert.ok(/\| People[^|]*\| Admin Panel \/ People \|/.test(section),
     'People must be listed with its menu path and a reason');
   // The reason has to say something; a row with an empty why is worse than none.
-  const why = /\| People \| Admin Panel \/ People \| ([^|]+) \|/.exec(section);
+  const why = /\| People[^|]*\| Admin Panel \/ People \| ([^|]+) \|/.exec(section);
   assert.ok(why && why[1].trim().length > 80, 'the reason must actually explain');
-  // And it must still be true: People has none of this design's markup.
+  // Domains IS converted, so the entry must say so and the pane must render
+  // through the shared template - not carry markup of its own.
+  assert.ok(/Domains is converted/.test(section), 'the entry must record the converted pane');
   const people = read('client/components/settings/peopleBody.jade');
-  assert.ok(!/table-page-controls|table-page-table/.test(people),
-    'if People ever gains this markup, move it to the other section');
+  const domains = people.slice(people.indexOf('template(name="domainGeneral")'),
+    people.indexOf('template(name="newOrgRow")'));
+  assert.ok(/\+tablePage\(tablePageData\)/.test(domains), 'Domains renders the shared table page');
+  assert.ok(!/table-page-controls|thead/.test(domains), 'and keeps no markup of its own');
 });
 
 // ── controls-row features taken from People ─────────────────────────────────

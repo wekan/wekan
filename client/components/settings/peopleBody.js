@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { buildMenuItems } from '/models/lib/leftMenu';
+import { buildHeader, buildRows, pageInfo } from "/models/lib/tablePage";
 import { avatarUpdateCounter } from '/client/components/users/avatarUpdateCounter';
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
 import LockoutSettings from '/models/lockoutSettings';
@@ -1934,44 +1935,54 @@ Template.domainGeneral.onCreated(function () {
   });
 });
 
+// Domains renders through the shared table page (docs/Design/Page/Table.md):
+// one column spec instead of its own controls row, pagination markup and table.
+const DOMAIN_COLUMNS = [
+  { labelKey: "domain", value: d => d.domain },
+  { labelKey: "domain-user-count", align: "end", value: d => d.count },
+];
+
 Template.domainGeneral.helpers({
-  domainList() {
-    return Template.instance().pageData.get().rows;
-  },
-  currentPage() {
-    return Template.instance().page.get();
-  },
-  totalPages() {
-    return Template.instance().pageData.get().totalPages || 1;
-  },
-  hasPrevPage() {
-    return Template.instance().page.get() > 1;
-  },
-  hasNextPage() {
+  tablePageData() {
     const tpl = Template.instance();
-    return tpl.page.get() < (tpl.pageData.get().totalPages || 1);
+    const data = tpl.pageData.get();
+    const rows = data.rows || [];
+    // The server already returns one page, so pageInfo only computes the window
+    // for the counter - the rows are displayed as published.
+    const info = pageInfo(data.total || 0, tpl.page.get());
+    return {
+      titleKey: "domains",
+      emptyKey: "no-items-message",
+      searchTerm: tpl.searchQuery.get(),
+      header: buildHeader(DOMAIN_COLUMNS),
+      rows: buildRows(rows, DOMAIN_COLUMNS),
+      rowCount: rows.length,
+      page: tpl.page.get(),
+      totalPages: data.totalPages || 1,
+      hasPrev: tpl.page.get() > 1,
+      hasNext: tpl.page.get() < (data.totalPages || 1),
+      total: data.total || 0,
+      totalLabelKey: "domains",
+    };
   },
 });
 
 Template.domainGeneral.events({
-  'click .js-domain-search-button'(event, tpl) {
-    event.preventDefault();
-    tpl.searchQuery.set(tpl.$('.js-domain-search').val() || '');
-    tpl.page.set(1);
-  },
-  'keydown .js-domain-search'(event, tpl) {
+  // Shared control classes, so this pane needs no markup or CSS of its own. The
+  // old separate Search button is gone: every table page searches on Enter.
+  "keydown .js-table-page-search"(event, tpl) {
     if (event.keyCode === 13) {
       event.preventDefault();
-      tpl.searchQuery.set(tpl.$('.js-domain-search').val() || '');
+      tpl.searchQuery.set(tpl.$(".js-table-page-search").val() || "");
       tpl.page.set(1);
     }
   },
-  'click .js-domain-prev-page'(event, tpl) {
+  "click .js-table-page-prev"(event, tpl) {
     event.preventDefault();
     const current = tpl.page.get();
     if (current > 1) tpl.page.set(current - 1);
   },
-  'click .js-domain-next-page'(event, tpl) {
+  "click .js-table-page-next"(event, tpl) {
     event.preventDefault();
     const current = tpl.page.get();
     if (current < (tpl.pageData.get().totalPages || 1)) tpl.page.set(current + 1);

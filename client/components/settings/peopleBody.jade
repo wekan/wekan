@@ -221,27 +221,7 @@ template(name="selectAllUser")
   input.allUserChkBox(type="checkbox", id="chkSelectAll")
 
 template(name="domainGeneral")
-  .domain-controls
-    input.js-domain-search(type="text" placeholder="{{_ 'search'}}" aria-label="{{_ 'search'}}")
-    button.js-domain-search-button(type="button") {{_ 'search'}}
-  .domain-pagination
-    button.js-domain-prev-page(type="button" class="{{#unless hasPrevPage}}disabled{{/unless}}" aria-label="{{_ 'previous'}}") {{_ 'previous'}}
-    span.domain-page-info {{currentPage}} / {{totalPages}}
-    button.js-domain-next-page(type="button" class="{{#unless hasNextPage}}disabled{{/unless}}" aria-label="{{_ 'next'}}") {{_ 'next'}}
-  table
-    thead
-      tr
-        th(scope="col") {{_ 'domain'}}
-        th(scope="col") {{_ 'domain-user-count'}}
-    tbody
-      if domainList.length
-        each domainList
-          tr
-            td {{ domain }}
-            td {{ count }}
-      else
-        tr
-          td(colspan="2") {{_ 'no-items-message'}}
+  +tablePage(tablePageData)
 
 template(name="newOrgRow")
   a.new-org

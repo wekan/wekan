@@ -26,7 +26,6 @@
 .people-pagination button,
 .org-pagination button,
 .team-pagination button,
-.domain-pagination button,
 .boards-pagination button,
 .table-view-pagination button,
 .cron-settings .pagination button {
@@ -60,9 +59,6 @@
 .team-pagination button:hover:not(.disabled),
 .team-pagination button:focus:not(.disabled),
 .team-pagination button:active:not(.disabled),
-.domain-pagination button:hover:not(.disabled),
-.domain-pagination button:focus:not(.disabled),
-.domain-pagination button:active:not(.disabled),
 .boards-pagination button:hover:not(.disabled),
 .boards-pagination button:focus:not(.disabled),
 .boards-pagination button:active:not(.disabled),
@@ -89,8 +85,6 @@
 .org-pagination button:active:focus,
 .team-pagination button:active:hover,
 .team-pagination button:active:focus,
-.domain-pagination button:active:hover,
-.domain-pagination button:active:focus,
 .boards-pagination button:active:hover,
 .boards-pagination button:active:focus,
 .table-view-pagination button:active:hover,
@@ -107,7 +101,6 @@
 .people-pagination button.active,
 .org-pagination button.active,
 .team-pagination button.active,
-.domain-pagination button.active,
 .boards-pagination button.active,
 .table-view-pagination button.active {
   background: var(--theme-accent, #01628c);
@@ -121,7 +114,6 @@
 .people-pagination button.disabled,
 .org-pagination button.disabled,
 .team-pagination button.disabled,
-.domain-pagination button.disabled,
 .boards-pagination button.disabled,
 .table-view-pagination button.disabled {
   background: transparent;
@@ -139,7 +131,6 @@
 .people-page-info,
 .org-page-info,
 .team-page-info,
-.domain-page-info,
 .boards-page-info,
 .table-view-page-info,
 .cron-settings .pagination .page-info {

@@ -40,7 +40,7 @@ is visible rather than forgotten.
 
 | Table name | Menu path | Why it does not use this design |
 | --- | --- | --- |
-| People | Admin Panel / People | Predates this design and has its own controls and table markup, one per pane (Organizations, Teams, People, Domains, Locked users, Roles, Shared templates) — so it is several tables on one page rather than one. It also carries four things this template has no slot for: a **filter dropdown** (all / locked / active / inactive / admin), **action buttons** ("Unlock all users", "Add / Remove Teams"), a **result count** beside the controls, and a separate **Search button** where a table page searches on Enter. |
+| People — six of its seven panes | Admin Panel / People | Organizations, Teams, People, Locked users, Roles and Shared templates still have their own controls and table markup, one set per pane, so People is several tables on one page rather than one. The pane-specific extras it needed — a filter dropdown, action buttons and a result count — are now part of this design (see [Controls](#controls)), so nothing blocks the remaining six; they are simply not converted yet. **Domains is converted** and is listed in the table below. |
 
 What People already shares, and what converting it would take:
 
@@ -69,6 +69,7 @@ Menu path is what you click to reach the page.
 
 | Table name | Menu path | Description |
 | --- | --- | --- |
+| Domains | Admin Panel / People / Domains | Every e-mail domain in use with the number of users on it. The first People pane converted to this design. |
 | Security | Admin Panel / Problems / Security | Security events from the event log: blocked uploads, rejected URL schemes, auth failures. One row per event, newest first. |
 | Speed | Admin Panel / Problems / Speed | Slow-operation events — what took too long, where, and for how long. |
 | Tests | Admin Panel / Problems / Tests | Test-run events recorded on the server. |
