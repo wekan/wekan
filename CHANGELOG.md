@@ -603,6 +603,15 @@ and changes the Admin Panel as follows:
   under it rather than as several pages
   stacked](https://github.com/wekan/wekan/commit/671262ddb).
   Thanks to xet7.
+- [Each section of Admin Panel / Settings / Visibility has its own Save, directly
+  above the rule that closes it, and it writes only that section's fields. One Save
+  for the whole pane meant pressing it in one group also wrote whatever was
+  half-typed in another. Three buttons are folded into their section's Save and gone
+  with their handlers: the pane-wide one, the single-setting Save under "don't show
+  the board activities", and the one inside the Support block. The Support page's
+  Enabled / Public checkboxes still save on click — they are toggles, not
+  fields](https://github.com/wekan/wekan/commit/9255a6533).
+  Thanks to xet7.
 - ["Product name" appears once in that pane, not twice: the group holds one field,
   so its group title is that field's label — at the group title's size, with the
   translation the field already has in every
