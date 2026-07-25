@@ -596,6 +596,14 @@ and changes the Admin Panel as follows:
   instead of sitting at the end after the Roles and Shared templates checkbox
   lists](https://github.com/wekan/wekan/commit/d23219407).
   Thanks to xet7.
+- [No Admin Panel pane repeats the title above it. Attachments / Backup showed
+  "Backup" twice — the pane heading comes from the open left-menu entry now, and
+  every Attachments pane still printed its own name under it. Those ten headings are
+  gone, and with them the same repeat on Roles, Shared templates and Broken cards. A
+  heading that says something the menu label does not — Limits' "Attachment And API
+  File Size Limits", Locked users' "Brute Force Protection Settings" — is not a
+  repeat and stays](https://github.com/wekan/wekan/commit/9a0db4343).
+  Thanks to xet7.
 - [Admin Panel / Attachments opens on Backup, which is also the first entry of its
   menu — the first row of a menu and the pane that opens are the same one now, on
   Attachments as on Settings. Landing there asks once whether a backup is already
