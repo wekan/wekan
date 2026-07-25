@@ -45,6 +45,11 @@ Template.people.onCreated(function () {
   // The search box lives in the shared controls row now, so keep the term in
   // state rather than reading it back out of a DOM id.
   this.peopleSearchTerm = new ReactiveVar('');
+  // Orgs and Teams search through the shared table-page controls row now, like
+  // People already did. Their boxes used to live in the page-title bar, which is
+  // gone: an Admin Panel page is the left menu and the pane, nothing else.
+  this.orgSearchTerm = new ReactiveVar('');
+  this.teamSearchTerm = new ReactiveVar('');
 
   // Was the body of a 'click #unlockAllUsers' handler. That button is a shared
   // controls-row action now, identified by data-action, so the work moves here and
@@ -143,7 +148,7 @@ Template.people.onCreated(function () {
   };
 
   this.filterOrg = () => {
-    const value = $('#searchOrgInput').first().val();
+    const value = this.orgSearchTerm.get();
     if (value !== '') {
       const regex = new RegExp(value, 'i');
       this.findOrgsOptions.set({
@@ -160,7 +165,7 @@ Template.people.onCreated(function () {
   };
 
   this.filterTeam = () => {
-    const value = $('#searchTeamInput').first().val();
+    const value = this.teamSearchTerm.get();
     if (value !== '') {
       const regex = new RegExp(value, 'i');
       this.findTeamsOptions.set({
@@ -436,6 +441,7 @@ Template.people.helpers({
     const totalPages = Math.max(1, Math.ceil(total / teamsPerPage));
     return {
       titleKey: 'teams',
+      searchTerm: tpl.teamSearchTerm.get(),
       emptyKey: 'no-items-message',
       header: buildHeader(TEAM_COLUMNS),
       rowTemplate: 'teamRow',
@@ -460,6 +466,7 @@ Template.people.helpers({
     const totalPages = Math.max(1, Math.ceil(total / orgsPerPage));
     return {
       titleKey: 'organizations',
+      searchTerm: tpl.orgSearchTerm.get(),
       emptyKey: 'no-items-message',
       header: buildHeader(ORG_COLUMNS),
       // Interactive rows: orgRow owns its <tr>, and takes { org } as its context.
@@ -550,15 +557,6 @@ Template.people.helpers({
   peopleList() {
     return peopleDocs(Template.instance());
   },
-  orgNumber() {
-    return Template.instance().numberOrgs.get();
-  },
-  teamNumber() {
-    return Template.instance().numberTeams.get();
-  },
-  peopleNumber() {
-    return Template.instance().numberPeople.get();
-  },
   peopleCurrentPage() {
     return Template.instance().peoplePage.get();
   },
@@ -621,31 +619,34 @@ Template.people.events({
       tpl.loadNextPage();
     });
   },
-  'click #searchOrgButton'(event, tpl) {
-    tpl.filterOrg();
-  },
-  'keydown #searchOrgInput'(event, tpl) {
-    if (event.keyCode === 13 && !event.shiftKey) {
-      tpl.filterOrg();
-    }
-  },
-  'click #searchTeamButton'(event, tpl) {
-    tpl.filterTeam();
-  },
-  'keydown #searchTeamInput'(event, tpl) {
-    if (event.keyCode === 13 && !event.shiftKey) {
-      tpl.filterTeam();
-    }
-  },
+
   // Search, filter and the two actions come from the shared controls row now.
   // Scoped to the open pane, like the pager: every People pane renders inside this
   // one template and they all carry the same classes.
   'keydown .js-table-page-search'(event, tpl) {
-    if (tpl.activeMenuId.get() !== 'people-setting') return;
-    if (event.keyCode === 13 && !event.shiftKey) {
-      event.preventDefault();
-      tpl.peopleSearchTerm.set($(event.currentTarget).val() || '');
-      tpl.filterPeople();
+    if (event.keyCode !== 13 || event.shiftKey) return;
+    const value = $(event.currentTarget).val() || '';
+    // One search box, three panes. They all render inside this template and carry
+    // the same class, so the open pane decides what the box searches - the same way
+    // the pager and the filters are scoped.
+    switch (tpl.activeMenuId.get()) {
+      case 'people-setting':
+        event.preventDefault();
+        tpl.peopleSearchTerm.set(value);
+        tpl.filterPeople();
+        break;
+      case 'org-setting':
+        event.preventDefault();
+        tpl.orgSearchTerm.set(value);
+        tpl.filterOrg();
+        break;
+      case 'team-setting':
+        event.preventDefault();
+        tpl.teamSearchTerm.set(value);
+        tpl.filterTeam();
+        break;
+      default:
+        break;
     }
   },
   'change .js-table-page-filter'(event, tpl) {

@@ -3,54 +3,9 @@ template(name="people")
     unless currentUser.isAdmin
       | {{_ 'error-notAuthorized'}}
     else
-      .content-title.ext-box
-        .ext-box-left
-          if loading.get
-            +spinner
-          else if orgSetting.get
-            span
-              i.fa.fa-globe
-              unless isMiniScreen
-                | {{_ 'organizations'}}
-            input#searchOrgInput(placeholder="{{_ 'search'}}")
-            button#searchOrgButton
-              i.fa.fa-search
-              | {{_ 'search'}}
-            .ext-box-right
-              span {{#unless isMiniScreen}}{{_ 'org-number'}}{{/unless}} #{orgNumber}
-          else if teamSetting.get
-            span
-              i.fa.fa-users
-              unless isMiniScreen
-                | {{_ 'teams'}}
-            input#searchTeamInput(placeholder="{{_ 'search'}}")
-            button#searchTeamButton
-              i.fa.fa-search
-              | {{_ 'search'}}
-            .ext-box-right
-              span {{#unless isMiniScreen}}{{_ 'team-number'}}{{/unless}} #{teamNumber}
-          else if peopleSetting.get
-            span
-              i.fa.fa-user
-              unless isMiniScreen
-                | {{_ 'people'}}
-          else if lockedUsersSetting.get
-            span
-              span.emoji-icon.text-red
-                i.fa.fa-lock
-              unless isMiniScreen
-                | {{_ 'accounts-lockout-locked-users'}}
-          else if rolesSetting.get
-            span
-              i.fa.fa-key
-              unless isMiniScreen
-                | {{_ 'roles'}}
-          else if templatesSetting.get
-            span
-              i.fa.fa-clone
-              unless isMiniScreen
-                | {{_ 'shared-templates'}}
-
+      //- No page-title bar. The Admin Panel top bar already names the section and
+      //- the left menu highlights the open pane, so a third line repeating the pane
+      //- name only cost vertical space. Admin Panel / Problems never had one.
       .content-body
         +leftMenu(menuItems)
         .main-body

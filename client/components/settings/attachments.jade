@@ -3,11 +3,9 @@ template(name="attachments")
     unless currentUser.isAdmin
       | {{_ 'error-notAuthorized'}}
     else
-      .content-title.ext-box
-        span
-          span.emoji-icon
-          i.fa.fa-paperclip
-          | {{_ 'attachments'}}
+      //- No page-title bar. The Admin Panel top bar already names the section and
+      //- the left menu highlights the open pane, so a third line repeating the pane
+      //- name only cost vertical space. Admin Panel / Problems never had one.
       .content-body
         +leftMenu(menuItems)
         .main-body

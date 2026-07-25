@@ -632,11 +632,30 @@ test('People uses the shared controls row - search, filter, actions, total', () 
   // And the filter reset sets state rather than poking a select that is gone.
   assert.ok(/userFilterType\.set\('all'\)/.test(js));
   // Scoped like the pager: one template hosts every pane.
-  for (const cls of ['js-table-page-search', 'js-table-page-filter', 'js-table-page-action']) {
-    const at = js.indexOf(`'${cls === 'js-table-page-search' ? 'keydown' : cls === 'js-table-page-filter' ? 'change' : 'click'} .${cls}'`);
+  for (const [cls, evt] of [['js-table-page-filter', 'change'],
+    ['js-table-page-action', 'click']]) {
+    const at = js.indexOf(`'${evt} .${cls}'`);
     assert.ok(at > 0, `${cls} must have a handler`);
     assert.ok(js.slice(at, at + 220).includes('people-setting'),
       `${cls} must be scoped to the open pane`);
+  }
+  // The search box serves THREE panes now: Organizations and Teams searched from
+  // boxes in the page-title bar, and that bar is gone. One handler, dispatching on
+  // the open pane - so it must name all three, or a pane searches the wrong list.
+  const searchAt = js.indexOf("'keydown .js-table-page-search'");
+  assert.ok(searchAt > 0, 'the search must have a handler');
+  const handler = js.slice(searchAt, searchAt + 900);
+  for (const pane of ['people-setting', 'org-setting', 'team-setting']) {
+    assert.ok(handler.includes(pane), `the search must handle ${pane}`);
+  }
+  assert.ok(/activeMenuId\.get\(\)/.test(handler), 'dispatching on the open pane');
+  // Each pane keeps its own term, so switching panes does not carry a search across.
+  for (const v of ['peopleSearchTerm', 'orgSearchTerm', 'teamSearchTerm']) {
+    assert.ok(js.includes(`${v} = new ReactiveVar`), `${v} must exist`);
+  }
+  // ...and the removed inputs must not be read any more.
+  for (const gone of ['#searchOrgInput', '#searchTeamInput']) {
+    assert.ok(!js.includes(gone), `${gone} is gone with the title bar`);
   }
 });
 

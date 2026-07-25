@@ -15,11 +15,7 @@
   width: 100%;
   height: 100%;
   position: absolute;
-}
-.setting-content .content-title {
-  font-size: 16px;
-}
-.setting-content .content-body {
+}.setting-content .content-body {
   display: flex;
   /* Always keep the menu (left) and content (right) side by side, even on
      narrow windows. The side menu has a fixed basis and the main body fills

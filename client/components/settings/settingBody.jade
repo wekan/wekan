@@ -3,43 +3,10 @@ template(name="setting")
     unless currentUser.isAdmin
       | {{_ 'error-notAuthorized'}}
     else
-      .content-title.ext-box
-        if isGeneralSetting
-          span
-            span.emoji-icon
-            i.fa.fa-key
-            | {{_ 'registration'}}
-        else if isEmailSetting
-          span
-            span.emoji-icon
-            i.fa.fa-envelope
-            | {{_ 'email'}}
-        else if isTableVisibilityModeSetting
-          span
-            span.emoji-icon
-            i.fa.fa-eye
-            | {{_ 'tableVisibilityMode'}}
-        else if isAnnouncementSetting
-          span
-            span.emoji-icon
-            i.fa.fa-bullhorn
-            | {{_ 'admin-announcement'}}
-        else if isAccessibilitySetting
-          span
-            span.emoji-icon
-            i.fa.fa-universal-access
-            | {{_ 'accessibility'}}
-        else if isLayoutSetting
-          span
-            span.emoji-icon
-            i.fa.fa-link
-            | PWA
-        else if isWebhookSetting
-          span
-            span.emoji-icon
-            i.fa.fa-globe
-            | {{_ 'global-webhook'}}
-        //- COMMENTED OUT: Migration settings title section
+      //- No page-title bar here. The Admin Panel top bar already says which section
+      //- you are in, and the left menu highlights which pane is open, so a third
+      //- line repeating the pane name only cost vertical space. Admin Panel /
+      //- Problems has never had one.
       .content-body
         +leftMenu(menuItems)
         .main-body

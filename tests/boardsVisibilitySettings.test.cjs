@@ -258,7 +258,11 @@ test('Layout is now PWA, holding only PWA settings', () => {
 test('PWA is a literal label, never a translated string', () => {
   assert.ok(/label: 'PWA'/.test(js), 'the menu entry uses a literal label');
   assert.ok(!/labelKey: 'layout'/.test(js), 'not the layout i18n key any more');
-  assert.ok(jade.includes('| PWA'), 'and the pane header is literal too');
+  // The pane header that also spelled it out is gone - Admin Panel / Settings shows
+  // the left menu and the pane, with no title bar repeating the pane name - so the
+  // menu entry is the only place PWA is written, and it must stay untranslated there.
+  assert.ok(!/\.content-title/.test(jade), 'no title bar to carry a second copy');
+  assert.ok(!/\{\{_ 'layout'\}\}/.test(jade), 'and nothing translates it back');
   // No new i18n key was invented for an acronym.
   assert.ok(!('pwa' in en), 'PWA must not be added as a translatable string');
 });

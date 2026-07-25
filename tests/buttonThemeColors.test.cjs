@@ -30,8 +30,15 @@ check('forms.css: base button + primary buttons use var(--theme-accent)', () => 
 check('admin (settingBody) + People (peopleBody) buttons follow the theme accent', () => {
   const sb = read('client/components/settings/settingBody.css');
   assert.ok(/var\(--theme-accent, #005377\)/.test(sb), 'admin action button must be themed');
+  // People's own search button lived in the page-title bar (`.ext-box`), which is
+  // gone - an Admin Panel page is the left menu and the pane, nothing above them. Its
+  // search moved into the shared table page's controls row, so the buttons a People
+  // pane shows are that row's, themed in paginationControls.css.
   const pb = read('client/components/settings/peopleBody.css');
-  assert.ok(/\.ext-box button\s*\{[\s\S]*?var\(--theme-accent/.test(pb), 'ext-box button must be themed');
+  assert.ok(!/\.ext-box/.test(pb), 'the title-bar rules must be gone, not left rotting');
+  const pager = read('client/components/main/paginationControls.css');
+  assert.ok(/background:\s*var\(--theme-accent/.test(pager),
+    'the shared controls buttons must be themed');
   // no bare hardcoded WeKan-accent hexes remain in these two files
   for (const [f, css] of [['settingBody.css', sb], ['peopleBody.css', pb]]) {
     const bare = css.match(/(?<!, )(?<!\()#(?:01628c|005377|004766)(?!\))/g) || [];

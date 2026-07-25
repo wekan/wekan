@@ -10,29 +10,7 @@ table th {
 }
 table tr:nth-child(even) {
   background-color: #ddd;
-}
-.ext-box {
-  display: flex;
-  flex-direction: row;
-  height: 34px;
-}
-.ext-box .ext-box-left {
-  display: flex;
-  width: 100%;
-  gap: 10px;
-}
-.ext-box span {
-  vertical-align: center;
-  line-height: 34px;
-}
-.ext-box input,
-.ext-box button {
-  padding: 0;
-}
-.ext-box button {
-  min-width: 90px;
-}
-.content-wrapper {
+}.content-wrapper {
   margin-top: 10px;
 }
 .buttonsContainer {
