@@ -84,6 +84,98 @@ test('no size or spacing is measured in vh/vw', () => {
     offenders.join('\n  '));
 });
 
+// Everywhere a viewport unit can hide that is NOT a client/**/*.css line: an inline
+// `style=` in a template, and CSS written as a JS string (the HTML export builds a
+// modal that way, and the Sandstorm migration bridge builds a whole page). Those
+// render in a browser exactly like a stylesheet does, and the scan above never saw
+// them.
+function declarations(text) {
+  return text.split(';').map(d => d.trim()).filter(d => /[0-9.]+v[hw]\b/.test(d));
+}
+
+function sourceFiles(dir, ext, out = []) {
+  if (!fs.existsSync(dir)) return out;
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.name === 'node_modules') continue;
+    if (entry.isDirectory()) sourceFiles(full, ext, out);
+    else if (ext.some(e => full.endsWith(e))) out.push(full);
+  }
+  return out;
+}
+
+test('no viewport sizing hides in an inline style= in a template', () => {
+  const offenders = [];
+  for (const file of sourceFiles(path.join(root, 'client'), ['.jade'])
+    .concat(sourceFiles(path.join(root, 'packages'), ['.jade']))) {
+    const src = fs.readFileSync(file, 'utf8');
+    for (const m of src.matchAll(/style="([^"]*)"/g)) {
+      for (const decl of declarations(m[1])) {
+        if (allowed(decl)) continue;
+        offenders.push(`${path.relative(root, file)}  ${decl}`);
+      }
+    }
+  }
+  assert.deepStrictEqual(offenders, [],
+    'inline styles resize with the window too:\n  ' + offenders.join('\n  '));
+});
+
+test('no viewport sizing hides in CSS built as a JS string', () => {
+  const offenders = [];
+  const dirs = ['client', 'server', 'models', 'imports', 'packages', 'sandstorm-src'];
+  for (const dir of dirs) {
+    for (const file of sourceFiles(path.join(root, dir), ['.js'])) {
+      const src = fs.readFileSync(file, 'utf8')
+        .replace(/\/\*[\s\S]*?\*\//g, '')
+        .replace(/^\s*(\/\/|\*).*$/gm, '');
+      for (const decl of declarations(src)) {
+        if (allowed(decl)) continue;
+        // Only report something that actually looks like a CSS declaration, so a
+        // stray "100vh" in prose is not a finding.
+        if (!/^[a-z-]+\s*:\s*[^:]*[0-9.]+v[hw]/.test(decl)) continue;
+        offenders.push(`${path.relative(root, file)}  ${decl.slice(0, 80)}`);
+      }
+    }
+  }
+  assert.deepStrictEqual(offenders, [],
+    'CSS built in JS resizes with the window too:\n  ' + offenders.join('\n  '));
+});
+
+test('stylesheets outside client/ are covered as well', () => {
+  // Our own packages and public/css ship real stylesheets. Vendored ones
+  // (fullcalendar, the jade loader fixtures, FerretDB, .build output) are not ours.
+  const offenders = [];
+  const ours = sourceFiles(path.join(root, 'packages'), ['.css'])
+    .filter(f => !f.includes('fullcalendar'))
+    .concat(sourceFiles(path.join(root, 'public/css'), ['.css']));
+  for (const file of ours) {
+    const src = fs.readFileSync(file, 'utf8')
+      .replace(/\/\*[\s\S]*?\*\//g, c => c.replace(/[^\n]/g, ' '));
+    src.split('\n').forEach((line, i) => {
+      if (!/[0-9.]+v[hw]\b/.test(line) || allowed(line)) return;
+      offenders.push(`${path.relative(root, file)}:${i + 1}  ${line.trim()}`);
+    });
+  }
+  assert.deepStrictEqual(offenders, [], offenders.join('\n  '));
+});
+
+test('the wider scans actually see something (not vacuously green)', () => {
+  // A scan that silently reads nothing passes forever. These two shapes exist in the
+  // tree today and are ALLOWED, so finding them proves the extraction works while the
+  // suite stays green.
+  const exportHtml = fs.readFileSync(
+    path.join(root, 'client/lib/exportHTML.js'), 'utf8');
+  const found = declarations(exportHtml);
+  assert.ok(found.some(d => /max-height:\s*80vh/.test(d)),
+    'the JS scan must see the exported card modal\'s max-height cap');
+  assert.ok(found.every(d => allowed(d)), 'and that cap is allowed');
+  // The splitter itself must pull a bad declaration out of a run-together style
+  // string, which is how they appear in a cssText or a style= attribute.
+  const bad = declarations('display:none;padding:3vh 3vw;color:red');
+  assert.deepStrictEqual(bad, ['padding:3vh 3vw']);
+  assert.ok(!allowed(bad[0]), 'and it must be reported');
+});
+
 test('the pages that were reported are free of it', () => {
   // /sign-in and /sign-up: the auth form itself, and the shared form controls its
   // inputs and buttons come from.
