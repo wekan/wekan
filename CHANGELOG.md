@@ -195,7 +195,7 @@ This release fixes the following bugs:
   the last act of a script being killed, it is no longer the only way out: WeKan's
   MongoDB wait now re-reads the live `database` setting each round and re-execs onto
   FerretDB when it has been switched, so a migration finishing mid-wait recovers on
-  its own within five seconds](https://github.com/wekan/wekan/commit/403831afb).
+  its own within five seconds](https://github.com/wekan/wekan/commit/aebede877).
   Thanks to S0QR2 and xet7.
 
 and has the following developer-facing change:
@@ -215,7 +215,7 @@ and has the following developer-facing change:
   that renders "page X / N". The design, and the list of every page that uses it, is
   in `docs/Design/Table-Page.md`; the History, CPU usage and Recovery design docs link
   to it and keep only what is specific to
-  them](https://github.com/wekan/wekan/commit/abe7815f0).
+  them](https://github.com/wekan/wekan/commit/9791993d5).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their
