@@ -75,37 +75,7 @@ template(name="people")
                 | {{_ 'shared-templates'}}
 
       .content-body
-        .side-menu
-          ul
-            li.active
-              a.js-org-menu(data-id="org-setting")
-                i.fa.fa-globe
-                | {{_ 'organizations'}}
-            li
-              a.js-team-menu(data-id="team-setting")
-                i.fa.fa-users
-                | {{_ 'teams'}}
-            li
-              a.js-people-menu(data-id="people-setting")
-                i.fa.fa-user
-                | {{_ 'people'}}
-            li
-              a.js-locked-users-menu(data-id="locked-users-setting")
-                span.emoji-icon.text-red
-                  i.fa.fa-lock
-                | {{_ 'accounts-lockout-locked-users'}}
-            li
-              a.js-roles-menu(data-id="roles-setting")
-                i.fa.fa-key
-                | {{_ 'roles'}}
-            li
-              a.js-templates-menu(data-id="templates-setting")
-                i.fa.fa-clone
-                | {{_ 'shared-templates'}}
-            li
-              a.js-domains-menu(data-id="domains-setting")
-                i.fa.fa-at
-                | {{_ 'domains'}}
+        +leftMenu(menuItems)
         .main-body
           if loading.get
             +spinner

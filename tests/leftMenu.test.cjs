@@ -259,4 +259,31 @@ test('Settings keeps its Sandstorm exception and one active pane', () => {
   }
 });
 
+test('Admin Panel / People renders the shared menu from data', () => {
+  const pageJade = read('client/components/settings/peopleBody.jade');
+  const pageJs = read('client/components/settings/peopleBody.js').replace(/^\s*\/\/.*$/gm, '');
+  assert.ok(/\+leftMenu\(menuItems\)/.test(pageJade), 'renders the shared menu');
+  assert.ok(!/\.side-menu/.test(pageJade), 'no hand-written menu markup left');
+  assert.ok(/PEOPLE_MENU = \[/.test(pageJs) && /buildMenuItems\(PEOPLE_MENU/.test(pageJs),
+    'its entries are data, built by the shared helper');
+  // Seven near-identical handlers collapsed to one.
+  for (const old of ['js-org-menu', 'js-team-menu', 'js-people-menu',
+    'js-locked-users-menu', 'js-roles-menu', 'js-templates-menu', 'js-domains-menu']) {
+    assert.ok(!pageJs.includes(old), `${old} must be gone`);
+  }
+  assert.strictEqual((pageJs.match(/'click \.js-left-menu-item'/g) || []).length, 1,
+    'exactly one menu handler');
+  // The per-pane extras must survive the collapse.
+  for (const extra of ['refreshOrgsCount', 'refreshTeamsCount', 'refreshUsersCount']) {
+    assert.ok(pageJs.includes(extra), `${extra} must still run on its pane`);
+  }
+  // Active row from state, not from a hand-toggled class.
+  assert.ok(/activeMenuId = new ReactiveVar\('org-setting'\)/.test(pageJs),
+    'the open pane is state now, and starts on the pane orgSetting starts true for');
+  assert.ok(!/side-menu li\.active'\)\.removeClass/.test(pageJs),
+    'no manual active-class toggling');
+  assert.ok(/iconWrapCls: 'text-red'/.test(pageJs),
+    'Locked users keeps its red lock');
+});
+
 console.log(`\nleftMenu: ${passed} tests passed`);

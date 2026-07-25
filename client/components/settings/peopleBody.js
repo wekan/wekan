@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { buildMenuItems } from '/models/lib/leftMenu';
 import { avatarUpdateCounter } from '/client/components/users/avatarUpdateCounter';
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
 import LockoutSettings from '/models/lockoutSettings';
@@ -192,12 +193,19 @@ Template.people.onCreated(function () {
     this.peoplePage.set(1);
   };
 
+  // Which pane is open. The seven booleans below are derived from it; the shared
+  // left menu (docs/Design/Page/Left-Menu.md) renders the active row from it, so
+  // the menu no longer has to be highlighted by hand.
+  this.activeMenuId = new ReactiveVar('org-setting');
+
   this.switchMenu = (event) => {
-    const target = $(event.currentTarget);
-    if (!target.hasClass('active')) {
-      $('.side-menu li.active').removeClass('active');
-      target.closest('li').addClass('active');
-      const targetID = target.data('id');
+    // data-id is on the anchor; event.target may be the icon inside it.
+    const target = $(event.currentTarget || event.target).closest('.js-left-menu-item');
+    const targetID = target.data('id');
+    // Re-clicking the open pane must do nothing. The active row is rendered from
+    // activeMenuId now, so compare ids instead of reading a DOM class.
+    if (targetID && targetID !== this.activeMenuId.get()) {
+      this.activeMenuId.set(targetID);
       this.orgSetting.set('org-setting' === targetID);
       this.teamSetting.set('team-setting' === targetID);
       this.peopleSetting.set('people-setting' === targetID);
@@ -265,7 +273,22 @@ Template.people.onCreated(function () {
   });
 });
 
+// The People side menu, as data (docs/Design/Page/Left-Menu.md). Locked users
+// keeps the red lock it always had, via the coloured icon wrapper.
+const PEOPLE_MENU = [
+  { id: 'org-setting', icon: 'fa-globe', labelKey: 'organizations' },
+  { id: 'team-setting', icon: 'fa-users', labelKey: 'teams' },
+  { id: 'people-setting', icon: 'fa-user', labelKey: 'people' },
+  { id: 'locked-users-setting', icon: 'fa-lock', labelKey: 'accounts-lockout-locked-users', iconWrapCls: 'text-red' },
+  { id: 'roles-setting', icon: 'fa-key', labelKey: 'roles' },
+  { id: 'templates-setting', icon: 'fa-clone', labelKey: 'shared-templates' },
+  { id: 'domains-setting', icon: 'fa-at', labelKey: 'domains' },
+];
+
 Template.people.helpers({
+  menuItems() {
+    return buildMenuItems(PEOPLE_MENU, Template.instance().activeMenuId.get());
+  },
   loading() {
     return Template.instance().loading;
   },
@@ -554,32 +577,22 @@ Template.people.events({
   'click #newUserButton'() {
     Popup.open('newUser');
   },
-  'click a.js-org-menu'(event, tpl) {
+  // One handler for the whole menu: the shared left menu puts the pane id in
+  // data-id, so the seven near-identical per-entry handlers collapsed to this.
+  // The per-pane extras (reset to page 1, refresh that pane's total) stay.
+  'click .js-left-menu-item'(event, tpl) {
+    const targetID = $(event.currentTarget).data('id');
     tpl.switchMenu(event);
-    tpl.orgPage.set(1);
-    tpl.refreshOrgsCount();
-  },
-  'click a.js-team-menu'(event, tpl) {
-    tpl.switchMenu(event);
-    tpl.teamPage.set(1);
-    tpl.refreshTeamsCount();
-  },
-  'click a.js-people-menu'(event, tpl) {
-    tpl.switchMenu(event);
-    tpl.peoplePage.set(1);
-    tpl.refreshUsersCount();
-  },
-  'click a.js-locked-users-menu'(event, tpl) {
-    tpl.switchMenu(event);
-  },
-  'click a.js-roles-menu'(event, tpl) {
-    tpl.switchMenu(event);
-  },
-  'click a.js-templates-menu'(event, tpl) {
-    tpl.switchMenu(event);
-  },
-  'click a.js-domains-menu'(event, tpl) {
-    tpl.switchMenu(event);
+    if (targetID === 'org-setting') {
+      tpl.orgPage.set(1);
+      tpl.refreshOrgsCount();
+    } else if (targetID === 'team-setting') {
+      tpl.teamPage.set(1);
+      tpl.refreshTeamsCount();
+    } else if (targetID === 'people-setting') {
+      tpl.peoplePage.set(1);
+      tpl.refreshUsersCount();
+    }
   },
 });
 
