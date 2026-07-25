@@ -196,6 +196,56 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
 
 This release fixes the following bugs:
 
+- [Drag-to-scroll now works on both top header bars, not only below them. Everywhere
+  else a drag scrolls — the board canvas on a board, the page on All Boards / My Cards
+  / … — but the two header bars were dead, and on a phone they are a large share of
+  what is on screen. They cannot simply be tagged `dragscroll`: that class scrolls the
+  element carrying it, and neither bar is a scroll container — `#header` sits outside
+  `#content` and outside the board canvas. A new module, `client/lib/headerDragscroll.js`,
+  forwards the drag to whatever actually scrolls: a scroller inside the header first
+  (the starred-boards list scrolls sideways), then the board canvas, then the page.
+  Mouse and touch are both handled, since a phone sends no mouse events and the
+  dragscroll library is mouse-only. A tap is still a tap: scrolling begins only past a
+  4px threshold, and only then is the click that ends the gesture
+  swallowed](https://github.com/wekan/wekan/commit/a5246fbf5).
+  Thanks to xet7.
+- [The board title is shown again in mobile mode, and the second header bar now reads
+  title, buttons, hamburger. The title was hidden by a `display: none` rule, which left
+  that bar with nothing but icons — you could not tell which board you were on. A board
+  name is how you know where you are, so it wraps rather than truncating. The buttons
+  start at the right of the title and drop to a second row as a block when the space
+  between the title and the menu button runs out; they are one flex item, so they never
+  split across the two rows](https://github.com/wekan/wekan/commit/a5246fbf5).
+  Thanks to xet7.
+- [The sidebar hamburger, with its divider to its left, is pinned in the top right
+  corner of the second header bar in mobile mode. It was lifted out of the right-hand
+  button group into its own flex item, because inside that group it could only ever
+  wrap down together with the other buttons — a flex line breaks in order. On a phone
+  it is taken out of the flow and the bar reserves its width, so a long title or a full
+  row of buttons never runs underneath it; on a wide screen it is ordered back to the
+  end of the bar, visually identical to
+  before](https://github.com/wekan/wekan/commit/a5246fbf5).
+  Thanks to xet7.
+- [Lists and cards are full width in mobile mode on a desktop browser too, not only on
+  a phone. Mobile mode was decided in two places that disagreed. `Utils.isMiniScreen()`,
+  which drives the mobile-view class on each list, swimlane and minicard, looked only at
+  screen width and user agent — the explicit mobile-mode toggle was honoured on iPhone
+  only, and even there through a test that could never be false. An explicit choice now
+  wins on every device, with the per-device branches left as the defaults for when the
+  user has never chosen. And the rule that persists a resized list width outranked the
+  mobile full-width rule (both `!important`, the other more specific), which showed only
+  in mobile mode on a desktop window because no per-list width is emitted on a phone; a
+  collapsed list still stays
+  narrow](https://github.com/wekan/wekan/commit/a5246fbf5).
+  Thanks to xet7.
+- [Every `.jade` template is now compiled by a test, using the same compiler the build
+  uses. Nothing else caught a broken template: the other test suites read `.jade` as
+  text and grep it, so a file the compiler rejects still passed them all and the failure
+  appeared only when the app was rebuilt. Written after a `<body>` written inside an
+  indented comment block broke the build — the comment text is still lexed, so the angle
+  brackets opened a tag that never closed. All 107 templates parse in about
+  0.2s](https://github.com/wekan/wekan/commit/a5246fbf5).
+  Thanks to xet7.
 - [The password field is back on the Sign In and Register pages. Removing the Accounts
   pane from Admin Panel / Settings — its three settings having moved to E-mail and
   Login — left that pane's save handler registered on the template that went with it,
