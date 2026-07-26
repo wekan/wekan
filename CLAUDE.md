@@ -282,11 +282,13 @@ All publishing / release steps below are maintainer-only. Contributors never run
   disclosure, GitHub advisory, code scanning, found while reviewing …) in Process.
   Stars is a column so it can be compared down the page; do not put a star, an icon
   or the process sentence back into another cell.
-- **On the Hall of Fame index page, the Vulnerabilities cell is collapsed.** That
-  column carries the whole story of every vulnerability, so the page would be one
-  wall of text and the columns that identify a row — CVE, name, date, reporter —
-  would be far apart. In `hall-of-fame/index.html`, and ONLY in the LAST `<td>` of a
-  row, the cell's content sits inside a `<details>`:
+- **On the Hall of Fame index page, the Process and Vulnerabilities cells are
+  collapsed.** Those two columns carry the prose — how the report arrived, and the
+  whole story of the vulnerability — so the page would be one wall of text and the
+  columns that identify a row (CVE, name, date, reporter, stars) would be far apart.
+  In `hall-of-fame/index.html`, and ONLY in those two `<td>`s, the cell's content
+  sits inside a `<details>` whose summary is the column's own name — `Process` for
+  the Process cell, `Details` for the Vulnerabilities cell:
 
   ```
   <td valign="top">
@@ -300,9 +302,9 @@ All publishing / release steps below are maintainer-only. Contributors never run
   </td>
   ```
 
-  The summary is the plain word `Details`, there is a blank line under it, and the
-  cell's contents are otherwise unchanged. The other four cells of the row stay as
-  they are — they are what a reader scans — and so does the header row.
+  The summary is that plain word, there is a blank line under it, and the cell's
+  contents are otherwise unchanged. The other six cells of the row stay as they are
+  — they are what a reader scans — and so does the header row.
 - **The vuln-name subdirectory page is NOT collapsed.** `hall-of-fame/<name>bleed/index.html`
   is the page a reader opened on purpose, for one vulnerability: its table cell stays
   open and its `<h2 class="hof">Details</h2>` prose section below the table stays as
