@@ -549,6 +549,21 @@ and has the following developer-facing change:
   them](https://github.com/wekan/wekan/commit/9791993d5).
   Thanks to xet7.
 
+and updates the documentation:
+
+- [The Admin Panel documentation mirrors the Admin Panel menu: a menu path is a docs
+  path, so Admin Panel / Settings / Visibility is
+  `docs/Features/Admin-Panel/Settings/Visibility.md` and Admin Panel / People / Teams
+  is `People/Teams.md`, with an index per section listing its panes in menu order.
+  The prose is swept with it — Version as the pane that opens, Visibility's four
+  groups (absorbing the separate Allow-private-boards-only and Custom-Logo pages),
+  Layout being PWA, Registration being People / Login, the removed Accounts and
+  Features tabs, the invite-domain field, the two board-member restrictions, Backup
+  first in Attachments, and the two named groups of the Problems menu. Every link
+  into the moved pages was updated, and the wekan.fi pages that described the old
+  panes were edited too](https://github.com/wekan/wekan/commit/1e9e58dab).
+  Thanks to xet7.
+
 and changes the Admin Panel as follows:
 
 - [Every Admin Panel pane opens with the same heading, and the heading is the open
