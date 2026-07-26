@@ -271,7 +271,7 @@ browser build to verify).
 This release fixes the following bugs:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/6361b981f">All Boards on a phone: the board list scrolls to its last board</a>. Thanks to mimZD and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0af0912a6">All Boards on a phone: the board list scrolls to its last board</a>. Thanks to mimZD and xet7.</summary>
 
 Reported against 10.10, again against 10.37, and again against 10.38 after two
 fixes that made the numbers more accurate instead of removing them. An inner
@@ -295,7 +295,7 @@ phone here, and Playwright's fixed viewport has no browser toolbar.
 and has the following developer-facing changes:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a7b54f5aa">build.sh and build.bat always build WeKan before running the tests</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a84cfa6be">build.sh and build.bat always build WeKan before running the tests</a>. Thanks to xet7.</summary>
 
 Both built the bundle only when `.build/bundle` was MISSING — exactly the case
 where a bundle exists and is stale. The :3000 test server runs that precompiled
