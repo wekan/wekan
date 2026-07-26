@@ -268,7 +268,31 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-This release has the following developer-facing changes:
+This release fixes the following bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6361b981f">All Boards on a phone: the board list scrolls to its last board</a>. Thanks to mimZD and xet7.</summary>
+
+Reported against 10.10, again against 10.37, and again against 10.38 after two
+fixes that made the numbers more accurate instead of removing them. An inner
+scroller only works when every ancestor between it and the viewport has a
+definite height, and this chain was built out of viewport arithmetic: the
+wrapper was `100dvh` although it begins below the two header bars, so its
+bottom sat about two bars below the screen; the layout between had no height at
+all, so `height: 100%` under it resolved to auto; and the list was `calc(100dvh
+- 120px)` — a guess at everything above it, which on a phone is ~226px, so the
+list box reached ~100px below the screen and its last rows were under the fold
+where no gesture could bring them. There is no viewport arithmetic below `body`
+now: the page is 100dvh and everything under it is a flex chain, so the list
+ends exactly where the screen does, whatever the bars above it are. Both modes
+use the same mechanism. `tests/boardListScrollChain.test.cjs` fails if
+"viewport minus a guess" comes back. Not verified on a device: there is no
+phone here, and Playwright's fixed viewport has no browser toolbar.
+
+</details>
+
+
+and has the following developer-facing changes:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a7b54f5aa">build.sh and build.bat always build WeKan before running the tests</a>. Thanks to xet7.</summary>
