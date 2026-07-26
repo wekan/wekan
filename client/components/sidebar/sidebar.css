@@ -346,7 +346,15 @@ body.sidebar-resizing-active {
      the viewport in desktop mode too. */
   .board-sidebar.sidebar {
     position: fixed;
-    top: 0;
+    /* BELOW the header, not behind it. `top: 0` put the sidebar's own top - its
+       title, its tabs, the members row - underneath the two header bars, so the
+       panel appeared to start in the middle of itself. The header is not one
+       height (the board bar's buttons wrap to one, two or three rows depending on
+       language and window width), so this is the height it MEASURES itself to be:
+       client/lib/utils.js publishes --wekan-header-height and keeps it current
+       with a ResizeObserver. The fallback is 0, i.e. the old behaviour, if the
+       variable is ever missing. */
+    top: var(--wekan-header-height, 0px);
     bottom: 0;
     inset-inline-start: 0;
     inset-inline-end: 0;

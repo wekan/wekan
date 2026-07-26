@@ -1060,3 +1060,42 @@ export const Utils = {
 // of a window resize. This is the equivalent of a "Signal" in some other
 // programming environments (eg, elm).
 $(window).on('resize', () => Utils.windowResizeDep.changed());
+
+// --wekan-header-height: how tall the two header bars actually are, right now.
+//
+// Anything laid out against the VIEWPORT rather than against the page flow -
+// the right sidebar is `position: fixed` on a phone, so that it spans the screen
+// instead of the wider board behind it - has to start below the header, and the
+// header is not one height: the quick-access bar plus a board bar whose buttons
+// wrap to one, two or three rows, in whichever language and window width. Every
+// fixed number for it has been wrong for some of those.
+//
+// So the header measures itself into a custom property and the CSS uses it. A
+// ResizeObserver catches the rows re-wrapping (a window resize does not fire for
+// that on its own), and the initial call covers the first paint.
+if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+  const publishHeaderHeight = () => {
+    const header = document.getElementById('header');
+    const height = header ? Math.round(header.getBoundingClientRect().height) : 0;
+    document.documentElement.style.setProperty('--wekan-header-height', `${height}px`);
+  };
+
+  const watchHeader = () => {
+    publishHeaderHeight();
+    const header = document.getElementById('header');
+    if (!header || !window.ResizeObserver || header.__wekanHeightObserved) return;
+    header.__wekanHeightObserved = true;
+    new ResizeObserver(publishHeaderHeight).observe(header);
+  };
+
+  $(window).on('resize orientationchange', publishHeaderHeight);
+  // The header is rendered by Blaze, so it may not exist yet at import time.
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', watchHeader);
+  } else {
+    watchHeader();
+  }
+  // ...and once more after the first render, for the same reason.
+  setTimeout(watchHeader, 0);
+  setTimeout(watchHeader, 500);
+}
