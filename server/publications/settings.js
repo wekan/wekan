@@ -84,6 +84,23 @@ const SETTING_FIELDS = {
   accessibilityPageEnabled: 1,
   accessibilityTitle: 1,
   accessibilityContent: 1,
+  // The Support page and its text. NOT publishing these was a real bug, not an
+  // omission of convenience: Admin Panel / Settings / Visibility renders the
+  // "Support page enabled" checkbox from `currentSetting.supportPageEnabled`, so
+  // with the field absent the box drew unchecked, ticking it wrote the setting -
+  // and the next re-render drew it unchecked again. The setting was saved and the
+  // checkbox said it was not, which reads as "I cannot tick this".
+  supportPageEnabled: 1,
+  supportPagePublic: 1,
+  supportTitle: 1,
+  supportPageText: 1,
+  supportPopupText: 1,
+  // Same story: the All Boards group's "Board activities" checkbox.
+  hideBoardActivitiesOnAllBoards: 1,
+  // …and the two board-member restrictions shown in Admin Panel / People /
+  // Organizations and / Teams.
+  boardMembersFromSameOrgOnly: 1,
+  boardMembersFromSameTeamOnly: 1,
 };
 
 Meteor.publish('setting', async function() {
