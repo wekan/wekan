@@ -1781,6 +1781,22 @@ body.mobile-mode #header-quick-access .allBoards {
     padding: 2px 4px !important;
   }
 
+  /* The button GROUPS are `display: contents`, so each button is a flex item of
+     the BAR: they start immediately to the right of the title and wrap as
+     individual buttons. As one group they were a single unbreakable item, so the
+     whole set dropped below the title and the hamburger after them ended up on a
+     row of its own - four rows for a title and eleven icons.
+
+     This too has to be in THIS file: boardHeader.css says the same thing, but
+     `#header #header-main-bar .board-header-btns-group { display: flex }` a few
+     hundred lines above here has equal specificity and this file loads later, so
+     the flex won and the groups never became contents. Not the hamburger: it is
+     positioned, and `display: contents` would remove the box being positioned. */
+  #header #header-main-bar .board-header-btns-group,
+  #header #header-main-bar .board-header-btns:not(.board-header-sidebar-toggle) {
+    display: contents !important;
+  }
+
   /* The board bar's buttons, sized HERE rather than in boardHeader.css: Meteor
      loads client/components/boards/ before client/components/main/, so at equal
      specificity this file wins, and the `margin: 0 6px` a few blocks above would

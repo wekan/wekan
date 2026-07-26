@@ -366,9 +366,16 @@ body.desktop-mode .board-wrapper .board-canvas .board-overlay {
   min-width: 100% !important;
 }
 
+/* MOBILE MODE, not a narrow window. A swimlane laid out as a BLOCK with
+   `overflow-x: hidden` is the phone board: every list becomes a full-width row,
+   one under the other, and the "add list" form lands under the last list rather
+   than beside it. A phone whose user chose DESKTOP mode asked for the desktop
+   board - lists side by side, scrolled sideways - and was getting the phone one.
+   `.board-wrapper.mobile-view` above says the same thing for the mini-screen
+   class; this says it for the mode the user picked. */
 @media screen and (max-width: 800px),
        screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
-  .board-wrapper {
+  body.mobile-mode .board-wrapper {
     width: 100% !important;
     max-width: 100% !important;
     min-width: 100% !important;
@@ -378,7 +385,7 @@ body.desktop-mode .board-wrapper .board-canvas .board-overlay {
     overflow-y: auto !important;
   }
 
-  .board-wrapper .board-canvas {
+  body.mobile-mode .board-wrapper .board-canvas {
     width: 100% !important;
     max-width: 100% !important;
     min-width: 100% !important;
@@ -388,7 +395,7 @@ body.desktop-mode .board-wrapper .board-canvas .board-overlay {
     overflow-y: auto !important;
   }
 
-  .board-wrapper .board-canvas .swimlane {
+  body.mobile-mode .board-wrapper .board-canvas .swimlane {
     border-bottom: 1px solid #ccc;
     display: block !important;
     flex-direction: column;
@@ -399,6 +406,20 @@ body.desktop-mode .board-wrapper .board-canvas .board-overlay {
     width: 100% !important;
     max-width: 100% !important;
     min-width: 100% !important;
+  }
+
+  /* Desktop mode on a narrow window: the board scrolls SIDEWAYS, like a desktop
+     board. Without this the canvas would keep the `overflow-x: hidden` it has
+     from elsewhere and the lists past the right edge would be unreachable. */
+  body:not(.mobile-mode) .board-wrapper,
+  body:not(.mobile-mode) .board-wrapper .board-canvas {
+    overflow-x: auto !important;
+  }
+
+  body:not(.mobile-mode) .board-wrapper .board-canvas .swimlane {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
   }
 }
 .calendar-event-green {

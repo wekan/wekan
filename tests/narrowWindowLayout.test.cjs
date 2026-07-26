@@ -140,10 +140,14 @@ test('the board bar: buttons after the title, hamburger in the corner', () => {
   assert.ok(at !== -1, 'the width-based board-bar rules must be there');
   const block = boardCss.slice(at, boardCss.indexOf('\n}\n', boardCss.indexOf(
     'sidebar-toggle', boardCss.indexOf('position: absolute', at))));
-  assert.ok(/\.board-header-btns-group,[\s\S]*?\.board-header-btns:not\(\.board-header-sidebar-toggle\) \{[\s\S]*?display: contents;/.test(block),
+  // In header.css, for the same file-order reason as the metrics below: the
+  // `display: flex` for these groups lives in that file and would otherwise win.
+  const hdr = headerCss.slice(headerCss.indexOf('/* The button GROUPS are `display: contents`'));
+  assert.ok(hdr, 'the groups must be made contents in the file that wins');
+  assert.ok(/\.board-header-btns-group,[\s\S]*?\.board-header-btns:not\(\.board-header-sidebar-toggle\) \{[\s\S]*?display: contents !important;/.test(hdr),
     'the groups are display:contents, so the buttons start beside the title '
     + 'instead of dropping below it as one block');
-  assert.ok(/:not\(\.board-header-sidebar-toggle\)/.test(block),
+  assert.ok(/:not\(\.board-header-sidebar-toggle\)/.test(hdr),
     'except the hamburger, whose box is positioned - display:contents would remove it');
   assert.ok(/\.board-header-sidebar-toggle \{[\s\S]*?position: static;[\s\S]*?margin-inline-start: auto;/.test(block),
     'the hamburger is the LAST button, at the right of the last row - in the flow, '
@@ -186,6 +190,14 @@ test('the board layout follows the MODE, not the window width', () => {
   const stacked = /(\s*)(body\.mobile-mode )?\.list \{[^{}]*display: block !important;/.exec(listCss);
   assert.ok(stacked, 'the stacking rule must exist');
   assert.ok(stacked[2], 'one list per row is the MOBILE MODE layout, not a width');
+  const boardBody = read('client/components/boards/boardBody.css');
+  assert.ok(/body\.mobile-mode \.board-wrapper \.board-canvas \.swimlane \{[\s\S]*?display: block !important;/.test(boardBody),
+    'a swimlane laid out as a BLOCK stacks its lists - that is the phone board');
+  assert.ok(/body:not\(\.mobile-mode\) \.board-wrapper \.board-canvas \.swimlane \{[\s\S]*?flex-direction: row !important;/.test(boardBody),
+    'and desktop mode keeps the lists side by side, so the add-list form sits at '
+    + 'the end of the row - right in LTR, left in RTL, by direction not by side');
+  assert.ok(/body:not\(\.mobile-mode\) \.board-wrapper,[\s\S]*?overflow-x: auto !important;/.test(boardBody),
+    'with the sideways scroll a desktop board needs');
   const minicard = read('client/components/cards/minicard.css');
   const coarse = minicard.slice(minicard.indexOf('@media (pointer: coarse) {'));
   const handle = /\.minicard \.handle \{([\s\S]*?)\}/.exec(coarse);
