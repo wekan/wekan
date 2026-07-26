@@ -406,6 +406,20 @@ and reorganises the Admin Panel:
   running, so an in-progress backup shows its status instead of an idle-looking
   pane](https://github.com/wekan/wekan/commit/a9680fa3d).
   Thanks to xet7.
+- [Admin Panel / Attachments no longer has a Sandstorm pane. It only had content
+  inside a Sandstorm grain — the one-time MongoDB 3 → FerretDB migration status and a
+  button that DELETED the raw MongoDB 3 database files to reclaim grain disk.
+  Compacting the MongoDB database frees that space as well, so deleting raw database
+  files is not something WeKan needs to offer — and anyone who does want those files
+  gone can download the Sandstorm grain, delete the raw MongoDB database files from
+  it, and upload the grain back to Sandstorm. The menu entry, the pane, its helpers,
+  its state and its click handler are commented out rather than deleted, so nothing
+  of it runs and the grain migration report can be brought back if it is ever wanted.
+  Everything else on the page is untouched: the storages and their statistics, moving
+  attachments between storages, the MongoDB ↔ FerretDB database migration and Backup.
+  The grain's own migration, which runs in `sandstorm-src/start.js` before the app
+  boots, is unchanged](https://github.com/wekan/wekan/commit/eba25459a).
+  Thanks to xet7.
 
 and updates the following dependencies:
 
