@@ -705,7 +705,7 @@ and changes the Admin Panel as follows:
   pane](https://github.com/wekan/wekan/commit/a9680fa3d).
   Thanks to xet7.
 
-and fills untranslated strings in 41 languages and every regional variant:
+and fills untranslated strings in every language:
 
 - [The strings that are untranslated everywhere — on Transifex and in git — are
   written directly, using each language's own existing translations and its kanban
@@ -721,6 +721,21 @@ and fills untranslated strings in 41 languages and every regional variant:
   human translation: a string is filled only while it is a placeholder — missing, or
   equal to the English source — and a key that already holds a translation is skipped
   and reported](https://github.com/wekan/wekan/commit/526905483).
+  Thanks to xet7.
+- [Every remaining language followed, worked through one at a time from the most
+  spoken to the least: Chinese, Hindi, Spanish, Arabic, French, Portuguese,
+  Indonesian, Malay, German, Italian, Thai, Tamil, Telugu, Punjabi, Swahili, Dutch,
+  Yoruba, Igbo, Gujarati, Odia, Uzbek, Azerbaijani, Khmer, Uyghur, Zulu, Belarusian,
+  Xhosa, Armenian, Afrikaans, Turkmen, Mongolian, Wolof, Georgian, Tamazight,
+  Macedonian, Welsh, Occitan, Breton, Yiddish, Venda, Asturian, Walloon, Frisian,
+  Acehnese, Esperanto, Flemish, Volapük and Klingon — each in its own kanban
+  vocabulary, and each regional variant taking its base language's words afterwards.
+  What is left untranslated is, in the main, the strings a language spells exactly as
+  English (Action, Format, Status, Server, Menu, Type, the colour names, the poker
+  numbers, LDAP / OAuth2 / GridFS / S3): the tooling ignores a fill equal to the
+  English source, so they can never be recorded as translated — and they are already
+  correct on screen. The long prose of the Volapük and Klingon files is deliberately
+  left in English rather than invented](https://github.com/wekan/wekan/commit/cc71cb28c).
   Thanks to xet7.
 - [`releases/translations/fill_translations.py` joins the `.mjs` of the same name:
   the same rules — the same definition of a placeholder, the same en.i18n.json key
