@@ -280,6 +280,12 @@ All publishing / release steps below are maintainer-only. Contributors never run
   Icon (still wrapped in `<h2>`), the reporter alone in "by", the `GoldStar.png`
   images alone in Stars, and the sentence about how the report arrived (coordinated
   disclosure, GitHub advisory, code scanning, found while reviewing …) in Process.
+  In "by", the reporter's NICKNAME is the link —
+  `<b><a href="https://github.com/nick">nick</a></b>`, never the name followed by a
+  separate "(GitHub)" link. **Check the account exists before linking it** (a 404 or,
+  worse, somebody else's profile is the failure here); a real name, a company or a
+  tool such as GitHub CodeQL is not a GitHub user and stays plain text. Do not write
+  `(fix)` after `xet7`: xet7 fixes every one of these.
   Stars is a column so it can be compared down the page; do not put a star, an icon
   or the process sentence back into another cell. A page-local `<style>` in
   `index.html` keeps a row's stars on ONE line from 900px up (they are a count) and
