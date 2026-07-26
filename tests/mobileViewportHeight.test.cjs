@@ -59,14 +59,21 @@ test('every viewport-sized box on the phone board list also states dvh', () => {
     'a box sized in vh reaches under the browser toolbar, and the wrapper clips it');
 });
 
-test('the three containers the issue is about are covered by name', () => {
-  for (const [selector, prop] of [['.wrapper', 'height'],
-    ['.boards-left-menu', 'max-height'], ['.board-list', 'height']]) {
-    const rules = viewportRules(boards).filter(r => r.selector.includes(selector));
-    assert.ok(rules.length, `${selector} must size itself from the viewport`);
-    assert.ok(rules.some(r => new RegExp(`(?<![-\\w])${prop}:[^;]*dvh`).test(r.body)),
-      `${selector} must state its ${prop} in dvh as well`);
+test('the containers the issue is about no longer do viewport arithmetic', () => {
+  // They used to be sized `100dvh` / `calc(100dvh - 120px)` each. That was the
+  // second attempt at #6488 and it was still wrong: the wrapper starts BELOW the
+  // header bars, and 120px was a guess at a ~226px header. They take the space
+  // their parent has left now - see tests/boardListScrollChain.test.cjs - and
+  // only the PAGE is measured against the viewport.
+  for (const selector of ['.wrapper', '.boards-left-menu', '.board-list']) {
+    const sized = viewportRules(boards).filter(r => r.selector.includes(selector));
+    assert.deepStrictEqual(sized.map(r => r.selector), [],
+      `${selector} must be sized by its parent, not by the viewport`);
   }
+  const page = viewportRules(boards).filter(r => r.selector === 'body');
+  assert.ok(page.length, 'the page itself is still measured against the viewport');
+  assert.ok(page.some(r => /(?<![-\w])height:[^;]*dvh/.test(r.body)),
+    'in dvh, so it is what is on screen right now');
 });
 
 test('the fallback comes FIRST, so an old browser keeps today’s behaviour', () => {

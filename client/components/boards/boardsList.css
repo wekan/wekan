@@ -938,9 +938,11 @@ body.grey-icons-enabled .checkmark-no-grey {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(46%, 200px), 1fr));
   gap: 8px;
-  height: calc(100vh - 120px);
-  /* #6488: the visible viewport, not the toolbar-less one. */
-  height: calc(100dvh - 120px);
+  /* #6488: sized by the column it lives in (the flex chain in the phone block
+     below), not by the viewport minus a guess at the bars above it. */
+  flex: 1 1 auto;
+  min-height: 0;
+  height: auto;
   overflow-y: auto !important;
   overflow-x: hidden;
   padding: 0 0.5rem;
@@ -1331,15 +1333,51 @@ body.grey-icons-enabled .checkmark-no-grey {
        screen and (max-width: 800px) and (orientation: portrait),
        screen and (max-width: 800px) and (orientation: landscape),
        screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
+  /* #6488, and the reason the earlier attempts did not fix it: this wrapper is
+     INSIDE #content, which already begins below the two header bars - so sizing
+     it to the whole viewport (100vh, then 100dvh) put its bottom about two bars'
+     worth BELOW the bottom of the screen. Being `overflow: hidden`, that strip
+     is unreachable, and everything laid out inside it inherits the error.
+
+     `height: 100%` is the remaining space of #content, whatever the bars happen
+     to be - body is already a flex column with #content as `flex: 1`, so that
+     percentage resolves against a definite height. From here down the page is a
+     flex chain with no viewport arithmetic in it at all: each part takes the
+     space its parent has left, and the board list is the part that scrolls. */
   .wrapper {
     overflow: hidden;
-    height: 100vh;
-    /* #6488: on a phone, `100vh` is the viewport with the browser's toolbars
-       HIDDEN, so with the toolbar showing this wrapper is taller than what is on
-       screen - and being `overflow: hidden`, the part underneath cannot be
-       scrolled to. `100dvh` is the viewport as it actually is at this moment.
-       The `vh` line above stays as the fallback for browsers without `dvh`. */
-    height: 100dvh;
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .wrapper > .boards-layout {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  /* Grid items stretch to the row, and `min-height: 0` lets them be SHORTER than
+     their content - without it a grid/flex item refuses to shrink below its
+     content height, which is what stops an inner scroller from ever scrolling. */
+  .boards-layout > .boards-left-menu,
+  .boards-layout > .boards-right-grid {
+    min-height: 0;
+    height: 100%;
+  }
+
+  .boards-right-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* The header above the list (section title, Multi-Selection, Sort, search) and
+     the pager keep their own height; the list gets the rest. On a phone that
+     header is two rows tall, which is why a hard-coded "the list is the viewport
+     minus 120px" was wrong by more than 100px. */
+  .boards-right-grid > .boards-path-header,
+  .boards-right-grid > .boards-pagination {
+    flex: 0 0 auto;
   }
 
   /* The left menu (Starred / Templates / Remaining / Workspaces / Add board) is its
@@ -1352,8 +1390,10 @@ body.grey-icons-enabled .checkmark-no-grey {
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
-    max-height: calc(100vh - 120px);
-    max-height: calc(100dvh - 120px);
+    /* Bounded by the layout above, not by a guess at how tall the bars are. */
+    height: 100%;
+    min-height: 0;
+    max-height: none;
     /* A vertical swipe here is a scroll of THIS menu: never a page scroll behind
        it, and never a gesture the browser hands to something else. */
     overscroll-behavior: contain;
@@ -1366,16 +1406,17 @@ body.grey-icons-enabled .checkmark-no-grey {
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
     scrollbar-color: #888 #f1f1f1;
-    /* #6488: a BOUNDED height so the boards overflow and scroll. The old rule set
-       min-height:100vh (plus a phantom ::after), which grew the list to fit all its
-       content — so nothing overflowed and, clipped by the overflow:hidden wrapper,
-       boards below the fold were unreachable. */
-    height: calc(100vh - 120px);
-    max-height: calc(100vh - 120px);
-    /* …and the same height read from the CURRENT viewport, so the bottom of the
-       list is not left under the browser's toolbar (#6488). */
-    height: calc(100dvh - 120px);
-    max-height: calc(100dvh - 120px);
+    /* #6488. The list is the part of the column that scrolls, and it ends where
+       the column ends - which is the bottom of the screen. It used to be
+       `calc(100dvh - 120px)`: a guess at everything above it (two header bars
+       plus a search header that is TWO rows on a phone, ~226px), so the box
+       reached about 100px below the screen. It scrolled internally, but its last
+       rows sat under the fold where no gesture could bring them - "you cannot
+       scroll the board list". No viewport arithmetic here at all now. */
+    flex: 1 1 auto;
+    min-height: 0;
+    height: auto;
+    max-height: none;
     overscroll-behavior: contain;
     touch-action: pan-y;
   }
@@ -1419,8 +1460,14 @@ body.grey-icons-enabled .checkmark-no-grey {
   }
 
   /* Ensure only one scrollbar is visible */
+  /* The page is exactly the visible viewport, and nothing scrolls but the two
+     inner scrollers. `100dvh` is what is on screen right now; the `vh` line is
+     the fallback where `dvh` is unknown. Without a definite height here the
+     `height: 100%` chain below has nothing to resolve against. */
   body {
     overflow: hidden;
+    height: 100vh;
+    height: 100dvh;
   }
 
   #content {
@@ -1490,9 +1537,9 @@ body.grey-icons-enabled .checkmark-no-grey {
   padding: 6px 8px;
 }
 
-/* The mobile board list is a GRID with a fixed height
-   (`height: calc(100vh - 120px)`) and no `align-content`, so it defaults to
-   `stretch`: with one row of tiles, that row is stretched to fill the whole
+/* The mobile board list is a GRID that fills the height its column gives it (the
+   flex chain in the phone block above) and had no `align-content`, so it defaults
+   to `stretch`: with one row of tiles, that row is stretched to fill the whole
    column. The tiles then differ for a reason that has nothing to do with their
    own height - "+ Add Board" shows a 4rem grey `.label` sitting at the top of a
    stretched cell, while a board's `li.js-board` carries the board colour itself
@@ -1502,8 +1549,8 @@ body.grey-icons-enabled .checkmark-no-grey {
 
    `align-content: start` keeps rows at their content height instead of dividing
    the leftover space between them, and `align-items: start` stops each tile from
-   stretching to its row. The list still scrolls, because the fixed height plus
-   `overflow-y: auto` is what makes it a scroll container. */
+   stretching to its row. The list still scrolls: its height comes from the flex
+   column it sits in, and `overflow-y: auto` makes it the scroll container. */
 .board-list.mobile-view {
   align-content: start;
   align-items: start;
