@@ -87,14 +87,26 @@ test('body autorun applies the global override EVERYWHERE (wins over board color
   assert.ok(/--theme-accent/.test(j), 'sets the custom-color CSS variable');
 });
 
-test('header + board-wrapper prefer the global theme class when set', () => {
+test('header + board-wrapper take the theme class from ONE helper', () => {
+  // They used to spell the order out in the template - global override, else board
+  // colour - which is why the SITE theme (docs/Design/Page/Theme.md, layer 2)
+  // coloured the buttons but left both top bars on the default: nothing there read
+  // it. One helper now answers for all of them, so the order cannot drift apart.
   const h = read('client/components/main/header.jade');
-  // #header and #header-quick-access use the global override first, board color else.
-  const headerMatches = h.match(/if currentUser\.globalThemeColorClass\}\}\{\{currentUser\.globalThemeColorClass\}\}\{\{else\}\}\{\{currentBoard\.colorClass\}\}/g) || [];
-  assert.ok(headerMatches.length >= 2, 'both #header and #header-quick-access prefer the global override');
+  const headerMatches = h.match(/class="\{\{themeColorClass\}\}"/g) || [];
+  assert.ok(headerMatches.length >= 2, 'both #header and #header-quick-access use the helper');
   const bb = read('client/components/boards/boardBody.jade');
-  assert.ok(/if currentUser\.globalThemeColorClass\}\}\{\{currentUser\.globalThemeColorClass\}\}\{\{else\}\}\{\{currentBoard\.colorClass\}\}/.test(bb),
-    '.board-wrapper prefers the global override too (so board content is themed)');
+  assert.ok(/class="\{\{themeColorClass\}\}"/.test(bb),
+    '.board-wrapper uses it too (so board content is themed)');
+  // …and the helper keeps the order: user override, then the board, then the site.
+  const j = read('client/components/main/globalThemeColor.js');
+  const helper = j.slice(j.indexOf("Template.registerHelper('themeColorClass'"),
+    j.indexOf('Meteor.startup('));
+  const iOwn = helper.indexOf('globalThemeColor');
+  const iBoard = helper.indexOf('boardClass');
+  const iSite = helper.indexOf('setting.themeColor');
+  assert.ok(iOwn > 0 && iBoard > iOwn && iSite > iBoard,
+    'the user override wins, then the board colour, then the site theme');
 });
 
 test('i18n has the new strings', () => {

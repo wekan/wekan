@@ -8,7 +8,7 @@ template(name="header")
     //- nodragscroll hands dragging on this bar to client/lib/headerDragscroll.js,
     //- which forwards it to whatever actually scrolls. Without it the page-level
     //- dragscroll on the body element would scroll the page at the same time.
-    #header-quick-access.nodragscroll(class="{{#if currentUser.globalThemeColorClass}}{{currentUser.globalThemeColorClass}}{{else}}{{currentBoard.colorClass}}{{/if}}" role="navigation" aria-label="{{_ 'all-boards'}}")
+    #header-quick-access.nodragscroll(class="{{themeColorClass}}" role="navigation" aria-label="{{_ 'all-boards'}}")
       // Home icon - always at left side of logo
       span.home-icon.allBoards
         a(href="{{pathFor 'home'}}")
@@ -100,7 +100,7 @@ template(name="header")
       +headerUserBar
 
   //- See the note above: dragging this bar is owned by headerDragscroll.js.
-  #header.nodragscroll(class="{{#if currentUser.globalThemeColorClass}}{{currentUser.globalThemeColorClass}}{{else}}{{currentBoard.colorClass}}{{/if}}")
+  #header.nodragscroll(class="{{themeColorClass}}")
     //-
       The main bar is a colorful bar that provide all the meta-data for the
       current page. This bar is contextual based.

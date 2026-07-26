@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
 import { Session } from 'meteor/session';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { Template } from 'meteor/templating';
 
 // #5778 + docs/Theme/Theme.md: apply the theme color to the whole UI (All Boards,
 // Search, Admin Panel, My Cards, etc.) via a `board-color-<name>` class on <body>,
@@ -22,6 +23,27 @@ import { ReactiveCache } from '/imports/reactiveCache';
 // like. A USER's own override does win there too, because they asked for it
 // everywhere. Custom colors of the ACTIVE context are exposed either way, so
 // custom-colored boards, a custom site theme and a custom user theme all render.
+
+// The class the CHROME (the two top bars, the board wrapper) must carry, from the
+// same order of themes the <body> autorun below applies:
+//   the user's own override, then the board's own colour on a board page, then the
+// site theme (docs/Design/Page/Theme.md). Registered as a Blaze helper so the
+// templates read ONE answer instead of each re-deriving part of the order - which is
+// what left the top bars on the default colour while the buttons took the site theme.
+Template.registerHelper('themeColorClass', () => {
+  const user = Meteor.user();
+  const own = user && user.profile && user.profile.globalThemeColor;
+  if (own) return `board-color-${own}`;
+  const boardId = Session.get('currentBoard');
+  const board = boardId ? ReactiveCache.getBoard(boardId) : null;
+  // colorClass() is a Board HELPER, not a field: reading it without calling it
+  // returns the function, which renders as a class of source code.
+  const boardClass = board && typeof board.colorClass === 'function' ? board.colorClass() : '';
+  if (boardClass) return boardClass;
+  const setting = ReactiveCache.getCurrentSetting();
+  const siteColor = setting && setting.themeColor;
+  return siteColor ? `board-color-${siteColor}` : '';
+});
 
 Meteor.startup(() => {
   let appliedClass = null;
