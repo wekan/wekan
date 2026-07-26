@@ -438,6 +438,22 @@ other cannot, or if a `.bat` menu prints a number it does not dispatch.
 
 </details>
 
+and fills the new strings in every language:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b1e4c3b18">"Open many cards at once" is translated into every language</a>. Thanks to xet7.</summary>
+
+The two strings the "Open many cards at once" setting added were the English
+source in every language, which is what a pull leaves behind for a string that
+is untranslated everywhere. They are translated directly — written here from
+each language's own existing translations, with no external service — using the
+word for "card" that each file already uses, so they read like the rest of the
+file. 142 languages; English and its eleven `en-*` variants keep the source by
+design. Only placeholders were touched, so no human translation could be
+overwritten, and filled strings stay local: they are never pushed to Transifex.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
