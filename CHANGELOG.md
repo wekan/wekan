@@ -271,6 +271,23 @@ browser build to verify).
 This release fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e2c6f04a2">The board bar's icons fit two rows, and a desktop-mode board is a desktop board</a>. Thanks to xet7.</summary>
+
+The board bar's icons still took four rows - title, seven, three, hamburger -
+because the rule that makes each button a flex item of the bar was in
+`boardHeader.css`, and the `display: flex` for those groups in `header.css` has
+the same specificity and loads later; it is written in the file that wins now.
+And lists still stacked in desktop mode: `boardBody.css` lays the whole canvas
+out for a phone by WIDTH — `display: block` on the swimlane, `overflow-x:
+hidden` on the wrapper — which makes every list a full-width row and drops the
+add-list form under the last list. That is mobile mode's layout now; desktop
+mode gets a swimlane that is a flex ROW scrolling sideways, so the lists run
+left to right and the add-list form is the last item of the row — the right in
+LTR and the left in RTL, by writing direction rather than a hard-coded side.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/75b562327">Mobile mode is the phone layout; desktop mode is the desktop layout, on a phone too</a>. Thanks to xet7.</summary>
 
 Five things, one theme: what belongs to the MODE the user chose and what
