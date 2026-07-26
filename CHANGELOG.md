@@ -271,6 +271,23 @@ browser build to verify).
 This release fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/202add9da">All Boards on a phone: one drag-handle size, and a workspace name you can read</a>. Thanks to xet7.</summary>
+
+Two things differed between mobile mode and desktop mode on the same phone. The
+board tile's drag handle was a 26px circle in one and a 40px circle in the
+other, and on a ~97px tile the big one covered a good part of the tile it sits
+on; both are the smaller one now, still well over the ~24px a finger needs. And
+a workspace had no readable name in EITHER mode: the row's rule said the name
+"must give way to the fixed items around it", and it gave way completely — the
+drag handle, folder icon, menu button and count chip come to ~130px at their
+desktop paddings, the menu column on a 375px phone is ~145px, and the name was
+laid out in the 15px left over. Those items are trimmed to ~90px and the name
+has a 3.5em floor it may not shrink below, with an ellipsis when it is long.
+`tests/allBoardsPhoneRow.test.cjs` reads the sizes out of the cascade.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9f8287749">Admin Panel: /information and /translation showed the page you came from</a>. Thanks to xet7.</summary>
 
 Both old URLs are panes of Admin Panel / Settings now, and both redirected with
