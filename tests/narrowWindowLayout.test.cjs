@@ -145,10 +145,9 @@ test('the board bar: buttons after the title, hamburger in the corner', () => {
     + 'instead of dropping below it as one block');
   assert.ok(/:not\(\.board-header-sidebar-toggle\)/.test(block),
     'except the hamburger, whose box is positioned - display:contents would remove it');
-  assert.ok(/#header #header-main-bar:has\(\.board-header-sidebar-toggle\) \{[\s\S]*?padding-inline-end: 44px;/.test(block),
-    'the bar reserves the hamburger width when there IS a hamburger');
-  assert.ok(/\.board-header-sidebar-toggle \{[\s\S]*?position: absolute;[\s\S]*?top: 7px;/.test(block),
-    'and the hamburger sits in the top right corner');
+  assert.ok(/\.board-header-sidebar-toggle \{[\s\S]*?position: static;[\s\S]*?margin-inline-start: auto;/.test(block),
+    'the hamburger is the LAST button, at the right of the last row - in the flow, '
+    + 'so it never covers one of the buttons it follows');
   // body.board-view is written in 67 rules and set by no code, so scoping to it
   // is scoping to nothing.
   assert.ok(!/body\.board-view #header #header-main-bar:has|body\.board-view[^\n]*display: contents/.test(block),
@@ -166,6 +165,34 @@ test('the mode toggle shows which mode is on', () => {
   assert.ok(/\.mobile-active i\.mobile-icon \.fa,/.test(block)
     && /color: #fff !important;/.test(block),
     'the glyph inside that chip is white - it is the INNER i.fa that draws it');
+});
+
+test('the drag-handle toggle is not a board button in disguise', () => {
+  // `.mobile-mode .board-header-btn` gives every one of those buttons 9px/21px of
+  // padding, and the toggle in the TOP bar carries that class - 42px of a 375px
+  // row for one icon, which is what pushed the avatar off the edge in mobile mode
+  // while desktop mode fitted.
+  const block = headerCss.slice(headerCss.indexOf('The quick-access bar must FIT the phone'));
+  const rule = /#header-quick-access \.js-toggle-desktop-drag-handles \{([\s\S]*?)\}/.exec(block);
+  assert.ok(rule, 'the toggle must be sized in the phone block');
+  const pad = /padding:\s*(\d+)px (\d+)px !important/.exec(rule[1]);
+  assert.ok(pad && Number(pad[2]) <= 8, `${pad && pad[2]}px of side padding is too much here`);
+  assert.ok(/min-width: 0 !important;/.test(rule[1]), 'and no 44px floor from the board bar');
+});
+
+test('the board layout follows the MODE, not the window width', () => {
+  // A phone whose user chose desktop mode asked for the desktop board.
+  const listCss = read('client/components/lists/list.css');
+  const stacked = /(\s*)(body\.mobile-mode )?\.list \{[^{}]*display: block !important;/.exec(listCss);
+  assert.ok(stacked, 'the stacking rule must exist');
+  assert.ok(stacked[2], 'one list per row is the MOBILE MODE layout, not a width');
+  const minicard = read('client/components/cards/minicard.css');
+  const coarse = minicard.slice(minicard.indexOf('@media (pointer: coarse) {'));
+  const handle = /\.minicard \.handle \{([\s\S]*?)\}/.exec(coarse);
+  assert.ok(handle, 'the thumb-sized handle must exist');
+  assert.ok(/body\.mobile-mode \.minicard \.handle \{/.test(coarse),
+    'the full-height thumb column belongs to mobile mode; desktop mode keeps the '
+    + 'compact handle in the corner, under the menu button');
 });
 
 test('the bell and the avatar are centred in the row', () => {
@@ -221,8 +248,12 @@ test('a phone rule for the page wrapper does not hit the header bar', () => {
 });
 
 test('eleven board buttons fit two rows on a phone, and stay tappable', () => {
-  const at = boardCss.indexOf('/* The same rules by WIDTH, not by mobile mode');
-  const block = boardCss.slice(at);
+  // Sized in header.css, not boardHeader.css: Meteor loads components/boards/
+  // before components/main/, so at equal specificity that file wins and the
+  // `margin: 0 6px` there would beat anything written in this one.
+  const at = headerCss.indexOf("/* The board bar's buttons, sized HERE");
+  assert.ok(at !== -1, 'the metrics must be in the file that wins');
+  const block = headerCss.slice(at);
   const btn = /#header #header-main-bar \.board-header-btn \{([\s\S]*?)\}/.exec(block);
   assert.ok(btn, 'the phone metrics for a board button must be there');
   // `margin: 0 2px` - the first value carries no unit, so match both forms.

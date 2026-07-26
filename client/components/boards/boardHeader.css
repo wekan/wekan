@@ -1064,16 +1064,16 @@ body.board-view.mobile-mode #header #header-main-bar .board-header-sidebar-toggl
     display: contents;
   }
 
-  #header #header-main-bar:has(.board-header-sidebar-toggle) {
-    position: relative;
-    padding-inline-end: 44px;
-  }
-
+  /* The hamburger is the LAST button, at the right of the last row: it stays in
+     the flow (so it never covers a button) and its auto start margin pushes it to
+     the end of whichever row it lands on. `order: 1` from the desktop rule
+     already puts it after every other button. It was pinned to the top right
+     corner, which put it beside the title with the icons below it; at the end of
+     the row it reads as what it is - one more button, the last one. */
   #header #header-main-bar .board-header-sidebar-toggle {
-    position: absolute;
-    top: 7px;
-    inset-inline-end: 8px;
-    margin: 0;
+    position: static;
+    margin-inline-start: auto;
+    margin-inline-end: 8px;
   }
 
   /* Eleven icons in TWO rows, not four. Each button was ~20px of icon inside

@@ -974,7 +974,12 @@ form.inlined-form .list-composer {
 
 @media screen and (max-width: 800px),
        screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
-  .mini-list {
+  /* MOBILE MODE, not merely a narrow window. Stacking every list full width and
+     `display: block` is the phone layout; a phone whose user chose DESKTOP mode
+     asked for the desktop board - lists side by side, scrolled sideways - and was
+     getting one list per row instead. `body.mobile-mode` is exactly "the user is
+     in mobile mode", and it is what the rest of the mobile board layout uses. */
+  body.mobile-mode .mini-list {
     flex: 0 0 60px;
     height: auto;
     width: 100%;
@@ -984,7 +989,7 @@ form.inlined-form .list-composer {
     border-bottom: 1px solid #ccc;
     display: block !important;
   }
-  .list {
+  body.mobile-mode .list {
     display: block !important;
     flex-basis: auto;
     width: 100%;
@@ -994,10 +999,10 @@ form.inlined-form .list-composer {
     margin: 0 !important;
     padding: 0 !important;
   }
-  .list:first-child {
+  body.mobile-mode .list:first-child {
     margin-inline-start: 0px;
   }
-  .list.ui-sortable-helper {
+  body.mobile-mode .list.ui-sortable-helper {
     flex: 0 0 60px;
     height: 60px;
     width: 100%;
@@ -1006,10 +1011,10 @@ form.inlined-form .list-composer {
     border-bottom: 1px solid #ccc;
     display: block !important;
   }
-  .list.ui-sortable-helper .list-header.ui-sortable-handle {
+  body.mobile-mode .list.ui-sortable-helper .list-header.ui-sortable-handle {
     cursor: grabbing;
   }
-  .list.placeholder {
+  body.mobile-mode .list.placeholder {
     flex: 0 0 60px;
     height: 60px;
     width: 100%;

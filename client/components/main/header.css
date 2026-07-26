@@ -1781,6 +1781,43 @@ body.mobile-mode #header-quick-access .allBoards {
     padding: 2px 4px !important;
   }
 
+  /* The board bar's buttons, sized HERE rather than in boardHeader.css: Meteor
+     loads client/components/boards/ before client/components/main/, so at equal
+     specificity this file wins, and the `margin: 0 6px` a few blocks above would
+     otherwise beat the 2px written there. `!important` also settles it against
+     `.mobile-mode .board-header-btn`, which gives every one of these buttons
+     9px/21px of padding - 42px of a 375px bar per button.
+
+     44px target + 2px each side = 48px, so seven fit a row and eleven icons take
+     two rows, in BOTH modes. */
+  #header #header-main-bar .board-header-btn {
+    margin: 0 2px !important;
+    padding: 0 !important;
+    min-width: 44px !important;
+    height: 44px !important;
+    line-height: 44px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  #header #header-main-bar .board-header-btn i.fa {
+    margin: 0 !important;
+    line-height: 1 !important;
+    float: none !important;
+  }
+
+  /* The drag-handle toggle in the TOP bar is a `.board-header-btn` too, so in
+     mobile mode it picked up that same 9px/21px padding - 42px of the row for one
+     icon, which is what pushed the avatar off the right edge there while desktop
+     mode fitted. It is the size it looks in both modes now. */
+  #header-quick-access .js-toggle-desktop-drag-handles {
+    padding: 4px 6px !important;
+    min-width: 0 !important;
+    height: auto !important;
+    line-height: 1 !important;
+  }
+
   /* The logo is the one item that may lose width without losing meaning. */
   #header-quick-access img {
     flex: 0 1 auto;
