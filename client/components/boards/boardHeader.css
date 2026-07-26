@@ -1075,6 +1075,30 @@ body.board-view.mobile-mode #header #header-main-bar .board-header-sidebar-toggl
     inset-inline-end: 8px;
     margin: 0;
   }
+
+  /* Eleven icons in TWO rows, not four. Each button was ~20px of icon inside
+     10px of icon margin inside 6px of button margin - 52px of bar for 20px of
+     icon - so five fitted a row and the set took three rows under the title.
+     A 44px touch target with 2px between buttons is 48px each: seven fit a
+     375px row, so the icons take two rows (and the first of them shares the
+     title's row, since the groups are `display: contents` above).
+     44px is the minimum comfortable touch target, so this is as tight as it
+     goes without making them harder to hit. */
+  #header #header-main-bar .board-header-btn {
+    margin: 0 2px;
+    min-width: 44px;
+    height: 44px;
+    line-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #header #header-main-bar .board-header-btn i.fa {
+    margin: 0;
+    line-height: 1;
+    float: none;
+  }
 }
 
 /* Ensure the board header takes full width in mobile mode */

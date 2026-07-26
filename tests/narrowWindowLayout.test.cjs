@@ -220,4 +220,23 @@ test('a phone rule for the page wrapper does not hit the header bar', () => {
   assert.ok(/#content \.wrapper \{/.test(phone), 'and the scoped rule must be there');
 });
 
+test('eleven board buttons fit two rows on a phone, and stay tappable', () => {
+  const at = boardCss.indexOf('/* The same rules by WIDTH, not by mobile mode');
+  const block = boardCss.slice(at);
+  const btn = /#header #header-main-bar \.board-header-btn \{([\s\S]*?)\}/.exec(block);
+  assert.ok(btn, 'the phone metrics for a board button must be there');
+  // `margin: 0 2px` - the first value carries no unit, so match both forms.
+  const margin = /margin:\s*\d+(?:px)?\s+(\d+)px/.exec(btn[1]);
+  const min = /min-width:\s*(\d+)px/.exec(btn[1]);
+  assert.ok(margin && min, 'both the side margin and the target size are set');
+  const each = Number(min[1]) + 2 * Number(margin[1]);
+  const perRow = Math.floor(375 / each);
+  assert.ok(Math.ceil(11 / perRow) <= 2,
+    `${each}px each fits ${perRow} per row: 11 icons take ${Math.ceil(11 / perRow)} rows`);
+  assert.ok(Number(min[1]) >= 44, `a touch target must stay >= 44px, found ${min[1]}`);
+  const icon = /#header #header-main-bar \.board-header-btn i\.fa \{([\s\S]*?)\}/.exec(block);
+  assert.ok(icon && /margin: 0;/.test(icon[1]),
+    'the icon inside carried 10px of its own margin - the button box is the target now');
+});
+
 console.log(`\n${passed} tests passed`);
