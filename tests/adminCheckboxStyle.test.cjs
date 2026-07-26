@@ -95,7 +95,8 @@ test('the panes that use a native checkbox are the ones this is for', () => {
   // this is what it covers, and it names them so the reason is not lost.
   const panes = {
     'client/components/settings/attachments.jade': ['js-toggle-gridfs-read',
-      'js-toggle-filesystem-read', 'js-backup-attachments', 's3-read'],
+      'js-toggle-filesystem-read', 'js-backup-attachments', 's3-read',
+      'js-avatars-upload-blocked'],
     'client/components/settings/peopleBody.jade': ['js-toggle-org-feature',
       'js-toggle-team-feature', 'selectUserChkBox'],
     'client/components/settings/problemsSummary.jade': ['js-problem-check'],
@@ -106,6 +107,31 @@ test('the panes that use a native checkbox are the ones this is for', () => {
       assert.ok(jade.includes(cls), `${file}: ${cls} is one of the native checkboxes`);
     }
   }
+});
+
+test('a checkbox written as label > input gets its gap', () => {
+  // The `.materialCheckBox` markup is an anchor with a box and a span; a native one
+  // written as `label > input + text` has nothing between the box and the words.
+  const gap = rule(admin, '.setting-content label > input[type="checkbox"] {');
+  assert.ok(/margin-inline-end: 6px;/.test(gap), 'logical margin, so RTL is right too');
+});
+
+test('the Admin Panel Save buttons are one button, in the panes and in the popups', () => {
+  // The panes' Save is a button.primary; the popups' is an input[type=submit].primary
+  // in a flex row, and the `.wide` that was meant to size it never applied - the rule
+  // for it in forms.css is a DESCENDANT selector, which an input can never match.
+  const save = rule(admin, '.setting-content .content-body .main-body .setting-detail button.primary,');
+  for (const popup of ['editUserPopup', 'editOrgPopup', 'editTeamPopup']) {
+    assert.ok(save.includes(`.pop-over[data-popup='${popup}'] .buttonsContainer input[type="submit"].primary`),
+      `${popup}'s Save is styled with the panes' Save, not separately`);
+  }
+  assert.ok(/background: var\(--theme-accent, #005377\);/.test(save),
+    'the theme accent, like every other Admin Panel button');
+  assert.ok(/padding: 9px 35px;/.test(save) && /font-weight: 700;/.test(save),
+    'and the same size and weight');
+  // …with the hover/focus and active states listed for both as well.
+  assert.ok(/button\.primary:hover,[\s\S]*?input\[type="submit"\]\.primary:hover/.test(admin));
+  assert.ok(/button\.primary:active,[\s\S]*?input\[type="submit"\]\.primary:active/.test(admin));
 });
 
 console.log(`\n${passed} tests passed`);

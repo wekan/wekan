@@ -327,6 +327,17 @@ body.grey-icons-enabled .setting-content input[type="checkbox"]:checked::after {
   opacity: 0.6;
 }
 
+/* A checkbox written as `label > input + text` (Attachments / Limits / Avatars,
+   the Backup checkboxes) needs the gap the `.materialCheckBox` markup gets from its
+   own layout, or the box and its words touch. */
+.setting-content label > input[type="checkbox"] {
+  margin-inline-end: 6px;
+}
+
+.setting-content label > input[type="checkbox"] ~ * {
+  vertical-align: middle;
+}
+
 /* A GROUP title inside a pane - "All Boards", "URL", "Product name", "Logo" on
    Visibility. Deliberately smaller than the pane title above it, so the page reads
    as one heading with groups under it rather than as several pages stacked. */
@@ -401,6 +412,70 @@ body.grey-icons-enabled .setting-content input[type="checkbox"]:checked::after {
   margin: 0;
   border: 0;
   border-top: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+/* ── Save ────────────────────────────────────────────────────────────────────
+   One Save button look for the whole Admin Panel: the panes' own Save (People /
+   E-mail, Visibility, …) and the Save inside the Admin Panel's edit popups (Edit
+   User, Edit Organization, Edit Team).
+
+   The panes' Save is a `button.primary`, which forms.css themes. The popups' is an
+   `input[type=submit].primary.wide` sitting in a flex `.buttonsContainer` - and
+   `.wide` never reached it, because the rule for it in forms.css is written as a
+   DESCENDANT selector (`input[type="submit"] .wide`), which matches nothing: an
+   input has no children. So the popup Save was the same colour but a different,
+   cramped size, wherever it landed in the row.
+
+   Both are listed here with the same declarations, taken from what the panes'
+   Save already looks like, so the two cannot drift apart again. The colour is the
+   theme accent, as everywhere else in the panel. */
+.setting-content .content-body .main-body .setting-detail button.primary,
+.pop-over[data-popup='editUserPopup'] .buttonsContainer input[type="submit"].primary,
+.pop-over[data-popup='editOrgPopup'] .buttonsContainer input[type="submit"].primary,
+.pop-over[data-popup='editTeamPopup'] .buttonsContainer input[type="submit"].primary {
+  background: var(--theme-accent, #005377);
+  color: #fff;
+  border: none;
+  font-weight: 700;
+  line-height: 1.3;
+  padding: 9px 35px;
+  cursor: pointer;
+}
+
+.setting-content .content-body .main-body .setting-detail button.primary:hover,
+.setting-content .content-body .main-body .setting-detail button.primary:focus,
+.pop-over[data-popup='editUserPopup'] .buttonsContainer input[type="submit"].primary:hover,
+.pop-over[data-popup='editOrgPopup'] .buttonsContainer input[type="submit"].primary:hover,
+.pop-over[data-popup='editTeamPopup'] .buttonsContainer input[type="submit"].primary:hover,
+.pop-over[data-popup='editUserPopup'] .buttonsContainer input[type="submit"].primary:focus,
+.pop-over[data-popup='editOrgPopup'] .buttonsContainer input[type="submit"].primary:focus,
+.pop-over[data-popup='editTeamPopup'] .buttonsContainer input[type="submit"].primary:focus {
+  background: var(--theme-accent, #004766);
+  color: #fff;
+}
+
+.setting-content .content-body .main-body .setting-detail button.primary:active,
+.pop-over[data-popup='editUserPopup'] .buttonsContainer input[type="submit"].primary:active,
+.pop-over[data-popup='editOrgPopup'] .buttonsContainer input[type="submit"].primary:active,
+.pop-over[data-popup='editTeamPopup'] .buttonsContainer input[type="submit"].primary:active {
+  background: var(--theme-accent, #01628c);
+  color: #fff;
+}
+
+/* The popups' Save is the only thing in its row, so it takes the row - which is
+   what `.wide` was for. It stops well short of a 1000px-wide popup's full width so
+   it stays a button rather than a bar. */
+.pop-over[data-popup='editUserPopup'] .buttonsContainer,
+.pop-over[data-popup='editOrgPopup'] .buttonsContainer,
+.pop-over[data-popup='editTeamPopup'] .buttonsContainer {
+  margin-top: 6px;
+}
+
+.pop-over[data-popup='editUserPopup'] .buttonsContainer input[type="submit"].primary,
+.pop-over[data-popup='editOrgPopup'] .buttonsContainer input[type="submit"].primary,
+.pop-over[data-popup='editTeamPopup'] .buttonsContainer input[type="submit"].primary {
+  flex: 1 1 auto;
+  max-width: 320px;
 }
 
 /* Admin panel buttons should use theme darker color */
