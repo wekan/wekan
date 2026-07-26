@@ -44,28 +44,33 @@ test('the Admin Panel styles its native checkboxes itself', () => {
     'the app-wide hiding rule is still there for everything outside the Admin Panel');
 });
 
-test('the tick is the SAME tick the rest of WeKan draws', () => {
-  // Same shape, same green: two borders of a rotated box, exactly as
-  // .materialCheckBox.is-checked does it.
-  const material = rule(forms, '.materialCheckBox.is-checked {');
-  const green = /border-bottom: 2px solid (#[0-9a-f]{6});/i.exec(material);
-  assert.ok(green, 'the material checkbox draws its tick with a coloured border');
-  const tick = rule(admin, '.setting-content input[type="checkbox"]:checked::after {');
-  assert.ok(tick.includes(`border-bottom: 2px solid ${green[1]}`),
-    `the Admin Panel tick must be the same colour (${green[1]})`);
-  assert.ok(/transform: rotate\(40deg\);/.test(tick) && /transform: rotate\(40deg\);/.test(material),
-    'and the same rotated shape');
-  // Not the theme accent: a tick is a tick, and WeKan's is green everywhere.
-  assert.ok(!/--theme-accent/.test(tick), 'the tick does not follow the theme');
-});
+test('an Admin Panel checkbox IS the material checkbox, declaration for declaration', () => {
+  // Not "looks a bit like it": every declaration of .materialCheckBox and of
+  // .materialCheckBox.is-checked must be here, so the unchecked square, the checked
+  // tick AND the `transition: 0.2s` that animates between them are the same. Drawing
+  // only a tick with a pseudo-element gets the checked state right and loses the
+  // other two - which is exactly what was wrong before.
+  const decls = block => new Set(block.split('\n')
+    .map(line => line.trim().replace(/;$/, ''))
+    .filter(line => line.includes(':') && !line.startsWith('/*') && !line.startsWith('*')));
+  const missing = (from, to) => [...decls(from)].filter(d => !decls(to).has(d));
 
-test('the box disappears behind the tick, the way the material one does', () => {
+  const unchecked = rule(admin, '.setting-content input[type="checkbox"] {');
+  assert.deepStrictEqual(missing(rule(forms, '.materialCheckBox {'), unchecked), [],
+    'the unchecked box is the material one - the grey square, and the transition');
+  assert.ok(/transition: 0\.2s;/.test(unchecked), 'which is what animates the change');
+
   const checked = rule(admin, '.setting-content input[type="checkbox"]:checked {');
-  assert.ok(/border-color: transparent;/.test(checked));
+  assert.deepStrictEqual(missing(rule(forms, '.materialCheckBox.is-checked {'), checked), [],
+    'and the checked state is the material one: the square morphs into the tick');
+
+  // The tick is green, not the theme accent: WeKan's tick is green everywhere.
+  assert.ok(/border-bottom: 2px solid #3cb500;/.test(checked));
+  assert.ok(!/--theme-accent/.test(checked), 'the tick does not follow the theme');
 });
 
 test('grey icons and disabled states are handled', () => {
-  assert.ok(/body\.grey-icons-enabled \.setting-content input\[type="checkbox"\]:checked::after/.test(admin),
+  assert.ok(/body\.grey-icons-enabled \.setting-content input\[type="checkbox"\]:checked \{/.test(admin),
     'grey icons grey the tick here too');
   const disabled = rule(admin, '.setting-content input[type="checkbox"]:disabled {');
   assert.ok(/opacity: 0\.6;/.test(disabled));
