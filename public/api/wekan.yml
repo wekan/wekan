@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v10.37
+  version: v10.38
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -5965,6 +5965,62 @@ definitions:
            provider's group/membership sync (LDAP, OAuth2/OIDC, SAML, etc.). Off by default.
         type: boolean
         x-nullable: true
+      orgDomains:
+        description: |
+           Multitenancy option D (docs/Design/Multitenancy/Multitenancy.md): the
+           hostname(s) this Organization is served on, free text separated by commas,
+           semicolons or whitespace - e.g. "a.example.com, kanban.example.org". A
+           request whose host matches one of these is that tenant's request, and the
+           org's branding below replaces the instance branding for it. Empty (the
+           default) means the org is not a tenant and nothing changes.
+           Only read when the deployment sets MULTITENANCY=true.
+        type: string
+        x-nullable: true
+      orgProductName:
+        description: |
+           Per-tenant branding. Each of these overrides the SAME-named instance
+           setting of Admin Panel / Settings / Visibility for this tenant's requests,
+           and an empty one leaves the instance value alone - so a tenant overrides
+           only what it sets. See models/lib/tenants.js BRANDING_FIELDS.
+        type: string
+        x-nullable: true
+      orgThemeColor:
+        description: |
+           The site theme for this Organization's hosts - the layer between WeKan's
+           default theme and a user's own override (docs/Theme/Theme.md). Set in
+           Admin Panel / Settings / Visibility / Change color.
+        type: string
+        x-nullable: true
+      orgThemeCustomColors:
+        description: |
+           The custom colours of that theme, for the flat (1 colour) and clear
+           (2 colours, a gradient) categories.
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
+      orgCustomLoginLogoImageUrl:
+        type: string
+        x-nullable: true
+      orgCustomLoginLogoLinkUrl:
+        type: string
+        x-nullable: true
+      orgTextBelowCustomLoginLogo:
+        type: string
+        x-nullable: true
+      orgCustomTopLeftCornerLogoImageUrl:
+        type: string
+        x-nullable: true
+      orgCustomTopLeftCornerLogoLinkUrl:
+        type: string
+        x-nullable: true
+      orgCustomHelpLinkUrl:
+        type: string
+        x-nullable: true
+      orgLegalNotice:
+        type: string
+        x-nullable: true
       createdAt:
         description: |
            creation date of the organization
@@ -5974,6 +6030,8 @@ definitions:
     required:
       - createdAt
       - modifiedAt
+  OrgOrgthemecustomcolors:
+    type: object
   Rules:
     type: object
     properties:
@@ -6056,6 +6114,24 @@ definitions:
       productName:
         type: string
         x-nullable: true
+      themeColor:
+        description: |
+           The site theme, set in Admin Panel / Settings / Visibility / Change color.
+           It is the layer between WeKan's default theme and a user's own override
+           (docs/Theme/Theme.md): whoever has not picked a theme of their own sees
+           this one. On a multitenancy host the Organization's own value replaces it
+           (models/lib/tenants.js BRANDING_FIELDS).
+        type: string
+        x-nullable: true
+      themeCustomColors:
+        description: |
+           The custom colours of that theme: one for a flat theme, two for a clear
+           (gradient) one.
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
       displayAuthenticationMethod:
         type: boolean
         x-nullable: true
@@ -6077,6 +6153,9 @@ definitions:
           - lazy
         x-nullable: true
       hideBoardMemberList:
+        type: boolean
+        x-nullable: true
+      hideBoardActivitiesOnAllBoards:
         type: boolean
         x-nullable: true
       customLoginLogoImageUrl:
@@ -6151,6 +6230,12 @@ definitions:
       supportPagePublic:
         type: boolean
         x-nullable: true
+      boardMembersFromSameOrgOnly:
+        type: boolean
+        x-nullable: true
+      boardMembersFromSameTeamOnly:
+        type: boolean
+        x-nullable: true
       boardMembersFromSameOrgOrTeamOnly:
         type: boolean
         x-nullable: true
@@ -6183,6 +6268,8 @@ definitions:
         type: boolean
       from:
         type: string
+  SettingsThemecustomcolors:
+    type: object
   Swimlanes:
     type: object
     description:  A swimlane is an line in the kaban board.
@@ -6415,6 +6502,14 @@ definitions:
            per-user preference: in multi-line editors (card title/description and
            other inlined forms) submit on plain Enter (Shift+Enter for a newline)
            instead of the default Ctrl/Cmd+Enter. Off by default. See #4236/#6480.
+        type: boolean
+      openManyCardsAtOnce:
+        description: |
+           #6531: per-user preference. OFF by default, which is what clicking a card
+           has always been expected to do - open THAT card, closing the one that was
+           open. Turned on, every clicked card stays open as its own draggable window,
+           which is what WeKan did unconditionally and what the issue reported as a
+           bug: the previous card simply never closed.
         type: boolean
       GreyIcons:
         description: |
@@ -6747,6 +6842,15 @@ definitions:
         description: |
            The display name of the organization
         type: string
+      isAdmin:
+        description: |
+           Multitenancy option D (docs/Design/Multitenancy/Multitenancy.md): this user
+           is a per-tenant Global Admin OF THIS ORGANIZATION - they may administer its
+           people and its backups, and nothing else. It is deliberately a flag on the
+           membership the user already has rather than a second membership list.
+           It NEVER implies the site-wide `isAdmin` flag, and a per-tenant admin can
+           never grant that one (models/lib/tenantAdmin.js).
+        type: boolean
     required:
       - orgId
       - orgDisplayName
