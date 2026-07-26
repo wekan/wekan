@@ -261,6 +261,21 @@ Template.setting.onCreated(function () {
   this.accessibilitySetting = new ReactiveVar(false);
   this.layoutSetting = new ReactiveVar(false);
   this.webhookSetting = new ReactiveVar(false);
+  // An old page URL that is now a pane here - /information, /translation - asks for
+  // its pane by name when it redirects, so the bookmark still lands where it used
+  // to. It is consumed once: a later visit to /setting opens on the default.
+  const requestedPane = Session.get('settingsOpenPane');
+  if (requestedPane) {
+    Session.set('settingsOpenPane', null);
+    if (requestedPane === 'translation-setting') {
+      this.versionSetting.set(false);
+      this.translationSetting.set(true);
+      this.openPaneDecided = true;
+    } else if (requestedPane === 'version-setting') {
+      this.versionSetting.set(true);
+      this.openPaneDecided = true;
+    }
+  }
   this.attachmentSettings = new ReactiveVar(false);
   this.attachmentStorageSettings = new ReactiveVar(null);
   // #6473: real storage paths come from the server (WRITABLE_PATH does not

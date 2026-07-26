@@ -607,11 +607,18 @@ FlowRouter.route('/setting', {
 // Version is the FIRST pane inside Admin Panel / Settings now, not a page of its
 // own - the same move Translation made. The old URL stays valid and redirects
 // there, so a bookmark does not land on a template that no longer exists.
+//
+// A trigger redirects with the `redirect` it is HANDED, not with FlowRouter.go():
+// go() from inside triggersEnter happens while this route is still entering and is
+// swallowed, so nothing was rendered at all and whatever page the browser was on
+// stayed on screen - /information showed All Boards. This is the same form the
+// redirections table at the bottom of this file uses.
 FlowRouter.route('/information', {
   name: 'information',
   triggersEnter: [
-    () => {
-      FlowRouter.go('setting');
+    (context, redirect) => {
+      Session.set('settingsOpenPane', 'version-setting');
+      redirect(FlowRouter.path('setting'));
     },
   ],
   action() {},
@@ -695,8 +702,10 @@ FlowRouter.route('/attachments', {
 FlowRouter.route('/translation', {
   name: 'translation',
   triggersEnter: [
-    () => {
-      FlowRouter.go('setting');
+    (context, redirect) => {
+      // ...and it opens ON Translation, which is the pane the old URL meant.
+      Session.set('settingsOpenPane', 'translation-setting');
+      redirect(FlowRouter.path('setting'));
     },
   ],
   action() {},
