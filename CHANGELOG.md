@@ -266,6 +266,115 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9f8287749">Admin Panel: /information and /translation showed the page you came from</a>. Thanks to xet7.</summary>
+
+Both old URLs are panes of Admin Panel / Settings now, and both redirected with
+`FlowRouter.go('setting')` called from INSIDE `triggersEnter`. A trigger runs
+while its own route is still entering, and a `go()` from there is swallowed - so
+nothing was rendered at all and whatever page the browser was showing simply
+stayed. Playwright caught it on every browser: /information showed All Boards. A
+trigger now redirects with the `redirect` it is handed, and each URL asks for
+the pane it used to be a page of, so the bookmark lands where it pointed.
+`tests/adminOldUrlRedirect.test.cjs` pins the redirect form and the pane.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dea262ef6">All Boards on a phone fits the screen, and the board titles get their width back</a>. Thanks to xet7.</summary>
+
+The board titles were laid out two characters per line. Space for the drag
+handle - one absolutely-positioned circle - was reserved three times on the way
+down: on the list item, on the tile and on the text container, which is more
+than a ~97px phone tile has. It is reserved once now, and not at all when drag
+handles are off and no handle is rendered. The page could also be dragged
+sideways, with the avatar past the right edge: the quick-access bar is `nowrap`
+with `overflow: visible` and every item `flex-shrink: 0`, so a row wider than
+the screen spilled - and visible overflow is scrollable overflow. The zoom pill,
+by far the widest item, gives way instead, and `html { overflow-x: hidden }` on
+a phone is the guarantee. `tests/mobileAllBoardsFit.test.cjs` pins both.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/08f4c80c7">The zoom number is inside its white pill again, and big enough to read</a>. Thanks to xet7.</summary>
+
+On a phone the pill was empty and "100" sat to the right of it in tiny type,
+half under the notification bell. The pill was allowed to shrink below its own
+contents, and a flex item that shrinks past its content does not clip it - the
+white background ends where the width says and the text carries on outside it.
+The pill is sized by what is in it now, and what is in it is made small instead.
+The tiny type was `font-size: 0.7em` of a 12px bar - about 8px, the smallest
+text on the page - now a plain 14px, which is also why the pill stays narrow.
+The base rule's 24px height cap, shorter than that text, is lifted so the number
+is centred. `tests/mobileAllBoardsFit.test.cjs` pins all of it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eb56ea589">A narrow window gets the narrow-window layout, not only an explicit mobile mode</a>. Thanks to xet7.</summary>
+
+The phone/desktop toggle writes an explicit choice, and `Utils.isMiniScreen()`
+returns it as-is, so a phone whose user picked DESKTOP mode is not a mini screen
+and its body carries no `.mobile-mode` — while the viewport is still 375px wide.
+Three fixes written for one of those two therefore did nothing there. "Create
+board" opened 160px in with its right half off the screen, because the geometry
+laid it out as a floating box anchored to the button while the CSS made it the
+full width; the board bar's hamburger was pushed to a third row of its own; and
+the top bar was still wider than the screen, so the avatar was cut off. The
+popup is a sheet pinned to the corner at any viewport that narrow, the hamburger
+leaves the flow by width as well as by mode, and the drag-handle toggle, the
+mode toggle and the logo give back the ~60px the avatar needed.
+`tests/narrowWindowLayout.test.cjs` pins all three.
+
+</details>
+
+and improves the changelog and the documentation:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5f9c32521">The changelog shows a short description, and hides the long one behind it</a>. Thanks to xet7.</summary>
+
+Every entry is a `<details>` now: the `<summary>` is a short description of what
+was done and IS the link to the commit — the hash is in the href, never on the
+page — and clicking it reveals the long description, wrapped at 80 columns. 977
+entries across every release were converted, the ones the old prose format had
+left malformed were repaired rather than carried over, and no URL or heading was
+lost. The top of the file became `# Platforms` (with its collapsible Version
+list) and `# TODO Later`, whose blocks carry no `Thanks to` because nothing
+there is done yet. [The rules are written down in
+CLAUDE.md](https://github.com/wekan/wekan/commit/73fcb3492), and
+`tests/changelogFormat.test.cjs` checks the whole file against them.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/364837d95">CLAUDE.md records how a Hall of Fame entry is written</a>. Thanks to xet7.</summary>
+
+The [wekan.fi Hall of Fame](https://wekan.fi/hall-of-fame/) page grew a row of
+[eight cells, one thing in
+each](https://github.com/wekan/wekan/commit/f5b1e063d) — CVE, [Icon beside
+it](https://github.com/wekan/wekan/commit/0f4401b38), Vulnerability name, Date,
+Responsible Security Disclosure by, Stars, Process, Vulnerabilities — with the
+[Process](https://github.com/wekan/wekan/commit/350d312f9) and Vulnerabilities
+cells collapsed behind their own summary, [the stars of a row on one
+line](https://github.com/wekan/wekan/commit/36a896e20) and [the icon beside its
+red drop on one](https://github.com/wekan/wekan/commit/8aa379f3d), [the
+reporter's nickname as the link to their
+GitHub](https://github.com/wekan/wekan/commit/b7904287a) — checked to exist
+before it is linked — and [no role note after a
+name](https://github.com/wekan/wekan/commit/d23398b61). All of it is stated in
+CLAUDE.md so the next security entry is written to fit rather than reconstructed
+from the file.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.38 2026-07-26 WeKan ® release
 
 This release fixes the following CRITICAL SECURITY ISSUES:
@@ -726,69 +835,6 @@ the container registries when a release image is published (#6526, merge commit
 </details>
 
 and fixes the following bugs:
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/eb56ea589">A narrow window gets the narrow-window layout, not only an explicit mobile mode</a>. Thanks to xet7.</summary>
-
-The phone/desktop toggle writes an explicit choice, and `Utils.isMiniScreen()`
-returns it as-is, so a phone whose user picked DESKTOP mode is not a mini screen
-and its body carries no `.mobile-mode` — while the viewport is still 375px wide.
-Three fixes written for one of those two therefore did nothing there. "Create
-board" opened 160px in with its right half off the screen, because the geometry
-laid it out as a floating box anchored to the button while the CSS made it the
-full width; the board bar's hamburger was pushed to a third row of its own; and
-the top bar was still wider than the screen, so the avatar was cut off. The popup
-is a sheet pinned to the corner at any viewport that narrow, the hamburger leaves
-the flow by width as well as by mode, and the drag-handle toggle, the mode toggle
-and the logo give back the ~60px the avatar needed.
-`tests/narrowWindowLayout.test.cjs` pins all three.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/08f4c80c7">The zoom number is inside its white pill again, and big enough to read</a>. Thanks to xet7.</summary>
-
-On a phone the pill was empty and "100" sat to the right of it in tiny type, half
-under the notification bell. The pill was allowed to shrink below its own
-contents, and a flex item that shrinks past its content does not clip it - the
-white background ends where the width says and the text carries on outside it. The
-pill is sized by what is in it now, and what is in it is made small instead. The
-tiny type was `font-size: 0.7em` of a 12px bar - about 8px, the smallest text on
-the page - now a plain 14px, which is also why the pill stays narrow. The base
-rule's 24px height cap, shorter than that text, is lifted so the number is
-centred. `tests/mobileAllBoardsFit.test.cjs` pins all of it.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/9f8287749">Admin Panel: /information and /translation showed the page you came from</a>. Thanks to xet7.</summary>
-
-Both old URLs are panes of Admin Panel / Settings now, and both redirected with
-`FlowRouter.go('setting')` called from INSIDE `triggersEnter`. A trigger runs
-while its own route is still entering, and a `go()` from there is swallowed - so
-nothing was rendered at all and whatever page the browser was showing simply
-stayed. Playwright caught it on every browser: /information showed All Boards. A
-trigger now redirects with the `redirect` it is handed, and each URL asks for the
-pane it used to be a page of, so the bookmark lands where it pointed.
-`tests/adminOldUrlRedirect.test.cjs` pins the redirect form and the pane.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/dea262ef6">All Boards on a phone fits the screen, and the board titles get their width back</a>. Thanks to xet7.</summary>
-
-The board titles were laid out two characters per line. Space for the drag
-handle - one absolutely-positioned circle - was reserved three times on the way
-down: on the list item, on the tile and on the text container, which is more than
-a ~97px phone tile has. It is reserved once now, and not at all when drag handles
-are off and no handle is rendered. The page could also be dragged sideways, with
-the avatar past the right edge: the quick-access bar is `nowrap` with
-`overflow: visible` and every item `flex-shrink: 0`, so a row wider than the
-screen spilled - and visible overflow is scrollable overflow. The zoom pill, by
-far the widest item, gives way instead, and `html { overflow-x: hidden }` on a
-phone is the guarantee. `tests/mobileAllBoardsFit.test.cjs` pins both.
-
-</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2973240a7">Clicking a card closes the one that was open, and keeping many open is a per-user setting</a>. Thanks to mimZD and xet7.</summary>
