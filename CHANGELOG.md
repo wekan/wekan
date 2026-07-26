@@ -760,6 +760,21 @@ and has the following developer-facing changes:
 
 and updates the documentation:
 
+- [`docs/Design/Multitenancy/Multitenancy.md` designs the alternatives to running
+  one WeKan Node.js server per customer. The shipped topology gives each tenant its
+  own `ROOT_URL`, database, `uws.port` and upgrade; this page works out what one
+  server serving many domains would cost, from WeKan's own code — the six things
+  such a process must solve and the Meteor 3 API for each (`Meteor.onConnection`'s
+  `httpHeaders` for the tenant, `WebApp.addRuntimeConfigHook` for the bundle's baked
+  in `ROOT_URL`, `Meteor.absoluteUrl`'s `rootUrl` override), and four alternatives
+  compared in a table: process per tenant, a tenant field with `mizzao:partitioner`,
+  a database per tenant in one process, and Organizations as tenants — which WeKan
+  already half has. The recommendation is to keep one process per tenant and reach
+  for Organizations when the tenants are groups of one organisation, because the
+  other two trade a merely tedious operational cost for a silent cross-tenant
+  disclosure risk across 46 collections and 66
+  publications](https://github.com/wekan/wekan/commit/fd12199e9).
+  Thanks to xet7.
 - [The Admin Panel documentation mirrors the Admin Panel menu: a menu path is a docs
   path, so Admin Panel / Settings / Visibility is
   `docs/Features/Admin-Panel/Settings/Visibility.md` and Admin Panel / People / Teams
