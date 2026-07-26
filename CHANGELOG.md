@@ -722,7 +722,7 @@ the container registries when a release image is published (#6526, merge commit
 and fixes the following bugs:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/34f8be22b">Admin Panel: /information and /translation showed the page you came from</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9f8287749">Admin Panel: /information and /translation showed the page you came from</a>. Thanks to xet7.</summary>
 
 Both old URLs are panes of Admin Panel / Settings now, and both redirected with
 `FlowRouter.go('setting')` called from INSIDE `triggersEnter`. A trigger runs
@@ -736,7 +736,7 @@ pane it used to be a page of, so the bookmark lands where it pointed.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/6e3d19bd9">All Boards on a phone fits the screen, and the board titles get their width back</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/dea262ef6">All Boards on a phone fits the screen, and the board titles get their width back</a>. Thanks to xet7.</summary>
 
 The board titles were laid out two characters per line. Space for the drag
 handle - one absolutely-positioned circle - was reserved three times on the way
