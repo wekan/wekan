@@ -722,6 +722,36 @@ the container registries when a release image is published (#6526, merge commit
 and fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/34f8be22b">Admin Panel: /information and /translation showed the page you came from</a>. Thanks to xet7.</summary>
+
+Both old URLs are panes of Admin Panel / Settings now, and both redirected with
+`FlowRouter.go('setting')` called from INSIDE `triggersEnter`. A trigger runs
+while its own route is still entering, and a `go()` from there is swallowed - so
+nothing was rendered at all and whatever page the browser was showing simply
+stayed. Playwright caught it on every browser: /information showed All Boards. A
+trigger now redirects with the `redirect` it is handed, and each URL asks for the
+pane it used to be a page of, so the bookmark lands where it pointed.
+`tests/adminOldUrlRedirect.test.cjs` pins the redirect form and the pane.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6e3d19bd9">All Boards on a phone fits the screen, and the board titles get their width back</a>. Thanks to xet7.</summary>
+
+The board titles were laid out two characters per line. Space for the drag
+handle - one absolutely-positioned circle - was reserved three times on the way
+down: on the list item, on the tile and on the text container, which is more than
+a ~97px phone tile has. It is reserved once now, and not at all when drag handles
+are off and no handle is rendered. The page could also be dragged sideways, with
+the avatar past the right edge: the quick-access bar is `nowrap` with
+`overflow: visible` and every item `flex-shrink: 0`, so a row wider than the
+screen spilled - and visible overflow is scrollable overflow. The zoom pill, by
+far the widest item, gives way instead, and `html { overflow-x: hidden }` on a
+phone is the guarantee. `tests/mobileAllBoardsFit.test.cjs` pins both.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2973240a7">Clicking a card closes the one that was open, and keeping many open is a per-user setting</a>. Thanks to mimZD and xet7.</summary>
 
 Clicking a card closes the one that was open, and keeping many open is a
