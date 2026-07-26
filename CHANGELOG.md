@@ -271,6 +271,21 @@ browser build to verify).
 This release fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/88d776e21">The avatar lines up with the bell, and "My Boards" is back at the left</a>. Thanks to xet7.</summary>
+
+The avatar sat above the bell and against the right edge: its wrapper carries
+`top: -5px` from the desktop bar, and `#header-user-bar` carries 10px of
+padding on each side — 20px of a 375px bar spent on nothing. Neither applies on
+a phone now, and the chips behind the mode-toggle icons are trimmed to match.
+"My Boards" had moved to the middle of the second header bar, which was a
+scoping mistake: the phone rule that makes the All Boards page a flex column
+was written for a bare `.wrapper`, and header.jade puts `wrapper` on
+`#header-main-bar` on every page that is not a board — so the bar became a flex
+column and centred its items. It is scoped to `#content .wrapper` now.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5741ec7c2">The board bar reads left to right, and the header says which mode you are in</a>. Thanks to xet7.</summary>
 
 Four things on a phone, all the same in mobile mode and desktop mode. The
