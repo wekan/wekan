@@ -37,9 +37,17 @@ test('the Admin Panel styles its native checkboxes itself', () => {
   const box = rule(admin, '.setting-content input[type="checkbox"] {');
   assert.ok(/appearance: none;/.test(box) && /-webkit-appearance: none;/.test(box),
     'the browser\'s own rendering is taken out of it - that was the orange box');
-  // …and they are visible at all, which the app-wide rule otherwise prevents.
-  assert.ok(/visibility: visible;/.test(box) && /display: inline-block;/.test(box),
-    'and they are shown, which forms.css hides app-wide');
+  // …and they are visible at all, which the app-wide rule otherwise prevents. It
+  // hides in THREE ways - display, visibility and a -9999px inline offset - so all
+  // three must be undone. Undoing two leaves the box 9999px to the side: invisible
+  // when unchecked, and visible when checked only because the checked state sets its
+  // own offset. "Only the tick shows" is what that looks like.
+  const hide = rule(forms, '[type="checkbox"]:not(:checked),');
+  for (const prop of ['display', 'visibility', 'inset-inline-start']) {
+    assert.ok(new RegExp(`${prop}:`).test(hide), `the app-wide rule hides with ${prop}`);
+    assert.ok(new RegExp(`${prop}:`).test(box), `so the Admin Panel must undo ${prop}`);
+  }
+  assert.ok(/inset-inline-start: auto;/.test(box), 'the offset is undone, not repeated');
   assert.ok(/\[type="checkbox"\]:not\(:checked\),\n\[type="checkbox"\]:checked \{[\s\S]*?display: none;/.test(forms),
     'the app-wide hiding rule is still there for everything outside the Admin Panel');
 });

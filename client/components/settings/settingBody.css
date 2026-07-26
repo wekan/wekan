@@ -274,9 +274,16 @@
    of it. If these panes ever move to the `.materialCheckBox` markup, this whole
    block can go. */
 .setting-content input[type="checkbox"] {
-  /* Beat the app-wide "hide the native checkbox" rule for the Admin Panel only. */
+  /* Beat the app-wide "hide the native checkbox" rule for the Admin Panel only.
+   * That rule hides in three ways at once - display, visibility, AND a
+   * `inset-inline-start: -9999px` offset - so all three have to be undone. Undoing
+   * two of them leaves the box on screen but 9999px to the side: invisible when
+   * unchecked, and visible when checked ONLY because the checked state below sets
+   * its own -3px offset. That is exactly what "only the tick shows" was. */
   visibility: visible;
   display: inline-block;
+  inset-inline-start: auto;
+  top: auto;
   appearance: none;
   -webkit-appearance: none;
   box-sizing: content-box;
