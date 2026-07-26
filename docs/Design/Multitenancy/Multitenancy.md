@@ -150,10 +150,25 @@ alone. It supports Meteor 3's async collection API.
 
 ### C. One process, one database per tenant
 
+**The database side is exactly what is shipped today**: one MongoDB server (or
+replica set) holding one database per tenant —
+
+```
+mongodb://127.0.0.1:27017/wekan_tenant1?replicaSet=rs0
+mongodb://127.0.0.1:27017/wekan_tenant2?replicaSet=rs0
+```
+
+— which is `docker-compose-multitenancy.yml` unchanged. What differs from (A) is
+only the Node side: **one** process opens **all** of those databases instead of
+*n* processes opening one each.
+
 Meteor can hold more than one Mongo connection: `new
 MongoInternals.RemoteCollectionDriver(url, { oplogUrl })` gives a driver, and
 `new Mongo.Collection(name, { _driver: driver })` binds a collection to it — with
-oplog tailing on that connection too.
+oplog tailing on that connection too. Each driver takes a **full** connection URL,
+so one server with many databases is the common case rather than a requirement:
+a large tenant can be moved to its own `mongod`, or its own host, without the
+others noticing.
 
 - **Buys**: the data separation of the baseline (a query cannot cross a database)
   with one process, and per-tenant backup/restore stays exactly what it is today.
