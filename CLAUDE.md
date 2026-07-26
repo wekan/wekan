@@ -274,8 +274,8 @@ All publishing / release steps below are maintainer-only. Contributors never run
 - Fix the vulnerability, add a CRITICAL section to the WeKan CHANGELOG like previous
   entries, and update `../w/wekan.fi/hall-of-fame/index.html` and the vuln-name
   subdirectory `index.html` like previous security issues.
-- **A Hall of Fame row has EIGHT cells**, in this order: CVE, Vulnerability name,
-  Icon, Date, Responsible Security Disclosure by, Stars, Process, Vulnerabilities.
+- **A Hall of Fame row has EIGHT cells**, in this order: CVE, Icon, Vulnerability
+  name, Date, Responsible Security Disclosure by, Stars, Process, Vulnerabilities.
   One thing per cell — the name without its icons, the Font Awesome icons alone in
   Icon (still wrapped in `<h2>`), the reporter alone in "by", the `GoldStar.png`
   images alone in Stars, and the sentence about how the report arrived (coordinated
