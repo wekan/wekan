@@ -271,6 +271,26 @@ browser build to verify).
 This release fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5741ec7c2">The board bar reads left to right, and the header says which mode you are in</a>. Thanks to xet7.</summary>
+
+Four things on a phone, all the same in mobile mode and desktop mode. The
+board's buttons started on a row of their own under the title, because every
+group is one flex item and moves as a block; on a phone the groups are
+`display: contents`, so each button is a flex item of the bar and they start
+right of the title. The sidebar hamburger sat on a row below them although two
+rules were meant to pin it to the top right corner — they were scoped to
+`body.board-view`, a class written in 67 CSS rules and set by NO code, so they
+had never applied; the width-based copy asks
+`:has(.board-header-sidebar-toggle)` instead. The mobile/desktop toggle did not
+say which mode was on: #000 against #666 at 14px is no difference, so the
+current side is a filled chip in the active theme with a white glyph and the
+other is faded. And the avatar sat higher than the bell — a bottom margin lifts
+an item by half of it in a centred row — while its initials sat low in the
+circle, at `y="11"` of a 15-unit viewBox with a font-size taller than the box.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0af0912a6">All Boards on a phone: the board list scrolls to its last board</a>. Thanks to mimZD and xet7.</summary>
 
 Reported against 10.10, again against 10.37, and again against 10.38 after two
