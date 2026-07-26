@@ -274,6 +274,31 @@ All publishing / release steps below are maintainer-only. Contributors never run
 - Fix the vulnerability, add a CRITICAL section to the WeKan CHANGELOG like previous
   entries, and update `../w/wekan.fi/hall-of-fame/index.html` and the vuln-name
   subdirectory `index.html` like previous security issues.
+- **On the Hall of Fame index page, the Vulnerabilities cell is collapsed.** That
+  column carries the whole story of every vulnerability, so the page would be one
+  wall of text and the columns that identify a row — CVE, name, date, reporter —
+  would be far apart. In `hall-of-fame/index.html`, and ONLY in the LAST `<td>` of a
+  row, the cell's content sits inside a `<details>`:
+
+  ```
+  <td valign="top">
+    <details>
+    <summary>Details</summary>
+
+    <ul>
+      <li>… the same list as before …</li>
+    </ul>
+    </details>
+  </td>
+  ```
+
+  The summary is the plain word `Details`, there is a blank line under it, and the
+  cell's contents are otherwise unchanged. The other four cells of the row stay as
+  they are — they are what a reader scans — and so does the header row.
+- **The vuln-name subdirectory page is NOT collapsed.** `hall-of-fame/<name>bleed/index.html`
+  is the page a reader opened on purpose, for one vulnerability: its table cell stays
+  open and its `<h2 class="hof">Details</h2>` prose section below the table stays as
+  it is. Only the index, which lists them all, hides them behind the summary.
 
 ### Tests
 
