@@ -1371,7 +1371,10 @@ body.mobile-mode #header-quick-access .allBoards {
   .iphone-device body:not(.board-view) #header-quick-access .zoom-controls,
   .iphone-device body:not(.board-view) #header-quick-access .zoom-controls .zoom-level,
   .iphone-device body:not(.board-view) #header-quick-access .zoom-controls .zoom-input {
-    font-size: 0.7em !important; /* ~30% smaller than surrounding text */
+    /* Was `0.7em`, which on a 12px bar is ~8px: the zoom number was smaller than
+       anything else in the bar and hard to read on a phone. A fixed 14px is the
+       size the rest of the bar's text is, and it still keeps the pill narrow. */
+    font-size: 14px !important;
   }
 
   /* ── One-row quick-access bar on phones (#6522) ─────────────────────────────
@@ -1624,31 +1627,56 @@ body.mobile-mode #header-quick-access .allBoards {
 
    So the widest items give way instead. The zoom pill was the biggest by far:
    an 80px fixed input plus its own padding took ~113px of a 375px bar, more than
-   the home icon, the mode toggle and the bell together. "100%" fits in half of
-   that, and the pill may now shrink if a translation or a custom logo needs the
-   room. The bell and the avatar never shrink - they are the two the user came
-   for, and they are last in the row, so they are what an overflow pushes out. */
+   the home icon, the mode toggle and the bell together. "100%" needs about half
+   of that. The bell and the avatar never shrink - they are the two the user came
+   for, and they are last in the row, so they are what an overflow pushes out.
+
+   The pill itself must NOT shrink below its contents, only be smaller: letting it
+   (`flex: 0 1 auto; min-width: 0`) put the white rounded background at one width
+   and the number at another - "100%" was laid out to the RIGHT of the white area,
+   in tiny type, half of it under the notification bell. The pill is sized by what
+   is in it, and what is in it is made small: a compact "100%" at the bar's own
+   text size, and a 46px input for when it is clicked to be edited. */
 @media screen and (max-width: 800px),
        screen and (max-device-width: 800px),
        screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
   #header-quick-access .zoom-controls {
     margin: 0 4px !important;
-    padding: 2px 4px;
-    min-width: 0;
-    flex: 0 1 auto !important;
+    /* `!important` throughout: the "Make zoom controls larger" block above sets
+       21px of padding and 21px of margin with `!important` at this very width. */
+    padding: 2px 6px !important;
+    /* Exactly as wide as the number inside it - never narrower. */
+    flex: 0 0 auto !important;
+    justify-content: center !important;
+    /* The base rule caps the pill at 24px, which is shorter than 14px text with
+       padding, so the number sat against the top edge of the white area. */
+    max-height: none !important;
+    align-items: center !important;
   }
 
   #header-quick-access .zoom-controls .zoom-input {
-    /* Was a fixed 80 pixels; "100" needs about half of that. */
+    /* Was a fixed 80 pixels; three digits need about half of that. */
     width: 46px !important;
-    min-width: 0 !important;
-    flex: 0 1 46px !important;
+    min-width: 46px !important;
+    flex: 0 0 46px !important;
     padding: 3px 2px;
+    font-size: 14px !important;
   }
 
+  /* The number the user reads. It is the pill's whole content when the input is
+     hidden, so it sets the pill's width: readable, and no wider than it needs. */
   #header-quick-access .zoom-controls .zoom-level {
-    min-width: 0;
-    padding: 3px 4px;
+    flex: 0 0 auto !important;
+    min-width: 40px !important;
+    padding: 2px 4px !important;
+    font-size: 14px !important;
+    line-height: 1.2 !important;
+    white-space: nowrap;
+  }
+
+  #header-quick-access .zoom-controls .zoom-display {
+    font-size: 14px !important;
+    white-space: nowrap;
   }
 
   #header-quick-access .mobile-mode-toggle {

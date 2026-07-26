@@ -108,10 +108,34 @@ test('the quick-access bar gives way instead of spilling off the phone', () => {
   const width = /(?<![-\w])width:\s*(\d+)px/.exec(input[1]);
   assert.ok(width && Number(width[1]) <= 50,
     `the zoom input was a fixed 80px of a 375px bar, found ${width && width[1]}px`);
-  assert.ok(/flex: 0 1 /.test(input[1]), 'and it may now shrink');
   // The two the user actually came for stay put, at the end of the row.
   assert.ok(/#header-quick-access #notifications,\s*\n\s*#header-quick-access #header-user-bar \{[\s\S]*?flex-shrink: 0/.test(block),
     'the bell and the avatar never shrink');
+});
+
+test('the zoom number stays INSIDE its white pill, and is readable', () => {
+  // Letting the pill shrink below its contents put the white rounded background
+  // at one width and the number at another: "100%" was laid out to the right of
+  // the pill, in tiny type, half of it under the notification bell.
+  const block = header.slice(header.indexOf('The quick-access bar must FIT the phone'));
+  const pill = /#header-quick-access \.zoom-controls \{([\s\S]*?)\}/.exec(block);
+  assert.ok(pill, 'the pill must be sized here');
+  assert.ok(/flex: 0 0 auto !important;/.test(pill[1]),
+    'the pill is as wide as what is in it - never narrower');
+  assert.ok(/max-height: none !important;/.test(pill[1]),
+    'and not capped shorter than its own text, which pushed the number up');
+  const level = /#header-quick-access \.zoom-controls \.zoom-level \{([\s\S]*?)\}/.exec(block);
+  assert.ok(level && /flex: 0 0 auto !important;/.test(level[1]),
+    'the number does not shrink either');
+  // Nothing may set the zoom text in a relative size small enough to vanish: the
+  // old `0.7em` of a 12px bar was ~8px, the smallest text on the page.
+  const relative = [...header.matchAll(/zoom-(?:level|input|controls)[^{}]*\{[^{}]*font-size:\s*(0?\.\d+)em/g)];
+  assert.deepStrictEqual(relative.map(m => m[1]), [],
+    'the zoom number is sized in px, not in a fraction of an already small bar');
+  for (const m of header.matchAll(/\.zoom-(?:level|display) \{([^{}]*)\}/g)) {
+    const size = /(?<![-\w])font-size:\s*(\d+)px/.exec(m[1]);
+    if (size) assert.ok(Number(size[1]) >= 12, `the number must be readable, found ${size[1]}px`);
+  }
 });
 
 test('and the page itself can never be dragged sideways on a phone', () => {
