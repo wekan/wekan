@@ -126,10 +126,34 @@ test('the Admin Panel Save buttons are one button, in the panes and in the popup
   // in a flex row, and the `.wide` that was meant to size it never applied - the rule
   // for it in forms.css is a DESCENDANT selector, which an input can never match.
   const save = rule(admin, '.setting-content .content-body .main-body .setting-detail button.primary,');
-  for (const popup of ['editUserPopup', 'editOrgPopup', 'editTeamPopup']) {
+  // Every Admin Panel popup that has a Save, not just some of them.
+  const POPUPS = ['editUserPopup', 'editOrgPopup', 'editTeamPopup', 'newUserPopup',
+    'newOrgPopup', 'newTeamPopup', 'editTranslationPopup', 'newTranslationPopup'];
+  for (const popup of POPUPS) {
     assert.ok(save.includes(`.pop-over[data-popup='${popup}'] .buttonsContainer input[type="submit"].primary`),
       `${popup}'s Save is styled with the panes' Save, not separately`);
   }
+  // …and that list is the popups that actually have one: an Admin Panel template
+  // with a `.buttonsContainer` submit must be in it, or its Save is left plain.
+  const templates = ['client/components/settings/peopleBody.jade',
+    'client/components/settings/translationBody.jade'];
+  for (const file of templates) {
+    const jade = read(file);
+    let current = null;
+    for (const line of jade.split('\n')) {
+      const m = /^template\(name="(\w+)"\)/.exec(line.trim());
+      if (m) current = m[1];
+      if (!/input\.primary\.wide\(type="submit"/.test(line)) continue;
+      // modifyTeamsUsers is a panel inside the People pane, not a popup of its own.
+      if (current === 'modifyTeamsUsers') continue;
+      assert.ok(POPUPS.includes(current),
+        `${current} has a Save and must be styled with the others`);
+    }
+  }
+  // The board sidebar and the member menu use .buttonsContainer too - those are not
+  // Admin Panel buttons, which is why the popups are named one by one.
+  assert.ok(!/\.pop-over \.buttonsContainer input/.test(admin),
+    'the rule must not claim every popup in the app');
   assert.ok(/background: var\(--theme-accent, #005377\);/.test(save),
     'the theme accent, like every other Admin Panel button');
   assert.ok(/padding: 9px 35px;/.test(save) && /font-weight: 700;/.test(save),

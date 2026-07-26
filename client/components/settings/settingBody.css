@@ -417,23 +417,29 @@ body.grey-icons-enabled .setting-content input[type="checkbox"]:checked {
 
 /* ── Save ────────────────────────────────────────────────────────────────────
    One Save button look for the whole Admin Panel: the panes' own Save (People /
-   E-mail, Visibility, …) and the Save inside the Admin Panel's edit popups (Edit
-   User, Edit Organization, Edit Team).
+   Login, People / E-mail, Visibility, …) and the Save inside every Admin Panel
+   popup - Edit and New for User, Organization, Team and Translation.
 
-   The panes' Save is a `button.primary`, which forms.css themes. The popups' is an
+   The panes' Save is a `button.primary`, which forms.css themes. A popup's is an
    `input[type=submit].primary.wide` sitting in a flex `.buttonsContainer` - and
    `.wide` never reached it, because the rule for it in forms.css is written as a
    DESCENDANT selector (`input[type="submit"] .wide`), which matches nothing: an
-   input has no children. So the popup Save was the same colour but a different,
+   input has no children. So a popup's Save was the same colour but a different,
    cramped size, wherever it landed in the row.
 
-   Both are listed here with the same declarations, taken from what the panes'
-   Save already looks like, so the two cannot drift apart again. The colour is the
-   theme accent, as everywhere else in the panel. */
+   Both are listed here with the same declarations, taken from what the panes' Save
+   already looks like, so the two cannot drift apart again. The popups are named one
+   by one on purpose: `.buttonsContainer` is board-sidebar and member-menu markup
+   too, and those are not Admin Panel buttons. */
 .setting-content .content-body .main-body .setting-detail button.primary,
 .pop-over[data-popup='editUserPopup'] .buttonsContainer input[type="submit"].primary,
 .pop-over[data-popup='editOrgPopup'] .buttonsContainer input[type="submit"].primary,
-.pop-over[data-popup='editTeamPopup'] .buttonsContainer input[type="submit"].primary {
+.pop-over[data-popup='editTeamPopup'] .buttonsContainer input[type="submit"].primary,
+.pop-over[data-popup='newUserPopup'] .buttonsContainer input[type="submit"].primary,
+.pop-over[data-popup='newOrgPopup'] .buttonsContainer input[type="submit"].primary,
+.pop-over[data-popup='newTeamPopup'] .buttonsContainer input[type="submit"].primary,
+.pop-over[data-popup='editTranslationPopup'] .buttonsContainer input[type="submit"].primary,
+.pop-over[data-popup='newTranslationPopup'] .buttonsContainer input[type="submit"].primary {
   background: var(--theme-accent, #005377);
   color: #fff;
   border: none;
@@ -448,9 +454,19 @@ body.grey-icons-enabled .setting-content input[type="checkbox"]:checked {
 .pop-over[data-popup='editUserPopup'] .buttonsContainer input[type="submit"].primary:hover,
 .pop-over[data-popup='editOrgPopup'] .buttonsContainer input[type="submit"].primary:hover,
 .pop-over[data-popup='editTeamPopup'] .buttonsContainer input[type="submit"].primary:hover,
+.pop-over[data-popup='newUserPopup'] .buttonsContainer input[type="submit"].primary:hover,
+.pop-over[data-popup='newOrgPopup'] .buttonsContainer input[type="submit"].primary:hover,
+.pop-over[data-popup='newTeamPopup'] .buttonsContainer input[type="submit"].primary:hover,
+.pop-over[data-popup='editTranslationPopup'] .buttonsContainer input[type="submit"].primary:hover,
+.pop-over[data-popup='newTranslationPopup'] .buttonsContainer input[type="submit"].primary:hover,
 .pop-over[data-popup='editUserPopup'] .buttonsContainer input[type="submit"].primary:focus,
 .pop-over[data-popup='editOrgPopup'] .buttonsContainer input[type="submit"].primary:focus,
-.pop-over[data-popup='editTeamPopup'] .buttonsContainer input[type="submit"].primary:focus {
+.pop-over[data-popup='editTeamPopup'] .buttonsContainer input[type="submit"].primary:focus,
+.pop-over[data-popup='newUserPopup'] .buttonsContainer input[type="submit"].primary:focus,
+.pop-over[data-popup='newOrgPopup'] .buttonsContainer input[type="submit"].primary:focus,
+.pop-over[data-popup='newTeamPopup'] .buttonsContainer input[type="submit"].primary:focus,
+.pop-over[data-popup='editTranslationPopup'] .buttonsContainer input[type="submit"].primary:focus,
+.pop-over[data-popup='newTranslationPopup'] .buttonsContainer input[type="submit"].primary:focus {
   background: var(--theme-accent, #004766);
   color: #fff;
 }
@@ -458,23 +474,38 @@ body.grey-icons-enabled .setting-content input[type="checkbox"]:checked {
 .setting-content .content-body .main-body .setting-detail button.primary:active,
 .pop-over[data-popup='editUserPopup'] .buttonsContainer input[type="submit"].primary:active,
 .pop-over[data-popup='editOrgPopup'] .buttonsContainer input[type="submit"].primary:active,
-.pop-over[data-popup='editTeamPopup'] .buttonsContainer input[type="submit"].primary:active {
+.pop-over[data-popup='editTeamPopup'] .buttonsContainer input[type="submit"].primary:active,
+.pop-over[data-popup='newUserPopup'] .buttonsContainer input[type="submit"].primary:active,
+.pop-over[data-popup='newOrgPopup'] .buttonsContainer input[type="submit"].primary:active,
+.pop-over[data-popup='newTeamPopup'] .buttonsContainer input[type="submit"].primary:active,
+.pop-over[data-popup='editTranslationPopup'] .buttonsContainer input[type="submit"].primary:active,
+.pop-over[data-popup='newTranslationPopup'] .buttonsContainer input[type="submit"].primary:active {
   background: var(--theme-accent, #01628c);
   color: #fff;
 }
 
-/* The popups' Save is the only thing in its row, so it takes the row - which is
-   what `.wide` was for. It stops well short of a 1000px-wide popup's full width so
-   it stays a button rather than a bar. */
+/* A popup's Save is the only thing in its row, so it takes the row - which is what
+   `.wide` was for. It stops well short of a wide popup's full width so it stays a
+   button rather than a bar. */
 .pop-over[data-popup='editUserPopup'] .buttonsContainer,
 .pop-over[data-popup='editOrgPopup'] .buttonsContainer,
-.pop-over[data-popup='editTeamPopup'] .buttonsContainer {
+.pop-over[data-popup='editTeamPopup'] .buttonsContainer,
+.pop-over[data-popup='newUserPopup'] .buttonsContainer,
+.pop-over[data-popup='newOrgPopup'] .buttonsContainer,
+.pop-over[data-popup='newTeamPopup'] .buttonsContainer,
+.pop-over[data-popup='editTranslationPopup'] .buttonsContainer,
+.pop-over[data-popup='newTranslationPopup'] .buttonsContainer {
   margin-top: 6px;
 }
 
 .pop-over[data-popup='editUserPopup'] .buttonsContainer input[type="submit"].primary,
 .pop-over[data-popup='editOrgPopup'] .buttonsContainer input[type="submit"].primary,
-.pop-over[data-popup='editTeamPopup'] .buttonsContainer input[type="submit"].primary {
+.pop-over[data-popup='editTeamPopup'] .buttonsContainer input[type="submit"].primary,
+.pop-over[data-popup='newUserPopup'] .buttonsContainer input[type="submit"].primary,
+.pop-over[data-popup='newOrgPopup'] .buttonsContainer input[type="submit"].primary,
+.pop-over[data-popup='newTeamPopup'] .buttonsContainer input[type="submit"].primary,
+.pop-over[data-popup='editTranslationPopup'] .buttonsContainer input[type="submit"].primary,
+.pop-over[data-popup='newTranslationPopup'] .buttonsContainer input[type="submit"].primary {
   flex: 1 1 auto;
   max-width: 320px;
 }
