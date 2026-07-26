@@ -141,10 +141,26 @@ pushed to Transifex as if it were human.
   `package.json` or any other version reference — the release workflow bumps those.
 - WeKan Upcoming structure — CRITICAL SECURITY ISSUES first, then new features, then
   updates (`Thanks to dependabot.`), then bug fixes; each bullet is
-  `- [desc](https://github.com/wekan/wekan/commit/...).` followed by
-  `Thanks to (issue creator's GitHub nickname) and xet7.`, and the section ends with
-  `Thanks to above GitHub users for their contributions and translators for their
-  translations.`
+
+  ```
+  - <one-line title> ([<short hash>](https://github.com/wekan/wekan/commit/<short hash>)).
+    Thanks to (issue creator's GitHub nickname) and xet7.
+  ```
+
+  and the section ends with `Thanks to above GitHub users for their contributions and
+  translators for their translations.`
+- **A CHANGELOG entry is a TITLE, not the story (#6524).** One line, at a glance:
+  what changed, where. Aim for ≤ 110 characters of visible text and never write a
+  paragraph — the long explanation belongs in the COMMIT MESSAGE, which the link
+  points at. If a reader wants the reasoning, the root cause, the guard that was
+  added or the test that pins it, they open the commit. So: write the commit message
+  as long as it needs to be, and the changelog line as short as it can be.
+- **Commit hashes are the link text**, as the SHORT hash (9 characters), and the URL
+  uses the same short hash: `([f1c89548e](https://github.com/wekan/wekan/commit/f1c89548e))`.
+  Not `[merge commit](…)`, not a long description wrapped around the URL.
+- **Never show a long URL as visible text.** A link is always
+  `[short text](url)` — an issue is `[#6524](…/issues/6524)`, an advisory is
+  `[GHSA-xxxx](…)`, a security page is `[ZipBleed](https://wekan.fi/hall-of-fame/zipbleed/)`.
 - **Subsection headers read as ONE flowing sentence.** The FIRST subsection of a release
   starts with `This release ` (e.g. `This release fixes the following bugs:`); every LATER
   subsection in the SAME release starts with a lowercase `and ` instead of repeating
@@ -183,8 +199,9 @@ pushed to Transifex as if it were human.
   the releases; everything else uses the per-release commit-link bullets above.
 - FerretDB Upcoming structure — `### New Features 🎉`, `### Fixed 🐛`, `### Other Changes
   🤖`; entries end `... by @xet7. Thanks to xet7.`
-- Word-wrap both CHANGELOGs at ~80 chars, but never break a long link across lines (a
-  link line may be longer).
+- Word-wrap both CHANGELOGs at 80 chars, but never break a long link across lines (a
+  line carrying a link may be longer). Continuation lines of a bullet are indented by
+  two spaces, and `Thanks to …` is its own line at the end of the bullet.
 
 ### Commit message structure
 
