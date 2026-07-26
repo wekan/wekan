@@ -296,6 +296,17 @@ Users.attachSchema(
       type: Boolean,
       optional: true,
     },
+    'profile.openManyCardsAtOnce': {
+      /**
+       * #6531: per-user preference. OFF by default, which is what clicking a card
+       * has always been expected to do - open THAT card, closing the one that was
+       * open. Turned on, every clicked card stays open as its own draggable window,
+       * which is what WeKan did unconditionally and what the issue reported as a
+       * bug: the previous card simply never closed.
+       */
+      type: Boolean,
+      optional: true,
+    },
     'profile.GreyIcons': {
       /**
        * per-user preference to render unicode icons in grey
@@ -1500,6 +1511,13 @@ Users.helpers({
   hasSubmitOnEnter() {
     const profile = this.profile || {};
     return profile.submitOnEnter || false;
+  },
+
+  // #6531: does this user want several cards open at once? Off by default, so a
+  // click opens the card it was aimed at and closes the previous one.
+  hasOpenManyCardsAtOnce() {
+    const profile = this.profile || {};
+    return profile.openManyCardsAtOnce || false;
   },
 
   hasGreyIcons() {

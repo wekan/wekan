@@ -247,6 +247,15 @@ template(name="changeSettingsPopup")
         | {{_ 'submit-on-enter'}}
         if isSubmitOnEnter
           i.fa.fa-check
+    li
+      //- #6531: off by default - a click opens the card it was aimed at and closes
+      //- the one before it. Turned on, every clicked card stays open in its own
+      //- draggable window.
+      a.js-toggle-open-many-cards-at-once(title="{{_ 'open-many-cards-at-once-description'}}")
+        i.fa.fa-clone
+        | {{_ 'open-many-cards-at-once'}}
+        if isOpenManyCardsAtOnce
+          i.fa.fa-check
     unless currentUser.isWorker
       li
         label.bold.clear

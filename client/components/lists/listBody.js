@@ -25,6 +25,30 @@ import autosize from 'autosize';
 // SubsManager removed for Meteor 3 migration
 const InfiniteScrollIter = 10;
 
+// #6531: opening a card from the board.
+//
+// A click used to APPEND the card to the open-cards list, so the card that was
+// already open stayed open - which is not what clicking another card means, and was
+// reported as the bug it looks like: "click on another card doesn't close last
+// opened card".
+//
+// A click now opens THAT card and closes the previous one. Keeping several open at
+// the same time is still possible, as the per-user setting it should always have
+// been: Member Settings / "Open many cards at once"
+// (`profile.openManyCardsAtOnce`), off by default.
+function openCardWindow(cardId) {
+  const user = ReactiveCache.getCurrentUser();
+  const many = !!(user && user.hasOpenManyCardsAtOnce && user.hasOpenManyCardsAtOnce());
+  if (!many) {
+    Session.set('openCards', [cardId]);
+    return;
+  }
+  const openCards = Session.get('openCards') || [];
+  if (!openCards.includes(cardId)) {
+    Session.set('openCards', [...openCards, cardId]);
+  }
+}
+
 Template.listBody.onCreated(function () {
   // for infinite scrolling
   this.cardlimit = new ReactiveVar(InfiniteScrollIter);
@@ -231,10 +255,7 @@ Template.listBody.onCreated(function () {
       Session.delete('popupCardId');
       Session.delete('popupCardBoardId');
       Session.set('currentCard', card._id);
-      const openCards = Session.get('openCards') || [];
-      if (!openCards.includes(card._id)) {
-        Session.set('openCards', [...openCards, card._id]);
-      }
+      openCardWindow(card._id);
       return;
     }
 
@@ -251,10 +272,7 @@ Template.listBody.onCreated(function () {
       // we'll handle it by directly setting the session
       evt.preventDefault();
       Session.set('currentCard', card._id);
-      const openCards = Session.get('openCards') || [];
-      if (!openCards.includes(card._id)) {
-        Session.set('openCards', [...openCards, card._id]);
-      }
+      openCardWindow(card._id);
     }
   };
 

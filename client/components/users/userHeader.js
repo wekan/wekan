@@ -326,6 +326,10 @@ Template.changeSettingsPopup.helpers({
     const currentUser = ReactiveCache.getCurrentUser();
     return currentUser ? currentUser.hasSubmitOnEnter() : false;
   },
+  isOpenManyCardsAtOnce() {
+    const currentUser = ReactiveCache.getCurrentUser();
+    return currentUser ? currentUser.hasOpenManyCardsAtOnce() : false;
+  },
   rescueCardDescription() {
     const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
@@ -393,6 +397,13 @@ Template.changeSettingsPopup.events({
     // Saved to the user profile (Member Settings only; requires a logged-in user).
     if (ReactiveCache.getCurrentUser()) {
       Meteor.call('toggleSubmitOnEnter');
+    }
+  },
+  // #6531: keep every clicked card open, instead of the click closing the previous
+  // one. Saved to the user profile, like the setting above it.
+  'click .js-toggle-open-many-cards-at-once'() {
+    if (ReactiveCache.getCurrentUser()) {
+      Meteor.call('toggleOpenManyCardsAtOnce');
     }
   },
   'click .js-rescue-card-description'() {
