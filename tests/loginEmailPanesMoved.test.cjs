@@ -100,17 +100,16 @@ test('Settings opens on a pane it still has', () => {
   // another pane leaves the page opening on nothing at all. Visibility took that
   // role when Login moved out; Version has it now that Version is a pane of this
   // page and its first entry (docs/Design/Page/Left-Menu.md).
-  // Multitenancy option D: the site admin still opens on Version, and an
-  // Organization's own admin - who has no Version pane - opens on Visibility, their
-  // only Settings pane. One flag decides, so exactly one of the two starts open.
-  assert.ok(/this\.versionSetting = new ReactiveVar\(siteAdmin\)/.test(settingsJs),
+  assert.ok(/this\.versionSetting = new ReactiveVar\(true\)/.test(settingsJs),
     'Version is the first pane now, so it is the one that opens');
-  assert.ok(/this\.tableVisibilityModeSetting = new ReactiveVar\(!siteAdmin\)/.test(settingsJs),
-    'and the other one opens for an admin who has no Version pane');
-  const alwaysOpen = settingsJs.match(/this\.\w+Setting\w* = new ReactiveVar\(true\)/g) || [];
-  assert.strictEqual(alwaysOpen.length, 0, 'no pane may start open unconditionally');
-  const flagged = settingsJs.match(/this\.\w+Setting\w* = new ReactiveVar\(!?siteAdmin\)/g) || [];
-  assert.strictEqual(flagged.length, 2, 'exactly one pane may start open, either way');
+  const others = settingsJs.match(/this\.\w+Setting\w* = new ReactiveVar\(true\)/g) || [];
+  assert.strictEqual(others.length, 1, 'exactly one pane may start open');
+  // Multitenancy option D moves it to Visibility for an Organization's own admin,
+  // who has no Version pane - in an autorun, once the user is known. Deciding that
+  // at onCreated read a user document that has often not arrived, which opened the
+  // wrong pane for the site admin too.
+  assert.ok(/this\.openPaneDecided = false;/.test(settingsJs),
+    'and the exception is decided once the user is known, not at onCreated');
 });
 
 test('each pane took its handlers with it', () => {

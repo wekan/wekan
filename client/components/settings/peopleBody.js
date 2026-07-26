@@ -52,15 +52,12 @@ Template.people.onCreated(function () {
 
   this.error = new ReactiveVar('');
   this.loading = new ReactiveVar(false);
-  // Multitenancy option D (D.7): the page opens on the first entry of the menu THIS
-  // user has. For the site admin that is Login, as before; a per-tenant Global
-  // Admin has no Login pane, so they open on Organizations.
-  const openPaneId = firstPeoplePaneId(ReactiveCache.getCurrentUser());
-  this.registrationSetting = new ReactiveVar(openPaneId === 'registration-setting');
+  // The page opens on Login, the first entry of the menu - as it always did.
+  this.registrationSetting = new ReactiveVar(true);
   this.emailSetting = new ReactiveVar(false);
-  this.orgSetting = new ReactiveVar(openPaneId === 'org-setting');
+  this.orgSetting = new ReactiveVar(false);
   this.teamSetting = new ReactiveVar(false);
-  this.peopleSetting = new ReactiveVar(openPaneId === 'people-setting');
+  this.peopleSetting = new ReactiveVar(false);
   this.lockedUsersSetting = new ReactiveVar(false);
   this.rolesSetting = new ReactiveVar(false);
   this.templatesSetting = new ReactiveVar(false);
@@ -264,7 +261,26 @@ Template.people.onCreated(function () {
   // Which pane is open. The seven booleans below are derived from it; the shared
   // left menu (docs/Design/Page/Left-Menu.md) renders the active row from it, so
   // the menu no longer has to be highlighted by hand.
-  this.activeMenuId = new ReactiveVar(openPaneId);
+  this.activeMenuId = new ReactiveVar('registration-setting');
+
+  // Multitenancy option D (D.7): an Organization's own admin has no Login pane, so
+  // the page opens on the first entry of the menu THEY have - Organizations.
+  //
+  // Decided in an autorun, not at onCreated: the user document has often not
+  // arrived yet there, and deciding from a missing user would open the wrong pane
+  // for the site admin too. Corrected once, when the user is actually known.
+  this.openPaneDecided = false;
+  this.autorun(() => {
+    const user = ReactiveCache.getCurrentUser();
+    if (!user || this.openPaneDecided) return;
+    this.openPaneDecided = true;
+    const openPaneId = firstPeoplePaneId(user);
+    if (openPaneId === 'registration-setting') return;
+    this.registrationSetting.set(false);
+    this.orgSetting.set(openPaneId === 'org-setting');
+    this.peopleSetting.set(openPaneId === 'people-setting');
+    this.activeMenuId.set(openPaneId);
+  });
 
   this.switchMenu = (event) => {
     // data-id is on the anchor; event.target may be the icon inside it.

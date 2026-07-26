@@ -366,12 +366,18 @@ test('Admin Panel / People renders the shared menu from data', () => {
   // highlighted row can never disagree.
   assert.ok(/function firstPeoplePaneId\(user\)/.test(pageJs),
     'the first pane of the user\'s own menu');
-  assert.ok(/activeMenuId = new ReactiveVar\(openPaneId\)/.test(pageJs),
+  assert.ok(/activeMenuId = new ReactiveVar\('registration-setting'\)/.test(pageJs),
     'the open pane is state, and starts on the first entry in the menu');
-  assert.ok(/registrationSetting = new ReactiveVar\(openPaneId === 'registration-setting'\)/.test(pageJs),
+  assert.ok(/registrationSetting = new ReactiveVar\(true\)/.test(pageJs),
     'and that pane is the one whose var starts true');
-  assert.ok(/orgSetting = new ReactiveVar\(openPaneId === 'org-setting'\)/.test(pageJs),
+  assert.ok(/orgSetting = new ReactiveVar\(false\)/.test(pageJs),
     'the pane that used to open first must no longer also start true');
+  // An Organization's own admin has no Login pane, so their page opens elsewhere -
+  // decided in an autorun once the user is known, never at onCreated, where the user
+  // document has often not arrived yet.
+  assert.ok(/this\.openPaneDecided = false;/.test(pageJs)
+    && /const openPaneId = firstPeoplePaneId\(user\);/.test(pageJs),
+    'the open pane is corrected once, when the user is actually known');
   assert.ok(!/side-menu li\.active'\)\.removeClass/.test(pageJs),
     'no manual active-class toggling');
   assert.ok(/iconWrapCls: 'text-red'/.test(pageJs),
@@ -627,16 +633,20 @@ test('Version is the FIRST Settings pane, and has no page of its own', () => {
   const menu = /function settingsMenu\(user\) \{[\s\S]*?\n\}/.exec(js)[0];
   const ids = [...menu.matchAll(/id: '([\w-]+)'/g)].map(m => m[1]);
   assert.strictEqual(ids[0], 'version-setting', 'Version must be the first entry');
-  // …and the pane that is open when the page loads. Multitenancy option D added one
-  // caller who has no Version pane - an Organization's own admin, whose only Settings
-  // pane is Visibility - so "open Version" is now "open Version if you are the site
-  // admin", and Visibility opens for the other one.
-  assert.ok(/this\.versionSetting = new ReactiveVar\(siteAdmin\)/.test(js),
+  // …and the pane that is open when the page loads.
+  assert.ok(/this\.versionSetting = new ReactiveVar\(true\)/.test(js),
     'and the pane that is open when the page loads');
-  assert.ok(/this\.tableVisibilityModeSetting = new ReactiveVar\(!siteAdmin\)/.test(js),
-    'so Visibility no longer opens by default for the site admin');
-  assert.ok(/const siteAdmin = tenantAdmin\.isSiteAdmin\(/.test(js),
-    'and the two are decided by one flag, so exactly one pane opens');
+  assert.ok(/this\.tableVisibilityModeSetting = new ReactiveVar\(false\)/.test(js),
+    'so Visibility does not open by default');
+  // Multitenancy option D added one caller who has no Version pane - an
+  // Organization's own admin - and that is decided in an AUTORUN, not here: at
+  // onCreated the user document has often not arrived, so reading it made "is this
+  // the site admin?" false for everyone for a moment and the page opened on
+  // Visibility for the site admin too.
+  assert.ok(/this\.openPaneDecided = false;/.test(js) && /if \(!user \|\| this\.openPaneDecided\) return;/.test(js),
+    'the open pane is corrected once, when the user is actually known');
+  assert.ok(/if \(!tenantAdmin\.isSiteAdmin\(user\)\) \{[\s\S]*?this\.versionSetting\.set\(false\);/.test(js),
+    'and only for an admin who has no Version pane');
   assert.ok(/\+statistics/.test(jadeSrc), 'Settings renders the statistics pane');
   // The old page, its tab and its menu are gone; the URL redirects.
   const info = read('client/components/settings/informationBody.jade');

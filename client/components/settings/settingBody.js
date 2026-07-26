@@ -235,11 +235,27 @@ Template.setting.onCreated(function () {
   // opens on Settings, so what an admin sees first is now the version, database
   // and system information they are usually here to read or to paste into an
   // issue - not a settings form they did not ask for.
+  this.versionSetting = new ReactiveVar(true);
+  this.tableVisibilityModeSetting = new ReactiveVar(false);
   // Multitenancy option D: an Organization's own admin has no Version pane, so the
-  // page opens on the one pane they do have.
-  const siteAdmin = tenantAdmin.isSiteAdmin(ReactiveCache.getCurrentUser());
-  this.versionSetting = new ReactiveVar(siteAdmin);
-  this.tableVisibilityModeSetting = new ReactiveVar(!siteAdmin);
+  // page opens on the one pane they do have - Visibility.
+  //
+  // This is decided in an autorun, NOT here: at onCreated the user document has
+  // often not arrived yet, and `getCurrentUser()` is null. Reading it here made
+  // "is this the site admin?" false for EVERYONE for a moment, so the page opened
+  // on Visibility even for the site admin - which is what the Version-page test
+  // caught. The default is what it always was, and it is corrected once - and only
+  // once - when the user is actually known.
+  this.openPaneDecided = false;
+  this.autorun(() => {
+    const user = ReactiveCache.getCurrentUser();
+    if (!user || this.openPaneDecided) return;
+    this.openPaneDecided = true;
+    if (!tenantAdmin.isSiteAdmin(user)) {
+      this.versionSetting.set(false);
+      this.tableVisibilityModeSetting.set(true);
+    }
+  });
   this.translationSetting = new ReactiveVar(false);
   this.announcementSetting = new ReactiveVar(false);
   this.accessibilitySetting = new ReactiveVar(false);
