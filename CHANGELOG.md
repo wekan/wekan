@@ -271,6 +271,20 @@ browser build to verify).
 This release fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bb882cf42">The board bar's icons fit two rows on a phone</a>. Thanks to xet7.</summary>
+
+Eleven icons took three rows under the title: each button was ~20px of icon
+inside 10px of icon margin inside 6px of button margin — 52px of a 375px bar
+for 20px of icon — so five fitted a row. A 44px touch target with 2px between
+buttons is 48px each, so seven fit a row and the icons take two, the first of
+them sharing the title's row. 44px is the minimum comfortable touch target, so
+this is as tight as it goes: one row would need 34px each, smaller than a
+fingertip. `tests/narrowWindowLayout.test.cjs` does the arithmetic and fails if
+the metrics stop fitting eleven icons in two rows.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/88d776e21">The avatar lines up with the bell, and "My Boards" is back at the left</a>. Thanks to xet7.</summary>
 
 The avatar sat above the bell and against the right edge: its wrapper carries
