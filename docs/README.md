@@ -56,6 +56,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Maybe: Add more RAM to Node.js to prevent crash](https://github.com/wekan/wekan/issues/3585)
 * [Clustering AWS etc](Platforms/Propietary/Cloud/AWS.md)
 * [Scaling](Webserver/Scaling.md)
+* [Multitenancy: one server per tenant, and the alternatives](Design/Multitenancy/Multitenancy.md)
 * Kubernetes
   * Helm Chart https://artifacthub.io/packages/helm/wekan/wekan
   * Issues https://github.com/wekan/charts/issues

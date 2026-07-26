@@ -27,6 +27,9 @@ This will speed up loading attachments a lot.
 # Migrating from Snap to Docker
 
 Note: Only `Oplog sockjs` works with multitenancy, see [multitenancy.md](multitenancy.md).
+For the alternatives to running one Node.js server per tenant — one server for
+many `ROOT_URL`s, and what each option costs — see
+[Multitenancy design](../../../../Design/Multitenancy/Multitenancy.md).
 
 Migrating from Parallel Snap setup, because `snap set wekan root-url=...`
 etc commands are slow to run, and did not get Parallel Snap working properly yet.

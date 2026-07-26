@@ -4,6 +4,10 @@ Run several WeKan instances (one per customer / domain) on the same
 Linux host. Two supported topologies, pick whichever fits your
 deployment.
 
+Both run **one WeKan Node.js server per tenant**. Whether one server could
+serve every domain instead — and what that would cost — is designed in
+[Multitenancy design](../../../../Design/Multitenancy/Multitenancy.md).
+
 ## a) Recommended — one host, many WeKan domains, `uws` + `changeStreams`
 
 Highest DDP throughput and lowest reactive latency.
