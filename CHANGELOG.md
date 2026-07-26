@@ -7,7 +7,8 @@ Newest WeKan at these platforms:
 - [Docs](https://wekan.fi/docs/)
 - [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
-# Version
+<details>
+<summary>Version</summary>
 
 - WeKan 8.75 and newer uses Meteor 3.5
 - WeKan 8.43 upgraded to Meteor 3.x, huge thanks to harryadel:
@@ -20,16 +21,21 @@ Newest WeKan at these platforms:
   /var/snap/wekan/common/wekan and some cards were not visible, it was fixed at
   WeKan 8.07 where database directory is back to /var/snap/wekan/common and all
   cards are visible.
+</details>
 
 # TODO Later
 
-Carried to a future release — investigated but not finished, with findings
+<details>
+<summary>Carried to a future release.</summary>
+
+Investigated but not finished, with findings
 recorded for whoever picks them up next. Entries that have since been FIXED are
 removed from this list as they are handled (their fixes carry `Fixes #NNNN` and
 close on push): e.g. #4560/#4419/#4158 (LDAP, in the startup-upgrade batch), #4825/#4897 (All Boards/OAuth2 data), #4822 (maximized card position), #3826
 (subtask drag reorder), #5282/#5547 (mergebox/features batch), #3453/#3199/#3843
 (linked-card/archive/comment attachments), #4593 (late-joining team member board
 membership) and #3037 (REST card board-move).
+</details>
 
 <details>
 <summary>Need specific infrastructure / a running server stack we cannot reproduce here (left for environment owners).</summary>
