@@ -228,13 +228,15 @@ membership) and #3037 (REST card board-move).
 
 # Upcoming WeKan ® release
 
-This release fixes the following CRITICAL SECURITY ISSUE of
-[ZipBleed](https://wekan.fi/hall-of-fame/zipbleed/):
+This release fixes the following CRITICAL SECURITY ISSUES:
 
 - [ZipBleed](https://wekan.fi/hall-of-fame/zipbleed/): arbitrary file write when
   restoring a backup archive (zip-slip)
   ([f1c89548e](https://github.com/wekan/wekan/commit/f1c89548e)).
   Thanks to xet7.
+- [GHSA-3gcg-g6rf-w2rx](https://github.com/wekan/wekan/security/advisories/GHSA-3gcg-g6rf-w2rx):
+  an invalid `authToken` on a board export endpoint crashed the server ([40de1799a](https://github.com/wekan/wekan/commit/40de1799a)).
+  Thanks to laijunyue for the coordinated disclosure, and xet7.
 
 and adds the following new features:
 
