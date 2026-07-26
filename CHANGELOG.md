@@ -209,6 +209,224 @@ This release fixes the following CRITICAL SECURITY ISSUE of [ZipBleed](https://w
   guards](https://github.com/wekan/wekan/commit/f1c89548e).
   Thanks to xet7.
 
+and reorganises the Admin Panel:
+
+- [Admin Panel / Settings is reorganised so every setting sits with the thing it is
+  about. **Layout** is now **PWA** and holds only the PWA settings — its custom head
+  tags, web manifest and assetlinks.json; the branding it used to carry (product name,
+  the login and top-left-corner logos, the text below the logo) moved to
+  **Visibility**, along with the Wait Spinner, Support, the custom help link and the
+  legal notice URL. The **Accounts** pane is gone: allow e-mail change went to
+  **E-mail**, username change and self delete of an account to **Login**. The sign-in
+  pane is called **Login** instead of Registration. "Don't show the board activities"
+  became one global setting rather than a write over every board document, and the two
+  All Boards hide settings joined it in Visibility. **Translation** became a Settings
+  pane below Accessibility instead of a tab of its
+  own](https://github.com/wekan/wekan/commit/fa0da9178).
+  Thanks to xet7.
+- [Every Admin Panel page renders ONE shared left menu, built from a plain item list
+  instead of markup that had been retyped 44 times across seven templates — and, in
+  two of those pages, one click handler per entry instead of one per menu. The
+  selected entry is filled with the theme colour with a white label, the same
+  treatment the selected tab gets in the bar above it, so the menu says at a glance
+  which pane is showing. No Admin Panel page has a title bar repeating the section
+  name any more: the tab bar names the section and the menu highlights the pane, so a
+  third line only cost vertical space. The design, and the list of pages that use it,
+  is in `docs/Design/Page/Left-Menu.md`](https://github.com/wekan/wekan/commit/e26706799).
+  Thanks to xet7.
+- [Admin Panel / People's four table panes — Domains, Organizations, Teams and People
+  — render through the shared table page, so all four page, search and lay out the
+  same way; their rows stay interactive through a row slot, and a column header may
+  carry controls (the "New" link, the select-all pairs) through a header slot. That
+  pane's search box, filter dropdown, action buttons and total became features of the
+  shared controls row, so any table page can have them, and Teams gained a working
+  "previous page" it never had. Locked users, Roles and Shared templates are recorded
+  in the design as what they are — forms and checkbox lists, not
+  tables](https://github.com/wekan/wekan/commit/ccc95bffb).
+  Thanks to xet7.
+- [The Admin Panel Features tab is removed. Its last three panes — Performance,
+  Security and Notifications — moved to Admin Panel / Problems, leaving a tab that
+  opened an empty page. The route, the tab, its active-tab helper, the imports and both
+  files are gone; the three pane templates and their handlers moved to the page that
+  renders them, since deleting them would have left Problems rendering templates that
+  no longer exist — which is not a build error, but a throw when the pane is opened. A
+  new test requires every template include to name a template that exists, the mirror of
+  the existing check that every template handler targets one](https://github.com/wekan/wekan/commit/b72a4996d).
+  Thanks to xet7.
+- [Admin Panel / Problems: the Security report is renamed **Security Report** and moved
+  above Broken Cards, with Impersonation Report directly between the two; and the
+  Performance, Security and Notifications panes moved here from Admin Panel / Features,
+  below Summary. The rename is what makes that safe — the pane arriving from Features is
+  also called Security, and the two now sit in one menu. Only the English source string
+  changed, so every other language keeps its existing translation until that string is
+  retranslated. The panes brought their helpers and handlers with them, which is the
+  half that fails silently: all twenty-four were registered on the Features page
+  template, and Blaze resolves a helper, and delivers an event, against the template the
+  element is in — left there, each pane would have rendered on Problems with every
+  checkbox reading as unchecked and no click doing anything. Admin Panel / Features is
+  left with no panes; its page and route stay so nothing linking there breaks](https://github.com/wekan/wekan/commit/4df87fd6b).
+  Thanks to xet7.
+- [Admin Panel: the Login and E-mail panes moved from Settings to People, above
+  Organizations — both are about the people who can sign in and how they are reached,
+  which is what that page is for. The move was only half markup: every handler the two
+  panes need was registered on the Settings template, and Blaze delivers an event to the
+  handlers of the template the element is in, so left there each pane would have
+  rendered on People and then quietly done nothing — no toggle sticking, no Save saving,
+  nothing in the console. All ten moved onto the pane templates themselves, where they
+  work wherever the pane is rendered. Settings now opens on Visibility, the first entry
+  it has left; the pane ids and translation keys are unchanged, so nothing lost its
+  translations](https://github.com/wekan/wekan/commit/47b03ef89).
+  Thanks to xet7.
+- [Every Admin Panel pane opens with the same heading, and the heading is the open
+  left-menu entry's own label. Before this only the paginated table pages had a title
+  at all: Domains said "Domains" while Login, Announcement, Accessibility, PWA and
+  Version opened with no heading. Deriving it from the menu is what keeps them
+  identical — a pane cannot end up with a title of a different size, in different
+  words, or with none at all, and renaming a menu entry renames its pane title with
+  it. One class sizes it, and the shared table page's own title carries that class
+  too, so a table pane and a form pane look the same. Described in
+  `docs/Design/Page/Left-Menu.md`](https://github.com/wekan/wekan/commit/d23219407).
+  Thanks to xet7.
+- [Admin Panel / Settings / Translation renders through the shared table page
+  (`docs/Design/Page/Table.md`) instead of a hand-written table: the layout, the
+  search box, the themed pager and the total are the shared ones, and the pane keeps
+  only its four columns, its interactive row and its "New" link. It also pages ONE
+  page of 25 rows server-side with limit/skip and a count method, where it used to
+  grow a window by infinite scroll, and the publication publishes the field it is
+  sorted by so the client's order matches the server's
+  page](https://github.com/wekan/wekan/commit/d23219407).
+  Thanks to xet7.
+- [Version is the FIRST pane of Admin Panel / Settings and the one that opens with the
+  page, so what an admin sees when opening the Admin Panel is the version, database
+  and system information they usually came for. Its own page, its one-entry left menu
+  and its tab in the Admin Panel bar are gone — a page whose menu had a single entry
+  was a page in name only — and the `/information` URL redirects to Settings, the same
+  move Translation made](https://github.com/wekan/wekan/commit/d23219407).
+  Thanks to xet7.
+- [Admin Panel / Settings / Visibility is four named groups instead of one long
+  list: **All Boards** (boards visibility, board activities, card counter list,
+  board member list, wait spinner), then **URL** (Support, custom help link, custom
+  legal notice, custom URL schemes), then **Product name**, then **Logo** (hide logo
+  and the login / top-left-corner logo fields) — each group after the first
+  separated by a horizontal rule. The settings and their ids are untouched, so the
+  one Save button at the bottom still writes exactly what it did. A group title is
+  smaller than the pane title above it, so the page reads as one heading with groups
+  under it rather than as several pages
+  stacked](https://github.com/wekan/wekan/commit/671262ddb).
+  Thanks to xet7.
+- ["Add board members only from the same Organization or Team" moves out of Admin
+  Panel / People / Login — which is where neither of the two things it restricts
+  lives — and becomes two checkboxes, each in the pane it is about: *"Add board
+  members only from the same Organization"* in Admin Panel / People / Organizations
+  and *"Add board members only from the same Team"* in / Teams. A user may be added
+  to a board when they share an **enabled** kind with whoever adds them; with both
+  ticked that is "an Organization or a Team", exactly the rule the single setting
+  had. An install with the old setting is migrated to both on first start, so no
+  instance's restriction changes by upgrading — and ticking only one is the narrower
+  choice that was not expressible before](https://github.com/wekan/wekan/commit/f0ea1601b).
+  Thanks to xet7.
+- [Admin Panel / People / Login is one "Login: Allow" group of checkboxes, each
+  ticked when the thing is allowed: Forgot password, Self-Registration, Username
+  Change, Self delete user account, Display Authentication Method. The pane used to
+  mix "Disable X" checkboxes, where ticked meant OFF, with "Allow X: Yes/No" radios
+  — half the rows meant the opposite of the other half, and every one repeated the
+  word Allow or Disable. The two settings stored as "disable" flags are only
+  inverted for display; the stored fields are untouched. The three former radios
+  save on click like the checkboxes they now are, so the Save at the bottom keeps
+  only the default authentication method and the OIDC button text. A dead handler
+  that sat later in the same event map — where a duplicate key silently overrides
+  the real one — would have swallowed every click on the
+  Display Authentication Method box](https://github.com/wekan/wekan/commit/40c1c1e71).
+  Thanks to xet7.
+- [That pane's "Email domain name" is renamed to say what it does: "Email domain
+  allowed to invite people, when self-registration is disabled". It limits nothing
+  about signing in — a non-admin whose address ends with this domain may send board
+  invitations, and only while self-registration is
+  disabled](https://github.com/wekan/wekan/commit/f15b37e4e).
+  Thanks to xet7.
+- [Admin Panel / Settings / Visibility, All Boards group: every row repeated the
+  group title and the word "Hide" — "Hide card counter list on All Boards" under a
+  title reading "All Boards". The title is "All Boards: Hide" and each row says only
+  what is hidden: Public boards, Board activities, Card counter list, Board member
+  list. The three i18n keys used only by this pane were renamed with their values,
+  so no language shows the old sentence under the new title; they fall back to
+  English until retranslated. `all-boards` (the menu label everywhere else) and
+  `tableVisibilityMode-allowPrivateOnly` (the message shown on a board you may not
+  open) keep their own strings, so the group title and the row label are new
+  keys](https://github.com/wekan/wekan/commit/2ef34924d).
+  Thanks to xet7.
+- [Each section of Admin Panel / Settings / Visibility has its own Save, directly
+  above the rule that closes it, and it writes only that section's fields. One Save
+  for the whole pane meant pressing it in one group also wrote whatever was
+  half-typed in another. Three buttons are folded into their section's Save and gone
+  with their handlers: the pane-wide one, the single-setting Save under "don't show
+  the board activities", and the one inside the Support block. The Support page's
+  Enabled / Public checkboxes still save on click — they are toggles, not
+  fields](https://github.com/wekan/wekan/commit/9255a6533).
+  Thanks to xet7.
+- ["Product name" appears once in that pane, not twice: the group holds one field,
+  so its group title is that field's label — at the group title's size, with the
+  translation the field already has in every
+  language](https://github.com/wekan/wekan/commit/bbb1b3ff0).
+  Thanks to xet7.
+- [Admin Panel / Problems' left menu is two named groups: Summary, then a rule and a
+  "Settings" title over the two panes that came from the removed Features tab, then a
+  rule and a "Reports" title over the reports. A title is a new kind of menu item with
+  no id, no icon and no handler class — there is nothing to click, and it can never
+  become the active row — and both use an i18n key the app already has, so no
+  language has to translate anything new. Performance moves down to sit with the
+  Speed, Tests and CPU usage streams it is about, below Impersonation
+  Report](https://github.com/wekan/wekan/commit/fc0fe3177).
+  Thanks to xet7.
+- [Admin Panel / People: Domains moves up beside E-mail, the settings it is about,
+  instead of sitting at the end after the Roles and Shared templates checkbox
+  lists](https://github.com/wekan/wekan/commit/d23219407).
+  Thanks to xet7.
+- [Admin Panel / Problems / Broken cards has the same controls as the Files Report
+  beside it: a search box, the total, "page X / N" and the shared themed pager. It
+  was the one entry in that menu with a different set, because it ran on the
+  global-search machinery instead of the shared table page. It is a column spec like
+  the other reports now, behind an admin-only publication that takes a search term
+  plus limit/skip and a count method for the total; what "broken" means — no board,
+  swimlane or list, or a type that is not a card type — is one selector shared with
+  the standalone /broken-cards page, which is
+  unchanged](https://github.com/wekan/wekan/commit/fc0fe3177).
+  Thanks to xet7.
+- [No Admin Panel pane repeats the title above it. Attachments / Backup showed
+  "Backup" twice — the pane heading comes from the open left-menu entry now, and
+  every Attachments pane still printed its own name under it. Those ten headings are
+  gone, and with them the same repeat on Roles, Shared templates and Broken cards. A
+  heading that says something the menu label does not — Limits' "Attachment And API
+  File Size Limits", Locked users' "Brute Force Protection Settings" — is not a
+  repeat and stays](https://github.com/wekan/wekan/commit/9a0db4343).
+  Thanks to xet7.
+- [Admin Panel / Attachments opens on Backup, which is also the first entry of its
+  menu — the first row of a menu and the pane that opens are the same one now, on
+  Attachments as on Settings. Landing there asks once whether a backup is already
+  running, so an in-progress backup shows its status instead of an idle-looking
+  pane](https://github.com/wekan/wekan/commit/a9680fa3d).
+  Thanks to xet7.
+
+and updates the following dependencies:
+
+- **@aws-sdk/client-s3 3.1090.0 → 3.1095.0** — the S3 / MinIO attachment storage
+  client (#6530, [merge commit](https://github.com/wekan/wekan/commit/36b54b1f5)).
+  Thanks to dependabot.
+- **unzipper 0.12.3 → 0.12.5** — the zip reader behind board import and backup
+  restore (#6529, [merge commit](https://github.com/wekan/wekan/commit/aa7abcf09)).
+  Thanks to dependabot.
+- **bson 7.3.0 → 7.3.1** — the BSON codec used with MongoDB and FerretDB
+  (#6527, [merge commit](https://github.com/wekan/wekan/commit/047319fb2)).
+  Thanks to dependabot.
+- **@playwright/test 1.61.1 → 1.62.0** in `tests/playwright` — the browser test
+  runner, a development dependency that is not part of the shipped bundle
+  (#6528, [merge commit](https://github.com/wekan/wekan/commit/f7fb32774)).
+  Thanks to dependabot.
+- **docker/login-action 4.4.0 → 4.5.1** — the GitHub Actions step that signs in to
+  the container registries when a release image is published
+  (#6526, [merge commit](https://github.com/wekan/wekan/commit/d4684448c)).
+  Thanks to dependabot.
+
 and fixes the following bugs:
 
 - [Admin Panel / People / People showed nothing at all — no table, no search box, no
@@ -263,38 +481,14 @@ and fixes the following bugs:
   a negative test feeds the broken chain through both to show that parsing alone does not
   see it](https://github.com/wekan/wekan/commit/f8793bec4).
   Thanks to xet7.
-- [The Admin Panel Features tab is removed. Its last three panes — Performance,
-  Security and Notifications — moved to Admin Panel / Problems, leaving a tab that
-  opened an empty page. The route, the tab, its active-tab helper, the imports and both
-  files are gone; the three pane templates and their handlers moved to the page that
-  renders them, since deleting them would have left Problems rendering templates that
-  no longer exist — which is not a build error, but a throw when the pane is opened. A
-  new test requires every template include to name a template that exists, the mirror of
-  the existing check that every template handler targets one](https://github.com/wekan/wekan/commit/b72a4996d).
-  Thanks to xet7.
-- [Admin Panel / Problems: the Security report is renamed **Security Report** and moved
-  above Broken Cards, with Impersonation Report directly between the two; and the
-  Performance, Security and Notifications panes moved here from Admin Panel / Features,
-  below Summary. The rename is what makes that safe — the pane arriving from Features is
-  also called Security, and the two now sit in one menu. Only the English source string
-  changed, so every other language keeps its existing translation until that string is
-  retranslated. The panes brought their helpers and handlers with them, which is the
-  half that fails silently: all twenty-four were registered on the Features page
-  template, and Blaze resolves a helper, and delivers an event, against the template the
-  element is in — left there, each pane would have rendered on Problems with every
-  checkbox reading as unchecked and no click doing anything. Admin Panel / Features is
-  left with no panes; its page and route stay so nothing linking there breaks](https://github.com/wekan/wekan/commit/4df87fd6b).
-  Thanks to xet7.
-- [Admin Panel: the Login and E-mail panes moved from Settings to People, above
-  Organizations — both are about the people who can sign in and how they are reached,
-  which is what that page is for. The move was only half markup: every handler the two
-  panes need was registered on the Settings template, and Blaze delivers an event to the
-  handlers of the template the element is in, so left there each pane would have
-  rendered on People and then quietly done nothing — no toggle sticking, no Save saving,
-  nothing in the console. All ten moved onto the pane templates themselves, where they
-  work wherever the pane is rendered. Settings now opens on Visibility, the first entry
-  it has left; the pane ids and translation keys are unchanged, so nothing lost its
-  translations](https://github.com/wekan/wekan/commit/47b03ef89).
+- [Admin Panel / People / E-mail saved neither of the two settings it shows. Its
+  Save handler starts by reading the SMTP fields, which are commented out of that
+  pane — the read throws on an input that is not there, and the throw was caught and
+  swallowed, so the handler returned before ever writing anything, including the
+  e-mail domain. "Allow Email Change" was worse: the radios showed the stored value
+  and no handler in the app ever wrote them back. The Save button moves out of the
+  Yes/No row to its own line below both settings and writes both, each field only
+  when its input is actually rendered](https://github.com/wekan/wekan/commit/f15b37e4e).
   Thanks to xet7.
 - [The Admin Panel left menu, the page-title bars, the People tables and the
   Translation pane. Every Admin Panel page except Problems drew a bar under the top bar
@@ -323,6 +517,38 @@ and fixes the following bugs:
   variable the template iterates and asserts the data context really has an array under
   that name](https://github.com/wekan/wekan/commit/d34d28159).
   Thanks to xet7.
+- [The password field is back on the Sign In and Register pages. Removing the Accounts
+  pane from Admin Panel / Settings — its three settings having moved to E-mail and
+  Login — left that pane's save handler registered on the template that went with it,
+  `Template.accountSettings.events({…})`. Registering a handler on a template that no
+  longer exists throws at MODULE LOAD, and because it threw, no module after it in the
+  client bundle ran: `client/features/users.js` never executed, so the `passwordInput`
+  template was never registered, useraccounts logged "Warning no template passwordInput
+  found!", and both password fields — Password and Password (again) — rendered as
+  nothing. One dead reference in the Admin Panel took out the login form for everyone.
+  The handler now belongs to the template that renders the Login pane. A new guard,
+  `tests/templateHandlersExist.test.cjs`, asserts every
+  `Template.X.events/helpers/onCreated/onRendered/onDestroyed` has a matching
+  `template(name="X")`, because this class of bug parses cleanly, passes every unit
+  test, and shows up only in a browser
+  console](https://github.com/wekan/wekan/commit/696c49038).
+  Thanks to xet7.
+- [A finished MongoDB → FerretDB migration on Snap no longer leaves WeKan on 503.
+  Upgrading from 6.09 to 10.37 migrated successfully and then served 503 until the
+  admin ran `snap restart wekan` by hand, with WeKan looping "MongoDB not ready yet,
+  retrying in 5 seconds..." against a MongoDB the migration had just shut down for
+  good. `mongodb-control` ends with `exec bash $SNAP/bin/migration-control`, so the
+  migration script IS the `wekan.mongodb` service process — and the switch stopped
+  that service before restarting WeKan, so systemd killed the script at the stop and
+  the restart on the next line never ran. WeKan is now handed over to FerretDB BEFORE
+  MongoDB is stopped, the stop is the last command in the switch, and the traps are
+  disarmed first so being stopped there no longer logs "Interrupted (snap refresh,
+  stop or reboot)" after a migration that in fact succeeded. Because that restart is
+  the last act of a script being killed, it is no longer the only way out: WeKan's
+  MongoDB wait now re-reads the live `database` setting each round and re-execs onto
+  FerretDB when it has been switched, so a migration finishing mid-wait recovers on
+  its own within five seconds](https://github.com/wekan/wekan/commit/aebede877).
+  Thanks to S0QR2 and xet7.
 - [In mobile mode the fixed-size light grey bands around a swimlane are gone: the one
   between the blue resize bar and the next swimlane’s dark header, which travelled with
   the bar as the swimlane was resized, and its twin between a swimlane’s header bar and
@@ -488,48 +714,13 @@ and fixes the following bugs:
   collapsed list still stays
   narrow](https://github.com/wekan/wekan/commit/a5246fbf5).
   Thanks to xet7.
-- [Every `.jade` template is now compiled by a test, using the same compiler the build
-  uses. Nothing else caught a broken template: the other test suites read `.jade` as
-  text and grep it, so a file the compiler rejects still passed them all and the failure
-  appeared only when the app was rebuilt. Written after a `<body>` written inside an
-  indented comment block broke the build — the comment text is still lexed, so the angle
-  brackets opened a tag that never closed. All 107 templates parse in about
-  0.2s](https://github.com/wekan/wekan/commit/a5246fbf5).
+- [The Sign In and Register pages have real scrollable space below the form again, so
+  the last field and the button are reachable on a short window instead of being cut
+  off by a container that never
+  scrolled](https://github.com/wekan/wekan/commit/45022e907).
   Thanks to xet7.
-- [The password field is back on the Sign In and Register pages. Removing the Accounts
-  pane from Admin Panel / Settings — its three settings having moved to E-mail and
-  Login — left that pane's save handler registered on the template that went with it,
-  `Template.accountSettings.events({…})`. Registering a handler on a template that no
-  longer exists throws at MODULE LOAD, and because it threw, no module after it in the
-  client bundle ran: `client/features/users.js` never executed, so the `passwordInput`
-  template was never registered, useraccounts logged "Warning no template passwordInput
-  found!", and both password fields — Password and Password (again) — rendered as
-  nothing. One dead reference in the Admin Panel took out the login form for everyone.
-  The handler now belongs to the template that renders the Login pane. A new guard,
-  `tests/templateHandlersExist.test.cjs`, asserts every
-  `Template.X.events/helpers/onCreated/onRendered/onDestroyed` has a matching
-  `template(name="X")`, because this class of bug parses cleanly, passes every unit
-  test, and shows up only in a browser
-  console](https://github.com/wekan/wekan/commit/696c49038).
-  Thanks to xet7.
-- [A finished MongoDB → FerretDB migration on Snap no longer leaves WeKan on 503.
-  Upgrading from 6.09 to 10.37 migrated successfully and then served 503 until the
-  admin ran `snap restart wekan` by hand, with WeKan looping "MongoDB not ready yet,
-  retrying in 5 seconds..." against a MongoDB the migration had just shut down for
-  good. `mongodb-control` ends with `exec bash $SNAP/bin/migration-control`, so the
-  migration script IS the `wekan.mongodb` service process — and the switch stopped
-  that service before restarting WeKan, so systemd killed the script at the stop and
-  the restart on the next line never ran. WeKan is now handed over to FerretDB BEFORE
-  MongoDB is stopped, the stop is the last command in the switch, and the traps are
-  disarmed first so being stopped there no longer logs "Interrupted (snap refresh,
-  stop or reboot)" after a migration that in fact succeeded. Because that restart is
-  the last act of a script being killed, it is no longer the only way out: WeKan's
-  MongoDB wait now re-reads the live `database` setting each round and re-execs onto
-  FerretDB when it has been switched, so a migration finishing mid-wait recovers on
-  its own within five seconds](https://github.com/wekan/wekan/commit/aebede877).
-  Thanks to S0QR2 and xet7.
 
-and has the following developer-facing change:
+and has the following developer-facing changes:
 
 - [Every paginated admin table — Security, Speed, Tests, CPU usage, Files Report,
   Rules Report, Boards Report, Cards Report, Impersonation Report and Recovery — now
@@ -548,6 +739,24 @@ and has the following developer-facing change:
   to it and keep only what is specific to
   them](https://github.com/wekan/wekan/commit/9791993d5).
   Thanks to xet7.
+- [Every `.jade` template is now compiled by a test, using the same compiler the build
+  uses. Nothing else caught a broken template: the other test suites read `.jade` as
+  text and grep it, so a file the compiler rejects still passed them all and the failure
+  appeared only when the app was rebuilt. Written after a `<body>` written inside an
+  indented comment block broke the build — the comment text is still lexed, so the angle
+  brackets opened a tag that never closed. All 107 templates parse in about
+  0.2s](https://github.com/wekan/wekan/commit/a5246fbf5).
+  Thanks to xet7.
+- [The shared left menu is a design of its own — `docs/Design/Page/Left-Menu.md` —
+  beside the table page: pure helpers (`buildMenuItems()`, `paneTitle()`,
+  `activeCount()`), one template, one stylesheet, and one suite,
+  `tests/leftMenu.test.cjs`, that asserts the helpers, the template, the side the menu
+  is on and its mirroring under a right-to-left language, and that no page
+  re-implements it. `tests/tablePage.test.cjs` does the same for the table page,
+  asserting against exactly the files that design's own Related files table lists — so
+  a path that moves without the doc being updated fails the
+  suite](https://github.com/wekan/wekan/commit/f14dc6a78).
+  Thanks to xet7.
 
 and updates the documentation:
 
@@ -562,147 +771,6 @@ and updates the documentation:
   first in Attachments, and the two named groups of the Problems menu. Every link
   into the moved pages was updated, and the wekan.fi pages that described the old
   panes were edited too](https://github.com/wekan/wekan/commit/1e9e58dab).
-  Thanks to xet7.
-
-and changes the Admin Panel as follows:
-
-- [Every Admin Panel pane opens with the same heading, and the heading is the open
-  left-menu entry's own label. Before this only the paginated table pages had a title
-  at all: Domains said "Domains" while Login, Announcement, Accessibility, PWA and
-  Version opened with no heading. Deriving it from the menu is what keeps them
-  identical — a pane cannot end up with a title of a different size, in different
-  words, or with none at all, and renaming a menu entry renames its pane title with
-  it. One class sizes it, and the shared table page's own title carries that class
-  too, so a table pane and a form pane look the same. Described in
-  `docs/Design/Page/Left-Menu.md`](https://github.com/wekan/wekan/commit/d23219407).
-  Thanks to xet7.
-- [Admin Panel / Settings / Translation renders through the shared table page
-  (`docs/Design/Page/Table.md`) instead of a hand-written table: the layout, the
-  search box, the themed pager and the total are the shared ones, and the pane keeps
-  only its four columns, its interactive row and its "New" link. It also pages ONE
-  page of 25 rows server-side with limit/skip and a count method, where it used to
-  grow a window by infinite scroll, and the publication publishes the field it is
-  sorted by so the client's order matches the server's
-  page](https://github.com/wekan/wekan/commit/d23219407).
-  Thanks to xet7.
-- [Version is the FIRST pane of Admin Panel / Settings and the one that opens with the
-  page, so what an admin sees when opening the Admin Panel is the version, database
-  and system information they usually came for. Its own page, its one-entry left menu
-  and its tab in the Admin Panel bar are gone — a page whose menu had a single entry
-  was a page in name only — and the `/information` URL redirects to Settings, the same
-  move Translation made](https://github.com/wekan/wekan/commit/d23219407).
-  Thanks to xet7.
-- [Admin Panel / Settings / Visibility is four named groups instead of one long
-  list: **All Boards** (boards visibility, board activities, card counter list,
-  board member list, wait spinner), then **URL** (Support, custom help link, custom
-  legal notice, custom URL schemes), then **Product name**, then **Logo** (hide logo
-  and the login / top-left-corner logo fields) — each group after the first
-  separated by a horizontal rule. The settings and their ids are untouched, so the
-  one Save button at the bottom still writes exactly what it did. A group title is
-  smaller than the pane title above it, so the page reads as one heading with groups
-  under it rather than as several pages
-  stacked](https://github.com/wekan/wekan/commit/671262ddb).
-  Thanks to xet7.
-- ["Add board members only from the same Organization or Team" moves out of Admin
-  Panel / People / Login — which is where neither of the two things it restricts
-  lives — and becomes two checkboxes, each in the pane it is about: *"Add board
-  members only from the same Organization"* in Admin Panel / People / Organizations
-  and *"Add board members only from the same Team"* in / Teams. A user may be added
-  to a board when they share an **enabled** kind with whoever adds them; with both
-  ticked that is "an Organization or a Team", exactly the rule the single setting
-  had. An install with the old setting is migrated to both on first start, so no
-  instance's restriction changes by upgrading — and ticking only one is the narrower
-  choice that was not expressible before](https://github.com/wekan/wekan/commit/f0ea1601b).
-  Thanks to xet7.
-- [Admin Panel / People / Login is one "Login: Allow" group of checkboxes, each
-  ticked when the thing is allowed: Forgot password, Self-Registration, Username
-  Change, Self delete user account, Display Authentication Method. The pane used to
-  mix "Disable X" checkboxes, where ticked meant OFF, with "Allow X: Yes/No" radios
-  — half the rows meant the opposite of the other half, and every one repeated the
-  word Allow or Disable. The two settings stored as "disable" flags are only
-  inverted for display; the stored fields are untouched. The three former radios
-  save on click like the checkboxes they now are, so the Save at the bottom keeps
-  only the default authentication method and the OIDC button text. A dead handler
-  that sat later in the same event map — where a duplicate key silently overrides
-  the real one — would have swallowed every click on the
-  Display Authentication Method box](https://github.com/wekan/wekan/commit/40c1c1e71).
-  Thanks to xet7.
-- [Admin Panel / People / E-mail saved neither of the two settings it shows. Its
-  Save handler starts by reading the SMTP fields, which are commented out of that
-  pane — the read throws on an input that is not there, and the throw was caught and
-  swallowed, so the handler returned before ever writing anything, including the
-  e-mail domain. "Allow Email Change" was worse: the radios showed the stored value
-  and no handler in the app ever wrote them back. The Save button moves out of the
-  Yes/No row to its own line below both settings and writes both, each field only
-  when its input is actually rendered](https://github.com/wekan/wekan/commit/f15b37e4e).
-  Thanks to xet7.
-- [That pane's "Email domain name" is renamed to say what it does: "Email domain
-  allowed to invite people, when self-registration is disabled". It limits nothing
-  about signing in — a non-admin whose address ends with this domain may send board
-  invitations, and only while self-registration is
-  disabled](https://github.com/wekan/wekan/commit/f15b37e4e).
-  Thanks to xet7.
-- [Admin Panel / Settings / Visibility, All Boards group: every row repeated the
-  group title and the word "Hide" — "Hide card counter list on All Boards" under a
-  title reading "All Boards". The title is "All Boards: Hide" and each row says only
-  what is hidden: Public boards, Board activities, Card counter list, Board member
-  list. The three i18n keys used only by this pane were renamed with their values,
-  so no language shows the old sentence under the new title; they fall back to
-  English until retranslated. `all-boards` (the menu label everywhere else) and
-  `tableVisibilityMode-allowPrivateOnly` (the message shown on a board you may not
-  open) keep their own strings, so the group title and the row label are new
-  keys](https://github.com/wekan/wekan/commit/2ef34924d).
-  Thanks to xet7.
-- [Each section of Admin Panel / Settings / Visibility has its own Save, directly
-  above the rule that closes it, and it writes only that section's fields. One Save
-  for the whole pane meant pressing it in one group also wrote whatever was
-  half-typed in another. Three buttons are folded into their section's Save and gone
-  with their handlers: the pane-wide one, the single-setting Save under "don't show
-  the board activities", and the one inside the Support block. The Support page's
-  Enabled / Public checkboxes still save on click — they are toggles, not
-  fields](https://github.com/wekan/wekan/commit/9255a6533).
-  Thanks to xet7.
-- ["Product name" appears once in that pane, not twice: the group holds one field,
-  so its group title is that field's label — at the group title's size, with the
-  translation the field already has in every
-  language](https://github.com/wekan/wekan/commit/bbb1b3ff0).
-  Thanks to xet7.
-- [Admin Panel / Problems' left menu is two named groups: Summary, then a rule and a
-  "Settings" title over the two panes that came from the removed Features tab, then a
-  rule and a "Reports" title over the reports. A title is a new kind of menu item with
-  no id, no icon and no handler class — there is nothing to click, and it can never
-  become the active row — and both use an i18n key the app already has, so no
-  language has to translate anything new. Performance moves down to sit with the
-  Speed, Tests and CPU usage streams it is about, below Impersonation
-  Report](https://github.com/wekan/wekan/commit/fc0fe3177).
-  Thanks to xet7.
-- [Admin Panel / People: Domains moves up beside E-mail, the settings it is about,
-  instead of sitting at the end after the Roles and Shared templates checkbox
-  lists](https://github.com/wekan/wekan/commit/d23219407).
-  Thanks to xet7.
-- [Admin Panel / Problems / Broken cards has the same controls as the Files Report
-  beside it: a search box, the total, "page X / N" and the shared themed pager. It
-  was the one entry in that menu with a different set, because it ran on the
-  global-search machinery instead of the shared table page. It is a column spec like
-  the other reports now, behind an admin-only publication that takes a search term
-  plus limit/skip and a count method for the total; what "broken" means — no board,
-  swimlane or list, or a type that is not a card type — is one selector shared with
-  the standalone /broken-cards page, which is
-  unchanged](https://github.com/wekan/wekan/commit/fc0fe3177).
-  Thanks to xet7.
-- [No Admin Panel pane repeats the title above it. Attachments / Backup showed
-  "Backup" twice — the pane heading comes from the open left-menu entry now, and
-  every Attachments pane still printed its own name under it. Those ten headings are
-  gone, and with them the same repeat on Roles, Shared templates and Broken cards. A
-  heading that says something the menu label does not — Limits' "Attachment And API
-  File Size Limits", Locked users' "Brute Force Protection Settings" — is not a
-  repeat and stays](https://github.com/wekan/wekan/commit/9a0db4343).
-  Thanks to xet7.
-- [Admin Panel / Attachments opens on Backup, which is also the first entry of its
-  menu — the first row of a menu and the pane that opens are the same one now, on
-  Attachments as on Settings. Landing there asks once whether a backup is already
-  running, so an in-progress backup shows its status instead of an idle-looking
-  pane](https://github.com/wekan/wekan/commit/a9680fa3d).
   Thanks to xet7.
 
 and fills untranslated strings in every language:
