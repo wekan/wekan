@@ -9,8 +9,8 @@ const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
  *  - client/components/settings/peopleBody.jade  (people template, peopleGeneral, peopleRow)
  *  - config/router.js  (route: /people)
  *
- * The /people page defaults to the Organizations view.
- * Call navigateToPeople() to switch to the People (users) view.
+ * The /people page opens on Login; call navigateToPeople() to switch to the
+ * People (users) pane.
  */
 class AdminPage {
   constructor(page) {
@@ -18,17 +18,23 @@ class AdminPage {
   }
 
   /**
-   * Navigate to /people and switch to the "People" tab (not the default Org tab).
-   * peopleBody.jade: side-menu has a.js-people-menu(data-id="people-setting")
-   * After clicking, peopleSetting.get becomes true and +peopleGeneral renders.
+   * Navigate to /people and switch to the "People" pane (the page opens on Login).
+   *
+   * Every Admin Panel page renders the ONE shared left menu now
+   * (docs/Design/Page/Left-Menu.md): `a.js-left-menu-item(data-id="...")`, where
+   * data-id is the menu entry's id and is what the page's click handler reads. So
+   * the entry is addressed by data-id, not by a per-page class — the old
+   * `.js-people-menu` was exactly such a class, and it went away with the
+   * conversion.
    */
   async navigateToPeople() {
     // Route: /people (not /admin/people)
     await this.page.goto(`${BASE_URL}/people`, { waitUntil: 'networkidle' });
+    const peopleEntry = this.page.locator('.js-left-menu-item[data-id="people-setting"]');
     // Wait for the side menu to render (the page uses the people template).
-    await this.page.locator('.js-people-menu').waitFor({ timeout: 15_000 });
-    // Click the "People" tab to switch from the default Orgs view.
-    await this.page.locator('.js-people-menu').click();
+    await peopleEntry.waitFor({ timeout: 15_000 });
+    // Click the "People" entry to switch from the pane the page opens on.
+    await peopleEntry.click();
     // Wait for people rows — peopleGeneral has an empty <tr> before each user row,
     // so wait for td.username which appears only in actual data rows.
     await this.page.locator('table tbody td.username').first().waitFor({ timeout: 15_000 });
@@ -119,14 +125,19 @@ class AdminPage {
   }
 
   // --- Pagination ---
+  //
+  // People is a shared table page now (docs/Design/Page/Table.md), so its pager is
+  // the shared one: the same `.js-table-page-prev` / `.js-table-page-next` every
+  // table page in the Admin Panel uses. The old per-pane `.js-people-*-page`
+  // buttons went away with that pane's own markup.
 
   async nextPage() {
-    await this.page.locator('button.js-people-next-page:not(.disabled)').click();
+    await this.page.locator('button.js-table-page-next:not(.disabled)').click();
     await this.page.waitForTimeout(500);
   }
 
   async prevPage() {
-    await this.page.locator('button.js-people-prev-page:not(.disabled)').click();
+    await this.page.locator('button.js-table-page-prev:not(.disabled)').click();
     await this.page.waitForTimeout(500);
   }
 

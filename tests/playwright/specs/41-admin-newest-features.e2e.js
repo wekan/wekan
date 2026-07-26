@@ -46,7 +46,9 @@ test.describe('Admin – newest features', () => {
 
     await loginWithToken(page, adminUser.id, adminUser.token);
     await page.goto(`${BASE_URL}/admin-reports`, { waitUntil: 'networkidle' });
-    await page.locator('a.js-report-files').click();
+    // The Problems side menu is the shared left menu now: an entry is addressed by
+    // data-id (docs/Design/Page/Left-Menu.md), not by a per-report class.
+    await page.locator('.js-left-menu-item[data-id="report-files"]').click();
 
     // Localize any failure: ask the SERVER directly whether it counts the seeded
     // attachments (this method runs the SAME accessibleCardIds + meta.cardId query the
@@ -82,10 +84,14 @@ test.describe('Admin – newest features', () => {
     await expect(table.getByText('note.png', { exact: false })).toBeVisible();
     await expect(table.getByText('<script>')).toHaveCount(0);
 
-    // NO Search button; the search field + pagination controls ARE present.
+    // NO Search button; the search field + pagination controls ARE present. Every
+    // report renders through the ONE shared table page now
+    // (docs/Design/Page/Table.md), so the controls carry the shared class names and
+    // the per-report ones are gone with the per-report markup.
     await expect(page.locator('button.js-files-search-button')).toHaveCount(0);
-    await expect(page.locator('input.js-files-search-input')).toBeVisible();
-    await expect(page.locator('.admin-report-pagination')).toBeVisible();
+    await expect(page.locator('input.js-files-search-input')).toHaveCount(0);
+    await expect(page.locator('input.js-table-page-search')).toBeVisible();
+    await expect(page.locator('.table-page-pagination')).toBeVisible();
   });
 
   test('Version page shows Reactivity mode + configured REACTIVITY_ORDER and DDP_TRANSPORT', async ({ page, adminUser }) => {
@@ -111,15 +117,20 @@ test.describe('Admin – newest features', () => {
     // ready and the report was stuck on the loading spinner. Each report's template
     // (with its search input) only renders once the subscription is ready, so a
     // visible search input proves the spinner cleared and the report loaded.
+    // One shared table page for every report (docs/Design/Page/Table.md): the entry
+    // is addressed by data-id and the search field is the shared one, so what proves
+    // the subscription became ready is the shared controls row rendering with the
+    // report's own title above it.
     const reports = [
-      { link: 'a.js-report-rules', search: 'input.js-rules-search-input' },
-      { link: 'a.js-report-boards', search: 'input.js-boards-search-input' },
-      { link: 'a.js-report-cards', search: 'input.js-cards-search-input' },
-      { link: 'a.js-report-impersonation', search: 'input.js-impersonation-search-input' },
+      { id: 'report-rules', title: 'Rules' },
+      { id: 'report-boards', title: 'Boards' },
+      { id: 'report-cards', title: 'Cards' },
+      { id: 'report-impersonation', title: 'Impersonation' },
     ];
     for (const r of reports) {
-      await page.locator(r.link).click();
-      await expect(page.locator(r.search)).toBeVisible({ timeout: 15_000 });
+      await page.locator(`.js-left-menu-item[data-id="${r.id}"]`).click();
+      await expect(page.locator('input.js-table-page-search')).toBeVisible({ timeout: 15_000 });
+      await expect(page.locator('.admin-pane-title')).toContainText(r.title, { timeout: 15_000 });
     }
   });
 

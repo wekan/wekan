@@ -70,8 +70,11 @@ test.describe('Admin – shared templates', () => {
 
   async function openTemplatesTab(page) {
     await page.goto(`${BASE_URL}/people`, { waitUntil: 'networkidle' });
-    await page.locator('.js-templates-menu').waitFor({ timeout: 15_000 });
-    await page.locator('.js-templates-menu').click();
+    // The shared left menu addresses an entry by data-id, not by a per-page class
+    // (docs/Design/Page/Left-Menu.md).
+    const templatesEntry = page.locator('.js-left-menu-item[data-id="templates-setting"]');
+    await templatesEntry.waitFor({ timeout: 15_000 });
+    await templatesEntry.click();
     // templatesGeneral renders its three scope checkboxes.
     await page.locator('#templates-setting').waitFor({ timeout: 15_000 });
   }
