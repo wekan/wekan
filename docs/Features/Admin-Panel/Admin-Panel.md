@@ -64,9 +64,9 @@ prev/next.
 ## Sandstorm
 
 On Sandstorm, authentication (LDAP, passwordless e-mail, SAML, GitHub and Google
-Auth) and SMTP are handled by Sandstorm itself: you add and remove users there. The
-Attachments section gains a **Sandstorm** pane for the MongoDB → FerretDB migration
-status and raw-MongoDB disk usage.
+Auth) and SMTP are handled by Sandstorm itself: you add and remove users there. There
+is no longer a **Sandstorm** pane in Attachments — see
+[Attachments](Attachments/README.md#sandstorm--removed-from-the-menu).
 
 ## Two panes that are gone
 

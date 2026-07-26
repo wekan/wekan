@@ -43,11 +43,18 @@ which environment variable or console path each field corresponds to.
 The MongoDB ↔ FerretDB v1 (SQLite) text-data migration, with the progress dashboard.
 See [Problems / Migrations](../Problems/Migrations.md).
 
-## Sandstorm
+## Sandstorm — removed from the menu
 
-Sandstorm only: the MongoDB 3 → FerretDB migration status, disk usage per storage
-(raw MongoDB, FerretDB, attachments, avatars), and — when raw MongoDB data is still
-present — deleting it to reclaim the space.
+There is no Sandstorm pane any more. It only had content inside a Sandstorm grain —
+the MongoDB 3 → FerretDB migration status, disk usage per storage, and a button that
+deleted the raw MongoDB 3 files to reclaim grain disk. Compacting the MongoDB
+database frees that space as well, so WeKan does not offer to delete raw database
+files. The pane, its menu entry, its helpers and its handler are commented out in
+`client/components/settings/attachments.jade` and `.js`.
+
+The grain migration itself is unchanged: it runs in `sandstorm-src/start.js` before
+the app boots — see
+[Sandstorm migration](../../../Platforms/FOSS/Sandstorm/Meteor3/Migration.md).
 
 ## Related
 

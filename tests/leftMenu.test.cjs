@@ -383,13 +383,31 @@ test('EVERY Admin Panel page renders the shared menu', () => {
   }
 });
 
-test('Attachments keeps its Sandstorm entry and its literal label', () => {
+test('the Attachments Sandstorm pane is commented out, code and all', () => {
+  // It only had content inside a grain - the MongoDB 3 -> FerretDB migration
+  // report and a button that DELETED the raw MongoDB 3 files. Compacting the
+  // database frees that space too, so the pane is commented out rather than
+  // deleted: no menu entry, no template, no helpers, no state, no handler, and
+  // nothing of it runs. The grain migration itself is untouched.
   const js = read('client/components/settings/attachments.js');
-  assert.ok(/isSandstorm \? \{ id: 'sandstorm'/.test(js),
-    'the Sandstorm entry is still Sandstorm-only, as a dropped null elsewhere');
-  assert.ok(/label: 'Sandstorm'/.test(js),
-    'a proper noun uses label, not an i18n key');
-  // The template must render a literal label when there is no key.
+  const pageJade = read('client/components/settings/attachments.jade');
+  const liveJs = js.replace(/^\s*\/\/.*$/gm, '');
+  const liveJade = pageJade.replace(/^\s*\/\/-.*$/gm, '');
+  assert.ok(/\/\/ \{ id: 'sandstorm', icon: 'fa-hdd-o', label: 'Sandstorm'/.test(js),
+    'the menu entry is kept as a comment');
+  assert.ok(!/sandstorm/i.test(liveJs),
+    'no live line of the page mentions Sandstorm any more');
+  assert.ok(!/sandstorm/i.test(liveJade),
+    'and its pane is commented out of the template');
+  // Everything else on the page keeps working: the storages, their stats, the
+  // database migration and Backup.
+  for (const kept of ['isBackupActive', 'isDatabaseMigrationActive', 'isGridFsActive',
+    'isFilesystemActive', 'isS3Active', 'isMoveActive']) {
+    assert.ok(liveJs.includes(kept) && liveJade.includes(kept),
+      `${kept} must still be live`);
+  }
+  // The literal-label path the entry used is still supported by the design, for
+  // the next proper noun that needs it.
   assert.ok(/if labelKey[\s\S]*\{\{_ labelKey\}\}[\s\S]*else[\s\S]*\{\{label\}\}/.test(jade),
     'the template falls back to a literal label');
   const [lit] = lib.buildMenuItems([{ id: 's', label: 'Sandstorm' }], 's');

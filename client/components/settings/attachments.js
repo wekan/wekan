@@ -295,19 +295,18 @@ Template.attachments.onCreated(function () {
   // pressed something. pollBackupStatus only keeps polling while it IS running.
   pollBackupStatus(this);
 
-  // Sandstorm: MongoDB 3 -> FerretDB migration status + raw-MongoDB disk usage.
-  this.sandstormStatus = new ReactiveVar(null);
-  this.sandstormDeleteResult = new ReactiveVar(null);
-  this.sandstormDeleteError = new ReactiveVar('');
-  // Fetch (once) when the Sandstorm tab is opened. Migration runs in start.js
-  // before the app boots, so the status is static by the time the UI is shown.
-  this.autorun(() => {
-    if (this.activeSection.get() === 'sandstorm') {
-      Meteor.call('sandstormMigrationStatus', (err, res) => {
-        if (!err && res) this.sandstormStatus.set(res);
-      });
-    }
-  });
+  // Sandstorm pane state - commented out with the pane (see attachmentsMenu).
+  // No section can open it any more, so nothing here would ever run.
+  // this.sandstormStatus = new ReactiveVar(null);
+  // this.sandstormDeleteResult = new ReactiveVar(null);
+  // this.sandstormDeleteError = new ReactiveVar('');
+  // this.autorun(() => {
+  //   if (this.activeSection.get() === 'sandstorm') {
+  //     Meteor.call('sandstormMigrationStatus', (err, res) => {
+  //       if (!err && res) this.sandstormStatus.set(res);
+  //     });
+  //   }
+  // });
 
   this.autorun(() => {
     const ready = this.storageSettingsSubscription.ready();
@@ -426,8 +425,6 @@ function pollBackupStatus(tpl) {
 // The Attachments side menu, as data (docs/Design/Page/Left-Menu.md).
 // emoji:true reproduces the empty span.emoji-icon this page always rendered.
 function attachmentsMenu() {
-  const isSandstorm =
-    Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm;
   return [
     // Backup first: it is what an admin comes to this page for most often, and it
     // is the one action here that has to be reachable in a hurry.
@@ -441,8 +438,12 @@ function attachmentsMenu() {
     { id: 'azure', icon: 'fa-cloud', labelKey: 'azure-blob-storage', emoji: true },
     { id: 'gcs', icon: 'fa-cloud', labelKey: 'gcs-storage', emoji: true },
     { id: 'database-migration', icon: 'fa-exchange', labelKey: 'database-migration', emoji: true },
-    // Sandstorm only, and a proper noun rather than a translated string.
-    isSandstorm ? { id: 'sandstorm', icon: 'fa-hdd-o', label: 'Sandstorm', emoji: true } : null,
+    // Sandstorm - COMMENTED OUT ON PURPOSE, with its pane in attachments.jade and
+    // its helpers, state and handler below. It only had content inside a grain: the
+    // MongoDB 3 -> FerretDB migration report and a button that DELETED the raw
+    // MongoDB 3 files. Compacting the MongoDB database frees that space as well, so
+    // deleting raw database files is not something this page needs to offer.
+    // { id: 'sandstorm', icon: 'fa-hdd-o', label: 'Sandstorm', emoji: true },
   ];
 }
 
@@ -490,51 +491,43 @@ Template.attachments.helpers({
   isBackupActive() {
     return Template.instance().activeSection.get() === 'backup';
   },
-  isSandstorm() {
-    return !!(
-      Meteor.settings &&
-      Meteor.settings.public &&
-      Meteor.settings.public.sandstorm
-    );
-  },
-  isSandstormActive() {
-    return Template.instance().activeSection.get() === 'sandstorm';
-  },
-  sandstormStatus() {
-    return Template.instance().sandstormStatus.get();
-  },
-  rawMongoSize() {
-    const s = Template.instance().sandstormStatus.get();
-    return s ? filesize(s.rawMongoBytes || 0) : '';
-  },
-  ferretSize() {
-    const s = Template.instance().sandstormStatus.get();
-    return s ? filesize(s.ferretBytes || 0) : '';
-  },
-  attachmentsSize() {
-    const s = Template.instance().sandstormStatus.get();
-    return s ? filesize(s.attachmentsBytes || 0) : '';
-  },
-  avatarsSize() {
-    const s = Template.instance().sandstormStatus.get();
-    return s ? filesize(s.avatarsBytes || 0) : '';
-  },
-  sandstormDeleteDisabled() {
-    const s = Template.instance().sandstormStatus.get();
-    // Only allow deleting the raw MongoDB files after a confirmed-successful
-    // migration, and only while they still exist.
-    return !(s && s.migrationSuccess && s.rawMongoExists);
-  },
-  sandstormDeleteResult() {
-    return Template.instance().sandstormDeleteResult.get();
-  },
-  sandstormDeleteFreed() {
-    const r = Template.instance().sandstormDeleteResult.get();
-    return r ? filesize(r.freedBytes || 0) : '';
-  },
-  sandstormDeleteError() {
-    return Template.instance().sandstormDeleteError.get();
-  },
+  // Sandstorm pane helpers - commented out with the pane (see attachmentsMenu).
+  // isSandstormActive() {
+  //   return Template.instance().activeSection.get() === 'sandstorm';
+  // },
+  // sandstormStatus() {
+  //   return Template.instance().sandstormStatus.get();
+  // },
+  // rawMongoSize() {
+  //   const s = Template.instance().sandstormStatus.get();
+  //   return s ? filesize(s.rawMongoBytes || 0) : '';
+  // },
+  // ferretSize() {
+  //   const s = Template.instance().sandstormStatus.get();
+  //   return s ? filesize(s.ferretBytes || 0) : '';
+  // },
+  // attachmentsSize() {
+  //   const s = Template.instance().sandstormStatus.get();
+  //   return s ? filesize(s.attachmentsBytes || 0) : '';
+  // },
+  // avatarsSize() {
+  //   const s = Template.instance().sandstormStatus.get();
+  //   return s ? filesize(s.avatarsBytes || 0) : '';
+  // },
+  // sandstormDeleteDisabled() {
+  //   const s = Template.instance().sandstormStatus.get();
+  //   return !(s && s.migrationSuccess && s.rawMongoExists);
+  // },
+  // sandstormDeleteResult() {
+  //   return Template.instance().sandstormDeleteResult.get();
+  // },
+  // sandstormDeleteFreed() {
+  //   const r = Template.instance().sandstormDeleteResult.get();
+  //   return r ? filesize(r.freedBytes || 0) : '';
+  // },
+  // sandstormDeleteError() {
+  //   return Template.instance().sandstormDeleteError.get();
+  // },
   backupStatus() {
     return Template.instance().backupStatus.get();
   },
@@ -823,24 +816,26 @@ Template.attachments.events({
 
     tpl.activeSection.set(targetID);
   },
-  'click .js-sandstorm-delete-raw-mongodb'(event, tpl) {
-    event.preventDefault();
-    if (!window.confirm(TAPi18n.__('sandstorm-delete-raw-mongodb-confirm'))) {
-      return;
-    }
-    tpl.sandstormDeleteError.set('');
-    Meteor.call('sandstormDeleteRawMongo', (error, result) => {
-      if (error) {
-        tpl.sandstormDeleteError.set(error.reason || error.message);
-        return;
-      }
-      tpl.sandstormDeleteResult.set(result);
-      // Refresh disk usage / status after deletion.
-      Meteor.call('sandstormMigrationStatus', (err, res) => {
-        if (!err && res) tpl.sandstormStatus.set(res);
-      });
-    });
-  },
+  // Deleting the raw MongoDB 3 files of a grain - commented out with the pane
+  // (see attachmentsMenu). Compacting the database frees the space instead, and
+  // nothing renders the button any more.
+  // 'click .js-sandstorm-delete-raw-mongodb'(event, tpl) {
+  //   event.preventDefault();
+  //   if (!window.confirm(TAPi18n.__('sandstorm-delete-raw-mongodb-confirm'))) {
+  //     return;
+  //   }
+  //   tpl.sandstormDeleteError.set('');
+  //   Meteor.call('sandstormDeleteRawMongo', (error, result) => {
+  //     if (error) {
+  //       tpl.sandstormDeleteError.set(error.reason || error.message);
+  //       return;
+  //     }
+  //     tpl.sandstormDeleteResult.set(result);
+  //     Meteor.call('sandstormMigrationStatus', (err, res) => {
+  //       if (!err && res) tpl.sandstormStatus.set(res);
+  //     });
+  //   });
+  // },
   'click .js-migrate-to-ferretdb'(event, tpl) {
     event.preventDefault();
     startDbMigration(tpl, 'toFerretDB');

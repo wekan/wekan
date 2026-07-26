@@ -520,47 +520,62 @@ template(name="attachments")
                   .form-group
                     button.js-restore-backup.btn.btn-warning(type="button" disabled=backupRunning) {{_ 'backup-restore'}}
 
-          else if isSandstormActive
-            ul#attachment-sandstorm-setting.setting-detail
-              li
-                .description {{_ 'sandstorm-migration-description'}}
-                if sandstormStatus
-                  .form-group
-                    strong {{_ 'sandstorm-migration-status'}}
-                    if sandstormStatus.migrationSuccess
-                      span.text-success  {{_ 'sandstorm-migration-success'}}
-                    else if sandstormStatus.migrationDone
-                      span.text-danger  {{_ 'sandstorm-migration-failed'}}
-                    else
-                      span.text-muted  {{_ 'sandstorm-migration-pending'}}
-                    if sandstormStatus.status
-                      p.form-text.text-muted {{_ 'database-migration-phase'}}: {{sandstormStatus.status.phase}}
-                  table.gridfs-stats-table
-                    tr
-                      th {{_ 'sandstorm-storage-item'}}
-                      th {{_ 'sandstorm-disk-usage'}}
-                    tr
-                      td {{_ 'sandstorm-raw-mongodb'}}
-                      td {{rawMongoSize}}
-                    tr
-                      td FerretDB (SQLite)
-                      td {{ferretSize}}
-                    tr
-                      td {{_ 'attachments'}}
-                      td {{attachmentsSize}}
-                    tr
-                      td {{_ 'avatars'}}
-                      td {{avatarsSize}}
-                  if sandstormStatus.rawMongoExists
-                    .form-group
-                      .description {{_ 'sandstorm-delete-raw-mongodb-description'}}
-                      button.js-sandstorm-delete-raw-mongodb.btn.btn-warning(type="button" disabled=sandstormDeleteDisabled) {{_ 'sandstorm-delete-raw-mongodb'}}
-                      if sandstormDeleteResult
-                        p.form-text.text-success {{_ 'sandstorm-raw-mongodb-deleted'}} ({{sandstormDeleteFreed}})
-                      if sandstormDeleteError
-                        p.form-text.text-danger {{sandstormDeleteError}}
-                else
-                  p.form-text.text-muted {{_ 'loading'}}
+          //- Admin Panel / Attachments / Sandstorm - COMMENTED OUT ON PURPOSE,
+          //- together with its left-menu entry, its helpers, its state and its
+          //- click handler in attachments.js. Nothing of it runs.
+          //-
+          //- It only ever had content inside a Sandstorm grain: the one-time
+          //- MongoDB 3 -> FerretDB migration status and a button that DELETED the
+          //- raw MongoDB 3 files to reclaim grain disk. Compacting the MongoDB
+          //- database frees that space too, so deleting the raw database files is
+          //- not something WeKan needs to offer. Everything else on this page -
+          //- the Database migration pane, Backup, the storages and their stats -
+          //- is untouched and keeps working.
+          //-
+          //- Kept as a comment rather than deleted so the grain migration report
+          //- can be brought back if it is ever wanted; the server methods it
+          //- called (server/methods/sandstormMigration.js) are still there.
+          //- else if isSandstormActive
+          //-   ul#attachment-sandstorm-setting.setting-detail
+          //-     li
+          //-       .description {{_ 'sandstorm-migration-description'}}
+          //-       if sandstormStatus
+          //-         .form-group
+          //-           strong {{_ 'sandstorm-migration-status'}}
+          //-           if sandstormStatus.migrationSuccess
+          //-             span.text-success  {{_ 'sandstorm-migration-success'}}
+          //-           else if sandstormStatus.migrationDone
+          //-             span.text-danger  {{_ 'sandstorm-migration-failed'}}
+          //-           else
+          //-             span.text-muted  {{_ 'sandstorm-migration-pending'}}
+          //-           if sandstormStatus.status
+          //-             p.form-text.text-muted {{_ 'database-migration-phase'}}: {{sandstormStatus.status.phase}}
+          //-         table.gridfs-stats-table
+          //-           tr
+          //-             th {{_ 'sandstorm-storage-item'}}
+          //-             th {{_ 'sandstorm-disk-usage'}}
+          //-           tr
+          //-             td {{_ 'sandstorm-raw-mongodb'}}
+          //-             td {{rawMongoSize}}
+          //-           tr
+          //-             td FerretDB (SQLite)
+          //-             td {{ferretSize}}
+          //-           tr
+          //-             td {{_ 'attachments'}}
+          //-             td {{attachmentsSize}}
+          //-           tr
+          //-             td {{_ 'avatars'}}
+          //-             td {{avatarsSize}}
+          //-         if sandstormStatus.rawMongoExists
+          //-           .form-group
+          //-             .description {{_ 'sandstorm-delete-raw-mongodb-description'}}
+          //-             button.js-sandstorm-delete-raw-mongodb.btn.btn-warning(type="button" disabled=sandstormDeleteDisabled) {{_ 'sandstorm-delete-raw-mongodb'}}
+          //-             if sandstormDeleteResult
+          //-               p.form-text.text-success {{_ 'sandstorm-raw-mongodb-deleted'}} ({{sandstormDeleteFreed}})
+          //-             if sandstormDeleteError
+          //-               p.form-text.text-danger {{sandstormDeleteError}}
+          //-       else
+          //-         p.form-text.text-muted {{_ 'loading'}}
 
 template(name="moveAttachments")
   .move-storage-form
