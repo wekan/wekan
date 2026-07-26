@@ -285,7 +285,8 @@ All publishing / release steps below are maintainer-only. Contributors never run
   separate "(GitHub)" link. **Check the account exists before linking it** (a 404 or,
   worse, somebody else's profile is the failure here); a real name, a company or a
   tool such as GitHub CodeQL is not a GitHub user and stays plain text. Do not write
-  `(fix)` after `xet7`: xet7 fixes every one of these.
+  a role note after a name — no `(fix)`, `(found)` or `(found and fix)`: this column
+  is the credit, and the Process cell beside it already says how the report arrived.
   Stars is a column so it can be compared down the page; do not put a star, an icon
   or the process sentence back into another cell. A page-local `<style>` in
   `index.html` keeps a row's stars on ONE line from 900px up (they are a count) and
