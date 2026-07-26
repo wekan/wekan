@@ -729,6 +729,20 @@ body.grey-icons-enabled .pop-over-list .pop-over-list.checkable .fa-check {
     z-index: 999999 !important;
     /* iOS Safari scrolling fix */
     -webkit-overflow-scrolling: touch;
+    /* ...and PINNED to the viewport. This block already gives the popup the whole
+       width and its own 48px header with a back button, but it left the inline
+       `left`/`top` that Popup._getOffset writes on the element - so the sheet
+       started wherever the button that opened it was. On a phone that put "Create
+       board" 160px in and its right half off the screen, where the Create button
+       could not be reached. `!important` because those are inline styles.
+       `body.mobile-mode` said this already; a narrow window is now enough, so a
+       phone in DESKTOP mode gets it too. */
+    position: fixed !important;
+    top: 0 !important;
+    inset-inline-start: 0 !important;
+    inset-inline-end: 0 !important;
+    max-width: 100vw !important;
+    max-height: 100% !important;
   }
   .pop-over .header {
     color: #fff;

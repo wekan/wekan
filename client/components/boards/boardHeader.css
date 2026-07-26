@@ -1030,6 +1030,36 @@ body.board-view.mobile-mode #header #header-main-bar .board-header-sidebar-toggl
   margin: 0;
 }
 
+/* The same three rules by WIDTH, not by mobile mode. A phone whose user chose
+   desktop mode still has a 375px bar: the buttons wrapped to a second row, and the
+   hamburger - which comes after them in the flex order - was pushed to a THIRD row
+   of its own, at the right, with the empty space that goes with it. Out of the flow
+   and into the corner, exactly as in mobile mode, and the bar reserves its width so
+   nothing runs underneath. */
+@media screen and (max-width: 800px) {
+  #header #header-main-bar h1 {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow-wrap: break-word;
+  }
+
+  #header #header-main-bar .board-header-btns-group {
+    flex: 1 1 auto;
+  }
+
+  body.board-view #header #header-main-bar {
+    position: relative;
+    padding-inline-end: 44px;
+  }
+
+  body.board-view #header #header-main-bar .board-header-sidebar-toggle {
+    position: absolute;
+    top: 7px;
+    inset-inline-end: 8px;
+    margin: 0;
+  }
+}
+
 /* Ensure the board header takes full width in mobile mode */
 .mobile-mode .board-header {
   width: 100% !important;

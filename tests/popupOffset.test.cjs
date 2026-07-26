@@ -118,6 +118,23 @@ test('special popups: cardDetails / no-opener / admin edit', () => {
 
   const mini = computePopupOffset({ viewportWidth: VW, viewportHeight: VH, isMiniScreen: true, popupName: 'x' });
   assert.deepStrictEqual(mini, { left: 0, top: 0 });
+
+  // A narrow WINDOW is a sheet as well, whatever the mode: popup.css lays every
+  // popup out full-screen below 800px, and the geometry has to agree or the sheet
+  // starts wherever its button was and hangs off the right edge (which is what a
+  // phone in desktop mode did).
+  const narrow = computePopupOffset({
+    viewportWidth: 375, viewportHeight: 700, isMiniScreen: false,
+    opener: { top: 600, left: 300, height: 24 }, popupName: 'createBoardPopup',
+  });
+  assert.deepStrictEqual(narrow, { left: 0, top: 0 });
+
+  const justWide = computePopupOffset({
+    viewportWidth: 801, viewportHeight: 700, isMiniScreen: false,
+    opener: { top: 100, left: 20, height: 24 }, popupName: 'x',
+  });
+  assert.notDeepStrictEqual(justWide, { left: 0, top: 0 },
+    'above the media query a popup still opens at its button');
 });
 
 // --- NEGATIVE / the actual bug: the OLD formula overflowed when scrolled -----

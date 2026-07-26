@@ -1694,4 +1694,34 @@ body.mobile-mode #header-quick-access .allBoards {
     flex: 0 1 auto;
     min-width: 0;
   }
+
+  /* The drag-handle toggle is ONE button: a four-arrows glyph and the check or
+     ban that says whether handles are on. They were breaking onto two lines,
+     which reads as two buttons and makes the bar taller than its own row. */
+  #header-quick-access .js-toggle-desktop-drag-handles {
+    white-space: nowrap !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 2px;
+  }
+
+  /* What is left of the overflow that pushed the avatar off the right edge. The
+     mode toggle is the widest item after the zoom pill - 21px of padding on each
+     side of two icons at this width - and the logo is decorative. Together they
+     give back about 60px of a 375px bar, which is what the avatar needs to be
+     whole. */
+  #header-quick-access .mobile-mode-toggle .board-header-btn {
+    padding: 5px 8px !important;
+  }
+
+  #header-quick-access img,
+  .iphone-device #header-quick-access img,
+  .wrapper ~ #header-quick-access img,
+  body:not(.board-view) #header-quick-access img {
+    /* The `.iphone-device` fallback sets 84px with `!important` and one class more
+       than a bare `#header-quick-access img`, so it has to be named here or it
+       simply wins. */
+    max-width: 64px !important;
+    max-height: 20px !important;
+  }
 }

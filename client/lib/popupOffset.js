@@ -21,6 +21,10 @@
 // scrolled (scrollTop === scrollLeft === 0) the output is identical to the
 // previous behaviour, so nothing regresses in the common case.
 
+// The width below which popup.css lays a popup out as a full-screen sheet.
+// Keep in step with the `@media screen and (max-width: 800px)` block there.
+const MOBILE_POPUP_MAX_WIDTH = 800;
+
 function computePopupOffset(params) {
   const {
     viewportWidth,
@@ -37,7 +41,16 @@ function computePopupOffset(params) {
     viewportPadding = 10,
   } = params;
 
-  if (isMiniScreen) return { left: 0, top: 0 };
+  // A popup is FULL SCREEN below 800px - `@media (max-width: 800px)` in
+  // popup.css gives it the whole width and its own 48px header with a back
+  // button. So the geometry has to agree with the CSS: pin it to the top left
+  // corner. It used to agree only when the user was in mobile mode; a phone in
+  // desktop mode got a popup laid out for a 380px-wide box that the CSS then
+  // made 375px wide starting 160px in, so its right half was off the screen and
+  // the buttons in it could not be reached.
+  if (isMiniScreen || viewportWidth <= MOBILE_POPUP_MAX_WIDTH) {
+    return { left: 0, top: 0 };
+  }
 
   // Actual popup width from CSS: min(380px, 55vw).
   const popupWidth = Math.min(380, viewportWidth * 0.55);
@@ -115,4 +128,4 @@ function computePopupOffset(params) {
   return { left: clampedLeft, top: topVp + scrollTop, maxHeight };
 }
 
-export { computePopupOffset };
+export { computePopupOffset, MOBILE_POPUP_MAX_WIDTH };
