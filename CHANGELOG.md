@@ -209,6 +209,42 @@ This release fixes the following CRITICAL SECURITY ISSUE of [ZipBleed](https://w
   guards](https://github.com/wekan/wekan/commit/f1c89548e).
   Thanks to xet7.
 
+and adds the following new features:
+
+- [**Multitenancy: one WeKan server for many domains, with Organizations as the
+  tenants.** Hosting *n* customers meant running *n* WeKan servers — *n* Node.js
+  processes, *n* ROOT_URLs, *n* upgrades, *n* backups. One server can now serve them
+  all: an Organization claims its own hostnames (Admin Panel / People /
+  Organizations → Edit), carries its own branding — product name, logos, help link,
+  legal notice and theme colour — and gets its own **Organization admins**, appointed
+  from the row's ⋯ menu. An Organization admin administers their own Organization's
+  people and backups and nothing else: they can never grant the site-wide Admin flag,
+  never manage a site admin, and never see another Organization. Per-tenant **backup
+  and restore** is one new control in Admin Panel / Attachments / Backup — Scope —
+  and an Organization's archive holds its boards and their attachments but no
+  accounts and no instance settings, because those are shared; restoring one only
+  ever writes to boards that Organization owns. The whole thing is OFF unless the
+  server is started with `MULTITENANCY=true` (plus `MULTITENANCY_TRUST_PROXY_HOST=true`
+  when a trusted proxy sets X-Forwarded-Host), so an instance that has never heard of
+  tenants answers exactly as before. The design — including what this deliberately
+  does NOT isolate, which is why one server per customer stays the recommendation for
+  customers who must not share a process — is
+  `docs/Design/Multitenancy/Multitenancy.md`, option D, and four new test suites
+  (`tenants`, `tenantAdmin`, `tenantBackup`, `tenantWiring`) pin the separation:
+  forged Host headers, cross-tenant queries, privilege escalation and cross-tenant
+  restores](https://github.com/wekan/wekan/commit/36b899b9d).
+  Thanks to xet7.
+- [Admin Panel / Settings / Visibility has a **Change color** section, above Logo: the
+  site theme, chosen with the same picker as Board Settings / Change Color and Member
+  Settings / Change color — one shared template for all three, the way one shared
+  table page serves every table. The order of themes is now WeKan's default theme,
+  then this site theme, then a user's own override; a board's own colour still owns
+  the board page. An Organization's admin sets their Organization's colour from the
+  same section, and the site admin's is the one every Organization without one of its
+  own inherits, which the line under the title says. The design is the new
+  `docs/Design/Page/Theme.md`](https://github.com/wekan/wekan/commit/36b899b9d).
+  Thanks to xet7.
+
 and reorganises the Admin Panel:
 
 - [Admin Panel / Settings is reorganised so every setting sits with the thing it is
