@@ -1141,6 +1141,17 @@ Template.selectSpinnerName.events({
 // People renders it now, and Blaze delivers an event to the handlers of the template
 // the element is IN - so on Template.setting they would simply never fire. A pane
 // owning its own handlers works wherever the pane is rendered.
+// The Login pane's handlers below flip a setting and show the pane's spinner while
+// they do it. They were moved onto this template from Template.setting when Admin
+// Panel / People started rendering the pane - but the state they poke, `loading`,
+// stayed behind on Template.setting, so every one of them threw
+//   TypeError: can't access property "set", tpl.loading is undefined
+// and the click did nothing at all. A handler's state has to live on the template
+// the handler is registered on: Blaze hands it THAT template's instance.
+Template.general.onCreated(function () {
+  this.loading = new ReactiveVar(false);
+});
+
 Template.general.events({
   'click a.js-toggle-forgot-password'(event, tpl) {
     tpl.loading.set(true);
@@ -1267,6 +1278,11 @@ Template.general.events({
 // People renders it now, and Blaze delivers an event to the handlers of the template
 // the element is IN - so on Template.setting they would simply never fire. A pane
 // owning its own handlers works wherever the pane is rendered.
+// Same for the E-mail pane: its Save reports progress through `loading`.
+Template.email.onCreated(function () {
+  this.loading = new ReactiveVar(false);
+});
+
 Template.email.events({
   // Tick the box without saving: Save below writes it, together with the invite
   // domain above, the way the Yes/No pair it replaces behaved.
