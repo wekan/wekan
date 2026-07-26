@@ -101,7 +101,7 @@ test('the panes that use a native checkbox are the ones this is for', () => {
   const panes = {
     'client/components/settings/attachments.jade': ['js-toggle-gridfs-read',
       'js-toggle-filesystem-read', 'js-backup-attachments', 's3-read',
-      'js-avatars-upload-blocked'],
+      'js-avatars-upload-blocked', 'js-backup-avatars', 'js-backup-data'],
     'client/components/settings/peopleBody.jade': ['js-toggle-org-feature',
       'js-toggle-team-feature', 'selectUserChkBox'],
     'client/components/settings/problemsSummary.jade': ['js-problem-check'],
@@ -112,6 +112,20 @@ test('the panes that use a native checkbox are the ones this is for', () => {
       assert.ok(jade.includes(cls), `${file}: ${cls} is one of the native checkboxes`);
     }
   }
+});
+
+test('several checkboxes side by side are one row', () => {
+  // Attachments / Backup's "Attachments, Avatars, Data": inline labels would let a
+  // label wrap away from its own checkbox, and the box shifts a few pixels as it
+  // becomes the tick, which unaligned text follows.
+  const row = rule(admin, '.setting-content .checkbox-row {');
+  assert.ok(/display: flex;/.test(row) && /flex-wrap: wrap;/.test(row));
+  const label = rule(admin, '.setting-content .checkbox-row label {');
+  assert.ok(/display: inline-flex;/.test(label) && /align-items: center;/.test(label),
+    'each label keeps its own box and words together');
+  const jade = read('client/components/settings/attachments.jade');
+  assert.ok(/\.form-group\.checkbox-row\n\s+label\n\s+input\.js-backup-attachments/.test(jade),
+    'the Backup include row uses it');
 });
 
 test('a checkbox written as label > input gets its gap', () => {

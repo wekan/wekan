@@ -467,7 +467,11 @@ template(name="attachments")
                       each backupScopes
                         option(value="{{_id}}") {{orgDisplayName}}
                     span.form-text.text-muted {{_ 'backup-scope-description'}}
-                .form-group
+                //- What to include: three checkboxes, each its own label, in one
+                //- row (settingBody.css .checkbox-row). They are the Admin Panel's
+                //- checkbox - the square when off, the green tick when on, animated
+                //- between - like Announcement's "Active System-Wide Announcement".
+                .form-group.checkbox-row
                   label
                     input.js-backup-attachments(type="checkbox" checked="checked")
                     |  {{_ 'attachments'}}

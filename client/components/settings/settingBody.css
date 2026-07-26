@@ -339,6 +339,24 @@ body.grey-icons-enabled .setting-content input[type="checkbox"]:checked {
   margin-inline-end: 6px;
 }
 
+/* Several such checkboxes side by side - Attachments / Backup's "Attachments,
+   Avatars, Data" - are one row, each label holding its box and its words together.
+   Inline labels would let a label wrap away from its own checkbox, and the checked
+   box shifts a few pixels as it turns into the tick, which unaligned text follows. */
+.setting-content .checkbox-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 18px;
+}
+
+.setting-content .checkbox-row label {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  cursor: pointer;
+}
+
 /* A GROUP title inside a pane - "All Boards", "URL", "Product name", "Logo" on
    Visibility. Deliberately smaller than the pane title above it, so the page reads
    as one heading with groups under it rather than as several pages stacked. */
