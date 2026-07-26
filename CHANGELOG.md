@@ -722,6 +722,17 @@ and fixes the following bugs:
 
 and has the following developer-facing changes:
 
+- [The Playwright tests address an Admin Panel menu entry by its `data-id`, not by a
+  per-page class. Fourteen tests were failing in every browser on
+  `locator('.js-people-menu')`, which no longer exists: Admin Panel / People renders
+  the shared left menu, whose entries are `a.js-left-menu-item(data-id="…")`, and
+  `data-id` is what the design says a page's click handler reads — so a conversion
+  cannot take it away the way it took the per-page class. The same sweep updated the
+  Problems report entries, the per-report search inputs and pagination (one shared
+  table page for all of them) and the People pager in the page
+  object](https://github.com/wekan/wekan/commit/b0bffe8c1).
+  Thanks to xet7.
+
 - [Every paginated admin table — Security, Speed, Tests, CPU usage, Files Report,
   Rules Report, Boards Report, Cards Report, Impersonation Report and Recovery — now
   renders through ONE shared table page instead of ten copies of the same markup,
