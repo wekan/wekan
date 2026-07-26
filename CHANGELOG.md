@@ -284,7 +284,11 @@ the app was sending it itself, from a popup that read
 publisher TESTS its arguments now instead of checking them — a subscription
 that names no board publishes nothing and readies — and the same guard is on
 `boardCardsWindow` and `boardCardsLoadingMode`. The client no longer sends a
-subscription for a board id it does not have.
+subscription for a board id it does not have. Each guarded publisher still
+marks its arguments with `check(x, Match.Any)`
+([b3537985e](https://github.com/wekan/wekan/commit/b3537985e)), because this
+app runs with audit-argument-checks and `Match.test` alone is not checking —
+without that, every subscription failed with "Did not check() all arguments".
 `tests/publicationArgumentGuard.test.cjs` replays the guard and fails on an
 unguarded board subscription.
 
