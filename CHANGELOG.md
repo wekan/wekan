@@ -271,6 +271,23 @@ browser build to verify).
 This release fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/64c1f426a">The right sidebar starts below the header, in both modes</a>. Thanks to xet7.</summary>
+
+Its upper part — the panel title, the tabs, the members row — was underneath
+the two header bars, so the sidebar appeared to start in the middle of itself.
+On a phone it is `position: fixed`, and it has to be: the board behind it is
+wider than the screen, so an absolutely-positioned sidebar pins to the far
+right of the BOARD and shows as a narrow strip. But fixed means against the
+viewport, and it was pinned at `top: 0` — where the header bars are. There is
+no number to put there: the header is the quick-access bar plus a board bar
+whose buttons wrap to one, two or three rows depending on language and window
+width. So the header measures itself into `--wekan-header-height` and the
+sidebar starts at that, kept current by a ResizeObserver — the buttons
+re-wrapping does not fire a window resize.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3c5c0a16a">A subscription with no board id took the server down; it is answered, not fatal</a>. Thanks to xet7.</summary>
 
 `publishComposite('board')` starts with `check(boardId, String)`. A
