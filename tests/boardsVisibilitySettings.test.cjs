@@ -296,8 +296,8 @@ test('the three account-access settings moved to Email and Login', () => {
   const email = template('email');
   const login = jade.slice(jade.indexOf('ul#registration-setting'), jade.indexOf("template(name='email')"));
   assert.ok(email.includes('accounts-allowEmailChange'), 'Allow Email Change is in Email');
-  assert.ok(login.includes('accounts-allowUserNameChange'), 'Allow Username Change is in Login');
-  assert.ok(login.includes('accounts-allowUserDelete'), 'Allow user self delete is in Login');
+  assert.ok(login.includes('accounts-allowUserNameChange'), 'Username Change is in Login');
+  assert.ok(login.includes('accounts-allowUserDelete'), 'Self delete user account is in Login');
   // Each host pane has a Save that reaches them.
   assert.ok(/js-save\.primary/.test(email) && /js-account-access-save/.test(login));
   // The Accounts pane had nothing left, so it is gone - not left empty with a
@@ -308,20 +308,71 @@ test('the three account-access settings moved to Email and Login', () => {
     'and every reference to it');
 });
 
-test('the moved radios still see their values, and save what they found', () => {
-  // A radio bound to a helper the HOST template does not have renders unchecked -
+test('the moved settings still see their values, and are written on click', () => {
+  // A checkbox bound to a helper the HOST template does not have renders unticked -
   // it would silently show the wrong value. The helpers moved with the settings.
   assert.ok(/Template\.email\.helpers\(accountAccessHelpers\)/.test(js),
     'Email gets the helpers');
   assert.ok(/Template\.setting\.helpers\(accountAccessHelpers\)/.test(js),
     'the Settings template (which hosts the Login pane) gets them too');
-  const body = handler('js-account-access-save');
-  assert.ok(/!== undefined/.test(body),
-    'a radio that is not on screen must be skipped, never saved as false');
-  assert.ok(/accounts-allowUserNameChange/.test(body) && /accounts-allowUserDelete/.test(body));
+  // Username change and self delete are checkboxes in the "Login: Allow" group now,
+  // written on click - a checkbox that needs a Save button below it is a checkbox
+  // you think you have already set.
+  for (const [cls, id] of [['js-toggle-username-change', 'accounts-allowUserNameChange'],
+    ['js-toggle-user-delete', 'accounts-allowUserDelete']]) {
+    const body = js.slice(js.indexOf(`'click a.${cls}'`));
+    const handlerBody = body.slice(0, body.indexOf('\n  },') + 5);
+    assert.ok(handlerBody.includes(`AccountSettings.update('${id}'`),
+      `${cls} must write ${id}`);
+    assert.ok(/!allowed/.test(handlerBody), 'and toggle it, from the stored value');
+  }
+  // The Save at the bottom keeps only what is still a FIELD.
+  const save = handler('js-account-access-save');
+  assert.ok(!/allowUserNameChange|allowUserDelete|displayAuthenticationMethod/.test(save),
+    'the Save must not still read radios that no longer exist');
+  assert.ok(/defaultAuthenticationMethod/.test(save) && /oidcBtnTextvalue/.test(save),
+    'it writes the method dropdown and the OIDC button text');
   // The settings still live in AccountSettings; only where they are SHOWN changed.
   assert.ok(/Meteor\.subscribe\('accountSettings'\)/.test(js),
     'the subscription must stay - the collection is unchanged');
+});
+
+test('Login: Allow is five ticked-when-allowed checkboxes', () => {
+  // The pane mixed "Disable X" checkboxes with "Allow X: Yes/No" radios, so half
+  // the rows meant the opposite of the other half. One group title says "Allow"
+  // once, and every row is ticked when the thing is allowed.
+  const login = template('general');
+  assert.ok(/h2\.admin-pane-group-title \{\{_ 'login-allow'\}\}/.test(login),
+    'the group title must be Login: Allow');
+  assert.strictEqual(en['login-allow'], 'Login: Allow');
+  assert.strictEqual(en.login, 'Login', 'the menu entry keeps its own label');
+  for (const [key, value] of [['forgot-password', 'Forgot password'],
+    ['self-registration', 'Self-Registration'],
+    ['accounts-allowUserNameChange', 'Username Change'],
+    ['accounts-allowUserDelete', 'Self delete user account'],
+    ['display-authentication-method', 'Display Authentication Method']]) {
+    assert.strictEqual(en[key], value, `${key} must read "${value}"`);
+    assert.ok(login.includes(`{{_ '${key}'}}`), `${key} must label a row of the group`);
+  }
+  // The two "disable" flags are stored the other way round, so their checkbox asks
+  // `unless` - the display inverts, the stored field does not.
+  for (const field of ['disableForgotPassword', 'disableRegistration']) {
+    assert.ok(new RegExp(`\\{\\{#unless currentSetting\\.${field}\\}\\}is-checked`).test(login),
+      `${field} must be shown inverted: ticked means allowed`);
+  }
+  // The old keys are renamed; nothing renders them.
+  for (const gone of ['disable-forgot-password', 'disable-self-registration']) {
+    assert.ok(!(gone in en), `${gone} must be gone from en`);
+    assert.ok(!jade.includes(gone), `${gone} must not be rendered anywhere`);
+  }
+  // No Yes/No radios left in this pane.
+  assert.ok(!/name="allowUserNameChange"|name="allowUserDelete"|name="displayAuthenticationMethod"/.test(login),
+    'the three radio pairs are checkboxes now');
+  // A duplicate key in one event map silently overrides the earlier handler: the
+  // dead `js-toggle-display-authentication-method` that only toggled a CSS class
+  // sat after the real one and would have swallowed every click.
+  assert.strictEqual((js.match(/'click a\.js-toggle-display-authentication-method'/g) || []).length, 1,
+    'exactly one handler for the display-authentication-method toggle');
 });
 
 test('Support, Email domain name and Legal notice moved out of Layout', () => {

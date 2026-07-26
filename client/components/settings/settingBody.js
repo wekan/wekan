@@ -1114,6 +1114,36 @@ Template.general.events({
       $('.invite-people').slideDown();
     }
   },
+  // The three settings that were Yes/No radios saved by the button at the bottom of
+  // the pane. They are checkboxes in the "Login: Allow" group now, and a checkbox
+  // that has to be confirmed by a Save button somewhere below it is a checkbox you
+  // think you have already set - so each writes on click, like the two above.
+  'click a.js-toggle-username-change'(event, tpl) {
+    tpl.loading.set(true);
+    const allowed =
+      AccountSettings.findOne('accounts-allowUserNameChange')?.booleanValue || false;
+    AccountSettings.update('accounts-allowUserNameChange', {
+      $set: { booleanValue: !allowed },
+    });
+    tpl.loading.set(false);
+  },
+  'click a.js-toggle-user-delete'(event, tpl) {
+    tpl.loading.set(true);
+    const allowed =
+      AccountSettings.findOne('accounts-allowUserDelete')?.booleanValue || false;
+    AccountSettings.update('accounts-allowUserDelete', {
+      $set: { booleanValue: !allowed },
+    });
+    tpl.loading.set(false);
+  },
+  'click a.js-toggle-display-authentication-method'(event, tpl) {
+    tpl.loading.set(true);
+    const shown = ReactiveCache.getCurrentSetting().displayAuthenticationMethod;
+    Settings.update(ReactiveCache.getCurrentSetting()._id, {
+      $set: { displayAuthenticationMethod: !shown },
+    });
+    tpl.loading.set(false);
+  },
   'click a.js-toggle-board-members-same-org-team'(event, tpl) {
     // #6116: toggle the global "add board members from same Org/Team only" setting.
     tpl.loading.set(true);
@@ -1123,9 +1153,6 @@ Template.general.events({
       $set: { boardMembersFromSameOrgOrTeamOnly: !current },
     });
     tpl.loading.set(false);
-  },
-  'click a.js-toggle-display-authentication-method'() {
-    $('#display-authentication-method').toggleClass('is-checked');
   },
   'click a.js-toggle-board-choose'(event) {
     let target = $(event.target);
@@ -1164,16 +1191,12 @@ Template.general.events({
       });
     }
   },
-  // Login pane: the two account-access settings that moved here.
+  // Login pane: the two FIELDS at the bottom - the default authentication method and
+  // the OIDC button text. The five allow-toggles above save on click, so this button
+  // no longer reads them: it used to read three Yes/No radios that no longer exist.
   'click button.js-account-access-save'() {
-    // Moved here from Layout with their inputs. Both are Settings fields, unlike
-    // the two AccountSettings ones below, so they are a separate write - and each
-    // is written only when its input is actually on screen.
+    // Each is written only when its input is actually on screen.
     const $settings = {};
-    const display = $('input[name=displayAuthenticationMethod]:checked').val();
-    if (display !== undefined) {
-      $settings.displayAuthenticationMethod = display === 'true';
-    }
     if ($('#defaultAuthenticationMethod').length) {
       // value can still be '' / null when Save is clicked. Saving that empty value
       // over the required `defaultAuthenticationMethod` string silently failed
@@ -1192,18 +1215,6 @@ Template.general.events({
     }
     if (Object.keys($settings).length) {
       Settings.update(ReactiveCache.getCurrentSetting()._id, { $set: $settings });
-    }
-    const uname = $('input[name=allowUserNameChange]:checked').val();
-    const del = $('input[name=allowUserDelete]:checked').val();
-    if (uname !== undefined) {
-      AccountSettings.update('accounts-allowUserNameChange', {
-        $set: { booleanValue: uname === 'true' },
-      });
-    }
-    if (del !== undefined) {
-      AccountSettings.update('accounts-allowUserDelete', {
-        $set: { booleanValue: del === 'true' },
-      });
     }
   },
 });

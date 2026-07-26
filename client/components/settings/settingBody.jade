@@ -43,15 +43,40 @@ template(name="webhookSettings")
 template(name="general")
   ul#registration-setting.setting-detail
     li
+      h2.admin-pane-group-title {{_ 'login-allow'}}
+    //- Every row in this group is a checkbox that is TICKED when the thing is
+    //- allowed, under a title that says "Allow" once. Two of them are stored the
+    //- other way round - `disableForgotPassword` and `disableRegistration` are
+    //- "disable" flags - so the markup asks `unless`. Only the display is inverted;
+    //- the stored fields and their handlers are unchanged.
+    li
       a.flex.js-toggle-forgot-password
-        .materialCheckBox(class="{{#if currentSetting.disableForgotPassword}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#unless currentSetting.disableForgotPassword}}is-checked{{/unless}}")
 
-        span {{_ 'disable-forgot-password'}}
+        span {{_ 'forgot-password'}}
     li
       a.flex.js-toggle-registration
-        .materialCheckBox(class="{{#if currentSetting.disableRegistration}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#unless currentSetting.disableRegistration}}is-checked{{/unless}}")
 
-        span {{_ 'disable-self-registration'}}
+        span {{_ 'self-registration'}}
+    li
+      a.flex.js-toggle-username-change
+        .materialCheckBox(class="{{#if allowUserNameChange}}is-checked{{/if}}")
+
+        span {{_ 'accounts-allowUserNameChange'}}
+    li
+      a.flex.js-toggle-user-delete
+        .materialCheckBox(class="{{#if allowUserDelete}}is-checked{{/if}}")
+
+        span {{_ 'accounts-allowUserDelete'}}
+    li
+      a.flex.js-toggle-display-authentication-method
+        .materialCheckBox(class="{{#if currentSetting.displayAuthenticationMethod}}is-checked{{/if}}")
+
+        span {{_ 'display-authentication-method'}}
+
+    li.admin-pane-group-separator
+      hr
     li
       a.flex.js-toggle-board-members-same-org-team
         .materialCheckBox(class="{{#if currentSetting.boardMembersFromSameOrgOrTeamOnly}}is-checked{{/if}}")
@@ -74,26 +99,6 @@ template(name="general")
 
           li
             button.js-email-invite.primary {{_ 'invite'}}
-    li.accounts-form
-      .title {{_ 'accounts-allowUserNameChange'}}
-      .form-group.flex
-        input.wekan-form-control#accounts-allowUserNameChange(type="radio" name="allowUserNameChange" value="true" checked="{{#if allowUserNameChange}}checked{{/if}}")
-        label {{_ 'yes'}}
-        input.wekan-form-control#accounts-allowUserNameChange(type="radio" name="allowUserNameChange" value="false" checked="{{#unless allowUserNameChange}}checked{{/unless}}")
-        label {{_ 'no'}}
-      .title {{_ 'accounts-allowUserDelete'}}
-      .form-group.flex
-        input.wekan-form-control#accounts-allowUserDelete(type="radio" name="allowUserDelete" value="true" checked="{{#if allowUserDelete}}checked{{/if}}")
-        label {{_ 'yes'}}
-        input.wekan-form-control#accounts-allowUserDelete(type="radio" name="allowUserDelete" value="false" checked="{{#unless allowUserDelete}}checked{{/unless}}")
-        label {{_ 'no'}}
-    li.accounts-form
-      .title {{_ 'display-authentication-method'}}
-      .form-group.flex
-        input.wekan-form-control#display-authentication-method(type="radio" name="displayAuthenticationMethod" value="true" checked="{{#if currentSetting.displayAuthenticationMethod}}checked{{/if}}")
-        label {{_ 'yes'}}
-        input.wekan-form-control#display-authentication-method(type="radio" name="displayAuthenticationMethod" value="false" checked="{{#unless currentSetting.displayAuthenticationMethod}}checked{{/unless}}")
-        label {{_ 'no'}}
     li.accounts-form
       .title {{_ 'default-authentication-method'}}
       +selectAuthenticationMethod(authenticationMethod=currentSetting.defaultAuthenticationMethod)
