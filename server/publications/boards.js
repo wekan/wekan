@@ -478,8 +478,19 @@ Meteor.methods({
 // If isArchived = false, this will only return board elements which are not archived.
 // If isArchived = true, this will only return board elements which are archived.
 publishComposite('board', async function(boardId, isArchived) {
-  check(boardId, String);
-  check(isArchived, Boolean);
+  // A subscription's arguments come from the CLIENT, so they can be anything -
+  // including a null board id from a page that subscribed before it knew which
+  // board it was on. `check()` throws for that, and a throw inside an ASYNC
+  // publisher escapes as an unhandled promise rejection, which this app turns
+  // into a process EXIT (SyncedCron treats UNHANDLED_REJECTION as fatal). One
+  // subscription with a null id therefore took the whole server down, for
+  // everyone - and any client can send one.
+  //
+  // Publishing nothing is the right answer to a subscription that names no
+  // board: publishComposite treats a falsy return as "no publications" and
+  // readies the subscription, so the client simply gets an empty result.
+  if (!Match.test(boardId, String) || !boardId) return;
+  if (!Match.test(isArchived, Boolean)) return;
 
   // Best-effort, fire-and-forget: copy any board member's external avatar (Sandstorm
   // profile picture, LDAP/OAuth2/OIDC, a pasted URL) into WeKan's own files/avatars so

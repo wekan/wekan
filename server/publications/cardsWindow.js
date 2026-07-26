@@ -40,10 +40,12 @@ async function boardVisibleTo(userId, boardId) {
 // it renders with — listId/swimlane/filter — which we AND with the board scope),
 // plus each card's comments, attachments, checklists and checklist items.
 publishComposite('boardCardsWindow', function(boardId, cardSelector, sort, limit) {
-  check(boardId, String);
-  check(cardSelector, Object);
-  check(sort, Match.OneOf(Object, null, undefined));
-  check(limit, Number);
+  // Same as the `board` publication: a bad argument from a client must end the
+  // subscription, not the server process. A falsy return publishes nothing.
+  if (!Match.test(boardId, String) || !boardId) return;
+  if (!Match.test(cardSelector, Object)) return;
+  if (!Match.test(sort, Match.OneOf(Object, null, undefined))) return;
+  if (!Match.test(limit, Number)) return;
 
   const userId = this.userId;
   const lim = Math.max(1, Math.min(Math.floor(limit) || 1, MAX_WINDOW));
@@ -181,7 +183,8 @@ Meteor.publish('boardListCardCount', async function(countId, boardId, cardSelect
 // once at subscribe (the mode only changes as a board crosses the threshold, which
 // is rare and picked up on the next board open). #6480.
 Meteor.publish('boardCardsLoadingMode', async function(boardId) {
-  check(boardId, String);
+  // A null board id here is the same crash: this publisher is async too.
+  if (!Match.test(boardId, String) || !boardId) return this.ready();
 
   const board = await boardVisibleTo(this.userId, boardId);
   if (!board) {

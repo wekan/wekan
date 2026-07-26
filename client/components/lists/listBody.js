@@ -757,8 +757,14 @@ Template.linkCardPopup.onCreated(function () {
   this.selectedListId = new ReactiveVar('');
 
   this.boardId = Session.get('currentBoard');
-  // In order to get current board info
-  Meteor.subscribe('board', this.boardId, false);
+  // Only when there IS a board. `currentBoard` is null on every page that is not
+  // a board, and a subscription with a null id is not a no-op: the publisher
+  // check()s its arguments, and a throw there took the server down (it escapes an
+  // async publisher as an unhandled rejection). The server refuses such a
+  // subscription now; not sending one is the other half.
+  if (this.boardId) {
+    Meteor.subscribe('board', this.boardId, false);
+  }
   this.board = ReactiveCache.getBoard(this.boardId);
   // List where to insert card
   this.list = $(Popup._getTopStack().openerElement).closest('.js-list');
@@ -894,7 +900,7 @@ Template.linkCardPopup.helpers({
 Template.linkCardPopup.events({
   'change .js-select-boards'(evt, tpl) {
     const val = $(evt.currentTarget).val();
-    Meteor.subscribe('board', val, false);
+    if (val) Meteor.subscribe('board', val, false);
     // Clear selections to allow linking only board or re-choose swimlane/list
     tpl.selectedSwimlaneId.set('');
     tpl.selectedListId.set('');
@@ -1095,7 +1101,8 @@ Template.searchElementPopup.helpers({
     } else if (tpl.isBoardTemplateSearch) {
       const boards = board.searchBoards(tpl.term.get());
       boards.forEach(board => {
-        Meteor.subscribe('board', board.linkedId, false);
+        // A template container that links no board has no linkedId.
+        if (board.linkedId) Meteor.subscribe('board', board.linkedId, false);
       });
       return boards;
     } else {
@@ -1106,8 +1113,10 @@ Template.searchElementPopup.helpers({
 
 Template.searchElementPopup.events({
   'change .js-select-boards'(evt, tpl) {
-    Meteor.subscribe('board', $(evt.currentTarget).val(), false);
-    tpl.selectedBoardId.set($(evt.currentTarget).val());
+    const boardId = $(evt.currentTarget).val();
+    // An empty <select> value is a null subscription - see above.
+    if (boardId) Meteor.subscribe('board', boardId, false);
+    tpl.selectedBoardId.set(boardId);
   },
   'submit .js-search-term-form'(evt, tpl) {
     evt.preventDefault();
@@ -1185,7 +1194,8 @@ Template.searchElementPopup.events({
         },
         (err, data) => {
           _id = data;
-          Meteor.subscribe('board', _id, false);
+          // `data` is the new board's id, or undefined when the insert failed.
+          if (_id) Meteor.subscribe('board', _id, false);
           FlowRouter.go('board', {
             id: _id,
             slug: getSlug(element.title),
