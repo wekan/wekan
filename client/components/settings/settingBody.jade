@@ -448,9 +448,18 @@ template(name='selectAuthenticationMethod')
         option(value="{{value}}") {{_ value}}
 
 template(name='selectSpinnerName')
-  select#spinnerName
-    each spinner in spinners
-      if isSelected spinner
-        option(value="{{spinner}}" selected) {{_ spinner}}
-      else
-        option(value="{{spinner}}") {{_ spinner}}
+  //- The dropdown and a live preview of the spinner it names, side by side. When
+  //- there is not enough room for both, the preview wraps BELOW the dropdown -
+  //- which is what flex-wrap does on its own, so no width is guessed here or in a
+  //- media query (settingBody.css .spinner-select-row).
+  .spinner-select-row
+    select#spinnerName
+      each spinner in spinners
+        if isSelected spinner
+          option(value="{{spinner}}" selected) {{_ spinner}}
+        else
+          option(value="{{spinner}}") {{_ spinner}}
+    .spinner-preview(title="{{_ 'preview'}}" aria-label="{{_ 'preview'}}")
+      //- Follows the DROPDOWN, not the saved setting: an admin sees what they are
+      //- about to save before pressing Save.
+      +Template.dynamic(template=previewTemplate)

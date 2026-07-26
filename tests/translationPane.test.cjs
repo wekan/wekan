@@ -56,12 +56,17 @@ test('the pane is the shared table page, plus its own columns', () => {
     'the pane renders the shared table page and nothing else');
   assert.ok(!/table|thead|tbody|input#|button#/.test(pane),
     'no hand-written table, search box or button may come back');
-  // Four columns: language, text, translation, and the actions column whose
-  // header is the "New" link.
+  // Four columns: the actions column whose header is the "New" link, then language,
+  // text and translation.
   for (const key of ["labelKey: 'language'", "labelKey: 'text'",
     "labelKey: 'translation-text'", "headerTemplate: 'newTranslationRow'"]) {
     assert.ok(js.includes(key), `the column spec must have ${key}`);
   }
+  // "New" is the FIRST column, as on every other Admin Panel table page
+  // (Organizations, Teams, People) - at the far right it read as belonging to the
+  // last column rather than to the table.
+  assert.ok(js.indexOf("headerTemplate: 'newTranslationRow'") < js.indexOf("labelKey: 'language'"),
+    'the New column must be leftmost');
   // The helper belongs to the template that renders it: Blaze never looks at an
   // enclosing template, and a missing context draws the chrome and no table.
   assert.ok(/Template\.translationSettings\.helpers\(\{[\s\S]*?tablePageData\(\)/.test(js),
@@ -75,6 +80,9 @@ test('the row matches the header, and its cells come from the row context', () =
   const row = template('translationRow');
   assert.strictEqual((row.match(/^    td/gm) || []).length, 4,
     'a row template owns its <tr> and must match the four columns');
+  // …and the row matches that order: its actions cell comes first.
+  assert.ok(row.indexOf('a.edit-translation') < row.indexOf('translationData.language'),
+    'the actions cell sits under the New header, leftmost');
   for (const field of ['translationData.language', 'translationData.text',
     'translationData.translationText']) {
     assert.ok(row.includes(field), `${field} must be shown`);

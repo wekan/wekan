@@ -1097,12 +1097,32 @@ Template.selectAuthenticationMethod.helpers({
   },
 });
 
+Template.selectSpinnerName.onCreated(function () {
+  // What the PREVIEW shows. Kept separate from the `selected` attribute of the
+  // options - which still comes from the saved setting - so changing the dropdown
+  // re-renders only the preview, not the option list under the pointer.
+  this.previewName = new ReactiveVar(
+    (this.data && this.data.spinnerName) || ALLOWED_WAIT_SPINNERS[0]);
+});
+
 Template.selectSpinnerName.helpers({
   spinners() {
     return ALLOWED_WAIT_SPINNERS;
   },
   isSelected(match) {
     return Template.instance().data.spinnerName === match;
+  },
+  // 'Cube-Grid' -> 'spinnerCubeGrid'. The same mapping client/lib/spinner.js uses
+  // for the real thing, so the preview is the spinner that will actually run.
+  previewTemplate() {
+    const name = String(Template.instance().previewName.get() || '');
+    return `spinner${name.replace(/-/g, '')}`;
+  },
+});
+
+Template.selectSpinnerName.events({
+  'change #spinnerName'(event, templateInstance) {
+    templateInstance.previewName.set(event.currentTarget.value);
   },
 });
 

@@ -253,6 +253,42 @@
   color: inherit;
 }
 
+/* Admin Panel / Settings / Visibility / Wait Spinner: the dropdown and a live
+   preview of the spinner it names, side by side - and the preview drops BELOW the
+   dropdown when there is not enough room for both. flex-wrap does that on its own,
+   at whatever width the pane happens to have, so no breakpoint has to be guessed. */
+.spinner-select-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.spinner-select-row > select {
+  flex: 0 1 auto;
+  max-width: 100%;
+}
+
+/* A fixed box the spinner is centred in, so switching between spinners of different
+   sizes does not move the dropdown. The spinners are written for a full-page
+   loading screen (`margin: 100px auto 0`, up to 70px wide), so their margin is
+   dropped and the whole thing scaled down to fit beside a form field. */
+.spinner-select-row .spinner-preview {
+  flex: 0 0 auto;
+  width: 72px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.spinner-select-row .spinner-preview .sk-spinner {
+  margin: 0 auto !important;
+  transform: scale(0.5);
+  transform-origin: center center;
+}
+
 /* A SUB-title under a group title - one line saying what that group's setting
    reaches (Visibility / Change color says the site admin's colour is what every
    Organization without one of its own inherits). Smaller and quieter than the group

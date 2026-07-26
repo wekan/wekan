@@ -7,6 +7,10 @@
   position: absolute;
   /* Wider default to fit full color palette */
   width: min(380px, 55vw);
+  /* …and never wider than the window it opens in. A popup is positioned from the
+     element that opened it, so one opened near the right edge used to run off the
+     screen and lose its right-hand side - fields, and the Save button with them. */
+  max-width: calc(100vw - 20px);
   z-index: 99999;
   margin-top: 6px;
 }
@@ -136,12 +140,66 @@
   box-sizing: border-box;
 }
 
-/* Admin edit popups: use full height */
+/* Admin edit popups: use full height - and be fully visible whatever the window
+   size is. These are tall forms with a Save button at the bottom, opened from a row
+   that can sit anywhere in a wide table, so positioning them from that row pushed
+   their right-hand side off the screen. They are centred on the window instead:
+   always whole, always reachable, at any width. `left: 50%` + a -50% shift centres
+   the same way in both directions, so this needs no RTL variant. */
 .pop-over[data-popup='editUserPopup'],
 .pop-over[data-popup='editOrgPopup'],
 .pop-over[data-popup='editTeamPopup'] {
+  position: fixed !important;
+  top: 10px !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+  /* Wide enough for two or three columns of fields when the window has the room,
+     and never wider than the window. */
+  width: min(1040px, calc(100vw - 20px)) !important;
+  max-width: calc(100vw - 20px) !important;
   height: calc(100vh - 20px) !important;
   max-height: calc(100vh - 20px) !important;
+  margin-top: 0 !important;
+}
+
+/* …and, when the window is wide enough, in SEVERAL COLUMNS. These forms are long -
+   Edit User is a dozen fields - and one column meant scrolling past most of them to
+   reach Save. The columns come from `auto-fit`, so the count follows the width the
+   popup actually got: three on a wide desktop, two on a laptop, one on a phone. No
+   breakpoint is guessed, and nothing has to know how many fields the form has.
+   The separator and the buttons always span the full width, so Save stays one wide
+   button under everything rather than a narrow one in the last column. */
+.pop-over[data-popup='editUserPopup'] .content > form,
+.pop-over[data-popup='editOrgPopup'] .content > form,
+.pop-over[data-popup='editTeamPopup'] .content > form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0 18px;
+  align-items: start;
+}
+
+.pop-over[data-popup='editUserPopup'] .content > form > hr,
+.pop-over[data-popup='editOrgPopup'] .content > form > hr,
+.pop-over[data-popup='editTeamPopup'] .content > form > hr,
+.pop-over[data-popup='editUserPopup'] .content > form > .buttonsContainer,
+.pop-over[data-popup='editOrgPopup'] .content > form > .buttonsContainer,
+.pop-over[data-popup='editTeamPopup'] .content > form > .buttonsContainer,
+.pop-over[data-popup='editUserPopup'] .content > form > h2,
+.pop-over[data-popup='editOrgPopup'] .content > form > h2,
+.pop-over[data-popup='editTeamPopup'] .content > form > h2,
+.pop-over[data-popup='editUserPopup'] .content > form > span.form-text,
+.pop-over[data-popup='editOrgPopup'] .content > form > span.form-text,
+.pop-over[data-popup='editTeamPopup'] .content > form > span.form-text {
+  grid-column: 1 / -1;
+}
+
+/* A hidden field must not take a column of its own (the popups carry a hidden id
+   label as their first child, which would leave the first cell blank). */
+.pop-over[data-popup='editUserPopup'] .content > form > .hide,
+.pop-over[data-popup='editOrgPopup'] .content > form > .hide,
+.pop-over[data-popup='editTeamPopup'] .content > form > .hide {
+  display: none !important;
 }
 
 .pop-over[data-popup='editUserPopup'] .content-wrapper,
@@ -674,7 +732,12 @@ body.grey-icons-enabled .pop-over-list .pop-over-list.checkable .fa-check {
   }
   .pop-over .header {
     color: #fff;
-    background: #2980b9;
+    /* The active theme, not a fixed blue: every theme publishes its accent as
+       --theme-accent (models/lib/themeAccents.js), so this header follows the
+       user's own theme, the board's colour or the site theme - whichever is in
+       force. The fallback is the stock WeKan blue, so an unthemed instance is
+       unchanged. */
+    background: var(--theme-accent, #2980b9);
     height: 48px;
     padding: 0px 0px;
     border: 0px;

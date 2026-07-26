@@ -4,14 +4,17 @@ import { buildHeader, pageInfo, TABLE_PAGE_ROWS_PER_PAGE } from '/models/lib/tab
 // Admin Panel / Settings / Translation, through the shared table page
 // (docs/Design/Page/Table.md). The pane differs from every other table page only
 // in this column list: its rows are interactive - an Edit link and the ⋯ menu -
-// so it supplies a rowTemplate, and the "New" link is the header of the last
-// column, supplied as a headerTemplate. The layout, the search box, the themed
-// pager and the total all come from the shared page.
+// so it supplies a rowTemplate, and the "New" link is the header of the FIRST
+// column, supplied as a headerTemplate. First, because that is where every other
+// table page in the Admin Panel puts it (Organizations, Teams, People), and where
+// the row's own actions are - a New link at the far right read as belonging to the
+// last column instead of to the table. The layout, the search box, the themed pager
+// and the total all come from the shared page.
 const TRANSLATION_COLUMNS = [
+  { headerTemplate: 'newTranslationRow' },
   { labelKey: 'language' },
   { labelKey: 'text' },
   { labelKey: 'translation-text' },
-  { headerTemplate: 'newTranslationRow' },
 ];
 
 Template.translationSettings.onCreated(function () {

@@ -22,15 +22,17 @@ template(name="newTranslationRow")
 //- for matching the four columns of the header.
 template(name="translationRow")
   tr
-    td {{translationData.language}}
-    td {{translationData.text}}
-    td {{translationData.translationText}}
+    //- The actions come FIRST, under the "New" header, the way every other Admin
+    //- Panel table page orders them (Organizations, Teams, People).
     td
       a.edit-translation
         i.fa.fa-pencil-square-o
         | {{_ 'edit'}}
       a.more-settings-translation
         | ⋯
+    td {{translationData.language}}
+    td {{translationData.text}}
+    td {{translationData.translationText}}
 
 template(name="editTranslationPopup")
   form
