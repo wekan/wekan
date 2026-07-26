@@ -343,6 +343,12 @@ and updates the following dependencies:
 
 and fixes the following bugs:
 
+- Clicking a card closes the one that was open; keeping many open is a per-user
+  setting ([2973240a7](https://github.com/wekan/wekan/commit/2973240a7)).
+  Thanks to mimZD and xet7.
+- All Boards on a phone sizes its scrollers by the viewport that is actually
+  there ([89920762a](https://github.com/wekan/wekan/commit/89920762a)).
+  Thanks to mimZD and xet7.
 - Choosing a theme now recolours the whole UI, not just the header
   ([d72675906](https://github.com/wekan/wekan/commit/d72675906)).
   Thanks to xet7.
