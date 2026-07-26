@@ -9,6 +9,10 @@
 // "Don't show the board activities on all boards" moved out of Layout too, into
 // its own pane, and stopped being a bulk write over every board.
 //
+// Both are ONE CHECKBOX each now, not a Yes/No pair (the same checkbox the rest of
+// the Admin Panel uses), but the trap below is the same in either shape and is what
+// these tests are really about.
+//
 // The move has a trap worth guarding: the Layout save read those two radios with
 //   $('input[name=hideCardCounterList]:checked').val() === 'true'
 // If that read is left behind after the inputs move, :checked matches nothing,
@@ -70,9 +74,12 @@ test('both settings are now in the Visibility pane', () => {
   for (const key of ['card-counter-list', 'board-member-list']) {
     assert.ok(boardsVisibility.includes(`{{_ '${key}'}}`), `${key} must label its row`);
   }
-  // Radios, with both states bound to the stored value as before.
-  assert.ok(/name="hideCardCounterList"[\s\S]*?checked="\{\{#if currentSetting\.hideCardCounterList\}\}/.test(boardsVisibility));
-  assert.ok(/name="hideBoardMemberList"[\s\S]*?checked="\{\{#if currentSetting\.hideBoardMemberList\}\}/.test(boardsVisibility));
+  // One checkbox each now, not a Yes/No pair - the same checkbox the rest of the
+  // Admin Panel uses - still bound to the stored value.
+  assert.ok(/\.materialCheckBox#hide-card-counter-list\(class="\{\{#if currentSetting\.hideCardCounterList\}\}is-checked/.test(boardsVisibility));
+  assert.ok(/\.materialCheckBox#hide-board-member-list\(class="\{\{#if currentSetting\.hideBoardMemberList\}\}is-checked/.test(boardsVisibility));
+  assert.ok(!/type="radio"/.test(boardsVisibility.slice(0, boardsVisibility.indexOf('js-visibility-all-boards-save'))),
+    'the All Boards section has no radios left');
   // And they are saved by their section's button - All Boards.
   assert.ok(/js-visibility-all-boards-save/.test(boardsVisibility));
 });
@@ -94,9 +101,11 @@ test('the All Boards save writes them, and only what it found', () => {
   assert.ok(/allowPrivateOnly/.test(body), 'it still saves its own setting');
   assert.ok(/TableVisibilityModeSettings\.update/.test(body),
     'boards visibility lives in its own collection, so it is a separate write');
-  // Guarded: an input that is not on screen must not be written as false.
-  assert.ok(/!== undefined/.test(body),
-    'a missing radio must be skipped, never saved as false');
+  // Guarded: a checkbox that is not on screen must not be written as false.
+  assert.ok(/\$\(selector\)\.length/.test(body) && /\$\('#accounts-allowPrivateOnly'\)\.length/.test(body),
+    'a missing checkbox must be skipped, never saved as false');
+  assert.ok(/hasClass\('is-checked'\)/.test(body),
+    'and what is saved is whether the box is ticked');
   assert.ok(/saveVisibilitySettings\(\$set\)/.test(body),
     'and the Settings write goes through the helper that sends no empty update');
   assert.ok(/Object\.keys\(\$set\)\.length/.test(js), 'which is what that helper checks');

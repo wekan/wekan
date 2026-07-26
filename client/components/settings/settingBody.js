@@ -905,22 +905,31 @@ Template.tableVisibilityModeSettings.events({
   // per-board values were overwritten and gone) and did nothing for boards created
   // later. It is one global setting, read once by the activity feed, so turning it
   // off restores every board's own value.
+  // Tick a box without saving: the group's own Save writes them together, the way
+  // the Yes/No pairs these replace behaved.
+  'click a.js-toggle-all-boards-hide'(event) {
+    event.preventDefault();
+    $(event.currentTarget).find('.materialCheckBox').toggleClass('is-checked');
+  },
+
   'click button.js-visibility-all-boards-save'() {
     // Boards visibility lives in its own collection, so it is a separate write.
-    const allowPrivateOnly =
-      $('input[name=allowPrivateOnly]:checked').val() === 'true';
-    TableVisibilityModeSettings.update('tableVisibilityMode-allowPrivateOnly', {
-      $set: { booleanValue: allowPrivateOnly },
-    });
+    // Each setting is one checkbox now: ticked = hidden. A checkbox that is not on
+    // screen is left alone rather than written as false - the same guard the rest of
+    // this pane uses, and the reason a pane that hid a field never blanked it.
+    if ($('#accounts-allowPrivateOnly').length) {
+      TableVisibilityModeSettings.update('tableVisibilityMode-allowPrivateOnly', {
+        $set: { booleanValue: $('#accounts-allowPrivateOnly').hasClass('is-checked') },
+      });
+    }
     const $set = {};
-    for (const [name, key] of [
-      ['hideBoardActivitiesOnAllBoards', 'hideBoardActivitiesOnAllBoards'],
-      ['hideCardCounterList', 'hideCardCounterList'],
-      ['hideBoardMemberList', 'hideBoardMemberList'],
+    for (const [selector, key] of [
+      ['#hide-board-activities', 'hideBoardActivitiesOnAllBoards'],
+      ['#hide-card-counter-list', 'hideCardCounterList'],
+      ['#hide-board-member-list', 'hideBoardMemberList'],
     ]) {
-      const value = $(`input[name=${name}]:checked`).val();
-      if (value !== undefined) {
-        $set[key] = value === 'true';
+      if ($(selector).length) {
+        $set[key] = $(selector).hasClass('is-checked');
       }
     }
     if ($('#spinnerName').length) {

@@ -216,38 +216,32 @@ template(name='tableVisibilityModeSettings')
     if isSiteAdmin
       li
         h2.admin-pane-group-title {{_ 'all-boards-hide'}}
+      //- One checkbox per setting instead of a Yes/No pair: each of these is on or
+      //- off, and the group's own title already says what ticking one means (All
+      //- Boards: Hide …). Same checkbox as everywhere else in the Admin Panel -
+      //- Announcement's "Active System-Wide Announcement" - so it has the plain
+      //- square when off, the green tick when on, and the animation between.
+      //- The Save button below reads the ticks, as it read the radios.
       li.tableVisibilityMode-form
-        //- "Public boards", under the "All Boards: Hide" title above: Yes hides
+        //- "Public boards", under the "All Boards: Hide" title above: ticked hides
         //- them, which is what allowPrivateOnly does. The setting's own key keeps its
         //- sentence - boardBody.jade shows it as the message on a board you may not
         //- open, where a two-word label would say nothing.
-        .title {{_ 'public-boards'}}
-        .form-group.flex
-          input.wekan-form-control#accounts-allowPrivateOnly(type="radio" name="allowPrivateOnly" value="true" checked="{{#if allowPrivateOnly}}checked{{/if}}")
-          label {{_ 'yes'}}
-          input.wekan-form-control#accounts-allowPrivateOnly(type="radio" name="allowPrivateOnly" value="false" checked="{{#unless allowPrivateOnly}}checked{{/unless}}")
-          label {{_ 'no'}}
+        a.flex.js-toggle-all-boards-hide
+          .materialCheckBox#accounts-allowPrivateOnly(class="{{#if allowPrivateOnly}}is-checked{{/if}}")
+          span {{_ 'public-boards'}}
       li.hideBoardActivities-form
-        .title {{_ 'board-activities'}}
-        .form-group.flex
-          input.wekan-form-control#hide-board-activities(type="radio" name="hideBoardActivitiesOnAllBoards" value="true" checked="{{#if currentSetting.hideBoardActivitiesOnAllBoards}}checked{{/if}}")
-          label {{_ 'yes'}}
-          input.wekan-form-control#hide-board-activities(type="radio" name="hideBoardActivitiesOnAllBoards" value="false" checked="{{#unless currentSetting.hideBoardActivitiesOnAllBoards}}checked{{/unless}}")
-          label {{_ 'no'}}
+        a.flex.js-toggle-all-boards-hide
+          .materialCheckBox#hide-board-activities(class="{{#if currentSetting.hideBoardActivitiesOnAllBoards}}is-checked{{/if}}")
+          span {{_ 'board-activities'}}
       li.tableVisibilityMode-form
-        .title {{_ 'card-counter-list'}}
-        .form-group.flex
-          input.wekan-form-control#hide-card-counter-list(type="radio" name="hideCardCounterList" value="true" checked="{{#if currentSetting.hideCardCounterList}}checked{{/if}}")
-          label {{_ 'yes'}}
-          input.wekan-form-control#hide-card-counter-list(type="radio" name="hideCardCounterList" value="false" checked="{{#unless currentSetting.hideCardCounterList}}checked{{/unless}}")
-          label {{_ 'no'}}
+        a.flex.js-toggle-all-boards-hide
+          .materialCheckBox#hide-card-counter-list(class="{{#if currentSetting.hideCardCounterList}}is-checked{{/if}}")
+          span {{_ 'card-counter-list'}}
       li.tableVisibilityMode-form
-        .title {{_ 'board-member-list'}}
-        .form-group.flex
-          input.wekan-form-control#hide-board-member-list(type="radio" name="hideBoardMemberList" value="true" checked="{{#if currentSetting.hideBoardMemberList}}checked{{/if}}")
-          label {{_ 'yes'}}
-          input.wekan-form-control#hide-board-member-list(type="radio" name="hideBoardMemberList" value="false" checked="{{#unless currentSetting.hideBoardMemberList}}checked{{/unless}}")
-          label {{_ 'no'}}
+        a.flex.js-toggle-all-boards-hide
+          .materialCheckBox#hide-board-member-list(class="{{#if currentSetting.hideBoardMemberList}}is-checked{{/if}}")
+          span {{_ 'board-member-list'}}
       li.tableVisibilityMode-form
         .title {{_ 'wait-spinner'}}
         +selectSpinnerName(spinnerName=currentSetting.spinnerName)
