@@ -16,7 +16,7 @@ import Org from '/models/org';
 // Everything is inert unless MULTITENANCY=true: an instance that has never heard of
 // tenants must answer exactly as it does today, whatever is in its org documents.
 
-const tenants = require('/models/lib/tenants');
+import * as tenants from '/models/lib/tenants';
 
 const enabled = () => tenants.isTenancyEnabled(process.env);
 const trustProxy = () => tenants.trustsProxyHost(process.env);

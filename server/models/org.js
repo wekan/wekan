@@ -7,7 +7,7 @@ import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 // Multitenancy option D: per-tenant Global Admin rules (shared with the client and
 // the publications) - docs/Design/Multitenancy/Multitenancy.md.
-const tenantAdmin = require('/models/lib/tenantAdmin');
+import * as tenantAdmin from '/models/lib/tenantAdmin';
 
 // #5850: reliable admin check from a method's this.userId. Meteor.user()/
 // getCurrentUser() can return null inside an async method after an await

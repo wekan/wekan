@@ -1,5 +1,3 @@
-'use strict';
-
 // Multitenancy, option D of docs/Design/Multitenancy/Multitenancy.md:
 // ORGANIZATIONS ARE TENANTS.
 //
@@ -254,7 +252,10 @@ function trustsProxyHost(env) {
   return isTruthyEnv((env || {}).MULTITENANCY_TRUST_PROXY_HOST);
 }
 
-module.exports = {
+// ESM exports: every app file is an ES module in Meteor, so a `module.exports`
+// assignment throws the moment the CLIENT bundle loads it. The .cjs unit tests read
+// this file with a dynamic `import()`, the way the other pure modules are tested.
+export {
   BRANDING_FIELDS,
   brandingOrgFields,
   brandingValue,

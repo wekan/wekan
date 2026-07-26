@@ -1,4 +1,7 @@
 'use strict';
+// The pure modules are ES modules (every app file is one in Meteor), so they are
+// loaded with a dynamic import - the same way tests/cardUrl.test.cjs loads its module.
+(async () => {
 
 // Multitenancy option D — per-tenant Global Admins.
 // Plain Node, no Meteor: models/lib/tenantAdmin.js is pure so the SAME rules run on
@@ -10,7 +13,7 @@
 // See docs/Design/Multitenancy/Multitenancy.md (D.7).
 
 const assert = require('assert');
-const t = require('../models/lib/tenantAdmin');
+const t = await import('../models/lib/tenantAdmin.js');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -264,3 +267,5 @@ test('someone who administers nothing sets no theme at all', () => {
 });
 
 console.log(`\n${passed} tests passed`);
+
+})();

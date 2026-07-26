@@ -18,8 +18,8 @@ const { filesRootFrom, scheduleText, safeEntryPath, safeCollectionName } =
 // for each, which archive belongs to whom, and the restore-side ownership guard -
 // is made by these two pure modules, so it can be unit-tested without a database
 // (tests/tenantBackup.test.cjs) and cannot drift between the two directions.
-const tenantBackup = require('/models/lib/tenantBackup');
-const tenantAdmin = require('/models/lib/tenantAdmin');
+import * as tenantBackup from '/models/lib/tenantBackup';
+import * as tenantAdmin from '/models/lib/tenantAdmin';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Admin Panel / Attachments / Backup.

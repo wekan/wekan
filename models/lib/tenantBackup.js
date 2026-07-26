@@ -1,5 +1,3 @@
-'use strict';
-
 // Per-tenant backup and restore — the data half of multitenancy option D
 // (docs/Design/Multitenancy/Multitenancy.md).
 //
@@ -227,7 +225,10 @@ function resolveBackupScope({ isSiteAdmin = false, adminOrgIds = [], orgId = nul
   return { ok: false, error: 'not-authorized' };
 }
 
-module.exports = {
+// ESM exports: every app file is an ES module in Meteor, so a `module.exports`
+// assignment throws the moment the CLIENT bundle loads it. The .cjs unit tests read
+// this file with a dynamic `import()`, the way the other pure modules are tested.
+export {
   TENANT_BACKUP_SEGMENT,
   TENANT_COLLECTIONS,
   TENANT_FORBIDDEN_COLLECTIONS,

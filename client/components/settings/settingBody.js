@@ -9,7 +9,7 @@ import Announcements from '/models/announcements';
 import Settings from '/models/settings';
 // Multitenancy option D: the per-tenant Global Admin rules, shared with the server
 // (docs/Design/Multitenancy/Multitenancy.md).
-const tenantAdmin = require('/models/lib/tenantAdmin');
+import * as tenantAdmin from '/models/lib/tenantAdmin';
 import { resolveDefaultAuthenticationMethod } from '/models/lib/authenticationMethod';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { format } from '/imports/lib/dateUtils';

@@ -3,7 +3,7 @@ import Settings from '/models/settings';
 import Integrations from '/models/integrations';
 import { tenantForConnection, tenancyEnabled } from '/server/lib/tenantResolver';
 
-const tenants = require('/models/lib/tenants');
+import * as tenants from '/models/lib/tenants';
 
 Meteor.publish('globalwebhooks', async function() {
   if (!this.userId) {

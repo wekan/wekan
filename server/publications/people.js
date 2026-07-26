@@ -5,7 +5,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 // the orgs they administer - nobody else sees anyone. The scoping is decided by
 // models/lib/tenantAdmin.js, which merges the restriction with the caller's query
 // under $and so a crafted query cannot argue it away.
-const tenantAdmin = require('/models/lib/tenantAdmin');
+import * as tenantAdmin from '/models/lib/tenantAdmin';
 
 Meteor.publish('people', async function(query, limit, skip = 0) {
   check(query, Match.OneOf(Object, null));

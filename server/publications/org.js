@@ -3,7 +3,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 // Multitenancy option D (D.7): the site admin sees every Organization, a per-tenant
 // Global Admin sees the ones they administer. Same rule module as the people
 // publication, so the two panes cannot disagree about who sees what.
-const tenantAdmin = require('/models/lib/tenantAdmin');
+import * as tenantAdmin from '/models/lib/tenantAdmin';
 
 Meteor.publish('org', async function(query, limit, skip = 0) {
   check(query, Match.OneOf(Object, null));

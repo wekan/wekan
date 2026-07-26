@@ -22,8 +22,8 @@ import { tenantForConnection, tenancyEnabled } from '/server/lib/tenantResolver'
 // asked before drawing the menu entry. The client-side answer is a convenience; this
 // is the one that counts.
 
-const tenants = require('/models/lib/tenants');
-const tenantAdmin = require('/models/lib/tenantAdmin');
+import * as tenants from '/models/lib/tenants';
+import * as tenantAdmin from '/models/lib/tenantAdmin';
 
 // #5850's lesson: Meteor.user()/getCurrentUser() can return null inside an async
 // method after an await, so the caller is looked up by this.userId directly.

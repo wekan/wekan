@@ -1,4 +1,7 @@
 'use strict';
+// The pure modules are ES modules (every app file is one in Meteor), so they are
+// loaded with a dynamic import - the same way tests/cardUrl.test.cjs loads its module.
+(async () => {
 
 // Multitenancy option D — host → Organization resolution and per-tenant branding.
 // Plain Node, no Meteor: models/lib/tenants.js is pure on purpose, because this is
@@ -22,7 +25,7 @@ const {
   tenantBrandingOverrides,
   tenantRootUrl,
   trustsProxyHost,
-} = require('../models/lib/tenants');
+} = await import('../models/lib/tenants.js');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -265,3 +268,5 @@ test('trusting the proxy host is a separate, also-off-by-default switch', () => 
 });
 
 console.log(`\n${passed} tests passed`);
+
+})();

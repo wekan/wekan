@@ -18,7 +18,7 @@ import Team from '/models/team';
 import Users from '/models/users';
 // Multitenancy option D: the per-tenant Global Admin rules, the same module the
 // publications and methods use (docs/Design/Multitenancy/Multitenancy.md).
-const tenantAdmin = require('/models/lib/tenantAdmin');
+import * as tenantAdmin from '/models/lib/tenantAdmin';
 import InviteToBoardRolesSettings, {
   INVITE_TO_BOARD_ROLES,
   INVITE_TO_BOARD_ROLES_ID,

@@ -6,7 +6,7 @@ import { migrationProgressManager } from '/client/components/settings/migrationP
 import { ReactiveCache } from '/imports/reactiveCache';
 // Multitenancy option D: the per-tenant Global Admin rules, shared with the server
 // (docs/Design/Multitenancy/Multitenancy.md).
-const tenantAdmin = require('/models/lib/tenantAdmin');
+import * as tenantAdmin from '/models/lib/tenantAdmin';
 
 // DOM field ids per cloud provider, used to read the admin form on save/test.
 const CLOUD_FIELD_IDS = {

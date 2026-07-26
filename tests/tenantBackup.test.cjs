@@ -1,4 +1,7 @@
 'use strict';
+// The pure modules are ES modules (every app file is one in Meteor), so they are
+// loaded with a dynamic import - the same way tests/cardUrl.test.cjs loads its module.
+(async () => {
 
 // Multitenancy option D — per-tenant backup and restore.
 // Plain Node, no Meteor: models/lib/tenantBackup.js is pure, and it is where a
@@ -10,7 +13,7 @@
 // See docs/Design/Multitenancy/Multitenancy.md (D.8).
 
 const assert = require('assert');
-const b = require('../models/lib/tenantBackup');
+const b = await import('../models/lib/tenantBackup.js');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -198,3 +201,5 @@ test('a scope that is not a string is refused rather than coerced', () => {
 });
 
 console.log(`\n${passed} tests passed`);
+
+})();

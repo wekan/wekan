@@ -17,7 +17,7 @@ import {
 const { SimpleSchema } = require('/imports/simpleSchema');
 // Multitenancy option D: the per-tenant Global Admin rules, pure and shared by the
 // client, the server and the tests (docs/Design/Multitenancy/Multitenancy.md).
-const tenantAdmin = require('/models/lib/tenantAdmin');
+import * as tenantAdmin from '/models/lib/tenantAdmin';
 const Users = Meteor.users;
 const getUtils = () => require('/client/lib/utils').Utils;
 

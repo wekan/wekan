@@ -1,4 +1,7 @@
 'use strict';
+// The pure modules are ES modules (every app file is one in Meteor), so they are
+// loaded with a dynamic import - the same way tests/cardUrl.test.cjs loads its module.
+(async () => {
 
 // Multitenancy option D — the wiring.
 //
@@ -15,6 +18,7 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
+const tenants = await import('../models/lib/tenants.js');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -23,6 +27,35 @@ const live = s => s.replace(/^\s*\/\/.*$/gm, '');
 const liveJade = s => s.replace(/^\s*\/\/-.*$/gm, '');
 
 console.log('tenantWiring:');
+
+// ── the modules are ES modules ───────────────────────────────────────────────
+
+test('the pure modules use ESM exports, not module.exports', () => {
+  // Every app file is an ES module in Meteor: `module.exports = {…}` in one of these
+  // throws the moment the CLIENT bundle loads it -
+  //   Uncaught Error: ES Modules may not assign module.exports
+  // - and it takes down every module after it in the graph, so the Admin Panel, the
+  // board and the login form all disappear at once. These three are imported by
+  // models/users.js, which the client bundles, so they must be ESM.
+  for (const mod of ['models/lib/tenants.js', 'models/lib/tenantAdmin.js',
+    'models/lib/tenantBackup.js']) {
+    const src = read(mod);
+    assert.ok(/\nexport \{/.test(src), `${mod}: must export with ESM syntax`);
+    assert.ok(!/module\.exports/.test(live(src)), `${mod}: must not assign module.exports`);
+  }
+  // …and every importer uses `import`, not require(), for the same reason.
+  for (const f of ['models/users.js', 'server/models/users.js', 'server/models/org.js',
+    'server/publications/people.js', 'server/publications/org.js',
+    'server/publications/settings.js', 'server/lib/tenantResolver.js',
+    'server/methods/tenant.js', 'server/methods/backup.js',
+    'client/components/settings/peopleBody.js',
+    'client/components/settings/attachments.js',
+    'client/components/settings/settingBody.js']) {
+    const src = read(f);
+    assert.ok(!/require\('\/models\/lib\/tenant/.test(src),
+      `${f}: import the tenant modules, do not require() them`);
+  }
+});
 
 // ── off by default ───────────────────────────────────────────────────────────
 
@@ -88,7 +121,7 @@ test('the org publication and its count are scoped the same way', () => {
 
 test('the org publication publishes the tenant fields the panes need', () => {
   const pub = read('server/publications/org.js');
-  const { brandingOrgFields } = require('../models/lib/tenants');
+  const { brandingOrgFields } = tenants;
   assert.ok(/orgDomains: 1/.test(pub), 'the hostnames');
   brandingOrgFields().forEach(field => {
     assert.ok(new RegExp(`${field}: 1`).test(pub), `${field} must be published`);
@@ -324,14 +357,13 @@ test('the order of themes is default -> site/Organization -> user, at runtime', 
   const pub = read('server/publications/settings.js');
   assert.ok(/themeColor: 1/.test(pub) && /themeCustomColors: 1/.test(pub),
     'the site theme is published, so a tenant host serves its own');
-  const tenants = require('../models/lib/tenants');
   const themeField = tenants.BRANDING_FIELDS.find(f => f.setting === 'themeColor');
   assert.ok(themeField && themeField.org === 'orgThemeColor',
     'and an Organization overrides it like any other branding field');
 });
 
 test('an empty custom-colour list does not override the instance one', () => {
-  const { tenantBrandingOverrides } = require('../models/lib/tenants');
+  const { tenantBrandingOverrides } = tenants;
   assert.deepStrictEqual(tenantBrandingOverrides({ orgThemeCustomColors: [] }), {});
   assert.deepStrictEqual(tenantBrandingOverrides({ orgThemeColor: 'belize' }),
     { themeColor: 'belize' });
@@ -370,3 +402,5 @@ test('the design document says option D ships, and how it is turned on', () => {
 });
 
 console.log(`\n${passed} tests passed`);
+
+})();

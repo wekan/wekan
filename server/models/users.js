@@ -11,7 +11,7 @@ import { debounce } from '/imports/lib/collectionHelpers';
 import { boardMemberRestriction } from '/server/lib/orgTeamRestriction';
 // Multitenancy option D: per-tenant Global Admin rules, shared with the client, the
 // publications and the tests (docs/Design/Multitenancy/Multitenancy.md).
-const tenantAdmin = require('/models/lib/tenantAdmin');
+import * as tenantAdmin from '/models/lib/tenantAdmin';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { boardMemberRoleToFlags, allowIsBoardAdmin } from '/server/lib/utils';
