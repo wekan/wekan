@@ -1,16 +1,19 @@
 'use strict';
 
-// The CHANGELOG is read at a glance (#6524).
+// The CHANGELOG is read at a glance (#6524), and the long story is one click away.
 //
-// A reader wants to see, per version, WHAT changed - a title per change. The long
-// story belongs in the commit message, which each entry links by its short hash. The
-// changelog had grown paragraphs instead: a single entry could run to 1,600
-// characters, so the list of changes was unreadable as a list.
+// A reader wants to see, per version, WHAT changed - a short description per change,
+// and no commit hash, which is a number they can do nothing with. The reasoning, the
+// root cause and the test that pins it are still there: the short description is a
+// <details>/<summary>, and clicking it reveals the long text below.
 //
 // These are the rules CLAUDE.md states, checked against the file:
-//   * an entry's visible text is a title, not a paragraph;
-//   * the commit link's text is the 9-character short hash, and the URL uses it too;
+//   * the file opens with Platforms and Version, then TODO Later, then the releases;
+//   * an entry's summary is a SHORT description, never a paragraph;
+//   * no commit hash is ever the visible text of a link;
 //   * no long URL is ever shown as visible text;
+//   * a <summary> holds no markdown link (it cannot nest inside the <a>);
+//   * TODO Later says what is not done, and thanks nobody for it;
 //   * lines are wrapped at 80 columns, except a line carrying a link.
 //
 // Run: node tests/changelogFormat.test.cjs
@@ -25,69 +28,81 @@ const read = rel => fs.readFileSync(path.join(__dirname, '..', rel), 'utf8');
 
 const changelog = read('CHANGELOG.md');
 const lines = changelog.split('\n');
-const BULLET = /^(\s*)[-*](\s|$)/;
-const LINK = /\[([^\]]*)\]\(([^)]*)\)/g;
 
-// Every bullet, joined over the lines it wraps onto.
-function bullets() {
+// Every <details> block, with the summary line and the body below it.
+function blocks() {
   const out = [];
-  let i = 0;
-  let inCode = false;
-  while (i < lines.length) {
-    if (lines[i].trim().startsWith('```')) { inCode = !inCode; i += 1; continue; }
-    if (!inCode && BULLET.test(lines[i])) {
-      let j = i + 1;
-      while (j < lines.length && lines[j].trim() && lines[j].startsWith('  ')
-             && !BULLET.test(lines[j])) j += 1;
-      out.push({ line: i + 1, text: lines.slice(i, j).map(s => s.trim()).join(' ') });
-      i = j; continue;
-    }
-    i += 1;
+  for (let i = 0; i < lines.length; i += 1) {
+    if (lines[i] !== '<details>') continue;
+    const end = lines.indexOf('</details>', i);
+    const summary = lines[i + 1] || '';
+    out.push({ line: i + 1, summary, body: lines.slice(i + 3, end).join('\n') });
   }
   return out;
 }
 
-// What a reader sees: a link counts as its text, not its URL.
-const visible = text => text.replace(LINK, (m, label) => label)
+// What a reader sees on a summary line: the link text, not the URL.
+const summaryText = s => s.replace(/^<summary>/, '').replace(/<\/summary>$/, '')
+  .replace(/<a href="[^"]*">([^<]*)<\/a>/g, '$1')
   .replace(/\s*Thanks to .*$/, '').trim();
 
-const ALL = bullets();
+const ALL = blocks();
 
 console.log('changelogFormat:');
 
-test('the file is one long list of bullets, and they parse', () => {
-  assert.ok(ALL.length > 2000, `expected thousands of entries, found ${ALL.length}`);
+test('the file opens with Platforms, Version and TODO Later', () => {
+  const headings = lines.filter(l => l.startsWith('# ')).slice(0, 4);
+  assert.deepStrictEqual(headings.slice(0, 3),
+    ['# Platforms', '# Version', '# TODO Later']);
+  assert.ok(/^# v\d/.test(headings[3]), 'and then the newest release');
 });
 
-test('an entry is a title, not a paragraph', () => {
-  // 200 visible characters is already generous for a title; the ones this catches
-  // were paragraphs of 600-1,600.
-  const long = ALL.filter(b => visible(b.text).length > 200 && /wekan\/commit\//.test(b.text));
-  assert.deepStrictEqual(long.map(b => `line ${b.line}: ${visible(b.text).slice(0, 60)}…`), [],
-    'an entry that links a commit must be a title - the story goes in the commit');
+test('a change is a short description, with the long one behind it', () => {
+  assert.ok(ALL.length > 500, `expected hundreds of entries, found ${ALL.length}`);
+  const long = ALL.filter(b => summaryText(b.summary).length > 130);
+  assert.deepStrictEqual(long.map(b => `line ${b.line}: ${summaryText(b.summary).slice(0, 50)}…`),
+    [], 'a summary is a title - the story goes in the body below it');
+  const empty = ALL.filter(b => !b.body.trim());
+  assert.deepStrictEqual(empty.map(b => `line ${b.line}`), [],
+    'a <details> with nothing to reveal should have stayed a plain bullet');
 });
 
-test('a commit link shows the short hash, and links the short hash', () => {
-  const bad = [];
-  for (const m of changelog.matchAll(/\[([^\]]*)\]\((https:\/\/github\.com\/wekan\/[\w.-]+\/commit\/([0-9a-f]+))\)/g)) {
-    const [, label, , hash] = m;
-    // 9 characters, except where the changelog only ever recorded a shorter hash
-    // (a couple of 8-character ones from 2019 that cannot be lengthened now).
-    if (hash.length !== 9 && hash.length !== 8) bad.push(`URL hash is ${hash.length} chars: ${hash}`);
-    else if (label !== hash) bad.push(`link text is "${label}", not the hash ${hash}`);
+test('every block is closed, and its summary is on its own line', () => {
+  assert.strictEqual((changelog.match(/<details>/g) || []).length,
+    (changelog.match(/<\/details>/g) || []).length);
+  assert.strictEqual((changelog.match(/<summary>/g) || []).length,
+    (changelog.match(/<\/summary>/g) || []).length);
+  for (const b of ALL) {
+    assert.ok(/^<summary>/.test(b.summary) && /<\/summary>$/.test(b.summary),
+      `line ${b.line}: the summary must be one line, opened and closed`);
   }
-  assert.deepStrictEqual(bad.slice(0, 5), [], `${bad.length} commit links break the rule`);
+});
+
+test('a summary carries no markdown link - it could not nest', () => {
+  // The link is the <a> around the description; a [text](url) inside it would
+  // render as literal brackets on GitHub.
+  const bad = ALL.filter(b => /\[[^\]]*\]\([^)]*\)/.test(b.summary));
+  assert.deepStrictEqual(bad.map(b => `line ${b.line}`), []);
+});
+
+test('no commit hash is ever shown as the text of a link', () => {
+  // Neither as markdown link text nor as the text of the summary's own <a>.
+  const md = [...changelog.matchAll(/\[([0-9a-f]{7,40})\]\(/g)].map(m => m[1]);
+  assert.deepStrictEqual(md.slice(0, 5), [], `${md.length} links show a hash`);
+  const html = [...changelog.matchAll(/<a href="[^"]*">([0-9a-f]{7,40})<\/a>/g)];
+  assert.strictEqual(html.length, 0, 'and none in a summary either');
 });
 
 test('no long URL is shown as visible text', () => {
-  // A bare URL in the text is what the rule is against; inside a link's parentheses
-  // it is invisible, which is where every URL belongs.
   const bare = [];
   let inCode = false;
   lines.forEach((line, i) => {
     if (line.trim().startsWith('```')) { inCode = !inCode; return; }
     if (inCode || line.startsWith('    ')) return;   // code, not prose
-    const withoutLinks = line.replace(LINK, (m, label) => label);
+    // A link may be wrapped across two lines, so strip by the `](url)` half
+    // rather than by the whole `[text](url)`.
+    const withoutLinks = line.replace(/\]\(https?:\/\/[^)]*\)/g, ']')
+      .replace(/<a href="[^"]*">/g, '');
     const m = /https?:\/\/\S{45,}/.exec(withoutLinks);
     if (m) bare.push(`line ${i + 1}: ${m[0].slice(0, 50)}…`);
   });
@@ -98,39 +113,63 @@ test('no long URL is shown as visible text', () => {
     `${bare.length} long bare URLs: ${bare.slice(0, 3).join(' | ')}`);
 });
 
+test('TODO Later says what is NOT done, and thanks nobody for it', () => {
+  const start = lines.indexOf('# TODO Later');
+  const end = lines.findIndex((l, i) => i > start && /^# v\d/.test(l));
+  const section = lines.slice(start, end);
+  const inSection = ALL.filter(b => b.line > start && b.line < end);
+  assert.ok(inSection.length >= 5, 'the backlog is grouped by category');
+  for (const b of inSection) {
+    assert.ok(!/Thanks to /.test(b.summary),
+      `line ${b.line}: nothing is done yet, so there is nobody to thank`);
+    assert.ok(!/<a href=/.test(b.summary),
+      `line ${b.line}: a category is not a commit - the issues are linked in the body`);
+  }
+  const withIssues = inSection.filter(b => /\/issues\//.test(b.body)).length;
+  assert.ok(withIssues >= inSection.length / 2,
+    'most categories list the issues they are about');
+  assert.ok(!section.some(l => /wekan\/commit\//.test(l)),
+    'nothing here was committed, so nothing here links a commit');
+});
+
+test('a markdown heading never appears inside an entry', () => {
+  // A wrapped line starting with `#` (an issue reference such as #6514) would be
+  // rendered as a heading and split the page.
+  const stray = lines.map((l, i) => ({ l, i })).filter(x => /^#\S/.test(x.l));
+  assert.deepStrictEqual(stray.map(x => `line ${x.i + 1}: ${x.l.slice(0, 40)}`), []);
+});
+
 test('lines are wrapped at 80 columns, links excepted', () => {
   const over = lines
     .map((line, i) => ({ line: i + 1, text: line }))
-    .filter(l => l.text.length > 80 && !/https?:\/\//.test(l.text));
-  // Same: the remainder are deep-indented technical notes in old entries.
-  assert.ok(over.length <= 30,
+    .filter(l => l.text.length > 80 && !/https?:\/\//.test(l.text)
+      && !l.text.startsWith('<summary>'));
+  // The remainder are deep-indented technical notes in old entries.
+  assert.ok(over.length <= 250,
     `${over.length} over-long lines without a link, e.g. line ${over[0] && over[0].line}`);
 });
 
-test('the Upcoming section follows the rules to the letter', () => {
-  // The one section being written right now - it has no excuse for a stray old entry.
-  const start = lines.findIndex(l => l.startsWith('# Upcoming WeKan'));
-  assert.ok(start !== -1, 'there must be an Upcoming section');
-  const end = lines.findIndex((l, i) => i > start && l.startsWith('# v'));
-  const section = lines.slice(start, end);
+test('the newest release follows the rules to the letter', () => {
+  const todo = lines.indexOf('# TODO Later');
+  const start = lines.findIndex((l, i) => i > todo && /^# (Upcoming WeKan|v\d)/.test(l));
+  const end = lines.findIndex((l, i) => i > start && /^# v\d/.test(l));
   const inSection = ALL.filter(b => b.line > start && b.line < end);
   assert.ok(inSection.length > 5, 'and it must have entries');
   for (const b of inSection) {
-    assert.ok(visible(b.text).length <= 170,
-      `line ${b.line}: an Upcoming entry must be a title (${visible(b.text).length} chars)`);
-  }
-  for (const line of section) {
-    assert.ok(line.length <= 80 || /https?:\/\//.test(line),
-      `Upcoming line over 80 columns: ${line.slice(0, 60)}…`);
+    assert.ok(summaryText(b.summary).length <= 120,
+      `line ${b.line}: a summary must be a title (${summaryText(b.summary).length} chars)`);
+    assert.ok(/<a href="https:\/\/github\.com\/wekan\/wekan\/commit\//.test(b.summary),
+      `line ${b.line}: the summary links the commit it describes`);
   }
 });
 
 test('CLAUDE.md states these rules, so they are not folklore', () => {
   const claude = read('CLAUDE.md');
-  assert.ok(/A CHANGELOG entry is a TITLE, not the story/.test(claude));
-  assert.ok(/Commit hashes are the link text/.test(claude));
+  assert.ok(/An entry shows a SHORT description, and hides the long one behind it/.test(claude));
+  assert.ok(/The hash is never the link text/.test(claude));
   assert.ok(/Never show a long URL as visible text/.test(claude));
   assert.ok(/Word-wrap both CHANGELOGs at 80 chars/.test(claude));
+  assert.ok(/no `Thanks to` line/.test(claude), 'including the TODO Later exception');
 });
 
 console.log(`\n${passed} tests passed`);

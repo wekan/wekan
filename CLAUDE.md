@@ -139,25 +139,38 @@ pushed to Transifex as if it were human.
 - During development, add entries under a new `# Upcoming WeKan ® release` section above
   the newest release (FerretDB uses `## Upcoming FerretDB release`). Do **not** hand-edit
   `package.json` or any other version reference — the release workflow bumps those.
+- The file opens with two sections: `# Platforms` (Install / Upgrade / Docs / Mac
+  changelog links) and `# Version` (which WeKan version uses what), then `# TODO Later`,
+  then the releases newest-first.
 - WeKan Upcoming structure — CRITICAL SECURITY ISSUES first, then new features, then
-  updates (`Thanks to dependabot.`), then bug fixes; each bullet is
+  updates (`Thanks to dependabot.`), then bug fixes, and the section ends with
+  `Thanks to above GitHub users for their contributions and translators for their
+  translations.`
+- **An entry shows a SHORT description, and hides the long one behind it.** The commit
+  hash is never visible: the short description IS the link, and clicking the summary
+  reveals the long text. Write it as `<details>`:
 
   ```
-  - <one-line title> ([<short hash>](https://github.com/wekan/wekan/commit/<short hash>)).
-    Thanks to (issue creator's GitHub nickname) and xet7.
+  <details>
+  <summary><a href="https://github.com/wekan/wekan/commit/<hash>">Short description of
+  what was done</a>. Thanks to (issue creator's GitHub nickname) and xet7.</summary>
+
+  The long description: what was wrong, why, what it does now, what the test pins.
+  Word-wrapped at 80 characters.
+
+  </details>
   ```
 
-  and the section ends with `Thanks to above GitHub users for their contributions and
-  translators for their translations.`
-- **A CHANGELOG entry is a TITLE, not the story (#6524).** One line, at a glance:
-  what changed, where. Aim for ≤ 110 characters of visible text and never write a
-  paragraph — the long explanation belongs in the COMMIT MESSAGE, which the link
-  points at. If a reader wants the reasoning, the root cause, the guard that was
-  added or the test that pins it, they open the commit. So: write the commit message
-  as long as it needs to be, and the changelog line as short as it can be.
-- **Commit hashes are the link text**, as the SHORT hash (9 characters), and the URL
-  uses the same short hash: `([f1c89548e](https://github.com/wekan/wekan/commit/f1c89548e))`.
-  Not `[merge commit](…)`, not a long description wrapped around the URL.
+  The summary is one line at a glance — aim for ≤ 110 characters — in PLAIN text (no
+  markdown inside `<summary>`; a nested link there would not nest). The body below is
+  normal markdown, so it may use links, `code` and emphasis freely.
+- **A change with nothing more to say stays a plain bullet** —
+  `- [Short description](https://github.com/wekan/wekan/commit/<hash>). Thanks to xet7.`
+  A `<details>` whose body only repeats its summary is noise; use one when there IS a
+  longer story to reveal (which is most fixes, and every dependency batch note).
+- **The hash is never the link text.** `[f1c89548e](…)` shows a hash to a reader who
+  cannot do anything with it; the link text says what changed. Same for `[merge
+  commit](…)` and for a bare URL — see the next rule.
 - **Never show a long URL as visible text.** A link is always
   `[short text](url)` — an issue is `[#6524](…/issues/6524)`, an advisory is
   `[GHSA-xxxx](…)`, a security page is `[ZipBleed](https://wekan.fi/hall-of-fame/zipbleed/)`.
@@ -191,7 +204,10 @@ pushed to Transifex as if it were human.
   environment owners), *Need the running app to reproduce/verify* (runtime UI / publication /
   mergebox / router state, not unit-testable), *Already correct in the current code* (verified by
   reading; could not reproduce), *Feature requests / behaviour-by-design rather than bugs*, and
-  *Needs a maintainer decision on the intended contract*. Each entry is a normal issue link
+  *Needs a maintainer decision on the intended contract*. Each category is a `<details>`
+  whose `<summary>` is the SHORT category text and whose body lists the issues with their
+  reasons — and with **no `Thanks to` line**, because nothing is done yet, so there is
+  nobody to thank. Each entry is a normal issue link
   `[#NNNN](https://github.com/wekan/wekan/issues/NNNN) (one-line reason)` — issue links here, NOT
   commit links (nothing was committed). **Keep it current:** when an issue in `TODO Later` gets
   fixed, REMOVE it from the list (its fix commit's `Fixes #NNNN` closes it); do not leave fixed
@@ -200,8 +216,8 @@ pushed to Transifex as if it were human.
 - FerretDB Upcoming structure — `### New Features 🎉`, `### Fixed 🐛`, `### Other Changes
   🤖`; entries end `... by @xet7. Thanks to xet7.`
 - Word-wrap both CHANGELOGs at 80 chars, but never break a long link across lines (a
-  line carrying a link may be longer). Continuation lines of a bullet are indented by
-  two spaces, and `Thanks to …` is its own line at the end of the bullet.
+  `<summary>` line, or any other line carrying a link, may be longer). Continuation
+  lines of a plain bullet are indented by two spaces.
 
 ### Commit message structure
 
