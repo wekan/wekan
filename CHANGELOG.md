@@ -226,7 +226,7 @@ membership) and #3037 (REST card board-move).
   has not decided on yet (adds a dependency + loosens the XSS sanitizer + needs
   a browser build to verify).
 
-# Upcoming WeKan ® release
+# v10.38 2026-07-26 WeKan ® release
 
 This release fixes the following CRITICAL SECURITY ISSUES:
 
