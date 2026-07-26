@@ -939,6 +939,8 @@ body.grey-icons-enabled .checkmark-no-grey {
   grid-template-columns: repeat(auto-fill, minmax(min(46%, 200px), 1fr));
   gap: 8px;
   height: calc(100vh - 120px);
+  /* #6488: the visible viewport, not the toolbar-less one. */
+  height: calc(100dvh - 120px);
   overflow-y: auto !important;
   overflow-x: hidden;
   padding: 0 0.5rem;
@@ -1315,6 +1317,12 @@ body.grey-icons-enabled .checkmark-no-grey {
   .wrapper {
     overflow: hidden;
     height: 100vh;
+    /* #6488: on a phone, `100vh` is the viewport with the browser's toolbars
+       HIDDEN, so with the toolbar showing this wrapper is taller than what is on
+       screen - and being `overflow: hidden`, the part underneath cannot be
+       scrolled to. `100dvh` is the viewport as it actually is at this moment.
+       The `vh` line above stays as the fallback for browsers without `dvh`. */
+    height: 100dvh;
   }
 
   /* The left menu (Starred / Templates / Remaining / Workspaces / Add board) is its
@@ -1328,6 +1336,11 @@ body.grey-icons-enabled .checkmark-no-grey {
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     max-height: calc(100vh - 120px);
+    max-height: calc(100dvh - 120px);
+    /* A vertical swipe here is a scroll of THIS menu: never a page scroll behind
+       it, and never a gesture the browser hands to something else. */
+    overscroll-behavior: contain;
+    touch-action: pan-y;
   }
 
   .board-list {
@@ -1342,6 +1355,12 @@ body.grey-icons-enabled .checkmark-no-grey {
        boards below the fold were unreachable. */
     height: calc(100vh - 120px);
     max-height: calc(100vh - 120px);
+    /* …and the same height read from the CURRENT viewport, so the bottom of the
+       list is not left under the browser's toolbar (#6488). */
+    height: calc(100dvh - 120px);
+    max-height: calc(100dvh - 120px);
+    overscroll-behavior: contain;
+    touch-action: pan-y;
   }
 
   /* Force scrollbar to always be visible */

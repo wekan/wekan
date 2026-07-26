@@ -228,6 +228,11 @@ body.mobile-mode {
   position: fixed;
   width: 100%;
   height: 100vh;
+  /* #6488: `100vh` is the viewport with the browser's toolbars hidden, so a
+     `position: fixed` body sized that way reaches under them and the last part of
+     any page is unreachable. `100dvh` is the viewport as it is right now; the line
+     above stays as the fallback where `dvh` is not supported. */
+  height: 100dvh;
   /* Prevent iOS Safari bounce scroll */
   overscroll-behavior: none;
   -webkit-overflow-scrolling: touch;
@@ -239,6 +244,8 @@ body.mobile-mode #content {
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   height: calc(100vh - 48px);
+  height: calc(100dvh - 48px);
+  overscroll-behavior: contain;
 }
 #content {
   position: relative;
@@ -1156,6 +1163,7 @@ a:not(.disabled).is-active i.fa {
     position: fixed;
     width: 100%;
     height: 100vh;
+    height: 100dvh;
   }
 
   /* Fix z-index stacking for mobile Safari */
