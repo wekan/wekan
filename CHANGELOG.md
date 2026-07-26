@@ -479,6 +479,38 @@ and updates the following dependencies:
 
 and fixes the following bugs:
 
+- [Choosing a theme now recolours the whole UI, not just the header. Every named
+  theme publishes its own accent colour, so everything that reads it follows along:
+  the Admin Panel's pane buttons, every Save button, the table-page controls and the
+  popup header — all of which stayed on the stock blue whatever theme was chosen,
+  because the accent was only ever set when a user picked a CUSTOM colour for a
+  flat/clear theme. The Admin Panel's selected left-menu row goes further: it is
+  painted by the theme's own header rule, so it matches the second header bar
+  exactly — including a colour slide, which clearblue has and a single accent value
+  cannot express. The top bars themselves used to spell the order of themes out in
+  the template, which is why the new site theme coloured the buttons and left the
+  bars alone; one helper answers for all of them now, in one
+  order](https://github.com/wekan/wekan/commit/d72675906).
+  Thanks to xet7.
+- [Admin Panel / People / People / Edit User — and the Organization and Team edit
+  popups — are fully visible again, and fill the width they are given. They were
+  positioned from the table row that opened them, so opened from a row in a wide
+  table their right-hand side, and the Save button under it, hung off the edge of
+  the window; they are centred on the window now, and no popup can be wider than the
+  window at all. Their fields lay out in as many columns as there is room for — three
+  on a wide desktop, one on a phone — so a dozen-field form no longer has to be
+  scrolled to reach Save](https://github.com/wekan/wekan/commit/19a5ea0b7).
+  Thanks to xet7.
+- [Admin Panel / Settings / Visibility / Wait Spinner shows the spinner it names,
+  spinning, beside the dropdown — and below it when the pane is too narrow for both.
+  Choosing one no longer means saving it to find out what it looks
+  like](https://github.com/wekan/wekan/commit/19a5ea0b7).
+  Thanks to xet7.
+- [Admin Panel / Settings / Translation puts its **New** column on the left, where
+  every other Admin Panel table page has it — at the far right it read as belonging
+  to the last column rather than to the
+  table](https://github.com/wekan/wekan/commit/19a5ea0b7).
+  Thanks to xet7.
 - [Admin Panel / People / People showed nothing at all — no table, no search box, no
   pager. `buildFilters` and `buildActions` were used to declare that pane's filter
   dropdown and its two action buttons, but were never imported. That is not a build
@@ -851,6 +883,16 @@ and updates the documentation:
 
 and fills untranslated strings in every language:
 
+- [The twelve strings this release's multitenancy and site-theme work added — an
+  Organization's domains and what they do, the domain-already-taken error, the
+  Organization admins popup and its description, the backup scope and its
+  description, and the line telling a site admin their theme applies to all tenants
+  — are translated into all 142 languages, each in that language's own existing
+  WeKan terminology for Organization, backup, admin and theme. They are written
+  through the same tooling as before, so a human translation can never be
+  overwritten and none of them is pushed to Transifex, where a real translation can
+  replace them at any time](https://github.com/wekan/wekan/commit/78e2adb69).
+  Thanks to xet7.
 - [The strings that are untranslated everywhere — on Transifex and in git — are
   written directly, using each language's own existing translations and its kanban
   terminology as the reference, with no external translation service, API or
