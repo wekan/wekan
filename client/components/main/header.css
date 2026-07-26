@@ -592,6 +592,39 @@ body.mobile-mode #header-quick-access .allBoards {
   font-weight: bold !important;
   transform: scale(1.1) !important;
 }
+/* Which mode is ON, at a glance. The two icons differed only by colour - black
+   for the active one, #666 for the other - which on a phone, at 14px, is no
+   difference at all: the button showed a phone and a monitor and told you
+   nothing. The current mode is now a filled chip in the theme's own accent
+   colour and the other side is faded, so the answer is the shape that is lit. */
+#header-quick-access .mobile-mode-toggle .board-header-btn i.mobile-icon,
+#header-quick-access .mobile-mode-toggle .board-header-btn i.desktop-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 3px 6px !important;
+  border-radius: 4px !important;
+  opacity: 0.35 !important;
+  transition: opacity 0.2s ease, background-color 0.2s ease !important;
+}
+
+#header-quick-access .mobile-mode-toggle .board-header-btn.mobile-active i.mobile-icon,
+#header-quick-access .mobile-mode-toggle .board-header-btn.desktop-active i.desktop-icon,
+#header-quick-access .mobile-mode-toggle .board-header-btn i.mobile-icon.active,
+#header-quick-access .mobile-mode-toggle .board-header-btn i.desktop-icon.active {
+  opacity: 1 !important;
+  /* The active theme, like the rest of the bar; the stock blue where no theme
+     has published an accent. */
+  background: var(--theme-accent, #2980b9) !important;
+}
+
+#header-quick-access .mobile-mode-toggle .board-header-btn.mobile-active i.mobile-icon .fa,
+#header-quick-access .mobile-mode-toggle .board-header-btn.desktop-active i.desktop-icon .fa,
+#header-quick-access .mobile-mode-toggle .board-header-btn i.mobile-icon.active .fa,
+#header-quick-access .mobile-mode-toggle .board-header-btn i.desktop-icon.active .fa {
+  color: #fff !important;
+}
+
 #header-quick-access #header-user-bar .header-user-bar-name i.fa-chevron-down {
   margin-inline-end: 4px;
 }
@@ -1697,6 +1730,7 @@ body.mobile-mode #header-quick-access .allBoards {
   .iphone-device body:not(.board-view) #header-quick-access #notifications {
     margin-inline-start: auto !important;
     margin-inline-end: auto !important;
+    margin-block: 0 !important;
     flex-shrink: 0 !important;
   }
 
@@ -1710,6 +1744,11 @@ body.mobile-mode #header-quick-access .allBoards {
        push the pair apart again. */
     margin-inline-start: 0 !important;
     margin-inline-end: 12px !important;
+    /* The mobile blocks above give these items a 4-6px BOTTOM margin, which in a
+       centred row lifts them by half of it - the avatar sat visibly higher than
+       the bell and the zoom pill beside it. With no block margin the row's own
+       `align-items: center` puts it where it belongs. */
+    margin-block: 0 !important;
     flex-shrink: 0 !important;
   }
 

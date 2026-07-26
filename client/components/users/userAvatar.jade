@@ -24,8 +24,13 @@ template(name="userAvatar")
             i.fa.fa-pencil-square-o
 
 template(name="userAvatarInitials")
+  //- The initials sit in the MIDDLE of the circle. `y="11"` of a 15-unit
+    viewBox is 73% down - the text was low and, at font-size 16 in a 15-unit box,
+    taller than the box it is drawn in, so it also touched the edges. `y="50%"`
+    with `dominant-baseline="central"` centres it whatever the initials are, and
+    the size fits inside the box.
   svg.avatar.avatar-initials(viewBox="0 0 {{viewPortWidth}} 15")
-    text(x="50%" y="11" text-anchor="middle" dominant-baseline="middle" font-size="16")= initials
+    text(x="50%" y="50%" text-anchor="middle" dominant-baseline="central" font-size="10")= initials
 
 template(name="orgAvatar")
   a.member.orgOrTeamMember(class="js-member" title="{{orgData.orgDisplayName}}")
@@ -41,7 +46,7 @@ template(name="boardTeamRow")
 
 template(name="boardOrgName")
   svg.avatar.avatar-initials(viewBox="0 0 {{orgViewPortWidth}} 15")
-    text(x="50%" y="11" text-anchor="middle" dominant-baseline="middle" font-size="16")= orgName
+    text(x="50%" y="50%" text-anchor="middle" dominant-baseline="central" font-size="10")= orgName
 
 template(name="teamAvatar")
   a.member.orgOrTeamMember(class="js-member" title="{{teamData.teamDisplayName}}")
@@ -49,7 +54,7 @@ template(name="teamAvatar")
 
 template(name="boardTeamName")
   svg.avatar.avatar-initials(viewBox="0 0 {{teamViewPortWidth}} 15")
-    text(x="50%" y="11" text-anchor="middle" dominant-baseline="middle" font-size="16")= teamName
+    text(x="50%" y="50%" text-anchor="middle" dominant-baseline="central" font-size="10")= teamName
 
 template(name="userPopup")
   .board-member-menu

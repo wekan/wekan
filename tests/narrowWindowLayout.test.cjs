@@ -135,4 +135,60 @@ test('the bell and the avatar sit the same way in both modes', () => {
   }
 });
 
+test('the board bar: buttons after the title, hamburger in the corner', () => {
+  const at = boardCss.indexOf('/* The same rules by WIDTH, not by mobile mode');
+  assert.ok(at !== -1, 'the width-based board-bar rules must be there');
+  const block = boardCss.slice(at, boardCss.indexOf('\n}\n', boardCss.indexOf(
+    'sidebar-toggle', boardCss.indexOf('position: absolute', at))));
+  assert.ok(/\.board-header-btns-group,[\s\S]*?\.board-header-btns:not\(\.board-header-sidebar-toggle\) \{[\s\S]*?display: contents;/.test(block),
+    'the groups are display:contents, so the buttons start beside the title '
+    + 'instead of dropping below it as one block');
+  assert.ok(/:not\(\.board-header-sidebar-toggle\)/.test(block),
+    'except the hamburger, whose box is positioned - display:contents would remove it');
+  assert.ok(/#header #header-main-bar:has\(\.board-header-sidebar-toggle\) \{[\s\S]*?padding-inline-end: 44px;/.test(block),
+    'the bar reserves the hamburger width when there IS a hamburger');
+  assert.ok(/\.board-header-sidebar-toggle \{[\s\S]*?position: absolute;[\s\S]*?top: 7px;/.test(block),
+    'and the hamburger sits in the top right corner');
+  // body.board-view is written in 67 rules and set by no code, so scoping to it
+  // is scoping to nothing.
+  assert.ok(!/body\.board-view #header #header-main-bar:has|body\.board-view[^\n]*display: contents/.test(block),
+    'these rules must not hang off body.board-view, which nothing ever adds');
+});
+
+test('the mode toggle shows which mode is on', () => {
+  const at = headerCss.indexOf('/* Which mode is ON, at a glance.');
+  assert.ok(at !== -1, 'the rules must be there');
+  const block = headerCss.slice(at, at + 2000);
+  assert.ok(/i\.mobile-icon,\s*\n[^\n]*i\.desktop-icon \{[\s\S]*?opacity: 0\.35 !important;/.test(block),
+    'the side that is off is faded - black vs #666 was no difference at all');
+  assert.ok(/background: var\(--theme-accent, #2980b9\) !important;/.test(block),
+    'and the side that is on is a filled chip in the active theme');
+  assert.ok(/\.mobile-active i\.mobile-icon \.fa,/.test(block)
+    && /color: #fff !important;/.test(block),
+    'the glyph inside that chip is white - it is the INNER i.fa that draws it');
+});
+
+test('the bell and the avatar are centred in the row', () => {
+  const block = headerCss.slice(headerCss.indexOf('The quick-access bar must FIT the phone'));
+  const rules = [...block.matchAll(/#header-quick-access #(?:notifications|header-user-bar),([\s\S]*?)\{([\s\S]*?)\}/g)];
+  assert.strictEqual(rules.length, 2, 'both must be placed here');
+  for (const [, , body] of rules) {
+    assert.ok(/margin-block: 0 !important;/.test(body),
+      'a bottom margin in a centred row lifts the item by half of it - which is '
+      + 'why the avatar sat higher than the bell beside it');
+  }
+});
+
+test('an initials avatar centres its initials in the circle', () => {
+  const jade = read('client/components/users/userAvatar.jade');
+  const texts = [...jade.matchAll(/text\(x="50%" y="([^"]+)"[^)]*dominant-baseline="([^"]+)"[^)]*font-size="(\d+)"\)/g)];
+  assert.ok(texts.length >= 3, `expected the user, org and team avatars, found ${texts.length}`);
+  for (const [, y, baseline, size] of texts) {
+    assert.strictEqual(y, '50%', 'y="11" of a 15-unit viewBox is 73% down, not the middle');
+    assert.strictEqual(baseline, 'central');
+    assert.ok(Number(size) <= 12,
+      `font-size ${size} in a 15-unit viewBox is taller than the box it is drawn in`);
+  }
+});
+
 console.log(`\n${passed} tests passed`);
