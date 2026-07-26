@@ -327,12 +327,12 @@ template(name='tableVisibilityModeSettings')
       li
         h2.admin-pane-group-title {{_ 'settings-group-logo'}}
       li.tableVisibilityMode-form
-        .title {{_ 'hide-logo'}}
-        .form-group.flex
-          input.wekan-form-control#hide-logo(type="radio" name="hideLogo" value="true" checked="{{#if currentSetting.hideLogo}}checked{{/if}}")
-          label {{_ 'yes'}}
-          input.wekan-form-control#hide-logo(type="radio" name="hideLogo" value="false" checked="{{#unless currentSetting.hideLogo}}checked{{/unless}}")
-          label {{_ 'no'}}
+        //- One checkbox, like the All Boards group above and like Announcement's
+        //- "Active System-Wide Announcement": ticked = the logo is hidden. The
+        //- group's Save below writes it, as it wrote the Yes/No pair.
+        a.flex.js-toggle-hide-logo
+          .materialCheckBox#hide-logo(class="{{#if currentSetting.hideLogo}}is-checked{{/if}}")
+          span {{_ 'hide-logo'}}
       li.tableVisibilityMode-form
         .title {{_ 'custom-login-logo-image-url'}}
         .form-group

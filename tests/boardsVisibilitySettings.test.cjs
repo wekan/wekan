@@ -111,6 +111,26 @@ test('the All Boards save writes them, and only what it found', () => {
   assert.ok(/Object\.keys\(\$set\)\.length/.test(js), 'which is what that helper checks');
 });
 
+test('every Yes/No pair in the pane is a checkbox now', () => {
+  // Each of these settings is on or off, so a pair of radios said the same thing
+  // twice. They are the checkbox the rest of the Admin Panel uses - the plain square
+  // when off, the green tick when on, the animation between - and each one's Save
+  // reads the tick and still skips a checkbox that is not on screen.
+  assert.ok(!/type="radio"/.test(boardsVisibility), 'no radios left in Visibility');
+  for (const [id, cls] of [['accounts-allowPrivateOnly', 'js-toggle-all-boards-hide'],
+    ['hide-board-activities', 'js-toggle-all-boards-hide'],
+    ['hide-card-counter-list', 'js-toggle-all-boards-hide'],
+    ['hide-board-member-list', 'js-toggle-all-boards-hide'],
+    ['hide-logo', 'js-toggle-hide-logo']]) {
+    assert.ok(new RegExp(`a\\.flex\\.${cls}\\s*\\n\\s*\\.materialCheckBox#${id}`).test(boardsVisibility),
+      `${id} is a materialCheckBox under ${cls}`);
+    assert.ok(new RegExp(`'click a\\.${cls}`).test(js), `${cls} has a handler`);
+  }
+  const logo = handler('js-visibility-logo-save');
+  assert.ok(/\$\('#hide-logo'\)\.length/.test(logo) && /hasClass\('is-checked'\)/.test(logo),
+    'Hide Logo is saved from its tick, and skipped when it is not on screen');
+});
+
 test('each section of Visibility has its own Save, above its rule', () => {
   // One Save for the whole pane meant pressing Save in one group also wrote
   // whatever was half-typed in another. Every section ends with its own button.

@@ -907,7 +907,7 @@ Template.tableVisibilityModeSettings.events({
   // off restores every board's own value.
   // Tick a box without saving: the group's own Save writes them together, the way
   // the Yes/No pairs these replace behaved.
-  'click a.js-toggle-all-boards-hide'(event) {
+  'click a.js-toggle-all-boards-hide, click a.js-toggle-hide-logo'(event) {
     event.preventDefault();
     $(event.currentTarget).find('.materialCheckBox').toggleClass('is-checked');
   },
@@ -973,9 +973,10 @@ Template.tableVisibilityModeSettings.events({
       ['#custom-top-left-corner-logo-link-url', 'customTopLeftCornerLogoLinkUrl'],
       ['#custom-top-left-corner-logo-height', 'customTopLeftCornerLogoHeight'],
     ]);
-    const hideLogo = $('input[name=hideLogo]:checked').val();
-    if (hideLogo !== undefined) {
-      $set.hideLogo = hideLogo === 'true';
+    // One checkbox now: ticked = hidden. Skipped when it is not on screen, so a
+    // pane that does not render it can never blank the stored value.
+    if ($('#hide-logo').length) {
+      $set.hideLogo = $('#hide-logo').hasClass('is-checked');
     }
     saveVisibilitySettings($set);
   },
