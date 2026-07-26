@@ -44,6 +44,23 @@ test('the Admin Panel styles its native checkboxes itself', () => {
     'the app-wide hiding rule is still there for everything outside the Admin Panel');
 });
 
+test('the form-field styling of every input is undone for a checkbox', () => {
+  // forms.css styles `input:not([type=file])` as a form FIELD: a grey background, a
+  // 6px radius, padding, a bottom margin - and `min-height: 41px`. The material
+  // declarations override the rest, but nothing overrode the height floor, so a 13px
+  // box was drawn as a tall rectangle and the tick it becomes was stretched with it.
+  // `input[type="radio"]` in that same file resets it for exactly this reason.
+  const field = rule(forms, 'input:not([type=file]),');
+  assert.ok(/min-height: 41px;/.test(field), 'the floor that has to be undone');
+  const box = rule(admin, '.setting-content input[type="checkbox"] {');
+  assert.ok(/min-height: 0;/.test(box), 'undone, or the box is 41px tall');
+  // …and everything else that rule sets is overridden too.
+  for (const [prop, value] of [['background', 'transparent'], ['padding', '0'],
+    ['margin', '0'], ['display', 'inline-block'], ['box-sizing', 'content-box']]) {
+    assert.ok(new RegExp(`${prop}: ${value};`).test(box), `${prop} must be reset`);
+  }
+});
+
 test('an Admin Panel checkbox IS the material checkbox, declaration for declaration', () => {
   // Not "looks a bit like it": every declaration of .materialCheckBox and of
   // .materialCheckBox.is-checked must be here, so the unchecked square, the checked
@@ -100,8 +117,11 @@ test('the panes that use a native checkbox are the ones this is for', () => {
   // this is what it covers, and it names them so the reason is not lost.
   const panes = {
     'client/components/settings/attachments.jade': ['js-toggle-gridfs-read',
-      'js-toggle-filesystem-read', 'js-backup-attachments', 's3-read',
-      'js-avatars-upload-blocked', 'js-backup-avatars', 'js-backup-data'],
+      'js-toggle-filesystem-read', 'js-backup-attachments', 'js-backup-avatars',
+      'js-backup-data', 'js-avatars-upload-blocked',
+      // The cloud storages: enabled, read, and S3's path-style switch.
+      's3-enabled', 's3-read', 's3-force-path-style',
+      'azure-enabled', 'azure-read', 'gcs-enabled', 'gcs-read'],
     'client/components/settings/peopleBody.jade': ['js-toggle-org-feature',
       'js-toggle-team-feature', 'selectUserChkBox'],
     'client/components/settings/problemsSummary.jade': ['js-problem-check'],

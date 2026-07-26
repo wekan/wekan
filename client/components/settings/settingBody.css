@@ -280,6 +280,14 @@
   appearance: none;
   -webkit-appearance: none;
   box-sizing: content-box;
+  /* forms.css styles every input that is not a file input as a FORM FIELD:
+   * `min-height: 41px`, a grey background, a 6px radius, 9px padding and a 14px
+   * bottom margin. Everything but the min-height is overridden by the material
+   * declarations below - but a 41px floor turns a 13px box into a tall rectangle,
+   * and stretches the tick it becomes. `input[type="radio"]` resets it the same way
+   * a few lines further down that file, for the same reason. */
+  min-height: 0;
+  min-width: 0;
   /* …then exactly .materialCheckBox. */
   position: relative;
   width: 13px;
