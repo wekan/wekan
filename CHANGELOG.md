@@ -266,6 +266,31 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+This release has the following developer-facing changes:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a7b54f5aa">build.sh and build.bat always build WeKan before running the tests</a>. Thanks to xet7.</summary>
+
+Both built the bundle only when `.build/bundle` was MISSING — exactly the case
+where a bundle exists and is stale. The :3000 test server runs that precompiled
+bundle, so Node E2E and every Playwright browser were testing whatever was built
+last time, and the run passed or failed on code that is no longer in the working
+tree. Both delete `.build` and build every time now, and stop with an error if
+the bundle is missing afterwards. `build.bat` was also two menu entries behind
+`build.sh` — the dev server's custom port + ROOT_URL host, and "Install
+Playwright browsers" — and both are added, renumbered and dispatched.
+`tests/buildScriptParity.test.cjs` fails if either script stops rebuilding, if a
+menu entry has no counterpart, if a Docker compose file one can start and the
+other cannot, or if a `.bat` menu prints a number it does not dispatch.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
+
 # v10.39 2026-07-26 WeKan ® release
 
 This release fixes the following bugs:
