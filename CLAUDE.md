@@ -281,7 +281,10 @@ All publishing / release steps below are maintainer-only. Contributors never run
   images alone in Stars, and the sentence about how the report arrived (coordinated
   disclosure, GitHub advisory, code scanning, found while reviewing …) in Process.
   Stars is a column so it can be compared down the page; do not put a star, an icon
-  or the process sentence back into another cell.
+  or the process sentence back into another cell. A page-local `<style>` in
+  `index.html` keeps a row's stars on ONE line from 900px up (they are a count) and
+  sizes them at 24px — the table itself stays percentage-sized with no fixed or
+  minimum width, so it fills the page at every browser width.
 - **On the Hall of Fame index page, the Process and Vulnerabilities cells are
   collapsed.** Those two columns carry the prose — how the report arrived, and the
   whole story of the vulnerability — so the page would be one wall of text and the
