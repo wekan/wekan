@@ -91,7 +91,8 @@ echo   3^) localhost:3000 + bundle visualizer
 echo   4^) CURRENT-IP:3000
 echo   5^) CURRENT-IP:3000 + MONGO_URL 27019
 echo   6^) CUSTOM-IP:PORT
-echo   7^) Kill all dev servers ^(free ports 3000/3001/3100/3101/4000/4001/8080^)
+echo   7^) CUSTOM PORT + SUBDOMAIN ^(asks for port and ROOT_URL host^)
+echo   8^) Kill all dev servers ^(free ports 3000/3001/3100/3101/4000/4001/8080^)
 set "choice="
 set /p "choice=Choose: "
 if "%choice%"=="1" goto dev_local
@@ -100,7 +101,8 @@ if "%choice%"=="3" goto dev_visualizer
 if "%choice%"=="4" goto dev_currentip
 if "%choice%"=="5" goto dev_currentip_mongo
 if "%choice%"=="6" goto dev_customip
-if "%choice%"=="7" goto dev_killall
+if "%choice%"=="7" goto dev_customurl
+if "%choice%"=="8" goto dev_killall
 if "%choice%"=="0" goto menu
 goto menu_dev
 
@@ -113,12 +115,13 @@ echo   2^) ALL tests, sequential
 echo   3^) Mocha ^(server-side^)
 echo   4^) Import regression
 echo   5^) Node E2E regressions
-echo   6^) Playwright Chromium
-echo   7^) Playwright Firefox
-echo   8^) Playwright WebKit
-echo   9^) Playwright ALL browsers
-echo  10^) Floating-promises guard
-echo  11^) Count tests by category
+echo   6^) Install Playwright browsers ^(Chromium, Firefox, WebKit^)
+echo   7^) Playwright Chromium
+echo   8^) Playwright Firefox
+echo   9^) Playwright WebKit
+echo  10^) Playwright ALL browsers
+echo  11^) Floating-promises guard
+echo  12^) Count tests by category
 set "choice="
 set /p "choice=Choose: "
 if "%choice%"=="1"  goto test_all_parallel
@@ -126,12 +129,13 @@ if "%choice%"=="2"  goto test_all_sequential
 if "%choice%"=="3"  goto test_mocha
 if "%choice%"=="4"  goto test_import
 if "%choice%"=="5"  goto test_e2e
-if "%choice%"=="6"  goto test_pw_chromium
-if "%choice%"=="7"  goto test_pw_firefox
-if "%choice%"=="8"  goto test_pw_webkit
-if "%choice%"=="9"  goto test_pw_parallel
-if "%choice%"=="10" goto check_floating
-if "%choice%"=="11" goto count_tests
+if "%choice%"=="6"  goto install_pw_browsers
+if "%choice%"=="7"  goto test_pw_chromium
+if "%choice%"=="8"  goto test_pw_firefox
+if "%choice%"=="9"  goto test_pw_webkit
+if "%choice%"=="10" goto test_pw_parallel
+if "%choice%"=="11" goto check_floating
+if "%choice%"=="12" goto count_tests
 if "%choice%"=="0"  goto menu
 goto menu_tests
 
@@ -332,6 +336,30 @@ set "ROOT_URL=http://%IPADDRESS%:%PORT%"
 call :runlog --port %PORT%
 goto end
 
+:dev_customurl
+REM Parity with build.sh's "CUSTOM PORT + SUBDOMAIN": ask for the port and the
+REM ROOT_URL host. An empty answer or a bare name is local, so the port is added;
+REM a full URL or a dotted name is public/proxied and the port is NOT added -
+REM the same rule build.sh's ask_dev_url applies.
+call :ensure_dirs
+set "DEV_PORT="
+set /p "DEV_PORT=Port for the dev server to listen on [3000]: "
+if not defined DEV_PORT set "DEV_PORT=3000"
+echo ROOT_URL: empty or a bare name = local ^(the port is added^);
+echo           a full URL or a dotted name = public/proxied ^(the port is NOT added^).
+set "DEV_HOST="
+set /p "DEV_HOST=ROOT_URL [http://localhost:%DEV_PORT%]: "
+if not defined DEV_HOST set "DEV_HOST=localhost"
+set "DEV_ROOT_URL="
+echo %DEV_HOST% | findstr /r /c:"^^https*://" >nul && set "DEV_ROOT_URL=%DEV_HOST%"
+if not defined DEV_ROOT_URL echo %DEV_HOST% | findstr /r /c:"\." >nul && set "DEV_ROOT_URL=https://%DEV_HOST%"
+if not defined DEV_ROOT_URL set "DEV_ROOT_URL=http://%DEV_HOST%:%DEV_PORT%"
+echo ROOT_URL=%DEV_ROOT_URL%
+call :set_dev_env
+set "ROOT_URL=%DEV_ROOT_URL%"
+call :runlog --port %DEV_PORT%
+goto end
+
 :dev_killall
 call :kill_all_dev_servers
 goto end
@@ -341,7 +369,7 @@ REM ===========================================================================
 echo Running ALL tests against ONE WeKan server on http://localhost:3000 - all jobs run IN PARALLEL (concurrently). Needs plenty of RAM (fine on 32 GB).
 echo Two WeKan servers are involved:
 echo   :3000  - the PRECOMPILED .build\bundle run as a plain Node server (Meteor's mongod on :3001, db "meteor")
-echo            - serves Node E2E + Playwright browser tests. No recompile: your existing build is reused.
+echo            - serves Node E2E + Playwright browser tests. Built fresh above, so the tests run against the current source.
 echo   :3100  - Mocha via 'meteor test' (its own .meteor\local-test build; the in-process server-side tests
 echo            CANNOT run from a production bundle, so this one build is unavoidable).
 echo   Import regression is a plain Node script (no server, no MongoDB).
@@ -350,6 +378,12 @@ if not errorlevel 1 (
 	echo ERROR: Port 3000 is already in use. Stop any running dev server before running this option.
 	goto end
 )
+
+REM Parity with build.sh: the tests ALWAYS run against a freshly built bundle. The
+REM :3000 server runs the precompiled .build\bundle, so a stale bundle means the
+REM suite passes or fails on code that is no longer in the working tree.
+call :rebuild_for_tests
+if errorlevel 1 goto end
 
 set "FAILED=0"
 set "S_mocha=RUN" & set "S_import=RUN" & set "S_e2e=RUN" & set "S_browsers=RUN"
@@ -446,7 +480,7 @@ REM ===========================================================================
 echo Running ALL tests against ONE WeKan server on http://localhost:3000 - all jobs run SEQUENTIALLY (one at a time).
 echo Two WeKan servers are involved (they do NOT run tests in parallel; the suites run one at a time):
 echo   :3000  - the PRECOMPILED .build\bundle run as a plain Node server (Meteor's mongod on :3001, db "meteor")
-echo            - serves Node E2E + Playwright browser tests. No recompile: your existing build is reused.
+echo            - serves Node E2E + Playwright browser tests. Built fresh above, so the tests run against the current source.
 echo   :3100  - Mocha via 'meteor test' (its own .meteor\local-test build; the in-process server-side tests
 echo            CANNOT run from a production bundle, so this one build is unavoidable).
 echo   Import regression is a plain Node script (no server, no MongoDB).
@@ -455,6 +489,12 @@ if not errorlevel 1 (
 	echo ERROR: Port 3000 is already in use. Stop any running dev server before running this option.
 	goto end
 )
+
+REM Parity with build.sh: the tests ALWAYS run against a freshly built bundle. The
+REM :3000 server runs the precompiled .build\bundle, so a stale bundle means the
+REM suite passes or fails on code that is no longer in the working tree.
+call :rebuild_for_tests
+if errorlevel 1 goto end
 
 set "FAILED=0"
 set "S_mocha=RUN" & set "S_import=RUN" & set "S_e2e=RUN" & set "S_browsers=RUN"
@@ -560,6 +600,17 @@ echo Running Node E2E regressions (puppeteer).
 echo NOTE: needs a WeKan server with WITH_API=true on http://localhost:3000.
 echo       Start one with menu option 3 first, or use the Run ALL tests option.
 call meteor npm run test:e2e
+goto end
+
+:install_pw_browsers
+REM Parity with build.sh's "Install Playwright browsers". Windows has no Docker
+REM fallback here (build.sh uses one for WebKit on Linux arm64), so all three are
+REM installed natively, with their system dependencies.
+echo Installing Playwright test dependencies and browsers ^(Chromium, Firefox, WebKit^).
+cd /d "%REPO%\tests\playwright"
+call meteor npm install
+call meteor npm exec playwright install --with-deps chromium firefox webkit
+echo Done. Run a browser suite from the Tests menu.
 goto end
 
 :test_pw_chromium
@@ -942,6 +993,27 @@ for /l %%i in (1,1,240) do (
 echo.
 if "!SERVER_READY!"=="1" echo ==^> WeKan test server is ready on http://localhost:3000 ^(precompiled bundle, no rebuild^).
 exit /b 0
+
+:rebuild_for_tests
+REM Delete .build (and the rspack dev-build caches, as :build does) and build the
+REM WeKan bundle the test server runs. Same steps as Setup -> "Build WeKan", so the
+REM two can never drift apart.
+echo ==^> Deleting .build and building WeKan before running the tests ^(always, so the tests run against the current source^).
+pushd "%REPO%"
+if exist "%REPO%\node_modules\.cache" rmdir /s /q "%REPO%\node_modules\.cache"
+if exist "%REPO%\.meteor\local"       rmdir /s /q "%REPO%\.meteor\local"
+if exist "%REPO%\.build"              rmdir /s /q "%REPO%\.build"
+if exist "%REPO%\_build"              rmdir /s /q "%REPO%\_build"
+call meteor npm install
+call meteor build .build --directory
+popd
+if not exist "%REPO%\.build\bundle\main.js" (
+	echo ERROR: .build\bundle\main.js is missing after building. Aborting the test run.
+	exit /b 1
+)
+exit /b 0
+
+REM ===========================================================================
 
 :start_bundle_server
 REM Parity with build.sh: run the :3000 test server from the PRECOMPILED

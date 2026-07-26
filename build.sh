@@ -526,13 +526,16 @@ function run_all_tests(){
 	RUN_LOGDIR="../log/$RUN_TS"
 	mkdir -p "$RUN_LOGDIR"
 	echo "Logs for this run: $RUN_LOGDIR/  (previous runs are kept)"
-	# Tests need a precompiled WeKan bundle (the :3000 test server runs it) and
-	# installed npm deps. Check for the .build/bundle directory specifically (not just
-	# .build): if the bundle is missing (never built, or a previous build failed),
-	# build it first with `meteor build .build --directory` before running any tests.
-	if [ ! -d .build/bundle ] || [ ! -d node_modules ]; then
-		echo "No .build/bundle or node_modules directory found - building the WeKan bundle first (meteor build .build --directory)."
-		build_wekan
+	# Tests ALWAYS run against a freshly built bundle. The :3000 test server runs
+	# the precompiled .build/bundle, so a stale bundle means the suite passes or
+	# fails on code that is no longer in the working tree - the one thing a test
+	# run must never do. This used to build only when .build/bundle was missing,
+	# which is exactly the case where the bundle is present but old.
+	echo "==> Deleting .build and building WeKan before running the tests (always, so the tests run against the current source)."
+	build_wekan
+	if [ ! -d .build/bundle ]; then
+		echo "ERROR: .build/bundle is missing after building. Aborting the test run."
+		return 1
 	fi
 	if [ "$RUN_MODE" = parallel ]; then
 		echo "Running ALL tests against ONE WeKan server on http://localhost:3000 - all jobs run IN PARALLEL (concurrently). Needs plenty of RAM (fine on 32 GB)."
@@ -541,7 +544,7 @@ function run_all_tests(){
 	fi
 	echo "Two WeKan servers are involved (they do NOT run tests in parallel unless you chose parallel):"
 	echo "  :3000  - the PRECOMPILED .build/bundle run as a plain Node server (Meteor's mongod on :3001)"
-	echo "           - serves Node E2E + Playwright browser tests. No recompile: your existing build is reused."
+	echo "           - serves Node E2E + Playwright browser tests. Built fresh above, so the tests run against the current source."
 	echo "  :3100  - Mocha via 'meteor test' (its own .meteor/local-test build; the in-process server-side tests"
 	echo "           CANNOT run from a production bundle, so this one build is unavoidable)."
 	echo "  Import regression is a plain Node script (no server, no MongoDB)."
