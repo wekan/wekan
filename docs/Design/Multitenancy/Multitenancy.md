@@ -7,8 +7,15 @@ sets up and it works.
 
 This page designs the **alternatives**: what it would take for **one** WeKan
 Node.js process to serve many domains, each with its own `ROOT_URL` and its own
-data — and what each alternative costs. It is a design, not a description of
-shipped code: nothing here is implemented in WeKan yet.
+data — and what each alternative costs.
+
+**Option D is implemented.** *Organizations as tenants* ships: an Organization may
+claim hostnames, carries its own branding, has its own per-tenant Global Admins,
+and can be backed up and restored on its own from the Admin Panel. It is **off
+until `MULTITENANCY=true`**, and an instance that never sets it answers exactly as
+it did before. (A), (B), (C) and (E) remain designs — (A) is still the supported
+topology when customers must not share a process. What each option would cost is
+kept below, because choosing (D) is only honest next to what it is *not*.
 
 ## Related files
 
@@ -26,6 +33,14 @@ Everything the question touches. Paths are from the repository root.
 | `imports/reactiveCache.js` | `.js` cache | `getCurrentSetting()` — the single-document read that every pane and mail template goes through. |
 | `models/org.js`, `models/team.js` | `.js` models | Organizations and Teams: the tenant-shaped grouping WeKan already has *inside* one instance. |
 | `server/lib/orgTeamRestriction.js` | `.js` helper | The one existing rule that keeps two customer groups apart in a shared instance. |
+| `models/lib/tenants.js` | `.js` module | **(D)** Pure host → Organization resolution, the `X-Forwarded-Host` trust decision, per-org branding merge, per-tenant root URL. |
+| `models/lib/tenantAdmin.js` | `.js` module | **(D)** Pure per-tenant Global Admin rules: who may open which pane, which people and orgs are in scope, what a tenant admin may never write. |
+| `models/lib/tenantBackup.js` | `.js` module | **(D)** Pure per-tenant backup scope: which collections, the selector for each, the restore-side ownership guard, where a tenant's archives live. |
+| `server/lib/tenantResolver.js` | `.js` server | **(D)** The Meteor glue: the host → org cache, the resolver for HTTP requests and DDP connections, the per-host runtime config hook. |
+| `server/methods/tenant.js` | `.js` methods | **(D)** `currentTenant`, the org tenant/branding fields, the site theme (`getAdminThemeColor` / `setAdminThemeColor`), appointing per-tenant Global Admins, listing an org's members. |
+| `docs/Design/Page/Theme.md` | `.md` design | **(D)** The shared "Change color" picker and the order of themes: default → site/Organization → user. |
+| `server/methods/backup.js` | `.js` methods | **(D)** Per-tenant backup and restore, scoped by `models/lib/tenantBackup.js`. |
+| `tests/tenants.test.cjs`, `tests/tenantAdmin.test.cjs`, `tests/tenantBackup.test.cjs`, `tests/tenantWiring.test.cjs` | `.cjs` tests | **(D)** The separation suite: host spoofing, scope, escalation, cross-tenant restore, and that the wiring really calls the rules. |
 
 ## What one process would have to solve
 
@@ -181,27 +196,216 @@ others noticing.
   than it looks, and it is memory in one process, where the baseline's memory is in
   *n* processes that the kernel can schedule and kill independently.
 
-### D. One process, one database, **Organizations as tenants**
+### D. One process, one database, **Organizations as tenants** — IMPLEMENTED
 
-WeKan already has the shape: `models/org.js`, `models/team.js`, users belonging to
+WeKan already had the shape: `models/org.js`, `models/team.js`, users belonging to
 orgs and teams, per-org and per-team switches (shared templates, propagate members,
-sync from the auth provider), and — since this release — *"Add board members only
-from the same Organization"* / *"…same Team"*, enforced server-side in the invite
-path and in the user-search typeahead (`server/lib/orgTeamRestriction.js`).
+sync from the auth provider), and *"Add board members only from the same
+Organization"* / *"…same Team"*, enforced server-side in the invite path and in the
+user-search typeahead (`server/lib/orgTeamRestriction.js`).
 
-The alternative is to take that seriously as the tenancy model: give an
-Organization a **domain** and a **branding set**, resolve the org from the `Host`
-header, and let the existing membership rules do the separating.
+The implementation takes that seriously as the tenancy model: an Organization
+claims **domains**, carries its own **branding**, has its own **per-tenant Global
+Admins**, and can be **backed up and restored on its own** — and the existing
+membership rules do the separating.
 
 - **Buys**: by far the least new machinery — the grouping, the membership, the
-  admin UI and the restriction already exist and are already tested. Nothing has to
+  admin UI and the restriction already exist and are already tested. Nothing had to
   be partitioned, because boards are already only visible to their members.
 - **Costs**: it is *soft* tenancy. One database, one user namespace, one set of
-  admin settings; a site admin sees everything; a bug in board permissions is a
-  cross-tenant bug. Per-org branding, per-org SMTP and per-org announcements would
-  each be new per-org documents. Suitable for departments of one organisation, or
-  customers who accept a shared operator — not for customers who must not share a
-  process.
+  instance settings; a site admin sees everything; a bug in board permissions is a
+  cross-tenant bug. Suitable for departments of one organisation, or customers who
+  accept a shared operator — **not** for customers who must not share a process.
+  Those are what (A) is for, and (A) remains supported.
+
+#### D.1 Turning it on
+
+Off unless the deployment says otherwise, so nothing changes for an instance that
+has never heard of tenants — whatever is in its org documents.
+
+| Environment variable | Default | Meaning |
+| --- | --- | --- |
+| `MULTITENANCY` | unset (off) | `true` enables host → Organization resolution, per-tenant branding and per-tenant backup scopes. |
+| `MULTITENANCY_TRUST_PROXY_HOST` | unset (off) | `true` believes `X-Forwarded-Host`. Set it **only** when a trusted proxy (Caddy, nginx) sets that header on every request. |
+
+`ROOT_URL` stays what it is: the instance's own address, and the fallback for any
+host that no Organization claims.
+
+#### D.2 Which tenant is this request? (problem 1)
+
+`models/lib/tenants.js` is the one place that decides, and it is pure:
+
+- `normalizeHost()` — lower-cases, drops scheme, userinfo, path, port and the root
+  dot, so `HTTPS://A.Example.com:443/` and `a.example.com` are one host.
+- `parseHostList()` — an org's `orgDomains` is free text (comma, semicolon or
+  whitespace separated), like every other org field.
+- `requestHost(headers, { trustProxy })` — reads `X-Forwarded-Host` **only** when
+  the deployment set `MULTITENANCY_TRUST_PROXY_HOST`, otherwise `Host`, and takes
+  the first entry of a proxy chain. A tenant chosen from a header a client can forge
+  is a cross-tenant lie, so this decision is made once, here.
+- `findTenantOrg(orgs, host)` — the first **active** org claiming that host.
+  Deactivating an org takes the tenant off the air without losing its configuration.
+- `conflictingHosts()` / `duplicateTenantHosts()` — two orgs claiming one host is a
+  configuration mistake that would silently give one of them the other's brand, so
+  the save path refuses it and names the host.
+
+`server/lib/tenantResolver.js` holds the Meteor side: a host → org cache rebuilt
+from the `org` collection, `tenantForHeaders()` for HTTP requests and for DDP
+connections (`this.connection.httpHeaders`).
+
+#### D.3 The client bundle carries `ROOT_URL` (problem 2)
+
+`WebApp.addRuntimeConfigHook` rewrites `ROOT_URL` and `DDP_DEFAULT_CONNECTION_URL`
+per request when the request's host is a tenant host, so a client loading
+`b.example.com` connects back to `b.example.com` instead of to the one `ROOT_URL`
+the process was started with. `tenantRootUrl()` keeps the scheme and any sub-path
+of the instance's own `ROOT_URL`. The hook is only installed when tenancy is on,
+and it returns a falsy value for every host it does not recognise, which leaves the
+config exactly as Meteor encoded it.
+
+Meteor 3.0-alpha/beta/rc had this hook broken (meteor#13156, see the references);
+WeKan runs a Meteor 3 release that contains the fix.
+
+#### D.4 Server-side absolute URLs (problem 3)
+
+`tenantRootUrl(host, ROOT_URL)` gives the per-tenant value to pass as
+`Meteor.absoluteUrl(path, { rootUrl })`. Most of WeKan needed nothing: attachment
+and avatar URLs are already relative (`models/lib/universalUrlGenerator.js`).
+
+#### D.5 Keeping the data apart (problem 4)
+
+Nothing is partitioned — that is the point of (D). Boards are visible to their
+members, and the per-Organization board-member restriction that already exists
+(`server/lib/orgTeamRestriction.js`) is what keeps a tenant's boards inside the
+tenant. **This is the option's limit, not an oversight**: a permissions bug is a
+cross-tenant bug here, which is why (A) stays the recommendation for customers who
+must not share a process.
+
+What (D) *does* scope, because these are admin surfaces rather than board content:
+Admin Panel / People / People and / Organizations, through
+`peopleScopeSelector()` and `orgScopeSelector()` in `models/lib/tenantAdmin.js`,
+applied in the `people` and `org` publications and in the count methods that page
+them.
+
+#### D.6 Accounts (problem 5)
+
+Accounts stay **global**: one e-mail address is one user, who may belong to several
+Organizations. That is the product decision (D) makes, and everything else follows
+from it — in particular a tenant backup carries no accounts (D.8), and a per-tenant
+Global Admin may never grant the site-wide `isAdmin` flag (D.7).
+
+#### D.7 Per-tenant Global Admins
+
+A second, smaller kind of admin: someone who administers ONE Organization. It is a
+flag on the membership the user already has —
+
+```js
+user.orgs = [ { orgId, orgDisplayName, isAdmin: true } ]
+```
+
+— so there is no new collection and no second membership list, and everything that
+already reads `user.orgs` keeps working. `models/lib/tenantAdmin.js` holds the
+rules, and the same functions run on the client (which menu entries to draw) and on
+the server (which is the one that counts):
+
+| Question | Site admin | Per-tenant admin |
+| --- | --- | --- |
+| Open the Admin Panel | yes | yes |
+| Tabs | Settings, People, Attachments, Problems | People, Attachments, Settings (one pane) |
+| People menu | every pane | People, Organizations |
+| Attachments menu | every pane | Backup |
+| Settings menu | every pane | Visibility, and in it only **Change color** |
+| People they see | everyone | members of the orgs they administer |
+| Organizations they see | all | the ones they administer |
+| Grant site-wide `isAdmin` | yes | **never** |
+| Manage a site admin | yes | **never** |
+| Appoint a per-tenant admin | any org | their own org |
+| Backup scope | whole instance, or any org | their own org only |
+
+Appointing one reuses the existing menu: Admin Panel / People / Organizations → the
+row's **⋯** → **Organization admins**, a member list with a checkbox each.
+
+#### D.8 Per-tenant backup and restore
+
+Admin Panel / Attachments / Backup gained one control — **Scope** — listing the
+whole instance (site admin only) and each Organization the viewer may administer.
+`models/lib/tenantBackup.js` decides everything else.
+
+A tenant archive contains the tenant's boards and everything hanging off them
+(lists, swimlanes, cards, comments and reactions, checklists and their items,
+custom fields, activities, rules with their triggers and actions, integrations,
+attachment records) plus the attachment and avatar files those boards use. It does
+**not** contain:
+
+- **accounts** — one namespace (D.6), so an archive must not carry password hashes
+  or e-mail addresses out of the instance, and a restore must never rewrite an
+  account;
+- **the settings singletons** — product name, SMTP, lockout policy are per-instance
+  and belong to the instance backup;
+- **the org and team documents** — restoring them could resurrect a deleted tenant
+  or rewrite another tenant's membership.
+
+Archives live under a per-org directory, so "which archives may this admin see" is
+a path question:
+
+```
+<files>/backup/2026/07/26/12_00_00/backup.zip              instance
+<files>/backup/org/<orgId>/2026/07/26/12_00_00/backup.zip  tenant
+```
+
+Restore is the dangerous direction, so it is guarded twice: the board ids a restore
+may write are the **intersection** of what the archive claims with what the tenant
+really owns (`allowedRestoreBoardIds`), and then every single document is checked
+against that set (`docBelongsToTenant`) — a custom field shared with a board outside
+the tenant is refused as well, because writing it would rewrite a document another
+tenant's boards read. A per-tenant admin may never restore an instance-wide archive
+(it contains every tenant), and asking for a scope you may not have is **refused**,
+never quietly narrowed.
+
+#### D.9 The singletons (problem 6)
+
+Per-tenant branding reuses the fields Admin Panel / Settings / Visibility already
+has: the org document carries an `org`-prefixed copy of each, and a non-empty one
+replaces the instance value for that tenant's requests
+(`tenantBranding()`), so no rendering code changed — the client reads the same
+`currentSetting` fields it always did, and only the published document differs per
+host.
+
+| Organization field | Overrides |
+| --- | --- |
+| `orgProductName` | `productName` |
+| `orgThemeColor` / `orgThemeCustomColors` | the site theme, `themeColor` / `themeCustomColors` |
+| `orgCustomLoginLogoImageUrl` / `orgCustomLoginLogoLinkUrl` | the login logo and its link |
+| `orgTextBelowCustomLoginLogo` | the text below the login logo |
+| `orgCustomTopLeftCornerLogoImageUrl` / `orgCustomTopLeftCornerLogoLinkUrl` | the top-left corner logo and its link |
+| `orgCustomHelpLinkUrl` | the custom help link |
+| `orgLegalNotice` | the legal notice URL |
+
+**The site theme** is the one branding field an Organization's own admin sets from
+the Admin Panel rather than from the org row: Admin Panel / Settings / Visibility /
+**Change color**, the same shared picker as Board Settings and Member Settings
+([Change color](../Page/Theme.md)). The site admin's pane says under the title that
+their colour is the one every Organization without one of its own inherits; an
+Organization's admin sees only that section of the pane, and their colour reaches
+only their own hosts. Where the write lands is decided server-side by
+`themeTarget()` in `models/lib/tenantAdmin.js`, never by the client. The order of
+themes is 1) WeKan's default, 2) this site theme, 3) the user's own override.
+
+Everything else — SMTP, lockout policy, announcements, the storages — stays
+per-instance. Making those per-tenant is the next step if it is ever wanted, and it
+is the same shape: one more `org`-prefixed field and one more line in
+`BRANDING_FIELDS`.
+
+#### D.10 The test suite
+
+The separation is the feature, so the suite tests the separation rather than the
+plumbing: `tests/tenants.test.cjs` (host normalisation, forged `X-Forwarded-Host`,
+inactive orgs, duplicate hosts, branding fallback, root URL),
+`tests/tenantAdmin.test.cjs` (scope selectors, escalation attempts, menu
+filtering), `tests/tenantBackup.test.cjs` (export selectors, cross-tenant restore
+attempts, forbidden collections, archive ownership) and `tests/tenantWiring.test.cjs`
+(that the publications, methods and panes really call those rules instead of
+re-deciding). Each is plain Node: `node tests/tenants.test.cjs`.
 
 ### E. Split the difference: shared web tier, per-tenant data process
 
@@ -214,19 +418,21 @@ This is (A) with a nicer front door: it removes the per-tenant public port and t
 
 | | A. Process per tenant | B. Tenant field | C. DB per tenant, one process | D. Orgs as tenants |
 | --- | --- | --- | --- | --- |
-| New WeKan code | none | 46 collections, 66 publications | collection construction + routing | per-org branding only |
+| Status | supported | design | design | **implemented** |
+| New WeKan code | none | 46 collections, 66 publications | collection construction + routing | three pure modules + resolver, branding, per-tenant admins and backup |
 | Isolation | process | selector | database | permissions |
 | Worst failure | a tenant is down | cross-tenant disclosure | cross-tenant disclosure | cross-tenant disclosure |
 | Memory | × *n* | × 1 | × 1 process, × *n* pools | × 1 |
 | Upgrade | × *n* | × 1 | × 1 | × 1 |
-| Per-tenant restore | trivial | hard | trivial | hard |
+| Per-tenant restore | trivial | hard | trivial | scoped to the tenant's boards (D.8) |
 
-**The recommendation is to keep (A) as the supported topology, and to reach for
-(D) when the customers are groups within one organisation.** (B) and (C) are
-buildable and Meteor supports them, but they trade an operational cost that is
-merely tedious — *n* processes, *n* upgrades — for a security failure mode that is
-silent. That trade is only worth making with a per-tenant test suite that proves
-the separation, and that suite is the actual work, not the plumbing.
+**(A) remains the supported topology for customers who must not share a process,
+and (D) is what ships for customers who are groups within one organisation.** (B)
+and (C) are buildable and Meteor supports them, but they trade an operational cost
+that is merely tedious — *n* processes, *n* upgrades — for a security failure mode
+that is silent. That trade is only worth making with a per-tenant test suite that
+proves the separation, and that suite is the actual work, not the plumbing — which
+is why (D) shipped with its own (D.10) even though it partitions nothing.
 
 If (B) or (C) is ever attempted, the order that keeps it honest is:
 

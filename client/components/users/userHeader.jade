@@ -56,9 +56,19 @@ template(name="memberMenuPopup")
             a(href="{{pathFor 'allboards-templates'}}")
               i.fa.fa-list
               | {{_ 'templates'}}
+      //- Multitenancy option D (D.7): the Admin Panel link is also for a per-tenant
+      //- Global Admin, whose panel is the same one with only their own
+      //- Organization's panes in it. A site admin lands on Settings as before; a
+      //- per-tenant admin's Settings tab does not exist, so they are sent to
+      //- People, which is the first tab they have.
       if currentUser.isAdmin
         li
           a.js-go-setting(href="{{pathFor 'setting'}}")
+            i.fa.fa-lock
+            | {{_ 'admin-panel'}}
+      else if currentUser.isOrgAdmin
+        li
+          a.js-go-setting(href="{{pathFor 'people'}}")
             i.fa.fa-lock
             | {{_ 'admin-panel'}}
       hr

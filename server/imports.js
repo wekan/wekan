@@ -176,6 +176,10 @@ import '/server/lib/customHeadRender';
 import '/server/lib/emailLocalization';
 import '/server/lib/importer';
 import '/server/lib/inputSanitizer';
+// Multitenancy option D: the host -> Organization resolver and the per-host runtime
+// config hook (docs/Design/Multitenancy/Multitenancy.md). Inert unless
+// MULTITENANCY=true.
+import '/server/lib/tenantResolver';
 import '/server/lib/ssrfGuard';
 import '/server/lib/utils';
 
@@ -193,6 +197,7 @@ import '/server/methods/repairBrokenCards';
 import '/server/methods/systemStatus';
 import '/server/methods/positionHistory';
 import '/server/methods/sandstormMigration';
+import '/server/methods/tenant';
 import '/server/startup/repairBoardsOnStartup';
 
 // ----------------------------------------------------------------------------

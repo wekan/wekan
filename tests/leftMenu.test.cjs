@@ -294,8 +294,10 @@ test('the shared menu reproduces each page icon shape', () => {
 });
 
 test('Settings renders the shared menu too', () => {
+  // The menu builders take the current user now: multitenancy option D gives an
+  // Organization's own admin a shorter menu (docs/Design/Multitenancy/Multitenancy.md).
   const pages = [
-    ['settingBody', 'settingsMenu()', 'js-setting-menu'],
+    ['settingBody', 'settingsMenu(', 'js-setting-menu'],
   ];
   for (const [file, list, jsClass] of pages) {
     const pageJade = read(`client/components/settings/${file}.jade`);
@@ -343,8 +345,9 @@ test('Admin Panel / People renders the shared menu from data', () => {
   assert.ok(!/\.side-menu/.test(pageJade), 'no hand-written menu markup left');
   // A function rather than a bare array since the E-mail entry it gained is dropped
   // on Sandstorm, which has to be read at call time.
-  assert.ok(/function peopleMenu\(\)/.test(pageJs) && /leftMenuData\(peopleMenu\(\)/.test(pageJs),
-    'its entries are data, built by the shared helper');
+  assert.ok(/function peopleMenu\(user\)/.test(pageJs) && /leftMenuData\(peopleMenu\(/.test(pageJs),
+    'its entries are data, built by the shared helper - and take the user, since an '
+    + 'Organization\'s own admin gets a shorter menu (multitenancy option D)');
   // Seven near-identical handlers collapsed to one.
   for (const old of ['js-org-menu', 'js-team-menu', 'js-people-menu',
     'js-locked-users-menu', 'js-roles-menu', 'js-templates-menu', 'js-domains-menu']) {
@@ -356,14 +359,18 @@ test('Admin Panel / People renders the shared menu from data', () => {
   for (const extra of ['refreshOrgsCount', 'refreshTeamsCount', 'refreshUsersCount']) {
     assert.ok(pageJs.includes(extra), `${extra} must still run on its pane`);
   }
-  // Active row from state, not from a hand-toggled class. Login is the first entry
-  // since it moved here from Settings, so it is the pane the page opens on - and the
-  // var it reads must be the one that starts true.
-  assert.ok(/activeMenuId = new ReactiveVar\('registration-setting'\)/.test(pageJs),
+  // Active row from state, not from a hand-toggled class. The page opens on the
+  // FIRST entry of the menu this user actually has: Login for the site admin, as
+  // before - and Organizations for an Organization's own admin, who has no Login
+  // pane (multitenancy option D). One helper decides both, so the open pane and the
+  // highlighted row can never disagree.
+  assert.ok(/function firstPeoplePaneId\(user\)/.test(pageJs),
+    'the first pane of the user\'s own menu');
+  assert.ok(/activeMenuId = new ReactiveVar\(openPaneId\)/.test(pageJs),
     'the open pane is state, and starts on the first entry in the menu');
-  assert.ok(/registrationSetting = new ReactiveVar\(true\)/.test(pageJs),
+  assert.ok(/registrationSetting = new ReactiveVar\(openPaneId === 'registration-setting'\)/.test(pageJs),
     'and that pane is the one whose var starts true');
-  assert.ok(/orgSetting = new ReactiveVar\(false\)/.test(pageJs),
+  assert.ok(/orgSetting = new ReactiveVar\(openPaneId === 'org-setting'\)/.test(pageJs),
     'the pane that used to open first must no longer also start true');
   assert.ok(!/side-menu li\.active'\)\.removeClass/.test(pageJs),
     'no manual active-class toggling');
@@ -617,13 +624,19 @@ test('Version is the FIRST Settings pane, and has no page of its own', () => {
   const jadeSrc = read('client/components/settings/settingBody.jade');
   // First entry in the menu, and the pane that opens with the page: Admin Panel
   // opens on Settings, so this is what an admin sees first.
-  const menu = /function settingsMenu\(\) \{[\s\S]*?\n\}/.exec(js)[0];
+  const menu = /function settingsMenu\(user\) \{[\s\S]*?\n\}/.exec(js)[0];
   const ids = [...menu.matchAll(/id: '([\w-]+)'/g)].map(m => m[1]);
   assert.strictEqual(ids[0], 'version-setting', 'Version must be the first entry');
-  assert.ok(/this\.versionSetting = new ReactiveVar\(true\)/.test(js),
+  // …and the pane that is open when the page loads. Multitenancy option D added one
+  // caller who has no Version pane - an Organization's own admin, whose only Settings
+  // pane is Visibility - so "open Version" is now "open Version if you are the site
+  // admin", and Visibility opens for the other one.
+  assert.ok(/this\.versionSetting = new ReactiveVar\(siteAdmin\)/.test(js),
     'and the pane that is open when the page loads');
-  assert.ok(/this\.tableVisibilityModeSetting = new ReactiveVar\(false\)/.test(js),
-    'so Visibility no longer opens by default');
+  assert.ok(/this\.tableVisibilityModeSetting = new ReactiveVar\(!siteAdmin\)/.test(js),
+    'so Visibility no longer opens by default for the site admin');
+  assert.ok(/const siteAdmin = tenantAdmin\.isSiteAdmin\(/.test(js),
+    'and the two are decided by one flag, so exactly one pane opens');
   assert.ok(/\+statistics/.test(jadeSrc), 'Settings renders the statistics pane');
   // The old page, its tab and its menu are gone; the URL redirects.
   const info = read('client/components/settings/informationBody.jade');

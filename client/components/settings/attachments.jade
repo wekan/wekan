@@ -1,6 +1,9 @@
 template(name="attachments")
   .setting-content.attachments-content
-    unless currentUser.isAdmin
+    //- Multitenancy option D (docs/Design/Multitenancy/Multitenancy.md, D.8): a
+    //- per-tenant Global Admin opens this page too, and gets one entry - Backup -
+    //- scoped to their own Organization. The server refuses every other scope.
+    unless currentUser.isAdminOrOrgAdmin
       | {{_ 'error-notAuthorized'}}
     else
       //- No page-title bar. The Admin Panel top bar already names the section and
@@ -449,6 +452,21 @@ template(name="attachments")
             ul#attachment-backup-setting.setting-detail
               li
                 .description {{_ 'backup-description'}}
+                //- Multitenancy option D (D.8): WHAT is being backed up. The whole
+                //- instance (site admin only) or one Organization - its boards and
+                //- everything hanging off them, without accounts or instance
+                //- settings. The list comes from the server: a per-tenant Global
+                //- Admin is offered only their own Organizations, and the whole
+                //- instance is not among them.
+                if showBackupScope
+                  .form-group
+                    label {{_ 'backup-scope'}}
+                    select.wekan-form-control.js-backup-scope
+                      if isSiteAdmin
+                        option(value="") {{_ 'backup-scope-instance'}}
+                      each backupScopes
+                        option(value="{{_id}}") {{orgDisplayName}}
+                    span.form-text.text-muted {{_ 'backup-scope-description'}}
                 .form-group
                   label
                     input.js-backup-attachments(type="checkbox" checked="checked")
@@ -502,6 +520,7 @@ template(name="attachments")
                   table.gridfs-stats-table
                     tr
                       th
+                      th {{_ 'backup-scope'}}
                       th {{_ 'backup-storage'}}
                       th {{_ 'backup-datetime'}}
                       th {{_ 'backup-path'}}
@@ -509,6 +528,10 @@ template(name="attachments")
                       tr
                         td
                           input.js-backup-select(type="radio" name="backup-select" value=path)
+                        //- An instance archive contains every tenant, so which kind
+                        //- an archive is has to be visible before restoring it. A
+                        //- per-tenant admin is only ever listed their own.
+                        td {{backupScopeName orgId}}
                         td {{storage}}
                         td {{datetime}}
                         td {{path}}

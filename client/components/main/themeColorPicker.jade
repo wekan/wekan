@@ -1,8 +1,8 @@
-//- Shared "Select Color" picker (docs/Theme/Theme.md), used by both Board Settings
-  and Member Settings. Colors are shown as VISIBLE swatches grouped by category, with
+//- Shared "Select Color" picker (docs/Design/Page/Theme.md), used by Board Settings,
+  Member Settings and Admin Panel / Settings / Visibility. Colors are shown as VISIBLE swatches grouped by category, with
   the category name as a header above each group; the native color wheel(s) appear
   for the flat (1) / clear (2) categories once such a color is selected. `data.scope`
-  is 'board' or 'global'.
+  is 'board', 'global' or 'admin' - the only difference between the three places.
 template(name="themeColorPicker")
   form.theme-color-picker.edit-label
     if isGlobal

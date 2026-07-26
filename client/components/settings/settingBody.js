@@ -7,6 +7,9 @@ import AccessibilitySettings from '/models/accessibilitySettings';
 import AccountSettings from '/models/accountSettings';
 import Announcements from '/models/announcements';
 import Settings from '/models/settings';
+// Multitenancy option D: the per-tenant Global Admin rules, shared with the server
+// (docs/Design/Multitenancy/Multitenancy.md).
+const tenantAdmin = require('/models/lib/tenantAdmin');
 import { resolveDefaultAuthenticationMethod } from '/models/lib/authenticationMethod';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { format } from '/imports/lib/dateUtils';
@@ -232,8 +235,11 @@ Template.setting.onCreated(function () {
   // opens on Settings, so what an admin sees first is now the version, database
   // and system information they are usually here to read or to paste into an
   // issue - not a settings form they did not ask for.
-  this.versionSetting = new ReactiveVar(true);
-  this.tableVisibilityModeSetting = new ReactiveVar(false);
+  // Multitenancy option D: an Organization's own admin has no Version pane, so the
+  // page opens on the one pane they do have.
+  const siteAdmin = tenantAdmin.isSiteAdmin(ReactiveCache.getCurrentUser());
+  this.versionSetting = new ReactiveVar(siteAdmin);
+  this.tableVisibilityModeSetting = new ReactiveVar(!siteAdmin);
   this.translationSetting = new ReactiveVar(false);
   this.announcementSetting = new ReactiveVar(false);
   this.accessibilitySetting = new ReactiveVar(false);
@@ -330,8 +336,8 @@ Template.setting.onRendered(function () {
 // used to be six lines of markup; the pane it opens is its `id`.
 // `emoji: true` reproduces the empty span.emoji-icon this page always rendered
 // before the icon, so the conversion changes no pixel.
-function settingsMenu() {
-  return [
+function settingsMenu(user) {
+  const items = [
     // First, and open by default - see Template.setting.onCreated.
     { id: 'version-setting', icon: 'fa-info-circle', labelKey: 'info', emoji: true },
     // Labelled just 'Visibility' now. The pane id and the tableVisibilityMode
@@ -346,6 +352,14 @@ function settingsMenu() {
     { id: 'layout-setting', icon: 'fa-mobile', label: 'PWA', emoji: true },
     { id: 'webhook-setting', icon: 'fa-globe', labelKey: 'global-webhook', emoji: true },
   ];
+  // Multitenancy option D (docs/Design/Multitenancy/Multitenancy.md, D.7/D.9): an
+  // Organization's own admin has ONE pane here - Visibility, for its "Change color"
+  // section, which is that Organization's site theme. Every other pane, and every
+  // other section of Visibility, is instance-wide and site-admin only.
+  if (user !== undefined && !tenantAdmin.isSiteAdmin(user)) {
+    return tenantAdmin.tenantAdminSettingsMenu(items, user);
+  }
+  return items;
 }
 
 // Which pane is open. This page keeps one ReactiveVar per pane rather than an
@@ -370,14 +384,16 @@ function activeSettingId(inst) {
 Template.setting.helpers({
   menuItems() {
     const inst = Template.instance();
-    return leftMenuData(settingsMenu(), activeSettingId(inst), 'js-setting-menu');
+    return leftMenuData(settingsMenu(ReactiveCache.getCurrentUser()),
+      activeSettingId(inst), 'js-setting-menu');
   },
   // The heading above the pane: the open menu entry's own label
   // (docs/Design/Page/Left-Menu.md), so every pane on this page has a title, and
   // the same one the menu row that opened it carries.
   paneTitleData() {
     const inst = Template.instance();
-    return paneTitle(settingsMenu(), activeSettingId(inst));
+    return paneTitle(settingsMenu(ReactiveCache.getCurrentUser()),
+      activeSettingId(inst));
   },
   isVersionSetting() {
     const inst = Template.instance();
@@ -840,6 +856,11 @@ Template.setting.events({
 });
 
 Template.tableVisibilityModeSettings.helpers({
+  // Multitenancy option D: every group of this pane except "Change color" writes
+  // the INSTANCE settings, so only the site admin is shown them.
+  isSiteAdmin() {
+    return tenantAdmin.isSiteAdmin(ReactiveCache.getCurrentUser());
+  },
   allowPrivateOnly() {
     return TableVisibilityModeSettings.findOne(
       'tableVisibilityMode-allowPrivateOnly',

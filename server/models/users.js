@@ -9,6 +9,9 @@ import { CollectionHooks } from 'meteor/matb33:collection-hooks';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { debounce } from '/imports/lib/collectionHelpers';
 import { boardMemberRestriction } from '/server/lib/orgTeamRestriction';
+// Multitenancy option D: per-tenant Global Admin rules, shared with the client, the
+// publications and the tests (docs/Design/Multitenancy/Multitenancy.md).
+const tenantAdmin = require('/models/lib/tenantAdmin');
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { boardMemberRoleToFlags, allowIsBoardAdmin } from '/server/lib/utils';
@@ -2178,16 +2181,21 @@ Meteor.methods({
       throw new Meteor.Error('not-logged-in', 'User must be logged in');
     }
 
+    // Multitenancy option D (docs/Design/Multitenancy/Multitenancy.md, D.7): the
+    // count has to be scoped the same way the `people` publication is, or a
+    // per-tenant Global Admin would page through their own org's members against
+    // the whole instance's total.
     const currentUser = await ReactiveCache.getUser(
       { _id: this.userId },
-      { fields: { isAdmin: 1 } },
+      { fields: { isAdmin: 1, orgs: 1 } },
     );
 
-    if (!currentUser || !currentUser.isAdmin) {
+    if (!tenantAdmin.canOpenAdminPanel(currentUser)) {
       throw new Meteor.Error('not-authorized', 'Admin access required');
     }
 
-    const cursor = await ReactiveCache.getUsers(query || {}, {}, true);
+    const cursor = await ReactiveCache.getUsers(
+      tenantAdmin.peopleScopeSelector(currentUser, query || {}), {}, true);
     return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
   },
 

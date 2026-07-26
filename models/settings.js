@@ -155,6 +155,29 @@ Settings.attachSchema(
       type: String,
       optional: true,
     },
+    themeColor: {
+      /**
+       * The site theme, set in Admin Panel / Settings / Visibility / Change color.
+       * It is the layer between WeKan's default theme and a user's own override
+       * (docs/Theme/Theme.md): whoever has not picked a theme of their own sees
+       * this one. On a multitenancy host the Organization's own value replaces it
+       * (models/lib/tenants.js BRANDING_FIELDS).
+       */
+      type: String,
+      optional: true,
+    },
+    themeCustomColors: {
+      /**
+       * The custom colours of that theme: one for a flat theme, two for a clear
+       * (gradient) one.
+       */
+      type: Array,
+      optional: true,
+    },
+    'themeCustomColors.$': {
+      type: String,
+      optional: true,
+    },
     displayAuthenticationMethod: {
       type: Boolean,
       optional: true,

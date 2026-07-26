@@ -15,6 +15,32 @@ restored, either adding only what is missing or replacing.
 A restored archive is checked entry by entry: an entry that resolves outside the
 directory it belongs in is skipped and reported, never written (ZipBleed).
 
+### Scope: the whole instance, or one Organization
+
+**Backup scope** chooses what is backed up. A site admin sees *Whole instance* plus
+every Organization; an Organization's own admin sees only the Organizations they
+administer, and cannot take an instance backup.
+
+An Organization's backup holds its boards and everything on them — lists, swimlanes,
+cards, comments, checklists, custom fields, activities, rules, integrations — and the
+attachments those boards use. It does **not** hold user accounts, the instance
+settings, or the Organization and Team documents themselves: those are shared by every
+Organization, so they belong to the instance backup.
+
+Restoring an Organization's backup only ever writes to boards that Organization owns.
+Board ids the archive claims but the Organization does not own are dropped, every
+document is checked against what is left, and "replace all" replaces that
+Organization's documents rather than everyone's. An Organization's admin can never
+restore an instance backup, because it contains every Organization.
+
+Instance archives are written to `<files>/backup/YYYY/MM/DD/HH_MM_SS/backup.zip` and an
+Organization's to `<files>/backup/org/<orgId>/…`, so the list shows only the archives
+you may restore. See
+[Design / Multitenancy](../../../Design/Multitenancy/Multitenancy.md) (D.8).
+
+The **schedule** is instance-wide, and stays with the site admin: one cron, one archive
+of everything.
+
 ## Move attachment
 
 Move attachments and/or avatars between storages: choose the scope (attachments,

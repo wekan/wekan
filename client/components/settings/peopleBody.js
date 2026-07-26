@@ -16,10 +16,29 @@ import Org from '/models/org';
 import Settings from '/models/settings';
 import Team from '/models/team';
 import Users from '/models/users';
+// Multitenancy option D: the per-tenant Global Admin rules, the same module the
+// publications and methods use (docs/Design/Multitenancy/Multitenancy.md).
+const tenantAdmin = require('/models/lib/tenantAdmin');
 import InviteToBoardRolesSettings, {
   INVITE_TO_BOARD_ROLES,
   INVITE_TO_BOARD_ROLES_ID,
 } from '/models/inviteToBoardRolesSettings';
+
+// Multitenancy option D (D.2/D.9): the org fields that make an Organization a
+// tenant - its hostnames plus the branding that overrides the instance branding on
+// them. One list, used to read the edit popup and to send the method, so a field
+// cannot be added to the form and forgotten in the save.
+const TENANT_ORG_FIELDS = [
+  'orgDomains',
+  'orgProductName',
+  'orgCustomLoginLogoImageUrl',
+  'orgCustomLoginLogoLinkUrl',
+  'orgTextBelowCustomLoginLogo',
+  'orgCustomTopLeftCornerLogoImageUrl',
+  'orgCustomTopLeftCornerLogoLinkUrl',
+  'orgCustomHelpLinkUrl',
+  'orgLegalNotice',
+];
 
 const orgsPerPage = 25;
 const teamsPerPage = 25;
@@ -33,11 +52,15 @@ Template.people.onCreated(function () {
 
   this.error = new ReactiveVar('');
   this.loading = new ReactiveVar(false);
-  this.registrationSetting = new ReactiveVar(true);
+  // Multitenancy option D (D.7): the page opens on the first entry of the menu THIS
+  // user has. For the site admin that is Login, as before; a per-tenant Global
+  // Admin has no Login pane, so they open on Organizations.
+  const openPaneId = firstPeoplePaneId(ReactiveCache.getCurrentUser());
+  this.registrationSetting = new ReactiveVar(openPaneId === 'registration-setting');
   this.emailSetting = new ReactiveVar(false);
-  this.orgSetting = new ReactiveVar(false);
+  this.orgSetting = new ReactiveVar(openPaneId === 'org-setting');
   this.teamSetting = new ReactiveVar(false);
-  this.peopleSetting = new ReactiveVar(false);
+  this.peopleSetting = new ReactiveVar(openPaneId === 'people-setting');
   this.lockedUsersSetting = new ReactiveVar(false);
   this.rolesSetting = new ReactiveVar(false);
   this.templatesSetting = new ReactiveVar(false);
@@ -241,7 +264,7 @@ Template.people.onCreated(function () {
   // Which pane is open. The seven booleans below are derived from it; the shared
   // left menu (docs/Design/Page/Left-Menu.md) renders the active row from it, so
   // the menu no longer has to be highlighted by hand.
-  this.activeMenuId = new ReactiveVar('registration-setting');
+  this.activeMenuId = new ReactiveVar(openPaneId);
 
   this.switchMenu = (event) => {
     // data-id is on the anchor; event.target may be the icon inside it.
@@ -324,10 +347,10 @@ Template.people.onCreated(function () {
 // keeps the red lock it always had, via the coloured icon wrapper.
 // A function, not a bare array: the E-mail entry depends on whether this is a
 // Sandstorm deployment, which has to be read at call time from Meteor.settings.
-function peopleMenu() {
+function peopleMenu(user) {
   const isSandstorm =
     Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm;
-  return [
+  const items = [
     // Moved here from Admin Panel / Settings: both panes are about the people who can
     // sign in and how they are reached, which is what this page is for. The ids and
     // i18n keys are unchanged, so every existing translation still applies.
@@ -345,6 +368,22 @@ function peopleMenu() {
     { id: 'roles-setting', icon: 'fa-key', labelKey: 'roles' },
     { id: 'templates-setting', icon: 'fa-clone', labelKey: 'shared-templates' },
   ];
+  // Multitenancy option D (docs/Design/Multitenancy/Multitenancy.md, D.7): a
+  // PER-TENANT Global Admin gets the same menu, shorter - only the panes that are
+  // about their own Organization. Everything else here is instance-wide. The site
+  // admin's menu is untouched, and the decision is the shared rule module, which the
+  // publications and methods ask again server-side.
+  if (user !== undefined && !tenantAdmin.isSiteAdmin(user)) {
+    return tenantAdmin.tenantAdminPeopleMenu(items, user);
+  }
+  return items;
+}
+
+// The pane the page opens on: the first entry of the menu this user actually has.
+// A per-tenant admin must not land on Login, which they may not open.
+function firstPeoplePaneId(user) {
+  const items = peopleMenu(user).filter(Boolean);
+  return items.length ? items[0].id : 'people-setting';
 }
 
 // Organizations through the shared table page (docs/Design/Page/Table.md). Its
@@ -519,14 +558,16 @@ Template.people.helpers({
     };
   },
   menuItems() {
-    return leftMenuData(peopleMenu(), Template.instance().activeMenuId.get());
+    return leftMenuData(peopleMenu(ReactiveCache.getCurrentUser()),
+      Template.instance().activeMenuId.get());
   },
   // The heading above the pane: the open menu entry's own label
   // (docs/Design/Page/Left-Menu.md). Every Admin Panel page renders one, so no pane
   // has to write a title of its own - and the table panes stopped passing a
   // titleKey to the shared table page, which would have printed it a second time.
   paneTitleData() {
-    return paneTitle(peopleMenu(), Template.instance().activeMenuId.get());
+    return paneTitle(peopleMenu(ReactiveCache.getCurrentUser()),
+      Template.instance().activeMenuId.get());
   },
   loading() {
     return Template.instance().loading;
@@ -1531,7 +1572,90 @@ Template.editOrgPopup.events({
       );
     }
 
+    // Multitenancy option D (docs/Design/Multitenancy/Multitenancy.md, D.2/D.9):
+    // the hostnames this Organization is served on and the branding that replaces
+    // the instance branding on them. A separate method because a per-tenant Global
+    // Admin may save THESE for their own org while setOrgAllFields stays what it
+    // was - and because claiming a host another org already claims must be refused
+    // with the host named, not saved silently.
+    const tenantFields = {};
+    let tenantChanged = false;
+    TENANT_ORG_FIELDS.forEach(field => {
+      const input = templateInstance.find(`.js-${field}`);
+      if (!input) return;
+      const value = input.value.trim();
+      tenantFields[field] = value;
+      if (value !== (org[field] || '')) tenantChanged = true;
+    });
+    if (tenantChanged) {
+      Meteor.call('setOrgTenantFields', org._id, tenantFields, error => {
+        if (error && error.error === 'tenant-domain-taken') {
+          // The popup is already closing; the message names the host that clashed.
+          alert(`${TAPi18n.__('error-org-domain-taken')} ${error.reason || ''}`.trim());
+        }
+      });
+    }
+
     Popup.back();
+  },
+});
+
+// Multitenancy option D: the ⋯ menu of an Organization row opens its per-tenant
+// Global Admins. Reuses the popup machinery every other row action uses.
+Template.orgAdminsPopup.onCreated(function () {
+  this.members = new ReactiveVar([]);
+  this.loading = new ReactiveVar(true);
+  this.error = new ReactiveVar('');
+  // The popup is opened from orgRow / settingsOrgPopup with `{ org }` as its data
+  // context, the same way editOrgPopup gets it (#6411).
+  const data = Template.currentData() || {};
+  this.orgId = (data.org && data.org._id) || data.orgId || '';
+  this.reload = () => {
+    if (!this.orgId) {
+      this.loading.set(false);
+      return;
+    }
+    Meteor.call('listOrgMembers', this.orgId, (error, members) => {
+      this.loading.set(false);
+      if (error) {
+        this.error.set(error.reason || error.message);
+        return;
+      }
+      this.members.set(members || []);
+    });
+  };
+  this.reload();
+});
+
+Template.orgAdminsPopup.helpers({
+  members() {
+    return Template.instance().members.get();
+  },
+  loading() {
+    return Template.instance().loading;
+  },
+  error() {
+    return Template.instance().error;
+  },
+});
+
+Template.orgAdminsPopup.events({
+  'click .js-toggle-org-admin'(event, templateInstance) {
+    event.preventDefault();
+    const userId = $(event.currentTarget).data('user-id');
+    const member = templateInstance.members.get().find(m => m._id === userId);
+    if (!member) return;
+    const value = !member.isOrgAdmin;
+    Meteor.call('setOrgAdmin', templateInstance.orgId, userId, value, error => {
+      if (error) {
+        templateInstance.error.set(error.reason || error.message);
+        return;
+      }
+      templateInstance.error.set('');
+      // Re-read rather than patching the local copy: the server is what decides,
+      // and it may have refused a site admin or a non-member.
+      templateInstance.reload();
+    });
   },
 });
 
@@ -2009,6 +2133,7 @@ Template.newUserPopup.events({
 });
 
 Template.settingsOrgPopup.events({
+  'click .js-org-admins': Popup.open('orgAdmins'),
   'click #deleteButton'(event) {
     event.preventDefault();
     // #6411: the popup carries `{ org }`; `this.orgId` is undefined, so the old

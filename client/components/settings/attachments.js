@@ -3,6 +3,10 @@ import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
 import AttachmentBulkMoveStatus from '/models/attachmentBulkMoveStatus';
 import { TAPi18n } from '/imports/i18n';
 import { migrationProgressManager } from '/client/components/settings/migrationProgress';
+import { ReactiveCache } from '/imports/reactiveCache';
+// Multitenancy option D: the per-tenant Global Admin rules, shared with the server
+// (docs/Design/Multitenancy/Multitenancy.md).
+const tenantAdmin = require('/models/lib/tenantAdmin');
 
 // DOM field ids per cloud provider, used to read the admin form on save/test.
 const CLOUD_FIELD_IDS = {
@@ -289,6 +293,22 @@ Template.attachments.onCreated(function () {
   this.backupSchedule = new ReactiveVar(null);
   this.selectedBackup = new ReactiveVar('');
   this.backupPoll = null;
+  // Multitenancy option D (D.8): the scopes this admin may back up. The server
+  // answers with the whole instance's Organizations for a site admin and with only
+  // their own for a per-tenant Global Admin - and refuses any other scope when the
+  // backup is actually started, so this list is a convenience, not the rule.
+  this.backupScopes = new ReactiveVar([]);
+  this.backupScope = new ReactiveVar('');
+  Meteor.call('myAdminOrgs', (err, orgs) => {
+    if (err || !Array.isArray(orgs)) return;
+    this.backupScopes.set(orgs);
+    // A per-tenant admin has no "whole instance" option, so the first Organization
+    // they administer is what the pane starts on.
+    if (!tenantAdmin.isSiteAdmin(ReactiveCache.getCurrentUser()) && orgs.length) {
+      this.backupScope.set(orgs[0]._id);
+    }
+  });
+  // The schedule is instance-wide, so only the site admin has one to read.
   Meteor.call('getBackupSchedule', (err, s) => { if (!err && s) this.backupSchedule.set(s); });
   // Backup is the pane the page opens on, so ask once whether one is running -
   // otherwise landing here during a backup showed an idle-looking pane until you
@@ -424,8 +444,8 @@ function pollBackupStatus(tpl) {
 
 // The Attachments side menu, as data (docs/Design/Page/Left-Menu.md).
 // emoji:true reproduces the empty span.emoji-icon this page always rendered.
-function attachmentsMenu() {
-  return [
+function attachmentsMenu(user) {
+  const items = [
     // Backup first: it is what an admin comes to this page for most often, and it
     // is the one action here that has to be reachable in a hurry.
     { id: 'backup', icon: 'fa-archive', labelKey: 'backup', emoji: true },
@@ -445,16 +465,26 @@ function attachmentsMenu() {
     // deleting raw database files is not something this page needs to offer.
     // { id: 'sandstorm', icon: 'fa-hdd-o', label: 'Sandstorm', emoji: true },
   ];
+  // Multitenancy option D (docs/Design/Multitenancy/Multitenancy.md, D.7/D.8): a
+  // per-tenant Global Admin gets Backup and nothing else - the storages, their
+  // statistics and the database migration are about the instance, not about one
+  // tenant. Same shared rule module the server asks again.
+  if (user !== undefined && !tenantAdmin.isSiteAdmin(user)) {
+    return tenantAdmin.tenantAdminAttachmentsMenu(items, user);
+  }
+  return items;
 }
 
 Template.attachments.helpers({
   menuItems() {
-    return leftMenuData(attachmentsMenu(), Template.instance().activeSection.get(), 'js-attachments-menu');
+    return leftMenuData(attachmentsMenu(ReactiveCache.getCurrentUser()),
+      Template.instance().activeSection.get(), 'js-attachments-menu');
   },
   // The heading above the pane: the open menu entry's own label
   // (docs/Design/Page/Left-Menu.md).
   paneTitleData() {
-    return paneTitle(attachmentsMenu(), Template.instance().activeSection.get());
+    return paneTitle(attachmentsMenu(ReactiveCache.getCurrentUser()),
+      Template.instance().activeSection.get());
   },
   loading() {
     return Template.instance().loading;
@@ -541,6 +571,26 @@ Template.attachments.helpers({
   },
   backupList() {
     return Template.instance().backupList.get();
+  },
+  // Multitenancy option D (D.8).
+  isSiteAdmin() {
+    return tenantAdmin.isSiteAdmin(ReactiveCache.getCurrentUser());
+  },
+  backupScopes() {
+    return Template.instance().backupScopes.get();
+  },
+  // The scope row is only worth drawing when there is a choice to make: a site
+  // admin with no Organizations at all still backs up the whole instance.
+  showBackupScope() {
+    const tpl = Template.instance();
+    return (tpl.backupScopes.get() || []).length > 0;
+  },
+  // The name to show for an archive's scope in the restore list. An instance
+  // archive contains every tenant, which has to be visible before restoring it.
+  backupScopeName(orgId) {
+    if (!orgId) return TAPi18n.__('backup-scope-instance');
+    const org = (Template.instance().backupScopes.get() || []).find(o => o._id === orgId);
+    return org ? org.orgDisplayName : orgId;
   },
   scheduleOff() { const s = Template.instance().backupSchedule.get(); return !s || !s.frequency || s.frequency === 'off'; },
   scheduleDaily() { const s = Template.instance().backupSchedule.get(); return !!(s && s.frequency === 'daily'); },
@@ -852,8 +902,13 @@ Template.attachments.events({
       data: tpl.$('.js-backup-data').is(':checked'),
     };
     const storage = tpl.$('.js-backup-storage').val() || 'filesystem';
+    // Multitenancy option D (D.8): '' is the whole instance; an org id backs up
+    // that Organization only. The server refuses a scope this admin may not have
+    // rather than narrowing it silently.
+    const scopeInput = tpl.$('.js-backup-scope');
+    const orgId = scopeInput.length ? (scopeInput.val() || null) : tpl.backupScope.get() || null;
     tpl.backupStatus.set({ running: true, phase: 'starting' });
-    Meteor.call('runBackup', opts, storage, error => {
+    Meteor.call('runBackup', opts, storage, orgId || null, error => {
       if (error) tpl.backupStatus.set({ phase: 'error', error: error.reason || error.message, success: false });
       else pollBackupStatus(tpl);
     });

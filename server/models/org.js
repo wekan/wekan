@@ -5,6 +5,9 @@ import Org from '/models/org';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
+// Multitenancy option D: per-tenant Global Admin rules (shared with the client and
+// the publications) - docs/Design/Multitenancy/Multitenancy.md.
+const tenantAdmin = require('/models/lib/tenantAdmin');
 
 // #5850: reliable admin check from a method's this.userId. Meteor.user()/
 // getCurrentUser() can return null inside an async method after an await
@@ -265,10 +268,15 @@ Meteor.methods({
 
   async getOrgsCollectionCount(query = {}) {
     check(query, Match.OneOf(Object, null, undefined));
-    if (!(await ReactiveCache.getCurrentUser())?.isAdmin) {
+    // Multitenancy option D (D.7): scoped exactly like the `org` publication, so a
+    // per-tenant Global Admin's pager counts the orgs they can actually see.
+    const user = await ReactiveCache.getUser(
+      { _id: this.userId }, { fields: { isAdmin: 1, orgs: 1 } });
+    if (!tenantAdmin.canOpenAdminPanel(user)) {
       throw new Meteor.Error('not-authorized');
     }
-    const cursor = await ReactiveCache.getOrgs(query || {}, {}, true);
+    const cursor = await ReactiveCache.getOrgs(
+      tenantAdmin.orgScopeSelector(user, query || {}), {}, true);
     return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
   },
 });

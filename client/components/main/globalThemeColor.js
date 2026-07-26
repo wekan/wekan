@@ -3,15 +3,25 @@ import { Tracker } from 'meteor/tracker';
 import { Session } from 'meteor/session';
 import { ReactiveCache } from '/imports/reactiveCache';
 
-// #5778 + docs/Theme/Theme.md: apply the user's optional GLOBAL theme color to the
-// whole UI (All Boards, Search, Admin Panel, My Cards, etc.) via a `board-color-<name>`
-// class on <body>, and apply CUSTOM colors (flat = 1 accent, clear = 2 = a gradient)
-// as CSS variables consumed by customTheme.css.
+// #5778 + docs/Theme/Theme.md: apply the theme color to the whole UI (All Boards,
+// Search, Admin Panel, My Cards, etc.) via a `board-color-<name>` class on <body>,
+// and apply CUSTOM colors (flat = 1 accent, clear = 2 = a gradient) as CSS variables
+// consumed by customTheme.css.
+//
+// THE ORDER OF THEMES, weakest first (docs/Theme/Theme.md):
+//   1. WeKan's default theme  — nothing on <body>
+//   2. the SITE theme         — Admin Panel / Settings / Visibility / Change color.
+//                               `currentSetting.themeColor`, which on a multitenancy
+//                               host is that Organization's own value (the settings
+//                               document is published per host, see
+//                               models/lib/tenants.js)
+//   3. the USER's own override — Member Settings / Change color
 //
 // While viewing a single board, that board's own color owns the page, so we do NOT
-// put the global color class on <body> there; but we DO expose the ACTIVE context's
-// custom colors (the board's when on a board, the user's global override otherwise)
-// so custom-colored boards and the custom global theme both render.
+// put the site theme class on <body> there - a board's colour is what a board looks
+// like. A USER's own override does win there too, because they asked for it
+// everywhere. Custom colors of the ACTIVE context are exposed either way, so
+// custom-colored boards, a custom site theme and a custom user theme all render.
 
 Meteor.startup(() => {
   let appliedClass = null;
@@ -56,18 +66,31 @@ Meteor.startup(() => {
     const globalColor = user && user.profile && user.profile.globalThemeColor;
 
     if (globalColor) {
-      // #5778: a global override wins EVERYWHERE — including board pages. The header
-      // and .board-wrapper also prefer it (see header.jade / boardBody.jade), so the
-      // whole UI takes the chosen theme; unset it to return to per-board colors.
+      // #5778: a user's own override wins EVERYWHERE — including board pages. The
+      // header and .board-wrapper also prefer it (see header.jade / boardBody.jade),
+      // so the whole UI takes the chosen theme; unset it to return to the site theme
+      // and to per-board colors.
       applyClass(`board-color-${globalColor}`);
       applyCustom((user && user.profile && user.profile.globalThemeCustomColors) || []);
       return;
     }
 
-    // No global override: on a board expose that board's own custom colors (its color
-    // class already lives on .board-wrapper/#header); off a board, apply nothing.
     const boardId = Session.get('currentBoard');
     const board = boardId ? ReactiveCache.getBoard(boardId) : null;
+
+    // No user override: the SITE theme, if this site (or this Organization's host)
+    // has one. Not on a board page - there, the board's own colour owns the page.
+    const setting = ReactiveCache.getCurrentSetting();
+    const siteColor = !board && setting && setting.themeColor;
+    if (siteColor) {
+      applyClass(`board-color-${siteColor}`);
+      applyCustom((setting && setting.themeCustomColors) || []);
+      return;
+    }
+
+    // Otherwise WeKan's default theme: on a board expose that board's own custom
+    // colors (its color class already lives on .board-wrapper/#header); off a board,
+    // apply nothing.
     applyClass(null);
     applyCustom((board && board.customThemeColors) || []);
   });

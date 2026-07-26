@@ -4,9 +4,16 @@ Run several WeKan instances (one per customer / domain) on the same
 Linux host. Two supported topologies, pick whichever fits your
 deployment.
 
-Both run **one WeKan Node.js server per tenant**. Whether one server could
-serve every domain instead — and what that would cost — is designed in
-[Multitenancy design](../../../../Design/Multitenancy/Multitenancy.md).
+Both run **one WeKan Node.js server per tenant**, and that is still the topology to
+pick when customers must not share a process.
+
+**One server can also serve every domain**, with Organizations as the tenants:
+each Organization claims its own hostnames, carries its own branding and theme, has
+its own administrators, and can be backed up and restored on its own. It is enabled
+with `MULTITENANCY=true` (and `MULTITENANCY_TRUST_PROXY_HOST=true` when a trusted
+proxy sets `X-Forwarded-Host`). What it isolates — and what it deliberately does not,
+which is why the per-process topology below stays supported — is
+[Multitenancy design](../../../../Design/Multitenancy/Multitenancy.md), option D.
 
 ## a) Recommended — one host, many WeKan domains, `uws` + `changeStreams`
 

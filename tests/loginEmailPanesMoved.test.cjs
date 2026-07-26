@@ -59,8 +59,10 @@ const EMAIL_HANDLERS = ['click a.js-toggle-tls', 'click button.js-save',
 console.log('loginEmailPanesMoved:');
 
 test('People lists Login and E-mail above Organizations', () => {
-  const menu = peopleJs.slice(peopleJs.indexOf('function peopleMenu()'),
-    peopleJs.indexOf('];', peopleJs.indexOf('function peopleMenu()')));
+  // peopleMenu(user) takes the current user since multitenancy option D: an
+  // Organization's own admin gets the same menu, shorter.
+  const menu = peopleJs.slice(peopleJs.indexOf('function peopleMenu(user)'),
+    peopleJs.indexOf('];', peopleJs.indexOf('function peopleMenu(user)')));
   const at = id => menu.indexOf(`id: '${id}'`);
   assert.ok(at('registration-setting') > -1, 'Login is a People menu entry');
   assert.ok(at('email-setting') > -1, 'and so is E-mail');
@@ -98,10 +100,17 @@ test('Settings opens on a pane it still has', () => {
   // another pane leaves the page opening on nothing at all. Visibility took that
   // role when Login moved out; Version has it now that Version is a pane of this
   // page and its first entry (docs/Design/Page/Left-Menu.md).
-  assert.ok(/this\.versionSetting = new ReactiveVar\(true\)/.test(settingsJs),
+  // Multitenancy option D: the site admin still opens on Version, and an
+  // Organization's own admin - who has no Version pane - opens on Visibility, their
+  // only Settings pane. One flag decides, so exactly one of the two starts open.
+  assert.ok(/this\.versionSetting = new ReactiveVar\(siteAdmin\)/.test(settingsJs),
     'Version is the first pane now, so it is the one that opens');
-  const others = settingsJs.match(/this\.\w+Setting\w* = new ReactiveVar\(true\)/g) || [];
-  assert.strictEqual(others.length, 1, 'exactly one pane may start open');
+  assert.ok(/this\.tableVisibilityModeSetting = new ReactiveVar\(!siteAdmin\)/.test(settingsJs),
+    'and the other one opens for an admin who has no Version pane');
+  const alwaysOpen = settingsJs.match(/this\.\w+Setting\w* = new ReactiveVar\(true\)/g) || [];
+  assert.strictEqual(alwaysOpen.length, 0, 'no pane may start open unconditionally');
+  const flagged = settingsJs.match(/this\.\w+Setting\w* = new ReactiveVar\(!?siteAdmin\)/g) || [];
+  assert.strictEqual(flagged.length, 2, 'exactly one pane may start open, either way');
 });
 
 test('each pane took its handlers with it', () => {

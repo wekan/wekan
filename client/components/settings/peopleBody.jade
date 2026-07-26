@@ -1,6 +1,10 @@
 template(name="people")
   .setting-content
-    unless currentUser.isAdmin
+    //- Multitenancy option D (docs/Design/Multitenancy/Multitenancy.md, D.7): the
+    //- Admin Panel opens for the site admin AND for a per-tenant Global Admin, who
+    //- gets the same menu with only the panes about their own Organization. The
+    //- server scopes what they can see and write; this only decides what to draw.
+    unless currentUser.isAdminOrOrgAdmin
       | {{_ 'error-notAuthorized'}}
     else
       //- No page-title bar. The Admin Panel top bar already names the section and
@@ -300,8 +304,72 @@ template(name="editOrgPopup")
         option(value="false") {{_ 'no'}}
         option(value="true" selected="{{org.orgIsActive}}") {{_ 'yes'}}
     hr
+    //- Multitenancy option D (D.2 and D.9): the hostnames this Organization is
+    //- served on, and the branding that replaces the instance branding on them.
+    //- Only in effect when the deployment sets MULTITENANCY=true; empty means this
+    //- Organization is not a tenant and nothing changes.
+    h2.admin-pane-group-title {{_ 'org-tenant'}}
+    label
+      | {{_ 'org-domains'}}
+      input.js-orgDomains(type="text" value=org.orgDomains placeholder="a.example.com, kanban.example.org")
+      span.error.hide.orgdomain-taken
+        | {{_ 'error-org-domain-taken'}}
+    span.form-text.text-muted {{_ 'org-domains-description'}}
+    label
+      | {{_ 'custom-product-name'}}
+      input.js-orgProductName(type="text" value=org.orgProductName)
+    label
+      | {{_ 'custom-login-logo-image-url'}}
+      input.js-orgCustomLoginLogoImageUrl(type="text" value=org.orgCustomLoginLogoImageUrl)
+    label
+      | {{_ 'custom-login-logo-link-url'}}
+      input.js-orgCustomLoginLogoLinkUrl(type="text" value=org.orgCustomLoginLogoLinkUrl)
+    label
+      | {{_ 'text-below-custom-login-logo'}}
+      input.js-orgTextBelowCustomLoginLogo(type="text" value=org.orgTextBelowCustomLoginLogo)
+    label
+      | {{_ 'custom-top-left-corner-logo-image-url'}}
+      input.js-orgCustomTopLeftCornerLogoImageUrl(type="text" value=org.orgCustomTopLeftCornerLogoImageUrl)
+    label
+      | {{_ 'custom-top-left-corner-logo-link-url'}}
+      input.js-orgCustomTopLeftCornerLogoLinkUrl(type="text" value=org.orgCustomTopLeftCornerLogoLinkUrl)
+    label
+      | {{_ 'custom-help-link-url'}}
+      input.js-orgCustomHelpLinkUrl(type="text" value=org.orgCustomHelpLinkUrl)
+    label
+      | {{_ 'custom-legal-notice-link-url'}}
+      input.js-orgLegalNotice(type="text" value=org.orgLegalNotice)
+    hr
     div.buttonsContainer
       input.primary.wide(type="submit" value="{{_ 'save'}}")
+
+//- Multitenancy option D (D.7): the per-tenant Global Admins of one Organization.
+//- Reached from the Organizations table's ⋯ menu, and it is the ONE place a tenant
+//- is given an administrator - the site-wide Admin flag is edited where it always
+//- was, in the user's own popup, and is never touched from here.
+template(name="orgAdminsPopup")
+  ul.pop-over-list
+    li
+      span.form-text.text-muted {{_ 'org-admins-description'}}
+    if loading.get
+      li
+        | {{_ 'loading'}}
+    else
+      each member in members
+        li
+          a.js-toggle-org-admin(data-user-id="{{member._id}}")
+            .materialCheckBox(class="{{#if member.isOrgAdmin}}is-checked{{/if}}")
+            span  {{member.username}}
+            if member.fullname
+              span.quiet  ({{member.fullname}})
+            if member.isSiteAdmin
+              span.quiet  — {{_ 'admin'}}
+      unless members.length
+        li
+          | {{_ 'no-items-message'}}
+    if error.get
+      li
+        span.error {{error.get}}
 
 template(name="editTeamPopup")
   form
@@ -563,6 +631,13 @@ template(name="newUserPopup")
 
 template(name="settingsOrgPopup")
   ul.pop-over-list
+    //- Multitenancy option D (D.7): appointing this Organization's own per-tenant
+    //- Global Admins, from the menu the row already had.
+    li
+      a.js-org-admins
+        i.fa.fa-user-secret
+        | {{_ 'org-admins'}}
+    hr
     li
       form
         label#deleteOrgWarningMessage.hide

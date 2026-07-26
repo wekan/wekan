@@ -107,9 +107,18 @@ injection surface.
 
 - **Implemented:**
   - `models/lib/themeCategories.js` — the categorization + helpers + `isValidCustomColors` (tested).
-  - The shared **two-level dropdown picker** `client/components/main/themeColorPicker.{jade,js}`
-    (category → theme + custom color wheels for flat/clear), used by **both** Board Settings
-    (`boardChangeColorPopup`) and Member Settings (`changeColorPopup`) via `scope="board"|"global"`.
+  - The shared picker `client/components/main/themeColorPicker.{jade,js}` (categories of
+    swatches + custom color wheels for flat/clear), used by Board Settings
+    (`boardChangeColorPopup`), Member Settings (`changeColorPopup`) and Admin Panel /
+    Settings / Visibility via `scope="board"|"global"|"admin"`. Its design — the scopes, the
+    order of themes and how to add another place — is
+    [docs/Design/Page/Theme.md](../Design/Page/Theme.md).
+  - **The order of themes**, weakest first: 1) WeKan's default theme, 2) the **site theme**
+    set in Admin Panel / Settings / Visibility / Change color (on a multitenancy host, the
+    Organization's own value replaces the instance's — see
+    [Multitenancy](../Design/Multitenancy/Multitenancy.md)), 3) the **user's own override**
+    from Member Settings. A board's own colour owns the board page, so the site theme is not
+    applied there; a user's own override is, because they asked for it everywhere.
   - **Storage + validation**: `board.customThemeColors` and `profile.globalThemeCustomColors`
     (each a validated `#rrggbb` array), written by `board.setColor(color, custom)` and the
     `setGlobalThemeColor(color, custom)` method, both gated by `isValidCustomColors`.

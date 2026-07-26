@@ -15,6 +15,9 @@ import {
 } from '/models/lib/listWidth';
 // import { Index, MongoDBEngine } from 'meteor/easy:search'; // Temporarily disabled due to compatibility issues
 const { SimpleSchema } = require('/imports/simpleSchema');
+// Multitenancy option D: the per-tenant Global Admin rules, pure and shared by the
+// client, the server and the tests (docs/Design/Multitenancy/Multitenancy.md).
+const tenantAdmin = require('/models/lib/tenantAdmin');
 const Users = Meteor.users;
 const getUtils = () => require('/client/lib/utils').Utils;
 
@@ -151,6 +154,18 @@ Users.attachSchema(
        * The display name of the organization
        */
       type: String,
+    },
+    'orgs.$.isAdmin': {
+      /**
+       * Multitenancy option D (docs/Design/Multitenancy/Multitenancy.md): this user
+       * is a per-tenant Global Admin OF THIS ORGANIZATION - they may administer its
+       * people and its backups, and nothing else. It is deliberately a flag on the
+       * membership the user already has rather than a second membership list.
+       * It NEVER implies the site-wide `isAdmin` flag, and a per-tenant admin can
+       * never grant that one (models/lib/tenantAdmin.js).
+       */
+      type: Boolean,
+      optional: true,
     },
     teams: {
       /**
@@ -1089,6 +1104,25 @@ Users.helpers({
       });
     }
     return [];
+  },
+  // Multitenancy option D: the orgs this user is a PER-TENANT Global Admin of, and
+  // the questions the Admin Panel asks about them. The rules themselves live in
+  // models/lib/tenantAdmin.js so the client, the server and the tests all use one
+  // copy - these helpers only make them reachable from Blaze as
+  // `currentUser.isOrgAdmin` etc.
+  adminOrgIds() {
+    return tenantAdmin.adminOrgIds(this);
+  },
+  isOrgAdminOf(orgId) {
+    return tenantAdmin.isOrgAdmin(this, orgId);
+  },
+  isOrgAdmin() {
+    return tenantAdmin.isTenantAdmin(this);
+  },
+  // The Admin Panel opens for the site admin and for a per-tenant admin; the panes
+  // and tabs each of them sees are decided by tenantAdmin too.
+  isAdminOrOrgAdmin() {
+    return tenantAdmin.canOpenAdminPanel(this);
   },
   // #6116: does this user share an Organization / a Team with `otherUser`? The
   // restriction is two admin settings now - one per kind, each beside the thing it

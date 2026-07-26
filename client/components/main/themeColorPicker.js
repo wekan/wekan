@@ -12,10 +12,26 @@ import {
   customColorCount,
 } from '/models/lib/themeCategories';
 
-// Shared "Select Color" picker (docs/Theme/Theme.md): VISIBLE color swatches grouped
+// Shared "Select Color" picker (docs/Design/Page/Theme.md): VISIBLE color swatches grouped
 // by category (with the category name above each group) + native color wheel(s) for
-// the flat/clear categories once such a color is selected. data.scope is 'board'
-// (writes board.color) or 'global' (writes the user's #5778 global override).
+// the flat/clear categories once such a color is selected.
+//
+// ONE template, rendered wherever a theme is chosen - the way docs/Design/Page/Table.md
+// is one table page for every table. `data.scope` says whose theme is being set, and
+// that is the only difference between the three places:
+//   'board'  — Board Settings / Change Color   -> board.color
+//   'global' — Member Settings / Change Color  -> the user's own override (#5778)
+//   'admin'  — Admin Panel / Settings / Visibility / Change color -> the SITE theme:
+//              the instance's for the site admin, the Organization's own for an
+//              Organization's admin (the server decides which, see
+//              models/lib/tenantAdmin.js themeTarget).
+//
+// The layering, from weakest to strongest (docs/Theme/Theme.md):
+//   1. WeKan's default theme
+//   2. the site theme set here in the Admin Panel (an Organization's own value
+//      replaces the instance's on that Organization's hosts)
+//   3. the user's own override
+// See docs/Design/Page/Theme.md for the whole design.
 
 const DEFAULT_WHEEL = ['#2980b9', '#6dd5fa']; // stock flat accent / second slide stop
 
@@ -31,21 +47,38 @@ function readCurrent(scope) {
   };
 }
 
+const SCOPES = ['board', 'global', 'admin'];
+
 Template.themeColorPicker.onCreated(function () {
-  const scope = this.data && this.data.scope === 'board' ? 'board' : 'global';
-  const cur = readCurrent(scope);
+  const asked = this.data && this.data.scope;
+  const scope = SCOPES.includes(asked) ? asked : 'global';
   this.scope = scope;
+  if (scope === 'admin') {
+    // The site theme is not published to every client, so it is read once from the
+    // server - which also answers WHOSE theme this admin is setting.
+    this.color = new ReactiveVar(null);
+    this.customColors = new ReactiveVar([]);
+    Meteor.call('getAdminThemeColor', (err, res) => {
+      if (err || !res) return;
+      this.color.set(res.color || null);
+      this.customColors.set((res.custom || []).slice());
+    });
+    return;
+  }
+  const cur = readCurrent(scope);
   this.color = new ReactiveVar(cur.color); // null for global = no override
   this.customColors = new ReactiveVar((cur.custom || []).slice());
 });
 
 Template.themeColorPicker.helpers({
+  // The "Default theme" row - clearing the override - belongs to every scope that
+  // HAS a weaker layer under it. A board always has a colour, so it has no such row.
   isGlobal() {
-    return Template.instance().scope === 'global';
+    return Template.instance().scope !== 'board';
   },
   isNoneSelected() {
     const tpl = Template.instance();
-    return tpl.scope === 'global' && !tpl.color.get();
+    return tpl.scope !== 'board' && !tpl.color.get();
   },
   // Visible swatches grouped by category, each group labelled with its category name.
   themeGroups() {
@@ -121,6 +154,10 @@ function applySelection(tpl) {
         if (process.env.DEBUG === 'true') console.error('board setColor error', e);
       });
     }
+  } else if (tpl.scope === 'admin') {
+    Meteor.call('setAdminThemeColor', color, custom, err => {
+      if (err && process.env.DEBUG === 'true') console.error('setAdminThemeColor error', err);
+    });
   } else {
     Meteor.call('setGlobalThemeColor', color, custom, err => {
       if (err && process.env.DEBUG === 'true') console.error('setGlobalThemeColor error', err);
@@ -159,6 +196,8 @@ Template.themeColorPicker.events({
     if (tpl.scope === 'board') {
       const b = Utils.getCurrentBoard();
       if (b) b.setColor(BOARD_COLORS[0], []);
+    } else if (tpl.scope === 'admin') {
+      Meteor.call('setAdminThemeColor', null, null);
     } else {
       Meteor.call('setGlobalThemeColor', null, null);
     }

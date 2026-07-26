@@ -65,11 +65,22 @@ test('Member Settings Change Color popup has a title', () => {
   assert.ok(en['changeColorPopup-title'], 'changeColorPopup-title exists (popup shows a header)');
 });
 
-test('both popups render the shared picker with the right scope', () => {
+test('every place that chooses a theme renders the shared picker with a scope', () => {
+  // One template, three places (docs/Design/Page/Theme.md) - the way one table page
+  // serves every table. `scope` is the only difference between them.
   assert.ok(/\+themeColorPicker\(scope="global"\)/.test(read('client/components/users/userHeader.jade')),
     'member popup -> global scope');
   assert.ok(/\+themeColorPicker\(scope="board"\)/.test(read('client/components/sidebar/sidebar.jade')),
     'board popup -> board scope');
+  assert.ok(/\+themeColorPicker\(scope="admin"\)/.test(read('client/components/settings/settingBody.jade')),
+    'Admin Panel / Settings / Visibility / Change color -> admin scope, the SITE theme');
+  const js = read('client/components/main/themeColorPicker.js');
+  assert.ok(/const SCOPES = \['board', 'global', 'admin'\]/.test(js),
+    'and the picker knows exactly those three');
+  assert.ok(/Meteor\.call\('setAdminThemeColor', color, custom/.test(js), 'admin apply');
+  // The "Default theme" row belongs to every scope that has a weaker layer under it,
+  // which is every scope except a board (a board always has a colour).
+  assert.ok(/scope !== 'board'/.test(js), 'so the admin scope can clear its override too');
 });
 
 test('storage: board.customThemeColors + profile.globalThemeCustomColors with hex validation', () => {

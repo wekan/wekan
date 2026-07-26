@@ -13,6 +13,13 @@ import { ZipArchive } from 'archiver';
 import unzipper from 'unzipper';
 const { filesRootFrom, scheduleText, safeEntryPath, safeCollectionName } =
   require('/models/lib/backupPaths');
+// Multitenancy option D (docs/Design/Multitenancy/Multitenancy.md, D.8): backing up
+// and restoring ONE Organization. Every decision - which collections, the selector
+// for each, which archive belongs to whom, and the restore-side ownership guard -
+// is made by these two pure modules, so it can be unit-tested without a database
+// (tests/tenantBackup.test.cjs) and cannot drift between the two directions.
+const tenantBackup = require('/models/lib/tenantBackup');
+const tenantAdmin = require('/models/lib/tenantAdmin');
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Admin Panel / Attachments / Backup.
@@ -40,6 +47,14 @@ const { filesRootFrom, scheduleText, safeEntryPath, safeCollectionName } =
 // "replace all". A schedule (daily/weekly/monthly) runs backups via synced-cron.
 // The selected storage is where the .zip is streamed (filesystem is fully
 // implemented; the cloud upload paths are not exercised end-to-end here).
+//
+// PER-TENANT (multitenancy option D, D.8): the same machinery with a SCOPE. With an
+// orgId, only that Organization's boards and everything hanging off them are
+// exported - no accounts, no instance settings, no org/team documents - into
+// <files>/backup/org/<orgId>/…, and a restore of such an archive may only write
+// documents that belong to boards the tenant really owns. A per-tenant Global Admin
+// may only ever use their own tenant's archives; the whole-instance scope stays
+// site-admin only.
 // ─────────────────────────────────────────────────────────────────────────────
 
 const BackupSettings = new Mongo.Collection('backupSettings');
@@ -126,12 +141,48 @@ async function streamArchiveToCloud(archive, provider, key) {
   throw new Meteor.Error('bad-storage', `Unknown storage "${provider}".`);
 }
 
-async function doBackup(opts, storageName) {
+// ── the tenant's own documents ───────────────────────────────────────────────
+
+// Everything a tenant scope needs: the board ids the Organization owns, and the
+// trigger/action ids its rules point at (triggers and actions carry no board of
+// their own). Computed once per backup/restore and handed to the pure module.
+async function tenantContext(db, orgId) {
+  const boardSelector = tenantBackup.tenantBoardSelector(orgId);
+  const boards = boardSelector
+    ? await db.collection('boards').find(boardSelector, { projection: { _id: 1 } }).toArray()
+    : [];
+  const boardIds = boards.map(b => b._id).filter(id => typeof id === 'string');
+  let triggerIds = [];
+  let actionIds = [];
+  if (boardIds.length) {
+    const rules = await db.collection('rules')
+      .find({ boardId: { $in: boardIds } }, { projection: { triggerId: 1, actionId: 1 } })
+      .toArray();
+    triggerIds = rules.map(r => r.triggerId).filter(id => typeof id === 'string');
+    actionIds = rules.map(r => r.actionId).filter(id => typeof id === 'string');
+  }
+  return { orgId, boardIds, triggerIds, actionIds };
+}
+
+// Stream ONE collection out as NDJSON under a selector - the tenant form of
+// ndjsonOfCollection, a document at a time so a big board never sits in RAM.
+async function* ndjsonOfSelector(db, coll, selector) {
+  const cursor = db.collection(coll).find(selector);
+  for await (const doc of cursor) {
+    yield EJSON.stringify(doc) + '\n';
+  }
+  await cursor.close();
+}
+
+async function doBackup(opts, storageName, orgId = null) {
   setProgress({ running: true, phase: 'backup', detail: '', file: '', success: null, error: '' });
   try {
     const t = nowParts();
     const stamp = `${t.y}_${t.mo}_${t.da}-${t.h}_${t.mi}_${t.s}`;
-    const key = `backup/${t.y}/${t.mo}/${t.da}/${t.h}_${t.mi}_${t.s}/backup.zip`;
+    // <files>/backup/… for the instance, <files>/backup/org/<orgId>/… for a tenant,
+    // so "which archives may this admin see" stays a path question (D.8).
+    const relativeDir = tenantBackup.tenantBackupRelativeDir(orgId, t);
+    const key = `${relativeDir}/backup.zip`;
 
     // archiver@8 is ESM: use the ZipArchive class instead of the old
     // archiver('zip', …) factory (which no longer exists).
@@ -143,30 +194,72 @@ async function doBackup(opts, storageName) {
     let dest;
     let donePromise;
     if (!storageName || storageName === 'filesystem') {
-      const dir = path.join(backupRoot(), String(t.y), t.mo, t.da, `${t.h}_${t.mi}_${t.s}`);
+      const dir = path.join(filesRoot(), ...relativeDir.split('/'));
       fs.mkdirSync(dir, { recursive: true });   // the final backup dir, not a temp dir
       dest = path.join(dir, 'backup.zip');
       const out = fs.createWriteStream(dest);
       donePromise = new Promise((resolve, reject) => { out.on('close', resolve); out.on('error', reject); archive.on('error', reject); });
       archive.pipe(out);
-      try { fs.writeFileSync(path.join(dir, 'meta.json'), JSON.stringify({ stamp, storage: 'filesystem', opts })); } catch (_) {}
+      try { fs.writeFileSync(path.join(dir, 'meta.json'), JSON.stringify({ stamp, storage: 'filesystem', opts, orgId: orgId || null })); } catch (_) {}
     } else {
       const cloud = await streamArchiveToCloud(archive, storageName, key);
       dest = cloud.dest;
       donePromise = cloud.promise;
     }
 
-    // Add content — all streamed (directories from disk, data a doc at a time).
-    if (opts.attachments && fs.existsSync(attachmentsDir())) { setProgress({ phase: 'attachments' }); archive.directory(attachmentsDir(), `${stamp}/attachments`); }
-    if (opts.avatars && fs.existsSync(avatarsDir())) { setProgress({ phase: 'avatars' }); archive.directory(avatarsDir(), `${stamp}/avatars`); }
-    if (opts.data) {
-      setProgress({ phase: 'data' });
-      const db = MongoInternals.defaultRemoteCollectionDriver().mongo.db;
-      const names = (await db.listCollections().toArray()).map(c => c.name)
-        .filter(n => !FILE_COLLECTIONS.has(n) && !n.startsWith('system.'));
-      for (const n of names) {
-        setProgress({ detail: 'data: ' + n });
-        archive.append(Readable.from(ndjsonOfCollection(db, n)), { name: `${stamp}/data/${n}.ndjson` });
+    const db = MongoInternals.defaultRemoteCollectionDriver().mongo.db;
+
+    if (orgId) {
+      // ── one Organization ──────────────────────────────────────────────────
+      // Its boards and everything hanging off them, plus the attachment FILES
+      // those boards use. No accounts, no settings, no org/team documents - see
+      // models/lib/tenantBackup.js for why each of those is excluded.
+      const ctx = await tenantContext(db, orgId);
+      if (opts.attachments && ctx.boardIds.length) {
+        setProgress({ phase: 'attachments' });
+        // The instance backup streams the whole attachments directory; a tenant's
+        // files have to be picked one by one, from the attachment records of its
+        // own boards. Entry names match the instance form exactly, so restore
+        // reads both kinds of archive the same way.
+        const cursor = db.collection('attachments')
+          .find({ 'meta.boardId': { $in: ctx.boardIds } });
+        for await (const doc of cursor) {
+          const versions = (doc && doc.versions) || {};
+          Object.keys(versions).forEach(version => {
+            const filePath = versions[version] && versions[version].path;
+            if (!filePath || !fs.existsSync(filePath)) return;
+            const rel = path.relative(attachmentsDir(), filePath);
+            // Only files that really live under the attachments directory.
+            if (!rel || rel.startsWith('..') || path.isAbsolute(rel)) return;
+            archive.file(filePath, { name: `${stamp}/attachments/${rel.split(path.sep).join('/')}` });
+          });
+        }
+        await cursor.close();
+      }
+      // Avatars are NOT part of a tenant archive: they belong to accounts, and
+      // accounts are one global namespace in option D (D.6).
+      if (opts.data) {
+        setProgress({ phase: 'data' });
+        for (const n of tenantBackup.names()) {
+          const selector = tenantBackup.exportSelector(n, ctx);
+          if (!selector) continue;   // this tenant has nothing in that collection
+          setProgress({ detail: 'data: ' + n });
+          archive.append(Readable.from(ndjsonOfSelector(db, n, selector)), { name: `${stamp}/data/${n}.ndjson` });
+        }
+      }
+    } else {
+      // ── the whole instance ────────────────────────────────────────────────
+      // Add content — all streamed (directories from disk, data a doc at a time).
+      if (opts.attachments && fs.existsSync(attachmentsDir())) { setProgress({ phase: 'attachments' }); archive.directory(attachmentsDir(), `${stamp}/attachments`); }
+      if (opts.avatars && fs.existsSync(avatarsDir())) { setProgress({ phase: 'avatars' }); archive.directory(avatarsDir(), `${stamp}/avatars`); }
+      if (opts.data) {
+        setProgress({ phase: 'data' });
+        const names = (await db.listCollections().toArray()).map(c => c.name)
+          .filter(n => !FILE_COLLECTIONS.has(n) && !n.startsWith('system.'));
+        for (const n of names) {
+          setProgress({ detail: 'data: ' + n });
+          archive.append(Readable.from(ndjsonOfCollection(db, n)), { name: `${stamp}/data/${n}.ndjson` });
+        }
       }
     }
 
@@ -182,10 +275,28 @@ async function doBackup(opts, storageName) {
   }
 }
 
-async function restoreDataLines(entryStream, coll, mode) {
+// Read one data entry of an archive WITHOUT writing anything - used by a tenant
+// restore to learn what the archive claims before it is allowed to write.
+async function readArchiveDocs(entryStream, onDoc) {
+  const rl = readline.createInterface({ input: entryStream, crlfDelay: Infinity });
+  for await (const line of rl) {
+    const s = line.trim();
+    if (!s) continue;
+    let doc;
+    try { doc = EJSON.parse(s); } catch (_) { continue; }
+    onDoc(doc);
+  }
+}
+
+// `tenant` is null for an instance restore (everything is written as before), or
+// the pure module's context for a tenant restore, in which case EVERY document is
+// checked against the boards that tenant really owns before it is written.
+async function restoreDataLines(entryStream, coll, mode, tenant = null) {
   const db = MongoInternals.defaultRemoteCollectionDriver().mongo.db;
   const c = db.collection(coll);
-  if (mode === 'replace-all') { await c.deleteMany({}).catch(() => {}); }
+  // A tenant restore must never empty a shared collection: "replace all" replaces
+  // this tenant's documents, not everyone's.
+  if (mode === 'replace-all' && !tenant) { await c.deleteMany({}).catch(() => {}); }
   const rl = readline.createInterface({ input: entryStream, crlfDelay: Infinity });
   let batch = [];
   const flush = async () => {
@@ -198,16 +309,24 @@ async function restoreDataLines(entryStream, coll, mode) {
     }
     batch = [];
   };
+  let refused = 0;
   for await (const line of rl) {
     const s = line.trim();
     if (!s) continue;
-    try { batch.push(EJSON.parse(s)); } catch (_) { continue; }
+    let doc;
+    try { doc = EJSON.parse(s); } catch (_) { continue; }
+    // The archive names the collection and carries the documents, and neither can
+    // be trusted: an archive can be edited, and a per-tenant admin uploading one
+    // must not be able to write into another tenant's boards.
+    if (tenant && !tenantBackup.docBelongsToTenant(coll, doc, tenant)) { refused += 1; continue; }
+    batch.push(doc);
     if (batch.length >= 200) await flush();
   }
   await flush();
+  return refused;
 }
 
-async function doRestore(zipPath, mode) {
+async function doRestore(zipPath, mode, orgId = null) {
   setProgress({ running: true, phase: 'restore', detail: zipPath, success: null, error: '' });
   try {
     // unzipper.Open reads the central directory, then streams each entry on
@@ -217,12 +336,65 @@ async function doRestore(zipPath, mode) {
     // in, or a collection WeKan does not write. Collected and reported at the end
     // rather than thrown on, so one hostile entry cannot abort a genuine restore.
     const skipped = [];
+    let refusedDocs = 0;
+
+    // ── a TENANT restore: learn what the archive claims, then narrow it ──────
+    // The board ids that may be written are the INTERSECTION of what the archive
+    // says with what the Organization really owns, so an archive cannot widen its
+    // own scope by listing someone else's board (D.8).
+    let tenant = null;
+    let allowedFileIds = null;
+    if (orgId) {
+      const db = MongoInternals.defaultRemoteCollectionDriver().mongo.db;
+      const owned = await tenantContext(db, orgId);
+      const archiveBoardIds = [];
+      const archiveTriggerIds = [];
+      const archiveActionIds = [];
+      const boardsEntry = directory.files.find(e => e.type === 'File' && /(^|\/)data\/boards\.ndjson$/.test(e.path));
+      if (boardsEntry) {
+        await readArchiveDocs(boardsEntry.stream(), doc => {
+          if (doc && typeof doc._id === 'string') archiveBoardIds.push(doc._id);
+        });
+      }
+      const boardIds = tenantBackup.allowedRestoreBoardIds(archiveBoardIds, owned.boardIds);
+      // Triggers and actions are reachable only through a rule of an allowed board,
+      // so the allowed ids come from the archive's own rules, filtered by that set.
+      const rulesEntry = directory.files.find(e => e.type === 'File' && /(^|\/)data\/rules\.ndjson$/.test(e.path));
+      if (rulesEntry) {
+        await readArchiveDocs(rulesEntry.stream(), doc => {
+          if (!doc || !boardIds.includes(doc.boardId)) return;
+          if (typeof doc.triggerId === 'string') archiveTriggerIds.push(doc.triggerId);
+          if (typeof doc.actionId === 'string') archiveActionIds.push(doc.actionId);
+        });
+      }
+      tenant = { orgId, boardIds, triggerIds: archiveTriggerIds, actionIds: archiveActionIds };
+      // Attachment FILES are named after the attachment record's id, so the files
+      // that may be written are exactly the records that passed the same guard.
+      allowedFileIds = new Set();
+      const attachmentsEntry = directory.files.find(e => e.type === 'File' && /(^|\/)data\/attachments\.ndjson$/.test(e.path));
+      if (attachmentsEntry) {
+        await readArchiveDocs(attachmentsEntry.stream(), doc => {
+          if (tenantBackup.docBelongsToTenant('attachments', doc, tenant) && typeof doc._id === 'string') {
+            allowedFileIds.add(doc._id);
+          }
+        });
+      }
+    }
+
     // Files first (attachments/avatars), then data.
     for (const entry of directory.files) {
       if (entry.type !== 'File') continue;
       const rel = entry.path.split('/').slice(1); // drop the <stamp> top folder
       const kind = rel[0];
       if (kind !== 'attachments' && kind !== 'avatars') continue;
+      if (tenant) {
+        // A tenant restore never writes avatars (they belong to accounts, which are
+        // one global namespace), and only writes attachment files of its own boards.
+        if (kind !== 'attachments') { skipped.push(entry.path); continue; }
+        const base = rel[rel.length - 1] || '';
+        const fileId = base.split('.')[0];
+        if (!allowedFileIds.has(fileId)) { skipped.push(entry.path); continue; }
+      }
       // The entry names its own path and path.join RESOLVES `..`, so
       // `<stamp>/attachments/../../../etc/x` satisfied the check above and then wrote
       // outside the files directory. safeEntryPath refuses anything that escapes.
@@ -245,15 +417,23 @@ async function doRestore(zipPath, mode) {
       // in the first place), and a name carrying a separator is not one WeKan writes.
       const coll = safeCollectionName(rel[1].replace(/\.ndjson$/, ''));
       if (!coll) { skipped.push(entry.path); continue; }
+      // A tenant archive may only carry the collections a tenant owns. An entry for
+      // `users`, `settings` or any other instance-wide collection is refused
+      // outright rather than filtered document by document.
+      if (tenant && !tenantBackup.isTenantCollection(coll)) { skipped.push(entry.path); continue; }
       setProgress({ detail: 'data: ' + coll });
-      await restoreDataLines(entry.stream(), coll, mode);
+      refusedDocs += (await restoreDataLines(entry.stream(), coll, mode, tenant)) || 0;
     }
     if (skipped.length) {
       console.warn('Backup restore refused ' + skipped.length +
         ' archive entry/entries that pointed outside the restore directory: ' +
         skipped.slice(0, 10).join(', '));
     }
-    setProgress({ phase: 'completed', success: true, skipped: skipped.length });
+    if (refusedDocs) {
+      console.warn('Backup restore refused ' + refusedDocs +
+        ' document(s) that did not belong to the Organization being restored.');
+    }
+    setProgress({ phase: 'completed', success: true, skipped: skipped.length, refused: refusedDocs });
   } catch (e) {
     setProgress({ phase: 'error', success: false, error: String(e && e.message ? e.message : e).slice(0, 500) });
     throw e;
@@ -302,39 +482,86 @@ async function requireAdmin() {
   if (!user || !user.isAdmin) throw new Meteor.Error('not-authorized');
 }
 
+// Multitenancy option D (D.8): the caller, and the scope they asked for. The scope
+// is REFUSED rather than narrowed when they may not have it - silently backing up
+// the wrong scope is worse than an error. A per-tenant Global Admin may only ever
+// name one of their own Organizations; the whole-instance scope is site-admin only.
+async function requireBackupScope(userId, orgId) {
+  const user = userId
+    ? await ReactiveCache.getUser({ _id: userId }, { fields: { isAdmin: 1, orgs: 1 } })
+    : null;
+  if (!tenantAdmin.canOpenAdminPanel(user)) throw new Meteor.Error('not-authorized');
+  const scope = tenantBackup.resolveBackupScope({
+    isSiteAdmin: tenantAdmin.isSiteAdmin(user),
+    adminOrgIds: tenantAdmin.adminOrgIds(user),
+    orgId: orgId === undefined ? null : orgId,
+  });
+  if (!scope.ok) throw new Meteor.Error(scope.error);
+  return { user, orgId: scope.orgId };
+}
+
 Meteor.methods({
   async backupStatus() {
     const user = await ReactiveCache.getCurrentUser();
-    if (!user || !user.isAdmin) return false;
+    // A per-tenant admin polls the same progress: only one backup runs at a time,
+    // and the phase/file it reports is the one they started.
+    if (!tenantAdmin.canOpenAdminPanel(user)) return false;
     return { ...progress };
   },
-  async runBackup(opts, storageName) {
+  async runBackup(opts, storageName, orgId = null) {
     check(opts, Object);
     check(storageName, Match.OneOf(String, null, undefined));
-    await requireAdmin();
+    check(orgId, Match.OneOf(String, null, undefined));
+    const scope = await requireBackupScope(this.userId, orgId);
     if (progress.running) throw new Meteor.Error('already-running');
     if (!opts || (!opts.attachments && !opts.avatars && !opts.data)) throw new Meteor.Error('nothing-selected', 'Select at least one of Attachments, Avatars, Data.');
-    doBackup(opts, storageName); // background; poll backupStatus
-    return { started: true };
+    doBackup(opts, storageName, scope.orgId); // background; poll backupStatus
+    return { started: true, orgId: scope.orgId };
   },
   async restoreBackup(zipPath, mode) {
     check(zipPath, String);
     check(mode, String);
-    await requireAdmin();
+    const user = this.userId
+      ? await ReactiveCache.getUser({ _id: this.userId }, { fields: { isAdmin: 1, orgs: 1 } })
+      : null;
+    if (!tenantAdmin.canOpenAdminPanel(user)) throw new Meteor.Error('not-authorized');
+    // Which archive is this, and may this admin restore it? A per-tenant admin may
+    // only restore their own tenant's archives - never an instance-wide one, which
+    // contains every tenant.
+    if (!tenantBackup.canUseBackupPath({
+      isSiteAdmin: tenantAdmin.isSiteAdmin(user),
+      adminOrgIds: tenantAdmin.adminOrgIds(user),
+      backupPath: zipPath,
+    })) throw new Meteor.Error('not-authorized');
     if (progress.running) throw new Meteor.Error('already-running');
     if (!zipPath || !fs.existsSync(zipPath)) throw new Meteor.Error('not-found', 'Backup file not found.');
     if (mode !== 'add-missing' && mode !== 'replace-all') throw new Meteor.Error('bad-mode');
-    doRestore(zipPath, mode);
+    // The scope comes from the archive's own location, not from the caller: a
+    // tenant archive is always restored as that tenant, even by the site admin, so
+    // it can never write outside the Organization it was taken from.
+    doRestore(zipPath, mode, tenantBackup.orgIdOfBackupPath(zipPath));
     return { started: true };
   },
   async listBackups() {
-    await requireAdmin();
-    return findBackups(backupRoot(), []).sort((a, b) => (a.datetime < b.datetime ? 1 : -1));
+    const user = this.userId
+      ? await ReactiveCache.getUser({ _id: this.userId }, { fields: { isAdmin: 1, orgs: 1 } })
+      : null;
+    if (!tenantAdmin.canOpenAdminPanel(user)) throw new Meteor.Error('not-authorized');
+    const isSiteAdmin = tenantAdmin.isSiteAdmin(user);
+    const adminOrgIds = tenantAdmin.adminOrgIds(user);
+    return findBackups(backupRoot(), [])
+      // Everyone sees only the archives they may restore, so the list and the
+      // permission cannot disagree.
+      .filter(b => tenantBackup.canUseBackupPath({ isSiteAdmin, adminOrgIds, backupPath: b.path }))
+      .map(b => ({ ...b, orgId: tenantBackup.orgIdOfBackupPath(b.path) }))
+      .sort((a, b) => (a.datetime < b.datetime ? 1 : -1));
   },
   async getBackupSchedule() {
     await requireAdmin();
     return await BackupSettings.findOneAsync({ _id: 'schedule' }) || null;
   },
+  // The schedule is instance-wide (one cron, one archive of everything), so it
+  // stays site-admin only - a per-tenant admin backs up their tenant on demand.
   async saveBackupSchedule(schedule) {
     check(schedule, Object);
     await requireAdmin();

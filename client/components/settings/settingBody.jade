@@ -1,6 +1,11 @@
 template(name="setting")
   .setting-content
-    unless currentUser.isAdmin
+    //- Multitenancy option D (docs/Design/Multitenancy/Multitenancy.md, D.9): an
+    //- Organization's own admin opens this page for ONE pane - Visibility, and in it
+    //- only "Change color", the site theme of their Organization. Everything else
+    //- here is instance-wide and stays site-admin only, pane by pane and group by
+    //- group.
+    unless currentUser.isAdminOrOrgAdmin
       | {{_ 'error-notAuthorized'}}
     else
       //- No page-title bar here. The Admin Panel top bar already says which section
@@ -204,139 +209,161 @@ template(name='email')
 //- groups under it rather than as several pages.
 template(name='tableVisibilityModeSettings')
   ul#tableVisibilityMode-setting.setting-detail
-    li
-      h2.admin-pane-group-title {{_ 'all-boards-hide'}}
-    li.tableVisibilityMode-form
-      //- "Public boards", under the "All Boards: Hide" title above: Yes hides
-      //- them, which is what allowPrivateOnly does. The setting's own key keeps its
-      //- sentence - boardBody.jade shows it as the message on a board you may not
-      //- open, where a two-word label would say nothing.
-      .title {{_ 'public-boards'}}
-      .form-group.flex
-        input.wekan-form-control#accounts-allowPrivateOnly(type="radio" name="allowPrivateOnly" value="true" checked="{{#if allowPrivateOnly}}checked{{/if}}")
-        label {{_ 'yes'}}
-        input.wekan-form-control#accounts-allowPrivateOnly(type="radio" name="allowPrivateOnly" value="false" checked="{{#unless allowPrivateOnly}}checked{{/unless}}")
-        label {{_ 'no'}}
-    li.hideBoardActivities-form
-      .title {{_ 'board-activities'}}
-      .form-group.flex
-        input.wekan-form-control#hide-board-activities(type="radio" name="hideBoardActivitiesOnAllBoards" value="true" checked="{{#if currentSetting.hideBoardActivitiesOnAllBoards}}checked{{/if}}")
-        label {{_ 'yes'}}
-        input.wekan-form-control#hide-board-activities(type="radio" name="hideBoardActivitiesOnAllBoards" value="false" checked="{{#unless currentSetting.hideBoardActivitiesOnAllBoards}}checked{{/unless}}")
-        label {{_ 'no'}}
-    li.tableVisibilityMode-form
-      .title {{_ 'card-counter-list'}}
-      .form-group.flex
-        input.wekan-form-control#hide-card-counter-list(type="radio" name="hideCardCounterList" value="true" checked="{{#if currentSetting.hideCardCounterList}}checked{{/if}}")
-        label {{_ 'yes'}}
-        input.wekan-form-control#hide-card-counter-list(type="radio" name="hideCardCounterList" value="false" checked="{{#unless currentSetting.hideCardCounterList}}checked{{/unless}}")
-        label {{_ 'no'}}
-    li.tableVisibilityMode-form
-      .title {{_ 'board-member-list'}}
-      .form-group.flex
-        input.wekan-form-control#hide-board-member-list(type="radio" name="hideBoardMemberList" value="true" checked="{{#if currentSetting.hideBoardMemberList}}checked{{/if}}")
-        label {{_ 'yes'}}
-        input.wekan-form-control#hide-board-member-list(type="radio" name="hideBoardMemberList" value="false" checked="{{#unless currentSetting.hideBoardMemberList}}checked{{/unless}}")
-        label {{_ 'no'}}
-    li.tableVisibilityMode-form
-      .title {{_ 'wait-spinner'}}
-      +selectSpinnerName(spinnerName=currentSetting.spinnerName)
-    li
-      //- One Save per section, at its end, above the rule that closes it. It writes
-      //- this section's fields and nothing else, so saving one group can never
-      //- overwrite what you were editing in another.
-      button.js-visibility-all-boards-save.primary {{_ 'save'}}
+    //- Every group here writes the INSTANCE settings, so it is site-admin only.
+    //- The one exception is "Change color" below, which an Organization's own
+    //- admin sets for their Organization (models/lib/tenantAdmin.js themeTarget).
+    if isSiteAdmin
+      li
+        h2.admin-pane-group-title {{_ 'all-boards-hide'}}
+      li.tableVisibilityMode-form
+        //- "Public boards", under the "All Boards: Hide" title above: Yes hides
+        //- them, which is what allowPrivateOnly does. The setting's own key keeps its
+        //- sentence - boardBody.jade shows it as the message on a board you may not
+        //- open, where a two-word label would say nothing.
+        .title {{_ 'public-boards'}}
+        .form-group.flex
+          input.wekan-form-control#accounts-allowPrivateOnly(type="radio" name="allowPrivateOnly" value="true" checked="{{#if allowPrivateOnly}}checked{{/if}}")
+          label {{_ 'yes'}}
+          input.wekan-form-control#accounts-allowPrivateOnly(type="radio" name="allowPrivateOnly" value="false" checked="{{#unless allowPrivateOnly}}checked{{/unless}}")
+          label {{_ 'no'}}
+      li.hideBoardActivities-form
+        .title {{_ 'board-activities'}}
+        .form-group.flex
+          input.wekan-form-control#hide-board-activities(type="radio" name="hideBoardActivitiesOnAllBoards" value="true" checked="{{#if currentSetting.hideBoardActivitiesOnAllBoards}}checked{{/if}}")
+          label {{_ 'yes'}}
+          input.wekan-form-control#hide-board-activities(type="radio" name="hideBoardActivitiesOnAllBoards" value="false" checked="{{#unless currentSetting.hideBoardActivitiesOnAllBoards}}checked{{/unless}}")
+          label {{_ 'no'}}
+      li.tableVisibilityMode-form
+        .title {{_ 'card-counter-list'}}
+        .form-group.flex
+          input.wekan-form-control#hide-card-counter-list(type="radio" name="hideCardCounterList" value="true" checked="{{#if currentSetting.hideCardCounterList}}checked{{/if}}")
+          label {{_ 'yes'}}
+          input.wekan-form-control#hide-card-counter-list(type="radio" name="hideCardCounterList" value="false" checked="{{#unless currentSetting.hideCardCounterList}}checked{{/unless}}")
+          label {{_ 'no'}}
+      li.tableVisibilityMode-form
+        .title {{_ 'board-member-list'}}
+        .form-group.flex
+          input.wekan-form-control#hide-board-member-list(type="radio" name="hideBoardMemberList" value="true" checked="{{#if currentSetting.hideBoardMemberList}}checked{{/if}}")
+          label {{_ 'yes'}}
+          input.wekan-form-control#hide-board-member-list(type="radio" name="hideBoardMemberList" value="false" checked="{{#unless currentSetting.hideBoardMemberList}}checked{{/unless}}")
+          label {{_ 'no'}}
+      li.tableVisibilityMode-form
+        .title {{_ 'wait-spinner'}}
+        +selectSpinnerName(spinnerName=currentSetting.spinnerName)
+      li
+        //- One Save per section, at its end, above the rule that closes it. It writes
+        //- this section's fields and nothing else, so saving one group can never
+        //- overwrite what you were editing in another.
+        button.js-visibility-all-boards-save.primary {{_ 'save'}}
 
-    li.admin-pane-group-separator
-      hr
-    li
-      h2.admin-pane-group-title {{_ 'settings-group-url'}}
-    li
-      a(href="/support" style="text-decoration: underline; color: blue;") {{_ 'support'}}
-    li
-      a.flex.js-toggle-support
-        .materialCheckBox(class="{{#if currentSetting.supportPageEnabled}}is-checked{{/if}}")
+      li.admin-pane-group-separator
+        hr
+      li
+        h2.admin-pane-group-title {{_ 'settings-group-url'}}
+      li
+        a(href="/support" style="text-decoration: underline; color: blue;") {{_ 'support'}}
+      li
+        a.flex.js-toggle-support
+          .materialCheckBox(class="{{#if currentSetting.supportPageEnabled}}is-checked{{/if}}")
 
-        span {{_ 'support-page-enabled'}}
-    li
-      .support-content(class="{{#if currentSetting.supportPageEnabled}}{{else}}hide{{/if}}")
-        ul
-          li
-            a.flex.js-toggle-support-public
-              .materialCheckBox(class="{{#if currentSetting.supportPagePublic}}is-checked{{/if}}")
+          span {{_ 'support-page-enabled'}}
+      li
+        .support-content(class="{{#if currentSetting.supportPageEnabled}}{{else}}hide{{/if}}")
+          ul
+            li
+              a.flex.js-toggle-support-public
+                .materialCheckBox(class="{{#if currentSetting.supportPagePublic}}is-checked{{/if}}")
 
-              span {{_ 'public'}}
-          li
-            .title {{_ 'support-title'}}
-            textarea#support-title.wekan-form-control= currentSetting.supportTitle
-          li
-            .title {{_ 'support-content'}}
-            textarea#support-page-text.wekan-form-control= currentSetting.supportPageText
-    li.tableVisibilityMode-form
-      .title {{_ 'custom-help-link-url'}}
-      .form-group
-        input.wekan-form-control#custom-help-link-url(type="text", placeholder="" value="{{currentSetting.customHelpLinkUrl}}")
-    li.tableVisibilityMode-form
-      .title {{_ 'custom-legal-notice-link-url'}}
-      .form-group
-        input.wekan-form-control#legalNoticevalue(type="text", placeholder="" value="{{currentSetting.legalNotice}}")
-    li.tableVisibilityMode-form
-      .title {{_ 'automatic-linked-url-schemes'}}
-      .form-group
-        textarea#automatic-linked-url-schemes.wekan-form-control= currentSetting.automaticLinkedUrlSchemes
-    li
-      button.js-visibility-url-save.primary {{_ 'save'}}
+                span {{_ 'public'}}
+            li
+              .title {{_ 'support-title'}}
+              textarea#support-title.wekan-form-control= currentSetting.supportTitle
+            li
+              .title {{_ 'support-content'}}
+              textarea#support-page-text.wekan-form-control= currentSetting.supportPageText
+      li.tableVisibilityMode-form
+        .title {{_ 'custom-help-link-url'}}
+        .form-group
+          input.wekan-form-control#custom-help-link-url(type="text", placeholder="" value="{{currentSetting.customHelpLinkUrl}}")
+      li.tableVisibilityMode-form
+        .title {{_ 'custom-legal-notice-link-url'}}
+        .form-group
+          input.wekan-form-control#legalNoticevalue(type="text", placeholder="" value="{{currentSetting.legalNotice}}")
+      li.tableVisibilityMode-form
+        .title {{_ 'automatic-linked-url-schemes'}}
+        .form-group
+          textarea#automatic-linked-url-schemes.wekan-form-control= currentSetting.automaticLinkedUrlSchemes
+      li
+        button.js-visibility-url-save.primary {{_ 'save'}}
 
-    li.admin-pane-group-separator
-      hr
-    li
-      //- The group title IS the field's label here: the group holds one field, so a
-      //- title above a label that says the same thing said it twice. The group title
-      //- keeps its size and takes the field's existing translation.
-      h2.admin-pane-group-title {{_ 'custom-product-name'}}
-    li.tableVisibilityMode-form
-      .form-group
-        input.wekan-form-control#product-name(type="text", placeholder="" value="{{currentSetting.productName}}")
-    li
-      button.js-visibility-product-name-save.primary {{_ 'save'}}
+      li.admin-pane-group-separator
+        hr
+      li
+        //- The group title IS the field's label here: the group holds one field, so a
+        //- title above a label that says the same thing said it twice. The group title
+        //- keeps its size and takes the field's existing translation.
+        h2.admin-pane-group-title {{_ 'custom-product-name'}}
+      li.tableVisibilityMode-form
+        .form-group
+          input.wekan-form-control#product-name(type="text", placeholder="" value="{{currentSetting.productName}}")
+      li
+        button.js-visibility-product-name-save.primary {{_ 'save'}}
 
-    li.admin-pane-group-separator
-      hr
+    //- The site theme. Same picker as the per-user "Change color", one layer
+    //- below it: whoever has not chosen a theme of their own sees this one
+    //- (docs/Theme/Theme.md). It applies immediately - the picker has no Save
+    //- button, like the per-user one.
+    if isSiteAdmin
+      li.admin-pane-group-separator
+        hr
     li
-      h2.admin-pane-group-title {{_ 'settings-group-logo'}}
+      h2.admin-pane-group-title {{_ 'change-color'}}
+      //- The site admin's colour is the one every Organization that has not set
+      //- its own inherits, so their pane says so; an Organization's own admin is
+      //- setting only their own and needs no such line.
+      if isSiteAdmin
+        h3.admin-pane-subgroup-title {{_ 'theme-override-all-tenants'}}
     li.tableVisibilityMode-form
-      .title {{_ 'hide-logo'}}
-      .form-group.flex
-        input.wekan-form-control#hide-logo(type="radio" name="hideLogo" value="true" checked="{{#if currentSetting.hideLogo}}checked{{/if}}")
-        label {{_ 'yes'}}
-        input.wekan-form-control#hide-logo(type="radio" name="hideLogo" value="false" checked="{{#unless currentSetting.hideLogo}}checked{{/unless}}")
-        label {{_ 'no'}}
-    li.tableVisibilityMode-form
-      .title {{_ 'custom-login-logo-image-url'}}
-      .form-group
-        input.wekan-form-control#custom-login-logo-image-url(type="text", placeholder="" value="{{currentSetting.customLoginLogoImageUrl}}")
-    li.tableVisibilityMode-form
-      .title {{_ 'custom-login-logo-link-url'}}
-      .form-group
-        input.wekan-form-control#custom-login-logo-link-url(type="text", placeholder="" value="{{currentSetting.customLoginLogoLinkUrl}}")
-    li.tableVisibilityMode-form
-      .title {{_ 'text-below-custom-login-logo'}}
-      .form-group
-        textarea#text-below-custom-login-logo.wekan-form-control= currentSetting.textBelowCustomLoginLogo
-    li.tableVisibilityMode-form
-      .title {{_ 'custom-top-left-corner-logo-image-url'}}
-      .form-group
-        input.wekan-form-control#custom-top-left-corner-logo-image-url(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoImageUrl}}")
-    li.tableVisibilityMode-form
-      .title {{_ 'custom-top-left-corner-logo-link-url'}}
-      .form-group
-        input.wekan-form-control#custom-top-left-corner-logo-link-url(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoLinkUrl}}")
-    li.tableVisibilityMode-form
-      .title {{_ 'custom-top-left-corner-logo-height'}}
-      .form-group
-        input.wekan-form-control#custom-top-left-corner-logo-height(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoHeight}}")
-    li
-      button.js-visibility-logo-save.primary {{_ 'save'}}
+      +themeColorPicker(scope="admin")
+
+    if isSiteAdmin
+      li.admin-pane-group-separator
+        hr
+      li
+        h2.admin-pane-group-title {{_ 'settings-group-logo'}}
+      li.tableVisibilityMode-form
+        .title {{_ 'hide-logo'}}
+        .form-group.flex
+          input.wekan-form-control#hide-logo(type="radio" name="hideLogo" value="true" checked="{{#if currentSetting.hideLogo}}checked{{/if}}")
+          label {{_ 'yes'}}
+          input.wekan-form-control#hide-logo(type="radio" name="hideLogo" value="false" checked="{{#unless currentSetting.hideLogo}}checked{{/unless}}")
+          label {{_ 'no'}}
+      li.tableVisibilityMode-form
+        .title {{_ 'custom-login-logo-image-url'}}
+        .form-group
+          input.wekan-form-control#custom-login-logo-image-url(type="text", placeholder="" value="{{currentSetting.customLoginLogoImageUrl}}")
+      li.tableVisibilityMode-form
+        .title {{_ 'custom-login-logo-link-url'}}
+        .form-group
+          input.wekan-form-control#custom-login-logo-link-url(type="text", placeholder="" value="{{currentSetting.customLoginLogoLinkUrl}}")
+      li.tableVisibilityMode-form
+        .title {{_ 'text-below-custom-login-logo'}}
+        .form-group
+          textarea#text-below-custom-login-logo.wekan-form-control= currentSetting.textBelowCustomLoginLogo
+      li.tableVisibilityMode-form
+        .title {{_ 'custom-top-left-corner-logo-image-url'}}
+        .form-group
+          input.wekan-form-control#custom-top-left-corner-logo-image-url(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoImageUrl}}")
+      li.tableVisibilityMode-form
+        .title {{_ 'custom-top-left-corner-logo-link-url'}}
+        .form-group
+          input.wekan-form-control#custom-top-left-corner-logo-link-url(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoLinkUrl}}")
+      li.tableVisibilityMode-form
+        .title {{_ 'custom-top-left-corner-logo-height'}}
+        .form-group
+          input.wekan-form-control#custom-top-left-corner-logo-height(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoHeight}}")
+      li
+        button.js-visibility-logo-save.primary {{_ 'save'}}
 
 template(name='announcementSettings')
   ul#announcement-setting.setting-detail

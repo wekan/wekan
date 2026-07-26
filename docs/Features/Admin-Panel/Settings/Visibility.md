@@ -37,6 +37,30 @@ Each row is ticked when the thing is **hidden**.
 The name WeKan calls itself: the browser tab title, and the branding on the sign-in
 page and the progress dashboards.
 
+## Change color
+
+The theme of this site: the same picker as Board Settings / Change Color and Member
+Settings / Change color — the categories of swatches, the "Default theme" row and the
+custom-colour wheels — described in
+[Design / Change color](../../../Design/Page/Theme.md). It applies as soon as you
+click a colour; there is no Save button.
+
+**The order of themes**, weakest first:
+
+1. WeKan's default theme.
+2. **This** setting — what everyone sees who has not chosen a theme of their own.
+3. A user's own override, from Member Settings / Change color.
+
+A board's own colour is not one of those layers: it is what a board looks like, and it
+owns the board page. A user's own override still applies there, because they asked for
+it everywhere.
+
+The line under the section title, *"Override that applies to all tenants"*, is there
+for a site admin: an Organization that has set a colour of its own keeps it on its own
+domains, and every Organization that has not inherits this one. An Organization's own
+admin sees this section — and only this section of the pane — and sets that
+Organization's colour. See [Multitenancy](../../../Design/Multitenancy/Multitenancy.md).
+
 ## Logo
 
 - **Hide Logo** — do not show it at all.
