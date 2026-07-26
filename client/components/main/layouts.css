@@ -843,6 +843,17 @@ a:not(.disabled).is-active i.fa {
     min-width: 0; /* Allow flexbox to shrink */
   }
 
+  /* Nothing on a phone may make the PAGE scroll sideways. The quick-access bar
+     is `overflow: visible` on purpose, so an item that does not fit spills - and
+     a spill is scrollable overflow: the page could be dragged left, taking the
+     board list with it, and the avatar lived out there past the right edge. The
+     bar's items are made to fit (header.css), and this is the guarantee that a
+     future item, a long translation or a custom logo cannot undo that. */
+  html {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+
   /* The logo is decorative here and was allowed a third of a 375px bar. */
   #header-quick-access img {
     max-height: 20px;

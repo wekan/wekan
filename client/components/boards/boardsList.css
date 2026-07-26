@@ -953,7 +953,12 @@ body.grey-icons-enabled .checkmark-no-grey {
   float: none;
   display: block;
   margin-bottom: 0.5rem;
-  padding-inline-end: 32px; /* Space for drag handle */
+  /* NO handle reserve here. The drag handle is positioned INSIDE the tile, and
+     the tile already keeps its text clear of it - so 32px here was a second,
+     invisible reserve on top of that one. On a phone the tile is only ~97px
+     wide, so 32 + 30 + 8 = 70px of it went to padding and the board title was
+     laid out in a ~27px column: "Da"/"ta" on two lines. */
+  padding-inline-end: 0;
 }
 .board-list.mobile-view .board-list-item {
   overflow: visible;
@@ -967,7 +972,8 @@ body.grey-icons-enabled .checkmark-no-grey {
 }
 
 .board-list.mobile-view .board-list-item .details {
-  padding-inline-end: 30px; /* room for the drag handle */
+  /* The tile pads for the handle; this padded for it a second time. */
+  padding-inline-end: 0;
   width: 100%;
   box-sizing: border-box;
 }
@@ -1068,7 +1074,10 @@ body.grey-icons-enabled .checkmark-no-grey {
     float: none;
     display: block;
     margin-bottom: 0.5rem;
-    padding-inline-end: 32px; /* Space for drag handle */
+    /* Same as `.board-list.mobile-view li` above: the tile keeps its own text
+       clear of the handle, so reserving the width a second time out here only
+       narrowed the title. */
+    padding-inline-end: 0;
   }
   /* #6523: shorter tiles on mobile, and the SAME height for a board tile and the
      grey "+ Add Board" / "+ Add Template Container" tile.
@@ -1117,7 +1126,9 @@ body.grey-icons-enabled .checkmark-no-grey {
   }
 
   .board-list .board-list-item .details {
-    padding-inline-end: 50px; /* Extra space for drag handle */
+    /* The tile itself already reserves the handle's width (its own
+       `padding: 6px 30px 6px 8px` below); 50px more was a third reserve. */
+    padding-inline-end: 0;
     width: 100%;
     box-sizing: border-box;
   }
@@ -1622,6 +1633,14 @@ body.grey-icons-enabled .checkmark-no-grey {
 .board-list .board-list-item:not(:has(.board-handle)) .details,
 .board-list.mobile-view .board-list-item:not(:has(.board-handle)) .details {
   padding-inline-end: 0;
+}
+
+/* ...and the tile's own reserve goes with it. Only the `.details` half was
+   dropped before, so a tile with no handle still gave 30px of a ~97px phone
+   tile to a handle that is not rendered. */
+.board-list .board-list-item:not(:has(.board-handle)),
+.board-list.mobile-view .board-list-item:not(:has(.board-handle)) {
+  padding-inline-end: 8px;
 }
 
 /* #6523: on a phone (either orientation) the count chip sits right after its

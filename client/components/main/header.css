@@ -1613,3 +1613,57 @@ body.mobile-mode #header-quick-access .allBoards {
 #header-quick-access #header-user-bar {
   margin-inline-start: 0 !important;
 }
+
+/* ── The quick-access bar must FIT the phone ─────────────────────────────────
+   On a small screen this bar is `flex-wrap: nowrap` with `overflow: visible`
+   (deliberately, above: an item that does not fit should spill rather than
+   disappear) and every item declares `flex-shrink: 0 !important`. Nothing could
+   give way, so the row was simply wider than the screen - and a visible overflow
+   is scrollable overflow: the whole PAGE could be dragged sideways, the avatar
+   sat past the right edge, and the board list under it moved with the page.
+
+   So the widest items give way instead. The zoom pill was the biggest by far:
+   an 80px fixed input plus its own padding took ~113px of a 375px bar, more than
+   the home icon, the mode toggle and the bell together. "100%" fits in half of
+   that, and the pill may now shrink if a translation or a custom logo needs the
+   room. The bell and the avatar never shrink - they are the two the user came
+   for, and they are last in the row, so they are what an overflow pushes out. */
+@media screen and (max-width: 800px),
+       screen and (max-device-width: 800px),
+       screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
+  #header-quick-access .zoom-controls {
+    margin: 0 4px !important;
+    padding: 2px 4px;
+    min-width: 0;
+    flex: 0 1 auto !important;
+  }
+
+  #header-quick-access .zoom-controls .zoom-input {
+    /* Was a fixed 80 pixels; "100" needs about half of that. */
+    width: 46px !important;
+    min-width: 0 !important;
+    flex: 0 1 46px !important;
+    padding: 3px 2px;
+  }
+
+  #header-quick-access .zoom-controls .zoom-level {
+    min-width: 0;
+    padding: 3px 4px;
+  }
+
+  #header-quick-access .mobile-mode-toggle {
+    margin: 0 4px !important;
+  }
+
+  #header-quick-access #notifications,
+  #header-quick-access #header-user-bar {
+    margin: 0 4px !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* The logo is the one item that may lose width without losing meaning. */
+  #header-quick-access img {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+}
