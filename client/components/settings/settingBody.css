@@ -339,6 +339,58 @@ body.grey-icons-enabled .setting-content input[type="checkbox"]:checked {
   margin-inline-end: 6px;
 }
 
+/* Admin Panel / Attachments / Backup, the schedule's day: buttons, not a field.
+   The weekly one is seven days in the reader's own language - the text field it
+   replaces only ever accepted an English day name typed exactly right. The monthly
+   one is the 28 dates a monthly backup can safely run on - a spin control made you
+   click 27 times to reach the end of the month, and never showed that the 29th to
+   the 31st are not offered at all (they would skip February).
+   Both wrap onto further lines rather than squeezing, and the chosen one is filled
+   with the theme colour, the way the selected left-menu entry and the selected tab
+   are. */
+.setting-content .schedule-day-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.setting-content .schedule-day-btn {
+  display: inline-block;
+  padding: 6px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  background: #fff;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.setting-content .schedule-day-btn:hover {
+  background: #f2f2f2;
+  text-decoration: none;
+}
+
+.setting-content .schedule-day-btn.active {
+  background: var(--theme-accent, #2980b9);
+  border-color: var(--theme-accent, #2980b9);
+  color: #fff;
+}
+
+.setting-content .schedule-day-btn:focus-visible {
+  outline: 2px solid var(--theme-accent, #2980b9);
+  outline-offset: 2px;
+}
+
+/* The 28 dates are a grid of equal squares, so the numbers line up in columns
+   instead of drifting with their own width. */
+.setting-content .schedule-day-numbers .schedule-day-btn {
+  min-width: 2.4em;
+  padding-inline: 6px;
+  text-align: center;
+}
+
 /* Several such checkboxes side by side - Attachments / Backup's "Attachments,
    Avatars, Data" - are one row, each label holding its box and its words together.
    Inline labels would let a label wrap away from its own checkbox, and the checked

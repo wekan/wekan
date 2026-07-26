@@ -309,7 +309,20 @@ Template.attachments.onCreated(function () {
     }
   });
   // The schedule is instance-wide, so only the site admin has one to read.
-  Meteor.call('getBackupSchedule', (err, s) => { if (!err && s) this.backupSchedule.set(s); });
+  // Which day the weekly schedule runs on. It is state rather than a DOM value now
+  // that it is a row of buttons; seeded from the saved schedule when it arrives,
+  // unless the admin has already picked one.
+  this.backupDayOfWeek = new ReactiveVar('Sunday');
+  this.backupDayOfMonth = new ReactiveVar(1);
+  this.backupDayTouched = false;
+  Meteor.call('getBackupSchedule', (err, s) => {
+    if (!err && s) {
+      this.backupSchedule.set(s);
+      if (this.backupDayTouched) return;
+      if (s.dayOfWeek) this.backupDayOfWeek.set(s.dayOfWeek);
+      if (s.dayOfMonth) this.backupDayOfMonth.set(Number(s.dayOfMonth));
+    }
+  });
   // Backup is the pane the page opens on, so ask once whether one is running -
   // otherwise landing here during a backup showed an idle-looking pane until you
   // pressed something. pollBackupStatus only keeps polling while it IS running.
@@ -441,6 +454,24 @@ function pollBackupStatus(tpl) {
     }
   });
 }
+
+// Admin Panel / Attachments / Backup, weekly schedule: the day is picked from seven
+// buttons. `day` is what is STORED and what the cron text is built from - synced-cron
+// parses an English schedule sentence - and `labelKey` is what the admin reads, in
+// their own language. Sunday first, the way the schedule text has always defaulted.
+const BACKUP_DAYS = [
+  { day: 'Sunday', labelKey: 'sunday' },
+  { day: 'Monday', labelKey: 'monday' },
+  { day: 'Tuesday', labelKey: 'tuesday' },
+  { day: 'Wednesday', labelKey: 'wednesday' },
+  { day: 'Thursday', labelKey: 'thursday' },
+  { day: 'Friday', labelKey: 'friday' },
+  { day: 'Saturday', labelKey: 'saturday' },
+];
+
+// The dates a monthly backup may run on. 1-28 only: a schedule on the 29th, 30th or
+// 31st would skip February, or a whole quarter of the year.
+const BACKUP_MONTH_DAYS = Array.from({ length: 28 }, (_, i) => i + 1);
 
 // The Attachments side menu, as data (docs/Design/Page/Left-Menu.md).
 // emoji:true reproduces the empty span.emoji-icon this page always rendered.
@@ -598,6 +629,23 @@ Template.attachments.helpers({
   scheduleMonthly() { const s = Template.instance().backupSchedule.get(); return !!(s && s.frequency === 'monthly'); },
   scheduleTime() { const s = Template.instance().backupSchedule.get(); return (s && s.time) || '04:00'; },
   scheduleDow() { const s = Template.instance().backupSchedule.get(); return (s && s.dayOfWeek) || 'Sunday'; },
+  // The seven days as buttons: the English name is the VALUE (the cron schedule is
+  // written in English - models/lib/backupPaths.js scheduleText), the i18n key is
+  // the label, and the stored day is the one shown as selected.
+  backupDays() {
+    const tpl = Template.instance();
+    const chosen = tpl.backupDayOfWeek.get();
+    return BACKUP_DAYS.map(({ day, labelKey }) => ({
+      day,
+      labelKey,
+      selected: day === chosen,
+    }));
+  },
+  // …and the dates of the month, the same way. Numbers need no translation.
+  backupMonthDays() {
+    const chosen = Template.instance().backupDayOfMonth.get();
+    return BACKUP_MONTH_DAYS.map(day => ({ day, selected: day === chosen }));
+  },
   scheduleDom() { const s = Template.instance().backupSchedule.get(); return (s && s.dayOfMonth) || 1; },
   avatarsUploadBlocked() {
     const settings = Template.instance().attachmentStorageSettings.get();
@@ -913,14 +961,28 @@ Template.attachments.events({
       else pollBackupStatus(tpl);
     });
   },
+  'click .js-backup-dow-btn'(event, tpl) {
+    event.preventDefault();
+    const day = $(event.currentTarget).data('day');
+    if (!day) return;
+    tpl.backupDayTouched = true;
+    tpl.backupDayOfWeek.set(String(day));
+  },
+  'click .js-backup-dom-btn'(event, tpl) {
+    event.preventDefault();
+    const day = Number($(event.currentTarget).data('day'));
+    if (!BACKUP_MONTH_DAYS.includes(day)) return;
+    tpl.backupDayTouched = true;
+    tpl.backupDayOfMonth.set(day);
+  },
   'click .js-save-backup-schedule'(event, tpl) {
     event.preventDefault();
     const schedule = {
       enabled: (tpl.$('.js-backup-frequency').val() || 'off') !== 'off',
       frequency: tpl.$('.js-backup-frequency').val() || 'off',
       time: tpl.$('.js-backup-time').val() || '04:00',
-      dayOfWeek: tpl.$('.js-backup-dow').val() || 'Sunday',
-      dayOfMonth: parseInt(tpl.$('.js-backup-dom').val(), 10) || 1,
+      dayOfWeek: tpl.backupDayOfWeek.get() || 'Sunday',
+      dayOfMonth: tpl.backupDayOfMonth.get() || 1,
       attachments: tpl.$('.js-backup-attachments').is(':checked'),
       avatars: tpl.$('.js-backup-avatars').is(':checked'),
       data: tpl.$('.js-backup-data').is(':checked'),

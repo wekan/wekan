@@ -510,10 +510,31 @@ template(name="attachments")
                   input.wekan-form-control.js-backup-time(type="time" value=scheduleTime)
                 .form-group
                   label {{_ 'backup-day-of-week'}}
-                  input.wekan-form-control.js-backup-dow(type="text" value=scheduleDow placeholder="Sunday")
+                  //- One button per day, in the reader's own language, instead of a
+                  //- text field that only ever accepted an English day name typed
+                  //- exactly right. The VALUE stays the English name - that is what
+                  //- the cron schedule is written in (models/lib/backupPaths.js
+                  //- scheduleText) - and only the label is translated.
+                  .schedule-day-buttons
+                    each backupDays
+                      a.schedule-day-btn.js-backup-dow-btn(
+                        data-day="{{day}}"
+                        class="{{#if selected}}active{{/if}}"
+                        role="button"
+                        aria-pressed="{{#if selected}}true{{else}}false{{/if}}") {{_ labelKey}}
                 .form-group
                   label {{_ 'backup-day-of-month'}}
-                  input.wekan-form-control.js-backup-dom(type="number" min="1" max="28" value=scheduleDom)
+                  //- One button per date, the same as the days above - a spin
+                  //- control makes you click 27 times to reach the end of the
+                  //- month, and hides which dates are even allowed. 1-28 only, so
+                  //- a monthly backup exists in February too.
+                  .schedule-day-buttons.schedule-day-numbers
+                    each backupMonthDays
+                      a.schedule-day-btn.js-backup-dom-btn(
+                        data-day="{{day}}"
+                        class="{{#if selected}}active{{/if}}"
+                        role="button"
+                        aria-pressed="{{#if selected}}true{{else}}false{{/if}}") {{day}}
                 .form-group
                   button.js-save-backup-schedule.btn.btn-primary(type="button") {{_ 'save'}}
 
