@@ -1318,6 +1318,8 @@
   "show-desktop-drag-handles": "Voir les poignées de déplacement du bureau",
   "drag-to-resize-sidebar": "Tradön ad reidükön zänabladi",
   "submit-on-enter": "Savön redakömapaods me Enter",
+  "open-many-cards-at-once": "Open many cards at once",
+  "open-many-cards-at-once-description": "Keep every card you click open in its own window. When this is off, clicking a card closes the one that was open.",
   "submit-on-enter-description": "Ven pö, klidam Enter savon karta-titoli, beskribi e redakömapaodis votik in lien; Shift+Enter läükon lini nulik. Ven öf, Ctrl/Cmd+Enter savon e Enter läükon lini nulik.",
   "assignee": "Intervenant",
   "assignees": "Intervenants",

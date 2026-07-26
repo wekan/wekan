@@ -1318,6 +1318,8 @@
   "show-desktop-drag-handles": "Mostrar alças de arrasto do desktop",
   "drag-to-resize-sidebar": "Arrastra para redimensionar a barra lateral",
   "submit-on-enter": "Enviar os editores con Enter",
+  "open-many-cards-at-once": "Open many cards at once",
+  "open-many-cards-at-once-description": "Keep every card you click open in its own window. When this is off, clicking a card closes the one that was open.",
   "submit-on-enter-description": "Cando está activado, premer Enter garda o título da tarxeta, a descrición e outros editores en liña; Shift+Enter insire unha nova liña. Cando está desactivado, Ctrl/Cmd+Enter garda e Enter insire unha nova liña.",
   "assignee": "Responsável",
   "assignees": "Administradores",

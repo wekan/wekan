@@ -1318,6 +1318,8 @@
   "show-desktop-drag-handles": "Ipakita an mga desktop drag handle",
   "drag-to-resize-sidebar": "Bodjî po candjî l' grandeu del bår di costé",
   "submit-on-enter": "I-save an editor pinaagi han Enter",
+  "open-many-cards-at-once": "Open many cards at once",
+  "open-many-cards-at-once-description": "Keep every card you click open in its own window. When this is off, clicking a card closes the one that was open.",
   "submit-on-enter-description": "Kon nakabuhat, an pagpindot han Enter nagtitipig han titulo han karta, deskripsyon ngan iba nga inline nga editor; Shift+Enter nagdudugang hin bag-o nga linya. Kon nakapatay, Ctrl/Cmd+Enter an nagtitipig ngan Enter nagdudugang hin bag-o nga linya.",
   "assignee": "Gin-asignaran",
   "assignees": "Mga Gin-asignaran",

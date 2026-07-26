@@ -1318,6 +1318,8 @@
   "show-desktop-drag-handles": "បង្ហាញចំណុចទាញអូសលើតុ",
   "drag-to-resize-sidebar": "អូសដើម្បីប្តូរទំហំរបារចំហៀង",
   "submit-on-enter": "ដាក់ស្នើកម្មវិធីនិពន្ធដោយ Enter",
+  "open-many-cards-at-once": "Open many cards at once",
+  "open-many-cards-at-once-description": "Keep every card you click open in its own window. When this is off, clicking a card closes the one that was open.",
   "submit-on-enter-description": "ពេលបើក ការចុច Enter រក្សាទុកចំណងជើងកាត ការពិពណ៌នា និងកម្មវិធីនិពន្ធក្នុងជួរផ្សេងទៀត; Shift+Enter បញ្ចូលបន្ទាត់ថ្មី។ ពេលបិទ Ctrl/Cmd+Enter រក្សាទុក ហើយ Enter បញ្ចូលបន្ទាត់ថ្មី។",
   "assignee": "អ្នកចាត់តាំង",
   "assignees": "អ្នកទទួលបន្ទុក",

@@ -1318,6 +1318,8 @@
   "show-desktop-drag-handles": "Mostra maniglie di trascinamento del desktop",
   "drag-to-resize-sidebar": "Kokodza u shandula saizi ya bara ya sia",
   "submit-on-enter": "Salva i editor co Enter",
+  "open-many-cards-at-once": "Open many cards at once",
+  "open-many-cards-at-once-description": "Keep every card you click open in its own window. When this is off, clicking a card closes the one that was open.",
   "submit-on-enter-description": "Co l'è tacà, schissar Enter salva el titolo de la carta, la descrizion e altri editor in linea; Shift+Enter zonta na riga nova. Co l'è distacà, Ctrl/Cmd+Enter salva e Enter zonta na riga nova.",
   "assignee": "Assegnatario",
   "assignees": "Asegnatari",

@@ -1318,6 +1318,8 @@
   "show-desktop-drag-handles": "Mostrar los controles de arrastre del escritorio",
   "drag-to-resize-sidebar": "Trenu por regrandigi flankan panelon",
   "submit-on-enter": "Sendi redaktilojn per Enter",
+  "open-many-cards-at-once": "Open many cards at once",
+  "open-many-cards-at-once-description": "Keep every card you click open in its own window. When this is off, clicking a card closes the one that was open.",
   "submit-on-enter-description": "Kiam ŝaltita, premo de Enter konservas la titolon de la karto, la priskribon kaj aliajn enliniajn redaktilojn; Shift+Enter enmetas novan linion. Kiam malŝaltita, Ctrl/Cmd+Enter konservas kaj Enter enmetas novan linion.",
   "assignee": "Asignado",
   "assignees": "Intervenants",

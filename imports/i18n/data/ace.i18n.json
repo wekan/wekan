@@ -1318,6 +1318,8 @@
   "show-desktop-drag-handles": "Tampilkan gagang seret desktop",
   "drag-to-resize-sidebar": "Seuret keu ubah leubar sidebar",
   "submit-on-enter": "Kirém editor ngon Enter",
+  "open-many-cards-at-once": "Open many cards at once",
+  "open-many-cards-at-once-description": "Keep every card you click open in its own window. When this is off, clicking a card closes the one that was open.",
   "submit-on-enter-description": "Watèe hidup, teugom Enter geupeusimpan judul kartu, deskripsi ngon editor inline laén; Shift+Enter geutamah baréh barô. Watèe mati, Ctrl/Cmd+Enter geupeusimpan dan Enter geutamah baréh barô.",
   "assignee": "Penerima tugas",
   "assignees": "Penerima tugas",

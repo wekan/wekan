@@ -1318,6 +1318,8 @@
   "show-desktop-drag-handles": "Voir les poignées de déplacement du bureau",
   "drag-to-resize-sidebar": "Bodjî po candjî l' grandeu del bår di costé",
   "submit-on-enter": "Schaper les aspougneus avou Enter",
+  "open-many-cards-at-once": "Open many cards at once",
+  "open-many-cards-at-once-description": "Keep every card you click open in its own window. When this is off, clicking a card closes the one that was open.",
   "submit-on-enter-description": "Cwand c' est en alaedje, tchôkî Enter schape li tite del cåte, li discrijhaedje eyet ls ôtes aspougneus e roye; Shift+Enter radjoute ene nouve roye. Cwand c' est distindou, Ctrl/Cmd+Enter schape et Enter radjoute ene nouve roye.",
   "assignee": "Personne assignée",
   "assignees": "Intervenants",

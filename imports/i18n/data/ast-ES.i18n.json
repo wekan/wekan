@@ -1318,6 +1318,8 @@
   "show-desktop-drag-handles": "Mostrar los controles de arrastre del escritorio",
   "drag-to-resize-sidebar": "Arrastra pa camudar l'anchor de la barra llateral",
   "submit-on-enter": "Unviar los editores con Enter",
+  "open-many-cards-at-once": "Open many cards at once",
+  "open-many-cards-at-once-description": "Keep every card you click open in its own window. When this is off, clicking a card closes the one that was open.",
   "submit-on-enter-description": "Cuando ta activao, calcar Enter guarda'l títulu de la tarxeta, la descripción y otros editores en llinia; Shift+Enter inxerta una llinia nueva. Cuando ta desactivao, Ctrl/Cmd+Enter guarda y Enter inxerta una llinia nueva.",
   "assignee": "Asignado",
   "assignees": "Asignaos",

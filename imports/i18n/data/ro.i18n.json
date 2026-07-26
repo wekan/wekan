@@ -1318,6 +1318,8 @@
   "show-desktop-drag-handles": "Mostra maniglie di trascinamento del desktop",
   "drag-to-resize-sidebar": "Trageți pentru a redimensiona bara laterală",
   "submit-on-enter": "Trimite editoarele cu Enter",
+  "open-many-cards-at-once": "Open many cards at once",
+  "open-many-cards-at-once-description": "Keep every card you click open in its own window. When this is off, clicking a card closes the one that was open.",
   "submit-on-enter-description": "Când este activat, apăsarea Enter salvează titlul cardului, descrierea și alte editoare inline; Shift+Enter inserează o linie nouă. Când este dezactivat, Ctrl/Cmd+Enter salvează, iar Enter inserează o linie nouă.",
   "assignee": "Assegnatario",
   "assignees": "Intervenants",

@@ -1318,6 +1318,8 @@
   "show-desktop-drag-handles": "Toan buroblêd slepehandgrepen",
   "drag-to-resize-sidebar": "Sleep om de sydbalke fan grutte te feroarjen",
   "submit-on-enter": "Bewurkers yntsjinje mei Enter",
+  "open-many-cards-at-once": "Open many cards at once",
+  "open-many-cards-at-once-description": "Keep every card you click open in its own window. When this is off, clicking a card closes the one that was open.",
   "submit-on-enter-description": "As dit oanstiet, bewarret it drukken op Enter de kaarttitel, beskriuwing en oare ynline bewurkers; Shift+Enter foeget in nije rigel ta. As it útstiet, bewarret Ctrl/Cmd+Enter en foeget Enter in nije rigel ta.",
   "assignee": "Oanwêzige",
   "assignees": "Oanwêzigen",

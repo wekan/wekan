@@ -1318,6 +1318,8 @@
   "show-desktop-drag-handles": "Bonisa iziphatho zotsalo kwidesktop",
   "drag-to-resize-sidebar": "Tsala ukulungisa ubukhulu bebha yasecaleni",
   "submit-on-enter": "Ngenisa abahleli nge-Enter",
+  "open-many-cards-at-once": "Open many cards at once",
+  "open-many-cards-at-once-description": "Keep every card you click open in its own window. When this is off, clicking a card closes the one that was open.",
   "submit-on-enter-description": "Xa ivuliwe, ukucofa u-Enter kugcina isihloko sekhadi, inkcazo kunye nabanye abahleli abangaphakathi; Shift+Enter ifaka umgca omtsha. Xa icimile, Ctrl/Cmd+Enter iyagcina kwaye u-Enter ufaka umgca omtsha.",
   "assignee": "Owabelweyo",
   "assignees": "Abathunyiweyo",

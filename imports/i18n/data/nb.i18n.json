@@ -1318,6 +1318,8 @@
   "show-desktop-drag-handles": "Vis ikon for flytting av kort",
   "drag-to-resize-sidebar": "Dra for å endre størrelse på sidepanelet",
   "submit-on-enter": "Send inn redigering med Enter",
+  "open-many-cards-at-once": "Open many cards at once",
+  "open-many-cards-at-once-description": "Keep every card you click open in its own window. When this is off, clicking a card closes the one that was open.",
   "submit-on-enter-description": "Når på lagrer Enter kortets tittel, beskrivelse og andre innebygde redigeringsfelt; Shift+Enter setter inn en ny linje. Når av lagrer Ctrl/Cmd+Enter, og Enter setter inn en ny linje.",
   "assignee": "Tildelt",
   "assignees": "Tildelte",

@@ -1318,6 +1318,8 @@
   "show-desktop-drag-handles": "ଡେସ୍କଟପ୍ ଡ୍ରାଗ୍ ହ୍ୟାଣ୍ଡଲ୍ସ ଦେଖାନ୍ତୁ |",
   "drag-to-resize-sidebar": "ପାର୍ଶ୍ୱପଟିର ଆକାର ବଦଳାଇବାକୁ ଟାଣନ୍ତୁ",
   "submit-on-enter": "Enter ସହ ସମ୍ପାଦକ ଦାଖଲ କରନ୍ତୁ",
+  "open-many-cards-at-once": "Open many cards at once",
+  "open-many-cards-at-once-description": "Keep every card you click open in its own window. When this is off, clicking a card closes the one that was open.",
   "submit-on-enter-description": "ଚାଲୁ ଥିଲେ, Enter ଦବାଇଲେ କାର୍ଡର ଶିରୋନାମା, ବିବରଣୀ ଏବଂ ଅନ୍ୟ ଇନଲାଇନ ସମ୍ପାଦକ ସଞ୍ଚୟ ହୁଏ; Shift+Enter ଏକ ନୂଆ ଧାଡ଼ି ଯୋଡ଼େ। ବନ୍ଦ ଥିଲେ, Ctrl/Cmd+Enter ସଞ୍ଚୟ କରେ ଏବଂ Enter ଏକ ନୂଆ ଧାଡ଼ି ଯୋଡ଼େ।",
   "assignee": "ନ୍ୟସ୍ତ",
   "assignees": "ନ୍ୟସ୍ତ",

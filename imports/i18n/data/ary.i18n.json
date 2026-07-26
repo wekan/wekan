@@ -1318,6 +1318,8 @@
   "show-desktop-drag-handles": "نمایش دستگیره‌های درگ‌کردن دسکتاپ",
   "drag-to-resize-sidebar": "جرّ باش تبدّل عرض الشريط الجانبي",
   "submit-on-enter": "صيفط المحررات بـ Enter",
+  "open-many-cards-at-once": "Open many cards at once",
+  "open-many-cards-at-once-description": "Keep every card you click open in its own window. When this is off, clicking a card closes the one that was open.",
   "submit-on-enter-description": "ملي مفعّل، Enter كيسجّل عنوان الكارطة والوصف والمحررات الأخرى؛ Shift+Enter كيزيد سطر جديد. ملي مطفّي، Ctrl/Cmd+Enter كيسجّل وEnter كيزيد سطر جديد.",
   "assignee": "محول‌شده",
   "assignees": "المكلَّفون",

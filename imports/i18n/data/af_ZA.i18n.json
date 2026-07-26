@@ -1318,6 +1318,8 @@
   "show-desktop-drag-handles": "Wys lessenaar sleephandvatsels",
   "drag-to-resize-sidebar": "Sleep om die sybalk se breedte te verander",
   "submit-on-enter": "Dien redigeerders in met Enter",
+  "open-many-cards-at-once": "Open many cards at once",
+  "open-many-cards-at-once-description": "Keep every card you click open in its own window. When this is off, clicking a card closes the one that was open.",
   "submit-on-enter-description": "Wanneer aan, stoor Enter die kaart se titel, beskrywing en ander inlynredigeerders; Shift+Enter voeg 'n nuwe reël in. Wanneer af, stoor Ctrl/Cmd+Enter en voeg Enter 'n nuwe reël in.",
   "assignee": "Gevolmagtigde",
   "assignees": "Toegewers",

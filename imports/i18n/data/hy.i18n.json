@@ -1318,6 +1318,8 @@
   "show-desktop-drag-handles": "Ցույց տալ աշխատասեղանի քաշման բռնակները",
   "drag-to-resize-sidebar": "Քաշեք՝ կողագոտու չափը փոխելու համար",
   "submit-on-enter": "Հաստատել խմբագրիչները Enter-ով",
+  "open-many-cards-at-once": "Open many cards at once",
+  "open-many-cards-at-once-description": "Keep every card you click open in its own window. When this is off, clicking a card closes the one that was open.",
   "submit-on-enter-description": "Միացված վիճակում Enter սեղմելը պահպանում է քարտի վերնագիրը, նկարագրությունը և այլ ներդրված խմբագրիչներ. Shift+Enter-ը ավելացնում է նոր տող։ Անջատված վիճակում Ctrl/Cmd+Enter-ը պահպանում է, իսկ Enter-ը ավելացնում է նոր տող։",
   "assignee": "Հանձնարարող",
   "assignees": "Հանձնարարվածներ",

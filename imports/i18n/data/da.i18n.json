@@ -1318,6 +1318,8 @@
   "show-desktop-drag-handles": "Vis trække-håndtag for skrivebord",
   "drag-to-resize-sidebar": "Træk for at ændre sidepanelets bredde",
   "submit-on-enter": "Send editorer med Enter",
+  "open-many-cards-at-once": "Open many cards at once",
+  "open-many-cards-at-once-description": "Keep every card you click open in its own window. When this is off, clicking a card closes the one that was open.",
   "submit-on-enter-description": "Når slået til gemmer et tryk på Enter kortets titel, beskrivelse og andre indbyggede editorer; Shift+Enter indsætter en ny linje. Når slået fra gemmer Ctrl/Cmd+Enter, og Enter indsætter en ny linje.",
   "assignee": "Tildelt til",
   "assignees": "Tilldelade",

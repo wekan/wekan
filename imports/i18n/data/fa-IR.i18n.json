@@ -1318,6 +1318,8 @@
   "show-desktop-drag-handles": "نمایش دستگیره‌های درگ‌کردن دسکتاپ",
   "drag-to-resize-sidebar": "برای تغییر اندازه نوار کناری بکشید",
   "submit-on-enter": "ثبت ویرایشگرها با Enter",
+  "open-many-cards-at-once": "Open many cards at once",
+  "open-many-cards-at-once-description": "Keep every card you click open in its own window. When this is off, clicking a card closes the one that was open.",
   "submit-on-enter-description": "وقتی روشن است، فشردن Enter عنوان کارت، توضیحات و دیگر ویرایشگرهای درون‌خطی را ذخیره می‌کند؛ Shift+Enter یک خط جدید ایجاد می‌کند. وقتی خاموش است، Ctrl/Cmd+Enter ذخیره می‌کند و Enter یک خط جدید ایجاد می‌کند.",
   "assignee": "محول‌شده",
   "assignees": "محول‌شدگان",

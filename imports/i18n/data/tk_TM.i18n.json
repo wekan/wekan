@@ -1318,6 +1318,8 @@
   "show-desktop-drag-handles": "Iş stolunyň süýrüji tutawaçlaryny görkeziň",
   "drag-to-resize-sidebar": "Gapdal paneliň ölçegini üýtgetmek üçin süýräň",
   "submit-on-enter": "Redaktorlary Enter bilen ugrat",
+  "open-many-cards-at-once": "Open many cards at once",
+  "open-many-cards-at-once-description": "Keep every card you click open in its own window. When this is off, clicking a card closes the one that was open.",
   "submit-on-enter-description": "Işjeňleşdirilende, Enter basmak kartanyň adyny, düşündirişini we beýleki içki redaktorlary saklaýar; Shift+Enter täze setir goşýar. Öçürilende, Ctrl/Cmd+Enter saklaýar we Enter täze setir goşýar.",
   "assignee": "Bellenen",
   "assignees": "Bellenenler",

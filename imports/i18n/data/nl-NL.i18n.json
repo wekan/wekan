@@ -1318,6 +1318,8 @@
   "show-desktop-drag-handles": "Toon sleep gereedschap op werkblad",
   "drag-to-resize-sidebar": "Sleep om de zijbalk te vergroten of verkleinen",
   "submit-on-enter": "Editors verzenden met Enter",
+  "open-many-cards-at-once": "Open many cards at once",
+  "open-many-cards-at-once-description": "Keep every card you click open in its own window. When this is off, clicking a card closes the one that was open.",
   "submit-on-enter-description": "Indien ingeschakeld slaat Enter de kaarttitel, beschrijving en andere inline-editors op; Shift+Enter voegt een nieuwe regel in. Indien uitgeschakeld slaat Ctrl/Cmd+Enter op en voegt Enter een nieuwe regel in.",
   "assignee": "Toegewezen aan",
   "assignees": "Toegewezen personen",

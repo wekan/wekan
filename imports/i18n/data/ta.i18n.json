@@ -1318,6 +1318,8 @@
   "show-desktop-drag-handles": "డెస్క్‌టాప్ డ్రాగ్ హ్యాండిల్‌లను చూపండి",
   "drag-to-resize-sidebar": "பக்கப்பட்டியை மறுஅளவிட இழுக்கவும்",
   "submit-on-enter": "Enter விசையால் திருத்திகளைச் சமர்ப்பி",
+  "open-many-cards-at-once": "Open many cards at once",
+  "open-many-cards-at-once-description": "Keep every card you click open in its own window. When this is off, clicking a card closes the one that was open.",
   "submit-on-enter-description": "இயக்கப்பட்டால், Enter அழுத்துவது அட்டையின் தலைப்பு, விளக்கம் மற்றும் பிற உள்ளமை திருத்திகளைச் சேமிக்கும்; Shift+Enter புதிய வரியைச் செருகும். முடக்கப்பட்டால், Ctrl/Cmd+Enter சேமிக்கும், Enter புதிய வரியைச் செருகும்.",
   "assignee": "అసైనీ",
   "assignees": "అప్పగించినవారు",

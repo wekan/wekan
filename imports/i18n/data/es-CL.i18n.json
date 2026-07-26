@@ -1318,6 +1318,8 @@
   "show-desktop-drag-handles": "Mostrar los controles de arrastre del escritorio",
   "drag-to-resize-sidebar": "Arrastra para redimensionar la barra lateral",
   "submit-on-enter": "Enviar editores con Enter",
+  "open-many-cards-at-once": "Open many cards at once",
+  "open-many-cards-at-once-description": "Keep every card you click open in its own window. When this is off, clicking a card closes the one that was open.",
   "submit-on-enter-description": "Cuando está activado, al presionar Enter se guarda el título de la tarjeta, la descripción y otros editores en línea; Shift+Enter inserta una nueva línea. Cuando está desactivado, Ctrl/Cmd+Enter guarda y Enter inserta una nueva línea.",
   "assignee": "Asignado",
   "assignees": "Asignados",

@@ -1318,6 +1318,8 @@
   "show-desktop-drag-handles": "Mostra les nanses d'arrossegament de l'escriptori",
   "drag-to-resize-sidebar": "Arrossega per canviar l'amplada de la barra lateral",
   "submit-on-enter": "Envia els editors amb Enter",
+  "open-many-cards-at-once": "Open many cards at once",
+  "open-many-cards-at-once-description": "Keep every card you click open in its own window. When this is off, clicking a card closes the one that was open.",
   "submit-on-enter-description": "Quan està activat, prémer Enter desa el títol de la targeta, la descripció i altres editors en línia; Shift+Enter insereix una línia nova. Quan està desactivat, Ctrl/Cmd+Enter desa i Enter insereix una línia nova.",
   "assignee": "Assignat",
   "assignees": "Assignats",

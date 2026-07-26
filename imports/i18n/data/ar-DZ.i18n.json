@@ -1318,6 +1318,8 @@
   "show-desktop-drag-handles": "نمایش دستگیره‌های درگ‌کردن دسکتاپ",
   "drag-to-resize-sidebar": "اسحب لتغيير عرض الشريط الجانبي",
   "submit-on-enter": "إرسال المحررات بالضغط على Enter",
+  "open-many-cards-at-once": "Open many cards at once",
+  "open-many-cards-at-once-description": "Keep every card you click open in its own window. When this is off, clicking a card closes the one that was open.",
   "submit-on-enter-description": "عند التفعيل، يؤدي الضغط على Enter إلى حفظ عنوان البطاقة ووصفها والمحررات المضمّنة الأخرى؛ ويُدرج Shift+Enter سطراً جديداً. عند التعطيل، يحفظ Ctrl/Cmd+Enter ويُدرج Enter سطراً جديداً.",
   "assignee": "محول‌شده",
   "assignees": "Intervenants",
