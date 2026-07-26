@@ -728,6 +728,24 @@ the container registries when a release image is published (#6526, merge commit
 and fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/eb56ea589">A narrow window gets the narrow-window layout, not only an explicit mobile mode</a>. Thanks to xet7.</summary>
+
+The phone/desktop toggle writes an explicit choice, and `Utils.isMiniScreen()`
+returns it as-is, so a phone whose user picked DESKTOP mode is not a mini screen
+and its body carries no `.mobile-mode` — while the viewport is still 375px wide.
+Three fixes written for one of those two therefore did nothing there. "Create
+board" opened 160px in with its right half off the screen, because the geometry
+laid it out as a floating box anchored to the button while the CSS made it the
+full width; the board bar's hamburger was pushed to a third row of its own; and
+the top bar was still wider than the screen, so the avatar was cut off. The popup
+is a sheet pinned to the corner at any viewport that narrow, the hamburger leaves
+the flow by width as well as by mode, and the drag-handle toggle, the mode toggle
+and the logo give back the ~60px the avatar needed.
+`tests/narrowWindowLayout.test.cjs` pins all three.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/08f4c80c7">The zoom number is inside its white pill again, and big enough to read</a>. Thanks to xet7.</summary>
 
 On a phone the pill was empty and "100" sat to the right of it in tiny type, half
