@@ -8,7 +8,7 @@
 // <details>/<summary>, and clicking it reveals the long text below.
 //
 // These are the rules CLAUDE.md states, checked against the file:
-//   * the file opens with Platforms and Version, then TODO Later, then the releases;
+//   * the file opens with Platforms and TODO Later, then the releases;
 //   * an entry's summary is a SHORT description, never a paragraph;
 //   * no commit hash is ever the visible text of a link;
 //   * no long URL is ever shown as visible text;
@@ -50,11 +50,21 @@ const ALL = blocks();
 
 console.log('changelogFormat:');
 
-test('the file opens with Platforms, Version and TODO Later', () => {
-  const headings = lines.filter(l => l.startsWith('# ')).slice(0, 4);
-  assert.deepStrictEqual(headings.slice(0, 3),
-    ['# Platforms', '# Version', '# TODO Later']);
-  assert.ok(/^# v\d/.test(headings[3]), 'and then the newest release');
+test('the file opens with Platforms and TODO Later, then the releases', () => {
+  const headings = lines.filter(l => l.startsWith('# '));
+  assert.deepStrictEqual(headings.slice(0, 2), ['# Platforms', '# TODO Later']);
+  assert.ok(headings.slice(2).every(h => /^# v\d/.test(h)),
+    'nothing else is a heading - a stray one would break the version list');
+  // "which WeKan version uses what" is a block inside Platforms, not a heading.
+  const platforms = lines.slice(0, lines.indexOf('# TODO Later'));
+  assert.ok(platforms.includes('<summary>Version</summary>'));
+  assert.ok(platforms.some(l => /^- \[Install\]/.test(l)), 'and the platform links');
+});
+
+test('TODO Later opens by saying what the list is', () => {
+  const start = lines.indexOf('# TODO Later');
+  assert.strictEqual(lines[start + 2], '<details>');
+  assert.strictEqual(lines[start + 3], '<summary>Carried to a future release.</summary>');
 });
 
 test('a change is a short description, with the long one behind it', () => {
@@ -165,7 +175,9 @@ test('the newest release follows the rules to the letter', () => {
 
 test('CLAUDE.md states these rules, so they are not folklore', () => {
   const claude = read('CLAUDE.md');
-  assert.ok(/An entry shows a SHORT description, and hides the long one behind it/.test(claude));
+  assert.ok(/Every entry is a `<details>` block/.test(claude));
+  assert.ok(/The file's shape, top to bottom/.test(claude));
+  assert.ok(/The summary is one line at a glance/.test(claude));
   assert.ok(/The hash is never the link text/.test(claude));
   assert.ok(/Never show a long URL as visible text/.test(claude));
   assert.ok(/Word-wrap both CHANGELOGs at 80 chars/.test(claude));

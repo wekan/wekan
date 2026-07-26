@@ -139,16 +139,28 @@ pushed to Transifex as if it were human.
 - During development, add entries under a new `# Upcoming WeKan ® release` section above
   the newest release (FerretDB uses `## Upcoming FerretDB release`). Do **not** hand-edit
   `package.json` or any other version reference — the release workflow bumps those.
-- The file opens with two sections: `# Platforms` (Install / Upgrade / Docs / Mac
-  changelog links) and `# Version` (which WeKan version uses what), then `# TODO Later`,
-  then the releases newest-first.
-- WeKan Upcoming structure — CRITICAL SECURITY ISSUES first, then new features, then
-  updates (`Thanks to dependabot.`), then bug fixes, and the section ends with
-  `Thanks to above GitHub users for their contributions and translators for their
-  translations.`
-- **An entry shows a SHORT description, and hides the long one behind it.** The commit
-  hash is never visible: the short description IS the link, and clicking the summary
-  reveals the long text. Write it as `<details>`:
+- **The file's shape, top to bottom** — keep it exactly as it is now:
+  1. `# Platforms` — the line `Newest WeKan at these platforms:` and the Install /
+     Upgrade / Docs / Mac ChangeLog bullets, then a `<details>` whose `<summary>` is
+     `Version` holding "which WeKan version uses what". There is no `# Version`
+     heading of its own.
+  2. `# TODO Later` — a `<details>` whose `<summary>` is `Carried to a future
+     release.` explaining the list, then one `<details>` per category (below).
+  3. The releases, newest first, each `# v<MAJOR>.<MINOR> YYYY-MM-DD WeKan ® release`.
+
+  Nothing else is an `#` heading. A `##`/`###` inside a release would break the
+  version list, and a wrapped line that BEGINS with `#` (e.g. an issue number such
+  as `#6514`) becomes a heading too — escape it `\#6514` or keep it off the line
+  start.
+- **A release's order of subsections** — CRITICAL SECURITY ISSUES first, then new
+  features, then the Admin Panel / UI reorganisation if there is one, then dependency
+  updates (`Thanks to dependabot.`), then bug fixes, then developer-facing changes,
+  documentation and translations. The section ends with the line `Thanks to above
+  GitHub users for their contributions and translators for their translations.`
+- **Every entry is a `<details>` block, and they are what a release is made of.**
+  The `<summary>` is the SHORT description of what was done and IS the link to the
+  commit — the hash lives in the `href` and is never on the page — followed by the
+  `Thanks to …` sentence. Clicking it reveals the long description:
 
   ```
   <details>
@@ -156,18 +168,28 @@ pushed to Transifex as if it were human.
   what was done</a>. Thanks to (issue creator's GitHub nickname) and xet7.</summary>
 
   The long description: what was wrong, why, what it does now, what the test pins.
-  Word-wrapped at 80 characters.
+  Word-wrapped at 80 characters, ordinary markdown - links, `code`, emphasis.
 
   </details>
   ```
 
-  The summary is one line at a glance — aim for ≤ 110 characters — in PLAIN text (no
-  markdown inside `<summary>`; a nested link there would not nest). The body below is
-  normal markdown, so it may use links, `code` and emphasis freely.
+  Exactly as above: `<details>` and `</details>` each on their own line, the whole
+  `<summary>…</summary>` on ONE line, a blank line under it, the body, a blank line,
+  the close — and a blank line between two blocks.
+- **The summary is one line at a glance** — aim for ≤ 110 characters — and PLAIN text:
+  no `[text](url)`, no `**bold**`, no backticks inside `<summary>`, because a link
+  cannot nest inside the `<a>` and the rest renders literally. It ends with a full
+  stop, then `Thanks to …`. Every summary in a release links its own commit.
 - **A change with nothing more to say stays a plain bullet** —
   `- [Short description](https://github.com/wekan/wekan/commit/<hash>). Thanks to xet7.`
-  A `<details>` whose body only repeats its summary is noise; use one when there IS a
-  longer story to reveal (which is most fixes, and every dependency batch note).
+  — and a dependency batch keeps its `- **package 1.2.3 → 1.2.4** — one line on what
+  it is` bullets, closing with `Thanks to dependabot.` A `<details>` whose body only
+  repeats its summary is noise; use one when there IS a longer story to reveal, which
+  is most fixes.
+- **`# TODO Later` blocks are the same shape with two differences:** the `<summary>` is
+  the short category text (no `<a>`, because nothing was committed), and there is **no
+  `Thanks to`** — nothing is done yet, so there is nobody to thank. The body lists the
+  issues as `[#NNNN](https://github.com/wekan/wekan/issues/NNNN) (one-line reason)`.
 - **The hash is never the link text.** `[f1c89548e](…)` shows a hash to a reader who
   cannot do anything with it; the link text says what changed. Same for `[merge
   commit](…)` and for a bare URL — see the next rule.

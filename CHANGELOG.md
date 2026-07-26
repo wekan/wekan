@@ -26732,7 +26732,7 @@ and fixes the following bugs:
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
-# 4.93 2021-02-06 Wekan release
+# v4.93 2021-02-06 Wekan release
 
 This release adds the following new features:
 
