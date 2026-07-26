@@ -271,6 +271,26 @@ browser build to verify).
 This release fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3c5c0a16a">A subscription with no board id took the server down; it is answered, not fatal</a>. Thanks to xet7.</summary>
+
+`publishComposite('board')` starts with `check(boardId, String)`. A
+subscription arrives with a null board id, `check()` throws, and a throw inside
+an ASYNC publisher escapes as an unhandled promise rejection — which this app
+treats as fatal: `SyncedCron: Fatal error encountered (unhandledRejection)` and
+`Exited with code: 1`. One bad subscription stopped the server for everyone,
+and subscription arguments come from the client, so any client could send it;
+the app was sending it itself, from a popup that read
+`Session.get('currentBoard')` on a page that has no current board. The
+publisher TESTS its arguments now instead of checking them — a subscription
+that names no board publishes nothing and readies — and the same guard is on
+`boardCardsWindow` and `boardCardsLoadingMode`. The client no longer sends a
+subscription for a board id it does not have.
+`tests/publicationArgumentGuard.test.cjs` replays the guard and fails on an
+unguarded board subscription.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e2c6f04a2">The board bar's icons fit two rows, and a desktop-mode board is a desktop board</a>. Thanks to xet7.</summary>
 
 The board bar's icons still took four rows - title, seven, three, hamburger -
