@@ -1137,18 +1137,23 @@ body.grey-icons-enabled .checkmark-no-grey {
     top: -100px;
     inset-inline-start: -100px;
   }
+  /* The SAME handle as `.board-list.mobile-view .board-handle` below. This rule
+     applies when the user is in desktop mode, that one when they are in mobile
+     mode, and they were 40px and 26px: the same page, the same phone, two sizes,
+     and the bigger one covered a good part of a ~97px tile. One size, the smaller
+     one - a 26px circle is already well over the 24px a finger needs to hit. */
   .board-list .board-handle {
     position: absolute;
-    padding: 7px;
+    padding: 5px;
     top: 50%;
     transform: translateY(-50%);
-    inset-inline-end: 10px;
-    font-size: 24px;
+    inset-inline-end: 6px;
+    font-size: 16px;
     color: #fff;
     background: rgba(0,0,0,0.3);
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 26px;
+    height: 26px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1172,18 +1177,19 @@ body.grey-icons-enabled .checkmark-no-grey {
     float: none !important;
     display: block !important;
   }
+  /* Same size as everywhere else on a phone - see the 800px block above. */
   .board-list .board-handle {
     position: absolute;
-    padding: 7px;
+    padding: 5px;
     top: 50%;
     transform: translateY(-50%);
-    inset-inline-end: 10px;
-    font-size: 24px;
+    inset-inline-end: 6px;
+    font-size: 16px;
     color: #fff;
     background: rgba(0,0,0,0.3);
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 26px;
+    height: 26px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1664,24 +1670,55 @@ body.grey-icons-enabled .checkmark-no-grey {
     margin-inline-start: 0;
   }
 
-  /* The workspace row packs a drag handle, folder icon, the NAME, a "bars" menu
-     button and a count chip. On the narrow phone menu the name must give way to
-     the fixed items around it: it takes the remaining space and truncates with an
-     ellipsis, while the name's own box is CLIPPED so it can never spill over the
-     "bars" menu button on its right (the overlap that made the hamburger look like
-     it sat on top of the name). The menu button and count never shrink. */
+  /* The workspace row packs a drag handle, a folder icon, the NAME, a "bars" menu
+     button and a count chip. Told only to "give way to the fixed items", the name
+     gave way completely: on a 375px phone the menu column is ~145px wide and those
+     fixed items, at their desktop paddings, came to ~130px - so the name was laid
+     out in the 15px left over and no workspace had a readable name, in either
+     mode.
+
+     The fixed items are trimmed to what they need on a phone (~88px together) and
+     the name is given a floor it may not shrink below, so there is always a name
+     to read, truncated with an ellipsis when it is long. It is still CLIPPED to
+     its own box, so it can never spill over the menu button on its right. */
   .workspace-node .js-select-space {
     flex: 1 1 auto;
     min-width: 0;
     overflow: hidden; /* clip the name to this box; it cannot cover the menu */
+    gap: 4px;
+    padding: 4px 2px;
   }
   .workspace-node .workspace-name {
     flex: 1 1 auto;
-    min-width: 0; /* shrink + ellipsis; no fixed floor that would force overlap */
+    /* The floor: about six characters plus the ellipsis. Everything around it can
+       give way, so this never pushes the row wider than the column. */
+    min-width: 3.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .workspace-node .js-open-workspace-menu,
   .workspace-node .workspace-count {
     flex: 0 0 auto;
+  }
+  .workspace-node-content {
+    gap: 2px;
+    padding: 4px 0;
+  }
+  .workspace-node .workspace-drag-handle {
+    padding: 0 2px;
+    font-size: 12px;
+  }
+  .workspace-node .workspace-icon {
+    font-size: 14px;
+  }
+  .workspace-node .js-open-workspace-menu {
+    padding: 2px 4px;
+  }
+  .workspace-node .workspace-count {
+    min-width: 16px;
+    padding: 2px 4px;
+    font-size: 10px;
   }
 }
 
