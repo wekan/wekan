@@ -603,6 +603,17 @@ and changes the Admin Panel as follows:
   under it rather than as several pages
   stacked](https://github.com/wekan/wekan/commit/671262ddb).
   Thanks to xet7.
+- ["Add board members only from the same Organization or Team" moves out of Admin
+  Panel / People / Login — which is where neither of the two things it restricts
+  lives — and becomes two checkboxes, each in the pane it is about: *"Add board
+  members only from the same Organization"* in Admin Panel / People / Organizations
+  and *"Add board members only from the same Team"* in / Teams. A user may be added
+  to a board when they share an **enabled** kind with whoever adds them; with both
+  ticked that is "an Organization or a Team", exactly the rule the single setting
+  had. An install with the old setting is migrated to both on first start, so no
+  instance's restriction changes by upgrading — and ticking only one is the narrower
+  choice that was not expressible before](https://github.com/wekan/wekan/commit/f0ea1601b).
+  Thanks to xet7.
 - [Admin Panel / People / Login is one "Login: Allow" group of checkboxes, each
   ticked when the thing is allowed: Forgot password, Self-Registration, Username
   Change, Self delete user account, Display Authentication Method. The pane used to
