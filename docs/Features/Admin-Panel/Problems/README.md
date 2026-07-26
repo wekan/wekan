@@ -27,6 +27,27 @@ The **Summary** tab shows a **Status** overview at the top:
 
 Below that is the acknowledge list of the Security / Speed / Tests problem streams.
 
+## The menu, in two named groups
+
+**Settings** — the two panes that came from the removed Features tab, which are
+settings rather than reports but are what an admin reaches for when something is
+unsafe or noisy:
+
+- **Security** — how rich text is rendered (links as plain text, all code as plain
+  text) and the import / export privacy switches (disable all import / export,
+  avatars, anonymize users). All enforced server-side.
+- **Notifications** — disable all activities, all notifications, or watching, for
+  deployments that must limit activity tracking
+  ([#5820](https://github.com/wekan/wekan/issues/5820)).
+
+**Reports** — Security Report, Impersonation Report, Performance, Speed, Tests, CPU
+usage, Broken Cards, Files Report, Rules Report, Boards Report, Cards Report and
+Recovery. Every one is the same shared [table page](../../../Design/Page/Table.md):
+a search box, the total, `page X / N`, prev/next, and one page of rows fetched from
+the server at a time. **Performance** sits with the Speed / Tests / CPU usage streams
+it configures: card loading is automatic per board size, with
+`CARDS_LOADING=all|lazy|auto` and `CARDS_LOADING_LAZY_THRESHOLD` for operators.
+
 ## Detailed pages in this directory
 
 | Page | What it covers |

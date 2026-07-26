@@ -16,7 +16,7 @@ views (Finnish: **Tilastot**).
 - **Card loading** — the card-loading mode in effect for *this* board: `Lazy (only
   visible cards)` or `All cards`, and, when the instance uses the adaptive default,
   that it was chosen automatically (`(Automatic …)`). See
-  [Admin Panel](../../Admin-Panel/Admin-Panel.md) — big boards load lazily, small
+  [Problems / Performance](../../Admin-Panel/Problems/README.md) — big boards load lazily, small
   boards eagerly.
 - **Swimlanes / Lists / Cards / Archived cards / Labels / Members / Custom fields** —
   the board's current counts.
@@ -44,7 +44,7 @@ it stays cheap even on a large board). Any member who can see the board can open
 
 ## Related
 
-- [Admin Panel → Card loading (automatic/adaptive)](../../Admin-Panel/Admin-Panel.md)
+- [Admin Panel / Problems / Performance → card loading (automatic/adaptive)](../../Admin-Panel/Problems/README.md)
 - [Members and permissions](../../Members/Members.md)
 - [Swimlanes](../Swimlanes.md) · [Lists](../../Lists/Lists.md) ·
   [Cards](../../Cards/Cards.md) · [Custom fields](../../Cards/CustomFields/CustomFields.md)

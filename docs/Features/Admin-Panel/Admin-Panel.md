@@ -1,168 +1,93 @@
-# Authentication, Admin Panel and SMTP Settings
+# Admin Panel
 
-WeKan has an **Admin Panel** for managing the whole instance, reached from your
-member menu (top right corner) when you are an admin.
+Everything an admin can configure or inspect for the whole instance. Open it from
+your member menu (top right) when you are an admin; every page checks
+`currentUser.isAdmin`.
 
-## Admin Panel
+**The directory you are in mirrors the menu.** A menu path is a docs path:
+Admin Panel / Settings / Visibility is
+[`Settings/Visibility.md`](Settings/Visibility.md), Admin Panel / People / Teams is
+[`People/Teams.md`](People/Teams.md), and so on. The tab bar has four sections, and
+each has its own left menu — the shared design behind both is
+[Left Menu](../../Design/Page/Left-Menu.md).
 
-On the Source and Docker platforms the [Admin Panel](../../../CHANGELOG.md#v0111-rc2-2017-03-05-wekan-prerelease)
-lets you:
+## Settings
 
-- Allow self-registration, or switch to **invite-only** and invite users to boards.
-- Manage users ("People").
-- Configure **SMTP** (email) settings.
-- Configure layout, accessibility, announcements, and other instance settings.
+Opens on **Version**, so the first thing an admin sees is what this instance is
+running. [Section index](Settings/README.md).
 
-### Registration / invite-only
+| Menu path | Page |
+| --- | --- |
+| Admin Panel / Settings / Version | [Version.md](Settings/Version.md) |
+| Admin Panel / Settings / Visibility | [Visibility.md](Settings/Visibility.md) |
+| Admin Panel / Settings / Announcement | [Announcement.md](Settings/Announcement.md) |
+| Admin Panel / Settings / Accessibility | [Accessibility.md](Settings/Accessibility.md) |
+| Admin Panel / Settings / Translation | [Translation.md](Settings/Translation.md) |
+| Admin Panel / Settings / PWA | [PWA.md](Settings/PWA.md) |
+| Admin Panel / Settings / Global Webhooks | [Global-Webhooks.md](Settings/Global-Webhooks.md) |
 
-![Wekan Admin Panel registration screenshot](../screenshot-admin-panel-registration.png)
+## People
 
-### SMTP email settings
+Who may sign in, who they belong to, and what they may do.
+[Section index](People/README.md).
 
-![Wekan Admin Panel email screenshot](../screenshot-admin-panel-email.png)
+| Menu path | Page |
+| --- | --- |
+| Admin Panel / People / Login | [Login.md](People/Login.md) |
+| Admin Panel / People / E-mail | [E-mail.md](People/E-mail.md) |
+| Admin Panel / People / Domains | [Domains.md](People/Domains.md) |
+| Admin Panel / People / Organizations | [Organizations.md](People/Organizations.md) |
+| Admin Panel / People / Teams | [Teams.md](People/Teams.md) |
+| Admin Panel / People / People | [People.md](People/People.md) |
+| Admin Panel / People / Locked Users | [Locked-Users.md](People/Locked-Users.md) |
+| Admin Panel / People / Roles | [Roles.md](People/Roles.md) |
+| Admin Panel / People / Shared templates | [Shared-Templates.md](People/Shared-Templates.md) |
 
-### People: Domains tab
+## Attachments
 
-**Admin Panel → People** has a **Domains** tab that lists the email domains in use
-across the instance together with the number of users on each domain.
-
-### People: Organizations / Teams toggle columns
-
-The **Organizations** and **Teams** tabs under **Admin Panel → People** have
-per-organization / per-team toggle columns:
-
-- **Shared Templates** — whether template boards shared with this organization/team
-  are available to its members.
-- **Propagate Members To Boards** — whether members of this organization/team are
-  automatically added to the relevant boards. Enabling it adds the group's member
-  users to the regular boards that list the group (add-only; template boards are
-  skipped). It runs during the LDAP background sync and can also be triggered by an
-  admin.
-- **Sync Members From Auth Provider** — whether the membership is kept in sync from
-  the authentication provider (for example LDAP groups, see
-  `LDAP_SYNC_ORGANIZATIONS` / `LDAP_SYNC_TEAMS`).
-
-### Restrict board members to the same Organization or Team
-
-Two checkboxes, each in the pane it is about — **Admin Panel / People /
-Organizations**: *"Add board members only from the same Organization"*
-(`boardMembersFromSameOrgOnly`), and **Admin Panel / People / Teams**: *"Add board
-members only from the same Team"* (`boardMembersFromSameTeamOnly`). Both default off.
-
-When either is on, a user can only be added to a board if they share an **enabled**
-kind with the inviter or with an active board member: an Organization when the first
-is on, a Team when the second is. With **both** on, sharing either one is enough —
-which is exactly what the single `boardMembersFromSameOrgOrTeamOnly` setting it
-replaces did, and what an existing install is migrated to on first start, so no
-instance's restriction changes by upgrading.
-
-Site admins bypass the restriction. This is useful on multi-tenant instances and is
-enforced server-side (both the invite action and the user-search typeahead respect
-it).
-
-### Per-user announcement dismissal
-
-The global **Announcement** banner can now be dismissed permanently per user — closing
-it stores the current announcement version on that user, so it does not reappear on
-reload or board switch. When an admin edits the announcement text, its version changes
-and the banner reappears for everyone.
-
-### Restrict comment editing (per board)
-
-A board setting **"Restrict comment editing"** (`restrictCommentEditing`, default off)
-prevents board admins from editing or deleting other users' comments — only a comment's
-author may edit or delete it. Enforced server-side. See
-[Comment replies and editing restriction](../Cards/Comment-Replies-And-Editing-Restriction.md).
-
-## Features tab
-
-**Admin Panel → Features** groups optional, instance-wide capabilities into
-categories in a side menu. Every toggle is a global setting, saved immediately when
-clicked, and defaults to **off** (current behaviour) unless noted.
-
-### Performance
-
-- **Card loading** — automatic, no toggle. WeKan decides **per board by size**: a
-  board over the threshold (default 500 cards, `CARDS_LOADING_LAZY_THRESHOLD`) loads
-  only the currently visible cards (infinite-scroll windows) plus a live count, so
-  very large boards stay fast; smaller boards load every card (simple, fully
-  featured). Operators can still force a mode with `CARDS_LOADING=all|lazy|auto`.
-
-### Security
-
-Rich-text rendering hardening:
-
-- **Render links as plain text** (`renderLinksAsPlainText`) — all links (markdown
-  `[label](url)` and raw HTML `<a href>`) render as plain, non-clickable text in
-  every rich-text field (board and card titles, descriptions, comments, checklists,
-  …), so a link can never be clicked or hide a misleading target.
-- **Always show all code as plain text** (`alwaysShowCodeAsText`) — rich text is
-  never rendered as markdown/HTML; the whole source is shown escaped, revealing HTML
-  comments (`<!-- -->`), the target of markdown links, JavaScript and any other code.
-  All code stays visible, not clickable, not running.
-
-Import / export privacy (all enforced server-side, so they cannot be bypassed from
-the client):
-
-- **Disable all import** (`disableAllImport`) / **Disable all export**
-  (`disableAllExport`) — master switches that turn off every import / export feature
-  (WeKan JSON, Trello, CSV/Excel, Jira, Kanboard, NextCloud Deck, OpenProject,
-  GitHub/GitLab/Gitea/Forgejo, board clone, single-attachment export). The matching
-  import / export menu options are also hidden in the UI.
-- **Disable import avatars** (`disableImportAvatars`) — avatars are never imported,
-  from WeKan JSON import, Trello import, or external identity-provider sync on login
-  (LDAP, OIDC/OAuth2). Gated at the single `localizeAvatarFromBuffer` choke point.
-- **Disable export avatars** (`disableExportAvatars`) — avatars are never included
-  when exporting (WeKan JSON and CSV export).
-- **Anonymize import users** (`anonymizeImportUsers`) / **Anonymize export users**
-  (`anonymizeExportUsers`) — replace every user's username, full name and initials
-  with counter placeholders (`user1`, `user2`, …), drop their avatar, and rewrite
-  `@username` mentions plus the requested-by / assigned-by fields inside card and
-  comment content. The imported board / exported file then carries no real user
-  identity. The placeholder word "user" follows the language of the person
-  importing / exporting (e.g. `käyttäjä1` in Finnish). Both export paths — the
-  in-memory `build()` and the streaming `buildStream()` — are covered.
-
-### Notifications
-
-Privacy controls for deployments that must limit activity tracking, notifications
-or watching (e.g. to comply with local law or an organization's policy)
-([#5820](https://github.com/wekan/wekan/issues/5820)), enforced server-side:
-
-- **Disable all activities** (`disableActivities`) — activity-feed entries are
-  neither recorded nor shown anywhere (board sidebar and card activity tab). No
-  history of who did what is kept.
-- **Disable all notifications** (`disableNotifications`) — WeKan never sends watch
-  notifications for any activity. Activities can still be recorded (unless also
-  disabled); only the notifications are suppressed.
-- **Disable watch** (`disableWatch`) — the watch feature is turned off: users cannot
-  subscribe to boards, lists or cards, any watch-level change is rejected, and the
-  watch button is hidden.
+Where files are stored, how big they may be, moving them between storages, and
+backups. [Section index](Attachments/README.md) — it has a heading per menu entry,
+in menu order, starting with **Backup**, which is also the pane that opens.
 
 ## Problems
 
-**Admin Panel → Problems** collects instance health reports. Each is a paginated,
-searchable, read-only event stream that records only what matters (e.g. the start and
-end of a problem period), so it never floods:
+Instance health: what is broken, what is running, and the paginated report tables.
+[Section index](Problems/README.md).
 
-- [CPU usage](Problems/CPU-usage.md) — sustained high system-wide CPU periods, what
-  WeKan/FerretDB were doing, the automatic mitigation taken and whether it helped.
-  **Implemented.**
-- [RAM usage](Problems/RAM-usage.md) — sustained high RAM + swap usage periods (start
-  and end), with how much RAM/swap was used. **Design.**
-- [Disk usage](Problems/Disk-usage.md) — sustained high disk-usage periods per watched
-  filesystem (start and end), with used/free space. **Design.**
+The left menu is two named groups. **Settings** — Security and Notifications, the
+two panes that came from the removed Features tab. **Reports** — Security Report,
+Impersonation Report, Performance, Speed, Tests, CPU usage, Broken Cards, Files,
+Rules, Boards, Cards and Recovery. Every report is one shared
+[table page](../../Design/Page/Table.md): a search box, a total, `page X / N` and
+prev/next.
 
-## Sandstorm platform
+## Sandstorm
 
-On Sandstorm, authentication (LDAP, passwordless email, SAML, GitHub and Google
-Auth) and SMTP are handled by Sandstorm. You add and remove users there, and WeKan,
-Rocket.Chat and other apps can be installed with one click.
+On Sandstorm, authentication (LDAP, passwordless e-mail, SAML, GitHub and Google
+Auth) and SMTP are handled by Sandstorm itself: you add and remove users there. The
+Attachments section gains a **Sandstorm** pane for the MongoDB → FerretDB migration
+status and raw-MongoDB disk usage.
+
+## Two panes that are gone
+
+- **Features** — removed. Performance, Security and Notifications are panes of
+  Admin Panel / Problems now.
+- **Accounts** — removed. Its three settings live with what they are about: Allow
+  e-mail change in [People / E-mail](People/E-mail.md), Username change and Self
+  delete user account in [People / Login](People/Login.md).
+
+Renames to know when following an older link: **Layout** is
+[PWA](Settings/PWA.md) — its branding and All Boards settings moved to
+[Visibility](Settings/Visibility.md); **Boards visibility** is
+[Visibility](Settings/Visibility.md); **Registration** is
+[People / Login](People/Login.md); **Info** is
+[Settings / Version](Settings/Version.md).
 
 ## Related
 
 - [Login / Authentication methods](../../README.md#LoginAuth) — LDAP, OAuth2,
   SAML, Keycloak, Google, Azure, and more.
 - [Members and Permissions](../Members/Members.md)
-- [Accessibility settings](../Accessibility/Accessibility.md)
-- [Email troubleshooting](../../Email/Troubleshooting-Mail.md)
+- [E-mail troubleshooting](../../Email/Troubleshooting-Mail.md)
+- [Comment replies and editing restriction](../Cards/Comment-Replies-And-Editing-Restriction.md)
+  — a board setting rather than an Admin Panel one, but often looked for here.

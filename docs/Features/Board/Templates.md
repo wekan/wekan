@@ -44,7 +44,8 @@ Organization, Team or Domain** to share it with that group (drag-to-share). The
 Organizations and Teams offered as drop targets are only those whose per-org /
 per-team **Shared Templates** flag is enabled in
 **Admin Panel → People → Organizations / Teams** (see
-[Admin Panel](../Admin-Panel/Admin-Panel.md)); organizations and teams without that
+[Organizations](../Admin-Panel/People/Organizations.md) /
+[Teams](../Admin-Panel/People/Teams.md)); organizations and teams without that
 flag are not offered as drop targets.
 
 ***

@@ -57,8 +57,10 @@ directly. This is controlled by the environment variable:
 ## Restrict board members to the same Organization or Team
 
 On multi-tenant instances you can require that a board's members share an Organization
-or a Team. There is one admin checkbox per kind - `boardMembersFromSameOrgOnly` in
-Admin Panel / People / Organizations and `boardMembersFromSameTeamOnly` in / Teams -
+or a Team. There is one admin checkbox per kind -
+[`boardMembersFromSameOrgOnly`](../Admin-Panel/People/Organizations.md) in Admin Panel /
+People / Organizations and
+[`boardMembersFromSameTeamOnly`](../Admin-Panel/People/Teams.md) in / Teams -
 and when either is on, a user can only be added to a board if they share an enabled
 kind with the inviter or with an active board member (site admins bypass this). See
 [Admin Panel](../Admin-Panel/Admin-Panel.md).

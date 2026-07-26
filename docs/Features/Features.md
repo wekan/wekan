@@ -50,8 +50,9 @@ is documented yet — contributions are welcome.
 
 ## Administration
 
-- [Authentication, Admin Panel and SMTP Settings](Admin-Panel/Admin-Panel.md)
-- [Allow private boards only: Disable Public Boards](Admin-Panel/Allow-private-boards-only.md)
+- [Admin Panel](Admin-Panel/Admin-Panel.md) — every pane, one page per menu entry
+- [Allow private boards only: Disable Public Boards](Admin-Panel/Settings/Visibility.md)
+- [SMTP e-mail settings](Admin-Panel/People/E-mail.md)
 - [Login / Authentication methods](../README.md#LoginAuth) — LDAP, OAuth2, SAML,
   Keycloak, Google, Azure, and more.
 - [Metrics](Reports/Metrics.md), [Logs](Troubleshooting/Logs.md), [Stats](Reports/Stats/Stats.md)

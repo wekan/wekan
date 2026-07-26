@@ -46,7 +46,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 
 # <a name="Security"></a>Security
 
-* [Allow private boards only: Disable Public Boards](Features/Admin-Panel/Allow-private-boards-only.md)
+* [Allow private boards only: Disable Public Boards](Features/Admin-Panel/Settings/Visibility.md)
 * [Security Disclosure and details of Security in Wekan](../SECURITY.md)
 * [Password Hashing](Login/Password-Hashing.md)
 
@@ -160,7 +160,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Rules (Automation)](Features/Automation/Rules/Rules.md)
 * [Card Dependencies — "Red Strings" / PI Program Board](Features/Editor/RedStrings/RedStrings.md)
 * [IFTTT / Rules overview](Features/Automation/IFTTT/IFTTT.md)
-* [Authentication, Admin Panel and SMTP Settings](Features/Admin-Panel/Admin-Panel.md)
+* [Admin Panel](Features/Admin-Panel/Admin-Panel.md) — every pane, one page per menu entry
 * [Multiline](Features/Editor/Multiline.md)
 * [Linked Cards](Features/Cards/Linked-Cards.md)
 * [Drag Drop](DragDrop/Drag-Drop.md) on Mobile and Desktop
@@ -172,7 +172,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Default Language for All Users](https://github.com/wekan/wekan/issues/3927)
 * [Planning Poker](Features/Cards/Planning-Poker.md)
 * [Scaling](Webserver/Scaling.md)
-* [Custom Logo](Features/Admin-Panel/Custom-Logo.md)
+* [Custom Logo](Features/Admin-Panel/Settings/Visibility.md)
 * [Subtasks](Features/Cards/Subtasks.md)
 * [Templates](Features/Board/Templates.md)
 * [Shared Templates (Admin view)](Features/Board/Templates.md#shared-templates-admin-view)
