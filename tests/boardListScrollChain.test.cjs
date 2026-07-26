@@ -64,8 +64,12 @@ test('the page itself is exactly the visible viewport', () => {
 });
 
 test('every step from the wrapper to the list has a definite height', () => {
-  const wrapper = ruleFor('.wrapper');
-  assert.ok(wrapper, '.wrapper must be sized here');
+  const wrapper = ruleFor('#content .wrapper');
+  assert.ok(wrapper, 'the page wrapper must be sized here');
+  // NOT a bare `.wrapper`: #header-main-bar carries that class on every page that
+  // is not a board, so a bare rule turns the header bar into a flex column and
+  // centres "My Boards" in it.
+  assert.ok(!ruleFor('.wrapper'), 'the rule must not also land on the header bar');
   assert.ok(has(wrapper, 'height: 100%;'),
     'the wrapper is the space #content has left - NOT the whole viewport: it '
     + 'starts below the header bars, so 100dvh put its bottom off the screen');
@@ -73,7 +77,7 @@ test('every step from the wrapper to the list has a definite height', () => {
   assert.ok(has(wrapper, 'display: flex;') && has(wrapper, 'flex-direction: column;'));
   assert.ok(has(wrapper, 'min-height: 0;'));
 
-  const layout = ruleFor('.wrapper > .boards-layout');
+  const layout = ruleFor('#content .wrapper > .boards-layout');
   assert.ok(layout && has(layout, 'flex: 1 1 auto;') && has(layout, 'min-height: 0;'),
     'the layout takes the rest of the wrapper and may shrink below its content');
 

@@ -1752,6 +1752,35 @@ body.mobile-mode #header-quick-access .allBoards {
     flex-shrink: 0 !important;
   }
 
+  /* The avatar is lifted 5px by `top: -5px` on its wrapper (a leftover from the
+     desktop bar, where the username sits beside it), so on a phone it floated
+     above the bell it is supposed to line up with. It sits on the row's own
+     centre line now.
+
+     And it is moved LEFT: the wrapper's 10px of padding is 20px of a 375px bar
+     spent on nothing, which is what pushed the avatar against - and past - the
+     right edge. The 12px end margin on the bar is the gap to the edge; the
+     padding here only ate into it. */
+  #header-quick-access #header-user-bar .header-user-bar-avatar,
+  .iphone-device #header-quick-access #header-user-bar .header-user-bar-avatar {
+    top: 0 !important;
+    margin-inline-end: 0 !important;
+  }
+
+  #header-quick-access #header-user-bar,
+  .iphone-device #header-quick-access #header-user-bar,
+  .iphone-device body:not(.board-view) #header-quick-access #header-user-bar {
+    padding: 0 !important;
+  }
+
+  /* The chips behind the mode-toggle icons cost width too - enough of it to be
+     the difference between the row fitting and the avatar being cut off. Small
+     enough to still read as a filled chip. */
+  #header-quick-access .mobile-mode-toggle .board-header-btn i.mobile-icon,
+  #header-quick-access .mobile-mode-toggle .board-header-btn i.desktop-icon {
+    padding: 2px 4px !important;
+  }
+
   /* The logo is the one item that may lose width without losing meaning. */
   #header-quick-access img {
     flex: 0 1 auto;

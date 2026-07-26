@@ -191,4 +191,33 @@ test('an initials avatar centres its initials in the circle', () => {
   }
 });
 
+test('the avatar lines up with the bell, and sits inside the bar', () => {
+  const block = headerCss.slice(headerCss.indexOf('The quick-access bar must FIT the phone'));
+  const avatar = /\.header-user-bar-avatar,([\s\S]*?)\{([\s\S]*?)\}/.exec(block);
+  assert.ok(avatar, 'the avatar wrapper must be placed here');
+  assert.ok(/top: 0 !important;/.test(avatar[2]),
+    '`top: -5px` from the desktop bar floated it above the bell beside it');
+  const bar = /#header-quick-access #header-user-bar,([\s\S]*?)\{([\s\S]*?)padding: 0 !important;/.exec(block);
+  assert.ok(bar, '10px of padding each side is 20px of a 375px bar, spent on nothing');
+  // The chips behind the toggle icons cost width in the same row.
+  const chip = /i\.mobile-icon,\s*\n[^\n]*i\.desktop-icon \{([\s\S]*?)\}/.exec(block);
+  assert.ok(chip && /padding: 2px 4px !important;/.test(chip[1]),
+    'the mode-toggle chips are trimmed too');
+});
+
+test('a phone rule for the page wrapper does not hit the header bar', () => {
+  // header.jade puts `wrapper` on #header-main-bar on every page that is not a
+  // board, so a bare `.wrapper` rule lands on the second header bar as well -
+  // which is how "My Boards" ended up centred in it.
+  const boardsCss = read('client/components/boards/boardsList.css');
+  const phone = boardsCss.slice(boardsCss.indexOf('/* Fix multiple scrollbars issue on mobile */'),
+    boardsCss.indexOf('/* Fix multiple scrollbars issue on mobile */') + 9000);
+  for (const m of phone.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    const sels = m[1].split(',').map(x => x.trim().split('\n').pop().trim());
+    assert.ok(!sels.includes('.wrapper'),
+      'scope it to `#content .wrapper` - the header bar carries that class too');
+  }
+  assert.ok(/#content \.wrapper \{/.test(phone), 'and the scoped rule must be there');
+});
+
 console.log(`\n${passed} tests passed`);

@@ -1344,7 +1344,14 @@ body.grey-icons-enabled .checkmark-no-grey {
      percentage resolves against a definite height. From here down the page is a
      flex chain with no viewport arithmetic in it at all: each part takes the
      space its parent has left, and the board list is the part that scrolls. */
-  .wrapper {
+  /* `#content .wrapper`, NOT a bare `.wrapper`: the SECOND HEADER BAR carries the
+     class too - header.jade puts `wrapper` on #header-main-bar on every page that
+     is not a board (`wrappedHeader`) - so a bare `.wrapper` rule lands on the bar
+     as well. This one made it a flex COLUMN, and the bar's own
+     `align-items: center` then centres its items across it: "My Boards" moved to
+     the middle of the bar. (The `height: 100vh` this replaced was landing on the
+     bar too.) The page wrapper is inside #content; the header bar is not. */
+  #content .wrapper {
     overflow: hidden;
     height: 100%;
     min-height: 0;
@@ -1352,7 +1359,7 @@ body.grey-icons-enabled .checkmark-no-grey {
     flex-direction: column;
   }
 
-  .wrapper > .boards-layout {
+  #content .wrapper > .boards-layout {
     flex: 1 1 auto;
     min-height: 0;
   }
