@@ -728,6 +728,21 @@ the container registries when a release image is published (#6526, merge commit
 and fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/08f4c80c7">The zoom number is inside its white pill again, and big enough to read</a>. Thanks to xet7.</summary>
+
+On a phone the pill was empty and "100" sat to the right of it in tiny type, half
+under the notification bell. The pill was allowed to shrink below its own
+contents, and a flex item that shrinks past its content does not clip it - the
+white background ends where the width says and the text carries on outside it. The
+pill is sized by what is in it now, and what is in it is made small instead. The
+tiny type was `font-size: 0.7em` of a 12px bar - about 8px, the smallest text on
+the page - now a plain 14px, which is also why the pill stays narrow. The base
+rule's 24px height cap, shorter than that text, is lifted so the number is
+centred. `tests/mobileAllBoardsFit.test.cjs` pins all of it.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9f8287749">Admin Panel: /information and /translation showed the page you came from</a>. Thanks to xet7.</summary>
 
 Both old URLs are panes of Admin Panel / Settings now, and both redirected with
