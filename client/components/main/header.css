@@ -1683,9 +1683,33 @@ body.mobile-mode #header-quick-access .allBoards {
     margin: 0 4px !important;
   }
 
+  /* The bell and the avatar sit the SAME way in both modes, and the free space
+     of the row is shared around them: one auto margin on each side of the bell
+     puts it midway between the zoom pill and the avatar, and the avatar keeps a
+     small, fixed gap to the right edge instead of being flung against it. The
+     `.iphone-device` variants are named because that fallback sets these margins
+     with `!important` and one class more, so it would win outright. */
   #header-quick-access #notifications,
-  #header-quick-access #header-user-bar {
-    margin: 0 4px !important;
+  .iphone-device #header-quick-access #notifications,
+  .wrapper ~ #header-quick-access #notifications,
+  body:not(.board-view) #header-quick-access #notifications,
+  .iphone-device .wrapper ~ #header-quick-access #notifications,
+  .iphone-device body:not(.board-view) #header-quick-access #notifications {
+    margin-inline-start: auto !important;
+    margin-inline-end: auto !important;
+    flex-shrink: 0 !important;
+  }
+
+  #header-quick-access #header-user-bar,
+  .iphone-device #header-quick-access #header-user-bar,
+  .wrapper ~ #header-quick-access #header-user-bar,
+  body:not(.board-view) #header-quick-access #header-user-bar,
+  .iphone-device .wrapper ~ #header-quick-access #header-user-bar,
+  .iphone-device body:not(.board-view) #header-quick-access #header-user-bar {
+    /* No second auto margin: two of them would each swallow half the row and
+       push the pair apart again. */
+    margin-inline-start: 0 !important;
+    margin-inline-end: 12px !important;
     flex-shrink: 0 !important;
   }
 

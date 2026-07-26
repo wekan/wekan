@@ -109,4 +109,30 @@ test('the bar gives back the width the avatar needs', () => {
     'the iphone-device variant must be named, or the cap never applies there');
 });
 
+test('the bell and the avatar sit the same way in both modes', () => {
+  // With the free space of the row shared around the bell - an auto margin on
+  // each side - it lands midway between the zoom pill and the avatar, and the
+  // avatar keeps a small fixed gap to the edge instead of being flung against it.
+  // Same rule for both modes, because it is chosen by WIDTH.
+  const block = headerCss.slice(headerCss.indexOf('The quick-access bar must FIT the phone'));
+  const bell = /#header-quick-access #notifications,([\s\S]*?)\{([\s\S]*?)\}/.exec(block);
+  assert.ok(bell, 'the bell must be placed here');
+  assert.ok(/margin-inline-start: auto !important;/.test(bell[2])
+    && /margin-inline-end: auto !important;/.test(bell[2]),
+    'an auto margin on EACH side is what centres it');
+  const avatar = /#header-quick-access #header-user-bar,([\s\S]*?)\{([\s\S]*?)\}/.exec(block);
+  assert.ok(avatar, 'and the avatar');
+  assert.ok(/margin-inline-start: 0 !important;/.test(avatar[2]),
+    'no second auto margin - two of them would split the row and separate the pair');
+  assert.ok(/margin-inline-end: 12px !important;/.test(avatar[2]),
+    'a small gap to the right edge');
+  // The `.iphone-device` fallback sets these with `!important` and two classes,
+  // so both of its variants have to be named or the placement never applies
+  // there - which is the phone in the screenshots.
+  for (const sel of ['.iphone-device body:not(.board-view) #header-quick-access #notifications',
+    '.iphone-device body:not(.board-view) #header-quick-access #header-user-bar']) {
+    assert.ok(block.includes(sel), `${sel} must be named`);
+  }
+});
+
 console.log(`\n${passed} tests passed`);
