@@ -271,6 +271,23 @@ browser build to verify).
 This release fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f6c83495b">The notification bell and the avatar sit the same way in both modes</a>. Thanks to xet7.</summary>
+
+They were placed by whatever margin happened to win: one auto margin on the zoom
+pill pushed the pill, the bell and the avatar to the end of the row as a packed
+group, so the bell sat against the pill with the empty space beyond it, and the
+avatar's distance from the edge was whatever was left — different in mobile mode
+and in desktop mode on the same phone. Below 800px the free space is shared
+around the bell instead: an auto margin on each side puts it midway between the
+zoom pill and the avatar, and the avatar keeps a fixed 12px gap to the right
+edge. Both `.iphone-device` variants are named in the selector list, since that
+fallback sets these margins with `!important` and two classes more, and the
+placement would otherwise apply everywhere except the phone it was reported
+from.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/202add9da">All Boards on a phone: one drag-handle size, and a workspace name you can read</a>. Thanks to xet7.</summary>
 
 Two things differed between mobile mode and desktop mode on the same phone. The
