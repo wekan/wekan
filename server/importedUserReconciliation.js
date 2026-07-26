@@ -9,6 +9,7 @@ import CardComments from '/models/cardComments';
 import InviteToBoardRolesSettings from '/models/inviteToBoardRolesSettings';
 import { planReconciliation } from '/models/lib/importedUserReconciliationPlan';
 import { planBoardMemberMapping } from '/models/lib/boardMemberMapPlan';
+import { boardMemberRestriction } from '/server/lib/orgTeamRestriction';
 
 // ============================================================================
 // Imported-user reconciliation
@@ -87,16 +88,17 @@ async function checkMayAddBoardMember(board, caller, target) {
     throw new Meteor.Error('error-notAllowed');
   }
 
-  const setting = await ReactiveCache.getCurrentSetting();
-  if (setting && setting.boardMembersFromSameOrgOrTeamOnly) {
-    let shares = caller.sharesOrgOrTeamWith(target);
+  const restriction = boardMemberRestriction(await ReactiveCache.getCurrentSetting());
+  if (restriction.org || restriction.team) {
+    let shares = caller.sharesRestrictedOrgOrTeamWith(target, restriction);
     if (!shares) {
       // Same fallback as inviteUserToBoard: any ACTIVE board member sharing an
       // org/team is enough, so a caller with no orgs/teams set can still map.
       for (const m of board.members || []) {
         if (!m.isActive || m.userId === caller._id) continue;
         const existingMember = await ReactiveCache.getUser(m.userId);
-        if (existingMember && existingMember.sharesOrgOrTeamWith(target)) {
+        if (existingMember
+          && existingMember.sharesRestrictedOrgOrTeamWith(target, restriction)) {
           shares = true;
           break;
         }

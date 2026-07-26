@@ -13,6 +13,7 @@ import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
 import LockoutSettings from '/models/lockoutSettings';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import Org from '/models/org';
+import Settings from '/models/settings';
 import Team from '/models/team';
 import Users from '/models/users';
 import InviteToBoardRolesSettings, {
@@ -653,6 +654,34 @@ Template.people.helpers({
     const totalTeams = tpl.numberTeams.get() || 0;
     const totalPages = Math.max(1, Math.ceil(totalTeams / teamsPerPage));
     return tpl.teamPage.get() < totalPages;
+  },
+});
+
+// #6116: one restriction per kind, each in the pane it is about. They were one
+// checkbox ("same Organization OR Team") in the Login pane, which is where neither
+// of the two things it restricts lives.
+//
+// Registered on the template the checkbox is IN - orgGeneral / teamGeneral, not the
+// People page around them - because Blaze delivers an event to the handlers of that
+// template. Writing on click, like every other checkbox in the Admin Panel: there is
+// no Save button in these panes to confirm it with.
+Template.orgGeneral.events({
+  'click a.js-toggle-board-members-same-org'() {
+    const setting = ReactiveCache.getCurrentSetting();
+    if (!setting) return;
+    Settings.update(setting._id, {
+      $set: { boardMembersFromSameOrgOnly: !setting.boardMembersFromSameOrgOnly },
+    });
+  },
+});
+
+Template.teamGeneral.events({
+  'click a.js-toggle-board-members-same-team'() {
+    const setting = ReactiveCache.getCurrentSetting();
+    if (!setting) return;
+    Settings.update(setting._id, {
+      $set: { boardMembersFromSameTeamOnly: !setting.boardMembersFromSameTeamOnly },
+    });
   },
 });
 

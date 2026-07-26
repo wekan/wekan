@@ -130,7 +130,8 @@ test('#6519: mapping onto a non-member adds them with the PLACEHOLDER role, afte
   // Creating a membership must clear the same bar as inviting the user would.
   assert.ok(/plan\.addedMember/.test(srv) && /checkMayAddBoardMember/.test(srv),
     'the invite policy runs when (and only when) a membership is created');
-  assert.ok(/boardMembersFromSameOrgOrTeamOnly/.test(srv), 'the #6116 org/team restriction is enforced');
+  assert.ok(/boardMemberRestriction\(/.test(srv) && /sharesRestrictedOrgOrTeamWith/.test(srv),
+    'the #6116 org/team restriction is enforced - one setting per kind now');
   assert.ok(/allowedRoles/.test(srv), 'the roles-allowed-to-invite setting is enforced');
   assert.ok(/loginDisabled/.test(srv), 'a deactivated account is never added');
   // The checks must happen BEFORE anything is written.

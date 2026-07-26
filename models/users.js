@@ -1090,27 +1090,43 @@ Users.helpers({
     }
     return [];
   },
-  // #6116: true when this user shares at least one Organization OR one Team with
-  // `otherUser`. Used to restrict who can be added to a board when the global
-  // admin setting `boardMembersFromSameOrgOrTeamOnly` is enabled.
-  sharesOrgOrTeamWith(otherUser) {
+  // #6116: does this user share an Organization / a Team with `otherUser`? The
+  // restriction is two admin settings now - one per kind, each beside the thing it
+  // is about (Admin Panel / People / Organizations and / Teams) - so the two
+  // questions have to be answerable separately.
+  sharesOrgWith(otherUser) {
     if (!otherUser) {
       return false;
     }
     const myOrgs = new Set(this.orgIds());
-    const myTeams = new Set(this.teamIds());
     const otherOrgs =
       typeof otherUser.orgIds === 'function'
         ? otherUser.orgIds()
         : (otherUser.orgs || []).map(org => org.orgId);
+    return otherOrgs.some(orgId => myOrgs.has(orgId));
+  },
+  sharesTeamWith(otherUser) {
+    if (!otherUser) {
+      return false;
+    }
+    const myTeams = new Set(this.teamIds());
     const otherTeams =
       typeof otherUser.teamIds === 'function'
         ? otherUser.teamIds()
         : (otherUser.teams || []).map(team => team.teamId);
+    return otherTeams.some(teamId => myTeams.has(teamId));
+  },
+  // True when the user shares at least one of the ENABLED kinds. With both enabled
+  // this is the "Organization OR Team" rule the single setting had.
+  sharesRestrictedOrgOrTeamWith(otherUser, { org = false, team = false } = {}) {
     return (
-      otherOrgs.some(orgId => myOrgs.has(orgId)) ||
-      otherTeams.some(teamId => myTeams.has(teamId))
+      (org && this.sharesOrgWith(otherUser)) ||
+      (team && this.sharesTeamWith(otherUser))
     );
+  },
+  // Kept for callers that ask the old question: an Organization OR a Team.
+  sharesOrgOrTeamWith(otherUser) {
+    return this.sharesOrgWith(otherUser) || this.sharesTeamWith(otherUser);
   },
   // #5850: the email-address domain(s) of this user, used for domain-based board
   // sharing (board.domains). Lower-cased; primary email's domain.

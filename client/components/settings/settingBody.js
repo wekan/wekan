@@ -1144,16 +1144,9 @@ Template.general.events({
     });
     tpl.loading.set(false);
   },
-  'click a.js-toggle-board-members-same-org-team'(event, tpl) {
-    // #6116: toggle the global "add board members from same Org/Team only" setting.
-    tpl.loading.set(true);
-    const current =
-      ReactiveCache.getCurrentSetting().boardMembersFromSameOrgOrTeamOnly;
-    Settings.update(ReactiveCache.getCurrentSetting()._id, {
-      $set: { boardMembersFromSameOrgOrTeamOnly: !current },
-    });
-    tpl.loading.set(false);
-  },
+  // #6116's "add board members from the same Org/Team only" is two settings now,
+  // one per kind, each shown in the pane it is about - Admin Panel / People /
+  // Organizations and / Teams. Their handlers live there, with the checkboxes.
   'click a.js-toggle-board-choose'(event) {
     let target = $(event.target);
     if (!target.hasClass('js-toggle-board-choose')) {

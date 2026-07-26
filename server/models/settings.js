@@ -188,6 +188,27 @@ Meteor.startup(async () => {
       $set: { defaultAuthenticationMethod: envDefaultAuthenticationMethod },
     });
   }
+  // #6116 split: the single "same Organization OR Team" restriction became one
+  // setting per kind, shown in Admin Panel / People / Organizations and / Teams. An
+  // install that has the old field and neither new one is migrated to BOTH - which
+  // is the same rule it had - so nobody's board-member restriction changes by
+  // upgrading. Ticking only one of the two afterwards is the new, narrower choice.
+  {
+    const current = await getReactiveCache().getCurrentSetting();
+    if (
+      current &&
+      current.boardMembersFromSameOrgOrTeamOnly &&
+      current.boardMembersFromSameOrgOnly === undefined &&
+      current.boardMembersFromSameTeamOnly === undefined
+    ) {
+      await Settings.updateAsync(current._id, {
+        $set: {
+          boardMembersFromSameOrgOnly: true,
+          boardMembersFromSameTeamOnly: true,
+        },
+      });
+    }
+  }
   // Card loading is NOT an admin-configurable toggle: WeKan always adapts per board
   // ('auto' — big boards load lazily, small boards eagerly, #6480). Only the
   // CARDS_LOADING env var can force 'all'/'lazy'/'auto' for operators; there is no

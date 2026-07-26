@@ -42,6 +42,16 @@ template(name="people")
 
 
 template(name="orgGeneral")
+  //- The Organization half of #6116, beside the Organizations it is about - it used
+  //- to be one "same Organization OR Team" checkbox in the Login pane, which is
+  //- where neither of the two things it restricts lives. Ticked = a user may only
+  //- be added to a board when they share an Organization with whoever adds them.
+  ul.setting-detail
+    li
+      a.flex.js-toggle-board-members-same-org
+        .materialCheckBox(class="{{#if currentSetting.boardMembersFromSameOrgOnly}}is-checked{{/if}}")
+
+        span {{_ 'board-members-same-org-only'}}
   +tablePage(this)
 
 //- One header cell for an Organization feature column: the label plus its
@@ -58,6 +68,15 @@ template(name="orgFeatureHeader")
     i.fa.fa-square-o
 
 template(name="teamGeneral")
+  //- The Team half of #6116 - see orgGeneral above. Ticked = a user may only be
+  //- added to a board when they share a Team with whoever adds them. Both ticked is
+  //- the old "Organization OR Team" rule, which is what an upgraded install gets.
+  ul.setting-detail
+    li
+      a.flex.js-toggle-board-members-same-team
+        .materialCheckBox(class="{{#if currentSetting.boardMembersFromSameTeamOnly}}is-checked{{/if}}")
+
+        span {{_ 'board-members-same-team-only'}}
   +tablePage(this)
 
 //- The Teams equivalent of orgFeatureHeader: label plus its select-all pair,

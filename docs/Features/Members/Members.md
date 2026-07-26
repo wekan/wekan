@@ -57,9 +57,10 @@ directly. This is controlled by the environment variable:
 ## Restrict board members to the same Organization or Team
 
 On multi-tenant instances you can require that a board's members share an Organization
-or Team. When the global admin setting `boardMembersFromSameOrgOrTeamOnly` is enabled, a
-user can only be added to a board if they share at least one Organization or Team with the
-inviter or with an active board member (site admins bypass this). See
+or a Team. There is one admin checkbox per kind - `boardMembersFromSameOrgOnly` in
+Admin Panel / People / Organizations and `boardMembersFromSameTeamOnly` in / Teams -
+and when either is on, a user can only be added to a board if they share an enabled
+kind with the inviter or with an active board member (site admins bypass this). See
 [Admin Panel](../Admin-Panel/Admin-Panel.md).
 
 ## Related

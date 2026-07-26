@@ -8,6 +8,7 @@ import { Random } from 'meteor/random';
 import { CollectionHooks } from 'meteor/matb33:collection-hooks';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { debounce } from '/imports/lib/collectionHelpers';
+import { boardMemberRestriction } from '/server/lib/orgTeamRestriction';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { boardMemberRoleToFlags, allowIsBoardAdmin } from '/server/lib/utils';
@@ -1133,20 +1134,22 @@ Meteor.methods({
       isNewUser = true;
     }
 
-    // #6116: when the global admin setting is enabled, only allow adding a user
-    // who shares at least one Organization OR one Team with the inviter (or with
-    // any active board member). Site admins always bypass this restriction.
+    // #6116: when either restriction is on, only allow adding a user who shares an
+    // enabled kind with the inviter (or with any active board member) - an
+    // Organization when "only from the same Organization" is on, a Team when "only
+    // from the same Team" is. Site admins always bypass this.
     if (!inviter.isAdmin) {
-      const setting = await ReactiveCache.getCurrentSetting();
-      if (setting && setting.boardMembersFromSameOrgOrTeamOnly) {
-        let shares = inviter.sharesOrgOrTeamWith(user);
+      const restriction = boardMemberRestriction(await ReactiveCache.getCurrentSetting());
+      if (restriction.org || restriction.team) {
+        let shares = inviter.sharesRestrictedOrgOrTeamWith(user, restriction);
         if (!shares) {
-          // Fall back to any active board member sharing an org/team, so an
-          // inviter without orgs/teams set can still add same-org/team users.
+          // Fall back to any active board member sharing one, so an inviter without
+          // orgs/teams set can still add users from the board's own org/team.
           for (const m of board.members) {
             if (!m.isActive || m.userId === inviter._id) continue;
             const existingMember = await ReactiveCache.getUser(m.userId);
-            if (existingMember && existingMember.sharesOrgOrTeamWith(user)) {
+            if (existingMember
+              && existingMember.sharesRestrictedOrgOrTeamWith(user, restriction)) {
               shares = true;
               break;
             }
@@ -2426,8 +2429,8 @@ Meteor.methods({
     // never offers a candidate the server would later reject.
     let filteredUsers = users;
     if (!currentUser.isAdmin) {
-      const setting = await ReactiveCache.getCurrentSetting();
-      if (setting && setting.boardMembersFromSameOrgOrTeamOnly) {
+      const restriction = boardMemberRestriction(await ReactiveCache.getCurrentSetting());
+      if (restriction.org || restriction.team) {
         const activeMemberUsers = [];
         for (const m of board.members) {
           if (!m.isActive) continue;
@@ -2439,7 +2442,7 @@ Meteor.methods({
         }
         filteredUsers = users.filter(candidate =>
           activeMemberUsers.some(memberUser =>
-            memberUser.sharesOrgOrTeamWith(candidate),
+            memberUser.sharesRestrictedOrgOrTeamWith(candidate, restriction),
           ),
         );
       }

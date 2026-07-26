@@ -44,12 +44,21 @@ per-organization / per-team toggle columns:
 
 ### Restrict board members to the same Organization or Team
 
-When the global admin setting **"Add board members only from the same Organization or
-Team"** (`boardMembersFromSameOrgOrTeamOnly`, default off) is enabled, a user can only
-be added to a board if they share at least one Organization or Team with the inviter or
-with an active board member. Site admins bypass the restriction. This is useful on
-multi-tenant instances and is enforced server-side (both the invite action and the
-user-search typeahead respect it).
+Two checkboxes, each in the pane it is about — **Admin Panel / People /
+Organizations**: *"Add board members only from the same Organization"*
+(`boardMembersFromSameOrgOnly`), and **Admin Panel / People / Teams**: *"Add board
+members only from the same Team"* (`boardMembersFromSameTeamOnly`). Both default off.
+
+When either is on, a user can only be added to a board if they share an **enabled**
+kind with the inviter or with an active board member: an Organization when the first
+is on, a Team when the second is. With **both** on, sharing either one is enough —
+which is exactly what the single `boardMembersFromSameOrgOrTeamOnly` setting it
+replaces did, and what an existing install is migrated to on first start, so no
+instance's restriction changes by upgrading.
+
+Site admins bypass the restriction. This is useful on multi-tenant instances and is
+enforced server-side (both the invite action and the user-search typeahead respect
+it).
 
 ### Per-user announcement dismissal
 

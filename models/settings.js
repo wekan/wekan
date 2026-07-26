@@ -295,9 +295,27 @@ Settings.attachSchema(
       optional: true,
       defaultValue: false,
     },
-    // #6116: when true, a user may only be added to a board if they share at
-    // least one Organization OR one Team with the user performing the add.
-    // Default false preserves the current unrestricted behaviour.
+    // #6116, split in two so each restriction sits with the thing it is about -
+    // Admin Panel / People / Organizations and / Teams. A candidate may be added to
+    // a board when they share at least one of the ENABLED kinds with the user doing
+    // the adding: an Organization when the first is on, a Team when the second is.
+    // With both on that is "an Organization OR a Team", which is exactly what the
+    // single `boardMembersFromSameOrgOrTeamOnly` meant - and is what an existing
+    // install is migrated to (see server/models/settings.js). Both false is the
+    // unrestricted default.
+    boardMembersFromSameOrgOnly: {
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
+    boardMembersFromSameTeamOnly: {
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
+    // The setting the two above replace. Kept in the schema so an install that
+    // still has it stored is valid, and so the migration can read it; nothing
+    // writes it any more.
     boardMembersFromSameOrgOrTeamOnly: {
       type: Boolean,
       optional: true,
