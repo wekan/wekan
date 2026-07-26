@@ -705,6 +705,30 @@ and changes the Admin Panel as follows:
   pane](https://github.com/wekan/wekan/commit/a9680fa3d).
   Thanks to xet7.
 
+and fills untranslated strings in 41 languages and every regional variant:
+
+- [The strings that are untranslated everywhere — on Transifex and in git — are
+  written directly, using each language's own existing translations and its kanban
+  terminology as the reference, with no external translation service, API or
+  password involved. 1,191 strings in fi, sv, da, nb, de, nl, fr, es, pt, pt-BR, it,
+  ca, gl, eu, ro, cs, sk, sl, hr, sr, pl, hu, lt, lv, et, ru, uk, bg, el, tr, ar, he,
+  fa, hi, id, vi, th, ja, ko, zh-CN and zh-TW — mostly this release's Admin Panel
+  work, plus the recovery report, the problems status, the broken-card repair, the
+  CPU figures, the import timeout and the map-to-existing-user dialog. A further
+  1,935 strings reach the regional variants (de-AT, es-MX, fr-CA, pt-PT, ru-UA,
+  zh-Hant, ca@valencia and 57 more) from their base language, which is the same
+  language's own words rather than a translation of anything. Nothing can overwrite a
+  human translation: a string is filled only while it is a placeholder — missing, or
+  equal to the English source — and a key that already holds a translation is skipped
+  and reported](https://github.com/wekan/wekan/commit/526905483).
+  Thanks to xet7.
+- [`releases/translations/fill_translations.py` joins the `.mjs` of the same name:
+  the same rules — the same definition of a placeholder, the same en.i18n.json key
+  order, the same 2-space indent — in Python, for an environment without a node
+  runtime. Either can list what a language still needs and apply the
+  translations](https://github.com/wekan/wekan/commit/526905483).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
