@@ -120,7 +120,25 @@ test('the Admin Panel chrome reads that variable rather than a hard-coded colour
   // This is what the accent is FOR: the selected left-menu row and the buttons.
   const menuCss = read('client/components/settings/settingBody.css');
   assert.ok(/side-menu ul li\.active,[\s\S]*?background: var\(--theme-accent/.test(menuCss),
-    'the selected left-menu entry');
+    'the selected left-menu entry, when no theme is active');
+  // With a theme active the row is painted by that theme's OWN header rule, so the
+  // selected row matches the second header bar exactly - including a gradient, which
+  // a single accent colour cannot express.
+  const themeCss = read('client/components/boards/boardColors.css');
+  const themed = [...themeCss.matchAll(/\.board-color-([\w-]+) \.setting-content \.content-body \.side-menu ul li\.active\b/g)]
+    .map(m => m[1]);
+  const allowed = [...(/ALLOWED_BOARD_COLORS\s*=\s*\[(.*?)\]/s.exec(read('config/const.js'))[1])
+    .matchAll(/'([\w-]+)'/g)].map(m => m[1]);
+  for (const name of allowed) {
+    assert.ok(themed.includes(name), `${name}: its header rule must paint the selected row too`);
+  }
+  // …and it is the header rule that does it, never a copy of the colour.
+  const clean = themeCss.replace(/\/\*[\s\S]*?\*\//g, '');
+  for (const rule of clean.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    if (!/side-menu ul li\.active/.test(rule[1])) continue;
+    assert.ok(/#header/.test(rule[1]),
+      'the selected row is only ever added to a rule that also paints the header');
+  }
   assert.ok(/\.setting-detail button\.btn \{[\s\S]*?background: var\(--theme-accent/.test(menuCss),
     'the pane buttons');
   const formsCss = read('client/components/forms/forms.css');

@@ -68,6 +68,12 @@
 .setting-content .content-body .side-menu ul li.active:hover {
   background: var(--theme-accent, #2980b9);
 }
+
+/* …and when a THEME is active, the row is painted by that theme's own #header rule
+   instead (boardColors.css names this selector in every theme's header rule), so the
+   selected row and the second header bar are the same colour - and the same colour
+   SLIDE, for a theme like clearblue whose bar is a gradient. The rule above stays as
+   the answer for an instance with no theme at all. */
 .setting-content .content-body .side-menu ul li.active > a,
 .setting-content .content-body .side-menu ul li.active > a i {
   /* Not `inherit`: that is what made the selected entry the same grey as every
