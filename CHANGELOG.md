@@ -603,6 +603,19 @@ and changes the Admin Panel as follows:
   under it rather than as several pages
   stacked](https://github.com/wekan/wekan/commit/671262ddb).
   Thanks to xet7.
+- [Admin Panel / People / Login is one "Login: Allow" group of checkboxes, each
+  ticked when the thing is allowed: Forgot password, Self-Registration, Username
+  Change, Self delete user account, Display Authentication Method. The pane used to
+  mix "Disable X" checkboxes, where ticked meant OFF, with "Allow X: Yes/No" radios
+  — half the rows meant the opposite of the other half, and every one repeated the
+  word Allow or Disable. The two settings stored as "disable" flags are only
+  inverted for display; the stored fields are untouched. The three former radios
+  save on click like the checkboxes they now are, so the Save at the bottom keeps
+  only the default authentication method and the OIDC button text. A dead handler
+  that sat later in the same event map — where a duplicate key silently overrides
+  the real one — would have swallowed every click on the
+  Display Authentication Method box](https://github.com/wekan/wekan/commit/40c1c1e71).
+  Thanks to xet7.
 - [Admin Panel / People / E-mail saved neither of the two settings it shows. Its
   Save handler starts by reading the SMTP fields, which are commented out of that
   pane — the read throws on an input that is not there, and the throw was caught and
