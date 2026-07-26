@@ -42,6 +42,12 @@ async function boardVisibleTo(userId, boardId) {
 publishComposite('boardCardsWindow', function(boardId, cardSelector, sort, limit) {
   // Same as the `board` publication: a bad argument from a client must end the
   // subscription, not the server process. A falsy return publishes nothing.
+  // `Match.Any` marks each argument as checked for audit-argument-checks (which
+  // fails a publisher that did not check them all); the validation is below.
+  check(boardId, Match.Any);
+  check(cardSelector, Match.Any);
+  check(sort, Match.Any);
+  check(limit, Match.Any);
   if (!Match.test(boardId, String) || !boardId) return;
   if (!Match.test(cardSelector, Object)) return;
   if (!Match.test(sort, Match.OneOf(Object, null, undefined))) return;
@@ -184,6 +190,8 @@ Meteor.publish('boardListCardCount', async function(countId, boardId, cardSelect
 // is rare and picked up on the next board open). #6480.
 Meteor.publish('boardCardsLoadingMode', async function(boardId) {
   // A null board id here is the same crash: this publisher is async too.
+  // Match.Any marks it checked for audit-argument-checks; the test is the guard.
+  check(boardId, Match.Any);
   if (!Match.test(boardId, String) || !boardId) return this.ready();
 
   const board = await boardVisibleTo(this.userId, boardId);

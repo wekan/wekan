@@ -489,6 +489,15 @@ publishComposite('board', async function(boardId, isArchived) {
   // Publishing nothing is the right answer to a subscription that names no
   // board: publishComposite treats a falsy return as "no publications" and
   // readies the subscription, so the client simply gets an empty result.
+  //
+  // `check(..., Match.Any)` first: this app runs with audit-argument-checks, which
+  // fails a publisher that returns without having check()ed every argument -
+  // "Did not check() all arguments during publisher 'board'". Match.test alone
+  // does not count as checking, so the audit threw for every subscription. Any
+  // marks them audited and never throws; the real validation is the two lines
+  // below it.
+  check(boardId, Match.Any);
+  check(isArchived, Match.Any);
   if (!Match.test(boardId, String) || !boardId) return;
   if (!Match.test(isArchived, Boolean)) return;
 

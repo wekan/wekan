@@ -61,6 +61,16 @@ test('the board publisher tests its arguments before anything else', () => {
   assert.ok(/if \(!Match\.test\(isArchived, Boolean\)\) return;/.test(head));
   assert.ok(!/^\s*check\(boardId, String\);/m.test(head),
     'check() throws, and a throw here exits the process - it must not be the guard');
+  // ...but the arguments must still be MARKED as checked: this app runs with
+  // audit-argument-checks, which fails any publisher that returns without having
+  // check()ed every argument ("Did not check() all arguments during publisher
+  // 'board'"). Match.test does not count; check(x, Match.Any) does, and never
+  // throws.
+  assert.ok(/check\(boardId, Match\.Any\);/.test(head)
+    && /check\(isArchived, Match\.Any\);/.test(head),
+    'every argument must be check()ed with Match.Any, or the audit throws');
+  assert.ok(head.indexOf('check(boardId, Match.Any)') < head.indexOf('Match.test(boardId'),
+    'marked first, validated second');
   // The guard has to come before any work, or the work throws first.
   assert.ok(head.indexOf('Match.test(boardId') < head.indexOf('localizeBoardMemberAvatars'),
     'and it must run before the publisher does anything with the id');
@@ -71,7 +81,12 @@ test('the card-window publishers are guarded the same way', () => {
   assert.ok(/if \(!Match\.test\(boardId, String\) \|\| !boardId\) return;/.test(window.slice(0, 900)));
   assert.ok(/if \(!Match\.test\(cardSelector, Object\)\) return;/.test(window.slice(0, 900)),
     'a card selector from a client is an object or nothing at all');
+  for (const arg of ['boardId', 'cardSelector', 'sort', 'limit']) {
+    assert.ok(new RegExp(`check\\(${arg}, Match\\.Any\\);`).test(window.slice(0, 900)),
+      `${arg} must be marked as checked for the audit`);
+  }
   const mode = cardsWindow.slice(cardsWindow.indexOf("Meteor.publish('boardCardsLoadingMode'"));
+  assert.ok(/check\(boardId, Match\.Any\);/.test(mode.slice(0, 500)));
   assert.ok(/if \(!Match\.test\(boardId, String\) \|\| !boardId\) return this\.ready\(\);/
     .test(mode.slice(0, 500)),
     'a plain publisher readies the subscription instead of returning a config');
