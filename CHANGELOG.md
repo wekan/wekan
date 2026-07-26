@@ -271,6 +271,26 @@ browser build to verify).
 This release fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/75b562327">Mobile mode is the phone layout; desktop mode is the desktop layout, on a phone too</a>. Thanks to xet7.</summary>
+
+Five things, one theme: what belongs to the MODE the user chose and what
+belongs to the width of the window. The board bar's buttons still took three
+rows in desktop mode — the metrics were written in `boardHeader.css`, and
+Meteor loads `components/boards/` before `components/main/`, so `header.css`'s
+`margin: 0 6px` won at equal specificity; they are written in the file that
+wins now, and eleven icons take two rows in both modes. The sidebar hamburger
+is the last button at the right of the last row instead of pinned beside the
+title. The avatar was cut in half in mobile mode only: the drag-handle toggle
+in the top bar is also a `.board-header-btn`, so mobile mode gave it 42px of
+padding for one icon — the width the avatar needed. Lists stacked one per row
+in desktop mode, because that layout is chosen by width; it is
+`body.mobile-mode` now. And the minicard's full-height thumb handle, chosen by
+`pointer: coarse`, is mobile mode's too — desktop mode keeps the compact handle
+in the corner under the menu button.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/bb882cf42">The board bar's icons fit two rows on a phone</a>. Thanks to xet7.</summary>
 
 Eleven icons took three rows under the title: each button was ~20px of icon
