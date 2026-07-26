@@ -10,6 +10,7 @@ runOnServer(function() {
   // if (Meteor.isServer) block
   const { ExporterExcel } = require('./server/ExporterExcel');
   const { WebApp } = require('meteor/webapp');
+  const { safeRoute } = require('/server/apiMiddleware');
   const { Authentication } = require('/server/authentication');
 
   // todo XXX once we have a real API in place, move that route there
@@ -33,7 +34,7 @@ runOnServer(function() {
    * @param {string} boardId the ID of the board we are exporting
    * @param {string} authToken the loginToken
    */
-  WebApp.handlers.get('/api/boards/:boardId/exportExcel', async function (req, res) {
+  WebApp.handlers.get('/api/boards/:boardId/exportExcel', safeRoute(async function (req, res) {
     const boardId = req.params.boardId;
     let user = null;
     let impersonateDone = false;
@@ -70,6 +71,13 @@ runOnServer(function() {
       user = await ReactiveCache.getUser({
         'services.resume.loginTokens.hashedToken': hashToken,
       });
+      if (!user) {
+        // GHSA-3gcg-g6rf-w2rx - see the note in models/export.js: an unknown token
+        // answers `undefined`, and dereferencing it crashed the server.
+        res.writeHead(401, { 'Content-Type': 'text/plain; charset=utf-8' });
+        res.end('Invalid token');
+        return;
+      }
       adminId = user._id.toString();
       impersonateDone = await ReactiveCache.getImpersonatedUser({ adminId: adminId });
     } else if (!Meteor.settings.public.sandstorm) {
@@ -104,5 +112,5 @@ runOnServer(function() {
     } else {
       res.end(TAPi18n.__('user-can-not-export-excel'));
     }
-  });
+  }));
 });

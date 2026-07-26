@@ -102,4 +102,32 @@ function sendJsonResult(res, options) {
   res.end();
 }
 
-module.exports = { sendJsonResult };
+// GHSA-3gcg-g6rf-w2rx: an export route that throws must not escape as an unhandled
+// promise rejection. This app turns one of those into a full process crash - the
+// note in server/ldapGroupSync.js explains why - so a single crafted request could
+// take the server down for everyone. Every route body wrapped in this answers with a
+// 500 instead, and the request that caused it is logged.
+//
+// The guards inside the handlers are still the real fix; this is the net under them,
+// so the next missing null check is one broken request rather than an outage.
+function safeRoute(handler) {
+  return async function safeRouteHandler(req, res, ...rest) {
+    try {
+      return await handler.call(this, req, res, ...rest);
+    } catch (error) {
+      console.error('[api] unhandled error while serving',
+        (req && req.url) || 'a request', error);
+      try {
+        if (!res.headersSent) {
+          res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
+        }
+        res.end('Internal server error');
+      } catch (_) {
+        // The response is already gone; nothing left to answer with.
+      }
+      return undefined;
+    }
+  };
+}
+
+module.exports = { sendJsonResult, safeRoute };

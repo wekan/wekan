@@ -7,6 +7,7 @@ import ImpersonatedUsers from '/models/impersonatedUsers';
 runOnServer(function() {
   const { ExporterExcelCard, ALL_FIELDS } = require('./server/ExporterExcelCard');
   const { WebApp } = require('meteor/webapp');
+  const { safeRoute } = require('/server/apiMiddleware');
   const { Authentication } = require('/server/authentication');
 
   /**
@@ -30,7 +31,7 @@ runOnServer(function() {
    */
   WebApp.handlers.get(
     '/api/boards/:boardId/lists/:listId/cards/:cardId/exportExcel',
-    async function (req, res) {
+    safeRoute(async function (req, res) {
       const boardId = req.params.boardId;
       const paramListId = req.params.listId;
       const paramCardId = req.params.cardId;
@@ -128,6 +129,6 @@ runOnServer(function() {
       } else {
         res.end(TAPi18n.__('user-can-not-export-card-to-excel'));
       }
-    },
+    }),
   );
 });

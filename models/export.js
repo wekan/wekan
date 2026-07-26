@@ -6,7 +6,7 @@ import ImpersonatedUsers from '/models/impersonatedUsers';
 
 if (Meteor.isServer) {
   const { WebApp } = require('meteor/webapp');
-  const { sendJsonResult } = require('/server/apiMiddleware');
+  const { sendJsonResult, safeRoute } = require('/server/apiMiddleware');
   const { Authentication } = require('/server/authentication');
 
   // Record an export authorization denial to the Admin Panel security log
@@ -90,7 +90,7 @@ if (Meteor.isServer) {
    * @param {string} boardId the ID of the board we are exporting
    * @param {string} authToken the loginToken
    */
-  WebApp.handlers.get('/api/boards/:boardId/export', async function (req, res) {
+  WebApp.handlers.get('/api/boards/:boardId/export', safeRoute(async function (req, res) {
     const boardId = req.params.boardId;
     let user = null;
     let impersonateDone = false;
@@ -134,6 +134,17 @@ if (Meteor.isServer) {
       user = await ReactiveCache.getUser({
         'services.resume.loginTokens.hashedToken': hashToken,
       });
+      if (!user) {
+        // GHSA-3gcg-g6rf-w2rx: an authToken that matches no login token makes the
+        // lookup answer `undefined`, and `user._id` on that threw a TypeError out of
+        // an async route handler - an unhandled rejection, which this app turns into
+        // a process crash (see the note in server/ldapGroupSync.js). One crafted GET
+        // took the whole server down. The same guard already existed in
+        // models/exportPDF.js and models/exportExcelCard.js; these handlers were
+        // missed.
+        sendJsonResult(res, { code: 401, data: { error: 'Invalid token' } });
+        return;
+      }
       adminId = user._id.toString();
       impersonateDone = await ReactiveCache.getImpersonatedUser({ adminId: adminId });
     } else if (!Meteor.settings.public.sandstorm) {
@@ -168,7 +179,7 @@ if (Meteor.isServer) {
       logExportDenied();
       sendJsonResult(res, { code: 403, data: { error: 'Forbidden' } });
     }
-  });
+  }));
 
   /**
    * @operation exportKanboard
@@ -179,7 +190,7 @@ if (Meteor.isServer) {
    * @param {string} boardId the ID of the board we are exporting
    * @param {string} authToken the loginToken
    */
-  WebApp.handlers.get('/api/boards/:boardId/export/kanboard', async function (req, res) {
+  WebApp.handlers.get('/api/boards/:boardId/export/kanboard', safeRoute(async function (req, res) {
     const boardId = req.params.boardId;
     const board = await ReactiveCache.getBoard(boardId);
     if (!board) {
@@ -201,6 +212,15 @@ if (Meteor.isServer) {
       user = await ReactiveCache.getUser({
         'services.resume.loginTokens.hashedToken': hashToken,
       });
+      if (!user) {
+        // GHSA-3gcg-g6rf-w2rx: this handler does not dereference the user - it hands
+        // it to canExport(), which answers false - so an unknown token got a 403
+        // rather than a crash. It is guarded all the same: one rule for every token
+        // lookup is what keeps the next handler from being the one that is missed,
+        // and "your token is invalid" is the honest answer to an invalid token.
+        sendJsonResult(res, { code: 401, data: { error: 'Invalid token' } });
+        return;
+      }
     } else if (!Meteor.settings.public.sandstorm) {
       try {
         // Any logged-in user may request an export; board-level access is
@@ -219,7 +239,7 @@ if (Meteor.isServer) {
       logExportDenied();
       sendJsonResult(res, { code: 403, data: { error: 'Forbidden' } });
     }
-  });
+  }));
 
   // Generalized export to other tools: NextCloud Deck, OpenProject, GitHub,
   // GitLab, Gitea, Forgejo. One shared auth handler, one route per format.
@@ -247,6 +267,15 @@ if (Meteor.isServer) {
       user = await ReactiveCache.getUser({
         'services.resume.loginTokens.hashedToken': hashToken,
       });
+      if (!user) {
+        // GHSA-3gcg-g6rf-w2rx: this handler does not dereference the user - it hands
+        // it to canExport(), which answers false - so an unknown token got a 403
+        // rather than a crash. It is guarded all the same: one rule for every token
+        // lookup is what keeps the next handler from being the one that is missed,
+        // and "your token is invalid" is the honest answer to an invalid token.
+        sendJsonResult(res, { code: 401, data: { error: 'Invalid token' } });
+        return;
+      }
     } else if (!Meteor.settings.public.sandstorm) {
       try {
         // Any logged-in user may request an export; board-level access is
@@ -276,9 +305,9 @@ if (Meteor.isServer) {
      * @param {string} boardId the ID of the board we are exporting
      * @param {string} authToken the loginToken
      */
-    WebApp.handlers.get(`/api/boards/:boardId/export/${format}`, async function (req, res) {
+    WebApp.handlers.get(`/api/boards/:boardId/export/${format}`, safeRoute(async function (req, res) {
       await serveExternalExport(req, res, format);
-    });
+    }));
   });
 
   // todo XXX once we have a real API in place, move that route there
@@ -303,7 +332,7 @@ if (Meteor.isServer) {
    */
   WebApp.handlers.get(
     '/api/boards/:boardId/attachments/:attachmentId/export',
-    async function (req, res) {
+    safeRoute(async function (req, res) {
       const boardId = req.params.boardId;
       const attachmentId = req.params.attachmentId;
       let user = null;
@@ -344,6 +373,17 @@ if (Meteor.isServer) {
         user = await ReactiveCache.getUser({
           'services.resume.loginTokens.hashedToken': hashToken,
         });
+        if (!user) {
+          // GHSA-3gcg-g6rf-w2rx: an authToken that matches no login token makes the
+          // lookup answer `undefined`, and `user._id` on that threw a TypeError out of
+          // an async route handler - an unhandled rejection, which this app turns into
+          // a process crash (see the note in server/ldapGroupSync.js). One crafted GET
+          // took the whole server down. The same guard already existed in
+          // models/exportPDF.js and models/exportExcelCard.js; these handlers were
+          // missed.
+          sendJsonResult(res, { code: 401, data: { error: 'Invalid token' } });
+          return;
+        }
         adminId = user._id.toString();
         impersonateDone = await ReactiveCache.getImpersonatedUser({ adminId: adminId });
       } else if (!Meteor.settings.public.sandstorm) {
@@ -378,7 +418,7 @@ if (Meteor.isServer) {
         logExportDenied();
         sendJsonResult(res, { code: 403, data: { error: 'Forbidden' } });
       }
-    },
+    }),
   );
 
   /**
@@ -396,7 +436,7 @@ if (Meteor.isServer) {
    * @param {string} authToken the loginToken
    * @param {string} delimiter delimiter to use while building export. Default is comma ','
    */
-  WebApp.handlers.get('/api/boards/:boardId/export/csv', async function (req, res) {
+  WebApp.handlers.get('/api/boards/:boardId/export/csv', safeRoute(async function (req, res) {
     const boardId = req.params.boardId;
     let user = null;
     let impersonateDone = false;
@@ -452,6 +492,13 @@ if (Meteor.isServer) {
       user = await ReactiveCache.getUser({
         'services.resume.loginTokens.hashedToken': hashToken,
       });
+      if (!user) {
+        // GHSA-3gcg-g6rf-w2rx - see the note in models/export.js: an unknown token
+        // answers `undefined`, and dereferencing it crashed the server.
+        res.writeHead(401, { 'Content-Type': 'text/plain; charset=utf-8' });
+        res.end('Invalid token');
+        return;
+      }
       adminId = user._id.toString();
       impersonateDone = await ReactiveCache.getImpersonatedUser({ adminId: adminId });
     } else if (!Meteor.settings.public.sandstorm) {
@@ -509,5 +556,5 @@ if (Meteor.isServer) {
       res.writeHead(403);
       res.end('Permission Error');
     }
-  });
+  }));
 }

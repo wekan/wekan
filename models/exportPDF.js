@@ -10,6 +10,7 @@ runOnServer(function() {
   // if (Meteor.isServer) block
   const { ExporterCardPDF, ExporterBoardPDF } = require('./server/ExporterCardPDF');
   const { WebApp } = require('meteor/webapp');
+  const { safeRoute } = require('/server/apiMiddleware');
   const { Authentication } = require('/server/authentication');
 
   // todo XXX once we have a real API in place, move that route there
@@ -33,7 +34,7 @@ runOnServer(function() {
    * @param {string} boardId the ID of the board we are exporting
    * @param {string} authToken the loginToken
    */
-  WebApp.handlers.get('/api/boards/:boardId/lists/:listId/cards/:cardId/exportPDF', async function (req, res) {
+  WebApp.handlers.get('/api/boards/:boardId/lists/:listId/cards/:cardId/exportPDF', safeRoute(async function (req, res) {
     const boardId = req.params.boardId;
     const paramListId = req.params.listId;
     const paramCardId = req.params.cardId;
@@ -116,7 +117,7 @@ runOnServer(function() {
     } else {
       res.end(TAPi18n.__('user-can-not-export-card-to-pdf'));
     }
-  });
+  }));
 
   /**
    * @operation exportBoardPDF
@@ -127,7 +128,7 @@ runOnServer(function() {
    * @param {string} boardId the ID of the board to export
    * @param {string} authToken the loginToken
    */
-  WebApp.handlers.get('/api/boards/:boardId/exportPDF', async function (req, res) {
+  WebApp.handlers.get('/api/boards/:boardId/exportPDF', safeRoute(async function (req, res) {
     const boardId = req.params.boardId;
     let user = null;
 
@@ -177,5 +178,5 @@ runOnServer(function() {
       res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
       res.end('Unauthorized');
     }
-  });
+  }));
 });
