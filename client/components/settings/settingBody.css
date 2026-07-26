@@ -248,6 +248,85 @@
   margin-bottom: 12px;
 }
 
+/* ── Checkboxes ──────────────────────────────────────────────────────────────
+   ONE checkbox look for the whole Admin Panel: the same square-and-green-tick the
+   rest of WeKan draws (`.materialCheckBox`, forms.css), which is what Admin Panel /
+   Settings / Announcement shows for "Active System-Wide Announcement".
+
+   Two problems this fixes at once.
+
+   1. Some panes - the storage Read/Write toggles, the Organizations and Teams
+      feature columns, the Backup checkboxes, the Problems summary - use a NATIVE
+      <input type="checkbox">. forms.css hides every native checkbox app-wide
+      (WeKan draws its own), so those either did not show at all, or were re-enabled
+      pane by pane and then drawn by the BROWSER: on Ubuntu that is a big orange
+      box, which has nothing to do with the chosen theme (it was orange even under
+      clearblue) and matched nothing else on the page.
+   2. Each pane that re-enabled them picked its own size, so no two panes agreed.
+
+   `appearance: none` takes the browser's own rendering out of it, and the tick is
+   drawn the same way `.materialCheckBox.is-checked` draws it - two borders of a
+   rotated box - so the two are the same checkbox to look at. It is deliberately NOT
+   the theme accent: a tick is a tick, and WeKan's is green everywhere else. */
+.setting-content input[type="checkbox"] {
+  /* Beat the app-wide "hide the native checkbox" rule for the Admin Panel only. */
+  position: relative;
+  inset-inline-start: auto;
+  visibility: visible;
+  display: inline-block;
+  appearance: none;
+  -webkit-appearance: none;
+  box-sizing: content-box;
+  width: 13px;
+  height: 13px;
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
+  vertical-align: middle;
+  border: 2px solid #5a5a5a;
+  border-radius: 1px;
+  background: transparent;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/* The checkmark: the box's own border disappears and a rotated, half-bordered box
+   is drawn over it - the same shape, in the same green, as .materialCheckBox. */
+.setting-content input[type="checkbox"]:checked {
+  border-color: transparent;
+}
+
+.setting-content input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  inset-inline-start: 3px;
+  width: 7px;
+  height: 15px;
+  border-bottom: 2px solid #3cb500;
+  border-inline-end: 2px solid #3cb500;
+  transform: rotate(40deg);
+  transform-origin: 100% 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* The same grey the rest of the UI uses when "grey icons" is on. */
+body.grey-icons-enabled .setting-content input[type="checkbox"]:checked::after {
+  border-bottom-color: #7a7a7a;
+  border-inline-end-color: #7a7a7a;
+}
+
+.setting-content input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--theme-accent, #2980b9);
+  outline-offset: 2px;
+}
+
+.setting-content input[type="checkbox"]:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
 /* A GROUP title inside a pane - "All Boards", "URL", "Product name", "Logo" on
    Visibility. Deliberately smaller than the pane title above it, so the page reads
    as one heading with groups under it rather than as several pages stacked. */

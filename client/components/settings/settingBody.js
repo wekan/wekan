@@ -1258,6 +1258,12 @@ Template.general.events({
 // the element is IN - so on Template.setting they would simply never fire. A pane
 // owning its own handlers works wherever the pane is rendered.
 Template.email.events({
+  // Tick the box without saving: Save below writes it, together with the invite
+  // domain above, the way the Yes/No pair it replaces behaved.
+  'click a.js-toggle-allow-email-change'(event) {
+    event.preventDefault();
+    $('#accounts-allowEmailChange').toggleClass('is-checked');
+  },
   'click a.js-toggle-tls'() {
     $('#mail-server-tls').toggleClass('is-checked');
   },
@@ -1296,12 +1302,12 @@ Template.email.events({
         Settings.update(ReactiveCache.getCurrentSetting()._id, { $set });
       }
       // Allow e-mail change lives in AccountSettings, so it is a second write - and
-      // nothing wrote it at all until now: the radios rendered the stored value and
-      // no handler in the app ever saved a change to them.
-      const allowEmailChange = $('input[name=allowEmailChange]:checked').val();
-      if (allowEmailChange !== undefined) {
+      // nothing wrote it at all until this pane took it over. It is one checkbox
+      // now, so the value is whether the box is ticked, and it is only written when
+      // the checkbox is actually on screen.
+      if ($('#accounts-allowEmailChange').length) {
         AccountSettings.update('accounts-allowEmailChange', {
-          $set: { booleanValue: allowEmailChange === 'true' },
+          $set: { booleanValue: $('#accounts-allowEmailChange').hasClass('is-checked') },
         });
       }
     } catch (e) {

@@ -161,22 +161,10 @@
   gap: 6px;
 }
 
-.setting-content .content-body .main-body .storage-rw-row input[type="checkbox"] {
-  position: static;
-  inset-inline-start: auto;
-  visibility: visible;
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  margin: 0;
-  flex-shrink: 0;
-  cursor: pointer;
-}
-
-.setting-content .content-body .main-body .storage-rw-row input[type="checkbox"]:disabled {
-  cursor: default;
-  opacity: 0.6;
-}
+/* The checkbox itself is the Admin Panel's one checkbox look (settingBody.css):
+   visible, square, with WeKan's own green tick - not the browser's rendering, which
+   on Ubuntu drew a big orange box that matched nothing else and ignored the theme.
+   Only the row's own spacing belongs here. */
 
 .setting-content .content-body .main-body .storage-rw-row label {
   margin: 0;

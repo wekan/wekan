@@ -415,7 +415,12 @@ test('the E-mail pane Save writes BOTH settings above it, and is below them', ()
   assert.ok(at('js-save') > at('email-domain-allowed-to-invite'),
     'the Save button sits below the invite-domain field');
   assert.ok(at('js-save') > at('accounts-allowEmailChange'),
-    'and below the allow-email-change radios, not inside their row');
+    'and below the allow-email-change checkbox, not inside its row');
+  // It is a checkbox now, not a Yes/No pair: the setting is on or off, and this is
+  // the checkbox the rest of the Admin Panel uses.
+  assert.ok(/a\.flex\.js-toggle-allow-email-change\s*\n\s*\.materialCheckBox#accounts-allowEmailChange/.test(email),
+    'one materialCheckBox, the same markup as Announcement\'s active checkbox');
+  assert.ok(!/name="allowEmailChange"/.test(email), 'the radio pair is gone');
   const save = js.slice(js.indexOf("'click button.js-save'"));
   const body = save.slice(0, save.indexOf('\n  },') + 5);
   assert.ok(/\$\('#mail-server-host'\)\.length/.test(body),
@@ -426,8 +431,10 @@ test('the E-mail pane Save writes BOTH settings above it, and is below them', ()
   assert.ok(/AccountSettings\.update\('accounts-allowEmailChange'/.test(body),
     'and allow email change is written too - it lives in AccountSettings, so it is '
     + 'a second write');
-  assert.ok(/allowEmailChange !== undefined/.test(body),
-    'a missing radio is skipped, never saved as false');
+  assert.ok(/\$\('#accounts-allowEmailChange'\)\.length/.test(body),
+    'a checkbox that is not on screen is skipped, never saved as false');
+  assert.ok(/hasClass\('is-checked'\)/.test(body),
+    'and the value saved is whether the box is ticked');
   assert.ok(/Object\.keys\(\$set\)\.length/.test(body), 'no empty update is sent');
 });
 

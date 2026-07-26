@@ -183,12 +183,13 @@ template(name='email')
       .form-group
         input.wekan-form-control#mailDomainNamevalue(type="text", placeholder="" value="{{currentSetting.mailDomainName}}")
     li.accounts-form
-      .title {{_ 'accounts-allowEmailChange'}}
-      .form-group.flex
-        input.wekan-form-control#accounts-allowEmailChange(type="radio" name="allowEmailChange" value="true" checked="{{#if allowEmailChange}}checked{{/if}}")
-        label {{_ 'yes'}}
-        input.wekan-form-control#accounts-allowEmailChange(type="radio" name="allowEmailChange" value="false" checked="{{#unless allowEmailChange}}checked{{/unless}}")
-        label {{_ 'no'}}
+      //- One checkbox, not a Yes/No pair: the setting is on or off, and this is the
+      //- checkbox the rest of the Admin Panel uses (Announcement's "Active
+      //- System-Wide Announcement" is the same markup). Ticked = e-mail changes are
+      //- allowed. The Save button below writes it, as it did the radios.
+      a.flex.js-toggle-allow-email-change
+        .materialCheckBox#accounts-allowEmailChange(class="{{#if allowEmailChange}}is-checked{{/if}}")
+        span {{_ 'accounts-allowEmailChange'}}
     li
       //- One Save, BELOW both settings it writes - the invite domain above and the
       //- Yes/No beside it. It used to sit inside the Yes/No row, where it read as

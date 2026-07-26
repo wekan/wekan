@@ -52,12 +52,13 @@ table:not(.table-page-table) tr:nth-child(even) {
 .js-teamsNewUser {
   display: none;
 }
+/* The People table's own checkboxes are the Admin Panel's one checkbox look
+   (settingBody.css): visible, square, WeKan's green tick. Only their placement in
+   the cell belongs here - the rule used to re-enable the BROWSER's rendering, which
+   drew a different checkbox from every other one in the panel. */
 .selectUserChkBox,
 .allUserChkBox {
-  position: static !important;
-  visibility: visible !important;
-  inset-inline-start: 0 !important;
-  display: block !important;
+  margin: 0 auto;
 }
 
 /* Make checkbox column fit content. Unscoped like the rules at the top of this
