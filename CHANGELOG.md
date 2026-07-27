@@ -271,6 +271,42 @@ browser build to verify).
 This release fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/fbf88fa19">A Docker Compose file for every FerretDB v1 backend, generated from one source</a>. Thanks to xet7.</summary>
+
+`docker-compose.yml` runs FerretDB v1 on its embedded SQLite. The same FerretDB
+can store into PostgreSQL, MySQL, MariaDB or SAP HANA instead, and there was no
+compose file for any of them — those backends were reachable only by editing
+the default file by hand. There is one per backend now:
+`docker-compose-ferretdb-v1-postgresql.yml`, `-mysql.yml`, `-mariadb.yml` and
+`-sap-hana.yml`.
+
+They differ ONLY in the database. The same WeKan image, the same ~700 lines of
+environment and the same comments explaining them — they are generated from
+`docker-compose.yml` rather than copied, and
+`tests/dockerComposeBackends.test.cjs` compares each file's WeKan service
+against the default one line for line. A
+copy drifts on the first setting somebody adds to one file, and then a user
+following the PostgreSQL file gets a differently configured WeKan than the
+SQLite file gives them.
+
+Each names its own database service, runs FerretDB with the matching
+`--handler`, and says at the top how to start, follow and stop THAT file with
+`docker compose -f`. The images are the newest published — `postgres:18`,
+`mysql:9`, `mariadb:12` and SAP's `saplabs/hanaexpress` — with the LTS
+alternative named in a comment where there is one. PostgreSQL is confirmed
+working with Meteor 3; MySQL, MariaDB and SAP HANA say in their own headers
+that they are experimental, because they are. SAP HANA also needed the
+[wekan/FerretDB](https://github.com/wekan/FerretDB) release binaries to be
+built with the `ferretdb_hana` build tag — without it `--handler=hana` is an
+unknown handler — so that build now passes the tag.
+
+`build.sh` and `build.bat` offer every `docker-compose*.yml` in the repo now,
+not four of the eight, and the test fails if a file exists that neither menu
+can start, or if a menu offers a file that does not exist.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6c1d62cde">Admin Panel reports show the whole instance, not the admin's own boards</a>. Thanks to xet7.</summary>
 
 Boards Report was empty while the Cards report beside it listed cards from
