@@ -2,8 +2,11 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import Boards from '/models/boards';
 import { Utils } from '/client/lib/utils';
+import { TABLE_PAGE_ROWS_PER_PAGE } from '/models/lib/tablePage';
 
-const ARCHIVED_BOARDS_PER_PAGE = 30;
+// The app's one rows-per-page (docs/Design/Page/Table.md): the archive pages
+// like every other paginated page, whatever pager it draws.
+const ARCHIVED_BOARDS_PER_PAGE = TABLE_PAGE_ROWS_PER_PAGE;
 
 Template.archivedBoards.onCreated(function () {
   // Server-side pagination: only the current page of archived boards is ever

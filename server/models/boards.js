@@ -550,6 +550,11 @@ Meteor.startup(async () => {
     { unique: true },
   );
   await ensureIndex(Boards, { 'members.userId': 1 });
+  // The Boards report pages by the boards' own order, and the archive pages the
+  // archived ones of a member - both counted with the same selector, so both are
+  // index-backed rather than a scan + in-memory sort.
+  await ensureIndex(Boards, { sort: 1 });
+  await ensureIndex(Boards, { archived: 1, 'members.userId': 1 });
 });
 
 Boards.after.insert(async (userId, doc) => {

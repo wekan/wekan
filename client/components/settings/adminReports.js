@@ -6,7 +6,9 @@ import Cards from '/models/cards';
 import Rules from '/models/rules';
 import ImpersonatedUsers from '/models/impersonatedUsers';
 import RecoveryEvents from '/models/recoveryEvents';
-import { buildHeader, buildRows, pageInfo } from '/models/lib/tablePage';
+import { Mongo } from 'meteor/mongo';
+import { buildHeader, buildRows, docsByIds, pageInfo, TABLE_PAGE_ROWS_PER_PAGE } from '/models/lib/tablePage';
+import { REPORT_PAGE_COLLECTION } from '/models/lib/reportPageIndex';
 import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
 import Settings from '/models/settings';
 const { cleanFileName } = require('/imports/lib/fileNameDisplay');
@@ -45,15 +47,35 @@ function collectionResults(collection, sort) {
   return collection.find({}, sort ? { sort } : {});
 }
 
+// The page index the report publications send (models/lib/reportPageIndex.js).
+// Client-only: there is no `report_pages` collection on the server, the publication
+// just addresses documents to that name over DDP.
+const ReportPages = new Mongo.Collection(REPORT_PAGE_COLLECTION);
+
+// The documents of the page the SERVER named, in the order it sorted them.
+//
+// `collectionResults` above shows whatever the collection holds, which is right
+// only for a collection nothing else fills. Cards and Boards are not those: every
+// card of every board the admin has opened is in minimongo, so Broken cards drew
+// hundreds of rows while its pager - counted on the server - said "1 / 1", and the
+// Cards and Boards reports showed the same rows on every page.
+function reportPageResults(collection, reportId) {
+  const index = ReportPages.findOne(reportId);
+  const ids = (index && index.ids) || [];
+  if (!ids.length) return [];
+  return docsByIds(ids, collection.find({ _id: { $in: ids } }).fetch());
+}
+
 function collectionResultsCount(collection) {
   return collection.find().count();
 }
 
 // --- adminReports template ---
 
-// Rows per page for the paginated reports (files, rules, boards, cards).
-// Kept in sync with the admin People panel so all admin lists page alike.
-const REPORTS_PER_PAGE = 25;
+// Rows per page for the paginated reports (files, rules, boards, cards). The one
+// rows-per-page of the whole app (docs/Design/Page/Table.md), so every list pages
+// alike - a report is not a different kind of page than People or Translation.
+const REPORTS_PER_PAGE = TABLE_PAGE_ROWS_PER_PAGE;
 
 // Static description of each paginated report: which page/count reactive vars
 // it uses, which publication feeds it and which count method backs it. Lets a
@@ -533,7 +555,7 @@ const REPORT_TABLES = {
   },
   'report-boards': {
     emptyKey: 'no-results',
-    docs: () => collectionResults(Boards, { sort: 1 }).fetch(),
+    docs: () => reportPageResults(Boards, 'report-boards'),
     columns: [
       { label: 'Title', value: d => abbreviate(d.title) },
       { label: 'Id', value: d => abbreviate(d._id) },
@@ -550,7 +572,9 @@ const REPORT_TABLES = {
     emptyKey: 'no-results',
     // A broken card is one with no board, swimlane or list - so those cells are
     // exactly the ones that may be empty, and that is the point of the row.
-    docs: () => collectionResults(Cards, { boardId: 1, createdAt: -1 }).fetch(),
+    // The page comes from the publication's own index, not from "every card in
+    // minimongo": that is what made this report one endless page.
+    docs: () => reportPageResults(Cards, 'report-broken'),
     columns: [
       { label: 'Card Title', value: d => abbreviate(d.title) },
       { label: 'Id', value: d => abbreviate(d._id) },
@@ -563,8 +587,8 @@ const REPORT_TABLES = {
   },
   'report-cards': {
     emptyKey: 'no-results',
-    // Match the server publication's index-backed sort (see cards.js).
-    docs: () => collectionResults(Cards, { boardId: 1, createdAt: -1 }).fetch(),
+    // The publication's page, in the publication's order (see cards.js).
+    docs: () => reportPageResults(Cards, 'report-cards'),
     columns: [
       { label: 'Card Title', value: d => abbreviate(d.title) },
       { label: 'Board', value: d => abbreviate(d.board()?.title) },
@@ -639,7 +663,7 @@ function reportTablePageData(tmpl) {
 // Reads the eventlog collection through the admin-only eventLogPage/eventLogCount
 // methods and shows a paginated, searchable, READ-ONLY table (no acknowledge —
 // that lives only on the Summary page). See docs/Security/Remediation/WeKan.md.
-const EVENTS_PER_PAGE = 25;
+const EVENTS_PER_PAGE = TABLE_PAGE_ROWS_PER_PAGE;
 
 // The stream's title is not needed here any more: the pane heading is rendered
 // once for every Admin Panel pane from the open menu entry

@@ -260,6 +260,43 @@ test('the subscribed window comes from the same helper as the counter', () => {
     'the hand-rolled second paginator must be gone');
 });
 
+test('every paginated page loads the SAME ten rows at a time', () => {
+  // One number for the whole app, wherever the pager is drawn: the shared table
+  // page, the Admin Panel reports and event streams, the People panes, the search
+  // pages and the archive. A page that writes its own is the bug this pins.
+  assert.strictEqual(lib.TABLE_PAGE_ROWS_PER_PAGE, 10,
+    'the app pages ten rows at a time (docs/Design/Page/Table.md)');
+  const sources = {
+    'client/components/settings/adminReports.js':
+      ['const REPORTS_PER_PAGE = TABLE_PAGE_ROWS_PER_PAGE;',
+       'const EVENTS_PER_PAGE = TABLE_PAGE_ROWS_PER_PAGE;'],
+    'client/components/settings/peopleBody.js':
+      ['const orgsPerPage = TABLE_PAGE_ROWS_PER_PAGE;',
+       'const teamsPerPage = TABLE_PAGE_ROWS_PER_PAGE;',
+       'const usersPerPage = TABLE_PAGE_ROWS_PER_PAGE;',
+       'const domainsPerPage = TABLE_PAGE_ROWS_PER_PAGE;'],
+    'client/lib/cardSearch.js':
+      ['this.resultsPerPage = TABLE_PAGE_ROWS_PER_PAGE;'],
+    'client/components/boards/boardArchive.js':
+      ['const ARCHIVED_BOARDS_PER_PAGE = TABLE_PAGE_ROWS_PER_PAGE;'],
+  };
+  for (const [file, lines] of Object.entries(sources)) {
+    const src = read(file);
+    for (const line of lines) {
+      assert.ok(src.includes(line), `${file} must read the shared number: ${line}`);
+    }
+    assert.ok(src.includes('TABLE_PAGE_ROWS_PER_PAGE }') ||
+      /TABLE_PAGE_ROWS_PER_PAGE[,\s}]/.test(src.slice(0, src.indexOf('\n\n'))) ||
+      /import \{[^}]*TABLE_PAGE_ROWS_PER_PAGE/.test(src),
+      `${file} must import it rather than redefine it`);
+  }
+  // The one module that cannot import it - a plain-node test require()s it - must
+  // still carry the same number.
+  const { PER_PAGE_DEFAULT } = require('../models/lib/domainTablePage');
+  assert.strictEqual(PER_PAGE_DEFAULT, lib.TABLE_PAGE_ROWS_PER_PAGE,
+    'domainTablePage.PER_PAGE_DEFAULT must not drift from the shared number');
+});
+
 // ── the doc ─────────────────────────────────────────────────────────────────
 
 test('the design doc lists the pages and they exist in code', () => {

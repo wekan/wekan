@@ -161,14 +161,38 @@ beside it.
   the subscription and the "page X / N" counter, so what is fetched and what is
   displayed cannot drift apart.
 - The publication applies `limit`/`skip` server-side and sends only that page, so
-  only those rows reach minimongo. The client re-applies the publication's sort so
-  the displayed order matches the server page; it must **not** re-slice an
-  already-paginated set.
+  only those rows reach minimongo. The client renders **that page**; it must
+  **not** re-slice an already-paginated set.
 - The total row count comes from a separate count method, called when the page is
   opened or the search changes — **not** on every prev/next click. The total
   cannot change because you moved to the next page, and recounting there added a
   second round trip to every click.
-- `perPage` is `TABLE_PAGE_ROWS_PER_PAGE` (25), one constant for every table.
+
+### Rows per page — one number, `TABLE_PAGE_ROWS_PER_PAGE`, for the whole app
+
+**Every paginated page in WeKan loads ten rows at a time.** The number lives once,
+as `TABLE_PAGE_ROWS_PER_PAGE` in `models/lib/tablePage.js`, and every page reads it
+from there — including the pages that are **not** built from this design and draw a
+pager of their own. A page that writes its own number is a bug, whichever template
+it uses:
+
+| Where | Reads it as |
+| --- | --- |
+| Every table page (`pageInfo`'s default) | `TABLE_PAGE_ROWS_PER_PAGE` |
+| Admin Panel / Problems — all reports and the event streams | `REPORTS_PER_PAGE`, `EVENTS_PER_PAGE` |
+| Admin Panel / People — People, Organizations, Teams, Domains | `usersPerPage`, `orgsPerPage`, `teamsPerPage`, `domainsPerPage` |
+| Admin Panel / Settings / Translation | `TABLE_PAGE_ROWS_PER_PAGE` |
+| The search pages (`CardSearchPaged`: global search, due cards, broken cards) | `resultsPerPage` |
+| Archived boards | `ARCHIVED_BOARDS_PER_PAGE` |
+
+Two deliberate exceptions, both of which have no pager and are therefore not
+paginated pages: the **activity feed**, which is infinite scroll and whose page size
+is a live-cursor cost decision (see the note in
+`client/components/activities/activities.js`), and `PER_PAGE_MAX` in
+`models/lib/domainTablePage.js`, which is an upper bound on what a *client may ask
+for*, not a page size. `PER_PAGE_DEFAULT` in that same module is the same ten,
+written out rather than imported because a plain-node test `require()`s the file;
+`tests/tablePage.test.cjs` pins the two together.
 
 ## Columns
 

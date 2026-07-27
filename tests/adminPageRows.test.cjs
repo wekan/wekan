@@ -1,0 +1,141 @@
+'use strict';
+
+// A paginated admin list must show the page the SERVER sent - only it, all of it,
+// in its order.
+//
+// Both panes read their page back out of minimongo, which holds far more than the
+// page:
+//
+//  * Admin Panel / People rendered `Users.find(query)`. The logged-in user's own
+//    record is always in minimongo (accounts publishes it), so the admin looking at
+//    the list appeared on EVERY one of its 578 pages, and anyone another
+//    subscription had pulled in could appear twice.
+//
+//  * Admin Panel / Problems / Broken cards rendered `Cards.find({})`. Every card of
+//    every board the admin had opened is in minimongo, so the report was one endless
+//    page under a pager that - counting on the server - correctly said "1 / 1". The
+//    Cards and Boards reports beside it read the same way.
+//
+// The publication (or, for People, a method) now NAMES the page, and the pane
+// renders that list. This pins the naming, the rendering, and the pure function
+// that puts the documents back in the server's order.
+//
+// Run: node tests/adminPageRows.test.cjs
+
+const assert = require('assert');
+const fs = require('fs');
+const path = require('path');
+
+const ROOT = path.resolve(__dirname, '..');
+const read = rel => fs.readFileSync(path.join(ROOT, rel), 'utf8');
+
+let passed = 0;
+function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
+
+(async () => {
+  const { docsByIds } = await import('../models/lib/tablePage.js');
+  const { REPORT_PAGE_COLLECTION, publishReportPage } =
+    await import('../models/lib/reportPageIndex.js');
+
+  console.log('adminPageRows:');
+
+  test('the page is exactly what the server named, in its order', () => {
+    const ids = ['c', 'a', 'b'];
+    // Minimongo order is not the server's, and it holds a document that is not on
+    // this page at all - the admin's own record, the one that was on every page.
+    const inCache = [
+      { _id: 'a', title: 'A' },
+      { _id: 'me', title: 'the admin' },
+      { _id: 'b', title: 'B' },
+      { _id: 'c', title: 'C' },
+    ];
+    assert.deepStrictEqual(docsByIds(ids, inCache).map(d => d._id), ['c', 'a', 'b']);
+  });
+
+  test('an id whose document has not arrived is left out, not drawn empty', () => {
+    // The ids come back from their own round trip, so they can be there a moment
+    // before the documents are. A row with no document is a row of blank cells.
+    assert.deepStrictEqual(docsByIds(['a', 'late'], [{ _id: 'a' }]).map(d => d._id), ['a']);
+    assert.deepStrictEqual(docsByIds([], [{ _id: 'a' }]), []);
+    assert.deepStrictEqual(docsByIds(null, null), []);
+    assert.deepStrictEqual(docsByIds(['a'], [null, undefined, { _id: 'a' }]).length, 1);
+  });
+
+  test('a publication names its page with the ids it just sent', () => {
+    const sent = [];
+    const publication = { added: (coll, id, fields) => sent.push([coll, id, fields]) };
+    publishReportPage(publication, 'report-broken', [{ _id: 'x' }, { _id: 'y' }]);
+    assert.deepStrictEqual(sent, [[REPORT_PAGE_COLLECTION, 'report-broken', { ids: ['x', 'y'] }]]);
+    // A document with no id is skipped rather than published as a null id.
+    sent.length = 0;
+    publishReportPage(publication, 'r', [{ _id: 'x' }, {}, null]);
+    assert.deepStrictEqual(sent[0][2], { ids: ['x'] });
+  });
+
+  test('People: the server names the page with the publication\'s own window', () => {
+    const server = read('server/models/users.js');
+    const at = server.indexOf('async getPeoplePageIds(');
+    assert.ok(at !== -1, 'the method must exist');
+    const method = server.slice(at, at + 1800);
+    // Same guard as the count method beside it: this must not become a way to
+    // enumerate user ids.
+    assert.ok(/check\(query,/.test(method) && /check\(limit, Number\)/.test(method),
+      'every argument is checked');
+    assert.ok(/canOpenAdminPanel/.test(method), 'admin only');
+    assert.ok(/peopleScopeSelector/.test(method),
+      'and scoped by the same rule module as the publication');
+    // Same page as the publication, or it would name rows that were never sent.
+    const pub = read('server/publications/people.js');
+    for (const part of ['sort: { createdAt: -1 }', 'limit,', 'skip: skip || 0,']) {
+      assert.ok(method.includes(part), `the method must use ${part}`);
+      assert.ok(pub.includes(part), `the publication uses ${part}`);
+    }
+    assert.ok(/fields: \{ _id: 1 \}/.test(method), 'ids only - the documents come from the publication');
+  });
+
+  test('People: the table renders that page and nothing else', () => {
+    const client = read('client/components/settings/peopleBody.js');
+    assert.ok(/Meteor\.call\('getPeoplePageIds'/.test(client), 'it asks which users the page holds');
+    assert.ok(/_id: \{ \$in: ids \}/.test(client), 'and looks up exactly those');
+    assert.ok(/docsByIds\(ids, docs\)/.test(client), 'in the server\'s order');
+    // The bug itself: reading the page back with the search query.
+    assert.ok(!/Users\.find\(tpl\.findUsersOptions\.get\(\)/.test(client),
+      'no bare query find - that is what put the admin on every page');
+    // Adding or deleting a user changes which users the page holds, and neither
+    // the query nor the page number changes with it.
+    assert.ok(/peopleListChanged\(\)/.test(client), 'create/delete ask for the page again');
+    assert.strictEqual((client.match(/peopleListChanged\(\);/g) || []).length, 2,
+      'both the create and the delete handler');
+    assert.ok(/peopleListVersion\.get\(\)/.test(client), 'and the table watches that');
+  });
+
+  test('Problems: the three reports over shared collections name their pages', () => {
+    const cards = read('server/publications/cards.js');
+    assert.ok(/publishReportPage\(this, 'report-broken', cards\)/.test(cards));
+    assert.ok(/publishReportPage\(this, 'report-cards', cards\)/.test(cards));
+    const boards = read('server/publications/boards.js');
+    assert.ok(/publishReportPage\(this, 'report-boards', boards\)/.test(boards));
+  });
+
+  test('Problems: and the pane renders the named page', () => {
+    const client = read('client/components/settings/adminReports.js');
+    // From REPORT_TABLES on: each report id appears earlier in reportConfig too.
+    const tables = client.slice(client.indexOf('const REPORT_TABLES = {'));
+    for (const reportId of ['report-broken', 'report-cards', 'report-boards']) {
+      const at = tables.indexOf(`'${reportId}': {`);
+      assert.ok(at !== -1, `${reportId} is a report table`);
+      const spec = tables.slice(at, at + 700);
+      assert.ok(new RegExp(`docs: \\(\\) => reportPageResults\\([A-Za-z]+, '${reportId}'\\)`).test(spec),
+        `${reportId} must render the page the publication named`);
+      assert.ok(!/docs: \(\) => collectionResults\((Cards|Boards)/.test(spec),
+        `${reportId} must not render everything the collection happens to hold`);
+    }
+    // The client side of the DDP-only index collection, from the shared name.
+    assert.ok(/new Mongo\.Collection\(REPORT_PAGE_COLLECTION\)/.test(client),
+      'the index collection is declared from the shared constant, not a typed string');
+    assert.ok(/docsByIds\(ids, collection\.find\(\{ _id: \{ \$in: ids \} \}\)\.fetch\(\)\)/.test(client),
+      'and the page is looked up by those ids, in that order');
+  });
+
+  console.log(`\n${passed} tests passed`);
+})();

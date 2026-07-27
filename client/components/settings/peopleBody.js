@@ -7,7 +7,7 @@ import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
 // rendering nothing. That is what left Admin Panel / People / People with no
 // table, no search box and no pager, while Organizations, Teams and Domains -
 // which use neither function - drew theirs normally.
-import { buildActions, buildFilters, buildHeader, buildRows, pageInfo } from "/models/lib/tablePage";
+import { buildActions, buildFilters, buildHeader, buildRows, docsByIds, pageInfo, TABLE_PAGE_ROWS_PER_PAGE } from "/models/lib/tablePage";
 import { avatarUpdateCounter } from '/client/components/users/avatarUpdateCounter';
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
 import LockoutSettings from '/models/lockoutSettings';
@@ -40,10 +40,22 @@ const TENANT_ORG_FIELDS = [
   'orgLegalNotice',
 ];
 
-const orgsPerPage = 25;
-const teamsPerPage = 25;
-const usersPerPage = 25;
-const domainsPerPage = 25;
+// One rows-per-page for the whole app (docs/Design/Page/Table.md): these four
+// panes page exactly like every other paginated page in WeKan.
+const orgsPerPage = TABLE_PAGE_ROWS_PER_PAGE;
+const teamsPerPage = TABLE_PAGE_ROWS_PER_PAGE;
+const usersPerPage = TABLE_PAGE_ROWS_PER_PAGE;
+const domainsPerPage = TABLE_PAGE_ROWS_PER_PAGE;
+
+// The People table renders the page the SERVER named (getPeoplePageIds), so adding
+// or deleting a user has to ask for that page again - the page's contents changed
+// without any of the things the table watches (the query, the page number) changing.
+// The create and delete handlers live in their own popup templates, so this is a
+// module-level counter rather than something on the People instance.
+const peopleListVersion = new ReactiveVar(0);
+function peopleListChanged() {
+  peopleListVersion.set(peopleListVersion.get() + 1);
+}
 let userOrgsTeamsAction = ""; //poosible actions 'addOrg', 'addTeam', 'removeOrg' or 'removeTeam' when adding or modifying a user
 let selectedUserChkBoxUserIds = [];
 
@@ -71,6 +83,11 @@ Template.people.onCreated(function () {
   this.numberOrgs = new ReactiveVar(0);
   this.numberTeams = new ReactiveVar(0);
   this.numberPeople = new ReactiveVar(0);
+  // The ids the `people` publication sent for the CURRENT page, in its order. The
+  // browser holds more user documents than one page - the logged-in user's own
+  // record is always in minimongo - so the table renders this list, not everything
+  // a `Users.find()` happens to match. See getPeoplePageIds in server/models/users.js.
+  this.peoplePageIds = new ReactiveVar([]);
   this.userFilterType = new ReactiveVar('all');
   // The search box lives in the shared controls row now, so keep the term in
   // state rather than reading it back out of a DOM id.
@@ -345,6 +362,22 @@ Template.people.onCreated(function () {
       this.refreshTeamsCount();
     });
 
+    // Which users this page consists of, asked for with the same query/limit/skip
+    // as the subscription right below it. Without it the table cannot tell the
+    // page's documents from the other user documents in minimongo.
+    peopleListVersion.get(); // ask again when a user was added or deleted
+    Meteor.call('getPeoplePageIds', this.findUsersOptions.get(), limitUsers, skipUsers,
+      (error, ids) => {
+        if (error) {
+          console.error('Failed to load the people page:', error);
+          return;
+        }
+        this.peoplePageIds.set(Array.isArray(ids) ? ids : []);
+        // The total moves with the page's contents, so it is refreshed here too:
+        // the subscription's ready callback only fires the first time.
+        this.refreshUsersCount();
+      });
+
     this.subscribe('people', this.findUsersOptions.get(), limitUsers, skipUsers, () => {
       this.loadNextPageLocked = false;
       const nextPeakBefore = this.infiniteScrolling.getNextPeak();
@@ -411,14 +444,22 @@ function firstPeoplePaneId(user) {
 // a select-all pair. Same two slots (docs/Design/Page/Table.md).
 // People: interactive rows again, and two of its headers are templates - the
 // new-user row and the select-all checkbox (docs/Design/Page/Table.md).
-// One page of users, as published. The 'people' publication already applies
-// server-side limit/skip sorted createdAt:-1, so this must NOT re-slice: doing so
-// paginated an already-paginated set, which is why page 2 once showed a single
-// stray doc (the admin's own user record, always in minimongo) and later pages
-// were empty.
+// One page of users: the ones the server put on this page, in its order.
+//
+// The 'people' publication applies limit/skip sorted createdAt:-1 server-side, so
+// this must NOT re-slice - that paginated an already-paginated set. But it must not
+// read the page back with a bare `Users.find(query)` either: minimongo holds user
+// documents this page has nothing to do with - above all the logged-in user's own
+// record, which accounts publishes and which therefore matched on EVERY page, so
+// the admin looking at the list saw themselves on all 578 of them (and anyone else
+// another subscription had pulled in could show up twice).
+//
+// `getPeoplePageIds` names the page; the documents still come from the publication.
+// An id whose document has not arrived yet is simply not rendered yet.
 function peopleDocs(tpl) {
-  return Users.find(tpl.findUsersOptions.get(), {
-    sort: { createdAt: -1 },
+  const ids = tpl.peoplePageIds.get();
+  if (!ids.length) return [];
+  const docs = Users.find({ _id: { $in: ids } }, {
     fields: {
       _id: 1,
       username: 1,
@@ -429,6 +470,8 @@ function peopleDocs(tpl) {
       services: 1,
     },
   }).fetch();
+  // The server's order, not minimongo's: `$in` does not preserve it.
+  return docsByIds(ids, docs);
 }
 
 const PEOPLE_COLUMNS = [
@@ -2104,6 +2147,9 @@ Template.newUserPopup.events({
         } else {
           usernameMessageElement.hide();
           emailMessageElement.hide();
+          // The new user belongs on the first page (the list is newest first), so
+          // the table has to ask which users that page holds now.
+          peopleListChanged();
           Popup.back();
         }
       },
@@ -2228,6 +2274,8 @@ Template.settingsUserPopup.events({
         if (process.env.DEBUG === 'true') {
           console.log('User deleted successfully:', result);
         }
+        // One row fewer: which users this page holds has changed.
+        peopleListChanged();
         Popup.back();
       }
     });

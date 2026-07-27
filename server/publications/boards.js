@@ -4,6 +4,7 @@
 // 2. the user has starred
 import { ReactiveCache } from '/imports/reactiveCache';
 import { publishComposite } from 'meteor/reywood:publish-composite';
+import { publishReportPage } from '/models/lib/reportPageIndex';
 import { findWhere } from '/imports/lib/collectionHelpers';
 import Users from "../../models/users";
 import Org from "../../models/org";
@@ -196,6 +197,9 @@ Meteor.publish('boardsReport', async function(searchTerm = '', limit, skip = 0) 
   for (const doc of users) { const { _id, ...fields } = doc; this.added('users', _id, fields); }
   for (const doc of teams) { const { _id, ...fields } = doc; this.added('team', _id, fields); }
   for (const doc of orgs) { const { _id, ...fields } = doc; this.added('org', _id, fields); }
+  // WHICH boards this page is, in this order: the admin's own boards are in
+  // minimongo whatever page is open, so the pane must render the named page only.
+  publishReportPage(this, 'report-boards', boards);
   this.ready();
 });
 

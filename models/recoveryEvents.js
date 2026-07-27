@@ -1,4 +1,5 @@
 import { Mongo } from 'meteor/mongo';
+import { Meteor } from 'meteor/meteor';
 
 const { SimpleSchema } = require('/imports/simpleSchema');
 
@@ -82,5 +83,14 @@ RecoveryEvents.record = async function record(type, opts = {}) {
     return null;
   }
 };
+
+if (Meteor.isServer) {
+  // Admin Panel / Problems / Recovery pages these newest-first and counts them
+  // with the same selector (server/publications/recoveryReport.js).
+  const { ensureIndex } = require('/server/lib/mongoStartup');
+  Meteor.startup(async () => {
+    await ensureIndex(RecoveryEvents, { createdAt: -1 });
+  });
+}
 
 export default RecoveryEvents;

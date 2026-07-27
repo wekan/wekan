@@ -4,6 +4,7 @@ import Cards from '../../models/cards';
 import SessionData from '../../models/usersessiondata';
 import {QueryDebug} from "../../config/query-classes";
 import {OPERATOR_DEBUG} from "../../config/search-const";
+import { TABLE_PAGE_ROWS_PER_PAGE } from '/models/lib/tablePage';
 
 // Plain helper class for search pages with pagination.
 // Not a BlazeComponent; instantiated in each template's onCreated.
@@ -22,7 +23,9 @@ export class CardSearchPaged {
     this.resultsCount = 0;
     this.totalHits = 0;
     this.queryErrors = null;
-    this.resultsPerPage = 25;
+    // The one rows-per-page of the app (docs/Design/Page/Table.md): a search page
+    // is a paginated page too, so it loads the same 10 rows at a time.
+    this.resultsPerPage = TABLE_PAGE_ROWS_PER_PAGE;
     this.sessionId = SessionData.getSessionId();
     this.subscriptionHandle = null;
     this.serverError = new ReactiveVar(false);

@@ -512,6 +512,14 @@ Meteor.startup(async () => {
   // and caused SQLITE_BUSY (#6480). This compound index covers that filter.
   await ensureIndex(Cards, { boardId: 1, archived: 1 });
   await ensureIndex(Cards, { parentId: 1 });
+  // Admin Panel / Problems / Broken cards asks for cards with NO board, swimlane
+  // or list, or an unknown type - an $or, which can only use an index if each of
+  // its branches has one. `boardId` is covered by { boardId, createdAt } above;
+  // these are the other three, so counting the report (and paging it) does not
+  // scan every card in the database.
+  await ensureIndex(Cards, { swimlaneId: 1 });
+  await ensureIndex(Cards, { listId: 1 });
+  await ensureIndex(Cards, { type: 1 });
   Meteor.defer(() => {
     addCronJob();
   });

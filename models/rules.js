@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Mongo } from 'meteor/mongo';
+import { Meteor } from 'meteor/meteor';
 const { SimpleSchema } = require('/imports/simpleSchema');
 
 const Rules = new Mongo.Collection('rules');
@@ -83,5 +84,15 @@ Rules.helpers({
     return ReactiveCache.getAction(this.actionId);
   },
 });
+
+if (Meteor.isServer) {
+  // Admin Panel / Problems / Rules pages every rule sorted by board, and counts
+  // them with the same selector (server/publications/rules.js). Without an index
+  // that is a full-collection scan plus an in-memory sort for every page of ten.
+  const { ensureIndex } = require('/server/lib/mongoStartup');
+  Meteor.startup(async () => {
+    await ensureIndex(Rules, { boardId: 1 });
+  });
+}
 
 export default Rules;

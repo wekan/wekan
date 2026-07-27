@@ -1,4 +1,5 @@
 import { Mongo } from 'meteor/mongo';
+import { Meteor } from 'meteor/meteor';
 const { SimpleSchema } = require('/imports/simpleSchema');
 
 const ImpersonatedUsers = new Mongo.Collection('impersonatedUsers');
@@ -77,5 +78,14 @@ ImpersonatedUsers.attachSchema(
     },
   }),
 );
+
+if (Meteor.isServer) {
+  // Admin Panel / Problems / Impersonation pages these newest-first and counts
+  // them with the same selector (server/publications/impersonationReport.js).
+  const { ensureIndex } = require('/server/lib/mongoStartup');
+  Meteor.startup(async () => {
+    await ensureIndex(ImpersonatedUsers, { createdAt: -1 });
+  });
+}
 
 export default ImpersonatedUsers;

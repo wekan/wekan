@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { publishComposite } from 'meteor/reywood:publish-composite';
+import { publishReportPage } from '/models/lib/reportPageIndex';
 import { findWhere } from '/imports/lib/collectionHelpers';
 import escapeForRegex from 'escape-string-regexp';
 import Users from '../../models/users';
@@ -1059,6 +1060,10 @@ Meteor.publish('brokenCardsReport', async function(searchTerm = '', limit, skip 
   for (const doc of boards) { const { _id, ...fields } = doc; this.added('boards', _id, fields); }
   for (const doc of lists) { const { _id, ...fields } = doc; this.added('lists', _id, fields); }
   for (const doc of swimlanes) { const { _id, ...fields } = doc; this.added('swimlanes', _id, fields); }
+  // WHICH cards this page is, in this order. Minimongo holds every card of every
+  // board the admin has opened, so without this the pane rendered all of them -
+  // hundreds of rows under a pager that correctly said "1 / 1".
+  publishReportPage(this, 'report-broken', cards);
   this.ready();
 });
 
@@ -1323,6 +1328,8 @@ Meteor.publish('cardsReport', async function(searchTerm = '', limit, skip = 0) {
   for (const doc of lists) { const { _id, ...fields } = doc; this.added('lists', _id, fields); }
   for (const doc of swimlanes) { const { _id, ...fields } = doc; this.added('swimlanes', _id, fields); }
   for (const doc of users) { const { _id, ...fields } = doc; this.added('users', _id, fields); }
+  // The page, named - see the note in brokenCardsReport above.
+  publishReportPage(this, 'report-cards', cards);
   this.ready();
 });
 

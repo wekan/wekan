@@ -1682,6 +1682,17 @@ Meteor.startup(async () => {
     await ensureIndex(Lists, value);
   }
   await ensureIndex(Users, { modifiedAt: -1 });
+  // Admin Panel / People pages users newest-first and counts them with the same
+  // selector (server/publications/people.js, getUsersCollectionCount,
+  // getPeoplePageIds). Without these, every page of an instance with tens of
+  // thousands of users sorted the WHOLE collection in memory to hand back ten
+  // rows, and each filter counted by scanning it. The filters are compound with
+  // `createdAt` so one index serves both the count and the page it belongs to.
+  await ensureIndex(Users, { createdAt: -1 });
+  await ensureIndex(Users, { loginDisabled: 1, createdAt: -1 });
+  await ensureIndex(Users, { isAdmin: 1, createdAt: -1 });
+  await ensureIndex(Users, { 'orgs.orgId': 1, createdAt: -1 });
+  await ensureIndex(Users, { 'services.accounts-lockout.unlockTime': 1 });
   Meteor.defer(() => {
     repairLegacyAvatarUrls();
   });
@@ -2193,6 +2204,56 @@ Meteor.methods({
     const cursor = await ReactiveCache.getUsers(
       tenantAdmin.peopleScopeSelector(currentUser, query || {}), {}, true);
     return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
+  },
+
+  // WHICH users are on one page of Admin Panel > People > People, in order.
+  //
+  // The `people` publication sends exactly one page, but the browser holds more
+  // user documents than that page: the logged-in user's own record is always in
+  // minimongo (accounts publishes it), and so is anyone another subscription has
+  // pulled in. The table read the page back with a plain `Users.find(query)`, which
+  // cannot tell those apart from the page - so the admin looking at the list
+  // appeared on EVERY page of it, and each person could be listed more than once.
+  //
+  // The ids are the missing piece: with them the client can render the page the
+  // server actually sent, in the server's order, and nothing else. Only ids are
+  // returned - the documents themselves still arrive through the publication, with
+  // its field list - and the scoping is the same rule module the publication and
+  // the count use, so a per-tenant Global Admin gets their own org's page here too.
+  async getPeoplePageIds(query = {}, limit = 25, skip = 0) {
+    check(query, Match.OneOf(Object, null, undefined));
+    check(limit, Number);
+    check(skip, Match.OneOf(Number, null, undefined));
+
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    }
+
+    const currentUser = await ReactiveCache.getUser(
+      { _id: this.userId },
+      { fields: { isAdmin: 1, orgs: 1 } },
+    );
+
+    if (!tenantAdmin.canOpenAdminPanel(currentUser)) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
+    }
+
+    // The same selector, the same sort and the same window as the publication -
+    // anything else would name a different page than the one that was sent.
+    const cursor = await ReactiveCache.getUsers(
+      tenantAdmin.peopleScopeSelector(currentUser, query || {}),
+      {
+        limit,
+        skip: skip || 0,
+        sort: { createdAt: -1 },
+        fields: { _id: 1 },
+      },
+      true,
+    );
+    const docs = typeof cursor.fetchAsync === 'function'
+      ? await cursor.fetchAsync()
+      : cursor.fetch();
+    return docs.map(doc => doc._id);
   },
 
   // #5850: Admin Panel > People > Domains. Returns the list of email-address

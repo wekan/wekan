@@ -13,9 +13,12 @@
 // `value` returns display text; `userId`, when given, makes the cell a link to
 // that user (the admin "edit user" popup) instead of plain text.
 
-// One page of rows. Kept in one place so every table pages alike and so the
-// publication limit and the "page X / N" counter can never drift apart.
-export const TABLE_PAGE_ROWS_PER_PAGE = 25;
+// One page of rows, for EVERY paginated page in WeKan - the ones built from the
+// shared table page and the ones with a pager of their own. Kept in one place so
+// they all page alike, and so a publication's limit and the "page X / N" counter
+// beside it can never drift apart. Ten rows: a page that fits on a screen without
+// scrolling is what a pager is for.
+export const TABLE_PAGE_ROWS_PER_PAGE = 10;
 
 // Equal share of the table width for `count` columns, as a CSS percentage
 // string. `table-layout: fixed` already divides the width evenly, so this exists
@@ -60,6 +63,27 @@ function cellText(column, doc) {
   const out = column.value(doc);
   if (out === undefined || out === null) return '';
   return typeof out === 'string' ? out : String(out);
+}
+
+// The documents of ONE page, given the ids the server put on that page.
+//
+// A paginated pane subscribes to a publication that sends one page, then reads the
+// page back out of minimongo - where the browser also holds documents that have
+// nothing to do with this page (the logged-in user's own record above all, which
+// accounts always publishes). A plain `find(query)` cannot tell them apart, which
+// is how Admin Panel / People showed the admin on every one of its 578 pages.
+//
+// So the server names the page and this puts it back in that order: `$in` returns
+// documents in no particular order, and an id whose document has not arrived yet is
+// left out rather than rendered as an empty row.
+export function docsByIds(ids, docs) {
+  const list = Array.isArray(ids) ? ids : [];
+  const byId = new Map(
+    (Array.isArray(docs) ? docs : [])
+      .filter(Boolean)
+      .map(doc => [doc._id || doc.id, doc]),
+  );
+  return list.map(id => byId.get(id)).filter(Boolean);
 }
 
 // Build the rows the shared template iterates. One cell per column, in column
