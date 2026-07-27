@@ -75,6 +75,13 @@ merely setting `MONGO_OPLOG_URL` starts a tail regardless of the reactivity orde
 
 FerretDB has no MongoDB change streams at all, in either version.
 
+## Other databases
+
+[Alternatives.md](Alternatives.md) — which databases publish images for ppc64le,
+s390x and riscv64 at all (PostgreSQL is the only widely-portable one, and MongoDB
+itself is amd64 + arm64 only), and what a new FerretDB v1 backend would have to
+implement before WeKan could store into one of them.
+
 ## See also
 
 - [../2/PostgreSQL.md](../2/PostgreSQL.md) — FerretDB 2, which is PostgreSQL-only
