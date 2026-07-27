@@ -266,7 +266,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.42 2026-07-27 WeKan ® release
 
 This release fixes the following bugs:
 
@@ -324,7 +324,7 @@ defensively now, and the decision is unchanged where the data is there.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/08f7f3954">Migrated images show in the card view again</a>. Thanks to S0QR2 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1f4bf0be1">Migrated images show in the card view again</a>. Thanks to S0QR2 and xet7.</summary>
 
 Reported after upgrading from WeKan 6: an attached image is visible in board
 view, downloads correctly from the card, and yet the card view shows an empty
@@ -362,7 +362,7 @@ loaded three-browser run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/94688a7a9">cpu-exec hands qemu-user a path it can open, and its test stops assuming the machine</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/352672178">cpu-exec hands qemu-user a path it can open, and its test stops assuming the machine</a>. Thanks to xet7.</summary>
 
 First real run of the node suites — they had never run anywhere until the "Run
 ALL tests" change — and `cpuExec.test.cjs` failed, which is what that change
