@@ -295,7 +295,7 @@ an index.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/6eca44c84">The admin lists paginate honestly: one page of ten rows, index-backed</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c1add5bc5">The admin lists paginate honestly: one page of ten rows, index-backed</a>. Thanks to xet7.</summary>
 
 Admin Panel / People showed the admin on every one of its 578 pages, and Admin
 Panel / Problems / Broken cards was one endless page under a pager that said
@@ -327,6 +327,78 @@ itself. `tests/adminPageRows.test.cjs` and `tests/paginationIndexes.test.cjs`
 pin all of it.
 
 </details>
+
+and has the following release-tooling changes:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ec8f706f7">The release workflow says what worked, what failed, and why</a>. Thanks to xet7.</summary>
+
+`release-all.yml` could fail in ways that left no explanation, or no failure at
+all: a version bump that committed nothing, a release published with empty
+notes, a bundle zip that exists but holds no `bundle/main.js`, an upload that
+reports success and leaves no asset behind, and a multi-arch image whose
+manifest is missing a CPU — which nobody notices until a user on that CPU is
+told there is no matching manifest. Each of those is checked now, and each
+check says the same three things when it fails: what was expected, what was
+actually there, and what to do about it. On success it prints one `OK: ...`
+line naming what it verified, so the log shows what worked and not only what
+did not. Every job also ends with a "Job result" step that runs whatever
+happened, so the run summary is one line per job — OK, FAILED or CANCELLED —
+instead of eighteen logs to open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7f1271197">A missing or broken release secret is one named line in the log</a>. Thanks to xet7.</summary>
+
+Only three jobs said anything about their secrets. Everywhere else a missing
+one surfaced deep inside a tool — a login that was refused, a checkout that
+404'd — with nothing naming the secret, and the `docker` job did it only after
+the multi-arch build had already spent half an hour on an image it could not
+push. Every job that needs a secret now checks it in its FIRST step and names
+what is missing. Where the answer is cheap it also checks that the secret
+WORKS, which is the other half of the question: `WEKAN_REPO_TOKEN` is asked
+whether it can push to the repository it is for, the three registry credentials
+are decoded and logged in with, and the base64 ones must decode. What only the
+far end can answer is answered where it is used — the Snap Store uploads name
+`SNAP_AUTH` when they are refused, and a Launchpad build that fails with an
+unauthorized in its log says `LP_CREDENTIALS` may be why.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dcefd4b36">Every disabled release job runs again, so its output is visible</a>. Thanks to xet7.</summary>
+
+`snap-qemu` (ppc64el, s390x), `snap-launchpad` (riscv64), `snap-variants`,
+`ucs` and `nextcloud` were hard-disabled with `if: ${{ false }}`, so a release
+never said anything about them at all. They all carry `continue-on-error: true`,
+so running them cannot fail a release or hold up another job — the point of
+running them is to SEE what they report. The three that skip their work while
+their secrets are unset — `snap-variants`, `ucs`, `nextcloud` — do it with a
+`::warning::` now instead of a quiet `::notice::`, so the missing secrets show
+in the run summary rather than only in a log.
+
+</details>
+
+and has the following developer-facing change:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7f63f0422">A test pins that a per-tenant admin sees no report data</a>. Thanks to xet7.</summary>
+
+Admin Panel / Problems is instance-wide, so every report publication and count
+method asks for the SITE admin flag `user.isAdmin` — not `canOpenAdminPanel`,
+which a per-tenant Global Admin passes — and `problems` is not one of a tenant
+admin's tabs. That is what keeps the Boards and Files reports honest now that
+they cover the whole instance instead of the admin's own boards, so it is
+pinned rather than left to be re-derived. The one admin list a tenant admin
+does get, People, is tenant-scoped in all three places that decide what it
+shows: the publication, the page-ids method and the count all go through
+`peopleScopeSelector`, so its pager cannot count rows its page may not show.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
 
 # v10.42 2026-07-27 WeKan ® release
 
@@ -553,9 +625,10 @@ that names no board publishes nothing and readies — and the same guard is on
 `boardCardsWindow` and `boardCardsLoadingMode`. The client no longer sends a
 subscription for a board id it does not have. Each guarded publisher still
 marks its arguments with `check(x, Match.Any)`
-([b3537985e](https://github.com/wekan/wekan/commit/b3537985e)), because this
-app runs with audit-argument-checks and `Match.test` alone is not checking —
-without that, every subscription failed with "Did not check() all arguments".
+([the follow-up that adds it](https://github.com/wekan/wekan/commit/b3537985e)),
+because this app runs with audit-argument-checks and `Match.test` alone is not
+checking — without that, every subscription failed with "Did not check() all
+arguments".
 `tests/publicationArgumentGuard.test.cjs` replays the guard and fails on an
 unguarded board subscription.
 
