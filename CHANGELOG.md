@@ -268,77 +268,7 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/69f2be116">Which other databases run on many CPUs, and what a FerretDB v1 backend would cost</a>. Thanks to xet7.</summary>
-
-WeKan runs on every CPU Node.js runs on, and this fork of FerretDB v1 exists
-because MongoDB publishes no server for most of them. `Alternatives.md` in
-[docs/Databases/FerretDB/1](https://github.com/wekan/wekan/tree/main/docs/Databases/FerretDB/1)
-answers the two questions that keep coming back: which databases even have
-images for those CPUs, and what would be missing in FerretDB v1 before it could
-store into one.
-
-The architecture table is read from each registry's own manifest rather than
-from documentation, and it says plainly what that data shows: **PostgreSQL is
-the only widely-portable database server** — the only one publishing ppc64le,
-s390x *and* riscv64. MariaDB covers ppc64le and s390x, MySQL neither, and
-MongoDB itself and upstream FerretDB 2 are amd64 + arm64 only. This fork's own
-image covers nine platforms.
-
-What a new backend needs is taken from the code: a pure-Go driver, because the
-binaries are built `CGO_ENABLED=0` and that is what makes one build serve nine
-architectures — which is why Oracle and IBM Db2 are out despite Db2's ppc64le
-and s390x images; the three `internal/backends` interfaces, none of them
-stubbable; a metadata registry; the SQL features the translation actually uses,
-including the record-id column that capped collections — and therefore the
-OpLog — are built on; correct MongoDB semantics on top of that; and a live
-integration run, which is the whole difference between the confirmed and the
-experimental rows. Plus the shortcut: a database that speaks the PostgreSQL or
-MySQL wire protocol needs no new backend, only an existing one that survives
-its dialect — CockroachDB brings s390x that way, for the price of a test run.
-
-A [follow-up](https://github.com/wekan/wekan/commit/67991587d) groups them, so
-the reader is not left to find the pattern: they are not fifteen questions but
-seven families — PostgreSQL-wire, MySQL-wire, enterprise SQL, embedded,
-columnar, key-value, and what already speaks MongoDB — and inside a family the
-answer is one answer. The page opens with all of it in five sentences and one
-table, because the conclusion (verify the three backends that already exist
-rather than write a fourth) was previously visible only to whoever read to the
-end.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/fea3c432e">docs/Databases is one directory per database, each with a README</a>. Thanks to xet7.</summary>
-
-It was a flat list in which the database was a filename prefix, in three
-spellings — `MongoDB-Driver-System.md`, `mongodb-avx-qemu.md`,
-`MongoDB_OpLog_Enablement.md` — plus `FerretDB2-PostgreSQL.md` and a
-`ToroDB-PostgreSQL` directory. Somebody asking "how do I run WeKan on
-PostgreSQL" had to read the prefixes to work out which files were even about
-their database.
-
-Now there is a directory each for `Migrations`, `MongoDB`, `FerretDB` — with
-`1` and `2` inside it, because v1 and v2 are different products with different
-backends — and `ToroDB`, with `PostgreSQL` inside it. Each file keeps its name
-minus the redundant prefix, and the old `PostgreSQL.md`, which was an index of
-FerretDB and ToroDB rather than a document about PostgreSQL, becomes the
-directory's `README.md`.
-
-Every directory has a `README.md` saying what is in it and where to go next —
-including `FerretDB/1`, which had no documentation at all although it is
-WeKan's default database and had just gained four more backends. A link to a
-directory points at the DIRECTORY, not at its `README.md`, because that file is
-what is opened by default anyway. Every link into the old paths is updated: in
-the docs, in `docker-compose-ferretdb-v2-postgresql.yml` and on the wekan.fi
-website, along with the relative links inside the moved files, which gained a
-directory level. `tests/docsDatabases.test.cjs` pins the layout, the READMEs,
-the directory links, that every relative link resolves, and that nothing
-outside `CHANGELOG.md` still names an old path.
-
-</details>
+This release adds the following new features:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fbf88fa19">A Docker Compose file for every FerretDB v1 backend, generated from one source</a>. Thanks to xet7.</summary>
@@ -376,13 +306,15 @@ can start, or if a menu offers a file that does not exist.
 
 </details>
 
+and fixes the following bugs:
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6c1d62cde">Admin Panel reports show the whole instance, not the admin's own boards</a>. Thanks to xet7.</summary>
 
 Boards Report was empty while the Cards report beside it listed cards from
 thousands of boards. It published `userBoardIds(this.userId)` — the boards the
 ADMIN is personally a member of — and on an instance whose admin is not a board
-member that is nothing at all. Until the pagination fix above the pane hid it:
+member that is nothing at all. Until the pagination fix below, the pane hid it:
 it rendered every board in minimongo, which the All Boards page had already put
 there. The Files report was scoped the same way, to the cards that admin can
 access.
@@ -500,6 +432,78 @@ pinned rather than left to be re-derived. The one admin list a tenant admin
 does get, People, is tenant-scoped in all three places that decide what it
 shows: the publication, the page-ids method and the count all go through
 `peopleScopeSelector`, so its pager cannot count rows its page may not show.
+
+</details>
+
+and improves the documentation:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fea3c432e">docs/Databases is one directory per database, each with a README</a>. Thanks to xet7.</summary>
+
+It was a flat list in which the database was a filename prefix, in three
+spellings — `MongoDB-Driver-System.md`, `mongodb-avx-qemu.md`,
+`MongoDB_OpLog_Enablement.md` — plus `FerretDB2-PostgreSQL.md` and a
+`ToroDB-PostgreSQL` directory. Somebody asking "how do I run WeKan on
+PostgreSQL" had to read the prefixes to work out which files were even about
+their database.
+
+Now there is a directory each for `Migrations`, `MongoDB`, `FerretDB` — with
+`1` and `2` inside it, because v1 and v2 are different products with different
+backends — and `ToroDB`, with `PostgreSQL` inside it. Each file keeps its name
+minus the redundant prefix, and the old `PostgreSQL.md`, which was an index of
+FerretDB and ToroDB rather than a document about PostgreSQL, becomes the
+directory's `README.md`.
+
+Every directory has a `README.md` saying what is in it and where to go next —
+including `FerretDB/1`, which had no documentation at all although it is
+WeKan's default database and had just gained four more backends. A link to a
+directory points at the DIRECTORY, not at its `README.md`, because that file is
+what is opened by default anyway. Every link into the old paths is updated: in
+the docs, in `docker-compose-ferretdb-v2-postgresql.yml` and on the wekan.fi
+website, along with the relative links inside the moved files, which gained a
+directory level. `tests/docsDatabases.test.cjs` pins the layout, the READMEs,
+the directory links, that every relative link resolves, and that nothing
+outside `CHANGELOG.md` still names an old path.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/69f2be116">Which other databases run on many CPUs, and what a FerretDB v1 backend would cost</a>. Thanks to xet7.</summary>
+
+WeKan runs on every CPU Node.js runs on, and this fork of FerretDB v1 exists
+because MongoDB publishes no server for most of them. `Alternatives.md` in
+[docs/Databases/FerretDB/1](https://github.com/wekan/wekan/tree/main/docs/Databases/FerretDB/1)
+answers the two questions that keep coming back: which databases even have
+images for those CPUs, and what would be missing in FerretDB v1 before it could
+store into one.
+
+The architecture table is read from each registry's own manifest rather than
+from documentation, and it says plainly what that data shows: **PostgreSQL is
+the only widely-portable database server** — the only one publishing ppc64le,
+s390x *and* riscv64. MariaDB covers ppc64le and s390x, MySQL neither, and
+MongoDB itself and upstream FerretDB 2 are amd64 + arm64 only. This fork's own
+image covers nine platforms.
+
+What a new backend needs is taken from the code: a pure-Go driver, because the
+binaries are built `CGO_ENABLED=0` and that is what makes one build serve nine
+architectures — which is why Oracle and IBM Db2 are out despite Db2's ppc64le
+and s390x images; the three `internal/backends` interfaces, none of them
+stubbable; a metadata registry; the SQL features the translation actually uses,
+including the record-id column that capped collections — and therefore the
+OpLog — are built on; correct MongoDB semantics on top of that; and a live
+integration run, which is the whole difference between the confirmed and the
+experimental rows. Plus the shortcut: a database that speaks the PostgreSQL or
+MySQL wire protocol needs no new backend, only an existing one that survives
+its dialect — CockroachDB brings s390x that way, for the price of a test run.
+
+A [follow-up](https://github.com/wekan/wekan/commit/67991587d) groups them, so
+the reader is not left to find the pattern: they are not fifteen questions but
+seven families — PostgreSQL-wire, MySQL-wire, enterprise SQL, embedded,
+columnar, key-value, and what already speaks MongoDB — and inside a family the
+answer is one answer. The page opens with all of it in five sentences and one
+table, because the conclusion (verify the three backends that already exist
+rather than write a fourth) was previously visible only to whoever read to the
+end.
 
 </details>
 
