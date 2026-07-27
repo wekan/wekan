@@ -64,6 +64,33 @@ test('build.bat does the same, in both of its ALL-tests flows', () => {
   assert.ok(!/No recompile: your existing build is reused/.test(bat));
 });
 
+test('"Run ALL tests" really runs all of them, in both scripts', () => {
+  // The node suites - test:unit:all, i.e. the ~165 .cjs guards plus the sticker /
+  // Trello / OAuth2 .js tests - were in package.json and in no test RUN: the flow
+  // ran mocha, import, e2e and the three browsers only. A guard that never runs
+  // guards nothing.
+  const flow = sh.slice(sh.indexOf('function run_all_tests()'));
+  assert.ok(/unit\)   meteor npm run test:unit:all \|\| rc=\$\?/.test(flow),
+    'build.sh must have a unit job that runs test:unit:all');
+  assert.ok(/launch_job unit/.test(flow), 'and launch it');
+  for (const keys of flow.match(/ALLKEYS="[^"]+"/g) || []) {
+    assert.ok(/\bunit\b/.test(keys), `${keys} must include the unit job`);
+  }
+  assert.ok(/unit\) echo "Unit tests \(node\)" ;;/.test(flow), 'labelled in the summary');
+  assert.ok(/unit\) n=\$\(grep -cE '\^\\s\*ok - '/.test(flow),
+    'and counted - the node suites print "  ok - <name>", not a check mark');
+
+  // build.bat: both flows start it, wait for it and report it.
+  assert.ok((bat.match(/start "Wekan unit"/g) || []).length === 2,
+    'both .bat flows must start the unit job');
+  assert.ok(/call :seq_run_wait unit unit C_unit/.test(bat), 'sequential waits for it');
+  assert.ok(/if not exist "\.done-unit" set "ALLDONE=0"/.test(bat), 'parallel waits for it');
+  assert.ok((bat.match(/call :report "!S_unit!"/g) || []).length === 2,
+    'and both summaries report it');
+  assert.ok(/:jcount_unit/.test(bat), 'with a counter that understands its output');
+  assert.ok(/call meteor npm run test:unit:all/.test(bat), 'running the same script');
+});
+
 test('every menu entry of build.sh exists in build.bat', () => {
   // build.sh's entries are "Label|description" pairs passed to choose().
   const labels = [...sh.matchAll(/^\s*"([^"|]+)\|[^"]*"\s*\\?$/gm)].map(m => m[1].trim());

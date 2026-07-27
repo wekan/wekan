@@ -552,6 +552,7 @@ function run_all_tests(){
 	record() { SUMMARY+=("$1|$2|${3:-}"); }
 	label_of() { case "$1" in
 		mocha) echo "Mocha (server-side)" ;;
+		unit) echo "Unit tests (node)" ;;
 		import) echo "Import regression" ;;
 		e2e) echo "Node E2E regressions" ;;
 		chromium) echo "Playwright Chromium" ;;
@@ -565,6 +566,7 @@ function run_all_tests(){
 	# plain Node script and touches no server/DB.
 	port_of() { case "$1" in
 		mocha) echo "M2 node:3100 db:3101" ;;
+		unit) echo "no server (node)" ;;
 		import) echo "no server (node)" ;;
 		e2e|chromium|firefox|webkit) echo "M1 node:3000 db:3001" ;;
 	esac; }
@@ -576,6 +578,8 @@ function run_all_tests(){
 		local n
 		case "$1" in
 			e2e) n=$(grep -c '\[wekan-e2e\]' "$2" 2>/dev/null) ;;
+			# The node suites print "  ok - <name>" per assertion group.
+			unit) n=$(grep -cE '^\s*ok - ' "$2" 2>/dev/null) ;;
 			*)   n=$(grep -c $'\xe2\x9c\x93' "$2" 2>/dev/null) ;;
 		esac
 		echo "${n:-0}"
@@ -584,6 +588,8 @@ function run_all_tests(){
 		local n
 		case "$1" in
 			e2e) n=$(grep -c 'wekan-e2e\] FAIL' "$2" 2>/dev/null) ;;
+			# node stops at the first failing suite, and prints the assertion there.
+			unit) n=$(grep -cE 'AssertionError|^\s*throw err' "$2" 2>/dev/null) ;;
 			*)   n=$(grep -cE $'\xe2\x9c\x98|\xe2\x9c\x97' "$2" 2>/dev/null) ;;
 		esac
 		echo "${n:-0}"
@@ -608,6 +614,12 @@ function run_all_tests(){
 		local rc=0
 		case "$k" in
 			mocha)  METEOR_LOCAL_DIR=.meteor/local-test meteor test --once --driver-package meteortesting:mocha --port 3100 || rc=$? ;;
+			# Every plain-node suite in package.json: test:unit:all is test:unit:node
+			# (the ~165 .cjs guards) plus the stickers / Trello / OAuth2 .js tests.
+			# They need no server and no browser, and until now "Run ALL tests" did
+			# not run them at all - so a guard that was supposed to fail the suite
+			# never ran anywhere.
+			unit)   meteor npm run test:unit:all || rc=$? ;;
 			import) node tests/wekanCreator.import.test.js || rc=$? ;;
 			e2e)    meteor npm run test:e2e || rc=$? ;;
 			*)      run_pw_all_browser "$k" || rc=$? ;;
@@ -787,8 +799,9 @@ function run_all_tests(){
 	# Mocha and the import regression do not need the :3000 server; launch them
 	# now (after the server build is past, so they no longer compete with it),
 	# then the E2E and browser jobs below.
-	echo "==> Launching Mocha (separate .meteor/local-test build, port 3100) and import regression, $modeword."
+	echo "==> Launching Mocha (separate .meteor/local-test build, port 3100), the node unit suites and the import regression, $modeword."
 	launch_job mocha
+	launch_job unit
 	launch_job import
 
 	if [ "$SERVER_READY" -ne 1 ]; then
@@ -798,7 +811,7 @@ function run_all_tests(){
 		record SKIP "Playwright Chromium"
 		record SKIP "Playwright Firefox"
 		record SKIP "Playwright WebKit"
-		ALLKEYS="mocha import"
+		ALLKEYS="mocha unit import"
 	else
 		record PASS "Server startup"
 		# Server is up: add the server-facing jobs to the running set.
@@ -806,7 +819,7 @@ function run_all_tests(){
 		launch_job chromium
 		launch_job firefox
 		launch_job webkit
-		ALLKEYS="mocha import e2e chromium firefox webkit"
+		ALLKEYS="mocha unit import e2e chromium firefox webkit"
 	fi
 
 	# PARALLEL only: a live combined table, one refreshing line per concurrently

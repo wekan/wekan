@@ -71,4 +71,40 @@ test('the *bleed security suites are registered', () => {
   }
 });
 
+// The other half of the same failure mode: a suite that IS a plain-node file but
+// is in no npm script. 72 of them had drifted out that way - the flow that says
+// "Run ALL tests" ran mocha, the import regression, the Node E2E harness and the
+// three browsers, and every one of those .cjs guards sat in the tree looking like
+// a test and running nowhere.
+test('every plain-node suite is in test:unit:node / test:unit:all', () => {
+  const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
+  const nodeScript = pkg.scripts['test:unit:node'] || '';
+  const allScript = (pkg.scripts['test:unit:all'] || '')
+    .replace('npm run test:unit:node', nodeScript);
+  const referenced = new Set(
+    [...allScript.matchAll(/node (tests\/[\w./-]+)/g)].map(m => m[1]),
+  );
+
+  const files = fs.readdirSync(path.join(ROOT, 'tests'))
+    .filter(f => f.endsWith('.test.cjs') || f.endsWith('.test.js'))
+    .map(f => `tests/${f}`)
+    .sort();
+  // tests/all.test.js is the Meteor mocha ENTRY POINT (it imports the two
+  // indexes checked above) - it runs under `meteor test`, not under node.
+  const exempt = new Set(['tests/all.test.js']);
+  const missing = files.filter(f => !exempt.has(f) && !referenced.has(f));
+  assert.deepStrictEqual(missing, [],
+    `${missing.length} suites exist but no npm script runs them`);
+  assert.ok(files.length > 200, `expected the whole suite list, found ${files.length}`);
+});
+
+test('and "Run ALL tests" runs that script', () => {
+  // A registered suite that the test RUN never invokes is no better off.
+  const sh = fs.readFileSync(path.join(ROOT, 'build.sh'), 'utf8');
+  assert.ok(/unit\)   meteor npm run test:unit:all/.test(sh),
+    'build.sh: the ALL-tests flow must have a unit job');
+  const bat = fs.readFileSync(path.join(ROOT, 'build.bat'), 'utf8');
+  assert.ok(/call meteor npm run test:unit:all/.test(bat), 'build.bat: the same job');
+});
+
 console.log(`\n${passed} tests passed`);
