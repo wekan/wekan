@@ -168,7 +168,7 @@ template(name="boardList")
                       class="{{#if isStarred}}is-star-active{{else}}is-not-star-active{{/if}}"
                       title="{{_ 'star-board-title'}}")
                       span.emoji-icon
-                        | {{#if isStarred}}⭐{{else}}☆{{/if}}
+                        i.fa(class="{{#if isStarred}}fa-star{{else}}fa-star-o{{/if}}")
                     p.board-list-item-desc {{_ 'just-invited'}}
                     button.js-accept-invite.primary {{_ 'accept'}}
                     button.js-decline-invite {{_ 'decline'}}

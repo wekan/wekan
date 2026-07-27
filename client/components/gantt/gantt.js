@@ -124,10 +124,12 @@ Template.ganttView.helpers({
 			 dueAt: card.dueAt ? new Date(card.dueAt) : null,
 			 endAt: card.endAt ? new Date(card.endAt) : null,
 		 };
-		 if (cardDates.receivedAt && cardDates.receivedAt.toDateString() === day.toDateString()) return '📥';
-		 if (cardDates.startAt && cardDates.startAt.toDateString() === day.toDateString()) return '🚀';
-		 if (cardDates.dueAt && cardDates.dueAt.toDateString() === day.toDateString()) return '⏰';
-		 if (cardDates.endAt && cardDates.endAt.toDateString() === day.toDateString()) return '🏁';
+		 // Font Awesome class names, rendered as <i class="fa ..."> by gantt.jade -
+		 // the emoji these used to be were the last of the 8.00-8.24 icon set.
+		 if (cardDates.receivedAt && cardDates.receivedAt.toDateString() === day.toDateString()) return 'fa-inbox';
+		 if (cardDates.startAt && cardDates.startAt.toDateString() === day.toDateString()) return 'fa-rocket';
+		 if (cardDates.dueAt && cardDates.dueAt.toDateString() === day.toDateString()) return 'fa-clock-o';
+		 if (cardDates.endAt && cardDates.endAt.toDateString() === day.toDateString()) return 'fa-flag-checkered';
 		 return '';
 	 },
 	isToday(day) {

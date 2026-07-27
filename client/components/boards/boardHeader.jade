@@ -407,7 +407,7 @@ template(name="createTemplateContainerPopup")
 //
         if $eq sortby value.name
 //
-           | {{#if $eq Direction "fa-arrow-up"}}⬆️{{else}}⬇️{{/if}}
+           i.fa(class="{{#if $eq Direction 'fa-arrow-up'}}fa-arrow-up{{else}}fa-arrow-down{{/if}}")
 //
         | {{_ value.label }}{{_ value.shortLabel}}
 //

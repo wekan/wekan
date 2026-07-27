@@ -74,8 +74,8 @@ template(name="commentReactions")
       unless currentUser.isReadOnly
         unless currentUser.isReadAssignedOnly
           a.open-comment-reaction-popup(title="{{_ 'addReactionPopup-title'}}")
-            span(title="{{_ 'reaction' }}") 😀
-            span(title="{{_ 'add' }}") ➕
+            i.fa.fa-smile-o(title="{{_ 'reaction' }}")
+            i.fa.fa-plus(title="{{_ 'add' }}")
 
 template(name="addReactionPopup")
   .reactions-popup

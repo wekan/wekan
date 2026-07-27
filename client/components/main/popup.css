@@ -676,10 +676,6 @@
 .pop-over-list .pop-over-list.checkable li.active a .fa-check {
   display: block;
 }
-/* Grey check icons when grey icons setting is enabled */
-body.grey-icons-enabled .pop-over-list .pop-over-list.checkable .fa-check {
-  color: #7a7a7a;
-}
 .pop-over.miniprofile .header {
   border-bottom-color: transparent;
   height: 30px;

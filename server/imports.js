@@ -265,7 +265,6 @@ import '/server/publications/team';
 import '/server/publications/translation';
 import '/server/publications/unsavedEdits';
 import '/server/publications/userDesktopDragHandles';
-import '/server/publications/userGreyIcons';
 import '/server/publications/users';
 import '/server/publications/trelloImportJobs';
 

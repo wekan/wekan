@@ -330,12 +330,6 @@
   transform-origin: 100% 100%;
 }
 
-/* The same grey the rest of the UI uses when "grey icons" is on. */
-body.grey-icons-enabled .setting-content input[type="checkbox"]:checked {
-  border-bottom: 2px solid #7a7a7a;
-  border-inline-end: 2px solid #7a7a7a;
-}
-
 .setting-content input[type="checkbox"]:focus-visible {
   outline: 2px solid var(--theme-accent, #2980b9);
   outline-offset: 2px;
@@ -637,11 +631,6 @@ body.grey-icons-enabled .setting-content input[type="checkbox"]:checked {
 .setting-content .content-body .main-body ul li a .is-checked {
   border-bottom: 2px solid #3cb500;
   border-inline-end: 2px solid #3cb500;
-}
-/* Grey checkmarks when grey icons setting is enabled */
-body.grey-icons-enabled .setting-content .content-body .main-body ul li a .is-checked {
-  border-bottom: 2px solid #7a7a7a;
-  border-inline-end: 2px solid #7a7a7a;
 }
 .setting-content .content-body .main-body ul li a span {
   padding: 0 0.5rem;

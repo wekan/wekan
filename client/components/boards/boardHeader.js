@@ -103,22 +103,20 @@ Template.boardHeaderBar.helpers({
   isSortActive() {
     return Session.get('sortBy') ? true : false;
   },
+  // A Font Awesome class name for the active sort, not an emoji.
   sortCardsIcon() {
     const sortBy = Session.get('sortBy');
     if (!sortBy) {
-      return '🃏'; // Card icon when nothing is selected
+      return 'fa-sort'; // nothing chosen
     }
-
-    // Determine which sort option is active based on sortBy object
     if (sortBy.dueAt) {
-      return '📅'; // Due date icon
+      return 'fa-clock-o'; // due date
     } else if (sortBy.title) {
-      return '🔤'; // Alphabet icon
+      return 'fa-font'; // alphabetical
     } else if (sortBy.createdAt) {
-      return sortBy.createdAt === 1 ? '⬆️' : '⬇️'; // Up/down arrow based on direction
+      return sortBy.createdAt === 1 ? 'fa-arrow-up' : 'fa-arrow-down';
     }
-
-    return '🃏'; // Default card icon
+    return 'fa-sort';
   },
 });
 

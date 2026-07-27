@@ -2,16 +2,21 @@ template(name="originalPosition")
   .original-position-info
     if isLoading
       .original-position-loading
-        | ⏳ Loading original position...
+        i.fa.fa-hourglass-half
+        |  Loading original position...
     else
       if showOriginalPosition
         .original-position-details
           if hasMovedFromOriginal
             .original-position-moved
-              span.original-position-text ℹ️ {{getOriginalPositionDescription}}
+              span.original-position-text
+                i.fa.fa-info-circle
+                |  {{getOriginalPositionDescription}}
           else
             .original-position-unchanged
-              span.original-position-text ✅ In original position
+              span.original-position-text
+                i.fa.fa-check
+                |  In original position
 
           if getOriginalTitle
             .original-title

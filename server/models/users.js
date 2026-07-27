@@ -426,19 +426,6 @@ Meteor.methods({
     await Users.updateAsync(this.userId, updateObject);
   },
 
-  async toggleGreyIcons(value) {
-    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
-    if (value !== undefined) check(value, Boolean);
-
-    const user = await Users.findOneAsync(this.userId);
-    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
-
-    const current = (user.profile && user.profile.GreyIcons) || false;
-    const newValue = value !== undefined ? value : !current;
-
-    await Users.updateAsync(this.userId, { $set: { 'profile.GreyIcons': newValue } });
-    return newValue;
-  },
 
   // #5778: set (or clear, when null/'') the caller's global theme color override.
   // Validated against the known board colors so a client cannot inject an arbitrary

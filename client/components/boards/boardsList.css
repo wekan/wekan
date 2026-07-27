@@ -855,22 +855,12 @@
 }
 
 .board-list .board-list-item .multi-selection-checkbox.is-checked::after {
-  content: '✓';
+  /* fa-check, so the tick is the same glyph as every other check in the UI. */
+  font-family: FontAwesome;
+  content: "\f00c";
   color: #fff;
   font-size: 16px;
   font-weight: bold;
-}
-
-/* Grey checkboxes when grey icons setting is enabled */
-body.grey-icons-enabled .board-list .board-list-item .multi-selection-checkbox.is-checked {
-  background: #7a7a7a;
-  border-color: #7a7a7a;
-  box-shadow: 0 2px 8px rgba(122, 122, 122, 0.6);
-}
-
-body.grey-icons-enabled .board-list.is-multiselection-active .js-board.is-checked {
-  outline: 4px solid #7a7a7a;
-  box-shadow: 0 4px 12px rgba(122, 122, 122, 0.4);
 }
 
 .board-list.is-multiselection-active .js-board.is-checked {
@@ -919,17 +909,6 @@ body.grey-icons-enabled .board-list.is-multiselection-active .js-board.is-checke
   font-size: 25px;
   color: #3cb500;
 }
-/* Grey check icons when grey icons setting is enabled */
-body.grey-icons-enabled .board-backgrounds-list .board-background-select .background-box i.fa-check {
-  color: #7a7a7a;
-}
-
-/* Prevent Grey Icons from affecting checkmarks in background color list */
-body.grey-icons-enabled .checkmark-no-grey {
-  filter: none !important;
-  -webkit-filter: none !important;
-}
-
 /* Mobile view styles - applied when isMiniScreen is true (iPhone, etc.) */
 .board-list.mobile-view {
   /* #6488/#6523: a responsive grid. `min(46%, 200px)` keeps ~2 columns on a narrow
@@ -1038,10 +1017,10 @@ body.grey-icons-enabled .checkmark-no-grey {
   display: none !important;
 }
 
-/* Change board drag handle to up-down arrow in mobile view */
+/* Change board drag handle to up-down arrow in mobile view: fa-arrows-v, the
+   Font Awesome glyph, not the emoji it used to be. */
 .board-list.mobile-view .board-handle.fa-arrows::before {
-  content: "↕️" !important;
-  font-family: inherit !important;
+  content: "\f07d" !important;
 }
 
 @media screen and (max-width: 800px),
@@ -1487,10 +1466,9 @@ body.grey-icons-enabled .checkmark-no-grey {
     display: none !important;
   }
 
-  /* Change board drag handle to up-down arrow in mobile view */
+  /* Change board drag handle to up-down arrow in mobile view: fa-arrows-v. */
   .board-list .board-handle.fa-arrows::before {
-    content: "↕️" !important;
-    font-family: inherit !important;
+    content: "\f07d" !important;
   }
 }
 

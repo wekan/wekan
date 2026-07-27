@@ -16,7 +16,9 @@ template(name="editCardSpentTimePopup")
 template(name="cardSpentTime")
   if canModifyCard
     a.js-edit-time.card-time(title="{{_ 'time'}}" class="{{#if getIsOvertime}}card-label-red{{else}}card-label-green{{/if}}")
-      | ⏱️ {{showTime}}
+      i.fa.fa-clock-o
+      |  {{showTime}}
   else
     a.card-time(title="{{_ 'time'}}" class="{{#if getIsOvertime}}card-label-red{{else}}card-label-green{{/if}}")
-      | ⏱️ {{showTime}}
+      i.fa.fa-clock-o
+      |  {{showTime}}

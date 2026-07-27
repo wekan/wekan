@@ -6511,10 +6511,6 @@ definitions:
            which is what WeKan did unconditionally and what the issue reported as a
            bug: the previous card simply never closed.
         type: boolean
-      GreyIcons:
-        description: |
-           per-user preference to render unicode icons in grey
-        type: boolean
       globalThemeColor:
         description: |
            #5778: optional per-user GLOBAL theme color override. When set to one of

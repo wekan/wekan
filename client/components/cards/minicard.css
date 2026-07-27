@@ -291,18 +291,24 @@
   margin-inline-end: 6px;
 }
 
-/* Unicode icons for minicard dates - matching cardDate.css */
+/* Font Awesome glyphs for minicard dates - matching cardDate.css */
+.minicard .card-date time::before {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+}
 .minicard .card-date.end-date time::before {
-  content: "🏁"; /* Finish flag - represents end/completion */
+  content: "\f11e"; /* fa-flag-checkered - end/completion */
 }
 .minicard .card-date.due-date time::before {
-  content: "⏰"; /* Alarm clock - represents due/deadline */
+  content: "\f017"; /* fa-clock-o - due/deadline */
 }
 .minicard .card-date.start-date time::before {
-  content: "🚀"; /* Rocket - represents start/launch */
+  content: "\f135"; /* fa-rocket - start/launch */
 }
 .minicard .card-date.received-date time::before {
-  content: "📥"; /* Inbox tray - represents received/incoming */
+  content: "\f01c"; /* fa-inbox - received/incoming */
 }
 
 .minicard .card-date time::before {

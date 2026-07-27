@@ -358,7 +358,7 @@ template(name="boardCardSettingsPopup")
       .card-settings-column
         span
           i.fa.fa-user
-          | ➕
+          i.fa.fa-plus
           | {{_ 'requested-by'}}
     .card-settings-row
       .card-settings-column
@@ -402,7 +402,7 @@ template(name="boardCardSettingsPopup")
           i.fa(class="{{#if allowsCardNumberOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
-          | #️⃣
+          i.fa.fa-hashtag
           | {{_ 'card'}}
           | {{_ 'number'}}
     .card-settings-row
@@ -727,7 +727,7 @@ template(name="boardMenuPopup")
         //
            a.js-delete-duplicate-lists
         //
-             | 🗑️
+             i.fa.fa-trash
         //
              | {{_ 'delete-duplicate-lists'}}
         li

@@ -64,6 +64,5 @@ import '/client/components/settings/translationBody.css';
 import '/client/components/sidebar/sidebar.css';
 import '/client/components/sidebar/sidebarSearches.css';
 import '/client/components/swimlanes/swimlanes.css';
-import '/client/components/unicode-icons.css';
 import '/client/components/users/userAvatar.css';
 import '/client/components/users/userForm.css';

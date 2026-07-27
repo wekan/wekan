@@ -81,15 +81,6 @@ Template.memberMenuPopup.events({
   'click .js-change-password': Popup.open('changePassword'),
   'click .js-change-language': Popup.open('changeLanguage'),
   'click .js-support': Popup.open('support'),
-  'click .js-toggle-grey-icons'(event) {
-    event.preventDefault();
-    const currentUser = ReactiveCache.getCurrentUser();
-    if (!currentUser || !Meteor.userId()) return;
-    const current = (currentUser.profile && currentUser.profile.GreyIcons) || false;
-    Meteor.call('toggleGreyIcons', (err) => {
-      if (err && process.env.DEBUG === 'true') console.error('toggleGreyIcons error', err);
-    });
-  },
   'click .js-logout'(event) {
     event.preventDefault();
 

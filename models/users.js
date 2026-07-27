@@ -307,13 +307,6 @@ Users.attachSchema(
       type: Boolean,
       optional: true,
     },
-    'profile.GreyIcons': {
-      /**
-       * per-user preference to render unicode icons in grey
-       */
-      type: Boolean,
-      optional: true,
-    },
     'profile.globalThemeColor': {
       /**
        * #5778: optional per-user GLOBAL theme color override. When set to one of
@@ -985,7 +978,6 @@ Users.safeFields = {
   'profile.initials': 1,
   'profile.zoomLevel': 1,
   'profile.mobileMode': 1,
-  'profile.GreyIcons': 1,
   orgs: 1,
   teams: 1,
   authenticationMethod: 1,
@@ -1520,10 +1512,6 @@ Users.helpers({
     return profile.openManyCardsAtOnce || false;
   },
 
-  hasGreyIcons() {
-    const profile = this.profile || {};
-    return profile.GreyIcons || false;
-  },
 
   getDismissedAnnouncementVersion() {
     const profile = this.profile || {};
@@ -2067,9 +2055,6 @@ Users.helpers({
     return await Users.updateAsync(this._id, { $set: { 'profile.rescueCardDescription': !value } });
   },
 
-  async toggleGreyIcons(value = false) {
-    return await Users.updateAsync(this._id, { $set: { 'profile.GreyIcons': !value } });
-  },
 
   // #5778: the user's optional global theme color override (a board color name),
   // or null when unset.

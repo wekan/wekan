@@ -23,5 +23,5 @@ template(name="ganttView")
                     | {{cardTitle .}}
               each weekDays ..
                 td(class="{{cellClasses .. .}}" data-card-id="{{cardId ..}}" data-date-type="{{cellContentClass .. .}}")
-                  | {{cellContent .. .}}
+                  i.fa(class="{{cellContent .. .}}")
 

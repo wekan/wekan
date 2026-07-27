@@ -350,11 +350,6 @@ textarea::-moz-placeholder {
   backface-visibility: hidden;
   transform-origin: 100% 100%;
 }
-/* Grey checkmarks when grey icons setting is enabled */
-body.grey-icons-enabled .materialCheckBox.is-checked {
-  border-bottom: 2px solid #7a7a7a;
-  border-inline-end: 2px solid #7a7a7a;
-}
 .button-link {
   background: #fff;
   background: linear-gradient(#fff, #f5f5f5);

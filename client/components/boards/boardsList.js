@@ -58,7 +58,9 @@ function shareBoardWith(boardId, shareType, name, id) {
   }
 }
 
-const DEFAULT_WORKSPACE_ICON = '📁';
+// No emoji default: a workspace with no icon of its own renders the Font
+// Awesome folder from boardsList.jade (`else` branch of `if icon`).
+const DEFAULT_WORKSPACE_ICON = '';
 
 // #5799: how many board icons to show per page in the sorted (non-custom) modes.
 // Matches the Admin Panel > People page size.
@@ -424,7 +426,7 @@ Template.boardList.helpers({
       const tpl = Template.instance();
       const selectedMenuVar = tpl.selectedMenu;
       if (!selectedMenuVar || typeof selectedMenuVar.get !== 'function') {
-        return { faIcon: 'fa-folder-open', icon: '🗂️', text: 'Workspaces' };
+        return { faIcon: 'fa-folder-open', text: 'Workspaces' };
       }
       const sel = selectedMenuVar.get();
       const currentUser = ReactiveCache.getCurrentUser();
@@ -457,15 +459,15 @@ Template.boardList.helpers({
       };
 
       if (sel === 'starred') {
-        return { faIcon: 'fa-star', icon: '⭐', text: safeTranslate('allboards.starred', 'Starred') };
+        return { faIcon: 'fa-star', text: safeTranslate('allboards.starred', 'Starred') };
       } else if (sel === 'templates') {
-        return { faIcon: 'fa-clipboard', icon: '📋', text: safeTranslate('allboards.templates', 'Templates') };
+        return { faIcon: 'fa-clipboard', text: safeTranslate('allboards.templates', 'Templates') };
       } else if (sel === 'remaining') {
-        return { faIcon: 'fa-folder', icon: '📂', text: safeTranslate('allboards.remaining', 'Remaining') };
+        return { faIcon: 'fa-folder', text: safeTranslate('allboards.remaining', 'Remaining') };
       } else {
         // sel is a workspaceId, build path
         if (!tpl.workspacesTreeVar || typeof tpl.workspacesTreeVar.get !== 'function') {
-          return { faIcon: 'fa-folder-open', icon: '🗂️', text: safeTranslate('allboards.workspaces', 'Workspaces') };
+          return { faIcon: 'fa-folder-open', text: safeTranslate('allboards.workspaces', 'Workspaces') };
         }
         const tree = tpl.workspacesTreeVar.get();
         const spacePath = findSpaceById(tree, sel);
@@ -473,15 +475,14 @@ Template.boardList.helpers({
           const pathText = spacePath.map((s) => s.name).join(' / ');
           return {
             faIcon: 'fa-folder-open',
-            icon: '🗂️',
             text: `${safeTranslate('allboards.workspaces', 'Workspaces')} / ${pathText}`,
           };
         }
-        return { faIcon: 'fa-folder-open', icon: '🗂️', text: safeTranslate('allboards.workspaces', 'Workspaces') };
+        return { faIcon: 'fa-folder-open', text: safeTranslate('allboards.workspaces', 'Workspaces') };
       }
     } catch (error) {
       console.error('Error in currentMenuPath:', error);
-      return { faIcon: 'fa-folder-open', icon: '🗂️', text: 'Workspaces' };
+      return { faIcon: 'fa-folder-open', text: 'Workspaces' };
     }
   },
   boards() {

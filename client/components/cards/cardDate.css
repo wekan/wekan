@@ -119,23 +119,32 @@
 .card-date.end-date.is-active {
   background-color: #ff9999;
 }
+/* Font Awesome glyphs, not emoji: the emoji were the last of the 8.00-8.24
+   colourful-emoji icon set, they render differently on every platform, and the
+   "Grey Icons" setting existed only to grey them. `time` is not an `.fa`
+   element, so the font is named here. */
+.card-date time::before {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+}
 .card-date.end-date time::before {
-  content: "🏁"; /* Finish flag - represents end/completion */
+  content: "\f11e"; /* fa-flag-checkered - end/completion */
 }
 .card-date.due-date time::before {
-  content: "⏰"; /* Alarm clock - represents due/deadline */
+  content: "\f017"; /* fa-clock-o - due/deadline */
 }
 .card-date.start-date time::before {
-  content: "🚀"; /* Rocket - represents start/launch */
+  content: "\f135"; /* fa-rocket - start/launch */
 }
 .card-date.received-date time::before {
-  content: "📥"; /* Inbox tray - represents received/incoming */
+  content: "\f01c"; /* fa-inbox - received/incoming */
 }
 
-/* Generic date badge and custom field date */
-.card-date:not(.received-date):not(.start-date):not(.due-date):not(.end-date) time::before {
-  /*content: "📅"; // Calendar - represents generic date */
-}
+/* Generic date badge and custom field date: no glyph of its own. (It used to
+   carry a commented-out calendar emoji; the icon set is Font Awesome now, so if
+   one is ever wanted here it is a codepoint like the four above.) */
 .card-date time::before {
   font-size: inherit;
   margin-inline-end: 0.3em;

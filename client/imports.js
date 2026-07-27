@@ -100,7 +100,6 @@ import '/client/features/lists';
 import '/client/features/notifications';
 import '/client/features/rules';
 import '/client/features/swimlanes';
-import '/client/features/unicodeIcons';
 
 // ----------------------------------------------------------------------------
 // 8. Startup (must load last — registers service worker, sets up subscriptions)

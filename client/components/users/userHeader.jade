@@ -14,13 +14,6 @@ template(name="memberMenuPopup")
   ul.pop-over-list
     with currentUser
       li
-        a.js-toggle-grey-icons(href="#")
-          i.fa.fa-paint-brush
-          | {{_ 'grey-icons'}}
-          if currentUser.profile
-            if currentUser.profile.GreyIcons
-              i.fa.fa-check
-      li
         a.js-my-cards(href="{{pathFor 'my-cards'}}")
           i.fa.fa-list
           | {{_ 'my-cards'}}

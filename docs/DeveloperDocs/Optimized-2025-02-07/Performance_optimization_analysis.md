@@ -69,11 +69,10 @@ Meteor.call('AccountSettings.allowUserDelete', (_, result) => {...})
 
 ---
 
-### 4. **toggleGreyIcons, setAvatarUrl** - User Preference Updates
-**Location:** `client/components/users/userHeader.js` lines 103, 223
+### 4. **setAvatarUrl** - User Preference Updates
+**Location:** `client/components/users/userHeader.js`
 **Current Pattern:**
 ```javascript
-Meteor.call('toggleGreyIcons', (err) => {...})
 Meteor.call('setAvatarUrl', avatarUrl, (err) => {...})
 ```
 
@@ -143,7 +142,6 @@ These are already using pub/sub properly:
 - `Meteor.subscribe('notificationActivities')` - Notifications
 - `Meteor.subscribe('sessionData')` - User session data
 - `Meteor.subscribe('my-avatars')` - User avatars
-- `Meteor.subscribe('userGreyIcons')` - User preferences
 - `Meteor.subscribe('accountSettings')` - Account settings
 - `Meteor.subscribe('cronMigrationStatus')` - Migration status (just implemented)
 

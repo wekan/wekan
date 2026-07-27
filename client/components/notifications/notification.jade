@@ -9,4 +9,5 @@ template(name='notification')
         small.quiet {{activityDate}}
     if read
       .remove
-        a(title="{{_ 'delete'}}") 🗑️
+        a(title="{{_ 'delete'}}")
+      i.fa.fa-trash
