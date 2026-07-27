@@ -1389,7 +1389,8 @@ while [ -z "$opt" ]; do
 					"Playwright WebKit|Test Playwright Webkit" \
 					"Playwright ALL browsers|Test Playwright ALL browsers sequentially (Chromium + Firefox + WebKit, one at a time), server already running on :3000" \
 					"Floating-promises guard|Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" \
-					"Count tests by category|Count amount of tests by category" ;;
+					"Count tests by category|Count amount of tests by category" \
+					"All databases (sequential)|Test all databases that have a Docker image for this CPU, SEQUENTIALLY: build newest FerretDB v1 from source, then run every FerretDB v1 query type against each database and compare that they all answer the same (results in ../log/<datetime>/)" ;;
 			"Tools")
 				choose "Tools" \
 					"Save Meteor deps list|Save Meteor dependency chain to ../meteor-deps.txt" \
@@ -1714,6 +1715,13 @@ for _once in 1; do
 		mirror_forge
 		break
 		;;
+
+    "Test all databases that have a Docker image for this CPU, SEQUENTIALLY: build newest FerretDB v1 from source, then run every FerretDB v1 query type against each database and compare that they all answer the same (results in ../log/<datetime>/)")
+	# Everything this needs - the FerretDB source, the Go toolchain, the module
+	# dependencies - is fetched or built by the script itself; see the note at its
+	# top for why it is sequential and why SAP HANA is opt-in.
+	./releases/db-conformance.sh
+	;;
 
     "Count amount of tests by category")
 		SPECDIR="tests/playwright/specs"

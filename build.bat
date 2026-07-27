@@ -122,6 +122,8 @@ echo   9^) Playwright WebKit
 echo  10^) Playwright ALL browsers
 echo  11^) Floating-promises guard
 echo  12^) Count tests by category
+echo  13^) All databases ^(sequential^): build newest FerretDB v1, run every query type
+echo       against every database with an image for this CPU, compare the answers
 set "choice="
 set /p "choice=Choose: "
 if "%choice%"=="1"  goto test_all_parallel
@@ -136,6 +138,7 @@ if "%choice%"=="9"  goto test_pw_webkit
 if "%choice%"=="10" goto test_pw_parallel
 if "%choice%"=="11" goto check_floating
 if "%choice%"=="12" goto count_tests
+if "%choice%"=="13" goto test_all_databases
 if "%choice%"=="0"  goto menu
 goto menu_tests
 
@@ -1152,6 +1155,28 @@ REM findstr's limited regex engine cannot reproduce these expressions.
 node -e "const fs=require('fs'),p=require('path');function rd(f){try{return fs.readFileSync(f,'utf8');}catch(e){return null;}}function cnt(f,re){const s=rd(f);if(s===null)return null;return s.split(/\r?\n/).filter(l=>re.test(l)).length;}function ls(d,suf){try{return fs.readdirSync(d).filter(x=>x.endsWith(suf)).map(x=>p.join(d,x));}catch(e){return [];}}let mocha=0;const mfiles=[].concat(ls('client/lib/tests','.tests.js'),ls('server/lib/tests','.tests.js'),['imports/i18n/i18n.test.js']);for(const f of mfiles){const c=cnt(f,/(^|[^A-Za-z.])it\s*\(/);if(c!==null)mocha+=c;}let imp=cnt('tests/wekanCreator.import.test.js',/^function test/);if(imp===null)imp=0;let ne=cnt('tests/e2e/list-regressions.js',/logStep\('Testing/);if(ne===null)ne=0;const d='tests/playwright/specs';let files=[];try{files=fs.readdirSync(d).filter(f=>f.endsWith('.e2e.js')).sort();}catch(e){}let pw=0;const rows=[];for(const f of files){const m=f.match(/^([0-9]+)/);const spec=m?m[1]:'';let area=f.replace(/^[0-9]+[-_]?/,'').replace(/\.e2e\.js$/,'').replace(/[-_]+/g,' ');area=area.charAt(0).toUpperCase()+area.slice(1);const src=fs.readFileSync(p.join(d,f),'utf8');const c=src.split(/\r?\n/).filter(l=>/(^|[^a-zA-Z.])test(\.(only|skip|fixme))?\s*\(/.test(l)).length;rows.push('| '+spec+' | '+area+' | '+c+' |');pw+=c;}const gt=mocha+imp+ne+pw;console.log('| Category | Tests |');console.log('|----------|-------|');console.log('| Mocha (server + client, meteortesting:mocha) | '+mocha+' |');console.log('| Import regression (tests/wekanCreator.import.test.js) | '+imp+' |');console.log('| Node E2E regressions (tests/e2e/list-regressions.js) | '+ne+' |');console.log('| Playwright e2e specs (tests/playwright/specs/*.e2e.js) | '+pw+' |');console.log('| **Total** | **'+gt+'** |');console.log('');console.log('| Spec | Area | Tests |');console.log('|------|------|-------|');for(const r of rows)console.log(r);console.log('');console.log('**Total: '+pw+' tests**');"
 goto end
 
+
+REM ===========================================================================
+:test_all_databases
+REM The same thing build.sh's "All databases (sequential)" runs: build the newest
+REM FerretDB v1 from the FerretDB subdirectory (cloning wekan/FerretDB if it is
+REM not there, and installing Go and the module dependencies if they are
+REM missing), then run the whole FerretDB v1 query catalogue against every
+REM database that has a Docker image for THIS CPU - one at a time, because they
+REM all use the same FerretDB port - and compare that they all answered the same.
+REM Results go to ..\log\<datetime>\ with every other test run's.
+REM
+REM The orchestration is one bash script, shared with build.sh rather than
+REM rewritten here: a second implementation would drift, and Docker Desktop on
+REM Windows ships bash through Git for Windows / WSL anyway.
+where bash >nul 2>&1
+if errorlevel 1 (
+  echo ERROR: bash was not found. It comes with Git for Windows ^(Git Bash^) and with WSL.
+  echo        Install either, or run this from WSL: ./releases/db-conformance.sh
+  goto end
+)
+bash ./releases/db-conformance.sh
+goto end
 
 REM ===========================================================================
 :end

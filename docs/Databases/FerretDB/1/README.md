@@ -75,6 +75,14 @@ merely setting `MONGO_OPLOG_URL` starts a tail regardless of the reactivity orde
 
 FerretDB has no MongoDB change streams at all, in either version.
 
+## Do they all answer the same?
+
+[Conformance.md](Conformance.md) — `./build.sh` → Tests → **All databases
+(sequential)** builds the newest FerretDB v1 from source and runs one catalogue of
+every query type against every database that has an image for this CPU, then
+compares that they all answered the same. Results land in `../log/<datetime>/`
+with every other test run's.
+
 ## Other databases
 
 [Alternatives.md](Alternatives.md) — which databases publish images for ppc64le,
