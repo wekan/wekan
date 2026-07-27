@@ -182,6 +182,7 @@ import '/server/lib/inputSanitizer';
 import '/server/lib/tenantResolver';
 import '/server/lib/ssrfGuard';
 import '/server/lib/ddpSessionSendGuard';
+import '/server/lib/databaseProblems';
 import '/server/lib/utils';
 
 // ----------------------------------------------------------------------------

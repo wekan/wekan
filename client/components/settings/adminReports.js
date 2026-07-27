@@ -104,6 +104,7 @@ Template.adminReports.onCreated(function () {
   this.showSpeed = new ReactiveVar(false);
   this.showTests = new ReactiveVar(false);
   this.showCpu = new ReactiveVar(false);
+  this.showDatabase = new ReactiveVar(false);
   this.error = new ReactiveVar('');
   this.loading = new ReactiveVar(false);
 
@@ -234,6 +235,9 @@ const PROBLEMS_MENU = [
   { id: 'report-boards', icon: 'fa-columns', labelKey: 'boardsReportTitle' },
   { id: 'report-cards', icon: 'fa-id-card-o', labelKey: 'cardsReportTitle' },
   { id: 'report-recovery', icon: 'fa-medkit', labelKey: 'recoveryReportTitle' },
+  // What the database itself said, classified: which database type, what it
+  // means and what to do (server/lib/databaseProblems.js).
+  { id: 'report-database', icon: 'fa-database', labelKey: 'databaseReportTitle' },
 ];
 
 Template.adminReports.helpers({
@@ -275,6 +279,9 @@ Template.adminReports.helpers({
   },
   showTests() {
     return Template.instance().showTests;
+  },
+  showDatabase() {
+    return Template.instance().showDatabase;
   },
   showCpu() {
     return Template.instance().showCpu;
@@ -400,6 +407,7 @@ function switchMenu(event, tmpl) {
     tmpl.showSpeed.set(false);
     tmpl.showTests.set(false);
     tmpl.showCpu.set(false);
+    tmpl.showDatabase.set(false);
     if (tmpl.subscription) {
       tmpl.subscription.stop();
     }
@@ -432,6 +440,9 @@ function switchMenu(event, tmpl) {
       tmpl.loading.set(false);
     } else if ('report-cpu' === targetID) {
       tmpl.showCpu.set(true);
+      tmpl.loading.set(false);
+    } else if ('report-database' === targetID) {
+      tmpl.showDatabase.set(true);
       tmpl.loading.set(false);
     } else if ('report-broken' === targetID) {
       // A report like the others now: same controls, same paging, same loader.
@@ -720,10 +731,14 @@ Template.eventStreamReport.onDestroyed(function () {
 // their only difference is these columns and the CPU status row.
 const EVENT_STREAM_COLUMNS = [
   { labelKey: 'event-datetime', nowrap: true, value: r => formatEventAt(r.at) },
-  { labelKey: 'event-category', value: r => r.category },
-  { labelKey: 'event-bleed', value: r => r.bleed },
+  // The `database` stream answers "which database said this" in this column -
+  // MongoDB, or FerretDB over SQLite / PostgreSQL / MySQL / MariaDB / SAP HANA -
+  // because the same message means different things depending on which it was,
+  // and the other streams have a category here.
+  { labelKey: 'event-category', value: r => r.db || r.category },
+  { labelKey: 'event-bleed', value: r => r.bleed || r.kind },
   { labelKey: 'event-severity', value: r => r.severity, data: r => r.severity },
-  { labelKey: 'event-action', value: r => r.action },
+  { labelKey: 'event-action', value: r => r.action || r.type },
   { labelKey: 'event-source', value: r => r.source },
   // The user who triggered the event (e.g. who uploaded a sanitized file).
   { labelKey: 'username', value: r => userName(r.userId), userId: r => r.userId },

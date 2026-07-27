@@ -48,7 +48,11 @@ EventLogAcks.attachSchema(
   }),
 );
 
-export const EVENT_STREAMS = ['security', 'speed', 'tests', 'cpu'];
+// 'database' is what the database itself said, classified: which database type
+// (MongoDB, or FerretDB over SQLite/PostgreSQL/MySQL/MariaDB/SAP HANA), what the
+// message means, and what an admin should do about it. See
+// models/lib/databaseErrors.js and server/lib/databaseProblems.js.
+export const EVENT_STREAMS = ['security', 'speed', 'tests', 'cpu', 'database'];
 
 if (Meteor.isServer) {
   // The Security/Speed/Tests report pages filter by `stream` and sort by `at`
