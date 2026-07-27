@@ -268,7 +268,30 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-This release has the following developer-facing changes:
+This release fixes the following bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/08f7f3954">Migrated images show in the card view again</a>. Thanks to S0QR2 and xet7.</summary>
+
+Reported after upgrading from WeKan 6: an attached image is visible in board
+view, downloads correctly from the card, and yet the card view shows an empty
+white box that cannot be maximized — while cards created after the upgrade are
+fine. The card view does not look at the file, it looks at the flags
+Meteor-Files writes at upload time (`if(isImage) img … else span= extension`),
+and an attachment that came through a migration can arrive without them, and
+often without `extension` or `type` either. The download button worked because
+a download needs no flag. `models/lib/attachmentKind.js` is now the one place
+that derives the kind — from the mime type where the document has one, in any
+of the fields that have carried it, and from the file name where it does not; a
+flag the document states is believed, and the name is consulted only when no
+type is stated. The gallery, the "add cover" menu and the viewer all ask it,
+and a startup repair writes the same answer back to the documents so the REST
+API and the exports agree with the screen. `tests/attachmentKind.test.cjs` pins
+the rules.
+
+</details>
+
+and has the following developer-facing changes:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/94688a7a9">cpu-exec hands qemu-user a path it can open, and its test stops assuming the machine</a>. Thanks to xet7.</summary>
