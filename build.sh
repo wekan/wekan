@@ -906,6 +906,74 @@ function run_all_tests(){
 		echo "====================================================="
 	fi
 	if [ "$FAILED" -eq 0 ]; then echo "RESULT: All tests passed."; else echo "RESULT: Some tests FAILED (see details above)."; fi
+	# The run directory and the verdict, for a caller that runs this as one stage of
+	# something larger (see run_everything below).
+	WEKAN_LAST_LOGDIR="$RUN_LOGDIR"
+	return "$FAILED"
+}
+
+# run_everything — every test WeKan and FerretDB have, one after another.
+#
+# Three stages, sequential on purpose: the WeKan suite (which builds a fresh
+# bundle and starts a server), then the database conformance run (which builds
+# FerretDB from source and runs one query catalogue against every database with an
+# image for this CPU), then FerretDB's own tests (unit, vet, integration). They
+# share one ../log/<datetime>/ directory, so "the newest test logs" is one place.
+#
+# FerretDB is expected to be a subdirectory of this repo. releases/db-conformance.sh
+# clones it if it is not there, so the only thing this checks is that the clone
+# worked before handing it the FerretDB stage.
+function run_everything(){
+	local RUN_TS RUN_LOGDIR FAILED=0
+	RUN_TS="$(date '+%Y-%m-%d_%H-%M-%S')"
+	RUN_LOGDIR="../log/$RUN_TS"
+	mkdir -p "$RUN_LOGDIR"
+	RUN_LOGDIR="$(cd "$RUN_LOGDIR" && pwd)"
+	export WEKAN_LOGDIR="$RUN_LOGDIR"
+
+	echo "=============================================================================="
+	echo "EVERYTHING, one stage at a time. Logs: $RUN_LOGDIR/"
+	echo "  1/3  WeKan's own tests      (builds the bundle, starts a server)"
+	echo "  2/3  Database conformance   (builds FerretDB, every database this CPU runs)"
+	echo "  3/3  FerretDB's own tests   (unit, vet, integration)"
+	echo "This takes a long time. Nothing runs concurrently, so a failure is readable."
+	echo "=============================================================================="
+	echo
+
+	local wekan_rc=0 conf_rc=0 ferret_rc=0
+
+	echo "### 1/3 WeKan tests ###########################################################"
+	run_all_tests sequential || wekan_rc=$?
+
+	echo
+	echo "### 2/3 Database conformance ##################################################"
+	if [ -x ./releases/db-conformance.sh ]; then
+		./releases/db-conformance.sh || conf_rc=$?
+	else
+		echo "ERROR: releases/db-conformance.sh is missing."; conf_rc=1
+	fi
+
+	echo
+	echo "### 3/3 FerretDB tests ########################################################"
+	if [ -x FerretDB/build.sh ]; then
+		( cd FerretDB && WEKAN_LOGDIR="$RUN_LOGDIR" ./build.sh test-all ) || ferret_rc=$?
+	else
+		echo "ERROR: FerretDB/build.sh is missing - db-conformance.sh clones wekan/FerretDB"
+		echo "       into this repo; run stage 2 first, or clone it by hand."
+		ferret_rc=1
+	fi
+
+	echo
+	echo "=============================== EVERYTHING ==================================="
+	printf '  %-6s %s\n' "$([ $wekan_rc  -eq 0 ] && echo PASS || echo FAIL)" "WeKan tests (sequential)"
+	printf '  %-6s %s\n' "$([ $conf_rc   -eq 0 ] && echo PASS || echo FAIL)" "Database conformance (all databases for this CPU)"
+	printf '  %-6s %s\n' "$([ $ferret_rc -eq 0 ] && echo PASS || echo FAIL)" "FerretDB tests (unit, vet, integration)"
+	echo "=============================================================================="
+	echo "All logs: $RUN_LOGDIR/"
+	unset WEKAN_LOGDIR
+	[ $wekan_rc -eq 0 ] && [ $conf_rc -eq 0 ] && [ $ferret_rc -eq 0 ] || FAILED=1
+	if [ "$FAILED" -eq 0 ]; then echo "RESULT: EVERYTHING passed."; else echo "RESULT: something FAILED - see the stage summaries above."; fi
+	return "$FAILED"
 }
 
 # ============================================================================
@@ -1356,6 +1424,14 @@ docker_menu() {
 	done
 }
 
+# Non-interactive entry point for releases/run-everything.sh (which build.bat runs
+# on Windows): the same "EVERYTHING (sequential)" the Tests menu offers, without
+# the menu.
+if [ "${1:-}" = "--run-everything" ]; then
+	run_everything
+	exit $?
+fi
+
 opt=""
 while [ -z "$opt" ]; do
 	echo; echo "==================== WeKan ===================="
@@ -1390,6 +1466,8 @@ while [ -z "$opt" ]; do
 					"Playwright ALL browsers|Test Playwright ALL browsers sequentially (Chromium + Firefox + WebKit, one at a time), server already running on :3000" \
 					"Floating-promises guard|Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" \
 					"Count tests by category|Count amount of tests by category" \
+					"Run all FerretDB tests - SEQUENTIAL|Run all FerretDB tests - SEQUENTIAL: unit, vet and the integration suite of the FerretDB subdirectory of this repo, one at a time, logs in ../log/<datetime>/" \
+					"EVERYTHING (sequential)|Run EVERYTHING sequentially: WeKan's own tests, then the database conformance run for every database with a Docker image for this CPU, then all of FerretDB's own tests (unit, vet, integration) - one stage at a time, all logs in ../log/<datetime>/" \
 					"All databases (sequential)|Test all databases that have a Docker image for this CPU, SEQUENTIALLY: build newest FerretDB v1 from source, then run every FerretDB v1 query type against each database and compare that they all answer the same (results in ../log/<datetime>/)" ;;
 			"Tools")
 				choose "Tools" \
@@ -1715,6 +1793,22 @@ for _once in 1; do
 		mirror_forge
 		break
 		;;
+
+    "Run all FerretDB tests - SEQUENTIAL: unit, vet and the integration suite of the FerretDB subdirectory of this repo, one at a time, logs in ../log/<datetime>/")
+	# FerretDB is a subdirectory of this repo; releases/db-conformance.sh clones it
+	# when it is not there, and its own build.sh installs Go and the modules.
+	if [ ! -x FerretDB/build.sh ]; then
+		echo "FerretDB/build.sh is missing. Clone it first:"
+		echo "  git clone git@github.com:wekan/FerretDB"
+		echo "(or run Tests -> All databases, which clones it before building.)"
+	else
+		( cd FerretDB && ./build.sh test-all )
+	fi
+	;;
+
+    "Run EVERYTHING sequentially: WeKan's own tests, then the database conformance run for every database with a Docker image for this CPU, then all of FerretDB's own tests (unit, vet, integration) - one stage at a time, all logs in ../log/<datetime>/")
+	run_everything
+	;;
 
     "Test all databases that have a Docker image for this CPU, SEQUENTIALLY: build newest FerretDB v1 from source, then run every FerretDB v1 query type against each database and compare that they all answer the same (results in ../log/<datetime>/)")
 	# Everything this needs - the FerretDB source, the Go toolchain, the module

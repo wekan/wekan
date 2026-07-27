@@ -246,4 +246,40 @@ test('both build scripts offer it, and say it runs sequentially', () => {
     'build.bat runs the same script rather than a second implementation');
 });
 
+test('everything can be run in one go, from either build script', () => {
+  const sh = read('build.sh');
+  const bat = read('build.bat');
+
+  // The three stages, in one function, sequential, sharing one log directory.
+  assert.ok(/function run_everything\(\)/.test(sh), 'build.sh has the EVERYTHING runner');
+  for (const stage of ['run_all_tests sequential', './releases/db-conformance.sh',
+    './build.sh test-all']) {
+    assert.ok(sh.includes(stage), `EVERYTHING must run: ${stage}`);
+  }
+  assert.ok(/WEKAN_LOGDIR="\$RUN_LOGDIR"/.test(sh),
+    'and hand the same ../log/<datetime>/ to every stage');
+  assert.ok(/--run-everything/.test(sh), 'with a non-interactive entry point');
+
+  // Both menus offer it, and the direct FerretDB entry too.
+  assert.ok(sh.includes('Run all FerretDB tests - SEQUENTIAL'), 'build.sh: FerretDB entry');
+  assert.ok(sh.includes('EVERYTHING (sequential)'), 'build.sh: EVERYTHING entry');
+  assert.ok(/Run all FerretDB tests - SEQUENTIAL/.test(bat), 'build.bat: FerretDB entry');
+  assert.ok(/EVERYTHING \^\(sequential\^\)/.test(bat), 'build.bat: EVERYTHING entry');
+  assert.ok(/bash \.\/releases\/run-everything\.sh/.test(bat),
+    'build.bat runs the shared script rather than a second implementation');
+  assert.ok(fs.existsSync(path.join(ROOT, 'releases/run-everything.sh')));
+
+  // FerretDB is expected inside this repo, and its own runner writes beside ours.
+  const fdb = path.join(ROOT, 'FerretDB', 'build.sh');
+  if (fs.existsSync(fdb)) {
+    const src = fs.readFileSync(fdb, 'utf8');
+    assert.ok(/test-all\)\s*act_test_all/.test(src), 'FerretDB: the test-all command');
+    assert.ok(/Run all FerretDB tests/.test(src), 'FerretDB: the menu entry');
+    assert.ok(/WEKAN_LOGDIR/.test(src) && /log\/\$\(date/.test(src),
+      'FerretDB: logs to ../log/<datetime>/, shared when WeKan drives the run');
+    assert.ok(/act_unit/.test(src) && /act_lint/.test(src) && /act_test seq/.test(src),
+      'FerretDB: unit, vet and the integration suite');
+  }
+});
+
 console.log(`\n${passed} tests passed`);

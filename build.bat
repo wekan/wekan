@@ -124,6 +124,8 @@ echo  11^) Floating-promises guard
 echo  12^) Count tests by category
 echo  13^) All databases ^(sequential^): build newest FerretDB v1, run every query type
 echo       against every database with an image for this CPU, compare the answers
+echo  14^) Run all FerretDB tests - SEQUENTIAL ^(unit, vet, integration^)
+echo  15^) EVERYTHING ^(sequential^): WeKan tests, then all databases, then FerretDB
 set "choice="
 set /p "choice=Choose: "
 if "%choice%"=="1"  goto test_all_parallel
@@ -139,6 +141,8 @@ if "%choice%"=="10" goto test_pw_parallel
 if "%choice%"=="11" goto check_floating
 if "%choice%"=="12" goto count_tests
 if "%choice%"=="13" goto test_all_databases
+if "%choice%"=="14" goto test_ferretdb
+if "%choice%"=="15" goto test_everything
 if "%choice%"=="0"  goto menu
 goto menu_tests
 
@@ -1176,6 +1180,46 @@ if errorlevel 1 (
   goto end
 )
 bash ./releases/db-conformance.sh
+goto end
+
+REM ===========================================================================
+:test_ferretdb
+REM All of FerretDB's own tests, one at a time: unit, vet, integration. FerretDB
+REM is expected to be a subdirectory of this repo - the "All databases" option
+REM clones it if it is not there. Its build.sh installs Go and the Go modules
+REM when they are missing, and writes its logs to ..\log\<datetime>\ with every
+REM other test run's.
+where bash >nul 2>&1
+if errorlevel 1 (
+  echo ERROR: bash was not found. It comes with Git for Windows ^(Git Bash^) and with WSL.
+  goto end
+)
+if not exist "FerretDB\build.sh" (
+  echo FerretDB\build.sh is missing. Clone it first:
+  echo   git clone git@github.com:wekan/FerretDB
+  echo ^(or run Tests - All databases, which clones it before building.^)
+  goto end
+)
+bash -c "cd FerretDB && ./build.sh test-all"
+goto end
+
+REM ===========================================================================
+:test_everything
+REM Every test WeKan and FerretDB have, one stage at a time: WeKan's own suite,
+REM then the database conformance run for every database with an image for this
+REM CPU, then all of FerretDB's tests. One ..\log\<datetime>\ directory for the
+REM whole run, and nothing runs concurrently, which is what makes a failure
+REM readable.
+REM
+REM The WeKan stage builds a Meteor bundle and runs a server, which needs the
+REM POSIX shell throughout - so this hands the whole run to bash rather than
+REM reimplementing it here, exactly as option 13 and 14 do.
+where bash >nul 2>&1
+if errorlevel 1 (
+  echo ERROR: bash was not found. It comes with Git for Windows ^(Git Bash^) and with WSL.
+  goto end
+)
+bash ./releases/run-everything.sh
 goto end
 
 REM ===========================================================================

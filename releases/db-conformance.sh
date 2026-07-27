@@ -44,7 +44,10 @@ cd "$(dirname "$0")/.." || exit 1
 WEKAN_DIR="$(pwd)"
 
 RUN_TS="$(date '+%Y-%m-%d_%H-%M-%S')"
-LOGDIR="../log/$RUN_TS"
+# One run, one directory: when build.sh's "EVERYTHING" is driving this, it passes
+# the directory the whole run is writing to, so the WeKan suite, this and
+# FerretDB's own tests end up together under ../log/<datetime>/.
+LOGDIR="${WEKAN_LOGDIR:-../log/$RUN_TS}"
 mkdir -p "$LOGDIR"
 LOGDIR="$(cd "$LOGDIR" && pwd)"
 
