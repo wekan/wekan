@@ -271,6 +271,30 @@ browser build to verify).
 This release fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6c1d62cde">Admin Panel reports show the whole instance, not the admin's own boards</a>. Thanks to xet7.</summary>
+
+Boards Report was empty while the Cards report beside it listed cards from
+thousands of boards. It published `userBoardIds(this.userId)` — the boards the
+ADMIN is personally a member of — and on an instance whose admin is not a board
+member that is nothing at all. Until the pagination fix above the pane hid it:
+it rendered every board in minimongo, which the All Boards page had already put
+there. The Files report was scoped the same way, to the cards that admin can
+access.
+
+Both cover the whole instance now, as Cards, Broken cards, Rules, Impersonation
+and Recovery already did. That membership selector was also what kept those two
+publications honest, so both gained an `isAdmin` guard at the top —
+`boardsReport` asked only for a logged-in user before — and each count method
+counts the same set its publication pages. Files and Rules name their page now
+too: opening one card puts its attachments in minimongo, opening a rules editor
+puts that board's rules there, and neither belongs in a report page. The Files
+page is sorted by name, because paging with no sort is paging over natural
+order — where a document can appear on two pages or on none — and that sort has
+an index.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6eca44c84">The admin lists paginate honestly: one page of ten rows, index-backed</a>. Thanks to xet7.</summary>
 
 Admin Panel / People showed the admin on every one of its 578 pages, and Admin
