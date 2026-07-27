@@ -300,6 +300,34 @@ and the variant pushes need a token that may write those repositories.
 
 </details>
 
+and improves FerretDB v1, which WeKan runs on:
+
+<details>
+<summary>The conformance run found five FerretDB gaps and two that stopped MySQL and MariaDB dead. Thanks to xet7.</summary>
+
+The new "All databases (sequential)" test — one query catalogue, every backend
+that has an image for this CPU — was run for the first time, and it earned its
+keep. Everything is fixed in [wekan/FerretDB](https://github.com/wekan/FerretDB),
+which WeKan's default database is built from.
+
+SQLite and PostgreSQL agree on **98 of 100 cases**, and the two they do not are
+`$slice` and `$elemMatch` **projections**, which neither implements — agreement
+about a limitation rather than a difference between them.
+
+Seven `$group` accumulators answered only "not implemented yet", on every
+backend: `$avg`, `$min`, `$max`, `$first`, `$last`, `$push` and `$stdDevPop`.
+Only `$sum` and `$count` existed. All of them are implemented now, plus
+`$addToSet` and `$stdDevSamp`.
+
+MySQL and MariaDB could not store anything at all. MySQL rejected every
+statement — the backend quoted identifiers with double quotes, which MySQL reads
+as string literals, so every INSERT was a syntax error. MariaDB never got that
+far: the driver was configured with a struct literal whose zero value refuses
+the native password handshake, which is what every default MariaDB root account
+asks for. Both fixed, with tests.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
