@@ -267,8 +267,30 @@ browser build to verify).
 </details>
 
 # Upcoming WeKan ® release
+This release has one icon set:
 
-This release has the following developer-facing changes:
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3487d2519">One icon set: Font Awesome, and the Grey Icons feature is removed</a>. Thanks to xet7.</summary>
+
+WeKan used colourful Unicode emoji as its icon set in 8.00–8.24 only; before
+and after, the icons are Font Awesome 4.7. A handful had survived that change —
+every notification type, the board star, the vote thumb, the spent-time badge,
+the list width toggles, the bookmarks star, the back arrow, the sidebar's plus
+and hash, the four date badges, the mobile drag handle, the multi-selection
+tick, the gantt day markers — each a different picture on every platform, at a
+size and colour the stylesheet does not control. They are Font Awesome glyphs
+now, and "Grey Icons" in Member Settings, which existed to grey exactly those
+emoji with a MutationObserver over every rendered subtree, is removed whole:
+menu entry, handler, method, schema field, publication, stylesheet, the string
+in all 147 language files, the API-spec field and the docs mentions. The
+language-picker flags stay: Font Awesome 4.7 has no flags.
+`tests/fontAwesomeIcons.test.cjs` fails on an emoji in any template or CSS
+`content:`, and on any leftover of the removed feature.
+
+</details>
+
+
+and has the following developer-facing changes:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fa831e982">"Run ALL tests" now runs all the tests, in build.sh and in build.bat</a>. Thanks to xet7.</summary>
