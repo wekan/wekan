@@ -266,7 +266,7 @@ browser build to verify).
 
 </details>
 
-# v10.42 2026-07-27 WeKan ® release
+# Upcoming WeKan ® release
 
 This release fixes the following bugs:
 
@@ -303,6 +303,10 @@ itself. `tests/adminPageRows.test.cjs` and `tests/paginationIndexes.test.cjs`
 pin all of it.
 
 </details>
+
+# v10.42 2026-07-27 WeKan ® release
+
+This release fixes the following bugs:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0c9b7b7fa">Every popup had 10px of empty space above it that nothing asked for</a>. Thanks to xet7.</summary>
