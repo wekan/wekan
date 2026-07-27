@@ -91,7 +91,7 @@ is documented yet — contributions are welcome.
 
 WeKan tracks current Meteor and Node.js releases. As of WeKan 8.75 and newer it uses
 **Meteor 3.5-rc.x** and **Node.js 24.x**, with **MongoDB 7.x (or 6.x)** or
-[FerretDB2/PostgreSQL](../Databases/FerretDB2-PostgreSQL.md). WeKan 8.43 upgraded to
+[FerretDB2/PostgreSQL](../Databases/FerretDB/2/PostgreSQL.md). WeKan 8.43 upgraded to
 Meteor 3.x. For the exact versions of each release, see the
 [CHANGELOG](../../CHANGELOG.md).
 

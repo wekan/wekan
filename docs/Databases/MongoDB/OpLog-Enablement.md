@@ -64,12 +64,12 @@ MONGO_OPLOG_URL=mongodb://<username>:<password>@<host>/local?authSource=admin&re
 
 **Documentation Already Exists:**
 - `docs/Platforms/Propietary/Cloud/AWS.md` - AWS MONGO_OPLOG_URL configuration
-- `docs/Databases/ToroDB-PostgreSQL/docker-compose.yml` - ToroDB oplog settings
+- `docs/Databases/ToroDB/PostgreSQL/docker-compose.yml` - ToroDB oplog settings
 
 ### ✅ Documentation
 
 **New Files Created:**
-- `docs/Databases/MongoDB-Oplog-Configuration.md` - Comprehensive oplog guide
+- `docs/Databases/MongoDB/Oplog-Configuration.md` - Comprehensive oplog guide
 
 **Contents:**
 - Why oplog is important
@@ -161,10 +161,10 @@ top -p $(pgrep node)
 
 ## Related Documentation
 
-- [MongoDB-Oplog-Configuration.md](MongoDB-Oplog-Configuration.md) - Full setup guide
-- [AWS.md](../Platforms/Propietary/Cloud/AWS.md) - AWS oplog configuration
-- [LDAP.md](../Login/LDAP.md) - LDAP with oplog setup
-- [ToroDB-PostgreSQL](../docs/Databases/ToroDB-PostgreSQL/docker-compose.yml) - ToroDB oplog config
+- [Oplog-Configuration.md](Oplog-Configuration.md) - Full setup guide
+- [AWS.md](../../Platforms/Propietary/Cloud/AWS.md) - AWS oplog configuration
+- [LDAP.md](../../Login/LDAP.md) - LDAP with oplog setup
+- [ToroDB-PostgreSQL](../ToroDB/PostgreSQL/docker-compose.yml) - ToroDB oplog config
 
 ## Files Modified This Session
 
@@ -172,11 +172,11 @@ top -p $(pgrep node)
 2. ✅ `start-wekan.bat` - Added oplog documentation  
 3. ✅ `docker-compose.yml` - Enhanced oplog documentation
 4. ✅ `Dockerfile` - Added MONGO_OPLOG_URL env variable
-5. ✅ `docs/Databases/MongoDB-Oplog-Configuration.md` - New comprehensive guide
+5. ✅ `docs/Databases/MongoDB/Oplog-Configuration.md` - New comprehensive guide
 
 ## Next Steps for Users
 
-1. Read `MongoDB-Oplog-Configuration.md` for detailed setup
+1. Read `Oplog-Configuration.md` for detailed setup
 2. Enable oplog on your MongoDB instance
 3. Set `MONGO_OPLOG_URL` environment variable
 4. Restart Wekan and verify with logs

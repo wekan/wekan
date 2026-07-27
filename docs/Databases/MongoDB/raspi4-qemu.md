@@ -9,7 +9,7 @@ binary needs — e.g. MongoDB 5+ on Raspberry Pi 4 and older (ARMv8.0, no ARMv8.
 cpu-exec --features x86_64=avx,aarch64=atomics mongod --config /etc/mongod.conf
 ```
 
-See [mongodb-avx-qemu.md](mongodb-avx-qemu.md) for details. The manual steps below still work
+See [avx-qemu.md](avx-qemu.md) for details. The manual steps below still work
 for a system-wide MongoDB outside WeKan.
 
 ## Meteor podcast about using MongoDB at unsupported CPUs 

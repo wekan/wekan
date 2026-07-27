@@ -1,6 +1,6 @@
 # Current
 
-* [PostgreSQL](https://github.com/wekan/wekan/tree/main/torodb-postgresql)
+* [PostgreSQL](https://github.com/wekan/wekan/tree/main/docs/Databases/ToroDB/PostgreSQL)
 * [Webhooks](../Features/Features.md#webhooks), works by showing board activities with [Slack](https://slack.com/), [Rocket.chat](https://rocket.chat/) and others that supports Webhooks.
 * [Gogs Integration](https://github.com/wekan/wekan-gogs) as separate project.
 

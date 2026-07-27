@@ -9,7 +9,7 @@
 # Supported on all platforms where Node.js 22 runs:
 #   linux/amd64, linux/arm64, linux/arm/v7, linux/ppc64le, linux/s390x
 #
-# Based on: docs/Databases/FerretDB2-PostgreSQL.md
+# Based on: docs/Databases/FerretDB/2/PostgreSQL.md
 #
 # Setup:
 #   docker compose -f docker-compose-ferretdb-v2-postgresql.yml up -d

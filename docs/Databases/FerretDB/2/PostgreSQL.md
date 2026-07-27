@@ -158,13 +158,13 @@ sudo systemctl enable wekan
 sudo systemctl start wekan
 ```
 For SSL/TLS, I run Caddy at front of Node.js:
-[Caddy](../Webserver/Caddy.md)
+[Caddy](../../../Webserver/Caddy.md)
 
 Related is docs about Raspberry Pi:
-[Raspberry Pi](../Platforms/FOSS/RaspberryPi/Raspberry-Pi.md)
+[Raspberry Pi](../../../Platforms/FOSS/RaspberryPi/Raspberry-Pi.md)
 
 And also about Windows bundle:
-[Offline](../Platforms/Propietary/Windows/Offline.md)
+[Offline](../../../Platforms/Propietary/Windows/Offline.md)
 
 ## Notes
 
