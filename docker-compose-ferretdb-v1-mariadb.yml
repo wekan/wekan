@@ -1,14 +1,20 @@
-# This docker-compose.yml uses FerretDB v1 with SQLite from
-# https://github.com/wekan/FerretDB by default.
+# WeKan with FerretDB v1 + MariaDB
 #
-# WeKan with FerretDB v1 + embedded SQLite (no PostgreSQL, no MongoDB)
+# FerretDB v1 (the wekan/FerretDB fork, https://github.com/wekan/FerretDB) speaks
+# the MongoDB wire protocol and stores everything in MariaDB, through the same
+# `mysql` backend: MariaDB speaks the MySQL wire protocol and the backend does not
+# gate on vendor or version. The one statement that MariaDB rejects - the
+# functional key part in the OpLog `ts` index - has a generated-column fallback in
+# this fork, so that index exists on MariaDB too.
 #
-# This is the DEFAULT WeKan compose file (docker-compose.yml): a light,
-# self-contained database — FerretDB v1 (the wekan/FerretDB fork,
-# https://github.com/wekan/FerretDB) with its embedded pure-Go SQLite backend,
-# which speaks the MongoDB wire protocol. There is no separate PostgreSQL or
-# MongoDB server — FerretDB stores everything in SQLite files on a volume, and
-# WeKan stores attachments/avatars on the filesystem.
+# STATUS: EXPERIMENTAL, like MySQL - complete enough to run, not yet verified
+# against a live MariaDB with the integration suite. The confirmed-working
+# backends are sqlite (the default file) and postgresql.
+#
+# The FerretDB binary is downloaded (once, then cached on the volume) from the
+# newest wekan/FerretDB release: https://github.com/wekan/FerretDB/releases
+# Each platform is a separate ferretdb-<arch> asset there; the container downloads
+# only the one matching its architecture (amd64, arm64, ppc64le, s390x, riscv64, ...).
 #
 # The other WeKan compose files:
 #   docker-compose.yml                           FerretDB v1 + SQLite (default)
@@ -20,26 +26,49 @@
 #   docker-compose-mongodb-v7.yml                MongoDB 7
 #   docker-compose-multitenancy.yml              MongoDB, multitenancy example
 #
-# The FerretDB binary is downloaded (once, then cached on the volume) from the
-# newest wekan/FerretDB release: https://github.com/wekan/FerretDB/releases
-# Each platform is a separate ferretdb-<arch> asset there; the container downloads
-# only the one matching its architecture (amd64, arm64, ppc64le, s390x, riscv64, ...).
-#
-# Setup (this is the default docker-compose.yml, so no -f is needed):
-#   docker compose up -d
+# Setup:
+#   docker compose -f docker-compose-ferretdb-v1-mariadb.yml up -d
 #
 # To follow the logs:
-#   docker compose logs -f
+#   docker compose -f docker-compose-ferretdb-v1-mariadb.yml logs -f
 #
 # To stop:
-#   docker compose down
+#   docker compose -f docker-compose-ferretdb-v1-mariadb.yml down
 
 services:
 
-  # FerretDB v1 with the embedded SQLite backend (MongoDB-compatible on :27017).
-  # A tiny Debian container fetches the wekan/FerretDB v1 release binary for its
-  # architecture (cached on the volume so restarts do not re-download) and runs it.
-  # SQLite data lives in /data/sqlite on the ferretdb-data volume.
+  # MariaDB - the backing store FerretDB v1 writes into, through its mysql backend.
+  # mariadb:12 is the newest MariaDB series on Docker Hub; for the long-term-support
+  # line use mariadb:11.8 instead - the backend needs MariaDB 10.2 or newer.
+  mariadb:
+    image: mariadb:12
+    container_name: wekan-mariadb
+    restart: always
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    environment:
+      MARIADB_DATABASE: ${MARIADB_DATABASE:-ferretdb}
+      MARIADB_USER: ${MARIADB_USER:-ferretdb}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD:-ferretdb_secret}
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-ferretdb_root_secret}
+    # Healthy only once the server answers, so FerretDB never starts against a
+    # database that is still initialising.
+    healthcheck:
+      test: ["CMD-SHELL", "healthcheck.sh --connect --innodb_initialized"]
+      interval: 5s
+      timeout: 3s
+      retries: 60
+      start_period: 40s
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    networks:
+      - wekan-tier
+
+  # FerretDB v1 (MongoDB-compatible on :27017), storing into the database service
+  # above. A tiny Debian container fetches the wekan/FerretDB v1 release binary for
+  # its architecture (cached on the volume so restarts do not re-download) and runs
+  # it. Only the --handler and its URL differ from the other compose files here.
   ferretdb:
     image: debian:bookworm-slim
     container_name: wekan-ferretdb
@@ -50,6 +79,9 @@ services:
       # Pin a specific release instead of the newest by setting e.g.
       #   FERRETDB_RELEASE=download/v1.24.2
       FERRETDB_RELEASE: ${FERRETDB_RELEASE:-latest/download}
+      MARIADB_DATABASE: ${MARIADB_DATABASE:-ferretdb}
+      MARIADB_USER: ${MARIADB_USER:-ferretdb}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD:-ferretdb_secret}
     command:
       - sh
       - -c
@@ -68,14 +100,13 @@ services:
             "https://github.com/wekan/FerretDB/releases/$${FERRETDB_RELEASE}/ferretdb-$${arch}"
           chmod +x "$$BIN"
         fi
-        mkdir -p /data/files/db
         # #6480/#6481: --repl-set-name makes FerretDB v1 auto-create the capped
         # local.oplog.rs and advertise the replica-set hello handshake, so WeKan's
         # Meteor can TAIL the OpLog instead of poll-and-diff (fixes high CPU on
         # busy boards). Pair with MONGO_OPLOG_URL in the wekan service below.
         exec "$$BIN" \
-          --handler=sqlite \
-          --sqlite-url=file:/data/files/db/ \
+          --handler=mysql \
+          --mysql-url="mysql://$${MARIADB_USER}:$${MARIADB_PASSWORD}@mariadb:3306/$${MARIADB_DATABASE}" \
           --listen-addr=0.0.0.0:27017 \
           --repl-set-name=rs0 \
           --telemetry=disable \
@@ -92,6 +123,9 @@ services:
       timeout: 3s
       retries: 40
       start_period: 30s
+    depends_on:
+      mariadb:
+        condition: service_healthy
     volumes:
       - ferretdb-data:/data
     networks:
@@ -839,6 +873,8 @@ volumes:
   wekan-files:
     driver: local
   ferretdb-data:
+    driver: local
+  mariadb-data:
     driver: local
 
 networks:

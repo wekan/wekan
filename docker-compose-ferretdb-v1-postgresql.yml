@@ -1,14 +1,18 @@
-# This docker-compose.yml uses FerretDB v1 with SQLite from
-# https://github.com/wekan/FerretDB by default.
+# WeKan with FerretDB v1 + PostgreSQL
 #
-# WeKan with FerretDB v1 + embedded SQLite (no PostgreSQL, no MongoDB)
+# FerretDB v1 (the wekan/FerretDB fork, https://github.com/wekan/FerretDB) speaks
+# the MongoDB wire protocol and stores everything in PostgreSQL. Use this instead
+# of the default docker-compose.yml when you already run PostgreSQL, or want its
+# backups, replication and tooling. The default file is lighter: FerretDB's
+# embedded SQLite, one container and no database server.
 #
-# This is the DEFAULT WeKan compose file (docker-compose.yml): a light,
-# self-contained database — FerretDB v1 (the wekan/FerretDB fork,
-# https://github.com/wekan/FerretDB) with its embedded pure-Go SQLite backend,
-# which speaks the MongoDB wire protocol. There is no separate PostgreSQL or
-# MongoDB server — FerretDB stores everything in SQLite files on a volume, and
-# WeKan stores attachments/avatars on the filesystem.
+# The PostgreSQL backend is confirmed working with a real Meteor 3 client
+# (wekan/wekan#6509), as is the SQLite one.
+#
+# The FerretDB binary is downloaded (once, then cached on the volume) from the
+# newest wekan/FerretDB release: https://github.com/wekan/FerretDB/releases
+# Each platform is a separate ferretdb-<arch> asset there; the container downloads
+# only the one matching its architecture (amd64, arm64, ppc64le, s390x, riscv64, ...).
 #
 # The other WeKan compose files:
 #   docker-compose.yml                           FerretDB v1 + SQLite (default)
@@ -20,26 +24,46 @@
 #   docker-compose-mongodb-v7.yml                MongoDB 7
 #   docker-compose-multitenancy.yml              MongoDB, multitenancy example
 #
-# The FerretDB binary is downloaded (once, then cached on the volume) from the
-# newest wekan/FerretDB release: https://github.com/wekan/FerretDB/releases
-# Each platform is a separate ferretdb-<arch> asset there; the container downloads
-# only the one matching its architecture (amd64, arm64, ppc64le, s390x, riscv64, ...).
-#
-# Setup (this is the default docker-compose.yml, so no -f is needed):
-#   docker compose up -d
+# Setup:
+#   docker compose -f docker-compose-ferretdb-v1-postgresql.yml up -d
 #
 # To follow the logs:
-#   docker compose logs -f
+#   docker compose -f docker-compose-ferretdb-v1-postgresql.yml logs -f
 #
 # To stop:
-#   docker compose down
+#   docker compose -f docker-compose-ferretdb-v1-postgresql.yml down
 
 services:
 
-  # FerretDB v1 with the embedded SQLite backend (MongoDB-compatible on :27017).
-  # A tiny Debian container fetches the wekan/FerretDB v1 release binary for its
-  # architecture (cached on the volume so restarts do not re-download) and runs it.
-  # SQLite data lives in /data/sqlite on the ferretdb-data volume.
+  # PostgreSQL - the backing store FerretDB v1 writes into.
+  # postgres:18 is the newest stable PostgreSQL image on Docker Hub; 17, 16 and 15
+  # work as well (FerretDB v1 needs PostgreSQL 12 or newer). The image creates the
+  # `ferretdb` database and user on first start from these three variables.
+  postgres:
+    image: postgres:18
+    container_name: wekan-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-ferretdb}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ferretdb_secret}
+      POSTGRES_DB: ${POSTGRES_DB:-ferretdb}
+    # Healthy only once the server answers, so FerretDB never starts against a
+    # database that is still initialising.
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER:-ferretdb} -d $${POSTGRES_DB:-ferretdb}"]
+      interval: 5s
+      timeout: 3s
+      retries: 40
+      start_period: 20s
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - wekan-tier
+
+  # FerretDB v1 (MongoDB-compatible on :27017), storing into the database service
+  # above. A tiny Debian container fetches the wekan/FerretDB v1 release binary for
+  # its architecture (cached on the volume so restarts do not re-download) and runs
+  # it. Only the --handler and its URL differ from the other compose files here.
   ferretdb:
     image: debian:bookworm-slim
     container_name: wekan-ferretdb
@@ -50,6 +74,9 @@ services:
       # Pin a specific release instead of the newest by setting e.g.
       #   FERRETDB_RELEASE=download/v1.24.2
       FERRETDB_RELEASE: ${FERRETDB_RELEASE:-latest/download}
+      POSTGRES_USER: ${POSTGRES_USER:-ferretdb}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ferretdb_secret}
+      POSTGRES_DB: ${POSTGRES_DB:-ferretdb}
     command:
       - sh
       - -c
@@ -68,14 +95,13 @@ services:
             "https://github.com/wekan/FerretDB/releases/$${FERRETDB_RELEASE}/ferretdb-$${arch}"
           chmod +x "$$BIN"
         fi
-        mkdir -p /data/files/db
         # #6480/#6481: --repl-set-name makes FerretDB v1 auto-create the capped
         # local.oplog.rs and advertise the replica-set hello handshake, so WeKan's
         # Meteor can TAIL the OpLog instead of poll-and-diff (fixes high CPU on
         # busy boards). Pair with MONGO_OPLOG_URL in the wekan service below.
         exec "$$BIN" \
-          --handler=sqlite \
-          --sqlite-url=file:/data/files/db/ \
+          --handler=postgresql \
+          --postgresql-url="postgres://$${POSTGRES_USER}:$${POSTGRES_PASSWORD}@postgres:5432/$${POSTGRES_DB}" \
           --listen-addr=0.0.0.0:27017 \
           --repl-set-name=rs0 \
           --telemetry=disable \
@@ -92,6 +118,9 @@ services:
       timeout: 3s
       retries: 40
       start_period: 30s
+    depends_on:
+      postgres:
+        condition: service_healthy
     volumes:
       - ferretdb-data:/data
     networks:
@@ -839,6 +868,8 @@ volumes:
   wekan-files:
     driver: local
   ferretdb-data:
+    driver: local
+  postgres-data:
     driver: local
 
 networks:

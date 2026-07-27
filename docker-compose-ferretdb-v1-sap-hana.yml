@@ -1,14 +1,29 @@
-# This docker-compose.yml uses FerretDB v1 with SQLite from
-# https://github.com/wekan/FerretDB by default.
+# WeKan with FerretDB v1 + SAP HANA
 #
-# WeKan with FerretDB v1 + embedded SQLite (no PostgreSQL, no MongoDB)
+# FerretDB v1 (the wekan/FerretDB fork, https://github.com/wekan/FerretDB) speaks
+# the MongoDB wire protocol and stores everything in SAP HANA's DocStore, through
+# its `hana` backend.
 #
-# This is the DEFAULT WeKan compose file (docker-compose.yml): a light,
-# self-contained database — FerretDB v1 (the wekan/FerretDB fork,
-# https://github.com/wekan/FerretDB) with its embedded pure-Go SQLite backend,
-# which speaks the MongoDB wire protocol. There is no separate PostgreSQL or
-# MongoDB server — FerretDB stores everything in SQLite files on a volume, and
-# WeKan stores attachments/avatars on the filesystem.
+# READ THIS BEFORE STARTING IT:
+#
+#   * STATUS: EXPERIMENTAL. The hana backend is the least finished of the four -
+#     several operations are marked HANATODO upstream - and it has not been
+#     verified against a live HANA with the integration suite. The
+#     confirmed-working backends are sqlite (the default file) and postgresql.
+#   * The `hana` handler is behind the `ferretdb_hana` build tag. The wekan/FerretDB
+#     release binaries this file downloads are built WITH that tag, so
+#     `--handler=hana` exists; a binary built elsewhere without it answers
+#     "unknown handler".
+#   * SAP HANA Express is licensed software. Starting it here means accepting SAP's
+#     licence terms, and the image wants a lot of machine: ~16 GB RAM and several
+#     tens of GB of disk. It is not a small database next to PostgreSQL or MySQL.
+#   * The image needs the system password in a file, mounted below. Change it:
+#     SAP requires at least 8 characters, an uppercase, a lowercase and a digit.
+#
+# The FerretDB binary is downloaded (once, then cached on the volume) from the
+# newest wekan/FerretDB release: https://github.com/wekan/FerretDB/releases
+# Each platform is a separate ferretdb-<arch> asset there; the container downloads
+# only the one matching its architecture (amd64, arm64, ppc64le, s390x, riscv64, ...).
 #
 # The other WeKan compose files:
 #   docker-compose.yml                           FerretDB v1 + SQLite (default)
@@ -20,26 +35,53 @@
 #   docker-compose-mongodb-v7.yml                MongoDB 7
 #   docker-compose-multitenancy.yml              MongoDB, multitenancy example
 #
-# The FerretDB binary is downloaded (once, then cached on the volume) from the
-# newest wekan/FerretDB release: https://github.com/wekan/FerretDB/releases
-# Each platform is a separate ferretdb-<arch> asset there; the container downloads
-# only the one matching its architecture (amd64, arm64, ppc64le, s390x, riscv64, ...).
-#
-# Setup (this is the default docker-compose.yml, so no -f is needed):
-#   docker compose up -d
+# Setup:
+#   docker compose -f docker-compose-ferretdb-v1-sap-hana.yml up -d
 #
 # To follow the logs:
-#   docker compose logs -f
+#   docker compose -f docker-compose-ferretdb-v1-sap-hana.yml logs -f
 #
 # To stop:
-#   docker compose down
+#   docker compose -f docker-compose-ferretdb-v1-sap-hana.yml down
+#
+# Before the first start, write the master password file:
+#   mkdir -p hana-config
+#   printf '{"master_password":"HXEHana1"}' > hana-config/password.json
+#   chmod 600 hana-config/password.json
 
 services:
 
-  # FerretDB v1 with the embedded SQLite backend (MongoDB-compatible on :27017).
-  # A tiny Debian container fetches the wekan/FerretDB v1 release binary for its
-  # architecture (cached on the volume so restarts do not re-download) and runs it.
-  # SQLite data lives in /data/sqlite on the ferretdb-data volume.
+  # SAP HANA, express edition - the backing store FerretDB v1 writes into.
+  # saplabs/hanaexpress is SAP's own image on Docker Hub; the tag below is the
+  # newest published build. `latest` moves, so a version tag is pinned here on
+  # purpose: a HANA upgrade is not something to get by surprise on a restart.
+  hana:
+    image: saplabs/hanaexpress:2.00.088.00.20251110.1
+    container_name: wekan-hana
+    restart: always
+    # HANA needs these to start at all.
+    ulimits:
+      nofile:
+        soft: 1048576
+        hard: 1048576
+    sysctls:
+      kernel.shmmax: 1073741824
+      kernel.shmmni: 524288
+      kernel.shmall: 8388608
+    command:
+      - --passwords-url
+      - file:///hana/password/password.json
+      - --agree-to-sap-license
+    volumes:
+      - hana-data:/hana/mounts
+      - ./hana-config:/hana/password:ro
+    networks:
+      - wekan-tier
+
+  # FerretDB v1 (MongoDB-compatible on :27017), storing into the database service
+  # above. A tiny Debian container fetches the wekan/FerretDB v1 release binary for
+  # its architecture (cached on the volume so restarts do not re-download) and runs
+  # it. Only the --handler and its URL differ from the other compose files here.
   ferretdb:
     image: debian:bookworm-slim
     container_name: wekan-ferretdb
@@ -50,6 +92,9 @@ services:
       # Pin a specific release instead of the newest by setting e.g.
       #   FERRETDB_RELEASE=download/v1.24.2
       FERRETDB_RELEASE: ${FERRETDB_RELEASE:-latest/download}
+      HANA_USER: ${HANA_USER:-SYSTEM}
+      HANA_PASSWORD: ${HANA_PASSWORD:-HXEHana1}
+      HANA_DATABASE: ${HANA_DATABASE:-HXE}
     command:
       - sh
       - -c
@@ -68,14 +113,13 @@ services:
             "https://github.com/wekan/FerretDB/releases/$${FERRETDB_RELEASE}/ferretdb-$${arch}"
           chmod +x "$$BIN"
         fi
-        mkdir -p /data/files/db
         # #6480/#6481: --repl-set-name makes FerretDB v1 auto-create the capped
         # local.oplog.rs and advertise the replica-set hello handshake, so WeKan's
         # Meteor can TAIL the OpLog instead of poll-and-diff (fixes high CPU on
         # busy boards). Pair with MONGO_OPLOG_URL in the wekan service below.
         exec "$$BIN" \
-          --handler=sqlite \
-          --sqlite-url=file:/data/files/db/ \
+          --handler=hana \
+          --hana-url="hdb://$${HANA_USER}:$${HANA_PASSWORD}@hana:39017?databaseName=$${HANA_DATABASE}" \
           --listen-addr=0.0.0.0:27017 \
           --repl-set-name=rs0 \
           --telemetry=disable \
@@ -92,6 +136,8 @@ services:
       timeout: 3s
       retries: 40
       start_period: 30s
+    depends_on:
+      - hana
     volumes:
       - ferretdb-data:/data
     networks:
@@ -839,6 +885,8 @@ volumes:
   wekan-files:
     driver: local
   ferretdb-data:
+    driver: local
+  hana-data:
     driver: local
 
 networks:

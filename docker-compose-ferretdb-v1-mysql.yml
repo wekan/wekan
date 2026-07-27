@@ -1,14 +1,19 @@
-# This docker-compose.yml uses FerretDB v1 with SQLite from
-# https://github.com/wekan/FerretDB by default.
+# WeKan with FerretDB v1 + MySQL
 #
-# WeKan with FerretDB v1 + embedded SQLite (no PostgreSQL, no MongoDB)
+# FerretDB v1 (the wekan/FerretDB fork, https://github.com/wekan/FerretDB) speaks
+# the MongoDB wire protocol and stores everything in MySQL. Use this instead of
+# the default docker-compose.yml when MySQL is the database you already operate.
 #
-# This is the DEFAULT WeKan compose file (docker-compose.yml): a light,
-# self-contained database — FerretDB v1 (the wekan/FerretDB fork,
-# https://github.com/wekan/FerretDB) with its embedded pure-Go SQLite backend,
-# which speaks the MongoDB wire protocol. There is no separate PostgreSQL or
-# MongoDB server — FerretDB stores everything in SQLite files on a volume, and
-# WeKan stores attachments/avatars on the filesystem.
+# STATUS: the mysql backend is EXPERIMENTAL in FerretDB v1 - it is complete
+# enough to run, and its range / $in pushdowns and the OpLog ts index are in
+# place, but it has not been verified against a live MySQL with the integration
+# suite the way sqlite has. The confirmed-working backends are sqlite (the
+# default file) and postgresql. Use this one to try MySQL, not to bet on it.
+#
+# The FerretDB binary is downloaded (once, then cached on the volume) from the
+# newest wekan/FerretDB release: https://github.com/wekan/FerretDB/releases
+# Each platform is a separate ferretdb-<arch> asset there; the container downloads
+# only the one matching its architecture (amd64, arm64, ppc64le, s390x, riscv64, ...).
 #
 # The other WeKan compose files:
 #   docker-compose.yml                           FerretDB v1 + SQLite (default)
@@ -20,26 +25,52 @@
 #   docker-compose-mongodb-v7.yml                MongoDB 7
 #   docker-compose-multitenancy.yml              MongoDB, multitenancy example
 #
-# The FerretDB binary is downloaded (once, then cached on the volume) from the
-# newest wekan/FerretDB release: https://github.com/wekan/FerretDB/releases
-# Each platform is a separate ferretdb-<arch> asset there; the container downloads
-# only the one matching its architecture (amd64, arm64, ppc64le, s390x, riscv64, ...).
-#
-# Setup (this is the default docker-compose.yml, so no -f is needed):
-#   docker compose up -d
+# Setup:
+#   docker compose -f docker-compose-ferretdb-v1-mysql.yml up -d
 #
 # To follow the logs:
-#   docker compose logs -f
+#   docker compose -f docker-compose-ferretdb-v1-mysql.yml logs -f
 #
 # To stop:
-#   docker compose down
+#   docker compose -f docker-compose-ferretdb-v1-mysql.yml down
 
 services:
 
-  # FerretDB v1 with the embedded SQLite backend (MongoDB-compatible on :27017).
-  # A tiny Debian container fetches the wekan/FerretDB v1 release binary for its
-  # architecture (cached on the volume so restarts do not re-download) and runs it.
-  # SQLite data lives in /data/sqlite on the ferretdb-data volume.
+  # MySQL - the backing store FerretDB v1 writes into.
+  # mysql:9 is the newest MySQL series on Docker Hub (an Innovation release); for
+  # the long-term-support line use mysql:8.4 instead - the backend needs MySQL
+  # 8.0.13 or newer for the functional indexes it creates.
+  # caching_sha2_password is the default; the Go driver speaks it, so nothing has
+  # to be lowered to mysql_native_password.
+  mysql:
+    image: mysql:9
+    container_name: wekan-mysql
+    restart: always
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_0900_ai_ci
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-ferretdb}
+      MYSQL_USER: ${MYSQL_USER:-ferretdb}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-ferretdb_secret}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-ferretdb_root_secret}
+    # Healthy only once the server answers, so FerretDB never starts against a
+    # database that is still initialising.
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -p$${MYSQL_ROOT_PASSWORD} --silent"]
+      interval: 5s
+      timeout: 3s
+      retries: 60
+      start_period: 40s
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - wekan-tier
+
+  # FerretDB v1 (MongoDB-compatible on :27017), storing into the database service
+  # above. A tiny Debian container fetches the wekan/FerretDB v1 release binary for
+  # its architecture (cached on the volume so restarts do not re-download) and runs
+  # it. Only the --handler and its URL differ from the other compose files here.
   ferretdb:
     image: debian:bookworm-slim
     container_name: wekan-ferretdb
@@ -50,6 +81,9 @@ services:
       # Pin a specific release instead of the newest by setting e.g.
       #   FERRETDB_RELEASE=download/v1.24.2
       FERRETDB_RELEASE: ${FERRETDB_RELEASE:-latest/download}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-ferretdb}
+      MYSQL_USER: ${MYSQL_USER:-ferretdb}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-ferretdb_secret}
     command:
       - sh
       - -c
@@ -68,14 +102,13 @@ services:
             "https://github.com/wekan/FerretDB/releases/$${FERRETDB_RELEASE}/ferretdb-$${arch}"
           chmod +x "$$BIN"
         fi
-        mkdir -p /data/files/db
         # #6480/#6481: --repl-set-name makes FerretDB v1 auto-create the capped
         # local.oplog.rs and advertise the replica-set hello handshake, so WeKan's
         # Meteor can TAIL the OpLog instead of poll-and-diff (fixes high CPU on
         # busy boards). Pair with MONGO_OPLOG_URL in the wekan service below.
         exec "$$BIN" \
-          --handler=sqlite \
-          --sqlite-url=file:/data/files/db/ \
+          --handler=mysql \
+          --mysql-url="mysql://$${MYSQL_USER}:$${MYSQL_PASSWORD}@mysql:3306/$${MYSQL_DATABASE}" \
           --listen-addr=0.0.0.0:27017 \
           --repl-set-name=rs0 \
           --telemetry=disable \
@@ -92,6 +125,9 @@ services:
       timeout: 3s
       retries: 40
       start_period: 30s
+    depends_on:
+      mysql:
+        condition: service_healthy
     volumes:
       - ferretdb-data:/data
     networks:
@@ -839,6 +875,8 @@ volumes:
   wekan-files:
     driver: local
   ferretdb-data:
+    driver: local
+  mysql-data:
     driver: local
 
 networks:

@@ -1322,9 +1322,16 @@ choose() {
 
 # Docker submenu: pick a backend, then Start / Follow logs / Stop.
 # Returns 0 when an action ran, 1 on Back (so the caller re-shows the menu).
+# One entry per docker-compose*.yml in the repo, so every compose file can be
+# started from here. Keep this list and build.bat's in step with the files
+# themselves - tests/dockerComposeBackends.test.cjs fails when one drifts.
 DOCKER_DBS=("FerretDB v1 SQLite (default)|docker-compose.yml"
+            "FerretDB v1 PostgreSQL|docker-compose-ferretdb-v1-postgresql.yml"
+            "FerretDB v1 MySQL (experimental)|docker-compose-ferretdb-v1-mysql.yml"
+            "FerretDB v1 MariaDB (experimental)|docker-compose-ferretdb-v1-mariadb.yml"
+            "FerretDB v1 SAP HANA (experimental)|docker-compose-ferretdb-v1-sap-hana.yml"
+            "FerretDB v2 PostgreSQL|docker-compose-ferretdb-v2-postgresql.yml"
             "MongoDB 7|docker-compose-mongodb-v7.yml"
-            "FerretDB v2 (PostgreSQL)|docker-compose-ferretdb-v2-postgresql.yml"
             "MongoDB Multitenancy|docker-compose-multitenancy.yml")
 docker_menu() {
 	local shorts=() files=() it

@@ -158,18 +158,26 @@ REM ===========================================================================
 :menu_docker
 echo.
 echo -- Docker: pick a backend --   ^(0 = Back^)
-echo   1^) FerretDB v1 SQLite ^(default^)  ^(docker-compose.yml^)
-echo   2^) MongoDB 7                     ^(docker-compose-mongodb-v7.yml^)
-echo   3^) FerretDB v2 Postgres          ^(docker-compose-ferretdb-v2-postgresql.yml^)
-echo   4^) MongoDB Multitenancy          ^(docker-compose-multitenancy.yml^)
+echo   1^) FerretDB v1 SQLite ^(default^)     ^(docker-compose.yml^)
+echo   2^) FerretDB v1 PostgreSQL            ^(docker-compose-ferretdb-v1-postgresql.yml^)
+echo   3^) FerretDB v1 MySQL ^(experimental^)   ^(docker-compose-ferretdb-v1-mysql.yml^)
+echo   4^) FerretDB v1 MariaDB ^(experimental^) ^(docker-compose-ferretdb-v1-mariadb.yml^)
+echo   5^) FerretDB v1 SAP HANA ^(experimental^)^(docker-compose-ferretdb-v1-sap-hana.yml^)
+echo   6^) FerretDB v2 PostgreSQL            ^(docker-compose-ferretdb-v2-postgresql.yml^)
+echo   7^) MongoDB 7                         ^(docker-compose-mongodb-v7.yml^)
+echo   8^) MongoDB Multitenancy              ^(docker-compose-multitenancy.yml^)
 set "choice="
 set /p "choice=Backend: "
 if "%choice%"=="0" goto menu
 set "CF="
 if "%choice%"=="1" set "CF=docker-compose.yml"
-if "%choice%"=="2" set "CF=docker-compose-mongodb-v7.yml"
-if "%choice%"=="3" set "CF=docker-compose-ferretdb-v2-postgresql.yml"
-if "%choice%"=="4" set "CF=docker-compose-multitenancy.yml"
+if "%choice%"=="2" set "CF=docker-compose-ferretdb-v1-postgresql.yml"
+if "%choice%"=="3" set "CF=docker-compose-ferretdb-v1-mysql.yml"
+if "%choice%"=="4" set "CF=docker-compose-ferretdb-v1-mariadb.yml"
+if "%choice%"=="5" set "CF=docker-compose-ferretdb-v1-sap-hana.yml"
+if "%choice%"=="6" set "CF=docker-compose-ferretdb-v2-postgresql.yml"
+if "%choice%"=="7" set "CF=docker-compose-mongodb-v7.yml"
+if "%choice%"=="8" set "CF=docker-compose-multitenancy.yml"
 if not defined CF goto menu_docker
 echo.
 echo -- Action --   ^(0 = Back^)
