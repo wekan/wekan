@@ -266,6 +266,30 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+This release has the following developer-facing changes:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/94688a7a9">cpu-exec hands qemu-user a path it can open, and its test stops assuming the machine</a>. Thanks to xet7.</summary>
+
+First real run of the node suites — they had never run anywhere until the "Run
+ALL tests" change — and `cpuExec.test.cjs` failed, which is what that change
+was for. Two real things behind it. qemu-user does not search PATH: it opens
+the file it is given, so a bare command name (`cpu-exec --features x86_64=avx
+mongod …`) reached qemu as a relative path that does not exist and qemu exited
+1 having run nothing — on exactly the CPU this helper exists for. cpu-exec
+resolves the name with `type -P` first and hands over an absolute path; an
+absolute path is passed through as before. And the test asked for "no qemu"
+with `PATH=/usr/bin:/bin`, which is only true on a machine without qemu-user
+installed; it now builds a PATH holding exactly the tools cpu-exec uses and
+nothing else, so the case is the same everywhere.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.41 2026-07-27 WeKan ® release
 
 This release fixes the following bugs:
