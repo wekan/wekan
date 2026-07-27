@@ -118,7 +118,9 @@ test('WEKAN_REQUIRED_CPU_FEATURES overrides --features', () => {
 
 test('multi-feature spec: one missing feature is enough to emulate', () => {
   const out = run(['--features', `${ARCH}=sse2+avx`, 'echo', 'multi'], { WEKAN_CPUINFO: cpuinfoWithout }, true);
-  assert.strictEqual(out.trim(), 'QEMU-WRAPPED: echo multi');
+  // The resolved path, for the same reason as above: qemu-user cannot open a
+  // bare command name.
+  assert.match(out.trim(), /^QEMU-WRAPPED: \S*\/echo multi$/, `got: ${out.trim()}`);
 });
 
 test('WEKAN_QEMU_USER explicit override wins', () => {
@@ -126,7 +128,7 @@ test('WEKAN_QEMU_USER explicit override wins', () => {
     WEKAN_CPUINFO: cpuinfoWithout,
     WEKAN_QEMU_USER: fakeQemu,
   });
-  assert.strictEqual(out.trim(), 'QEMU-WRAPPED: echo via-override');
+  assert.match(out.trim(), /^QEMU-WRAPPED: \S*\/echo via-override$/, `got: ${out.trim()}`);
 });
 
 fs.rmSync(tmp, { recursive: true, force: true });

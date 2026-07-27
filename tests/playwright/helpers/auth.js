@@ -11,6 +11,32 @@ async function loginWithToken(page, userId, token) {
   await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'commit' });
   await waitForMeteor(page);
 
+  // Switching users in the same page: log the previous one OUT first and wait
+  // for the session to be empty. Without this, `Meteor.userId()` can still be
+  // the OLD user while the new login is in flight, and the poll below cannot
+  // tell "the new login has not landed yet" from "it landed on the wrong user"
+  // - it just times out and reports the old id. That is the WebKit failure of
+  // 33-board-domains: the admin id was still there when the test switched to
+  // the non-admin.
+  await page.evaluate(
+    expectedId =>
+      new Promise(resolve => {
+        if (!Meteor.userId() || Meteor.userId() === expectedId) {
+          resolve();
+          return;
+        }
+        Meteor.logout(() => {
+          const deadline = Date.now() + 10000;
+          const waitEmpty = () => {
+            if (!Meteor.userId() || Date.now() > deadline) resolve();
+            else setTimeout(waitEmpty, 50);
+          };
+          waitEmpty();
+        });
+      }),
+    userId,
+  );
+
   const result = await page.evaluate(
     ({ tok, expectedId }) =>
       new Promise(resolve => {
@@ -24,7 +50,9 @@ async function loginWithToken(page, userId, token) {
           // flaky ("Unexpected userId after login"). Poll until it settles on the
           // expected id, or give up after a short timeout so a genuine mismatch
           // still surfaces.
-          const deadline = Date.now() + 5000;
+          // A loaded run (three browsers, WebKit in Docker) can take longer than
+          // five seconds to settle the reactive login state.
+          const deadline = Date.now() + 15000;
           const tick = () => {
             const uid = Meteor.userId();
             if (uid === expectedId || Date.now() > deadline) {
