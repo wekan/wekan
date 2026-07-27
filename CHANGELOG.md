@@ -271,6 +271,40 @@ browser build to verify).
 This release fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6eca44c84">The admin lists paginate honestly: one page of ten rows, index-backed</a>. Thanks to xet7.</summary>
+
+Admin Panel / People showed the admin on every one of its 578 pages, and Admin
+Panel / Problems / Broken cards was one endless page under a pager that said
+"1 / 1". The same bug in two shapes: the pane subscribes to a publication that
+sends exactly one page, then reads that page back out of minimongo — which
+holds far more than the page. The logged-in user's own record is always there,
+because accounts publishes it, and so is every card of every board the admin
+has opened; a plain `find(query)` cannot tell those apart from the page. So
+the server names the page now: `getPeoplePageIds` returns the ids of the
+People page with the publication's own selector, sort and window, and the
+Broken cards, Cards and Boards report publications send the ids of the page
+they just sent alongside it. Each pane renders that list, in that order, and
+nothing else.
+
+Every paginated page in WeKan loads **ten** rows at a time, from one constant,
+including the pages that draw a pager of their own — the reports and the event
+streams, the four People panes, Translation, the search pages and the archive.
+[Table.md](https://github.com/wekan/wekan/blob/main/docs/Design/Page/Table.md)
+records the rule and its two deliberate exceptions.
+
+And the counting behind those pagers is index-backed. Every count already
+asked the database for a count rather than fetching the rows, but several
+counted and paged on unindexed fields: People sorts users newest-first, so on
+an instance with 14000 users every page of ten sorted all 14000 first, and
+Broken cards asks an `$or` over `boardId`/`swimlaneId`/`listId`/`type`, which
+uses no index at all unless every branch has one. The missing indexes are
+created at startup by the idempotent `ensureIndex`, so an upgrade adds them by
+itself. `tests/adminPageRows.test.cjs` and `tests/paginationIndexes.test.cjs`
+pin all of it.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0c9b7b7fa">Every popup had 10px of empty space above it that nothing asked for</a>. Thanks to xet7.</summary>
 
 The space above the first row of Board Settings, Board View, Member Settings,
