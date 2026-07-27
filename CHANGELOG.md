@@ -271,6 +271,43 @@ browser build to verify).
 This release fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c9b7b7fa">Every popup had 10px of empty space above it that nothing asked for</a>. Thanks to xet7.</summary>
+
+The space above the first row of Board Settings, Board View, Member Settings,
+Sort Cards, Change Watch, Change Visibility and Swimlane Actions — and above
+the Title field of Rename Board — was much larger than the space beside it.
+None of it came from `popup.css`: `peopleBody.css` and `translationBody.css`
+each carried a bare `.content-wrapper { margin-top: 10px }`, and
+`.content-wrapper` is not a settings class at all — the only element in WeKan
+with that class is the scrolling body of a POPUP, so those two strays pushed
+the content of every popup in the app down by 10px. They are gone, and the gap
+that is left is 6px under the header plus the content's 12px of padding = the
+same 18px the content has beside it. Change Visibility and Change Watch also
+lay their rows out as three left-aligned columns now — icon, name, description
+— with the check mark of the active row in a track of its own, so it can no
+longer push that row's description out of line with the others.
+`tests/popupSpacing.test.cjs` pins both, and fails again if any stylesheet
+styles a popup-internal class without saying which popup.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c9b7b7fa">The board bar centers its items, and the hamburger sits where its space middles</a>. Thanks to xet7.</summary>
+
+The second header bar centred its items inside a content box that had 7px of
+padding above and none below, so everything sat half that distance high — most
+visibly the board title, the tallest item in the row. The button groups then
+carried a 3px top margin, which is a shift and not centring, so they hung below
+the title's centre line. The padding is symmetric now, wrapped rows are
+separated by `row-gap` instead of that margin, and the title centres on its own
+text rather than on a line box far taller than it. The sidebar hamburger had
+2px of margin on one side and 8px on the other, which left an empty strip
+between it and the end of the bar; equal margins put it in the middle of the
+space between its divider and that edge.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c2fa9e0b3">Every upload threw in getFileStrategy, so no new file was mime-checked</a>. Thanks to xet7.</summary>
 
 From the dev-server log, on a plain attachment upload: `[onAfterUpload]
