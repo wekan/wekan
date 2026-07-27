@@ -271,6 +271,22 @@ browser build to verify).
 This release fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c2fa9e0b3">Every upload threw in getFileStrategy, so no new file was mime-checked</a>. Thanks to xet7.</summary>
+
+From the dev-server log, on a plain attachment upload: `[onAfterUpload]
+filename hardening failed: TypeError: Cannot read properties of undefined
+(reading 'gridFsFileId')`. `getFileStrategy` read
+`fileObj.versions[versionName].meta.gridFsFileId` to decide the storage, and a
+freshly uploaded file has no `meta` on its version — only a GridFS one does —
+so that read threw on EVERY upload. `onAfterUpload` catches and logs, so the
+upload succeeded and looked fine while the two things that hook does were
+silently skipped for every new file: detecting the real mime type and
+correcting the stored filename from it. All three optional places are read
+defensively now, and the decision is unchanged where the data is there.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/08f7f3954">Migrated images show in the card view again</a>. Thanks to S0QR2 and xet7.</summary>
 
 Reported after upgrading from WeKan 6: an attached image is visible in board
@@ -292,6 +308,21 @@ the rules.
 </details>
 
 and has the following developer-facing changes:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1013c87f7">Two test-harness fixes the newest run found</a>. Thanks to xet7.</summary>
+
+The node suites got four assertions further and stopped in the same file: two
+more cpuExec expectations still spelled the qemu-wrapped command as a bare
+name, which cpu-exec resolves to an absolute path now. And WebKit failed
+33-board-domains with "Unexpected userId after login" — the admin's id, when
+the test had just switched to the non-admin: `loginWithToken` logged the new
+user in over a session that was still someone else's, so the poll could not
+tell "not landed yet" from "landed on the wrong user". It logs the previous
+user out first and waits for an empty session, with a 15s settle deadline for a
+loaded three-browser run.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/94688a7a9">cpu-exec hands qemu-user a path it can open, and its test stops assuming the machine</a>. Thanks to xet7.</summary>
