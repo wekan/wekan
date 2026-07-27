@@ -932,9 +932,14 @@ jobs:
             echo "::error::$zip is only $bytes bytes; a whole bundle is tens of megabytes. The bundle directory was empty or partial when it was zipped."
             exit 1
           fi
-          for want in bundle/main.js bundle/node.exe; do
-            if ! 7z l "$zip" | grep -q "${want//\//\\}$"; then
-              echo "::error::$zip has no $want, so it cannot start WeKan on Windows. The embed step above did not put it into the bundle."
+          # 7-Zip lists Windows paths with BACKSLASHES, and a backslash in a regex
+          # escapes the next character - "bundle\main.js" as a pattern matches
+          # "bundlemain.js", which nothing is called. So: list once, and look for
+          # either separator as a fixed string, never as a pattern.
+          listing="$(7z l -ba "$zip")"
+          for want in main.js node.exe; do
+            if ! printf '%s' "$listing" | grep -qF -e "bundle\\$want" -e "bundle/$want"; then
+              echo "::error::$zip has no bundle/$want, so it cannot start WeKan on Windows. The embed step above did not put it into the bundle."
               exit 1
             fi
           done
@@ -2248,6 +2253,26 @@ jobs:
           if [ -z "$REPO_TOKEN" ] || [ -z "$SNAP_AUTH" ]; then
             echo "ok=false" >> "$GITHUB_OUTPUT"
             echo "::warning::snap-variants (${{ matrix.snapname }}) skipped — set WEKAN_REPO_TOKEN and SNAP_AUTH (with ACL for ${{ matrix.snapname }}). See docs/Design/Autoupdate/Snap-Ondra-Gantt.md."
+            exit 0
+          fi
+          # Set is not the same as ALLOWED. This job pushes the whole of WeKan into
+          # wekan/${{ matrix.repo }}, and a token that cannot do that fails at the
+          # very end, after a full snap build, with a bare
+          #   remote: Permission to wekan/${{ matrix.repo }}.git denied to <user>
+          # Ask first, and skip with a reason instead of burning the build.
+          code=$(curl -sS -o /tmp/variant.json -w '%{http_code}' \
+            -H "Authorization: Bearer $REPO_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/wekan/${{ matrix.repo }}")
+          if [ "$code" = "404" ]; then
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::snap-variants (${{ matrix.snapname }}) skipped — the repository wekan/${{ matrix.repo }} does not exist, or WEKAN_REPO_TOKEN cannot see it. Create it (Remaining step 2 of docs/Design/Autoupdate/Snap-Ondra-Gantt.md)."
+          elif [ "$code" != "200" ]; then
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::snap-variants (${{ matrix.snapname }}) skipped — GitHub answered HTTP $code for wekan/${{ matrix.repo }}: WEKAN_REPO_TOKEN is expired, revoked, or has no access."
+          elif [ "$(jq -r '.permissions.push // false' /tmp/variant.json)" != "true" ]; then
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::snap-variants (${{ matrix.snapname }}) skipped — WEKAN_REPO_TOKEN reaches wekan/${{ matrix.repo }} but may not PUSH to it. A classic PAT needs the 'repo' scope; a fine-grained PAT needs Contents: Read and write on that repository."
           else
             echo "ok=true" >> "$GITHUB_OUTPUT"
           fi
