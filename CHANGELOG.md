@@ -266,12 +266,12 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.44 2026-07-28 WeKan ® release
 
 This release adds the following test:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e1c6291be">Tests menu runs every database this CPU can, and checks they answer the same</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/7a3783fbe">Tests menu runs every database this CPU can, and checks they answer the same</a>. Thanks to xet7.</summary>
 
 FerretDB v1 translates one MongoDB query into five different SQL dialects, so
 "WeKan starts on MariaDB" says very little. The question that decides whether a
