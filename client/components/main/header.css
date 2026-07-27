@@ -13,12 +13,23 @@
   flex-wrap: wrap;
   min-height: 40px;
   /* No right padding: the right gap is owned by the hamburger's margin so it can
-     match the ~8px gap to the right of the top-bar user name. (top right bottom left) */
-  padding: 7px 0 0 10px;
+     match the ~8px gap to the right of the top-bar user name.
+     The block padding is SYMMETRIC: with 7px above and none below, `align-items:
+     center` centred every item inside a content box that was itself 7px low, which
+     put the board title - the tallest item, so the one that shows it - visibly above
+     the middle of the bar. (top right bottom left) */
+  padding: 4px 0 4px 10px;
+  /* Space between the rows when the bar wraps; it used to be a top margin on the
+     button groups, which also pushed them below the title's centre line. */
+  row-gap: 4px;
 }
 #header #header-main-bar h1 {
   font-size: 20px;
-  line-height: 1.7em;
+  /* A flex box with its own centred line, so the title sits on the bar's middle with
+     everything else instead of on the middle of a line box far taller than its text. */
+  display: flex;
+  align-items: center;
+  line-height: 1.3;
   padding: 0 10px;
   margin: 0;
   margin-inline-end: 10px;
@@ -79,7 +90,10 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  margin-top: 3px;
+  /* No top margin: a margin on one flex item is not centring, it is a shift, and it
+     is what set the buttons below the title. The bar's `row-gap` separates wrapped
+     rows instead. */
+  margin-top: 0;
   width: auto;
 }
 #header #header-main-bar .board-header-btns.right {
@@ -101,10 +115,11 @@
    there is no button-sized empty space to its left or right. The cog before it also
    drops its right margin so the two sit snugly together at the edge. */
 #header #header-main-bar .board-header-btn.js-toggle-sidebar {
+  /* Equal side margins, so the button is CENTRED in the space between the divider
+     and the end of the bar. With 8px at the end and 2px at the start it sat left of
+     that middle, with an empty strip to its right. */
   margin-inline-start: 2px;
-  /* 8px to the right edge — the same small gap as to the right of the user name in
-     the top bar (.header-user-bar-name margin-inline-end). */
-  margin-inline-end: 8px;
+  margin-inline-end: 2px;
 }
 #header #header-main-bar .board-header-btn i.fa {
   float: inline-start;
@@ -162,12 +177,13 @@ body:not(.board-view) #header #header-main-bar {
   align-items: center;
   height: auto;
   min-height: 40px;
-  padding-top: 0;
-  padding-bottom: 0;
+  /* No padding override here: the bar's own symmetric block padding is what makes
+     `align-items: center` centre on the bar's true middle (see the rule above).
+     Zeroing it here - `.board-view` is set on <body> by nothing, so this selector
+     matches on EVERY page - is what kept the board title sitting high. */
 }
 body:not(.board-view) #header #header-main-bar h1 {
   float: none;
-  line-height: 1.3;
 }
 
 #header-quick-access {

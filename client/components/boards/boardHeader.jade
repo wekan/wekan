@@ -185,8 +185,11 @@ template(name="boardHeaderBar")
           //- mobile mode the hamburger can stay in the top right corner of the bar,
           //- beside the title, while the rest of the buttons wrap to the second row.
 
+//- `described-list`: every row is icon + name + description, and the three are laid
+//- out as three left-aligned columns (popup.css), so the descriptions of all the
+//- rows start at the same x whether or not a row carries the check mark.
 template(name="boardVisibilityList")
-  ul.pop-over-list
+  ul.pop-over-list.described-list
     li
       with "private"
         a.js-select-visibility
@@ -209,7 +212,7 @@ template(name="boardChangeVisibilityPopup")
   +boardVisibilityList
 
 template(name="boardChangeWatchPopup")
-  ul.pop-over-list
+  ul.pop-over-list.described-list
     li
       with "watching"
         a.js-select-watch

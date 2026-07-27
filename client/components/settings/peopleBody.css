@@ -27,9 +27,14 @@ table:not(.table-page-table) th {
 }
 table:not(.table-page-table) tr:nth-child(even) {
   background-color: #ddd;
-}.content-wrapper {
-  margin-top: 10px;
 }
+/* `.content-wrapper` is not a People class - the ONLY element with that class in
+   WeKan is the scrolling body of a POPUP (client/components/main/popup.tpl.jade).
+   So this stray, unscoped rule (specificity 0,1,0, and nothing in popup.css sets a
+   margin on that element) added 10px above the content of EVERY popup: the gap over
+   the first row of Board Settings / Board View / Member Settings / Sort Cards /
+   Change Watch / Change Visibility / Swimlane Actions, and over the first field of
+   Rename Board. Removed - it never styled anything on this page. */
 .buttonsContainer {
   display: flex;
 }

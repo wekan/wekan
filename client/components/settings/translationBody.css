@@ -19,9 +19,10 @@ table:not(.table-page-table) th {
 }
 table:not(.table-page-table) tr:nth-child(even) {
   background-color: #ddd;
-}.content-wrapper {
-  margin-top: 10px;
 }
+/* Same stray rule as in peopleBody.css: `.content-wrapper` belongs to the popup
+   template only, so an unscoped `margin-top: 10px` here pushed the content of every
+   popup in WeKan down by 10px. Removed. */
 .buttonsContainer {
   display: flex;
 }

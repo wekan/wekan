@@ -35,10 +35,13 @@
 .pop-over form a span {
   padding: 0 10px;
 }
+/* The gap under the header plus `.content`'s 12px top padding is the space above the
+   first row of a popup, and it must match the space beside it: `.content` has 18px of
+   side padding, so 6 + 12 = 18 makes the top gap and the left gutter the same. */
 .pop-over .header {
   height: 41px;
   position: relative;
-  margin-bottom: 9px;
+  margin-bottom: 6px;
   background: #f7f7f7;
   border-bottom: 1px solid #dcdcdc;
   color: #666;
@@ -136,7 +139,9 @@
   z-index: 1;
 }
 .pop-over[data-popup='memberMenuPopup'] > .content-wrapper {
-  padding-top: calc(41px + 9px);
+  /* The header is out of the flow here, so its height is padding instead: 41px of
+     header + its 1px bottom border + the same 6px gap every other popup has. */
+  padding-top: calc(41px + 1px + 6px);
   box-sizing: border-box;
 }
 
@@ -635,6 +640,38 @@
   font-size: 12px;
   font-weight: 400;
   line-height: 15px;
+}
+
+/* A menu whose rows are "icon - name - description" (Change Visibility, Change
+   Watch) reads as three columns, so the three must LINE UP. As a flex row each
+   row packed its own icon, name and text one after the other, so every row started
+   its description at a different x - and the check mark on the active row pushed
+   that row's description further right still.
+   Grid, with fixed leading tracks: each row is its own grid container and separate
+   grids cannot share auto-sized tracks, so the tracks are given a width instead of
+   being measured per row. The check mark has a track of its own, which is why it
+   can no longer move the description. */
+.pop-over-list.described-list li > a {
+  display: grid;
+  grid-template-columns: 1.4em 6em 1.2em minmax(0, 1fr);
+  column-gap: 6px;
+  align-items: start;
+  line-height: 1.5;
+  padding: 8px 10px;
+  overflow-wrap: break-word;
+}
+.pop-over-list.described-list li > a > i.fa {
+  /* The 0 10px of the flex layout would offset the icon inside its own track. */
+  margin: 0;
+  line-height: inherit;
+  justify-self: start;
+}
+.pop-over-list.described-list li > a > .fa-check {
+  grid-column: 3;
+}
+.pop-over-list.described-list li > a > .sub-name {
+  grid-column: 4;
+  line-height: 1.5;
 }
 .pop-over-list li > a.current {
   background-color: #e2e6e9;

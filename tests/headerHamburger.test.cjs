@@ -13,7 +13,9 @@ const path = require('path');
 
 const repoRoot = path.resolve(__dirname, '..');
 const read = rel => fs.readFileSync(path.join(repoRoot, rel), 'utf8');
-const css = read('client/components/main/header.css');
+// Comments out: a `/* ... padding: ... */` note above a rule would otherwise be read
+// as one of its declarations, and a `}` inside one would end the block early.
+const css = read('client/components/main/header.css').replace(/\/\*[\s\S]*?\*\//g, '');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -37,18 +39,43 @@ test('the right group (with the hamburger) is pinned to the right edge', () => {
   assert.ok(!/float:\s*inline-end/.test(right), 'no float-based right positioning');
 });
 
-test('the hamburger right gap matches the user-name gap (~8px), left is tight', () => {
+test('the hamburger is centred between its divider and the end of the bar', () => {
+  // It used to have 2px on the left and 8px on the right, which is not a centre: the
+  // button sat left of the middle of that space, with an empty strip beside it at the
+  // edge of the bar. Equal side margins put it in the middle of the space it owns.
   const ham = block('#header #header-main-bar .board-header-btn.js-toggle-sidebar');
-  assert.ok(/margin-inline-start:\s*2px/.test(ham), 'tight left margin');
-  // 8px right edge gap = same as the top-bar user name.
-  assert.ok(/margin-inline-end:\s*8px/.test(ham), 'right gap matches the user name (8px)');
-  // The bar contributes no right padding, so the hamburger margin owns the gap.
+  const start = /margin-inline-start:\s*(\d+)px/.exec(ham);
+  const end = /margin-inline-end:\s*(\d+)px/.exec(ham);
+  assert.ok(start && end, 'both side margins are declared');
+  assert.strictEqual(start[1], end[1], 'equal side margins = centred in that space');
+  // The bar contributes no right padding, so those margins own the gap to the edge.
   const bar = block('#header #header-main-bar');
-  assert.ok(/padding:\s*7px 0 0 10px/.test(bar), 'no right padding on the bar');
-  // the user-name gap we are matching (sanity) — grouped selector, so match on the
-  // raw stylesheet rather than a single-rule block.
-  assert.ok(/header-user-bar-name[\s\S]{0,160}margin:\s*4px 8px 0 0/.test(css),
-    'user name has an 8px right margin');
+  const padding = /padding:\s*([^;]+);/.exec(bar);
+  assert.ok(padding, 'the bar declares its padding');
+  const [top, right, bottom] = padding[1].trim().split(/\s+/);
+  assert.strictEqual(right, '0', 'no right padding on the bar');
+  assert.strictEqual(top, bottom,
+    'symmetric block padding, so align-items: center centres on the bar middle');
+});
+
+test('nothing in the bar is nudged off that centre line', () => {
+  // A margin on one flex item is a shift, not centring: `margin-top: 3px` on the
+  // button groups put every button below the middle while the board title stayed on
+  // it, which is what made the title read as sitting too high.
+  const groups = block('#header #header-main-bar .board-header-btns');
+  assert.ok(/margin-top:\s*0/.test(groups), 'the button groups carry no top margin');
+  const bar = block('#header #header-main-bar');
+  assert.ok(/row-gap:/.test(bar), 'wrapped rows are separated by row-gap instead');
+  // And the title centres on its own text, not on a line box far taller than it.
+  const h1 = block('#header #header-main-bar h1');
+  assert.ok(/display:\s*flex/.test(h1) && /align-items:\s*center/.test(h1),
+    'the title is centred in its own box');
+  assert.ok(!/line-height:\s*1\.7em/.test(h1), 'no towering line box around the title');
+  // The always-true `body:not(.board-view)` rule must not zero that padding again:
+  // nothing sets `board-view` on <body>, so that selector matches on every page.
+  const legacy = block('body:not(.board-view) #header #header-main-bar');
+  assert.ok(!/padding-top:\s*0/.test(legacy) && !/padding-bottom:\s*0/.test(legacy),
+    'it no longer overrides the symmetric padding');
 });
 
 test('the board-settings cog is removed from the header (it is in the sidebar)', () => {
