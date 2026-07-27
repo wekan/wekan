@@ -435,6 +435,10 @@ Meteor.startup(async () => {
   // on the denormalized meta.boardId (replacing a per-card N+1, #6480); index it so
   // that board-level query is not a full collection scan.
   await ensureIndex(Attachments, { 'meta.boardId': 1 });
+  // The Files report pages every attachment by name (server/publications/attachments.js),
+  // so that sort - and the count beside it - is an index scan, not a scan of the
+  // whole collection plus an in-memory sort.
+  await ensureIndex(Attachments, { name: 1 });
 
   // Ensure standard GridFS index on attachments.chunks for efficient chunk lookups.
   // Without this, queries like find({files_id: ObjectId}) do full collection scans.

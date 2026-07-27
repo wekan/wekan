@@ -513,14 +513,16 @@ const REPORT_TABLES = {
   'report-files': {
     emptyKey: 'no-results',
     docs: () => {
-      // Prefer the UNDERLYING reactive minimongo collection: the
-      // 'attachmentsList' publication delivers the page via this.added, and a
-      // plain Mongo.Collection cursor reacts to those adds and yields plain docs,
-      // whereas the ostrio FilesCursor does not reliably re-run in a helper.
+      // The UNDERLYING reactive minimongo collection: the 'attachmentsList'
+      // publication delivers the page via this.added, and a plain Mongo.Collection
+      // cursor reacts to those adds and yields plain docs, whereas the ostrio
+      // FilesCursor does not reliably re-run in a helper.
+      // The page is the one the publication named - opening a single card puts its
+      // attachments in minimongo, and those are not rows of this report.
       // Never throw: a throwing helper blanks the whole pane.
       const coll = (Attachments && Attachments.collection) || Attachments;
       try {
-        return collectionResults(coll, { name: 1 }).fetch();
+        return reportPageResults(coll, 'report-files');
       } catch (e) {
         return [];
       }
@@ -538,8 +540,10 @@ const REPORT_TABLES = {
   },
   'report-rules': {
     emptyKey: 'no-results',
+    // The publication's page, not every rule in minimongo: a board's own rules are
+    // there whenever its rules editor has been opened.
     docs: () =>
-      ReactiveCache.getRules({}, { sort: { boardId: 1 } }).map(rule => ({
+      reportPageResults(Rules, 'report-rules').map(rule => ({
         _id: rule._id,
         title: rule.title,
         boardTitle: rule.board()?.title,

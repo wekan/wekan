@@ -3,6 +3,7 @@ import Actions from '/models/actions';
 import Triggers from '/models/triggers';
 import Rules from '/models/rules';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { publishReportPage } from '/models/lib/reportPageIndex';
 
 Meteor.publish('rules', async function(ruleId) {
   check(ruleId, String);
@@ -118,6 +119,9 @@ Meteor.publish('rulesReport', async function(searchTerm = '', limit, skip = 0) {
   for (const doc of actions) { const { _id, ...fields } = doc; this.added('actions', _id, fields); }
   for (const doc of triggers) { const { _id, ...fields } = doc; this.added('triggers', _id, fields); }
   for (const doc of boards) { const { _id, ...fields } = doc; this.added('boards', _id, fields); }
+  // WHICH rules this page is: a board's own rules are in minimongo whenever its
+  // rules editor has been opened.
+  publishReportPage(this, 'report-rules', rules);
   this.ready();
 });
 

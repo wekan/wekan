@@ -128,12 +128,18 @@ Meteor.publish('boardsReport', async function(searchTerm = '', limit, skip = 0) 
   check(searchTerm, Match.OneOf(String, null, undefined));
   check(limit, Number);
   check(skip, Match.OneOf(Number, null, undefined));
-  const userId = this.userId;
-  // Ensure that the user is connected. If it is not, we need to return an empty
-  // array to tell the client to remove the previously published docs.
-  if (!Match.test(userId, String) || !userId) return [];
+  // An ADMIN report, over the whole instance - like the Cards report beside it in
+  // Admin Panel / Problems. It used to publish `userBoardIds(this.userId)`, the
+  // boards the ADMIN is personally a member of, which on any instance where the
+  // admin is not a board member is nothing at all: the Boards report was empty
+  // while the Cards report next to it listed cards from thousands of boards. That
+  // also means the guard has to be `isAdmin` now, not merely "logged in": the
+  // membership selector was what kept this publication honest before.
+  if (!this.userId || !(await ReactiveCache.getUser(this.userId))?.isAdmin) {
+    return this.ready();
+  }
 
-  const query = { _id: { $in: await Boards.userBoardIds(userId, null) } };
+  const query = {};
   if (searchTerm) {
     query.title = new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
   }
@@ -210,7 +216,8 @@ Meteor.methods({
     if (!user || !user.isAdmin) {
       throw new Meteor.Error('not-authorized');
     }
-    const query = { _id: { $in: await Boards.userBoardIds(this.userId, null) } };
+    // The same set the publication pages: every board on the instance, admin-only.
+    const query = {};
     if (searchTerm) {
       query.title = new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
     }

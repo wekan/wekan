@@ -109,12 +109,81 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
     assert.ok(/peopleListVersion\.get\(\)/.test(client), 'and the table watches that');
   });
 
-  test('Problems: the three reports over shared collections name their pages', () => {
+  test('Problems: every report over a shared collection names its page', () => {
     const cards = read('server/publications/cards.js');
     assert.ok(/publishReportPage\(this, 'report-broken', cards\)/.test(cards));
     assert.ok(/publishReportPage\(this, 'report-cards', cards\)/.test(cards));
     const boards = read('server/publications/boards.js');
     assert.ok(/publishReportPage\(this, 'report-boards', boards\)/.test(boards));
+    // Files and Rules too: opening one card puts its attachments in minimongo, and
+    // opening a board's rules editor puts its rules there.
+    assert.ok(/publishReportPage\(this, 'report-files', docs \|\| \[\]\)/
+      .test(read('server/publications/attachments.js')));
+    assert.ok(/publishReportPage\(this, 'report-rules', rules\)/
+      .test(read('server/publications/rules.js')));
+  });
+
+  test('Problems: a report shows the whole instance, and only to an admin', () => {
+    // These are ADMIN reports. Cards, Broken cards, Rules, Impersonation and
+    // Recovery always covered the instance; Boards published `userBoardIds(this
+    // .userId)` and Files the cards that user could access - the boards and cards
+    // the ADMIN happens to be a member of. On an instance whose admin is not a
+    // board member that is nothing at all, which is why Boards Report was empty
+    // while the Cards report beside it listed cards from thousands of boards.
+    // Comments out first: both notes explain the scoping they replaced, by name.
+    const code = rel => read(rel).replace(/\/\/[^\n]*/g, '').replace(/\/\*[\s\S]*?\*\//g, '');
+    const boards = code('server/publications/boards.js');
+    const boardsPub = boards.slice(boards.indexOf("Meteor.publish('boardsReport'"),
+      boards.indexOf("Meteor.publish('boardsReport'") + 1200);
+    assert.ok(!/userBoardIds/.test(boardsPub),
+      'the Boards report must not be scoped to the admin\'s own boards');
+    assert.ok(!/accessibleCardIds/.test(code('server/publications/attachments.js')),
+      'the Files report must not be scoped to the admin\'s own cards');
+    // Scoping was what kept those two honest, so the guard has to be isAdmin now -
+    // in the publication AND in the count method that pages it.
+    for (const [file, marker] of [
+      ['server/publications/boards.js', "Meteor.publish('boardsReport'"],
+      ['server/publications/attachments.js', "Meteor.publish('attachmentsList'"],
+      ['server/publications/cards.js', "Meteor.publish('cardsReport'"],
+      ['server/publications/cards.js', "Meteor.publish('brokenCardsReport'"],
+      ['server/publications/rules.js', "Meteor.publish('rulesReport'"],
+    ]) {
+      const src = code(file);
+      const at = src.indexOf(marker);
+      assert.ok(at !== -1, `${marker} must exist`);
+      // The guard must be at the TOP of the publication, before it reads anything.
+      assert.ok(/isAdmin/.test(src.slice(at, at + 400)), `${marker} must be admin-only`);
+    }
+    for (const [file, method] of [
+      ['server/publications/boards.js', 'getBoardsReportCount'],
+      ['server/publications/attachments.js', 'getAttachmentsReportCount'],
+    ]) {
+      const src = code(file);
+      const body = src.slice(src.indexOf(method), src.indexOf(method) + 700);
+      assert.ok(/isAdmin/.test(body), `${method} must be admin-only`);
+      assert.ok(!/userBoardIds|accessibleCardIds/.test(body),
+        `${method} must count the same set the publication pages`);
+    }
+  });
+
+  test('every report publishes into the collection its pane reads', () => {
+    // A name typo here is invisible: the publication succeeds, the client drops the
+    // documents, and the report is simply empty.
+    const declared = new Set(['users']); // accounts' own collection
+    for (const file of fs.readdirSync(path.join(ROOT, 'models'))) {
+      if (!file.endsWith('.js')) continue;
+      const src = read(`models/${file}`);
+      for (const m of src.matchAll(/new Mongo\.Collection\(\s*'([^']+)'/g)) declared.add(m[1]);
+      for (const m of src.matchAll(/collectionName:\s*'([^']+)'/g)) declared.add(m[1]);
+    }
+    for (const file of ['server/publications/attachments.js', 'server/publications/rules.js',
+      'server/publications/boards.js', 'server/publications/cards.js',
+      'server/publications/impersonationReport.js', 'server/publications/recoveryReport.js']) {
+      for (const m of read(file).matchAll(/this\.added\(\s*'([^']+)'/g)) {
+        assert.ok(declared.has(m[1]) || m[1] === REPORT_PAGE_COLLECTION,
+          `${file} publishes into '${m[1]}', which no model declares`);
+      }
+    }
   });
 
   test('Problems: and the pane renders the named page', () => {

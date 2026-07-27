@@ -1,7 +1,6 @@
 import Attachments from '/models/attachments';
-import Boards from '/models/boards';
-import Cards from '/models/cards';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { publishReportPage } from '/models/lib/reportPageIndex';
 
 // Escape a user-supplied search string so it is matched literally (and
 // case-insensitively) instead of being interpreted as a regular expression.
@@ -9,58 +8,21 @@ function searchRegex(term) {
   return new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
 }
 
-// Card ids the given user is allowed to see attachments for. Shared by the
-// paginated 'attachmentsList' publication and its matching count method so the
-// total and the published page are always computed over the same set.
-//
-// Query the model collections DIRECTLY with fetchAsync, NOT ReactiveCache: the
-// Files report publication must always reach this.ready(), and a ReactiveCache
-// read that does not resolve would leave the whole report stuck on the loading
-// spinner (subscription never ready). Raw async fetches always resolve.
-async function accessibleCardIds(userId) {
-  // Avoid `$elemMatch` on `members`: some FerretDB v1 builds (e.g. the one bundled
-  // before the fork moved past upstream v1.24) reject `{members:{$elemMatch:{userId,
-  // isActive:true}}}` with "(BadValue) unknown operator: userId", which — swallowed by
-  // the publish's catch below — made this report silently return nothing (#Files
-  // report). Match "the user is a member" by the dotted path (works on every FerretDB
-  // build) and then confirm in JS that the user's OWN member entry is active, which
-  // preserves the exact per-element semantics `$elemMatch` gives. A given userId
-  // appears in at most one member entry, so this is equivalent.
-  const boards = await Boards.find(
-    {
-      $or: [
-        { permission: 'public' },
-        { 'members.userId': userId },
-      ],
-    },
-    { fields: { _id: 1, permission: 1, members: 1 } },
-  ).fetchAsync();
-  const boardIds = boards
-    .filter(board =>
-      board.permission === 'public' ||
-      (board.members || []).some(m => m.userId === userId && m.isActive))
-    .map(board => board._id);
+// A note worth keeping from the per-user scoping this report used to do: some
+// FerretDB v1 builds reject `{members: {$elemMatch: {userId, isActive: true}}}`
+// with "(BadValue) unknown operator: userId". A publication that swallows its
+// errors then returns nothing at all, silently - which is exactly how a report
+// ends up empty while the data is plainly there. Match by the dotted path
+// (`'members.userId'`) and confirm the element in JS when a query has to ask that.
 
-  if (boardIds.length === 0) {
-    return [];
-  }
-
-  const cards = await Cards.find(
-    { boardId: { $in: boardIds }, archived: false },
-    { fields: { _id: 1 } },
-  ).fetchAsync();
-  return cards.map(card => card._id);
-}
-
-// Build the attachments query for the report: restricted to accessible cards,
-// optionally filtered by attachment name. Returns null when the user has no
-// accessible cards (caller should publish/return nothing).
+// An ADMIN report, over the whole instance - like the Cards report beside it in
+// Admin Panel / Problems. It used to be scoped to the cards the ADMIN can access,
+// so on an instance where the admin is not a member of the boards, the Files report
+// was empty while the Cards report listed cards from thousands of boards. The
+// callers check `isAdmin`; that check is now the only thing standing between this
+// and every attachment, so neither of them may drop it.
 async function attachmentsReportQuery(userId, searchTerm) {
-  const userCards = await accessibleCardIds(userId);
-  if (userCards.length === 0) {
-    return null;
-  }
-  const query = { 'meta.cardId': { $in: userCards } };
+  const query = {};
   if (searchTerm) {
     query.name = searchRegex(searchTerm);
   }
@@ -84,6 +46,10 @@ Meteor.publish('attachmentsList', async function(searchTerm = '', limit, skip = 
   // what the fetch below does (previous versions hung on an await before reaching
   // this.ready() in a `finally`, leaving the report stuck on the spinner forever). The
   // page rows are then streamed with this.added and appear reactively in the table.
+  // Admin only: the query below is now every attachment on the instance.
+  if (!this.userId || !(await ReactiveCache.getUser(this.userId))?.isAdmin) {
+    return this.ready();
+  }
   this.ready();
   try {
     const query = await attachmentsReportQuery(this.userId, searchTerm);
@@ -93,7 +59,7 @@ Meteor.publish('attachmentsList', async function(searchTerm = '', limit, skip = 
       console.log(
         '[attachmentsList] userId=%s query=%s',
         this.userId,
-        query ? JSON.stringify(query) : 'null (user has no accessible cards)',
+        JSON.stringify(query),
       );
     }
     if (query) {
@@ -104,6 +70,10 @@ Meteor.publish('attachmentsList', async function(searchTerm = '', limit, skip = 
       // returns the page and always resolves.
       const cursor = Attachments.collection.find(query, {
         fields: { _id: 1, name: 1, size: 1, type: 1, meta: 1, path: 1, versions: 1 },
+        // Paging with no sort is paging over "natural order", where a document can
+        // appear on two pages or on none. By name, which is what the report shows -
+        // and what the index added for it covers.
+        sort: { name: 1 },
         limit,
         skip: skip || 0,
       });
@@ -116,6 +86,9 @@ Meteor.publish('attachmentsList', async function(searchTerm = '', limit, skip = 
         const { _id, ...fields } = doc;
         this.added('attachments', _id, fields);
       }
+      // WHICH attachments this page is: opening one card puts its attachments in
+      // minimongo, and the pane must not draw those as rows of this report.
+      publishReportPage(this, 'report-files', docs || []);
     }
   } catch (e) {
     // NEVER swallow this silently: a hidden throw here surfaces as an empty Files
