@@ -271,7 +271,7 @@ browser build to verify).
 This release has the following developer-facing changes:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/84f05ddca">"Run ALL tests" now runs all the tests, in build.sh and in build.bat</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/fa831e982">"Run ALL tests" now runs all the tests, in build.sh and in build.bat</a>. Thanks to xet7.</summary>
 
 Two gaps that together meant most of the suite never ran anywhere. The flow ran
 six jobs — mocha, the import regression, the Node E2E harness and the three
