@@ -166,6 +166,52 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
     }
   });
 
+  test('a per-tenant admin gets NO report data, only their own tenant\'s People', () => {
+    // Admin Panel / Problems is instance-wide, so it is site-admin only
+    // (docs/Design/Multitenancy/Multitenancy.md, D.7): 'problems' is not one of a
+    // tenant admin's tabs, and every report guard below asks for the SITE flag
+    // `user.isAdmin` - which a per-tenant Global Admin does not have; theirs is
+    // `orgs[].isAdmin`. This matters now that the Boards and Files reports are
+    // instance-wide: the guard is the only thing scoping them.
+    const rules = read('models/lib/tenantAdmin.js');
+    const tabs = /const TENANT_ADMIN_TABS = \[([^\]]*)\]/.exec(rules);
+    assert.ok(tabs, 'the tenant admin tab list must exist');
+    assert.ok(!/problems/.test(tabs[1]), 'Problems is not a tenant admin tab');
+    const code = rel => read(rel).replace(/\/\/[^\n]*/g, '').replace(/\/\*[\s\S]*?\*\//g, '');
+    const reportGuards = [
+      ['server/publications/cards.js', ["Meteor.publish('cardsReport'",
+        "Meteor.publish('brokenCardsReport'", 'getCardsReportCount', 'getBrokenCardsReportCount']],
+      ['server/publications/boards.js', ["Meteor.publish('boardsReport'", 'getBoardsReportCount']],
+      ['server/publications/attachments.js', ["Meteor.publish('attachmentsList'",
+        'getAttachmentsReportCount']],
+      ['server/publications/rules.js', ["Meteor.publish('rulesReport'", 'getRulesReportCount']],
+      ['server/publications/impersonationReport.js', ["Meteor.publish('impersonationReport'",
+        'getImpersonationReportCount']],
+      ['server/publications/recoveryReport.js', ["Meteor.publish('recoveryReport'",
+        'getRecoveryReportCount']],
+    ];
+    for (const [file, markers] of reportGuards) {
+      const src = code(file);
+      for (const marker of markers) {
+        const head = src.slice(src.indexOf(marker), src.indexOf(marker) + 500);
+        assert.ok(/isAdmin/.test(head), `${marker} must ask for the site admin flag`);
+        assert.ok(!/canOpenAdminPanel/.test(head),
+          `${marker} must NOT accept a per-tenant admin: Problems is instance-wide`);
+      }
+    }
+    // The one admin list a tenant admin DOES get is People, and it is scoped to the
+    // orgs they administer - the page, its ids and its total all through the same
+    // rule module, so the pager cannot count rows the page may not show.
+    const users = code('server/models/users.js');
+    for (const method of ['getPeoplePageIds', 'getUsersCollectionCount']) {
+      const body = users.slice(users.indexOf(method), users.indexOf(method) + 1400);
+      assert.ok(/canOpenAdminPanel/.test(body), `${method} is open to a tenant admin`);
+      assert.ok(/peopleScopeSelector/.test(body), `${method} must be tenant-scoped`);
+    }
+    assert.ok(/peopleScopeSelector/.test(code('server/publications/people.js')),
+      'and so is the publication they page');
+  });
+
   test('every report publishes into the collection its pane reads', () => {
     // A name typo here is invisible: the publication succeeds, the client drops the
     // documents, and the report is simply empty.
