@@ -102,5 +102,61 @@ async function check(name, fn) { await fn(); passed += 1; console.log('  ok -', 
     assert.strictEqual(await disambiguateName(emptyColl, me, 'unique.pdf'), 'unique.pdf');
   });
 
+  // The strategy factory's storage decision, replayed. From the dev-server log:
+  //
+  //   [onAfterUpload] filename hardening failed: TypeError: Cannot read
+  //   properties of undefined (reading 'gridFsFileId')
+  //       at FileStoreStrategyFactory.getFileStrategy (fileStoreStrategy.js:112)
+  //       at detectStoredFileMime (fileTypeCorrection.js:120)
+  //
+  // A freshly uploaded file has no `meta` on its version - only a GridFS one
+  // does - so EVERY upload threw there. onAfterUpload caught it and logged
+  // "filename hardening failed", so the upload looked fine while the mime
+  // detection and the filename correction were skipped for every new file.
+  const storageOf = (fileObj, versionName, storage) => {
+    if (!storage) {
+      const version = (fileObj && fileObj.versions && fileObj.versions[versionName]) || {};
+      const versionMeta = version.meta || {};
+      const fileMeta = (fileObj && fileObj.meta) || {};
+      storage = version.storage;
+      if (!storage) {
+        storage = (fileMeta.source === 'import' || versionMeta.gridFsFileId)
+          ? 'gridfs' : 'filesystem';
+      }
+    }
+    return storage;
+  };
+
+  await check('a freshly uploaded file resolves to filesystem instead of throwing', () => {
+    assert.strictEqual(storageOf({ versions: { original: {} } }, 'original'), 'filesystem');
+    assert.strictEqual(storageOf({ meta: {}, versions: { original: {} } }, 'original'), 'filesystem');
+  });
+
+  await check('the storage the document states still wins', () => {
+    assert.strictEqual(storageOf({ versions: { original: { storage: 's3' } } }, 'original'), 's3');
+    assert.strictEqual(storageOf({ versions: { original: {} } }, 'original', 'gridfs'), 'gridfs');
+  });
+
+  await check('an imported or GridFS file is still recognised', () => {
+    assert.strictEqual(storageOf({ meta: { source: 'import' }, versions: { original: {} } }, 'original'), 'gridfs');
+    assert.strictEqual(storageOf({ versions: { original: { meta: { gridFsFileId: 'abc' } } } }, 'original'), 'gridfs');
+  });
+
+  await check('a missing version, or no file at all, does not throw', () => {
+    assert.strictEqual(storageOf({ versions: {} }, 'original'), 'filesystem');
+    assert.strictEqual(storageOf({}, 'original'), 'filesystem');
+    assert.strictEqual(storageOf(null, 'original'), 'filesystem');
+  });
+
+  await check('and the source reads those three places defensively', () => {
+    const src = fs.readFileSync(path.join(__dirname, '..', 'models/lib/fileStoreStrategy.js'), 'utf8');
+    const fn = src.slice(src.indexOf('getFileStrategy(fileObj, versionName, storage)'), src.indexOf('getFileStrategy(fileObj, versionName, storage)') + 1600);
+    assert.ok(fn.includes('const version = (fileObj && fileObj.versions && fileObj.versions[versionName]) || {};'));
+    assert.ok(fn.includes('const versionMeta = version.meta || {};'));
+    assert.ok(fn.includes('const fileMeta = (fileObj && fileObj.meta) || {};'));
+    assert.ok(!src.includes('fileObj.versions[versionName].meta.gridFsFileId'),
+      'the unguarded read that threw on every upload must not come back');
+  });
+
   console.log(`\nfileTypeCorrection: ${passed} checks passed`);
 })().catch(err => { console.error(err); process.exit(1); });

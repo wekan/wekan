@@ -107,9 +107,21 @@ export default class FileStoreStrategyFactory {
    */
   getFileStrategy(fileObj, versionName, storage) {
     if (!storage) {
-      storage = fileObj.versions[versionName].storage;
+      // Every one of these can be absent, and each absence used to throw here.
+      // A freshly uploaded file has no `meta` on its version (only a GridFS one
+      // does), so `versions[v].meta.gridFsFileId` threw "Cannot read properties
+      // of undefined (reading 'gridFsFileId')" on EVERY upload - which
+      // onAfterUpload caught and logged as "filename hardening failed", so the
+      // mime detection and filename correction were skipped for every new file
+      // while the upload itself appeared to succeed. `fileObj.meta` can be
+      // absent in the same way, and so can the version itself when a caller asks
+      // for one this file does not have.
+      const version = (fileObj && fileObj.versions && fileObj.versions[versionName]) || {};
+      const versionMeta = version.meta || {};
+      const fileMeta = (fileObj && fileObj.meta) || {};
+      storage = version.storage;
       if (!storage) {
-        if (fileObj.meta.source == "import" || fileObj.versions[versionName].meta.gridFsFileId) {
+        if (fileMeta.source == "import" || versionMeta.gridFsFileId) {
           // uploaded by import, so it's in GridFS (MongoDB)
           storage = STORAGE_NAME_GRIDFS;
         } else {
