@@ -267,7 +267,31 @@ browser build to verify).
 </details>
 
 # Upcoming WeKan ® release
-This release has one icon set:
+This release fixes the following bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/302bd9041">A removed DDP session no longer crashes the server on its 101st message</a>. Thanks to bluetopaz1204, Nissulya and xet7.</summary>
+
+From the comments today, on 10.40 with real users: `TypeError:
+self._pendingRemoveFunction is not a function` at `Session.send`, then `Main
+process exited, code=exited, status=1/FAILURE` and `Scheduled restart job,
+restart counter is at 4`. It is a state-machine hole in Meteor's ddp-server:
+`_removeSession` sets `messageQueue = []` and a remove function; the remove
+function clears itself and deletes the session but leaves the queue, which is
+truthy — so `Session.send` keeps queueing for a session that no longer exists
+and the message past `maxMessageQueueLength` (100) calls null. It runs from an
+Immediate with no try/catch above it, so it is an uncaught exception, and
+synced-cron exits the process on one: every user disconnected, new cards only
+after a reload, systemd restarting — which reads as "WeKan is slow and the CPU
+is high". A queue with no remove function is now dropped instead of pushed to,
+so `send()` takes its ordinary path; the grace-period queue for a real
+reconnect and a legitimate overflow both behave as before.
+`tests/ddpSessionSendGuard.test.cjs` replays the upstream state machine,
+including that the unguarded version really does throw on the 101st message.
+
+</details>
+
+and has one icon set:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3487d2519">One icon set: Font Awesome, and the Grey Icons feature is removed</a>. Thanks to xet7.</summary>
