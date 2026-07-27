@@ -16,13 +16,13 @@ changes** required.
 
 ## Remaining steps
 
-> **Status:** the `snap-variants` job **is wired into `release-all.yml`** but is currently
-> **hard-disabled** with `if: ${{ false }}` (it was grouped with the failing snap
-> exotic-arch jobs). It is also internally **guarded** — even with the `if` removed it skips
-> with a `::notice::` until the items below are done — so it never breaks an ordinary
-> release. To actually publish the variant snaps you need **both**: (a) complete steps 1–4
-> below, **and** (b) remove the `if: ${{ false }}` line from the `snap-variants` job in
-> `release-all.yml` (see step 5).
+> **Status:** the `snap-variants` job **runs on every release** now — it was
+> hard-disabled with `if: ${{ false }}` while it was grouped with the failing snap
+> exotic-arch jobs, and that line is gone, so its output is visible in the run. It is
+> still internally **guarded**: until the items below are done it logs a `::warning::`
+> naming the missing secrets and skips its work, and `continue-on-error: true` means it
+> can never fail a release either way. To actually publish the variant snaps, complete
+> steps 1–4 below; step 5 (removing the `if`) is already done.
 
 1. **Register the snap names** (one-time, on the machine holding the WeKan Snap Store
    account): `snapcraft register wekan-ondra` and `snapcraft register wekan-gantt-gpl`.
@@ -270,8 +270,8 @@ Snap Store listing. `version:` stays as the shared WeKan version.
       with Contents: Read/Write — or add per-repo deploy keys. The secret value is unchanged
       either way (§1c, §2, Remaining step 4)
 - [ ] Confirm the two variant repos hold nothing that must survive the overwrite (§1c)
-- [ ] The `snap-variants` job is already in `release-all.yml` (§3) — **remove its
-      `if: ${{ false }}` line** to re-enable it (Remaining step 5)
+- [x] The `snap-variants` job is in `release-all.yml` (§3) and its `if: ${{ false }}`
+      line is removed, so it runs on every release (Remaining step 5)
 - [ ] Run one release and verify both snaps appear at
       `https://snapcraft.io/wekan-ondra` and `https://snapcraft.io/wekan-gantt-gpl`
       in all four channels
