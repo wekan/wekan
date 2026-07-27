@@ -266,6 +266,32 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+This release has the following developer-facing changes:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/84f05ddca">"Run ALL tests" now runs all the tests, in build.sh and in build.bat</a>. Thanks to xet7.</summary>
+
+Two gaps that together meant most of the suite never ran anywhere. The flow ran
+six jobs — mocha, the import regression, the Node E2E harness and the three
+browsers — and no npm unit script at all, so everything in `test:unit:node` and
+`test:unit:all` (the ~165 `.cjs` guards plus the sticker, Trello and OAuth2
+suites) was never executed by "Run ALL tests". Both scripts now have a `unit`
+job that runs `meteor npm run test:unit:all`, counted, waited for and reported
+with its own log. And the scripts themselves were incomplete: 72 suite files
+existed that no npm script mentioned — they are all registered now, and
+`tests/testsAreRegistered.test.cjs` fails when a plain-node suite is in no
+script or when the flow stops running it. Not verified here: with no node in
+this environment those 72 suites have never been executed, so some may fail on
+the first real run — that is the information this buys, not a regression it
+introduces.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.40 2026-07-27 WeKan ® release
 
 This release fixes the following bugs:
