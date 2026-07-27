@@ -299,6 +299,15 @@ experimental rows. Plus the shortcut: a database that speaks the PostgreSQL or
 MySQL wire protocol needs no new backend, only an existing one that survives
 its dialect — CockroachDB brings s390x that way, for the price of a test run.
 
+A [follow-up](https://github.com/wekan/wekan/commit/67991587d) groups them, so
+the reader is not left to find the pattern: they are not fifteen questions but
+seven families — PostgreSQL-wire, MySQL-wire, enterprise SQL, embedded,
+columnar, key-value, and what already speaks MongoDB — and inside a family the
+answer is one answer. The page opens with all of it in five sentences and one
+table, because the conclusion (verify the three backends that already exist
+rather than write a fourth) was previously visible only to whoever read to the
+end.
+
 </details>
 
 <details>
