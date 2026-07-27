@@ -266,6 +266,52 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+This release adds the following test:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e1c6291be">Tests menu runs every database this CPU can, and checks they answer the same</a>. Thanks to xet7.</summary>
+
+FerretDB v1 translates one MongoDB query into five different SQL dialects, so
+"WeKan starts on MariaDB" says very little. The question that decides whether a
+backend can be trusted with a board is whether `{n: {$gt: 5}}` returns the same
+documents, in the same order, as it does on SQLite — and nothing was asking it.
+`./build.sh` → Tests → **All databases (sequential)** now does, and `build.bat`
+has the same entry, running the same script rather than a second implementation
+that would drift.
+
+It builds FerretDB v1 from source first: the `FerretDB` subdirectory is cloned
+from `git@github.com:wekan/FerretDB` if it is not there, updated if it is, and
+built through its own `build.sh`, which installs the Go toolchain and the module
+dependencies when they are missing — so the tests run against the newest code,
+not a downloaded release. Then, for each backend whose database image has a
+build for THIS CPU — asked of the registry with `docker manifest inspect`, so no
+table can go stale — it starts that database, runs the freshly built FerretDB
+against it, runs the whole catalogue and stops everything. Sequentially, because
+they all use the same FerretDB port and a database under test should not be
+competing with three others.
+
+The catalogue is 100 cases in 15 groups, taken from FerretDB v1's own handler
+sources rather than from MongoDB's manual: every query, update and bitwise
+operator, the aggregation stages and accumulators, projection, sorting, paging,
+count, distinct, indexes and uniqueness, capped collections — which is how the
+OpLog exists at all — and the commands whose answers may legitimately differ.
+The seed data is deliberately awkward, because tidy data lets a broken
+translation pass. Answers are normalised and compared byte for byte against
+SQLite, so document ORDER counts; two backends failing the same way is agreement
+about a limitation, one answering where another fails is a difference.
+
+Everything lands in `../log/<datetime>/` with every other test run, including
+`db-conformance-report.md`. SAP HANA is opt-in behind `WEKAN_CONFORMANCE_HANA=1`
+— amd64-only, ~16 GB of RAM, SAP's licence — so a menu choice cannot start it by
+accident.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.43 2026-07-28 WeKan ® release
 
 This release adds the following new features:
