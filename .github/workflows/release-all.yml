@@ -87,6 +87,15 @@ name: Release All Platforms
 #                      app signing key + certificate + App Store token used by the
 #                      `nextcloud` job. See docs/Design/Autoupdate/Nextcloud.md.
 #
+#   EVERY job that needs a secret checks it in its FIRST step and says, by name,
+#   which one is missing - and, where a cheap check exists, whether it actually
+#   WORKS: the GitHub token is asked whether it can push to the repo it is for, the
+#   three registry credentials are decoded and logged in with, and the base64 ones
+#   are decoded. What only the far end can answer - whether the Snap Store accepts
+#   SNAP_AUTH, whether Launchpad accepts LP_CREDENTIALS - is answered at the step
+#   that uses it, which then names the secret in the log instead of leaving a bare
+#   401 behind. So a missing or broken secret is always ONE named line, near the top.
+#
 #   The snap-variants / ucs / nextcloud jobs are guarded: if their secrets are not
 #   set they log a ::warning:: and skip, so they never break an ordinary release.
 
@@ -227,6 +236,38 @@ jobs:
     needs: bump
     runs-on: ubuntu-latest
     steps:
+      # First step on purpose: a missing secret is then ONE named line at the top of
+      # the log, instead of a failure deep inside a tool that only says the login
+      # was refused. GITHUB_TOKEN is provided by Actions itself and is never listed.
+      - name: Check required secrets are configured
+        env:
+          WEKAN_REPO_TOKEN: ${{ secrets.WEKAN_REPO_TOKEN }}
+        run: |
+          missing=""
+          [ -n "${WEKAN_REPO_TOKEN:-}" ] || missing="$missing WEKAN_REPO_TOKEN"
+          if [ -n "$missing" ]; then
+            echo "::error::website: missing repository secret(s):$missing — the website is not updated. Add them in Settings → Secrets and variables → Actions:"
+            echo "  WEKAN_REPO_TOKEN - a token that can push to wekan/wekan.fi"
+            exit 1
+          fi
+          # Present is not the same as WORKING: an expired, revoked or too-narrow
+          # token fails much later, in a checkout or a push, with a message that
+          # never names the secret. Ask the API instead - one call, and the log
+          # says which secret is wrong and how.
+          code=$(curl -sS -o /tmp/repo.json -w '%{http_code}' \
+            -H "Authorization: Bearer $WEKAN_REPO_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/wekan/wekan.fi")
+          if [ "$code" != "200" ]; then
+            echo "::error::website: WEKAN_REPO_TOKEN does not work — GitHub answered HTTP $code for wekan/wekan.fi. Expired, revoked, or without access to that repository."
+            exit 1
+          fi
+          if [ "$(jq -r '.permissions.push // false' /tmp/repo.json)" != "true" ]; then
+            echo "::error::website: WEKAN_REPO_TOKEN reaches wekan/wekan.fi but may not PUSH to it. A classic PAT needs the 'repo' scope; a fine-grained PAT needs Contents: Read and write on wekan/wekan.fi."
+            exit 1
+          fi
+          echo "website: WEKAN_REPO_TOKEN works and can push to wekan/wekan.fi."
+
       - name: Checkout wekan repo (bumped main, with rebuilt API docs)
         uses: actions/checkout@v7
         with:
@@ -262,6 +303,38 @@ jobs:
     needs: docker
     runs-on: ubuntu-latest
     steps:
+      # First step on purpose: a missing secret is then ONE named line at the top of
+      # the log, instead of a failure deep inside a tool that only says the login
+      # was refused. GITHUB_TOKEN is provided by Actions itself and is never listed.
+      - name: Check required secrets are configured
+        env:
+          WEKAN_REPO_TOKEN: ${{ secrets.WEKAN_REPO_TOKEN }}
+        run: |
+          missing=""
+          [ -n "${WEKAN_REPO_TOKEN:-}" ] || missing="$missing WEKAN_REPO_TOKEN"
+          if [ -n "$missing" ]; then
+            echo "::error::charts: missing repository secret(s):$missing — the Helm chart is not published. Add them in Settings → Secrets and variables → Actions:"
+            echo "  WEKAN_REPO_TOKEN - a token that can push to wekan/charts"
+            exit 1
+          fi
+          # Present is not the same as WORKING: an expired, revoked or too-narrow
+          # token fails much later, in a checkout or a push, with a message that
+          # never names the secret. Ask the API instead - one call, and the log
+          # says which secret is wrong and how.
+          code=$(curl -sS -o /tmp/repo.json -w '%{http_code}' \
+            -H "Authorization: Bearer $WEKAN_REPO_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/wekan/charts")
+          if [ "$code" != "200" ]; then
+            echo "::error::charts: WEKAN_REPO_TOKEN does not work — GitHub answered HTTP $code for wekan/charts. Expired, revoked, or without access to that repository."
+            exit 1
+          fi
+          if [ "$(jq -r '.permissions.push // false' /tmp/repo.json)" != "true" ]; then
+            echo "::error::charts: WEKAN_REPO_TOKEN reaches wekan/charts but may not PUSH to it. A classic PAT needs the 'repo' scope; a fine-grained PAT needs Contents: Read and write on wekan/charts."
+            exit 1
+          fi
+          echo "charts: WEKAN_REPO_TOKEN works and can push to wekan/charts."
+
       - name: Checkout wekan repo (for releases/release-charts.sh + version refs)
         uses: actions/checkout@v7
         with:
@@ -895,6 +968,29 @@ jobs:
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
+      # First step on purpose: a missing secret is then ONE named line at the top of
+      # the log, instead of a failure deep inside a tool that only says the login
+      # was refused. GITHUB_TOKEN is provided by Actions itself and is never listed.
+      - name: Check required secrets are configured
+        env:
+          SANDSTORM_KEYRING: ${{ secrets.SANDSTORM_KEYRING }}
+        run: |
+          missing=""
+          [ -n "${SANDSTORM_KEYRING:-}" ] || missing="$missing SANDSTORM_KEYRING"
+          if [ -n "$missing" ]; then
+            echo "::error::build-sandstorm: missing repository secret(s):$missing — the .spk cannot be packed. Add them in Settings → Secrets and variables → Actions:"
+            echo "  SANDSTORM_KEYRING - base64 of ~/.sandstorm-keyring; meteor-spk signs the .spk with it"
+            exit 1
+          fi
+          # Present is not the same as WORKING: a keyring that is not valid base64
+          # used to surface half an hour later, as `meteor-spk pack` failing to open
+          # a file it had written garbage into.
+          if ! bytes="$(printf '%s' "$SANDSTORM_KEYRING" | base64 -d 2>/dev/null | wc -c)" || [ "$bytes" -eq 0 ]; then
+            echo "::error::build-sandstorm: SANDSTORM_KEYRING is not valid base64, or decodes to nothing. Set it with: base64 -w0 ~/.sandstorm-keyring"
+            exit 1
+          fi
+          echo "build-sandstorm: SANDSTORM_KEYRING decodes to $bytes bytes."
+
       - uses: actions/checkout@v7
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
@@ -1009,6 +1105,58 @@ jobs:
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
+      # First step on purpose: a missing secret is then ONE named line at the top of
+      # the log, instead of a failure deep inside a tool that only says the login
+      # was refused. GITHUB_TOKEN is provided by Actions itself and is never listed.
+      - name: Check required secrets are configured
+        env:
+          DOCKERHUB_AUTH: ${{ secrets.DOCKERHUB_AUTH }}
+          QUAY_AUTH: ${{ secrets.QUAY_AUTH }}
+          GHCR_AUTH: ${{ secrets.GHCR_AUTH }}
+        run: |
+          missing=""
+          [ -n "${DOCKERHUB_AUTH:-}" ] || missing="$missing DOCKERHUB_AUTH"
+          [ -n "${QUAY_AUTH:-}" ] || missing="$missing QUAY_AUTH"
+          [ -n "${GHCR_AUTH:-}" ] || missing="$missing GHCR_AUTH"
+          if [ -n "$missing" ]; then
+            echo "::error::docker: missing repository secret(s):$missing — the image cannot be pushed. Add them in Settings → Secrets and variables → Actions:"
+            echo "  DOCKERHUB_AUTH - base64 of 'user:token' for docker.io"
+            echo "  QUAY_AUTH - base64 of 'user:token' for quay.io"
+            echo "  GHCR_AUTH - base64 of 'user:token' for ghcr.io"
+            exit 1
+          fi
+          # Present is not the same as WORKING. Decode and LOG IN here, at the top:
+          # a wrong or expired credential then says which secret it was, before the
+          # multi-arch build spends half an hour producing something it cannot push.
+          check() {
+            # $1 = secret name, $2 = registry host, $3 = base64("user:token")
+            local name="$1" host="$2" creds user token
+            if ! creds="$(printf '%s' "$3" | base64 -d 2>/dev/null)"; then
+              echo "::error::docker: $name is not valid base64. It must be base64 of 'username:token' for $host, e.g. printf '%s' 'user:token' | base64 -w0"
+              return 1
+            fi
+            case "$creds" in
+              *:*) ;;
+              *) echo "::error::docker: $name decodes to something without a ':' - it must be base64 of 'username:token' for $host."; return 1 ;;
+            esac
+            user="${creds%%:*}"
+            token="${creds#*:}"
+            if [ -z "$user" ] || [ -z "$token" ]; then
+              echo "::error::docker: $name decodes to an empty username or token for $host."
+              return 1
+            fi
+            if ! printf '%s' "$token" | docker login "$host" -u "$user" --password-stdin; then
+              echo "::error::docker: $name was REJECTED by $host (login failed as user '$user'). The token is wrong, expired, or lacks push rights."
+              return 1
+            fi
+            echo "docker: $name works for $host (user '$user')."
+          }
+          rc=0
+          check DOCKERHUB_AUTH docker.io "$DOCKERHUB_AUTH" || rc=1
+          check QUAY_AUTH quay.io "$QUAY_AUTH" || rc=1
+          check GHCR_AUTH ghcr.io "$GHCR_AUTH" || rc=1
+          exit $rc
+
       - uses: actions/checkout@v7
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
@@ -1019,23 +1167,8 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
 
-      - name: Log in to Docker Hub, Quay.io and GHCR
-        env:
-          DOCKERHUB_AUTH: ${{ secrets.DOCKERHUB_AUTH }}
-          QUAY_AUTH: ${{ secrets.QUAY_AUTH }}
-          GHCR_AUTH: ${{ secrets.GHCR_AUTH }}
-        run: |
-          login() {
-            # $1 = registry host, $2 = base64("user:token")
-            local host="$1" creds user token
-            creds="$(printf '%s' "$2" | base64 -d)"
-            user="${creds%%:*}"
-            token="${creds#*:}"
-            printf '%s' "$token" | docker login "$host" -u "$user" --password-stdin
-          }
-          login docker.io "$DOCKERHUB_AUTH"
-          login quay.io   "$QUAY_AUTH"
-          login ghcr.io   "$GHCR_AUTH"
+      # (The login to all three registries happens in the secrets check above, so a
+      # bad credential names itself before anything is built.)
 
       - name: Wait for release bundles to be downloadable
         # The Dockerfile downloads wekan-<version>-<arch>.zip from the GitHub
@@ -1163,6 +1296,25 @@ jobs:
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
+      # First step on purpose: a missing secret is then ONE named line at the top of
+      # the log, instead of a failure deep inside a tool that only says the login
+      # was refused. GITHUB_TOKEN is provided by Actions itself and is never listed.
+      - name: Check required secrets are configured
+        env:
+          SNAP_AUTH: ${{ secrets.SNAP_AUTH }}
+        run: |
+          missing=""
+          [ -n "${SNAP_AUTH:-}" ] || missing="$missing SNAP_AUTH"
+          if [ -n "$missing" ]; then
+            echo "::error::snap-native: missing repository secret(s):$missing — the snap cannot be uploaded. Add them in Settings → Secrets and variables → Actions:"
+            echo "  SNAP_AUTH - snapcraft export-login output, with ACL for the wekan snap"
+            exit 1
+          fi
+          # Whether the Snap Store ACCEPTS it can only be answered by the store, at
+          # upload time - so the upload step below is followed by one that names this
+          # secret when it is refused, instead of leaving a bare "401" in the log.
+          echo "snap-native: SNAP_AUTH is set ($(printf '%s' "$SNAP_AUTH" | wc -c) characters)."
+
       - uses: actions/checkout@v7
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
@@ -1194,13 +1346,22 @@ jobs:
             *) echo "::error::Built snap '$snap' is not ${{ matrix.arch }}."; exit 1 ;;
           esac
 
-      - name: Push ${{ matrix.arch }} to the Snap Store (stable + candidate + beta + edge)
+      - id: publish
+        name: Push ${{ matrix.arch }} to the Snap Store (stable + candidate + beta + edge)
         uses: snapcore/action-publish@v1
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_AUTH }}
         with:
           snap: ${{ steps.build.outputs.snap }}
           release: stable,candidate,beta,edge
+
+      # The upload is a `uses:` action, so its failure would otherwise be a bare
+      # store error. Name the secret that was refused.
+      - name: Say which secret the Snap Store refused
+        if: failure() && steps.publish.outcome == 'failure'
+        run: |
+          echo "::error::SNAP_AUTH did not work: the Snap Store refused the upload for ${{ matrix.arch }}. Re-export it with: snapcraft export-login --snaps wekan --acls package_access,package_push,package_release,package_update snap-auth.txt"
+          exit 1
 
       - name: Attach the ${{ matrix.arch }} snap to the GitHub Release
         env:
@@ -1233,6 +1394,25 @@ jobs:
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
+      # First step on purpose: a missing secret is then ONE named line at the top of
+      # the log, instead of a failure deep inside a tool that only says the login
+      # was refused. GITHUB_TOKEN is provided by Actions itself and is never listed.
+      - name: Check required secrets are configured
+        env:
+          SNAP_AUTH: ${{ secrets.SNAP_AUTH }}
+        run: |
+          missing=""
+          [ -n "${SNAP_AUTH:-}" ] || missing="$missing SNAP_AUTH"
+          if [ -n "$missing" ]; then
+            echo "::error::snap-qemu: missing repository secret(s):$missing — the snap cannot be uploaded. Add them in Settings → Secrets and variables → Actions:"
+            echo "  SNAP_AUTH - snapcraft export-login output, with ACL for the wekan snap"
+            exit 1
+          fi
+          # Whether the Snap Store ACCEPTS it can only be answered by the store, at
+          # upload time - so the upload step below is followed by one that names this
+          # secret when it is refused, instead of leaving a bare "401" in the log.
+          echo "snap-qemu: SNAP_AUTH is set ($(printf '%s' "$SNAP_AUTH" | wc -c) characters)."
+
       - uses: actions/checkout@v7
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
@@ -1268,13 +1448,22 @@ jobs:
             *) echo "::error::Built snap '$snap' is not ${{ matrix.arch }}."; exit 1 ;;
           esac
 
-      - name: Push ${{ matrix.arch }} to the Snap Store (stable + candidate + beta + edge)
+      - id: publish
+        name: Push ${{ matrix.arch }} to the Snap Store (stable + candidate + beta + edge)
         uses: snapcore/action-publish@v1
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_AUTH }}
         with:
           snap: ${{ steps.build.outputs.snap }}
           release: stable,candidate,beta,edge
+
+      # The upload is a `uses:` action, so its failure would otherwise be a bare
+      # store error. Name the secret that was refused.
+      - name: Say which secret the Snap Store refused
+        if: failure() && steps.publish.outcome == 'failure'
+        run: |
+          echo "::error::SNAP_AUTH did not work: the Snap Store refused the upload for ${{ matrix.arch }}. Re-export it with: snapcraft export-login --snaps wekan --acls package_access,package_push,package_release,package_update snap-auth.txt"
+          exit 1
 
       - name: Attach the ${{ matrix.arch }} snap to the GitHub Release
         env:
@@ -1303,6 +1492,29 @@ jobs:
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
+      # First step on purpose: a missing secret is then ONE named line at the top of
+      # the log, instead of a failure deep inside a tool that only says the login
+      # was refused. GITHUB_TOKEN is provided by Actions itself and is never listed.
+      - name: Check required secrets are configured
+        env:
+          SNAP_AUTH: ${{ secrets.SNAP_AUTH }}
+          LP_CREDENTIALS: ${{ secrets.LP_CREDENTIALS }}
+        run: |
+          missing=""
+          [ -n "${SNAP_AUTH:-}" ] || missing="$missing SNAP_AUTH"
+          [ -n "${LP_CREDENTIALS:-}" ] || missing="$missing LP_CREDENTIALS"
+          if [ -n "$missing" ]; then
+            echo "::error::snap-launchpad: missing repository secret(s):$missing — the remote build cannot run. Add them in Settings → Secrets and variables → Actions:"
+            echo "  SNAP_AUTH - snapcraft export-login output, with ACL for the wekan snap"
+            echo "  LP_CREDENTIALS - base64 of the Launchpad credentials file for snapcraft remote-build"
+            exit 1
+          fi
+          if ! bytes="$(printf '%s' "$LP_CREDENTIALS" | base64 -d 2>/dev/null | wc -c)" || [ "$bytes" -eq 0 ]; then
+            echo "::error::snap-launchpad: LP_CREDENTIALS is not valid base64, or decodes to nothing. Set it with: base64 -w0 ~/.local/share/snapcraft/launchpad-credentials"
+            exit 1
+          fi
+          echo "snap-launchpad: SNAP_AUTH is set and LP_CREDENTIALS decodes to $bytes bytes."
+
       - uses: actions/checkout@v7
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
@@ -1370,6 +1582,12 @@ jobs:
             fi
           done
           echo "::error::Remote build ${{ matrix.arch }} failed after $attempts attempts (no wekan_${VERSION}_${{ matrix.arch }}.snap produced)." >&2
+          # The commonest cause after a plain build error is the credential: Launchpad
+          # answers 401/403 for an expired or wrong LP_CREDENTIALS, which reads as an
+          # ordinary build failure unless the log says so.
+          if grep -qiE 'unauthoriz|401|403|invalid credentials|not logged in' snapcraft-wekan-*.txt 2>/dev/null; then
+            echo "::error::LP_CREDENTIALS may not work: Launchpad answered unauthorized. Re-create it (snapcraft remote-build once locally) and set: base64 -w0 ~/.local/share/snapcraft/launchpad-credentials" >&2
+          fi
           exit 1
 
       - name: Push ${{ matrix.arch }} to the Snap Store (stable + candidate + beta + edge)
@@ -1386,7 +1604,10 @@ jobs:
           # base: core24 allows publishing to stable and candidate (core26 does not).
           for f in "${snaps[@]}"; do
             echo "Uploading $f to the Snap Store (stable,candidate,beta,edge)..."
-            snapcraft upload --release=stable,candidate,beta,edge "$f"
+            if ! snapcraft upload --release=stable,candidate,beta,edge "$f"; then
+              echo "::error::SNAP_AUTH did not work: the Snap Store refused the upload of $f. Re-export it with: snapcraft export-login --snaps wekan --acls package_access,package_push,package_release,package_update snap-auth.txt"
+              exit 1
+            fi
           done
 
       - name: Attach the ${{ matrix.arch }} snap to the GitHub Release
