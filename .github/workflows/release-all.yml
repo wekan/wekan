@@ -87,6 +87,15 @@ name: Release All Platforms
 #                      app signing key + certificate + App Store token used by the
 #                      `nextcloud` job. See docs/Design/Autoupdate/Nextcloud.md.
 #
+#   Reading the logs: every job ends with a "Job result" step that runs whatever
+#   happened, so the run summary is a list of OK / FAILED / CANCELLED, one line per
+#   job. Inside a job, each check prints either an "OK: ..." line saying what it
+#   verified or an ::error:: saying what was expected, what was found, and what to
+#   do about it - so "which step failed, and why" is answerable from the log alone.
+#   The checks cover what silently produced a broken release before: an empty
+#   version bump, missing release notes, a zip without bundle/main.js, an upload
+#   that reported success but left no asset, and a Docker manifest missing a CPU.
+#
 #   EVERY job that needs a secret checks it in its FIRST step and says, by name,
 #   which one is missing - and, where a cheap check exists, whether it actually
 #   WORKS: the GitHub token is asked whether it can push to the repo it is for, the
@@ -161,10 +170,38 @@ jobs:
         run: |
           git add --all
           if git diff --cached --quiet; then
-            echo "No version changes to commit."
+            # Not fatal - a re-run of the same release bumps nothing - but it is not
+            # the normal case, so it must be visible rather than a line of prose.
+            echo "::warning::bump: nothing to commit. Either the versions were already at v${{ inputs.new_version }} (a re-run), or releases/version.sh changed no file - its output above says which."
           else
             git commit -m "Bump versions for v${{ inputs.new_version }}"
-            git push origin main
+            if ! git push origin main; then
+              echo "::error::bump: could not push the version bump to main. A branch protection rule, a required review, or a token without write access does this - and the rest of the release would then build the OLD version."
+              exit 1
+            fi
+            echo "OK: bump pushed the version bump to main."
+          fi
+
+      # Always, as the last step: the run summary then answers "what worked and what
+      # did not" for the whole release at a glance, instead of eighteen job logs. A
+      # step that failed has already printed an ::error:: saying why; this names the
+      # job it was in.
+      - name: Job result
+        if: always()
+        # bash explicitly: this same step runs on the Windows and macOS runners too,
+        # where the default shell is PowerShell / not necessarily this bash.
+        shell: bash
+        run: |
+          case "${{ job.status }}" in
+            success)   mark='OK       ' ;;
+            failure)   mark='FAILED   ' ;;
+            cancelled) mark='CANCELLED' ;;
+            *)         mark='${{ job.status }}' ;;
+          esac
+          echo "$mark bump"
+          echo "$mark bump" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ job.status }}" = "failure" ]; then
+            echo "::error::bump FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
 
   # ─── 1. Tag the release and extract release notes ───────────────────────────
@@ -222,11 +259,46 @@ jobs:
           print(f"WeKan v{version}")
           PYEOF
           )
+          # "WeKan v<version>" is the fallback the script above prints when it finds
+          # NEITHER a "# v<version>" section nor an "# Upcoming" one - i.e. the
+          # release would be published with no notes at all. Say so here, where the
+          # cause is still obvious, instead of shipping an empty release page.
+          if [ -z "${NOTES//[[:space:]]/}" ]; then
+            echo "::error::prepare: the release notes came out EMPTY. CHANGELOG.md must have a '# v$VERSION ...' section, or an '# Upcoming WeKan (R) release' section to use."
+            exit 1
+          fi
+          if [ "$NOTES" = "WeKan v$VERSION" ]; then
+            echo "::error::prepare: CHANGELOG.md has no section for v$VERSION and no '# Upcoming WeKan (R) release' section, so the release would have no notes. Add the section and re-run."
+            exit 1
+          fi
+          echo "OK: release notes are $(printf '%s' "$NOTES" | wc -l) lines / $(printf '%s' "$NOTES" | wc -c) characters."
           {
             echo "content<<GHEOF"
             echo "$NOTES"
             echo "GHEOF"
           } >> "$GITHUB_OUTPUT"
+
+      # Always, as the last step: the run summary then answers "what worked and what
+      # did not" for the whole release at a glance, instead of eighteen job logs. A
+      # step that failed has already printed an ::error:: saying why; this names the
+      # job it was in.
+      - name: Job result
+        if: always()
+        # bash explicitly: this same step runs on the Windows and macOS runners too,
+        # where the default shell is PowerShell / not necessarily this bash.
+        shell: bash
+        run: |
+          case "${{ job.status }}" in
+            success)   mark='OK       ' ;;
+            failure)   mark='FAILED   ' ;;
+            cancelled) mark='CANCELLED' ;;
+            *)         mark='${{ job.status }}' ;;
+          esac
+          echo "$mark prepare"
+          echo "$mark prepare" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ job.status }}" = "failure" ]; then
+            echo "::error::prepare FAILED. The ::error:: line in this job's log, above, says which step and why."
+          fi
 
   # ─── 1b. Update the wekan.fi website repo (parallel) ────────────────────────
   # Bumps the version/Meteor/Node/MongoDB strings on the install page and copies
@@ -292,6 +364,28 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           cd ..
           ./wekan/releases/release-website.sh "${{ inputs.old_version }}" "${{ inputs.new_version }}"
+
+      # Always, as the last step: the run summary then answers "what worked and what
+      # did not" for the whole release at a glance, instead of eighteen job logs. A
+      # step that failed has already printed an ::error:: saying why; this names the
+      # job it was in.
+      - name: Job result
+        if: always()
+        # bash explicitly: this same step runs on the Windows and macOS runners too,
+        # where the default shell is PowerShell / not necessarily this bash.
+        shell: bash
+        run: |
+          case "${{ job.status }}" in
+            success)   mark='OK       ' ;;
+            failure)   mark='FAILED   ' ;;
+            cancelled) mark='CANCELLED' ;;
+            *)         mark='${{ job.status }}' ;;
+          esac
+          echo "$mark website"
+          echo "$mark website" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ job.status }}" = "failure" ]; then
+            echo "::error::website FAILED. The ::error:: line in this job's log, above, says which step and why."
+          fi
 
   # ─── 1c. Update and publish the Helm chart repo (after docker) ──────────────
   # Bumps the WeKan version in wekan/charts, packages the chart and publishes it
@@ -365,6 +459,28 @@ jobs:
           CHARTS_DIR: ${{ github.workspace }}/charts
         run: |
           ./wekan/releases/release-charts.sh "${{ inputs.new_version }}"
+
+      # Always, as the last step: the run summary then answers "what worked and what
+      # did not" for the whole release at a glance, instead of eighteen job logs. A
+      # step that failed has already printed an ::error:: saying why; this names the
+      # job it was in.
+      - name: Job result
+        if: always()
+        # bash explicitly: this same step runs on the Windows and macOS runners too,
+        # where the default shell is PowerShell / not necessarily this bash.
+        shell: bash
+        run: |
+          case "${{ job.status }}" in
+            success)   mark='OK       ' ;;
+            failure)   mark='FAILED   ' ;;
+            cancelled) mark='CANCELLED' ;;
+            *)         mark='${{ job.status }}' ;;
+          esac
+          echo "$mark charts"
+          echo "$mark charts" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ job.status }}" = "failure" ]; then
+            echo "::error::charts FAILED. The ::error:: line in this job's log, above, says which step and why."
+          fi
 
   # ─── 2. Build amd64 bundle (full Meteor 3 build) ────────────────────────────
   # Meteor 3.5 installer supports only Linux x86_64/aarch64, macOS, Windows.
@@ -464,12 +580,55 @@ jobs:
         run: |
           cd .build
           zip -r wekan-${VERSION}-amd64.zip bundle
+          # A zip that EXISTS is not a zip that WORKS, and the log should say which of the
+          # two this is. The size answers "was the bundle directory empty when it was
+          # zipped"; the entries answer "can this bundle start at all" - bundle/main.js is
+          # what the launcher runs, bundle/node is the runtime the zip promises to carry.
+          zip="wekan-${VERSION}-amd64.zip"
+          if [ ! -f "$zip" ]; then
+            echo "::error::$zip was not created. The build step above produced no bundle - its log says why."
+            exit 1
+          fi
+          bytes=$(wc -c < "$zip")
+          if [ "$bytes" -lt 10000000 ]; then
+            echo "::error::$zip is only $bytes bytes; a whole bundle is tens of megabytes. The bundle directory was empty or partial when it was zipped."
+            exit 1
+          fi
+          for want in bundle/main.js bundle/node; do
+            if ! unzip -l "$zip" | grep -q " $want$"; then
+              echo "::error::$zip has no $want, so it cannot start WeKan. The embed step above did not put it into the bundle."
+              exit 1
+            fi
+          done
+          echo "OK: $zip is $((bytes/1024/1024)) MiB and contains bundle/main.js and bundle/node."
 
       - uses: actions/upload-artifact@v7
         with:
           name: bundle-amd64
           path: .build/wekan-${{ needs.prepare.outputs.version }}-amd64.zip
           retention-days: 1
+
+      # Always, as the last step: the run summary then answers "what worked and what
+      # did not" for the whole release at a glance, instead of eighteen job logs. A
+      # step that failed has already printed an ::error:: saying why; this names the
+      # job it was in.
+      - name: Job result
+        if: always()
+        # bash explicitly: this same step runs on the Windows and macOS runners too,
+        # where the default shell is PowerShell / not necessarily this bash.
+        shell: bash
+        run: |
+          case "${{ job.status }}" in
+            success)   mark='OK       ' ;;
+            failure)   mark='FAILED   ' ;;
+            cancelled) mark='CANCELLED' ;;
+            *)         mark='${{ job.status }}' ;;
+          esac
+          echo "$mark build-amd64"
+          echo "$mark build-amd64" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ job.status }}" = "failure" ]; then
+            echo "::error::build-amd64 FAILED. The ::error:: line in this job's log, above, says which step and why."
+          fi
 
   # ─── 3. Build arm64 bundle (rebuild native modules natively) ─────────────────
   build-arm64:
@@ -539,12 +698,55 @@ jobs:
       - name: Create arm64 zip
         run: |
           zip -r wekan-${VERSION}-arm64.zip bundle
+          # A zip that EXISTS is not a zip that WORKS, and the log should say which of the
+          # two this is. The size answers "was the bundle directory empty when it was
+          # zipped"; the entries answer "can this bundle start at all" - bundle/main.js is
+          # what the launcher runs, bundle/node is the runtime the zip promises to carry.
+          zip="wekan-${VERSION}-arm64.zip"
+          if [ ! -f "$zip" ]; then
+            echo "::error::$zip was not created. The build step above produced no bundle - its log says why."
+            exit 1
+          fi
+          bytes=$(wc -c < "$zip")
+          if [ "$bytes" -lt 10000000 ]; then
+            echo "::error::$zip is only $bytes bytes; a whole bundle is tens of megabytes. The bundle directory was empty or partial when it was zipped."
+            exit 1
+          fi
+          for want in bundle/main.js bundle/node; do
+            if ! unzip -l "$zip" | grep -q " $want$"; then
+              echo "::error::$zip has no $want, so it cannot start WeKan. The embed step above did not put it into the bundle."
+              exit 1
+            fi
+          done
+          echo "OK: $zip is $((bytes/1024/1024)) MiB and contains bundle/main.js and bundle/node."
 
       - uses: actions/upload-artifact@v7
         with:
           name: bundle-arm64
           path: wekan-${{ needs.prepare.outputs.version }}-arm64.zip
           retention-days: 1
+
+      # Always, as the last step: the run summary then answers "what worked and what
+      # did not" for the whole release at a glance, instead of eighteen job logs. A
+      # step that failed has already printed an ::error:: saying why; this names the
+      # job it was in.
+      - name: Job result
+        if: always()
+        # bash explicitly: this same step runs on the Windows and macOS runners too,
+        # where the default shell is PowerShell / not necessarily this bash.
+        shell: bash
+        run: |
+          case "${{ job.status }}" in
+            success)   mark='OK       ' ;;
+            failure)   mark='FAILED   ' ;;
+            cancelled) mark='CANCELLED' ;;
+            *)         mark='${{ job.status }}' ;;
+          esac
+          echo "$mark build-arm64"
+          echo "$mark build-arm64" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ job.status }}" = "failure" ]; then
+            echo "::error::build-arm64 FAILED. The ::error:: line in this job's log, above, says which step and why."
+          fi
 
   # ─── 7. Create GitHub Release and upload all bundles ────────────────────────
   release:
@@ -576,6 +778,28 @@ jobs:
           files: |
             wekan-${{ needs.prepare.outputs.version }}-amd64.zip
             wekan-${{ needs.prepare.outputs.version }}-arm64.zip
+
+      # Always, as the last step: the run summary then answers "what worked and what
+      # did not" for the whole release at a glance, instead of eighteen job logs. A
+      # step that failed has already printed an ::error:: saying why; this names the
+      # job it was in.
+      - name: Job result
+        if: always()
+        # bash explicitly: this same step runs on the Windows and macOS runners too,
+        # where the default shell is PowerShell / not necessarily this bash.
+        shell: bash
+        run: |
+          case "${{ job.status }}" in
+            success)   mark='OK       ' ;;
+            failure)   mark='FAILED   ' ;;
+            cancelled) mark='CANCELLED' ;;
+            *)         mark='${{ job.status }}' ;;
+          esac
+          echo "$mark release"
+          echo "$mark release" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ job.status }}" = "failure" ]; then
+            echo "::error::release FAILED. The ::error:: line in this job's log, above, says which step and why."
+          fi
 
   # ─── 7b. Extra-platform bundles (win64, mac-arm64, s390x, ppc64le) ───────────
   # Every bundle below is built AFTER `release` and attaches its own .zip to the
@@ -692,6 +916,30 @@ jobs:
         shell: cmd
         run: 7z a wekan-%VERSION%-win64.zip bundle
 
+      - name: Verify the win64 zip
+        shell: bash
+        run: |
+          # Same question as on the other platforms, asked in bash because the zip
+          # itself is made with 7-Zip under cmd: does this zip actually carry a
+          # startable bundle, or only a name that looks like one?
+          zip="wekan-${VERSION}-win64.zip"
+          if [ ! -f "$zip" ]; then
+            echo "::error::$zip was not created - 7z failed above, or the bundle directory was missing."
+            exit 1
+          fi
+          bytes=$(wc -c < "$zip")
+          if [ "$bytes" -lt 10000000 ]; then
+            echo "::error::$zip is only $bytes bytes; a whole bundle is tens of megabytes. The bundle directory was empty or partial when it was zipped."
+            exit 1
+          fi
+          for want in bundle/main.js bundle/node.exe; do
+            if ! 7z l "$zip" | grep -q "${want//\//\\}$"; then
+              echo "::error::$zip has no $want, so it cannot start WeKan on Windows. The embed step above did not put it into the bundle."
+              exit 1
+            fi
+          done
+          echo "OK: $zip is $((bytes/1024/1024)) MiB and contains bundle/main.js and bundle/node.exe."
+
       - uses: actions/upload-artifact@v7
         with:
           name: bundle-win64
@@ -706,7 +954,46 @@ jobs:
           # repository; set GH_REPO so `gh` targets wekan/wekan without relying on
           # git remote detection (else: "fatal: not a git repository").
           GH_REPO: ${{ github.repository }}
-        run: gh release upload "v${VERSION}" "wekan-${VERSION}-win64.zip" --clobber
+        run: |
+          set -euo pipefail
+          asset="wekan-${VERSION}-win64.zip"
+          if [ ! -f "$asset" ]; then
+            echo "::error::$asset does not exist, so there is nothing to attach. The step that builds it failed, or produced a different name."
+            exit 1
+          fi
+          if ! gh release upload "v${VERSION}" "$asset" --clobber; then
+            echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
+            exit 1
+          fi
+          # Confirm from the OTHER side. An upload that reports success but leaves no
+          # asset behind is the failure nobody notices until a download 404s.
+          if ! gh release view "v${VERSION}" --json assets --jq '.assets[].name' | grep -qxF "$(basename "$asset")"; then
+            echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
+            exit 1
+          fi
+          echo "OK: $(basename "$asset") is attached to release v${VERSION} ($(($(wc -c < "$asset")/1024/1024)) MiB)."
+
+      # Always, as the last step: the run summary then answers "what worked and what
+      # did not" for the whole release at a glance, instead of eighteen job logs. A
+      # step that failed has already printed an ::error:: saying why; this names the
+      # job it was in.
+      - name: Job result
+        if: always()
+        # bash explicitly: this same step runs on the Windows and macOS runners too,
+        # where the default shell is PowerShell / not necessarily this bash.
+        shell: bash
+        run: |
+          case "${{ job.status }}" in
+            success)   mark='OK       ' ;;
+            failure)   mark='FAILED   ' ;;
+            cancelled) mark='CANCELLED' ;;
+            *)         mark='${{ job.status }}' ;;
+          esac
+          echo "$mark build-win64"
+          echo "$mark build-win64" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ job.status }}" = "failure" ]; then
+            echo "::error::build-win64 FAILED. The ::error:: line in this job's log, above, says which step and why."
+          fi
 
   # Build mac-arm64 bundle (rebuild native modules on Apple Silicon).
   build-mac-arm64:
@@ -782,7 +1069,29 @@ jobs:
           done
 
       - name: Create mac-arm64 zip
-        run: zip -r wekan-${VERSION}-mac-arm64.zip bundle
+        run: |
+          zip -r wekan-${VERSION}-mac-arm64.zip bundle
+          # A zip that EXISTS is not a zip that WORKS, and the log should say which of the
+          # two this is. The size answers "was the bundle directory empty when it was
+          # zipped"; the entries answer "can this bundle start at all" - bundle/main.js is
+          # what the launcher runs, bundle/node is the runtime the zip promises to carry.
+          zip="wekan-${VERSION}-mac-arm64.zip"
+          if [ ! -f "$zip" ]; then
+            echo "::error::$zip was not created. The build step above produced no bundle - its log says why."
+            exit 1
+          fi
+          bytes=$(wc -c < "$zip")
+          if [ "$bytes" -lt 10000000 ]; then
+            echo "::error::$zip is only $bytes bytes; a whole bundle is tens of megabytes. The bundle directory was empty or partial when it was zipped."
+            exit 1
+          fi
+          for want in bundle/main.js bundle/node; do
+            if ! unzip -l "$zip" | grep -q " $want$"; then
+              echo "::error::$zip has no $want, so it cannot start WeKan. The embed step above did not put it into the bundle."
+              exit 1
+            fi
+          done
+          echo "OK: $zip is $((bytes/1024/1024)) MiB and contains bundle/main.js and bundle/node."
 
       - uses: actions/upload-artifact@v7
         with:
@@ -796,7 +1105,46 @@ jobs:
           # No repo checkout in this job, so set GH_REPO so `gh` knows the target
           # repository instead of trying (and failing) to detect a git remote.
           GH_REPO: ${{ github.repository }}
-        run: gh release upload "v${VERSION}" "wekan-${VERSION}-mac-arm64.zip" --clobber
+        run: |
+          set -euo pipefail
+          asset="wekan-${VERSION}-mac-arm64.zip"
+          if [ ! -f "$asset" ]; then
+            echo "::error::$asset does not exist, so there is nothing to attach. The step that builds it failed, or produced a different name."
+            exit 1
+          fi
+          if ! gh release upload "v${VERSION}" "$asset" --clobber; then
+            echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
+            exit 1
+          fi
+          # Confirm from the OTHER side. An upload that reports success but leaves no
+          # asset behind is the failure nobody notices until a download 404s.
+          if ! gh release view "v${VERSION}" --json assets --jq '.assets[].name' | grep -qxF "$(basename "$asset")"; then
+            echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
+            exit 1
+          fi
+          echo "OK: $(basename "$asset") is attached to release v${VERSION} ($(($(wc -c < "$asset")/1024/1024)) MiB)."
+
+      # Always, as the last step: the run summary then answers "what worked and what
+      # did not" for the whole release at a glance, instead of eighteen job logs. A
+      # step that failed has already printed an ::error:: saying why; this names the
+      # job it was in.
+      - name: Job result
+        if: always()
+        # bash explicitly: this same step runs on the Windows and macOS runners too,
+        # where the default shell is PowerShell / not necessarily this bash.
+        shell: bash
+        run: |
+          case "${{ job.status }}" in
+            success)   mark='OK       ' ;;
+            failure)   mark='FAILED   ' ;;
+            cancelled) mark='CANCELLED' ;;
+            *)         mark='${{ job.status }}' ;;
+          esac
+          echo "$mark build-mac-arm64"
+          echo "$mark build-mac-arm64" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ job.status }}" = "failure" ]; then
+            echo "::error::build-mac-arm64 FAILED. The ::error:: line in this job's log, above, says which step and why."
+          fi
 
   # Extra-architecture Linux bundles (ppc64le, s390x, riscv64) — the arches that
   # have a Node.js 24 build but NO MongoDB server, so they ship FerretDB instead.
@@ -931,7 +1279,29 @@ jobs:
           touch bundle/.ferretdb-default
 
       - name: Create ${{ matrix.arch }} zip
-        run: zip -r wekan-${VERSION}-${{ matrix.arch }}.zip bundle
+        run: |
+          zip -r wekan-${VERSION}-${{ matrix.arch }}.zip bundle
+          # A zip that EXISTS is not a zip that WORKS, and the log should say which of the
+          # two this is. The size answers "was the bundle directory empty when it was
+          # zipped"; the entries answer "can this bundle start at all" - bundle/main.js is
+          # what the launcher runs, bundle/node is the runtime the zip promises to carry.
+          zip="wekan-${VERSION}-${{ matrix.arch }}.zip"
+          if [ ! -f "$zip" ]; then
+            echo "::error::$zip was not created. The build step above produced no bundle - its log says why."
+            exit 1
+          fi
+          bytes=$(wc -c < "$zip")
+          if [ "$bytes" -lt 10000000 ]; then
+            echo "::error::$zip is only $bytes bytes; a whole bundle is tens of megabytes. The bundle directory was empty or partial when it was zipped."
+            exit 1
+          fi
+          for want in bundle/main.js bundle/node; do
+            if ! unzip -l "$zip" | grep -q " $want$"; then
+              echo "::error::$zip has no $want, so it cannot start WeKan. The embed step above did not put it into the bundle."
+              exit 1
+            fi
+          done
+          echo "OK: $zip is $((bytes/1024/1024)) MiB and contains bundle/main.js and bundle/node."
 
       - uses: actions/upload-artifact@v7
         with:
@@ -945,7 +1315,46 @@ jobs:
           # No repo checkout in this job, so set GH_REPO so `gh` knows the target
           # repository instead of trying (and failing) to detect a git remote.
           GH_REPO: ${{ github.repository }}
-        run: gh release upload "v${VERSION}" "wekan-${VERSION}-${{ matrix.arch }}.zip" --clobber
+        run: |
+          set -euo pipefail
+          asset="wekan-${VERSION}-${{ matrix.arch }}.zip"
+          if [ ! -f "$asset" ]; then
+            echo "::error::$asset does not exist, so there is nothing to attach. The step that builds it failed, or produced a different name."
+            exit 1
+          fi
+          if ! gh release upload "v${VERSION}" "$asset" --clobber; then
+            echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
+            exit 1
+          fi
+          # Confirm from the OTHER side. An upload that reports success but leaves no
+          # asset behind is the failure nobody notices until a download 404s.
+          if ! gh release view "v${VERSION}" --json assets --jq '.assets[].name' | grep -qxF "$(basename "$asset")"; then
+            echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
+            exit 1
+          fi
+          echo "OK: $(basename "$asset") is attached to release v${VERSION} ($(($(wc -c < "$asset")/1024/1024)) MiB)."
+
+      # Always, as the last step: the run summary then answers "what worked and what
+      # did not" for the whole release at a glance, instead of eighteen job logs. A
+      # step that failed has already printed an ::error:: saying why; this names the
+      # job it was in.
+      - name: Job result
+        if: always()
+        # bash explicitly: this same step runs on the Windows and macOS runners too,
+        # where the default shell is PowerShell / not necessarily this bash.
+        shell: bash
+        run: |
+          case "${{ job.status }}" in
+            success)   mark='OK       ' ;;
+            failure)   mark='FAILED   ' ;;
+            cancelled) mark='CANCELLED' ;;
+            *)         mark='${{ job.status }}' ;;
+          esac
+          echo "$mark build-extra-arches ${{ matrix.arch }}"
+          echo "$mark build-extra-arches ${{ matrix.arch }}" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ job.status }}" = "failure" ]; then
+            echo "::error::build-extra-arches ${{ matrix.arch }} FAILED. The ::error:: line in this job's log, above, says which step and why."
+          fi
 
   # ─── 7c. Build the Sandstorm .spk and attach it to the Release ───────────────
   # Same steps as the standalone sandstorm.yml workflow (kept for building/testing
@@ -1090,7 +1499,46 @@ jobs:
       - name: Attach the .spk to the GitHub Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload "v${VERSION}" "${{ steps.build.outputs.spk }}" --clobber
+        run: |
+          set -euo pipefail
+          asset="${{ steps.build.outputs.spk }}"
+          if [ ! -f "$asset" ]; then
+            echo "::error::$asset does not exist, so there is nothing to attach. The step that builds it failed, or produced a different name."
+            exit 1
+          fi
+          if ! gh release upload "v${VERSION}" "$asset" --clobber; then
+            echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
+            exit 1
+          fi
+          # Confirm from the OTHER side. An upload that reports success but leaves no
+          # asset behind is the failure nobody notices until a download 404s.
+          if ! gh release view "v${VERSION}" --json assets --jq '.assets[].name' | grep -qxF "$(basename "$asset")"; then
+            echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
+            exit 1
+          fi
+          echo "OK: $(basename "$asset") is attached to release v${VERSION} ($(($(wc -c < "$asset")/1024/1024)) MiB)."
+
+      # Always, as the last step: the run summary then answers "what worked and what
+      # did not" for the whole release at a glance, instead of eighteen job logs. A
+      # step that failed has already printed an ::error:: saying why; this names the
+      # job it was in.
+      - name: Job result
+        if: always()
+        # bash explicitly: this same step runs on the Windows and macOS runners too,
+        # where the default shell is PowerShell / not necessarily this bash.
+        shell: bash
+        run: |
+          case "${{ job.status }}" in
+            success)   mark='OK       ' ;;
+            failure)   mark='FAILED   ' ;;
+            cancelled) mark='CANCELLED' ;;
+            *)         mark='${{ job.status }}' ;;
+          esac
+          echo "$mark build-sandstorm"
+          echo "$mark build-sandstorm" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ job.status }}" = "failure" ]; then
+            echo "::error::build-sandstorm FAILED. The ::error:: line in this job's log, above, says which step and why."
+          fi
 
   # ─── 8. Build and push the multi-arch Docker image to all registries ────────
   # Mirrors releases/docker-build.sh step 3 (multi-arch buildx --push).
@@ -1270,6 +1718,50 @@ jobs:
             --push \
             .
 
+          # Pushed is not the same as pushed EVERYWHERE. A manifest that is missing a
+          # platform, or a tag that never reached one of the three registries, is
+          # invisible until somebody on that CPU runs docker pull and is told there is
+          # no matching manifest. Ask each registry what it actually has.
+          want="linux/amd64 linux/arm64 linux/ppc64le linux/s390x linux/riscv64"
+          rc=0
+          for image in "wekanteam/wekan:v${VERSION}" "quay.io/wekan/wekan:v${VERSION}" "ghcr.io/wekan/wekan:v${VERSION}"; do
+            if ! got="$(docker buildx imagetools inspect "$image" --format '{{range .Manifest.Manifests}}{{.Platform.OS}}/{{.Platform.Architecture}} {{end}}' 2>&1)"; then
+              echo "::error::$image cannot be inspected after the push: $got - the tag did not reach that registry."
+              rc=1
+              continue
+            fi
+            for plat in $want; do
+              case " $got " in
+                *" $plat "*) ;;
+                *) echo "::error::$image has no $plat in its manifest (it has:$got). Users on that CPU get 'no matching manifest' from docker pull."; rc=1 ;;
+              esac
+            done
+            echo "OK: $image carries:$got"
+          done
+          exit $rc
+
+      # Always, as the last step: the run summary then answers "what worked and what
+      # did not" for the whole release at a glance, instead of eighteen job logs. A
+      # step that failed has already printed an ::error:: saying why; this names the
+      # job it was in.
+      - name: Job result
+        if: always()
+        # bash explicitly: this same step runs on the Windows and macOS runners too,
+        # where the default shell is PowerShell / not necessarily this bash.
+        shell: bash
+        run: |
+          case "${{ job.status }}" in
+            success)   mark='OK       ' ;;
+            failure)   mark='FAILED   ' ;;
+            cancelled) mark='CANCELLED' ;;
+            *)         mark='${{ job.status }}' ;;
+          esac
+          echo "$mark docker"
+          echo "$mark docker" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ job.status }}" = "failure" ]; then
+            echo "::error::docker FAILED. The ::error:: line in this job's log, above, says which step and why."
+          fi
+
   # ─── 9. Build the snap on Launchpad, push to the store, attach to release ────
   # The snap's `wekan` part downloads wekan-<version>-<arch>.zip from the GitHub
   # Release, so these jobs run only after `release` has published those assets.
@@ -1366,7 +1858,46 @@ jobs:
       - name: Attach the ${{ matrix.arch }} snap to the GitHub Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload "v${VERSION}" "${{ steps.build.outputs.snap }}" --clobber
+        run: |
+          set -euo pipefail
+          asset="${{ steps.build.outputs.snap }}"
+          if [ ! -f "$asset" ]; then
+            echo "::error::$asset does not exist, so there is nothing to attach. The step that builds it failed, or produced a different name."
+            exit 1
+          fi
+          if ! gh release upload "v${VERSION}" "$asset" --clobber; then
+            echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
+            exit 1
+          fi
+          # Confirm from the OTHER side. An upload that reports success but leaves no
+          # asset behind is the failure nobody notices until a download 404s.
+          if ! gh release view "v${VERSION}" --json assets --jq '.assets[].name' | grep -qxF "$(basename "$asset")"; then
+            echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
+            exit 1
+          fi
+          echo "OK: $(basename "$asset") is attached to release v${VERSION} ($(($(wc -c < "$asset")/1024/1024)) MiB)."
+
+      # Always, as the last step: the run summary then answers "what worked and what
+      # did not" for the whole release at a glance, instead of eighteen job logs. A
+      # step that failed has already printed an ::error:: saying why; this names the
+      # job it was in.
+      - name: Job result
+        if: always()
+        # bash explicitly: this same step runs on the Windows and macOS runners too,
+        # where the default shell is PowerShell / not necessarily this bash.
+        shell: bash
+        run: |
+          case "${{ job.status }}" in
+            success)   mark='OK       ' ;;
+            failure)   mark='FAILED   ' ;;
+            cancelled) mark='CANCELLED' ;;
+            *)         mark='${{ job.status }}' ;;
+          esac
+          echo "$mark snap-native ${{ matrix.arch }}"
+          echo "$mark snap-native ${{ matrix.arch }}" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ job.status }}" = "failure" ]; then
+            echo "::error::snap-native ${{ matrix.arch }} FAILED. The ::error:: line in this job's log, above, says which step and why."
+          fi
 
   # ─── 9b. Build the QEMU-emulated exotic arches on GitHub runners ─────────────
   # ppc64el and s390x have no native GitHub runners, but they build cleanly under
@@ -1468,7 +1999,46 @@ jobs:
       - name: Attach the ${{ matrix.arch }} snap to the GitHub Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload "v${VERSION}" "${{ steps.build.outputs.snap }}" --clobber
+        run: |
+          set -euo pipefail
+          asset="${{ steps.build.outputs.snap }}"
+          if [ ! -f "$asset" ]; then
+            echo "::error::$asset does not exist, so there is nothing to attach. The step that builds it failed, or produced a different name."
+            exit 1
+          fi
+          if ! gh release upload "v${VERSION}" "$asset" --clobber; then
+            echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
+            exit 1
+          fi
+          # Confirm from the OTHER side. An upload that reports success but leaves no
+          # asset behind is the failure nobody notices until a download 404s.
+          if ! gh release view "v${VERSION}" --json assets --jq '.assets[].name' | grep -qxF "$(basename "$asset")"; then
+            echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
+            exit 1
+          fi
+          echo "OK: $(basename "$asset") is attached to release v${VERSION} ($(($(wc -c < "$asset")/1024/1024)) MiB)."
+
+      # Always, as the last step: the run summary then answers "what worked and what
+      # did not" for the whole release at a glance, instead of eighteen job logs. A
+      # step that failed has already printed an ::error:: saying why; this names the
+      # job it was in.
+      - name: Job result
+        if: always()
+        # bash explicitly: this same step runs on the Windows and macOS runners too,
+        # where the default shell is PowerShell / not necessarily this bash.
+        shell: bash
+        run: |
+          case "${{ job.status }}" in
+            success)   mark='OK       ' ;;
+            failure)   mark='FAILED   ' ;;
+            cancelled) mark='CANCELLED' ;;
+            *)         mark='${{ job.status }}' ;;
+          esac
+          echo "$mark snap-qemu ${{ matrix.arch }}"
+          echo "$mark snap-qemu ${{ matrix.arch }}" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ job.status }}" = "failure" ]; then
+            echo "::error::snap-qemu ${{ matrix.arch }} FAILED. The ::error:: line in this job's log, above, says which step and why."
+          fi
 
   snap-launchpad:
     # ENABLED. `continue-on-error: true` below means a failure here can never
@@ -1621,6 +2191,28 @@ jobs:
             gh release upload "v${VERSION}" "${snaps[@]}" --clobber
           fi
 
+      # Always, as the last step: the run summary then answers "what worked and what
+      # did not" for the whole release at a glance, instead of eighteen job logs. A
+      # step that failed has already printed an ::error:: saying why; this names the
+      # job it was in.
+      - name: Job result
+        if: always()
+        # bash explicitly: this same step runs on the Windows and macOS runners too,
+        # where the default shell is PowerShell / not necessarily this bash.
+        shell: bash
+        run: |
+          case "${{ job.status }}" in
+            success)   mark='OK       ' ;;
+            failure)   mark='FAILED   ' ;;
+            cancelled) mark='CANCELLED' ;;
+            *)         mark='${{ job.status }}' ;;
+          esac
+          echo "$mark snap-launchpad ${{ matrix.arch }}"
+          echo "$mark snap-launchpad ${{ matrix.arch }}" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ job.status }}" = "failure" ]; then
+            echo "::error::snap-launchpad ${{ matrix.arch }} FAILED. The ::error:: line in this job's log, above, says which step and why."
+          fi
+
   # ─── Variant snaps: wekan-ondra, wekan-gantt-gpl ────────────────────────────
   # Publish two extra snaps that are the newest wekan code under a different snap
   # name. DORMANT until SNAP_AUTH carries ACL for the variant names and
@@ -1702,6 +2294,28 @@ jobs:
           snap: ${{ steps.build.outputs.snap }}
           release: stable,candidate,beta,edge
 
+      # Always, as the last step: the run summary then answers "what worked and what
+      # did not" for the whole release at a glance, instead of eighteen job logs. A
+      # step that failed has already printed an ::error:: saying why; this names the
+      # job it was in.
+      - name: Job result
+        if: always()
+        # bash explicitly: this same step runs on the Windows and macOS runners too,
+        # where the default shell is PowerShell / not necessarily this bash.
+        shell: bash
+        run: |
+          case "${{ job.status }}" in
+            success)   mark='OK       ' ;;
+            failure)   mark='FAILED   ' ;;
+            cancelled) mark='CANCELLED' ;;
+            *)         mark='${{ job.status }}' ;;
+          esac
+          echo "$mark snap-variants ${{ matrix.snapname }}"
+          echo "$mark snap-variants ${{ matrix.snapname }}" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ job.status }}" = "failure" ]; then
+            echo "::error::snap-variants ${{ matrix.snapname }} FAILED. The ::error:: line in this job's log, above, says which step and why."
+          fi
+
   # ─── UCS App Center (Univention) ────────────────────────────────────────────
   # Regenerate the wekan/univention app for the new version and upload it to the
   # Univention App Provider. DORMANT until the App Provider secrets are set and
@@ -1775,6 +2389,28 @@ jobs:
           chmod +x univention-appcenter-control
           echo "Fetched univention-appcenter-control. Intended upload:"
           echo "  ./univention-appcenter-control upload \"wekan_${VERSION}\" univention/meta/* univention/component/*"
+
+      # Always, as the last step: the run summary then answers "what worked and what
+      # did not" for the whole release at a glance, instead of eighteen job logs. A
+      # step that failed has already printed an ::error:: saying why; this names the
+      # job it was in.
+      - name: Job result
+        if: always()
+        # bash explicitly: this same step runs on the Windows and macOS runners too,
+        # where the default shell is PowerShell / not necessarily this bash.
+        shell: bash
+        run: |
+          case "${{ job.status }}" in
+            success)   mark='OK       ' ;;
+            failure)   mark='FAILED   ' ;;
+            cancelled) mark='CANCELLED' ;;
+            *)         mark='${{ job.status }}' ;;
+          esac
+          echo "$mark ucs"
+          echo "$mark ucs" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ job.status }}" = "failure" ]; then
+            echo "::error::ucs FAILED. The ::error:: line in this job's log, above, says which step and why."
+          fi
           # ./univention-appcenter-control upload "wekan_${VERSION}" univention/meta/* univention/component/* \
           #   || echo "::warning::App Provider upload failed (check account/app id)."
 
@@ -1871,3 +2507,25 @@ jobs:
             -H "Content-Type: application/json" \
             -d "{\"download\":\"${DL}\",\"signature\":\"${SIGN}\",\"nightly\":false}" \
             || echo "::warning::Nextcloud App Store upload failed (check token/cert/app registration)."
+
+      # Always, as the last step: the run summary then answers "what worked and what
+      # did not" for the whole release at a glance, instead of eighteen job logs. A
+      # step that failed has already printed an ::error:: saying why; this names the
+      # job it was in.
+      - name: Job result
+        if: always()
+        # bash explicitly: this same step runs on the Windows and macOS runners too,
+        # where the default shell is PowerShell / not necessarily this bash.
+        shell: bash
+        run: |
+          case "${{ job.status }}" in
+            success)   mark='OK       ' ;;
+            failure)   mark='FAILED   ' ;;
+            cancelled) mark='CANCELLED' ;;
+            *)         mark='${{ job.status }}' ;;
+          esac
+          echo "$mark nextcloud"
+          echo "$mark nextcloud" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ job.status }}" = "failure" ]; then
+            echo "::error::nextcloud FAILED. The ::error:: line in this job's log, above, says which step and why."
+          fi
