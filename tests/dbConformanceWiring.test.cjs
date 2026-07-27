@@ -180,6 +180,43 @@ test('only the databases with an image for THIS CPU are run, and one at a time',
   assert.ok(/WEKAN_CONFORMANCE_HANA/.test(sh), 'SAP HANA is opt-in');
 });
 
+test('it runs on its own ports, so another test run is never touched', () => {
+  const sh = read('releases/db-conformance.sh');
+  // 27017 is where a dev server's database lives and where the compose files
+  // publish FerretDB. Binding it would either fail or - worse - point these
+  // tests at somebody else's database and rewrite it.
+  assert.ok(/WEKAN_CONFORMANCE_PORT:-37017/.test(sh),
+    'FerretDB listens well away from 27017 by default');
+  assert.ok(/WEKAN_CONFORMANCE_DB_PORT:-35432/.test(sh),
+    'and so does the database it starts');
+  assert.ok(/free_port\(\)/.test(sh) && /is_free\(\)/.test(sh),
+    'and a busy port is moved on from, not failed on');
+  assert.ok(/FERRET_PORT="\$\(free_port/.test(sh));
+  assert.ok(/hostport="\$\(free_port/.test(sh), 'the database is published on a free port too');
+  // Nothing may bind or address the default port any more.
+  const code = sh.replace(/#[^\n]*/g, '');
+  assert.ok(!/127\.0\.0\.1:27017/.test(code), 'no hardcoded 27017 left');
+  // And the containers cannot collide with a compose stack somebody is running.
+  assert.ok(/CONTAINER="wekan-conformance-db-\$RUN_TS"/.test(sh),
+    'one container name per run');
+});
+
+test('Ctrl-C ends the run, and an unanswerable registry is not called "no image"', () => {
+  const sh = read('releases/db-conformance.sh');
+  assert.ok(/trap on_interrupt INT TERM/.test(sh), 'an interrupt is handled explicitly');
+  assert.ok(/exit 130/.test(sh), 'and ends the run');
+  // Three outcomes, not two: has it, does not have it, could not ask.
+  assert.ok(/could not ask the registry/.test(sh),
+    'a failed manifest call must not be reported as "no image for this CPU"');
+  assert.ok(/return 2/.test(sh), 'the check distinguishes the third case');
+});
+
+test('a FerretDB that will not start says why, in the output', () => {
+  const sh = read('releases/db-conformance.sh');
+  assert.ok(/tail -n 15 "\$log"/.test(sh),
+    'the reason is usually one line - print it instead of only naming the file');
+});
+
 test('results are written where every other test run writes them', () => {
   const sh = read('releases/db-conformance.sh');
   assert.ok(/LOGDIR="\.\.\/log\/\$RUN_TS"/.test(sh), '../log/<datetime>/');

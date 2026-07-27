@@ -64,6 +64,23 @@ differently (they only have to answer). Everything else must match exactly.
 Two backends failing the **same** way is agreement about a limitation, not a
 difference. One answering where the other fails is a difference.
 
+## Ports: it runs beside other tests, not instead of them
+
+FerretDB listens on **37017** here, not 27017 — 27017 is where a dev server's
+database lives and where the compose files publish FerretDB, so binding it would
+either fail or, worse, point these tests at somebody else's database and rewrite
+it. The database server it starts is published on **35432** rather than its usual
+5432/3306. Both defaults move on if something is already listening, and both can
+be set:
+
+```sh
+WEKAN_CONFORMANCE_PORT=47017 WEKAN_CONFORMANCE_DB_PORT=45432 ./releases/db-conformance.sh
+```
+
+Its containers are named per run (`wekan-conformance-db-<datetime>`), so a stack
+started with `docker compose up` — whose containers are `wekan-postgres`,
+`wekan-ferretdb` — is never stopped or reused by this.
+
 ## Where the results go
 
 `../log/<datetime>/`, with every other WeKan test run:

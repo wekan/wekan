@@ -90,8 +90,15 @@ host_platform() {
 # Does this image have a build for this CPU? An image we cannot ask about counts
 # as NOT available: better to skip a backend than to hang on a container that can
 # never start.
+# 0 = has this CPU, 1 = does not, 2 = could not ask (no network, not logged in,
+# interrupted). The caller says which of those happened, because "we could not
+# ask" and "the image does not exist for this CPU" are different facts and only
+# one of them is about the image.
 image_has_platform() {
-  docker manifest inspect "$1" 2>/dev/null | grep -q "\"architecture\": \"$2\""
+  local out
+  out="$(docker manifest inspect "$1" 2>&1)" || return 2
+  printf '%s' "$out" | grep -q "\"architecture\": \"$2\"" && return 0
+  return 1
 }
 
 PLATFORM="$(host_platform)"
@@ -152,14 +159,56 @@ SUMMARY="$LOGDIR/db-conformance-summary.txt"
 : > "$SUMMARY"
 ran=0
 skipped=0
-FERRET_PORT=27017
-CONTAINER=wekan-conformance-db
+
+# Ports, chosen so this can run WHILE something else is running. 27017 is where a
+# dev server's database lives and where the compose files publish FerretDB, so
+# using it would either fail to bind or - worse - point these tests at somebody
+# else's database and rewrite it. Defaults are well away from that, each is
+# overridable, and each is moved on if it is busy anyway.
+#
+#   WEKAN_CONFORMANCE_PORT     FerretDB itself     (default 37017)
+#   WEKAN_CONFORMANCE_DB_PORT  the database server (default 35432)
+#
+# is_free: a port nothing is listening on. bash's /dev/tcp needs no extra tools;
+# a refused connection means free.
+is_free() {
+  ! (exec 3<>"/dev/tcp/127.0.0.1/$1") 2>/dev/null
+}
+free_port() {
+  local port="$1" tries=0
+  while ! is_free "$port"; do
+    port=$((port + 1)); tries=$((tries + 1))
+    [ "$tries" -gt 200 ] && { echo "$1"; return 1; }
+  done
+  echo "$port"
+}
+
+FERRET_PORT="$(free_port "${WEKAN_CONFORMANCE_PORT:-37017}")"
+DB_HOST_PORT_BASE="${WEKAN_CONFORMANCE_DB_PORT:-35432}"
+# One container name per run, so a stack somebody started with `docker compose up`
+# - which names its containers wekan-postgres, wekan-ferretdb ... - is never
+# stopped or reused by this.
+CONTAINER="wekan-conformance-db-$RUN_TS"
+
+echo "Ports:      FerretDB on 127.0.0.1:$FERRET_PORT (nothing else is using it)"
+echo
 
 cleanup() {
   [ -n "${FERRET_PID:-}" ] && kill "$FERRET_PID" 2>/dev/null
   docker rm -f "$CONTAINER" >/dev/null 2>&1
 }
-trap cleanup EXIT INT TERM
+# Ctrl-C must END the run. Without the explicit exit, the interrupt only killed
+# whatever was in the foreground - a `docker manifest inspect`, a sleep - and the
+# loop carried on to the next backend, reporting the interrupted check as "no
+# image for this CPU", which is a lie about the image.
+on_interrupt() {
+  echo
+  echo "Interrupted - stopping."
+  cleanup
+  exit 130
+}
+trap cleanup EXIT
+trap on_interrupt INT TERM
 
 for entry in "${BACKENDS[@]}"; do
   IFS='|' read -r name file service port handler <<< "$entry"
@@ -183,14 +232,16 @@ for entry in "${BACKENDS[@]}"; do
       continue
     fi
     printf 'Checking %-12s %-45s ' "$name" "$image"
-    if image_has_platform "$image" "$PLATFORM"; then
-      echo "has linux/$PLATFORM"
-    else
-      echo "NO linux/$PLATFORM - skipping"
-      echo "SKIP  $name  $image has no linux/$PLATFORM" >> "$SUMMARY"
-      skipped=$((skipped + 1))
-      continue
-    fi
+    image_has_platform "$image" "$PLATFORM"
+    case $? in
+      0) echo "has linux/$PLATFORM" ;;
+      1) echo "NO linux/$PLATFORM - skipping"
+         echo "SKIP  $name  $image has no linux/$PLATFORM" >> "$SUMMARY"
+         skipped=$((skipped + 1)); continue ;;
+      *) echo "could not ask the registry - skipping"
+         echo "SKIP  $name  could not inspect $image (network? docker login?)" >> "$SUMMARY"
+         skipped=$((skipped + 1)); continue ;;
+    esac
   else
     echo "Checking sqlite       embedded in FerretDB                       always available"
   fi
@@ -198,6 +249,9 @@ for entry in "${BACKENDS[@]}"; do
   echo
   echo "---- $name: starting the database ----"
   docker rm -f "$CONTAINER" >/dev/null 2>&1
+  # The container's own port is fixed (5432, 3306, 39017); what it is published as
+  # on THIS machine is not, so a PostgreSQL you already run keeps its 5432.
+  hostport="$(free_port "$DB_HOST_PORT_BASE")"
   url=""
   case "$name" in
     sqlite)
@@ -205,34 +259,34 @@ for entry in "${BACKENDS[@]}"; do
       url="file:$data/"
       ;;
     postgresql)
-      docker run -d --name "$CONTAINER" -p "127.0.0.1:$port:$port" \
+      docker run -d --name "$CONTAINER" -p "127.0.0.1:$hostport:$port" \
         -e POSTGRES_USER=ferretdb -e POSTGRES_PASSWORD=ferretdb_secret \
         -e POSTGRES_DB=ferretdb "$image" >>"$log" 2>&1 || { echo "ERROR $name  container did not start" >> "$SUMMARY"; continue; }
-      url="postgres://ferretdb:ferretdb_secret@127.0.0.1:$port/ferretdb"
+      url="postgres://ferretdb:ferretdb_secret@127.0.0.1:$hostport/ferretdb"
       ;;
     mysql)
-      docker run -d --name "$CONTAINER" -p "127.0.0.1:$port:$port" \
+      docker run -d --name "$CONTAINER" -p "127.0.0.1:$hostport:$port" \
         -e MYSQL_DATABASE=ferretdb -e MYSQL_USER=ferretdb -e MYSQL_PASSWORD=ferretdb_secret \
         -e MYSQL_ROOT_PASSWORD=ferretdb_root_secret "$image" >>"$log" 2>&1 || { echo "ERROR $name  container did not start" >> "$SUMMARY"; continue; }
-      url="mysql://ferretdb:ferretdb_secret@127.0.0.1:$port/ferretdb"
+      url="mysql://ferretdb:ferretdb_secret@127.0.0.1:$hostport/ferretdb"
       ;;
     mariadb)
-      docker run -d --name "$CONTAINER" -p "127.0.0.1:$port:$port" \
+      docker run -d --name "$CONTAINER" -p "127.0.0.1:$hostport:$port" \
         -e MARIADB_DATABASE=ferretdb -e MARIADB_USER=ferretdb -e MARIADB_PASSWORD=ferretdb_secret \
         -e MARIADB_ROOT_PASSWORD=ferretdb_root_secret "$image" >>"$log" 2>&1 || { echo "ERROR $name  container did not start" >> "$SUMMARY"; continue; }
-      url="mysql://ferretdb:ferretdb_secret@127.0.0.1:$port/ferretdb"
+      url="mysql://ferretdb:ferretdb_secret@127.0.0.1:$hostport/ferretdb"
       ;;
     sap-hana)
       mkdir -p "$WEKAN_DIR/hana-config"
       [ -f "$WEKAN_DIR/hana-config/password.json" ] || \
         printf '{"master_password":"HXEHana1"}' > "$WEKAN_DIR/hana-config/password.json"
       chmod 600 "$WEKAN_DIR/hana-config/password.json"
-      docker run -d --name "$CONTAINER" -p "127.0.0.1:$port:$port" \
+      docker run -d --name "$CONTAINER" -p "127.0.0.1:$hostport:$port" \
         --ulimit nofile=1048576:1048576 \
         -v "$WEKAN_DIR/hana-config:/hana/password:ro" "$image" \
         --passwords-url file:///hana/password/password.json --agree-to-sap-license >>"$log" 2>&1 \
         || { echo "ERROR $name  container did not start" >> "$SUMMARY"; continue; }
-      url="hdb://SYSTEM:HXEHana1@127.0.0.1:$port?databaseName=HXE"
+      url="hdb://SYSTEM:HXEHana1@127.0.0.1:$hostport?databaseName=HXE"
       ;;
   esac
 
@@ -283,9 +337,9 @@ for entry in "${BACKENDS[@]}"; do
   echo -n "waiting for FerretDB "
   up=0
   for _ in $(seq 1 60); do
-    if node -e '
+    if PORT="$FERRET_PORT" node -e '
       const {MongoClient}=require("mongodb");
-      new MongoClient("mongodb://127.0.0.1:27017",{serverSelectionTimeoutMS:1500})
+      new MongoClient("mongodb://127.0.0.1:"+process.env.PORT,{serverSelectionTimeoutMS:1500})
         .connect().then(c=>c.close()).then(()=>process.exit(0)).catch(()=>process.exit(1));
     ' >/dev/null 2>&1; then up=1; break; fi
     kill -0 "$FERRET_PID" 2>/dev/null || break   # it died; the log says why
@@ -294,7 +348,13 @@ for entry in "${BACKENDS[@]}"; do
   done
   echo
   if [ "$up" -ne 1 ]; then
-    echo "ERROR $name: FerretDB did not accept a connection on this backend (see $log)"
+    echo "ERROR $name: FerretDB did not accept a connection on this backend."
+    # Say WHY here, not just where to look: the reason is usually one line, and a
+    # startup panic (a stale build/version, a URL it cannot parse) is answered
+    # from that line alone.
+    echo "----- last 15 lines of $log -----"
+    tail -n 15 "$log" 2>/dev/null | sed 's/^/  /'
+    echo "---------------------------------"
     echo "ERROR $name  FerretDB did not start on this backend" >> "$SUMMARY"
     kill "$FERRET_PID" 2>/dev/null; FERRET_PID=""
     docker rm -f "$CONTAINER" >/dev/null 2>&1
