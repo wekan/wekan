@@ -328,6 +328,35 @@ asks for. Both fixed, with tests.
 
 </details>
 
+and adds the following test menu entries:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/24ffa4bd3">Run everything, or all FerretDB tests, sequentially</a>. Thanks to xet7.</summary>
+
+Two entries in `./build.sh` → Tests, and in `build.bat`.
+
+**Run all FerretDB tests - SEQUENTIAL** runs the `FerretDB` subdirectory's own
+`build.sh test-all`: unit, vet and the integration suite, one at a time.
+FerretDB is expected inside this repo — the "All databases" entry clones
+`wekan/FerretDB` when it is not there — and if it is missing this says so, with
+the clone command, rather than failing obscurely.
+
+**EVERYTHING (sequential)** runs the three suites one stage at a time: WeKan's
+own tests (which build a fresh bundle and start a server), then the database
+conformance run (which builds FerretDB from source and runs one query catalogue
+against every database with a Docker image for this CPU), then all of
+FerretDB's tests. They share ONE `../log/<datetime>/` directory, so a run that
+touches three test systems still leaves its logs in one place, and it ends with
+a three-line verdict. Nothing runs concurrently, and the menu text says so:
+this takes a long time, and the reason to run it is to find out what is broken,
+which needs readable output more than speed.
+
+`build.bat` runs `releases/run-everything.sh` rather than reimplementing any of
+it — the WeKan stage needs a POSIX shell throughout, and a second
+implementation would drift. That script is also the non-interactive way to run
+it anywhere.
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
