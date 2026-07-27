@@ -309,6 +309,37 @@ accident.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4541fa99e">The database tests run on their own ports, beside whatever else is running</a>. Thanks to xet7.</summary>
+
+Three things the first real run, on arm64, found.
+
+The FerretDB it built could not start: `panic: commit.txt value ... !=
+vcs.revision value ...`. Go stamps the VCS revision into the binary and
+FerretDB's `build/version` panics when it disagrees with the committed
+`commit.txt`, which only its generator refreshes — so every commit made after
+the last refresh built a binary that panicked, whatever the change was. Fixed in
+the fork: its `build.sh build` regenerates them now, as the release build always
+did.
+
+Ports: FerretDB listened on 27017, which is where a dev server's database lives
+and where the compose files publish FerretDB. So this could not run beside
+anything else and, worse, could have pointed the tests at somebody else's
+database and rewritten it. It listens on 37017 now and publishes the database
+server on 35432, both moved on if something is already listening, both settable
+with `WEKAN_CONFORMANCE_PORT` and `WEKAN_CONFORMANCE_DB_PORT`, and its
+containers are named per run so a stack started with `docker compose up` is
+never reused or stopped.
+
+And Ctrl-C only killed whatever was in the foreground — a registry lookup, a
+sleep — after which the loop carried on and reported the interrupted lookup as
+"NO linux/arm64", which is a lie about the image. An interrupt ends the run now,
+and the image check has three outcomes rather than two: has it, does not have
+it, could not ask. A FerretDB that will not start also prints the last lines of
+its log, because the reason is usually one line.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
