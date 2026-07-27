@@ -521,6 +521,49 @@ const steps = [
   },
 
   {
+    // #6532: an attachment that came through a migration from WeKan 6 can lack
+    // the flags Meteor-Files writes at upload time - isImage, isVideo, isPDF,
+    // and sometimes `extension` and `type` as well. The card view renders from
+    // exactly those flags, so a migrated image drew an empty white box while the
+    // same file downloaded perfectly and showed as a board cover. The client
+    // derives them (models/lib/attachmentKind.js) so the picture is back
+    // immediately; this writes the same answer to the documents, so the REST
+    // API, the exports and anything else reading the flags agree with the UI.
+    name: 'attachment-kind-flags',
+    async check(db) {
+      return !!await db.collection('attachments').findOne(
+        { isImage: { $exists: false }, isVideo: { $exists: false } },
+        { projection: { _id: 1 } },
+      );
+    },
+    async run(db) {
+      const { attachmentKindFix } = require('/models/lib/attachmentKind');
+      let fixed = 0;
+      let unresolved = 0;
+      const cursor = db.collection('attachments').find(
+        {},
+        { projection: { name: 1, type: 1, mime: 1, 'mime-type': 1, contentType: 1,
+          extension: 1, ext: 1, versions: 1, isImage: 1, isVideo: 1, isAudio: 1,
+          isPDF: 1, isJSON: 1, isText: 1, meta: 1 } },
+      );
+      for await (const doc of cursor) {
+        const fix = attachmentKindFix(doc);
+        if (!fix) continue;
+        // A file whose kind cannot be told from either its type or its name is
+        // left alone rather than guessed at.
+        if (!fix.isImage && !fix.isVideo && !fix.isAudio && !fix.isPDF
+            && !fix.isJSON && !fix.isText && !fix.extension && !fix.type) {
+          unresolved += 1;
+          continue;
+        }
+        await db.collection('attachments').updateOne({ _id: doc._id }, { $set: fix });
+        fixed += 1;
+      }
+      return { fixed, unresolved };
+    },
+  },
+
+  {
     // add-member-isactive-field: members without isActive are treated as
     // INACTIVE by isActiveMember()/activeMembers — pre-2015 board members
     // were silently denied access. Explicit isActive:false is respected.

@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { attachmentKind } from '/models/lib/attachmentKind';
 import { ObjectId } from 'bson';
 import DOMPurify from 'dompurify';
 import { sanitizeHTML, sanitizeText } from '/imports/lib/secureDOMPurify';
@@ -87,13 +88,18 @@ function getPrevAttachmentId(currentAttachmentId, offset = 0) {
 }
 
 function attachmentCanBeOpened(attachment) {
+  // #6532: a migrated attachment can arrive without these flags, so ask the
+  // shared helper - which derives them from the mime type or the file name -
+  // rather than the raw document. Otherwise an image that renders as a
+  // thumbnail still refuses to open in the viewer.
+  const kind = attachmentKind(attachment);
   return (
-    attachment.isImage ||
-    attachment.isPDF ||
-    attachment.isText ||
-    attachment.isJSON ||
-    attachment.isVideo ||
-    attachment.isAudio
+    kind.isImage ||
+    kind.isPDF ||
+    kind.isText ||
+    kind.isJSON ||
+    kind.isVideo ||
+    kind.isAudio
   );
 }
 
@@ -115,16 +121,17 @@ function openAttachmentViewer(attachmentId) {
     - implement cleanup in the closeAttachmentViewer() function, if necessary
     - mark attachment type as openable by adding a new condition to the attachmentCanBeOpened function
   */
+  const kind = attachmentKind(attachment);
   switch(true){
-    case (attachment.isImage):
+    case (kind.isImage):
       $("#image-viewer").attr("src", getAttachmentUrl(attachment));
       $("#image-viewer").removeClass("hidden");
       break;
-    case (attachment.isPDF):
+    case (kind.isPDF):
       $("#pdf-viewer").attr("data", getAttachmentUrl(attachment));
       $("#pdf-viewer").removeClass("hidden");
       break;
-    case (attachment.isVideo):
+    case (kind.isVideo):
       // We have to create a new <source> DOM element and append it to the video
       // element, otherwise the video won't load
       let videoSource = document.createElement('source');
@@ -133,7 +140,7 @@ function openAttachmentViewer(attachmentId) {
 
       $("#video-viewer").removeClass("hidden");
       break;
-    case (attachment.isAudio):
+    case (kind.isAudio):
       // We have to create a new <source> DOM element and append it to the audio
       // element, otherwise the audio won't load
       let audioSource = document.createElement('source');
@@ -142,8 +149,8 @@ function openAttachmentViewer(attachmentId) {
 
       $("#audio-viewer").removeClass("hidden");
       break;
-    case (attachment.isText):
-    case (attachment.isJSON):
+    case (kind.isText):
+    case (kind.isJSON):
       $("#txt-viewer").attr("data", getAttachmentUrl(attachment));
       $("#txt-viewer").removeClass("hidden");
       break;
@@ -317,6 +324,22 @@ Template.attachmentGallery.helpers({
     return uploader.profile && uploader.profile.fullname
       ? uploader.profile.fullname
       : uploader.username || '';
+  },
+  // #6532: the template asks `if(isImage)` and prints `extension` - both of
+  // which a migrated attachment can be missing, which drew an empty white box
+  // where the picture should be. A helper wins over the data context in Blaze,
+  // so these answer for every attachment, derived when the document is silent.
+  isImage() {
+    return attachmentKind(this).isImage;
+  },
+  isVideo() {
+    return attachmentKind(this).isVideo;
+  },
+  isAudio() {
+    return attachmentKind(this).isAudio;
+  },
+  extension() {
+    return attachmentKind(this).extension;
   },
   uploadedAt() {
     if (this.uploadedAtOstrio) {
@@ -570,6 +593,11 @@ Template.previewClipboardImagePopup.events({
 });
 
 Template.attachmentActionsPopup.helpers({
+  // The "add cover" / "add background image" entries are shown `if isImage`
+  // too - same derivation, or a migrated image could not be made a cover.
+  isImage() {
+    return attachmentKind(this).isImage;
+  },
   isCover() {
     const ret = ReactiveCache.getCard(this.meta.cardId).coverId == this._id;
     return ret;
