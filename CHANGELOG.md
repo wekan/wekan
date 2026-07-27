@@ -343,7 +343,7 @@ its log, because the reason is usually one line.
 and has the following release-tooling fixes:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7fe7ffa31">Two release failures that were the workflow's own fault</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/520254768">Two release failures that were the workflow's own fault</a>. Thanks to xet7.</summary>
 
 The v10.43 run failed five jobs; two of them were the workflow's.
 
