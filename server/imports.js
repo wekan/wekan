@@ -181,6 +181,7 @@ import '/server/lib/inputSanitizer';
 // MULTITENANCY=true.
 import '/server/lib/tenantResolver';
 import '/server/lib/ssrfGuard';
+import '/server/lib/ddpSessionSendGuard';
 import '/server/lib/utils';
 
 // ----------------------------------------------------------------------------
