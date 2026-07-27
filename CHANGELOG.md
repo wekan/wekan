@@ -340,6 +340,38 @@ its log, because the reason is usually one line.
 
 </details>
 
+and has the following release-tooling fixes:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7fe7ffa31">Two release failures that were the workflow's own fault</a>. Thanks to xet7.</summary>
+
+The v10.43 run failed five jobs; two of them were the workflow's.
+
+`build-win64` failed with "wekan-10.43-win64.zip has no bundle/main.js" — four
+lines after 7-Zip reported writing a 283 MiB archive of 46014 files. The zip was
+fine; the check added the night before was not. 7-Zip lists Windows paths with
+BACKSLASHES, and it searched for them as a regular expression, where
+`bundle\main.js` means `bundlemain.js` — which nothing is called. It would have
+failed on every release. The listing is taken once now and searched as a fixed
+string, for either separator, and both forms were replayed in bash to be sure
+the old one matches nothing and the new one matches 7-Zip's own output.
+
+`snap-variants` did all its work and died on the last push: "remote: Permission
+to wekan/wekan-gantt-gpl.git denied". Its guard checked that
+`WEKAN_REPO_TOKEN` was SET, and set is not the same as allowed — so a whole snap
+build burned before the token was found wanting. It asks GitHub whether the
+token can push to that variant repository now, and skips with a named reason if
+it cannot. That does not grant the rights; widening the token is a maintainer
+action, written up with the rest of the run's failures in
+`../log/workflow/TODO.txt`.
+
+The other three failures are not the workflow's: `ppc64el` and `s390x` cannot be
+built by an unmaintained QEMU action that caps at `core22`
+([Snap-Core.md](https://github.com/wekan/wekan/blob/main/docs/Design/Autoupdate/Forks/Snap-Core.md)),
+and the variant pushes need a token that may write those repositories.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
