@@ -271,6 +271,36 @@ browser build to verify).
 This release fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/fea3c432e">docs/Databases is one directory per database, each with a README</a>. Thanks to xet7.</summary>
+
+It was a flat list in which the database was a filename prefix, in three
+spellings — `MongoDB-Driver-System.md`, `mongodb-avx-qemu.md`,
+`MongoDB_OpLog_Enablement.md` — plus `FerretDB2-PostgreSQL.md` and a
+`ToroDB-PostgreSQL` directory. Somebody asking "how do I run WeKan on
+PostgreSQL" had to read the prefixes to work out which files were even about
+their database.
+
+Now there is a directory each for `Migrations`, `MongoDB`, `FerretDB` — with
+`1` and `2` inside it, because v1 and v2 are different products with different
+backends — and `ToroDB`, with `PostgreSQL` inside it. Each file keeps its name
+minus the redundant prefix, and the old `PostgreSQL.md`, which was an index of
+FerretDB and ToroDB rather than a document about PostgreSQL, becomes the
+directory's `README.md`.
+
+Every directory has a `README.md` saying what is in it and where to go next —
+including `FerretDB/1`, which had no documentation at all although it is
+WeKan's default database and had just gained four more backends. A link to a
+directory points at the DIRECTORY, not at its `README.md`, because that file is
+what is opened by default anyway. Every link into the old paths is updated: in
+the docs, in `docker-compose-ferretdb-v2-postgresql.yml` and on the wekan.fi
+website, along with the relative links inside the moved files, which gained a
+directory level. `tests/docsDatabases.test.cjs` pins the layout, the READMEs,
+the directory links, that every relative link resolves, and that nothing
+outside `CHANGELOG.md` still names an old path.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/fbf88fa19">A Docker Compose file for every FerretDB v1 backend, generated from one source</a>. Thanks to xet7.</summary>
 
 `docker-compose.yml` runs FerretDB v1 on its embedded SQLite. The same FerretDB
