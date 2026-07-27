@@ -104,6 +104,17 @@ done
 if [ -n "$QEMU" ]; then
     echo "cpu-exec: this CPU lacks${missing}; running $1 through qemu-user emulation ($QEMU)." >&2
     echo "cpu-exec: emulation is slower — consider migrating to FerretDB (no special CPU features needed)." >&2
+    # qemu-user does NOT search PATH: it opens the file it is given. A bare
+    # command name ("mongod", "echo") reaches it as a relative path that does not
+    # exist, and qemu exits 1 with "Could not open". Resolve it here; if it
+    # cannot be resolved, hand over what we were given so the error names it.
+    _target="$1"
+    # `type -P` searches PATH only: `command -v` would answer "echo" for a shell
+    # builtin, which is exactly the name qemu cannot open.
+    _resolved="$(type -P -- "$_target" 2>/dev/null || true)"
+    case "$_resolved" in
+        /*) shift; exec "$QEMU" "$_resolved" "$@" ;;
+    esac
     exec "$QEMU" "$@"
 fi
 
