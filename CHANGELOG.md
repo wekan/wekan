@@ -271,6 +271,37 @@ browser build to verify).
 This release fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/69f2be116">Which other databases run on many CPUs, and what a FerretDB v1 backend would cost</a>. Thanks to xet7.</summary>
+
+WeKan runs on every CPU Node.js runs on, and this fork of FerretDB v1 exists
+because MongoDB publishes no server for most of them. `Alternatives.md` in
+[docs/Databases/FerretDB/1](https://github.com/wekan/wekan/tree/main/docs/Databases/FerretDB/1)
+answers the two questions that keep coming back: which databases even have
+images for those CPUs, and what would be missing in FerretDB v1 before it could
+store into one.
+
+The architecture table is read from each registry's own manifest rather than
+from documentation, and it says plainly what that data shows: **PostgreSQL is
+the only widely-portable database server** — the only one publishing ppc64le,
+s390x *and* riscv64. MariaDB covers ppc64le and s390x, MySQL neither, and
+MongoDB itself and upstream FerretDB 2 are amd64 + arm64 only. This fork's own
+image covers nine platforms.
+
+What a new backend needs is taken from the code: a pure-Go driver, because the
+binaries are built `CGO_ENABLED=0` and that is what makes one build serve nine
+architectures — which is why Oracle and IBM Db2 are out despite Db2's ppc64le
+and s390x images; the three `internal/backends` interfaces, none of them
+stubbable; a metadata registry; the SQL features the translation actually uses,
+including the record-id column that capped collections — and therefore the
+OpLog — are built on; correct MongoDB semantics on top of that; and a live
+integration run, which is the whole difference between the confirmed and the
+experimental rows. Plus the shortcut: a database that speaks the PostgreSQL or
+MySQL wire protocol needs no new backend, only an existing one that survives
+its dialect — CockroachDB brings s390x that way, for the price of a test run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/fea3c432e">docs/Databases is one directory per database, each with a README</a>. Thanks to xet7.</summary>
 
 It was a flat list in which the database was a filename prefix, in three
