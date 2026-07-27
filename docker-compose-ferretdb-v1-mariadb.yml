@@ -80,6 +80,12 @@ services:
       #   FERRETDB_RELEASE=download/v1.24.2
       FERRETDB_RELEASE: ${FERRETDB_RELEASE:-latest/download}
       MARIADB_DATABASE: ${MARIADB_DATABASE:-ferretdb}
+      # FerretDB maps each MongoDB database to a SQL database and CREATES it on
+      # demand. A grant on one database cannot allow that: with the per-database
+      # `ferretdb` user, the first write failed with "Access denied for user
+      # 'ferretdb'@'%' to database 'wekan'". So FerretDB connects as root; the
+      # MARIADB_USER account still exists for anything else that reads the data.
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-ferretdb_root_secret}
       MARIADB_USER: ${MARIADB_USER:-ferretdb}
       MARIADB_PASSWORD: ${MARIADB_PASSWORD:-ferretdb_secret}
     command:
@@ -106,7 +112,7 @@ services:
         # busy boards). Pair with MONGO_OPLOG_URL in the wekan service below.
         exec "$$BIN" \
           --handler=mysql \
-          --mysql-url="mysql://$${MARIADB_USER}:$${MARIADB_PASSWORD}@mariadb:3306/$${MARIADB_DATABASE}" \
+          --mysql-url="mysql://root:$${MARIADB_ROOT_PASSWORD}@mariadb:3306/$${MARIADB_DATABASE}" \
           --listen-addr=0.0.0.0:27017 \
           --repl-set-name=rs0 \
           --telemetry=disable \

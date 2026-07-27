@@ -13,7 +13,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { SEED, SEED_OTHER, CASES, COMPARE } = require('./cases.cjs');
+const { SEED, SEED_OTHER, CASES, COMPARE, VOLATILE_FIELDS } = require('./cases.cjs');
 
 function arg(name, fallback) {
   const i = process.argv.indexOf(`--${name}`);
@@ -188,7 +188,7 @@ async function runCase(db, c) {
       let value;
       if (compare === COMPARE.SHAPE) value = shapeOf(raw);
       else if (compare === COMPARE.OK) value = 'ok';
-      else value = normalise(raw, c.redact || []);
+      else value = normalise(raw, VOLATILE_FIELDS.concat(c.redact || []));
       results.push({ id, group: c.group, name: c.name, compare, value });
       ok += 1;
       process.stdout.write(`  ok   ${id}\n`);

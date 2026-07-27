@@ -82,6 +82,12 @@ services:
       #   FERRETDB_RELEASE=download/v1.24.2
       FERRETDB_RELEASE: ${FERRETDB_RELEASE:-latest/download}
       MYSQL_DATABASE: ${MYSQL_DATABASE:-ferretdb}
+      # FerretDB maps each MongoDB database to a SQL database and CREATES it on
+      # demand. A grant on one database cannot allow that: with the per-database
+      # `ferretdb` user, the first write failed with "Access denied for user
+      # 'ferretdb'@'%' to database 'wekan'". So FerretDB connects as root; the
+      # MYSQL_USER account still exists for anything else that reads the data.
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-ferretdb_root_secret}
       MYSQL_USER: ${MYSQL_USER:-ferretdb}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-ferretdb_secret}
     command:
@@ -108,7 +114,7 @@ services:
         # busy boards). Pair with MONGO_OPLOG_URL in the wekan service below.
         exec "$$BIN" \
           --handler=mysql \
-          --mysql-url="mysql://$${MYSQL_USER}:$${MYSQL_PASSWORD}@mysql:3306/$${MYSQL_DATABASE}" \
+          --mysql-url="mysql://root:$${MYSQL_ROOT_PASSWORD}@mysql:3306/$${MYSQL_DATABASE}" \
           --listen-addr=0.0.0.0:27017 \
           --repl-set-name=rs0 \
           --telemetry=disable \

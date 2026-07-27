@@ -60,7 +60,13 @@ test('client report is wired: config, columns, menu, rendering', () => {
   assert.ok(/pub: 'recoveryReport'/.test(js) && /getRecoveryReportCount/.test(js), 'points at pub + count');
   assert.ok(/REPORT_TABLES = \{[\s\S]*'report-recovery': \{[\s\S]*columns:/.test(js),
     'report-recovery has a column spec in REPORT_TABLES');
-  assert.ok(/titleKey: 'recoveryReportTitle'/.test(js), 'title key');
+  // No titleKey any more: every Admin Panel pane's heading is rendered once, from
+  // the open menu entry (docs/Design/Page/Left-Menu.md), and PROBLEMS_MENU carries
+  // this report's i18n key - a titleKey here would print the same words twice.
+  assert.ok(/labelKey: 'recoveryReportTitle'/.test(js),
+    'the menu entry carries the title');
+  assert.ok(!/titleKey: 'recoveryReportTitle'/.test(js),
+    'and the table must not repeat it');
   assert.ok(/emptyKey: 'recovery-no-events'/.test(js), 'empty-state key');
   assert.ok(/rowClass: d => `recovery-severity-\$\{d\.severity \|\| 'info'\}`/.test(js),
     'severity row class');

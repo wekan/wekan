@@ -7,9 +7,54 @@ const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
  * This avoids UI flakiness and rate-limiting, and works even when the login page
  * has rendering issues (one of the bugs we're testing separately).
  */
+// Pages whose init script has already been installed (see below). A WeakSet, so a
+// closed page does not keep anything alive.
+const resumeDisabled = new WeakSet();
+
 async function loginWithToken(page, userId, token) {
+  // Stop the PREVIOUS session from resuming. Meteor's accounts-base reads
+  // localStorage at startup and logs the stored user back in, asynchronously - so
+  // on a reload the sequence could be: page loads, our logout check sees no user
+  // yet (the resume has not landed), we log the new user in, and THEN the resume
+  // completes and puts the OLD user back. The poll below then waits 15s and
+  // reports "Unexpected userId after login: <the previous user>", which is the
+  // 33-board-domains failure - in WebKit first, then in Chromium, because it is a
+  // race and not a browser.
+  //
+  // Removing exactly the three Accounts keys before any script runs means there is
+  // nothing to resume. Everything else in localStorage - board view, list widths,
+  // the settings tests rely on - is left alone.
+  if (!resumeDisabled.has(page)) {
+    await page.addInitScript(() => {
+      try {
+        window.localStorage.removeItem('Meteor.loginToken');
+        window.localStorage.removeItem('Meteor.loginTokenExpires');
+        window.localStorage.removeItem('Meteor.userId');
+      } catch (e) { /* a page without storage access is already resume-free */ }
+    });
+    resumeDisabled.add(page);
+  }
+
   await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'commit' });
   await waitForMeteor(page);
+
+  // And wait for any login attempt that is still in flight to finish, so the
+  // state we are about to read is settled rather than half-way.
+  await page.evaluate(
+    () =>
+      new Promise(resolve => {
+        const deadline = Date.now() + 10000;
+        const settle = () => {
+          if (typeof Meteor.loggingIn !== 'function' || !Meteor.loggingIn() ||
+              Date.now() > deadline) {
+            resolve();
+          } else {
+            setTimeout(settle, 50);
+          }
+        };
+        settle();
+      }),
+  );
 
   // Switching users in the same page: log the previous one OUT first and wait
   // for the session to be empty. Without this, `Meteor.userId()` can still be

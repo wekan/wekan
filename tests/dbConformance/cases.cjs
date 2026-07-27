@@ -56,6 +56,13 @@ const SEED_OTHER = [
 //               engine is entitled to answer differently.
 const COMPARE = { RESULTS: 'results', SHAPE: 'shape', OK: 'ok' };
 
+// Fields whose value CANNOT be the same twice, because the server writes the
+// clock into them. $currentDate sets one, and every later case in that group
+// returns the whole collection - so without this, one $currentDate turns every
+// following case into a "difference" between backends that ran a minute apart.
+// Recorded as their type, everywhere, not only in the case that wrote them.
+const VOLATILE_FIELDS = ['touched'];
+
 // ── the catalogue ───────────────────────────────────────────────────────────
 // Every case: { group, name, kind, ...payload, compare }
 // `kind` is what run.cjs does with it, so a case is data all the way down.
@@ -199,7 +206,7 @@ const CASES = [
   { group: 'update', name: '$pull', kind: 'update', filter: { _id: 4 }, update: { $pull: { tags: 'red' } } },
   { group: 'update', name: '$pullAll', kind: 'update', filter: { _id: 1 }, update: { $pullAll: { tags: ['red'] } } },
   { group: 'update', name: '$currentDate', kind: 'update', filter: { _id: 3 },
-    update: { $currentDate: { touched: true } }, redact: ['touched'] },
+    update: { $currentDate: { touched: true } } },
   { group: 'update', name: '$bit', kind: 'update', filter: { _id: 6 }, update: { $bit: { n: { and: 3 } } } },
   { group: 'update', name: 'updateMany', kind: 'update', filter: { flag: true },
     update: { $set: { seen: 1 } }, many: true },
@@ -220,8 +227,11 @@ const CASES = [
   { group: 'index', name: 'drop', kind: 'dropIndex', name_: 'n_1' },
 
   // ── things whose ANSWER may differ, but which must work ───────────────────
+  // An EXPLAIN is a different plan on every engine - not only different values but
+  // different keys - so it only has to answer. Comparing its shape said "different"
+  // for the one thing that cannot be the same.
   { group: 'meta', name: 'explain a find', kind: 'explain', filter: { n: { $gt: 0 } },
-    compare: COMPARE.SHAPE },
+    compare: COMPARE.OK },
   { group: 'meta', name: 'collStats', kind: 'command', command: { collStats: 'conformance' },
     compare: COMPARE.OK },
   { group: 'meta', name: 'dbStats', kind: 'command', command: { dbStats: 1 }, compare: COMPARE.OK },
@@ -237,4 +247,4 @@ const CASES = [
 // run.cjs does, and which is why the order inside a group matters.
 const GROUPS = [...new Set(CASES.map(c => c.group))];
 
-module.exports = { SEED, SEED_OTHER, CASES, GROUPS, COMPARE };
+module.exports = { SEED, SEED_OTHER, CASES, GROUPS, COMPARE, VOLATILE_FIELDS };

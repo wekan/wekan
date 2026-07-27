@@ -268,13 +268,17 @@ for entry in "${BACKENDS[@]}"; do
       docker run -d --name "$CONTAINER" -p "127.0.0.1:$hostport:$port" \
         -e MYSQL_DATABASE=ferretdb -e MYSQL_USER=ferretdb -e MYSQL_PASSWORD=ferretdb_secret \
         -e MYSQL_ROOT_PASSWORD=ferretdb_root_secret "$image" >>"$log" 2>&1 || { echo "ERROR $name  container did not start" >> "$SUMMARY"; continue; }
-      url="mysql://ferretdb:ferretdb_secret@127.0.0.1:$hostport/ferretdb"
+      # root, for the same reason as the compose file: FerretDB CREATES a SQL
+      # database per MongoDB database, which a per-database grant cannot allow.
+      url="mysql://root:ferretdb_root_secret@127.0.0.1:$hostport/ferretdb"
       ;;
     mariadb)
       docker run -d --name "$CONTAINER" -p "127.0.0.1:$hostport:$port" \
         -e MARIADB_DATABASE=ferretdb -e MARIADB_USER=ferretdb -e MARIADB_PASSWORD=ferretdb_secret \
         -e MARIADB_ROOT_PASSWORD=ferretdb_root_secret "$image" >>"$log" 2>&1 || { echo "ERROR $name  container did not start" >> "$SUMMARY"; continue; }
-      url="mysql://ferretdb:ferretdb_secret@127.0.0.1:$hostport/ferretdb"
+      # root, for the same reason as the compose file: FerretDB CREATES a SQL
+      # database per MongoDB database, which a per-database grant cannot allow.
+      url="mysql://root:ferretdb_root_secret@127.0.0.1:$hostport/ferretdb"
       ;;
     sap-hana)
       mkdir -p "$WEKAN_DIR/hana-config"
