@@ -1268,7 +1268,16 @@ Meteor.methods({
   },
 
   async impersonate(userId) {
-    check(userId, String);
+    // Match.Any first, then a real check: this app runs with
+    // audit-argument-checks, which fails a method that returns without having
+    // check()ed every argument - and a bare `check(userId, String)` answers a
+    // missing id with "Match failed", which says nothing about what was being
+    // done or what was missing (#6536).
+    check(userId, Match.Any);
+
+    if (!Match.test(userId, String) || !userId) {
+      throw new Meteor.Error(400, 'impersonate: a user id is required');
+    }
 
     if (!(await ReactiveCache.getUser(userId))) {
       throw new Meteor.Error(404, 'User not found');
@@ -1286,7 +1295,10 @@ Meteor.methods({
   },
 
   async isImpersonated(userId) {
-    check(userId, String);
+    check(userId, Match.Any);
+
+    if (!Match.test(userId, String) || !userId) return false;
+
     return await ReactiveCache.getImpersonatedUser({ userId });
   },
 

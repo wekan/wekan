@@ -2241,6 +2241,17 @@ Template.settingsUserPopup.events({
     event.preventDefault();
     const userId = this.userId || this.user?._id;
 
+    // #6536: without an id this called the server with `undefined`, which arrives
+    // as null and fails `check(userId, String)` - the user saw nothing happen and
+    // the log said "Match error: Expected string, got null", which names neither
+    // the method's purpose nor the missing id. Nothing to impersonate, nothing to
+    // ask the server.
+    if (!userId) {
+      // eslint-disable-next-line no-console
+      console.error('Impersonate: no user id in the popup context; not calling the server.');
+      return;
+    }
+
     Meteor.call('impersonate', userId, (err) => {
       if (!err) {
         // Meteor.connection.setUserId() triggers automatic cache invalidation
