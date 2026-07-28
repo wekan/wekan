@@ -266,7 +266,7 @@ browser build to verify).
 This release fixes the following bug:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/811f1544e">Moving a card no longer pans the board at the same time</a>. Thanks to mueschel and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c185f5e98">Moving a card no longer pans the board at the same time</a>. Thanks to mueschel and xet7.</summary>
 
 On a board large enough to have scrollbars in both directions, dragging a card
 sometimes moved the card, sometimes scrolled the list, sometimes scrolled the
@@ -305,7 +305,7 @@ lane nor the canvas scrolls while it moves, and that panning is back afterwards.
 and has the following developer-facing change:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/1e404912b">Fix the last two guards of the full test run, one of which was right about the changelog</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/31ba78a31">Fix the last two guards of the full test run, one of which was right about the changelog</a>. Thanks to xet7.</summary>
 
 The 18:10 run: 267 node suites with 2 failures, all three browsers clean, Mocha
 500 passing, FerretDB unit and integration green, and the conformance run has
