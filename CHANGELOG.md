@@ -357,6 +357,31 @@ implementation would drift. That script is also the non-interactive way to run
 it anywhere.
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/69f2cb1ab">Tests menu runs everything first, and says what each option really tests</a>. Thanks to xet7.</summary>
+
+The menu offered "ALL tests, parallel", "ALL tests, sequential" and, eleven
+entries below them, "EVERYTHING (sequential)", and nothing said what the
+difference was. "ALL tests" is WeKan's own suite only — Mocha, the node unit
+suites, the import regression, the node E2E harness and the three browsers.
+"EVERYTHING" is that, then the database conformance run for every database with
+a Docker image for this CPU, then all of FerretDB's own tests.
+
+The everything-run is now entry 1 in `./build.sh` and in `build.bat`, the other
+two are named **WeKan's own tests only**, and their descriptions end with what
+they do NOT cover.
+
+Every option now also writes its log to `../log/<datetime>/`, beside the
+whole-suite runs — Mocha, the import regression, node E2E, each Playwright
+browser, the floating-promises guard and the test counts. The new helper reuses
+`WEKAN_LOGDIR` when a larger run set one, so a whole run stays in ONE directory.
+Until now, running a single option left nothing to read afterwards.
+
+The guard test pins both: entry 1 must be the everything-run, entries 2 and 3
+must not claim to be ALL tests, and both scripts must log every option.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
