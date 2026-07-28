@@ -261,7 +261,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.47 2026-07-28 WeKan ® release
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
