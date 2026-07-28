@@ -230,7 +230,7 @@ Notes on the job above:
 
 - **Multi-arch:** the snippet builds one arch (the runner's, amd64). To match the main
   `wekan` snap's arch coverage, replicate the arch strategy from `snap-native`
-  (amd64 + arm64 native runners) and, if needed, `snap-qemu`/`snap-launchpad` for
+  (amd64 + arm64 native runners) and, if needed, `snap-launchpad` for
   ppc64el/s390x/riscv64 — parameterized by `snapname`. Most users are amd64/arm64.
 - **Credentials:** if you chose per-variant secrets (§2), replace `secrets.SNAP_AUTH`
   with `secrets.SNAP_AUTH_ONDRA` / `secrets.SNAP_AUTH_GANTT` via the matrix.

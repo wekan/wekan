@@ -53,11 +53,13 @@ name: Release All Platforms
 #              never fails the release
 #   - docker:  builds and pushes the multi-arch image (amd64, arm64, ppc64le, s390x,
 #              riscv64) to Docker Hub, Quay.io, GHCR
-#   - snap:    builds the snap on Launchpad from the default core24 snapcraft.yaml
-#              (platforms: amd64, arm64, s390x, ppc64el, riscv64), pushes it to the
-#              Snap Store stable + candidate + beta + edge channels and attaches
-#              the .snap files to the GitHub Release. core24 allows stable and
-#              candidate (core26 does not).
+#   - snap:    builds the snap from the default core24 snapcraft.yaml and pushes it
+#              to the Snap Store stable + candidate + beta + edge channels, and
+#              attaches the .snap files to the GitHub Release. Two jobs: snap-native
+#              builds amd64 + arm64 on native runners, snap-launchpad builds
+#              ppc64el + s390x + riscv64 with `snapcraft remote-build` on Launchpad,
+#              which is the only mechanism that supports core24 on an arch with no
+#              native runner. core24 allows stable and candidate (core26 does not).
 #              `snap set wekan database=ferretdb` switches the running backend to
 #              FerretDB v1 (snapcraft-core26.yaml is the core26 variant)
 #
@@ -1773,9 +1775,10 @@ jobs:
   #
   # snap-native + snap-launchpad replace the old single `snap` job. The mainstream
   # arches (amd64 + arm64) build NATIVELY on GitHub-hosted runners — fast, no
-  # Launchpad queue. The exotic arches (s390x, ppc64el, riscv64) have no native
-  # GitHub runners and snapcraft cannot cross-build, so they stay on Launchpad but
-  # in a NON-BLOCKING, per-arch matrix so a slow/failed arch (riscv64 queues for
+  # Launchpad queue. The exotic arches (ppc64el, s390x, riscv64) have no native
+  # GitHub runners and snapcraft cannot cross-build, so all three build on Launchpad
+  # — the only mechanism that supports WeKan's `base: core24` for them — in a
+  # NON-BLOCKING, per-arch matrix so a slow/failed arch (Launchpad can queue for
   # hours) never holds up the release or the other arches. Each arch publishes to
   # the Snap Store (stable + candidate + beta + edge) and attaches to the Release the moment
   # it finishes — all 5 arches, published independently.
@@ -1904,165 +1907,37 @@ jobs:
             echo "::error::snap-native ${{ matrix.arch }} FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
 
-  # ─── 9b. Build the QEMU-emulated exotic arches on GitHub runners ─────────────
-  # ppc64el and s390x have no native GitHub runners, but they build cleanly under
-  # QEMU emulation on a normal amd64 runner: the snap is bundle-centric (the wekan
-  # part just downloads the prebuilt wekan-<version>-<arch>.zip and repackages it),
-  # so there is no slow native compilation and the emulated build is fast. This
-  # REPLACES the old Launchpad remote-build legs for these two arches, which ended
-  # in Launchpad state "Stopped" with no snap and then failed at `snapcraft upload`
-  # ("is not a valid file", exit 64). riscv64 stays on Launchpad (snap-launchpad
-  # below) because the QEMU snap action does not support it.
-  # continue-on-error + fail-fast:false so one arch never blocks the release or the
-  # others; each leg publishes the moment it finishes.
-  snap-qemu:
-    # ENABLED. `continue-on-error: true` below means a failure here can never
-    # fail the release or hold up another job - the point of running it is to
-    # SEE what it reports. Disable again with `if: ${{ false }}`.
-    needs: [prepare, release]
-    continue-on-error: true
-    timeout-minutes: 60
-    strategy:
-      fail-fast: false
-      matrix:
-        arch: [ppc64el, s390x]
-    runs-on: ubuntu-latest
-    env:
-      VERSION: ${{ needs.prepare.outputs.version }}
-    steps:
-      # First step on purpose: a missing secret is then ONE named line at the top of
-      # the log, instead of a failure deep inside a tool that only says the login
-      # was refused. GITHUB_TOKEN is provided by Actions itself and is never listed.
-      - name: Check required secrets are configured
-        env:
-          SNAP_AUTH: ${{ secrets.SNAP_AUTH }}
-        run: |
-          missing=""
-          [ -n "${SNAP_AUTH:-}" ] || missing="$missing SNAP_AUTH"
-          if [ -n "$missing" ]; then
-            echo "::error::snap-qemu: missing repository secret(s):$missing — the snap cannot be uploaded. Add them in Settings → Secrets and variables → Actions:"
-            echo "  SNAP_AUTH - snapcraft export-login output, with ACL for the wekan snap"
-            exit 1
-          fi
-          # Whether the Snap Store ACCEPTS it can only be answered by the store, at
-          # upload time - so the upload step below is followed by one that names this
-          # secret when it is refused, instead of leaving a bare "401" in the log.
-          echo "snap-qemu: SNAP_AUTH is set ($(printf '%s' "$SNAP_AUTH" | wc -c) characters)."
-
-      - uses: actions/checkout@v7
-        with:
-          ref: refs/tags/v${{ needs.prepare.outputs.version }}
-
-      - name: Verify snapcraft.yaml version matches the release
-        run: |
-          set -euo pipefail
-          if ! grep -qxF "version: '${VERSION}'" snapcraft.yaml; then
-            echo "::error::snapcraft.yaml is not at version '${VERSION}' ($(grep -m1 '^version:' snapcraft.yaml)). The bump job (releases/version.sh) did not update the tagged commit."
-            exit 1
-          fi
-          echo "snapcraft.yaml is at version '${VERSION}'."
-
-      - name: Set up QEMU for ${{ matrix.arch }} emulation
-        uses: docker/setup-qemu-action@v4
-
-      - name: Build the ${{ matrix.arch }} snap under QEMU
-        # Runs snapcraft inside a ${{ matrix.arch }} container via QEMU; snapcraft
-        # sees build-on: ${{ matrix.arch }} in snapcraft.yaml and builds that
-        # platform. Outputs the built .snap path as steps.build.outputs.snap.
-        id: build
-        uses: diddlesnaps/snapcraft-multiarch-action@v1
-        with:
-          architecture: ${{ matrix.arch }}
-
-      - name: Verify the built snap is ${{ matrix.arch }}
-        run: |
-          set -euo pipefail
-          snap="${{ steps.build.outputs.snap }}"
-          echo "Built: $snap"
-          case "$snap" in
-            *_${{ matrix.arch }}.snap) : ;;
-            *) echo "::error::Built snap '$snap' is not ${{ matrix.arch }}."; exit 1 ;;
-          esac
-
-      - id: publish
-        name: Push ${{ matrix.arch }} to the Snap Store (stable + candidate + beta + edge)
-        uses: snapcore/action-publish@v1
-        env:
-          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_AUTH }}
-        with:
-          snap: ${{ steps.build.outputs.snap }}
-          release: stable,candidate,beta,edge
-
-      # The upload is a `uses:` action, so its failure would otherwise be a bare
-      # store error. Name the secret that was refused.
-      - name: Say which secret the Snap Store refused
-        if: failure() && steps.publish.outcome == 'failure'
-        run: |
-          echo "::error::SNAP_AUTH did not work: the Snap Store refused the upload for ${{ matrix.arch }}. Re-export it with: snapcraft export-login --snaps wekan --acls package_access,package_push,package_release,package_update snap-auth.txt"
-          exit 1
-
-      - name: Attach the ${{ matrix.arch }} snap to the GitHub Release
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          set -euo pipefail
-          asset="${{ steps.build.outputs.snap }}"
-          if [ ! -f "$asset" ]; then
-            echo "::error::$asset does not exist, so there is nothing to attach. The step that builds it failed, or produced a different name."
-            exit 1
-          fi
-          if ! gh release upload "v${VERSION}" "$asset" --clobber; then
-            echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
-            exit 1
-          fi
-          # Confirm from the OTHER side. An upload that reports success but leaves no
-          # asset behind is the failure nobody notices until a download 404s.
-          if ! gh release view "v${VERSION}" --json assets --jq '.assets[].name' | grep -qxF "$(basename "$asset")"; then
-            echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
-            exit 1
-          fi
-          echo "OK: $(basename "$asset") is attached to release v${VERSION} ($(($(wc -c < "$asset")/1024/1024)) MiB)."
-
-      # Always, as the last step: the run summary then answers "what worked and what
-      # did not" for the whole release at a glance, instead of eighteen job logs. A
-      # step that failed has already printed an ::error:: saying why; this names the
-      # job it was in.
-      - name: Job result
-        if: always()
-        # bash explicitly: this same step runs on the Windows and macOS runners too,
-        # where the default shell is PowerShell / not necessarily this bash.
-        shell: bash
-        run: |
-          case "${{ job.status }}" in
-            success)   mark='OK       ' ;;
-            failure)   mark='FAILED   ' ;;
-            cancelled) mark='CANCELLED' ;;
-            *)         mark='${{ job.status }}' ;;
-          esac
-          echo "$mark snap-qemu ${{ matrix.arch }}"
-          echo "$mark snap-qemu ${{ matrix.arch }}" >> "$GITHUB_STEP_SUMMARY"
-          if [ "${{ job.status }}" = "failure" ]; then
-            echo "::error::snap-qemu ${{ matrix.arch }} FAILED. The ::error:: line in this job's log, above, says which step and why."
-          fi
-
   snap-launchpad:
     # ENABLED. `continue-on-error: true` below means a failure here can never
     # fail the release or hold up another job - the point of running it is to
     # SEE what it reports. Disable again with `if: ${{ false }}`.
     needs: [prepare, release]
-    # riscv64 ONLY: it has no native GitHub runner and the QEMU snap action
-    # (diddlesnaps/snapcraft-multiarch-action) does not support riscv64, so it stays
-    # on Launchpad remote-build. ppc64el and s390x moved to snap-qemu above.
-    # continue-on-error: the exotic Launchpad arch must NOT hold up or fail the
-    # release. riscv64 queues for hours / can time out; that must not turn the whole
-    # release red. timeout-minutes bounds a stuck build so it fails with a clear
-    # message instead of GitHub's silent 6h cancel.
+    # ppc64el, s390x and riscv64: none of them has a native GitHub runner, and
+    # snapcraft cannot cross-build a snap, so Launchpad remote-build is the only way
+    # to build them - QEMU is not. ppc64el and s390x were on a QEMU job
+    # (diddlesnaps/snapcraft-multiarch-action) until it turned out that action caps at
+    # `base: core22` and is unmaintained, so every leg died the instant snapcraft read
+    # WeKan's `base: core24`: "Your build requires a base that this tool does not
+    # support (core24)". There is no maintained QEMU multi-arch action that does
+    # core24; Canonical's answer for non-native arches on core24 IS remote-build. See
+    # docs/Design/Autoupdate/Forks/Snap-Core.md.
+    #
+    # This job is also what the older Launchpad legs were not: it requires the .snap
+    # file to exist, retries the remote build 3x, and uploads only when the file is
+    # there - which is the "is not a valid file" (snapcraft upload, exit 64) failure
+    # that prompted the move to QEMU in the first place.
+    #
+    # continue-on-error: an exotic Launchpad arch must NOT hold up or fail the
+    # release. A Launchpad build can queue for hours / time out; that must not turn
+    # the whole release red. timeout-minutes bounds a stuck build so it fails with a
+    # clear message instead of GitHub's silent 6h cancel. fail-fast: false so one arch
+    # never cancels the others - each publishes the moment it finishes.
     continue-on-error: true
     timeout-minutes: 180
     strategy:
       fail-fast: false
       matrix:
-        arch: [riscv64]
+        arch: [ppc64el, s390x, riscv64]
     runs-on: ubuntu-latest
     env:
       VERSION: ${{ needs.prepare.outputs.version }}

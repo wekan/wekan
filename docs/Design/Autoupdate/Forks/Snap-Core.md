@@ -1,25 +1,30 @@
 # Dev: Snap `core` base vs multi-platform builds
 
 Developer notes on why the `ppc64el` and `s390x` snap legs of `release-all.yml`
-fail, what the constraint actually is (verified from the action's source, not the
-error string), and the only supported way to build these architectures for a
-`core24` snap.
+used to fail, what the constraint actually is (verified from the action's source,
+not the error string), and the only supported way to build these architectures for
+a `core24` snap.
+
+**Status: done.** `ppc64el` and `s390x` were moved to the `snap-launchpad` matrix
+and the `snap-qemu` job was deleted. What follows is why, kept because the same
+question comes back every time someone sees how slow Launchpad is.
 
 ## TL;DR
 
 - WeKan's `snapcraft.yaml` uses **`base: core24`**.
-- The `snap-qemu` job builds `ppc64el` / `s390x` with
+- The `snap-qemu` job built `ppc64el` / `s390x` with
   **`diddlesnaps/snapcraft-multiarch-action@v1`**, whose newest supported base is
-  **`core22`**. It rejects `core24` before any build starts.
+  **`core22`**. It rejected `core24` before any build started.
 - That action is unmaintained, and there is **no maintained QEMU multi-arch snap
   action that supports `core24`**.
 - The only `core24`-capable path for architectures that have **no native GitHub
   runner** (`ppc64el`, `s390x`, `riscv64`) is **Launchpad `snapcraft remote-build`**
-  — already used for `riscv64` in the `snap-launchpad` job.
+  — the `snap-launchpad` job, which now builds all three.
 
 ## The failure
 
-Logs (`release-all.yml` → `snap-qemu` matrix legs `ppc64el` and `s390x`):
+Logs of the last run with the QEMU job (`release-all.yml` → `snap-qemu` matrix
+legs `ppc64el` and `s390x`):
 
 ```
 snapcraft.yaml is at version '10.01'.        # version gate passed
@@ -97,7 +102,7 @@ snapcraft and the other actions used by the snap jobs:
 |---|---|
 | snapcraft (the tool) | https://github.com/canonical/snapcraft |
 | `snapcore/action-build` (used by `snap-native`) | https://github.com/snapcore/action-build |
-| `snapcore/action-publish` (used by `snap-native` / `snap-qemu`) | https://github.com/snapcore/action-publish |
+| `snapcore/action-publish` (used by `snap-native`) | https://github.com/snapcore/action-publish |
 | `docker/setup-qemu-action` (QEMU setup step) | https://github.com/docker/setup-qemu-action |
 | `tonistiigi/binfmt` (the QEMU binfmt image in the cache warning) | https://github.com/tonistiigi/binfmt |
 
@@ -116,26 +121,38 @@ The base snaps (`core*`):
 | Job | Arches | Mechanism | `core24`? |
 |---|---|---|---|
 | `snap-native` | `amd64`, `arm64` | `snapcore/action-build` on a **native** runner | Yes |
-| `snap-qemu` | `ppc64el`, `s390x` | `diddlesnaps/snapcraft-multiarch-action` under QEMU | **No — caps at core22** |
-| `snap-launchpad` | `riscv64` | `snapcraft remote-build` on Launchpad | Yes |
+| `snap-launchpad` | `ppc64el`, `s390x`, `riscv64` | `snapcraft remote-build` on Launchpad | Yes |
+
+(`snap-qemu`, which built `ppc64el` / `s390x` with
+`diddlesnaps/snapcraft-multiarch-action` under QEMU, is deleted: it caps at
+`core22`.)
 
 `amd64` / `arm64` have native runners, so `action-build` works and is fastest.
 `ppc64el` / `s390x` / `riscv64` have **no native GitHub runner**, and snapcraft
 cannot cross-build a snap — so they need either QEMU emulation (which can't do
 `core24`) or Launchpad.
 
-## The fix
+## The fix — done
 
-Because no QEMU multi-arch action supports `core24`, `ppc64el` and `s390x` cannot
-stay in `snap-qemu`. Move them to Launchpad `remote-build` alongside `riscv64`:
+Because no QEMU multi-arch action supports `core24`, `ppc64el` and `s390x` could
+not stay in `snap-qemu`. They build on Launchpad `remote-build` alongside
+`riscv64`:
 
-- Add `ppc64el` and `s390x` to the `snap-launchpad` matrix.
-- Delete the dead `snap-qemu` job.
+- `ppc64el` and `s390x` are in the `snap-launchpad` matrix
+  (`arch: [ppc64el, s390x, riscv64]`).
+- The `snap-qemu` job is deleted.
 
-The current `snap-launchpad` job is more robust than the older Launchpad legs that
-were originally replaced by `snap-qemu`: it **requires the `.snap` file to exist,
+The `snap-launchpad` job is more robust than the older Launchpad legs that were
+originally replaced by `snap-qemu`: it **requires the `.snap` file to exist,
 retries the remote build 3×, and only uploads when the file is present**, which
-guards the old "is not a valid file" (`snapcraft upload`, exit 64) failure.
+guards the old "is not a valid file" (`snapcraft upload`, exit 64) failure. It is
+`continue-on-error` with `timeout-minutes: 180` and `fail-fast: false`, so a
+Launchpad queue of hours — the price of this path — can neither fail the release
+nor cancel another arch, and each arch publishes the moment it finishes.
+
+It needs **`LP_CREDENTIALS`** as well as `SNAP_AUTH`; its first step says by name
+if either is missing, and decodes `LP_CREDENTIALS` so an unusable value is one
+named line rather than an ordinary-looking build failure.
 
 ### Historical note
 
