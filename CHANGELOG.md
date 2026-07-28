@@ -271,6 +271,33 @@ browser build to verify).
 This release fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e3f49bb26">One missing SWC helper stopped WeKan from starting in an older browser</a>. Thanks to zubzhaaaw and xet7.</summary>
+
+WeKan 10.44 in Yandex Browser died at load with `Cannot find module
+'@swc/helpers/_/_possible_constructor_return'` and nothing rendered.
+
+An older browser is served `web.browser.legacy`, where SWC compiles classes down
+to ES5 and emits imports of its own runtime helpers. The built legacy bundle
+contains `link("@swc/helpers/_/_possible_constructor_return", …)` — the app asks
+for it — while the module tree beside it holds 22 helper directories and not that
+one, so the module system cannot resolve what the code imports.
+
+It is the order of the build: Meteor's scanner includes an npm package's files
+from the imports it can SEE, and these imports are written by the transform
+afterwards. `_call_super` came in through another helper's relative require and
+`_possible_constructor_return`, which nothing else requires, did not — exactly
+one was missing, and it was enough to stop the app.
+
+`client/lib/swcHelpers.js` imports the ES5 class, iteration and async helper set
+from ordinary client code, which the scanner does see, and it is loaded first.
+Having the whole set removes the class of failure rather than this one instance:
+the next class written slightly differently would otherwise pull in the next
+helper nobody imported. The modern bundle was never affected, which is why this
+showed in one browser only.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3a5b22879">A busy database no longer costs WeKan its boot, and the boot no longer keeps it busy</a>. Thanks to Nissulya and xet7.</summary>
 
 A snap upgraded from 6.09 to 10.44 was in a systemd restart loop at restart 72,
