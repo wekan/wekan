@@ -266,7 +266,7 @@ browser build to verify).
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/34ba47bdc">Trust a certificate instead of disabling verification, and escape every metacharacter</a>. Thanks to GitHub CodeQL code scanning and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/032722fcc">Trust a certificate instead of disabling verification, and escape every metacharacter</a>. Thanks to GitHub CodeQL code scanning and xet7.</summary>
 
 **Alert #430, `js/disabling-certificate-validation`, High**:
 `reqOptions.rejectUnauthorized = false` in the outgoing-webhook path. It is
@@ -299,7 +299,7 @@ the backslash first, with the helper the other test files already use.
 and updates the backlog:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/389c8b286">TODO Later: ten issues closed since it was written, and what testing FerretDB on MySQL answered</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/11c946301">TODO Later: ten issues closed since it was written, and what testing FerretDB on MySQL answered</a>. Thanks to xet7.</summary>
 
 Every issue in `# TODO Later` was checked against GitHub. Ten are no longer open
 and are gone from the list: #3138, #3252, #3276, #3378, #3748, #3828, #4055,
