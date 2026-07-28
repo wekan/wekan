@@ -6,14 +6,17 @@
 // #6551: a mail server whose certificate does not match the name it is reached by
 // ("Hostname/IP doesn't match certificate's altnames") could not be used at all,
 // because Meteor builds its transport from MAIL_URL and offers no way to say
-// "connect anyway".
+// anything about it. #6553: the same for an outgoing webhook to a server with a
+// self-signed certificate.
 //
-// #6553: the same for an outgoing webhook to a server with a self-signed
-// certificate - it failed at the TLS handshake with no way around it.
+// The first answer was `rejectUnauthorized: false`, which accepts ANY certificate
+// - including one a man in the middle presents - and is what the handshake exists
+// to prevent (CodeQL js/disabling-certificate-validation, alert #430). It is gone,
+// and these tests are what keeps it gone.
 //
-// Both are OFF by default, both are per-install, and neither is
-// NODE_TLS_REJECT_UNAUTHORIZED=0, which would drop certificate checking for
-// everything the server connects to.
+// What replaced it says what is actually true about the server and keeps
+// verification ON: the certificate to TRUST (a self-signed certificate is its own
+// issuer) and, for mail, the name to verify AGAINST.
 
 const assert = require('assert');
 const fs = require('fs');
@@ -26,10 +29,12 @@ const read = rel => fs.readFileSync(path.join(ROOT, rel), 'utf8');
 const src = read('server/lib/mailTransport.js');
 const lib = {};
 // eslint-disable-next-line no-new-func
-new Function('exports', 'URL', src.replace(/export function/g, 'function') +
+new Function('exports', 'URL', 'fs',
+  src.replace(/export function/g, 'function').replace(/^import .*$/gm, '') +
   '\nexports.smtpOptionsFromUrl = smtpOptionsFromUrl;' +
-  '\nexports.tlsVerificationDisabled = tlsVerificationDisabled;' +
-  '\nexports.installMailTransport = installMailTransport;')(lib, URL);
+  '\nexports.hasTlsOverrides = hasTlsOverrides;' +
+  '\nexports.certificateFrom = certificateFrom;' +
+  '\nexports.installMailTransport = installMailTransport;')(lib, URL, fs);
 
 let passed = 0;
 function test(name, fn) {
@@ -75,23 +80,69 @@ test('a URL that is not SMTP is refused, not half-configured', () => {
     /must be smtp: or smtps:/);
 });
 
-test('certificate checking is ON unless it is turned off explicitly', () => {
+test('certificate checking is ON, always, and cannot be turned off', () => {
   assert.strictEqual(lib.smtpOptionsFromUrl('smtp://mail/').tls.rejectUnauthorized, true);
   assert.strictEqual(
-    lib.smtpOptionsFromUrl('smtp://mail/', { rejectUnauthorized: false })
-      .tls.rejectUnauthorized, false);
+    lib.smtpOptionsFromUrl('smtp://mail/', { ca: 'PEM', servername: 'mail.example.com' })
+      .tls.rejectUnauthorized, true,
+    'supplying a certificate or a name does not switch verification off');
 
-  for (const value of [undefined, '', 'true', 'TRUE', '0', 'no', 'yes']) {
-    assert.strictEqual(lib.tlsVerificationDisabled({ MAIL_TLS_REJECT_UNAUTHORIZED: value }),
-      false, `${JSON.stringify(value)} must not disable verification`);
-  }
-  for (const value of ['false', 'False', 'FALSE']) {
-    assert.strictEqual(lib.tlsVerificationDisabled({ MAIL_TLS_REJECT_UNAUTHORIZED: value }),
-      true, `${JSON.stringify(value)} disables it`);
+  // The source may not contain the pattern at all, in either file.
+  for (const file of ['server/lib/mailTransport.js', 'server/lib/ssrfGuard.js']) {
+    const code = read(file)
+      .replace(/\/\*[\s\S]*?\*\//g, '')
+      .replace(/^\s*\/\/.*$/gm, '');
+    assert.ok(!/rejectUnauthorized:\s*false/.test(code),
+      `${file}: rejectUnauthorized: false accepts any certificate`);
+    assert.ok(!/rejectUnauthorized\s*=\s*false/.test(code), `${file}: same, as an assignment`);
+    assert.ok(!/NODE_TLS_REJECT_UNAUTHORIZED/.test(code),
+      `${file} must not disable verification process-wide`);
   }
 });
 
-test('nothing is installed unless it was asked for, and it can be', () => {
+test('what the operator supplies is a certificate, or a name to check against', () => {
+  const withCa = lib.smtpOptionsFromUrl('smtp://mail/', { ca: '-----BEGIN CERTIFICATE-----x' });
+  assert.strictEqual(withCa.tls.ca, '-----BEGIN CERTIFICATE-----x',
+    'the certificate to trust - a self-signed one is its own issuer');
+  const withName = lib.smtpOptionsFromUrl('smtp://mail/', { servername: 'mail.example.com' });
+  assert.strictEqual(withName.tls.servername, 'mail.example.com',
+    'the name the certificate is verified against');
+
+  // Nothing supplied, nothing added.
+  const plain = lib.smtpOptionsFromUrl('smtp://mail/');
+  assert.strictEqual(plain.tls.ca, undefined);
+  assert.strictEqual(plain.tls.servername, undefined);
+});
+
+test('a certificate can be the PEM itself or a path, and a bad path is not fatal', () => {
+  const pem = '-----BEGIN CERTIFICATE-----\nabc\n-----END CERTIFICATE-----';
+  assert.strictEqual(lib.certificateFrom(pem), pem, 'the PEM as-is');
+
+  const read = (p, enc) => {
+    assert.strictEqual(enc, 'utf8');
+    if (p === '/etc/wekan/ca.pem') return pem;
+    throw new Error('ENOENT');
+  };
+  assert.strictEqual(lib.certificateFrom('/etc/wekan/ca.pem', { readFile: read }), pem,
+    'or a path to it');
+
+  const errors = [];
+  const original = console.error;
+  console.error = message => errors.push(message);
+  try {
+    assert.strictEqual(lib.certificateFrom('/nope.pem', { readFile: read, name: 'MAIL_TLS_CA_CERT' }),
+      null, 'a bad path leaves the system trust store in place');
+  } finally {
+    console.error = original;
+  }
+  assert.ok(errors.length === 1 && /MAIL_TLS_CA_CERT/.test(errors[0]),
+    'and says which setting could not be read');
+
+  assert.strictEqual(lib.certificateFrom(''), null);
+  assert.strictEqual(lib.certificateFrom(undefined), null);
+});
+
+test('nothing is installed unless there is something to say, and then it is', () => {
   const calls = [];
   const nodemailer = {
     createTransport(options) {
@@ -109,19 +160,20 @@ test('nothing is installed unless it was asked for, and it can be', () => {
   assert.strictEqual(Email.customTransport, undefined);
   assert.strictEqual(calls.length, 0);
 
-  // Asked for, but nothing to connect to.
+  // Something to say, but nothing to connect to.
   assert.strictEqual(
     lib.installMailTransport({ Email, EmailInternals,
-      env: { MAIL_TLS_REJECT_UNAUTHORIZED: 'false' } }),
+      env: { MAIL_TLS_SERVERNAME: 'mail.example.com' } }),
     'no-mail-url');
 
-  // Asked for.
+  // Both present.
   assert.strictEqual(
     lib.installMailTransport({ Email, EmailInternals,
-      env: { MAIL_TLS_REJECT_UNAUTHORIZED: 'false', MAIL_URL: 'smtp://mail.example.com:587/' } }),
-    'insecure-tls');
+      env: { MAIL_TLS_SERVERNAME: 'mail.example.com', MAIL_URL: 'smtp://mail.example.com:587/' } }),
+    'custom-tls');
   assert.strictEqual(calls.length, 1);
-  assert.strictEqual(calls[0].tls.rejectUnauthorized, false);
+  assert.strictEqual(calls[0].tls.rejectUnauthorized, true, 'still verified');
+  assert.strictEqual(calls[0].tls.servername, 'mail.example.com');
   assert.strictEqual(typeof Email.customTransport, 'function');
 });
 
@@ -134,7 +186,7 @@ test("the message reaches nodemailer without Meteor's own key", () => {
   lib.installMailTransport({
     Email,
     EmailInternals: { NpmModules: { nodemailer: { module: nodemailer } } },
-    env: { MAIL_TLS_REJECT_UNAUTHORIZED: 'false', MAIL_URL: 'smtp://mail/' },
+    env: { MAIL_TLS_SERVERNAME: 'mail.example.com', MAIL_URL: 'smtp://mail/' },
   });
 
   Email.customTransport({ packageSettings: { x: 1 }, from: 'a@b', to: 'c@d', subject: 's' });
@@ -142,27 +194,20 @@ test("the message reaches nodemailer without Meteor's own key", () => {
     'packageSettings is Meteor\'s, not a message field');
 });
 
-test('the webhook switch is separate, opt-in, and does not touch the SSRF guard', () => {
+test('the webhook side trusts a certificate, and keeps every SSRF protection', () => {
   const guard = read('server/lib/ssrfGuard.js');
-  assert.ok(/process\.env\.WEBHOOK_TLS_REJECT_UNAUTHORIZED === 'false'/.test(guard),
-    'exact string comparison: only "false" turns it off');
-  assert.ok(/reqOptions\.rejectUnauthorized = false;/.test(guard));
+  assert.ok(/WEBHOOK_TLS_CA_CERT/.test(guard), 'the certificate to trust comes from the operator');
+  assert.ok(/reqOptions\.ca = ca;/.test(guard), 'and is handed to the TLS layer');
+
   // It applies to HTTPS only, and the address pinning stays.
-  const at = guard.indexOf('WEBHOOK_TLS_REJECT_UNAUTHORIZED');
+  const at = guard.indexOf('const ca = webhookCaCert();');
+  assert.notStrictEqual(at, -1, 'the certificate is read where the request is built');
   const httpsBlock = guard.lastIndexOf('if (isHttps) {', at);
   assert.ok(httpsBlock !== -1 && httpsBlock < at, 'inside the isHttps branch');
   assert.ok(/hostname: resolvedIp,/.test(guard), 'the connection is still pinned to the resolved IP');
   assert.ok(/SSRF_GUARD: Blocked IP in URL/.test(guard), 'and private addresses are still refused');
-
-  // Never the global switch - checked on the CODE, because both files NAME it in
-  // a comment to say that is exactly what they do not do.
-  for (const file of ['server/lib/ssrfGuard.js', 'server/lib/mailTransport.js']) {
-    const code = read(file)
-      .replace(/\/\*[\s\S]*?\*\//g, '')
-      .replace(/^\s*\/\/.*$/gm, '');
-    assert.ok(!/NODE_TLS_REJECT_UNAUTHORIZED/.test(code),
-      `${file} must not disable verification process-wide`);
-  }
+  assert.ok(/reqOptions\.servername = hostname;/.test(guard),
+    'the certificate is still checked against the host that was asked for');
 });
 
 console.log(`\n${passed} tests passed`);

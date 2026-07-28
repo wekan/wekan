@@ -17,6 +17,7 @@
  */
 
 import dns from 'dns';
+import fs from 'fs';
 import net from 'net';
 import http from 'http';
 import https from 'https';
@@ -133,6 +134,39 @@ async function resolveAndPin(hostname) {
  * @param {RequestInit} [options]   Standard fetch options (method, headers, body…)
  * @returns {Promise<Response>}
  */
+// The certificate(s) WeKan should trust for outgoing webhooks, from
+// WEBHOOK_TLS_CA_CERT: either the PEM itself or a path to a file holding it.
+// Read once - an operator changing it restarts WeKan anyway - and never fatal: a
+// bad path leaves the default trust store in place rather than stopping webhooks.
+let webhookCaCache;
+export function webhookCaCert(env = process.env, readFile = fs.readFileSync) {
+  if (webhookCaCache !== undefined) return webhookCaCache;
+
+  const value = (env.WEBHOOK_TLS_CA_CERT || '').trim();
+  if (!value) {
+    webhookCaCache = null;
+    return webhookCaCache;
+  }
+
+  if (value.includes('-----BEGIN CERTIFICATE-----')) {
+    webhookCaCache = value;
+    return webhookCaCache;
+  }
+
+  try {
+    webhookCaCache = readFile(value, 'utf8');
+  } catch (error) {
+    console.error(
+      `WEBHOOK_TLS_CA_CERT: cannot read ${value} (${error.message}). Outgoing ` +
+      'webhooks keep the system trust store, so a server with a private ' +
+      'certificate will still be refused.',
+    );
+    webhookCaCache = null;
+  }
+
+  return webhookCaCache;
+}
+
 export async function fetchSafe(rawUrl, options = {}) {
   // Step 1 — parse and protocol allowlist
   let parsed;
@@ -208,20 +242,23 @@ export async function fetchSafe(rawUrl, options = {}) {
       // servername drives TLS SNI → certificate validates against the real host
       reqOptions.servername = hostname;
 
-      // #6553: an outgoing webhook to a server with a self-signed (or otherwise
-      // untrusted) certificate fails at the TLS handshake, and there was no way to
-      // reach such a server at all. WEBHOOK_TLS_REJECT_UNAUTHORIZED=false turns the
-      // certificate check off for these requests ONLY - a deliberate,
-      // opt-in-per-install choice, off by default, and never a global
-      // NODE_TLS_REJECT_UNAUTHORIZED=0, which would silently disable verification
-      // for everything WeKan connects to.
+      // #6553: an outgoing webhook to a server with a self-signed certificate (an
+      // internal Mattermost, a company CA) failed at the handshake with no way
+      // around it.
       //
-      // The SSRF protections are untouched: the address is still pinned and
-      // private ranges are still refused. What is dropped is only "is this
-      // certificate signed by someone I trust", which is the thing an internal
-      // Mattermost with its own CA cannot satisfy.
-      if (process.env.WEBHOOK_TLS_REJECT_UNAUTHORIZED === 'false') {
-        reqOptions.rejectUnauthorized = false;
+      // The answer is NOT to switch verification off. WEBHOOK_TLS_CA_CERT names
+      // the certificate - or the CA - that WeKan should TRUST for these requests:
+      // verification stays on, the chain is checked as always, and what changes is
+      // only who counts as an issuer. A self-signed certificate is its own issuer,
+      // so putting that certificate here is exactly what makes it valid.
+      //
+      // `rejectUnauthorized: false` was the first attempt and is gone: it accepts
+      // ANY certificate, including one a man in the middle presents, which is the
+      // attack the handshake exists to stop (CodeQL
+      // js/disabling-certificate-validation, alert #430).
+      const ca = webhookCaCert();
+      if (ca) {
+        reqOptions.ca = ca;
       }
     }
 

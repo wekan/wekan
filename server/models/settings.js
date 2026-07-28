@@ -236,14 +236,13 @@ Meteor.startup(async () => {
 
   // #6551: a mail server whose certificate does not match the name it is reached
   // by ("Hostname/IP doesn't match certificate's altnames") could not be used at
-  // all. MAIL_TLS_REJECT_UNAUTHORIZED=false connects anyway - opt-in, per install,
-  // and only for mail.
+  // all. MAIL_TLS_CA_CERT says which certificate to trust and MAIL_TLS_SERVERNAME
+  // which name to verify against - verification stays on either way.
   const mailTransport = installMailTransport({ Email, EmailInternals });
-  if (mailTransport === 'insecure-tls') {
-    console.warn(
-      'MAIL_TLS_REJECT_UNAUTHORIZED=false: the mail server\'s certificate is NOT ' +
-      'verified. The connection is still encrypted, but nothing proves which server ' +
-      'is on the other end. Set it back to true once the certificate matches.',
+  if (mailTransport === 'custom-tls') {
+    console.info(
+      'Mail TLS: using MAIL_TLS_CA_CERT / MAIL_TLS_SERVERNAME. The certificate is ' +
+      'still verified - against the certificate you supplied, or the name you named.',
     );
   }
 });

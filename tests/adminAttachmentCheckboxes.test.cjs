@@ -61,6 +61,12 @@ test('every one of them is the material checkbox WeKan uses everywhere else', ()
     assert.ok(/is-checked/.test(box), `${box.trim()} must express its state`);
   }
 
+  // Escape EVERY regex metacharacter, the backslash included and FIRST - escaping
+  // only the dots left a backslash in the value able to change the meaning of the
+  // pattern it is spliced into (CodeQL js/incomplete-sanitization, alert #429).
+  // The same helper as tests/testsAreRegistered.test.cjs, for the same reason.
+  const escapeRegExp = value => String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
   // The ones that mirror a setting are bound to that setting.
   for (const [id, helper] of [
     ['filesystem-read', 'filesystemRead'], ['gridfs-read', 'gridfsRead'],
@@ -70,7 +76,7 @@ test('every one of them is the material checkbox WeKan uses everywhere else', ()
     ['s3-force-path-style', 'cloudValue.s3.forcePathStyle'],
   ]) {
     const re = new RegExp(
-      `\\.materialCheckBox#${id}\\(class="\\{\\{#if ${helper.replace(/\./g, '\\.')}\\}\\}is-checked`);
+      `\\.materialCheckBox#${escapeRegExp(id)}\\(class="\\{\\{#if ${escapeRegExp(helper)}\\}\\}is-checked`);
     assert.ok(re.test(jade), `#${id} must follow ${helper}`);
   }
 });
