@@ -1621,6 +1621,7 @@
   "speedReportTitle": "Nopeus",
   "testsReportTitle": "Testit",
   "cpuReportTitle": "Suorittimen käyttö",
+  "databaseReportTitle": "Tietokantaongelmat",
   "new-problems": "uutta ongelmaa",
   "acknowledge": "Kuittaa",
   "rulesReportTitle": "Säännöt raportti",

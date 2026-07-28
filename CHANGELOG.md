@@ -35,6 +35,11 @@ close on push): e.g. #4560/#4419/#4158 (LDAP, in the startup-upgrade batch), #48
 (subtask drag reorder), #5282/#5547 (mergebox/features batch), #3453/#3199/#3843
 (linked-card/archive/comment attachments), #4593 (late-joining team member board
 membership) and #3037 (REST card board-move).
+
+Checked against GitHub on 2026-07-28 and removed as no longer open: #3138,
+#3252, #3276, #3378, #3748, #3828, #4055, #4774, #5149 and #6511. The
+"already correct in the current code" category went with them - it held only
+#4774 and #4055, and both are closed now.
 </details>
 
 <details>
@@ -82,12 +87,7 @@ All Boards page — the `boardLists`/`boardMembers` helpers in
 `client/components/boards/boardsList.js` were deliberately stubbed to `[]` to
 stop the #4214 "icons random dance"; re-enabling needs a non-reactive count
 source and a lists/cards subscription for the dashboard, verified live so #4214
-does not return), [#3252](https://github.com/wekan/wekan/issues/3252) ("Removed
-nonexistent document" on attachment / comment / checklist delete — a
-publication/mergebox double-remove, same class as the fixed #5685, not the
-delete itself), [#3276](https://github.com/wekan/wekan/issues/3276)
-(excessive-time card colour does not refresh to red until focus leaves the card
-— reactive re-render), [#3189](https://github.com/wekan/wekan/issues/3189)
+does not return), [#3189](https://github.com/wekan/wekan/issues/3189)
 (Worker-role user cannot re-assign a card to themselves after a prior assignee
 was removed — role/deny permission),
 [#6541](https://github.com/wekan/wekan/issues/6541) (users disappear from the
@@ -98,8 +98,6 @@ every board they were on, so a repeat today would leave no orphan ids, but the
 disappearance itself has no reproduction),
 [#3576](https://github.com/wekan/wekan/issues/3576) (mobile back button after
 search returns to settings, not the board — router),
-[#3378](https://github.com/wekan/wekan/issues/3378) (SyncedCron "duplicate key"
-in cronHistory for notification_cleanup — scheduler/dev-reload timing),
 [#3144](https://github.com/wekan/wekan/issues/3144) (archived-card activities
 render "undefined" in board settings — the card lookup returns nothing once the
 card is archived/unpublished; needs the activity to carry a stored card title or
@@ -131,28 +129,18 @@ runtime permission + reactive-close-on-no-access fix verified live),
 dragging to another list on LARGE boards — a drag/reactivity re-render; xet7
 already reduced it in commit 2e7c4ed but the reporter says it persists, so it
 needs a large board in a browser to profile; related to the #6480 adaptive card
-loading and #5421), [#6511](https://github.com/wekan/wekan/issues/6511) (board
-loads but shows NO cards; console `Error: No such template: swimlane`. ROOT
-CAUSE now identified (correcting the earlier sub-path/proxy guess): a
-MODULE-FORMAT build error. The 10.29 console shows `Uncaught Error: ES Modules
-may not assign module.exports or exports.*, Use ESM export syntax, instead:
-43130` — a bundled module assigns CommonJS `module.exports` while loaded as an
-ES module in the Meteor 3.5 + rspack build; when it throws during evaluation it
-ABORTS the module chain, so `Template.swimlane` (and `notifications`, #6515's
-secondary symptom) never register → `lookupTemplate` throws "No such template".
-It reproduces on the official `boards.wekan.team` at the ROOT domain, so it is a
-real global build bug, NOT a reverse-proxy/sub-path issue. Pinpointing the exact
-module needs the rspack build artifacts (module id 43130 → source file); xet7 is
-fixing it. The board-body render should be resilient so one unresolved template
-does not blank the whole board),
-[#6509](https://github.com/wekan/wekan/issues/6509) (fresh v10.27 on FerretDB v2
-+ PostgreSQL: a new board's lists/cards do not appear until reload, and an
-imported board shows lists but no cards, with `Cannot read properties of
-undefined (reading 'remove')` — the same Blaze ordered-diff reactive-render
-class as #6511, which the v10.28 card-sort `_id` tiebreaker targeted; not closed
-because the identical-signature #6511 reporter says it persists on 10.28, so it
-needs a live board to confirm whether the tiebreaker resolves it on FerretDB v2
-/ PostgreSQL).
+loading and #5421), [#6509](https://github.com/wekan/wekan/issues/6509) — which is a request to TEST
+FerretDB v1 on MySQL, MariaDB and SAP HANA, and is mostly answered: the
+conformance harness (`./build.sh` → Tests → All databases) runs one catalogue of
+100 queries against every backend with an image for the machine, and **MariaDB
+now answers identically to SQLite on 98 of them**, the two exceptions being the
+`$slice` / `$elemMatch` projections that NO backend implements. Getting there
+took a dozen fixes in wekan/FerretDB — MySQL answered `Error 1064` to every
+filtered query, deletes deleted nothing, `DROP INDEX` was PostgreSQL's spelling,
+`collStats` was not valid SQL, and MariaDB has neither the `->` operator nor a
+JSON type to cast to. **MySQL's confirming run is still pending** (its container
+lost a port race on the last run, since fixed) and **SAP HANA is untested**: its
+image needs a licence acceptance and a machine with the memory for it.
 
 </details>
 
@@ -214,26 +202,11 @@ one agent per language) once the bug backlog is clear.
 </details>
 
 <details>
-<summary>Already correct in the current code (could not reproduce; endpoint/logic verified by reading).</summary>
-
-[#4774](https://github.com/wekan/wekan/issues/4774) (`POST /users/register` is a
-native handler that returns 403 only when registration is disabled via
-`forbidClientAccountCreation`; it works by default),
-[#4055](https://github.com/wekan/wekan/issues/4055) (ISO week number — the
-native DST-safe `getISOWeek()` is correct; a regression test was added).
-
-</details>
-
-<details>
 <summary>Feature requests / behaviour-by-design rather than bugs.</summary>
 
-[#3828](https://github.com/wekan/wekan/issues/3828) (board members seeing all
-cards on a board is by design — WeKan has no per-card visibility model),
 [#3823](https://github.com/wekan/wekan/issues/3823),
-[#3748](https://github.com/wekan/wekan/issues/3748) (linked cards mirror the
-original rather than owning their own labels/custom fields),
 [#4023](https://github.com/wekan/wekan/issues/4023) (Japanese font alignment →
-per-board font request), [#3138](https://github.com/wekan/wekan/issues/3138),
+per-board font request),
 [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete
 to the Admin role), [#5081](https://github.com/wekan/wekan/issues/5081)
 (redesign the owner/member/assignee avatar layout on mini cards — a UI proposal;
@@ -272,8 +245,9 @@ the webhook rather than repurpose `user`).
 <details>
 <summary>Deferred pending a security decision.</summary>
 
-Syntax/color highlighting for code blocks in the card viewer (`+viewer`,
-[#5149](https://github.com/wekan/wekan/issues/5149) also asked for it). It IS
+Syntax/color highlighting for code blocks in the card viewer (`+viewer`; the
+copy-to-clipboard half of #5149, which asked for both, is done and that issue is
+closed). It IS
 possible — set MarkdownIt's `highlight` option with a highlighter (e.g.
 `highlight.js`) and ship a theme — BUT the viewer's DOMPurify
 (`packages/markdown/src/secureDOMPurify.js`) deliberately strips EVERY `class`
@@ -284,6 +258,69 @@ relaxing the sanitizer to allow a TIGHT allowlist of `hljs-*` / `language-*`
 classes on `<span>` inside `pre>code` only, which is a security trade-off xet7
 has not decided on yet (adds a dependency + loosens the XSS sanitizer + needs a
 browser build to verify).
+
+</details>
+
+# Upcoming WeKan ® release
+
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/34ba47bdc">Trust a certificate instead of disabling verification, and escape every metacharacter</a>. Thanks to GitHub CodeQL code scanning and xet7.</summary>
+
+**Alert #430, `js/disabling-certificate-validation`, High**:
+`reqOptions.rejectUnauthorized = false` in the outgoing-webhook path. It is
+right, and the switch is gone.
+
+`rejectUnauthorized: false` accepts ANY certificate — including the one a man in
+the middle presents — which is the attack the TLS handshake exists to stop. What
+the reports behind it actually need is not "verify nothing", it is "this
+certificate is legitimate", so that is what WeKan takes now:
+`WEBHOOK_TLS_CA_CERT` (the certificate or CA to TRUST for outgoing webhooks),
+`MAIL_TLS_CA_CERT` (the same for the mail server) and `MAIL_TLS_SERVERNAME` (the
+name to verify the mail certificate AGAINST, for a wildcard that covers one level
+fewer than the host has).
+
+Each is the PEM itself or a path to a file holding it. A self-signed certificate
+is its own issuer, so naming it here is exactly what makes it valid — and
+verification stays ON, the chain is still checked, the hostname is still checked.
+A path that cannot be read is not fatal: it says which setting failed and keeps
+the system trust store. The SSRF protections are untouched — the address is still
+resolved once and pinned, private ranges are still refused, redirects are still
+blocked.
+
+**Alert #429, `js/incomplete-sanitization`, High**: a test escaped dots only when
+building a regular expression, so a backslash in the value could change the
+meaning of the pattern it was spliced into. It escapes every metacharacter now,
+the backslash first, with the helper the other test files already use.
+
+</details>
+
+and updates the backlog:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/TBD">TODO Later: ten issues closed since it was written, and what testing FerretDB on MySQL answered</a>. Thanks to xet7.</summary>
+
+Every issue in `# TODO Later` was checked against GitHub. Ten are no longer open
+and are gone from the list: #3138, #3252, #3276, #3378, #3748, #3828, #4055,
+#4774, #5149 and #6511. The "already correct in the current code" category went
+with them, because it held only the two that are now closed.
+
+#6509 — "please test FerretDB v1 with MySQL, MariaDB and SAP HANA" — is mostly
+answered rather than pending: the conformance harness runs one catalogue of 100
+queries against every backend with an image for this machine, and **MariaDB now
+answers identically to SQLite on 98 of them**, the two exceptions being the
+`$slice` / `$elemMatch` projections that no backend implements. Getting there
+took a dozen fixes in the fork. MySQL's confirming run is still pending and SAP
+HANA is untested — its image needs a licence acceptance — and the entry says so
+instead of implying the whole request is done.
+
+Finnish gained `databaseReportTitle` ("Tietokantaongelmat"). The other 40
+placeholders in that language are numbers, symbols, product names and a font
+name, which are the same in Finnish — the count of "untranslated" strings is
+mostly that. The search-operator abbreviations (`b:`, `l:`, `s:`) are left in
+English on purpose: translating them changes how a search is TYPED in that
+language, which is a decision for the maintainer, not a wording fix.
 
 </details>
 
