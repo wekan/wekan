@@ -1,7 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { Accounts } from 'meteor/accounts-base';
-import { Email } from 'meteor/email';
+import { Email, EmailInternals } from 'meteor/email';
+import { installMailTransport } from '/server/lib/mailTransport';
 import { ServiceConfiguration } from 'meteor/service-configuration';
 import { WebApp } from 'meteor/webapp';
 import Settings from '/models/settings';
@@ -231,6 +232,19 @@ Meteor.startup(async () => {
       : newSetting.mailServer.from;
   } else {
     Accounts.emailTemplates.from = process.env.MAIL_FROM;
+  }
+
+  // #6551: a mail server whose certificate does not match the name it is reached
+  // by ("Hostname/IP doesn't match certificate's altnames") could not be used at
+  // all. MAIL_TLS_REJECT_UNAUTHORIZED=false connects anyway - opt-in, per install,
+  // and only for mail.
+  const mailTransport = installMailTransport({ Email, EmailInternals });
+  if (mailTransport === 'insecure-tls') {
+    console.warn(
+      'MAIL_TLS_REJECT_UNAUTHORIZED=false: the mail server\'s certificate is NOT ' +
+      'verified. The connection is still encrypted, but nothing proves which server ' +
+      'is on the other end. Set it back to true once the certificate matches.',
+    );
   }
 });
 

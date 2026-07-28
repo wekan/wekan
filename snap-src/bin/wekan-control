@@ -88,11 +88,20 @@ elif [ "nill" != "$MONGODB_BIND_UNIX_SOCKET" ] && [ "x" != "x$MONGODB_BIND_UNIX_
     fi
 else
     [ "x" == "x$MONGODB_BIND_IP" ] && MONGODB_BIND_IP="127.0.0.1"
-    export MONGO_URL="mongodb://$MONGODB_BIND_IP:$MONGODB_PORT/wekan"
+    # An IPv6 LITERAL has to be in brackets in a MongoDB URI - `mongodb://::1:27019/`
+    # is not a URL and the driver refuses it, so an IPv6-only database could not be
+    # reached at all (#6550). A hostname or an IPv4 address is left as it is: the
+    # test is "contains a colon", which no hostname and no IPv4 address does.
+    MONGODB_BIND_HOST="$MONGODB_BIND_IP"
+    case "$MONGODB_BIND_HOST" in
+        \[*\]) : ;;                                   # already bracketed
+        *:*) MONGODB_BIND_HOST="[$MONGODB_BIND_HOST]" ;;
+    esac
+    export MONGO_URL="mongodb://$MONGODB_BIND_HOST:$MONGODB_PORT/wekan"
     # FerretDB v1 has no replica-set oplog, so only advertise MONGO_OPLOG_URL for
     # real MongoDB; with FerretDB, WeKan falls back to polling automatically.
     if [ -z "$MONGO_OPLOG_URL" ] && [ "ferretdb" != "${DATABASE}" ]; then
-        export MONGO_OPLOG_URL="mongodb://$MONGODB_BIND_IP:$MONGODB_PORT/local?replicaSet=rs0"
+        export MONGO_OPLOG_URL="mongodb://$MONGODB_BIND_HOST:$MONGODB_PORT/local?replicaSet=rs0"
     fi
 fi
 
@@ -166,6 +175,15 @@ echo -e "Using WRITABLE_PATH: $WRITABLE_PATH"
 
 echo -e "MONGO_URL=$MONGO_URL"
 
+# #6546: WeKan listens where BIND_IP says. Meteor reads BIND_IP itself, so this
+# only has to pass it on - and only when it is set, so the default (0.0.0.0, IPv4)
+# is unchanged for everyone who does not ask for something else. `::` is the
+# IPv6 wildcard, which on a dual-stack host also accepts IPv4.
+if [ -n "$BIND_IP" ]; then
+    export BIND_IP
+    echo -e "BIND_IP=$BIND_IP"
+fi
+
 # The readiness checks below use db-eval (the bundled Node.js 24 + the `mongodb`
 # driver from the WeKan bundle), so there is no mongosh binary — nothing to install
 # and nothing phoning home. db-eval speaks the wire protocol to both FerretDB v1
@@ -173,6 +191,13 @@ echo -e "MONGO_URL=$MONGO_URL"
 DB_EVAL="$SNAP/bin/db-eval"
 MONGO_PORT="${MONGODB_PORT:-27019}"
 MONGO_HOST="${MONGODB_BIND_IP:-127.0.0.1}"
+# Bracketed for the same reason as MONGO_URL above (#6550): the readiness probe
+# builds a URI too, and an unbracketed IPv6 literal makes it wait forever on a
+# URL the driver cannot parse.
+case "$MONGO_HOST" in
+    \[*\]) : ;;
+    *:*) MONGO_HOST="[$MONGO_HOST]" ;;
+esac
 # directConnection so admin commands reach this exact node (also before a replica
 # set is initiated).
 DB_URL="mongodb://${MONGO_HOST}:${MONGO_PORT}/?directConnection=true"

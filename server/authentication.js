@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+const { requestPermissions: oauth2RequestPermissions } = require('/models/lib/oauth2Scopes');
 
 const {
   shouldRejectPasswordLogin,
@@ -139,7 +140,10 @@ Meteor.startup(() => {
             tokenEndpoint: process.env.OAUTH2_TOKEN_ENDPOINT,
             idTokenWhitelistFields:
               process.env.OAUTH2_ID_TOKEN_WHITELIST_FIELDS || [],
-            requestPermissions: process.env.OAUTH2_REQUEST_PERMISSIONS,
+            // #6545: a value configured with surrounding quotes - which the snap
+            // default and every wiki example used to have - reached the provider as
+            // the scope `'openid` … `email'` and Keycloak refused the request.
+            requestPermissions: oauth2RequestPermissions(process.env.OAUTH2_REQUEST_PERMISSIONS),
           },
         },
       );
@@ -167,7 +171,10 @@ Meteor.startup(() => {
             tokenEndpoint: process.env.OAUTH2_TOKEN_ENDPOINT,
             idTokenWhitelistFields:
               process.env.OAUTH2_ID_TOKEN_WHITELIST_FIELDS || [],
-            requestPermissions: process.env.OAUTH2_REQUEST_PERMISSIONS,
+            // #6545: a value configured with surrounding quotes - which the snap
+            // default and every wiki example used to have - reached the provider as
+            // the scope `'openid` … `email'` and Keycloak refused the request.
+            requestPermissions: oauth2RequestPermissions(process.env.OAUTH2_REQUEST_PERMISSIONS),
           },
           // OAUTH2_ID_TOKEN_WHITELIST_FIELDS || [],
           // OAUTH2_REQUEST_PERMISSIONS || 'openid profile email',

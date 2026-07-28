@@ -207,6 +207,22 @@ export async function fetchSafe(rawUrl, options = {}) {
     if (isHttps) {
       // servername drives TLS SNI → certificate validates against the real host
       reqOptions.servername = hostname;
+
+      // #6553: an outgoing webhook to a server with a self-signed (or otherwise
+      // untrusted) certificate fails at the TLS handshake, and there was no way to
+      // reach such a server at all. WEBHOOK_TLS_REJECT_UNAUTHORIZED=false turns the
+      // certificate check off for these requests ONLY - a deliberate,
+      // opt-in-per-install choice, off by default, and never a global
+      // NODE_TLS_REJECT_UNAUTHORIZED=0, which would silently disable verification
+      // for everything WeKan connects to.
+      //
+      // The SSRF protections are untouched: the address is still pinned and
+      // private ranges are still refused. What is dropped is only "is this
+      // certificate signed by someone I trust", which is the thing an internal
+      // Mattermost with its own CA cannot satisfy.
+      if (process.env.WEBHOOK_TLS_REJECT_UNAUTHORIZED === 'false') {
+        reqOptions.rejectUnauthorized = false;
+      }
     }
 
     const req = transport.request(reqOptions, (res) => {
