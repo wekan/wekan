@@ -385,6 +385,26 @@ a single-machine install where localhost IS the address is perfectly valid.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c1bb2a6a5">…and that fix was deleted by the bundler, because the package says it may be</a>. Thanks to zubzhaaaw and xet7.</summary>
+
+10.45 still failed with the same message, and the fix below was in that build.
+
+`@swc/helpers` declares `"sideEffects": false` — a promise to the bundler that
+importing one of its modules changes nothing observable, so an import whose
+bindings are never READ may be removed entirely. `import
+'@swc/helpers/_/_possible_constructor_return';` is exactly that: every line of
+the new file was dropped, the package subdirectory was never pulled into the
+bundle, and the legacy module tree came out as before. The fix compiled to
+nothing and looked like it had been applied.
+
+Every helper is imported BY NAME and read now — collected into an array whose
+length is written to `window.__wekanSwcHelpers`. That is an observable effect,
+so no optimizer may remove the imports that feed it, and the global says in one
+word whether the helpers reached the bundle at all if this ever happens again.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e3f49bb26">One missing SWC helper stopped WeKan from starting in an older browser</a>. Thanks to zubzhaaaw and xet7.</summary>
 
 WeKan 10.44 in Yandex Browser died at load with `Cannot find module
