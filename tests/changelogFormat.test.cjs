@@ -176,11 +176,17 @@ test('lines are wrapped at 80 columns, links excepted', () => {
 });
 
 test('the newest release follows the rules to the letter', () => {
+  // The newest RELEASE: an Upcoming section may sit above it, and it holds
+  // whatever has been done since - one entry some days, a dozen on others - so
+  // measuring "the release" against it fails on the size of the current day's
+  // work. The Upcoming section's own entries are checked by the test below.
   const todo = lines.indexOf('# TODO Later');
-  const start = lines.findIndex((l, i) => i > todo && /^# (Upcoming WeKan|v\d)/.test(l));
+  const start = lines.findIndex((l, i) => i > todo && /^# v\d/.test(l));
   const end = lines.findIndex((l, i) => i > start && /^# v\d/.test(l));
   const inSection = ALL.filter(b => b.line > start && b.line < end);
-  assert.ok(inSection.length > 5, 'and it must have entries');
+  // At least one. A release is as big as the work in it - v10.46 carried two
+  // fixes - and "more than five" measured the day rather than the format.
+  assert.ok(inSection.length >= 1, 'and it must have entries');
   for (const b of inSection) {
     assert.ok(summaryText(b.summary).length <= 120,
       `line ${b.line}: a summary must be a title (${summaryText(b.summary).length} chars)`);
@@ -188,6 +194,26 @@ test('the newest release follows the rules to the letter', () => {
     // change is in the fork WeKan's default database is built from. A WeKan hash
     // for work that is not in this repository points at the wrong change, so the
     // link follows the code rather than the changelog.
+    assert.ok(/<a href="https:\/\/github\.com\/wekan\/(wekan|FerretDB)\/commit\//.test(b.summary),
+      `line ${b.line}: the summary links the commit it describes`);
+  }
+});
+
+test('the Upcoming section, when there is one, follows the same rules', () => {
+  const start = lines.indexOf('# Upcoming WeKan ® release');
+  if (start === -1) {
+    console.log('    (no Upcoming section right now - nothing to check)');
+    return;
+  }
+
+  const end = lines.findIndex((l, i) => i > start && /^# v\d/.test(l));
+  assert.ok(end > start, 'it sits above the newest release');
+  const inSection = ALL.filter(b => b.line > start && b.line < end);
+  assert.ok(inSection.length >= 1, 'and it has at least one entry');
+
+  for (const b of inSection) {
+    assert.ok(summaryText(b.summary).length <= 120,
+      `line ${b.line}: a summary must be a title (${summaryText(b.summary).length} chars)`);
     assert.ok(/<a href="https:\/\/github\.com\/wekan\/(wekan|FerretDB)\/commit\//.test(b.summary),
       `line ${b.line}: the summary links the commit it describes`);
   }

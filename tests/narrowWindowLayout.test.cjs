@@ -315,7 +315,9 @@ test('eleven board buttons fit two rows on a phone, and stay tappable', () => {
     `${each}px each fits ${perRow} per row: 11 icons take ${Math.ceil(11 / perRow)} rows`);
   assert.ok(Number(min[1]) >= 44, `a touch target must stay >= 44px, found ${min[1]}`);
   const icon = /#header #header-main-bar \.board-header-btn i\.fa \{([\s\S]*?)\}/.exec(block);
-  assert.ok(icon && /margin: 0;/.test(icon[1]),
+  // `margin: 0` with or without `!important` - the phone block carries the flag on
+  // these declarations because the desktop rule they override is more specific.
+  assert.ok(icon && /margin:\s*0\s*(!important)?;/.test(icon[1]),
     'the icon inside carried 10px of its own margin - the button box is the target now');
 });
 

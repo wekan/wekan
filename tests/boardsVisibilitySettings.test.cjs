@@ -462,8 +462,14 @@ test('the Layout save cannot wipe the two moved text fields', () => {
   // Their new homes write them only when the input is actually present.
   assert.ok(/\$\('#mailDomainNamevalue'\)\.length/.test(js),
     'the Email save guards on the input existing');
-  assert.ok(/\$\('#legalNoticevalue'\)\.length/.test(js),
-    'the Visibility save guards on the input existing');
+  // The Visibility saves go through visibilityTextFields(), which does the same
+  // check once for every field it is given - `if ($(sel).length)` - instead of
+  // repeating it per field at each call site.
+  const helper = js.slice(js.indexOf('function visibilityTextFields'));
+  assert.ok(/if \(\$\(sel\)\.length\) \{/.test(helper.slice(0, 400)),
+    'the shared field reader skips an input that is not on screen');
+  assert.ok(/\['#legalNoticevalue', 'legalNotice'\]/.test(js),
+    'and the Visibility save is one of its callers');
 });
 
 test('the E-mail pane Save writes BOTH settings above it, and is below them', () => {

@@ -3,9 +3,16 @@
 // Loaded by server/main.js after bootstrap (collectionHelpers) completes.
 // ============================================================================
 
-// ****IMPORTANT**** FIRST: guard every startup callback registered below, so a
-// database that is momentarily busy cannot turn a boot into a restart loop
-// (#6533). It must come before anything that registers a Meteor.startup hook.
+// ****IMPORTANT**** FIRST: a rejected promise must not end the process. SyncedCron
+// installs an `unhandledRejection` handler that calls process.exit(1), so one
+// write losing a race for the SQLite write lock killed the whole server and
+// systemd restarted it into a busier database (#6533). This decides what happens
+// instead, and must be loaded before SyncedCron.
+import '/server/00processErrors';
+
+// ...and guard every startup callback registered below, so a database that is
+// momentarily busy cannot turn a boot into a restart loop either (#6533). It must
+// come before anything that registers a Meteor.startup hook.
 import '/server/00startupResilience';
 
 // ****IMPORTANT**** Wait for MongoDB to be ready BEFORE anything else, so the

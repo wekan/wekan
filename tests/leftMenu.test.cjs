@@ -674,8 +674,13 @@ test('Version is the FIRST Settings pane, and has no page of its own', () => {
   const router = read('config/router.js');
   assert.ok(!/content: 'information'/.test(router), 'it must not render the old template');
   const route = router.slice(router.indexOf("FlowRouter.route('/information'"));
-  assert.ok(/FlowRouter\.go\('setting'\)/.test(route.slice(0, 400)),
+  // `redirect(FlowRouter.path('setting'))` in triggersEnter - FlowRouter's own way
+  // to send a route elsewhere; a `FlowRouter.go` inside a trigger re-enters the
+  // router instead of replacing the navigation. Same as /translation above.
+  assert.ok(/redirect\(FlowRouter\.path\('setting'\)\)/.test(route.slice(0, 400)),
     'a bookmarked /information must land in Settings');
+  assert.ok(/Session\.set\('settingsOpenPane', 'version-setting'\)/.test(route.slice(0, 400)),
+    'on the pane that URL meant');
 });
 
 console.log(`\nleftMenu: ${passed} tests passed`);
