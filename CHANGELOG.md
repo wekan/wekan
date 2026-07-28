@@ -287,6 +287,65 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+This release fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c1bb2a6a5">The SWC helper fix shipped in 10.45 was deleted by the bundler, because the package says it may be</a>. Thanks to zubzhaaaw and xet7.</summary>
+
+WeKan 10.45 still failed in Yandex Browser with `Cannot find module
+'@swc/helpers/_/_possible_constructor_return'` (#6556), and the fix for it was in
+that build.
+
+`@swc/helpers` declares `"sideEffects": false` — a promise to the bundler that
+importing one of its modules changes nothing observable, so an import whose
+bindings are never READ may be removed entirely. `import
+'@swc/helpers/_/_possible_constructor_return';` is exactly that: every line of
+the new file was dropped, the package subdirectory was never pulled into the
+bundle, and the legacy module tree came out as before. The fix compiled to
+nothing and looked like it had been applied.
+
+Every helper is imported BY NAME and read now — collected into an array whose
+length is written to `window.__wekanSwcHelpers`. That is an observable effect,
+so no optimizer may remove the imports that feed it, and the global says in one
+word whether the helpers reached the bundle at all if this ever happens again.
+
+</details>
+
+and fixes the following test-harness faults:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/64971491a">A flaky WebKit navigation and a leftover container were reported as failures they were not</a>. Thanks to xet7.</summary>
+
+Two things in the test harness answered the wrong question, and four guards had
+drifted.
+
+**WebKit**: `page.goto` answered "WebKit encountered an internal error" — the
+browser under the load of a three-browser run, not WeKan. `openBoard` retries
+five times for exactly that, but a THROW from the navigation escaped the loop, so
+one flaky goto failed a test with four attempts left. The navigation is inside
+the try now, and the final message says which of the two happened: a board that
+never rendered, or a navigation that never succeeded.
+
+**Database conformance**: PostgreSQL and MySQL were reported as "container did
+not start" when the log said `failed to bind host port 127.0.0.1:35432: address
+already in use` — a container left behind by an interrupted earlier run, not a
+broken image. The script removes containers named `wekan-conformance-db-*` (its
+own; a `docker compose` stack is named differently and is never touched) before
+it starts, and a `docker run` that hits a taken port moves to the next free one
+and retries.
+
+The guards: a template lookup that knew only one of the two quote styles the file
+uses; a changelog summary one character over the limit, and two summaries linking
+the FerretDB commit they describe, which the guard now accepts because that fork
+is where the code lives; a redirect asserted as `FlowRouter.go` when a
+`triggersEnter` redirect is FlowRouter's own way to do it; and "every rule
+mentioning the bell or the avatar", which is three rules, not the two that place
+them.
+
+</details>
+
 # v10.45 2026-07-28 WeKan ® release
 
 This release fixes the following bugs:
@@ -381,26 +440,6 @@ mail goes out with the sender's own machine in it — unusable for everyone who
 receives it, with nothing failing and no error to look at. WeKan says so once at
 startup now, naming the setting and what to set it to. A warning, not a refusal:
 a single-machine install where localhost IS the address is perfectly valid.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/c1bb2a6a5">…and that fix was deleted by the bundler, because the package says it may be</a>. Thanks to zubzhaaaw and xet7.</summary>
-
-10.45 still failed with the same message, and the fix below was in that build.
-
-`@swc/helpers` declares `"sideEffects": false` — a promise to the bundler that
-importing one of its modules changes nothing observable, so an import whose
-bindings are never READ may be removed entirely. `import
-'@swc/helpers/_/_possible_constructor_return';` is exactly that: every line of
-the new file was dropped, the package subdirectory was never pulled into the
-bundle, and the legacy module tree came out as before. The fix compiled to
-nothing and looked like it had been applied.
-
-Every helper is imported BY NAME and read now — collected into an array whose
-length is written to `window.__wekanSwcHelpers`. That is an observable effect,
-so no optimizer may remove the imports that feed it, and the global says in one
-word whether the helpers reached the bundle at all if this ever happens again.
 
 </details>
 
