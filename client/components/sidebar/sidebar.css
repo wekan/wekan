@@ -59,6 +59,26 @@
   flex-direction: column;
 }
 
+/* A checkbox row in the sidebar is `a.flex > i.fa + span`, and `.flex` is only
+   `display: flex` - no alignment and no gap. So the box glyph touched the first
+   letter of its label, and the two sat on different lines: the glyph is a font
+   character with its own line box, the label is text with another, and nothing
+   lined them up. Reported as "checkboxes and text don't fit well" (#6465).
+   `align-items: center` puts the box on the label's middle, and the gap is the
+   same 6px the material checkbox gives itself. */
+.sidebar a.flex {
+  align-items: center;
+}
+
+.sidebar a.flex > i.fa {
+  margin-inline-end: 6px;
+  /* The glyph is 13-14px of text; a fixed width keeps every row's label starting
+     at the SAME x, whether its box is a square, a tick or a wider icon. */
+  min-width: 14px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
 /* Use checklist-style green checkboxes for all sidebar checkboxes */
 .sidebar .materialCheckBox.is-checked,
 .boardCardSettingsPopup .materialCheckBox.is-checked,

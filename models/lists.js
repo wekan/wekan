@@ -426,7 +426,22 @@ Lists.helpers({
   },
 
   getWipLimit(option) {
-    const list = ReactiveCache.getList(this._id);
+    // On the SERVER, ReactiveCache.getList() is async - it returns a PROMISE, and
+    // a promise has no `wipLimit`. So this helper read `undefined` and answered 0
+    // for every option, which is what broke the WIP limit popup (#6465):
+    //
+    //   * `enableWipLimit` asked for the value, always got 0, and so reset the
+    //     limit to 1 on EVERY click - "the counter always falls back to 1";
+    //   * it then toggled `!enabled`, and `enabled` was always 0, so every click
+    //     turned the limit ON - "the checkbox can not be unchecked".
+    //
+    // The document is `this`, so the server needs no lookup at all; a toggle also
+    // WANTS the state as it was when the click happened, not after its own write.
+    // On the client the lookup stays: it makes the popup's helpers reactive, so
+    // the tick and the number follow the change (the popup's data context is the
+    // list document captured when it opened, which does not update by itself).
+    const list = Meteor.isServer ? this : (ReactiveCache.getList(this._id) || this);
+
     if (!list || !list.wipLimit) {
       // Necessary check to avoid exceptions for the case where the doc doesn't have the wipLimit field yet set
       return 0;

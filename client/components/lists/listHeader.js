@@ -366,6 +366,16 @@ Template.setWipLimitPopup.events({
       10,
     );
 
+    // An empty or non-numeric field parses to NaN, and NaN passes `check(limit,
+    // Number)` on the server - it is a number - so it reached the document and
+    // the schema rejected the write with no visible reason. The field is the
+    // popup's own `min="1" max="99"`, so anything outside that is the same
+    // mistake as a limit below the card count: say so, do not write it.
+    if (!Number.isFinite(limit) || limit < 1 || limit > 99) {
+      tpl.$('.wip-limit-error').click();
+      return;
+    }
+
     if (limit < list.cards().length && !list.getWipLimit('soft')) {
       tpl.$('.wip-limit-error').click();
     } else {

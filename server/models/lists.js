@@ -438,9 +438,13 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'You must be a board admin to modify WIP limits.');
     }
 
-    if (limit === 0) {
+    // The client sends what the user typed. A NaN passes `check(limit, Number)` -
+    // it IS a number - and would reach the document, where the schema refuses it
+    // with nothing to show the user; 0 and negatives are meaningless as a limit.
+    if (!Number.isFinite(limit) || limit < 1) {
       limit = 1;
     }
+
     await list.setWipLimit(limit);
   },
 

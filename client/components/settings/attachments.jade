@@ -88,9 +88,9 @@ template(name="attachments")
               li
                 .title {{_ 'avatars-upload-blocked-label'}}
                 .form-group
-                  label
-                    input.js-avatars-upload-blocked(type="checkbox" checked=avatarsUploadBlocked)
-                    |  {{_ 'avatars-upload-blocked-description'}}
+                  a.flex.js-toggle-checkbox
+                    .materialCheckBox.js-avatars-upload-blocked(class="{{#if avatarsUploadBlocked}}is-checked{{/if}}")
+                    span {{_ 'avatars-upload-blocked-description'}}
 
               li
                 button.js-save-attachment-transfer-limits.primary {{_ 'save'}}
@@ -99,8 +99,9 @@ template(name="attachments")
               li
                 .storage-rw-row
                   .storage-rw-item
-                    input.js-toggle-filesystem-read#filesystem-read(type="checkbox" checked="{{filesystemRead}}")
-                    label(for="filesystem-read") {{_ 'storage-read'}}
+                    a.flex.js-toggle-filesystem-read
+                      .materialCheckBox#filesystem-read(class="{{#if filesystemRead}}is-checked{{/if}}")
+                      span {{_ 'storage-read'}}
 
                 .form-group
                   button.js-calculate-filesystem-stats.btn.btn-primary(type="button") {{_ 'calculate-file-counts'}}
@@ -141,8 +142,9 @@ template(name="attachments")
                 .description {{_ 'gridfs-move-collectionfs-note'}}
                 .storage-rw-row
                   .storage-rw-item
-                    input.js-toggle-gridfs-read#gridfs-read(type="checkbox" checked="{{gridfsRead}}")
-                    label(for="gridfs-read") {{_ 'storage-read'}}
+                    a.flex.js-toggle-gridfs-read
+                      .materialCheckBox#gridfs-read(class="{{#if gridfsRead}}is-checked{{/if}}")
+                      span {{_ 'storage-read'}}
                 .form-group
                   button.js-calculate-gridfs-stats.btn.btn-primary(type="button") {{_ 'calculate-file-counts'}}
                   if gridFsStatsLoading
@@ -187,11 +189,13 @@ template(name="attachments")
                 .description {{_ 's3-minio-storage-description'}}
                 .storage-rw-row
                   .storage-rw-item
-                    input#s3-enabled(type="checkbox" checked=cloudEnabled.s3)
-                    label(for="s3-enabled") {{_ 'storage-enabled'}}
+                    a.flex.js-toggle-checkbox
+                      .materialCheckBox#s3-enabled(class="{{#if cloudEnabled.s3}}is-checked{{/if}}")
+                      span {{_ 'storage-enabled'}}
                   .storage-rw-item
-                    input#s3-read(type="checkbox" checked=cloudRead.s3)
-                    label(for="s3-read") {{_ 'storage-read'}}
+                    a.flex.js-toggle-checkbox
+                      .materialCheckBox#s3-read(class="{{#if cloudRead.s3}}is-checked{{/if}}")
+                      span {{_ 'storage-read'}}
 
                 .form-group
                   button.js-save-cloud-settings.btn.btn-primary(data-provider="s3") {{_ 'save'}}
@@ -261,8 +265,9 @@ template(name="attachments")
                   small.form-text.cloud-input-path {{_ 's3-secret-key-menu-path'}}
                 .form-group
                   .storage-rw-item
-                    input#s3-force-path-style(type="checkbox" checked=cloudValue.s3.forcePathStyle)
-                    label(for="s3-force-path-style") {{_ 's3-force-path-style'}}
+                    a.flex.js-toggle-checkbox
+                      .materialCheckBox#s3-force-path-style(class="{{#if cloudValue.s3.forcePathStyle}}is-checked{{/if}}")
+                      span {{_ 's3-force-path-style'}}
                   small.form-text.text-muted {{_ 's3-force-path-style-description'}}
 
                 .form-group
@@ -278,11 +283,13 @@ template(name="attachments")
               li
                 .storage-rw-row
                   .storage-rw-item
-                    input#azure-enabled(type="checkbox" checked=cloudEnabled.azure)
-                    label(for="azure-enabled") {{_ 'storage-enabled'}}
+                    a.flex.js-toggle-checkbox
+                      .materialCheckBox#azure-enabled(class="{{#if cloudEnabled.azure}}is-checked{{/if}}")
+                      span {{_ 'storage-enabled'}}
                   .storage-rw-item
-                    input#azure-read(type="checkbox" checked=cloudRead.azure)
-                    label(for="azure-read") {{_ 'storage-read'}}
+                    a.flex.js-toggle-checkbox
+                      .materialCheckBox#azure-read(class="{{#if cloudRead.azure}}is-checked{{/if}}")
+                      span {{_ 'storage-read'}}
 
                 .form-group
                   button.js-save-cloud-settings.btn.btn-primary(data-provider="azure") {{_ 'save'}}
@@ -357,11 +364,13 @@ template(name="attachments")
                 .description {{_ 'gcs-permissions-note'}}
                 .storage-rw-row
                   .storage-rw-item
-                    input#gcs-enabled(type="checkbox" checked=cloudEnabled.gcs)
-                    label(for="gcs-enabled") {{_ 'storage-enabled'}}
+                    a.flex.js-toggle-checkbox
+                      .materialCheckBox#gcs-enabled(class="{{#if cloudEnabled.gcs}}is-checked{{/if}}")
+                      span {{_ 'storage-enabled'}}
                   .storage-rw-item
-                    input#gcs-read(type="checkbox" checked=cloudRead.gcs)
-                    label(for="gcs-read") {{_ 'storage-read'}}
+                    a.flex.js-toggle-checkbox
+                      .materialCheckBox#gcs-read(class="{{#if cloudRead.gcs}}is-checked{{/if}}")
+                      span {{_ 'storage-read'}}
 
                 .form-group
                   button.js-save-cloud-settings.btn.btn-primary(data-provider="gcs") {{_ 'save'}}
@@ -472,15 +481,15 @@ template(name="attachments")
                 //- checkbox - the square when off, the green tick when on, animated
                 //- between - like Announcement's "Active System-Wide Announcement".
                 .form-group.checkbox-row
-                  label
-                    input.js-backup-attachments(type="checkbox" checked="checked")
-                    |  {{_ 'attachments'}}
-                  label
-                    input.js-backup-avatars(type="checkbox" checked="checked")
-                    |  {{_ 'avatars'}}
-                  label
-                    input.js-backup-data(type="checkbox" checked="checked")
-                    |  {{_ 'backup-data'}}
+                  a.flex.js-toggle-checkbox
+                    .materialCheckBox.js-backup-attachments.is-checked
+                    span {{_ 'attachments'}}
+                  a.flex.js-toggle-checkbox
+                    .materialCheckBox.js-backup-avatars.is-checked
+                    span {{_ 'avatars'}}
+                  a.flex.js-toggle-checkbox
+                    .materialCheckBox.js-backup-data.is-checked
+                    span {{_ 'backup-data'}}
                 .form-group
                   label {{_ 'backup-storage'}}
                   select.wekan-form-control.js-backup-storage

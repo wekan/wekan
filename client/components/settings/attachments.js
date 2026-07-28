@@ -46,8 +46,14 @@ function gatherCloudConfig(tpl, provider) {
   Object.keys(ids).forEach(field => {
     const el = tpl.$(ids[field]);
     if (!el || !el.length) return;
-    if (el.attr('type') === 'checkbox') {
-      cfg[field] = el.prop('checked');
+    // WeKan's checkbox is a `.materialCheckBox` div carrying `is-checked`, not a
+    // native input: the Admin Panel's native ones rendered as a grey rotated
+    // rectangle instead of the green tick, because styling a native checkbox into
+    // a tick depends on the browser honouring `appearance: none` on it, and one
+    // pane's `checked="{{value}}"` was a STRING - `checked="false"` is checked in
+    // HTML, so those boxes could not be unchecked at all (#6465).
+    if (el.hasClass('materialCheckBox')) {
+      cfg[field] = el.hasClass('is-checked');
     } else {
       // Trim so stray whitespace/newlines from copy-paste (e.g. an account name
       // or endpoint) do not produce an invalid URL in the storage adapter.
@@ -198,7 +204,8 @@ function updateStorageConfigField(tpl, storageName, field, value, checkboxEl) {
   Meteor.call('updateAttachmentStorageSettings', nextSettings, (error) => {
     if (error) {
       alert(`${TAPi18n.__('attachment-transfer-limits-save-failed')}: ${error.reason || error.message}`);
-      if (checkboxEl) checkboxEl.checked = !value;
+      // Put the box back: the setting was not saved, so it must not look saved.
+      if (checkboxEl && checkboxEl.toggleClass) checkboxEl.toggleClass('is-checked');
       return;
     }
     refreshAttachmentStorageSettings(tpl);
@@ -945,9 +952,9 @@ Template.attachments.events({
   'click .js-run-backup'(event, tpl) {
     event.preventDefault();
     const opts = {
-      attachments: tpl.$('.js-backup-attachments').is(':checked'),
-      avatars: tpl.$('.js-backup-avatars').is(':checked'),
-      data: tpl.$('.js-backup-data').is(':checked'),
+      attachments: tpl.$('.js-backup-attachments').hasClass('is-checked'),
+      avatars: tpl.$('.js-backup-avatars').hasClass('is-checked'),
+      data: tpl.$('.js-backup-data').hasClass('is-checked'),
     };
     const storage = tpl.$('.js-backup-storage').val() || 'filesystem';
     // Multitenancy option D (D.8): '' is the whole instance; an org id backs up
@@ -983,9 +990,9 @@ Template.attachments.events({
       time: tpl.$('.js-backup-time').val() || '04:00',
       dayOfWeek: tpl.backupDayOfWeek.get() || 'Sunday',
       dayOfMonth: tpl.backupDayOfMonth.get() || 1,
-      attachments: tpl.$('.js-backup-attachments').is(':checked'),
-      avatars: tpl.$('.js-backup-avatars').is(':checked'),
-      data: tpl.$('.js-backup-data').is(':checked'),
+      attachments: tpl.$('.js-backup-attachments').hasClass('is-checked'),
+      avatars: tpl.$('.js-backup-avatars').hasClass('is-checked'),
+      data: tpl.$('.js-backup-data').hasClass('is-checked'),
       storage: tpl.$('.js-backup-storage').val() || 'filesystem',
     };
     Meteor.call('saveBackupSchedule', schedule, (error, saved) => {
@@ -1091,7 +1098,7 @@ Template.attachments.events({
 
     // Avatar uploads are a simple on/off block (no size mode). Default off so
     // avatars stay enabled unless an admin explicitly blocks them.
-    nextLimitSettings.avatarsUploadBlocked = tpl.$('.js-avatars-upload-blocked').is(':checked');
+    nextLimitSettings.avatarsUploadBlocked = tpl.$('.js-avatars-upload-blocked').hasClass('is-checked');
 
     const nextSettings = {
       ...currentSettings,
@@ -1115,11 +1122,25 @@ Template.attachments.events({
       refreshAttachmentStorageSettings(tpl);
     });
   },
-  'change input.js-toggle-filesystem-read'(event, tpl) {
-    updateStorageConfigField(tpl, 'filesystem', 'read', event.currentTarget.checked, event.currentTarget);
+  // The plain checkboxes: toggle the box the user clicked. Everything that reads
+  // one (Save, Backup now) asks for `is-checked`, so nothing else has to know.
+  'click a.js-toggle-checkbox'(event) {
+    event.preventDefault();
+    $(event.currentTarget).find('.materialCheckBox').toggleClass('is-checked');
   },
-  'change input.js-toggle-gridfs-read'(event, tpl) {
-    updateStorageConfigField(tpl, 'gridfs', 'read', event.currentTarget.checked, event.currentTarget);
+  // These two save the moment they are toggled, so they toggle first and then
+  // write - and the write puts the box back if the server refuses it.
+  'click a.js-toggle-filesystem-read'(event, tpl) {
+    event.preventDefault();
+    const box = tpl.$('#filesystem-read');
+    box.toggleClass('is-checked');
+    updateStorageConfigField(tpl, 'filesystem', 'read', box.hasClass('is-checked'), box);
+  },
+  'click a.js-toggle-gridfs-read'(event, tpl) {
+    event.preventDefault();
+    const box = tpl.$('#gridfs-read');
+    box.toggleClass('is-checked');
+    updateStorageConfigField(tpl, 'gridfs', 'read', box.hasClass('is-checked'), box);
   },
   'click button.js-save-default-storage'(event, tpl) {
     event.preventDefault();
