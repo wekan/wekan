@@ -509,8 +509,12 @@ async function buildSelector(queryParams, userId) {
                 $in: await Boards.userBoardIds(userId, archived, boardsSelector),
               },
             },
-            { swimlaneId: { $in: Swimlanes.userArchivedSwimlaneIds(userId) } },
-            { listId: { $in: Lists.userArchivedListIds(userId) } },
+            // AWAITED: these are async, and an un-awaited call puts a PROMISE where
+            // Mongo wants an array - "$in needs an array", the whole search failing
+            // with "Server Error" (#6537). The two `$nin` uses below were fixed;
+            // these two, on the archived/all branch, were not.
+            { swimlaneId: { $in: await Swimlanes.userArchivedSwimlaneIds(userId) } },
+            { listId: { $in: await Lists.userArchivedListIds(userId) } },
             { archived: true },
           ],
         });

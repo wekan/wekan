@@ -589,8 +589,12 @@ Swimlanes.userArchivedSwimlanes = async userId => {
   })
 };
 
-Swimlanes.userArchivedSwimlaneIds = async () => {
-  const swimlanes = await Swimlanes.userArchivedSwimlanes();
+// The userId is what makes this the USER's archived swimlanes: it was declared
+// with no parameter and called the finder with none either, so the finder asked
+// for the boards of `undefined` and the answer was always empty - the archived
+// half of a global search matched nothing (#6537).
+Swimlanes.userArchivedSwimlaneIds = async userId => {
+  const swimlanes = await Swimlanes.userArchivedSwimlanes(userId);
   return swimlanes.map(swim => { return swim._id; });
 };
 

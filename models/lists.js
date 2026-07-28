@@ -572,8 +572,10 @@ Lists.userArchivedLists = async userId => {
   })
 };
 
-Lists.userArchivedListIds = async () => {
-  const lists = await Lists.userArchivedLists();
+// See Swimlanes.userArchivedSwimlaneIds: the userId has to reach the finder, or
+// this answers with the archived lists of nobody (#6537).
+Lists.userArchivedListIds = async userId => {
+  const lists = await Lists.userArchivedLists(userId);
   return lists.map(list => { return list._id; });
 };
 

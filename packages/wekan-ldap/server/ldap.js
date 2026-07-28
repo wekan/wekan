@@ -439,10 +439,34 @@ export default class LDAP {
     }
 
     if (this.options.group_filter_group_member_attribute !== '') {
-      const format_value = ldapUser[this.options.group_filter_group_member_format];
-      if (format_value) {
-        filter.push(`(${this.options.group_filter_group_member_attribute}=${escapeLdapFilterValue(format_value)})`);
+      // The one clause that says WHICH USER's groups these are. When the entry has
+      // no value for the configured member format, this clause used to be left
+      // OUT and the search ran without it - `(&(objectclass=group))`, which
+      // answers with EVERY group in the tree. Every user then "belonged to" every
+      // group: with LDAP_SYNC_ADMIN_STATUS on, everyone who logged in became an
+      // administrator (#6540), and a login restricted by group let everyone in.
+      //
+      // A directory that does not return the configured attribute is a
+      // misconfiguration, so it is named in the log - and the answer is NO groups,
+      // never all of them. The usual cause is the member FORMAT: `dn` is the
+      // common one, and some servers spell the same value objectName or
+      // distinguishedName, so those are accepted as a fallback before giving up.
+      const format = this.options.group_filter_group_member_format;
+      const format_value = ldapUser[format] || ldapUser.dn || ldapUser.objectName ||
+        ldapUser.distinguishedName;
+
+      if (!format_value) {
+        Log.error(
+          `LDAP group search: the user entry has no "${format}" (LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT), ` +
+          'and no dn/objectName/distinguishedName to use instead, so the user cannot be identified ' +
+          'in a group. Answering with NO groups - fix the format setting, or the search would ' +
+          'return every group in the directory.',
+        );
+
+        return [];
       }
+
+      filter.push(`(${this.options.group_filter_group_member_attribute}=${escapeLdapFilterValue(format_value)})`);
     }
 
     filter.push(')');
@@ -465,7 +489,16 @@ export default class LDAP {
     const grp_identifier = this.options.group_filter_group_id_attribute || 'cn';
     const groups         = [];
     result.map((item) => {
-      groups.push(item[grp_identifier]);
+      // A group name attribute can be multi-valued (an array) or missing. Push the
+      // values, never an undefined: an undefined name compared equal to nothing
+      // useful and, with an empty configured admin list, compared equal to ''.
+      const value = item[grp_identifier];
+
+      if (Array.isArray(value)) {
+        value.forEach(name => { if (name) groups.push(name); });
+      } else if (value) {
+        groups.push(value);
+      }
     });
     Log.debug(`Groups: ${groups.join(', ')}`);
     return groups;

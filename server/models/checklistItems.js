@@ -134,12 +134,26 @@ WebApp.handlers.post(
     if (checklist) {
       const card = await ReactiveCache.getCard(paramCardId);
       if (card && card.boardId === paramBoardId) {
+        // Append, like the UI does. Every item created over REST used to be given
+        // `sort: 0`, so a checklist filled through the API came out in an order
+        // nobody chose - and every item after the first shared the first one's
+        // position. An explicit `sort` in the body still wins, for a caller that
+        // is rebuilding a checklist in a known order (#6544).
+        let sort = Number(req.body.sort);
+        if (!Number.isFinite(sort)) {
+          const last = await ReactiveCache.getChecklistItems(
+            { checklistId: paramChecklistId },
+            { sort: { sort: -1 }, limit: 1 },
+          );
+          sort = last && last.length && Number.isFinite(last[0].sort) ? last[0].sort + 1 : 0;
+        }
+
         const id = await ChecklistItems.insertAsync({
           cardId: paramCardId,
           checklistId: paramChecklistId,
           title: req.body.title,
           isFinished: false,
-          sort: 0,
+          sort,
         });
         sendJsonResult(res, {
           code: 200,

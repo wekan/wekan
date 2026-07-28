@@ -4,6 +4,7 @@ import limax from 'limax';
 import LDAP from './ldap';
 import { slugifyPreservingHyphens } from './usernameSlug';
 import { parseGroupAllowlist, filterGroupsByAllowlist } from './groupAllowlist';
+import { isAdminByGroups } from './adminGroups';
 import { runWithLdapDisconnect } from './connectionGuard';
 import { log_debug, log_info, log_warn, log_error } from './logger';
 import { getLdapPhotoBuffer } from './ldapPhoto';
@@ -535,10 +536,13 @@ async function sync() {
           // if they do not log in. Gated by the existing LDAP_SYNC_ADMIN_STATUS
           // flag (default off), so default behaviour is unchanged.
           if (LDAP.settings_get('LDAP_SYNC_ADMIN_STATUS') === true) {
-            const targetGroups = LDAP.settings_get('LDAP_SYNC_ADMIN_GROUPS').split(',');
             const ldapUsername = getLdapUsername(ldapUser);
-            const groups = (await ldap.getUserGroups(ldapUsername, ldapUser)).filter((value) => targetGroups.includes(value));
-            const isAdmin = groups.length > 0;
+            // The same rule as at login (#6540): trimmed, case-insensitive, and
+            // never true for an empty configured list.
+            const isAdmin = isAdminByGroups(
+              await ldap.getUserGroups(ldapUsername, ldapUser),
+              LDAP.settings_get('LDAP_SYNC_ADMIN_GROUPS'),
+            );
             await Meteor.users.updateAsync({ _id: user._id }, { $set: { isAdmin } });
           }
 

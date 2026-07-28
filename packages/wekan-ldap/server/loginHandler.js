@@ -2,6 +2,7 @@ import {slug, getLdapUsername, getLdapEmail, getLdapUserUniqueID, syncUserData, 
 import LDAP from './ldap';
 import { runWithLdapDisconnect } from './connectionGuard';
 import { log_debug, log_info, log_warn, log_error } from './logger';
+import { isAdminByGroups } from './adminGroups';
 
 // Org/team sync is optional enrichment; failed sync must not block login.
 async function syncUserGroupsToOrgsTeamsSafe(ldap, ldapUser, userId) {
@@ -199,10 +200,12 @@ Accounts.registerLoginHandler('ldap', async function(loginRequest) {
 
       if (LDAP.settings_get('LDAP_SYNC_ADMIN_STATUS') === true) {
         log_debug('Updating admin status');
-        const targetGroups = LDAP.settings_get('LDAP_SYNC_ADMIN_GROUPS').split(',');
-        const groups = (await ldap.getUserGroups(username, ldapUser)).filter((value) => targetGroups.includes(value));
-
-        user.isAdmin = groups.length > 0;
+        // #6540: trimmed, case-insensitive, and an empty configured list never
+        // grants admin. See server/adminGroups.js for what went wrong.
+        user.isAdmin = isAdminByGroups(
+          await ldap.getUserGroups(username, ldapUser),
+          LDAP.settings_get('LDAP_SYNC_ADMIN_GROUPS'),
+        );
         await Meteor.users.updateAsync({_id: user._id}, {$set: {isAdmin: user.isAdmin}});
       }
 
@@ -253,10 +256,10 @@ Accounts.registerLoginHandler('ldap', async function(loginRequest) {
 
     if (LDAP.settings_get('LDAP_SYNC_ADMIN_STATUS') === true) {
       log_debug('Updating admin status');
-      const targetGroups = LDAP.settings_get('LDAP_SYNC_ADMIN_GROUPS').split(',');
-      const groups = (await ldap.getUserGroups(username, ldapUser)).filter((value) => targetGroups.includes(value));
-
-      result.isAdmin = groups.length > 0;
+      result.isAdmin = isAdminByGroups(
+        await ldap.getUserGroups(username, ldapUser),
+        LDAP.settings_get('LDAP_SYNC_ADMIN_GROUPS'),
+      );
       await Meteor.users.updateAsync({_id: result.userId}, {$set: {isAdmin: result.isAdmin}});
     }
 
