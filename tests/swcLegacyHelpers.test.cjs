@@ -43,22 +43,62 @@ function test(name, fn) {
   }
 }
 
-const imported = [...helpersFile.matchAll(/import '@swc\/helpers\/_\/(\w+)';/g)]
-  .map(m => m[1]);
+// The bindings, not bare imports. `@swc/helpers` declares `"sideEffects": false`,
+// so a bundler may DELETE `import '@swc/helpers/_/_x';` outright - which is what
+// happened: the first fix compiled to nothing and 10.45 failed exactly as before
+// (#6556). Each helper has to be bound and read.
+const imported = [...helpersFile.matchAll(
+  /import \{ _ as (\w+) \} from '@swc\/helpers\/_\/(\w+)';/g)];
+const boundNames = imported.map(m => m[1]);
+const helperPaths = imported.map(m => m[2]);
 
 console.log('swcLegacyHelpers:');
 
 test('the helper the report names is imported', () => {
-  assert.ok(imported.includes('_possible_constructor_return'),
-    'the missing one from wekan/wekan-snap#178');
+  assert.ok(helperPaths.includes('_possible_constructor_return'),
+    'the missing one from the reports');
   // Its neighbours in the ES5 class transform: if one of these is dropped, the
   // same failure comes back with a different name in the message.
   for (const helper of ['_class_call_check', '_create_class', '_inherits',
     '_call_super', '_get_prototype_of', '_assert_this_initialized']) {
-    assert.ok(imported.includes(helper), `${helper} is part of the same transform`);
+    assert.ok(helperPaths.includes(helper), `${helper} is part of the same transform`);
   }
-  assert.ok(imported.length >= 30,
-    `expected the ES5 class/iteration/async set, found ${imported.length}`);
+  assert.ok(helperPaths.length >= 30,
+    `expected the ES5 class/iteration/async set, found ${helperPaths.length}`);
+});
+
+test('every import is USED, or the bundler is allowed to delete it', () => {
+  // This is the whole reason #6556 exists: side-effect-only imports of a package
+  // that declares `sideEffects: false` are removable, and were removed.
+  // On the CODE: the comment at the top of that file QUOTES the old bare form to
+  // explain why it does not work, and a guard that reads comments as code fails
+  // on its own explanation.
+  const code = helpersFile
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .replace(/^\s*\/\/.*$/gm, '');
+  assert.ok(!/import '@swc\/helpers/.test(code),
+    'no bare side-effect import may come back');
+
+  const at = helpersFile.indexOf('const SWC_RUNTIME_HELPERS = [');
+  assert.notStrictEqual(at, -1, 'the bindings are collected somewhere readable');
+  const list = helpersFile.slice(at, helpersFile.indexOf('];', at));
+
+  const unused = boundNames.filter(name => !new RegExp(`\\b${name}\\b`).test(list));
+  assert.deepStrictEqual(unused, [], 'these bindings are imported and never read');
+
+  // …and the list itself has to end somewhere observable, or reading it is dead
+  // code too.
+  assert.ok(/window\.__wekanSwcHelpers = /.test(helpersFile),
+    'the collected helpers are written somewhere the optimizer must keep');
+
+  // The package's own declaration is what makes this necessary - if it ever stops
+  // saying that, this test should be revisited rather than silently kept.
+  const pkgPath = path.join(ROOT, 'node_modules/@swc/helpers/package.json');
+  if (fs.existsSync(pkgPath)) {
+    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+    assert.strictEqual(pkg.sideEffects, false,
+      '@swc/helpers still declares sideEffects: false, which is why the bindings must be used');
+  }
 });
 
 test('every helper it names actually exists in @swc/helpers', () => {
@@ -69,7 +109,7 @@ test('every helper it names actually exists in @swc/helpers', () => {
     return;
   }
 
-  const missing = imported.filter(h => !fs.existsSync(path.join(pkg, h, 'package.json')));
+  const missing = helperPaths.filter(h => !fs.existsSync(path.join(pkg, h, 'package.json')));
   assert.deepStrictEqual(missing, [], 'these helper subpaths do not exist');
 });
 
