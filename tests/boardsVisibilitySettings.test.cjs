@@ -36,7 +36,13 @@ const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
 
 // The two panes, isolated so "which pane is it in" is actually being asserted.
 function template(name) {
-  const start = jade.indexOf(`template(name='${name}')`);
+  // Either quote style: the file has both `template(name='x')` and
+  // `template(name="x")`, and looking for only one of them said a template that
+  // is right there "must exist".
+  const start = Math.max(
+    jade.indexOf(`template(name='${name}')`),
+    jade.indexOf(`template(name="${name}")`),
+  );
   assert.ok(start >= 0, `template ${name} must exist`);
   const after = jade.indexOf('\ntemplate(name=', start + 1);
   return jade.slice(start, after === -1 ? undefined : after);

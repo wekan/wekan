@@ -530,7 +530,13 @@ test('Translation is a Settings pane, not a page of its own', () => {
   // The URL still resolves, redirecting rather than rendering a dead template.
   const router = read('config/router.js');
   assert.ok(!/content: 'translation'/.test(router), 'it must not render the old template');
-  assert.ok(/FlowRouter\.go\('setting'\)/.test(router), 'a bookmark must land in Settings');
+  // `redirect(FlowRouter.path('setting'))` inside triggersEnter, which is
+  // FlowRouter's own way to send a route somewhere else; a `FlowRouter.go` in a
+  // trigger re-enters the router instead of replacing the navigation.
+  assert.ok(/redirect\(FlowRouter\.path\('setting'\)\)/.test(router),
+    'a bookmark must land in Settings');
+  assert.ok(/Session\.set\('settingsOpenPane', 'translation-setting'\)/.test(router),
+    'and on the pane the old URL meant');
 });
 
 // ── the pane title: every Admin Panel pane has one, and they are identical ──

@@ -470,7 +470,7 @@ the 30-second busy handler does cover — and a contended writer waits its turn.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c5d13889b">The WIP limit could not be switched off, the Attachments checkboxes were not ticks, and the sidebar rows did not line up</a>. Thanks to Alishara and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c5d13889b">The WIP limit would not switch off, the Attachments checkboxes were not ticks, the sidebar rows did not line up</a>. Thanks to Alishara and xet7.</summary>
 
 Three UI bugs from one report.
 
@@ -620,7 +620,7 @@ which is what `docker-compose-ferretdb-v1-mysql.yml` and
 </details>
 
 <details>
-<summary>The conformance run found five FerretDB gaps and two that stopped MySQL and MariaDB dead. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/FerretDB/commit/ac8c59cf">The conformance run found five FerretDB gaps and two that stopped MySQL and MariaDB dead</a>. Thanks to xet7.</summary>
 
 The new "All databases (sequential)" test — one query catalogue, every backend
 that has an image for this CPU — was run for the first time, and it earned its

@@ -82,6 +82,19 @@ test('the flag is armed and reloaded BEFORE the login, on the sign-in page', () 
 test('openBoard is what the fixture times out in, so it must still retry and report', () => {
   assert.ok(/did not render any lists/.test(auth),
     'openBoard must fail with a message naming the board, not a bare timeout');
+
+  // A FAILED NAVIGATION is retried too, not only a board that did not render:
+  // WebKit answers "WebKit encountered an internal error" now and then under the
+  // load of a three-browser run, and a throw from page.goto used to escape the
+  // retry loop that exists for exactly that - one flaky navigation failed a test
+  // with four attempts left.
+  const at = auth.indexOf('async function openBoard');
+  const fn = auth.slice(at, auth.indexOf('\n}', at));
+  assert.ok(/try \{[\s\S]*?await page\.goto\([\s\S]*?\} catch \(error\) \{/.test(fn),
+    'the navigation is attempted inside the loop, not around it');
+  assert.ok(/continue;/.test(fn), 'and a failed one moves to the next attempt');
+  assert.ok(/last navigation error/.test(fn),
+    'so the two failure modes can be told apart afterwards');
 });
 
 console.log(`\n${passed} tests passed`);

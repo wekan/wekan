@@ -219,8 +219,21 @@ async function waitForMeteor(page) {
 async function openBoard(page, boardId, slug) {
   // Up to 5 attempts so the slowest browser (WebKit) survives the contention
   // of the 3-browser parallel run against a single shared dev server.
+  let lastError = null;
+
   for (let attempt = 1; attempt <= 5; attempt++) {
-    await page.goto(`${BASE_URL}/b/${boardId}/${slug}`, { waitUntil: 'commit' });
+    // The navigation itself can fail, not just the rendering: WebKit answers
+    // "WebKit encountered an internal error" now and then under the load of a
+    // three-browser run, and a throw here escaped the retry loop that exists for
+    // exactly this - one flaky navigation failed a test with four attempts left.
+    try {
+      await page.goto(`${BASE_URL}/b/${boardId}/${slug}`, { waitUntil: 'commit' });
+    } catch (error) {
+      lastError = error;
+      await page.waitForTimeout(1_000);
+      continue;
+    }
+
     const hasList = await page
       .locator('.js-list:not(.js-list-composer)')
       .first()
@@ -230,6 +243,15 @@ async function openBoard(page, boardId, slug) {
     if (hasList) return;
     await page.waitForTimeout(1_000);
   }
+
+  // Say which of the two it was: a board that never rendered, or a navigation
+  // that never succeeded.
+  if (lastError) {
+    throw new Error(
+      `Board ${boardId} could not be opened after 5 attempts; last navigation error: ${lastError.message}`,
+    );
+  }
+
   throw new Error(`Board ${boardId} did not render any lists`);
 }
 

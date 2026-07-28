@@ -188,6 +188,20 @@ free_port() {
 
 FERRET_PORT="$(free_port "${WEKAN_CONFORMANCE_PORT:-37017}")"
 DB_HOST_PORT_BASE="${WEKAN_CONFORMANCE_DB_PORT:-35432}"
+
+# A run that was interrupted (Ctrl-C, a killed terminal, a machine that went to
+# sleep) leaves its database container behind, still holding the published port -
+# and the next run then reported "container did not start" for every database that
+# needed one, which reads as a broken image and is not. These containers are this
+# script's own, named wekan-conformance-db-<run timestamp>, so removing them is
+# safe: a `docker compose up` stack is named wekan-postgres / wekan-ferretdb and is
+# never touched.
+stale="$(docker ps -aq --filter 'name=^wekan-conformance-db-' 2>/dev/null || true)"
+if [ -n "$stale" ]; then
+  echo "Removing containers left behind by an earlier run: $(echo "$stale" | tr '\n' ' ')"
+  # shellcheck disable=SC2086
+  docker rm -f $stale >/dev/null 2>&1 || true
+fi
 # One container name per run, so a stack somebody started with `docker compose up`
 # - which names its containers wekan-postgres, wekan-ferretdb ... - is never
 # stopped or reused by this.
@@ -252,6 +266,32 @@ for entry in "${BACKENDS[@]}"; do
   echo
   echo "---- $name: starting the database ----"
   docker rm -f "$CONTAINER" >/dev/null 2>&1
+
+  # Start the container, and when the published port turns out to be taken after
+  # all, move to the next free one and try again. `free_port` looks a moment
+  # BEFORE `docker run`, and in that moment the previous database's container may
+  # still be releasing the port it had - which is exactly what made a run report
+  # "container did not start" for two databases whose images were fine.
+  start_db_container() {
+    local attempt
+    for attempt in 1 2 3 4 5; do
+      if docker run -d --name "$CONTAINER" -p "127.0.0.1:$hostport:$port" "$@" >>"$log" 2>&1; then
+        return 0
+      fi
+
+      if ! grep -q 'address already in use' "$log"; then
+        return 1                      # a real failure: report it as one
+      fi
+
+      docker rm -f "$CONTAINER" >/dev/null 2>&1
+      hostport=$((hostport + 1))
+      hostport="$(free_port "$hostport")"
+      echo "  port was taken; retrying on 127.0.0.1:$hostport" | tee -a "$log"
+      sleep 1
+    done
+
+    return 1
+  }
   # The container's own port is fixed (5432, 3306, 39017); what it is published as
   # on THIS machine is not, so a PostgreSQL you already run keeps its 5432.
   hostport="$(free_port "$DB_HOST_PORT_BASE")"
@@ -262,23 +302,26 @@ for entry in "${BACKENDS[@]}"; do
       url="file:$data/"
       ;;
     postgresql)
-      docker run -d --name "$CONTAINER" -p "127.0.0.1:$hostport:$port" \
+      start_db_container \
         -e POSTGRES_USER=ferretdb -e POSTGRES_PASSWORD=ferretdb_secret \
-        -e POSTGRES_DB=ferretdb "$image" >>"$log" 2>&1 || { echo "ERROR $name  container did not start" >> "$SUMMARY"; continue; }
+        -e POSTGRES_DB=ferretdb "$image" \
+        || { echo "ERROR $name  container did not start" >> "$SUMMARY"; continue; }
       url="postgres://ferretdb:ferretdb_secret@127.0.0.1:$hostport/ferretdb"
       ;;
     mysql)
-      docker run -d --name "$CONTAINER" -p "127.0.0.1:$hostport:$port" \
+      start_db_container \
         -e MYSQL_DATABASE=ferretdb -e MYSQL_USER=ferretdb -e MYSQL_PASSWORD=ferretdb_secret \
-        -e MYSQL_ROOT_PASSWORD=ferretdb_root_secret "$image" >>"$log" 2>&1 || { echo "ERROR $name  container did not start" >> "$SUMMARY"; continue; }
+        -e MYSQL_ROOT_PASSWORD=ferretdb_root_secret "$image" \
+        || { echo "ERROR $name  container did not start" >> "$SUMMARY"; continue; }
       # root, for the same reason as the compose file: FerretDB CREATES a SQL
       # database per MongoDB database, which a per-database grant cannot allow.
       url="mysql://root:ferretdb_root_secret@127.0.0.1:$hostport/ferretdb"
       ;;
     mariadb)
-      docker run -d --name "$CONTAINER" -p "127.0.0.1:$hostport:$port" \
+      start_db_container \
         -e MARIADB_DATABASE=ferretdb -e MARIADB_USER=ferretdb -e MARIADB_PASSWORD=ferretdb_secret \
-        -e MARIADB_ROOT_PASSWORD=ferretdb_root_secret "$image" >>"$log" 2>&1 || { echo "ERROR $name  container did not start" >> "$SUMMARY"; continue; }
+        -e MARIADB_ROOT_PASSWORD=ferretdb_root_secret "$image" \
+        || { echo "ERROR $name  container did not start" >> "$SUMMARY"; continue; }
       # root, for the same reason as the compose file: FerretDB CREATES a SQL
       # database per MongoDB database, which a per-database grant cannot allow.
       url="mysql://root:ferretdb_root_secret@127.0.0.1:$hostport/ferretdb"
@@ -288,10 +331,10 @@ for entry in "${BACKENDS[@]}"; do
       [ -f "$WEKAN_DIR/hana-config/password.json" ] || \
         printf '{"master_password":"HXEHana1"}' > "$WEKAN_DIR/hana-config/password.json"
       chmod 600 "$WEKAN_DIR/hana-config/password.json"
-      docker run -d --name "$CONTAINER" -p "127.0.0.1:$hostport:$port" \
+      start_db_container \
         --ulimit nofile=1048576:1048576 \
         -v "$WEKAN_DIR/hana-config:/hana/password:ro" "$image" \
-        --passwords-url file:///hana/password/password.json --agree-to-sap-license >>"$log" 2>&1 \
+        --passwords-url file:///hana/password/password.json --agree-to-sap-license \
         || { echo "ERROR $name  container did not start" >> "$SUMMARY"; continue; }
       url="hdb://SYSTEM:HXEHana1@127.0.0.1:$hostport?databaseName=HXE"
       ;;

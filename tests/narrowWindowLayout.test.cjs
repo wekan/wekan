@@ -239,8 +239,15 @@ test('the board layout follows the MODE, not the window width', () => {
 
 test('the bell and the avatar are centred in the row', () => {
   const block = headerCss.slice(headerCss.indexOf('The quick-access bar must FIT the phone'));
-  const rules = [...block.matchAll(/#header-quick-access #(?:notifications|header-user-bar),([\s\S]*?)\{([\s\S]*?)\}/g)];
+  // The two PLACEMENT rules - one for the bell, one for the avatar. Each names its
+  // `.iphone-device` / `.wrapper ~` variants, and the avatar has a second rule
+  // further down that only zeroes its padding, so "every rule mentioning the id"
+  // is three, not two. Pick the ones that place the item, by what they declare.
+  const rules = [...block.matchAll(/#header-quick-access #(notifications|header-user-bar),[^{]*\{([^}]*)\}/g)]
+    .filter(([, , body]) => /margin-block: 0 !important;/.test(body));
   assert.strictEqual(rules.length, 2, 'both must be placed here');
+  assert.deepStrictEqual(rules.map(([, id]) => id).sort(),
+    ['header-user-bar', 'notifications'], 'one for the bell, one for the avatar');
   for (const [, , body] of rules) {
     assert.ok(/margin-block: 0 !important;/.test(body),
       'a bottom margin in a centred row lifts the item by half of it - which is '
