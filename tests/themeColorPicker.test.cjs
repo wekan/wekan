@@ -51,12 +51,16 @@ test('picker applies IMMEDIATELY on click (no Save button), per scope', () => {
   assert.ok(/isHexColor\(val\)/.test(js), 'wheel input validated as hex');
 });
 
-test('category titles are left-aligned and clear the floated swatches', () => {
+test('category titles sit at the start edge and clear the floated swatches', () => {
   const css = read('client/components/main/customTheme.css');
   const i = css.indexOf('.theme-color-picker .theme-category-label');
   assert.ok(i !== -1, 'label rule exists');
   const blk = css.slice(i, css.indexOf('}', i));
-  assert.ok(/text-align:\s*left/.test(blk), 'titles at the left');
+  // `start`, not `left`: the titles belong at the edge the language starts from,
+  // which is the right one in Arabic or Hebrew. Every physical left/right in the
+  // component stylesheets is a bug tests/rtl.test.js fails on.
+  assert.ok(/text-align:\s*start/.test(blk), 'titles at the start edge');
+  assert.ok(!/text-align:\s*(left|right)/.test(blk), 'and not pinned to a physical side');
   assert.ok(/clear:\s*both/.test(blk), 'clear floats so Clear/Dark/Special drop to their own line');
 });
 

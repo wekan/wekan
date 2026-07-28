@@ -479,7 +479,11 @@ test('a heading names a group and cannot be clicked or selected', () => {
   const block = /else if heading\n([\s\S]*?)\n        else\n/.exec(jade);
   assert.ok(block, 'the template must have a heading branch');
   assert.ok(/li\.left-menu-heading/.test(block[1]), 'as its own row class');
-  assert.ok(!/a\./.test(block[1]) && !/data-id/.test(block[1]),
+  // The MARKUP, without the jade comments: the comment above this branch explains
+  // that a heading has "nothing for the page's click handler to read a data-id
+  // from", and a guard that reads comments as markup fails on its own reason.
+  const markup = block[1].replace(/^\s*\/\/-.*$/gm, '');
+  assert.ok(!/(^|\s)a[.(]/.test(markup) && !/data-id/.test(markup),
     'a heading must not render an anchor or a data-id');
   // ...and it does not light up under the pointer like a row you can open.
   assert.ok(/li\.left-menu-heading:hover \{[^}]*background:\s*transparent/.test(css)

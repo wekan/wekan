@@ -212,7 +212,7 @@ test('the All Boards labels are short, under a title that says "Hide"', () => {
     'which is why that key had to keep its sentence');
 });
 
-test('Visibility is four named groups, in order, and nothing was dropped', () => {
+test('Visibility is named groups, in order, and nothing was dropped', () => {
   // A long flat list of settings with no grouping is the complaint this answers.
   // The settings themselves are untouched - so is every id, which is what the one
   // Save button at the bottom reads.
@@ -220,9 +220,13 @@ test('Visibility is four named groups, in order, and nothing was dropped', () =>
     jade.indexOf("template(name='announcementSettings')"));
   const groups = [...pane.matchAll(/h2\.admin-pane-group-title \{\{_ '([\w-]+)'\}\}/g)]
     .map(m => m[1]);
+  // The site-theme picker is a group of its own now - the same picker as the
+  // per-user "Change color", one layer below it - and it sits between the product
+  // name and the logo.
   assert.deepStrictEqual(groups,
-    ['all-boards-hide', 'settings-group-url', 'custom-product-name', 'settings-group-logo'],
-    'four groups, top to bottom');
+    ['all-boards-hide', 'settings-group-url', 'custom-product-name', 'change-color',
+      'settings-group-logo'],
+    'the groups, top to bottom');
   // Product name holds ONE field, so its group title IS that field's label - with
   // the label's existing translation, at the group title's size. Printing both said
   // "Product name" twice.

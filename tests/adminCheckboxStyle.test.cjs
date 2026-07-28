@@ -127,12 +127,6 @@ test('the panes that use a native checkbox are the ones this is for', () => {
   // If these ever move to the .materialCheckBox markup the rule can go; until then
   // this is what it covers, and it names them so the reason is not lost.
   const panes = {
-    'client/components/settings/attachments.jade': ['js-toggle-gridfs-read',
-      'js-toggle-filesystem-read', 'js-backup-attachments', 'js-backup-avatars',
-      'js-backup-data', 'js-avatars-upload-blocked',
-      // The cloud storages: enabled, read, and S3's path-style switch.
-      's3-enabled', 's3-read', 's3-force-path-style',
-      'azure-enabled', 'azure-read', 'gcs-enabled', 'gcs-read'],
     'client/components/settings/peopleBody.jade': ['js-toggle-org-feature',
       'js-toggle-team-feature', 'selectUserChkBox'],
     'client/components/settings/problemsSummary.jade': ['js-problem-check'],
@@ -142,7 +136,19 @@ test('the panes that use a native checkbox are the ones this is for', () => {
     for (const cls of classes) {
       assert.ok(jade.includes(cls), `${file}: ${cls} is one of the native checkboxes`);
     }
+    assert.ok(/type="checkbox"/.test(jade), `${file} still has a native checkbox`);
   }
+
+  // Attachments left this list: styling a NATIVE checkbox into a tick needs the
+  // browser to drop its own rendering for `appearance: none`, and where it does
+  // not - as in the browser #6465 was reported from - the geometry applies and the
+  // colours do not, so every box on those panes drew as a grey rotated rectangle.
+  // They are `.materialCheckBox` divs now, like the rest of WeKan.
+  const attachments = read('client/components/settings/attachments.jade');
+  assert.ok(!/type="checkbox"/.test(attachments),
+    'Attachments must not go back to native checkboxes');
+  assert.ok(/\.materialCheckBox#s3-read\(class="\{\{#if cloudRead\.s3\}\}is-checked/.test(attachments),
+    'its boxes are the material one, bound to the setting');
 });
 
 test('several checkboxes side by side are one row', () => {
@@ -154,9 +160,11 @@ test('several checkboxes side by side are one row', () => {
   const label = rule(admin, '.setting-content .checkbox-row label {');
   assert.ok(/display: inline-flex;/.test(label) && /align-items: center;/.test(label),
     'each label keeps its own box and words together');
+  // Backup's three are material checkboxes now (see above), so the row holds
+  // anchors rather than labels - what must not change is that they are ONE row.
   const jade = read('client/components/settings/attachments.jade');
-  assert.ok(/\.form-group\.checkbox-row\n\s+label\n\s+input\.js-backup-attachments/.test(jade),
-    'the Backup include row uses it');
+  assert.ok(/\.form-group\.checkbox-row\n(\s+a\.flex\.js-toggle-checkbox\n\s+\.materialCheckBox\.js-backup-\w+\.is-checked\n\s+span [^\n]*\n){3}/.test(jade),
+    'the Backup include row is three material checkboxes in one row');
 });
 
 test('a checkbox written as label > input gets its gap', () => {

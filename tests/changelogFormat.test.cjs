@@ -86,10 +86,14 @@ test('a change is a short description, with the long one behind it', () => {
 });
 
 test('every block is closed, and its summary is on its own line', () => {
-  assert.strictEqual((changelog.match(/<details>/g) || []).length,
-    (changelog.match(/<\/details>/g) || []).length);
-  assert.strictEqual((changelog.match(/<summary>/g) || []).length,
-    (changelog.match(/<\/summary>/g) || []).length);
+  // Counted on the MARKUP, not on the prose: an entry that explains the format
+  // writes `<details>` and `<summary>` in backticks, one each and closed by
+  // neither, and counting those made the file look unbalanced by one.
+  const markup = changelog.replace(/`[^`\n]*`/g, '');
+  assert.strictEqual((markup.match(/<details>/g) || []).length,
+    (markup.match(/<\/details>/g) || []).length);
+  assert.strictEqual((markup.match(/<summary>/g) || []).length,
+    (markup.match(/<\/summary>/g) || []).length);
   for (const b of ALL) {
     assert.ok(/^<summary>/.test(b.summary) && /<\/summary>$/.test(b.summary),
       `line ${b.line}: the summary must be one line, opened and closed`);

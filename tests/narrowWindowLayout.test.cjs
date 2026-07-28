@@ -98,11 +98,16 @@ test('the board bar handles its hamburger by WIDTH, not only by mobile mode', ()
 
 test('the drag-handle toggle is one button on one line', () => {
   const block = headerCss.slice(headerCss.indexOf('The quick-access bar must FIT the phone'));
-  const rule = /\.js-toggle-desktop-drag-handles \{([\s\S]*?)\}/.exec(block);
-  assert.ok(rule, 'the toggle must be sized in the phone block');
-  assert.ok(/white-space: nowrap !important;/.test(rule[1]),
+  // The toggle has TWO rules in this block - one that sizes it like the other
+  // buttons and one that keeps it on a single line - so the declarations are
+  // looked for across all of them, not in whichever one comes first.
+  const bodies = [...block.matchAll(/js-toggle-desktop-drag-handles[^{}]*\{([^}]*)\}/g)]
+    .map(m => m[1]);
+  assert.ok(bodies.length, 'the toggle must be sized in the phone block');
+  const all = bodies.join('\n');
+  assert.ok(/white-space: nowrap !important;/.test(all),
     'its arrows and its check/ban are one button, not two lines');
-  assert.ok(/display: inline-flex !important;/.test(rule[1]));
+  assert.ok(/display: inline-flex !important;/.test(all));
 });
 
 test('the bar gives back the width the avatar needs', () => {

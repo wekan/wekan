@@ -332,8 +332,30 @@ All publishing / release steps below are maintainer-only. Contributors never run
   newest datetime directory is the latest run. Each holds the Playwright per-browser
   logs (`wekan-alltests-chromium.log`, `-firefox.log`, `-webkit.log`), the mocha/unit
   log (`wekan-alltests-mocha.log`), the e2e/import logs, and `wekan-test-server.log`
-  (the WeKan test server + database output). "Check the newest test logs" means: open
-  the most recent `../log/<datetime>/` and read those.
+  (the WeKan test server + database output). A whole-run directory also holds the
+  database-conformance logs (`db-conformance-*.log`, `-report.md`, `-summary.txt`)
+  and FerretDB's own (`ferretdb-unit.log`, `-vet.log`, `-integration.log`). "Check
+  the newest test logs" means: open the most recent `../log/<datetime>/` and read
+  those.
+- **Check and fix WHILE the tests are still running.** A full run takes a long time
+  (three browsers, then every database with an image for this CPU, then FerretDB's
+  own suites), and its stages finish one at a time. Do not wait for the end: read
+  the logs that are already written, fix what they show, and then look again for the
+  stages that have finished since — repeat until every stage has run and everything
+  found is fixed. Two things make this work:
+  - A stage's log file is complete when its `===== ... finished` line is there; a
+    file whose mtime is still moving is a stage in progress, and its failures so far
+    are already real and worth fixing.
+  - The node suites are run by `tests/run-node-suites.cjs`, which runs ALL of them
+    and lists every failure at the end (`===== node suites: N run, M failed`). They
+    are the fastest signal - about 15 seconds for 260 suites - so they are usually
+    what to fix first while the browsers are still going.
+- **A failing guard is not automatically a broken app.** Most of these suites read
+  the source and pin a behaviour. When one fails, decide which side is wrong: fix
+  the CODE when the guard still describes what WeKan should do, and fix the GUARD
+  when the behaviour deliberately changed - and then say in the test WHY, so the
+  next reader knows it was a decision and not a slip. Every fixed test keeps the
+  assertion that made it valuable; do not delete a test to make a run green.
 
 ## Environment
 

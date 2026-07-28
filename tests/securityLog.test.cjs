@@ -126,8 +126,13 @@ check('Admin Panel has a Problems button (right of Info) and no Reports button',
 });
 check('Problems page: Summary/Security/Speed/Tests menu + read-only stream table', () => {
   const rj = read('client/components/settings/adminReports.jade');
+  const rjsMenu = read('client/components/settings/adminReports.js');
+  // The menu is DATA now (PROBLEMS_MENU + the shared +leftMenu, see
+  // docs/Design/Page/Left-Menu.md): every entry used to be six lines of markup and
+  // its own click handler, so the ids are asserted where they now live.
+  assert.ok(/\+leftMenu\(menuItems\)/.test(rj), 'the pane renders the shared left menu');
   for (const id of ['report-summary','report-security','report-speed','report-tests']) {
-    assert.ok(new RegExp('js-' + id).test(rj), id + ' menu entry');
+    assert.ok(new RegExp(`id: '${id}'`).test(rjsMenu), id + ' menu entry');
   }
   assert.ok(/\+problemsSummary/.test(rj) && /\+eventStreamReport/.test(rj), 'summary + stream views');
   const rjs = read('client/components/settings/adminReports.js');

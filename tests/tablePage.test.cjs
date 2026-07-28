@@ -852,7 +852,12 @@ test('Broken cards is a report like the ones beside it', () => {
   assert.ok(/'report-broken': \{ page: tmpl\.brokenPage[\s\S]*?pub: 'brokenCardsReport'[\s\S]*?countMethod: 'getBrokenCardsReportCount' \}/.test(js),
     'it must be driven by the same loadReport() config as the other reports');
   assert.ok(/'report-broken': \{\n\s+emptyKey/.test(js), 'and have a column spec');
-  assert.ok(!/CardSearchPaged/.test(js) && !/Template\.brokenCardsReport/.test(js),
+  // The CODE, without comments: the comment above the report's config NAMES the
+  // machinery it no longer uses ("used to run on the global-search machinery
+  // (CardSearchPaged, ...)"), and a guard that reads comments as code fails on the
+  // sentence that explains the fix.
+  const code = js.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
+  assert.ok(!/CardSearchPaged/.test(code) && !/Template\.brokenCardsReport/.test(code),
     'the global-search machinery must be gone from the Problems page');
   const jadeSrc = read('client/components/settings/adminReports.jade');
   assert.ok(!/brokenCardsReport/.test(jadeSrc), 'and its template with it');
