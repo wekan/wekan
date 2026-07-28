@@ -268,7 +268,82 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-This release fixes the following release-tooling bugs:
+This release fixes the following bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3a5b22879">A busy database no longer costs WeKan its boot, and the boot no longer keeps it busy</a>. Thanks to Nissulya and xet7.</summary>
+
+A snap upgraded from 6.09 to 10.44 was in a systemd restart loop at restart 72,
+with 8 CPUs at load 7 and `SQLITE_BUSY` everywhere:
+
+    error on boot.js Error [ValidationError]: Failed validation
+    [collection.go:191 sqlite.(*collection).UpdateAll]
+    database is locked (5) (SQLITE_BUSY)
+
+Three things, each making the others worse.
+
+**A transient database error ended the boot.** Meteor's `boot.js` exits the
+process when a startup callback rejects; systemd restarts it, and the restart
+re-runs the same startup work against a database that is busy because the
+previous boot was doing it. `SQLITE_BUSY` means another writer had the lock —
+nothing is wrong with the data — so every startup callback is wrapped now: a
+transient database error is logged, recorded for Admin Panel / Problems, and
+swallowed, and that step runs again on the next start. A full disk, a refused
+login or a syntax error is still fatal, because none of those fix themselves.
+
+**The board-id backfill scanned every card on every boot.** It streamed the
+whole Cards collection and issued one multi-update per card — 130,947 of them
+on that instance, for each of two collections — and its "anything left to do?"
+guard could never go quiet, because a checklist whose card was deleted has no
+board id to copy. It is driven by the rows that are MISSING the board id now
+(normally none), in bounded chunks, and version-gated like the schema upgrade
+beside it, so an unchanged version costs one `findOne`.
+
+**FerretDB answered `SQLITE_BUSY` where the busy timeout could not help.** The
+driver's default transaction is DEFERRED: it takes the write lock at its first
+write, and if another connection has written since its read snapshot, SQLite
+fails it immediately without calling the busy handler. The fork's SQLite DSN
+defaults to `_txlock=immediate` now, so `BEGIN` asks for the write lock — which
+the 30-second busy handler does cover — and a contended writer waits its turn.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c5d13889b">The WIP limit could not be switched off, the Attachments checkboxes were not ticks, and the sidebar rows did not line up</a>. Thanks to Alishara and xet7.</summary>
+
+Three UI bugs from one report.
+
+**The WIP-limit popup**: "the checkbox can not be unchecked and the counter
+always falls back to 1" — one cause for both. `getWipLimit()` read the list back
+through `ReactiveCache.getList(this._id)`, and on the SERVER that getter is
+async: it returns a promise, and a promise has no `wipLimit`, so the helper
+answered 0 for every option. `enableWipLimit` therefore saw a value of 0 and
+reset the limit to 1 on every click, and toggled `!enabled` where `enabled` was
+always 0, so every click turned the limit ON. The document is `this` — the
+server needs no lookup, and a toggle wants the state as it was when the click
+happened. The client keeps the lookup, which is what makes the popup follow the
+change. Apply also refuses a limit that is not a usable number instead of
+sending `NaN`, which passes `check(limit, Number)` and then dies in the schema
+with nothing to show the user.
+
+**Admin Panel / Attachments**: every checkbox on those panes — Backup's three,
+each storage's Enabled and Read, the S3 path-style flag, the avatar-upload block
+— drew as a grey rotated rectangle instead of a green tick. They were native
+`<input type="checkbox">` styled into WeKan's material checkbox, which needs the
+browser to drop its own rendering for `appearance: none`; where it does not, the
+geometry applies and the colours do not. They are `.materialCheckBox` divs now,
+the same markup as the rest of WeKan. Two of them could not be unchecked for a
+second reason: their state was written as `checked="{{filesystemRead}}"`, a
+quoted STRING — and `checked="false"` is checked in HTML.
+
+**The sidebar checkbox rows** ("checkboxes and text don't fit well"): a row is
+`a.flex > i.fa + span`, and `.flex` is only `display: flex` — no alignment and
+no gap — so the box glyph touched the first letter of its label and sat on a
+different line from it.
+
+</details>
+
+and fixes the following release-tooling bugs:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/520254768">Two release failures that were the workflow's own fault</a>. Thanks to xet7.</summary>
