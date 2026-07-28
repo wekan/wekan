@@ -1,0 +1,154 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Publish a variant Docker image — MANUALLY, never as part of a release.
+#
+# wekanteam/wekan-gantt-gpl (and wekanteam/wekan-ondra) are the same WeKan as
+# wekanteam/wekan: the variant repositories are byte-identical to wekan/wekan
+# apart from the snap name in snapcraft.yaml, so the image content is the same
+# image. This workflow therefore does not rebuild anything - it points a variant
+# tag at the multi-arch manifest the release already built and verified, with
+# `docker buildx imagetools create`. Same digests, all five architectures, no
+# half-hour emulated build, and no way for the variant image to drift from the
+# release it claims to be.
+#
+# `workflow_dispatch` ONLY, on purpose. release-all.yml publishes wekanteam/wekan
+# to Docker Hub, Quay and GHCR on every release; the variant images are published
+# when the maintainer decides to, which is what this file exists for. Nothing
+# here runs on a push, a tag or a schedule.
+#
+# If a variant repository ever stops being identical to wekan/wekan, this
+# retag becomes wrong: build that repository's own Dockerfile instead.
+#
+# Local equivalent, same behaviour: releases/docker-publish-variant.sh
+# ─────────────────────────────────────────────────────────────────────────────
+name: Publish variant Docker image (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      image:
+        description: 'Docker Hub repository under wekanteam/ to publish'
+        required: true
+        default: 'wekan-gantt-gpl'
+        type: choice
+        options:
+          - wekan-gantt-gpl
+          - wekan-ondra
+      version:
+        description: 'WeKan version to publish, without the v (e.g. 10.49). Empty = newest GitHub release.'
+        required: false
+        default: ''
+        type: string
+      also_latest:
+        description: 'Also move the :latest tag of the variant image'
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  retag:
+    runs-on: ubuntu-latest
+    steps:
+      # First step on purpose: a missing or wrong credential is then ONE named
+      # line at the top of the log, not a failure deep inside a push.
+      - name: Check DOCKERHUB_AUTH is configured and works
+        env:
+          DOCKERHUB_AUTH: ${{ secrets.DOCKERHUB_AUTH }}
+        run: |
+          set -uo pipefail
+          if [ -z "${DOCKERHUB_AUTH:-}" ]; then
+            echo "::error::docker-variant: DOCKERHUB_AUTH is not set - the image cannot be pushed. It is base64 of 'username:token' for docker.io."
+            exit 1
+          fi
+          if ! creds="$(printf '%s' "$DOCKERHUB_AUTH" | base64 -d 2>/dev/null)"; then
+            echo "::error::docker-variant: DOCKERHUB_AUTH is not valid base64. Set it with: printf '%s' 'user:token' | base64 -w0"
+            exit 1
+          fi
+          case "$creds" in
+            *:*) ;;
+            *) echo "::error::docker-variant: DOCKERHUB_AUTH decodes to something without a ':' - it must be base64 of 'username:token'."; exit 1 ;;
+          esac
+          user="${creds%%:*}"
+          token="${creds#*:}"
+          if ! printf '%s' "$token" | docker login docker.io -u "$user" --password-stdin; then
+            echo "::error::docker-variant: DOCKERHUB_AUTH was REJECTED by docker.io (login failed as user '$user'). The token is wrong, expired, or lacks push rights for wekanteam/${{ inputs.image }}."
+            exit 1
+          fi
+          echo "docker-variant: DOCKERHUB_AUTH works for docker.io (user '$user')."
+
+      - name: Work out which version to publish
+        id: v
+        run: |
+          set -euo pipefail
+          version="${{ inputs.version }}"
+          if [ -z "$version" ]; then
+            # The newest release of wekan/wekan, asked of GitHub rather than guessed.
+            version="$(curl -sSL -H 'Accept: application/vnd.github+json' \
+              https://api.github.com/repos/wekan/wekan/releases/latest \
+              | sed -n 's/.*"tag_name": *"v\{0,1\}\([^"]*\)".*/\1/p' | head -1)"
+          fi
+          version="${version#v}"
+          if [ -z "$version" ]; then
+            echo "::error::docker-variant: no version given and the newest release could not be read from the GitHub API."
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "Publishing wekanteam/${{ inputs.image }} from wekanteam/wekan:v$version"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Retag wekanteam/wekan as wekanteam/${{ inputs.image }}
+        run: |
+          set -euo pipefail
+          src="wekanteam/wekan:v${{ steps.v.outputs.version }}"
+          dst="wekanteam/${{ inputs.image }}:v${{ steps.v.outputs.version }}"
+
+          # The source must exist and be the full multi-arch manifest, or the
+          # variant tag would quietly cover fewer architectures than wekan does.
+          if ! platforms="$(docker buildx imagetools inspect "$src" \
+                --format '{{range .Manifest.Manifests}}{{.Platform.OS}}/{{.Platform.Architecture}} {{end}}' 2>&1)"; then
+            echo "::error::docker-variant: $src cannot be inspected - is that version released and pushed? ($platforms)"
+            exit 1
+          fi
+          echo "$src covers: $platforms"
+          for want in linux/amd64 linux/arm64 linux/ppc64le linux/s390x linux/riscv64; do
+            case " $platforms " in
+              *" $want "*) ;;
+              *) echo "::error::docker-variant: $src has no $want, so the variant image would be missing it too."; exit 1 ;;
+            esac
+          done
+
+          tags=(-t "$dst")
+          if [ "${{ inputs.also_latest }}" = "true" ]; then
+            tags+=(-t "wekanteam/${{ inputs.image }}:latest")
+          fi
+          # imagetools create copies the MANIFEST, so the variant tag points at the
+          # very digests the release built and verified. Nothing is rebuilt.
+          docker buildx imagetools create "${tags[@]}" "$src"
+
+          # Pushed is not the same as pushed correctly: ask Docker Hub what it has.
+          got="$(docker buildx imagetools inspect "$dst" \
+            --format '{{range .Manifest.Manifests}}{{.Platform.OS}}/{{.Platform.Architecture}} {{end}}')"
+          echo "$dst covers: $got"
+          for want in linux/amd64 linux/arm64 linux/ppc64le linux/s390x linux/riscv64; do
+            case " $got " in
+              *" $want "*) ;;
+              *) echo "::error::docker-variant: $dst is missing $want after the push."; exit 1 ;;
+            esac
+          done
+          echo "OK: $dst published (same digests as $src)."
+
+      - name: Job result
+        if: always()
+        run: |
+          case "${{ job.status }}" in
+            success)   mark='OK       ' ;;
+            failure)   mark='FAILED   ' ;;
+            cancelled) mark='CANCELLED' ;;
+            *)         mark='${{ job.status }}' ;;
+          esac
+          echo "$mark docker-variant wekanteam/${{ inputs.image }}"
+          echo "$mark docker-variant wekanteam/${{ inputs.image }}" >> "$GITHUB_STEP_SUMMARY"

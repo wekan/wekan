@@ -141,7 +141,7 @@ test('the sync renames the snap in BOTH snapcraft files', () => {
   // same snap on the next base. Renaming only the first leaves the core26 file
   // saying `name: wekan`, so a core26 build from wekan-ondra / wekan-gantt-gpl
   // would publish itself as the DEFAULT WeKan snap.
-  const sync = variants.slice(variants.indexOf('Sync wekan into'));
+  const sync = variants.slice(variants.indexOf('tree from wekan'));
   assert.ok(/for f in snapcraft\.yaml snapcraft-core26\.yaml/.test(sync),
     'both files are renamed');
   assert.ok(/s\/\^name: wekan\$\/name: \$\{\{ matrix\.snapname \}\}\//.test(sync),
@@ -157,6 +157,60 @@ test('a refusal and a broken pre-flight are told apart', () => {
     'anything else says it is something else, instead of blaming the token');
   assert.ok(/Contents: Read and write/.test(variants),
     'and the refusal message says exactly what to change');
+});
+
+test('the variant SNAP is published even when its repository cannot be pushed', () => {
+  // This is the whole point of the two variants: people are still on the older
+  // snap names wekan-ondra and wekan-gantt-gpl, so one release must publish all
+  // three snaps. Keeping the GitHub repositories in step is a separate,
+  // optional thing - it used to gate the entire job, so a token without push
+  // rights meant no variant snaps at all (v10.48 and v10.49 published none).
+  const all = job('snap-variants');
+  const stepOf = name => {
+    const at = all.indexOf(`- name: ${name}`);
+    assert.notStrictEqual(at, -1, `snap-variants has no step "${name}"`);
+    const rest = all.slice(at + 1);
+    const next = rest.indexOf('\n      - name:');
+    return next === -1 ? rest : rest.slice(0, next);
+  };
+
+  const build = stepOf('Build the ${{ matrix.snapname }} snap (${{ matrix.arch }})');
+  const publish = stepOf('Publish ${{ matrix.snapname }} to the Snap Store (all channels)');
+  for (const [what, step] of [['the build', build], ['the publish', publish]]) {
+    assert.ok(/steps\.guard\.outputs\.snap == 'true'/.test(step),
+      `${what} runs whenever SNAP_AUTH is set`);
+    assert.ok(!/outputs\.sync/.test(step),
+      `${what} must NOT depend on whether the repository can be pushed`);
+  }
+  assert.ok(/release: stable,candidate,beta,edge/.test(publish),
+    'and it goes to all four channels, like the default wekan snap');
+
+  const push = stepOf('Push the synced tree to wekan/${{ matrix.repo }}');
+  assert.ok(/outputs\.sync == 'true'/.test(push),
+    'the repository push is the part that needs WEKAN_REPO_TOKEN');
+  assert.ok(/matrix\.arch == 'amd64'/.test(push),
+    'and it happens once per variant, not once per architecture');
+
+  // A missing WEKAN_REPO_TOKEN is a warning about the repository, never a
+  // reason to skip the snap.
+  assert.ok(/The snap is still built and published/.test(all),
+    'the warnings say so in those words');
+});
+
+test('both variants are built for the two native architectures', () => {
+  const legs = [...job('snap-variants').matchAll(/snapname: (\S+)[\s\S]{0,200}?arch: (\S+)/g)]
+    .map(m => `${m[1]} ${m[2]}`);
+  for (const want of ['wekan-ondra amd64', 'wekan-ondra arm64',
+                      'wekan-gantt-gpl amd64', 'wekan-gantt-gpl arm64']) {
+    assert.ok(legs.includes(want), `${want} is missing from the matrix (${legs.join(', ')})`);
+  }
+});
+
+test('a variant build that produced the wrong snap is not published', () => {
+  const variantsJob = job('snap-variants');
+  assert.ok(/is not a \$\{\{ matrix\.snapname \}\} snap/.test(variantsJob),
+    'the built file name must start with the variant snap name - publishing a '
+    + 'file called wekan_*.snap from here would overwrite the DEFAULT snap');
 });
 
 console.log(`\n${passed} tests passed`);
