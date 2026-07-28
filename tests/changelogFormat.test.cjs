@@ -137,7 +137,11 @@ test('no long URL is shown as visible text', () => {
 
 test('TODO Later says what is NOT done, and thanks nobody for it', () => {
   const start = lines.indexOf('# TODO Later');
-  const end = lines.findIndex((l, i) => i > start && /^# v\d/.test(l));
+  // The backlog ends at whatever comes next: the not-yet-released section when
+  // there is one, otherwise the newest release. Ending it at `# v` alone counted
+  // every Upcoming entry as a backlog entry - and those DO thank people.
+  const end = lines.findIndex((l, i) => i > start &&
+    (/^# v\d/.test(l) || l === '# Upcoming WeKan ® release'));
   const section = lines.slice(start, end);
   const inSection = ALL.filter(b => b.line > start && b.line < end);
   assert.ok(inSection.length >= 5, 'the backlog is grouped by category');

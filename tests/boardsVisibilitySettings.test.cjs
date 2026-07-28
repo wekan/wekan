@@ -317,7 +317,12 @@ test('hide board activities is ONE global setting, not a write per board', () =>
     && /Settings\.update\(ReactiveCache\.getCurrentSetting\(\)\._id/.test(js),
     'it writes ONE global setting');
   assert.ok(!/Boards\.update/.test(body), 'and never touches board documents');
-  assert.ok(/!== undefined/.test(body), 'a missing radio is skipped, not saved as false');
+  // "Not on screen is left alone" is `if ($(selector).length)` now - the settings
+  // are checkboxes rather than radios, and a checkbox reads `is-checked`, which is
+  // false for a box that is not there. The guard is the length check.
+  assert.ok(/if \(\$\(selector\)\.length\) \{/.test(body),
+    'a setting whose checkbox is not on screen is skipped, not saved as false');
+  assert.ok(/hasClass\('is-checked'\)/.test(body), 'and a shown one is read from its tick');
   // Schema field exists, and the read side consults it FIRST.
   assert.ok(/hideBoardActivitiesOnAllBoards: \{\s*type: Boolean/.test(read('models/settings.js')),
     'the global flag must be in the Settings schema');

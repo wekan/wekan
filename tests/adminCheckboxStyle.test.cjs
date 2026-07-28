@@ -157,9 +157,14 @@ test('several checkboxes side by side are one row', () => {
   // becomes the tick, which unaligned text follows.
   const row = rule(admin, '.setting-content .checkbox-row {');
   assert.ok(/display: flex;/.test(row) && /flex-wrap: wrap;/.test(row));
-  const label = rule(admin, '.setting-content .checkbox-row label {');
+  // One ITEM of that row is a label around a native checkbox, or - since #6465 -
+  // the `a.flex > .materialCheckBox + span` the rest of WeKan uses. One rule
+  // covers both, so the lookup is on the pair.
+  const label = rule(admin, '.setting-content .checkbox-row label,');
+  assert.ok(/\.setting-content \.checkbox-row a\.flex \{/.test(label),
+    'the material checkbox anchor is placed by the same rule');
   assert.ok(/display: inline-flex;/.test(label) && /align-items: center;/.test(label),
-    'each label keeps its own box and words together');
+    'each item keeps its own box and words together');
   // Backup's three are material checkboxes now (see above), so the row holds
   // anchors rather than labels - what must not change is that they are ONE row.
   const jade = read('client/components/settings/attachments.jade');

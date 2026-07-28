@@ -496,7 +496,11 @@ test('the first entry of a menu is the pane that opens', () => {
   // menu and the pane on the right must be the same one, or the page opens with a
   // pane nobody chose while the menu highlights a different row.
   const firstId = (src, fn) => {
-    const menu = new RegExp(`function ${fn}\\(\\) \\{[\\s\\S]*?\\n\\}`).exec(src)[0];
+    // `function peopleMenu(user)` - a builder may take the current user, to drop
+    // the panes a tenant admin may not open.
+    const found = new RegExp(`function ${fn}\\([^)]*\\) \\{[\\s\\S]*?\\n\\}`).exec(src);
+    assert.ok(found, `${fn} must exist`);
+    const menu = found[0];
     return /id: '([\w-]+)'/.exec(menu)[1];
   };
   const attachments = read('client/components/settings/attachments.js');

@@ -154,8 +154,22 @@ test('the bell and the avatar sit the same way in both modes', () => {
 test('the board bar: buttons after the title, hamburger in the corner', () => {
   const at = boardCss.indexOf('/* The same rules by WIDTH, not by mobile mode');
   assert.ok(at !== -1, 'the width-based board-bar rules must be there');
-  const block = boardCss.slice(at, boardCss.indexOf('\n}\n', boardCss.indexOf(
-    'sidebar-toggle', boardCss.indexOf('position: absolute', at))));
+  // The WHOLE media query, brace-matched. It used to be sliced up to the rule that
+  // followed `position: absolute` in it - and the hamburger is `position: static`
+  // now (it is the last button in the flow, not pinned to the corner), so that
+  // landmark was gone and the slice ran from the start of the file.
+  const mediaAt = boardCss.indexOf('@media', at);
+  assert.notStrictEqual(mediaAt, -1, 'the width rules live in a media query');
+  let depth = 0;
+  let end = mediaAt;
+  for (; end < boardCss.length; end += 1) {
+    if (boardCss[end] === '{') depth += 1;
+    if (boardCss[end] === '}') {
+      depth -= 1;
+      if (depth === 0) break;
+    }
+  }
+  const block = boardCss.slice(at, end + 1);
   // In header.css, for the same file-order reason as the metrics below: the
   // `display: flex` for these groups lives in that file and would otherwise win.
   const hdr = headerCss.slice(headerCss.indexOf('/* The button GROUPS are `display: contents`'));
