@@ -296,6 +296,62 @@ the backslash first, with the helper the other test files already use.
 
 </details>
 
+and fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/edd290433">A rejected promise no longer ends the whole server when the database is busy</a>. Thanks to Nissulya and xet7.</summary>
+
+The snap that was restarting in a loop (#6533) showed the earlier fixes working.
+It also showed the server dying regardless:
+
+    SyncedCron: Fatal error encountered (unhandledRejection): ValidationError:
+      ... sqlite.(*collection).UpdateAll ... database is locked (5) (SQLITE_BUSY)
+    SyncedCron: Received UNHANDLED_REJECTION signal - cleaning up running jobs
+    systemd: Main process exited, code=exited, status=1/FAILURE
+
+`quave:synced-cron` installs a process-wide `unhandledRejection` handler that
+calls `process.exit(1)`. So ANY unhandled rejection — including one write losing
+a race for the SQLite write lock, which is transient by definition — killed the
+whole server, and systemd restarted it into a database the restart had made
+busier. The restart counter reached 73.
+
+WeKan takes that decision back. The package is deliberately polite about it: it
+only cleans up and exits `if (process.listenerCount('unhandledRejection') === 1)`
+— when nothing else has an opinion — so having one is the documented way to stop
+it. A transient database error is logged and recorded for Admin Panel / Problems
+and WeKan keeps serving; anything else is logged with its full stack and WeKan
+still keeps serving, because ending everybody's session over one rejected promise
+is a larger failure than the one being reported. An uncaught EXCEPTION still
+exits unless it is a transient database error: a process that threw out of a
+place nobody handled can be holding half-applied state.
+
+Nothing is silenced — every rejection is logged, and the database ones are
+counted in the `database` event stream where Admin Panel / Problems shows them.
+
+</details>
+
+and has the following test-harness fixes:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9978219b2">Four guards that pinned an older shape, and a browser test that named the wrong half</a>. Thanks to xet7.</summary>
+
+The Visibility saves share one "is this input on screen" check now, so the guard
+looks at the helper rather than at each call site. `/information` redirects the
+FlowRouter way, like `/translation` before it. The phone rules carry
+`!important`, because the desktop rule they override is more specific. And
+"the newest release" in the changelog guard means the newest RELEASE — an
+Upcoming section may sit above it, it is checked by its own test, and a release
+needs at least ONE entry, since "more than five" measured the day's workload
+rather than the format.
+
+The background-image tile test waited only for
+`.board-list-item.has-background-image`, which cannot tell "the board has not
+arrived in minimongo yet" from "it arrived without the class"; under a
+three-browser run WebKit reported the second when it was the first. It waits for
+that board's own tile first, so a future failure names the actual problem.
+
+</details>
+
 and updates the backlog:
 
 <details>
@@ -323,6 +379,11 @@ English on purpose: translating them changes how a search is TYPED in that
 language, which is a decision for the maintainer, not a wording fix.
 
 </details>
+
+and updates translations:
+
+- [Updated translations](https://github.com/wekan/wekan/commit/dd6ad1a6f). Thanks to
+  translators and xet7.
 
 # v10.46 2026-07-28 WeKan ® release
 
