@@ -466,7 +466,16 @@ npm install --prefix .build/bundle/programs/server   # server deps, needed to RU
 cd /home/wekan/repos/wekan
 export PATH="$PWD/.tools/node-v24.18.0-linux-arm64/bin:$PATH"
 npm run test:unit:node        # plain-node .cjs unit + negative tests (no DB/browser)
+npm run test:unit:node -- board   # only the suites whose path contains "board"
+node tests/run-node-suites.cjs --list   # what would run
 ```
+
+`tests/run-node-suites.cjs` is what that script is: it DISCOVERS every
+`tests/*.test.cjs|js` and `tests/unit/*`, runs each in its own node process, and
+runs all of them even when one fails — the failures are listed together at the
+end. (It used to be an `&&` chain, where the first failing suite stopped the run
+and the rest silently never happened.) `--bail` restores the stop-at-first
+behaviour when that is what you want.
 
 For the Playwright UI tests, follow sections 9–14 above (they need a running WeKan app +
 `mongosh` for DB seeding).

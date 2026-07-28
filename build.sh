@@ -608,10 +608,19 @@ function run_all_tests(){
 			# and one that throws ends the whole chain with an AssertionError dump.
 			# Anchored at the start of the line so the dump's own "throw err" and the
 			# stack frames below it are not counted as further failures.
-			unit) local soft hard
-			      soft=$(grep -cE '^\s*FAIL - ' "$2" 2>/dev/null)
-			      hard=$(grep -cE '^[A-Za-z]*Error(\s|:|\s*\[)' "$2" 2>/dev/null)
-			      n=$(( ${soft:-0} + ${hard:-0} )) ;;
+			# The runner ends with "===== node suites: N run, M failed, Ss =====", so
+			# the count is its own, not a guess from error text. While it is still
+			# running there is no summary line yet: fall back to the failing suites it
+			# has already listed ("  x tests/foo.test.cjs (exit 1)"), so the live
+			# counter moves during the run too.
+			unit) local summary running
+			      summary=$(grep -oE 'node suites: [0-9]+( of [0-9]+)? run, [0-9]+ failed' "$2" 2>/dev/null | tail -1)
+			      if [ -n "$summary" ]; then
+			        n=$(printf '%s' "$summary" | grep -oE '[0-9]+ failed' | grep -oE '[0-9]+')
+			      else
+			        running=$(grep -cE '^  x tests/' "$2" 2>/dev/null)
+			        n=${running:-0}
+			      fi ;;
 			*)   n=$(grep -cE $'\xe2\x9c\x98|\xe2\x9c\x97' "$2" 2>/dev/null) ;;
 		esac
 		echo "${n:-0}"
@@ -636,18 +645,16 @@ function run_all_tests(){
 		local rc=0
 		case "$k" in
 			mocha)  METEOR_LOCAL_DIR=.meteor/local-test meteor test --once --driver-package meteortesting:mocha --port 3100 || rc=$? ;;
-			# Every plain-node suite in package.json: test:unit:all is test:unit:node
-			# (the ~165 .cjs guards) plus the stickers / Trello / OAuth2 .js tests.
-			# They need no server and no browser, and until now the whole-suite run did
-			# not run them at all - so a guard that was supposed to fail the suite
-			# never ran anywhere.
-			# npm chains them with &&, so node STOPS at the first failing suite: the
-			# suites after it never run. Say so, or "tests:508 fail:1" reads as if the
-			# whole suite had run and only one guard was broken.
-			unit)   meteor npm run test:unit:all || rc=$?
-			        if [ "${rc:-0}" -ne 0 ]; then
-			          echo "NOTE: the node suites are chained with && - node stopped at the FIRST failing suite, so every suite after it did not run. Fix that one and re-run to see the rest."
-			        fi ;;
+			# Every plain-node suite: the .cjs guards plus the stickers / Trello /
+			# OAuth2 .js tests. They need no server and no browser, and the whole-suite
+			# run did not run them at all once - a guard that was supposed to fail the
+			# suite ran nowhere.
+			# tests/run-node-suites.cjs: every plain-node suite, each in its own node
+			# process, ALL of them run even when one fails, and the failures listed
+			# together at the end. It used to be an && chain, where node stopped at the
+			# first failing suite and the ~200 after it never ran while the summary
+			# still read "tests:508 fail:1".
+			unit)   meteor npm run test:unit:all || rc=$? ;;
 			import) node tests/wekanCreator.import.test.js || rc=$? ;;
 			e2e)    meteor npm run test:e2e || rc=$? ;;
 			*)      run_pw_all_browser "$k" || rc=$? ;;

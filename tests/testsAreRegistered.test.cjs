@@ -72,30 +72,55 @@ test('the *bleed security suites are registered', () => {
 });
 
 // The other half of the same failure mode: a suite that IS a plain-node file but
-// is in no npm script. 72 of them had drifted out that way - the flow that says
-// "Run ALL tests" ran mocha, the import regression, the Node E2E harness and the
-// three browsers, and every one of those .cjs guards sat in the tree looking like
-// a test and running nowhere.
-test('every plain-node suite is in test:unit:node / test:unit:all', () => {
-  const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
-  const nodeScript = pkg.scripts['test:unit:node'] || '';
-  const allScript = (pkg.scripts['test:unit:all'] || '')
-    .replace('npm run test:unit:node', nodeScript);
-  const referenced = new Set(
-    [...allScript.matchAll(/node (tests\/[\w./-]+)/g)].map(m => m[1]),
-  );
+// nothing runs. 72 of them had drifted out of package.json that way - the flow
+// that says "Run ALL tests" ran mocha, the import regression, the Node E2E
+// harness and the three browsers, and every one of those .cjs guards sat in the
+// tree looking like a test and running nowhere.
+//
+// That list is gone: tests/run-node-suites.cjs DISCOVERS the suites, so writing
+// the file is registering it. What can still go wrong is the runner itself -
+// looking in the wrong place, or excluding suites - so that is what is checked.
+test('the runner discovers every plain-node suite', () => {
+  const runner = require('./run-node-suites.cjs');
+  const discovered = new Set(runner.discoverSuites());
 
-  const files = fs.readdirSync(path.join(ROOT, 'tests'))
-    .filter(f => f.endsWith('.test.cjs') || f.endsWith('.test.js'))
-    .map(f => `tests/${f}`)
-    .sort();
-  // tests/all.test.js is the Meteor mocha ENTRY POINT (it imports the two
-  // indexes checked above) - it runs under `meteor test`, not under node.
-  const exempt = new Set(['tests/all.test.js']);
-  const missing = files.filter(f => !exempt.has(f) && !referenced.has(f));
-  assert.deepStrictEqual(missing, [],
-    `${missing.length} suites exist but no npm script runs them`);
-  assert.ok(files.length > 200, `expected the whole suite list, found ${files.length}`);
+  const onDisk = [];
+  for (const dir of ['tests', 'tests/unit']) {
+    for (const f of fs.readdirSync(path.join(ROOT, dir))) {
+      if (/\.test\.(cjs|js)$/.test(f)) onDisk.push(`${dir}/${f}`);
+    }
+  }
+
+  const missing = onDisk.filter(f => !discovered.has(f) && !runner.EXCLUDED.has(f));
+  assert.deepStrictEqual(missing, [], `${missing.length} suites exist but the runner does not run them`);
+  assert.ok(discovered.size > 250, `expected the whole suite list, found ${discovered.size}`);
+
+  // Every exclusion carries a REASON, and there is only the one - the mocha
+  // entry point. "Excluded" is how a suite stops being a test quietly.
+  assert.deepStrictEqual([...runner.EXCLUDED.keys()], ['tests/all.test.js']);
+  for (const [file, why] of runner.EXCLUDED) {
+    assert.ok(why && why.length > 20, `${file} is excluded without a reason`);
+  }
+});
+
+test('and npm runs the runner, not a list', () => {
+  const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
+  assert.strictEqual(pkg.scripts['test:unit:node'], 'node tests/run-node-suites.cjs');
+  assert.strictEqual(pkg.scripts['test:unit:all'], 'npm run test:unit:node');
+});
+
+test('one failing suite no longer hides the rest', () => {
+  // The reason this runner exists: npm chains with &&, so node stopped at the
+  // first failing suite and skipped every suite after it. A run reported
+  // "tests:508 fail:1" having silently skipped about 200 of them.
+  const src = fs.readFileSync(path.join(__dirname, 'run-node-suites.cjs'), 'utf8');
+  assert.ok(!/&&/.test(src.match(/spawnSync[\s\S]{0,400}/)[0]), 'suites are spawned, not chained');
+  assert.ok(/failures\.push/.test(src) && /Failed suites:/.test(src),
+    'a failure is recorded and all of them are listed at the end');
+  const loop = src.slice(src.indexOf('for (let i = 0'), src.indexOf('const secs'));
+  assert.ok(/if \(failures\.length && bail\)/.test(loop),
+    'the loop continues after a failure unless --bail was asked for explicitly');
+  assert.ok(/timeout: SUITE_TIMEOUT_MS/.test(src), 'a hanging suite cannot hang the run');
 });
 
 test('and "Run ALL tests" runs that script', () => {
