@@ -295,8 +295,44 @@ action, written up with the rest of the run's failures in
 
 The other three failures are not the workflow's: `ppc64el` and `s390x` cannot be
 built by an unmaintained QEMU action that caps at `core22`
-([Snap-Core.md](https://github.com/wekan/wekan/blob/main/docs/Design/Autoupdate/Forks/Snap-Core.md)),
-and the variant pushes need a token that may write those repositories.
+([Snap-Core.md](https://github.com/wekan/wekan/blob/main/docs/Design/Autoupdate/Forks/Snap-Core.md))
+— fixed by the next entry — and the variant pushes need a token that may write
+those repositories.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2dde0b48a">The ppc64el and s390x snaps build on Launchpad now, and the dead QEMU job is gone</a>. Thanks to xet7.</summary>
+
+Both legs failed on every release, and not because of a secret or a flake:
+"Your build requires a base that this tool does not support (core24)". They were
+built by a `snap-qemu` job using `diddlesnaps/snapcraft-multiarch-action`, whose
+compiled `dist/index.js` caps at `core22` in three independent places, whose
+build image has no `:core24` tag, and which is unmaintained. WeKan's
+`snapcraft.yaml` is `base: core24`, so the build died the instant snapcraft read
+it — after the version gate passed and QEMU had set up. There is no maintained
+QEMU multi-arch snap action that does `core24`; Canonical's answer for an
+architecture with no native runner IS Launchpad `remote-build`
+([Snap-Core.md](https://github.com/wekan/wekan/blob/main/docs/Design/Autoupdate/Forks/Snap-Core.md)
+reads the evidence out of the action's source rather than off the error string).
+
+`snap-launchpad`'s matrix is now `[ppc64el, s390x, riscv64]`, and `snap-qemu` is
+deleted rather than disabled.
+
+These two arches once left Launchpad FOR QEMU, because the old remote-build legs
+ended in Launchpad state "Stopped" with no snap and then failed at `snapcraft
+upload` ("is not a valid file", exit 64). Today's job is what those legs were
+not: it retries the remote build 3×, requires the `.snap` file to exist, and
+uploads only when it is there. It stays `continue-on-error`, `fail-fast: false`
+and `timeout-minutes: 180`, so the price of this path — a Launchpad queue that
+can last hours — can neither fail the release nor cancel another architecture,
+and each arch publishes the moment it finishes.
+
+It needs `LP_CREDENTIALS` as well as `SNAP_AUTH`, which these two arches did not
+need before. The first step names either secret when it is unset and decodes
+`LP_CREDENTIALS`, and the remote-build step says by name when Launchpad answers
+unauthorized, so a credential problem is one named line rather than an
+ordinary-looking build failure.
 
 </details>
 
