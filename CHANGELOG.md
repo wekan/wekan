@@ -261,6 +261,50 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+This release has the following release-workflow fixes:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/89e6189cc">Release jobs now say what actually failed: no snap, no evidence hidden, no wrong secret blamed</a>. Thanks to xet7.</summary>
+
+Four jobs of `release-all.yml` reported the wrong cause in v10.48, which is
+worse than the failure itself — two of them sent a whole round of work after the
+wrong problem.
+
+`snap-launchpad` never checked whether a `.snap` existed. Its test was
+`snaps=( wekan_<version>_<arch>.snap )` followed by a count, in three steps; that
+string has no wildcard, so it is a literal filename, `nullglob` cannot empty a
+literal, and the count was always 1. s390x therefore logged an empty
+`Artifacts:` list, then "Remote build s390x succeeded", then `'wekan_10.48_s390x.snap'
+is not a valid file` — and the error text blamed `SNAP_AUTH`, although the Snap
+Store never saw an upload. It is a real glob now, the match must be non-empty,
+and a missing artifact and a refusal by the store are two different messages.
+
+The Launchpad build log — the only thing that says why a build ends as
+"Stopped" — was downloaded and then printed only when snapcraft exited non-zero,
+which after the above it did not. It is printed whenever there is no snap.
+
+`build-win64` verified the zip by listing it into a variable and grepping that,
+so a failure printed the verdict and none of the evidence, and a bad zip and a
+bad grep looked alike. The bundle's `main.js`, `node.exe` and `start-wekan.bat`
+are now checked in the directory before zipping, the archive must pass `7z t`,
+and the listing is printed with a match count — a zero count is a warning that
+names the two facts contradicting it, not a failed release.
+
+The `snap-variants` pre-flight asked GitHub for `.permissions.push`, which
+describes the authenticated user's role rather than what the token may do: it
+answered true one step before `remote: Permission to wekan/wekan-gantt-gpl.git
+denied to xet7`. It now asks the receive-pack advertisement, which is what
+GitHub refuses for a token without Contents:write.
+
+Finally, the one cause that leaves no trace in a build log is named in the job's
+error output: `snapcraft remote-build` files every build under an
+auto-generated Launchpad project, and a project with no licence does not qualify
+for free hosting, so its builds are stopped.
+
+</details>
+
 # v10.48 2026-07-28 WeKan ® release
 
 This release fixes the following bug:

@@ -2079,6 +2079,14 @@ jobs:
             fi
           done
           echo "::error::Remote build ${{ matrix.arch }} failed after $attempts attempts (no wekan_${VERSION}_${{ matrix.arch }}.snap produced). The Launchpad build log printed above says why; the builds are also at https://launchpad.net/~xet7/+snaps" >&2
+          # The one cause that leaves NO trace in the build log, because it is not a
+          # build problem at all: remote-build files every build under an
+          # auto-generated Launchpad PROJECT (xet7-craft-remote-build). A project
+          # with "Licence: None specified" does not qualify for Launchpad's free
+          # hosting - the page says "Purchasing a commercial subscription is
+          # required" - and its builds end as "Stopped" without an artifact, which is
+          # exactly what v10.48 did on ppc64el and s390x.
+          echo "::error::If the build ended as 'Stopped' with no artifact: open https://launchpad.net/xet7-craft-remote-build and check its Licence. 'None specified' means the project does not qualify for free hosting and Launchpad stops its builds. WeKan is MIT (LICENSE, package.json, snapcraft.yaml) - set the licence to MIT / X/Expat and re-run." >&2
           # The commonest cause after a plain build error is the credential: Launchpad
           # answers 401/403 for an expired or wrong LP_CREDENTIALS, which reads as an
           # ordinary build failure unless the log says so.
