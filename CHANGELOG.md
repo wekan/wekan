@@ -292,6 +292,99 @@ browser build to verify).
 This release fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e901ebd3f">Every LDAP user became an admin, and searching all boards failed</a>. Thanks to karvox, ahlgrimma, frantzstaboeeg and xet7.</summary>
+
+With `ldap-sync-admin-groups` set to ONE group, every user that logged in became
+a WeKan administrator (#6540). Two independent causes.
+
+The group query builds `(&(objectclass=group)(member=<the user>))`. The member
+clause — the one that says WHOSE groups these are — was left out whenever the
+user entry had no value for the configured member format, and the search then ran
+as `(&(objectclass=group))`, which answers with EVERY group in the directory. So
+every user "was in" the admin group, and a login restricted by group let everyone
+in for the same reason. It answers with NO groups now, names the misconfigured
+setting in the log, and first tries the other usual spellings of the same value.
+
+The comparison was `split(',')` matched exactly: "ti, admins" produced " admins"
+and matched nothing, an unset value produced one empty string that matched a
+group whose name the directory did not return, and Active Directory's
+case-insensitive names did not match at all. It is one shared rule now — trimmed,
+case-insensitive, and an EMPTY configured list can never grant admin — used by
+both the login path and the background sync.
+
+"Search All Boards" answered "Server Error", with `$nin needs an array` in the
+log (#6537): two calls in the global-search publication were not awaited, so a
+PROMISE was handed to Mongo where an array belongs, and both id helpers ignored
+the userId their callers passed, so the archived half of a search asked for the
+boards of nobody.
+
+The REST route that creates a checklist item gave every item `sort: 0`, so a
+checklist filled over the API came out in an order nobody chose (#6544). It
+appends now, like the UI does.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/98bce9714">OAuth2 scopes, a bind address, an IPv6 database, and two TLS switches</a>. Thanks to lukasjelonek, sysblade, scoopex, 1977er, GuiGuiSoft, marioschulz93 and xet7.</summary>
+
+A Keycloak login opened its popup and closed it again immediately (#6545): the
+snap's default for the OAuth2 scopes was `"'openid profile email'"` — the quotes
+are part of the VALUE — so the scope sent to the provider was `'openid` … `email'`.
+The default has no quotes now, and WeKan strips them anyway, so an install still
+carrying the old value keeps working.
+
+There was a `mongodb-bind-ip` but no way to say where WeKan itself should listen,
+so IPv6 was unreachable (#6546, #6555): `snap set wekan bind-ip='::'`. And an
+IPv6 DATABASE could not be reached at all (#6550), because an IPv6 literal has to
+be bracketed in a MongoDB URI — `mongodb://::1:27019/` is not a URL.
+
+A mail server whose certificate does not match the name it is reached by
+("Hostname/IP doesn't match certificate's altnames") could not be used (#6551),
+and neither could a webhook endpoint with a self-signed certificate (#6553).
+`MAIL_TLS_REJECT_UNAUTHORIZED=false` and `WEBHOOK_TLS_REJECT_UNAUTHORIZED=false`
+say "connect anyway": off by default, one per purpose, and never
+`NODE_TLS_REJECT_UNAUTHORIZED`, which would drop certificate checking for
+everything WeKan connects to. The webhook switch changes nothing else — the
+connection is still pinned to the resolved address and private ranges are still
+refused.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8267a320a">The snap has an application-menu entry that opens WeKan</a>. Thanks to COOKIE-1816 and xet7.</summary>
+
+"Wekan installed but is not visible in menu" (#6539) — because the snap installs
+a SERVER: it starts a daemon and shipped no `.desktop` file, so nothing appeared
+in the menu and it looked like nothing had been installed.
+
+`wekan.open` is that entry. It reads the snap's own settings and opens the
+address WeKan is actually serving — ROOT_URL when there is one, otherwise
+localhost with the configured port — so `snap set wekan port=…` is followed
+without anyone editing a desktop file. On a headless install, where there is no
+session to hand the URL to, it prints the address instead of failing silently.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/75d193d58">Impersonate said "Match failed", and a localhost ROOT_URL now says what it will do to your email</a>. Thanks to ahlgrimma, BastienGraziani and xet7.</summary>
+
+Impersonating a user did nothing, and the log said "Match error: Expected string,
+got null" (#6536). The popup called the server with the id from its data context,
+and when there was none it called with `undefined`. The client does not call at
+all without an id now, and the method answers a missing one with "impersonate: a
+user id is required" instead of "Match failed", which named neither the method
+nor what was missing.
+
+And an invitation mail arrived with `http://127.0.0.1/b/...` in it (#6538). Every
+link WeKan sends is built from ROOT_URL, so when that is left at localhost the
+mail goes out with the sender's own machine in it — unusable for everyone who
+receives it, with nothing failing and no error to look at. WeKan says so once at
+startup now, naming the setting and what to set it to. A warning, not a refusal:
+a single-machine install where localhost IS the address is perfectly valid.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e3f49bb26">One missing SWC helper stopped WeKan from starting in an older browser</a>. Thanks to zubzhaaaw and xet7.</summary>
 
 WeKan 10.44 in Yandex Browser died at load with `Cannot find module
