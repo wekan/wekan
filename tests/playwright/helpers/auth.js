@@ -11,6 +11,11 @@ const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
 // closed page does not keep anything alive.
 const resumeDisabled = new WeakSet();
 
+// The one-shot flag the init script below looks for. It is ARMED just before the
+// reload that starts a login, and the init script consumes it, so exactly one page
+// load starts without a stored session.
+const ARM_KEY = 'wekan-e2e-clear-session';
+
 async function loginWithToken(page, userId, token) {
   // Stop the PREVIOUS session from resuming. Meteor's accounts-base reads
   // localStorage at startup and logs the stored user back in, asynchronously - so
@@ -24,18 +29,33 @@ async function loginWithToken(page, userId, token) {
   // Removing exactly the three Accounts keys before any script runs means there is
   // nothing to resume. Everything else in localStorage - board view, list widths,
   // the settings tests rely on - is left alone.
+  //
+  // ONE-SHOT, and that is the whole point: an init script runs on EVERY navigation
+  // of the page, so clearing unconditionally logged the test OUT again the moment
+  // it opened the board it had just logged in for - every private board answered
+  // "Board not found" and the whole browser suite failed in the fixture. The script
+  // therefore clears only when the flag below is armed, and disarms it.
   if (!resumeDisabled.has(page)) {
-    await page.addInitScript(() => {
+    await page.addInitScript(armKey => {
       try {
+        if (window.localStorage.getItem(armKey) !== '1') return;
+        window.localStorage.removeItem(armKey);
         window.localStorage.removeItem('Meteor.loginToken');
         window.localStorage.removeItem('Meteor.loginTokenExpires');
         window.localStorage.removeItem('Meteor.userId');
       } catch (e) { /* a page without storage access is already resume-free */ }
-    });
+    }, ARM_KEY);
     resumeDisabled.add(page);
   }
 
   await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'commit' });
+  // Arm the clear and reload, so the load that this login happens on is the one
+  // load with no stored session to resume. (Arming needs the origin's storage,
+  // which is why it is done here rather than before the first navigation.)
+  await page.evaluate(armKey => {
+    try { window.localStorage.setItem(armKey, '1'); } catch (e) { /* no storage, nothing to resume */ }
+  }, ARM_KEY);
+  await page.reload({ waitUntil: 'commit' });
   await waitForMeteor(page);
 
   // And wait for any login attempt that is still in flight to finish, so the
