@@ -414,6 +414,33 @@ for the count, instead of guessing from error text.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b46eecf58">The 20 suites the chain had been hiding, and the four real defects among them</a>. Thanks to xet7.</summary>
+
+With the runner in place, all 260 suites ran for the first time: 20 failed.
+
+Four were defects in the app. `accentOf('constructor')` returned Object's
+constructor — a FUNCTION — because a plain lookup answers from
+`Object.prototype`, so a board colour named after any prototype member would
+have written a function into a stylesheet. And in RTL: the dependency overlay
+and its connect handle each set a physical `left`/`right` AFTER the logical
+property, so the physical one won and both stayed on the LTR side in an Arabic
+or Hebrew layout; the skip link, the avatar's account badge, the stats value
+column and the theme-category label were physical too. All logical now.
+
+The other sixteen were guards pinning a spelling or a design that had since
+changed — a fixed-size slice a grown comment pushed the subject out of, the
+Grey Icons feature that is gone, a separator count the site-theme picker made
+four, the board-member restriction that moved into Organizations and Teams, the
+hamburger that is now the last button in the flow, the report page the SERVER
+names. Each was corrected to what the code does now, with the reason written
+down. Two of them could never have passed: the "no hand-written table" regex
+matched the `+tablePage` include the same test requires, and the RTL scanner
+read CSS COMMENTS as declarations — the comment explaining why `left: 50%`
+needs no RTL variant was reported as a violation of the rule it documents.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ca8983d99">A guard about ordering failed because of how a process is started</a>. Thanks to xet7.</summary>
 
 `tests/sandstormMigrationBridge.test.cjs` failed the whole node suite with
