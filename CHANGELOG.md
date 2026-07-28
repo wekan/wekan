@@ -261,6 +261,73 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+This release has the following release-workflow fix:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9b57dfd8b">The Windows zip was never broken: a matched file was reported as missing, because of SIGPIPE</a>. Thanks to xet7.</summary>
+
+v10.49 printed the archive listing that the previous release added, and it ends
+two releases of guessing about `wekan-*-win64.zip`:
+
+    7z t: archive is intact.
+    7z l -ba listed 51850 entries; the first five:
+    2026-07-28 21:58:39 D....        0        0  bundle
+    2026-07-28 21:52:07 .....        9        9  bundle\.node_version.txt
+    2026-07-28 21:58:36 ....A  8828928  3365469  bundle\bsondump.exe
+    2026-07-28 21:58:39 ....A 55313920 26791675  bundle\ferretdb.exe
+    2026-07-28 21:52:07 .....      243      168  bundle\main.js
+    ##[error]Process completed with exit code 141
+
+`bundle\main.js` is in the zip, the archive passes its integrity test, and the
+step still failed — with 141, which is 128+13, SIGPIPE. `printf … | head -5`:
+head takes its five lines and exits, printf is killed writing into a closed
+pipe, `set -o pipefail` (which GitHub's bash sets) makes that the pipeline's
+status, and `set -e` ends the step. The evidence printed, and then killed the
+job.
+
+The same mechanism is the ORIGINAL failure, and that is the part worth keeping:
+`printf … | grep -qF -e "bundle\main.js"` — `grep -q` exits the instant it
+MATCHES, printf dies of SIGPIPE, pipefail reports 141, and `if !` reads that as
+"not found". So "has no bundle/main.js" was printed BECAUSE the file was found.
+Both forms were reproduced exactly in bash before the fix was written.
+
+Every listing now goes through a file and every reader reads the file: the
+win64 verify, the four `unzip -l "$zip" | grep -q` checks on the other
+platforms — the same trap, only luckier so far about the size of the pipe
+buffer — and the five `gh release view … | grep -qxF` asset checks. A guard
+pins that nothing in the workflow pipes a listing into `grep` or `head`.
+
+</details>
+
+and has the following test fix:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/18a2dbda8">The card-drag test measured the board's edge auto-scroll, which is a feature</a>. Thanks to xet7.</summary>
+
+The browser test added for [#6558](https://github.com/wekan/wekan/issues/6558)
+ran for the first time and failed on the lane's scroll position, while
+everything it exists for passed: the drag was really in progress, and neither
+the canvas nor the lane carried `dragscroll` while it was.
+
+It grabbed the first card of the first list, which sits within 40px of the
+lane's left edge. Inside that zone the drag's own auto-scroll takes over by
+design and moves the lane 15px per mouse event — eight moves, 120 − 8×15 =
+exactly the 0 the test read. That is the off-screen-list auto-scroll working,
+not the panning the test is about.
+
+Panning follows the pointer 1:1 and happens anywhere; edge auto-scroll happens
+only at an edge. So the test drags in the middle now: it measures the lane and
+canvas rectangles, picks the minicard with the most room inside a 70px margin
+on every side, and moves it along a short diagonal clamped to that box. A
+viewport too small for such a drag skips the test with that reason, rather than
+measuring the wrong mechanism.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.49 2026-07-29 WeKan ® release
 
 This release has the following release-workflow fixes:

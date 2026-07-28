@@ -166,10 +166,16 @@ test('a markdown heading never appears inside an entry', () => {
 });
 
 test('lines are wrapped at 80 columns, links excepted', () => {
+  // The sentence that closes a release is prescribed word for word by CLAUDE.md
+  // ("Thanks to above GitHub users ..."), so it is 92 characters in every
+  // release and cannot be wrapped without changing the established form. Count
+  // the lines that COULD be wrapped; otherwise this guard fails once per release
+  // for writing the line it requires.
+  const CLOSING = 'Thanks to above GitHub users for their contributions and translators for their translations.';
   const over = lines
     .map((line, i) => ({ line: i + 1, text: line }))
     .filter(l => l.text.length > 80 && !/https?:\/\//.test(l.text)
-      && !l.text.startsWith('<summary>'));
+      && !l.text.startsWith('<summary>') && l.text !== CLOSING);
   // The remainder are deep-indented technical notes in old entries.
   assert.ok(over.length <= 250,
     `${over.length} over-long lines without a link, e.g. line ${over[0] && over[0].line}`);
