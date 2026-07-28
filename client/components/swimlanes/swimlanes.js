@@ -1,6 +1,10 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { once } from '/imports/lib/collectionHelpers';
-import dragscroll from '@wekanteam/dragscroll';
+import {
+  suspendBoardDragscroll,
+  resumeBoardDragscroll,
+  isBoardDragscrollSuspended,
+} from '/client/lib/boardDragscroll';
 import Lists from '/models/lists';
 import { CSSEvents } from '/client/lib/cssEvents';
 import { Filter } from '/client/lib/filter';
@@ -106,9 +110,7 @@ function saveSorting(ui) {
       !window.confirm(TAPi18n.__('confirm-move-list-to-swimlane'))
     ) {
       Meteor.subscribe('board', list.boardId, false);
-      $('.js-swimlane').each(function () {
-        $(this).addClass('dragscroll');
-      });
+      resumeBoardDragscroll(); // #6558: the drag is over, panning comes back
       return;
     }
     updateData.swimlaneId = targetSwimlaneId;
@@ -177,17 +179,9 @@ function saveSorting(ui) {
     // Silent fail
   }
 
-  // Re-enable dragscroll after list dragging is complete
-  try {
-    dragscroll.reset();
-  } catch (e) {
-    // Silent fail
-  }
-
-  // Re-enable dragscroll on all swimlanes
-  $('.js-swimlane').each(function () {
-    $(this).addClass('dragscroll');
-  });
+  // Re-enable dragscroll after list dragging is complete - the swimlanes AND
+  // the canvas, exactly as they were tagged before the drag (#6558).
+  resumeBoardDragscroll();
 }
 
 function currentListIsInThisSwimlane(swimlaneId) {
@@ -386,16 +380,11 @@ function initSortable(boardComponent, $listsDom) {
         // Add visual feedback for list being dragged
         ui.item.addClass('ui-sortable-helper');
 
-        // Disable dragscroll during list dragging to prevent interference
-        try {
-          dragscroll.reset();
-        } catch (e) {
-        }
-
-        // Also disable dragscroll on all swimlanes during list dragging
-        $('.js-swimlane').each(function() {
-          $(this).removeClass('dragscroll');
-        });
+        // #6558: no panning while a list is dragged. This used to call
+        // dragscroll.reset() FIRST and remove the class afterwards, which does
+        // nothing - reset() binds to whatever carries the class at that moment,
+        // so the listeners stayed - and it left `.board-canvas` tagged anyway.
+        suspendBoardDragscroll();
       },
       beforeStop(evt, ui) {
         // Clean up visual feedback
@@ -483,8 +472,10 @@ Template.swimlane.onRendered(function () {
           ui.placeholder.width(ui.helper.width());
           EscapeActions.executeUpTo('popup-close');
           if (boardComponent) boardComponent.setIsDragging(true);
+          suspendBoardDragscroll(); // #6558
         },
         stop(evt, ui) {
+          resumeBoardDragscroll(); // #6558
           if (boardComponent) boardComponent.setIsDragging(false);
           saveSorting(ui);
         },
@@ -817,6 +808,18 @@ Template.swimlane.events({
     ).concat([
       '.js-list-resize-handle',
       '.js-swimlane-resize-handle',
+      // #6558: everything that is a DRAG SOURCE rather than a pan surface.
+      // This lane-panning handler is a second implementation of drag-scroll,
+      // and it used to ignore the `nodragscroll` marker the dragscroll library
+      // honours - so pressing a card (which carries `nodragscroll` when the
+      // card itself is the sortable's handle) started a horizontal lane pan
+      // that ran ALONGSIDE the card drag: the card followed the pointer while
+      // the list slid sideways under it, and the drop landed somewhere else.
+      // `.handle` covers the card/list/swimlane drag handles when handles are
+      // on, `.nodragscroll` covers the minicards, resize handles, checklists
+      // and anything else already marked as not-for-panning.
+      '.nodragscroll',
+      '.handle',
     ]);
 
     const isResizeHandle = $(evt.target).closest('.js-list-resize-handle, .js-swimlane-resize-handle').length > 0;
@@ -840,6 +843,12 @@ Template.swimlane.events({
     }
   },
   mousemove(evt, tpl) {
+    // #6558: a card / list / swimlane drag has taken over the pointer - stop
+    // panning, whatever started it.
+    if (tpl._isDragging && isBoardDragscrollSuspended()) {
+      tpl._isDragging = false;
+      return;
+    }
     if (tpl._isDragging) {
       // Update the canvas position
       tpl.listsDom.scrollLeft -= evt.clientX - tpl._lastDragPositionX;
@@ -1038,8 +1047,10 @@ Template.listsGroup.onRendered(function () {
           ui.placeholder.width(ui.helper.width());
           EscapeActions.executeUpTo('popup-close');
           if (boardComponent) boardComponent.setIsDragging(true);
+          suspendBoardDragscroll(); // #6558
         },
         stop(evt, ui) {
+          resumeBoardDragscroll(); // #6558
           if (boardComponent) boardComponent.setIsDragging(false);
           saveSorting(ui);
         },

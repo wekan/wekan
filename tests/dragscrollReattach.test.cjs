@@ -14,6 +14,10 @@
 // delegated dragscrollTouch). The fix makes the autorun read the board view +
 // swimlanes + lists so reset() re-runs when the rendered containers change.
 //
+// The re-scan itself goes through resetBoardDragscroll() (client/lib/boardDragscroll.js)
+// since #6558, which is dragscroll.reset() plus "stay suspended while a card is being
+// dragged"; either spelling satisfies this file, what it pins is the reactive reads.
+//
 // DOM/Blaze-coupled runtime code, so it is guarded at the source level.
 // Run: node tests/dragscrollReattach.test.cjs
 
@@ -27,14 +31,20 @@ const js = fs.readFileSync(
   'utf8',
 );
 
-// Isolate the autorun that calls dragscroll.reset() (the one set up in onRendered),
-// so the assertions cannot be satisfied by unrelated code elsewhere in the file.
-const resetIdx = js.indexOf('dragscroll.reset();');
-assert.ok(resetIdx !== -1, 'expected a dragscroll.reset() call in boardBody.js');
+// Isolate the autorun that re-scans the dragscroll containers (the one set up in
+// onRendered), so the assertions cannot be satisfied by unrelated code elsewhere in
+// the file.
+const RESET = /(?:dragscroll\.reset|resetBoardDragscroll)\(\);/g;
+const resets = [...js.matchAll(RESET)];
+assert.ok(resets.length > 0, 'expected a dragscroll re-scan call in boardBody.js');
+const inAutorun = resets.find(m => js.lastIndexOf('this.autorun(', m.index) !== -1
+  && js.slice(js.lastIndexOf('this.autorun(', m.index), m.index).includes('.swimlanes()'));
+const resetIdx = (inAutorun || resets[0]).index;
+const resetLen = (inAutorun || resets[0])[0].length;
 const autorunStart = js.lastIndexOf('this.autorun(', resetIdx);
-assert.ok(autorunStart !== -1, 'dragscroll.reset() must live inside a this.autorun()');
-// The autorun body up to and including the reset() call.
-const body = js.slice(autorunStart, resetIdx + 'dragscroll.reset();'.length);
+assert.ok(autorunStart !== -1, 'the re-scan must live inside a this.autorun()');
+// The autorun body up to and including the re-scan call.
+const body = js.slice(autorunStart, resetIdx + resetLen);
 
 let passed = 0;
 function test(name, fn) {
@@ -59,9 +69,9 @@ test('it reads the swimlanes and lists so reset() re-runs when they change', () 
 
 test('the reactive reads come BEFORE dragscroll.reset()', () => {
   const swimIdx = body.indexOf('.swimlanes()');
-  const resetInBody = body.indexOf('dragscroll.reset()');
+  const resetInBody = body.search(/(?:dragscroll\.reset|resetBoardDragscroll)\(\)/);
   assert.ok(swimIdx !== -1 && swimIdx < resetInBody,
-    'the swimlanes/lists reads must precede dragscroll.reset() in the autorun');
+    'the swimlanes/lists reads must precede the re-scan in the autorun');
 });
 
 console.log(`\nAll ${passed} dragscroll re-attach tests passed`);

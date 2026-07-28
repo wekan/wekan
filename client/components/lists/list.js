@@ -3,6 +3,10 @@ import { TAPi18n } from '/imports/i18n';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { MultiSelection } from '/client/lib/multiSelection';
 import { Utils } from '/client/lib/utils';
+import {
+  suspendBoardDragscroll,
+  resumeBoardDragscroll,
+} from '/client/lib/boardDragscroll';
 import Cards from '/models/cards';
 import {
   isDegenerateSortGap,
@@ -285,8 +289,15 @@ Template.list.onRendered(function () {
       ui.placeholder.height(ui.helper.height());
       EscapeActions.executeUpTo('popup-close');
       if (boardComponent) boardComponent.setIsDragging(true);
+      // #6558: the same pointer must not ALSO pan the lane and the canvas -
+      // that is what made a card drag scroll the list, scroll the board, and
+      // move the card all at once. The `sort` handler below does the one
+      // auto-scroll a drag needs, at the edges.
+      suspendBoardDragscroll();
     },
     stop(evt, ui) {
+      // #6558: panning is available again the moment the drag is over.
+      resumeBoardDragscroll();
       // To attribute the new index number, we need to get the DOM element
       // of the previous and the following card -- if any.
       const prevCardDom = ui.item.prev('.js-minicard').get(0);

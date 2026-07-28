@@ -5,6 +5,8 @@ template(name="minicard")
   //- card body is free, so a finger dragging across it PANS the board
   //- (dragscroll) instead of doing nothing. It used to be unconditional, so with
   //- handles on, a drag starting on a card neither panned nor moved the card.
+  //- The HANDLE itself is always `nodragscroll` (#6558): it is the drag source,
+  //- so a press on it must move the card, never pan the board underneath it.
   .minicard(
     class="{{#unless isTouchScreenOrShowDesktopDragHandles}}nodragscroll{{/unless}}"
     class="{{#if showMinicardHandle}}minicard-with-handle{{/if}}"
@@ -15,7 +17,7 @@ template(name="minicard")
     style="{{colorStyle}}")
     if canMoveCard
       if isTouchScreenOrShowDesktopDragHandles
-        .handle
+        .handle.nodragscroll
           i.fa.fa-arrows
       //- #459: keyboard/screen-reader reordering (visually hidden, focusable).
       .minicard-move-buttons.sr-only

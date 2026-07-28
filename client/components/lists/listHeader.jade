@@ -87,7 +87,7 @@ template(name="listHeader")
                     i.fa.fa-plus-square-o
           unless currentUser.isWorker
             if isTouchScreenOrShowDesktopDragHandles
-              a.list-header-handle.handle.js-list-handle
+              a.list-header-handle.handle.nodragscroll.js-list-handle
                 i.fa.fa-arrows
       else if currentUser.isBoardMember
         if isWatching
@@ -96,7 +96,7 @@ template(name="listHeader")
           unless currentUser.isReadOnly
             unless currentUser.isReadAssignedOnly
               if isTouchScreenOrShowDesktopDragHandles
-                a.list-header-handle-desktop.handle.js-list-handle(title="{{_ 'drag-list'}}")
+                a.list-header-handle-desktop.handle.nodragscroll.js-list-handle(title="{{_ 'drag-list'}}")
                   i.fa.fa-arrows
         unless collapsed
           div.list-header-menu
@@ -107,7 +107,7 @@ template(name="listHeader")
                   //
                     a.fa.js-list-star.list-header-plus-top(class="fa-star{{#unless starred}}-o{{/unless}}")
                   if isTouchScreenOrShowDesktopDragHandles
-                    a.list-header-handle-desktop.handle.js-list-handle(title="{{_ 'drag-list'}}")
+                    a.list-header-handle-desktop.handle.nodragscroll.js-list-handle(title="{{_ 'drag-list'}}")
                       i.fa.fa-arrows
                   if canSeeAddCard
                     a.js-add-card.list-header-plus-top(title="{{_ 'add-card-to-top-of-list'}}")

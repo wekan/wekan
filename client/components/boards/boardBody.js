@@ -1,7 +1,11 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { TAPi18n } from '/imports/i18n';
-import dragscroll from '@wekanteam/dragscroll';
+import {
+  suspendBoardDragscroll,
+  resumeBoardDragscroll,
+  resetBoardDragscroll,
+} from '/client/lib/boardDragscroll';
 import '/client/lib/dragscrollTouch';
 import '/client/lib/dragDropTouch';
 import { boardConverter } from '/client/lib/boardConverter';
@@ -515,6 +519,7 @@ Template.boardBody.onRendered(function () {
       EscapeActions.executeUpTo('popup-close');
       listDom.addClass('moving-swimlane');
       tpl.setIsDragging(true);
+      suspendBoardDragscroll(); // #6558
 
       ui.placeholder.insertAfter(ui.placeholder.next());
       tpl.origPlaceholderIndex = ui.placeholder.index();
@@ -555,6 +560,7 @@ Template.boardBody.onRendered(function () {
       const nextSwimlaneDom = ui.item.nextAll('.js-swimlane').get(0);
       const sortIndex = calculateIndex(prevSwimlaneDom, nextSwimlaneDom, 1);
 
+      resumeBoardDragscroll(); // #6558
       $swimlanesDom.sortable('cancel');
       const swimlaneDomElement = ui.item.get(0);
       const swimlane = Blaze.getData(swimlaneDomElement);
@@ -624,7 +630,7 @@ Template.boardBody.onRendered(function () {
       dragscrollBoard.swimlanes();
       dragscrollBoard.draggableLists();
     }
-    dragscroll.reset();
+    resetBoardDragscroll();
 
     if ($swimlanesDom.data('uiSortable') || $swimlanesDom.data('sortable')) {
       if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
@@ -653,7 +659,7 @@ Template.boardBody.onRendered(function () {
     }
   });
 
-  dragscroll.reset();
+  resetBoardDragscroll();
   // #4978: apply the board background inside a reactive autorun instead of a
   // one-shot call. Switching directly between boards (e.g. the favorites bar)
   // reuses this template instance and never re-fires onRendered, so the
