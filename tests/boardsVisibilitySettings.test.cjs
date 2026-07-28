@@ -539,7 +539,17 @@ test('the Login save keeps the empty-value guard the Layout save had', () => {
     'the fallback to the stored method must come along');
   assert.ok(/\$\('#defaultAuthenticationMethod'\)\.length/.test(body),
     'and it writes only when the dropdown is on screen');
-  assert.ok(/display !== undefined/.test(body), 'same for the Yes/No radio');
+  // The second field of this Save is the OIDC button text, and it is guarded the
+  // same way. The Yes/No radio this used to check is not in this pane at all -
+  // "display the authentication method" is a checkbox with its own click handler
+  // (js-toggle-display-authentication-method), which writes the toggle directly.
+  assert.ok(/\$\('#oidcBtnTextvalue'\)\.length/.test(body),
+    'and so does the other field it saves');
+  assert.ok(/if \(Object\.keys\(\$settings\)\.length\)/.test(body),
+    'and nothing is written when neither is on screen');
+  const js2 = read('client/components/settings/settingBody.js');
+  assert.ok(/displayAuthenticationMethod: !shown/.test(js2),
+    'the display toggle writes itself, from its own handler');
 });
 
 test('Wait Spinner moved to Visibility', () => {

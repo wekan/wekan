@@ -36,10 +36,10 @@ close on push): e.g. #4560/#4419/#4158 (LDAP, in the startup-upgrade batch), #48
 (linked-card/archive/comment attachments), #4593 (late-joining team member board
 membership) and #3037 (REST card board-move).
 
-Checked against GitHub on 2026-07-28 and removed as no longer open: #3138,
-#3252, #3276, #3378, #3748, #3828, #4055, #4774, #5149 and #6511. The
-"already correct in the current code" category went with them - it held only
-#4774 and #4055, and both are closed now.
+Checked against GitHub on 2026-07-28 and removed as no longer open: issues
+\#3138, \#3252, \#3276, \#3378, \#3748, \#3828, \#4055, \#4774, \#5149 and
+\#6511. The "already correct in the current code" category went with them - it
+held only issues \#4774 and \#4055, and both are closed now.
 </details>
 
 <details>
@@ -358,12 +358,12 @@ and updates the backlog:
 <summary><a href="https://github.com/wekan/wekan/commit/11c946301">TODO Later: ten issues closed since it was written, and what testing FerretDB on MySQL answered</a>. Thanks to xet7.</summary>
 
 Every issue in `# TODO Later` was checked against GitHub. Ten are no longer open
-and are gone from the list: #3138, #3252, #3276, #3378, #3748, #3828, #4055,
-#4774, #5149 and #6511. The "already correct in the current code" category went
-with them, because it held only the two that are now closed.
+and are gone from the list: issues \#3138, \#3252, \#3276, \#3378, \#3748,
+\#3828, \#4055, \#4774, \#5149 and \#6511. The "already correct in the current
+code" category went with them, because it held only the two that are now closed.
 
-#6509 — "please test FerretDB v1 with MySQL, MariaDB and SAP HANA" — is mostly
-answered rather than pending: the conformance harness runs one catalogue of 100
+Issue \#6509 — "please test FerretDB v1 with MySQL, MariaDB and SAP HANA" — is
+mostly answered rather than pending: the conformance harness runs one catalogue of 100
 queries against every backend with an image for this machine, and **MariaDB now
 answers identically to SQLite on 98 of them**, the two exceptions being the
 `$slice` / `$elemMatch` projections that no backend implements. Getting there
