@@ -89,7 +89,16 @@ check('eventLog defines acks collection + admin methods', () => {
   assert.ok(/new Mongo\.Collection\('eventlogAcks'\)/.test(src));
   assert.ok(/eventLogProblemAreas\(\)/.test(src) && /acknowledgeEventLog\(streams\)/.test(src));
   assert.ok(/user\.isAdmin/.test(src), 'methods must be admin-gated');
-  assert.ok(/\$gt: ack\.at/.test(src), 'count must be events newer than the ack');
+  // The selector itself moved to models/lib/eventLogProblems.js (#6520: purely
+  // informational rows must not be counted as problems), so this asserts that
+  // the method USES that selector and hands it the ack time - the "newer than
+  // the ack" rule is pinned in tests/eventLogProblems.test.cjs, where the
+  // selector lives.
+  assert.ok(/newProblemsSelector\(stream, ack && ack\.at\)/.test(src),
+    'count must be the shared new-problems selector, newer than the ack');
+  const lib = read('models/lib/eventLogProblems.js');
+  assert.ok(/selector\.at = \{ \$gt: ackAt \}/.test(lib),
+    'and that selector counts events newer than the ack');
 });
 check('argument-taking methods check() every arg BEFORE requireAdmin (audit-argument-checks)', () => {
   // Meteor's audit-argument-checks reports "Did not check() all arguments"

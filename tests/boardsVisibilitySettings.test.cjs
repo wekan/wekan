@@ -146,12 +146,29 @@ test('each section of Visibility has its own Save, above its rule', () => {
   for (let i = 1; i < buttons.length; i += 1) {
     assert.ok(at(buttons[i - 1]) < at(buttons[i]), 'the buttons follow the sections');
   }
+  // The separators cut the pane into sections; each section holds at most ONE
+  // Save, and the Save belongs to the fields above it. Counting separators (it
+  // was pinned at 3) breaks whenever a section is added - the site-theme picker
+  // group did exactly that - so what is asserted is the shape, not the number.
   const rules = [...pane.matchAll(/li\.admin-pane-group-separator/g)].map(m => m.index);
-  assert.strictEqual(rules.length, 3);
-  for (let i = 0; i < rules.length; i += 1) {
-    assert.ok(at(buttons[i]) < rules[i],
-      `${buttons[i]} must sit above the rule that closes its section`);
+  assert.ok(rules.length >= buttons.length,
+    'every section but the first is opened by a rule');
+  const bounds = [0, ...rules, pane.length];
+  const sections = bounds.slice(0, -1).map((from, i) => pane.slice(from, bounds[i + 1]));
+  for (const section of sections) {
+    const saves = buttons.filter(b => section.includes(b));
+    assert.ok(saves.length <= 1,
+      `one Save per section, found ${saves.join(' + ')} in the same section`);
   }
+  // The site-theme picker is the one group with NO Save: it applies immediately,
+  // like the per-user "Change color" it mirrors (docs/Theme/Theme.md).
+  const themeSection = sections.find(sec => sec.includes('themeColorPicker'));
+  assert.ok(themeSection, 'the site theme picker is in this pane');
+  assert.deepStrictEqual(buttons.filter(b => themeSection.includes(b)), [],
+    'the theme picker applies immediately and has no Save');
+  // And every Save is in a section of its own.
+  assert.strictEqual(sections.filter(sec => buttons.some(b => sec.includes(b))).length,
+    buttons.length, 'each Save has its own section');
   // The three buttons this replaces are gone - jade AND handler, together.
   for (const gone of ['js-tableVisibilityMode-save', 'js-hide-board-activities-save',
     'js-support-save']) {

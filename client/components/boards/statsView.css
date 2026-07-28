@@ -51,5 +51,6 @@
 
 .stats-view-table .stats-view-value {
   font-weight: bold;
-  text-align: right;
+  /* A number is read from its END edge - the right in LTR, the left in RTL. */
+  text-align: end;
 }

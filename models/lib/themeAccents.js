@@ -41,7 +41,15 @@ const THEME_ACCENTS = {
 // The accent of one theme, or '' when the name is unknown (which is what an
 // unthemed instance and a bad value both look like).
 function accentOf(color) {
-  return (typeof color === 'string' && THEME_ACCENTS[color]) || '';
+  // hasOwnProperty, not a plain lookup: `THEME_ACCENTS['constructor']` answers
+  // with Object's constructor, and 'toString' with a function - so a board whose
+  // colour is named after any Object.prototype member would have got a FUNCTION
+  // as its accent and written it into a stylesheet. Only the map's own keys are
+  // themes.
+  if (typeof color !== 'string') return '';
+  return Object.prototype.hasOwnProperty.call(THEME_ACCENTS, color)
+    ? THEME_ACCENTS[color] || ''
+    : '';
 }
 
 // The accent to publish as `--theme-accent`, given the active theme and whatever

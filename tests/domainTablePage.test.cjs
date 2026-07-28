@@ -86,9 +86,20 @@ test('non-array / empty input is handled without throwing', () => {
 });
 
 test('perPage is clamped to a sane range (>=1, <=200)', () => {
-  assert.strictEqual(paginateDomains(rows, { perPage: 0 }).perPage, 25); // 0 -> default
+  // The default is the app's ONE rows-per-page (10, TABLE_PAGE_ROWS_PER_PAGE in
+  // models/lib/tablePage.js and docs/Design/Page/Table.md) - it used to be 25
+  // here alone, which is exactly the drift that setting exists to stop.
+  // models/lib/tablePage.js is an ES module, so read the constant out of it
+  // rather than require() it - the same thing tests/tablePage.test.cjs does.
+  const fs = require('fs');
+  const path = require('path');
+  const src = fs.readFileSync(path.join(__dirname, '..', 'models/lib/tablePage.js'), 'utf8');
+  const TABLE_PAGE_ROWS_PER_PAGE = Number(
+    src.match(/TABLE_PAGE_ROWS_PER_PAGE\s*=\s*(\d+)/)[1]);
+  assert.strictEqual(TABLE_PAGE_ROWS_PER_PAGE, 10, 'the app-wide rows per page');
+  assert.strictEqual(paginateDomains(rows, { perPage: 0 }).perPage, TABLE_PAGE_ROWS_PER_PAGE);
   assert.strictEqual(paginateDomains(rows, { perPage: 9999 }).perPage, 200);
-  assert.strictEqual(paginateDomains(rows, { perPage: -5 }).perPage, 25);
+  assert.strictEqual(paginateDomains(rows, { perPage: -5 }).perPage, TABLE_PAGE_ROWS_PER_PAGE);
 });
 
 test('page is never below 1', () => {

@@ -50,9 +50,13 @@ function handlerKeys(src, template) {
 }
 
 const LOGIN_HANDLERS = ['click a.js-toggle-forgot-password', 'click a.js-toggle-registration',
-  'click a.js-toggle-board-members-same-org-team',
   'click a.js-toggle-display-authentication-method', 'click a.js-toggle-board-choose',
   'click button.js-email-invite', 'click button.js-account-access-save'];
+// "Add board members only from the same Organization or Team" left the Login pane
+// entirely: it is two checkboxes now, each in the pane it is about (People /
+// Organizations and People / Teams), so it is asserted there instead of here.
+const ORG_TEAM_TOGGLES = ['click a.js-toggle-board-members-same-org',
+  'click a.js-toggle-board-members-same-team'];
 const EMAIL_HANDLERS = ['click a.js-toggle-tls', 'click button.js-save',
   'click button.js-send-smtp-test-email'];
 
@@ -125,6 +129,16 @@ test('each pane took its handlers with it', () => {
     assert.ok(onEmail.includes(key), `${key} must be on Template.email now`);
     assert.ok(!onSetting.includes(key), `${key} must no longer be on Template.setting`);
   }
+});
+
+test('the board-member restriction lives in Organizations and Teams, not in Login', () => {
+  // One checkbox in the Login pane restricted two things that are not in it. It
+  // is two now, one per pane, and neither belongs to Login any more.
+  for (const key of ORG_TEAM_TOGGLES) {
+    assert.ok(peopleJs.includes(`'${key}'`), `${key} must be handled in the People panes`);
+  }
+  assert.ok(!/js-toggle-board-members-same-org-team/.test(peopleJs + settingsJs),
+    'the single combined toggle is gone from both panes');
 });
 
 test('the panes that stayed kept theirs (negative)', () => {

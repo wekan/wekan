@@ -219,7 +219,10 @@ test('a FerretDB that will not start says why, in the output', () => {
 
 test('results are written where every other test run writes them', () => {
   const sh = read('releases/db-conformance.sh');
-  assert.ok(/LOGDIR="\.\.\/log\/\$RUN_TS"/.test(sh), '../log/<datetime>/');
+  // ../log/<datetime>/ of its own, unless a larger run (EVERYTHING) already named
+  // one in WEKAN_LOGDIR - then the whole run stays in that single directory.
+  assert.ok(/LOGDIR="\$\{WEKAN_LOGDIR:-\.\.\/log\/\$RUN_TS\}"/.test(sh),
+    '../log/<datetime>/, or the directory the caller named');
   assert.ok(/date '\+%Y-%m-%d_%H-%M-%S'/.test(sh), 'the same datetime format as build.sh');
   assert.ok(read('build.sh').includes("date '+%Y-%m-%d_%H-%M-%S'"),
     'which is the format build.sh uses for its own run directories');

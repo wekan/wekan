@@ -142,7 +142,7 @@ summary:focus-visible,
  * pinned to the top-left so keyboard users can jump past the header chrome. */
 .skip-link {
   position: absolute;
-  left: -9999px;
+  inset-inline-start: -9999px;
   top: 0;
   z-index: 10000;
   padding: 10px 16px;
@@ -154,7 +154,7 @@ summary:focus-visible,
 }
 .skip-link:focus,
 .skip-link:focus-visible {
-  left: 0;
+  inset-inline-start: 0;
   outline: 2px solid #fff;
   outline-offset: -4px;
 }

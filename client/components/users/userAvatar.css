@@ -196,7 +196,7 @@
 .member .member-account-badge {
   position: absolute;
   bottom: -2px;
-  right: -2px;
+  inset-inline-end: -2px;
   min-width: 14px;
   height: 14px;
   line-height: 13px;

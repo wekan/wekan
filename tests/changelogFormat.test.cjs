@@ -53,8 +53,16 @@ console.log('changelogFormat:');
 test('the file opens with Platforms and TODO Later, then the releases', () => {
   const headings = lines.filter(l => l.startsWith('# '));
   assert.deepStrictEqual(headings.slice(0, 2), ['# Platforms', '# TODO Later']);
-  assert.ok(headings.slice(2).every(h => /^# v\d/.test(h)),
-    'nothing else is a heading - a stray one would break the version list');
+  // Between TODO Later and the newest release there may be ONE section for the
+  // work that is not released yet - "# Upcoming WeKan ® release", which the
+  // release script renames to the next version number. Everything else is a
+  // release heading; a stray one would break the version list.
+  let rest = headings.slice(2);
+  if (rest[0] === '# Upcoming WeKan ® release') rest = rest.slice(1);
+  assert.ok(rest.every(h => /^# v\d/.test(h)),
+    `nothing else is a heading: ${rest.filter(h => !/^# v\d/.test(h)).join(', ')}`);
+  assert.ok(!rest.includes('# Upcoming WeKan ® release'),
+    'there is only ONE Upcoming section, and it is above the newest release');
   // "which WeKan version uses what" is a block inside Platforms, not a heading.
   const platforms = lines.slice(0, lines.indexOf('# TODO Later'));
   assert.ok(platforms.includes('<summary>Version</summary>'));

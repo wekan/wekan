@@ -207,19 +207,33 @@ test('#2674: UI-style "moved AWAY FROM List 1 -> removeMember" trigger matches',
   assert.strictEqual(mongoDocMatches(uiTrigger, selector), true);
 });
 
-test('#2674 regression: the same trigger created over REST WITHOUT normalization never matched', async () => {
+test('#6491: a trigger that OMITS a field means "any value" for it', async () => {
   const selector = await matcherFor(movedFromList1Activity);
   // What POST /api/boards/:boardId/rules used to store: only the fields the
   // caller supplied. userId/listName/swimlaneName are missing entirely.
-  const apiTriggerBeforeFix = {
+  //
+  // This was #2674's second half - such a trigger could never satisfy the $in
+  // query, so a rule created over REST silently never fired. The engine now puts
+  // `null` in every matching list (#6491), and a $in containing null matches a
+  // document that is MISSING the field, so an unrestricted field is treated as
+  // unrestricted rather than as impossible. Normalization below still matters:
+  // it makes the wildcard EXPLICIT, which is what the rules list shows and what
+  // a later edit round-trips.
+  const apiTriggerWithoutNormalization = {
     activityType: 'moveCard',
     boardId: 'B1',
     oldListName: 'List 1',
   };
   assert.strictEqual(
-    mongoDocMatches(apiTriggerBeforeFix, selector),
+    mongoDocMatches(apiTriggerWithoutNormalization, selector),
+    true,
+    'a missing matching field is "any value", not "never matches"',
+  );
+  // ...but a field that IS restricted still has to agree.
+  assert.strictEqual(
+    mongoDocMatches({ ...apiTriggerWithoutNormalization, oldListName: 'List 0' }, selector),
     false,
-    'a trigger missing matching fields can never satisfy the $in query',
+    'an explicit value that does not match the activity still excludes the trigger',
   );
 });
 
@@ -274,8 +288,23 @@ test('negative: no raw un-normalized trigger insert remains in the rules API', (
 
 // --- the removeMember/addMember actions no longer crash silently ---------------
 
-test('removeMember tolerates a card without a members array', () => {
-  assert.ok(rulesHelperSrc.includes('const members = card.members || [];'));
+test('removeMember "*" iterates the assignees, and tolerates a card with none', () => {
+  // It used to read `card.members`, which is not what addMember writes
+  // (card.assignMember -> assignees), so "remove every member" removed nobody.
+  // The guard used to pin the old `card.members || []` line; what matters is
+  // that the list it iterates is the ASSIGNEES and that a card with none is
+  // still an empty array rather than undefined.
+  const block = rulesHelperSrc.slice(rulesHelperSrc.indexOf("actionType === 'removeMember'"));
+  assert.ok(/card\.getAssignees\(\) : card\.assignees\) \|\| \[\]/.test(block),
+    'the assignees are read defensively - a card with none is an empty array');
+  assert.ok(/await card\.unassignMember\(assignees\[i\]\);/.test(block),
+    'and every one of them is unassigned, the way addMember assigned them');
+  // Comments stripped first: the comment above the fix NAMES card.members to say
+  // what was wrong, and a guard that reads comments as code fails on its own
+  // explanation.
+  const code = block.slice(0, block.indexOf('checkAll')).replace(/\/\/[^\n]*/g, '');
+  assert.ok(!/card\.members/.test(code),
+    'the members array it used to read is not consulted here any more');
 });
 
 test('member actions resolve the user defensively and await the card writes', () => {

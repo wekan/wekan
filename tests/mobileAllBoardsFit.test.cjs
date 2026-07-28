@@ -108,9 +108,17 @@ test('the quick-access bar gives way instead of spilling off the phone', () => {
   const width = /(?<![-\w])width:\s*(\d+)px/.exec(input[1]);
   assert.ok(width && Number(width[1]) <= 50,
     `the zoom input was a fixed 80px of a 375px bar, found ${width && width[1]}px`);
-  // The two the user actually came for stay put, at the end of the row.
-  assert.ok(/#header-quick-access #notifications,\s*\n\s*#header-quick-access #header-user-bar \{[\s\S]*?flex-shrink: 0/.test(block),
-    'the bell and the avatar never shrink');
+  // The two the user actually came for stay put, at the end of the row. They are
+  // two rules now, each with the `.iphone-device` / `.wrapper ~` variants that
+  // have to be named to win, so what is asserted is that EACH of them declares
+  // flex-shrink: 0 - not that both share one selector list.
+  for (const item of ['#notifications', '#header-user-bar']) {
+    const rule = new RegExp(
+      `#header-quick-access ${item}[^{]*\\{([^}]*)\\}`, 'g');
+    const declares = [...block.matchAll(rule)]
+      .some(m => /flex-shrink:\s*0/.test(m[1]));
+    assert.ok(declares, `${item} must never shrink - it is what the user came for`);
+  }
 });
 
 test('the zoom number stays INSIDE its white pill, and is readable', () => {

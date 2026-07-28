@@ -71,16 +71,27 @@ test('and the CSS pins the sheet, so the inline left cannot move it', () => {
     'the inline style this overrides');
 });
 
-test('the board bar puts its hamburger in the corner by width too', () => {
-  const at = boardCss.indexOf('/* The same three rules by WIDTH, not by mobile mode.');
+test('the board bar handles its hamburger by WIDTH, not only by mobile mode', () => {
+  // The rules used to pin the hamburger to the top-right corner and reserve
+  // 44px of end padding for it. That put it beside the TITLE with the row of
+  // icons below it; it is the last button at the end of its row now - in the
+  // flow, pushed there by an auto start margin - which reads as what it is.
+  // What must not come back is the width having NO rules at all: those existed
+  // only under `.mobile-mode`, a class the desktop browser never has, so a
+  // narrow window kept the desktop bar.
+  const at = boardCss.indexOf('/* The same rules by WIDTH, not by mobile mode');
   assert.ok(at !== -1, 'the width-based copy of the mobile-mode rules must be there');
-  const block = boardCss.slice(at, boardCss.indexOf('\n}\n', boardCss.indexOf('sidebar-toggle', at)));
+  const block = boardCss.slice(at);
   assert.ok(/@media screen and \(max-width: 800px\)/.test(block));
-  assert.ok(/body\.board-view #header #header-main-bar \{[\s\S]*?padding-inline-end: 44px;/.test(block),
-    'the bar reserves the hamburger width');
-  assert.ok(/\.board-header-sidebar-toggle \{[\s\S]*?position: absolute;/.test(block),
-    'and the hamburger leaves the flow, instead of wrapping to a row of its own');
-  // The mobile-mode originals stay - both paths have to agree.
+  const toggle = /#header #header-main-bar \.board-header-sidebar-toggle \{([^}]*)\}/.exec(block);
+  assert.ok(toggle, 'the hamburger is placed by width');
+  assert.ok(/margin-inline-start: auto;/.test(toggle[1]),
+    'it is pushed to the end of whichever row it lands on');
+  assert.ok(/position: static;/.test(toggle[1]),
+    'and it stays in the flow, so it can never cover a button');
+  assert.ok(/\.board-header-btns:not\(\.board-header-sidebar-toggle\) \{[\s\S]*?display: contents;/.test(block),
+    'the other button groups are flex items of the bar, so they wrap one by one');
+  // The mobile-mode originals stay - both paths have to place it.
   assert.ok(/body\.board-view\.mobile-mode #header #header-main-bar \.board-header-sidebar-toggle \{/
     .test(boardCss));
 });

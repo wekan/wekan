@@ -55,7 +55,14 @@ test('a subscription that names no board publishes nothing', () => {
 test('the board publisher tests its arguments before anything else', () => {
   const at = boards.indexOf("publishComposite('board', async function(boardId, isArchived)");
   assert.ok(at !== -1, 'the publisher must be there');
-  const head = boards.slice(at, at + 1400);
+  // The publisher's OWN body, not a fixed-size window: the comment explaining why
+  // check() cannot be the guard grew past 1400 characters, which put the first
+  // real statement outside the slice and failed the "guard runs first" assertion
+  // on a file where the guard does run first.
+  const ends = ['\npublishComposite(', '\nMeteor.publish(', '\nMeteor.methods(']
+    .map(t => boards.indexOf(t, at + 1))
+    .filter(i => i !== -1);
+  const head = boards.slice(at, ends.length ? Math.min(...ends) : undefined);
   assert.ok(/if \(!Match\.test\(boardId, String\) \|\| !boardId\) return;/.test(head),
     'a null or empty board id ends the subscription');
   assert.ok(/if \(!Match\.test\(isArchived, Boolean\)\) return;/.test(head));

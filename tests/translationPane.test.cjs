@@ -54,8 +54,14 @@ test('the pane is the shared table page, plus its own columns', () => {
   const pane = template('translationSettings');
   assert.ok(/\+tablePage\(tablePageData\)/.test(pane),
     'the pane renders the shared table page and nothing else');
-  assert.ok(!/table|thead|tbody|input#|button#/.test(pane),
-    'no hand-written table, search box or button may come back');
+  // Hand-written markup, as JADE TAGS - `table`, `thead`, `tbody` at the start of
+  // a line, or an id'd input/button. Matching the bare word "table" also matched
+  // the `+tablePage(tablePageData)` include that this very test requires, so the
+  // pane could not satisfy both halves at once.
+  assert.ok(!/(^|\n)\s*(table|thead|tbody)\b/.test(pane.replace(/\+tablePage\([^)]*\)/g, '')),
+    'no hand-written table may come back');
+  assert.ok(!/(input|button)#/.test(pane),
+    'and no hand-written search box or button');
   // Four columns: the actions column whose header is the "New" link, then language,
   // text and translation.
   for (const key of ["labelKey: 'language'", "labelKey: 'text'",

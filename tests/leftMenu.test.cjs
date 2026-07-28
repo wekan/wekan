@@ -315,8 +315,9 @@ test('the Sandstorm exception moved to People with the E-mail pane', () => {
   const people = read('client/components/settings/peopleBody.js');
   assert.ok(/isSandstorm \? null :/.test(people),
     'the e-mail entry is still absent on Sandstorm - a dropped null, not empty markup');
-  assert.ok(/function peopleMenu\(\)/.test(people),
-    'so the menu is built by a function, which can read Meteor.settings at call time');
+  assert.ok(/function peopleMenu\(/.test(people),
+    'so the menu is built by a function, which can read Meteor.settings at call time '
+    + '(it takes the user now, to drop the tabs a tenant admin may not open)');
   const settings = read('client/components/settings/settingBody.js');
   assert.ok(!/isSandstorm/.test(settings),
     'and Settings no longer needs the check - its conditional entry left');

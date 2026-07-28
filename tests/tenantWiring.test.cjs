@@ -350,7 +350,11 @@ test('the server decides whose theme is written, and validates the colour', () =
 test('the order of themes is default -> site/Organization -> user, at runtime', () => {
   const apply = read('client/components/main/globalThemeColor.js');
   const iUser = apply.indexOf('const globalColor = user');
-  const iSite = apply.indexOf('const siteColor =');
+  // The site colour is read in two places - a helper that only NAMES the class,
+  // and the autorun that applies it. The order that matters is the one in the
+  // autorun, so look for it after the user override rather than taking whichever
+  // comes first in the file.
+  const iSite = apply.indexOf('const siteColor = !board', iUser);
   assert.ok(iUser > 0 && iSite > iUser, 'the user override is tried first, so it wins');
   assert.ok(/!board && setting && setting\.themeColor/.test(apply),
     'and the site theme is not applied on a board page, where the board\'s colour owns it');

@@ -419,9 +419,20 @@ test('Cards report sorts by an INDEXED field (boardId,createdAt), not the uninde
     'the unindexed { boardId:1, sort:1 } sort must be gone');
   // publication is bounded (limit/skip)
   assert.ok(/limit,\s*skip/.test(block), 'publication must page with limit/skip');
+  assert.ok(/publishReportPage\(this, 'report-cards'/.test(block),
+    'and NAME the page it published, so the client renders that page and not '
+    + 'whatever else minimongo holds');
+  // The client does not sort at all any more: it asks for the named page and
+  // renders it in the order the server sent, which is the only order that can
+  // agree with the paging. It used to re-sort minimongo with a copy of the
+  // publication's sort - two places to keep in step, and a page that showed rows
+  // the publication had not sent (an open card, the boards the All Boards page
+  // had already loaded).
   const client = read('client/components/settings/adminReports.js');
-  assert.ok(/collectionResults\(Cards, \{ boardId: 1, createdAt: -1 \}\)/.test(client),
-    'client sort must match the publication');
+  assert.ok(/reportPageResults\(Cards, 'report-cards'\)/.test(client),
+    'client must render the page the server named');
+  assert.ok(!/collectionResults\(Cards,/.test(client),
+    'and must not re-query the collection for this report');
 });
 
 test('eventlog has a {stream,at} index so Security/Speed/Tests pages stay fast', () => {

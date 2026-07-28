@@ -76,6 +76,13 @@ function cssFiles() {
   return out;
 }
 
+// CSS comments, blanked (line structure kept, so line numbers still point at the
+// right line). A comment is prose: it explains WHY a rule is written the way it
+// is, and prose that says "`left: 50%` + a -50% shift centres the same way in
+// both directions" is not a physical offset - it was reported as one.
+const withoutComments = css =>
+  css.replace(/\/\*[\s\S]*?\*\//g, m => m.replace(/[^\n]/g, ' '));
+
 const tests = [];
 const test = (name, fn) => tests.push([name, fn]);
 
@@ -121,10 +128,19 @@ test('tap.js exposes isRTL + getLanguageDirection', () => {
 });
 
 test('root <html> template carries a reactive dir attribute', () => {
+  // The attribute is fed by a template helper now - `dir="{{htmlDir}}"` with
+  // htmlDir() in layouts.js - rather than by a global TAPi18n path in the
+  // template. Both are reactive; only the helper can also give a fallback when
+  // the language has no direction yet.
   const src = read('client/components/main/layouts.jade');
   assert.ok(
-    /html\([^)]*dir="\{\{TAPi18n\.getLanguageDirection\}\}"/.test(src),
-    'layouts.jade <html> is missing dir="{{TAPi18n.getLanguageDirection}}"',
+    /html\([^)]*dir="\{\{htmlDir\}\}"/.test(src),
+    'layouts.jade <html> is missing dir="{{htmlDir}}"',
+  );
+  const js = read('client/components/main/layouts.js');
+  assert.ok(
+    /htmlDir\(\) \{\s*\n\s*return TAPi18n\.getLanguageDirection\(\) \|\| 'ltr';/.test(js),
+    'htmlDir() must answer from the language direction, defaulting to ltr',
   );
 });
 
@@ -144,7 +160,7 @@ test('component CSS uses logical properties, not physical left/right longhands',
   const physical = /(^|[^-\w])(margin|padding|border)-(left|right)\b|text-align\s*:\s*(left|right)\b|float\s*:\s*(left|right)\b/;
   const offenders = [];
   for (const file of cssFiles()) {
-    const lines = read(path.relative(repoRoot, file)).split('\n');
+    const lines = withoutComments(read(path.relative(repoRoot, file))).split('\n');
     lines.forEach((line, i) => {
       if (physical.test(line)) {
         offenders.push(`${path.relative(repoRoot, file)}:${i + 1}: ${line.trim()}`);
@@ -165,11 +181,15 @@ test('bare left:/right: offsets are only the allowed 50% centering tricks', () =
   const offsetRe = /(^|[^-\w])(left|right)\s*:\s*([^;]+);/g;
   const offenders = [];
   for (const file of cssFiles()) {
-    const css = read(path.relative(repoRoot, file));
+    const css = withoutComments(read(path.relative(repoRoot, file)));
     let m;
     while ((m = offsetRe.exec(css))) {
-      const value = m[3].trim();
-      if (value !== '50%') {
+      // `!important` is not part of the value for this purpose, and `auto` is the
+      // initial value: it only ever CANCELS a physical offset (the centred admin
+      // popups pair `left: 50%` with `right: auto`), so it cannot be a direction
+      // bug by itself.
+      const value = m[3].replace(/\s*!important\s*$/, '').trim();
+      if (value !== '50%' && value !== 'auto') {
         offenders.push(`${path.relative(repoRoot, file)}: ${m[2]}: ${value}`);
       }
     }

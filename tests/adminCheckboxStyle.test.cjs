@@ -94,9 +94,12 @@ test('an Admin Panel checkbox IS the material checkbox, declaration for declarat
   assert.ok(!/--theme-accent/.test(checked), 'the tick does not follow the theme');
 });
 
-test('grey icons and disabled states are handled', () => {
-  assert.ok(/body\.grey-icons-enabled \.setting-content input\[type="checkbox"\]:checked \{/.test(admin),
-    'grey icons grey the tick here too');
+test('disabled and focus states are handled', () => {
+  // The Grey Icons feature is gone (one icon set: Font Awesome), and so is the
+  // body.grey-icons-enabled variant of the tick that used to be asserted here.
+  // Assert the REMOVAL instead, so a half-revert cannot bring back a selector
+  // that nothing sets.
+  assert.ok(!/grey-icons/.test(admin), 'no grey-icons variant remains in this stylesheet');
   const disabled = rule(admin, '.setting-content input[type="checkbox"]:disabled {');
   assert.ok(/opacity: 0\.6;/.test(disabled));
   assert.ok(/:focus-visible/.test(admin), 'and a keyboard user can see the focus');

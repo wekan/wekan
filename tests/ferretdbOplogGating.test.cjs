@@ -30,7 +30,10 @@ check('the exec uses the gated args, not an unconditional --repl-set-name', () =
   // The single exec line must expand the gated array, and there must be no
   // hard-coded --repl-set-name on the exec anymore.
   assert.ok(/"\$\{REPL_SET_ARGS\[@\]\}"/.test(ctl), 'exec must expand the gated args array');
-  const execIdx = ctl.indexOf('exec "$FERRETDB_BIN"');
+  // The exec may carry a prefix - it runs under the CPU-compatibility launcher
+  // now, `exec ${CPU_EXEC:+bash "$CPU_EXEC"} "$FERRETDB_BIN" \` - so match the
+  // exec OF THE BINARY rather than one exact spelling of the line.
+  const execIdx = ctl.search(/exec[^\n]*"\$FERRETDB_BIN"/);
   assert.ok(execIdx > -1, 'exec must exist');
   const execBlock = ctl.slice(execIdx, execIdx + 300);
   assert.ok(!/--repl-set-name=/.test(execBlock),

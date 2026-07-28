@@ -78,7 +78,17 @@ test('the empty .board-list-header dead-space band is gone', () => {
 test('All Boards path-right order: Multi-Selection, then Sort, then Search boards', () => {
   const jade = fs.readFileSync(
     path.join(path.resolve(__dirname, '..'), 'client/components/boards/boardsList.jade'), 'utf8');
-  const seg = jade.slice(jade.indexOf('.path-right'), jade.indexOf('.path-right') + 3000);
+  // The WHOLE .path-right block, not a fixed-size window: the block grew past
+  // 3000 characters when the multi-selection actions were added, which put the
+  // search input outside the slice and failed this test on "all three present" -
+  // a test about ORDER cannot depend on how long the block is. It ends at the
+  // next line indented no deeper than `.path-right` itself.
+  const at = jade.indexOf('.path-right');
+  const indent = jade.slice(0, at).length - jade.lastIndexOf('\n', at) - 1;
+  const after = jade.slice(at).split('\n').slice(1);
+  const endLine = after.findIndex(l => l.trim() && (l.length - l.trimStart().length) <= indent);
+  const seg = [jade.slice(at).split('\n')[0]]
+    .concat(endLine === -1 ? after : after.slice(0, endLine)).join('\n');
   const ms = seg.indexOf('js-multiselection-activate');
   const sort = seg.indexOf('js-open-boards-sort');
   const search = seg.indexOf('js-board-search-input');

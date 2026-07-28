@@ -123,16 +123,28 @@ test('org/team feature column headers use compact icon links', () => {
   assert.ok(!/data-value="false"\) \{\{_ 'unselect-all'\}\}/.test(peopleBody));
 });
 
-test('admin table headers may wrap (td keeps nowrap for scrolling)', () => {
+test('admin table cells wrap instead of pushing the table off screen', () => {
   // These apply to the WIDE admin tables only - GridFS stats, Version, Translation.
   // The shared table page is excluded: it is width:100% with wrapping cells so that
   // it fits, and nowrap + a per-column minimum pushed its right edge off screen.
-  const th = settingBody.match(/\.main-body table:not\(\.table-page-table\) th \{[\s\S]*?\}/);
-  assert.ok(th, 'th rule found');
-  assert.ok(th[0].includes('white-space: normal'));
-  const td = settingBody.match(/\.main-body table:not\(\.table-page-table\) td \{[\s\S]*?\}/);
-  assert.ok(td, 'td rule found');
-  assert.ok(td[0].includes('white-space: nowrap'));
+  //
+  // BOTH cells wrap now, in one rule: `td` kept `nowrap` for horizontal scrolling
+  // until a version string, a path or an id widened its column and pushed the
+  // table off screen anyway - the very thing the scrolling was for.
+  const cells = settingBody.match(
+    /\.main-body table:not\(\.table-page-table\) td,\s*\n[^{]*th \{([^}]*)\}/);
+  assert.ok(cells, 'the shared td+th rule must be there');
+  assert.ok(/white-space: normal/.test(cells[1]), 'long values wrap');
+  assert.ok(/overflow-wrap: anywhere/.test(cells[1]),
+    'and an unbroken string breaks inside its cell rather than widening the column');
+  assert.ok(!/white-space:\s*nowrap/.test(cells[1]), 'nothing here is nowrap any more');
+  // The header still has its own width cap (#6465). There are several rules whose
+  // selector ends in `th {` - including the shared one above - so find the one
+  // that sets the cap rather than assuming it is the first.
+  const thRules = [...settingBody.matchAll(
+    /\.main-body table:not\(\.table-page-table\) th \{([^}]*)\}/g)].map(m => m[1]);
+  assert.ok(thRules.some(body => /max-width: 240px/.test(body)),
+    'a long header label cannot widen a column');
 });
 
 // --- Zoom pill -------------------------------------------------------------------
