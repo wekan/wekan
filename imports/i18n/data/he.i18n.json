@@ -1621,6 +1621,7 @@
   "speedReportTitle": "מהירות",
   "testsReportTitle": "בדיקות",
   "cpuReportTitle": "שימוש במעבד",
+  "databaseReportTitle": "Database problems",
   "new-problems": "בעיות חדשות",
   "acknowledge": "אישור",
   "rulesReportTitle": "דוח כללים",

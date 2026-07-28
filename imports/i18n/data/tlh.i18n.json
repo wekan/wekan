@@ -1621,6 +1621,7 @@
   "speedReportTitle": "Do",
   "testsReportTitle": "teSmey",
   "cpuReportTitle": "CPU lo'",
+  "databaseReportTitle": "Database problems",
   "new-problems": "Qaghmey chu'",
   "acknowledge": "yaj",
   "rulesReportTitle": "Regeln-Bericht",

@@ -1621,6 +1621,7 @@
   "speedReportTitle": "Hız",
   "testsReportTitle": "Testler",
   "cpuReportTitle": "İşlemci kullanımı",
+  "databaseReportTitle": "Database problems",
   "new-problems": "yeni sorun",
   "acknowledge": "Onayla",
   "rulesReportTitle": "Rapor Kuralları",

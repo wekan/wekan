@@ -1621,6 +1621,7 @@
   "speedReportTitle": "Spoed",
   "testsReportTitle": "Toetse",
   "cpuReportTitle": "CPU-gebruik",
+  "databaseReportTitle": "Database problems",
   "new-problems": "nuwe probleme",
   "acknowledge": "Erken",
   "rulesReportTitle": "Reëlsverslag",

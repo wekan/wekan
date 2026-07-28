@@ -1621,6 +1621,7 @@
   "speedReportTitle": "Хурд",
   "testsReportTitle": "Тестүүд",
   "cpuReportTitle": "CPU ашиглалт",
+  "databaseReportTitle": "Database problems",
   "new-problems": "шинэ асуудал",
   "acknowledge": "Хүлээн зөвшөөрөх",
   "rulesReportTitle": "Отчёт по правилам",

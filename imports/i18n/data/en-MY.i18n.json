@@ -1621,6 +1621,7 @@
   "speedReportTitle": "Speed",
   "testsReportTitle": "Tests",
   "cpuReportTitle": "CPU usage",
+  "databaseReportTitle": "Database problems",
   "new-problems": "new problems",
   "acknowledge": "Acknowledge",
   "rulesReportTitle": "Rules Report",

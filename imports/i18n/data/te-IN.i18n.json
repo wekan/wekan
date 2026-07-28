@@ -1621,6 +1621,7 @@
   "speedReportTitle": "వేగం",
   "testsReportTitle": "పరీక్షలు",
   "cpuReportTitle": "CPU వినియోగం",
+  "databaseReportTitle": "Database problems",
   "new-problems": "కొత్త సమస్యలు",
   "acknowledge": "నిర్ధారించు",
   "rulesReportTitle": "నియమాల నివేదిక",

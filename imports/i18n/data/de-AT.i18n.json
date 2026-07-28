@@ -1621,6 +1621,7 @@
   "speedReportTitle": "Geschwindigkeit",
   "testsReportTitle": "Tests",
   "cpuReportTitle": "CPU-Auslastung",
+  "databaseReportTitle": "Database problems",
   "new-problems": "neue Probleme",
   "acknowledge": "Bestätigen",
   "rulesReportTitle": "Regeln-Bericht",

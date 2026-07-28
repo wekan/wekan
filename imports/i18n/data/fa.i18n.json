@@ -1621,6 +1621,7 @@
   "speedReportTitle": "سرعت",
   "testsReportTitle": "آزمون‌ها",
   "cpuReportTitle": "استفاده از پردازنده",
+  "databaseReportTitle": "Database problems",
   "new-problems": "مشکل جدید",
   "acknowledge": "تأیید",
   "rulesReportTitle": "گزارش قوانین",

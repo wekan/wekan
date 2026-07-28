@@ -1621,6 +1621,7 @@
   "speedReportTitle": "Viteză",
   "testsReportTitle": "Teste",
   "cpuReportTitle": "Utilizare CPU",
+  "databaseReportTitle": "Database problems",
   "new-problems": "probleme noi",
   "acknowledge": "Confirmă",
   "rulesReportTitle": "Informe sobre las Reglas",

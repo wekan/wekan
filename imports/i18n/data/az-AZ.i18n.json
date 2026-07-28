@@ -1621,6 +1621,7 @@
   "speedReportTitle": "Sürət",
   "testsReportTitle": "Testlər",
   "cpuReportTitle": "CPU istifadəsi",
+  "databaseReportTitle": "Database problems",
   "new-problems": "yeni problem",
   "acknowledge": "Təsdiqlə",
   "rulesReportTitle": "Qaydalar Hesabatı",

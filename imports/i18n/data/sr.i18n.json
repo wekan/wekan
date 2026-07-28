@@ -1621,6 +1621,7 @@
   "speedReportTitle": "Брзина",
   "testsReportTitle": "Тестови",
   "cpuReportTitle": "Употреба процесора",
+  "databaseReportTitle": "Database problems",
   "new-problems": "нових проблема",
   "acknowledge": "Потврди",
   "rulesReportTitle": "Извештај везан за правила",

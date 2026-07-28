@@ -1621,6 +1621,7 @@
   "speedReportTitle": "ความเร็ว",
   "testsReportTitle": "การทดสอบ",
   "cpuReportTitle": "การใช้งาน CPU",
+  "databaseReportTitle": "Database problems",
   "new-problems": "ปัญหาใหม่",
   "acknowledge": "รับทราบ",
   "rulesReportTitle": "Quy tắc Báo cáo",

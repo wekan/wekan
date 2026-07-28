@@ -1621,6 +1621,7 @@
   "speedReportTitle": "Tốc độ",
   "testsReportTitle": "Kiểm thử",
   "cpuReportTitle": "Mức sử dụng CPU",
+  "databaseReportTitle": "Database problems",
   "new-problems": "sự cố mới",
   "acknowledge": "Xác nhận",
   "rulesReportTitle": "Quy tắc Báo cáo",

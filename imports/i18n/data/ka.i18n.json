@@ -1621,6 +1621,7 @@
   "speedReportTitle": "სიჩქარე",
   "testsReportTitle": "ტესტები",
   "cpuReportTitle": "CPU-ს გამოყენება",
+  "databaseReportTitle": "Database problems",
   "new-problems": "ახალი პრობლემა",
   "acknowledge": "დადასტურება",
   "rulesReportTitle": "Отчёт по правилам",

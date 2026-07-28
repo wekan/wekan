@@ -1621,6 +1621,7 @@
   "speedReportTitle": "Hitrost",
   "testsReportTitle": "Testi",
   "cpuReportTitle": "Uporaba procesorja",
+  "databaseReportTitle": "Database problems",
   "new-problems": "novih težav",
   "acknowledge": "Potrdi",
   "rulesReportTitle": "Извештај везан за правила",

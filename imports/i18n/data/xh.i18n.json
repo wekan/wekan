@@ -1621,6 +1621,7 @@
   "speedReportTitle": "Isantya",
   "testsReportTitle": "Iimvavanyo",
   "cpuReportTitle": "Ukusetyenziswa kwe-CPU",
+  "databaseReportTitle": "Database problems",
   "new-problems": "iingxaki ezintsha",
   "acknowledge": "Vuma",
   "rulesReportTitle": "Ingxelo yeMithetho",

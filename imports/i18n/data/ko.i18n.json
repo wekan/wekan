@@ -1621,6 +1621,7 @@
   "speedReportTitle": "속도",
   "testsReportTitle": "테스트",
   "cpuReportTitle": "CPU 사용량",
+  "databaseReportTitle": "Database problems",
   "new-problems": "개의 새 문제",
   "acknowledge": "확인",
   "rulesReportTitle": "규칙 보고서",

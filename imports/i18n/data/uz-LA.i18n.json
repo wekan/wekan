@@ -1621,6 +1621,7 @@
   "speedReportTitle": "Tezlik",
   "testsReportTitle": "Testlar",
   "cpuReportTitle": "Protsessor yuklamasi",
+  "databaseReportTitle": "Database problems",
   "new-problems": "yangi muammolar",
   "acknowledge": "Tasdiqlash",
   "rulesReportTitle": "Qoidalar hisoboti",

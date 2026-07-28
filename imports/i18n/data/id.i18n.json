@@ -1621,6 +1621,7 @@
   "speedReportTitle": "Kecepatan",
   "testsReportTitle": "Pengujian",
   "cpuReportTitle": "Penggunaan CPU",
+  "databaseReportTitle": "Database problems",
   "new-problems": "masalah baru",
   "acknowledge": "Konfirmasi",
   "rulesReportTitle": "Laporan Peraturan",

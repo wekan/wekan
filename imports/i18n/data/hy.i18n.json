@@ -1621,6 +1621,7 @@
   "speedReportTitle": "Արագություն",
   "testsReportTitle": "Թեստեր",
   "cpuReportTitle": "Պրոցեսորի օգտագործում",
+  "databaseReportTitle": "Database problems",
   "new-problems": "նոր խնդիրներ",
   "acknowledge": "Հաստատել",
   "rulesReportTitle": "Կանոնների հաշվետվություն",

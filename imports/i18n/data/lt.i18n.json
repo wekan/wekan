@@ -1621,6 +1621,7 @@
   "speedReportTitle": "Greitis",
   "testsReportTitle": "Testai",
   "cpuReportTitle": "CPU naudojimas",
+  "databaseReportTitle": "Database problems",
   "new-problems": "naujų problemų",
   "acknowledge": "Patvirtinti",
   "rulesReportTitle": "Taisyklių ataskaita",

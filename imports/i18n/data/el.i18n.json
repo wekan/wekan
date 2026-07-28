@@ -1621,6 +1621,7 @@
   "speedReportTitle": "Ταχύτητα",
   "testsReportTitle": "Έλεγχοι",
   "cpuReportTitle": "Χρήση CPU",
+  "databaseReportTitle": "Database problems",
   "new-problems": "νέα προβλήματα",
   "acknowledge": "Επιβεβαίωση",
   "rulesReportTitle": "Rapports sur les règles",

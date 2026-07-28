@@ -1621,6 +1621,7 @@
   "speedReportTitle": "Velocidade",
   "testsReportTitle": "Probas",
   "cpuReportTitle": "Uso da CPU",
+  "databaseReportTitle": "Database problems",
   "new-problems": "novos problemas",
   "acknowledge": "Recoñecer",
   "rulesReportTitle": "Relatório de Regras",

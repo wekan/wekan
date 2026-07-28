@@ -1621,6 +1621,7 @@
   "speedReportTitle": "Sebesség",
   "testsReportTitle": "Tesztek",
   "cpuReportTitle": "CPU-használat",
+  "databaseReportTitle": "Database problems",
   "new-problems": "új probléma",
   "acknowledge": "Nyugtázás",
   "rulesReportTitle": "Szabályok Riportja",

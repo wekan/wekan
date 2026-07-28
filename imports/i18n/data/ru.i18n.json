@@ -1621,6 +1621,7 @@
   "speedReportTitle": "Скорость",
   "testsReportTitle": "Тесты",
   "cpuReportTitle": "Использование ЦП",
+  "databaseReportTitle": "Database problems",
   "new-problems": "новых проблем",
   "acknowledge": "Подтвердить",
   "rulesReportTitle": "Отчёт по правилам",

@@ -1621,6 +1621,7 @@
   "speedReportTitle": "Brzina",
   "testsReportTitle": "Testovi",
   "cpuReportTitle": "Upotreba CPU-a",
+  "databaseReportTitle": "Database problems",
   "new-problems": "novih problema",
   "acknowledge": "Potvrdi",
   "rulesReportTitle": "Извештај везан за правила",

@@ -1621,6 +1621,7 @@
   "speedReportTitle": "Hastighed",
   "testsReportTitle": "Test",
   "cpuReportTitle": "CPU-forbrug",
+  "databaseReportTitle": "Database problems",
   "new-problems": "nye problemer",
   "acknowledge": "Bekræft",
   "rulesReportTitle": "Regelrapport",

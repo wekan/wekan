@@ -1621,6 +1621,7 @@
   "speedReportTitle": "Laju",
   "testsReportTitle": "Ujian",
   "cpuReportTitle": "Peungui CPU",
+  "databaseReportTitle": "Database problems",
   "new-problems": "masalah barô",
   "acknowledge": "Akui",
   "rulesReportTitle": "Laporan Peraturan",

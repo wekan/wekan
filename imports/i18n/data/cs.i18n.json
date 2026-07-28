@@ -1621,6 +1621,7 @@
   "speedReportTitle": "Rychlost",
   "testsReportTitle": "Testy",
   "cpuReportTitle": "Využití CPU",
+  "databaseReportTitle": "Database problems",
   "new-problems": "nových problémů",
   "acknowledge": "Potvrdit",
   "rulesReportTitle": "Report pravidel",
