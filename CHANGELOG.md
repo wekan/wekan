@@ -414,6 +414,36 @@ ordinary-looking build failure.
 and improves FerretDB v1, which WeKan runs on:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f6ee6388c">MySQL and MariaDB, found by running the query catalogue against them</a>. Thanks to xet7.</summary>
+
+The conformance run is a live client against a live engine, and it took the
+**mysql** backend from answering nothing to answering nearly everything, in two
+passes.
+
+First pass: every pushed-down filter was built as `col->$.?`, which is not MySQL
+— the `->` operator takes a LITERAL path, and a placeholder there is a syntax
+error — so any find, update or aggregation carrying a filter failed with
+`Error 1064`. Paths are bound through `JSON_EXTRACT(col, ?)` now. 55 identical
+answers became 65, and 44 errors became 33.
+
+Second pass, the rest of them: `JSON_CONTAINS` wants a JSON document as its
+candidate, so `$eq`, `$ne` and `$in` answered `Error 3146` until the candidate
+became `CAST(? AS JSON)`; `createIndexes` on a field that already had an index
+built either a trailing comma or the bare `ALTER TABLE db.t`; and the statistics
+query behind `collStats` / `dbStats` never aliased `information_schema.tables`.
+
+MariaDB could not create a collection at all: **it does not have MySQL's `->`
+and `->>` JSON operators**, so every statement carrying one failed there. All of
+them are `JSON_EXTRACT` / `JSON_UNQUOTE(JSON_EXTRACT(...))` now, which both
+engines understand.
+
+The fixes are in the WeKan fork of FerretDB v1 (`wekan/FerretDB`, `main-v1`),
+which is what `docker-compose-ferretdb-v1-mysql.yml` and
+`-mariadb.yml` run.
+
+</details>
+
+<details>
 <summary>The conformance run found five FerretDB gaps and two that stopped MySQL and MariaDB dead. Thanks to xet7.</summary>
 
 The new "All databases (sequential)" test — one query catalogue, every backend
