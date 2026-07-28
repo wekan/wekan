@@ -414,7 +414,7 @@ ordinary-looking build failure.
 and improves FerretDB v1, which WeKan runs on:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f6ee6388c">MySQL and MariaDB, found by running the query catalogue against them</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/FerretDB/commit/f4b1450e">MySQL and MariaDB, found by running the query catalogue against them</a>. Thanks to xet7.</summary>
 
 The conformance run is a live client against a live engine, and it took the
 **mysql** backend from answering nothing to answering nearly everything, in two
