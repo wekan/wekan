@@ -364,6 +364,71 @@ asks for. Both fixed, with tests.
 
 </details>
 
+and fixes the following test-harness bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7b017c56a">The login helper logged every browser test out again, so the whole suite failed</a>. Thanks to xet7.</summary>
+
+The Chromium run failed 16 of its first 17 tests, each burning the full 60-second
+timeout inside the fixture — "Test timeout of 60000ms exceeded while setting up
+boardPage" — with the page showing "Board not found".
+
+`loginWithToken` installed a `page.addInitScript` that removes Meteor's three
+Accounts keys from `localStorage`, so a previous session cannot resume and race
+the new login. But an init script runs on EVERY navigation of that page: the
+`goto` right after the login, the one that opens the board the test just logged
+in FOR, also started with the token removed. The client was anonymous, the
+seeded board is private, and the router answered "Board not found" — five times,
+20 seconds each, until `openBoard` gave up. The one test that passed in that
+stretch is "user NOT added to board cannot see it", which is what being logged
+out looks like too.
+
+The clear is one-shot now: the init script does nothing unless a flag is armed,
+and it consumes the flag; the login arms it and reloads, so exactly the one page
+load the login happens on has nothing to resume, and every later navigation
+keeps the session. It still touches only those three keys.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9eedab13b">Every node suite runs and is reported, instead of the run stopping at the first failure</a>. Thanks to xet7.</summary>
+
+`test:unit:node` was `node tests/a.cjs && node tests/b.cjs && …`, 260 suites
+long, and npm's `&&` stops at the first failing suite — so everything after it
+never ran, and nothing said so. One run printed "tests:508 fail:1" having
+skipped about 200 suites: one stale guard hid the next, one full test run at a
+time.
+
+`tests/run-node-suites.cjs` replaces the chain. It DISCOVERS the suites
+(`tests/*.test.cjs|js`, `tests/unit/*`), so writing the file is registering it;
+it runs every suite even when an earlier one failed and lists the failures
+together at the end; each suite still runs in its own node process; a per-suite
+timeout means a hanging suite fails that suite instead of the run; and `--list`,
+`--bail` and substring filters are there for working on one. Discovery was
+compared against the old chain before switching — the same 260 suites, nothing
+gained or lost.
+
+`build.sh` now reads the runner's own `===== node suites: N run, M failed` line
+for the count, instead of guessing from error text.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ca8983d99">A guard about ordering failed because of how a process is started</a>. Thanks to xet7.</summary>
+
+`tests/sandstormMigrationBridge.test.cjs` failed the whole node suite with
+"bridge is released BEFORE the importer binds the port". The ordering in
+`sandstorm-src/start.js` is correct and unchanged; the guard was anchored on
+`spawnSync(NODE, [IMPORTER]`, and every spawn in that file goes through
+`cpuExec()` now — `spawnSync(...cpuExec(NODE, [IMPORTER]), …)`. `indexOf`
+returned -1, and "stopBridge is before -1" is false. It anchors on WHAT is
+spawned now, and asserts each anchor was found.
+
+The summary was also counting that one failure twice, matching both the
+`AssertionError` line and the `throw err` line of the same dump.
+
+</details>
+
 and adds the following test menu entries:
 
 <details>
