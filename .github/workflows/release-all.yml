@@ -596,8 +596,14 @@ jobs:
             echo "::error::$zip is only $bytes bytes; a whole bundle is tens of megabytes. The bundle directory was empty or partial when it was zipped."
             exit 1
           fi
+          # Listing to a FILE first: `unzip -l "$zip" | grep -q` ends unzip with
+          # SIGPIPE the moment grep matches, and `set -o pipefail` then reports 141
+          # for the pipeline - so a found file reads as a missing one. It is what
+          # broke the win64 verify twice; these have only been lucky about the size
+          # of the pipe buffer.
+          unzip -l "$zip" > zip-listing.txt
           for want in bundle/main.js bundle/node; do
-            if ! unzip -l "$zip" | grep -q " $want$"; then
+            if ! grep -q " $want$" zip-listing.txt; then
               echo "::error::$zip has no $want, so it cannot start WeKan. The embed step above did not put it into the bundle."
               exit 1
             fi
@@ -714,8 +720,14 @@ jobs:
             echo "::error::$zip is only $bytes bytes; a whole bundle is tens of megabytes. The bundle directory was empty or partial when it was zipped."
             exit 1
           fi
+          # Listing to a FILE first: `unzip -l "$zip" | grep -q` ends unzip with
+          # SIGPIPE the moment grep matches, and `set -o pipefail` then reports 141
+          # for the pipeline - so a found file reads as a missing one. It is what
+          # broke the win64 verify twice; these have only been lucky about the size
+          # of the pipe buffer.
+          unzip -l "$zip" > zip-listing.txt
           for want in bundle/main.js bundle/node; do
-            if ! unzip -l "$zip" | grep -q " $want$"; then
+            if ! grep -q " $want$" zip-listing.txt; then
               echo "::error::$zip has no $want, so it cannot start WeKan. The embed step above did not put it into the bundle."
               exit 1
             fi
@@ -923,7 +935,7 @@ jobs:
             fi
           done
           echo "bundle/ has main.js, node.exe and start-wekan.bat:"
-          ls -la bundle | head -20
+          ls -la bundle
 
       - name: Create win64 zip
         shell: cmd
@@ -961,12 +973,18 @@ jobs:
           # match is a WARNING: bundle/main.js was verified to exist before zipping
           # and the archive passed its integrity test, so a zero count here says
           # something about 7-Zip's output format, not about the bundle.
-          listing="$(7z l -ba "$zip" 2>/dev/null || true)"
-          entries="$(printf '%s\n' "$listing" | grep -c . || true)"
+          # Through a FILE, never a pipe. `cmd | head`/`cmd | grep -q` ends the
+          # reader early, the writer gets SIGPIPE, and with `set -o pipefail` (which
+          # GitHub's bash uses) the pipeline's status becomes 141 - so under `set -e`
+          # a MATCH fails the step. That is what "has no bundle/main.js" was in
+          # v10.48, and what exit code 141 was in v10.49: the file was there both
+          # times, and the listing below proves it (`bundle\main.js`, five lines in).
+          7z l -ba "$zip" > zip-listing.txt 2>/dev/null || true
+          entries="$(wc -l < zip-listing.txt)"
           echo "7z l -ba listed $entries entries; the first five:"
-          printf '%s\n' "$listing" | head -5
+          head -5 zip-listing.txt || true
           for want in main.js node.exe; do
-            n="$(printf '%s\n' "$listing" | grep -F -c -e "bundle\\$want" -e "bundle/$want" || true)"
+            n="$(grep -F -c -e "bundle\\$want" -e "bundle/$want" zip-listing.txt || true)"
             echo "  entries matching bundle/$want: $n"
             if [ "${n:-0}" -eq 0 ]; then
               echo "::warning::$zip listing shows no bundle/$want, but bundle/$want existed before zipping and the archive passed 7z t. Compare the five listing lines above with what is being searched for."
@@ -1001,7 +1019,8 @@ jobs:
           fi
           # Confirm from the OTHER side. An upload that reports success but leaves no
           # asset behind is the failure nobody notices until a download 404s.
-          if ! gh release view "v${VERSION}" --json assets --jq '.assets[].name' | grep -qxF "$(basename "$asset")"; then
+          gh release view "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
+          if ! grep -qxF "$(basename "$asset")" release-assets.txt; then
             echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
             exit 1
           fi
@@ -1119,8 +1138,14 @@ jobs:
             echo "::error::$zip is only $bytes bytes; a whole bundle is tens of megabytes. The bundle directory was empty or partial when it was zipped."
             exit 1
           fi
+          # Listing to a FILE first: `unzip -l "$zip" | grep -q` ends unzip with
+          # SIGPIPE the moment grep matches, and `set -o pipefail` then reports 141
+          # for the pipeline - so a found file reads as a missing one. It is what
+          # broke the win64 verify twice; these have only been lucky about the size
+          # of the pipe buffer.
+          unzip -l "$zip" > zip-listing.txt
           for want in bundle/main.js bundle/node; do
-            if ! unzip -l "$zip" | grep -q " $want$"; then
+            if ! grep -q " $want$" zip-listing.txt; then
               echo "::error::$zip has no $want, so it cannot start WeKan. The embed step above did not put it into the bundle."
               exit 1
             fi
@@ -1152,7 +1177,8 @@ jobs:
           fi
           # Confirm from the OTHER side. An upload that reports success but leaves no
           # asset behind is the failure nobody notices until a download 404s.
-          if ! gh release view "v${VERSION}" --json assets --jq '.assets[].name' | grep -qxF "$(basename "$asset")"; then
+          gh release view "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
+          if ! grep -qxF "$(basename "$asset")" release-assets.txt; then
             echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
             exit 1
           fi
@@ -1329,8 +1355,14 @@ jobs:
             echo "::error::$zip is only $bytes bytes; a whole bundle is tens of megabytes. The bundle directory was empty or partial when it was zipped."
             exit 1
           fi
+          # Listing to a FILE first: `unzip -l "$zip" | grep -q` ends unzip with
+          # SIGPIPE the moment grep matches, and `set -o pipefail` then reports 141
+          # for the pipeline - so a found file reads as a missing one. It is what
+          # broke the win64 verify twice; these have only been lucky about the size
+          # of the pipe buffer.
+          unzip -l "$zip" > zip-listing.txt
           for want in bundle/main.js bundle/node; do
-            if ! unzip -l "$zip" | grep -q " $want$"; then
+            if ! grep -q " $want$" zip-listing.txt; then
               echo "::error::$zip has no $want, so it cannot start WeKan. The embed step above did not put it into the bundle."
               exit 1
             fi
@@ -1362,7 +1394,8 @@ jobs:
           fi
           # Confirm from the OTHER side. An upload that reports success but leaves no
           # asset behind is the failure nobody notices until a download 404s.
-          if ! gh release view "v${VERSION}" --json assets --jq '.assets[].name' | grep -qxF "$(basename "$asset")"; then
+          gh release view "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
+          if ! grep -qxF "$(basename "$asset")" release-assets.txt; then
             echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
             exit 1
           fi
@@ -1546,7 +1579,8 @@ jobs:
           fi
           # Confirm from the OTHER side. An upload that reports success but leaves no
           # asset behind is the failure nobody notices until a download 404s.
-          if ! gh release view "v${VERSION}" --json assets --jq '.assets[].name' | grep -qxF "$(basename "$asset")"; then
+          gh release view "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
+          if ! grep -qxF "$(basename "$asset")" release-assets.txt; then
             echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
             exit 1
           fi
@@ -1906,7 +1940,8 @@ jobs:
           fi
           # Confirm from the OTHER side. An upload that reports success but leaves no
           # asset behind is the failure nobody notices until a download 404s.
-          if ! gh release view "v${VERSION}" --json assets --jq '.assets[].name' | grep -qxF "$(basename "$asset")"; then
+          gh release view "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
+          if ! grep -qxF "$(basename "$asset")" release-assets.txt; then
             echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
             exit 1
           fi

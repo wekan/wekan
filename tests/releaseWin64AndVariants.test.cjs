@@ -66,6 +66,18 @@ test('the bundle is checked BEFORE it is zipped', () => {
   assert.ok(/exit 1/.test(embed), 'and a missing one fails the job there');
 });
 
+test('no listing anywhere in the workflow is piped into grep', () => {
+  // Same trap, four more times: `unzip -l "$zip" | grep -q " $want$"` reports a
+  // present file as missing whenever grep matches before unzip has finished
+  // writing - which depends only on how big the listing is and how early the
+  // match falls, i.e. on luck.
+  const piped = workflow.split('\n')
+    .filter(l => !/^\s*#/.test(l))
+    .filter(l => /(unzip -l|7z l|release view).*\|\s*(grep|head)/.test(l));
+  assert.deepStrictEqual(piped, [],
+    'list to a file, then grep the file');
+});
+
 test('the archive is verified by an integrity test, not by grepping a listing', () => {
   const verify = win.slice(win.indexOf('Verify the win64 zip'));
   assert.ok(/7z t "\$zip"/.test(verify),
@@ -73,10 +85,24 @@ test('the archive is verified by an integrity test, not by grepping a listing', 
   assert.ok(/did not pass 7z t/.test(verify), 'and says so when it fails');
 });
 
-test('the listing is PRINTED, and a missing match is a warning, not a failure', () => {
-  const verify = win.slice(win.indexOf('Verify the win64 zip'));
-  assert.ok(/printf '%s\\n' "\$listing" \| head -5/.test(verify),
-    'the listing must appear in the log; judging it invisibly is the bug this fixes');
+test('nothing in the verify step reads a listing through a PIPE', () => {
+  // This is the whole win64 story, twice over. `cmd | head` and `cmd | grep -q`
+  // end the reader as soon as it has what it needs, the writer gets SIGPIPE, and
+  // `set -o pipefail` - which GitHub's bash sets - makes the pipeline's status
+  // 141. Under `set -e` that fails the step. v10.48 read "$zip has no
+  // bundle/main.js" because grep -q MATCHED and killed printf; v10.49 died with
+  // exit code 141 at `printf | head -5` after printing the listing that shows
+  // bundle\main.js five lines in. The listing goes to a file now, and every
+  // reader reads the file.
+  const from = win.indexOf('Verify the win64 zip');
+  const verify = win.slice(from, win.indexOf('- uses: actions/upload-artifact', from));
+  assert.ok(/7z l -ba "\$zip" > zip-listing\.txt/.test(verify),
+    'the listing is written to a file');
+  assert.ok(!/\|\s*(head|grep|tail|wc)\b/.test(verify),
+    'and nothing pipes into head/grep/tail/wc, which is what SIGPIPE turns into a '
+    + 'failed step:\n' + verify.split('\n').filter(l => /\|\s*(head|grep|tail|wc)\b/.test(l)).join('\n'));
+  assert.ok(/head -5 zip-listing\.txt/.test(verify),
+    'the listing must still appear in the log; judging it invisibly was the first bug');
   assert.ok(/entries matching bundle\/\$want/.test(verify),
     'with the match count for each wanted file');
   const missing = verify.slice(verify.indexOf('if [ "${n:-0}" -eq 0 ]'));
