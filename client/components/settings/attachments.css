@@ -161,6 +161,16 @@
   gap: 6px;
 }
 
+/* The box and its label are one clickable item (#6465: `a.flex > .materialCheckBox
+   + span`, the markup the rest of WeKan uses). `.flex` alone would stretch it to
+   the row's full height and pull the box off its words. */
+.setting-content .content-body .main-body .storage-rw-item a.flex,
+.setting-content .content-body .main-body .storage-rw-row a.flex {
+  align-items: center;
+  height: auto;
+  cursor: pointer;
+}
+
 /* The checkbox itself is the Admin Panel's one checkbox look (settingBody.css):
    visible, square, with WeKan's own green tick - not the browser's rendering, which
    on Ubuntu drew a big orange box that matched nothing else and ignored the theme.

@@ -411,11 +411,18 @@
   gap: 6px 18px;
 }
 
-.setting-content .checkbox-row label {
+/* One item of that row: a label around a native checkbox, or - since #6465 - the
+   `a.flex > .materialCheckBox + span` the rest of WeKan uses. Both keep their box
+   and their words together, so a row can wrap between items and never inside one. */
+.setting-content .checkbox-row label,
+.setting-content .checkbox-row a.flex {
   display: inline-flex;
   align-items: center;
   margin: 0;
   cursor: pointer;
+  /* The anchor is one item of the row, not a full-height column: `.flex` gives it
+     `height: 100%`, which stretched the box away from its words. */
+  height: auto;
 }
 
 /* A GROUP title inside a pane - "All Boards", "URL", "Product name", "Logo" on

@@ -111,4 +111,20 @@ test('the Backup pane still asks for its three parts', () => {
   }
 });
 
+test('the converted rows are laid out as rows, not as full-height columns', () => {
+  // `.flex` is `display: flex; height: 100%`, so an anchor that is one ITEM of a
+  // row would stretch to the row's height and pull its box off its words.
+  const css = read('client/components/settings/attachments.css');
+  const rule = /storage-rw-item a\.flex,[\s\S]*?\{([^}]*)\}/.exec(css);
+  assert.ok(rule, 'the storage rows must place their checkbox anchors');
+  assert.ok(/align-items: center;/.test(rule[1]) && /height: auto;/.test(rule[1]),
+    'centred on the label, and only as tall as it needs');
+
+  const settings = read('client/components/settings/settingBody.css');
+  const row = /\.setting-content \.checkbox-row label,\s*\n\.setting-content \.checkbox-row a\.flex \{([^}]*)\}/
+    .exec(settings);
+  assert.ok(row, 'the Backup include row must place both shapes of item');
+  assert.ok(/height: auto;/.test(row[1]), 'and neither may take the row\'s height');
+});
+
 console.log(`\n${passed} tests passed`);
