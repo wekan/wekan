@@ -437,6 +437,21 @@ and `->>` JSON operators**, so every statement carrying one failed there. All of
 them are `JSON_EXTRACT` / `JSON_UNQUOTE(JSON_EXTRACT(...))` now, which both
 engines understand.
 
+Third pass, after MariaDB could run at all: `CAST(? AS JSON)` is a syntax error
+on MariaDB, which has no JSON type, so the candidate goes through
+`JSON_EXTRACT(?, '$')` — one statement both engines accept. And reading the paths
+those fixes had just made reachable found four more: `DeleteAll` could never
+delete a document (its branch was inverted and crossed), `DROP INDEX` was
+PostgreSQL's spelling, a boolean candidate bound as `1` would have matched
+nothing — silently, which is worse than the error it replaced, since a pushdown
+that is too narrow returns rows the in-Go filter never sees — and the per-index
+size query behind `collStats` was not valid SQL.
+
+Date and BSON-timestamp RANGES are no longer pushed down on this backend: one
+answered with no documents where every other backend answered with two, and until
+a live EXPLAIN shows the expression MySQL needs, the Go filter is the honest
+answer.
+
 The fixes are in the WeKan fork of FerretDB v1 (`wekan/FerretDB`, `main-v1`),
 which is what `docker-compose-ferretdb-v1-mysql.yml` and
 `-mariadb.yml` run.
