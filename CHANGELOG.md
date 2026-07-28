@@ -4083,9 +4083,9 @@ This release adds the following updates:
 - [Added anupamme of OrbisAI Security](https://github.com/wekan/wekan/pull/6517)
   to [Hall of Shame: Fake
   AI](https://github.com/wekan/wekan/blob/main/docs/FAQ/Hall-of-Shame.md). [Part
-  1](https://github.com/wekan/wekan/commit/ca94cf33329bcd51dd351edbacd39fe984ccf126),
+  1](https://github.com/wekan/wekan/commit/dc9f3e9d3aa386ee32cf5735d354008283db4130),
   [Part
-  2](https://github.com/wekan/wekan/commit/3ada9b5b2c866e438abd09ed52bfdf230780de33).
+  2](https://github.com/wekan/wekan/commit/72fe17554507fac7a5148fc23c8c72804275ea3a).
   Thanks to anypamme.
 
 and fixes the following bugs:
@@ -4768,7 +4768,7 @@ translations.
 This release fixes the following bug:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e999aa013">Public read-only boards: list dragging is disabled for anonymous / not-logged-in users</a>. Thanks to GenericUK and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8f5300053">Public read-only boards: list dragging is disabled for anonymous / not-logged-in users</a>. Thanks to GenericUK and xet7.</summary>
 
 Public read-only boards: list dragging is disabled for anonymous / not-logged-in
 users. On a public board opened while logged out, lists could still be dragged
@@ -4788,7 +4788,7 @@ translations.
 This release fixes the following bug:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/fbe548ec8">Moving a card between boards via the REST API now works (and is unit-tested)</a>. Thanks to rptl and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/14dd48bb6">Moving a card between boards via the REST API now works (and is unit-tested)</a>. Thanks to rptl and xet7.</summary>
 
 Moving a card between boards via the REST API now works (and is unit-tested).
 Editing only the raw `boardId`/`listId` left the card half-moved so opening it
@@ -4809,7 +4809,7 @@ translations.
 This release fixes the following bugs:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/68c041f7a">Admin Panel: the per-org/team "Propagate Members To Boards" flag now actually propagates…</a> Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/5234d09d1">Admin Panel: the per-org/team "Propagate Members To Boards" flag now actually propagates…</a> Thanks to xet7.</summary>
 
 Admin Panel: the per-org/team "Propagate Members To Boards" flag now actually
 propagates. `orgPropagateMembersToBoards` / `teamPropagateMembersToBoards` were
@@ -4822,7 +4822,7 @@ are skipped), via a pure, unit-tested `models/lib/propagateMembers.js` (#4737, #
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a673a0c99">A user added to a team AFTER it was assigned to a board now gains membership on that board</a>. Thanks to mianbaoshumoon and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/16f653108">A user added to a team AFTER it was assigned to a board now gains membership on that board</a>. Thanks to mianbaoshumoon and xet7.</summary>
 
 A user added to a team AFTER it was assigned to a board now gains membership on
 that board. Assigning a team to a board adds the team's current users to the
@@ -4839,7 +4839,7 @@ guards so the wiring cannot silently regress (#4593)
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/50a44243a">Add-card: pressing Tab no longer loses the typed card text</a>. Thanks to callahad and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/533edca7d">Add-card: pressing Tab no longer loses the typed card text</a>. Thanks to callahad and xet7.</summary>
 
 Add-card: pressing Tab no longer loses the typed card text. The add-card form's
 Tab handler is a deliberate power feature — Tab jumps to the next column's
@@ -5205,7 +5205,7 @@ reactivity order — so polling-only is now truly tail-free. Covered by tests
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/547566654119e017126bbe4d61affc8e7ea9cb45">Fix: on Sandstorm, the browser error that a page "can not be displayed embedded in another page"…</a> Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3d7ef849ba4843d69eb009463a8e2de169e99b23">Fix: on Sandstorm, the browser error that a page "can not be displayed embedded in another page"…</a> Thanks to xet7.</summary>
 
 Fix: on Sandstorm, the browser error that a page "can not be displayed embedded
 in another page" after a grain's first-launch data migration. The grain launcher
@@ -5223,7 +5223,7 @@ grain startup; covered by wiring/ordering tests
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/31c0bcafa723797c2990e773c165fb48d38fd15f">The recovery maintenance page now works the same on ALL FerretDB v1 platforms (#6492)</a>. Thanks to bluetopaz1204, mueschel and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8e4d57c21d2f7dcad34b2b1208a68e1b22599af3">The recovery maintenance page now works the same on ALL FerretDB v1 platforms (#6492)</a>. Thanks to bluetopaz1204, mueschel and xet7.</summary>
 
 The recovery maintenance page now works the same on ALL FerretDB v1 platforms
 (#6492). Besides the in-app spinner (which shows once Meteor serves the client),
@@ -5249,7 +5249,7 @@ translations.
 This release fixes the following bugs:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/d5ef331bf26cadec7504cb7cbd67b82538c1305f">Fix: high FerretDB CPU (300%+, even idle) from a bloated or corrupt simulated OpLog (#6492)</a>. Thanks to bluetopaz1204, mueschel and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/54b1e9cd17b0ff15f193da4a3db9178b7eb0483f">Fix: high FerretDB CPU (300%+, even idle) from a bloated or corrupt simulated OpLog (#6492)</a>. Thanks to bluetopaz1204, mueschel and xet7.</summary>
 
 Fix: high FerretDB CPU (300%+, even idle) from a bloated or corrupt simulated
 OpLog (#6492). FerretDB v1's SQLite OpLog (`local.oplog.rs`, in the `local`
@@ -5267,7 +5267,7 @@ never touches `wekan.sqlite`
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7e3ed298c71c4c5f30c84e67c841d964c386ca62">Safety measures against SQLite corruption/bloat (#6492). (1) Before FerretDB opens its files, every…</a> Thanks to bluetopaz1204, mueschel and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/10b7487d9baac301661728a7b8a77c89a3428655">Safety measures against SQLite corruption/bloat (#6492). (1) Before FerretDB opens its files, every…</a> Thanks to bluetopaz1204, mueschel and xet7.</summary>
 
 Safety measures against SQLite corruption/bloat (#6492). (1) Before FerretDB
 opens its files, every launch path keeps a rotating backup of the text-data
@@ -5285,7 +5285,7 @@ covered by tests that enforce they never destroy the live text data
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b408c55249437bf99045f4e0cc7ab6823824449d">Automatic recovery/remediation for the SQLite text data, with an Admin Panel / Problems / Recovery…</a> Thanks to bluetopaz1204, mueschel and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/63c77a27f47aeb204219eba1f4a127837413105c">Automatic recovery/remediation for the SQLite text data, with an Admin Panel / Problems / Recovery…</a> Thanks to bluetopaz1204, mueschel and xet7.</summary>
 
 Automatic recovery/remediation for the SQLite text data, with an Admin Panel /
 Problems / **Recovery** report (#6492). A pure, unit-tested decision helper
@@ -5305,7 +5305,7 @@ documented in `docs/Features/Admin-Panel/Problems/Recovery.md`
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f404e38f97c7668c805075e71b2609755831f6b2">While a data recovery is in progress, WeKan now shows a full-page maintenance spinner instead of…</a> Thanks to bluetopaz1204, mueschel and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9ea7f11d27972989ea7ede695461079a3bbe7489">While a data recovery is in progress, WeKan now shows a full-page maintenance spinner instead of…</a> Thanks to bluetopaz1204, mueschel and xet7.</summary>
 
 While a data recovery is in progress, WeKan now shows a full-page **maintenance
 spinner** instead of errors or half-loaded data (#6492). A public status
@@ -5339,7 +5339,7 @@ translations.
 This release fixes the following bugs:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b3d0eb33fe3a7528ef802e7addc7df70c5abdcf1">Fix: on phone-sized touch screens the All Boards page put the board icons BELOW the left menu and…</a> Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c68dc3fb29618685214297484ca7a51084451b23">Fix: on phone-sized touch screens the All Boards page put the board icons BELOW the left menu and…</a> Thanks to xet7.</summary>
 
 Fix: on phone-sized touch screens the All Boards page put the board icons BELOW
 the left menu and search bar (a single stacked column), and because dragscroll
@@ -5800,7 +5800,7 @@ read-only, paginated, searchable event tables
 and adds the following updates:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/4f1afed25">Reworked the Admin Panel → Problems pagination tables (Files/Rules/Boards/ Cards/Impersonation and…</a> Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/dd21cfdc0">Reworked the Admin Panel → Problems pagination tables (Files/Rules/Boards/ Cards/Impersonation and…</a> Thanks to xet7.</summary>
 
 Reworked the Admin Panel → Problems pagination tables (Files/Rules/Boards/
 Cards/Impersonation and the Security/Speed/Tests event tables): the search field
@@ -5812,7 +5812,7 @@ Change color recolors them
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c94c313a7">Made buttons follow the theme: the global button base and the primary buttons (forms.css) plus the…</a> Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/52acd4b75">Made buttons follow the theme: the global button base and the primary buttons (forms.css) plus the…</a> Thanks to xet7.</summary>
 
 Made buttons follow the theme: the global button base and the primary buttons
 (forms.css) plus the admin and People-panel buttons now use var(--theme-accent,
@@ -5822,7 +5822,7 @@ while the default look is unchanged
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a4aa2f877">Admin Panel → Files report: URL-encoded filenames (e.g. "%D0%93%D1%80") are decoded for display…</a> Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/fccc4a739">Admin Panel → Files report: URL-encoded filenames (e.g. "%D0%93%D1%80") are decoded for display…</a> Thanks to xet7.</summary>
 
 Admin Panel → Files report: URL-encoded filenames (e.g. "%D0%93%D1%80") are
 decoded for display, filenames are always shown as plain text (never markdown/
@@ -5834,7 +5834,7 @@ such names
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/db68996cc">Removed clickable column-header sorting from the board Table view and the Admin Panel → People →…</a> Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6d3c550d8">Removed clickable column-header sorting from the board Table view and the Admin Panel → People →…</a> Thanks to xet7.</summary>
 
 Removed clickable column-header sorting from the board Table view and the Admin
 Panel → People → Domains table; both now show a stable fixed order (and keep
@@ -5866,13 +5866,13 @@ came up rather than fell back. Also trimmed the client activity feed page from
 </details>
 
 - [Updated
-  SECURITY.md](https://github.com/wekan/wekan/commit/eebccaf291c2751154f127095d5b7610399f0f2d).
+  SECURITY.md](https://github.com/wekan/wekan/commit/1e0ffc5c3653acae7072dbabdd82a0488e593069).
   Thanks to xet7.
 
 and fixes the following bugs:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/fab8c1035">Fix the Admin Panel → Problems → Cards report spinning while it loaded on big sites: it paginates…</a> Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f7c4a916f">Fix the Admin Panel → Problems → Cards report spinning while it loaded on big sites: it paginates…</a> Thanks to xet7.</summary>
 
 Fix the Admin Panel → Problems → Cards report spinning while it loaded on big
 sites: it paginates, but sorted by an unindexed { boardId, sort }, so every page
@@ -5883,7 +5883,7 @@ stream, at } index for the Security/Speed/Tests tables
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e88665316">Fix the Admin Panel → Translation page loading the ENTIRE Translations collection at once: it…</a> Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/19870ad52">Fix the Admin Panel → Translation page loading the ENTIRE Translations collection at once: it…</a> Thanks to xet7.</summary>
 
 Fix the Admin Panel → Translation page loading the ENTIRE Translations
 collection at once: it subscribed with a hardcoded limit of 0 (= no limit). It
@@ -5892,7 +5892,7 @@ now uses the infinite-scroll window, loading a page at a time
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/da99baf68">Fix the Board Archive → Boards list loading every archived board at once: it now pages server-side…</a> Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e205f6b7a">Fix the Board Archive → Boards list loading every archived board at once: it now pages server-side…</a> Thanks to xet7.</summary>
 
 Fix the Board Archive → Boards list loading every archived board at once: it now
 pages server-side (30 per page) with a search box and prev/next controls, so
@@ -9312,35 +9312,35 @@ Now:
 </details>
 
   - [External avatars are localized into WeKan's own
-    files/avatars](https://github.com/wekan/wekan/commit/ac8bedfef), triggered
+    files/avatars](https://github.com/wekan/wekan/commit/dcd5f8fdd), triggered
     when a board is opened and at login, from any source — Sandstorm profile
     picture, LDAP
-    [`jpegPhoto`/`thumbnailPhoto`](https://github.com/wekan/wekan/commit/c258d862d),
+    [`jpegPhoto`/`thumbnailPhoto`](https://github.com/wekan/wekan/commit/e0c76099f),
     OAuth2/OIDC `picture` claim, gravatar or a pasted URL — every network fetch
     guarded against SSRF (http/https only; no private, loopback, link-local or
     cloud-metadata address; timeout + size + image-type caps). ([board-open
-    trigger](https://github.com/wekan/wekan/commit/5a38ca3ca). Inside a
+    trigger](https://github.com/wekan/wekan/commit/b4bfc7594). Inside a
     Sandstorm grain outbound fetch is sandboxed, so a still-external Sandstorm
     picture is a best-effort no-op there — but any avatar that is already a
     local file exports/imports fully, grain included.)
   - [Board export embeds each member's local avatar file as
-    base64](https://github.com/wekan/wekan/commit/92c769fd1) alongside their
+    base64](https://github.com/wekan/wekan/commit/b98abe7b0) alongside their
     username, fullname and initials — never passwords, emails or services.
   - [Board import preserves the original members as inert placeholder
-    users](https://github.com/wekan/wekan/commit/aff3017ff)
+    users](https://github.com/wekan/wekan/commit/0c4b8f4d9)
     (`authenticationMethod:'imported'`, `loginDisabled`, `isActive:false`, no
     secrets), reusing each original `_id` so card/comment/activity references
     resolve to the right person with NO mapping at import time, and restores
     their avatar. The importer stays the sole admin; imported members hold no
     permissions until reconciled.
   - [Reconciliation maps placeholders to the valid accounts deliberately,
-    later](https://github.com/wekan/wekan/commit/6985281d5): an admin sweep
+    later](https://github.com/wekan/wekan/commit/6784726ba): an admin sweep
     merges each placeholder into a matching real account (provisioned by
     LDAP/OIDC at login) by reassigning every reference, and leaves the rest
     inactive (e.g. a person not in LDAP); a one-off admin merge is available
     too.
   - [Avatars visibly distinguish account
-    state](https://github.com/wekan/wekan/commit/fae20c8bc), on card avatars and
+    state](https://github.com/wekan/wekan/commit/db90fb9e6), on card avatars and
     in the right-sidebar member list: a dashed ring + amber "?" badge for
     un-reconciled imported placeholders, greyscale + dim for inactive members,
     and the sidebar now lists everyone (active first, then inactive) instead of
@@ -9376,7 +9376,7 @@ This release fixes the following bugs:
 
 - [At default docker-compose.yml, changed DDP_TRANSPORT from uws to sockjs,
   because uws does not work at
-  s390x](https://github.com/wekan/wekan/commit/aa5847f21561957216a34a7f6a61699f427971c8).
+  s390x](https://github.com/wekan/wekan/commit/4a94793f687a770346c2db5280cffcf2936c7ab3).
   Thanks to xet7.
 <details>
 <summary>FerretDB v1 is now downloaded as an individual per-arch binary, not ferretdb.zip. Thanks to xet7.</summary>
@@ -10622,7 +10622,7 @@ unaffected. Covered by `tests/linkedCardCover.test.cjs`
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7a0eb61c0a4d3ace60f95cfbda7c1d70dff665ef">Fix date-picker calendar stays fully visible when opened low on a scrolled page</a>. Thanks to MarcusDger and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ac368de06a9b1d7a29dd6e4af8dc2f81fa1e3db7">Fix date-picker calendar stays fully visible when opened low on a scrolled page</a>. Thanks to MarcusDger and xet7.</summary>
 
 ** Fix date-picker calendar stays fully visible when opened low on a scrolled
 page **: Opening a date field (due/start/end date, or a date custom field) low
@@ -10827,7 +10827,7 @@ boards stay excluded
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/933aad87fca6fc8b17efce577127e0b1fddf17f2">Fix board disappeared after adding another user</a>. Thanks to DVNBLMHC and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/bc1f149ea373be46a6ac1ab6f71d382194acebeb">Fix board disappeared after adding another user</a>. Thanks to DVNBLMHC and xet7.</summary>
 
 ** Fix board disappeared after adding another user **: A board admin adding
 another user could make the whole board silently vanish from a user's board
@@ -10899,9 +10899,9 @@ to WeKan.
 </details>
 
 - Updated Code of Conduct. [Part
-  1](https://github.com/wekan/wekan/commit/209cb8b43d84f7382d181a9f5d1e96ff32f2634d),
+  1](https://github.com/wekan/wekan/commit/3b031bd901916d4c3d0a49421e5f81a6624fa0f4),
   [Part
-  2](https://github.com/wekan/wekan/commit/574dd5bedd4f7c584b0fbbfaf57df86f286607fa).
+  2](https://github.com/wekan/wekan/commit/83f63c9efae9fe00a3c04a3a65e65f807a8db4cb).
   Thanks to xet7.
 
 <details>
@@ -11082,7 +11082,7 @@ This release fixes the following CRITICAL SECURITY ISSUE of
 [ScannerBleed](https://wekan.fi/hall-of-fame/scannerbleed/):
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/0137924d7ee0b28102f671e1badf5ed21d6ab22f">ScannerBleed</a>.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1a222c4477e68c76fd6a866954b535fba0a78d05">ScannerBleed</a>.</summary>
 
 ** ScannerBleed : shell injection (RCE) via a malicious upload filename in the
 external antivirus scanner command path**
@@ -11407,7 +11407,7 @@ invalid JSON with single quotes). Verified that both empty and object settings
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f7a2a3ace5ebc6ac2c8ecef10a2d0477ab7b3e2c">Mobile UI too large at All Boards and top bars, #6426: reverted the recent forced mobile 2x/3x UI…</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f7a2a3ace5611cbffa94c2a8d1cedae29b7cf347">Mobile UI too large at All Boards and top bars, #6426: reverted the recent forced mobile 2x/3x UI…</a></summary>
 
 [Mobile UI too large at All Boards and top
 bars](https://github.com/wekan/wekan/issues/6426),
@@ -12695,7 +12695,7 @@ WeKan→calendar export)
 and fixes the following bugs:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/9e50c69eaaec8928b4eb8a122f9cb6f0447464a9">Fixed OIDC/OAuth2 "Log Out" redirecting to the identity provider home page instead of back to Wekan</a>. Thanks to zambalee and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f569eb9c0c0a654d39b927322eb606e473ad7ef4">Fixed OIDC/OAuth2 "Log Out" redirecting to the identity provider home page instead of back to Wekan</a>. Thanks to zambalee and xet7.</summary>
 
 Fixed OIDC/OAuth2 "Log Out" redirecting to the identity provider home page
 instead of back to Wekan With autologin (`OIDC_REDIRECTION_ENABLED=true`),
@@ -13200,7 +13200,7 @@ translations.
 This release adds the following features:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b6facc2412e37b4c365a8f6c667894794bf2af0c">Release All Platforms: Set GH_REPO on the bundle-attach steps so gh finds the repository</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c41ad5fd68ae4ed23b5414dffabfea4b3ac1dd8d">Release All Platforms: Set GH_REPO on the bundle-attach steps so gh finds the repository</a>. Thanks to xet7.</summary>
 
 Release All Platforms: Set GH_REPO on the bundle-attach steps so gh finds the
 repository The win64 / mac-arm64 / s390x / ppc64le bundles each finished
@@ -13222,7 +13222,7 @@ translations.
 This release adds the following features:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/869cc694f58df49022081e7bc82d4c3c4a6b3792">Release All Platforms: Drop armv7l from extra-arch bundles, because Node.js 24 ships no armv7l…</a> Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/863883a7f71983d371d28b18db7fcf410e0720ce">Release All Platforms: Drop armv7l from extra-arch bundles, because Node.js 24 ships no armv7l…</a> Thanks to xet7.</summary>
 
 Release All Platforms: Drop armv7l from extra-arch bundles, because Node.js 24
 ships no armv7l binaries The `build-extra-arches` armv7l matrix entry failed
@@ -13237,7 +13237,7 @@ those are unaffected
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/32ddf29142c463e65028ebb81619c142ea37d27b">Release All Platforms: Move win64 and mac-arm64 into the post-release extra-platform phase</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/227d7877c8fe97253249ada61c24fd991f9e0085">Release All Platforms: Move win64 and mac-arm64 into the post-release extra-platform phase</a>. Thanks to xet7.</summary>
 
 Release All Platforms: Move win64 and mac-arm64 into the post-release
 extra-platform phase `build-win64` and `build-mac-arm64` were prerequisites of
@@ -13357,7 +13357,7 @@ admin-only ([#5850](https://github.com/wekan/wekan/issues/5850))
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/27c2e4f2ced3515a1aae5c49138963b483763a36">Enforce the per-org/team "Propagate Members To Boards" flag</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f5cca8cea12fac0cdffae5293463c090def22538">Enforce the per-org/team "Propagate Members To Boards" flag</a>. Thanks to xet7.</summary>
 
 Enforce the per-org/team "Propagate Members To Boards" flag When **Propagate
 Members To Boards** is enabled for an Organization or Team, its member users are
@@ -13396,7 +13396,7 @@ over REST. Documented with `@operation` JSDoc (OpenAPI) and `api.py` examples
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/98a910917f4b37b5c4bec2525d8af0e45315b5b3">REST API for board domain sharing</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/46982a3efd437429cef26a48da812bfd0da60602">REST API for board domain sharing</a>. Thanks to xet7.</summary>
 
 REST API for board domain sharing `GET` / `POST` / `DELETE
 /api/boards/:boardId/domains` list, add and remove the email domains a board is
@@ -13408,7 +13408,7 @@ with matching `api.py` examples
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/bdedb23add5160b1fd40ce6d68e3f1b5a89224f0">Admin Panel / People / Domains: list domains with per-domain user counts</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8849b015dd3debdca4445fbf097e289c5be08128">Admin Panel / People / Domains: list domains with per-domain user counts</a>. Thanks to xet7.</summary>
 
 Admin Panel / People / Domains: list domains with per-domain user counts A new
 **Domains** tab in Admin Panel > People lists every email-address domain across
@@ -13432,7 +13432,7 @@ unchanged ([#5850](https://github.com/wekan/wekan/issues/5850))
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/d4136a616076ed61a572e7905a49dc1169aafd0b">Share a board with an email domain from the board members sidebar</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/50c5d0738213d41bbae35fe8c25ce5e03d2e82cc">Share a board with an email domain from the board members sidebar</a>. Thanks to xet7.</summary>
 
 Share a board with an email domain from the board members sidebar A new
 **Domains** tab in the board members sidebar lets a board admin type a domain
@@ -13470,7 +13470,7 @@ reflects which orgs/teams are auth-managed
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/6dd360ad37d0509d3f425a6d04797a3fe3e79b1a">All Boards / Templates: URL routes, link redirect, no auto-created templates board</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1ee73a0cfb51fb72f635f04f8e659b0d873f1713">All Boards / Templates: URL routes, link redirect, no auto-created templates board</a>. Thanks to xet7.</summary>
 
 All Boards / Templates: URL routes, link redirect, no auto-created templates
 board The All Boards page's **Templates** and **Remaining** sub-views are now
@@ -13490,7 +13490,7 @@ create additional template boards through **Create Board → Add template board*
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/392df15394937806b3c022998535fc78687c6809">Optional setting to set admin status from OAuth2/OIDC groups</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/82f028cbea6b0fd0c83d1b0e30c4d047eb93fdee">Optional setting to set admin status from OAuth2/OIDC groups</a>. Thanks to xet7.</summary>
 
 Optional setting to set admin status from OAuth2/OIDC groups Optional and off by
 default: when `OAUTH2_ADMIN_GROUPS` is set to a comma- or whitespace-separated
@@ -13505,7 +13505,7 @@ strings or objects with a display name. This mirrors the existing LDAP
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/036bdffb940c906ae50f837d74f7cbaba3e6fb9a">Per-organization and per-team feature toggle columns in Admin Panel &gt; People</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c4cc17c10d07a670a3f58c2d8e736aaf13337ab6">Per-organization and per-team feature toggle columns in Admin Panel &gt; People</a>. Thanks to xet7.</summary>
 
 Per-organization and per-team feature toggle columns in Admin Panel > People
 Admin Panel > People > Organizations and Teams each gain three per-record
@@ -13525,7 +13525,7 @@ the orgs/teams it manages ([#4737](https://github.com/wekan/wekan/issues/4737),
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/d0a8b149ea7f81169dc44761b01b738009bc1126">Added Admin Panel setting to block avatar uploads</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8e2dacd856cef46728f0341eeafcb03fd0f453fa">Added Admin Panel setting to block avatar uploads</a>. Thanks to xet7.</summary>
 
 Added Admin Panel setting to block avatar uploads Admin Panel > Attachments >
 Transfer limits now has an "Avatars" option that blocks users from uploading new
@@ -13538,7 +13538,7 @@ useful when avatars are synced from another source
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/aeb894feadbe4ae1fe2a6486953d36995646506a">Improvements to Template Boards and sharing them with Organizations, Teams and Domains</a>.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/100357d953fe891eda8c3d44b9c1986ef09e6a6b">Improvements to Template Boards and sharing them with Organizations, Teams and Domains</a>.</summary>
 
 Improvements to Template Boards and sharing them with Organizations, Teams and
 Domains Card and board templates already exist in WeKan; these are improvements
@@ -13569,7 +13569,7 @@ to how Template Boards are managed and shared on the **All Boards** page
   Thanks to xet7.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a64865f82626eb954028a718cc8e660d2b39065f">Optional setting to refuse unknown OAuth2/OIDC logins</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/d822c1a89961b167808104c6870176d26b90f1b6">Optional setting to refuse unknown OAuth2/OIDC logins</a>. Thanks to xet7.</summary>
 
 Optional setting to refuse unknown OAuth2/OIDC logins Optional and off by
 default: when `OAUTH2_AUTO_REGISTRATION=false`, a first-time OAuth2/OIDC login
@@ -13583,7 +13583,7 @@ keeps the previous behaviour, so existing deployments are unaffected
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/761b8fc82bb0c10767d868f7948f6a3bb9fac477">Notify the assigned card member/assignee directly</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f094f7e8677e1fb3c1823b17605df20943159f4c">Notify the assigned card member/assignee directly</a>. Thanks to xet7.</summary>
 
 Notify the assigned card member/assignee directly When a user is added as a card
 member or assignee, that user is now notified directly, so an assignment reaches
@@ -13596,7 +13596,7 @@ opt out with `NOTIFY_ON_ASSIGN=false`; on by default
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/0557282c3f567ddf538e58631f4605310dfbd0e6">Export big boards: optional JSON export without attachments</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c1752c5fbaf1f0b7640f9797c187fe6ba2dcc85f">Export big boards: optional JSON export without attachments</a>. Thanks to xet7.</summary>
 
 Export big boards: optional JSON export without attachments Very large boards
 could fail to export as JSON because every attachment is base64-encoded inline
@@ -13611,7 +13611,7 @@ export is unchanged ([#5870](https://github.com/wekan/wekan/issues/5870))
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/4dc955ed230b0df4d12dcbac5f450ccdf51fb8fb">Fix LDAP sign-in failing when a DN or cn contains parentheses</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6a89da85e614793edd9e1f6f30abea02281a8eed">Fix LDAP sign-in failing when a DN or cn contains parentheses</a>. Thanks to xet7.</summary>
 
 Fix LDAP sign-in failing when a DN or cn contains parentheses The user's
 group-member value (e.g. a member DN or cn) was interpolated into the LDAP group
@@ -13635,7 +13635,7 @@ and arm64 snap builds. Pinned to the explicit, stable
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/08b15929f15ad10c71d39a01da3ed961c727a4e9">Keep LDAP admin status updated during background sync</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8d28106dd532a5a31bdd52a68bb397ac8249956c">Keep LDAP admin status updated during background sync</a>. Thanks to xet7.</summary>
 
 Keep LDAP admin status updated during background sync `LDAP_SYNC_ADMIN_STATUS`
 previously only updated a user's admin status at login, so an admin-group change
@@ -13648,10 +13648,10 @@ off), so default behaviour is unchanged
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/d74105d43520950b269721747fa2f576504302e2">Optionally make LDAP authoritative for user active status</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f9bfd370aa34ef2ca6d3c64a9cfa18bdc76c8429">Optionally make LDAP authoritative for user active status</a>. Thanks to xet7.</summary>
 
 [Optionally make LDAP authoritative for user active
-status](https://github.com/wekan/wekan/commit/ba37ccb8e63ed9a9719694fb66448fb87037f4fa).
+status](https://github.com/wekan/wekan/commit/f93624742863008790cfeddad6a21692c62beda7).
 New optional `LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS` (default false):
 when enabled, the background sync disables (`loginDisabled`) LDAP-sourced users
 that are no longer found in the directory, and re-enables users that are present
@@ -13664,10 +13664,10 @@ user is overridden on the next sync
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a8eb12dcdf9a19d97457578c3ce00a65c763299d">Optionally sync LDAP groups as Organizations or Teams</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/bc8167166dab343d194f3f84e47b5fc3a1a02f9d">Optionally sync LDAP groups as Organizations or Teams</a>. Thanks to xet7.</summary>
 
 [Optionally sync LDAP groups as Organizations or
-Teams](https://github.com/wekan/wekan/commit/5a516b223e57cffd361a836a02e629188494c85e).
+Teams](https://github.com/wekan/wekan/commit/bc8167166dab343d194f3f84e47b5fc3a1a02f9d).
 New optional, default-off settings sync a user's LDAP groups into Wekan
 Organizations and/or Teams during background sync: `LDAP_SYNC_ORGANIZATIONS` and
 `LDAP_SYNC_TEAMS`, with optional comma-separated allowlists
@@ -13698,7 +13698,7 @@ sharing a board with a domain, and group-only template boards
 and adds the following tests:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/2955c45330ff17be4d047441d6e707b00d42335a">Added e2e tests for domain-based board sharing</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/62bd6f2b20da23f0d89480dfb9947c8583c11773">Added e2e tests for domain-based board sharing</a>. Thanks to xet7.</summary>
 
 Added e2e tests for domain-based board sharing Verifies `setBoardDomains`
 normalizes, validates and de-duplicates board domains (rejecting malformed
@@ -13710,7 +13710,7 @@ email domain becomes visible to that user
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e3f6b44982752a14813582d84881632983f2681a">Added e2e tests for the All Boards / Templates redesign</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b41dc111f9a98cabb1c52d8e15f447ad3672c569">Added e2e tests for the All Boards / Templates redesign</a>. Thanks to xet7.</summary>
 
 Added e2e tests for the All Boards / Templates redesign Verifies the
 `ensureTemplatesBoard` method creates the templates container and is idempotent,
@@ -13722,7 +13722,7 @@ navigates to `/templates` ([#2339](https://github.com/wekan/wekan/issues/2339),
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/0a23f4c6d279ed45f66a6c49d671a3d2d22e8cd8">Added e2e tests for the per-org/team feature toggle methods</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f7c63ec6205b83ce8743617690d1062064a56637">Added e2e tests for the per-org/team feature toggle methods</a>. Thanks to xet7.</summary>
 
 Added e2e tests for the per-org/team feature toggle methods Verifies the
 admin-only per-org and per-team toggles (Shared Templates, Propagate Members To
@@ -13734,7 +13734,7 @@ methods, and that a non-admin call is a silent no-op
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/8110008efd634ea182bcfa3fb09be2d3ecfbada8">Added a unit test for the OAuth2 admin-from-groups logic</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/79847e9450e69da13b8b9adbfe47ed14d711d2d8">Added a unit test for the OAuth2 admin-from-groups logic</a>. Thanks to xet7.</summary>
 
 Added a unit test for the OAuth2 admin-from-groups logic A runnable Node unit
 test for `oauth2AdminStatusFromGroups`: string and object group forms,
@@ -13745,7 +13745,7 @@ default-off behaviour (no admin change when unset)
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/4d7b0cf2f8d62b4108961f7205d931477f11fd18">Test harness: db.insertOne / db.insertMany now return the driver result</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9370ddfb34e93d20ff11382352d0786e5d68c4f3">Test harness: db.insertOne / db.insertMany now return the driver result</a>. Thanks to xet7.</summary>
 
 Test harness: `db.insertOne` / `db.insertMany` now return the driver result The
 Playwright `mongo-runner` discarded the insert result, so `db.insertOne(...)`
@@ -13755,7 +13755,7 @@ returned `null` and specs could not read `insertedId`; it now returns the result
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/168e541f5b83327f4ed3b0209681321efa78cab9">Added e2e test for LDAP group → Organization/Team sync</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e65f61d36b45b512565467c9941d20c36ae64037">Added e2e test for LDAP group → Organization/Team sync</a>. Thanks to xet7.</summary>
 
 Added e2e test for LDAP group → Organization/Team sync Verifies a group is
 created as a Team/Organization (active), added to the user, add-only (existing
@@ -13765,7 +13765,7 @@ memberships preserved), idempotent, and that a non-admin call is rejected
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/bbdbff7589bf6fe3a84aa95d701ca5f9dce6d1fd">Added more tests</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/963e6588c0ae1eb04ff63594a49385a7fde9dbbb">Added more tests</a>. Thanks to xet7.</summary>
 
 Added more tests Playwright e2e tests for the "Mark as complete" Show at
 Minicard option (`allowsDueCompleteOnMinicard` — hidden by default, shown when
@@ -13782,7 +13782,7 @@ translations.
 This release fixes the following bugs:
 
 - [Fix Docker
-  builds](https://github.com/wekan/wekan/commit/b46e1e7dcb584a1f5d60297e88aa7ec3b2ddd475).
+  builds](https://github.com/wekan/wekan/commit/af3ca0d091f7d1133079ae7931625774b5f3d5b9).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their
@@ -13913,7 +13913,7 @@ translations.
 This release fixes the following bugs:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/640d8ddadba64fde43c49a28b0fa39e30fbed105">Fixed Playwright e2e tests all failing because Meteor was not a browser global</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b65ae77fbdb3649d8d743933e6c8778b465578cd">Fixed Playwright e2e tests all failing because Meteor was not a browser global</a>. Thanks to xet7.</summary>
 
 Fixed Playwright e2e tests all failing because `Meteor` was not a browser global
 Every Playwright end-to-end test (all 183, across Chromium, Firefox and WebKit)
@@ -13964,7 +13964,7 @@ tag-stripping replacement to a fixed point and then removing any remaining stray
 and fixes the following bugs:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/15fcde99e2105075fe75ed4164a8b116b91d5606">Card Details popup</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0094fd21a0d59bd9f88df17f7dfcf13286f8d65c">Card Details popup</a>. Thanks to xet7.</summary>
 
 Card Details popup : removed the redundant empty second popup that appeared at
 the top of the page when a card was opened as a popup (for example from the
@@ -13985,7 +13985,7 @@ translations.
 This release adds the following improvements:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/73b4a97aaafc00baba260cfd16526d78e6372dee">Board Table view</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2b9eab766726f3953c708878d2deba0f66df2edb">Board Table view</a>. Thanks to xet7.</summary>
 
 Board Table view : the table now has the columns Card, List, Swimlane,
 Assignees, Members, Labels, Received, Start, Due and End. The Received, Start,
@@ -14012,7 +14012,7 @@ translations.
 This release adds the following improvements:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a5d7e45200628e3112fd4fa297e26a381b985156">Board Table view</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/5dfe6c3deb725d1a7143b84c8872725525f812af">Board Table view</a>. Thanks to xet7.</summary>
 
 Board Table view : render markdown with `+viewer` in the Card, List, Swimlane
 and Labels cells, so emoji shortcodes and markdown (for example `:thumbsup:`)
@@ -14047,7 +14047,7 @@ translations.
 This release adds the following updates:
 
 - [Added non-experimental docker
-  settings](https://github.com/wekan/wekan/commit/0944f2af472c30d4d464850399ed9f5ffcca3a0f).
+  settings](https://github.com/wekan/wekan/commit/e6db7d412efad169bebcf6fafd5d09a613bafa1d).
   Thanks to xet7.
 
 and adds the following new features:
@@ -14075,7 +14075,7 @@ already-loaded cards
 and fixes the following bugs:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f621966f6143bb0d1c986507331d095ff81866d8">List scrollbar disappeared after resizing a list width</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a1281acec09281f7679efa651c0c36e5d7927f1f">List scrollbar disappeared after resizing a list width</a>. Thanks to xet7.</summary>
 
 List scrollbar disappeared after resizing a list width : Fixes
 [#6386](https://github.com/wekan/wekan/issues/6386). When changing the width of
@@ -14340,10 +14340,10 @@ protection)
 and adds the following new features:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/9fe9e6087899823df064cce7c640f88be43914a4">Added card dependency "Red Strings" / PI program board: visualize card-to-card dependencies as red…</a> Thanks to CodeFreezr, dbt4u, helioguardabaxo and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b909f82f890661103364e591553e85a1edd2bf87">Added card dependency "Red Strings" / PI program board: visualize card-to-card dependencies as red…</a> Thanks to CodeFreezr, dbt4u, helioguardabaxo and xet7.</summary>
 
 [Added card dependency "Red Strings" / PI program
-board](https://github.com/wekan/wekan/commit/5bd1d0ae742e118561b0e9e3170c1e44bd579ad8):
+board](https://github.com/wekan/wekan/commit/b909f82f890661103364e591553e85a1edd2bf87):
 visualize card-to-card dependencies as red, arrow-headed connection lines drawn
 on top of the board (for SAFe PI-planning program boards). A card now has a
 `cardDependencies` list edited from a new "Dependencies" section in the card
@@ -14393,7 +14393,7 @@ icon](https://github.com/wekan/wekan/commit/e8a8007814d777f2c89d26cfdc878912c707
 (the popup now edits the source card, not the dependency row), with an e2e test
 for editing a dependency's type/color/icon. Added a piplanning.io / Kendis /
 Miro-style **drag-to-connect** ([Part
-1](https://github.com/wekan/wekan/commit/06bc92c200b93ff6d233ba5d2a40c4d939922cd3),
+1](https://github.com/wekan/wekan/commit/cc41308a3f6edad850b17336b20bfc422275b64b),
 Part 2 ): when the overlay is on, each minicard shows a small **connect handle**
 (right edge, on hover) — **drag it onto another card to create a dependency** (a
 dashed guide line follows the cursor) — and a **connection line is clickable**
@@ -15031,7 +15031,7 @@ translations.
 This release adds the following updates:
 
 - [Made the "Release All Platforms" snap build resilient to transient Launchpad
-  failures](https://github.com/wekan/wekan/commit/4a1eff22831b18bbf1a6b0defb4e8e9c6bacee1b).
+  failures](https://github.com/wekan/wekan/commit/737fce2ac05a2375fcca0e6a956f9b240902325c).
  `snapcraft remote-build` intermittently dies with a transient TLS
   drop (`SSLEOFError: EOF occurred in violation of protocol`, exit 70) while
   talking to Launchpad after pushing the repo — unrelated to the build itself —
@@ -15047,7 +15047,7 @@ translations.
 This release adds the following new features:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3fa75de5df46b60615ca71721f4ac534a416cc1f">Full right-to-left (RTL) UI for every page when an RTL language is selected</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2536861b797fa971edff53b22420f744f8347118">Full right-to-left (RTL) UI for every page when an RTL language is selected</a>. Thanks to xet7.</summary>
 
 Full right-to-left (RTL) UI for every page when an RTL language is selected
 (Arabic and its variants, Persian/Farsi, Hebrew, Uyghur, Uzbek-Arabic and
@@ -15116,7 +15116,7 @@ translations.
 This release adds the following new features:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/84dc493cf7bb26c8fbffffbcb36e691bcdcfcdb9">Add/Edit location popup can also</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e63c5b112d517b259fdc5347444914b9d86fd71f">Add/Edit location popup can also</a>. Thanks to xet7.</summary>
 
 Add/Edit location popup can also detect a location from a map link from many
 providers, grouped by region — USA: Google Maps, Bing Maps, Apple Maps, Waze;
@@ -15305,7 +15305,7 @@ headers.) Thanks to xet7.
 and fixes the following bugs:
 
 - [Fix Wrong card number after
-  Import](https://github.com/wekan/wekan/commit/aabcaa658edc2135dfd035bedea186ddf6b26068).
+  Import](https://github.com/wekan/wekan/commit/b2d2632e3b79927fb83accf7a2a25ba4893207a7).
   Thanks to titver968 and xet7.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/68e0032c6d3b23a195b4051e2853465965e073dc">Fix Board Export/Import error</a>. Thanks to titver968 and xet7.</summary>
@@ -15360,7 +15360,7 @@ This release adds the following new features:
 
 - [Add pagination and search to Admin Panel / Reports. Fix pagination at Admin
   Panel / Organizations and
-  Teams](https://github.com/wekan/wekan/commit/a12b3f2cb21a067f80269be2a5080ca91046707b).
+  Teams](https://github.com/wekan/wekan/commit/096a3dc46bf9391df899482ab1e805a0c846cc43).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their
@@ -15371,7 +15371,7 @@ translations.
 This release fixes the following bugs:
 
 - [Fix releasing Helm
-  Charts](https://github.com/wekan/wekan/commit/21d18bddfb72543a812b516473a80ccf21dfda46).
+  Charts](https://github.com/wekan/wekan/commit/53b64ee2225c36137c3dbc75f352f224c6d5f2e9).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their
@@ -15382,7 +15382,7 @@ translations.
 This release fixes the following bugs:
 
 - [Fix building Docker
-  image](https://github.com/wekan/wekan/commit/8c0681d4cf020ff453959cf7ac8cb74e0a69f128).
+  image](https://github.com/wekan/wekan/commit/68220f944bdb283c6559f9bf817925976efc241f).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their
@@ -15393,7 +15393,7 @@ translations.
 This release fixes the following bugs:
 
 - [Fix Docker image is
-  broken](https://github.com/wekan/wekan/commit/108c33ab23d05ac586531c22e1fe4c4180546be9).
+  broken](https://github.com/wekan/wekan/commit/928db8d675db91f072ff922e6c3bcd568f3352f5).
   Thanks to titver968, planet-goldfish and xet7.
 - [Fix Admin Panel/People View is
   broken](https://github.com/wekan/wekan/commit/bcf55bdc3a804e5fae34850c0fcbf03e48c2f466).
@@ -15523,7 +15523,7 @@ restriction filter Thanks to xet7
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/d5f6aa196606f229c2c1871a56fb0549fbdab40e">Expand and fix REST API</a>.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2931cc990f99a831e424870fb56a7a09d12f95b2">Expand and fix REST API</a>.</summary>
 
 Expand and fix REST API (Admin API, board member, card field, card copy/move).
 REST routes live in `server/models/*.js` (using
@@ -16825,7 +16825,7 @@ translations.
 This release fixes the following CRITICAL SECURITY ISSUES:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/8351bba818a04c9db11a0e3fa380a10f8d51482c">Fix GHSA-g6vm-7757-pr88. Moved Attachment Storage options from board to Admin Panel</a>. Thanks to Jan Kahmen of turingpoint GmbH for reporting GHSA-g6vm-7757-pr88 and xet7 for fixes and attachment improvements.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/fc92b342ceedcf38dbd614a0f7b50d6dc2b22eb8">Fix GHSA-g6vm-7757-pr88. Moved Attachment Storage options from board to Admin Panel</a>. Thanks to Jan Kahmen of turingpoint GmbH for reporting GHSA-g6vm-7757-pr88 and xet7 for fixes and attachment improvements.</summary>
 
 Fix GHSA-g6vm-7757-pr88. Moved Attachment Storage options from board to Admin
 Panel. Changed API to use Expose Meteor user context to Express endpoints
@@ -16855,7 +16855,7 @@ and adds the following updates:
   2](https://github.com/wekan/wekan/commit/769a139e70a4808b35c91fcd4f2b52a97890ff79).
   Thanks to developers of dependencies.
 - [Add more tests. Fix
-  tests](https://github.com/wekan/wekan/commit/7a615cea52f27e6d15660aaf18ccc8396a1f6f3d).
+  tests](https://github.com/wekan/wekan/commit/a37190e0fc8f70c16aa58150dd440094e8cd3b89).
   Thanks to xet7.
 - [Upgrade Meteor to 3.5-beta.12](https://github.com/wekan/wekan/pull/6362).
   Thanks to harryadel.
@@ -16863,9 +16863,9 @@ and adds the following updates:
 and adds the following new features:
 
 - Add Header Login. [Part
-  1](https://github.com/wekan/wekan/commit/a3c32ff5616842ba306d8e52fd6c4bf350402c87),
+  1](https://github.com/wekan/wekan/commit/d9f1ecb834326eee03b6d3e36d0bc6010a67d895),
   [Part
-  2](https://github.com/wekan/wekan/commit/36d1c60bf45d5b66934ce3386c2a457008f415be).
+  2](https://github.com/wekan/wekan/commit/45c4afd22be300a78e7bb1fff3d9c6af45fcdeb4).
   Thanks to xet7.
 
 and fixes the following bugs:
@@ -17180,7 +17180,7 @@ and fixes the following bugs:
   boards](https://github.com/wekan/wekan/commit/c01743b53a62313f797fe6680f9100adac37102f).
   Thanks to WassimDhib and xet7.
 - [Fix Add Board / Import is not
-  visible](https://github.com/wekan/wekan/commit/52dc6e99269c12198a0807e3e6da513e76c97001).
+  visible](https://github.com/wekan/wekan/commit/14de1ac072faa52c5151651eb80c127634783794).
   Thanks to titver968 and xet7.
 - [Fix Sub-URL at ROOT_URL does not
   work](https://github.com/wekan/wekan/commit/af86ea8785fa912edd0bb062785aaaf21e08623f).
@@ -17442,7 +17442,7 @@ Fedora Asahi Linux Remix, because building Linux arm64 .zip bundle of WeKan
 </details>
 
 - [Docs: Added Manual Parallel
-  Snap](https://github.com/wekan/wekan/commit/eb824938cb750921bec721d80eab2670ba567869).
+  Snap](https://github.com/wekan/wekan/commit/786c9295a950899d2ca4e44b7307392c5e35462d).
   Thanks to xet7.
 
 and fixes the following bugs:
@@ -17650,10 +17650,10 @@ translations.
 This release adds the following updates:
 
 - [Release scripts: Detect newest Node.js 24.x
-  version](https://github.com/wekan/wekan/commit/fde59148dc8bd712e30cbf969d4007b2a7f01e6f).
+  version](https://github.com/wekan/wekan/commit/47088c30c03aef435e24702bb13982deda07a4d2).
   Thanks to xet7.
 - [Release scripts: Update versions at website with release-website.sh
-  script](https://github.com/wekan/wekan/commit/9174001862f1545626730b9a51754ab77b645338).
+  script](https://github.com/wekan/wekan/commit/08ed1705b19b900315258134901dfe2cab6eef39).
   Thanks to xet7.
 - [Release scripts: Detect newest MongoDB 7.x stable version and update to use
   it](https://github.com/wekan/wekan/commit/72f6d96dbc3becc2767eb6f88b0f218679d1ac78).
@@ -17683,7 +17683,7 @@ wekan.fi/wekan and wekan.fi/charts
   release-all.yml](https://github.com/wekan/wekan/commit/10f009f5b15fd077577a71504b0e0c89c4e6fd95).
   Thanks to xet7.
 - [Release scripts: Use latest available Node.js slim docker images when
-  building](https://github.com/wekan/wekan/commit/d998e8cb4a5280c93448d144ab01335ce29b43dc).
+  building](https://github.com/wekan/wekan/commit/be0283381bd71bfaa4e6d4c756b3d6cc548cdc44).
   Thanks to xet7.
 - [Release scripts: Fix updating version
   numbers](https://github.com/wekan/wekan/commit/7b0e2213cfbf0e2a17a143aa7ad9f979fb0fbf07).
@@ -17771,7 +17771,7 @@ This release adds the following updates:
 and fixes the following bugs:
 
 - [Fix Can't start latest docker image because of MongoDB Index
-  errors](https://github.com/wekan/wekan/commit/d537b7c9f3505fd4c1653f87d5f86d7e7729a514).
+  errors](https://github.com/wekan/wekan/commit/da19160e874ecec901e5d1f6eb0de0bcde26d437).
   Thanks to s8321414 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their
@@ -17782,7 +17782,7 @@ translations.
 This release fixes the following bugs:
 
 - [Fix SSO Login broken. Part
-  2](https://github.com/wekan/wekan/commit/4aa7b6aa2034f27efeb67d5dfa8f6acbe0005786).
+  2](https://github.com/wekan/wekan/commit/c009ddc915d79ab657acb87f71d81e1e26b78999).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their
@@ -17793,7 +17793,7 @@ translations.
 This release adds the following updates:
 
 - [Updated Helm Charts
-  versions](https://github.com/wekan/wekan/commit/24ebb4ba45344ad152747c31e7df76217e5b8909).
+  versions](https://github.com/wekan/wekan/commit/dbcdf152441419080ad3910b2e7eb476aeb431c1).
   Thanks to xet7.
 - [GitHub Actions: Added missing sudo to snap
   build](https://github.com/wekan/wekan/commit/2c8a6c8ec6e24b6b6bb153da3edd089e0f0087cc).
@@ -17807,10 +17807,10 @@ translations.
 This release fixes the following bugs:
 
 - [Fix building Snap at GitHub
-  Actions](https://github.com/wekan/wekan/commit/89de05ee91612cef4f13fa8ad32d112dca5bdb43).
+  Actions](https://github.com/wekan/wekan/commit/de55d5afbee9749cf2369eeed9c91b4c202becb2).
   Thanks to xet7.
 - [Updated Helm Chart URL at
-  readme](https://github.com/wekan/wekan/commit/529e0d25ef2ea84953d1c1e6a23b5798d34583fb).
+  readme](https://github.com/wekan/wekan/commit/140e8442385ab5a63d861784ae39532fb2808bd7).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their
@@ -17963,7 +17963,7 @@ translations.
 This release adds the following updates:
 
 - Updated dependencies [Part
-  1](https://github.com/wekan/wekan/commit/7b91439b0f9ec0e409c14ecebab389d41b40a990),
+  1](https://github.com/wekan/wekan/commit/e259ab86f753a3ea67214392abbf8a00164c853a),
   [Part
   2](https://github.com/wekan/wekan/commit/1637a9c938134ef26846ba3c0cd53c065f434e3e).
   Thanks to developers of dependencies.
@@ -18109,7 +18109,7 @@ translations.
 This release adds the following new features and fixes:
 
 - [Fix Impersonate User. Show/Edit Avatar at Admin
-  Panel/People/People](https://github.com/wekan/wekan/commit/3ac7c9057e1e53da9f285149ce832ad430b3bc30).
+  Panel/People/People](https://github.com/wekan/wekan/commit/ce3e51b14755b9c0a7c655d7a96c4f01386b4efc).
   Thanks to ahlgrimma, DnT1mmer, robbagithub, norrig and xet7.
 
 and adds the following updates:
@@ -18641,7 +18641,7 @@ and fixes the following bugs:
   and aminsaidane.
 - [Fix attachment rename fails for clipboard uploads and keep extension metadata
   in
-  sync](https://github.com/wekan/wekan/commit/38c670e08700f7b0ff185aadda40985bc71b1ac4).
+  sync](https://github.com/wekan/wekan/commit/b42689a54db2250767c94df78ee5c9c7b9cc5a73).
   Thanks to snowsky, YosserDerbali and xet7.
 - [Fix card actions popup overflow](https://github.com/wekan/wekan/pull/6220).
   Thanks to aminsaidane.
@@ -18750,7 +18750,7 @@ This release adds the following updates:
 and fixes the following bugs:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/803eb452e96945383f480a8cd532233e17263d38">Fix List of users is empty, some translations not visible, count of orgs/teams/people, theme of…</a> Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0e410b6d7afd40d24a69104e824a5569cba7d458">Fix List of users is empty, some translations not visible, count of orgs/teams/people, theme of…</a> Thanks to xet7.</summary>
 
 Fix List of users is empty, some translations not visible, count of
 orgs/teams/people, theme of some buttons, New org/team to be leftmost column
@@ -19443,7 +19443,7 @@ and adds the following updates:
   4](https://github.com/wekan/wekan/commit/ffd37b9fd9171ca22973d6d0a62baef4a18494f5).
   Thanks to juri_ at WeKan Libera.Chat IRC and xet7.
 - [Added s390x firewall
-  Docs](https://github.com/wekan/wekan/commit/ec7c0e6dc3641f43b1a110d285f6ef15c146584a).
+  Docs](https://github.com/wekan/wekan/commit/aacdcea37b16ccb8cdb0452010a239412bb432a5).
   Thanks to xet7.
 - Updated GitHub issue templates. [Part
   1](https://github.com/wekan/wekan/commit/bd37b88e4d508c1f2712184a27dbbfd9df0e4c4e),
@@ -19973,7 +19973,7 @@ and fixes the following bugs:
 - Fix drag drop lists. [Part
   1](https://github.com/wekan/wekan/commit/324f3f7794aace800022a24deb5fd5fb36ebd384),
   [Part
-  2](https://github.com/wekan/wekan/commit/ff516ec696ef499f11b04b30053eeb9d3f96d8d1).
+  2](https://github.com/wekan/wekan/commit/55bec31a3f7189500ecb7926933e566ae84c978a).
   Thanks to xet7.
 - [Removed extra pipe
   characters](https://github.com/wekan/wekan/commit/caa6e615ff3c3681bf2b470a625eb39c6009b825).
@@ -22896,7 +22896,7 @@ and fixes the following bugs:
 - [Fix downloading attachments with unusual
   filenames](https://github.com/wekan/wekan/pull/5083). Thanks to VidVidex.
 - [Add some filename, if there is no filename after
-  sanitize](https://github.com/wekan/wekan/commit/3d1a161c59a0cb4eafb50ab2fdb04443d54b2086).
+  sanitize](https://github.com/wekan/wekan/commit/48dcd11af0c7d1caef6bd1414280f9c106b2b926).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their
@@ -32572,7 +32572,7 @@ and adds the following updates:
 and fixes the following bugs:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3ad6e554dceea822dee7390872260e872a792dcd">RELAX THEME: Use</a>.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/48ebc5f11745b125ce01d08d60e2d8e3a9419a5f">RELAX THEME: Use</a>.</summary>
 
 RELAX THEME: Use only in this theme the aggressive [red color and big bold serif
 font style
