@@ -283,6 +283,7 @@ if errorlevel 1 (
 	)
 )
 echo --- Fixing CHANGELOG commit links ^(releases\fix-changelog-hashes.sh^) ---
+echo     ^(whole file, including released sections: bash releases/fix-changelog-hashes.sh --all-sections^)
 where bash >nul 2>&1
 if errorlevel 1 (
 	echo bash not found - the CHANGELOG hash fix needs Git Bash, bundled with Git for Windows.

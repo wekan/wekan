@@ -1388,8 +1388,12 @@ function update_git(){
 
 	# The rebase may have rewritten commits the CHANGELOG links to; repoint the
 	# stale links in the unreleased section (shared with releases/release-all.sh).
+	# A link is only repointed when NO ref in this clone reaches its commit, so a
+	# link into an old release tag - which GitHub serves fine - is left alone.
 	echo "--- Fixing CHANGELOG commit links (releases/fix-changelog-hashes.sh) ---"
 	bash "$here/releases/fix-changelog-hashes.sh" || true
+	echo "    (whole file, including released sections:"
+	echo "     bash releases/fix-changelog-hashes.sh --all-sections [--dry-run])"
 
 	echo "--- git status ---"
 	git status

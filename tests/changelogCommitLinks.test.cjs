@@ -7,7 +7,8 @@
 // upstream change, an amend, a squash, a version-bump rebase — changes the hashes, so
 // the links in the not-yet-released section point at commits that no longer exist and
 // 404 once pushed. The repair repoints them by matching each old commit's SUBJECT
-// against the commits now on the branch.
+// AND author date against the commits now on the branch (a rebase keeps the author
+// date; the commit date is replaced), falling back to the patch itself.
 //
 // The logic lives in ONE place, releases/fix-changelog-hashes.sh, shared by
 // releases/release-all.sh (before a release) and build.sh (Setup → "Update
@@ -32,8 +33,8 @@ const rebuild = read('build.sh');
 console.log('changelogCommitLinks:');
 
 test('the repair lives in one shared script that runs its function', () => {
-  assert.ok(/fix_upcoming_commit_hashes\(\)/.test(fix), 'shared script defines the repair function');
-  assert.ok(/\nfix_upcoming_commit_hashes\n/.test(fix), 'the function is actually called');
+  assert.ok(/fix_commit_hashes\(\)/.test(fix), 'shared script defines the repair function');
+  assert.ok(/\nfix_commit_hashes\n/.test(fix), 'the function is actually called');
 });
 
 test('release-all.sh runs the shared repair before renaming and before commit/push', () => {
@@ -53,16 +54,28 @@ test('build.sh reuses the same shared repair script', () => {
     'the Update-git option calls the shared repair, not its own copy');
 });
 
-test('a link still on this branch is left alone', () => {
-  assert.ok(/git merge-base --is-ancestor "\$h" HEAD/.test(fix),
-    'ancestry check decides whether a hash is stale');
+test('a link ANY ref can reach is left alone', () => {
+  // Changed deliberately: this used to ask "is it an ancestor of HEAD", which
+  // called every commit that lives only in an old release TAG stale - and
+  // repointing one of those sends the reader to a DIFFERENT change, while the
+  // original link was being served by GitHub perfectly well. Staleness is now
+  // "no ref in this clone reaches it". tests/changelogHashFix.test.cjs runs the
+  // script and pins the behaviour.
+  assert.ok(/git rev-list --all/.test(fix),
+    'the set of reachable commits comes from ALL refs, branches and tags');
+  assert.ok(!/merge-base --is-ancestor "\$h" HEAD/.test(fix),
+    'ancestry of HEAD is not the test - a tag-only commit is a working link');
 });
 
-test('a stale link is remapped by commit SUBJECT, not by position', () => {
+test('a stale link is remapped by commit SUBJECT + author date, not by position', () => {
   assert.ok(/git log -1 --format=%s "\$h"/.test(fix),
     "reads the old commit's subject (the pre-rewrite object is still in the clone)");
-  assert.ok(/\$2==s \{print \$1; exit\}/.test(fix),
-    'matches the subject EXACTLY against commits on this branch');
+  assert.ok(/\$2==d && \$3==s \{print \$1\}/.test(fix),
+    'matches subject AND author date exactly - a rebase keeps both');
+  assert.ok(/grep -c \./.test(fix),
+    'and refuses to pick when several commits share the subject ("Updated ChangeLog.")');
+  assert.ok(/patch-id/.test(fix),
+    'a reworded amend is caught by the patch instead');
 });
 
 test('only the unreleased section is rewritten', () => {
