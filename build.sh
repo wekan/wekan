@@ -370,7 +370,7 @@ function pw_failures_of(){
 	node -e 'const fs=require("fs");let r;try{r=JSON.parse(fs.readFileSync(process.argv[1],"utf8"))}catch(e){process.exit(0)}const label=process.argv[2]||"";const out=[];function walk(su,ti){const t=[...ti,su.title].filter(Boolean);for(const s of su.suites||[])walk(s,t);for(const sp of su.specs||[]){if(sp.ok)continue;const loc=sp.file?`${sp.file}:${sp.line}`:"";out.push(`[${label}] ${loc} › ${[...t,sp.title].join(" › ")}`);}}for(const s of r.suites||[])walk(s,[]);out.forEach(l=>console.log(l));' "$1" "$2"
 }
 
-# Run one Playwright browser project for the "Run ALL tests" flow.
+# Run one Playwright browser project for the whole-suite flows.
 # Writes test-results/all-tests-<browser>.json and returns playwright's exit code.
 # On Linux arm64 every browser goes through Docker (see browser_needs_docker).
 function run_pw_all_browser(){
@@ -488,12 +488,24 @@ function run_playwright_parallel(){
 }
 
 # Run one Playwright browser project interactively (single-browser menu items).
+# one_log <name> — a fresh ../log/<datetime>/ for a single test option, and the
+# path of the file to tee into. Every option in the Tests menu writes there, so
+# "the newest test logs" is one directory whichever option produced them. When a
+# larger run is driving this (EVERYTHING), WEKAN_LOGDIR is already set and is used
+# instead, so one run stays in one directory.
+one_log() {
+	local name="$1" dir
+	dir="${WEKAN_LOGDIR:-../log/$(date '+%Y-%m-%d_%H-%M-%S')}"
+	mkdir -p "$dir" 2>/dev/null || dir="."
+	printf '%s/wekan-%s.log' "$(cd "$dir" && pwd)" "$name"
+}
+
 function run_playwright_single(){
 	local browser="$1"
 	ORIG_HOME="$HOME"
 	if browser_needs_docker "$browser"; then
 		echo "Running $browser via the official Playwright Docker image."
-		echo "Make sure WeKan is running on http://localhost:3000 (menu option 3, or 'Run ALL tests')."
+		echo "Make sure WeKan is running on http://localhost:3000 (a whole-suite option starts it for you)."
 		( cd "$ORIG_HOME/repos/wekan/tests/playwright" && run_playwright_docker "$browser" )
 		return $?
 	fi
@@ -505,7 +517,11 @@ function run_playwright_single(){
 	export WEKAN_PLAYWRIGHT_ALL=1
 	read -p "Install Playwright test dependencies first? [y/N] " INSTALL_DEPS
 	case "$INSTALL_DEPS" in [Yy]*) meteor npm install ;; esac
-	meteor npm exec playwright test -- --project="$browser"
+	local log
+	log="$(cd "$ORIG_HOME/repos/wekan" && one_log "playwright-$browser")"
+	echo "Log: $log"
+	meteor npm exec playwright test -- --project="$browser" 2>&1 | tee "$log"
+	return "${PIPESTATUS[0]}"
 }
 
 # Run the full test matrix (Mocha, import regression, Node E2E and the three
@@ -518,7 +534,7 @@ function run_playwright_single(){
 function run_all_tests(){
 	local RUN_MODE="${1:-parallel}"
 	local modeword; [ "$RUN_MODE" = parallel ] && modeword="in parallel (concurrently)" || modeword="one at a time (sequential)"
-	# Each run of "Run ALL tests" gets its own ../log/<timestamp>/ directory
+	# Each whole-suite run gets its own ../log/<timestamp>/ directory
 	# (stamped once, when the run starts), so logs are never overwritten and
 	# previous runs are kept.
 	local RUN_TS RUN_LOGDIR
@@ -616,7 +632,7 @@ function run_all_tests(){
 			mocha)  METEOR_LOCAL_DIR=.meteor/local-test meteor test --once --driver-package meteortesting:mocha --port 3100 || rc=$? ;;
 			# Every plain-node suite in package.json: test:unit:all is test:unit:node
 			# (the ~165 .cjs guards) plus the stickers / Trello / OAuth2 .js tests.
-			# They need no server and no browser, and until now "Run ALL tests" did
+			# They need no server and no browser, and until now the whole-suite run did
 			# not run them at all - so a guard that was supposed to fail the suite
 			# never ran anywhere.
 			unit)   meteor npm run test:unit:all || rc=$? ;;
@@ -1454,8 +1470,9 @@ while [ -z "$opt" ]; do
 					"Kill all dev servers|Kill all dev servers (free ports 3000/3001/3100/3101/4000/4001/8080)" ;;
 			"Tests")
 				choose "Tests" \
-					"ALL tests, parallel|Run ALL tests in parallel on http://localhost:3000 (start server, jobs run concurrently, progress + summary)" \
-					"ALL tests, sequential|Run ALL tests sequentially on http://localhost:3000 (start server, one job at a time, progress + summary)" \
+					"EVERYTHING (sequential): WeKan tests + all databases + FerretDB tests|Run EVERYTHING sequentially: WeKan's own tests, then the database conformance run for every database with a Docker image for this CPU, then all of FerretDB's own tests (unit, vet, integration) - one stage at a time, all logs in ../log/<datetime>/" \
+					"WeKan's own tests only, parallel|Run WeKan's own tests in parallel on http://localhost:3000: Mocha, the node unit suites, import regression, node E2E and all three browsers, concurrently. No database conformance and no FerretDB tests - logs in ../log/<datetime>/" \
+					"WeKan's own tests only, sequential|Run WeKan's own tests sequentially on http://localhost:3000: Mocha, the node unit suites, import regression, node E2E and all three browsers, one job at a time. No database conformance and no FerretDB tests - logs in ../log/<datetime>/" \
 					"Mocha (server-side)|Test Mocha unit + security + API-logic tests (server-side only, no browser)" \
 					"Import regression|Test import regression (tests/wekanCreator.import.test.js, fast, no server)" \
 					"Node E2E regressions|Test Node E2E regressions (tests/e2e/list-regressions.js, needs running server)" \
@@ -1467,7 +1484,6 @@ while [ -z "$opt" ]; do
 					"Floating-promises guard|Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" \
 					"Count tests by category|Count amount of tests by category" \
 					"Run all FerretDB tests - SEQUENTIAL|Run all FerretDB tests - SEQUENTIAL: unit, vet and the integration suite of the FerretDB subdirectory of this repo, one at a time, logs in ../log/<datetime>/" \
-					"EVERYTHING (sequential)|Run EVERYTHING sequentially: WeKan's own tests, then the database conformance run for every database with a Docker image for this CPU, then all of FerretDB's own tests (unit, vet, integration) - one stage at a time, all logs in ../log/<datetime>/" \
 					"All databases (sequential)|Test all databases that have a Docker image for this CPU, SEQUENTIALLY: build newest FerretDB v1 from source, then run every FerretDB v1 query type against each database and compare that they all answer the same (results in ../log/<datetime>/)" ;;
 			"Tools")
 				choose "Tools" \
@@ -1671,34 +1687,39 @@ for _once in 1; do
                 break
                 ;;
 
-    "Run ALL tests in parallel on http://localhost:3000 (start server, jobs run concurrently, progress + summary)")
+    "Run WeKan's own tests in parallel on http://localhost:3000: Mocha, the node unit suites, import regression, node E2E and all three browsers, concurrently. No database conformance and no FerretDB tests - logs in ../log/<datetime>/")
 		run_all_tests parallel
 		break
 		;;
 
-    "Run ALL tests sequentially on http://localhost:3000 (start server, one job at a time, progress + summary)")
+    "Run WeKan's own tests sequentially on http://localhost:3000: Mocha, the node unit suites, import regression, node E2E and all three browsers, one job at a time. No database conformance and no FerretDB tests - logs in ../log/<datetime>/")
 		run_all_tests sequential
 		break
 		;;
 
 	"Test Mocha unit + security + API-logic tests (server-side only, no browser)")
+		LOG="$(one_log mocha)"
 		echo "Running Mocha tests: meteor test --once --driver-package meteortesting:mocha --port 3100"
 		echo "(server-side unit/security/API-logic tests; browser/client tests are covered by Playwright options)"
-		meteor test --once --driver-package meteortesting:mocha --port 3100
+		echo "Log: $LOG"
+		meteor test --once --driver-package meteortesting:mocha --port 3100 2>&1 | tee "$LOG"
 		break
 		;;
 
     "Test import regression (tests/wekanCreator.import.test.js, fast, no server)")
-		echo "Running import regression test (node, no server needed)."
-		node tests/wekanCreator.import.test.js
+		LOG="$(one_log import)"
+		echo "Running import regression test (node, no server needed). Log: $LOG"
+		node tests/wekanCreator.import.test.js 2>&1 | tee "$LOG"
 		break
 		;;
 
     "Test Node E2E regressions (tests/e2e/list-regressions.js, needs running server)")
-		echo "Running Node E2E regressions (puppeteer)."
+		LOG="$(one_log e2e)"
+		echo "Running Node E2E regressions (puppeteer). Log: $LOG"
 		echo "NOTE: needs a WeKan server with WITH_API=true on http://localhost:3000."
-		echo "      Start one with menu option 3 first, or use the Run ALL tests option."
-		meteor npm run test:e2e
+		echo "      Start one yourself first, or use one of the whole-suite options,"
+		echo "      which start the server for you."
+		meteor npm run test:e2e 2>&1 | tee "$LOG"
 		break
 		;;
 
@@ -1726,61 +1747,65 @@ for _once in 1; do
 			;;
 
     "Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)")
-		if ! command -v rg >/dev/null 2>&1; then
-			echo "ripgrep (rg) not found. Installing dependency."
-			if command -v apt >/dev/null 2>&1; then
-				sudo apt install -y ripgrep
-			elif command -v brew >/dev/null 2>&1; then
-				brew install ripgrep
-			else
-				echo "WARNING: Could not auto-install ripgrep. Falling back to grep."
+		LOG="$(one_log floating-promises)"
+		echo "Log: $LOG"
+		{
+			if ! command -v rg >/dev/null 2>&1; then
+				echo "ripgrep (rg) not found. Installing dependency."
+				if command -v apt >/dev/null 2>&1; then
+					sudo apt install -y ripgrep
+				elif command -v brew >/dev/null 2>&1; then
+					brew install ripgrep
+				else
+					echo "WARNING: Could not auto-install ripgrep. Falling back to grep."
+				fi
 			fi
-		fi
 
-		MISSING_TS_ESLINT=0
-		meteor npm ls --depth=0 @typescript-eslint/eslint-plugin >/dev/null 2>&1 || MISSING_TS_ESLINT=1
-		meteor npm ls --depth=0 @typescript-eslint/parser >/dev/null 2>&1 || MISSING_TS_ESLINT=1
-		if [ "$MISSING_TS_ESLINT" -eq 1 ]; then
-			echo "Installing missing ESLint dependencies for no-floating-promises rule."
-			meteor npm install --save-dev @typescript-eslint/eslint-plugin @typescript-eslint/parser
-		fi
-
-		echo "Ensuring .eslintrc.json includes @typescript-eslint plugin and no-floating-promises rule"
-		node -e "const fs=require('fs');const p='.eslintrc.json';const c=JSON.parse(fs.readFileSync(p,'utf8'));c.plugins=Array.isArray(c.plugins)?c.plugins:[];if(!c.plugins.includes('@typescript-eslint'))c.plugins.push('@typescript-eslint');c.rules=c.rules||{};c.rules['@typescript-eslint/no-floating-promises']='error';fs.writeFileSync(p,JSON.stringify(c,null,2)+'\\n');"
-
-		echo "Checking whether @typescript-eslint/no-floating-promises is configured in .eslintrc.json"
-		if command -v rg >/dev/null 2>&1; then
-			RULE_CHECK_CMD='rg -n'
-		else
-			RULE_CHECK_CMD='grep -nE'
-		fi
-
-		if $RULE_CHECK_CMD '"@typescript-eslint/no-floating-promises"' .eslintrc.json >/dev/null 2>&1; then
-			echo "OK: Rule @typescript-eslint/no-floating-promises is configured in .eslintrc.json"
-		else
-			echo "WARNING: Rule @typescript-eslint/no-floating-promises is NOT configured in .eslintrc.json"
-			echo "Suggested: add @typescript-eslint/eslint-plugin and set '@typescript-eslint/no-floating-promises': 'error'"
-		fi
-
-		echo "Quick note: @typescript-eslint/no-floating-promises is a type-aware rule and may require further parser/project setup for full enforcement in all files."
-
-		echo
-		echo "Scanning for unawaited Authentication.checkBoardAccess/checkBoardWriteAccess in server/models"
-		AUTH_CALL_PATTERN='Authentication\.checkBoardAccess\(|Authentication\.checkBoardWriteAccess\('
-		AUTH_AWAIT_PATTERN='await Authentication\.checkBoardAccess\(|await Authentication\.checkBoardWriteAccess\('
-		if command -v rg >/dev/null 2>&1; then
-			if rg -n "$AUTH_CALL_PATTERN" server/models | rg -v "$AUTH_AWAIT_PATTERN"; then
-				echo "WARNING: Found possible unawaited board auth checks above"
-			else
-				echo "OK: No unawaited board auth checks found"
+			MISSING_TS_ESLINT=0
+			meteor npm ls --depth=0 @typescript-eslint/eslint-plugin >/dev/null 2>&1 || MISSING_TS_ESLINT=1
+			meteor npm ls --depth=0 @typescript-eslint/parser >/dev/null 2>&1 || MISSING_TS_ESLINT=1
+			if [ "$MISSING_TS_ESLINT" -eq 1 ]; then
+				echo "Installing missing ESLint dependencies for no-floating-promises rule."
+				meteor npm install --save-dev @typescript-eslint/eslint-plugin @typescript-eslint/parser
 			fi
-		else
-			if grep -RInE "$AUTH_CALL_PATTERN" server/models | grep -vE "$AUTH_AWAIT_PATTERN"; then
-				echo "WARNING: Found possible unawaited board auth checks above"
+
+			echo "Ensuring .eslintrc.json includes @typescript-eslint plugin and no-floating-promises rule"
+			node -e "const fs=require('fs');const p='.eslintrc.json';const c=JSON.parse(fs.readFileSync(p,'utf8'));c.plugins=Array.isArray(c.plugins)?c.plugins:[];if(!c.plugins.includes('@typescript-eslint'))c.plugins.push('@typescript-eslint');c.rules=c.rules||{};c.rules['@typescript-eslint/no-floating-promises']='error';fs.writeFileSync(p,JSON.stringify(c,null,2)+'\\n');"
+
+			echo "Checking whether @typescript-eslint/no-floating-promises is configured in .eslintrc.json"
+			if command -v rg >/dev/null 2>&1; then
+				RULE_CHECK_CMD='rg -n'
 			else
-				echo "OK: No unawaited board auth checks found"
+				RULE_CHECK_CMD='grep -nE'
 			fi
-		fi
+
+			if $RULE_CHECK_CMD '"@typescript-eslint/no-floating-promises"' .eslintrc.json >/dev/null 2>&1; then
+				echo "OK: Rule @typescript-eslint/no-floating-promises is configured in .eslintrc.json"
+			else
+				echo "WARNING: Rule @typescript-eslint/no-floating-promises is NOT configured in .eslintrc.json"
+				echo "Suggested: add @typescript-eslint/eslint-plugin and set '@typescript-eslint/no-floating-promises': 'error'"
+			fi
+
+			echo "Quick note: @typescript-eslint/no-floating-promises is a type-aware rule and may require further parser/project setup for full enforcement in all files."
+
+			echo
+			echo "Scanning for unawaited Authentication.checkBoardAccess/checkBoardWriteAccess in server/models"
+			AUTH_CALL_PATTERN='Authentication\.checkBoardAccess\(|Authentication\.checkBoardWriteAccess\('
+			AUTH_AWAIT_PATTERN='await Authentication\.checkBoardAccess\(|await Authentication\.checkBoardWriteAccess\('
+			if command -v rg >/dev/null 2>&1; then
+				if rg -n "$AUTH_CALL_PATTERN" server/models | rg -v "$AUTH_AWAIT_PATTERN"; then
+					echo "WARNING: Found possible unawaited board auth checks above"
+				else
+					echo "OK: No unawaited board auth checks found"
+				fi
+			else
+				if grep -RInE "$AUTH_CALL_PATTERN" server/models | grep -vE "$AUTH_AWAIT_PATTERN"; then
+					echo "WARNING: Found possible unawaited board auth checks above"
+				else
+					echo "OK: No unawaited board auth checks found"
+				fi
+			fi
+		} 2>&1 | tee "$LOG"
 		break
 		;;
 
@@ -1818,77 +1843,81 @@ for _once in 1; do
 	;;
 
     "Count amount of tests by category")
-		SPECDIR="tests/playwright/specs"
+		LOG="$(one_log test-counts)"
+		echo "Log: $LOG"
+		{
+			SPECDIR="tests/playwright/specs"
 
-		# --- Category 1: Mocha (server + client, meteortesting:mocha) ---
-		# Count it( calls across the testModule trees, never describe().
-		mocha_count=0
-		for mf in client/lib/tests/*.tests.js server/lib/tests/*.tests.js imports/i18n/i18n.test.js; do
-			[ -e "$mf" ] || continue
-			c=$(grep -cE '(^|[^A-Za-z.])it[[:space:]]*\(' "$mf")
-			mocha_count=$((mocha_count + c))
-		done
+			# --- Category 1: Mocha (server + client, meteortesting:mocha) ---
+			# Count it( calls across the testModule trees, never describe().
+			mocha_count=0
+			for mf in client/lib/tests/*.tests.js server/lib/tests/*.tests.js imports/i18n/i18n.test.js; do
+				[ -e "$mf" ] || continue
+				c=$(grep -cE '(^|[^A-Za-z.])it[[:space:]]*\(' "$mf")
+				mocha_count=$((mocha_count + c))
+			done
 
-		# --- Category 2: Import regression (node tests/wekanCreator.import.test.js) ---
-		import_count=0
-		if [ -e tests/wekanCreator.import.test.js ]; then
-			import_count=$(grep -cE '^function test' tests/wekanCreator.import.test.js)
-		fi
+			# --- Category 2: Import regression (node tests/wekanCreator.import.test.js) ---
+			import_count=0
+			if [ -e tests/wekanCreator.import.test.js ]; then
+				import_count=$(grep -cE '^function test' tests/wekanCreator.import.test.js)
+			fi
 
-		# --- Category 3: Node E2E regressions (tests/e2e/list-regressions.js) ---
-		nodee2e_count=0
-		if [ -e tests/e2e/list-regressions.js ]; then
-			nodee2e_count=$(grep -cE "logStep\('Testing" tests/e2e/list-regressions.js)
-		fi
+			# --- Category 3: Node E2E regressions (tests/e2e/list-regressions.js) ---
+			nodee2e_count=0
+			if [ -e tests/e2e/list-regressions.js ]; then
+				nodee2e_count=$(grep -cE "logStep\('Testing" tests/e2e/list-regressions.js)
+			fi
 
-		# --- Category 4: Playwright e2e specs (tests/playwright/specs/*.e2e.js) ---
-		pw_count=0
-		if [ -d "$SPECDIR" ]; then
+			# --- Category 4: Playwright e2e specs (tests/playwright/specs/*.e2e.js) ---
+			pw_count=0
+			if [ -d "$SPECDIR" ]; then
+				for f in "$SPECDIR"/*.e2e.js; do
+					[ -e "$f" ] || continue
+					c=$(grep -cE '(^|[^a-zA-Z.])test(\.(only|skip|fixme))?[[:space:]]*\(' "$f")
+					pw_count=$((pw_count + c))
+				done
+			fi
+
+			grand_total=$((mocha_count + import_count + nodee2e_count + pw_count))
+
+			# --- Summary table by category ---
+			echo "| Category | Tests |"
+			echo "|----------|-------|"
+			echo "| Mocha (server + client, meteortesting:mocha) | $mocha_count |"
+			echo "| Import regression (tests/wekanCreator.import.test.js) | $import_count |"
+			echo "| Node E2E regressions (tests/e2e/list-regressions.js) | $nodee2e_count |"
+			echo "| Playwright e2e specs (tests/playwright/specs/*.e2e.js) | $pw_count |"
+			echo "| **Total** | **$grand_total** |"
+			echo
+
+			# --- Detailed Playwright per-spec table ---
+			if [ ! -d "$SPECDIR" ]; then
+				echo "Spec directory not found: $SPECDIR"
+				break
+			fi
+			echo "| Spec | Area | Tests |"
+			echo "|------|------|-------|"
+			total=0
 			for f in "$SPECDIR"/*.e2e.js; do
 				[ -e "$f" ] || continue
-				c=$(grep -cE '(^|[^a-zA-Z.])test(\.(only|skip|fixme))?[[:space:]]*\(' "$f")
-				pw_count=$((pw_count + c))
+				base=$(basename "$f")
+				# Spec number: leading digits of the filename
+				spec=$(printf '%s' "$base" | sed -E 's/^([0-9]+).*/\1/')
+				# Area: strip leading number and separator, strip .e2e.js,
+				# turn - and _ into spaces, capitalize the first letter.
+				area=$(printf '%s' "$base" \
+					| sed -E 's/^[0-9]+[-_]?//; s/\.e2e\.js$//; s/[-_]+/ /g' \
+					| awk '{ if (length($0) > 0) { $0 = toupper(substr($0,1,1)) substr($0,2) } print }')
+				# Tests: count test( / test.only( / test.skip( / test.fixme(
+				# calls, but never test.describe(
+				count=$(grep -cE '(^|[^a-zA-Z.])test(\.(only|skip|fixme))?[[:space:]]*\(' "$f")
+				echo "| $spec | $area | $count |"
+				total=$((total + count))
 			done
-		fi
-
-		grand_total=$((mocha_count + import_count + nodee2e_count + pw_count))
-
-		# --- Summary table by category ---
-		echo "| Category | Tests |"
-		echo "|----------|-------|"
-		echo "| Mocha (server + client, meteortesting:mocha) | $mocha_count |"
-		echo "| Import regression (tests/wekanCreator.import.test.js) | $import_count |"
-		echo "| Node E2E regressions (tests/e2e/list-regressions.js) | $nodee2e_count |"
-		echo "| Playwright e2e specs (tests/playwright/specs/*.e2e.js) | $pw_count |"
-		echo "| **Total** | **$grand_total** |"
-		echo
-
-		# --- Detailed Playwright per-spec table ---
-		if [ ! -d "$SPECDIR" ]; then
-			echo "Spec directory not found: $SPECDIR"
-			break
-		fi
-		echo "| Spec | Area | Tests |"
-		echo "|------|------|-------|"
-		total=0
-		for f in "$SPECDIR"/*.e2e.js; do
-			[ -e "$f" ] || continue
-			base=$(basename "$f")
-			# Spec number: leading digits of the filename
-			spec=$(printf '%s' "$base" | sed -E 's/^([0-9]+).*/\1/')
-			# Area: strip leading number and separator, strip .e2e.js,
-			# turn - and _ into spaces, capitalize the first letter.
-			area=$(printf '%s' "$base" \
-				| sed -E 's/^[0-9]+[-_]?//; s/\.e2e\.js$//; s/[-_]+/ /g' \
-				| awk '{ if (length($0) > 0) { $0 = toupper(substr($0,1,1)) substr($0,2) } print }')
-			# Tests: count test( / test.only( / test.skip( / test.fixme(
-			# calls, but never test.describe(
-			count=$(grep -cE '(^|[^a-zA-Z.])test(\.(only|skip|fixme))?[[:space:]]*\(' "$f")
-			echo "| $spec | $area | $count |"
-			total=$((total + count))
-		done
-		echo
-		echo "**Total: $total tests**"
+			echo
+			echo "**Total: $total tests**"
+		} 2>&1 | tee "$LOG"
 		break
 		;;
 

@@ -102,6 +102,13 @@ test('every menu entry of build.sh exists in build.bat', () => {
     'localhost:3000 + bundle visualizer': 'bundle visualizer',
     'CURRENT-IP:3000 + MONGO_URL 27019': 'MONGO_URL 27019',
     'Mocha (server-side)': 'Mocha',
+    // The .bat menu escapes its parentheses (echo 1^) EVERYTHING ^(sequential^)),
+    // so the label is compared without them.
+    'EVERYTHING (sequential): WeKan tests + all databases + FerretDB tests':
+      'EVERYTHING ^(sequential^)',
+    'FerretDB v1 MySQL (experimental)': 'FerretDB v1 MySQL',
+    'FerretDB v1 MariaDB (experimental)': 'FerretDB v1 MariaDB',
+    'FerretDB v1 SAP HANA (experimental)': 'FerretDB v1 SAP HANA',
     // The Docker backends are named slightly differently in the two menus; what
     // must match is the compose file each one starts, which is checked below.
     'FerretDB v2 (PostgreSQL)': 'ferretdb-v2-postgresql',

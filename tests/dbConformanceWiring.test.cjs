@@ -263,6 +263,42 @@ test('everything can be run in one go, from either build script', () => {
   // Both menus offer it, and the direct FerretDB entry too.
   assert.ok(sh.includes('Run all FerretDB tests - SEQUENTIAL'), 'build.sh: FerretDB entry');
   assert.ok(sh.includes('EVERYTHING (sequential)'), 'build.sh: EVERYTHING entry');
+
+  // It is the FIRST entry of the Tests menu, and the entries around it say what
+  // they really cover: "ALL tests" used to mean WeKan's own suite only, which
+  // read as "everything" beside an option that actually is everything.
+  const menu = sh.slice(sh.indexOf('choose "Tests"'));
+  // The entries of this menu only: up to the ';;' that closes the "Tests" case.
+  const entries = [...menu.slice(0, menu.indexOf('\n\t\t\t;;'))
+    .matchAll(/^\s*"([^"|]+)\|([^"]*)"/gm)].map(m => [m[1], m[2]]);
+  assert.ok(entries[0][0].startsWith('EVERYTHING (sequential)'),
+    `the first Tests entry must be the everything-run, found "${entries[0][0]}"`);
+  for (const [label, description] of entries.slice(1, 3)) {
+    assert.ok(/WeKan's own tests only/.test(label),
+      `"${label}" must not claim to be ALL tests - it does not run the database or FerretDB suites`);
+    assert.ok(/No database conformance and no FerretDB tests/.test(description),
+      `"${label}" must say what it does NOT cover`);
+    assert.ok(/\.\.\/log\//.test(description), `"${label}" must say where the logs go`);
+  }
+});
+
+test('every Tests option writes its log to ../log/<datetime>/', () => {
+  // "Check the newest test logs" means one directory. An option that printed to
+  // the terminal only left nothing to check afterwards.
+  const sh = read('build.sh');
+  const bat = read('build.bat');
+  assert.ok(/^one_log\(\) \{/m.test(sh), 'build.sh has the one_log helper');
+  assert.ok(/dir="\$\{WEKAN_LOGDIR:-\.\.\/log\/\$\(date/.test(sh),
+    'which honours WEKAN_LOGDIR so a whole-suite run stays in one directory');
+  for (const name of ['mocha', 'import', 'e2e', 'floating-promises', 'test-counts',
+    '"playwright-$browser"']) {
+    assert.ok(sh.includes(`one_log ${name}`), `build.sh: ${name} must be logged`);
+  }
+  assert.ok(/^:onelog/m.test(bat), 'build.bat has the same helper');
+  for (const name of ['mocha', 'import', 'e2e', 'floating-promises', 'test-counts',
+    'playwright-%PW_PROJECT%', 'playwright-all']) {
+    assert.ok(bat.includes(`call :onelog ${name}`), `build.bat: ${name} must be logged`);
+  }
   assert.ok(/Run all FerretDB tests - SEQUENTIAL/.test(bat), 'build.bat: FerretDB entry');
   assert.ok(/EVERYTHING \^\(sequential\^\)/.test(bat), 'build.bat: EVERYTHING entry');
   assert.ok(/bash \.\/releases\/run-everything\.sh/.test(bat),

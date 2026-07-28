@@ -110,39 +110,41 @@ REM ===========================================================================
 :menu_tests
 echo.
 echo -- Tests --   ^(0 = Back^)
-echo   1^) ALL tests, parallel
-echo   2^) ALL tests, sequential
-echo   3^) Mocha ^(server-side^)
-echo   4^) Import regression
-echo   5^) Node E2E regressions
-echo   6^) Install Playwright browsers ^(Chromium, Firefox, WebKit^)
-echo   7^) Playwright Chromium
-echo   8^) Playwright Firefox
-echo   9^) Playwright WebKit
-echo  10^) Playwright ALL browsers
-echo  11^) Floating-promises guard
-echo  12^) Count tests by category
-echo  13^) All databases ^(sequential^): build newest FerretDB v1, run every query type
+echo   1^) EVERYTHING ^(sequential^): WeKan's own tests, then every database with an
+echo       image for this CPU, then all FerretDB tests. Logs in ..\log\^<datetime^>\
+echo   2^) WeKan's own tests only, parallel: Mocha, node unit suites, import, node
+echo       E2E and all three browsers, concurrently. No databases, no FerretDB
+echo   3^) WeKan's own tests only, sequential: the same suite, one job at a time
+echo   4^) Mocha ^(server-side^)
+echo   5^) Import regression
+echo   6^) Node E2E regressions
+echo   7^) Install Playwright browsers ^(Chromium, Firefox, WebKit^)
+echo   8^) Playwright Chromium
+echo   9^) Playwright Firefox
+echo  10^) Playwright WebKit
+echo  11^) Playwright ALL browsers
+echo  12^) Floating-promises guard
+echo  13^) Count tests by category
+echo  14^) All databases ^(sequential^): build newest FerretDB v1, run every query type
 echo       against every database with an image for this CPU, compare the answers
-echo  14^) Run all FerretDB tests - SEQUENTIAL ^(unit, vet, integration^)
-echo  15^) EVERYTHING ^(sequential^): WeKan tests, then all databases, then FerretDB
+echo  15^) Run all FerretDB tests - SEQUENTIAL ^(unit, vet, integration^)
 set "choice="
 set /p "choice=Choose: "
-if "%choice%"=="1"  goto test_all_parallel
-if "%choice%"=="2"  goto test_all_sequential
-if "%choice%"=="3"  goto test_mocha
-if "%choice%"=="4"  goto test_import
-if "%choice%"=="5"  goto test_e2e
-if "%choice%"=="6"  goto install_pw_browsers
-if "%choice%"=="7"  goto test_pw_chromium
-if "%choice%"=="8"  goto test_pw_firefox
-if "%choice%"=="9"  goto test_pw_webkit
-if "%choice%"=="10" goto test_pw_parallel
-if "%choice%"=="11" goto check_floating
-if "%choice%"=="12" goto count_tests
-if "%choice%"=="13" goto test_all_databases
-if "%choice%"=="14" goto test_ferretdb
-if "%choice%"=="15" goto test_everything
+if "%choice%"=="1"  goto test_everything
+if "%choice%"=="2"  goto test_all_parallel
+if "%choice%"=="3"  goto test_all_sequential
+if "%choice%"=="4"  goto test_mocha
+if "%choice%"=="5"  goto test_import
+if "%choice%"=="6"  goto test_e2e
+if "%choice%"=="7"  goto install_pw_browsers
+if "%choice%"=="8"  goto test_pw_chromium
+if "%choice%"=="9"  goto test_pw_firefox
+if "%choice%"=="10" goto test_pw_webkit
+if "%choice%"=="11" goto test_pw_parallel
+if "%choice%"=="12" goto check_floating
+if "%choice%"=="13" goto count_tests
+if "%choice%"=="14" goto test_all_databases
+if "%choice%"=="15" goto test_ferretdb
 if "%choice%"=="0"  goto menu
 goto menu_tests
 
@@ -569,7 +571,8 @@ start "Wekan e2e" /MIN /D "%REPO%" cmd /c "(echo ===== Node E2E [M1 node:3000 db
 call :seq_run_wait e2e e2e C_e2e "%RUN_LOGDIR%\wekan-alltests-e2e.log"
 
 echo ==^> Running Playwright Chromium, Firefox and WebKit one at a time ^(--workers=1^) on Meteor #1 [Node.js :3000, MongoDB :3001]. Full log: %RUN_LOGDIR%\wekan-alltests-browsers.log
-start "Wekan browsers" /MIN /D "%REPO%\tests\playwright" cmd /c "set WEKAN_PLAYWRIGHT_ALL=1&& (echo ===== Playwright browsers [M1 node:3000 db:3001] test run: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-alltests-browsers.log 2>&1 & call meteor npm exec playwright test -- --project=chromium --project=firefox --project=webkit --workers=1 --reporter=list 1>>%RUN_LOGDIR%\wekan-alltests-browsers.log 2>&1 & if errorlevel 1 (echo FAIL>..\..\.done-browsers) else (echo PASS>..\..\.done-browsers)"
+start "Wekan browsers" /MIN /D "%REPO%\tests\playwright" cmd /c "set WEKAN_PLAYWRIGHT_ALL=1&& (echo ===== Playwright browsers [M1 node:3000 db:3001] test run: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-alltests-browsers.log 2>&1 & call :onelog playwright-all
+call meteor npm exec playwright test -- --project=chromium --project=firefox --project=webkit --workers=1 --reporter=list 2>&1 | powershell -NoProfile -Command "$input | Tee-Object -FilePath '%ONELOG%'" 1>>%RUN_LOGDIR%\wekan-alltests-browsers.log 2>&1 & if errorlevel 1 (echo FAIL>..\..\.done-browsers) else (echo PASS>..\..\.done-browsers)"
 call :seq_run_wait browsers check C_browsers "%RUN_LOGDIR%\wekan-alltests-browsers.log"
 goto server_jobs_done
 
@@ -613,22 +616,37 @@ goto end
 
 REM ===========================================================================
 :test_mocha
+call :onelog mocha
+call :tee test_mocha_body
+goto end
+
+:test_mocha_body
 echo Running Mocha tests: meteor test --once --driver-package meteortesting:mocha --port 3100
 echo (server-side unit/security/API-logic tests; browser/client tests are covered by Playwright options)
 call meteor test --once --driver-package meteortesting:mocha --port 3100
-goto end
+exit /b 0
 
 :test_import
-echo Running import regression test (node, no server needed).
-call node tests\wekanCreator.import.test.js
+call :onelog import
+call :tee test_import_body
 goto end
 
+:test_import_body
+echo Running import regression test (node, no server needed).
+call node tests\wekanCreator.import.test.js
+exit /b 0
+
 :test_e2e
+call :onelog e2e
+call :tee test_e2e_body
+goto end
+
+:test_e2e_body
 echo Running Node E2E regressions (puppeteer).
 echo NOTE: needs a WeKan server with WITH_API=true on http://localhost:3000.
-echo       Start one with menu option 3 first, or use the Run ALL tests option.
+echo       Start one yourself first, or use a whole-suite option, which starts it.
 call meteor npm run test:e2e
-goto end
+exit /b 0
 
 :install_pw_browsers
 REM Parity with build.sh's "Install Playwright browsers". Windows has no Docker
@@ -655,7 +673,7 @@ goto pw_single
 
 :pw_single
 echo Running Playwright %PW_PROJECT% tests.
-echo NOTE: needs a WeKan server running on http://localhost:3000 (menu option 3, or 'Run ALL tests').
+echo NOTE: needs a WeKan server running on http://localhost:3000 (a whole-suite option starts it).
 cd /d "%REPO%\tests\playwright"
 set "WEKAN_PLAYWRIGHT_ALL=1"
 set "INSTALL_DEPS="
@@ -664,17 +682,18 @@ if /i "%INSTALL_DEPS%"=="y" (
 	call meteor npm install
 	call meteor npm exec playwright install %PW_PROJECT%
 )
-call meteor npm exec playwright test -- --project=%PW_PROJECT%
+call :onelog playwright-%PW_PROJECT%
+call meteor npm exec playwright test -- --project=%PW_PROJECT% 2>&1 | powershell -NoProfile -Command "$input | Tee-Object -FilePath '%ONELOG%'"
 goto end
 
 REM ===========================================================================
 :test_pw_parallel
 echo Running Chromium, Firefox and WebKit Playwright suites sequentially (one browser at a time).
-echo NOTE: needs a WeKan server already running on http://localhost:3000 (menu option 3).
+echo NOTE: needs a WeKan server already running on http://localhost:3000 (Dev menu).
 curl -fsS http://127.0.0.1:3000/sign-in >nul 2>&1
 if errorlevel 1 (
 	echo ERROR: WeKan does not appear to be running on http://localhost:3000.
-	echo        Start it first with menu option 3, then re-run this option.
+	echo        Start it first from the Dev menu, then re-run this option.
 	goto end
 )
 
@@ -705,6 +724,11 @@ set "INSTALL_ESLINT="
 set /p "INSTALL_ESLINT=Install @typescript-eslint eslint-plugin + parser (devDeps) now? [y/N] "
 if /i "%INSTALL_ESLINT%"=="y" call meteor npm install --save-dev @typescript-eslint/eslint-plugin @typescript-eslint/parser
 
+call :onelog floating-promises
+call :tee check_floating_body
+goto end
+
+:check_floating_body
 echo Ensuring .eslintrc.json includes @typescript-eslint plugin and no-floating-promises rule
 node -e "const fs=require('fs');const p='.eslintrc.json';const c=JSON.parse(fs.readFileSync(p,'utf8'));c.plugins=Array.isArray(c.plugins)?c.plugins:[];if(!c.plugins.includes('@typescript-eslint'))c.plugins.push('@typescript-eslint');c.rules=c.rules||{};c.rules['@typescript-eslint/no-floating-promises']='error';fs.writeFileSync(p,JSON.stringify(c,null,2)+'\n');"
 
@@ -719,7 +743,7 @@ if errorlevel 1 (
 echo.
 echo Scanning for unawaited Authentication.checkBoardAccess/checkBoardWriteAccess in server\models
 node -e "const fs=require('fs'),path=require('path');function walk(d,acc){for(const e of fs.readdirSync(d,{withFileTypes:true})){const fp=path.join(d,e.name);if(e.isDirectory())walk(fp,acc);else if(/\.js$/.test(e.name))acc.push(fp);}return acc;}let found=false;for(const f of walk('server/models',[])){const lines=fs.readFileSync(f,'utf8').split(/\r?\n/);lines.forEach((ln,i)=>{if(/Authentication\.checkBoard(Access|WriteAccess)\(/.test(ln)&&!/await Authentication\.checkBoard/.test(ln)){found=true;console.log(f+':'+(i+1)+': '+ln.trim());}});}console.log(found?'WARNING: Found possible unawaited board auth checks above':'OK: No unawaited board auth checks found');"
-goto end
+exit /b 0
 
 REM ===========================================================================
 :save_deps
@@ -851,6 +875,29 @@ set "DEBUG=true"
 set "WRITABLE_PATH=.."
 set "WITH_API=true"
 set "RICHER_CARD_COMMENT_EDITOR=false"
+exit /b 0
+
+:onelog
+REM Set ONELOG to ..\log\<datetime>\wekan-%1.log - the same place every other
+REM test run writes, so "the newest test logs" is one directory whichever option
+REM produced them. A larger run (EVERYTHING) exports WEKAN_LOGDIR first, and then
+REM the whole run stays in that one directory. The Windows equivalent of build.sh's
+REM one_log().
+if defined WEKAN_LOGDIR (
+	set "ONELOGDIR=%WEKAN_LOGDIR%"
+) else (
+	for /f %%T in ('powershell -NoProfile -Command "Get-Date -Format yyyy-MM-dd_HH-mm-ss"') do set "ONELOGDIR=..\log\%%T"
+)
+if not exist "%ONELOGDIR%" md "%ONELOGDIR%" >nul 2>&1
+set "ONELOG=%ONELOGDIR%\wekan-%~1.log"
+echo Log: %ONELOG%
+exit /b 0
+
+:tee
+REM Run the subroutine named %1, showing its output live AND copying it to
+REM %ONELOG%. cmd has no tee, so the stream goes through PowerShell's Tee-Object,
+REM as :runlog does for the dev server.
+call :%~1 2>&1 | powershell -NoProfile -Command "$input | Tee-Object -FilePath '%ONELOG%'"
 exit /b 0
 
 :runlog
@@ -1147,6 +1194,11 @@ exit /b 0
 
 REM ===========================================================================
 :count_tests
+call :onelog test-counts
+call :tee count_tests_body
+goto end
+
+:count_tests_body
 REM Print a "by category" summary table for all four test categories that
 REM build runs, then the detailed Playwright per-spec table.
 REM Counting rules (kept identical to build.sh):
@@ -1157,7 +1209,7 @@ REM   Playwright       test( / test.only( / test.skip( / test.fixme( lines per s
 REM Uses node (always present here) so parsing matches build.sh exactly;
 REM findstr's limited regex engine cannot reproduce these expressions.
 node -e "const fs=require('fs'),p=require('path');function rd(f){try{return fs.readFileSync(f,'utf8');}catch(e){return null;}}function cnt(f,re){const s=rd(f);if(s===null)return null;return s.split(/\r?\n/).filter(l=>re.test(l)).length;}function ls(d,suf){try{return fs.readdirSync(d).filter(x=>x.endsWith(suf)).map(x=>p.join(d,x));}catch(e){return [];}}let mocha=0;const mfiles=[].concat(ls('client/lib/tests','.tests.js'),ls('server/lib/tests','.tests.js'),['imports/i18n/i18n.test.js']);for(const f of mfiles){const c=cnt(f,/(^|[^A-Za-z.])it\s*\(/);if(c!==null)mocha+=c;}let imp=cnt('tests/wekanCreator.import.test.js',/^function test/);if(imp===null)imp=0;let ne=cnt('tests/e2e/list-regressions.js',/logStep\('Testing/);if(ne===null)ne=0;const d='tests/playwright/specs';let files=[];try{files=fs.readdirSync(d).filter(f=>f.endsWith('.e2e.js')).sort();}catch(e){}let pw=0;const rows=[];for(const f of files){const m=f.match(/^([0-9]+)/);const spec=m?m[1]:'';let area=f.replace(/^[0-9]+[-_]?/,'').replace(/\.e2e\.js$/,'').replace(/[-_]+/g,' ');area=area.charAt(0).toUpperCase()+area.slice(1);const src=fs.readFileSync(p.join(d,f),'utf8');const c=src.split(/\r?\n/).filter(l=>/(^|[^a-zA-Z.])test(\.(only|skip|fixme))?\s*\(/.test(l)).length;rows.push('| '+spec+' | '+area+' | '+c+' |');pw+=c;}const gt=mocha+imp+ne+pw;console.log('| Category | Tests |');console.log('|----------|-------|');console.log('| Mocha (server + client, meteortesting:mocha) | '+mocha+' |');console.log('| Import regression (tests/wekanCreator.import.test.js) | '+imp+' |');console.log('| Node E2E regressions (tests/e2e/list-regressions.js) | '+ne+' |');console.log('| Playwright e2e specs (tests/playwright/specs/*.e2e.js) | '+pw+' |');console.log('| **Total** | **'+gt+'** |');console.log('');console.log('| Spec | Area | Tests |');console.log('|------|------|-------|');for(const r of rows)console.log(r);console.log('');console.log('**Total: '+pw+' tests**');"
-goto end
+exit /b 0
 
 
 REM ===========================================================================
@@ -1213,7 +1265,7 @@ REM readable.
 REM
 REM The WeKan stage builds a Meteor bundle and runs a server, which needs the
 REM POSIX shell throughout - so this hands the whole run to bash rather than
-REM reimplementing it here, exactly as option 13 and 14 do.
+REM reimplementing it here, exactly as options 14 and 15 do.
 where bash >nul 2>&1
 if errorlevel 1 (
   echo ERROR: bash was not found. It comes with Git for Windows ^(Git Bash^) and with WSL.
