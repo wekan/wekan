@@ -170,6 +170,15 @@ test.describe('Feature issues', () => {
       // The All Boards view defaults to the "Starred" menu; the seeded board is
       // not starred, so switch to "Remaining" where unassigned boards appear.
       await loggedInPage.locator('.js-select-menu[data-type="remaining"]').click();
+
+      // Wait for THIS board's tile first, by its title. Waiting only for the
+      // background-image class cannot tell "the board has not arrived in
+      // minimongo yet" from "it arrived without the class", and under a
+      // three-browser run the first one takes long enough that WebKit reported
+      // the second - a missing class - when the board simply was not there yet.
+      const board = loggedInPage.locator('.board-list-item').filter({ hasText: b.boardId });
+      await expect(board.first()).toBeVisible({ timeout: 20_000 });
+
       const tile = loggedInPage.locator('.board-list-item.has-background-image').first();
       await expect(tile).toBeVisible({ timeout: 20_000 });
       const style = await tile.getAttribute('style');
