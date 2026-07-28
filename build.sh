@@ -604,8 +604,14 @@ function run_all_tests(){
 		local n
 		case "$1" in
 			e2e) n=$(grep -c 'wekan-e2e\] FAIL' "$2" 2>/dev/null) ;;
-			# node stops at the first failing suite, and prints the assertion there.
-			unit) n=$(grep -cE 'AssertionError|^\s*throw err' "$2" 2>/dev/null) ;;
+			# Two shapes: a suite that keeps going prints "  FAIL - <name>" per failure,
+			# and one that throws ends the whole chain with an AssertionError dump.
+			# Anchored at the start of the line so the dump's own "throw err" and the
+			# stack frames below it are not counted as further failures.
+			unit) local soft hard
+			      soft=$(grep -cE '^\s*FAIL - ' "$2" 2>/dev/null)
+			      hard=$(grep -cE '^[A-Za-z]*Error(\s|:|\s*\[)' "$2" 2>/dev/null)
+			      n=$(( ${soft:-0} + ${hard:-0} )) ;;
 			*)   n=$(grep -cE $'\xe2\x9c\x98|\xe2\x9c\x97' "$2" 2>/dev/null) ;;
 		esac
 		echo "${n:-0}"
@@ -635,7 +641,13 @@ function run_all_tests(){
 			# They need no server and no browser, and until now the whole-suite run did
 			# not run them at all - so a guard that was supposed to fail the suite
 			# never ran anywhere.
-			unit)   meteor npm run test:unit:all || rc=$? ;;
+			# npm chains them with &&, so node STOPS at the first failing suite: the
+			# suites after it never run. Say so, or "tests:508 fail:1" reads as if the
+			# whole suite had run and only one guard was broken.
+			unit)   meteor npm run test:unit:all || rc=$?
+			        if [ "${rc:-0}" -ne 0 ]; then
+			          echo "NOTE: the node suites are chained with && - node stopped at the FIRST failing suite, so every suite after it did not run. Fix that one and re-run to see the rest."
+			        fi ;;
 			import) node tests/wekanCreator.import.test.js || rc=$? ;;
 			e2e)    meteor npm run test:e2e || rc=$? ;;
 			*)      run_pw_all_browser "$k" || rc=$? ;;

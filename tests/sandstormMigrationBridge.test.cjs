@@ -52,8 +52,15 @@ test('the bridge yields the app port around the importer, and is released for Me
   const iMigrate  = src.indexOf('migrateIfNeeded()', iTopStart);
   assert.ok(iTopStart > 0 && iMigrate > iTopStart, 'bridge starts before migration begins');
 
-  const iStopImporter = src.indexOf('stopBridge();', src.indexOf('const ferret = startFerret(DB_PORT);   // the PERMANENT'));
-  const iImporter     = src.indexOf('spawnSync(NODE, [IMPORTER]');
+  // Anchored on WHAT is spawned, not on how: every spawn in start.js goes through
+  // cpuExec() (spawnSync(...cpuExec(NODE, [IMPORTER]), ...)), and pinning the older
+  // spawnSync(NODE, [IMPORTER]) spelling made this guard fail on a change that did
+  // not touch the ordering it exists to check.
+  const iPermanentDb  = src.indexOf('const ferret = startFerret(DB_PORT);');
+  assert.ok(iPermanentDb > 0, 'the migration starts the permanent FerretDB');
+  const iStopImporter = src.indexOf('stopBridge();', iPermanentDb);
+  const iImporter     = src.search(/spawnSync\([^\n]*\[IMPORTER\]/);
+  assert.ok(iImporter > 0, 'the migration runs the importer');
   assert.ok(iStopImporter > 0 && iStopImporter < iImporter, 'bridge is released BEFORE the importer binds the port');
 
   const iHandoff = src.indexOf("startBridge('Finishing up");
