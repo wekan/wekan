@@ -302,7 +302,31 @@ lane nor the canvas scrolls while it moves, and that panning is back afterwards.
 
 </details>
 
-and has the following developer-facing change:
+and has the following developer-facing changes:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9d045d3a3">Every CHANGELOG commit link points at a commit that exists, and the repair no longer breaks good ones</a>. Thanks to xet7.</summary>
+
+106 of the 3014 commit links in this file pointed at nothing: a rebase, amend or
+squash after the entry was written, or a 40-character hash whose first nine
+characters were right and whose tail was invented. Clicking one gave GitHub's
+404 with no way to tell which change it had meant. Each was resolved against the
+history — by subject and author date, by prefix, or by reading the entry's own
+text against the commit messages of the release it sits in — and every link now
+resolves to a commit in the repository.
+
+`releases/fix-changelog-hashes.sh`, which build.sh runs after a rebase and
+release-all.sh runs before a release, decided a link was stale when its commit
+was not an ancestor of HEAD. A commit that lives only in an old release tag is
+not on this branch, yet GitHub serves it fine, so that rule repointed working
+links to a DIFFERENT change — two 2019-era links were repaired that way and had
+to be put back. Staleness is now "no ref in this clone reaches it", the
+replacement is matched on subject AND author date (a rebase keeps the author
+date), then on the patch itself, then by prefix, and a subject shared by several
+commits is never used to pick one. `--all-sections` checks the whole file rather
+than the section being released.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/31ba78a31">Fix the last two guards of the full test run, one of which was right about the changelog</a>. Thanks to xet7.</summary>
