@@ -1,11 +1,12 @@
 # ─────────────────────────────────────────────────────────────────────────────
 # snapcraft-core26.yaml — WeKan snap on the NEXT base, `base: core26`.
 #
-# This is NOT the default build. The default is snapcraft.yaml (base: core24,
-# grade: stable), which the release pipeline uses. This core26 variant is kept for
-# testing the upcoming base: core26 requires `build-base: devel` + `grade: devel`,
-# so it can only be published to the Snap Beta/Edge channels (not candidate/stable)
-# until core26 is released as a stable base. It is otherwise the SAME newest WeKan
+# This is NOT the default build, and it is not what any release job builds. The
+# default is snapcraft.yaml (base: core24, grade: stable), which publishes to all
+# four channels — stable, candidate, beta, edge. core26 is still experimental: it
+# requires `build-base: devel`, which forces `grade: devel`, and a devel-grade
+# snap is refused by the stable and candidate channels, so it can only go to beta
+# and edge. That is why the release stays on core24. It is otherwise the SAME newest WeKan
 # (Meteor 3.5, Node.js 24, FerretDB v1, MongoDB 7, Caddy 2) as snapcraft.yaml.
 #
 # To build it: `cp snapcraft-core26.yaml snapcraft.yaml && snapcraft ...`.

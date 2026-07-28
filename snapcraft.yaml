@@ -2,16 +2,20 @@
 # snapcraft.yaml — the DEFAULT WeKan snap, built on `base: core24`.
 #
 # This is the file the release pipeline (.github/workflows/release-all.yml) and
-# releases/snap-build.sh use. It uses `base: core24`, a released base, so it can be
-# published to the Snap candidate channel (which core26 cannot). The automated
-# release-all.yml workflow publishes it to the candidate + beta + edge channels;
-# the stable channel is published MANUALLY later, once it has proven stable enough.
-# It ships the newest WeKan (Meteor 3.5, Node.js 24, FerretDB v1, MongoDB 7, Caddy 2).
+# releases/snap-build.sh use, and `base: core24` is WHY: core24 is a released
+# base, so a snap built on it may carry `grade: stable` and be published to ALL
+# FOUR channels — stable, candidate, beta and edge. Every snap job does exactly
+# that (snap-native, snap-launchpad and snap-variants all publish
+# `stable,candidate,beta,edge`), for the default snap and for the wekan-ondra and
+# wekan-gantt-gpl variants alike. It ships the newest WeKan (Meteor 3.5,
+# Node.js 24, FerretDB v1, MongoDB 7, Caddy 2).
 #
-# snapcraft-core26.yaml is the SAME WeKan on `base: core26` (build-base: devel +
-# grade: devel), kept for testing the next base; because core26 is not yet a
-# stable base it can only go to Beta/Edge. Keep the two in sync — the only
-# intended differences are:
+# snapcraft-core26.yaml is the SAME WeKan on `base: core26`, kept for testing the
+# next base and NOT built by the release: core26 is still experimental, it
+# requires `build-base: devel` and therefore `grade: devel`, and a devel-grade
+# snap is refused by the stable and candidate channels — it can only go to beta
+# and edge. That is the whole reason the release builds core24. Keep the two in
+# sync — the only intended differences are:
 #   base: core24 (not core26) · no build-base: devel · grade: stable
 # ─────────────────────────────────────────────────────────────────────────────
 name: wekan

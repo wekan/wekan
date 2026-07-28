@@ -173,4 +173,35 @@ test('the Launchpad build log is printed whenever there is no snap', () => {
     'the log is printed on that path too, not only when snapcraft exits non-zero');
 });
 
+test('every snap the release publishes is core24, and goes to all four channels', () => {
+  // core24 is a released base, so the snap may carry `grade: stable` and be
+  // accepted by the stable and candidate channels. core26 is still experimental:
+  // `build-base: devel` forces `grade: devel`, and a devel-grade snap is refused
+  // by stable and candidate - it can only go to beta and edge. So the release
+  // builds core24, and publishes stable + candidate + beta + edge everywhere:
+  // the default snap on native arches, the Launchpad arches, and the wekan-ondra
+  // / wekan-gantt-gpl variants.
+  assert.ok(/^base: core24$/m.test(snapcraft), 'snapcraft.yaml is built on core24');
+  assert.ok(/^grade: stable$/m.test(snapcraft), 'and is grade: stable, or stable refuses it');
+  assert.ok(!/^build-base:/m.test(snapcraft), 'a build-base would force grade: devel');
+
+  const publishes = [...code(workflow).matchAll(/(?:--release=|release: )([a-z,]+)/g)]
+    .map(m => m[1]);
+  assert.ok(publishes.length >= 3,
+    'the native, Launchpad and variant snap jobs each publish somewhere');
+  for (const channels of publishes) {
+    assert.deepStrictEqual(channels.split(',').sort(), ['beta', 'candidate', 'edge', 'stable'],
+      `"${channels}" is not all four channels`);
+  }
+
+  // And nothing BUILDS the core26 file, which could only reach beta/edge. The
+  // variant sync renames the snap inside it, which is the one line that may
+  // mention it.
+  const mentions = code(workflow).split('\n').filter(l => l.includes('snapcraft-core26.yaml'));
+  for (const line of mentions) {
+    assert.ok(/for f in |sed /.test(line),
+      `snapcraft-core26.yaml is only renamed, never built:\n      ${line.trim()}`);
+  }
+});
+
 console.log(`\n${passed} tests passed`);
