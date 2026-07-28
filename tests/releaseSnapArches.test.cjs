@@ -33,6 +33,14 @@ function test(name, fn) {
   }
 }
 
+// A comment in a YAML `run:` block is text the shell never sees, and this file
+// has been fooled by it before: a comment that QUOTES the old broken code (kept
+// on purpose, so the next reader knows what the fix was for) reads exactly like
+// the code it replaced. Assertions about what the shell DOES use this.
+function code(text) {
+  return text.split('\n').filter(l => !/^\s*#/.test(l)).join('\n');
+}
+
 // The body of one top-level job: from "  <name>:" to the next job at the same
 // indentation. Good enough to ask which matrix and which options are ITS own.
 function job(name) {
@@ -112,8 +120,18 @@ test('it names the secret it is missing, and the one Launchpad refused', () => {
   assert.ok(/base64 -d/.test(launchpad), 'and decode LP_CREDENTIALS rather than trust it');
   assert.ok(/LP_CREDENTIALS may not work/.test(launchpad),
     'and say so when Launchpad answers unauthorized');
-  assert.ok(/SNAP_AUTH did not work/.test(launchpad),
-    'and when the Snap Store refuses the upload');
+  // Changed deliberately after v10.48: the upload step used to print "SNAP_AUTH
+  // did not work" for a snap that was never built, because its existence test was
+  // a literal filename in an array (see the test below). "The build produced
+  // nothing" and "the store said no" are two different problems with two different
+  // owners, so they are now two different messages - and the store one still names
+  // the secret and the command that re-exports it.
+  assert.ok(/This is NOT a SNAP_AUTH problem/.test(launchpad),
+    'a missing artifact must NOT be reported as a credential failure');
+  assert.ok(/The Snap Store refused the upload/.test(launchpad),
+    'and a real refusal by the store is its own message');
+  assert.ok(/re-export SNAP_AUTH with: snapcraft export-login/.test(launchpad),
+    'which says how to fix it');
 });
 
 test('a remote build that produced no .snap is a failure, not a silent success', () => {
@@ -123,6 +141,36 @@ test('a remote build that produced no .snap is a failure, not a silent success',
   assert.ok(/No wekan_\$\{VERSION\}_\$\{\{ matrix\.arch \}\}\.snap to upload/.test(launchpad),
     'the upload step must refuse to run without the file');
   assert.ok(/failed after \$attempts attempts/.test(launchpad), 'and the build step must retry');
+
+  // v10.48: every one of those tests was `snaps=( wekan_${VERSION}_<arch>.snap )`
+  // followed by a count. That string has no wildcard, so it is a literal filename,
+  // `shopt -s nullglob` cannot empty a literal, and the count was ALWAYS 1 - s390x
+  // reported "succeeded" over an empty artifact list and uploaded a file that did
+  // not exist. Every array built from a .snap name must therefore be a real GLOB.
+  const arrays = [...code(launchpad).matchAll(/snaps=\(([^)]*)\)/g)].map(m => m[1].trim());
+  assert.ok(arrays.length >= 3, 'the build, upload and attach steps each look for the file');
+  for (const a of arrays) {
+    assert.ok(a.includes('*'),
+      `"snaps=( ${a} )" has no wildcard, so it is a literal filename that always `
+      + 'exists as a string - nullglob cannot empty it and the count is always 1');
+  }
+  // And the count alone is not enough: an empty file passes it.
+  assert.ok(/\[ -s "\$\{snaps\[0\]\}" \]/.test(code(launchpad)),
+    'the file must also be non-empty before it is uploaded or attached');
+});
+
+test('the Launchpad build log is printed whenever there is no snap', () => {
+  // It is downloaded by remote-build and is the only thing that says WHY a build
+  // stopped. v10.48 fetched it, exited 0 (see above) and threw it away, so three
+  // "Stopped" builds left no trace of their reason anywhere.
+  const launchpad = job('snap-launchpad');
+  const build = launchpad.slice(launchpad.indexOf('Build the ${{ matrix.arch }} snap on Launchpad'));
+  const loop = build.slice(0, build.indexOf('- name: Push'));
+  assert.ok(/for log in snapcraft-wekan-\*\.txt/.test(loop), 'the downloaded log is read');
+  assert.ok(/exited 0 but produced NO \.snap/.test(loop),
+    'and the "exit 0, no artifact" case says so in words instead of passing');
+  assert.ok(loop.indexOf('for log in snapcraft-wekan-*.txt') > loop.indexOf('exited 0 but produced NO .snap'),
+    'the log is printed on that path too, not only when snapcraft exits non-zero');
 });
 
 console.log(`\n${passed} tests passed`);

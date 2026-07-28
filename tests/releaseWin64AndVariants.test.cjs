@@ -1,0 +1,122 @@
+'use strict';
+
+// Plain-Node guard for two release-all.yml jobs that failed v10.48 for reasons
+// that were not what the log said. Run: node tests/releaseWin64AndVariants.test.cjs
+//
+// build-win64: the zip was verified by listing it with `7z l -ba` INTO A VARIABLE
+// and grepping that. When the grep found nothing the log had the verdict — "has
+// no bundle/main.js" — and not one line of the listing it judged, so a broken zip
+// and a broken grep looked exactly alike. Two releases were failed on it. What
+// can be verified robustly is verified robustly (the files are there before
+// zipping; the archive passes `7z t`), and the listing is now printed as evidence
+// rather than used as a hidden verdict.
+//
+// snap-variants: the pre-flight asked GitHub for `.permissions.push` on the
+// variant repository, which describes the authenticated USER's role rather than
+// what the TOKEN may do — it answered `true`, and the push one step later was
+// refused with "Permission to wekan/wekan-gantt-gpl.git denied to xet7". The
+// pre-flight now asks the receive-pack endpoint, which is the thing that refuses.
+
+const assert = require('assert');
+const fs = require('fs');
+const path = require('path');
+
+const repoRoot = path.resolve(__dirname, '..');
+const workflow = fs.readFileSync(
+  path.join(repoRoot, '.github/workflows/release-all.yml'), 'utf8',
+);
+
+// A comment inside a `run:` block is text the shell never sees. These files keep
+// the OLD broken line in a comment on purpose, so assertions about behaviour must
+// read the code only.
+const code = text => text.split('\n').filter(l => !/^\s*#/.test(l)).join('\n');
+
+function job(name) {
+  const start = workflow.indexOf(`\n  ${name}:\n`);
+  assert.notStrictEqual(start, -1, `release-all.yml has no ${name} job`);
+  const rest = workflow.slice(start + 1);
+  const next = rest.search(/\n  [a-z0-9-]+:\n/);
+  return next === -1 ? rest : rest.slice(0, next);
+}
+
+let passed = 0;
+function test(name, fn) {
+  try {
+    fn();
+    passed++;
+    console.log('  ok -', name);
+  } catch (err) {
+    console.error(`  FAIL - ${name}\n    ${err.message}`);
+    process.exitCode = 1;
+  }
+}
+
+console.log('releaseWin64AndVariants:');
+
+const win = code(job('build-win64'));
+
+test('the bundle is checked BEFORE it is zipped', () => {
+  const embed = win.slice(0, win.indexOf('Create win64 zip'));
+  for (const want of ['main.js', 'node.exe', 'start-wekan.bat']) {
+    assert.ok(embed.includes(want), `${want} is named in the embed step`);
+  }
+  assert.ok(/\[ ! -s "bundle\/\$want" \]/.test(embed),
+    'each one must be present and non-empty in the directory - that is where '
+    + '"can this zip start WeKan" is actually decided, with no archive format in the way');
+  assert.ok(/exit 1/.test(embed), 'and a missing one fails the job there');
+});
+
+test('the archive is verified by an integrity test, not by grepping a listing', () => {
+  const verify = win.slice(win.indexOf('Verify the win64 zip'));
+  assert.ok(/7z t "\$zip"/.test(verify),
+    '`7z t` reads every entry and is what catches a truncated or corrupt zip');
+  assert.ok(/did not pass 7z t/.test(verify), 'and says so when it fails');
+});
+
+test('the listing is PRINTED, and a missing match is a warning, not a failure', () => {
+  const verify = win.slice(win.indexOf('Verify the win64 zip'));
+  assert.ok(/printf '%s\\n' "\$listing" \| head -5/.test(verify),
+    'the listing must appear in the log; judging it invisibly is the bug this fixes');
+  assert.ok(/entries matching bundle\/\$want/.test(verify),
+    'with the match count for each wanted file');
+  const missing = verify.slice(verify.indexOf('if [ "${n:-0}" -eq 0 ]'));
+  assert.ok(/::warning::/.test(missing.slice(0, 400)),
+    'a zero count is a WARNING: the file was verified in the directory and the '
+    + 'archive passed 7z t, so a zero count says something about 7-Zip output, '
+    + 'not about the bundle');
+  assert.ok(!/::error::[\s\S]{0,200}has no bundle/.test(verify),
+    'and it must not fail the release on the listing format again');
+});
+
+const variants = code(job('snap-variants'));
+
+test('the push pre-flight asks the endpoint that refuses a push', () => {
+  assert.ok(/service=git-receive-pack/.test(variants),
+    'the receive-pack advertisement is the first thing a real push requests, and '
+    + 'is what GitHub answers 403 to for a token without write access');
+  assert.ok(!/permissions\.push/.test(variants),
+    'the repos API permissions block describes the USER, not the token - it said '
+    + 'push=true for a token that was then refused');
+});
+
+test('the pre-flight cannot leak the token, and needs no checkout', () => {
+  const guard = variants.slice(0, variants.indexOf('- name: Checkout wekan'));
+  assert.ok(/-u "x-access-token:\$REPO_TOKEN"/.test(guard),
+    'the token goes in -u, never in a URL that could be echoed');
+  assert.ok(!/https:\/\/x-access-token:\$\{?REPO_TOKEN/.test(guard),
+    'no token-in-URL in the pre-flight');
+  assert.ok(!/git (clone|push|ls-remote)/.test(guard),
+    'and no git command: this step runs BEFORE actions/checkout, so there is no '
+    + 'local repository for git to work in');
+});
+
+test('a refusal and a broken pre-flight are told apart', () => {
+  assert.ok(/"\$rp" = "403"/.test(variants) && /"\$rp" = "401"/.test(variants),
+    '403/401 is "the token may not push"');
+  assert.ok(/neither a yes nor a permission refusal/.test(variants),
+    'anything else says it is something else, instead of blaming the token');
+  assert.ok(/Contents: Read and write/.test(variants),
+    'and the refusal message says exactly what to change');
+});
+
+console.log(`\n${passed} tests passed`);

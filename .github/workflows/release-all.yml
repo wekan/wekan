@@ -913,6 +913,17 @@ jobs:
           fi
           # Self-contained Windows launcher (defaults to FerretDB SQLite).
           cp src/releases/ferretdb/start-wekan.bat bundle/
+          # Check what goes IN, before anything is archived. This is the honest place
+          # for it: whether the zip can hold a startable bundle is decided here, in a
+          # plain directory, with no archive-listing format in the way.
+          for want in main.js node.exe start-wekan.bat; do
+            if [ ! -s "bundle/$want" ]; then
+              echo "::error::bundle/$want is missing or empty, so the win64 zip cannot start WeKan. The bundle comes from the build job; the lines above say what was copied in."
+              exit 1
+            fi
+          done
+          echo "bundle/ has main.js, node.exe and start-wekan.bat:"
+          ls -la bundle | head -20
 
       - name: Create win64 zip
         shell: cmd
@@ -934,18 +945,34 @@ jobs:
             echo "::error::$zip is only $bytes bytes; a whole bundle is tens of megabytes. The bundle directory was empty or partial when it was zipped."
             exit 1
           fi
-          # 7-Zip lists Windows paths with BACKSLASHES, and a backslash in a regex
-          # escapes the next character - "bundle\main.js" as a pattern matches
-          # "bundlemain.js", which nothing is called. So: list once, and look for
-          # either separator as a fixed string, never as a pattern.
-          listing="$(7z l -ba "$zip")"
+          # Integrity: `7z t` reads every entry and fails on a truncated or corrupt
+          # archive. Together with the check on bundle/ before zipping, that is what
+          # actually decides whether this zip is startable.
+          if ! 7z t "$zip" > 7z-test.log 2>&1; then
+            echo "::error::$zip did not pass 7z t - the archive is corrupt or truncated."
+            tail -n 30 7z-test.log
+            exit 1
+          fi
+          echo "7z t: archive is intact."
+          # The listing is EVIDENCE, printed, not a hidden verdict. v10.48 failed the
+          # release because `grep` found neither "bundle\main.js" nor "bundle/main.js"
+          # in `7z l -ba` output that nothing ever printed, so a bad zip and a bad
+          # grep looked exactly alike. Now the listing shows itself, and a missing
+          # match is a WARNING: bundle/main.js was verified to exist before zipping
+          # and the archive passed its integrity test, so a zero count here says
+          # something about 7-Zip's output format, not about the bundle.
+          listing="$(7z l -ba "$zip" 2>/dev/null || true)"
+          entries="$(printf '%s\n' "$listing" | grep -c . || true)"
+          echo "7z l -ba listed $entries entries; the first five:"
+          printf '%s\n' "$listing" | head -5
           for want in main.js node.exe; do
-            if ! printf '%s' "$listing" | grep -qF -e "bundle\\$want" -e "bundle/$want"; then
-              echo "::error::$zip has no bundle/$want, so it cannot start WeKan on Windows. The embed step above did not put it into the bundle."
-              exit 1
+            n="$(printf '%s\n' "$listing" | grep -F -c -e "bundle\\$want" -e "bundle/$want" || true)"
+            echo "  entries matching bundle/$want: $n"
+            if [ "${n:-0}" -eq 0 ]; then
+              echo "::warning::$zip listing shows no bundle/$want, but bundle/$want existed before zipping and the archive passed 7z t. Compare the five listing lines above with what is being searched for."
             fi
           done
-          echo "OK: $zip is $((bytes/1024/1024)) MiB and contains bundle/main.js and bundle/node.exe."
+          echo "OK: $zip is $((bytes/1024/1024)) MiB, intact, and was built from a bundle that had main.js and node.exe."
 
       - uses: actions/upload-artifact@v7
         with:
@@ -1922,10 +1949,12 @@ jobs:
     # core24; Canonical's answer for non-native arches on core24 IS remote-build. See
     # docs/Design/Autoupdate/Forks/Snap-Core.md.
     #
-    # This job is also what the older Launchpad legs were not: it requires the .snap
-    # file to exist, retries the remote build 3x, and uploads only when the file is
-    # there - which is the "is not a valid file" (snapcraft upload, exit 64) failure
-    # that prompted the move to QEMU in the first place.
+    # This job retries the remote build 3x and uploads only when a .snap file is
+    # really there - the "is not a valid file" (snapcraft upload, exit 64) failure
+    # that prompted the move to QEMU in the first place. It claimed to do that from
+    # the start; the test was a literal filename in an array, never a glob, so it was
+    # always true and v10.48 uploaded a file that did not exist. It asks the
+    # filesystem now.
     #
     # continue-on-error: an exotic Launchpad arch must NOT hold up or fail the
     # release. A Launchpad build can queue for hours / time out; that must not turn
@@ -2006,6 +2035,14 @@ jobs:
         # arch never blocks the others. remote-build can exit 0 without producing a
         # .snap (it just downloads logs), so require the file. Retry a few times to
         # survive transient TLS drops to Launchpad.
+        #
+        # The file test used to be `snaps=( wekan_${VERSION}_<arch>.snap )` and then
+        # `[ ${#snaps[@]} -gt 0 ]`. That string has no wildcard in it, so it is not a
+        # glob - it is a literal filename, `shopt -s nullglob` cannot empty a literal,
+        # and the count was ALWAYS 1 whether or not the file existed. v10.48 s390x
+        # therefore reported "succeeded" over an empty `Artifacts:` list and walked
+        # into `'wekan_10.48_s390x.snap' is not a valid file` in the upload step - a
+        # missing file, blamed on SNAP_AUTH. Ask the filesystem instead.
         run: |
           set -uo pipefail
           shopt -s nullglob
@@ -2015,12 +2052,22 @@ jobs:
             snapcraft remote-build --launchpad-accept-public-upload \
               --build-for ${{ matrix.arch }} && rc=0 || rc=$?
             echo "::endgroup::"
-            snaps=( wekan_${VERSION}_${{ matrix.arch }}.snap )
-            if [ "$rc" -eq 0 ] && [ "${#snaps[@]}" -gt 0 ]; then
+            # A real glob, so nullglob can empty it, plus any name Launchpad chose.
+            snaps=( wekan_${VERSION}_${{ matrix.arch }}*.snap *_${{ matrix.arch }}.snap )
+            if [ "$rc" -eq 0 ] && [ "${#snaps[@]}" -gt 0 ] && [ -s "${snaps[0]}" ]; then
               echo "Remote build ${{ matrix.arch }} succeeded on attempt $i: ${snaps[*]}"
               exit 0
             fi
-            echo "Attempt $i: snapcraft exit=$rc, .snap files produced=${#snaps[@]}."
+            if [ "$rc" -eq 0 ]; then
+              echo "Attempt $i: snapcraft exited 0 but produced NO .snap for ${{ matrix.arch }} - the Launchpad build did not finish (a 'Stopped' build downloads logs and no artifact). Everything in the directory:"
+            else
+              echo "Attempt $i: snapcraft exit=$rc, .snap files produced=${#snaps[@]}."
+            fi
+            ls -la
+            # The Launchpad build log is the only thing that says WHY a build stopped,
+            # and it is downloaded here. Print it whenever there is no snap - not only
+            # when snapcraft's exit code is non-zero, which is how v10.48 fetched it
+            # and threw it away.
             for log in snapcraft-wekan-*.txt; do
               echo "::group::Launchpad build log: $log (last 150 lines)"
               tail -n 150 "$log"
@@ -2031,7 +2078,7 @@ jobs:
               sleep 60
             fi
           done
-          echo "::error::Remote build ${{ matrix.arch }} failed after $attempts attempts (no wekan_${VERSION}_${{ matrix.arch }}.snap produced)." >&2
+          echo "::error::Remote build ${{ matrix.arch }} failed after $attempts attempts (no wekan_${VERSION}_${{ matrix.arch }}.snap produced). The Launchpad build log printed above says why; the builds are also at https://launchpad.net/~xet7/+snaps" >&2
           # The commonest cause after a plain build error is the credential: Launchpad
           # answers 401/403 for an expired or wrong LP_CREDENTIALS, which reads as an
           # ordinary build failure unless the log says so.
@@ -2046,16 +2093,19 @@ jobs:
         run: |
           set -euo pipefail
           shopt -s nullglob
-          snaps=( wekan_${VERSION}_${{ matrix.arch }}.snap )
-          if [ "${#snaps[@]}" -eq 0 ]; then
-            echo "::error::No wekan_${VERSION}_${{ matrix.arch }}.snap to upload."
+          snaps=( wekan_${VERSION}_${{ matrix.arch }}*.snap *_${{ matrix.arch }}.snap )
+          # "No file" and "the store said no" are two different problems with two
+          # different owners, so they are two different messages. v10.48 printed the
+          # SNAP_AUTH one for a file that was never built.
+          if [ "${#snaps[@]}" -eq 0 ] || [ ! -s "${snaps[0]}" ]; then
+            echo "::error::No wekan_${VERSION}_${{ matrix.arch }}.snap to upload - the Launchpad build produced no artifact. This is NOT a SNAP_AUTH problem; see the build step above."
             exit 1
           fi
           # base: core24 allows publishing to stable and candidate (core26 does not).
           for f in "${snaps[@]}"; do
             echo "Uploading $f to the Snap Store (stable,candidate,beta,edge)..."
             if ! snapcraft upload --release=stable,candidate,beta,edge "$f"; then
-              echo "::error::SNAP_AUTH did not work: the Snap Store refused the upload of $f. Re-export it with: snapcraft export-login --snaps wekan --acls package_access,package_push,package_release,package_update snap-auth.txt"
+              echo "::error::The Snap Store refused the upload of $f. If it says the file is invalid, the build is broken; if it says unauthorized, re-export SNAP_AUTH with: snapcraft export-login --snaps wekan --acls package_access,package_push,package_release,package_update snap-auth.txt"
               exit 1
             fi
           done
@@ -2066,9 +2116,11 @@ jobs:
         run: |
           set -euo pipefail
           shopt -s nullglob
-          snaps=( wekan_${VERSION}_${{ matrix.arch }}.snap )
-          if [ "${#snaps[@]}" -gt 0 ]; then
+          snaps=( wekan_${VERSION}_${{ matrix.arch }}*.snap *_${{ matrix.arch }}.snap )
+          if [ "${#snaps[@]}" -gt 0 ] && [ -s "${snaps[0]}" ]; then
             gh release upload "v${VERSION}" "${snaps[@]}" --clobber
+          else
+            echo "No ${{ matrix.arch }} snap to attach - the build produced none."
           fi
 
       # Always, as the last step: the run summary then answers "what worked and what
@@ -2145,11 +2197,32 @@ jobs:
           elif [ "$code" != "200" ]; then
             echo "ok=false" >> "$GITHUB_OUTPUT"
             echo "::warning::snap-variants (${{ matrix.snapname }}) skipped — GitHub answered HTTP $code for wekan/${{ matrix.repo }}: WEKAN_REPO_TOKEN is expired, revoked, or has no access."
-          elif [ "$(jq -r '.permissions.push // false' /tmp/variant.json)" != "true" ]; then
-            echo "ok=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::snap-variants (${{ matrix.snapname }}) skipped — WEKAN_REPO_TOKEN reaches wekan/${{ matrix.repo }} but may not PUSH to it. A classic PAT needs the 'repo' scope; a fine-grained PAT needs Contents: Read and write on that repository."
           else
-            echo "ok=true" >> "$GITHUB_OUTPUT"
+            # `.permissions.push` from the repos API is NOT the answer, and this is
+            # where v10.48 went wrong: that field describes the authenticated USER's
+            # role in the repository, not what this token may do, so a fine-grained
+            # PAT that was never scoped to the repo still reads push=true. The guard
+            # passed, and the next step got
+            #   remote: Permission to wekan/${{ matrix.repo }}.git denied to xet7
+            #
+            # So ask the endpoint that actually refuses: the receive-pack
+            # advertisement, which is the first thing a real `git push` requests and
+            # which GitHub answers 403 to for a token without write. It writes
+            # nothing, and it needs no local clone (this step runs before checkout).
+            # The token goes in -u, never in the URL, so it cannot land in the log.
+            rp=$(curl -sS -o /dev/null -w '%{http_code}' \
+              -u "x-access-token:$REPO_TOKEN" \
+              "https://github.com/wekan/${{ matrix.repo }}.git/info/refs?service=git-receive-pack")
+            if [ "$rp" = "200" ]; then
+              echo "ok=true" >> "$GITHUB_OUTPUT"
+              echo "WEKAN_REPO_TOKEN may push to wekan/${{ matrix.repo }} (receive-pack answered 200)."
+            elif [ "$rp" = "403" ] || [ "$rp" = "401" ]; then
+              echo "ok=false" >> "$GITHUB_OUTPUT"
+              echo "::warning::snap-variants (${{ matrix.snapname }}) skipped — WEKAN_REPO_TOKEN can READ wekan/${{ matrix.repo }} but may NOT push to it (receive-pack answered HTTP $rp). A classic PAT needs the 'repo' scope and its account must have write access to that repository; a fine-grained PAT needs wekan/${{ matrix.repo }} in its repository list with Contents: Read and write. See docs/Design/Autoupdate/Snap-Ondra-Gantt.md."
+            else
+              echo "ok=false" >> "$GITHUB_OUTPUT"
+              echo "::warning::snap-variants (${{ matrix.snapname }}) skipped — the push pre-flight for wekan/${{ matrix.repo }} answered HTTP $rp, which is neither a yes nor a permission refusal. Nothing was pushed."
+            fi
           fi
 
       - name: Checkout wekan at the release tag
