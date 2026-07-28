@@ -1,0 +1,44 @@
+#!/bin/bash
+# ============================================================================
+# Open the WeKan server running on this machine in the browser (#6539).
+#
+# The snap is a SERVER: installing it starts a daemon and there was nothing in
+# the application menu, so it looked like nothing had been installed. This is the
+# menu entry - it opens the address WeKan is actually serving, read from the
+# snap's own settings, so `snap set wekan port=…` / `root-url=…` are followed.
+# ============================================================================
+
+if [[ "$PATH" != *"$SNAP_INSTANCE_NAME"* ]]; then
+  export PATH="${PATH/\/snap\/wekan\//\/snap\/$SNAP_INSTANCE_NAME\/}"
+fi
+
+# read wekan config (PORT, ROOT_URL, CADDY_*)
+source $SNAP/bin/wekan-read-settings >/dev/null 2>&1
+
+URL="$ROOT_URL"
+
+# ROOT_URL is what WeKan tells clients it is; when it carries no port and WeKan
+# does not listen on the default one, the port has to be added or the browser
+# lands nowhere.
+case "$URL" in
+  ""|"http://localhost"|"http://localhost/"|"http://127.0.0.1"|"http://127.0.0.1/")
+    URL="http://localhost:${PORT:-8080}"
+    ;;
+  *:[0-9]*) : ;;                                   # already carries a port
+  http://*|https://*)
+    if [ -n "$PORT" ] && [ "$PORT" != "80" ] && [ "$PORT" != "443" ]; then
+      URL="${URL%/}:${PORT}"
+    fi
+    ;;
+esac
+
+echo "Opening $URL"
+
+# xdg-open inside a snap is snapd's shim, which asks the desktop session to open
+# it - the snap itself never gets a browser. If there is no session (a headless
+# server, an SSH shell), print the address instead of failing silently.
+if command -v xdg-open >/dev/null 2>&1; then
+  exec xdg-open "$URL"
+fi
+
+echo "No xdg-open available. Open this address in a browser: $URL"

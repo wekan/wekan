@@ -112,6 +112,16 @@ apps:
         plugs: [network, network-bind]
         after: [mongodb]
 
+    # #6539: the snap installs a SERVER, so nothing appeared in the application
+    # menu and it looked like nothing had been installed. This is the menu entry
+    # (snap/gui/wekan.desktop): it opens the address WeKan is actually serving,
+    # read from the snap's own settings. `desktop` is what lets snapd's xdg-open
+    # shim hand the URL to the session's browser.
+    open:
+        command: ./bin/wekan-open
+        desktop: usr/share/applications/wekan.desktop
+        plugs: [desktop, network]
+
     help:
         command: ./bin/wekan-help
 
@@ -327,6 +337,18 @@ parts:
     helpers:
         source: snap-src
         plugin: dump
+
+    # #6539: the application-menu entry. snapcraft reads snap/gui/*.desktop for
+    # the .desktop file and snap/gui/icon.png for the icon; the desktop file has
+    # to end up where the `open` app's `desktop:` key points, so it is staged
+    # there rather than only living in snap/gui.
+    desktop-launcher:
+        source: snap/gui
+        plugin: dump
+        organize:
+            wekan.desktop: usr/share/applications/wekan.desktop
+        stage:
+            - usr/share/applications/wekan.desktop
 
     caddy:
         plugin: nil

@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Name=WeKan
+GenericName=Kanban Board
+Comment=Open Source kanban — opens the WeKan server running on this machine
+# `snap set wekan port=…` changes the port; wekan-open reads the setting, so the
+# launcher follows it without the .desktop file being edited.
+Exec=wekan.open
+Icon=${SNAP}/meta/gui/icon.png
+Terminal=false
+Categories=Office;ProjectManagement;Network;
+Keywords=kanban;board;tasks;todo;project;
+StartupNotify=true
