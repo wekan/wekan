@@ -136,6 +136,20 @@ test('the pre-flight cannot leak the token, and needs no checkout', () => {
     + 'local repository for git to work in');
 });
 
+test('the sync renames the snap in BOTH snapcraft files', () => {
+  // snapcraft.yaml is what the variant job builds; snapcraft-core26.yaml is the
+  // same snap on the next base. Renaming only the first leaves the core26 file
+  // saying `name: wekan`, so a core26 build from wekan-ondra / wekan-gantt-gpl
+  // would publish itself as the DEFAULT WeKan snap.
+  const sync = variants.slice(variants.indexOf('Sync wekan into'));
+  assert.ok(/for f in snapcraft\.yaml snapcraft-core26\.yaml/.test(sync),
+    'both files are renamed');
+  assert.ok(/s\/\^name: wekan\$\/name: \$\{\{ matrix\.snapname \}\}\//.test(sync),
+    'the snap name comes from the matrix');
+  assert.ok(/s\/\^title: \.\*\/title: \$\{\{ matrix\.title \}\}\//.test(sync),
+    'and so does the title');
+});
+
 test('a refusal and a broken pre-flight are told apart', () => {
   assert.ok(/"\$rp" = "403"/.test(variants) && /"\$rp" = "401"/.test(variants),
     '403/401 is "the token may not push"');

@@ -89,3 +89,10 @@ _build-local-test
 # process. Written into the crashing process CWD (tests/playwright/) by
 # kernel.core_pattern; never source files.
 core.[0-9]*
+
+# The two variant repositories (wekan/wekan-ondra, wekan/wekan-gantt-gpl) when
+# they are cloned INSIDE this working copy to be synced by hand. They are whole
+# git repositories of their own; git would not commit them into this one, but
+# they should not show up as untracked noise either.
+/wekan-ondra/
+/wekan-gantt-gpl/

@@ -2284,8 +2284,16 @@ jobs:
           git clone "https://x-access-token:${GH_TOKEN}@github.com/wekan/${{ matrix.repo }}.git" variant
           rsync -a --delete --exclude='.git' wekan/ variant/
           cd variant
-          sed -i "s/^name: wekan$/name: ${{ matrix.snapname }}/" snapcraft.yaml
-          sed -i "s/^title: .*/title: ${{ matrix.title }}/" snapcraft.yaml
+          # BOTH snapcraft files: snapcraft.yaml is what this job builds, and
+          # snapcraft-core26.yaml is the same snap on the next base. Renaming only
+          # the first left the core26 file saying `name: wekan`, so a core26 build
+          # from the variant repository would try to publish itself as the DEFAULT
+          # WeKan snap.
+          for f in snapcraft.yaml snapcraft-core26.yaml; do
+            [ -f "$f" ] || continue
+            sed -i "s/^name: wekan$/name: ${{ matrix.snapname }}/" "$f"
+            sed -i "s/^title: .*/title: ${{ matrix.title }}/" "$f"
+          done
           git config user.name  'wekan-release-bot'
           git config user.email 'release@wekan.team'
           git add -A
