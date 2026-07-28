@@ -55,7 +55,22 @@ investigate), [#6500](https://github.com/wekan/wekan/issues/6500) (Docker
 `latest` does not load in the browser on a fresh `docker compose up -d` —
 "Connection reset by peer"; xet7 is actively fixing the bundled FerretDB Docker
 startup, and MongoDB / other backends work as a workaround, so this needs the
-running Docker stack to reproduce, not source-verifiable here).
+running Docker stack to reproduce, not source-verifiable here),
+[#6542](https://github.com/wekan/wekan/issues/6542) (LDAP import reports 60
+users imported while fewer are listed — the People page is paginated with a
+visible total now, which is what the count in the report was reading, but
+whether the import itself dropped users needs the reporter's directory: two
+entries whose username slugifies to the same value are merged, and only a live
+LDAP tree shows that), [#6548](https://github.com/wekan/wekan/issues/6548) (LDAP
+debug output not visible inside an LXC container — needs that container and an
+Active Directory to see what is logged and what is not),
+[#6549](https://github.com/wekan/wekan/issues/6549) (OAuth2 through
+Rocket.Chat's G Suite SAML app: WeKan logs in only when the Rocket.Chat session
+already exists — the behaviour is on the identity-provider side, and reproducing
+it needs that whole chain), [#6552](https://github.com/wekan/wekan/issues/6552)
+(raise the file-descriptor limit for Caddy in the snap — snapcraft has no
+per-app ulimit key and snapd owns the systemd unit, so this needs a snapd
+feature or a wrapper change verified on a real snap install).
 
 </details>
 
@@ -75,6 +90,12 @@ delete itself), [#3276](https://github.com/wekan/wekan/issues/3276)
 — reactive re-render), [#3189](https://github.com/wekan/wekan/issues/3189)
 (Worker-role user cannot re-assign a card to themselves after a prior assignee
 was removed — role/deny permission),
+[#6541](https://github.com/wekan/wekan/issues/6541) (users disappear from the
+Users collection while their id stays on the board, WeKan 6.09 / MongoDB 3.2 —
+nothing in the server log and no webhook, so there is no path to follow in the
+code; the deletion helpers since gained the cleanup that removes a user from
+every board they were on, so a repeat today would leave no orphan ids, but the
+disappearance itself has no reproduction),
 [#3576](https://github.com/wekan/wekan/issues/3576) (mobile back button after
 search returns to settings, not the board — router),
 [#3378](https://github.com/wekan/wekan/issues/3378) (SyncedCron "duplicate key"
