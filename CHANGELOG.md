@@ -261,6 +261,68 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+This release fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/811f1544e">Moving a card no longer pans the board at the same time</a>. Thanks to mueschel and xet7.</summary>
+
+On a board large enough to have scrollbars in both directions, dragging a card
+sometimes moved the card, sometimes scrolled the list, sometimes scrolled the
+board, and often several of those at once — so a card could not be dropped where
+it was aimed.
+
+A board runs THREE drag-scroll implementations over the same pointer: the
+dragscroll library, bound separately to `.board-canvas`, to every swimlane and
+to every lane; the lane pan in `swimlanes.js`; and jQuery UI sortable, the one
+that is supposed to move the card. Nothing stood any of them down while a drag
+was in progress. `swimlanes.js` did try, for list drags, but reset the library
+FIRST and removed the class afterwards — a reset binds to whatever carries the
+class at that moment, so every listener stayed — and it left the canvas tagged
+anyway. The lane pan ignored the `nodragscroll` marker the library honours, so
+pressing a minicard, which carries that marker exactly because it is the card's
+drag handle, started a horizontal pan that ran alongside the card drag.
+
+Drag-scrolling is now suspended for the whole drag — class off, THEN reset — and
+exactly the elements it was taken from get it back, so a board route does not
+gain panning it deliberately turned off. Every sortable on the board (cards,
+lists, swimlanes) suspends when a drag starts and resumes when it stops, a
+window mouseup / touchend / dragend restores in case a drag never reaches its
+stop handler, and a swimlane re-rendered mid-drag does not re-arm panning under
+the pointer. The lane pan refuses to start on a drag source, and gives way if a
+drag begins after the press. The drag handles themselves are marked
+`nodragscroll`: a press on a handle moves the item, it never pans the board
+underneath it.
+
+A guard pins the order of the two steps, the restore-what-was-suspended rule,
+the safety net, the suspend/resume in every sortable and the two markers; a
+browser test drags a card sideways on a 12-list board and pins that neither the
+lane nor the canvas scrolls while it moves, and that panning is back afterwards.
+
+</details>
+
+and has the following developer-facing change:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1e404912b">Fix the last two guards of the full test run, one of which was right about the changelog</a>. Thanks to xet7.</summary>
+
+The 18:10 run: 267 node suites with 2 failures, all three browsers clean, Mocha
+500 passing, FerretDB unit and integration green, and the conformance run has
+all four backends — SQLite, PostgreSQL, MySQL and MariaDB — answering
+identically.
+
+`changelogFormat` was right, and about the entries written that day: two lines
+START with `#`, which markdown renders as a heading and which splits the version
+list. The issue numbers are escaped and the lines rewrapped so none begins with
+one. `boardsVisibilitySettings` pinned a save handler that no longer saves the
+display toggle — that toggle writes itself from its own click handler — so the
+guard now checks what the code actually does.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.47 2026-07-28 WeKan ® release
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
