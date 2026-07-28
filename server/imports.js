@@ -3,6 +3,11 @@
 // Loaded by server/main.js after bootstrap (collectionHelpers) completes.
 // ============================================================================
 
+// ****IMPORTANT**** FIRST: guard every startup callback registered below, so a
+// database that is momentarily busy cannot turn a boot into a restart loop
+// (#6533). It must come before anything that registers a Meteor.startup hook.
+import '/server/00startupResilience';
+
 // ****IMPORTANT**** Wait for MongoDB to be ready BEFORE anything else, so the
 // first index creation never crashes the server with "Topology is closed".
 // Registers the first Meteor.startup hook, so it runs before index-creating ones.
