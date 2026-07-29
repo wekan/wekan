@@ -261,6 +261,86 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+This release publishes the following packages that were not being published:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5784f5455">One release now publishes all three snaps: wekan, wekan-ondra and wekan-gantt-gpl</a>. Thanks to xet7.</summary>
+
+People are still on the older snap names, so a release that publishes only
+`wekan` leaves them on a stale package. Two things stood in the way, both in the
+`snap-variants` job.
+
+It gated EVERYTHING on `WEKAN_REPO_TOKEN` being able to push to
+`wekan/<variant>`. Building and publishing a snap needs `SNAP_AUTH` and nothing
+else; keeping the variant GitHub repositories in step with `wekan/wekan` is a
+separate, optional thing. Because the two were tied together, a token without
+push rights meant no variant snaps at all — which is why v10.48 and v10.49
+published none. The guard answers two questions now: one decides the build and
+the publish, the other decides only whether the repository is updated, and every
+"cannot push" warning ends with "The snap is still built and published".
+
+The variant tree is also no longer taken from a clone of the variant repository:
+it is copied from the release tag the job checked out, with the snap name and
+title written into BOTH `snapcraft.yaml` and `snapcraft-core26.yaml` — renaming
+only the first left the core26 file saying `name: wekan`. So the snap is built
+from what was just released, whatever state the variant repository is in.
+
+Both variants build on amd64 and arm64 now, the two native runners the default
+snap uses, and publish to stable, candidate, beta and edge like the default
+snap: `base: core24` with `grade: stable`, which is what those channels accept.
+A last check before the upload refuses a build whose file name does not start
+with the variant's snap name — publishing a `wekan_*.snap` from there would
+overwrite the default snap in the store.
+
+`SNAP_AUTH` has to carry the ACL for all three names, which is one
+`snapcraft export-login --snaps wekan,wekan-ondra,wekan-gantt-gpl`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/47416efe6">The variant Docker images are published by hand, by retagging the released image</a>. Thanks to xet7.</summary>
+
+`wekanteam/wekan-gantt-gpl` and `wekanteam/wekan-ondra` are the same WeKan as
+`wekanteam/wekan` — the variant repositories are identical to `wekan/wekan`
+apart from the snap name — so nothing is rebuilt: a new workflow, "Publish
+variant Docker image (manual)", points the variant tag at the multi-arch
+manifest the release already built and verified. Same digests, all five
+architectures, seconds instead of a half-hour emulated build, and no way for the
+variant image to claim a release it was not built from. `releases/docker-publish-variant.sh`
+does the same thing from a terminal.
+
+It is `workflow_dispatch` only, on purpose: the release publishes
+`wekanteam/wekan` every time, and the variant images are published when the
+maintainer decides to. The credential is checked and logged in with before
+anything is pushed, and both the source manifest and the pushed tag are asked
+which architectures they carry.
+
+</details>
+
+and has the following documentation fix:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/09b8d3d1f">Say why the snap is built on core24: it is the base that may publish to stable</a>. Thanks to xet7.</summary>
+
+The header of `snapcraft.yaml` still described an older policy — "the workflow
+publishes it to the candidate + beta + edge channels; the stable channel is
+published MANUALLY later" — which has not been true for a while: every snap job
+publishes stable, candidate, beta and edge.
+
+Both snapcraft headers now say the actual reason for the base. core24 is a
+released base, so the snap can be `grade: stable` and the stable and candidate
+channels accept it. core26 is still experimental: `build-base: devel` forces
+`grade: devel`, and a devel-grade snap is refused by stable and candidate, so it
+could only reach beta and edge. That is why the release builds core24 and keeps
+the core26 file for testing only. A guard pins all of it, including that
+`snapcraft-core26.yaml` is only ever renamed by the variant sync, never built.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.50 2026-07-29 WeKan ® release
 
 This release has the following release-workflow fix:
