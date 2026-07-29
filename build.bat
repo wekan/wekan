@@ -52,7 +52,8 @@ echo   1^) Setup            ^(install dependencies, build^)
 echo   2^) Dev server       ^(meteor run variants^)
 echo   3^) Tests            ^(mocha, playwright, e2e, ...^)
 echo   4^) Docker           ^(start / follow logs / stop^)
-echo   5^) Tools            ^(save deps, forge tools, mirror^)
+echo   5^) Releases         ^(release, snap, bundles, translations, ...^)
+echo   6^) Tools            ^(save deps, forge tools, mirror^)
 echo   0^) Quit
 echo ==========================================================
 set "choice="
@@ -61,7 +62,8 @@ if "%choice%"=="1" goto menu_setup
 if "%choice%"=="2" goto menu_dev
 if "%choice%"=="3" goto menu_tests
 if "%choice%"=="4" goto menu_docker
-if "%choice%"=="5" goto menu_tools
+if "%choice%"=="5" goto menu_releases
+if "%choice%"=="6" goto menu_tools
 if "%choice%"=="0" goto end
 echo invalid option
 goto menu
@@ -162,6 +164,306 @@ if "%choice%"=="2" goto install_forge_tools
 if "%choice%"=="3" goto mirror_forge
 if "%choice%"=="0" goto menu
 goto menu_tools
+
+REM ===========================================================================
+REM  Releases: every maintainer script in releases/, grouped, same list and
+REM  same order as build.sh's RELEASE_SCRIPTS. They are Git Bash scripts, so
+REM  this needs Git for Windows (bash on PATH); .mjs entries are run by node.
+REM  tests/buildScriptParity.test.cjs fails when a script is added to
+REM  releases/ and not to BOTH menus.
+:menu_releases
+echo.
+echo -- Releases --   ^(0 = Back^)
+echo   1^) Release ^(22 scripts^)
+echo   2^) Snap ^(13 scripts^)
+echo   3^) Bundles ^(10 scripts^)
+echo   4^) Docker images ^(7 scripts^)
+echo   5^) Sandstorm ^(5 scripts^)
+echo   6^) Translations ^(9 scripts^)
+echo   7^) Git and repo ^(9 scripts^)
+echo   8^) Server and VM ^(9 scripts^)
+set "choice="
+set /p "choice=Choose: "
+if "%choice%"=="1" goto rel_release
+if "%choice%"=="2" goto rel_snap
+if "%choice%"=="3" goto rel_bundles
+if "%choice%"=="4" goto rel_dockerimages
+if "%choice%"=="5" goto rel_sandstorm
+if "%choice%"=="6" goto rel_translations
+if "%choice%"=="7" goto rel_gitandrepo
+if "%choice%"=="8" goto rel_serverandvm
+if "%choice%"=="0" goto menu
+goto menu_releases
+
+REM ---------------------------------------------------------------------------
+:rel_release
+echo.
+echo -- Releases / Release --   ^(0 = Back^)
+echo   1^) Release ALL platforms: push CHANGELOG, trigger release-all.yml
+echo   2^) Release ^(older local flow^), for one version
+echo   3^) Show the version numbers this checkout would release
+echo   4^) Show the CHANGELOG of the release being prepared
+echo   5^) Rebuild the API docs ^(wekan.yml + wekan.html^)
+echo   6^) Rebuild a release that already exists
+echo   7^) Prepare the release directory for one version
+echo   8^) Collect the built bundles for one version
+echo   9^) Link the newest bundle as wekan-latest
+echo   10^) Move an old release out of the download directory
+echo   11^) Clean up after a release
+echo   12^) Publish the Helm chart in wekan/charts
+echo   13^) Update wekan.fi with the new version and API docs
+echo   14^) Publish the npm packages xet7 maintains
+echo   15^) Check every download URL snapcraft.yaml uses
+echo   16^) Clone all release-related repositories
+echo   17^) Create the GitHub Actions secrets a release needs
+echo   18^) Add a git tag for a release
+echo   19^) Delete a git tag, locally and on the remote
+echo   20^) Move the 'stable' tag to HEAD
+echo   21^) Release the wekan-ondra / wekan-gantt-gpl variants, part 1
+echo   22^) Release the wekan-ondra / wekan-gantt-gpl variants, part 2
+set "choice="
+set /p "choice=Choose: "
+if "%choice%"=="1" call :rel_run "releases/release-all.sh" ""
+if "%choice%"=="2" call :rel_run "releases/release.sh" "WeKan version, e.g. 10.50"
+if "%choice%"=="3" call :rel_run "releases/version.sh" ""
+if "%choice%"=="4" call :rel_run "releases/changelog.sh" ""
+if "%choice%"=="5" call :rel_run "releases/rebuild-docs.sh" ""
+if "%choice%"=="6" call :rel_run "releases/rebuild-release.sh" ""
+if "%choice%"=="7" call :rel_run "releases/rel.sh" "WeKan version, e.g. 10.50"
+if "%choice%"=="8" call :rel_run "releases/release-bundle.sh" "WeKan version, e.g. 10.50"
+if "%choice%"=="9" call :rel_run "releases/release-ln.sh" "WeKan version, e.g. 10.50"
+if "%choice%"=="10" call :rel_run "releases/release-x2.sh" "WeKan version, e.g. 10.50"
+if "%choice%"=="11" call :rel_run "releases/release-cleanup.sh" "WeKan version, e.g. 10.50"
+if "%choice%"=="12" call :rel_run "releases/release-charts.sh" ""
+if "%choice%"=="13" call :rel_run "releases/release-website.sh" ""
+if "%choice%"=="14" call :rel_run "releases/npm-publish.sh" ""
+if "%choice%"=="15" call :rel_run "releases/test-download-urls.sh" ""
+if "%choice%"=="16" call :rel_run "releases/clone-release-repos.sh" ""
+if "%choice%"=="17" call :rel_run "releases/create-github-secrets.sh" ""
+if "%choice%"=="18" call :rel_run "releases/add-tag.sh" "Version tag, e.g. v10.50"
+if "%choice%"=="19" call :rel_run "releases/delete-tag.sh" "Version tag, e.g. v10.50"
+if "%choice%"=="20" call :rel_run "releases/stable-tag.sh" ""
+if "%choice%"=="21" call :rel_run "releases/release-ondra-1.sh" ""
+if "%choice%"=="22" call :rel_run "releases/release-ondra-2.sh" ""
+if "%choice%"=="0" goto menu_releases
+goto rel_release
+
+REM ---------------------------------------------------------------------------
+:rel_snap
+echo.
+echo -- Releases / Snap --   ^(0 = Back^)
+echo   1^) Build the snap from snapcraft.yaml
+echo   2^) Install the locally built .snap
+echo   3^) Push one .snap to the Snap Store
+echo   4^) Release the snap for one version
+echo   5^) List the newest Snap Store revisions
+echo   6^) Release one store revision to edge, beta and candidate
+echo   7^) Switch the installed snap to the edge channel
+echo   8^) Switch the installed snap to the stable channel
+echo   9^) snapcraft help topics
+echo   10^) wekan.help of the installed snap
+echo   11^) Enable and start snapd
+echo   12^) Disable and stop snapd
+echo   13^) Switch between KVM, snapcraft, Waydroid and VirtualBox
+set "choice="
+set /p "choice=Choose: "
+if "%choice%"=="1" call :rel_run "releases/snap-build.sh" ""
+if "%choice%"=="2" call :rel_run "releases/snap-install.sh" ""
+if "%choice%"=="3" call :rel_run "releases/snap-push-to-store.sh" "Path to the .snap file"
+if "%choice%"=="4" call :rel_run "releases/release-snap.sh" "WeKan version, e.g. 10.50"
+if "%choice%"=="5" call :rel_run "releases/snap-store-revisions.sh" ""
+if "%choice%"=="6" call :rel_run "releases/snap-store-release-revision-to-channels.sh" "Snap Store revision number"
+if "%choice%"=="7" call :rel_run "releases/snap-edge.sh" ""
+if "%choice%"=="8" call :rel_run "releases/snap-stable.sh" ""
+if "%choice%"=="9" call :rel_run "releases/snapcraft-help.sh" ""
+if "%choice%"=="10" call :rel_run "releases/wekan-snap-help.sh" ""
+if "%choice%"=="11" call :rel_run "releases/snapd-start.sh" ""
+if "%choice%"=="12" call :rel_run "releases/snapd-stop.sh" ""
+if "%choice%"=="13" call :rel_run "releases/switch-kvm-snapcraft-waydroid-virtualbox.sh" ""
+if "%choice%"=="0" goto menu_releases
+goto rel_snap
+
+REM ---------------------------------------------------------------------------
+:rel_bundles
+echo.
+echo -- Releases / Bundles --   ^(0 = Back^)
+echo   ^(the Windows bundle is built by running releases\build-bundle-win64.bat directly^)
+echo   1^) Build the arm64 bundle
+echo   2^) Build the armhf ^(arm/v7^) bundle
+echo   3^) Build the ppc64el bundle
+echo   4^) Build the ppc64le bundle
+echo   5^) Build the s390x bundle
+echo   6^) Fetch the built bundle from the amd64 build host
+echo   7^) Fetch the built bundle from the arm64 build host
+echo   8^) Fetch the built bundle from the ppc64le build host
+echo   9^) Fetch the built bundle from the s390x build host
+echo   10^) Upload the Windows bundle to the download server
+set "choice="
+set /p "choice=Choose: "
+if "%choice%"=="1" call :rel_run "releases/build-bundle-arm64.sh" "WeKan version, e.g. 10.50"
+if "%choice%"=="2" call :rel_run "releases/build-bundle-armhf.sh" "WeKan version, e.g. 10.50"
+if "%choice%"=="3" call :rel_run "releases/build-bundle-ppc64el.sh" "WeKan version, e.g. 10.50"
+if "%choice%"=="4" call :rel_run "releases/build-bundle-ppc64le.sh" "WeKan version, e.g. 10.50"
+if "%choice%"=="5" call :rel_run "releases/build-bundle-s390x.sh" "WeKan version, e.g. 10.50"
+if "%choice%"=="6" call :rel_run "releases/up.sh" "WeKan version, e.g. 10.50"
+if "%choice%"=="7" call :rel_run "releases/up-a.sh" "WeKan version, e.g. 10.50"
+if "%choice%"=="8" call :rel_run "releases/up-o.sh" "WeKan version, e.g. 10.50"
+if "%choice%"=="9" call :rel_run "releases/up-s.sh" "WeKan version, e.g. 10.50"
+if "%choice%"=="10" call :rel_run "releases/up-w.sh" "WeKan version, e.g. 10.50"
+if "%choice%"=="0" goto menu_releases
+goto rel_bundles
+
+REM ---------------------------------------------------------------------------
+:rel_dockerimages
+echo.
+echo -- Releases / Docker images --   ^(0 = Back^)
+echo   1^) Build the WeKan Docker image
+echo   2^) Create the multi-platform buildx builder
+echo   3^) Publish a variant image ^(wekan-gantt-gpl / wekan-ondra^)
+echo   4^) Push the locally built images to Docker Hub and Quay
+echo   5^) Mirror the images between registries with skopeo
+echo   6^) Start the Docker containers
+echo   7^) Stop the Docker containers
+set "choice="
+set /p "choice=Choose: "
+if "%choice%"=="1" call :rel_run "releases/docker-build.sh" ""
+if "%choice%"=="2" call :rel_run "releases/docker-build-deps.sh" ""
+if "%choice%"=="3" call :rel_run "releases/docker-publish-variant.sh" "Image and version, e.g. wekan-gantt-gpl 10.50"
+if "%choice%"=="4" call :rel_run "releases/docker-push-gantt.sh" "Docker build tag and WeKan version"
+if "%choice%"=="5" call :rel_run "releases/docker-registry-sync.sh" ""
+if "%choice%"=="6" call :rel_run "releases/docker-start.sh" ""
+if "%choice%"=="7" call :rel_run "releases/docker-stop.sh" ""
+if "%choice%"=="0" goto menu_releases
+goto rel_dockerimages
+
+REM ---------------------------------------------------------------------------
+:rel_sandstorm
+echo.
+echo -- Releases / Sandstorm --   ^(0 = Back^)
+echo   1^) Install the Sandstorm-related files
+echo   2^) Disable the Sandstorm files again
+echo   3^) Make the .spk package
+echo   4^) Run the Sandstorm dev server
+echo   5^) Release the Sandstorm version
+set "choice="
+set /p "choice=Choose: "
+if "%choice%"=="1" call :rel_run "releases/install-sandstorm.sh" ""
+if "%choice%"=="2" call :rel_run "releases/disable-sandstorm.sh" ""
+if "%choice%"=="3" call :rel_run "releases/sandstorm-make-spk.sh" ""
+if "%choice%"=="4" call :rel_run "releases/sandstorm-test-dev.sh" ""
+if "%choice%"=="5" call :rel_run "releases/release-sandstorm.sh" ""
+if "%choice%"=="0" goto menu_releases
+goto rel_sandstorm
+
+REM ---------------------------------------------------------------------------
+:rel_translations
+echo.
+echo -- Releases / Translations --   ^(0 = Back^)
+echo   1^) Pull the newest translations from Transifex and merge them
+echo   2^) How many strings each language still needs
+echo   3^) Push one language to Transifex
+echo   4^) Push every language to Transifex
+echo   5^) Push the English source to Transifex
+echo   6^) Copy the English source into en-GB on Transifex
+echo   7^) Report English strings that regressed
+echo   8^) Prove a pull keeps human translations ^(no network^)
+echo   9^) Merge a finished pull by hand
+set "choice="
+set /p "choice=Choose: "
+if "%choice%"=="1" call :rel_run "releases/translations/pull-translations.sh" ""
+if "%choice%"=="2" call :rel_run "releases/translations/fill-translations.mjs --missing" ""
+if "%choice%"=="3" call :rel_run "releases/translations/push-translation.sh" "Language code, e.g. ja"
+if "%choice%"=="4" call :rel_run "releases/translations/push-all-translations.sh" ""
+if "%choice%"=="5" call :rel_run "releases/translations/push-english-base-translation.sh" ""
+if "%choice%"=="6" call :rel_run "releases/translations/push-copy-en-gb-translation.sh" ""
+if "%choice%"=="7" call :rel_run "releases/translations/report-english-regressions.mjs" ""
+if "%choice%"=="8" call :rel_run "releases/translations/verify-human-preference.mjs" ""
+if "%choice%"=="9" call :rel_run "releases/translations/merge-translations.mjs" ""
+if "%choice%"=="0" goto menu_releases
+goto rel_translations
+
+REM ---------------------------------------------------------------------------
+:rel_gitandrepo
+echo.
+echo -- Releases / Git and repo --   ^(0 = Back^)
+echo   1^) Commit with the editor open for a multi-line message
+echo   2^) Add everything, then revert it again
+echo   3^) Delete a branch, locally and on the remote
+echo   4^) Count lines of code per committer
+echo   5^) Keep syncing this checkout in a loop
+echo   6^) Convert the remaining Stylus to CSS
+echo   7^) Update Node.js everywhere in the sources
+echo   8^) Update the local Node.js version
+echo   9^) Migrate a MongoDB database to FerretDB ^(--help first^)
+set "choice="
+set /p "choice=Choose: "
+if "%choice%"=="1" call :rel_run "releases/commit.sh" ""
+if "%choice%"=="2" call :rel_run "releases/git-add-revert.sh" ""
+if "%choice%"=="3" call :rel_run "releases/delete-branch-local-and-remote.sh" "Branch name"
+if "%choice%"=="4" call :rel_run "releases/count-lines-of-code-per-committer.sh" ""
+if "%choice%"=="5" call :rel_run "releases/syncloop.sh" ""
+if "%choice%"=="6" call :rel_run "releases/stylus-to-css.sh" ""
+if "%choice%"=="7" call :rel_run "releases/node-update.sh" ""
+if "%choice%"=="8" call :rel_run "releases/node-update-local.sh" ""
+if "%choice%"=="9" call :rel_run "releases/migrate-mongodb-to-ferretdb.mjs" "Arguments, e.g. --help"
+if "%choice%"=="0" goto menu_releases
+goto rel_gitandrepo
+
+REM ---------------------------------------------------------------------------
+:rel_serverandvm
+echo.
+echo -- Releases / Server and VM --   ^(0 = Back^)
+echo   1^) Enable and start the SSH server
+echo   2^) Disable and stop the SSH server
+echo   3^) Enable the ufw firewall
+echo   4^) Disable the ufw firewall
+echo   5^) Remove the Multipass VM
+echo   6^) Show the VirtualBox VM's IP address
+echo   7^) Let Node.js bind port 80 in the VM
+echo   8^) Start WeKan in the VirtualBox VM
+echo   9^) Stop WeKan in the VirtualBox VM
+set "choice="
+set /p "choice=Choose: "
+if "%choice%"=="1" call :rel_run "releases/ssh-start.sh" ""
+if "%choice%"=="2" call :rel_run "releases/ssh-stop.sh" ""
+if "%choice%"=="3" call :rel_run "releases/ufw-enable.sh" ""
+if "%choice%"=="4" call :rel_run "releases/ufw-disable.sh" ""
+if "%choice%"=="5" call :rel_run "releases/multipass-remove.sh" ""
+if "%choice%"=="6" call :rel_run "releases/virtualbox/ipaddress.sh" ""
+if "%choice%"=="7" call :rel_run "releases/virtualbox/node-allow-port-80.sh" ""
+if "%choice%"=="8" call :rel_run "releases/virtualbox/start-wekan.sh" ""
+if "%choice%"=="9" call :rel_run "releases/virtualbox/stop-wekan.sh" ""
+if "%choice%"=="0" goto menu_releases
+goto rel_serverandvm
+
+REM ---------------------------------------------------------------------------
+REM  Run one releases/ script: %1 = path (may carry arguments), %2 = the
+REM  prompt for its argument, empty when it takes none.
+:rel_run
+set "RS=%~1"
+set "RP=%~2"
+set "RA="
+if "%RP%"=="" goto rel_run_go
+set /p "RA=%RP%: "
+:rel_run_go
+where bash >nul 2>&1
+if errorlevel 1 (
+	echo bash not found - the releases scripts need Git Bash, bundled with Git for Windows.
+	echo Install Git for Windows, or run this script under WSL2 with build.sh.
+	pause
+	goto :eof
+)
+echo.
+echo --- %RS% %RA% ---
+echo %RS%| findstr /I /C:".mjs" >nul
+if errorlevel 1 goto rel_run_bash
+call node %RS% %RA%
+goto rel_run_done
+:rel_run_bash
+call bash %RS% %RA%
+:rel_run_done
+pause
+goto :eof
 
 REM ===========================================================================
 :menu_docker

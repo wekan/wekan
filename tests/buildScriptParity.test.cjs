@@ -157,4 +157,73 @@ test('every goto/call in build.bat has a label to land on', () => {
   assert.deepStrictEqual(missing, [], 'a goto with no label falls through to the next line');
 });
 
+test('every script in releases/ is reachable from BOTH menus', () => {
+  // releases/ holds ~90 maintainer scripts and, before this, four of them were
+  // in a menu: the rest existed only for whoever remembered the file name. Each
+  // one is now a line in build.sh's RELEASE_SCRIPTS and a `call :rel_run` in
+  // build.bat, and this is what keeps a NEW script from being added to the
+  // directory and to neither menu.
+  const dir = path.join(__dirname, '..', 'releases');
+  const files = [];
+  const walk = (rel) => {
+    for (const e of fs.readdirSync(path.join(dir, rel), { withFileTypes: true })) {
+      const r = rel ? `${rel}/${e.name}` : e.name;
+      if (e.isDirectory()) walk(r);
+      else if (/\.(sh|mjs|bat)$/.test(e.name)) files.push(r);
+    }
+  };
+  walk('');
+
+  // Deliberately not in the Releases menu, each for a stated reason. A script
+  // added here must be given one.
+  const SKIP = {
+    'run-everything.sh': 'the Tests menu runs it (EVERYTHING, sequential)',
+    'db-conformance.sh': 'the Tests menu runs it (all databases)',
+    'fix-changelog-hashes.sh': 'Setup -> Update git runs it',
+    'ensure-tools.sh': 'a helper the other scripts source, not an action',
+    'ferretdb/start-wekan.sh': 'runs INSIDE the built snap/bundle, not here',
+    'ferretdb/wekan-entrypoint.sh': 'the Docker image entrypoint',
+    'ferretdb/recovery-bridge.mjs': 'runs inside the running server',
+    'ferretdb/start-wekan.bat': 'shipped INSIDE the Windows bundle, to start it',
+    'old-build-bundle-arm64.sh': 'superseded by build-bundle-arm64.sh',
+    'translations/old-pull-translations.sh': 'superseded by pull-translations.sh',
+    'build-bundle-win64.bat': 'a Windows batch script - bash cannot run it, so it '
+      + 'is not a menu entry; build.bat\'s Bundles menu says to run it directly',
+  };
+
+  const missing = { sh: [], bat: [] };
+  for (const f of files) {
+    if (SKIP[f]) continue;
+    if (!sh.includes(`releases/${f}`)) missing.sh.push(f);
+    if (!bat.includes(`releases/${f}`)) missing.bat.push(f);
+  }
+  assert.deepStrictEqual(missing.sh, [], 'scripts build.sh cannot run');
+  assert.deepStrictEqual(missing.bat, [], 'scripts build.bat cannot run');
+});
+
+test('the Releases menu is the same list, in the same order, in both scripts', () => {
+  const arr = /^RELEASE_SCRIPTS=\(([\s\S]*?)^\)$/m.exec(sh);
+  assert.ok(arr, 'build.sh must define RELEASE_SCRIPTS');
+  const entries = arr[1].trim().split('\n').map(l => l.trim().replace(/^"|"$/g, ''))
+    .filter(Boolean).map(l => {
+      const [group, label, script, prompt] = l.split('|');
+      return { group, label, script, prompt };
+    });
+  assert.ok(entries.length > 50, `expected the whole list, found ${entries.length}`);
+
+  // Same scripts, same order, in the .bat's dispatch lines.
+  const inBat = [...bat.matchAll(/call :rel_run "([^"]+)" "([^"]*)"/g)]
+    .map(m => ({ script: m[1], prompt: m[2] }));
+  assert.deepStrictEqual(inBat.map(e => e.script), entries.map(e => e.script),
+    'build.bat runs a different set of scripts, or in a different order');
+  assert.deepStrictEqual(inBat.map(e => e.prompt), entries.map(e => e.prompt),
+    'a script that needs an argument in one menu must ask for it in the other');
+
+  // Every group has a labelled submenu on the Windows side.
+  for (const group of new Set(entries.map(e => e.group))) {
+    const label = `:rel_${group.toLowerCase().replace(/[^a-z0-9]+/g, '')}`;
+    assert.ok(bat.includes(label), `build.bat has no ${label} submenu for "${group}"`);
+  }
+});
+
 console.log(`\n${passed} tests passed`);
