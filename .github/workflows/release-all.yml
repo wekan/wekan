@@ -1878,7 +1878,26 @@ jobs:
           # Whether the Snap Store ACCEPTS it can only be answered by the store, at
           # upload time - so the upload step below is followed by one that names this
           # secret when it is refused, instead of leaving a bare "401" in the log.
-          echo "snap-native: SNAP_AUTH is set ($(printf '%s' "$SNAP_AUTH" | wc -c) characters)."
+          #
+          # What CAN be checked here is that it is a credential at all. v10.50 built
+          # every snap and then died on
+          #   Credentials could not be parsed. Expected valid Ubuntu One credentials.
+          # which is not the store refusing anything - it is snapcraft unable to read
+          # the secret. The commonest cause is pasting what `snapcraft export-login`
+          # PRINTED instead of the file it WROTE. Only unambiguous breakage is
+          # rejected here; the format itself is snapcraft's business.
+          chars=$(printf '%s' "$SNAP_AUTH" | wc -c)
+          if [ "$chars" -lt 100 ]; then
+            echo "::error::snap-native: SNAP_AUTH is only $chars characters, which is far too short for an exported login. Set it to the CONTENTS OF THE FILE that snapcraft wrote: snapcraft export-login --snaps wekan,wekan-ondra,wekan-gantt-gpl --acls package_access,package_push,package_release,package_update snap-auth.txt && gh secret set SNAP_AUTH --repo wekan/wekan < snap-auth.txt"
+            exit 1
+          fi
+          case "$SNAP_AUTH" in
+            *"Exported login"*|*"export-login"*)
+              echo "::error::snap-native: SNAP_AUTH contains snapcraft's own banner text ('Exported login ...'), so it is the terminal OUTPUT rather than the file contents. Re-set it from the file: gh secret set SNAP_AUTH --repo wekan/wekan < snap-auth.txt"
+              exit 1
+              ;;
+          esac
+          echo "snap-native: SNAP_AUTH is set ($chars characters)."
 
       - uses: actions/checkout@v7
         with:
@@ -1925,7 +1944,14 @@ jobs:
       - name: Say which secret the Snap Store refused
         if: failure() && steps.publish.outcome == 'failure'
         run: |
-          echo "::error::SNAP_AUTH did not work: the Snap Store refused the upload for ${{ matrix.arch }}. Re-export it with: snapcraft export-login --snaps wekan --acls package_access,package_push,package_release,package_update snap-auth.txt"
+          # Two different failures wear the same red X here, and the line snapcraft
+          # printed just above in the log says which:
+          #   "Credentials could not be parsed"  -> SNAP_AUTH is not a readable
+          #      exported login: it was mangled, truncated, or is the terminal
+          #      output instead of the file contents. Nothing to do with the store.
+          #   401 / 403 / "not authorized"       -> the credential is fine but does
+          #      not carry the ACL for this snap NAME.
+          echo "::error::The ${{ matrix.arch }} snap was built but not published. Read the snapcraft line above: 'Credentials could not be parsed' means SNAP_AUTH is not a readable exported login (mangled, or the terminal output instead of the file contents); 401/403/not authorized means it lacks the ACL for this snap name. Both are fixed by re-exporting for ALL THREE names: snapcraft export-login --snaps wekan,wekan-ondra,wekan-gantt-gpl --acls package_access,package_push,package_release,package_update snap-auth.txt && gh secret set SNAP_AUTH --repo wekan/wekan < snap-auth.txt"
           exit 1
 
       - name: Attach the ${{ matrix.arch }} snap to the GitHub Release
@@ -2152,7 +2178,7 @@ jobs:
           for f in "${snaps[@]}"; do
             echo "Uploading $f to the Snap Store (stable,candidate,beta,edge)..."
             if ! snapcraft upload --release=stable,candidate,beta,edge "$f"; then
-              echo "::error::The Snap Store refused the upload of $f. If it says the file is invalid, the build is broken; if it says unauthorized, re-export SNAP_AUTH with: snapcraft export-login --snaps wekan --acls package_access,package_push,package_release,package_update snap-auth.txt"
+              echo "::error::The Snap Store refused the upload of $f. The snapcraft line above says which: 'is not a valid file' means the build produced nothing usable; 'Credentials could not be parsed' means SNAP_AUTH is not a readable exported login; 401/403 means it lacks the ACL for this snap name. The last two are fixed by re-exporting for all three names: snapcraft export-login --snaps wekan,wekan-ondra,wekan-gantt-gpl --acls package_access,package_push,package_release,package_update snap-auth.txt"
               exit 1
             fi
           done
