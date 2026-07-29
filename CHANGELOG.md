@@ -261,7 +261,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.51 2026-07-29 WeKan ® release
 
 This release publishes the following packages that were not being published:
 
