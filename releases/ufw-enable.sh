@@ -1,1 +1,0 @@
-sudo ufw enable

@@ -206,23 +206,73 @@ test('the Releases menu is the same list, in the same order, in both scripts', (
   assert.ok(arr, 'build.sh must define RELEASE_SCRIPTS');
   const entries = arr[1].trim().split('\n').map(l => l.trim().replace(/^"|"$/g, ''))
     .filter(Boolean).map(l => {
-      const [group, label, script, prompt] = l.split('|');
-      return { group, label, script, prompt };
+      const [group, label, script, prompt, platform, key] = l.split('|');
+      return { group, label, script, prompt, platform, key };
     });
   assert.ok(entries.length > 50, `expected the whole list, found ${entries.length}`);
 
-  // Same scripts, same order, in the .bat's dispatch lines.
-  const inBat = [...bat.matchAll(/call :rel_run "([^"]+)" "([^"]*)"/g)]
-    .map(m => ({ script: m[1], prompt: m[2] }));
-  assert.deepStrictEqual(inBat.map(e => e.script), entries.map(e => e.script),
-    'build.bat runs a different set of scripts, or in a different order');
-  assert.deepStrictEqual(inBat.map(e => e.prompt), entries.map(e => e.prompt),
-    'a script that needs an argument in one menu must ask for it in the other');
+  // Same entries, same order, in the .bat's dispatch lines - EXCEPT the ones
+  // marked linux: systemd, ufw, snap and multipass are things Windows cannot do
+  // at all, so offering them there would be a menu entry that can only fail.
+  const forWindows = entries.filter(e => e.platform !== 'linux');
+  const inBat = [...bat.matchAll(/call :rel_(?:run|cmd) "([^"]+)" "([^"]*)"/g)]
+    .map(m => ({ what: m[1], prompt: m[2] }));
+  assert.deepStrictEqual(inBat.map(e => e.what),
+    forWindows.map(e => e.script.replace(/^!/, '')),
+    'build.bat runs a different set of entries, or in a different order');
+  assert.deepStrictEqual(inBat.map(e => e.prompt), forWindows.map(e => e.prompt),
+    'an entry that needs an argument in one menu must ask for it in the other');
+  for (const e of entries.filter(x => x.platform === 'linux')) {
+    assert.ok(!bat.includes(e.script.replace(/^!/, '')),
+      `build.bat offers "${e.label}", which Windows cannot run`);
+  }
 
   // Every group has a labelled submenu on the Windows side.
   for (const group of new Set(entries.map(e => e.group))) {
     const label = `:rel_${group.toLowerCase().replace(/[^a-z0-9]+/g, '')}`;
     assert.ok(bat.includes(label), `build.bat has no ${label} submenu for "${group}"`);
+  }
+});
+
+test('both scripts run an entry from the command line, not only from the menu', () => {
+  // The point: a release, a bundle build or a translation pull can go into a
+  // script or a cron entry. `./build.sh release-snap 10.50` is the same thing
+  // the menu would run, with the argument it would have asked for.
+  assert.ok(/^cli_run\(\) \{/m.test(sh), 'build.sh has a command-line dispatcher');
+  assert.ok(/-h\|--help\|help\)\s+cli_help/.test(sh), 'and --help');
+  assert.ok(/-l\|--list\|list\)/.test(sh), 'and --list');
+  assert.ok(/no command called/.test(sh), 'and says so when the name is unknown');
+  // An unknown name must not silently do nothing.
+  assert.ok(/return 2/.test(sh.slice(sh.indexOf('cli_run() {'))), 'with a non-zero exit');
+
+  assert.ok(/^:cli_run/m.test(bat), 'build.bat has one too');
+  assert.ok(/^:cli_help/m.test(bat) && /^:cli_list/m.test(bat), 'with help and list');
+  assert.ok(/if \/I "%~1"=="--help" goto cli_help_exit/.test(bat),
+    'dispatched before the menu, from the real command line');
+  assert.ok(/exit \/b 2/.test(bat), 'and a non-zero exit for an unknown name');
+
+  // Every name the .sh answers to, the .bat answers to as well (minus the
+  // linux-only entries, which are not in the Windows menu either).
+  const arr = /^RELEASE_SCRIPTS=\(([\s\S]*?)^\)$/m.exec(sh)[1];
+  const keys = arr.trim().split('\n').map(l => l.trim().replace(/^"|"$/g, ''))
+    .filter(Boolean).map(l => {
+      const [, , what, , platform, key] = l.split('|');
+      const derived = what.split(' ')[0].split('/').pop().replace(/\.[^.]+$/, '');
+      return { key: key || derived, platform };
+    });
+  const missing = keys.filter(k => k.platform !== 'linux'
+    && !new RegExp(`"%K%"=="${k.key}"`).test(bat)).map(k => k.key);
+  assert.deepStrictEqual(missing, [], 'names build.sh answers to and build.bat does not');
+
+  // The examples in both help texts must be real names, or they teach a command
+  // that fails.
+  // The examples, not the four usage lines above them (--help, --list,
+  // --run-everything and the bare "<name>" placeholder).
+  const helpNames = [...sh.matchAll(/^  \.\/build\.sh ([a-z0-9][a-z0-9-]+)/gm)]
+    .map(m => m[1]).filter(n => n !== 'run-everything');
+  const known = new Set(keys.map(k => k.key));
+  for (const n of helpNames) {
+    assert.ok(known.has(n), `./build.sh --help gives an example "${n}" that is not a command`);
   }
 });
 

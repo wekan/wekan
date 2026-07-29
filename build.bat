@@ -17,6 +17,30 @@ REM   - If Meteor does not run well natively on your Windows, WSL2 + Ubuntu
 REM     with build.sh is the recommended alternative.
 REM ============================================================================
 
+REM --- Command line: build.bat <name> [args] / --help / --list ---------------
+REM  Same names as build.sh, so a release, a bundle build or a translation pull
+REM  can be scripted on Windows too. With no arguments this falls through to the
+REM  menu, exactly as before.
+if "%~1"=="" goto no_cli_args
+if /I "%~1"=="-h"     goto cli_help_exit
+if /I "%~1"=="--help" goto cli_help_exit
+if /I "%~1"=="help"   goto cli_help_exit
+if /I "%~1"=="-l"     goto cli_list_exit
+if /I "%~1"=="--list" goto cli_list_exit
+if /I "%~1"=="list"   goto cli_list_exit
+call :cli_run %*
+exit /b %errorlevel%
+:cli_help_exit
+call :cli_help
+exit /b 0
+:cli_list_exit
+call :cli_help
+echo.
+echo Commands:
+call :cli_list
+exit /b 0
+:no_cli_args
+
 REM --- Repo root = folder of this script (strip trailing backslash) ---
 set "REPO=%~dp0"
 if "%REPO:~-1%"=="\" set "REPO=%REPO:~0,-1%"
@@ -53,7 +77,8 @@ echo   2^) Dev server       ^(meteor run variants^)
 echo   3^) Tests            ^(mocha, playwright, e2e, ...^)
 echo   4^) Docker           ^(start / follow logs / stop^)
 echo   5^) Releases         ^(release, snap, bundles, translations, ...^)
-echo   6^) Tools            ^(save deps, forge tools, mirror^)
+echo   6^) CLI commands     ^(run any of them without the menu^)
+echo   7^) Tools            ^(save deps, forge tools, mirror^)
 echo   0^) Quit
 echo ==========================================================
 set "choice="
@@ -63,7 +88,8 @@ if "%choice%"=="2" goto menu_dev
 if "%choice%"=="3" goto menu_tests
 if "%choice%"=="4" goto menu_docker
 if "%choice%"=="5" goto menu_releases
-if "%choice%"=="6" goto menu_tools
+if "%choice%"=="6" goto menu_cli
+if "%choice%"=="7" goto menu_tools
 if "%choice%"=="0" goto end
 echo invalid option
 goto menu
@@ -169,19 +195,21 @@ REM ===========================================================================
 REM  Releases: every maintainer script in releases/, grouped, same list and
 REM  same order as build.sh's RELEASE_SCRIPTS. They are Git Bash scripts, so
 REM  this needs Git for Windows (bash on PATH); .mjs entries are run by node.
+REM  The entries build.sh marks as linux-only (systemd, ufw, snap, multipass)
+REM  are not here: Windows cannot do them at all.
 REM  tests/buildScriptParity.test.cjs fails when a script is added to
 REM  releases/ and not to BOTH menus.
 :menu_releases
 echo.
 echo -- Releases --   ^(0 = Back^)
-echo   1^) Release ^(22 scripts^)
-echo   2^) Snap ^(13 scripts^)
-echo   3^) Bundles ^(10 scripts^)
-echo   4^) Docker images ^(7 scripts^)
-echo   5^) Sandstorm ^(5 scripts^)
-echo   6^) Translations ^(9 scripts^)
-echo   7^) Git and repo ^(9 scripts^)
-echo   8^) Server and VM ^(9 scripts^)
+echo   1^) Release ^(22 entries^)
+echo   2^) Snap ^(11 entries^)
+echo   3^) Bundles ^(10 entries^)
+echo   4^) Docker images ^(5 entries^)
+echo   5^) Sandstorm ^(5 entries^)
+echo   6^) Translations ^(9 entries^)
+echo   7^) Git and repo ^(8 entries^)
+echo   8^) Server and VM ^(4 entries^)
 set "choice="
 set /p "choice=Choose: "
 if "%choice%"=="1" goto rel_release
@@ -242,7 +270,7 @@ if "%choice%"=="16" call :rel_run "releases/clone-release-repos.sh" ""
 if "%choice%"=="17" call :rel_run "releases/create-github-secrets.sh" ""
 if "%choice%"=="18" call :rel_run "releases/add-tag.sh" "Version tag, e.g. v10.50"
 if "%choice%"=="19" call :rel_run "releases/delete-tag.sh" "Version tag, e.g. v10.50"
-if "%choice%"=="20" call :rel_run "releases/stable-tag.sh" ""
+if "%choice%"=="20" call :rel_cmd "git tag --force stable HEAD && git push --tags --force && git push --follow-tags" ""
 if "%choice%"=="21" call :rel_run "releases/release-ondra-1.sh" ""
 if "%choice%"=="22" call :rel_run "releases/release-ondra-2.sh" ""
 if "%choice%"=="0" goto menu_releases
@@ -262,9 +290,7 @@ echo   7^) Switch the installed snap to the edge channel
 echo   8^) Switch the installed snap to the stable channel
 echo   9^) snapcraft help topics
 echo   10^) wekan.help of the installed snap
-echo   11^) Enable and start snapd
-echo   12^) Disable and stop snapd
-echo   13^) Switch between KVM, snapcraft, Waydroid and VirtualBox
+echo   11^) Switch between KVM, snapcraft, Waydroid and VirtualBox
 set "choice="
 set /p "choice=Choose: "
 if "%choice%"=="1" call :rel_run "releases/snap-build.sh" ""
@@ -277,9 +303,7 @@ if "%choice%"=="7" call :rel_run "releases/snap-edge.sh" ""
 if "%choice%"=="8" call :rel_run "releases/snap-stable.sh" ""
 if "%choice%"=="9" call :rel_run "releases/snapcraft-help.sh" ""
 if "%choice%"=="10" call :rel_run "releases/wekan-snap-help.sh" ""
-if "%choice%"=="11" call :rel_run "releases/snapd-start.sh" ""
-if "%choice%"=="12" call :rel_run "releases/snapd-stop.sh" ""
-if "%choice%"=="13" call :rel_run "releases/switch-kvm-snapcraft-waydroid-virtualbox.sh" ""
+if "%choice%"=="11" call :rel_run "releases/switch-kvm-snapcraft-waydroid-virtualbox.sh" ""
 if "%choice%"=="0" goto menu_releases
 goto rel_snap
 
@@ -322,8 +346,6 @@ echo   2^) Create the multi-platform buildx builder
 echo   3^) Publish a variant image ^(wekan-gantt-gpl / wekan-ondra^)
 echo   4^) Push the locally built images to Docker Hub and Quay
 echo   5^) Mirror the images between registries with skopeo
-echo   6^) Start the Docker containers
-echo   7^) Stop the Docker containers
 set "choice="
 set /p "choice=Choose: "
 if "%choice%"=="1" call :rel_run "releases/docker-build.sh" ""
@@ -331,8 +353,6 @@ if "%choice%"=="2" call :rel_run "releases/docker-build-deps.sh" ""
 if "%choice%"=="3" call :rel_run "releases/docker-publish-variant.sh" "Image and version, e.g. wekan-gantt-gpl 10.50"
 if "%choice%"=="4" call :rel_run "releases/docker-push-gantt.sh" "Docker build tag and WeKan version"
 if "%choice%"=="5" call :rel_run "releases/docker-registry-sync.sh" ""
-if "%choice%"=="6" call :rel_run "releases/docker-start.sh" ""
-if "%choice%"=="7" call :rel_run "releases/docker-stop.sh" ""
 if "%choice%"=="0" goto menu_releases
 goto rel_dockerimages
 
@@ -390,22 +410,20 @@ echo   1^) Commit with the editor open for a multi-line message
 echo   2^) Add everything, then revert it again
 echo   3^) Delete a branch, locally and on the remote
 echo   4^) Count lines of code per committer
-echo   5^) Keep syncing this checkout in a loop
-echo   6^) Convert the remaining Stylus to CSS
-echo   7^) Update Node.js everywhere in the sources
-echo   8^) Update the local Node.js version
-echo   9^) Migrate a MongoDB database to FerretDB ^(--help first^)
+echo   5^) Convert the remaining Stylus to CSS
+echo   6^) Update Node.js everywhere in the sources
+echo   7^) Update the local Node.js version
+echo   8^) Migrate a MongoDB database to FerretDB ^(--help first^)
 set "choice="
 set /p "choice=Choose: "
 if "%choice%"=="1" call :rel_run "releases/commit.sh" ""
-if "%choice%"=="2" call :rel_run "releases/git-add-revert.sh" ""
+if "%choice%"=="2" call :rel_cmd "git restore --staged" "Path to unstage"
 if "%choice%"=="3" call :rel_run "releases/delete-branch-local-and-remote.sh" "Branch name"
 if "%choice%"=="4" call :rel_run "releases/count-lines-of-code-per-committer.sh" ""
-if "%choice%"=="5" call :rel_run "releases/syncloop.sh" ""
-if "%choice%"=="6" call :rel_run "releases/stylus-to-css.sh" ""
-if "%choice%"=="7" call :rel_run "releases/node-update.sh" ""
-if "%choice%"=="8" call :rel_run "releases/node-update-local.sh" ""
-if "%choice%"=="9" call :rel_run "releases/migrate-mongodb-to-ferretdb.mjs" "Arguments, e.g. --help"
+if "%choice%"=="5" call :rel_run "releases/stylus-to-css.sh" ""
+if "%choice%"=="6" call :rel_run "releases/node-update.sh" ""
+if "%choice%"=="7" call :rel_run "releases/node-update-local.sh" ""
+if "%choice%"=="8" call :rel_run "releases/migrate-mongodb-to-ferretdb.mjs" "Arguments, e.g. --help"
 if "%choice%"=="0" goto menu_releases
 goto rel_gitandrepo
 
@@ -413,26 +431,16 @@ REM ---------------------------------------------------------------------------
 :rel_serverandvm
 echo.
 echo -- Releases / Server and VM --   ^(0 = Back^)
-echo   1^) Enable and start the SSH server
-echo   2^) Disable and stop the SSH server
-echo   3^) Enable the ufw firewall
-echo   4^) Disable the ufw firewall
-echo   5^) Remove the Multipass VM
-echo   6^) Show the VirtualBox VM's IP address
-echo   7^) Let Node.js bind port 80 in the VM
-echo   8^) Start WeKan in the VirtualBox VM
-echo   9^) Stop WeKan in the VirtualBox VM
+echo   1^) Show the VirtualBox VM's IP address
+echo   2^) Let Node.js bind port 80 in the VM
+echo   3^) Start WeKan in the VirtualBox VM
+echo   4^) Stop WeKan in the VirtualBox VM
 set "choice="
 set /p "choice=Choose: "
-if "%choice%"=="1" call :rel_run "releases/ssh-start.sh" ""
-if "%choice%"=="2" call :rel_run "releases/ssh-stop.sh" ""
-if "%choice%"=="3" call :rel_run "releases/ufw-enable.sh" ""
-if "%choice%"=="4" call :rel_run "releases/ufw-disable.sh" ""
-if "%choice%"=="5" call :rel_run "releases/multipass-remove.sh" ""
-if "%choice%"=="6" call :rel_run "releases/virtualbox/ipaddress.sh" ""
-if "%choice%"=="7" call :rel_run "releases/virtualbox/node-allow-port-80.sh" ""
-if "%choice%"=="8" call :rel_run "releases/virtualbox/start-wekan.sh" ""
-if "%choice%"=="9" call :rel_run "releases/virtualbox/stop-wekan.sh" ""
+if "%choice%"=="1" call :rel_run "releases/virtualbox/ipaddress.sh" ""
+if "%choice%"=="2" call :rel_run "releases/virtualbox/node-allow-port-80.sh" ""
+if "%choice%"=="3" call :rel_run "releases/virtualbox/start-wekan.sh" ""
+if "%choice%"=="4" call :rel_run "releases/virtualbox/stop-wekan.sh" ""
 if "%choice%"=="0" goto menu_releases
 goto rel_serverandvm
 
@@ -446,13 +454,8 @@ set "RA="
 if "%RP%"=="" goto rel_run_go
 set /p "RA=%RP%: "
 :rel_run_go
-where bash >nul 2>&1
-if errorlevel 1 (
-	echo bash not found - the releases scripts need Git Bash, bundled with Git for Windows.
-	echo Install Git for Windows, or run this script under WSL2 with build.sh.
-	pause
-	goto :eof
-)
+call :need_bash
+if errorlevel 1 goto :eof
 echo.
 echo --- %RS% %RA% ---
 echo %RS%| findstr /I /C:".mjs" >nul
@@ -464,6 +467,246 @@ call bash %RS% %RA%
 :rel_run_done
 pause
 goto :eof
+
+REM ---------------------------------------------------------------------------
+REM  Run one COMMAND (the entries that used to be one-line wrapper scripts):
+REM  %1 = the command, %2 = the prompt for its argument. Through bash, so the
+REM  ^&^& in a command means what it means everywhere else.
+:rel_cmd
+set "RC=%~1"
+set "RP=%~2"
+set "RA="
+if "%RP%"=="" goto rel_cmd_go
+set /p "RA=%RP%: "
+:rel_cmd_go
+call :need_bash
+if errorlevel 1 goto :eof
+echo.
+echo --- !RC! !RA! ---
+call bash -c "!RC! !RA!"
+pause
+goto :eof
+
+REM ---------------------------------------------------------------------------
+:need_bash
+where bash >nul 2>&1
+if errorlevel 1 (
+	echo bash not found - the releases scripts need Git Bash, bundled with Git for Windows.
+	echo Install Git for Windows, or run this under WSL2 with build.sh.
+	pause
+	exit /b 1
+)
+exit /b 0
+
+REM ===========================================================================
+REM  CLI: run any of the above without the menu.
+REM    build.bat ^<name^> [arguments]   run one entry
+REM    build.bat --list                every name, with what it does
+REM    build.bat --help                usage and examples
+:cli_help
+echo WeKan build.bat - menu, or a command line.
+echo.
+echo   build.bat                          the menu
+echo   build.bat --help                   this text
+echo   build.bat --list                   every command name, with what it does
+echo   build.bat ^<name^> [arguments]       run one, without the menu
+echo.
+echo Examples:
+echo.
+echo   build.bat release-all              push the CHANGELOG, trigger the release
+echo   build.bat version                  show the version numbers this would release
+echo   build.bat rebuild-docs             rebuild wekan.yml + wekan.html
+echo   build.bat release-snap 10.50       release the snap of that version
+echo   build.bat pull-translations        pull and merge the newest translations
+echo   build.bat push-translation ja      push one language to Transifex
+echo   build.bat fill-translations        how many strings each language still needs
+echo   build.bat add-tag v10.50           tag the release
+echo.
+echo Arguments after the name are passed to the script unchanged. Names come
+echo from --list. The scripts run under Git Bash; systemd/ufw/snap entries are
+echo Linux only and are in build.sh instead.
+goto :eof
+
+:cli_list
+echo   release-all                        Release ALL platforms: push CHANGELOG, trigger release-all.yml
+echo   release                            Release ^(older local flow^), for one version   ^<WeKan version, e.g. 10.50^>
+echo   version                            Show the version numbers this checkout would release
+echo   changelog                          Show the CHANGELOG of the release being prepared
+echo   rebuild-docs                       Rebuild the API docs ^(wekan.yml + wekan.html^)
+echo   rebuild-release                    Rebuild a release that already exists
+echo   rel                                Prepare the release directory for one version   ^<WeKan version, e.g. 10.50^>
+echo   release-bundle                     Collect the built bundles for one version   ^<WeKan version, e.g. 10.50^>
+echo   release-ln                         Link the newest bundle as wekan-latest   ^<WeKan version, e.g. 10.50^>
+echo   release-x2                         Move an old release out of the download directory   ^<WeKan version, e.g. 10.50^>
+echo   release-cleanup                    Clean up after a release   ^<WeKan version, e.g. 10.50^>
+echo   release-charts                     Publish the Helm chart in wekan/charts
+echo   release-website                    Update wekan.fi with the new version and API docs
+echo   npm-publish                        Publish the npm packages xet7 maintains
+echo   test-download-urls                 Check every download URL snapcraft.yaml uses
+echo   clone-release-repos                Clone all release-related repositories
+echo   create-github-secrets              Create the GitHub Actions secrets a release needs
+echo   add-tag                            Add a git tag for a release   ^<Version tag, e.g. v10.50^>
+echo   delete-tag                         Delete a git tag, locally and on the remote   ^<Version tag, e.g. v10.50^>
+echo   stable-tag                         Move the 'stable' tag to HEAD
+echo   release-ondra-1                    Release the wekan-ondra / wekan-gantt-gpl variants, part 1
+echo   release-ondra-2                    Release the wekan-ondra / wekan-gantt-gpl variants, part 2
+echo   snap-build                         Build the snap from snapcraft.yaml
+echo   snap-install                       Install the locally built .snap
+echo   snap-push-to-store                 Push one .snap to the Snap Store   ^<Path to the .snap file^>
+echo   release-snap                       Release the snap for one version   ^<WeKan version, e.g. 10.50^>
+echo   snap-store-revisions               List the newest Snap Store revisions
+echo   snap-store-release-revision-to-channels Release one store revision to edge, beta and candidate   ^<Snap Store revision number^>
+echo   snap-edge                          Switch the installed snap to the edge channel
+echo   snap-stable                        Switch the installed snap to the stable channel
+echo   snapcraft-help                     snapcraft help topics
+echo   wekan-snap-help                    wekan.help of the installed snap
+echo   switch-kvm-snapcraft-waydroid-virtualbox Switch between KVM, snapcraft, Waydroid and VirtualBox
+echo   build-bundle-arm64                 Build the arm64 bundle   ^<WeKan version, e.g. 10.50^>
+echo   build-bundle-armhf                 Build the armhf ^(arm/v7^) bundle   ^<WeKan version, e.g. 10.50^>
+echo   build-bundle-ppc64el               Build the ppc64el bundle   ^<WeKan version, e.g. 10.50^>
+echo   build-bundle-ppc64le               Build the ppc64le bundle   ^<WeKan version, e.g. 10.50^>
+echo   build-bundle-s390x                 Build the s390x bundle   ^<WeKan version, e.g. 10.50^>
+echo   up                                 Fetch the built bundle from the amd64 build host   ^<WeKan version, e.g. 10.50^>
+echo   up-a                               Fetch the built bundle from the arm64 build host   ^<WeKan version, e.g. 10.50^>
+echo   up-o                               Fetch the built bundle from the ppc64le build host   ^<WeKan version, e.g. 10.50^>
+echo   up-s                               Fetch the built bundle from the s390x build host   ^<WeKan version, e.g. 10.50^>
+echo   up-w                               Upload the Windows bundle to the download server   ^<WeKan version, e.g. 10.50^>
+echo   docker-build                       Build the WeKan Docker image
+echo   docker-build-deps                  Create the multi-platform buildx builder
+echo   docker-publish-variant             Publish a variant image ^(wekan-gantt-gpl / wekan-ondra^)   ^<Image and version, e.g. wekan-gantt-gpl 10.50^>
+echo   docker-push-gantt                  Push the locally built images to Docker Hub and Quay   ^<Docker build tag and WeKan version^>
+echo   docker-registry-sync               Mirror the images between registries with skopeo
+echo   install-sandstorm                  Install the Sandstorm-related files
+echo   disable-sandstorm                  Disable the Sandstorm files again
+echo   sandstorm-make-spk                 Make the .spk package
+echo   sandstorm-test-dev                 Run the Sandstorm dev server
+echo   release-sandstorm                  Release the Sandstorm version
+echo   pull-translations                  Pull the newest translations from Transifex and merge them
+echo   fill-translations                  How many strings each language still needs
+echo   push-translation                   Push one language to Transifex   ^<Language code, e.g. ja^>
+echo   push-all-translations              Push every language to Transifex
+echo   push-english-base-translation      Push the English source to Transifex
+echo   push-copy-en-gb-translation        Copy the English source into en-GB on Transifex
+echo   report-english-regressions         Report English strings that regressed
+echo   verify-human-preference            Prove a pull keeps human translations ^(no network^)
+echo   merge-translations                 Merge a finished pull by hand
+echo   commit                             Commit with the editor open for a multi-line message
+echo   git-add-revert                     Add everything, then revert it again   ^<Path to unstage^>
+echo   delete-branch-local-and-remote     Delete a branch, locally and on the remote   ^<Branch name^>
+echo   count-lines-of-code-per-committer  Count lines of code per committer
+echo   stylus-to-css                      Convert the remaining Stylus to CSS
+echo   node-update                        Update Node.js everywhere in the sources
+echo   node-update-local                  Update the local Node.js version
+echo   migrate-mongodb-to-ferretdb        Migrate a MongoDB database to FerretDB ^(--help first^)   ^<Arguments, e.g. --help^>
+echo   ipaddress                          Show the VirtualBox VM's IP address
+echo   node-allow-port-80                 Let Node.js bind port 80 in the VM
+echo   start-wekan                        Start WeKan in the VirtualBox VM
+echo   stop-wekan                         Stop WeKan in the VirtualBox VM
+goto :eof
+
+:cli_run
+set "K=%~1"
+set "ARGS=%*"
+call set "ARGS=%%ARGS:*%K%=%%"
+set "CMD="
+set "SHCMD="
+if /I "%K%"=="release-all" (set "CMD=bash releases/release-all.sh" ^& goto cli_go)
+if /I "%K%"=="release" (set "CMD=bash releases/release.sh" ^& goto cli_go)
+if /I "%K%"=="version" (set "CMD=bash releases/version.sh" ^& goto cli_go)
+if /I "%K%"=="changelog" (set "CMD=bash releases/changelog.sh" ^& goto cli_go)
+if /I "%K%"=="rebuild-docs" (set "CMD=bash releases/rebuild-docs.sh" ^& goto cli_go)
+if /I "%K%"=="rebuild-release" (set "CMD=bash releases/rebuild-release.sh" ^& goto cli_go)
+if /I "%K%"=="rel" (set "CMD=bash releases/rel.sh" ^& goto cli_go)
+if /I "%K%"=="release-bundle" (set "CMD=bash releases/release-bundle.sh" ^& goto cli_go)
+if /I "%K%"=="release-ln" (set "CMD=bash releases/release-ln.sh" ^& goto cli_go)
+if /I "%K%"=="release-x2" (set "CMD=bash releases/release-x2.sh" ^& goto cli_go)
+if /I "%K%"=="release-cleanup" (set "CMD=bash releases/release-cleanup.sh" ^& goto cli_go)
+if /I "%K%"=="release-charts" (set "CMD=bash releases/release-charts.sh" ^& goto cli_go)
+if /I "%K%"=="release-website" (set "CMD=bash releases/release-website.sh" ^& goto cli_go)
+if /I "%K%"=="npm-publish" (set "CMD=bash releases/npm-publish.sh" ^& goto cli_go)
+if /I "%K%"=="test-download-urls" (set "CMD=bash releases/test-download-urls.sh" ^& goto cli_go)
+if /I "%K%"=="clone-release-repos" (set "CMD=bash releases/clone-release-repos.sh" ^& goto cli_go)
+if /I "%K%"=="create-github-secrets" (set "CMD=bash releases/create-github-secrets.sh" ^& goto cli_go)
+if /I "%K%"=="add-tag" (set "CMD=bash releases/add-tag.sh" ^& goto cli_go)
+if /I "%K%"=="delete-tag" (set "CMD=bash releases/delete-tag.sh" ^& goto cli_go)
+if /I "%K%"=="stable-tag" (set "SHCMD=git tag --force stable HEAD && git push --tags --force && git push --follow-tags" ^& goto cli_go)
+if /I "%K%"=="release-ondra-1" (set "CMD=bash releases/release-ondra-1.sh" ^& goto cli_go)
+if /I "%K%"=="release-ondra-2" (set "CMD=bash releases/release-ondra-2.sh" ^& goto cli_go)
+if /I "%K%"=="snap-build" (set "CMD=bash releases/snap-build.sh" ^& goto cli_go)
+if /I "%K%"=="snap-install" (set "CMD=bash releases/snap-install.sh" ^& goto cli_go)
+if /I "%K%"=="snap-push-to-store" (set "CMD=bash releases/snap-push-to-store.sh" ^& goto cli_go)
+if /I "%K%"=="release-snap" (set "CMD=bash releases/release-snap.sh" ^& goto cli_go)
+if /I "%K%"=="snap-store-revisions" (set "CMD=bash releases/snap-store-revisions.sh" ^& goto cli_go)
+if /I "%K%"=="snap-store-release-revision-to-channels" (set "CMD=bash releases/snap-store-release-revision-to-channels.sh" ^& goto cli_go)
+if /I "%K%"=="snap-edge" (set "CMD=bash releases/snap-edge.sh" ^& goto cli_go)
+if /I "%K%"=="snap-stable" (set "CMD=bash releases/snap-stable.sh" ^& goto cli_go)
+if /I "%K%"=="snapcraft-help" (set "CMD=bash releases/snapcraft-help.sh" ^& goto cli_go)
+if /I "%K%"=="wekan-snap-help" (set "CMD=bash releases/wekan-snap-help.sh" ^& goto cli_go)
+if /I "%K%"=="switch-kvm-snapcraft-waydroid-virtualbox" (set "CMD=bash releases/switch-kvm-snapcraft-waydroid-virtualbox.sh" ^& goto cli_go)
+if /I "%K%"=="build-bundle-arm64" (set "CMD=bash releases/build-bundle-arm64.sh" ^& goto cli_go)
+if /I "%K%"=="build-bundle-armhf" (set "CMD=bash releases/build-bundle-armhf.sh" ^& goto cli_go)
+if /I "%K%"=="build-bundle-ppc64el" (set "CMD=bash releases/build-bundle-ppc64el.sh" ^& goto cli_go)
+if /I "%K%"=="build-bundle-ppc64le" (set "CMD=bash releases/build-bundle-ppc64le.sh" ^& goto cli_go)
+if /I "%K%"=="build-bundle-s390x" (set "CMD=bash releases/build-bundle-s390x.sh" ^& goto cli_go)
+if /I "%K%"=="up" (set "CMD=bash releases/up.sh" ^& goto cli_go)
+if /I "%K%"=="up-a" (set "CMD=bash releases/up-a.sh" ^& goto cli_go)
+if /I "%K%"=="up-o" (set "CMD=bash releases/up-o.sh" ^& goto cli_go)
+if /I "%K%"=="up-s" (set "CMD=bash releases/up-s.sh" ^& goto cli_go)
+if /I "%K%"=="up-w" (set "CMD=bash releases/up-w.sh" ^& goto cli_go)
+if /I "%K%"=="docker-build" (set "CMD=bash releases/docker-build.sh" ^& goto cli_go)
+if /I "%K%"=="docker-build-deps" (set "CMD=bash releases/docker-build-deps.sh" ^& goto cli_go)
+if /I "%K%"=="docker-publish-variant" (set "CMD=bash releases/docker-publish-variant.sh" ^& goto cli_go)
+if /I "%K%"=="docker-push-gantt" (set "CMD=bash releases/docker-push-gantt.sh" ^& goto cli_go)
+if /I "%K%"=="docker-registry-sync" (set "CMD=bash releases/docker-registry-sync.sh" ^& goto cli_go)
+if /I "%K%"=="install-sandstorm" (set "CMD=bash releases/install-sandstorm.sh" ^& goto cli_go)
+if /I "%K%"=="disable-sandstorm" (set "CMD=bash releases/disable-sandstorm.sh" ^& goto cli_go)
+if /I "%K%"=="sandstorm-make-spk" (set "CMD=bash releases/sandstorm-make-spk.sh" ^& goto cli_go)
+if /I "%K%"=="sandstorm-test-dev" (set "CMD=bash releases/sandstorm-test-dev.sh" ^& goto cli_go)
+if /I "%K%"=="release-sandstorm" (set "CMD=bash releases/release-sandstorm.sh" ^& goto cli_go)
+if /I "%K%"=="pull-translations" (set "CMD=bash releases/translations/pull-translations.sh" ^& goto cli_go)
+if /I "%K%"=="fill-translations" (set "CMD=node releases/translations/fill-translations.mjs --missing" ^& goto cli_go)
+if /I "%K%"=="push-translation" (set "CMD=bash releases/translations/push-translation.sh" ^& goto cli_go)
+if /I "%K%"=="push-all-translations" (set "CMD=bash releases/translations/push-all-translations.sh" ^& goto cli_go)
+if /I "%K%"=="push-english-base-translation" (set "CMD=bash releases/translations/push-english-base-translation.sh" ^& goto cli_go)
+if /I "%K%"=="push-copy-en-gb-translation" (set "CMD=bash releases/translations/push-copy-en-gb-translation.sh" ^& goto cli_go)
+if /I "%K%"=="report-english-regressions" (set "CMD=node releases/translations/report-english-regressions.mjs" ^& goto cli_go)
+if /I "%K%"=="verify-human-preference" (set "CMD=node releases/translations/verify-human-preference.mjs" ^& goto cli_go)
+if /I "%K%"=="merge-translations" (set "CMD=node releases/translations/merge-translations.mjs" ^& goto cli_go)
+if /I "%K%"=="commit" (set "CMD=bash releases/commit.sh" ^& goto cli_go)
+if /I "%K%"=="git-add-revert" (set "SHCMD=git restore --staged" ^& goto cli_go)
+if /I "%K%"=="delete-branch-local-and-remote" (set "CMD=bash releases/delete-branch-local-and-remote.sh" ^& goto cli_go)
+if /I "%K%"=="count-lines-of-code-per-committer" (set "CMD=bash releases/count-lines-of-code-per-committer.sh" ^& goto cli_go)
+if /I "%K%"=="stylus-to-css" (set "CMD=bash releases/stylus-to-css.sh" ^& goto cli_go)
+if /I "%K%"=="node-update" (set "CMD=bash releases/node-update.sh" ^& goto cli_go)
+if /I "%K%"=="node-update-local" (set "CMD=bash releases/node-update-local.sh" ^& goto cli_go)
+if /I "%K%"=="migrate-mongodb-to-ferretdb" (set "CMD=node releases/migrate-mongodb-to-ferretdb.mjs" ^& goto cli_go)
+if /I "%K%"=="ipaddress" (set "CMD=bash releases/virtualbox/ipaddress.sh" ^& goto cli_go)
+if /I "%K%"=="node-allow-port-80" (set "CMD=bash releases/virtualbox/node-allow-port-80.sh" ^& goto cli_go)
+if /I "%K%"=="start-wekan" (set "CMD=bash releases/virtualbox/start-wekan.sh" ^& goto cli_go)
+if /I "%K%"=="stop-wekan" (set "CMD=bash releases/virtualbox/stop-wekan.sh" ^& goto cli_go)
+echo build.bat: no command called "%K%".
+echo Try: build.bat --list
+exit /b 2
+:cli_go
+call :need_bash
+if errorlevel 1 exit /b 1
+if not "!SHCMD!"=="" goto cli_go_sh
+call !CMD! !ARGS!
+exit /b %errorlevel%
+:cli_go_sh
+call bash -c "!SHCMD! !ARGS!"
+exit /b %errorlevel%
+
+REM ===========================================================================
+:menu_cli
+echo.
+call :cli_help
+echo.
+echo Commands:
+call :cli_list
+pause
+goto menu
+
 
 REM ===========================================================================
 :menu_docker

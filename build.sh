@@ -1434,100 +1434,113 @@ choose() {
 # here, one line each, and tests/buildScriptParity.test.cjs fails when a script is
 # added to releases/ without being added to BOTH build.sh and build.bat.
 #
-# Format: "Group|Label|path|argument prompt" - an empty prompt means the script
-# takes no arguments; a non-empty one is asked for and passed through, so a
-# script that needs a version or a language still works from the menu.
+# Format: "Group|Label|what|argument prompt|platform".
+#   what     a path under releases/, or a command when it starts with "!" - a
+#            dozen of these were one-line wrapper scripts (`sudo ufw enable`,
+#            `git tag --force stable HEAD`), which are the command itself now
+#            that the menu is where they are run from; nothing but these menus
+#            ever called them.
+#   prompt   empty when the entry takes no argument; otherwise it is asked for
+#            and passed through, so a script that needs a version or a language
+#            still works from the menu.
+#   platform empty for everything both platforms can run, "linux" for the ones
+#            that are systemd, ufw, snap or multipass - build.bat does not offer
+#            those, because Windows cannot do them at all.
+#   key      the name this entry answers to on the command line
+#            (`./build.sh release-all`). Empty = the file name without its
+#            extension, which is what a reader would guess; the inline commands
+#            keep the name of the wrapper file they replaced, so
+#            `./build.sh ufw-enable` still does what releases/ufw-enable.sh did.
 #
 # NOT here, on purpose: run-everything.sh, db-conformance.sh and
 # fix-changelog-hashes.sh (already in the Tests and Setup menus), ensure-tools.sh
 # (a helper other scripts source), ferretdb/* (they run INSIDE the built
 # snap/bundle, not on a maintainer's machine) and the superseded old-*.sh and
 # translations/fill_translations.py.
-RELEASE_SCRIPTS=(
-	"Release|Release ALL platforms: push CHANGELOG, trigger release-all.yml|releases/release-all.sh|"
-	"Release|Release (older local flow), for one version|releases/release.sh|WeKan version, e.g. 10.50"
-	"Release|Show the version numbers this checkout would release|releases/version.sh|"
-	"Release|Show the CHANGELOG of the release being prepared|releases/changelog.sh|"
-	"Release|Rebuild the API docs (wekan.yml + wekan.html)|releases/rebuild-docs.sh|"
-	"Release|Rebuild a release that already exists|releases/rebuild-release.sh|"
-	"Release|Prepare the release directory for one version|releases/rel.sh|WeKan version, e.g. 10.50"
-	"Release|Collect the built bundles for one version|releases/release-bundle.sh|WeKan version, e.g. 10.50"
-	"Release|Link the newest bundle as wekan-latest|releases/release-ln.sh|WeKan version, e.g. 10.50"
-	"Release|Move an old release out of the download directory|releases/release-x2.sh|WeKan version, e.g. 10.50"
-	"Release|Clean up after a release|releases/release-cleanup.sh|WeKan version, e.g. 10.50"
-	"Release|Publish the Helm chart in wekan/charts|releases/release-charts.sh|"
-	"Release|Update wekan.fi with the new version and API docs|releases/release-website.sh|"
-	"Release|Publish the npm packages xet7 maintains|releases/npm-publish.sh|"
-	"Release|Check every download URL snapcraft.yaml uses|releases/test-download-urls.sh|"
-	"Release|Clone all release-related repositories|releases/clone-release-repos.sh|"
-	"Release|Create the GitHub Actions secrets a release needs|releases/create-github-secrets.sh|"
-	"Release|Add a git tag for a release|releases/add-tag.sh|Version tag, e.g. v10.50"
-	"Release|Delete a git tag, locally and on the remote|releases/delete-tag.sh|Version tag, e.g. v10.50"
-	"Release|Move the 'stable' tag to HEAD|releases/stable-tag.sh|"
-	"Release|Release the wekan-ondra / wekan-gantt-gpl variants, part 1|releases/release-ondra-1.sh|"
-	"Release|Release the wekan-ondra / wekan-gantt-gpl variants, part 2|releases/release-ondra-2.sh|"
-	"Snap|Build the snap from snapcraft.yaml|releases/snap-build.sh|"
-	"Snap|Install the locally built .snap|releases/snap-install.sh|"
-	"Snap|Push one .snap to the Snap Store|releases/snap-push-to-store.sh|Path to the .snap file"
-	"Snap|Release the snap for one version|releases/release-snap.sh|WeKan version, e.g. 10.50"
-	"Snap|List the newest Snap Store revisions|releases/snap-store-revisions.sh|"
-	"Snap|Release one store revision to edge, beta and candidate|releases/snap-store-release-revision-to-channels.sh|Snap Store revision number"
-	"Snap|Switch the installed snap to the edge channel|releases/snap-edge.sh|"
-	"Snap|Switch the installed snap to the stable channel|releases/snap-stable.sh|"
-	"Snap|snapcraft help topics|releases/snapcraft-help.sh|"
-	"Snap|wekan.help of the installed snap|releases/wekan-snap-help.sh|"
-	"Snap|Enable and start snapd|releases/snapd-start.sh|"
-	"Snap|Disable and stop snapd|releases/snapd-stop.sh|"
-	"Snap|Switch between KVM, snapcraft, Waydroid and VirtualBox|releases/switch-kvm-snapcraft-waydroid-virtualbox.sh|"
-	"Bundles|Build the arm64 bundle|releases/build-bundle-arm64.sh|WeKan version, e.g. 10.50"
-	"Bundles|Build the armhf (arm/v7) bundle|releases/build-bundle-armhf.sh|WeKan version, e.g. 10.50"
-	"Bundles|Build the ppc64el bundle|releases/build-bundle-ppc64el.sh|WeKan version, e.g. 10.50"
-	"Bundles|Build the ppc64le bundle|releases/build-bundle-ppc64le.sh|WeKan version, e.g. 10.50"
-	"Bundles|Build the s390x bundle|releases/build-bundle-s390x.sh|WeKan version, e.g. 10.50"
-	"Bundles|Fetch the built bundle from the amd64 build host|releases/up.sh|WeKan version, e.g. 10.50"
-	"Bundles|Fetch the built bundle from the arm64 build host|releases/up-a.sh|WeKan version, e.g. 10.50"
-	"Bundles|Fetch the built bundle from the ppc64le build host|releases/up-o.sh|WeKan version, e.g. 10.50"
-	"Bundles|Fetch the built bundle from the s390x build host|releases/up-s.sh|WeKan version, e.g. 10.50"
-	"Bundles|Upload the Windows bundle to the download server|releases/up-w.sh|WeKan version, e.g. 10.50"
-	"Docker images|Build the WeKan Docker image|releases/docker-build.sh|"
-	"Docker images|Create the multi-platform buildx builder|releases/docker-build-deps.sh|"
-	"Docker images|Publish a variant image (wekan-gantt-gpl / wekan-ondra)|releases/docker-publish-variant.sh|Image and version, e.g. wekan-gantt-gpl 10.50"
-	"Docker images|Push the locally built images to Docker Hub and Quay|releases/docker-push-gantt.sh|Docker build tag and WeKan version"
-	"Docker images|Mirror the images between registries with skopeo|releases/docker-registry-sync.sh|"
-	"Docker images|Start the Docker containers|releases/docker-start.sh|"
-	"Docker images|Stop the Docker containers|releases/docker-stop.sh|"
-	"Sandstorm|Install the Sandstorm-related files|releases/install-sandstorm.sh|"
-	"Sandstorm|Disable the Sandstorm files again|releases/disable-sandstorm.sh|"
-	"Sandstorm|Make the .spk package|releases/sandstorm-make-spk.sh|"
-	"Sandstorm|Run the Sandstorm dev server|releases/sandstorm-test-dev.sh|"
-	"Sandstorm|Release the Sandstorm version|releases/release-sandstorm.sh|"
-	"Translations|Pull the newest translations from Transifex and merge them|releases/translations/pull-translations.sh|"
-	"Translations|How many strings each language still needs|releases/translations/fill-translations.mjs --missing|"
-	"Translations|Push one language to Transifex|releases/translations/push-translation.sh|Language code, e.g. ja"
-	"Translations|Push every language to Transifex|releases/translations/push-all-translations.sh|"
-	"Translations|Push the English source to Transifex|releases/translations/push-english-base-translation.sh|"
-	"Translations|Copy the English source into en-GB on Transifex|releases/translations/push-copy-en-gb-translation.sh|"
-	"Translations|Report English strings that regressed|releases/translations/report-english-regressions.mjs|"
-	"Translations|Prove a pull keeps human translations (no network)|releases/translations/verify-human-preference.mjs|"
-	"Translations|Merge a finished pull by hand|releases/translations/merge-translations.mjs|"
-	"Git and repo|Commit with the editor open for a multi-line message|releases/commit.sh|"
-	"Git and repo|Add everything, then revert it again|releases/git-add-revert.sh|"
-	"Git and repo|Delete a branch, locally and on the remote|releases/delete-branch-local-and-remote.sh|Branch name"
-	"Git and repo|Count lines of code per committer|releases/count-lines-of-code-per-committer.sh|"
-	"Git and repo|Keep syncing this checkout in a loop|releases/syncloop.sh|"
-	"Git and repo|Convert the remaining Stylus to CSS|releases/stylus-to-css.sh|"
-	"Git and repo|Update Node.js everywhere in the sources|releases/node-update.sh|"
-	"Git and repo|Update the local Node.js version|releases/node-update-local.sh|"
-	"Git and repo|Migrate a MongoDB database to FerretDB (--help first)|releases/migrate-mongodb-to-ferretdb.mjs|Arguments, e.g. --help"
-	"Server and VM|Enable and start the SSH server|releases/ssh-start.sh|"
-	"Server and VM|Disable and stop the SSH server|releases/ssh-stop.sh|"
-	"Server and VM|Enable the ufw firewall|releases/ufw-enable.sh|"
-	"Server and VM|Disable the ufw firewall|releases/ufw-disable.sh|"
-	"Server and VM|Remove the Multipass VM|releases/multipass-remove.sh|"
-	"Server and VM|Show the VirtualBox VM's IP address|releases/virtualbox/ipaddress.sh|"
-	"Server and VM|Let Node.js bind port 80 in the VM|releases/virtualbox/node-allow-port-80.sh|"
-	"Server and VM|Start WeKan in the VirtualBox VM|releases/virtualbox/start-wekan.sh|"
-	"Server and VM|Stop WeKan in the VirtualBox VM|releases/virtualbox/stop-wekan.sh|"
+RELEASE_SCRIPTS=(	"Release|Release ALL platforms: push CHANGELOG, trigger release-all.yml|releases/release-all.sh|||"
+	"Release|Release (older local flow), for one version|releases/release.sh|WeKan version, e.g. 10.50||"
+	"Release|Show the version numbers this checkout would release|releases/version.sh|||"
+	"Release|Show the CHANGELOG of the release being prepared|releases/changelog.sh|||"
+	"Release|Rebuild the API docs (wekan.yml + wekan.html)|releases/rebuild-docs.sh|||"
+	"Release|Rebuild a release that already exists|releases/rebuild-release.sh|||"
+	"Release|Prepare the release directory for one version|releases/rel.sh|WeKan version, e.g. 10.50||"
+	"Release|Collect the built bundles for one version|releases/release-bundle.sh|WeKan version, e.g. 10.50||"
+	"Release|Link the newest bundle as wekan-latest|releases/release-ln.sh|WeKan version, e.g. 10.50||"
+	"Release|Move an old release out of the download directory|releases/release-x2.sh|WeKan version, e.g. 10.50||"
+	"Release|Clean up after a release|releases/release-cleanup.sh|WeKan version, e.g. 10.50||"
+	"Release|Publish the Helm chart in wekan/charts|releases/release-charts.sh|||"
+	"Release|Update wekan.fi with the new version and API docs|releases/release-website.sh|||"
+	"Release|Publish the npm packages xet7 maintains|releases/npm-publish.sh|||"
+	"Release|Check every download URL snapcraft.yaml uses|releases/test-download-urls.sh|||"
+	"Release|Clone all release-related repositories|releases/clone-release-repos.sh|||"
+	"Release|Create the GitHub Actions secrets a release needs|releases/create-github-secrets.sh|||"
+	"Release|Add a git tag for a release|releases/add-tag.sh|Version tag, e.g. v10.50||"
+	"Release|Delete a git tag, locally and on the remote|releases/delete-tag.sh|Version tag, e.g. v10.50||"
+	"Release|Move the 'stable' tag to HEAD|!git tag --force stable HEAD && git push --tags --force && git push --follow-tags|||stable-tag"
+	"Release|Release the wekan-ondra / wekan-gantt-gpl variants, part 1|releases/release-ondra-1.sh|||"
+	"Release|Release the wekan-ondra / wekan-gantt-gpl variants, part 2|releases/release-ondra-2.sh|||"
+	"Snap|Build the snap from snapcraft.yaml|releases/snap-build.sh|||"
+	"Snap|Install the locally built .snap|releases/snap-install.sh|||"
+	"Snap|Push one .snap to the Snap Store|releases/snap-push-to-store.sh|Path to the .snap file||"
+	"Snap|Release the snap for one version|releases/release-snap.sh|WeKan version, e.g. 10.50||"
+	"Snap|List the newest Snap Store revisions|releases/snap-store-revisions.sh|||"
+	"Snap|Release one store revision to edge, beta and candidate|releases/snap-store-release-revision-to-channels.sh|Snap Store revision number||"
+	"Snap|Switch the installed snap to the edge channel|releases/snap-edge.sh|||"
+	"Snap|Switch the installed snap to the stable channel|releases/snap-stable.sh|||"
+	"Snap|snapcraft help topics|releases/snapcraft-help.sh|||"
+	"Snap|wekan.help of the installed snap|releases/wekan-snap-help.sh|||"
+	"Snap|Enable and start snapd|!sudo systemctl enable snapd && sudo systemctl start snapd||linux|snapd-start"
+	"Snap|Disable and stop snapd|!sudo systemctl disable snapd && sudo systemctl stop snapd||linux|snapd-stop"
+	"Snap|Switch between KVM, snapcraft, Waydroid and VirtualBox|releases/switch-kvm-snapcraft-waydroid-virtualbox.sh|||"
+	"Bundles|Build the arm64 bundle|releases/build-bundle-arm64.sh|WeKan version, e.g. 10.50||"
+	"Bundles|Build the armhf (arm/v7) bundle|releases/build-bundle-armhf.sh|WeKan version, e.g. 10.50||"
+	"Bundles|Build the ppc64el bundle|releases/build-bundle-ppc64el.sh|WeKan version, e.g. 10.50||"
+	"Bundles|Build the ppc64le bundle|releases/build-bundle-ppc64le.sh|WeKan version, e.g. 10.50||"
+	"Bundles|Build the s390x bundle|releases/build-bundle-s390x.sh|WeKan version, e.g. 10.50||"
+	"Bundles|Fetch the built bundle from the amd64 build host|releases/up.sh|WeKan version, e.g. 10.50||"
+	"Bundles|Fetch the built bundle from the arm64 build host|releases/up-a.sh|WeKan version, e.g. 10.50||"
+	"Bundles|Fetch the built bundle from the ppc64le build host|releases/up-o.sh|WeKan version, e.g. 10.50||"
+	"Bundles|Fetch the built bundle from the s390x build host|releases/up-s.sh|WeKan version, e.g. 10.50||"
+	"Bundles|Upload the Windows bundle to the download server|releases/up-w.sh|WeKan version, e.g. 10.50||"
+	"Docker images|Build the WeKan Docker image|releases/docker-build.sh|||"
+	"Docker images|Create the multi-platform buildx builder|releases/docker-build-deps.sh|||"
+	"Docker images|Publish a variant image (wekan-gantt-gpl / wekan-ondra)|releases/docker-publish-variant.sh|Image and version, e.g. wekan-gantt-gpl 10.50||"
+	"Docker images|Push the locally built images to Docker Hub and Quay|releases/docker-push-gantt.sh|Docker build tag and WeKan version||"
+	"Docker images|Mirror the images between registries with skopeo|releases/docker-registry-sync.sh|||"
+	"Docker images|Start the Docker containers|!sudo systemctl enable docker containerd && sudo systemctl start docker containerd||linux|docker-start"
+	"Docker images|Stop the Docker containers|!sudo systemctl stop docker containerd && sudo systemctl disable docker containerd||linux|docker-stop"
+	"Sandstorm|Install the Sandstorm-related files|releases/install-sandstorm.sh|||"
+	"Sandstorm|Disable the Sandstorm files again|releases/disable-sandstorm.sh|||"
+	"Sandstorm|Make the .spk package|releases/sandstorm-make-spk.sh|||"
+	"Sandstorm|Run the Sandstorm dev server|releases/sandstorm-test-dev.sh|||"
+	"Sandstorm|Release the Sandstorm version|releases/release-sandstorm.sh|||"
+	"Translations|Pull the newest translations from Transifex and merge them|releases/translations/pull-translations.sh|||"
+	"Translations|How many strings each language still needs|releases/translations/fill-translations.mjs --missing|||"
+	"Translations|Push one language to Transifex|releases/translations/push-translation.sh|Language code, e.g. ja||"
+	"Translations|Push every language to Transifex|releases/translations/push-all-translations.sh|||"
+	"Translations|Push the English source to Transifex|releases/translations/push-english-base-translation.sh|||"
+	"Translations|Copy the English source into en-GB on Transifex|releases/translations/push-copy-en-gb-translation.sh|||"
+	"Translations|Report English strings that regressed|releases/translations/report-english-regressions.mjs|||"
+	"Translations|Prove a pull keeps human translations (no network)|releases/translations/verify-human-preference.mjs|||"
+	"Translations|Merge a finished pull by hand|releases/translations/merge-translations.mjs|||"
+	"Git and repo|Commit with the editor open for a multi-line message|releases/commit.sh|||"
+	"Git and repo|Add everything, then revert it again|!git restore --staged|Path to unstage||git-add-revert"
+	"Git and repo|Delete a branch, locally and on the remote|releases/delete-branch-local-and-remote.sh|Branch name||"
+	"Git and repo|Count lines of code per committer|releases/count-lines-of-code-per-committer.sh|||"
+	"Git and repo|Keep syncing this checkout in a loop|!while true; do sync; sleep 1; done||linux|syncloop"
+	"Git and repo|Convert the remaining Stylus to CSS|releases/stylus-to-css.sh|||"
+	"Git and repo|Update Node.js everywhere in the sources|releases/node-update.sh|||"
+	"Git and repo|Update the local Node.js version|releases/node-update-local.sh|||"
+	"Git and repo|Migrate a MongoDB database to FerretDB (--help first)|releases/migrate-mongodb-to-ferretdb.mjs|Arguments, e.g. --help||"
+	"Server and VM|Enable and start the SSH server|!sudo systemctl enable ssh && sudo systemctl start ssh||linux|ssh-start"
+	"Server and VM|Disable and stop the SSH server|!sudo systemctl disable ssh && sudo systemctl stop ssh||linux|ssh-stop"
+	"Server and VM|Enable the ufw firewall|!sudo ufw enable||linux|ufw-enable"
+	"Server and VM|Disable the ufw firewall|!sudo ufw disable||linux|ufw-disable"
+	"Server and VM|Remove the Multipass VM|!multipass stop --all && multipass delete --all && multipass purge && sudo snap remove multipass||linux|multipass-remove"
+	"Server and VM|Show the VirtualBox VM's IP address|releases/virtualbox/ipaddress.sh|||"
+	"Server and VM|Let Node.js bind port 80 in the VM|releases/virtualbox/node-allow-port-80.sh|||"
+	"Server and VM|Start WeKan in the VirtualBox VM|releases/virtualbox/start-wekan.sh|||"
+	"Server and VM|Stop WeKan in the VirtualBox VM|releases/virtualbox/stop-wekan.sh|||"
 )
 
 # Pick a group, then a script. Returns 0 when something ran, 1 on Back.
@@ -1554,7 +1567,8 @@ releases_menu() {
 		labels+=("${rest%%|*}")
 		rest="${rest#*|}"
 		paths+=("${rest%%|*}")
-		prompts+=("${rest#*|}")
+		rest="${rest#*|}"
+		prompts+=("${rest%%|*}")
 	done
 	echo; echo "== $group =="
 	local i idx=-1
@@ -1568,10 +1582,12 @@ releases_menu() {
 	if [ -n "$prompt" ]; then
 		echo; read -r -p "$prompt: " args
 	fi
-	# .mjs is run by node, everything else by bash - and the script keeps its own
-	# arguments (the entry may already carry a flag, e.g. --missing).
-	echo; echo "--- $script $args ---"
+	echo; echo "--- ${script#!} $args ---"
 	case "$script" in
+		# A command, not a script: what used to be a one-line wrapper file.
+		!*)             eval "${script#!} $args" ;;
+		# .mjs is run by node, everything else by bash - and the entry keeps its
+		# own arguments (it may already carry a flag, e.g. --missing).
 		*.mjs|*.mjs\ *) node $script $args ;;
 		*)              bash $script $args ;;
 	esac
@@ -1615,18 +1631,101 @@ docker_menu() {
 	done
 }
 
+
+# ── CLI: run any of the above without the menu ───────────────────────────────
+# `./build.sh <name> [arguments]` runs the same thing menu option would, so a
+# release, a translation pull or a bundle build can go in a script or a cron
+# entry. The name is the file name without its extension (release-all,
+# pull-translations, build-bundle-s390x) or, for the entries that are a command
+# rather than a script, the name of the wrapper file it replaced (ufw-enable).
+release_entry_fields() {
+	# $1 = entry; sets ENT_GROUP ENT_LABEL ENT_WHAT ENT_PROMPT ENT_PLATFORM ENT_KEY
+	local rest="$1"
+	ENT_GROUP="${rest%%|*}"; rest="${rest#*|}"
+	ENT_LABEL="${rest%%|*}"; rest="${rest#*|}"
+	ENT_WHAT="${rest%%|*}";  rest="${rest#*|}"
+	ENT_PROMPT="${rest%%|*}"; rest="${rest#*|}"
+	ENT_PLATFORM="${rest%%|*}"; rest="${rest#*|}"
+	ENT_KEY="${rest%%|*}"
+	if [ -z "$ENT_KEY" ]; then
+		ENT_KEY="${ENT_WHAT%% *}"          # drop any flags the entry carries
+		ENT_KEY="${ENT_KEY##*/}"           # the file name
+		ENT_KEY="${ENT_KEY%.*}"            # without its extension
+	fi
+}
+
+cli_list() {
+	local it
+	for it in "${RELEASE_SCRIPTS[@]}"; do
+		release_entry_fields "$it"
+		printf '  %-38s %s%s\n' "$ENT_KEY" "$ENT_LABEL" \
+			"$([ -n "$ENT_PROMPT" ] && echo "   <$ENT_PROMPT>")"
+	done
+}
+
+cli_help() {
+	cat <<'USAGE'
+WeKan build.sh - menu, or a command line.
+
+  ./build.sh                          the menu
+  ./build.sh --help                   this text
+  ./build.sh --list                   every command name, with what it does
+  ./build.sh <name> [arguments]       run one, without the menu
+  ./build.sh --run-everything         every test WeKan and FerretDB have
+
+Examples:
+
+  ./build.sh release-all              push the CHANGELOG, trigger the release
+  ./build.sh version                  show the version numbers this would release
+  ./build.sh rebuild-docs             rebuild wekan.yml + wekan.html
+  ./build.sh build-bundle-s390x 10.50 build the s390x bundle of that version
+  ./build.sh release-snap 10.50       release the snap of that version
+  ./build.sh pull-translations        pull and merge the newest translations
+  ./build.sh push-translation ja      push one language to Transifex
+  ./build.sh fill-translations        how many strings each language still needs
+  ./build.sh add-tag v10.50           tag the release
+  ./build.sh docker-publish-variant wekan-gantt-gpl 10.50
+  ./build.sh ufw-enable               what releases/ufw-enable.sh used to do
+
+Arguments after the name are passed to the script unchanged, so anything the
+script accepts works here too. Names come from --list.
+USAGE
+}
+
+cli_run() {
+	local want="$1"; shift
+	local it
+	for it in "${RELEASE_SCRIPTS[@]}"; do
+		release_entry_fields "$it"
+		[ "$ENT_KEY" = "$want" ] || continue
+		case "$ENT_WHAT" in
+			!*)             eval "${ENT_WHAT#!}" "$@" ;;
+			*.mjs|*.mjs\ *) node $ENT_WHAT "$@" ;;
+			*)              bash $ENT_WHAT "$@" ;;
+		esac
+		return $?
+	done
+	echo "build.sh: no command called '$want'." >&2
+	echo "Try: ./build.sh --list" >&2
+	return 2
+}
+
 # Non-interactive entry point for releases/run-everything.sh (which build.bat runs
 # on Windows): the same "EVERYTHING (sequential)" the Tests menu offers, without
 # the menu.
-if [ "${1:-}" = "--run-everything" ]; then
-	run_everything
-	exit $?
-fi
+case "${1:-}" in
+	--run-everything) run_everything; exit $? ;;
+	-h|--help|help)   cli_help; exit 0 ;;
+	-l|--list|list)   cli_help | head -8; echo; echo "Commands:"; cli_list; exit 0 ;;
+	"")               ;;                       # no arguments: the menu below
+	-*)               echo "build.sh: unknown option '$1'" >&2; cli_help; exit 2 ;;
+	*)                cli_run "$@"; exit $? ;;
+esac
 
 opt=""
 while [ -z "$opt" ]; do
 	echo; echo "==================== WeKan ===================="
-	select cat in "Setup" "Dev server" "Tests" "Docker" "Releases" "Tools" "Quit"; do
+	select cat in "Setup" "Dev server" "Tests" "Docker" "Releases" "CLI commands" "Tools" "Quit"; do
 		case $cat in
 			"Setup")
 				choose "Setup" \
@@ -1667,6 +1766,8 @@ while [ -z "$opt" ]; do
 					"Mirror repo to forges|Mirror repo GitHub -> GitLab/Codeberg/Forgejo/Gitea: code + issues + PRs + Actions (sync missing, convert CI syntax)" ;;
 			"Docker") if docker_menu; then exit 0; fi ;;
 			"Releases") if releases_menu; then exit 0; fi ;;
+			"CLI commands")
+				cli_help; echo; echo "Commands:"; cli_list; pause ;;
 			"Quit")   exit 0 ;;
 			*)        echo "invalid option" ;;
 		esac
