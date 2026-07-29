@@ -266,7 +266,7 @@ browser build to verify).
 This release publishes the following packages that were not being published:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5784f5455">One release now publishes all three snaps: wekan, wekan-ondra and wekan-gantt-gpl</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f3f3d21a3">One release now publishes all three snaps: wekan, wekan-ondra and wekan-gantt-gpl</a>. Thanks to xet7.</summary>
 
 People are still on the older snap names, so a release that publishes only
 `wekan` leaves them on a stale package. Two things stood in the way, both in the
@@ -300,7 +300,21 @@ overwrite the default snap in the store.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/47416efe6">The variant Docker images are published by hand, by retagging the released image</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/652a6b850">The variant sync renames the snap in both snapcraft files, not just one</a>. Thanks to xet7.</summary>
+
+`snapcraft.yaml` is what the variant job builds; `snapcraft-core26.yaml` is the
+same snap on the next base. The sync step renamed only the first, so the core26
+file in `wekan-ondra` and `wekan-gantt-gpl` kept saying `name: wekan` — and a
+core26 build from either repository would have published itself as the DEFAULT
+WeKan snap. Both files are renamed now, and a guard pins it.
+
+It also ignores `/wekan-ondra/` and `/wekan-gantt-gpl/`, which is where those
+two repositories are cloned when they are synced by hand from this working copy.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bb2938310">The variant Docker images are published by hand, by retagging the released image</a>. Thanks to xet7.</summary>
 
 `wekanteam/wekan-gantt-gpl` and `wekanteam/wekan-ondra` are the same WeKan as
 `wekanteam/wekan` — the variant repositories are identical to `wekan/wekan`
@@ -319,10 +333,90 @@ which architectures they carry.
 
 </details>
 
+and fixes the following release-workflow mistake:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4f872a68c">A credential the release cannot read is not the Snap Store refusing it</a>. Thanks to xet7.</summary>
+
+v10.50 built the amd64 snap, uploaded it, and died on
+
+    Publishing snap "wekan_10.50_amd64.snap"...
+    Unsquashing snap file 'wekan_10.50_amd64.snap'.
+    Credentials could not be parsed. Expected valid Ubuntu One credentials.
+
+and the job then printed "SNAP_AUTH did not work: the Snap Store refused the
+upload". The store refused nothing — snapcraft could not READ the secret. The
+commonest way that happens is storing what `snapcraft export-login` PRINTED
+instead of the file it WROTE.
+
+The secrets check now rejects what is unambiguously not a credential — under
+100 characters, or carrying snapcraft's own "Exported login" banner — in one
+line at the TOP of the job instead of after a full build on every architecture.
+The message after a failed upload no longer claims to know which failure it was:
+it names both, and how to tell them apart from the snapcraft line above it
+("could not be parsed" is an unreadable secret, 401/403 is a valid one without
+the ACL for that snap name). And every re-export command in the workflow now
+names all three snaps, since one release publishes `wekan`, `wekan-ondra` and
+`wekan-gantt-gpl`.
+
+</details>
+
+and has the following developer-tooling changes:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b7d66e97a">Every maintainer script in releases/ is now a menu entry in build.sh and build.bat</a>. Thanks to xet7.</summary>
+
+`releases/` holds about ninety scripts and FOUR of them were reachable from a
+menu — the test run, the database conformance run, run-everything and the
+CHANGELOG hash repair. Everything else existed only for whoever remembered the
+file name: the bundle builds per architecture, the whole snap flow, the
+Transifex scripts, the Sandstorm packaging, the tag and release helpers, the
+Docker image publishing, the VM helpers.
+
+They are one list now, in eight groups — Release, Snap, Bundles, Docker images,
+Sandstorm, Translations, Git and repo, Server and VM. Pick a group, pick a
+script; one that needs a version, a language code, a branch or a file is ASKED
+for it and gets it passed through. build.bat offers the same entries in the same
+order through Git Bash, and says so by name when bash is not on PATH.
+
+Nine scripts are deliberately absent, each with its reason recorded in the
+guard: the four the Tests and Setup menus already run, the helper the others
+source, the three that run inside the built snap, bundle or Docker image, and
+the superseded ones.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/74a8f931f">Twelve one-line wrapper scripts became commands, and both menus gained a command line</a>. Thanks to xet7.</summary>
+
+`releases/ufw-enable.sh` was one line — `sudo ufw enable` — and so were eleven
+others. Nothing called them except the menus, so they are the command itself
+now, in the same menu entries. Checked one at a time before deleting:
+`docker-build-deps.sh` looked like the same kind of thing and is still here,
+because `releases/docker-build.sh` runs it. The ten that are systemd, ufw, snap
+or multipass are Linux-only and build.bat does not offer them, because Windows
+cannot do them at all.
+
+And both scripts run any entry without the menu, which is what makes them usable
+from a script or a cron entry:
+
+    ./build.sh --list                     every name, with what it does
+    ./build.sh release-snap 10.50
+    ./build.sh push-translation ja
+    ./build.sh ufw-enable                 what releases/ufw-enable.sh used to do
+
+The name is the file name without its extension, or — for the twelve commands —
+the name of the wrapper file it replaced, so anything anybody had in a script
+keeps working. An unknown name says so and exits 2. Guards keep the two menus
+offering the same entries in the same order, and pin that every example in the
+help text is a real command name.
+
+</details>
+
 and has the following documentation fix:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/09b8d3d1f">Say why the snap is built on core24: it is the base that may publish to stable</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/af2683d56">Say why the snap is built on core24: it is the base that may publish to stable</a>. Thanks to xet7.</summary>
 
 The header of `snapcraft.yaml` still described an older policy — "the workflow
 publishes it to the candidate + beta + edge channels; the stable channel is
