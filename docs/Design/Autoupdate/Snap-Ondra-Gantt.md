@@ -14,6 +14,36 @@ snap it should also, for each variant repo
 This document lists **exactly which keys/secrets must be added** and the **workflow
 changes** required.
 
+## What changed 2026-07-29
+
+Two things, both about not letting one missing permission stop everything else:
+
+* **The snap no longer depends on the GitHub repo push.** The job used to gate
+  everything on `WEKAN_REPO_TOKEN` being able to push to `wekan/<variant>` — so a
+  token without write access meant **no variant snaps at all** (v10.48, v10.49
+  published none). Building and publishing a snap needs only `SNAP_AUTH`. The guard
+  now answers two questions: `snap` (is `SNAP_AUTH` set) decides the build and the
+  publish, `sync` (may the token push) decides only whether the repository is
+  updated. Every "cannot push" warning ends with *"The snap is still built and
+  published"*.
+* **The variant tree comes from the release tag, not from a clone of the variant
+  repo.** The job checks out `wekan/wekan` at `v<version>`, rsyncs it to `variant/`,
+  and seds the snap name and title into **both** `snapcraft.yaml` and
+  `snapcraft-core26.yaml` (renaming only the first left the core26 file saying
+  `name: wekan`). The optional push then sends that same tree to the variant repo.
+
+Also: both variants now build on **amd64 and arm64** (the two native runners the
+default snap uses), the built file's name must start with the variant snap name
+before it is uploaded — a `wekan_*.snap` published from here would overwrite the
+default snap — and the two repositories were synced by hand on 2026-07-29, so they
+are the newest WeKan with the snap name changed and nothing else.
+
+The Docker side is deliberately **manual**: `wekanteam/wekan-gantt-gpl` and
+`wekanteam/wekan-ondra` are published by
+[`.github/workflows/docker-variant.yml`](../../../.github/workflows/docker-variant.yml)
+("Publish variant Docker image (manual)") or `releases/docker-publish-variant.sh`,
+which retag the released `wekanteam/wekan` manifest rather than rebuilding it.
+
 ## Remaining steps
 
 > **Status:** the `snap-variants` job **runs on every release** now — it was
