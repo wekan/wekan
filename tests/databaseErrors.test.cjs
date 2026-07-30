@@ -19,8 +19,35 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
-const { classifyDatabaseError, configuredDatabase, databaseOf, RULES } =
+const { classifyDatabaseError, configuredDatabase, databaseOf, redactCredentials, RULES } =
   require('../models/lib/databaseErrors.js');
+
+// The top-level keys of the object literal that starts at `from` in `src`.
+function objectKeysAt(src, from) {
+  const open = src.indexOf('{', from);
+  let depth = 0;
+  let end = open;
+  for (let i = open; i < src.length; i += 1) {
+    if (src[i] === '{') depth += 1;
+    else if (src[i] === '}') {
+      depth -= 1;
+      if (depth === 0) { end = i; break; }
+    }
+  }
+  const body = src.slice(open + 1, end);
+  // Only depth-1 keys: `{ type: String, optional: true }` values must not count.
+  const keys = [];
+  let level = 0;
+  for (const line of body.split('\n')) {
+    const m = level === 0 && line.match(/^\s*([A-Za-z_$][\w$]*)\s*:/);
+    if (m) keys.push(m[1]);
+    for (const ch of line) {
+      if (ch === '{' || ch === '[' || ch === '(') level += 1;
+      if (ch === '}' || ch === ']' || ch === ')') level -= 1;
+    }
+  }
+  return keys;
+}
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -143,6 +170,88 @@ test('the problems reach Admin Panel / Problems', () => {
 
   assert.ok(fs.readFileSync(path.join(ROOT, 'server/imports.js'), 'utf8')
     .includes("import '/server/lib/databaseProblems';"), 'and it is loaded');
+});
+
+// The bug this pins: a database problem reached Admin Panel / Problems / Database
+// problems with an EMPTY Category, Name and Action, and its detail said "read the
+// message below" with no message anywhere on the page. Nothing was wrong with the
+// classifier or the recorder - collection2 cleans every insert against the
+// collection's schema with `filter: true`, and `db`, `kind`, `type` and `message`
+// were not IN the schema, so those four fields were dropped on the way to the
+// database. A field a logger writes and the schema does not declare is invisible.
+test('every field an event logger writes is declared in the EventLog schema', () => {
+  const streams = fs.readFileSync(path.join(ROOT, 'models/eventLog.js'), 'utf8');
+  const schema = objectKeysAt(streams, streams.indexOf('new SimpleSchema('));
+  for (const field of ['stream', 'at', 'severity', 'detail', 'db', 'kind', 'type', 'message']) {
+    assert.ok(schema.includes(field), `EventLog schema is missing ${field}`);
+  }
+
+  const writers = [
+    'server/lib/databaseProblems.js',
+    'server/lib/securityLog.js',
+    'server/lib/speedLog.js',
+    'server/lib/cpuLog.js',
+    'server/lib/testLog.js',
+  ];
+  for (const file of writers) {
+    const src = fs.readFileSync(path.join(ROOT, file), 'utf8');
+    // Four of them build `const doc = { … }` and insert it; the database recorder
+    // passes the literal straight to insertAsync.
+    const start = src.includes('const doc =')
+      ? src.indexOf('const doc =')
+      : src.indexOf('EventLog.insertAsync(');
+    assert.ok(start >= 0, `${file}: no event document found`);
+    for (const key of objectKeysAt(src, start)) {
+      assert.ok(schema.includes(key),
+        `${file} writes "${key}", which the EventLog schema does not declare - ` +
+        'collection2 would drop it silently');
+    }
+  }
+});
+
+test('the page shows what the database said, not only what WeKan makes of it', () => {
+  const menu = fs.readFileSync(path.join(ROOT, 'client/components/settings/adminReports.js'), 'utf8');
+  assert.ok(/r\.detail.*r\.message|r\.message.*r\.detail/.test(menu),
+    'the Detail column carries the database\'s own message beside the advice');
+
+  // ... and searching for a phrase out of that message finds the row showing it.
+  const streams = fs.readFileSync(path.join(ROOT, 'models/eventLog.js'), 'utf8');
+  const selector = streams.slice(streams.indexOf('function streamSelector'),
+    streams.indexOf('Meteor.methods'));
+  for (const field of ['message', 'db', 'kind', 'type']) {
+    assert.ok(new RegExp(`\\{ ${field}: rx \\}`).test(selector),
+      `the stream search does not look at ${field}`);
+  }
+
+  // The unclassified advice may not promise a message that is not there.
+  const unknown = classifyDatabaseError('something nobody has seen before', {});
+  assert.ok(!/below/.test(unknown.whatToDo),
+    'nothing is "below" a table cell - the message is joined into the same cell');
+});
+
+test('a connection URL in the message loses its password before it is stored', () => {
+  const cases = [
+    ['failed to connect to mongodb://wekan:s3cret@mongo:27017/wekan',
+      'mongodb://wekan:***@mongo:27017/wekan'],
+    ['pq: password authentication failed for user "ferretdb" (postgres://ferretdb:hunter2@db:5432/ferretdb)',
+      'postgres://ferretdb:***@db:5432/ferretdb'],
+  ];
+  for (const [message, expected] of cases) {
+    const out = redactCredentials(message);
+    assert.ok(out.includes(expected), `not redacted: ${out}`);
+    assert.ok(!/s3cret|hunter2/.test(out), `the password survived: ${out}`);
+  }
+
+  // The host, port and database name are what makes the message useful, and a URL
+  // with no password in it is not rewritten at all.
+  assert.strictEqual(redactCredentials('mongodb://mongo:27017/wekan'),
+    'mongodb://mongo:27017/wekan');
+  assert.strictEqual(redactCredentials('mongodb://wekan@mongo:27017/wekan'),
+    'mongodb://wekan@mongo:27017/wekan');
+  // And it is applied where nobody can forget it: on the way out of the classifier.
+  const c = classifyDatabaseError(new Error('bad auth: mongodb://u:p@h:27017/w'), {});
+  assert.ok(!/:p@/.test(c.message), 'classifyDatabaseError returns a redacted message');
+  assert.strictEqual(c.id, 'auth-failed', 'and still classifies it');
 });
 
 console.log(`\n${passed} tests passed`);

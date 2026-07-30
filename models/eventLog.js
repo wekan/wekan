@@ -32,6 +32,16 @@ EventLog.attachSchema(
     cwe:      { type: String, optional: true },
     userId:   { type: String, optional: true },
     detail:   { type: String, optional: true },
+    // The 'database' stream's own four fields (server/lib/databaseProblems.js).
+    // They MUST be declared here: collection2 cleans every insert against this
+    // schema with `filter: true`, so a field the schema does not know is dropped
+    // silently — which is why a database problem used to arrive in Admin Panel /
+    // Problems / Database problems with an empty Category, Name and Action and
+    // with the message it told the admin to read missing altogether.
+    type:     { type: String, optional: true },  // the classifier's rule id
+    db:       { type: String, optional: true },  // mongodb|sqlite|postgresql|mysql|mariadb|hana
+    kind:     { type: String, optional: true },  // disk|auth|syntax|timeout|…
+    message:  { type: String, optional: true },  // what the database itself said
   }),
 );
 
@@ -80,7 +90,14 @@ if (Meteor.isServer) {
     const selector = { stream };
     if (search) {
       const rx = { $regex: String(search).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), $options: 'i' };
-      selector.$or = [{ category: rx }, { bleed: rx }, { source: rx }, { detail: rx }];
+      // Every text column the table shows, including the four the 'database'
+      // stream puts in those columns instead - searching for "postgresql" or for
+      // a phrase out of the database's own message has to find the row that
+      // displays it.
+      selector.$or = [
+        { category: rx }, { bleed: rx }, { source: rx }, { detail: rx },
+        { db: rx }, { kind: rx }, { type: rx }, { message: rx },
+      ];
     }
     return selector;
   }

@@ -206,6 +206,22 @@ const RULES = [
   },
 ];
 
+// A database that refuses a login or cannot be reached usually quotes the
+// connection URL back, and that URL carries the password - "failed to connect to
+// mongodb://wekan:s3cret@mongo:27017". The message is stored and SHOWN in Admin
+// Panel / Problems, so the credentials come out here, before anything keeps it.
+// Only the userinfo part goes: the host, the port and the database name are what
+// makes the message useful.
+function redactCredentials(text) {
+  return String(text || '').replace(
+    /([a-z][a-z0-9+.-]*:\/\/)([^/\s@]+)@/gi,
+    (all, scheme, userinfo) => {
+      const user = userinfo.split(':')[0];
+      return userinfo.includes(':') ? `${scheme}${user}:***@` : all;
+    },
+  );
+}
+
 // Which database produced this, as far as the text betrays it. `configured` is
 // what WeKan believes it is talking to (from MONGO_URL / the FerretDB handler),
 // and it wins unless the message itself names another - a MySQL error code in a
@@ -233,8 +249,8 @@ function databaseOf(message, configured) {
 // with the message kept, because an admin looking at Problems needs to see that
 // something happened even when this module has no rule for it.
 function classifyDatabaseError(error, options = {}) {
-  const message = String(
-    (error && (error.message || error.errmsg || error.reason)) || error || '',
+  const message = redactCredentials(
+    String((error && (error.message || error.errmsg || error.reason)) || error || ''),
   ).slice(0, 2000);
   const configured = options.configured || 'unknown';
   const database = databaseOf(message, configured);
@@ -262,8 +278,11 @@ function classifyDatabaseError(error, options = {}) {
     severity: 'warning',
     kind: 'unknown',
     means: 'The database returned an error WeKan has no rule for.',
-    whatToDo: 'Read the message below; if it is one WeKan should recognise, add a rule ' +
-      'to models/lib/databaseErrors.js.',
+    // The message follows in the same cell of the table (the Detail column joins
+    // the two), so this points at where the message actually is - it used to say
+    // "below", where there was nothing.
+    whatToDo: 'What the database said follows; if it is one WeKan should recognise, ' +
+      'add a rule to models/lib/databaseErrors.js.',
     act: null,
     message,
     operation: options.operation || '',
@@ -282,4 +301,6 @@ function configuredDatabase(env = {}) {
   return 'unknown';
 }
 
-module.exports = { classifyDatabaseError, configuredDatabase, databaseOf, DATABASES, RULES };
+module.exports = {
+  classifyDatabaseError, configuredDatabase, databaseOf, redactCredentials, DATABASES, RULES,
+};

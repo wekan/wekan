@@ -13,6 +13,7 @@
 
 import EventLog from '/models/eventLog';
 import { classifyDatabaseError, configuredDatabase } from '/models/lib/databaseErrors';
+const { sanitizeDetail } = require('/models/lib/securityLogFormat');
 
 // The same problem can arrive hundreds of times a second - a database that is
 // down answers every query. One event per (id, database) per minute is enough to
@@ -64,7 +65,9 @@ export function recordDatabaseProblem(error, options = {}) {
       kind: classified.kind,
       detail: `${classified.means} ${classified.whatToDo}`,
       source: classified.operation || options.source || 'database',
-      message: classified.message,
+      // One line, control characters out, capped - like every other stream's
+      // detail. A database can answer with a whole SQL statement and a stack.
+      message: sanitizeDetail(classified.message),
     });
 
     if (p && typeof p.catch === 'function') p.catch(() => {});

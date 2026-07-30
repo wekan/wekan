@@ -742,7 +742,12 @@ const EVENT_STREAM_COLUMNS = [
   { labelKey: 'event-source', value: r => r.source },
   // The user who triggered the event (e.g. who uploaded a sanitized file).
   { labelKey: 'username', value: r => userName(r.userId), userId: r => r.userId },
-  { labelKey: 'event-detail', value: r => r.detail },
+  // The `database` stream's detail is WeKan's reading of the error - what it means
+  // and what to do - and it is worth little without the sentence the database
+  // itself produced, which is the one thing an admin can search for or paste into
+  // an issue. So this cell carries both, advice first, message after. The other
+  // streams have no `message`, and their cell is unchanged.
+  { labelKey: 'event-detail', value: r => [r.detail, r.message].filter(Boolean).join(' — ') },
 ];
 
 function formatEventAt(at) {
