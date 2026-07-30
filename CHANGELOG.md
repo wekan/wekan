@@ -261,7 +261,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.53 2026-07-31 WeKan ® release
 
 This release fixes the following bugs:
 
