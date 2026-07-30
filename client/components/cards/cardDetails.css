@@ -153,6 +153,25 @@ body.desktop-mode .card-details:not(.card-details-popup):not([style*="left"]):no
   bottom: 8px;
 }
 
+/* #6465: the Y half of the rule above, kept when the window has been placed
+   horizontally.
+
+   The default-position rule is `:not([style*="left"]):not([style*="top"])`, so it
+   switches itself off the moment anything writes an inline `left` — and it
+   carried `top` as well as the width. cardDetails.js now writes an inline `left`
+   to dock the window beside its minicard (X only), which would leave a SIXTH open
+   window — past the five staggered rules below — with no `top` at all, i.e.
+   `top: auto`, which for a fixed element is wherever it happened to land.
+
+   Same specificity as the stagger rules and written BEFORE them, so cards 1-5
+   still take their staggered `top` from those and nothing about the vertical
+   position changes. `bottom` is unchanged too: it comes from the
+   `:not(.card-details-collapsed)` rule further down, which never depended on the
+   inline styles. */
+body.desktop-mode .card-details:not(.card-details-popup):not([style*="top"]) {
+  top: 8px;
+}
+
 /* Stagger positions for multiple cards using nth-of-type (from the end edge) */
 body.desktop-mode .card-details:not(.card-details-popup):nth-of-type(1) {
   top: 8px;

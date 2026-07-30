@@ -10,6 +10,7 @@ import {
 } from '/models/metadata/dependencies';
 import { canArchiveCard } from '/client/lib/archivePermission';
 import { isTextSelectionInsideCard } from '/client/lib/cardCloseGuard';
+import { placeCardDetailsX, MARGIN } from '/client/lib/cardDetailsPlacement';
 
 // Which dependency the icon picker should apply its choice to. The icon popup's
 // own data context is the dependency row (not the source card), so we capture
@@ -328,6 +329,121 @@ function getCardDetailsElement(cardId) {
   return null;
 }
 
+// ────────────────────────────────────────────────────────────────────────────
+// #6465: dock the desktop card-details window BESIDE the minicard it was opened
+// from, on whichever side has more room, and always fully inside the viewport.
+//
+// The window used to cover the middle of the board; docking it to the end edge
+// stopped that but left it nowhere near its card — open a card in the first list
+// of a wide board and its details are a screen away. The decision is
+// client/lib/cardDetailsPlacement.js; this is the DOM half.
+//
+// X ONLY. The Y geometry — the staggered `top` and the `bottom: 8px` that makes
+// the window full height — is already right, so `top`, `bottom` and `height` are
+// never written here.
+//
+// The one Y side effect that has to be paid for: the stylesheet's default-
+// position rule is `:not([style*="left"]):not([style*="top"])`, so writing an
+// inline `left` switches it off — and it carried the `top` for any window past
+// the five staggered `nth-of-type` rules. cardDetails.css restores exactly that
+// `top` for anchored windows, ahead of the stagger so cards 1-5 keep theirs.
+// ────────────────────────────────────────────────────────────────────────────
+
+// Set on the element once the user drags the window: from then on it stays where
+// they put it, and only the viewport clamp still applies.
+const USER_MOVED_ATTR = 'data-wekan-user-moved';
+
+function markCardDetailsUserMoved($card) {
+  const el = $card && $card.get(0);
+  if (el) el.setAttribute(USER_MOVED_ATTR, '1');
+}
+
+function anchorCardDetailsX(el) {
+  if (!el || !el.isConnected) return;
+
+  // Only the desktop floating window is placed here. The popup form (Board Table
+  // view, search results, mini-screen lists) and the mini-screen full-screen card
+  // have their own geometry, and the maximized window's insets are !important, so
+  // writing inline styles for it would be a silent no-op at best.
+  if (!document.body.classList.contains('desktop-mode')) return;
+  if (el.classList.contains('card-details-popup')) return;
+  if (el.classList.contains('card-details-maximized')) return;
+
+  const rect = el.getBoundingClientRect();
+  const viewportWidth = document.documentElement.clientWidth || window.innerWidth;
+
+  // A window the user dragged stays where they put it: only the "must be in the
+  // visible area" half still applies, so a viewport that shrank cannot leave it
+  // hanging off the edge. Its width is left alone — the drag did not change it.
+  if (el.getAttribute(USER_MOVED_ATTR) === '1') {
+    const maxLeft = viewportWidth - MARGIN - rect.width;
+    const left = Math.min(Math.max(rect.left, MARGIN), Math.max(MARGIN, maxLeft));
+    if (Math.round(left) !== Math.round(rect.left)) {
+      el.style.left = `${Math.round(left)}px`;
+      el.style.right = 'auto';
+    }
+    return;
+  }
+
+  const cardId = Blaze.getData(el)?._id;
+  const minicard = cardId
+    ? document.querySelector(`.js-minicard[data-card-id="${cardId}"]`)
+    : null;
+  // Nothing to anchor to — the card was opened from a URL or from search, or its
+  // list is scrolled out of view. Leave the stylesheet's dock alone.
+  if (!minicard) return;
+
+  // Hand the geometry back to the stylesheet before measuring, so what is
+  // measured is the width the stylesheet WANTS rather than whatever this function
+  // wrote last time. Without it, a run on a narrow viewport would clamp the width
+  // and every later run would re-measure that clamp, so widening the browser
+  // again would never give the window its full width back. Nothing is painted
+  // between the reset and the write below, so there is nothing to see.
+  el.style.left = '';
+  el.style.right = '';
+  el.style.width = '';
+
+  const placement = placeCardDetailsX({
+    anchor: minicard.getBoundingClientRect(),
+    panelWidth: el.getBoundingClientRect().width,
+    viewportWidth,
+    rtl: document.documentElement.dir === 'rtl',
+  });
+  if (!placement) return;
+
+  // `right: auto` because the stylesheet docks the window with an
+  // inset-inline-end, and an explicit width because the rule that carried the
+  // width is the one this inline `left` switches off.
+  el.style.left = `${placement.left}px`;
+  el.style.right = 'auto';
+  el.style.width = `${placement.width}px`;
+}
+
+// Every open window, re-placed. Used on resize: the request is that the card is
+// in the visible area, and a viewport that shrank is the other way to lose it.
+function anchorAllCardDetailsX() {
+  document
+    .querySelectorAll('.card-details:not(.card-details-popup)')
+    .forEach(anchorCardDetailsX);
+}
+
+let cardDetailsResizeBound = false;
+function bindCardDetailsResize() {
+  if (cardDetailsResizeBound || typeof window === 'undefined') return;
+  cardDetailsResizeBound = true;
+  let scheduled = false;
+  window.addEventListener('resize', () => {
+    // Coalesced into one frame: a drag-resize of the browser window fires this
+    // continuously, and each run measures layout.
+    if (scheduled) return;
+    scheduled = true;
+    window.requestAnimationFrame(() => {
+      scheduled = false;
+      anchorAllCardDetailsX();
+    });
+  });
+}
+
 Template.cardDetails.onCreated(function () {
   this.currentBoard = Utils.getCurrentBoard();
   this.isLoaded = new ReactiveVar(false);
@@ -396,6 +512,15 @@ Template.cardDetails.onRendered(function () {
   // within the same flush. If our DOM range is already gone, calling this.$()
   // below throws "Can't select in removed DomRange", so bail out early.
   if (this.view && this.view.isDestroyed) return;
+
+  // #6465: place the window beside its minicard (X only) once it has been laid
+  // out, so the width measured here is the one the stylesheet gave it.
+  const $cardDetails = this.$('.card-details').first();
+  if ($cardDetails.length) {
+    Tracker.afterFlush(() => anchorCardDetailsX($cardDetails.get(0)));
+  }
+  bindCardDetailsResize();
+
   this.calculateNextPeak();
   if (Meteor.settings.public.CARD_OPENED_WEBHOOK_ENABLED) {
     // Send Webhook but not create Activities records ---
@@ -727,6 +852,9 @@ Template.cardDetails.events({
   'mousedown .js-card-drag-handle'(event) {
     event.preventDefault();
     const $card = $(event.target).closest('.card-details');
+    // #6465: where the user put it wins over where the minicard is, so a later
+    // resize re-places every other window but only clamps this one into view.
+    markCardDetailsUserMoved($card);
     const startX = event.clientX;
     const startY = event.clientY;
     const startLeft = $card.offset().left;
@@ -758,6 +886,8 @@ Template.cardDetails.events({
 
     event.preventDefault();
     const $card = $(event.target).closest('.card-details');
+    // #6465: same as the drag handle above — a dragged window keeps its place.
+    markCardDetailsUserMoved($card);
     const startX = event.clientX;
     const startY = event.clientY;
     const startLeft = $card.offset().left;
