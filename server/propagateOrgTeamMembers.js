@@ -20,16 +20,43 @@ import { membersToAddToBoard } from '/models/lib/propagateMembers';
 // Membership is read from the USER docs (user.orgs[].orgId / user.teams[].teamId),
 // matching how setUserOrgsTeamsFromLdap maintains it.
 
+// The id of the org/team to propagate, from whatever the caller had to hand.
+//
+// #6559: this used to be taken on trust, and both flag-setters passed the whole
+// `{ _id: … }` selector their Meteor method received instead of the id inside it.
+// `Meteor.users.find({ 'teams.teamId': { _id: 'abc' } })` compares a string field
+// against an object, so it matched nobody, and the function returned "0 members
+// added" without an error — the Admin Panel checkbox went green and did nothing.
+// Normalising here rather than at the call sites is deliberate: this is the one
+// place every caller passes through, so a third caller cannot make the same
+// mistake, and a value that is NOT an id says so in the log instead of looking
+// like a group that happens to have no members.
+function groupIdOf(kind, group) {
+  if (typeof group === 'string') return group;
+  if (group && typeof group === 'object' && typeof group._id === 'string') {
+    return group._id;
+  }
+  if (group) {
+    console.warn(
+      `[propagate] cannot propagate ${kind} members: expected an id (or a document ` +
+      'with one) and got', group,
+    );
+  }
+  return null;
+}
+
 // Propagate a SINGLE org or team's members to the boards that list it. `kind` is
-// 'org' or 'team'. Add-only; template boards skipped. Returns
-// { boardsUpdated, membersAdded }. Exported so the flag-setters (org/team) can
-// run it immediately when the flag is turned on.
-export async function propagateGroupMembersToBoards(kind, groupId) {
+// 'org' or 'team'; `group` is its id, or a document/selector carrying one.
+// Add-only; template boards skipped. Returns { boardsUpdated, membersAdded }.
+// Exported so the flag-setters (org/team) can run it immediately when the flag is
+// turned on.
+export async function propagateGroupMembersToBoards(kind, group) {
   const field = kind === 'org' ? 'orgs' : 'teams';
   const idField = kind === 'org' ? 'orgId' : 'teamId';
 
   let boardsUpdated = 0;
   let membersAdded = 0;
+  const groupId = groupIdOf(kind, group);
   if (!groupId) return { boardsUpdated, membersAdded };
 
   const memberUsers = await Meteor.users
@@ -61,23 +88,29 @@ export async function propagateGroupMembersToBoards(kind, groupId) {
   return { boardsUpdated, membersAdded };
 }
 
-// Propagate EVERY org/team that has its flag on.
-export async function propagateAllFlaggedGroupsToBoards() {
+// Propagate EVERY org/team that has its flag on. `kind` limits it to one of them
+// ('org' or 'team'); the default - every kind - is what the LDAP cron and the
+// `propagateOrgTeamMembersToBoards` method run.
+export async function propagateAllFlaggedGroupsToBoards(kind = null) {
   let boardsUpdated = 0;
   let membersAdded = 0;
 
-  const orgs = await Org.find({ orgPropagateMembersToBoards: true }).fetchAsync();
-  for (const org of orgs) {
-    const r = await propagateGroupMembersToBoards('org', org._id);
-    boardsUpdated += r.boardsUpdated;
-    membersAdded += r.membersAdded;
+  if (kind === null || kind === 'org') {
+    const orgs = await Org.find({ orgPropagateMembersToBoards: true }).fetchAsync();
+    for (const org of orgs) {
+      const r = await propagateGroupMembersToBoards('org', org._id);
+      boardsUpdated += r.boardsUpdated;
+      membersAdded += r.membersAdded;
+    }
   }
 
-  const teams = await Team.find({ teamPropagateMembersToBoards: true }).fetchAsync();
-  for (const team of teams) {
-    const r = await propagateGroupMembersToBoards('team', team._id);
-    boardsUpdated += r.boardsUpdated;
-    membersAdded += r.membersAdded;
+  if (kind === null || kind === 'team') {
+    const teams = await Team.find({ teamPropagateMembersToBoards: true }).fetchAsync();
+    for (const team of teams) {
+      const r = await propagateGroupMembersToBoards('team', team._id);
+      boardsUpdated += r.boardsUpdated;
+      membersAdded += r.membersAdded;
+    }
   }
 
   return { boardsUpdated, membersAdded };

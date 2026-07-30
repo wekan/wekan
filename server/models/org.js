@@ -166,9 +166,15 @@ Meteor.methods({
       // #4737/#5850: actually ACT on the flag. Turning it on adds this org's
       // members to the boards that list the org (add-only). Previously the flag
       // was stored but nothing ever propagated (the method had no caller).
+      //
+      // #6559: `org` is the SELECTOR the client sent - `{ _id: … }`, the same
+      // value handed to updateAsync above - not an id. Passing it whole made the
+      // member lookup compare `orgs.orgId` against an object, which matches
+      // nobody, so the checkbox stored the flag and silently added no one. The
+      // report was about the team column; the org column beside it was identical.
       if (value === true) {
         const { propagateGroupMembersToBoards } = require('/server/propagateOrgTeamMembers');
-        await propagateGroupMembersToBoards('org', org);
+        await propagateGroupMembersToBoards('org', org._id);
       }
     }
   },
@@ -195,6 +201,14 @@ Meteor.methods({
         throw new Meteor.Error('invalid-field');
       }
       await Org.updateAsync({}, { $set: { [field]: value } }, { multi: true });
+      // #6559: the select-all header checkbox is the same promise as the per-row
+      // one - tick it and the members should be on the boards - and it did not
+      // propagate at all, not even wrongly. Orgs only: ticking the org column
+      // must not act on the team column beside it.
+      if (field === 'orgPropagateMembersToBoards' && value === true) {
+        const { propagateAllFlaggedGroupsToBoards } = require('/server/propagateOrgTeamMembers');
+        await propagateAllFlaggedGroupsToBoards('org');
+      }
     }
   },
 
