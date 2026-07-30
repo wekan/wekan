@@ -266,6 +266,139 @@ browser build to verify).
 This release fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/91bd63107">Fix WeKan not starting in Yandex Browser: Meteor's own transpile asked for a module that was not there</a>. Thanks to zubzhaaaw and xet7.</summary>
+
+Three attempts at this had added imports to `client/lib/swcHelpers.js`, and
+10.51 still failed in Yandex Browser with the same line:
+
+    Uncaught Error: Cannot find module
+    '@swc/helpers/_/_possible_constructor_return'
+        at a.s [as link] (…)  at client-rspack.js (…:285:985)
+
+Read the stack outward: `client-meteor.js` links `client-rspack.js`, and the
+failing `link()` is inside `client-rspack.js`. But the bundle rspack writes
+contains no `@swc/helpers` specifier at all — the built
+`_build/main-prod/client-rspack.js` has the helper bodies inlined and the string
+nowhere. The import is in the copy of that file that **Meteor** compiled, and
+Meteor put it there: `package.json` says `"meteor": { "modern": true }`, which
+turns on Meteor 3.3+'s SWC transpiler for every file; `babel-compiler` sets
+`jsc.externalHelpers: true` whenever `node_modules/@swc/helpers` exists — and
+WeKan depends on it — so the output *imports* its helpers instead of inlining
+them; and for `web.browser.legacy` that transpile passes no `jsc.target` and an
+`env.targets` down to IE 11, so `class` is lowered to ES5 and the output gains
+`import { _ } from "@swc/helpers/_/_possible_constructor_return"`. That
+specifier is not in the legacy bundle's module tree, so the whole app fails
+before anything runs. The modern bundle was never affected: nothing there is
+lowered that far, and where a helper is needed the modern module runtime
+resolves `module` (the `esm/` file) while the legacy one prefers `main`
+(`../../cjs/_x.cjs`).
+
+That is also why the earlier fixes could not work, whatever they did.
+`client/lib/swcHelpers.js` is in the **rspack** graph; rspack resolves its
+imports and inlines the helper bodies, so they never become entries in Meteor's
+module tree — which is the tree the failing `link()` searches. No import written
+in app code can satisfy a link that Meteor's transpiler adds afterwards.
+
+So `/.swcrc` sets `jsc.externalHelpers: false`, and SWC inlines each helper into
+the file that needs it: the import is never emitted, so it cannot go missing.
+Both readers of that file merge it over their own defaults and neither preserves
+this key — Meteor keeps only `jsc.target`, `env.targets` and `module.type`, and
+`@meteorjs/rspack` only `jsc.target` — so it reaches the Meteor transpile and
+the rspack build alike. It costs one copy of a helper per file that uses one,
+which is the right trade for a bundle that otherwise does not load.
+
+`.gitignore`'s `*.sw*` is there for vim's `.swp`/`.swo` and matched `.swcrc`
+too, so adding the file was silently a no-op; `!.swcrc` now follows it, and the
+test fails if that exception is removed or moved above the rule it corrects.
+
+Only a browser served the legacy bundle could hit any of this, which is why it
+read as a Yandex bug. `useragent-ng` reports Yandex Browser as the family
+"Yandex Browser", `webapp` camel-cases that to `yandexBrowser`, and
+`modern-browsers` has neither a minimum nor a chrome alias for that name —
+`isModern()` is false for a name nobody declared — so every Yandex Browser user
+was served ES5. `server/modernBrowsers.js` declares `yandexBrowser: 18`: its
+major version is a year, and 18.x is already Chromium 64, past full ES2015 (51)
+and dynamic `import()` (63). Samsung Internet, Vivaldi, Opera Mobile, Whale,
+MIUI, UC Browser and QQ Browser are in the same position and are left alone on
+purpose — their version numbers do not map onto a Chromium version — and the
+file says so rather than looking as though they were forgotten.
+
+The test reproduces Meteor's decision — `webapp`'s camelCase, `modern-browsers`'
+alias table and lookup — against real user agent strings, so it fails if the key
+stops matching the family name or the minimum stops covering the versions in the
+reports.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/08be34b70">A write the database was too busy to take is now retried, which nothing had ever done</a>. Thanks to Nissulya and xet7.</summary>
+
+The restart loop is gone — a transient database error no longer ends the boot or
+the process — and the reporter's 10.49 log shows the same contention arriving in
+front of a user instead:
+
+    Exception while invoking method '/users/updateAsync' MongoServerError:
+      … [collection.go:191 sqlite.(*collection).UpdateAll]
+      [db.go:151 fsql.(*DB).InTransaction] database is locked (5) (SQLITE_BUSY)
+
+That error goes to the *client*: the edit fails, and the user reloads to find
+out what happened — which is the complaint that they only see their cards after
+a reload. And it was not supposed to. `models/lib/databaseErrors.js` has
+classified a locked SQLite as `{ id: 'deadlock', act: 'retry' }` with "Retried
+automatically." since it was written, and `server/00processErrors.js` says "the
+write is retried by whatever issued it". Nothing read `act`. No code in WeKan
+retried anything, anywhere.
+
+`SQLITE_BUSY` is the one database error a client is meant to handle itself.
+SQLite has a single writer; a second writer that arrives while the lock is held
+is told to come back, and nothing was applied — FerretDB takes the lock before
+the transaction, so a BUSY answer means the write did not happen. Retrying the
+same write is the documented behaviour and stays idempotent: Meteor has already
+chosen the `_id`, so a retry that raced a duplicate is refused by the unique
+index rather than inserted twice.
+
+`server/00retryBusyWrites.js` wraps `insertAsync`, `updateAsync`, `upsertAsync`
+and `removeAsync`: a transient database error is retried with exponential
+backoff and full jitter, bounded at five attempts and two seconds in total
+(`WEKAN_DB_RETRY_*`). Bounded on purpose — retrying for longer holds a method
+invocation and its slot in the connection pool while the contention it is
+waiting for gets worse. When it still fails, the original error is thrown
+unchanged, so a database that is genuinely stuck looks exactly as it did before
+and nothing is hidden; anything that is not transient is rethrown on the first
+attempt, so a full disk is not waited on four times before being reported.
+
+It is loaded from `server/imports.js`, after the Meteor packages, so it sits
+outside the wrappers collection2 and collection-hooks put on the same prototype
+— which is how it sees the error at all, because by then the busy error is
+collection2's `ValidationError` with the database's message inside it, the form
+in the reporter's SyncedCron traces.
+
+Writes only: every error in the reports is a write, which is what contends for
+the one writer, and SQLite in WAL mode does not block a reader against a writer.
+Retries are counted and summarised at most once a minute, so a contended
+database is visible without the log becoming the new problem, and a write
+finally given up on is recorded for Admin Panel / Problems — except an
+`eventlog` write, which is how the recorder writes, and reporting its failure
+would call the recorder from inside itself.
+
+The reporter asked outright whether PostgreSQL is an option for a snap
+installation. It is, and it has been: the advice for constant contention now
+says how — `snap set wekan wekan-ferretdb-handler=postgresql
+wekan-ferretdb-url=…`, or `docker-compose-ferretdb-v1-postgresql.yml` in Docker
+— instead of only saying that SQLite has one writer.
+
+The test loads the real module against a stub collection prototype and exercises
+the behaviour rather than reading the source: a busy write is retried and
+succeeds with its arguments and its collection unchanged, the `ValidationError`
+form is recognised too, a full disk is thrown at once and never retried, an
+endlessly busy database gets the original error after a bounded number of
+attempts *and* a bounded wall-clock time, the backoff grows and is jittered and
+capped on the shipped numbers, reads are left unwrapped, wrapping twice is a
+no-op, and the `eventlog` write is retried without reporting on itself.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ca0e36e37">Database problems now shows which database said it and what it said</a>. Thanks to xet7.</summary>
 
 A database problem arrived in Admin Panel / Problems / Database problems with an
