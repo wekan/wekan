@@ -266,6 +266,53 @@ browser build to verify).
 This release fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/35e3c8c66">The card window opens beside its card again, on whichever side has more room</a>. Thanks to csonkaoszimt, Mintyt and xet7.</summary>
+
+"notice how the card info docks neatly right next to the card" — the 6.09
+behaviour asked for in [#6465](https://github.com/wekan/wekan/issues/6465). The
+window had been moved off the middle of the board and docked to the end edge
+instead, which stopped it covering the board but left it nowhere near the card
+it belongs to: open a card in the FIRST list of a wide board and its details are
+a screen away, with the whole board between them.
+
+It now opens beside the minicard it was opened from, on whichever side has more
+room, and always entirely inside the visible area. A card on the left of the
+board opens to its right; a card on the right opens to its left.
+
+This is horizontal only. The vertical geometry — the staggered `top` and the
+`bottom: 8px` that makes the window full height — is already right, so nothing
+here writes `top`, `bottom` or `height`, and a test fails if it starts to.
+
+The width is passed through unchanged unless the viewport itself is narrower
+than the window. Shrinking the window to fit the gap beside the minicard was
+tried and dropped: on a 600px-wide desktop it turned a 520px window into a 240px
+one, and this is about where the window is, not how big it is. When neither side
+has room it overlaps the card instead, pushed as far towards the roomier side as
+the viewport allows — the card is behind it for a moment, which is recoverable;
+a window off the edge of the screen is not.
+
+Nothing is placed unless there is something to place it against: a card opened
+from a URL, from search, or whose list is scrolled out of view has no minicard
+on screen and keeps the previous dock. Only the desktop floating window is
+touched — the popup form (Board Table, search results) and the mini-screen card
+have their own geometry, and the maximized window's insets are `!important`. A
+window the user has dragged keeps where they put it; the viewport clamp still
+applies to it, so a browser window that shrinks cannot leave it hanging off the
+edge.
+
+One vertical side effect had to be paid for. The stylesheet's default-position
+rule is `:not([style*="left"]):not([style*="top"])`, so writing an inline `left`
+switches it off — and it carried the `top` as well as the width. Without a
+replacement, a sixth open window (past the five staggered rules, reachable with
+"Open many cards at once") would have had no `top` at all. The replacement is
+vertical-only and written BEFORE the stagger rules, so cards 1–5 still take
+their staggered `top` from those and no vertical position changes anywhere; the
+test pins that order, because the same rule written after them would win the
+specificity tie and flatten cards 2–5 onto card 1.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8e89262d0">Propagate Members To Boards now adds the members when it is ticked, instead of only at the next LDAP sync</a>. Thanks to ChristianMa97 and xet7.</summary>
 
 Ticking "Propagate Members To Boards" for a team in Admin Panel > People > Teams
