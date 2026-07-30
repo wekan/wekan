@@ -9,6 +9,9 @@ meteor-base@1.5.2
 ecmascript@0.18.1
 standard-minifier-js@3.2.0
 rspack@1.1.0
+# Declared explicitly because server/modernBrowsers.js imports it, to say that
+# Yandex Browser is modern and must not be served the legacy bundle (#6557).
+modern-browsers@0.2.3
 
 blaze@3.0.2
 

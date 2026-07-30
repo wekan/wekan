@@ -3,23 +3,35 @@
 // Plain-Node guard for the SWC runtime helpers the LEGACY client bundle needs.
 // Run: node tests/swcLegacyHelpers.test.cjs
 //
-// wekan/wekan-snap#178: WeKan 10.44 in Yandex Browser failed to start with
+// wekan/wekan-snap#178, wekan/wekan#6534 / #6535 / #6556 / #6557: WeKan in Yandex
+// Browser fails to start with
 //
-//   Cannot find module '@swc/helpers/_/_possible_constructor_return'
+//   Uncaught Error: Cannot find module '@swc/helpers/_/_possible_constructor_return'
+//       at a.s [as link] (…)  at client-rspack.js (…:285:985)
 //
-// An older browser is served `web.browser.legacy`, where SWC compiles classes to
-// ES5 and emits imports of its own helpers. The built legacy bundle contained
-// `link("@swc/helpers/_/_possible_constructor_return", …)` - the app asks for it -
-// while the module tree beside it held 22 helper directories and not that one:
-// Meteor's scanner includes an npm package's files from the imports it can SEE,
-// and these imports are written by the transform AFTERWARDS. `_call_super` came
-// in through another helper's relative require; `_possible_constructor_return`
-// did not, so exactly one was missing and the whole app failed to load.
+// The failing `link()` is in the copy of the rspack bundle that METEOR compiled -
+// the bundle rspack writes contains no `@swc/helpers` specifier at all. Meteor put
+// it there: package.json turns on `"meteor": { "modern": true }`, so Meteor 3.3+
+// transpiles with SWC; babel-compiler sets `jsc.externalHelpers: true` whenever
+// node_modules/@swc/helpers exists; and the `web.browser.legacy` transpile has no
+// `jsc.target` and an `env.targets` down to ie 11, so `class` is lowered to ES5 and
+// the output imports the helper. That specifier is not in the legacy bundle's
+// module tree, so the app fails to boot - only for browsers served that bundle,
+// which is why it looked Yandex-specific.
 //
-// client/lib/swcHelpers.js imports them from ordinary client code, which the
-// scanner does see. This checks that the file is loaded first, that every helper
-// it names exists in the installed package (a typo would be a silent no-op), and
-// that the one from the report is among them.
+// Two things are pinned here.
+//
+//   * /.swcrc turns `jsc.externalHelpers` OFF, which is the fix: SWC inlines each
+//     helper instead of importing it, so the import cannot be emitted and cannot
+//     go missing. Both readers of that file merge it over their own defaults and
+//     neither preserves this key, so it reaches the Meteor transpile and the rspack
+//     build alike.
+//   * client/lib/swcHelpers.js keeps every helper BOUND AND READ. It is not the
+//     fix - it lives in the rspack graph, whose imports never become entries in
+//     Meteor's module tree, which is why #6556's version of it changed nothing -
+//     but `window.__wekanSwcHelpers` is the first thing to look at if this comes
+//     back, and `@swc/helpers` still declares `sideEffects: false`, so an unread
+//     import may be deleted.
 
 const assert = require('assert');
 const fs = require('fs');
@@ -53,6 +65,51 @@ const boundNames = imported.map(m => m[1]);
 const helperPaths = imported.map(m => m[2]);
 
 console.log('swcLegacyHelpers:');
+
+test('.swcrc turns external helpers off, so the import is never emitted', () => {
+  // THE fix for #6557. Without it Meteor's SWC emits
+  // `import { _ } from "@swc/helpers/_/_possible_constructor_return"` into the
+  // legacy bundle, where the specifier does not resolve.
+  const swcrcPath = path.join(ROOT, '.swcrc');
+  assert.ok(fs.existsSync(swcrcPath), '.swcrc must exist at the app root');
+
+  const raw = fs.readFileSync(swcrcPath, 'utf8');
+  // Both readers use strict JSON.parse (Meteor's babel-compiler and
+  // @meteorjs/rspack's lib/swc.js), so a comment here breaks the build - and the
+  // error surfaces as ".swcrc is not a valid JSON file".
+  let swcrc;
+  assert.doesNotThrow(() => { swcrc = JSON.parse(raw); },
+    '.swcrc is parsed with JSON.parse by both readers: no comments, strict JSON');
+
+  assert.strictEqual(swcrc.jsc && swcrc.jsc.externalHelpers, false,
+    'jsc.externalHelpers must be false: with it true, SWC IMPORTS its helpers and '
+    + 'the legacy bundle asks for a module that is not in it');
+
+  // Neither reader preserves this key against the app config - Meteor's deepMerge
+  // keeps jsc.target / env.targets / module.type, @meteorjs/rspack only jsc.target -
+  // so setting it here is what makes it take effect. Setting one of THOSE here
+  // would be silently ignored, so do not.
+  for (const ignored of ['target']) {
+    assert.ok(!(swcrc.jsc && ignored in swcrc.jsc),
+      `jsc.${ignored} is preserved by both readers and cannot be set from .swcrc`);
+  }
+  assert.ok(!('env' in swcrc),
+    'env.targets is preserved by Meteor: the legacy arch chooses its own targets');
+});
+
+test('.swcrc is not swallowed by the vim-swapfile ignore rule', () => {
+  // .gitignore's `*.sw*` is for .swp / .swo, and it matches `.swcrc` too - so
+  // `git add .swcrc` was silently a no-op and the fix would never have left the
+  // working tree, which is the failure mode this whole issue has already had twice.
+  const ignore = read('.gitignore');
+  const rules = ignore.split(/\r?\n/).map(line => line.trim());
+  assert.ok(rules.includes('*.sw*'), 'the rule that catches it is still there');
+  const swStar = rules.indexOf('*.sw*');
+  const negation = rules.indexOf('!.swcrc');
+  assert.notStrictEqual(negation, -1, '.swcrc must be excepted from it');
+  assert.ok(negation > swStar,
+    'and after it: in gitignore the LAST matching pattern wins');
+});
 
 test('the helper the report names is imported', () => {
   assert.ok(helperPaths.includes('_possible_constructor_return'),
@@ -113,6 +170,15 @@ test('every helper it names actually exists in @swc/helpers', () => {
   assert.deepStrictEqual(missing, [], 'these helper subpaths do not exist');
 });
 
+test('the file says it is a diagnostic, not the fix', () => {
+  // #6556 shipped this file believing it fixed the crash, and 10.51 failed
+  // identically. Whoever reads it next has to find out why from the file itself.
+  assert.ok(/rspack graph/.test(helpersFile),
+    'it must say that its imports go into the rspack graph, not Meteor\'s module tree');
+  assert.ok(/\.swcrc/.test(helpersFile),
+    'and point at /.swcrc, which is what actually fixes it');
+});
+
 test('it is loaded before anything that could be transformed', () => {
   const at = mainFile.indexOf("import '/client/lib/swcHelpers'");
   assert.notStrictEqual(at, -1, 'client/main.js must import it');
@@ -127,6 +193,14 @@ test('@swc/helpers is a real dependency, not a transitive one', () => {
   const deps = { ...(pkg.dependencies || {}), ...(pkg.devDependencies || {}) };
   assert.ok(deps['@swc/helpers'],
     'the bundle imports it directly, so it must be declared directly');
+
+  // …and this is also what makes Meteor set externalHelpers in the first place:
+  // babel-compiler turns it on when node_modules/@swc/helpers exists. Removing the
+  // dependency would "fix" #6557 by accident and lose the inlining choice, so the
+  // choice stays explicit in .swcrc.
+  assert.ok(/"modern"/.test(read('package.json')),
+    'package.json still opts into the modern (SWC) transpiler, which is what emits '
+    + 'the helper imports');
 });
 
 console.log(`\n${passed} tests passed`);

@@ -15,6 +15,10 @@ import '/server/00processErrors';
 // come before anything that registers a Meteor.startup hook.
 import '/server/00startupResilience';
 
+// Yandex Browser is a modern browser: say so, or `modern-browsers` serves it the
+// legacy bundle because it has no minimum for that family name (#6557).
+import '/server/modernBrowsers';
+
 // ****IMPORTANT**** Wait for MongoDB to be ready BEFORE anything else, so the
 // first index creation never crashes the server with "Topology is closed".
 // Registers the first Meteor.startup hook, so it runs before index-creating ones.

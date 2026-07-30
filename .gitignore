@@ -1,6 +1,10 @@
 *~
 /*.log
+# vim swap files (.swp, .swo, .swn) - but NOT .swcrc, which is the SWC transpiler
+# configuration and has to be committed. Without this exception `git add .swcrc`
+# is silently a no-op and the fix for #6557 never leaves the working tree.
 *.sw*
+!.swcrc
 .meteor-spk
 *.sublime-workspace
 tmp/

@@ -1,41 +1,66 @@
 // ============================================================================
-// The SWC helpers the LEGACY client bundle needs — imported AND USED, so they
-// are actually in it.
+// The SWC runtime helpers, bundled into the client — a diagnostic and a belt,
+// NOT the fix. The fix for the crash below is `/.swcrc`; read on before touching
+// either.
 //
-// wekan/wekan#6534 / #6535 / #6556: WeKan in Yandex Browser dies at load with
+// wekan/wekan#6534 / #6535 / #6556 / #6557: WeKan in Yandex Browser dies at load
+// with
 //
-//   Cannot find module '@swc/helpers/_/_possible_constructor_return'
+//   Uncaught Error: Cannot find module '@swc/helpers/_/_possible_constructor_return'
+//       at w (…) at a.resolve (…) at a.s [as link] (…)
+//       at client-rspack.js (…:285:985)
+//       at client-meteor.js (…:285:86)
 //
-// An older browser is served `web.browser.legacy`, where SWC compiles classes
-// down to ES5 and emits imports of its own runtime helpers. The built legacy
-// bundle DOES contain `link("@swc/helpers/_/_possible_constructor_return", …)` -
-// the app asks for it - while the module tree beside it holds the OTHER helper
-// directories and not that one, so the module system cannot resolve what the code
-// imports and the whole app fails to start. (The modern bundle is unaffected:
-// nothing there is transformed that far.)
+// WHAT ACTUALLY HAPPENS, from the frames outward. `client-meteor.js` is Meteor's
+// client mainModule and its last line is `import './client-rspack.js'`; that
+// `link()` runs the rspack bundle as a Meteor module, and the failing `link()` is
+// in `client-rspack.js` itself. So the import of the helper is in the copy of the
+// rspack bundle that METEOR compiled - it is not in the bundle rspack wrote (the
+// built `_build/main-prod/client-rspack.js` contains no `@swc/helpers` specifier
+// at all). Meteor put it there:
 //
-// FIRST ATTEMPT, and why it did nothing (#6556, still broken in 10.45): this file
-// listed the helpers as side-effect-only imports -
+//   * package.json says `"meteor": { "modern": true }`, which turns on Meteor
+//     3.3+'s SWC transpiler for every file, app and package alike;
+//   * `packages/babel-compiler/babel-compiler.js` sets `jsc.externalHelpers: true`
+//     whenever `node_modules/@swc/helpers` exists - and WeKan depends on it - so
+//     the transpiled output IMPORTS its helpers instead of inlining them;
+//   * for `web.browser.legacy` that transpile has no `jsc.target` and an
+//     `env.targets` down to `ie: '11'`, so `class` is lowered to ES5 and the
+//     output gains `import { _ } from "@swc/helpers/_/_possible_constructor_return"`;
+//   * that specifier is not in the legacy bundle's module tree, so the `link()`
+//     throws and the whole app fails to boot. The MODERN bundle is fine: nothing
+//     there is lowered that far, and where a helper IS needed the modern module
+//     runtime resolves `mainFields: ['browser','module','main']` (the `esm/` file)
+//     while the legacy one prefers `main` (`../../cjs/_x.cjs`).
 //
-//     import '@swc/helpers/_/_possible_constructor_return';
+// Only a browser served the legacy bundle can hit it, which is why it looked
+// Yandex-specific: `useragent-ng` reports Yandex Browser as family
+// "Yandex Browser" → `webapp` camel-cases that to `yandexBrowser`, and
+// `modern-browsers` has no minimum and no alias for that name, so `isModern()` is
+// false. server/modernBrowsers.js fixes that side of it.
 //
-// - and `@swc/helpers` declares `"sideEffects": false`. That is a promise to the
-// bundler that importing a module of this package changes nothing, so an import
-// whose bindings are never read may be removed entirely. It was: the file
-// compiled to nothing, the package directory was never pulled in, and the bundle
-// was exactly as before.
+// WHY THE EARLIER ATTEMPTS COULD NOT WORK. #6534/#6535 imported the helpers as
+// bare side-effect imports here; `@swc/helpers` declares `"sideEffects": false`,
+// so the bundler was free to delete them, and did. #6556 bound and read every
+// helper so nothing could be dropped - and 10.51 failed identically, because
+// THIS FILE IS IN THE RSPACK GRAPH. rspack resolves these imports and inlines the
+// helper bodies into `client-rspack.js`; they never become entries in Meteor's own
+// module tree, which is the tree the failing `link()` searches. No amount of
+// importing from app code can satisfy a link that Meteor's transpiler wrote after
+// the fact.
 //
-// So every helper is BOUND and then USED below. The array is written to a global,
-// which is an observable effect no optimizer may remove, and reading each binding
-// is what forces the module - and therefore the package subdirectory the runtime
-// asks for - into the bundle.
+// THE FIX is to stop the import being emitted at all: `/.swcrc` sets
+// `jsc.externalHelpers: false`, so SWC inlines each helper into the file that
+// needs it. Both readers of that file merge it over their defaults and neither
+// preserves `jsc.externalHelpers` (Meteor's `deepMerge` keeps only `jsc.target`,
+// `env.targets` and `module.type`; @meteorjs/rspack's only `jsc.target`), so the
+// setting takes effect for the Meteor transpile and the rspack build alike.
 //
-// Why import the `_/` path and not `esm/`: the transform emits
-// `@swc/helpers/_/_x`, so that is the path the runtime resolves, and only an
-// import of THAT path puts it in the module tree. (Node's own resolver would
-// refuse it - the package's `exports` map has no `./_/*` entry - but Meteor's
-// module system resolves the directory through its package.json `main`, which is
-// what the legacy bundle does at runtime.)
+// WHAT THIS FILE IS FOR NOW. `window.__wekanSwcHelpers` says in one word whether
+// the helpers reached the bundle, which is the first thing to ask if this ever
+// comes back; and the imports keep the helper modules present in the rspack graph,
+// where they have always resolved correctly. Every binding is still BOUND and READ,
+// because `sideEffects: false` has not changed and an unread import may be deleted.
 // ============================================================================
 
 // Classes and inheritance - the ES5 downlevel of `class`, `extends`, `super`.
