@@ -261,6 +261,52 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ca0e36e37">Database problems now shows which database said it and what it said</a>. Thanks to xet7.</summary>
+
+A database problem arrived in Admin Panel / Problems / Database problems with an
+empty Category, Name and Action and a detail that said "The database returned an
+error WeKan has no rule for. Read the message below" — with no message below, or
+anywhere else on the page. The row said that something had happened and nothing
+about what.
+
+Nothing was wrong with the classifier or the recorder. `EventLog` has a
+SimpleSchema attached, and collection2 cleans every insert against it with
+`filter: true`, so a field the schema does not declare is dropped silently on
+the way to the database. The four fields the `database` stream uses — `type`
+(the rule id), `db` (which database said it), `kind` and `message` — were never
+added to that schema, so they were the four that were thrown away, and they are
+exactly the four the page shows in Category, Name, Action and the message it
+told the admin to read. The other four event streams were unaffected: they only
+ever write fields the schema declares.
+
+The schema declares them now, and the test pins the general rule rather than
+this one instance — for each of the five event loggers, every key of the
+document it inserts must be declared in the `EventLog` schema — so the next
+field added to a logger cannot vanish the same way.
+
+The message is shown as well: the Detail cell carries WeKan's reading of the
+error and then the database's own sentence, which is the one thing an admin can
+search for or paste into an issue. The stream search looks at `message`, `db`,
+`kind` and `type`, so searching for "postgresql" or for a phrase out of the
+message finds the row that displays it, and the unclassified advice no longer
+promises a message "below" — it follows in the same cell.
+
+Because that message is now stored and displayed, it loses its credentials
+first. A database that refuses a login or cannot be reached quotes the
+connection URL back, password and all, so `classifyDatabaseError` redacts the
+userinfo of any URL in the message before returning it — keeping the host, the
+port and the database name, which are what makes the message useful — and it is
+done there rather than in the recorder so no future caller can forget it. The
+message is also sanitized like every other stream's detail: one line, control
+characters out, capped.
+
+</details>
+
 # v10.51 2026-07-29 WeKan ® release
 
 This release publishes the following packages that were not being published:
