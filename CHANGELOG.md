@@ -261,6 +261,113 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8e89262d0">Propagate Members To Boards now adds the members when it is ticked, instead of only at the next LDAP sync</a>. Thanks to ChristianMa97 and xet7.</summary>
+
+Ticking "Propagate Members To Boards" for a team in Admin Panel > People > Teams
+stored the flag and added nobody. The members appeared later, when the LDAP sync
+cron ran the same propagation by its other, correct route — which is why the
+feature looked half-working rather than broken.
+
+`setTeamPropagateMembersToBoards(team, value)` receives `team` as the *selector*
+the client sent — `{ _id: … }`, the same value it hands to `Team.updateAsync` on
+the line above — and passed it whole to `propagateGroupMembersToBoards`, which
+put it straight into the member lookup. So it ran
+
+    Meteor.users.find({ 'teams.teamId': { _id: 'abc' } })
+
+comparing a string field against an object. It matched nobody, the function
+returned "0 boards updated, 0 members added", and nothing threw: the checkbox
+went green and did nothing. The org column beside it was identical and is fixed
+with it, though the report was about teams.
+
+Both call sites pass the id now, and `propagateGroupMembersToBoards` normalises
+whatever it is given at the one point every caller goes through — a plain id, or
+a document or selector carrying one. Anything it cannot turn into an id is
+refused *and logged*, rather than quietly treated as a group that happens to
+have no members, because that silence is exactly how this survived a release. A
+missing group stays quiet, since the propagate-everything pass may legitimately
+have nothing to pass.
+
+The select-all checkbox in the column header makes the same promise to the
+admin, and it did not propagate at all — not even wrongly: it set the flag on
+every row and stopped. It propagates now when that field is the one being turned
+on, and only for its own kind, so ticking the team column does not act on the
+org column beside it. The propagate-everything pass takes an optional kind for
+this; its default is unchanged, so the LDAP cron and the
+`propagateOrgTeamMembersToBoards` method still do both.
+
+The two wiring tests *required* the buggy calls — they asserted
+`propagateGroupMembersToBoards('team', team)` verbatim, pinning that a call
+happened without asking whether its argument was right, and so held the bug in
+place. They require the id now and fail if the whole selector comes back, and
+the normaliser is exercised for real rather than read: every shape a caller
+might hold an id in resolves to it, a selector with no id resolves to nothing
+and warns, and an absent group is quiet.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fe27dc0b8">Moving a card to another board no longer blanks every custom field id</a>. Thanks to ChristianMa97 and xet7.</summary>
+
+The values survived the move; their keys did not. Every entry came out keyed by
+an empty `_id`, which no board can match to a field definition, so the card
+arrived on the destination board with every custom field showing empty.
+Drag-and-drop, the Move card popup and the REST API `newBoardId` move all go
+through the same helper, and a cross-board card copy had it too.
+
+`mapCustomFieldsToBoard()` was synchronous and called
+`ReactiveCache.getCustomField()`, which is async on the **server** — it awaits
+`findOneAsync` — and synchronous only on the client. So on the server both
+lookups returned Promises. A Promise is truthy, so the "field not found" guard
+never fired and the "the destination board has its own definition" branch always
+did, assigning `newCf._id`: `undefined` on a Promise. The schema declares
+`customFields.$._id` as `optional: true, defaultValue: ''`, so collection2
+cleaned that undefined to `''` on the way to the database. Nothing threw and
+nothing was logged.
+
+Both lookups are awaited now, and so is `addBoard()` — also async, and until the
+two above were awaited its branch was unreachable, so its own missing await had
+never been exercised.
+
+Two more things in the same function. The entries are rebuilt rather than
+mutated in place: a card copy deliberately works on a shallow copy of the card
+"to avoid mutating the source card in ReactiveCache", and `cf._id = newCf._id`
+reached straight through that copy into the source card's own entry objects,
+re-keying the card being copied *from*. And an entry with no id is passed
+through instead of looked up — `getCustomField()` defaults its selector to `{}`,
+so a lookup of an empty id returns an *arbitrary* custom field, and a blank
+entry (including one blanked by this very bug) would have been re-keyed to
+whichever field came first.
+
+This is the same defect as the fix for
+[#6504](https://github.com/wekan/wekan/issues/6504) — an unawaited
+`ReactiveCache.getBoard` in this same cross-board branch, which gave
+"newBoard.getNextCardNumber is not a function" — one line further down. The
+guard added then named the two `getBoard` calls and stopped there, so the third
+call shipped broken for twenty more releases. That guard now checks the branch
+as a whole and fails on any unawaited async call in it; run against the pre-fix
+file it reports exactly this one.
+
+The new test lifts the real function out of the model and runs it against both
+worlds — an async cache (the server, where this broke) and a synchronous one
+(the client, where it always worked) — which must give the same answer: a value
+whose field exists on the destination board by name and type is re-keyed to that
+board's definition, and one whose field does not is left pointing at the
+definition it had, which gains the destination board so the value still
+resolves.
+
+Cards moved or copied between boards on an affected release are **not** repaired
+by this. The entry kept its value but lost the only reference to which field it
+belonged to, so there is nothing left to match it back with, and those values
+have to be set again.
+
+</details>
+
 # v10.52 2026-07-30 WeKan ® release
 
 This release fixes the following bugs:
