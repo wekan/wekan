@@ -24,7 +24,9 @@ function makeCard(props) {
     ),
   );
   // Avoid touching custom-field/board resolution in the cross-board branch.
-  card.mapCustomFieldsToBoard = () => [];
+  // Async like the real helper (#6560): move() awaits it, and a stub that is not
+  // a promise would stop this test from noticing if that await were dropped.
+  card.mapCustomFieldsToBoard = async () => [];
   return card;
 }
 

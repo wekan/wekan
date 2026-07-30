@@ -819,7 +819,29 @@ Cards.helpers({
     });
   },
 
-  mapCustomFieldsToBoard(boardId) {
+  // Re-key this card's custom field VALUES onto the destination board's field
+  // definitions, matching by name and type. Returns a NEW array of NEW entries -
+  // the caller assigns it to the card being written.
+  //
+  // #6560: this was a synchronous function calling ReactiveCache.getCustomField(),
+  // which is async on the SERVER (it awaits findOneAsync) and synchronous only on
+  // the client. So on the server `oldCf` and `newCf` were Promises. A Promise is
+  // truthy, so `!oldCf` never fired and the `newCf` branch always did, and it
+  // assigned `newCf._id` - `undefined` on a Promise. The schema declares
+  // `customFields.$._id` as `optional: true, defaultValue: ''`, so collection2
+  // cleaned that undefined to `''` on the way to the database: every moved or
+  // copied card came out with its values intact and its field ids blanked, which
+  // no board can match to a definition. Nothing threw, so it was silent.
+  //
+  // Both lookups are awaited now, and so is `addBoard` - also async, and until the
+  // awaits above were added its branch was unreachable, so its missing await had
+  // never been exercised.
+  //
+  // The entries are rebuilt rather than mutated in place because `copy()` works on
+  // a shallow copy of the card "to avoid mutating the source card in
+  // ReactiveCache" - and the old `cf._id = …` reached straight through that copy
+  // into the source card's own objects, re-keying the card being copied FROM.
+  async mapCustomFieldsToBoard(boardId) {
     // Guard against undefined/null customFields
     if (!this.customFields || !Array.isArray(this.customFields)) {
       return [];
@@ -827,28 +849,42 @@ Cards.helpers({
     // Map custom fields to new board
     const result = [];
     for (const cf of this.customFields) {
-        const oldCf = ReactiveCache.getCustomField(cf._id);
+        // An entry with no id has nothing to look up - and must not be looked up:
+        // getCustomField() defaults its selector to `{}`, so passing undefined
+        // would return an ARBITRARY custom field and re-key the value to it.
+        if (!cf || !cf._id) {
+            result.push({ ...cf });
+            continue;
+        }
+
+        const oldCf = await ReactiveCache.getCustomField(cf._id);
 
         // Check if oldCf is undefined or null
         if (!oldCf) {
             //console.error(`Custom field with ID ${cf._id} not found.`);
-            result.push(cf);  // Skip this field if oldCf is not found
+            result.push({ ...cf });  // Skip this field if oldCf is not found
             continue;
         }
 
-        const newCf = ReactiveCache.getCustomField({
+        const newCf = await ReactiveCache.getCustomField({
             boardIds: boardId,
             name: oldCf.name,
             type: oldCf.type,
         });
 
         if (newCf) {
-            cf._id = newCf._id;
-        } else if (!(oldCf.boardIds || []).includes(boardId)) {
-            oldCf.addBoard(boardId);
+            // The destination board has its own definition of the same field:
+            // point the value at it.
+            result.push({ ...cf, _id: newCf._id });
+            continue;
         }
 
-        result.push(cf);
+        // It has none, so share this one with the destination board and keep the
+        // value pointing at it.
+        if (!(oldCf.boardIds || []).includes(boardId)) {
+            await oldCf.addBoard(boardId);
+        }
+        result.push({ ...cf });
     }
     return result;
 },
@@ -892,7 +928,7 @@ Cards.helpers({
       cardData.labelIds = newCardLabels;
       this.labelIds = newCardLabels;
 
-      this.customFields = this.mapCustomFieldsToBoard(newBoard._id);
+      this.customFields = await this.mapCustomFieldsToBoard(newBoard._id);
     }
 
     delete this._id;
@@ -2557,7 +2593,7 @@ Cards.helpers({
         cardNumber: newCardNumber
       });
 
-      mutatedFields.customFields = this.mapCustomFieldsToBoard(newBoard._id);
+      mutatedFields.customFields = await this.mapCustomFieldsToBoard(newBoard._id);
 
       // Ensure customFields is always an array (guards against legacy {} data)
       if (!Array.isArray(mutatedFields.customFields)) {
