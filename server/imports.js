@@ -15,6 +15,11 @@ import '/server/00processErrors';
 // come before anything that registers a Meteor.startup hook.
 import '/server/00startupResilience';
 
+// ...and retry the writes themselves, so a write that lost the race for SQLite's
+// single writer is retried instead of failing the user's edit (#6533). Loaded here
+// so it wraps the collection prototype OUTSIDE collection2 / collection-hooks.
+import '/server/00retryBusyWrites';
+
 // Yandex Browser is a modern browser: say so, or `modern-browsers` serves it the
 // legacy bundle because it has no minimum for that family name (#6557).
 import '/server/modernBrowsers';

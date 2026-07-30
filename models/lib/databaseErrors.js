@@ -143,8 +143,14 @@ const RULES = [
     kind: 'contention',
     means: 'Two writes wanted the same rows in a different order, or SQLite\'s single ' +
       'writer was busy.',
-    whatToDo: 'Retried automatically. If it is constant on SQLite, that backend has one ' +
-      'writer - move to PostgreSQL for a busy instance.',
+    // "Retried automatically" is true because server/00retryBusyWrites.js retries
+    // every collection write that fails this way; for years nothing read `act` and
+    // the write simply failed in front of the user (#6533).
+    whatToDo: 'Retried automatically. If it is constant, SQLite\'s one writer is the ' +
+      'limit and the backend should be PostgreSQL: on a snap, ' +
+      '"snap set wekan wekan-ferretdb-handler=postgresql ' +
+      'wekan-ferretdb-url=postgres://user:pass@HOST:5432/ferretdb"; in Docker, the ' +
+      'docker-compose-ferretdb-v1-postgresql.yml compose file.',
     act: 'retry',
   },
   {
