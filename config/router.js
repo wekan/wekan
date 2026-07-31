@@ -13,6 +13,15 @@ import { Utils } from '/client/lib/utils';
 // The Admin Panel's per-pane URLs: /settings/version, /settings/visibility,
 // /settings/global-webhooks and so on. docs/Design/Page/Admin-Panel-URLs.md
 import { resolvePaneId, adminPath } from '/models/lib/adminUrls';
+// The All Boards page's URLs: /allboards/starred, /allboards/templates,
+// /allboards/remaining, /allboards/workspaces/<name>/<sub-name>.
+// docs/Design/Page/All-Boards-URLs.md
+import {
+  SECTION_WORKSPACES,
+  resolveSection,
+  splitWorkspacePath,
+  allBoardsPath,
+} from '/models/lib/allBoardsUrls';
 
 let previousPath;
 
@@ -169,19 +178,47 @@ FlowRouter.route('/', {
   },
 });
 
+// The old section URLs. They keep working, as redirects to the new structure -
+// the same move /setting made. docs/Design/Page/All-Boards-URLs.md
 FlowRouter.route('/templates', {
   name: 'allboards-templates',
-  triggersEnter: [ensureSignedInUnlessSandstorm],
-  action() {
-    renderBoardList(this, 'templates');
-  },
+  triggersEnter: [
+    (context, redirect) => {
+      redirect(allBoardsPath('templates', []));
+    },
+  ],
+  action() {},
 });
 
 FlowRouter.route('/remaining', {
   name: 'allboards-remaining',
+  triggersEnter: [
+    (context, redirect) => {
+      redirect(allBoardsPath('remaining', []));
+    },
+  ],
+  action() {},
+});
+
+// All Boards, with a URL per left-menu entry - including the workspaces tree,
+// which had none at all. `:path*` captures the whole rest of the address, so a
+// workspace nests as deep as its tree does:
+// /allboards/workspaces/engineering/backend. docs/Design/Page/All-Boards-URLs.md
+//
+// The WORKSPACE is resolved by the page, not here: the tree lives on the user
+// document, which the router cannot read before the page has it. The router
+// hands over the slugs; the page turns them into a workspace id once the tree
+// has loaded, and falls back to Workspaces if they name nothing.
+FlowRouter.route('/allboards/:section?/:path*', {
+  name: 'allboards',
   triggersEnter: [ensureSignedInUnlessSandstorm],
-  action() {
-    renderBoardList(this, 'remaining');
+  action(params) {
+    const section = resolveSection(params && params.section);
+    Session.set(
+      'boardListWorkspacePath',
+      section === SECTION_WORKSPACES ? splitWorkspacePath(params && params.path) : [],
+    );
+    renderBoardList(this, section);
   },
 });
 

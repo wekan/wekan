@@ -1,8 +1,15 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { Session } from 'meteor/session';
 const { notHelperBoardTitle } = require('/models/lib/helperBoards');
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import getSlug from 'limax';
+// The All Boards URLs, and the slug path of a workspace in the tree.
+// docs/Design/Page/All-Boards-URLs.md
+import {
+  workspaceIdForSlugPath,
+  allBoardsPathForMenu,
+} from '/models/lib/allBoardsUrls';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { BoardMultiSelection } from '/client/lib/boardMultiSelection';
 import {
@@ -222,6 +229,15 @@ Template.boardListHeaderBar.events({
 
 Template.boardList.events({});
 
+// Put the selected menu entry in the address bar. A section is its own name; a
+// workspace is the slugs of its names down the tree, so the URL says where you
+// are rather than carrying a random id. `go`, not `replace`, so Back returns to
+// the previous entry. docs/Design/Page/All-Boards-URLs.md
+function goToAllBoards(tpl, menuValue) {
+  const path = allBoardsPathForMenu(menuValue, tpl.workspacesTreeVar.get(), getSlug);
+  if (path && FlowRouter.current().path !== path) FlowRouter.go(path);
+}
+
 // The boards the page shows: the selected section, filtered by the search
 // field, sorted and paged. Extracted from the `boards` helper so the Table
 // view draws the SAME set - two copies of this would be two answers to
@@ -244,7 +260,12 @@ function boardsForView(tpl) {
   // (/templates, /remaining), which must apply the same membership filtering
   // as the home route, otherwise their board list is empty (or falls into the
   // public-only branch below).
-  const allBoardsRoutes = ['home', 'allboards-templates', 'allboards-remaining'];
+  // 'allboards' is the URL-per-entry route (/allboards/starred, /allboards/
+  // workspaces/...); the other three are the older addresses that redirect to
+  // it, and 'home' is /. Leaving one out sends the page down the public-only
+  // branch below, which shows PUBLIC boards instead of the user's own.
+  const allBoardsRoutes = ['home', 'allboards', 'allboards-templates',
+    'allboards-remaining'];
   if (allBoardsRoutes.includes(FlowRouter.getRouteName())) {
     membershipOrs.push({ 'members.userId': Meteor.userId() });
 
@@ -444,6 +465,25 @@ Template.boardList.onCreated(function () {
   this.selectedMenu.set(Session.get('boardListMenu') || 'starred');
   this.selectedWorkspaceIdVar = new ReactiveVar(null);
   this.workspacesTreeVar = new ReactiveVar([]);
+  // The workspace the URL names, as the slugs of its names down the tree:
+  // /allboards/workspaces/engineering/backend. The ROUTER cannot resolve this -
+  // the tree is on the user document, which it has no way to read before the
+  // page has it - so it hands over the slugs and this waits for the tree.
+  //
+  // It runs whenever either changes, so a link followed while the page is
+  // already open switches workspace, and a slug path that names nothing leaves
+  // the Workspaces section selected rather than an empty board list.
+  // docs/Design/Page/All-Boards-URLs.md
+  this.autorun(() => {
+    const slugPath = Session.get('boardListWorkspacePath') || [];
+    const tree = this.workspacesTreeVar.get();
+    if (!slugPath.length || !tree.length) return;
+    const workspaceId = workspaceIdForSlugPath(tree, slugPath, getSlug);
+    if (workspaceId && workspaceId !== this.selectedWorkspaceIdVar.get()) {
+      this.selectedWorkspaceIdVar.set(workspaceId);
+      this.selectedMenu.set(workspaceId);
+    }
+  });
   // #5799: free-text search by board name. When non-empty it searches across
   // ALL the user's boards (Starred, Templates, Remaining and every workspace),
   // ignoring the selected-menu filter.
@@ -1041,11 +1081,13 @@ Template.boardList.events({
     const type = evt.currentTarget.getAttribute('data-type');
     tpl.selectedWorkspaceIdVar.set(null);
     tpl.selectedMenu.set(type);
+    goToAllBoards(tpl, type);
   },
   'click .js-select-workspace'(evt, tpl) {
     const id = evt.currentTarget.getAttribute('data-id');
     tpl.selectedWorkspaceIdVar.set(id);
     tpl.selectedMenu.set(id);
+    goToAllBoards(tpl, id);
   },
   'click .js-open-workspace-menu': Popup.open('workspaceActions'),
   // #6524: opens a popup with a real input. This used to call window.prompt(),

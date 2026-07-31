@@ -169,6 +169,7 @@ controls have their own lists in [Search](Search.md) and
 
 ## Related
 
+- [The All Boards URLs](All-Boards-URLs.md) — a URL per left-menu entry, workspaces included
 - [Search](Search.md) — the shared Search control and both search views
 - [Multi-Selection](Multi-Selection.md) — the shared Multi-Selection control and both views
 - [The Table page design](Table.md) — everything shared by table pages
