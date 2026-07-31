@@ -1790,24 +1790,51 @@ for _once in 1; do
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
 			echo "macOS"
-			brew install npm
-			brew install node@24
-			ZSHRC="$HOME/.zshrc"
-			touch "$ZSHRC"
-			grep -qxF 'export PATH="/opt/homebrew/opt/node@24/bin:$PATH"' "$ZSHRC" || echo 'export PATH="/opt/homebrew/opt/node@24/bin:$PATH"' >> "$ZSHRC"
-			grep -qxF 'export LDFLAGS="-L/opt/homebrew/opt/node@24/lib"' "$ZSHRC" || echo 'export LDFLAGS="-L/opt/homebrew/opt/node@24/lib"' >> "$ZSHRC"
-			grep -qxF 'export CPPFLAGS="-I/opt/homebrew/opt/node@24/include"' "$ZSHRC" || echo 'export CPPFLAGS="-I/opt/homebrew/opt/node@24/include"' >> "$ZSHRC"
-			export PATH="/opt/homebrew/opt/node@24/bin:$PATH"
-			export LDFLAGS="-L/opt/homebrew/opt/node@24/lib"
-			export CPPFLAGS="-I/opt/homebrew/opt/node@24/include"
-			directory_name="~/.npm"
-			if [ ! -d "$directory_name" ]; then
-				mkdir "$directory_name"
-				echo "Directory '$directory_name' created."
-			else
-				echo "Directory '$directory_name' already exists."
+			# Node comes from nvm, not from Homebrew's node@24 keg.
+			#
+			# `brew install node@24` gives whatever 24.x Homebrew currently has
+			# bottled - which trails nodejs.org - and, being keg-only, needs
+			# PATH, LDFLAGS and CPPFLAGS exported by hand. `nvm install 24`
+			# resolves to the NEWEST 24.x on nodejs.org every time it runs and
+			# puts that on PATH itself, so this does not go stale the way a
+			# pinned version does. npm comes with the Node it installs, so
+			# there is no `brew install npm` either.
+			export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
+			mkdir -p "$NVM_DIR"
+			if [ ! -s "$NVM_DIR/nvm.sh" ]; then
+				echo "Installing nvm into $NVM_DIR ..."
+				# A PINNED tag, not master: this pipes a downloaded script into
+				# a shell, so it must be a revision somebody has looked at.
+				curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.6/install.sh | bash
 			fi
-			npm config set prefix '~/.npm'
+			# nvm is a shell FUNCTION, not a binary, so it has to be sourced -
+			# `command -v nvm` finds nothing until this line has run.
+			# shellcheck source=/dev/null
+			[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+			if ! command -v nvm >/dev/null 2>&1; then
+				echo "nvm did not install. Install it by hand from https://github.com/nvm-sh/nvm and run this again."
+				exit 1
+			fi
+			# `npm config set prefix` and nvm cannot both be right: the prefix
+			# overrides the per-version one nvm points at, global installs land
+			# outside the version they were installed for, and nvm refuses to
+			# switch versions while it is set. The old Homebrew path set it, so
+			# clear it before installing anything.
+			npm config delete prefix >/dev/null 2>&1 || true
+			# The newest 24.x, and the default for every new shell.
+			nvm install 24
+			nvm alias default 24
+			nvm use 24
+			echo "Node $(node --version), npm $(npm --version)"
+			# Let new shells find nvm too. Its installer appends these itself,
+			# but only to the rc file it detects and only when IT did the
+			# install - so a machine that already had nvm keeps working.
+			touch "$HOME/.zshrc"
+			for rc in "$HOME/.zshrc" "$HOME/.bashrc"; do
+				[ -e "$rc" ] || continue
+				grep -qxF 'export NVM_DIR="$HOME/.nvm"' "$rc" || echo 'export NVM_DIR="$HOME/.nvm"' >> "$rc"
+				grep -qxF '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"' "$rc" || echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"' >> "$rc"
+			done
 			npx -y meteor
 			export PATH=~/.meteor:$PATH
 			exit;

@@ -687,6 +687,39 @@ their callers.
 
 </details>
 
+and improves the following developer tooling:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bc6a174c5">build.sh installs Node on macOS with nvm, and installs the newest 24.x</a>. Thanks to xet7.</summary>
+
+"Install WeKan dependencies" ran `brew install node@24`, which gives whatever
+24.x Homebrew currently has bottled rather than what nodejs.org has released,
+and which is keg-only — so the branch also wrote `PATH`, `LDFLAGS` and
+`CPPFLAGS` for it into `~/.zshrc` by hand. It is `nvm install 24` now: the
+major alone, so it resolves to the newest 24.x every time it runs and never
+needs bumping, and nvm puts it on `PATH` itself. npm comes with the Node it
+installs, so `brew install npm` is gone too.
+
+The nvm installer is fetched from a pinned release tag rather than `master`,
+because the line pipes a downloaded script into a shell, and `nvm.sh` is
+sourced before the first `nvm` call — nvm is a shell function, not a binary, so
+without that every call is "command not found" even straight after a successful
+install. An `NVM_DIR` the caller has already set is honoured, and a failed
+install is reported instead of run into.
+
+Two things the old branch did are now actively undone. `npm config set prefix
+'~/.npm'` cannot coexist with nvm: it overrides the per-version prefix, global
+installs land outside the Node they were installed for, and nvm refuses to
+switch versions while it is set — so the branch clears it, which a machine that
+ran the Homebrew path needs. And that prefix directory was created with a
+quoted tilde, `mkdir "~/.npm"`, which makes a directory literally named `~` in
+whatever directory `build.sh` was run from.
+
+Linux is untouched and still installs Node with `n`, which the guard pins so
+the split stays deliberate.
+
+</details>
+
 and documents the following:
 
 <details>
