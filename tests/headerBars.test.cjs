@@ -281,6 +281,14 @@ test('starred boards are a dropdown, not a row of links', () => {
   assert.strictEqual(en['starred-boards'], 'Starred Boards', 'the existing key');
   assert.ok(!('starredBoardsPopup-title' in en),
     'and no duplicate of it under the convention name');
+  // Sort Boards is titled the same way, and for the same reason.
+  const listJs = read('client/components/boards/boardsList.js');
+  assert.ok(/Popup\.open\('boardsSort', \{ titleKey: 'sort-boards' \}\)/.test(listJs),
+    'the Sort Boards popup is titled from the key that phrase already has');
+  assert.ok(!('boardsSortPopup-title' in en),
+    'and not from a duplicate under the convention name');
+  assert.strictEqual(en['sort-boards'], 'Sort Boards');
+
   const popupJs = read('client/lib/popup.js');
   assert.ok(/open\(name, openOptions = \{\}\)/.test(popupJs), 'open takes the option');
   assert.ok(/_getTitle\(popupName, titleKey\)/.test(popupJs), 'and passes it through');
@@ -663,7 +671,6 @@ test('and a view menu says its view in words, not only in a tooltip', () => {
   for (const [cls, key] of [
     ['js-open-boards-sort', 'sort-boards'],
     ['js-all-boards-sidebar-search', 'search-boards'],
-    ['js-all-boards-sidebar-multiselection', 'multi-selection'],
   ]) {
     const btnAt = btnHead.indexOf(cls);
     assert.notStrictEqual(btnAt, -1, `${cls} must be an All Boards header button`);
@@ -673,6 +680,37 @@ test('and a view menu says its view in words, not only in a tooltip', () => {
     assert.ok(btn.includes(`title="{{_ '${key}'}}"`),
       `${cls}: and its tooltip uses the same key`);
   }
+
+  // Multi-Selection's name and tooltip change with its STATE, so they are a
+  // conditional rather than one key - the same pair the board's own has.
+  const msAt = btnHead.indexOf('js-all-boards-sidebar-multiselection');
+  assert.notStrictEqual(msAt, -1, 'Multi-Selection must be an All Boards header button');
+  const ms = btnHead.slice(msAt, msAt + 700);
+  for (const key of ['multi-selection-on', 'multi-selection']) {
+    assert.ok(ms.includes(`'${key}'`), `Multi-Selection names its state with ${key}`);
+  }
+  assert.ok(/class="\{\{#if BoardMultiSelection\.isActive\}\}emphasis/.test(ms),
+    'and is emphasised while it is on');
+  assert.ok(/board-header-btn-label \{\{#if BoardMultiSelection\.isActive\}\}/.test(ms),
+    'the visible label says the state too, not only the tooltip');
+  // The way OFF, beside the button that turned it on.
+  assert.ok(/js-multiselection-reset/.test(ms), 'with an X to turn it off');
+  assert.ok(/\{\{_ 'multi-selection-off'\}\}/.test(ms), 'named by its own key');
+  assert.ok(/if BoardMultiSelection\.isActive\n/.test(ms),
+    'drawn only while it is on');
+  // ...and both are wired in the template that draws them.
+  const listJs = read('client/components/boards/boardsList.js');
+  const mapAt = listJs.indexOf('Template.allBoardsHeaderButtons.events({');
+  const map = listJs.slice(mapAt, listJs.indexOf('\n});', mapAt));
+  assert.ok(map.includes("'click .js-multiselection-reset'"), 'the X is handled here');
+  assert.ok(/evt\.stopPropagation\(\)/.test(map.slice(map.indexOf('js-multiselection-reset'))),
+    'and stops there - a click reaching the button beside it would turn it back on');
+  // The helper it reads has to be registered on THIS template: a Blaze template
+  // cannot see a sibling's helpers, and the failure is a hard render error.
+  const helpersAt = listJs.indexOf('Template.allBoardsHeaderButtons.helpers({');
+  const helpers = listJs.slice(helpersAt, listJs.indexOf('\n});', helpersAt));
+  assert.ok(/BoardMultiSelection\(\) \{/.test(helpers),
+    'BoardMultiSelection is registered on the template that uses it');
   // ...and so does the BOARD's own, which is a different button in a different
   // file and was left unnamed when the All Boards one was done.
   const boardButtons = boardJade.slice(boardJade.indexOf('js-multiselection-activate'));

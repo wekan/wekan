@@ -164,7 +164,10 @@ test('and All Boards can still be opened, now that nothing hamburgers it', () =>
     'Multi-Selection opens the sidebar on its own view');
   assert.ok(/BoardMultiSelection\.activate\(\)/.test(body),
     'and turns multi-selection on, which is what the button is for');
-  assert.ok(/Popup\.open\('boardsSort'\)/.test(body), 'Sort opens its popup');
+  // Titled from the key the app already has for the phrase, so the popup gets a
+  // header - and the header is what carries the close button.
+  assert.ok(/Popup\.open\('boardsSort', \{ titleKey: 'sort-boards' \}\)/.test(body),
+    'Sort opens its popup, titled');
 
   // The home view stays reachable from inside: every other view draws a back
   // arrow to it. It is not dead markup just because no hamburger opens it.

@@ -89,18 +89,27 @@ test('the All Boards sidebar row works at all', () => {
   // events inside its own template, so each copy needs its own handler, and a
   // copy with markup but no map is a button that silently does nothing. That
   // is exactly what happened to this one once already.
-  for (const [jadeFile, jsFile] of [
-    ['client/components/boards/allBoardsSidebar.jade', 'client/components/boards/allBoardsSidebar.js'],
-    ['client/components/boards/boardsList.jade', 'client/components/boards/boardsList.js'],
-  ]) {
-    assert.ok(/js-open-archived-board/.test(read(jadeFile)), `${jadeFile} draws it`);
-    const js = read(jsFile);
-    assert.ok(/'click \.js-open-archived-board'/.test(js), `${jsFile} handles it`);
-    // The panel closes: the page it opens replaces the page the panel belongs to.
-    const at = js.indexOf("'click .js-open-archived-board'");
-    assert.ok(/closeAllBoardsSidebar\(\)/.test(js.slice(at, at + 300)),
-      `${jsFile}: and the sidebar closes behind it`);
-  }
+  // The SIDEBAR row still leaves for the page and closes the panel behind it:
+  // the page it opens replaces the page the panel belongs to.
+  assert.ok(/js-open-archived-board/.test(read('client/components/boards/allBoardsSidebar.jade')),
+    'the sidebar draws it');
+  const sidebarJs = read('client/components/boards/allBoardsSidebar.js');
+  const at = sidebarJs.indexOf("'click .js-open-archived-board'");
+  assert.notStrictEqual(at, -1, 'and handles it');
+  assert.ok(/closeAllBoardsSidebar\(\)/.test(sidebarJs.slice(at, at + 300)),
+    'and the sidebar closes behind it');
+  assert.ok(/FlowRouter\.go\('archive'\)/.test(sidebarJs.slice(at, at + 300)),
+    'and it goes to the page');
+
+  // The LEFT MENU row does not navigate at all - it selects a section of the
+  // All Boards page, drawn beside the menu. A menu row that throws its own menu
+  // away is not a menu row.
+  const listJs = read('client/components/boards/boardsList.js');
+  const listAt = listJs.indexOf("'click .js-open-archived-board'");
+  assert.notStrictEqual(listAt, -1, 'the left-menu row is handled');
+  const listHandler = listJs.slice(listAt, listJs.indexOf('\n  },', listAt));
+  assert.ok(!/FlowRouter\.go/.test(listHandler),
+    'the left-menu row must not leave the page it is a menu of');
 });
 
 test('the page is named once, in the TOP header bar', () => {
@@ -135,15 +144,23 @@ test('and All Boards reaches it from the left menu, not the header bar', () => {
     jade.indexOf('ul.AllBoardTeamsOrgs'));
   const rowAt = menu.indexOf('js-open-archived-board');
   assert.notStrictEqual(rowAt, -1, 'the row is in the left menu');
-  // BELOW the Workspaces section, not above it or inside the tree.
+  // Under REMAINING, in the same group as the other three board lists - it is
+  // another list of boards, which is what those rows are. It was below the
+  // workspaces tree first; xet7 moved it up.
+  const remainingAt = menu.indexOf("data-type=\"remaining\"");
   const treeAt = menu.indexOf('+workspaceTree');
-  assert.ok(treeAt !== -1 && rowAt > treeAt, 'below the workspaces tree');
+  assert.ok(remainingAt !== -1 && rowAt > remainingAt, 'below Remaining');
+  assert.ok(treeAt !== -1 && rowAt < treeAt, 'and above the workspaces tree');
   // Shaped like the menu's other rows, so it does not read as a stray link.
-  const row = menu.slice(rowAt - 60, rowAt + 200);
-  assert.ok(/li\.menu-item/.test(row) && /span\.menu-label/.test(row),
+  const row = menu.slice(rowAt - 160, rowAt + 260);
+  assert.ok(/li\(class="menu-item /.test(row) && /span\.menu-label/.test(row),
     'and drawn as a menu row like Starred, Templates and Remaining');
   assert.ok(/fa-archive/.test(row) && /\{\{_ 'archived-boards'\}\}/.test(row),
     'with its icon and its name');
+  // ...including the selected state and the count, which the other three have.
+  assert.ok(/isSelectedMenu 'archive'/.test(row), 'and highlights when selected');
+  assert.ok(/span\.menu-count \{\{archivedBoardsCount\}\}/.test(row),
+    'and carries a count like Starred, Templates and Remaining');
 
   // A rule above and below the Workspaces section: the menu is three kinds of
   // thing in one column and the tree ran into its neighbours without them.
@@ -153,8 +170,7 @@ test('and All Boards reaches it from the left menu, not the header bar', () => {
   const firstHr = menu.indexOf('hr.boards-menu-divider');
   const secondHr = menu.indexOf('hr.boards-menu-divider', firstHr + 1);
   assert.ok(firstHr < headerAt, 'the first is above the section');
-  assert.ok(secondHr > treeAt && secondHr < rowAt,
-    'the second is below the tree and above the archive row');
+  assert.ok(secondHr > treeAt, 'the second is below the tree');
   // Styled, and not left as the browser default - a default hr is a beveled
   // 2px ridge that reads heavier than the menu's own border beside it.
   const css = read('client/components/boards/boardsList.css');
@@ -186,6 +202,49 @@ test('and All Boards reaches it from the left menu, not the header bar', () => {
   const listMap = js.slice(listMapAt);
   assert.ok(listMap.includes("'click .js-open-archived-board'"),
     'the template that draws it handles it');
+});
+
+test('and the All Boards menu is styled like the Admin Panel one', () => {
+  // WeKan has one kind of left menu and it should look like one kind of left
+  // menu. This was a bare column separated from the page by a hairline while
+  // the Admin Panel's was a panel with a themed selected row.
+  const boards = read('client/components/boards/boardsList.css');
+  const admin = read('client/components/settings/settingBody.css');
+
+  const panelAt = boards.indexOf('.boards-left-menu {');
+  const panel = boards.slice(panelAt, boards.indexOf('}', panelAt));
+  const adminPanelAt = admin.indexOf('.setting-content .content-body .side-menu {');
+  const adminPanel = admin.slice(adminPanelAt, admin.indexOf('}', adminPanelAt));
+  for (const [prop, value] of [
+    ['background-color', '#f7f7f7'],
+    ['border', '1px solid #f0f0f0'],
+    ['border-radius', '7px'],
+  ]) {
+    assert.ok(panel.includes(`${prop}: ${value}`), `the menu is a panel: ${prop}`);
+    assert.ok(adminPanel.includes(`${prop}: ${value}`),
+      `...the same ${prop} the Admin Panel's menu uses`);
+  }
+  // An inset shadow with NO x offset: an offset one is a physical direction and
+  // does not mirror under dir=rtl, which is how the Admin Panel's came to shade
+  // the wrong inner edge.
+  assert.ok(/box-shadow:\s*inset 0 -2px 4px/.test(panel), 'and the same inset shadow');
+  assert.ok(!/box-shadow:\s*inset -?\d+px \d/.test(panel), 'with no sideways offset');
+  // A long menu scrolls inside the panel rather than spilling past its corner.
+  assert.ok(/overflow-y:\s*auto/.test(panel) && /min-height:\s*0/.test(panel),
+    'and scrolls inside itself, as the Problems menu had to be taught to');
+
+  // The selected row is the theme accent with white text, in both menus.
+  const activeAt = boards.indexOf('.boards-left-menu .menu-item.active a,');
+  const active = boards.slice(activeAt, boards.indexOf('}', activeAt));
+  assert.ok(/background:\s*var\(--theme-accent, #2980b9\)/.test(active),
+    'the selected row is the per-user accent, falling back to the header blue');
+  assert.ok(admin.includes('background: var(--theme-accent, #2980b9)'),
+    "...which is what the Admin Panel's selected row uses");
+  assert.ok(/\.menu-item\.active a:hover/.test(active),
+    'hover is listed on the active rule too, or the white hover below washes '
+    + 'the selected row out as soon as the pointer crosses it');
+  assert.ok(/color: #fff/.test(boards.slice(activeAt, activeAt + 900)),
+    'and its label and icon go white');
 });
 
 for (const [name, fn] of tests) {

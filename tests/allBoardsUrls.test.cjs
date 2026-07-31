@@ -53,9 +53,9 @@ function test(name, fn) { tests.push([name, fn]); }
 
 console.log('allBoardsUrls:');
 
-test('the four sections, and Starred is the default', () => {
+test('the five sections, and Starred is the default', () => {
   assert.deepStrictEqual(ALL_BOARDS_SECTIONS,
-    ['starred', 'templates', 'remaining', 'workspaces']);
+    ['starred', 'templates', 'remaining', 'workspaces', 'archive']);
   assert.strictEqual(DEFAULT_SECTION, 'starred');
   for (const section of ALL_BOARDS_SECTIONS) {
     assert.strictEqual(allBoardsPath(section, []), `/allboards/${section}`);

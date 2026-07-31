@@ -27,12 +27,17 @@ const SECTION_STARRED = 'starred';
 const SECTION_TEMPLATES = 'templates';
 const SECTION_REMAINING = 'remaining';
 const SECTION_WORKSPACES = 'workspaces';
+// Boards in Archive is a section of this page, not a page of its own: it is
+// selected from the left menu and drawn beside it, so it needs an address in
+// the same shape as the other four. docs/Design/Page/Archive.md
+const SECTION_ARCHIVE = 'archive';
 
 const ALL_BOARDS_SECTIONS = [
   SECTION_STARRED,
   SECTION_TEMPLATES,
   SECTION_REMAINING,
   SECTION_WORKSPACES,
+  SECTION_ARCHIVE,
 ];
 const DEFAULT_SECTION = SECTION_STARRED;
 
@@ -50,6 +55,7 @@ const ALL_BOARDS_SECTION_TITLE_KEYS = {
   [SECTION_TEMPLATES]: 'allboards.templates',
   [SECTION_REMAINING]: 'allboards.remaining',
   [SECTION_WORKSPACES]: 'allboards.workspaces',
+  [SECTION_ARCHIVE]: 'archived-boards',
 };
 
 function sectionTitleKey(section) {
@@ -160,6 +166,7 @@ module.exports = {
   SECTION_TEMPLATES,
   SECTION_REMAINING,
   SECTION_WORKSPACES,
+  SECTION_ARCHIVE,
   ALL_BOARDS_SECTIONS,
   ALL_BOARDS_BASE,
   DEFAULT_SECTION,

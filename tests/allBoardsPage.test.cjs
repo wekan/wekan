@@ -74,7 +74,13 @@ test('and there is no second header bar left', () => {
   assert.ok(!/boardListHeaderBar/.test(router), 'and no route names it');
   // Its two handlers moved with their markup: a Blaze event map only sees
   // events inside its OWN template.
-  assert.ok(/Template\.allBoardsHomeSidebar\.events\(\{[\s\S]{0,200}js-open-boards-sort/.test(js),
+  // Scoped to the BLOCK rather than to a character count: a character window
+  // has to be widened every time a comment is added inside the map, and it is
+  // the map that matters, not how long its first entry's comment is.
+  const sortMapAt = js.indexOf('Template.allBoardsHomeSidebar.events({');
+  assert.notStrictEqual(sortMapAt, -1, 'the home sidebar has an event map here');
+  const sortMap = js.slice(sortMapAt, js.indexOf('\n});', sortMapAt));
+  assert.ok(sortMap.includes('js-open-boards-sort'),
     'Sort is handled where it is drawn');
   assert.ok(/js-open-all-boards-view/.test(js.slice(js.indexOf('Template.allBoardsHomeSidebar.events({'))),
     'and so is the view menu');

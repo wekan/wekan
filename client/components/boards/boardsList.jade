@@ -30,6 +30,15 @@ template(name="boardList")
                   i.fa.fa-folder
                 |  {{_ 'allboards.remaining'}}
               span.menu-count {{menuItemCount 'remaining'}}
+          //- Boards in Archive, directly under Remaining: it is another list
+            of boards, which is what these four rows are. It was a button in
+            the first top header bar beside Sort, Search and Multi-Selection -
+            but those three act on the boards in front of you, and this one is
+            a PLACE you go instead. docs/Design/Page/Archive.md
+            After the Templates share-targets block below rather than before
+            it, so that sub-list stays attached to the Templates row it belongs
+            to; with no template selected that block is not drawn and this row
+            follows Remaining directly.
           if isSelectedMenu 'templates'
             if shareTargets.length
               li.menu-section-title {{_ 'share-template-with'}}
@@ -39,6 +48,13 @@ template(name="boardList")
                     span.emoji-icon
                       i.fa.fa-share-alt
                     |  {{name}}
+          li(class="menu-item {{#if isSelectedMenu 'archive'}}active{{/if}}")
+            a.js-select-menu.js-open-archived-board(data-type="archive")
+              span.menu-label
+                span.emoji-icon
+                  i.fa.fa-archive
+                |  {{_ 'archived-boards'}}
+              span.menu-count {{archivedBoardsCount}}
         //- Rules above and below the Workspaces section. The menu is three
           kinds of thing in one column - the three board lists, the workspaces
           tree, and the archive - and without them the tree ran into its
@@ -53,19 +69,6 @@ template(name="boardList")
         // Workspaces tree
         +workspaceTree(nodes=workspacesTree selectedWorkspaceId=selectedWorkspaceId)
         hr.boards-menu-divider
-
-        //- Boards in Archive, below the Workspaces section. It was a button in
-          the first top header bar beside Sort, Search and Multi-Selection -
-          but those three act on the boards in front of you, and this one is a
-          PLACE you go instead. It belongs with the other places.
-          docs/Design/Page/Archive.md
-        ul.menu
-          li.menu-item
-            a.js-open-archived-board
-              span.menu-label
-                span.emoji-icon
-                  i.fa.fa-archive
-                |  {{_ 'archived-boards'}}
 
         // Existing filter by orgs/teams (kept)
         ul.AllBoardTeamsOrgs
@@ -101,9 +104,14 @@ template(name="boardList")
         menu and the actions on a selection - is in the right sidebar, and the
         page is named by the FIRST header bar. docs/Design/Page/All-Boards.md
       .boards-right-grid
-        //- Lists (the board icons) or Table. Lists is the default;
-          docs/Design/Page/All-Boards.md.
-        if isAllBoardsView 'table'
+        //- Boards in Archive is a SECTION of this page, drawn here beside the
+          left menu, not a page of its own that replaces it. It was a full-width
+          page; selecting it from a menu row and then losing the menu is a menu
+          that throws itself away. The template is the archive's own, so its
+          search and its pager come with it. docs/Design/Page/Archive.md
+        if isSelectedMenu 'archive'
+          +archivedBoards
+        else if isAllBoardsView 'table'
           +tablePage(tablePageData)
         else
           if boardsPaginationActive
@@ -385,9 +393,19 @@ template(name="allBoardsHeaderButtons")
     i.fa.fa-search
     span.board-header-btn-label {{_ 'search-boards'}}
   if canModifyBoards
-    a.board-header-btn.js-all-boards-sidebar-multiselection(title="{{_ 'multi-selection'}}")
+    //- Says whether it is ON, and offers the way OFF - the same pair the
+      board's own Multi-Selection has. It looked identical whether or not a
+      selection was running, so the one control that changes what a click on a
+      board does gave no sign it had changed it, and the only way out was to
+      find the row inside the sidebar. docs/Design/Page/Multi-Selection.md
+    a.board-header-btn.js-all-boards-sidebar-multiselection(
+        title="{{#if BoardMultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}"
+        class="{{#if BoardMultiSelection.isActive}}emphasis{{/if}}")
       i.fa.fa-check-square-o
-      span.board-header-btn-label {{_ 'multi-selection'}}
+      span.board-header-btn-label {{#if BoardMultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}
+    if BoardMultiSelection.isActive
+      a.board-header-btn-close.js-multiselection-reset(title="{{_ 'multi-selection-off'}}")
+        i.fa.fa-times-thin
 
 template(name="allBoardsViewMenu")
   //- The name is visible beside the icon, the same as the board's view menu:

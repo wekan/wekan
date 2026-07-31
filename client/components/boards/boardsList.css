@@ -7,9 +7,27 @@
   gap: 16px;
 }
 
+/* The left menu is styled like the Admin Panel's (settingBody.css,
+   docs/Design/Page/Left-Menu.md): a PANEL with its own background, border and
+   rounded corners, not a column separated from the page by a hairline. WeKan
+   has one kind of left menu and it should look like one kind of left menu.
+
+   The inset shadow has NO x offset: an offset one is a physical direction and
+   does not mirror under `dir=rtl`, which is how the Admin Panel's shaded the
+   wrong inner edge once its menu moved to the right. */
 .boards-left-menu {
-  border-inline-end: 1px solid #e0e0e0;
-  padding-inline-end: 12px;
+  background-color: #f7f7f7;
+  border: 1px solid #f0f0f0;
+  border-radius: 7px;
+  box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.05);
+  padding: 8px;
+  /* A long menu - many workspaces - scrolls inside the panel rather than
+     spilling past its own rounded corner, the same fix the Problems menu
+     needed. `min-height: 0` because a grid item will not shrink below its
+     content otherwise, and an overflow that never engages leaves the spill
+     exactly as it was. */
+  overflow-y: auto;
+  min-height: 0;
 }
 
 .boards-left-menu ul.menu {
@@ -40,12 +58,41 @@
   font-weight: bold;
   margin-inline-start: 8px;
 }
+/* The entry you are on is filled with the theme colour and its label and icon go
+   white - the same treatment the Admin Panel's selected entry gets, and the same
+   treatment the selected tab gets in the header bar above. One selected-thing
+   look everywhere.
+
+   The colour is the per-user theme accent (Member Settings -> Change color sets
+   --theme-accent on :root); the fallback is the WeKan header blue, so with no
+   chosen colour the menu matches the bar exactly.
+
+   `:hover` is listed on the active rule too: the hover rule below sets a white
+   background at the SAME specificity, and being later in the file it would
+   otherwise wash the selected entry back to white as soon as the pointer
+   crossed it - which is the bug that had to be fixed in the Admin Panel's. */
 .boards-left-menu .menu-item.active a,
-.boards-left-menu .menu-item a:hover {
-  background: #f0f0f0;
+.boards-left-menu .menu-item.active a:hover {
+  background: var(--theme-accent, #2980b9);
 }
+.boards-left-menu .menu-item.active a,
+.boards-left-menu .menu-item.active a i {
+  /* Not `inherit`: that is what made the Admin Panel's selected entry the same
+     grey as every unselected one, on a background that is now dark. */
+  color: #fff;
+}
+.boards-left-menu .menu-item a:hover {
+  background: #fff;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
+}
+.boards-left-menu .menu-item.active a {
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
+}
+/* The count keeps its contrast against the filled row: a light pill on the
+   accent, rather than the mid-grey that worked on white and disappears here. */
 .boards-left-menu .menu-item.active .menu-count {
-  background: #bbb;
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
 }
 
 /* Drag-over state for menu items (for dropping boards on Remaining) */

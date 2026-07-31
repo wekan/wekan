@@ -15,6 +15,7 @@ tab or reached with the back button.
 /allboards/templates
 /allboards/remaining
 /allboards/workspaces
+/allboards/archive
 /allboards/workspaces/engineering
 /allboards/workspaces/engineering/backend
 /allboards/workspaces/engineering/front-end/design-system

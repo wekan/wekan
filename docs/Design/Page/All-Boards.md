@@ -27,15 +27,40 @@ label below 1100px with every other one — see [the header](Header.md).
 
 **Boards in Archive is not one of them.** The three above act on the boards in
 front of you; Boards in Archive is a *place* you go instead, so it is a row of
-the **left menu**, below the Workspaces section, with the other places. It closes
-the sidebar on the way — leaving the panel open over the page it navigates to is
-not what clicking a place should do.
+the **left menu**, under Remaining, with a count beside it like the three lists
+above it.
+
+It opens as a **section of this page**, drawn beside the menu — not as a
+full-width page that replaces it. Selecting something from a menu and then losing
+the menu is a menu that throws itself away. Its address is `/allboards/archive`,
+in the same shape as the other four sections, and the template is the archive's
+own so its search and its pager come with it. The standalone `/archive` page
+still exists for a direct link, and the *sidebar's* row still goes there.
+
+Its count is asked of the server (`getArchivedBoardsCount`, the method the
+archive's own pager uses) rather than counted from what this page has: All Boards
+does not subscribe to archived boards at all — its query is `archived: false` —
+and the archive's publication is paginated to 30, so counting minimongo would
+answer 0 on a fresh load and something arbitrary later.
+
+**A board can be dragged onto it** to archive it, from any of the four lists or
+from a workspace. The left menu already accepts a drop on Remaining, so the
+gesture is the one already in the reader's hand; the alternative was three clicks
+through Multi-Selection. It asks first, because a drop is easy to make by
+accident — a board dragged to reorder that lands one row low.
 
 The left menu is three kinds of thing in one column — the three board lists, the
 workspaces tree, and the archive — so the Workspaces section has a rule above and
 below it. Without them the tree ran into its neighbours as if it were more of the
-same list. They are a 2px `#888` rule — **dark** grey, and a grey this
-stylesheet already uses. The first version was a `#e0e0e0` hairline, the same
+same list. The menu itself is styled like the **Admin Panel's** ([Left menu](Left-Menu.md)):
+a panel with its own background, border and rounded corners, a selected row
+filled with the per-user theme accent and white text, and a white hover with a
+shadow. WeKan has one kind of left menu and it should look like one kind of left
+menu. A long one scrolls inside the panel rather than spilling past its own
+rounded corner — the same fix the Problems menu needed.
+
+The rules around the Workspaces section are a 2px `#888` line — **dark** grey,
+and a grey this stylesheet already uses. The first version was a `#e0e0e0` hairline, the same
 grey as the menu's own right edge, and it was too faint to separate anything: a
 light grey needs *area* to be seen at all, and area is what turns a divider into
 something that reads as another row. A dark one is legible as a line, so it stays

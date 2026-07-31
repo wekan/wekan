@@ -200,7 +200,13 @@ Template.boardList.helpers({
 // events inside its OWN template, so they had to move with their markup.
 // docs/Design/Page/All-Boards.md
 Template.allBoardsHomeSidebar.events({
-  'click .js-open-boards-sort': Popup.open('boardsSort'),
+  // Titled "Sort Boards", from the key the app already has for that phrase -
+  // the same reasoning as the starred-boards popup: a `boardsSortPopup-title`
+  // of its own would be a second copy of one phrase in all 147 language files,
+  // English in every one of them at first. A title also gives the popup its
+  // header, and with it the close button; without one it renders as a
+  // `no-title` pop-over with nothing to shut it but clicking away.
+  'click .js-open-boards-sort': Popup.open('boardsSort', { titleKey: 'sort-boards' }),
 });
 
 Template.allBoardsHomeSidebar.helpers({
@@ -227,6 +233,13 @@ Template.allBoardsHomeSidebar.helpers({
 // `js-all-boards-sidebar-search` markup exists in both places and each map
 // fires for its own copy. docs/Design/Page/All-Boards.md
 Template.allBoardsHeaderButtons.helpers({
+  // Every template registers the helpers IT uses. `BoardMultiSelection` is also
+  // a helper of boardList, but a Blaze template cannot see a sibling's helpers -
+  // and the failure is a hard "No such function" at render, which is how
+  // `isAllBoardsView` broke this page once before.
+  BoardMultiSelection() {
+    return BoardMultiSelection;
+  },
   isBoardsSort(mode) {
     const currentUser = ReactiveCache.getCurrentUser();
     const sortBy =
@@ -244,7 +257,13 @@ Template.allBoardsHeaderButtons.helpers({
 });
 
 Template.allBoardsHeaderButtons.events({
-  'click .js-open-boards-sort': Popup.open('boardsSort'),
+  // Titled "Sort Boards", from the key the app already has for that phrase -
+  // the same reasoning as the starred-boards popup: a `boardsSortPopup-title`
+  // of its own would be a second copy of one phrase in all 147 language files,
+  // English in every one of them at first. A title also gives the popup its
+  // header, and with it the close button; without one it renders as a
+  // `no-title` pop-over with nothing to shut it but clicking away.
+  'click .js-open-boards-sort': Popup.open('boardsSort', { titleKey: 'sort-boards' }),
   // Search and Multi-Selection still open the sidebar - straight into their own
   // view, rather than into a home view that only listed them.
   'click .js-all-boards-sidebar-search'(evt) {
@@ -255,6 +274,15 @@ Template.allBoardsHeaderButtons.events({
     evt.preventDefault();
     BoardMultiSelection.activate();
     openAllBoardsSidebar(SIDEBAR_MULTISELECTION);
+  },
+  // The way OFF, beside the button that turned it on - the same pair the
+  // board's own Multi-Selection has. `stopPropagation` because this X sits
+  // inside the bar, and a click that also reached the button beside it would
+  // turn multi-selection straight back on.
+  'click .js-multiselection-reset'(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    BoardMultiSelection.disable();
   },
 });
 
@@ -442,6 +470,22 @@ Template.allBoardsViewPopup.events({
 Template.boardList.onCreated(function () {
   Meteor.subscribe('setting');
   Meteor.subscribe('tableVisibilityModeSettings');
+
+  // How many boards are in the archive, for the count beside that menu row.
+  //
+  // Asked for as a NUMBER rather than counted client-side, because this page
+  // does not subscribe to archived boards at all - its own query is
+  // `archived: false` - and the archive's own publication is paginated to 30,
+  // so counting whatever happened to be in minimongo would answer 0 on a fresh
+  // load and something arbitrary later. `getArchivedBoardsCount` is the same
+  // method the archive's pager already uses.
+  this.archivedBoardsCount = new ReactiveVar(0);
+  this.refreshArchivedBoardsCount = () => {
+    Meteor.call('getArchivedBoardsCount', '', (err, count) => {
+      if (!err) this.archivedBoardsCount.set(count || 0);
+    });
+  };
+  this.refreshArchivedBoardsCount();
   // Honor the URL-addressable sub-view (#5850). The route sets
   // Session 'boardListMenu' to 'starred', 'templates' or 'remaining'.
   // Shared with the right sidebar, which is a SEPARATE Blaze instance (it is
@@ -871,6 +915,13 @@ Template.boardList.helpers({
     }
     return 0;
   },
+  // The count beside Boards in Archive. Its own helper rather than a branch of
+  // menuItemCount: that one filters a list of NON-archived boards, so there is
+  // nothing in it to count.
+  archivedBoardsCount() {
+    const inst = Template.instance();
+    return inst.archivedBoardsCount ? inst.archivedBoardsCount.get() : 0;
+  },
   workspaceCount(workspaceId) {
     const currentUser = ReactiveCache.getCurrentUser();
     const assignments =
@@ -1060,19 +1111,16 @@ function persistBoardOrderFromDom(evt, tpl) {
 }
 
 Template.boardList.events({
-  // Boards in Archive, from the left menu. It moved here from the first header
-  // bar with its markup: a Blaze event map only sees events inside its OWN
-  // template, so a handler left behind in allBoardsHeaderButtons would never
-  // fire and the row would silently do nothing - which is exactly what happened
-  // to this button once before.
+  // Boards in Archive no longer NAVIGATES anywhere. It is a section of this
+  // page, drawn beside the left menu by the generic `js-select-menu` click
+  // below - selecting it from a menu row and then losing the menu is a menu
+  // that throws itself away.
   //
-  // The sidebar is closed on the way: Boards in Archive is a page of its own,
-  // and leaving the panel open over the page it navigates to is not what
-  // clicking a place should do.
-  'click .js-open-archived-board'(evt) {
-    evt.preventDefault();
-    closeAllBoardsSidebar();
-    FlowRouter.go('archive');
+  // What is left here is the count: the archive's size changes when a board is
+  // dropped on this row, and it comes from a method call rather than a
+  // subscription, so nothing refreshes it on its own.
+  'click .js-open-archived-board'(evt, tpl) {
+    if (tpl && tpl.refreshArchivedBoardsCount) tpl.refreshArchivedBoardsCount();
   },
   'mousedown .js-board'(evt) {
     boardPressStartedOnHandle = !!(evt.target && evt.target.closest &&
@@ -1115,7 +1163,13 @@ Template.boardList.events({
     }
   },
   // #5799: choose how the All Boards page is sorted.
-  'click .js-open-boards-sort': Popup.open('boardsSort'),
+  // Titled "Sort Boards", from the key the app already has for that phrase -
+  // the same reasoning as the starred-boards popup: a `boardsSortPopup-title`
+  // of its own would be a second copy of one phrase in all 147 language files,
+  // English in every one of them at first. A title also gives the popup its
+  // header, and with it the close button; without one it renders as a
+  // `no-title` pop-over with nothing to shut it but clicking away.
+  'click .js-open-boards-sort': Popup.open('boardsSort', { titleKey: 'sort-boards' }),
   // The Table view's own controls. Its search box is the shared one in the header
   // bar, so only the pager is here; the boards are already in minimongo, so a page
   // is a slice rather than a round trip.
@@ -1608,6 +1662,63 @@ Template.boardList.events({
   },
   'dragleave .js-select-menu'(evt) {
     evt.currentTarget.classList.remove('drag-over');
+  },
+  // Drop a board on Boards in Archive to archive it. The three lists above it
+  // and the workspaces tree are all places a board icon can be dragged FROM,
+  // and this row is the fourth place in that column, so dragging onto it is the
+  // gesture already in the reader's hand - the alternative is Multi-Selection,
+  // which is three clicks to archive one board.
+  //
+  // Same shape as the drop on Remaining below: the same two dataTransfer keys,
+  // one board id in `text/plain` or a JSON array when a multi-selection is
+  // being dragged.
+  'dragover .js-open-archived-board'(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    evt.originalEvent.dataTransfer.dropEffect = 'move';
+    evt.currentTarget.classList.add('drag-over');
+  },
+  'dragleave .js-open-archived-board'(evt) {
+    evt.currentTarget.classList.remove('drag-over');
+  },
+  'drop .js-open-archived-board'(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    evt.currentTarget.classList.remove('drag-over');
+
+    const boardData = evt.originalEvent.dataTransfer.getData('text/plain');
+    if (!boardData) return;
+    const isMultiBoard = evt.originalEvent.dataTransfer.getData(
+      'application/x-board-multi',
+    );
+
+    let boardIds = [boardData];
+    if (isMultiBoard) {
+      try {
+        boardIds = JSON.parse(boardData);
+      } catch (e) {
+        return;
+      }
+    }
+    if (!boardIds.length) return;
+
+    // Asked before doing, exactly as the Multi-Selection button asks. Archiving
+    // takes a board off every one of these lists at once, and a drop is easy to
+    // make by accident - a board dragged to reorder that lands one row low.
+    if (!confirm(TAPi18n.__('archive-board-confirm'))) return;
+
+    boardIds.forEach((boardId) => {
+      Meteor.call('archiveBoard', boardId, (err) => {
+        if (err) alert(err?.reason || err?.message || 'Failed to archive board');
+      });
+    });
+    // The dragged boards are gone from this page, so a selection of them is
+    // meaningless now.
+    if (isMultiBoard) BoardMultiSelection.reset();
+    // ...and the archive is that many boards bigger. The count comes from a
+    // method call, which is not a reactive source, so it has to be asked again.
+    const tpl = Template.instance();
+    if (tpl && tpl.refreshArchivedBoardsCount) tpl.refreshArchivedBoardsCount();
   },
   'drop .js-select-menu'(evt) {
     evt.preventDefault();

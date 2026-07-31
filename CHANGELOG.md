@@ -266,13 +266,41 @@ browser build to verify).
 This release adds the following new features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">All Boards Multi-Selection shows that it is on, and the Sort Boards popup gets a title</a>. Thanks to xet7.</summary>
+
+The Multi-Selection button in the first header bar looked identical whether or
+not a selection was running, so the one control that changes what clicking a
+board does gave no sign it had changed it — and the only way out was to find the
+row inside the sidebar. It is emphasised while it is on, says so in its label
+and its tooltip, and has an ✕ beside it to turn it off: the same pair the
+board's own Multi-Selection has.
+
+The Sort Boards popup is titled "Sort Boards", from the key the app already has
+for that phrase. A title is what gives a pop-over its header, and the header is
+what carries the close button.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6d50d9d66">Boards in Archive moves to the All Boards left menu, and the Workspaces section gets its rules</a>. Thanks to xet7.</summary>
 
 Boards in Archive was a button in the first top header bar beside Sort, Search
 and Multi-Selection. Those three act on the boards in front of you; Boards in
-Archive is a place you go instead, so it is a row of the left menu now, below
-the Workspaces section, with the other places — and drawn like the menu's own
-rows rather than as a stray link.
+Archive is a place you go instead, so it is a row of the left menu now, under
+Remaining, with a count beside it like the three lists above it — and it opens
+as a SECTION of the All Boards page, drawn beside the menu rather than as a
+full-width page that replaces it. Selecting something from a menu and then
+losing the menu is a menu that throws itself away. Its address is
+`/allboards/archive`, in the same shape as the other four sections.
+
+The count is asked of the server rather than counted from what the page has:
+All Boards does not subscribe to archived boards at all, and the archive's own
+publication is paginated, so counting minimongo would answer 0 on a fresh load.
+
+Boards can be dragged onto that row to archive them, from any of the four lists
+or from a workspace — the same drag the left menu already accepts for Remaining,
+and the alternative was three clicks through Multi-Selection. It asks before
+doing it, because a drop is easy to make by accident.
 
 The Workspaces section has a rule above and below it. The left menu is three
 kinds of thing in one column — the three board lists, the workspaces tree, and
@@ -280,6 +308,11 @@ the archive — and without them the tree ran into its neighbours as if it were
 more of the same list. They are a 2px dark grey line: a first attempt used the
 same near-white the menu's own edge uses and was too faint to separate
 anything.
+
+The whole menu is styled like the Admin Panel's now — a panel with its own
+background, border and rounded corners, and a selected row filled with the
+per-user theme accent and white text. WeKan has one kind of left menu and it
+should look like one kind of left menu.
 
 The click handler moved with the markup, because a Blaze event map only sees
 events inside its own template: one left behind in the header buttons would
