@@ -249,7 +249,6 @@ FlowRouter.route('/archive', {
   action() {
     Utils.manageCustomUI();
     this.render('defaultLayout', {
-      headerBar: 'archivedBoardsHeaderBar',
       content: 'archivedBoards',
     });
   },
@@ -304,7 +303,6 @@ FlowRouter.route('/accessibility', {
     Utils.manageMatomo();
 
     this.render('defaultLayout', {
-      headerBar: 'accessibilityHeaderBar',
       content: 'accessibility',
     });
   },
@@ -328,7 +326,6 @@ FlowRouter.route('/support', {
     Utils.manageMatomo();
 
     this.render('defaultLayout', {
-      headerBar: 'supportHeaderBar',
       content: 'support',
     });
   },
@@ -490,7 +487,6 @@ FlowRouter.route('/shortcuts', {
       });
     } else {
       this.render('defaultLayout', {
-        headerBar: 'shortcutsHeaderBar',
         content: shortcutsTemplate,
       });
     }
@@ -625,7 +621,6 @@ FlowRouter.route('/broken-cards', {
     Utils.manageMatomo();
 
     this.render('defaultLayout', {
-      headerBar: 'brokenCardsHeaderBar',
       content: brokenCardsTemplate,
     });
   },
@@ -649,7 +644,6 @@ FlowRouter.route('/import/:source', {
     Session.set('sortBy', '');
     EscapeActions.executeAll();
     this.render('defaultLayout', {
-      headerBar: 'importHeaderBar',
       content: 'import',
     });
   },

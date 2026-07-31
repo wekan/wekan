@@ -15,6 +15,19 @@ import { getSidebarInstance } from '/client/features/sidebar/service';
 import { toggleAllBoardsSidebar } from '/client/lib/allBoardsSidebar';
 import { togglePageSidebar } from '/client/lib/pageSidebar';
 import { hasOwnSidebar, hasPageSidebar } from '/models/lib/pageSidebar';
+// Three pages carry a name of their own rather than a fixed one: an admin can
+// rename Support and Accessibility, and Import names the source it is importing
+// from. Asked for here rather than computed a second time.
+import { supportPageTitle } from '/client/components/main/support';
+import { accessibilityPageTitle } from '/client/components/main/accessibility';
+import { importPageTitle } from '/client/components/import/import';
+
+function customPageTitle(routeName) {
+  if (routeName === 'support') return supportPageTitle();
+  if (routeName === 'accessibility') return accessibilityPageTitle();
+  if (routeName === 'import') return importPageTitle();
+  return '';
+}
 // Drag-to-scroll on the two top header bars (they are not scroll containers
 // themselves, so the drag is forwarded to the board canvas / page scroller).
 import '/client/lib/headerDragscroll';
@@ -65,12 +78,14 @@ Template.header.helpers({
   },
 
   headerTitleKey() {
+    const route = FlowRouter.getRouteName();
     const board = Utils.getCurrentBoard();
-    return headerTitle(FlowRouter.getRouteName(), board && board.title).key || '';
+    return headerTitle(route, board && board.title, customPageTitle(route)).key || '';
   },
   headerTitleText() {
+    const route = FlowRouter.getRouteName();
     const board = Utils.getCurrentBoard();
-    return headerTitle(FlowRouter.getRouteName(), board && board.title).title || '';
+    return headerTitle(route, board && board.title, customPageTitle(route)).title || '';
   },
 
   wrappedHeader() {

@@ -13,28 +13,28 @@ import TrelloImportJobs from '/models/trelloImportJobs';
 
 const Papa = require('papaparse');
 
-Template.importHeaderBar.helpers({
-  title() {
-    const sourceNameByKey = {
-      trello: 'Trello',
-      wekan: 'JSON',
-      csv: 'CSV-TSV',
-      excel: 'Excel',
-      jira: 'Jira',
-      kanboard: 'Kanboard',
-      deck: 'NextCloud Deck',
-      openproject: 'OpenProject',
-      github: 'GitHub',
-      gitlab: 'GitLab',
-      gitea: 'Gitea',
-      forgejo: 'Forgejo',
-      asana: 'Asana',
-      zenkit: 'Zenkit',
-    };
-    const sourceName = sourceNameByKey[Session.get('importSource')] || 'JSON';
-    return `${TAPi18n.__('import')} / ${sourceName}`;
-  },
-});
+// The page's name: "Import / Trello". It names the source, so the top header
+// bar asks for it. models/lib/pageTitles.js
+export function importPageTitle() {
+  const sourceNameByKey = {
+    trello: 'Trello',
+    wekan: 'JSON',
+    csv: 'CSV-TSV',
+    excel: 'Excel',
+    jira: 'Jira',
+    kanboard: 'Kanboard',
+    deck: 'NextCloud Deck',
+    openproject: 'OpenProject',
+    github: 'GitHub',
+    gitlab: 'GitLab',
+    gitea: 'Gitea',
+    forgejo: 'Forgejo',
+    asana: 'Asana',
+    zenkit: 'Zenkit',
+  };
+  const sourceName = sourceNameByKey[Session.get('importSource')] || 'JSON';
+  return `${TAPi18n.__('import')} / ${sourceName}`;
+}
 
 // Helper to find the closest ancestor template instance by name
 function findParentTemplateInstance(childTemplateInstance, parentTemplateName) {

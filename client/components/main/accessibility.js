@@ -3,10 +3,15 @@ import { TAPi18n } from '/imports/i18n';
 import AccessibilitySettings from '/models/accessibilitySettings';
 
 // Shared helpers for both accessibility templates
+// The page's name, which an admin can set. models/lib/pageTitles.js
+export function accessibilityPageTitle() {
+  const setting = AccessibilitySettings.findOne({});
+  return (setting && setting.title) || '';
+}
+
 const accessibilityHelpers = {
   accessibilityTitle() {
-    const setting = AccessibilitySettings.findOne({});
-    return setting && setting.title ? setting.title : TAPi18n.__('accessibility-title');
+    return accessibilityPageTitle() || TAPi18n.__('accessibility-title');
   },
   accessibilityContent() {
     const setting = AccessibilitySettings.findOne({});
@@ -29,9 +34,8 @@ Template.accessibility.onCreated(function () {
 
 Template.accessibility.helpers(accessibilityHelpers);
 
-// Header bar component
-Template.accessibilityHeaderBar.onCreated(function () {
+// The subscription the header bar used to make; the top header bar names this
+// page from the same setting.
+Template.accessibility.onCreated(function () {
   Meteor.subscribe('accessibilitySettings');
 });
-
-Template.accessibilityHeaderBar.helpers(accessibilityHelpers);

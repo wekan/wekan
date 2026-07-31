@@ -2,10 +2,16 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 
 // Shared helpers for both support templates
+// The page's name. An admin can rename it, so the top header bar has to ask
+// rather than assume - exported for that. models/lib/pageTitles.js
+export function supportPageTitle() {
+  const setting = ReactiveCache.getCurrentSetting();
+  return (setting && setting.supportTitle) || '';
+}
+
 const supportHelpers = {
   supportTitle() {
-    const setting = ReactiveCache.getCurrentSetting();
-    return setting && setting.supportTitle ? setting.supportTitle : TAPi18n.__('support');
+    return supportPageTitle() || TAPi18n.__('support');
   },
   supportContent() {
     const setting = ReactiveCache.getCurrentSetting();
@@ -31,9 +37,8 @@ Template.support.onCreated(function () {
 
 Template.support.helpers(supportHelpers);
 
-// Header bar component
-Template.supportHeaderBar.onCreated(function () {
+// The subscription the header bar used to make. The top header bar names this
+// page from the same setting, so it still has to be here.
+Template.support.onCreated(function () {
   Meteor.subscribe('setting');
 });
-
-Template.supportHeaderBar.helpers(supportHelpers);

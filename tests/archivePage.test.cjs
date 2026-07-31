@@ -34,8 +34,12 @@ test('/archive is a page, rendered like every other page', () => {
   assert.ok(/name: 'archive',/.test(body), 'with a name, so it can be linked by it');
   assert.ok(/this\.render\('defaultLayout', \{/.test(body), 'in the default layout');
   assert.ok(/content: 'archivedBoards',/.test(body), 'showing the archive');
-  assert.ok(/headerBar: 'archivedBoardsHeaderBar',/.test(body),
-    'with a second top header bar, like every other page');
+  // No second header bar: the first one names the page now, and this page has
+  // no controls to put in a sidebar - so it is its content and nothing else.
+  assert.ok(!/headerBar:/.test(body), 'and no second header bar to name it twice');
+  const { PAGE_TITLE_KEYS } = require('../models/lib/pageTitles');
+  assert.strictEqual(PAGE_TITLE_KEYS.archive, 'archived-boards',
+    'the top header bar names it instead');
   // Signed in, and it clears the board session state the way the other
   // non-board pages do - otherwise the previous board stays "current".
   assert.ok(/ensureSignedInUnlessSandstorm/.test(body), 'behind sign-in');
@@ -93,15 +97,16 @@ test('the All Boards sidebar row works at all', () => {
     'the header bar must not handle a button it does not draw');
 });
 
-test('the page is named once, in the header bar', () => {
-  assert.ok(/template\(name="archivedBoardsHeaderBar"\)/.test(jade),
-    'the header bar template must exist');
-  // The modal drew its own `h2`, because a modal has no header bar to be named
-  // in. On a page that is the title printed twice.
+test('the page is named once, in the TOP header bar', () => {
+  // It has been named three ways in three steps: the modal drew its own `h2`
+  // (a modal has no header bar to be named in), then a second header bar of its
+  // own, and now the first header bar, which names every page. Each move left
+  // the previous one to be removed, or the title printed twice.
+  assert.ok(!/template\(name="archivedBoardsHeaderBar"\)/.test(jade),
+    'its own header bar is gone');
   const page = jade.slice(jade.indexOf('template(name="archivedBoards")'));
   const body = page.slice(0, page.indexOf('template(name="boardDeletePopup")'));
-  assert.ok(!/^\s*h2$/m.test(body), 'the page must not draw a second title');
-  assert.ok(/\{\{_ 'archived-boards'\}\}/.test(jade), 'and it is a translated string');
+  assert.ok(!/^\s*h[12]$/m.test(body), 'and the page draws no title of its own');
 });
 
 test('it keeps its search and its server-side paging', () => {

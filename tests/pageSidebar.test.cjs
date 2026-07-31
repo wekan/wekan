@@ -85,8 +85,12 @@ test('the migrated pages have no second header bar left', () => {
   // Their title moved to the first bar and their controls into the sidebar, so
   // there is nothing left for a second bar to hold. A route naming a template
   // that no longer exists renders "No such template" in that bar.
+  // Four whose controls moved into the sidebar, and six that held only a title
+  // the first header bar now carries.
   for (const bar of ['myCardsHeaderBar', 'dueCardsHeaderBar',
-    'globalSearchHeaderBar', 'rulesHeaderBar']) {
+    'globalSearchHeaderBar', 'rulesHeaderBar',
+    'supportHeaderBar', 'shortcutsHeaderBar', 'accessibilityHeaderBar',
+    'brokenCardsHeaderBar', 'importHeaderBar', 'archivedBoardsHeaderBar']) {
     assert.ok(!defined.has(bar), `${bar} must be gone`);
     assert.ok(!router.includes(bar), `and no route may still name ${bar}`);
   }

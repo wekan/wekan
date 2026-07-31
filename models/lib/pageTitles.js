@@ -31,11 +31,12 @@ const PAGE_TITLE_KEYS = {
   shortcuts: 'keyboard-shortcuts',
   'board-rules': 'r-board-rules',
   'my-cards': 'my-cards',
-  import: 'import-trello-zip-progress',
   'global-search': 'globalSearch-title',
   'due-cards': 'dueCards-title',
   'broken-cards': 'broken-cards',
   accessibility: 'accessibility',
+  // Import names its source, so this key is only the fallback.
+  import: 'import',
 };
 
 // The route names that ARE a board. On those the title is the board's own, so
@@ -52,16 +53,25 @@ function isBoardRoute(routeName) {
   return BOARD_ROUTES.includes(routeName);
 }
 
-// What to show, given the route and whatever board title the caller has.
+// What to show, given the route, whatever board title the caller has, and
+// whatever CUSTOM title the page has.
 //
-// A board's title wins wherever there is one: `rules` is a board route AND has
-// a key, because the rules page belongs to a board and the board is the more
-// useful thing to name. When there is no board and no key - a route nobody has
-// added here - the answer is null and the caller shows nothing, which is better
-// than naming the wrong page.
-function headerTitle(routeName, boardTitle) {
-  if (typeof boardTitle === 'string' && boardTitle.trim()) {
-    return { title: boardTitle };
+// Three sources, in order:
+//   the board's title   `board-rules` is a board route AND has a key, because
+//                       the rules page belongs to a board and the board is the
+//                       more useful thing to name;
+//   a custom title      Support and Accessibility can be renamed by an admin,
+//                       and Import names its source ("Import / Trello"). Those
+//                       are the page's real name, so they beat the key;
+//   the key             everything else.
+//
+// A route nobody has added here answers with nothing, and the caller shows
+// nothing - better than naming the wrong page. Both a board title and a custom
+// title come back as `title`, because both are text to print as-is: neither may
+// go through the translator.
+function headerTitle(routeName, boardTitle, customTitle) {
+  for (const text of [boardTitle, customTitle]) {
+    if (typeof text === 'string' && text.trim()) return { title: text };
   }
   const key = pageTitleKey(routeName);
   return key ? { key } : { };

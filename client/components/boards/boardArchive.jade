@@ -1,11 +1,3 @@
-//- The second top header bar of the archive page. The page is named ONCE, here,
-//- the way every other page is named - the template below used to draw its own
-//- `h2` because it was a modal, and a modal has no header bar to be named in.
-template(name="archivedBoardsHeaderBar")
-  h1
-    i.fa.fa-archive
-    |  {{_ 'archived-boards'}}
-
 template(name="archivedBoards")
   .table-page-controls
     input.js-archived-boards-search(type="search" placeholder="{{_ 'search'}}")
