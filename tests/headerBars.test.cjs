@@ -677,6 +677,26 @@ test('and a view menu says its view in words, not only in a tooltip', () => {
     }
   }
 
+  // Visibility and Watch name themselves from a DYNAMIC key - the board's own
+  // permission, and which watch level is set - so one expression covers Private
+  // and Public, Watching, Tracking and Muted. Written out twice it would be two
+  // lists of words to keep in step; it is the same expression the tooltip uses.
+  const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
+  for (const [cls, expression, values] of [
+    ['js-change-visibility', '{{_ currentBoard.permission}}', ['public', 'private']],
+    ['js-watch-board', '{{_ watchLevel }}', ['watching', 'tracking', 'muted']],
+  ]) {
+    const btnAt = controls.indexOf(cls);
+    assert.notStrictEqual(btnAt, -1, `${cls} must be in this bar`);
+    const btn = controls.slice(btnAt, btnAt + 600);
+    assert.ok(btn.includes(`span.board-header-btn-label ${expression}`),
+      `${cls} names itself from the same expression its tooltip uses`);
+    assert.ok(btn.includes(`title="${expression}"`), `${cls} keeps that tooltip`);
+    for (const value of values) {
+      assert.ok(value in en, `${value} is not a translation key`);
+    }
+  }
+
   // A label must not wrap mid-button: two lines inside a one-line button is
   // worse than the tooltip was.
   const css = read('client/components/main/header.css');

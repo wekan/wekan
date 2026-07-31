@@ -90,8 +90,9 @@ after belongs to **you**. Without it the run of icons reads as one list of
 unrelated things.
 
 **A button says its name where the bar has room for it.** Sort Cards, Filter,
-Search, Show Dependencies, Multi-Selection and the view menus carry their name
-beside the icon: a tooltip is the one place a name cannot be read without
+Search, Show Dependencies, the board's visibility (Private / Public), its watch
+level (Watching / Tracking / Muted), Multi-Selection and the view menus carry
+their name beside the icon: a tooltip is the one place a name cannot be read without
 hovering, and six view glyphs or a bare check-box outline say very little on
 their own.
 
@@ -112,6 +113,12 @@ the tooltip was — and each one uses the **same translation key as its own
 tooltip**, so a button and its tooltip cannot say different things, and a button
 whose name changes with its state (Sort is on, Hide dependencies) says the state
 in both places.
+
+Visibility and Watch go further: their label is the same **dynamic** expression
+as their tooltip — `{{_ currentBoard.permission}}` and `{{_ watchLevel}}` — so
+one line of markup covers Private and Public, Watching and Tracking and Muted.
+Written out per value it would be two lists of words to keep in step with each
+other and with the board.
 
 ### The star group
 

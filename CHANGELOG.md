@@ -293,9 +293,10 @@ already has for that phrase rather than a `starredBoardsPopup-title` of its own,
 which would be a second copy of one phrase in all 147 language files, English in
 every one at first.
 
-Sort Cards, Filter, Search, Show Dependencies, both Multi-Selection buttons and
-the two view menus carry their name beside the icon where the bar has room for
-it — a tooltip is the one place a name cannot be read without hovering. Below
+Sort Cards, Filter, Search, Show Dependencies, the board's visibility (Private
+or Public), its watch level (Watching, Tracking or Muted), both Multi-Selection
+buttons and the two view menus carry their name beside the icon where the bar
+has room for it — a tooltip is the one place a name cannot be read without hovering. Below
 1100px every one of those labels goes and they are icons again: a label is worth
 several icons' width, so on a narrow window keeping them costs more buttons off
 the first row than the names are worth. All of them together, not some, because

@@ -27,6 +27,10 @@ template(name="boardHeaderButtons")
             class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}"
             title="{{_ currentBoard.permission}}")
             i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
+            //- The SAME expression the tooltip uses, so the two cannot say
+              different things - and both follow the board from Private to
+              Public without a second list of words to keep in step.
+            span.board-header-btn-label {{_ currentBoard.permission}}
 
           unless watchDisabled
             a.board-header-btn.js-watch-board(title="{{_ watchLevel }}")
@@ -36,6 +40,7 @@ template(name="boardHeaderButtons")
                 i.fa.fa-bell
               if $eq watchLevel "muted"
                 i.fa.fa-bell-slash
+              span.board-header-btn-label {{_ watchLevel }}
 
           //- The name beside the icon where the bar has room for it, dropped
             when it does not - one rule in header.css hides every label of this
