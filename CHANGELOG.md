@@ -564,7 +564,7 @@ so no language silently loses a tooltip.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ffb26bb68">All Boards: Search and Multi-Selection are the board header's own controls, opening a right sidebar</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/fcfed1fd3">All Boards: Search and Multi-Selection are the board header's own controls, opening a right sidebar</a>. Thanks to xet7.</summary>
 
 All Boards had a search **field** in its header bar, and a Multi-Selection
 button whose actions were four icons beside it. A board has a search **button**
