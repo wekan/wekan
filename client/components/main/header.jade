@@ -26,6 +26,13 @@ template(name="header")
             if headerTitleSubKey
               span.header-page-subtitle
                 |  / {{_ headerTitleSubKey}}
+                //- ...and the pane, so the title names the same three things
+                  the address does. models/lib/adminUrls.js
+                with headerTitlePaneData
+                  if titleKey
+                    |  / {{_ titleKey}}
+                  else
+                    |  / #{title}
           else
             = headerTitleText
         //- The pencil that renames the board, immediately right of its name.
@@ -132,6 +139,13 @@ template(name="header")
 
         // Notifications
         +notifications
+
+        //- A divider after the bell. Everything before it belongs to the PAGE -
+          its controls, its view menu, the panel's tabs; everything after it
+          belongs to YOU - help, your account, and the sidebar toggle. The bar
+          runs them together otherwise, and the run of icons reads as one list
+          of unrelated things.
+        .separator
 
         if currentSetting.customHelpLinkUrl
           #header-help

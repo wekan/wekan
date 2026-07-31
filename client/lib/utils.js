@@ -957,18 +957,39 @@ $(window).on('resize', () => Utils.windowResizeDep.changed());
 // ResizeObserver catches the rows re-wrapping (a window resize does not fire for
 // that on its own), and the initial call covers the first paint.
 if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+  // BOTH bars, not just the second one. This measured `#header` alone - the
+  // second bar - back when every page had one. Most pages have none now (their
+  // title is in the first bar and their controls are in a sidebar), so on those
+  // the variable was 0 and everything laid out against it started at the top of
+  // the WINDOW, underneath the first bar: the All Boards sidebar covered it.
+  //
+  // Measured as the BOTTOM of the lowest bar rather than a sum of heights, so
+  // any margin between them is included and a bar that is absent contributes
+  // nothing without needing a special case.
+  const HEADER_IDS = ['header-quick-access', 'header'];
+
   const publishHeaderHeight = () => {
-    const header = document.getElementById('header');
-    const height = header ? Math.round(header.getBoundingClientRect().height) : 0;
-    document.documentElement.style.setProperty('--wekan-header-height', `${height}px`);
+    let bottom = 0;
+    for (const id of HEADER_IDS) {
+      const el = document.getElementById(id);
+      if (el) bottom = Math.max(bottom, el.getBoundingClientRect().bottom);
+    }
+    document.documentElement.style.setProperty(
+      '--wekan-header-height', `${Math.round(bottom)}px`);
   };
 
   const watchHeader = () => {
     publishHeaderHeight();
-    const header = document.getElementById('header');
-    if (!header || !window.ResizeObserver || header.__wekanHeightObserved) return;
-    header.__wekanHeightObserved = true;
-    new ResizeObserver(publishHeaderHeight).observe(header);
+    if (!window.ResizeObserver) return;
+    for (const id of HEADER_IDS) {
+      const el = document.getElementById(id);
+      // The first bar WRAPS to a second row when its buttons run out of room,
+      // which is a resize of that element and of nothing else - so it is
+      // observed in its own right, not inferred from the window.
+      if (!el || el.__wekanHeightObserved) continue;
+      el.__wekanHeightObserved = true;
+      new ResizeObserver(publishHeaderHeight).observe(el);
+    }
   };
 
   $(window).on('resize orientationchange', publishHeaderHeight);

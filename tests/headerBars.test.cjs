@@ -453,6 +453,21 @@ test('and the Admin Panel says WHICH of its four pages is open', () => {
     'and the helper exists');
 });
 
+test('and a divider separates the page from you', () => {
+  // Everything before the bell belongs to the PAGE - its controls, its view
+  // menu, the panel's tabs; everything after belongs to YOU - help, your
+  // account, the sidebar toggle. Without it the run of icons reads as one list
+  // of unrelated things.
+  const at = jade.indexOf('+notifications');
+  assert.notStrictEqual(at, -1, 'the bell must be in this bar');
+  const after = jade.slice(at, jade.indexOf('+headerUserBar'));
+  assert.ok(/\n\s+\.separator\n/.test(after), 'a divider follows the bell');
+  // The bar styles its own dividers - the second bar drew them its own way.
+  const css = read('client/components/main/header.css');
+  assert.ok(css.includes('#header-quick-access .separator {'),
+    'and this bar styles it');
+});
+
 for (const [name, fn] of tests) {
   try { fn(); passed++; console.log('  ok -', name); }
   catch (err) { console.error(`  FAIL - ${name}\n    ${err.message}`); process.exitCode = 1; }

@@ -418,7 +418,7 @@ function switchMenu(event, tmpl) {
 }
 
 // Open a pane BY ID. Split out of switchMenu so the URL can open one too - every
-// left-menu entry has an address now (/admin-reports/cpu, /admin-reports/rules).
+// left-menu entry has an address now (/admin/problems/cpu, /admin/problems/rules).
 // docs/Design/Page/Admin-Panel-URLs.md
 function openReportPane(tmpl, targetID) {
   // Re-opening the open pane must do nothing. The active row is rendered from

@@ -536,12 +536,12 @@ test('Translation is a Settings pane, not a page of its own', () => {
   //
   // It used to redirect to /setting and hand the pane over in a Session value.
   // Every pane HAS a URL now, so it redirects to that pane's own address -
-  // /settings/translation - and a bookmark lands somewhere it can stay.
+  // /admin/settings/translation - and a bookmark lands somewhere it can stay.
   assert.ok(/redirect\(adminPath\('settings', 'translation-setting'\)\)/.test(router),
     'a bookmark must land on the Translation pane, by its own URL');
   const { adminPath } = require('../models/lib/adminUrls');
-  assert.strictEqual(adminPath('settings', 'translation-setting'), '/settings/translation',
-    'which is what that URL is');
+  assert.strictEqual(adminPath('settings', 'translation-setting'),
+    '/admin/settings/translation', 'which is what that URL is');
 });
 
 // ── the pane title: every Admin Panel pane has one, and they are identical ──
@@ -687,8 +687,9 @@ test('Version is the FIRST Settings pane, and has no page of its own', () => {
   assert.ok(/redirect\(adminPath\('settings', 'version-setting'\)\)/.test(route.slice(0, 400)),
     'a bookmarked /information must land on the Version pane, by its own URL');
   const { adminPath } = require('../models/lib/adminUrls');
-  assert.strictEqual(adminPath('settings', 'version-setting'), '/settings',
-    'Version is the default pane, so its URL is the bare page');
+  assert.strictEqual(adminPath('settings', 'version-setting'),
+    '/admin/settings/version',
+    'which names the pane rather than leaving the first one implicit');
 });
 
 console.log(`\nleftMenu: ${passed} tests passed`);

@@ -15,7 +15,12 @@ import { getSidebarInstance } from '/client/features/sidebar/service';
 import { toggleAllBoardsSidebar } from '/client/lib/allBoardsSidebar';
 import { togglePageSidebar } from '/client/lib/pageSidebar';
 import { hasOwnSidebar, hasPageSidebar } from '/models/lib/pageSidebar';
-import { ADMIN_PANEL_ROUTES } from '/models/lib/adminUrls';
+import {
+  ADMIN_PAGE_KEYS,
+  ADMIN_PAGES,
+  ADMIN_PANEL_ROUTES,
+  adminPaneTitle,
+} from '/models/lib/adminUrls';
 // The All Boards sections - Public has no Lists/Table choice, so it is not one.
 const ALL_BOARDS_VIEW_ROUTES = ['home', 'allboards', 'allboards-templates', 'allboards-remaining'];
 // Three pages carry a name of their own rather than a fixed one: an admin can
@@ -118,6 +123,22 @@ Template.header.helpers({
     const route = FlowRouter.getRouteName();
     const board = Utils.getCurrentBoard();
     return headerTitle(route, board && board.title, customPageTitle(route)).subKey || '';
+  },
+  // ...and after that, the PANE: "Admin Panel / Settings / Version". Read from
+  // the URL rather than from the page, because the header is a separate Blaze
+  // instance from the Admin Panel's pages and must not import them - doing that
+  // once ran a page module before its own template was registered, and the
+  // throw aborted every module after it. models/lib/adminUrls.js
+  //
+  // Returns the same two forms a left-menu entry has - `titleKey` or a literal
+  // `title` - so the template picks whichever it got.
+  headerTitlePaneData() {
+    const route = FlowRouter.getRouteName();
+    const page = ADMIN_PAGE_KEYS.find(k => ADMIN_PAGES[k].routeName === route);
+    if (!page) return null;
+    const params = FlowRouter.current().params || {};
+    const title = adminPaneTitle(page, params.pane || ADMIN_PAGES[page].defaultSlug);
+    return title.titleKey || title.title ? title : null;
   },
 
   wrappedHeader() {

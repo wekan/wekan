@@ -10,9 +10,16 @@ import Settings from '/models/settings';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { Filter } from '/client/lib/filter';
 import { Utils } from '/client/lib/utils';
-// The Admin Panel's per-pane URLs: /settings/version, /settings/visibility,
-// /settings/global-webhooks and so on. docs/Design/Page/Admin-Panel-URLs.md
-import { resolvePaneId, adminPath } from '/models/lib/adminUrls';
+// The Admin Panel's per-pane URLs: /admin/settings/version,
+// /admin/people/login, /admin/problems/database and so on - the panel, the
+// page and the pane, all three named in the address.
+// docs/Design/Page/Admin-Panel-URLs.md
+import {
+  ADMIN_PAGES,
+  resolvePaneId,
+  adminPath,
+  adminRoutePath,
+} from '/models/lib/adminUrls';
 // The All Boards page's URLs: /allboards/starred, /allboards/templates,
 // /allboards/remaining, /allboards/workspaces/<name>/<sub-name>.
 // docs/Design/Page/All-Boards-URLs.md
@@ -642,15 +649,16 @@ FlowRouter.route('/import/:source', {
   },
 });
 
-// Admin Panel / Settings. Every left-menu entry has its own URL - /settings,
-// /settings/visibility, /settings/global-webhooks - so a pane can be linked,
-// bookmarked, opened in a second tab and reached with the back button. The
-// slug is optional: the bare /settings opens the default pane, which is the
-// one address for "the Settings page". docs/Design/Page/Admin-Panel-URLs.md
+// Admin Panel / Settings. Every left-menu entry has its own URL -
+// /admin/settings/version, /admin/settings/visibility,
+// /admin/settings/global-webhooks - so a pane can be linked, bookmarked,
+// opened in a second tab and reached with the back button, and the address
+// says which pane it is showing rather than leaving the first one unnamed.
+// docs/Design/Page/Admin-Panel-URLs.md
 //
-// The path is PLURAL now. `/setting` was the odd one out among /people,
-// /attachments and /admin-reports, and it redirects here.
-FlowRouter.route('/settings/:pane?', {
+// The pane is REQUIRED in the path. A bare page address is a redirect to its
+// default pane's own address (below), not a second address for the same view.
+FlowRouter.route(adminRoutePath('settings'), {
   name: 'setting',
   triggersEnter: [
     ensureSignedInUnlessSandstorm,
@@ -677,11 +685,37 @@ FlowRouter.route('/settings/:pane?', {
   },
 });
 
-// The old singular path, kept so bookmarks and links keep working.
+// Where the panel's pages used to live, kept so bookmarks and old links keep
+// working: the bare new address, the bare old one, and the old two-segment
+// form with a pane in it. `/setting` - the singular odd one out - is in the
+// list too.
+//
+// A trigger redirects with the `redirect` it is HANDED, never with
+// FlowRouter.go(): go() from inside triggersEnter happens while this route is
+// still entering and is swallowed, so nothing renders and the browser stays on
+// whatever page it was showing.
+Object.keys(ADMIN_PAGES).forEach(page => {
+  const cfg = ADMIN_PAGES[page];
+  const toDefault = (context, redirect) => redirect(adminPath(page, cfg.defaultSlug));
+  // The bare new address: /admin/settings -> /admin/settings/version.
+  FlowRouter.route(cfg.base, { triggersEnter: [toDefault], action() {} });
+  // The bare old one: /settings -> /admin/settings/version.
+  FlowRouter.route(cfg.legacyBase, { triggersEnter: [toDefault], action() {} });
+  // The old form WITH a pane: /settings/global-webhooks keeps its pane, and an
+  // unknown one falls back to the default rather than 404ing a bookmark.
+  FlowRouter.route(`${cfg.legacyBase}/:pane`, {
+    triggersEnter: [
+      (context, redirect) => redirect(adminPath(page, (context.params || {}).pane)),
+    ],
+    action() {},
+  });
+});
+
+// The singular path the Settings page used to answer on.
 FlowRouter.route('/setting', {
   triggersEnter: [
     (context, redirect) => {
-      redirect(FlowRouter.path('setting'));
+      redirect(adminPath('settings', 'version-setting'));
     },
   ],
   action() {},
@@ -708,7 +742,7 @@ FlowRouter.route('/information', {
   action() {},
 });
 
-FlowRouter.route('/people/:pane?', {
+FlowRouter.route(adminRoutePath('people'), {
   name: 'people',
   triggersEnter: [
     ensureSignedInUnlessSandstorm,
@@ -734,7 +768,7 @@ FlowRouter.route('/people/:pane?', {
   },
 });
 
-FlowRouter.route('/admin-reports/:pane?', {
+FlowRouter.route(adminRoutePath('problems'), {
   name: 'admin-reports',
   triggersEnter: [
     ensureSignedInUnlessSandstorm,
@@ -760,7 +794,7 @@ FlowRouter.route('/admin-reports/:pane?', {
   },
 });
 
-FlowRouter.route('/attachments/:pane?', {
+FlowRouter.route(adminRoutePath('attachments'), {
   name: 'attachments',
   triggersEnter: [
     ensureSignedInUnlessSandstorm,

@@ -266,6 +266,52 @@ browser build to verify).
 This release adds the following new features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">The Admin Panel moves under /admin, and its address names the pane you are on</a>. Thanks to xet7.</summary>
+
+Every left-menu entry of the Admin Panel had a URL, but the four pages sat at
+the TOP level - `/settings`, `/people`, `/attachments` - as if they were pages
+of the app rather than of the Admin Panel, and `/attachments` is also the path
+the file server serves attachments from, so the panel and the files were
+claiming one address. They are under `/admin` now:
+`/admin/settings/version`, `/admin/people/login`, `/admin/problems/database`,
+`/admin/attachments/backup`.
+
+The DEFAULT pane is named too. It used to be left implicit in a bare page URL -
+`/settings` rather than `/settings/version` - so the address of "Settings" and
+the address of "Settings showing Version" were one string. The address is meant
+to say where you are, and the first pane is somewhere too. The bare
+`/admin/settings` still resolves; it redirects to `/admin/settings/version`
+rather than being a second name for it.
+
+Every path the panel used to answer on redirects, and a bookmarked
+`/settings/global-webhooks` keeps its pane rather than landing on the top of
+the panel. The redirects are built from the same map the URLs are, so a page
+cannot be given an address without also being given its redirect.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">The first header bar says where you are: Admin Panel / Settings / Version</a>. Thanks to xet7.</summary>
+
+The bar named the panel and stopped there. The Admin Panel is four pages and
+each page is a stack of panes, so "Admin Panel" named the building and not the
+room - and all four of its routes answered the same three words, whichever one
+was open.
+
+The title now names the same three things the address does. The page's words
+are the tab's own and the pane's words are the menu row's own, so the title,
+the tab that is marked active and the row that opened the pane cannot say
+different things about one place.
+
+The button of the page you are ON also keeps the hover background, permanently
+and a shade darker. The tabs had marked themselves active all along, but the
+only rule that drew it was scoped to the second header bar - which those tabs
+no longer live in - so the state had been computed and invisible since they
+moved.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/54915db25">Public Boards is its own read-only table page, not All Boards with a different query</a>. Thanks to xet7.</summary>
 
 /public rendered the All Boards page with its query swapped for `{ permission:
@@ -707,6 +753,47 @@ and updates the following dependencies:
 
 and fixes the following bugs:
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">The first header bar wraps to a second row instead of hiding the buttons that do not fit</a>. Thanks to xet7.</summary>
+
+The bar was one row with `overflow: hidden`, so a button that did not fit was
+not drawn at all - and a button that is not drawn gives no sign that it exists.
+It wraps now, and every height on it is a minimum, including the four phone
+rules that pinned 40px or 48px: a fixed height cannot hold two rows, so it
+would have cut off exactly what the wrap was for. A phone is where the buttons
+run out of room first, which makes it the last place that should hide them.
+
+Everything after the drag-handles toggle hugs the end of the bar from one
+`margin-inline-start: auto`, a LOGICAL property, so a right-to-left language
+mirrors it by itself rather than needing a second rule kept in step.
+
+Both view menus lost their visible labels - the board's said "Swimlanes" and
+All Boards' said "Lists" - and name their view in a tooltip instead, where the
+other buttons of that bar already keep theirs. A divider after the notification
+bell separates what belongs to the page from what belongs to you.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">The right sidebar starts below the header again, on every page that has no second bar</a>. Thanks to xet7.</summary>
+
+`--wekan-header-height` is what anything laid out against the viewport starts
+below, and it measured `#header` - the SECOND header bar - from when every page
+had one. Most pages have none now, their title being in the first bar and their
+controls in a sidebar, so on those the variable was 0 and the All Boards
+sidebar covered the bar above it.
+
+It measures both bars, as the bottom of the lowest one rather than a sum of
+heights, so any margin between them counts and a bar that is absent contributes
+nothing without needing a special case. Each bar is watched by its own
+ResizeObserver, because the first one wrapping to a second row is a resize of
+that element and of nothing else.
+
+Sidebar buttons are no longer drawn under the close button either: the ✕ is
+positioned absolutely, so it contributes no height and the row holding it
+collapsed to its padding.
+
+</details>
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1049e3e8f">All Boards no longer throws No such function: isAllBoardsView as it renders</a>. Thanks to xet7.</summary>
 

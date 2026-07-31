@@ -9,8 +9,26 @@
 // by the back button; /setting always landed on Version even if you had just
 // been in Global Webhooks.
 //
-// Every menu entry has a URL now: `/settings/version`, `/settings/visibility`,
-// `/settings/global-webhooks`, and the same for the other three pages.
+// Every menu entry has a URL now, and the URL says where you are - the panel,
+// the page, and the pane, all three in it:
+//
+//   /admin/settings/version
+//   /admin/settings/global-webhooks
+//   /admin/people/login
+//   /admin/problems/database
+//   /admin/attachments/backup
+//
+// Under `/admin`, which the pages were not: they sat at the top level -
+// /settings, /people, /attachments - as if they were pages of the app rather
+// than of the Admin Panel, and /attachments collided with the path the file
+// server itself serves attachments from. The prefix says which they are and
+// keeps them out of everyone else's way.
+//
+// The DEFAULT pane is in the URL too. A bare page address showed one pane while
+// naming none, so the address of "Settings showing Version" and the address of
+// "Settings" were the same string; every pane is named now, including the first
+// one. The bare `/admin-settings` still resolves - it redirects to the default
+// pane's own address rather than being a second address for it.
 //
 // The slug is NOT derived from the pane id. The ids are internal and read like
 // it (`tableVisibilityMode-setting`, `layout-setting`, `report-cpu`), while a
@@ -28,7 +46,9 @@
 // and its `activeXId()` already use, so nothing inside a page has to change.
 const ADMIN_PAGES = {
   settings: {
-    base: '/settings',
+    base: '/admin/settings',
+    // Where this page used to live, kept so old links and bookmarks redirect.
+    legacyBase: '/settings',
     routeName: 'setting',
     // The pane that opens when no slug is given - the first menu entry.
     defaultSlug: 'version',
@@ -43,7 +63,8 @@ const ADMIN_PAGES = {
     },
   },
   people: {
-    base: '/people',
+    base: '/admin/people',
+    legacyBase: '/people',
     routeName: 'people',
     defaultSlug: 'people',
     panes: {
@@ -59,7 +80,8 @@ const ADMIN_PAGES = {
     },
   },
   problems: {
-    base: '/admin-reports',
+    base: '/admin/problems',
+    legacyBase: '/admin-reports',
     routeName: 'admin-reports',
     defaultSlug: 'summary',
     panes: {
@@ -82,7 +104,8 @@ const ADMIN_PAGES = {
     },
   },
   attachments: {
-    base: '/attachments',
+    base: '/admin/attachments',
+    legacyBase: '/attachments',
     routeName: 'attachments',
     defaultSlug: 'backup',
     panes: {
@@ -99,6 +122,80 @@ const ADMIN_PAGES = {
     },
   },
 };
+
+// What the header bar calls a pane: "Admin Panel / Settings / Version".
+//
+// The address names three things and so does the title. The panel is four
+// pages and each page is a stack of panes, so "Admin Panel" alone named the
+// building and not the room.
+//
+// The two forms are the ones a left-menu entry already has - a translation key,
+// or a literal label for a name that is not translated (PWA is a product name).
+// A guard checks every one of these against the REAL menu entry for that pane,
+// in `tests/adminUrls.test.cjs`: the title in the bar and the label of the menu
+// row that opened it have to be the same words, and this is a second copy of
+// them, so nothing but a guard keeps them equal.
+const ADMIN_PANE_TITLES = {
+  settings: {
+    version: { titleKey: 'info' },
+    visibility: { titleKey: 'visibility' },
+    announcement: { titleKey: 'admin-announcement' },
+    accessibility: { titleKey: 'accessibility' },
+    translation: { titleKey: 'translation' },
+    pwa: { title: 'PWA' },
+    'global-webhooks': { titleKey: 'global-webhook' },
+  },
+  people: {
+    login: { titleKey: 'login' },
+    email: { titleKey: 'email' },
+    domains: { titleKey: 'domains' },
+    organizations: { titleKey: 'organizations' },
+    teams: { titleKey: 'teams' },
+    people: { titleKey: 'people' },
+    'locked-users': { titleKey: 'accounts-lockout-locked-users' },
+    roles: { titleKey: 'roles' },
+    'shared-templates': { titleKey: 'shared-templates' },
+  },
+  problems: {
+    summary: { titleKey: 'summary' },
+    security: { titleKey: 'features-security' },
+    notifications: { titleKey: 'features-notifications' },
+    'security-report': { titleKey: 'securityReportTitle' },
+    impersonation: { titleKey: 'impersonationReportTitle' },
+    performance: { titleKey: 'features-performance' },
+    speed: { titleKey: 'speedReportTitle' },
+    tests: { titleKey: 'testsReportTitle' },
+    cpu: { titleKey: 'cpuReportTitle' },
+    'broken-cards': { titleKey: 'broken-cards' },
+    files: { titleKey: 'filesReportTitle' },
+    rules: { titleKey: 'rulesReportTitle' },
+    boards: { titleKey: 'boardsReportTitle' },
+    cards: { titleKey: 'cardsReportTitle' },
+    recovery: { titleKey: 'recoveryReportTitle' },
+    database: { titleKey: 'databaseReportTitle' },
+  },
+  attachments: {
+    backup: { titleKey: 'backup' },
+    move: { titleKey: 'attachment-move' },
+    'default-save-storage': { titleKey: 'default-save-storage' },
+    limits: { titleKey: 'attachment-limits' },
+    gridfs: { titleKey: 'mongodb-gridfs-storage' },
+    filesystem: { titleKey: 'filesystem-storage' },
+    s3: { titleKey: 's3-minio-storage' },
+    azure: { titleKey: 'azure-blob-storage' },
+    gcs: { titleKey: 'gcs-storage' },
+    'database-migration': { titleKey: 'database-migration' },
+  },
+};
+
+// The title of a pane, in whichever of the two forms it has, or an empty object
+// when the slug is not one of this page's - a caller then shows nothing rather
+// than a title naming a pane that is not open.
+function adminPaneTitle(page, slug) {
+  const byPage = ADMIN_PANE_TITLES[page];
+  if (!byPage || !Object.prototype.hasOwnProperty.call(byPage, slug)) return {};
+  return byPage[slug];
+}
 
 const ADMIN_PAGE_KEYS = Object.keys(ADMIN_PAGES);
 
@@ -136,21 +233,30 @@ function resolvePaneId(page, slug) {
   return paneIdForSlug(page, slug) || cfg.panes[cfg.defaultSlug];
 }
 
-// The path of a pane. The DEFAULT pane keeps the bare page URL - `/settings`,
-// not `/settings/version` - so the panel's own address stays short and there is
-// one address for "the Settings page", not two.
+// The path of a pane - always naming it, the default one included, because the
+// point of the address is to say what you are looking at. An unknown pane falls
+// back to the page's default rather than building a URL that resolves to
+// nothing.
 function adminPath(page, paneIdOrSlug) {
   const cfg = adminPage(page);
   if (!cfg) return null;
   const slug = Object.prototype.hasOwnProperty.call(cfg.panes, paneIdOrSlug)
     ? paneIdOrSlug
     : slugForPaneId(page, paneIdOrSlug);
-  if (!slug || slug === cfg.defaultSlug) return cfg.base;
-  return `${cfg.base}/${slug}`;
+  return `${cfg.base}/${slug || cfg.defaultSlug}`;
+}
+
+// The route pattern for a page. The pane is REQUIRED: the bare page address is
+// a redirect to the default pane's own address, not a second address for it.
+function adminRoutePath(page) {
+  const cfg = adminPage(page);
+  return cfg ? `${cfg.base}/:pane` : null;
 }
 
 module.exports = {
   ADMIN_PAGES,
+  ADMIN_PANE_TITLES,
+  adminPaneTitle,
   ADMIN_PAGE_KEYS,
   ADMIN_PANEL_ROUTES,
   adminPage,
@@ -158,4 +264,5 @@ module.exports = {
   slugForPaneId,
   resolvePaneId,
   adminPath,
+  adminRoutePath,
 };

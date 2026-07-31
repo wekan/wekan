@@ -24,9 +24,13 @@ const read = rel => fs.readFileSync(path.join(__dirname, '..', rel), 'utf8');
 
 const router = read('config/router.js');
 
-// The body of one FlowRouter.route('<path>', {...}) definition.
+// The body of one FlowRouter.route(<path>, {...}) definition. The path is
+// either a literal - the old URLs are - or an EXPRESSION: the panel's own
+// routes take their path from `adminRoutePath(page)`, so the route and the
+// links cannot disagree about what it is.
 function routeBody(routePath) {
-  const at = router.indexOf(`FlowRouter.route('${routePath}', {`);
+  const literal = router.indexOf(`FlowRouter.route('${routePath}', {`);
+  const at = literal !== -1 ? literal : router.indexOf(`FlowRouter.route(${routePath}, {`);
   assert.notStrictEqual(at, -1, `no route for ${routePath}`);
   const end = router.indexOf('\n});', at);
   return router.slice(at, end);
@@ -51,21 +55,24 @@ test('each one redirects to the URL of the pane it used to be a page of', () => 
   // once. Every pane HAS an address now, so they redirect to it: the pane is in
   // the URL, where it can be linked, bookmarked and gone back to.
   const { adminPath } = require('../models/lib/adminUrls');
-  assert.strictEqual(adminPath('settings', 'version-setting'), '/settings',
-    'Version is the default pane, so it is the bare page URL');
-  assert.strictEqual(adminPath('settings', 'translation-setting'), '/settings/translation');
+  // The default pane is NAMED now, rather than being left implicit in a bare
+  // page URL: the address is meant to say where you are, and Version is
+  // somewhere too.
+  assert.strictEqual(adminPath('settings', 'version-setting'), '/admin/settings/version');
+  assert.strictEqual(adminPath('settings', 'translation-setting'), '/admin/settings/translation');
 
   assert.ok(/redirect\(adminPath\('settings', 'version-setting'\)\)/
     .test(routeBody('/information')), '/information is the Version pane');
   assert.ok(/redirect\(adminPath\('settings', 'translation-setting'\)\)/
     .test(routeBody('/translation')), '/translation is the Translation pane');
-  // And the singular page URL, which is now plural.
-  assert.ok(/redirect\(FlowRouter\.path\('setting'\)\)/.test(routeBody('/setting')),
-    '/setting redirects to /settings');
+  // And the singular page URL, which now names the pane it lands on rather
+  // than the page that opens it.
+  assert.ok(/redirect\(adminPath\('settings', 'version-setting'\)\)/
+    .test(routeBody('/setting')), '/setting redirects to /admin/settings/version');
 });
 
 test('the route puts the pane the URL names into the page', () => {
-  const body = routeBody("/settings/:pane?");
+  const body = routeBody("adminRoutePath('settings')");
   assert.ok(/resolvePaneId\('settings', params && params\.pane\)/.test(body),
     'the slug is resolved to a pane id');
   assert.ok(/Session\.set\('settingsOpenPane'/.test(body),

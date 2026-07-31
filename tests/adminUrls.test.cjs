@@ -23,10 +23,35 @@ const read = rel => fs.readFileSync(path.join(ROOT, rel), 'utf8');
 
 const {
   ADMIN_PAGES, ADMIN_PAGE_KEYS,
-  paneIdForSlug, slugForPaneId, resolvePaneId, adminPath,
+  paneIdForSlug, slugForPaneId, resolvePaneId, adminPath, adminRoutePath,
+  ADMIN_PANE_TITLES, adminPaneTitle,
 } = require('../models/lib/adminUrls');
 
 const router = read('config/router.js');
+
+// A page's menu entries: pane id -> whichever label form it carries. Same
+// scoping and comment-stripping as menuIdsOf below, and the same reason.
+function menuLabelsOf(file, marker) {
+  const src = read(file).replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
+  const at = src.indexOf(marker);
+  assert.notStrictEqual(at, -1, `${file}: no menu definition matching ${marker}`);
+  const open = src.indexOf('[', at);
+  let depth = 1;
+  let i = open + 1;
+  while (i < src.length && depth > 0) {
+    if (src[i] === '[') depth++;
+    else if (src[i] === ']') depth--;
+    i++;
+  }
+  const out = new Map();
+  for (const m of src.slice(open, i).matchAll(/\{\s*id:\s*'([\w-]+)'([^{}]*)\}/g)) {
+    const key = /labelKey:\s*'([\w.-]+)'/.exec(m[2]);
+    const label = /label:\s*'([^']+)'/.exec(m[2]);
+    if (key) out.set(m[1], { titleKey: key[1] });
+    else if (label) out.set(m[1], { title: label[1] });
+  }
+  return out;
+}
 
 // The pane ids a page's menu really offers.
 //
@@ -112,17 +137,42 @@ test('and every menu entry has a slug, so every pane can be linked', () => {
   }
 });
 
-test('the default pane is the bare page URL, not a redundant slug', () => {
-  // One address for "the Settings page", not two.
+test('every pane is named in the URL, the default one included', () => {
+  // This USED to leave the default pane unnamed - `/settings` rather than
+  // `/settings/version` - so the address of "Settings" and the address of
+  // "Settings showing Version" were one string. The address is meant to say
+  // where you are, and the first pane is somewhere too. The bare page address
+  // still resolves: it redirects here rather than being a second name for it.
   for (const page of ADMIN_PAGE_KEYS) {
     const cfg = ADMIN_PAGES[page];
-    assert.strictEqual(adminPath(page, cfg.defaultSlug), cfg.base);
-    assert.strictEqual(adminPath(page, cfg.panes[cfg.defaultSlug]), cfg.base);
+    const expected = `${cfg.base}/${cfg.defaultSlug}`;
+    assert.strictEqual(adminPath(page, cfg.defaultSlug), expected);
+    assert.strictEqual(adminPath(page, cfg.panes[cfg.defaultSlug]), expected);
   }
   // The examples xet7 asked for, verbatim.
-  assert.strictEqual(adminPath('settings', 'version-setting'), '/settings');
-  assert.strictEqual(adminPath('settings', 'tableVisibilityMode-setting'), '/settings/visibility');
-  assert.strictEqual(adminPath('settings', 'webhook-setting'), '/settings/global-webhooks');
+  assert.strictEqual(adminPath('settings', 'version-setting'), '/admin/settings/version');
+  assert.strictEqual(adminPath('people', 'registration-setting'), '/admin/people/login');
+  assert.strictEqual(adminPath('settings', 'tableVisibilityMode-setting'), '/admin/settings/visibility');
+  assert.strictEqual(adminPath('settings', 'webhook-setting'), '/admin/settings/global-webhooks');
+});
+
+test('and the panel lives under /admin, where the app is not', () => {
+  // The four pages sat at the TOP level - /settings, /people, /attachments -
+  // as if they were pages of the app rather than of the Admin Panel. Worse,
+  // /attachments is also the path the file server serves attachments from
+  // (server/routes/universalFileServer.js), so the panel and the files were
+  // claiming one address.
+  for (const page of ADMIN_PAGE_KEYS) {
+    const cfg = ADMIN_PAGES[page];
+    assert.ok(cfg.base.startsWith('/admin/'), `${page} is under /admin`);
+    // ...and it says where it used to be, so the old address can redirect.
+    assert.ok(typeof cfg.legacyBase === 'string' && cfg.legacyBase.startsWith('/'),
+      `${page} records the path it used to answer on`);
+    assert.notStrictEqual(cfg.legacyBase, cfg.base, 'which is not where it is now');
+  }
+  const fileServer = read('server/routes/universalFileServer.js');
+  assert.ok(fileServer.includes("WebApp.handlers.use('/attachments'"),
+    'the collision this avoided is real: the file server owns /attachments');
 });
 
 test('a slug that is not one falls back to the default, not to nothing', () => {
@@ -143,8 +193,12 @@ test('a slug that is not one falls back to the default, not to nothing', () => {
 test('the routes take the slug and hand the pane to the page', () => {
   for (const page of ADMIN_PAGE_KEYS) {
     const base = ADMIN_PAGES[page].base;
-    const at = router.indexOf(`FlowRouter.route('${base}/:pane?'`);
-    assert.notStrictEqual(at, -1, `${base}/:pane? must be a route`);
+    // The path is built by the module, so the route and the links cannot
+    // disagree about it; the guard checks the module produced what it should.
+    assert.strictEqual(adminRoutePath(page), `${base}/:pane`,
+      `${base}/:pane is the route pattern`);
+    const at = router.indexOf(`FlowRouter.route(adminRoutePath('${page}')`);
+    assert.notStrictEqual(at, -1, `${base} must be a route`);
     const body = router.slice(at, router.indexOf('\n});', at));
     assert.ok(new RegExp(`resolvePaneId\\('${page}',`).test(body),
       `${base}: the slug must be resolved to a pane id`);
@@ -175,6 +229,25 @@ test('and the pages open it, and put a clicked pane back in the URL', () => {
   }
 });
 
+test('and every path the panel used to answer on redirects', () => {
+  // Three shapes per page: the bare new address, the bare old one, and the old
+  // one WITH a pane - a bookmarked /settings/global-webhooks has to land on
+  // the same pane, not on the top of the panel.
+  const at = router.indexOf('Object.keys(ADMIN_PAGES).forEach(page => {');
+  assert.notStrictEqual(at, -1, 'the redirects are built from the same map the URLs are');
+  const body = router.slice(at, router.indexOf('\n});', at));
+  assert.ok(/FlowRouter\.route\(cfg\.base,/.test(body), 'the bare new address');
+  assert.ok(/FlowRouter\.route\(cfg\.legacyBase,/.test(body), 'the bare old one');
+  assert.ok(/FlowRouter\.route\(`\$\{cfg\.legacyBase\}\/:pane`/.test(body),
+    'and the old one with a pane in it');
+  assert.ok(/adminPath\(page, \(context\.params \|\| \{\}\)\.pane\)/.test(body),
+    'which keeps the pane it names');
+  // Handed the `redirect`, never FlowRouter.go(): go() from inside
+  // triggersEnter happens while the route is still entering and is swallowed,
+  // so nothing renders at all.
+  assert.ok(!/FlowRouter\.go\(/.test(body), 'redirects with what it is handed');
+});
+
 test('the old singular /setting still works', () => {
   const at = router.indexOf("FlowRouter.route('/setting', {");
   assert.notStrictEqual(at, -1, '/setting must still resolve');
@@ -182,9 +255,9 @@ test('the old singular /setting still works', () => {
   assert.ok(/redirect\(/.test(body), 'as a redirect');
   assert.ok(!/content: 'setting'/.test(body), 'not as a second copy of the page');
   // The route NAME stays `setting`, so every `{{pathFor 'setting'}}` in the
-  // templates keeps working and now points at /settings.
-  assert.ok(/FlowRouter\.route\('\/settings\/:pane\?', \{\n\s+name: 'setting',/.test(router),
-    "the plural route keeps the name 'setting'");
+  // templates keeps working and now points under /admin.
+  assert.ok(/FlowRouter\.route\(adminRoutePath\('settings'\), \{\n\s+name: 'setting',/.test(router),
+    "the Settings route keeps the name 'setting'");
   for (const jade of ['client/components/settings/settingHeader.jade',
     'client/components/users/userHeader.jade']) {
     assert.ok(/pathFor 'setting'/.test(read(jade)), `${jade} links by route name`);
@@ -203,6 +276,46 @@ test('the design doc says what the URLs are', () => {
     assert.ok(fs.existsSync(path.join(ROOT, m[1])),
       `the design doc names ${m[1]}, which does not exist`);
   }
+});
+
+test('the title bar names the pane, in the menu row\'s own words', () => {
+  // "Admin Panel / Settings / Version": the address names three things and so
+  // does the title. This is a SECOND copy of the menu's labels - the header is
+  // a separate Blaze instance from the Admin Panel's pages and must not import
+  // them, so it cannot read the menus - and nothing but this guard keeps the
+  // two equal.
+  const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
+  for (const page of ADMIN_PAGE_KEYS) {
+    const labels = menuLabelsOf(...MENU_SOURCE[page]);
+    for (const [slug, paneId] of Object.entries(ADMIN_PAGES[page].panes)) {
+      const got = adminPaneTitle(page, slug);
+      assert.ok(got.titleKey || got.title, `${page}/${slug} has no title`);
+      const want = labels.get(paneId);
+      assert.ok(want, `${MENU_SOURCE[page][0]}: ${paneId} has no menu label to match`);
+      assert.deepStrictEqual(got, want,
+        `${page}/${slug}: the bar and the menu row that opens it must say the same words`);
+      // A key has to be a real one; a literal label is a name that is not
+      // translated (PWA is a product name), and stays as written.
+      if (got.titleKey) assert.ok(got.titleKey in en, `${got.titleKey} is not a translation key`);
+    }
+    // No pane in the title map that the page does not have.
+    for (const slug of Object.keys(ADMIN_PANE_TITLES[page])) {
+      assert.ok(slug in ADMIN_PAGES[page].panes, `${page}/${slug} is not a pane`);
+    }
+  }
+  // An unknown slug titles nothing, rather than naming a pane that is not open.
+  assert.deepStrictEqual(adminPaneTitle('settings', 'nonsense'), {});
+  assert.deepStrictEqual(adminPaneTitle('nonsense', 'version'), {});
+
+  // ...and the bar draws it, from the URL rather than from the page.
+  const js = read('client/components/main/header.js');
+  assert.ok(/headerTitlePaneData\(\)/.test(js), 'the helper exists');
+  assert.ok(/adminPaneTitle\(page, params\.pane \|\| ADMIN_PAGES\[page\]\.defaultSlug\)/.test(js),
+    'read from the URL, with the default pane when the URL names none');
+  const jade = read('client/components/main/header.jade');
+  assert.ok(/with headerTitlePaneData/.test(jade), 'and the bar draws it');
+  assert.ok(/if titleKey/.test(jade) && /\| {2}\/ #\{title\}/.test(jade),
+    'in whichever of the two forms it got');
 });
 
 for (const [name, fn] of tests) {
