@@ -62,15 +62,16 @@ test('the controls wrap so none of them is cut off on a narrow window', () => {
   // of dropping to a second row.
   //
   // This used to read `.boards-path-header .path-right`, the page's own row of
-  // controls. There is no such row: every control - Sort, Search,
-  // Multi-Selection, the view menu, and the archive / duplicate / star / home
-  // actions on a selection - is in the second top header bar now, so the group
-  // that has to wrap is the header bar's, and it is styled by the board
-  // header's own stylesheet rather than by this page's.
-  const header = block('.boards-path-header');
-  assert.strictEqual(prop(header, 'flex-wrap'), 'wrap', 'the section title bar wraps');
-  assert.ok(!/\.path-right/.test(css.replace(/\/\*[\s\S]*?\*\//g, '')),
-    'and has no controls group left to wrap');
+  // controls, and then `.boards-path-header` itself. Neither exists: every
+  // control - Sort, Search, Multi-Selection, the view menu, and the archive /
+  // duplicate / star / home actions on a selection - is in the second top
+  // header bar now, and the bar that was left carried only the current
+  // section's icon, which the left menu already highlights. So the group that
+  // has to wrap is the header bar's, styled by the board header's own
+  // stylesheet rather than by this page's.
+  const bare = css.replace(/\/\*[\s\S]*?\*\//g, '');
+  assert.ok(!/\.boards-path-header/.test(bare), 'the page has no bar above the boards');
+  assert.ok(!/\.path-right/.test(bare), 'and no controls group of its own');
 
   const headerCss = fs.readFileSync(
     path.join(path.resolve(__dirname, '..'), 'client/components/main/header.css'), 'utf8');

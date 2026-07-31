@@ -39,13 +39,22 @@ that belong in a tooltip rather than on a button, and spelling them out pushes
 the bar onto a second row. The label is a label: it takes neither
 `.board-header-btn` nor any button behaviour.
 
-**There is no second controls bar.** The page used to carry its own row of
-controls above the board icons — Multi-Selection with its archive and duplicate
-actions, the sort button, the search box, the "Selected:" actions — inside
+**There is no bar above the boards at all.** The page used to carry its own row
+of controls there — Multi-Selection with its archive and duplicate actions, the
+sort button, the search box, the "Selected:" actions — inside
 `.boards-path-header`. Two bars of controls on one page, one of them styled like
 the board header and one not, is the thing this design removes: the header bar is
 where a WeKan page puts its controls, and All Boards now agrees with every other
-page about that. `.boards-path-header` holds the section title and nothing else.
+page about that.
+
+Emptying that bar left a white strip above "+ Add Board" holding the current
+section's Font Awesome icon, and nothing else. Three things already say which
+section you are in — the left menu highlights it, the header bar names the page,
+and the Starred control is emphasised when Starred is on — so the strip is gone
+too, along with the `currentMenuPath` helper that resolved a workspace path to
+an icon and a name for it, every `.boards-path-header` rule, and the `pulse`
+animation whose only user was its multi-selection hint. The board icons start at
+the top of the right column.
 
 Because a Blaze event map only sees events inside its own template, the handlers
 for the selection actions moved to `boardListHeaderBar` with their buttons, and

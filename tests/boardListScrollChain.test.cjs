@@ -90,11 +90,16 @@ test('every step from the wrapper to the list has a definite height', () => {
     'so its header and its list can be laid out as fixed + flexible');
 });
 
-test('the list is the flexible part, and the header above it is not', () => {
-  const header = ruleFor('.boards-right-grid > .boards-path-header')
-    || ruleFor('.boards-right-grid > .boards-pagination');
-  assert.ok(header && has(header, 'flex: 0 0 auto;'),
-    'the search/sort header keeps its own height, whatever it wraps to');
+test('the list is the flexible part, and the pager above it is not', () => {
+  // This used to name `.boards-path-header` first - the white bar that carried
+  // the section icon and, before that, the page's controls. There is no bar:
+  // the controls are in the second top header bar and the icon repeated what
+  // the left menu already highlights, so the pager is the only fixed-height
+  // thing left above the list.
+  assert.ok(!ruleFor('.boards-right-grid > .boards-path-header'), 'no section-title bar');
+  const pager = ruleFor('.boards-right-grid > .boards-pagination');
+  assert.ok(pager && has(pager, 'flex: 0 0 auto;'),
+    'the pager keeps its own height, whatever it wraps to');
 
   const list = ruleFor('.board-list');
   assert.ok(list, '.board-list must be sized in the phone block');

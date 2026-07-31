@@ -475,6 +475,28 @@ flattened a controls row this page no longer has.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/667d90625">All Boards: the white bar above the board icons is gone</a>. Thanks to xet7.</summary>
+
+Once every control had moved to the header bar, what was left above "+ Add
+Board" was a white strip carrying one thing: a Font Awesome icon for whichever
+left-menu section is selected. Three things already say which section that is —
+the left menu highlights it, the header bar names the page, and the Starred
+control is emphasised while Starred is on — so the strip said nothing and cost
+a bar's worth of height on every screen. The board icons start at the top of
+the right column now.
+
+It took more with it than the markup. `currentMenuPath`, sixty-four lines that
+resolved a workspace path to an icon and a name, had no other caller. Every
+`.boards-path-header` rule went — the seventeen that styled the bar and its
+contents, and the phone media query that had already been reduced to holding
+the title. So did the `pulse` keyframes, whose only user was the
+multi-selection hint that lived in the bar. The pager's `flex: 0 0 auto` was
+sharing a selector list with the bar, and is kept on its own: it is still the
+fixed-height thing above the scrolling list.
+
+</details>
+
 and updates the following dependencies:
 
 - **aldeed:collection2 4.2.0 → 4.2.1** — cleans and validates every write

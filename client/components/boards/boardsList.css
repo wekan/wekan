@@ -260,40 +260,6 @@
   min-width: 0;
 }
 
-.boards-path-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  /* Wrap to a 2nd row on narrow windows so the search box and the Sort /
-     Multi-Selection / Clear buttons stay visible instead of overflowing. */
-  flex-wrap: wrap;
-  padding: 12px 16px;
-  margin-bottom: 16px;
-  background: #f5f5f5;
-  border-radius: 6px;
-  font-size: 16px;
-  font-weight: 500;
-}
-
-.boards-path-header .path-left {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex: 1;
-  min-width: 0; /* the section title shrinks rather than widening the card */
-  flex-wrap: wrap; /* the multi-selection hint wraps under the title when tight */
-}
-
-/* Keep the folder icon and the menu title (e.g. "Remaining") on ONE line, the
-   title to the RIGHT of the icon — never let flex-wrap stack them vertically. */
-.boards-path-header .path-title {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  white-space: nowrap;
-}
-
 /* The "Selected:" label, in the header bar beside the star and home buttons it
    names. It is a label, not a control, so it does NOT take .board-header-btn -
    it only has to line up with the buttons on either side of it and inherit the
@@ -306,56 +272,7 @@
   white-space: nowrap;
 }
 
-.boards-path-header .multiselection-hint {
-  background: #FFF3CD;
-  color: #856404;
-  padding: 4px 12px;
-  border-radius: 4px;
-  font-size: 13px;
-  font-weight: normal;
-  border: 1px solid #FFE69C;
-  animation: pulse 2s ease-in-out infinite;
-}
 
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
-}
-
-/* #5799: board-name search box in the All Boards header */
-.boards-path-header .board-search {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 8px;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  /* Roughly half the previous width; the input flexes to fill what's left. */
-  width: 300px;
-  max-width: 100%;
-}
-
-.boards-path-header .board-search input {
-  border: none;
-  outline: none;
-  background: transparent;
-  font-size: 14px;
-  flex: 1 1 auto;
-  min-width: 0;
-  /* Nudge the text down so it sits at the vertical middle of the field. */
-  position: relative;
-  top: 8px;
-}
-
-.boards-path-header .board-search .board-search-clear {
-  cursor: pointer;
-  color: #999;
-}
-
-.boards-path-header .board-search .board-search-clear:hover {
-  color: #333;
-}
 
 /* #5799: board grid pagination controls, mirroring Admin Panel > People */
 .boards-pagination {
@@ -383,82 +300,6 @@
   min-width: 72px;
   text-align: center;
   color: #333;
-}
-
-.boards-path-header .path-icon {
-  font-size: 18px;
-}
-/* #6524: the header section icon is a Font Awesome glyph matching the left menu.
-   The left-menu icons inherit the default text colour (#4d4d4d), so this one is
-   set to the same, and sized like a menu icon rather than the old emoji. */
-.boards-path-header .path-icon i.fa {
-  color: #4d4d4d;
-  font-size: 16px;
-}
-
-/* #6524: hide the current-folder NAME next to its icon in the header. The folder
-   icon already shows which section this is, the left menu highlights it, and the
-   "My Boards" bar names the page - so the repeated "Starred"/"Remaining"/workspace
-   name was redundant and crowded the Multi-Selection / Sort / search controls
-   beside it. Visually hidden rather than removed, so a screen reader still
-   announces which folder is shown (the icon alone has no text alternative). */
-.boards-path-header .path-text {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.boards-path-header .board-header-btn {
-  padding: 6px 12px;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 14px;
-  transition: all 0.2s;
-}
-
-.boards-path-header .board-header-btn:hover {
-  background: #f0f0f0;
-  border-color: #bbb;
-}
-
-.boards-path-header .board-header-btn.emphasis {
-  background: #2196F3;
-  color: #fff;
-  border-color: #2196F3;
-  font-weight: bold;
-  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.5);
-  transform: scale(1.05);
-}
-
-.boards-path-header .board-header-btn.emphasis:hover {
-  background: #1976D2;
-  box-shadow: 0 3px 12px rgba(33, 150, 243, 0.7);
-}
-
-.boards-path-header .board-header-btn-close {
-  padding: 4px 10px;
-  background: #f44336;
-  color: #000;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-inline-start: 10px; /* Extra space between MultiSelection toggle and Remove Filter */
-}
-
-.boards-path-header .board-header-btn-close:hover {
-  background: #d32f2f;
 }
 
 /* #6523: a responsive grid instead of `float: width 20%`. The float layout was
@@ -1257,11 +1098,9 @@
     flex-direction: column;
   }
 
-  /* The header above the list (section title, Multi-Selection, Sort, search) and
-     the pager keep their own height; the list gets the rest. On a phone that
-     header is two rows tall, which is why a hard-coded "the list is the viewport
-     minus 120px" was wrong by more than 100px. */
-  .boards-right-grid > .boards-path-header,
+  /* The pager keeps its own height; the list gets the rest. This used to name
+     the section-title bar beside it, which is not there any more - the boards
+     start at the top of the column now. */
   .boards-right-grid > .boards-pagination {
     flex: 0 0 auto;
   }
@@ -1515,28 +1354,6 @@
   min-height: 4rem;
 }
 
-/* ── Header on a phone ──────────────────────────────────────────────────────
-   Most of what this block used to do - flattening `.path-right` so the search
-   box could wrap onto a row of its own under the section icon, and keeping the
-   Sort and Multi-Selection buttons from stretching - was about controls that
-   are not in this header any more. It holds the section title and nothing
-   else, so all that is left is letting the title shrink rather than push the
-   card wider than the screen. */
-@media screen and (max-width: 800px),
-       screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
-  .boards-path-header {
-    flex-wrap: wrap;
-    gap: 6px;
-    row-gap: 6px;
-    justify-content: flex-start;
-  }
-
-  .boards-path-header .path-left {
-    flex: 0 0 auto;
-    min-width: 0;
-    overflow: hidden;
-  }
-}
 
 /* With drag handles OFF there is no handle on a board tile, so the title should
    use the width that was reserved for it. `:has()` keeps this to one rule

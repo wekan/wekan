@@ -97,6 +97,26 @@ test('and the page has no second controls row at all', () => {
     'and is styled where it now lives');
 });
 
+test('and no bar above the boards at all', () => {
+  // Emptying the bar of its controls left a white strip above "+ Add Board"
+  // carrying the current section's Font Awesome icon - which the left menu
+  // already highlights and the header bar already names. The boards start at
+  // the top of the column now.
+  assert.ok(!jade.includes('boards-path-header'), 'the bar is gone from the template');
+  for (const part of ['path-left', 'path-title', 'path-icon', 'path-text', 'currentMenuPath']) {
+    assert.ok(!jade.includes(part), `${part} went with it`);
+  }
+  // And its helper, which nothing else called - 64 lines of resolving a
+  // workspace path to an icon and a name for a strip nobody sees.
+  assert.ok(!/currentMenuPath\(\)/.test(js), 'the helper that fed it is gone too');
+
+  const css = read('client/components/boards/boardsList.css');
+  assert.ok(!/boards-path-header/.test(css), 'and every rule that styled it');
+  // Its "look at me" hint animation had no other user.
+  assert.ok(!/@keyframes pulse/.test(css) && !/multiselection-hint/.test(css),
+    'including the hint animation that only it used');
+});
+
 test('Search is a field, not a button', () => {
   // On a board, Search opens a search view over cards; here it filters the list
   // it sits above, and a filter belongs in the bar it filters.

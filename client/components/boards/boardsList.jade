@@ -72,22 +72,14 @@ template(name="boardList")
                   span {{_ 'filter-clear'}}
 
       // Right boards grid
+      //- There is NO bar above the boards. It held the controls of the page -
+        Multi-Selection, Sort, the search box, and the archive / duplicate /
+        star / home actions on a selection - which are all in the second top
+        header bar now (boardListHeaderBar below), styled like the board header
+        of the Swimlanes view. What was left was a white strip carrying the
+        current section's icon, which the left menu already highlights and the
+        header bar already names. docs/Design/Page/All-Boards.md
       .boards-right-grid
-        .boards-path-header
-          .path-left
-            span.path-title
-              //- #6524: the current section's Font Awesome icon (same glyph and
-                colour as the matching left-menu item), not a Unicode emoji.
-              span.path-icon
-                i.fa(class="{{currentMenuPath.faIcon}}")
-              span.path-text {{currentMenuPath.text}}
-          //- EVERY control that was here - Multi-Selection, Sort, the search
-            box, and the archive / duplicate / star / home actions on a
-            selection - is in the SECOND TOP HEADER BAR now (boardListHeaderBar
-            below), styled like the board header of the Swimlanes view. Nothing
-            but the section title is left: a WeKan page puts its controls in its
-            header bar, and this page carried a second row of its own.
-            docs/Design/Page/All-Boards.md
         //- Lists (the board icons) or Table. Lists is the default;
           docs/Design/Page/All-Boards.md.
         if isAllBoardsView 'table'
