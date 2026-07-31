@@ -690,7 +690,7 @@ their callers.
 and improves the following developer tooling:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/bc6a174c5">build.sh installs Node on macOS with nvm, and installs the newest 24.x</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/65a6a311e">build.sh installs Node on macOS with nvm, and installs the newest 24.x</a>. Thanks to xet7.</summary>
 
 "Install WeKan dependencies" ran `brew install node@24`, which gives whatever
 24.x Homebrew currently has bottled rather than what nodejs.org has released,
