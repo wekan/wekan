@@ -476,7 +476,7 @@ flattened a controls row this page no longer has.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/667d90625">All Boards: the white bar above the board icons is gone</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/57dd62bad">All Boards: the white bar above the board icons is gone</a>. Thanks to xet7.</summary>
 
 Once every control had moved to the header bar, what was left above "+ Add
 Board" was a white strip carrying one thing: a Font Awesome icon for whichever
