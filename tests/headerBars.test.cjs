@@ -383,14 +383,30 @@ test('the bar wraps rather than clipping, and its end group hugs the end', () =>
       `${sels.join(', ')} pins a height - a content box cannot hold two rows`);
   }
 
-  // The end group: right in LTR, left in RTL, from ONE logical property.
+  // The end group generates NO BOX. It was a flex box of its own, which made it
+  // ONE item to the bar - so when the bar ran out of width the whole group went
+  // to the second row together, every icon after the drag-handles toggle at
+  // once, leaving the first row empty from halfway across while the second was
+  // crowded. With `contents` its buttons are items of the BAR and wrap one at a
+  // time, so the second row takes only what did not fit on the first.
   const at = css.indexOf('#header-quick-access .header-quick-access-end {');
   assert.notStrictEqual(at, -1, 'the end group must be styled');
   const rule = css.slice(at, css.indexOf('}', at));
-  assert.ok(/margin-inline-start:\s*auto/.test(rule),
+  assert.ok(/display:\s*contents/.test(rule),
+    'the group generates no box, so its buttons wrap individually');
+  assert.ok(!/display:\s*flex/.test(rule),
+    'a flex box of its own is ONE item to the bar, and wraps as one');
+  assert.ok(!/margin-inline-start:\s*auto/.test(rule),
+    'a box that is not generated cannot carry the push');
+
+  // The push moves to its first child - the item that has to move the rest to
+  // the end. Right in LTR, left in RTL, from ONE logical property.
+  const pushAt = css.indexOf('#header-quick-access .header-quick-access-end > :first-child {');
+  assert.notStrictEqual(pushAt, -1, 'the first child carries the push');
+  const push = css.slice(pushAt, css.indexOf('}', pushAt));
+  assert.ok(/margin-inline-start:\s*auto/.test(push),
     'pushed to the end with a LOGICAL margin, so RTL mirrors by itself');
-  assert.ok(!/margin-left/.test(rule), 'never a physical one - it would not mirror');
-  assert.ok(/flex-wrap:\s*wrap/.test(rule), 'and it wraps with the bar');
+  assert.ok(!/margin-left/.test(push), 'never a physical one - it would not mirror');
 
   // It really does start after the drag-handles toggle.
   const dragAt = jade.indexOf('js-toggle-desktop-drag-handles');

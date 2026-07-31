@@ -69,6 +69,18 @@ of the bar by a single `margin-inline-start: auto`. That is a **logical**
 property, so a right-to-left language mirrors it by itself rather than needing a
 second rule kept in step with the first.
 
+That group is `display: contents` — it generates **no box**. It used to be a flex
+box of its own, which made it *one item* to the bar, so when the bar ran out of
+width the whole group moved to the second row together: every icon after the
+drag-handles toggle went down at once, leaving the first row empty from halfway
+across while the second was crowded. With `contents` its buttons are items of the
+**bar** and wrap one at a time, so the second row takes only what did not fit on
+the first. The group stays in the markup — it is what says where "the end of the
+bar" begins — and the auto margin moves to its first child, the item that has to
+push the rest to the end. On a row that wrapped there is no free space for that
+margin to absorb, so those items simply pack from the start, which is what fills
+the second row instead of stranding it.
+
 Inside that group: the starred-boards dropdown, the page's own controls, the
 page's view menu, the Admin Panel's tabs, the notification bell, **a divider**,
 help, your account, and the sidebar hamburger where the page has one.

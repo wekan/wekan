@@ -875,6 +875,22 @@ and updates the following dependencies:
 and fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">The header bar fills each row before starting the next one</a>. Thanks to xet7.</summary>
+
+The bar wraps when its buttons do not fit, but everything after the drag-handles
+toggle was wrapped in one group — and a nested flex box is a single item to the
+bar, so the whole group moved to the second row together. The first row ended
+halfway across with nothing in the rest of it while the second row was crowded.
+
+The group generates no box now, so its buttons are items of the bar itself and
+wrap one at a time: the second row takes only what did not fit on the first. The
+push that keeps them at the end of the bar moves to the group's first child, and
+on a row that wrapped there is no free space for it to absorb, so those items
+pack from the start — which is what fills the row rather than stranding it.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/49f4e77aa">The first header bar wraps to a second row instead of hiding the buttons that do not fit</a>. Thanks to xet7.</summary>
 
 The bar was one row with `overflow: hidden`, so a button that did not fit was
