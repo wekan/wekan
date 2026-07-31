@@ -266,7 +266,7 @@ browser build to verify).
 This release adds the following new features:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">The header bar names the All Boards list you are on, and the workspace inside it</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1164785d1">The header bar names the All Boards list you are on, and the workspace inside it</a>. Thanks to xet7.</summary>
 
 The bar said "All Boards" on the Starred list, on Templates, on Remaining and
 inside every workspace — it named the page and not the list you were looking
