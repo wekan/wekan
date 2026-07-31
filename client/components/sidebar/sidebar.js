@@ -827,8 +827,9 @@ Template.membersWidget.events({
   'click .js-manage-board-addTeam': Popup.open('addBoardTeam'),
   'click .js-manage-board-addDomain': Popup.open('addBoardDomain'),
   'click .js-import-board': Popup.open('chooseBoardSource'),
+  // Boards in Archive is a PAGE now, not a modal - go to it.
   'click .js-open-archived-board'() {
-    Modal.open('archivedBoards');
+    FlowRouter.go('archive');
   },
   'click .sandstorm-powerbox-request-identity'() {
     window.sandstormRequestIdentity();

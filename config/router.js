@@ -222,6 +222,39 @@ FlowRouter.route('/allboards/:section?/:path*', {
   },
 });
 
+// Boards in Archive: a PAGE, not a modal.
+//
+// It was `Modal.open('archivedBoards')` from three menus, so the one place that
+// lists every archived board - with its own search and its own pager - was a box
+// floating over whatever you happened to be looking at, could not be linked or
+// bookmarked, and closed if you pressed Escape while reading it. It is a page
+// like any other now, with the same second top header bar, which is what
+// "restore a board I archived last month" deserves.
+FlowRouter.route('/archive', {
+  name: 'archive',
+  triggersEnter: [
+    ensureSignedInUnlessSandstorm,
+    () => {
+      Session.set('currentBoard', null);
+      Session.set('currentList', null);
+      Session.set('currentCard', null);
+      Session.set('popupCardId', null);
+      Session.set('popupCardBoardId', null);
+
+      Filter.reset();
+      Session.set('sortBy', '');
+      EscapeActions.executeAll();
+    },
+  ],
+  action() {
+    Utils.manageCustomUI();
+    this.render('defaultLayout', {
+      headerBar: 'archivedBoardsHeaderBar',
+      content: 'archivedBoards',
+    });
+  },
+});
+
 FlowRouter.route('/public', {
   name: 'public',
   triggersEnter: [ensureSignedInUnlessSandstorm],

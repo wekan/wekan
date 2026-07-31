@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { TAPi18n } from '/imports/i18n';
 import { BoardMultiSelection } from '/client/lib/boardMultiSelection';
 import { allBoardsSearchVar } from '/client/lib/allBoardsView';
@@ -75,6 +76,14 @@ Template.allBoardsHomeSidebar.events({
     evt.preventDefault();
     BoardMultiSelection.activate();
     openAllBoardsSidebar(SIDEBAR_MULTISELECTION);
+  },
+  // Boards in Archive is a page. This row had no handler at all: the one it
+  // relied on lived in the header bar's events map and went when that map was
+  // rewritten, so the button did nothing.
+  'click .js-open-archived-board'(evt) {
+    evt.preventDefault();
+    closeAllBoardsSidebar();
+    FlowRouter.go('archive');
   },
 });
 

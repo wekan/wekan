@@ -72,7 +72,7 @@ same `.board-sidebar.sidebar` classes, the same `.sidebar-actions` row with the
 
 | View | Opened by | What it is |
 | --- | --- | --- |
-| `home` | the hamburger | The page's own menu: Search, Multi-Selection, Boards in Archive. The default, as `homeSidebar` is on a board. No title and no back arrow — there is nothing behind it. |
+| `home` | the hamburger | The page's own menu: Search, Multi-Selection, and [Boards in Archive](Archive.md) — which is a page, so that row leaves the sidebar rather than opening in it. The default, as `homeSidebar` is on a board. No title and no back arrow — there is nothing behind it. |
 | `search` | the Search button | [Search](Search.md) |
 | `multiselection` | the Multi-Selection button | [Multi-Selection](Multi-Selection.md) |
 
@@ -202,6 +202,7 @@ controls have their own lists in [Search](Search.md) and
 
 ## Related
 
+- [Boards in Archive](Archive.md) — the page the sidebar's Archive row opens
 - [The All Boards URLs](All-Boards-URLs.md) — a URL per left-menu entry, workspaces included
 - [Search](Search.md) — the shared Search control and both search views
 - [Multi-Selection](Multi-Selection.md) — the shared Multi-Selection control and both views

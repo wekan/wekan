@@ -139,8 +139,9 @@ Template.boardHeaderBar.events({
   },
   'click .js-change-visibility': Popup.open('boardChangeVisibility'),
   'click .js-watch-board': Popup.open('boardChangeWatch'),
+  // Boards in Archive is a PAGE now, not a modal - go to it.
   'click .js-open-archived-board'() {
-    Modal.open('archivedBoards');
+    FlowRouter.go('archive');
   },
   'click .js-toggle-board-view': Popup.open('boardChangeView'),
   'click .js-toggle-sidebar'() {

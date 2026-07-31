@@ -69,8 +69,9 @@ Template.memberMenuPopup.events({
   'click .js-due-cards'() {
     Popup.back();
   },
+  // Boards in Archive is a PAGE now, not a modal - go to it.
   'click .js-open-archived-board'() {
-    Modal.open('archivedBoards');
+    FlowRouter.go('archive');
   },
   'click .js-invite-people': Popup.open('invitePeople'),
   'click .js-edit-profile': Popup.open('editProfile'),
