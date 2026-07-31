@@ -5,7 +5,7 @@ import { filterAndSortDueCards } from '/client/components/main/dueCardsLogic';
 
 // const subManager = new SubsManager();
 
-Template.dueCardsHeaderBar.helpers({
+Template.dueCardsControls.helpers({
   dueCardsView() {
     // eslint-disable-next-line no-console
     // console.log('sort:', Utils.dueCardsView());
@@ -13,7 +13,7 @@ Template.dueCardsHeaderBar.helpers({
   },
 });
 
-Template.dueCardsHeaderBar.events({
+Template.dueCardsControls.events({
   'click .js-due-cards-view-change': Popup.open('dueCardsViewChange'),
 });
 

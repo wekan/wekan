@@ -9,6 +9,9 @@ import '/client/components/main/recoveryMaintenance.jade';
 import '/client/components/main/themeColorPicker.jade';
 import '/client/components/main/keyboardShortcuts.jade';
 import '/client/components/main/layouts.jade';
+// The shared page sidebar, rendered by the layout above. A .jade file is not
+// picked up by being on disk - see tests/templateRegistration.test.cjs.
+import '/client/components/main/pageSidebar.jade';
 import '/client/components/main/myCards.jade';
 import '/client/components/main/popup.tpl.jade';
 import '/client/components/main/spinner.jade';
@@ -24,6 +27,8 @@ import '/client/components/main/support.jade';
 
 import '/client/lib/keyboard';
 import '/client/lib/popup';
+import '/client/lib/pageSidebar';
+import '/client/components/main/pageSidebar.js';
 import '/client/components/main/accessibility.js';
 import '/client/components/main/bookmarks.js';
 import '/client/components/main/brokenCards.js';

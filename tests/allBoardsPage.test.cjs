@@ -235,8 +235,12 @@ test('and it is pinned to the viewport, below the header, on a desktop', () => {
   // has no such container, so the panel floated in the middle of the page, over
   // the board icons, ending as soon as its content did.
   const css = read('client/components/boards/boardsList.css');
-  const at = css.indexOf('.all-boards-sidebar.sidebar {');
+  // The rule is shared with the page sidebar now - same shell, same need to be
+  // pinned below the header - so it is a selector LIST, not one selector.
+  const at = css.indexOf('.all-boards-sidebar.sidebar,');
   assert.notStrictEqual(at, -1, 'the panel must place itself');
+  assert.ok(/\.all-boards-sidebar\.sidebar,\n\s+\.page-sidebar\.sidebar \{/.test(css),
+    'and the shared page sidebar is placed the same way');
   const rule = css.slice(at, css.indexOf('}', at));
   assert.ok(/position: fixed;/.test(rule), 'pinned to the viewport');
   assert.ok(/top: var\(--wekan-header-height, 0px\);/.test(rule),

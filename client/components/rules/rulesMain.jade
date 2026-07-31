@@ -1,20 +1,19 @@
-template(name="rulesHeaderBar")
-  h1
-    i.fa.fa-magic
-    | {{_ 'r-board-rules'}}
-  .board-header-btns.left
-    a.board-header-btn.js-rules-back-to-board(title="{{_ 'back'}}")
-      i.fa.fa-arrow-left
-      | {{_ 'board'}}
-    a.board-header-btn.js-rules-toggle-view(title="{{_ 'r-workflow-view'}}")
-      i.fa.fa-sitemap
-      if isWorkflowView
-        | {{_ 'r-list-view'}}
-      else
-        | {{_ 'r-workflow-view'}}
-    a.board-header-btn.js-rules-import-export(title="{{_ 'r-import-export'}}")
-      i.fa.fa-exchange
-      | {{_ 'r-import-export'}}
+template(name="rulesControls")
+  //- The controls of this page. They were a group in its second header bar,
+    beside a title the first bar now carries; they are a view of the shared
+    page sidebar. models/lib/pageSidebar.js, docs/Design/Page/Header.md
+  a.board-header-btn.js-rules-back-to-board(title="{{_ 'back'}}")
+    i.fa.fa-arrow-left
+    | {{_ 'board'}}
+  a.board-header-btn.js-rules-toggle-view(title="{{_ 'r-workflow-view'}}")
+    i.fa.fa-sitemap
+    if isWorkflowView
+      | {{_ 'r-list-view'}}
+    else
+      | {{_ 'r-workflow-view'}}
+  a.board-header-btn.js-rules-import-export(title="{{_ 'r-import-export'}}")
+    i.fa.fa-exchange
+    | {{_ 'r-import-export'}}
 
 template(name="rulesMain")
   .wrapper

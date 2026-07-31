@@ -41,7 +41,7 @@ Template.rulesMain.helpers({
   },
 });
 
-Template.rulesHeaderBar.helpers({
+Template.rulesControls.helpers({
   currentBoard() {
     return Utils.getCurrentBoard();
   },
@@ -50,7 +50,7 @@ Template.rulesHeaderBar.helpers({
   },
 });
 
-Template.rulesHeaderBar.events({
+Template.rulesControls.events({
   'click .js-rules-back-to-board'(event) {
     event.preventDefault();
     const currentBoard = Utils.getCurrentBoard();

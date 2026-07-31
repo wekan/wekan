@@ -11,13 +11,13 @@ import { Utils } from '/client/lib/utils';
 // #3392-adjacent: "my cards / all cards" toggle for global search (mirrors the
 // due-cards view toggle). When "me", the current user is injected as a `user:`
 // predicate (member OR assignee), reusing the existing search logic.
-Template.globalSearchHeaderBar.helpers({
+Template.globalSearchControls.helpers({
   globalSearchView() {
     return Utils.globalSearchView();
   },
 });
 
-Template.globalSearchHeaderBar.events({
+Template.globalSearchControls.events({
   'click .js-global-search-view-change': Popup.open('globalSearchViewChange'),
 });
 

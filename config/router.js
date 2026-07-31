@@ -350,7 +350,6 @@ FlowRouter.route('/b/:id/:slug/rules', {
     Utils.manageMatomo();
 
     this.render('defaultLayout', {
-      headerBar: 'rulesHeaderBar',
       content: 'rulesMain',
     });
   },
@@ -535,7 +534,6 @@ FlowRouter.route('/my-cards', {
     Utils.manageMatomo();
 
     this.render('defaultLayout', {
-      headerBar: 'myCardsHeaderBar',
       content: 'myCards',
     });
     // }
@@ -555,7 +553,6 @@ FlowRouter.route('/due-cards', {
     Utils.manageMatomo();
 
     this.render('defaultLayout', {
-      headerBar: 'dueCardsHeaderBar',
       content: 'dueCards',
     });
     // }
@@ -590,7 +587,6 @@ FlowRouter.route('/global-search', {
       );
     }
     this.render('defaultLayout', {
-      headerBar: 'globalSearchHeaderBar',
       content: 'globalSearch',
     });
   },

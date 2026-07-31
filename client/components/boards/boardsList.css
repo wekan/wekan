@@ -287,7 +287,8 @@
    800px block already pins this element (it carries that class) to the full
    screen width below the header, which is what a phone should do. */
 @media screen and (min-width: 801px) {
-  .all-boards-sidebar.sidebar {
+  .all-boards-sidebar.sidebar,
+  .page-sidebar.sidebar {
     position: fixed;
     top: var(--wekan-header-height, 0px);
     bottom: 0;

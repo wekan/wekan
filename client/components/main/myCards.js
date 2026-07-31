@@ -1,7 +1,7 @@
 import { CardSearchPaged } from '../../lib/cardSearch';
 import { Utils } from '/client/lib/utils';
 
-Template.myCardsHeaderBar.helpers({
+Template.myCardsControls.helpers({
   myCardsSort() {
     // eslint-disable-next-line no-console
     // console.log('sort:', Utils.myCardsSort());
@@ -15,7 +15,7 @@ Template.myCardsHeaderBar.helpers({
   },
 });
 
-Template.myCardsHeaderBar.events({
+Template.myCardsControls.events({
   'click .js-toggle-my-cards-choose-sort': Popup.open(
     'myCardsSortChange',
   ),

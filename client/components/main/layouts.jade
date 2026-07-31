@@ -97,6 +97,10 @@ template(name="defaultLayout")
     | {{{afterBodyStart}}}
     +Template.dynamic(template=content)
     | {{{beforeBodyEnd}}}
+    //- The right sidebar of a page that has no sidebar of its own. It draws
+      nothing on a board or on All Boards, which have theirs, and nothing on a
+      page with no controls to put in one. docs/Design/Page/Header.md
+    +pageSidebar
   +boardConversionProgress
   if (Modal.isOpen)
     #modal(role="dialog" aria-modal="true" aria-label="{{_ 'modal-title'}}")

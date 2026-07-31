@@ -1,0 +1,20 @@
+//- The right sidebar of a page that has no sidebar of its own.
+//-
+//- A board has one, and All Boards has one; this is for every other page whose
+//- second header bar had controls in it. The shell is the board sidebar's - the
+//- same `.board-sidebar.sidebar` classes, the same close button, the same
+//- content area - so all three look and behave alike.
+//-
+//- docs/Design/Page/Header.md
+template(name="pageSidebar")
+  if hasPageSidebar
+    //- The theme goes on an ANCESTOR of `.sidebar`, never on it: every themed
+      sidebar rule is a descendant selector, so a class on the sidebar element
+      itself matches nothing. Same wrapper, same reason, as the All Boards one.
+    .page-sidebar-theme(class="{{themeClass}}")
+      .board-sidebar.sidebar.page-sidebar(class="{{#if isSidebarOpen}}is-open{{/if}}")
+        .sidebar-actions
+          a.sidebar-xmark.js-close-page-sidebar(aria-label="{{_ 'close'}}") &#10005;
+        .sidebar-content.js-page-sidebar-content
+          if isSidebarOpen
+            +Template.dynamic(template=controlsTemplate)

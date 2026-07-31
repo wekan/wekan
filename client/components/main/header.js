@@ -13,6 +13,8 @@ import { headerTitle } from '/models/lib/pageTitles';
 // every other page it is the shared page sidebar.
 import { getSidebarInstance } from '/client/features/sidebar/service';
 import { toggleAllBoardsSidebar } from '/client/lib/allBoardsSidebar';
+import { togglePageSidebar } from '/client/lib/pageSidebar';
+import { hasOwnSidebar, hasPageSidebar } from '/models/lib/pageSidebar';
 // Drag-to-scroll on the two top header bars (they are not scroll containers
 // themselves, so the drag is forwarded to the board canvas / page scroller).
 import '/client/lib/headerDragscroll';
@@ -55,6 +57,13 @@ Template.header.helpers({
   // one string, because a translated title has to go through {{_ }} and a board
   // title must NOT (it is user text, and a board called "settings" is not the
   // Admin Panel). docs/Design/Page/Header.md
+  // Whether to draw the hamburger at all. A page with no sidebar and nothing to
+  // put in one must not offer a control that opens an empty panel.
+  hasSidebar() {
+    const route = FlowRouter.getRouteName();
+    return Boolean(Utils.getCurrentBoardId()) || hasOwnSidebar(route) || hasPageSidebar(route);
+  },
+
   headerTitleKey() {
     const board = Utils.getCurrentBoard();
     return headerTitle(FlowRouter.getRouteName(), board && board.title).key || '';
@@ -138,7 +147,12 @@ Template.header.events({
       boardSidebar.toggle();
       return;
     }
-    toggleAllBoardsSidebar();
+    // All Boards and Public keep their own; every other page shares one.
+    if (hasOwnSidebar(FlowRouter.getRouteName())) {
+      toggleAllBoardsSidebar();
+      return;
+    }
+    togglePageSidebar();
   },
   'click .js-create-board': Popup.open('headerBarCreateBoard'),
   'click .js-mobile-mode-toggle'() {

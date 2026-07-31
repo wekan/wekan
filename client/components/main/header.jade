@@ -112,10 +112,11 @@ template(name="header")
         this bar is the one that is always on screen, and because what the
         hamburger opens - the right sidebar - is now where a page keeps its
         controls. docs/Design/Page/Header.md
-      .board-header-btns.header-sidebar-toggle
-        .separator
-        a.board-header-btn.js-toggle-page-sidebar(title="{{_ 'sidebar-open'}} {{_ 'or'}} {{_ 'sidebar-close'}}")
-          i.fa.fa-bars
+      if hasSidebar
+        .board-header-btns.header-sidebar-toggle
+          .separator
+          a.board-header-btn.js-toggle-page-sidebar(title="{{_ 'sidebar-open'}} {{_ 'or'}} {{_ 'sidebar-close'}}")
+            i.fa.fa-bars
 
   //- See the note above: dragging this bar is owned by headerDragscroll.js.
   #header.nodragscroll(class="{{themeColorClass}}")
