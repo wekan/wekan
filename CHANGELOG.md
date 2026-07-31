@@ -875,7 +875,7 @@ and updates the following dependencies:
 and fixes the following bugs:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">The header bar fills each row before starting the next one</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9a1463d7e">The header bar fills each row before starting the next one</a>. Thanks to xet7.</summary>
 
 The bar wraps when its buttons do not fit, but everything after the drag-handles
 toggle was wrapped in one group — and a nested flex box is a single item to the
