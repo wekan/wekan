@@ -37,7 +37,7 @@
     "postinstall": "node scripts/patch-yargs-dirname.cjs"
   },
   "devDependencies": {
-    "@meteorjs/rspack": "2.0.1",
+    "@meteorjs/rspack": "^2.1.0-beta.0",
     "@rsdoctor/rspack-plugin": "^1.5.7",
     "@rspack/cli": "1.7.11",
     "@rspack/core": "1.7.11",
@@ -73,6 +73,7 @@
     "@wekanteam/html-to-markdown": "^1.0.3",
     "@wekanteam/meteor-globals": "^1.1.6",
     "@wekanteam/meteor-reactive-cache": "^1.0.8",
+    "archiver": "^8.0.0",
     "autosize": "^6.0.1",
     "bson": "^7.3.1",
     "dompurify": "^3.4.12",
@@ -82,11 +83,9 @@
     "hotkeys-js": "^4.0.2",
     "i18next": "^26.3.6",
     "i18next-sprintf-postprocessor": "^0.2.2",
-    "archiver": "^8.0.0",
     "jquery": "^3.7.1",
     "jquery-ui": "^1.14.2",
     "jszip": "^3.7.1",
-    "unzipper": "^0.12.5",
     "limax": "^4.2.3",
     "markdown-it": "^14.1.1",
     "markdown-it-emoji": "^3.0.0",
@@ -96,7 +95,8 @@
     "papaparse": "^5.5.4",
     "pretty-ms": "^9.3.0",
     "temml": "^0.13.3",
-    "underscore": "^1.13.8"
+    "underscore": "^1.13.8",
+    "unzipper": "^0.12.5"
   },
   "overrides": {
     "sourcemap-codec": "npm:@jridgewell/sourcemap-codec@^1.4.15",
