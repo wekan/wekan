@@ -122,6 +122,20 @@
 #header-quick-access .board-header-btn:hover {
   background: rgba(0, 0, 0, 0.15);
 }
+/* The button of the page you are ON keeps that background, permanently and a
+   shade darker, so the bar says which of the Admin Panel's four pages is open
+   without you having to hover over each one to find out. The tabs have marked
+   themselves `.active` all along, but the only rule that drew it was scoped to
+   `#header-main-bar` - the second bar, which these tabs no longer live in - so
+   the state has been computed and invisible since the move.
+
+   Darker than the hover, not the same: hovering the tab you are already on has
+   to still look like a hover, and the current page has to stand out from a
+   neighbour the pointer happens to be over. */
+#header-quick-access .board-header-btn.active,
+#header-quick-access .board-header-btn.active:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
 /* The divider before the hamburger, which the second bar draws its own way. */
 #header-quick-access .separator {
   width: 1px;
@@ -132,6 +146,22 @@
 #header-quick-access .board-header-btns {
   display: flex;
   align-items: center;
+}
+/* Everything after the drag-handles toggle hugs the END of the bar: the right
+   edge in a left-to-right language, the LEFT edge in a right-to-left one.
+   `margin-inline-start` is a LOGICAL property, so the mirroring is what the
+   browser already does for the writing direction rather than a second rule to
+   keep in step with the first. The items before it - the home link and page
+   title, the logo, the phone/desktop toggle and the drag-handles toggle - stay
+   at the start.
+   It wraps with the bar: when the row breaks, this group takes the second row
+   and still sits at its end. */
+#header-quick-access .header-quick-access-end {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  row-gap: 4px;
+  margin-inline-start: auto;
 }
 
 #header #header-main-bar .board-header-btn {
@@ -229,15 +259,24 @@ body:not(.board-view) #header #header-main-bar h1 {
      the same, by naming this bar in the selector list the main bar already has
      (boardColors.css) rather than by restating each hex a second time. */
   background: #2980b9;
-  height: 28px;
   font-size: 12px;
   display: flex;
   z-index: 1000;
   padding: 10px 0px;
   align-items: center;
-  flex-wrap: nowrap; /* Prevent wrapping to keep single row */
+  /* WRAPS to a second row when its buttons do not fit.
+     It was nowrap + overflow:hidden, which was fine when this bar held a logo,
+     two toggles and the user menu: nothing ever ran out of room. It now also
+     carries the page title, the board's rename pencil, its ten controls, the
+     view menu, the starred-boards dropdown, the Admin Panel tabs and the
+     hamburger - and clipped is the worst way to run out of room, because a
+     button that is not drawn gives no sign that it exists.
+     The fixed height went with it: 28px is a CONTENT box, so it would clip the
+     second row even after the wrap. min-height keeps the one-row case as tall
+     as it was. */
+  flex-wrap: wrap;
+  row-gap: 4px;
   min-height: 28px;
-  overflow: hidden; /* Prevent content from overflowing */
 }
 /* Mobile mode: everything in BOTH top bars sits on the vertical centre of its row.
    The quick-access bar declares `height: 28px`, and with box-sizing globally unset
@@ -610,8 +649,9 @@ body.mobile-mode #header-quick-access .allBoards {
     transition: background-color 0.4s;
     width: 100%;
     z-index: 30;
-    flex-wrap: nowrap !important; /* Force single row on mobile */
-    overflow: hidden; /* Prevent content overflow */
+    /* Wraps here too: on a phone these items cannot all fit on one row at any
+       size, and spilling off the edge hides them exactly as clipping did. */
+    flex-wrap: wrap !important;
   }
 
   /* Mobile home icon styling */
@@ -655,12 +695,12 @@ body.mobile-mode #header-quick-access .allBoards {
          screen and (max-width: 800px) and (orientation: portrait),
          screen and (max-width: 800px) and (orientation: landscape) {
     #header-quick-access {
-      height: 48px !important; /* Fixed height for mobile */
-      min-height: 48px !important; /* Minimum height for mobile */
-      flex-wrap: nowrap !important; /* Force single row */
+      /* A MINIMUM, not a fixed height: the bar wraps now, and a fixed height
+         clips whatever the wrap put on the second row. */
+      min-height: 48px !important;
+      flex-wrap: wrap !important;
       align-items: center !important; /* Center align items */
       padding: 8px 0px !important; /* Adjust padding for mobile */
-      overflow: hidden !important; /* Prevent content overflow */
     }
     #header-quick-access {
       font-size: 1em !important; /* Normal size (reverted #6426 oversizing) */
@@ -806,9 +846,11 @@ body.mobile-mode #header-quick-access .allBoards {
          screen and (max-width: 375px) and (orientation: landscape) /* iPhone 12 Mini landscape */ {
     #header-quick-access {
       font-size: 1em !important; /* Normal size (reverted #6426 oversizing) */
-      height: 48px !important;
+      /* A MINIMUM, not a fixed height, and the bar wraps: a phone is where the
+         buttons run out of room first, so it is the last place that should hide
+         the ones that did not fit. */
       min-height: 48px !important;
-      flex-wrap: nowrap !important;
+      flex-wrap: wrap !important;
       align-items: center !important;
       padding: 8px 0px !important;
     }
@@ -900,7 +942,9 @@ body.mobile-mode #header-quick-access .allBoards {
          screen and (device-width: 390px) and (device-height: 844px), /* iPhone 12/13 */
          screen and (device-width: 428px) and (device-height: 926px) /* iPhone 12 Pro Max */ {
     #header-quick-access {
-      height: 40px !important; /* Taller header */
+      /* A MINIMUM: the bar wraps, and a fixed height would cut off whatever
+         the wrap put on the second row. */
+      min-height: 40px !important;
       padding: 12px 0px !important;
     }
 
@@ -932,9 +976,11 @@ body.mobile-mode #header-quick-access .allBoards {
   /* Fallback for iPhone devices using JavaScript detection */
   .iphone-device #header-quick-access {
     font-size: 1em !important; /* Normal size (reverted #6426 oversizing) */
-    height: 48px !important;
+    /* A MINIMUM, not a fixed height, and the bar wraps: a phone is where the
+       buttons run out of room first, so it is the last place that should hide
+       the ones that did not fit. */
     min-height: 48px !important;
-    flex-wrap: nowrap !important;
+    flex-wrap: wrap !important;
     align-items: center !important;
     padding: 8px 0px !important;
   }
@@ -999,9 +1045,11 @@ body.mobile-mode #header-quick-access .allBoards {
   /* iPhone 12 Mini specific - JavaScript detection fallback (normal compact row) */
   .iphone-device #header-quick-access {
     font-size: 1em !important; /* Normal size (reverted #6426 oversizing) */
-    height: 48px !important;
+    /* A MINIMUM, not a fixed height, and the bar wraps: a phone is where the
+       buttons run out of room first, so it is the last place that should hide
+       the ones that did not fit. */
     min-height: 48px !important;
-    flex-wrap: nowrap !important;
+    flex-wrap: wrap !important;
     align-items: center !important;
     padding: 8px 0px !important;
   }
@@ -1173,7 +1221,11 @@ body.mobile-mode #header-quick-access .allBoards {
     height: auto !important;
     min-height: 28px !important;
     overflow: visible !important;
-    flex-wrap: nowrap !important;
+    /* ...and it wraps after all. The note above is why it stopped: with ~7
+       items an !important wrap broke the row before the last one. That is no
+       longer the trade - this bar now carries the page title, the board's
+       controls, the view menu and the rest - so a second row is the answer. */
+    flex-wrap: wrap !important;
     align-items: center !important;
     row-gap: 4px !important;
   }

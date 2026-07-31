@@ -605,6 +605,19 @@ Template.boardViewMenu.helpers({
   boardView() {
     return Utils.boardView();
   },
+  // The tooltip: the name of the view that is ON. The button is icon only, so
+  // this is the only place the name appears. docs/Design/Page/Header.md
+  boardViewName() {
+    const names = {
+      'board-view-swimlanes': 'swimlanes',
+      'board-view-lists': 'lists',
+      'board-view-cal': 'calendar',
+      'board-view-gantt': 'gantt',
+      'board-view-table': 'board-view-table',
+      'board-view-stats': 'board-view-stats',
+    };
+    return TAPi18n.__(names[Utils.boardView()] || 'board-view');
+  },
 });
 
 // The pencil is its own template in the first header bar, beside the board's

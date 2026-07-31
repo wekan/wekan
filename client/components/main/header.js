@@ -113,6 +113,12 @@ Template.header.helpers({
     const board = Utils.getCurrentBoard();
     return headerTitle(route, board && board.title, customPageTitle(route)).title || '';
   },
+  // The segment after the slash: which of the Admin Panel's four pages is open.
+  headerTitleSubKey() {
+    const route = FlowRouter.getRouteName();
+    const board = Utils.getCurrentBoard();
+    return headerTitle(route, board && board.title, customPageTitle(route)).subKey || '';
+  },
 
   wrappedHeader() {
     return !Session.get('currentBoard');

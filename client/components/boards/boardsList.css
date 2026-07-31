@@ -260,6 +260,17 @@
   min-width: 0;
 }
 
+/* The close ✕ is `position: absolute` (sidebar.css), so it takes no height and
+   the `.sidebar-actions` row it sits in collapses to its own 10px of padding.
+   On a board that row also holds the keyboard-shortcuts buttons, which give it
+   height; these two sidebars have only the ✕, so the first control below it was
+   drawn UNDERNEATH it. Reserve the ✕'s height - 25px of glyph plus its 10px of
+   padding, top and bottom - so the buttons start below it. */
+.all-boards-sidebar .sidebar-actions,
+.page-sidebar .sidebar-actions {
+  min-height: 45px;
+}
+
 /* The sidebar's own rows. `.sidebar-btn` and `.sidebar-list` come from the
    board sidebar's stylesheet, which is loaded on every page, so only what is
    particular to this one is here. */

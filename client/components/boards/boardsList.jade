@@ -349,11 +349,11 @@ template(name="workspaceActionsPopup")
 //- "Lists" rather than "Board View", and this matches it.
 //- docs/Design/Page/Header.md
 template(name="allBoardsViewMenu")
-  a.board-header-btn.js-open-all-boards-view(title="{{_ 'board-view'}}")
+  //- Icon only, named by a tooltip that says which view is on - the same as the
+    board's view menu beside it.
+  a.board-header-btn.js-open-all-boards-view(title="{{#if isAllBoardsView 'table'}}{{_ 'board-view-table'}}{{else}}{{_ 'lists'}}{{/if}}")
     i.fa.fa-caret-down
     if isAllBoardsView 'table'
       i.fa.fa-table
-      span {{_ 'board-view-table'}}
     else
       i.fa.fa-trello
-      span {{_ 'lists'}}

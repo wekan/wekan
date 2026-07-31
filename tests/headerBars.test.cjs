@@ -88,7 +88,10 @@ test('and the title rule itself is pure, so it can be tested', () => {
   // A board wins wherever there is one.
   assert.deepStrictEqual(headerTitle('board', 'My Board'), { title: 'My Board' });
   assert.deepStrictEqual(headerTitle('home', ''), { key: 'all-boards' });
-  assert.deepStrictEqual(headerTitle('setting', null), { key: 'admin-panel' });
+  // The Admin Panel carries a second segment - it is four pages under one
+  // name, and the name alone does not say which one you opened.
+  assert.deepStrictEqual(headerTitle('setting', null),
+    { key: 'admin-panel', subKey: 'settings' });
   assert.deepStrictEqual(headerTitle('archive', undefined), { key: 'archived-boards' });
   // A blank board title is not a title.
   assert.deepStrictEqual(headerTitle('home', '   '), { key: 'all-boards' });
@@ -306,6 +309,148 @@ test('and the controls that moved into the first bar are styled for it', () => {
   }
   assert.ok(/#header-quick-access \.separator \{/.test(css),
     'and the divider before the hamburger');
+});
+
+test('the bar wraps rather than clipping, and its end group hugs the end', () => {
+  const css = read('client/components/main/header.css');
+  // The bar itself: no rule on it may stop the wrap or clip what wrapped.
+  for (const rule of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    const sels = rule[1].split(',').map(x => x.trim()).filter(Boolean);
+    if (!sels.some(x => /#header-quick-access$/.test(x))) continue;
+    // On the DECLARATIONS, not the comments: the rules that replaced these
+    // explain themselves by naming `nowrap` and `overflow: hidden`, and a guard
+    // that greps the whole body reads its own explanation. This is the fifth
+    // time that has bitten in this session.
+    const body = rule[2].replace(/\/\*[\s\S]*?\*\//g, '');
+    assert.ok(!/flex-wrap:\s*nowrap/.test(body),
+      `${sels.join(', ')} forces one row - the buttons that do not fit vanish`);
+    assert.ok(!/overflow:\s*hidden/.test(body),
+      `${sels.join(', ')} clips what the wrap put on the second row`);
+    assert.ok(!/(^|[\s;])height:\s*\d/.test(body),
+      `${sels.join(', ')} pins a height - a content box cannot hold two rows`);
+  }
+
+  // The end group: right in LTR, left in RTL, from ONE logical property.
+  const at = css.indexOf('#header-quick-access .header-quick-access-end {');
+  assert.notStrictEqual(at, -1, 'the end group must be styled');
+  const rule = css.slice(at, css.indexOf('}', at));
+  assert.ok(/margin-inline-start:\s*auto/.test(rule),
+    'pushed to the end with a LOGICAL margin, so RTL mirrors by itself');
+  assert.ok(!/margin-left/.test(rule), 'never a physical one - it would not mirror');
+  assert.ok(/flex-wrap:\s*wrap/.test(rule), 'and it wraps with the bar');
+
+  // It really does start after the drag-handles toggle.
+  const dragAt = jade.indexOf('js-toggle-desktop-drag-handles');
+  const endAt = jade.indexOf('.header-quick-access-end');
+  assert.ok(dragAt !== -1 && endAt > dragAt,
+    'the group starts after the drag-handles toggle');
+  for (const after of ['js-open-starred-boards', '+notifications', '+headerUserBar']) {
+    assert.ok(jade.indexOf(after) > endAt, `${after} is inside it`);
+  }
+});
+
+test('and the view menus are icons, named by a tooltip', () => {
+  const boardJade = read('client/components/boards/boardHeader.jade');
+  const menu = boardJade.slice(boardJade.indexOf('template(name="boardViewMenu")'));
+  assert.ok(/title="\{\{boardViewName\}\}"/.test(menu), 'the board menu is named by a tooltip');
+  assert.ok(!/^\s+span$/m.test(menu.slice(0, menu.indexOf('\ntemplate(') + 1 || undefined)),
+    'and carries no visible label');
+  // The tooltip names the view that is ON, through real translation keys.
+  const boardJs = read('client/components/boards/boardHeader.js');
+  const at = boardJs.indexOf('boardViewName() {');
+  assert.notStrictEqual(at, -1, 'the helper must exist');
+  const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
+  const keys = (boardJs.slice(at, at + 700).match(/: '[a-z0-9-]+'/g) || [])
+    .map(x => x.slice(3, -1));
+  assert.ok(keys.length >= 6, 'one name per view');
+  for (const k of keys) assert.ok(k in en, `${k} is not a translation key`);
+
+  // All Boards the same.
+  const allJade = read('client/components/boards/boardsList.jade');
+  const allMenu = allJade.slice(allJade.indexOf('template(name="allBoardsViewMenu")'));
+  assert.ok(/title="\{\{#if isAllBoardsView 'table'\}\}/.test(allMenu),
+    'the All Boards menu names the current view in its tooltip');
+  assert.ok(!/span \{\{_/.test(allMenu), 'and carries no visible label');
+});
+
+test('and a sidebar button is never drawn under the close button', () => {
+  // .sidebar-xmark is position:absolute, so it takes no height and the row it
+  // sits in collapses to its padding. A board's row also holds the
+  // keyboard-shortcut buttons; these two sidebars have only the close button.
+  const css = read('client/components/boards/boardsList.css');
+  const at = css.indexOf('.all-boards-sidebar .sidebar-actions,');
+  assert.notStrictEqual(at, -1, 'both sidebars must reserve its height');
+  assert.ok(/\.page-sidebar \.sidebar-actions/.test(css.slice(at, at + 120)),
+    'the shared page sidebar too');
+  assert.ok(/min-height:\s*45px/.test(css.slice(at, css.indexOf('}', at))),
+    'as tall as the close button is');
+  const sidebarCss = read('client/components/sidebar/sidebar.css');
+  assert.ok(/\.sidebar-xmark \{[^}]*position:\s*absolute/.test(sidebarCss),
+    'which is why it is needed');
+});
+
+test('and the page you are on is marked, not only hoverable', () => {
+  const css = read('client/components/main/header.css');
+  const alpha = sel => {
+    const at = css.indexOf(sel);
+    assert.notStrictEqual(at, -1, `${sel} must be styled in the first bar`);
+    const m = css.slice(at, css.indexOf('}', at))
+      .match(/background:\s*rgba\(0,\s*0,\s*0,\s*([\d.]+)\)/);
+    assert.ok(m, `${sel} must set a background`);
+    return Number(m[1]);
+  };
+  const hover = alpha('#header-quick-access .board-header-btn:hover {');
+  const active = alpha('#header-quick-access .board-header-btn.active,');
+  assert.ok(active > hover,
+    'the current page is DARKER than a hover, or hovering its neighbour looks the same as being on it');
+  // ...and it wins when you hover the tab you are already on.
+  assert.ok(css.includes('#header-quick-access .board-header-btn.active:hover'),
+    'the mark survives hovering the button that carries it');
+
+  // The class is really emitted, by every tab, from the route.
+  const js = read('client/components/settings/settingHeader.js');
+  const jade = read('client/components/settings/settingHeader.jade');
+  const tabs = jade.slice(jade.indexOf('template(name="adminPanelTabs")'));
+  for (const helper of ['isSettingsActive', 'isPeopleActive', 'isAttachmentsActive', 'isProblemsActive']) {
+    assert.ok(tabs.includes(helper), `the tab markup must ask for ${helper}`);
+    const at = js.indexOf(`${helper}() {`);
+    assert.notStrictEqual(at, -1, `${helper} must exist`);
+    const body = js.slice(at, js.indexOf('},', at));
+    assert.ok(/getRouteName\(\)/.test(body) && /'active'/.test(body),
+      `${helper} marks the tab from the route it is on`);
+  }
+});
+
+test('and the Admin Panel says WHICH of its four pages is open', () => {
+  const { headerTitle, PAGE_TITLE_SUBKEYS } = require('../models/lib/pageTitles');
+  const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
+  const jade = read('client/components/settings/settingHeader.jade');
+  const tabs = jade.slice(jade.indexOf('template(name="adminPanelTabs")'));
+
+  for (const [route, sub] of Object.entries(PAGE_TITLE_SUBKEYS)) {
+    const t = headerTitle(route);
+    assert.strictEqual(t.key, 'admin-panel', `${route} is an Admin Panel page`);
+    assert.strictEqual(t.subKey, sub, `${route} names its own page`);
+    assert.ok(sub in en, `${sub} is not a translation key`);
+    // The title and the tab marked active have to agree, so they use the SAME
+    // key: two spellings of one page name would drift apart.
+    assert.ok(tabs.includes(`title="{{_ '${sub}'}}"`),
+      `the ${route} tab's tooltip uses the same key the title does`);
+  }
+
+  // A page whose name is the whole answer gets no slash.
+  assert.strictEqual(headerTitle('home').subKey, undefined, 'All Boards has no second segment');
+  // ...and neither does a board: its own title IS the name.
+  assert.strictEqual(headerTitle('setting', 'A Board').subKey, undefined,
+    'a title beats the key, so there is nothing to put after a slash');
+
+  const h = read('client/components/main/header.jade');
+  const at = h.indexOf('span.header-page-title');
+  const block = h.slice(at, at + 600);
+  assert.ok(/if headerTitleSubKey/.test(block), 'the bar draws it');
+  assert.ok(/\/ \{\{_ headerTitleSubKey\}\}/.test(block), 'after a slash, translated');
+  assert.ok(read('client/components/main/header.js').includes('headerTitleSubKey()'),
+    'and the helper exists');
 });
 
 for (const [name, fn] of tests) {

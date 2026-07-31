@@ -39,6 +39,23 @@ const PAGE_TITLE_KEYS = {
   import: 'import',
 };
 
+// A second segment, after the page's own name: "Admin Panel / Settings".
+//
+// The Admin Panel is four pages under one name, and its four routes all answer
+// `admin-panel`, so the bar said the same three words whichever of them was
+// open. The sub-key names WHICH one - the same key the tab beside it uses for
+// its tooltip, so the title and the tab that is marked active agree.
+//
+// Only the Admin Panel has one. A page whose name is already the whole answer
+// does not need a second segment, and inventing one for every page would put a
+// slash in the bar for nothing.
+const PAGE_TITLE_SUBKEYS = {
+  setting: 'settings',
+  people: 'people',
+  attachments: 'attachments',
+  'admin-reports': 'problems',
+};
+
 // The route names that ARE a board. On those the title is the board's own, so
 // there is no key to resolve - the caller reads the board.
 const BOARD_ROUTES = ['board', 'card', 'boardCard', 'board-rules'];
@@ -46,6 +63,12 @@ const BOARD_ROUTES = ['board', 'card', 'boardCard', 'board-rules'];
 function pageTitleKey(routeName) {
   return Object.prototype.hasOwnProperty.call(PAGE_TITLE_KEYS, routeName)
     ? PAGE_TITLE_KEYS[routeName]
+    : null;
+}
+
+function pageTitleSubKey(routeName) {
+  return Object.prototype.hasOwnProperty.call(PAGE_TITLE_SUBKEYS, routeName)
+    ? PAGE_TITLE_SUBKEYS[routeName]
     : null;
 }
 
@@ -74,11 +97,18 @@ function headerTitle(routeName, boardTitle, customTitle) {
     if (typeof text === 'string' && text.trim()) return { title: text };
   }
   const key = pageTitleKey(routeName);
-  return key ? { key } : { };
+  if (!key) return { };
+  // The sub-key rides along with the key, never with a title: a board's title
+  // or a custom one IS the whole name of that page, so there is nothing to put
+  // after a slash.
+  const subKey = pageTitleSubKey(routeName);
+  return subKey ? { key, subKey } : { key };
 }
 
 module.exports = {
   PAGE_TITLE_KEYS,
+  PAGE_TITLE_SUBKEYS,
+  pageTitleSubKey,
   BOARD_ROUTES,
   pageTitleKey,
   isBoardRoute,

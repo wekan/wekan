@@ -359,7 +359,10 @@ template(name="cardsSortPopup")
 //- ways on a templates board. docs/Design/Page/Header.md
 template(name="boardViewMenu")
   unless currentBoard.isTemplatesBoard
-    a.board-header-btn.js-toggle-board-view
+    //- Icon only, named by a tooltip, like every other control in this bar. The
+      icon already says which view is on - that is what makes six of them worth
+      six glyphs - and the bar has no room for a word beside each one.
+    a.board-header-btn.js-toggle-board-view(title="{{boardViewName}}")
       i.fa.fa-caret-down
       if $eq boardView 'board-view-swimlanes'
         i.fa.fa-th-large
@@ -373,16 +376,3 @@ template(name="boardViewMenu")
         i.fa.fa-table
       if $eq boardView 'board-view-stats'
         i.fa.fa-pie-chart
-      span
-        if $eq boardView 'board-view-swimlanes'
-          | {{_ 'swimlanes'}}
-        if $eq boardView 'board-view-lists'
-          | {{_ 'lists'}}
-        if $eq boardView 'board-view-cal'
-          | {{_ 'calendar'}}
-        if $eq boardView 'board-view-gantt'
-          | {{_ 'gantt'}}
-        if $eq boardView 'board-view-table'
-          | {{_ 'board-view-table'}}
-        if $eq boardView 'board-view-stats'
-          | {{_ 'board-view-stats'}}
