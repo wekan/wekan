@@ -246,14 +246,11 @@ template(name="boardsSortPopup")
 template(name="boardListHeaderBar")
   h1 {{_ title }}
   if isBoardListPage
+    //- There is no Starred button here. Starred is a SECTION, and the left menu
+      already lists it beside Templates and Remaining, counts it and highlights
+      it when it is the one shown - a second way to reach the same section, one
+      click away from the first, is a button that only has to be kept in step.
     .board-header-btns.all-boards-controls
-      a.board-header-btn.js-select-menu(
-          data-type="starred"
-          title="{{_ 'starred-boards'}}"
-          class="{{#if isSelectedMenu 'starred'}}emphasis{{/if}}")
-        i.fa.fa-star
-        span {{_ 'allboards.starred'}}
-
       a.board-header-btn.js-open-boards-sort(
           title="{{_ 'sort-boards'}}"
           class="{{#unless isBoardsSort 'custom'}}emphasis{{/unless}}")
@@ -275,16 +272,6 @@ template(name="boardListHeaderBar")
             span.emoji-icon
               i.fa.fa-times
 
-      if canModifyBoards
-        a.board-header-btn.js-multiselection-activate(
-            title="{{#if BoardMultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}"
-            class="{{#if BoardMultiSelection.isActive}}emphasis{{/if}}")
-          i.fa.fa-check-square-o
-          span {{#if BoardMultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}
-          if BoardMultiSelection.isActive
-            a.board-header-btn-close.js-multiselection-reset(title="{{_ 'filter-clear'}}")
-              i.fa.fa-times-thin
-
       //- The view menu names the CURRENT view, not itself - the same as the board
         header, which says "Swimlanes" or "Lists" rather than "Board View".
       a.board-header-btn.js-open-all-boards-view(title="{{_ 'board-view'}}")
@@ -295,6 +282,20 @@ template(name="boardListHeaderBar")
         else
           i.fa.fa-trello
           span {{_ 'lists'}}
+
+      //- Multi-Selection sits AFTER the view menu, and before the actions on a
+        selection, because those are what it turns on: the bar reads left to
+        right as what is shown (Sort, Search, Lists/Table) and then what is
+        selected (Multi-Selection, and the actions that appear with it).
+      if canModifyBoards
+        a.board-header-btn.js-multiselection-activate(
+            title="{{#if BoardMultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}"
+            class="{{#if BoardMultiSelection.isActive}}emphasis{{/if}}")
+          i.fa.fa-check-square-o
+          span {{#if BoardMultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}
+          if BoardMultiSelection.isActive
+            a.board-header-btn-close.js-multiselection-reset(title="{{_ 'filter-clear'}}")
+              i.fa.fa-times-thin
 
       //- The actions ON a selection: archive, duplicate, and the "Selected:"
         star and home. They were a row of their own above the board icons; they

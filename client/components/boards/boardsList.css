@@ -260,6 +260,55 @@
   min-width: 0;
 }
 
+/* #5799: the board-name search box, in the second top header bar with the rest
+   of the controls.
+
+   These rules read `.boards-path-header .board-search` until now - the bar the
+   box used to sit in. It has been in the header bar since the controls moved
+   there, so that selector matched nothing and the box was rendering at the
+   browser's default input size with no styling at all. */
+.all-boards-controls .board-search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  /* Half of the 300px it was designed at. */
+  width: 150px;
+  max-width: 100%;
+}
+
+.all-boards-controls .board-search input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  flex: 1 1 auto;
+  min-width: 0;
+  /* The box is white whatever the theme is, so the text in it has to be dark.
+     Inheriting the bar's own colour is light-on-dark - which inside this box is
+     white on white, and the typing is invisible. The old rule got away without
+     this because it sat on a light grey card. */
+  color: #333;
+}
+
+/* Same reason: the magnifier and the clear ✕ are inside the white box, so they
+   cannot take the bar's light colour either. */
+.all-boards-controls .board-search .emoji-icon,
+.all-boards-controls .board-search .board-search-clear {
+  color: #999;
+}
+
+.all-boards-controls .board-search .board-search-clear {
+  cursor: pointer;
+}
+
+.all-boards-controls .board-search .board-search-clear:hover {
+  color: #333;
+}
+
 /* The "Selected:" label, in the header bar beside the star and home buttons it
    names. It is a label, not a control, so it does NOT take .board-header-btn -
    it only has to line up with the buttons on either side of it and inherit the

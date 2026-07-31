@@ -497,6 +497,33 @@ fixed-height thing above the scrolling list.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b7ad49c7b">All Boards: no Starred button in the bar, Multi-Selection after the view menu, a narrower search</a>. Thanks to xet7.</summary>
+
+Starred was the first button in the header bar, and Starred is a **section**:
+the left menu already lists it beside Templates and Remaining, counts it, and
+highlights it when it is the one shown. A second way to reach one section, one
+click away from the first, is a control whose only job is to be kept in step
+with the menu — so it is gone, and with it the header bar's own
+`js-select-menu` handler and `isSelectedMenu` helper, which had no other caller
+there. The left menu is part of `boardList` and has always had its own.
+
+Multi-Selection moved to the right of the Lists/Table menu. The bar now reads
+left to right as what is shown — Sort, Search, Lists/Table — and then what is
+selected: Multi-Selection, followed by the archive, duplicate, star and home
+actions that appear with it.
+
+The search box is 150px wide, half of the 300px it was drawn at when it had a
+card of its own. Getting there turned up that it had **no styling at all**: its
+rules said `.boards-path-header .board-search`, the bar it used to live in, so
+from the moment the controls moved to the header bar they matched nothing and
+the box rendered at the browser's default input size. They are
+`.all-boards-controls …` now — and because a white box on a themed bar cannot
+inherit that bar's light-on-dark colour without putting white text in a white
+box, the input, the magnifier and the ✕ each set their own.
+
+</details>
+
 and updates the following dependencies:
 
 - **aldeed:collection2 4.2.0 → 4.2.1** — cleans and validates every write

@@ -44,18 +44,39 @@ console.log('allBoardsPage:');
 
 // ── the controls, and where they are ────────────────────────────────────────
 
-test('the five controls are in the header bar, styled like the board header', () => {
-  for (const control of ['data-type="starred"', 'js-open-boards-sort',
-    'js-board-search-input', 'js-multiselection-activate', 'js-open-all-boards-view']) {
+test('the controls are in the header bar, styled like the board header', () => {
+  for (const control of ['js-open-boards-sort', 'js-board-search-input',
+    'js-open-all-boards-view', 'js-multiselection-activate']) {
     assert.ok(bar.includes(control), `${control} must be in the header bar`);
   }
   // The same look as the Swimlanes view's board header: .board-header-btn and the
   // same Font Awesome glyphs, not a set of styles of this page's own.
-  for (const icon of ['fa-star', 'fa-sort', 'fa-search', 'fa-check-square-o']) {
+  for (const icon of ['fa-sort', 'fa-search', 'fa-check-square-o']) {
     assert.ok(bar.includes(icon), `${icon} is the board header's glyph for it`);
   }
   assert.ok((bar.match(/a\.board-header-btn\./g) || []).length >= 4,
     'the controls are board-header buttons');
+});
+
+test('and Starred is not one of them - the left menu is where sections live', () => {
+  // It was the first button in the bar. Starred is a SECTION, and the left menu
+  // already lists it beside Templates and Remaining, counts it, and highlights
+  // it when it is the one shown; a second way to reach it one click away is a
+  // control that only has to be kept in step with the first.
+  assert.ok(!bar.includes('data-type="starred"'), 'no Starred button in the bar');
+  assert.ok(!/js-select-menu/.test(bar), 'and no section switch of any kind');
+  assert.ok(jade.includes('a.js-select-menu(data-type="starred")'),
+    'the left menu still has it');
+
+  // Its handler and its helper were the header bar's, and had no other caller
+  // there - the left menu is part of `boardList` and has its own.
+  const barJs = js.slice(js.indexOf('Template.boardListHeaderBar.events({'),
+    js.indexOf('Template.allBoardsViewPopup'));
+  assert.ok(!/js-select-menu/.test(barJs), 'the bar no longer handles a section click');
+  assert.ok(!/isSelectedMenu/.test(barJs), 'nor asks which section is selected');
+  const pageJs = js.slice(js.indexOf('Template.boardList.events({', js.indexOf('boardsForView')));
+  assert.ok(/'click \.js-select-menu'/.test(pageJs),
+    'the left menu keeps its own handler, which is the one that was doing the work');
 });
 
 test('and the page has no second controls row at all', () => {
@@ -110,7 +131,10 @@ test('and no bar above the boards at all', () => {
   // workspace path to an icon and a name for a strip nobody sees.
   assert.ok(!/currentMenuPath\(\)/.test(js), 'the helper that fed it is gone too');
 
-  const css = read('client/components/boards/boardsList.css');
+  // On the RULES, not the comments: the rules that replaced these explain
+  // themselves by naming the selector they used to have, and a guard that greps
+  // the whole stylesheet reads that explanation and fails on correct CSS.
+  const css = read('client/components/boards/boardsList.css').replace(/\/\*[\s\S]*?\*\//g, '');
   assert.ok(!/boards-path-header/.test(css), 'and every rule that styled it');
   // Its "look at me" hint animation had no other user.
   assert.ok(!/@keyframes pulse/.test(css) && !/multiselection-hint/.test(css),
@@ -131,6 +155,28 @@ test('Search is a field, not a button', () => {
   assert.ok(/'input \.js-board-search-input'/.test(map), 'filters on input');
   assert.ok(/'keydown \.js-board-search-input'/.test(map) && /Escape/.test(map),
     'and Escape clears it');
+});
+
+test('and the field is styled where it actually lives', () => {
+  // Its rules said `.boards-path-header .board-search` - the bar it used to be
+  // in - so from the moment the controls moved to the header bar they matched
+  // nothing and the box rendered at the browser's default input size, unstyled.
+  // Comments stripped, for the same reason as above: these rules say in prose
+  // which selector they replaced.
+  const css = read('client/components/boards/boardsList.css').replace(/\/\*[\s\S]*?\*\//g, '');
+  const at = css.indexOf('.all-boards-controls .board-search {');
+  assert.ok(at !== -1, 'the box must be styled under the bar it is in');
+  assert.ok(!/\.boards-path-header \.board-search/.test(css), 'and not under one that is gone');
+  assert.ok(/width: 150px;/.test(css.slice(at, css.indexOf('}', at))),
+    'half of the 300px it was designed at');
+
+  // The box is white on a themed bar, so everything inside it needs its own
+  // colour: inheriting the bar's light-on-dark puts white text in a white box.
+  const input = css.indexOf('.all-boards-controls .board-search input {');
+  assert.ok(/color: #333;/.test(css.slice(input, css.indexOf('}', input))),
+    'the typed text must be dark, not the bar’s colour');
+  assert.ok(/\.all-boards-controls \.board-search \.emoji-icon,/.test(css),
+    'and so must the magnifier and the clear button');
 });
 
 // ── the shared state ────────────────────────────────────────────────────────

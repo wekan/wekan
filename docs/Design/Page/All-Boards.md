@@ -16,11 +16,20 @@ the same emphasis state when a control is on.
 
 | Control | Icon | What it does |
 | --- | --- | --- |
-| Starred | `fa-star` | Shows only the starred boards. On when the Starred section is selected. |
 | Sort | `fa-sort` | Opens the boards sort popup. Emphasised while a sort other than the custom order is active. |
 | Search | `fa-search` | **A field, not a button** — see below. |
-| Multi-Selection | `fa-check-square-o` | Turns board multi-selection on, with its ✕ to turn it off, exactly as on a board. |
 | Lists / Table | `fa-trello` / `fa-table` | The view menu — see below. |
+| Multi-Selection | `fa-check-square-o` | Turns board multi-selection on, with its ✕ to turn it off, exactly as on a board. |
+
+The order reads left to right as **what is shown**, then **what is selected**:
+Sort, Search and the view menu decide what you are looking at; Multi-Selection
+comes after them, and the actions on a selection come after it, because they are
+what it turns on.
+
+**Starred is not a control here.** It is a *section*, and the left menu already
+lists it beside Templates and Remaining, counts it, and highlights it when it is
+the one shown. A second way to reach one section, one click away from the first,
+is a button whose only job is to be kept in step with the menu.
 
 The **actions on a selection** follow them, to the right, and appear only while
 something is selected — four buttons that would do nothing are worse than no
@@ -48,17 +57,24 @@ where a WeKan page puts its controls, and All Boards now agrees with every other
 page about that.
 
 Emptying that bar left a white strip above "+ Add Board" holding the current
-section's Font Awesome icon, and nothing else. Three things already say which
-section you are in — the left menu highlights it, the header bar names the page,
-and the Starred control is emphasised when Starred is on — so the strip is gone
-too, along with the `currentMenuPath` helper that resolved a workspace path to
-an icon and a name for it, every `.boards-path-header` rule, and the `pulse`
-animation whose only user was its multi-selection hint. The board icons start at
-the top of the right column.
+section's Font Awesome icon, and nothing else. Two things already say which
+section you are in — the left menu highlights it, and the header bar names the
+page — so the strip is gone too, along with the `currentMenuPath` helper that
+resolved a workspace path to an icon and a name for it, every
+`.boards-path-header` rule, and the `pulse` animation whose only user was its
+multi-selection hint. The board icons start at the top of the right column.
 
 Because a Blaze event map only sees events inside its own template, the handlers
 for the selection actions moved to `boardListHeaderBar` with their buttons, and
-`hasBoardsSelected` is registered there as well as on `boardList`.
+`hasBoardsSelected` is registered there as well as on `boardList`. The reverse
+applies to the section switch: `js-select-menu` and `isSelectedMenu` belong to
+`boardList`, where the left menu is, and the header bar's copies went with its
+Starred button.
+
+A control that moves between templates takes its **stylesheet** with it or stops
+being styled at all, silently — `.boards-path-header .board-search` kept matching
+nothing for two commits while the box rendered at the browser's default input
+size. The rules are `.all-boards-controls …` now.
 
 ### Search is a field
 
@@ -71,6 +87,12 @@ selected section while it has text in it, and Escape clears it.
 That is a deliberate difference from the board header, whose Search is a button:
 on a board, search opens a whole search view over cards; here it is a filter over
 a list of boards, and a filter belongs in the bar it filters.
+
+The box is **150px** wide — half the 300px it was first drawn at, which was
+itself half of the 600px before that: it shares a bar with the other controls
+now rather than having a card to itself. It is a white box on a themed bar, so
+the text, the magnifier and the ✕ all set their own colour; inheriting the bar's
+light-on-dark would put white text in a white box.
 
 ## The view menu
 

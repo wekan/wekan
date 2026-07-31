@@ -108,16 +108,23 @@ test('All Boards controls are in the header bar, in the design order', () => {
     assert.notStrictEqual(i, -1, `${name} must be in the header bar`);
     return i;
   };
-  const starred = at('data-type="starred"');
   const sort = at('js-open-boards-sort');
   const search = at('js-board-search-input');
-  const multi = at('js-multiselection-activate');
   const view = at('js-open-all-boards-view');
+  const multi = at('js-multiselection-activate');
 
-  assert.ok(starred < sort, 'Starred is first');
-  assert.ok(sort < search, 'then Sort');
-  assert.ok(search < multi, 'then Search');
-  assert.ok(multi < view, 'then Multi-Selection, and the view menu last');
+  // Starred was first here and is not here at all now: it is a SECTION, and the
+  // left menu already lists it beside Templates and Remaining, counts it and
+  // highlights it when it is the one shown. Two ways to reach one section, a
+  // click apart, is a button that only has to be kept in step.
+  assert.ok(!bar.includes('data-type="starred"'), 'no Starred button in the bar');
+
+  // The order reads as what is SHOWN, then what is SELECTED.
+  assert.ok(sort < search, 'Sort is first');
+  assert.ok(search < view, 'then Search, then the Lists/Table menu');
+  assert.ok(view < multi, 'and Multi-Selection after the view menu');
+  assert.ok(multi < at('js-archive-selected-boards'),
+    'with the actions on a selection after the control that makes one');
 
   // Search is a FIELD, not a button that opens a view: it filters the list it
   // sits above, which is why it is the one control here that is not a

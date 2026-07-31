@@ -166,9 +166,6 @@ Template.boardListHeaderBar.events({
   'click .js-open-archived-board'() {
     Modal.open('archivedBoards');
   },
-  'click .js-select-menu'(evt) {
-    allBoardsMenuVar.set(evt.currentTarget.getAttribute('data-type'));
-  },
   'click .js-open-boards-sort': Popup.open('boardsSort'),
 
   'click .js-open-all-boards-view': Popup.open('allBoardsView'),
@@ -446,9 +443,6 @@ Template.boardListHeaderBar.helpers({
   // multi-selection and no view menu.
   isBoardListPage() {
     return FlowRouter.getRouteName() !== 'public';
-  },
-  isSelectedMenu(type) {
-    return allBoardsMenuVar.get() === type;
   },
   isBoardsSort(mode) {
     const currentUser = ReactiveCache.getCurrentUser();
