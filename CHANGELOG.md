@@ -435,6 +435,138 @@ still real and still explained — so fixing one has to update the page with it.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/01e233452">Board roles: one capability table, three roles fixed, and a Roles Status pane that shows it</a>. Thanks to xet7.</summary>
+
+What each role may do was spelled out THREE times — in the server allow helpers,
+in the client's `canModify*` helpers, and in prose in the docs — and the three
+had drifted apart. Every place they disagreed was a role that did not do what
+its name says. `models/lib/boardRoleCapabilities.js` is that table now, in code,
+and everything reads it: the allow rules, the UI helpers, the new Admin Panel
+pane and the documentation.
+
+**"Comment only, assigned" had full write access.** Nothing outside the card
+publications read its flag and it was not in the write rule, so the role could
+create and edit cards, lists and checklists — it was "Normal, assigned only"
+under another name. It is comment-only now, like the role it is named after.
+
+**"No comments" could not write anything.** The write rule excluded it, so the
+role blocked editing as well as commenting — a second read-only role under a
+name that says otherwise, and one the UI still offered the edit buttons for. It
+blocks commenting only now.
+
+**The write rule did not exempt board admins.** Every other helper ignores a
+flag on an admin; that one read the raw flags, so an admin who also carried
+`isNoComments` silently lost write access. Not reachable from the Web UI, which
+writes all eight flags at once, but reachable over the REST API.
+
+The UI helpers were part of the same drift — `canModifyCard()` did not exclude
+`isNoComments` while the server did, and `canModifyBoard()` excluded neither
+`isNoComments` nor `isWorker` — so each disagreement was a button offered to
+somebody whose write the server then refused.
+
+A **fourth** gap was found and is NOT fixed: a Worker cannot move a card, which
+is the one thing the role is for. Moving a card is a card update, so it goes
+through the write rule, which excludes Worker. The fix means letting a role
+write some fields of a card and not others, and validating that a member change
+only ever adds the caller — a field-level policy on the path every card update
+takes, which wants deciding on purpose. It is recorded under "Known gaps" with
+what it needs.
+
+**Roles Status**, at Admin Panel / People / Roles below the Save button: a
+read-only table of what each role may do. It is the shared table page, with no
+markup of its own, no interactive rows and nothing editable, because a role's
+capabilities are a property of the code and not a setting. Every string is a
+translation key, the Yes/No of each cell included. The "Invite to board" column
+reads the pane's working copy, so the table follows the checkboxes above the
+Save button as they are ticked, before saving.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cc2748f60">Search All Boards searches all of your boards, not every board on the server</a>. Thanks to xet7.</summary>
+
+The board scope listed the ways a user reaches a board — member, organization,
+team, e-mail domain — and `{ permission: 'public' }`. That last one is the odd
+one out: it is not a relationship to the user at all, it is "anybody may open
+this".
+
+That belongs in the boards list, where a public board is meant to be
+discoverable. In a search it meant every public board on the instance was
+searched: on a public server a common word answered with strangers' cards, and
+following a hit dropped the user into a board they have no part in. Someone who
+wants to look inside a public board can still open it and search there.
+
+The option defaults to including public boards, so every other caller — the
+boards list, the lists and comments lookups — is unchanged. The search names its
+scope once and passes it to all four board lookups plus the `board:` filter's
+name resolution: one missed lookup and that branch still reaches the whole
+instance, with nothing looking wrong.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a56264c77">Public Boards no longer lists the internal Subtasks boards</a>. Thanks to xet7.</summary>
+
+WeKan creates boards of its own to hold machinery — a subtasks board, for one.
+Nobody chose to make one and nobody means to open one, so no list of boards
+shows them; they are recognised by their title being wrapped in carets,
+`^Subtasks^`.
+
+The selector for that was typed out at each list — five copies of the same
+regular expression — and the sixth place forgot it: /public built its own query
+and listed every public subtasks board on the instance beside the real ones. It
+is one shared helper now, used by every list including /public. A function
+rather than a shared constant, because Mongo selectors get merged and mutated by
+their callers.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5197d734b">Remove the 100% zoom control from the header</a>. Thanks to xet7.</summary>
+
+It scaled the board with a CSS transform, it did not work, and there is no plan
+to fix it — WeKan already has a font-size setting, which is what the control was
+reached for anyway. A control that does nothing is worse than no control.
+
+What went with it: the pill and its number, the helper and three handlers, the
+zoom utilities and their call sites, the `profile.zoomLevel` schema field and
+its setter and server method, one translation string, and 57 stylesheet rules
+spread over four files — which is how much of the stylesheet a broken feature
+had accumulated. The card zoom is a different feature and is untouched.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7a5f59c54">Change Color shows as many swatch columns as the width allows</a>. Thanks to xet7.</summary>
+
+The swatch list is shared with the board-background picker, where it is a
+float-based two-column grid. Two columns is right for background thumbnails; for
+Select Color it meant Flat, Clear, Dark and Special each ran down the popup in a
+narrow pair, and most of them were below the fold however wide the browser was.
+
+Auto-filling columns instead — the same answer the Change Language popup already
+uses. It takes as many columns as fit and collapses to one on a narrow window,
+so no media query is needed and a phone is unaffected. Both Change Color popups,
+Member Settings and Board Settings, get more width on desktop to spend on
+columns; below 800px every popup is a full-screen sheet and is left alone. The
+width is mirrored in the popup positioning code, which clamps a popup into the
+viewport by its width — computed for the default it placed a wide popup opened
+near the right edge with a third of itself off the screen.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e010bddc5">Member Settings / Change Settings: the button is Save, and it has a theme</a>. Thanks to xet7.</summary>
+
+It said "Apply" while every other settings form in WeKan says Save, and it was
+pure black. Both came from one line: the submit carried no `primary` class, so
+it fell to the base button rule — whose fallback is black — instead of the
+primary rule beside it, which is the themed one. The Change Language form
+directly above it in the same popup is the shape it now matches.
+
+</details>
+
 and updates the following dependency:
 
 - **aldeed:collection2 4.2.0 → 4.2.1** — cleans and validates every write
