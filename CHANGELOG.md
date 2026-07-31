@@ -472,7 +472,7 @@ and updates the following dependencies:
 and fixes the following bugs:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/eae245839">All Boards no longer throws No such function: isAllBoardsView as it renders</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1049e3e8f">All Boards no longer throws No such function: isAllBoardsView as it renders</a>. Thanks to xet7.</summary>
 
 The All Boards page chooses between the board icons and the Table view with
 `{{#if isAllBoardsView 'table'}}`, and that helper was registered on
