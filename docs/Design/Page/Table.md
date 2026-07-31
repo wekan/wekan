@@ -43,7 +43,7 @@ is visible rather than forgotten.
 
 | Table name | Menu path | Why it does not use this design |
 | --- | --- | --- |
-| People — its three non-table panes | Admin Panel / People | Locked users, Roles and Shared templates are **not tables**: Locked users is a form of numeric lockout settings with a Save button, Roles is a checkbox list, and Shared templates is a checkbox list of scopes. There is no paginated set of rows to render, so this design does not apply to them and forcing it would only add a table around a form. All four of People's TABLE panes — Domains, Organizations, Teams and People — are converted and listed below. |
+| People — its two remaining non-table panes | Admin Panel / People | Locked users and Shared templates are **not tables**: Locked users is a form of numeric lockout settings with a Save button, and Shared templates is a checkbox list of scopes. There is no set of rows to render, so this design does not apply to them and forcing it would only add a table around a form. All four of People's TABLE panes — Domains, Organizations, Teams and People — are converted and listed below, and Roles has since gained a table of its own (Roles Status), also listed below. |
 
 People is fully converted: its four table panes render through this design, and its
 search, filter dropdown, action buttons and total are the shared controls row. Its
@@ -61,6 +61,7 @@ Menu path is what you click to reach the page.
 | Teams | Admin Panel / People / Teams | Every team with its details and per-team feature switches. Same shape as Organizations: a `rowTemplate` and three `headerTemplate` columns. |
 | Organizations | Admin Panel / People / Organizations | Every organization with its details and per-organization feature switches. Interactive rows, so it supplies a `rowTemplate`; three of its headers carry a select-all pair, supplied as `headerTemplate`. |
 | Domains | Admin Panel / People / Domains | Every e-mail domain in use with the number of users on it. The first People pane converted to this design. |
+| Roles Status | Admin Panel / People / Roles | What each board role may do — which cards it sees, and whether it may comment, create and edit, or change the board's settings. **Read-only**: no `rowTemplate`, no actions, nothing editable, because a role's capabilities are a property of the code and not a setting. It sits BELOW the Save button of the checkbox list above it and follows that list's working copy, so an admin sees what a change means before saving it. Rendered from `models/lib/boardRoleCapabilities.js`, the same table the allow rules decide with — see [Board roles](../../Features/Members/Roles.md). |
 | Security | Admin Panel / Problems / Security | Security events from the event log: blocked uploads, rejected URL schemes, auth failures. One row per event, newest first. |
 | Speed | Admin Panel / Problems / Speed | Slow-operation events — what took too long, where, and for how long. |
 | Tests | Admin Panel / Problems / Tests | Test-run events recorded on the server. |

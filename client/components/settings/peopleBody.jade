@@ -754,6 +754,13 @@ template(name="rolesGeneral")
 
     button.js-roles-save.primary {{_ 'save'}}
 
+    //- Roles Status: what each board role may do, READ-ONLY, below the Save
+    //- button. It is the shared table page (docs/Design/Page/Table.md), so it
+    //- looks and behaves like every other Admin Panel table, and it follows the
+    //- checkboxes ABOVE the Save button - the working copy, not the saved
+    //- document - so an admin can see the effect of a change before saving it.
+    +tablePage(rolesStatusTable)
+
 template(name="templatesGeneral")
   .templates-settings
     p.templates-description {{_ 'shared-templates-info'}}

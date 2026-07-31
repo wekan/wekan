@@ -683,7 +683,16 @@ test('Teams renders through the shared table page, and gains a working prev', ()
   // Folding both panes into one scoped handler pair fixed that.
   assert.ok(/pane === 'team-setting' && tpl\.teamPage\.get\(\) > 1/.test(js),
     'Teams must now page backwards');
-  assert.strictEqual((js.match(/'click \.js-table-page-prev'/g) || []).length, 1,
+  // One handler for every People pane, because a duplicate key in ONE event map
+  // silently overwrites the earlier one. Scoped to Template.people.events: this
+  // used to count the whole file, which also forbade a handler on a DIFFERENT
+  // template - and Roles Status is exactly that, its own template with its own
+  // paging state (Template.rolesGeneral.events). A separate map is not a
+  // duplicate key; it is how two panes that do not share state stay apart.
+  const peopleEvents = js.slice(js.indexOf('Template.people.events({'));
+  const oneMap = peopleEvents.slice(0, peopleEvents.indexOf('\nTemplate.'));
+  assert.ok(oneMap.length > 0, 'Template.people.events must exist');
+  assert.strictEqual((oneMap.match(/'click \.js-table-page-prev'/g) || []).length, 1,
     'one handler for every pane - duplicate keys in one event map would overwrite');
 });
 
@@ -705,24 +714,39 @@ test('the People pane renders through the shared table page', () => {
   }
 });
 
-test('the three non-table People panes are recorded as such, not forced in', () => {
-  // Locked users is a form, Roles and Shared templates are checkbox lists. There
-  // is no paginated set of rows, so the design does not apply - and the doc has to
-  // say WHY, or someone will try to convert them.
+test('the non-table People panes are recorded as such, not forced in', () => {
+  // Locked users is a form and Shared templates is a checkbox list. There is no
+  // set of rows, so the design does not apply - and the doc has to say WHY, or
+  // someone will try to convert them.
+  //
+  // Roles used to be listed here too, for the same reason: it is a checkbox list.
+  // It still is - and it has since gained a READ-ONLY table underneath it, Roles
+  // Status, showing what each role may do. So the pane renders both, and the
+  // exclusion now covers only the two that are still nothing but a form.
   const at = doc.indexOf('## Pages that do not use this design');
   const section = doc.slice(at, doc.indexOf('## Pages that use this design'));
-  for (const pane of ['Locked users', 'Roles', 'Shared templates']) {
+  for (const pane of ['Locked users', 'Shared templates']) {
     assert.ok(section.includes(pane), `${pane} must be listed with its reason`);
   }
   assert.ok(/not tables/i.test(section), 'and the reason must be that they are not tables');
-  // Still true in the code: none of them renders the shared table page.
+
   const people = read('client/components/settings/peopleBody.jade');
+  const paneSrc = (name, next) => people.slice(
+    people.indexOf(`template(name="${name}")`), people.indexOf(`template(name="${next}")`));
+
   for (const [name, next] of [['lockedUsersGeneral', 'rolesGeneral'],
-    ['rolesGeneral', 'templatesGeneral']]) {
-    const pane = people.slice(people.indexOf(`template(name="${name}")`),
-      people.indexOf(`template(name="${next}")`));
-    assert.ok(!/\+tablePage/.test(pane), `${name} must not render a table page`);
+    ['templatesGeneral', 'orgRow']]) {
+    assert.ok(!/\+tablePage/.test(paneSrc(name, next)),
+      `${name} must not render a table page`);
   }
+
+  // Roles is the one that changed, so pin the new truth rather than dropping it.
+  const roles = paneSrc('rolesGeneral', 'templatesGeneral');
+  assert.ok(/\+tablePage\(rolesStatusTable\)/.test(roles),
+    'Roles renders the shared table page for its Roles Status pane');
+  assert.ok(/js-roles-save/.test(roles), 'below the Save button of its checkbox list');
+  assert.ok(roles.indexOf('js-roles-save') < roles.indexOf('+tablePage'),
+    'the table comes AFTER the Save button, which is where it was asked for');
 });
 
 test('People uses the shared controls row - search, filter, actions, total', () => {

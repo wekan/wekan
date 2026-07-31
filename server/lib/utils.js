@@ -1,6 +1,7 @@
 import Boards from '/models/boards';
 import Cards from '/models/cards';
 import Checklists from '/models/checklists';
+const { memberCan } = require('/models/lib/boardRoleCapabilities');
 
 export function allowIsBoardAdmin(userId, board) {
   return board && board.hasAdmin(userId);
@@ -16,8 +17,13 @@ export function allowIsAnyBoardMember(userId, boards) {
   });
 }
 
+// May the user COMMENT on this board (a card comment or a comment reaction)?
+//
+// The name is historical - it reads as "comment-only members are allowed here",
+// which is what it means: everyone except the roles whose capability table says
+// they may not comment.
 export function allowIsBoardMemberCommentOnly(userId, board) {
-  return board && board.hasMember(userId) && !board.hasReadOnly(userId) && !board.hasReadAssignedOnly(userId) && !board.hasNoComments(userId);
+  return !!(board && memberCan(board.members, userId, 'comment'));
 }
 
 export function allowIsBoardMemberNoComments(userId, board) {
@@ -25,8 +31,28 @@ export function allowIsBoardMemberNoComments(userId, board) {
 }
 
 // Check if user has write access to board (can create/edit cards and lists)
+//
+// Both of these used to spell the rule out as a list of flags, and that list had
+// drifted from the roles' own names in three ways (see
+// docs/Features/Members/Roles.md):
+//
+//   * it excluded `isNoComments`, so the role that is meant to stop COMMENTING
+//     stopped writing as well - a second read-only role under a name that says
+//     otherwise, and one the UI still offered the edit buttons for;
+//   * it did NOT exclude `isCommentAssignedOnly`, so the "comment only, on
+//     assigned cards" role could create and edit cards, lists and checklists -
+//     it was "normal, assigned only" under another name;
+//   * it read the RAW flags with no `isAdmin` exemption, unlike every has*()
+//     helper on the board - so a board admin who also carried one of those flags
+//     (which the Web UI cannot produce, but the REST API can) silently lost write
+//     access.
+//
+// The rule now comes from models/lib/boardRoleCapabilities.js, which is the same
+// table the client's canModify* helpers, the Admin Panel's Roles Status pane and
+// the documentation are built from - so there is nowhere for a fourth opinion to
+// appear.
 export function allowIsBoardMemberWithWriteAccess(userId, board) {
-  return board && board.members && board.members.some(e => e.userId === userId && e.isActive && !e.isNoComments && !e.isCommentOnly && !e.isWorker && !e.isReadOnly && !e.isReadAssignedOnly);
+  return !!(board && memberCan(board.members, userId, 'write'));
 }
 
 // Write-access variant of allowIsAnyBoardMember: true if the user has write

@@ -19,35 +19,49 @@ Everything below is what the **server** allows. The server is the authority: the
 UI can only hide buttons, and where the two disagree it is listed under
 [Where the UI is more generous than the server](#where-the-ui-is-more-generous-than-the-server).
 
-| Role | Member flag | Which cards they see | Comment | Create / edit cards | Move cards | Create / edit lists, swimlanes, checklists | Board settings, members, roles |
-|---|---|---|---|---|---|---|---|
-| **Board admin** | `isAdmin` | all | yes | yes | yes | yes | **yes** |
-| **Normal** | *(none set)* | all | yes | yes | yes | yes | no |
-| **Normal, assigned only** | `isNormalAssignedOnly` | **only assigned to them** | yes | yes | yes | yes | no |
-| **No comments** | `isNoComments` | all | **no** | **no** ⚠ | **no** ⚠ | **no** ⚠ | no |
-| **Comment only** | `isCommentOnly` | all | yes | no | no | no | no |
-| **Comment only, assigned** | `isCommentAssignedOnly` | **only assigned to them** | yes | **yes** ⚠ | **yes** ⚠ | **yes** ⚠ | no |
-| **Worker** | `isWorker` | all | yes | no | **yes** | no | no |
-| **Read only** | `isReadOnly` | all | no | no | no | no | no |
-| **Read only, assigned** | `isReadAssignedOnly` | **only assigned to them** | no | no | no | no | no |
+| Role | Member flag | Which cards they see | Comment | Create / edit cards, lists, swimlanes, checklists — and move a card | Board settings, members, roles |
+|---|---|---|---|---|---|
+| **Board admin** | `isAdmin` | all | yes | yes | **yes** |
+| **Normal** | *(none set)* | all | yes | yes | no |
+| **Normal, assigned only** | `isNormalAssignedOnly` | **only assigned to them** | yes | yes | no |
+| **No comments** | `isNoComments` | all | **no** | yes | no |
+| **Comment only** | `isCommentOnly` | all | yes | no | no |
+| **Comment only, assigned** | `isCommentAssignedOnly` | **only assigned to them** | yes | no | no |
+| **Worker** | `isWorker` | all | yes | no ⚠ | no |
+| **Read only** | `isReadOnly` | all | no | no | no |
+| **Read only, assigned** | `isReadAssignedOnly` | **only assigned to them** | no | no | no |
 
-⚠ = the code does not do what the role's name says. Explained under
-[Known gaps](#known-gaps); nothing has been changed to make the table say
+⚠ = the code does not do what the role's name says — see
+[Known gaps](#known-gaps). Nothing here is written to make the table say
 something nicer than the code does.
+
+**Why moving a card is not its own column.** A move is a card *update*, so it goes
+through the same rule as editing one. There is no way for a role to move a card
+but not edit it, which is exactly the Worker problem below.
+
+The same table is in the product: **Admin Panel → People → Roles**, under the Save
+button, as the read-only *Roles Status* pane. It is rendered from
+`models/lib/boardRoleCapabilities.js`, which is also what the allow rules decide
+with — so the page cannot show a permission that is not enforced.
 
 ## Where each column comes from
 
-Two helpers in `server/lib/utils.js` decide almost everything, and they are what
-the `allow` rules in `server/permissions/` call:
+`models/lib/boardRoleCapabilities.js` is the table, in code. Everything reads it:
 
-- **Create / edit** — `allowIsBoardMemberWithWriteAccess()`: an active member with
-  none of `isNoComments`, `isCommentOnly`, `isWorker`, `isReadOnly`,
-  `isReadAssignedOnly`. It gates cards (`server/permissions/cards.js`), lists,
-  swimlanes, checklists and checklist items, and the cross-board move guards.
-- **Comment** — `allowIsBoardMemberCommentOnly()`: a member who is not
-  `hasNoComments`, `hasReadOnly` or `hasReadAssignedOnly`. It gates card comments
-  and comment reactions (`server/permissions/cardComments.js`,
+- **Create / edit** — `allowIsBoardMemberWithWriteAccess()` in
+  `server/lib/utils.js` asks it for the `write` capability. It gates cards
+  (`server/permissions/cards.js`), lists, swimlanes, checklists and checklist
+  items, and the cross-board move guards.
+- **Comment** — `allowIsBoardMemberCommentOnly()` asks it for `comment`. It gates
+  card comments and comment reactions (`server/permissions/cardComments.js`,
   `cardCommentReactions.js`).
+- **What the UI offers** — `Utils.canModifyCard()`, `canMoveCard()` and
+  `canModifyBoard()` in `client/lib/utils.js` ask it for the same `write`
+  capability, so a button is offered exactly when the server would accept it.
+- **Admin Panel → People → Roles** renders the Roles Status table from it.
+
+Each of those used to carry its own list of flags, and the lists had drifted —
+which is what the first three gaps below were.
 
 **Which cards they see** is the card publications, not an allow rule: for a member
 with `isNormalAssignedOnly`, `isCommentAssignedOnly` or `isReadAssignedOnly`, the
@@ -63,48 +77,52 @@ comments, attachments, checklists and checklist items follow the same scope.
 update, so it goes through the write-access rule above — which is why Worker,
 whose whole purpose is moving cards, is marked "yes" here but "no" for editing.
 
+## Fixed
+
+Three roles used to do something other than what their name says. All three came
+from the same cause — the rule was written out as a list of flags in three
+different places, and the three lists had drifted. They now read one table, and
+`tests/boardRoles.test.cjs` fails if a fourth opinion appears.
+
+1. **"Comment only, assigned" had full write access.** Nothing outside the card
+   publications read `isCommentAssignedOnly`, and it was not in the write rule, so
+   the role could create and edit cards, lists and checklists — it was "Normal,
+   assigned only" under another name. It is comment-only now, like the role it is
+   named after.
+
+2. **"No comments" could not write anything.** The write rule excluded
+   `isNoComments`, so the role blocked editing as well as commenting — a second
+   read-only role under a name that says otherwise, and one the UI still offered
+   the edit buttons for. It blocks commenting only now, which is what the name and
+   the board schema both say it is for.
+
+3. **The write rule did not exempt board admins.** Every `has*()` helper on the
+   board ignores a flag on an admin; the write rule read the raw flags, so an
+   admin who also carried `isNoComments` silently lost write access. Not reachable
+   from the Web UI, which writes all eight flags at once, but reachable over the
+   REST API, which takes them individually. `memberRoleOf()` resolves `isAdmin`
+   first, so an admin is an admin whatever else is set.
+
+The UI helpers were part of the same drift — `canModifyCard()` did not exclude
+`isNoComments` while the server did, and `canModifyBoard()` excluded neither
+`isNoComments` nor `isWorker` — so each disagreement was a button offered to
+somebody whose write the server then refused. All three now ask the same table.
+
 ## Known gaps
 
-These are findings, not decisions. Each is a place where the code and the role's
-name disagree, and each needs a maintainer's call on which side is wrong.
+4. **A Worker cannot move a card**, which is the one thing the role is for. The
+   board schema calls it "only allowed to move card, assign himself to card and
+   comment", and moving a card is a card *update*, so it goes through the write
+   rule — which excludes Worker. The UI used to offer the drag anyway and the
+   server refused it; now the UI does not offer it either, so the role is at least
+   honest, but it is still a role that does nothing except comment.
 
-1. **"Comment only, assigned" has full write access.** Nothing outside the card
-   publications ever reads `isCommentAssignedOnly`. It is not in
-   `allowIsBoardMemberWithWriteAccess()`, so the member may create and edit cards,
-   lists and checklists — the role is in practice "Normal, but only sees the cards
-   assigned to me", which is what `isNormalAssignedOnly` already means. Compare
-   `isCommentOnly`, which *is* in that list.
-
-2. **"No comments" cannot write anything.** `allowIsBoardMemberWithWriteAccess()`
-   excludes `isNoComments`, so the role blocks editing as well as commenting —
-   while the schema describes it as "is the member not allowed to make comments"
-   and the UI (`Utils.canModifyCard()`) does not exclude it. So the member is
-   offered the edit affordances and the server refuses the write. Either the
-   helper should stop excluding `isNoComments` or the UI should stop offering it;
-   the name and the schema comment both point at the helper.
-
-3. **The write helper does not exempt board admins.** Every `has*()` helper on the
-   board requires `isAdmin: false`, so a flag on an admin is ignored — but
-   `allowIsBoardMemberWithWriteAccess()` reads the raw flags, so an admin who also
-   carried `isNoComments` would lose write access. Not reachable from the UI,
-   because `setMemberPermission` writes all eight flags at once and never leaves
-   two set, but it is reachable over the REST API, which takes the flags
-   individually.
-
-## Where the UI is more generous than the server
-
-The UI helpers in `client/lib/utils.js` do not check the same flags as the server,
-so these members see buttons whose action the server then refuses:
-
-| UI check | Does not exclude | Effect |
-|---|---|---|
-| `canModifyCard()` | `isNoComments` | No-comments members are offered card editing (gap 2 above). |
-| `canModifyBoard()` | `isNoComments`, `isWorker` | No-comments and Worker members are offered list/swimlane editing. |
-| `canModifyCard()`, `canModifyBoard()` | `isCommentAssignedOnly` | Consistent with the server, which also allows it (gap 1 above). |
-
-None of these is a security hole — the server rules are the authority and they
-hold — but each is a button that does nothing, which reads as a bug to the person
-clicking it.
+   Not fixed here because the fix is not a table edit: it means letting a role
+   write SOME fields of a card (`listId`, `swimlaneId`, `sort`, and `boardId`
+   under the existing cross-board guard) and not others, and "assign himself"
+   means validating that a member/assignee change only ever adds the caller. That
+   is a field-level policy on the path every card update takes, and it wants
+   deciding on purpose rather than as a side effect of documenting the table.
 
 ## Setting a role
 

@@ -7,6 +7,7 @@ import Users from '/models/users';
 import { computeBoardBackground } from '/models/lib/boardBackground';
 import { buildCardAttachmentMeta } from '/models/lib/attachmentMeta';
 import { resolveShowDragHandles, readDragHandlesPreference } from '/models/lib/dragHandles';
+const { memberCan } = require('/models/lib/boardRoleCapabilities');
 
 export const Utils = {
   async setBackgroundImage(url) {
@@ -324,39 +325,32 @@ export const Utils = {
     const ret = ReactiveCache.getCard(cardId);
     return ret;
   },
-  canModifyCard() {
-    const currentUser = ReactiveCache.getCurrentUser();
-    const ret = (
-      currentUser &&
-      currentUser.isBoardMember() &&
-      !currentUser.isCommentOnly() &&
-      !currentUser.isWorker() &&
-      !currentUser.isReadOnly() &&
-      !currentUser.isReadAssignedOnly()
-    );
-    return ret;
+  // What the UI OFFERS, from the same capability table the server decides with
+  // (models/lib/boardRoleCapabilities.js).
+  //
+  // These three used to be their own lists of flags, and each one disagreed with
+  // the server rule in a different place - `canModifyCard` did not exclude
+  // `isNoComments` while the server did, `canModifyBoard` excluded neither
+  // `isNoComments` nor `isWorker`, and none of them knew about
+  // `isCommentAssignedOnly`. Every disagreement was a button offered to somebody
+  // whose write the server then refused, which reads as a bug to the person
+  // clicking it. Reading the one table is what keeps them honest.
+  currentUserCan(capability) {
+    const board = Utils.getCurrentBoard();
+    const userId = Meteor.userId();
+    return !!(board && memberCan(board.members, userId, capability));
   },
+  canModifyCard() {
+    return Utils.currentUserCan('write');
+  },
+  // A move IS a card update on the server, so it is the same capability. They are
+  // kept as two names because the call sites mean different things, not because
+  // the answer differs.
   canMoveCard() {
-    const currentUser = ReactiveCache.getCurrentUser();
-    const ret = (
-      currentUser &&
-      currentUser.isBoardMember() &&
-      !currentUser.isCommentOnly() &&
-      !currentUser.isReadOnly() &&
-      !currentUser.isReadAssignedOnly()
-    );
-    return ret;
+    return Utils.currentUserCan('write');
   },
   canModifyBoard() {
-    const currentUser = ReactiveCache.getCurrentUser();
-    const ret = (
-      currentUser &&
-      currentUser.isBoardMember() &&
-      !currentUser.isCommentOnly() &&
-      !currentUser.isReadOnly() &&
-      !currentUser.isReadAssignedOnly()
-    );
-    return ret;
+    return Utils.currentUserCan('write');
   },
   reload() {
     // we move all window.location.reload calls into this function

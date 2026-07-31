@@ -23,6 +23,13 @@ import InviteToBoardRolesSettings, {
   INVITE_TO_BOARD_ROLES,
   INVITE_TO_BOARD_ROLES_ID,
 } from '/models/inviteToBoardRolesSettings';
+// The one capability table the server allow rules and the client's canModify*
+// helpers also read, so the Roles Status pane cannot show a permission that is
+// not enforced.
+const {
+  BOARD_ROLES,
+  ROLE_CAPABILITIES,
+} = require('/models/lib/boardRoleCapabilities');
 
 // Multitenancy option D (D.2/D.9): the org fields that make an Organization a
 // tenant - its hostnames plus the branding that overrides the instance branding on
@@ -915,6 +922,11 @@ Template.people.events({
 Template.rolesGeneral.onCreated(function () {
   // Working copy of the allowed-roles set; null until the published doc loads.
   this.workingRoles = new ReactiveVar(null);
+  // Roles Status: the shared table page's search term and page. There are nine
+  // roles and no server paging - the set is a constant of the code, not data -
+  // but the shared controls row is part of the design, so they work.
+  this.statusSearch = new ReactiveVar('');
+  this.statusPage = new ReactiveVar(1);
   this.autorun(() => {
     if (this.workingRoles.get() === null) {
       const doc = InviteToBoardRolesSettings.findOne(INVITE_TO_BOARD_ROLES_ID);
@@ -925,7 +937,81 @@ Template.rolesGeneral.onCreated(function () {
   });
 });
 
+// ── Roles Status ────────────────────────────────────────────────────────────
+//
+// The read-only table under the Save button: what each board role may do. Its
+// rows come from models/lib/boardRoleCapabilities.js — the same table the server
+// allow rules and the client's canModify* helpers decide with — so this pane
+// cannot show a permission the code does not enforce.
+//
+// Every string is a translation key, including the Yes/No of each cell: the
+// values are booleans, and a hard-coded "Yes" would be English on every one of
+// WeKan's languages.
+//
+// The "Invite to board" column is the one thing here that is a SETTING rather
+// than a capability, and it reads the pane's WORKING copy — the checkboxes above
+// the Save button — not the saved document. That is deliberate: the table is
+// there to show what the checkboxes mean, so it has to follow them as they are
+// ticked, before saving.
+const ROLES_STATUS_COLUMNS = [
+  { labelKey: 'roles-status-role', value: doc => TAPi18n.__(doc.roleKey) },
+  { labelKey: 'roles-status-invite', value: doc => yesNo(doc.invite) },
+  {
+    labelKey: 'roles-status-sees',
+    value: doc =>
+      TAPi18n.__(doc.seesAllCards ? 'roles-status-sees-all' : 'roles-status-sees-assigned'),
+  },
+  { labelKey: 'roles-status-comment', value: doc => yesNo(doc.comment) },
+  { labelKey: 'roles-status-write', value: doc => yesNo(doc.write) },
+  { labelKey: 'roles-status-manage', value: doc => yesNo(doc.manageBoard) },
+];
+
+function yesNo(value) {
+  return TAPi18n.__(value ? 'yes' : 'no');
+}
+
 Template.rolesGeneral.helpers({
+  // The shared table page's data context (docs/Design/Page/Table.md).
+  rolesStatusTable() {
+    const tpl = Template.instance();
+    const working = tpl.workingRoles.get() || [];
+    const term = (tpl.statusSearch.get() || '').trim().toLowerCase();
+
+    const all = BOARD_ROLES.map(roleKey => ({
+      _id: roleKey,
+      roleKey,
+      // Only the roles offered for invitation carry the setting; the rest are
+      // not part of that list at all, so they read as not invitable rather than
+      // as "unticked".
+      invite: INVITE_TO_BOARD_ROLES.includes(roleKey) && working.includes(roleKey),
+      ...ROLE_CAPABILITIES[roleKey],
+    }));
+
+    // The shared controls row always renders a search box, so it searches -
+    // on the role's TRANSLATED name, which is what the reader sees.
+    const docs = term
+      ? all.filter(doc => TAPi18n.__(doc.roleKey).toLowerCase().includes(term))
+      : all;
+
+    const info = pageInfo(docs.length, tpl.statusPage.get());
+    const page = docs.slice(info.skip, info.skip + TABLE_PAGE_ROWS_PER_PAGE);
+
+    return {
+      titleKey: 'roles-status',
+      descKey: 'roles-status-desc',
+      header: buildHeader(ROLES_STATUS_COLUMNS),
+      rows: buildRows(page, ROLES_STATUS_COLUMNS),
+      rowCount: page.length,
+      total: docs.length,
+      searchTerm: tpl.statusSearch.get(),
+      page: info.page,
+      totalPages: info.totalPages,
+      hasPrev: info.hasPrev,
+      hasNext: info.hasNext,
+      emptyKey: 'roles-status-empty',
+    };
+  },
+
   roleOptions() {
     const working = Template.instance().workingRoles.get() || [];
     // The role key doubles as the i18n key. 'board-admin' renders as
@@ -966,6 +1052,25 @@ Template.rolesGeneral.events({
     InviteToBoardRolesSettings.update(INVITE_TO_BOARD_ROLES_ID, {
       $set: { allowedRoles: tpl.workingRoles.get() || [] },
     });
+  },
+
+  // Roles Status controls. The table is read-only, so these are the only
+  // interactions it has: search on Enter (like every other table page) and the
+  // pager. No row is clickable and no cell is editable — a role's capabilities
+  // are a property of the code, not a setting.
+  'keydown .js-table-page-search'(event, tpl) {
+    if (event.key !== 'Enter') return;
+    event.preventDefault();
+    tpl.statusSearch.set(event.currentTarget.value || '');
+    tpl.statusPage.set(1);
+  },
+  'click .js-table-page-prev'(event, tpl) {
+    event.preventDefault();
+    tpl.statusPage.set(Math.max(1, tpl.statusPage.get() - 1));
+  },
+  'click .js-table-page-next'(event, tpl) {
+    event.preventDefault();
+    tpl.statusPage.set(tpl.statusPage.get() + 1);
   },
 });
 
