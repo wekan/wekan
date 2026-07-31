@@ -38,6 +38,7 @@ import {
   openAllBoardsSidebar,
   closeAllBoardsSidebar,
   toggleAllBoardsSidebar,
+  isAllBoardsSidebarOpen,
 } from '/client/lib/allBoardsSidebar';
 import {
   SIDEBAR_SEARCH,
@@ -169,6 +170,12 @@ function saveWorkspace(workspaceId, { name, icon }) {
 Template.boardList.helpers({
   BoardMultiSelection() {
     return BoardMultiSelection;
+  },
+  // Whether to move the boards left, out from under the right sidebar. The
+  // sidebar is a separate Blaze instance, so the state is module scope - the
+  // page cannot read a ReactiveVar on it. docs/Design/Page/Search.md
+  isSidebarOpen() {
+    return isAllBoardsSidebarOpen();
   },
   // Which view is on. Registered on THIS template as well as on the header bar
   // and the popup: a Blaze helper belongs to one template, and `boardList` is

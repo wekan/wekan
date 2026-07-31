@@ -182,7 +182,7 @@ test('the sidebar borrows the board sidebar shell, not its contents', () => {
   // settings - and All Boards has no board. Same shell, own views.
   assert.ok(/\.board-sidebar\.sidebar\.all-boards-sidebar/.test(sidebar),
     'the same shell classes, so it looks like the one on a board');
-  assert.ok(/class="\{\{#if isSidebarOpen\}\}is-open\{\{\/if\}\}"/.test(sidebar),
+  assert.ok(/\{\{#if isSidebarOpen\}\}is-open\{\{\/if\}\}/.test(sidebar),
     'opened the same way');
   assert.ok(/\.sidebar-content/.test(sidebar) && /sidebar-xmark/.test(sidebar),
     'with the same content area and close button');
@@ -190,12 +190,66 @@ test('the sidebar borrows the board sidebar shell, not its contents', () => {
     'allBoardsMultiSelectionSidebar']) {
     assert.ok(sidebar.includes(`template(name="${view}")`), `${view} must exist`);
   }
-  // The shell is positioned absolutely, so the page has to give it something to
-  // position against.
+});
+
+test('it is painted with a theme, or its buttons are unreadable', () => {
+  // `.sidebar .sidebar-content .sidebar-btn` is a light grey box whose text is
+  // WHITE. What makes that readable on a board is a `.board-color-*` ancestor
+  // replacing the grey with a themed colour - and this page has no board, so
+  // without a class here every button was white on light grey. It shipped that
+  // way and xet7 reported it.
+  assert.ok(/class="\{\{themeClass\}\}/.test(sidebar), 'the shell carries a theme class');
+  assert.ok(/themeClass\(\) \{[\s\S]{0,120}'board-color-belize'/.test(sidebarJs),
+    'the default theme outside a board');
+  // Which must be a theme that really styles a sidebar button.
+  const colors = read('client/components/boards/boardColors.css');
+  assert.ok(/\.board-color-belize \.sidebar \.sidebar-content \.sidebar-btn \{/.test(colors),
+    'and board-color-belize must define one');
+  // The SAME theme at every width. It is a class on the element, in the
+  // template, so no media query can take it away - only the panel's GEOMETRY is
+  // desktop-only. (boardsList.css does name board-color-belize elsewhere: it is
+  // one of the seventeen colours a board TILE can be, which is unrelated.)
   const css = read('client/components/boards/boardsList.css');
-  assert.ok(/\.all-boards-wrapper \{[^}]*position: relative;/.test(css),
-    'and a positioned ancestor, or it anchors to the page');
-  assert.ok(/\.wrapper\.all-boards-wrapper/.test(jade), 'which the page provides');
+  const desktop = css.slice(css.indexOf('@media screen and (min-width: 801px)'));
+  assert.ok(!/board-color/.test(desktop.slice(0, desktop.indexOf('\n}\n'))),
+    'the desktop-only block must not be where the theme comes from');
+});
+
+test('and it is pinned to the viewport, below the header, on a desktop', () => {
+  // It first inherited `position: absolute` from the board sidebar, which
+  // resolves against the nearest positioned ancestor. On a board that is the
+  // board container - below the header, down to the window bottom. This page
+  // has no such container, so the panel floated in the middle of the page, over
+  // the board icons, ending as soon as its content did.
+  const css = read('client/components/boards/boardsList.css');
+  const at = css.indexOf('.all-boards-sidebar.sidebar {');
+  assert.notStrictEqual(at, -1, 'the panel must place itself');
+  const rule = css.slice(at, css.indexOf('}', at));
+  assert.ok(/position: fixed;/.test(rule), 'pinned to the viewport');
+  assert.ok(/top: var\(--wekan-header-height, 0px\);/.test(rule),
+    'below the header, at the height the header MEASURES - it is not a constant');
+  assert.ok(/bottom: 0;/.test(rule), 'and down to the window bottom');
+  // That variable has to be something the app actually publishes.
+  assert.ok(/--wekan-header-height/.test(read('client/lib/utils.js')),
+    'and utils.js must keep --wekan-header-height current');
+
+  // Desktop only. On a phone the sidebar is full width, which sidebar.css
+  // already does for `.board-sidebar.sidebar` below 800px - this element
+  // carries that class, so it is covered.
+  const media = css.slice(0, at).lastIndexOf('@media');
+  assert.ok(media !== -1 && /min-width: 801px/.test(css.slice(media, at)),
+    'these rules must be desktop-only');
+});
+
+test('and the boards move left instead of hiding under it', () => {
+  const css = read('client/components/boards/boardsList.css');
+  assert.ok(/\.all-boards-wrapper\.sidebar-open \.boards-layout \{[^}]*margin-inline-end: 420px;/.test(css),
+    'the layout gives the panel its width back');
+  assert.ok(/\.wrapper\.all-boards-wrapper\(class="\{\{#if isSidebarOpen\}\}sidebar-open\{\{\/if\}\}"\)/.test(jade),
+    'and the page says when the panel is open');
+  // 420px is the sidebar's own width, not a number of its own.
+  assert.ok(/\.board-sidebar \{[^}]*width: 420px;/.test(read('client/components/sidebar/sidebar.css')),
+    'which is what the sidebar is wide');
 });
 
 test('and the views the sidebar has are the ones it draws', () => {

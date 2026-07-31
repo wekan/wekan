@@ -25,6 +25,19 @@ Template.allBoardsSidebar.helpers({
   isSidebarOpen() {
     return isAllBoardsSidebarOpen();
   },
+  // The theme the panel is painted with.
+  //
+  // `.sidebar .sidebar-content .sidebar-btn` is a light grey box whose text is
+  // WHITE; what makes that readable on a board is a `.board-color-*` ancestor
+  // replacing the grey with a themed colour. This page has no board, so without
+  // a class here every button was white on light grey - unreadable, which is
+  // exactly what it looked like.
+  //
+  // `board-color-belize` is the established default for a themed thing outside
+  // a board: client/components/main/globalSearch.js falls back to the same one.
+  themeClass() {
+    return 'board-color-belize';
+  },
   sidebarViewTemplate() {
     return sidebarViewTemplate(allBoardsSidebarView());
   },

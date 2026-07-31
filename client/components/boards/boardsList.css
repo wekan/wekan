@@ -260,14 +260,6 @@
   min-width: 0;
 }
 
-/* The All Boards right sidebar borrows the board sidebar's shell, which is
-   `position: absolute`. It needs a positioned ancestor, and `.wrapper` is not
-   one - without this the panel anchors to the initial containing block and
-   scrolls away from the page it belongs to. */
-.all-boards-wrapper {
-  position: relative;
-}
-
 /* The sidebar's own rows. `.sidebar-btn` and `.sidebar-list` come from the
    board sidebar's stylesheet, which is loaded on every page, so only what is
    particular to this one is here. */
@@ -275,6 +267,40 @@
   color: #666;
   font-size: 13px;
   margin: 8px 0;
+}
+
+/* ── Where the All Boards sidebar sits, on a DESKTOP ────────────────────────
+   It first inherited the board sidebar's `position: absolute`, which resolves
+   against the nearest positioned ancestor. On a board that ancestor is the
+   board container: it starts below the header and runs to the bottom of the
+   window, so the panel does too. This page has no such container, so the panel
+   floated in the middle of the page - over the board icons, starting halfway
+   down and ending as soon as its content did.
+   Pinned to the VIEWPORT instead:
+     top    the header's own measured height. The header is not one fixed
+            height (its buttons wrap to one, two or three rows depending on
+            language and window width), so --wekan-header-height is what it
+            MEASURES itself to be - client/lib/utils.js keeps it current with a
+            ResizeObserver. The same variable the board sidebar uses on phones.
+     bottom the window, so the panel is full height like the board's.
+   Phones are NOT here: `.board-sidebar.sidebar` inside sidebar.css's max-width
+   800px block already pins this element (it carries that class) to the full
+   screen width below the header, which is what a phone should do. */
+@media screen and (min-width: 801px) {
+  .all-boards-sidebar.sidebar {
+    position: fixed;
+    top: var(--wekan-header-height, 0px);
+    bottom: 0;
+    inset-inline-end: 0;
+  }
+
+  /* ...and the boards move LEFT rather than being covered. The page keeps its
+     left menu, the sidebar keeps its width, and the board icons reflow into
+     what is between them - so every icon stays visible instead of hiding under
+     the panel. 420px is `.board-sidebar`'s width. */
+  .all-boards-wrapper.sidebar-open .boards-layout {
+    margin-inline-end: 420px;
+  }
 }
 
 /* #5799: board grid pagination controls, mirroring Admin Panel > People */

@@ -91,9 +91,42 @@ closes the sidebar again, so the button that opened it also shuts it. Escape
 closes it — the **key** only, because the click half of `EscapeActions` would
 close it on every click, including clicks on its own contents.
 
-The shell is `position: absolute`, so the page gives it something to position
-against: `.wrapper.all-boards-wrapper` is `position: relative`. Without that it
-anchors to the initial containing block and scrolls away from the page.
+### Where it sits
+
+On a **desktop** it is pinned to the viewport: `top` is
+`var(--wekan-header-height)` — the height the header MEASURES itself to be,
+kept current by a ResizeObserver in `client/lib/utils.js`, because the header is
+not one fixed height (its buttons wrap to one, two or three rows depending on
+language and window width) — and `bottom` is the window. So it is full height,
+starting below the second top header bar, exactly like the board's.
+
+It first inherited the board sidebar's `position: absolute`, which resolves
+against the nearest positioned ancestor. On a board that ancestor is the board
+container, which already starts below the header and runs to the bottom of the
+window. This page has no such container, so the panel floated in the middle of
+the page, **over** the board icons, and ended as soon as its content did.
+
+And the boards move **left** rather than being covered:
+`.all-boards-wrapper.sidebar-open .boards-layout` gives the panel its 420px
+back, so the icons reflow into what is left between the menu and the panel and
+every one of them stays visible.
+
+On a **phone** neither applies: `.board-sidebar.sidebar` in the board sidebar's
+own stylesheet already pins this element — it carries that class — to the full
+screen width below the header, which is what a phone should do. There is nothing
+to move aside from a full-width panel.
+
+### It carries a theme
+
+`.sidebar .sidebar-content .sidebar-btn` is a light grey box whose text is
+**white**. What makes that readable on a board is a `.board-color-*` ancestor
+replacing the grey with a themed colour — and this page has no board, so the
+first version was white text on light grey, invisible. The shell carries
+`board-color-belize`, the established default for a themed thing outside a board
+(`globalSearch.js` falls back to the same one).
+
+The theme is a class on the element, so it is the **same at every width**; only
+the geometry above is desktop-only.
 
 ## The view menu
 

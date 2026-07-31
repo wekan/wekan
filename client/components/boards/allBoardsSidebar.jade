@@ -9,8 +9,13 @@
 //-
 //- docs/Design/Page/Search.md, docs/Design/Page/Multi-Selection.md
 
+//- `themeClass` is a board-colour class, and it is what makes the panel
+//- readable: `.sidebar .sidebar-content .sidebar-btn` is a light grey box whose
+//- text is WHITE, and only a `.board-color-*` ancestor replaces that grey with
+//- a themed colour. On a board there always is one. Here there is no board, so
+//- without it every button was white-on-light-grey - invisible.
 template(name="allBoardsSidebar")
-  .board-sidebar.sidebar.all-boards-sidebar(class="{{#if isSidebarOpen}}is-open{{/if}}")
+  .board-sidebar.sidebar.all-boards-sidebar(class="{{themeClass}} {{#if isSidebarOpen}}is-open{{/if}}")
     .sidebar-actions
       a.sidebar-xmark.js-close-all-boards-sidebar(aria-label="{{_ 'close'}}") &#10005;
     .sidebar-content.js-all-boards-sidebar-content

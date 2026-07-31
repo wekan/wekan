@@ -55,6 +55,13 @@ its full-width look, and that stylesheet is loaded everywhere.
 > matching nothing for two commits while the box rendered at the browser's
 > default input size.
 
+> **The panel it opens in** is the All Boards sidebar, and where it sits and
+> how it is themed is [All Boards](All-Boards.md#where-it-sits): pinned below the
+> header to the window bottom on a desktop, with the board icons moved left
+> rather than covered; full width on a phone; and painted with a theme at both
+> sizes, because a sidebar button is white text that needs a themed background
+> under it.
+
 ## The board search view
 
 `searchSidebar`, in `client/components/sidebar/sidebarSearches.js` — unchanged.

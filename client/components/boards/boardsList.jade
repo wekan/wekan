@@ -1,8 +1,9 @@
 template(name="boardList")
-  //- `all-boards-wrapper` is what the right sidebar positions against: it is
-    `position: absolute` in the shell it borrows from the board sidebar, and
-    `.wrapper` alone is not a positioned ancestor.
-  .wrapper.all-boards-wrapper
+  //- `sidebar-open` moves the boards LEFT while the right sidebar is open, so
+    every board icon stays visible between the left menu and the panel instead
+    of hiding under it. Desktop only - on a phone the sidebar is full width and
+    there is nothing to move aside. boardsList.css
+  .wrapper.all-boards-wrapper(class="{{#if isSidebarOpen}}sidebar-open{{/if}}")
     +allBoardsSidebar
     .boards-layout
       // Left menu
