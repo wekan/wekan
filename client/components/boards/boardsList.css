@@ -70,12 +70,22 @@
    and Boards in Archive - and without a rule the tree ran into its neighbours
    as if it were more of the same list.
 
-   The SAME grey the menu's own right edge uses (`.boards-left-menu`), not the
-   browser default: a default `hr` is a beveled 2px ridge that reads as heavier
-   than the border it sits inside. */
+   DARK grey, `#888`, which this stylesheet already uses. The first version was
+   a #e0e0e0 hairline - the same grey as the menu's own right edge - and it was
+   too faint to separate anything. A light grey needs area to be seen at all,
+   and area is what turns a divider into something that reads as a row; a dark
+   one is legible as a line, so it stays a line.
+
+   2px rather than 1: at 1px a mid-tone rule can land on a half-pixel boundary
+   and be drawn as two lighter rows on a fractional-scale display, which is the
+   faintness this was meant to fix.
+
+   `border: 0` first: a default `hr` is a beveled 2px ridge, and the bevel would
+   draw its own lighter edges through this. */
 .boards-left-menu hr.boards-menu-divider {
   border: 0;
-  border-top: 1px solid #e0e0e0;
+  height: 2px;
+  background: #888;
   margin: 12px 0;
 }
 

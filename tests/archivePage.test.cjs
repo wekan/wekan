@@ -161,9 +161,18 @@ test('and All Boards reaches it from the left menu, not the header bar', () => {
   const at = css.indexOf('.boards-left-menu hr.boards-menu-divider {');
   assert.notStrictEqual(at, -1, 'the rule is styled');
   const rule = css.slice(at, css.indexOf('}', at));
-  assert.ok(/border:\s*0/.test(rule) && /border-top:\s*1px solid/.test(rule),
-    'one hairline, not a ridge');
-  assert.ok(/#e0e0e0/.test(rule), "the same grey as the menu's own edge");
+  // DARK grey. The first version was a #e0e0e0 hairline - the same grey as the
+  // menu's own right edge - and it was too faint to separate anything. A light
+  // grey needs area to be seen, and area is what turns a divider into something
+  // that reads as a row; a dark one is legible as a line, so it stays a line.
+  assert.ok(/border:\s*0/.test(rule), 'no default hr bevel drawing through it');
+  assert.ok(/background:\s*#888/.test(rule), 'dark grey, not a near-white hairline');
+  assert.ok(/height:\s*2px/.test(rule),
+    '2px: at 1px a rule can land on a half-pixel boundary and be drawn as two '
+    + 'lighter rows on a fractional-scale display, which is the faintness this fixes');
+  // ...and it is a grey this stylesheet already uses, rather than a new one.
+  assert.ok((css.match(/#888/g) || []).length > 1,
+    '#888 is already part of this menu\'s palette');
 
   // The handler moved WITH the markup. A Blaze event map only sees events
   // inside its own template, so one left behind in allBoardsHeaderButtons would

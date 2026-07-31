@@ -277,7 +277,9 @@ rows rather than as a stray link.
 The Workspaces section has a rule above and below it. The left menu is three
 kinds of thing in one column — the three board lists, the workspaces tree, and
 the archive — and without them the tree ran into its neighbours as if it were
-more of the same list.
+more of the same list. They are a 2px dark grey line: a first attempt used the
+same near-white the menu's own edge uses and was too faint to separate
+anything.
 
 The click handler moved with the markup, because a Blaze event map only sees
 events inside its own template: one left behind in the header buttons would

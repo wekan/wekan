@@ -34,9 +34,14 @@ not what clicking a place should do.
 The left menu is three kinds of thing in one column — the three board lists, the
 workspaces tree, and the archive — so the Workspaces section has a rule above and
 below it. Without them the tree ran into its neighbours as if it were more of the
-same list. They are one hairline in the same grey as the menu's own right edge,
-not a default `hr`, which is a beveled 2px ridge that reads heavier than the
-border beside it.
+same list. They are a 2px `#888` rule — **dark** grey, and a grey this
+stylesheet already uses. The first version was a `#e0e0e0` hairline, the same
+grey as the menu's own right edge, and it was too faint to separate anything: a
+light grey needs *area* to be seen at all, and area is what turns a divider into
+something that reads as another row. A dark one is legible as a line, so it stays
+a line. 2px rather than 1 because at 1px a mid-tone rule can land on a half-pixel
+boundary and be drawn as two lighter rows on a fractional-scale display — which
+is the same faintness this was meant to fix.
 
 They have been in three places. They were a row of the page's own body, then a
 second top header bar, then rows of the right sidebar's home view — and that
