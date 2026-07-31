@@ -266,7 +266,7 @@ browser build to verify).
 This release adds the following new features:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">A swimlane, a list and a card can each be linked, and the link lands on the thing it names</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e755b60b3">A swimlane, a list and a card can each be linked, and the link lands on the thing it names</a>. Thanks to xet7.</summary>
 
 A card has had an address since there has been a card route. A swimlane and a
 list had none, so "the Backlog list of this board" could only be sent as "open
