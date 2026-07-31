@@ -266,6 +266,27 @@ browser build to verify).
 This release adds the following new features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">Boards in Archive moves to the All Boards left menu, and the Workspaces section gets its rules</a>. Thanks to xet7.</summary>
+
+Boards in Archive was a button in the first top header bar beside Sort, Search
+and Multi-Selection. Those three act on the boards in front of you; Boards in
+Archive is a place you go instead, so it is a row of the left menu now, below
+the Workspaces section, with the other places — and drawn like the menu's own
+rows rather than as a stray link.
+
+The Workspaces section has a rule above and below it. The left menu is three
+kinds of thing in one column — the three board lists, the workspaces tree, and
+the archive — and without them the tree ran into its neighbours as if it were
+more of the same list.
+
+The click handler moved with the markup, because a Blaze event map only sees
+events inside its own template: one left behind in the header buttons would
+never fire and the row would silently do nothing, which is exactly what happened
+to this button once before. A guard now checks both halves of that.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f62258b5c">The header bar draws one star group, and names the buttons whose icon does not say enough</a>. Thanks to xet7.</summary>
 
 The bar drew two stars in a row — one on the starred-boards dropdown and one for

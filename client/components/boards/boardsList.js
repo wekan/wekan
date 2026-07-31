@@ -256,13 +256,6 @@ Template.allBoardsHeaderButtons.events({
     BoardMultiSelection.activate();
     openAllBoardsSidebar(SIDEBAR_MULTISELECTION);
   },
-  // Boards in Archive is a page of its own, not a view of the sidebar, so this
-  // closes the panel rather than leaving it open over the page it navigates to.
-  'click .js-open-archived-board'(evt) {
-    evt.preventDefault();
-    closeAllBoardsSidebar();
-    FlowRouter.go('archive');
-  },
 });
 
 Template.boardList.events({});
@@ -1067,6 +1060,20 @@ function persistBoardOrderFromDom(evt, tpl) {
 }
 
 Template.boardList.events({
+  // Boards in Archive, from the left menu. It moved here from the first header
+  // bar with its markup: a Blaze event map only sees events inside its OWN
+  // template, so a handler left behind in allBoardsHeaderButtons would never
+  // fire and the row would silently do nothing - which is exactly what happened
+  // to this button once before.
+  //
+  // The sidebar is closed on the way: Boards in Archive is a page of its own,
+  // and leaving the panel open over the page it navigates to is not what
+  // clicking a place should do.
+  'click .js-open-archived-board'(evt) {
+    evt.preventDefault();
+    closeAllBoardsSidebar();
+    FlowRouter.go('archive');
+  },
   'mousedown .js-board'(evt) {
     boardPressStartedOnHandle = !!(evt.target && evt.target.closest &&
       evt.target.closest('.board-handle'));

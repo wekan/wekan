@@ -20,11 +20,23 @@ same emphasis state when a control is on.
 | Sort | `fa-sort` | Opens the boards sort popup. Emphasised while a sort other than the custom order is active. |
 | Search | `fa-search` | Opens the right sidebar on its search view — [Search](Search.md). |
 | Multi-Selection | `fa-check-square-o` | Turns board multi-selection on and opens the sidebar that holds what to do with a selection — [Multi-Selection](Multi-Selection.md). |
-| Boards in Archive | `fa-archive` | Leaves for [the archive page](Archive.md), and closes the sidebar behind it. |
 | Lists / Table | `fa-trello` / `fa-table` | The view menu — see below. |
 
 Each names itself beside its icon where the bar has room for it, and loses the
 label below 1100px with every other one — see [the header](Header.md).
+
+**Boards in Archive is not one of them.** The three above act on the boards in
+front of you; Boards in Archive is a *place* you go instead, so it is a row of
+the **left menu**, below the Workspaces section, with the other places. It closes
+the sidebar on the way — leaving the panel open over the page it navigates to is
+not what clicking a place should do.
+
+The left menu is three kinds of thing in one column — the three board lists, the
+workspaces tree, and the archive — so the Workspaces section has a rule above and
+below it. Without them the tree ran into its neighbours as if it were more of the
+same list. They are one hairline in the same grey as the menu's own right edge,
+not a default `hr`, which is a beveled 2px ridge that reads heavier than the
+border beside it.
 
 They have been in three places. They were a row of the page's own body, then a
 second top header bar, then rows of the right sidebar's home view — and that

@@ -664,7 +664,6 @@ test('and a view menu says its view in words, not only in a tooltip', () => {
     ['js-open-boards-sort', 'sort-boards'],
     ['js-all-boards-sidebar-search', 'search-boards'],
     ['js-all-boards-sidebar-multiselection', 'multi-selection'],
-    ['js-open-archived-board', 'archived-boards'],
   ]) {
     const btnAt = btnHead.indexOf(cls);
     assert.notStrictEqual(btnAt, -1, `${cls} must be an All Boards header button`);

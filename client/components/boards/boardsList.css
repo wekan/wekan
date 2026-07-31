@@ -65,12 +65,28 @@
   border: 1px dashed #4CAF50;
 }
 
+/* The rules above and below the Workspaces section. The left menu is three
+   kinds of thing in one column - the three board lists, the workspaces tree,
+   and Boards in Archive - and without a rule the tree ran into its neighbours
+   as if it were more of the same list.
+
+   The SAME grey the menu's own right edge uses (`.boards-left-menu`), not the
+   browser default: a default `hr` is a beveled 2px ridge that reads as heavier
+   than the border it sits inside. */
+.boards-left-menu hr.boards-menu-divider {
+  border: 0;
+  border-top: 1px solid #e0e0e0;
+  margin: 12px 0;
+}
+
 .workspaces-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-weight: bold;
-  margin-top: 12px;
+  /* The rule above it already provides the separation this margin was for, and
+     the two together read as a gap twice as wide as anything else in the menu. */
+  margin-top: 0;
 }
 .workspaces-header .js-add-space,
 .workspaces-header .js-add-workspace {

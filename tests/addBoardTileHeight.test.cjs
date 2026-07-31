@@ -118,9 +118,15 @@ test('All Boards has no header bar left to hold controls', () => {
   // hamburger opened. docs/Design/Page/All-Boards.md
   const buttons = jade.slice(jade.indexOf('template(name="allBoardsHeaderButtons")'));
   for (const control of ['js-open-boards-sort', 'js-all-boards-sidebar-search',
-    'js-all-boards-sidebar-multiselection', 'js-open-archived-board']) {
+    'js-all-boards-sidebar-multiselection']) {
     assert.ok(buttons.includes(control), `${control} must be a header button`);
   }
+  // Boards in Archive is NOT one of them any more. Those three act on the
+  // boards in front of you; Boards in Archive is a PLACE you go instead, so it
+  // is in the left menu with the other places. tests/archivePage.test.cjs
+  // checks it there.
+  assert.ok(!buttons.includes('js-open-archived-board'),
+    'Boards in Archive is a place, not a control of this page');
   // Icons only, named by a tooltip, like every other button of that bar.
   assert.ok(!/\n\s+span \{\{_/.test(buttons.slice(0, buttons.indexOf('\ntemplate('))),
     'the buttons carry no visible label');

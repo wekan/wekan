@@ -39,6 +39,11 @@ template(name="boardList")
                     span.emoji-icon
                       i.fa.fa-share-alt
                     |  {{name}}
+        //- Rules above and below the Workspaces section. The menu is three
+          kinds of thing in one column - the three board lists, the workspaces
+          tree, and the archive - and without them the tree ran into its
+          neighbours as if it were more of the same list.
+        hr.boards-menu-divider
         .workspaces-header
           span
             span.emoji-icon
@@ -47,6 +52,20 @@ template(name="boardList")
           a.js-add-workspace(title="{{_ 'allboards.add-workspace'}}") +
         // Workspaces tree
         +workspaceTree(nodes=workspacesTree selectedWorkspaceId=selectedWorkspaceId)
+        hr.boards-menu-divider
+
+        //- Boards in Archive, below the Workspaces section. It was a button in
+          the first top header bar beside Sort, Search and Multi-Selection -
+          but those three act on the boards in front of you, and this one is a
+          PLACE you go instead. It belongs with the other places.
+          docs/Design/Page/Archive.md
+        ul.menu
+          li.menu-item
+            a.js-open-archived-board
+              span.menu-label
+                span.emoji-icon
+                  i.fa.fa-archive
+                |  {{_ 'archived-boards'}}
 
         // Existing filter by orgs/teams (kept)
         ul.AllBoardTeamsOrgs
@@ -369,9 +388,6 @@ template(name="allBoardsHeaderButtons")
     a.board-header-btn.js-all-boards-sidebar-multiselection(title="{{_ 'multi-selection'}}")
       i.fa.fa-check-square-o
       span.board-header-btn-label {{_ 'multi-selection'}}
-  a.board-header-btn.js-open-archived-board(title="{{_ 'archived-boards'}}")
-    i.fa.fa-archive
-    span.board-header-btn-label {{_ 'archived-boards'}}
 
 template(name="allBoardsViewMenu")
   //- The name is visible beside the icon, the same as the board's view menu:

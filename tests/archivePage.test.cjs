@@ -126,6 +126,59 @@ test('it keeps its search and its server-side paging', () => {
   assert.ok(/TABLE_PAGE_ROWS_PER_PAGE/.test(js), "and it is the app's one rows-per-page");
 });
 
+test('and All Boards reaches it from the left menu, not the header bar', () => {
+  // It was a button in the first header bar beside Sort, Search and
+  // Multi-Selection. Those three act on the boards in front of you; this one is
+  // a PLACE you go instead, so it belongs with the other places.
+  const jade = read('client/components/boards/boardsList.jade');
+  const menu = jade.slice(jade.indexOf('.boards-left-menu'),
+    jade.indexOf('ul.AllBoardTeamsOrgs'));
+  const rowAt = menu.indexOf('js-open-archived-board');
+  assert.notStrictEqual(rowAt, -1, 'the row is in the left menu');
+  // BELOW the Workspaces section, not above it or inside the tree.
+  const treeAt = menu.indexOf('+workspaceTree');
+  assert.ok(treeAt !== -1 && rowAt > treeAt, 'below the workspaces tree');
+  // Shaped like the menu's other rows, so it does not read as a stray link.
+  const row = menu.slice(rowAt - 60, rowAt + 200);
+  assert.ok(/li\.menu-item/.test(row) && /span\.menu-label/.test(row),
+    'and drawn as a menu row like Starred, Templates and Remaining');
+  assert.ok(/fa-archive/.test(row) && /\{\{_ 'archived-boards'\}\}/.test(row),
+    'with its icon and its name');
+
+  // A rule above and below the Workspaces section: the menu is three kinds of
+  // thing in one column and the tree ran into its neighbours without them.
+  const dividers = (menu.match(/hr\.boards-menu-divider/g) || []).length;
+  assert.strictEqual(dividers, 2, 'one rule above the section and one below');
+  const headerAt = menu.indexOf('.workspaces-header');
+  const firstHr = menu.indexOf('hr.boards-menu-divider');
+  const secondHr = menu.indexOf('hr.boards-menu-divider', firstHr + 1);
+  assert.ok(firstHr < headerAt, 'the first is above the section');
+  assert.ok(secondHr > treeAt && secondHr < rowAt,
+    'the second is below the tree and above the archive row');
+  // Styled, and not left as the browser default - a default hr is a beveled
+  // 2px ridge that reads heavier than the menu's own border beside it.
+  const css = read('client/components/boards/boardsList.css');
+  const at = css.indexOf('.boards-left-menu hr.boards-menu-divider {');
+  assert.notStrictEqual(at, -1, 'the rule is styled');
+  const rule = css.slice(at, css.indexOf('}', at));
+  assert.ok(/border:\s*0/.test(rule) && /border-top:\s*1px solid/.test(rule),
+    'one hairline, not a ridge');
+  assert.ok(/#e0e0e0/.test(rule), "the same grey as the menu's own edge");
+
+  // The handler moved WITH the markup. A Blaze event map only sees events
+  // inside its own template, so one left behind in allBoardsHeaderButtons would
+  // never fire - which is what happened to this very button once before.
+  const js = read('client/components/boards/boardsList.js');
+  const headerMapAt = js.indexOf('Template.allBoardsHeaderButtons.events({');
+  const headerMap = js.slice(headerMapAt, js.indexOf('\n});', headerMapAt));
+  assert.ok(!headerMap.includes('js-open-archived-board'),
+    'no handler left behind in the header buttons');
+  const listMapAt = js.lastIndexOf('Template.boardList.events({');
+  const listMap = js.slice(listMapAt);
+  assert.ok(listMap.includes("'click .js-open-archived-board'"),
+    'the template that draws it handles it');
+});
+
 for (const [name, fn] of tests) {
   try { fn(); passed++; console.log('  ok -', name); }
   catch (err) { console.error(`  FAIL - ${name}\n    ${err.message}`); process.exitCode = 1; }
