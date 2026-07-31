@@ -28,13 +28,24 @@ the member's permission settings.
 
 ![Wekan member filter screenshot](../screenshot-member-filter.png)
 
-## Permissions: Admin / Normal / Comment only
+## Permissions: the board roles
 
-Click a member's initials or avatar to set their role on the board:
+Click a member's initials or avatar to set their role on the board. There are
+nine, and the short version is:
 
-- **Admin** — full control of the board.
-- **Normal** — can edit cards.
-- **Comment only** — can only add comments, not edit cards.
+- **Board admin** — full control of the board, including its settings and who is
+  on it.
+- **Normal** — can create and edit cards, lists and swimlanes, and comment.
+- **No comments** — as Normal, but cannot comment.
+- **Comment only** — can only add comments, not edit anything.
+- **Worker** — can move cards and comment, but not edit them.
+- **Read only** — can see the board and nothing else.
+- ...and an **assigned only** variant of Normal, Comment only and Read only, which
+  additionally sees *only the cards it is assigned to*.
+
+**[Board roles — what each one may and may not do](Roles.md)** is the full
+comparison table, column by column, written from the code — including the places
+where a role does not yet do what its name says.
 
 ![Wekan permissions screenshot](../screenshot-member-comment-only.png)
 
