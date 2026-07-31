@@ -496,6 +496,16 @@ test('and the Admin Panel says WHICH of its four pages is open', () => {
   const jade = read('client/components/settings/settingHeader.jade');
   const tabs = jade.slice(jade.indexOf('template(name="adminPanelTabs")'));
 
+  // Each tab names itself beside its icon where the bar has room, from the same
+  // key its tooltip uses - so a tab and its tooltip cannot say different things.
+  // They lose the label below 1100px with every other one in this bar.
+  for (const key of ['settings', 'people', 'attachments', 'problems']) {
+    assert.ok(tabs.includes(`board-header-btn-label {{_ '${key}'}}`),
+      `the ${key} tab carries its name`);
+    assert.ok(tabs.includes(`title="{{_ '${key}'}}"`),
+      `the ${key} tab's tooltip uses the same key`);
+  }
+
   for (const [route, sub] of Object.entries(PAGE_TITLE_SUBKEYS)) {
     const t = headerTitle(route);
     assert.strictEqual(t.key, 'admin-panel', `${route} is an Admin Panel page`);
@@ -740,34 +750,45 @@ test('and a view menu says its view in words, not only in a tooltip', () => {
   }
 });
 
-test('and the Filter button shuts the panel it opened', () => {
-  const { filterButtonAction, FILTER_OPEN, FILTER_CLOSE } =
-    require('../models/lib/filterButton');
+test('and Filter and Search shut the panel they opened', () => {
+  const { sidebarViewButtonAction, SIDEBAR_VIEW_OPEN, SIDEBAR_VIEW_CLOSE } =
+    require('../models/lib/sidebarViewButton');
   // Every combination, because the interesting one is the exception.
-  assert.strictEqual(filterButtonAction(false, false), FILTER_OPEN, 'closed -> open');
-  assert.strictEqual(filterButtonAction(false, true), FILTER_OPEN,
-    'closed with a filter on -> open, so you can see what is filtered');
-  assert.strictEqual(filterButtonAction(true, false), FILTER_CLOSE,
-    'showing, nothing filtered -> the same button shuts it');
-  // The exception: with a filter ON the sidebar is the one place that says what
-  // is being hidden from the board. Closing it would leave a board showing a
-  // subset of its cards with nothing on screen to say so.
-  assert.strictEqual(filterButtonAction(true, true), FILTER_OPEN,
-    'showing with a filter on -> stays, because it is what says what is filtered');
+  assert.strictEqual(sidebarViewButtonAction(false, false), SIDEBAR_VIEW_OPEN,
+    'closed -> open');
+  assert.strictEqual(sidebarViewButtonAction(false, true), SIDEBAR_VIEW_OPEN,
+    'closed, must stay open -> open, so you can see what it is doing');
+  assert.strictEqual(sidebarViewButtonAction(true, false), SIDEBAR_VIEW_CLOSE,
+    'showing, free to close -> the same button shuts it');
+  // The exception is Filter's: with a filter ON the sidebar is the one place
+  // that says what is being hidden from the board, and closing it would leave a
+  // board showing a subset of its cards with nothing on screen to say so.
+  assert.strictEqual(sidebarViewButtonAction(true, true), SIDEBAR_VIEW_OPEN,
+    'showing and must stay open -> stays');
 
   const js = read('client/components/boards/boardHeader.js');
-  const at = js.indexOf("'click .js-open-filter-view'()");
-  assert.notStrictEqual(at, -1, 'the button is handled');
-  const body = js.slice(at, js.indexOf('\n  },', at));
-  // "Showing the filter" is open AND on that view: a sidebar open on Activities
-  // is not showing the filter, and clicking Filter there must switch to it
-  // rather than close the panel.
-  assert.ok(/sidebar\.isOpen\(\) && sidebar\.getView\(\) === 'filter'/.test(body),
-    'open AND on the filter view, not merely open');
-  assert.ok(/filterButtonAction\(isShowingFilter, Filter\.isActive\(\)\)/.test(body),
+  // One helper, both buttons: two copies of "which way does this click go"
+  // would eventually be two answers.
+  const at = js.indexOf('function toggleSidebarView(view, mustStayOpen) {');
+  assert.notStrictEqual(at, -1, 'one helper does the toggling');
+  const body = js.slice(at, js.indexOf('\n}', at));
+  // "Showing this view" is open AND on it: a sidebar open on Activities is
+  // showing neither, and clicking either button there must switch to it rather
+  // than close the panel.
+  assert.ok(/sidebar\.isOpen\(\) && sidebar\.getView\(\) === view/.test(body),
+    'open AND on this view, not merely open');
+  assert.ok(/sidebarViewButtonAction\(isShowingView, mustStayOpen\)/.test(body),
     'the rule is asked, not re-derived here');
-  assert.ok(/sidebar\.hide\(\)/.test(body) && /sidebar\.setView\('filter'\)/.test(body),
+  assert.ok(/sidebar\.hide\(\)/.test(body) && /sidebar\.setView\(view\)/.test(body),
     'and both ways are taken');
+
+  // Filter passes its exception; Search has none - its results are inside the
+  // panel, so closing it hides nothing from the board.
+  assert.ok(/toggleSidebarView\('filter', Filter\.isActive\(\)\)/.test(js),
+    'Filter stays open while a filter is on');
+  assert.ok(/toggleSidebarView\('search', false\)/.test(js),
+    'Search always toggles');
+
   // The X that clears the filter is a different control and stays.
   assert.ok(/'click \.js-filter-reset'/.test(js), 'clearing is still its own button');
 });

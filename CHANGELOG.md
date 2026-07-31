@@ -279,12 +279,13 @@ box on the bar, while these sit on the bar's own colour.
 The count is shown even at zero, because it is now the button's only label; a
 bare caret says nothing about what it opens.
 
-Clicking Filter while the filter sidebar is already showing closes it. It only
-ever opened, so a second click did nothing visible and the only way back was the
-sidebar's own ✕, somewhere else on screen from the thing you just clicked — but
-not while a filter is ON, because the sidebar is then the one place that says
-what is being hidden from the board, and closing it would leave a board showing
-a subset of its cards with nothing to say so.
+Clicking Filter or Search while the sidebar is already showing that view closes
+it. They only ever opened, so a second click did nothing visible and the only
+way back was the sidebar's own ✕, somewhere else on screen from the thing you
+just clicked. Filter has one exception — not while a filter is ON, because the
+sidebar is then the one place that says what is being hidden from the board, and
+closing it would leave a board showing a subset of its cards with nothing to say
+so. Search has no such case: its results are inside the panel.
 
 The starred-boards popup has a title, "Starred Boards", and so has a header —
 and the header is what carries the close button; without a title it rendered

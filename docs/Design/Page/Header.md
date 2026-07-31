@@ -91,8 +91,9 @@ unrelated things.
 
 **A button says its name where the bar has room for it.** Sort Cards, Filter,
 Search, Show Dependencies, the board's visibility (Private / Public), its watch
-level (Watching / Tracking / Muted), Multi-Selection and the view menus carry
-their name beside the icon: a tooltip is the one place a name cannot be read without
+level (Watching / Tracking / Muted), Multi-Selection, the view menus, All Boards'
+four controls and the Admin Panel's four tabs all carry their name beside the
+icon: a tooltip is the one place a name cannot be read without
 hovering, and six view glyphs or a bare check-box outline say very little on
 their own.
 
@@ -157,24 +158,27 @@ this bar can place it here rather than among the board's other controls further
 along — a Blaze event map only sees events inside its own template, so its
 helpers and its click came with its markup.
 
-### The Filter button shuts what it opened
+### Filter and Search shut what they opened
 
-Clicking Filter while the filter sidebar is already showing **closes** it — the
-control that opened the panel is the one you reach for to shut it, and it only
+Clicking either while the sidebar is already showing its view **closes** it — the
+control that opened the panel is the one you reach for to shut it, and they only
 ever opened, so a second click did nothing visible and the only way back was the
 sidebar's own ✕ somewhere else on screen.
 
-**Except while a filter is on.** The sidebar is then the one place that says
-*what* is being hidden from the board, and closing it would leave a board showing
-a subset of its cards with nothing on screen to say so. Clicking then keeps it
-open; the ✕ beside the button is what clears the filter.
+**Filter has one exception: while a filter is on.** The sidebar is then the one
+place that says *what* is being hidden from the board, and closing it would leave
+a board showing a subset of its cards with nothing on screen to say so. Clicking
+then keeps it open; the ✕ beside the button is what clears the filter. Search has
+no such case — its results are inside the panel and it hides nothing from the
+board — so it always toggles.
 
-"Showing the filter" means open **and** on that view — a sidebar open on
-Activities is not showing the filter, and clicking Filter there switches to it
-rather than closing the panel.
+"Showing its view" means open **and** on that view — a sidebar open on Activities
+is showing neither, and clicking either button there switches to it rather than
+closing the panel.
 
-`models/lib/filterButton.js` holds the rule, so "which way does this click go" is
-answered once and can be checked in every combination without a DOM.
+`models/lib/sidebarViewButton.js` holds the rule and one helper applies it, so
+"which way does this click go" is answered once for both buttons and can be
+checked in every combination without a DOM.
 
 **The button of the page you are on keeps the hover background**, permanently and
 a shade darker. Darker rather than equal: hovering the tab you are already on has
@@ -225,7 +229,7 @@ be opened from.
 | `client/components/main/header.css` | `.css` | The wrap, the end group, the active mark, the divider. |
 | `models/lib/pageTitles.js` | `.js` module, pure | Route name → title key, and the Admin Panel's second segment. |
 | `models/lib/pageSidebar.js` | `.js` module, pure | Which sidebar a page has, and whether it is offered a hamburger. |
-| `models/lib/filterButton.js` | `.js` module, pure | Which way the Filter button's click goes. |
+| `models/lib/sidebarViewButton.js` | `.js` module, pure | Which way a Filter or Search click goes. |
 | `client/lib/pageTitleSources.js` | `.js` client | The three pages whose title is their own, without importing those pages. |
 | `client/lib/utils.js` | `.js` client | `--wekan-header-height`, measured from both bars. |
 | `tests/headerBars.test.cjs` | `.cjs` Node test | The wrap, the end group, the view menus, the active mark, the divider, and both title paths. |

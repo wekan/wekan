@@ -8,10 +8,14 @@ template(name="adminPanelTabs")
       if currentUser.isAdmin
         a.board-header-btn.settings(class=isSettingsActive href="{{pathFor 'setting'}}" title="{{_ 'settings'}}")
           i.fa.fa-cog
+          span.board-header-btn-label {{_ 'settings'}}
       a.board-header-btn.people(class=isPeopleActive href="{{pathFor 'people'}}" title="{{_ 'people'}}")
         i.fa.fa-users
+        span.board-header-btn-label {{_ 'people'}}
       a.board-header-btn.informations(class=isAttachmentsActive href="{{pathFor 'attachments'}}" title="{{_ 'attachments'}}")
         i.fa.fa-paperclip
+        span.board-header-btn-label {{_ 'attachments'}}
       if currentUser.isAdmin
         a.board-header-btn.problems(class="{{isProblemsActive}} {{problemsClass}}" href="{{pathFor 'admin-reports'}}" title="{{_ 'problems'}}")
           i.fa.fa-exclamation-triangle
+          span.board-header-btn-label {{_ 'problems'}}

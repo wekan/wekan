@@ -7,8 +7,12 @@ import Boards from '/models/boards';
 import Swimlanes from '/models/swimlanes';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { Filter } from '/client/lib/filter';
-// Which way the Filter button goes on a click - one answer, in one place.
-import { FILTER_CLOSE, filterButtonAction } from '/models/lib/filterButton';
+// Which way a button that opens a sidebar view goes on a click - one answer,
+// in one place, for both Filter and Search.
+import {
+  SIDEBAR_VIEW_CLOSE,
+  sidebarViewButtonAction,
+} from '/models/lib/sidebarViewButton';
 import { MultiSelection } from '/client/lib/multiSelection';
 import { getSidebarInstance } from '/client/features/sidebar/service';
 import { Utils } from '/client/lib/utils';
@@ -149,6 +153,24 @@ Template.boardStarButton.events({
   },
 });
 
+// Open the sidebar on `view`, or shut it when it is already showing that view.
+// `mustStayOpen` is Filter's exception: see models/lib/sidebarViewButton.js.
+function toggleSidebarView(view, mustStayOpen) {
+  const sidebar = getSidebarInstance();
+  if (!sidebar) {
+    console.warn('Sidebar not available for setView');
+    return;
+  }
+  // Open AND on this view: a sidebar open on Activities is showing neither, and
+  // clicking either button there has to switch to it rather than close.
+  const isShowingView = sidebar.isOpen() && sidebar.getView() === view;
+  if (sidebarViewButtonAction(isShowingView, mustStayOpen) === SIDEBAR_VIEW_CLOSE) {
+    sidebar.hide();
+    return;
+  }
+  sidebar.setView(view);
+}
+
 Template.boardHeaderButtons.events({
   'click .js-edit-board-title': Popup.open('boardChangeTitle'),
   'click .js-change-visibility': Popup.open('boardChangeVisibility'),
@@ -191,19 +213,10 @@ Template.boardHeaderButtons.events({
   // Not while a filter is ON, though: the sidebar is then the one place that
   // says what is being hidden from the board, and closing it would leave a
   // board showing a subset of its cards with nothing on screen to say so. The X
-  // beside this button is what clears the filter. models/lib/filterButton.js
+  // beside this button is what clears the filter.
+  // models/lib/sidebarViewButton.js
   'click .js-open-filter-view'() {
-    const sidebar = getSidebarInstance();
-    if (!sidebar) {
-      console.warn('Sidebar not available for setView');
-      return;
-    }
-    const isShowingFilter = sidebar.isOpen() && sidebar.getView() === 'filter';
-    if (filterButtonAction(isShowingFilter, Filter.isActive()) === FILTER_CLOSE) {
-      sidebar.hide();
-      return;
-    }
-    sidebar.setView('filter');
+    toggleSidebarView('filter', Filter.isActive());
   },
   'click .js-sort-cards': Popup.open('cardsSort'),
   /*
@@ -231,13 +244,11 @@ Template.boardHeaderButtons.events({
   'click .js-sort-reset'() {
     setCardsSortBy('');
   },
+  // Search shuts what it opened too, with no exception: its results are inside
+  // the panel, so closing it hides nothing from the board the way closing an
+  // active filter's panel would. models/lib/sidebarViewButton.js
   'click .js-open-search-view'() {
-    const sidebar = getSidebarInstance();
-    if (sidebar) {
-      sidebar.setView('search');
-    } else {
-      console.warn('Sidebar not available for setView');
-    }
+    toggleSidebarView('search', false);
   },
   'click .js-toggle-dependencies'() {
     const currentBoard = Utils.getCurrentBoard();
