@@ -136,34 +136,6 @@ template(name="boardHeaderBar")
             doing the same thing to its own sidebar. headerBarControls.jade
           +headerSearchButton
 
-          unless currentBoard.isTemplatesBoard
-            a.board-header-btn.js-toggle-board-view
-              i.fa.fa-caret-down
-              if $eq boardView 'board-view-swimlanes'
-                i.fa.fa-th-large
-              if $eq boardView 'board-view-lists'
-                i.fa.fa-trello
-              if $eq boardView 'board-view-cal'
-                i.fa.fa-calendar
-              if $eq boardView 'board-view-gantt'
-                i.fa.fa-bar-chart
-              if $eq boardView 'board-view-table'
-                i.fa.fa-table
-              if $eq boardView 'board-view-stats'
-                i.fa.fa-pie-chart
-              span
-                if $eq boardView 'board-view-swimlanes'
-                  | {{_ 'swimlanes'}}
-                if $eq boardView 'board-view-lists'
-                  | {{_ 'lists'}}
-                if $eq boardView 'board-view-cal'
-                  | {{_ 'calendar'}}
-                if $eq boardView 'board-view-gantt'
-                  | {{_ 'gantt'}}
-                if $eq boardView 'board-view-table'
-                  | {{_ 'board-view-table'}}
-                if $eq boardView 'board-view-stats'
-                  | {{_ 'board-view-stats'}}
           a.board-header-btn.js-toggle-dependencies(
               title="{{#if currentBoard.showDependencies}}{{_ 'hide-dependencies'}}{{else}}{{_ 'show-dependencies'}}{{/if}}"
               class="{{#if currentBoard.showDependencies}}emphasis{{/if}}")
@@ -449,3 +421,41 @@ template(name="cardsSortPopup")
         i.fa.fa-arrow-up
         | {{_ 'created-at-oldest-first'}}
 
+
+//- The board's view menu, in the FIRST top header bar.
+//-
+//- It was a button in the board's second header bar. A view menu says what you
+//- are looking AT, so it belongs beside the page's name in the one bar that is
+//- always on screen - the same place the All Boards Lists/Table menu is.
+//-
+//- `unless currentBoard.isTemplatesBoard`: there is nothing to look at six
+//- ways on a templates board. docs/Design/Page/Header.md
+template(name="boardViewMenu")
+  unless currentBoard.isTemplatesBoard
+    a.board-header-btn.js-toggle-board-view
+      i.fa.fa-caret-down
+      if $eq boardView 'board-view-swimlanes'
+        i.fa.fa-th-large
+      if $eq boardView 'board-view-lists'
+        i.fa.fa-trello
+      if $eq boardView 'board-view-cal'
+        i.fa.fa-calendar
+      if $eq boardView 'board-view-gantt'
+        i.fa.fa-bar-chart
+      if $eq boardView 'board-view-table'
+        i.fa.fa-table
+      if $eq boardView 'board-view-stats'
+        i.fa.fa-pie-chart
+      span
+        if $eq boardView 'board-view-swimlanes'
+          | {{_ 'swimlanes'}}
+        if $eq boardView 'board-view-lists'
+          | {{_ 'lists'}}
+        if $eq boardView 'board-view-cal'
+          | {{_ 'calendar'}}
+        if $eq boardView 'board-view-gantt'
+          | {{_ 'gantt'}}
+        if $eq boardView 'board-view-table'
+          | {{_ 'board-view-table'}}
+        if $eq boardView 'board-view-stats'
+          | {{_ 'board-view-stats'}}

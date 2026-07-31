@@ -97,6 +97,16 @@ template(name="header")
         what people actually wanted from it. Removed rather than left in place as
         a control that does nothing.
 
+      //- The view menu of whatever page has one - Swimlanes / Lists / Calendar
+        / Gantt / Table / Stats on a board, Lists / Table on All Boards. A view
+        menu says what you are looking AT, so it belongs beside the page's name
+        in the bar that is always on screen, not in a second bar or behind a
+        panel. docs/Design/Page/Header.md
+      if isBoardPage
+        +boardViewMenu
+      else if isAllBoardsPage
+        +allBoardsViewMenu
+
       //- The Admin Panel's four tabs, to the LEFT of the bell. Drawn only in
         the Admin Panel: they are navigation between its four pages.
         client/components/settings/settingHeader.jade

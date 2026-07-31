@@ -37,21 +37,15 @@ template(name="allBoardsSidebar")
 //- What the hamburger opens: the page's own menu, the counterpart of
 //- `homeSidebar` on a board.
 template(name="allBoardsHomeSidebar")
-  //- Sort and the view menu, which were buttons in this page's second header
-    bar. Search and Multi-Selection were there too and are NOT repeated here:
-    this view has offered both as rows since it was written, so bringing the
-    buttons across would list each of them twice.
-    docs/Design/Page/All-Boards.md
+  //- Sort, which was a button in this page's second header bar. The VIEW menu
+    was too, and it is in the first top header bar instead - a view menu says
+    what you are looking at, which belongs beside the page's name rather than
+    behind a panel you have to open. Search and Multi-Selection were in that bar
+    as well and are NOT repeated here: this view has offered both as rows since
+    it was written. docs/Design/Page/All-Boards.md
   a.sidebar-btn.js-open-boards-sort(class="{{#unless isBoardsSort 'custom'}}emphasis{{/unless}}")
     i.fa.fa-sort
     span {{_ 'sort-boards'}}
-  a.sidebar-btn.js-open-all-boards-view
-    i.fa(class="{{#if isAllBoardsView 'table'}}fa-table{{else}}fa-trello{{/if}}")
-    span
-      if isAllBoardsView 'table'
-        | {{_ 'board-view-table'}}
-      else
-        | {{_ 'lists'}}
   hr
   ul.sidebar-list
     li

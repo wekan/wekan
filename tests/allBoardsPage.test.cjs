@@ -50,18 +50,22 @@ test('every control of this page is in its right sidebar', () => {
   // They have moved twice. First from a row of the page's own above the board
   // icons into the second header bar; now out of that bar, which is gone - the
   // first header bar names the page, and a page keeps its controls in a sidebar.
-  for (const control of ['js-open-boards-sort', 'js-open-all-boards-view',
-    'js-all-boards-sidebar-search', 'js-all-boards-sidebar-multiselection',
-    'js-open-archived-board']) {
+  for (const control of ['js-open-boards-sort', 'js-all-boards-sidebar-search',
+    'js-all-boards-sidebar-multiselection', 'js-open-archived-board']) {
     assert.ok(sidebar.includes(control), `${control} must be a sidebar row`);
   }
+  // ...except the VIEW menu, which is in the first top header bar: a view menu
+  // says what you are looking AT, so it belongs beside the page's name rather
+  // than behind a panel you have to open first.
+  assert.ok(!sidebar.includes('js-open-all-boards-view'), 'the view menu is not a row');
+  assert.ok(/template\(name="allBoardsViewMenu"\)/.test(jade), 'it is its own template');
+  const header = read('client/components/main/header.jade');
+  assert.ok(/if isAllBoardsPage\n\s+\+allBoardsViewMenu/.test(header),
+    'which the first header bar renders on All Boards');
   // Sort still says whether a sort is on, which was the point of its emphasis.
   assert.ok(/js-open-boards-sort\(class="\{\{#unless isBoardsSort 'custom'\}\}emphasis/.test(sidebar),
     'and Sort still shows when a sort other than the custom order is active');
-  // The view menu still names the CURRENT view rather than itself.
-  assert.ok(/if isAllBoardsView 'table'[\s\S]{0,120}board-view-table/.test(sidebar),
-    'the view row says Table when Table is on');
-  assert.ok(/\{\{_ 'lists'\}\}/.test(sidebar), 'and Lists otherwise');
+
 });
 
 test('and there is no second header bar left', () => {
@@ -279,14 +283,18 @@ test('the two templates share one search term and one selected section', () => {
 
 // ── the view menu ───────────────────────────────────────────────────────────
 
-test('the view row names the current view, not itself', () => {
+test('the view menu names the current view, not itself', () => {
   // The board header says "Swimlanes" or "Lists", never "Board View"; this
-  // matches it, now as a sidebar row rather than a header button.
-  assert.ok(!/board-view'\}\}/.test(sidebar.replace(/title="[^"]*"/g, '')),
-    'the row label must not be the words "Board View"');
-  assert.ok(/if isAllBoardsView 'table'[\s\S]{0,160}board-view-table/.test(sidebar),
+  // matches it. It is in the first header bar now, not the sidebar.
+  const menu = jade.slice(jade.indexOf('template(name="allBoardsViewMenu")'));
+  assert.ok(!/board-view'\}\}/.test(menu.replace(/title="[^"]*"/g, '')),
+    'the label must not be the words "Board View"');
+  assert.ok(/if isAllBoardsView 'table'[\s\S]{0,160}board-view-table/.test(menu),
     'it says Table when the Table view is on');
-  assert.ok(/\{\{_ 'lists'\}\}/.test(sidebar), 'and Lists otherwise');
+  assert.ok(/\{\{_ 'lists'\}\}/.test(menu), 'and Lists otherwise');
+  // Its handler followed it out of the sidebar.
+  assert.ok(/Template\.allBoardsViewMenu\.events\(\{[\s\S]{0,160}js-open-all-boards-view/.test(js),
+    'and it is handled where it is drawn');
 });
 
 test('two views, and Lists is the default', () => {

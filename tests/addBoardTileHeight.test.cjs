@@ -112,10 +112,15 @@ test('All Boards has no header bar left to hold controls', () => {
   // They are in the sidebar.
   const sidebar = fs.readFileSync(
     path.join(path.resolve(__dirname, '..'), 'client/components/boards/allBoardsSidebar.jade'), 'utf8');
-  for (const control of ['js-open-boards-sort', 'js-open-all-boards-view',
-    'js-all-boards-sidebar-search', 'js-all-boards-sidebar-multiselection']) {
+  for (const control of ['js-open-boards-sort', 'js-all-boards-sidebar-search',
+    'js-all-boards-sidebar-multiselection']) {
     assert.ok(sidebar.includes(control), `${control} must be a sidebar row`);
   }
+  // The view menu is the exception: it is in the FIRST top header bar, beside
+  // the page's name, because a view menu says what you are looking at.
+  const header = fs.readFileSync(
+    path.join(path.resolve(__dirname, '..'), 'client/components/main/header.jade'), 'utf8');
+  assert.ok(/\+allBoardsViewMenu/.test(header), 'the view menu is in the first bar');
 });
 
 test('All Boards board tile drag handle is at the right middle', () => {

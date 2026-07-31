@@ -16,6 +16,8 @@ import { toggleAllBoardsSidebar } from '/client/lib/allBoardsSidebar';
 import { togglePageSidebar } from '/client/lib/pageSidebar';
 import { hasOwnSidebar, hasPageSidebar } from '/models/lib/pageSidebar';
 import { ADMIN_PANEL_ROUTES } from '/models/lib/adminUrls';
+// The All Boards sections - Public has no Lists/Table choice, so it is not one.
+const ALL_BOARDS_VIEW_ROUTES = ['home', 'allboards', 'allboards-templates', 'allboards-remaining'];
 // Three pages carry a name of their own rather than a fixed one: an admin can
 // rename Support and Accessibility, and Import names the source it is importing
 // from. Asked for here rather than computed a second time.
@@ -71,6 +73,14 @@ Template.header.helpers({
   // one string, because a translated title has to go through {{_ }} and a board
   // title must NOT (it is user text, and a board called "settings" is not the
   // Admin Panel). docs/Design/Page/Header.md
+  // Which page's view menu to draw, if any.
+  isBoardPage() {
+    return Boolean(Utils.getCurrentBoardId());
+  },
+  isAllBoardsPage() {
+    return ALL_BOARDS_VIEW_ROUTES.includes(FlowRouter.getRouteName());
+  },
+
   // The Admin Panel is four routes; its tabs show on all of them.
   isAdminPanel() {
     return ADMIN_PANEL_ROUTES.includes(FlowRouter.getRouteName());

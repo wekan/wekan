@@ -201,7 +201,6 @@ Template.boardList.helpers({
 // docs/Design/Page/All-Boards.md
 Template.allBoardsHomeSidebar.events({
   'click .js-open-boards-sort': Popup.open('boardsSort'),
-  'click .js-open-all-boards-view': Popup.open('allBoardsView'),
 });
 
 Template.allBoardsHomeSidebar.helpers({
@@ -1683,3 +1682,15 @@ Template.workspaceActionsPopup.onRendered(function() {
 });
 
 
+
+// The All Boards view menu, in the FIRST header bar. Its handler and the helper
+// that draws it follow it out of the sidebar. docs/Design/Page/Header.md
+Template.allBoardsViewMenu.events({
+  'click .js-open-all-boards-view': Popup.open('allBoardsView'),
+});
+
+Template.allBoardsViewMenu.helpers({
+  isAllBoardsView(view) {
+    return isAllBoardsView(view);
+  },
+});

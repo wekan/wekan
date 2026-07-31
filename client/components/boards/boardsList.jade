@@ -340,3 +340,20 @@ template(name="workspaceActionsPopup")
   .workspace-delete-block
     span.js-workspace-delete-error(style="color: #c00; display: block; margin: 4px 0;")
     button.js-delete-workspace.negate.wide(type="button" data-id="{{id}}") {{_ 'delete'}}
+
+//- The All Boards view menu, in the FIRST top header bar, beside the board
+//- view menu's place - a view menu says what you are looking AT, so both of
+//- them sit next to the page's name rather than in a bar or a panel.
+//-
+//- It names the CURRENT view, not itself: the board header says "Swimlanes" or
+//- "Lists" rather than "Board View", and this matches it.
+//- docs/Design/Page/Header.md
+template(name="allBoardsViewMenu")
+  a.board-header-btn.js-open-all-boards-view(title="{{_ 'board-view'}}")
+    i.fa.fa-caret-down
+    if isAllBoardsView 'table'
+      i.fa.fa-table
+      span {{_ 'board-view-table'}}
+    else
+      i.fa.fa-trello
+      span {{_ 'lists'}}

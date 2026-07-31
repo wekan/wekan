@@ -171,6 +171,42 @@ test('the Admin Panel tabs are icons, in the first bar, left of the bell', () =>
   }
 });
 
+test('the view menus are in the first bar, whichever page has one', () => {
+  // A view menu says what you are looking AT, so it belongs beside the page's
+  // name in the bar that is always on screen - not in a second bar (where the
+  // board's was) and not behind a panel you have to open (where All Boards'
+  // was for one step).
+  assert.ok(/if isBoardPage\n\s+\+boardViewMenu/.test(jade), "a board's view menu");
+  assert.ok(/else if isAllBoardsPage\n\s+\+allBoardsViewMenu/.test(jade), "and All Boards'");
+  // One or the other, never both: they are alternatives, not a pair.
+  assert.ok(jade.indexOf('+boardViewMenu') < jade.indexOf('+allBoardsViewMenu'),
+    'the board branch comes first');
+  // In the FIRST bar, and before the bell like the Admin Panel tabs.
+  assert.ok(jade.indexOf('+boardViewMenu') < jade.indexOf('#header.nodragscroll'),
+    'in the first bar');
+  assert.ok(jade.indexOf('+boardViewMenu') < jade.indexOf('+notifications'),
+    'left of the notification bell');
+
+  // Each is its own template, with its handler on it - a Blaze event map only
+  // sees events inside its OWN template.
+  const boardJade = read('client/components/boards/boardHeader.jade');
+  assert.ok(/template\(name="boardViewMenu"\)/.test(boardJade), 'the board menu is a template');
+  assert.ok(/unless currentBoard\.isTemplatesBoard/.test(
+    boardJade.slice(boardJade.indexOf('template(name="boardViewMenu")'))),
+    'and still not offered on a templates board');
+  assert.ok(/Template\.boardViewMenu\.events/.test(read('client/components/boards/boardHeader.js')),
+    'handled where it is drawn');
+  assert.ok(/Template\.allBoardsViewMenu\.events/.test(read('client/components/boards/boardsList.js')),
+    'and so is the All Boards one');
+
+  // Neither is left in the place it came from.
+  assert.ok(!/js-toggle-board-view/.test(
+    boardJade.slice(0, boardJade.indexOf('template(name="boardViewMenu")'))),
+    "the board's second bar must not still draw it");
+  assert.ok(!/js-open-all-boards-view/.test(read('client/components/boards/allBoardsSidebar.jade')),
+    'and the All Boards sidebar must not still have it as a row');
+});
+
 for (const [name, fn] of tests) {
   try { fn(); passed++; console.log('  ok -', name); }
   catch (err) { console.error(`  FAIL - ${name}\n    ${err.message}`); process.exitCode = 1; }

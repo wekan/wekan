@@ -143,7 +143,6 @@ Template.boardHeaderBar.events({
   'click .js-open-archived-board'() {
     FlowRouter.go('archive');
   },
-  'click .js-toggle-board-view': Popup.open('boardChangeView'),
   'click .js-toggle-sidebar'() {
     if (process.env.DEBUG === 'true') {
       console.log('Hamburger menu clicked');
@@ -592,5 +591,18 @@ Template.cardsSortPopup.events({
     setCardsSortBy(sortBy);
     sortCardsBy.set(TAPi18n.__('date-created-oldest-first'));
     Popup.back();
+  },
+});
+
+// The board's view menu is its own template in the FIRST header bar now, so its
+// handler is here rather than on the second bar that used to draw it.
+// docs/Design/Page/Header.md
+Template.boardViewMenu.events({
+  'click .js-toggle-board-view': Popup.open('boardChangeView'),
+});
+
+Template.boardViewMenu.helpers({
+  boardView() {
+    return Utils.boardView();
   },
 });
