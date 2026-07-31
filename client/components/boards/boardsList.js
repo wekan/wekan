@@ -5,6 +5,18 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import getSlug from 'limax';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { BoardMultiSelection } from '/client/lib/boardMultiSelection';
+import {
+  buildHeader,
+  pageInfo,
+  TABLE_PAGE_ROWS_PER_PAGE,
+} from '/models/lib/tablePage';
+import {
+  allBoardsSearchVar,
+  allBoardsMenuVar,
+  allBoardsView,
+  setAllBoardsView,
+  isAllBoardsView,
+} from '/client/lib/allBoardsView';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { Utils } from '/client/lib/utils';
 import '/client/lib/dragDropTouch'; // touch -> HTML5 DnD so board icons drag by finger
@@ -141,13 +153,202 @@ Template.boardList.helpers({
   },
 });
 
+// The All Boards controls' handlers. One events map for this template, not two:
+// Blaze allows several, but then "where is the search handler" has two answers.
 Template.boardListHeaderBar.events({
   'click .js-open-archived-board'() {
     Modal.open('archivedBoards');
   },
+  'click .js-select-menu'(evt) {
+    allBoardsMenuVar.set(evt.currentTarget.getAttribute('data-type'));
+  },
+  'click .js-open-boards-sort': Popup.open('boardsSort'),
+
+  'click .js-open-all-boards-view': Popup.open('allBoardsView'),
+  'input .js-board-search-input'(evt) {
+    allBoardsSearchVar.set(evt.currentTarget.value);
+  },
+  'keydown .js-board-search-input'(evt) {
+    if (evt.key === 'Escape') {
+      evt.preventDefault();
+      allBoardsSearchVar.set('');
+      evt.currentTarget.value = '';
+    }
+  },
+  'click .js-board-search-clear'(evt, tpl) {
+    evt.preventDefault();
+    allBoardsSearchVar.set('');
+    const input = tpl.find('.js-board-search-input');
+    if (input) {
+      input.value = '';
+      input.focus();
+    }
+  },
+  'click .js-multiselection-activate'(evt) {
+    evt.preventDefault();
+    if (BoardMultiSelection.isActive()) {
+      BoardMultiSelection.disable();
+    } else {
+      BoardMultiSelection.activate();
+    }
+  },
+  'click .js-multiselection-reset'(evt) {
+    evt.preventDefault();
+    // Nested inside the activate button, so stop the click bubbling to it -
+    // which would immediately re-activate what this just turned off.
+    evt.stopPropagation();
+    BoardMultiSelection.disable();
+  },
 });
 
 Template.boardList.events({});
+
+// The boards the page shows: the selected section, filtered by the search
+// field, sorted and paged. Extracted from the `boards` helper so the Table
+// view draws the SAME set - two copies of this would be two answers to
+// "which boards am I looking at". docs/Design/Page/All-Boards.md
+function boardsForView(tpl) {
+  let query = {
+    $and: [
+      { archived: false },
+      { type: { $in: ['board', 'template-container'] } },
+      { title: notHelperBoardTitle() },
+    ],
+  };
+  const membershipOrs = [];
+
+  let allowPrivateVisibilityOnly = TableVisibilityModeSettings.findOne(
+    'tableVisibilityMode-allowPrivateOnly',
+  );
+
+  // #5850: the All Boards sub-views are also reachable via their own routes
+  // (/templates, /remaining), which must apply the same membership filtering
+  // as the home route, otherwise their board list is empty (or falls into the
+  // public-only branch below).
+  const allBoardsRoutes = ['home', 'allboards-templates', 'allboards-remaining'];
+  if (allBoardsRoutes.includes(FlowRouter.getRouteName())) {
+    membershipOrs.push({ 'members.userId': Meteor.userId() });
+
+    const currUser = ReactiveCache.getCurrentUser();
+
+    let orgIdsUserBelongs = currUser?.orgIdsUserBelongs() || '';
+    if (orgIdsUserBelongs) {
+      let orgsIds = orgIdsUserBelongs.split(',');
+      membershipOrs.push({ 'orgs.orgId': { $in: orgsIds } });
+    }
+
+    let teamIdsUserBelongs = currUser?.teamIdsUserBelongs() || '';
+    if (teamIdsUserBelongs) {
+      let teamsIds = teamIdsUserBelongs.split(',');
+      membershipOrs.push({ 'teams.teamId': { $in: teamsIds } });
+    }
+
+    // #5850: boards shared with the user's email domain.
+    const emailDomains = currUser?.emailDomains?.() || [];
+    if (emailDomains.length) {
+      membershipOrs.push({ 'domains.domain': { $in: emailDomains } });
+    }
+    if (membershipOrs.length) {
+      query.$and.splice(2, 0, { $or: membershipOrs });
+    }
+  } else if (
+    allowPrivateVisibilityOnly !== undefined &&
+    !allowPrivateVisibilityOnly.booleanValue
+  ) {
+    query = {
+      archived: false,
+      //type: { $in: ['board','template-container'] },
+      type: 'board',
+      permission: 'public',
+      // ...and NOT the internal helper boards (`^Subtasks^`). Every other board
+      // list excluded them; this one did not, so /public listed every public
+      // subtasks board on the instance beside the real ones.
+      title: notHelperBoardTitle(),
+    };
+  }
+
+  const boards = ReactiveCache.getBoards(query, {});
+  const currentUser = ReactiveCache.getCurrentUser();
+
+  // #2220: the Home board (opened after login) always appears FIRST in the
+  // Starred view, even when it has not been explicitly starred.
+  const withHomeFirst = (arr) => {
+    if (tpl.selectedMenu.get() !== 'starred') return arr;
+    if ((tpl.boardSearchVar.get() || '').trim()) return arr;
+    const homeId =
+      currentUser && typeof currentUser.getDefaultBoardId === 'function'
+        ? currentUser.getDefaultBoardId()
+        : null;
+    if (!homeId) return arr;
+    const homeBoard = ReactiveCache.getBoard(homeId);
+    if (!homeBoard || homeBoard.archived) return arr;
+    return [homeBoard, ...arr.filter((b) => b && b._id !== homeId)];
+  };
+
+  // #5799: in a sorted (non-custom) mode the server already computed the
+  // current page (filtered by menu/search and sorted), so render exactly that
+  // ordered page of board icons. Custom (manual drag order) falls through to
+  // the unpaginated client-side path below so drag-reordering keeps working.
+  const sortMode =
+    currentUser && typeof currentUser.getAllBoardsSortBy === 'function'
+      ? currentUser.getAllBoardsSortBy()
+      : 'custom';
+  if (sortMode !== 'custom') {
+    const paged = tpl.pagedBoardsVar.get();
+    return withHomeFirst(
+      (paged.ids || [])
+        .map((id) => ReactiveCache.getBoard(id))
+        .filter(Boolean),
+    );
+  }
+
+  let list = boards;
+  const assignments =
+    (currentUser &&
+      currentUser.profile &&
+      currentUser.profile.boardWorkspaceAssignments) ||
+    {};
+
+  // #5799: when a board-name search is active, search across ALL the user's
+  // boards (every menu/workspace) by title and skip the menu filter, so a
+  // board in any category — Starred, Templates, Remaining or a (sub)workspace
+  // — is found from a single search box.
+  const search = (tpl.boardSearchVar.get() || '').trim().toLowerCase();
+  if (search) {
+    list = list.filter((b) => (b.title || '').toLowerCase().includes(search));
+  } else {
+    // Apply left menu filtering
+    const sel = tpl.selectedMenu.get();
+    if (sel === 'starred') {
+      // Starred boards are always visible in Starred.
+      list = list.filter((b) => currentUser && currentUser.hasStarred(b._id));
+    } else if (sel === 'templates') {
+      list = list.filter((b) => b.type === 'template-container');
+    } else if (sel === 'remaining') {
+      // Remaining only shows boards not assigned to any workspace.
+      list = list.filter(
+        (b) => !assignments[b._id] && b.type !== 'template-container',
+      );
+    } else {
+      // Workspace view includes all boards in that workspace, including starred.
+      list = list.filter((b) => assignments[b._id] === sel);
+    }
+  }
+
+  if (currentUser && typeof currentUser.sortBoardsForUser === 'function') {
+    return withHomeFirst(currentUser.sortBoardsForUser(list));
+  }
+  return withHomeFirst(
+    list.slice().sort((a, b) => (a.title || '').localeCompare(b.title || '')),
+  );
+}
+
+// Edit, Board title, Board description - the Table view's columns.
+const ALL_BOARDS_COLUMNS = [
+  { labelKey: 'edit' },
+  { labelKey: 'title' },
+  { labelKey: 'description' },
+];
 
 Template.boardListHeaderBar.helpers({
   title() {
@@ -163,6 +364,54 @@ Template.boardListHeaderBar.helpers({
   templatesBoardSlug() {
     return ReactiveCache.getCurrentUser()?.getTemplatesBoardSlug();
   },
+
+  // The controls are the All Boards page's, so they render only there - this same
+  // header bar template is also the /public one, which has no sections, no
+  // multi-selection and no view menu.
+  isBoardListPage() {
+    return FlowRouter.getRouteName() !== 'public';
+  },
+  isSelectedMenu(type) {
+    return allBoardsMenuVar.get() === type;
+  },
+  isBoardsSort(mode) {
+    const currentUser = ReactiveCache.getCurrentUser();
+    const sortBy =
+      currentUser && typeof currentUser.getAllBoardsSortBy === 'function'
+        ? currentUser.getAllBoardsSortBy()
+        : 'custom';
+    return sortBy === mode;
+  },
+  boardSearch() {
+    return allBoardsSearchVar.get();
+  },
+  canModifyBoards() {
+    const currentUser = ReactiveCache.getCurrentUser();
+    return currentUser && !currentUser.isCommentOnly();
+  },
+  isAllBoardsView(view) {
+    return isAllBoardsView(view);
+  },
+  BoardMultiSelection() {
+    return BoardMultiSelection;
+  },
+});
+
+Template.allBoardsViewPopup.helpers({
+  isAllBoardsView(view) {
+    return isAllBoardsView(view);
+  },
+});
+
+Template.allBoardsViewPopup.events({
+  'click .js-all-boards-view-lists'() {
+    setAllBoardsView('lists');
+    Popup.back();
+  },
+  'click .js-all-boards-view-table'() {
+    setAllBoardsView('table');
+    Popup.back();
+  },
 });
 
 Template.boardList.onCreated(function () {
@@ -170,13 +419,23 @@ Template.boardList.onCreated(function () {
   Meteor.subscribe('tableVisibilityModeSettings');
   // Honor the URL-addressable sub-view (#5850). The route sets
   // Session 'boardListMenu' to 'starred', 'templates' or 'remaining'.
-  this.selectedMenu = new ReactiveVar(Session.get('boardListMenu') || 'starred');
+  // Shared with boardListHeaderBar, which is a SEPARATE Blaze instance (it is
+  // rendered into the layout's headerBar region) and carries this page's
+  // controls. Assigned onto the instance so every `tpl.selectedMenu` /
+  // `tpl.boardSearchVar` already written here keeps working unchanged.
+  // docs/Design/Page/All-Boards.md
+  this.selectedMenu = allBoardsMenuVar;
+  this.selectedMenu.set(Session.get('boardListMenu') || 'starred');
   this.selectedWorkspaceIdVar = new ReactiveVar(null);
   this.workspacesTreeVar = new ReactiveVar([]);
   // #5799: free-text search by board name. When non-empty it searches across
   // ALL the user's boards (Starred, Templates, Remaining and every workspace),
   // ignoring the selected-menu filter.
-  this.boardSearchVar = new ReactiveVar('');
+  this.boardSearchVar = allBoardsSearchVar;
+  // The Table view's page. Client-side: the boards are already in minimongo for
+  // the Lists view beside it, so paging them again on the server would be a round
+  // trip for data the page is holding anyway.
+  this.tablePageVar = new ReactiveVar(1);
   // #5799: server-side pagination state for the sorted (non-custom) modes.
   this.boardsPageVar = new ReactiveVar(1);
   this.pagedBoardsVar = new ReactiveVar({ ids: [], total: 0 });
@@ -486,141 +745,32 @@ Template.boardList.helpers({
       return { faIcon: 'fa-folder-open', text: 'Workspaces' };
     }
   },
-  boards() {
+  // The Table view of the same boards the Lists view draws. Ten per page, the
+  // shared TABLE_PAGE_ROWS_PER_PAGE, and a rowTemplate because the Edit cell is a
+  // control and the row carries the board's colours.
+  // docs/Design/Page/All-Boards.md
+  tablePageData() {
     const tpl = Template.instance();
-    let query = {
-      $and: [
-        { archived: false },
-        { type: { $in: ['board', 'template-container'] } },
-        { title: notHelperBoardTitle() },
-      ],
+    const all = boardsForView(tpl);
+    const info = pageInfo(all.length, tpl.tablePageVar.get());
+    const page = all.slice(info.skip, info.skip + TABLE_PAGE_ROWS_PER_PAGE);
+    return {
+      header: buildHeader(ALL_BOARDS_COLUMNS),
+      rowTemplate: 'allBoardsRow',
+      docs: page,
+      rowCount: page.length,
+      total: all.length,
+      searchTerm: allBoardsSearchVar.get(),
+      page: info.page,
+      totalPages: info.totalPages,
+      hasPrev: info.hasPrev,
+      hasNext: info.hasNext,
+      emptyKey: 'no-results',
     };
-    const membershipOrs = [];
+  },
 
-    let allowPrivateVisibilityOnly = TableVisibilityModeSettings.findOne(
-      'tableVisibilityMode-allowPrivateOnly',
-    );
-
-    // #5850: the All Boards sub-views are also reachable via their own routes
-    // (/templates, /remaining), which must apply the same membership filtering
-    // as the home route, otherwise their board list is empty (or falls into the
-    // public-only branch below).
-    const allBoardsRoutes = ['home', 'allboards-templates', 'allboards-remaining'];
-    if (allBoardsRoutes.includes(FlowRouter.getRouteName())) {
-      membershipOrs.push({ 'members.userId': Meteor.userId() });
-
-      const currUser = ReactiveCache.getCurrentUser();
-
-      let orgIdsUserBelongs = currUser?.orgIdsUserBelongs() || '';
-      if (orgIdsUserBelongs) {
-        let orgsIds = orgIdsUserBelongs.split(',');
-        membershipOrs.push({ 'orgs.orgId': { $in: orgsIds } });
-      }
-
-      let teamIdsUserBelongs = currUser?.teamIdsUserBelongs() || '';
-      if (teamIdsUserBelongs) {
-        let teamsIds = teamIdsUserBelongs.split(',');
-        membershipOrs.push({ 'teams.teamId': { $in: teamsIds } });
-      }
-
-      // #5850: boards shared with the user's email domain.
-      const emailDomains = currUser?.emailDomains?.() || [];
-      if (emailDomains.length) {
-        membershipOrs.push({ 'domains.domain': { $in: emailDomains } });
-      }
-      if (membershipOrs.length) {
-        query.$and.splice(2, 0, { $or: membershipOrs });
-      }
-    } else if (
-      allowPrivateVisibilityOnly !== undefined &&
-      !allowPrivateVisibilityOnly.booleanValue
-    ) {
-      query = {
-        archived: false,
-        //type: { $in: ['board','template-container'] },
-        type: 'board',
-        permission: 'public',
-        // ...and NOT the internal helper boards (`^Subtasks^`). Every other board
-        // list excluded them; this one did not, so /public listed every public
-        // subtasks board on the instance beside the real ones.
-        title: notHelperBoardTitle(),
-      };
-    }
-
-    const boards = ReactiveCache.getBoards(query, {});
-    const currentUser = ReactiveCache.getCurrentUser();
-
-    // #2220: the Home board (opened after login) always appears FIRST in the
-    // Starred view, even when it has not been explicitly starred.
-    const withHomeFirst = (arr) => {
-      if (tpl.selectedMenu.get() !== 'starred') return arr;
-      if ((tpl.boardSearchVar.get() || '').trim()) return arr;
-      const homeId =
-        currentUser && typeof currentUser.getDefaultBoardId === 'function'
-          ? currentUser.getDefaultBoardId()
-          : null;
-      if (!homeId) return arr;
-      const homeBoard = ReactiveCache.getBoard(homeId);
-      if (!homeBoard || homeBoard.archived) return arr;
-      return [homeBoard, ...arr.filter((b) => b && b._id !== homeId)];
-    };
-
-    // #5799: in a sorted (non-custom) mode the server already computed the
-    // current page (filtered by menu/search and sorted), so render exactly that
-    // ordered page of board icons. Custom (manual drag order) falls through to
-    // the unpaginated client-side path below so drag-reordering keeps working.
-    const sortMode =
-      currentUser && typeof currentUser.getAllBoardsSortBy === 'function'
-        ? currentUser.getAllBoardsSortBy()
-        : 'custom';
-    if (sortMode !== 'custom') {
-      const paged = tpl.pagedBoardsVar.get();
-      return withHomeFirst(
-        (paged.ids || [])
-          .map((id) => ReactiveCache.getBoard(id))
-          .filter(Boolean),
-      );
-    }
-
-    let list = boards;
-    const assignments =
-      (currentUser &&
-        currentUser.profile &&
-        currentUser.profile.boardWorkspaceAssignments) ||
-      {};
-
-    // #5799: when a board-name search is active, search across ALL the user's
-    // boards (every menu/workspace) by title and skip the menu filter, so a
-    // board in any category — Starred, Templates, Remaining or a (sub)workspace
-    // — is found from a single search box.
-    const search = (tpl.boardSearchVar.get() || '').trim().toLowerCase();
-    if (search) {
-      list = list.filter((b) => (b.title || '').toLowerCase().includes(search));
-    } else {
-      // Apply left menu filtering
-      const sel = tpl.selectedMenu.get();
-      if (sel === 'starred') {
-        // Starred boards are always visible in Starred.
-        list = list.filter((b) => currentUser && currentUser.hasStarred(b._id));
-      } else if (sel === 'templates') {
-        list = list.filter((b) => b.type === 'template-container');
-      } else if (sel === 'remaining') {
-        // Remaining only shows boards not assigned to any workspace.
-        list = list.filter(
-          (b) => !assignments[b._id] && b.type !== 'template-container',
-        );
-      } else {
-        // Workspace view includes all boards in that workspace, including starred.
-        list = list.filter((b) => assignments[b._id] === sel);
-      }
-    }
-
-    if (currentUser && typeof currentUser.sortBoardsForUser === 'function') {
-      return withHomeFirst(currentUser.sortBoardsForUser(list));
-    }
-    return withHomeFirst(
-      list.slice().sort((a, b) => (a.title || '').localeCompare(b.title || '')),
-    );
+  boards() {
+    return boardsForView(Template.instance());
   },
   // #5174 / #4825: the board tiles' per-list card-count line and member avatar
   // row. Data comes from the one-shot getAllBoardsTileData method fetch in
@@ -971,6 +1121,20 @@ Template.boardList.events({
   },
   // #5799: choose how the All Boards page is sorted.
   'click .js-open-boards-sort': Popup.open('boardsSort'),
+  // The Table view's own controls. Its search box is the shared one in the header
+  // bar, so only the pager is here; the boards are already in minimongo, so a page
+  // is a slice rather than a round trip.
+  'click .js-table-page-prev'(evt, tpl) {
+    evt.preventDefault();
+    tpl.tablePageVar.set(Math.max(1, tpl.tablePageVar.get() - 1));
+  },
+  'click .js-table-page-next'(evt, tpl) {
+    evt.preventDefault();
+    tpl.tablePageVar.set(tpl.tablePageVar.get() + 1);
+  },
+  // Edit opens the SAME popup the Swimlanes view opens from its board menu; the
+  // row's data context is the board, which is what the popup now reads.
+  'click .js-edit-board-title-row': Popup.open('boardChangeTitle'),
   // #5799: search boards by name across all categories.
   'input .js-board-search-input'(evt, tpl) {
     tpl.boardSearchVar.set(evt.currentTarget.value);

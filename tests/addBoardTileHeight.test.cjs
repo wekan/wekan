@@ -75,26 +75,48 @@ test('the empty .board-list-header dead-space band is gone', () => {
   assert.ok(!/\.board-list-header\s*{/.test(css), 'its dead CSS rule removed too');
 });
 
-test('All Boards path-right order: Multi-Selection, then Sort, then Search boards', () => {
+test('All Boards controls are in the header bar, in the design order', () => {
+  // This used to assert the order of Multi-Selection / Sort / Search inside
+  // `.path-right`, the page's OWN controls row above the board icons. That row is
+  // gone: the controls are in the second top header bar now, styled like the board
+  // header of the Swimlanes view, because two rows of controls on one page - one
+  // of them styled like the board header and one not - is what
+  // docs/Design/Page/All-Boards.md removes. The order is still worth pinning, so
+  // it is pinned where the controls now are.
   const jade = fs.readFileSync(
     path.join(path.resolve(__dirname, '..'), 'client/components/boards/boardsList.jade'), 'utf8');
-  // The WHOLE .path-right block, not a fixed-size window: the block grew past
-  // 3000 characters when the multi-selection actions were added, which put the
-  // search input outside the slice and failed this test on "all three present" -
-  // a test about ORDER cannot depend on how long the block is. It ends at the
-  // next line indented no deeper than `.path-right` itself.
-  const at = jade.indexOf('.path-right');
-  const indent = jade.slice(0, at).length - jade.lastIndexOf('\n', at) - 1;
-  const after = jade.slice(at).split('\n').slice(1);
-  const endLine = after.findIndex(l => l.trim() && (l.length - l.trimStart().length) <= indent);
-  const seg = [jade.slice(at).split('\n')[0]]
-    .concat(endLine === -1 ? after : after.slice(0, endLine)).join('\n');
-  const ms = seg.indexOf('js-multiselection-activate');
-  const sort = seg.indexOf('js-open-boards-sort');
-  const search = seg.indexOf('js-board-search-input');
-  assert.ok(ms !== -1 && sort !== -1 && search !== -1, 'all three present');
-  assert.ok(ms < sort, 'Multi-Selection is left of Sort');
-  assert.ok(sort < search, 'Search boards is to the right (after Multi-Selection and Sort)');
+  const bar = jade.slice(jade.indexOf('template(name="boardListHeaderBar")'),
+    jade.indexOf('template(name="allBoardsRow")'));
+
+  const at = name => {
+    const i = bar.indexOf(name);
+    assert.notStrictEqual(i, -1, `${name} must be in the header bar`);
+    return i;
+  };
+  const starred = at('data-type="starred"');
+  const sort = at('js-open-boards-sort');
+  const search = at('js-board-search-input');
+  const multi = at('js-multiselection-activate');
+  const view = at('js-open-all-boards-view');
+
+  assert.ok(starred < sort, 'Starred is first');
+  assert.ok(sort < search, 'then Sort');
+  assert.ok(search < multi, 'then Search');
+  assert.ok(multi < view, 'then Multi-Selection, and the view menu last');
+
+  // Search is a FIELD, not a button that opens a view: it filters the list it
+  // sits above, which is why it is the one control here that is not a
+  // .board-header-btn.
+  assert.ok(/input\.js-board-search-input\(type="text"/.test(bar),
+    'Search must be an input, not a button');
+
+  // ...and the page's own controls row is gone.
+  const page = jade.slice(0, jade.indexOf('template(name="boardsSortPopup")'));
+  for (const moved of ['js-open-boards-sort', 'js-board-search-input',
+    'js-multiselection-activate']) {
+    assert.ok(!page.includes(moved),
+      `${moved} must not also be in the page body - that is the second bar`);
+  }
 });
 
 test('All Boards board tile drag handle is at the right middle', () => {

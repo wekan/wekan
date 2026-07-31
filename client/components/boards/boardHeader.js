@@ -44,7 +44,16 @@ Template.boardChangeTitlePopup.events({
       .val()
       .trim();
     if (newTitle) {
-      const board = Utils.getCurrentBoard();
+      // The board this popup was opened FOR, when it was opened for one: the
+      // All Boards Table view opens this same popup from a row whose data
+      // context is that row's board (docs/Design/Page/All-Boards.md), and on
+      // that page there is no "current board" at all. The board header opens it
+      // with the current board as its context, so that side is unchanged.
+      const context = Template.currentData();
+      const board =
+        context && context._id && typeof context.rename === 'function'
+          ? context
+          : Utils.getCurrentBoard();
       if (board) {
         await board.rename(newTitle);
         await board.setDescription(newDesc);

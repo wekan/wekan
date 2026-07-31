@@ -79,6 +79,7 @@ Menu path is what you click to reach the page.
 
 | Table name | Menu path | Description |
 | --- | --- | --- |
+| All Boards (Table view) | `/board` → the view menu → Table | Every board of the selected section: **Edit**, board title and board description. EDITABLE, which is what separates it from Public Boards below - the Edit cell opens the same board-title popup the Swimlanes view opens. Its rows carry their board's colour. See [All-Boards](All-Boards.md). |
 | Public Boards | `/public` | The boards anybody may open: title and description, ten per page. Read-only — a row's only action is to open its board — and the page is nothing but the table. Its rows carry their board's colour and background image, so a board is recognised here the way it is on All Boards. See [Public](Public.md). |
 
 ### Card, board and member history

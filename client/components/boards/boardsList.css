@@ -1729,3 +1729,31 @@
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
   border-radius: 3px;
 }
+
+/* All Boards: the Table view.
+ * Design: docs/Design/Page/All-Boards.md, which is docs/Design/Page/Table.md.
+ * Only what is particular to these rows; the table itself is tablePage.css. */
+.all-boards-row {
+  cursor: default;
+}
+/* The Edit cell is a control, so it is sized and centred like one rather than
+ * left-aligned like the two text columns beside it. */
+.all-boards-row .all-boards-edit {
+  text-align: center;
+  width: 3em;
+}
+.all-boards-row .all-boards-edit a {
+  cursor: pointer;
+}
+.all-boards-row .all-boards-title a {
+  font-weight: 700;
+  text-decoration: none;
+}
+.all-boards-row .all-boards-title a:hover {
+  text-decoration: underline;
+}
+/* A description can be long: it wraps rather than widening the column. */
+.all-boards-row .all-boards-desc {
+  white-space: normal;
+  word-break: break-word;
+}

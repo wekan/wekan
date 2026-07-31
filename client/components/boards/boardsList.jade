@@ -81,192 +81,166 @@ template(name="boardList")
               span.path-icon
                 i.fa(class="{{currentMenuPath.faIcon}}")
               span.path-text {{currentMenuPath.text}}
-          .path-right
-            //- Order (left -> right): Multi-Selection, Sort, Search boards.
-            if canModifyBoards
-              if hasBoardsSelected
-                button.js-archive-selected-boards.board-header-btn
-                  span.emoji-icon
-                    i.fa.fa-archive
-                  span {{_ 'archive-board'}}
-                button.js-duplicate-selected-boards.board-header-btn
-                  span.emoji-icon
-                    i.fa.fa-clipboard
-                  span {{_ 'duplicate-board'}}
-              //- Multi-Selection button, with the "click checkboxes" hint stacked
-                directly BELOW it (own column) instead of beside the path title.
-              .multiselection-group
-                a.board-header-btn.js-multiselection-activate(
-                  title="{{#if BoardMultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}"
-                  class="{{#if BoardMultiSelection.isActive}}emphasis{{/if}}")
-                  i.fa.fa-check-square-o
-                  span {{#if BoardMultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}
-                  if BoardMultiSelection.isActive
-                    a.board-header-btn-close.js-multiselection-reset(title="{{_ 'filter-clear'}}")
-                      i.fa.fa-times-thin
-                if BoardMultiSelection.isActive
-                  span.multiselection-hint
-                    span.emoji-icon
-                      i.fa.fa-thumb-tack
-                    |  {{_ 'multi-selection-active'}}
-                  //- "Selected:" actions on the multi-selected boards: star them,
-                    or set one as the Home board (opened after login, #2220).
-                  .selected-actions
-                    span.selected-label {{_ 'selected-label'}}
-                    a.selected-action.js-star-selected(title="{{_ 'set-selected-starred'}}")
-                      i.fa.fa-star
-                    a.selected-action.js-home-selected(title="{{_ 'set-selected-home'}}")
-                      i.fa.fa-home
-            a.board-header-btn.js-open-boards-sort(title="{{_ 'sort-boards'}}" class="{{#unless isBoardsSort 'custom'}}emphasis{{/unless}}")
-              //- Icon as a direct `i.fa` child (like the Multi-Selection button
-              //- beside it), not wrapped in span.emoji-icon, and the plain
-              //- fa-sort glyph so the blue Sort button always shows a sort icon.
-              i.fa.fa-sort
-              span {{_ 'sort'}}
-            //- Search boards is placed to the RIGHT of the Multi-Selection button.
-            .board-search
-              span.emoji-icon
-                i.fa.fa-search
-              //- No placeholder text: the magnifier icon beside the field already
-                says what it is, and the label took the whole width of the box on a
-                phone. `aria-label` keeps it named for screen readers, which a
-                placeholder is not a substitute for anyway.
-              input.js-board-search-input(type="text" placeholder="" aria-label="{{_ 'search-boards'}}" value="{{boardSearch}}" autocomplete="off")
-              if boardSearch
-                a.board-search-clear.js-board-search-clear(title="{{_ 'filter-clear'}}")
-                  span.emoji-icon
-                    i.fa.fa-times
-        if boardsPaginationActive
-          .boards-pagination
-            button.js-boards-prev-page(class="{{#if hasBoardsPrevPage}}{{else}}disabled{{/if}}")
-              | &lt;
-            span.boards-page-info {{boardsCurrentPage}} / {{boardsTotalPages}}
-            button.js-boards-next-page(class="{{#if hasBoardsNextPage}}{{else}}disabled{{/if}}")
-              | &gt;
-        ul.board-list.clearfix.js-boards.dragscroll(class="{{#if isMiniScreen}}mobile-view{{/if}} {{#if BoardMultiSelection.isActive}}is-multiselection-active{{/if}}")
-          li.js-add-board
-            if isSelectedMenu 'templates'
-              a.board-list-item.label.is-template-container(title="{{_ 'add-template-container'}}")
+          //- The controls that were here - Multi-Selection with its archive
+            and duplicate actions, the "Selected:" actions, Sort and the search
+            box - are in the SECOND TOP HEADER BAR now (boardListHeaderBar
+            below), styled like the board header of the Swimlanes view. Two rows
+            of controls on one page, one of them styled like the board header and
+            one not, is what this removed. docs/Design/Page/All-Boards.md
+          if hasBoardsSelected
+            .path-right
+              //- The actions ON a selection stay beside the boards they act on:
+                they appear only while something is selected, and they are about
+                these rows rather than about the page.
+              button.js-archive-selected-boards.board-header-btn
                 span.emoji-icon
-                  i.fa.fa-plus
-                | &nbsp;{{_ 'add-template-container'}}
-            else
-              a.board-list-item.label(title="{{_ 'add-board'}}")
+                  i.fa.fa-archive
+                span {{_ 'archive-board'}}
+              button.js-duplicate-selected-boards.board-header-btn
                 span.emoji-icon
-                  i.fa.fa-plus
-                | &nbsp;{{_ 'add-board'}}
-          each boards
-            li.js-board.nodragscroll(class="{{_id}} {{#if isStarred}}starred{{/if}} {{colorClass}} {{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}", draggable="true")
-              if isInvited
-                .board-list-item
-                  if BoardMultiSelection.isActive
-                    .materialCheckBox.multi-selection-checkbox.js-toggle-board-multi-selection(
-                      class="{{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}")
-                  span.details
-                    span.board-list-item-name= title
-                    span.js-star-board(
-                      class="{{#if isStarred}}is-star-active{{else}}is-not-star-active{{/if}}"
-                      title="{{_ 'star-board-title'}}")
-                      span.emoji-icon
-                        i.fa(class="{{#if isStarred}}fa-star{{else}}fa-star-o{{/if}}")
-                    p.board-list-item-desc {{_ 'just-invited'}}
-                    button.js-accept-invite.primary {{_ 'accept'}}
-                    button.js-decline-invite {{_ 'decline'}}
+                  i.fa.fa-clipboard
+                span {{_ 'duplicate-board'}}
+              span.selected-label {{_ 'selected-label'}}
+              a.selected-action.js-star-selected(title="{{_ 'set-selected-starred'}}")
+                i.fa.fa-star
+              a.selected-action.js-home-selected(title="{{_ 'set-selected-home'}}")
+                i.fa.fa-home
+        //- Lists (the board icons) or Table. Lists is the default;
+          docs/Design/Page/All-Boards.md.
+        if isAllBoardsView 'table'
+          +tablePage(tablePageData)
+        else
+          if boardsPaginationActive
+            .boards-pagination
+              button.js-boards-prev-page(class="{{#if hasBoardsPrevPage}}{{else}}disabled{{/if}}")
+                | &lt;
+              span.boards-page-info {{boardsCurrentPage}} / {{boardsTotalPages}}
+              button.js-boards-next-page(class="{{#if hasBoardsNextPage}}{{else}}disabled{{/if}}")
+                | &gt;
+          ul.board-list.clearfix.js-boards.dragscroll(class="{{#if isMiniScreen}}mobile-view{{/if}} {{#if BoardMultiSelection.isActive}}is-multiselection-active{{/if}}")
+            li.js-add-board
+              if isSelectedMenu 'templates'
+                a.board-list-item.label.is-template-container(title="{{_ 'add-template-container'}}")
+                  span.emoji-icon
+                    i.fa.fa-plus
+                  | &nbsp;{{_ 'add-template-container'}}
               else
-                if $eq type "template-container"
-                  .template-container.board-list-item
+                a.board-list-item.label(title="{{_ 'add-board'}}")
+                  span.emoji-icon
+                    i.fa.fa-plus
+                  | &nbsp;{{_ 'add-board'}}
+            each boards
+              li.js-board.nodragscroll(class="{{_id}} {{#if isStarred}}starred{{/if}} {{colorClass}} {{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}", draggable="true")
+                if isInvited
+                  .board-list-item
                     if BoardMultiSelection.isActive
                       .materialCheckBox.multi-selection-checkbox.js-toggle-board-multi-selection(
                         class="{{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}")
-                    //- The drag handle obeys the same "Show desktop drag handles"
-                      setting as swimlanes, lists and cards. With handles ON it is
-                      the only place a board drag may start, so the rest of the
-                      tile is free to dragscroll; with handles OFF there is no
-                      handle and the whole tile is the drag source.
-                    if isTouchScreenOrShowDesktopDragHandles
-                      span.board-handle.nodragscroll(title="{{boardWorkspaceDragHint}}")
+                    span.details
+                      span.board-list-item-name= title
+                      span.js-star-board(
+                        class="{{#if isStarred}}is-star-active{{else}}is-not-star-active{{/if}}"
+                        title="{{_ 'star-board-title'}}")
                         span.emoji-icon
-                          i.fa.fa-arrows
-
-                    a.js-open-board(href="{{pathFor 'board' id=_id slug=slug}}" draggable="false")
-                      span.details
-                        span.board-list-item-name(title="{{_ 'template-container'}}")
-                          +viewer
-                            = title
-                        p.board-list-item-desc
-                          +viewer
-                            = description
-                        if hasSpentTimeCards
-                          span.js-has-spenttime-cards(
-                            class="{{#if hasOvertimeCards}}has-overtime-card-active{{else}}no-overtime-card-active{{/if}}"
-                            title="{{#if hasOvertimeCards}}{{_ 'has-overtime-cards'}}{{else}}{{_ 'has-spenttime-cards'}}{{/if}}")
-                            span.emoji-icon
-                              i.fa.fa-clock-o
-                    span.js-star-board(
-                      class="{{#if isStarred}}is-star-active{{else}}is-not-star-active{{/if}}"
-                      title="{{_ 'star-board-title'}}")
-                      span.emoji-icon
-                        i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
+                          i.fa(class="{{#if isStarred}}fa-star{{else}}fa-star-o{{/if}}")
+                      p.board-list-item-desc {{_ 'just-invited'}}
+                      button.js-accept-invite.primary {{_ 'accept'}}
+                      button.js-decline-invite {{_ 'decline'}}
                 else
-                  //- #5157: reuse the board's existing backgroundImageURL as the
-                  //- tile background on the board list page.
-                  .board-list-item(class="{{#if backgroundImageURL}}has-background-image{{/if}}" style="{{#if backgroundImageURL}}background-image:url('{{backgroundImageURL}}');{{/if}}")
-                    if BoardMultiSelection.isActive
-                      .materialCheckBox.multi-selection-checkbox.js-toggle-board-multi-selection(
-                        class="{{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}")
-                    //- #2220: the Home board (opened after login) is badged with a
-                      home icon at the top centre of its tile.
-                    if isDefaultBoard
-                      span.board-home-badge(title="{{_ 'home-board-badge'}}")
-                        i.fa.fa-home
-                    //- The drag handle obeys the same "Show desktop drag handles"
-                      setting as swimlanes, lists and cards. With handles ON it is
-                      the only place a board drag may start, so the rest of the
-                      tile is free to dragscroll; with handles OFF there is no
-                      handle and the whole tile is the drag source.
-                    if isTouchScreenOrShowDesktopDragHandles
-                      span.board-handle.nodragscroll(title="{{boardWorkspaceDragHint}}")
-                        span.emoji-icon
-                          i.fa.fa-arrows
+                  if $eq type "template-container"
+                    .template-container.board-list-item
+                      if BoardMultiSelection.isActive
+                        .materialCheckBox.multi-selection-checkbox.js-toggle-board-multi-selection(
+                          class="{{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}")
+                      //- The drag handle obeys the same "Show desktop drag handles"
+                        setting as swimlanes, lists and cards. With handles ON it is
+                        the only place a board drag may start, so the rest of the
+                        tile is free to dragscroll; with handles OFF there is no
+                        handle and the whole tile is the drag source.
+                      if isTouchScreenOrShowDesktopDragHandles
+                        span.board-handle.nodragscroll(title="{{boardWorkspaceDragHint}}")
+                          span.emoji-icon
+                            i.fa.fa-arrows
 
-                    a.js-open-board(href="{{pathFor 'board' id=_id slug=slug}}" draggable="false")
-                      span.details
-                        span.board-list-item-name(title="{{boardOpenAndMoveHint}}")
-                          +viewer
-                            = title
-                        //- #5174 / #4825: the per-board allows* flags are
-                        //- resolved server-side into the one-shot tile data
-                        //- (the raw fields are not even published to this
-                        //- page), so the show* helpers below gate the whole
-                        //- block consistently for every board.
-                        unless currentSetting.hideBoardMemberList
-                          if showBoardMemberList _id
-                            .minicard-members
-                              each member in boardMembers _id
-                                a.name
-                                  +userAvatar(userId=member noRemove=true)
-                        unless currentSetting.hideCardCounterList
-                          if showCardCounterList _id
-                            .minicard-lists.flex.flex-wrap
-                              each list in boardLists _id
-                                .item
-                                  | {{ list }}
-                        p.board-list-item-desc
-                          +viewer
-                            = description
-                        if hasSpentTimeCards
-                          span.js-has-spenttime-cards(
-                            class="{{#if hasOvertimeCards}}has-overtime-card-active{{else}}no-overtime-card-active{{/if}}"
-                            title="{{#if hasOvertimeCards}}{{_ 'has-overtime-cards'}}{{else}}{{_ 'has-spenttime-cards'}}{{/if}}")
-                            span.emoji-icon
-                              i.fa.fa-clock-o
-                    a.js-star-board(
-                      class="{{#if isStarred}}is-star-active{{else}}is-not-star-active{{/if}}"
-                      title="{{_ 'star-board-title'}}")
-                      span.emoji-icon
-                        i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
-                    //- #2220 Home-board toggle is disabled: the icon and the
-                    //- set-default-board action are intentionally not rendered.
+                      a.js-open-board(href="{{pathFor 'board' id=_id slug=slug}}" draggable="false")
+                        span.details
+                          span.board-list-item-name(title="{{_ 'template-container'}}")
+                            +viewer
+                              = title
+                          p.board-list-item-desc
+                            +viewer
+                              = description
+                          if hasSpentTimeCards
+                            span.js-has-spenttime-cards(
+                              class="{{#if hasOvertimeCards}}has-overtime-card-active{{else}}no-overtime-card-active{{/if}}"
+                              title="{{#if hasOvertimeCards}}{{_ 'has-overtime-cards'}}{{else}}{{_ 'has-spenttime-cards'}}{{/if}}")
+                              span.emoji-icon
+                                i.fa.fa-clock-o
+                      span.js-star-board(
+                        class="{{#if isStarred}}is-star-active{{else}}is-not-star-active{{/if}}"
+                        title="{{_ 'star-board-title'}}")
+                        span.emoji-icon
+                          i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
+                  else
+                    //- #5157: reuse the board's existing backgroundImageURL as the
+                    //- tile background on the board list page.
+                    .board-list-item(class="{{#if backgroundImageURL}}has-background-image{{/if}}" style="{{#if backgroundImageURL}}background-image:url('{{backgroundImageURL}}');{{/if}}")
+                      if BoardMultiSelection.isActive
+                        .materialCheckBox.multi-selection-checkbox.js-toggle-board-multi-selection(
+                          class="{{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}")
+                      //- #2220: the Home board (opened after login) is badged with a
+                        home icon at the top centre of its tile.
+                      if isDefaultBoard
+                        span.board-home-badge(title="{{_ 'home-board-badge'}}")
+                          i.fa.fa-home
+                      //- The drag handle obeys the same "Show desktop drag handles"
+                        setting as swimlanes, lists and cards. With handles ON it is
+                        the only place a board drag may start, so the rest of the
+                        tile is free to dragscroll; with handles OFF there is no
+                        handle and the whole tile is the drag source.
+                      if isTouchScreenOrShowDesktopDragHandles
+                        span.board-handle.nodragscroll(title="{{boardWorkspaceDragHint}}")
+                          span.emoji-icon
+                            i.fa.fa-arrows
+
+                      a.js-open-board(href="{{pathFor 'board' id=_id slug=slug}}" draggable="false")
+                        span.details
+                          span.board-list-item-name(title="{{boardOpenAndMoveHint}}")
+                            +viewer
+                              = title
+                          //- #5174 / #4825: the per-board allows* flags are
+                          //- resolved server-side into the one-shot tile data
+                          //- (the raw fields are not even published to this
+                          //- page), so the show* helpers below gate the whole
+                          //- block consistently for every board.
+                          unless currentSetting.hideBoardMemberList
+                            if showBoardMemberList _id
+                              .minicard-members
+                                each member in boardMembers _id
+                                  a.name
+                                    +userAvatar(userId=member noRemove=true)
+                          unless currentSetting.hideCardCounterList
+                            if showCardCounterList _id
+                              .minicard-lists.flex.flex-wrap
+                                each list in boardLists _id
+                                  .item
+                                    | {{ list }}
+                          p.board-list-item-desc
+                            +viewer
+                              = description
+                          if hasSpentTimeCards
+                            span.js-has-spenttime-cards(
+                              class="{{#if hasOvertimeCards}}has-overtime-card-active{{else}}no-overtime-card-active{{/if}}"
+                              title="{{#if hasOvertimeCards}}{{_ 'has-overtime-cards'}}{{else}}{{_ 'has-spenttime-cards'}}{{/if}}")
+                              span.emoji-icon
+                                i.fa.fa-clock-o
+                      a.js-star-board(
+                        class="{{#if isStarred}}is-star-active{{else}}is-not-star-active{{/if}}"
+                        title="{{_ 'star-board-title'}}")
+                        span.emoji-icon
+                          i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
+                      //- #2220 Home-board toggle is disabled: the icon and the
+                      //- set-default-board action are intentionally not rendered.
 
 template(name="boardsSortPopup")
   ul.pop-over-list
@@ -286,8 +260,98 @@ template(name="boardsSortPopup")
           i.fa.fa-sort-alpha-desc
         | &nbsp;{{_ 'sort-boards-title-desc'}}
 
+//- The ONE row of controls of the All Boards page, in the second top header bar.
+//- Design: docs/Design/Page/All-Boards.md
+//-
+//- Laid out and styled exactly like the board header of the Swimlanes view -
+//- `.board-header-btn`, the same Font Awesome glyphs, the same emphasis state
+//- when a control is on - because a WeKan page puts its controls in its header
+//- bar, and this page used to carry a second row of its own above the board
+//- icons instead.
 template(name="boardListHeaderBar")
   h1 {{_ title }}
+  if isBoardListPage
+    .board-header-btns.all-boards-controls
+      a.board-header-btn.js-select-menu(
+          data-type="starred"
+          title="{{_ 'starred-boards'}}"
+          class="{{#if isSelectedMenu 'starred'}}emphasis{{/if}}")
+        i.fa.fa-star
+        span {{_ 'allboards.starred'}}
+
+      a.board-header-btn.js-open-boards-sort(
+          title="{{_ 'sort-boards'}}"
+          class="{{#unless isBoardsSort 'custom'}}emphasis{{/unless}}")
+        i.fa.fa-sort
+        span {{_ 'sort'}}
+
+      //- Search is a FIELD here, not a button. On a board, Search opens a search
+        view over cards; here it filters a list of boards as you type, and a
+        filter belongs in the bar it filters.
+      .board-search
+        span.emoji-icon
+          i.fa.fa-search
+        //- No placeholder text: the magnifier beside the field already says what
+          it is, and a label took the whole width of the box on a phone.
+          `aria-label` keeps it named for screen readers.
+        input.js-board-search-input(type="text" placeholder="" aria-label="{{_ 'search-boards'}}" value="{{boardSearch}}" autocomplete="off")
+        if boardSearch
+          a.board-search-clear.js-board-search-clear(title="{{_ 'filter-clear'}}")
+            span.emoji-icon
+              i.fa.fa-times
+
+      if canModifyBoards
+        a.board-header-btn.js-multiselection-activate(
+            title="{{#if BoardMultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}"
+            class="{{#if BoardMultiSelection.isActive}}emphasis{{/if}}")
+          i.fa.fa-check-square-o
+          span {{#if BoardMultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}
+          if BoardMultiSelection.isActive
+            a.board-header-btn-close.js-multiselection-reset(title="{{_ 'filter-clear'}}")
+              i.fa.fa-times-thin
+
+      //- The view menu names the CURRENT view, not itself - the same as the board
+        header, which says "Swimlanes" or "Lists" rather than "Board View".
+      a.board-header-btn.js-open-all-boards-view(title="{{_ 'board-view'}}")
+        i.fa.fa-caret-down
+        if isAllBoardsView 'table'
+          i.fa.fa-table
+          span {{_ 'board-view-table'}}
+        else
+          i.fa.fa-trello
+          span {{_ 'lists'}}
+
+//- One row of the All Boards Table view. A rowTemplate, because the Edit cell is
+//- a control and the row carries its board's colours - neither of which a
+//- text-cell column spec can express. Cells must match the header, in order:
+//- Edit, Board title, Board description.
+template(name="allBoardsRow")
+  tr.all-boards-row(class="{{colorClass}}" data-board-id="{{_id}}")
+    td.all-boards-edit
+      a.js-edit-board-title-row(title="{{_ 'edit'}}")
+        i.fa.fa-pencil
+    td.all-boards-title
+      a.js-open-board-row(href="{{pathFor 'board' id=_id slug=slug}}")
+        +viewer
+          = title
+    td.all-boards-desc
+      +viewer
+        = description
+
+template(name="allBoardsViewPopup")
+  ul.pop-over-list
+    li
+      a.js-all-boards-view-lists
+        i.fa.fa-trello
+        | {{_ 'lists'}}
+        if isAllBoardsView 'lists'
+          i.fa.fa-check
+    li
+      a.js-all-boards-view-table
+        i.fa.fa-table
+        | {{_ 'board-view-table'}}
+        if isAllBoardsView 'table'
+          i.fa.fa-check
   //.board-header-btns.right
   //
     a.board-header-btn.js-open-archived-board

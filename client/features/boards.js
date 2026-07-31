@@ -13,6 +13,7 @@ import '/client/components/boards/boardArchive.js';
 import '/client/components/boards/boardBody.js';
 import '/client/components/boards/dependencyOverlay.js';
 import '/client/components/boards/boardHeader.js';
+import '/client/lib/allBoardsView';
 import '/client/components/boards/boardsList.js';
 import '/client/components/boards/publicBoards.js';
 import '/client/components/boards/originalPositionsView.js';

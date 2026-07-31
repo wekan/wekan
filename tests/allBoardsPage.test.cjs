@@ -1,0 +1,232 @@
+'use strict';
+
+// All Boards: one row of controls, in the header bar, and two views.
+// Run: node tests/allBoardsPage.test.cjs
+//
+// The page used to carry its OWN controls row above the board icons -
+// Multi-Selection with its archive and duplicate actions, Sort, the search box -
+// inside `.boards-path-header`, while the second top header bar above it held
+// only the title. Two rows of controls on one page, one styled like the board
+// header of the Swimlanes view and one not.
+//
+// Design: docs/Design/Page/All-Boards.md
+
+const assert = require('assert');
+const fs = require('fs');
+const path = require('path');
+
+const ROOT = path.join(__dirname, '..');
+const read = rel => fs.readFileSync(path.join(ROOT, rel), 'utf8');
+
+const jade = read('client/components/boards/boardsList.jade');
+const js = read('client/components/boards/boardsList.js');
+const design = read('docs/Design/Page/All-Boards.md');
+
+const bar = jade.slice(jade.indexOf('template(name="boardListHeaderBar")'),
+  jade.indexOf('template(name="allBoardsRow")'));
+const page = jade.slice(0, jade.indexOf('template(name="boardsSortPopup")'));
+const row = jade.slice(jade.indexOf('template(name="allBoardsRow")'),
+  jade.indexOf('template(name="allBoardsViewPopup")'));
+
+// The PURE half: which views exist and which is the default. The ReactiveVars and
+// localStorage that carry the choice are Meteor and cannot be loaded here, which
+// is why the two are separate modules.
+const {
+  VIEWS, VIEW_LISTS, VIEW_TABLE, DEFAULT_VIEW,
+  normalizeAllBoardsView, resolveAllBoardsView,
+} = require('../models/lib/allBoardsView');
+
+let passed = 0;
+const tests = [];
+function test(name, fn) { tests.push([name, fn]); }
+
+console.log('allBoardsPage:');
+
+// ── the controls, and where they are ────────────────────────────────────────
+
+test('the five controls are in the header bar, styled like the board header', () => {
+  for (const control of ['data-type="starred"', 'js-open-boards-sort',
+    'js-board-search-input', 'js-multiselection-activate', 'js-open-all-boards-view']) {
+    assert.ok(bar.includes(control), `${control} must be in the header bar`);
+  }
+  // The same look as the Swimlanes view's board header: .board-header-btn and the
+  // same Font Awesome glyphs, not a set of styles of this page's own.
+  for (const icon of ['fa-star', 'fa-sort', 'fa-search', 'fa-check-square-o']) {
+    assert.ok(bar.includes(icon), `${icon} is the board header's glyph for it`);
+  }
+  assert.ok((bar.match(/a\.board-header-btn\./g) || []).length >= 4,
+    'the controls are board-header buttons');
+});
+
+test('and the page has no second controls row', () => {
+  for (const moved of ['js-open-boards-sort', 'js-board-search-input',
+    'js-multiselection-activate', 'multiselection-group', 'js-multiselection-reset']) {
+    assert.ok(!page.includes(moved), `${moved} must not be in the page body too`);
+  }
+  // The actions ON a selection stay with the boards they act on - they are about
+  // those rows, not about the page - so they are the one thing left in path-right.
+  assert.ok(page.includes('js-archive-selected-boards'),
+    'the selection actions stay beside the boards');
+  assert.ok(/if hasBoardsSelected\n\s+\.path-right/.test(page),
+    'and appear only while something is selected');
+});
+
+test('Search is a field, not a button', () => {
+  // On a board, Search opens a search view over cards; here it filters the list
+  // it sits above, and a filter belongs in the bar it filters.
+  assert.ok(/input\.js-board-search-input\(type="text"/.test(bar),
+    'the header bar carries the input itself');
+  assert.ok(bar.includes('js-board-search-clear'), 'with a clear button');
+  assert.ok(!/js-open-search-view/.test(bar), 'and no search-view button');
+
+  // It filters as you type, and Escape clears it - the old right-pane behaviour.
+  const events = js.slice(js.indexOf('Template.boardListHeaderBar.events({'));
+  const map = events.slice(0, events.indexOf('\n});'));
+  assert.ok(/'input \.js-board-search-input'/.test(map), 'filters on input');
+  assert.ok(/'keydown \.js-board-search-input'/.test(map) && /Escape/.test(map),
+    'and Escape clears it');
+});
+
+// ── the shared state ────────────────────────────────────────────────────────
+
+test('the two templates share one search term and one selected section', () => {
+  // boardListHeaderBar and boardList are separate Blaze instances - the bar is
+  // rendered into the layout's headerBar region - so a ReactiveVar on either is
+  // invisible to the other, and the search field would filter nothing.
+  assert.ok(/this\.selectedMenu = allBoardsMenuVar;/.test(js),
+    'the page uses the shared section var');
+  assert.ok(/this\.boardSearchVar = allBoardsSearchVar;/.test(js),
+    'and the shared search var');
+  assert.ok(!/this\.boardSearchVar = new ReactiveVar/.test(js),
+    'not an instance var of its own');
+});
+
+// ── the view menu ───────────────────────────────────────────────────────────
+
+test('the view menu names the current view, not itself', () => {
+  // The board header says "Swimlanes" or "Lists", never "Board View"; this
+  // matches it.
+  assert.ok(!/board-view'\}\}/.test(bar.replace(/title="[^"]*"/g, '')),
+    'the button label must not be the words "Board View"');
+  assert.ok(/if isAllBoardsView 'table'[\s\S]{0,200}board-view-table/.test(bar),
+    'it says Table when the Table view is on');
+  assert.ok(/else[\s\S]{0,120}\{\{_ 'lists'\}\}/.test(bar),
+    'and Lists otherwise');
+});
+
+test('two views, and Lists is the default', () => {
+  assert.deepStrictEqual(VIEWS, [VIEW_LISTS, VIEW_TABLE], 'exactly Lists and Table');
+  assert.strictEqual(VIEW_LISTS, 'lists');
+  assert.strictEqual(DEFAULT_VIEW, VIEW_LISTS, 'Lists is the default');
+
+  // Never chosen, and anything a future version (or a user) might leave behind:
+  // the page renders Lists rather than nothing.
+  for (const stored of [null, undefined, '', 'nonsense', 'swimlanes', 0]) {
+    assert.strictEqual(resolveAllBoardsView(stored), VIEW_LISTS,
+      `${JSON.stringify(stored)} must fall back to Lists`);
+  }
+  assert.strictEqual(resolveAllBoardsView(VIEW_TABLE), VIEW_TABLE,
+    'and a real choice is kept');
+
+  // null, not the default, so a caller can tell "never chosen" from "chose Lists".
+  assert.strictEqual(normalizeAllBoardsView('nonsense'), null);
+  assert.strictEqual(normalizeAllBoardsView(VIEW_LISTS), VIEW_LISTS);
+});
+
+test('the client half stores the choice per browser, not on the profile', () => {
+  const client = read('client/lib/allBoardsView.js');
+  assert.ok(/localStorage\.setItem\(STORAGE_KEY/.test(client), 'kept in localStorage');
+  // On the CODE: the comment there explains the choice by naming the profile, and
+  // a guard that reads its own explanation fails on it.
+  const code = client.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
+  assert.ok(!/profile/.test(code), 'not on the user document');
+  // Storage can throw (private mode); the choice must still apply for the session.
+  assert.ok(/catch \(e\) \{/.test(client), 'and a refusing storage is survivable');
+});
+
+test('the popup offers exactly those two, with the current one checked', () => {
+  const popup = jade.slice(jade.indexOf('template(name="allBoardsViewPopup")'));
+  const entries = popup.slice(0, popup.indexOf('template(name="workspaceTree")'));
+  assert.ok(/js-all-boards-view-lists/.test(entries) && /js-all-boards-view-table/.test(entries));
+  assert.strictEqual((entries.match(/fa-check/g) || []).length, 2,
+    'each entry shows a check when it is the current one');
+  assert.ok(!/gantt|calendar|swimlanes|stats/i.test(entries),
+    'and no other view - this page has two');
+});
+
+// ── the Table view ──────────────────────────────────────────────────────────
+
+test('the Table view is the shared table page', () => {
+  assert.ok(/if isAllBoardsView 'table'\n\s+\+tablePage\(tablePageData\)/.test(jade),
+    'Table renders the shared table page');
+  assert.ok(/else\n/.test(jade), 'and Lists is the other branch');
+  assert.ok(/rowTemplate: 'allBoardsRow'/.test(js), 'with its own row template');
+});
+
+test('its columns are Edit, Board title, Board description', () => {
+  const at = js.indexOf('const ALL_BOARDS_COLUMNS = [');
+  const spec = js.slice(at, js.indexOf('];', at));
+  const keys = [...spec.matchAll(/labelKey: '([\w-]+)'/g)].map(m => m[1]);
+  assert.deepStrictEqual(keys, ['edit', 'title', 'description']);
+
+  const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
+  for (const k of keys) assert.ok(k in en, `${k} must be a translation key`);
+
+  const cells = (row.match(/^\s{4}td\./gm) || []).length;
+  assert.strictEqual(cells, keys.length, 'one cell per column, or the table is shifted');
+});
+
+test('Edit opens the SAME popup the Swimlanes view opens', () => {
+  assert.ok(/'click \.js-edit-board-title-row': Popup\.open\('boardChangeTitle'\)/.test(js),
+    'the row opens boardChangeTitle');
+  const header = read('client/components/boards/boardHeader.js');
+  assert.ok(/'click \.js-edit-board-title': Popup\.open\('boardChangeTitle'\)/.test(header),
+    'which is the one the board header opens');
+
+  // It took one change to make that true: the submit read Utils.getCurrentBoard(),
+  // and on All Boards there is no current board.
+  const submit = header.slice(header.indexOf('Template.boardChangeTitlePopup.events({'));
+  const body = submit.slice(0, submit.indexOf('\n});'));
+  assert.ok(/Template\.currentData\(\)/.test(body),
+    'the popup must take the board from its data context when it has one');
+  assert.ok(/Utils\.getCurrentBoard\(\)/.test(body),
+    'and still fall back to the current board, so the board header is unchanged');
+});
+
+test('the Table draws the same boards as the Lists view', () => {
+  // Two copies of "which boards am I looking at" would be two answers to it.
+  assert.ok(/function boardsForView\(tpl\)/.test(js), 'the set is computed once');
+  assert.ok(/const all = boardsForView\(tpl\);/.test(js), 'the Table uses it');
+  assert.ok(/return boardsForView\(Template\.instance\(\)\);/.test(js),
+    'and so does the Lists view');
+});
+
+test('ten rows a page', () => {
+  assert.ok(/TABLE_PAGE_ROWS_PER_PAGE/.test(js), 'the shared rows-per-page');
+  assert.ok(/TABLE_PAGE_ROWS_PER_PAGE = 10/.test(read('models/lib/tablePage.js')),
+    'which is ten');
+});
+
+// ── the design doc ──────────────────────────────────────────────────────────
+
+test('the design doc says what is different and links to the shared one', () => {
+  assert.ok(/Table\.md/.test(design), 'it links to the Table page design');
+  for (const section of ['## The controls live in the header bar', '## The view menu',
+    '## The Table view']) {
+    assert.ok(design.includes(section), `${section} must be described`);
+  }
+  assert.ok(/Search is a field/i.test(design), 'including that Search is a field');
+  for (const m of design.matchAll(/`([\w.-]+\/[\w./-]+\.(?:jade|js|css|cjs))`/g)) {
+    assert.ok(fs.existsSync(path.join(ROOT, m[1])),
+      `the design doc names ${m[1]}, which does not exist`);
+  }
+  const table = read('docs/Design/Page/Table.md');
+  assert.ok(/All-Boards\.md/.test(table),
+    'Table.md must list the All Boards table among the pages that use it');
+});
+
+for (const [name, fn] of tests) {
+  try { fn(); passed++; console.log('  ok -', name); }
+  catch (err) { console.error(`  FAIL - ${name}\n    ${err.message}`); process.exitCode = 1; }
+}
+console.log(`\nallBoardsPage: ${passed} tests passed`);
