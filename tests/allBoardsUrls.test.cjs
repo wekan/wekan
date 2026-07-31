@@ -23,6 +23,7 @@ const {
   ALL_BOARDS_SECTIONS, DEFAULT_SECTION, SECTION_WORKSPACES,
   normalizeSection, resolveSection, workspaceSlug, workspaceSlugPath,
   workspaceIdForSlugPath, splitWorkspacePath, allBoardsPath, allBoardsPathForMenu,
+  workspaceNamePath,
 } = require('../models/lib/allBoardsUrls');
 
 // A stub slugifier for the pure tests, and the REAL one for the tests that are
@@ -243,6 +244,74 @@ test('the design doc says what the URLs are', () => {
   for (const m of doc.matchAll(/`([\w.-]+\/[\w./-]+\.(?:jade|js|css|cjs))`/g)) {
     assert.ok(fs.existsSync(path.join(ROOT, m[1])),
       `the design doc names ${m[1]}, which does not exist`);
+  }
+});
+
+test('a workspace nests as deep as its tree does - sub, sub-sub, and further', () => {
+  // Nothing here counts levels, and nothing may start: the URL, the lookup back
+  // to an id, and the title in the header bar all walk the tree until it ends.
+  // A cap would be invisible until somebody made a workspace one level deeper
+  // than whoever wrote the cap imagined.
+  const DEPTH = 6;
+  let leaf = { id: 'w6', name: 'Level Six', children: [] };
+  let node = leaf;
+  for (let level = DEPTH - 1; level >= 1; level--) {
+    node = { id: `w${level}`, name: `Level ${level}`, children: [node] };
+  }
+  const deepTree = [node];
+
+  // Clicking the deepest one builds the whole trail...
+  const url = allBoardsPathForMenu(leaf.id, deepTree, slug);
+  const expected = '/allboards/workspaces/'
+    + ['level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-six'].join('/');
+  assert.strictEqual(url, expected, 'every level is in the address');
+
+  // ...the route splits it back into that many segments...
+  const segments = splitWorkspacePath(url.replace('/allboards/workspaces/', ''));
+  assert.strictEqual(segments.length, DEPTH);
+
+  // ...it resolves to the leaf, not to an ancestor...
+  assert.strictEqual(workspaceIdForSlugPath(deepTree, segments, slug), leaf.id);
+
+  // ...and the header names every one of them, in order.
+  assert.deepStrictEqual(workspaceNamePath(deepTree, segments, slug),
+    ['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5', 'Level Six']);
+
+  // The route pattern is what allows it: `:path*` captures the whole rest of
+  // the address, slashes included. `:path?` would take one segment and a
+  // sub-sub-workspace would silently resolve to its parent.
+  const router = read('config/router.js');
+  assert.ok(router.includes("FlowRouter.route('/allboards/:section?/:path*'"),
+    'the trail is captured whole, not one segment of it');
+
+  // ...and the same on the real slugifier, which is what actually runs.
+  if (getSlug) {
+    assert.strictEqual(allBoardsPathForMenu(leaf.id, deepTree, getSlug), expected);
+    assert.deepStrictEqual(
+      workspaceNamePath(deepTree, splitWorkspacePath(
+        allBoardsPathForMenu(leaf.id, deepTree, getSlug)
+          .replace('/allboards/workspaces/', '')), getSlug),
+      ['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5', 'Level Six']);
+  }
+});
+
+test('and the fixture tree round-trips at every level it has', () => {
+  // Every node of TREE, not only the leaves: an ancestor is a workspace you can
+  // open too, and its URL must not be the trail of one of its children.
+  const walk = (nodes, trail = []) => nodes.flatMap(n => {
+    const here = [...trail, n];
+    return [here, ...walk(n.children || [], here)];
+  });
+  for (const chain of walk(TREE)) {
+    const target = chain[chain.length - 1];
+    const url = allBoardsPathForMenu(target.id, TREE, slug);
+    const segments = splitWorkspacePath(url.replace('/allboards/workspaces/', ''));
+    assert.strictEqual(segments.length, chain.length,
+      `${target.name}: one segment per level, ${chain.length} deep`);
+    assert.strictEqual(workspaceIdForSlugPath(TREE, segments, slug), target.id,
+      `${target.name}: the URL resolves back to it`);
+    assert.deepStrictEqual(workspaceNamePath(TREE, segments, slug),
+      chain.map(n => n.name), `${target.name}: the header names its whole path`);
   }
 });
 
