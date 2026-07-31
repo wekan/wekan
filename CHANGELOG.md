@@ -394,6 +394,47 @@ everything, and an unrestricted member keeps the fast path.
 and documents the following:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/54915db25">Public Boards is its own read-only table page, not All Boards with a different query</a>. Thanks to xet7.</summary>
+
+/public rendered the All Boards page with its query swapped for `{ permission:
+'public' }`, which brought the whole of All Boards with it: the Starred /
+Templates / Remaining menu counting the user's *own* boards beside a grid that
+was not, the workspaces tree, the org and team filters, Multi-Selection with its
+archive and duplicate actions, the sort popup, board dragging, and an "Add
+board" tile that made a private board from a page about public ones.
+Multi-Selection offered to archive boards the visitor has no rights to at all.
+
+It is only the table now: board title and board description, ten rows a page,
+paged and counted on the server. No left menu, no create, no selection, no drag,
+and nothing on the page changes anything — a row's only action is to open its
+board. The rows carry their board's colour and background image, so a board is
+recognised here the way it is on All Boards.
+
+A page costs six fields for ten boards, not ten board documents: the two
+columns, the slug the link needs, and the two the row is coloured with.
+`members` is deliberately absent — it is the largest field on a busy board and
+this page shows no avatars. The selector is built on the server and takes
+nothing from the client: public, not archived, a real board rather than a
+template container, and not an internal `^Subtasks^` board.
+
+Not carried over from the board tile: member avatars, the per-list card counts
+and the spent-time clock. What a visitor needs of a board they do not belong to
+is what it is called and what it is for; the rest is the inside of a board they
+have not opened, and each costs a query the page would otherwise not make — the
+clock answers by looking for cards, which this page does not publish, so it
+would read false for every board on every instance.
+
+The design is
+[docs/Design/Page/Public.md](https://github.com/wekan/wekan/blob/main/docs/Design/Page/Public.md),
+which describes only what is different about this page and links back to the
+shared [Table page
+design](https://github.com/wekan/wekan/blob/main/docs/Design/Page/Table.md) for
+everything else.
+
+</details>
+
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/744df4154">What each board role may and may not do, as one table, read from the code</a>. Thanks to xet7.</summary>
 
 There was no comparison of the roles anywhere. Members.md listed three of them —
