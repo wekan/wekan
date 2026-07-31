@@ -245,6 +245,41 @@ test('starred boards are a dropdown, not a row of links', () => {
     'body.mobile-mode makes every pop-over full width');
 });
 
+test('the header imports no page module, whatever it needs from one', () => {
+  // The header is rendered by the layout, so it loads very early. Importing a
+  // page's own module pulls that module into the header's graph and runs it
+  // BEFORE its .jade has registered - `Template.import.onCreated` was
+  // `undefined.onCreated`, a TypeError at module load, and a module that throws
+  // aborts every module after it. That is how `connectionMethod` and the rest
+  // went missing at the same time, from one bad import.
+  const bad = [...js.matchAll(/import[^;]*from '(\/client\/components\/[^']+)'/g)]
+    .map(m => m[1]);
+  assert.deepStrictEqual(bad, [],
+    'the header must not import a page module: ' + bad.join(', '));
+
+  // What it needs from three pages - their own names - comes from a module that
+  // registers no template and touches no DOM, so it is safe to load early.
+  assert.ok(/from '\/client\/lib\/pageTitleSources'/.test(js),
+    'the custom titles come from a side-effect-free module');
+  // On the CODE: the module's comment explains the bug by naming
+  // `Template.import.onCreated`, and a guard that greps the whole file reads
+  // its own explanation.
+  const sources = read('client/lib/pageTitleSources.js');
+  const code = sources.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
+  assert.ok(!/Template\./.test(code), 'which registers no template');
+  for (const fn of ['supportPageTitle', 'accessibilityPageTitle', 'importPageTitle']) {
+    assert.ok(new RegExp(`export function ${fn}\\(`).test(sources), `${fn} lives there`);
+  }
+  // ...and the pages use that same one rather than each defining its own.
+  for (const page of ['client/components/main/support.js',
+    'client/components/main/accessibility.js']) {
+    assert.ok(/from '\/client\/lib\/pageTitleSources'/.test(read(page)),
+      `${page} must share it`);
+    assert.ok(!/export function \w+PageTitle/.test(read(page)),
+      `${page} must not define a second copy`);
+  }
+});
+
 for (const [name, fn] of tests) {
   try { fn(); passed++; console.log('  ok -', name); }
   catch (err) { console.error(`  FAIL - ${name}\n    ${err.message}`); process.exitCode = 1; }

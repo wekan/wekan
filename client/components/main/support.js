@@ -2,12 +2,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 
 // Shared helpers for both support templates
-// The page's name. An admin can rename it, so the top header bar has to ask
-// rather than assume - exported for that. models/lib/pageTitles.js
-export function supportPageTitle() {
-  const setting = ReactiveCache.getCurrentSetting();
-  return (setting && setting.supportTitle) || '';
-}
+import { supportPageTitle } from '/client/lib/pageTitleSources';
 
 const supportHelpers = {
   supportTitle() {

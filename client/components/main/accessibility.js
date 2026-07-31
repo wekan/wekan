@@ -3,11 +3,7 @@ import { TAPi18n } from '/imports/i18n';
 import AccessibilitySettings from '/models/accessibilitySettings';
 
 // Shared helpers for both accessibility templates
-// The page's name, which an admin can set. models/lib/pageTitles.js
-export function accessibilityPageTitle() {
-  const setting = AccessibilitySettings.findOne({});
-  return (setting && setting.title) || '';
-}
+import { accessibilityPageTitle } from '/client/lib/pageTitleSources';
 
 const accessibilityHelpers = {
   accessibilityTitle() {

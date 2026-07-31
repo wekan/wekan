@@ -21,9 +21,11 @@ const ALL_BOARDS_VIEW_ROUTES = ['home', 'allboards', 'allboards-templates', 'all
 // Three pages carry a name of their own rather than a fixed one: an admin can
 // rename Support and Accessibility, and Import names the source it is importing
 // from. Asked for here rather than computed a second time.
-import { supportPageTitle } from '/client/components/main/support';
-import { accessibilityPageTitle } from '/client/components/main/accessibility';
-import { importPageTitle } from '/client/components/import/import';
+import {
+  supportPageTitle,
+  accessibilityPageTitle,
+  importPageTitle,
+} from '/client/lib/pageTitleSources';
 
 function customPageTitle(routeName) {
   if (routeName === 'support') return supportPageTitle();
