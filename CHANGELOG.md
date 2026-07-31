@@ -446,6 +446,35 @@ directly above it in the same popup is the shape it now matches.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/84f08c97b">All Boards: the actions on a selection move into the header bar with everything else</a>. Thanks to xet7.</summary>
+
+The header bar took the controls of the page, but the actions ON a selection —
+Move Board to Archive, Duplicate Board, and the "Selected:" star and home —
+were left where they were, in a strip above the board icons, on the reasoning
+that they are about those boards rather than about the page. That still left
+two places to look for a button. They are in the header bar now, to the right
+of the controls that are always there, as `.board-header-btn` like every
+control beside them, and `.boards-path-header` holds the section title and
+nothing else.
+
+They appear only while something is selected: four buttons that would do
+nothing are worse than no buttons. Archive and duplicate carry their names;
+star and home stay icon-only under the "Selected:" label that already named
+them, because their names are sentences — "Set as Home board (opened after
+login)" — that belong in a tooltip, and spelling them out pushes the bar onto a
+second row. The label stays a label, with neither the button class nor any
+button behaviour.
+
+Two things had to move with the buttons, because Blaze binds both to a single
+template: their four click handlers, which an event map on `boardList` could no
+longer see, and `hasBoardsSelected`, which decides whether they are drawn. The
+stylesheet lost `.path-right`, `.selected-action` and `.selected-actions`,
+which now select nothing, and the phone media query lost the four rules that
+flattened a controls row this page no longer has.
+
+</details>
+
 and updates the following dependencies:
 
 - **aldeed:collection2 4.2.0 → 4.2.1** — cleans and validates every write

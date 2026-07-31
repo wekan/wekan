@@ -81,30 +81,13 @@ template(name="boardList")
               span.path-icon
                 i.fa(class="{{currentMenuPath.faIcon}}")
               span.path-text {{currentMenuPath.text}}
-          //- The controls that were here - Multi-Selection with its archive
-            and duplicate actions, the "Selected:" actions, Sort and the search
-            box - are in the SECOND TOP HEADER BAR now (boardListHeaderBar
-            below), styled like the board header of the Swimlanes view. Two rows
-            of controls on one page, one of them styled like the board header and
-            one not, is what this removed. docs/Design/Page/All-Boards.md
-          if hasBoardsSelected
-            .path-right
-              //- The actions ON a selection stay beside the boards they act on:
-                they appear only while something is selected, and they are about
-                these rows rather than about the page.
-              button.js-archive-selected-boards.board-header-btn
-                span.emoji-icon
-                  i.fa.fa-archive
-                span {{_ 'archive-board'}}
-              button.js-duplicate-selected-boards.board-header-btn
-                span.emoji-icon
-                  i.fa.fa-clipboard
-                span {{_ 'duplicate-board'}}
-              span.selected-label {{_ 'selected-label'}}
-              a.selected-action.js-star-selected(title="{{_ 'set-selected-starred'}}")
-                i.fa.fa-star
-              a.selected-action.js-home-selected(title="{{_ 'set-selected-home'}}")
-                i.fa.fa-home
+          //- EVERY control that was here - Multi-Selection, Sort, the search
+            box, and the archive / duplicate / star / home actions on a
+            selection - is in the SECOND TOP HEADER BAR now (boardListHeaderBar
+            below), styled like the board header of the Swimlanes view. Nothing
+            but the section title is left: a WeKan page puts its controls in its
+            header bar, and this page carried a second row of its own.
+            docs/Design/Page/All-Boards.md
         //- Lists (the board icons) or Table. Lists is the default;
           docs/Design/Page/All-Boards.md.
         if isAllBoardsView 'table'
@@ -320,6 +303,30 @@ template(name="boardListHeaderBar")
         else
           i.fa.fa-trello
           span {{_ 'lists'}}
+
+      //- The actions ON a selection: archive, duplicate, and the "Selected:"
+        star and home. They were a row of their own above the board icons; they
+        are header-bar buttons now, to the RIGHT of the controls that are always
+        there, and they still appear only while something is selected - so the
+        bar does not carry four buttons that would do nothing.
+        Star and home stay icon-only under the "Selected:" label, as they were:
+        their names ("Set as Home board (opened after login)") are tooltips, not
+        button labels, and spelling them out would push the whole bar onto a
+        second line.
+      if hasBoardsSelected
+        a.board-header-btn.js-archive-selected-boards(title="{{_ 'archive-board'}}")
+          i.fa.fa-archive
+          span {{_ 'archive-board'}}
+
+        a.board-header-btn.js-duplicate-selected-boards(title="{{_ 'duplicate-board'}}")
+          i.fa.fa-clipboard
+          span {{_ 'duplicate-board'}}
+
+        span.selected-label {{_ 'selected-label'}}
+        a.board-header-btn.js-star-selected(title="{{_ 'set-selected-starred'}}")
+          i.fa.fa-star
+        a.board-header-btn.js-home-selected(title="{{_ 'set-selected-home'}}")
+          i.fa.fa-home
 
 //- One row of the All Boards Table view. A rowTemplate, because the Edit cell is
 //- a control and the row carries its board's colours - neither of which a

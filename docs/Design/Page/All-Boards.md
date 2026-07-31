@@ -22,13 +22,34 @@ the same emphasis state when a control is on.
 | Multi-Selection | `fa-check-square-o` | Turns board multi-selection on, with its ✕ to turn it off, exactly as on a board. |
 | Lists / Table | `fa-trello` / `fa-table` | The view menu — see below. |
 
+The **actions on a selection** follow them, to the right, and appear only while
+something is selected — four buttons that would do nothing are worse than no
+buttons:
+
+| Action | Icon | What it does |
+| --- | --- | --- |
+| Move Board to Archive | `fa-archive` | Archives every selected board, after a confirm. |
+| Duplicate Board | `fa-clipboard` | Copies every selected board, after a confirm. |
+| Selected: ★ | `fa-star` | Stars every selected board that is not starred yet. Never un-stars. |
+| Selected: ⌂ | `fa-home` | Makes the first selected board the Home board, opened after login. |
+
+Star and home stay **icon-only**, under the "Selected:" label that names them,
+because their names are sentences — "Set as Home board (opened after login)" —
+that belong in a tooltip rather than on a button, and spelling them out pushes
+the bar onto a second row. The label is a label: it takes neither
+`.board-header-btn` nor any button behaviour.
+
 **There is no second controls bar.** The page used to carry its own row of
 controls above the board icons — Multi-Selection with its archive and duplicate
 actions, the sort button, the search box, the "Selected:" actions — inside
 `.boards-path-header`. Two bars of controls on one page, one of them styled like
 the board header and one not, is the thing this design removes: the header bar is
 where a WeKan page puts its controls, and All Boards now agrees with every other
-page about that.
+page about that. `.boards-path-header` holds the section title and nothing else.
+
+Because a Blaze event map only sees events inside its own template, the handlers
+for the selection actions moved to `boardListHeaderBar` with their buttons, and
+`hasBoardsSelected` is registered there as well as on `boardList`.
 
 ### Search is a field
 

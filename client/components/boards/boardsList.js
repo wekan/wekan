@@ -206,6 +206,75 @@ Template.boardListHeaderBar.events({
     evt.stopPropagation();
     BoardMultiSelection.disable();
   },
+
+  // The actions ON a selection. They were handled by `boardList`, because that
+  // is where their buttons were; the buttons are in this bar now, and a Blaze
+  // event map only sees events inside its OWN template.
+  'click .js-archive-selected-boards'(evt) {
+    evt.preventDefault();
+    const selectedBoards = BoardMultiSelection.getSelectedBoardIds();
+    if (
+      selectedBoards.length > 0 &&
+      confirm(TAPi18n.__('archive-board-confirm'))
+    ) {
+      selectedBoards.forEach((boardId) => {
+        Meteor.call('archiveBoard', boardId, (err) => {
+          if (err) alert(err?.reason || err?.message || 'Failed to archive board');
+        });
+      });
+      BoardMultiSelection.reset();
+    }
+  },
+  'click .js-duplicate-selected-boards'(evt) {
+    evt.preventDefault();
+    const selectedBoards = BoardMultiSelection.getSelectedBoardIds();
+    if (
+      selectedBoards.length > 0 &&
+      confirm(TAPi18n.__('duplicate-board-confirm'))
+    ) {
+      selectedBoards.forEach((boardId) => {
+        const board = ReactiveCache.getBoard(boardId);
+        if (board) {
+          Meteor.call(
+            'copyBoard',
+            boardId,
+            {
+              sort: ReactiveCache.getBoards({ archived: false }).length,
+              type: 'board',
+              title: board.title,
+            },
+            (err, res) => {
+              if (err) console.error(err);
+            },
+          );
+        }
+      });
+      BoardMultiSelection.reset();
+    }
+  },
+  // "Selected:" star action: star every multi-selected board that isn't yet
+  // starred (so it becomes Starred, never toggled back off by this button).
+  'click .js-star-selected'(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    const user = ReactiveCache.getCurrentUser();
+    BoardMultiSelection.getSelectedBoardIds().forEach((id) => {
+      if (user && !user.hasStarred(id)) {
+        Meteor.call('toggleBoardStar', id);
+      }
+    });
+  },
+  // #2220 "Selected:" home action: set the first selected board as the Home
+  // board (opened after login). Clicking it again when it is already Home clears
+  // it (toggle), matching toggleDefaultBoard.
+  'click .js-home-selected'(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    const ids = BoardMultiSelection.getSelectedBoardIds();
+    if (ids.length) {
+      Meteor.call('toggleDefaultBoard', ids[0]);
+    }
+  },
 });
 
 Template.boardList.events({});
@@ -398,6 +467,11 @@ Template.boardListHeaderBar.helpers({
   },
   isAllBoardsView(view) {
     return isAllBoardsView(view);
+  },
+  // Whether the selection actions belong in the bar at all. Registered here as
+  // well as on `boardList`, because that is where the buttons are now.
+  hasBoardsSelected() {
+    return BoardMultiSelection.count() > 0;
   },
   BoardMultiSelection() {
     return BoardMultiSelection;
@@ -1183,29 +1257,6 @@ Template.boardList.events({
       Meteor.call('toggleBoardStar', boardId);
     }
   },
-  // "Selected:" star action: star every multi-selected board that isn't yet
-  // starred (so it becomes Starred, never toggled back off by this button).
-  'click .js-star-selected'(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
-    const user = ReactiveCache.getCurrentUser();
-    BoardMultiSelection.getSelectedBoardIds().forEach((id) => {
-      if (user && !user.hasStarred(id)) {
-        Meteor.call('toggleBoardStar', id);
-      }
-    });
-  },
-  // #2220 "Selected:" home action: set the first selected board as the Home
-  // board (opened after login). Clicking it again when it is already Home clears
-  // it (toggle), matching toggleDefaultBoard.
-  'click .js-home-selected'(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
-    const ids = BoardMultiSelection.getSelectedBoardIds();
-    if (ids.length) {
-      Meteor.call('toggleDefaultBoard', ids[0]);
-    }
-  },
   // HTML5 DnD from boards to spaces
   // #5850: drag a (template) board onto an Org/Team/Domain target to share it.
   'dragover .js-share-target'(evt) {
@@ -1462,48 +1513,6 @@ Template.boardList.events({
     evt.stopPropagation();
     const boardId = this._id;
     BoardMultiSelection.toogle(boardId);
-  },
-  'click .js-archive-selected-boards'(evt) {
-    evt.preventDefault();
-    const selectedBoards = BoardMultiSelection.getSelectedBoardIds();
-    if (
-      selectedBoards.length > 0 &&
-      confirm(TAPi18n.__('archive-board-confirm'))
-    ) {
-      selectedBoards.forEach((boardId) => {
-        Meteor.call('archiveBoard', boardId, (err) => {
-          if (err) alert(err?.reason || err?.message || 'Failed to archive board');
-        });
-      });
-      BoardMultiSelection.reset();
-    }
-  },
-  'click .js-duplicate-selected-boards'(evt) {
-    evt.preventDefault();
-    const selectedBoards = BoardMultiSelection.getSelectedBoardIds();
-    if (
-      selectedBoards.length > 0 &&
-      confirm(TAPi18n.__('duplicate-board-confirm'))
-    ) {
-      selectedBoards.forEach((boardId) => {
-        const board = ReactiveCache.getBoard(boardId);
-        if (board) {
-          Meteor.call(
-            'copyBoard',
-            boardId,
-            {
-              sort: ReactiveCache.getBoards({ archived: false }).length,
-              type: 'board',
-              title: board.title,
-            },
-            (err, res) => {
-              if (err) console.error(err);
-            },
-          );
-        }
-      });
-      BoardMultiSelection.reset();
-    }
   },
   'click #resetBtn'(event) {
     let allBoards = document.getElementsByClassName('js-board');

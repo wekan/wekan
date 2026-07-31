@@ -57,13 +57,27 @@ test('the add-board grey tile matches the board tile box model (same height)', (
   assert.ok(!/padding:\s*36px/.test(add), 'no leftover 36px padding');
 });
 
-test('the My Boards bar wraps so Sort/Multi-Selection/Clear stay visible when narrow', () => {
-  // Without flex-wrap the search box + Sort / Multi-Selection / Clear buttons
-  // overflow (hide) on a narrow window instead of dropping to a second row.
+test('the controls wrap so none of them is cut off on a narrow window', () => {
+  // Without flex-wrap the controls overflow (hide) on a narrow window instead
+  // of dropping to a second row.
+  //
+  // This used to read `.boards-path-header .path-right`, the page's own row of
+  // controls. There is no such row: every control - Sort, Search,
+  // Multi-Selection, the view menu, and the archive / duplicate / star / home
+  // actions on a selection - is in the second top header bar now, so the group
+  // that has to wrap is the header bar's, and it is styled by the board
+  // header's own stylesheet rather than by this page's.
   const header = block('.boards-path-header');
-  assert.strictEqual(prop(header, 'flex-wrap'), 'wrap', 'the bar wraps');
-  const right = block('.boards-path-header .path-right');
-  assert.strictEqual(prop(right, 'flex-wrap'), 'wrap', 'the button group wraps too');
+  assert.strictEqual(prop(header, 'flex-wrap'), 'wrap', 'the section title bar wraps');
+  assert.ok(!/\.path-right/.test(css.replace(/\/\*[\s\S]*?\*\//g, '')),
+    'and has no controls group left to wrap');
+
+  const headerCss = fs.readFileSync(
+    path.join(path.resolve(__dirname, '..'), 'client/components/main/header.css'), 'utf8');
+  const i = headerCss.indexOf('#header #header-main-bar .board-header-btns {');
+  assert.ok(i !== -1, 'the header bar button group must be styled');
+  assert.ok(/flex-wrap:\s*wrap/.test(headerCss.slice(i, headerCss.indexOf('}', i))),
+    'the header bar button group wraps');
 });
 
 test('the empty .board-list-header dead-space band is gone', () => {

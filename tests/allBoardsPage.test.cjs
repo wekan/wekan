@@ -58,17 +58,43 @@ test('the five controls are in the header bar, styled like the board header', ()
     'the controls are board-header buttons');
 });
 
-test('and the page has no second controls row', () => {
+test('and the page has no second controls row at all', () => {
+  // This first landed with the actions ON a selection left behind in the page,
+  // beside the boards they act on. xet7 asked for ALL of them in the header
+  // bar: one bar of controls, not one bar and a strip. So the page body keeps
+  // nothing but the section title, and `.path-right` is gone with the rest.
   for (const moved of ['js-open-boards-sort', 'js-board-search-input',
-    'js-multiselection-activate', 'multiselection-group', 'js-multiselection-reset']) {
-    assert.ok(!page.includes(moved), `${moved} must not be in the page body too`);
+    'js-multiselection-activate', 'multiselection-group', 'js-multiselection-reset',
+    'js-archive-selected-boards', 'js-duplicate-selected-boards',
+    'js-star-selected', 'js-home-selected', 'path-right']) {
+    assert.ok(!page.includes(moved), `${moved} must not be in the page body`);
   }
-  // The actions ON a selection stay with the boards they act on - they are about
-  // those rows, not about the page - so they are the one thing left in path-right.
-  assert.ok(page.includes('js-archive-selected-boards'),
-    'the selection actions stay beside the boards');
-  assert.ok(/if hasBoardsSelected\n\s+\.path-right/.test(page),
-    'and appear only while something is selected');
+
+  for (const control of ['js-archive-selected-boards', 'js-duplicate-selected-boards',
+    'js-star-selected', 'js-home-selected']) {
+    assert.ok(bar.includes(control), `${control} must be in the header bar`);
+  }
+  // They act on a selection, so they appear only while there IS one - four
+  // buttons that would do nothing are worse than no buttons.
+  assert.ok(/if hasBoardsSelected\n\s+a\.board-header-btn\.js-archive-selected-boards/.test(bar),
+    'and only while something is selected');
+
+  // Archive and duplicate were `button.js-…` with the class hung off the end;
+  // in the bar they are `a.board-header-btn.js-…` like every other control, and
+  // star and home stop being `.selected-action`, which no stylesheet has now.
+  assert.ok(!/button\.js-(archive|duplicate)-selected-boards/.test(bar),
+    'the selection actions take the header bar button style');
+  assert.ok(!/selected-action\b/.test(bar), 'and not the page row’s own style');
+  assert.strictEqual((bar.match(/\.js-star-selected/g) || []).length, 1);
+
+  // "Selected:" still names the two icon-only buttons after it. It is a label,
+  // not a control, so it must NOT be dressed up as a button.
+  assert.ok(/span\.selected-label \{\{_ 'selected-label'\}\}/.test(bar),
+    'the "Selected:" label comes with them');
+  assert.ok(!/\.board-header-btn\.selected-label/.test(bar), 'as a label, not a button');
+  const css = read('client/components/boards/boardsList.css');
+  assert.ok(/\.all-boards-controls \.selected-label \{/.test(css),
+    'and is styled where it now lives');
 });
 
 test('Search is a field, not a button', () => {

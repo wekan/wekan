@@ -281,7 +281,7 @@
   align-items: center;
   gap: 8px;
   flex: 1;
-  min-width: 0; /* allow shrinking so path-right can wrap below instead of overflowing */
+  min-width: 0; /* the section title shrinks rather than widening the card */
   flex-wrap: wrap; /* the multi-selection hint wraps under the title when tight */
 }
 
@@ -294,33 +294,16 @@
   white-space: nowrap;
 }
 
-/* Multi-Selection button with its hint stacked underneath (own column). */
-.boards-path-header .multiselection-group {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 4px;
-}
-
-/* "Selected:" actions row (star / home) below the Multi-Selection button. */
-.boards-path-header .selected-actions {
-  display: flex;
+/* The "Selected:" label, in the header bar beside the star and home buttons it
+   names. It is a label, not a control, so it does NOT take .board-header-btn -
+   it only has to line up with the buttons on either side of it and inherit the
+   bar's colour, whatever the theme sets that to. */
+.all-boards-controls .selected-label {
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-}
-.boards-path-header .selected-label {
+  margin: 0 4px;
   font-size: 13px;
-  color: #333;
-}
-.boards-path-header .selected-action {
-  cursor: pointer;
-  color: #333;
-  font-size: 16px;
-  line-height: 1;
-  padding: 2px 4px;
-}
-.boards-path-header .selected-action:hover {
-  color: #2980b9;
+  white-space: nowrap;
 }
 
 .boards-path-header .multiselection-hint {
@@ -337,16 +320,6 @@
 @keyframes pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.7; }
-}
-
-.boards-path-header .path-right {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  /* Buttons (Sort / Multi-Selection / Clear) wrap among themselves too, so none
-     is ever cut off on a narrow window. */
-  flex-wrap: wrap;
-  justify-content: flex-end;
 }
 
 /* #5799: board-name search box in the All Boards header */
@@ -1542,52 +1515,26 @@
   min-height: 4rem;
 }
 
-/* ── Header on a phone: menu title ABOVE the search box ─────────────────────
-   A wide screen has room to put "Remaining" and the search side by side. A phone
-   does not: squeezed onto one row the title was ellipsised down to "R.." and the
-   search box still had barely any width. So on a phone the row stacks - title
-   first, search under it - each taking the full width of the card.
-
-   The earlier problem with stacking was not the stacking itself but the gap: the
-   two rows were separated by a tall empty band. That came from `.path-right`
-   being free to grow; pinning `row-gap` and letting each part take exactly one
-   full-width row puts them directly above one another. */
+/* ── Header on a phone ──────────────────────────────────────────────────────
+   Most of what this block used to do - flattening `.path-right` so the search
+   box could wrap onto a row of its own under the section icon, and keeping the
+   Sort and Multi-Selection buttons from stretching - was about controls that
+   are not in this header any more. It holds the section title and nothing
+   else, so all that is left is letting the title shrink rather than push the
+   card wider than the screen. */
 @media screen and (max-width: 800px),
        screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
   .boards-path-header {
     flex-wrap: wrap;
     gap: 6px;
     row-gap: 6px;
-    justify-content: flex-start; /* pack the icons at the start of row 1 */
+    justify-content: flex-start;
   }
 
   .boards-path-header .path-left {
-    flex: 0 0 auto; /* just the section icon - stays at the start of row 1 */
+    flex: 0 0 auto;
     min-width: 0;
     overflow: hidden;
-  }
-
-  /* Flatten path-right so its Multi-Selection / Sort buttons and the search box
-     become direct items of the header's OWN flex row. Then the header controls
-     the wrap directly and deterministically: the section icon and the buttons sit
-     together on row 1, and the full-width search box drops to row 2 - instead of
-     path-right wrapping as a two-line block BELOW the section icon (which left the
-     icon alone on row 1 and the buttons on row 2). */
-  .boards-path-header .path-right {
-    display: contents;
-  }
-  .boards-path-header .multiselection-group,
-  .boards-path-header .js-open-boards-sort,
-  .boards-path-header .board-header-btn {
-    flex: 0 0 auto;
-  }
-
-  /* Search takes the whole header width, so it wraps onto its own row under the
-     icons. `min-width: 0` lets it then shrink to fit (a flex item defaults to
-     `min-width: auto` and refuses to go below its content width). */
-  .boards-path-header .board-search {
-    flex: 1 1 100%;
-    min-width: 0;
   }
 }
 
