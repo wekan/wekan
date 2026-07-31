@@ -246,6 +246,25 @@ test('and the All Boards menu is styled like the Admin Panel one', () => {
   assert.ok(/color: #fff/.test(boards.slice(activeAt, activeAt + 900)),
     'and its label and icon go white');
 
+  // The ROWS are laid out like the Admin Panel's too, not only coloured like
+  // them. A selected row there is a block across the menu; here it was a
+  // rounded pill floating inside a padded panel, which is a different-looking
+  // menu wearing the same colours.
+  const rowAt2 = boards.indexOf('.boards-left-menu .menu-item {');
+  const rowMargin = boards.slice(rowAt2, boards.indexOf('}', rowAt2));
+  assert.ok(/margin:\s*2px 4px/.test(rowMargin), "the rows use the Admin Panel's margins");
+  assert.ok(/li \{\s*\n\s*margin: 2px 4px;/.test(admin),
+    '...which is what that menu really uses');
+  const anchorAt = boards.indexOf('.boards-left-menu .menu-item a {');
+  const anchor = boards.slice(anchorAt, boards.indexOf('}', anchorAt));
+  assert.ok(!/border-radius/.test(anchor),
+    'and no rounded corners - a selected row is a block, not a pill');
+  assert.ok(/padding-block:\s*12px/.test(anchor) && /padding-inline-start:\s*18px/.test(anchor),
+    "the same block padding and reading-direction indent the Admin Panel's rows use");
+  assert.ok(admin.includes('padding-inline-start: 18px'), '...as that one does');
+  // The panel adds no padding of its own, or every row is inset twice.
+  assert.ok(/padding:\s*0/.test(panel), 'the panel itself adds no side padding');
+
   // ...and the panel reaches the window's edges, as the Admin Panel's does.
   // That one is `position: absolute; width: 100%; height: 100%` and sits
   // OUTSIDE `.wrapper`, so its menu is against the left and bottom edges. All

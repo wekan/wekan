@@ -63,6 +63,14 @@ the height the header *measures* itself to be, because the bar wraps and is not
 one fixed height. A **minimum**, so a page with more boards than fit still grows
 past it.
 
+The **rows** follow it too, not only the colours: the same `2px 4px` margins,
+the same block padding and reading-direction indent, and **no rounded corners**,
+so a selected row is a block across the menu rather than a pill floating inside
+it. The panel adds no side padding of its own — the rows carry their own margin,
+and padding on the panel would inset every row a second time. "Workspaces" uses
+the Admin Panel's group-heading treatment (smaller, uppercase, quieter), because
+it names a group and is not an entry of one.
+
 It is a panel with its own background, border and rounded corners, a selected row
 filled with the per-user theme accent and white text, and a white hover with a
 shadow. WeKan has one kind of left menu and it should look like one kind of left

@@ -42,7 +42,12 @@
   border: 1px solid #f0f0f0;
   border-radius: 7px;
   box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.05);
-  padding: 8px;
+  /* No padding on the PANEL. The Admin Panel's has none either: its rows carry
+     `margin: 2px 4px` themselves, so a selected row is a block that runs nearly
+     the full width of the menu rather than a pill floating inside it. Padding
+     here would inset every row by a second amount on top of that. */
+  padding: 0;
+  padding-block-start: 8px;
   /* A long menu - many workspaces - scrolls inside the panel rather than
      spilling past its own rounded corner, the same fix the Problems menu
      needed. `min-height: 0` because a grid item will not shrink below its
@@ -58,15 +63,22 @@
   margin: 0 0 12px 0;
 }
 
+/* Rows laid out like the Admin Panel's (settingBody.css): the same margins, the
+   same block padding, the same reading-direction indent - and NO rounded
+   corners, so the selected row is a block across the menu rather than a pill
+   inside it. Those two menus should not be two different-looking menus. */
 .boards-left-menu .menu-item {
-  margin: 4px 0;
+  margin: 2px 4px;
 }
 .boards-left-menu .menu-item a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 10px;
-  border-radius: 4px;
+  /* Logical, so the indent follows the reading direction instead of staying on
+     the left when the menu mirrors to the right. */
+  padding-block: 12px;
+  padding-inline-start: 18px;
+  padding-inline-end: 10px;
   cursor: pointer;
 }
 .boards-left-menu .menu-item .menu-label {
@@ -96,6 +108,13 @@
 .boards-left-menu .menu-item.active a,
 .boards-left-menu .menu-item.active a:hover {
   background: var(--theme-accent, #2980b9);
+}
+/* The Admin Panel puts the selected background on the LI, not the anchor, so
+   the fill reaches the row's full width. Here the anchor is what fills, so it
+   has to be told to. */
+.boards-left-menu .menu-item a {
+  width: 100%;
+  box-sizing: border-box;
 }
 .boards-left-menu .menu-item.active a,
 .boards-left-menu .menu-item.active a i {
@@ -155,14 +174,29 @@
   border: 0;
   height: 2px;
   background: #888;
-  margin: 12px 0;
+  /* The rows' own inline margin, so the rule lines up with them instead of
+     running past their ends - the same `4px` the Admin Panel's separator uses.
+     docs/Design/Page/Left-Menu.md */
+  margin: 8px 4px;
 }
 
+/* "Workspaces" names a group; it is not an entry of one. The Admin Panel's
+   group heading is smaller, uppercase and quieter than a row for exactly that
+   reason (`li.left-menu-heading`), and this follows it - with the rows' own
+   inline padding so it starts on the same line they do. */
 .workspaces-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-weight: bold;
+  padding-block: 8px 4px;
+  padding-inline-start: 18px;
+  padding-inline-end: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.6;
+  cursor: default;
   /* The rule above it already provides the separation this margin was for, and
      the two together read as a gap twice as wide as anything else in the menu. */
   margin-top: 0;
