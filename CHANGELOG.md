@@ -447,7 +447,7 @@ directly above it in the same popup is the shape it now matches.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/84f08c97b">All Boards: the actions on a selection move into the header bar with everything else</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f56254e71">All Boards: the actions on a selection move into the header bar with everything else</a>. Thanks to xet7.</summary>
 
 The header bar took the controls of the page, but the actions ON a selection —
 Move Board to Archive, Duplicate Board, and the "Selected:" star and home —
