@@ -4,6 +4,7 @@ import { Filter } from '/client/lib/filter';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { MultiSelection } from '/client/lib/multiSelection';
 import { Utils } from '/client/lib/utils';
+import { getSidebarInstance } from '/client/features/sidebar/service';
 import { DEPENDENCY_TYPES } from '/models/metadata/dependencies';
 
 Template.filterSidebar.helpers({
@@ -14,6 +15,57 @@ Template.filterSidebar.helpers({
       label: `dependency-type-${t.id}`,
     }));
   },
+});
+
+// ────────────────────────────────────────────────────────────────────────────
+// Clicking outside the filter panel closes it.
+//
+// Reported as "the modal that appears when I use a filter sometimes doesn't
+// disappear — it should close the moment I click anything outside it". It is the
+// board sidebar showing its filter view, and nothing dismissed it but the
+// sidebar's own toggle or Escape: the document click handler in
+// client/lib/escapeActions.js runs `clickExecute(target, 'multiselection')`, and
+// `sidebarView` sits BELOW `multiselection` in the hierarchy, so a click never
+// reaches it by design.
+//
+// Done here rather than by raising that limit, because raising it would make
+// every sidebar view close on any outside click — Archive, Settings, Card
+// Settings are panels people work beside on purpose, and only the filter reads as
+// a thing you open, use and are done with. Escape is untouched: it still returns
+// the sidebar to its default view through the existing action.
+//
+// Not closed by a click on: the panel itself, a pop-over it opened (the label /
+// member / due-date pickers render outside the sidebar), or the header button
+// that opens the filter — which would otherwise toggle it shut in the same
+// gesture that opened it.
+const OUTSIDE_CLICK_KEEPS_OPEN = [
+  '.board-sidebar',
+  '.pop-over',
+  '.js-open-filter-view',
+].join(',');
+
+Template.filterSidebar.onRendered(function () {
+  const instance = this;
+
+  instance._closeOnOutsideClick = evt => {
+    if (evt.button !== 0) return;
+    const sidebar = getSidebarInstance();
+    if (!sidebar || !sidebar.isOpen || !sidebar.isOpen()) return;
+    if ($(evt.target).closest(OUTSIDE_CLICK_KEEPS_OPEN).length > 0) return;
+    sidebar.hide();
+  };
+
+  // Bound after the current event has finished propagating, so the very click
+  // that opened the filter view cannot reach the handler it just created and
+  // close it again.
+  instance._bindOutsideClick = setTimeout(() => {
+    $(document).on('click.wekanFilterSidebar', instance._closeOnOutsideClick);
+  }, 0);
+});
+
+Template.filterSidebar.onDestroyed(function () {
+  clearTimeout(this._bindOutsideClick);
+  $(document).off('click.wekanFilterSidebar', this._closeOnOutsideClick);
 });
 
 // SubsManager removed for Meteor 3 migration
