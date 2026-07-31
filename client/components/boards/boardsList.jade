@@ -294,32 +294,38 @@ template(name="boardListHeaderBar")
           i.fa.fa-check-square-o
           span {{#if BoardMultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}
           if BoardMultiSelection.isActive
-            a.board-header-btn-close.js-multiselection-reset(title="{{_ 'filter-clear'}}")
+            //- This ✕ turns Multi-Selection OFF; it said "Clear filter", which
+              is what the OTHER ✕ in this bar does, in the search box.
+            a.board-header-btn-close.js-multiselection-reset(title="{{_ 'multi-selection-off'}}")
               i.fa.fa-times-thin
 
-      //- The actions ON a selection: archive, duplicate, and the "Selected:"
-        star and home. They were a row of their own above the board icons; they
-        are header-bar buttons now, to the RIGHT of the controls that are always
-        there, and they still appear only while something is selected - so the
-        bar does not carry four buttons that would do nothing.
-        Star and home stay icon-only under the "Selected:" label, as they were:
-        their names ("Set as Home board (opened after login)") are tooltips, not
-        button labels, and spelling them out would push the whole bar onto a
-        second line.
+      //- The actions ON a selection. They were a row of their own above the
+        board icons; they are header-bar buttons now, to the RIGHT of the
+        controls that are always there, and they appear only while something is
+        selected - so the bar does not carry four buttons that would do nothing.
+
+        ALL FOUR are icon-only, under the "Selected:" label that names what they
+        act on. Their names are sentences - "Set as Home board (opened after
+        login)", "Move Board to Archive" - which are tooltips rather than button
+        labels; spelled out they pushed the bar onto a second row.
+
+        The order is star, home, then archive and duplicate: the two that only
+        mark a board come first, and the two that change what boards exist come
+        last, furthest from where the pointer lands when the menu opens.
       if hasBoardsSelected
-        a.board-header-btn.js-archive-selected-boards(title="{{_ 'archive-board'}}")
-          i.fa.fa-archive
-          span {{_ 'archive-board'}}
-
-        a.board-header-btn.js-duplicate-selected-boards(title="{{_ 'duplicate-board'}}")
-          i.fa.fa-clipboard
-          span {{_ 'duplicate-board'}}
-
         span.selected-label {{_ 'selected-label'}}
-        a.board-header-btn.js-star-selected(title="{{_ 'set-selected-starred'}}")
+        //- The star is a toggle over the whole selection, so its tooltip says
+          which way it goes right now: Star while any selected board is still
+          unstarred, Unstar once they all are. Already translated by the helper
+          - it has to pick the key, so it may as well resolve it.
+        a.board-header-btn.js-star-selected(title="{{selectedStarTitle}}")
           i.fa.fa-star
         a.board-header-btn.js-home-selected(title="{{_ 'set-selected-home'}}")
           i.fa.fa-home
+        a.board-header-btn.js-archive-selected-boards(title="{{_ 'archive-board'}}")
+          i.fa.fa-archive
+        a.board-header-btn.js-duplicate-selected-boards(title="{{_ 'duplicate-board'}}")
+          i.fa.fa-clipboard
 
 //- One row of the All Boards Table view. A rowTemplate, because the Edit cell is
 //- a control and the row carries its board's colours - neither of which a

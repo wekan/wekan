@@ -96,8 +96,9 @@ test('and the page has no second controls row at all', () => {
     assert.ok(bar.includes(control), `${control} must be in the header bar`);
   }
   // They act on a selection, so they appear only while there IS one - four
-  // buttons that would do nothing are worse than no buttons.
-  assert.ok(/if hasBoardsSelected\n\s+a\.board-header-btn\.js-archive-selected-boards/.test(bar),
+  // buttons that would do nothing are worse than no buttons. The "Selected:"
+  // label opens the group, and the four buttons follow it.
+  assert.ok(/if hasBoardsSelected\n\s+span\.selected-label \{\{_ 'selected-label'\}\}/.test(bar),
     'and only while something is selected');
 
   // Archive and duplicate were `button.js-…` with the class hung off the end;
@@ -108,14 +109,64 @@ test('and the page has no second controls row at all', () => {
   assert.ok(!/selected-action\b/.test(bar), 'and not the page row’s own style');
   assert.strictEqual((bar.match(/\.js-star-selected/g) || []).length, 1);
 
-  // "Selected:" still names the two icon-only buttons after it. It is a label,
-  // not a control, so it must NOT be dressed up as a button.
-  assert.ok(/span\.selected-label \{\{_ 'selected-label'\}\}/.test(bar),
-    'the "Selected:" label comes with them');
+  // "Selected:" is a label, not a control, so it must NOT be dressed up as a
+  // button.
   assert.ok(!/\.board-header-btn\.selected-label/.test(bar), 'as a label, not a button');
   const css = read('client/components/boards/boardsList.css');
   assert.ok(/\.all-boards-controls \.selected-label \{/.test(css),
     'and is styled where it now lives');
+});
+
+test('all four selection buttons are icons only, in mark-then-change order', () => {
+  // Archive and duplicate carried their names - "Move Board to Archive",
+  // "Duplicate Board" - while star and home did not. Those names are sentences,
+  // and spelled out on a button they pushed the bar onto a second row. All four
+  // are icon-only now, under the "Selected:" label that says what they act on.
+  const group = bar.slice(bar.indexOf('if hasBoardsSelected'));
+  for (const [control, icon] of [
+    ['js-star-selected', 'fa-star'],
+    ['js-home-selected', 'fa-home'],
+    ['js-archive-selected-boards', 'fa-archive'],
+    ['js-duplicate-selected-boards', 'fa-clipboard'],
+  ]) {
+    const at = group.indexOf(control);
+    assert.notStrictEqual(at, -1, `${control} must be in the group`);
+    const entry = group.slice(at, group.indexOf('\n        a.', at + 1));
+    assert.ok(entry.includes(icon), `${control} keeps its ${icon} glyph`);
+    assert.ok(!/\n\s+span /.test(entry), `${control} must carry no label, only the icon`);
+  }
+
+  // star, home, then archive and duplicate: the two that only MARK a board
+  // first, the two that change what boards exist last.
+  const order = ['js-star-selected', 'js-home-selected',
+    'js-archive-selected-boards', 'js-duplicate-selected-boards']
+    .map(c => group.indexOf(c));
+  assert.deepStrictEqual(order, [...order].sort((a, b) => a - b),
+    'star, home, then archive and duplicate');
+});
+
+test('every button in the bar says what it is, in a tooltip', () => {
+  // The buttons are icon-only or nearly so, so the tooltip is the only place a
+  // name can be. One without a title is an unlabelled icon.
+  const buttons = [...bar.matchAll(/^\s+a\.board-header-btn[\w.-]*\(([\s\S]*?)\)$/gm)];
+  assert.ok(buttons.length >= 7, `expected the bar's buttons, found ${buttons.length}`);
+  for (const b of buttons) {
+    const attrs = b[1];
+    const control = /js-[\w-]+/.exec(b[0]);
+    const name = (control && control[0]) || attrs.slice(0, 40);
+    const title = /title="([^"]*)"/.exec(attrs);
+    assert.ok(title, `${name} must have a title`);
+    // Whatever shape the title takes - `{{_ 'key'}}`, a helper, or an if/else
+    // between two of them, as Multi-Selection has - every visible part of it
+    // must come out of a mustache. Anything left over is hard-coded English.
+    const literal = title[1].replace(/\{\{[^}]*\}\}/g, '').trim();
+    assert.strictEqual(literal, '',
+      `${name} title must be translated, not the hard-coded "${literal}"`);
+  }
+  // The search box is a field, not a button: it is named for screen readers
+  // instead, because a tooltip over a text input covers what you are typing.
+  assert.ok(/aria-label="\{\{_ 'search-boards'\}\}"/.test(bar),
+    'and the search field is named with aria-label');
 });
 
 test('and no bar above the boards at all', () => {

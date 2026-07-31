@@ -24,6 +24,10 @@ import {
   isDragReorderEnabled,
   computeSortIndexMapping,
 } from '/models/lib/boardSortReorder';
+import {
+  selectedStarAction,
+  selectedStarTitleKey,
+} from '/models/lib/selectedStars';
 
 // SubsManager removed for Meteor 3 migration
 
@@ -160,6 +164,16 @@ Template.boardList.helpers({
   },
 });
 
+// What the "Selected: ★" button would do if it were clicked right now, and to
+// which boards. One function, so the tooltip and the click cannot disagree
+// about it - the rule itself is the pure, unit-tested models/lib/selectedStars.
+function currentSelectedStarAction() {
+  const user = ReactiveCache.getCurrentUser();
+  return selectedStarAction(BoardMultiSelection.getSelectedBoardIds(), id =>
+    Boolean(user && user.hasStarred(id)),
+  );
+}
+
 // The All Boards controls' handlers. One events map for this template, not two:
 // Blaze allows several, but then "where is the search handler" has two answers.
 Template.boardListHeaderBar.events({
@@ -249,16 +263,19 @@ Template.boardListHeaderBar.events({
       BoardMultiSelection.reset();
     }
   },
-  // "Selected:" star action: star every multi-selected board that isn't yet
-  // starred (so it becomes Starred, never toggled back off by this button).
+  // "Selected:" star action: a TOGGLE over the whole selection. It only ever
+  // added stars before, so once every selected board was starred the button did
+  // nothing at all and there was no way to undo it from here.
+  //
+  // Only the boards that must CHANGE are called: `toggleBoardStar` flips one
+  // board, so calling it for an already-starred board in the mixed case would
+  // un-star it - one click both starring and un-starring, which is exactly what
+  // this must not do.
   'click .js-star-selected'(evt) {
     evt.preventDefault();
     evt.stopPropagation();
-    const user = ReactiveCache.getCurrentUser();
-    BoardMultiSelection.getSelectedBoardIds().forEach((id) => {
-      if (user && !user.hasStarred(id)) {
-        Meteor.call('toggleBoardStar', id);
-      }
+    currentSelectedStarAction().boardIds.forEach((id) => {
+      Meteor.call('toggleBoardStar', id);
     });
   },
   // #2220 "Selected:" home action: set the first selected board as the Home
@@ -466,6 +483,13 @@ Template.boardListHeaderBar.helpers({
   // well as on `boardList`, because that is where the buttons are now.
   hasBoardsSelected() {
     return BoardMultiSelection.count() > 0;
+  },
+  // The star button says which way it goes: "Star the selected boards" while
+  // any of them is unstarred, "Unstar the selected boards" once they all are.
+  // Reactive through BoardMultiSelection and the user's starred list, so it
+  // changes as the selection does.
+  selectedStarTitle() {
+    return TAPi18n.__(selectedStarTitleKey(currentSelectedStarAction().action));
   },
   BoardMultiSelection() {
     return BoardMultiSelection;

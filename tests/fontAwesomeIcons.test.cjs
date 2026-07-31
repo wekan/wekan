@@ -42,16 +42,51 @@ const ARROW_TEXT = /[→←↔⇒↔]/u;   // → ← ↔ ⇒ in prose
 
 console.log('fontAwesomeIcons:');
 
+// A jade comment renders nothing at all, so a character in one is not an icon -
+// the same exemption as the arrows and the box drawing above, and a stronger
+// one. `//-` is dropped by the compiler and `//` becomes an HTML comment;
+// neither reaches the page. A comment BLOCK is its opening line plus every line
+// indented under it, so the indent is what ends it, which is why this tracks
+// state rather than testing each line on its own.
+function rendersNothing(lines) {
+  const skip = new Array(lines.length).fill(false);
+  let commentIndent = null;
+  lines.forEach((line, i) => {
+    if (!line.trim()) { skip[i] = commentIndent !== null; return; }
+    const indent = line.length - line.trimStart().length;
+    if (commentIndent !== null && indent > commentIndent) { skip[i] = true; return; }
+    commentIndent = /^\/\//.test(line.trim()) ? indent : null;
+    skip[i] = commentIndent !== null;
+  });
+  return skip;
+}
+
 test('no template renders an emoji as an icon', () => {
   const offenders = [];
   for (const file of walk('client', ['.jade'])) {
-    read(file).split('\n').forEach((line, i) => {
+    const lines = read(file).split('\n');
+    const inComment = rendersNothing(lines);
+    lines.forEach((line, i) => {
+      if (inComment[i]) return;
       const withoutArrows = line.replace(new RegExp(ARROW_TEXT, 'gu'), '');
       if (PICTOGRAPH.test(withoutArrows)) offenders.push(`${file}:${i + 1}: ${line.trim().slice(0, 60)}`);
     });
   }
   assert.deepStrictEqual(offenders, [],
     'these render a platform-dependent picture instead of a Font Awesome glyph');
+});
+
+test('but a rendered line is still caught (self-check)', () => {
+  // The comment exemption must not become a hole: only lines that render
+  // nothing are skipped.
+  const lines = [
+    '  //- a ⭐ in a comment',
+    '    and a ⭐ in its continuation',
+    '  span ⭐',
+    '  //- back in a comment',
+    '  span.ok',
+  ];
+  assert.deepStrictEqual(rendersNothing(lines), [true, true, false, true, false]);
 });
 
 test('no stylesheet draws one with content:', () => {

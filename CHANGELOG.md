@@ -524,6 +524,45 @@ box, the input, the magnifier and the ✕ each set their own.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9035363df">All Boards: the Selected star is a toggle now, and every button in the bar names itself</a>. Thanks to xet7.</summary>
+
+The "Selected: ★" button only ever *added* stars: it walked the selection and
+starred whatever was not starred yet. Once every selected board was starred it
+did nothing at all, so there was no way to undo from here what it had just
+done, and its tooltip read "Star the selected boards" whatever state the
+selection was in. It is a toggle now — none starred stars them all, all starred
+unstars them all, and a mixed selection stars **the rest**, leaving the starred
+alone. The mixed case deliberately does not flip each board independently: one
+click that starred some boards and un-starred others is not something a button
+may do. Only the boards that must change are called, because the server method
+flips one board and calling it for an already-starred one would un-star it.
+
+The tooltip says which way the button goes right now, `set-selected-starred` or
+the new `set-selected-unstarred`, and it reads the SAME function the click does
+— two copies of "which way does this button go" would eventually be two
+answers, and the tooltip would lie about what the click does. The rule itself
+is `models/lib/selectedStars.js`: pure, so it is unit-tested rather than
+reasoned about.
+
+All four buttons on a selection are icon-only now, and they follow the
+"Selected:" label in the order star, home, archive, duplicate — the two that
+only mark a board first, the two that change what boards exist last. Archive
+and duplicate carried their names, which are sentences and pushed the bar onto
+a second row.
+
+Checking that each button says what it is turned up one that did not: the ✕
+that turns Multi-Selection off said "Clear filter", which is what the *other* ✕
+in this bar does, in the search box. It is `multi-selection-off`. A guard now
+requires every `.board-header-btn` in the bar to carry a `title`, and every
+title to come out of a translation key rather than being literal English.
+
+Both new keys are in all 147 language files as English placeholders, which is
+what the translation policy does with a string that is untranslated everywhere,
+so no language silently loses a tooltip.
+
+</details>
+
 and updates the following dependencies:
 
 - **aldeed:collection2 4.2.0 → 4.2.1** — cleans and validates every write

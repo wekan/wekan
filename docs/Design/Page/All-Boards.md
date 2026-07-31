@@ -33,20 +33,60 @@ is a button whose only job is to be kept in step with the menu.
 
 The **actions on a selection** follow them, to the right, and appear only while
 something is selected — four buttons that would do nothing are worse than no
-buttons:
+buttons. They open with the "Selected:" label that says what they act on, and
+they are **icon-only**, all four: their names are sentences — "Set as Home board
+(opened after login)", "Move Board to Archive" — that belong in a tooltip rather
+than on a button, and spelled out they push the bar onto a second row. The label
+is a label: it takes neither `.board-header-btn` nor any button behaviour.
 
 | Action | Icon | What it does |
 | --- | --- | --- |
-| Move Board to Archive | `fa-archive` | Archives every selected board, after a confirm. |
-| Duplicate Board | `fa-clipboard` | Copies every selected board, after a confirm. |
-| Selected: ★ | `fa-star` | Stars every selected board that is not starred yet. Never un-stars. |
-| Selected: ⌂ | `fa-home` | Makes the first selected board the Home board, opened after login. |
+| Star | `fa-star` | A **toggle** over the whole selection — see below. |
+| Home | `fa-home` | Makes the first selected board the Home board, opened after login. |
+| Archive | `fa-archive` | Archives every selected board, after a confirm. |
+| Duplicate | `fa-clipboard` | Copies every selected board, after a confirm. |
 
-Star and home stay **icon-only**, under the "Selected:" label that names them,
-because their names are sentences — "Set as Home board (opened after login)" —
-that belong in a tooltip rather than on a button, and spelling them out pushes
-the bar onto a second row. The label is a label: it takes neither
-`.board-header-btn` nor any button behaviour.
+In that order: the two that only *mark* a board first, the two that change what
+boards exist last, furthest from where the pointer lands.
+
+### The star is a toggle, and says which way it goes
+
+It only ever *added* stars — it walked the selection and starred whatever was
+not starred yet — so once every selected board was starred the button did
+nothing at all and there was no way to undo it from here. The rule now:
+
+| The selection | The click |
+| --- | --- |
+| none of them starred | stars all of them |
+| some starred, some not | stars **the rest**, leaving the starred alone |
+| all of them starred | **unstars** all of them |
+
+So "star" is the action whenever there is anything left to star, and "unstar"
+only when there is not. The mixed case deliberately does **not** flip each board
+independently: one click that starred some boards and un-starred others is not
+something a button may do.
+
+Only the boards that must *change* are called, because the server method
+(`toggleBoardStar`) flips one board — calling it for an already-starred board in
+the mixed case would un-star it.
+
+The tooltip says which way the button goes right now: "Star the selected boards"
+(`set-selected-starred`) while any of them is unstarred, "Unstar the selected
+boards" (`set-selected-unstarred`) once they all are. Tooltip and click read
+**one** function, so they cannot disagree; the rule itself is
+`models/lib/selectedStars.js`, which is pure and unit-tested.
+
+### Every button names itself in a tooltip
+
+The controls are icons, so the tooltip is the only place a name can be — a
+button without one is an unlabelled picture. Every `.board-header-btn` in the
+bar carries a `title`, and every title comes out of a translation key rather
+than being literal English. The search box is the exception, and named with
+`aria-label` instead: a tooltip over a text field covers what you are typing.
+
+The ✕ that turns Multi-Selection off used to say "Clear filter", which is what
+the *other* ✕ in the bar does, in the search box. It says
+`multi-selection-off` now.
 
 **There is no bar above the boards at all.** The page used to carry its own row
 of controls there — Multi-Selection with its archive and duplicate actions, the
