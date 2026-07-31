@@ -266,7 +266,7 @@ browser build to verify).
 This release adds the following new features:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">The Admin Panel moves under /admin, and its address names the pane you are on</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/03cb79bdd">The Admin Panel moves under /admin, and its address names the pane you are on</a>. Thanks to xet7.</summary>
 
 Every left-menu entry of the Admin Panel had a URL, but the four pages sat at
 the TOP level - `/settings`, `/people`, `/attachments` - as if they were pages
@@ -291,7 +291,7 @@ cannot be given an address without also being given its redirect.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">The first header bar says where you are: Admin Panel / Settings / Version</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/03cb79bdd">The first header bar says where you are: Admin Panel / Settings / Version</a>. Thanks to xet7.</summary>
 
 The bar named the panel and stopped there. The Admin Panel is four pages and
 each page is a stack of panes, so "Admin Panel" named the building and not the
@@ -754,7 +754,7 @@ and updates the following dependencies:
 and fixes the following bugs:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">The first header bar wraps to a second row instead of hiding the buttons that do not fit</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/49f4e77aa">The first header bar wraps to a second row instead of hiding the buttons that do not fit</a>. Thanks to xet7.</summary>
 
 The bar was one row with `overflow: hidden`, so a button that did not fit was
 not drawn at all - and a button that is not drawn gives no sign that it exists.
@@ -775,7 +775,7 @@ bell separates what belongs to the page from what belongs to you.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">The right sidebar starts below the header again, on every page that has no second bar</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/49f4e77aa">The right sidebar starts below the header again, on every page that has no second bar</a>. Thanks to xet7.</summary>
 
 `--wekan-header-height` is what anything laid out against the viewport starts
 below, and it measured `#header` - the SECOND header bar - from when every page
