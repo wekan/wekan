@@ -128,6 +128,16 @@ template(name="editListTitleForm")
         i.fa.fa-times-thin
 
 template(name="listActionPopup")
+  //- Copy link, FIRST and above every permission check - see the swimlane
+    popup: copying an address is reading, not editing.
+    models/lib/boardItemUrl.js, docs/Design/Page/Board-Item-Links.md
+  ul.pop-over-list
+    li: a.js-copy-list-link
+      i.fa.fa-link
+      span
+        | {{_ 'copy-link-to-clipboard'}}
+  span.copied-tooltip {{_ 'copied'}}
+  hr
   unless currentUser.isReadOnly
     unless currentUser.isReadAssignedOnly
       ul.pop-over-list
@@ -226,8 +236,10 @@ template(name="listMorePopup")
       = ' '
       i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
       //- #6459: was {{ rootUrl }}, a helper that does not exist anywhere, so the
-      //- link input was always empty. absoluteUrl resolves a URL via a card on
-      //- this list.
+      //- link input was always empty. absoluteUrl was then resolved through a
+      //- CARD of this list, so the box showed a card's address - and nothing at
+      //- all for an empty list. A list has its own address now.
+      //- models/lib/boardItemUrl.js
       input.inline-input(type="text" readonly value="{{ absoluteUrl }}")
     | {{_ 'added'}}
     span.date(title=list.createdAt) {{ displayDate createdAt 'LLL' }}

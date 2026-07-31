@@ -278,6 +278,19 @@ Template.listActionPopup.helpers({
 });
 
 Template.listActionPopup.events({
+  // Copy the list's own address. `absoluteUrl` so what lands in the
+  // clipboard can be pasted anywhere - a relative path is only a link inside
+  // this page. The popup stays open long enough to show "Copied"; it is the
+  // confirmation, and a menu that vanishes the instant you click leaves you
+  // wondering whether anything happened. models/lib/boardItemUrl.js
+  'click .js-copy-list-link'(event, tpl) {
+    event.preventDefault();
+    const list = Template.currentData();
+    if (!list) return;
+    const url = list.absoluteUrl();
+    if (!url) return;
+    Utils.showCopied(Utils.copyTextToClipboard(url), tpl.$('.copied-tooltip'));
+  },
   'click .js-list-subscribe'() {},
   'click .js-add-card.list-header-plus-top'(event) {
     const listDom = $(`#js-list-${this._id}`)[0];

@@ -9,6 +9,8 @@ import {
 import '/client/lib/dragscrollTouch';
 import '/client/lib/dragDropTouch';
 import { boardConverter } from '/client/lib/boardConverter';
+// Bring the swimlane or list a link named into view, once it has rendered.
+import { watchBoardItemReveals } from '/client/lib/revealBoardItem';
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 import { toFullCalendarFirstDay } from '/client/lib/calendarFirstDay';
 import { weekNumberByFirstDay } from '/models/lib/weekStart';
@@ -288,6 +290,11 @@ Template.boardBody.onCreated(function () {
 Template.boardBody.onRendered(function () {
   // Initialize user settings (zoom and mobile mode)
   Utils.initializeUserSettings();
+
+  // A link to a swimlane or a list has to end with that thing on screen. The
+  // route can only NAME it - it runs before this has rendered - so the reveal
+  // waits here for the element to exist. client/lib/revealBoardItem.js
+  this.boardItemReveals = watchBoardItemReveals();
 
   // Detect iPhone devices and add class for better CSS targeting
   const isIPhone = /iPhone|iPod/.test(navigator.userAgent);
@@ -672,6 +679,12 @@ Template.boardBody.onRendered(function () {
 });
 
 Template.boardBody.onDestroyed(function () {
+  // The reveal watcher owns a Tracker computation and a retry interval, and
+  // neither stops on its own when this template goes.
+  if (this.boardItemReveals) {
+    this.boardItemReveals.stop();
+    this.boardItemReveals = null;
+  }
   if (BoardBody === this) {
     BoardBody = null;
   }

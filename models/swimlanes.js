@@ -479,6 +479,18 @@ Swimlanes.helpers({
     return ReactiveCache.getBoard(this.boardId);
   },
 
+  // A swimlane can be linked to, the same way a card and a list can.
+  // models/lib/boardItemUrl.js
+  originRelativeUrl(board) {
+    const { buildSwimlaneRelativeUrl } = require('./lib/boardItemUrl');
+    return buildSwimlaneRelativeUrl(this, board || this.board());
+  },
+  absoluteUrl(board) {
+    const relativeUrl = this.originRelativeUrl(board);
+    if (!relativeUrl) return undefined;
+    return Meteor.absoluteUrl(relativeUrl.replace(/^\//, ''));
+  },
+
   colorClass() {
     // #5514: a custom '#rrggbb' hex has no CSS class; it is applied inline via
     // colorStyle(). Named palette colors keep using their `swimlane-<name>` class.

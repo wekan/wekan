@@ -266,6 +266,43 @@ browser build to verify).
 This release adds the following new features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">A swimlane, a list and a card can each be linked, and the link lands on the thing it names</a>. Thanks to xet7.</summary>
+
+A card has had an address since there has been a card route. A swimlane and a
+list had none, so "the Backlog list of this board" could only be sent as "open
+this board and scroll down" — and `List.absoluteUrl()` answered with the URL of
+whichever CARD the cache returned first for that list, so the one place that did
+offer a list link showed a card's address, and an empty box for an empty list.
+
+Both have their own now — `/b/<board>/<slug>/swimlane/<id>` and
+`/b/<board>/<slug>/list/<id>`. Five segments against the card route's four,
+which is what keeps the three apart: a card URL cannot match these and these
+cannot match a card.
+
+Following one brings the thing into view. The route cannot scroll — it runs
+before the board has rendered, and on a board that is already open it runs
+without re-creating anything — so it names what to reveal and the board body
+reveals it once the element exists, waiting for it rather than assuming it,
+because a large board renders in more than one pass. It gives up after a few
+seconds instead of spinning: a link to a list that was archived names an element
+that is never going to exist, and the board is still the right place to have
+landed. The revealed swimlane or list gets a brief outline, because a scroll
+that lands mid-board gives no sign of which of the things now on screen the link
+was about.
+
+All three are copied the same way, from the first row of the hamburger menu,
+with the link icon and the name beside it. The card carried this as an icon in
+its title header named only by a tooltip — the one place a name cannot be read
+without hovering — and that button is gone, along with its handler and the
+"Copied" tooltip only it used.
+
+The copy row sits above every permission check in those menus: copying an
+address is reading, not editing, and somebody who may only read the board can
+still tell a colleague which list they mean.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6051a4368">All Boards keeps its four controls in the header bar, and drops the hamburger that only led to them</a>. Thanks to xet7.</summary>
 
 Sort, Search, Multi-Selection and Boards in Archive were rows of the right

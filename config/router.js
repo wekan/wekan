@@ -7,6 +7,9 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { decideSandstormAutoOpen } from '/models/lib/sandstormAutoOpen';
 import { cardBoardRedirectTarget } from '/models/lib/cardLinkRedirect';
 import Settings from '/models/settings';
+// The swimlane and list routes, whose paths are built beside the URLs they
+// match so the two cannot disagree. models/lib/boardItemUrl.js
+import { SWIMLANE_ROUTE_PATH, LIST_ROUTE_PATH } from '/models/lib/boardItemUrl';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { Filter } from '/client/lib/filter';
 import { Utils } from '/client/lib/utils';
@@ -392,11 +395,63 @@ function maybeRedirectMovedCard(urlBoardId, cardId) {
   movedCardCheck = { computation, sub };
 }
 
+// A swimlane and a list have an address of their own, so either can be linked
+// the way a card can. FIVE segments against the card route's four, which is what
+// keeps the three apart: a card route cannot match these and these cannot match
+// a card. models/lib/boardItemUrl.js
+//
+// The route cannot scroll anything: it runs before the board has rendered, and
+// on a board that is already open it runs without re-creating anything. So it
+// names what to REVEAL in a Session value, and the board body reveals it once
+// the element exists. docs/Design/Page/Board-Item-Links.md
+FlowRouter.route(SWIMLANE_ROUTE_PATH, {
+  name: 'swimlane',
+  action(params) {
+    Session.set('currentBoard', params.boardId);
+    Session.set('currentCard', null);
+    Session.set('popupCardId', null);
+    Session.set('popupCardBoardId', null);
+    Session.set('revealSwimlaneId', params.swimlaneId);
+    Session.set('revealListId', null);
+
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+
+    this.render('defaultLayout', {
+      content: 'board',
+    });
+  },
+});
+
+FlowRouter.route(LIST_ROUTE_PATH, {
+  name: 'list',
+  action(params) {
+    Session.set('currentBoard', params.boardId);
+    Session.set('currentCard', null);
+    Session.set('popupCardId', null);
+    Session.set('popupCardBoardId', null);
+    Session.set('revealListId', params.listId);
+    Session.set('revealSwimlaneId', null);
+
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+
+    this.render('defaultLayout', {
+      content: 'board',
+    });
+  },
+});
+
 FlowRouter.route('/b/:boardId/:slug/:cardId', {
   name: 'card',
   action(params) {
     Session.set('currentBoard', params.boardId);
     Session.set('currentCard', params.cardId);
+    // A reveal is about the address you just followed, so following another
+    // one cancels it: without this, opening a card after a list link would
+    // scroll the board away from the card it just opened.
+    Session.set('revealSwimlaneId', null);
+    Session.set('revealListId', null);
     Session.set('popupCardId', null);
     Session.set('popupCardBoardId', null);
     // #4758: if the card was moved to another board, redirect to its current one.
@@ -453,6 +508,8 @@ FlowRouter.route('/b/:id/:slug', {
     const previousBoard = Session.get('currentBoard');
     Session.set('currentBoard', currentBoard);
     Session.set('currentCard', null);
+    Session.set('revealSwimlaneId', null);
+    Session.set('revealListId', null);
     Session.set('popupCardId', null);
     Session.set('popupCardBoardId', null);
 

@@ -961,15 +961,6 @@ Template.cardDetails.events({
       Utils.goBoardId(boardId);
     }
   },
-  'click .js-copy-link'(event, tpl) {
-    event.preventDefault();
-    const card = Template.currentData();
-    const url = card.absoluteUrl();
-    const promise = Utils.copyTextToClipboard(url);
-
-    const $tooltip = tpl.$('.card-details-header .copied-tooltip');
-    Utils.showCopied(promise, $tooltip);
-  },
   'change .js-date-format-selector'(event) {
     const dateFormat = event.target.value;
     if (Meteor.userId()) {
@@ -1595,6 +1586,19 @@ Template.cardDetailsActionsPopup.helpers({
 });
 
 Template.cardDetailsActionsPopup.events({
+  // Copy the card's address. This was an icon in the card's header with only a
+  // tooltip to name it - the one place a name cannot be read without hovering -
+  // and it is here now beside the swimlane's and the list's, so all three are
+  // copied the same way from the same kind of menu.
+  // docs/Design/Page/Board-Item-Links.md
+  'click .js-copy-card-link'(event, tpl) {
+    event.preventDefault();
+    const card = Template.currentData();
+    if (!card) return;
+    const url = card.absoluteUrl();
+    if (!url) return;
+    Utils.showCopied(Utils.copyTextToClipboard(url), tpl.$('.copied-tooltip'));
+  },
   'click .js-export-card': Popup.open('exportCard'),
   'click .js-members': Popup.open('cardMembers'),
   'click .js-assignees': Popup.open('cardAssignees'),

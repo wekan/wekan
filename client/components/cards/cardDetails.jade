@@ -24,17 +24,9 @@ template(name="cardDetails")
             a.fa.fa-window-maximize.maximize-card-details.js-maximize-card-details(title="{{_ 'maximize-card'}}")
           a.card-details-menu.js-open-card-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
             i.fa.fa-bars
-          a.card-copy-button.js-copy-link(
-            id="cardURL_copy"
-            title="{{_ 'copy-card-link-to-clipboard'}}"
-            href="{{ originRelativeUrl }}"
-          )
-            span.emoji-icon
-              i.fa.fa-link
           if canModifyCard
             span.card-drag-handle.js-card-drag-handle(title="Drag card")
               i.fa.fa-arrows
-          span.copied-tooltip {{_ 'copied'}}
         else
           a.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
             i.fa.fa-times-thin
@@ -53,14 +45,6 @@ template(name="cardDetails")
             a.fa.fa-window-maximize.maximize-card-details.js-maximize-card-details(title="{{_ 'maximize-card'}}")
           a.card-details-menu-mobile-web.js-open-card-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
             i.fa.fa-bars
-          a.card-copy-mobile-button.js-copy-link(
-            id="cardURL_copy"
-            title="{{_ 'copy-card-link-to-clipboard'}}"
-            href="{{ originRelativeUrl }}"
-          )
-            span.emoji-icon
-              i.fa.fa-link
-          span.copied-tooltip {{_ 'copied'}}
         if canModifyCard
           if currentBoard.allowsDueComplete
             a.card-details-complete-toggle.js-toggle-due-complete(title="{{#if getDueComplete}}{{_ 'card-mark-incomplete'}}{{else}}{{_ 'card-mark-complete'}}{{/if}}")
@@ -786,6 +770,18 @@ template(name="editCardSortOrderForm")
 
 template(name="cardDetailsActionsPopup")
   if currentUser
+    //- Copy link, first, and named - the card's header carried this as an icon
+      with only a tooltip, which is the one place a name cannot be read without
+      hovering. It is here now, beside the swimlane's and the list's, so all
+      three are copied the same way from the same kind of menu.
+      docs/Design/Page/Board-Item-Links.md
+    ul.pop-over-list
+      li
+        a.js-copy-card-link
+          i.fa.fa-link
+          |  {{_ 'copy-link-to-clipboard'}}
+    span.copied-tooltip {{_ 'copied'}}
+    hr
     ul.pop-over-list
       li
         a.js-toggle-watch-card

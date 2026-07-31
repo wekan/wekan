@@ -497,13 +497,21 @@ Lists.helpers({
     return this.collapsed === true;
   },
 
-  absoluteUrl() {
-    const card = ReactiveCache.getCard({ listId: this._id });
-    return card && card.absoluteUrl();
+  // The list's OWN address, not a card's. This used to answer with the URL of
+  // whichever card the cache returned first for this list, so "link to this
+  // list" went to a card - and to nothing at all when the list was empty.
+  // models/lib/boardItemUrl.js
+  originRelativeUrl(board) {
+    const { buildListRelativeUrl } = require('./lib/boardItemUrl');
+    return buildListRelativeUrl(this, board || this.board());
   },
-  originRelativeUrl() {
-    const card = ReactiveCache.getCard({ listId: this._id });
-    return card && card.originRelativeUrl();
+  absoluteUrl(board) {
+    // Built from the relative path rather than FlowRouter.url(): FlowRouter is
+    // client-only and answers with a generic link on the server.
+    // Meteor.absoluteUrl() works on both sides and expects no leading slash.
+    const relativeUrl = this.originRelativeUrl(board);
+    if (!relativeUrl) return undefined;
+    return Meteor.absoluteUrl(relativeUrl.replace(/^\//, ''));
   },
   async remove() {
     return await Lists.removeAsync({ _id: this._id });

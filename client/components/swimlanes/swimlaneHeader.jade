@@ -55,6 +55,18 @@ template(name="editSwimlaneTitleForm")
 
 template(name="swimlaneActionPopup")
   if currentUser
+    //- Copy link, FIRST and above every permission check: a swimlane has an
+      address now, and copying it is reading, not editing - somebody who may
+      only read the board may still tell a colleague which swimlane they mean.
+      The rows below are all guarded because they change the board.
+      models/lib/boardItemUrl.js, docs/Design/Page/Board-Item-Links.md
+    ul.pop-over-list
+      li: a.js-copy-swimlane-link
+        i.fa.fa-link
+        span
+          | {{_ 'copy-link-to-clipboard'}}
+    span.copied-tooltip {{_ 'copied'}}
+    hr
     unless currentUser.isCommentOnly
       unless currentUser.isReadOnly
         unless currentUser.isReadAssignedOnly

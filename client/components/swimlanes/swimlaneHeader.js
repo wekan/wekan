@@ -98,6 +98,19 @@ Template.editSwimlaneTitleForm.helpers({
 });
 
 Template.swimlaneActionPopup.events({
+  // Copy the swimlane's own address. `absoluteUrl` so what lands in the
+  // clipboard can be pasted anywhere - a relative path is only a link inside
+  // this page. The popup stays open long enough to show "Copied"; it is the
+  // confirmation, and a menu that vanishes the instant you click leaves you
+  // wondering whether anything happened. models/lib/boardItemUrl.js
+  'click .js-copy-swimlane-link'(event, tpl) {
+    event.preventDefault();
+    const swimlane = Template.currentData();
+    if (!swimlane) return;
+    const url = swimlane.absoluteUrl();
+    if (!url) return;
+    Utils.showCopied(Utils.copyTextToClipboard(url), tpl.$('.copied-tooltip'));
+  },
   'click .js-add-swimlane': Popup.open('swimlaneAdd'),
   'click .js-add-list-from-swimlane': Popup.open('addList'),
   'click .js-set-swimlane-color': Popup.open('setSwimlaneColor'),

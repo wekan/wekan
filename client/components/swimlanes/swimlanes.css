@@ -399,3 +399,31 @@ body.swimlane-resizing-active {
 body.swimlane-resizing-active * {
   cursor: row-resize !important;
 }
+
+/* The swimlane or list a link named, for a moment after it is scrolled to.
+   A scroll that lands mid-board gives no sign of WHICH of the things now on
+   screen the link was about; this says so and then gets out of the way. The
+   class is removed after the animation by client/lib/revealBoardItem.js, so
+   nothing is left highlighted for the rest of the session.
+
+   `outline`, not `border` or `box-shadow`: it is drawn outside the box and so
+   moves neither the swimlane's rows nor the list's cards by a pixel. */
+.is-revealed {
+  outline: 3px solid #2980b9;
+  outline-offset: -3px;
+  animation: wekan-reveal-fade 2s ease-out forwards;
+}
+
+@keyframes wekan-reveal-fade {
+  0% { outline-color: #2980b9; }
+  70% { outline-color: #2980b9; }
+  100% { outline-color: transparent; }
+}
+
+/* Somebody who asked not to be animated gets the outline without the fade -
+   the point is to say which one, and that does not need movement. */
+@media (prefers-reduced-motion: reduce) {
+  .is-revealed {
+    animation: none;
+  }
+}

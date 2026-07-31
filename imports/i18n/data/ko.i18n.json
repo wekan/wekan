@@ -465,6 +465,7 @@
   "checklistDeletePopup-title": "체크리스트를 삭제합니까?",
   "checklistItemDeletePopup-title": "チェックリスト項目を削除しますか？",
   "copy-card-link-to-clipboard": "클립보드에 카드의 링크가 복사되었습니다.",
+  "copy-link-to-clipboard": "링크를 클립보드에 복사합니다",
   "copy-text-to-clipboard": "텍스트를 클립보드에 복사합니다",
   "linkCardPopup-title": "카드 연결",
   "searchElementPopup-title": "검색",
