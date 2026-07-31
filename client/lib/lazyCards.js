@@ -45,9 +45,11 @@ export function isLazyCards(boardId) {
   return false; // 'auto', flag not yet known -> eager until the board is confirmed big
 }
 
-// Stable id for one (list, swimlane) window's count doc (shared, unit-tested).
-export function windowCountId(listId, swimlaneId) {
-  return windowCountIdImpl(listId, swimlaneId);
+// Stable id for one (list, swimlane, selector) window's count doc (shared,
+// unit-tested). The selector is optional but every caller that HAS one must pass
+// it, or two filters share a document and the count describes the wrong cards.
+export function windowCountId(listId, swimlaneId, selector) {
+  return windowCountIdImpl(listId, swimlaneId, selector);
 }
 
 // Accurate total card count for `list.cards(swimlaneId)` in lazy mode, where
@@ -66,7 +68,7 @@ export function lazyListCardCount(list, swimlaneId) {
     list.orphanedCardsSwimlaneIds ? list.orphanedCardsSwimlaneIds(swimlaneId) : undefined,
   );
   const mongoSelector = Filter.mongoSelector(selector);
-  const id = windowCountId(list._id, swimlaneId);
+  const id = windowCountId(list._id, swimlaneId, mongoSelector);
   const inst = typeof Template !== 'undefined' && Template.instance ? Template.instance() : null;
   if (inst && inst.subscribe) {
     inst.subscribe('boardListCardCount', id, list.boardId, mongoSelector);

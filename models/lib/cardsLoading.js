@@ -54,12 +54,50 @@ function effectiveBoardCardsMode(mode, cardCount, threshold) {
   return count > limit ? 'lazy' : 'all';
 }
 
-// Stable id for one (list, swimlane) window's reactive count doc. A falsy
-// swimlaneId (undefined, null, '') MUST collapse to the same id, because the
-// list body subscribes with `undefined` (list view) while the list header reads
-// with '' — both must reference the same count.
-function windowCountId(listId, swimlaneId) {
-  return `${listId}::${swimlaneId || ''}`;
+// JSON with the keys of every object in a stable order, so two selectors that
+// mean the same thing produce the same text whatever order they were built in.
+function stableStringify(value) {
+  if (Array.isArray(value)) {
+    return `[${value.map(stableStringify).join(',')}]`;
+  }
+  if (value && typeof value === 'object' && !(value instanceof Date)) {
+    const keys = Object.keys(value).sort();
+    return `{${keys.map(k => `${JSON.stringify(k)}:${stableStringify(value[k])}`).join(',')}}`;
+  }
+  return JSON.stringify(value === undefined ? null : value);
+}
+
+// A short key identifying a card selector. djb2 over the stable text: this only
+// has to separate one selector from another within one list, not resist anything.
+function selectorKey(selector) {
+  const text = stableStringify(selector);
+  let hash = 5381;
+  for (let i = 0; i < text.length; i += 1) {
+    hash = ((hash * 33) ^ text.charCodeAt(i)) >>> 0;
+  }
+  return hash.toString(36);
+}
+
+// Stable id for one (list, swimlane, selector) window's reactive count doc.
+//
+// A falsy swimlaneId (undefined, null, '') MUST collapse to the same id, because
+// the list body subscribes with `undefined` (list view) while the list header
+// reads with '' — both must reference the same count.
+//
+// The SELECTOR belongs in the id too. Without it the id was listId::swimlaneId,
+// so changing the board Filter re-subscribed to `boardListCardCount` with a
+// different selector under the SAME document id: two publications then wrote one
+// document, and Meteor's merge box serves whichever subscription it prefers —
+// which during the changeover is the older, pre-filter one. The list rendered its
+// filtered (possibly empty) window while its count still described the unfiltered
+// list, which is what kept the "load more" spinner turning over nothing. Each
+// filter now counts into its own document, so a count can never describe another
+// filter's cards. `selector` is optional: omitting it keeps the old id, which is
+// what a caller that has no selector to hand should get.
+function windowCountId(listId, swimlaneId, selector) {
+  const base = `${listId}::${swimlaneId || ''}`;
+  if (selector === undefined || selector === null) return base;
+  return `${base}::${selectorKey(selector)}`;
 }
 
 export {
@@ -69,4 +107,6 @@ export {
   cardsLoadingLazyThreshold,
   effectiveBoardCardsMode,
   windowCountId,
+  selectorKey,
+  stableStringify,
 };

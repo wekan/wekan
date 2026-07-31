@@ -17,6 +17,10 @@ import { labelMatchesTerm } from '/models/lib/labelAutocomplete';
 import { memberMatchesTerm } from '/models/lib/memberAutocomplete';
 import { isLazyCards, BoardListCardCounts, windowCountId } from '/client/lib/lazyCards';
 import {
+  shouldShowLoadMoreSpinner,
+  renderableCardsSelector,
+} from '/client/lib/listCardWindow';
+import {
   mutationsChangeDragGeometry,
   findActiveCardDrag,
 } from '/client/lib/cardDragGeometry';
@@ -398,12 +402,15 @@ Template.listBody.helpers({
       tpl.subscribe('boardCardsWindow', list.boardId, mongoSelector, sortBy, limit);
       tpl.subscribe(
         'boardListCardCount',
-        windowCountId(list._id, swimlaneId),
+        // The selector is part of the count document's id: without it a filter
+        // change re-subscribed under the SAME id and could keep the previous
+        // filter's count (see models/lib/cardsLoading.js).
+        windowCountId(list._id, swimlaneId, mongoSelector),
         list.boardId,
         mongoSelector,
       );
     }
-    const ret = ReactiveCache.getCards(mongoSelector, {
+    const ret = ReactiveCache.getCards(renderableCardsSelector(mongoSelector), {
       // sort: ['sort'],
       sort: sortBy,
       limit,
@@ -414,14 +421,38 @@ Template.listBody.helpers({
   showSpinner(swimlaneId) {
     const tpl = Template.instance();
     const list = Template.currentData();
-    if (isLazyCards()) {
+    const limit = tpl.cardlimit.get();
+
+    // The same selector and sort cardsWithLimit renders with, so "how many cards
+    // are on screen" is measured against what is actually on screen. The two used
+    // to be built in different places from different sources, which is how the
+    // spinner came to disagree with an empty list.
+    const selector = listCardsSelector(
+      list._id,
+      swimlaneId,
+      list.orphanedCardsSwimlaneIds
+        ? list.orphanedCardsSwimlaneIds(swimlaneId)
+        : undefined,
+    );
+    const mongoSelector = Filter.mongoSelector(selector);
+    const renderSelector = renderableCardsSelector(mongoSelector);
+    const loaded = ReactiveCache.getCards(renderSelector, { limit }).length;
+
+    let total;
+    if (isLazyCards(list.boardId)) {
       // In lazy mode minimongo only holds the loaded window, so the total comes
-      // from the server count published into BoardListCardCounts.
-      const countDoc = BoardListCardCounts.findOne(windowCountId(list._id, swimlaneId));
-      const total = countDoc ? countDoc.count : 0;
-      return total > tpl.cardlimit.get();
+      // from the server count published into BoardListCardCounts. (This used to
+      // ask isLazyCards() with no board, which could disagree with the branch
+      // cardsWithLimit took for the same list.)
+      const countDoc = BoardListCardCounts.findOne(
+        windowCountId(list._id, swimlaneId, mongoSelector),
+      );
+      total = countDoc ? countDoc.count : 0;
+    } else {
+      total = ReactiveCache.getCards(renderSelector).length;
     }
-    return list.cards(swimlaneId).length > tpl.cardlimit.get();
+
+    return shouldShowLoadMoreSpinner({ total, loaded, limit });
   },
 
   canSeeAddCard() {
