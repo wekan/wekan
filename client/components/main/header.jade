@@ -22,6 +22,9 @@ template(name="header")
             | {{_ headerTitleKey}}
           else
             = headerTitleText
+        //- The pencil that renames the board, immediately right of its name.
+        if isBoardPage
+          +boardEditTitleButton
 
       // Logo - visible; on mobile constrained by CSS
       unless currentSetting.hideLogo
@@ -90,6 +93,11 @@ template(name="header")
         already has a font-size setting (Member Settings / Change Font), which is
         what people actually wanted from it. Removed rather than left in place as
         a control that does nothing.
+
+      //- Everything the board's second header bar held, as icons, left of the
+        bell. client/components/boards/boardHeader.jade
+      if isBoardPage
+        +boardHeaderButtons
 
       //- The view menu of whatever page has one - Swimlanes / Lists / Calendar
         / Gantt / Table / Stats on a board, Lists / Table on All Boards. A view

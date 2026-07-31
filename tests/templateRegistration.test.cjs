@@ -94,27 +94,18 @@ test('and every +template it includes is defined by one of them', () => {
   }
 });
 
-test('the shared header controls are imported before the bar that uses them', () => {
-  // Not required by Blaze - it resolves a template at render time - but the
-  // list reads as a dependency order, and a reader who reorders it should see
-  // that this one comes first on purpose.
-  const boards = read('client/features/boards.js');
-  const shared = boards.indexOf("'/client/components/boards/headerBarControls.jade'");
-  assert.notStrictEqual(shared, -1, 'the shared controls must be imported');
-  assert.ok(shared < boards.indexOf("'/client/components/boards/boardHeader.jade'"),
-    'headerBarControls.jade comes before boardHeader.jade');
-  // Its templates are what the board header includes. They were written for
-  // TWO bars - All Boards had one too - and All Boards has no header bar any
-  // more, so the board is the only user left. Kept shared rather than folded
-  // back in: the board's bar is the next one to be emptied.
-  const controls = read('client/components/boards/headerBarControls.jade');
-  for (const name of ['headerSearchButton', 'headerMultiSelectionButton']) {
-    assert.ok(controls.includes(`template(name="${name}")`), `${name} is defined there`);
-    assert.ok(read('client/components/boards/boardHeader.jade').includes(`+${name}`),
-      `the board header uses ${name}`);
-  }
-  assert.ok(!read('client/components/boards/boardsList.jade').includes('+header'),
-    'and All Boards no longer has a header bar to include them in');
+test('the shared header controls are gone, with the bars they were for', () => {
+  // headerBarControls.jade held one Search button and one Multi-Selection
+  // button, written for the board's second header bar and All Boards'. Both
+  // bars are gone: All Boards keeps those two as sidebar rows, and the board's
+  // are icons in the first header bar. A template shared by nobody is not
+  // shared, it is indirection.
+  assert.ok(!fs.existsSync(path.join(ROOT, 'client/components/boards/headerBarControls.jade')),
+    'the file must be gone');
+  assert.ok(!allImports.includes('headerBarControls'), 'and nothing may import it');
+  const boardJade = read('client/components/boards/boardHeader.jade');
+  assert.ok(/js-open-search-view/.test(boardJade), 'the board draws Search itself');
+  assert.ok(/js-multiselection-activate/.test(boardJade), 'and Multi-Selection');
 });
 
 for (const [name, fn] of tests) {

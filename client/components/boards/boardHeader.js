@@ -63,7 +63,7 @@ Template.boardChangeTitlePopup.events({
   },
 });
 
-Template.boardHeaderBar.onCreated(function () {
+Template.boardHeaderButtons.onCreated(function () {
   Meteor.subscribe('tableVisibilityModeSettings');
   // Restore the persisted card sort after a reload (Session is in-memory), so
   // both the sorting and the sort icon are remembered. See #5886.
@@ -77,7 +77,7 @@ Template.boardHeaderBar.onCreated(function () {
   }
 });
 
-Template.boardHeaderBar.helpers({
+Template.boardHeaderButtons.helpers({
   notDisplayThisBoard() {
     const allowPrivateVisibilityOnly = TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly');
     const currentBoard = Utils.getCurrentBoard();
@@ -129,7 +129,7 @@ Template.boardHeaderBar.helpers({
   },
 });
 
-Template.boardHeaderBar.events({
+Template.boardHeaderButtons.events({
   'click .js-edit-board-title': Popup.open('boardChangeTitle'),
   'click .js-star-board'() {
     const boardId = Session.get('currentBoard');
@@ -605,4 +605,10 @@ Template.boardViewMenu.helpers({
   boardView() {
     return Utils.boardView();
   },
+});
+
+// The pencil is its own template in the first header bar, beside the board's
+// name, so its click is handled here. docs/Design/Page/Header.md
+Template.boardEditTitleButton.events({
+  'click .js-edit-board-title': Popup.open('boardChangeTitle'),
 });

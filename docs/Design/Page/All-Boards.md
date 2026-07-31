@@ -33,7 +33,7 @@ Sort, Search and the view menu decide what you are looking at; Multi-Selection
 comes after them, because the actions it turns on are in the sidebar it opens.
 
 **Search and Multi-Selection are shared with the board header.** They are one
-template each, `headerBarControls.jade`, included by this bar and by the board
+template each, `boardHeader.jade`, included by this bar and by the board
 header of the Swimlanes view, and they do the same kind of thing on both pages:
 open the right sidebar on that view. Only the markup is shared — what a click
 does is not, because a board searches and selects cards while this page searches
@@ -202,7 +202,6 @@ controls have their own lists in [Search](Search.md) and
 | `client/components/boards/boardsList.jade` | `.jade` template | `boardList` (the page), `boardListHeaderBar` (the controls) and `allBoardsRow` (a Table row). |
 | `client/components/boards/boardsList.js` | `.js` Blaze template logic | The controls' handlers, the view switch, the Table column spec. |
 | `client/components/boards/boardsList.css` | `.css` stylesheet | The page's own layout. The header bar and the sidebar reuse the board header's and board sidebar's styles rather than restating them. |
-| `client/components/boards/headerBarControls.jade` | `.jade` template | `headerSearchButton` and `headerMultiSelectionButton`, shared with the board header. |
 | `client/components/boards/allBoardsSidebar.jade` | `.jade` template | The sidebar shell and its three views. |
 | `client/components/boards/allBoardsSidebar.js` | `.js` Blaze template logic | The views' helpers and handlers. |
 | `models/lib/allBoardsSidebar.js` | `.js` module, pure | Which sidebar views exist, their titles and the template each one draws. No Meteor, so it is unit-testable. |

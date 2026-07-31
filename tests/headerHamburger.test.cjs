@@ -85,26 +85,20 @@ test('the board-settings cog is removed from the header (it is in the sidebar)',
   assert.ok(!/js-open-board-menu/.test(js), 'no dead cog handler in the board header');
 });
 
-test('the hamburger is its own flex item, still last on a wide screen', () => {
-  // It used to sit at the end of the `.right` group. It was lifted out so that in
-  // mobile mode it can stay in the top right corner while the other buttons wrap to
-  // the second row - inside that group it could only wrap down along with them.
-  const jade = read('client/components/boards/boardHeader.jade');
-  const wrapperAt = jade.indexOf('.board-header-btns.board-header-sidebar-toggle');
-  const hamburgerAt = jade.indexOf('js-toggle-sidebar');
-  assert.ok(wrapperAt !== -1, 'the hamburger has its own wrapper');
-  assert.ok(hamburgerAt > wrapperAt, 'and sits inside it');
-  // Its divider goes with it, on its left.
-  assert.ok(jade.indexOf('.separator', wrapperAt) < hamburgerAt,
-    'the divider is to the left of the hamburger');
-  // The visible result on a wide screen is unchanged: last item, hugging the right
-  // edge. The wrapper comes BEFORE the other buttons in the markup (so it can share
-  // the first row with the title on a phone), so `order` puts it back at the end.
-  const wrapper = block('#header #header-main-bar .board-header-sidebar-toggle');
-  assert.ok(/order:\s*1/.test(wrapper), 'ordered last on a wide screen');
-  assert.ok(/margin-inline-start:\s*auto/.test(wrapper), 'hugging the right edge');
+test('there is ONE hamburger, and it is in the first header bar', () => {
+  // The board had its own, at the end of its second header bar, lifted out into
+  // its own flex item so that on a phone it could stay in the top right while
+  // the other buttons wrapped. That bar is gone, and so is the reason: there is
+  // one hamburger for every page, in the bar that is always on screen, and
+  // tests/headerBars.test.cjs pins where it sits.
+  const boardJade = read('client/components/boards/boardHeader.jade');
+  assert.ok(!/js-toggle-sidebar/.test(boardJade),
+    'the board must not draw a hamburger of its own');
+  const header = read('client/components/main/header.jade');
+  assert.ok(/js-toggle-page-sidebar/.test(header), 'the first bar draws the one');
+  assert.strictEqual((header.match(/js-toggle-page-sidebar/g) || []).length, 1,
+    'exactly one');
 });
-
 test('board header button text labels are NOT hidden (icons-only reverted)', () => {
   assert.ok(!/board-header-btn i\.fa \+ span:not\(\.board-star-counter\)\s*{\s*display:\s*none/.test(css),
     'no rule hiding the board-header button text labels');

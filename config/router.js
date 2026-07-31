@@ -409,7 +409,6 @@ FlowRouter.route('/b/:boardId/:slug/:cardId', {
     Utils.manageMatomo();
 
     this.render('defaultLayout', {
-      headerBar: 'boardHeaderBar',
       content: 'board',
     });
   },
@@ -435,7 +434,6 @@ FlowRouter.route('/b/:id', {
     Utils.manageMatomo();
 
     this.render('defaultLayout', {
-      headerBar: 'boardHeaderBar',
       content: 'board',
     });
   },
@@ -465,7 +463,6 @@ FlowRouter.route('/b/:id/:slug', {
     Utils.manageMatomo();
 
     this.render('defaultLayout', {
-      headerBar: 'boardHeaderBar',
       content: 'board',
     });
   },

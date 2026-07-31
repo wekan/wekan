@@ -21,46 +21,37 @@ function test(name, fn) {
   console.log('  ok -', name);
 }
 
-// The Multi-Selection button is ONE template now, headerBarControls.jade, which
-// both bars include. Parity used to be a thing to check, because there were two
-// copies of the markup and they had already drifted - the tooltip on the ✕
-// differed. It is now structural, so this checks the structure: one definition,
-// both users, and the definition still icon + label + nested reset.
-const controls = read('client/components/boards/headerBarControls.jade');
-const block = controls.slice(controls.indexOf('template(name="headerMultiSelectionButton")'));
+// The Multi-Selection button was a shared template for two header bars. Both
+// bars are gone: All Boards offers Multi-Selection as a sidebar row, and the
+// board draws it as an icon in the first header bar. A template shared by
+// nobody is not shared, so it was folded back into the one place that draws it.
 
-test('the button is defined once, and the board header includes it', () => {
-  // It was written for TWO bars, and it still is one template - but All Boards
-  // has no header bar any more, so the board is the only user left. All Boards
-  // offers Multi-Selection as a sidebar ROW, which is where this restructure
-  // puts a control. Kept shared because the board's bar is next to be emptied.
+test('the board draws Multi-Selection as an icon, once', () => {
   const header = read('client/components/boards/boardHeader.jade');
-  assert.ok(/\+headerMultiSelectionButton\(isActive=MultiSelection\.isActive\)/.test(header),
-    'the board header includes the shared button, with its own isActive');
-  assert.ok(!/js-multiselection-activate/.test(header),
-    'and does not write the button out again');
+  const buttons = header.slice(header.indexOf('template(name="boardHeaderButtons")'),
+    header.indexOf('template(name="boardVisibilityList")'));
+  assert.ok(/js-multiselection-activate/.test(buttons), 'the board has the control');
+  assert.strictEqual((buttons.match(/js-multiselection-activate/g) || []).length, 1,
+    'written once - there is no desktop/mobile copy any more');
 
-  const boards = read('client/components/boards/boardsList.jade');
-  assert.ok(!/\+headerMultiSelectionButton/.test(boards),
-    'All Boards has no header bar to include it in');
-  const sidebar = read('client/components/boards/allBoardsSidebar.jade');
-  assert.ok(/js-all-boards-sidebar-multiselection/.test(sidebar),
-    'it offers Multi-Selection as a sidebar row instead');
-});
+  // Icon only, named by a tooltip: the first bar is one row shared with a great
+  // deal else, and these are ten controls.
+  assert.ok(/i\.fa\.fa-check-square-o/.test(buttons), 'the check-square glyph');
+  assert.ok(/title="\{\{#if MultiSelection\.isActive\}\}/.test(buttons),
+    'and a tooltip that says which way it goes');
+  assert.ok(!/span \{\{#if MultiSelection\.isActive\}\}/.test(buttons),
+    'with no visible label');
 
-test('and it is an icon + a text label with the reset nested inside', () => {
-  assert.ok(/i\.fa\.fa-check-square-o/.test(block), 'check-square icon');
-  assert.ok(/span \{\{#if isActive\}\}\{\{_ 'multi-selection-on'\}\}\{\{else\}\}\{\{_ 'multi-selection'\}\}/.test(block),
-    'a text label, not an icon-only button');
-  assert.ok(/js-multiselection-reset/.test(block) && /fa-times-thin/.test(block),
-    'nested reset with the thin ✕');
-  // NEGATIVE: the old icon-only wrapper / fat ✕.
-  assert.ok(!/span\.emoji-icon\s*\n\s*i\.fa\.fa-check-square-o/.test(block),
-    'no emoji-icon wrapper around the check icon');
-  // The ✕ turns Multi-Selection OFF; it used to say "Clear filter" on the board
-  // header, which is what a different control does.
-  assert.ok(/js-multiselection-reset\(title="\{\{_ 'multi-selection-off'\}\}"\)/.test(block),
-    'and its tooltip names what it does');
+  // Its ✕ says what it does, and turns Multi-Selection off.
+  assert.ok(/js-multiselection-reset\(title="\{\{_ 'multi-selection-off'\}\}"\)/.test(buttons),
+    'the reset is named for what it does');
+
+  // All Boards offers the same control as a sidebar row instead.
+  assert.ok(/js-all-boards-sidebar-multiselection/.test(
+    read('client/components/boards/allBoardsSidebar.jade')),
+    'All Boards has it as a sidebar row');
+  assert.ok(!fs.existsSync(path.join(repoRoot, 'client/components/boards/headerBarControls.jade')),
+    'and the shared template is gone, having no users left');
 });
 
 test('the nested reset stops propagation so it does not re-activate', () => {

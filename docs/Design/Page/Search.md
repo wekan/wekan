@@ -8,7 +8,7 @@ both — one template, included twice.
 
 | | |
 | --- | --- |
-| Template | `headerSearchButton` in `client/components/boards/headerBarControls.jade` |
+| Template | `headerSearchButton` in `client/components/boards/boardHeader.jade` |
 | Class | `a.board-header-btn.js-open-search-view` |
 | Icon | `fa-search` |
 | Label | `{{_ 'search'}}` |
@@ -72,7 +72,6 @@ minilists.
 
 | File Path | File Type | Description |
 | --- | --- | --- |
-| `client/components/boards/headerBarControls.jade` | `.jade` template | `headerSearchButton`, the shared control. |
 | `client/components/boards/allBoardsSidebar.jade` | `.jade` template | `allBoardsSearchSidebar`, the All Boards search view. |
 | `client/components/boards/allBoardsSidebar.js` | `.js` Blaze template logic | Its handlers; writes the page's search term. |
 | `client/lib/allBoardsView.js` | `.js` module | `allBoardsSearchVar`, the term the page filters by. |

@@ -35,17 +35,32 @@ const listJade = read('client/components/lists/listHeader.jade');
 
 console.log('mobileModeConsistency:');
 
-test('the header buttons are never hidden without a replacement', () => {
-  // edit title / visibility / watch / star / sort are rendered in EXACTLY ONE of the
-  // two groups - left `unless isMiniScreen`, right `if isMiniScreen`. Hiding the left
-  // group in mobile mode is a no-op while the switches agree, and deletes those five
-  // buttons when they do not.
+test('the header buttons are written ONCE, for both screens', () => {
+  // edit title / visibility / watch / star / sort used to be rendered in exactly
+  // one of two groups - left `unless isMiniScreen`, right `if isMiniScreen` -
+  // because a row of LABELLED buttons does not fit on a phone. Whether the two
+  // switches agreed was the thing this test guarded: hiding the left group in
+  // mobile mode was a no-op while they did, and deleted five buttons when they
+  // did not.
+  //
+  // There is one copy now. The buttons are icons in the first header bar, named
+  // by tooltips, and icons fit at both sizes - so the duplication that made the
+  // two switches able to disagree is gone rather than kept in step.
+  assert.ok(!/unless isMiniScreen/.test(boardJade), 'no wide-screen-only copy');
+  assert.ok(!/if isMiniScreen/.test(boardJade), 'and no phone-only copy');
   assert.ok(!/\.mobile-mode \.board-header-btns\.left \{[^}]*display:\s*none/.test(boardCss),
-    'the left button group must not be hidden in mobile mode');
-  // Both branches must still exist in the markup, or one device loses the buttons
-  // outright.
-  assert.ok(/unless isMiniScreen/.test(boardJade), 'the wide-screen branch');
-  assert.ok(/if isMiniScreen/.test(boardJade), 'and the mini-screen branch');
+    'and nothing hides a group that no longer exists');
+  // Each control appears exactly once IN THE HEADER BUTTONS. The popups below
+  // mention some of the same classes - `js-change-visibility` is also the link
+  // inside the visibility popup - so this reads the one template, not the file.
+  const buttons = boardJade.slice(boardJade.indexOf('template(name="boardHeaderButtons")'),
+    boardJade.indexOf('template(name="boardVisibilityList")'));
+  for (const control of ['js-change-visibility', 'js-watch-board', 'js-star-board',
+    'js-sort-cards', 'js-open-filter-view', 'js-open-search-view',
+    'js-toggle-dependencies', 'js-multiselection-activate']) {
+    assert.strictEqual((buttons.match(new RegExp(control, 'g')) || []).length, 1,
+      `${control} must be written exactly once`);
+  }
 });
 
 test('the second header bar can grow to a second row on a phone', () => {

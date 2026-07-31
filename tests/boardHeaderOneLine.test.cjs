@@ -167,149 +167,36 @@ test('the tablet rules come after the base rules they override', () => {
     'the tablet block belongs with the screen rules, before @media print');
 });
 
-test('every button the bar shows is a .board-header-btn (so the rules reach it)', () => {
-  // The selectors above are the only ones that shrink; a control added with a
-  // different class would keep the old spacing and could re-wrap the bar.
-  const bar = jade.slice(jade.indexOf('template(name="boardHeaderBar")'),
-    jade.indexOf('template(name="boardVisibilityList")'));
-  const anchors = bar.match(/^\s*a\.[a-z0-9-]+/gim) || [];
-  for (const a of anchors) {
-    assert.ok(/a\.board-header-btn/.test(a.trim()),
-      `"${a.trim()}" is not a .board-header-btn - the tablet spacing will not apply`);
-  }
-  assert.ok(anchors.length >= BUTTON_COUNT,
-    'the bar should still hold at least the buttons this fix was measured with');
-});
+// ── The second header bar itself is gone ────────────────────────────────────
+//
+// Everything below this point used to measure ONE thing: the board's second
+// header bar was a title and three button groups on a single flex row, and a
+// long board title pushed some buttons to a second row and not others. The
+// wrapper, the phone layout, the hamburger sharing the first row with the title
+// - all of it existed to keep that row together.
+//
+// There is no such row. The board's name is in the FIRST header bar, its rename
+// pencil is beside the name, its controls are icons beside those, and there is
+// one hamburger for the whole app. tests/headerBars.test.cjs pins where each of
+// those sits; what is left to check here is that the bar really is gone, so
+// nothing quietly brings it back. docs/Design/Page/Header.md
 
-// ── A long board title moves ALL the buttons to the second row ──────────────
-// Reported on iPad landscape: with a long title, the left group (edit, visibility,
-// watch, star, sort) stayed beside the title and only the right group wrapped, so
-// the controls were split across both rows. The groups are now nested in ONE flex
-// item, which as a single item either fits beside the title or moves down whole.
-
-const bar = jade.slice(jade.indexOf('template(name="boardHeaderBar")'),
-  jade.indexOf('template(name="boardVisibilityList")'));
-
-test('all three button groups are inside one wrapper', () => {
-  const wrapperAt = bar.indexOf('.board-header-btns-group');
-  assert.ok(wrapperAt >= 0, 'the .board-header-btns-group wrapper must exist');
-  const wrapperIndent = (() => {
-    const line = bar.slice(0, wrapperAt).split('\n').pop();
-    return line.length;
-  })();
+test('the board has no second header bar to lay out', () => {
+  assert.ok(!/template\(name="boardHeaderBar"\)/.test(jade), 'the bar is gone');
+  assert.ok(!/h1\.header-board-menu/.test(jade), 'and its copy of the board name');
+  assert.ok(!/\.board-header-btns-group/.test(jade), 'and the wrapper of its groups');
   for (const group of ['left', 'center', 'right']) {
-    const at = bar.indexOf(`.board-header-btns.${group}`);
-    assert.ok(at > wrapperAt,
-      `.board-header-btns.${group} must come after the wrapper`);
-    const indent = bar.slice(0, at).split('\n').pop().length;
-    assert.ok(indent > wrapperIndent,
-      `.board-header-btns.${group} must be nested INSIDE the wrapper (indent ` +
-      `${indent} vs wrapper ${wrapperIndent}) - as a sibling it wraps on its own ` +
-      'and splits the controls across both rows');
+    assert.ok(!new RegExp(`\\.board-header-btns\\.${group}`).test(jade), `and .${group}`);
   }
-});
+  assert.ok(!/js-toggle-sidebar/.test(jade), 'and its own hamburger');
+  const router = fs.readFileSync(path.join(root, 'config/router.js'), 'utf8');
+  assert.ok(!/boardHeaderBar/.test(router), 'and no route names it');
 
-test('the title is a sibling of the wrapper, not inside it', () => {
-  const titleAt = bar.indexOf('h1.header-board-menu');
-  const wrapperAt = bar.indexOf('.board-header-btns-group');
-  assert.ok(titleAt >= 0 && titleAt < wrapperAt,
-    'the board title must stay its own flex item, before the button wrapper');
-  const titleIndent = bar.slice(0, titleAt).split('\n').pop().length;
-  const wrapperIndent = bar.slice(0, wrapperAt).split('\n').pop().length;
-  assert.strictEqual(titleIndent, wrapperIndent,
-    'title and wrapper must be siblings so the flex row can break between them');
-});
-
-test('the wrapper is a flex item that can move down as a whole', () => {
-  const rule = /#header #header-main-bar \.board-header-btns-group\s*\{([^}]*)\}/.exec(css);
-  assert.ok(rule, '.board-header-btns-group must be styled in header.css');
-  const body = rule[1];
-  assert.ok(/display:\s*flex/.test(body), 'the wrapper must be a flex container');
-  assert.ok(/flex-wrap:\s*wrap/.test(body),
-    'its own groups must still be able to wrap when even the buttons alone do not fit');
-  // flex-basis must stay content-based: with `flex: 1 1 0` the wrapper would
-  // measure as zero-width and never move down, so the split would come back.
-  const flex = /flex:\s*([^;]+);/.exec(body);
-  assert.ok(flex, 'the wrapper must declare flex');
-  assert.ok(/auto\s*$/.test(flex[1].trim()),
-    `flex-basis must be auto (content width), got "${flex[1].trim()}" - a 0 basis ` +
-    'would keep the buttons glued beside the title');
-});
-
-test('a title wider than the bar wraps instead of overflowing', () => {
-  const rule = /#header #header-main-bar h1 \{([^}]*)\}/.exec(css);
-  assert.ok(rule, 'the h1 rule must exist');
-  assert.ok(/min-width:\s*0/.test(rule[1]),
-    'without min-width:0 a flex item cannot shrink below its min-content width');
-  assert.ok(/max-width:\s*100%/.test(rule[1]), 'the title must not exceed the bar');
-  assert.ok(/overflow-wrap:\s*(break-word|anywhere)/.test(rule[1]),
-    'a single very long word in a title must break rather than overflow');
-});
-
-test('the HTML export still strips the whole button area', () => {
-  const exportHTML = fs.readFileSync(
-    path.join(root, 'client/lib/exportHTML.js'), 'utf8');
-  assert.ok(/board-header-btns-group/.test(exportHTML),
-    'exportHTML must remove the wrapper too, or the export keeps an empty div');
-});
-
-test('the board title is shown in mobile mode, not hidden', () => {
-  // It used to be display:none there, which left the second header bar with
-  // nothing but icons - you could not tell which board you were on.
-  // The mobile rules live in boardHeader.css, not the header.css this suite
-  // otherwise reads.
-  const rule = /\.mobile-mode \.header-board-menu \{([^}]*)\}/.exec(boardCss);
-  assert.ok(rule, 'the mobile rule must still exist to size the title');
-  assert.ok(!/display:\s*none/.test(rule[1]), 'the title must not be hidden in mobile mode');
-  assert.ok(!/header-board-menu[^{]*\{[^}]*display:\s*none/.test(boardCss + css),
-    'no rule may hide the board title');
-  // Only as wide as it needs, so the buttons can start beside it, and it wraps
-  // rather than overflowing when the board name is long.
-  assert.ok(/flex:\s*0 1 auto/.test(rule[1]), 'the title does not claim the whole row');
-  assert.ok(/overflow-wrap/.test(rule[1]), 'and a long name wraps rather than overflowing');
-});
-
-test('on a phone the buttons follow the title and wrap as one block', () => {
-  // Requested: buttons start at the right of the board title, and drop to a second
-  // line only when the space between the title and the menu button runs out.
-  const group = /\.mobile-mode #header #header-main-bar \.board-header-btns-group \{([^}]*)\}/.exec(boardCss);
-  assert.ok(group, 'the button group needs its own mobile rule');
-  assert.ok(/flex:\s*1 1 auto/.test(group[1]),
-    'the buttons take the room left beside the title, not a row of their own');
-  // They are ONE flex item, so they wrap together instead of splitting across rows.
-  assert.ok(/\.board-header-btns-group/.test(jade), 'the group wrapper must exist in the markup');
-});
-
-test('the sidebar hamburger sits in the top right corner on a phone', () => {
-  // Its own flex item placed after the title in the markup - inside the right-hand
-  // group it could only wrap down together with the other buttons.
-  const toggleIdx = jade.indexOf('.board-header-btns.board-header-sidebar-toggle');
-  assert.ok(toggleIdx > 0, 'the hamburger needs its own wrapper');
-  assert.ok(jade.indexOf('h1.header-board-menu') < toggleIdx,
-    'it comes after the title');
-  assert.ok(toggleIdx < jade.indexOf('.board-header-btns-group'),
-    'and before the other buttons, so it can share the first row with the title');
-  // The divider stays at its left.
-  const wrapper = jade.slice(toggleIdx, jade.indexOf('.board-header-btns-group'));
-  assert.ok(wrapper.indexOf('.separator') < wrapper.indexOf('js-toggle-sidebar'),
-    'the divider is to the left of the menu button');
-  // Pinned out of the flow on a phone, so it stays put whether the buttons fit
-  // beside the title or wrap below them.
-  const mobile = /body\.board-view\.mobile-mode #header #header-main-bar \.board-header-sidebar-toggle \{([^}]*)\}/.exec(boardCss);
-  assert.ok(mobile, 'it needs a mobile rule');
-  assert.ok(/position:\s*absolute/.test(mobile[1]), 'taken out of the flex flow');
-  assert.ok(/inset-inline-end/.test(mobile[1]), 'pinned to the end edge, mirrored in RTL');
-  // ...and the bar reserves its width so nothing runs underneath it.
-  const bar = /body\.board-view\.mobile-mode #header #header-main-bar \{([^}]*)\}/.exec(boardCss);
-  assert.ok(bar && /position:\s*relative/.test(bar[1]), 'the bar is the containing block');
-  // Scoped to a board: the same bar elsewhere has no hamburger to reserve room for.
-  assert.ok(/body\.board-view\.mobile-mode #header #header-main-bar \{/.test(boardCss),
-    'the reserved padding is board-only');
-  assert.ok(/padding-inline-end:\s*\d+px/.test(bar[1]), 'and reserves room for it');
-  // On a wide screen `order` puts it back at the end of the bar.
-  const desktop = /#header #header-main-bar \.board-header-sidebar-toggle \{([^}]*)\}/.exec(css);
-  assert.ok(desktop && /order:\s*1/.test(desktop[1]), 'last on a wide screen');
-  assert.ok(/margin-inline-start:\s*auto/.test(desktop[1]), 'hugging the right edge');
+  // Where they went.
+  const header = fs.readFileSync(path.join(root, 'client/components/main/header.jade'), 'utf8');
+  assert.ok(/span\.header-page-title/.test(header), 'the name is in the first bar');
+  assert.ok(/if isBoardPage\n\s+\+boardEditTitleButton/.test(header), 'the pencil beside it');
+  assert.ok(/if isBoardPage\n\s+\+boardHeaderButtons/.test(header), 'the controls beside those');
 });
 
 console.log(`\nboardHeaderOneLine: ${passed} tests passed`);

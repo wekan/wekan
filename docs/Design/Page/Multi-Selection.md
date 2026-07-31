@@ -9,7 +9,7 @@ included twice.
 
 | | |
 | --- | --- |
-| Template | `headerMultiSelectionButton` in `client/components/boards/headerBarControls.jade` |
+| Template | `headerMultiSelectionButton` in `client/components/boards/boardHeader.jade` |
 | Class | `a.board-header-btn.js-multiselection-activate` |
 | Icon | `fa-check-square-o` |
 | Label | `multi-selection`, or `multi-selection-on` while it is on |
@@ -97,7 +97,6 @@ archive) for the selected cards.
 
 | File Path | File Type | Description |
 | --- | --- | --- |
-| `client/components/boards/headerBarControls.jade` | `.jade` template | `headerMultiSelectionButton`, the shared control. |
 | `client/components/boards/allBoardsSidebar.jade` | `.jade` template | `allBoardsMultiSelectionSidebar`, the All Boards view. |
 | `client/components/boards/allBoardsSidebar.js` | `.js` Blaze template logic | Its handlers: star, home, archive, duplicate, off. |
 | `models/lib/selectedStars.js` | `.js` module, pure | Which way the star row goes and which boards it touches. No Meteor, so it is unit-testable. |
