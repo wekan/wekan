@@ -198,13 +198,26 @@ test('it is painted with a theme, or its buttons are unreadable', () => {
   // replacing the grey with a themed colour - and this page has no board, so
   // without a class here every button was white on light grey. It shipped that
   // way and xet7 reported it.
-  assert.ok(/class="\{\{themeClass\}\}/.test(sidebar), 'the shell carries a theme class');
   assert.ok(/themeClass\(\) \{[\s\S]{0,120}'board-color-belize'/.test(sidebarJs),
     'the default theme outside a board');
   // Which must be a theme that really styles a sidebar button.
   const colors = read('client/components/boards/boardColors.css');
-  assert.ok(/\.board-color-belize \.sidebar \.sidebar-content \.sidebar-btn \{/.test(colors),
-    'and board-color-belize must define one');
+  const rule = /\.board-color-belize (\.sidebar \.sidebar-content \.sidebar-btn) \{/.exec(colors);
+  assert.ok(rule, 'board-color-belize must define a sidebar button');
+
+  // On an ANCESTOR, never on the sidebar itself. Every themed sidebar rule is a
+  // DESCENDANT selector - `.board-color-belize .sidebar .sidebar-content
+  // .sidebar-btn` - so a class on the `.sidebar` element matches nothing at all.
+  // The first version of this put it there, and the buttons stayed white on
+  // light grey; the guard passed, because it only asked whether the class was
+  // somewhere in the file.
+  const shell = /\.board-sidebar\.sidebar\.all-boards-sidebar\(class="([^"]*)"\)/.exec(sidebar);
+  assert.ok(shell, 'the shell element must be findable');
+  assert.ok(!/themeClass/.test(shell[1]),
+    'the theme class on the sidebar element itself would match nothing');
+  const wrapper = /\.all-boards-sidebar-theme\(class="\{\{themeClass\}\}"\)\n(\s+)\.board-sidebar\.sidebar\.all-boards-sidebar/
+    .exec(sidebar);
+  assert.ok(wrapper, 'it goes on a wrapper that CONTAINS the sidebar');
   // The SAME theme at every width. It is a class on the element, in the
   // template, so no media query can take it away - only the panel's GEOMETRY is
   // desktop-only. (boardsList.css does name board-color-belize elsewhere: it is

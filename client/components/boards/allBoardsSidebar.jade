@@ -9,24 +9,30 @@
 //-
 //- docs/Design/Page/Search.md, docs/Design/Page/Multi-Selection.md
 
-//- `themeClass` is a board-colour class, and it is what makes the panel
-//- readable: `.sidebar .sidebar-content .sidebar-btn` is a light grey box whose
-//- text is WHITE, and only a `.board-color-*` ancestor replaces that grey with
-//- a themed colour. On a board there always is one. Here there is no board, so
-//- without it every button was white-on-light-grey - invisible.
 template(name="allBoardsSidebar")
-  .board-sidebar.sidebar.all-boards-sidebar(class="{{themeClass}} {{#if isSidebarOpen}}is-open{{/if}}")
-    .sidebar-actions
-      a.sidebar-xmark.js-close-all-boards-sidebar(aria-label="{{_ 'close'}}") &#10005;
-    .sidebar-content.js-all-boards-sidebar-content
-      //- A title and a back arrow on every view EXCEPT home, which is where
-        back would go - exactly as the board sidebar does it.
-      if sidebarViewTitle
-        h2
-          a.fa.fa-arrow-left.js-all-boards-sidebar-home(aria-label="{{_ 'go-back'}}")
-          = sidebarViewTitle
-      if isSidebarOpen
-        +Template.dynamic(template=sidebarViewTemplate)
+  //- The theme class goes on an ANCESTOR of `.sidebar`, never on it: every
+    themed sidebar rule is a DESCENDANT selector -
+    `.board-color-belize .sidebar .sidebar-content .sidebar-btn` - so a class on
+    the sidebar element itself matches nothing at all, which is how the first
+    attempt at this left the buttons white on light grey anyway. On a board the
+    class sits on a container around the sidebar; this is that container.
+
+    It wraps ONLY the sidebar, so the theme cannot bleed into the board icons
+    behind it. It is out of flow (the sidebar inside is fixed), so it costs no
+    layout.
+  .all-boards-sidebar-theme(class="{{themeClass}}")
+    .board-sidebar.sidebar.all-boards-sidebar(class="{{#if isSidebarOpen}}is-open{{/if}}")
+      .sidebar-actions
+        a.sidebar-xmark.js-close-all-boards-sidebar(aria-label="{{_ 'close'}}") &#10005;
+      .sidebar-content.js-all-boards-sidebar-content
+        //- A title and a back arrow on every view EXCEPT home, which is where
+          back would go - exactly as the board sidebar does it.
+        if sidebarViewTitle
+          h2
+            a.fa.fa-arrow-left.js-all-boards-sidebar-home(aria-label="{{_ 'go-back'}}")
+            = sidebarViewTitle
+        if isSidebarOpen
+          +Template.dynamic(template=sidebarViewTemplate)
 
 //- What the hamburger opens: the page's own menu, the counterpart of
 //- `homeSidebar` on a board.

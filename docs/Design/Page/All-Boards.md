@@ -120,12 +120,26 @@ to move aside from a full-width panel.
 
 `.sidebar .sidebar-content .sidebar-btn` is a light grey box whose text is
 **white**. What makes that readable on a board is a `.board-color-*` ancestor
-replacing the grey with a themed colour — and this page has no board, so the
-first version was white text on light grey, invisible. The shell carries
+replacing the grey with a themed colour — and this page has no board, so without
+one every button is white on light grey, invisible. The theme is
 `board-color-belize`, the established default for a themed thing outside a board
 (`globalSearch.js` falls back to the same one).
 
-The theme is a class on the element, so it is the **same at every width**; only
+**On an ancestor, never on the sidebar itself.** Every themed sidebar rule is a
+*descendant* selector:
+
+```css
+.board-color-belize .sidebar .sidebar-content .sidebar-btn { … }
+```
+
+so a class on the `.sidebar` element matches **nothing**. The first version put
+it there and the buttons stayed white on light grey; `.all-boards-sidebar-theme`
+is a wrapper that *contains* the sidebar, the way a board's container contains
+its own. It wraps only the sidebar, so the theme cannot bleed into the board
+icons behind it, and it is out of flow — the sidebar inside is `fixed` — so it
+costs no layout.
+
+The theme is a class in the markup, so it is the **same at every width**; only
 the geometry above is desktop-only.
 
 ## The view menu
