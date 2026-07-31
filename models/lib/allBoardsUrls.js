@@ -38,6 +38,25 @@ const DEFAULT_SECTION = SECTION_STARRED;
 
 const ALL_BOARDS_BASE = '/allboards';
 
+// What the header bar calls a section: "All Boards / Starred". The page is four
+// lists of boards under one name, so "All Boards" alone named the page and not
+// the list you were looking at - and every one of them is the same address as
+// far as the route name is concerned.
+//
+// The keys are the LEFT MENU's own, so the title and the menu row that is
+// highlighted say the same words. A guard checks them against the menu markup.
+const ALL_BOARDS_SECTION_TITLE_KEYS = {
+  [SECTION_STARRED]: 'allboards.starred',
+  [SECTION_TEMPLATES]: 'allboards.templates',
+  [SECTION_REMAINING]: 'allboards.remaining',
+  [SECTION_WORKSPACES]: 'allboards.workspaces',
+};
+
+function sectionTitleKey(section) {
+  const resolved = resolveSection(section);
+  return ALL_BOARDS_SECTION_TITLE_KEYS[resolved] || '';
+}
+
 // null when it is not a section, so a caller can tell "not a section" from "the
 // default section".
 function normalizeSection(section) {
@@ -86,6 +105,28 @@ function workspaceIdForSlugPath(nodes, segments, slugify) {
   return found ? found.id : null;
 }
 
+// The NAMES of the workspaces a slug path walks through, for the title bar:
+// "All Boards / Workspaces / Engineering / Backend". The URL carries slugs,
+// which are lowercase and hyphenated and are not what the workspace is called.
+//
+// Stops at the first segment that names nothing and returns what it walked so
+// far, so a stale link titles the part of the trail that is still real rather
+// than nothing at all. A node whose name is empty falls back to its slug, for
+// the same reason workspaceSlug() falls back to the id: a workspace always has
+// something to show.
+function workspaceNamePath(nodes, segments, slugify) {
+  if (!Array.isArray(segments)) return [];
+  const names = [];
+  let level = Array.isArray(nodes) ? nodes : [];
+  for (const segment of segments) {
+    const found = level.find(node => node && workspaceSlug(node, slugify) === segment);
+    if (!found) break;
+    names.push(found.name || segment);
+    level = Array.isArray(found.children) ? found.children : [];
+  }
+  return names;
+}
+
 // Split the wildcard part of the URL into slugs. A trailing slash, a double
 // slash or an empty tail must not become an empty segment that matches nothing.
 function splitWorkspacePath(pathPart) {
@@ -124,8 +165,11 @@ module.exports = {
   DEFAULT_SECTION,
   normalizeSection,
   resolveSection,
+  ALL_BOARDS_SECTION_TITLE_KEYS,
+  sectionTitleKey,
   workspaceSlug,
   workspaceSlugPath,
+  workspaceNamePath,
   workspaceIdForSlugPath,
   splitWorkspacePath,
   allBoardsPath,

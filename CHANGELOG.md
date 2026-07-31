@@ -266,6 +266,28 @@ browser build to verify).
 This release adds the following new features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">The header bar names the All Boards list you are on, and the workspace inside it</a>. Thanks to xet7.</summary>
+
+The bar said "All Boards" on the Starred list, on Templates, on Remaining and
+inside every workspace — it named the page and not the list you were looking
+at. It shows the path now: `All Boards / Starred`,
+`All Boards / Workspaces / Engineering / Backend`.
+
+The section's words are the left menu's own key, so the title and the row
+highlighted beside it always say the same thing. A workspace's words are its
+NAME rather than the slug in the URL, and are printed as text rather than
+translated — a workspace name is what a person typed, and a workspace called
+"starred" is not the Starred section. A trail segment that names nothing stops
+the walk, so a stale link titles the part of the path that is still real
+instead of nothing at all.
+
+The Admin Panel's `Admin Panel / Settings / Version` and this are one list of
+segments rather than a helper each: the two pages do not have the same number
+of them, and a workspace has as many as its tree is deep.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/03cb79bdd">The Admin Panel moves under /admin, and its address names the pane you are on</a>. Thanks to xet7.</summary>
 
 Every left-menu entry of the Admin Panel had a URL, but the four pages sat at

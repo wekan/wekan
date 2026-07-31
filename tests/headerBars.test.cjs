@@ -446,10 +446,10 @@ test('and the Admin Panel says WHICH of its four pages is open', () => {
 
   const h = read('client/components/main/header.jade');
   const at = h.indexOf('span.header-page-title');
-  const block = h.slice(at, at + 600);
-  assert.ok(/if headerTitleSubKey/.test(block), 'the bar draws it');
-  assert.ok(/\/ \{\{_ headerTitleSubKey\}\}/.test(block), 'after a slash, translated');
-  assert.ok(read('client/components/main/header.js').includes('headerTitleSubKey()'),
+  const block = h.slice(at, at + 900);
+  assert.ok(/each headerTitleTrail/.test(block), 'the bar draws the path');
+  assert.ok(/\/ \{\{_ key\}\}/.test(block), 'each translated segment after a slash');
+  assert.ok(read('client/components/main/header.js').includes('headerTitleTrail()'),
     'and the helper exists');
 });
 
@@ -466,6 +466,61 @@ test('and a divider separates the page from you', () => {
   const css = read('client/components/main/header.css');
   assert.ok(css.includes('#header-quick-access .separator {'),
     'and this bar styles it');
+});
+
+test('and All Boards says WHICH list of boards, and which workspace', () => {
+  const {
+    ALL_BOARDS_SECTIONS, ALL_BOARDS_SECTION_TITLE_KEYS,
+    sectionTitleKey, workspaceNamePath, SECTION_WORKSPACES,
+  } = require('../models/lib/allBoardsUrls');
+  const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
+  const menu = read('client/components/boards/boardsList.jade');
+
+  for (const section of ALL_BOARDS_SECTIONS) {
+    const key = sectionTitleKey(section);
+    assert.strictEqual(key, ALL_BOARDS_SECTION_TITLE_KEYS[section]);
+    assert.ok(key in en, `${key} is not a translation key`);
+    // The LEFT MENU's own key, so the title and the row highlighted beside it
+    // say the same words.
+    assert.ok(menu.includes(`{{_ '${key}'}}`),
+      `${section}: the left menu must label its row with the same key`);
+  }
+  // No section is left unnamed, and an unknown one titles the default rather
+  // than nothing - a URL is typed.
+  assert.strictEqual(sectionTitleKey('nonsense'), ALL_BOARDS_SECTION_TITLE_KEYS.starred);
+  assert.strictEqual(sectionTitleKey(), ALL_BOARDS_SECTION_TITLE_KEYS.starred);
+
+  // A workspace is named by NAME, down the tree the URL walks.
+  const slugify = n => String(n).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const tree = [{ id: 'e', name: 'Engineering', children: [{ id: 'b', name: 'Backend' }] }];
+  assert.deepStrictEqual(
+    workspaceNamePath(tree, ['engineering', 'backend'], slugify), ['Engineering', 'Backend']);
+  // A stale link titles the part of the trail that is still real...
+  assert.deepStrictEqual(workspaceNamePath(tree, ['engineering', 'gone'], slugify), ['Engineering']);
+  // ...and one that names nothing titles just the section.
+  assert.deepStrictEqual(workspaceNamePath(tree, ['nope'], slugify), []);
+  assert.deepStrictEqual(workspaceNamePath(null, ['x'], slugify), []);
+
+  // The header walks it, from the URL and the user document - never from the
+  // All Boards page, which is a different Blaze instance.
+  const js = read('client/components/main/header.js');
+  const at = js.indexOf('headerTitleTrail() {');
+  assert.notStrictEqual(at, -1);
+  const body = js.slice(at, js.indexOf('\n  },', at));
+  assert.ok(/sectionTitleKey\(section\)/.test(body), 'the section is named');
+  assert.ok(/section !== SECTION_WORKSPACES/.test(body),
+    'and only Workspaces has a trail below it');
+  assert.ok(/profile\.boardWorkspacesTree/.test(body),
+    'the tree comes from the user document, where the page reads it too');
+  assert.ok(/workspaceNamePath\(tree, splitWorkspacePath\(params\.path\), getSlug\)/.test(body),
+    'walked with the same slugifier the URL was built with');
+  // A workspace name is what a person typed: it must NOT go through {{_ }}.
+  assert.ok(/trail\.push\(\{ title: name \}\)/.test(body),
+    'a workspace name is text, not a translation key - a workspace called '
+    + '"starred" is not the Starred section');
+  // ...and a board has no path: its own title is the whole name.
+  assert.ok(/if \(Utils\.getCurrentBoardId\(\)\) return \[\];/.test(body),
+    'a board title is the whole name of that page');
 });
 
 for (const [name, fn] of tests) {

@@ -307,14 +307,17 @@ test('the title bar names the pane, in the menu row\'s own words', () => {
   assert.deepStrictEqual(adminPaneTitle('settings', 'nonsense'), {});
   assert.deepStrictEqual(adminPaneTitle('nonsense', 'version'), {});
 
-  // ...and the bar draws it, from the URL rather than from the page.
+  // ...and the bar draws it, from the URL rather than from the page. It is one
+  // entry of the title TRAIL - the Admin Panel and All Boards both have a path
+  // and they do not have the same number of segments, so a helper per segment
+  // could only ever serve whichever page was written first.
   const js = read('client/components/main/header.js');
-  assert.ok(/headerTitlePaneData\(\)/.test(js), 'the helper exists');
+  assert.ok(/headerTitleTrail\(\)/.test(js), 'the helper exists');
   assert.ok(/adminPaneTitle\(page, params\.pane \|\| ADMIN_PAGES\[page\]\.defaultSlug\)/.test(js),
     'read from the URL, with the default pane when the URL names none');
   const jade = read('client/components/main/header.jade');
-  assert.ok(/with headerTitlePaneData/.test(jade), 'and the bar draws it');
-  assert.ok(/if titleKey/.test(jade) && /\| {2}\/ #\{title\}/.test(jade),
+  assert.ok(/each headerTitleTrail/.test(jade), 'and the bar draws it');
+  assert.ok(/if key/.test(jade) && /\| {2}\/ #\{title\}/.test(jade),
     'in whichever of the two forms it got');
 });
 

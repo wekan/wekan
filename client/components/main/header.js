@@ -21,6 +21,17 @@ import {
   ADMIN_PANEL_ROUTES,
   adminPaneTitle,
 } from '/models/lib/adminUrls';
+// All Boards is four lists of boards under one name, and a workspace is a tree
+// under one of them. models/lib/allBoardsUrls.js
+import {
+  SECTION_WORKSPACES,
+  resolveSection,
+  sectionTitleKey,
+  splitWorkspacePath,
+  workspaceNamePath,
+} from '/models/lib/allBoardsUrls';
+// The same slugifier a board URL and a workspace URL are built with.
+import getSlug from 'limax';
 // The All Boards sections - Public has no Lists/Table choice, so it is not one.
 const ALL_BOARDS_VIEW_ROUTES = ['home', 'allboards', 'allboards-templates', 'allboards-remaining'];
 // Three pages carry a name of their own rather than a fixed one: an admin can
@@ -118,27 +129,53 @@ Template.header.helpers({
     const board = Utils.getCurrentBoard();
     return headerTitle(route, board && board.title, customPageTitle(route)).title || '';
   },
-  // The segment after the slash: which of the Admin Panel's four pages is open.
-  headerTitleSubKey() {
-    const route = FlowRouter.getRouteName();
-    const board = Utils.getCurrentBoard();
-    return headerTitle(route, board && board.title, customPageTitle(route)).subKey || '';
-  },
-  // ...and after that, the PANE: "Admin Panel / Settings / Version". Read from
-  // the URL rather than from the page, because the header is a separate Blaze
-  // instance from the Admin Panel's pages and must not import them - doing that
-  // once ran a page module before its own template was registered, and the
-  // throw aborted every module after it. models/lib/adminUrls.js
+  // The rest of the path, after the page's own name: "Admin Panel / Settings /
+  // Version", "All Boards / Workspaces / Engineering / Backend".
   //
-  // Returns the same two forms a left-menu entry has - `titleKey` or a literal
-  // `title` - so the template picks whichever it got.
-  headerTitlePaneData() {
+  // ONE helper and one list, rather than a helper per segment, because the two
+  // pages that have a path do not have the same NUMBER of segments - the Admin
+  // Panel always has two, and a workspace has as many as its tree is deep. A
+  // fixed set of helpers can only serve whichever page was written first.
+  //
+  // Each entry is one of the two forms a left-menu entry has: `key` for
+  // something translated, `title` for text that must NOT go through the
+  // translator - a workspace's name is what the person typed, and a workspace
+  // called "starred" is not the Starred section.
+  //
+  // Read from the URL and from the user document, never from the pages
+  // themselves: the header is a separate Blaze instance, and importing a page
+  // module from here once ran it before its own template was registered, which
+  // threw and aborted every module after it.
+  headerTitleTrail() {
     const route = FlowRouter.getRouteName();
+
+    // A board's title is the whole name of that page, so there is no path.
+    if (Utils.getCurrentBoardId()) return [];
+
     const page = ADMIN_PAGE_KEYS.find(k => ADMIN_PAGES[k].routeName === route);
-    if (!page) return null;
+    if (page) {
+      const subKey = headerTitle(route).subKey;
+      const params = FlowRouter.current().params || {};
+      const pane = adminPaneTitle(page, params.pane || ADMIN_PAGES[page].defaultSlug);
+      const trail = subKey ? [{ key: subKey }] : [];
+      if (pane.titleKey) trail.push({ key: pane.titleKey });
+      else if (pane.title) trail.push({ title: pane.title });
+      return trail;
+    }
+
+    if (!ALL_BOARDS_VIEW_ROUTES.includes(route)) return [];
     const params = FlowRouter.current().params || {};
-    const title = adminPaneTitle(page, params.pane || ADMIN_PAGES[page].defaultSlug);
-    return title.titleKey || title.title ? title : null;
+    const section = resolveSection(params.section);
+    const trail = [{ key: sectionTitleKey(section) }];
+    if (section !== SECTION_WORKSPACES) return trail;
+    // The workspaces the URL walks through, by NAME. The tree is on the user
+    // document, which is where the All Boards page reads it from too.
+    const user = ReactiveCache.getCurrentUser();
+    const tree = (user && user.profile && user.profile.boardWorkspacesTree) || [];
+    for (const name of workspaceNamePath(tree, splitWorkspacePath(params.path), getSlug)) {
+      trail.push({ title: name });
+    }
+    return trail;
   },
 
   wrappedHeader() {

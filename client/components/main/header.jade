@@ -20,19 +20,17 @@ template(name="header")
         span.header-page-title
           if headerTitleKey
             | {{_ headerTitleKey}}
-            //- "Admin Panel / Settings": the Admin Panel is four pages under
-              one name, so the name alone does not say which one you opened.
-              models/lib/pageTitles.js
-            if headerTitleSubKey
+            //- The rest of the path - "Admin Panel / Settings / Version",
+              "All Boards / Workspaces / Engineering". Both pages are several
+              places under one name, so the name alone does not say which one
+              you opened. One list rather than a segment each, because the two
+              do not have the same number of them. client/components/main/header.js
+            each headerTitleTrail
               span.header-page-subtitle
-                |  / {{_ headerTitleSubKey}}
-                //- ...and the pane, so the title names the same three things
-                  the address does. models/lib/adminUrls.js
-                with headerTitlePaneData
-                  if titleKey
-                    |  / {{_ titleKey}}
-                  else
-                    |  / #{title}
+                if key
+                  |  / {{_ key}}
+                else
+                  |  / #{title}
           else
             = headerTitleText
         //- The pencil that renames the board, immediately right of its name.

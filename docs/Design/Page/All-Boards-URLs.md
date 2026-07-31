@@ -44,6 +44,35 @@ opened from a link.
 Two sibling workspaces whose names slugify the same are ambiguous, and the first
 wins. That is the rule a duplicate board slug already follows.
 
+## The title bar names the same things
+
+`All Boards / Starred`, `All Boards / Workspaces / Engineering / Backend`. The
+page is four lists of boards under one name, and a workspace is a tree under one
+of them, so "All Boards" alone named the page and not the list you were looking
+at.
+
+The section's words are the **left menu's own key**, so the title and the row
+highlighted beside it say the same words. A workspace's words are its **name**,
+not its slug — the slug is lowercase and hyphenated and is not what the
+workspace is called — and the name is printed as text rather than translated: it
+is what a person typed, and a workspace called "starred" is not the Starred
+section.
+
+The header walks the tree itself, from the URL and from
+`user.profile.boardWorkspacesTree`, which is where the All Boards page reads it
+from too. It cannot ask the page: the header is a separate Blaze instance, and
+importing a page module from the header once ran it before its own template was
+registered, which threw and aborted every module after it.
+
+A trail segment that names nothing **stops the walk** and the title shows what
+was still real — a stale link names the part of the path that still exists
+rather than nothing at all.
+
+This is the same title trail the Admin Panel uses
+([Admin Panel URLs](Admin-Panel-URLs.md)), one list rather than a helper per
+segment: the two pages do not have the same number of segments, and a workspace
+has as many as its tree is deep.
+
 ## Who resolves what
 
 | | |
