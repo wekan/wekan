@@ -128,14 +128,20 @@ template(name="header")
           a.board-header-btn.js-toggle-page-sidebar(title="{{_ 'sidebar-open'}} {{_ 'or'}} {{_ 'sidebar-close'}}")
             i.fa.fa-bars
 
+  //- The second bar renders ONLY where a page still has one. Most pages have
+    none now - their title is in the bar above and their controls are in a
+    sidebar - and `#header` is a coloured block with a height of its own, so
+    without this it painted a tall empty strip under the first bar on every one
+    of them. docs/Design/Page/Header.md
   //- See the note above: dragging this bar is owned by headerDragscroll.js.
-  #header.nodragscroll(class="{{themeColorClass}}")
-    //-
-      The main bar is a colorful bar that provide all the meta-data for the
-      current page. This bar is contextual based.
-      If the user is not connected we display "sign in" and "log in" buttons.
-    #header-main-bar(class="{{#if wrappedHeader}}wrapper{{/if}}")
-      +Template.dynamic(template=headerBar)
+  if headerBar
+    #header.nodragscroll(class="{{themeColorClass}}")
+      //-
+        The main bar is a colorful bar that provide all the meta-data for the
+        current page. This bar is contextual based.
+        If the user is not connected we display "sign in" and "log in" buttons.
+      #header-main-bar(class="{{#if wrappedHeader}}wrapper{{/if}}")
+        +Template.dynamic(template=headerBar)
 
   if appIsOffline
     +offlineWarning

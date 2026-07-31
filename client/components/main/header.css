@@ -100,6 +100,40 @@
   /* Always hug the right edge (and, if the row wraps, the right of its row). */
   margin-inline-start: auto;
 }
+/* The controls that moved INTO the first bar - the page's view menu, the starred
+   boards dropdown, the Admin Panel tabs and the sidebar hamburger - are
+   `.board-header-btn`s, and every rule that styled one was scoped to
+   `#header-main-bar`, the second bar. In the first bar they had no padding, no
+   height and no line-height, so they rendered as cramped bare glyphs jammed
+   against each other. Same look, stated for this bar too. */
+#header-quick-access .board-header-btn {
+  border-radius: 3px;
+  color: #f2f2f2;
+  padding: 0 6px;
+  height: 28px;
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  line-height: 28px;
+  margin: 0 4px;
+  white-space: nowrap;
+}
+#header-quick-access .board-header-btn:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+/* The divider before the hamburger, which the second bar draws its own way. */
+#header-quick-access .separator {
+  width: 1px;
+  height: 20px;
+  margin: 0 6px;
+  background: rgba(255, 255, 255, 0.4);
+}
+#header-quick-access .board-header-btns {
+  display: flex;
+  align-items: center;
+}
+
 #header #header-main-bar .board-header-btn {
   border-radius: 3px;
   color: #f2f2f2;

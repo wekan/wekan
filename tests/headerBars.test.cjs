@@ -280,6 +280,34 @@ test('the header imports no page module, whatever it needs from one', () => {
   }
 });
 
+test('the second bar renders only where a page still has one', () => {
+  // Most pages have none now - their title is in the bar above and their
+  // controls are in a sidebar - and `#header` is a coloured block with a height
+  // of its own, so without a check it painted a tall empty strip under the first
+  // bar on every one of them.
+  assert.ok(/if headerBar\n\s+#header\.nodragscroll/.test(jade),
+    'the second bar is behind a check for one');
+  const css = read('client/components/main/header.css');
+  assert.ok(/^#header \{[^}]*background:/m.test(css),
+    'and it is a coloured block, which is why an empty one shows');
+});
+
+test('and the controls that moved into the first bar are styled for it', () => {
+  // Every rule that styles a `.board-header-btn` was scoped to
+  // `#header-main-bar` - the SECOND bar. The view menu, the starred-boards
+  // dropdown, the Admin Panel tabs and the hamburger are in the FIRST bar, so
+  // they had no padding, no height and no line-height: cramped bare glyphs.
+  const css = read('client/components/main/header.css');
+  const at = css.indexOf('#header-quick-access .board-header-btn {');
+  assert.notStrictEqual(at, -1, 'the first bar must style its buttons');
+  const rule = css.slice(at, css.indexOf('}', at));
+  for (const prop of ['padding:', 'height:', 'line-height:', 'align-items:']) {
+    assert.ok(rule.includes(prop), `${prop} must be given`);
+  }
+  assert.ok(/#header-quick-access \.separator \{/.test(css),
+    'and the divider before the hamburger');
+});
+
 for (const [name, fn] of tests) {
   try { fn(); passed++; console.log('  ok -', name); }
   catch (err) { console.error(`  FAIL - ${name}\n    ${err.message}`); process.exitCode = 1; }
