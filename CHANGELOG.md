@@ -525,7 +525,7 @@ box, the input, the magnifier and the ✕ each set their own.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/9035363df">All Boards: the Selected star is a toggle now, and every button in the bar names itself</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2537a52ec">All Boards: the Selected star is a toggle now, and every button in the bar names itself</a>. Thanks to xet7.</summary>
 
 The "Selected: ★" button only ever *added* stars: it walked the selection and
 starred whatever was not starred yet. Once every selected board was starred it
