@@ -73,6 +73,14 @@ Template.header.helpers({
   // one string, because a translated title has to go through {{_ }} and a board
   // title must NOT (it is user text, and a board called "settings" is not the
   // Admin Panel). docs/Design/Page/Header.md
+  // How many boards are starred, shown on the button the way a board's own star
+  // shows its count. Nothing is shown when none are.
+  starredBoardsCount() {
+    const user = ReactiveCache.getCurrentUser();
+    const starred = user && user.starredBoards ? user.starredBoards() : [];
+    return starred.length || '';
+  },
+
   // Which page's view menu to draw, if any.
   isBoardPage() {
     return Boolean(Utils.getCurrentBoardId());
@@ -168,6 +176,9 @@ Template.header.helpers({
 });
 
 Template.header.events({
+  // The starred boards, by name. They were listed inline in this bar; the bar
+  // is one row now and the names are in the popup. docs/Design/Page/Header.md
+  'click .js-open-starred-boards': Popup.open('starredBoards'),
   // The one hamburger, in the bar that is always on screen. Which sidebar it
   // toggles depends on where you are: a board has its own, and every other page
   // shares one. docs/Design/Page/Header.md

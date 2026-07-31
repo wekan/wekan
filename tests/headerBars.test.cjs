@@ -207,6 +207,44 @@ test('the view menus are in the first bar, whichever page has one', () => {
     'and the All Boards sidebar must not still have it as a row');
 });
 
+test('starred boards are a dropdown, not a row of links', () => {
+  // The bar listed every starred board inline. That is the widest thing in it
+  // and it grows with the number of boards you star, so the bar could not stay
+  // one row. It is one button now, and the names are in the popup it opens.
+  assert.ok(/a\.board-header-btn\.js-open-starred-boards/.test(jade), 'one button');
+  const btn = jade.slice(jade.indexOf('js-open-starred-boards'));
+  const head = btn.slice(0, btn.indexOf('\n\n'));
+  // Laid out like the view menu beside it: the caret FIRST, then what the
+  // button is about.
+  assert.ok(head.indexOf('fa-caret-down') < head.indexOf('fa-star'),
+    'the caret is to the left of the star');
+  assert.ok(/title="\{\{_ 'starred-boards'\}\}"/.test(head), 'named by a tooltip');
+
+  // The names are in a popup, shaped like the view menu's.
+  assert.ok(/template\(name="starredBoardsPopup"\)/.test(jade), 'the popup exists');
+  const popup = jade.slice(jade.indexOf('template(name="starredBoardsPopup")'));
+  assert.ok(/ul\.pop-over-list/.test(popup), 'a pop-over list, like boardChangeViewPopup');
+  assert.ok(/each currentUser\.starredBoards/.test(popup), 'listing the starred boards');
+  assert.ok(/pathFor 'board' id=_id slug=slug/.test(popup), 'each one a link to it');
+  assert.ok(/fa-check/.test(popup), 'with a check on the one you are looking at');
+  assert.ok(/else\n\s+li\.no-items-message/.test(popup), 'and something to say when none are');
+  assert.ok(/'click \.js-open-starred-boards': Popup\.open\('starredBoards'\)/.test(js),
+    'and the button opens it');
+
+  // The inline list is gone from the bar - except on a phone INSIDE a list,
+  // where it shows that board's LISTS, which is a different thing.
+  const lists = jade.slice(jade.indexOf('if isMiniScreen'), jade.indexOf('#header-new-board-icon'));
+  assert.ok(/each currentBoard\.lists/.test(lists), 'the phone list switcher stays');
+  assert.ok(!/each currentUser\.starredBoards/.test(
+    jade.slice(0, jade.indexOf('template(name="starredBoardsPopup")'))),
+    'but no starred board is listed inline any more');
+
+  // Full width on a phone comes from the popup system, not from anything here.
+  const popupCss = read('client/components/main/popup.css');
+  assert.ok(/body\.mobile-mode \.pop-over \{[^}]*width: 100vw/.test(popupCss),
+    'body.mobile-mode makes every pop-over full width');
+});
+
 for (const [name, fn] of tests) {
   try { fn(); passed++; console.log('  ok -', name); }
   catch (err) { console.error(`  FAIL - ${name}\n    ${err.message}`); process.exitCode = 1; }
