@@ -75,6 +75,12 @@ Menu path is what you click to reach the page.
 | Recovery | Admin Panel / Problems / Recovery | Database recovery events with severity, database and detail. |
 | Translation | Admin Panel / Settings / Translation | The custom translation strings: language, source text, translation. Interactive rows (an Edit link and the ⋯ menu) and one template header, the "New" link. |
 
+### Elsewhere in WeKan
+
+| Table name | Menu path | Description |
+| --- | --- | --- |
+| Public Boards | `/public` | The boards anybody may open: title and description, ten per page. Read-only — a row's only action is to open its board — and the page is nothing but the table. Its rows carry their board's colour and background image, so a board is recognised here the way it is on All Boards. See [Public](Public.md). |
+
 ### Card, board and member history
 
 Designed, not yet implemented — see [History](../../Features/Reports/History/History.md).

@@ -199,9 +199,16 @@ FlowRouter.route('/public', {
     Utils.manageCustomUI();
     Utils.manageMatomo();
 
+    // /public is its own page now, not All Boards with a different query
+    // (docs/Design/Page/Public.md): a read-only, paginated table of the boards
+    // anybody may open. Rendering `boardList` here brought the Starred /
+    // Templates / Remaining menu, the workspaces tree, Multi-Selection with its
+    // archive and duplicate actions and an "Add board" tile with it — none of
+    // which means anything for somebody else's public boards, and some of which
+    // offered actions the visitor has no rights to.
     this.render('defaultLayout', {
       headerBar: 'boardListHeaderBar',
-      content: 'boardList',
+      content: 'publicBoards',
     });
   },
 });

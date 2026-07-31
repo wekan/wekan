@@ -1,0 +1,32 @@
+//- /public — the boards anybody may open.
+//- Design: docs/Design/Page/Public.md, which is the Table page design
+//- (docs/Design/Page/Table.md).
+//-
+//- The whole page is the shared table. It used to render `boardList`, the All
+//- Boards page, with its query swapped for `{ permission: 'public' }` — which
+//- brought the Starred/Templates/Remaining menu, the workspaces tree, the org and
+//- team filters, Multi-Selection with its archive and duplicate actions, board
+//- dragging and an "Add board" tile along with it, none of which means anything
+//- for a list of somebody else's public boards.
+template(name="publicBoards")
+  .wrapper.public-boards
+    +tablePage(tablePageData)
+
+//- One row. It supplies a rowTemplate — rather than a text-cell column spec —
+//- because a row is a LINK and carries its board's colours, neither of which a
+//- text cell can express. It is still read-only: one anchor, no control, and
+//- nothing on it changes anything.
+//-
+//- The cells must match the header, in order: Board, Description.
+template(name="publicBoardRow")
+  tr.public-board-row.js-open-public-board(
+    class="{{colorClass}}"
+    data-board-id="{{_id}}"
+    style="{{backgroundStyle}}")
+    td.public-board-title
+      a.js-open-public-board-link(href="{{pathFor 'board' id=_id slug=slug}}")
+        +viewer
+          = title
+    td.public-board-desc
+      +viewer
+        = description

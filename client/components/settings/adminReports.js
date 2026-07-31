@@ -8,7 +8,7 @@ import ImpersonatedUsers from '/models/impersonatedUsers';
 import RecoveryEvents from '/models/recoveryEvents';
 import { Mongo } from 'meteor/mongo';
 import { buildHeader, buildRows, docsByIds, pageInfo, TABLE_PAGE_ROWS_PER_PAGE } from '/models/lib/tablePage';
-import { REPORT_PAGE_COLLECTION } from '/models/lib/reportPageIndex';
+import { ReportPages } from '/client/lib/reportPages';
 import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
 import Settings from '/models/settings';
 const { cleanFileName } = require('/imports/lib/fileNameDisplay');
@@ -47,10 +47,10 @@ function collectionResults(collection, sort) {
   return collection.find({}, sort ? { sort } : {});
 }
 
-// The page index the report publications send (models/lib/reportPageIndex.js).
-// Client-only: there is no `report_pages` collection on the server, the publication
-// just addresses documents to that name over DDP.
-const ReportPages = new Mongo.Collection(REPORT_PAGE_COLLECTION);
+// The page index the report publications send. Declared once in
+// client/lib/reportPages.js, because `new Mongo.Collection(name)` throws if the
+// name is taken - it used to be declared here, so the second page to need it
+// (/public) could not have one.
 
 // The documents of the page the SERVER named, in the order it sorted them.
 //

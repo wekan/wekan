@@ -5,6 +5,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { publishComposite } from 'meteor/reywood:publish-composite';
 import { publishReportPage } from '/models/lib/reportPageIndex';
+const { notHelperBoardTitle } = require('/models/lib/helperBoards');
 import { findWhere } from '/imports/lib/collectionHelpers';
 import Users from "../../models/users";
 import Org from "../../models/org";
@@ -122,6 +123,98 @@ publishComposite('boards', function() {
       }
     ]
   };
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// /public — one page of the boards anybody may open.
+// Design: docs/Design/Page/Public.md, which is the Table page design.
+//
+// The selector is built HERE and takes nothing from the client: a public board is
+// public, so this needs no login, and a page that needs no login must not let the
+// caller choose what it sees. The only thing the client says is which page it
+// wants and what it is searching for.
+// ─────────────────────────────────────────────────────────────────────────────
+
+// The boards /public may show: public, not archived, a real board rather than a
+// template container, and not one of WeKan's internal helper boards.
+function publicBoardsSelector(searchTerm) {
+  const query = {
+    permission: 'public',
+    archived: false,
+    type: 'board',
+    title: notHelperBoardTitle(),
+  };
+  if (searchTerm) {
+    // The title clause is already taken by the helper-board exclusion, so the
+    // search goes in as its own $and term rather than replacing it - a search
+    // that dropped that exclusion would put the ^Subtasks^ boards back.
+    query.$and = [
+      { title: new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i') },
+    ];
+  }
+  return query;
+}
+
+Meteor.publish('publicBoards', async function(searchTerm = '', limit = 10, skip = 0) {
+  check(searchTerm, Match.OneOf(String, null, undefined));
+  check(limit, Number);
+  check(skip, Match.OneOf(Number, null, undefined));
+
+  const perPage = Math.max(1, Math.min(Math.floor(limit) || 10, 100));
+
+  // Published MANUALLY (fetch + this.added + this.ready) for the same reason as
+  // boardsReport below: a returned sorted+limited cursor triggers a LIMITED live
+  // observe that hangs on FerretDB's OpLog and leaves the page on its spinner.
+  // The pane re-subscribes on every page and search change, so it needs no live
+  // cursor.
+  // SIX fields, for a page of ten boards. Not the whole board document: the table
+  // has two columns, and a board carries its members, its labels, its subtask and
+  // card settings, its background and every allows* flag - none of which this page
+  // draws, all of which would cross the wire for every row.
+  //
+  //   title, description  the two columns;
+  //   slug                the link the row is;
+  //   color, backgroundImageURL
+  //                       the row's own colours, which is how a board is
+  //                       recognised here the way it is on All Boards (#5157).
+  //
+  // `members` in particular is deliberately absent: it is the largest field on a
+  // busy board and this page shows no avatars.
+  const boards = await ReactiveCache.getBoards(
+    publicBoardsSelector(searchTerm),
+    {
+      fields: {
+        _id: 1,
+        slug: 1,
+        title: 1,
+        description: 1,
+        color: 1,
+        backgroundImageURL: 1,
+      },
+      sort: { sort: 1 },
+      limit: perPage,
+      skip: skip || 0,
+    },
+    false,
+  );
+
+  for (const doc of boards) { const { _id, ...fields } = doc; this.added('boards', _id, fields); }
+  // WHICH boards this page is, in this order: the visitor's own boards are in
+  // minimongo whatever page is open, so the pane must render the named page only.
+  publishReportPage(this, 'public-boards', boards);
+  this.ready();
+});
+
+Meteor.methods({
+  async getPublicBoardsCount(searchTerm = '') {
+    check(searchTerm, Match.OneOf(String, null, undefined));
+    // No authorization check, deliberately: this counts PUBLIC boards, which is
+    // the same set the publication above will send to the same caller.
+    const cursor = await ReactiveCache.getBoards(publicBoardsSelector(searchTerm), {}, true);
+    return typeof cursor.countAsync === 'function'
+      ? await cursor.countAsync()
+      : cursor.count();
+  },
 });
 
 Meteor.publish('boardsReport', async function(searchTerm = '', limit, skip = 0) {

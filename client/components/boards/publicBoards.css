@@ -1,0 +1,51 @@
+/* /public — the Public Boards table.
+ * Design: docs/Design/Page/Public.md, which is docs/Design/Page/Table.md.
+ *
+ * ONLY the row's board colouring lives here. The table itself — its width, its
+ * columns, its cells, its controls row and its stacking below 800px — is
+ * tablePage.css, shared with every other table page, and this file must not
+ * restate any of it.
+ */
+
+.public-boards {
+  padding: 12px;
+}
+
+/* A board is recognised by its colour or its background image before its title is
+ * read, and it is the same board here as on All Boards, so a row carries them.
+ * The board colour classes (`board-color-*`, boardColors.css) set a background on
+ * whatever they are put on, which is the row. */
+.public-board-row {
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+}
+
+/* The whole row opens the board, so it has to look like it does. */
+.public-board-row:hover {
+  filter: brightness(1.08);
+}
+
+/* The board colours are dark, so the text on them is light — the same choice the
+ * All Boards tile makes for the same backgrounds. `inherit` on the anchor keeps
+ * the title from falling back to the global link colour, which is unreadable on
+ * several of them. */
+.public-board-row td {
+  color: #fff;
+}
+.public-board-row .public-board-title a {
+  color: inherit;
+  font-weight: 700;
+  text-decoration: none;
+}
+.public-board-row .public-board-title a:hover {
+  text-decoration: underline;
+}
+
+/* A description is secondary to the title it explains, and it can be long: it may
+ * wrap, and it is dimmed a little against the board's own background. */
+.public-board-row .public-board-desc {
+  opacity: 0.9;
+  white-space: normal;
+  word-break: break-word;
+}

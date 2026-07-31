@@ -246,8 +246,21 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
         `${reportId} must not render everything the collection happens to hold`);
     }
     // The client side of the DDP-only index collection, from the shared name.
-    assert.ok(/new Mongo\.Collection\(REPORT_PAGE_COLLECTION\)/.test(client),
+    // It USED to be declared here; it moved to client/lib/reportPages.js because
+    // `new Mongo.Collection(name)` throws if the name is taken, so the second page
+    // to need it (/public, docs/Design/Page/Public.md) could not have one. What
+    // this guards is unchanged: declared once, from the shared constant, never
+    // from a typed string.
+    const shared = read('client/lib/reportPages.js');
+    assert.ok(/new Mongo\.Collection\(REPORT_PAGE_COLLECTION\)/.test(shared),
       'the index collection is declared from the shared constant, not a typed string');
+    assert.ok(/import \{ ReportPages \} from '\/client\/lib\/reportPages'/.test(client),
+      'and the Problems pane imports that one rather than declaring its own');
+    // On the CODE: the comment there names the call to explain why it moved, and
+    // a guard that reads its own explanation fails on it.
+    const clientCode = client.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
+    assert.ok(!/new Mongo\.Collection\(/.test(clientCode),
+      'a second declaration of the same name would throw at load');
     assert.ok(/docsByIds\(ids, collection\.find\(\{ _id: \{ \$in: ids \} \}\)\.fetch\(\)\)/.test(client),
       'and the page is looked up by those ids, in that order');
   });
