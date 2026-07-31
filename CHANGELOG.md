@@ -472,6 +472,28 @@ and updates the following dependencies:
 and fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/eae245839">All Boards no longer throws No such function: isAllBoardsView as it renders</a>. Thanks to xet7.</summary>
+
+The All Boards page chooses between the board icons and the Table view with
+`{{#if isAllBoardsView 'table'}}`, and that helper was registered on
+`boardListHeaderBar` and on `allBoardsViewPopup` but not on `boardList` — the
+template that actually asks. A Blaze helper belongs to the template it is
+registered on, so the page threw as soon as the router rendered it, right after
+login, and All Boards did not come up at all.
+
+Nothing noticed, because the guard read the jade and the JavaScript as two
+separate files: it checked that the controls are in the header bar and that the
+Table branch calls `+tablePage`, never that the template asking a question has
+the helper that answers it. It now collects every helper this file registers,
+and for each template in the jade every helper it uses that this file defines
+must be registered on THAT template. Only helpers the file itself defines are
+checked — a name it registers nowhere is a model helper on the data context,
+like `colorClass` on a board, and a guard cannot tell one of those from a typo.
+The other four templates in the file were clean.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7d9a2e303">A filter no longer leaves a spinner turning over an empty list, and a half-arrived card is not drawn blank</a>. Thanks to xet7.</summary>
 
 Two problems from one report with screenshots, both in how a list decides what

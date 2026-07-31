@@ -151,6 +151,13 @@ Template.boardList.helpers({
   BoardMultiSelection() {
     return BoardMultiSelection;
   },
+  // Which view is on. Registered on THIS template as well as on the header bar
+  // and the popup: a Blaze helper belongs to one template, and `boardList` is
+  // the one that chooses between the board icons and the Table with it - it
+  // threw "No such function: isAllBoardsView" the moment the page rendered.
+  isAllBoardsView(view) {
+    return isAllBoardsView(view);
+  },
 });
 
 // The All Boards controls' handlers. One events map for this template, not two:

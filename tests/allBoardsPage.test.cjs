@@ -207,6 +207,57 @@ test('ten rows a page', () => {
     'which is ten');
 });
 
+// ── a helper belongs to ONE template ────────────────────────────────────────
+
+test('every template registers the helpers it uses', () => {
+  // `boardList` chooses between the board icons and the Table with
+  // {{isAllBoardsView 'table'}}, but the helper was registered only on
+  // `boardListHeaderBar` and `allBoardsViewPopup`. A Blaze helper belongs to
+  // the template it is registered on, so the page threw "No such function:
+  // isAllBoardsView" the moment it rendered - and nothing here noticed,
+  // because the jade and the js were each checked on their own.
+  //
+  // Only helpers THIS file defines are checked: a name it registers nowhere is
+  // a model helper on the data context (`colorClass` on a board) or a global,
+  // and this test cannot tell those apart from a typo.
+  const registered = {};
+  const re = /Template\.(\w+)\.helpers\(\{/g;
+  let m;
+  while ((m = re.exec(js))) {
+    const start = m.index + m[0].length;
+    let depth = 1;
+    let i = start;
+    while (i < js.length && depth > 0) {
+      const c = js[i];
+      if (c === '{') depth++;
+      else if (c === '}') depth--;
+      i++;
+    }
+    registered[m[1]] = registered[m[1]] || new Set();
+    for (const h of js.slice(start, i - 1).matchAll(/^ {2}([A-Za-z_$][\w$]*)\s*[(:]/gm)) {
+      registered[m[1]].add(h[1]);
+    }
+  }
+  const defined = new Set(Object.values(registered).flatMap(s => [...s]));
+  assert.ok(defined.has('isAllBoardsView'), 'the helper this test was written for');
+
+  const parts = jade.split(/^template\(name="(\w+)"\)$/m);
+  const missing = [];
+  for (let i = 1; i < parts.length; i += 2) {
+    const [name, tmplBody] = [parts[i], parts[i + 1]];
+    const used = new Set();
+    for (const u of tmplBody.matchAll(/\{\{[#/]?\s*([A-Za-z_$][\w$]*)/g)) used.add(u[1]);
+    for (const u of tmplBody.matchAll(/^\s*(?:if|unless|each|with)\s+([A-Za-z_$][\w$]*)/gm)) used.add(u[1]);
+    for (const u of tmplBody.matchAll(/^\s*\+\w+\(([A-Za-z_$][\w$]*)\)/gm)) used.add(u[1]);
+    for (const h of used) {
+      if (defined.has(h) && !(registered[name] && registered[name].has(h))) {
+        missing.push(`${name} uses ${h} but does not register it`);
+      }
+    }
+  }
+  assert.deepStrictEqual(missing, [], missing.join('; '));
+});
+
 // ── the design doc ──────────────────────────────────────────────────────────
 
 test('the design doc says what is different and links to the shared one', () => {
