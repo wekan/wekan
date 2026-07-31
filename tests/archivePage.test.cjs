@@ -245,6 +245,36 @@ test('and the All Boards menu is styled like the Admin Panel one', () => {
     + 'the selected row out as soon as the pointer crosses it');
   assert.ok(/color: #fff/.test(boards.slice(activeAt, activeAt + 900)),
     'and its label and icon go white');
+
+  // ...and the panel reaches the window's edges, as the Admin Panel's does.
+  // That one is `position: absolute; width: 100%; height: 100%` and sits
+  // OUTSIDE `.wrapper`, so its menu is against the left and bottom edges. All
+  // Boards is in normal flow inside `.wrapper`, which is
+  // `width: calc(100% - 28px); margin: 0 auto` - so without an override the
+  // menu floated 14px in from an edge it is supposed to look attached to.
+  // Checked across the file rather than inside one rule's braces: `.wrapper`
+  // is declared more than once in layouts.css, and taking the first block found
+  // read a rule that only carries the comment explaining the sizes.
+  const layouts = read('client/components/main/layouts.css');
+  assert.ok(/\.wrapper \{[^}]*width:\s*calc\(100% - 28px\)/.test(layouts),
+    'the generic wrapper really does inset the page');
+  const overrideAt = boards.indexOf('#content .all-boards-wrapper {');
+  assert.notStrictEqual(overrideAt, -1, 'All Boards opts out of that inset');
+  const override = boards.slice(overrideAt, boards.indexOf('}', overrideAt));
+  assert.ok(/width:\s*100%/.test(override) && /margin:\s*0/.test(override),
+    'edge to edge');
+
+  const layoutAt = boards.indexOf('.boards-layout {');
+  const layout = boards.slice(layoutAt, boards.indexOf('}', layoutAt));
+  // Down to the bottom: measured from the header, because the bar wraps and is
+  // not one fixed height. A MINIMUM, so more boards than fit still grow past it.
+  assert.ok(/min-height:\s*calc\(100vh - var\(--wekan-header-height, 0px\)\)/.test(layout),
+    'and down to the bottom of the window, measured from the header it sits under');
+  assert.ok(!/[^-]height:\s*calc\(100vh/.test(layout),
+    'a minimum, not a fixed height - a long page must still be able to grow');
+  const adminBodyAt = admin.indexOf('.setting-content .content-body {');
+  assert.ok(/height:\s*100%/.test(admin.slice(adminBodyAt, admin.indexOf('}', adminBodyAt))),
+    "...which is what the Admin Panel's row does with its own full-height box");
 });
 
 for (const [name, fn] of tests) {

@@ -1,10 +1,32 @@
 @import url("../../../public/css/reset.css") print, screen;
 
 /* Two-column layout for All Boards */
+
+/* This page runs edge to edge, the way the Admin Panel does. The generic
+   `.wrapper` (layouts.css) is `width: calc(100% - 28px); margin: 0 auto`, so
+   the left menu floated 14px in from the window's edge while the Admin Panel's
+   sits against it - and the menu is the one thing on the page that is supposed
+   to look like a fixed side of the window rather than like content. */
+#content .all-boards-wrapper {
+  width: 100%;
+  margin: 0;
+}
+
 .boards-layout {
   display: grid;
   grid-template-columns: 260px 1fr;
   gap: 16px;
+  /* ...and down to the BOTTOM of the window, again like the Admin Panel, whose
+     menu is a flex item of a `height: 100%` row inside an absolutely positioned
+     full-height box. Here the page is in normal flow, so the height is measured
+     from the header instead: --wekan-header-height is what the header MEASURES
+     itself to be (client/lib/utils.js), because the bar wraps to a second row
+     and is not one fixed height.
+
+     A MINIMUM, so a page with more boards than fit still grows past it; grid
+     items stretch to the row by default, so the menu fills whichever is taller
+     without asking for a height of its own. */
+  min-height: calc(100vh - var(--wekan-header-height, 0px));
 }
 
 /* The left menu is styled like the Admin Panel's (settingBody.css,

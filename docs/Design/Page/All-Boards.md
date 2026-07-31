@@ -52,8 +52,18 @@ accident — a board dragged to reorder that lands one row low.
 The left menu is three kinds of thing in one column — the three board lists, the
 workspaces tree, and the archive — so the Workspaces section has a rule above and
 below it. Without them the tree ran into its neighbours as if it were more of the
-same list. The menu itself is styled like the **Admin Panel's** ([Left menu](Left-Menu.md)):
-a panel with its own background, border and rounded corners, a selected row
+same list. The menu itself is styled like the **Admin Panel's** ([Left menu](Left-Menu.md)),
+and reaches the window's **left and bottom edges** the way that one does — it is
+a fixed side of the window, not content floating inside the page. The Admin Panel
+gets that for free: `.setting-content` sits *outside* `.wrapper`, absolutely
+positioned at full width and height. All Boards is in normal flow inside
+`.wrapper`, which is `width: calc(100% - 28px); margin: 0 auto`, so it opts out
+of that inset and takes its height from `100vh` minus `--wekan-header-height` —
+the height the header *measures* itself to be, because the bar wraps and is not
+one fixed height. A **minimum**, so a page with more boards than fit still grows
+past it.
+
+It is a panel with its own background, border and rounded corners, a selected row
 filled with the per-user theme accent and white text, and a white hover with a
 shadow. WeKan has one kind of left menu and it should look like one kind of left
 menu. A long one scrolls inside the panel rather than spilling past its own

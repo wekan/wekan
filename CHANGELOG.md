@@ -311,8 +311,10 @@ anything.
 
 The whole menu is styled like the Admin Panel's now — a panel with its own
 background, border and rounded corners, and a selected row filled with the
-per-user theme accent and white text. WeKan has one kind of left menu and it
-should look like one kind of left menu.
+per-user theme accent and white text — and it reaches the window's left and
+bottom edges the way that one does, instead of floating 14px in from an edge it
+is meant to look attached to. WeKan has one kind of left menu and it should look
+like one kind of left menu.
 
 The click handler moved with the markup, because a Blaze event map only sees
 events inside its own template: one left behind in the header buttons would
