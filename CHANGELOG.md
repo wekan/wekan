@@ -618,6 +618,70 @@ one per shared control, each covering both pages.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/841479774">The Admin Panel has a URL for every left-menu entry</a>. Thanks to xet7.</summary>
+
+The panel was four addresses — `/setting`, `/people`, `/admin-reports`,
+`/attachments` — each opening whichever pane its page happened to open first.
+Which pane you were looking at was ReactiveVar state and nothing else, so a pane
+could not be linked to a colleague, bookmarked, opened in a second tab or
+reached with the back button, and `/setting` always landed on Version even if
+you had just been in Global Webhooks.
+
+Every entry has its own now: `/settings/visibility`,
+`/settings/global-webhooks`, `/people/roles`, `/admin-reports/cpu`,
+`/attachments/s3`. Lowercase, words separated by `-`, and the **default** pane
+keeps the bare page URL — `/settings`, not `/settings/version` — so there is one
+address for "the Settings page" rather than two that show the same thing. The
+Settings path is plural: `/setting` was the odd one out beside `/people`,
+`/attachments` and `/admin-reports`, and it still resolves, as a redirect.
+
+The slug is **not** derived from the pane id. The ids are internal and read like
+it — `tableVisibilityMode-setting`, `layout-setting`, `report-cpu` — while a URL
+is something a person types and pastes into a chat, and a name derived from
+another name is wrong the moment the two spellings differ. So it is an explicit
+map, and the guard checks it against the real menus in BOTH directions: every
+slug names a pane the page has, and every menu entry has a slug. Neither failure
+shows up until somebody clicks that row. A slug that is not one falls back to
+the page's default rather than rendering an empty panel, because a URL is typed.
+
+`/information` and `/translation` redirected to `/setting` and handed their pane
+over in a `Session` value the page consumed once. They redirect to the pane's
+own address now.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5cc399b47">All Boards has one too, workspaces included</a>. Thanks to xet7.</summary>
+
+`/allboards/starred`, `/allboards/templates`, `/allboards/remaining`,
+`/allboards/workspaces`, and a workspace as deep as its tree goes:
+`/allboards/workspaces/engineering/front-end/design-system`. The page was three
+addresses and the workspaces tree had none at all — which workspace you had open
+was a ReactiveVar, so it could not be linked or bookmarked either.
+
+A workspace is addressed by the slugs of its **names**, not by its id: the id is
+a random string and a URL should say where you are. The slugs come from
+`getSlug` (limax), the same function that gives a board its slug, so a workspace
+and a board turn a name into a URL the same way — including the scripts where a
+naive slugifier returns an empty string. When a name slugifies to nothing anyway
+— an emoji-only name — the node's id stands in, because a workspace with no
+address could not be opened from a link.
+
+The route resolves the section and splits the path; the PAGE resolves the
+workspace, in an autorun, once its tree has loaded. The router cannot: the tree
+is on the user document, which it has no way to read before the page has it —
+and a one-shot read would always run before the tree arrived and never select
+anything. `/` stays the home and still shows Starred; `/templates` and
+`/remaining` redirect to the new form.
+
+One thing this had to fix rather than add: the page filters boards by membership
+only on the All Boards routes, **by route name**, and a route missing from that
+list falls through to the public-boards branch — it would have shown public
+boards instead of your own.
+
+</details>
+
 and updates the following dependencies:
 
 - **aldeed:collection2 4.2.0 → 4.2.1** — cleans and validates every write
