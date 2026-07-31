@@ -11,27 +11,30 @@
   padding: 12px;
 }
 
-/* A board is recognised by its colour or its background image before its title is
- * read, and it is the same board here as on All Boards, so a row carries them.
- * The board colour classes (`board-color-*`, boardColors.css) set a background on
- * whatever they are put on, which is the row. */
+/* A board is recognised by its colour before its title is read, and it is the
+ * same board here as on All Boards, so a row carries its colour.
+ *
+ * The colour itself comes from boardColors.css, where `.public-board-row` was
+ * added to each board colour's existing selector list — the same declaration,
+ * one more selector — so these rows follow the board colours and the theme
+ * without a single hex value being repeated here.
+ *
+ * THE DEFAULT MATTERS MOST. A board with no colour matches none of those rules,
+ * so the row keeps the table's white background: with the light text below that
+ * is white on white, and only the row's emoji was visible. The All Boards tile
+ * has the same problem and solves it the same way — `.board-list-item` falls
+ * back to a grey (#999) so its white text always has something to sit on. */
 .public-board-row {
+  background-color: #999;
   background-size: cover;
   background-position: center;
   cursor: pointer;
 }
 
-/* The whole row opens the board, so it has to look like it does. */
-.public-board-row:hover {
-  filter: brightness(1.08);
-}
-
-/* The board colours are dark, so the text on them is light — the same choice the
- * All Boards tile makes for the same backgrounds. `inherit` on the anchor keeps
- * the title from falling back to the global link colour, which is unreadable on
- * several of them. */
+/* Light text, like the tile's own (.board-list-item is #f6f6f6), which is
+ * readable because the rule above guarantees a background to sit on. */
 .public-board-row td {
-  color: #fff;
+  color: #f6f6f6;
 }
 .public-board-row .public-board-title a {
   color: inherit;
@@ -43,9 +46,15 @@
 }
 
 /* A description is secondary to the title it explains, and it can be long: it may
- * wrap, and it is dimmed a little against the board's own background. */
+ * wrap, and it is dimmed a little against the board's own background — the same
+ * treatment .board-list-item-sub-name gets on the tile. */
 .public-board-row .public-board-desc {
-  opacity: 0.9;
+  color: rgba(255, 255, 255, 0.85);
   white-space: normal;
   word-break: break-word;
+}
+
+/* The whole row opens the board, so it has to look like it does. */
+.public-board-row:hover {
+  filter: brightness(1.08);
 }

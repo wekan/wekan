@@ -45,6 +45,18 @@ carries the board's `colorClass` and, when it has one, its `backgroundImageURL`,
 exactly as the All Boards tile does (#5157). The table's own borders and spacing
 are unchanged; only the row's background comes from the board.
 
+The colours themselves are **not** redefined here. `boardColors.css` already
+holds one declaration per board colour, and `.public-board-row.board-color-…` was
+added to each of those existing selector lists — the same declaration, one more
+selector — so the rows follow the board colours and the theme without a single
+hex value being repeated.
+
+A board with **no** colour matches none of those rules, so the row needs a
+default background of its own: without one it keeps the table's white background,
+and with the light text on top that is white on white — only the row's emoji is
+visible. The All Boards tile has the same problem and answers it the same way,
+with a grey fallback under its white text.
+
 ## Columns
 
 Two:

@@ -196,6 +196,24 @@ test('a row carries its board colours, like the All Boards tile', () => {
   // The colours belong to the row; the table itself is styled by tablePage.css
   // and this stylesheet must not restate it.
   assert.ok(/\.public-board-row/.test(css), 'the row styling exists');
+
+  // The colours come from boardColors.css - the same declaration, one more
+  // selector - so no hex value is repeated here and the rows follow the theme.
+  const colors = read('client/components/boards/boardColors.css');
+  const rowSelectors = (colors.match(/^\.public-board-row\.board-color-[a-z0-9]+,$/gm) || []).length;
+  const listSelectors = (colors.match(/^\.board-list \.board-color-[a-z0-9]+ a(,| \{)$/gm) || []).length;
+  assert.strictEqual(rowSelectors, listSelectors,
+    'every board colour the All Boards tile has must also reach the /public row');
+  assert.ok(rowSelectors > 10, `expected the board colours, found ${rowSelectors}`);
+  assert.ok(!/#[0-9a-f]{6}/i.test(css.replace(/#f6f6f6|#999|#fff/gi, '')),
+    'publicBoards.css must not repeat any board colour hex of its own');
+
+  // A board with NO colour matches none of those rules, so without a default the
+  // row keeps the table's white background - and with light text that is white on
+  // white, which is exactly what was reported: only the emoji was visible.
+  const rowRule = css.slice(css.indexOf('.public-board-row {'), css.indexOf('}', css.indexOf('.public-board-row {')));
+  assert.ok(/background-color:/.test(rowRule),
+    'the row needs a default background, or a colourless board is unreadable');
   for (const shared of ['table-page-table', 'table-page-controls', 'grid-template-columns']) {
     assert.ok(!css.includes(shared), `${shared} belongs to tablePage.css, not here`);
   }

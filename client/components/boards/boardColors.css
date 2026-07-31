@@ -12,6 +12,7 @@ THEME - NEPHRITIS
 .board-color-nephritis#header,
 .board-color-nephritis.sk-spinner div,
 .board-backgrounds-list .board-color-nephritis.background-box,
+.public-board-row.board-color-nephritis,
 .board-list .board-color-nephritis a,
 .board-color-nephritis .setting-content .content-body .side-menu ul li.active,
 .board-color-nephritis .setting-content .content-body .side-menu ul li.active:hover {
@@ -121,6 +122,7 @@ THEME - Pomegranate
 .board-color-pomegranate#header,
 .board-color-pomegranate.sk-spinner div,
 .board-backgrounds-list .board-color-pomegranate.background-box,
+.public-board-row.board-color-pomegranate,
 .board-list .board-color-pomegranate a,
 .board-color-pomegranate .setting-content .content-body .side-menu ul li.active,
 .board-color-pomegranate .setting-content .content-body .side-menu ul li.active:hover {
@@ -230,6 +232,7 @@ THEME - Belize
 .board-color-belize#header,
 .board-color-belize.sk-spinner div,
 .board-backgrounds-list .board-color-belize.background-box,
+.public-board-row.board-color-belize,
 .board-list .board-color-belize a,
 .board-color-belize .setting-content .content-body .side-menu ul li.active,
 .board-color-belize .setting-content .content-body .side-menu ul li.active:hover {
@@ -339,6 +342,7 @@ THEME - Wisteria
 .board-color-wisteria#header,
 .board-color-wisteria.sk-spinner div,
 .board-backgrounds-list .board-color-wisteria.background-box,
+.public-board-row.board-color-wisteria,
 .board-list .board-color-wisteria a,
 .board-color-wisteria .setting-content .content-body .side-menu ul li.active,
 .board-color-wisteria .setting-content .content-body .side-menu ul li.active:hover {
@@ -448,6 +452,7 @@ THEME - Midnight
 .board-color-midnight#header,
 .board-color-midnight.sk-spinner div,
 .board-backgrounds-list .board-color-midnight.background-box,
+.public-board-row.board-color-midnight,
 .board-list .board-color-midnight a,
 .board-color-midnight .setting-content .content-body .side-menu ul li.active,
 .board-color-midnight .setting-content .content-body .side-menu ul li.active:hover {
@@ -557,6 +562,7 @@ THEME - Pumpkin
 .board-color-pumpkin#header,
 .board-color-pumpkin.sk-spinner div,
 .board-backgrounds-list .board-color-pumpkin.background-box,
+.public-board-row.board-color-pumpkin,
 .board-list .board-color-pumpkin a,
 .board-color-pumpkin .setting-content .content-body .side-menu ul li.active,
 .board-color-pumpkin .setting-content .content-body .side-menu ul li.active:hover {
@@ -666,6 +672,7 @@ THEME - Moderate Pink
 .board-color-moderatepink#header,
 .board-color-moderatepink.sk-spinner div,
 .board-backgrounds-list .board-color-moderatepink.background-box,
+.public-board-row.board-color-moderatepink,
 .board-list .board-color-moderatepink a,
 .board-color-moderatepink .setting-content .content-body .side-menu ul li.active,
 .board-color-moderatepink .setting-content .content-body .side-menu ul li.active:hover {
@@ -775,6 +782,7 @@ THEME - Strong Cyan
 .board-color-strongcyan#header,
 .board-color-strongcyan.sk-spinner div,
 .board-backgrounds-list .board-color-strongcyan.background-box,
+.public-board-row.board-color-strongcyan,
 .board-list .board-color-strongcyan a,
 .board-color-strongcyan .setting-content .content-body .side-menu ul li.active,
 .board-color-strongcyan .setting-content .content-body .side-menu ul li.active:hover {
@@ -884,6 +892,7 @@ THEME - Lime Green
 .board-color-limegreen#header,
 .board-color-limegreen.sk-spinner div,
 .board-backgrounds-list .board-color-limegreen.background-box,
+.public-board-row.board-color-limegreen,
 .board-list .board-color-limegreen a,
 .board-color-limegreen .setting-content .content-body .side-menu ul li.active,
 .board-color-limegreen .setting-content .content-body .side-menu ul li.active:hover {
@@ -993,6 +1002,7 @@ THEME - Dark
 .board-color-dark#header,
 .board-color-dark.sk-spinner div,
 .board-backgrounds-list .board-color-dark.background-box,
+.public-board-row.board-color-dark,
 .board-list .board-color-dark a,
 .board-color-dark .setting-content .content-body .side-menu ul li.active,
 .board-color-dark .setting-content .content-body .side-menu ul li.active:hover {
@@ -1205,6 +1215,7 @@ THEME - Relax
 .board-color-relax#header,
 .board-color-relax.sk-spinner div,
 .board-backgrounds-list .board-color-relax.background-box,
+.public-board-row.board-color-relax,
 .board-list .board-color-relax a,
 .board-color-relax .setting-content .content-body .side-menu ul li.active,
 .board-color-relax .setting-content .content-body .side-menu ul li.active:hover {
@@ -1343,6 +1354,7 @@ THEME - Corteza
 .board-color-corteza#header,
 .board-color-corteza.sk-spinner div,
 .board-backgrounds-list .board-color-corteza.background-box,
+.public-board-row.board-color-corteza,
 .board-list .board-color-corteza a,
 .board-color-corteza .setting-content .content-body .side-menu ul li.active,
 .board-color-corteza .setting-content .content-body .side-menu ul li.active:hover {
@@ -1451,6 +1463,7 @@ THEME - Clear Blue
 
 .board-color-clearblue.sk-spinner div,
 .board-backgrounds-list .board-color-clearblue.background-box,
+.public-board-row.board-color-clearblue,
 .board-list .board-color-clearblue a {
   background: linear-gradient(180deg, #499bea 0%, #00aecc 100%);
 }
@@ -1729,6 +1742,7 @@ THEME - Natural
 .board-color-natural#header,
 .board-color-natural.sk-spinner div,
 .board-backgrounds-list .board-color-natural.background-box,
+.public-board-row.board-color-natural,
 .board-list .board-color-natural a,
 .board-color-natural .setting-content .content-body .side-menu ul li.active,
 .board-color-natural .setting-content .content-body .side-menu ul li.active:hover {
@@ -1847,6 +1861,7 @@ THEME - Modern
 .board-color-modern#header,
 .board-color-modern.sk-spinner div,
 .board-backgrounds-list .board-color-modern.background-box,
+.public-board-row.board-color-modern,
 .board-list .board-color-modern a,
 .board-color-modern .setting-content .content-body .side-menu ul li.active,
 .board-color-modern .setting-content .content-body .side-menu ul li.active:hover {
@@ -2142,6 +2157,7 @@ THEME - Modern Dark
 .board-color-moderndark#header,
 .board-color-moderndark.sk-spinner div,
 .board-backgrounds-list .board-color-moderndark.background-box,
+.public-board-row.board-color-moderndark,
 .board-list .board-color-moderndark a,
 .board-color-moderndark .setting-content .content-body .side-menu ul li.active,
 .board-color-moderndark .setting-content .content-body .side-menu ul li.active:hover {
@@ -2644,6 +2660,7 @@ THEME - Exodark
 .board-color-exodark#header,
 .board-color-exodark.sk-spinner div,
 .board-backgrounds-list .board-color-exodark.background-box,
+.public-board-row.board-color-exodark,
 .board-list .board-color-exodark a,
 .board-color-exodark .setting-content .content-body .side-menu ul li.active,
 .board-color-exodark .setting-content .content-body .side-menu ul li.active:hover {
