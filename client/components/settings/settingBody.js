@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { Session } from 'meteor/session';
 import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
 import { TAPi18n } from '/imports/i18n';
 import { ALLOWED_WAIT_SPINNERS } from '/config/const';
@@ -11,6 +12,9 @@ import Settings from '/models/settings';
 // (docs/Design/Multitenancy/Multitenancy.md).
 import * as tenantAdmin from '/models/lib/tenantAdmin';
 import { resolveDefaultAuthenticationMethod } from '/models/lib/authenticationMethod';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+// The per-pane URLs of the Admin Panel. docs/Design/Page/Admin-Panel-URLs.md
+import { adminPath } from '/models/lib/adminUrls';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { format } from '/imports/lib/dateUtils';
 
@@ -261,21 +265,6 @@ Template.setting.onCreated(function () {
   this.accessibilitySetting = new ReactiveVar(false);
   this.layoutSetting = new ReactiveVar(false);
   this.webhookSetting = new ReactiveVar(false);
-  // An old page URL that is now a pane here - /information, /translation - asks for
-  // its pane by name when it redirects, so the bookmark still lands where it used
-  // to. It is consumed once: a later visit to /setting opens on the default.
-  const requestedPane = Session.get('settingsOpenPane');
-  if (requestedPane) {
-    Session.set('settingsOpenPane', null);
-    if (requestedPane === 'translation-setting') {
-      this.versionSetting.set(false);
-      this.translationSetting.set(true);
-      this.openPaneDecided = true;
-    } else if (requestedPane === 'version-setting') {
-      this.versionSetting.set(true);
-      this.openPaneDecided = true;
-    }
-  }
   this.attachmentSettings = new ReactiveVar(false);
   this.attachmentStorageSettings = new ReactiveVar(null);
   // #6473: real storage paths come from the server (WRITABLE_PATH does not
@@ -297,6 +286,24 @@ Template.setting.onCreated(function () {
     attachmentsDownloadMaxBytes: false,
     apiUploadMaxBytes: false,
     apiDownloadMaxBytes: false,
+  });
+  // The pane the URL asks for. `/settings/global-webhooks` opens Global
+  // Webhooks; the bare `/settings` opens the default, which the route resolved
+  // for us, so this is always a real pane id. Reactive, so following a link to
+  // another pane while this page is already open switches to it - the route
+  // action runs again without re-creating the template.
+  //
+  // It replaces the one-shot `settingsOpenPane` the old page URLs used to hand
+  // over: those - /information, /translation - redirect to a slug now, and the
+  // pane is in the address rather than in a Session value consumed once.
+  this.autorun(() => {
+    const paneId = Session.get('settingsOpenPane');
+    if (!paneId) return;
+    if (openSettingsPane(this, paneId)) {
+      // A URL is an explicit choice, so it wins over the "which pane does this
+      // user open on" default that the site-admin autorun above applies.
+      this.openPaneDecided = true;
+    }
   });
   Meteor.subscribe('setting');
   Meteor.subscribe('mailServer');
@@ -362,6 +369,35 @@ Template.setting.onRendered(function () {
   });
 });
 
+
+
+// Open exactly one pane. The URL and the menu click both come through here, so
+// "which ReactiveVar is this pane" is answered once instead of in two places
+// that can disagree. docs/Design/Page/Admin-Panel-URLs.md
+const SETTINGS_PANE_VARS = {
+  'version-setting': 'versionSetting',
+  'tableVisibilityMode-setting': 'tableVisibilityModeSetting',
+  'announcement-setting': 'announcementSetting',
+  'accessibility-setting': 'accessibilitySetting',
+  'translation-setting': 'translationSetting',
+  'layout-setting': 'layoutSetting',
+  'webhook-setting': 'webhookSetting',
+  // Reachable from Admin Panel / Attachments rather than from this menu, but it
+  // is one of this template's panes and has to be cleared with the rest.
+  'attachment-settings': 'attachmentSettings',
+  // NOT registration-setting / email-setting: the Login and E-mail panes moved
+  // to Admin Panel / People, and naming them here would put them back in the
+  // one place that decides what this page can open.
+};
+
+function openSettingsPane(tpl, paneId) {
+  for (const varName of Object.values(SETTINGS_PANE_VARS)) {
+    if (tpl[varName]) tpl[varName].set(false);
+  }
+  const varName = SETTINGS_PANE_VARS[paneId];
+  if (varName && tpl[varName]) tpl[varName].set(true);
+  return !!varName;
+}
 
 // The Settings side menu, as data (docs/Design/Page/Left-Menu.md). Each entry
 // used to be six lines of markup; the pane it opens is its `id`.
@@ -561,44 +597,22 @@ Template.setting.events({
   },
   'click a.js-setting-menu'(event, tpl) {
     const target = $(event.target);
-    if (!target.hasClass('active')) {
-      $('.side-menu li.active').removeClass('active');
-      target.parent().addClass('active');
-      const targetID = target.data('id');
-
-      // Reset all settings to false
-      tpl.forgotPasswordSetting.set(false);
-      tpl.versionSetting.set(false);
-      tpl.tableVisibilityModeSetting.set(false);
-      tpl.translationSetting.set(false);
-      tpl.announcementSetting.set(false);
-      tpl.accessibilitySetting.set(false);
-      tpl.layoutSetting.set(false);
-      tpl.webhookSetting.set(false);
-      tpl.attachmentSettings.set(false);
-      // Set the selected setting to true
-      if (targetID === 'version-setting') {
-        tpl.versionSetting.set(true);
-      } else if (targetID === 'tableVisibilityMode-setting') {
-        tpl.tableVisibilityModeSetting.set(true);
-      } else if (targetID === 'translation-setting') {
-        tpl.translationSetting.set(true);
-      } else if (targetID === 'announcement-setting') {
-        tpl.announcementSetting.set(true);
-      } else if (targetID === 'accessibility-setting') {
-        tpl.accessibilitySetting.set(true);
-      } else if (targetID === 'layout-setting') {
-        tpl.layoutSetting.set(true);
-      } else if (targetID === 'webhook-setting') {
-        tpl.webhookSetting.set(true);
-      } else if (targetID === 'attachment-settings') {
-        tpl.attachmentSettings.set(true);
-        refreshAttachmentStorageSettings(tpl, true);
-        // Set default sub-menu state for attachment settings
-        console.log('Initializing attachment sub-menu');
-      }
+    if (target.hasClass('active')) return;
+    $('.side-menu li.active').removeClass('active');
+    target.parent().addClass('active');
+    const targetID = target.data('id');
+    openSettingsPane(tpl, targetID);
+    if (targetID === 'attachment-settings') {
+      refreshAttachmentStorageSettings(tpl, true);
     }
+    // ...and put it in the address bar, so the pane can be linked, bookmarked
+    // and reached with the back button. Replacing rather than pushing would
+    // make Back leave the Admin Panel instead of returning to the previous
+    // pane. docs/Design/Page/Admin-Panel-URLs.md
+    const path = adminPath('settings', targetID);
+    if (path && FlowRouter.current().path !== path) FlowRouter.go(path);
   },
+
 
   'click a.js-toggle-support'(event, tpl) {
     tpl.loading.set(true);

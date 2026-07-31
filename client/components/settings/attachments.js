@@ -1,4 +1,8 @@
 import { Meteor } from 'meteor/meteor';
+import { Session } from 'meteor/session';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+// The per-pane URLs of the Admin Panel. docs/Design/Page/Admin-Panel-URLs.md
+import { adminPath } from '/models/lib/adminUrls';
 import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
 import AttachmentBulkMoveStatus from '/models/attachmentBulkMoveStatus';
 import { TAPi18n } from '/imports/i18n';
@@ -249,6 +253,12 @@ Template.attachments.onCreated(function () {
   // comes to this page for most often, and the one action here that has to be
   // reachable in a hurry.
   this.activeSection = new ReactiveVar('backup');
+  // The pane the URL asks for. The route resolved it, so it is always a real
+  // pane id; a bare /attachments opens Backup.
+  this.autorun(() => {
+    const paneId = Session.get('attachmentsOpenPane');
+    if (paneId) this.activeSection.set(paneId);
+  });
   this.storageSettingsSubscription = Meteor.subscribe('attachmentStorageSettings');
   this.attachmentStorageSettings = new ReactiveVar(null);
   // #6473: the real storage paths only exist on the SERVER (WRITABLE_PATH is a
@@ -920,6 +930,10 @@ Template.attachments.events({
     }
 
     tpl.activeSection.set(targetID);
+    // ...and into the address bar, so the pane can be linked and bookmarked.
+    // docs/Design/Page/Admin-Panel-URLs.md
+    const path = adminPath('attachments', targetID);
+    if (path && FlowRouter.current().path !== path) FlowRouter.go(path);
   },
   // Deleting the raw MongoDB 3 files of a grain - commented out with the pane
   // (see attachmentsMenu). Compacting the database frees the space instead, and

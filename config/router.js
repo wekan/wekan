@@ -10,6 +10,9 @@ import Settings from '/models/settings';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { Filter } from '/client/lib/filter';
 import { Utils } from '/client/lib/utils';
+// The Admin Panel's per-pane URLs: /settings/version, /settings/visibility,
+// /settings/global-webhooks and so on. docs/Design/Page/Admin-Panel-URLs.md
+import { resolvePaneId, adminPath } from '/models/lib/adminUrls';
 
 let previousPath;
 
@@ -586,7 +589,15 @@ FlowRouter.route('/import/:source', {
   },
 });
 
-FlowRouter.route('/setting', {
+// Admin Panel / Settings. Every left-menu entry has its own URL - /settings,
+// /settings/visibility, /settings/global-webhooks - so a pane can be linked,
+// bookmarked, opened in a second tab and reached with the back button. The
+// slug is optional: the bare /settings opens the default pane, which is the
+// one address for "the Settings page". docs/Design/Page/Admin-Panel-URLs.md
+//
+// The path is PLURAL now. `/setting` was the odd one out among /people,
+// /attachments and /admin-reports, and it redirects here.
+FlowRouter.route('/settings/:pane?', {
   name: 'setting',
   triggersEnter: [
     ensureSignedInUnlessSandstorm,
@@ -602,13 +613,26 @@ FlowRouter.route('/setting', {
       EscapeActions.executeAll();
     },
   ],
-  action() {
+  action(params) {
     Utils.manageCustomUI();
+    // An unknown slug falls back to the default pane rather than rendering a
+    // panel with nothing in it - a URL is something a person types.
+    Session.set('settingsOpenPane', resolvePaneId('settings', params && params.pane));
     this.render('defaultLayout', {
       headerBar: 'settingHeaderBar',
       content: 'setting',
     });
   },
+});
+
+// The old singular path, kept so bookmarks and links keep working.
+FlowRouter.route('/setting', {
+  triggersEnter: [
+    (context, redirect) => {
+      redirect(FlowRouter.path('setting'));
+    },
+  ],
+  action() {},
 });
 
 // Version is the FIRST pane inside Admin Panel / Settings now, not a page of its
@@ -624,14 +648,15 @@ FlowRouter.route('/information', {
   name: 'information',
   triggersEnter: [
     (context, redirect) => {
-      Session.set('settingsOpenPane', 'version-setting');
-      redirect(FlowRouter.path('setting'));
+      // The pane it meant now HAS an address, so redirect to it instead of
+      // asking the page for it through the Session.
+      redirect(adminPath('settings', 'version-setting'));
     },
   ],
   action() {},
 });
 
-FlowRouter.route('/people', {
+FlowRouter.route('/people/:pane?', {
   name: 'people',
   triggersEnter: [
     ensureSignedInUnlessSandstorm,
@@ -647,7 +672,10 @@ FlowRouter.route('/people', {
       EscapeActions.executeAll();
     },
   ],
-  action() {
+  action(params) {
+    // Which left-menu pane this URL means. An unknown slug falls back to the
+    // page's default. docs/Design/Page/Admin-Panel-URLs.md
+    Session.set('peopleOpenPane', resolvePaneId('people', params && params.pane));
     this.render('defaultLayout', {
       headerBar: 'settingHeaderBar',
       content: 'people',
@@ -655,7 +683,7 @@ FlowRouter.route('/people', {
   },
 });
 
-FlowRouter.route('/admin-reports', {
+FlowRouter.route('/admin-reports/:pane?', {
   name: 'admin-reports',
   triggersEnter: [
     ensureSignedInUnlessSandstorm,
@@ -671,7 +699,10 @@ FlowRouter.route('/admin-reports', {
       EscapeActions.executeAll();
     },
   ],
-  action() {
+  action(params) {
+    // Which left-menu pane this URL means. An unknown slug falls back to the
+    // page's default. docs/Design/Page/Admin-Panel-URLs.md
+    Session.set('problemsOpenPane', resolvePaneId('problems', params && params.pane));
     this.render('defaultLayout', {
       headerBar: 'settingHeaderBar',
       content: 'adminReports',
@@ -679,7 +710,7 @@ FlowRouter.route('/admin-reports', {
   },
 });
 
-FlowRouter.route('/attachments', {
+FlowRouter.route('/attachments/:pane?', {
   name: 'attachments',
   triggersEnter: [
     ensureSignedInUnlessSandstorm,
@@ -695,7 +726,10 @@ FlowRouter.route('/attachments', {
       EscapeActions.executeAll();
     },
   ],
-  action() {
+  action(params) {
+    // Which left-menu pane this URL means. An unknown slug falls back to the
+    // page's default. docs/Design/Page/Admin-Panel-URLs.md
+    Session.set('attachmentsOpenPane', resolvePaneId('attachments', params && params.pane));
     this.render('defaultLayout', {
       headerBar: 'settingHeaderBar',
       content: 'attachments',
@@ -710,9 +744,7 @@ FlowRouter.route('/translation', {
   name: 'translation',
   triggersEnter: [
     (context, redirect) => {
-      // ...and it opens ON Translation, which is the pane the old URL meant.
-      Session.set('settingsOpenPane', 'translation-setting');
-      redirect(FlowRouter.path('setting'));
+      redirect(adminPath('settings', 'translation-setting'));
     },
   ],
   action() {},

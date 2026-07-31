@@ -1,4 +1,8 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { Session } from 'meteor/session';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+// The per-pane URLs of the Admin Panel. docs/Design/Page/Admin-Panel-URLs.md
+import { adminPath } from '/models/lib/adminUrls';
 import { TAPi18n } from '/imports/i18n';
 import Attachments, { AttachmentStorage } from '/models/attachments';
 import Boards from '/models/boards';
@@ -200,6 +204,16 @@ Template.adminReports.onCreated(function () {
       cfg.count.set(total);
     });
   };
+
+  // The pane the URL asks for. The route resolved it, so it is always a real
+  // pane id; a bare /admin-reports opens Summary. Reactive, so following a link
+  // to another report while this page is open switches to it - the route action
+  // runs again without re-creating the template.
+  // docs/Design/Page/Admin-Panel-URLs.md
+  this.autorun(() => {
+    const paneId = Session.get('problemsOpenPane');
+    if (paneId) openReportPane(this, paneId);
+  });
 });
 
 // The Problems side menu, as data (docs/Design/Page/Left-Menu.md). Every entry
@@ -333,7 +347,13 @@ Template.adminReports.events({
   // same class and puts the pane id in data-id, so the twelve identical
   // 'click a.js-report-<name>' handlers collapsed to this.
   'click .js-left-menu-item'(event) {
-    switchMenu(event, Template.instance());
+    const tpl = Template.instance();
+    switchMenu(event, tpl);
+    // ...and into the address bar, so the report can be linked and bookmarked.
+    const targetID = $(event.currentTarget || event.target)
+      .closest('.js-left-menu-item').data('id');
+    const path = adminPath('problems', targetID);
+    if (path && FlowRouter.current().path !== path) FlowRouter.go(path);
   },
 
   // --- Controls: ONE handler each, for every table page ---
@@ -394,8 +414,14 @@ function runSearch(tmpl, reportId, inputSelector) {
 function switchMenu(event, tmpl) {
   // data-id is on the anchor; event.target may be the icon inside it.
   const target = $(event.currentTarget || event.target).closest('.js-left-menu-item');
-  const targetID = target.data('id');
-  // Re-clicking the open pane must do nothing. The active row is rendered from
+  openReportPane(tmpl, target.data('id'));
+}
+
+// Open a pane BY ID. Split out of switchMenu so the URL can open one too - every
+// left-menu entry has an address now (/admin-reports/cpu, /admin-reports/rules).
+// docs/Design/Page/Admin-Panel-URLs.md
+function openReportPane(tmpl, targetID) {
+  // Re-opening the open pane must do nothing. The active row is rendered from
   // activeReport now, so compare ids instead of reading a DOM class.
   if (targetID && targetID !== tmpl.activeReport.get()) {
     tmpl.loading.set(true);

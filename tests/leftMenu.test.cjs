@@ -530,13 +530,18 @@ test('Translation is a Settings pane, not a page of its own', () => {
   // The URL still resolves, redirecting rather than rendering a dead template.
   const router = read('config/router.js');
   assert.ok(!/content: 'translation'/.test(router), 'it must not render the old template');
-  // `redirect(FlowRouter.path('setting'))` inside triggersEnter, which is
-  // FlowRouter's own way to send a route somewhere else; a `FlowRouter.go` in a
-  // trigger re-enters the router instead of replacing the navigation.
-  assert.ok(/redirect\(FlowRouter\.path\('setting'\)\)/.test(router),
-    'a bookmark must land in Settings');
-  assert.ok(/Session\.set\('settingsOpenPane', 'translation-setting'\)/.test(router),
-    'and on the pane the old URL meant');
+  // `redirect(...)` inside triggersEnter, which is FlowRouter's own way to send
+  // a route somewhere else; a `FlowRouter.go` in a trigger re-enters the router
+  // instead of replacing the navigation.
+  //
+  // It used to redirect to /setting and hand the pane over in a Session value.
+  // Every pane HAS a URL now, so it redirects to that pane's own address -
+  // /settings/translation - and a bookmark lands somewhere it can stay.
+  assert.ok(/redirect\(adminPath\('settings', 'translation-setting'\)\)/.test(router),
+    'a bookmark must land on the Translation pane, by its own URL');
+  const { adminPath } = require('../models/lib/adminUrls');
+  assert.strictEqual(adminPath('settings', 'translation-setting'), '/settings/translation',
+    'which is what that URL is');
 });
 
 // ── the pane title: every Admin Panel pane has one, and they are identical ──
@@ -674,13 +679,16 @@ test('Version is the FIRST Settings pane, and has no page of its own', () => {
   const router = read('config/router.js');
   assert.ok(!/content: 'information'/.test(router), 'it must not render the old template');
   const route = router.slice(router.indexOf("FlowRouter.route('/information'"));
-  // `redirect(FlowRouter.path('setting'))` in triggersEnter - FlowRouter's own way
-  // to send a route elsewhere; a `FlowRouter.go` inside a trigger re-enters the
-  // router instead of replacing the navigation. Same as /translation above.
-  assert.ok(/redirect\(FlowRouter\.path\('setting'\)\)/.test(route.slice(0, 400)),
-    'a bookmarked /information must land in Settings');
-  assert.ok(/Session\.set\('settingsOpenPane', 'version-setting'\)/.test(route.slice(0, 400)),
-    'on the pane that URL meant');
+  // `redirect(...)` in triggersEnter - FlowRouter's own way to send a route
+  // elsewhere; a `FlowRouter.go` inside a trigger re-enters the router instead
+  // of replacing the navigation. Same as /translation above, and like it, it
+  // redirects to the pane's OWN URL now rather than handing the pane over in a
+  // Session value.
+  assert.ok(/redirect\(adminPath\('settings', 'version-setting'\)\)/.test(route.slice(0, 400)),
+    'a bookmarked /information must land on the Version pane, by its own URL');
+  const { adminPath } = require('../models/lib/adminUrls');
+  assert.strictEqual(adminPath('settings', 'version-setting'), '/settings',
+    'Version is the default pane, so its URL is the bare page');
 });
 
 console.log(`\nleftMenu: ${passed} tests passed`);

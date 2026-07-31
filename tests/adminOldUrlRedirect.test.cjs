@@ -35,37 +35,58 @@ function routeBody(routePath) {
 console.log('adminOldUrlRedirect:');
 
 test('the old page URLs redirect with the redirect they are given', () => {
-  for (const routePath of ['/information', '/translation']) {
+  for (const routePath of ['/information', '/translation', '/setting']) {
     const body = routeBody(routePath);
     assert.ok(/\(context, redirect\) => \{/.test(body),
       `${routePath}: the trigger must take the redirect argument`);
-    assert.ok(/redirect\(FlowRouter\.path\('setting'\)\)/.test(body),
-      `${routePath}: and use it`);
+    assert.ok(/redirect\(/.test(body), `${routePath}: and use it`);
     assert.ok(!/FlowRouter\.go\(/.test(body),
       `${routePath}: FlowRouter.go() from inside a trigger is swallowed - the page `
       + 'never changes');
   }
 });
 
-test('each one asks for the pane it used to be a page of', () => {
-  assert.ok(/Session\.set\('settingsOpenPane', 'version-setting'\)/
+test('each one redirects to the URL of the pane it used to be a page of', () => {
+  // They used to hand the pane over in a Session value that the page consumed
+  // once. Every pane HAS an address now, so they redirect to it: the pane is in
+  // the URL, where it can be linked, bookmarked and gone back to.
+  const { adminPath } = require('../models/lib/adminUrls');
+  assert.strictEqual(adminPath('settings', 'version-setting'), '/settings',
+    'Version is the default pane, so it is the bare page URL');
+  assert.strictEqual(adminPath('settings', 'translation-setting'), '/settings/translation');
+
+  assert.ok(/redirect\(adminPath\('settings', 'version-setting'\)\)/
     .test(routeBody('/information')), '/information is the Version pane');
-  assert.ok(/Session\.set\('settingsOpenPane', 'translation-setting'\)/
+  assert.ok(/redirect\(adminPath\('settings', 'translation-setting'\)\)/
     .test(routeBody('/translation')), '/translation is the Translation pane');
+  // And the singular page URL, which is now plural.
+  assert.ok(/redirect\(FlowRouter\.path\('setting'\)\)/.test(routeBody('/setting')),
+    '/setting redirects to /settings');
 });
 
-test('Settings opens that pane, once, and then forgets it', () => {
+test('the route puts the pane the URL names into the page', () => {
+  const body = routeBody("/settings/:pane?");
+  assert.ok(/resolvePaneId\('settings', params && params\.pane\)/.test(body),
+    'the slug is resolved to a pane id');
+  assert.ok(/Session\.set\('settingsOpenPane'/.test(body),
+    'and handed to the page');
+});
+
+test('Settings opens that pane, and the autorun does not overrule it', () => {
   const src = read('client/components/settings/settingBody.js');
   const created = src.slice(src.indexOf('Template.setting.onCreated'));
-  const block = created.slice(created.indexOf("const requestedPane = Session.get('settingsOpenPane')"));
+  const block = created.slice(created.indexOf("Session.get('settingsOpenPane')"));
   assert.ok(block.length, 'Template.setting must read the requested pane');
-  assert.ok(/Session\.set\('settingsOpenPane', null\)/.test(block.slice(0, 300)),
-    'and clear it, so a later visit to /setting opens on the default');
-  assert.ok(/this\.translationSetting\.set\(true\)/.test(block.slice(0, 600)));
-  assert.ok(/this\.versionSetting\.set\(true\)/.test(block.slice(0, 800)));
-  // It must not be overruled a moment later by the site-admin autorun.
-  assert.ok(/this\.openPaneDecided = true/.test(block.slice(0, 800)),
+  assert.ok(/openSettingsPane\(this, paneId\)/.test(block.slice(0, 400)),
+    'through the one function that opens a pane');
+  // It must not be overruled a moment later by the site-admin autorun, which
+  // decides which pane a NON-site-admin opens on.
+  assert.ok(/this\.openPaneDecided = true/.test(block.slice(0, 600)),
     'the pane the URL asked for is the decision - the autorun must not redo it');
+  // Reactive, so a link to another pane while the page is already open switches
+  // to it: the route action runs again without re-creating the template.
+  assert.ok(/this\.autorun\(\(\) => \{[\s\S]{0,200}Session\.get\('settingsOpenPane'\)/.test(created),
+    'and it is an autorun, not a one-shot read');
 });
 
 test('the state it sets exists by the time it runs', () => {
@@ -73,8 +94,10 @@ test('the state it sets exists by the time it runs', () => {
   // line would be `undefined.set()`, i.e. a blank page on that URL.
   const src = read('client/components/settings/settingBody.js');
   const created = src.slice(src.indexOf('Template.setting.onCreated'));
-  const use = created.indexOf("const requestedPane = Session.get('settingsOpenPane')");
-  for (const name of ['versionSetting', 'translationSetting']) {
+  const use = created.indexOf("Session.get('settingsOpenPane')");
+  for (const name of ['versionSetting', 'translationSetting', 'webhookSetting',
+    'layoutSetting', 'announcementSetting', 'accessibilitySetting',
+    'tableVisibilityModeSetting', 'attachmentSettings']) {
     const declared = created.indexOf(`this.${name} = new ReactiveVar(`);
     assert.ok(declared !== -1 && declared < use,
       `this.${name} must be created before the requested pane is applied`);

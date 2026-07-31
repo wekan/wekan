@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { Session } from 'meteor/session';
 import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
 // buildFilters and buildActions are imported like the rest of them. The People
 // pane declares its filter dropdown and its two action buttons to the shared
@@ -12,6 +13,8 @@ import { avatarUpdateCounter } from '/client/components/users/avatarUpdateCounte
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
 import LockoutSettings from '/models/lockoutSettings';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+// The per-pane URLs of the Admin Panel. docs/Design/Page/Admin-Panel-URLs.md
+import { adminPath } from '/models/lib/adminUrls';
 import Org from '/models/org';
 import Settings from '/models/settings';
 import Team from '/models/team';
@@ -306,11 +309,11 @@ Template.people.onCreated(function () {
     this.activeMenuId.set(openPaneId);
   });
 
-  this.switchMenu = (event) => {
-    // data-id is on the anchor; event.target may be the icon inside it.
-    const target = $(event.currentTarget || event.target).closest('.js-left-menu-item');
-    const targetID = target.data('id');
-    // Re-clicking the open pane must do nothing. The active row is rendered from
+  // Open a pane BY ID. Split out of switchMenu so the URL can open one too -
+  // every left-menu entry has an address now (/people/roles, /people/domains).
+  // docs/Design/Page/Admin-Panel-URLs.md
+  this.openPane = (targetID) => {
+    // Re-opening the open pane must do nothing. The active row is rendered from
     // activeMenuId now, so compare ids instead of reading a DOM class.
     if (targetID && targetID !== this.activeMenuId.get()) {
       this.activeMenuId.set(targetID);
@@ -338,6 +341,19 @@ Template.people.onCreated(function () {
       }
     }
   };
+
+  this.switchMenu = (event) => {
+    // data-id is on the anchor; event.target may be the icon inside it.
+    const target = $(event.currentTarget || event.target).closest('.js-left-menu-item');
+    this.openPane(target.data('id'));
+  };
+
+  // The pane the URL asks for. The route resolved it, so it is always a real
+  // pane id; a bare /people opens the page's default.
+  this.autorun(() => {
+    const paneId = Session.get('peopleOpenPane');
+    if (paneId) this.openPane(paneId);
+  });
 
   this.autorun(() => {
     const limitOrgs = orgsPerPage;
@@ -906,6 +922,9 @@ Template.people.events({
   'click .js-left-menu-item'(event, tpl) {
     const targetID = $(event.currentTarget).data('id');
     tpl.switchMenu(event);
+    // ...and into the address bar, so the pane can be linked and bookmarked.
+    const path = adminPath('people', targetID);
+    if (path && FlowRouter.current().path !== path) FlowRouter.go(path);
     if (targetID === 'org-setting') {
       tpl.orgPage.set(1);
       tpl.refreshOrgsCount();
