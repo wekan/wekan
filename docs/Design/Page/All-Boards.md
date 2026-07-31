@@ -9,37 +9,38 @@ particular to it is described here.
 
 ## The controls live in the header bar
 
-There is **one** row of controls, and it is the second top header bar — the same
-bar that says "My Boards" or "Public" — laid out and styled exactly like the board
-header of the Swimlanes view: `.board-header-btn`, the same Font Awesome glyphs,
-the same emphasis state when a control is on.
+There is **one** row of controls, and it is the **first** top header bar — the
+one that is always on screen and says `All Boards / Starred`. They sit to the
+**left of the notification bell**, which is exactly where a board's own controls
+sit, styled the same way: `.board-header-btn`, the same Font Awesome glyphs, the
+same emphasis state when a control is on.
 
 | Control | Icon | What it does |
 | --- | --- | --- |
 | Sort | `fa-sort` | Opens the boards sort popup. Emphasised while a sort other than the custom order is active. |
 | Search | `fa-search` | Opens the right sidebar on its search view — [Search](Search.md). |
-| Lists / Table | `fa-trello` / `fa-table` | The view menu — see below. |
 | Multi-Selection | `fa-check-square-o` | Turns board multi-selection on and opens the sidebar that holds what to do with a selection — [Multi-Selection](Multi-Selection.md). |
+| Boards in Archive | `fa-archive` | Leaves for [the archive page](Archive.md), and closes the sidebar behind it. |
+| Lists / Table | `fa-trello` / `fa-table` | The view menu — see below. |
 
-Then, in their own flex item and last in the source, a **divider and the sidebar
-hamburger** — `.board-header-btns.board-header-sidebar-toggle` holding
-`.separator` and `a.board-header-btn.js-toggle-all-boards-sidebar`, laid out
-exactly as the board header has them. Last in the source is what lets the
-hamburger stay in the top right of the bar on a phone, beside the title, while
-the other buttons wrap to a second row.
+They have been in three places. They were a row of the page's own body, then a
+second top header bar, then rows of the right sidebar's home view — and that
+last one meant opening a panel *over the boards* to reach the thing you came
+for. They are one click now, and nothing covers the page.
 
-The order reads left to right as **what is shown**, then **what is selected**:
-Sort, Search and the view menu decide what you are looking at; Multi-Selection
-comes after them, because the actions it turns on are in the sidebar it opens.
+**There is no hamburger on this page, and no divider before one.** The
+hamburger's only destination was that home view, which listed these same four
+things; a menu to reach what is already one click away is a step with nothing in
+it. The sidebar is still opened — by Search and by Multi-Selection, straight
+into their own view. `NO_HAMBURGER_ROUTES` in `models/lib/pageSidebar.js` is
+what says so, and a board is deliberately not in it: what a board's sidebar
+holds — members, labels, activities, settings — is not in the bar and has
+nowhere else to be opened from.
 
-**Search and Multi-Selection are shared with the board header.** They are one
-template each, `boardHeader.jade`, included by this bar and by the board
-header of the Swimlanes view, and they do the same kind of thing on both pages:
-open the right sidebar on that view. Only the markup is shared — what a click
-does is not, because a board searches and selects cards while this page searches
-and selects boards. Their own designs are [Search](Search.md) and
-[Multi-Selection](Multi-Selection.md); everything below is what is particular to
-All Boards.
+**A Blaze event map only sees events inside its own template.** These buttons
+and the sidebar's home rows are the same markup in two places, so each has its
+own map; a copy with markup but no map is a button that silently does nothing,
+which is what happened to Boards in Archive once already.
 
 **Starred is not a control here.** It is a *section*, and the left menu already
 lists it beside Templates and Remaining, counts it, and highlights it when it is
@@ -59,8 +60,8 @@ bar carries a `title`, and every title comes out of a translation key rather
 than being literal English.
 
 The ✕ that turns Multi-Selection off used to say "Clear filter", which is what a
-different control does. It says `multi-selection-off` now, in both header bars,
-because there is only one of it.
+different control does. It says `multi-selection-off` now, because there is only
+one of it.
 
 ## The right sidebar
 
@@ -72,7 +73,7 @@ same `.board-sidebar.sidebar` classes, the same `.sidebar-actions` row with the
 
 | View | Opened by | What it is |
 | --- | --- | --- |
-| `home` | the hamburger | The page's own menu: Search, Multi-Selection, and [Boards in Archive](Archive.md) — which is a page, so that row leaves the sidebar rather than opening in it. The default, as `homeSidebar` is on a board. No title and no back arrow — there is nothing behind it. |
+| `home` | the back arrow of another view | The page's own menu: Search, Multi-Selection, and [Boards in Archive](Archive.md) — which is a page, so that row leaves the sidebar rather than opening in it. The default, as `homeSidebar` is on a board. No title and no back arrow — there is nothing behind it. Nothing *opens* the sidebar here any more, since those four are in the header bar; it is what you land on going back. |
 | `search` | the Search button | [Search](Search.md) |
 | `multiselection` | the Multi-Selection button | [Multi-Selection](Multi-Selection.md) |
 
@@ -85,8 +86,8 @@ derived from the view name: deriving them produced
 all.
 
 Open/closed and which view are two separate variables, so closing does not
-forget where you were: open the sidebar with the hamburger after searching and
-you get the search you had. Clicking the button of the view already showing
+forget where you were: press Search again after closing and you get the search
+you had. Clicking the button of the view already showing
 closes the sidebar again, so the button that opened it also shuts it. Escape
 closes it — the **key** only, because the click half of `EscapeActions` would
 close it on every click, including clicks on its own contents.
@@ -98,7 +99,7 @@ On a **desktop** it is pinned to the viewport: `top` is
 kept current by a ResizeObserver in `client/lib/utils.js`, because the header is
 not one fixed height (its buttons wrap to one, two or three rows depending on
 language and window width) — and `bottom` is the window. So it is full height,
-starting below the second top header bar, exactly like the board's.
+starting below the header, exactly like the board's.
 
 It first inherited the board sidebar's `position: absolute`, which resolves
 against the nearest positioned ancestor. On a board that ancestor is the board

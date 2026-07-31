@@ -217,6 +217,54 @@ Template.allBoardsHomeSidebar.helpers({
   },
 });
 
+// The page's four controls, in the FIRST top header bar. They were rows of the
+// sidebar's home view, which meant opening a panel over the boards to reach the
+// thing you came for - and that home view was the only reason All Boards had a
+// hamburger at all.
+//
+// A Blaze event map only sees events inside its OWN template, so these are
+// their own map rather than shared with the sidebar's: the same
+// `js-all-boards-sidebar-search` markup exists in both places and each map
+// fires for its own copy. docs/Design/Page/All-Boards.md
+Template.allBoardsHeaderButtons.helpers({
+  isBoardsSort(mode) {
+    const currentUser = ReactiveCache.getCurrentUser();
+    const sortBy =
+      currentUser && typeof currentUser.getAllBoardsSortBy === 'function'
+        ? currentUser.getAllBoardsSortBy()
+        : 'custom';
+    return sortBy === mode;
+  },
+  // Multi-Selection archives and duplicates boards, so somebody who may only
+  // comment is not offered it.
+  canModifyBoards() {
+    const currentUser = ReactiveCache.getCurrentUser();
+    return currentUser && !currentUser.isCommentOnly();
+  },
+});
+
+Template.allBoardsHeaderButtons.events({
+  'click .js-open-boards-sort': Popup.open('boardsSort'),
+  // Search and Multi-Selection still open the sidebar - straight into their own
+  // view, rather than into a home view that only listed them.
+  'click .js-all-boards-sidebar-search'(evt) {
+    evt.preventDefault();
+    openAllBoardsSidebar(SIDEBAR_SEARCH);
+  },
+  'click .js-all-boards-sidebar-multiselection'(evt) {
+    evt.preventDefault();
+    BoardMultiSelection.activate();
+    openAllBoardsSidebar(SIDEBAR_MULTISELECTION);
+  },
+  // Boards in Archive is a page of its own, not a view of the sidebar, so this
+  // closes the panel rather than leaving it open over the page it navigates to.
+  'click .js-open-archived-board'(evt) {
+    evt.preventDefault();
+    closeAllBoardsSidebar();
+    FlowRouter.go('archive');
+  },
+});
+
 Template.boardList.events({});
 
 // Put the selected menu entry in the address bar. A section is its own name; a

@@ -103,19 +103,32 @@ test('All Boards has no header bar left to hold controls', () => {
     path.join(path.resolve(__dirname, '..'), 'config/router.js'), 'utf8');
   assert.ok(!/boardListHeaderBar/.test(router), 'and no route names it');
 
-  // The page body holds no controls either - that was the first move.
+  // The page BODY holds no controls - that was the first move. The scope is the
+  // board-list markup, not the whole file: the four controls are in this file
+  // now, in `allBoardsHeaderButtons`, which the first top header bar draws.
+  const body = jade.slice(0, jade.indexOf('template(name="allBoardsHeaderButtons")'));
   for (const moved of ['js-open-boards-sort', 'js-board-search-input',
     'js-multiselection-activate', 'path-right']) {
-    assert.ok(!jade.includes(moved), `${moved} must not be in the page`);
+    assert.ok(!body.includes(moved), `${moved} must not be in the page body`);
   }
 
-  // They are in the sidebar.
-  const sidebar = fs.readFileSync(
-    path.join(path.resolve(__dirname, '..'), 'client/components/boards/allBoardsSidebar.jade'), 'utf8');
+  // They are in the FIRST top header bar, as icons, left of the bell - one
+  // click, and nothing covering the boards. They were rows of the sidebar's
+  // home view before that, and that home view was the only thing All Boards'
+  // hamburger opened. docs/Design/Page/All-Boards.md
+  const buttons = jade.slice(jade.indexOf('template(name="allBoardsHeaderButtons")'));
   for (const control of ['js-open-boards-sort', 'js-all-boards-sidebar-search',
-    'js-all-boards-sidebar-multiselection']) {
-    assert.ok(sidebar.includes(control), `${control} must be a sidebar row`);
+    'js-all-boards-sidebar-multiselection', 'js-open-archived-board']) {
+    assert.ok(buttons.includes(control), `${control} must be a header button`);
   }
+  // Icons only, named by a tooltip, like every other button of that bar.
+  assert.ok(!/\n\s+span \{\{_/.test(buttons.slice(0, buttons.indexOf('\ntemplate('))),
+    'the buttons carry no visible label');
+  const topBar = fs.readFileSync(
+    path.join(path.resolve(__dirname, '..'), 'client/components/main/header.jade'), 'utf8');
+  const at = topBar.indexOf('+allBoardsHeaderButtons');
+  assert.notStrictEqual(at, -1, 'the first header bar draws them');
+  assert.ok(at < topBar.indexOf('+notifications'), 'to the LEFT of the bell');
   // The view menu is the exception: it is in the FIRST top header bar, beside
   // the page's name, because a view menu says what you are looking at.
   const header = fs.readFileSync(

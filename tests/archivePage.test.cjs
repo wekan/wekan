@@ -83,18 +83,24 @@ test('the All Boards sidebar row works at all', () => {
   // It had no handler: the one it relied on lived in the header bar's events
   // map and went when that map was rewritten for the sidebar. The button was
   // rendered, and clicking it did nothing.
-  const sidebar = read('client/components/boards/allBoardsSidebar.jade');
-  assert.ok(/js-open-archived-board/.test(sidebar), 'the row is drawn');
-  const sidebarJs = read('client/components/boards/allBoardsSidebar.js');
-  assert.ok(/'click \.js-open-archived-board'/.test(sidebarJs), 'and handled');
-  // The panel it was clicked in closes: the page it opens replaces the page the
-  // panel belongs to.
-  const at = sidebarJs.indexOf("'click .js-open-archived-board'");
-  assert.ok(/closeAllBoardsSidebar\(\)/.test(sidebarJs.slice(at, at + 300)),
-    'and the sidebar closes behind it');
-  // ...and the header bar's map, which used to own it, no longer claims to.
-  assert.ok(!/js-open-archived-board/.test(read('client/components/boards/boardsList.js')),
-    'the header bar must not handle a button it does not draw');
+  // Drawn and handled in BOTH places it exists. It is a button of the first
+  // top header bar now (boardsList.jade / .js) and still a row of the sidebar's
+  // home view (allBoardsSidebar.jade / .js) - a Blaze event map only sees
+  // events inside its own template, so each copy needs its own handler, and a
+  // copy with markup but no map is a button that silently does nothing. That
+  // is exactly what happened to this one once already.
+  for (const [jadeFile, jsFile] of [
+    ['client/components/boards/allBoardsSidebar.jade', 'client/components/boards/allBoardsSidebar.js'],
+    ['client/components/boards/boardsList.jade', 'client/components/boards/boardsList.js'],
+  ]) {
+    assert.ok(/js-open-archived-board/.test(read(jadeFile)), `${jadeFile} draws it`);
+    const js = read(jsFile);
+    assert.ok(/'click \.js-open-archived-board'/.test(js), `${jsFile} handles it`);
+    // The panel closes: the page it opens replaces the page the panel belongs to.
+    const at = js.indexOf("'click .js-open-archived-board'");
+    assert.ok(/closeAllBoardsSidebar\(\)/.test(js.slice(at, at + 300)),
+      `${jsFile}: and the sidebar closes behind it`);
+  }
 });
 
 test('the page is named once, in the TOP header bar', () => {

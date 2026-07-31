@@ -266,6 +266,30 @@ browser build to verify).
 This release adds the following new features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">All Boards keeps its four controls in the header bar, and drops the hamburger that only led to them</a>. Thanks to xet7.</summary>
+
+Sort, Search, Multi-Selection and Boards in Archive were rows of the right
+sidebar's home view, so reaching any of them meant opening a panel over the
+boards first. They are icons in the first top header bar now, left of the
+notification bell — exactly where a board's own controls are — each named by a
+tooltip.
+
+That home view was the only thing the hamburger opened, so All Boards no longer
+offers one, nor the divider before it: a menu to reach what is already one
+click away is a step with nothing in it. The sidebar is still opened, by Search
+and by Multi-Selection, straight into their own view; and its home view is
+still what the back arrow of those views leads to. A board keeps its hamburger
+— what its sidebar holds, members and labels and activities and settings, is
+not in the bar and has nowhere else to be opened from.
+
+Boards in Archive is drawn in both places now, and a Blaze event map only sees
+events inside its own template, so each copy has its own handler. A copy with
+markup and no map is a button that silently does nothing, which is what
+happened to that exact button once already; a guard now checks both.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1164785d1">The header bar names the All Boards list you are on, and the workspace inside it</a>. Thanks to xet7.</summary>
 
 The bar said "All Boards" on the Starred list, on Templates, on Remaining and

@@ -348,6 +348,26 @@ template(name="workspaceActionsPopup")
 //- It names the CURRENT view, not itself: the board header says "Swimlanes" or
 //- "Lists" rather than "Board View", and this matches it.
 //- docs/Design/Page/Header.md
+//- The page's controls, as icons, in the first top header bar - left of the
+//- bell, exactly where a board's own controls are. They were rows inside the
+//- right sidebar's home view, which meant two clicks and a panel covering the
+//- boards to reach the thing you came for; and the sidebar's home view was the
+//- ONLY reason All Boards offered a hamburger, so it does not any more. Search
+//- and Multi-Selection still open the sidebar, straight into their own view.
+//-
+//- Icon only, named by a tooltip, like every other button of this bar.
+//- docs/Design/Page/All-Boards.md
+template(name="allBoardsHeaderButtons")
+  a.board-header-btn.js-open-boards-sort(title="{{_ 'sort-boards'}}" class="{{#unless isBoardsSort 'custom'}}emphasis{{/unless}}")
+    i.fa.fa-sort
+  a.board-header-btn.js-all-boards-sidebar-search(title="{{_ 'search-boards'}}")
+    i.fa.fa-search
+  if canModifyBoards
+    a.board-header-btn.js-all-boards-sidebar-multiselection(title="{{_ 'multi-selection'}}")
+      i.fa.fa-check-square-o
+  a.board-header-btn.js-open-archived-board(title="{{_ 'archived-boards'}}")
+    i.fa.fa-archive
+
 template(name="allBoardsViewMenu")
   //- Icon only, named by a tooltip that says which view is on - the same as the
     board's view menu beside it.

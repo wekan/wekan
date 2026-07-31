@@ -119,6 +119,12 @@ template(name="header")
         if isBoardPage
           +boardHeaderButtons
 
+        //- All Boards' four controls - Sort, Search, Multi-Selection, Boards in
+          Archive - as icons, left of the bell, exactly where a board's own
+          controls are. client/components/boards/boardsList.jade
+        if isAllBoardsPage
+          +allBoardsHeaderButtons
+
         //- The view menu of whatever page has one - Swimlanes / Lists / Calendar
           / Gantt / Table / Stats on a board, Lists / Table on All Boards. A view
           menu says what you are looking AT, so it belongs beside the page's name

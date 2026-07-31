@@ -123,8 +123,24 @@ test('the hamburger is offered only where it opens something', () => {
   assert.ok(/if hasSidebar\n\s+\.board-header-btns\.header-sidebar-toggle/.test(header),
     'the hamburger is behind a check');
   const js = read('client/components/main/header.js');
-  assert.ok(/hasSidebar\(\) \{[\s\S]{0,300}hasPageSidebar\(route\)/.test(js),
+  assert.ok(/hasSidebar\(\) \{[\s\S]{0,600}hasPageSidebar\(route\)/.test(js),
     'and that check knows about the shared sidebar');
+  // ...and about the pages that have a sidebar but must not be offered the
+  // hamburger. All Boards is one: its four controls are in the first header
+  // bar, and Search and Multi-Selection open the sidebar straight into their
+  // own view, so the hamburger's only destination was a home view listing what
+  // is already one click away.
+  const { hasHamburger, NO_HAMBURGER_ROUTES } = require('../models/lib/pageSidebar');
+  assert.ok(/hasHamburger\(route\)/.test(js), 'the hamburger check is applied');
+  for (const route of ['home', 'allboards', 'public']) {
+    assert.ok(NO_HAMBURGER_ROUTES.includes(route), `${route} offers no hamburger`);
+    assert.strictEqual(hasHamburger(route), false);
+  }
+  // A board keeps its own: members, labels, activities and settings are not in
+  // the bar and have nowhere else to be opened from.
+  for (const route of ['board', 'card', 'my-cards', 'global-search']) {
+    assert.strictEqual(hasHamburger(route), true, `${route} keeps its hamburger`);
+  }
   // Which sidebar it toggles: the board\'s, All Boards\', or the shared one.
   const at = js.indexOf("'click .js-toggle-page-sidebar'");
   const body = js.slice(at, at + 700);
@@ -132,6 +148,30 @@ test('the hamburger is offered only where it opens something', () => {
   assert.ok(/hasOwnSidebar\(FlowRouter\.getRouteName\(\)\)[\s\S]{0,120}toggleAllBoardsSidebar/.test(body),
     'All Boards toggles its own');
   assert.ok(/togglePageSidebar\(\)/.test(body), 'and every other page the shared one');
+});
+
+test('and All Boards can still be opened, now that nothing hamburgers it', () => {
+  // Removing the hamburger removes the only GENERIC way in, so the two buttons
+  // that open the sidebar are the only way in at all: if their map goes, the
+  // panel becomes unreachable and Search and Multi-Selection stop existing.
+  const js = read('client/components/boards/boardsList.js');
+  const at = js.indexOf('Template.allBoardsHeaderButtons.events({');
+  assert.notStrictEqual(at, -1, 'the header buttons have their own event map');
+  const body = js.slice(at, js.indexOf('\n});', at));
+  assert.ok(/openAllBoardsSidebar\(SIDEBAR_SEARCH\)/.test(body),
+    'Search opens the sidebar on its own view');
+  assert.ok(/openAllBoardsSidebar\(SIDEBAR_MULTISELECTION\)/.test(body),
+    'Multi-Selection opens the sidebar on its own view');
+  assert.ok(/BoardMultiSelection\.activate\(\)/.test(body),
+    'and turns multi-selection on, which is what the button is for');
+  assert.ok(/Popup\.open\('boardsSort'\)/.test(body), 'Sort opens its popup');
+
+  // The home view stays reachable from inside: every other view draws a back
+  // arrow to it. It is not dead markup just because no hamburger opens it.
+  const sidebar = read('client/components/boards/allBoardsSidebar.jade');
+  assert.ok(/js-all-boards-sidebar-home/.test(sidebar),
+    'the back arrow still leads to the home view');
+  assert.ok(/template\(name="allBoardsHomeSidebar"\)/.test(sidebar), 'which exists');
 });
 
 for (const [name, fn] of tests) {

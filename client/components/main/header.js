@@ -14,7 +14,7 @@ import { headerTitle } from '/models/lib/pageTitles';
 import { getSidebarInstance } from '/client/features/sidebar/service';
 import { toggleAllBoardsSidebar } from '/client/lib/allBoardsSidebar';
 import { togglePageSidebar } from '/client/lib/pageSidebar';
-import { hasOwnSidebar, hasPageSidebar } from '/models/lib/pageSidebar';
+import { hasOwnSidebar, hasPageSidebar, hasHamburger } from '/models/lib/pageSidebar';
 import {
   ADMIN_PAGE_KEYS,
   ADMIN_PAGES,
@@ -116,6 +116,10 @@ Template.header.helpers({
   // put in one must not offer a control that opens an empty panel.
   hasSidebar() {
     const route = FlowRouter.getRouteName();
+    // All Boards has a sidebar but no hamburger: its controls are in this bar,
+    // and Search and Multi-Selection open the sidebar into their own view. A
+    // hamburger there would open a menu listing what is already one click away.
+    if (!hasHamburger(route)) return false;
     return Boolean(Utils.getCurrentBoardId()) || hasOwnSidebar(route) || hasPageSidebar(route);
   },
 

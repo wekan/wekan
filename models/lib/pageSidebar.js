@@ -31,6 +31,25 @@ const OWN_SIDEBAR_ROUTES = [
   'home', 'allboards', 'allboards-templates', 'allboards-remaining', 'public',
 ];
 
+// ...and of those, the routes that must NOT be offered the HAMBURGER.
+//
+// All Boards has a sidebar, but nothing opens it from the top of the panel any
+// more: its four controls are in the first header bar, and Search and
+// Multi-Selection open the sidebar straight into their own view. The
+// hamburger's only destination was a home view listing those same four things,
+// so it opened a menu to reach what is now one click away.
+//
+// A board keeps its hamburger: what its sidebar holds - members, labels,
+// activities, settings - is not in the bar and has nowhere else to be opened
+// from.
+const NO_HAMBURGER_ROUTES = [
+  'home', 'allboards', 'allboards-templates', 'allboards-remaining', 'public',
+];
+
+function hasHamburger(routeName) {
+  return !NO_HAMBURGER_ROUTES.includes(routeName);
+}
+
 function hasOwnSidebar(routeName) {
   return OWN_SIDEBAR_ROUTES.includes(routeName);
 }
@@ -52,7 +71,9 @@ function hasPageSidebar(routeName) {
 module.exports = {
   PAGE_SIDEBAR_TEMPLATES,
   OWN_SIDEBAR_ROUTES,
+  NO_HAMBURGER_ROUTES,
   hasOwnSidebar,
+  hasHamburger,
   pageSidebarTemplate,
   hasPageSidebar,
 };
