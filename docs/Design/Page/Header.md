@@ -89,16 +89,29 @@ The divider is the seam: everything before it belongs to the **page**, everythin
 after belongs to **you**. Without it the run of icons reads as one list of
 unrelated things.
 
-**Most buttons are icons named by a tooltip** — but not the ones whose icon does
-not say enough on its own. The two **view menus** and **Multi-Selection** carry
-their name beside the icon: six view glyphs are six things to learn, a check-box
-outline says nothing about multi-selection, and a tooltip is the one place a name
-cannot be read without hovering. Both Multi-Selection buttons carry it — the
-board's own and All Boards' are different buttons in different files. The bar
-wraps to a second row when it runs out of width, which is what makes a word
-beside an icon affordable. Sort, Search and Boards in Archive stay icons — those glyphs are well known — and a label never
-wraps mid-button, because two lines inside a one-line button is worse than the
-tooltip was.
+**A button says its name where the bar has room for it.** Sort Cards, Filter,
+Search, Show Dependencies, Multi-Selection and the view menus carry their name
+beside the icon: a tooltip is the one place a name cannot be read without
+hovering, and six view glyphs or a bare check-box outline say very little on
+their own.
+
+**Below 1100px every label goes and they are icons again.** A label is worth
+several icons' width, so on a narrow window keeping them costs more buttons off
+the first row than the names are worth — and the tooltip is still there. All of
+them together, not some: half the buttons named and half not reads as a bar that
+has been half finished, and *which* half you got would depend on which words
+happen to be short in your language. One rule hides the one class they all
+share, so none can be left behind.
+
+The threshold is the **window**, which is the honest thing to key on here: what a
+container query would measure is this bar, and this bar is as wide as the window
+by construction.
+
+A label never wraps mid-button — two lines inside a one-line button is worse than
+the tooltip was — and each one uses the **same translation key as its own
+tooltip**, so a button and its tooltip cannot say different things, and a button
+whose name changes with its state (Sort is on, Hide dependencies) says the state
+in both places.
 
 ### The star group
 

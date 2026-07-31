@@ -1713,11 +1713,29 @@ body.mobile-mode #header-quick-access .allBoards {
   border-end-end-radius: 3px;
 }
 
-/* The visible name beside a view menu's or Multi-Selection's icon. A tooltip is
-   the one place a name cannot be read without hovering, and the bar wraps to a
-   second row when it runs out of width, which is what makes the word
-   affordable. It does not wrap mid-word: a two-line label inside a one-line
-   button is worse than the tooltip was. */
+/* The visible name beside a button's icon - Sort Cards, Filter, Search, Show
+   Dependencies, Multi-Selection, and whichever view is on. A tooltip is the one
+   place a name cannot be read without hovering, so where the bar has room the
+   button says what it is. It does not wrap mid-word: a two-line label inside a
+   one-line button is worse than the tooltip was. */
 #header-quick-access .board-header-btn-label {
   white-space: nowrap;
+}
+
+/* ...and where the bar does NOT have room, every one of them goes and the
+   buttons are icons again. A label is worth several icons' width, so on a
+   narrow window keeping them costs more buttons off the first row than the
+   names are worth - and the tooltip is still there.
+
+   All of them together, not some: half the buttons named and half not reads as
+   a bar that has been half finished, and which half you got would depend on
+   which words happened to be short in your language.
+
+   The threshold is the WINDOW, which is the honest thing to key on here: what a
+   container query would measure is this bar, and this bar is as wide as the
+   window by construction. */
+@media screen and (max-width: 1100px) {
+  #header-quick-access .board-header-btn-label {
+    display: none;
+  }
 }

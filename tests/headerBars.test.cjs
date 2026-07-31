@@ -655,6 +655,28 @@ test('and a view menu says its view in words, not only in a tooltip', () => {
   assert.ok(/board-header-btn-label \{\{_ 'multi-selection'\}\}/
     .test(boardButtons.slice(0, 500)), "the board's Multi-Selection carries its name too");
 
+  // Sort Cards, Filter, Search and Show Dependencies are named too, each by the
+  // key its own tooltip uses - so the button and its tooltip cannot say
+  // different things, and a button whose name changes with its state says the
+  // state in both places.
+  const controls = boardJade.slice(boardJade.indexOf('template(name="boardHeaderButtons")'),
+    boardJade.indexOf('template(name="boardVisibilityList")'));
+  for (const [cls, keys] of [
+    ['js-sort-cards', ['sort-is-on', 'sort-cards']],
+    ['js-open-filter-view', ['filter-on-desc', 'filter']],
+    ['js-open-search-view', ['search']],
+    ['js-toggle-dependencies', ['hide-dependencies', 'show-dependencies']],
+  ]) {
+    const btnAt = controls.indexOf(cls);
+    assert.notStrictEqual(btnAt, -1, `${cls} must be in this bar`);
+    const btn = controls.slice(btnAt, btnAt + 420);
+    assert.ok(/span\.board-header-btn-label/.test(btn), `${cls} carries its name`);
+    const label = btn.slice(btn.indexOf('span.board-header-btn-label'));
+    for (const key of keys) {
+      assert.ok(label.includes(`'${key}'`), `${cls}: the label uses ${key}, as its tooltip does`);
+    }
+  }
+
   // A label must not wrap mid-button: two lines inside a one-line button is
   // worse than the tooltip was.
   const css = read('client/components/main/header.css');
@@ -662,6 +684,25 @@ test('and a view menu says its view in words, not only in a tooltip', () => {
   assert.notStrictEqual(at, -1, 'the label is styled');
   assert.ok(/white-space:\s*nowrap/.test(css.slice(at, css.indexOf('}', at))),
     'and does not wrap mid-word');
+
+  // ...and where the bar has no room, EVERY label goes and the buttons are
+  // icons again. A label is worth several icons' width, so on a narrow window
+  // keeping them costs more buttons off the first row than the names are worth.
+  // All of them together, not some: half the buttons named and half not reads
+  // as a bar half finished, and which half you got would depend on which words
+  // happen to be short in your language.
+  const hideAt = css.indexOf('@media screen and (max-width: 1100px) {');
+  assert.notStrictEqual(hideAt, -1, 'a narrow window drops the labels');
+  const media = css.slice(hideAt, css.indexOf('\n}', css.indexOf('}', hideAt)));
+  assert.ok(/#header-quick-access \.board-header-btn-label \{\s*display:\s*none/.test(media),
+    'by hiding the one class all of them share, so none can be left behind');
+  // The name is still reachable: every one of these buttons has a tooltip.
+  for (const cls of ['js-sort-cards', 'js-open-filter-view', 'js-open-search-view',
+    'js-toggle-dependencies', 'js-multiselection-activate']) {
+    const btnAt = controls.indexOf(cls);
+    assert.ok(/title="/.test(controls.slice(btnAt - 120, btnAt + 300)),
+      `${cls} still names itself in a tooltip when the label is gone`);
+  }
 });
 
 test('and the Filter button shuts the panel it opened', () => {
