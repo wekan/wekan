@@ -460,11 +460,19 @@ and updates the following dependencies:
 - **meteor-node-stubs fork** — the Node core-module shims the browser bundle is
   built against, forked into `npm-packages/meteor-node-stubs`.
   [Update](https://github.com/wekan/wekan/commit/9c5ff4f9f). Thanks to xet7.
+- **@meteorjs/rspack 2.0.1 → 2.1.0-beta.0** — the rspack bundler Meteor builds
+  the client with, the counterpart of the 3.5.1-beta.0 release above. It moved
+  to rimraf 6, whose glob 13 no longer ships a command line of its own, so
+  twenty-seven packages leave the lockfile with it (975 → 948) without anything
+  being dropped from WeKan itself. `archiver` and `unzipper` also move into
+  alphabetical order in `package.json`, which changes nothing that is
+  installed. [Update](https://github.com/wekan/wekan/commit/91e8e05db). Thanks
+  to developers of dependencies and xet7.
 
 and fixes the following bugs:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7d9a2e303">A filter no longer leaves a spinner turning over an empty list, and a half-arrived card is not drawn as a blank box</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/7d9a2e303">A filter no longer leaves a spinner turning over an empty list, and a half-arrived card is not drawn blank</a>. Thanks to xet7.</summary>
 
 Two problems from one report with screenshots, both in how a list decides what
 to draw at its bottom edge.
