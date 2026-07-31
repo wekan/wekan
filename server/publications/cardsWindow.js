@@ -3,7 +3,11 @@ import { publishComposite } from 'meteor/reywood:publish-composite';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
 const { hasWhere } = require('/models/lib/mongoSelectorSafety');
-const { boardCardScope } = require('/models/lib/boardCardScope');
+const {
+  boardCardScope,
+  assignedOnlyCardScope,
+  mergeCardScope,
+} = require('/models/lib/boardCardScope');
 const { sortWithIdTiebreaker } = require('/models/lib/cardSortTiebreaker');
 const {
   effectiveBoardCardsMode,
@@ -61,22 +65,36 @@ publishComposite('boardCardsWindow', function(boardId, cardSelector, sort, limit
   // feeding the client's #each an inconsistent ordered set).
   const sortOpt = sortWithIdTiebreaker(sort || { sort: 1 });
 
-  // The window's card selector, scoped to the board. Merge the board scope with the
-  // client selector at the TOP level (rather than wrapping both in a `$and`) so
-  // `boardId`/`archived` push down to FerretDB v1 (SQLite)'s index: FerretDB does NOT
-  // push down a top-level `$and`, so the wrapped form full-scanned the whole `cards`
-  // table on every poll and the window never became ready — cards never loaded on a
-  // big (lazy) board (10.22). Merging is EXACTLY equivalent to the `$and` as long as
-  // the client selector has no own `boardId`/`archived` key (it does not — it is a
-  // per-list listId + swimlane selector); if it ever did, fall back to `$and` so the
-  // semantics stay correct. The in-Go filter remains the authority either way.
-  const safeCollides =
-    Object.prototype.hasOwnProperty.call(safe, 'boardId') ||
-    Object.prototype.hasOwnProperty.call(safe, 'archived');
+  // The window's card selector, scoped to the board — and, for an ASSIGNED-ONLY
+  // member, to the cards they are assigned to.
+  //
+  // That restriction was missing here. The `board` publication has always narrowed
+  // its card cursor with `assignees: { $in: [userId] }` for a member carrying
+  // isReadAssignedOnly / isNormalAssignedOnly / isCommentAssignedOnly, but this
+  // publication — which is what ships the cards in LAZY card-loading mode — did
+  // not. So whether the restriction applied at all depended on the board's
+  // card-loading mode: the same member saw only their own cards on a small board
+  // and every card in the window on a big one. It has to hold in both, so it is
+  // part of the window scope now, and because `windowCardIds` builds on the same
+  // selector, the window's comments, attachments, checklists and checklist items
+  // are narrowed with it rather than leaking the children of cards whose minicard
+  // is not published.
+  //
+  // mergeCardScope keeps the scope at the TOP level whenever it can: FerretDB v1
+  // (SQLite) does NOT push a top-level `$and` down to its index, so the wrapped
+  // form full-scanned the whole `cards` table on every poll and the window never
+  // became ready — cards never loaded on a big (lazy) board (10.22). It falls back
+  // to `$and` only when the client selector already speaks for one of the scope's
+  // keys, where a merge would silently replace one with the other — which for
+  // `assignees` is the difference between enforcing the restriction and dropping
+  // it, since the board Filter has an assignee filter of its own. The in-Go filter
+  // remains the authority either way.
   const windowSel = board =>
-    safeCollides
-      ? { $and: [safe, { boardId: board._id, archived: false }] }
-      : { ...safe, boardId: board._id, archived: false };
+    mergeCardScope(safe, {
+      boardId: board._id,
+      archived: false,
+      ...assignedOnlyCardScope(board, userId),
+    });
 
   // The ids of the cards in this window. Used to publish the window's comments,
   // attachments, checklists and checklist items with ONE cursor each
@@ -101,7 +119,18 @@ publishComposite('boardCardsWindow', function(boardId, cardSelector, sort, limit
     async find() {
       const board = await boardVisibleTo(userId, boardId);
       if (!board) return [];
-      return Boards.find({ _id: boardId }, { fields: { _id: 1 }, limit: 1 });
+      // `members` is published because the CHILDREN below need it: publish-composite
+      // hands each child the document as this cursor published it, so with the old
+      // `{ _id: 1 }` projection `board.members` was undefined in every child and
+      // assignedOnlyCardScope() could never see a flag to act on. It also makes the
+      // restriction reactive — changing a member's assigned-only flag re-runs the
+      // window instead of taking effect on the next subscribe. The board publication
+      // already ships this board's members to the same client, so nothing new is
+      // exposed by it.
+      return Boards.find(
+        { _id: boardId },
+        { fields: { _id: 1, members: 1 }, limit: 1 },
+      );
     },
     children: [
       // The window's cards.
@@ -161,7 +190,16 @@ Meteor.publish('boardListCardCount', async function(countId, boardId, cardSelect
     return this.ready();
   }
 
-  const sel = { $and: [cardSelector, { boardId, archived: false }] };
+  // The same assigned-only narrowing as the window above: a member who may only
+  // see the cards assigned to them must not be TOLD there are more. This count is
+  // what the list's "load more" spinner is decided from, so leaving it unrestricted
+  // both leaked how many cards the list really holds and offered to scroll in
+  // cards that would never arrive.
+  const sel = mergeCardScope(cardSelector, {
+    boardId,
+    archived: false,
+    ...assignedOnlyCardScope(board, this.userId),
+  });
   let count = 0;
   let initializing = true;
 
