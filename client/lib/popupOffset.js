@@ -52,8 +52,22 @@ function computePopupOffset(params) {
     return { left: 0, top: 0 };
   }
 
-  // Actual popup width from CSS: min(380px, 55vw).
-  const popupWidth = Math.min(380, viewportWidth * 0.55);
+  // Actual popup width from CSS: min(380px, 55vw)...
+  //
+  // ...except for the popups that lay their content out in COLUMNS, which are
+  // given more width in popup.css so more of it is visible at once. The clamp
+  // below has to know the REAL width: computed for 380px, a 720px popup opened
+  // from a button near the right edge is placed with 340px of itself off the
+  // screen. Keep these in step with the width rules in popup.css.
+  const WIDE_POPUP_WIDTHS = {
+    // Select Color: the swatches are a grid, so width buys columns.
+    changeColorPopup: 720,       // Member Settings / Change Color
+    boardChangeColorPopup: 720,  // Board Settings / Change Color
+  };
+  const wide = WIDE_POPUP_WIDTHS[popupName];
+  const popupWidth = wide
+    ? Math.min(wide, viewportWidth * 0.9)
+    : Math.min(380, viewportWidth * 0.55);
 
   // Card details popup: docked to the top of the viewport (CSS also forces
   // top:0) so it overlays the header bars instead of opening from the minicard.

@@ -116,4 +116,32 @@ test('custom colors applied as CSS variables + consumed by customTheme.css', () 
     'clear gradient consumed');
 });
 
+test('the swatches take as many columns as the width allows', () => {
+  // The swatch list is shared with the board-BACKGROUND picker, where it is a
+  // float-based two-column grid (boardsList.css). Two columns is right for
+  // background thumbnails; for Select Color it meant Flat, Clear, Dark and
+  // Special each ran down the popup in a narrow pair, most of them below the fold
+  // however wide the browser was. Auto-filling columns instead - the same answer
+  // as the Change Language popup, and it collapses to one column on a narrow
+  // window by itself, so a phone needs no media query.
+  const css = read('client/components/main/customTheme.css');
+  const at = css.indexOf('.theme-color-picker .board-backgrounds-list {');
+  assert.ok(at > -1, 'the picker must lay its swatch list out itself');
+  const rule = css.slice(at, css.indexOf('}', at));
+  assert.ok(/display: grid/.test(rule), 'as a grid');
+  assert.ok(/grid-template-columns: repeat\(auto-fill, minmax\(\d+px, 1fr\)\)/.test(rule),
+    'auto-filling, so more width means more columns');
+
+  // Scoped: the board-background picker must keep its pairs.
+  assert.ok(!/^\.board-backgrounds-list \{/m.test(css),
+    'the grid must not be applied to every board-backgrounds-list');
+
+  // The float rules have to be undone, or a floated grid item stays floated and
+  // `width: 50%` leaves every other column half empty.
+  const undo = css.slice(css.indexOf('.theme-color-picker .board-backgrounds-list .board-background-select'));
+  const undoRule = undo.slice(0, undo.indexOf('}'));
+  assert.ok(/float: none/.test(undoRule) && /width: auto/.test(undoRule),
+    'the shared float/50% rules must be undone inside the grid');
+});
+
 console.log(`\nAll ${passed} theme-color-picker tests passed`);

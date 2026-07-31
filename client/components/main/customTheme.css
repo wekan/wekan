@@ -47,3 +47,30 @@
   margin: 0 0 4px;
   padding: 0;
 }
+
+/* As many colour swatches visible at once as the width allows.
+ *
+ * The swatch list is shared with the board-background picker, where it is a
+ * float-based TWO-column grid (boardsList.css: `float: inline-start; width: 50%`).
+ * Two columns is right for background thumbnails; for the Select Color picker it
+ * meant Flat, Clear, Dark and Special each ran down the popup in a narrow pair,
+ * and most of them were below the fold however wide the browser was.
+ *
+ * Auto-filling columns instead - the same answer as the Change Language popup
+ * (popup.css), for the same reason. `auto-fill` + `minmax` takes as many columns
+ * as fit and collapses to one on a narrow window, so no media query is needed and
+ * a phone is unaffected. Scoped to `.theme-color-picker`, so the board-background
+ * picker keeps its pairs.
+ *
+ * The float rules have to be undone explicitly: a floated grid item is still
+ * floated, and `width: 50%` would leave every other column half empty. */
+.theme-color-picker .board-backgrounds-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 8px;
+}
+.theme-color-picker .board-backgrounds-list .board-background-select {
+  float: none;
+  width: auto;
+  padding: 0;
+}

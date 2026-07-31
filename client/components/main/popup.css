@@ -259,6 +259,25 @@
   visibility: hidden !important;
 }
 
+/* Select Color (Member Settings and Board Settings) is wide enough for several
+ * columns of swatches, the same idea as the language popup below: width buys
+ * columns, and the picker's grid (customTheme.css) takes as many as fit.
+ *
+ * Desktop only. Below 800px popup.css lays every popup out as a full-screen
+ * sheet, and an !important width here would fight that rule and win.
+ *
+ * 720px is mirrored in client/lib/popupOffset.js: the JS clamps a popup into the
+ * viewport using its width, and computed for the default 380px it would place a
+ * wide popup opened near the right edge with a third of itself off the screen.
+ * Change one and change the other. */
+@media screen and (min-width: 801px) {
+  .pop-over[data-popup='changeColorPopup'],
+  .pop-over[data-popup='boardChangeColorPopup'] {
+    width: min(90vw, 720px) !important;
+    max-width: 90vw !important;
+  }
+}
+
 /* Make language popup extend to bottom of browser window */
 .pop-over[data-popup='changeLanguagePopup'] {
   position: fixed !important;
