@@ -498,7 +498,7 @@ fixed-height thing above the scrolling list.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b7ad49c7b">All Boards: no Starred button in the bar, Multi-Selection after the view menu, a narrower search</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/fa6bcd1f4">All Boards: no Starred button in the bar, Multi-Selection after the view menu, a narrower search</a>. Thanks to xet7.</summary>
 
 Starred was the first button in the header bar, and Starred is a **section**:
 the left menu already lists it beside Templates and Remaining, counts it, and
