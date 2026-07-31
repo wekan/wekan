@@ -106,6 +106,24 @@ test('the two columns, and only those two', () => {
     'a row must have exactly one cell per column, or the table is shifted');
 });
 
+test('the page does not print a second title', () => {
+  // The route renders boardListHeaderBar, whose h1 already says "Public". The
+  // shared table page prints a title only when one is supplied - so supplying one
+  // here put the same heading on the screen twice.
+  const data = js.slice(js.indexOf('tablePageData() {'));
+  const helper = data.slice(0, data.indexOf('\n  },'));
+  // The LAST `return {` is the table-page context; the earlier one is the row
+  // object built for each board, which legitimately has a `title`.
+  const ret = helper.slice(helper.lastIndexOf('return {'));
+  assert.ok(!/titleKey:/.test(ret), 'the page must supply no titleKey');
+  assert.ok(!/^\s+title:/m.test(ret), 'and no title of its own');
+  assert.ok(/emptyKey:/.test(ret), 'and this really is the table-page context');
+
+  const headerBar = read('client/components/boards/boardsList.jade');
+  assert.ok(/template\(name="boardListHeaderBar"\)\n  h1 \{\{_ title \}\}/.test(headerBar),
+    'because that heading is what the header bar renders');
+});
+
 test('the header labels are translation keys that exist', () => {
   const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
   const at = js.indexOf('const COLUMNS = [');
@@ -113,9 +131,8 @@ test('the header labels are translation keys that exist', () => {
   for (const key of [...spec.matchAll(/labelKey: '([\w-]+)'/g)].map(m => m[1])) {
     assert.ok(key in en, `${key} is missing from en.i18n.json`);
   }
-  for (const key of ['public-boards', 'no-results']) {
-    assert.ok(js.includes(`'${key}'`) && key in en, `${key} must exist and be used`);
-  }
+  assert.ok(js.includes("'no-results'") && 'no-results' in en,
+    'the empty message must exist and be used');
 });
 
 test('ten rows per page, paged and counted on the SERVER', () => {

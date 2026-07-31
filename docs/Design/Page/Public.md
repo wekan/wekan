@@ -20,6 +20,12 @@ was not.
 So the page is **only the table**. There is no left menu, no create action, no
 selection, no drag, and nothing on it changes anything.
 
+It supplies **no title** to the shared table page, because the route already
+renders one: `boardListHeaderBar`'s `h1` says "Public" above it. The shared page
+prints a title only when it is given one, for exactly this reason — the Admin
+Panel panes supply none either, since their heading comes from the active left
+menu entry.
+
 ## Read-only
 
 The only thing a row does is **open its board**. There is no starring, no

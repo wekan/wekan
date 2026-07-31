@@ -84,7 +84,11 @@ Template.publicBoards.helpers({
     });
 
     return {
-      titleKey: 'public-boards',
+      // NO titleKey. The page already has a heading: the route renders
+      // `boardListHeaderBar`, whose `h1` says "Public". The shared table page
+      // prints a title only when one is supplied, precisely so a page that
+      // already has a heading does not show two - the same reason the Admin
+      // Panel panes supply none (docs/Design/Page/Table.md).
       header: buildHeader(COLUMNS),
       // A row template, not `rows`: see COLUMNS above.
       rowTemplate: 'publicBoardRow',
