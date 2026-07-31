@@ -266,7 +266,7 @@ browser build to verify).
 This release fixes the following bugs:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/acc350db5">A filter no longer leaves a spinner turning over an empty list, and a half-arrived card is not drawn as a blank box</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/7d9a2e303">A filter no longer leaves a spinner turning over an empty list, and a half-arrived card is not drawn as a blank box</a>. Thanks to xet7.</summary>
 
 Two problems from one report with screenshots, both in how a list decides what
 to draw at its bottom edge.
@@ -319,7 +319,7 @@ for anyway.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e983e992b">Clicking outside the filter panel closes it</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1de699aca">Clicking outside the filter panel closes it</a>. Thanks to xet7.</summary>
 
 "If I use any filter, the modal that appears on screen sometimes doesn't
 disappear. Ideally, this should close the moment I click anything outside the
@@ -352,7 +352,7 @@ were using.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/435ccb733">An assigned-only member sees only their own cards on a big board too</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/550cd5c68">An assigned-only member sees only their own cards on a big board too</a>. Thanks to xet7.</summary>
 
 Three board-member flags mean the same thing — `isReadAssignedOnly`,
 `isNormalAssignedOnly`, `isCommentAssignedOnly` — the member may only see the
@@ -394,7 +394,7 @@ everything, and an unrestricted member keeps the fast path.
 and documents the following:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/0b59781e1">What each board role may and may not do, as one table, read from the code</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/744df4154">What each board role may and may not do, as one table, read from the code</a>. Thanks to xet7.</summary>
 
 There was no comparison of the roles anywhere. Members.md listed three of them —
 Admin, Normal, Comment only — in one line each, and there are **nine**: board
@@ -436,7 +436,7 @@ still real and still explained — so fixing one has to update the page with it.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/01e233452">Board roles: one capability table, three roles fixed, and a Roles Status pane that shows it</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/efa534fdd">Board roles: one capability table, three roles fixed, and a Roles Status pane that shows it</a>. Thanks to xet7.</summary>
 
 What each role may do was spelled out THREE times — in the server allow helpers,
 in the client's `canModify*` helpers, and in prose in the docs — and the three
@@ -484,7 +484,7 @@ Save button as they are ticked, before saving.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/cc2748f60">Search All Boards searches all of your boards, not every board on the server</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/96289e118">Search All Boards searches all of your boards, not every board on the server</a>. Thanks to xet7.</summary>
 
 The board scope listed the ways a user reaches a board — member, organization,
 team, e-mail domain — and `{ permission: 'public' }`. That last one is the odd
@@ -506,7 +506,7 @@ instance, with nothing looking wrong.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a56264c77">Public Boards no longer lists the internal Subtasks boards</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a4475e57e">Public Boards no longer lists the internal Subtasks boards</a>. Thanks to xet7.</summary>
 
 WeKan creates boards of its own to hold machinery — a subtasks board, for one.
 Nobody chose to make one and nobody means to open one, so no list of boards
@@ -523,7 +523,7 @@ their callers.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5197d734b">Remove the 100% zoom control from the header</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2f0445102">Remove the 100% zoom control from the header</a>. Thanks to xet7.</summary>
 
 It scaled the board with a CSS transform, it did not work, and there is no plan
 to fix it — WeKan already has a font-size setting, which is what the control was
@@ -538,7 +538,7 @@ had accumulated. The card zoom is a different feature and is untouched.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7a5f59c54">Change Color shows as many swatch columns as the width allows</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/95b0acd0b">Change Color shows as many swatch columns as the width allows</a>. Thanks to xet7.</summary>
 
 The swatch list is shared with the board-background picker, where it is a
 float-based two-column grid. Two columns is right for background thumbnails; for
@@ -557,7 +557,7 @@ near the right edge with a third of itself off the screen.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e010bddc5">Member Settings / Change Settings: the button is Save, and it has a theme</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/15157cde0">Member Settings / Change Settings: the button is Save, and it has a theme</a>. Thanks to xet7.</summary>
 
 It said "Apply" while every other settings form in WeKan says Save, and it was
 pure black. Both came from one line: the submit carried no `primary` class, so
@@ -572,7 +572,7 @@ and updates the following dependency:
 - **aldeed:collection2 4.2.0 → 4.2.1** — cleans and validates every write
   against a collection's SimpleSchema, so it is on the path of every insert and
   update WeKan makes.
-  [Update](https://github.com/wekan/wekan/commit/87d56b3df). Thanks to xet7.
+  [Update](https://github.com/wekan/wekan/commit/885a11f1e). Thanks to xet7.
 
 # v10.53 2026-07-31 WeKan ® release
 
