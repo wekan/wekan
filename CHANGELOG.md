@@ -296,14 +296,16 @@ every one at first.
 Sort Cards, Filter, Search, Show Dependencies, the board's visibility (Private
 or Public), its watch level (Watching, Tracking or Muted), both Multi-Selection
 buttons and the two view menus carry their name beside the icon where the bar
-has room for it — a tooltip is the one place a name cannot be read without hovering. Below
-1100px every one of those labels goes and they are icons again: a label is worth
-several icons' width, so on a narrow window keeping them costs more buttons off
-the first row than the names are worth. All of them together, not some, because
-half the buttons named and half not reads as a bar half finished — and which
-half you got would depend on which words happen to be short in your language.
-Each label uses the same translation key as its own tooltip, so the two cannot
-say different things.
+has room for it — a tooltip is the one place a name cannot be read without
+hovering. Below 1100px every one of those labels goes and they are icons again:
+a label is worth several icons' width, so on a narrow window keeping them costs
+more buttons off the first row than the names are worth. All of them together,
+not some, because half the buttons named and half not reads as a bar half
+finished — and which half you got would depend on which words happen to be
+short in your language. All Boards' four controls — Sort Boards, Search,
+Multi-Selection and Boards in Archive — are named the same way. Each label uses
+the same translation key as its own tooltip, so the two cannot say different
+things.
 Six view glyphs are six things to learn, a check-box outline says nothing about
 multi-selection, and a tooltip is the one place a name cannot be read without
 hovering. The bar wraps to a second row when it runs out of width, which is what

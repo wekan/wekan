@@ -355,19 +355,23 @@ template(name="workspaceActionsPopup")
 //- ONLY reason All Boards offered a hamburger, so it does not any more. Search
 //- and Multi-Selection still open the sidebar, straight into their own view.
 //-
-//- Icon only, named by a tooltip, like every other button of this bar.
+//- Each names itself beside its icon where the bar has room, and the one rule
+//- in header.css drops every label below 1100px, leaving the tooltips.
 //- docs/Design/Page/All-Boards.md
 template(name="allBoardsHeaderButtons")
   a.board-header-btn.js-open-boards-sort(title="{{_ 'sort-boards'}}" class="{{#unless isBoardsSort 'custom'}}emphasis{{/unless}}")
     i.fa.fa-sort
+    span.board-header-btn-label {{_ 'sort-boards'}}
   a.board-header-btn.js-all-boards-sidebar-search(title="{{_ 'search-boards'}}")
     i.fa.fa-search
+    span.board-header-btn-label {{_ 'search-boards'}}
   if canModifyBoards
     a.board-header-btn.js-all-boards-sidebar-multiselection(title="{{_ 'multi-selection'}}")
       i.fa.fa-check-square-o
       span.board-header-btn-label {{_ 'multi-selection'}}
   a.board-header-btn.js-open-archived-board(title="{{_ 'archived-boards'}}")
     i.fa.fa-archive
+    span.board-header-btn-label {{_ 'archived-boards'}}
 
 template(name="allBoardsViewMenu")
   //- The name is visible beside the icon, the same as the board's view menu:

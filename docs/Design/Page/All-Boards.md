@@ -23,6 +23,9 @@ same emphasis state when a control is on.
 | Boards in Archive | `fa-archive` | Leaves for [the archive page](Archive.md), and closes the sidebar behind it. |
 | Lists / Table | `fa-trello` / `fa-table` | The view menu — see below. |
 
+Each names itself beside its icon where the bar has room for it, and loses the
+label below 1100px with every other one — see [the header](Header.md).
+
 They have been in three places. They were a row of the page's own body, then a
 second top header bar, then rows of the right sidebar's home view — and that
 last one meant opening a panel *over the boards* to reach the thing you came

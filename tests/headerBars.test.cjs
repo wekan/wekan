@@ -647,8 +647,23 @@ test('and a view menu says its view in words, not only in a tooltip', () => {
   // own. Sort, Search and Archive stay icons: those glyphs are well known.
   const buttons = allJade.slice(allJade.indexOf('template(name="allBoardsHeaderButtons")'));
   const btnHead = buttons.slice(0, buttons.indexOf('\n\ntemplate('));
-  assert.ok(/js-all-boards-sidebar-multiselection[\s\S]{0,200}board-header-btn-label \{\{_ 'multi-selection'\}\}/
-    .test(btnHead), 'Multi-Selection carries its name');
+  // All four of All Boards' controls are named, each by the key its own tooltip
+  // uses. They were icon-only; a tooltip is the one place a name cannot be read
+  // without hovering, and they lose the label below 1100px like every other.
+  for (const [cls, key] of [
+    ['js-open-boards-sort', 'sort-boards'],
+    ['js-all-boards-sidebar-search', 'search-boards'],
+    ['js-all-boards-sidebar-multiselection', 'multi-selection'],
+    ['js-open-archived-board', 'archived-boards'],
+  ]) {
+    const btnAt = btnHead.indexOf(cls);
+    assert.notStrictEqual(btnAt, -1, `${cls} must be an All Boards header button`);
+    const btn = btnHead.slice(btnAt, btnAt + 260);
+    assert.ok(btn.includes(`board-header-btn-label {{_ '${key}'}}`),
+      `${cls} carries its name, from ${key}`);
+    assert.ok(btn.includes(`title="{{_ '${key}'}}"`),
+      `${cls}: and its tooltip uses the same key`);
+  }
   // ...and so does the BOARD's own, which is a different button in a different
   // file and was left unnamed when the All Boards one was done.
   const boardButtons = boardJade.slice(boardJade.indexOf('js-multiselection-activate'));
