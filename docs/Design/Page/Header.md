@@ -81,9 +81,10 @@ unrelated things.
 not say enough on its own. The two **view menus** and **Multi-Selection** carry
 their name beside the icon: six view glyphs are six things to learn, a check-box
 outline says nothing about multi-selection, and a tooltip is the one place a name
-cannot be read without hovering. The bar wraps to a second row when it runs out
-of width, which is what makes a word beside an icon affordable. Sort, Search and
-Boards in Archive stay icons — those glyphs are well known — and a label never
+cannot be read without hovering. Both Multi-Selection buttons carry it — the
+board's own and All Boards' are different buttons in different files. The bar
+wraps to a second row when it runs out of width, which is what makes a word
+beside an icon affordable. Sort, Search and Boards in Archive stay icons — those glyphs are well known — and a label never
 wraps mid-button, because two lines inside a one-line button is worse than the
 tooltip was.
 
@@ -106,6 +107,17 @@ one is black — the toggle is a white box sitting on the bar, so a dark border
 shows against it, while these buttons sit on the bar's own colour and need a
 light one. Without any outline the two read as unrelated icons that happen to be
 adjacent.
+
+The dropdown's popup is **titled** "Starred Boards" and so has a header, and the
+header is what carries the close button — a titleless pop-over renders `no-title`
+with nothing to shut it but clicking away.
+
+The title reuses `starred-boards`, the key the app **already** has for that
+phrase, through a `titleKey` option on `Popup.open`. The convention is
+`<popupName>-title`, which is right when a title is that popup's own words and
+wrong here: it would put a second copy of one phrase into all 147 language files,
+English in every one at first, so most languages would show English for something
+they have already translated.
 
 The star shows its **state** (hollow when not starred, solid when starred) and
 says the **action** in its tooltip. It is its own template, `boardStarButton`, so

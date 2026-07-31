@@ -251,7 +251,14 @@ Template.header.helpers({
 Template.header.events({
   // The starred boards, by name. They were listed inline in this bar; the bar
   // is one row now and the names are in the popup. docs/Design/Page/Header.md
-  'click .js-open-starred-boards': Popup.open('starredBoards'),
+  // Titled "Starred Boards", from the key the app already has for that phrase,
+  // rather than a `starredBoardsPopup-title` of its own: the convention key
+  // would be a second copy of one phrase in all 147 language files, English in
+  // every one of them at first, so most languages would show English for
+  // something they have already translated. A title also gives the popup its
+  // header, and with it the close button - without one it renders as a
+  // `no-title` pop-over with nothing to shut it but clicking away.
+  'click .js-open-starred-boards': Popup.open('starredBoards', { titleKey: 'starred-boards' }),
   // The one hamburger, in the bar that is always on screen. Which sidebar it
   // toggles depends on where you are: a board has its own, and every other page
   // shares one. docs/Design/Page/Header.md

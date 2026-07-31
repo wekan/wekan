@@ -263,8 +263,29 @@ test('starred boards are a dropdown, not a row of links', () => {
   assert.ok(/pathFor 'board' id=_id slug=slug/.test(popup), 'each one a link to it');
   assert.ok(/fa-check/.test(popup), 'with a check on the one you are looking at');
   assert.ok(/else\n\s+li\.no-items-message/.test(popup), 'and something to say when none are');
-  assert.ok(/'click \.js-open-starred-boards': Popup\.open\('starredBoards'\)/.test(js),
-    'and the button opens it');
+  assert.ok(/'click \.js-open-starred-boards': Popup\.open\('starredBoards', \{ titleKey: 'starred-boards' \}\)/
+    .test(js), 'and the button opens it, titled');
+  // A title is what gives a pop-over its header, and the header is what carries
+  // the close button - a titleless one renders `no-title` with nothing to shut
+  // it but clicking away.
+  const popupTpl = read('client/components/main/popup.tpl.jade');
+  assert.ok(/class="\{\{#unless title\}\}no-title\{\{\/unless\}\}"/.test(popupTpl),
+    'a titleless popup is drawn without its header');
+  assert.ok(/a\.close-btn\.js-close-pop-over/.test(popupTpl),
+    'and the header is where the close button lives');
+  // The title reuses the key the app ALREADY has for that phrase. The
+  // convention is `<popupName>-title`, which would be a second copy of one
+  // phrase in all 147 language files - English in every one at first, so most
+  // languages would show English for something already translated.
+  const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
+  assert.strictEqual(en['starred-boards'], 'Starred Boards', 'the existing key');
+  assert.ok(!('starredBoardsPopup-title' in en),
+    'and no duplicate of it under the convention name');
+  const popupJs = read('client/lib/popup.js');
+  assert.ok(/open\(name, openOptions = \{\}\)/.test(popupJs), 'open takes the option');
+  assert.ok(/_getTitle\(popupName, titleKey\)/.test(popupJs), 'and passes it through');
+  assert.ok(/const translationKey = titleKey \|\| `\$\{popupName\}-title`/.test(popupJs),
+    'an explicit key wins, and the convention still applies without one');
 
   // The inline list is gone from the bar - except on a phone INSIDE a list,
   // where it shows that board's LISTS, which is a different thing.
@@ -612,6 +633,11 @@ test('and a view menu says its view in words, not only in a tooltip', () => {
   const btnHead = buttons.slice(0, buttons.indexOf('\n\ntemplate('));
   assert.ok(/js-all-boards-sidebar-multiselection[\s\S]{0,200}board-header-btn-label \{\{_ 'multi-selection'\}\}/
     .test(btnHead), 'Multi-Selection carries its name');
+  // ...and so does the BOARD's own, which is a different button in a different
+  // file and was left unnamed when the All Boards one was done.
+  const boardButtons = boardJade.slice(boardJade.indexOf('js-multiselection-activate'));
+  assert.ok(/board-header-btn-label \{\{_ 'multi-selection'\}\}/
+    .test(boardButtons.slice(0, 500)), "the board's Multi-Selection carries its name too");
 
   // A label must not wrap mid-button: two lines inside a one-line button is
   // worse than the tooltip was.

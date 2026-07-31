@@ -66,6 +66,9 @@ template(name="boardHeaderButtons")
               title="{{#if MultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}"
               class="{{#if MultiSelection.isActive}}emphasis{{/if}}")
             i.fa.fa-check-square-o
+            //- Named, like the board's Multi-Selection on All Boards: a
+              check-box outline says nothing about what the button does.
+            span.board-header-btn-label {{_ 'multi-selection'}}
           if MultiSelection.isActive
             a.board-header-btn-close.js-multiselection-reset(title="{{_ 'multi-selection-off'}}")
               i.fa.fa-times-thin

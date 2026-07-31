@@ -286,7 +286,15 @@ not while a filter is ON, because the sidebar is then the one place that says
 what is being hidden from the board, and closing it would leave a board showing
 a subset of its cards with nothing to say so.
 
-The two view menus and Multi-Selection carry their name beside the icon again.
+The starred-boards popup has a title, "Starred Boards", and so has a header —
+and the header is what carries the close button; without a title it rendered
+with nothing to shut it but clicking away. The title reuses the key the app
+already has for that phrase rather than a `starredBoardsPopup-title` of its own,
+which would be a second copy of one phrase in all 147 language files, English in
+every one at first.
+
+The two view menus and both Multi-Selection buttons carry their name beside the
+icon again.
 Six view glyphs are six things to learn, a check-box outline says nothing about
 multi-selection, and a tooltip is the one place a name cannot be read without
 hovering. The bar wraps to a second row when it runs out of width, which is what
