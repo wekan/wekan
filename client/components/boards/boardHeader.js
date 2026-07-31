@@ -7,6 +7,8 @@ import Boards from '/models/boards';
 import Swimlanes from '/models/swimlanes';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { Filter } from '/client/lib/filter';
+// Which way the Filter button goes on a click - one answer, in one place.
+import { FILTER_CLOSE, filterButtonAction } from '/models/lib/filterButton';
 import { MultiSelection } from '/client/lib/multiSelection';
 import { getSidebarInstance } from '/client/features/sidebar/service';
 import { Utils } from '/client/lib/utils';
@@ -94,18 +96,6 @@ Template.boardHeaderButtons.helpers({
     return currentBoard && currentBoard.getWatchLevel(Meteor.userId());
   },
 
-  isStarred() {
-    const boardId = Session.get('currentBoard');
-    const user = ReactiveCache.getCurrentUser();
-    return user && user.hasStarred(boardId);
-  },
-
-  // Only show the star counter if the number of star is greater than 2
-  showStarCounter() {
-    const currentBoard = Utils.getCurrentBoard();
-    return currentBoard && currentBoard.stars >= 2;
-  },
-
   boardView() {
     return Utils.boardView();
   },
@@ -129,14 +119,38 @@ Template.boardHeaderButtons.helpers({
   },
 });
 
-Template.boardHeaderButtons.events({
-  'click .js-edit-board-title': Popup.open('boardChangeTitle'),
+// The board star, in its own template because the first header bar places it
+// beside the starred-boards dropdown. A Blaze event map only sees events inside
+// its own template, so its helpers and its click come with its markup.
+Template.boardStarButton.helpers({
+  isStarred() {
+    const boardId = Session.get('currentBoard');
+    const user = ReactiveCache.getCurrentUser();
+    return user && user.hasStarred(boardId);
+  },
+
+  // Only show the star counter if the number of stars is greater than 2.
+  showStarCounter() {
+    const currentBoard = Utils.getCurrentBoard();
+    return currentBoard && currentBoard.stars >= 2;
+  },
+
+  currentBoard() {
+    return Utils.getCurrentBoard();
+  },
+});
+
+Template.boardStarButton.events({
   'click .js-star-board'() {
     const boardId = Session.get('currentBoard');
     if (boardId) {
       Meteor.call('toggleBoardStar', boardId);
     }
   },
+});
+
+Template.boardHeaderButtons.events({
+  'click .js-edit-board-title': Popup.open('boardChangeTitle'),
   'click .js-change-visibility': Popup.open('boardChangeVisibility'),
   'click .js-watch-board': Popup.open('boardChangeWatch'),
   // Boards in Archive is a PAGE now, not a modal - go to it.
@@ -170,13 +184,26 @@ Template.boardHeaderButtons.events({
       }
     }
   },
+  // The button that opens the filter sidebar also shuts it. It only ever
+  // opened, so a second click did nothing visible and the only way back was the
+  // sidebar's own X - somewhere else on screen from the thing you just clicked.
+  //
+  // Not while a filter is ON, though: the sidebar is then the one place that
+  // says what is being hidden from the board, and closing it would leave a
+  // board showing a subset of its cards with nothing on screen to say so. The X
+  // beside this button is what clears the filter. models/lib/filterButton.js
   'click .js-open-filter-view'() {
     const sidebar = getSidebarInstance();
-    if (sidebar) {
-      sidebar.setView('filter');
-    } else {
+    if (!sidebar) {
       console.warn('Sidebar not available for setView');
+      return;
     }
+    const isShowingFilter = sidebar.isOpen() && sidebar.getView() === 'filter';
+    if (filterButtonAction(isShowingFilter, Filter.isActive()) === FILTER_CLOSE) {
+      sidebar.hide();
+      return;
+    }
+    sidebar.setView('filter');
   },
   'click .js-sort-cards': Popup.open('cardsSort'),
   /*

@@ -365,15 +365,18 @@ template(name="allBoardsHeaderButtons")
   if canModifyBoards
     a.board-header-btn.js-all-boards-sidebar-multiselection(title="{{_ 'multi-selection'}}")
       i.fa.fa-check-square-o
+      span.board-header-btn-label {{_ 'multi-selection'}}
   a.board-header-btn.js-open-archived-board(title="{{_ 'archived-boards'}}")
     i.fa.fa-archive
 
 template(name="allBoardsViewMenu")
-  //- Icon only, named by a tooltip that says which view is on - the same as the
-    board's view menu beside it.
+  //- The name is visible beside the icon, the same as the board's view menu:
+    a tooltip is the one place a name cannot be read without hovering.
   a.board-header-btn.js-open-all-boards-view(title="{{#if isAllBoardsView 'table'}}{{_ 'board-view-table'}}{{else}}{{_ 'lists'}}{{/if}}")
     i.fa.fa-caret-down
     if isAllBoardsView 'table'
       i.fa.fa-table
+      span.board-header-btn-label {{_ 'board-view-table'}}
     else
       i.fa.fa-trello
+      span.board-header-btn-label {{_ 'lists'}}

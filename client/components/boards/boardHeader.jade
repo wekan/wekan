@@ -37,12 +37,6 @@ template(name="boardHeaderButtons")
               if $eq watchLevel "muted"
                 i.fa.fa-bell-slash
 
-          a.board-header-btn.js-star-board(class="{{#if isStarred}}is-active{{/if}}"
-            title="{{#if isStarred}}{{_ 'click-to-unstar'}}{{else}}{{_ 'click-to-star'}}{{/if}}")
-            i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
-            if showStarCounter
-              span.board-star-counter {{currentBoard.stars}}
-
           a.board-header-btn(title="{{#if isSortActive}}{{_ 'sort-is-on'}}{{else}}{{_ 'sort-cards'}}{{/if}}" class="js-sort-cards {{#if isSortActive }}emphasis{{/if}}")
             i.fa.fa-sort
           if isSortActive
@@ -357,11 +351,29 @@ template(name="cardsSortPopup")
 //-
 //- `unless currentBoard.isTemplatesBoard`: there is nothing to look at six
 //- ways on a templates board. docs/Design/Page/Header.md
+//- Whether THIS board is starred, and the button that changes it. Its own
+//- template because the first header bar places it beside the starred-boards
+//- dropdown rather than among the board's other controls: the two are one pair -
+//- how many boards you have starred, and whether this is one of them.
+//-
+//- The outline star means not starred and the solid one means starred, so the
+//- button shows its state rather than the action - the tooltip says the action.
+//- docs/Design/Page/Header.md
+template(name="boardStarButton")
+  if currentBoard
+    a.board-header-btn.js-star-board(class="{{#if isStarred}}is-active{{/if}}"
+      title="{{#if isStarred}}{{_ 'click-to-unstar'}}{{else}}{{_ 'click-to-star'}}{{/if}}")
+      i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
+      if showStarCounter
+        span.board-star-counter {{currentBoard.stars}}
+
 template(name="boardViewMenu")
   unless currentBoard.isTemplatesBoard
-    //- Icon only, named by a tooltip, like every other control in this bar. The
-      icon already says which view is on - that is what makes six of them worth
-      six glyphs - and the bar has no room for a word beside each one.
+    //- The name is VISIBLE beside the icon, not only in the tooltip. Six view
+      icons are six glyphs to learn, and a tooltip is the one place a name
+      cannot be read without hovering - so the button says which view is on.
+      The bar wraps to a second row when it runs out of width, which is what
+      makes a word beside the icon affordable. docs/Design/Page/Header.md
     a.board-header-btn.js-toggle-board-view(title="{{boardViewName}}")
       i.fa.fa-caret-down
       if $eq boardView 'board-view-swimlanes'
@@ -376,3 +388,4 @@ template(name="boardViewMenu")
         i.fa.fa-table
       if $eq boardView 'board-view-stats'
         i.fa.fa-pie-chart
+      span.board-header-btn-label= boardViewName

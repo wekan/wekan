@@ -55,7 +55,11 @@ test('the header buttons are written ONCE, for both screens', () => {
   // inside the visibility popup - so this reads the one template, not the file.
   const buttons = boardJade.slice(boardJade.indexOf('template(name="boardHeaderButtons")'),
     boardJade.indexOf('template(name="boardVisibilityList")'));
-  for (const control of ['js-change-visibility', 'js-watch-board', 'js-star-board',
+  // js-star-board is NOT here any more: the star moved to its own template so
+  // the first header bar can place it beside the starred-boards dropdown - the
+  // count of starred boards and whether this is one of them are a pair.
+  // tests/headerBars.test.cjs checks it there.
+  for (const control of ['js-change-visibility', 'js-watch-board',
     'js-sort-cards', 'js-open-filter-view', 'js-open-search-view',
     'js-toggle-dependencies', 'js-multiselection-activate']) {
     assert.strictEqual((buttons.match(new RegExp(control, 'g')) || []).length, 1,

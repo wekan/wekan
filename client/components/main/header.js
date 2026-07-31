@@ -93,10 +93,13 @@ Template.header.helpers({
   // Admin Panel). docs/Design/Page/Header.md
   // How many boards are starred, shown on the button the way a board's own star
   // shows its count. Nothing is shown when none are.
+  // The button carries no star icon any more, so this number IS its label -
+  // shown even at zero, or the button would be a bare caret with nothing to
+  // say what it opens.
   starredBoardsCount() {
     const user = ReactiveCache.getCurrentUser();
     const starred = user && user.starredBoards ? user.starredBoards() : [];
-    return starred.length || '';
+    return starred.length;
   },
 
   // Which page's view menu to draw, if any.

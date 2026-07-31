@@ -218,10 +218,42 @@ test('starred boards are a dropdown, not a row of links', () => {
   const btn = jade.slice(jade.indexOf('js-open-starred-boards'));
   const head = btn.slice(0, btn.indexOf('\n\n'));
   // Laid out like the view menu beside it: the caret FIRST, then what the
-  // button is about.
-  assert.ok(head.indexOf('fa-caret-down') < head.indexOf('fa-star'),
-    'the caret is to the left of the star');
+  // button is about - which is the COUNT. It carried a star too, and the board
+  // star button sits right beside it, so the bar drew two stars in a row and
+  // they read as one control drawn twice.
+  assert.ok(!/fa-star/.test(head), 'no star on this button - its neighbour is the star');
+  assert.ok(head.indexOf('fa-caret-down') < head.indexOf('board-star-counter'),
+    'the caret is to the left of the count');
   assert.ok(/title="\{\{_ 'starred-boards'\}\}"/.test(head), 'named by a tooltip');
+  // The count is the button's only label now, so it is shown even at zero -
+  // otherwise the button is a bare caret with nothing to say what it opens.
+  const countHelper = js.slice(js.indexOf('starredBoardsCount() {'));
+  assert.ok(/return starred\.length;/.test(countHelper.slice(0, 300)),
+    'the count is shown at zero too, not blanked');
+
+  // ...and the board's own star is the button immediately after it: how many
+  // boards you have starred, and whether this is one of them, are a pair.
+  const starAt = jade.indexOf('+boardStarButton');
+  assert.notStrictEqual(starAt, -1, 'the board star is in this bar');
+  assert.ok(jade.indexOf('js-open-starred-boards') < starAt, 'to the right of the dropdown');
+  assert.ok(starAt < jade.indexOf('+boardHeaderButtons'),
+    'and before the board\'s other controls, not among them');
+  // It is a toggle that shows its STATE - hollow star when not starred, solid
+  // when starred - and says the ACTION in its tooltip.
+  const boardJade = read('client/components/boards/boardHeader.jade');
+  const starTemplate = boardJade.slice(boardJade.indexOf('template(name="boardStarButton")'));
+  const btnHead = starTemplate.slice(0, starTemplate.indexOf('\n\ntemplate('));
+  assert.ok(/fa-star\{\{#unless isStarred\}\}-o\{\{\/unless\}\}/.test(btnHead),
+    'hollow when not starred, solid when starred');
+  assert.ok(/click-to-unstar/.test(btnHead) && /click-to-star/.test(btnHead),
+    'and the tooltip says which way the click goes');
+  // Its helpers and its click moved with its markup: a Blaze event map only
+  // sees events inside its OWN template.
+  const boardJs = read('client/components/boards/boardHeader.js');
+  assert.ok(/Template\.boardStarButton\.events\(\{[\s\S]{0,200}'click \.js-star-board'/.test(boardJs),
+    'the click is on the template that draws it');
+  assert.ok(/Template\.boardStarButton\.helpers\(\{[\s\S]{0,400}isStarred\(\)/.test(boardJs),
+    'and so are its helpers');
 
   // The names are in a popup, shaped like the view menu's.
   assert.ok(/template\(name="starredBoardsPopup"\)/.test(jade), 'the popup exists');
@@ -521,6 +553,105 @@ test('and All Boards says WHICH list of boards, and which workspace', () => {
   // ...and a board has no path: its own title is the whole name.
   assert.ok(/if \(Utils\.getCurrentBoardId\(\)\) return \[\];/.test(body),
     'a board title is the whole name of that page');
+});
+
+test('and the two star buttons are drawn as one group', () => {
+  // They are about the same thing - how many boards you have starred, and
+  // whether this one is among them. Without an outline they read as two
+  // unrelated icons that happen to be adjacent, which is exactly how the two
+  // stars that used to be here read.
+  const at = jade.indexOf('.header-star-group');
+  assert.notStrictEqual(at, -1, 'the group exists');
+  const group = jade.slice(at, jade.indexOf('\n        //-', at + 10));
+  assert.ok(group.indexOf('js-open-starred-boards') < group.indexOf('+boardStarButton'),
+    'the dropdown first, then this board\'s star');
+
+  const css = read('client/components/main/header.css');
+  const ruleAt = css.indexOf('#header-quick-access .header-star-group {');
+  assert.notStrictEqual(ruleAt, -1, 'and is styled');
+  const rule = css.slice(ruleAt, css.indexOf('}', ruleAt));
+  assert.ok(/border-radius:\s*\dpx/.test(rule), 'rounded');
+  const border = /border:\s*1px solid ([^;]+);/.exec(rule);
+  assert.ok(border, 'with an outline');
+  // WHITE, where the phone/desktop toggle's is black: that toggle is a white
+  // box sitting on the bar so a dark border shows against it, while these sit
+  // on the bar's own colour and need a light one.
+  assert.ok(/rgba\(255,\s*255,\s*255/.test(border[1]),
+    `the outline must be light against the bar, not ${border[1]}`);
+  const toggleAt = css.indexOf('#header-quick-access .mobile-mode-toggle .board-header-btn {');
+  assert.ok(/border:\s*1px solid #000/.test(css.slice(toggleAt, css.indexOf('}', toggleAt))),
+    'which is the opposite of the toggle it is shaped like');
+  // The buttons drop their own margins, or they sit off the outline.
+  assert.ok(css.includes('#header-quick-access .header-star-group .board-header-btn {'),
+    'the buttons inside are adjusted for it');
+});
+
+test('and a view menu says its view in words, not only in a tooltip', () => {
+  // These were icon-only, named by a tooltip. Six view icons are six glyphs to
+  // learn, and a tooltip is the one place a name cannot be read without
+  // hovering - so xet7 asked for the name back beside the icon. The bar wraps
+  // now, which is what makes the word affordable.
+  const boardJade = read('client/components/boards/boardHeader.jade');
+  const menu = boardJade.slice(boardJade.indexOf('template(name="boardViewMenu")'));
+  const head = menu.slice(0, menu.indexOf('\n\ntemplate('));
+  assert.ok(/span\.board-header-btn-label= boardViewName/.test(head),
+    'the board view menu shows the name of the view that is on');
+  assert.ok(/title="\{\{boardViewName\}\}"/.test(head), 'and keeps the tooltip');
+
+  const allJade = read('client/components/boards/boardsList.jade');
+  const allMenu = allJade.slice(allJade.indexOf('template(name="allBoardsViewMenu")'));
+  const allHead = allMenu.slice(0, allMenu.indexOf('\n\ntemplate('));
+  assert.strictEqual((allHead.match(/span\.board-header-btn-label/g) || []).length, 2,
+    'the All Boards menu names both of its views');
+  assert.ok(/board-view-table/.test(allHead) && /'lists'/.test(allHead),
+    'by their own translation keys');
+
+  // Multi-Selection too - its icon is the one here that says nothing on its
+  // own. Sort, Search and Archive stay icons: those glyphs are well known.
+  const buttons = allJade.slice(allJade.indexOf('template(name="allBoardsHeaderButtons")'));
+  const btnHead = buttons.slice(0, buttons.indexOf('\n\ntemplate('));
+  assert.ok(/js-all-boards-sidebar-multiselection[\s\S]{0,200}board-header-btn-label \{\{_ 'multi-selection'\}\}/
+    .test(btnHead), 'Multi-Selection carries its name');
+
+  // A label must not wrap mid-button: two lines inside a one-line button is
+  // worse than the tooltip was.
+  const css = read('client/components/main/header.css');
+  const at = css.indexOf('#header-quick-access .board-header-btn-label {');
+  assert.notStrictEqual(at, -1, 'the label is styled');
+  assert.ok(/white-space:\s*nowrap/.test(css.slice(at, css.indexOf('}', at))),
+    'and does not wrap mid-word');
+});
+
+test('and the Filter button shuts the panel it opened', () => {
+  const { filterButtonAction, FILTER_OPEN, FILTER_CLOSE } =
+    require('../models/lib/filterButton');
+  // Every combination, because the interesting one is the exception.
+  assert.strictEqual(filterButtonAction(false, false), FILTER_OPEN, 'closed -> open');
+  assert.strictEqual(filterButtonAction(false, true), FILTER_OPEN,
+    'closed with a filter on -> open, so you can see what is filtered');
+  assert.strictEqual(filterButtonAction(true, false), FILTER_CLOSE,
+    'showing, nothing filtered -> the same button shuts it');
+  // The exception: with a filter ON the sidebar is the one place that says what
+  // is being hidden from the board. Closing it would leave a board showing a
+  // subset of its cards with nothing on screen to say so.
+  assert.strictEqual(filterButtonAction(true, true), FILTER_OPEN,
+    'showing with a filter on -> stays, because it is what says what is filtered');
+
+  const js = read('client/components/boards/boardHeader.js');
+  const at = js.indexOf("'click .js-open-filter-view'()");
+  assert.notStrictEqual(at, -1, 'the button is handled');
+  const body = js.slice(at, js.indexOf('\n  },', at));
+  // "Showing the filter" is open AND on that view: a sidebar open on Activities
+  // is not showing the filter, and clicking Filter there must switch to it
+  // rather than close the panel.
+  assert.ok(/sidebar\.isOpen\(\) && sidebar\.getView\(\) === 'filter'/.test(body),
+    'open AND on the filter view, not merely open');
+  assert.ok(/filterButtonAction\(isShowingFilter, Filter\.isActive\(\)\)/.test(body),
+    'the rule is asked, not re-derived here');
+  assert.ok(/sidebar\.hide\(\)/.test(body) && /sidebar\.setView\('filter'\)/.test(body),
+    'and both ways are taken');
+  // The X that clears the filter is a different control and stays.
+  assert.ok(/'click \.js-filter-reset'/.test(js), 'clearing is still its own button');
 });
 
 for (const [name, fn] of tests) {

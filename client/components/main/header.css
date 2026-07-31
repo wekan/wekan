@@ -1662,3 +1662,48 @@ body.mobile-mode #header-quick-access .allBoards {
     max-height: 20px !important;
   }
 }
+
+/* The star group: the starred-boards dropdown and this board's own star, drawn
+   as one thing. They are about the same thing - how many boards you have
+   starred, and whether this one is among them - and without an outline they
+   read as two unrelated icons that happen to be adjacent, which is exactly how
+   the two stars that used to be here read.
+
+   Shaped like the phone/desktop toggle beside it, but WHITE where that one is
+   black: the toggle is a white box sitting on the bar, so a dark border shows
+   against it; these buttons sit on the bar's own colour, so theirs has to be
+   light against that. */
+#header-quick-access .header-star-group {
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 4px;
+  /* The buttons inside keep their own padding; the group adds none, so it hugs
+     them the way the toggle's border hugs its two halves. */
+  margin: 0 4px;
+}
+
+/* Their own margins would push them off the outline they now sit inside. */
+#header-quick-access .header-star-group .board-header-btn {
+  margin: 0;
+}
+
+/* The hover has to stay inside the rounded corners, or a square highlight is
+   drawn over them. */
+#header-quick-access .header-star-group .board-header-btn:first-child {
+  border-start-start-radius: 3px;
+  border-end-start-radius: 3px;
+}
+#header-quick-access .header-star-group .board-header-btn:last-child {
+  border-start-end-radius: 3px;
+  border-end-end-radius: 3px;
+}
+
+/* The visible name beside a view menu's or Multi-Selection's icon. A tooltip is
+   the one place a name cannot be read without hovering, and the bar wraps to a
+   second row when it runs out of width, which is what makes the word
+   affordable. It does not wrap mid-word: a two-line label inside a one-line
+   button is worse than the tooltip was. */
+#header-quick-access .board-header-btn-label {
+  white-space: nowrap;
+}

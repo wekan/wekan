@@ -77,12 +77,60 @@ The divider is the seam: everything before it belongs to the **page**, everythin
 after belongs to **you**. Without it the run of icons reads as one list of
 unrelated things.
 
-**Every button is an icon named by a tooltip.** The view menus lost their visible
-labels — the board's said "Swimlanes", All Boards' said "Lists" — because the
-label is the widest part of a button and the name is in the tooltip where the
-other buttons of this bar already keep theirs. A tooltip is a poor place for a
-name in general; it is the right one here only because the whole bar is icons and
-consistent.
+**Most buttons are icons named by a tooltip** — but not the ones whose icon does
+not say enough on its own. The two **view menus** and **Multi-Selection** carry
+their name beside the icon: six view glyphs are six things to learn, a check-box
+outline says nothing about multi-selection, and a tooltip is the one place a name
+cannot be read without hovering. The bar wraps to a second row when it runs out
+of width, which is what makes a word beside an icon affordable. Sort, Search and
+Boards in Archive stay icons — those glyphs are well known — and a label never
+wraps mid-button, because two lines inside a one-line button is worse than the
+tooltip was.
+
+### The star group
+
+Two buttons, drawn as one thing with a rounded outline of its own:
+
+| | |
+| --- | --- |
+| caret + **count** | how many boards you have starred — opens the list of them |
+| **star** | whether *this* board is one of them; clicking it toggles |
+
+The dropdown used to carry a star icon as well, so with the board's own star
+beside it the bar drew **two stars in a row**, which read as one control somehow
+drawn twice. The dropdown has no star now: the count is what it is about, and the
+caret says it opens.
+
+The outline is shaped like the phone/desktop toggle's, but **white** where that
+one is black — the toggle is a white box sitting on the bar, so a dark border
+shows against it, while these buttons sit on the bar's own colour and need a
+light one. Without any outline the two read as unrelated icons that happen to be
+adjacent.
+
+The star shows its **state** (hollow when not starred, solid when starred) and
+says the **action** in its tooltip. It is its own template, `boardStarButton`, so
+this bar can place it here rather than among the board's other controls further
+along — a Blaze event map only sees events inside its own template, so its
+helpers and its click came with its markup.
+
+### The Filter button shuts what it opened
+
+Clicking Filter while the filter sidebar is already showing **closes** it — the
+control that opened the panel is the one you reach for to shut it, and it only
+ever opened, so a second click did nothing visible and the only way back was the
+sidebar's own ✕ somewhere else on screen.
+
+**Except while a filter is on.** The sidebar is then the one place that says
+*what* is being hidden from the board, and closing it would leave a board showing
+a subset of its cards with nothing on screen to say so. Clicking then keeps it
+open; the ✕ beside the button is what clears the filter.
+
+"Showing the filter" means open **and** on that view — a sidebar open on
+Activities is not showing the filter, and clicking Filter there switches to it
+rather than closing the panel.
+
+`models/lib/filterButton.js` holds the rule, so "which way does this click go" is
+answered once and can be checked in every combination without a DOM.
 
 **The button of the page you are on keeps the hover background**, permanently and
 a shade darker. Darker rather than equal: hovering the tab you are already on has
@@ -133,6 +181,7 @@ be opened from.
 | `client/components/main/header.css` | `.css` | The wrap, the end group, the active mark, the divider. |
 | `models/lib/pageTitles.js` | `.js` module, pure | Route name → title key, and the Admin Panel's second segment. |
 | `models/lib/pageSidebar.js` | `.js` module, pure | Which sidebar a page has, and whether it is offered a hamburger. |
+| `models/lib/filterButton.js` | `.js` module, pure | Which way the Filter button's click goes. |
 | `client/lib/pageTitleSources.js` | `.js` client | The three pages whose title is their own, without importing those pages. |
 | `client/lib/utils.js` | `.js` client | `--wekan-header-height`, measured from both bars. |
 | `tests/headerBars.test.cjs` | `.cjs` Node test | The wrap, the end group, the view menus, the active mark, the divider, and both title paths. |

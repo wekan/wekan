@@ -266,6 +266,36 @@ browser build to verify).
 This release adds the following new features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">The header bar draws one star group, and names the buttons whose icon does not say enough</a>. Thanks to xet7.</summary>
+
+The bar drew two stars in a row — one on the starred-boards dropdown and one for
+the board you are on — which read as a single control somehow drawn twice. The
+dropdown has no star now: it is a caret and the COUNT of starred boards, which
+is what it is about, and the board's own star sits immediately beside it. The
+two are wrapped in a rounded outline of their own, shaped like the
+phone/desktop toggle's but white where that one is black — the toggle is a white
+box on the bar, while these sit on the bar's own colour.
+
+The count is shown even at zero, because it is now the button's only label; a
+bare caret says nothing about what it opens.
+
+Clicking Filter while the filter sidebar is already showing closes it. It only
+ever opened, so a second click did nothing visible and the only way back was the
+sidebar's own ✕, somewhere else on screen from the thing you just clicked — but
+not while a filter is ON, because the sidebar is then the one place that says
+what is being hidden from the board, and closing it would leave a board showing
+a subset of its cards with nothing to say so.
+
+The two view menus and Multi-Selection carry their name beside the icon again.
+Six view glyphs are six things to learn, a check-box outline says nothing about
+multi-selection, and a tooltip is the one place a name cannot be read without
+hovering. The bar wraps to a second row when it runs out of width, which is what
+makes the word affordable. Sort, Search and Boards in Archive stay icons — those
+glyphs are well known.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e755b60b3">A swimlane, a list and a card can each be linked, and the link lands on the thing it names</a>. Thanks to xet7.</summary>
 
 A card has had an address since there has been a card route. A swimlane and a

@@ -77,16 +77,33 @@ template(name="header")
         //- Starred boards, as a DROPDOWN rather than a row of links.
           The bar listed every starred board inline, which is the widest thing in
           it and grows with the number of boards you star. It is one button now,
-          laid out like the view menu beside it - a caret, then what the button is
-          about - and the names are in the popup it opens.
+          laid out like the view menu beside it - a caret, then the COUNT of
+          them - and the names are in the popup it opens.
+
+          No star of its own: the button beside it is a star, and two stars in a
+          row are read as one control that has somehow been drawn twice. The
+          count is what this button is about, and the caret says it opens.
 
           On a phone the popup is full width, which body.mobile-mode does for
           every pop-over; nothing here has to ask for it.
-        a.board-header-btn.js-open-starred-boards(title="{{_ 'starred-boards'}}")
-          i.fa.fa-caret-down
-          i.fa.fa-star
-          if starredBoardsCount
+        //- One GROUP, drawn with a rounded outline of its own, the way the
+          phone/desktop toggle beside it is: the two buttons are about the same
+          thing - how many boards you have starred, and whether this one is
+          among them - and without the outline they read as two unrelated icons
+          that happen to sit next to each other.
+
+          White, where the toggle's is black: the toggle is a white box on the
+          bar, so its border is dark against it; these buttons sit on the bar's
+          own colour, so theirs has to be light against that.
+        .header-star-group
+          a.board-header-btn.js-open-starred-boards(title="{{_ 'starred-boards'}}")
+            i.fa.fa-caret-down
             span.board-star-counter {{starredBoardsCount}}
+
+          //- ...and whether THIS board is one of them.
+            client/components/boards/boardHeader.jade
+          if isBoardPage
+            +boardStarButton
 
         //- On a phone, INSIDE a list, the bar still shows that board's lists:
           that is a different thing from the starred boards, and it is what tells
