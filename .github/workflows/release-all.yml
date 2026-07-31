@@ -1847,8 +1847,109 @@ jobs:
   # hours) never holds up the release or the other arches. Each arch publishes to
   # the Snap Store (stable + candidate + beta + edge) and attaches to the Release the moment
   # it finishes — all 5 arches, published independently.
+  # ── Does SNAP_AUTH actually work? Asked ONCE, before anything is built ──────
+  #
+  # v10.53 built the amd64 snap, the arm64 snap and both variant snaps - forty
+  # minutes of runner time - and then every one of them died at the upload with
+  # the same red X, because the credential was not usable. Nothing before that
+  # point had asked the store anything: the per-job check only tested that the
+  # secret is non-empty and longer than 100 characters, which a broken, revoked
+  # or long-expired credential also is.
+  #
+  # `snapcraft whoami` is the question. It costs one runner-minute, answers from
+  # the store itself, and its answer distinguishes the causes that the failure at
+  # upload time cannot:
+  #
+  #   cannot be parsed  -> the secret is not an exported login at all (mangled,
+  #                        truncated, or the terminal OUTPUT of export-login
+  #                        instead of the file it wrote)
+  #   expired           -> it WAS valid. An exported login expires, one year by
+  #                        default, and this is the cause the upload-time error
+  #                        message never mentioned
+  #   missing a name    -> it is valid but not scoped to every snap this release
+  #                        publishes, so some jobs would work and others not
+  #
+  # It is deliberately a hard failure: a release that cannot publish its snaps is
+  # a broken release, and finding out in a minute is the whole point.
+  snap-auth-check:
+    needs: [prepare]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Ask the Snap Store whether SNAP_AUTH is usable
+        env:
+          SNAP_AUTH: ${{ secrets.SNAP_AUTH }}
+          # Every snap name this workflow publishes. snap-native and
+          # snap-launchpad publish `wekan`; snap-variants publishes the two
+          # older names people still have installed.
+          SNAP_NAMES: wekan wekan-ondra wekan-gantt-gpl
+        run: |
+          set -uo pipefail
+          fix="snapcraft export-login --snaps wekan,wekan-ondra,wekan-gantt-gpl --acls package_access,package_push,package_release,package_update snap-auth.txt && gh secret set SNAP_AUTH --repo wekan/wekan < snap-auth.txt"
+
+          if [ -z "${SNAP_AUTH:-}" ]; then
+            echo "::error::SNAP_AUTH is not set, so no snap can be published. Add it in Settings → Secrets and variables → Actions: $fix"
+            exit 1
+          fi
+          case "$SNAP_AUTH" in
+            *"Exported login"*|*"export-login"*)
+              echo "::error::SNAP_AUTH contains snapcraft's own banner text ('Exported login ...'), so it is the terminal OUTPUT rather than the file contents. Re-set it from the file: gh secret set SNAP_AUTH --repo wekan/wekan < snap-auth.txt"
+              exit 1
+              ;;
+          esac
+
+          sudo snap install snapcraft --classic
+
+          # whoami writes its answer to stdout and its complaint to stderr; both
+          # matter, so both are captured.
+          set +e
+          out="$(SNAPCRAFT_STORE_CREDENTIALS="$SNAP_AUTH" snapcraft whoami 2>&1)"
+          rc=$?
+          set -e
+          # The credential is never echoed - only what the store said about it.
+          echo "$out"
+
+          if [ "$rc" -ne 0 ]; then
+            case "$out" in
+              *"could not be parsed"*|*"not valid"*|*"Cannot parse"*)
+                echo "::error::SNAP_AUTH is not a readable exported login - the store was never asked. It is mangled, truncated, or the terminal output of export-login instead of the file it wrote. Fix: $fix"
+                ;;
+              *xpired*)
+                echo "::error::SNAP_AUTH has EXPIRED. An exported login lasts one year by default, so this one worked until it did not. Fix: $fix"
+                ;;
+              *401*|*403*|*nauthoriz*|*"not authorized"*)
+                echo "::error::The Snap Store refused SNAP_AUTH (401/403). The credential is readable but does not carry the ACL it needs. Fix: $fix"
+                ;;
+              *)
+                echo "::error::snapcraft whoami failed (exit $rc); its output is above. Fix, if it is the credential: $fix"
+                ;;
+            esac
+            exit 1
+          fi
+
+          # It authenticates. Does it carry every snap name this release
+          # publishes? A credential exported for `wekan` alone lets snap-native
+          # succeed and snap-variants fail, which reads as two unrelated bugs.
+          missing=""
+          for name in $SNAP_NAMES; do
+            case "$out" in
+              *"$name"*) : ;;
+              *) missing="$missing $name" ;;
+            esac
+          done
+          # `packages: no restrictions` is a credential scoped to every snap the
+          # account owns, which covers all three.
+          case "$out" in
+            *"no restrictions"*) missing="" ;;
+          esac
+          if [ -n "$missing" ]; then
+            echo "::error::SNAP_AUTH authenticates, but is not scoped to:$missing — those snaps would fail to publish while the others succeeded. Re-export for ALL THREE names: $fix"
+            exit 1
+          fi
+          echo "SNAP_AUTH is usable, and carries every snap name this release publishes."
+
   snap-native:
-    needs: [prepare, release]
+    needs: [prepare, release, snap-auth-check]
     strategy:
       fail-fast: false
       matrix:
@@ -2003,7 +2104,7 @@ jobs:
     # ENABLED. `continue-on-error: true` below means a failure here can never
     # fail the release or hold up another job - the point of running it is to
     # SEE what it reports. Disable again with `if: ${{ false }}`.
-    needs: [prepare, release]
+    needs: [prepare, release, snap-auth-check]
     # ppc64el, s390x and riscv64: none of them has a native GitHub runner, and
     # snapcraft cannot cross-build a snap, so Launchpad remote-build is the only way
     # to build them - QEMU is not. ppc64el and s390x were on a QEMU job
@@ -2238,7 +2339,7 @@ jobs:
     # costs a warning, not the release of a snap.
     #
     # `continue-on-error: true`: a variant must never fail or hold up the release.
-    needs: [prepare, release]
+    needs: [prepare, release, snap-auth-check]
     continue-on-error: true
     timeout-minutes: 90
     strategy:
