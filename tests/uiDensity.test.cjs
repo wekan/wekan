@@ -148,14 +148,26 @@ test('admin table cells wrap instead of pushing the table off screen', () => {
 });
 
 // --- Zoom pill -------------------------------------------------------------------
+//
+// The "100%" zoom pill is GONE, and with it the only thing this section had to
+// say. It scaled the board with a CSS transform, never worked properly, and
+// WeKan already has a font-size setting, so it was removed rather than fixed -
+// there is no pill left to fit inside the quick-access row.
+//
+// What remains worth asserting is that it did not come back by accident, since
+// its stylesheet rules were spread over four files.
 
-test('zoom pill fits inside the 28px quick-access row', () => {
-  const pill = header.match(/#header-quick-access \.zoom-controls \{[\s\S]*?\}/);
-  assert.ok(pill, 'zoom-controls rule found');
-  assert.ok(pill[0].includes('padding: 2px 8px'));
-  assert.ok(pill[0].includes('max-height: 24px'));
-  // negative: no viewport-relative sizing that outgrew the clipped row
-  assert.ok(!pill[0].includes('0.5vh 1vw'));
+test('the zoom pill is gone from every stylesheet that carried it', () => {
+  for (const rel of [
+    'client/components/main/header.css',
+    'client/components/main/layouts.css',
+    'client/components/boards/boardHeader.css',
+    'client/components/boards/boardsList.css',
+  ]) {
+    const css = read(rel);
+    assert.ok(!/zoom-(controls|level|display|input)/.test(css),
+      `${rel} still styles the removed zoom pill`);
+  }
 });
 
 // --- Right-docked card window must not trap the sidebar ---------------------------

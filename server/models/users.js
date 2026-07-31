@@ -866,12 +866,6 @@ Meteor.methods({
     return true;
   },
 
-  async setZoomLevel(level) {
-    check(level, Number);
-    const user = await ReactiveCache.getCurrentUser();
-    user.setZoomLevel(level);
-  },
-
   async setMobileMode(enabled) {
     check(enabled, Boolean);
     const user = await ReactiveCache.getCurrentUser();

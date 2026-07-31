@@ -73,32 +73,7 @@ export const Utils = {
     return ret;
   },
 
-  // Zoom and mobile mode utilities
-  getZoomLevel() {
-    const user = ReactiveCache.getCurrentUser();
-    if (user && user.profile && user.profile.zoomLevel !== undefined) {
-      return user.profile.zoomLevel;
-    }
-    // For non-logged-in users, check localStorage
-    const stored = localStorage.getItem('wekan-zoom-level');
-    return stored ? parseFloat(stored) : 1.0;
-  },
-
-  setZoomLevel(level) {
-    const user = ReactiveCache.getCurrentUser();
-    if (user) {
-      // Update user profile
-      user.setZoomLevel(level);
-    } else {
-      // Store in localStorage for non-logged-in users
-      localStorage.setItem('wekan-zoom-level', level.toString());
-    }
-    Utils.applyZoomLevel(level);
-
-    // Trigger reactive updates for UI components
-    Session.set('wekan-zoom-level', level);
-  },
-
+  // Mobile mode utilities
   getMobileMode() {
     // Check localStorage first - user's explicit preference takes priority
     const stored = localStorage.getItem('wekan-mobile-mode');
@@ -158,9 +133,6 @@ export const Utils = {
     Utils.applyMobileMode(enabled);
     // Trigger reactive updates for UI components
     Session.set('wekan-mobile-mode', enabled);
-    // Re-apply zoom level to ensure proper rendering
-    const zoomLevel = Utils.getZoomLevel();
-    Utils.applyZoomLevel(zoomLevel);
   },
 
   getCardZoom() {
@@ -189,87 +161,6 @@ export const Utils = {
     }
   },
 
-  applyZoomLevel(level) {
-    const boardWrapper = document.querySelector('.board-wrapper');
-    const body = document.body;
-    const isMobileMode = body.classList.contains('mobile-mode');
-
-    if (boardWrapper) {
-      if (isMobileMode) {
-        // On mobile mode, only apply zoom to text and icons, not the entire layout
-        // Remove any existing transform from board-wrapper
-        boardWrapper.style.transform = '';
-        boardWrapper.style.transformOrigin = '';
-
-        // Apply zoom to text and icon elements instead
-        const textElements = boardWrapper.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, div, .minicard, .list-header-name, .board-header-btn, .fa, .icon');
-        textElements.forEach(element => {
-          element.style.transform = `scale(${level})`;
-          element.style.transformOrigin = 'center';
-        });
-
-        // Reset board-canvas height
-        const boardCanvas = document.querySelector('.board-canvas');
-        if (boardCanvas) {
-          boardCanvas.style.height = '';
-        }
-      } else {
-        // Desktop mode: apply zoom to entire board-wrapper as before.
-        // At 100% do NOT set transform: scale(1): any transform makes the
-        // board-wrapper the containing block + stacking context for its
-        // position:fixed descendants (the opened/dragged card), which traps the
-        // card inside the board area below the page header bars. Clearing it at
-        // 100% lets the opened card overlay the top bars.
-        if (level === 1) {
-          boardWrapper.style.transform = '';
-          boardWrapper.style.transformOrigin = '';
-        } else {
-          boardWrapper.style.transform = `scale(${level})`;
-          boardWrapper.style.transformOrigin = 'top left';
-        }
-
-        // If zoom is 50% or lower, make board wrapper full width like content
-        if (level <= 0.5) {
-          boardWrapper.style.width = '100%';
-          boardWrapper.style.maxWidth = '100%';
-          boardWrapper.style.margin = '0';
-        } else {
-          // Reset to normal width for higher zoom levels
-          boardWrapper.style.width = '';
-          boardWrapper.style.maxWidth = '';
-          boardWrapper.style.margin = '';
-        }
-
-        // Adjust container height to prevent scroll issues
-        const boardCanvas = document.querySelector('.board-canvas');
-        if (boardCanvas) {
-          boardCanvas.style.height = `${100 / level}%`;
-
-          // For high zoom levels (200%+), enable both horizontal and vertical scrolling
-          if (level >= 2.0) {
-            boardCanvas.style.overflowX = 'auto';
-            boardCanvas.style.overflowY = 'auto';
-            // Ensure the content area can scroll both horizontally and vertically
-            const content = document.querySelector('#content');
-            if (content) {
-              content.style.overflowX = 'auto';
-              content.style.overflowY = 'auto';
-            }
-          } else {
-            // Reset overflow for normal zoom levels
-            boardCanvas.style.overflowX = '';
-            boardCanvas.style.overflowY = '';
-            const content = document.querySelector('#content');
-            if (content) {
-              content.style.overflowX = '';
-              content.style.overflowY = '';
-            }
-          }
-        }
-      }
-    }
-  },
-
   applyMobileMode(enabled) {
     const body = document.body;
     if (enabled) {
@@ -283,9 +174,7 @@ export const Utils = {
 
   initializeUserSettings() {
     // Apply saved settings on page load
-    const zoomLevel = Utils.getZoomLevel();
     const mobileMode = Utils.getMobileMode();
-    Utils.applyZoomLevel(zoomLevel);
     Utils.applyMobileMode(mobileMode);
 
     // #6419: keep mobile-mode in sync with the viewport (resize / orientation /

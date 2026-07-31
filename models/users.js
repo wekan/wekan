@@ -776,15 +776,6 @@ Users.attachSchema(
       allowedValues: ['YYYY-MM-DD', 'DD-MM-YYYY', 'MM-DD-YYYY'],
       defaultValue: 'YYYY-MM-DD',
     },
-    'profile.zoomLevel': {
-      /**
-       * User-specified zoom level for board view (1.0 = 100%, 1.5 = 150%, etc.)
-       */
-      type: Number,
-      defaultValue: 1.0,
-      min: 0.5,
-      max: 3.0,
-    },
     'profile.mobileMode': {
       /**
        * User-specified mobile/desktop mode toggle.
@@ -976,7 +967,6 @@ Users.safeFields = {
   'profile.fullname': 1,
   'profile.avatarUrl': 1,
   'profile.initials': 1,
-  'profile.zoomLevel': 1,
   'profile.mobileMode': 1,
   orgs: 1,
   teams: 1,
@@ -2178,10 +2168,6 @@ Users.helpers({
     if (!current[boardId]) current[boardId] = {};
     current[boardId][swimlaneId] = !!collapsed;
     return await Users.updateAsync(this._id, { $set: { 'profile.collapsedSwimlanes': current } });
-  },
-
-  async setZoomLevel(level) {
-    return await Users.updateAsync(this._id, { $set: { 'profile.zoomLevel': level } });
   },
 
   async setMobileMode(enabled) {

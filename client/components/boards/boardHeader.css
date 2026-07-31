@@ -30,75 +30,6 @@
   flex: 1;
 }
 
-.zoom-controls {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 5px 14px;
-  border-radius: 7px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.zoom-controls .board-header-btn {
-  padding: 5px 11px !important;
-  border-radius: 4px !important;
-  background: #fff !important;
-  border: 1px solid #000 !important;
-  transition: all 0.2s ease !important;
-  color: #000 !important;
-  height: auto !important;
-  line-height: normal !important;
-  margin: 0 !important;
-  float: none !important;
-  overflow: visible !important;
-}
-
-.zoom-controls .board-header-btn i {
-  color: #000 !important;
-  float: none !important;
-  display: inline !important;
-  line-height: normal !important;
-  margin: 0 !important;
-}
-
-.zoom-controls .board-header-btn:hover {
-  background: #000 !important;
-  border-color: #000 !important;
-  color: #fff !important;
-}
-
-.zoom-controls .board-header-btn:hover i {
-  color: #fff !important;
-}
-
-.zoom-controls .board-header-btn.is-active {
-  background: #0079bf;
-  color: white;
-  border-color: #005a8a;
-}
-
-.zoom-controls .board-header-btn.is-active i {
-  color: white;
-}
-
-.zoom-level {
-  font-weight: bold;
-  color: #333;
-  min-width: 42px;
-  text-align: center;
-  font-size: 12px;
-  cursor: pointer;
-  padding: 3px 7px;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-}
-
-.zoom-level:hover {
-  background: #f0f0f0;
-  color: #000;
-}
-
 /* Mobile Mode Styles */
 .mobile-mode .board-wrapper {
   width: 100%;
@@ -122,47 +53,6 @@
 .mobile-mode .board-header-btn {
   padding: 9px 21px;
   font-size: 14px;
-}
-
-.mobile-mode .zoom-controls {
-  padding: 9px 21px;
-  gap: 14px;
-}
-
-.mobile-mode .zoom-controls .board-header-btn {
-  padding: 9px 21px !important;
-  font-size: 14px !important;
-  background: #fff !important;
-  border: 1px solid #000 !important;
-  color: #000 !important;
-  height: auto !important;
-  line-height: normal !important;
-  margin: 0 !important;
-  float: none !important;
-  overflow: visible !important;
-}
-
-.mobile-mode .zoom-controls .board-header-btn i {
-  color: #000 !important;
-  float: none !important;
-  display: inline !important;
-  line-height: normal !important;
-  margin: 0 !important;
-}
-
-.mobile-mode .zoom-controls .board-header-btn:hover {
-  background: #000 !important;
-  border-color: #000 !important;
-  color: #fff !important;
-}
-
-.mobile-mode .zoom-controls .board-header-btn:hover i {
-  color: #fff !important;
-}
-
-.mobile-mode .zoom-level {
-  font-size: 14px;
-  min-width: 56px;
 }
 
 /* Comprehensive Mobile Mode Styles - Works on all screen sizes */

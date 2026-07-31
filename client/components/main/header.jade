@@ -83,11 +83,11 @@ template(name="header")
       //
         i.fa.fa-plus(title="Create a new board")
 
-      // Zoom controls (swapped with the mobile/desktop toggle)
-      .zoom-controls
-        span.zoom-level.js-zoom-level-click(title="{{_ 'click-to-change-zoom'}}")
-          span.zoom-display {{zoomLevel}}%
-          input.zoom-input.js-zoom-input(type="number" value=zoomLevel min="50" max="300" step="10" style="display: none;")
+      //- The "100%" zoom control that used to sit here is REMOVED. It scaled the
+        board with a CSS transform, which never worked properly - and WeKan
+        already has a font-size setting (Member Settings / Change Font), which is
+        what people actually wanted from it. Removed rather than left in place as
+        a control that does nothing.
 
       // Notifications
       +notifications

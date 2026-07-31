@@ -103,11 +103,12 @@ test('the quick-access bar gives way instead of spilling off the phone', () => {
   const at = header.indexOf('The quick-access bar must FIT the phone');
   assert.ok(at !== -1, 'the rules that make it fit must be there');
   const block = header.slice(at);
-  const input = /\.zoom-input \{([\s\S]*?)\}/.exec(block);
-  assert.ok(input, 'the zoom pill is the widest item in the bar');
-  const width = /(?<![-\w])width:\s*(\d+)px/.exec(input[1]);
-  assert.ok(width && Number(width[1]) <= 50,
-    `the zoom input was a fixed 80px of a 375px bar, found ${width && width[1]}px`);
+  // The zoom pill used to be the widest item in this bar, and this test capped
+  // its input at 50px of a 375px phone. The pill is gone - removed rather than
+  // fixed, since it never worked and WeKan has a font-size setting - so what is
+  // checked now is that nothing has put it back to eat the width again.
+  assert.ok(!/zoom-(controls|level|display|input)/.test(header),
+    'the removed zoom pill must not be back in the quick-access bar');
   // The two the user actually came for stay put, at the end of the row. They are
   // two rules now, each with the `.iphone-device` / `.wrapper ~` variants that
   // have to be named to win, so what is asserted is that EACH of them declares
@@ -121,30 +122,12 @@ test('the quick-access bar gives way instead of spilling off the phone', () => {
   }
 });
 
-test('the zoom number stays INSIDE its white pill, and is readable', () => {
-  // Letting the pill shrink below its contents put the white rounded background
-  // at one width and the number at another: "100%" was laid out to the right of
-  // the pill, in tiny type, half of it under the notification bell.
-  const block = header.slice(header.indexOf('The quick-access bar must FIT the phone'));
-  const pill = /#header-quick-access \.zoom-controls \{([\s\S]*?)\}/.exec(block);
-  assert.ok(pill, 'the pill must be sized here');
-  assert.ok(/flex: 0 0 auto !important;/.test(pill[1]),
-    'the pill is as wide as what is in it - never narrower');
-  assert.ok(/max-height: none !important;/.test(pill[1]),
-    'and not capped shorter than its own text, which pushed the number up');
-  const level = /#header-quick-access \.zoom-controls \.zoom-level \{([\s\S]*?)\}/.exec(block);
-  assert.ok(level && /flex: 0 0 auto !important;/.test(level[1]),
-    'the number does not shrink either');
-  // Nothing may set the zoom text in a relative size small enough to vanish: the
-  // old `0.7em` of a 12px bar was ~8px, the smallest text on the page.
-  const relative = [...header.matchAll(/zoom-(?:level|input|controls)[^{}]*\{[^{}]*font-size:\s*(0?\.\d+)em/g)];
-  assert.deepStrictEqual(relative.map(m => m[1]), [],
-    'the zoom number is sized in px, not in a fraction of an already small bar');
-  for (const m of header.matchAll(/\.zoom-(?:level|display) \{([^{}]*)\}/g)) {
-    const size = /(?<![-\w])font-size:\s*(\d+)px/.exec(m[1]);
-    if (size) assert.ok(Number(size[1]) >= 12, `the number must be readable, found ${size[1]}px`);
-  }
-});
+// The test that lived here checked that the "100%" zoom number stayed inside its
+// white pill and stayed readable - a real bug once, when the pill shrank below its
+// contents and the number ended up beside it in 8px type under the notification
+// bell. The pill is REMOVED now (it scaled the board with a CSS transform, never
+// worked, and WeKan has a font-size setting), so there is nothing left to lay out.
+// The test above asserts it has not come back.
 
 test('and the page itself can never be dragged sideways on a phone', () => {
   const small = layouts.slice(layouts.indexOf('Nothing on a phone may make the PAGE scroll sideways'));

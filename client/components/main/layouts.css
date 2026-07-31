@@ -820,16 +820,6 @@ a:not(.disabled).is-active i.fa {
     padding: 4px 6px;
   }
 
-  /* Exactly ONE auto margin in the row. Two of them (zoom AND user bar) each
-     absorbed the remaining space on their line, which is what forced the wrap:
-     the first auto margin filled line 1, so everything after it started line 2.
-     The single one here right-aligns the user menu when there is space left and
-     collapses to 0 when there is not. */
-  #header-quick-access .zoom-controls {
-    margin-inline-start: 0;
-    margin-inline-end: 0;
-  }
-
   .mobile-mode-toggle {
     margin-inline-end: 0;
   }
@@ -858,12 +848,6 @@ a:not(.disabled).is-active i.fa {
   #header-quick-access img {
     max-height: 20px;
     max-width: 84px;
-  }
-
-  /* Ensure zoom controls are compact on mobile */
-  .zoom-controls .zoom-level {
-    padding: 4px 8px;
-    font-size: 12px;
   }
 
   /* Modal mobile optimization */

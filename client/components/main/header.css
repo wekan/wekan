@@ -408,116 +408,7 @@ body.mobile-mode #header-quick-access .allBoards {
   float: inline-start;
 }
 
-/* Zoom Controls in Header */
-/* #6465: compact fixed-pixel pill. The vh/vw padding+shadow made the pill
-   taller than the 28px overflow-hidden quick-access row, so it rendered cut
-   off at every window size. */
-#header-quick-access .zoom-controls {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 2px 8px;
-  border-radius: 10px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-  margin: 0 8px;
-  max-height: 24px;
-  float: inline-start;
-}
-
-#header-quick-access .zoom-controls .board-header-btn {
-  padding: 5px 11px !important;
-  border-radius: 4px !important;
-  background: #fff !important;
-  border: 1px solid #000 !important;
-  transition: all 0.2s ease !important;
-  color: #000 !important;
-  height: auto !important;
-  line-height: normal !important;
-  margin: 0 !important;
-  float: none !important;
-  overflow: visible !important;
-  text-decoration: none !important;
-  display: flex !important;
-  align-items: center !important;
-  gap: 4px !important;
-}
-
-#header-quick-access .zoom-controls .board-header-btn i {
-  color: #000 !important;
-  float: none !important;
-  display: inline !important;
-  line-height: normal !important;
-  margin: 0 !important;
-}
-
-#header-quick-access .zoom-controls .board-header-btn:hover {
-  background: #000 !important;
-  border-color: #000 !important;
-  color: #fff !important;
-}
-
-#header-quick-access .zoom-controls .board-header-btn:hover i {
-  color: #fff !important;
-}
-
-#header-quick-access .zoom-controls .zoom-level {
-  font-weight: bold;
-  color: #333;
-  min-width: 42px;
-  text-align: center;
-  font-size: 12px;
-  cursor: pointer;
-  padding: 3px 7px;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#header-quick-access .zoom-controls .zoom-level:hover {
-  background: #f0f0f0;
-  color: #000;
-}
-
-#header-quick-access .zoom-controls .zoom-display {
-  display: inline-block;
-}
-
-    #header-quick-access .zoom-controls .zoom-input {
-      background: #fff;
-      color: #000;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      padding: 3px 7px;
-      font-weight: bold;
-      text-align: center;
-      width: 100%;
-      min-width: 42px;
-      font-size: 12px;
-      box-sizing: border-box;
-      -webkit-appearance: none;
-      appearance: none;
-      flex: 0 0 auto;
-    }
-
-    /* Make zoom input wider on all mobile screens */
-    @media screen and (max-width: 800px),
-       screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
-      #header-quick-access .zoom-controls .zoom-input {
-        min-width: 80px !important; /* Wider on mobile to show 3 digits */
-        width: 80px !important; /* Fixed width to show 100 fully */
-        font-size: 16px !important; /* Slightly larger text */
-        flex: 0 0 80px !important; /* Prevent shrinking in flex */
-      }
-    }
-
-#header-quick-access .zoom-controls .zoom-input:focus {
-  outline: 2px solid #005fcc;
-  outline-offset: 1px;
-}
+    
 
 /* Mobile Mode Toggle in Header */
 #header-quick-access .mobile-mode-toggle {
@@ -753,18 +644,6 @@ body.mobile-mode #header-quick-access .allBoards {
       font-size: 1em !important; /* Use inherited 2x scaling */
     }
 
-    #header-quick-access .zoom-controls {
-      font-size: 1em !important; /* Use inherited 2x scaling */
-    }
-
-    #header-quick-access .zoom-controls .zoom-level {
-      font-size: 1em !important; /* Use inherited 2x scaling */
-    }
-
-    #header-quick-access .zoom-controls .zoom-input {
-      font-size: 1em !important; /* Use inherited 2x scaling */
-    }
-
     #header-quick-access .mobile-mode-toggle .board-header-btn {
       font-size: 1em !important; /* Use inherited 2x scaling */
     }
@@ -777,12 +656,6 @@ body.mobile-mode #header-quick-access .allBoards {
     #header-quick-access .home-icon {
       flex-shrink: 0 !important;
       margin-inline-end: 0.5rem !important;
-      margin-bottom: 4px !important;
-    }
-
-    #header-quick-access .zoom-controls {
-      flex-shrink: 0 !important;
-      margin: 0 0.5rem !important;
       margin-bottom: 4px !important;
     }
 
@@ -855,21 +728,6 @@ body.mobile-mode #header-quick-access .allBoards {
       font-size: 1em !important; /* Use inherited 2x scaling */
     }
 
-    .wrapper ~ #header-quick-access .zoom-controls,
-    body:not(.board-view) #header-quick-access .zoom-controls {
-      font-size: 1em !important; /* Use inherited 2x scaling */
-    }
-
-    .wrapper ~ #header-quick-access .zoom-controls .zoom-level,
-    body:not(.board-view) #header-quick-access .zoom-controls .zoom-level {
-      font-size: 1em !important; /* Use inherited 2x scaling */
-    }
-
-    .wrapper ~ #header-quick-access .zoom-controls .zoom-input,
-    body:not(.board-view) #header-quick-access .zoom-controls .zoom-input {
-      font-size: 1em !important; /* Use inherited 2x scaling */
-    }
-
     .wrapper ~ #header-quick-access .mobile-mode-toggle .board-header-btn,
     body:not(.board-view) #header-quick-access .mobile-mode-toggle .board-header-btn {
       font-size: 1em !important; /* Use inherited 2x scaling */
@@ -933,18 +791,6 @@ body.mobile-mode #header-quick-access .allBoards {
       font-size: 1em !important; /* Use inherited 2x scaling */
     }
 
-    #header-quick-access .zoom-controls {
-      font-size: 1em !important; /* Use inherited 2x scaling */
-    }
-
-    #header-quick-access .zoom-controls .zoom-level {
-      font-size: 1em !important; /* Use inherited 2x scaling */
-    }
-
-    #header-quick-access .zoom-controls .zoom-input {
-      font-size: 1em !important; /* Use inherited 2x scaling */
-    }
-
     #header-quick-access .mobile-mode-toggle .board-header-btn {
       font-size: 1em !important; /* Use inherited 2x scaling */
     }
@@ -973,12 +819,6 @@ body.mobile-mode #header-quick-access .allBoards {
     #header-quick-access .home-icon {
       flex-shrink: 0 !important;
       margin-inline-end: 0.5rem !important;
-      margin-bottom: 6px !important;
-    }
-
-    #header-quick-access .zoom-controls {
-      flex-shrink: 0 !important;
-      margin: 0 0.5rem !important;
       margin-bottom: 6px !important;
     }
 
@@ -1039,26 +879,6 @@ body.mobile-mode #header-quick-access .allBoards {
       margin-inline-end: 1rem !important;
     }
 
-    /* Make zoom controls larger */
-    #header-quick-access .zoom-controls {
-      padding: 7px 21px !important;
-      margin: 0 21px !important;
-    }
-
-    #header-quick-access .zoom-controls .zoom-level {
-      font-size: 16px !important; /* Larger zoom text */
-      padding: 5px 11px !important;
-      min-width: 56px !important;
-    }
-
-    #header-quick-access .zoom-controls .zoom-input {
-      font-size: 16px !important; /* Larger input text */
-      padding: 5px 11px !important;
-      min-width: 80px !important; /* Wider to fit 100 */
-      width: 80px !important; /* Fixed width to show 100 fully */
-      flex: 0 0 80px !important; /* Prevent shrinking in flex */
-    }
-
     /* Make mobile mode toggle larger */
     #header-quick-access .mobile-mode-toggle .board-header-btn {
       padding: 7px 17px !important;
@@ -1097,18 +917,6 @@ body.mobile-mode #header-quick-access .allBoards {
     font-size: 1em !important; /* Use inherited 2x scaling */
   }
 
-  .iphone-device #header-quick-access .zoom-controls {
-    font-size: 1em !important; /* Use inherited 2x scaling */
-  }
-
-  .iphone-device #header-quick-access .zoom-controls .zoom-level {
-    font-size: 1em !important; /* Use inherited 2x scaling */
-  }
-
-  .iphone-device #header-quick-access .zoom-controls .zoom-input {
-    font-size: 1em !important; /* Use inherited 2x scaling */
-  }
-
   .iphone-device #header-quick-access .mobile-mode-toggle .board-header-btn {
     font-size: 1em !important; /* Use inherited 2x scaling */
   }
@@ -1121,12 +929,6 @@ body.mobile-mode #header-quick-access .allBoards {
   .iphone-device #header-quick-access .home-icon {
     flex-shrink: 0 !important;
     margin-inline-end: 0.5rem !important;
-    margin-bottom: 4px !important;
-  }
-
-  .iphone-device #header-quick-access .zoom-controls {
-    flex-shrink: 0 !important;
-    margin: 0 0.5rem !important;
     margin-bottom: 4px !important;
   }
 
@@ -1182,18 +984,6 @@ body.mobile-mode #header-quick-access .allBoards {
     font-size: 1em !important; /* Use inherited 2x scaling */
   }
 
-  .iphone-device #header-quick-access .zoom-controls {
-    font-size: 1em !important; /* Use inherited 2x scaling */
-  }
-
-  .iphone-device #header-quick-access .zoom-controls .zoom-level {
-    font-size: 1em !important; /* Use inherited 2x scaling */
-  }
-
-  .iphone-device #header-quick-access .zoom-controls .zoom-input {
-    font-size: 1em !important; /* Use inherited 2x scaling */
-  }
-
   .iphone-device #header-quick-access .mobile-mode-toggle .board-header-btn {
     font-size: 1em !important; /* Use inherited 2x scaling */
   }
@@ -1222,12 +1012,6 @@ body.mobile-mode #header-quick-access .allBoards {
   .iphone-device #header-quick-access .home-icon {
     flex-shrink: 0 !important;
     margin-inline-end: 0.5rem !important;
-    margin-bottom: 6px !important;
-  }
-
-  .iphone-device #header-quick-access .zoom-controls {
-    flex-shrink: 0 !important;
-    margin: 0 0.5rem !important;
     margin-bottom: 6px !important;
   }
 
@@ -1281,21 +1065,6 @@ body.mobile-mode #header-quick-access .allBoards {
 
   .iphone-device .wrapper ~ #header-quick-access .home-icon .fa-home,
   .iphone-device body:not(.board-view) #header-quick-access .home-icon .fa-home {
-    font-size: 1em !important; /* Use inherited 2x scaling */
-  }
-
-  .iphone-device .wrapper ~ #header-quick-access .zoom-controls,
-  .iphone-device body:not(.board-view) #header-quick-access .zoom-controls {
-    font-size: 1em !important; /* Use inherited 2x scaling */
-  }
-
-  .iphone-device .wrapper ~ #header-quick-access .zoom-controls .zoom-level,
-  .iphone-device body:not(.board-view) #header-quick-access .zoom-controls .zoom-level {
-    font-size: 1em !important; /* Use inherited 2x scaling */
-  }
-
-  .iphone-device .wrapper ~ #header-quick-access .zoom-controls .zoom-input,
-  .iphone-device body:not(.board-view) #header-quick-access .zoom-controls .zoom-input {
     font-size: 1em !important; /* Use inherited 2x scaling */
   }
 
@@ -1405,26 +1174,6 @@ body.mobile-mode #header-quick-access .allBoards {
   .iphone-device body:not(.board-view) #header-quick-access .mobile-mode-toggle .fa {
     font-size: 1.05em !important; /* ~30% smaller than the 1.5em icons */
   }
-  body:not(.board-view) #header-quick-access .zoom-controls,
-  body:not(.board-view) #header-quick-access .zoom-controls .zoom-level,
-  body:not(.board-view) #header-quick-access .zoom-controls .zoom-input,
-  .wrapper ~ #header-quick-access .zoom-controls,
-  .wrapper ~ #header-quick-access .zoom-controls .zoom-level,
-  .wrapper ~ #header-quick-access .zoom-controls .zoom-input,
-  .iphone-device #header-quick-access .zoom-controls,
-  .iphone-device #header-quick-access .zoom-controls .zoom-level,
-  .iphone-device #header-quick-access .zoom-controls .zoom-input,
-  .iphone-device .wrapper ~ #header-quick-access .zoom-controls,
-  .iphone-device .wrapper ~ #header-quick-access .zoom-controls .zoom-level,
-  .iphone-device .wrapper ~ #header-quick-access .zoom-controls .zoom-input,
-  .iphone-device body:not(.board-view) #header-quick-access .zoom-controls,
-  .iphone-device body:not(.board-view) #header-quick-access .zoom-controls .zoom-level,
-  .iphone-device body:not(.board-view) #header-quick-access .zoom-controls .zoom-input {
-    /* Was `0.7em`, which on a 12px bar is ~8px: the zoom number was smaller than
-       anything else in the bar and hard to read on a phone. A fixed 14px is the
-       size the rest of the bar's text is, and it still keeps the pill narrow. */
-    font-size: 14px !important;
-  }
 
   /* ── One-row quick-access bar on phones (#6522) ─────────────────────────────
      The bar wrapped to two rows on an iPhone 12 mini: the home link carried its
@@ -1448,14 +1197,6 @@ body.mobile-mode #header-quick-access .allBoards {
   .iphone-device #header-quick-access .home-icon .fa-home {
     font-size: 16px !important;
     margin-inline-end: 0 !important;
-  }
-  /* 0.5rem on both sides of five items was ~80px of a 375px bar. */
-  .iphone-device #header-quick-access .home-icon,
-  .iphone-device #header-quick-access .zoom-controls,
-  .iphone-device #header-quick-access .mobile-mode-toggle,
-  .iphone-device #header-quick-access #notifications,
-  .iphone-device #header-quick-access #header-user-bar {
-    margin: 0 3px !important;
   }
   /* One auto margin, so the user menu still sits at the end when there is room
      and collapses to nothing when there is not. */
@@ -1643,24 +1384,6 @@ body.mobile-mode #header-quick-access .allBoards {
     margin-inline-end: 0 !important;
   }
 }
-
-/* ── Trailing group hugs the END of the top bar (LTR right, RTL left) ─────────
-   The zoom %, notification bell and user/avatar menu are the last items in the
-   quick-access bar. When the middle starred-boards list is shown it fills the
-   gap (`flex: 1`) and pushes them to the end; but that list is `display: none`
-   on a phone, so with nothing filling the middle the group bunched at the START
-   (left in LTR) with empty bar to its right.
-
-   `margin-inline-start: auto` on the FIRST item of the group (the zoom control)
-   pushes the whole group - zoom, bell, avatar - to the end. It is a LOGICAL
-   margin, so it is the RIGHT edge in LTR and the LEFT edge in RTL automatically,
-   which is exactly the requested behaviour. There must be exactly ONE auto
-   margin in the row, so any auto margin an earlier rule put on the user bar is
-   cleared here - two autos would split the free space and separate the group.
-   Last in the file, so it wins on source order at equal specificity. */
-#header-quick-access .zoom-controls {
-  margin-inline-start: auto !important;
-}
 #header-quick-access #notifications,
 #header-quick-access #header-user-bar {
   margin-inline-start: 0 !important;
@@ -1689,44 +1412,6 @@ body.mobile-mode #header-quick-access .allBoards {
 @media screen and (max-width: 800px),
        screen and (max-device-width: 800px),
        screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
-  #header-quick-access .zoom-controls {
-    margin: 0 4px !important;
-    /* `!important` throughout: the "Make zoom controls larger" block above sets
-       21px of padding and 21px of margin with `!important` at this very width. */
-    padding: 2px 6px !important;
-    /* Exactly as wide as the number inside it - never narrower. */
-    flex: 0 0 auto !important;
-    justify-content: center !important;
-    /* The base rule caps the pill at 24px, which is shorter than 14px text with
-       padding, so the number sat against the top edge of the white area. */
-    max-height: none !important;
-    align-items: center !important;
-  }
-
-  #header-quick-access .zoom-controls .zoom-input {
-    /* Was a fixed 80 pixels; three digits need about half of that. */
-    width: 46px !important;
-    min-width: 46px !important;
-    flex: 0 0 46px !important;
-    padding: 3px 2px;
-    font-size: 14px !important;
-  }
-
-  /* The number the user reads. It is the pill's whole content when the input is
-     hidden, so it sets the pill's width: readable, and no wider than it needs. */
-  #header-quick-access .zoom-controls .zoom-level {
-    flex: 0 0 auto !important;
-    min-width: 40px !important;
-    padding: 2px 4px !important;
-    font-size: 14px !important;
-    line-height: 1.2 !important;
-    white-space: nowrap;
-  }
-
-  #header-quick-access .zoom-controls .zoom-display {
-    font-size: 14px !important;
-    white-space: nowrap;
-  }
 
   #header-quick-access .mobile-mode-toggle {
     margin: 0 4px !important;
