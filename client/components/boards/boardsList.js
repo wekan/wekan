@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+const { notHelperBoardTitle } = require('/models/lib/helperBoards');
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import getSlug from 'limax';
@@ -491,7 +492,7 @@ Template.boardList.helpers({
       $and: [
         { archived: false },
         { type: { $in: ['board', 'template-container'] } },
-        { title: { $not: { $regex: /^\^.*\^$/ } } },
+        { title: notHelperBoardTitle() },
       ],
     };
     const membershipOrs = [];
@@ -539,6 +540,10 @@ Template.boardList.helpers({
         //type: { $in: ['board','template-container'] },
         type: 'board',
         permission: 'public',
+        // ...and NOT the internal helper boards (`^Subtasks^`). Every other board
+        // list excluded them; this one did not, so /public listed every public
+        // subtasks board on the instance beside the real ones.
+        title: notHelperBoardTitle(),
       };
     }
 
@@ -717,7 +722,7 @@ Template.boardList.helpers({
         { archived: false },
         { type: { $in: ['board', 'template-container'] } },
         { $or: [{ 'members.userId': Meteor.userId() }] },
-        { title: { $not: { $regex: /^\^.*\^$/ } } },
+        { title: notHelperBoardTitle() },
       ],
     };
     const allBoards = ReactiveCache.getBoards(query, {});
@@ -751,7 +756,7 @@ Template.boardList.helpers({
         { archived: false },
         { type: { $in: ['board', 'template-container'] } },
         { $or: [{ 'members.userId': Meteor.userId() }] },
-        { title: { $not: { $regex: /^\^.*\^$/ } } },
+        { title: notHelperBoardTitle() },
       ],
     };
     const allBoards = ReactiveCache.getBoards(query, {});
@@ -844,7 +849,7 @@ Template.workspaceTree.helpers({
         { archived: false },
         { type: { $in: ['board', 'template-container'] } },
         { $or: [{ 'members.userId': Meteor.userId() }] },
-        { title: { $not: { $regex: /^\^.*\^$/ } } },
+        { title: notHelperBoardTitle() },
       ],
     };
     const allBoards = ReactiveCache.getBoards(query, {});

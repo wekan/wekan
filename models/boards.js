@@ -3,6 +3,7 @@ import { Mongo } from 'meteor/mongo';
 import { check, Match } from 'meteor/check';
 import { Random } from 'meteor/random';
 import { ReactiveCache } from '/imports/reactiveCache';
+const { notHelperBoardTitle } = require('/models/lib/helperBoards');
 import escapeForRegex from 'escape-string-regexp';
 import CustomFields from './customFields';
 import {
@@ -2449,7 +2450,7 @@ Boards.userBoards = (
     // carets (e.g. `^Subtasks^`). Only set this when the caller did not already
     // constrain the title.
     if (selector.title === undefined) {
-      selector.title = { $not: { $regex: /^\^.*\^$/ } };
+      selector.title = notHelperBoardTitle();
     }
     selector.$or = [
       ...(includePublic ? [{ permission: 'public' }] : []),
