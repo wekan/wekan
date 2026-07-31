@@ -351,6 +351,97 @@ were using.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/435ccb733">An assigned-only member sees only their own cards on a big board too</a>. Thanks to xet7.</summary>
+
+Three board-member flags mean the same thing — `isReadAssignedOnly`,
+`isNormalAssignedOnly`, `isCommentAssignedOnly` — the member may only see the
+cards they are assigned to. The board publication has always narrowed its card
+cursor for such a member. `boardCardsWindow`, which is what ships the cards in
+LAZY card-loading mode, did not.
+
+So whether the restriction applied at all depended on the board's card-loading
+mode. The same member saw only their own cards on a small board and every card
+in the window on a big one (or on any board with `CARDS_LOADING=lazy`) — and
+with the cards went their comments, attachments, checklists and checklist items,
+because the window's children hang off the same selector. The restriction is
+part of the window scope now, and of its count: an unrestricted count still told
+the member how many cards the list really holds, and offered to scroll in cards
+that would never arrive.
+
+Two things this had to get right. The field projection: publish-composite hands
+each child the document as the parent cursor published it, and that cursor
+projected to `{ _id: 1 }` — so `board.members` was undefined in every child and
+the restriction would have been dead code. The parent publishes `members` now,
+which also makes it reactive, and the board publication already ships them to
+the same client.
+
+And the merge. The board scope is spread into the client's selector at the top
+level because FerretDB v1 (SQLite) does not push a top-level `$and` down to its
+index — the wrapped form full-scanned the whole cards table on every poll and
+cards never loaded on a big board. But a top-level spread can only be used when
+the two selectors do not both speak for the same key, and the board Filter has
+an assignee filter, so that collision is reachable from the UI: in the direction
+the publication spreads them, the client's value would have won and the
+restriction would have been silently dropped. The guard covered
+`boardId`/`archived` only; it is `mergeCardScope` now, which merges when the
+keys are disjoint and falls back to `$and` — where both hold — when they are
+not. An assigned-only member filtering for someone else gets nothing rather than
+everything, and an unrestricted member keeps the fast path.
+
+</details>
+
+and documents the following:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0b59781e1">What each board role may and may not do, as one table, read from the code</a>. Thanks to xet7.</summary>
+
+There was no comparison of the roles anywhere. Members.md listed three of them —
+Admin, Normal, Comment only — in one line each, and there are **nine**: board
+admin, normal, no comments, comment only, worker, read only, and an
+assigned-only variant of normal, comment-only and read-only. The API page shows
+how to set each flag without saying what any of them does.
+
+[Board
+roles](https://github.com/wekan/wekan/blob/main/docs/Features/Members/Roles.md)
+is the table: for every role, which cards it sees, whether it may comment,
+create or edit cards, move cards, edit lists and swimlanes, and change the
+board's settings and members. It says where each column comes from, because the
+answer is only two helpers in `server/lib/utils.js` plus `isBoardAdmin()` and,
+for visibility, the assigned-only scope in the card publications. It is what the
+SERVER allows, because the server is the authority and the UI can only hide
+buttons.
+
+Reading the code to write it turned up three roles that do not do what their
+name says. They are recorded as gaps rather than fixed, because each needs a
+decision about which side is wrong. **"Comment only, assigned" has full write
+access** — nothing outside the card publications ever reads that flag, so the
+role is in practice "Normal, but only sees my cards", which another role already
+means. **"No comments" cannot write anything** — the write helper excludes it,
+so the role blocks editing as well as commenting, while the schema calls it "not
+allowed to make comments" and the UI offers the edit affordances anyway. **The
+write helper does not exempt board admins** — every other helper ignores a flag
+on an admin; that one reads the raw flags, which the REST API can set
+individually. A fourth section lists the buttons the UI offers that the server
+then refuses.
+
+A test keeps the page honest rather than trusting it — a permissions table that
+quietly goes stale is worse than none, because it is what an admin decides who
+to trust with. It parses the table and checks that every role the code can
+return has a row naming a flag it really reads, that the "create / edit" and
+"comment" columns match the flag lists in the two server helpers, that "which
+cards they see" matches the assigned-only scope, and that each gap it marks is
+still real and still explained — so fixing one has to update the page with it.
+
+</details>
+
+and updates the following dependency:
+
+- **aldeed:collection2 4.2.0 → 4.2.1** — cleans and validates every write
+  against a collection's SimpleSchema, so it is on the path of every insert and
+  update WeKan makes.
+  [Update](https://github.com/wekan/wekan/commit/87d56b3df). Thanks to xet7.
+
 # v10.53 2026-07-31 WeKan ® release
 
 This release fixes the following bugs:
