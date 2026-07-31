@@ -261,6 +261,96 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/acc350db5">A filter no longer leaves a spinner turning over an empty list, and a half-arrived card is not drawn as a blank box</a>. Thanks to xet7.</summary>
+
+Two problems from one report with screenshots, both in how a list decides what
+to draw at its bottom edge.
+
+**"Once a filter is applied for a member, the 3 dots continue to animate."** The
+screenshot shows a list with no cards under the filter and the load-more spinner
+still turning under it — and the scroll handler raising the window limit by ten
+every idle callback for as long as it stayed on screen.
+
+The spinner asked "does this list hold more cards than the window I asked for?"
+and answered it from a total built somewhere else than the cards being drawn.
+The cards come from the filtered selector; the total came either from the list's
+own card count or, in lazy card-loading mode, from a count document published
+per list/swimlane — whose id was `listId::swimlaneId` and did **not** include
+the filter. So changing the filter re-subscribed with a new selector under the
+SAME document id, two publications wrote one document, and Meteor's merge box
+serves whichever subscription it prefers — which during the changeover is the
+older, pre-filter one. The list drew its empty filtered window while its count
+still described the unfiltered list.
+
+The count document now carries a short stable key for its selector, so each
+filter counts into its own document and a count can never describe another
+filter's cards. And the spinner no longer depends on that being right: there is
+nothing more to fetch unless the window came back FULL. If we asked for twenty
+cards and got three, those three are all there are, whatever any count says —
+which holds in both card-loading modes and for a stale count in either
+direction.
+
+**"Random blank cards are appearing on the board."** White minicards with the
+handle icon and nothing else — no title, no members, no labels — mixed in among
+the real ones.
+
+A minicard renders blank when its document is in minimongo without its fields:
+`getTitle()` returns null for an undefined `title`, and every badge is
+conditional on a field that is not there either. That is not a card with an
+empty title — the schema declares `title` as optional with `defaultValue: ''`,
+so a card that went through it has the key, `''` at worst. A document without
+the key at all is a partial replication, and several publications ship cards
+with a projection (`openCardData` publishes `{ _id: 1 }` as the parent of its
+children cursors, the search publications ship their own field lists), while
+minimongo merges what every live publication says about an id.
+
+Which of them produced these particular stubs is **not settled** — it needs the
+running board to catch — so this is a guard where the card is drawn rather than
+a fix at the source: a document that does not carry the field the minicard is
+built around is not drawn. It cannot hide a real card, and when the full
+document arrives the card appears, which is what the blank box was standing in
+for anyway.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e983e992b">Clicking outside the filter panel closes it</a>. Thanks to xet7.</summary>
+
+"If I use any filter, the modal that appears on screen sometimes doesn't
+disappear. Ideally, this should close the moment I click anything outside the
+modal."
+
+It is the board sidebar showing its filter view, and nothing dismissed it but
+the sidebar's own toggle or Escape. The reason is one argument: the document
+click handler runs `clickExecute(evt.target, 'multiselection')`, and
+`sidebarView` sits below `multiselection` in the escape hierarchy, so the loop
+returns before ever reaching it. A click could not close the sidebar by design.
+
+The handler lives in the filter template rather than raising that limit, because
+raising it would make every sidebar view close on any outside click — Archive,
+Settings and Card Settings are panels people work beside on purpose, and only
+the filter reads as a thing you open, use and are done with. Escape is
+untouched: it still returns the sidebar to its default view.
+
+Three clicks deliberately do not close it. Inside the panel, obviously. A
+pop-over the panel opened — the label, member and due-date pickers render
+outside the sidebar, so without this, choosing a value in one would close the
+panel behind it. And the header button that opens the filter, which would
+otherwise toggle it shut in the same gesture that opened it. The handler is
+bound on the next tick so the opening click cannot reach the handler it just
+created, and it is removed by name when the panel goes, so it can never outlive
+it and close the sidebar under some later view.
+
+The sidebar is hidden, not reset, so reopening it comes back to the filter you
+were using.
+
+</details>
+
 # v10.53 2026-07-31 WeKan ® release
 
 This release fixes the following bugs:
