@@ -266,7 +266,7 @@ browser build to verify).
 This release adds the following new features:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">All Boards Multi-Selection shows that it is on, and the Sort Boards popup gets a title</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a05c1ac08">All Boards Multi-Selection shows that it is on, and the Sort Boards popup gets a title</a>. Thanks to xet7.</summary>
 
 The Multi-Selection button in the first header bar looked identical whether or
 not a selection was running, so the one control that changes what clicking a
