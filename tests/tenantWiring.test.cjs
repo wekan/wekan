@@ -258,12 +258,19 @@ test('the user helpers exist, so Blaze can ask the same questions', () => {
 
 test('Settings and Problems stay site-admin only in the tab bar', () => {
   const header = liveJade(read('client/components/settings/settingHeader.jade'));
-  const settingsTab = header.slice(header.indexOf('.setting-header-btns'));
-  assert.ok(/if currentUser\.isAdmin\n\s+a\.setting-header-btn\.settings/.test(settingsTab));
-  assert.ok(/if currentUser\.isAdmin\n\s+a\.setting-header-btn\.problems/.test(settingsTab));
+  // The tabs are icon-only `.board-header-btn`s in the FIRST top header bar
+  // now, beside the notification bell - they were labelled
+  // `.setting-header-btn`s in a second bar of their own. The RULE is unchanged
+  // and is what this checks: a per-tenant Global Admin gets People and
+  // Attachments, and not Settings or Problems.
+  const settingsTab = header.slice(header.indexOf('.admin-panel-tabs'));
+  assert.ok(/if currentUser\.isAdmin\n\s+a\.board-header-btn\.settings/.test(settingsTab),
+    'Settings is behind the site-admin check');
+  assert.ok(/if currentUser\.isAdmin\n\s+a\.board-header-btn\.problems/.test(settingsTab),
+    'and so is Problems');
   // People and Attachments are NOT behind that check - a per-tenant admin needs them.
-  assert.ok(/\n {6}a\.setting-header-btn\.people/.test(settingsTab));
-  assert.ok(/\n {6}a\.setting-header-btn\.informations/.test(settingsTab));
+  assert.ok(/\n {6}a\.board-header-btn\.people/.test(settingsTab), 'People is not');
+  assert.ok(/\n {6}a\.board-header-btn\.informations/.test(settingsTab), 'nor Attachments');
 });
 
 test('the Organizations row can appoint the org\'s own admins', () => {

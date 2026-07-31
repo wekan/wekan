@@ -15,6 +15,7 @@ import { getSidebarInstance } from '/client/features/sidebar/service';
 import { toggleAllBoardsSidebar } from '/client/lib/allBoardsSidebar';
 import { togglePageSidebar } from '/client/lib/pageSidebar';
 import { hasOwnSidebar, hasPageSidebar } from '/models/lib/pageSidebar';
+import { ADMIN_PANEL_ROUTES } from '/models/lib/adminUrls';
 // Three pages carry a name of their own rather than a fixed one: an admin can
 // rename Support and Accessibility, and Import names the source it is importing
 // from. Asked for here rather than computed a second time.
@@ -70,6 +71,11 @@ Template.header.helpers({
   // one string, because a translated title has to go through {{_ }} and a board
   // title must NOT (it is user text, and a board called "settings" is not the
   // Admin Panel). docs/Design/Page/Header.md
+  // The Admin Panel is four routes; its tabs show on all of them.
+  isAdminPanel() {
+    return ADMIN_PANEL_ROUTES.includes(FlowRouter.getRouteName());
+  },
+
   // Whether to draw the hamburger at all. A page with no sidebar and nothing to
   // put in one must not offer a control that opens an empty panel.
   hasSidebar() {

@@ -118,7 +118,12 @@ check('argument-taking methods check() every arg BEFORE requireAdmin (audit-argu
 });
 check('Admin Panel has a Problems button (right of Info) and no Reports button', () => {
   const jade = read('client/components/settings/settingHeader.jade');
-  assert.ok(/setting-header-btn\.problems/.test(jade), 'Problems button present');
+  // Icon-only, in the first top header bar beside the notification bell: the
+  // tabs are navigation between the panel's four pages, and that bar is where
+  // you can always see which of the four you are on. They were
+  // `.setting-header-btn` in a second bar of their own.
+  assert.ok(/board-header-btn\.problems/.test(jade), 'Problems button present');
+  assert.ok(/title="\{\{_ 'problems'\}\}"/.test(jade), 'named by a tooltip, being icon-only');
   assert.ok(/problemsClass/.test(jade), 'red-when-problems class');
   assert.ok(!/isAdminReportsActive/.test(jade) && !/'reports'/.test(jade), 'Reports button removed');
   const hjs = read('client/components/settings/settingHeader.js');

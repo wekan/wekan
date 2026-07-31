@@ -97,6 +97,12 @@ template(name="header")
         what people actually wanted from it. Removed rather than left in place as
         a control that does nothing.
 
+      //- The Admin Panel's four tabs, to the LEFT of the bell. Drawn only in
+        the Admin Panel: they are navigation between its four pages.
+        client/components/settings/settingHeader.jade
+      if isAdminPanel
+        +adminPanelTabs
+
       // Notifications
       +notifications
 

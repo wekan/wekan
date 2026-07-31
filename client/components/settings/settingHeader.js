@@ -11,15 +11,15 @@ function refreshProblems() {
   });
 }
 
-Template.settingHeaderBar.onCreated(function () {
+Template.adminPanelTabs.onCreated(function () {
   refreshProblems();
   problemsTimer = Meteor.setInterval(refreshProblems, 30000);
 });
-Template.settingHeaderBar.onDestroyed(function () {
+Template.adminPanelTabs.onDestroyed(function () {
   if (problemsTimer) Meteor.clearInterval(problemsTimer);
 });
 
-Template.settingHeaderBar.helpers({
+Template.adminPanelTabs.helpers({
   isProblemsActive() {
     return FlowRouter.getRouteName() === 'admin-reports' ? 'active' : '';
   },

@@ -102,6 +102,10 @@ const ADMIN_PAGES = {
 
 const ADMIN_PAGE_KEYS = Object.keys(ADMIN_PAGES);
 
+// The route names of the panel's four pages. The first header bar shows the
+// panel's tabs on all of them, and nowhere else.
+const ADMIN_PANEL_ROUTES = ADMIN_PAGE_KEYS.map(k => ADMIN_PAGES[k].routeName);
+
 function adminPage(page) {
   return ADMIN_PAGES[page] || null;
 }
@@ -148,6 +152,7 @@ function adminPath(page, paneIdOrSlug) {
 module.exports = {
   ADMIN_PAGES,
   ADMIN_PAGE_KEYS,
+  ADMIN_PANEL_ROUTES,
   adminPage,
   paneIdForSlug,
   slugForPaneId,

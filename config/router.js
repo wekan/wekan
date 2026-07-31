@@ -675,7 +675,6 @@ FlowRouter.route('/settings/:pane?', {
     // panel with nothing in it - a URL is something a person types.
     Session.set('settingsOpenPane', resolvePaneId('settings', params && params.pane));
     this.render('defaultLayout', {
-      headerBar: 'settingHeaderBar',
       content: 'setting',
     });
   },
@@ -733,7 +732,6 @@ FlowRouter.route('/people/:pane?', {
     // page's default. docs/Design/Page/Admin-Panel-URLs.md
     Session.set('peopleOpenPane', resolvePaneId('people', params && params.pane));
     this.render('defaultLayout', {
-      headerBar: 'settingHeaderBar',
       content: 'people',
     });
   },
@@ -760,7 +758,6 @@ FlowRouter.route('/admin-reports/:pane?', {
     // page's default. docs/Design/Page/Admin-Panel-URLs.md
     Session.set('problemsOpenPane', resolvePaneId('problems', params && params.pane));
     this.render('defaultLayout', {
-      headerBar: 'settingHeaderBar',
       content: 'adminReports',
     });
   },
@@ -787,7 +784,6 @@ FlowRouter.route('/attachments/:pane?', {
     // page's default. docs/Design/Page/Admin-Panel-URLs.md
     Session.set('attachmentsOpenPane', resolvePaneId('attachments', params && params.pane));
     this.render('defaultLayout', {
-      headerBar: 'settingHeaderBar',
       content: 'attachments',
     });
   },

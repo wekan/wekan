@@ -1,44 +1,17 @@
-template(name="settingHeaderBar")
-  h1.header-setting-menu
-    span {{_ 'admin-panel'}}
-
-  .setting-header-btns.left
-    if currentUser
+template(name="adminPanelTabs")
+  if currentUser
+    .board-header-btns.admin-panel-tabs
       //- Multitenancy option D (docs/Design/Multitenancy/Multitenancy.md, D.7):
-      //- Settings and Problems are about the INSTANCE, so a per-tenant Global
-      //- Admin does not get those tabs - they get People (their own Organizations
-      //- and their members) and Attachments (Backup, scoped to their tenant). The
-      //- site admin's bar is unchanged.
+        Settings and Problems are about the INSTANCE, so a per-tenant Global
+        Admin does not get those tabs - they get People (their own Organizations
+        and their members) and Attachments (Backup, scoped to their tenant).
       if currentUser.isAdmin
-        a.setting-header-btn.settings(class=isSettingsActive href="{{pathFor 'setting'}}")
-          span.emoji-icon
+        a.board-header-btn.settings(class=isSettingsActive href="{{pathFor 'setting'}}" title="{{_ 'settings'}}")
           i.fa.fa-cog
-          span {{_ 'settings'}}
-
-      a.setting-header-btn.people(class=isPeopleActive href="{{pathFor 'people'}}")
-        span.emoji-icon
+      a.board-header-btn.people(class=isPeopleActive href="{{pathFor 'people'}}" title="{{_ 'people'}}")
         i.fa.fa-users
-        span {{_ 'people'}}
-
-      a.setting-header-btn.informations(class=isAttachmentsActive href="{{pathFor 'attachments'}}")
-        span.emoji-icon
+      a.board-header-btn.informations(class=isAttachmentsActive href="{{pathFor 'attachments'}}" title="{{_ 'attachments'}}")
         i.fa.fa-paperclip
-        span {{_ 'attachments'}}
-
-
       if currentUser.isAdmin
-        a.setting-header-btn.problems(class="{{isProblemsActive}} {{problemsClass}}" href="{{pathFor 'admin-reports'}}")
-          span.emoji-icon
+        a.board-header-btn.problems(class="{{isProblemsActive}} {{problemsClass}}" href="{{pathFor 'admin-reports'}}" title="{{_ 'problems'}}")
           i.fa.fa-exclamation-triangle
-          span {{_ 'problems'}}
-
-      //- No Version tab: Version is the FIRST pane of Admin Panel / Settings now,
-      //- and the one that opens with the page, so the tab would have led to a
-      //- second copy of what Settings already shows. Same move Translation made.
-
-    else
-      a.setting-header-btn.js-log-in(
-        title="{{_ 'log-in'}}")
-        span.emoji-icon
-        i.fa.fa-sign-in
-        span {{_ 'log-in'}}

@@ -128,6 +128,49 @@ test('and it opens whichever sidebar the page has', () => {
   assert.ok(/Utils\.getCurrentBoardId\(\)/.test(body), 'and it is the board that decides');
 });
 
+test('the Admin Panel tabs are icons, in the first bar, left of the bell', () => {
+  // They were a row of LABELLED buttons in a second header bar of their own.
+  // They are navigation between the panel's four pages rather than controls of
+  // one, so they did not belong in a right sidebar with a page's controls -
+  // they belong where you can always see which of the four you are on.
+  const tabs = read('client/components/settings/settingHeader.jade');
+  assert.ok(/template\(name="adminPanelTabs"\)/.test(tabs), 'the tabs are their own template');
+  assert.ok(!/template\(name="settingHeaderBar"\)/.test(tabs), 'and the old bar is gone');
+  assert.ok(!/settingHeaderBar/.test(read('config/router.js')), 'with no route naming it');
+
+  // Icon only, named by a tooltip: the first bar is one row shared with the
+  // logo, the starred boards and the user menu.
+  const block = tabs.slice(tabs.indexOf('template(name="adminPanelTabs")'));
+  const buttons = [...block.matchAll(/^\s+a\.board-header-btn\.[\w-]+\(([^)]*)\)$/gm)];
+  assert.strictEqual(buttons.length, 4, `four tabs, found ${buttons.length}`);
+  for (const b of buttons) {
+    assert.ok(/title="\{\{_ '[\w-]+'\}\}"/.test(b[1]), 'each is named by a translated tooltip');
+    assert.ok(/href="\{\{pathFor '[\w-]+'\}\}"/.test(b[1]), 'and links by route name');
+  }
+  assert.ok(!/span \{\{_ '(settings|people|attachments|problems)'\}\}/.test(block),
+    'and carries no visible label');
+
+  // Before the bell, in the first bar.
+  const header = read('client/components/main/header.jade');
+  const tabsAt = header.indexOf('+adminPanelTabs');
+  const bellAt = header.indexOf('+notifications');
+  assert.notStrictEqual(tabsAt, -1, 'the first bar renders them');
+  assert.ok(tabsAt < bellAt, 'to the LEFT of the notification bell');
+  assert.ok(tabsAt < header.indexOf('#header.nodragscroll'), 'in the FIRST bar');
+  assert.ok(/if isAdminPanel\n\s+\+adminPanelTabs/.test(header),
+    'and only in the Admin Panel');
+
+  // ...which is its four routes, from the one place that lists them.
+  const { ADMIN_PANEL_ROUTES } = require('../models/lib/adminUrls');
+  assert.deepStrictEqual(ADMIN_PANEL_ROUTES,
+    ['setting', 'people', 'admin-reports', 'attachments']);
+  const { PAGE_TITLE_KEYS } = require('../models/lib/pageTitles');
+  for (const route of ADMIN_PANEL_ROUTES) {
+    assert.strictEqual(PAGE_TITLE_KEYS[route], 'admin-panel',
+      `${route}: the first bar must say "Admin Panel" there`);
+  }
+});
+
 for (const [name, fn] of tests) {
   try { fn(); passed++; console.log('  ok -', name); }
   catch (err) { console.error(`  FAIL - ${name}\n    ${err.message}`); process.exitCode = 1; }
