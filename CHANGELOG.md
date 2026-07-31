@@ -266,7 +266,7 @@ browser build to verify).
 This release adds the following new features:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">All Boards keeps its four controls in the header bar, and drops the hamburger that only led to them</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6051a4368">All Boards keeps its four controls in the header bar, and drops the hamburger that only led to them</a>. Thanks to xet7.</summary>
 
 Sort, Search, Multi-Selection and Boards in Archive were rows of the right
 sidebar's home view, so reaching any of them meant opening a panel over the
