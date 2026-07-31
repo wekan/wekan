@@ -195,42 +195,26 @@ Template.boardList.helpers({
 // this bar's copy and the board header's map fires for its own. That is what
 // lets one piece of markup mean "search cards" on a board and "search boards"
 // here. docs/Design/Page/Search.md, docs/Design/Page/Multi-Selection.md
-Template.boardListHeaderBar.events({
+// Sort and the view menu, which were buttons in this page's second header bar
+// and are rows of the sidebar's home view now. A Blaze event map only sees
+// events inside its OWN template, so they had to move with their markup.
+// docs/Design/Page/All-Boards.md
+Template.allBoardsHomeSidebar.events({
   'click .js-open-boards-sort': Popup.open('boardsSort'),
   'click .js-open-all-boards-view': Popup.open('allBoardsView'),
+});
 
-  // The hamburger toggles the sidebar without changing which view it is on -
-  // the same as the board header's, so reopening it gives back what you left.
-  'click .js-toggle-all-boards-sidebar'(evt) {
-    evt.preventDefault();
-    toggleAllBoardsSidebar();
+Template.allBoardsHomeSidebar.helpers({
+  isBoardsSort(mode) {
+    const currentUser = ReactiveCache.getCurrentUser();
+    const sortBy =
+      currentUser && typeof currentUser.getAllBoardsSortBy === 'function'
+        ? currentUser.getAllBoardsSortBy()
+        : 'custom';
+    return sortBy === mode;
   },
-
-  // Search opens the sidebar on its search view, as it does on a board.
-  'click .js-open-search-view'(evt) {
-    evt.preventDefault();
-    openAllBoardsSidebar(SIDEBAR_SEARCH);
-  },
-
-  // Multi-Selection turns selection on AND opens the sidebar that holds what to
-  // do with a selection - the board header does the same thing with cards.
-  'click .js-multiselection-activate'(evt) {
-    evt.preventDefault();
-    if (BoardMultiSelection.isActive()) {
-      BoardMultiSelection.disable();
-      closeAllBoardsSidebar();
-    } else {
-      BoardMultiSelection.activate();
-      openAllBoardsSidebar(SIDEBAR_MULTISELECTION);
-    }
-  },
-  'click .js-multiselection-reset'(evt) {
-    evt.preventDefault();
-    // Nested inside the activate button, so stop the click bubbling to it -
-    // which would immediately re-activate what this just turned off.
-    evt.stopPropagation();
-    BoardMultiSelection.disable();
-    closeAllBoardsSidebar();
+  isAllBoardsView(view) {
+    return isAllBoardsView(view);
   },
 });
 
@@ -397,49 +381,6 @@ const ALL_BOARDS_COLUMNS = [
   { labelKey: 'description' },
 ];
 
-Template.boardListHeaderBar.helpers({
-  title() {
-    //if (FlowRouter.getRouteName() === 'template-container') {
-    //  return 'template-container';
-    //} else {
-    return FlowRouter.getRouteName() === 'home' ? 'my-boards' : 'public';
-    //}
-  },
-  templatesBoardId() {
-    return ReactiveCache.getCurrentUser()?.getTemplatesBoardId();
-  },
-  templatesBoardSlug() {
-    return ReactiveCache.getCurrentUser()?.getTemplatesBoardSlug();
-  },
-
-  // The controls are the All Boards page's, so they render only there - this same
-  // header bar template is also the /public one, which has no sections, no
-  // multi-selection and no view menu.
-  isBoardListPage() {
-    return FlowRouter.getRouteName() !== 'public';
-  },
-  isBoardsSort(mode) {
-    const currentUser = ReactiveCache.getCurrentUser();
-    const sortBy =
-      currentUser && typeof currentUser.getAllBoardsSortBy === 'function'
-        ? currentUser.getAllBoardsSortBy()
-        : 'custom';
-    return sortBy === mode;
-  },
-  boardSearch() {
-    return allBoardsSearchVar.get();
-  },
-  canModifyBoards() {
-    const currentUser = ReactiveCache.getCurrentUser();
-    return currentUser && !currentUser.isCommentOnly();
-  },
-  isAllBoardsView(view) {
-    return isAllBoardsView(view);
-  },
-  BoardMultiSelection() {
-    return BoardMultiSelection;
-  },
-});
 
 Template.allBoardsViewPopup.helpers({
   isAllBoardsView(view) {
@@ -463,9 +404,8 @@ Template.boardList.onCreated(function () {
   Meteor.subscribe('tableVisibilityModeSettings');
   // Honor the URL-addressable sub-view (#5850). The route sets
   // Session 'boardListMenu' to 'starred', 'templates' or 'remaining'.
-  // Shared with boardListHeaderBar, which is a SEPARATE Blaze instance (it is
-  // rendered into the layout's headerBar region) and carries this page's
-  // controls. Assigned onto the instance so every `tpl.selectedMenu` /
+  // Shared with the right sidebar, which is a SEPARATE Blaze instance (it is
+  // rendered beside the page, not inside it) and carries this page's controls. Assigned onto the instance so every `tpl.selectedMenu` /
   // `tpl.boardSearchVar` already written here keeps working unchanged.
   // docs/Design/Page/All-Boards.md
   this.selectedMenu = allBoardsMenuVar;

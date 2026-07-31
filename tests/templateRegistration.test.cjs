@@ -94,26 +94,27 @@ test('and every +template it includes is defined by one of them', () => {
   }
 });
 
-test('the shared header controls are imported before the bars that use them', () => {
+test('the shared header controls are imported before the bar that uses them', () => {
   // Not required by Blaze - it resolves a template at render time - but the
   // list reads as a dependency order, and a reader who reorders it should see
   // that this one comes first on purpose.
   const boards = read('client/features/boards.js');
   const shared = boards.indexOf("'/client/components/boards/headerBarControls.jade'");
   assert.notStrictEqual(shared, -1, 'the shared controls must be imported');
-  for (const user of ['boardHeader.jade', 'boardsList.jade']) {
-    assert.ok(shared < boards.indexOf(`'/client/components/boards/${user}'`),
-      `headerBarControls.jade comes before ${user}`);
-  }
-  // Its templates really are what both bars include.
+  assert.ok(shared < boards.indexOf("'/client/components/boards/boardHeader.jade'"),
+    'headerBarControls.jade comes before boardHeader.jade');
+  // Its templates are what the board header includes. They were written for
+  // TWO bars - All Boards had one too - and All Boards has no header bar any
+  // more, so the board is the only user left. Kept shared rather than folded
+  // back in: the board's bar is the next one to be emptied.
   const controls = read('client/components/boards/headerBarControls.jade');
   for (const name of ['headerSearchButton', 'headerMultiSelectionButton']) {
     assert.ok(controls.includes(`template(name="${name}")`), `${name} is defined there`);
     assert.ok(read('client/components/boards/boardHeader.jade').includes(`+${name}`),
       `the board header uses ${name}`);
-    assert.ok(read('client/components/boards/boardsList.jade').includes(`+${name}`),
-      `the All Boards header bar uses ${name}`);
   }
+  assert.ok(!read('client/components/boards/boardsList.jade').includes('+header'),
+    'and All Boards no longer has a header bar to include them in');
 });
 
 for (const [name, fn] of tests) {

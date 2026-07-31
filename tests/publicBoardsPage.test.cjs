@@ -107,9 +107,10 @@ test('the two columns, and only those two', () => {
 });
 
 test('the page does not print a second title', () => {
-  // The route renders boardListHeaderBar, whose h1 already says "Public". The
-  // shared table page prints a title only when one is supplied - so supplying one
-  // here put the same heading on the screen twice.
+  // The FIRST header bar says "Public" (models/lib/pageTitles.js). The shared
+  // table page prints a title only when one is supplied - so supplying one here
+  // would put the same heading on the screen twice. It used to be the second
+  // header bar's h1 that said it; the rule is the same either way.
   const data = js.slice(js.indexOf('tablePageData() {'));
   const helper = data.slice(0, data.indexOf('\n  },'));
   // The LAST `return {` is the table-page context; the earlier one is the row
@@ -119,9 +120,13 @@ test('the page does not print a second title', () => {
   assert.ok(!/^\s+title:/m.test(ret), 'and no title of its own');
   assert.ok(/emptyKey:/.test(ret), 'and this really is the table-page context');
 
-  const headerBar = read('client/components/boards/boardsList.jade');
-  assert.ok(/template\(name="boardListHeaderBar"\)\n  h1 \{\{_ title \}\}/.test(headerBar),
-    'because that heading is what the header bar renders');
+  // It is the FIRST header bar that renders it now - this page has no second
+  // one, and no header bar template of its own at all.
+  const { PAGE_TITLE_KEYS } = require('../models/lib/pageTitles');
+  assert.strictEqual(PAGE_TITLE_KEYS.public, 'public',
+    'the top header bar names this page');
+  assert.ok(!/template\(name="boardListHeaderBar"\)/.test(read('client/components/boards/boardsList.jade')),
+    'and there is no second header bar left to name it again');
 });
 
 test('the header labels are translation keys that exist', () => {

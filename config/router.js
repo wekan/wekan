@@ -84,7 +84,6 @@ function renderBoardList(ctx, menu) {
   Utils.manageMatomo();
 
   ctx.render('defaultLayout', {
-    headerBar: 'boardListHeaderBar',
     content: 'boardList',
   });
 }
@@ -279,7 +278,6 @@ FlowRouter.route('/public', {
     // which means anything for somebody else's public boards, and some of which
     // offered actions the visitor has no rights to.
     this.render('defaultLayout', {
-      headerBar: 'boardListHeaderBar',
       content: 'publicBoards',
     });
   },
@@ -511,7 +509,6 @@ FlowRouter.route('/b/templates', {
     Utils.manageMatomo();
 
     this.render('defaultLayout', {
-      headerBar: 'boardListHeaderBar',
       content: 'boardList',
     });
   },
@@ -601,7 +598,6 @@ FlowRouter.route('/bookmarks', {
     Utils.manageMatomo();
 
     this.render('defaultLayout', {
-      headerBar: 'boardListHeaderBar',
       content: 'boardList',
     });
   },

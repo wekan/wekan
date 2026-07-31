@@ -29,22 +29,23 @@ function test(name, fn) {
 const controls = read('client/components/boards/headerBarControls.jade');
 const block = controls.slice(controls.indexOf('template(name="headerMultiSelectionButton")'));
 
-test('the button is defined once, and both header bars include it', () => {
-  for (const bar of ['client/components/boards/boardsList.jade',
-    'client/components/boards/boardHeader.jade']) {
-    const jade = read(bar);
-    assert.ok(/\+headerMultiSelectionButton\(isActive=/.test(jade),
-      `${bar} must include the shared button, with its own isActive`);
-    // ...and must NOT have kept a copy of the markup.
-    assert.ok(!/js-multiselection-activate/.test(jade),
-      `${bar} must not write the button out again`);
-  }
-  // The two pages select different things, which is the only difference between
-  // them: cards on a board, boards on All Boards.
-  assert.ok(read('client/components/boards/boardHeader.jade')
-    .includes('+headerMultiSelectionButton(isActive=MultiSelection.isActive)'));
-  assert.ok(read('client/components/boards/boardsList.jade')
-    .includes('+headerMultiSelectionButton(isActive=BoardMultiSelection.isActive)'));
+test('the button is defined once, and the board header includes it', () => {
+  // It was written for TWO bars, and it still is one template - but All Boards
+  // has no header bar any more, so the board is the only user left. All Boards
+  // offers Multi-Selection as a sidebar ROW, which is where this restructure
+  // puts a control. Kept shared because the board's bar is next to be emptied.
+  const header = read('client/components/boards/boardHeader.jade');
+  assert.ok(/\+headerMultiSelectionButton\(isActive=MultiSelection\.isActive\)/.test(header),
+    'the board header includes the shared button, with its own isActive');
+  assert.ok(!/js-multiselection-activate/.test(header),
+    'and does not write the button out again');
+
+  const boards = read('client/components/boards/boardsList.jade');
+  assert.ok(!/\+headerMultiSelectionButton/.test(boards),
+    'All Boards has no header bar to include it in');
+  const sidebar = read('client/components/boards/allBoardsSidebar.jade');
+  assert.ok(/js-all-boards-sidebar-multiselection/.test(sidebar),
+    'it offers Multi-Selection as a sidebar row instead');
 });
 
 test('and it is an icon + a text label with the reset nested inside', () => {

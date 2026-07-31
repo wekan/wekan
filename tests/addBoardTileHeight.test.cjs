@@ -90,49 +90,31 @@ test('the empty .board-list-header dead-space band is gone', () => {
   assert.ok(!/\.board-list-header\s*{/.test(css), 'its dead CSS rule removed too');
 });
 
-test('All Boards controls are in the header bar, in the design order', () => {
-  // This has followed the controls twice. It first asserted their order inside
-  // `.path-right`, the page's OWN row above the board icons; that row is gone.
-  // It then asserted Sort / Search / view / Multi-Selection with the search
-  // FIELD among them; Search and Multi-Selection are shared BUTTONS now, the
-  // same ones the board header has, so they are included rather than written
-  // here and their order is the order of the includes.
+test('All Boards has no header bar left to hold controls', () => {
+  // This has followed the controls three times: their order inside
+  // `.path-right` (the page's own row above the board icons), then their order
+  // in the second header bar, and now nowhere - the bar is gone. Sort and the
+  // view menu are rows of the right sidebar; Search and Multi-Selection are rows
+  // it already had. docs/Design/Page/All-Boards.md
   const jade = fs.readFileSync(
     path.join(path.resolve(__dirname, '..'), 'client/components/boards/boardsList.jade'), 'utf8');
-  const bar = jade.slice(jade.indexOf('template(name="boardListHeaderBar")'),
-    jade.indexOf('template(name="allBoardsRow")'));
+  assert.ok(!/template\(name="boardListHeaderBar"\)/.test(jade), 'the bar is gone');
+  const router = fs.readFileSync(
+    path.join(path.resolve(__dirname, '..'), 'config/router.js'), 'utf8');
+  assert.ok(!/boardListHeaderBar/.test(router), 'and no route names it');
 
-  const at = name => {
-    const i = bar.indexOf(name);
-    assert.notStrictEqual(i, -1, `${name} must be in the header bar`);
-    return i;
-  };
-  const sort = at('js-open-boards-sort');
-  const search = at('+headerSearchButton');
-  const view = at('js-open-all-boards-view');
-  const multi = at('+headerMultiSelectionButton');
-
-  // Starred is not here at all: it is a SECTION, and the left menu already
-  // lists it beside Templates and Remaining, counts it and highlights it when
-  // it is the one shown. Two ways to reach one section, a click apart, is a
-  // button that only has to be kept in step.
-  assert.ok(!bar.includes('data-type="starred"'), 'no Starred button in the bar');
-
-  assert.ok(sort < search, 'Sort is first');
-  assert.ok(search < view, 'then Search, then the Lists/Table menu');
-  assert.ok(view < multi, 'and Multi-Selection last of the controls');
-
-  // Search opens the right sidebar, as it does on a board. It was an inline
-  // field here; xet7 asked for the board's behaviour on both pages.
-  assert.ok(!/input\.js-board-search-input/.test(bar),
-    'Search must be the shared button, not an inline field');
-
-  // ...and the page's own controls row is gone.
-  const page = jade.slice(0, jade.indexOf('template(name="boardsSortPopup")'));
+  // The page body holds no controls either - that was the first move.
   for (const moved of ['js-open-boards-sort', 'js-board-search-input',
-    'js-multiselection-activate']) {
-    assert.ok(!page.includes(moved),
-      `${moved} must not also be in the page body - that is the second bar`);
+    'js-multiselection-activate', 'path-right']) {
+    assert.ok(!jade.includes(moved), `${moved} must not be in the page`);
+  }
+
+  // They are in the sidebar.
+  const sidebar = fs.readFileSync(
+    path.join(path.resolve(__dirname, '..'), 'client/components/boards/allBoardsSidebar.jade'), 'utf8');
+  for (const control of ['js-open-boards-sort', 'js-open-all-boards-view',
+    'js-all-boards-sidebar-search', 'js-all-boards-sidebar-multiselection']) {
+    assert.ok(sidebar.includes(control), `${control} must be a sidebar row`);
   }
 });
 

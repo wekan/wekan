@@ -77,13 +77,10 @@ template(name="boardList")
                   span {{_ 'filter-clear'}}
 
       // Right boards grid
-      //- There is NO bar above the boards. It held the controls of the page -
-        Multi-Selection, Sort, the search box, and the archive / duplicate /
-        star / home actions on a selection - which are all in the second top
-        header bar now (boardListHeaderBar below), styled like the board header
-        of the Swimlanes view. What was left was a white strip carrying the
-        current section's icon, which the left menu already highlights and the
-        header bar already names. docs/Design/Page/All-Boards.md
+      //- There is NO bar above the boards, and no second header bar either.
+        Every control of this page - Sort, Search, Multi-Selection, the view
+        menu and the actions on a selection - is in the right sidebar, and the
+        page is named by the FIRST header bar. docs/Design/Page/All-Boards.md
       .boards-right-grid
         //- Lists (the board icons) or Table. Lists is the default;
           docs/Design/Page/All-Boards.md.
@@ -239,58 +236,6 @@ template(name="boardsSortPopup")
         span.emoji-icon
           i.fa.fa-sort-alpha-desc
         | &nbsp;{{_ 'sort-boards-title-desc'}}
-
-//- The ONE row of controls of the All Boards page, in the second top header bar.
-//- Design: docs/Design/Page/All-Boards.md
-//-
-//- Laid out and styled exactly like the board header of the Swimlanes view -
-//- `.board-header-btn`, the same Font Awesome glyphs, the same emphasis state
-//- when a control is on - because a WeKan page puts its controls in its header
-//- bar, and this page used to carry a second row of its own above the board
-//- icons instead.
-template(name="boardListHeaderBar")
-  h1 {{_ title }}
-  if isBoardListPage
-    //- The divider and the sidebar hamburger, their own flex item and LAST in
-      the source, exactly as the board header of the Swimlanes view has them -
-      so on a phone the hamburger stays in the top right beside the title while
-      the other buttons wrap to a second row.
-    .board-header-btns.board-header-sidebar-toggle
-      .separator
-      a.board-header-btn.js-toggle-all-boards-sidebar(title="{{_ 'sidebar-open'}} {{_ 'or'}} {{_ 'sidebar-close'}}")
-        i.fa.fa-bars
-
-    //- There is no Starred button here. Starred is a SECTION, and the left menu
-      already lists it beside Templates and Remaining, counts it and highlights
-      it when it is the one shown - a second way to reach the same section, one
-      click away from the first, is a button that only has to be kept in step.
-    .board-header-btns.all-boards-controls
-      a.board-header-btn.js-open-boards-sort(
-          title="{{_ 'sort-boards'}}"
-          class="{{#unless isBoardsSort 'custom'}}emphasis{{/unless}}")
-        i.fa.fa-sort
-        span {{_ 'sort'}}
-
-      //- Search and Multi-Selection are the SHARED controls, the same template
-        the board header of the Swimlanes view uses, and they do the same thing
-        here: open the right sidebar on that view. headerBarControls.jade.
-      +headerSearchButton
-
-      //- The view menu names the CURRENT view, not itself - the same as the board
-        header, which says "Swimlanes" or "Lists" rather than "Board View".
-      a.board-header-btn.js-open-all-boards-view(title="{{_ 'board-view'}}")
-        i.fa.fa-caret-down
-        if isAllBoardsView 'table'
-          i.fa.fa-table
-          span {{_ 'board-view-table'}}
-        else
-          i.fa.fa-trello
-          span {{_ 'lists'}}
-
-      //- Multi-Selection last, because what it turns on - the actions on a
-        selection - is in the sidebar it opens rather than in this bar.
-      if canModifyBoards
-        +headerMultiSelectionButton(isActive=BoardMultiSelection.isActive)
 
 //- One row of the All Boards Table view. A rowTemplate, because the Edit cell is
 //- a control and the row carries its board's colours - neither of which a
