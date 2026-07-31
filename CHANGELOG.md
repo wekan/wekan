@@ -266,7 +266,7 @@ browser build to verify).
 This release adds the following new features:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">The header bar draws one star group, and names the buttons whose icon does not say enough</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f62258b5c">The header bar draws one star group, and names the buttons whose icon does not say enough</a>. Thanks to xet7.</summary>
 
 The bar drew two stars in a row — one on the starred-boards dropdown and one for
 the board you are on — which read as a single control somehow drawn twice. The
