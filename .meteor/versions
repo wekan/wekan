@@ -2,7 +2,7 @@ accounts-base@3.3.0
 accounts-express@1.0.0
 accounts-oauth@1.4.7
 accounts-password@3.3.0
-aldeed:collection2@4.2.0
+aldeed:collection2@4.2.1
 aldeed:schema-index@4.0.0
 aldeed:simple-schema@1.13.1
 allow-deny@2.1.0
