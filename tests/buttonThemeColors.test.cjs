@@ -27,6 +27,26 @@ check('forms.css: base button + primary buttons use var(--theme-accent)', () => 
   assert.ok(/background:\s*var\(--theme-accent, #01628c\)/.test(css), 'button.primary:active must be themed');
 });
 
+check('every settings form ends in a themed Save, not a black Apply', () => {
+  // Member Settings → Change Settings had a submit that carried NO `.primary`, so
+  // it fell to the base rule above - whose fallback is `#000`, a pure black button
+  // with no theme in it - and it was the one settings form in WeKan labelled
+  // "Apply" while the rest say Save. Both came from the same line.
+  const jade = read('client/components/users/userHeader.jade');
+  const at = jade.indexOf('js-apply-user-settings');
+  assert.ok(at > -1, 'the Change Settings submit must exist');
+  const button = jade.slice(jade.lastIndexOf('\n', at), jade.indexOf('\n', at));
+
+  assert.ok(/\.primary/.test(button),
+    'it must be .primary, or it renders with the base rule\'s black fallback');
+  assert.ok(/value="\{\{_ 'save'\}\}"/.test(button), 'and say Save');
+  assert.ok(!/'apply'/.test(button), 'not Apply');
+
+  // The Change Language form directly above it is the shape to match.
+  assert.ok(/input\.primary\.wide\(type="submit" value="\{\{_ 'save'\}\}"\)/.test(jade),
+    'the Change Language Save is the sibling this matches');
+});
+
 check('admin (settingBody) + People (peopleBody) buttons follow the theme accent', () => {
   const sb = read('client/components/settings/settingBody.css');
   assert.ok(/var\(--theme-accent, #005377\)/.test(sb), 'admin action button must be themed');

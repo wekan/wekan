@@ -271,7 +271,13 @@ template(name="changeSettingsPopup")
             b &nbsp;
             #rescue-card-description.materialCheckBox.left(class="{{#if rescueCardDescription}}is-checked{{/if}}", value=rescueCardDescription)
             span {{_ 'rescue-card-description'}}
-        input.js-apply-user-settings.left(type="submit" value="{{_ 'apply'}}")
+        //- "Save", and themed. It said "Apply" while every other settings form in
+        //- WeKan says Save, and it carried no `.primary` class - so it fell to the
+        //- BASE submit rule in forms.css, whose fallback is `#000`: a pure black
+        //- button with no theme in it. `.primary` is the themed one
+        //- (`var(--theme-accent, #005377)`), which is what the Save button of the
+        //- Change Language form above it uses.
+        input.js-apply-user-settings.primary.left(type="submit" value="{{_ 'save'}}")
 
 template(name="userDeletePopup")
   unless currentUser.isWorker
