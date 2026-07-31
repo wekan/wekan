@@ -7,6 +7,12 @@ import Announcements, {
   shouldShowAnnouncement,
 } from '/models/announcements';
 import { Utils } from '/client/lib/utils';
+// What this bar calls the page you are on. models/lib/pageTitles.js
+import { headerTitle } from '/models/lib/pageTitles';
+// The right sidebar the hamburger opens. On a board that is the board's own; on
+// every other page it is the shared page sidebar.
+import { getSidebarInstance } from '/client/features/sidebar/service';
+import { toggleAllBoardsSidebar } from '/client/lib/allBoardsSidebar';
 // Drag-to-scroll on the two top header bars (they are not scroll containers
 // themselves, so the drag is forwarded to the board canvas / page scroller).
 import '/client/lib/headerDragscroll';
@@ -44,6 +50,20 @@ Template.header.onCreated(function () {
   });
 });
 Template.header.helpers({
+  // The page's title, beside the house icon. A board's own title wherever there
+  // is a board; otherwise the page's, by route name. Two helpers rather than
+  // one string, because a translated title has to go through {{_ }} and a board
+  // title must NOT (it is user text, and a board called "settings" is not the
+  // Admin Panel). docs/Design/Page/Header.md
+  headerTitleKey() {
+    const board = Utils.getCurrentBoard();
+    return headerTitle(FlowRouter.getRouteName(), board && board.title).key || '';
+  },
+  headerTitleText() {
+    const board = Utils.getCurrentBoard();
+    return headerTitle(FlowRouter.getRouteName(), board && board.title).title || '';
+  },
+
   wrappedHeader() {
     return !Session.get('currentBoard');
   },
@@ -108,6 +128,18 @@ Template.header.helpers({
 });
 
 Template.header.events({
+  // The one hamburger, in the bar that is always on screen. Which sidebar it
+  // toggles depends on where you are: a board has its own, and every other page
+  // shares one. docs/Design/Page/Header.md
+  'click .js-toggle-page-sidebar'(evt) {
+    evt.preventDefault();
+    const boardSidebar = Utils.getCurrentBoardId() ? getSidebarInstance() : null;
+    if (boardSidebar && typeof boardSidebar.toggle === 'function') {
+      boardSidebar.toggle();
+      return;
+    }
+    toggleAllBoardsSidebar();
+  },
   'click .js-create-board': Popup.open('headerBarCreateBoard'),
   'click .js-mobile-mode-toggle'() {
     const currentMode = Utils.getMobileMode();

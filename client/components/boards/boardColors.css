@@ -10,6 +10,7 @@ THEME - NEPHRITIS
 =================*/
 
 .board-color-nephritis#header,
+.board-color-nephritis#header-quick-access,
 .board-color-nephritis.sk-spinner div,
 .board-backgrounds-list .board-color-nephritis.background-box,
 .public-board-row.board-color-nephritis,
@@ -42,7 +43,6 @@ THEME - NEPHRITIS
   border-bottom: 2px solid #2cc66d;
 }
 .board-color-nephritis#header-quick-access {
-  background: #239d56;
   color: #fff;
 }
 .board-color-nephritis#header #header-main-bar .board-header-btn.emphasis {
@@ -120,6 +120,7 @@ THEME - Pomegranate
 =================*/
 
 .board-color-pomegranate#header,
+.board-color-pomegranate#header-quick-access,
 .board-color-pomegranate.sk-spinner div,
 .board-backgrounds-list .board-color-pomegranate.background-box,
 .public-board-row.board-color-pomegranate,
@@ -152,7 +153,6 @@ THEME - Pomegranate
   border-bottom: 2px solid #d24435;
 }
 .board-color-pomegranate#header-quick-access {
-  background: #ad3327;
   color: #fff;
 }
 .board-color-pomegranate#header #header-main-bar .board-header-btn.emphasis {
@@ -230,6 +230,7 @@ THEME - Belize
 =================*/
 
 .board-color-belize#header,
+.board-color-belize#header-quick-access,
 .board-color-belize.sk-spinner div,
 .board-backgrounds-list .board-color-belize.background-box,
 .public-board-row.board-color-belize,
@@ -262,7 +263,6 @@ THEME - Belize
   border-bottom: 2px solid #2e90d0;
 }
 .board-color-belize#header-quick-access {
-  background: #2573a7;
   color: #fff;
 }
 .board-color-belize#header #header-main-bar .board-header-btn.emphasis {
@@ -340,6 +340,7 @@ THEME - Wisteria
 =================*/
 
 .board-color-wisteria#header,
+.board-color-wisteria#header-quick-access,
 .board-color-wisteria.sk-spinner div,
 .board-backgrounds-list .board-color-wisteria.background-box,
 .public-board-row.board-color-wisteria,
@@ -372,7 +373,6 @@ THEME - Wisteria
   border-bottom: 2px solid #9c51bb;
 }
 .board-color-wisteria#header-quick-access {
-  background: #803d9c;
   color: #fff;
 }
 .board-color-wisteria#header #header-main-bar .board-header-btn.emphasis {
@@ -450,6 +450,7 @@ THEME - Midnight
 =================*/
 
 .board-color-midnight#header,
+.board-color-midnight#header-quick-access,
 .board-color-midnight.sk-spinner div,
 .board-backgrounds-list .board-color-midnight.background-box,
 .public-board-row.board-color-midnight,
@@ -482,7 +483,6 @@ THEME - Midnight
   border-bottom: 2px solid #3a5169;
 }
 .board-color-midnight#header-quick-access {
-  background: #283848;
   color: #fff;
 }
 .board-color-midnight#header #header-main-bar .board-header-btn.emphasis {
@@ -560,6 +560,7 @@ THEME - Pumpkin
 =================*/
 
 .board-color-pumpkin#header,
+.board-color-pumpkin#header-quick-access,
 .board-color-pumpkin.sk-spinner div,
 .board-backgrounds-list .board-color-pumpkin.background-box,
 .public-board-row.board-color-pumpkin,
@@ -592,7 +593,6 @@ THEME - Pumpkin
   border-bottom: 2px solid #e98b38;
 }
 .board-color-pumpkin#header-quick-access {
-  background: #d57118;
   color: #fff;
 }
 .board-color-pumpkin#header #header-main-bar .board-header-btn.emphasis {
@@ -670,6 +670,7 @@ THEME - Moderate Pink
 =================*/
 
 .board-color-moderatepink#header,
+.board-color-moderatepink#header-quick-access,
 .board-color-moderatepink.sk-spinner div,
 .board-backgrounds-list .board-color-moderatepink.background-box,
 .public-board-row.board-color-moderatepink,
@@ -702,7 +703,6 @@ THEME - Moderate Pink
   border-bottom: 2px solid #d26b9c;
 }
 .board-color-moderatepink#header-quick-access {
-  background: #c64382;
   color: #fff;
 }
 .board-color-moderatepink#header #header-main-bar .board-header-btn.emphasis {
@@ -780,6 +780,7 @@ THEME - Strong Cyan
 =================*/
 
 .board-color-strongcyan#header,
+.board-color-strongcyan#header-quick-access,
 .board-color-strongcyan.sk-spinner div,
 .board-backgrounds-list .board-color-strongcyan.background-box,
 .public-board-row.board-color-strongcyan,
@@ -812,7 +813,6 @@ THEME - Strong Cyan
   border-bottom: 2px solid #00c8eb;
 }
 .board-color-strongcyan#header-quick-access {
-  background: #009db8;
   color: #fff;
 }
 .board-color-strongcyan#header #header-main-bar .board-header-btn.emphasis {
@@ -890,6 +890,7 @@ THEME - Lime Green
 =================*/
 
 .board-color-limegreen#header,
+.board-color-limegreen#header-quick-access,
 .board-color-limegreen.sk-spinner div,
 .board-backgrounds-list .board-color-limegreen.background-box,
 .public-board-row.board-color-limegreen,
@@ -922,7 +923,6 @@ THEME - Lime Green
   border-bottom: 2px solid #5dc57a;
 }
 .board-color-limegreen#header-quick-access {
-  background: #3fb15e;
   color: #fff;
 }
 .board-color-limegreen#header #header-main-bar .board-header-btn.emphasis {
@@ -1000,6 +1000,7 @@ THEME - Dark
 =================*/
 
 .board-color-dark#header,
+.board-color-dark#header-quick-access,
 .board-color-dark.sk-spinner div,
 .board-backgrounds-list .board-color-dark.background-box,
 .public-board-row.board-color-dark,
@@ -1033,7 +1034,6 @@ THEME - Dark
   border-bottom: 2px solid #3a516a;
 }
 .board-color-dark#header-quick-access {
-  background: #283849;
   color: #fff;
 }
 .board-color-dark#header #header-main-bar .board-header-btn.emphasis {
@@ -1213,6 +1213,7 @@ THEME - Relax
 =================*/
 
 .board-color-relax#header,
+.board-color-relax#header-quick-access,
 .board-color-relax.sk-spinner div,
 .board-backgrounds-list .board-color-relax.background-box,
 .public-board-row.board-color-relax,
@@ -1245,7 +1246,6 @@ THEME - Relax
   border-bottom: 2px solid #2cc66f;
 }
 .board-color-relax#header-quick-access {
-  background: #239d57;
   color: #fff;
 }
 .board-color-relax#header #header-main-bar .board-header-btn.emphasis {
@@ -1352,6 +1352,7 @@ THEME - Corteza
 =================*/
 
 .board-color-corteza#header,
+.board-color-corteza#header-quick-access,
 .board-color-corteza.sk-spinner div,
 .board-backgrounds-list .board-color-corteza.background-box,
 .public-board-row.board-color-corteza,
@@ -1384,7 +1385,6 @@ THEME - Corteza
   border-bottom: 2px solid #6597ad;
 }
 .board-color-corteza#header-quick-access {
-  background: #4d7d92;
   color: #fff;
 }
 .board-color-corteza#header #header-main-bar .board-header-btn.emphasis {
@@ -1480,7 +1480,6 @@ THEME - Clear Blue
   border-bottom: 4px solid #00c8eb;
 }
 .board-color-clearblue#header-quick-access {
-  background: #2d8ce7;
   color: #fff;
 }
 .board-color-clearblue#header-quick-access #header-new-board-icon,
@@ -1489,6 +1488,7 @@ THEME - Clear Blue
   color: rgba(255,255,255,0.5);
 }
 .board-color-clearblue#header,
+.board-color-clearblue#header-quick-access,
 .board-color-clearblue .setting-content .content-body .side-menu ul li.active,
 .board-color-clearblue .setting-content .content-body .side-menu ul li.active:hover {
   background-color: #00aecc;
@@ -1740,6 +1740,7 @@ THEME - Natural
 =================*/
 
 .board-color-natural#header,
+.board-color-natural#header-quick-access,
 .board-color-natural.sk-spinner div,
 .board-backgrounds-list .board-color-natural.background-box,
 .public-board-row.board-color-natural,
@@ -1772,7 +1773,6 @@ THEME - Natural
   border-bottom: 2px solid #687666;
 }
 .board-color-natural#header-quick-access {
-  background: #505b4e;
   color: #fff;
 }
 .board-color-natural#header #header-main-bar .board-header-btn.emphasis {
@@ -1859,6 +1859,7 @@ THEME - Modern
 =================*/
 
 .board-color-modern#header,
+.board-color-modern#header-quick-access,
 .board-color-modern.sk-spinner div,
 .board-backgrounds-list .board-color-modern.background-box,
 .public-board-row.board-color-modern,
@@ -1891,7 +1892,6 @@ THEME - Modern
   border-bottom: 2px solid #2f90cf;
 }
 .board-color-modern#header-quick-access {
-  background: #2673a6;
   color: #fff;
 }
 .board-color-modern#header #header-main-bar .board-header-btn.emphasis {
@@ -2155,6 +2155,7 @@ THEME - Modern Dark
 =================*/
 
 .board-color-moderndark#header,
+.board-color-moderndark#header-quick-access,
 .board-color-moderndark.sk-spinner div,
 .board-backgrounds-list .board-color-moderndark.background-box,
 .public-board-row.board-color-moderndark,
@@ -2187,7 +2188,6 @@ THEME - Modern Dark
   border-bottom: 2px solid #3f3f3f;
 }
 .board-color-moderndark#header-quick-access {
-  background: #262626;
   color: #fff;
 }
 @media screen and (min-width: 801px) {
@@ -2274,7 +2274,6 @@ THEME - Modern Dark
   border-bottom: 1px solid #555;
   border-top: 1px solid #555;
 }
-.board-color-moderndark#header-quick-access,
 .board-color-moderndark .background-box,
 .board-color-moderndark #header {
   background-color: #333;
@@ -2658,6 +2657,7 @@ THEME - Exodark
 =================*/
 
 .board-color-exodark#header,
+.board-color-exodark#header-quick-access,
 .board-color-exodark.sk-spinner div,
 .board-backgrounds-list .board-color-exodark.background-box,
 .public-board-row.board-color-exodark,
@@ -2690,7 +2690,6 @@ THEME - Exodark
   border-bottom: 2px solid #383838;
 }
 .board-color-exodark#header-quick-access {
-  background: #1f1f1f;
   color: #fff;
 }
 .board-color-exodark#header #header-main-bar .board-header-btn.emphasis {
@@ -4132,6 +4131,7 @@ THEME - Clean Light
 
 .board-color-cleandark #header-main-bar,
 .board-color-cleandark#header,
+.board-color-cleandark#header-quick-access,
 .board-color-cleandark .setting-content .content-body .side-menu ul li.active,
 .board-color-cleandark .setting-content .content-body .side-menu ul li.active:hover {
   background: #2E2E39 !important;

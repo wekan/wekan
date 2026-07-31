@@ -189,7 +189,12 @@ body:not(.board-view) #header #header-main-bar h1 {
 #header-quick-access {
   color: #fff;
   transition: background-color 0.4s;
-  background: #2573a7;
+  /* The SAME colour as the main bar below it, not a darker shade of it. Each
+     theme used to paint the two bars two tones apart; they are one bar's worth
+     of colour now, so the header reads as one header. The per-theme rules do
+     the same, by naming this bar in the selector list the main bar already has
+     (boardColors.css) rather than by restating each hex a second time. */
+  background: #2980b9;
   height: 28px;
   font-size: 12px;
   display: flex;

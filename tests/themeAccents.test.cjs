@@ -43,7 +43,12 @@ function headerColorsFromCss() {
     if (!selector.includes('#header')) continue;
     const decl = /background(?:-color)?:\s*([^;!}]+)/.exec(body);
     if (!decl) continue;
-    for (const m of selector.matchAll(/\.board-color-([\w-]+)#header/g)) {
+    // `#header` EXACTLY - not `#header-quick-access`, and not
+    // `#header-main-bar`. The accent is what the main bar's background is, and
+    // the quick-access bar now shares that selector list, so a loose match
+    // picked up whichever themed `#header-…` rule came first (its `ul
+    // li.current` border, say) and called that the accent.
+    for (const m of selector.matchAll(/\.board-color-([\w-]+)#header(?![-\w])/g)) {
       if (out[m[1]] === undefined) out[m[1]] = decl[1].trim();
     }
   }

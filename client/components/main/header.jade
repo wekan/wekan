@@ -9,11 +9,19 @@ template(name="header")
     //- which forwards it to whatever actually scrolls. Without it the page-level
     //- dragscroll on the body element would scroll the page at the same time.
     #header-quick-access.nodragscroll(class="{{themeColorClass}}" role="navigation" aria-label="{{_ 'all-boards'}}")
-      // Home icon - always at left side of logo
+      //- Home icon - always at left side of logo. The house is the link to All
+        Boards; the TEXT beside it is the page you are on, which on a board is
+        the board's title. It used to say "All Boards" on every page, so the one
+        bar that is always on screen named a place you were not.
+        models/lib/pageTitles.js, docs/Design/Page/Header.md
       span.home-icon.allBoards
-        a(href="{{pathFor 'home'}}")
+        a(href="{{pathFor 'home'}}" title="{{_ 'all-boards'}}")
           i.fa.fa-home
-          | {{_ 'all-boards'}}
+        span.header-page-title
+          if headerTitleKey
+            | {{_ headerTitleKey}}
+          else
+            = headerTitleText
 
       // Logo - visible; on mobile constrained by CSS
       unless currentSetting.hideLogo
@@ -98,6 +106,16 @@ template(name="header")
             i.fa.fa-question-circle
 
       +headerUserBar
+
+      //- The divider and the sidebar hamburger, at the RIGHT of the username.
+        They were the last item of the second header bar; they are here because
+        this bar is the one that is always on screen, and because what the
+        hamburger opens - the right sidebar - is now where a page keeps its
+        controls. docs/Design/Page/Header.md
+      .board-header-btns.header-sidebar-toggle
+        .separator
+        a.board-header-btn.js-toggle-page-sidebar(title="{{_ 'sidebar-open'}} {{_ 'or'}} {{_ 'sidebar-close'}}")
+          i.fa.fa-bars
 
   //- See the note above: dragging this bar is owned by headerDragscroll.js.
   #header.nodragscroll(class="{{themeColorClass}}")
