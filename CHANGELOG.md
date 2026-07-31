@@ -266,7 +266,7 @@ browser build to verify).
 This release adds the following new features:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">Boards in Archive moves to the All Boards left menu, and the Workspaces section gets its rules</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6d50d9d66">Boards in Archive moves to the All Boards left menu, and the Workspaces section gets its rules</a>. Thanks to xet7.</summary>
 
 Boards in Archive was a button in the first top header bar beside Sort, Search
 and Multi-Selection. Those three act on the boards in front of you; Boards in
