@@ -2394,23 +2394,39 @@ Boards.uniqueTitle = async title => {
 
 // Non-async: returns data on client, Promise on server.
 // Server callers must await.
+// Boards matching `selector` that the user may search. `options.includePublic:
+// false` drops the "anybody may open this" clause, the same choice as
+// Boards.userBoards - this is what resolves a `board:name` filter, so it has to
+// scope the same way the search around it does, or the filter would name a board
+// the search cannot return anything from.
 Boards.userSearch = (
   userId,
   selector = {},
   projection = {},
-  // includeArchived = false,
+  options = {},
 ) => {
-  // if (!includeArchived) {
-  //   selector.archived = false;
-  // }
-  selector.$or = [{ permission: 'public' }];
+  selector.$or = options.includePublic === false ? [] : [{ permission: 'public' }];
 
   if (userId) {
     selector.$or.push({ members: { $elemMatch: { userId, isActive: true } } });
   }
+  // An anonymous caller with public boards excluded can reach nothing, and an
+  // empty `$or` matches NOTHING in Mongo but is an error in some backends - so
+  // say it explicitly rather than leaving a selector that means "no boards" by
+  // accident.
+  if (selector.$or.length === 0) {
+    return Meteor.isServer ? Promise.resolve([]) : [];
+  }
   return ReactiveCache.getBoards(selector, projection);
 };
 
+// The ways a user reaches a board. `{ permission: 'public' }` is the odd one out:
+// it is not a relationship to the user at all, it is "anybody may open this". That
+// belongs in the boards LIST - a public board is meant to be discoverable - but not
+// in a search over "all boards", where it means every public board on the instance
+// is searched, and a hit lands the user in somebody else's board they have no part
+// in. `options.includePublic: false` leaves it out (see Boards.userBoardIds).
+//
 // Non-async: returns data on client (for Blaze templates), Promise on server.
 // Server callers must await.
 Boards.userBoards = (
@@ -2418,7 +2434,9 @@ Boards.userBoards = (
   archived = false,
   selector = {},
   projection = {},
+  options = {},
 ) => {
+  const includePublic = options.includePublic !== false;
   const _buildSelector = (user) => {
     if (!user) return null;
     if (typeof archived === 'boolean') {
@@ -2434,7 +2452,7 @@ Boards.userBoards = (
       selector.title = { $not: { $regex: /^\^.*\^$/ } };
     }
     selector.$or = [
-      { permission: 'public' },
+      ...(includePublic ? [{ permission: 'public' }] : []),
       { members: { $elemMatch: { userId, isActive: true } } },
       { orgs: { $elemMatch: { orgId: { $in: user.orgIds() }, isActive: true } } },
       { teams: { $elemMatch: { teamId: { $in: user.teamIds() }, isActive: true } } },
@@ -2456,10 +2474,10 @@ Boards.userBoards = (
   return ReactiveCache.getBoards(selector, projection);
 };
 
-Boards.userBoardIds = async (userId, archived = false, selector = {}) => {
+Boards.userBoardIds = async (userId, archived = false, selector = {}, options = {}) => {
   const boards = await Boards.userBoards(userId, archived, selector, {
     fields: { _id: 1 },
-  });
+  }, options);
   return boards.map(board => {
     return board._id;
   });
