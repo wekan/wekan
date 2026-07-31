@@ -106,24 +106,28 @@ test('every language file has the new keys, so none of them loses a tooltip', ()
   assert.deepStrictEqual(missing, [], `missing in: ${missing.join(', ')}`);
 });
 
-test('the click and the tooltip ask the same function', () => {
+test('the click and the label ask the same function', () => {
   // Two copies of "which way does this button go" would be two answers to it,
-  // and the tooltip would eventually lie about what the click does.
-  const js = read('client/components/boards/boardsList.js');
+  // and the label would eventually lie about what the click does.
+  //
+  // The star action lives in the All Boards SIDEBAR now, with the rest of the
+  // actions on a selection - it was a header-bar button with a tooltip, and it
+  // is a sidebar row with its name written beside it.
+  const js = read('client/components/boards/allBoardsSidebar.js');
   assert.ok(/function currentSelectedStarAction\(\)/.test(js), 'one function decides');
   assert.ok(/currentSelectedStarAction\(\)\.boardIds\.forEach/.test(js),
     'the click toggles exactly the boards it names');
   assert.ok(/selectedStarTitleKey\(currentSelectedStarAction\(\)\.action\)/.test(js),
-    'and the tooltip reads the same answer');
+    'and the label reads the same answer');
 
   // And the click no longer decides for itself which boards to skip.
   const handler = js.slice(js.indexOf("'click .js-star-selected'"));
   const body = handler.slice(0, handler.indexOf('\n  },'));
   assert.ok(!/hasStarred/.test(body), 'the handler must not re-derive the rule');
 
-  const jade = read('client/components/boards/boardsList.jade');
-  assert.ok(/title="\{\{selectedStarTitle\}\}"/.test(jade),
-    'the star button takes its tooltip from the helper, not a fixed string');
+  const jade = read('client/components/boards/allBoardsSidebar.jade');
+  assert.ok(/span \{\{selectedStarTitle\}\}/.test(jade),
+    'the star row takes its name from the helper, not a fixed string');
 });
 
 for (const [name, fn] of tests) {

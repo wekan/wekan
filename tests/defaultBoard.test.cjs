@@ -101,9 +101,13 @@ test('the per-TILE Home-board toggle is disabled, but the "Selected:" home actio
   assert.ok(!/a\.js-set-default-board\(/.test(jade), 'no rendered per-tile home-board toggle element');
   const js = read('client/components/boards/boardsList.js');
   assert.ok(!/'click \.js-set-default-board'/.test(js), 'no per-tile set-default-board click handler');
-  // The "Selected:" home action is the supported way to set/clear the Home board.
-  assert.ok(/'click \.js-home-selected'/.test(js), 'the "Selected:" home action handler exists');
-  assert.ok(/Meteor\.call\('toggleDefaultBoard'/.test(js),
+  // The "Selected:" home action is the supported way to set/clear the Home
+  // board. It is in the All Boards SIDEBAR now - the actions on a selection
+  // moved there, the way a board puts them in its multi-selection sidebar - so
+  // this reads the file it lives in rather than the page's.
+  const sidebar = read('client/components/boards/allBoardsSidebar.js');
+  assert.ok(/'click \.js-home-selected'/.test(sidebar), 'the "Selected:" home action handler exists');
+  assert.ok(/Meteor\.call\('toggleDefaultBoard'/.test(sidebar),
     'the "Selected:" home action toggles the default board');
 });
 

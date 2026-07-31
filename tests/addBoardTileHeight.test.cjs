@@ -91,13 +91,12 @@ test('the empty .board-list-header dead-space band is gone', () => {
 });
 
 test('All Boards controls are in the header bar, in the design order', () => {
-  // This used to assert the order of Multi-Selection / Sort / Search inside
-  // `.path-right`, the page's OWN controls row above the board icons. That row is
-  // gone: the controls are in the second top header bar now, styled like the board
-  // header of the Swimlanes view, because two rows of controls on one page - one
-  // of them styled like the board header and one not - is what
-  // docs/Design/Page/All-Boards.md removes. The order is still worth pinning, so
-  // it is pinned where the controls now are.
+  // This has followed the controls twice. It first asserted their order inside
+  // `.path-right`, the page's OWN row above the board icons; that row is gone.
+  // It then asserted Sort / Search / view / Multi-Selection with the search
+  // FIELD among them; Search and Multi-Selection are shared BUTTONS now, the
+  // same ones the board header has, so they are included rather than written
+  // here and their order is the order of the includes.
   const jade = fs.readFileSync(
     path.join(path.resolve(__dirname, '..'), 'client/components/boards/boardsList.jade'), 'utf8');
   const bar = jade.slice(jade.indexOf('template(name="boardListHeaderBar")'),
@@ -109,28 +108,24 @@ test('All Boards controls are in the header bar, in the design order', () => {
     return i;
   };
   const sort = at('js-open-boards-sort');
-  const search = at('js-board-search-input');
+  const search = at('+headerSearchButton');
   const view = at('js-open-all-boards-view');
-  const multi = at('js-multiselection-activate');
+  const multi = at('+headerMultiSelectionButton');
 
-  // Starred was first here and is not here at all now: it is a SECTION, and the
-  // left menu already lists it beside Templates and Remaining, counts it and
-  // highlights it when it is the one shown. Two ways to reach one section, a
-  // click apart, is a button that only has to be kept in step.
+  // Starred is not here at all: it is a SECTION, and the left menu already
+  // lists it beside Templates and Remaining, counts it and highlights it when
+  // it is the one shown. Two ways to reach one section, a click apart, is a
+  // button that only has to be kept in step.
   assert.ok(!bar.includes('data-type="starred"'), 'no Starred button in the bar');
 
-  // The order reads as what is SHOWN, then what is SELECTED.
   assert.ok(sort < search, 'Sort is first');
   assert.ok(search < view, 'then Search, then the Lists/Table menu');
-  assert.ok(view < multi, 'and Multi-Selection after the view menu');
-  assert.ok(multi < at('js-archive-selected-boards'),
-    'with the actions on a selection after the control that makes one');
+  assert.ok(view < multi, 'and Multi-Selection last of the controls');
 
-  // Search is a FIELD, not a button that opens a view: it filters the list it
-  // sits above, which is why it is the one control here that is not a
-  // .board-header-btn.
-  assert.ok(/input\.js-board-search-input\(type="text"/.test(bar),
-    'Search must be an input, not a button');
+  // Search opens the right sidebar, as it does on a board. It was an inline
+  // field here; xet7 asked for the board's behaviour on both pages.
+  assert.ok(!/input\.js-board-search-input/.test(bar),
+    'Search must be the shared button, not an inline field');
 
   // ...and the page's own controls row is gone.
   const page = jade.slice(0, jade.indexOf('template(name="boardsSortPopup")'));

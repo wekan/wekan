@@ -1,8 +1,13 @@
 import '/client/components/boards/boardArchive.jade';
 import '/client/components/boards/boardBody.jade';
 import '/client/components/boards/dependencyOverlay.jade';
+// Before the two bars that include it: the Search and Multi-Selection controls
+// they share. A .jade file is NOT picked up by being on disk - a template that
+// is not imported here is "No such template" at render time.
+import '/client/components/boards/headerBarControls.jade';
 import '/client/components/boards/boardHeader.jade';
 import '/client/components/boards/boardsList.jade';
+import '/client/components/boards/allBoardsSidebar.jade';
 import '/client/components/boards/publicBoards.jade';
 import '/client/components/boards/miniboard.jade';
 import '/client/components/boards/originalPositionsView.jade';
@@ -14,7 +19,9 @@ import '/client/components/boards/boardBody.js';
 import '/client/components/boards/dependencyOverlay.js';
 import '/client/components/boards/boardHeader.js';
 import '/client/lib/allBoardsView';
+import '/client/lib/allBoardsSidebar';
 import '/client/components/boards/boardsList.js';
+import '/client/components/boards/allBoardsSidebar.js';
 import '/client/components/boards/publicBoards.js';
 import '/client/components/boards/originalPositionsView.js';
 import '/client/components/boards/tableView.js';

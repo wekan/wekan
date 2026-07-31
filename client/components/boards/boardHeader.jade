@@ -132,9 +132,9 @@ template(name="boardHeaderBar")
               a.board-header-btn-close.js-filter-reset(title="{{_ 'filter-clear'}}")
                 i.fa.fa-times-thin
 
-          a.board-header-btn.js-open-search-view(title="{{_ 'search'}}")
-            i.fa.fa-search
-            span {{_ 'search'}}
+          //- Shared with the All Boards header bar, which has the same control
+            doing the same thing to its own sidebar. headerBarControls.jade
+          +headerSearchButton
 
           unless currentBoard.isTemplatesBoard
             a.board-header-btn.js-toggle-board-view
@@ -171,14 +171,9 @@ template(name="boardHeaderBar")
             span {{#if currentBoard.showDependencies}}{{_ 'hide-dependencies'}}{{else}}{{_ 'show-dependencies'}}{{/if}}
 
           if canModifyBoard
-            a.board-header-btn.js-multiselection-activate(
-                title="{{#if MultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}"
-                class="{{#if MultiSelection.isActive}}emphasis{{/if}}")
-              i.fa.fa-check-square-o
-              span {{#if MultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}
-              if MultiSelection.isActive
-                a.board-header-btn-close.js-multiselection-reset(title="{{_ 'filter-clear'}}")
-                  i.fa.fa-times-thin
+            //- Shared, as Search above. `isActive` is passed because this page
+            //- selects CARDS (MultiSelection) and All Boards selects boards.
+            +headerMultiSelectionButton(isActive=MultiSelection.isActive)
 
           //- The separator and the sidebar hamburger used to end this group. They are
           //- now their own flex item (.board-header-sidebar-toggle, above) so that in

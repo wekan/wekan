@@ -21,6 +21,10 @@ const read = rel => fs.readFileSync(path.join(ROOT, rel), 'utf8');
 const jade = read('client/components/boards/boardsList.jade');
 const js = read('client/components/boards/boardsList.js');
 const design = read('docs/Design/Page/All-Boards.md');
+// The All Boards sidebar: Search and Multi-Selection open it, and the actions on
+// a selection live in it.
+const sidebar = read('client/components/boards/allBoardsSidebar.jade');
+const sidebarJs = read('client/components/boards/allBoardsSidebar.js');
 
 const bar = jade.slice(jade.indexOf('template(name="boardListHeaderBar")'),
   jade.indexOf('template(name="allBoardsRow")'));
@@ -45,17 +49,180 @@ console.log('allBoardsPage:');
 // ── the controls, and where they are ────────────────────────────────────────
 
 test('the controls are in the header bar, styled like the board header', () => {
-  for (const control of ['js-open-boards-sort', 'js-board-search-input',
-    'js-open-all-boards-view', 'js-multiselection-activate']) {
+  for (const control of ['js-open-boards-sort', 'js-open-all-boards-view',
+    'js-toggle-all-boards-sidebar']) {
     assert.ok(bar.includes(control), `${control} must be in the header bar`);
   }
-  // The same look as the Swimlanes view's board header: .board-header-btn and the
-  // same Font Awesome glyphs, not a set of styles of this page's own.
-  for (const icon of ['fa-sort', 'fa-search', 'fa-check-square-o']) {
+  // Search and Multi-Selection are not written out here at all: they are the
+  // SHARED controls, one template used by this bar and by the board header of
+  // the Swimlanes view. See tests/templateRegistration.test.cjs.
+  for (const shared of ['+headerSearchButton',
+    '+headerMultiSelectionButton(isActive=BoardMultiSelection.isActive)']) {
+    assert.ok(bar.includes(shared), `${shared} must be included, not re-written`);
+  }
+  for (const icon of ['fa-sort', 'fa-bars']) {
     assert.ok(bar.includes(icon), `${icon} is the board header's glyph for it`);
   }
-  assert.ok((bar.match(/a\.board-header-btn\./g) || []).length >= 4,
+  assert.ok((bar.match(/a\.board-header-btn\./g) || []).length >= 3,
     'the controls are board-header buttons');
+});
+
+test('and the divider and hamburger are laid out as the board header has them', () => {
+  // Their own flex item, and LAST in the source, so that on a phone the
+  // hamburger stays in the top right beside the title while the other buttons
+  // wrap to a second row - the reason boardHeader.jade does it this way.
+  assert.ok(/\.board-header-btns\.board-header-sidebar-toggle\n\s+\.separator\n\s+a\.board-header-btn\.js-toggle-all-boards-sidebar/.test(bar),
+    'divider then hamburger, in their own group');
+  const header = read('client/components/boards/boardHeader.jade');
+  assert.ok(/\.board-header-btns\.board-header-sidebar-toggle\n\s+\.separator/.test(header),
+    'which is what the board header does');
+});
+
+test('and the page has no second controls row at all', () => {
+  // This first landed with the actions ON a selection left behind in the page,
+  // beside the boards they act on. They are in the SIDEBAR now, which is where
+  // a board keeps them too, so neither the page nor the bar has them.
+  for (const moved of ['js-open-boards-sort', 'js-board-search-input',
+    'js-multiselection-activate', 'multiselection-group', 'js-multiselection-reset',
+    'js-archive-selected-boards', 'js-duplicate-selected-boards',
+    'js-star-selected', 'js-home-selected', 'path-right']) {
+    assert.ok(!page.includes(moved), `${moved} must not be in the page body`);
+  }
+  for (const inSidebar of ['js-archive-selected-boards', 'js-duplicate-selected-boards',
+    'js-star-selected', 'js-home-selected']) {
+    assert.ok(!bar.includes(inSidebar), `${inSidebar} must not be in the header bar either`);
+    assert.ok(sidebar.includes(inSidebar), `${inSidebar} must be in the sidebar`);
+  }
+});
+
+test('every button in the bar says what it is, in a tooltip', () => {
+  // The buttons are icons or nearly so, so the tooltip is the only place a name
+  // can be. This covers the shared controls too, which are buttons of this bar
+  // wherever their markup is written.
+  const markup = bar + read('client/components/boards/headerBarControls.jade');
+  const buttons = [...markup.matchAll(/^\s+a\.board-header-btn[\w.-]*\(([\s\S]*?)\)$/gm)];
+  assert.ok(buttons.length >= 5, `expected the bar's buttons, found ${buttons.length}`);
+  for (const b of buttons) {
+    const attrs = b[1];
+    const control = /js-[\w-]+/.exec(b[0]);
+    const name = (control && control[0]) || attrs.slice(0, 40);
+    const title = /title="([^"]*)"/.exec(attrs);
+    assert.ok(title, `${name} must have a title`);
+    // Whatever shape the title takes - a key, a helper, or an if/else between
+    // two of them - every visible part must come out of a mustache. Anything
+    // left over is hard-coded English.
+    const literal = title[1].replace(/\{\{[^}]*\}\}/g, '').trim();
+    assert.strictEqual(literal, '',
+      `${name} title must be translated, not the hard-coded "${literal}"`);
+  }
+});
+
+test('and no bar above the boards at all', () => {
+  // Emptying the bar of its controls left a white strip above "+ Add Board"
+  // carrying the current section's Font Awesome icon - which the left menu
+  // already highlights and the header bar already names.
+  assert.ok(!jade.includes('boards-path-header'), 'the bar is gone from the template');
+  for (const part of ['path-left', 'path-title', 'path-icon', 'path-text', 'currentMenuPath']) {
+    assert.ok(!jade.includes(part), `${part} went with it`);
+  }
+  assert.ok(!/currentMenuPath\(\)/.test(js), 'the helper that fed it is gone too');
+
+  // On the RULES, not the comments: the rules that replaced these explain
+  // themselves by naming the selector they used to have.
+  const css = read('client/components/boards/boardsList.css').replace(/\/\*[\s\S]*?\*\//g, '');
+  assert.ok(!/boards-path-header/.test(css), 'and every rule that styled it');
+  // Its "look at me" hint animation had no other user.
+  assert.ok(!/@keyframes pulse/.test(css), 'including the hint animation that only it used');
+});
+
+// ── Search and Multi-Selection: the same controls a board has ───────────────
+
+test('Search is a button that opens the sidebar, as it is on a board', () => {
+  // It was a FIELD in the header bar, on the reasoning that a filter belongs in
+  // the bar it filters. xet7 asked for the board's behaviour instead: the same
+  // control, opening the same kind of right sidebar, on both pages. So the bar
+  // carries the shared button and the field is a view of the sidebar.
+  assert.ok(!/input\.js-board-search-input/.test(bar), 'no input in the bar');
+  assert.ok(bar.includes('+headerSearchButton'), 'the shared button instead');
+
+  const controls = read('client/components/boards/headerBarControls.jade');
+  const btn = controls.slice(controls.indexOf('template(name="headerSearchButton")'));
+  assert.ok(/a\.board-header-btn\.js-open-search-view/.test(btn), 'which is a button');
+  assert.ok(/i\.fa\.fa-search/.test(btn) && /span \{\{_ 'search'\}\}/.test(btn),
+    'with the magnifier and the word Search, as the board header has it');
+
+  // The field itself, in the sidebar, still filtering the page as you type.
+  assert.ok(/input\.js-board-search-input/.test(sidebar), 'the field is a sidebar view');
+  assert.ok(/aria-label="\{\{_ 'search-boards'\}\}"/.test(sidebar), 'named for screen readers');
+  const events = sidebarJs.slice(sidebarJs.indexOf('Template.allBoardsSearchSidebar.events({'));
+  const map = events.slice(0, events.indexOf('\n});'));
+  assert.ok(/'input \.js-board-search-input'/.test(map), 'filters on input');
+  assert.ok(/allBoardsSearchVar\.set/.test(map),
+    "and into the page's own term, so the board list behind it narrows");
+});
+
+test('and both controls open the sidebar on their own view', () => {
+  const map = js.slice(js.indexOf('Template.boardListHeaderBar.events({'));
+  const events = map.slice(0, map.indexOf('\n});'));
+  assert.ok(/'click \.js-open-search-view'[\s\S]{0,240}openAllBoardsSidebar\(SIDEBAR_SEARCH\)/.test(events),
+    'Search opens the search view');
+  assert.ok(/openAllBoardsSidebar\(SIDEBAR_MULTISELECTION\)/.test(events),
+    'Multi-Selection opens its own view');
+  assert.ok(/'click \.js-toggle-all-boards-sidebar'[\s\S]{0,200}toggleAllBoardsSidebar\(\)/.test(events),
+    'and the hamburger toggles it without changing the view');
+
+  // Turning Multi-Selection off closes the sidebar with it: its only view then
+  // is a panel of actions on a selection that no longer exists.
+  assert.ok(/BoardMultiSelection\.disable\(\);\n\s+closeAllBoardsSidebar\(\);/.test(events),
+    'and turning it off closes the sidebar');
+});
+
+test('the sidebar borrows the board sidebar shell, not its contents', () => {
+  // The board sidebar is built around a board - members, labels, activities,
+  // settings - and All Boards has no board. Same shell, own views.
+  assert.ok(/\.board-sidebar\.sidebar\.all-boards-sidebar/.test(sidebar),
+    'the same shell classes, so it looks like the one on a board');
+  assert.ok(/class="\{\{#if isSidebarOpen\}\}is-open\{\{\/if\}\}"/.test(sidebar),
+    'opened the same way');
+  assert.ok(/\.sidebar-content/.test(sidebar) && /sidebar-xmark/.test(sidebar),
+    'with the same content area and close button');
+  for (const view of ['allBoardsHomeSidebar', 'allBoardsSearchSidebar',
+    'allBoardsMultiSelectionSidebar']) {
+    assert.ok(sidebar.includes(`template(name="${view}")`), `${view} must exist`);
+  }
+  // The shell is positioned absolutely, so the page has to give it something to
+  // position against.
+  const css = read('client/components/boards/boardsList.css');
+  assert.ok(/\.all-boards-wrapper \{[^}]*position: relative;/.test(css),
+    'and a positioned ancestor, or it anchors to the page');
+  assert.ok(/\.wrapper\.all-boards-wrapper/.test(jade), 'which the page provides');
+});
+
+test('and the views the sidebar has are the ones it draws', () => {
+  const {
+    SIDEBAR_VIEWS, DEFAULT_SIDEBAR_VIEW, SIDEBAR_HOME,
+    normalizeSidebarView, resolveSidebarView, sidebarViewTemplate, sidebarViewTitleKey,
+  } = require('../models/lib/allBoardsSidebar');
+  assert.deepStrictEqual(SIDEBAR_VIEWS, ['home', 'search', 'multiselection']);
+  assert.strictEqual(DEFAULT_SIDEBAR_VIEW, SIDEBAR_HOME,
+    'the hamburger opens home, as it does on a board');
+
+  // Every view resolves to a template that exists.
+  for (const view of SIDEBAR_VIEWS) {
+    assert.ok(sidebar.includes(`template(name="${sidebarViewTemplate(view)}")`),
+      `${view} must have a template`);
+  }
+  // Junk falls back rather than rendering nothing.
+  for (const junk of [null, undefined, '', 'nonsense', 7]) {
+    assert.strictEqual(normalizeSidebarView(junk), null, 'not a view');
+    assert.strictEqual(resolveSidebarView(junk), SIDEBAR_HOME, 'falls back to home');
+  }
+  // Home shows no title and no back arrow: there is nothing behind it.
+  assert.strictEqual(sidebarViewTitleKey(SIDEBAR_HOME), null);
+  const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
+  for (const view of ['search', 'multiselection']) {
+    assert.ok(sidebarViewTitleKey(view) in en, `${view} has a translated title`);
+  }
 });
 
 test('and Starred is not one of them - the left menu is where sections live', () => {
@@ -78,159 +245,6 @@ test('and Starred is not one of them - the left menu is where sections live', ()
   assert.ok(/'click \.js-select-menu'/.test(pageJs),
     'the left menu keeps its own handler, which is the one that was doing the work');
 });
-
-test('and the page has no second controls row at all', () => {
-  // This first landed with the actions ON a selection left behind in the page,
-  // beside the boards they act on. xet7 asked for ALL of them in the header
-  // bar: one bar of controls, not one bar and a strip. So the page body keeps
-  // nothing but the section title, and `.path-right` is gone with the rest.
-  for (const moved of ['js-open-boards-sort', 'js-board-search-input',
-    'js-multiselection-activate', 'multiselection-group', 'js-multiselection-reset',
-    'js-archive-selected-boards', 'js-duplicate-selected-boards',
-    'js-star-selected', 'js-home-selected', 'path-right']) {
-    assert.ok(!page.includes(moved), `${moved} must not be in the page body`);
-  }
-
-  for (const control of ['js-archive-selected-boards', 'js-duplicate-selected-boards',
-    'js-star-selected', 'js-home-selected']) {
-    assert.ok(bar.includes(control), `${control} must be in the header bar`);
-  }
-  // They act on a selection, so they appear only while there IS one - four
-  // buttons that would do nothing are worse than no buttons. The "Selected:"
-  // label opens the group, and the four buttons follow it.
-  assert.ok(/if hasBoardsSelected\n\s+span\.selected-label \{\{_ 'selected-label'\}\}/.test(bar),
-    'and only while something is selected');
-
-  // Archive and duplicate were `button.js-…` with the class hung off the end;
-  // in the bar they are `a.board-header-btn.js-…` like every other control, and
-  // star and home stop being `.selected-action`, which no stylesheet has now.
-  assert.ok(!/button\.js-(archive|duplicate)-selected-boards/.test(bar),
-    'the selection actions take the header bar button style');
-  assert.ok(!/selected-action\b/.test(bar), 'and not the page row’s own style');
-  assert.strictEqual((bar.match(/\.js-star-selected/g) || []).length, 1);
-
-  // "Selected:" is a label, not a control, so it must NOT be dressed up as a
-  // button.
-  assert.ok(!/\.board-header-btn\.selected-label/.test(bar), 'as a label, not a button');
-  const css = read('client/components/boards/boardsList.css');
-  assert.ok(/\.all-boards-controls \.selected-label \{/.test(css),
-    'and is styled where it now lives');
-});
-
-test('all four selection buttons are icons only, in mark-then-change order', () => {
-  // Archive and duplicate carried their names - "Move Board to Archive",
-  // "Duplicate Board" - while star and home did not. Those names are sentences,
-  // and spelled out on a button they pushed the bar onto a second row. All four
-  // are icon-only now, under the "Selected:" label that says what they act on.
-  const group = bar.slice(bar.indexOf('if hasBoardsSelected'));
-  for (const [control, icon] of [
-    ['js-star-selected', 'fa-star'],
-    ['js-home-selected', 'fa-home'],
-    ['js-archive-selected-boards', 'fa-archive'],
-    ['js-duplicate-selected-boards', 'fa-clipboard'],
-  ]) {
-    const at = group.indexOf(control);
-    assert.notStrictEqual(at, -1, `${control} must be in the group`);
-    const entry = group.slice(at, group.indexOf('\n        a.', at + 1));
-    assert.ok(entry.includes(icon), `${control} keeps its ${icon} glyph`);
-    assert.ok(!/\n\s+span /.test(entry), `${control} must carry no label, only the icon`);
-  }
-
-  // star, home, then archive and duplicate: the two that only MARK a board
-  // first, the two that change what boards exist last.
-  const order = ['js-star-selected', 'js-home-selected',
-    'js-archive-selected-boards', 'js-duplicate-selected-boards']
-    .map(c => group.indexOf(c));
-  assert.deepStrictEqual(order, [...order].sort((a, b) => a - b),
-    'star, home, then archive and duplicate');
-});
-
-test('every button in the bar says what it is, in a tooltip', () => {
-  // The buttons are icon-only or nearly so, so the tooltip is the only place a
-  // name can be. One without a title is an unlabelled icon.
-  const buttons = [...bar.matchAll(/^\s+a\.board-header-btn[\w.-]*\(([\s\S]*?)\)$/gm)];
-  assert.ok(buttons.length >= 7, `expected the bar's buttons, found ${buttons.length}`);
-  for (const b of buttons) {
-    const attrs = b[1];
-    const control = /js-[\w-]+/.exec(b[0]);
-    const name = (control && control[0]) || attrs.slice(0, 40);
-    const title = /title="([^"]*)"/.exec(attrs);
-    assert.ok(title, `${name} must have a title`);
-    // Whatever shape the title takes - `{{_ 'key'}}`, a helper, or an if/else
-    // between two of them, as Multi-Selection has - every visible part of it
-    // must come out of a mustache. Anything left over is hard-coded English.
-    const literal = title[1].replace(/\{\{[^}]*\}\}/g, '').trim();
-    assert.strictEqual(literal, '',
-      `${name} title must be translated, not the hard-coded "${literal}"`);
-  }
-  // The search box is a field, not a button: it is named for screen readers
-  // instead, because a tooltip over a text input covers what you are typing.
-  assert.ok(/aria-label="\{\{_ 'search-boards'\}\}"/.test(bar),
-    'and the search field is named with aria-label');
-});
-
-test('and no bar above the boards at all', () => {
-  // Emptying the bar of its controls left a white strip above "+ Add Board"
-  // carrying the current section's Font Awesome icon - which the left menu
-  // already highlights and the header bar already names. The boards start at
-  // the top of the column now.
-  assert.ok(!jade.includes('boards-path-header'), 'the bar is gone from the template');
-  for (const part of ['path-left', 'path-title', 'path-icon', 'path-text', 'currentMenuPath']) {
-    assert.ok(!jade.includes(part), `${part} went with it`);
-  }
-  // And its helper, which nothing else called - 64 lines of resolving a
-  // workspace path to an icon and a name for a strip nobody sees.
-  assert.ok(!/currentMenuPath\(\)/.test(js), 'the helper that fed it is gone too');
-
-  // On the RULES, not the comments: the rules that replaced these explain
-  // themselves by naming the selector they used to have, and a guard that greps
-  // the whole stylesheet reads that explanation and fails on correct CSS.
-  const css = read('client/components/boards/boardsList.css').replace(/\/\*[\s\S]*?\*\//g, '');
-  assert.ok(!/boards-path-header/.test(css), 'and every rule that styled it');
-  // Its "look at me" hint animation had no other user.
-  assert.ok(!/@keyframes pulse/.test(css) && !/multiselection-hint/.test(css),
-    'including the hint animation that only it used');
-});
-
-test('Search is a field, not a button', () => {
-  // On a board, Search opens a search view over cards; here it filters the list
-  // it sits above, and a filter belongs in the bar it filters.
-  assert.ok(/input\.js-board-search-input\(type="text"/.test(bar),
-    'the header bar carries the input itself');
-  assert.ok(bar.includes('js-board-search-clear'), 'with a clear button');
-  assert.ok(!/js-open-search-view/.test(bar), 'and no search-view button');
-
-  // It filters as you type, and Escape clears it - the old right-pane behaviour.
-  const events = js.slice(js.indexOf('Template.boardListHeaderBar.events({'));
-  const map = events.slice(0, events.indexOf('\n});'));
-  assert.ok(/'input \.js-board-search-input'/.test(map), 'filters on input');
-  assert.ok(/'keydown \.js-board-search-input'/.test(map) && /Escape/.test(map),
-    'and Escape clears it');
-});
-
-test('and the field is styled where it actually lives', () => {
-  // Its rules said `.boards-path-header .board-search` - the bar it used to be
-  // in - so from the moment the controls moved to the header bar they matched
-  // nothing and the box rendered at the browser's default input size, unstyled.
-  // Comments stripped, for the same reason as above: these rules say in prose
-  // which selector they replaced.
-  const css = read('client/components/boards/boardsList.css').replace(/\/\*[\s\S]*?\*\//g, '');
-  const at = css.indexOf('.all-boards-controls .board-search {');
-  assert.ok(at !== -1, 'the box must be styled under the bar it is in');
-  assert.ok(!/\.boards-path-header \.board-search/.test(css), 'and not under one that is gone');
-  assert.ok(/width: 150px;/.test(css.slice(at, css.indexOf('}', at))),
-    'half of the 300px it was designed at');
-
-  // The box is white on a themed bar, so everything inside it needs its own
-  // colour: inheriting the bar's light-on-dark puts white text in a white box.
-  const input = css.indexOf('.all-boards-controls .board-search input {');
-  assert.ok(/color: #333;/.test(css.slice(input, css.indexOf('}', input))),
-    'the typed text must be dark, not the bar’s colour');
-  assert.ok(/\.all-boards-controls \.board-search \.emoji-icon,/.test(css),
-    'and so must the magnifier and the clear button');
-});
-
-// ── the shared state ────────────────────────────────────────────────────────
 
 test('the two templates share one search term and one selected section', () => {
   // boardListHeaderBar and boardList are separate Blaze instances - the bar is
@@ -405,14 +419,27 @@ test('every template registers the helpers it uses', () => {
 
 test('the design doc says what is different and links to the shared one', () => {
   assert.ok(/Table\.md/.test(design), 'it links to the Table page design');
-  for (const section of ['## The controls live in the header bar', '## The view menu',
-    '## The Table view']) {
+  for (const section of ['## The controls live in the header bar', '## The right sidebar',
+    '## The view menu', '## The Table view']) {
     assert.ok(design.includes(section), `${section} must be described`);
   }
-  assert.ok(/Search is a field/i.test(design), 'including that Search is a field');
-  for (const m of design.matchAll(/`([\w.-]+\/[\w./-]+\.(?:jade|js|css|cjs))`/g)) {
-    assert.ok(fs.existsSync(path.join(ROOT, m[1])),
-      `the design doc names ${m[1]}, which does not exist`);
+  // Search and Multi-Selection are shared with the board header, so what they
+  // are is written once, in their own designs, and this one links to them.
+  // (This used to assert "Search is a field" - it is a button now, and the
+  // field is a view of the sidebar. docs/Design/Page/Search.md.)
+  for (const shared of ['Search.md', 'Multi-Selection.md']) {
+    assert.ok(design.includes(shared), `it links to ${shared}`);
+    assert.ok(fs.existsSync(path.join(ROOT, 'docs/Design/Page', shared)), `${shared} must exist`);
+  }
+  assert.ok(!/Search is a field/i.test(design), 'and does not still call Search a field');
+
+  // Every file any of the three names must exist.
+  for (const doc of [design, read('docs/Design/Page/Search.md'),
+    read('docs/Design/Page/Multi-Selection.md')]) {
+    for (const m of doc.matchAll(/`([\w.-]+\/[\w./-]+\.(?:jade|js|css|cjs))`/g)) {
+      assert.ok(fs.existsSync(path.join(ROOT, m[1])),
+        `a design doc names ${m[1]}, which does not exist`);
+    }
   }
   const table = read('docs/Design/Page/Table.md');
   assert.ok(/All-Boards\.md/.test(table),

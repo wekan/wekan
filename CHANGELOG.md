@@ -563,6 +563,61 @@ so no language silently loses a tooltip.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ffb26bb68">All Boards: Search and Multi-Selection are the board header's own controls, opening a right sidebar</a>. Thanks to xet7.</summary>
+
+All Boards had a search **field** in its header bar, and a Multi-Selection
+button whose actions were four icons beside it. A board has a search **button**
+and a Multi-Selection button, and both open the right sidebar. Two pages, the
+same two control names in the same place, behaving differently — and one of them
+not the way the rest of WeKan does. They are the board's now, and they are the
+*same* markup: `headerBarControls.jade` holds one `headerSearchButton` and one
+`headerMultiSelectionButton`, included by the board header of the Swimlanes view
+and by the All Boards bar. The two copies had already drifted — the ✕ that turns
+Multi-Selection off said "Clear filter" on the board header, which is what a
+different control does, and says `multi-selection-off` in both now.
+
+Only the markup is shared. What a click does is not — a board searches and
+selects cards, All Boards searches and selects boards — and it does not need to
+be: a Blaze event map catches events from the templates rendered inside it, so
+each bar's own map sees the clicks on its own copy. `isActive` is passed in,
+because the two pages keep different selection objects.
+
+All Boards has a right sidebar of its own. Not the board one: that is built
+around a board's members, labels, activities and settings, and this page has no
+board. It borrows the **shell** — the same `.board-sidebar.sidebar` classes, the
+same ✕, the same title-and-back-arrow above a view — so the two look and behave
+alike, and it has three views. `home`, what the hamburger opens, is the page's
+menu: Search, Multi-Selection, and Boards in Archive, which had a handler in the
+header bar and no way to reach it. `search` is the field that was in the bar,
+still writing the page's own search term so the boards behind it narrow as you
+type. `multiselection` is where the actions on a selection went — star, home,
+archive, duplicate and a way out — each with its name beside it instead of being
+a crowded icon.
+
+The bar also gained the divider and the hamburger, in their own flex item and
+last in the source exactly as the board header has them, which is what keeps the
+hamburger in the top right on a phone while the other buttons wrap.
+
+Two things this turned up. A `.jade` file is not picked up by being on disk — it
+has to be imported from `client/features/`, and the shared controls threw "No
+such template: headerSearchButton" on render until they were; a guard now
+requires every `.jade` under `client/components` to be imported and every
+`+template` it includes to exist, and it found a dangling `+subtaskDeleteDialog`
+that has never had a template (unreachable, so it has never thrown, and it is
+recorded with that reason rather than hidden). And deriving a template name from
+a view name gave `allBoardsMultiselectionSidebar` for
+`allBoardsMultiSelectionSidebar` — one letter, renders nothing, no error worth
+the name — so the names are an explicit map the guard can check.
+
+The designs are
+[Search](https://github.com/wekan/wekan/blob/main/docs/Design/Page/Search.md)
+and
+[Multi-Selection](https://github.com/wekan/wekan/blob/main/docs/Design/Page/Multi-Selection.md),
+one per shared control, each covering both pages.
+
+</details>
+
 and updates the following dependencies:
 
 - **aldeed:collection2 4.2.0 → 4.2.1** — cleans and validates every write

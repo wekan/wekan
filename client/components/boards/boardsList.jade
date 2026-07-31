@@ -1,5 +1,9 @@
 template(name="boardList")
-  .wrapper
+  //- `all-boards-wrapper` is what the right sidebar positions against: it is
+    `position: absolute` in the shell it borrows from the board sidebar, and
+    `.wrapper` alone is not a positioned ancestor.
+  .wrapper.all-boards-wrapper
+    +allBoardsSidebar
     .boards-layout
       // Left menu
       .boards-left-menu
@@ -246,6 +250,15 @@ template(name="boardsSortPopup")
 template(name="boardListHeaderBar")
   h1 {{_ title }}
   if isBoardListPage
+    //- The divider and the sidebar hamburger, their own flex item and LAST in
+      the source, exactly as the board header of the Swimlanes view has them -
+      so on a phone the hamburger stays in the top right beside the title while
+      the other buttons wrap to a second row.
+    .board-header-btns.board-header-sidebar-toggle
+      .separator
+      a.board-header-btn.js-toggle-all-boards-sidebar(title="{{_ 'sidebar-open'}} {{_ 'or'}} {{_ 'sidebar-close'}}")
+        i.fa.fa-bars
+
     //- There is no Starred button here. Starred is a SECTION, and the left menu
       already lists it beside Templates and Remaining, counts it and highlights
       it when it is the one shown - a second way to reach the same section, one
@@ -257,20 +270,10 @@ template(name="boardListHeaderBar")
         i.fa.fa-sort
         span {{_ 'sort'}}
 
-      //- Search is a FIELD here, not a button. On a board, Search opens a search
-        view over cards; here it filters a list of boards as you type, and a
-        filter belongs in the bar it filters.
-      .board-search
-        span.emoji-icon
-          i.fa.fa-search
-        //- No placeholder text: the magnifier beside the field already says what
-          it is, and a label took the whole width of the box on a phone.
-          `aria-label` keeps it named for screen readers.
-        input.js-board-search-input(type="text" placeholder="" aria-label="{{_ 'search-boards'}}" value="{{boardSearch}}" autocomplete="off")
-        if boardSearch
-          a.board-search-clear.js-board-search-clear(title="{{_ 'filter-clear'}}")
-            span.emoji-icon
-              i.fa.fa-times
+      //- Search and Multi-Selection are the SHARED controls, the same template
+        the board header of the Swimlanes view uses, and they do the same thing
+        here: open the right sidebar on that view. headerBarControls.jade.
+      +headerSearchButton
 
       //- The view menu names the CURRENT view, not itself - the same as the board
         header, which says "Swimlanes" or "Lists" rather than "Board View".
@@ -283,49 +286,10 @@ template(name="boardListHeaderBar")
           i.fa.fa-trello
           span {{_ 'lists'}}
 
-      //- Multi-Selection sits AFTER the view menu, and before the actions on a
-        selection, because those are what it turns on: the bar reads left to
-        right as what is shown (Sort, Search, Lists/Table) and then what is
-        selected (Multi-Selection, and the actions that appear with it).
+      //- Multi-Selection last, because what it turns on - the actions on a
+        selection - is in the sidebar it opens rather than in this bar.
       if canModifyBoards
-        a.board-header-btn.js-multiselection-activate(
-            title="{{#if BoardMultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}"
-            class="{{#if BoardMultiSelection.isActive}}emphasis{{/if}}")
-          i.fa.fa-check-square-o
-          span {{#if BoardMultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}
-          if BoardMultiSelection.isActive
-            //- This ✕ turns Multi-Selection OFF; it said "Clear filter", which
-              is what the OTHER ✕ in this bar does, in the search box.
-            a.board-header-btn-close.js-multiselection-reset(title="{{_ 'multi-selection-off'}}")
-              i.fa.fa-times-thin
-
-      //- The actions ON a selection. They were a row of their own above the
-        board icons; they are header-bar buttons now, to the RIGHT of the
-        controls that are always there, and they appear only while something is
-        selected - so the bar does not carry four buttons that would do nothing.
-
-        ALL FOUR are icon-only, under the "Selected:" label that names what they
-        act on. Their names are sentences - "Set as Home board (opened after
-        login)", "Move Board to Archive" - which are tooltips rather than button
-        labels; spelled out they pushed the bar onto a second row.
-
-        The order is star, home, then archive and duplicate: the two that only
-        mark a board come first, and the two that change what boards exist come
-        last, furthest from where the pointer lands when the menu opens.
-      if hasBoardsSelected
-        span.selected-label {{_ 'selected-label'}}
-        //- The star is a toggle over the whole selection, so its tooltip says
-          which way it goes right now: Star while any selected board is still
-          unstarred, Unstar once they all are. Already translated by the helper
-          - it has to pick the key, so it may as well resolve it.
-        a.board-header-btn.js-star-selected(title="{{selectedStarTitle}}")
-          i.fa.fa-star
-        a.board-header-btn.js-home-selected(title="{{_ 'set-selected-home'}}")
-          i.fa.fa-home
-        a.board-header-btn.js-archive-selected-boards(title="{{_ 'archive-board'}}")
-          i.fa.fa-archive
-        a.board-header-btn.js-duplicate-selected-boards(title="{{_ 'duplicate-board'}}")
-          i.fa.fa-clipboard
+        +headerMultiSelectionButton(isActive=BoardMultiSelection.isActive)
 
 //- One row of the All Boards Table view. A rowTemplate, because the Edit cell is
 //- a control and the row carries its board's colours - neither of which a

@@ -24,10 +24,18 @@ import {
   isDragReorderEnabled,
   computeSortIndexMapping,
 } from '/models/lib/boardSortReorder';
+// The sidebar the Search and Multi-Selection controls open. Its state is module
+// scope, not a template instance: this bar and the sidebar are separate Blaze
+// instances. docs/Design/Page/Search.md, docs/Design/Page/Multi-Selection.md
 import {
-  selectedStarAction,
-  selectedStarTitleKey,
-} from '/models/lib/selectedStars';
+  openAllBoardsSidebar,
+  closeAllBoardsSidebar,
+  toggleAllBoardsSidebar,
+} from '/client/lib/allBoardsSidebar';
+import {
+  SIDEBAR_SEARCH,
+  SIDEBAR_MULTISELECTION,
+} from '/models/lib/allBoardsSidebar';
 
 // SubsManager removed for Meteor 3 migration
 
@@ -164,50 +172,42 @@ Template.boardList.helpers({
   },
 });
 
-// What the "Selected: ★" button would do if it were clicked right now, and to
-// which boards. One function, so the tooltip and the click cannot disagree
-// about it - the rule itself is the pure, unit-tested models/lib/selectedStars.
-function currentSelectedStarAction() {
-  const user = ReactiveCache.getCurrentUser();
-  return selectedStarAction(BoardMultiSelection.getSelectedBoardIds(), id =>
-    Boolean(user && user.hasStarred(id)),
-  );
-}
-
 // The All Boards controls' handlers. One events map for this template, not two:
 // Blaze allows several, but then "where is the search handler" has two answers.
+//
+// Search and Multi-Selection are drawn by the SHARED templates in
+// headerBarControls.jade, which carry no handlers of their own: a Blaze event
+// map catches events from the templates rendered inside it, so these fire for
+// this bar's copy and the board header's map fires for its own. That is what
+// lets one piece of markup mean "search cards" on a board and "search boards"
+// here. docs/Design/Page/Search.md, docs/Design/Page/Multi-Selection.md
 Template.boardListHeaderBar.events({
-  'click .js-open-archived-board'() {
-    Modal.open('archivedBoards');
-  },
   'click .js-open-boards-sort': Popup.open('boardsSort'),
-
   'click .js-open-all-boards-view': Popup.open('allBoardsView'),
-  'input .js-board-search-input'(evt) {
-    allBoardsSearchVar.set(evt.currentTarget.value);
-  },
-  'keydown .js-board-search-input'(evt) {
-    if (evt.key === 'Escape') {
-      evt.preventDefault();
-      allBoardsSearchVar.set('');
-      evt.currentTarget.value = '';
-    }
-  },
-  'click .js-board-search-clear'(evt, tpl) {
+
+  // The hamburger toggles the sidebar without changing which view it is on -
+  // the same as the board header's, so reopening it gives back what you left.
+  'click .js-toggle-all-boards-sidebar'(evt) {
     evt.preventDefault();
-    allBoardsSearchVar.set('');
-    const input = tpl.find('.js-board-search-input');
-    if (input) {
-      input.value = '';
-      input.focus();
-    }
+    toggleAllBoardsSidebar();
   },
+
+  // Search opens the sidebar on its search view, as it does on a board.
+  'click .js-open-search-view'(evt) {
+    evt.preventDefault();
+    openAllBoardsSidebar(SIDEBAR_SEARCH);
+  },
+
+  // Multi-Selection turns selection on AND opens the sidebar that holds what to
+  // do with a selection - the board header does the same thing with cards.
   'click .js-multiselection-activate'(evt) {
     evt.preventDefault();
     if (BoardMultiSelection.isActive()) {
       BoardMultiSelection.disable();
+      closeAllBoardsSidebar();
     } else {
       BoardMultiSelection.activate();
+      openAllBoardsSidebar(SIDEBAR_MULTISELECTION);
     }
   },
   'click .js-multiselection-reset'(evt) {
@@ -216,78 +216,7 @@ Template.boardListHeaderBar.events({
     // which would immediately re-activate what this just turned off.
     evt.stopPropagation();
     BoardMultiSelection.disable();
-  },
-
-  // The actions ON a selection. They were handled by `boardList`, because that
-  // is where their buttons were; the buttons are in this bar now, and a Blaze
-  // event map only sees events inside its OWN template.
-  'click .js-archive-selected-boards'(evt) {
-    evt.preventDefault();
-    const selectedBoards = BoardMultiSelection.getSelectedBoardIds();
-    if (
-      selectedBoards.length > 0 &&
-      confirm(TAPi18n.__('archive-board-confirm'))
-    ) {
-      selectedBoards.forEach((boardId) => {
-        Meteor.call('archiveBoard', boardId, (err) => {
-          if (err) alert(err?.reason || err?.message || 'Failed to archive board');
-        });
-      });
-      BoardMultiSelection.reset();
-    }
-  },
-  'click .js-duplicate-selected-boards'(evt) {
-    evt.preventDefault();
-    const selectedBoards = BoardMultiSelection.getSelectedBoardIds();
-    if (
-      selectedBoards.length > 0 &&
-      confirm(TAPi18n.__('duplicate-board-confirm'))
-    ) {
-      selectedBoards.forEach((boardId) => {
-        const board = ReactiveCache.getBoard(boardId);
-        if (board) {
-          Meteor.call(
-            'copyBoard',
-            boardId,
-            {
-              sort: ReactiveCache.getBoards({ archived: false }).length,
-              type: 'board',
-              title: board.title,
-            },
-            (err, res) => {
-              if (err) console.error(err);
-            },
-          );
-        }
-      });
-      BoardMultiSelection.reset();
-    }
-  },
-  // "Selected:" star action: a TOGGLE over the whole selection. It only ever
-  // added stars before, so once every selected board was starred the button did
-  // nothing at all and there was no way to undo it from here.
-  //
-  // Only the boards that must CHANGE are called: `toggleBoardStar` flips one
-  // board, so calling it for an already-starred board in the mixed case would
-  // un-star it - one click both starring and un-starring, which is exactly what
-  // this must not do.
-  'click .js-star-selected'(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
-    currentSelectedStarAction().boardIds.forEach((id) => {
-      Meteor.call('toggleBoardStar', id);
-    });
-  },
-  // #2220 "Selected:" home action: set the first selected board as the Home
-  // board (opened after login). Clicking it again when it is already Home clears
-  // it (toggle), matching toggleDefaultBoard.
-  'click .js-home-selected'(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
-    const ids = BoardMultiSelection.getSelectedBoardIds();
-    if (ids.length) {
-      Meteor.call('toggleDefaultBoard', ids[0]);
-    }
+    closeAllBoardsSidebar();
   },
 });
 
@@ -478,18 +407,6 @@ Template.boardListHeaderBar.helpers({
   },
   isAllBoardsView(view) {
     return isAllBoardsView(view);
-  },
-  // Whether the selection actions belong in the bar at all. Registered here as
-  // well as on `boardList`, because that is where the buttons are now.
-  hasBoardsSelected() {
-    return BoardMultiSelection.count() > 0;
-  },
-  // The star button says which way it goes: "Star the selected boards" while
-  // any of them is unstarred, "Unstar the selected boards" once they all are.
-  // Reactive through BoardMultiSelection and the user's starred list, so it
-  // changes as the selection does.
-  selectedStarTitle() {
-    return TAPi18n.__(selectedStarTitleKey(currentSelectedStarAction().action));
   },
   BoardMultiSelection() {
     return BoardMultiSelection;
