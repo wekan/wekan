@@ -285,6 +285,26 @@ test('and the All Boards menu is styled like the Admin Panel one', () => {
   assert.ok(/rgba\(255, 255, 255/.test(count),
     'a light pill on the accent, not the mid-grey that worked on white');
 
+  // ...and the class it is styled for is actually applied. `selectedWorkspaceId`
+  // is a template ARGUMENT, not a helper, and inside `each nodes` the data
+  // context is the node - so a bare lookup found nothing, `$eq` compared an id
+  // with undefined, and no workspace ever became `active`. The highlight was
+  // styled for a class that never appeared.
+  const jade = read('client/components/boards/boardsList.jade');
+  const tree = jade.slice(jade.indexOf('template(name="workspaceTree")'));
+  const eachAt = tree.indexOf('each nodes');
+  const body = tree.slice(eachAt);
+  assert.ok(/\$eq id \.\.\/selectedWorkspaceId/.test(body),
+    'the active test reaches the PARENT context');
+  assert.ok(!/\$eq id selectedWorkspaceId/.test(body),
+    'and not the node, which has no such field');
+  // The recursion too, or a nested workspace can never highlight.
+  assert.ok(/\+workspaceTree\(nodes=children selectedWorkspaceId=\.\.\/selectedWorkspaceId\)/
+    .test(body), 'and it is passed down the tree, not lost at the first level');
+  // The anchor the highlight paints really carries that class.
+  assert.ok(/a\.js-select-workspace\.js-select-space/.test(tree),
+    'the row carries the class the CSS names');
+
   // The ROWS are laid out like the Admin Panel's too, not only coloured like
   // them. A selected row there is a block across the menu; here it was a
   // rounded pill floating inside a padded panel, which is a different-looking

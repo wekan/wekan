@@ -523,7 +523,11 @@ body.mobile-mode #header-quick-access .allBoards {
      nudge is gone. */
   display: flex;
   align-items: center;
-  margin: 0 8px 0 0;
+  /* Split, not stacked on one side. All 8px sat after the name and none before
+     the avatar, so the divider on its left touched it while a gap twice the
+     bar's own sat on its right. 4px each way is the same 8px between
+     neighbours everything else in this bar has. */
+  margin: 0 4px;
   /* The same colour the buttons beside it use. `a { color: inherit }` left the
      username taking whatever the bar happened to pass down, so it did not match
      Notifications and the rest sitting next to it - and it is a control of the
@@ -1622,10 +1626,15 @@ body.mobile-mode #header-quick-access .allBoards {
      spent on nothing, which is what pushed the avatar against - and past - the
      right edge. The 12px end margin on the bar is the gap to the edge; the
      padding here only ate into it. */
+  /* The end margin STAYS. It was zeroed here because the username was hidden at
+     this width, so nothing followed the avatar and the gap was waste - the name
+     is shown at every width now, and without this the avatar touches it.
+     `top` is still cleared: the nudge it undoes is gone from the base rule, and
+     clearing it costs nothing while any theme or device rule might still set
+     one. */
   #header-quick-access #header-user-bar .header-user-bar-avatar,
   .iphone-device #header-quick-access #header-user-bar .header-user-bar-avatar {
     top: 0 !important;
-    margin-inline-end: 0 !important;
   }
 
   #header-quick-access #header-user-bar,

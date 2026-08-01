@@ -313,8 +313,13 @@ template(name="allBoardsViewPopup")
 template(name="workspaceTree")
   if nodes
     ul.workspace-tree.js-workspace-tree
+      //- `../selectedWorkspaceId`, not the bare name. Inside `each` the data
+        context is the NODE, and this is a template argument rather than a
+        helper - so a bare lookup found nothing on the node, `$eq` compared an
+        id with undefined, and no workspace ever got the `active` class. The
+        theme highlight was styled for a class that was never applied.
       each nodes
-        li.workspace-node(class="{{#if $eq id selectedWorkspaceId}}active{{/if}}" data-workspace-id="{{id}}" draggable="true")
+        li.workspace-node(class="{{#if $eq id ../selectedWorkspaceId}}active{{/if}}" data-workspace-id="{{id}}" draggable="true")
           .workspace-node-content
             span.workspace-drag-handle
               span.emoji-icon
@@ -335,7 +340,10 @@ template(name="workspaceTree")
                 i.fa.fa-bars
             span.workspace-count {{workspaceCount id}}
           if children
-            +workspaceTree(nodes=children selectedWorkspaceId=selectedWorkspaceId)
+            //- ...and the same going down: passing the bare name handed
+              `undefined` to every nested level, so a child workspace could not
+              highlight either.
+            +workspaceTree(nodes=children selectedWorkspaceId=../selectedWorkspaceId)
 
 //- #6524: creating a workspace used window.prompt(), which a browser may refuse
   to show at all - iOS Safari lets the user suppress further prompts for a page,

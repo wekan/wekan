@@ -33,12 +33,14 @@ const { PAGE_TITLE_KEYS, pageTitleKey, headerTitle } = require('../models/lib/pa
 // asserts against whichever came first and fails on correct CSS. Naming a
 // declaration as well identifies the rule the guard is actually about.
 function ruleWith(css, selector, declaration) {
+  // Comments are stripped from the WHOLE stylesheet first, not per rule. A
+  // comment may contain braces - one here explains `a { color: inherit }` - and
+  // a brace inside a comment breaks this naive rule-splitting for every rule
+  // after it, so the rule being looked for was simply never seen.
+  const code = css.replace(/\/\*[\s\S]*?\*\//g, '');
   const found = [];
-  for (const rule of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
-    // The capture runs from the previous `}`, so it carries any comment written
-    // above the rule - and a selector preceded by a comment never matched.
-    const sels = rule[1].replace(/\/\*[\s\S]*?\*\//g, '');
-    if (!sels.split(',').some(x => x.trim() === selector)) continue;
+  for (const rule of code.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    if (!rule[1].split(',').some(x => x.trim() === selector)) continue;
     if (!rule[2].includes(declaration)) continue;
     found.push(rule[2]);
   }
@@ -876,6 +878,29 @@ test('and a view menu says its view in words, not only in a tooltip', () => {
     '#header-quick-access #header-user-bar .header-user-bar-avatar', 'align-items: center');
   assert.ok(!/float:/.test(avatar) && !/top:\s*-?\d/.test(avatar),
     'no float and no nudge - its parent centres it');
+  // ...and it keeps a gap to the name at EVERY width. That gap was zeroed on
+  // narrow screens back when the name was hidden there, so nothing followed the
+  // avatar; the name is shown at every width now and the avatar touched it.
+  for (const rule of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    const sels = rule[1].replace(/\/\*[\s\S]*?\*\//g, '');
+    if (!/header-user-bar-avatar/.test(sels)) continue;
+    assert.ok(!/margin-inline-end:\s*0/.test(rule[2].replace(/\/\*[\s\S]*?\*\//g, '')),
+      'nothing closes the gap between the avatar and the name');
+  }
+
+  // The username's own space is SPLIT, not stacked on one side: all 8px sat
+  // after the name and none before the avatar, so the divider on its left
+  // touched it while a gap twice the bar's own sat on its right.
+  const nameSpacing = ruleWith(css,
+    '#header-quick-access #header-user-bar .header-user-bar-name', 'align-items: center');
+  const nameMargin = /margin:\s*0 (\d+)px/.exec(nameSpacing);
+  assert.ok(nameMargin, 'the username states one margin for both sides');
+  // Read here: `buttonMargin` belongs to the spacing test, not this one.
+  const btnSpacing = ruleWith(css, '#header-quick-access .board-header-btn', 'border-radius');
+  const btnMargin = /margin:\s*0 (\d+)px/.exec(btnSpacing);
+  assert.ok(btnMargin, 'a button states its margin');
+  assert.strictEqual(Number(nameMargin[1]), Number(btnMargin[1]),
+    'and it is the same each side as every other item of the bar');
 
   // The rename pencil is an anchor in the SAME box as the home link, so the
   // rules that collapse that link's label matched it too and reduced its icon
