@@ -66,4 +66,41 @@ check('admin (settingBody) + People (peopleBody) buttons follow the theme accent
   }
 });
 
+check('the Change Password button is themed like the Save button beside it', () => {
+  // xet7: "Member Settings / Change Password / Update password button should be
+  // styled with theme like Member Settings / Edit Profile / Save button".
+  //
+  // Change Password renders `+atForm(state='changePwd')` from useraccounts, and
+  // its submit button carries that package's own classes - `button.at-btn` with
+  // no `.primary` of ours - so it fell back to the plain grey `button` rule
+  // while the Save button one entry above it in the same menu was themed. Two
+  // buttons, one menu, two looks.
+  const css = read('client/components/forms/forms.css');
+  const strip = css.replace(/\/\*[\s\S]*?\*\//g, '');
+  // Named in the SAME rules as `.primary`, not given a copy of them: one home
+  // for the accent, the hover and the active state.
+  for (const [what, selector] of [
+    ['the resting state', '.pop-over .at-form button.at-btn {'],
+    ['hover and focus', '.pop-over .at-form button.at-btn:focus {'],
+    ['the active state', '.pop-over .at-form button.at-btn:active {'],
+  ]) {
+    const at = strip.indexOf(selector);
+    assert.notStrictEqual(at, -1, `${what}: the popup at-btn must be in that rule`);
+    const head = strip.slice(strip.lastIndexOf('}', at) + 1, at + selector.length);
+    assert.ok(/\.primary/.test(head),
+      `${what}: it must share the rule with .primary, not restate it`);
+  }
+  // ...and that shared rule is the themed one.
+  const at = strip.indexOf('.pop-over .at-form button.at-btn {');
+  const rule = strip.slice(at, strip.indexOf('}', at));
+  assert.ok(/background: var\(--theme-accent, #005377\);/.test(rule),
+    'so it follows the theme, like the Save button');
+  assert.ok(/color: #fff;/.test(rule), 'with the same white label');
+
+  // The form itself is unchanged - this is styling only, not a rewritten form.
+  const jade = read('client/components/users/userHeader.jade');
+  assert.ok(/template\(name="changePasswordPopup"\)\n\s*\+atForm\(state='changePwd'\)/.test(jade),
+    'Change Password still renders the useraccounts form');
+});
+
 console.log(`\n${passed} passed`);

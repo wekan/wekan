@@ -146,9 +146,16 @@ test('the Admin Panel chrome reads that variable rather than a hard-coded colour
   }
   assert.ok(/\.setting-detail button\.btn \{[\s\S]*?background: var\(--theme-accent/.test(menuCss),
     'the pane buttons');
-  const formsCss = read('client/components/forms/forms.css');
-  assert.ok(/button\.primary \{\s*\n\s*background: var\(--theme-accent/.test(formsCss),
-    'and every primary/Save button');
+  // The rule that paints a primary button, whatever else shares its selector
+  // list - the Change Password form's own submit button was added to it rather
+  // than given a copy of the colour, and pinning `button.primary {` alone made
+  // that read as a regression.
+  const formsCss = read('client/components/forms/forms.css').replace(/\/\*[\s\S]*?\*\//g, '');
+  const primary = [...formsCss.matchAll(/([^{}]+)\{([^{}]*)\}/g)]
+    .filter(r => r[1].split(',').some(sel => sel.trim() === 'button.primary'));
+  assert.ok(primary.length, 'there must be a rule for a primary button');
+  assert.ok(/background: var\(--theme-accent/.test(primary[0][2]),
+    'and every primary/Save button follows the theme');
 });
 
 test('the FIRST header bar carries each theme, and the theme it should', () => {

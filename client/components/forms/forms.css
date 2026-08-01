@@ -170,20 +170,32 @@ button:active:active {
   background: #e6e6e6;
   background: linear-gradient(#e6e6e6, #e6e6e6);
 }
+/* The submit button of a useraccounts form inside a popup is a `.primary` too.
+   Member Settings / Change Password renders `+atForm(state='changePwd')`, whose
+   button is `button.at-btn#at-btn` with no class of ours on it - so it fell back
+   to the plain grey `button` above, while the Save button of Edit Profile beside
+   it in the same menu was the themed one. Two buttons, one menu, two looks.
+   It is named in the SAME rules rather than given a copy of them, so the theme
+   accent and the hover and active states have one home.
+   docs/Design/Page/Theme.md */
 input[type="submit"].primary,
-button.primary {
+button.primary,
+.pop-over .at-form button.at-btn {
   background: var(--theme-accent, #005377);
   box-shadow: 0 1px 0 #4d4d4d;
   color: #fff;
 }
 input[type="submit"].primary:hover,
 button.primary:hover,
+.pop-over .at-form button.at-btn:hover,
 input[type="submit"].primary:focus,
-button.primary:focus {
+button.primary:focus,
+.pop-over .at-form button.at-btn:focus {
   background: var(--theme-accent, #004766);
 }
 input[type="submit"].primary:active,
-button.primary:active {
+button.primary:active,
+.pop-over .at-form button.at-btn:active {
   background: var(--theme-accent, #01628c);
 }
 input[type="submit"].negate,
