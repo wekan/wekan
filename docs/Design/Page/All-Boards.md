@@ -311,6 +311,23 @@ tree and the organization / team filters. Starred is *only* here now: the header
 bar had a Starred button beside it, and two ways to reach one section, one click
 apart, is a control that has to be kept in step with the menu for no gain.
 
+### What a workspace row shows
+
+Icon, name, the ⋯ **menu**, then the **count of boards** in it — the count last,
+at the end of the row, where the counts of the sections above it are too.
+
+The **selected** workspace is filled with the theme accent, and that fill covers
+`.js-select-space` — the icon and the name — not the whole row: the menu and the
+count sit after it on the panel's own light grey. So the count is styled the same
+whether the row is selected or not. It once had a light pill "for contrast
+against the filled row", which was white on light grey — the selected workspace
+was the one row whose board count could not be read, and it is the row you have
+just asked which boards are in.
+
+The menu and the count are `flex: 0 0 auto` and the name's anchor is `flex: 1`
+with `min-width: 0`, so a long workspace name ellipses itself instead of
+squeezing its two neighbours off the row.
+
 ### Reordering a workspace
 
 A workspace row obeys the **Show desktop drag handles** toggle in the first

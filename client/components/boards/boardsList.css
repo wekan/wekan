@@ -497,6 +497,13 @@
   white-space: nowrap;
 }
 
+/* The count of boards in the workspace, at the END of the row - after the ⋯
+   menu, which is where the counts of the sections above it are too.
+   `flex: 0 0 auto` on BOTH it and the menu beside it: the name's anchor is
+   `flex: 1`, and without this a long workspace name shrinks its two neighbours
+   instead of ellipsing itself, which pushes the count off the row that is
+   supposed to be showing it. The phone rules said this already; the desktop
+   ones had not. docs/Design/Page/All-Boards.md */
 .workspace-node .workspace-count {
   background: #ddd;
   padding: 2px 6px;
@@ -505,6 +512,10 @@
   font-weight: bold;
   min-width: 20px;
   text-align: center;
+  flex: 0 0 auto;
+}
+.workspace-node .js-open-workspace-menu {
+  flex: 0 0 auto;
 }
 
 .workspace-node .js-edit-space,
@@ -595,12 +606,15 @@
   background: #fff;
 }
 
-/* The count keeps its contrast against the filled row: a light pill on the
-   accent, rather than the mid-grey that worked on white and disappears here. */
-.workspace-node.active .workspace-count {
-  background: rgba(255, 255, 255, 0.3);
-  color: #fff;
-}
+/* The count is NOT inside the filled part of the row.
+   The accent fills `.js-select-space` - the icon and the name - and the ⋯ menu
+   and the count sit after it, on the panel's own light grey. A "light pill on
+   the accent" rule was therefore white on light grey: the selected workspace's
+   board count was invisible, which is the one row where you have just asked
+   which boards are in it.
+   So it keeps the same grey pill every other row has, and the rule that made it
+   white is gone rather than re-tinted: there is no accent behind it to contrast
+   with. docs/Design/Page/All-Boards.md */
 
 .boards-right-grid {
   min-height: 200px;

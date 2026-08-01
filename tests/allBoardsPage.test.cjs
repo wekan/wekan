@@ -549,6 +549,50 @@ test('...and every section of the page has a title to show', () => {
     + 'the pane rather than leaving it blank');
 });
 
+test('the selected workspace still shows its board count', () => {
+  // xet7: "selected workspace should have count of boards at right side of
+  // workspace menu button."
+  //
+  // It was there and invisible. The accent fills `.js-select-space` - the icon
+  // and the name - and the ⋯ menu and the count sit AFTER it, on the panel's
+  // own light grey. A rule gave the count a white pill with white text "for
+  // contrast against the filled row", but the count is not on the filled row:
+  // white on light grey, on the one row where you have just asked which boards
+  // are in it.
+  const tree = jade.slice(jade.indexOf('template(name="workspaceTree")'));
+  const node = tree.slice(0, tree.indexOf('\n\n//-'));
+  // Order: the name's anchor, then the menu, then the count at the end.
+  const nameAt = node.indexOf('a.js-select-workspace');
+  const menuAt = node.indexOf('a.js-open-workspace-menu');
+  const countAt = node.indexOf('span.workspace-count');
+  assert.ok(nameAt !== -1 && menuAt !== -1 && countAt !== -1,
+    'the row draws a name, a menu and a count');
+  assert.ok(nameAt < menuAt && menuAt < countAt,
+    'the count is at the END of the row, after the menu button');
+
+  const css = read('client/components/boards/boardsList.css');
+  const code = css.replace(/\/\*[\s\S]*?\*\//g, '');
+  // No white-on-light rule for the active row's count. The accent does not
+  // reach it, so there is nothing for a light pill to contrast with.
+  assert.ok(!/\.workspace-node\.active[^{]*\.workspace-count\s*\{/.test(code),
+    'the active row must not restyle a count that is outside its fill');
+  // It keeps the pill every other row has.
+  const at = code.indexOf('.workspace-node .workspace-count {');
+  assert.notStrictEqual(at, -1, 'the count has its own rule');
+  const rule = code.slice(at, code.indexOf('}', at));
+  assert.ok(/background: #ddd;/.test(rule), 'a grey pill, selected or not');
+
+  // ...and it cannot be squeezed off the row by a long workspace name: the
+  // name's anchor is flex: 1, so its two neighbours have to hold their size.
+  assert.ok(/flex: 0 0 auto;/.test(rule), 'the count keeps its width');
+  const menuRule = code.slice(code.indexOf('.workspace-node .js-open-workspace-menu {'));
+  assert.ok(/flex: 0 0 auto;/.test(menuRule.slice(0, menuRule.indexOf('}'))),
+    'and so does the menu button beside it');
+  const anchor = code.slice(code.indexOf('.workspace-node .js-select-space {'));
+  assert.ok(/min-width: 0;/.test(anchor.slice(0, anchor.indexOf('}'))),
+    'so the NAME is what shrinks, which is what min-width: 0 allows');
+});
+
 for (const [name, fn] of tests) {
   try { fn(); passed++; console.log('  ok -', name); }
   catch (err) { console.error(`  FAIL - ${name}\n    ${err.message}`); process.exitCode = 1; }

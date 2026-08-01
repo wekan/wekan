@@ -328,11 +328,15 @@ test('and the All Boards menu is styled like the Admin Panel one', () => {
     'hover listed on the active rule, or the white hover below washes it out');
   assert.ok(/color: #fff/.test(boards.slice(wsAt, wsAt + 900)),
     'and its label and icon go white');
-  // Its count keeps contrast against the fill.
-  const countAt = boards.indexOf('.workspace-node.active .workspace-count {');
-  const count = boards.slice(countAt, boards.indexOf('}', countAt));
-  assert.ok(/rgba\(255, 255, 255/.test(count),
-    'a light pill on the accent, not the mid-grey that worked on white');
+  // Its count is NOT part of that fill, and must not be styled as if it were.
+  // The accent covers `.js-select-space` - the icon and the name - while the ⋯
+  // menu and the count sit after it on the panel's own light grey. A light pill
+  // "for contrast against the fill" was white on light grey, so the selected
+  // workspace was the one row whose board count could not be read. It keeps the
+  // same grey pill as every other row.
+  assert.ok(!/\.workspace-node\.active[^{]*\.workspace-count\s*\{/
+    .test(boards.replace(/\/\*[\s\S]*?\*\//g, '')),
+    'the active row must not restyle a count that is outside its fill');
 
   // ...and the class it is styled for is actually applied. `selectedWorkspaceId`
   // is a template ARGUMENT, not a helper, and inside `each nodes` the data
