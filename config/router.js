@@ -85,7 +85,8 @@ function renderBoardList(ctx, menu) {
   Session.set('currentCard', null);
   Session.set('popupCardId', null);
   Session.set('popupCardBoardId', null);
-  Session.set('boardListMenu', menu);
+  // `null` when the address named no section, so the page can choose one.
+  Session.set('boardListMenu', menu || null);
   Filter.reset();
   Session.set('sortBy', '');
   EscapeActions.executeAll();
@@ -179,11 +180,16 @@ FlowRouter.route('/', {
     // (above) redirect once the grain login + boards have loaded, if appropriate.
     if (isSandstorm) {
       startSandstormAutoOpen();
-      renderBoardList(this, 'starred');
+      renderBoardList(this, null);
       return;
     }
     if (maybeRedirectToDefaultBoard()) return;
-    renderBoardList(this, 'starred');
+    // `null`, not 'starred': `/` names no section, so which one to open is the
+    // PAGE's to decide - Starred when the user has starred boards, Remaining
+    // when they have none. The router runs before the user document has
+    // necessarily loaded and cannot answer that.
+    // models/lib/allBoardsUrls.js, client/components/boards/boardsList.js
+    renderBoardList(this, null);
   },
 });
 

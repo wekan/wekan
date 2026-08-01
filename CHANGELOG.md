@@ -266,6 +266,33 @@ browser build to verify).
 This release adds the following new features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7ae487f2ecae30e426dfdb19ff3c3f072dcc1994">All Boards opens on Starred, or on Remaining when nothing is starred</a>. Thanks to xet7.</summary>
+
+Starred was always the section All Boards landed on. On an account that has
+starred nothing that is an empty page with a full one behind it, which reads as
+WeKan having lost the boards rather than as a section nobody has filled in yet.
+
+`/` now opens **Starred when the user has starred boards and Remaining when they
+have none**, and the left menu puts whichever one that is on top, so the
+highlighted row is the first row. Only those two rows move — Templates and the
+Archive keep their places.
+
+The rule is one pure function pair in `models/lib/allBoardsUrls.js`, so the page
+and its guard read the same one. The router no longer answers the question: it
+runs before the user document has necessarily loaded, so it leaves `/` open and
+the page decides — in an autorun, because on a cold load the user document lands
+after the template is created and a single read would say "nothing is starred"
+for everybody. It asks the user document's own starred list rather than the
+query that counts the boards, whose answer depends on the subscription and would
+draw Remaining and then jump to Starred mid-load. An address that does name a
+section still wins, so this can never fight a row the reader has clicked.
+
+The four menu rows became one row drawn once per section, since an order that
+depends on the user cannot be four copies of the same markup.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a05c1ac08">All Boards Multi-Selection shows that it is on, and the Sort Boards popup gets a title</a>. Thanks to xet7.</summary>
 
 The Multi-Selection button in the first header bar looked identical whether or

@@ -271,8 +271,13 @@ test('and Starred is not a control - the left menu is where sections live', () =
   // highlights it when it is the one shown.
   assert.ok(!sidebar.includes("data-type=\"starred\""), 'not a sidebar row either');
   assert.ok(!/js-select-menu/.test(sidebar), 'and no section switch in the panel');
-  assert.ok(jade.includes('a.js-select-menu(data-type="starred")'),
-    'the left menu still has it');
+  // In the left menu's one row, drawn once per section, whose sections come
+  // from menuSectionOrder(): client/components/boards/boardsList.js.
+  assert.ok(jade.includes('each menuSections')
+    && jade.includes('a.js-select-menu(class="{{extraClass}}" data-type="{{type}}")'),
+    'the left menu still draws the section rows');
+  const { menuSectionOrder } = require('../models/lib/allBoardsUrls');
+  assert.ok(menuSectionOrder(true).includes('starred'), 'and Starred is one of them');
 });
 
 test('the two templates share one search term and one selected section', () => {

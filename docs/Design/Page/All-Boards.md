@@ -27,8 +27,8 @@ label below 1100px with every other one — see [the header](Header.md).
 
 **Archive is not one of them.** The three above act on the boards in
 front of you; the Archive is a *place* you go instead, so it is a row of the
-**left menu**, under Remaining, with a count beside it like the three lists above
-it. It is labelled **Archive** — one word, like Starred, Templates and Remaining
+**left menu**, the last of its four rows, with a count beside it like the three
+board lists above it. It is labelled **Archive** — one word, like Starred, Templates and Remaining
 beside it, and the menu already says what it is listing. That is `archives`, an
 existing key, and the *section title* uses the same one so the header's path and
 the highlighted row cannot name one place two ways.
@@ -51,6 +51,38 @@ from a workspace. The left menu already accepts a drop on Remaining, so the
 gesture is the one already in the reader's hand; the alternative was three clicks
 through Multi-Selection. It asks first, because a drop is easy to make by
 accident — a board dragged to reorder that lands one row low.
+
+## Which section the page opens on
+
+Starred was always the landing section, and on an account that has starred
+nothing that is an **empty page with a full one behind it** — which reads as
+WeKan having lost the boards rather than as a section the reader has not filled
+yet. So `/`, which names no section, opens **Starred when anything is starred
+and Remaining when nothing is**, and the menu puts whichever one that is **on
+top**, so the highlighted row is the first row.
+
+The rule is `defaultSection()` / `menuSectionOrder()` in
+`models/lib/allBoardsUrls.js` — a boolean in, a section name (or the four rows in
+order) out — so the page and its guard read the same one. Only the first two
+rows move; Templates and the Archive keep their places.
+
+**The router does not answer this.** It runs before the user document has
+necessarily loaded, so it writes `null` for `/` and the page picks. The page
+picks in an **autorun** for the same reason: on a cold load the user document
+lands after the template is created, and a single read would answer "nothing is
+starred" for everybody. It asks the user document's own `profile.starredBoards`
+rather than `user.starredBoards()`, whose Boards query depends on the
+subscription and would flip from none to some partway through a load — drawing
+Remaining and then jumping to Starred under the reader.
+
+An address that **does** name a section still wins over all of this: selecting a
+row navigates, the route puts that name in the Session, and the fallback stops
+applying. This cannot fight a choice the reader has made.
+
+The four rows are **one row in the markup, drawn once per section**, since an
+order that depends on the user cannot be four copies of the same eight lines
+without moving markup about. Their icons and names live in a map beside the
+loop.
 
 The left menu is three kinds of thing in one column — the three board lists, the
 workspaces tree, and the archive — so the Workspaces section has a rule above and

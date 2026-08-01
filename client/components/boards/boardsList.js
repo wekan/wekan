@@ -10,6 +10,8 @@ import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 // docs/Design/Page/All-Boards-URLs.md
 import {
   ALL_BOARDS_SECTIONS,
+  defaultSection,
+  menuSectionOrder,
   workspaceIdForSlugPath,
   allBoardsPathForMenu,
 } from '/models/lib/allBoardsUrls';
@@ -168,6 +170,59 @@ function saveWorkspace(workspaceId, { name, icon }) {
   Meteor.call('setWorkspacesTree', updatedTree, (err) => {
     if (err) console.error(err);
   });
+}
+
+// The count for one of the three board-list rows. A plain function as well as
+// a helper, because `sectionCount` needs it and a Blaze helper cannot call a
+// sibling helper - `this` there is the data context.
+// Does this user have any starred boards? Both the section the page opens on
+// and the order of the first two rows turn on it: Starred is the useful first
+// stop only if anything IS starred, and on an account with none it is an empty
+// page with a full one behind it.
+function hasStarredBoards() {
+  const user = ReactiveCache.getCurrentUser();
+  // `profile.starredBoards`, not `user.starredBoards()`: the method runs a
+  // Boards query, so its answer depends on the boards subscription and flips
+  // from "none" to "some" partway through a cold load - which would draw
+  // Remaining and then visibly jump to Starred. The profile field is part of
+  // the user document itself and arrives in one piece with it.
+  const starred = (user && user.profile && user.profile.starredBoards) || [];
+  return starred.length > 0;
+}
+
+function menuItemCountOf(type) {
+  const currentUser = ReactiveCache.getCurrentUser();
+  const assignments =
+    (currentUser &&
+      currentUser.profile &&
+      currentUser.profile.boardWorkspaceAssignments) ||
+    {};
+
+  // Get all boards for counting
+  let query = {
+    $and: [
+      { archived: false },
+      { type: { $in: ['board', 'template-container'] } },
+      { $or: [{ 'members.userId': Meteor.userId() }] },
+      { title: notHelperBoardTitle() },
+    ],
+  };
+  const allBoards = ReactiveCache.getBoards(query, {});
+
+  if (type === 'starred') {
+    return allBoards.filter(
+      (b) => currentUser && currentUser.hasStarred(b._id),
+    ).length;
+  } else if (type === 'templates') {
+    return allBoards.filter((b) => b.type === 'template-container').length;
+  } else if (type === 'remaining') {
+    // Count boards not in any workspace AND not templates
+    // Include starred boards (they appear in both Starred and Remaining)
+    return allBoards.filter(
+      (b) => !assignments[b._id] && b.type !== 'template-container',
+    ).length;
+  }
+  return 0;
 }
 
 Template.boardList.helpers({
@@ -510,7 +565,22 @@ Template.boardList.onCreated(function () {
   // `tpl.boardSearchVar` already written here keeps working unchanged.
   // docs/Design/Page/All-Boards.md
   this.selectedMenu = allBoardsMenuVar;
-  this.selectedMenu.set(Session.get('boardListMenu') || 'starred');
+  // Whatever the address named, else the section this user should land on:
+  // Starred when anything is starred, Remaining when nothing is - opening on an
+  // empty Starred with a full Remaining behind it is a page that looks broken.
+  //
+  // An AUTORUN, not a one-shot set: on a fresh load the user document arrives
+  // after this runs, so a single read would answer "nothing is starred" for
+  // every user and land everyone on Remaining. It settles once the document is
+  // there.
+  //
+  // It stops mattering the moment the address names a section - clicking a row
+  // navigates, and the route puts that name in the Session - so this cannot
+  // fight a choice the reader has made. models/lib/allBoardsUrls.js
+  this.autorun(() => {
+    const named = Session.get('boardListMenu');
+    this.selectedMenu.set(named || defaultSection(hasStarredBoards()));
+  });
   this.selectedWorkspaceIdVar = new ReactiveVar(null);
   this.workspacesTreeVar = new ReactiveVar([]);
   // The workspace the URL names, as the slugs of its names down the tree:
@@ -935,39 +1005,39 @@ Template.boardList.helpers({
     return Template.instance().selectedWorkspaceIdVar.get() === id;
   },
   menuItemCount(type) {
-    const currentUser = ReactiveCache.getCurrentUser();
-    const assignments =
-      (currentUser &&
-        currentUser.profile &&
-        currentUser.profile.boardWorkspaceAssignments) ||
-      {};
-
-    // Get all boards for counting
-    let query = {
-      $and: [
-        { archived: false },
-        { type: { $in: ['board', 'template-container'] } },
-        { $or: [{ 'members.userId': Meteor.userId() }] },
-        { title: notHelperBoardTitle() },
-      ],
-    };
-    const allBoards = ReactiveCache.getBoards(query, {});
-
-    if (type === 'starred') {
-      return allBoards.filter(
-        (b) => currentUser && currentUser.hasStarred(b._id),
-      ).length;
-    } else if (type === 'templates') {
-      return allBoards.filter((b) => b.type === 'template-container').length;
-    } else if (type === 'remaining') {
-      // Count boards not in any workspace AND not templates
-      // Include starred boards (they appear in both Starred and Remaining)
-      return allBoards.filter(
-        (b) => !assignments[b._id] && b.type !== 'template-container',
-      ).length;
-    }
-    return 0;
+    return menuItemCountOf(type);
   },
+  // The four board-list rows of the left menu, in order. One place says what a
+  // row looks like and one says what order they come in - the markup renders
+  // whatever this returns. models/lib/allBoardsUrls.js
+  menuSections() {
+    const meta = {
+      remaining: { icon: 'fa-folder', labelKey: 'allboards.remaining' },
+      starred: { icon: 'fa-star', labelKey: 'allboards.starred' },
+      templates: { icon: 'fa-clipboard', labelKey: 'allboards.templates' },
+      // The archive row also opens the section AND refreshes its count, so it
+      // carries a second class the others do not.
+      archive: { icon: 'fa-archive', labelKey: 'archives',
+        extraClass: 'js-open-archived-board' },
+    };
+    return menuSectionOrder(hasStarredBoards()).map(type => ({
+      type,
+      extraClass: '',
+      ...meta[type],
+    }));
+  },
+
+  // The count for a row. The three board lists count what the page can see; the
+  // Archive's comes from the server, because this page does not subscribe to
+  // archived boards unless that section is open.
+  sectionCount(type) {
+    if (type === 'archive') {
+      const inst = Template.instance();
+      return inst.archivedBoardsCount ? inst.archivedBoardsCount.get() : 0;
+    }
+    return menuItemCountOf(type);
+  },
+
   // The count beside Boards in Archive. Its own helper rather than a branch of
   // menuItemCount: that one filters a list of NON-archived boards, so there is
   // nothing in it to count.

@@ -605,14 +605,18 @@ test('and All Boards says WHICH list of boards, and which workspace', () => {
   } = require('../models/lib/allBoardsUrls');
   const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
   const menu = read('client/components/boards/boardsList.jade');
+  const listJs = read('client/components/boards/boardsList.js');
 
   for (const section of ALL_BOARDS_SECTIONS) {
     const key = sectionTitleKey(section);
     assert.strictEqual(key, ALL_BOARDS_SECTION_TITLE_KEYS[section]);
     assert.ok(key in en, `${key} is not a translation key`);
     // The LEFT MENU's own key, so the title and the row highlighted beside it
-    // say the same words.
-    assert.ok(menu.includes(`{{_ '${key}'}}`),
+    // say the same words. The four rows are one row drawn per section, so the
+    // key is in the `meta` map that feeds the loop rather than in the markup.
+    // Workspaces is the tree's own header in the markup; the other four are
+    // rows of the loop, whose labels live in the map that feeds it.
+    assert.ok(menu.includes(`{{_ '${key}'}}`) || listJs.includes(`labelKey: '${key}'`),
       `${section}: the left menu must label its row with the same key`);
   }
   // No section is left unnamed, and an unknown one titles the default rather

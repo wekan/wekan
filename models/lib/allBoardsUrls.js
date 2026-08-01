@@ -39,7 +39,33 @@ const ALL_BOARDS_SECTIONS = [
   SECTION_WORKSPACES,
   SECTION_ARCHIVE,
 ];
+// The section the page opens on, and the order of the first two rows, when the
+// address names neither.
+//
+// Starred is the useful first stop only if anything IS starred; on an account
+// with none it is an empty page with a full one behind it. So a user with no
+// starred boards opens on Remaining and sees Remaining listed first, and one
+// with starred boards opens on Starred and sees Starred listed first - the row
+// you land on is the row at the top, either way.
+//
+// DEFAULT_SECTION stays as the answer when nothing is known about the user: the
+// router resolves a bare `/allboards` before any user document has loaded, and
+// it must answer something.
 const DEFAULT_SECTION = SECTION_STARRED;
+
+// Pure: a boolean in, a section name out. Whether the user has starred anything
+// is the caller's to find out - this module has no Meteor and no collections.
+function defaultSection(hasStarredBoards) {
+  return hasStarredBoards ? SECTION_STARRED : SECTION_REMAINING;
+}
+
+// The first two rows, in the order they are shown. The other two - Templates
+// and the Archive - do not move.
+function menuSectionOrder(hasStarredBoards) {
+  return hasStarredBoards
+    ? [SECTION_STARRED, SECTION_REMAINING, SECTION_TEMPLATES, SECTION_ARCHIVE]
+    : [SECTION_REMAINING, SECTION_STARRED, SECTION_TEMPLATES, SECTION_ARCHIVE];
+}
 
 const ALL_BOARDS_BASE = '/allboards';
 
@@ -174,6 +200,8 @@ module.exports = {
   ALL_BOARDS_SECTIONS,
   ALL_BOARDS_BASE,
   DEFAULT_SECTION,
+  defaultSection,
+  menuSectionOrder,
   normalizeSection,
   resolveSection,
   ALL_BOARDS_SECTION_TITLE_KEYS,

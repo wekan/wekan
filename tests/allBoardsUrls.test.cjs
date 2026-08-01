@@ -315,6 +315,75 @@ test('and the fixture tree round-trips at every level it has', () => {
   }
 });
 
+test('the section the page opens on depends on whether anything is starred', () => {
+  const { defaultSection, menuSectionOrder } = require('../models/lib/allBoardsUrls');
+
+  // Starred was ALWAYS the landing section. On an account with nothing starred
+  // that is an empty page with a full one behind it, which reads as WeKan
+  // having lost the boards. So: Starred when there is something in it,
+  // Remaining otherwise - and the menu puts whichever one that is on top, so
+  // the highlighted row is the first row.
+  assert.strictEqual(defaultSection(true), 'starred');
+  assert.strictEqual(defaultSection(false), 'remaining');
+  assert.deepStrictEqual(menuSectionOrder(true),
+    ['starred', 'remaining', 'templates', 'archive']);
+  assert.deepStrictEqual(menuSectionOrder(false),
+    ['remaining', 'starred', 'templates', 'archive']);
+
+  // Both answers are sections the URL layer knows, or the page would open on a
+  // name nothing draws.
+  const { ALL_BOARDS_SECTIONS } = require('../models/lib/allBoardsUrls');
+  for (const starred of [true, false]) {
+    assert.ok(ALL_BOARDS_SECTIONS.includes(defaultSection(starred)));
+    for (const section of menuSectionOrder(starred)) {
+      assert.ok(ALL_BOARDS_SECTIONS.includes(section), `${section} is a real section`);
+    }
+  }
+  // Only the first two move. Templates and the Archive are the same rows in
+  // the same places whichever way round the top two are.
+  assert.deepStrictEqual(menuSectionOrder(true).slice(2), menuSectionOrder(false).slice(2));
+  assert.deepStrictEqual([...menuSectionOrder(true)].sort(),
+    [...menuSectionOrder(false)].sort(), 'and the same four rows either way');
+});
+
+test('and `/` lets the page decide, rather than the router deciding for it', () => {
+  // `/` names no section. The router used to answer 'starred' for it, which no
+  // per-user default could then override - it runs before the user document
+  // has necessarily loaded and cannot know whether anything is starred. So it
+  // writes null and the page picks.
+  const router = read('config/router.js');
+  assert.ok(!/renderBoardList\(this, 'starred'\)/.test(router),
+    'the home route does not hard-code a section');
+  assert.strictEqual((router.match(/renderBoardList\(this, null\)/g) || []).length, 2,
+    'both of its paths - Sandstorm and not - leave it open');
+  assert.ok(/Session\.set\('boardListMenu', menu \|\| null\)/.test(router),
+    'and a missing section is stored as null, not as undefined-in-a-string');
+
+  // The page reads it, and falls back to the rule. An AUTORUN, because on a
+  // cold load the user document lands after the template is created: a single
+  // read would answer "nothing is starred" for everybody.
+  const js = read('client/components/boards/boardsList.js');
+  assert.ok(/defaultSection\(hasStarredBoards\(\)\)/.test(js), 'the page applies the rule');
+  const at = js.indexOf('defaultSection(hasStarredBoards())');
+  const before = js.slice(Math.max(0, at - 400), at);
+  assert.ok(/this\.autorun\(\(\) => \{/.test(before),
+    'inside an autorun, so it settles when the user document arrives');
+  assert.ok(/Session\.get\('boardListMenu'\)/.test(js),
+    'and an address that DOES name a section still wins');
+
+  // The question is asked of the USER DOCUMENT, not of the boards. Asking
+  // `user.starredBoards()` runs a Boards query whose answer depends on the
+  // subscription, so it says "none" early in a cold load and "some" a moment
+  // later - drawing Remaining and then jumping to Starred under the reader.
+  // Comments stripped first: the function's own comment SAYS
+  // `user.starredBoards()` to explain why it does not call it, and a guard that
+  // reads prose is checking the explanation rather than the code.
+  const fn = js.slice(js.indexOf('function hasStarredBoards()'),
+    js.indexOf('function menuItemCountOf(')).replace(/\/\/[^\n]*/g, '');
+  assert.ok(/profile\.starredBoards/.test(fn), 'it reads the profile field');
+  assert.ok(!/user\.starredBoards\(\)/.test(fn), 'not the subscription-dependent query');
+});
+
 for (const [name, fn] of tests) {
   try { fn(); passed++; console.log('  ok -', name); }
   catch (err) { console.error(`  FAIL - ${name}\n    ${err.message}`); process.exitCode = 1; }

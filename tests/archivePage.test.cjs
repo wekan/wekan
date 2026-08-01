@@ -142,43 +142,53 @@ test('and All Boards reaches it from the left menu, not the header bar', () => {
   const jade = read('client/components/boards/boardsList.jade');
   const menu = jade.slice(jade.indexOf('.boards-left-menu'),
     jade.indexOf('ul.AllBoardTeamsOrgs'));
-  const rowAt = menu.indexOf('js-open-archived-board');
-  assert.notStrictEqual(rowAt, -1, 'the row is in the left menu');
-  // The order of the four board-list rows, which is a decision rather than an
-  // accident: Remaining first - the boards you have not filed anywhere, which
-  // is where most people's boards are - then Starred, Templates, and the
-  // Archive last.
-  const order = [...menu.matchAll(/data-type="(\w+)"/g)].map(m => m[1]);
-  assert.deepStrictEqual(order, ['remaining', 'starred', 'templates', 'archive'],
-    'the left menu lists its sections in this order');
+  const listJs = read('client/components/boards/boardsList.js');
+  const { menuSectionOrder } = require('../models/lib/allBoardsUrls');
 
-  // Under REMAINING, in the same group as the other three board lists - it is
-  // another list of boards, which is what those rows are. It was below the
-  // workspaces tree first; xet7 moved it up.
-  const remainingAt = menu.indexOf("data-type=\"remaining\"");
-  const treeAt = menu.indexOf('+workspaceTree');
-  assert.ok(remainingAt !== -1 && rowAt > remainingAt, 'below Remaining');
-  assert.ok(treeAt !== -1 && rowAt < treeAt, 'and above the workspaces tree');
-  // Shaped like the menu's other rows, so it does not read as a stray link.
-  // Sliced to the END of the row rather than by a character count: a comment
-  // added inside the row pushed its label out of a fixed window, and a window
-  // has to be re-tuned every time the markup gains a line.
-  const rowStart = menu.lastIndexOf('\n          li', rowAt);
-  const rowEnd = menu.indexOf('hr.boards-menu-divider', rowAt);
-  assert.ok(rowStart !== -1 && rowEnd !== -1, 'the row and what follows it are findable');
+  // The four rows are ONE row in the markup, drawn once per section, because
+  // their ORDER depends on the user: Starred first when anything is starred,
+  // Remaining first when nothing is. Four copies of the markup could not be
+  // reordered without moving markup about. So the row's SHAPE is checked here
+  // and its CONTENT in the `meta` map that feeds the loop.
+  assert.ok(/each menuSections/.test(menu), 'one row, drawn per section');
+  const rowStart = menu.indexOf('each menuSections');
+  const rowEnd = menu.indexOf('hr.boards-menu-divider', rowStart);
+  assert.notStrictEqual(rowEnd, -1, 'the row and what follows it are findable');
   const row = menu.slice(rowStart, rowEnd);
   assert.ok(/li\(class="menu-item /.test(row) && /span\.menu-label/.test(row),
-    'and drawn as a menu row like Starred, Templates and Remaining');
-  // "Archive", not "Boards in Archive": one word, like Starred, Templates and
-  // Remaining beside it, and the menu already says what it lists.
-  assert.ok(/fa-archive/.test(row) && /\{\{_ 'archives'\}\}/.test(row),
-    'with its icon and its name');
+    'drawn as a menu row');
+  assert.ok(/data-type="\{\{type\}\}"/.test(row), 'naming its section');
+  assert.ok(/isSelectedMenu type/.test(row), 'highlighting when selected');
+  assert.ok(/span\.menu-count \{\{sectionCount type\}\}/.test(row), 'and counting');
+
+  // Both orders, from the module that decides them. Templates and the Archive
+  // never move; only the first two swap.
+  assert.deepStrictEqual(menuSectionOrder(true),
+    ['starred', 'remaining', 'templates', 'archive'],
+    'with starred boards, Starred is the first row');
+  assert.deepStrictEqual(menuSectionOrder(false),
+    ['remaining', 'starred', 'templates', 'archive'],
+    'with none, Remaining is - an empty first section reads as a broken page');
+
+  // The Archive is one of the four, not a stray link below them, and it is the
+  // one that carries a second class: its row also refreshes the count.
+  const meta = listJs.slice(listJs.indexOf('  menuSections() {'),
+    listJs.indexOf('  sectionCount('));
+  assert.ok(/archive: \{ icon: 'fa-archive', labelKey: 'archives'/.test(meta),
+    'the Archive row has its icon and its name');
+  assert.ok(/js-open-archived-board/.test(meta), 'and opens the section');
+  for (const type of ['remaining', 'starred', 'templates']) {
+    assert.ok(meta.includes(`${type}: {`), `${type} is drawn by the same loop`);
+  }
+  // Above the workspaces tree - the four board lists are one group.
+  const treeAt = menu.indexOf('+workspaceTree');
+  assert.ok(treeAt !== -1 && rowStart < treeAt, 'above the workspaces tree');
+
   const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
   assert.strictEqual(en.archives, 'Archive', 'which is an existing translation');
-  // ...including the selected state and the count, which the other three have.
-  assert.ok(/isSelectedMenu 'archive'/.test(row), 'and highlights when selected');
-  assert.ok(/span\.menu-count \{\{archivedBoardsCount\}\}/.test(row),
-    'and carries a count like Starred, Templates and Remaining');
+  // The Archive's count is the SERVER's, not a count of what this page can see:
+  // the page does not subscribe to archived boards unless that section is open.
+  assert.ok(/archivedBoardsCount/.test(listJs), 'the Archive count comes from the server');
 
   // A rule above and below the Workspaces section: the menu is three kinds of
   // thing in one column and the tree ran into its neighbours without them.
