@@ -270,9 +270,8 @@ holds a **bookmarks menu** - the star works on any page now, not only on a
 board. **All Boards** gains a Home section for the board that opens after login,
 an Archive in its left menu, a Table view, and an address for every section and
 workspace; the **Admin Panel** moves under `/admin` with an address for every
-pane. Both **left menus** now carry the theme, with the selected row picked out
-in white. **Public Boards** becomes a read-only page of its own, a swimlane, a
-list and a card can each be **linked** to directly, and **board roles** are one
+pane. **Public Boards** becomes a read-only page of its own, a swimlane, a list
+and a card can each be **linked** to directly, and **board roles** are one
 capability table with a pane that shows it. Below that: dependency updates, nine
 bug fixes - the header bar's layout, a filter that left a spinner turning, a
 search that reached past your own boards - and the usual documentation and
@@ -623,40 +622,6 @@ would indent the first row and leave the second starting at the edge. The number
 is a variable so it has one home, and the phone overrides use it too rather than
 putting the bar back against the edge at the widths where the alignment matters
 most.
-
-</details>
-
-**The left menus** - All Boards and the Admin Panel share one menu.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/83e832e9e721fcec8cf102f65dee8c098d5bb0a6">They carry the theme, and the selected row is the white one</a>. Thanks to xet7.</summary>
-
-Both left menus - All Boards and the Admin Panel - were a light grey card with
-one row filled in the theme colour. That made the filled row the only part of
-the page answering to the theme, so a menu read as a plain grey column with a
-coloured stripe in it rather than as a **side of the app**, next to the header
-bar it sits under.
-
-They are inverted now: the **panel** is the theme colour with white labels and
-icons, and the row you are on is a **white block cut out of it** with dark text.
-That is also the easier selection to find - the eye goes to whatever differs
-from its surroundings, and one white row in a coloured column differs more than
-one coloured row in a white one.
-
-A menu is the colour of the first header bar above it, including the colour
-**slide** of a `clear*` theme, which a `--theme-accent` value cannot carry.
-Every theme's own header rule now names **both** menus: before this only six of
-them named the All Boards menu, so most themes coloured one menu and left the
-other one plain. No theme rule may name the selected row any more - it would
-paint that row the same colour as the menu behind it and leave nothing to show
-which row is selected.
-
-Hover on an unselected row is a wash of white over the theme colour rather than
-solid white, which would be indistinguishable from the selected row. The
-dividers, the group headings and the counts went with the rows, for the same
-reason: a dark rule on a coloured panel is a rule nobody can see.
-
-Documented in [Left menu](https://github.com/wekan/wekan/blob/main/docs/Design/Page/Left-Menu.md).
 
 </details>
 

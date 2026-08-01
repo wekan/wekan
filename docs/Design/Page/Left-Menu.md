@@ -70,64 +70,34 @@ still indented from the left.
 
 ## Theme
 
-**The menu carries the theme colour, and the row you are on is the white one.**
+Most of the menu is deliberately **neutral**: the panel is a light grey card
+(`#f7f7f7` on `#f0f0f0`) and the row you are on, or hover, lifts to white with a
+soft shadow. That is the WeKan default look and it does not change with the theme
+— a menu is chrome, and tinting the whole card would fight the content beside it.
 
-It used to be the other way round: a light grey card (`#f7f7f7` on `#f0f0f0`)
-with one row filled in the theme colour. That made the filled row the only part
-of the page answering to the theme, so the menu read as a plain grey column with
-a coloured stripe in it rather than as a **side of the app** — and the menu is
-one of the two things always on screen, next to the header bar it sits under.
-
-Inverting it also makes the selection **easier to find**, not harder: the eye
-goes to whatever differs from its surroundings, and one white row in a coloured
-column differs more than one coloured row in a white one.
+The **themeable part is the selected entry**, which is **filled with the theme
+colour with a white label and icon** — the same treatment the selected tab gets in
+the Admin Panel bar above it (`settingHeader.css`, `.setting-header-btn.active`).
+One selected-thing look in both places, so the menu says at a glance which page is
+showing on the right:
 
 ```css
-.side-menu                         { background-color: var(--theme-accent, #2980b9); }
-.side-menu ul li > a,
-.side-menu ul li > a i             { color: #fff; }
-
 .side-menu ul li.active,
-.side-menu ul li.active:hover      { background: #fff; }
+.side-menu ul li.active:hover      { background: var(--theme-accent, #2980b9); }
 .side-menu ul li.active > a,
-.side-menu ul li.active > a i      { color: #4d4d4d; }
-
-.side-menu ul li:hover             { background: rgba(255, 255, 255, 0.18); }
+.side-menu ul li.active > a i      { color: #fff; }
 ```
 
-The All Boards menu (`.boards-left-menu`) is styled the same way, rule for rule.
-WeKan has one kind of left menu and it should look like one kind of left menu.
-
-- **The menu is the colour of the first header bar above it.** They are the two
-  pieces of chrome that are always on screen, and they are now one surface
-  turning a corner rather than a coloured bar over a grey column.
 - **Per-user theme** — Member Settings → Change color sets `--theme-accent` on
-  `:root`, and the panel picks it up, for that user only.
+  `:root`, and the entry you are on picks it up, for that user only.
 - **WeKan default** — the fallback is the WeKan header blue, so with no chosen
   colour the menu matches the bar exactly.
-- **A theme whose bar is a colour *slide*** — clearblue and the other `clear*`
-  themes — paints the panel with the same gradient, from `boardColors.css`: a
-  gradient is not a colour and cannot live in `--theme-accent`. Every theme's
-  own `#header` rule names **both menus**, so a menu is never flat beside a bar
-  that slides. Before this only six of the themes named the All Boards menu at
-  all, so most of them coloured one menu and left the other one plain.
-- **No theme rule may name the selected row any more.** It would paint that row
-  the same colour as the menu behind it and leave nothing to show which row is
-  selected. A guard checks that.
-- **`:hover` is in the active selector list on purpose** — `li:hover` sets a
-  background at the same specificity and comes later in the file, so without it
-  the white would vanish as soon as the pointer crossed the selected entry.
-- **Hover on an unselected entry is a wash**, `rgba(255,255,255,0.18)`, not
-  solid white — solid white would be indistinguishable from the selected row.
-- **The dividers and group headings went light** for the same reason the labels
-  did: a dark grey rule on a coloured panel is a rule nobody can see.
-- **The counts swap with the rows.** A light pill with white text on the
-  coloured menu; the grey pill that reads on white for the selected row.
+- **`:hover` is in the selector list on purpose** — `li:hover` sets a white
+  background at the same specificity and comes later in the file, so without it the
+  fill would vanish as soon as the pointer crossed the selected entry.
 
-The label colours are not `inherit` in either direction. `inherit` is what made
-the selected entry exactly the same grey as every unselected one when the fill
-was dark, and it would now leave it the same white as the entries around it, on
-a background that is white — the same mistake in a mirror.
+The label used to be `var(--theme-accent, inherit)`, and that `inherit` made the
+selected entry exactly the same grey as every unselected one.
 
 So: nothing in the menu is hard-coded to a *brand* colour, and the one part that
 should follow a chosen theme does. If you add a themeable part, take the colour

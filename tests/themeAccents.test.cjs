@@ -122,46 +122,27 @@ test('the variable is set for EVERY theme, and the custom classes stay custom-on
 });
 
 test('the Admin Panel chrome reads that variable rather than a hard-coded colour', () => {
-  // This is what the accent is FOR: the left MENUS and the buttons.
-  //
-  // The menus were inverted (docs/Design/Page/Left-Menu.md): the PANEL carries
-  // the theme colour and the row you are on is the white one, where it used to
-  // be a white panel with one filled row. So the accent is read by the panel.
+  // This is what the accent is FOR: the selected left-menu row and the buttons.
   const menuCss = read('client/components/settings/settingBody.css');
-  assert.ok(/side-menu \{[\s\S]*?background-color: var\(--theme-accent/.test(menuCss),
-    'the Admin Panel menu, when no theme is active');
-  const allBoardsCss = read('client/components/boards/boardsList.css');
-  assert.ok(/\.boards-left-menu \{[\s\S]*?background-color: var\(--theme-accent/.test(allBoardsCss),
-    'and the All Boards menu, which must not be a different-looking menu');
-
-  // With a theme active the panel is painted by that theme's OWN header rule,
-  // so a menu is the colour of the first header bar above it - including a
-  // gradient, which a single accent colour cannot express.
+  assert.ok(/side-menu ul li\.active,[\s\S]*?background: var\(--theme-accent/.test(menuCss),
+    'the selected left-menu entry, when no theme is active');
+  // With a theme active the row is painted by that theme's OWN header rule, so the
+  // selected row matches the second header bar exactly - including a gradient, which
+  // a single accent colour cannot express.
   const themeCss = read('client/components/boards/boardColors.css');
-  const admin = [...themeCss.matchAll(/\.board-color-([\w-]+) \.setting-content \.content-body \.side-menu\b(?! ul)/g)]
-    .map(m => m[1]);
-  const allBoards = [...themeCss.matchAll(/\.board-color-([\w-]+) \.boards-left-menu\b(?! \.menu-item)/g)]
+  const themed = [...themeCss.matchAll(/\.board-color-([\w-]+) \.setting-content \.content-body \.side-menu ul li\.active\b/g)]
     .map(m => m[1]);
   const allowed = [...(/ALLOWED_BOARD_COLORS\s*=\s*\[(.*?)\]/s.exec(read('config/const.js'))[1])
     .matchAll(/'([\w-]+)'/g)].map(m => m[1]);
   for (const name of allowed) {
-    assert.ok(admin.includes(name), `${name}: its header rule must paint the Admin Panel menu`);
-    // BOTH menus, for every theme. Only six themes named the All Boards menu
-    // while all of them named the Admin Panel's, so most themes coloured one
-    // menu and left the other one plain.
-    assert.ok(allBoards.includes(name), `${name}: ...and the All Boards menu`);
+    assert.ok(themed.includes(name), `${name}: its header rule must paint the selected row too`);
   }
-  // ...and it is the header rule that does it, never a copy of the colour.
+  // …and it is the header rule that does it, never a copy of the colour.
   const clean = themeCss.replace(/\/\*[\s\S]*?\*\//g, '');
   for (const rule of clean.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
-    if (!/\.side-menu\b|\.boards-left-menu\b/.test(rule[1])) continue;
+    if (!/side-menu ul li\.active/.test(rule[1])) continue;
     assert.ok(/#header/.test(rule[1]),
-      'a menu is only ever added to a rule that also paints the header');
-    // NEGATIVE: a theme that still painted the selected row would paint it the
-    // same colour as the menu behind it, leaving nothing to show which row is
-    // selected.
-    assert.ok(!/li\.active|\.menu-item\.active/.test(rule[1]),
-      'and never the selected row, which is the white one now');
+      'the selected row is only ever added to a rule that also paints the header');
   }
   assert.ok(/\.setting-detail button\.btn \{[\s\S]*?background: var\(--theme-accent/.test(menuCss),
     'the pane buttons');
@@ -240,15 +221,14 @@ test('and clearblue keeps its colour SLIDE on the bar you can see', () => {
   }
   assert.ok(gradientRule, 'the first bar must be in clearblue\'s gradient rule');
 
-  // BOTH left menus too. Every other theme paints them through --theme-accent,
-  // which is ONE COLOUR and right for them; a slide is not a colour, so the
-  // variable cannot carry it and a menu came out flat beside a bar that slides.
-  // The PANELS, not the selected rows: the menus are inverted now, and the row
-  // you are on is the white one. docs/Design/Page/Left-Menu.md
+  // The All Boards left menu's selected row too. Every other theme paints that
+  // row through --theme-accent, which is ONE COLOUR and right for them; a slide
+  // is not a colour, so the variable cannot carry it and clearblue's row came
+  // out flat while the Admin Panel's row beside it slid.
   const sels = gradientRule[1].split(',').map(x => x.trim());
   for (const sel of [
-    '.board-color-clearblue .setting-content .content-body .side-menu',
-    '.board-color-clearblue .boards-left-menu',
+    '.board-color-clearblue .setting-content .content-body .side-menu ul li.active',
+    '.board-color-clearblue .boards-left-menu .menu-item.active a',
   ]) {
     assert.ok(sels.includes(sel), `${sel} must slide too, not sit flat beside a bar that slides`);
   }
@@ -305,10 +285,8 @@ test('every theme in the "clear" category actually slides', () => {
     for (const [what, sel] of [
       ['the picker swatch', `.board-backgrounds-list .board-color-${theme}.background-box`],
       ['the board canvas', `.board-color-${theme}.board-wrapper`],
-      // The menu PANELS, not their selected rows: the menus are inverted, and
-      // the row you are on is the white one.
-      ['the Admin Panel menu', `.board-color-${theme} .setting-content .content-body .side-menu`],
-      ['the All Boards menu', `.board-color-${theme} .boards-left-menu`],
+      ['the Admin Panel row', `.board-color-${theme} .setting-content .content-body .side-menu ul li.active`],
+      ['the All Boards row', `.board-color-${theme} .boards-left-menu .menu-item.active a`],
     ]) {
       assert.ok(css.includes(sel), `${theme} must paint ${what}`);
     }

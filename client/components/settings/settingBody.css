@@ -32,15 +32,7 @@
   gap: 18px;
 }
 .setting-content .content-body .side-menu {
-  /* The MENU carries the theme colour, and the row you are on is the white one.
-     It was the other way round - a white menu with one filled row - and the
-     filled row was then the only part of the page answering to the theme, so
-     the menu read as a grey column with a coloured stripe rather than as a side
-     of the app. One white row in a coloured column is also the stronger signal:
-     the eye goes to what differs from its surroundings.
-     A theme whose bar is a colour SLIDE paints this panel with the slide, from
-     boardColors.css. docs/Design/Page/Left-Menu.md */
-  background-color: var(--theme-accent, #2980b9);
+  background-color: #f7f7f7;
   /* Flush on three sides - it starts at the window's left edge, directly under
      the header, and runs to the bottom - so it has a border and a corner only
      on the side that faces the page. A rounded corner on a flush edge shows the
@@ -74,34 +66,34 @@
 .setting-content .content-body .side-menu ul li.active {
   box-shadow: 0 2px 3px rgba(0,0,0,0.15);
 }
-/* The entry you are on is the WHITE one, cut out of the coloured menu.
-   `:hover` is listed too: `li:hover` below sets a background at the SAME
-   specificity as `li.active`, and being later in the file it would otherwise
-   wash the selected entry as soon as the pointer crossed it. */
+/* The entry you are on is filled with the theme colour and its label and icon go
+   white - the same treatment the selected tab gets in the Admin Panel bar above
+   (settingHeader.css: `.setting-header-btn.active`, white text on the header's own
+   colour). One selected-thing look in both places.
+   The colour is the per-user theme accent (Member Settings -> Change color sets
+   --theme-accent on :root); the fallback is the WeKan header blue, so with no chosen
+   colour the menu matches the bar exactly. See docs/Design/Page/Left-Menu.md.
+   `:hover` is listed too: `li:hover` below sets a white background at the SAME
+   specificity as `li.active`, and being later in the file it would otherwise wash the
+   selected entry back to white as soon as the pointer crossed it. */
 .setting-content .content-body .side-menu ul li.active,
 .setting-content .content-body .side-menu ul li.active:hover {
-  background: #fff;
+  background: var(--theme-accent, #2980b9);
 }
 
-/* Every UNSELECTED entry is white text on the theme colour - the menu's own
-   colour is behind them now, so they need the contrast the selected row used to
-   need. The menu and the first header bar above it are the same colour, and the
-   same colour SLIDE for a theme like clearblue whose bar is a gradient
-   (boardColors.css names this panel in every theme's header rule). */
-.setting-content .content-body .side-menu ul li > a,
-.setting-content .content-body .side-menu ul li > a i {
-  color: #fff;
-}
-/* ...and the selected one is dark on white. Not `inherit`, which would leave it
-   the same white as the entries around it, on a background that is now white. */
+/* …and when a THEME is active, the row is painted by that theme's own #header rule
+   instead (boardColors.css names this selector in every theme's header rule), so the
+   selected row and the second header bar are the same colour - and the same colour
+   SLIDE, for a theme like clearblue whose bar is a gradient. The rule above stays as
+   the answer for an instance with no theme at all. */
 .setting-content .content-body .side-menu ul li.active > a,
 .setting-content .content-body .side-menu ul li.active > a i {
-  color: #4d4d4d;
+  /* Not `inherit`: that is what made the selected entry the same grey as every
+     unselected one, on a background that is now dark. */
+  color: #fff;
 }
-/* Hover on an unselected entry: a wash of white over the theme colour rather
-   than solid white, which would be indistinguishable from the selected one. */
 .setting-content .content-body .side-menu ul li:hover {
-  background: rgba(255, 255, 255, 0.18);
+  background: #fff;
   box-shadow: 0 2px 3px rgba(0,0,0,0.15);
 }
 /* Two rows that are NOT entries: the rule between groups, and the title above a
@@ -116,9 +108,7 @@
 .setting-content .content-body .side-menu ul li.left-menu-separator hr {
   margin: 0;
   border: 0;
-  /* Light, because the menu is coloured now: a dark rule on it is a rule you
-     cannot see. */
-  border-top: 1px solid rgba(255, 255, 255, 0.35);
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
 }
 .setting-content .content-body .side-menu ul li.left-menu-heading {
   padding-block: 8px 4px;
@@ -127,10 +117,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  /* Quieter than an entry, but white like the rest of the coloured menu: at 0.6
-     opacity of the old dark grey this was a heading nobody could read on it. */
-  color: #fff;
-  opacity: 0.75;
+  opacity: 0.6;
   cursor: default;
 }
 .setting-content .content-body .side-menu ul li.left-menu-separator:hover,
