@@ -429,14 +429,27 @@ test('the bar wraps rather than clipping, and its end group hugs the end', () =>
   assert.ok(!/margin-inline-start:\s*auto/.test(rule),
     'a box that is not generated cannot carry the push');
 
-  // The push moves to its first child - the item that has to move the rest to
-  // the end. Right in LTR, left in RTL, from ONE logical property.
-  const pushAt = css.indexOf('#header-quick-access .header-quick-access-end > :first-child {');
-  assert.notStrictEqual(pushAt, -1, 'the first child carries the push');
-  const push = css.slice(pushAt, css.indexOf('}', pushAt));
-  assert.ok(/margin-inline-start:\s*auto/.test(push),
-    'pushed to the end with a LOGICAL margin, so RTL mirrors by itself');
-  assert.ok(!/margin-left/.test(push), 'never a physical one - it would not mirror');
+  // NOTHING is pushed to the far end, and nothing is centred: the bar packs
+  // from the start and wraps forward - left to right in a left-to-right
+  // language, right to left in a right-to-left one, which flexbox does by
+  // itself because it follows the writing direction.
+  //
+  // The buttons after the drag-handles toggle used to be pushed by an `auto`
+  // margin, so the bar had a gap in the middle and two clusters, and which
+  // items landed in which cluster changed with the window width.
+  for (const rule of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    const sels = rule[1].replace(/\/\*[\s\S]*?\*\//g, '').split(',').map(x => x.trim());
+    // Only rules that position something WITHIN the bar. A `justify-content`
+    // inside a button centres that button's own icon, which is not alignment
+    // of the bar's items.
+    if (!sels.some(x => /^[.\w-]*\s*#header-quick-access(\s+[.#][\w-]+)?$/.test(x)
+      || x.endsWith('.header-quick-access-end'))) continue;
+    const body = rule[2].replace(/\/\*[\s\S]*?\*\//g, '');
+    assert.ok(!/margin(-inline)?(-start|-left|-right|-end)?:\s*auto/.test(body),
+      `${sels.join(', ')} pushes items with an auto margin`);
+    assert.ok(!/justify-content:\s*(flex-end|center|space-)/.test(body),
+      `${sels.join(', ')} justifies the bar's items`);
+  }
 
   // It really does start after the drag-handles toggle.
   const dragAt = jade.indexOf('js-toggle-desktop-drag-handles');
@@ -799,65 +812,21 @@ test('and a view menu says its view in words, not only in a tooltip', () => {
   // All of them together, not some: half the buttons named and half not reads
   // as a bar half finished, and which half you got would depend on which words
   // happen to be short in your language.
-  // Dropped when they do not fit on ONE ROW - measured, not guessed from the
-  // window width. A width cannot answer it: a board carries ten controls and
-  // All Boards four, and the words are as long as the reader's language makes
-  // them, so the old 1100px query showed labels on a bar that wrapped anyway
-  // and hid them on one with room to spare.
-  const hideAt = css.indexOf('#header-quick-access.header-labels-hidden .board-header-btn-label {');
-  assert.notStrictEqual(hideAt, -1, 'a wrapped bar drops the labels');
-  assert.ok(/display:\s*none/.test(css.slice(hideAt, css.indexOf('}', hideAt))),
-    'by hiding the one class all of them share, so none can be left behind');
-  assert.ok(!/@media[^{]*1100px/.test(css), 'and the width guess is gone');
-
+  // Shown on EVERY page at EVERY width. They were dropped when the bar wrapped,
+  // measured from the layout - and then xet7 asked for them everywhere, which
+  // makes the measurement dead weight rather than a feature nobody triggers.
+  // It is deleted, not left inert: a mechanism that no longer decides anything
+  // still reads as one that does.
+  assert.ok(!/header-labels-hidden/.test(css),
+    'nothing hides a label any more');
   const utils = read('client/lib/utils.js');
-  assert.ok(/const LABELS_HIDDEN = 'header-labels-hidden'/.test(utils),
-    'the class is set from a measurement');
-
-  // ...except on the pages that keep their names at EVERY width. All Boards and
-  // the Admin Panel carry four buttons each and have room for the words on any
-  // window worth supporting; a board carries ten, and is the page the
-  // measurement exists for.
-  assert.ok(/bar\.classList\.contains\('header-keeps-text'\)/.test(utils),
-    'a page can opt out of the measurement');
-  const fitBody = utils.slice(utils.indexOf('const fitHeaderLabels = () => {'),
-    utils.indexOf('\n  };', utils.indexOf('const fitHeaderLabels = () => {')));
-  // The opt-out path SHOWS the labels before returning. Without that, a page
-  // that opts out would inherit whatever the previous page's measurement left
-  // on the bar - so a link from a narrow board to All Boards would land there
-  // with its names hidden.
-  const optOutAt = fitBody.indexOf("contains('header-keeps-text')");
-  assert.notStrictEqual(optOutAt, -1, 'a page can opt out');
-  const optOut = fitBody.slice(optOutAt, fitBody.indexOf('}', optOutAt));
-  assert.ok(/classList\.remove\(LABELS_HIDDEN\)/.test(optOut),
-    'and opting out shows the labels rather than leaving the last page\'s answer');
-
-  // The measurement is skipped when the width has not changed. Measuring means
-  // showing the labels and possibly hiding them again, which RESIZES the
-  // observed element - so measuring on every notification wrote on every
-  // notification and the observer never settled, which the browser reports as
-  // "ResizeObserver loop completed with undelivered notifications".
-  assert.ok(/let fittedAtWidth = null/.test(utils), 'the last measured width is remembered');
-  assert.ok(/if \(width === fittedAtWidth\) return/.test(fitBody),
-    'and an unchanged width is not re-measured, so the steady state writes nothing');
-  // ...and the write happens a frame later, not inside the observer's callback.
-  assert.ok(/const scheduleFitHeaderLabels = \(\) => \{/.test(utils),
-    'the fit is scheduled');
-  assert.ok(/requestAnimationFrame\(run\)/.test(utils), 'on the next frame');
-  const publishAt = utils.indexOf('const publishHeaderHeight = () => {');
-  const publish = utils.slice(publishAt, utils.indexOf('\n  };', publishAt));
-  assert.ok(/scheduleFitHeaderLabels\(\)/.test(publish)
-    && !/^\s*fitHeaderLabels\(\);/m.test(publish),
-    'the observer schedules it rather than writing from inside its own callback');
-  // Which page it is comes from the route, in the header - this file knows only
-  // about boxes.
-  assert.ok(jade.includes('{{#if keepsText}}header-keeps-text{{/if}}'),
-    'the header marks the bar');
-  const keepAt = js.indexOf('keepsText() {');
-  assert.notStrictEqual(keepAt, -1, 'and decides it from the route');
-  const keep = js.slice(keepAt, js.indexOf('\n  },', keepAt));
-  assert.ok(/ALL_BOARDS_VIEW_ROUTES\.includes\(route\)/.test(keep), 'All Boards keeps them');
-  assert.ok(/ADMIN_PANEL_ROUTES\.includes\(route\)/.test(keep), 'and the Admin Panel');
+  for (const gone of ['fitHeaderLabels', 'barHasWrapped', 'flexItemsOf',
+    'LABELS_HIDDEN', 'fittedAtWidth', 'scheduleFitHeaderLabels']) {
+    assert.ok(!utils.includes(gone), `${gone} is gone with the feature it served`);
+  }
+  // The bar still wraps, which is what makes keeping the names affordable.
+  assert.ok(/#header-quick-access \{[^}]*flex-wrap: wrap/s.test(css),
+    'the bar wraps rather than clipping - a wrapped row beats an unreadable one');
 
   // The bell is named too, from the key its own tooltip uses, and carries the
   // same label class as every other named button - so it appears and vanishes
@@ -901,54 +870,12 @@ test('and a view menu says its view in words, not only in a tooltip', () => {
     'each hiding selector is answered with its own, or the widest of them wins');
   assert.ok(selectors.some(x => x.includes('.iphone-device') && x.includes(':not(.board-view)')),
     'including the widest one');
-  const fitAt = utils.indexOf('const fitHeaderLabels = () => {');
-  assert.notStrictEqual(fitAt, -1);
-  const fit = utils.slice(fitAt, utils.indexOf('\n  };', fitAt));
-  // Always measured from the SHOWN state. Hiding the labels is what makes the
-  // bar fit, so measuring after hiding would answer "it fits", show them again,
-  // and do it once per frame forever.
-  assert.ok(fit.indexOf('classList.remove(LABELS_HIDDEN)') < fit.indexOf('barHasWrapped'),
-    'the labels are shown before the bar is measured, or the test oscillates');
-  assert.ok(/void bar\.offsetHeight/.test(fit),
-    'and a layout read forces that removal to apply before measuring');
-  const wrapAt = utils.indexOf('const barHasWrapped = bar => {');
-  const wrap = utils.slice(wrapAt, utils.indexOf('\n  };', wrapAt));
-  // By vertical CENTRE, not by top. The bar is `align-items: center`, so
-  // everything on one row shares a centre line while their tops differ by
-  // however much their heights differ - and the page title is much taller than
-  // a bare icon. Comparing tops called a one-row bar wrapped and hid the labels
-  // on a 2560px window.
-  assert.ok(/rect\.top \+ item\.rect\.height \/ 2/.test(wrap),
-    'a row is identified by its centre line, not by where items start');
-  assert.ok(/Math\.abs\(centre\(item\) - first\) > 6/.test(wrap),
-    'and a second row is a whole row away, so a few pixels separates the two');
-  // On the CODE, not the comment: the comment explaining this names offsetTop
-  // as the thing it replaced, and a guard that greps the whole body reads its
-  // own explanation. That has bitten several times in this file already.
-  const wrapCode = wrap.replace(/\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '');
-  assert.ok(!/offsetTop/.test(wrapCode),
-    'offsets are relative to whichever ancestor is positioned, and these items '
-    + 'do not all share one - rects are absolute');
-
-  // It has to measure the buttons, which are NOT the bar's own children:
-  // `.header-quick-access-end` is `display: contents`, so it generates no box
-  // and its buttons are flex items of the bar. Reading `bar.children` saw the
-  // wrapper and not the buttons - everything except the things that wrap.
-  const itemsAt = utils.indexOf('const flexItemsOf = bar => {');
-  assert.notStrictEqual(itemsAt, -1, 'the real flex items are collected');
-  const items = utils.slice(itemsAt, utils.indexOf('\n  };', itemsAt));
-  assert.ok(/display === 'contents'/.test(items) && /flexItemsOf\(el\)/.test(items),
-    'descending through a display:contents wrapper');
-  assert.ok(/display === 'none'/.test(items), 'and skipping what is not drawn');
-  const css2 = read('client/components/main/header.css');
-  assert.ok(/\.header-quick-access-end \{\s*display: contents;/.test(css2),
-    'the wrapper this descends through really is display:contents');
   // The name is still reachable: every one of these buttons has a tooltip.
   for (const cls of ['js-sort-cards', 'js-open-filter-view', 'js-open-search-view',
     'js-toggle-dependencies', 'js-multiselection-activate']) {
     const btnAt = controls.indexOf(cls);
     assert.ok(/title="/.test(controls.slice(btnAt - 120, btnAt + 300)),
-      `${cls} still names itself in a tooltip when the label is gone`);
+      `${cls} names itself in a tooltip as well as beside its icon`);
   }
 });
 

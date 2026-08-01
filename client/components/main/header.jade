@@ -8,11 +8,13 @@ template(name="header")
     //- nodragscroll hands dragging on this bar to client/lib/headerDragscroll.js,
     //- which forwards it to whatever actually scrolls. Without it the page-level
     //- dragscroll on the body element would scroll the page at the same time.
-    //- `header-keeps-text`: this page keeps its button names at every width,
-      so the fit measurement leaves it alone. All Boards and the Admin Panel
-      carry four buttons each and have room for the words on any window worth
-      supporting; a board carries ten and is the page the measurement is for.
-      client/lib/utils.js, docs/Design/Page/Header.md
+    //- `header-keeps-text`: this page keeps the USERNAME at every width. The
+      narrow-screen rules collapse it to nothing, because a full name is easily
+      100px of a 375px bar - but All Boards and the Admin Panel carry four
+      buttons where a board carries ten, so the room is there and the name is
+      who you are signed in as.
+      Button LABELS are not affected: those are shown everywhere now.
+      docs/Design/Page/Header.md
     #header-quick-access.nodragscroll(class="{{themeColorClass}}" class="{{#if keepsText}}header-keeps-text{{/if}}" role="navigation" aria-label="{{_ 'all-boards'}}")
       //- Home icon - always at left side of logo. The house is the link to All
         Boards; the TEXT beside it is the page you are on, which on a board is

@@ -76,11 +76,19 @@ early.
 ## What the bar holds
 
 In source order: the house and the page title (plus the pencil that renames a
-board), the logo, the phone/desktop toggle, the drag-handles toggle — and then
-`.header-quick-access-end`, which holds everything else and is pushed to the end
-of the bar by a single `margin-inline-start: auto`. That is a **logical**
-property, so a right-to-left language mirrors it by itself rather than needing a
-second rule kept in step with the first.
+board), the logo, the phone/desktop toggle, the drag-handles toggle, and then
+everything else.
+
+**Everything packs from the start and wraps forward** — left to right in a
+left-to-right language, right to left in a right-to-left one, which flexbox does
+by itself because it follows the writing direction. Nothing is pushed to the far
+end and nothing is centred in the leftover space.
+
+Both used to happen: the buttons after the drag-handles toggle were pushed by an
+`auto` margin, and on a phone the bell was centred by an `auto` margin on *each*
+side. Either puts a hole in the middle of the row, and which items land on which
+side of the hole changes with the window width. One run of items, in source
+order, is what a reader can scan.
 
 That group is `display: contents` — it generates **no box**. It used to be a flex
 box of its own, which made it *one item* to the bar, so when the bar ran out of
@@ -102,49 +110,19 @@ The divider is the seam: everything before it belongs to the **page**, everythin
 after belongs to **you**. Without it the run of icons reads as one list of
 unrelated things.
 
-**A button says its name where the bar has room for it.** Sort Cards, Filter,
-Search, Show Dependencies, the board's visibility (Private / Public), its watch
-level (Watching / Tracking / Muted), Multi-Selection, the view menus, All Boards'
-four controls and the Admin Panel's four tabs all carry their name beside the
-icon: a tooltip is the one place a name cannot be read without
-hovering, and six view glyphs or a bare check-box outline say very little on
-their own.
+**Every button says its name, on every page and at every width.** Sort Cards,
+Filter, Search, Show Dependencies, the board's visibility and watch level,
+Multi-Selection, the view menus, All Boards' four controls, the Admin Panel's
+four tabs and the notification bell. A tooltip is the one place a name cannot be
+read without hovering, and six view glyphs or a bare check-box outline say very
+little on their own.
 
-**All Boards and the Admin Panel keep their names at every width.** Those two
-carry four buttons each and have room for the words on any window worth
-supporting. The header marks the bar `header-keeps-text` from the route, and
-the measurement below leaves it alone — which page you are on is the header's
-business; `utils.js` knows only about boxes.
-
-Everywhere else — a board, which carries ten controls — **they are shown only
-while they fit on ONE ROW**, and that is *measured*. All of
-them together, not some: half the buttons named and half not reads as a bar that
-has been half finished, and *which* half you got would depend on which words
-happen to be short in your language. One rule hides the one class they all share,
-so none can be left behind.
-
-This was a media query at 1100px, and a width **cannot** answer the question — a
-board carries ten controls, All Boards four, an Admin Panel page four tabs, and
-the words are as long as the reader's language makes them. In practice the labels
-showed on a 2266px window whose bar wrapped anyway, and were hidden on an 1810px
-one with room to spare.
-
-`fitHeaderLabels()` in `client/lib/utils.js` shows the labels, asks whether the
-bar wrapped — its last item sitting lower than its first, with a small tolerance
-because items of different heights sit on slightly different offsets within one
-row — and hides them if it did. It always measures from the **shown** state:
-hiding the labels is what makes the bar fit, so measuring after hiding would
-answer "it fits", show them again, and do that once per frame forever. Removing
-the class first costs one reflow per resize and is the whole reason it cannot
-oscillate.
-
-It re-measures **only when the bar's width has changed**, and the write happens a
-frame later rather than inside the `ResizeObserver` callback. Measuring means
-showing the labels and possibly hiding them again, which *resizes the element
-being observed* — so measuring on every notification wrote on every notification
-and the observer never settled, which the browser reports as *ResizeObserver loop
-completed with undelivered notifications*. With the width remembered, a bar that
-has not changed writes nothing at all.
+The labels used to be dropped when the bar ran out of room — first below a fixed
+1100px, then by *measuring* whether the bar had wrapped. Both are gone. The bar
+**wraps** rather than clipping, and a wrapped second row is a better answer than
+a row of unlabelled pictures, so there was nothing left for the measurement to
+decide. It is deleted rather than left inert: a mechanism that no longer decides
+anything still reads as one that does.
 
 A label never wraps mid-button — two lines inside a one-line button is worse than
 the tooltip was — and each one uses the **same translation key as its own
@@ -157,6 +135,26 @@ as their tooltip — `{{_ currentBoard.permission}}` and `{{_ watchLevel}}` — 
 one line of markup covers Private and Public, Watching and Tracking and Muted.
 Written out per value it would be two lists of words to keep in step with each
 other and with the board.
+
+The **bell** carries the same label class as the rest, so it is named the same
+way. Its own stylesheet makes it a fixed 28px *square*, which is right for a lone
+icon and clips a word, so in this bar it sizes to its content; scoped to this
+bar, because elsewhere the toggle is still just a bell.
+
+### The username
+
+`header-keeps-text` marks All Boards and the Admin Panel, where the **username**
+stays at every width. Elsewhere the narrow-screen rules collapse it to
+`font-size: 0` — the avatar stays, and the name stays in the DOM for screen
+readers — because a full name is easily 100px of a 375px bar, which is what
+pushed the avatar onto a second row. Those two pages carry four buttons where a
+board carries ten, so the room is there, and the name is who you are signed in
+as.
+
+Every hiding selector is answered with its own copy carrying the class: the
+widest of them carry `.iphone-device`, which outweighs an id and a class on its
+own, so a single short override would lose on exactly the narrow screens this is
+about.
 
 ### The star group
 

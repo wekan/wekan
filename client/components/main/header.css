@@ -147,35 +147,23 @@
   display: flex;
   align-items: center;
 }
-/* Everything after the drag-handles toggle hugs the END of the bar: the right
-   edge in a left-to-right language, the LEFT edge in a right-to-left one.
-   `margin-inline-start` is a LOGICAL property, so the mirroring is what the
-   browser already does for the writing direction rather than a second rule to
-   keep in step with the first. The items before it - the home link and page
-   title, the logo, the phone/desktop toggle and the drag-handles toggle - stay
-   at the start.
+/* Everything in this bar packs from the START and wraps forward: left to right
+   in a left-to-right language, right to left in a right-to-left one, which
+   flexbox does by itself because it follows the writing direction.
 
-   `display: contents` rather than a flex box of its own, which is what this
-   was. A nested flex box is ONE item to the bar, so when the bar ran out of
-   width the whole group moved to the second row together - every icon after the
-   drag-handles toggle went down at once, leaving the first row empty from
-   halfway across while the second was crowded. With `contents` the group's box
-   is not generated and its buttons are items of the BAR, so they wrap one at a
-   time: the second row takes only what did not fit on the first.
+   Nothing is pushed to the far end. The buttons after the drag-handles toggle
+   used to be, by an `auto` margin on the first of them - so the bar had a gap
+   in the middle and two clusters, and which items landed in which cluster
+   changed with the window width. One run of items, in source order, is what a
+   reader can scan.
 
-   The group is still worth having in the markup - it is what says where "the
-   end of the bar" begins - and the auto margin moves to its first child, which
-   is the item that has to push the rest to the end. */
+   `.header-quick-access-end` stays `display: contents`, so it generates no box
+   and its buttons are items of the BAR. That is what lets them wrap ONE AT A
+   TIME: as a flex box of its own it was a single item, and the whole group
+   dropped to the second row together, leaving the first row empty from halfway
+   across while the second was crowded. */
 #header-quick-access .header-quick-access-end {
   display: contents;
-}
-
-/* The push. On the first row this absorbs the free space, so everything from
-   here on sits at the end of the bar; on a row that wrapped there is no free
-   space to absorb and the items simply pack from the start, which is what fills
-   the second row instead of stranding it. */
-#header-quick-access .header-quick-access-end > :first-child {
-  margin-inline-start: auto;
 }
 
 #header #header-main-bar .board-header-btn {
@@ -1303,10 +1291,11 @@ body.mobile-mode #header-quick-access .allBoards {
     font-size: 16px !important;
     margin-inline-end: 0 !important;
   }
-  /* One auto margin, so the user menu still sits at the end when there is room
-     and collapses to nothing when there is not. */
+  /* No auto margin: everything in this bar packs from the START and wraps
+     forward, at every width. An `auto` here pushed the user menu to the far end
+     and left a gap in the middle of the row. */
   .iphone-device #header-quick-access #header-user-bar {
-    margin-inline-start: auto !important;
+    margin-inline-start: 0 !important;
   }
   .iphone-device #header-quick-access img {
     max-height: 20px !important;
@@ -1553,8 +1542,10 @@ body.mobile-mode #header-quick-access .allBoards {
   body:not(.board-view) #header-quick-access #notifications,
   .iphone-device .wrapper ~ #header-quick-access #notifications,
   .iphone-device body:not(.board-view) #header-quick-access #notifications {
-    margin-inline-start: auto !important;
-    margin-inline-end: auto !important;
+    /* Both margins were `auto`, which CENTRES the bell in whatever space is
+       left - the middle justification this bar is not supposed to have. It
+       packs from the start with everything else now. */
+    margin-inline: 0 !important;
     margin-block: 0 !important;
     flex-shrink: 0 !important;
   }
@@ -1733,10 +1724,14 @@ body.mobile-mode #header-quick-access .allBoards {
 }
 
 /* The visible name beside a button's icon - Sort Cards, Filter, Search, Show
-   Dependencies, Multi-Selection, and whichever view is on. A tooltip is the one
-   place a name cannot be read without hovering, so where the bar has room the
-   button says what it is. It does not wrap mid-word: a two-line label inside a
-   one-line button is worse than the tooltip was. */
+   Dependencies, Multi-Selection, the view menus, the Admin Panel's tabs, the
+   bell. A tooltip is the one place a name cannot be read without hovering, so
+   the button says what it is, on every page and at every width.
+
+   It does not wrap mid-word: a two-line label inside a one-line button is worse
+   than the tooltip was. The bar itself wraps to a second row when the buttons
+   run out of width, which is what makes keeping the names affordable - and a
+   wrapped row is a better answer than an unreadable one. */
 /* The bell, once it has a name beside it. Its own stylesheet makes it a fixed
    28px SQUARE (notifications.css), which is right for an icon on its own and
    clips a word - so in this bar it sizes to its content and lays the two out
@@ -1758,20 +1753,4 @@ body.mobile-mode #header-quick-access .allBoards {
   white-space: nowrap;
 }
 
-/* ...and where they do not fit on ONE ROW, every one of them goes and the
-   buttons are icons again. A label is worth several icons' width, so once the
-   bar has to wrap, keeping the names costs more buttons off the first row than
-   the names are worth - and the tooltip is still there.
 
-   All of them together, not some: half the buttons named and half not reads as
-   a bar that has been half finished, and which half you got would depend on
-   which words happened to be short in your language.
-
-   `.header-labels-hidden` is set by MEASUREMENT, in client/lib/utils.js. This
-   was a media query at 1100px, and a width cannot answer the question: a board
-   carries ten controls and All Boards four, and the words are as long as the
-   reader's language makes them - so at 2266px the labels showed and the bar
-   wrapped anyway, while at 1810px they were hidden with room to spare. */
-#header-quick-access.header-labels-hidden .board-header-btn-label {
-  display: none;
-}

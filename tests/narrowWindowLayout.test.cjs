@@ -125,23 +125,27 @@ test('the bar gives back the width the avatar needs', () => {
     'the iphone-device variant must be named, or the cap never applies there');
 });
 
-test('the bell and the avatar sit the same way in both modes', () => {
-  // With the free space of the row shared around the bell - an auto margin on
-  // each side - it lands midway between the zoom pill and the avatar, and the
-  // avatar keeps a small fixed gap to the edge instead of being flung against it.
-  // Same rule for both modes, because it is chosen by WIDTH.
+test('the bell and the avatar pack from the start like everything else', () => {
+  // These used to be PLACED: the free space of the row was shared around the
+  // bell by an auto margin on each side, so it landed midway across, and the
+  // avatar kept a fixed gap to the far edge.
+  //
+  // That is gone. The bar packs from the start and wraps forward at every
+  // width - left to right in a left-to-right language, right to left in a
+  // right-to-left one, which flexbox does by itself. An item pushed to the far
+  // end or centred in the leftover space puts a hole in the middle of the row,
+  // and which items land on which side of the hole changes with the window.
   const block = headerCss.slice(headerCss.indexOf('The quick-access bar must FIT the phone'));
   const bell = /#header-quick-access #notifications,([\s\S]*?)\{([\s\S]*?)\}/.exec(block);
   assert.ok(bell, 'the bell must be placed here');
-  assert.ok(/margin-inline-start: auto !important;/.test(bell[2])
-    && /margin-inline-end: auto !important;/.test(bell[2]),
-    'an auto margin on EACH side is what centres it');
+  assert.ok(!/margin-inline-start: auto/.test(bell[2])
+    && !/margin-inline-end: auto/.test(bell[2]),
+    'nothing centres the bell any more');
+  assert.ok(/margin-inline: 0 !important;/.test(bell[2]), 'it packs with the rest');
   const avatar = /#header-quick-access #header-user-bar,([\s\S]*?)\{([\s\S]*?)\}/.exec(block);
   assert.ok(avatar, 'and the avatar');
   assert.ok(/margin-inline-start: 0 !important;/.test(avatar[2]),
-    'no second auto margin - two of them would split the row and separate the pair');
-  assert.ok(/margin-inline-end: 12px !important;/.test(avatar[2]),
-    'a small gap to the right edge');
+    'which is not pushed either');
   // The `.iphone-device` fallback sets these with `!important` and two classes,
   // so both of its variants have to be named or the placement never applies
   // there - which is the phone in the screenshots.
