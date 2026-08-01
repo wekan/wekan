@@ -22,6 +22,17 @@
    (Member Settings -> Change color sets --theme-accent on :root) with the WeKan
    blue as the fallback. */
 
+/* FILLED with the theme, and the arrows white on it. These were an outline on
+   transparent, which put the theme colour only in a 1px border and the glyph -
+   so on a light accent there was almost nothing to see, and on any accent the
+   pager read as a pair of ghosts beside solidly themed chrome.
+
+   `--theme-accent-fill` rather than `--theme-accent`: the accent is ONE colour
+   and a colour-slide theme's fill is a gradient, so a button reading the accent
+   came out flat while the header above it slid
+   (models/lib/themeAccents.js publishes both). The double fallback keeps a
+   theme that publishes no fill on its accent, and no theme at all on the WeKan
+   blue. */
 .table-page-pagination button,
 .boards-pagination button,
 .table-view-pagination button,
@@ -29,11 +40,11 @@
   min-width: 32px;
   height: 30px;
   padding: 0 10px;
-  border: 1px solid var(--theme-accent, #01628c);
+  border: 1px solid transparent;
   border-radius: 6px;
-  background: transparent;
+  background: var(--theme-accent-fill, var(--theme-accent, #01628c));
   background-image: none;
-  color: var(--theme-accent, #01628c);
+  color: #fff;
   font-weight: 700;
   line-height: 1.3;
   cursor: pointer;
@@ -56,9 +67,13 @@
 .cron-settings .pagination button:hover,
 .cron-settings .pagination button:focus,
 .cron-settings .pagination button:active {
-  background: var(--theme-accent, #01628c);
+  background: var(--theme-accent-fill, var(--theme-accent, #01628c));
   background-image: none;
-  border-color: var(--theme-accent, #01628c);
+  border-color: rgba(0, 0, 0, 0.25);
+  /* The fill IS the resting state now, so pressing cannot be "fill it in".
+     Darkening the same fill keeps the theme - and keeps a slide sliding, which
+     swapping in a flat colour would not. */
+  filter: brightness(0.88);
   color: #fff;
   box-shadow: none;
 }
@@ -82,9 +97,13 @@
 .table-page-pagination button.active,
 .boards-pagination button.active,
 .table-view-pagination button.active {
-  background: var(--theme-accent, #01628c);
+  background: var(--theme-accent-fill, var(--theme-accent, #01628c));
   background-image: none;
-  border-color: var(--theme-accent, #01628c);
+  border-color: rgba(0, 0, 0, 0.25);
+  /* The fill IS the resting state now, so pressing cannot be "fill it in".
+     Darkening the same fill keeps the theme - and keeps a slide sliding, which
+     swapping in a flat colour would not. */
+  filter: brightness(0.88);
   color: #fff;
 }
 
@@ -101,10 +120,10 @@
 .table-page-pagination button.disabled,
 .boards-pagination button.disabled,
 .table-view-pagination button.disabled {
-  background: transparent;
+  background: var(--theme-accent-fill, var(--theme-accent, #01628c));
   background-image: none;
-  border-color: var(--theme-accent, #01628c);
-  color: var(--theme-accent, #01628c);
+  border-color: transparent;
+  color: #fff;
   opacity: 0.55;
   pointer-events: none;
 }

@@ -777,11 +777,35 @@ test('and a view menu says its view in words, not only in a tooltip', () => {
   // All of them together, not some: half the buttons named and half not reads
   // as a bar half finished, and which half you got would depend on which words
   // happen to be short in your language.
-  const hideAt = css.indexOf('@media screen and (max-width: 1100px) {');
-  assert.notStrictEqual(hideAt, -1, 'a narrow window drops the labels');
-  const media = css.slice(hideAt, css.indexOf('\n}', css.indexOf('}', hideAt)));
-  assert.ok(/#header-quick-access \.board-header-btn-label \{\s*display:\s*none/.test(media),
+  // Dropped when they do not fit on ONE ROW - measured, not guessed from the
+  // window width. A width cannot answer it: a board carries ten controls and
+  // All Boards four, and the words are as long as the reader's language makes
+  // them, so the old 1100px query showed labels on a bar that wrapped anyway
+  // and hid them on one with room to spare.
+  const hideAt = css.indexOf('#header-quick-access.header-labels-hidden .board-header-btn-label {');
+  assert.notStrictEqual(hideAt, -1, 'a wrapped bar drops the labels');
+  assert.ok(/display:\s*none/.test(css.slice(hideAt, css.indexOf('}', hideAt))),
     'by hiding the one class all of them share, so none can be left behind');
+  assert.ok(!/@media[^{]*1100px/.test(css), 'and the width guess is gone');
+
+  const utils = read('client/lib/utils.js');
+  assert.ok(/const LABELS_HIDDEN = 'header-labels-hidden'/.test(utils),
+    'the class is set from a measurement');
+  const fitAt = utils.indexOf('const fitHeaderLabels = () => {');
+  assert.notStrictEqual(fitAt, -1);
+  const fit = utils.slice(fitAt, utils.indexOf('\n  };', fitAt));
+  // Always measured from the SHOWN state. Hiding the labels is what makes the
+  // bar fit, so measuring after hiding would answer "it fits", show them again,
+  // and do it once per frame forever.
+  assert.ok(fit.indexOf('classList.remove(LABELS_HIDDEN)') < fit.indexOf('barHasWrapped'),
+    'the labels are shown before the bar is measured, or the test oscillates');
+  assert.ok(/void bar\.offsetHeight/.test(fit),
+    'and a layout read forces that removal to apply before measuring');
+  const wrapAt = utils.indexOf('const barHasWrapped = bar => {');
+  const wrap = utils.slice(wrapAt, utils.indexOf('\n  };', wrapAt));
+  assert.ok(/offsetTop > top \+ 4/.test(wrap),
+    'wrapped means an item sits LOWER than the first, with a tolerance - items '
+    + 'of different heights sit on slightly different offsets within one row');
   // The name is still reachable: every one of these buttons has a tooltip.
   for (const cls of ['js-sort-cards', 'js-open-filter-view', 'js-open-search-view',
     'js-toggle-dependencies', 'js-multiselection-activate']) {

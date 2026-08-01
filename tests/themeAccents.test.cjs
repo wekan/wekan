@@ -317,6 +317,63 @@ test('and the slides are offered everywhere a theme can be chosen', () => {
   }
 });
 
+test('a themed control gets a FILL, which a slide theme needs and a colour cannot be', () => {
+  const { THEME_SLIDES, activeFill, slideOf } = require('../models/lib/themeAccents.js');
+  const { THEME_CATEGORIES } = require('../models/lib/themeCategories.js');
+
+  // Every slide theme has its pair, and only slide themes do.
+  assert.deepStrictEqual(Object.keys(THEME_SLIDES).sort(),
+    THEME_CATEGORIES.clear.slice().sort(),
+    'the pairs and the "clear" category must be the same set');
+  for (const theme of THEME_CATEGORIES.clear) {
+    const ends = slideOf(theme);
+    assert.strictEqual(ends.length, 2, `${theme} has two ends`);
+    assert.notStrictEqual(ends[0], ends[1], `${theme}'s ends differ`);
+    // The bottom end is the accent, so the flat things and the sliding things
+    // agree about what colour the theme is.
+    assert.strictEqual(ends[1].toLowerCase(), THEME_ACCENTS[theme].toLowerCase(),
+      `${theme}: the accent is the solid end of its own slide`);
+    // ...and it MIRRORS the stylesheet, the same arrangement THEME_ACCENTS has.
+    const css = read('client/components/boards/boardColors.css');
+    assert.ok(css.includes(`linear-gradient(180deg, ${ends[0]} 0%, ${ends[1]} 100%)`),
+      `${theme}'s slide must be the one boardColors.css paints`);
+  }
+
+  // A flat theme's fill is simply its colour.
+  assert.strictEqual(activeFill('belize', null), THEME_ACCENTS.belize);
+  // A slide theme's is a gradient - which is the whole point: a control that
+  // read only --theme-accent came out flat while the header above it slid.
+  assert.ok(/^linear-gradient\(/.test(activeFill('cleargreen', null)));
+  // A custom PAIR wins, the way a custom colour wins over an accent: someone
+  // who chose two colours chose a slide.
+  assert.strictEqual(activeFill('cleargreen', ['#111111', '#222222']),
+    'linear-gradient(180deg, #111111 0%, #222222 100%)');
+  assert.strictEqual(activeFill('cleargreen', ['#111111']), '#111111');
+  // Falsy, and the SAME falsy accentOf() answers - the two sit side by side and
+  // a reader should not have to remember which returns '' and which null.
+  assert.strictEqual(activeFill('nonsense', null), accentOf('nonsense'),
+    'an unknown theme answers what accentOf does');
+  assert.ok(!activeFill('nonsense', null),
+    'and it is falsy, so the caller keeps its own fallback');
+
+  // Published where the accent is, and read by the pager.
+  const publisher = read('client/components/main/globalThemeColor.js');
+  assert.ok(/setProperty\('--theme-accent-fill', fill\)/.test(publisher),
+    'the fill is published as a variable');
+  assert.ok(/removeProperty\('--theme-accent-fill'\)/.test(publisher),
+    'and removed when there is none, rather than left stale');
+  const pager = read('client/components/main/paginationControls.css');
+  assert.ok(/background: var\(--theme-accent-fill, var\(--theme-accent, #01628c\)\)/.test(pager),
+    'the pager paints itself with the fill, falling back to the accent then to blue');
+  assert.ok(/color: #fff/.test(pager), 'and its arrows are white on it');
+  // It is FILLED at rest. It used to be an outline on transparent, which put
+  // the theme in a 1px border and left the button a ghost beside solidly
+  // themed chrome.
+  const restAt = pager.indexOf('.cron-settings .pagination button {');
+  const rest = pager.slice(restAt, pager.indexOf('}', restAt));
+  assert.ok(!/background:\s*transparent/.test(rest), 'not transparent at rest');
+});
+
 console.log(`\n${passed} tests passed`);
 
 })();

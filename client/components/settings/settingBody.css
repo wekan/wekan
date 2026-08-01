@@ -22,14 +22,26 @@
      the rest, so both stay visible without switching to a stacked layout. */
   flex-direction: row;
   flex-wrap: nowrap;
-  padding-top: 18px;
+  /* No padding above the ROW: it put grey between the header and the top of the
+     side menu, and the menu is meant to run from directly under the header to
+     the bottom of the window. The main body keeps its breathing room below -
+     see `.main-body` - because that IS content and content is not flush to a
+     bar. docs/Design/Page/Left-Menu.md */
+  padding-top: 0;
   height: 100%;
   gap: 18px;
 }
 .setting-content .content-body .side-menu {
   background-color: #f7f7f7;
+  /* Flush on three sides - it starts at the window's left edge, directly under
+     the header, and runs to the bottom - so it has a border and a corner only
+     on the side that faces the page. A rounded corner on a flush edge shows the
+     grey behind it, which is exactly the gap this removes. */
   border: 1px solid #f0f0f0;
-  border-radius: 7px;
+  border-inline-start: 0;
+  border-top: 0;
+  border-bottom: 0;
+  border-radius: 0;
   width: min(250px, 32vw);
   /* Never let the menu be squeezed away on narrow windows; keep it visible. */
   flex: 0 0 auto;
@@ -129,6 +141,10 @@
   margin-inline-end: 20px;
 }
 .setting-content .content-body .main-body {
+  /* The row lost its top padding so the side menu can start under the header;
+     the content keeps it, because content is not meant to be flush against a
+     bar. */
+  padding-block-start: 18px;
   -webkit-user-select: text;
   -moz-user-select: text;
   -ms-user-select: text;

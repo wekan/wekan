@@ -3,7 +3,7 @@ import { Tracker } from 'meteor/tracker';
 import { Session } from 'meteor/session';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Template } from 'meteor/templating';
-import { activeAccent } from '/models/lib/themeAccents';
+import { activeAccent, activeFill } from '/models/lib/themeAccents';
 
 // #5778 + docs/Theme/Theme.md: apply the theme color to the whole UI (All Boards,
 // Search, Admin Panel, My Cards, etc.) via a `board-color-<name>` class on <body>,
@@ -82,6 +82,16 @@ Meteor.startup(() => {
         root.style.setProperty('--theme-accent', accent);
       } else {
         root.style.removeProperty('--theme-accent');
+      }
+      // ...and what to PAINT a themed control with, which is not the same
+      // thing: --theme-accent is one colour, and a colour-slide theme's fill is
+      // a gradient. A control that reads only the accent came out flat while
+      // the header above it slid. models/lib/themeAccents.js
+      const fill = activeFill(color, custom);
+      if (fill) {
+        root.style.setProperty('--theme-accent-fill', fill);
+      } else {
+        root.style.removeProperty('--theme-accent-fill');
       }
       if (c1) {
         document.body.classList.add('has-custom-theme-color');

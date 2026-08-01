@@ -218,12 +218,33 @@ test('and the All Boards menu is styled like the Admin Panel one', () => {
   for (const [prop, value] of [
     ['background-color', '#f7f7f7'],
     ['border', '1px solid #f0f0f0'],
-    ['border-radius', '7px'],
+    // Flush on three sides now - the menu starts at the window's left edge,
+    // directly under the header, and runs to the bottom - so it keeps a border
+    // and a corner only on the side facing the page. A rounded corner on a
+    // flush edge shows the grey behind it, which is the gap this removed.
+    ['border-inline-start', '0'],
+    ['border-top', '0'],
+    ['border-bottom', '0'],
+    ['border-radius', '0'],
   ]) {
     assert.ok(panel.includes(`${prop}: ${value}`), `the menu is a panel: ${prop}`);
     assert.ok(adminPanel.includes(`${prop}: ${value}`),
       `...the same ${prop} the Admin Panel's menu uses`);
   }
+  // Nothing above it, either. The Admin Panel's row carried a top padding that
+  // put grey between the header and the menu; the main body carries it now,
+  // because content is not meant to be flush against a bar.
+  const rowAt = admin.indexOf('.setting-content .content-body {');
+  const row = admin.slice(rowAt, admin.indexOf('}', rowAt));
+  assert.ok(/padding-top:\s*0/.test(row), 'no grey above the Admin Panel menu');
+  assert.ok(/padding-block-start:\s*18px/.test(
+    admin.slice(admin.indexOf('.main-body {'), admin.indexOf('.main-body {') + 300)),
+    '...and the content it used to space keeps its room');
+  // All Boards: a gap is BETWEEN tracks, so it never insets the menu from the
+  // window edge - which a `gap` shorthand plus a wrapper padding used to.
+  const gridAt = boards.indexOf('.boards-layout {');
+  const grid = boards.slice(gridAt, boards.indexOf('}', gridAt));
+  assert.ok(/column-gap:\s*16px/.test(grid), 'the gap is between the columns only');
   // An inset shadow with NO x offset: an offset one is a physical direction and
   // does not mirror under dir=rtl, which is how the Admin Panel's came to shade
   // the wrong inner edge.

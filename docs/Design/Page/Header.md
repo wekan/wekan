@@ -110,17 +110,26 @@ icon: a tooltip is the one place a name cannot be read without
 hovering, and six view glyphs or a bare check-box outline say very little on
 their own.
 
-**Below 1100px every label goes and they are icons again.** A label is worth
-several icons' width, so on a narrow window keeping them costs more buttons off
-the first row than the names are worth — and the tooltip is still there. All of
+**They are shown only while they fit on ONE ROW**, and that is *measured*. All of
 them together, not some: half the buttons named and half not reads as a bar that
 has been half finished, and *which* half you got would depend on which words
-happen to be short in your language. One rule hides the one class they all
-share, so none can be left behind.
+happen to be short in your language. One rule hides the one class they all share,
+so none can be left behind.
 
-The threshold is the **window**, which is the honest thing to key on here: what a
-container query would measure is this bar, and this bar is as wide as the window
-by construction.
+This was a media query at 1100px, and a width **cannot** answer the question — a
+board carries ten controls, All Boards four, an Admin Panel page four tabs, and
+the words are as long as the reader's language makes them. In practice the labels
+showed on a 2266px window whose bar wrapped anyway, and were hidden on an 1810px
+one with room to spare.
+
+`fitHeaderLabels()` in `client/lib/utils.js` shows the labels, asks whether the
+bar wrapped — its last item sitting lower than its first, with a small tolerance
+because items of different heights sit on slightly different offsets within one
+row — and hides them if it did. It always measures from the **shown** state:
+hiding the labels is what makes the bar fit, so measuring after hiding would
+answer "it fits", show them again, and do that once per frame forever. Removing
+the class first costs one reflow per resize and is the whole reason it cannot
+oscillate.
 
 A label never wraps mid-button — two lines inside a one-line button is worse than
 the tooltip was — and each one uses the **same translation key as its own

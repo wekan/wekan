@@ -1722,20 +1722,20 @@ body.mobile-mode #header-quick-access .allBoards {
   white-space: nowrap;
 }
 
-/* ...and where the bar does NOT have room, every one of them goes and the
-   buttons are icons again. A label is worth several icons' width, so on a
-   narrow window keeping them costs more buttons off the first row than the
-   names are worth - and the tooltip is still there.
+/* ...and where they do not fit on ONE ROW, every one of them goes and the
+   buttons are icons again. A label is worth several icons' width, so once the
+   bar has to wrap, keeping the names costs more buttons off the first row than
+   the names are worth - and the tooltip is still there.
 
    All of them together, not some: half the buttons named and half not reads as
    a bar that has been half finished, and which half you got would depend on
    which words happened to be short in your language.
 
-   The threshold is the WINDOW, which is the honest thing to key on here: what a
-   container query would measure is this bar, and this bar is as wide as the
-   window by construction. */
-@media screen and (max-width: 1100px) {
-  #header-quick-access .board-header-btn-label {
-    display: none;
-  }
+   `.header-labels-hidden` is set by MEASUREMENT, in client/lib/utils.js. This
+   was a media query at 1100px, and a width cannot answer the question: a board
+   carries ten controls and All Boards four, and the words are as long as the
+   reader's language makes them - so at 2266px the labels showed and the bar
+   wrapped anyway, while at 1810px they were hidden with room to spare. */
+#header-quick-access.header-labels-hidden .board-header-btn-label {
+  display: none;
 }

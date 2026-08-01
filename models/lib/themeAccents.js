@@ -73,4 +73,51 @@ function activeAccent(color, customColors) {
   return accentOf(color);
 }
 
-export { THEME_ACCENTS, accentOf, activeAccent };
+// The two ends of each colour-slide theme, top first.
+//
+// `--theme-accent` is ONE colour and a gradient is not one, so a slide theme's
+// buttons came out flat while its header slid. This is the other half of the
+// answer: the pair, from which a `background` value can be built.
+//
+// Only the `clear` category has one. Everything else is a flat colour and its
+// fill IS its accent. MIRRORS boardColors.css, and a guard fails if they ever
+// disagree - the same arrangement THEME_ACCENTS has.
+const THEME_SLIDES = {
+  clearblue: ['#499bea', '#00aecc'],
+  cleargreen: ['#8ad59f', '#4bbf6b'],
+  clearorange: ['#efab6f', '#e67e22'],
+  clearpink: ['#df94b8', '#cd5a91'],
+  clearpurple: ['#b685ca', '#8e44ad'],
+  clearred: ['#d67e75', '#c0392b'],
+};
+
+// The slide of a theme, or null when it is a flat one.
+function slideOf(color) {
+  const ends = THEME_SLIDES[color];
+  return ends ? ends.slice() : null;
+}
+
+// What to paint a themed CONTROL with: a full CSS `background` value rather
+// than a colour, so a slide theme's buttons slide like its header.
+//
+// A custom pair wins over the theme's own, the same way a custom colour wins
+// over its accent - a user who chose two colours chose a slide. One custom
+// colour, or a flat theme, answers with that solid colour.
+//
+// An unknown theme answers `''`, which is what accentOf() answers - not null.
+// Either is falsy and the caller's `if (fill)` treats them alike, but the two
+// functions sit beside each other and should not need a reader to remember
+// which one returns which kind of nothing.
+function activeFill(color, customColors) {
+  const custom = Array.isArray(customColors) ? customColors : [];
+  const [c1, c2] = custom;
+  if (typeof c1 === 'string' && c1 && typeof c2 === 'string' && c2) {
+    return `linear-gradient(180deg, ${c1} 0%, ${c2} 100%)`;
+  }
+  if (typeof c1 === 'string' && c1) return c1;
+  const ends = slideOf(color);
+  if (ends) return `linear-gradient(180deg, ${ends[0]} 0%, ${ends[1]} 100%)`;
+  return accentOf(color);
+}
+
+export { THEME_ACCENTS, THEME_SLIDES, accentOf, activeAccent, slideOf, activeFill };

@@ -968,7 +968,45 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
   // nothing without needing a special case.
   const HEADER_IDS = ['header-quick-access', 'header'];
 
+  // Whether the buttons' NAMES fit on one row.
+  //
+  // This was a media query at 1100px, and a width cannot answer the question: a
+  // board carries ten controls and All Boards four, an Admin Panel page four
+  // tabs, and the words are as long as the reader's language makes them. So at
+  // 2266px the labels showed AND the bar wrapped, while at 1810px they were
+  // hidden with room to spare.
+  //
+  // Measured instead. Labels are shown, the bar is asked whether it wrapped -
+  // its last item sitting lower than its first - and if it did, they go.
+  //
+  // Always measured from the SHOWN state, never from the current one: hiding
+  // the labels is what makes the bar fit, so measuring after hiding them would
+  // say "it fits" and show them again, once per frame, forever. Removing the
+  // class first costs one reflow per resize and is the whole reason this cannot
+  // oscillate.
+  const LABELS_HIDDEN = 'header-labels-hidden';
+
+  const barHasWrapped = bar => {
+    const items = [...bar.children].filter(el => el.offsetParent !== null
+      || el.offsetWidth > 0 || el.offsetHeight > 0);
+    if (items.length < 2) return false;
+    const top = items[0].offsetTop;
+    // A tolerance, not equality: items of different heights sit on slightly
+    // different offsets within one row, and `align-items: center` moves them.
+    return items.some(el => el.offsetTop > top + 4);
+  };
+
+  const fitHeaderLabels = () => {
+    const bar = document.getElementById('header-quick-access');
+    if (!bar) return;
+    bar.classList.remove(LABELS_HIDDEN);
+    // Read a layout property so the removal is applied before the measurement.
+    void bar.offsetHeight;
+    if (barHasWrapped(bar)) bar.classList.add(LABELS_HIDDEN);
+  };
+
   const publishHeaderHeight = () => {
+    fitHeaderLabels();
     let bottom = 0;
     for (const id of HEADER_IDS) {
       const el = document.getElementById(id);

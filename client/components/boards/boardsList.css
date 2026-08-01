@@ -29,7 +29,10 @@
 .boards-layout {
   display: grid;
   grid-template-columns: 260px 1fr;
-  gap: 16px;
+  /* Between the columns only. A `gap` is between tracks, not around them, so
+     this never insets the menu from the window edge - the padding that used to
+     do that is gone. */
+  column-gap: 16px;
   /* ...and down to the BOTTOM of the window, again like the Admin Panel, whose
      menu is a flex item of a `height: 100%` row inside an absolutely positioned
      full-height box. Here the page is in normal flow, so the height is measured
@@ -53,8 +56,15 @@
    wrong inner edge once its menu moved to the right. */
 .boards-left-menu {
   background-color: #f7f7f7;
+  /* Flush on three sides, like the Admin Panel's: it starts at the window's
+     left edge, directly under the header, and runs to the bottom - so it has a
+     border and a corner only on the side that faces the page. A rounded corner
+     on a flush edge shows the grey behind it. docs/Design/Page/Left-Menu.md */
   border: 1px solid #f0f0f0;
-  border-radius: 7px;
+  border-inline-start: 0;
+  border-top: 0;
+  border-bottom: 0;
+  border-radius: 0;
   box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.05);
   /* No padding on the PANEL. The Admin Panel's has none either: its rows carry
      `margin: 2px 4px` themselves, so a selected row is a block that runs nearly
