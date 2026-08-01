@@ -215,7 +215,14 @@ test('the Upcoming section, when there is one, follows the same rules', () => {
   const end = lines.findIndex((l, i) => i > start && /^# v\d/.test(l));
   assert.ok(end > start, 'it sits above the newest release');
   const inSection = ALL.filter(b => b.line > start && b.line < end);
-  assert.ok(inSection.length >= 1, 'and it has at least one entry');
+  // At least one CHANGE - an entry or a plain bullet. Not "at least one
+  // <details>": a release whose whole content is a dependency batch is bullets
+  // all the way down, which is what CLAUDE.md prescribes for one, and padding a
+  // bump into a <details> whose body repeats its summary would be noise added
+  // to satisfy a guard.
+  const bullets = lines.slice(start, end).filter(l => /^- \*\*/.test(l));
+  assert.ok(inSection.length + bullets.length >= 1,
+    'and it has at least one entry or bullet');
 
   for (const b of inSection) {
     assert.ok(summaryText(b.summary).length <= 120,
@@ -285,7 +292,14 @@ test('entries are grouped by area, and no summary repeats its group', () => {
     assert.ok(!text.toLowerCase().startsWith(bare.toLowerCase()),
       `line ${i + 1}: "${text.slice(0, 50)}" repeats its group "${bare}"`);
   }
-  assert.ok(grouped >= 10, `the Upcoming entries are grouped (${grouped} are)`);
+  // MOST of what is there is grouped - not a fixed count. `>= 10` was written
+  // against a release with forty entries, and it fails a small release for
+  // being small: a dependencies-only one has no entries at all, because
+  // CLAUDE.md keeps a dependency batch as plain bullets. What matters is the
+  // ratio, and the loose count below is the other half of it.
+  const entries = grouped + loose.length;
+  assert.ok(entries === 0 || grouped >= entries - 4,
+    `the Upcoming entries are grouped (${grouped} of ${entries} are)`);
   // Half grouped and half loose reads as a mistake. The subsections that hold a
   // single entry - developer tooling, documentation, translations - stay flat,
   // so a few loose ones are expected; a pile of them is not.

@@ -261,6 +261,45 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** a dependency release. Four updates arrive from **dependabot**,
+none of them in the shipped bundle: the two halves of **typescript-eslint** that
+let ESLint read and check TypeScript, the **sinon** test doubles the unit suites
+build their fakes from, and the **docker/login-action** step that signs in to
+the container registries when a release image is published. Nothing WeKan runs
+in a browser or on a server changes.
+
+This release updates the following dependencies:
+
+- **@typescript-eslint/eslint-plugin 8.63.0 → 8.65.0** — the TypeScript rules
+  ESLint checks the source against. A development dependency: it runs in the
+  linter, never in the bundle.
+  ([#6564](https://github.com/wekan/wekan/pull/6564),
+  [update](https://github.com/wekan/wekan/commit/31fb4f509)). Thanks to
+  dependabot.
+- **@typescript-eslint/parser 8.63.0 → 8.65.0** — the other half of the same
+  pair: what lets ESLint read TypeScript at all, so it moves with the plugin
+  above.
+  ([#6562](https://github.com/wekan/wekan/pull/6562),
+  [update](https://github.com/wekan/wekan/commit/d949bc6c0)). Thanks to
+  dependabot.
+- **sinon 22.0.0 → 22.1.0** — the spies, stubs and fake timers the unit tests
+  build their doubles from. Also a development dependency.
+  ([#6563](https://github.com/wekan/wekan/pull/6563),
+  [update](https://github.com/wekan/wekan/commit/72ea1282f)). Thanks to
+  dependabot.
+- **docker/login-action 4.5.1 → 4.6.0** — the GitHub Actions step that signs in
+  to the container registries before a release image is pushed. Pinned by
+  commit hash rather than by tag, which is why the change is a hash and not a
+  version number.
+  ([#6561](https://github.com/wekan/wekan/pull/6561),
+  [update](https://github.com/wekan/wekan/commit/fe185f5c2)). Thanks to
+  dependabot.
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.54 2026-08-02 WeKan ® release
 
 **In short:** a large redesign of the pages you are always looking at. The
