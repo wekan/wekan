@@ -7,7 +7,11 @@ template(name="boardList")
     +allBoardsSidebar
     .boards-layout
       // Left menu
-      .boards-left-menu
+      .boards-left-menu(class="{{#if isLeftMenuCollapsed}}collapsed{{/if}}")
+        //- The caret that folds it away - the Admin Panel's own, so the two
+          menus cannot end up with two different carets, and the same control a
+          list has on a board. docs/Design/Page/Left-Menu.md
+        +leftMenuCollapse
         ul.menu
           //- ONE row, rendered four times, rather than four copies of the same
             eight lines. Their ORDER depends on the user - Starred first if

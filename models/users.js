@@ -53,6 +53,22 @@ if (Meteor.isClient) {
     }
   };
 
+  // The left menu's fold, for somebody who is NOT signed in - a public board
+  // has this menu too, and there is no user document to write to. The same
+  // cookie mechanism the public list and swimlane collapse states above use, so
+  // there is one way this app remembers a fold for a signed-out reader.
+  // One value, not a map: it is one menu, drawn on two pages.
+  // docs/Design/Page/Left-Menu.md
+  Users.getPublicLeftMenuCollapsed = () => {
+    const data = readCookieMap('wekan-left-menu-collapsed');
+    return typeof data.collapsed === 'boolean' ? data.collapsed : null;
+  };
+
+  Users.setPublicLeftMenuCollapsed = collapsed => {
+    writeCookieMap('wekan-left-menu-collapsed', { collapsed: !!collapsed });
+    return true;
+  };
+
   Users.getPublicCollapsedList = (boardId, listId) => {
     if (!boardId || !listId) return null;
     const data = readCookieMap('wekan-collapsed-lists');
@@ -285,6 +301,15 @@ Users.attachSchema(
     'profile.showDesktopDragHandles': {
       /**
        * does the user want to show desktop drag handles?
+       */
+      type: Boolean,
+      optional: true,
+    },
+    'profile.leftMenuCollapsed': {
+      /**
+       * is the left menu of All Boards and the Admin Panel collapsed? One
+       * setting for both: they are one menu drawn on two pages.
+       * docs/Design/Page/Left-Menu.md
        */
       type: Boolean,
       optional: true,
@@ -1534,6 +1559,14 @@ Users.helpers({
   hasShowDesktopDragHandles() {
     const profile = this.profile || {};
     return profile.showDesktopDragHandles || false;
+  },
+
+  // Is the left menu collapsed? Open is the default: a menu that remembered
+  // itself collapsed for a user who has never collapsed one would be a page
+  // with no visible way to navigate. docs/Design/Page/Left-Menu.md
+  isLeftMenuCollapsed() {
+    const profile = this.profile || {};
+    return profile.leftMenuCollapsed || false;
   },
 
   hasSubmitOnEnter() {

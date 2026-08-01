@@ -241,6 +241,17 @@
   padding-bottom: 50px;
 }
 
+/* Collapsed: the menu folds to a strip holding only its caret, and the pane
+   beside it takes the width back. See boardsList.css for the All Boards twin -
+   the two menus fold the same way because they are one menu. */
+.setting-content .content-body .side-menu.collapsed {
+  width: auto;
+  flex: 0 0 auto;
+}
+.setting-content .content-body .side-menu.collapsed > *:not(.left-menu-collapse-indicator) {
+  display: none;
+}
+
 /* The pane title: ONE size and weight for the heading at the top of every Admin
    Panel pane, whether that pane is a shared table page (Domains, People, the
    Problems reports - their h1 carries this class too, see tablePage.jade) or a form

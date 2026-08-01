@@ -204,6 +204,115 @@ test('narrow windows stack the menu above the content', () => {
   assert.ok(/\.content-body \{\s*flex-wrap:\s*wrap/.test(block));
 });
 
+// ── collapse ────────────────────────────────────────────────────────────────
+
+test('the menu folds away, the same way a list does', () => {
+  // xet7: "At top of left menu should be collapse caret. It should work same
+  // way like List collapse, so that it collapses left menu."
+  const jade = read('client/components/settings/leftMenu.jade');
+  assert.ok(/template\(name="leftMenuCollapse"\)/.test(jade), 'there is a caret template');
+  const tpl = jade.slice(jade.indexOf('template(name="leftMenuCollapse")'));
+  // Down while open, right while folded - exactly what a list's caret does.
+  const listJade = read('client/components/lists/listHeader.jade');
+  const listCaret = listJade.slice(listJade.indexOf('a.list-collapse-indicator'),
+    listJade.indexOf('a.list-collapse-indicator') + 300);
+  for (const [what, src] of [['the list', listCaret], ['the left menu', tpl]]) {
+    assert.ok(/fa-caret-right/.test(src) && /fa-caret-down/.test(src),
+      `${what} draws both carets`);
+    assert.ok(src.indexOf('fa-caret-right') < src.indexOf('fa-caret-down'),
+      `${what}: collapsed is the RIGHT caret, open is the down one`);
+  }
+  // ...and the same two words in the tooltip, which already exist.
+  assert.ok(/\{\{_ 'uncollapse'\}\}/.test(tpl) && /\{\{_ 'collapse'\}\}/.test(tpl),
+    'named by the same two translations a list uses');
+  const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
+  assert.ok(en.collapse && en.uncollapse, 'which are translated');
+  assert.ok(/aria-label=/.test(tpl), 'and named for a screen reader');
+
+  // ONE template on BOTH pages, so the two menus cannot end up with two
+  // different carets.
+  const boards = read('client/components/boards/boardsList.jade');
+  assert.ok(/\+leftMenuCollapse/.test(jade) && /\+leftMenuCollapse/.test(boards),
+    'both menus draw it');
+  // At the TOP of the menu: before the rows, which is where it was asked for.
+  for (const [what, src, panel] of [
+    ['the Admin Panel', jade, '.side-menu('],
+    ['All Boards', boards, '.boards-left-menu('],
+  ]) {
+    const at = src.indexOf(panel);
+    assert.notStrictEqual(at, -1, `${what}'s panel takes the collapsed class`);
+    const after = src.slice(at);
+    assert.ok(after.indexOf('+leftMenuCollapse') < after.indexOf('ul'),
+      `${what}: the caret is above the rows`);
+    assert.ok(/isLeftMenuCollapsed/.test(src.slice(at, at + 200)),
+      `${what}: the panel says when it is folded`);
+  }
+});
+
+test('the fold is remembered, per user and per browser', () => {
+  const utils = read('client/lib/utils.js');
+  const fn = utils.slice(utils.indexOf('  getLeftMenuCollapseState() {'),
+    utils.indexOf('  getSwimlaneCollapseState('));
+  // A Session value, so the fold is instant and survives a re-render without a
+  // round trip - the same shape the list collapse above it uses.
+  assert.ok(/Session\.get\(LEFT_MENU_COLLAPSED_KEY\)/.test(fn), 'held in a Session value');
+  assert.ok(/Session\.set\(LEFT_MENU_COLLAPSED_KEY/.test(fn), 'set before anything is stored');
+  const setAt = fn.indexOf('Session.set(LEFT_MENU_COLLAPSED_KEY');
+  const callAt = fn.indexOf("Meteor.call('setLeftMenuCollapsed'");
+  assert.ok(setAt !== -1 && callAt !== -1 && setAt < callAt,
+    'so the menu folds at once rather than after the server answers');
+
+  // Signed in: the user's profile. Signed out: the cookie, the same mechanism
+  // the public list and swimlane collapse states use - a public board has this
+  // menu too.
+  assert.ok(/user\.isLeftMenuCollapsed\(\)/.test(fn), "a user's own setting");
+  assert.ok(/Users\.getPublicLeftMenuCollapsed/.test(fn), '...and a cookie when there is none');
+  assert.ok(/Users\.setPublicLeftMenuCollapsed/.test(fn), 'written the same way');
+  const models = read('models/users.js');
+  assert.ok(/Users\.getPublicLeftMenuCollapsed = /.test(models)
+    && /Users\.setPublicLeftMenuCollapsed = /.test(models), 'and the cookie pair exists');
+  assert.ok(/readCookieMap\('wekan-left-menu-collapsed'\)/.test(models),
+    'through the same cookie helpers the other public collapse states use');
+  assert.ok(/'profile\.leftMenuCollapsed'/.test(models), 'the profile field is declared');
+  assert.ok(/isLeftMenuCollapsed\(\) \{/.test(models), 'and read by a model method');
+
+  // The server method checks its argument before anything else.
+  const server = read('server/models/users.js');
+  const method = server.slice(server.indexOf('  async setLeftMenuCollapsed(collapsed) {'));
+  const body = method.slice(0, method.indexOf('\n  },'));
+  assert.ok(/check\(collapsed, Boolean\)/.test(body), 'checked');
+  const checkAt = body.indexOf('check(collapsed, Boolean)');
+  const returnAt = body.search(/\breturn\b/);
+  assert.ok(returnAt === -1 || checkAt < returnAt, 'and nothing returns first');
+  assert.ok(/Users\.updateAsync\(this\.userId/.test(body), 'a user folds only their own menu');
+});
+
+test('folded, the menu is a strip - and the caret is still in it', () => {
+  // A menu with no way back is a menu you have lost.
+  for (const [what, css, panel] of [
+    ['All Boards', read('client/components/boards/boardsList.css'), '.boards-left-menu'],
+    ['the Admin Panel', read('client/components/settings/settingBody.css'),
+      '.setting-content .content-body .side-menu'],
+  ]) {
+    const rule = `${panel}.collapsed > *:not(.left-menu-collapse-indicator)`;
+    assert.ok(css.includes(rule), `${what} hides everything but the caret`);
+    const at = css.indexOf(rule);
+    assert.ok(/display: none/.test(css.slice(at, css.indexOf('}', at))),
+      `${what}: ...by not drawing it`);
+    // `> *:not(...)`, not a list of names: a row added later must not be left
+    // sticking out of a folded menu.
+    assert.ok(!css.includes(`${panel}.collapsed ul`), `${what} names no single row`);
+  }
+  // The width goes with it, or the boards keep an empty column beside them.
+  const boardsCss = read('client/components/boards/boardsList.css');
+  assert.ok(/\.boards-left-menu\.collapsed \{\n  width: auto;/.test(boardsCss),
+    'the All Boards menu narrows');
+  assert.ok(/grid-template-columns: auto 1fr/.test(boardsCss),
+    '...and its grid track is auto, so a fixed 260px column cannot hold the gap open');
+  assert.ok(/\.boards-left-menu \{\n(?:[^}]*\n)?  width: 260px;/.test(boardsCss),
+    'with the width moved onto the menu itself');
+});
+
 // ── the doc ─────────────────────────────────────────────────────────────────
 
 test('the related-files table lists files that exist', () => {

@@ -11,6 +11,9 @@ import { buildCardAttachmentMeta } from '/models/lib/attachmentMeta';
 import { resolveShowDragHandles, readDragHandlesPreference } from '/models/lib/dragHandles';
 const { memberCan } = require('/models/lib/boardRoleCapabilities');
 
+// One key for both pages: they draw one menu. docs/Design/Page/Left-Menu.md
+const LEFT_MENU_COLLAPSED_KEY = 'leftMenuCollapsed';
+
 export const Utils = {
   async setBackgroundImage(url) {
     const currentBoard = Utils.getCurrentBoard();
@@ -354,6 +357,42 @@ export const Utils = {
       Meteor.call('setListCollapsedState', list.boardId, list._id, !!collapsed);
     } else if (Users.setPublicCollapsedList) {
       Users.setPublicCollapsedList(list.boardId, list._id, !!collapsed);
+    }
+  },
+
+  // The left menu's collapse state, the same shape as a list's above: a Session
+  // value so the fold is instant and survives a re-render, and the user
+  // document behind it so it survives a reload and follows the reader to their
+  // other browser.
+  //
+  // ONE state for both pages. All Boards and the Admin Panel draw one menu, and
+  // a reader who folds it away on one of them has said what they want on the
+  // other. docs/Design/Page/Left-Menu.md
+  getLeftMenuCollapseState() {
+    const sessionVal = Session.get(LEFT_MENU_COLLAPSED_KEY);
+    if (typeof sessionVal === 'boolean') return sessionVal;
+
+    const user = ReactiveCache.getCurrentUser();
+    const stored = user && user.isLeftMenuCollapsed
+      ? user.isLeftMenuCollapsed()
+      // Signed out - a public board has this menu too - so it is kept in a
+      // cookie, the same way the public list and swimlane collapse states are
+      // (models/users.js). `null` means it has never been set.
+      : Users.getPublicLeftMenuCollapsed
+        ? Users.getPublicLeftMenuCollapsed() === true
+        : false;
+    Session.setDefault(LEFT_MENU_COLLAPSED_KEY, stored);
+    return stored;
+  },
+
+  setLeftMenuCollapseState(collapsed) {
+    Session.set(LEFT_MENU_COLLAPSED_KEY, !!collapsed);
+    if (ReactiveCache.getCurrentUser()) {
+      Meteor.call('setLeftMenuCollapsed', !!collapsed);
+      return;
+    }
+    if (Users.setPublicLeftMenuCollapsed) {
+      Users.setPublicLeftMenuCollapsed(!!collapsed);
     }
   },
 

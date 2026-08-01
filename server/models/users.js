@@ -615,6 +615,18 @@ Meteor.methods({
   // only the second one may hide the handles on a touch screen, where they are
   // the default. Called with no argument by older clients, which keeps the old
   // flip-the-stored-value behaviour.
+  // Collapse or expand the left menu. One setting for both pages: All Boards
+  // and the Admin Panel draw one menu, and a reader who folds it away on one of
+  // them has said what they want on the other.
+  // docs/Design/Page/Left-Menu.md
+  async setLeftMenuCollapsed(collapsed) {
+    check(collapsed, Boolean);
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    await Users.updateAsync(this.userId, {
+      $set: { 'profile.leftMenuCollapsed': collapsed },
+    });
+  },
+
   async toggleDesktopDragHandles(show) {
     check(show, Match.OneOf(Boolean, null, undefined));
     if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');

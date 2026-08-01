@@ -15,7 +15,8 @@
 //-
 //- Data context: { items } from buildMenuItems() in models/lib/leftMenu.js.
 template(name="leftMenu")
-  .side-menu
+  .side-menu(class="{{#if isLeftMenuCollapsed}}collapsed{{/if}}")
+    +leftMenuCollapse
     ul
       each items
         if separator
@@ -57,3 +58,22 @@ template(name="paneTitle")
     h1.admin-pane-title {{_ titleKey}}
   else if label
     h1.admin-pane-title {{label}}
+
+//- The caret that folds the menu away, at the top of it.
+//-
+//- The same control a LIST has on a board (listHeader.jade): a caret pointing
+//- DOWN while the thing is open and RIGHT once it is folded, clicked to switch.
+//- It is the collapse gesture WeKan already has, so there is nothing new to
+//- learn, and it uses the same two words - Collapse / Uncollapse - in its
+//- tooltip.
+//-
+//- One template for both pages, so the two menus cannot end up with two
+//- different carets. client/components/settings/leftMenu.js
+template(name="leftMenuCollapse")
+  a.left-menu-collapse-indicator.js-collapse-left-menu(
+    title="{{#if isLeftMenuCollapsed}}{{_ 'uncollapse'}}{{else}}{{_ 'collapse'}}{{/if}}"
+    aria-label="{{#if isLeftMenuCollapsed}}{{_ 'uncollapse'}}{{else}}{{_ 'collapse'}}{{/if}}")
+    if isLeftMenuCollapsed
+      i.fa.fa-caret-right
+    else
+      i.fa.fa-caret-down

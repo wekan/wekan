@@ -68,6 +68,40 @@ Never write `left`, `right`, `margin-left` or `padding-left` for this menu: a
 physical property does not flip, and produces a right-hand menu whose entries are
 still indented from the left.
 
+## Collapsing it
+
+A **caret at the top of the menu** folds it away, and the same caret brings it
+back. It is the control a **list** has on a board (`listHeader.jade`): pointing
+**down** while the thing is open and **right** once it is folded, with the same
+two words — Collapse / Uncollapse — in its tooltip. It is the collapse gesture
+WeKan already has, so there is nothing new to learn.
+
+Folded, the menu is a **strip holding only its caret**, and the page beside it
+takes the width back. Folded away rather than hidden outright: a menu with no
+way back is a menu you have lost. Everything but the caret goes through
+`> *:not(.left-menu-collapse-indicator)` rather than a list of names, so a row
+added later cannot be left sticking out of a 28px strip.
+
+On All Boards the width lives on the **menu**, not on the grid track
+(`grid-template-columns: auto 1fr`): a fixed 260px column would hold the gap
+open beside a folded menu.
+
+**One state for both pages.** They draw one menu, and a reader who folds it away
+on one of them has said what they want on the other.
+
+It is remembered in three layers, the same shape the list collapse uses:
+
+- a **Session value**, set first, so the fold is instant and survives a
+  re-render rather than waiting for a round trip;
+- **`profile.leftMenuCollapsed`** on the user document, so it survives a reload
+  and follows the reader to their other browser;
+- a **cookie** (`wekan-left-menu-collapsed`) when nobody is signed in — a public
+  board has this menu too — written through the same `readCookieMap` /
+  `writeCookieMap` helpers the public list and swimlane collapse states use.
+
+Open is the default. A menu that remembered itself collapsed for somebody who
+has never collapsed one would be a page with no visible way to navigate.
+
 ## Theme
 
 Most of the menu is deliberately **neutral**: the panel is a light grey card
