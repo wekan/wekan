@@ -17,20 +17,15 @@ template(name="header")
       span.home-icon.allBoards
         a(href="{{pathFor 'home'}}" title="{{_ 'all-boards'}}")
           i.fa.fa-home
-        span.header-page-title
+        //- The ROOT only - "All Boards", "Admin Panel" - with the whole path
+          in the tooltip. The path is what the page is, but it grows: a
+          workspace nests as deep as its tree does, and this bar is the one
+          strip always on screen and already short of width. The root names the
+          place and the tooltip carries the rest.
+          client/components/main/header.js
+        span.header-page-title(title="{{headerTitleFullPath}}")
           if headerTitleKey
             | {{_ headerTitleKey}}
-            //- The rest of the path - "Admin Panel / Settings / Version",
-              "All Boards / Workspaces / Engineering". Both pages are several
-              places under one name, so the name alone does not say which one
-              you opened. One list rather than a segment each, because the two
-              do not have the same number of them. client/components/main/header.js
-            each headerTitleTrail
-              span.header-page-subtitle
-                if key
-                  |  / {{_ key}}
-                else
-                  |  / #{title}
           else
             = headerTitleText
         //- The pencil that renames the board, immediately right of its name.

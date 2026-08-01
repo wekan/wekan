@@ -31,27 +31,40 @@ a board called "settings" is not the Admin Panel.
 A route nobody has added answers with nothing and the bar shows nothing — better
 than naming the wrong page.
 
-### …and the path below it
+### …and the path, in its tooltip
 
-Two pages are several places under one name, and for those the title continues
-after a slash:
+Two pages are several places under one name. The bar shows the **root** —
+`All Boards`, `Admin Panel` — and the whole path is the title's **tooltip**:
 
 ```
-Admin Panel / Settings / Version
 All Boards / Workspaces / Engineering / Backend
+Admin Panel / Settings / Version
 ```
 
-`headerTitleTrail()` in `client/components/main/header.js` returns **one list** of
-segments rather than a helper per segment, because the two pages do not have the
-same number of them — the Admin Panel always has two, and a workspace has as many
-as its tree is deep. Each entry is one of the two forms a left-menu entry already
-has: `key` for something translated, `title` for text that must not be.
+The path is what the page *is*, but it grows — a workspace nests as deep as its
+tree does — and this bar is the one strip always on screen and already short of
+width. So the root names the place and the tooltip carries the rest.
+
+`headerTitleFullPath()` in `client/components/main/header.js` resolves it to one
+string, because a `title` attribute is plain text and cannot hold the `{{_ }}`
+calls the visible version used. It reads the **same** `headerTitle()` and the
+same trail the visible name does, so the two cannot disagree about where you are.
+A workspace's own name still does not go through the translator.
+
+The trail itself is `headerTitleTrailOf()`, a **plain function rather than a
+helper**: the tooltip needs it too, and a Blaze helper cannot call a sibling
+helper — `this` there is the data context, not the helpers object.
+
+It is **one list** rather than a helper per segment, because the two pages do not
+have the same number of them: the Admin Panel always has two, and a workspace has
+as many as its tree is deep. Each entry is one of the two forms a left-menu entry
+has — `key` for something translated, `title` for text that must not be.
 
 The words are the ones the navigation beside it already uses — the Admin Panel's
 tab key and its menu row's label ([Admin Panel URLs](Admin-Panel-URLs.md)), the
 All Boards left-menu key and the workspace's own name
-([All Boards URLs](All-Boards-URLs.md)) — so the title and the thing highlighted
-next to it cannot say different things about one place.
+([All Boards URLs](All-Boards-URLs.md)) — so the tooltip and the thing
+highlighted next to it cannot say different things about one place.
 
 It is read from the **URL** and from the user document, never from the pages
 themselves. The header is a separate Blaze instance, and importing a page module

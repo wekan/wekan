@@ -531,12 +531,13 @@ test('and the Admin Panel says WHICH of its four pages is open', () => {
   assert.strictEqual(headerTitle('setting', 'A Board').subKey, undefined,
     'a title beats the key, so there is nothing to put after a slash');
 
+  // The bar shows the ROOT; the path is in the title's TOOLTIP.
   const h = read('client/components/main/header.jade');
   const at = h.indexOf('span.header-page-title');
-  const block = h.slice(at, at + 900);
-  assert.ok(/each headerTitleTrail/.test(block), 'the bar draws the path');
-  assert.ok(/\/ \{\{_ key\}\}/.test(block), 'each translated segment after a slash');
-  assert.ok(read('client/components/main/header.js').includes('headerTitleTrail()'),
+  const block = h.slice(at, at + 500);
+  assert.ok(/title="\{\{headerTitleFullPath\}\}"/.test(block), 'the bar carries the path as a tooltip');
+  assert.ok(!/each headerTitleTrail/.test(block), 'and no longer draws it inline');
+  assert.ok(read('client/components/main/header.js').includes('headerTitleFullPath()'),
     'and the helper exists');
 });
 
@@ -590,10 +591,13 @@ test('and All Boards says WHICH list of boards, and which workspace', () => {
 
   // The header walks it, from the URL and the user document - never from the
   // All Boards page, which is a different Blaze instance.
+  // A plain function, not a helper: the tooltip needs it too, and a Blaze
+  // helper cannot call a sibling helper - `this` there is the data context,
+  // which is what made the first attempt at the tooltip return nothing.
   const js = read('client/components/main/header.js');
-  const at = js.indexOf('headerTitleTrail() {');
+  const at = js.indexOf('function headerTitleTrailOf() {');
   assert.notStrictEqual(at, -1);
-  const body = js.slice(at, js.indexOf('\n  },', at));
+  const body = js.slice(at, js.indexOf('\n}', at));
   assert.ok(/sectionTitleKey\(section\)/.test(body), 'the section is named');
   assert.ok(/section !== SECTION_WORKSPACES/.test(body),
     'and only Workspaces has a trail below it');
@@ -828,6 +832,32 @@ test('and Filter and Search shut the panel they opened', () => {
 
   // The X that clears the filter is a different control and stays.
   assert.ok(/'click \.js-filter-reset'/.test(js), 'clearing is still its own button');
+});
+
+test('and the path is the tooltip, root and all, in order', () => {
+  // The tooltip is the whole path - the root is IN it, not implied by it.
+  const js = read('client/components/main/header.js');
+  const at = js.indexOf('headerTitleFullPath() {');
+  assert.notStrictEqual(at, -1, 'the tooltip helper exists');
+  const body = js.slice(at, js.indexOf('\n  },', at));
+  assert.ok(/\[root\]\.concat\(/.test(body), 'the root comes first, then the trail');
+  assert.ok(/title\.key \? TAPi18n\.__\(title\.key\) : title\.title/.test(body),
+    'the root is translated only when it IS a key - a board title is text');
+  assert.ok(/filter\(Boolean\)/.test(body),
+    'and a page with no path gets just its name, not a trailing slash');
+
+  // It resolves the SAME source the bar's visible name does, so the two cannot
+  // disagree about where you are.
+  assert.ok(/headerTitle\(route, board && board\.title, customPageTitle\(route\)\)/.test(body),
+    'from the same headerTitle() the visible name uses');
+  assert.ok(/headerTitleTrailOf\(\)/.test(body), 'and the same trail');
+
+  // The visible name is the root ALONE now.
+  const jade = read('client/components/main/header.jade');
+  const titleAt = jade.indexOf('span.header-page-title');
+  const block = jade.slice(titleAt, jade.indexOf('//- The pencil', titleAt));
+  assert.ok(/\{\{_ headerTitleKey\}\}/.test(block), 'the root is drawn');
+  assert.ok(!/header-page-subtitle/.test(block), 'and nothing after it');
 });
 
 for (const [name, fn] of tests) {

@@ -312,13 +312,24 @@ test('the title bar names the pane, in the menu row\'s own words', () => {
   // and they do not have the same number of segments, so a helper per segment
   // could only ever serve whichever page was written first.
   const js = read('client/components/main/header.js');
-  assert.ok(/headerTitleTrail\(\)/.test(js), 'the helper exists');
+  assert.ok(/function headerTitleTrailOf\(\)/.test(js), 'the path is built');
   assert.ok(/adminPaneTitle\(page, params\.pane \|\| ADMIN_PAGES\[page\]\.defaultSlug\)/.test(js),
     'read from the URL, with the default pane when the URL names none');
+  // The bar shows the ROOT only; the path is the title's TOOLTIP. It grows -
+  // a workspace nests as deep as its tree does - and this bar is the one strip
+  // always on screen and already short of width.
   const jade = read('client/components/main/header.jade');
-  assert.ok(/each headerTitleTrail/.test(jade), 'and the bar draws it');
-  assert.ok(/if key/.test(jade) && /\| {2}\/ #\{title\}/.test(jade),
-    'in whichever of the two forms it got');
+  assert.ok(/span\.header-page-title\(title="\{\{headerTitleFullPath\}\}"\)/.test(jade),
+    'and the bar carries it in the title tooltip');
+  assert.ok(!/each headerTitleTrail/.test(jade), 'and does not draw it inline any more');
+  assert.ok(/headerTitleFullPath\(\) \{/.test(js), 'the tooltip helper exists');
+  // A `title` attribute is plain text, so the path is resolved in JS - and a
+  // workspace's own name still must not go through the translator.
+  const at = js.indexOf('headerTitleFullPath() {');
+  const body = js.slice(at, js.indexOf('\n  },', at));
+  assert.ok(/part\.key \? TAPi18n\.__\(part\.key\) : part\.title/.test(body),
+    'each segment translated only if it IS a key');
+  assert.ok(/join\(' \/ '\)/.test(body), 'joined with the same separator it used to draw');
 });
 
 for (const [name, fn] of tests) {

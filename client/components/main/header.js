@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import Announcements, {
   announcementVersion,
@@ -136,24 +137,50 @@ Template.header.helpers({
     const board = Utils.getCurrentBoard();
     return headerTitle(route, board && board.title, customPageTitle(route)).title || '';
   },
-  // The rest of the path, after the page's own name: "Admin Panel / Settings /
-  // Version", "All Boards / Workspaces / Engineering / Backend".
+  // The whole path as ONE string, for the title's tooltip: "All Boards /
+  // Starred", "Admin Panel / Settings / Version".
   //
-  // ONE helper and one list, rather than a helper per segment, because the two
-  // pages that have a path do not have the same NUMBER of segments - the Admin
-  // Panel always has two, and a workspace has as many as its tree is deep. A
-  // fixed set of helpers can only serve whichever page was written first.
+  // The bar shows only the ROOT now. The path is what the page is, but it grows
+  // - a workspace nests as deep as its tree does - and this bar is the one
+  // strip always on screen and already short of width. The root names the
+  // place; the tooltip carries the rest.
   //
-  // Each entry is one of the two forms a left-menu entry has: `key` for
-  // something translated, `title` for text that must NOT go through the
-  // translator - a workspace's name is what the person typed, and a workspace
-  // called "starred" is not the Starred section.
-  //
-  // Read from the URL and from the user document, never from the pages
-  // themselves: the header is a separate Blaze instance, and importing a page
-  // module from here once ran it before its own template was registered, which
-  // threw and aborted every module after it.
-  headerTitleTrail() {
+  // Resolved here rather than in the template because a `title` attribute is
+  // plain text: it cannot hold the `{{_ }}` calls the visible version used. A
+  // workspace's own name still does NOT go through the translator.
+  headerTitleFullPath() {
+    const route = FlowRouter.getRouteName();
+    const board = Utils.getCurrentBoard();
+    const title = headerTitle(route, board && board.title, customPageTitle(route));
+    const root = title.key ? TAPi18n.__(title.key) : title.title;
+    const parts = [root].concat(
+      headerTitleTrailOf().map(part => (part.key ? TAPi18n.__(part.key) : part.title)),
+    );
+    return parts.filter(Boolean).join(' / ');
+  },
+});
+
+// The path after the page's own name: "Settings / Version" under Admin Panel,
+// "Workspaces / Engineering / Backend" under All Boards.
+//
+// ONE list rather than a helper per segment, because the two pages that have a
+// path do not have the same NUMBER of segments - the Admin Panel always has
+// two, and a workspace has as many as its tree is deep. A fixed set of helpers
+// can only serve whichever page was written first.
+//
+// Each entry is one of the two forms a left-menu entry has: `key` for something
+// translated, `title` for text that must NOT go through the translator - a
+// workspace's name is what the person typed, and a workspace called "starred"
+// is not the Starred section.
+//
+// A plain function, not a helper: the tooltip needs it too, and a Blaze helper
+// cannot call a sibling helper (`this` there is the data context).
+//
+// Read from the URL and from the user document, never from the pages
+// themselves: the header is a separate Blaze instance, and importing a page
+// module from here once ran it before its own template was registered, which
+// threw and aborted every module after it.
+function headerTitleTrailOf() {
     const route = FlowRouter.getRouteName();
 
     // A board's title is the whole name of that page, so there is no path.
@@ -183,7 +210,9 @@ Template.header.helpers({
       trail.push({ title: name });
     }
     return trail;
-  },
+}
+
+Template.header.helpers({
 
   wrappedHeader() {
     return !Session.get('currentBoard');
