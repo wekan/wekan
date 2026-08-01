@@ -34,6 +34,14 @@ const THEME_ACCENTS = {
   // `#header-quick-access` as well as `#header`. The two bars are one colour
   // now, and it is this one.
   clearblue: '#00aecc',
+  // The other colour slides. Each publishes the BOTTOM of its own slide, the
+  // way clearblue publishes #00aecc: a variable holds a colour and a gradient
+  // is not one, so what everything outside a board reads is the solid end.
+  cleargreen: '#4bbf6b',
+  clearorange: '#e67e22',
+  clearpink: '#cd5a91',
+  clearpurple: '#8e44ad',
+  clearred: '#c0392b',
   natural: '#596557',
   modern: '#2a80b8',
   moderndark: '#2a2a2a',

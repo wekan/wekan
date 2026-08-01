@@ -27,7 +27,7 @@ const THEME_CATEGORIES = {
     'limegreen',
     'natural',
   ],
-  clear: ['clearblue'],
+  clear: ['clearblue', 'cleargreen', 'clearorange', 'clearpink', 'clearpurple', 'clearred'],
   dark: ['midnight', 'dark', 'moderndark', 'exodark', 'cleandark'],
   special: ['relax', 'corteza', 'modern', 'cleanlight'],
 };

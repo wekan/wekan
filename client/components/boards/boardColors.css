@@ -4418,3 +4418,1473 @@ THEME - Clean Light
 }
 
 /* === END CleanDark/Light THEME === */
+
+/* ===============
+THEME - cleargreen
+
+A colour SLIDE, like clearblue: #8ad59f down to #4bbf6b.
+The base is limegreen's own colour, so the flat theme and the slide theme are
+the same colour family and a reader picking either gets what they expected.
+
+The rest of the palette is arithmetic on that base, the same arithmetic
+clearblue uses on its own: the border under the bar is base x 0.8, the one
+above it base x 0.6, the current tab base x 1.15, a selected minicard the
+base mixed toward white. Derived rather than hand-picked so a sixth slide
+theme is one line in the generator and not a page of guessed hexes.
+docs/Design/Page/Theme.md
+=================*/
+
+
+.board-color-cleargreen.sk-spinner div,
+.board-backgrounds-list .board-color-cleargreen.background-box,
+.public-board-row.board-color-cleargreen,
+.board-list .board-color-cleargreen a {
+  background: linear-gradient(180deg, #8ad59f 0%, #4bbf6b 100%);
+}
+.board-color-cleargreen .is-selected .minicard {
+  border-inline-start: 3px solid #8ad59f;
+}
+.board-color-cleargreen.pop-over .pop-over-list li a:not(.disabled):hover,
+.board-color-cleargreen .sidebar .sidebar-content .sidebar-btn:hover,
+.board-color-cleargreen .sidebar-list li a:hover {
+  background-color: #97daa9;
+}
+.board-color-cleargreen#header ul li.current,
+.board-color-cleargreen#header-quick-access ul li.current {
+  border-bottom: 4px solid #56dc7b;
+}
+.board-color-cleargreen#header-quick-access {
+  color: #fff;
+}
+
+.board-color-cleargreen#header-quick-access #header-new-board-icon,
+.board-color-cleargreen#header-quick-access #header-user-bar,
+.board-color-cleargreen#header-quick-access ul li {
+  color: #fff;
+}
+.board-color-cleargreen#header,
+.board-color-cleargreen#header-quick-access,
+.board-color-cleargreen .setting-content .content-body .side-menu ul li.active,
+.board-color-cleargreen .setting-content .content-body .side-menu ul li.active:hover {
+  background-color: #4bbf6b;
+  border-bottom: 1px solid #3c9956;
+  border-top: 1px solid #2d7340;
+}
+
+.board-color-cleargreen#header #header-main-bar,
+.board-color-cleargreen#header-quick-access,
+.board-color-cleargreen .setting-content .content-body .side-menu ul li.active,
+.board-color-cleargreen .setting-content .content-body .side-menu ul li.active:hover,
+.board-color-cleargreen .boards-left-menu .menu-item.active a,
+.board-color-cleargreen .boards-left-menu .menu-item.active a:hover {
+  background: linear-gradient(180deg, #8ad59f 0%, #4bbf6b 100%);
+}
+.board-color-cleargreen#header #header-main-bar p {
+  margin-bottom: 6px;
+}
+.board-color-cleargreen#header #header-main-bar .board-header-btn.emphasis {
+  background: #56dc7b;
+}
+.board-color-cleargreen#header #header-main-bar .board-header-btn.emphasis:hover,
+.board-color-cleargreen#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
+  background: rgba(0,0,0,0.2);
+}
+.board-color-cleargreen#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
+  background: rgba(0,0,0,0.2);
+}
+.board-color-cleargreen .materialCheckBox.is-checked {
+  border-bottom: 2px solid #8ad59f;
+  border-inline-end: 2px solid #8ad59f;
+}
+.board-color-cleargreen .checklist-progress-bar {
+  background-color: #e9f7ed !important;
+}
+.board-color-cleargreen .checklist-progress-bar .checklist-progress {
+  background-color: #8ad59f !important;
+}
+.board-color-cleargreen .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
+  background: #f1faf3;
+}
+.board-color-cleargreen .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
+  background: #fafdfb;
+}
+.board-color-cleargreen .toggle-switch:checked ~ .toggle-label {
+  background-color: #a9e0b8;
+}
+.board-color-cleargreen .toggle-switch:checked ~ .toggle-label:after {
+  background-color: #42a85e;
+}
+.board-color-cleargreen.board-wrapper {
+  background: linear-gradient(135deg, #8ad59f 0%, #4bbf6b 100%);
+}
+.board-color-cleargreen .swimlane {
+  background: none;
+}
+.board-color-cleargreen .swimlane .list:first-child {
+  min-width: 20px;
+  margin-inline-start: 10px; /* Added 10px margin left to stop lists being butted up against the edge of the screen */
+  border-inline-start: none;
+}
+.board-color-cleargreen .swimlane .list:nth-child {
+  flex: 0 0 265px;
+}
+.board-color-cleargreen .list {
+  background: rgba(255,255,255,0.35);
+  margin: 10px 0;
+  border: 0;
+  border-radius: 14px;
+}
+.board-color-cleargreen .list.list-composer {
+  background: rgba(255,255,255,0.1);
+  height: min-content;
+  flex: unset;
+  padding-bottom: 16px;
+  min-width: 20px;
+  margin-inline-start: 0px;
+  border-inline-start: none;
+}
+.board-color-cleargreen .list.list-composer .open-list-composer {
+  border-radius: 7px;
+  color: rgba(0,0,0,0.3);
+  padding: 7px 10px;
+  display: block;
+}
+.board-color-cleargreen .list.list-composer .open-list-composer:hover i,
+.board-color-cleargreen .list.list-composer .open-list-composer:hover {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  background: rgba(255,255,255,0.7);
+  color: rgba(0,0,0,0.6);
+}
+.board-color-cleargreen .list-header {
+  background-color: rgb(255 255 255 / 68%);
+  border-radius: 14px 14px 0 0;
+}
+.board-color-cleargreen .list-header:not([class*="list-header-"]) {
+  border-bottom: 6px solid rgba(255,255,255,0);
+}
+.board-color-cleargreen .list-header .list-header-name {
+  color: rgba(0,0,0,0.6);
+}
+.board-color-cleargreen .list-body {
+  padding: 11px;
+}
+.board-color-cleargreen .minicard {
+  border-radius: 7px;
+  padding: 10px 10px 4px 10px;
+  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
+  color: #222;
+}
+.board-color-cleargreen .card-details {
+  border-radius: 0 0 14px 14px;
+  box-shadow: 0 0 7px 0 rgba(0,0,0,0.5);
+  margin-inline-start: -10px;
+}
+.board-color-cleargreen .list-body .open-minicard-composer {
+  border-radius: 7px;
+  color: rgba(0,0,0,0.3);
+  margin-bottom: 11px;
+}
+.board-color-cleargreen .list-body .open-minicard-composer:hover {
+  background: rgba(255,255,255,0.7);
+  color: rgba(0,0,0,0.6);
+}
+.board-color-cleargreen button[type=submit].primary,
+.board-color-cleargreen input[type=submit].primary {
+  box-shadow: none;
+  background-color: rgba(255,255,255,0.5);
+  color: rgba(0,0,0,0.55);
+  border-radius: 7px;
+  border: 0;
+}
+.board-color-cleargreen button[type="submit"].primary:hover,
+.board-color-cleargreen input[type="submit"].primary:hover {
+  background-color: rgba(255,255,255,0.7);
+  color: rgba(0,0,0,0.8);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  border-radius: 7px;
+}
+.board-color-cleargreen .quiet,
+.board-color-cleargreen .quiet a {
+  color: rgba(0,0,0,0.4);
+}
+.board-color-cleargreen .list-header .list-header-watch-icon {
+  color: rgba(0,0,0,0.5);
+  position: absolute;
+  margin-top: -34px;
+  margin-inline-start: -11px;
+}
+.board-color-cleargreen a.fa,
+.board-color-cleargreen a i.fa {
+  color: rgba(0,0,0,0.3);
+}
+.board-color-cleargreen a:not(.disabled).is-active.fa,
+.board-color-cleargreen a:not(.disabled).is-active i.fa,
+.board-color-cleargreen a:not(.disabled):hover.fa,
+.board-color-cleargreen a:not(.disabled):hover i.fa {
+  color: rgba(0,0,0,0.6);
+  border-radius: 7px;
+}
+.board-color-cleargreen input[type="email"],
+.board-color-cleargreen input[type="password"],
+.board-color-cleargreen input[type="text"] {
+  border: 0;
+  border-radius: 7px;
+}
+.board-color-cleargreen .sidebar-shadow {
+  box-shadow: none;
+  border-inline-start: 9px solid #4bbf6b;
+}
+.board-color-cleargreen .is-open .sidebar-shadow {
+  box-shadow: -10px 0 8px rgba(0,0,0,0.3);
+}
+.board-color-cleargreen .list.ui-sortable-helper {
+  transform: rotate(0deg);
+}
+.board-color-cleargreen .minicard-wrapper.placeholder {
+  background: rgba(0,0,0,0.1);
+}
+.board-color-cleargreen .minicard-wrapper.ui-sortable-helper {
+  transform: rotate(0deg);
+  opacity: 0.8;
+}
+.board-color-cleargreen .list-body .open-minicard-composer {
+  color: rgba(0,0,0,0.3);
+}
+.board-color-cleargreen .swimlane.ui-sortable-helper {
+  transform: rotate(0deg);
+}
+.board-color-cleargreen .swimlane .swimlane-header-wrap {
+  background: linear-gradient(0deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.25) 100%);
+}
+.board-color-cleargreen .swimlane-header-wrap .inlined-form {
+  width: 100%;
+}
+.board-color-cleargreen .swimlane-header-wrap .list-composer {
+  text-align: center;
+  margin: 5px;
+}
+.board-color-cleargreen .swimlane-header-wrap .list-name-input.full-line {
+  margin: 0;
+  display: inline-block;
+  width: 270px;
+}
+.board-color-cleargreen .swimlane-header-wrap .edit-controls {
+  display: inline-block;
+  vertical-align: middle;
+}
+.board-color-cleargreen .swimlane-header-wrap .primary.confirm {
+  margin-inline-end: 0;
+}
+.board-color-cleargreen .swimlane-header-wrap .fa.fa-times-thin {
+  margin-top: 2px;
+}
+.board-color-cleargreen .list.ui-sortable-helper,
+.board-color-cleargreen .list.ui-sortable-helper .list-header.ui-sortable-handle,
+.board-color-cleargreen .list.ui-sortable-helper .viewer {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+}
+
+/* Transparent modern scrollbar - cleargreen*/
+.board-color-cleargreen .board-canvas {
+  scrollbar-color: #ffffffdb #ffffff00;
+  scrollbar-width: thin;
+}
+
+.board-color-cleargreen .list-body {
+  scrollbar-width: thin;
+}
+
+/* Apply scrollbar to sidebar content*/
+.board-color-cleargreen .sidebar .sidebar-content {
+   scrollbar-color: #4bbf6b #ffffff00;
+}
+
+/* Remove margins in between columns/fix spacing */
+
+.board-color-cleargreen .list {
+  border-inline-start: none;
+  padding-bottom: 8px;
+}
+
+.board-color-cleargreen .list-body {
+ margin-top: 8px;
+}
+
+/* === END cleargreen THEME === */
+
+/* ===============
+THEME - clearorange
+
+A colour SLIDE, like clearblue: #efab6f down to #e67e22.
+The base is pumpkin's own colour, so the flat theme and the slide theme are
+the same colour family and a reader picking either gets what they expected.
+
+The rest of the palette is arithmetic on that base, the same arithmetic
+clearblue uses on its own: the border under the bar is base x 0.8, the one
+above it base x 0.6, the current tab base x 1.15, a selected minicard the
+base mixed toward white. Derived rather than hand-picked so a sixth slide
+theme is one line in the generator and not a page of guessed hexes.
+docs/Design/Page/Theme.md
+=================*/
+
+
+.board-color-clearorange.sk-spinner div,
+.board-backgrounds-list .board-color-clearorange.background-box,
+.public-board-row.board-color-clearorange,
+.board-list .board-color-clearorange a {
+  background: linear-gradient(180deg, #efab6f 0%, #e67e22 100%);
+}
+.board-color-clearorange .is-selected .minicard {
+  border-inline-start: 3px solid #efab6f;
+}
+.board-color-clearorange.pop-over .pop-over-list li a:not(.disabled):hover,
+.board-color-clearorange .sidebar .sidebar-content .sidebar-btn:hover,
+.board-color-clearorange .sidebar-list li a:hover {
+  background-color: #f1b47f;
+}
+.board-color-clearorange#header ul li.current,
+.board-color-clearorange#header-quick-access ul li.current {
+  border-bottom: 4px solid #ff9127;
+}
+.board-color-clearorange#header-quick-access {
+  color: #fff;
+}
+
+.board-color-clearorange#header-quick-access #header-new-board-icon,
+.board-color-clearorange#header-quick-access #header-user-bar,
+.board-color-clearorange#header-quick-access ul li {
+  color: #fff;
+}
+.board-color-clearorange#header,
+.board-color-clearorange#header-quick-access,
+.board-color-clearorange .setting-content .content-body .side-menu ul li.active,
+.board-color-clearorange .setting-content .content-body .side-menu ul li.active:hover {
+  background-color: #e67e22;
+  border-bottom: 1px solid #b8651b;
+  border-top: 1px solid #8a4c14;
+}
+
+.board-color-clearorange#header #header-main-bar,
+.board-color-clearorange#header-quick-access,
+.board-color-clearorange .setting-content .content-body .side-menu ul li.active,
+.board-color-clearorange .setting-content .content-body .side-menu ul li.active:hover,
+.board-color-clearorange .boards-left-menu .menu-item.active a,
+.board-color-clearorange .boards-left-menu .menu-item.active a:hover {
+  background: linear-gradient(180deg, #efab6f 0%, #e67e22 100%);
+}
+.board-color-clearorange#header #header-main-bar p {
+  margin-bottom: 6px;
+}
+.board-color-clearorange#header #header-main-bar .board-header-btn.emphasis {
+  background: #ff9127;
+}
+.board-color-clearorange#header #header-main-bar .board-header-btn.emphasis:hover,
+.board-color-clearorange#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
+  background: rgba(0,0,0,0.2);
+}
+.board-color-clearorange#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
+  background: rgba(0,0,0,0.2);
+}
+.board-color-clearorange .materialCheckBox.is-checked {
+  border-bottom: 2px solid #efab6f;
+  border-inline-end: 2px solid #efab6f;
+}
+.board-color-clearorange .checklist-progress-bar {
+  background-color: #fcf0e4 !important;
+}
+.board-color-clearorange .checklist-progress-bar .checklist-progress {
+  background-color: #efab6f !important;
+}
+.board-color-clearorange .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
+  background: #fdf5ed;
+}
+.board-color-clearorange .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
+  background: #fefbf8;
+}
+.board-color-clearorange .toggle-switch:checked ~ .toggle-label {
+  background-color: #f3c195;
+}
+.board-color-clearorange .toggle-switch:checked ~ .toggle-label:after {
+  background-color: #ca6f1e;
+}
+.board-color-clearorange.board-wrapper {
+  background: linear-gradient(135deg, #efab6f 0%, #e67e22 100%);
+}
+.board-color-clearorange .swimlane {
+  background: none;
+}
+.board-color-clearorange .swimlane .list:first-child {
+  min-width: 20px;
+  margin-inline-start: 10px; /* Added 10px margin left to stop lists being butted up against the edge of the screen */
+  border-inline-start: none;
+}
+.board-color-clearorange .swimlane .list:nth-child {
+  flex: 0 0 265px;
+}
+.board-color-clearorange .list {
+  background: rgba(255,255,255,0.35);
+  margin: 10px 0;
+  border: 0;
+  border-radius: 14px;
+}
+.board-color-clearorange .list.list-composer {
+  background: rgba(255,255,255,0.1);
+  height: min-content;
+  flex: unset;
+  padding-bottom: 16px;
+  min-width: 20px;
+  margin-inline-start: 0px;
+  border-inline-start: none;
+}
+.board-color-clearorange .list.list-composer .open-list-composer {
+  border-radius: 7px;
+  color: rgba(0,0,0,0.3);
+  padding: 7px 10px;
+  display: block;
+}
+.board-color-clearorange .list.list-composer .open-list-composer:hover i,
+.board-color-clearorange .list.list-composer .open-list-composer:hover {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  background: rgba(255,255,255,0.7);
+  color: rgba(0,0,0,0.6);
+}
+.board-color-clearorange .list-header {
+  background-color: rgb(255 255 255 / 68%);
+  border-radius: 14px 14px 0 0;
+}
+.board-color-clearorange .list-header:not([class*="list-header-"]) {
+  border-bottom: 6px solid rgba(255,255,255,0);
+}
+.board-color-clearorange .list-header .list-header-name {
+  color: rgba(0,0,0,0.6);
+}
+.board-color-clearorange .list-body {
+  padding: 11px;
+}
+.board-color-clearorange .minicard {
+  border-radius: 7px;
+  padding: 10px 10px 4px 10px;
+  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
+  color: #222;
+}
+.board-color-clearorange .card-details {
+  border-radius: 0 0 14px 14px;
+  box-shadow: 0 0 7px 0 rgba(0,0,0,0.5);
+  margin-inline-start: -10px;
+}
+.board-color-clearorange .list-body .open-minicard-composer {
+  border-radius: 7px;
+  color: rgba(0,0,0,0.3);
+  margin-bottom: 11px;
+}
+.board-color-clearorange .list-body .open-minicard-composer:hover {
+  background: rgba(255,255,255,0.7);
+  color: rgba(0,0,0,0.6);
+}
+.board-color-clearorange button[type=submit].primary,
+.board-color-clearorange input[type=submit].primary {
+  box-shadow: none;
+  background-color: rgba(255,255,255,0.5);
+  color: rgba(0,0,0,0.55);
+  border-radius: 7px;
+  border: 0;
+}
+.board-color-clearorange button[type="submit"].primary:hover,
+.board-color-clearorange input[type="submit"].primary:hover {
+  background-color: rgba(255,255,255,0.7);
+  color: rgba(0,0,0,0.8);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  border-radius: 7px;
+}
+.board-color-clearorange .quiet,
+.board-color-clearorange .quiet a {
+  color: rgba(0,0,0,0.4);
+}
+.board-color-clearorange .list-header .list-header-watch-icon {
+  color: rgba(0,0,0,0.5);
+  position: absolute;
+  margin-top: -34px;
+  margin-inline-start: -11px;
+}
+.board-color-clearorange a.fa,
+.board-color-clearorange a i.fa {
+  color: rgba(0,0,0,0.3);
+}
+.board-color-clearorange a:not(.disabled).is-active.fa,
+.board-color-clearorange a:not(.disabled).is-active i.fa,
+.board-color-clearorange a:not(.disabled):hover.fa,
+.board-color-clearorange a:not(.disabled):hover i.fa {
+  color: rgba(0,0,0,0.6);
+  border-radius: 7px;
+}
+.board-color-clearorange input[type="email"],
+.board-color-clearorange input[type="password"],
+.board-color-clearorange input[type="text"] {
+  border: 0;
+  border-radius: 7px;
+}
+.board-color-clearorange .sidebar-shadow {
+  box-shadow: none;
+  border-inline-start: 9px solid #e67e22;
+}
+.board-color-clearorange .is-open .sidebar-shadow {
+  box-shadow: -10px 0 8px rgba(0,0,0,0.3);
+}
+.board-color-clearorange .list.ui-sortable-helper {
+  transform: rotate(0deg);
+}
+.board-color-clearorange .minicard-wrapper.placeholder {
+  background: rgba(0,0,0,0.1);
+}
+.board-color-clearorange .minicard-wrapper.ui-sortable-helper {
+  transform: rotate(0deg);
+  opacity: 0.8;
+}
+.board-color-clearorange .list-body .open-minicard-composer {
+  color: rgba(0,0,0,0.3);
+}
+.board-color-clearorange .swimlane.ui-sortable-helper {
+  transform: rotate(0deg);
+}
+.board-color-clearorange .swimlane .swimlane-header-wrap {
+  background: linear-gradient(0deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.25) 100%);
+}
+.board-color-clearorange .swimlane-header-wrap .inlined-form {
+  width: 100%;
+}
+.board-color-clearorange .swimlane-header-wrap .list-composer {
+  text-align: center;
+  margin: 5px;
+}
+.board-color-clearorange .swimlane-header-wrap .list-name-input.full-line {
+  margin: 0;
+  display: inline-block;
+  width: 270px;
+}
+.board-color-clearorange .swimlane-header-wrap .edit-controls {
+  display: inline-block;
+  vertical-align: middle;
+}
+.board-color-clearorange .swimlane-header-wrap .primary.confirm {
+  margin-inline-end: 0;
+}
+.board-color-clearorange .swimlane-header-wrap .fa.fa-times-thin {
+  margin-top: 2px;
+}
+.board-color-clearorange .list.ui-sortable-helper,
+.board-color-clearorange .list.ui-sortable-helper .list-header.ui-sortable-handle,
+.board-color-clearorange .list.ui-sortable-helper .viewer {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+}
+
+/* Transparent modern scrollbar - clearorange*/
+.board-color-clearorange .board-canvas {
+  scrollbar-color: #ffffffdb #ffffff00;
+  scrollbar-width: thin;
+}
+
+.board-color-clearorange .list-body {
+  scrollbar-width: thin;
+}
+
+/* Apply scrollbar to sidebar content*/
+.board-color-clearorange .sidebar .sidebar-content {
+   scrollbar-color: #e67e22 #ffffff00;
+}
+
+/* Remove margins in between columns/fix spacing */
+
+.board-color-clearorange .list {
+  border-inline-start: none;
+  padding-bottom: 8px;
+}
+
+.board-color-clearorange .list-body {
+ margin-top: 8px;
+}
+
+/* === END clearorange THEME === */
+
+/* ===============
+THEME - clearpink
+
+A colour SLIDE, like clearblue: #df94b8 down to #cd5a91.
+The base is moderatepink's own colour, so the flat theme and the slide theme are
+the same colour family and a reader picking either gets what they expected.
+
+The rest of the palette is arithmetic on that base, the same arithmetic
+clearblue uses on its own: the border under the bar is base x 0.8, the one
+above it base x 0.6, the current tab base x 1.15, a selected minicard the
+base mixed toward white. Derived rather than hand-picked so a sixth slide
+theme is one line in the generator and not a page of guessed hexes.
+docs/Design/Page/Theme.md
+=================*/
+
+
+.board-color-clearpink.sk-spinner div,
+.board-backgrounds-list .board-color-clearpink.background-box,
+.public-board-row.board-color-clearpink,
+.board-list .board-color-clearpink a {
+  background: linear-gradient(180deg, #df94b8 0%, #cd5a91 100%);
+}
+.board-color-clearpink .is-selected .minicard {
+  border-inline-start: 3px solid #df94b8;
+}
+.board-color-clearpink.pop-over .pop-over-list li a:not(.disabled):hover,
+.board-color-clearpink .sidebar .sidebar-content .sidebar-btn:hover,
+.board-color-clearpink .sidebar-list li a:hover {
+  background-color: #e29fbf;
+}
+.board-color-clearpink#header ul li.current,
+.board-color-clearpink#header-quick-access ul li.current {
+  border-bottom: 4px solid #ec67a7;
+}
+.board-color-clearpink#header-quick-access {
+  color: #fff;
+}
+
+.board-color-clearpink#header-quick-access #header-new-board-icon,
+.board-color-clearpink#header-quick-access #header-user-bar,
+.board-color-clearpink#header-quick-access ul li {
+  color: #fff;
+}
+.board-color-clearpink#header,
+.board-color-clearpink#header-quick-access,
+.board-color-clearpink .setting-content .content-body .side-menu ul li.active,
+.board-color-clearpink .setting-content .content-body .side-menu ul li.active:hover {
+  background-color: #cd5a91;
+  border-bottom: 1px solid #a44874;
+  border-top: 1px solid #7b3657;
+}
+
+.board-color-clearpink#header #header-main-bar,
+.board-color-clearpink#header-quick-access,
+.board-color-clearpink .setting-content .content-body .side-menu ul li.active,
+.board-color-clearpink .setting-content .content-body .side-menu ul li.active:hover,
+.board-color-clearpink .boards-left-menu .menu-item.active a,
+.board-color-clearpink .boards-left-menu .menu-item.active a:hover {
+  background: linear-gradient(180deg, #df94b8 0%, #cd5a91 100%);
+}
+.board-color-clearpink#header #header-main-bar p {
+  margin-bottom: 6px;
+}
+.board-color-clearpink#header #header-main-bar .board-header-btn.emphasis {
+  background: #ec67a7;
+}
+.board-color-clearpink#header #header-main-bar .board-header-btn.emphasis:hover,
+.board-color-clearpink#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
+  background: rgba(0,0,0,0.2);
+}
+.board-color-clearpink#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
+  background: rgba(0,0,0,0.2);
+}
+.board-color-clearpink .materialCheckBox.is-checked {
+  border-bottom: 2px solid #df94b8;
+  border-inline-end: 2px solid #df94b8;
+}
+.board-color-clearpink .checklist-progress-bar {
+  background-color: #f9ebf2 !important;
+}
+.board-color-clearpink .checklist-progress-bar .checklist-progress {
+  background-color: #df94b8 !important;
+}
+.board-color-clearpink .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
+  background: #fbf2f6;
+}
+.board-color-clearpink .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
+  background: #fefafc;
+}
+.board-color-clearpink .toggle-switch:checked ~ .toggle-label {
+  background-color: #e7b0ca;
+}
+.board-color-clearpink .toggle-switch:checked ~ .toggle-label:after {
+  background-color: #b44f80;
+}
+.board-color-clearpink.board-wrapper {
+  background: linear-gradient(135deg, #df94b8 0%, #cd5a91 100%);
+}
+.board-color-clearpink .swimlane {
+  background: none;
+}
+.board-color-clearpink .swimlane .list:first-child {
+  min-width: 20px;
+  margin-inline-start: 10px; /* Added 10px margin left to stop lists being butted up against the edge of the screen */
+  border-inline-start: none;
+}
+.board-color-clearpink .swimlane .list:nth-child {
+  flex: 0 0 265px;
+}
+.board-color-clearpink .list {
+  background: rgba(255,255,255,0.35);
+  margin: 10px 0;
+  border: 0;
+  border-radius: 14px;
+}
+.board-color-clearpink .list.list-composer {
+  background: rgba(255,255,255,0.1);
+  height: min-content;
+  flex: unset;
+  padding-bottom: 16px;
+  min-width: 20px;
+  margin-inline-start: 0px;
+  border-inline-start: none;
+}
+.board-color-clearpink .list.list-composer .open-list-composer {
+  border-radius: 7px;
+  color: rgba(0,0,0,0.3);
+  padding: 7px 10px;
+  display: block;
+}
+.board-color-clearpink .list.list-composer .open-list-composer:hover i,
+.board-color-clearpink .list.list-composer .open-list-composer:hover {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  background: rgba(255,255,255,0.7);
+  color: rgba(0,0,0,0.6);
+}
+.board-color-clearpink .list-header {
+  background-color: rgb(255 255 255 / 68%);
+  border-radius: 14px 14px 0 0;
+}
+.board-color-clearpink .list-header:not([class*="list-header-"]) {
+  border-bottom: 6px solid rgba(255,255,255,0);
+}
+.board-color-clearpink .list-header .list-header-name {
+  color: rgba(0,0,0,0.6);
+}
+.board-color-clearpink .list-body {
+  padding: 11px;
+}
+.board-color-clearpink .minicard {
+  border-radius: 7px;
+  padding: 10px 10px 4px 10px;
+  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
+  color: #222;
+}
+.board-color-clearpink .card-details {
+  border-radius: 0 0 14px 14px;
+  box-shadow: 0 0 7px 0 rgba(0,0,0,0.5);
+  margin-inline-start: -10px;
+}
+.board-color-clearpink .list-body .open-minicard-composer {
+  border-radius: 7px;
+  color: rgba(0,0,0,0.3);
+  margin-bottom: 11px;
+}
+.board-color-clearpink .list-body .open-minicard-composer:hover {
+  background: rgba(255,255,255,0.7);
+  color: rgba(0,0,0,0.6);
+}
+.board-color-clearpink button[type=submit].primary,
+.board-color-clearpink input[type=submit].primary {
+  box-shadow: none;
+  background-color: rgba(255,255,255,0.5);
+  color: rgba(0,0,0,0.55);
+  border-radius: 7px;
+  border: 0;
+}
+.board-color-clearpink button[type="submit"].primary:hover,
+.board-color-clearpink input[type="submit"].primary:hover {
+  background-color: rgba(255,255,255,0.7);
+  color: rgba(0,0,0,0.8);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  border-radius: 7px;
+}
+.board-color-clearpink .quiet,
+.board-color-clearpink .quiet a {
+  color: rgba(0,0,0,0.4);
+}
+.board-color-clearpink .list-header .list-header-watch-icon {
+  color: rgba(0,0,0,0.5);
+  position: absolute;
+  margin-top: -34px;
+  margin-inline-start: -11px;
+}
+.board-color-clearpink a.fa,
+.board-color-clearpink a i.fa {
+  color: rgba(0,0,0,0.3);
+}
+.board-color-clearpink a:not(.disabled).is-active.fa,
+.board-color-clearpink a:not(.disabled).is-active i.fa,
+.board-color-clearpink a:not(.disabled):hover.fa,
+.board-color-clearpink a:not(.disabled):hover i.fa {
+  color: rgba(0,0,0,0.6);
+  border-radius: 7px;
+}
+.board-color-clearpink input[type="email"],
+.board-color-clearpink input[type="password"],
+.board-color-clearpink input[type="text"] {
+  border: 0;
+  border-radius: 7px;
+}
+.board-color-clearpink .sidebar-shadow {
+  box-shadow: none;
+  border-inline-start: 9px solid #cd5a91;
+}
+.board-color-clearpink .is-open .sidebar-shadow {
+  box-shadow: -10px 0 8px rgba(0,0,0,0.3);
+}
+.board-color-clearpink .list.ui-sortable-helper {
+  transform: rotate(0deg);
+}
+.board-color-clearpink .minicard-wrapper.placeholder {
+  background: rgba(0,0,0,0.1);
+}
+.board-color-clearpink .minicard-wrapper.ui-sortable-helper {
+  transform: rotate(0deg);
+  opacity: 0.8;
+}
+.board-color-clearpink .list-body .open-minicard-composer {
+  color: rgba(0,0,0,0.3);
+}
+.board-color-clearpink .swimlane.ui-sortable-helper {
+  transform: rotate(0deg);
+}
+.board-color-clearpink .swimlane .swimlane-header-wrap {
+  background: linear-gradient(0deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.25) 100%);
+}
+.board-color-clearpink .swimlane-header-wrap .inlined-form {
+  width: 100%;
+}
+.board-color-clearpink .swimlane-header-wrap .list-composer {
+  text-align: center;
+  margin: 5px;
+}
+.board-color-clearpink .swimlane-header-wrap .list-name-input.full-line {
+  margin: 0;
+  display: inline-block;
+  width: 270px;
+}
+.board-color-clearpink .swimlane-header-wrap .edit-controls {
+  display: inline-block;
+  vertical-align: middle;
+}
+.board-color-clearpink .swimlane-header-wrap .primary.confirm {
+  margin-inline-end: 0;
+}
+.board-color-clearpink .swimlane-header-wrap .fa.fa-times-thin {
+  margin-top: 2px;
+}
+.board-color-clearpink .list.ui-sortable-helper,
+.board-color-clearpink .list.ui-sortable-helper .list-header.ui-sortable-handle,
+.board-color-clearpink .list.ui-sortable-helper .viewer {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+}
+
+/* Transparent modern scrollbar - clearpink*/
+.board-color-clearpink .board-canvas {
+  scrollbar-color: #ffffffdb #ffffff00;
+  scrollbar-width: thin;
+}
+
+.board-color-clearpink .list-body {
+  scrollbar-width: thin;
+}
+
+/* Apply scrollbar to sidebar content*/
+.board-color-clearpink .sidebar .sidebar-content {
+   scrollbar-color: #cd5a91 #ffffff00;
+}
+
+/* Remove margins in between columns/fix spacing */
+
+.board-color-clearpink .list {
+  border-inline-start: none;
+  padding-bottom: 8px;
+}
+
+.board-color-clearpink .list-body {
+ margin-top: 8px;
+}
+
+/* === END clearpink THEME === */
+
+/* ===============
+THEME - clearpurple
+
+A colour SLIDE, like clearblue: #b685ca down to #8e44ad.
+The base is wisteria's own colour, so the flat theme and the slide theme are
+the same colour family and a reader picking either gets what they expected.
+
+The rest of the palette is arithmetic on that base, the same arithmetic
+clearblue uses on its own: the border under the bar is base x 0.8, the one
+above it base x 0.6, the current tab base x 1.15, a selected minicard the
+base mixed toward white. Derived rather than hand-picked so a sixth slide
+theme is one line in the generator and not a page of guessed hexes.
+docs/Design/Page/Theme.md
+=================*/
+
+
+.board-color-clearpurple.sk-spinner div,
+.board-backgrounds-list .board-color-clearpurple.background-box,
+.public-board-row.board-color-clearpurple,
+.board-list .board-color-clearpurple a {
+  background: linear-gradient(180deg, #b685ca 0%, #8e44ad 100%);
+}
+.board-color-clearpurple .is-selected .minicard {
+  border-inline-start: 3px solid #b685ca;
+}
+.board-color-clearpurple.pop-over .pop-over-list li a:not(.disabled):hover,
+.board-color-clearpurple .sidebar .sidebar-content .sidebar-btn:hover,
+.board-color-clearpurple .sidebar-list li a:hover {
+  background-color: #bd93cf;
+}
+.board-color-clearpurple#header ul li.current,
+.board-color-clearpurple#header-quick-access ul li.current {
+  border-bottom: 4px solid #a34ec7;
+}
+.board-color-clearpurple#header-quick-access {
+  color: #fff;
+}
+
+.board-color-clearpurple#header-quick-access #header-new-board-icon,
+.board-color-clearpurple#header-quick-access #header-user-bar,
+.board-color-clearpurple#header-quick-access ul li {
+  color: #fff;
+}
+.board-color-clearpurple#header,
+.board-color-clearpurple#header-quick-access,
+.board-color-clearpurple .setting-content .content-body .side-menu ul li.active,
+.board-color-clearpurple .setting-content .content-body .side-menu ul li.active:hover {
+  background-color: #8e44ad;
+  border-bottom: 1px solid #72368a;
+  border-top: 1px solid #552968;
+}
+
+.board-color-clearpurple#header #header-main-bar,
+.board-color-clearpurple#header-quick-access,
+.board-color-clearpurple .setting-content .content-body .side-menu ul li.active,
+.board-color-clearpurple .setting-content .content-body .side-menu ul li.active:hover,
+.board-color-clearpurple .boards-left-menu .menu-item.active a,
+.board-color-clearpurple .boards-left-menu .menu-item.active a:hover {
+  background: linear-gradient(180deg, #b685ca 0%, #8e44ad 100%);
+}
+.board-color-clearpurple#header #header-main-bar p {
+  margin-bottom: 6px;
+}
+.board-color-clearpurple#header #header-main-bar .board-header-btn.emphasis {
+  background: #a34ec7;
+}
+.board-color-clearpurple#header #header-main-bar .board-header-btn.emphasis:hover,
+.board-color-clearpurple#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
+  background: rgba(0,0,0,0.2);
+}
+.board-color-clearpurple#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
+  background: rgba(0,0,0,0.2);
+}
+.board-color-clearpurple .materialCheckBox.is-checked {
+  border-bottom: 2px solid #b685ca;
+  border-inline-end: 2px solid #b685ca;
+}
+.board-color-clearpurple .checklist-progress-bar {
+  background-color: #f1e9f5 !important;
+}
+.board-color-clearpurple .checklist-progress-bar .checklist-progress {
+  background-color: #b685ca !important;
+}
+.board-color-clearpurple .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
+  background: #f6f0f8;
+}
+.board-color-clearpurple .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
+  background: #fcf9fd;
+}
+.board-color-clearpurple .toggle-switch:checked ~ .toggle-label {
+  background-color: #c9a5d8;
+}
+.board-color-clearpurple .toggle-switch:checked ~ .toggle-label:after {
+  background-color: #7d3c98;
+}
+.board-color-clearpurple.board-wrapper {
+  background: linear-gradient(135deg, #b685ca 0%, #8e44ad 100%);
+}
+.board-color-clearpurple .swimlane {
+  background: none;
+}
+.board-color-clearpurple .swimlane .list:first-child {
+  min-width: 20px;
+  margin-inline-start: 10px; /* Added 10px margin left to stop lists being butted up against the edge of the screen */
+  border-inline-start: none;
+}
+.board-color-clearpurple .swimlane .list:nth-child {
+  flex: 0 0 265px;
+}
+.board-color-clearpurple .list {
+  background: rgba(255,255,255,0.35);
+  margin: 10px 0;
+  border: 0;
+  border-radius: 14px;
+}
+.board-color-clearpurple .list.list-composer {
+  background: rgba(255,255,255,0.1);
+  height: min-content;
+  flex: unset;
+  padding-bottom: 16px;
+  min-width: 20px;
+  margin-inline-start: 0px;
+  border-inline-start: none;
+}
+.board-color-clearpurple .list.list-composer .open-list-composer {
+  border-radius: 7px;
+  color: rgba(0,0,0,0.3);
+  padding: 7px 10px;
+  display: block;
+}
+.board-color-clearpurple .list.list-composer .open-list-composer:hover i,
+.board-color-clearpurple .list.list-composer .open-list-composer:hover {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  background: rgba(255,255,255,0.7);
+  color: rgba(0,0,0,0.6);
+}
+.board-color-clearpurple .list-header {
+  background-color: rgb(255 255 255 / 68%);
+  border-radius: 14px 14px 0 0;
+}
+.board-color-clearpurple .list-header:not([class*="list-header-"]) {
+  border-bottom: 6px solid rgba(255,255,255,0);
+}
+.board-color-clearpurple .list-header .list-header-name {
+  color: rgba(0,0,0,0.6);
+}
+.board-color-clearpurple .list-body {
+  padding: 11px;
+}
+.board-color-clearpurple .minicard {
+  border-radius: 7px;
+  padding: 10px 10px 4px 10px;
+  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
+  color: #222;
+}
+.board-color-clearpurple .card-details {
+  border-radius: 0 0 14px 14px;
+  box-shadow: 0 0 7px 0 rgba(0,0,0,0.5);
+  margin-inline-start: -10px;
+}
+.board-color-clearpurple .list-body .open-minicard-composer {
+  border-radius: 7px;
+  color: rgba(0,0,0,0.3);
+  margin-bottom: 11px;
+}
+.board-color-clearpurple .list-body .open-minicard-composer:hover {
+  background: rgba(255,255,255,0.7);
+  color: rgba(0,0,0,0.6);
+}
+.board-color-clearpurple button[type=submit].primary,
+.board-color-clearpurple input[type=submit].primary {
+  box-shadow: none;
+  background-color: rgba(255,255,255,0.5);
+  color: rgba(0,0,0,0.55);
+  border-radius: 7px;
+  border: 0;
+}
+.board-color-clearpurple button[type="submit"].primary:hover,
+.board-color-clearpurple input[type="submit"].primary:hover {
+  background-color: rgba(255,255,255,0.7);
+  color: rgba(0,0,0,0.8);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  border-radius: 7px;
+}
+.board-color-clearpurple .quiet,
+.board-color-clearpurple .quiet a {
+  color: rgba(0,0,0,0.4);
+}
+.board-color-clearpurple .list-header .list-header-watch-icon {
+  color: rgba(0,0,0,0.5);
+  position: absolute;
+  margin-top: -34px;
+  margin-inline-start: -11px;
+}
+.board-color-clearpurple a.fa,
+.board-color-clearpurple a i.fa {
+  color: rgba(0,0,0,0.3);
+}
+.board-color-clearpurple a:not(.disabled).is-active.fa,
+.board-color-clearpurple a:not(.disabled).is-active i.fa,
+.board-color-clearpurple a:not(.disabled):hover.fa,
+.board-color-clearpurple a:not(.disabled):hover i.fa {
+  color: rgba(0,0,0,0.6);
+  border-radius: 7px;
+}
+.board-color-clearpurple input[type="email"],
+.board-color-clearpurple input[type="password"],
+.board-color-clearpurple input[type="text"] {
+  border: 0;
+  border-radius: 7px;
+}
+.board-color-clearpurple .sidebar-shadow {
+  box-shadow: none;
+  border-inline-start: 9px solid #8e44ad;
+}
+.board-color-clearpurple .is-open .sidebar-shadow {
+  box-shadow: -10px 0 8px rgba(0,0,0,0.3);
+}
+.board-color-clearpurple .list.ui-sortable-helper {
+  transform: rotate(0deg);
+}
+.board-color-clearpurple .minicard-wrapper.placeholder {
+  background: rgba(0,0,0,0.1);
+}
+.board-color-clearpurple .minicard-wrapper.ui-sortable-helper {
+  transform: rotate(0deg);
+  opacity: 0.8;
+}
+.board-color-clearpurple .list-body .open-minicard-composer {
+  color: rgba(0,0,0,0.3);
+}
+.board-color-clearpurple .swimlane.ui-sortable-helper {
+  transform: rotate(0deg);
+}
+.board-color-clearpurple .swimlane .swimlane-header-wrap {
+  background: linear-gradient(0deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.25) 100%);
+}
+.board-color-clearpurple .swimlane-header-wrap .inlined-form {
+  width: 100%;
+}
+.board-color-clearpurple .swimlane-header-wrap .list-composer {
+  text-align: center;
+  margin: 5px;
+}
+.board-color-clearpurple .swimlane-header-wrap .list-name-input.full-line {
+  margin: 0;
+  display: inline-block;
+  width: 270px;
+}
+.board-color-clearpurple .swimlane-header-wrap .edit-controls {
+  display: inline-block;
+  vertical-align: middle;
+}
+.board-color-clearpurple .swimlane-header-wrap .primary.confirm {
+  margin-inline-end: 0;
+}
+.board-color-clearpurple .swimlane-header-wrap .fa.fa-times-thin {
+  margin-top: 2px;
+}
+.board-color-clearpurple .list.ui-sortable-helper,
+.board-color-clearpurple .list.ui-sortable-helper .list-header.ui-sortable-handle,
+.board-color-clearpurple .list.ui-sortable-helper .viewer {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+}
+
+/* Transparent modern scrollbar - clearpurple*/
+.board-color-clearpurple .board-canvas {
+  scrollbar-color: #ffffffdb #ffffff00;
+  scrollbar-width: thin;
+}
+
+.board-color-clearpurple .list-body {
+  scrollbar-width: thin;
+}
+
+/* Apply scrollbar to sidebar content*/
+.board-color-clearpurple .sidebar .sidebar-content {
+   scrollbar-color: #8e44ad #ffffff00;
+}
+
+/* Remove margins in between columns/fix spacing */
+
+.board-color-clearpurple .list {
+  border-inline-start: none;
+  padding-bottom: 8px;
+}
+
+.board-color-clearpurple .list-body {
+ margin-top: 8px;
+}
+
+/* === END clearpurple THEME === */
+
+/* ===============
+THEME - clearred
+
+A colour SLIDE, like clearblue: #d67e75 down to #c0392b.
+The base is pomegranate's own colour, so the flat theme and the slide theme are
+the same colour family and a reader picking either gets what they expected.
+
+The rest of the palette is arithmetic on that base, the same arithmetic
+clearblue uses on its own: the border under the bar is base x 0.8, the one
+above it base x 0.6, the current tab base x 1.15, a selected minicard the
+base mixed toward white. Derived rather than hand-picked so a sixth slide
+theme is one line in the generator and not a page of guessed hexes.
+docs/Design/Page/Theme.md
+=================*/
+
+
+.board-color-clearred.sk-spinner div,
+.board-backgrounds-list .board-color-clearred.background-box,
+.public-board-row.board-color-clearred,
+.board-list .board-color-clearred a {
+  background: linear-gradient(180deg, #d67e75 0%, #c0392b 100%);
+}
+.board-color-clearred .is-selected .minicard {
+  border-inline-start: 3px solid #d67e75;
+}
+.board-color-clearred.pop-over .pop-over-list li a:not(.disabled):hover,
+.board-color-clearred .sidebar .sidebar-content .sidebar-btn:hover,
+.board-color-clearred .sidebar-list li a:hover {
+  background-color: #da8c84;
+}
+.board-color-clearred#header ul li.current,
+.board-color-clearred#header-quick-access ul li.current {
+  border-bottom: 4px solid #dd4231;
+}
+.board-color-clearred#header-quick-access {
+  color: #fff;
+}
+
+.board-color-clearred#header-quick-access #header-new-board-icon,
+.board-color-clearred#header-quick-access #header-user-bar,
+.board-color-clearred#header-quick-access ul li {
+  color: #fff;
+}
+.board-color-clearred#header,
+.board-color-clearred#header-quick-access,
+.board-color-clearred .setting-content .content-body .side-menu ul li.active,
+.board-color-clearred .setting-content .content-body .side-menu ul li.active:hover {
+  background-color: #c0392b;
+  border-bottom: 1px solid #9a2e22;
+  border-top: 1px solid #73221a;
+}
+
+.board-color-clearred#header #header-main-bar,
+.board-color-clearred#header-quick-access,
+.board-color-clearred .setting-content .content-body .side-menu ul li.active,
+.board-color-clearred .setting-content .content-body .side-menu ul li.active:hover,
+.board-color-clearred .boards-left-menu .menu-item.active a,
+.board-color-clearred .boards-left-menu .menu-item.active a:hover {
+  background: linear-gradient(180deg, #d67e75 0%, #c0392b 100%);
+}
+.board-color-clearred#header #header-main-bar p {
+  margin-bottom: 6px;
+}
+.board-color-clearred#header #header-main-bar .board-header-btn.emphasis {
+  background: #dd4231;
+}
+.board-color-clearred#header #header-main-bar .board-header-btn.emphasis:hover,
+.board-color-clearred#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
+  background: rgba(0,0,0,0.2);
+}
+.board-color-clearred#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
+  background: rgba(0,0,0,0.2);
+}
+.board-color-clearred .materialCheckBox.is-checked {
+  border-bottom: 2px solid #d67e75;
+  border-inline-end: 2px solid #d67e75;
+}
+.board-color-clearred .checklist-progress-bar {
+  background-color: #f7e7e6 !important;
+}
+.board-color-clearred .checklist-progress-bar .checklist-progress {
+  background-color: #d67e75 !important;
+}
+.board-color-clearred .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
+  background: #faefee;
+}
+.board-color-clearred .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
+  background: #fdf9f9;
+}
+.board-color-clearred .toggle-switch:checked ~ .toggle-label {
+  background-color: #e1a099;
+}
+.board-color-clearred .toggle-switch:checked ~ .toggle-label:after {
+  background-color: #a93226;
+}
+.board-color-clearred.board-wrapper {
+  background: linear-gradient(135deg, #d67e75 0%, #c0392b 100%);
+}
+.board-color-clearred .swimlane {
+  background: none;
+}
+.board-color-clearred .swimlane .list:first-child {
+  min-width: 20px;
+  margin-inline-start: 10px; /* Added 10px margin left to stop lists being butted up against the edge of the screen */
+  border-inline-start: none;
+}
+.board-color-clearred .swimlane .list:nth-child {
+  flex: 0 0 265px;
+}
+.board-color-clearred .list {
+  background: rgba(255,255,255,0.35);
+  margin: 10px 0;
+  border: 0;
+  border-radius: 14px;
+}
+.board-color-clearred .list.list-composer {
+  background: rgba(255,255,255,0.1);
+  height: min-content;
+  flex: unset;
+  padding-bottom: 16px;
+  min-width: 20px;
+  margin-inline-start: 0px;
+  border-inline-start: none;
+}
+.board-color-clearred .list.list-composer .open-list-composer {
+  border-radius: 7px;
+  color: rgba(0,0,0,0.3);
+  padding: 7px 10px;
+  display: block;
+}
+.board-color-clearred .list.list-composer .open-list-composer:hover i,
+.board-color-clearred .list.list-composer .open-list-composer:hover {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  background: rgba(255,255,255,0.7);
+  color: rgba(0,0,0,0.6);
+}
+.board-color-clearred .list-header {
+  background-color: rgb(255 255 255 / 68%);
+  border-radius: 14px 14px 0 0;
+}
+.board-color-clearred .list-header:not([class*="list-header-"]) {
+  border-bottom: 6px solid rgba(255,255,255,0);
+}
+.board-color-clearred .list-header .list-header-name {
+  color: rgba(0,0,0,0.6);
+}
+.board-color-clearred .list-body {
+  padding: 11px;
+}
+.board-color-clearred .minicard {
+  border-radius: 7px;
+  padding: 10px 10px 4px 10px;
+  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
+  color: #222;
+}
+.board-color-clearred .card-details {
+  border-radius: 0 0 14px 14px;
+  box-shadow: 0 0 7px 0 rgba(0,0,0,0.5);
+  margin-inline-start: -10px;
+}
+.board-color-clearred .list-body .open-minicard-composer {
+  border-radius: 7px;
+  color: rgba(0,0,0,0.3);
+  margin-bottom: 11px;
+}
+.board-color-clearred .list-body .open-minicard-composer:hover {
+  background: rgba(255,255,255,0.7);
+  color: rgba(0,0,0,0.6);
+}
+.board-color-clearred button[type=submit].primary,
+.board-color-clearred input[type=submit].primary {
+  box-shadow: none;
+  background-color: rgba(255,255,255,0.5);
+  color: rgba(0,0,0,0.55);
+  border-radius: 7px;
+  border: 0;
+}
+.board-color-clearred button[type="submit"].primary:hover,
+.board-color-clearred input[type="submit"].primary:hover {
+  background-color: rgba(255,255,255,0.7);
+  color: rgba(0,0,0,0.8);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  border-radius: 7px;
+}
+.board-color-clearred .quiet,
+.board-color-clearred .quiet a {
+  color: rgba(0,0,0,0.4);
+}
+.board-color-clearred .list-header .list-header-watch-icon {
+  color: rgba(0,0,0,0.5);
+  position: absolute;
+  margin-top: -34px;
+  margin-inline-start: -11px;
+}
+.board-color-clearred a.fa,
+.board-color-clearred a i.fa {
+  color: rgba(0,0,0,0.3);
+}
+.board-color-clearred a:not(.disabled).is-active.fa,
+.board-color-clearred a:not(.disabled).is-active i.fa,
+.board-color-clearred a:not(.disabled):hover.fa,
+.board-color-clearred a:not(.disabled):hover i.fa {
+  color: rgba(0,0,0,0.6);
+  border-radius: 7px;
+}
+.board-color-clearred input[type="email"],
+.board-color-clearred input[type="password"],
+.board-color-clearred input[type="text"] {
+  border: 0;
+  border-radius: 7px;
+}
+.board-color-clearred .sidebar-shadow {
+  box-shadow: none;
+  border-inline-start: 9px solid #c0392b;
+}
+.board-color-clearred .is-open .sidebar-shadow {
+  box-shadow: -10px 0 8px rgba(0,0,0,0.3);
+}
+.board-color-clearred .list.ui-sortable-helper {
+  transform: rotate(0deg);
+}
+.board-color-clearred .minicard-wrapper.placeholder {
+  background: rgba(0,0,0,0.1);
+}
+.board-color-clearred .minicard-wrapper.ui-sortable-helper {
+  transform: rotate(0deg);
+  opacity: 0.8;
+}
+.board-color-clearred .list-body .open-minicard-composer {
+  color: rgba(0,0,0,0.3);
+}
+.board-color-clearred .swimlane.ui-sortable-helper {
+  transform: rotate(0deg);
+}
+.board-color-clearred .swimlane .swimlane-header-wrap {
+  background: linear-gradient(0deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.25) 100%);
+}
+.board-color-clearred .swimlane-header-wrap .inlined-form {
+  width: 100%;
+}
+.board-color-clearred .swimlane-header-wrap .list-composer {
+  text-align: center;
+  margin: 5px;
+}
+.board-color-clearred .swimlane-header-wrap .list-name-input.full-line {
+  margin: 0;
+  display: inline-block;
+  width: 270px;
+}
+.board-color-clearred .swimlane-header-wrap .edit-controls {
+  display: inline-block;
+  vertical-align: middle;
+}
+.board-color-clearred .swimlane-header-wrap .primary.confirm {
+  margin-inline-end: 0;
+}
+.board-color-clearred .swimlane-header-wrap .fa.fa-times-thin {
+  margin-top: 2px;
+}
+.board-color-clearred .list.ui-sortable-helper,
+.board-color-clearred .list.ui-sortable-helper .list-header.ui-sortable-handle,
+.board-color-clearred .list.ui-sortable-helper .viewer {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+}
+
+/* Transparent modern scrollbar - clearred*/
+.board-color-clearred .board-canvas {
+  scrollbar-color: #ffffffdb #ffffff00;
+  scrollbar-width: thin;
+}
+
+.board-color-clearred .list-body {
+  scrollbar-width: thin;
+}
+
+/* Apply scrollbar to sidebar content*/
+.board-color-clearred .sidebar .sidebar-content {
+   scrollbar-color: #c0392b #ffffff00;
+}
+
+/* Remove margins in between columns/fix spacing */
+
+.board-color-clearred .list {
+  border-inline-start: none;
+  padding-bottom: 8px;
+}
+
+.board-color-clearred .list-body {
+ margin-top: 8px;
+}
+
+/* === END clearred THEME === */

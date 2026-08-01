@@ -132,3 +132,46 @@ mid-grey scraped from a `#header ul li:hover` rule, because it has no plain
 `#header` rule at all. Its bar is near-white, which cannot serve as an accent for
 white text, so the grey is right by accident. Choosing a deliberate accent for it
 is a maintainer's call about a colour, not a bug fix.
+
+## Six colour slides, not one
+
+`clearblue` was the only theme in the **clear** category. Five more join it, each
+a slide from a light tint down to an existing flat theme's own colour, so the two
+categories cover the same colour families:
+
+| Theme | Slide | Base is |
+| --- | --- | --- |
+| `clearblue` | `#499bea` → `#00aecc` | (hand-tuned, the original) |
+| `cleargreen` | `#8ad59f` → `#4bbf6b` | limegreen |
+| `clearorange` | `#efab6f` → `#e67e22` | pumpkin |
+| `clearpink` | `#df94b8` → `#cd5a91` | moderatepink |
+| `clearpurple` | `#b685ca` → `#8e44ad` | wisteria |
+| `clearred` | `#d67e75` → `#c0392b` | pomegranate |
+
+The rest of each palette is **arithmetic on the base**, and it is clearblue's own
+arithmetic — its numbers turn out to be exact: the border under the bar is
+`base × 0.8`, the one above it `base × 0.6`, the current tab `base × 1.15`, a
+selected minicard the base mixed toward white. Deriving them means a seventh
+slide is one line rather than a page of guessed hexes, and it means no theme can
+be half-done.
+
+Each block was generated from clearblue's, with one deliberate exception: its
+**comments were dropped**. They explain clearblue's own history — the flat bar
+that looked like strongcyan, the half-white username — and copied into a green
+theme those sentences are simply false. Each block carries a header saying what
+it is and what it was derived from instead.
+
+### Where they appear
+
+Board Settings, Member Settings and Admin Panel / Settings / Visibility are **one
+picker** with a `scope`, and it groups by `THEME_CATEGORIES`. So a theme added to
+the category and to `ALLOWED_BOARD_COLORS` appears in all three at once, takes
+the category's two custom colours (a slide has two ends), and validates on the
+server through the same list. `tests/themeAccents.test.cjs` checks that wiring
+rather than trusting it.
+
+It also checks that every theme in `clear` **actually slides** — a gradient, with
+two *different* ends, whose solid end is the accent everything outside a board
+reads. A slide theme with a flat bar is a flat theme filed in the wrong drawer,
+and that is not hypothetical: clearblue's own first bar was flat until it was
+fixed.

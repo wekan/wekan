@@ -246,6 +246,77 @@ test('and clearblue keeps its colour SLIDE on the bar you can see', () => {
   assert.ok(!/rgba\(255,\s*255,\s*255,\s*0\.5\)/.test(dim), 'not dimmed');
 });
 
+test('every theme in the "clear" category actually slides', () => {
+  // A slide theme whose bar is one flat colour is a flat theme filed in the
+  // wrong drawer - and that is not hypothetical: clearblue's own first bar was
+  // flat #00aecc, which is strongcyan's colour, until it was fixed.
+  const css = read('client/components/boards/boardColors.css');
+  const { THEME_CATEGORIES } = require('../models/lib/themeCategories.js');
+
+  const firstBar = {};
+  for (const rule of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    const body = rule[2].replace(/\/\*[\s\S]*?\*\//g, '');
+    const bg = /(?:^|[\s;])background(?:-color)?:\s*([^;]+)/.exec(body);
+    if (!bg) continue;
+    for (const sel of rule[1].split(',').map(x => x.trim())) {
+      const m = /^\.board-color-([\w-]+)#header-quick-access$/.exec(sel);
+      if (m) firstBar[m[1]] = bg[1].trim();
+    }
+  }
+
+  const slides = THEME_CATEGORIES.clear;
+  assert.ok(slides.length > 1, 'there is more than one slide theme');
+  for (const theme of slides) {
+    assert.ok(/^linear-gradient\(/.test(firstBar[theme] || ''),
+      `${theme} is in the "clear" category, so its bar must be a gradient - it is ${firstBar[theme]}`);
+    // Two DIFFERENT ends. A gradient between one colour and itself is a flat
+    // bar that merely costs more to paint.
+    const ends = [...(firstBar[theme] || '').matchAll(/#[0-9a-f]{6}/gi)].map(m => m[0].toLowerCase());
+    assert.strictEqual(new Set(ends).size, 2, `${theme}'s slide must have two distinct ends`);
+    // ...and the bottom end is the accent everything outside a board reads,
+    // because a variable holds a colour and a gradient is not one.
+    assert.strictEqual(ends[1], THEME_ACCENTS[theme].toLowerCase(),
+      `${theme}: the accent must be the solid end of its own slide`);
+  }
+
+  // Each one covers the same surface clearblue does. A theme that paints the
+  // header but not the picker swatch looks like a bug in the picker.
+  for (const theme of slides) {
+    for (const [what, sel] of [
+      ['the picker swatch', `.board-backgrounds-list .board-color-${theme}.background-box`],
+      ['the board canvas', `.board-color-${theme}.board-wrapper`],
+      ['the Admin Panel row', `.board-color-${theme} .setting-content .content-body .side-menu ul li.active`],
+      ['the All Boards row', `.board-color-${theme} .boards-left-menu .menu-item.active a`],
+    ]) {
+      assert.ok(css.includes(sel), `${theme} must paint ${what}`);
+    }
+  }
+});
+
+test('and the slides are offered everywhere a theme can be chosen', () => {
+  // Board Settings, Member Settings and Admin Panel / Visibility are one picker
+  // with a `scope`, and it groups by THEME_CATEGORIES - so a theme added to the
+  // category and to ALLOWED_BOARD_COLORS appears in all three at once. This
+  // checks the wiring rather than trusting it.
+  const { THEME_CATEGORIES } = require('../models/lib/themeCategories.js');
+  const allowed = allowedColors();
+  for (const theme of THEME_CATEGORIES.clear) {
+    assert.ok(allowed.includes(theme), `${theme} must be an allowed board colour`);
+    assert.ok(theme in THEME_ACCENTS, `${theme} must publish an accent`);
+  }
+  const picker = read('client/components/main/themeColorPicker.js');
+  assert.ok(/colorsInCategory\(key\)/.test(picker), 'the picker lists a category by name');
+  for (const [file, scope] of [
+    // The board's own picker is in the board SIDEBAR, not its header.
+    ['client/components/sidebar/sidebar.jade', 'board'],
+    ['client/components/users/userHeader.jade', 'global'],
+    ['client/components/settings/settingBody.jade', 'admin'],
+  ]) {
+    assert.ok(read(file).includes(`+themeColorPicker(scope="${scope}")`),
+      `${scope} uses the shared picker`);
+  }
+});
+
 console.log(`\n${passed} tests passed`);
 
 })();

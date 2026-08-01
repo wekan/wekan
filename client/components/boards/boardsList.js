@@ -7,6 +7,7 @@ import getSlug from 'limax';
 // The All Boards URLs, and the slug path of a workspace in the tree.
 // docs/Design/Page/All-Boards-URLs.md
 import {
+  ALL_BOARDS_SECTIONS,
   workspaceIdForSlugPath,
   allBoardsPathForMenu,
 } from '/models/lib/allBoardsUrls';
@@ -612,8 +613,17 @@ Template.boardList.onCreated(function () {
     const u = ReactiveCache.getCurrentUser();
     const tree = (u && u.profile && u.profile.boardWorkspacesTree) || [];
     this.workspacesTreeVar.set(tree);
+    // Anything that is not a SECTION is taken to be a workspace id, and a
+    // workspace that is no longer in the tree was deleted - so the selection
+    // falls back to Remaining.
+    //
+    // The three section names used to be written out here. `archive` is a
+    // section too now, so it was read as a workspace id, not found in the tree,
+    // and clicking Boards in Archive highlighted Remaining instead. The list
+    // comes from ALL_BOARDS_SECTIONS now: it is the same list the router and
+    // the URLs use, so a sixth section cannot go missing from it.
     const sel = this.selectedMenu.get();
-    if (sel && sel !== 'starred' && sel !== 'templates' && sel !== 'remaining') {
+    if (sel && !ALL_BOARDS_SECTIONS.includes(sel)) {
       if (!findSpace(tree, sel)) {
         this.selectedMenu.set('remaining');
         this.selectedWorkspaceIdVar.set(null);

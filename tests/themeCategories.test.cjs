@@ -21,7 +21,21 @@ function test(name, fn) {
 
 test('categories partition into flat/clear/dark/special in order', () => {
   assert.deepStrictEqual(TC.THEME_CATEGORY_ORDER, ['flat', 'clear', 'dark', 'special']);
-  assert.deepStrictEqual(TC.colorsInCategory('clear'), ['clearblue']);
+  // The colour slides. clearblue was alone until the five derived from the flat
+  // colours joined it - cleargreen from limegreen, clearorange from pumpkin,
+  // and so on - so the clear category covers the same colour families the flat
+  // one does. docs/Design/Page/Theme.md
+  assert.deepStrictEqual(TC.colorsInCategory('clear'),
+    ['clearblue', 'cleargreen', 'clearorange', 'clearpink', 'clearpurple', 'clearred']);
+  // Every one of them takes TWO custom colours, because a slide has two ends.
+  for (const slide of TC.colorsInCategory('clear')) {
+    assert.strictEqual(TC.categoryOf(slide), 'clear', `${slide} is a slide`);
+    assert.strictEqual(TC.customColorCount('clear'), 2);
+    assert.strictEqual(TC.isValidCustomColors(slide, ['#000000', '#ffffff']), true,
+      `${slide} accepts both ends`);
+    assert.strictEqual(TC.isValidCustomColors(slide, ['#000000']), false,
+      `${slide} does not accept one`);
+  }
   assert.deepStrictEqual(TC.colorsInCategory('dark'), ['midnight', 'dark', 'moderndark', 'exodark', 'cleandark']);
   assert.strictEqual(TC.colorsInCategory('flat').length, 9);
   assert.strictEqual(TC.colorsInCategory('special').length, 4);

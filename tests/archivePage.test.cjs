@@ -296,6 +296,32 @@ test('and the All Boards menu is styled like the Admin Panel one', () => {
     "...which is what the Admin Panel's row does with its own full-height box");
 });
 
+test('and selecting it does not fall back to Remaining', () => {
+  // The tree autorun treats anything that is not a SECTION as a workspace id,
+  // and a workspace missing from the tree was deleted - so it resets to
+  // Remaining. The three section names were written out by hand there, so
+  // `archive` was read as a workspace id, not found, and clicking Boards in
+  // Archive highlighted Remaining instead of itself.
+  const js = read('client/components/boards/boardsList.js');
+  const at = js.indexOf("this.selectedMenu.set('remaining')");
+  assert.notStrictEqual(at, -1, 'the fallback still exists');
+  const guard = js.slice(js.lastIndexOf('const sel =', at), at);
+  assert.ok(/!ALL_BOARDS_SECTIONS\.includes\(sel\)/.test(guard),
+    'the sections come from the one list, not from names written out here');
+  assert.ok(!/sel !== 'starred'/.test(guard), 'no hand-written section names left');
+  // ...and that list really contains archive, so the fix is not just tidier
+  // code that fails the same way.
+  const { ALL_BOARDS_SECTIONS } = require('../models/lib/allBoardsUrls');
+  assert.ok(ALL_BOARDS_SECTIONS.includes('archive'), 'archive is a section');
+  for (const s of ['starred', 'templates', 'remaining']) {
+    assert.ok(ALL_BOARDS_SECTIONS.includes(s), `${s} is still a section`);
+  }
+  // The name it reads has to be imported, or it is a ReferenceError at runtime
+  // that no unit test would see.
+  assert.ok(/import \{[^}]*ALL_BOARDS_SECTIONS[^}]*\} from '\/models\/lib\/allBoardsUrls'/.test(js),
+    'ALL_BOARDS_SECTIONS is imported where it is used');
+});
+
 for (const [name, fn] of tests) {
   try { fn(); passed++; console.log('  ok -', name); }
   catch (err) { console.error(`  FAIL - ${name}\n    ${err.message}`); process.exitCode = 1; }
