@@ -803,9 +803,36 @@ test('and a view menu says its view in words, not only in a tooltip', () => {
     'and a layout read forces that removal to apply before measuring');
   const wrapAt = utils.indexOf('const barHasWrapped = bar => {');
   const wrap = utils.slice(wrapAt, utils.indexOf('\n  };', wrapAt));
-  assert.ok(/offsetTop > top \+ 4/.test(wrap),
-    'wrapped means an item sits LOWER than the first, with a tolerance - items '
-    + 'of different heights sit on slightly different offsets within one row');
+  // By vertical CENTRE, not by top. The bar is `align-items: center`, so
+  // everything on one row shares a centre line while their tops differ by
+  // however much their heights differ - and the page title is much taller than
+  // a bare icon. Comparing tops called a one-row bar wrapped and hid the labels
+  // on a 2560px window.
+  assert.ok(/rect\.top \+ item\.rect\.height \/ 2/.test(wrap),
+    'a row is identified by its centre line, not by where items start');
+  assert.ok(/Math\.abs\(centre\(item\) - first\) > 6/.test(wrap),
+    'and a second row is a whole row away, so a few pixels separates the two');
+  // On the CODE, not the comment: the comment explaining this names offsetTop
+  // as the thing it replaced, and a guard that greps the whole body reads its
+  // own explanation. That has bitten several times in this file already.
+  const wrapCode = wrap.replace(/\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '');
+  assert.ok(!/offsetTop/.test(wrapCode),
+    'offsets are relative to whichever ancestor is positioned, and these items '
+    + 'do not all share one - rects are absolute');
+
+  // It has to measure the buttons, which are NOT the bar's own children:
+  // `.header-quick-access-end` is `display: contents`, so it generates no box
+  // and its buttons are flex items of the bar. Reading `bar.children` saw the
+  // wrapper and not the buttons - everything except the things that wrap.
+  const itemsAt = utils.indexOf('const flexItemsOf = bar => {');
+  assert.notStrictEqual(itemsAt, -1, 'the real flex items are collected');
+  const items = utils.slice(itemsAt, utils.indexOf('\n  };', itemsAt));
+  assert.ok(/display === 'contents'/.test(items) && /flexItemsOf\(el\)/.test(items),
+    'descending through a display:contents wrapper');
+  assert.ok(/display === 'none'/.test(items), 'and skipping what is not drawn');
+  const css2 = read('client/components/main/header.css');
+  assert.ok(/\.header-quick-access-end \{\s*display: contents;/.test(css2),
+    'the wrapper this descends through really is display:contents');
   // The name is still reachable: every one of these buttons has a tooltip.
   for (const cls of ['js-sort-cards', 'js-open-filter-view', 'js-open-search-view',
     'js-toggle-dependencies', 'js-multiselection-activate']) {

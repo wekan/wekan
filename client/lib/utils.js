@@ -986,14 +986,42 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
   // oscillate.
   const LABELS_HIDDEN = 'header-labels-hidden';
 
+  // The bar's real flex items.
+  //
+  // Descends through `display: contents`: `.header-quick-access-end` generates
+  // NO box, so its buttons are flex items of the bar while being children of
+  // it in the DOM. Reading `bar.children` saw the wrapper and not the buttons -
+  // that is, everything except the things that actually wrap.
+  const flexItemsOf = bar => {
+    const items = [];
+    for (const el of bar.children) {
+      const display = window.getComputedStyle(el).display;
+      if (display === 'contents') { items.push(...flexItemsOf(el)); continue; }
+      if (display === 'none') continue;
+      const rect = el.getBoundingClientRect();
+      if (!rect.width && !rect.height) continue;
+      items.push({ el, rect });
+    }
+    return items;
+  };
+
   const barHasWrapped = bar => {
-    const items = [...bar.children].filter(el => el.offsetParent !== null
-      || el.offsetWidth > 0 || el.offsetHeight > 0);
+    const items = flexItemsOf(bar);
     if (items.length < 2) return false;
-    const top = items[0].offsetTop;
-    // A tolerance, not equality: items of different heights sit on slightly
-    // different offsets within one row, and `align-items: center` moves them.
-    return items.some(el => el.offsetTop > top + 4);
+    // Compared by vertical CENTRE, not by top. The bar is `align-items: center`,
+    // so everything on one row shares a centre line while their tops differ by
+    // however much their heights differ - and the page title is much taller
+    // than a bare icon. Comparing tops called a one-row bar wrapped and hid the
+    // labels on a 2560px window.
+    //
+    // Rects rather than offsetTop: offsets are relative to whichever ancestor
+    // happens to be positioned, and these items do not all share one.
+    const centre = item => item.rect.top + item.rect.height / 2;
+    const first = centre(items[0]);
+    // A second row is a whole row lower - the shortest button is 28px - so a
+    // few pixels of tolerance separates "same row" from "wrapped" with room to
+    // spare on both sides.
+    return items.some(item => Math.abs(centre(item) - first) > 6);
   };
 
   const fitHeaderLabels = () => {
