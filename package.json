@@ -48,7 +48,7 @@
     "css-loader": "^7.1.4",
     "mongodb": "^7.5.0",
     "puppeteer": "^25.3.0",
-    "sinon": "^22.0.0",
+    "sinon": "^22.1.0",
     "sinon-chai": "^4.0.1",
     "style-loader": "^4.0.0"
   },
