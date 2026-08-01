@@ -55,7 +55,11 @@ const ALL_BOARDS_SECTION_TITLE_KEYS = {
   [SECTION_TEMPLATES]: 'allboards.templates',
   [SECTION_REMAINING]: 'allboards.remaining',
   [SECTION_WORKSPACES]: 'allboards.workspaces',
-  [SECTION_ARCHIVE]: 'archived-boards',
+  // "Archive", the same word the menu row shows. The two must agree - the
+  // header's path names the section and the highlighted row names it too, and a
+  // reader seeing different words for one place has to work out whether they
+  // are one place.
+  [SECTION_ARCHIVE]: 'archives',
 };
 
 function sectionTitleKey(section) {

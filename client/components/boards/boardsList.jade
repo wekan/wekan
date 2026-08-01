@@ -53,7 +53,13 @@ template(name="boardList")
               span.menu-label
                 span.emoji-icon
                   i.fa.fa-archive
-                |  {{_ 'archived-boards'}}
+                //- "Archive", not "Boards in Archive". It is a row of a menu
+                  whose other rows are Starred, Templates and Remaining - one
+                  word each - and the menu's own heading already says what is
+                  being listed. `archives` is an existing key, translated in the
+                  same 135 languages, and the one already used for the archive
+                  as a PLACE (userHeader.jade, sidebar.js).
+                |  {{_ 'archives'}}
               span.menu-count {{archivedBoardsCount}}
         //- Rules above and below the Workspaces section. The menu is three
           kinds of thing in one column - the three board lists, the workspaces

@@ -152,11 +152,21 @@ test('and All Boards reaches it from the left menu, not the header bar', () => {
   assert.ok(remainingAt !== -1 && rowAt > remainingAt, 'below Remaining');
   assert.ok(treeAt !== -1 && rowAt < treeAt, 'and above the workspaces tree');
   // Shaped like the menu's other rows, so it does not read as a stray link.
-  const row = menu.slice(rowAt - 160, rowAt + 260);
+  // Sliced to the END of the row rather than by a character count: a comment
+  // added inside the row pushed its label out of a fixed window, and a window
+  // has to be re-tuned every time the markup gains a line.
+  const rowStart = menu.lastIndexOf('\n          li', rowAt);
+  const rowEnd = menu.indexOf('hr.boards-menu-divider', rowAt);
+  assert.ok(rowStart !== -1 && rowEnd !== -1, 'the row and what follows it are findable');
+  const row = menu.slice(rowStart, rowEnd);
   assert.ok(/li\(class="menu-item /.test(row) && /span\.menu-label/.test(row),
     'and drawn as a menu row like Starred, Templates and Remaining');
-  assert.ok(/fa-archive/.test(row) && /\{\{_ 'archived-boards'\}\}/.test(row),
+  // "Archive", not "Boards in Archive": one word, like Starred, Templates and
+  // Remaining beside it, and the menu already says what it lists.
+  assert.ok(/fa-archive/.test(row) && /\{\{_ 'archives'\}\}/.test(row),
     'with its icon and its name');
+  const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
+  assert.strictEqual(en.archives, 'Archive', 'which is an existing translation');
   // ...including the selected state and the count, which the other three have.
   assert.ok(/isSelectedMenu 'archive'/.test(row), 'and highlights when selected');
   assert.ok(/span\.menu-count \{\{archivedBoardsCount\}\}/.test(row),

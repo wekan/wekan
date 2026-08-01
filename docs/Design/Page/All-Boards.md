@@ -25,10 +25,13 @@ same emphasis state when a control is on.
 Each names itself beside its icon where the bar has room for it, and loses the
 label below 1100px with every other one — see [the header](Header.md).
 
-**Boards in Archive is not one of them.** The three above act on the boards in
-front of you; Boards in Archive is a *place* you go instead, so it is a row of
-the **left menu**, under Remaining, with a count beside it like the three lists
-above it.
+**Archive is not one of them.** The three above act on the boards in
+front of you; the Archive is a *place* you go instead, so it is a row of the
+**left menu**, under Remaining, with a count beside it like the three lists above
+it. It is labelled **Archive** — one word, like Starred, Templates and Remaining
+beside it, and the menu already says what it is listing. That is `archives`, an
+existing key, and the *section title* uses the same one so the header's path and
+the highlighted row cannot name one place two ways.
 
 It opens as a **section of this page**, drawn beside the menu — not as a
 full-width page that replaces it. Selecting something from a menu and then losing
