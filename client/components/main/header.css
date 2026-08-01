@@ -510,6 +510,11 @@ body.mobile-mode #header-quick-access .allBoards {
 #header-quick-access #header-help  {
   margin: 4px 8px 0 0;
   float: inline-start;
+  /* The same colour the buttons beside it use. `a { color: inherit }` left the
+     username taking whatever the bar happened to pass down, so it did not match
+     Notifications and the rest sitting next to it - and it is a control of the
+     same bar, not a caption. */
+  color: #f2f2f2;
 }
 
     

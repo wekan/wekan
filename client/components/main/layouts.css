@@ -824,8 +824,12 @@ a:not(.disabled).is-active i.fa {
     margin-inline-end: 0;
   }
 
+  /* No auto margin: the bar packs from the START and wraps forward at every
+     width, so nothing is pushed to the far end. This one survived the sweep
+     that removed the others because it lives in layouts.css rather than
+     header.css. docs/Design/Page/Header.md */
   #header-user-bar {
-    margin-inline-start: auto;
+    margin-inline-start: 0;
   }
 
   /* Ensure header elements don't wrap on very small screens */
