@@ -282,6 +282,34 @@ This release adds the following new features:
 **All Boards** - its sections, its controls, and what the page opens on.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5df6f284212be9ec6070f8438dca78f0d1fa89d8">The left menu folds away, with the caret a list already has</a>. Thanks to xet7.</summary>
+
+At the top of both left menus - All Boards and the Admin Panel - there is now a
+caret that folds the menu away, and the same caret brings it back. It is the
+control a **list** has on a board: pointing down while the thing is open and
+right once it is folded, with the same two words in its tooltip, so there is
+nothing new to learn.
+
+Folded, the menu is a strip holding only its caret and the page beside it takes
+the width back - folded rather than hidden outright, because a menu with no way
+back is a menu you have lost. Everything but the caret goes through a `:not()`
+on the caret rather than a list of names, so a row added later cannot be left
+sticking out of a narrow strip.
+
+**One state for both pages**: they draw one menu, and a reader who folds it away
+on one of them has said what they want on the other. It is a Session value
+first, so the fold is instant rather than waiting for a round trip, then
+`profile.leftMenuCollapsed` on the user document so it survives a reload and
+follows the reader to their other browser, and a cookie when nobody is signed in
+- a public board has this menu too - through the same cookie helpers the public
+list and swimlane collapse states already use.
+
+Open is the default: a menu that remembered itself collapsed for somebody who
+has never collapsed one would be a page with no visible way to navigate.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a88dc8cbba676a7ef33ab076943f6dd5b57b9e05">Every section names itself at the top of its pane</a>. Thanks to xet7.</summary>
 
 The right pane began with board tiles and nothing said which list they were. The
