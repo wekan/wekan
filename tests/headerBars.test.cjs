@@ -1095,6 +1095,83 @@ test('the bar starts where the left menus start - one indent down the page', () 
   }
 });
 
+test('...and nothing else insets it at some widths only', () => {
+  // xet7: "small width has correct All Boards icon X position at left top
+  // corner. bigger width are too much at right. they should be moved to same X
+  // icon position like small width."
+  //
+  // The guard above adds up the three terms it knew about and got the right
+  // answer - while the house still moved with the window, because two MORE
+  // terms were added to that sum at some widths and not others: `#header`'s own
+  // side padding (8px on a phone, 16px on a tablet, none between, 8px on a
+  // large display) and `.allBoards`' side padding (15px on a desktop against
+  // 6px on a phone). `.allBoards` is the SAME element as `.home-icon`, so its
+  // padding lands between the icon's margin and the link.
+  //
+  // So this pins the other side of it: no rule at any width may add a side inset
+  // of its own, which is what makes the sum above the whole story.
+  const header = read('client/components/main/header.css');
+  const layouts = read('client/components/main/layouts.css');
+  const strip = css => css.replace(/\/\*[\s\S]*?\*\//g, '');
+  const rules = css => strip(css).matchAll(/([^{}]+)\{([^{}]*)\}/g);
+  const shorthandInline = body => {
+    const m = /(?:^|;)\s*padding:\s*([^;!]+)/.exec(body);
+    if (!m) return null;
+    const parts = m[1].trim().split(/\s+/);
+    return parts.length === 1 ? parts[0] : parts[1];
+  };
+
+  // 1. `#header` wraps the bar; a side padding here is added to the bar's own
+  //    gutter, and it was a different number at three of the four widths.
+  for (const [file, css] of [['header.css', header], ['layouts.css', layouts]]) {
+    for (const rule of rules(css)) {
+      if (!rule[1].split(',').some(x => x.trim() === '#header')) continue;
+      const inline = shorthandInline(rule[2]);
+      if (inline !== null) {
+        assert.ok(/^0(px)?$/.test(inline),
+          `${file}: #header adds ${inline} of side padding, so the bar starts elsewhere at that width`);
+      }
+      assert.ok(!/padding-(inline|left|right)/.test(rule[2]),
+        `${file}: #header adds a side padding of its own`);
+    }
+  }
+
+  // 2. `.allBoards` is the same element as `.home-icon` - it may space itself
+  //    vertically, never horizontally.
+  for (const [file, css] of [['header.css', header], ['layouts.css', layouts]]) {
+    for (const rule of rules(css)) {
+      if (!/\.allBoards(?![-\w])/.test(rule[1])) continue;
+      if (/padding:\s*0\s*!important/.test(rule[2])) continue; // @media print
+      const inline = shorthandInline(rule[2]);
+      assert.strictEqual(inline, null,
+        `${file}: .allBoards uses the padding shorthand (${inline}) - padding-block only`);
+      const explicit = /padding-inline:\s*([^;!]+)/.exec(rule[2]);
+      if (explicit) {
+        assert.ok(/^0(px)?$/.test(explicit[1].trim()),
+          `${file}: .allBoards insets the house by ${explicit[1].trim()}`);
+      }
+    }
+  }
+
+  // 3. Every rule for the link itself starts it at the same 6px, so a phone
+  //    cannot begin the house 2px further in than a desktop does.
+  for (const [file, css] of [['header.css', header], ['layouts.css', layouts]]) {
+    for (const rule of rules(css)) {
+      // The link ITSELF, so a rule for the house GLYPH inside it - whose own
+      // `padding: 0` is right and means nothing here - is not mistaken for one.
+      const isLink = rule[1].split(',').map(x => x.trim()).filter(Boolean)
+        .every(sel => /(\.header-home-link|\.home-icon a)$/.test(sel));
+      if (!isLink) continue;
+      const m = /(?:^|;)\s*padding:\s*([^;!]+)/.exec(rule[2]);
+      if (!m) continue;
+      const parts = m[1].trim().split(/\s+/);
+      const startPad = parts.length === 4 ? parts[3] : parts.length === 1 ? parts[0] : parts[1];
+      assert.strictEqual(startPad, '6px',
+        `${file}: the home link starts at ${startPad} in \`${rule[1].trim()}\``);
+    }
+  }
+});
+
 for (const [name, fn] of tests) {
   try { fn(); passed++; console.log('  ok -', name); }
   catch (err) { console.error(`  FAIL - ${name}\n    ${err.message}`); process.exitCode = 1; }

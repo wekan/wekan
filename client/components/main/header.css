@@ -386,9 +386,20 @@ body:not(.board-view) #header #header-main-bar h1 {
   margin-inline-end: 4px;
 }
 
+/* `.allBoards` is the SAME element as `.home-icon` above, so any inline padding
+   here is added to that element's 4px margin and to the link's own 6px - and it
+   was 15px on a desktop against 6px on a phone, which is why the All Boards
+   house started at a different X depending on how wide the window was.
+   It carries no inline padding now. The house's inset is the bar's gutter (12)
+   plus the icon's margin (4) plus the link's padding (6) = 22px, at every width
+   - the same 22px the left menu's rows below it are indented by (4px of margin
+   plus 18px of padding), so the two line up down the page.
+   The gap to the logo beside it is the 4 + 4 of the two margins, like every
+   other pair of neighbours in this bar. docs/Design/Page/Header.md */
 #header-quick-access .allBoards {
   font-size: 14px;
-  padding: 4px 15px;
+  padding-block: 4px;
+  padding-inline: 0;
 }
 
 /* Mobile mode: the home ICON only, never the "All Boards" label.
@@ -414,8 +425,13 @@ body.mobile-mode #header-quick-access .home-icon .fa-home {
   margin-inline-end: 0;
 }
 
+/* No inline padding in mobile mode either. This rule existed to cut the 15px
+   the desktop `.allBoards` carried down to 6px; that padding is gone, so
+   matching it here would only put the house back off the line every other width
+   starts on. docs/Design/Page/Header.md */
 body.mobile-mode #header-quick-access .allBoards {
-  padding: 4px 6px;
+  padding-block: 4px;
+  padding-inline: 0;
 }
 #header-quick-access a {
   text-decoration: none;
@@ -774,8 +790,12 @@ body.mobile-mode #header-quick-access .allBoards {
     margin-inline-end: 4px;
   }
 
+  /* 6px at the START, the same as at every other width, so the house begins on
+     one line down the page no matter how wide the window is. It was 8px, which
+     moved it 2px in on a phone alone. The end stays 8px - that is a gap between
+     two things, not the inset. docs/Design/Page/Header.md */
   #header-quick-access .home-icon .header-home-link {
-    padding: 4px 8px;
+    padding: 4px 8px 4px 6px;
     font-size: 12px;
   }
 
@@ -1060,7 +1080,10 @@ body.mobile-mode #header-quick-access .allBoards {
 
     #header-quick-access .home-icon .header-home-link {
       font-size: 16px !important; /* Much larger text */
-      padding: 8px 12px !important;
+      /* 6px at the START here too - the tap target grows, the INSET does not.
+         At 12px the house began 6px further in on a small phone than at every
+         other width. docs/Design/Page/Header.md */
+      padding: 8px 12px 8px 6px !important;
     }
 
     #header-quick-access .home-icon .fa-home {

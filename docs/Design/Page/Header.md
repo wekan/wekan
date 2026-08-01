@@ -266,6 +266,45 @@ contributes nothing without a special case — and each bar has its own
 `ResizeObserver`, because the first one wrapping to a second row is a resize of
 that element and of nothing else. `client/lib/utils.js` keeps it current.
 
+## Where the bar starts
+
+The All Boards **house** is the first thing on the page, and it starts on the
+same vertical line as the **left menu's rows** below it — **22px** — at *every*
+window width. One line down the left edge of the page.
+
+That 22px is a **sum**, and the whole of it is:
+
+- **12px** — `--wekan-header-gutter`, the bar's own padding. It is on the BAR
+  rather than on its first item because the bar wraps: padding applies to every
+  row it wraps onto, while a margin on the first item would indent the first row
+  and leave the second starting at the edge.
+- **4px** — `.home-icon`'s inline-start margin, the same 4px every item in the
+  bar carries.
+- **6px** — the `.header-home-link`'s own padding, which is its hover target,
+  not an inset.
+
+The left menu reaches the same 22px its own way: 4px of row margin plus 18px of
+row padding (`boardsList.css`, `settingBody.css`), and both menus indent alike.
+
+**Nothing else may add to that sum at some widths only.** Two things did, which
+is why the house sat at a different X on a phone, a tablet, a desktop and a large
+display:
+
+- `#header` had side padding of its own — 8px ≤800px, 16px at 768–1024px, none
+  between, 8px at ≥1920px. It has **none** now, at any width: the inset is the
+  bar's gutter, once.
+- `.allBoards` is the **same element** as `.home-icon` (`span.home-icon.allBoards`),
+  so its side padding lands between the icon's margin and the link — and it was
+  15px on a desktop against 6px on a phone. It carries `padding-block` only now.
+  Its 15px was also the gap to the logo beside it; that gap is the 4 + 4 of the
+  two margins, like every other pair of neighbours in this bar.
+
+The rules for the link itself all start it at the same 6px, phone rules included:
+a bigger tap target on a small screen grows at the **end**, not at the start.
+
+`tests/headerBars.test.cjs` pins both halves — the sum, and that no rule at any
+width adds to it.
+
 ## The sidebar, and the hamburger
 
 A page's controls used to live in its own second header bar beside its `h1`. The
@@ -291,7 +330,8 @@ be opened from.
 | --- | --- | --- |
 | `client/components/main/header.jade` | `.jade` template | The bar itself, and the starred-boards popup. |
 | `client/components/main/header.js` | `.js` Blaze template logic | The title, the trail, which page gets what, and the hamburger's click. |
-| `client/components/main/header.css` | `.css` | The wrap, the end group, the active mark, the divider. |
+| `client/components/main/header.css` | `.css` | The wrap, the end group, the active mark, the divider, and the 22px the bar starts at. |
+| `client/components/main/layouts.css` | `.css` | The per-width header rules — which now set no side padding of their own, so the bar starts at one X. |
 | `models/lib/pageTitles.js` | `.js` module, pure | Route name → title key, and the Admin Panel's second segment. |
 | `models/lib/pageSidebar.js` | `.js` module, pure | Which sidebar a page has, and whether it is offered a hamburger. |
 | `models/lib/sidebarViewButton.js` | `.js` module, pure | Which way a Filter or Search click goes. |
