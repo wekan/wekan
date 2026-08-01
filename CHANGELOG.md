@@ -1314,7 +1314,7 @@ collapsed to its padding.
 **All Boards** - the overview and its search.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c7bf2958a36f4ac120681ee435a564dd74d09517">A workspace row obeys the drag-handles toggle, and its icon drags without one</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c7bf2958a36f4ac120681ee435a564dd74d09517">A workspace row obeys the drag-handles toggle, and drags without one</a>. Thanks to xet7.</summary>
 
 The workspace rows in the left menu drew a ✥ handle whatever the **Show desktop
 drag handles** toggle in the first header bar said - and the handle was
@@ -1325,14 +1325,25 @@ workspace row is a row you click, because that is how a workspace is opened.
 The handle follows the toggle now, through the same helper the board tiles
 beside it use, so the two cannot drift apart. With handles **on**, the handle is
 drawn and is the only place a workspace drag may start. With handles **off**
-there is no handle and the workspace's own **icon** is what reorders it - the
-icon rather than the row, so the name beside it stays a plain click target.
+there is no handle and the workspace's **icon and name** is what reorders it.
 
-`draggable` lives on the handle or on the icon, never on the row, and the
-`dragstart` handler stays on the row because the event bubbles up from whichever
-child started it - so the reordering itself is untouched. The grab cursor
-follows that same attribute rather than a second class, so there is one answer
-to "is this the drag source right now" instead of two that can disagree.
+`draggable` lives on the handle or on that icon-and-name anchor, never on the
+row - the row also holds the ⋯ menu and the board count, and a drag started on
+those is a drag of something else - and the `dragstart` handler stays on the row
+because the event bubbles up from whichever child started it, so the reordering
+itself is untouched. Clicking the anchor still opens the workspace: a click and
+a drag are two gestures on one element, as they are on a board tile with handles
+off.
+
+Two things make that drag real rather than declared, and both are easy to leave
+out. The anchor is opted out of the page-level **dragscroll**, which would
+otherwise take the mousedown so the drag never begins - which is exactly what
+"reordering does not work" looks like. And it carries `user-select: none` while
+it is the drag source, because the name is TEXT: a press-and-move over
+selectable text starts a **selection**, and the browser owns the gesture from
+there. Everything that changes with the toggle follows the `draggable` attribute
+itself rather than a second class, so there is one answer to "is this the drag
+source right now" instead of two that can disagree.
 
 </details>
 
