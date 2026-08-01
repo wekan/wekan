@@ -117,6 +117,8 @@
   "set-selected-home": "Stel as Tuisbord (word na aanmelding oopgemaak)",
   "home-board-badge": "Tuisbord (word na aanmelding oopgemaak)",
   "home-board-empty": "Drag a board here to open it after login",
+  "home-board-remove": "Remove from Home",
+  "home-board-remove-confirm": "Remove this board from Home? The board itself is not deleted.",
   "activity-dueDate": "sperdatum gewysig na %s van %s",
   "activity-endDate": "geredigeer einddatum na %s van %s",
   "add-attachment": "Voeg aanhangsel by",

@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Session } from 'meteor/session';
+import { ReactiveVar } from 'meteor/reactive-var';
 const { notHelperBoardTitle } = require('/models/lib/helperBoards');
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
@@ -200,48 +201,46 @@ function homeBoardId() {
   return (user && user.profile && user.profile.defaultBoardId) || null;
 }
 
-// Is there a board at Home? Read from the user document's own field for the
-// same reason hasStarredBoards() is - it decides the order of the menu, and an
-// answer that depends on the boards subscription would reorder the menu under
-// the reader partway through a load.
-function hasHomeBoard() {
-  return !!homeBoardId();
-}
-
-// Which section a drag started FROM, carried on the drag itself.
+// A board picked up in the HOME section is marked as such on the drag itself.
 //
-// Home is a mark on a board, like a star: dragging the board OUT of Home takes
-// the mark off and leaves the board where it lives. That means a drop on
-// Remaining has to be able to tell "the Home board, dragged out of Home" from
-// "the Home board, dragged out of a workspace" - which is a fact about where
-// the drag BEGAN, and the only place to put it is the drag.
-const DRAG_SOURCE_SECTION = 'application/x-board-from-section';
+// The mark is the PRESENCE OF A TYPE rather than a value, because it has to be
+// readable in `dragover`, and `dragover` cannot call `getData()` - the drag
+// data store is in protected mode until the drop, and only the list of types is
+// exposed. So the fact lives in the type's NAME: if the drag carries
+// `application/x-board-from-home`, it came from Home.
+//
+// dragover is where it matters. Dragging a board out of Home may only end at
+// the Trash - the one gesture that takes it off Home - so every other target
+// has to REFUSE the drop while it is still in the air, which means answering
+// before the drop happens. docs/Features/Board/Home.md
+const DRAG_FROM_HOME = 'application/x-board-from-home';
 
-function setDragSourceSection(evt, section) {
+// Is a board from Home in the air right now? The remove target is drawn only
+// while it is - the Android launcher's Remove bar, which appears at the top of
+// the screen when you pick an icon up and is not there the rest of the time.
+// An affordance that is only there when the gesture is possible explains
+// itself; one that is always there is a button nobody dares press.
+const draggingFromHome = new ReactiveVar(false);
+
+function markDragFromHome(evt, section) {
+  if (section !== 'home') return;
   try {
-    evt.originalEvent.dataTransfer.setData(DRAG_SOURCE_SECTION, section || '');
+    evt.originalEvent.dataTransfer.setData(DRAG_FROM_HOME, '1');
   } catch (e) {}
+  draggingFromHome.set(true);
 }
 
-function draggedFromHome(evt) {
+// True while a board that was picked up in Home is being dragged. Works in
+// dragover and in drop alike: `types` is readable throughout.
+function isDragFromHome(evt) {
   try {
-    return evt.originalEvent.dataTransfer.getData(DRAG_SOURCE_SECTION) === 'home';
+    const types = evt.originalEvent.dataTransfer.types;
+    if (!types) return false;
+    // A DOMStringList in older engines, an array in current ones.
+    return Array.prototype.indexOf.call(types, DRAG_FROM_HOME) !== -1;
   } catch (e) {
     return false;
   }
-}
-
-// Dropping anywhere OTHER than Home, having picked the board up in Home, takes
-// it off Home - and only off Home. Nothing else about the board changes, which
-// is why this is a separate call beside whatever the drop itself did rather
-// than a branch inside it.
-function clearHomeIfDraggedFromHome(evt, boardIds) {
-  if (!draggedFromHome(evt)) return;
-  boardIds.forEach((boardId) => {
-    Meteor.call('clearDefaultBoard', boardId, (err) => {
-      if (err) console.error(err);
-    });
-  });
 }
 
 function menuItemCountOf(type) {
@@ -1090,11 +1089,18 @@ Template.boardList.helpers({
       // second class like the Archive does. docs/Features/Board/Home.md
       home: { icon: 'fa-home', labelKey: 'home', extraClass: 'js-home-menu' },
     };
-    return menuSectionOrder(hasStarredBoards(), hasHomeBoard()).map(type => ({
+    return menuSectionOrder(hasStarredBoards()).map(type => ({
       type,
       extraClass: '',
       ...meta[type],
     }));
+  },
+
+  // Is the Android-launcher Remove bar showing? Only in Home, and only while a
+  // board from Home is actually in the air. docs/Features/Board/Home.md
+  showsHomeRemoveTarget() {
+    return Template.instance().selectedMenu.get() === 'home'
+      && draggingFromHome.get();
   },
 
   // The "Add Board" tile, which belongs to the sections a board can be created
@@ -1466,8 +1472,8 @@ Template.boardList.events({
   },
   'dragstart .js-board'(evt, tpl) {
     const boardId = this._id;
-    // Which list this board was picked up from - see DRAG_SOURCE_SECTION.
-    setDragSourceSection(evt, tpl && tpl.selectedMenu && tpl.selectedMenu.get());
+    // Picked up in Home? The drag says so - see DRAG_FROM_HOME.
+    markDragFromHome(evt, tpl && tpl.selectedMenu && tpl.selectedMenu.get());
 
     // Honour the "Show desktop drag handles" setting here too. With handles ON
     // the handle is the ONLY drag source - the rest of the tile stays free, so a
@@ -1545,6 +1551,9 @@ Template.boardList.events({
   },
   'dragend .js-board'(evt) {
     boardPressStartedOnHandle = false;
+    // The drag is over however it ended - dropped, cancelled with Escape, or
+    // released over nothing - so the remove target goes away with it.
+    draggingFromHome.set(false);
     removeBoardPlaceholder();
     if (evt && evt.currentTarget) {
       evt.currentTarget.classList.remove('board-dragging-hidden');
@@ -1789,6 +1798,7 @@ Template.boardList.events({
     });
   },
   'dragover .workspace-node'(evt) {
+    if (isDragFromHome(evt)) return;
     evt.preventDefault();
     evt.stopPropagation();
 
@@ -1809,6 +1819,7 @@ Template.boardList.events({
     evt.currentTarget.classList.remove('drag-over');
   },
   'drop .workspace-node'(evt, tpl) {
+    if (isDragFromHome(evt)) return;
     evt.preventDefault();
     evt.stopPropagation();
 
@@ -1838,15 +1849,6 @@ Template.boardList.events({
       // Get the workspace ID directly from the dropped workspace-node's data-workspace-id attribute
       const workspaceId = targetEl.getAttribute('data-workspace-id');
 
-      // A workspace is another somewhere-else: a board dragged out of Home into
-      // one is filed there and is no longer the board that opens after login.
-      try {
-        clearHomeIfDraggedFromHome(
-          evt,
-          isMultiBoard ? JSON.parse(boardData) : [boardData],
-        );
-      } catch (e) {}
-
       if (workspaceId) {
         if (isMultiBoard) {
           // Multi-board drag
@@ -1866,6 +1868,11 @@ Template.boardList.events({
     }
   },
   'dragover .js-select-menu'(evt) {
+    // A board picked up in Home may only be dropped on the remove target. NOT
+    // calling preventDefault() is what REFUSES a drop in HTML5 drag and drop,
+    // so the cursor says no while the board is still in the air rather than the
+    // drop landing and quietly doing nothing. docs/Features/Board/Home.md
+    if (isDragFromHome(evt)) return;
     evt.preventDefault();
     evt.stopPropagation();
 
@@ -1889,6 +1896,7 @@ Template.boardList.events({
   // one board id in `text/plain` or a JSON array when a multi-selection is
   // being dragged.
   'dragover .js-open-archived-board'(evt) {
+    if (isDragFromHome(evt)) return;
     evt.preventDefault();
     evt.stopPropagation();
     evt.originalEvent.dataTransfer.dropEffect = 'move';
@@ -1898,6 +1906,7 @@ Template.boardList.events({
     evt.currentTarget.classList.remove('drag-over');
   },
   'drop .js-open-archived-board'(evt) {
+    if (isDragFromHome(evt)) return;
     evt.preventDefault();
     evt.stopPropagation();
     evt.currentTarget.classList.remove('drag-over');
@@ -1928,9 +1937,6 @@ Template.boardList.events({
         if (err) alert(err?.reason || err?.message || 'Failed to archive board');
       });
     });
-    // The Archive is another somewhere-else, and an archived board cannot be
-    // the one that opens after login.
-    clearHomeIfDraggedFromHome(evt, boardIds);
     // The dragged boards are gone from this page, so a selection of them is
     // meaningless now.
     if (isMultiBoard) BoardMultiSelection.reset();
@@ -1938,6 +1944,59 @@ Template.boardList.events({
     // method call, which is not a reactive source, so it has to be asked again.
     const tpl = Template.instance();
     if (tpl && tpl.refreshArchivedBoardsCount) tpl.refreshArchivedBoardsCount();
+  },
+  // The Remove target: drop a board here to take it off Home.
+  //
+  // The launcher gesture - drag the icon to the bar that appeared at the top,
+  // and the shortcut goes, while the app itself stays in the drawer. Here the
+  // board stays in Remaining, or in its workspace, and only stops being the
+  // board that opens after login.
+  //
+  // It is the ONLY place a board dragged out of Home may land: every other
+  // target refuses the drop (see the isDragFromHome guards). One gesture, one
+  // destination, and the destination is the thing that says what will happen.
+  'dragover .js-home-remove'(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    evt.originalEvent.dataTransfer.dropEffect = 'move';
+    evt.currentTarget.classList.add('is-over');
+  },
+  'dragleave .js-home-remove'(evt) {
+    evt.currentTarget.classList.remove('is-over');
+  },
+  'drop .js-home-remove'(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    evt.currentTarget.classList.remove('is-over');
+    draggingFromHome.set(false);
+
+    const boardData = evt.originalEvent.dataTransfer.getData('text/plain');
+    if (!boardData) return;
+    const isMultiBoard = evt.originalEvent.dataTransfer.getData(
+      'application/x-board-multi',
+    );
+    let boardIds = [boardData];
+    if (isMultiBoard) {
+      try {
+        boardIds = JSON.parse(boardData);
+      } catch (e) {
+        return;
+      }
+    }
+    if (!boardIds.length) return;
+
+    // Asked before doing, the same way the drop on the Archive asks: a drop is
+    // easy to make by accident, and the sentence says the board itself is not
+    // going anywhere - which is the whole question a reader has when they see a
+    // trash can under a board they care about.
+    if (!confirm(TAPi18n.__('home-board-remove-confirm'))) return;
+
+    boardIds.forEach((boardId) => {
+      Meteor.call('clearDefaultBoard', boardId, (err) => {
+        if (err) alert(err?.reason || err?.message || 'Failed to remove from Home');
+      });
+    });
+    if (isMultiBoard) BoardMultiSelection.reset();
   },
   // Drop a board on Home to make it the board that opens after login. The row
   // is the fifth place in this column a board icon can be dragged onto, so the
@@ -1997,9 +2056,11 @@ Template.boardList.events({
     const menuType = evt.currentTarget.getAttribute('data-type');
     evt.currentTarget.classList.remove('drag-over');
 
-    // Home has its own handler, and it is the one drop that does NOT take the
-    // board off Home.
+    // Home has its own handler.
     if (menuType === 'home') return;
+    // Belt and braces: dragover already refused this drop by not calling
+    // preventDefault, so it should never arrive.
+    if (isDragFromHome(evt)) return;
 
     const isMultiBoard = evt.originalEvent.dataTransfer.getData(
       'application/x-board-multi',
@@ -2017,13 +2078,6 @@ Template.boardList.events({
         return;
       }
     }
-
-    // Dragging a board OUT of Home onto any other row takes it off Home and
-    // leaves it exactly where it lives - the same as dragging a starred board
-    // out of Starred. This runs for Starred and Templates too, which otherwise
-    // do nothing on a drop: dropped ON one of them the board did move
-    // somewhere, so the mark comes off.
-    clearHomeIfDraggedFromHome(evt, boardIds);
 
     // Everything below is what a drop on REMAINING means.
     if (menuType !== 'remaining') return;

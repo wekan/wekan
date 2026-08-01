@@ -117,6 +117,8 @@
   "set-selected-home": "កំណត់ជាក្តារដើម (បើកបន្ទាប់ពីចូល)",
   "home-board-badge": "ក្តារដើម (បើកបន្ទាប់ពីចូល)",
   "home-board-empty": "Drag a board here to open it after login",
+  "home-board-remove": "Remove from Home",
+  "home-board-remove-confirm": "Remove this board from Home? The board itself is not deleted.",
   "activity-dueDate": "កែសម្រួលកាលបរិច្ឆេទដល់ %s នៃ %s",
   "activity-endDate": "បានកែសម្រួលកាលបរិច្ឆេទបញ្ចប់ទៅ %s នៃ %s",
   "add-attachment": "បន្ថែមឯកសារភ្ជាប់",

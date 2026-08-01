@@ -117,6 +117,8 @@
   "set-selected-home": "Estableix com a tauler d'inici (s'obre després d'iniciar sessió)",
   "home-board-badge": "Tauler d'inici (s'obre després d'iniciar sessió)",
   "home-board-empty": "Arrossega aquí un tauler per obrir-lo després d'iniciar sessió",
+  "home-board-remove": "Treu d'Inici",
+  "home-board-remove-confirm": "Voleu treure aquest tauler d'Inici? El tauler no s'esborra.",
   "activity-dueDate": "data de venciment editada a %s de %s",
   "activity-endDate": "data de finalització editada a %s de %s",
   "add-attachment": "Afegeix adjunt",

@@ -117,6 +117,8 @@
   "set-selected-home": "ହୋମ୍ ବୋର୍ଡ ଭାବରେ ସେଟ୍ କରନ୍ତୁ (ଲଗଇନ୍ ପରେ ଖୋଲିବ)",
   "home-board-badge": "ହୋମ୍ ବୋର୍ଡ (ଲଗଇନ୍ ପରେ ଖୋଲିବ)",
   "home-board-empty": "Drag a board here to open it after login",
+  "home-board-remove": "Remove from Home",
+  "home-board-remove-confirm": "Remove this board from Home? The board itself is not deleted.",
   "activity-dueDate": "@@ PH1 @@ ​​ର @@ PH0 @@ କୁ ଧାର୍ଯ୍ୟ ତାରିଖ ସମ୍ପାଦିତ |",
   "activity-endDate": "@@ PH1 @@ ​​ର @@ PH0 @@ କୁ ଶେଷ ତାରିଖ ସମ୍ପାଦିତ |",
   "add-attachment": "ସଂଲଗ୍ନକ ଯୋଡନ୍ତୁ |",

@@ -117,6 +117,8 @@
   "set-selected-home": "ตั้งเป็นบอร์ดหน้าแรก (เปิดหลังเข้าสู่ระบบ)",
   "home-board-badge": "บอร์ดหน้าแรก (เปิดหลังเข้าสู่ระบบ)",
   "home-board-empty": "ลากบอร์ดมาที่นี่เพื่อเปิดหลังเข้าสู่ระบบ",
+  "home-board-remove": "นำออกจากหน้าหลัก",
+  "home-board-remove-confirm": "นำบอร์ดนี้ออกจากหน้าหลักหรือไม่ บอร์ดจะไม่ถูกลบ",
   "activity-dueDate": "đã sửa ngày hết hạn thành %s của %s",
   "activity-endDate": "đã sửa ngày kết thúc thành %s của %s",
   "add-attachment": "Thêm Bản Đính Kèm",

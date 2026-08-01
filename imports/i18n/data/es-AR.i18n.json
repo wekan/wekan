@@ -117,6 +117,8 @@
   "set-selected-home": "Establecer como tablero de inicio (se abre tras iniciar sesión)",
   "home-board-badge": "Tablero de inicio (se abre tras iniciar sesión)",
   "home-board-empty": "Drag a board here to open it after login",
+  "home-board-remove": "Remove from Home",
+  "home-board-remove-confirm": "Remove this board from Home? The board itself is not deleted.",
   "activity-dueDate": "editada la fecha de vencimiento a %s de %s",
   "activity-endDate": "editada la fecha de finalización a %s de %s",
   "add-attachment": "Agregar Adjunto",

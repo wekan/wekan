@@ -117,6 +117,8 @@
   "set-selected-home": "ਹੋਮ ਬੋਰਡ ਵਜੋਂ ਸੈੱਟ ਕਰੋ (ਲਾਗਇਨ ਤੋਂ ਬਾਅਦ ਖੁੱਲ੍ਹਦਾ ਹੈ)",
   "home-board-badge": "ਹੋਮ ਬੋਰਡ (ਲਾਗਇਨ ਤੋਂ ਬਾਅਦ ਖੁੱਲ੍ਹਦਾ ਹੈ)",
   "home-board-empty": "Drag a board here to open it after login",
+  "home-board-remove": "Remove from Home",
+  "home-board-remove-confirm": "Remove this board from Home? The board itself is not deleted.",
   "activity-dueDate": "%s ਦੀ %s ਦੀ ਨਿਯਤ ਮਿਤੀ ਨੂੰ ਸੰਪਾਦਿਤ ਕੀਤਾ ਗਿਆ",
   "activity-endDate": "%s ਦੀ %s ਦੀ ਸਮਾਪਤੀ ਮਿਤੀ ਨੂੰ ਸੰਪਾਦਿਤ ਕੀਤਾ ਗਿਆ",
   "add-attachment": "ਅਟੈਚਮੈਂਟ ਸ਼ਾਮਲ ਕਰੋ",

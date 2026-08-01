@@ -117,6 +117,8 @@
   "set-selected-home": "Angiv som hjemtavle (åbnes efter login)",
   "home-board-badge": "Hjemtavle (åbnes efter login)",
   "home-board-empty": "Træk en tavle hertil for at åbne den efter login",
+  "home-board-remove": "Fjern fra Hjem",
+  "home-board-remove-confirm": "Fjern denne tavle fra Hjem? Selve tavlen slettes ikke.",
   "activity-dueDate": "Redigerede forfaldsdato til %s af %s",
   "activity-endDate": "Redigerede slutdato til %s af %s",
   "add-attachment": "Tilføj vedhæftning",

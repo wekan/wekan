@@ -117,6 +117,8 @@
   "set-selected-home": "Agordi kiel Hejma tabulo (malfermata post ensaluto)",
   "home-board-badge": "Hejma tabulo (malfermata post ensaluto)",
   "home-board-empty": "Trenu tabulon ĉi tien por malfermi ĝin post ensaluto",
+  "home-board-remove": "Forigi el Hejmo",
+  "home-board-remove-confirm": "Ĉu forigi ĉi tiun tabulon el Hejmo? La tabulo mem ne estas forigita.",
   "activity-dueDate": "editada la fecha de vencimiento a %s de %s",
   "activity-endDate": "editada la fecha de finalización a %s de %s",
   "add-attachment": "Añadir adjunto",

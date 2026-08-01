@@ -117,6 +117,8 @@
   "set-selected-home": "Beállítás kezdőtáblaként (bejelentkezés után nyílik meg)",
   "home-board-badge": "Kezdőtábla (bejelentkezés után nyílik meg)",
   "home-board-empty": "Húzzon ide egy táblát, hogy bejelentkezés után nyíljon meg",
+  "home-board-remove": "Eltávolítás a Kezdőlapról",
+  "home-board-remove-confirm": "Eltávolítja ezt a táblát a Kezdőlapról? Maga a tábla nem törlődik.",
   "activity-dueDate": "átírta a *határidő* dátumát erről: %s erre: %s",
   "activity-endDate": "átírta a \"befejezés\" dátumát erről: %s erre: %s",
   "add-attachment": "Melléklet hozzáadása",

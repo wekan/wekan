@@ -117,6 +117,8 @@
   "set-selected-home": "Pane kodilaudaks (avaidase jäl'ges sizälekirjutandad)",
   "home-board-badge": "Kodilaud (avaidase jäl'ges sizälekirjutandad)",
   "home-board-empty": "Drag a board here to open it after login",
+  "home-board-remove": "Remove from Home",
+  "home-board-remove-confirm": "Remove this board from Home? The board itself is not deleted.",
   "activity-dueDate": "muokkasi eräpäiväksi %s / %s",
   "activity-endDate": "muokkasi loppumispäiväksi %s / %s",
   "add-attachment": "Lisää liite",

@@ -266,7 +266,7 @@ browser build to verify).
 This release adds the following new features:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/9666c6ad5c471c7133add2b5e1cfd9146feaa95e">All Boards: Home, a section for the board that opens after login</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/eea1f2ffed4af635c67659f176353de57b0d4040">All Boards: Home, a section for the board that opens after login</a>. Thanks to xet7.</summary>
 
 One board can be Home: logging in opens it instead of the All Boards page. That
 has always existed, set from Multi-Selection's "Set as Home board (opened after
@@ -275,9 +275,10 @@ write-only, and the only way to find out what you had chosen was to log out.
 
 Home is now a section of All Boards with a row in the left menu, a home icon and
 the word Home, a count beside it like the other lists, and the address
-`/allboards/home`. It is the **first row when a Home board is set** - it is the
-board this user starts in - and still there, further down, when none is, because
-the place to drop a board onto has to exist before there is anything in it.
+`/allboards/home`. It sits under Starred and Remaining - the top row stays the
+one the page opens on, since after login you are already *in* the Home board -
+and the row is there whether or not a board is at it, because the place to drop
+a board onto has to exist before there is anything in it.
 
 **Drop a board on the row to make it Home.** The row is one more place in a
 column a board icon can already be dragged onto, so the gesture is the one
@@ -286,26 +287,30 @@ Multi-Selection. A drop **replaces** rather than toggling: Home holds one board,
 and a drop that sometimes set and sometimes cleared would depend on state the
 reader cannot see while dragging.
 
-**Home is a mark on a board, not a place boards are kept** - exactly like a
-star. The board stays in Remaining, or in its workspace, and appears in Home as
-well; dragging it out of Home onto any other row takes it off Home and leaves it
-where it lives. That is why the drag carries where it started: a drop on
-Remaining has to tell the Home board dragged out of Home from the Home board
-dragged out of a workspace.
+**Home is a mark on a board, not a place boards are kept** - like a star. The
+board stays in Remaining, or in its workspace, and appears in Home as well.
+
+**Taking a board off Home is the Android launcher's gesture.** Pick the board up
+in Home and a Remove bar appears above the tiles - only while the board is
+actually in the air, because an affordance that shows up when the gesture is
+possible explains itself, and a trash can sitting permanently under somebody's
+boards is a button nobody dares press. Drag the board onto it and it turns red,
+let go and it asks, and the question says the board itself is not deleted. Every
+other target refuses the drop while the board is still in the air, so a board
+cannot leave Home by accident while you are filing it into a workspace.
 
 The server accepts only a board the caller is a member of and that is not
 archived - a Home board that will not open would send that user to a board that
 refuses to draw at every login - and clears only the board that is actually
-theirs, so dragging some other board out of a list can never clear somebody
-else's choice. Nothing automatic writes it; in particular Sandstorm's auto-open
-still persists nothing.
+theirs. Nothing automatic writes it; in particular Sandstorm's auto-open still
+persists nothing.
 
 Documented in [Home](https://github.com/wekan/wekan/blob/main/docs/Features/Board/Home.md).
 
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7ae487f2ecae30e426dfdb19ff3c3f072dcc1994">All Boards opens on Starred, or on Remaining when nothing is starred</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/50a1d4263e253b0771342e7469243b13eaf106d3">All Boards opens on Starred, or on Remaining when nothing is starred</a>. Thanks to xet7.</summary>
 
 Starred was always the section All Boards landed on. On an account that has
 starred nothing that is an empty page with a full one behind it, which reads as

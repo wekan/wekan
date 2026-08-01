@@ -117,6 +117,8 @@
   "set-selected-home": "Définir comme tableau d'accueil (ouvert après la connexion)",
   "home-board-badge": "Tableau d'accueil (ouvert après la connexion)",
   "home-board-empty": "Drag a board here to open it after login",
+  "home-board-remove": "Remove from Home",
+  "home-board-remove-confirm": "Remove this board from Home? The board itself is not deleted.",
   "activity-dueDate": "date d'échéance éditée de %s à %s",
   "activity-endDate": "date de fin éditée de %s à %s",
   "add-attachment": "Ajouter une pièce jointe",

@@ -117,6 +117,8 @@
   "set-selected-home": "होम बोर्ड के रूप में सेट करें (लॉगिन के बाद खुलता है)",
   "home-board-badge": "होम बोर्ड (लॉगिन के बाद खुलता है)",
   "home-board-empty": "लॉगिन के बाद खुलने वाला बोर्ड यहाँ खींचें",
+  "home-board-remove": "होम से हटाएँ",
+  "home-board-remove-confirm": "इस बोर्ड को होम से हटाएँ? बोर्ड स्वयं नहीं मिटाया जाता।",
   "activity-dueDate": "સંપાદિત નિયત તારીખ %s ની %s",
   "activity-endDate": "સંપાદિત સમાપ્તિ તારીખ %s ની %s",
   "add-attachment": "संलग्न करें",

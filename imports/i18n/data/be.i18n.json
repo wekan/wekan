@@ -117,6 +117,8 @@
   "set-selected-home": "Зрабіць хатняй дошкай (адкрываецца пасля ўваходу)",
   "home-board-badge": "Хатняя дошка (адкрываецца пасля ўваходу)",
   "home-board-empty": "Drag a board here to open it after login",
+  "home-board-remove": "Remove from Home",
+  "home-board-remove-confirm": "Remove this board from Home? The board itself is not deleted.",
   "activity-dueDate": "змяніў(ла) тэрмін выканання на %s у %s",
   "activity-endDate": "змяніў(ла) дату заканчэння на %s у %s",
   "add-attachment": "Дадаць укладанне",

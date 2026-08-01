@@ -106,6 +106,16 @@ template(name="boardList")
               button.js-boards-next-page(class="{{#if hasBoardsNextPage}}{{else}}disabled{{/if}}")
                 | &gt;
           ul.board-list.clearfix.js-boards.dragscroll(class="{{#if isMiniScreen}}mobile-view{{/if}} {{#if BoardMultiSelection.isActive}}is-multiselection-active{{/if}}")
+            //- The Remove bar, drawn only while a board from Home is actually
+              being dragged - the launcher's, which appears at the top of the
+              screen when an icon is picked up and is not there the rest of the
+              time. Dropping a board here takes it off Home; the board itself
+              stays where it lives, the way an app stays in the drawer.
+              docs/Features/Board/Home.md
+            if showsHomeRemoveTarget
+              li.home-remove-target.js-home-remove
+                i.fa.fa-trash
+                span {{_ 'home-board-remove'}}
             //- Home is a mark on ONE board rather than a place boards are
               kept, so an empty Home says what to drag instead of showing a
               blank pane.

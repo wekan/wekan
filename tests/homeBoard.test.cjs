@@ -49,23 +49,22 @@ test('Home is a section, with an address like the others', () => {
   assert.strictEqual(en.home, 'Home', 'an existing key, not a new one');
 });
 
-test('the Home row is first when there is a board at it', () => {
-  // It is the board this user starts in, so the row that names it belongs
-  // where they look first - above whichever of Starred / Remaining is on top.
-  assert.deepStrictEqual(urls.menuSectionOrder(true, true),
-    ['home', 'starred', 'remaining', 'templates', 'archive']);
-  assert.deepStrictEqual(urls.menuSectionOrder(false, true),
-    ['home', 'remaining', 'starred', 'templates', 'archive']);
-
-  // ...and the row is STILL THERE with no Home board set, just not on top: the
-  // place to drop a board onto has to exist before there is anything in it.
+test('the Home row sits under the two board lists, and is always there', () => {
+  // NOT the top row: the top row is the one the page opens on, and after login
+  // you are already IN the Home board - opening All Boards there means "show me
+  // my boards", which the one board you just left does not answer.
+  assert.deepStrictEqual(urls.menuSectionOrder(true),
+    ['starred', 'remaining', 'home', 'templates', 'archive']);
+  assert.deepStrictEqual(urls.menuSectionOrder(false),
+    ['remaining', 'starred', 'home', 'templates', 'archive']);
   for (const starred of [true, false]) {
-    const order = urls.menuSectionOrder(starred, false);
-    assert.ok(order.includes('home'), 'the row exists with no Home board');
-    assert.notStrictEqual(order[0], 'home', 'but does not take the top');
-    assert.deepStrictEqual([...order].sort(),
-      [...urls.menuSectionOrder(starred, true)].sort(),
-      'the same rows either way - only the order changes');
+    const order = urls.menuSectionOrder(starred);
+    assert.strictEqual(order[0], urls.defaultSection(starred),
+      'Starred on top when anything is starred, Remaining when nothing is');
+    assert.notStrictEqual(order[0], 'home', 'and never Home');
+    // The row is there whether or not a board is at it: the place to drop a
+    // board onto has to exist before there is anything in it.
+    assert.ok(order.includes('home'));
   }
 });
 
@@ -87,7 +86,7 @@ test('the row is drawn by the menu loop, with its own icon and drop class', () =
     'a home icon and the Home label');
   assert.ok(/extraClass: 'js-home-menu'/.test(meta),
     'and a class of its own, because the row is also a drop target');
-  assert.ok(/menuSectionOrder\(hasStarredBoards\(\), hasHomeBoard\(\)\)/.test(meta),
+  assert.ok(/menuSectionOrder\(hasStarredBoards\(\)\)/.test(meta),
     'ordered by the pure rule, not by a second copy of it here');
 });
 
@@ -117,9 +116,11 @@ test('Home is read from the user document, not from the boards', () => {
   // The order of the menu turns on it, and an answer that depends on the
   // boards subscription would reorder the menu under the reader mid-load -
   // the same reason hasStarredBoards() reads the profile.
-  assert.ok(/function hasHomeBoard\(\)/.test(fn), 'and a boolean for the order');
   assert.ok(!/getBoards|ReactiveCache\.getBoard\(/.test(fn),
     'no board query in it');
+  // The order of the menu no longer turns on it - Home is not the top row -
+  // but the count and the section both do, and both must answer the moment the
+  // user document is there rather than when the boards subscription catches up.
 });
 
 test('a board is dragged ONTO Home to set it, and the drop replaces', () => {
@@ -142,44 +143,96 @@ test('a board is dragged ONTO Home to set it, and the drop replaces', () => {
     'and is hinted as a valid drop target while a board is being dragged');
 });
 
-test('and dragged OUT of Home to clear it - from Home, not from anywhere', () => {
-  assert.ok(/application\/x-board-from-section/.test(stripComments(listJs)),
-    'the drag carries where it started');
-  // `draggedFromHome` reads it...
-  const reader = stripComments(listJs.slice(listJs.indexOf('function draggedFromHome(evt)'),
-    listJs.indexOf('function clearHomeIfDraggedFromHome(')));
-  assert.ok(/=== 'home'/.test(reader), 'and a reader that answers whether it says Home');
-  // ...and the clearer ASKS IT FIRST. Sliced to the clearer's own body, because
-  // the reader's `=== 'home'` sitting above it would answer for it: dropping
-  // the question from the caller left every drop clearing Home.
-  const clearer = stripComments(listJs.slice(
-    listJs.indexOf('function clearHomeIfDraggedFromHome(evt, boardIds) {'),
-    listJs.indexOf('function menuItemCountOf(')));
-  assert.ok(/if \(!draggedFromHome\(evt\)\) return;/.test(clearer),
-    'a drag that did NOT start in Home clears nothing');
-  const askAt = clearer.indexOf('draggedFromHome(evt)');
-  const callAt = clearer.indexOf("Meteor.call('clearDefaultBoard'");
-  assert.ok(callAt !== -1, 'and one that did clears it');
-  assert.ok(askAt !== -1 && askAt < callAt, 'asked before anything is cleared');
+test('a board dragged out of Home may land ONLY on the Remove target', () => {
+  const src = stripComments(listJs);
+  // The mark is the PRESENCE OF A TYPE, not a value, because `dragover` cannot
+  // call getData() - the drag data store is protected until the drop, and only
+  // the list of types is exposed. A refusal has to happen in dragover, so the
+  // fact has to live somewhere dragover can read.
+  assert.ok(/const DRAG_FROM_HOME = 'application\/x-board-from-home'/.test(src),
+    'the fact lives in the type name');
+  const reader = src.slice(src.indexOf('function isDragFromHome(evt)'),
+    src.indexOf('function menuItemCountOf('));
+  assert.ok(/dataTransfer\.types/.test(reader), 'read from types, not getData');
+  assert.ok(!/getData\(/.test(reader), 'which getData cannot answer in dragover');
+  assert.ok(/setData\(DRAG_FROM_HOME/.test(src) && /markDragFromHome\(evt, tpl/.test(src),
+    'and it is set when the drag starts in Home');
 
-  // Set at dragstart, or every drop would think it came from nowhere.
-  assert.ok(/setDragSourceSection\(evt, tpl && tpl\.selectedMenu && tpl\.selectedMenu\.get\(\)\)/
-    .test(listJs), 'recorded when the drag starts');
-
-  // Every OTHER place a board can be dropped takes it off Home. "Any other
-  // location" is the whole point: the mark comes off wherever it lands.
+  // Every other target REFUSES, in dragover, by not calling preventDefault -
+  // which is what makes the cursor say no while the board is still in the air.
+  for (const target of ['dragover .js-select-menu', 'dragover .js-open-archived-board',
+    'dragover .workspace-node']) {
+    const at = src.indexOf(`  '${target}'(evt`);
+    assert.notStrictEqual(at, -1, `${target} exists`);
+    const head = src.slice(at, at + 400);
+    const refuseAt = head.indexOf('if (isDragFromHome(evt)) return;');
+    const allowAt = head.indexOf('evt.preventDefault()');
+    assert.notStrictEqual(refuseAt, -1, `${target} refuses a board from Home`);
+    assert.ok(allowAt === -1 || refuseAt < allowAt,
+      `${target}: refused BEFORE preventDefault, or the drop is allowed anyway`);
+  }
+  // ...and the drops themselves bail too, for a browser that delivers one.
   for (const target of ['drop .js-select-menu', 'drop .js-open-archived-board',
     'drop .workspace-node']) {
-    const at = listJs.indexOf(`  '${target}'`);
-    assert.notStrictEqual(at, -1, `${target} exists`);
-    const body = listJs.slice(at, at + 3000);
-    assert.ok(/clearHomeIfDraggedFromHome\(/.test(body),
-      `${target} takes the board off Home`);
+    const at = src.indexOf(`  '${target}'(evt`);
+    const head = src.slice(at, at + 600);
+    assert.ok(/if \(isDragFromHome\(evt\)\) return;/.test(head),
+      `${target} acts on nothing that came from Home`);
   }
-  // ...except the drop on Home itself, which is the one that does not.
-  const selectMenu = listJs.slice(listJs.indexOf("  'drop .js-select-menu'(evt) {"));
-  assert.ok(/menuType === 'home'\) return;/.test(selectMenu),
-    'a drop on Home is handled by its own handler and clears nothing');
+  // Nothing takes a board off Home as a SIDE EFFECT of landing somewhere any
+  // more - that was the earlier design, and it made every drop a Home drop.
+  assert.ok(!/clearHomeIfDraggedFromHome/.test(src),
+    'no drop clears Home on the way past');
+});
+
+test('the Remove target is the launcher bar: it appears while you drag', () => {
+  const src = stripComments(listJs);
+  // Android: pick an icon up and a Remove bar appears at the top of the screen;
+  // it is not there the rest of the time. An affordance that shows up when the
+  // gesture is possible explains itself.
+  assert.ok(/const draggingFromHome = new ReactiveVar\(false\)/.test(src),
+    'a reactive "a board from Home is in the air"');
+  assert.ok(/draggingFromHome\.set\(true\)/.test(src), 'set when the drag starts');
+  const dragend = src.slice(src.indexOf("  'dragend .js-board'(evt) {"), src.indexOf("  'dragend .js-board'(evt) {") + 400);
+  assert.ok(/draggingFromHome\.set\(false\)/.test(dragend),
+    'and cleared when it ends - dropped, cancelled or released over nothing');
+
+  const helper = listJs.slice(listJs.indexOf('  showsHomeRemoveTarget() {'),
+    listJs.indexOf('  // The "Add Board" tile'));
+  assert.ok(/=== 'home'/.test(helper) && /draggingFromHome\.get\(\)/.test(helper),
+    'shown only in Home, and only while dragging');
+  assert.ok(/if showsHomeRemoveTarget\n\s+li\.home-remove-target\.js-home-remove/
+    .test(listJade), 'the bar is drawn by that helper');
+  assert.ok(/i\.fa\.fa-trash/.test(listJade), 'with the trash icon');
+  assert.ok(/\{\{_ 'home-board-remove'\}\}/.test(listJade), 'and its name beside it');
+
+  const css = read('client/components/boards/boardsList.css');
+  const rest = css.slice(css.indexOf('.home-remove-target {'), css.indexOf('.home-remove-target .fa'));
+  const over = css.slice(css.indexOf('.home-remove-target.is-over {'));
+  assert.ok(/flex-basis: 100%/.test(rest), 'the whole row, above the tiles');
+  assert.ok(!/#c0392b/.test(rest),
+    'not red at rest - that would be a standing warning about a board nobody '
+    + 'is touching');
+  assert.ok(/#c0392b/.test(over.slice(0, over.indexOf('}'))),
+    'red under the icon, which is the answer to "what if I let go here"');
+});
+
+test('dropping on it takes the board off Home, and asks first', () => {
+  const drop = stripComments(listJs.slice(listJs.indexOf("  'drop .js-home-remove'(evt) {"),
+    listJs.indexOf("  'drop .js-home-menu'(evt) {")));
+  assert.ok(/confirm\(TAPi18n\.__\('home-board-remove-confirm'\)\)/.test(drop),
+    'asked before doing - a drop is easy to make by accident');
+  const askAt = drop.indexOf("confirm(TAPi18n.__('home-board-remove-confirm'))");
+  const doAt = drop.indexOf("Meteor.call('clearDefaultBoard'");
+  assert.ok(doAt !== -1 && askAt < doAt, 'and nothing happens before the answer');
+  assert.ok(/if \(!confirm/.test(drop), 'a No does nothing at all');
+  const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
+  assert.ok(/not deleted/.test(en['home-board-remove-confirm']),
+    'and the question says the board itself is not going anywhere - which is '
+    + 'what a reader wants to know when a trash can is under a board they care '
+    + 'about');
+  assert.ok(/'dragover \.js-home-remove'/.test(listJs)
+    && /'dragleave \.js-home-remove'/.test(listJs), 'it highlights under the icon');
 });
 
 test('no Add Board tile in Home, and an empty Home says what to drag', () => {
@@ -241,7 +294,8 @@ test('Multi-Selection still toggles, and both write the same one field', () => {
 test('the design doc is there and says what the drags do', () => {
   const doc = read('docs/Features/Board/Home.md');
   for (const phrase of ['/allboards/home', 'replaces', 'star', 'setDefaultBoard',
-    'clearDefaultBoard', 'application/x-board-from-section']) {
+    'clearDefaultBoard', 'application/x-board-from-home', 'launcher',
+    'preventDefault']) {
     assert.ok(doc.includes(phrase), `the doc must explain ${phrase}`);
   }
   assert.ok(/docs\/Features\/Board\/Home\.md/.test(listJs),

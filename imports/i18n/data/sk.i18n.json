@@ -117,6 +117,8 @@
   "set-selected-home": "Nastaviť ako domovskú nástenku (otvorí sa po prihlásení)",
   "home-board-badge": "Domovská nástenka (otvorí sa po prihlásení)",
   "home-board-empty": "Presuňte sem nástenku, ktorá sa otvorí po prihlásení",
+  "home-board-remove": "Odstrániť z Domov",
+  "home-board-remove-confirm": "Odstrániť túto nástenku z Domov? Samotná nástenka sa nezmaže.",
   "activity-dueDate": "editoval(a) termín dokončení na %s z %s",
   "activity-endDate": "editoval(a) datum ukončení na %s z %s",
   "add-attachment": "Pridať prílohu",

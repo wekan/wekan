@@ -325,38 +325,32 @@ test('the section the page opens on depends on whether anything is starred', () 
   // the highlighted row is the first row.
   assert.strictEqual(defaultSection(true), 'starred');
   assert.strictEqual(defaultSection(false), 'remaining');
-  assert.deepStrictEqual(menuSectionOrder(true, false),
+  assert.deepStrictEqual(menuSectionOrder(true),
     ['starred', 'remaining', 'home', 'templates', 'archive']);
-  assert.deepStrictEqual(menuSectionOrder(false, false),
+  assert.deepStrictEqual(menuSectionOrder(false),
     ['remaining', 'starred', 'home', 'templates', 'archive']);
-  // ...and a Home board takes the top, whichever way the two below it are
-  // round: it is the board this user starts in. docs/Features/Board/Home.md
-  assert.deepStrictEqual(menuSectionOrder(true, true),
-    ['home', 'starred', 'remaining', 'templates', 'archive']);
-  assert.deepStrictEqual(menuSectionOrder(false, true),
-    ['home', 'remaining', 'starred', 'templates', 'archive']);
+  // The TOP row is the one the page opens on, in both cases. Home sits under
+  // the two board lists and does not take the top: after login you are already
+  // IN the Home board. docs/Features/Board/Home.md
+  for (const starred of [true, false]) {
+    assert.strictEqual(menuSectionOrder(starred)[0], defaultSection(starred),
+      'the row you land on is the row at the top');
+  }
 
   // Both answers are sections the URL layer knows, or the page would open on a
   // name nothing draws.
   const { ALL_BOARDS_SECTIONS } = require('../models/lib/allBoardsUrls');
   for (const starred of [true, false]) {
     assert.ok(ALL_BOARDS_SECTIONS.includes(defaultSection(starred)));
-    for (const section of menuSectionOrder(starred, true)) {
+    for (const section of menuSectionOrder(starred)) {
       assert.ok(ALL_BOARDS_SECTIONS.includes(section), `${section} is a real section`);
     }
   }
   // Only the first two move. Templates and the Archive are the same rows in
   // the same places whichever way round the top two are.
-  assert.deepStrictEqual(menuSectionOrder(true, false).slice(2),
-    menuSectionOrder(false, false).slice(2));
-  for (const home of [true, false]) {
-    assert.deepStrictEqual([...menuSectionOrder(true, home)].sort(),
-      [...menuSectionOrder(false, home)].sort(), 'the same rows either way');
-  }
-  assert.deepStrictEqual([...menuSectionOrder(true, true)].sort(),
-    [...menuSectionOrder(true, false)].sort(),
-    'and Home is a row whether or not there is a board at it - the place to '
-    + 'drop one has to exist before there is anything in it');
+  assert.deepStrictEqual(menuSectionOrder(true).slice(2), menuSectionOrder(false).slice(2));
+  assert.deepStrictEqual([...menuSectionOrder(true)].sort(),
+    [...menuSectionOrder(false)].sort(), 'and the same five rows either way');
 });
 
 test('and `/` lets the page decide, rather than the router deciding for it', () => {

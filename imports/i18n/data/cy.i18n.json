@@ -117,6 +117,8 @@
   "set-selected-home": "Gosod fel bwrdd Cartref (yn agor ar ôl mewngofnodi)",
   "home-board-badge": "Bwrdd cartref (yn agor ar ôl mewngofnodi)",
   "home-board-empty": "Drag a board here to open it after login",
+  "home-board-remove": "Remove from Home",
+  "home-board-remove-confirm": "Remove this board from Home? The board itself is not deleted.",
   "activity-dueDate": "golygwyd y dyddiad cau i %s o %s",
   "activity-endDate": "dyddiad gorffen wedi'i olygu i %s o %s",
   "add-attachment": "Ychwanegu Atodiad",

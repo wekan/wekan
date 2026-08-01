@@ -117,6 +117,8 @@
   "set-selected-home": "تنظیم به‌عنوان برد خانه (پس از ورود باز می‌شود)",
   "home-board-badge": "برد خانه (پس از ورود باز می‌شود)",
   "home-board-empty": "یک برد را به اینجا بکشید تا پس از ورود باز شود",
+  "home-board-remove": "حذف از خانه",
+  "home-board-remove-confirm": "این برد از خانه حذف شود؟ خود برد پاک نمی‌شود.",
   "activity-dueDate": "تاریخ سررسید را به %s از %s ویرایش کرد",
   "activity-endDate": "تاریخ پایان را به %s از %s ویرایش کرد",
   "add-attachment": "افزودن ضمیمه",

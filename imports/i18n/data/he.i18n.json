@@ -117,6 +117,8 @@
   "set-selected-home": "הגדרה כלוח בית (נפתח אחרי הכניסה)",
   "home-board-badge": "לוח בית (נפתח אחרי הכניסה)",
   "home-board-empty": "גררו לכאן לוח כדי שייפתח אחרי הכניסה",
+  "home-board-remove": "הסרה מהבית",
+  "home-board-remove-confirm": "להסיר את הלוח הזה מהבית? הלוח עצמו לא נמחק.",
   "activity-dueDate": "תאריך היעד השתנה מ־%s ל־%s",
   "activity-endDate": "תאריך הסיום השתנה מ־%s ל־%s",
   "add-attachment": "הוספת קובץ מצורף",

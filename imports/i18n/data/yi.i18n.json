@@ -117,6 +117,8 @@
   "set-selected-home": "שטעל ווי היים־ברעט (געעפֿנט נאָך אָנמעלדונג)",
   "home-board-badge": "היים־ברעט (געעפֿנט נאָך אָנמעלדונג)",
   "home-board-empty": "Drag a board here to open it after login",
+  "home-board-remove": "Remove from Home",
+  "home-board-remove-confirm": "Remove this board from Home? The board itself is not deleted.",
   "activity-dueDate": "עדיטיד רעכט דאַטע צו %s פון %s",
   "activity-endDate": "עדיטיד סוף טאָג צו %s פון %s",
   "add-attachment": "לייג אַטאַטשמאַנט",

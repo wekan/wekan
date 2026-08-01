@@ -29,19 +29,15 @@ board is still *there* — a Home board that was deleted or archived leaves its 
 behind in the profile, and a row that counts 1 with nothing under it looks
 broken.
 
-**It is the first row when a Home board is set**, above Starred and Remaining:
-it is the board this user starts in, and the row that names it belongs where
-they look first. With none set the row is still there, further down, because the
-place to drop a board onto has to exist before there is anything in it.
+**It sits under the two board lists**, above Templates and the Archive. The top
+row is the one the page opens on — Starred when anything is starred, Remaining
+when nothing is — and Home does not take it: after login you are already *in*
+the Home board, so the row that names it is a place to look, not the place to
+start. The row is there whether or not a board is at it, because the place to
+drop a board onto has to exist before there is anything in it.
 
 Its address is `/allboards/home`, the same shape as the other sections
 ([All Boards URLs](../../Design/Page/All-Boards-URLs.md)).
-
-**Home is not the section the page opens on.** After login you are already *in*
-the Home board; clicking All Boards from there means "show me my boards", and
-answering with the one board you just left is not showing you anything. So the
-landing section stays Starred-or-Remaining
-([All Boards](../../Design/Page/All-Boards.md)).
 
 There is no **Add Board** tile in Home. A board created here would not be the
 board that opens after login, so the tile would promise something it cannot do.
@@ -66,13 +62,45 @@ Dropping a **multi-selection** sets the first of them, the same one the
 Multi-Selection sidebar's Home row sets, and then clears the selection so it
 cannot look as though all of them went somewhere.
 
-**Dragging a board out of Home** — onto Remaining, Starred, Templates, the
-Archive or a workspace — takes it off Home and leaves it where it lives. Exactly
-the star's behaviour, and the reason the drag has to carry **where it started**:
-a drop on Remaining must be able to tell "the Home board, dragged out of Home"
-from "the Home board, dragged out of a workspace", which is a fact about the
-drag rather than about the board. It rides on the drag itself, as
-`application/x-board-from-section`.
+### Taking a board off Home — the launcher's Remove bar
+
+A board dragged out of Home may land in **exactly one place**: the **Remove**
+target, which appears while you drag it.
+
+This is the gesture an Android launcher uses to take an app off the home screen.
+Pick an icon up and a Remove bar appears at the top; drag the icon onto it and
+it turns red; let go and the shortcut is gone — while the app itself is still in
+the drawer. Here the board is still in Remaining, or in its workspace, and has
+only stopped being the board that opens after login.
+
+The bar is drawn **only while a board from Home is actually in the air**. An
+affordance that appears when the gesture is possible explains itself; a trash
+can sitting permanently under somebody's boards is a button nobody dares press.
+It spans the width of the board area — it is a target, and a target you have to
+aim at is a target you miss — and it is **red only under the icon**, because the
+colour is the answer to "what happens if I let go here" rather than a standing
+warning about a board nobody is touching.
+
+It **asks before doing**, the way the drop on the Archive asks, and the question
+says the board itself is not deleted: that is what a reader wants to know when a
+trash can is under a board they care about.
+
+**Every other target refuses the drop.** Remaining, Starred, Templates, the
+Archive and the workspaces tree all check, *in `dragover`*, whether the board
+came from Home — and if it did they simply do not call `preventDefault()`, which
+is how HTML5 drag and drop says no. The cursor says no while the board is still
+in the air, rather than the drop landing and quietly doing nothing.
+
+That check has to happen in `dragover`, which **cannot call `getData()`**: the
+drag data store is in protected mode until the drop, and only the list of
+*types* is exposed. So the fact lives in the type's **name** —
+`application/x-board-from-home`, set at `dragstart` and never read for its
+value. Its presence is the message.
+
+An earlier version let a board dragged out of Home onto any other row clear Home
+on the way past. That made every drop a Home drop, and a board could leave Home
+by accident while you were filing it into a workspace. One gesture, one
+destination, and the destination is the thing that says what it will do.
 
 ## What the server enforces
 
@@ -91,9 +119,10 @@ must not thereby decide which board that user starts in
 
 | File Path | File Type | Description |
 | --- | --- | --- |
-| `models/lib/allBoardsUrls.js` | `.js` module, pure | `SECTION_HOME`, and `menuSectionOrder()`, which puts Home first when there is a board at it. |
+| `models/lib/allBoardsUrls.js` | `.js` module, pure | `SECTION_HOME`, and `menuSectionOrder()`, which puts Home under the two board lists. |
 | `client/components/boards/boardsList.js` | `.js` client | The row, its count, the section's one board, and every drag path that sets or clears Home. |
-| `client/components/boards/boardsList.jade` | `.jade` template | The menu row and the empty-Home line. |
+| `client/components/boards/boardsList.jade` | `.jade` template | The menu row, the Remove bar and the empty-Home line. |
+| `client/components/boards/boardsList.css` | `.css` | The Remove bar, and its red under the icon. |
 | `client/components/boards/allBoardsSidebar.jade` | `.jade` template | Multi-Selection's own **Set as Home board** row, which toggles. |
 | `models/users.js` | `.js` collection | `getDefaultBoardId`, `isDefaultBoard`, `toggleDefaultBoard`. |
 | `server/models/users.js` | `.js` methods | `setDefaultBoard` (replaces, membership-checked) and `clearDefaultBoard` (clears only its own board). |

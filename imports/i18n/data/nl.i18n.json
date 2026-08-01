@@ -117,6 +117,8 @@
   "set-selected-home": "Instellen als startbord (geopend na inloggen)",
   "home-board-badge": "Startbord (geopend na inloggen)",
   "home-board-empty": "Sleep hier een bord naartoe om het na het inloggen te openen",
+  "home-board-remove": "Verwijderen van start",
+  "home-board-remove-confirm": "Dit bord van de startpagina verwijderen? Het bord zelf wordt niet verwijderd.",
   "activity-dueDate": "vervaldatum gewijzigd naar %s van %s",
   "activity-endDate": "einddatum gewijzigd naar %s van %s",
   "add-attachment": "Bijlage Toevoegen",

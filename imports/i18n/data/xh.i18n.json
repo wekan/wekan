@@ -117,6 +117,8 @@
   "set-selected-home": "Misela njengeBhodi yaseKhaya (evulwa emva kokungena)",
   "home-board-badge": "Ibhodi yaseKhaya (evulwa emva kokungena)",
   "home-board-empty": "Drag a board here to open it after login",
+  "home-board-remove": "Remove from Home",
+  "home-board-remove-confirm": "Remove this board from Home? The board itself is not deleted.",
   "activity-dueDate": "ihlelwe umhla omiselweyo ukuba %s we %s",
   "activity-endDate": "Umhla wokugqibela ohleliweyo ukuya %s we %s",
   "add-attachment": "Yongeza isiqhoboshelo",

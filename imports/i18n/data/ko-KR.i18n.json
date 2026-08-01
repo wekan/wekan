@@ -117,6 +117,8 @@
   "set-selected-home": "홈 보드로 설정 (로그인 후 열림)",
   "home-board-badge": "홈 보드 (로그인 후 열림)",
   "home-board-empty": "Drag a board here to open it after login",
+  "home-board-remove": "Remove from Home",
+  "home-board-remove-confirm": "Remove this board from Home? The board itself is not deleted.",
   "activity-dueDate": "마감 날짜가 %s의 %s로 수정됨",
   "activity-endDate": "종료 날짜가 %s의 %s로 수정됨",
   "add-attachment": "첨부파일 추가",

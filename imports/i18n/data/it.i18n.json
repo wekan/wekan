@@ -117,6 +117,8 @@
   "set-selected-home": "Imposta come bacheca Home (aperta dopo il login)",
   "home-board-badge": "Bacheca Home (aperta dopo il login)",
   "home-board-empty": "Trascina qui una bacheca per aprirla dopo il login",
+  "home-board-remove": "Rimuovi da Home",
+  "home-board-remove-confirm": "Rimuovere questa bacheca da Home? La bacheca non viene eliminata.",
   "activity-dueDate": "ha modificato la data di scadenza a %s di %s",
   "activity-endDate": "ha modificato la data di fine a %s di %s",
   "add-attachment": "Aggiungi allegato",

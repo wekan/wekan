@@ -117,6 +117,8 @@
   "set-selected-home": "Đặt làm bảng Trang chủ (mở sau khi đăng nhập)",
   "home-board-badge": "Bảng Trang chủ (mở sau khi đăng nhập)",
   "home-board-empty": "Drag a board here to open it after login",
+  "home-board-remove": "Remove from Home",
+  "home-board-remove-confirm": "Remove this board from Home? The board itself is not deleted.",
   "activity-dueDate": "đã sửa ngày hết hạn thành %s của %s",
   "activity-endDate": "đã sửa ngày kết thúc thành %s của %s",
   "add-attachment": "Thêm Bản Đính Kèm",

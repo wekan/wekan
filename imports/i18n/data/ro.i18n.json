@@ -117,6 +117,8 @@
   "set-selected-home": "Setează ca panou principal (deschis după autentificare)",
   "home-board-badge": "Panou principal (deschis după autentificare)",
   "home-board-empty": "Trageți aici un panou pentru a se deschide după autentificare",
+  "home-board-remove": "Elimină de pe pagina principală",
+  "home-board-remove-confirm": "Eliminați acest panou de pe pagina principală? Panoul nu este șters.",
   "activity-dueDate": "ha modificato la data di scadenza a %s di %s",
   "activity-endDate": "ha modificato la data di fine a %s di %s",
   "add-attachment": "Aggiungi allegato",

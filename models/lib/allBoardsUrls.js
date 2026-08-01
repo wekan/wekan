@@ -66,21 +66,20 @@ function defaultSection(hasStarredBoards) {
 
 // The rows of the left menu, in the order they are shown.
 //
-// Home comes FIRST when a Home board is set, because it is the board this user
-// opens after login - the one board they said is where they start - and a row
-// that names it belongs where they look first. With no Home board set the row
-// is still there, empty, so the place to drop a board onto exists before there
-// is anything in it; it just does not take the top.
+// The TOP row is the one the page opens on - Starred when anything is starred,
+// Remaining when nothing is (see defaultSection) - and it is the top row
+// whether or not a Home board is set. Home does not take the top: after login
+// you are already IN the Home board, so the row that names it is a place to
+// look, not the place to start.
 //
-// Then the two that swap (see defaultSection), then Templates and the Archive,
-// which never move.
-function menuSectionOrder(hasStarredBoards, hasHomeBoard) {
+// Home sits under the two board lists, above Templates and the Archive, and it
+// is there whether or not there is a board at it - the place to drop a board
+// onto has to exist before there is anything in it.
+function menuSectionOrder(hasStarredBoards) {
   const boardLists = hasStarredBoards
     ? [SECTION_STARRED, SECTION_REMAINING]
     : [SECTION_REMAINING, SECTION_STARRED];
-  return hasHomeBoard
-    ? [SECTION_HOME, ...boardLists, SECTION_TEMPLATES, SECTION_ARCHIVE]
-    : [...boardLists, SECTION_HOME, SECTION_TEMPLATES, SECTION_ARCHIVE];
+  return [...boardLists, SECTION_HOME, SECTION_TEMPLATES, SECTION_ARCHIVE];
 }
 
 const ALL_BOARDS_BASE = '/allboards';

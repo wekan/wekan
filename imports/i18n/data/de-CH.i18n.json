@@ -117,6 +117,8 @@
   "set-selected-home": "Als Home-Board festlegen (nach Anmeldung geöffnet)",
   "home-board-badge": "Home-Board (nach Anmeldung geöffnet)",
   "home-board-empty": "Drag a board here to open it after login",
+  "home-board-remove": "Remove from Home",
+  "home-board-remove-confirm": "Remove this board from Home? The board itself is not deleted.",
   "activity-dueDate": "hat Fälligkeitsdatum zu %s geändert auf %s",
   "activity-endDate": "hat Enddatum zu %s geändert auf %s",
   "add-attachment": "Datei anhängen",

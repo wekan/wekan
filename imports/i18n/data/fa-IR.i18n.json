@@ -117,6 +117,8 @@
   "set-selected-home": "تنظیم به‌عنوان برد خانه (پس از ورود باز می‌شود)",
   "home-board-badge": "برد خانه (پس از ورود باز می‌شود)",
   "home-board-empty": "Drag a board here to open it after login",
+  "home-board-remove": "Remove from Home",
+  "home-board-remove-confirm": "Remove this board from Home? The board itself is not deleted.",
   "activity-dueDate": "تاریخ سررسید را به %s از %s ویرایش کرد",
   "activity-endDate": "تاریخ پایان را به %s از %s ویرایش کرد",
   "add-attachment": "افزودن ضمیمه",

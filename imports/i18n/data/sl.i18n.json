@@ -117,6 +117,8 @@
   "set-selected-home": "Nastavi kot domačo tablo (odpre se po prijavi)",
   "home-board-badge": "Domača tabla (odpre se po prijavi)",
   "home-board-empty": "Povlecite sem tablo, da se odpre po prijavi",
+  "home-board-remove": "Odstrani z Domov",
+  "home-board-remove-confirm": "Odstranim to tablo z Domov? Tabla sama se ne izbriše.",
   "activity-dueDate": "је изменио крајњи рок на %s у предмету %s",
   "activity-endDate": "је изменио датум и време %s кад је окончао предмет %s",
   "add-attachment": "Dodaj priponko",

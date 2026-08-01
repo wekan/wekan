@@ -117,6 +117,8 @@
   "set-selected-home": "设为主看板（登录后打开）",
   "home-board-badge": "主看板（登录后打开）",
   "home-board-empty": "Drag a board here to open it after login",
+  "home-board-remove": "Remove from Home",
+  "home-board-remove-confirm": "Remove this board from Home? The board itself is not deleted.",
   "activity-dueDate": "已将到期日期从 %s 修改为 %s",
   "activity-endDate": "已将结束日期从 %s 修改为 %s",
   "add-attachment": "添加附件",

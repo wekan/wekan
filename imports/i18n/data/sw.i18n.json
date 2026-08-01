@@ -117,6 +117,8 @@
   "set-selected-home": "Weka kama bodi ya Nyumbani (inafunguliwa baada ya kuingia)",
   "home-board-badge": "Bodi ya Nyumbani (inafunguliwa baada ya kuingia)",
   "home-board-empty": "Drag a board here to open it after login",
+  "home-board-remove": "Remove from Home",
+  "home-board-remove-confirm": "Remove this board from Home? The board itself is not deleted.",
   "activity-dueDate": "tarehe ya mwisho iliyohaririwa kuwa %s ya %s",
   "activity-endDate": "tarehe ya mwisho iliyohaririwa kuwa %s ya %s",
   "add-attachment": "Ongeza Kiambatisho",

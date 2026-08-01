@@ -62,9 +62,10 @@ and Remaining when nothing is**, and the menu puts whichever one that is **on
 top**, so the highlighted row is the first row.
 
 The rule is `defaultSection()` / `menuSectionOrder()` in
-`models/lib/allBoardsUrls.js` — a boolean in, a section name (or the four rows in
+`models/lib/allBoardsUrls.js` — a boolean in, a section name (or the five rows in
 order) out — so the page and its guard read the same one. Only the first two
-rows move; Templates and the Archive keep their places.
+rows move; [Home](../../Features/Board/Home.md), Templates and the Archive keep
+their places under them.
 
 **The router does not answer this.** It runs before the user document has
 necessarily loaded, so it writes `null` for `/` and the page picks. The page
@@ -79,10 +80,9 @@ An address that **does** name a section still wins over all of this: selecting a
 row navigates, the route puts that name in the Session, and the fallback stops
 applying. This cannot fight a choice the reader has made.
 
-The four rows are **one row in the markup, drawn once per section**, since an
-order that depends on the user cannot be four copies of the same eight lines
-without moving markup about. Their icons and names live in a map beside the
-loop.
+The rows are **one row in the markup, drawn once per section**, since an order
+that depends on the user cannot be five copies of the same eight lines without
+moving markup about. Their icons and names live in a map beside the loop.
 
 The left menu is three kinds of thing in one column — the three board lists, the
 workspaces tree, and the archive — so the Workspaces section has a rule above and

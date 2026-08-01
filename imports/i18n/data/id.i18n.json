@@ -117,6 +117,8 @@
   "set-selected-home": "Setel sebagai papan Beranda (dibuka setelah login)",
   "home-board-badge": "Papan beranda (dibuka setelah login)",
   "home-board-empty": "Seret papan ke sini agar dibuka setelah login",
+  "home-board-remove": "Hapus dari Beranda",
+  "home-board-remove-confirm": "Hapus papan ini dari Beranda? Papan itu sendiri tidak dihapus.",
   "activity-dueDate": "menyunting tanggal jatuh tempo menjadi %s dari %s",
   "activity-endDate": "menyunting tanggal berakhir menjadi %s dari %s",
   "add-attachment": "Tambah Lampiran",

@@ -117,6 +117,8 @@
   "set-selected-home": "Ustaw jako tablicę startową (otwieraną po zalogowaniu)",
   "home-board-badge": "Tablica startowa (otwierana po zalogowaniu)",
   "home-board-empty": "Przeciągnij tutaj tablicę, aby otwierać ją po zalogowaniu",
+  "home-board-remove": "Usuń ze Strony głównej",
+  "home-board-remove-confirm": "Usunąć tę tablicę ze Strony głównej? Sama tablica nie zostanie usunięta.",
   "activity-dueDate": "zmienił datę wykonania na %s z %s",
   "activity-endDate": "zmienił datę zakończenia na %s z %s",
   "add-attachment": "Dodaj załącznik",

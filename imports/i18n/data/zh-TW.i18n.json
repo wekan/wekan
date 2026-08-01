@@ -117,6 +117,8 @@
   "set-selected-home": "設為首頁看板（登入後開啟）",
   "home-board-badge": "首頁看板（登入後開啟）",
   "home-board-empty": "將看板拖曳到這裡，登入後即會開啟",
+  "home-board-remove": "從首頁移除",
+  "home-board-remove-confirm": "要將此看板從首頁移除嗎？看板本身不會被刪除。",
   "activity-dueDate": "已編輯截止日期為 %s %s",
   "activity-endDate": "已編輯結束日期為 %s %s",
   "add-attachment": "新增附件",

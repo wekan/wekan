@@ -117,6 +117,8 @@
   "set-selected-home": "设为主看板（登录后打开）",
   "home-board-badge": "主看板（登录后打开）",
   "home-board-empty": "将看板拖到此处，登录后即可打开",
+  "home-board-remove": "从首页移除",
+  "home-board-remove-confirm": "将此看板从首页移除？看板本身不会被删除。",
   "activity-dueDate": "已将到期日期从 %s 修改为 %s",
   "activity-endDate": "已将结束日期从 %s 修改为 %s",
   "add-attachment": "添加附件",

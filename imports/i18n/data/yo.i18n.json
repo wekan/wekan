@@ -117,6 +117,8 @@
   "set-selected-home": "Ṣeto gẹgẹ bi igbimọ Ile (ṣiṣi lẹhin iwọle)",
   "home-board-badge": "Igbimọ Ile (ṣiṣi lẹhin iwọle)",
   "home-board-empty": "Drag a board here to open it after login",
+  "home-board-remove": "Remove from Home",
+  "home-board-remove-confirm": "Remove this board from Home? The board itself is not deleted.",
   "activity-dueDate": "ṣatunkọ ọjọ ipari si %s ti %s",
   "activity-endDate": "ọjọ ipari ti a ṣatunkọ si %s ti %s",
   "add-attachment": "Fi Asomọ",

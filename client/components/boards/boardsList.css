@@ -174,6 +174,43 @@
   color: #fff;
 }
 
+/* The Remove target of the Home section - the Android launcher's Remove bar.
+   It appears only while a board from Home is being dragged, spans the width of
+   the board area so it cannot be missed, and turns red under the icon. Red at
+   REST would be a standing warning about a board nobody is touching; red on
+   hover is the answer to "what happens if I let go here".
+   docs/Features/Board/Home.md */
+.home-remove-target {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  /* The whole row, above the tiles: the launcher puts it at the edge the icon
+     is dragged towards, not beside the icons where it competes with them. */
+  flex-basis: 100%;
+  padding: 14px;
+  margin: 7px;
+  border: 2px dashed #d0d0d0;
+  border-radius: 4px;
+  color: #808080;
+  font-size: 14px;
+  /* Nothing to grab: this is where a drag ENDS. */
+  cursor: default;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.home-remove-target .fa {
+  font-size: 18px;
+}
+/* Under the icon. The colour is the answer to "what happens if I let go", so it
+   is the destructive one - and it is only ever shown while something is over
+   it. */
+.home-remove-target.is-over {
+  background: #fdecea;
+  border-color: #c0392b;
+  border-style: solid;
+  color: #c0392b;
+}
+
 /* An empty Home section: the row exists before there is a board at it, so the
    pane says what to drag rather than showing nothing at all. Sized and spaced
    like a board tile so it sits where the first tile would.
