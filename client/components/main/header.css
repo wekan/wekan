@@ -143,6 +143,28 @@
   margin: 0 6px;
   background: rgba(255, 255, 255, 0.4);
 }
+/* The groups that hold MANY buttons generate no box, so their buttons are flex
+   items of the bar and wrap one at a time.
+
+   A wrapper div is ONE item to the bar. The board's ten controls sit in
+   `.board-header-controls` and the Admin Panel's four tabs in
+   `.admin-panel-tabs`, so when the last of them did not fit, the whole group
+   went to the second row together - the first row ended after the star group
+   with half the bar empty, while the second was full. Exactly the fault
+   `.header-quick-access-end` had, one level further in.
+
+   The other two groups stay boxes on purpose: `#notifications` also contains
+   the drawer that opens under the bell, and `.header-sidebar-toggle` is a
+   divider and the hamburger it divides - a pair that means nothing apart.
+
+   Both classes are named - these elements carry `.board-header-btns` too, and
+   the flex rule below matches them at the SAME weight, so naming only the
+   modifier would leave which one applies to source order. */
+#header-quick-access .board-header-btns.board-header-controls,
+#header-quick-access .board-header-btns.admin-panel-tabs {
+  display: contents;
+}
+
 #header-quick-access .board-header-btns {
   display: flex;
   align-items: center;

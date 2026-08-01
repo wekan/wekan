@@ -79,6 +79,15 @@ In source order: the house and the page title (plus the pencil that renames a
 board), the logo, the phone/desktop toggle, the drag-handles toggle, and then
 everything else.
 
+The groups that hold many buttons are `display: contents` — the board's ten
+controls, the Admin Panel's four tabs, and the end group itself. A wrapper div is
+**one item** to the bar, so when the last button of a group did not fit, the
+whole group moved to the second row together and the first row ended with half
+the bar empty. With no box generated, the buttons are items of the bar and wrap
+one at a time. `#notifications` and the divider-plus-hamburger stay boxes on
+purpose: the first also contains the drawer that opens under the bell, and the
+second is a pair that means nothing apart.
+
 **Everything packs from the start and wraps forward** — left to right in a
 left-to-right language, right to left in a right-to-left one, which flexbox does
 by itself because it follows the writing direction. Nothing is pushed to the far
