@@ -1324,6 +1324,7 @@
   "hide-minicard-label-text": "ミニカードのラベル名を隠す",
   "show-desktop-drag-handles": "デスクトップへのドラッグハンドルを表示",
   "drag-to-resize-sidebar": "드래그하여 사이드바 크기 조절",
+  "drag-to-resize-left-menu": "Drag to resize left menu",
   "submit-on-enter": "Enter로 편집기 제출",
   "open-many-cards-at-once": "여러 카드를 한 번에 열기",
   "open-many-cards-at-once-description": "클릭한 카드마다 자기 창에서 열린 채로 유지됩니다. 이 옵션이 꺼져 있으면 카드를 클릭할 때 열려 있던 카드가 닫힙니다.",

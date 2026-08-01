@@ -1324,6 +1324,7 @@
   "hide-minicard-label-text": "Сховати текст мітки міні-картки",
   "show-desktop-drag-handles": "Показати ручки перетягування на робочому столі",
   "drag-to-resize-sidebar": "Перетягніть, щоб змінити розмір бічної панелі",
+  "drag-to-resize-left-menu": "Drag to resize left menu",
   "submit-on-enter": "Зберігати редактори клавішею Enter",
   "open-many-cards-at-once": "Відкривати кілька карток одночасно",
   "open-many-cards-at-once-description": "Кожна картка, на яку ви натискаєте, залишається відкритою у власному вікні. Коли це вимкнено, натискання на картку закриває ту, що була відкрита.",

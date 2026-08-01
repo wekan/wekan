@@ -1324,6 +1324,7 @@
   "hide-minicard-label-text": "Rejtse el a Címke szövegét a mini Kártyákon",
   "show-desktop-drag-handles": "Mutassa a fogd-és-vidd eseményeket",
   "drag-to-resize-sidebar": "Húzással átméretezheti az oldalsávot",
+  "drag-to-resize-left-menu": "Drag to resize left menu",
   "submit-on-enter": "Szerkesztők beküldése Enter billentyűvel",
   "open-many-cards-at-once": "Több kártya megnyitása egyszerre",
   "open-many-cards-at-once-description": "Minden kártya, amelyre rákattint, saját ablakban marad nyitva. Ha ez ki van kapcsolva, egy kártyára kattintva bezárul az, amelyik nyitva volt.",

@@ -1324,6 +1324,7 @@
   "hide-minicard-label-text": "隱藏迷你卡標籤文字",
   "show-desktop-drag-handles": "顯示桌面拖曳手把",
   "drag-to-resize-sidebar": "拖动嚟调整侧栏阔度",
+  "drag-to-resize-left-menu": "Drag to resize left menu",
   "submit-on-enter": "㩒 Enter 提交编辑器",
   "open-many-cards-at-once": "同時開啟多張卡片",
   "open-many-cards-at-once-description": "你點擊的每張卡片都會在各自的視窗中保持開啟。關閉此項時，點擊一張卡片會關閉原先開啟的那張。",

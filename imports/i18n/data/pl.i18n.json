@@ -1324,6 +1324,7 @@
   "hide-minicard-label-text": "Ukryj opisy etykiet miniaturach kart",
   "show-desktop-drag-handles": "Pokaż przeciągnięcia na pulpit",
   "drag-to-resize-sidebar": "Przeciągnij, aby zmienić rozmiar paska bocznego",
+  "drag-to-resize-left-menu": "Drag to resize left menu",
   "submit-on-enter": "Zatwierdzaj edytory klawiszem Enter",
   "open-many-cards-at-once": "Otwieraj wiele kart naraz",
   "open-many-cards-at-once-description": "Każda karta, którą klikniesz, pozostaje otwarta we własnym oknie. Gdy ta opcja jest wyłączona, kliknięcie karty zamyka tę, która była otwarta.",

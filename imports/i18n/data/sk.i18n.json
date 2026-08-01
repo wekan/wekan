@@ -1324,6 +1324,7 @@
   "hide-minicard-label-text": "Skrýt text popisku minikarty",
   "show-desktop-drag-handles": "Zobrazit okraje pro přesun plochy",
   "drag-to-resize-sidebar": "Potiahnutím zmeníte veľkosť bočného panela",
+  "drag-to-resize-left-menu": "Drag to resize left menu",
   "submit-on-enter": "Odoslať editory klávesom Enter",
   "open-many-cards-at-once": "Otvoriť viac kariet naraz",
   "open-many-cards-at-once-description": "Každá karta, na ktorú kliknete, zostane otvorená vo vlastnom okne. Keď je toto vypnuté, kliknutie na kartu zavrie tú, ktorá bola otvorená.",

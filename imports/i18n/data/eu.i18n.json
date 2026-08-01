@@ -1324,6 +1324,7 @@
   "hide-minicard-label-text": "Ezkutatu minitxartelaren etiketaren testua",
   "show-desktop-drag-handles": "Mostrar los controles de arrastre del escritorio",
   "drag-to-resize-sidebar": "Arrastatu alboko barra tamainaz aldatzeko",
+  "drag-to-resize-left-menu": "Drag to resize left menu",
   "submit-on-enter": "Bidali editoreak Enter sakatuz",
   "open-many-cards-at-once": "Ireki txartel asko aldi berean",
   "open-many-cards-at-once-description": "Klik egiten duzun txartel bakoitza bere leihoan irekita geratzen da. Hau desaktibatuta dagoenean, txartel batean klik egiteak irekita zegoena ixten du.",

@@ -1324,6 +1324,7 @@
   "hide-minicard-label-text": "Скрыть текст меток на карточках",
   "show-desktop-drag-handles": "Показать ярлыки для перетаскивания",
   "drag-to-resize-sidebar": "Перетащите, чтобы изменить размер боковой панели",
+  "drag-to-resize-left-menu": "Drag to resize left menu",
   "submit-on-enter": "Отправлять редакторы клавишей Enter",
   "open-many-cards-at-once": "Открывать несколько карточек одновременно",
   "open-many-cards-at-once-description": "Каждая карточка, на которую вы нажимаете, остаётся открытой в своём окне. Когда параметр выключен, нажатие на карточку закрывает ту, что была открыта.",

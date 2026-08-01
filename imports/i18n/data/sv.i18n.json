@@ -1324,6 +1324,7 @@
   "hide-minicard-label-text": "Dölj etikett för minikort",
   "show-desktop-drag-handles": "Visa greppytor i desktop",
   "drag-to-resize-sidebar": "Dra för att ändra storlek på sidofältet",
+  "drag-to-resize-left-menu": "Drag to resize left menu",
   "submit-on-enter": "Skicka redigerare med Enter",
   "open-many-cards-at-once": "Öppna flera kort samtidigt",
   "open-many-cards-at-once-description": "Varje kort du klickar på förblir öppet i ett eget fönster. När det här är av stänger ett klick på ett kort det kort som var öppet.",

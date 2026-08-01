@@ -1324,6 +1324,7 @@
   "hide-minicard-label-text": "مخفی کردن اسم لیبل مینی کارت",
   "show-desktop-drag-handles": "نمایش دستگیره‌های درگ‌کردن دسکتاپ",
   "drag-to-resize-sidebar": "اسحب لتغيير عرض الشريط الجانبي",
+  "drag-to-resize-left-menu": "Drag to resize left menu",
   "submit-on-enter": "إرسال المحررات بالضغط على Enter",
   "open-many-cards-at-once": "فتح عدة بطاقات في وقت واحد",
   "open-many-cards-at-once-description": "تبقى كل بطاقة تنقر عليها مفتوحة في نافذتها الخاصة. عند إيقاف هذا الخيار، يؤدي النقر على بطاقة إلى إغلاق البطاقة المفتوحة.",
