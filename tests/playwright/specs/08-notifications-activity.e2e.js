@@ -130,10 +130,21 @@ test.describe('Notifications & activity log', () => {
     await login(page2, user.id, user.token);
     await page2.goto(process.env.WEKAN_BASE_URL || 'http://localhost:3000', { waitUntil: 'networkidle' });
 
-    // Notification badge or indicator should exist in header
-    const notifBadge = page2.locator('.notification-badge, .js-notification-count, [data-count], .badge').first();
-    // Even if count is 0 initially (async), the element should be present
-    await expect(page2.locator('header, #header')).toBeVisible({ timeout: 10_000 });
+    // The mentioned user's page renders the header bar, and the bell that would
+    // carry the notification is in it.
+    //
+    // `#header-quick-access`, not `header, #header`: the first header bar was
+    // rebuilt this release and there is no `<header>` element or `#header` id
+    // any more - the bar is `#header-quick-access[role=navigation]`, which is
+    // what specs 18 and 19 already address it by. The old locator matched
+    // nothing, so this asserted that a non-existent element was visible.
+    // docs/Design/Page/Header.md
+    const headerBar = page2.locator('#header-quick-access');
+    await expect(headerBar).toBeVisible({ timeout: 10_000 });
+    // The bell itself rather than a count: the count arrives asynchronously and
+    // an assertion on it would be timing, not behaviour.
+    await expect(headerBar.locator('#notifications .notifications-drawer-toggle'))
+      .toBeVisible({ timeout: 10_000 });
     await page2.close();
   });
 });
