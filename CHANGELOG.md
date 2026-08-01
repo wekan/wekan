@@ -1497,7 +1497,7 @@ The other four templates in the file were clean.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/96289e118">Search All Boards searches all of your boards, not every board on the server</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/96289e118">Search All Boards searches all of your boards, not Public Boards anymore</a>. Thanks to xet7.</summary>
 
 The board scope listed the ways a user reaches a board — member, organization,
 team, e-mail domain — and `{ permission: 'public' }`. That last one is the odd
