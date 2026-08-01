@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v10.53
+  version: v10.54
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -6502,6 +6502,26 @@ definitions:
         description: |
            does the user want to show desktop drag handles?
         type: boolean
+      leftMenuCollapsed:
+        description: |
+           is the left menu of All Boards and the Admin Panel collapsed? One
+           setting for both: they are one menu drawn on two pages.
+           docs/Design/Page/Left-Menu.md
+        type: boolean
+      collapsedWorkspaces:
+        description: |
+           which workspaces of the All Boards left menu are folded, as a map of
+           workspace id -> true. Only the folded ones are stored, so a tree of
+           fifty workspaces with two folded is two keys.
+           docs/Design/Page/Workspaces.md
+        type: object
+      leftMenuWidth:
+        description: |
+           user-chosen width (px) of that same left menu, set by dragging its inner
+           edge - the right one while reading left to right, the left one under a
+           right-to-left language. One width for both pages, like the fold above.
+           Unset = the CSS default. docs/Design/Page/Left-Menu.md
+        type: number
       submitOnEnter:
         description: |
            per-user preference: in multi-line editors (card title/description and
@@ -6661,6 +6681,14 @@ definitions:
         items:
           type: string
           x-nullable: true
+      starredPages:
+        description: |
+           the starred PAGES - bookmarks. A board is starred by id; a page has no
+           id, so each entry is the pair a bookmark is: a relative URL and the
+           title to list it under. docs/Features/Board/Starred.md
+        type: array
+        items:
+          $ref: "#/definitions/UsersProfileStarredpages"
       defaultBoardId:
         description: |
            #2220: the board that opens automatically after logging in (the user's
@@ -6792,10 +6820,6 @@ definitions:
           - yyyy-mm-dd
           - dd-mm-yyyy
           - mm-dd-yyyy
-      zoomLevel:
-        description: |
-           User-specified zoom level for board view (1.0 = 100%, 1.5 = 150%, etc.)
-        type: number
       mobileMode:
         description: |
            User-specified mobile/desktop mode toggle.
@@ -6822,7 +6846,6 @@ definitions:
       - keyboardShortcuts
       - verticalScrollbars
       - showWeekOfYear
-      - zoomLevel
       - cardZoom
   UsersSessiondata:
     type: object
@@ -6906,5 +6929,19 @@ definitions:
       - activity
   UsersProfileStarredboards:
     type: object
+  UsersProfileStarredpages:
+    type: object
+    properties:
+      url:
+        description: |
+           RELATIVE, so a bookmark survives the site moving to another host.
+        type: string
+      title:
+        description: |
+           The words the browser tab shows, which are the words the dropdown lists.
+        type: string
+    required:
+      - url
+      - title
   UsersImportusernames:
     type: object
