@@ -311,6 +311,25 @@ tree and the organization / team filters. Starred is *only* here now: the header
 bar had a Starred button beside it, and two ways to reach one section, one click
 apart, is a control that has to be kept in step with the menu for no gain.
 
+### Reordering a workspace
+
+A workspace row obeys the **Show desktop drag handles** toggle in the first
+header bar — the same setting swimlanes, lists, cards and the board tiles obey,
+through the same `isTouchScreenOrShowDesktopDragHandles` helper.
+
+- **Handles on** — the ✥ handle is drawn at the start of the row, and it is the
+  only place a workspace drag may start.
+- **Handles off** — no handle, and the workspace's own **icon** is what reorders
+  it.
+
+The icon, not the whole row. A workspace row is a row you **click** — it is how
+a workspace is opened — and a row that is draggable as a whole starts a drag on
+the way to a click. So `draggable` lives on the handle or on the icon, never on
+the row, and the `dragstart` handler stays on the row because the event bubbles
+up from whichever child started it. The cursor follows the same `draggable`
+attribute rather than a second class, so there is one answer to "is this the
+drag source right now".
+
 ## Related files
 
 Only what is particular to this page; everything shared by table pages is in

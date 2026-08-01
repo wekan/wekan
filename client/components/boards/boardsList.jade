@@ -399,14 +399,28 @@ template(name="workspaceTree")
         id with undefined, and no workspace ever got the `active` class. The
         theme highlight was styled for a class that was never applied.
       each nodes
-        li.workspace-node(class="{{#if $eq id ../selectedWorkspaceId}}active{{/if}}" data-workspace-id="{{id}}" draggable="true")
+        //- `draggable` is NOT on the row. A workspace row is a row you CLICK -
+          it is how a workspace is opened - and a row that is draggable as a
+          whole starts a drag on the way to a click. What may be dragged is the
+          one small thing beside the name, and which thing that is follows the
+          "Show desktop drag handles" toggle in the first header bar, the same
+          setting swimlanes, lists, cards and board tiles obey.
+          `dragstart` bubbles, so the handler stays on the row either way.
+          docs/Design/Page/All-Boards.md
+        li.workspace-node(class="{{#if $eq id ../selectedWorkspaceId}}active{{/if}}" data-workspace-id="{{id}}")
           .workspace-node-content
-            span.workspace-drag-handle
-              span.emoji-icon
-                i.fa.fa-arrows
+            //- Handles ON: the handle is drawn, and it is the only place a
+              workspace drag may start.
+            if isTouchScreenOrShowDesktopDragHandles
+              span.workspace-drag-handle.nodragscroll(draggable="true")
+                span.emoji-icon
+                  i.fa.fa-arrows
 
             a.js-select-workspace.js-select-space(data-id="{{id}}")
-              span.workspace-icon
+              //- ...and handles OFF: no handle, and the workspace's own ICON is
+                what reorders it. The icon rather than the whole row, so the
+                name beside it stays a plain click target.
+              span.workspace-icon(draggable="{{#if isTouchScreenOrShowDesktopDragHandles}}false{{else}}true{{/if}}")
                 if icon
                   span.workspace-icon-value(style="{{#if iconColor}}color: {{iconColor}};{{/if}}")
                     +viewer

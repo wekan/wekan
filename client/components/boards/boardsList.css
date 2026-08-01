@@ -453,6 +453,18 @@
   vertical-align: middle;
 }
 
+/* With the drag handles turned OFF there is no handle, and the workspace's own
+   icon is what reorders it - so it says so with the cursor the handle uses.
+   `[draggable="true"]`, so this follows the toggle without a second class to
+   keep in step: the attribute IS the state.
+   docs/Design/Page/All-Boards.md */
+.workspace-node .workspace-icon[draggable="true"] {
+  cursor: grab;
+}
+.workspace-node .workspace-icon[draggable="true"]:active {
+  cursor: grabbing;
+}
+
 .workspace-node .workspace-icon .workspace-icon-value,
 .workspace-node .workspace-icon .workspace-icon-value p {
   display: inline;
