@@ -52,14 +52,26 @@ template(name="leftMenu")
 //- table page puts that class on its own title, so a table pane and a form pane
 //- look the same.
 //-
+//- FOLDED, this heading is also the way back: the menu is gone entirely - no
+//- column, no strip - so the caret moves here, to the inline start of the title,
+//- and the caret AND the title are one target that brings the menu back. The
+//- whole heading is inside the anchor for exactly that reason.
+//-
+//- It is drawn even when there is no title. paneTitle() returns {} when no menu
+//- entry is active, and an empty heading is better than a folded menu with
+//- nothing left to unfold it.
+//-
 //- Data context: { titleKey } or { label } from paneTitle().
 template(name="paneTitle")
-  if titleKey
+  if isLeftMenuCollapsed
+    h1.admin-pane-title.admin-pane-title-folded
+      +leftMenuCollapse(paneTitleKey=titleKey paneLabel=label)
+  else if titleKey
     h1.admin-pane-title {{_ titleKey}}
   else if label
     h1.admin-pane-title {{label}}
 
-//- The caret that folds the menu away, at the top of it.
+//- The caret that folds the menu away.
 //-
 //- The same control a LIST has on a board (listHeader.jade): a caret pointing
 //- DOWN while the thing is open and RIGHT once it is folded, clicked to switch.
@@ -67,13 +79,29 @@ template(name="paneTitle")
 //- learn, and it uses the same two words - Collapse / Uncollapse - in its
 //- tooltip.
 //-
-//- One template for both pages, so the two menus cannot end up with two
-//- different carets. client/components/settings/leftMenu.js
+//- It is drawn TWICE, and only ever one of them is on screen, because the menu
+//- itself is not drawn while it is folded:
+//-   * at the top of the menu, where it points down and folds the menu away;
+//-   * at the inline start of the pane title, where it points right and brings
+//-     the menu back - see `paneTitle` above, which passes the pane's title in
+//-     so that caret and title are ONE target rather than two.
+//- One template for both places and both pages, so the carets cannot drift.
+//- client/components/settings/leftMenu.js
 template(name="leftMenuCollapse")
   a.left-menu-collapse-indicator.js-collapse-left-menu(
-    title="{{#if isLeftMenuCollapsed}}{{_ 'uncollapse'}}{{else}}{{_ 'collapse'}}{{/if}}"
-    aria-label="{{#if isLeftMenuCollapsed}}{{_ 'uncollapse'}}{{else}}{{_ 'collapse'}}{{/if}}")
+    title="{{collapseLabel}}"
+    aria-label="{{collapseLabel}}"
+    role="button"
+    tabindex="0")
     if isLeftMenuCollapsed
       i.fa.fa-caret-right
     else
       i.fa.fa-caret-down
+    //- The pane's own title, when this is the caret beside it. `paneTitleKey` /
+    //- `paneLabel` rather than the `titleKey` / `label` paneTitle() itself uses,
+    //- so the caret in the MENU - which inherits whatever data context the menu
+    //- sits in - can never pick a title up by accident.
+    if paneTitleKey
+      span.left-menu-collapse-title {{_ paneTitleKey}}
+    else if paneLabel
+      span.left-menu-collapse-title {{paneLabel}}

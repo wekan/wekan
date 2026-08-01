@@ -222,12 +222,16 @@ test('the menu folds away, the same way a list does', () => {
     assert.ok(src.indexOf('fa-caret-right') < src.indexOf('fa-caret-down'),
       `${what}: collapsed is the RIGHT caret, open is the down one`);
   }
-  // ...and the same two words in the tooltip, which already exist.
-  assert.ok(/\{\{_ 'uncollapse'\}\}/.test(tpl) && /\{\{_ 'collapse'\}\}/.test(tpl),
+  // ...and the same two words in the tooltip, which already exist. They are
+  // built in the helper now, because beside a pane title the label carries the
+  // pane's name as well - see the folded test below.
+  const js = read('client/components/settings/leftMenu.js');
+  assert.ok(/'uncollapse' : 'collapse'/.test(js),
     'named by the same two translations a list uses');
   const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
   assert.ok(en.collapse && en.uncollapse, 'which are translated');
-  assert.ok(/aria-label=/.test(tpl), 'and named for a screen reader');
+  assert.ok(/title="\{\{collapseLabel\}\}"/.test(tpl), 'shown as a tooltip');
+  assert.ok(/aria-label="\{\{collapseLabel\}\}"/.test(tpl), 'and named for a screen reader');
 
   // ONE template on BOTH pages, so the two menus cannot end up with two
   // different carets.
@@ -237,16 +241,42 @@ test('the menu folds away, the same way a list does', () => {
   // At the TOP of the menu: before the rows, which is where it was asked for.
   for (const [what, src, panel] of [
     ['the Admin Panel', jade, '.side-menu('],
-    ['All Boards', boards, '.boards-left-menu('],
+    ['All Boards', boards, '.boards-left-menu'],
   ]) {
     const at = src.indexOf(panel);
-    assert.notStrictEqual(at, -1, `${what}'s panel takes the collapsed class`);
+    assert.notStrictEqual(at, -1, `${what} draws its menu`);
     const after = src.slice(at);
     assert.ok(after.indexOf('+leftMenuCollapse') < after.indexOf('ul'),
       `${what}: the caret is above the rows`);
-    assert.ok(/isLeftMenuCollapsed/.test(src.slice(at, at + 200)),
-      `${what}: the panel says when it is folded`);
   }
+  // The element that takes the `collapsed` class differs by page, and that is
+  // deliberate - see the folding test below for why the grid takes it on All
+  // Boards. What must hold on both is that SOMETHING says when it is folded.
+  for (const [what, src, marked] of [
+    ['the Admin Panel', jade, '.side-menu('],
+    ['All Boards', boards, '.boards-layout('],
+  ]) {
+    const at = src.indexOf(marked);
+    assert.notStrictEqual(at, -1, `${what} marks the folded state`);
+    assert.ok(/isLeftMenuCollapsed/.test(src.slice(at, at + 200)),
+      `${what}: on the element whose layout changes`);
+  }
+});
+
+test('the caret can be reached without a mouse', () => {
+  // An anchor with no href is not focusable and answers no key by itself, so
+  // the menu could otherwise be folded away with a mouse and only with a mouse.
+  const jade = read('client/components/settings/leftMenu.jade');
+  const tpl = jade.slice(jade.indexOf('template(name="leftMenuCollapse")'));
+  assert.ok(/tabindex="0"/.test(tpl), 'it takes keyboard focus');
+  assert.ok(/role="button"/.test(tpl), 'and says it is a control, not a link');
+  const js = read('client/components/settings/leftMenu.js');
+  assert.ok(/'keydown \.js-collapse-left-menu'/.test(js), 'Enter and Space work');
+  assert.ok(/evt\.key === 'Enter'/.test(js) && /evt\.key === ' '/.test(js),
+    '...which is what role="button" promises');
+  const css = read('client/components/settings/settingBody.css');
+  assert.ok(/\.left-menu-collapse-indicator:focus-visible \{/.test(css),
+    'and the focus is visible');
 });
 
 test('the caret that folds it is actually in the bundle', () => {
@@ -303,30 +333,96 @@ test('the fold is remembered, per user and per browser', () => {
   assert.ok(/Users\.updateAsync\(this\.userId/.test(body), 'a user folds only their own menu');
 });
 
-test('folded, the menu is a strip - and the caret is still in it', () => {
-  // A menu with no way back is a menu you have lost.
-  for (const [what, css, panel] of [
-    ['All Boards', read('client/components/boards/boardsList.css'), '.boards-left-menu'],
-    ['the Admin Panel', read('client/components/settings/settingBody.css'),
-      '.setting-content .content-body .side-menu'],
-  ]) {
-    const rule = `${panel}.collapsed > *:not(.left-menu-collapse-indicator)`;
-    assert.ok(css.includes(rule), `${what} hides everything but the caret`);
-    const at = css.indexOf(rule);
-    assert.ok(/display: none/.test(css.slice(at, css.indexOf('}', at))),
-      `${what}: ...by not drawing it`);
-    // `> *:not(...)`, not a list of names: a row added later must not be left
-    // sticking out of a folded menu.
-    assert.ok(!css.includes(`${panel}.collapsed ul`), `${what} names no single row`);
-  }
-  // The width goes with it, or the boards keep an empty column beside them.
+test('folded, there is no column left at all', () => {
+  // xet7: "when left menu is collapsed, there should not be caret to right at
+  // small column at left. instead, there should not be a column at all".
+  // A strip is still a column: it holds grey, it holds a target that has to be
+  // aimed at, and it keeps the page from starting at the window edge.
   const boardsCss = read('client/components/boards/boardsList.css');
-  assert.ok(/\.boards-left-menu\.collapsed \{\n  width: auto;/.test(boardsCss),
-    'the All Boards menu narrows');
+  const adminCss = read('client/components/settings/settingBody.css');
+
+  // All Boards is a GRID, and `display: none` takes the element out of the grid
+  // but leaves the TRACK it was placed in - so the boards would have sat in the
+  // `auto` column with an empty 1fr one beside them. The grid drops to one
+  // column, which is why the class is on the grid and not on the menu.
+  const grid = boardsCss.slice(boardsCss.indexOf('.boards-layout.collapsed {'));
+  const gridRule = grid.slice(0, grid.indexOf('}'));
+  assert.ok(/grid-template-columns: 1fr !important;/.test(gridRule),
+    'All Boards drops to a single column');
+  // `!important`, because the phone rules set both tracks with one of their own:
+  // without it a phone would be the one screen still holding an empty column.
+  const phone = boardsCss.match(/\.boards-layout \{\n[^}]*grid-template-columns:[^;]*!important/);
+  assert.ok(phone, 'the phone rules it has to beat are still there');
+  assert.ok(/\.boards-layout\.collapsed > \.boards-left-menu \{\n  display: none;/.test(boardsCss),
+    '...and the menu itself is not drawn');
   assert.ok(/grid-template-columns: auto 1fr/.test(boardsCss),
-    '...and its grid track is auto, so a fixed 260px column cannot hold the gap open');
+    'open, the track is the menu\'s own width');
   assert.ok(/\.boards-left-menu \{\n(?:[^}]*\n)?  width: 260px;/.test(boardsCss),
-    'with the width moved onto the menu itself');
+    'which is why the width is on the menu, not on the track');
+
+  // The Admin Panel is a FLEX row, where a hidden item closes the row up by
+  // itself, so its own menu takes the class and simply goes.
+  const side = adminCss.slice(
+    adminCss.indexOf('.setting-content .content-body .side-menu.collapsed {'));
+  assert.ok(/^\.setting-content \.content-body \.side-menu\.collapsed \{\n  display: none;\n\}/
+    .test(side), 'the Admin Panel menu is not drawn either');
+
+  // Nothing may be left behind pretending to be a folded menu.
+  for (const [what, css] of [['All Boards', boardsCss], ['the Admin Panel', adminCss]]) {
+    assert.ok(!/collapsed > \*:not\(\.left-menu-collapse-indicator\)/.test(css),
+      `${what} keeps no strip holding only the caret`);
+    assert.ok(!/\.collapsed \{\n  width: auto;/.test(css),
+      `${what} does not merely narrow`);
+  }
+});
+
+test('folded, the way back is the caret on the pane title', () => {
+  // xet7: "caret should be at left side of right page title. when caret+title
+  // area is clicked, it shows back left menu."
+  const jade = read('client/components/settings/leftMenu.jade');
+  const tpl = jade.slice(jade.indexOf('template(name="paneTitle")'),
+    jade.indexOf('template(name="leftMenuCollapse")'));
+  assert.ok(/if isLeftMenuCollapsed/.test(tpl), 'the heading knows the menu is folded');
+  assert.ok(/\+leftMenuCollapse\(paneTitleKey=titleKey paneLabel=label\)/.test(tpl),
+    'and hands the caret its own title, so caret and title are ONE target');
+  // The caret is FIRST: at the inline start of the title, not after it.
+  const caret = read('client/components/settings/leftMenu.jade');
+  const collapse = caret.slice(caret.indexOf('template(name="leftMenuCollapse")'));
+  assert.ok(collapse.indexOf('fa-caret-right') < collapse.indexOf('left-menu-collapse-title'),
+    'the caret comes before the title text');
+  // Drawn even for a pane with no title: paneTitle() returns {} when nothing is
+  // active, and a folded menu with nothing to unfold it is a menu you have lost.
+  const foldedFirst = tpl.indexOf('if isLeftMenuCollapsed');
+  const titleFirst = tpl.indexOf('else if titleKey');
+  assert.ok(foldedFirst !== -1 && titleFirst !== -1 && foldedFirst < titleFirst,
+    'the folded branch is tested BEFORE there is a title to show');
+
+  // Both pages draw that heading, so both have the way back.
+  for (const page of [
+    'client/components/boards/boardsList.jade',
+    'client/components/settings/settingBody.jade',
+    'client/components/settings/peopleBody.jade',
+    'client/components/settings/attachments.jade',
+    'client/components/settings/adminReports.jade',
+  ]) {
+    assert.ok(/\+paneTitle\(/.test(read(page)), `${page} draws the pane title`);
+  }
+
+  // It reads as the heading it is, with a caret in front - not as a control
+  // parked beside one.
+  const css = read('client/components/settings/settingBody.css');
+  const rule = css.slice(css.indexOf('.admin-pane-title-folded > .left-menu-collapse-indicator {'));
+  assert.ok(/font: inherit/.test(rule.slice(0, 300)), 'it keeps the heading font');
+  assert.ok(/padding: 0/.test(rule.slice(0, 300)),
+    'and starts on the line every other pane title starts on');
+
+  // The action is announced with the pane's name, because an aria-label
+  // REPLACES the text inside the element - the bare word would silence the
+  // heading.
+  const js = read('client/components/settings/leftMenu.js');
+  assert.ok(/collapseLabel\(\) \{/.test(js), 'one label for the tooltip and the screen reader');
+  assert.ok(/paneTitleKey \? TAPi18n\.__\(data\.paneTitleKey\) : data\.paneLabel/.test(js),
+    'which includes the pane it belongs to');
 });
 
 // ── the doc ─────────────────────────────────────────────────────────────────
@@ -699,8 +795,12 @@ test('the title template renders the active label, and only when there is one', 
   assert.ok(/if titleKey/.test(tpl) && /else if label/.test(tpl),
     'both forms of an entry label must render');
   assert.ok(/h1\.admin-pane-title/.test(tpl), 'one class, so every pane title matches');
-  assert.strictEqual((tpl.match(/h1\./g) || []).length, 2,
+  // Three branches now, not two: the folded one comes first and carries the
+  // caret that brings the menu back, and it is drawn even with no title at all.
+  assert.strictEqual((tpl.match(/h1\./g) || []).length, 3,
     'the heading exists once per branch and nowhere else');
+  assert.strictEqual((tpl.match(/h1\.admin-pane-title/g) || []).length, 3,
+    'and every branch is the same heading');
 });
 
 test('EVERY Admin Panel page renders the shared pane title', () => {

@@ -291,11 +291,17 @@ control a **list** has on a board: pointing down while the thing is open and
 right once it is folded, with the same two words in its tooltip, so there is
 nothing new to learn.
 
-Folded, the menu is a strip holding only its caret and the page beside it takes
-the width back - folded rather than hidden outright, because a menu with no way
-back is a menu you have lost. Everything but the caret goes through a `:not()`
-on the caret rather than a list of names, so a row added later cannot be left
-sticking out of a narrow strip.
+Folded, the menu is **gone** - no column, no strip, no narrow band of grey with
+a glyph in it - and the page beside it takes the whole width. A strip is still a
+column: it holds width, it keeps the page from starting at the window edge, and
+a caret alone in it is a target that has to be aimed at.
+
+**The way back is the pane title.** Folded, the caret moves to the inline start
+of the heading beside it, and the caret and the title are one target: clicking
+anywhere on it brings the menu back. Nothing is lost by drawing nothing, because
+the way back is the largest thing on the page rather than the narrowest. The
+heading is drawn even for a pane that has no title of its own, so a folded menu
+can never be a menu you have lost.
 
 **One state for both pages**: they draw one menu, and a reader who folds it away
 on one of them has said what they want on the other. It is a Session value

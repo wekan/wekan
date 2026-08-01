@@ -42,9 +42,9 @@
 
 .boards-layout {
   display: grid;
-  /* `auto`, not a fixed 260px: the menu carries its own width (below) so that
-     folding it away narrows the TRACK too and the boards take the space back.
-     A fixed track would keep a 260px empty column beside a folded menu.
+  /* `auto`, not a fixed 260px: the menu carries its own width (below), so the
+     track is whatever the menu is - and folded, when the grid drops to a single
+     column, there is no second track left holding a gap open.
      docs/Design/Page/Left-Menu.md */
   grid-template-columns: auto 1fr;
   /* Between the columns only. A `gap` is between tracks, not around them, so
@@ -73,8 +73,8 @@
    does not mirror under `dir=rtl`, which is how the Admin Panel's shaded the
    wrong inner edge once its menu moved to the right. */
 .boards-left-menu {
-  /* The width the grid track used to carry. It lives here so the menu can fold
-     to a strip and the boards take the width back. */
+  /* The width the grid track used to carry. It lives here so the track is the
+     menu's own width, and folded there is no track at all. */
   width: 260px;
   box-sizing: border-box;
   background-color: #f7f7f7;
@@ -579,45 +579,27 @@
   min-width: 0;
 }
 
-/* The caret that folds the left menu away, at the top of it.
-   The same control a LIST has on a board: a caret pointing DOWN while the menu
-   is open and RIGHT once it is folded. It is the collapse gesture WeKan already
-   has, so there is nothing new to learn.
-   It is drawn in BOTH states - it is the only way back - and it keeps its full
-   size while collapsed, because a 28px strip with a small glyph in it is a
-   target that has to be aimed at. docs/Design/Page/Left-Menu.md */
-.left-menu-collapse-indicator {
-  display: flex;
-  align-items: center;
-  /* The rows' own inline start, so the caret sits on the line the row icons
-     start on rather than hanging to their left. */
-  padding: 6px 10px 6px 18px;
-  color: inherit;
-  text-decoration: none;
-  cursor: pointer;
-  opacity: 0.7;
+/* Folded: the menu is GONE, not narrowed. No column, no strip, no 28px of grey
+   with a glyph in it - the boards take the whole width, which is the point of
+   folding it. The way back is the caret that moves to the pane title beside it
+   (settingBody.css, `.admin-pane-title-folded`), so nothing is lost by drawing
+   nothing here.
+   The class is on the GRID and not on the menu: `display: none` takes an element
+   out of the grid, but the TRACK it was placed in stays, so the boards would
+   have been left in the `auto` column with the 1fr one empty beside them. One
+   column, and the menu hidden by the same rule.
+   docs/Design/Page/Left-Menu.md */
+.boards-layout.collapsed {
+  /* `!important` because the phone rules below set the two tracks with an
+     `!important` of their own (#6488/#6523, so a narrow screen keeps the menu
+     beside the boards instead of stacking them). Folded there is no menu to
+     keep beside anything, and without this the phone would be the one place
+     that still held a 140px empty column open. Equal importance, higher
+     specificity: this wins, and the phone rules are untouched while the menu
+     is open. */
+  grid-template-columns: 1fr !important;
 }
-.left-menu-collapse-indicator:hover {
-  opacity: 1;
-}
-/* Collapsed, the caret is all there is, so it centres in the narrow strip
-   instead of keeping an indent meant for text that is no longer drawn. */
-.collapsed > .left-menu-collapse-indicator {
-  justify-content: center;
-  padding-inline: 0;
-}
-
-/* Collapsed: the menu folds to a strip holding only its caret, and the board
-   area takes the width back. Folded away rather than hidden outright - a menu
-   with no way back is a menu you have lost - which is the same choice a
-   collapsed list makes on a board.
-   Everything except the caret goes: the rows, the workspaces tree, the rules
-   between them. `> *` rather than naming each one, so a row added later cannot
-   be left sticking out of a 28px strip. */
-.boards-left-menu.collapsed {
-  width: auto;
-}
-.boards-left-menu.collapsed > *:not(.left-menu-collapse-indicator) {
+.boards-layout.collapsed > .boards-left-menu {
   display: none;
 }
 

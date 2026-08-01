@@ -73,21 +73,52 @@ still indented from the left.
 
 ## Collapsing it
 
-A **caret at the top of the menu** folds it away, and the same caret brings it
-back. It is the control a **list** has on a board (`listHeader.jade`): pointing
-**down** while the thing is open and **right** once it is folded, with the same
-two words — Collapse / Uncollapse — in its tooltip. It is the collapse gesture
-WeKan already has, so there is nothing new to learn.
+A **caret at the top of the menu** folds it away. It is the control a **list**
+has on a board (`listHeader.jade`): pointing **down** while the thing is open and
+**right** once it is folded, with the same two words — Collapse / Uncollapse — in
+its tooltip. It is the collapse gesture WeKan already has, so there is nothing
+new to learn.
 
-Folded, the menu is a **strip holding only its caret**, and the page beside it
-takes the width back. Folded away rather than hidden outright: a menu with no
-way back is a menu you have lost. Everything but the caret goes through
-`> *:not(.left-menu-collapse-indicator)` rather than a list of names, so a row
-added later cannot be left sticking out of a 28px strip.
+Folded, the menu is **gone**: no column, no strip, no narrow band of grey with a
+glyph in it. A strip is still a column — it holds width, it keeps the page from
+starting at the window edge, and a caret alone in it is a target that has to be
+aimed at.
 
-On All Boards the width lives on the **menu**, not on the grid track
-(`grid-template-columns: auto 1fr`): a fixed 260px column would hold the gap
-open beside a folded menu.
+**The way back is the pane title.** Folded, the caret moves to the **inline start
+of the heading** of the pane beside it, pointing right, and the caret and the
+title are **one target**: clicking anywhere on it brings the menu back. So
+nothing is lost by drawing nothing — the way back is the largest thing on the
+page rather than the narrowest.
+
+The heading is drawn **even when the pane has no title**. `paneTitle()` returns
+`{}` when no menu entry is active, and an empty heading with a caret in it is
+better than a folded menu with nothing left to unfold it.
+
+It is **one caret template** (`leftMenuCollapse`), included in both places and on
+both pages, so they cannot drift into different carets. Beside a title it is
+handed the pane's own text as `paneTitleKey` / `paneLabel` — deliberately not the
+`titleKey` / `label` that `paneTitle()` itself uses, so the caret at the top of
+the menu, which inherits whatever data context the menu sits in, can never pick a
+title up by accident. The caret is an anchor with no `href`, so it carries
+`role="button"`, `tabindex="0"` and a `keydown` handler for Enter and Space:
+without them the menu could be folded with a mouse and only with a mouse. Its
+tooltip and `aria-label` are one string from the `collapseLabel` helper, which
+names the pane as well beside a title — an `aria-label` replaces the text inside
+the element, so the bare word would have silenced the heading.
+
+**Which element takes the `collapsed` class differs by page, and that is the
+point.** The Admin Panel marks its **menu** (`.side-menu`): it is a flex row, and
+a hidden flex item closes the row up by itself. All Boards marks the **grid**
+(`.boards-layout`): `display: none` takes an element out of a grid but the
+**track** it was placed in remains, so hiding only the menu would have left the
+boards in the `auto` column with an empty `1fr` one beside them. The grid drops
+to a single column and hides the menu in the same rule — with `!important`,
+because the phone rules set both tracks with an `!important` of their own
+(#6488 / #6523) and a phone would otherwise be the one screen still holding an
+empty column open.
+
+Open, the width lives on the **menu**, not on the grid track
+(`grid-template-columns: auto 1fr`), so the track is the menu's own width.
 
 **One state for both pages.** They draw one menu, and a reader who folds it away
 on one of them has said what they want on the other.
@@ -111,8 +142,8 @@ helper that says whether it is folded — lives in
 `client/features/settings.js`**. `package.json` sets `meteor.mainModule`, so the
 client is not eagerly loaded: a file nobody imports is not in the bundle at all.
 Without that line the caret still rendered and clicking it did nothing, and an
-unregistered Blaze helper is undefined, so the panel never took the `collapsed`
-class either. `tests/clientBundleImports.test.cjs` walks the import graph from
+unregistered Blaze helper is undefined, so nothing took the `collapsed` class
+either. `tests/clientBundleImports.test.cjs` walks the import graph from
 `client/main.js` and pins that every component file which registers something
 with Blaze is reachable from it.
 

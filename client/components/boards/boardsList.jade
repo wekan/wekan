@@ -5,12 +5,20 @@ template(name="boardList")
     there is nothing to move aside. boardsList.css
   .wrapper.all-boards-wrapper(class="{{#if isSidebarOpen}}sidebar-open{{/if}}")
     +allBoardsSidebar
-    .boards-layout
+    //- The folded state is marked on the GRID, not on the menu inside it: a
+      hidden grid ITEM still leaves its track behind, so the boards would keep
+      a 260px-wide nothing beside them. The grid drops to one column and hides
+      the menu in the same rule. The Admin Panel marks its menu instead, because
+      a flex row with a hidden item simply closes up.
+      docs/Design/Page/Left-Menu.md
+    .boards-layout(class="{{#if isLeftMenuCollapsed}}collapsed{{/if}}")
       // Left menu
-      .boards-left-menu(class="{{#if isLeftMenuCollapsed}}collapsed{{/if}}")
+      .boards-left-menu
         //- The caret that folds it away - the Admin Panel's own, so the two
           menus cannot end up with two different carets, and the same control a
-          list has on a board. docs/Design/Page/Left-Menu.md
+          list has on a board. Folded, the menu is not drawn at all and the
+          caret that brings it back rides on the pane title below.
+          docs/Design/Page/Left-Menu.md
         +leftMenuCollapse
         ul.menu
           //- ONE row, rendered four times, rather than four copies of the same

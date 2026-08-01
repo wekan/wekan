@@ -241,15 +241,58 @@
   padding-bottom: 50px;
 }
 
-/* Collapsed: the menu folds to a strip holding only its caret, and the pane
-   beside it takes the width back. See boardsList.css for the All Boards twin -
-   the two menus fold the same way because they are one menu. */
+/* Folded: the menu is GONE, not narrowed - no column and no strip - and the pane
+   beside it takes the whole width. See boardsList.css for the All Boards twin:
+   the two menus fold the same way because they are one menu. The way back is the
+   caret on the pane title below. */
 .setting-content .content-body .side-menu.collapsed {
-  width: auto;
-  flex: 0 0 auto;
-}
-.setting-content .content-body .side-menu.collapsed > *:not(.left-menu-collapse-indicator) {
   display: none;
+}
+
+/* ── The caret that folds the left menu ──────────────────────────────────────
+   The same control a LIST has on a board: pointing DOWN while the menu is open
+   and RIGHT once it is folded. It is the collapse gesture WeKan already has, so
+   there is nothing new to learn.
+   It is styled here rather than beside one page's menu because it appears on
+   both pages and, folded, in a third place: the pane title.
+   docs/Design/Page/Left-Menu.md */
+.left-menu-collapse-indicator {
+  display: flex;
+  align-items: center;
+  /* The rows' own inline start, so the caret sits on the line the row icons
+     start on rather than hanging to their left. */
+  padding: 6px 10px 6px 18px;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.left-menu-collapse-indicator:hover {
+  opacity: 1;
+}
+
+/* Folded, the caret rides at the inline start of the PANE TITLE and the two are
+   one target - the heading itself is what brings the menu back, so it is as easy
+   to hit as the menu was wide. It keeps the heading's own size and weight: it IS
+   the heading, with a caret in front of it, not a control that happens to sit
+   near one. The padding the caret carries inside the menu would push the title
+   off the line every other pane's title starts on, so it goes. */
+.admin-pane-title-folded > .left-menu-collapse-indicator {
+  display: inline-flex;
+  gap: 8px;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  opacity: 1;
+}
+.admin-pane-title-folded > .left-menu-collapse-indicator:hover .left-menu-collapse-title {
+  text-decoration: underline;
+}
+/* Keyboard focus has to be visible: the caret is an anchor with no href, which
+   the browser would otherwise leave with no ring of its own. */
+.left-menu-collapse-indicator:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
 }
 
 /* The pane title: ONE size and weight for the heading at the top of every Admin
