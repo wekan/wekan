@@ -164,27 +164,49 @@ test('the design doc states which side, both ways', () => {
 
 // ── theme ───────────────────────────────────────────────────────────────────
 
-test('the selected entry looks like the selected tab in the bar above', () => {
-  // Filled with the theme colour, label and icon white - the same treatment
-  // settingHeader.css gives `.setting-header-btn.active`. Before this the entry kept
-  // the panel grey on white, which is easy to miss.
+test('the menu carries the theme, and the selected entry is the white one', () => {
+  // INVERTED. It was a white panel with one row filled in the theme colour; the
+  // panel is the theme colour now and the row you are on is white. The filled
+  // row was the only part of the page answering to the theme, so the menu read
+  // as a grey column with a coloured stripe rather than as a side of the app -
+  // and one white row in a coloured column is the stronger signal anyway: the
+  // eye goes to what differs from its surroundings.
+  const panelRule = /\.side-menu \{([^}]*)\}/.exec(css);
+  assert.ok(panelRule, 'the panel is styled');
+  assert.ok(/background-color: var\(--theme-accent, #[0-9a-f]{6}\)/.test(panelRule[1]),
+    'a per-user accent fills the MENU, falling back to the WeKan header blue so '
+    + 'the menu matches the bar when no colour is chosen');
+
   const fill = /\.side-menu ul li\.active,\s*[^{]*li\.active:hover \{([^}]*)\}/.exec(css);
   assert.ok(fill, 'the selected entry must be filled');
-  assert.ok(/background: var\(--theme-accent, #[0-9a-f]{6}\)/.test(fill[1]),
-    'a per-user accent fills it, falling back to the WeKan header blue so the menu ' +
-    'matches the bar when no colour is chosen');
-  // :hover must be in that same selector list. `li:hover` sets white at the SAME
-  // specificity and comes later, so without it the fill vanishes under the pointer.
+  assert.ok(/background: #fff/.test(fill[1]), 'and it is the white one');
+  // :hover must be in that same selector list. `li:hover` sets a background at
+  // the SAME specificity and comes later, so without it the fill vanishes under
+  // the pointer.
   assert.ok(/li\.active:hover/.test(css),
-    'hovering the selected entry must not wash it back to white');
-  // Label AND icon go white together. Comments are stripped first: the rule explains
-  // in prose why it is not `inherit`, which a naive text search would trip over.
+    'hovering the selected entry must not wash it out');
+
+  // Comments are stripped first: these rules explain in prose why they are not
+  // `inherit`, which a naive text search would trip over.
   const code = css.replace(/\/\*[\s\S]*?\*\//g, '');
+  // Every UNSELECTED entry is white on the theme colour - the treatment the
+  // selected row used to get.
+  const unselected = /\.side-menu ul li > a,\s*[^{]*li > a i \{([^}]*)\}/.exec(code);
+  assert.ok(unselected, 'the entries are coloured together with their icons');
+  assert.ok(/color: #fff/.test(unselected[1]), 'white on the theme colour');
+  // ...and the selected one is dark on the white.
   const text = /\.side-menu ul li\.active > a,\s*[^{]*li\.active > a i \{([^}]*)\}/.exec(code);
   assert.ok(text, 'label and icon must be coloured together');
-  assert.ok(/color: #fff/.test(text[1]), 'white on the filled background');
+  assert.ok(/color: #4d4d4d/.test(text[1]), 'dark on the white row');
   assert.ok(!/inherit/.test(text[1]),
-    'inheriting the panel grey is what made the selected entry invisible');
+    'inheriting would leave it the same white as the entries around it, on white');
+
+  // The hover on an unselected entry must NOT be solid white, or it is
+  // indistinguishable from the selected one.
+  const hover = /\.side-menu ul li:hover \{([^}]*)\}/.exec(code);
+  assert.ok(hover, 'unselected entries have a hover');
+  assert.ok(/rgba\(255, 255, 255/.test(hover[1]),
+    'a wash over the theme colour, not the selected row"s white');
 });
 
 test('the design doc explains the theming', () => {

@@ -217,7 +217,11 @@ test('and All Boards reaches it from the left menu, not the header bar', () => {
   // grey needs area to be seen, and area is what turns a divider into something
   // that reads as a row; a dark one is legible as a line, so it stays a line.
   assert.ok(/border:\s*0/.test(rule), 'no default hr bevel drawing through it');
-  assert.ok(/background:\s*#888/.test(rule), 'dark grey, not a near-white hairline');
+  // LIGHT, because the menu is coloured now. It was dark grey when the menu was
+  // white, for the same reason: a rule has to be legible against what is behind
+  // it, and the thing behind it changed. docs/Design/Page/Left-Menu.md
+  assert.ok(/background:\s*rgba\(255, 255, 255/.test(rule),
+    'light on the coloured menu, not a dark rule nobody can see');
   assert.ok(/height:\s*2px/.test(rule),
     '2px: at 1px a rule can land on a half-pixel boundary and be drawn as two '
     + 'lighter rows on a fractional-scale display, which is the faintness this fixes');
@@ -251,7 +255,9 @@ test('and the All Boards menu is styled like the Admin Panel one', () => {
   const adminPanelAt = admin.indexOf('.setting-content .content-body .side-menu {');
   const adminPanel = admin.slice(adminPanelAt, admin.indexOf('}', adminPanelAt));
   for (const [prop, value] of [
-    ['background-color', '#f7f7f7'],
+    // The theme colour, not a grey: the PANEL carries the theme now and the row
+    // you are on is the white one. docs/Design/Page/Left-Menu.md
+    ['background-color', 'var(--theme-accent, #2980b9)'],
     ['border', '1px solid #f0f0f0'],
     // Flush on three sides now - the menu starts at the window's left edge,
     // directly under the header, and runs to the bottom - so it keeps a border
@@ -289,18 +295,23 @@ test('and the All Boards menu is styled like the Admin Panel one', () => {
   assert.ok(/overflow-y:\s*auto/.test(panel) && /min-height:\s*0/.test(panel),
     'and scrolls inside itself, as the Problems menu had to be taught to');
 
-  // The selected row is the theme accent with white text, in both menus.
+  // The menus are INVERTED: the panel carries the theme, and the row you are on
+  // is the white one cut out of it. docs/Design/Page/Left-Menu.md
   const activeAt = boards.indexOf('.boards-left-menu .menu-item.active a,');
   const active = boards.slice(activeAt, boards.indexOf('}', activeAt));
-  assert.ok(/background:\s*var\(--theme-accent, #2980b9\)/.test(active),
-    'the selected row is the per-user accent, falling back to the header blue');
-  assert.ok(admin.includes('background: var(--theme-accent, #2980b9)'),
-    "...which is what the Admin Panel's selected row uses");
+  assert.ok(/background:\s*#fff/.test(active), 'the selected row is white');
+  assert.ok(admin.includes('.side-menu ul li.active:hover {\n  background: #fff'),
+    "...which is what the Admin Panel's selected row is too");
   assert.ok(/\.menu-item\.active a:hover/.test(active),
-    'hover is listed on the active rule too, or the white hover below washes '
+    'hover is listed on the active rule too, or the hover below washes '
     + 'the selected row out as soon as the pointer crosses it');
-  assert.ok(/color: #fff/.test(boards.slice(activeAt, activeAt + 900)),
-    'and its label and icon go white');
+  const activeText = boards.slice(activeAt, activeAt + 1400);
+  assert.ok(/color: #4d4d4d/.test(activeText),
+    'and its label and icon go dark, on the white');
+  // ...while every UNSELECTED row is white on the theme colour, which is the
+  // treatment the selected row used to get.
+  assert.ok(/\.boards-left-menu \.menu-item a,\n\.boards-left-menu \.menu-item a i \{\n  color: #fff/
+    .test(boards), 'the rows around it are white on the theme colour');
 
   // A selected WORKSPACE is the same kind of selection and gets the same
   // treatment. It was left on the old flat #f0f0f0 when the rows above it were
@@ -308,17 +319,20 @@ test('and the All Boards menu is styled like the Admin Panel one', () => {
   const wsAt = boards.indexOf('.workspace-node.active > .workspace-node-content .js-select-space,');
   assert.notStrictEqual(wsAt, -1, 'the selected workspace is styled');
   const ws = boards.slice(wsAt, boards.indexOf('}', wsAt));
-  assert.ok(/background: var\(--theme-accent, #2980b9\)/.test(ws),
-    'filled with the theme, like the menu row above it');
+  assert.ok(/background: #fff/.test(ws),
+    'white, like the menu row above it - the same swap');
   assert.ok(/\.workspace-node\.active > \.workspace-node-content:hover/.test(ws),
-    'hover listed on the active rule, or the white hover below washes it out');
-  assert.ok(/color: #fff/.test(boards.slice(wsAt, wsAt + 900)),
-    'and its label and icon go white');
-  // Its count keeps contrast against the fill.
-  const countAt = boards.indexOf('.workspace-node.active .workspace-count {');
+    'hover listed on the active rule, or the hover below washes it out');
+  assert.ok(/color: #4d4d4d/.test(boards.slice(wsAt, wsAt + 900)),
+    'and its label and icon go dark');
+  // The counts swap with the rows: light on the coloured menu, grey on the
+  // white selected row.
+  const countAt = boards.indexOf('.workspace-node .workspace-count {');
   const count = boards.slice(countAt, boards.indexOf('}', countAt));
-  assert.ok(/rgba\(255, 255, 255/.test(count),
-    'a light pill on the accent, not the mid-grey that worked on white');
+  assert.ok(/rgba\(255, 255, 255/.test(count), 'a light pill on the theme colour');
+  const activeCountAt = boards.indexOf('.workspace-node.active .workspace-count {');
+  const activeCount = boards.slice(activeCountAt, boards.indexOf('}', activeCountAt));
+  assert.ok(/#ddd/.test(activeCount), 'and a grey one on the white row');
 
   // ...and the class it is styled for is actually applied. `selectedWorkspaceId`
   // is a template ARGUMENT, not a helper, and inside `each nodes` the data

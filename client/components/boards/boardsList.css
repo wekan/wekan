@@ -69,7 +69,19 @@
    does not mirror under `dir=rtl`, which is how the Admin Panel's shaded the
    wrong inner edge once its menu moved to the right. */
 .boards-left-menu {
-  background-color: #f7f7f7;
+  /* The MENU carries the theme colour, and the row you are on is the white one.
+     It was the other way round - a white menu with one filled row - and the
+     filled row was then the only part of the page that answered to the theme,
+     so the menu read as a plain grey column with a coloured stripe in it rather
+     than as a side of the app. Now the menu is the colour the first header bar
+     above it is, and the selected row is a white block cut out of it, which is
+     the stronger signal of the two: the eye goes to the thing that differs from
+     its surroundings, and one white row in a coloured column differs more than
+     one coloured row in a white one.
+     A theme whose bar is a colour SLIDE paints this panel with the slide, from
+     boardColors.css - a gradient cannot live in `--theme-accent`, which is one
+     colour. docs/Design/Page/Left-Menu.md */
+  background-color: var(--theme-accent, #2980b9);
   /* Flush on three sides, like the Admin Panel's: it starts at the window's
      left edge, directly under the header, and runs to the bottom - so it has a
      border and a corner only on the side that faces the page. A rounded corner
@@ -122,8 +134,12 @@
 .boards-left-menu .menu-item .menu-label {
   flex: 1;
 }
+/* The counts swap with the rows: a light pill with white text on the coloured
+   menu, the grey pill that reads on white for the selected row.
+   docs/Design/Page/Left-Menu.md */
 .boards-left-menu .menu-item .menu-count {
-  background: #ddd;
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
   padding: 2px 8px;
   border-radius: 12px;
   font-size: 12px;
@@ -143,9 +159,10 @@
    background at the SAME specificity, and being later in the file it would
    otherwise wash the selected entry back to white as soon as the pointer
    crossed it - which is the bug that had to be fixed in the Admin Panel's. */
+/* The selected row: white, and cut across the whole menu. */
 .boards-left-menu .menu-item.active a,
 .boards-left-menu .menu-item.active a:hover {
-  background: var(--theme-accent, #2980b9);
+  background: #fff;
 }
 /* The Admin Panel puts the selected background on the LI, not the anchor, so
    the fill reaches the row's full width. Here the anchor is what fills, so it
@@ -154,24 +171,35 @@
   width: 100%;
   box-sizing: border-box;
 }
-.boards-left-menu .menu-item.active a,
-.boards-left-menu .menu-item.active a i {
-  /* Not `inherit`: that is what made the Admin Panel's selected entry the same
-     grey as every unselected one, on a background that is now dark. */
+/* Every UNSELECTED row is white text on the theme colour - the menu's own
+   colour is behind them, so they need the contrast the selected row used to
+   need. */
+.boards-left-menu .menu-item a,
+.boards-left-menu .menu-item a i {
   color: #fff;
 }
+/* ...and the selected one is dark text on white. Not `inherit`: that would
+   leave it the same white as the rows around it, on a background that is now
+   white - which is the same mistake in a mirror. */
+.boards-left-menu .menu-item.active a,
+.boards-left-menu .menu-item.active a i {
+  color: #4d4d4d;
+}
+/* Hover on an unselected row: a wash of white over the theme colour rather than
+   solid white, which would be indistinguishable from the selected row. */
 .boards-left-menu .menu-item a:hover {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.18);
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
 }
 .boards-left-menu .menu-item.active a {
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
 }
-/* The count keeps its contrast against the filled row: a light pill on the
-   accent, rather than the mid-grey that worked on white and disappears here. */
+/* The counts swap with the rows. On the coloured menu a count is a light pill
+   with white text; on the white selected row it goes back to the grey pill that
+   reads on white. */
 .boards-left-menu .menu-item.active .menu-count {
-  background: rgba(255, 255, 255, 0.3);
-  color: #fff;
+  background: #ddd;
+  color: #4d4d4d;
 }
 
 /* A BOOKMARK tile in All Boards / Starred.
@@ -335,7 +363,10 @@
 .boards-left-menu hr.boards-menu-divider {
   border: 0;
   height: 2px;
-  background: #888;
+  /* Light, because the menu is coloured now: the dark grey this was is a rule
+     you cannot see on it. Translucent white rather than solid, so it separates
+     without drawing a hard line of its own across the theme colour. */
+  background: rgba(255, 255, 255, 0.35);
   /* The rows' own inline margin, so the rule lines up with them instead of
      running past their ends - the same `4px` the Admin Panel's separator uses.
      docs/Design/Page/Left-Menu.md */
@@ -357,11 +388,22 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  opacity: 0.6;
+  /* Quieter than a row, but white like everything else on the coloured menu -
+     at 0.6 opacity of the old dark grey it was a heading nobody could read. */
+  color: #fff;
+  opacity: 0.75;
   cursor: default;
   /* The rule above it already provides the separation this margin was for, and
      the two together read as a gap twice as wide as anything else in the menu. */
   margin-top: 0;
+}
+/* The workspaces tree sits on the same coloured panel, so it takes the same
+   white the section rows above it take. docs/Design/Page/Left-Menu.md */
+.boards-left-menu .workspace-node-content,
+.boards-left-menu .workspace-node-content a,
+.boards-left-menu .workspace-node-content i,
+.boards-left-menu .workspaces-header a {
+  color: #fff;
 }
 .workspaces-header .js-add-space,
 .workspaces-header .js-add-workspace {
@@ -456,8 +498,12 @@
   white-space: nowrap;
 }
 
+/* On the coloured menu a count is a light pill with white text; on the white
+   selected row it goes back to grey - the counts swap with the rows.
+   docs/Design/Page/Left-Menu.md */
 .workspace-node .workspace-count {
-  background: #ddd;
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
   padding: 2px 6px;
   border-radius: 10px;
   font-size: 11px;
@@ -542,23 +588,23 @@
    as the pointer crossed it. */
 .workspace-node.active > .workspace-node-content .js-select-space,
 .workspace-node.active > .workspace-node-content:hover .js-select-space {
-  background: var(--theme-accent, #2980b9);
+  background: #fff;
 }
 .workspace-node.active > .workspace-node-content .js-select-space,
 .workspace-node.active > .workspace-node-content .js-select-space i {
-  /* Not `inherit`: that is what left the Admin Panel's selected entry the same
-     grey as an unselected one, on a background that is now dark. */
-  color: #fff;
+  /* Dark on the white selected row - the same swap the section rows make. Not
+     `inherit`, which would leave it the white of the rows around it, on white. */
+  color: #4d4d4d;
 }
+/* Hover on an unselected workspace: a wash over the theme colour, not solid
+   white, which would be indistinguishable from the selected one. */
 .workspace-node > .workspace-node-content:hover .js-select-space {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.18);
 }
 
-/* The count keeps its contrast against the filled row: a light pill on the
-   accent, rather than the mid-grey that worked on white and disappears here. */
 .workspace-node.active .workspace-count {
-  background: rgba(255, 255, 255, 0.3);
-  color: #fff;
+  background: #ddd;
+  color: #4d4d4d;
 }
 
 .boards-right-grid {

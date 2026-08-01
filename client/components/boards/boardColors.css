@@ -1,8 +1,16 @@
-/* The Admin Panel's selected left-menu row is painted by the SAME rules as the
-   second header bar, theme by theme: each theme's own `#header` selector below also
-   names `.side-menu ul li.active`. A flat colour stays a flat colour, and a theme
-   whose bar is a colour slide - clearblue - gives the selected row the same
-   gradient, which one `--theme-accent` value could never do.
+/* Both left MENUS are painted by the SAME rules as the header bars, theme by
+   theme: each theme's own `#header` selector below also names
+   `.setting-content .content-body .side-menu` and `.boards-left-menu`. So a
+   menu is the colour the first header bar above it is, and a theme whose bar is
+   a colour slide - clearblue - slides down the menu too, which one
+   `--theme-accent` value could never do.
+
+   It is the PANEL that is painted, not the selected row. The menu used to be
+   white with one filled row; it is filled now, and the row you are on is the
+   white one - see docs/Design/Page/Left-Menu.md. So no theme rule may name
+   `.side-menu ul li.active` or `.boards-left-menu .menu-item.active a` any
+   more: that would paint the selected row the same colour as the menu behind
+   it and leave nothing to show which row is selected.
    See docs/Design/Page/Theme.md and docs/Design/Page/Left-Menu.md. */
 
 /* ===============
@@ -15,8 +23,8 @@ THEME - NEPHRITIS
 .board-backgrounds-list .board-color-nephritis.background-box,
 .public-board-row.board-color-nephritis,
 .board-list .board-color-nephritis a,
-.board-color-nephritis .setting-content .content-body .side-menu ul li.active,
-.board-color-nephritis .setting-content .content-body .side-menu ul li.active:hover {
+.board-color-nephritis .setting-content .content-body .side-menu,
+.board-color-nephritis .boards-left-menu {
   background-color: #27ae60;
 }
 .board-color-nephritis .is-selected .minicard {
@@ -125,8 +133,8 @@ THEME - Pomegranate
 .board-backgrounds-list .board-color-pomegranate.background-box,
 .public-board-row.board-color-pomegranate,
 .board-list .board-color-pomegranate a,
-.board-color-pomegranate .setting-content .content-body .side-menu ul li.active,
-.board-color-pomegranate .setting-content .content-body .side-menu ul li.active:hover {
+.board-color-pomegranate .setting-content .content-body .side-menu,
+.board-color-pomegranate .boards-left-menu {
   background-color: #c0392b;
 }
 .board-color-pomegranate .is-selected .minicard {
@@ -235,8 +243,8 @@ THEME - Belize
 .board-backgrounds-list .board-color-belize.background-box,
 .public-board-row.board-color-belize,
 .board-list .board-color-belize a,
-.board-color-belize .setting-content .content-body .side-menu ul li.active,
-.board-color-belize .setting-content .content-body .side-menu ul li.active:hover {
+.board-color-belize .setting-content .content-body .side-menu,
+.board-color-belize .boards-left-menu {
   background-color: #2980b9;
 }
 .board-color-belize .is-selected .minicard {
@@ -345,8 +353,8 @@ THEME - Wisteria
 .board-backgrounds-list .board-color-wisteria.background-box,
 .public-board-row.board-color-wisteria,
 .board-list .board-color-wisteria a,
-.board-color-wisteria .setting-content .content-body .side-menu ul li.active,
-.board-color-wisteria .setting-content .content-body .side-menu ul li.active:hover {
+.board-color-wisteria .setting-content .content-body .side-menu,
+.board-color-wisteria .boards-left-menu {
   background-color: #8e44ad;
 }
 .board-color-wisteria .is-selected .minicard {
@@ -455,8 +463,8 @@ THEME - Midnight
 .board-backgrounds-list .board-color-midnight.background-box,
 .public-board-row.board-color-midnight,
 .board-list .board-color-midnight a,
-.board-color-midnight .setting-content .content-body .side-menu ul li.active,
-.board-color-midnight .setting-content .content-body .side-menu ul li.active:hover {
+.board-color-midnight .setting-content .content-body .side-menu,
+.board-color-midnight .boards-left-menu {
   background-color: #2c3e50;
 }
 .board-color-midnight .is-selected .minicard {
@@ -565,8 +573,8 @@ THEME - Pumpkin
 .board-backgrounds-list .board-color-pumpkin.background-box,
 .public-board-row.board-color-pumpkin,
 .board-list .board-color-pumpkin a,
-.board-color-pumpkin .setting-content .content-body .side-menu ul li.active,
-.board-color-pumpkin .setting-content .content-body .side-menu ul li.active:hover {
+.board-color-pumpkin .setting-content .content-body .side-menu,
+.board-color-pumpkin .boards-left-menu {
   background-color: #e67e22;
 }
 .board-color-pumpkin .is-selected .minicard {
@@ -675,8 +683,8 @@ THEME - Moderate Pink
 .board-backgrounds-list .board-color-moderatepink.background-box,
 .public-board-row.board-color-moderatepink,
 .board-list .board-color-moderatepink a,
-.board-color-moderatepink .setting-content .content-body .side-menu ul li.active,
-.board-color-moderatepink .setting-content .content-body .side-menu ul li.active:hover {
+.board-color-moderatepink .setting-content .content-body .side-menu,
+.board-color-moderatepink .boards-left-menu {
   background-color: #cd5a91;
 }
 .board-color-moderatepink .is-selected .minicard {
@@ -785,8 +793,8 @@ THEME - Strong Cyan
 .board-backgrounds-list .board-color-strongcyan.background-box,
 .public-board-row.board-color-strongcyan,
 .board-list .board-color-strongcyan a,
-.board-color-strongcyan .setting-content .content-body .side-menu ul li.active,
-.board-color-strongcyan .setting-content .content-body .side-menu ul li.active:hover {
+.board-color-strongcyan .setting-content .content-body .side-menu,
+.board-color-strongcyan .boards-left-menu {
   background-color: #00aecc;
 }
 .board-color-strongcyan .is-selected .minicard {
@@ -895,8 +903,8 @@ THEME - Lime Green
 .board-backgrounds-list .board-color-limegreen.background-box,
 .public-board-row.board-color-limegreen,
 .board-list .board-color-limegreen a,
-.board-color-limegreen .setting-content .content-body .side-menu ul li.active,
-.board-color-limegreen .setting-content .content-body .side-menu ul li.active:hover {
+.board-color-limegreen .setting-content .content-body .side-menu,
+.board-color-limegreen .boards-left-menu {
   background-color: #4bbf6b;
 }
 .board-color-limegreen .is-selected .minicard {
@@ -1005,8 +1013,8 @@ THEME - Dark
 .board-backgrounds-list .board-color-dark.background-box,
 .public-board-row.board-color-dark,
 .board-list .board-color-dark a,
-.board-color-dark .setting-content .content-body .side-menu ul li.active,
-.board-color-dark .setting-content .content-body .side-menu ul li.active:hover {
+.board-color-dark .setting-content .content-body .side-menu,
+.board-color-dark .boards-left-menu {
   background-color: #2c3e51;
 }
 .board-color-dark .is-selected .minicard {
@@ -1218,8 +1226,8 @@ THEME - Relax
 .board-backgrounds-list .board-color-relax.background-box,
 .public-board-row.board-color-relax,
 .board-list .board-color-relax a,
-.board-color-relax .setting-content .content-body .side-menu ul li.active,
-.board-color-relax .setting-content .content-body .side-menu ul li.active:hover {
+.board-color-relax .setting-content .content-body .side-menu,
+.board-color-relax .boards-left-menu {
   background-color: #27ae61;
 }
 .board-color-relax .is-selected .minicard {
@@ -1357,8 +1365,8 @@ THEME - Corteza
 .board-backgrounds-list .board-color-corteza.background-box,
 .public-board-row.board-color-corteza,
 .board-list .board-color-corteza a,
-.board-color-corteza .setting-content .content-body .side-menu ul li.active,
-.board-color-corteza .setting-content .content-body .side-menu ul li.active:hover {
+.board-color-corteza .setting-content .content-body .side-menu,
+.board-color-corteza .boards-left-menu {
   background-color: #568ba2;
 }
 .board-color-corteza .is-selected .minicard {
@@ -1494,8 +1502,8 @@ THEME - Clear Blue
 }
 .board-color-clearblue#header,
 .board-color-clearblue#header-quick-access,
-.board-color-clearblue .setting-content .content-body .side-menu ul li.active,
-.board-color-clearblue .setting-content .content-body .side-menu ul li.active:hover {
+.board-color-clearblue .setting-content .content-body .side-menu,
+.board-color-clearblue .boards-left-menu {
   background-color: #00aecc;
   border-bottom: 1px solid #008ba3;
   border-top: 1px solid #00687a;
@@ -1517,10 +1525,8 @@ THEME - Clear Blue
    All Boards row joining it. docs/Design/Page/Theme.md */
 .board-color-clearblue#header #header-main-bar,
 .board-color-clearblue#header-quick-access,
-.board-color-clearblue .setting-content .content-body .side-menu ul li.active,
-.board-color-clearblue .setting-content .content-body .side-menu ul li.active:hover,
-.board-color-clearblue .boards-left-menu .menu-item.active a,
-.board-color-clearblue .boards-left-menu .menu-item.active a:hover {
+.board-color-clearblue .setting-content .content-body .side-menu,
+.board-color-clearblue .boards-left-menu {
   background: linear-gradient(180deg, #499bea 0%, #00aecc 100%);
 }
 .board-color-clearblue#header #header-main-bar p {
@@ -1768,8 +1774,8 @@ THEME - Natural
 .board-backgrounds-list .board-color-natural.background-box,
 .public-board-row.board-color-natural,
 .board-list .board-color-natural a,
-.board-color-natural .setting-content .content-body .side-menu ul li.active,
-.board-color-natural .setting-content .content-body .side-menu ul li.active:hover {
+.board-color-natural .setting-content .content-body .side-menu,
+.board-color-natural .boards-left-menu {
   background-color: #596557;
 }
 .board-color-natural .is-selected .minicard {
@@ -1890,8 +1896,8 @@ THEME - Modern
 .board-backgrounds-list .board-color-modern.background-box,
 .public-board-row.board-color-modern,
 .board-list .board-color-modern a,
-.board-color-modern .setting-content .content-body .side-menu ul li.active,
-.board-color-modern .setting-content .content-body .side-menu ul li.active:hover {
+.board-color-modern .setting-content .content-body .side-menu,
+.board-color-modern .boards-left-menu {
   background-color: #2a80b8;
 }
 .board-color-modern .is-selected .minicard {
@@ -2185,8 +2191,8 @@ THEME - Modern Dark
 .board-backgrounds-list .board-color-moderndark.background-box,
 .public-board-row.board-color-moderndark,
 .board-list .board-color-moderndark a,
-.board-color-moderndark .setting-content .content-body .side-menu ul li.active,
-.board-color-moderndark .setting-content .content-body .side-menu ul li.active:hover {
+.board-color-moderndark .setting-content .content-body .side-menu,
+.board-color-moderndark .boards-left-menu {
   background-color: #2a2a2a;
 }
 .board-color-moderndark .is-selected .minicard {
@@ -2293,8 +2299,8 @@ THEME - Modern Dark
   border-radius: 7px;
 }
 .board-color-moderndark#header,
-.board-color-moderndark .setting-content .content-body .side-menu ul li.active,
-.board-color-moderndark .setting-content .content-body .side-menu ul li.active:hover {
+.board-color-moderndark .setting-content .content-body .side-menu,
+.board-color-moderndark .boards-left-menu {
   background-color: #262626;
   border-bottom: 1px solid #555;
   border-top: 1px solid #555;
@@ -2319,8 +2325,8 @@ THEME - Modern Dark
   margin: -5px 0 -5px 0;
 }
 .board-color-moderndark#header #header-main-bar,
-.board-color-moderndark .setting-content .content-body .side-menu ul li.active,
-.board-color-moderndark .setting-content .content-body .side-menu ul li.active:hover {
+.board-color-moderndark .setting-content .content-body .side-menu,
+.board-color-moderndark .boards-left-menu {
   padding-top: 3px;
   padding-bottom: 3px;
 }
@@ -2687,8 +2693,8 @@ THEME - Exodark
 .board-backgrounds-list .board-color-exodark.background-box,
 .public-board-row.board-color-exodark,
 .board-list .board-color-exodark a,
-.board-color-exodark .setting-content .content-body .side-menu ul li.active,
-.board-color-exodark .setting-content .content-body .side-menu ul li.active:hover {
+.board-color-exodark .setting-content .content-body .side-menu,
+.board-color-exodark .boards-left-menu {
   background-color: #222;
 }
 .board-color-exodark .is-selected .minicard {
@@ -4148,8 +4154,8 @@ THEME - Clean Light
 
 .board-color-cleanlight #header-main-bar,
 .board-color-cleanlight#header,
-.board-color-cleanlight .setting-content .content-body .side-menu ul li.active,
-.board-color-cleanlight .setting-content .content-body .side-menu ul li.active:hover {
+.board-color-cleanlight .setting-content .content-body .side-menu,
+.board-color-cleanlight .boards-left-menu {
   background: #F1F1F3 !important;
   color: rgba(10, 10, 20, 0.85) !important;
 }
@@ -4157,8 +4163,8 @@ THEME - Clean Light
 .board-color-cleandark #header-main-bar,
 .board-color-cleandark#header,
 .board-color-cleandark#header-quick-access,
-.board-color-cleandark .setting-content .content-body .side-menu ul li.active,
-.board-color-cleandark .setting-content .content-body .side-menu ul li.active:hover {
+.board-color-cleandark .setting-content .content-body .side-menu,
+.board-color-cleandark .boards-left-menu {
   background: #2E2E39 !important;
   color: #FFFFFF;
 }
@@ -4464,8 +4470,8 @@ docs/Design/Page/Theme.md
 }
 .board-color-cleargreen#header,
 .board-color-cleargreen#header-quick-access,
-.board-color-cleargreen .setting-content .content-body .side-menu ul li.active,
-.board-color-cleargreen .setting-content .content-body .side-menu ul li.active:hover {
+.board-color-cleargreen .setting-content .content-body .side-menu,
+.board-color-cleargreen .boards-left-menu {
   background-color: #4bbf6b;
   border-bottom: 1px solid #3c9956;
   border-top: 1px solid #2d7340;
@@ -4473,10 +4479,8 @@ docs/Design/Page/Theme.md
 
 .board-color-cleargreen#header #header-main-bar,
 .board-color-cleargreen#header-quick-access,
-.board-color-cleargreen .setting-content .content-body .side-menu ul li.active,
-.board-color-cleargreen .setting-content .content-body .side-menu ul li.active:hover,
-.board-color-cleargreen .boards-left-menu .menu-item.active a,
-.board-color-cleargreen .boards-left-menu .menu-item.active a:hover {
+.board-color-cleargreen .setting-content .content-body .side-menu,
+.board-color-cleargreen .boards-left-menu {
   background: linear-gradient(180deg, #8ad59f 0%, #4bbf6b 100%);
 }
 .board-color-cleargreen#header #header-main-bar p {
@@ -4758,8 +4762,8 @@ docs/Design/Page/Theme.md
 }
 .board-color-clearorange#header,
 .board-color-clearorange#header-quick-access,
-.board-color-clearorange .setting-content .content-body .side-menu ul li.active,
-.board-color-clearorange .setting-content .content-body .side-menu ul li.active:hover {
+.board-color-clearorange .setting-content .content-body .side-menu,
+.board-color-clearorange .boards-left-menu {
   background-color: #e67e22;
   border-bottom: 1px solid #b8651b;
   border-top: 1px solid #8a4c14;
@@ -4767,10 +4771,8 @@ docs/Design/Page/Theme.md
 
 .board-color-clearorange#header #header-main-bar,
 .board-color-clearorange#header-quick-access,
-.board-color-clearorange .setting-content .content-body .side-menu ul li.active,
-.board-color-clearorange .setting-content .content-body .side-menu ul li.active:hover,
-.board-color-clearorange .boards-left-menu .menu-item.active a,
-.board-color-clearorange .boards-left-menu .menu-item.active a:hover {
+.board-color-clearorange .setting-content .content-body .side-menu,
+.board-color-clearorange .boards-left-menu {
   background: linear-gradient(180deg, #efab6f 0%, #e67e22 100%);
 }
 .board-color-clearorange#header #header-main-bar p {
@@ -5052,8 +5054,8 @@ docs/Design/Page/Theme.md
 }
 .board-color-clearpink#header,
 .board-color-clearpink#header-quick-access,
-.board-color-clearpink .setting-content .content-body .side-menu ul li.active,
-.board-color-clearpink .setting-content .content-body .side-menu ul li.active:hover {
+.board-color-clearpink .setting-content .content-body .side-menu,
+.board-color-clearpink .boards-left-menu {
   background-color: #cd5a91;
   border-bottom: 1px solid #a44874;
   border-top: 1px solid #7b3657;
@@ -5061,10 +5063,8 @@ docs/Design/Page/Theme.md
 
 .board-color-clearpink#header #header-main-bar,
 .board-color-clearpink#header-quick-access,
-.board-color-clearpink .setting-content .content-body .side-menu ul li.active,
-.board-color-clearpink .setting-content .content-body .side-menu ul li.active:hover,
-.board-color-clearpink .boards-left-menu .menu-item.active a,
-.board-color-clearpink .boards-left-menu .menu-item.active a:hover {
+.board-color-clearpink .setting-content .content-body .side-menu,
+.board-color-clearpink .boards-left-menu {
   background: linear-gradient(180deg, #df94b8 0%, #cd5a91 100%);
 }
 .board-color-clearpink#header #header-main-bar p {
@@ -5346,8 +5346,8 @@ docs/Design/Page/Theme.md
 }
 .board-color-clearpurple#header,
 .board-color-clearpurple#header-quick-access,
-.board-color-clearpurple .setting-content .content-body .side-menu ul li.active,
-.board-color-clearpurple .setting-content .content-body .side-menu ul li.active:hover {
+.board-color-clearpurple .setting-content .content-body .side-menu,
+.board-color-clearpurple .boards-left-menu {
   background-color: #8e44ad;
   border-bottom: 1px solid #72368a;
   border-top: 1px solid #552968;
@@ -5355,10 +5355,8 @@ docs/Design/Page/Theme.md
 
 .board-color-clearpurple#header #header-main-bar,
 .board-color-clearpurple#header-quick-access,
-.board-color-clearpurple .setting-content .content-body .side-menu ul li.active,
-.board-color-clearpurple .setting-content .content-body .side-menu ul li.active:hover,
-.board-color-clearpurple .boards-left-menu .menu-item.active a,
-.board-color-clearpurple .boards-left-menu .menu-item.active a:hover {
+.board-color-clearpurple .setting-content .content-body .side-menu,
+.board-color-clearpurple .boards-left-menu {
   background: linear-gradient(180deg, #b685ca 0%, #8e44ad 100%);
 }
 .board-color-clearpurple#header #header-main-bar p {
@@ -5640,8 +5638,8 @@ docs/Design/Page/Theme.md
 }
 .board-color-clearred#header,
 .board-color-clearred#header-quick-access,
-.board-color-clearred .setting-content .content-body .side-menu ul li.active,
-.board-color-clearred .setting-content .content-body .side-menu ul li.active:hover {
+.board-color-clearred .setting-content .content-body .side-menu,
+.board-color-clearred .boards-left-menu {
   background-color: #c0392b;
   border-bottom: 1px solid #9a2e22;
   border-top: 1px solid #73221a;
@@ -5649,10 +5647,8 @@ docs/Design/Page/Theme.md
 
 .board-color-clearred#header #header-main-bar,
 .board-color-clearred#header-quick-access,
-.board-color-clearred .setting-content .content-body .side-menu ul li.active,
-.board-color-clearred .setting-content .content-body .side-menu ul li.active:hover,
-.board-color-clearred .boards-left-menu .menu-item.active a,
-.board-color-clearred .boards-left-menu .menu-item.active a:hover {
+.board-color-clearred .setting-content .content-body .side-menu,
+.board-color-clearred .boards-left-menu {
   background: linear-gradient(180deg, #d67e75 0%, #c0392b 100%);
 }
 .board-color-clearred#header #header-main-bar p {
