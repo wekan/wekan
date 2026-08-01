@@ -249,6 +249,22 @@ test('the menu folds away, the same way a list does', () => {
   }
 });
 
+test('the caret that folds it is actually in the bundle', () => {
+  // The bug this pins: the caret rendered on both pages and clicking it did
+  // NOTHING. leftMenu.jade only DRAWS it - the click handler that folds the
+  // menu and the `isLeftMenuCollapsed` helper that says whether it is folded
+  // live in leftMenu.js, and package.json sets meteor.mainModule, so a file
+  // nobody imports is not in the bundle at all. An unregistered helper is
+  // undefined, so the panel never took the `collapsed` class either: a caret
+  // with no handler and a menu that could not fold.
+  // Same class of bug as the missing adminReports.css import beside it.
+  const feature = read('client/features/settings.js');
+  assert.ok(/import '\/client\/components\/settings\/leftMenu\.jade'/.test(feature),
+    'the template is loaded');
+  assert.ok(/import '\/client\/components\/settings\/leftMenu\.js'/.test(feature),
+    'and so is the code behind it, or the caret does nothing');
+});
+
 test('the fold is remembered, per user and per browser', () => {
   const utils = read('client/lib/utils.js');
   const fn = utils.slice(utils.indexOf('  getLeftMenuCollapseState() {'),

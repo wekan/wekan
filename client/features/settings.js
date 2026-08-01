@@ -17,6 +17,13 @@ import '/client/components/settings/attachments.js';
 import '/client/components/settings/connectionMethod.js';
 import '/client/components/settings/informationBody.js';
 import '/client/components/settings/invitationCode.js';
+// The left menu's caret. Its .jade above only DRAWS the caret: the click that
+// folds the menu and the `isLeftMenuCollapsed` helper that says whether it is
+// folded live here, and package.json sets meteor.mainModule, so a file nobody
+// imports is simply not in the bundle. Without this line the caret rendered and
+// did nothing - an unregistered helper is undefined, so the panel never took
+// the `collapsed` class either. docs/Design/Page/Left-Menu.md
+import '/client/components/settings/leftMenu.js';
 import '/client/components/settings/lockedUsersBody.js';
 import '/client/components/settings/migrationProgress.js';
 import '/client/components/settings/peopleBody.js';

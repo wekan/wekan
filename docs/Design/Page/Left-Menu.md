@@ -26,7 +26,10 @@ table beside it.
 | `client/components/settings/adminReports.jade` | `.jade` template | Admin Panel / Problems. |
 | `client/components/settings/translationBody.jade` | `.jade` template | The Translation pane of Admin Panel / Settings — a pane, not a page: the menu beside it is the Settings one. |
 | `client/components/settings/informationBody.jade` | `.jade` template | The Version pane of Admin Panel / Settings — likewise a pane, rendered by `settingBody.jade`. |
+| `client/components/settings/leftMenu.js` | `.js` client code | The caret's click handler and the global `isLeftMenuCollapsed` helper. Imported by `client/features/settings.js` — see [Collapsing it](#collapsing-it). |
+| `client/lib/utils.js` | `.js` client code | `getLeftMenuCollapseState()` / `setLeftMenuCollapseState()`: the Session value, the user's profile field and the signed-out cookie behind the fold. |
 | `tests/leftMenu.test.cjs` | `.cjs` Node test | The one suite: the pure helpers, the template, the side placement and mirroring, and that no page re-implements the menu. |
+| `tests/clientBundleImports.test.cjs` | `.cjs` Node test | Walks the import graph from `client/main.js` so a component that registers a template can never be left out of the bundle again. |
 
 ## Pages that use this design
 
@@ -101,6 +104,17 @@ It is remembered in three layers, the same shape the list collapse uses:
 
 Open is the default. A menu that remembered itself collapsed for somebody who
 has never collapsed one would be a page with no visible way to navigate.
+
+The caret's code — the click that folds the menu and the `isLeftMenuCollapsed`
+helper that says whether it is folded — lives in
+`client/components/settings/leftMenu.js`, and that file has to be **imported by
+`client/features/settings.js`**. `package.json` sets `meteor.mainModule`, so the
+client is not eagerly loaded: a file nobody imports is not in the bundle at all.
+Without that line the caret still rendered and clicking it did nothing, and an
+unregistered Blaze helper is undefined, so the panel never took the `collapsed`
+class either. `tests/clientBundleImports.test.cjs` walks the import graph from
+`client/main.js` and pins that every component file which registers something
+with Blaze is reachable from it.
 
 ## Theme
 
