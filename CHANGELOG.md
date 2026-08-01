@@ -261,7 +261,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.55 2026-08-02 WeKan ® release
 
 **In short:** a dependency release. Four updates arrive from **dependabot**,
 none of them in the shipped bundle: the two halves of **typescript-eslint** that
