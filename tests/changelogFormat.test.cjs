@@ -190,9 +190,16 @@ test('the newest release follows the rules to the letter', () => {
   const start = lines.findIndex((l, i) => i > todo && /^# v\d/.test(l));
   const end = lines.findIndex((l, i) => i > start && /^# v\d/.test(l));
   const inSection = ALL.filter(b => b.line > start && b.line < end);
-  // At least one. A release is as big as the work in it - v10.46 carried two
-  // fixes - and "more than five" measured the day rather than the format.
-  assert.ok(inSection.length >= 1, 'and it must have entries');
+  // At least one CHANGE. A release is as big as the work in it - v10.46 carried
+  // two fixes - and "more than five" measured the day rather than the format.
+  //
+  // An entry OR a bullet: v10.55 is four dependabot updates and nothing else,
+  // and CLAUDE.md keeps a dependency batch as plain bullets. Requiring a
+  // `<details>` would mean padding one bump into a block whose body repeats its
+  // summary, which is the noise that rule exists to prevent.
+  const bullets = lines.slice(start, end).filter(l => /^- \*\*/.test(l));
+  assert.ok(inSection.length + bullets.length >= 1,
+    'and it must have entries or bullets');
   for (const b of inSection) {
     assert.ok(summaryText(b.summary).length <= 120,
       `line ${b.line}: a summary must be a title (${summaryText(b.summary).length} chars)`);

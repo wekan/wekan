@@ -561,6 +561,12 @@ const REPORT_TABLES = {
       try {
         return reportPageResults(coll, 'report-files');
       } catch (e) {
+        // Say what went wrong. This used to return [] in silence, and an empty
+        // catch on the one helper that fills the table is indistinguishable
+        // from "there is nothing to show": the pane draws its headers, says
+        // "No results", and nothing anywhere records that it threw. A report
+        // that cannot render its rows is worth one line in the console.
+        console.error('[report-files] could not read the page of rows:', e);
         return [];
       }
     },

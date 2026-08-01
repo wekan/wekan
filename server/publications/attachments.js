@@ -79,8 +79,15 @@ Meteor.publish('attachmentsList', async function(searchTerm = '', limit, skip = 
       });
       const docs =
         typeof cursor.fetchAsync === 'function' ? await cursor.fetchAsync() : cursor.fetch();
-      if (process.env.DEBUG === 'true') {
-        console.log('[attachmentsList] matched %d attachment(s)', (docs || []).length);
+      // An admin whose report is EMPTY is worth a line whatever DEBUG says: the
+      // publication answering with nothing looks exactly like the publication
+      // never running, and the only way to tell them apart was to turn DEBUG on
+      // and reproduce. The full count stays behind DEBUG - it is one line per
+      // page of a report an admin is paging through.
+      if (!(docs || []).length) {
+        console.warn('[attachmentsList] no attachments matched (limit %s, skip %s)', limit, skip || 0);
+      } else if (process.env.DEBUG === 'true') {
+        console.log('[attachmentsList] matched %d attachment(s)', docs.length);
       }
       for (const doc of docs || []) {
         const { _id, ...fields } = doc;

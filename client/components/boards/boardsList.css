@@ -84,8 +84,17 @@
   width: var(--wekan-left-menu-width);
   /* ...but never wider than the track it is in: on a phone that track is capped
      at 210px (#6523, the rules further down), and a fixed width would have run
-     the menu out past it. */
+     the menu out past it.
+
+     `min-width: 0` is what makes that cap WORK, and it is the same fix the
+     right-hand column below has for the same reason: a grid item's default
+     `min-width: auto` is its content's intrinsic minimum, and a minimum beats a
+     maximum - so the menu kept its 260px and lay over the boards, with
+     `max-width` doing nothing at all. The rows inside it already ellipse (the
+     workspace name carries its own `min-width: 0`), so there is nothing that
+     needs the intrinsic width held open. */
   max-width: 100%;
+  min-width: 0;
   box-sizing: border-box;
   background-color: #f7f7f7;
   /* Flush on three sides, like the Admin Panel's: it starts at the window's

@@ -111,6 +111,30 @@ test('.swcrc is not swallowed by the vim-swapfile ignore rule', () => {
     'and after it: in gitignore the LAST matching pattern wins');
 });
 
+test('the big local-only clones are ignored, node included', () => {
+  // Sibling repositories cloned INSIDE this working copy to be edited or built
+  // from. They are whole git repos and gigabytes of source - `node/` alone is a
+  // 2.2G clone of the Node.js 24.x fork WeKan builds its runtime from - and
+  // untracked they are noise in every `git status` that hides the files that
+  // matter.
+  const rules = read('.gitignore').split(/\r?\n/).map(line => line.trim());
+  for (const dir of ['/projects/', '/sandstorm/', '/FerretDB/', '/mongo-tools/',
+    '/mongosh/', '/node/']) {
+    assert.ok(rules.includes(dir), `${dir} must be ignored`);
+  }
+  // Rooted, every one of them: a bare `node` would also match `node` anywhere
+  // below - including anything a package happens to call that - and a bare
+  // `node/` would match a `node/` directory at any depth.
+  for (const rule of rules.filter(r => /^\/?(node|projects|sandstorm|FerretDB|mongo-tools|mongosh)\/?$/.test(r))) {
+    assert.ok(rule.startsWith('/') && rule.endsWith('/'),
+      `"${rule}" must be rooted and a directory, or it matches more than the clone`);
+  }
+  // ...and each one says what it is, so the next reader knows why it is there.
+  const ignore = read('.gitignore');
+  assert.ok(/#\s+- node\/\s+: clone of the Node\.js/.test(ignore),
+    'the node clone is named in the comment block with its neighbours');
+});
+
 test('the helper the report names is imported', () => {
   assert.ok(helperPaths.includes('_possible_constructor_return'),
     'the missing one from the reports');

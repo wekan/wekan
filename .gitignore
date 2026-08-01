@@ -83,11 +83,13 @@ _build-local-test
 #  - FerretDB/    : clone of wekan/FerretDB
 #  - mongo-tools/ : clone of wekan/mongo-tools
 #  - mongosh/     : clone of wekan/mongosh
+#  - node/        : clone of the Node.js 24.x fork WeKan builds its runtime from
 /projects/
 /sandstorm/
 /FerretDB/
 /mongo-tools/
 /mongosh/
+/node/
 
 # Linux core dumps (core.<pid>), e.g. from a crashing Playwright/WebKit browser
 # process. Written into the crashing process CWD (tests/playwright/) by

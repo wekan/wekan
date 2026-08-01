@@ -138,4 +138,39 @@ test('and the page itself can never be dragged sideways on a phone', () => {
   assert.ok(/body\.mobile-mode \{[\s\S]{0,200}overflow-x: hidden;/.test(layouts));
 });
 
+test('the left menu fits its column, so it cannot lie over the boards', () => {
+  // Spec 43 (`43-mobile-allboards.e2e.js`) measures this in a browser: the
+  // board list must start at or after the menu's right edge. On a 375px phone
+  // the grid track is capped at 42% - about 157px - but the menu carries a
+  // width of its own (260px, so it can be dragged), and it kept every pixel of
+  // it and lay over the boards.
+  //
+  // `max-width: 100%` alone did NOT fix it, which is the part worth pinning: a
+  // grid item's default `min-width: auto` is its content's intrinsic minimum,
+  // and a minimum beats a maximum. The cap only applies once the item is
+  // allowed to shrink - which is the same pair the right-hand column beside it
+  // has always had.
+  const boards = read('client/components/boards/boardsList.css');
+  const at = boards.indexOf('.boards-left-menu {');
+  assert.notStrictEqual(at, -1, 'the menu has its own rule');
+  const rule = boards.slice(at, boards.indexOf('}', at));
+  assert.ok(/width: var\(--wekan-left-menu-width\);/.test(rule),
+    'it carries the width that can be dragged');
+  assert.ok(/max-width: 100%;/.test(rule), 'capped by the column it is in');
+  assert.ok(/min-width: 0;/.test(rule),
+    'and allowed to shrink to that cap - without this the maximum does nothing');
+
+  // The column it is capped against really is narrower than that width on a
+  // phone, or the cap would be untested in the only place it matters.
+  const phone = boards.match(/\.boards-layout \{[^}]*grid-template-columns:[^;]*min\(42%, 210px\)[^;]*;/);
+  assert.ok(phone, 'the phone track is the one that caps it');
+
+  // And the same fix on the right-hand column, which is where this came from -
+  // whichever of its rules carries it: `.boards-right-grid` has more than one.
+  const rightRules = [...boards.replace(/\/\*[\s\S]*?\*\//g, '').matchAll(/([^{}]+)\{([^{}]*)\}/g)]
+    .filter(r => r[1].split(',').some(sel => sel.trim().endsWith('.boards-right-grid')));
+  assert.ok(rightRules.some(r => /min-width: 0;/.test(r[2])),
+    'the boards column shrinks to its track too');
+});
+
 console.log(`\n${passed} tests passed`);
