@@ -516,7 +516,11 @@ body.mobile-mode #header-quick-access .allBoards {
 #header-quick-access .mobile-mode-toggle {
   display: flex;
   align-items: center;
-  margin: 0 14px;
+  /* The same 4px every other item of this bar carries, so the gaps between
+     neighbours are all 8px. At 14px the drag-handles toggle beside it had 18px
+     of space on its left (14 + its own 4) against 8px on its right, which read
+     as a hole rather than as spacing. */
+  margin: 0 4px;
   float: inline-start;
 }
 
