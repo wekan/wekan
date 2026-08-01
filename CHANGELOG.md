@@ -269,7 +269,9 @@ three architectures that were missing a Node.js - **i386**, **armhf** and
 nodejs.org and unofficial-builds do not publish, so they get a bundle, and i386
 and armhf get a **snap** and a place in the **multi-arch image** as well. Below
 that: the snap build that could not finish on any of the FerretDB-only
-architectures, and the All Boards left menu lying across the boards on a phone.
+architectures, the All Boards left menu lying across the boards on a phone and
+its board counts landing at four different x positions, and a remote snap build
+that failed three times without ever saying why.
 
 This release adds the following new features:
 
@@ -316,8 +318,10 @@ wrong CPU is worse than no tool. It is written up as
 
 and fixes the following bugs:
 
+**The snap** - the packages Launchpad builds for the arches with no runner.
+
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/2d17d2627a2aef431b40e644805e9cf822d4f958">The snap builds again on every architecture that has no MongoDB server</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2d17d2627a2aef431b40e644805e9cf822d4f958">It builds again on every architecture that has no MongoDB server</a>. Thanks to xet7.</summary>
 
 The s390x snap died in the STAGE step of both its Launchpad builds, right after
 "Staging mongodb", with `IsADirectoryError` on `stage/bin`. ppc64el and riscv64
@@ -338,8 +342,10 @@ really is there are untouched, and it removes before `mkdir -p`, because
 
 </details>
 
+**All Boards** - the page and its left menu, on a phone above all.
+
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5b91c99b115c93c27fa2d257972a748ee45054e4">The All Boards left menu fits its column on a phone instead of lying over the boards</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/5b91c99b115c93c27fa2d257972a748ee45054e4">The left menu fits its column on a phone instead of lying over the boards</a>. Thanks to xet7.</summary>
 
 On a 375px phone the menu's column is capped at about 157px, and the menu kept
 the 260px width it carries so it can be dragged - so it lay across the board
@@ -356,6 +362,47 @@ intrinsic width held open - the workspace name already ellipses through its own
 The `node/` directory - a clone of the Node.js fork the runtime is built from -
 joins the other local-only clones in `.gitignore` at the same time, so it stops
 filling `git status` with 2.2G of untracked source.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/852ad1714b58589fd132c4f63ef32fc47eef709d">The board counts line up in one column</a>. Thanks to xet7.</summary>
+
+Starred, Home, Templates and Archive have labels of four different lengths, and
+on a phone the count chip sat immediately after its label - so the four numbers
+landed at four different x positions and the column of counts read as ragged
+rather than as a column at all.
+
+That packing was deliberate: the number beside the text rather than across a
+gap, on the grounds that a landscape phone's menu is wide enough for the gap to
+look like a mistake. It is reversed here, because the alignment is what a reader
+is actually using - the counts are compared with each other down the column, and
+four x positions is what stops that. The row keeps the same spread-apart layout
+at every width now, so every count sits at the end of its own row and they line
+up. The phone override is gone rather than re-tuned: there is no width at which
+the ragged version was wanted.
+
+</details>
+
+and improves the following release tooling:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8dc6bc7edd69fc44d0a084fe6d07c3799e1d28f2">A remote snap build that never starts now says why it did not</a>. Thanks to xet7.</summary>
+
+The riscv64 leg failed three times in sixteen minutes, and the whole of what it
+printed was one line: `Git operation failed with: Could not push 'HEAD' to`
+Launchpad. The build had not started - `remote-build` uploads the source to a
+Launchpad git repository first, and it was the upload that failed - so there was
+no Launchpad build log to print, which is what the job knew how to show.
+
+snapcraft swallows git's own error, writes it to its own execution log, names
+that log's path in the output, and nothing reads it. So "rejected", "timeout",
+"auth" and "too big" all looked identical from the job log, which is why three
+runs narrowed nothing down. That log is printed now when an attempt fails.
+
+The retry also clears snapcraft's local clone of the Launchpad repository before
+waiting. A retry that reuses a half-pushed one repeats the same failure, and
+three identical attempts sixteen minutes apart is what that looks like.
 
 </details>
 
