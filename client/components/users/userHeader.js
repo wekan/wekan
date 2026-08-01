@@ -7,6 +7,7 @@ import { Utils } from '/client/lib/utils';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { detectAvailableFonts } from '/client/lib/fontDetector';
 import { fontFamilyValue, fontSizeValue, UI_FONT_SIZES, isHexColor6, colorValue } from '/models/lib/uiFonts';
+const { allBoardsPath, SECTION_ARCHIVE } = require('/models/lib/allBoardsUrls');
 
 Template.headerUserBar.events({
   'click .js-open-header-member-menu': Popup.open('memberMenu'),
@@ -69,9 +70,14 @@ Template.memberMenuPopup.events({
   'click .js-due-cards'() {
     Popup.back();
   },
-  // Boards in Archive is a PAGE now, not a modal - go to it.
+  // Boards in Archive is a SECTION of All Boards - the row in its left menu -
+  // not a page of its own. This sent the reader to `/archive`, the full-width
+  // page that section replaced: the same list, but with no menu beside it and
+  // no way to step across to Starred or Remaining without going back first.
+  // docs/Design/Page/Archive.md
   'click .js-open-archived-board'() {
-    FlowRouter.go('archive');
+    FlowRouter.go(allBoardsPath(SECTION_ARCHIVE, []));
+    Popup.back();
   },
   'click .js-invite-people': Popup.open('invitePeople'),
   'click .js-edit-profile': Popup.open('editProfile'),

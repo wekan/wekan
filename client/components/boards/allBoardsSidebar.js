@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+const { allBoardsPath, SECTION_ARCHIVE } = require('/models/lib/allBoardsUrls');
 import { TAPi18n } from '/imports/i18n';
 import { BoardMultiSelection } from '/client/lib/boardMultiSelection';
 import { allBoardsSearchVar } from '/client/lib/allBoardsView';
@@ -83,7 +84,9 @@ Template.allBoardsHomeSidebar.events({
   'click .js-open-archived-board'(evt) {
     evt.preventDefault();
     closeAllBoardsSidebar();
-    FlowRouter.go('archive');
+    // The SECTION of this page, not the full-width page it replaced.
+    // docs/Design/Page/Archive.md
+    FlowRouter.go(allBoardsPath(SECTION_ARCHIVE, []));
   },
 });
 

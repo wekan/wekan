@@ -1,6 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+const { allBoardsPath, SECTION_ARCHIVE } = require('/models/lib/allBoardsUrls');
 import dragscroll from '@wekanteam/dragscroll';
 import getSlug from 'limax';
 import Boards from '/models/boards';
@@ -175,9 +176,11 @@ Template.boardHeaderButtons.events({
   'click .js-edit-board-title': Popup.open('boardChangeTitle'),
   'click .js-change-visibility': Popup.open('boardChangeVisibility'),
   'click .js-watch-board': Popup.open('boardChangeWatch'),
-  // Boards in Archive is a PAGE now, not a modal - go to it.
+  // Boards in Archive is a SECTION of All Boards, not a page of its own: the
+  // row in its left menu. `/archive` is the full-width page that section
+  // replaced. docs/Design/Page/Archive.md
   'click .js-open-archived-board'() {
-    FlowRouter.go('archive');
+    FlowRouter.go(allBoardsPath(SECTION_ARCHIVE, []));
   },
   // The button that opens the filter sidebar also shuts it. It only ever
   // opened, so a second click did nothing visible and the only way back was the

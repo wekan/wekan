@@ -59,8 +59,16 @@ test('and nothing opens it as a modal any more', () => {
   assert.deepStrictEqual(offenders, [], 'these still open the archive as a modal');
 });
 
-test('every entry point goes to the page', () => {
+test('every entry point goes to the SECTION of All Boards', () => {
   // Three menus had the handler, and a fourth button had lost one.
+  //
+  // They all went to `/archive`, the full-width page. Boards in Archive is a
+  // SECTION of All Boards now - a row in its left menu, drawn beside it - so
+  // that page is the thing the section replaced: the same list of boards, but
+  // with no menu beside it and no way across to Starred or Remaining without
+  // going back first. Every entry point reaches the section.
+  // xet7: "Member Settings / Archive opens it full width. instead, it should go
+  // to /allboards/archive". The other three are the same line in another menu.
   const entries = [
     ['client/components/boards/boardHeader.js', 'the board menu'],
     ['client/components/users/userHeader.js', 'the member menu'],
@@ -71,12 +79,17 @@ test('every entry point goes to the page', () => {
     const src = read(file);
     const at = src.indexOf("'click .js-open-archived-board'");
     assert.notStrictEqual(at, -1, `${what} must handle the click`);
-    assert.ok(/FlowRouter\.go\('archive'\)/.test(src.slice(at, at + 300)),
-      `${what} must go to the page`);
-    // By route NAME, not by a path spelled out again in four places.
-    assert.ok(!/FlowRouter\.go\('\/archive'\)/.test(src),
-      `${what} must use the route name, not a literal path`);
+    assert.ok(/FlowRouter\.go\(allBoardsPath\(SECTION_ARCHIVE, \[\]\)\)/.test(src.slice(at, at + 400)),
+      `${what} must go to the All Boards archive section`);
+    // Through the URL helper, not a path spelled out again in four places.
+    assert.ok(!/FlowRouter\.go\('\/?allboards\/archive'\)/.test(src),
+      `${what} must build the path with allBoardsPath(), not by hand`);
+    assert.ok(/require\('\/models\/lib\/allBoardsUrls'\)/.test(src),
+      `${what} must import that helper`);
   }
+  // And the helper really produces the address that was asked for.
+  const { allBoardsPath, SECTION_ARCHIVE } = require('../models/lib/allBoardsUrls');
+  assert.strictEqual(allBoardsPath(SECTION_ARCHIVE, []), '/allboards/archive');
 });
 
 test('the All Boards sidebar row works at all', () => {
@@ -89,8 +102,9 @@ test('the All Boards sidebar row works at all', () => {
   // events inside its own template, so each copy needs its own handler, and a
   // copy with markup but no map is a button that silently does nothing. That
   // is exactly what happened to this one once already.
-  // The SIDEBAR row still leaves for the page and closes the panel behind it:
-  // the page it opens replaces the page the panel belongs to.
+  // The SIDEBAR row closes the panel behind it: the section it opens is another
+  // section of the page the panel belongs to, so leaving the panel open over it
+  // would cover the list it just went to.
   assert.ok(/js-open-archived-board/.test(read('client/components/boards/allBoardsSidebar.jade')),
     'the sidebar draws it');
   const sidebarJs = read('client/components/boards/allBoardsSidebar.js');
@@ -98,8 +112,8 @@ test('the All Boards sidebar row works at all', () => {
   assert.notStrictEqual(at, -1, 'and handles it');
   assert.ok(/closeAllBoardsSidebar\(\)/.test(sidebarJs.slice(at, at + 300)),
     'and the sidebar closes behind it');
-  assert.ok(/FlowRouter\.go\('archive'\)/.test(sidebarJs.slice(at, at + 300)),
-    'and it goes to the page');
+  assert.ok(/FlowRouter\.go\(allBoardsPath\(SECTION_ARCHIVE, \[\]\)\)/.test(sidebarJs.slice(at, at + 400)),
+    'and it goes to the archive SECTION of All Boards');
 
   // The LEFT MENU row does not navigate at all - it selects a section of the
   // All Boards page, drawn beside the menu. A menu row that throws its own menu

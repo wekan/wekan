@@ -19,8 +19,18 @@ were reading. "Restore the board I archived last month" is a task, not a glance.
 | The board sidebar | the same class, in `sidebar.js` |
 | The All Boards sidebar | the same class, in its home view |
 
-All four `FlowRouter.go('archive')` — by route **name**, so the path is spelled
-out once, in the router, rather than in four places that can drift apart.
+All four go to **`/allboards/archive`** — the Archive **section** of All Boards,
+the row in its left menu — built with `allBoardsPath(SECTION_ARCHIVE, [])` rather
+than by spelling the path out in four places that can drift apart.
+
+They used to go to `/archive`, the full-width page. That page is what the section
+replaced: the same list of boards, but with no left menu beside it, so there was
+no way across to Starred or Remaining without going back first, and the one row
+in the menu that says "Archive" was not the row you had arrived at. A menu entry
+should land you on the same Archive the menu itself offers.
+
+`/archive` is still a route and still renders — a bookmark from before does not
+break — but nothing in the UI points at it any more.
 
 The All Boards one had no handler at all. It was drawn, and clicking it did
 nothing: the handler it relied on lived in the header bar's events map, and went

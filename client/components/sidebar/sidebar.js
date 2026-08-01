@@ -4,6 +4,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+const { allBoardsPath, SECTION_ARCHIVE } = require('/models/lib/allBoardsUrls');
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
 import AccessibilitySettings from '/models/accessibilitySettings';
 import Boards from '/models/boards';
@@ -824,9 +825,11 @@ Template.membersWidget.events({
   'click .js-manage-board-addTeam': Popup.open('addBoardTeam'),
   'click .js-manage-board-addDomain': Popup.open('addBoardDomain'),
   'click .js-import-board': Popup.open('chooseBoardSource'),
-  // Boards in Archive is a PAGE now, not a modal - go to it.
+  // Boards in Archive is a SECTION of All Boards, not a page of its own: the
+  // row in its left menu. `/archive` is the full-width page that section
+  // replaced. docs/Design/Page/Archive.md
   'click .js-open-archived-board'() {
-    FlowRouter.go('archive');
+    FlowRouter.go(allBoardsPath(SECTION_ARCHIVE, []));
   },
   'click .sandstorm-powerbox-request-identity'() {
     window.sandstormRequestIdentity();
