@@ -144,6 +144,14 @@ test('and All Boards reaches it from the left menu, not the header bar', () => {
     jade.indexOf('ul.AllBoardTeamsOrgs'));
   const rowAt = menu.indexOf('js-open-archived-board');
   assert.notStrictEqual(rowAt, -1, 'the row is in the left menu');
+  // The order of the four board-list rows, which is a decision rather than an
+  // accident: Remaining first - the boards you have not filed anywhere, which
+  // is where most people's boards are - then Starred, Templates, and the
+  // Archive last.
+  const order = [...menu.matchAll(/data-type="(\w+)"/g)].map(m => m[1]);
+  assert.deepStrictEqual(order, ['remaining', 'starred', 'templates', 'archive'],
+    'the left menu lists its sections in this order');
+
   // Under REMAINING, in the same group as the other three board lists - it is
   // another list of boards, which is what those rows are. It was below the
   // workspaces tree first; xet7 moved it up.
