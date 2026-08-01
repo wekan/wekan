@@ -270,17 +270,18 @@ holds a **bookmarks menu** - the star works on any page now, not only on a
 board. **All Boards** gains a Home section for the board that opens after login,
 an Archive in its left menu, a Table view, a heading naming the section you are
 in, and an address for every section and workspace; the **Admin Panel** moves
-under `/admin` with an address for every pane. **Public Boards** becomes a
-read-only page of its own, a swimlane, a list and a card can each be **linked**
-to directly, and **board roles** are one capability table with a pane that shows
-it. Below that: dependency updates, ten bug fixes - the header bar's layout, a
-filter that left a spinner turning, a search that reached past your own boards,
-a left-menu caret that did nothing when clicked - and the usual documentation
-and translation work.
+under `/admin` with an address for every pane. **The left menu** those two pages
+share **folds away** and is **resized by dragging** its inner edge. **Public
+Boards** becomes a read-only page of its own, a swimlane, a list and a card can
+each be **linked** to directly, and **board roles** are one capability table
+with a pane that shows it. Below that: dependency updates, ten bug fixes - the
+header bar's layout, a filter that left a spinner turning, a search that
+reached past your own boards, a left-menu caret that did nothing when clicked -
+and the usual documentation and translation work.
 
 This release adds the following new features:
 
-**All Boards** - its sections, its controls, and what the page opens on.
+**The left menus** - the one menu All Boards and the Admin Panel share.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5df6f284212be9ec6070f8438dca78f0d1fa89d8">The left menu folds away, with the caret a list already has</a>. Thanks to xet7.</summary>
@@ -315,6 +316,44 @@ Open is the default: a menu that remembered itself collapsed for somebody who
 has never collapsed one would be a page with no visible way to navigate.
 
 </details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/920d42b6db4c2df0d8302ee56b3d0d17fc40c3c3">Its width is dragged from its inner edge, the way the right sidebar's is</a>. Thanks to xet7.</summary>
+
+The menu's inner edge - the right one while reading left to right, the left one
+under a right-to-left language - now carries a grip, and dragging it changes the
+width. It is the same control the right board sidebar has on its own inner edge:
+the same strip, the same cursor, and the same sign flip on the drag so the
+widening direction mirrors under a right-to-left language rather than needing a
+second rule kept in step.
+
+**One number, on `<html>`.** The width is a CSS custom property, and everything
+that needs it reads that one: the Admin Panel's menu, the All Boards one - whose
+grid track follows the menu - and the grip itself, which has to sit exactly on
+the edge. An inline width on one element could not have done that, because the
+menu is a different element in a different template on each page. A breakpoint
+that wants a different default width overrides the variable rather than the
+menu, or it would beat a dragged width at exactly that one screen size.
+
+The grip is positioned against the row around the menu, not inside it: the menu
+is its own scroll area, and a handle within it would scroll away with the
+entries. Being positioned it is neither a flex item nor a grid item, so it adds
+no column and no gap - which is why the shared menu template can carry it and
+every Admin Panel pane gets it without naming it.
+
+The width is remembered the same three ways the fold is: a Session value first,
+then `profile.leftMenuWidth` on the user document, then a cookie when nobody is
+signed in - the same cookie mechanism the fold uses rather than the localStorage
+the right sidebar's width uses, so one reader's menu is not remembered in two
+different places. It is saved once, when the drag ends; while dragging, the
+width is written straight to the property, so the edge follows the pointer
+without a database write per pixel. There is nothing to drag on a phone, where
+the menu is full width above the content, or while it is folded, where there is
+no edge.
+
+</details>
+
+**All Boards** - its sections, its controls, and what the page opens on.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a88dc8cbba676a7ef33ab076943f6dd5b57b9e05">Every section names itself at the top of its pane</a>. Thanks to xet7.</summary>
@@ -1272,7 +1311,7 @@ instance, with nothing looking wrong.
 
 </details>
 
-**The left menus** - the menu All Boards and the Admin Panel share.
+**The left menus** - the one menu All Boards and the Admin Panel share.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/25265527648cffb1fe479c7a4c2a4f13b69f9041">The caret that folds the menu away does something when clicked</a>. Thanks to xet7.</summary>
