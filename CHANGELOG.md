@@ -266,6 +266,38 @@ browser build to verify).
 This release adds the following new features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/83e832e9e721fcec8cf102f65dee8c098d5bb0a6">The left menus carry the theme, and the selected row is the white one</a>. Thanks to xet7.</summary>
+
+Both left menus - All Boards and the Admin Panel - were a light grey card with
+one row filled in the theme colour. That made the filled row the only part of
+the page answering to the theme, so a menu read as a plain grey column with a
+coloured stripe in it rather than as a **side of the app**, next to the header
+bar it sits under.
+
+They are inverted now: the **panel** is the theme colour with white labels and
+icons, and the row you are on is a **white block cut out of it** with dark text.
+That is also the easier selection to find - the eye goes to whatever differs
+from its surroundings, and one white row in a coloured column differs more than
+one coloured row in a white one.
+
+A menu is the colour of the first header bar above it, including the colour
+**slide** of a `clear*` theme, which a `--theme-accent` value cannot carry.
+Every theme's own header rule now names **both** menus: before this only six of
+them named the All Boards menu, so most themes coloured one menu and left the
+other one plain. No theme rule may name the selected row any more - it would
+paint that row the same colour as the menu behind it and leave nothing to show
+which row is selected.
+
+Hover on an unselected row is a wash of white over the theme colour rather than
+solid white, which would be indistinguishable from the selected row. The
+dividers, the group headings and the counts went with the rows, for the same
+reason: a dark rule on a coloured panel is a rule nobody can see.
+
+Documented in [Left menu](https://github.com/wekan/wekan/blob/main/docs/Design/Page/Left-Menu.md).
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1f2044219a0625a4d8d2de752dd4da2b4c5e5078">Starred: bookmarks to any page, not only to boards</a>. Thanks to xet7.</summary>
 
 The star group in the first header bar is a **bookmarks menu** now: the caret
