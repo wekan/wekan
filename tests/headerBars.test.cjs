@@ -25,6 +25,28 @@ const colors = read('client/components/boards/boardColors.css');
 
 const { PAGE_TITLE_KEYS, pageTitleKey, headerTitle } = require('../models/lib/pageTitles');
 
+// Find the ONE rule that has this selector and this declaration.
+//
+// `css.indexOf('<selector> {')` has matched the wrong rule three times while
+// this file was written: a selector usually appears more than once - the
+// ordinary styling, a phone override, the rule you meant - and the guard then
+// asserts against whichever came first and fails on correct CSS. Naming a
+// declaration as well identifies the rule the guard is actually about.
+function ruleWith(css, selector, declaration) {
+  const found = [];
+  for (const rule of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    // The capture runs from the previous `}`, so it carries any comment written
+    // above the rule - and a selector preceded by a comment never matched.
+    const sels = rule[1].replace(/\/\*[\s\S]*?\*\//g, '');
+    if (!sels.split(',').some(x => x.trim() === selector)) continue;
+    if (!rule[2].includes(declaration)) continue;
+    found.push(rule[2]);
+  }
+  assert.strictEqual(found.length, 1,
+    `expected exactly one \`${selector}\` rule declaring \`${declaration}\`, found ${found.length}`);
+  return found[0];
+}
+
 let passed = 0;
 const tests = [];
 function test(name, fn) { tests.push([name, fn]); }
@@ -796,23 +818,66 @@ test('and a view menu says its view in words, not only in a tooltip', () => {
   // the Admin Panel carry four buttons each and have room for the words on any
   // window worth supporting; a board carries ten, and is the page the
   // measurement exists for.
-  assert.ok(/bar\.classList\.contains\('header-labels-always'\)/.test(utils),
+  assert.ok(/bar\.classList\.contains\('header-keeps-text'\)/.test(utils),
     'a page can opt out of the measurement');
   const fitBody = utils.slice(utils.indexOf('const fitHeaderLabels = () => {'));
-  const optOutAt = fitBody.indexOf("contains('header-labels-always')");
+  const optOutAt = fitBody.indexOf("contains('header-keeps-text')");
   const removeAt = fitBody.indexOf('classList.remove(LABELS_HIDDEN)');
   assert.ok(removeAt !== -1 && removeAt < optOutAt,
     'and the labels are SHOWN before it returns, or a page that opts out keeps '
     + 'whatever the previous page measured');
   // Which page it is comes from the route, in the header - this file knows only
   // about boxes.
-  assert.ok(jade.includes('{{#if keepsLabels}}header-labels-always{{/if}}'),
+  assert.ok(jade.includes('{{#if keepsText}}header-keeps-text{{/if}}'),
     'the header marks the bar');
-  const keepAt = js.indexOf('keepsLabels() {');
+  const keepAt = js.indexOf('keepsText() {');
   assert.notStrictEqual(keepAt, -1, 'and decides it from the route');
   const keep = js.slice(keepAt, js.indexOf('\n  },', keepAt));
   assert.ok(/ALL_BOARDS_VIEW_ROUTES\.includes\(route\)/.test(keep), 'All Boards keeps them');
   assert.ok(/ADMIN_PANEL_ROUTES\.includes\(route\)/.test(keep), 'and the Admin Panel');
+
+  // The bell is named too, from the key its own tooltip uses, and carries the
+  // same label class as every other named button - so it appears and vanishes
+  // with them rather than needing a rule of its own.
+  const bell = read('client/components/notifications/notifications.jade');
+  assert.ok(/span\.board-header-btn-label \{\{_ 'notifications'\}\}/.test(bell),
+    'the bell carries its name');
+  assert.ok(/title="\{\{_ 'notifications'\}\}"/.test(bell),
+    'from the key its tooltip already used');
+  // Its own stylesheet makes it a fixed 28px square, which clips a word.
+  const bellCss = read('client/components/notifications/notifications.css');
+  assert.ok(/\.notifications-drawer-toggle \{[^}]*width:\s*28px/s.test(bellCss),
+    'the square it is elsewhere');
+  // By its declaration as well as its selector: this selector also appears in a
+  // phone override that only sets a margin, and an indexOf found that one.
+  const bellFit = ruleWith(css,
+    '#header-quick-access #notifications .notifications-drawer-toggle', 'width: auto');
+  assert.ok(/display:\s*inline-flex/.test(bellFit) && /gap:\s*4px/.test(bellFit),
+    'laid out like the other named buttons, so the name is not cut off');
+
+  // The same class keeps the USERNAME, which the narrow-screen rules collapse
+  // to font-size: 0 - the name is who you are signed in as, and these two pages
+  // have the room a board does not.
+  // Found by its DECLARATION: `.header-user-bar-name` appears in the ordinary
+  // styling too, and an indexOf on the selector matched that one - so the guard
+  // asserted "font-size: 0" against a rule that sets a margin, and failed on a
+  // correct stylesheet.
+  const nameRules = [...css.matchAll(/([^{}]*\.header-user-bar-name[^{}]*)\{([^{}]*)\}/g)];
+  const hides = nameRules.filter(r => /font-size:\s*0\b/.test(r[2]));
+  assert.strictEqual(hides.length, 1, 'exactly one rule collapses the username');
+  const showAt = css.indexOf('#header-quick-access.header-keeps-text #header-user-bar .header-user-bar-name,');
+  assert.notStrictEqual(showAt, -1, 'and these pages put it back');
+  const show = css.slice(showAt, css.indexOf('}', showAt));
+  assert.ok(/font-size:\s*12px/.test(show), 'at a readable size');
+
+  // Every hiding selector must be answered. The widest of them carry
+  // `.iphone-device`, which outweighs an id and a class on its own - so a
+  // single short override would lose on exactly the narrow screens this is for.
+  const selectors = css.slice(showAt, css.indexOf('{', showAt)).split(',');
+  assert.ok(selectors.length >= 5,
+    'each hiding selector is answered with its own, or the widest of them wins');
+  assert.ok(selectors.some(x => x.includes('.iphone-device') && x.includes(':not(.board-view)')),
+    'including the widest one');
   const fitAt = utils.indexOf('const fitHeaderLabels = () => {');
   assert.notStrictEqual(fitAt, -1);
   const fit = utils.slice(fitAt, utils.indexOf('\n  };', fitAt));

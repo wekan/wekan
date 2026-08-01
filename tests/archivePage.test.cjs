@@ -298,11 +298,26 @@ test('and the All Boards menu is styled like the Admin Panel one', () => {
   const layouts = read('client/components/main/layouts.css');
   assert.ok(/\.wrapper \{[^}]*width:\s*calc\(100% - 28px\)/.test(layouts),
     'the generic wrapper really does inset the page');
-  const overrideAt = boards.indexOf('#content .all-boards-wrapper {');
+  const overrideAt = boards.indexOf('#content > .wrapper.all-boards-wrapper {');
   assert.notStrictEqual(overrideAt, -1, 'All Boards opts out of that inset');
   const override = boards.slice(overrideAt, boards.indexOf('}', overrideAt));
   assert.ok(/width:\s*100%/.test(override) && /margin:\s*0/.test(override),
     'edge to edge');
+  // The rule it answers sets a margin AND a padding: the margin is the grey
+  // above the menu, the padding the grey to its left. Zeroing only the margin
+  // left the padding, and the first version of this override did exactly that.
+  assert.ok(/padding:\s*0/.test(override), 'and no padding either');
+  assert.ok(/#content > \.wrapper \{[^}]*padding:\s*15px/s.test(layouts),
+    'the padding this answers is real');
+  assert.ok(/#content > \.wrapper \{[^}]*margin-top:\s*10px/s.test(layouts),
+    'and so is the margin');
+  // ...and it must WIN. `#content > .wrapper` and `#content .all-boards-wrapper`
+  // weigh the same, so which applied came down to stylesheet order; the extra
+  // class settles it.
+  const weight = sel => ((sel.match(/#/g) || []).length) * 100
+    + ((sel.match(/\.[a-z-]+/gi) || []).length) * 10;
+  assert.ok(weight('#content > .wrapper.all-boards-wrapper') > weight('#content > .wrapper'),
+    'the override outweighs the rule it answers rather than relying on order');
 
   const layoutAt = boards.indexOf('.boards-layout {');
   const layout = boards.slice(layoutAt, boards.indexOf('}', layoutAt));
@@ -358,9 +373,10 @@ test('and the page content clears the window edge', () => {
   assert.ok(!/padding-right/.test(rule), 'not a physical one');
   // On the COLUMN, not back on the wrapper: the wrapper holds the menu too, and
   // an inset there would push the menu off the edge it must sit against.
-  const wrapAt = css.indexOf('#content .all-boards-wrapper {');
+  const wrapAt = css.indexOf('#content > .wrapper.all-boards-wrapper {');
   const wrap = css.slice(wrapAt, css.indexOf('}', wrapAt));
-  assert.ok(/margin:\s*0/.test(wrap), 'the wrapper itself stays flush');
+  assert.ok(/margin:\s*0/.test(wrap) && /padding:\s*0/.test(wrap),
+    'the wrapper itself stays flush, on every side');
   // ...and the clipping this works around is real.
   assert.ok(/#content \{[^}]*overflow-x:\s*hidden/s
     .test(read('client/components/main/layouts.css')),

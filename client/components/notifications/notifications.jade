@@ -2,5 +2,11 @@ template(name='notifications')
   #notifications.board-header-btns.right
     a.notifications-drawer-toggle(class="{{#if $gt unreadNotifications 0}}alert{{/if}}" title="{{_ 'notifications'}}")
       i.fa.fa-bell
+      //- Named beside the bell, from the key its own tooltip uses. It carries
+        the same `board-header-btn-label` class every other named button in this
+        bar does, so it appears and disappears with them: shown on All Boards
+        and the Admin Panel at every width, and dropped on a board when the bar
+        would wrap. docs/Design/Page/Header.md
+      span.board-header-btn-label {{_ 'notifications'}}
     if $.Session.get 'showNotificationsDrawer'
       +notificationsDrawer(unreadNotifications=unreadNotifications)

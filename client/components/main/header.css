@@ -1488,6 +1488,25 @@ body.mobile-mode #header-quick-access .allBoards {
     font-size: 12px !important;
     margin-inline-end: 0 !important;
   }
+
+  /* ...except on the pages that keep their text at every width. All Boards and
+     the Admin Panel carry four buttons, so the room a board needs for ten is
+     not needed here and the name can stay - it is who you are signed in as,
+     which is worth more than the pixels on a page that has them.
+
+     Every selector above is repeated with the class, because the widest of
+     them - the two carrying `.iphone-device` - outweigh an id and a class on
+     their own, so a single short override would lose on exactly the narrow
+     screens this is about. client/components/main/header.jade */
+  #header-quick-access.header-keeps-text #header-user-bar .header-user-bar-name,
+  .wrapper ~ #header-quick-access.header-keeps-text #header-user-bar .header-user-bar-name,
+  body:not(.board-view) #header-quick-access.header-keeps-text #header-user-bar .header-user-bar-name,
+  .iphone-device #header-quick-access.header-keeps-text #header-user-bar .header-user-bar-name,
+  .iphone-device body:not(.board-view) #header-quick-access.header-keeps-text #header-user-bar .header-user-bar-name {
+    font-size: 12px !important;
+    gap: 4px !important;
+    padding-inline-end: 4px !important;
+  }
 }
 #header-quick-access #notifications,
 #header-quick-access #header-user-bar {
@@ -1718,6 +1737,23 @@ body.mobile-mode #header-quick-access .allBoards {
    place a name cannot be read without hovering, so where the bar has room the
    button says what it is. It does not wrap mid-word: a two-line label inside a
    one-line button is worse than the tooltip was. */
+/* The bell, once it has a name beside it. Its own stylesheet makes it a fixed
+   28px SQUARE (notifications.css), which is right for an icon on its own and
+   clips a word - so in this bar it sizes to its content and lays the two out
+   the way every other named button here does: inline-flex, a 4px gap, the same
+   6px of side padding.
+
+   Scoped to this bar, because the toggle is used elsewhere and elsewhere it is
+   still just a bell. */
+#header-quick-access #notifications .notifications-drawer-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: auto;
+  padding: 0 6px;
+}
+
 #header-quick-access .board-header-btn-label {
   white-space: nowrap;
 }

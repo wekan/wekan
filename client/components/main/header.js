@@ -116,7 +116,7 @@ Template.header.helpers({
   // each and have room for the words on any window worth supporting; a board
   // carries ten, and is the page the measurement exists for.
   // client/lib/utils.js
-  keepsLabels() {
+  keepsText() {
     const route = FlowRouter.getRouteName();
     return ALL_BOARDS_VIEW_ROUTES.includes(route) || ADMIN_PANEL_ROUTES.includes(route);
   },

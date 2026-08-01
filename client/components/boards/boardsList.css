@@ -7,9 +7,16 @@
    the left menu floated 14px in from the window's edge while the Admin Panel's
    sits against it - and the menu is the one thing on the page that is supposed
    to look like a fixed side of the window rather than like content. */
-#content .all-boards-wrapper {
+/* `#content > .wrapper` (layouts.css) is `margin-top: 10px; padding: 15px` as
+   well as the `width: calc(100% - 28px)` inset - that margin is the grey ABOVE
+   the left menu and that padding is the grey to its LEFT. The first version of
+   this override set width and margin only, and at the same specificity as the
+   rule it was answering, so which of them won came down to stylesheet order.
+   `.wrapper.all-boards-wrapper` carries one class more, which settles it. */
+#content > .wrapper.all-boards-wrapper {
   width: 100%;
   margin: 0;
+  padding: 0;
 }
 
 /* ...but only the LEFT edge is meant to be flush. Dropping the wrapper's inset

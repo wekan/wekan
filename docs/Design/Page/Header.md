@@ -112,7 +112,7 @@ their own.
 
 **All Boards and the Admin Panel keep their names at every width.** Those two
 carry four buttons each and have room for the words on any window worth
-supporting. The header marks the bar `header-labels-always` from the route, and
+supporting. The header marks the bar `header-keeps-text` from the route, and
 the measurement below leaves it alone — which page you are on is the header's
 business; `utils.js` knows only about boxes.
 
