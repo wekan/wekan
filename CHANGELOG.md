@@ -268,18 +268,41 @@ browser build to verify).
 be scattered around the page, wraps instead of hiding what does not fit, and
 holds a **bookmarks menu** - the star works on any page now, not only on a
 board. **All Boards** gains a Home section for the board that opens after login,
-an Archive in its left menu, a Table view, and an address for every section and
-workspace; the **Admin Panel** moves under `/admin` with an address for every
-pane. **Public Boards** becomes a read-only page of its own, a swimlane, a list
-and a card can each be **linked** to directly, and **board roles** are one
-capability table with a pane that shows it. Below that: dependency updates, nine
-bug fixes - the header bar's layout, a filter that left a spinner turning, a
-search that reached past your own boards - and the usual documentation and
-translation work.
+an Archive in its left menu, a Table view, a heading naming the section you are
+in, and an address for every section and workspace; the **Admin Panel** moves
+under `/admin` with an address for every pane. **Public Boards** becomes a
+read-only page of its own, a swimlane, a list and a card can each be **linked**
+to directly, and **board roles** are one capability table with a pane that shows
+it. Below that: dependency updates, nine bug fixes - the header bar's layout, a
+filter that left a spinner turning, a search that reached past your own boards -
+and the usual documentation and translation work.
 
 This release adds the following new features:
 
 **All Boards** - its sections, its controls, and what the page opens on.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a88dc8cbba676a7ef33ab076943f6dd5b57b9e05">Every section names itself at the top of its pane</a>. Thanks to xet7.</summary>
+
+The right pane began with board tiles and nothing said which list they were. The
+page is five lists of boards under one name - Starred, Remaining, Home,
+Templates, Archive, and a workspace - so the pane now opens with a heading
+naming the one you are looking at.
+
+It is the Admin Panel's own `paneTitle` template with the same
+`.admin-pane-title` class, so the two pages have one heading at one size and
+colour rather than two written twice that drift apart. Only the space below it
+is set here: the Admin Panel's own gap rule is scoped to its `.main-body` and
+does not reach this page.
+
+It is drawn once, above the view branch, since the board icons and the Table are
+two ways of showing the same section rather than two sections. Its words are the
+section's own title key - the same key the first header bar names the page with,
+and the same one the highlighted menu row carries - so all three say the same
+thing. A workspace shows its own name instead, untranslated: a workspace called
+"starred" is not the Starred section.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/eea1f2ffed4af635c67659f176353de57b0d4040">Home, a section for the board that opens after login</a>. Thanks to xet7.</summary>
