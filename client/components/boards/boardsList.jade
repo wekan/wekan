@@ -399,28 +399,36 @@ template(name="workspaceTree")
         id with undefined, and no workspace ever got the `active` class. The
         theme highlight was styled for a class that was never applied.
       each nodes
-        //- `draggable` is NOT on the row. A workspace row is a row you CLICK -
-          it is how a workspace is opened - and a row that is draggable as a
-          whole starts a drag on the way to a click. What may be dragged is the
-          one small thing beside the name, and which thing that is follows the
-          "Show desktop drag handles" toggle in the first header bar, the same
-          setting swimlanes, lists, cards and board tiles obey.
-          `dragstart` bubbles, so the handler stays on the row either way.
+        //- Which part of the row starts a reorder follows the "Show desktop drag
+          handles" toggle in the first header bar - the same setting swimlanes,
+          lists, cards and the board tiles obey:
+            handles ON  - the ✥ handle, and only the handle;
+            handles OFF - the workspace's icon AND its name, which is the whole
+                          `a.js-select-space`.
+          The anchor rather than the icon alone: a 16px glyph is a target that
+          has to be aimed at, and the name beside it is the part of the row a
+          reader is actually pointing at. Clicking it still opens the workspace -
+          a click and a drag are different gestures on the same element, exactly
+          as they are on a board tile with handles off.
+          NOT the whole row either: the row also holds the ⋯ menu and the board
+          count, and a drag started on those is a drag of something else.
+          `dragstart` bubbles, so the handler stays on the row in both cases.
           docs/Design/Page/All-Boards.md
         li.workspace-node(class="{{#if $eq id ../selectedWorkspaceId}}active{{/if}}" data-workspace-id="{{id}}")
           .workspace-node-content
-            //- Handles ON: the handle is drawn, and it is the only place a
-              workspace drag may start.
             if isTouchScreenOrShowDesktopDragHandles
               span.workspace-drag-handle.nodragscroll(draggable="true")
                 span.emoji-icon
                   i.fa.fa-arrows
 
-            a.js-select-workspace.js-select-space(data-id="{{id}}")
-              //- ...and handles OFF: no handle, and the workspace's own ICON is
-                what reorders it. The icon rather than the whole row, so the
-                name beside it stays a plain click target.
-              span.workspace-icon(draggable="{{#if isTouchScreenOrShowDesktopDragHandles}}false{{else}}true{{/if}}")
+            //- `nodragscroll` for the same reason the handle carries it: the
+              page-level dragscroll owns a mousedown it is not opted out of, and
+              a drag that never begins is what "reordering does not work" looks
+              like.
+            a.js-select-workspace.js-select-space.nodragscroll(
+              data-id="{{id}}"
+              draggable="{{#if isTouchScreenOrShowDesktopDragHandles}}false{{else}}true{{/if}}")
+              span.workspace-icon
                 if icon
                   span.workspace-icon-value(style="{{#if iconColor}}color: {{iconColor}};{{/if}}")
                     +viewer

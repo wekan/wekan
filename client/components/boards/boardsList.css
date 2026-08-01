@@ -453,15 +453,26 @@
   vertical-align: middle;
 }
 
-/* With the drag handles turned OFF there is no handle, and the workspace's own
-   icon is what reorders it - so it says so with the cursor the handle uses.
+/* With the drag handles turned OFF there is no handle, and the workspace's ICON
+   AND NAME - the whole `.js-select-space` - is what reorders it.
    `[draggable="true"]`, so this follows the toggle without a second class to
    keep in step: the attribute IS the state.
-   docs/Design/Page/All-Boards.md */
-.workspace-node .workspace-icon[draggable="true"] {
-  cursor: grab;
+
+   `user-select: none` is what makes the drag possible at all rather than
+   decorative: the name is text, and a press-and-move over selectable text
+   starts a SELECTION, which is the gesture the browser then owns - the element
+   drag never begins. The handle never needed this because a glyph in a span is
+   not text you would select.
+
+   The cursor stays `pointer`, not `grab`: clicking this row is what opens the
+   workspace, and that is what a reader does with it nearly every time. Dragging
+   is the second gesture on the same element, exactly as it is on a board tile
+   with handles off. docs/Design/Page/All-Boards.md */
+.workspace-node .js-select-space[draggable="true"] {
+  user-select: none;
+  -webkit-user-select: none;
 }
-.workspace-node .workspace-icon[draggable="true"]:active {
+.workspace-node .js-select-space[draggable="true"]:active {
   cursor: grabbing;
 }
 

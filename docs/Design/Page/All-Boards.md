@@ -319,15 +319,35 @@ through the same `isTouchScreenOrShowDesktopDragHandles` helper.
 
 - **Handles on** — the ✥ handle is drawn at the start of the row, and it is the
   only place a workspace drag may start.
-- **Handles off** — no handle, and the workspace's own **icon** is what reorders
-  it.
+- **Handles off** — no handle, and the workspace's **icon and name** — the whole
+  `a.js-select-space` — is what reorders it.
 
-The icon, not the whole row. A workspace row is a row you **click** — it is how
-a workspace is opened — and a row that is draggable as a whole starts a drag on
-the way to a click. So `draggable` lives on the handle or on the icon, never on
-the row, and the `dragstart` handler stays on the row because the event bubbles
-up from whichever child started it. The cursor follows the same `draggable`
-attribute rather than a second class, so there is one answer to "is this the
+The icon *and the name*, because a 16px glyph is a target that has to be aimed
+at and the name beside it is the part of the row a reader is pointing at anyway.
+Clicking that same anchor still opens the workspace: a click and a drag are two
+gestures on one element, exactly as they are on a board tile with handles off.
+
+Not the whole **row**, though — the row also holds the ⋯ menu and the board
+count, and a drag started on those is a drag of something else. So `draggable`
+lives on the handle or on the anchor, never on the row, and the `dragstart`
+handler stays on the row because the event bubbles up from whichever child
+started it.
+
+Two things make the handles-off drag real rather than declared, and both are
+easy to leave out:
+
+- **`user-select: none`** on the anchor while it is the drag source. The name is
+  text, and a press-and-move over selectable text starts a **selection** — the
+  browser owns the gesture from there and the element drag never begins. The
+  handle never needed it because a glyph in a span is not text you would select.
+- **`.nodragscroll`**, the same class the handle carries. The page-level
+  dragscroll takes a mousedown it is not opted out of, and a drag that never
+  begins is exactly what "reordering does not work" looks like.
+
+The cursor stays `pointer` on that anchor rather than becoming `grab`: opening
+the workspace is what a reader does with it nearly every time. Everything that
+does change follows the `draggable` attribute itself (`[draggable="true"]` in
+the selector) rather than a second class, so there is one answer to "is this the
 drag source right now".
 
 ## Related files
