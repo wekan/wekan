@@ -366,6 +366,18 @@ test('a themed control gets a FILL, which a slide theme needs and a colour canno
   assert.ok(/background: var\(--theme-accent-fill, var\(--theme-accent, #01628c\)\)/.test(pager),
     'the pager paints itself with the fill, falling back to the accent then to blue');
   assert.ok(/color: #fff/.test(pager), 'and its arrows are white on it');
+  // ...and NOTHING wipes it afterwards. `background-image: none` sat under each
+  // of these shorthands to defeat the global button gradient - but a
+  // `background` shorthand already resets background-image, and once the fill
+  // could be a colour SLIDE the reset wiped the gradient the line above had
+  // just set: clearorange's pager had no background at all while its header
+  // slid.
+  for (const rule of pager.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    const body = rule[2].replace(/\/\*[\s\S]*?\*\//g, '');
+    if (!/background:\s*var\(--theme-accent/.test(body)) continue;
+    assert.ok(!/background-image:\s*none/.test(body),
+      'a background-image reset under the fill wipes a slide theme\'s gradient');
+  }
   // It is FILLED at rest. It used to be an outline on transparent, which put
   // the theme in a 1px border and left the button a ghost beside solidly
   // themed chrome.
