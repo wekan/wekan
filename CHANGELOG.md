@@ -1597,6 +1597,23 @@ they did before.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/720d451d64bdae4beb39d73fe5180846d2096a70">The left menu's drag-to-resize tooltip is translated into every language</a>. Thanks to xet7.</summary>
+
+The grip on the left menu's inner edge got its tooltip this release, so its
+string was English in all 142 languages. It is translated directly - no external
+translation service, API or key - from each language's OWN existing strings:
+that language's "Drag to resize sidebar" sentence gives the pattern and the
+verb, and its own words for "left" and "menu" replace the sidebar, so the two
+controls read as the pair they are.
+
+Applied with `fill-translations.mjs`, which writes only into keys that are still
+English placeholders, so a human translation cannot be overwritten by it, and
+filled strings are never pushed to Transifex and so cannot masquerade as human
+ones there.
+
+</details>
+
 - [Newest translations from Transifex](https://github.com/wekan/wekan/commit/5c299d763).
   Thanks to translators and xet7.
 
