@@ -274,7 +274,7 @@ under `/admin` with an address for every pane. **The left menu** those two pages
 share **folds away** and is **resized by dragging** its inner edge. **Public
 Boards** becomes a read-only page of its own, a swimlane, a list and a card can
 each be **linked** to directly, and **board roles** are one capability table
-with a pane that shows it. Below that: dependency updates, fifteen bug fixes -
+with a pane that shows it. Below that: dependency updates, sixteen bug fixes -
 the header bar's layout and where it starts, a filter that left a spinner
 turning, a search that reached past your own boards, a left-menu caret that did
 nothing when clicked - and the usual documentation and translation work.
@@ -1312,6 +1312,26 @@ collapsed to its padding.
 </details>
 
 **All Boards** - the overview and its search.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b50ccc63a83ac2185b3bdc2605adde9f955a685a">The selected workspace shows its board count again</a>. Thanks to xet7.</summary>
+
+The count was there, at the right of the ⋯ menu where it belongs, and it was
+invisible.
+
+The theme accent fills the icon and the name of the selected row, not the whole
+row: the menu button and the count sit after it, on the panel's own light grey.
+A rule gave the count a light pill with white text "for contrast against the
+filled row" - but the count is not on the filled row, so it was white on light
+grey. The selected workspace was the one row whose board count could not be
+read, and it is the row you have just asked which boards are in.
+
+The rule is gone rather than re-tinted, because there is no accent behind the
+count to contrast with: it keeps the same grey pill every other row has. The
+count and the menu button also hold their size now, so a long workspace name
+ellipses itself instead of squeezing them off the row.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c7bf2958a36f4ac120681ee435a564dd74d09517">A workspace row obeys the drag-handles toggle, and drags without one</a>. Thanks to xet7.</summary>
