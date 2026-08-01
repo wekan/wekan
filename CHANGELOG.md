@@ -261,6 +261,107 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** WeKan is built for **every Linux platform its database is**. The
+three architectures that were missing a Node.js - **i386**, **armhf** and
+**loong64** - have one now, built by the **wekan/node** fork for the platforms
+nodejs.org and unofficial-builds do not publish, so they get a bundle, and i386
+and armhf get a **snap** and a place in the **multi-arch image** as well. Below
+that: the snap build that could not finish on any of the FerretDB-only
+architectures, and the All Boards left menu lying across the boards on a phone.
+
+This release adds the following new features:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/12ae908ddfbcaa0bf59d7c5dc047ea77757bb264">Every Linux platform FerretDB builds for is built, with a Node.js to match</a>. Thanks to xet7.</summary>
+
+Every non-amd64, non-arm64 platform already used FerretDB v1 - MongoDB ships no
+server for any of them - but only three were built, because only three had a
+Node.js runtime anyone published. The **wekan/node** fork now builds the rest,
+so the release follows FerretDB's list instead of Node.js's.
+
+New bundles: **i386**, **armhf** and **loong64**, beside the ppc64le, s390x and
+riscv64 already there. i386 and armhf also become **snaps** and join the
+**multi-arch image** (`linux/386`, `linux/arm/v7`); loong64 ships as a `.zip`
+only, because it is not a snap architecture and buildx and the three registries
+do not agree on it yet.
+
+**Where the Node.js comes from is resolved at build time rather than declared**:
+nodejs.org, then unofficial-builds, then the fork, in that order, and the log
+says which one served. The first two ship a tarball; the fork ships the bare
+binary it built, because that is the only part missing - so when the fork
+serves, npm comes from the official amd64 tarball of the same version. npm is
+JavaScript and runs on whatever node executes it, so an npm built for one CPU
+drives a node built for another.
+
+**Three vocabularies meet in that matrix and they disagree.** Node says `x86`
+and `armv7l` where Debian, snap and FerretDB say `i386` and `armhf`, and snap
+says `ppc64el` where everyone else says `ppc64le`. Every row now names all
+three, because a row that named one of them would download another CPU's binary
+and nothing would notice until somebody ran it.
+
+**armel** is the one FerretDB target deliberately left out: V8 has not supported
+ARMv5 for many years, so there is no runtime to put in the bundle and the fork
+cannot build one either. A bundle with nothing to run it is not a bundle.
+
+The MongoDB Database Tools are per-tool tolerant now - wekan/mongo-tools does
+not publish every architecture, and a missing `mongodump` is a missing
+convenience rather than a broken bundle, since FerretDB is the database. It
+removes the inherited amd64 tool instead of shipping it, because a tool for the
+wrong CPU is worse than no tool. It is written up as
+[Platforms](https://github.com/wekan/wekan/blob/main/docs/Design/Autoupdate/Platforms.md).
+
+</details>
+
+and fixes the following bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2d17d2627a2aef431b40e644805e9cf822d4f958">The snap builds again on every architecture that has no MongoDB server</a>. Thanks to xet7.</summary>
+
+The s390x snap died in the STAGE step of both its Launchpad builds, right after
+"Staging mongodb", with `IsADirectoryError` on `stage/bin`. ppc64el and riscv64
+take the same branch and would have died the same way.
+
+The mongodb part's stage-packages unpack an Ubuntu 24.04 merged-`/usr` layout,
+which leaves `bin` in the part as a **symlink** to `usr/bin`. On amd64 and arm64
+the part then downloads MongoDB and copies its binaries in, which replaces that
+symlink with a real directory. On the architectures MongoDB ships no server for,
+the build exits before that and the symlink survives - and staging a symlink on
+top of the real `stage/bin` an earlier part has already created is what failed
+the whole snap, not just that part.
+
+An `override-stage` turns a `bin` symlink into an empty real directory before
+staging. It tests for a symlink specifically, so the architectures where mongod
+really is there are untouched, and it removes before `mkdir -p`, because
+`mkdir -p` follows a symlink and would have changed nothing.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5b91c99b115c93c27fa2d257972a748ee45054e4">The All Boards left menu fits its column on a phone instead of lying over the boards</a>. Thanks to xet7.</summary>
+
+On a 375px phone the menu's column is capped at about 157px, and the menu kept
+the 260px width it carries so it can be dragged - so it lay across the board
+icons.
+
+`max-width: 100%` did not fix it, and that is the part worth knowing: a grid
+item's default `min-width` is `auto`, which is its content's intrinsic minimum,
+and **a minimum beats a maximum**. The cap did nothing until the item was
+allowed to shrink to it. `min-width: 0` is the same pair the board column beside
+it has carried all along, for the same reason. Nothing inside the menu needs the
+intrinsic width held open - the workspace name already ellipses through its own
+`min-width: 0`.
+
+The `node/` directory - a clone of the Node.js fork the runtime is built from -
+joins the other local-only clones in `.gitignore` at the same time, so it stops
+filling `git status` with 2.2G of untracked source.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.55 2026-08-02 WeKan ® release
 
 **In short:** a dependency release. Four updates arrive from **dependabot**,
@@ -276,25 +377,25 @@ This release updates the following dependencies:
   ESLint checks the source against. A development dependency: it runs in the
   linter, never in the bundle.
   ([#6564](https://github.com/wekan/wekan/pull/6564),
-  [update](https://github.com/wekan/wekan/commit/31fb4f509)). Thanks to
+  [Update](https://github.com/wekan/wekan/commit/31fb4f509)). Thanks to
   dependabot.
 - **@typescript-eslint/parser 8.63.0 → 8.65.0** — the other half of the same
   pair: what lets ESLint read TypeScript at all, so it moves with the plugin
   above.
   ([#6562](https://github.com/wekan/wekan/pull/6562),
-  [update](https://github.com/wekan/wekan/commit/d949bc6c0)). Thanks to
+  [Update](https://github.com/wekan/wekan/commit/d949bc6c0)). Thanks to
   dependabot.
 - **sinon 22.0.0 → 22.1.0** — the spies, stubs and fake timers the unit tests
   build their doubles from. Also a development dependency.
   ([#6563](https://github.com/wekan/wekan/pull/6563),
-  [update](https://github.com/wekan/wekan/commit/72ea1282f)). Thanks to
+  [Update](https://github.com/wekan/wekan/commit/72ea1282f)). Thanks to
   dependabot.
 - **docker/login-action 4.5.1 → 4.6.0** — the GitHub Actions step that signs in
   to the container registries before a release image is pushed. Pinned by
   commit hash rather than by tag, which is why the change is a hash and not a
   version number.
   ([#6561](https://github.com/wekan/wekan/pull/6561),
-  [update](https://github.com/wekan/wekan/commit/fe185f5c2)). Thanks to
+  [Update](https://github.com/wekan/wekan/commit/fe185f5c2)). Thanks to
   dependabot.
 
 Thanks to above GitHub users for their contributions and translators for their
