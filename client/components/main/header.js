@@ -111,6 +111,16 @@ Template.header.helpers({
     return ALL_BOARDS_VIEW_ROUTES.includes(FlowRouter.getRouteName());
   },
 
+  // Pages that keep their button names at EVERY width, rather than dropping
+  // them when the bar wraps. All Boards and the Admin Panel carry four buttons
+  // each and have room for the words on any window worth supporting; a board
+  // carries ten, and is the page the measurement exists for.
+  // client/lib/utils.js
+  keepsLabels() {
+    const route = FlowRouter.getRouteName();
+    return ALL_BOARDS_VIEW_ROUTES.includes(route) || ADMIN_PANEL_ROUTES.includes(route);
+  },
+
   // The Admin Panel is four routes; its tabs show on all of them.
   isAdminPanel() {
     return ADMIN_PANEL_ROUTES.includes(FlowRouter.getRouteName());

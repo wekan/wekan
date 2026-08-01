@@ -110,7 +110,14 @@ icon: a tooltip is the one place a name cannot be read without
 hovering, and six view glyphs or a bare check-box outline say very little on
 their own.
 
-**They are shown only while they fit on ONE ROW**, and that is *measured*. All of
+**All Boards and the Admin Panel keep their names at every width.** Those two
+carry four buttons each and have room for the words on any window worth
+supporting. The header marks the bar `header-labels-always` from the route, and
+the measurement below leaves it alone — which page you are on is the header's
+business; `utils.js` knows only about boxes.
+
+Everywhere else — a board, which carries ten controls — **they are shown only
+while they fit on ONE ROW**, and that is *measured*. All of
 them together, not some: half the buttons named and half not reads as a bar that
 has been half finished, and *which* half you got would depend on which words
 happen to be short in your language. One rule hides the one class they all share,

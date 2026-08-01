@@ -791,6 +791,28 @@ test('and a view menu says its view in words, not only in a tooltip', () => {
   const utils = read('client/lib/utils.js');
   assert.ok(/const LABELS_HIDDEN = 'header-labels-hidden'/.test(utils),
     'the class is set from a measurement');
+
+  // ...except on the pages that keep their names at EVERY width. All Boards and
+  // the Admin Panel carry four buttons each and have room for the words on any
+  // window worth supporting; a board carries ten, and is the page the
+  // measurement exists for.
+  assert.ok(/bar\.classList\.contains\('header-labels-always'\)/.test(utils),
+    'a page can opt out of the measurement');
+  const fitBody = utils.slice(utils.indexOf('const fitHeaderLabels = () => {'));
+  const optOutAt = fitBody.indexOf("contains('header-labels-always')");
+  const removeAt = fitBody.indexOf('classList.remove(LABELS_HIDDEN)');
+  assert.ok(removeAt !== -1 && removeAt < optOutAt,
+    'and the labels are SHOWN before it returns, or a page that opts out keeps '
+    + 'whatever the previous page measured');
+  // Which page it is comes from the route, in the header - this file knows only
+  // about boxes.
+  assert.ok(jade.includes('{{#if keepsLabels}}header-labels-always{{/if}}'),
+    'the header marks the bar');
+  const keepAt = js.indexOf('keepsLabels() {');
+  assert.notStrictEqual(keepAt, -1, 'and decides it from the route');
+  const keep = js.slice(keepAt, js.indexOf('\n  },', keepAt));
+  assert.ok(/ALL_BOARDS_VIEW_ROUTES\.includes\(route\)/.test(keep), 'All Boards keeps them');
+  assert.ok(/ADMIN_PANEL_ROUTES\.includes\(route\)/.test(keep), 'and the Admin Panel');
   const fitAt = utils.indexOf('const fitHeaderLabels = () => {');
   assert.notStrictEqual(fitAt, -1);
   const fit = utils.slice(fitAt, utils.indexOf('\n  };', fitAt));

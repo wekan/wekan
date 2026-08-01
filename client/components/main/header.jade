@@ -8,7 +8,12 @@ template(name="header")
     //- nodragscroll hands dragging on this bar to client/lib/headerDragscroll.js,
     //- which forwards it to whatever actually scrolls. Without it the page-level
     //- dragscroll on the body element would scroll the page at the same time.
-    #header-quick-access.nodragscroll(class="{{themeColorClass}}" role="navigation" aria-label="{{_ 'all-boards'}}")
+    //- `header-labels-always`: this page keeps its button names at every width,
+      so the fit measurement leaves it alone. All Boards and the Admin Panel
+      carry four buttons each and have room for the words on any window worth
+      supporting; a board carries ten and is the page the measurement is for.
+      client/lib/utils.js, docs/Design/Page/Header.md
+    #header-quick-access.nodragscroll(class="{{themeColorClass}}" class="{{#if keepsLabels}}header-labels-always{{/if}}" role="navigation" aria-label="{{_ 'all-boards'}}")
       //- Home icon - always at left side of logo. The house is the link to All
         Boards; the TEXT beside it is the page you are on, which on a board is
         the board's title. It used to say "All Boards" on every page, so the one

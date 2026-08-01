@@ -1028,6 +1028,11 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
     const bar = document.getElementById('header-quick-access');
     if (!bar) return;
     bar.classList.remove(LABELS_HIDDEN);
+    // Some pages keep their names at every width. The class is set by the
+    // header from the route (client/components/main/header.js) rather than
+    // decided here: which page you are on is the header's business, and this
+    // file knows only about boxes.
+    if (bar.classList.contains('header-labels-always')) return;
     // Read a layout property so the removal is applied before the measurement.
     void bar.offsetHeight;
     if (barHasWrapped(bar)) bar.classList.add(LABELS_HIDDEN);
