@@ -15,6 +15,12 @@
 //-
 //- Data context: { items } from buildMenuItems() in models/lib/leftMenu.js.
 template(name="leftMenu")
+  //- TWO roots, and the handle is the second on purpose: it is positioned
+    against the ROW (.content-body), not against the menu, because the menu is
+    its own scroll area and a handle inside it would scroll away with the
+    entries. Here rather than in each page's template, so a new Admin Panel page
+    cannot draw the menu and forget the handle.
+    docs/Design/Page/Left-Menu.md
   .side-menu(class="{{#if isLeftMenuCollapsed}}collapsed{{/if}}")
     +leftMenuCollapse
     ul
@@ -44,6 +50,28 @@ template(name="leftMenu")
                 | {{_ labelKey}}
               else
                 | {{label}}
+  +leftMenuResize
+
+//- The grip that changes the menu's width, on its INNER edge - the right one
+//- while reading left to right, the left one under a right-to-left language,
+//- which the CSS mirrors by itself. It is the same gesture the right board
+//- sidebar has on its own inner edge (sidebar.jade), and it is dragged the same
+//- way: press, move, and the width is saved when let go.
+//-
+//- `nodragscroll` for the same reason the sidebar's has it: the board pages
+//- drag-scroll on mousedown, and without it a drag on the grip would pan the
+//- page instead of resizing the menu.
+//-
+//- It is positioned against the ROW around the menu rather than against the
+//- menu, so it does not scroll with a long list of entries, and it follows the
+//- menu because both read the same `--wekan-left-menu-width`.
+//- client/components/settings/leftMenu.js, docs/Design/Page/Left-Menu.md
+template(name="leftMenuResize")
+  .left-menu-resize-handle.js-left-menu-resize.nodragscroll(
+    title="{{_ 'drag-to-resize-left-menu'}}"
+    aria-label="{{_ 'drag-to-resize-left-menu'}}"
+    role="separator"
+    aria-orientation="vertical")
 
 //- The title of the open pane, at the top of the content beside the menu. Its text
 //- is the ACTIVE menu entry's own label (paneTitle() in models/lib/leftMenu.js), so

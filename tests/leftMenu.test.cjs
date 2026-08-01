@@ -357,8 +357,8 @@ test('folded, there is no column left at all', () => {
     '...and the menu itself is not drawn');
   assert.ok(/grid-template-columns: auto 1fr/.test(boardsCss),
     'open, the track is the menu\'s own width');
-  assert.ok(/\.boards-left-menu \{\n(?:[^}]*\n)?  width: 260px;/.test(boardsCss),
-    'which is why the width is on the menu, not on the track');
+  assert.ok(/\.boards-left-menu \{\n(?:[^}]*\n)?  width: var\(--wekan-left-menu-width\);/
+    .test(boardsCss), 'which is why the width is on the menu, not on the track');
 
   // The Admin Panel is a FLEX row, where a hidden item closes the row up by
   // itself, so its own menu takes the class and simply goes.
@@ -423,6 +423,153 @@ test('folded, the way back is the caret on the pane title', () => {
   assert.ok(/collapseLabel\(\) \{/.test(js), 'one label for the tooltip and the screen reader');
   assert.ok(/paneTitleKey \? TAPi18n\.__\(data\.paneTitleKey\) : data\.paneLabel/.test(js),
     'which includes the pane it belongs to');
+});
+
+// ── dragging its width ──────────────────────────────────────────────────────
+
+test('the menu is resized by dragging its inner edge, like the right sidebar', () => {
+  // xet7: "it should be possible to change width of left menu by dragging from
+  // right edge, same way that it is possible to change width of right sidebar
+  // by dragging from left edge."
+  const jade = read('client/components/settings/leftMenu.jade');
+  assert.ok(/template\(name="leftMenuResize"\)/.test(jade), 'there is a grip');
+  const tpl = jade.slice(jade.indexOf('template(name="leftMenuResize")'));
+  assert.ok(/\.left-menu-resize-handle\.js-left-menu-resize/.test(tpl),
+    'with the class the drag handler listens on');
+  // The board pages drag-scroll on mousedown; without this the drag would pan
+  // the page instead of resizing. The right sidebar's grip carries it too.
+  assert.ok(/\.nodragscroll/.test(tpl), 'and it does not drag-scroll the page');
+  const sidebar = read('client/components/sidebar/sidebar.jade');
+  assert.ok(/\.sidebar-resize-handle\.js-sidebar-resize-handle\.nodragscroll/.test(sidebar),
+    'which is what the right sidebar does');
+
+  // Drawn on BOTH pages - and for the Admin Panel from inside the shared menu
+  // template, so a new pane cannot draw the menu and forget the grip.
+  const menuTpl = jade.slice(jade.indexOf('template(name="leftMenu")'),
+    jade.indexOf('template(name="leftMenuResize")'));
+  assert.ok(/\+leftMenuResize/.test(menuTpl), 'the Admin Panel menu brings its own');
+  assert.ok(/\+leftMenuResize/.test(read('client/components/boards/boardsList.jade')),
+    'and All Boards draws it beside its own menu');
+
+  const css = read('client/components/settings/settingBody.css');
+  const rule = css.slice(css.indexOf('.left-menu-resize-handle {'));
+  const body = rule.slice(0, rule.indexOf('}'));
+  assert.ok(/position: absolute;/.test(body),
+    'absolutely positioned, so it is neither a flex item nor a grid item');
+  assert.ok(/cursor: col-resize;/.test(body), 'and says what it does');
+  // On the INNER edge, by a LOGICAL property: under a right-to-left language the
+  // row mirrors, the menu is on the right, and the grip has to mirror with it
+  // rather than needing a second rule kept in step.
+  assert.ok(/inset-inline-start: calc\(var\(--wekan-left-menu-width\) - 3px\);/.test(body),
+    'on the menu\'s inner edge, mirrored under RTL by the property itself');
+  assert.ok(!/\bleft:|\bright:/.test(body), 'no physical side, which would not mirror');
+
+  // It has to be positioned against something that does not scroll, or it
+  // scrolls away with the entries.
+  assert.ok(/\.setting-content \.content-body \{\n(?:[^}]*\n)?  position: relative;/.test(css),
+    'the Admin Panel row is the containing block');
+  const boardsCss = read('client/components/boards/boardsList.css');
+  assert.ok(/\.boards-layout \{\n(?:[^}]*\n)?  position: relative;/.test(boardsCss),
+    'and the All Boards grid is');
+
+  // Nothing to drag when there is no edge: folded, or on a phone where the menu
+  // is full width above the content.
+  assert.ok(/\.boards-layout\.collapsed > \.left-menu-resize-handle,?/.test(css)
+    || /\.side-menu\.collapsed ~ \.left-menu-resize-handle/.test(css),
+    'folded, the grip goes with the menu');
+  const phoneAt = css.indexOf('@media screen and (max-width: 800px) {\n  .left-menu-resize-handle');
+  assert.notStrictEqual(phoneAt, -1, 'and a phone has no grip at all');
+
+  // The same page-wide cursor and no-select the right sidebar's drag uses.
+  assert.ok(/body\.left-menu-resizing-active \{/.test(css), 'the drag owns the cursor');
+  assert.ok(/user-select: none;/.test(css.slice(css.indexOf('body.left-menu-resizing-active'))),
+    '...and stops the drag selecting every label it passes over');
+});
+
+test('the drag direction mirrors under a right-to-left language', () => {
+  const js = read('client/components/settings/leftMenu.js');
+  // The menu is at the logical inline START, so its grip is on the inline END:
+  // dragging away from that start widens it. RTL mirrors the whole row, so the
+  // same widening drag goes the other way - exactly as the right sidebar does
+  // it, with the sign flipped by the same test.
+  assert.ok(/isRtlLayout\(\) \? -1 : 1/.test(js), 'the delta flips under RTL');
+  const sidebar = read('client/components/sidebar/sidebar.js');
+  assert.ok(/isRtl\(\) \? -1 : 1/.test(sidebar), 'which is how the right sidebar does it');
+  assert.ok(/getAttribute\('dir'\) \|\| document\.dir\) === 'rtl'/.test(js),
+    'read from the document direction, not guessed at');
+});
+
+test('the width is saved per user, and in a cookie when there is no user', () => {
+  // xet7: "width of left menu should be saved to per-user profile. for non
+  // logged in users, to cookies."
+  const utils = read('client/lib/utils.js');
+  const get = utils.slice(utils.indexOf('  getLeftMenuWidth() {'),
+    utils.indexOf('  setLeftMenuWidth(width) {'));
+  const set = utils.slice(utils.indexOf('  setLeftMenuWidth(width) {'),
+    utils.indexOf('  getSwimlaneCollapseState('));
+  assert.ok(/Session\.get\(LEFT_MENU_WIDTH_KEY\)/.test(get), 'a Session value first');
+  assert.ok(/user\.getLeftMenuWidth\(\)/.test(get), "then the user's own profile");
+  assert.ok(/Users\.getPublicLeftMenuWidth/.test(get), '...and a cookie when there is none');
+  // The Session must NOT cache "no width": the user document is not there on the
+  // first render, and a cached undefined would make the key look set, so the
+  // profile arriving a moment later would never be picked up.
+  assert.ok(/if \(typeof stored === 'number'\) \{\n      Session\.setDefault/.test(get),
+    'and only a real width is remembered in the Session');
+
+  const setAt = set.indexOf('Session.set(LEFT_MENU_WIDTH_KEY');
+  const callAt = set.indexOf("Meteor.call('setLeftMenuWidth'");
+  assert.ok(setAt !== -1 && callAt !== -1 && setAt < callAt,
+    'so the menu resizes at once rather than after the server answers');
+  assert.ok(/Users\.setPublicLeftMenuWidth/.test(set), 'and the cookie is the signed-out half');
+
+  const models = read('models/users.js');
+  assert.ok(/readCookieMap\('wekan-left-menu-width'\)/.test(models),
+    'through the same cookie helpers the fold uses');
+  assert.ok(/'profile\.leftMenuWidth': \{/.test(models), 'the profile field is declared');
+  assert.ok(/type: Number/.test(models.slice(models.indexOf("'profile.leftMenuWidth'"),
+    models.indexOf("'profile.leftMenuWidth'") + 500)), '...as a number');
+  assert.ok(/getLeftMenuWidth\(\) \{/.test(models), 'and read by a model method');
+
+  // The server clamps: a method is reachable without the drag that clamps.
+  const server = read('server/models/users.js');
+  const method = server.slice(server.indexOf('  async setLeftMenuWidth(width) {'));
+  const mBody = method.slice(0, method.indexOf('\n  },'));
+  assert.ok(/check\(width, Number\)/.test(mBody), 'checked');
+  assert.ok(/Number\.isFinite\(width\)/.test(mBody),
+    'and NaN is refused - it passes check(width, Number) and would store a width no page recovers from');
+  assert.ok(/Math\.min\(Math\.max\(width, 120\), 1200\)/.test(mBody), 'and clamped');
+  assert.ok(/Users\.updateAsync\(this\.userId/.test(mBody), 'a user resizes only their own menu');
+});
+
+test('one width, one number, read by everything that needs it', () => {
+  // The menu is a different element on each page and the All Boards grid track
+  // has to follow it too, so the width is a custom property on <html> rather
+  // than an inline width on one element.
+  const js = read('client/components/settings/leftMenu.js');
+  assert.ok(/'--wekan-left-menu-width'/.test(js), 'set as a custom property');
+  assert.ok(/root\.style\.removeProperty\(LEFT_MENU_WIDTH_PROPERTY\)/.test(js),
+    'and removed when nobody has dragged it, so the stylesheet default is the only default');
+  assert.ok(/Tracker\.autorun/.test(js),
+    'reapplied when the user document arrives, or a saved width never reaches a rendered page');
+  assert.ok(/window\.addEventListener\('resize'/.test(js),
+    'and reclamped against the window it is shown in');
+
+  const admin = read('client/components/settings/settingBody.css');
+  assert.ok(/:root \{\n  --wekan-left-menu-width: 260px;\n\}/.test(admin),
+    'the default is a number in the stylesheet');
+  assert.ok(/\.side-menu \{\n(?:[^}]*\n)?  width: var\(--wekan-left-menu-width\);/.test(admin),
+    'the Admin Panel menu reads it');
+  assert.ok(/width: var\(--wekan-left-menu-width\);/
+    .test(read('client/components/boards/boardsList.css')), 'and so does the All Boards one');
+
+  // A breakpoint that wants a different DEFAULT overrides the variable, never
+  // the width: a rule naming `.side-menu` would beat the dragged width - which
+  // arrives as an inline property on <html> - at exactly that one screen size.
+  const layouts = read('client/components/main/layouts.css');
+  assert.ok(!/\.side-menu \{\s*\n\s*width: \d+px;/.test(layouts),
+    'no breakpoint sets the menu width directly');
+  assert.ok((layouts.match(/--wekan-left-menu-width: \d+px;/g) || []).length >= 2,
+    'they set the default instead');
 });
 
 // ── the doc ─────────────────────────────────────────────────────────────────

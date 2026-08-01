@@ -627,6 +627,24 @@ Meteor.methods({
     });
   },
 
+  // How wide that menu was dragged to. The client already clamps the drag, but
+  // a method is reachable without the drag: the width is clamped again here, so
+  // a call with 20000 - or with NaN, which passes `check(width, Number)` and
+  // would store a width no page could recover from - cannot leave a user with a
+  // menu that fills the window and no way to get at what it covers.
+  // docs/Design/Page/Left-Menu.md
+  async setLeftMenuWidth(width) {
+    check(width, Number);
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    if (!Number.isFinite(width)) {
+      throw new Meteor.Error('invalid-width', 'Left menu width must be a finite number');
+    }
+    const clamped = Math.round(Math.min(Math.max(width, 120), 1200));
+    await Users.updateAsync(this.userId, {
+      $set: { 'profile.leftMenuWidth': clamped },
+    });
+  },
+
   async toggleDesktopDragHandles(show) {
     check(show, Match.OneOf(Boolean, null, undefined));
     if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');

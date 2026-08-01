@@ -30,6 +30,23 @@
   padding-top: 0;
   height: 100%;
   gap: 18px;
+  /* The width grip is positioned against this ROW rather than against the menu:
+     the menu is its own scroll area, and a handle inside it would scroll away
+     with the entries. docs/Design/Page/Left-Menu.md */
+  position: relative;
+}
+
+/* ── How wide the left menu is ───────────────────────────────────────────────
+   ONE number, read by everything that needs it: the Admin Panel's menu, the All
+   Boards one (boardsList.css), and the grip that changes it, which has to sit
+   exactly on the menu's inner edge.
+   A reader who drags the grip gets it as an inline property on <html>, which
+   beats every rule here - so the declarations below are DEFAULTS, and the
+   breakpoints that want a different default (layouts.css) override the variable
+   instead of the width, or a dragged width would be overridden right back.
+   docs/Design/Page/Left-Menu.md */
+:root {
+  --wekan-left-menu-width: 260px;
 }
 .setting-content .content-body .side-menu {
   background-color: #f7f7f7;
@@ -42,7 +59,11 @@
   border-top: 0;
   border-bottom: 0;
   border-radius: 0;
-  width: min(250px, 32vw);
+  /* The shared width above, so this menu and the All Boards one are one menu at
+     one width - and so dragging either changes both. It replaces a
+     `min(250px, 32vw)` that only ever resolved to 250px above the 800px
+     breakpoint, below which the menu is full width anyway. */
+  width: var(--wekan-left-menu-width);
   /* Never let the menu be squeezed away on narrow windows; keep it visible. */
   flex: 0 0 auto;
   /* No X offset: an inset shadow offset sideways is a PHYSICAL direction and does
@@ -293,6 +314,58 @@
 .left-menu-collapse-indicator:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 2px;
+}
+
+/* ── The grip that changes the menu's width ──────────────────────────────────
+   The same control the right board sidebar has on its own inner edge
+   (sidebar.css): a 6px strip straddling the edge, invisible until pointed at,
+   dragged to resize.
+   It sits on the menu's INNER edge - `inset-inline-start`, so under a
+   right-to-left language, where the whole row is mirrored and the menu is on
+   the right, the grip mirrors with it and needs no second rule.
+   It is positioned against the row/grid around the menu rather than inside the
+   menu, because the menu scrolls its own entries and a handle within it would
+   scroll away with them. Being absolutely positioned, it is neither a flex item
+   nor a grid item: it adds no column and no gap.
+   docs/Design/Page/Left-Menu.md */
+.left-menu-resize-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  inset-inline-start: calc(var(--wekan-left-menu-width) - 3px);
+  width: 6px;
+  cursor: col-resize;
+  z-index: 10;
+  background: transparent;
+  transition: background-color 0.2s ease;
+}
+.left-menu-resize-handle:hover {
+  background: rgba(0, 123, 255, 0.4);
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+}
+.left-menu-resize-handle:active {
+  background: rgba(0, 123, 255, 0.6);
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
+}
+/* Folded there is no edge to drag, and on a phone the menu is full width above
+   the content, so a width would mean nothing there either. `.collapsed` is on
+   the menu in the Admin Panel and on the grid on All Boards - see the folding
+   rules above - so both are named. */
+.side-menu.collapsed ~ .left-menu-resize-handle,
+.boards-layout.collapsed > .left-menu-resize-handle {
+  display: none;
+}
+@media screen and (max-width: 800px) {
+  .left-menu-resize-handle {
+    display: none;
+  }
+}
+/* While dragging, the whole page shows the resize cursor and stops selecting
+   text - otherwise the drag selects every label it passes over. The same pair
+   `body.sidebar-resizing-active` uses for the right sidebar. */
+body.left-menu-resizing-active {
+  user-select: none;
+  cursor: col-resize;
 }
 
 /* The pane title: ONE size and weight for the heading at the top of every Admin

@@ -69,6 +69,21 @@ if (Meteor.isClient) {
     return true;
   };
 
+  // ...and the width it was dragged to, kept the same way and for the same
+  // reason. A COOKIE rather than the localStorage the right sidebar's width
+  // uses: this menu already keeps its fold in one, and one reader's menu should
+  // not be remembered in two different places.
+  // docs/Design/Page/Left-Menu.md
+  Users.getPublicLeftMenuWidth = () => {
+    const data = readCookieMap('wekan-left-menu-width');
+    return typeof data.width === 'number' ? data.width : null;
+  };
+
+  Users.setPublicLeftMenuWidth = width => {
+    writeCookieMap('wekan-left-menu-width', { width: Number(width) });
+    return true;
+  };
+
   Users.getPublicCollapsedList = (boardId, listId) => {
     if (!boardId || !listId) return null;
     const data = readCookieMap('wekan-collapsed-lists');
@@ -312,6 +327,16 @@ Users.attachSchema(
        * docs/Design/Page/Left-Menu.md
        */
       type: Boolean,
+      optional: true,
+    },
+    'profile.leftMenuWidth': {
+      /**
+       * user-chosen width (px) of that same left menu, set by dragging its inner
+       * edge - the right one while reading left to right, the left one under a
+       * right-to-left language. One width for both pages, like the fold above.
+       * Unset = the CSS default. docs/Design/Page/Left-Menu.md
+       */
+      type: Number,
       optional: true,
     },
     'profile.submitOnEnter': {
@@ -1567,6 +1592,14 @@ Users.helpers({
   isLeftMenuCollapsed() {
     const profile = this.profile || {};
     return profile.leftMenuCollapsed || false;
+  },
+
+  // How wide the left menu was dragged to, or undefined for the CSS default -
+  // NOT a number of its own, so the default lives in one place, the stylesheet.
+  // docs/Design/Page/Left-Menu.md
+  getLeftMenuWidth() {
+    const width = (this.profile || {}).leftMenuWidth;
+    return typeof width === 'number' ? width : undefined;
   },
 
   hasSubmitOnEnter() {

@@ -13,6 +13,7 @@ const { memberCan } = require('/models/lib/boardRoleCapabilities');
 
 // One key for both pages: they draw one menu. docs/Design/Page/Left-Menu.md
 const LEFT_MENU_COLLAPSED_KEY = 'leftMenuCollapsed';
+const LEFT_MENU_WIDTH_KEY = 'leftMenuWidth';
 
 export const Utils = {
   async setBackgroundImage(url) {
@@ -393,6 +394,47 @@ export const Utils = {
     }
     if (Users.setPublicLeftMenuCollapsed) {
       Users.setPublicLeftMenuCollapsed(!!collapsed);
+    }
+  },
+
+  // The width that menu was dragged to, kept in the same three layers as its
+  // fold - Session first, then the user's profile, then a cookie for a reader
+  // who is not signed in.
+  //
+  // `undefined` when nobody has ever dragged it, and that is deliberate: the
+  // DEFAULT width is a number in the stylesheet, and returning one here too
+  // would be a second copy of it to keep in step.
+  // docs/Design/Page/Left-Menu.md
+  getLeftMenuWidth() {
+    const sessionVal = Session.get(LEFT_MENU_WIDTH_KEY);
+    if (typeof sessionVal === 'number') return sessionVal;
+
+    const user = ReactiveCache.getCurrentUser();
+    const stored = user && user.getLeftMenuWidth
+      ? user.getLeftMenuWidth()
+      : Users.getPublicLeftMenuWidth
+        ? Users.getPublicLeftMenuWidth()
+        : undefined;
+    // Only a real width is cached in the Session. `setDefault(key, undefined)`
+    // would make the key look SET on the next read, and the profile arriving a
+    // moment later - the user document is not there on the first render - would
+    // then never be picked up.
+    if (typeof stored === 'number') {
+      Session.setDefault(LEFT_MENU_WIDTH_KEY, stored);
+      return stored;
+    }
+    return undefined;
+  },
+
+  setLeftMenuWidth(width) {
+    const rounded = Math.round(width);
+    Session.set(LEFT_MENU_WIDTH_KEY, rounded);
+    if (ReactiveCache.getCurrentUser()) {
+      Meteor.call('setLeftMenuWidth', rounded);
+      return;
+    }
+    if (Users.setPublicLeftMenuWidth) {
+      Users.setPublicLeftMenuWidth(rounded);
     }
   },
 

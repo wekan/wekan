@@ -62,6 +62,10 @@
      items stretch to the row by default, so the menu fills whichever is taller
      without asking for a height of its own. */
   min-height: calc(100vh - var(--wekan-header-height, 0px));
+  /* The width grip is positioned against the GRID: absolutely, so it is no grid
+     item and adds no track, and outside the menu, which scrolls its own
+     entries. docs/Design/Page/Left-Menu.md */
+  position: relative;
 }
 
 /* The left menu is styled like the Admin Panel's (settingBody.css,
@@ -74,8 +78,14 @@
    wrong inner edge once its menu moved to the right. */
 .boards-left-menu {
   /* The width the grid track used to carry. It lives here so the track is the
-     menu's own width, and folded there is no track at all. */
-  width: 260px;
+     menu's own width, and folded there is no track at all.
+     The SHARED variable (settingBody.css), so this menu and the Admin Panel's
+     are one menu at one width, and dragging either grip changes both. */
+  width: var(--wekan-left-menu-width);
+  /* ...but never wider than the track it is in: on a phone that track is capped
+     at 210px (#6523, the rules further down), and a fixed width would have run
+     the menu out past it. */
+  max-width: 100%;
   box-sizing: border-box;
   background-color: #f7f7f7;
   /* Flush on three sides, like the Admin Panel's: it starts at the window's

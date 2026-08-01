@@ -27,7 +27,8 @@ table beside it.
 | `client/components/settings/translationBody.jade` | `.jade` template | The Translation pane of Admin Panel / Settings — a pane, not a page: the menu beside it is the Settings one. |
 | `client/components/settings/informationBody.jade` | `.jade` template | The Version pane of Admin Panel / Settings — likewise a pane, rendered by `settingBody.jade`. |
 | `client/components/settings/leftMenu.js` | `.js` client code | The caret's click handler and the global `isLeftMenuCollapsed` helper. Imported by `client/features/settings.js` — see [Collapsing it](#collapsing-it). |
-| `client/lib/utils.js` | `.js` client code | `getLeftMenuCollapseState()` / `setLeftMenuCollapseState()`: the Session value, the user's profile field and the signed-out cookie behind the fold. |
+| `client/lib/utils.js` | `.js` client code | `getLeftMenuCollapseState()` / `setLeftMenuCollapseState()` and `getLeftMenuWidth()` / `setLeftMenuWidth()`: the Session value, the user's profile field and the signed-out cookie behind the fold and the width. |
+| `client/components/main/layouts.css` | `.css` stylesheet | The tablet and large-display **defaults** for the menu width — set on `--wekan-left-menu-width`, never on the menu's `width`. |
 | `tests/leftMenu.test.cjs` | `.cjs` Node test | The one suite: the pure helpers, the template, the side placement and mirroring, and that no page re-implements the menu. |
 | `tests/clientBundleImports.test.cjs` | `.cjs` Node test | Walks the import graph from `client/main.js` so a component that registers a template can never be left out of the bundle again. |
 
@@ -146,6 +147,54 @@ unregistered Blaze helper is undefined, so nothing took the `collapsed` class
 either. `tests/clientBundleImports.test.cjs` walks the import graph from
 `client/main.js` and pins that every component file which registers something
 with Blaze is reachable from it.
+
+## Its width, and dragging it
+
+The menu's **inner edge** — the right one while reading left to right, the left
+one under a right-to-left language — carries a **grip**, and dragging it changes
+the width. It is the same control the **right board sidebar** has on its own
+inner edge (`sidebar.jade` / `sidebar.css`), with the same 6px strip, the same
+`col-resize` cursor and the same `nodragscroll` so a drag on it resizes the menu
+instead of panning the board page behind it.
+
+**One number, on `<html>`.** The width is a CSS custom property,
+`--wekan-left-menu-width`, and everything that needs it reads that: the Admin
+Panel's `.side-menu`, the All Boards `.boards-left-menu` — whose grid track is
+`auto`, so the track follows the menu — and the grip itself, which sits at
+`calc(var(--wekan-left-menu-width) - 3px)` from the row's inline start. An inline
+width on one element could not have done that: the menu is a different element in
+a different template on each page.
+
+The **default** is the number in the stylesheet (`:root`, 260px), and a
+breakpoint that wants a different default — the tablet and large-display rules in
+`layouts.css` — overrides **the variable**, never the menu's `width`. A rule
+naming `.side-menu` would beat a dragged width, which arrives as an inline
+property on `<html>`, at exactly that one screen size. For the same reason the
+client removes the property rather than writing the default into it: the default
+lives in one place.
+
+The grip is positioned against the **row/grid around the menu**, not inside it.
+The menu is its own scroll area, and a handle inside it would scroll away with
+the entries. Being absolutely positioned it is neither a flex item nor a grid
+item, so it adds no column and no gap — which is also why the Admin Panel's menu
+template can carry it as a **second root** and every pane gets it without
+naming it.
+
+The drag is **clamped**: no narrower than 160px, no wider than
+`min(600px, window − 240px)`. There is no drag on a phone (≤ 800px, where the
+menu is full width above the content) and none while it is folded — there is no
+edge to drag.
+
+The width is remembered in the **same three layers as the fold**: a Session value
+first, then `profile.leftMenuWidth` on the user document, then the
+`wekan-left-menu-width` **cookie** when nobody is signed in — the same cookie
+mechanism the fold uses, rather than the `localStorage` the right sidebar's width
+uses, so one reader's menu is not remembered in two different places. It is saved
+**once, when the drag ends**; while dragging, the property is written directly so
+the edge follows the pointer without a database write per pixel. The server
+method clamps again (120–1200px) and refuses `NaN`, which passes
+`check(width, Number)` and would otherwise store a width no page could recover
+from.
 
 ## Theme
 

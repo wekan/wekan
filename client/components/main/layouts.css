@@ -945,8 +945,12 @@ a:not(.disabled).is-active i.fa {
     gap: 20px;
   }
 
-  .setting-content .content-body .side-menu {
-    width: 250px;
+  /* The DEFAULT width of the left menu on a tablet. The variable, not the
+     `width` of the menu: a width dragged by the reader arrives as an inline
+     property on <html>, and a rule naming `.side-menu` here would override it
+     at exactly this one screen size. docs/Design/Page/Left-Menu.md */
+  :root {
+    --wekan-left-menu-width: 250px;
   }
 
   /* Responsive handling for quick-access description on tablets */
@@ -1003,8 +1007,10 @@ a:not(.disabled).is-active i.fa {
     gap: 32px;
   }
 
-  .setting-content .content-body .side-menu {
-    width: 320px;
+  /* ...and on a large display, for the same reason as the tablet default above.
+     docs/Design/Page/Left-Menu.md */
+  :root {
+    --wekan-left-menu-width: 320px;
   }
 }
 .inline-input {

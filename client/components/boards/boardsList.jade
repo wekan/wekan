@@ -95,6 +95,13 @@ template(name="boardList")
                       i.fa.fa-times-thin
                   span {{_ 'filter-clear'}}
 
+      //- The grip that changes the menu's width, the Admin Panel's own. It is a
+        child of the GRID and not of the menu: it is positioned absolutely, so it
+        is no grid item and adds no track, and it does not scroll away with a
+        long list of workspaces the way a handle inside the menu would.
+        docs/Design/Page/Left-Menu.md
+      +leftMenuResize
+
       // Right boards grid
       //- There is NO bar above the boards, and no second header bar either.
         Every control of this page - Sort, Search, Multi-Selection, the view
