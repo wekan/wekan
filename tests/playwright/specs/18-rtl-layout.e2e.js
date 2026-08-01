@@ -180,7 +180,13 @@ for (const { lang, dir, label } of LANGS) {
         // The translated page title lives in the header bar and is always
         // present, even when the body is empty (e.g. My Cards with no cards
         // assigned to this user). That is the reliable "text is visible" anchor.
-        await expectVisibleText(page.locator('#header-main-bar'));
+        //
+        // It is the FIRST bar now. `#header-main-bar` was the second one, and
+        // these three pages no longer render one at all - their title moved
+        // beside the house icon and their controls moved into a right sidebar,
+        // so a second bar would have been a tall empty strip.
+        // docs/Design/Page/Header.md
+        await expectVisibleText(page.locator('#header-quick-access .header-page-title'));
       }
     });
   });

@@ -100,7 +100,14 @@ test.describe('Board Rules', () => {
       await page.goto(`${BASE_URL}/b/${board.boardId}/${board.slug}/rules`, { waitUntil: 'networkidle' });
 
       // Switch to the Workflow view.
-      await page.locator('.js-rules-toggle-view').click();
+      // The view toggle is in the page's right sidebar now, not in a second
+      // header bar. docs/Design/Page/Header.md
+      const toggle = page.locator('.js-rules-toggle-view');
+      if (!(await toggle.isVisible().catch(() => false))) {
+        await page.locator('.js-toggle-page-sidebar').first().click();
+        await toggle.waitFor({ timeout: 15_000 });
+      }
+      await toggle.click();
 
       // The palette renders with LABELLED chips. This is the exact signature of the
       // #6489 bug: before the import fix, paletteLabel() threw "ReferenceError:

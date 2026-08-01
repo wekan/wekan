@@ -18,6 +18,20 @@ async function openRulesPage(page, board) {
   await page.locator('.rules-page').waitFor({ timeout: 20_000 });
 }
 
+/**
+ * Open this page's controls - Back, the view toggle, Import/Export.
+ *
+ * They were a group in the page's second header bar; that bar is gone and they
+ * are a view of the shared right sidebar now, opened by the hamburger in the
+ * first top header bar. models/lib/pageSidebar.js, docs/Design/Page/Header.md
+ */
+async function openRulesControls(page) {
+  const controls = page.locator('.js-rules-import-export');
+  if (await controls.isVisible().catch(() => false)) return;
+  await page.locator('.js-toggle-page-sidebar').first().click();
+  await controls.waitFor({ timeout: 15_000 });
+}
+
 test.describe('Rules', () => {
   test('Rules opens as a fullscreen page with the board rules header', async ({ boardPage, board }) => {
     await openRulesPage(boardPage, board);
@@ -45,6 +59,7 @@ test.describe('Rules', () => {
 
   test('Import / Export dialog offers JSON and CSV export', async ({ boardPage, board }) => {
     await openRulesPage(boardPage, board);
+    await openRulesControls(boardPage);
     await boardPage.locator('.js-rules-import-export').click();
     const popup = boardPage.locator('.js-pop-over');
     await expect(popup).toBeVisible({ timeout: 10_000 });
@@ -89,10 +104,12 @@ test.describe('Rules', () => {
     await expect(boardPage.locator('.rules-lists-item')).toHaveCount(1, { timeout: 15_000 });
 
     // Select all -> the rule checkbox becomes checked.
+    await openRulesControls(boardPage);
     await boardPage.locator('.js-rules-select-all').click();
     await expect(boardPage.locator('.js-rule-select').first()).toBeChecked();
 
     // Toggle the visual workflow view.
+    await openRulesControls(boardPage);
     await boardPage.locator('.js-rules-toggle-view').click();
     await expect(boardPage.locator('.rules-workflow')).toBeVisible({ timeout: 10_000 });
     await expect(boardPage.locator('.workflow-rule')).toHaveCount(1);

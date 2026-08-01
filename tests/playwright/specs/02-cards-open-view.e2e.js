@@ -70,12 +70,15 @@ test.describe('Cards – open & view modes', () => {
     await bp.clickCard(board.listIds[0], 'Alpha Card');
     await cp.waitForOpen();
 
-    // Get the href from the copy-link anchor.
-    // WeKan card URLs use: /b/{boardId}/{slug}/card{cardId}  (jade: href="{{ originRelativeUrl }}")
-    const linkEl = cp.copyLinkButton();
-    const href = await linkEl.getAttribute('href');
-    expect(href).toBeTruthy();
-    expect(href).toMatch(/\/b\/.+\/card/);
+    // Copy the link from the card's actions MENU. It was an `<a href>` in the
+    // card's title header, named only by a tooltip; it is a named row of the
+    // hamburger menu now and copies with JavaScript, so there is no href to
+    // read - what it puts in the clipboard is the absolute url.
+    // docs/Design/Page/Board-Item-Links.md
+    const copied = await cp.copyLink();
+    expect(copied).toBeTruthy();
+    expect(copied).toMatch(/\/b\/[^/]+\/[^/]+\/[^/]+$/);
+    const href = new URL(copied).pathname;
 
     // Open the card URL in a new tab (simulates Ctrl+Click).
     // New pages share browser cookies but not Meteor's localStorage session,

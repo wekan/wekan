@@ -179,33 +179,6 @@ Template.boardHeaderButtons.events({
   'click .js-open-archived-board'() {
     FlowRouter.go('archive');
   },
-  'click .js-toggle-sidebar'() {
-    if (process.env.DEBUG === 'true') {
-      console.log('Hamburger menu clicked');
-    }
-    // Use the same approach as keyboard shortcuts
-    const sidebar = getSidebarInstance();
-    if (sidebar && typeof sidebar.toggle === 'function') {
-      if (process.env.DEBUG === 'true') {
-        console.log('Using Sidebar.toggle()');
-      }
-      sidebar.toggle();
-    } else {
-      if (process.env.DEBUG === 'true') {
-        console.warn('Sidebar not available, trying alternative approach');
-      }
-      // Try to trigger the sidebar through the global Blaze helper
-      if (typeof Blaze !== 'undefined' && Blaze._globalHelpers && Blaze._globalHelpers.Sidebar) {
-        const blazeSidebar = Blaze._globalHelpers.Sidebar();
-        if (blazeSidebar && typeof blazeSidebar.toggle === 'function') {
-          if (process.env.DEBUG === 'true') {
-            console.log('Using Blaze helper Sidebar.toggle()');
-          }
-          blazeSidebar.toggle();
-        }
-      }
-    }
-  },
   // The button that opens the filter sidebar also shuts it. It only ever
   // opened, so a second click did nothing visible and the only way back was the
   // sidebar's own X - somewhere else on screen from the thing you just clicked.

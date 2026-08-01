@@ -145,7 +145,7 @@ test.describe('#2339 #5850 All Boards / Templates redesign', () => {
     }
   });
 
-  test('member-menu Templates link navigates to /templates', async ({ page, user }) => {
+  test('member-menu Templates link navigates to the Templates section', async ({ page, user }) => {
     await loginWithToken(page, user.id, user.token);
 
     // Open the member (user) menu in the header.
@@ -154,7 +154,11 @@ test.describe('#2339 #5850 All Boards / Templates redesign', () => {
     // Click the Templates entry (an anchor whose href is the /templates route).
     await page.locator('.pop-over a[href$="/templates"]').first().click();
 
-    await expect.poll(() => new URL(page.url()).pathname, { timeout: 15000 }).toBe('/templates');
+    // `/templates` redirects: every All Boards section has an address of its
+    // own now and Templates is `/allboards/templates`, so the old bare path
+    // lands there rather than staying put. docs/Design/Page/All-Boards-URLs.md
+    await expect.poll(() => new URL(page.url()).pathname, { timeout: 15000 })
+      .toBe('/allboards/templates');
   });
 
   test('opening /templates does NOT auto-create an empty Template Container', async ({ page, user }) => {

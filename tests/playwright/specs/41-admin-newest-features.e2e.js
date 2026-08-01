@@ -45,10 +45,12 @@ test.describe('Admin – newest features', () => {
     ]);
 
     await loginWithToken(page, adminUser.id, adminUser.token);
-    await page.goto(`${BASE_URL}/admin-reports`, { waitUntil: 'networkidle' });
-    // The Problems side menu is the shared left menu now: an entry is addressed by
-    // data-id (docs/Design/Page/Left-Menu.md), not by a per-report class.
-    await page.locator('.js-left-menu-item[data-id="report-files"]').click();
+    // Straight to the pane by its own address. Every Admin Panel pane has one
+    // now - `/admin/problems/files` - so there is no need to land on the page
+    // and then click a menu row, and no race between the redirect from the old
+    // `/admin-reports` and the menu rendering.
+    // docs/Design/Page/Admin-Panel-URLs.md
+    await page.goto(`${BASE_URL}/admin/problems/files`, { waitUntil: 'networkidle' });
 
     // Localize any failure: ask the SERVER directly whether it counts the seeded
     // attachments (this method runs the SAME accessibleCardIds + meta.cardId query the
@@ -96,7 +98,8 @@ test.describe('Admin – newest features', () => {
 
   test('Version page shows Reactivity mode + configured REACTIVITY_ORDER and DDP_TRANSPORT', async ({ page, adminUser }) => {
     await loginWithToken(page, adminUser.id, adminUser.token);
-    await page.goto(`${BASE_URL}/information`, { waitUntil: 'networkidle' });
+    // `/information` redirects to the Version pane's own address.
+    await page.goto(`${BASE_URL}/admin/settings/version`, { waitUntil: 'networkidle' });
 
     const body = page.locator('body');
     await expect(body).toContainText('Reactivity mode', { timeout: 15_000 });
@@ -110,7 +113,7 @@ test.describe('Admin – newest features', () => {
     // still become READY and show their (empty) report, not hang on the spinner.
     await db.seedBoard({ ownerId: adminUser.id, title: 'Report Data Board', cardTitlesPerList: [['RCard']] });
     await loginWithToken(page, adminUser.id, adminUser.token);
-    await page.goto(`${BASE_URL}/admin-reports`, { waitUntil: 'networkidle' });
+    await page.goto(`${BASE_URL}/admin/problems/summary`, { waitUntil: 'networkidle' });
 
     // #6480: these report publications returned sorted+limited live cursors, whose
     // LIMITED live observe hangs on FerretDB's OpLog — the subscription never became

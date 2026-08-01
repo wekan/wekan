@@ -98,7 +98,14 @@ test.describe('#5799 All Boards sort / search / pagination', () => {
       await expect.poll(() => boardNames(page), { timeout: 15_000 })
         .toEqual(expect.arrayContaining(['Apple Board']));
 
+      // Search is a VIEW of the All Boards right sidebar now, opened by the
+      // Search button in the first top header bar - it was a field in a second
+      // header bar that no longer exists. docs/Design/Page/Search.md
       const search = page.locator('.js-board-search-input');
+      if (!(await search.isVisible().catch(() => false))) {
+        await page.locator('.js-all-boards-sidebar-search').first().click();
+        await search.waitFor({ timeout: 15_000 });
+      }
 
       // Positive: partial, case-insensitive match narrows to one board.
       await search.fill('apple');

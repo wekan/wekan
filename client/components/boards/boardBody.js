@@ -454,8 +454,9 @@ Template.boardBody.onRendered(function () {
       .js-add-card[tabindex] {
         outline: none;
       }
-      /* Sidebar hamburger menu button in header */
-      .js-toggle-sidebar .fa-bars {
+      /* Sidebar hamburger menu button in header. Renamed with the button when
+         it moved to the first top header bar: docs/Design/Page/Header.md */
+      .js-toggle-page-sidebar .fa-bars {
         color: #fff !important;
       }
       /* Grey icons in card detail header */

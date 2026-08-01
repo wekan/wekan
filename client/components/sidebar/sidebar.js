@@ -310,9 +310,6 @@ Template.sidebar.events({
   'click .js-hide-sidebar'(event, tpl) {
     tpl.hide();
   },
-  'click .js-toggle-sidebar'(event, tpl) {
-    tpl.toggle();
-  },
   'click .js-back-home'(event, tpl) {
     tpl.setView();
   },

@@ -131,9 +131,13 @@ class BoardPage {
     const sidebar = this.page.locator('.board-sidebar.sidebar');
     const isOpen = await sidebar.evaluate(el => el.classList.contains('is-open'));
     if (!isOpen) {
-      // .js-toggle-sidebar is in the board header (boardHeader.jade line 147).
+      // The hamburger is in the FIRST top header bar now, and it is
+      // `.js-toggle-page-sidebar` (client/components/main/header.jade): the
+      // second header bar it used to live in is gone, and one control opens
+      // whichever sidebar the page has - a board's own, All Boards', or the
+      // shared one. docs/Design/Page/Header.md
       // .js-open-board-menu lives *inside* the sidebar — don't use it here.
-      await this.page.locator('.js-toggle-sidebar').click();
+      await this.page.locator('.js-toggle-page-sidebar').click();
       await sidebar.waitFor({ state: 'visible' });
     }
   }

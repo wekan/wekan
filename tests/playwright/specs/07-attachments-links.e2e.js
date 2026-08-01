@@ -119,7 +119,7 @@ test.describe('Attachments & links', () => {
     expect(errors).toHaveLength(0);
   });
 
-  test('copy-link button copies a valid URL to clipboard (or href is correct)', async ({ boardPage, board }) => {
+  test('copy-link row copies a valid URL to the clipboard', async ({ boardPage, board }) => {
     const bp = new BoardPage(boardPage);
     const cp = new CardPage(boardPage);
     const [listA] = board.listIds;
@@ -127,17 +127,15 @@ test.describe('Attachments & links', () => {
     await bp.clickCard(listA, 'Alpha Card');
     await cp.waitForOpen();
 
-    const linkBtn = cp.copyLinkButton();
-    const href = await linkBtn.getAttribute('href');
-    if (href) {
-      // WeKan card URL format: /b/{boardId}/{slug}/card{cardId}
-      // (The template helper originRelativeUrl produces this path)
-      expect(href).toMatch(/\/b\/[^/]+\/[^/]+\/card/);
-    } else {
-      // Button may use clipboard API; verify it doesn't throw
-      await linkBtn.click({ force: true });
-      await boardPage.waitForTimeout(300);
-      // No JS errors should occur
-    }
+    // It is a row of the card's actions MENU now, not an `<a href>` in the
+    // title header, and it copies with JavaScript - so the clipboard is where
+    // the answer is, and it holds the ABSOLUTE url because that is what gets
+    // pasted into a chat. docs/Design/Page/Board-Item-Links.md
+    //
+    // Asserted rather than tolerated: the old test accepted "no href, so just
+    // click it and check nothing threw", which would have passed even if the
+    // button copied nothing at all.
+    const copied = await cp.copyLink();
+    expect(copied).toMatch(/^https?:\/\/[^/]+\/b\/[^/]+\/[^/]+\/[^/]+$/);
   });
 });

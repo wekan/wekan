@@ -23,7 +23,10 @@ test.describe('Board-level actions', () => {
     // the board menu (cog) that lives inside it.
     const boardMenuBtn = boardPage.locator('.board-sidebar .js-open-board-menu');
     if (!(await boardMenuBtn.isVisible().catch(() => false))) {
-      await boardPage.locator('.js-toggle-sidebar').first().click();
+      // The hamburger moved to the first top header bar and was renamed with
+      // it: one control now opens whichever sidebar the page has.
+      // docs/Design/Page/Header.md
+      await boardPage.locator('.js-toggle-page-sidebar').first().click();
     }
     await boardMenuBtn.waitFor();
 

@@ -331,8 +331,48 @@ class CardPage {
 
   // --- Copy link (open in new tab) ---
 
-  copyLinkButton() {
-    return this.root.locator('.js-copy-link, a.card-copy-button').first();
+  /**
+   * The row that copies the card's link, INSIDE the card's actions menu.
+   *
+   * The card's title header used to carry this as an `<a href>` named only by a
+   * tooltip. It is a named row of the hamburger menu now, beside the swimlane's
+   * and the list's, and it copies with JavaScript rather than being a link -
+   * so there is no `href` to read. docs/Design/Page/Board-Item-Links.md
+   */
+  copyLinkRow() {
+    return this.page.locator('.js-pop-over .js-copy-card-link').first();
+  }
+
+  /**
+   * Open the actions menu and copy the card's link. Returns what the page put
+   * on the clipboard, which is the ABSOLUTE url - a relative path is only a
+   * link inside this page.
+   *
+   * The clipboard is RECORDED, not read back. Reading it needs a `clipboard-read`
+   * permission that only Chromium can be granted, so a test that read it would
+   * pass on one browser of the three. WeKan copies through
+   * `navigator.clipboard.writeText` (client/lib/utils.js), so wrapping that
+   * captures the real value in every browser - and still proves the button
+   * copied, rather than merely that clicking it threw nothing.
+   */
+  async copyLink() {
+    await this.page.evaluate(() => {
+      window.__wekanCopied = null;
+      const real = navigator.clipboard && navigator.clipboard.writeText;
+      if (real) {
+        navigator.clipboard.writeText = text => {
+          window.__wekanCopied = text;
+          return real.call(navigator.clipboard, text).catch(() => {});
+        };
+      }
+    });
+    await this.openActionsMenu();
+    const row = this.copyLinkRow();
+    await row.waitFor({ timeout: 15_000 });
+    await row.click();
+    await this.page.waitForFunction(() => window.__wekanCopied !== null, null,
+      { timeout: 15_000 });
+    return this.page.evaluate(() => window.__wekanCopied);
   }
 
   // --- Due dates ---
