@@ -1,3 +1,19 @@
+/* The bar's inset from the window edge, so its first item's ICON starts at the
+   same x as the left menus' row icons.
+   Both left menus - All Boards (boardsList.css) and the Admin Panel
+   (settingBody.css) - indent a row by `margin: 2px 4px` on the row plus
+   `padding-inline-start: 18px` on its link: the icon lands 22px in.
+   In this bar the first item carries `margin-inline-start: 4px` and its link
+   `padding-inline-start: 6px`, so the bar itself owes the remaining 12px.
+   4 + 18 = 12 + 4 + 6 = 22. A guard checks that arithmetic (tests/headerBars).
+
+   On the BAR rather than on its first item, because the bar WRAPS: padding
+   applies to every row it wraps onto, while a margin on the first item would
+   indent the first row only and leave the second row starting at the edge. */
+:root {
+  --wekan-header-gutter: 12px;
+}
+
 #header {
   color: #fff;
   transition: background-color 0.4s;
@@ -286,7 +302,7 @@ body:not(.board-view) #header #header-main-bar h1 {
   font-size: 12px;
   display: flex;
   z-index: 1000;
-  padding: 10px 0px;
+  padding: 10px var(--wekan-header-gutter);
   align-items: center;
   /* WRAPS to a second row when its buttons do not fit.
      It was nowrap + overflow:hidden, which was fine when this bar held a logo,
@@ -794,7 +810,7 @@ body.mobile-mode #header-quick-access .allBoards {
       min-height: 48px !important;
       flex-wrap: wrap !important;
       align-items: center !important; /* Center align items */
-      padding: 8px 0px !important; /* Adjust padding for mobile */
+      padding: 8px var(--wekan-header-gutter) !important;
     }
     #header-quick-access {
       font-size: 1em !important; /* Normal size (reverted #6426 oversizing) */
@@ -946,7 +962,7 @@ body.mobile-mode #header-quick-access .allBoards {
       min-height: 48px !important;
       flex-wrap: wrap !important;
       align-items: center !important;
-      padding: 8px 0px !important;
+      padding: 8px var(--wekan-header-gutter) !important;
     }
 
     #header-quick-access * {
@@ -1039,7 +1055,7 @@ body.mobile-mode #header-quick-access .allBoards {
       /* A MINIMUM: the bar wraps, and a fixed height would cut off whatever
          the wrap put on the second row. */
       min-height: 40px !important;
-      padding: 12px 0px !important;
+      padding: 12px var(--wekan-header-gutter) !important;
     }
 
     #header-quick-access .home-icon .header-home-link {
@@ -1076,7 +1092,7 @@ body.mobile-mode #header-quick-access .allBoards {
     min-height: 48px !important;
     flex-wrap: wrap !important;
     align-items: center !important;
-    padding: 8px 0px !important;
+    padding: 8px var(--wekan-header-gutter) !important;
   }
 
   .iphone-device #header-quick-access * {
@@ -1145,7 +1161,7 @@ body.mobile-mode #header-quick-access .allBoards {
     min-height: 48px !important;
     flex-wrap: wrap !important;
     align-items: center !important;
-    padding: 8px 0px !important;
+    padding: 8px var(--wekan-header-gutter) !important;
   }
 
   .iphone-device #header-quick-access * {

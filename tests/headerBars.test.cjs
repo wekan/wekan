@@ -992,6 +992,85 @@ test('and the path is the tooltip, root and all, in order', () => {
   assert.ok(!/header-page-subtitle/.test(block), 'and nothing after it');
 });
 
+test('the bar starts where the left menus start - one indent down the page', () => {
+  // xet7: "where is left x position of Remaining icon, there should be left x of
+  // 1st top header bar home icon and below rows of 1st top header bar".
+  //
+  // Both left menus indent a row the same way, and the header bar has to reach
+  // the same x with its own three-part sum. The numbers are read out of the
+  // three stylesheets and ADDED UP here rather than asserted one at a time: a
+  // guard that pins "18px" passes while the alignment is broken by a change to
+  // one of the other two.
+  const header = read('client/components/main/header.css');
+  const allBoards = read('client/components/boards/boardsList.css');
+  const admin = read('client/components/settings/settingBody.css');
+  // The FIRST rule with this selector that declares this property: the base
+  // rule, before any media query. Both menus turn horizontal at narrow widths
+  // and reset their row margin to 0 there, so `ruleWith` finds two - and the
+  // alignment this is about is the one at the widths where the menu is a
+  // column down the side.
+  const baseRule = (css, selector, prop) => {
+    const code = css.replace(/\/\*[\s\S]*?\*\//g, '');
+    for (const rule of code.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+      if (!rule[1].split(',').some(x => x.trim() === selector)) continue;
+      if (!new RegExp(`${prop}:`).test(rule[2])) continue;
+      return rule[2];
+    }
+    assert.fail(`no \`${selector}\` rule declaring \`${prop}\``);
+  };
+  const px = (rule, prop) => {
+    const m = new RegExp(`${prop}:\\s*(-?[0-9.]+)px`).exec(rule);
+    assert.ok(m, `no ${prop} in \`${rule.trim()}\``);
+    return parseFloat(m[1]);
+  };
+
+  // All Boards: `margin: 2px 4px` on the row, `padding-inline-start` on its link.
+  const abRow = baseRule(allBoards, '.boards-left-menu .menu-item', 'margin');
+  const abLink = baseRule(allBoards, '.boards-left-menu .menu-item a', 'padding-inline-start');
+  const abMargin = parseFloat(/margin:\s*[0-9.]+px\s+([0-9.]+)px/.exec(abRow)[1]);
+  const allBoardsIconX = abMargin + px(abLink, 'padding-inline-start');
+
+  // The Admin Panel indents its rows the same way, and the two menus must not
+  // drift apart either - they are meant to look like one kind of menu.
+  const apRow = baseRule(admin, '.setting-content .content-body .side-menu ul li', 'margin');
+  const apLink = baseRule(admin, '.setting-content .content-body .side-menu ul li a', 'padding-inline-start');
+  const apMargin = parseFloat(/margin:\s*[0-9.]+px\s+([0-9.]+)px/.exec(apRow)[1]);
+  assert.strictEqual(apMargin + px(apLink, 'padding-inline-start'), allBoardsIconX,
+    'the two left menus indent their rows by the same amount');
+
+  // The bar: its own gutter, plus the first item's margin, plus that item's
+  // padding. The gutter is a variable so the number has one home.
+  const gutter = px(ruleWith(header, ':root', '--wekan-header-gutter'),
+    '--wekan-header-gutter');
+  const homeIcon = baseRule(header, '#header-quick-access .home-icon', 'margin-inline-start');
+  const homeLink = baseRule(header, '#header-quick-access .home-icon .header-home-link', 'padding');
+  // `padding: 4px 4px 4px 6px` - the fourth value is the start in LTR.
+  const linkStart = parseFloat(
+    /padding:\s*[0-9.]+px\s+[0-9.]+px\s+[0-9.]+px\s+([0-9.]+)px/.exec(homeLink)[1]);
+  const headerIconX = gutter + px(homeIcon, 'margin-inline-start') + linkStart;
+
+  assert.strictEqual(headerIconX, allBoardsIconX,
+    `the house sits at ${headerIconX}px and the menu rows at ${allBoardsIconX}px`);
+
+  // On the BAR, not on its first item. The bar wraps, and padding applies to
+  // every row it wraps onto while a margin on the first item would indent the
+  // first row only - which is the "and below rows" half of the request.
+  const bar = ruleWith(header, '#header-quick-access', 'padding: 10px');
+  assert.ok(/padding:\s*10px var\(--wekan-header-gutter\)/.test(bar),
+    'the gutter is the bar\'s own padding');
+  assert.ok(/flex-wrap/.test(bar), 'and the bar is what wraps');
+  // No phone override may put it back to zero and leave the icons hanging off
+  // the edge on the width where the alignment matters most.
+  const code = header.replace(/\/\*[\s\S]*?\*\//g, '');
+  for (const rule of code.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    if (!rule[1].split(',').some(x => x.trim() === '#header-quick-access')) continue;
+    const pad = /padding:\s*[0-9.]+px\s+([^;!]+)/.exec(rule[2]);
+    if (!pad) continue;
+    assert.ok(/var\(--wekan-header-gutter\)/.test(pad[1]),
+      `an override sets the bar's inline padding to \`${pad[1].trim()}\``);
+  }
+});
+
 for (const [name, fn] of tests) {
   try { fn(); passed++; console.log('  ok -', name); }
   catch (err) { console.error(`  FAIL - ${name}\n    ${err.message}`); process.exitCode = 1; }
