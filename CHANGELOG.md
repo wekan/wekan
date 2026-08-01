@@ -261,7 +261,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.54 2026-08-02 WeKan ® release
 
 **In short:** a large redesign of the pages you are always looking at. The
 **first header bar** now says where you are, carries every control that used to
