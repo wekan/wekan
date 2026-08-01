@@ -2316,7 +2316,17 @@ Template.workspaceActionsPopup.onRendered(function() {
 // The All Boards view menu, in the FIRST header bar. Its handler and the helper
 // that draws it follow it out of the sidebar. docs/Design/Page/Header.md
 Template.allBoardsViewMenu.events({
-  'click .js-open-all-boards-view': Popup.open('allBoardsView'),
+  // Titled, so it has a header with the close ✕ in it - the same popup the
+  // BOARD's view menu opens, and it is the same question: which view of this
+  // page do you want. A popup with no title renders no header at all, so this
+  // one had no way out but clicking off it.
+  //
+  // `boardChangeViewPopup-title` is the board's own key - "Board View", already
+  // translated in every language - rather than an `allBoardsViewPopup-title`
+  // that would say the same words in a second key nobody has translated yet.
+  'click .js-open-all-boards-view': Popup.open('allBoardsView', {
+    titleKey: 'boardChangeViewPopup-title',
+  }),
 });
 
 Template.allBoardsViewMenu.helpers({

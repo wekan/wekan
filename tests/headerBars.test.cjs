@@ -945,6 +945,54 @@ test('and a view menu says its view in words, not only in a tooltip', () => {
   }
 });
 
+test('and both view menus open the same titled popup', () => {
+  // xet7: "All Boards page Lists/Table dropdown at 1st top header should have
+  // popup title Board View and close X button, same like at Swimlanes/Lists
+  // dropdown Board View with same existing translation."
+  //
+  // A popup with NO title renders no header background and no heading - so the
+  // All Boards one opened as a bare list of two links while the board's, which
+  // asks the same question, opened with "Board View" above it.
+  const listJs = read('client/components/boards/boardsList.js');
+  const at = listJs.indexOf("'click .js-open-all-boards-view'");
+  assert.notStrictEqual(at, -1, 'the All Boards view menu opens a popup');
+  const handler = listJs.slice(at, at + 220);
+  assert.ok(/Popup\.open\('allBoardsView'/.test(handler), 'its own popup');
+  // The BOARD's key, not a second one saying the same words: the convention key
+  // `allBoardsViewPopup-title` would start as English in all 142 language files,
+  // so most languages would show English for a phrase they have translated.
+  assert.ok(/titleKey: 'boardChangeViewPopup-title'/.test(handler),
+    'titled with the phrase the app already has');
+  const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
+  assert.strictEqual(en['boardChangeViewPopup-title'], 'Board View',
+    'which is the board view menu\'s own title');
+  assert.ok(!('allBoardsViewPopup-title' in en),
+    'and no second key was added for the same words');
+  // Sampled: the key is really translated, so the popup is titled in a language
+  // that is not English.
+  for (const lang of ['fi', 'de', 'fr']) {
+    const j = JSON.parse(read(`imports/i18n/data/${lang}.i18n.json`));
+    assert.ok(j['boardChangeViewPopup-title']
+      && j['boardChangeViewPopup-title'] !== en['boardChangeViewPopup-title'],
+      `${lang} has its own words for it`);
+  }
+
+  // The header - title, back arrow and close X - is one template for every
+  // popup, so a titled popup gets the X by being titled.
+  const tpl = read('client/components/main/popup.tpl.jade');
+  assert.ok(/a\.close-btn\.js-close-pop-over/.test(tpl), 'the popup header carries the close X');
+  assert.ok(/span\.header-title= title/.test(tpl), 'and the title beside it');
+  assert.ok(/class="\{\{#unless title\}\}no-title\{\{\/unless\}\}"/.test(tpl),
+    'an untitled popup is marked as such, which is what dropped the header');
+
+  // Popup.open must actually honour the option, or the key above is decoration.
+  const popup = read('client/lib/popup.js');
+  assert.ok(/_getTitle\(popupName, openOptions\.titleKey\)/.test(popup),
+    'the opener passes the key through');
+  assert.ok(/titleKey \|\| `\$\{popupName\}-title`/.test(popup),
+    'and an explicit key wins over the convention');
+});
+
 test('and Filter and Search shut the panel they opened', () => {
   const { sidebarViewButtonAction, SIDEBAR_VIEW_OPEN, SIDEBAR_VIEW_CLOSE } =
     require('../models/lib/sidebarViewButton');

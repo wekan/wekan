@@ -303,9 +303,13 @@ test('the view menu names the current view, not itself', () => {
   assert.ok(/if isAllBoardsView 'table'[\s\S]{0,160}board-view-table/.test(menu),
     'it says Table when the Table view is on');
   assert.ok(/\{\{_ 'lists'\}\}/.test(menu), 'and Lists otherwise');
-  // Its handler followed it out of the sidebar.
-  assert.ok(/Template\.allBoardsViewMenu\.events\(\{[\s\S]{0,160}js-open-all-boards-view/.test(js),
-    'and it is handled where it is drawn');
+  // Its handler followed it out of the sidebar. The event map is read to its
+  // closing line rather than the first 160 characters after it: a comment
+  // explaining one handler is not a reason for this to fail.
+  const mapAt = js.indexOf('Template.allBoardsViewMenu.events({');
+  assert.notStrictEqual(mapAt, -1, 'the menu has an event map where it is drawn');
+  const map = js.slice(mapAt, js.indexOf('\n});', mapAt));
+  assert.ok(/js-open-all-boards-view/.test(map), 'and it is handled where it is drawn');
 });
 
 test('two views, and Lists is the default', () => {
