@@ -263,101 +263,27 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
+**In short:** a large redesign of the pages you are always looking at. The
+**first header bar** now says where you are, carries every control that used to
+be scattered around the page, wraps instead of hiding what does not fit, and
+holds a **bookmarks menu** - the star works on any page now, not only on a
+board. **All Boards** gains a Home section for the board that opens after login,
+an Archive in its left menu, a Table view, and an address for every section and
+workspace; the **Admin Panel** moves under `/admin` with an address for every
+pane. Both **left menus** now carry the theme, with the selected row picked out
+in white. **Public Boards** becomes a read-only page of its own, a swimlane, a
+list and a card can each be **linked** to directly, and **board roles** are one
+capability table with a pane that shows it. Below that: dependency updates, nine
+bug fixes - the header bar's layout, a filter that left a spinner turning, a
+search that reached past your own boards - and the usual documentation and
+translation work.
+
 This release adds the following new features:
 
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/83e832e9e721fcec8cf102f65dee8c098d5bb0a6">The left menus carry the theme, and the selected row is the white one</a>. Thanks to xet7.</summary>
-
-Both left menus - All Boards and the Admin Panel - were a light grey card with
-one row filled in the theme colour. That made the filled row the only part of
-the page answering to the theme, so a menu read as a plain grey column with a
-coloured stripe in it rather than as a **side of the app**, next to the header
-bar it sits under.
-
-They are inverted now: the **panel** is the theme colour with white labels and
-icons, and the row you are on is a **white block cut out of it** with dark text.
-That is also the easier selection to find - the eye goes to whatever differs
-from its surroundings, and one white row in a coloured column differs more than
-one coloured row in a white one.
-
-A menu is the colour of the first header bar above it, including the colour
-**slide** of a `clear*` theme, which a `--theme-accent` value cannot carry.
-Every theme's own header rule now names **both** menus: before this only six of
-them named the All Boards menu, so most themes coloured one menu and left the
-other one plain. No theme rule may name the selected row any more - it would
-paint that row the same colour as the menu behind it and leave nothing to show
-which row is selected.
-
-Hover on an unselected row is a wash of white over the theme colour rather than
-solid white, which would be indistinguishable from the selected row. The
-dividers, the group headings and the counts went with the rows, for the same
-reason: a dark rule on a coloured panel is a rule nobody can see.
-
-Documented in [Left menu](https://github.com/wekan/wekan/blob/main/docs/Design/Page/Left-Menu.md).
-
-</details>
+**All Boards** - its sections, its controls, and what the page opens on.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/1f2044219a0625a4d8d2de752dd4da2b4c5e5078">Starred: bookmarks to any page, not only to boards</a>. Thanks to xet7.</summary>
-
-The star group in the first header bar is a **bookmarks menu** now: the caret
-that opens the list, the count of what is in it, and the star that says whether
-the thing you are looking at is among them.
-
-It held boards only. A board could be starred and reached from the dropdown;
-every other page - All Boards / Remaining, a workspace, Admin Panel / Settings /
-Version - could not, so the one control for "keep this where I can get at it"
-worked on one kind of destination and was simply absent on the rest, even though
-those pages have had their own addresses since the All Boards and Admin Panel
-URLs landed.
-
-The star on any other page now stars **that page**. A bookmark is a relative URL
-and the title from the browser tab: relative so it survives the site moving to
-another host, and an absolute or protocol-relative URL is refused rather than
-cleaned up, because what is stored goes into an `href` the reader clicks.
-
-**The browser tab says where you are** - `Product name - All Boards / Remaining`
-- instead of only the product name. Ten open tabs of one WeKan were ten
-identical tabs, and a bookmark of any of them was named after the whole app
-rather than after the page. The path is the one the header bar already computes
-for the page title's tooltip, published rather than worked out twice.
-
-In **All Boards / Starred** the bookmarks are tiles beside the starred boards,
-with the white border the template-container tile carries, the theme's own
-colour behind them, and both the title and the URL - the title says where it
-goes, the address says what it is. Each tile has its own unstar button, since
-the star in the header bar stars the page you are on.
-
-**Dragging a tile past another reorders them**, and that is the order of the
-header dropdown: the two are views of one array. The move matches both ends by
-URL rather than by index, because the two views are rendered separately and an
-index from one of them is a guess about the other. The list is capped at 50,
-oldest dropped, because it is a dropdown.
-
-Documented in [Starred](https://github.com/wekan/wekan/blob/main/docs/Features/Board/Starred.md).
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/28a5973c6b00d85a4c2a24e608e6dfd777a36df4">The first header bar starts where the left menus start</a>. Thanks to xet7.</summary>
-
-The All Boards and Admin Panel left menus indent a row by 4px of row margin plus
-18px of link padding, so a row's icon lands 22px from the window edge. The first
-header bar sat flush against the edge, so its home icon started 10px in and
-every button under it was a little to the left of the menu below.
-
-The bar now carries a 12px inline gutter: 12 + 4 + 6 = 22, the same x as the
-menu rows. It is on the BAR rather than on its first item because the bar wraps
-- padding applies to every row it wraps onto, while a margin on the first item
-would indent the first row and leave the second starting at the edge. The number
-is a variable so it has one home, and the phone overrides use it too rather than
-putting the bar back against the edge at the widths where the alignment matters
-most.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/eea1f2ffed4af635c67659f176353de57b0d4040">All Boards: Home, a section for the board that opens after login</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/eea1f2ffed4af635c67659f176353de57b0d4040">Home, a section for the board that opens after login</a>. Thanks to xet7.</summary>
 
 One board can be Home: logging in opens it instead of the All Boards page. That
 has always existed, set from Multi-Selection's "Set as Home board (opened after
@@ -401,7 +327,7 @@ Documented in [Home](https://github.com/wekan/wekan/blob/main/docs/Features/Boar
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/50a1d4263e253b0771342e7469243b13eaf106d3">All Boards opens on Starred, or on Remaining when nothing is starred</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/50a1d4263e253b0771342e7469243b13eaf106d3">It opens on Starred, or on Remaining when nothing is starred</a>. Thanks to xet7.</summary>
 
 Starred was always the section All Boards landed on. On an account that has
 starred nothing that is an empty page with a full one behind it, which reads as
@@ -428,23 +354,7 @@ depends on the user cannot be four copies of the same markup.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a05c1ac08">All Boards Multi-Selection shows that it is on, and the Sort Boards popup gets a title</a>. Thanks to xet7.</summary>
-
-The Multi-Selection button in the first header bar looked identical whether or
-not a selection was running, so the one control that changes what clicking a
-board does gave no sign it had changed it — and the only way out was to find the
-row inside the sidebar. It is emphasised while it is on, says so in its label
-and its tooltip, and has an ✕ beside it to turn it off: the same pair the
-board's own Multi-Selection has.
-
-The Sort Boards popup is titled "Sort Boards", from the key the app already has
-for that phrase. A title is what gives a pop-over its header, and the header is
-what carries the close button.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/6d50d9d66">Boards in Archive moves to the All Boards left menu, and the Workspaces section gets its rules</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6d50d9d66">Boards in Archive moves to the left menu, and the Workspaces section gets its rules</a>. Thanks to xet7.</summary>
 
 Boards in Archive was a button in the first top header bar beside Sort, Search
 and Multi-Selection. Those three act on the boards in front of you; Boards in
@@ -486,7 +396,127 @@ to this button once before. A guard now checks both halves of that.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f62258b5c">The header bar draws one star group, and names the buttons whose icon does not say enough</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a05c1ac08">Multi-Selection shows that it is on, and the Sort Boards popup gets a title</a>. Thanks to xet7.</summary>
+
+The Multi-Selection button in the first header bar looked identical whether or
+not a selection was running, so the one control that changes what clicking a
+board does gave no sign it had changed it — and the only way out was to find the
+row inside the sidebar. It is emphasised while it is on, says so in its label
+and its tooltip, and has an ✕ beside it to turn it off: the same pair the
+board's own Multi-Selection has.
+
+The Sort Boards popup is titled "Sort Boards", from the key the app already has
+for that phrase. A title is what gives a pop-over its header, and the header is
+what carries the close button.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6051a4368">Its four controls stay in the header bar, and the hamburger that only led to them is gone</a>. Thanks to xet7.</summary>
+
+Sort, Search, Multi-Selection and Boards in Archive were rows of the right
+sidebar's home view, so reaching any of them meant opening a panel over the
+boards first. They are icons in the first top header bar now, left of the
+notification bell — exactly where a board's own controls are — each named by a
+tooltip.
+
+That home view was the only thing the hamburger opened, so All Boards no longer
+offers one, nor the divider before it: a menu to reach what is already one
+click away is a step with nothing in it. The sidebar is still opened, by Search
+and by Multi-Selection, straight into their own view; and its home view is
+still what the back arrow of those views leads to. A board keeps its hamburger
+— what its sidebar holds, members and labels and activities and settings, is
+not in the bar and has nowhere else to be opened from.
+
+Boards in Archive is drawn in both places now, and a Blaze event map only sees
+events inside its own template, so each copy has its own handler. A copy with
+markup and no map is a button that silently does nothing, which is what
+happened to that exact button once already; a guard now checks both.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/05e9cbc7c">One row of controls, in the header bar, and a Table view</a>. Thanks to xet7.</summary>
+
+The page carried two rows of controls: the second top header bar, holding only
+the title, and a row of its own above the board icons — Multi-Selection with
+its archive and duplicate actions, Sort and the search box — styled nothing
+like the board header of the Swimlanes view. There is one row now, in the
+header bar, with the same `.board-header-btn` buttons and the same Font Awesome
+glyphs a board's header uses: Starred, Sort, Search, Multi-Selection and the
+view menu. The actions ON a selection stay beside the boards they act on, and
+appear only while something is selected.
+
+Search is a **field**, not a button, and it does what the old right-pane search
+did: it filters as you type, across every one of your boards rather than the
+section the left menu has selected, and Escape clears it. That is a deliberate
+difference from the board header, whose Search is a button: on a board, Search
+opens a whole search view over cards; here it filters the list it sits above,
+and a filter belongs in the bar it filters.
+
+The view menu names the current view — Lists or Table, never the words "Board
+View" — the way the board header says "Swimlanes" or "Lists". Lists is the
+default and is what an account that has never chosen sees. Table is the shared
+table page, editable: Edit, Board title and Board description, ten rows a page,
+the same boards the Lists view would draw. Edit opens the SAME
+`boardChangeTitlePopup` the Swimlanes view opens rather than a copy of it, which
+took one change to make true — its submit read `Utils.getCurrentBoard()`, and
+on All Boards you are not looking at a board, so it now takes the board from
+its own data context when it has one and falls back to the current board.
+
+The view choice is remembered per browser, not on the user document: it is a
+preference for one page and changes nothing anybody else can see. A board's
+view IS on the profile, because it follows the user between devices; this
+deliberately does not. The design is written down in
+`docs/Design/Page/All-Boards.md`.
+
+</details>
+
+**The first header bar** - the strip always on screen: what it says and carries.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1f2044219a0625a4d8d2de752dd4da2b4c5e5078">Starred: bookmarks to any page, not only to boards</a>. Thanks to xet7.</summary>
+
+The star group in the first header bar is a **bookmarks menu** now: the caret
+that opens the list, the count of what is in it, and the star that says whether
+the thing you are looking at is among them.
+
+It held boards only. A board could be starred and reached from the dropdown;
+every other page - All Boards / Remaining, a workspace, Admin Panel / Settings /
+Version - could not, so the one control for "keep this where I can get at it"
+worked on one kind of destination and was simply absent on the rest, even though
+those pages have had their own addresses since the All Boards and Admin Panel
+URLs landed.
+
+The star on any other page now stars **that page**. A bookmark is a relative URL
+and the title from the browser tab: relative so it survives the site moving to
+another host, and an absolute or protocol-relative URL is refused rather than
+cleaned up, because what is stored goes into an `href` the reader clicks.
+
+**The browser tab says where you are** - `Product name - All Boards / Remaining`
+- instead of only the product name. Ten open tabs of one WeKan were ten
+identical tabs, and a bookmark of any of them was named after the whole app
+rather than after the page. The path is the one the header bar already computes
+for the page title's tooltip, published rather than worked out twice.
+
+In **All Boards / Starred** the bookmarks are tiles beside the starred boards,
+with the white border the template-container tile carries, the theme's own
+colour behind them, and both the title and the URL - the title says where it
+goes, the address says what it is. Each tile has its own unstar button, since
+the star in the header bar stars the page you are on.
+
+**Dragging a tile past another reorders them**, and that is the order of the
+header dropdown: the two are views of one array. The move matches both ends by
+URL rather than by index, because the two views are rendered separately and an
+index from one of them is a guess about the other. The list is capped at 50,
+oldest dropped, because it is a dropdown.
+
+Documented in [Starred](https://github.com/wekan/wekan/blob/main/docs/Features/Board/Starred.md).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f62258b5c">One star group, and every button whose icon does not say enough is named</a>. Thanks to xet7.</summary>
 
 The bar drew two stars in a row — one on the starred-boards dropdown and one for
 the board you are on — which read as a single control somehow drawn twice. The
@@ -536,6 +566,130 @@ glyphs are well known.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1164785d1">It names the All Boards list you are on, and the workspace inside it</a>. Thanks to xet7.</summary>
+
+The bar said "All Boards" on the Starred list, on Templates, on Remaining and
+inside every workspace — it named the page and not the list you were looking
+at. It shows the path now: `All Boards / Starred`,
+`All Boards / Workspaces / Engineering / Backend`.
+
+The section's words are the left menu's own key, so the title and the row
+highlighted beside it always say the same thing. A workspace's words are its
+NAME rather than the slug in the URL, and are printed as text rather than
+translated — a workspace name is what a person typed, and a workspace called
+"starred" is not the Starred section. A trail segment that names nothing stops
+the walk, so a stale link titles the part of the path that is still real
+instead of nothing at all.
+
+The Admin Panel's `Admin Panel / Settings / Version` and this are one list of
+segments rather than a helper each: the two pages do not have the same number
+of them, and a workspace has as many as its tree is deep.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/03cb79bdd">It says where you are: Admin Panel / Settings / Version</a>. Thanks to xet7.</summary>
+
+The bar named the panel and stopped there. The Admin Panel is four pages and
+each page is a stack of panes, so "Admin Panel" named the building and not the
+room - and all four of its routes answered the same three words, whichever one
+was open.
+
+The title now names the same three things the address does. The page's words
+are the tab's own and the pane's words are the menu row's own, so the title,
+the tab that is marked active and the row that opened the pane cannot say
+different things about one place.
+
+The button of the page you are ON also keeps the hover background, permanently
+and a shade darker. The tabs had marked themselves active all along, but the
+only rule that drew it was scoped to the second header bar - which those tabs
+no longer live in - so the state had been computed and invisible since they
+moved.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/28a5973c6b00d85a4c2a24e608e6dfd777a36df4">It starts where the left menus start</a>. Thanks to xet7.</summary>
+
+The All Boards and Admin Panel left menus indent a row by 4px of row margin plus
+18px of link padding, so a row's icon lands 22px from the window edge. The first
+header bar sat flush against the edge, so its home icon started 10px in and
+every button under it was a little to the left of the menu below.
+
+The bar now carries a 12px inline gutter: 12 + 4 + 6 = 22, the same x as the
+menu rows. It is on the BAR rather than on its first item because the bar wraps
+- padding applies to every row it wraps onto, while a margin on the first item
+would indent the first row and leave the second starting at the edge. The number
+is a variable so it has one home, and the phone overrides use it too rather than
+putting the bar back against the edge at the widths where the alignment matters
+most.
+
+</details>
+
+**The left menus** - All Boards and the Admin Panel share one menu.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/83e832e9e721fcec8cf102f65dee8c098d5bb0a6">They carry the theme, and the selected row is the white one</a>. Thanks to xet7.</summary>
+
+Both left menus - All Boards and the Admin Panel - were a light grey card with
+one row filled in the theme colour. That made the filled row the only part of
+the page answering to the theme, so a menu read as a plain grey column with a
+coloured stripe in it rather than as a **side of the app**, next to the header
+bar it sits under.
+
+They are inverted now: the **panel** is the theme colour with white labels and
+icons, and the row you are on is a **white block cut out of it** with dark text.
+That is also the easier selection to find - the eye goes to whatever differs
+from its surroundings, and one white row in a coloured column differs more than
+one coloured row in a white one.
+
+A menu is the colour of the first header bar above it, including the colour
+**slide** of a `clear*` theme, which a `--theme-accent` value cannot carry.
+Every theme's own header rule now names **both** menus: before this only six of
+them named the All Boards menu, so most themes coloured one menu and left the
+other one plain. No theme rule may name the selected row any more - it would
+paint that row the same colour as the menu behind it and leave nothing to show
+which row is selected.
+
+Hover on an unselected row is a wash of white over the theme colour rather than
+solid white, which would be indistinguishable from the selected row. The
+dividers, the group headings and the counts went with the rows, for the same
+reason: a dark rule on a coloured panel is a rule nobody can see.
+
+Documented in [Left menu](https://github.com/wekan/wekan/blob/main/docs/Design/Page/Left-Menu.md).
+
+</details>
+
+**The Admin Panel** - where the settings live, and how they are addressed.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/03cb79bdd">It moves under /admin, and its address names the pane you are on</a>. Thanks to xet7.</summary>
+
+Every left-menu entry of the Admin Panel had a URL, but the four pages sat at
+the TOP level - `/settings`, `/people`, `/attachments` - as if they were pages
+of the app rather than of the Admin Panel, and `/attachments` is also the path
+the file server serves attachments from, so the panel and the files were
+claiming one address. They are under `/admin` now:
+`/admin/settings/version`, `/admin/people/login`, `/admin/problems/database`,
+`/admin/attachments/backup`.
+
+The DEFAULT pane is named too. It used to be left implicit in a bare page URL -
+`/settings` rather than `/settings/version` - so the address of "Settings" and
+the address of "Settings showing Version" were one string. The address is meant
+to say where you are, and the first pane is somewhere too. The bare
+`/admin/settings` still resolves; it redirects to `/admin/settings/version`
+rather than being a second name for it.
+
+Every path the panel used to answer on redirects, and a bookmarked
+`/settings/global-webhooks` keeps its pane rather than landing on the top of
+the panel. The redirects are built from the same map the URLs are, so a page
+cannot be given an address without also being given its redirect.
+
+</details>
+
+**Board views** - the board itself: its swimlanes, lists and cards.
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e755b60b3">A swimlane, a list and a card can each be linked, and the link lands on the thing it names</a>. Thanks to xet7.</summary>
 
 A card has had an address since there has been a card route. A swimlane and a
@@ -572,100 +726,10 @@ still tell a colleague which list they mean.
 
 </details>
 
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/6051a4368">All Boards keeps its four controls in the header bar, and drops the hamburger that only led to them</a>. Thanks to xet7.</summary>
-
-Sort, Search, Multi-Selection and Boards in Archive were rows of the right
-sidebar's home view, so reaching any of them meant opening a panel over the
-boards first. They are icons in the first top header bar now, left of the
-notification bell — exactly where a board's own controls are — each named by a
-tooltip.
-
-That home view was the only thing the hamburger opened, so All Boards no longer
-offers one, nor the divider before it: a menu to reach what is already one
-click away is a step with nothing in it. The sidebar is still opened, by Search
-and by Multi-Selection, straight into their own view; and its home view is
-still what the back arrow of those views leads to. A board keeps its hamburger
-— what its sidebar holds, members and labels and activities and settings, is
-not in the bar and has nowhere else to be opened from.
-
-Boards in Archive is drawn in both places now, and a Blaze event map only sees
-events inside its own template, so each copy has its own handler. A copy with
-markup and no map is a button that silently does nothing, which is what
-happened to that exact button once already; a guard now checks both.
-
-</details>
+**Public Boards** - the page a visitor sees without an account.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/1164785d1">The header bar names the All Boards list you are on, and the workspace inside it</a>. Thanks to xet7.</summary>
-
-The bar said "All Boards" on the Starred list, on Templates, on Remaining and
-inside every workspace — it named the page and not the list you were looking
-at. It shows the path now: `All Boards / Starred`,
-`All Boards / Workspaces / Engineering / Backend`.
-
-The section's words are the left menu's own key, so the title and the row
-highlighted beside it always say the same thing. A workspace's words are its
-NAME rather than the slug in the URL, and are printed as text rather than
-translated — a workspace name is what a person typed, and a workspace called
-"starred" is not the Starred section. A trail segment that names nothing stops
-the walk, so a stale link titles the part of the path that is still real
-instead of nothing at all.
-
-The Admin Panel's `Admin Panel / Settings / Version` and this are one list of
-segments rather than a helper each: the two pages do not have the same number
-of them, and a workspace has as many as its tree is deep.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/03cb79bdd">The Admin Panel moves under /admin, and its address names the pane you are on</a>. Thanks to xet7.</summary>
-
-Every left-menu entry of the Admin Panel had a URL, but the four pages sat at
-the TOP level - `/settings`, `/people`, `/attachments` - as if they were pages
-of the app rather than of the Admin Panel, and `/attachments` is also the path
-the file server serves attachments from, so the panel and the files were
-claiming one address. They are under `/admin` now:
-`/admin/settings/version`, `/admin/people/login`, `/admin/problems/database`,
-`/admin/attachments/backup`.
-
-The DEFAULT pane is named too. It used to be left implicit in a bare page URL -
-`/settings` rather than `/settings/version` - so the address of "Settings" and
-the address of "Settings showing Version" were one string. The address is meant
-to say where you are, and the first pane is somewhere too. The bare
-`/admin/settings` still resolves; it redirects to `/admin/settings/version`
-rather than being a second name for it.
-
-Every path the panel used to answer on redirects, and a bookmarked
-`/settings/global-webhooks` keeps its pane rather than landing on the top of
-the panel. The redirects are built from the same map the URLs are, so a page
-cannot be given an address without also being given its redirect.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/03cb79bdd">The first header bar says where you are: Admin Panel / Settings / Version</a>. Thanks to xet7.</summary>
-
-The bar named the panel and stopped there. The Admin Panel is four pages and
-each page is a stack of panes, so "Admin Panel" named the building and not the
-room - and all four of its routes answered the same three words, whichever one
-was open.
-
-The title now names the same three things the address does. The page's words
-are the tab's own and the pane's words are the menu row's own, so the title,
-the tab that is marked active and the row that opened the pane cannot say
-different things about one place.
-
-The button of the page you are ON also keeps the hover background, permanently
-and a shade darker. The tabs had marked themselves active all along, but the
-only rule that drew it was scoped to the second header bar - which those tabs
-no longer live in - so the state had been computed and invisible since they
-moved.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/54915db25">Public Boards is its own read-only table page, not All Boards with a different query</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/54915db25">Its own read-only table page, not All Boards with a different query</a>. Thanks to xet7.</summary>
 
 /public rendered the All Boards page with its query swapped for `{ permission:
 'public' }`, which brought the whole of All Boards with it: the Starred /
@@ -713,45 +777,10 @@ default instead of to the page's own background.
 
 </details>
 
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/05e9cbc7c">All Boards: one row of controls, in the header bar, and a Table view</a>. Thanks to xet7.</summary>
-
-The page carried two rows of controls: the second top header bar, holding only
-the title, and a row of its own above the board icons — Multi-Selection with
-its archive and duplicate actions, Sort and the search box — styled nothing
-like the board header of the Swimlanes view. There is one row now, in the
-header bar, with the same `.board-header-btn` buttons and the same Font Awesome
-glyphs a board's header uses: Starred, Sort, Search, Multi-Selection and the
-view menu. The actions ON a selection stay beside the boards they act on, and
-appear only while something is selected.
-
-Search is a **field**, not a button, and it does what the old right-pane search
-did: it filters as you type, across every one of your boards rather than the
-section the left menu has selected, and Escape clears it. That is a deliberate
-difference from the board header, whose Search is a button: on a board, Search
-opens a whole search view over cards; here it filters the list it sits above,
-and a filter belongs in the bar it filters.
-
-The view menu names the current view — Lists or Table, never the words "Board
-View" — the way the board header says "Swimlanes" or "Lists". Lists is the
-default and is what an account that has never chosen sees. Table is the shared
-table page, editable: Edit, Board title and Board description, ten rows a page,
-the same boards the Lists view would draw. Edit opens the SAME
-`boardChangeTitlePopup` the Swimlanes view opens rather than a copy of it, which
-took one change to make true — its submit read `Utils.getCurrentBoard()`, and
-on All Boards you are not looking at a board, so it now takes the board from
-its own data context when it has one and falls back to the current board.
-
-The view choice is remembered per browser, not on the user document: it is a
-preference for one page and changes nothing anybody else can see. A board's
-view IS on the profile, because it follows the user between devices; this
-deliberately does not. The design is written down in
-`docs/Design/Page/All-Boards.md`.
-
-</details>
+**Board roles** - what a member of a board may do.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/efa534fdd">Board roles: one capability table, three roles fixed, and a Roles Status pane that shows it</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/efa534fdd">One capability table, three roles fixed, and a Roles Status pane that shows it</a>. Thanks to xet7.</summary>
 
 What each role may do was spelled out THREE times — in the server allow helpers,
 in the client's `canModify*` helpers, and in prose in the docs — and the three
@@ -800,53 +829,10 @@ Save button as they are ticked, before saving.
 
 and reorganises the following in the user interface:
 
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/2f0445102">Remove the 100% zoom control from the header</a>. Thanks to xet7.</summary>
-
-It scaled the board with a CSS transform, it did not work, and there is no plan
-to fix it — WeKan already has a font-size setting, which is what the control was
-reached for anyway. A control that does nothing is worse than no control.
-
-What went with it: the pill and its number, the helper and three handlers, the
-zoom utilities and their call sites, the `profile.zoomLevel` schema field and
-its setter and server method, one translation string, and 57 stylesheet rules
-spread over four files — which is how much of the stylesheet a broken feature
-had accumulated. The card zoom is a different feature and is untouched.
-
-</details>
+**All Boards** - where its controls live, and what the page shows around them.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/95b0acd0b">Change Color shows as many swatch columns as the width allows</a>. Thanks to xet7.</summary>
-
-The swatch list is shared with the board-background picker, where it is a
-float-based two-column grid. Two columns is right for background thumbnails; for
-Select Color it meant Flat, Clear, Dark and Special each ran down the popup in a
-narrow pair, and most of them were below the fold however wide the browser was.
-
-Auto-filling columns instead — the same answer the Change Language popup already
-uses. It takes as many columns as fit and collapses to one on a narrow window,
-so no media query is needed and a phone is unaffected. Both Change Color popups,
-Member Settings and Board Settings, get more width on desktop to spend on
-columns; below 800px every popup is a full-screen sheet and is left alone. The
-width is mirrored in the popup positioning code, which clamps a popup into the
-viewport by its width — computed for the default it placed a wide popup opened
-near the right edge with a third of itself off the screen.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/15157cde0">Member Settings / Change Settings: the button is Save, and it has a theme</a>. Thanks to xet7.</summary>
-
-It said "Apply" while every other settings form in WeKan says Save, and it was
-pure black. Both came from one line: the submit carried no `primary` class, so
-it fell to the base button rule — whose fallback is black — instead of the
-primary rule beside it, which is the themed one. The Change Language form
-directly above it in the same popup is the shape it now matches.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/f56254e71">All Boards: the actions on a selection move into the header bar with everything else</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f56254e71">The actions on a selection move into the header bar with everything else</a>. Thanks to xet7.</summary>
 
 The header bar took the controls of the page, but the actions ON a selection —
 Move Board to Archive, Duplicate Board, and the "Selected:" star and home —
@@ -875,29 +861,7 @@ flattened a controls row this page no longer has.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/57dd62bad">All Boards: the white bar above the board icons is gone</a>. Thanks to xet7.</summary>
-
-Once every control had moved to the header bar, what was left above "+ Add
-Board" was a white strip carrying one thing: a Font Awesome icon for whichever
-left-menu section is selected. Three things already say which section that is —
-the left menu highlights it, the header bar names the page, and the Starred
-control is emphasised while Starred is on — so the strip said nothing and cost
-a bar's worth of height on every screen. The board icons start at the top of
-the right column now.
-
-It took more with it than the markup. `currentMenuPath`, sixty-four lines that
-resolved a workspace path to an icon and a name, had no other caller. Every
-`.boards-path-header` rule went — the seventeen that styled the bar and its
-contents, and the phone media query that had already been reduced to holding
-the title. So did the `pulse` keyframes, whose only user was the
-multi-selection hint that lived in the bar. The pager's `flex: 0 0 auto` was
-sharing a selector list with the bar, and is kept on its own: it is still the
-fixed-height thing above the scrolling list.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/fa6bcd1f4">All Boards: no Starred button in the bar, Multi-Selection after the view menu, a narrower search</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/fa6bcd1f4">No Starred button in the bar, Multi-Selection after the view menu, a narrower search</a>. Thanks to xet7.</summary>
 
 Starred was the first button in the header bar, and Starred is a **section**:
 the left menu already lists it beside Templates and Remaining, counts it, and
@@ -924,7 +888,7 @@ box, the input, the magnifier and the ✕ each set their own.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/2537a52ec">All Boards: the Selected star is a toggle now, and every button in the bar names itself</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2537a52ec">The Selected star is a toggle now, and every button in the bar names itself</a>. Thanks to xet7.</summary>
 
 The "Selected: ★" button only ever *added* stars: it walked the selection and
 starred whatever was not starred yet. Once every selected board was starred it
@@ -963,7 +927,7 @@ so no language silently loses a tooltip.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/fcfed1fd3">All Boards: Search and Multi-Selection are the board header's own controls, opening a right sidebar</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/fcfed1fd3">Search and Multi-Selection are the board header's own controls, opening a right sidebar</a>. Thanks to xet7.</summary>
 
 All Boards had a search **field** in its header bar, and a Multi-Selection
 button whose actions were four icons beside it. A board has a search **button**
@@ -1018,7 +982,62 @@ one per shared control, each covering both pages.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/841479774">The Admin Panel has a URL for every left-menu entry</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/57dd62bad">The white bar above the board icons is gone</a>. Thanks to xet7.</summary>
+
+Once every control had moved to the header bar, what was left above "+ Add
+Board" was a white strip carrying one thing: a Font Awesome icon for whichever
+left-menu section is selected. Three things already say which section that is —
+the left menu highlights it, the header bar names the page, and the Starred
+control is emphasised while Starred is on — so the strip said nothing and cost
+a bar's worth of height on every screen. The board icons start at the top of
+the right column now.
+
+It took more with it than the markup. `currentMenuPath`, sixty-four lines that
+resolved a workspace path to an icon and a name, had no other caller. Every
+`.boards-path-header` rule went — the seventeen that styled the bar and its
+contents, and the phone media query that had already been reduced to holding
+the title. So did the `pulse` keyframes, whose only user was the
+multi-selection hint that lived in the bar. The pager's `flex: 0 0 auto` was
+sharing a selector list with the bar, and is kept on its own: it is still the
+fixed-height thing above the scrolling list.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5cc399b47">A URL for every left-menu entry here too, workspaces included</a>. Thanks to xet7.</summary>
+
+`/allboards/starred`, `/allboards/templates`, `/allboards/remaining`,
+`/allboards/workspaces`, and a workspace as deep as its tree goes:
+`/allboards/workspaces/engineering/front-end/design-system`. The page was three
+addresses and the workspaces tree had none at all — which workspace you had open
+was a ReactiveVar, so it could not be linked or bookmarked either.
+
+A workspace is addressed by the slugs of its **names**, not by its id: the id is
+a random string and a URL should say where you are. The slugs come from
+`getSlug` (limax), the same function that gives a board its slug, so a workspace
+and a board turn a name into a URL the same way — including the scripts where a
+naive slugifier returns an empty string. When a name slugifies to nothing anyway
+— an emoji-only name — the node's id stands in, because a workspace with no
+address could not be opened from a link.
+
+The route resolves the section and splits the path; the PAGE resolves the
+workspace, in an autorun, once its tree has loaded. The router cannot: the tree
+is on the user document, which it has no way to read before the page has it —
+and a one-shot read would always run before the tree arrived and never select
+anything. `/` stays the home and still shows Starred; `/templates` and
+`/remaining` redirect to the new form.
+
+One thing this had to fix rather than add: the page filters boards by membership
+only on the All Boards routes, **by route name**, and a route missing from that
+list falls through to the public-boards branch — it would have shown public
+boards instead of your own.
+
+</details>
+
+**The Admin Panel** - its own addresses.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/841479774">A URL for every left-menu entry</a>. Thanks to xet7.</summary>
 
 The panel was four addresses — `/setting`, `/people`, `/admin-reports`,
 `/attachments` — each opening whichever pane its page happened to open first.
@@ -1050,34 +1069,52 @@ own address now.
 
 </details>
 
+**The first header bar** - what it stopped carrying.
+
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5cc399b47">All Boards has one too, workspaces included</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2f0445102">The 100% zoom control is gone</a>. Thanks to xet7.</summary>
 
-`/allboards/starred`, `/allboards/templates`, `/allboards/remaining`,
-`/allboards/workspaces`, and a workspace as deep as its tree goes:
-`/allboards/workspaces/engineering/front-end/design-system`. The page was three
-addresses and the workspaces tree had none at all — which workspace you had open
-was a ReactiveVar, so it could not be linked or bookmarked either.
+It scaled the board with a CSS transform, it did not work, and there is no plan
+to fix it — WeKan already has a font-size setting, which is what the control was
+reached for anyway. A control that does nothing is worse than no control.
 
-A workspace is addressed by the slugs of its **names**, not by its id: the id is
-a random string and a URL should say where you are. The slugs come from
-`getSlug` (limax), the same function that gives a board its slug, so a workspace
-and a board turn a name into a URL the same way — including the scripts where a
-naive slugifier returns an empty string. When a name slugifies to nothing anyway
-— an emoji-only name — the node's id stands in, because a workspace with no
-address could not be opened from a link.
+What went with it: the pill and its number, the helper and three handlers, the
+zoom utilities and their call sites, the `profile.zoomLevel` schema field and
+its setter and server method, one translation string, and 57 stylesheet rules
+spread over four files — which is how much of the stylesheet a broken feature
+had accumulated. The card zoom is a different feature and is untouched.
 
-The route resolves the section and splits the path; the PAGE resolves the
-workspace, in an autorun, once its tree has loaded. The router cannot: the tree
-is on the user document, which it has no way to read before the page has it —
-and a one-shot read would always run before the tree arrived and never select
-anything. `/` stays the home and still shows Starred; `/templates` and
-`/remaining` redirect to the new form.
+</details>
 
-One thing this had to fix rather than add: the page filters boards by membership
-only on the All Boards routes, **by route name**, and a route missing from that
-list falls through to the public-boards branch — it would have shown public
-boards instead of your own.
+**Member Settings** - the per-user panes.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/95b0acd0b">Change Color shows as many swatch columns as the width allows</a>. Thanks to xet7.</summary>
+
+The swatch list is shared with the board-background picker, where it is a
+float-based two-column grid. Two columns is right for background thumbnails; for
+Select Color it meant Flat, Clear, Dark and Special each ran down the popup in a
+narrow pair, and most of them were below the fold however wide the browser was.
+
+Auto-filling columns instead — the same answer the Change Language popup already
+uses. It takes as many columns as fit and collapses to one on a narrow window,
+so no media query is needed and a phone is unaffected. Both Change Color popups,
+Member Settings and Board Settings, get more width on desktop to spend on
+columns; below 800px every popup is a full-screen sheet and is left alone. The
+width is mirrored in the popup positioning code, which clamps a popup into the
+viewport by its width — computed for the default it placed a wide popup opened
+near the right edge with a third of itself off the screen.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/15157cde0">Change Settings: the button is Save, and it has a theme</a>. Thanks to xet7.</summary>
+
+It said "Apply" while every other settings form in WeKan says Save, and it was
+pure black. Both came from one line: the submit carried no `primary` class, so
+it fell to the base button rule — whose fallback is black — instead of the
+primary rule beside it, which is the themed one. The Change Language form
+directly above it in the same popup is the shape it now matches.
 
 </details>
 
@@ -1106,8 +1143,10 @@ and updates the following dependencies:
 
 and fixes the following bugs:
 
+**The first header bar** - how it lays itself out, and what sits under it.
+
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/9a1463d7e">The header bar fills each row before starting the next one</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9a1463d7e">It fills each row before starting the next one</a>. Thanks to xet7.</summary>
 
 The bar wraps when its buttons do not fit, but everything after the drag-handles
 toggle was wrapped in one group — and a nested flex box is a single item to the
@@ -1123,7 +1162,7 @@ pack from the start — which is what fills the row rather than stranding it.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/49f4e77aa">The first header bar wraps to a second row instead of hiding the buttons that do not fit</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/49f4e77aa">It wraps to a second row instead of hiding the buttons that do not fit</a>. Thanks to xet7.</summary>
 
 The bar was one row with `overflow: hidden`, so a button that did not fit was
 not drawn at all - and a button that is not drawn gives no sign that it exists.
@@ -1144,7 +1183,7 @@ bell separates what belongs to the page from what belongs to you.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/49f4e77aa">The right sidebar starts below the header again, on every page that has no second bar</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/49f4e77aa">The right sidebar starts below it again, on every page that has no second bar</a>. Thanks to xet7.</summary>
 
 `--wekan-header-height` is what anything laid out against the viewport starts
 below, and it measured `#header` - the SECOND header bar - from when every page
@@ -1163,8 +1202,11 @@ positioned absolutely, so it contributes no height and the row holding it
 collapsed to its padding.
 
 </details>
+
+**All Boards** - the overview and its search.
+
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/1049e3e8f">All Boards no longer throws No such function: isAllBoardsView as it renders</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1049e3e8f">It no longer throws No such function: isAllBoardsView as it renders</a>. Thanks to xet7.</summary>
 
 The All Boards page chooses between the board icons and the Table view with
 `{{#if isAllBoardsView 'table'}}`, and that helper was registered on
@@ -1186,7 +1228,31 @@ The other four templates in the file were clean.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7d9a2e303">A filter no longer leaves a spinner turning over an empty list, and a half-arrived card is not drawn blank</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/96289e118">Search All Boards searches all of your boards, not every board on the server</a>. Thanks to xet7.</summary>
+
+The board scope listed the ways a user reaches a board — member, organization,
+team, e-mail domain — and `{ permission: 'public' }`. That last one is the odd
+one out: it is not a relationship to the user at all, it is "anybody may open
+this".
+
+That belongs in the boards list, where a public board is meant to be
+discoverable. In a search it meant every public board on the instance was
+searched: on a public server a common word answered with strangers' cards, and
+following a hit dropped the user into a board they have no part in. Someone who
+wants to look inside a public board can still open it and search there.
+
+The option defaults to including public boards, so every other caller — the
+boards list, the lists and comments lookups — is unchanged. The search names its
+scope once and passes it to all four board lookups plus the `board:` filter's
+name resolution: one missed lookup and that branch still reaches the whole
+instance, with nothing looking wrong.
+
+</details>
+
+**Board views** - filtering a board, and who sees which cards.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7d9a2e303">A filter no longer leaves a spinner over an empty list, and a half-arrived card is not drawn blank</a>. Thanks to xet7.</summary>
 
 Two problems from one report with screenshots, both in how a list decides what
 to draw at its bottom edge.
@@ -1311,30 +1377,10 @@ everything, and an unrestricted member keeps the fast path.
 
 </details>
 
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/96289e118">Search All Boards searches all of your boards, not every board on the server</a>. Thanks to xet7.</summary>
-
-The board scope listed the ways a user reaches a board — member, organization,
-team, e-mail domain — and `{ permission: 'public' }`. That last one is the odd
-one out: it is not a relationship to the user at all, it is "anybody may open
-this".
-
-That belongs in the boards list, where a public board is meant to be
-discoverable. In a search it meant every public board on the instance was
-searched: on a public server a common word answered with strangers' cards, and
-following a hit dropped the user into a board they have no part in. Someone who
-wants to look inside a public board can still open it and search there.
-
-The option defaults to including public boards, so every other caller — the
-boards list, the lists and comments lookups — is unchanged. The search names its
-scope once and passes it to all four board lookups plus the `board:` filter's
-name resolution: one missed lookup and that branch still reaches the whole
-instance, with nothing looking wrong.
-
-</details>
+**Public Boards** - what it lists.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a4475e57e">Public Boards no longer lists the internal Subtasks boards</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a4475e57e">The internal Subtasks boards are no longer listed</a>. Thanks to xet7.</summary>
 
 WeKan creates boards of its own to hold machinery — a subtasks board, for one.
 Nobody chose to make one and nobody means to open one, so no list of boards

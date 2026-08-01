@@ -206,6 +206,53 @@ pushed to Transifex as if it were human.
   subsection just keeps its single `This release …:` header. Use `and adds the following
   new features:`, `and fixes the following bugs:`, `and updates the following
   dependencies:`, etc., matching the verb to the subsection.
+- **The Upcoming section opens with an `**In short:**` paragraph.** One paragraph,
+  right under the `# Upcoming WeKan ® release` line and above the first
+  `This release …:` header, saying what the whole release amounts to — the areas
+  that changed and what changed about them, with the notable names in `**bold**`
+  so it can be skimmed. It is a SUMMARY, not a list: it does not link commits, it
+  does not repeat an entry's wording, and it ends by accounting for the rest in a
+  clause (`Below that: dependency updates, nine bug fixes … and the usual
+  documentation and translation work.`). Keep it current as entries are added —
+  it is the first thing a reader sees, so a stale one misdescribes the release.
+  A finished release keeps the paragraph it was written with.
+- **Inside a subsection, entries are GROUPED BY AREA.** A release touches a handful
+  of areas and repeating the area's name in every summary is the noise this
+  removes — twelve entries that each begin "All Boards:" say "All Boards" twelve
+  times and the part that differs starts halfway through the line. Instead the area
+  is named ONCE, as a bold line with a short description of what the group covers,
+  and every entry under it drops the prefix:
+
+  ```
+  and fixes the following bugs:
+
+  **The first header bar** - how it lays itself out, and what sits under it.
+
+  <details>
+  <summary><a href="…">It fills each row before starting the next one</a>. Thanks to xet7.</summary>
+  …
+  </details>
+
+  <details>
+  <summary><a href="…">It wraps to a second row instead of hiding the buttons that do not fit</a>. Thanks to xet7.</summary>
+  …
+  </details>
+
+  **All Boards** - the overview and its search.
+
+  <details>
+  …
+  ```
+
+  The group line is `**Area** - short description.` on ONE line, wrapped at 80 like
+  everything else, with a blank line under it. It is NOT a heading: a `##` inside a
+  release breaks the version list (see above). Group labels are the areas of the
+  app — `All Boards`, `The first header bar`, `The left menus`, `The Admin Panel`,
+  `Board views`, `Public Boards`, `Member Settings`, `Board roles` — and the same
+  label is reused across subsections when an area has both a feature and a fix.
+  EVERY entry of a grouped subsection belongs to a group, including a group with
+  one entry: a section that is half grouped and half loose reads as a mistake. A
+  subsection with only one entry, and the dependency bullets, stay flat.
 - **CRITICAL security header — match the previous releases' wording.** A security release
   leads with `This release fixes the following CRITICAL SECURITY ISSUE of
   [Name](https://wekan.fi/hall-of-fame/namebleed/):` for a single named *Bleed, or

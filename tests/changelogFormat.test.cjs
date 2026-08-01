@@ -225,6 +225,74 @@ test('the Upcoming section, when there is one, follows the same rules', () => {
   }
 });
 
+test('Upcoming opens with a short summary of the whole release', () => {
+  const start = lines.indexOf('# Upcoming WeKan ® release');
+  if (start === -1) {
+    console.log('    (no Upcoming section right now - nothing to check)');
+    return;
+  }
+  // Between the heading and the first `This release …:` header. It is the first
+  // thing a reader sees, and a release this size is otherwise forty collapsed
+  // blocks with no way to tell what it amounts to.
+  const firstHeader = lines.findIndex((l, i) => i > start && /^This release .*:$/.test(l));
+  assert.ok(firstHeader > start, 'the first subsection header follows it');
+  const intro = lines.slice(start + 1, firstHeader).join('\n').trim();
+  assert.ok(intro.startsWith('**In short:**'),
+    'the Upcoming section opens with an **In short:** paragraph');
+  // A summary, not a second list: no links, and long enough to be a summary.
+  assert.ok(!/<details>|<summary>/.test(intro), 'prose, not entries');
+  assert.ok(!/https?:\/\//.test(intro), 'and it links nothing - the entries do that');
+  assert.ok(intro.length > 200, 'and it actually summarises the release');
+});
+
+test('entries are grouped by area, and no summary repeats its group', () => {
+  const start = lines.indexOf('# Upcoming WeKan ® release');
+  if (start === -1) return;
+  const end = lines.findIndex((l, i) => i > start && /^# v\d/.test(l));
+
+  // A group line is `**Area** - short description.` on one line. NOT a heading:
+  // a `##` inside a release breaks the version list.
+  const GROUP = /^\*\*([^*]+)\*\* - .+\.$/;
+  let group = null;
+  let grouped = 0;
+  let inEntry = false;
+  const loose = [];
+  for (let i = start; i < end; i++) {
+    const line = lines[i];
+    // Only OUTSIDE an entry. An entry's own body uses `**bold**` for emphasis,
+    // and a body paragraph that happened to open with one and end in a full
+    // stop would otherwise be read as a group heading - silently reassigning
+    // every entry after it to a group that does not exist.
+    if (line === '<details>') { inEntry = true; }
+    if (line === '</details>') { inEntry = false; continue; }
+    if (inEntry && !line.startsWith('<summary>')) continue;
+    if (/^(This release|and ) .*:$/.test(line)) { group = null; continue; }
+    if (!inEntry) {
+      const m = GROUP.exec(line);
+      if (m) { group = m[1]; continue; }
+    }
+    if (!line.startsWith('<summary>')) continue;
+    const text = summaryText(line);
+    if (!group) { loose.push(text.slice(0, 60)); continue; }
+    grouped++;
+    // The point of the grouping: the area is named ONCE, on the group line, and
+    // the entry under it says what changed rather than saying the area again.
+    // Twelve entries beginning "All Boards:" say it twelve times, and the part
+    // that differs starts halfway through the line.
+    assert.ok(!text.toLowerCase().startsWith(group.toLowerCase()),
+      `line ${i + 1}: "${text.slice(0, 50)}" repeats its group "${group}"`);
+    const bare = group.replace(/^The /, '');
+    assert.ok(!text.toLowerCase().startsWith(bare.toLowerCase()),
+      `line ${i + 1}: "${text.slice(0, 50)}" repeats its group "${bare}"`);
+  }
+  assert.ok(grouped >= 10, `the Upcoming entries are grouped (${grouped} are)`);
+  // Half grouped and half loose reads as a mistake. The subsections that hold a
+  // single entry - developer tooling, documentation, translations - stay flat,
+  // so a few loose ones are expected; a pile of them is not.
+  assert.ok(loose.length <= 4,
+    `${loose.length} entries sit outside any group, e.g. ${loose[0]}`);
+});
+
 test('CLAUDE.md states these rules, so they are not folklore', () => {
   const claude = read('CLAUDE.md');
   assert.ok(/Every entry is a `<details>` block/.test(claude));
@@ -234,6 +302,8 @@ test('CLAUDE.md states these rules, so they are not folklore', () => {
   assert.ok(/Never show a long URL as visible text/.test(claude));
   assert.ok(/Word-wrap both CHANGELOGs at 80 chars/.test(claude));
   assert.ok(/no `Thanks to` line/.test(claude), 'including the TODO Later exception');
+  assert.ok(/The Upcoming section opens with an `\*\*In short:\*\*` paragraph/.test(claude));
+  assert.ok(/Inside a subsection, entries are GROUPED BY AREA/.test(claude));
 });
 
 console.log(`\n${passed} tests passed`);
