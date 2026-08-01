@@ -201,6 +201,31 @@ parts:
             tar -xzf mongodb.tgz --strip-components=1
             mkdir -p "$SNAPCRAFT_PART_INSTALL/bin"
             cp -a bin/* "$SNAPCRAFT_PART_INSTALL/bin/"
+        # `bin` must be a real DIRECTORY when this part is staged, never a
+        # symlink - and on the FerretDB-only arches it is a symlink unless this
+        # says otherwise.
+        #
+        # The stage-packages above unpack an Ubuntu 24.04 merged-/usr layout,
+        # which puts everything in usr/ and leaves `bin` as a symlink to
+        # usr/bin. On amd64 and arm64 the build above then replaces it with a
+        # real directory when it copies mongod's binaries in. On s390x, ppc64el
+        # and riscv64 the build exits before that - MongoDB ships no server for
+        # them - so the symlink survives.
+        #
+        # Staging a `bin` SYMLINK on top of the real `stage/bin` DIRECTORY that
+        # an earlier part has already staged is what killed the whole build:
+        #     /build/.../stage/bin: Is a directory
+        #     IsADirectoryError: filename: '/build/.../stage/bin'
+        # right after "Staging mongodb", which is staged last of the parts that
+        # carry a bin/. An empty real directory merges into it instead, and
+        # merging an empty directory changes nothing.
+        override-stage: |
+            if [ -L "${CRAFT_PART_INSTALL}/bin" ]; then
+                echo "mongodb: bin is a symlink here (no mongod for this arch); replacing it with a real directory so it can be staged."
+                rm -f "${CRAFT_PART_INSTALL}/bin"
+                mkdir -p "${CRAFT_PART_INSTALL}/bin"
+            fi
+            craftctl default
         stage:
             - bin
             - usr

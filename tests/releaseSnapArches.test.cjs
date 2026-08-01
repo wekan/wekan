@@ -209,4 +209,39 @@ test('every snap the release publishes is core24, and goes to all four channels'
   }
 });
 
+test('the mongodb part cannot stage bin as a symlink', () => {
+  // The s390x build died right after "Staging mongodb":
+  //     /build/.../stage/bin: Is a directory
+  //     IsADirectoryError: filename: '/build/.../stage/bin'
+  //
+  // Its stage-packages unpack an Ubuntu 24.04 merged-/usr layout, which leaves
+  // `bin` as a symlink to usr/bin. On amd64 and arm64 the build replaces it
+  // with a real directory when it copies mongod in; on the FerretDB-only arches
+  // - s390x, ppc64el, riscv64 - MongoDB ships no server, the build exits before
+  // that, and the symlink survives. Staging a bin SYMLINK over the real
+  // stage/bin DIRECTORY an earlier part already staged is what fails, and it
+  // fails the WHOLE snap, not just this part.
+  const yaml = fs.readFileSync(path.join(repoRoot, 'snapcraft.yaml'), 'utf8');
+  const partAt = yaml.indexOf('\n    mongodb:\n        plugin: nil');
+  assert.notStrictEqual(partAt, -1, 'the mongodb part must be there');
+  const part = yaml.slice(partAt, yaml.indexOf('\n    migratemongo:', partAt));
+
+  // It still stages bin - the amd64/arm64 binaries live there...
+  assert.ok(/stage:\n\s+- bin\n/.test(part), 'it stages bin');
+  // ...so it must guarantee bin is a real directory by then.
+  assert.ok(/override-stage: \|/.test(part), 'and it takes over the stage step to do it');
+  assert.ok(/if \[ -L "\$\{CRAFT_PART_INSTALL\}\/bin" \]/.test(part),
+    'testing for a SYMLINK specifically - a real directory must be left alone');
+  assert.ok(/rm -f "\$\{CRAFT_PART_INSTALL\}\/bin"/.test(part),
+    'replacing it rather than mkdir -p, which follows a symlink and changes nothing');
+  assert.ok(/mkdir -p "\$\{CRAFT_PART_INSTALL\}\/bin"/.test(part), 'with a real directory');
+  assert.ok(/craftctl default/.test(part),
+    'and then staging normally - an override-stage that forgets this stages nothing at all');
+
+  // The arch split that creates the situation is still the one described above:
+  // a case with amd64 and arm64, and everything else exiting early.
+  assert.ok(/No MongoDB server for \$\{CRAFT_ARCH_BUILD_FOR\}/.test(part),
+    'the FerretDB-only arches still skip mongod');
+});
+
 console.log(`\n${passed} tests passed`);
