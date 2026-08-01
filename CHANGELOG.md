@@ -274,7 +274,7 @@ under `/admin` with an address for every pane. **The left menu** those two pages
 share **folds away** and is **resized by dragging** its inner edge. **Public
 Boards** becomes a read-only page of its own, a swimlane, a list and a card can
 each be **linked** to directly, and **board roles** are one capability table
-with a pane that shows it. Below that: dependency updates, thirteen bug fixes -
+with a pane that shows it. Below that: dependency updates, fifteen bug fixes -
 the header bar's layout and where it starts, a filter that left a spinner
 turning, a search that reached past your own boards, a left-menu caret that did
 nothing when clicked - and the usual documentation and translation work.
@@ -1208,6 +1208,25 @@ and fixes the following bugs:
 **The first header bar** - how it lays itself out, and what sits under it.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/551a44d769652a26d86c1b0d9603f692dd370a7c">The Notifications panel starts below the bar, so the avatar is not over it</a>. Thanks to xet7.</summary>
+
+The panel is fixed at 48px from the top - a guess at the height of one header
+bar. The bar wraps to a second and a third row, and the user avatar is the item
+that wraps last: on a window where it did, the panel covered the row the avatar
+was on, and the avatar - which is inside a bar that paints above it - landed
+straight on the panel's own header, beside the ✕ that closes it.
+
+It starts at the height the header MEASURES itself to be now, kept current by a
+`ResizeObserver` because a bar re-wrapping is not a window resize. The panel's
+own fixed header - the row the ✕ is in - follows the same number, and so does
+the height it may take: the `100vh - 28px - 36px` it had was the same guess
+written as a subtraction in two pieces. That measurement is what everything else
+laid out against the viewport already uses, so this is the panel joining them
+rather than a new mechanism.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/93042642f4fe3ae91d0b54e988a97d7ddcebdd5d">The All Boards house starts at the same X at every window width</a>. Thanks to xet7.</summary>
 
 The house at the start of the bar sat further in on a wide window than on a
@@ -1293,6 +1312,29 @@ collapsed to its padding.
 </details>
 
 **All Boards** - the overview and its search.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c7bf2958a36f4ac120681ee435a564dd74d09517">A workspace row obeys the drag-handles toggle, and its icon drags without one</a>. Thanks to xet7.</summary>
+
+The workspace rows in the left menu drew a ✥ handle whatever the **Show desktop
+drag handles** toggle in the first header bar said - and the handle was
+decoration: the whole ROW was draggable, so the drag started anywhere on it. A
+row that is draggable as a whole starts a drag on the way to a click, and a
+workspace row is a row you click, because that is how a workspace is opened.
+
+The handle follows the toggle now, through the same helper the board tiles
+beside it use, so the two cannot drift apart. With handles **on**, the handle is
+drawn and is the only place a workspace drag may start. With handles **off**
+there is no handle and the workspace's own **icon** is what reorders it - the
+icon rather than the row, so the name beside it stays a plain click target.
+
+`draggable` lives on the handle or on the icon, never on the row, and the
+`dragstart` handler stays on the row because the event bubbles up from whichever
+child started it - so the reordering itself is untouched. The grab cursor
+follows that same attribute rather than a second class, so there is one answer
+to "is this the drag source right now" instead of two that can disagree.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/89d12c6fe689aa970cafda2429ff480ed7038a92">Its view menu opens a titled popup, like the board's own</a>. Thanks to xet7.</summary>
