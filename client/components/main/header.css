@@ -335,8 +335,10 @@ body:not(.board-view) #header #header-main-bar h1 {
 #header-quick-access .home-icon {
   display: flex;
   align-items: center;
-  /* 4px, like every other item, so the logo beside it gets 4 + 4 = 8px on that
-     side - the same gap the rest of the bar uses. It was 1rem. */
+  /* 4px each side, like every other item: at the end so the logo beside it gets
+     4 + 4 = 8px, and at the START so the house begins where the bell does when
+     each of them starts a row. */
+  margin-inline-start: 4px;
   margin-inline-end: 4px;
   flex-shrink: 0;
 }
@@ -351,7 +353,10 @@ body:not(.board-view) #header #header-main-bar h1 {
      between the house and the title came to 12px, against the 8px every other
      pair of neighbours in this bar has. The 8px at the START stays: that one is
      the link's inset from the edge of the bar, not a gap between two things. */
-  padding: 4px 4px 4px 8px;
+  /* 6px at the start, the same a button carries, so the house icon lands 4 + 6
+     from the start of its row - exactly where the bell lands. It was 8px, and
+     the two items that can begin a row began 8px apart. */
+  padding: 4px 4px 4px 6px;
   border-radius: 4px;
   transition: background-color 0.2s ease;
 }
@@ -557,6 +562,12 @@ body.mobile-mode #header-quick-access .allBoards {
   display: flex;
   align-items: center;
   margin-inline-start: auto;
+  /* The same 6px the divider inside it carries, so the space AFTER the username
+     matches the space before the avatar. Before the avatar there is a divider -
+     its 6px plus the name's own 4px, so 10px; after the name there was only the
+     name's 4px, because on a page with no sidebar hamburger the name is the
+     last thing in the bar and nothing followed it to provide the rest. */
+  margin-inline-end: 6px;
 }
 
 /* The logo is spaced like every other item of the bar, so it has the same 8px
@@ -1801,6 +1812,10 @@ body.mobile-mode #header-quick-access .allBoards {
   gap: 4px;
   width: auto;
   padding: 0 6px;
+  /* 4px, like every other item of this bar. Its own stylesheet gives it 10px,
+     which put its icon 16px from the start of a row while the home icon sat at
+     8px - so the two items that begin a row began at different places. */
+  margin: 0 4px;
 }
 
 #header-quick-access .board-header-btn-label {

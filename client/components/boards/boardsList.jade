@@ -110,14 +110,13 @@ template(name="boardList")
         menu and the actions on a selection - is in the right sidebar, and the
         page is named by the FIRST header bar. docs/Design/Page/All-Boards.md
       .boards-right-grid
-        //- Boards in Archive is a SECTION of this page, drawn here beside the
-          left menu, not a page of its own that replaces it. It was a full-width
-          page; selecting it from a menu row and then losing the menu is a menu
-          that throws itself away. The template is the archive's own, so its
-          search and its pager come with it. docs/Design/Page/Archive.md
-        if isSelectedMenu 'archive'
-          +archivedBoards
-        else if isAllBoardsView 'table'
+        //- The Archive is a SECTION of this page, drawn here beside the left
+          menu, not a page of its own that replaces it - and drawn with the same
+          board ICONS every other section uses. It had a table of its own, which
+          meant the one place you go to bring a board back was the one place
+          multi-selection, dragging and the tile layout did not work.
+          docs/Design/Page/Archive.md
+        if isAllBoardsView 'table'
           +tablePage(tablePageData)
         else
           if boardsPaginationActive
@@ -128,17 +127,20 @@ template(name="boardList")
               button.js-boards-next-page(class="{{#if hasBoardsNextPage}}{{else}}disabled{{/if}}")
                 | &gt;
           ul.board-list.clearfix.js-boards.dragscroll(class="{{#if isMiniScreen}}mobile-view{{/if}} {{#if BoardMultiSelection.isActive}}is-multiselection-active{{/if}}")
-            li.js-add-board
-              if isSelectedMenu 'templates'
-                a.board-list-item.label.is-template-container(title="{{_ 'add-template-container'}}")
-                  span.emoji-icon
-                    i.fa.fa-plus
-                  | &nbsp;{{_ 'add-template-container'}}
-              else
-                a.board-list-item.label(title="{{_ 'add-board'}}")
-                  span.emoji-icon
-                    i.fa.fa-plus
-                  | &nbsp;{{_ 'add-board'}}
+            //- No "Add Board" in the Archive: a board cannot be created
+              already archived, and the tile would be an invitation to do it.
+            unless isSelectedMenu 'archive'
+              li.js-add-board
+                if isSelectedMenu 'templates'
+                  a.board-list-item.label.is-template-container(title="{{_ 'add-template-container'}}")
+                    span.emoji-icon
+                      i.fa.fa-plus
+                    | &nbsp;{{_ 'add-template-container'}}
+                else
+                  a.board-list-item.label(title="{{_ 'add-board'}}")
+                    span.emoji-icon
+                      i.fa.fa-plus
+                    | &nbsp;{{_ 'add-board'}}
             each boards
               li.js-board.nodragscroll(class="{{_id}} {{#if isStarred}}starred{{/if}} {{colorClass}} {{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}", draggable="true")
                 if isInvited
@@ -180,6 +182,17 @@ template(name="boardList")
                           p.board-list-item-desc
                             +viewer
                               = description
+                          //- When you are looking at the Archive, when it was
+                            archived - that is what you sort an archive by, and
+                            what tells one old board from another.
+                            client/components/boards/boardsList.js
+                          if isSelectedMenu 'archive'
+                            p.board-list-item-archived-at
+                              span.emoji-icon
+                                i.fa.fa-archive
+                              |  {{_ 'archived-at'}}
+                              = ' '
+                              = archivedAtText
                           if hasSpentTimeCards
                             span.js-has-spenttime-cards(
                               class="{{#if hasOvertimeCards}}has-overtime-card-active{{else}}no-overtime-card-active{{/if}}"
@@ -238,6 +251,17 @@ template(name="boardList")
                           p.board-list-item-desc
                             +viewer
                               = description
+                          //- When you are looking at the Archive, when it was
+                            archived - that is what you sort an archive by, and
+                            what tells one old board from another.
+                            client/components/boards/boardsList.js
+                          if isSelectedMenu 'archive'
+                            p.board-list-item-archived-at
+                              span.emoji-icon
+                                i.fa.fa-archive
+                              |  {{_ 'archived-at'}}
+                              = ' '
+                              = archivedAtText
                           if hasSpentTimeCards
                             span.js-has-spenttime-cards(
                               class="{{#if hasOvertimeCards}}has-overtime-card-active{{else}}no-overtime-card-active{{/if}}"

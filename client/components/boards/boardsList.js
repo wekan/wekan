@@ -4,6 +4,8 @@ const { notHelperBoardTitle } = require('/models/lib/helperBoards');
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import getSlug from 'limax';
+// The archived-at line on a tile in the Archive, in the reader's own format.
+import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 // The All Boards URLs, and the slug path of a workspace in the tree.
 // docs/Design/Page/All-Boards-URLs.md
 import {
@@ -302,10 +304,18 @@ function goToAllBoards(tpl, menuValue) {
 // field, sorted and paged. Extracted from the `boards` helper so the Table
 // view draws the SAME set - two copies of this would be two answers to
 // "which boards am I looking at". docs/Design/Page/All-Boards.md
+// How many archived boards the section shows at once. The publication is
+// paginated and this is the page size it is asked for; the Archive is a place
+// you go to find one board, not a list to scroll for ever.
+const ARCHIVED_BOARDS_LIMIT = 60;
+
 function boardsForView(tpl) {
+  // The Archive shows ARCHIVED boards - the one section whose query is the
+  // opposite of every other one's. docs/Design/Page/Archive.md
+  const showsArchive = tpl.selectedMenu.get() === 'archive';
   let query = {
     $and: [
-      { archived: false },
+      { archived: showsArchive },
       { type: { $in: ['board', 'template-container'] } },
       { title: notHelperBoardTitle() },
     ],
@@ -429,6 +439,11 @@ function boardsForView(tpl) {
       list = list.filter(
         (b) => !assignments[b._id] && b.type !== 'template-container',
       );
+    } else if (sel === 'archive') {
+      // Everything the query already returned: they are archived, which is the
+      // whole of what this section is. A workspace assignment survives
+      // archiving, so filtering by it here would hide most of the archive.
+      list = list.filter((b) => b.type !== 'template-container');
     } else {
       // Workspace view includes all boards in that workspace, including starred.
       list = list.filter((b) => assignments[b._id] === sel);
@@ -487,6 +502,7 @@ Template.boardList.onCreated(function () {
     });
   };
   this.refreshArchivedBoardsCount();
+
   // Honor the URL-addressable sub-view (#5850). The route sets
   // Session 'boardListMenu' to 'starred', 'templates' or 'remaining'.
   // Shared with the right sidebar, which is a SEPARATE Blaze instance (it is
@@ -520,6 +536,23 @@ Template.boardList.onCreated(function () {
   // ALL the user's boards (Starred, Templates, Remaining and every workspace),
   // ignoring the selected-menu filter.
   this.boardSearchVar = allBoardsSearchVar;
+
+  // The archived boards themselves, while the Archive section is open. This
+  // page's own query is `archived: false`, so without this the section would
+  // have nothing to draw - the count comes from a method and says how many
+  // there are, not what they are.
+  //
+  // AFTER `selectedMenu` and `boardSearchVar` are assigned: an autorun runs
+  // once immediately, so placing it above them read `.get()` off undefined and
+  // threw during onCreated.
+  //
+  // Subscribed only while that section is selected: an archive can be long, and
+  // a page showing Starred has no use for it.
+  this.autorun(() => {
+    if (this.selectedMenu.get() !== 'archive') return;
+    this.subscribe('archivedBoards', this.boardSearchVar.get() || '',
+      ARCHIVED_BOARDS_LIMIT, 0);
+  });
   // The Table view's page. Client-side: the boards are already in minimongo for
   // the Lists view beside it, so paging them again on the server would be a round
   // trip for data the page is holding anyway.
@@ -836,6 +869,16 @@ Template.boardList.helpers({
   isStarred() {
     const user = ReactiveCache.getCurrentUser();
     return user && user.hasStarred(this._id);
+  },
+
+  // When this board was archived, in the reader's own date format. Shown only
+  // in the Archive, where it is what one old board is told from another by.
+  //
+  // A board archived before `archivedAt` existed has none - the field was added
+  // later - so it answers an em dash rather than "Invalid Date".
+  archivedAtText() {
+    if (!this.archivedAt) return '—';
+    return formatDateByUserPreference(this.archivedAt);
   },
   // #2220: is this the user's Home board (the one opened after login)?
   isDefaultBoard() {
@@ -1746,22 +1789,36 @@ Template.boardList.events({
     const boardData =
       evt.originalEvent.dataTransfer.getData('text/plain');
 
-    if (boardData) {
-      if (isMultiBoard) {
-        // Multi-board drag - unassign all from workspaces
-        try {
-          const boardIds = JSON.parse(boardData);
-          boardIds.forEach((boardId) => {
-            Meteor.call('unassignBoardFromWorkspace', boardId);
-          });
-        } catch (e) {
-          // Error parsing multi-board data
-        }
-      } else {
-        // Single board drag - unassign from workspace
-        Meteor.call('unassignBoardFromWorkspace', boardData);
+    if (!boardData) return;
+
+    let boardIds = [boardData];
+    if (isMultiBoard) {
+      try {
+        boardIds = JSON.parse(boardData);
+      } catch (e) {
+        return;
       }
     }
+
+    boardIds.forEach((boardId) => {
+      // Dropping an ARCHIVED board on Remaining brings it back. That is what
+      // Remaining means - the boards that are not in a workspace and not
+      // archived - so dragging one there is the same gesture as dragging it out
+      // of a workspace, and it is how a whole multi-selection comes back at
+      // once instead of one board at a time through its own menu.
+      const board = ReactiveCache.getBoard(boardId);
+      if (board && board.archived) {
+        Meteor.call('restoreBoard', boardId, (err) => {
+          if (err) alert(err?.reason || err?.message || 'Failed to restore board');
+        });
+      }
+      // ...and out of whatever workspace it was in, which is the other half of
+      // what Remaining means. Harmless for a board that was in none.
+      Meteor.call('unassignBoardFromWorkspace', boardId);
+    });
+    if (isMultiBoard) BoardMultiSelection.reset();
+    const tpl = Template.instance();
+    if (tpl && tpl.refreshArchivedBoardsCount) tpl.refreshArchivedBoardsCount();
   },
 });
 

@@ -548,6 +548,18 @@ Meteor.publish('archivedBoards', async function(searchTerm = '', limit = 30, ski
         createdAt: 1,
         modifiedAt: 1,
         archivedAt: 1,
+        // The Archive is drawn as board ICONS now, the same tiles Remaining
+        // uses, so the fields a tile reads have to be here: its colour, what
+        // kind of board it is, its description, and its members - the last for
+        // the star and the multi-selection checkbox. Sending seven fields to a
+        // template that reads twelve renders grey, nameless tiles.
+        // docs/Design/Page/Archive.md
+        color: 1,
+        type: 1,
+        description: 1,
+        permission: 1,
+        members: 1,
+        stars: 1,
       },
       sort: { archivedAt: -1, modifiedAt: -1 },
       limit,
@@ -670,10 +682,19 @@ publishComposite('board', async function(boardId, isArchived) {
       return await ReactiveCache.getBoards(
         {
           _id: boardId,
-          // Template boards are always accessible regardless of archived state.
-          // $nor is used because $or is already taken by the access control below.
-          $nor: [{ archived: true, type: { $nin: ['template-container', 'template-board'] } }],
-          // If the board is not public the user has to be a member of it to see it.
+          // An ARCHIVED board is published too. This used to exclude one unless
+          // it was a template, so opening a board from the Archive answered
+          // "board not found" - the document was withheld from a caller who had
+          // asked for it by id and was entitled to see it.
+          //
+          // Archived is not a permission. What decides whether this board may be
+          // sent is the `$or` below: public, or the user is a member. That is
+          // unchanged, and it is the whole of the access control here.
+          //
+          // `isArchived` still governs the CONTENTS - the lists, swimlanes and
+          // cards fetched by the children below - so an archived board opens
+          // showing its live lists, exactly as it did before it was archived.
+          // docs/Design/Page/Archive.md
           $or,
         },
         { limit: 1, sort: { sort: 1 /* boards default sorting */ } },

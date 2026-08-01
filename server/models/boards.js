@@ -328,6 +328,33 @@ Meteor.methods({
     return true;
   },
 
+  // The other direction, and gated the same way. Restoring puts a board back in
+  // front of everyone who can see it, so it is a board-admin action exactly as
+  // archiving is - and the two must agree, or one of them is the way round the
+  // check.
+  //
+  // It exists because a board can now be brought back by DRAGGING it out of the
+  // Archive, one board or a whole multi-selection at a time; the archive page's
+  // own button called `board.restore()` straight from the client, which the
+  // allow rules permit for a board admin but which cannot answer for a list of
+  // boards or say why it refused. docs/Design/Page/Archive.md
+  async restoreBoard(boardId) {
+    check(boardId, String);
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!board) {
+      throw new Meteor.Error('error-board-doesNotExist');
+    }
+
+    const userId = this.userId;
+    const user = await ReactiveCache.getUser(userId);
+    if (!board.hasAdmin(userId) && !(user && user.isAdmin)) {
+      throw new Meteor.Error('error-board-notAdmin');
+    }
+
+    await board.restore();
+    return true;
+  },
+
   async setBoardOrgs(boardOrgsArray, currBoardId) {
     check(boardOrgsArray, Array);
     check(currBoardId, String);
