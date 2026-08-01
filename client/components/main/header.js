@@ -111,19 +111,6 @@ Template.header.helpers({
     return ALL_BOARDS_VIEW_ROUTES.includes(FlowRouter.getRouteName());
   },
 
-  // Pages that keep the USERNAME at every width. The narrow-screen rules
-  // collapse it to nothing, because a full name is easily 100px of a 375px bar
-  // and that is what pushed the avatar onto a second row - but All Boards and
-  // the Admin Panel carry four buttons where a board carries ten, so the room
-  // is there, and the name is who you are signed in as.
-  //
-  // Button labels are not affected: those are shown on every page at every
-  // width. docs/Design/Page/Header.md
-  keepsText() {
-    const route = FlowRouter.getRouteName();
-    return ALL_BOARDS_VIEW_ROUTES.includes(route) || ADMIN_PANEL_ROUTES.includes(route);
-  },
-
   // The Admin Panel is four routes; its tabs show on all of them.
   isAdminPanel() {
     return ADMIN_PANEL_ROUTES.includes(FlowRouter.getRouteName());

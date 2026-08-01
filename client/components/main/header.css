@@ -341,17 +341,22 @@ body:not(.board-view) #header #header-main-bar h1 {
   flex-shrink: 0;
 }
 
-#header-quick-access .home-icon a {
+#header-quick-access .home-icon .header-home-link {
   display: flex;
   align-items: center;
   text-decoration: none;
   color: #fff;
-  padding: 4px 8px;
+  /* 4px at the END, not 8px. What follows this link is the page title, and the
+     house icon inside it already carries a 4px end margin - so at 8px the gap
+     between the house and the title came to 12px, against the 8px every other
+     pair of neighbours in this bar has. The 8px at the START stays: that one is
+     the link's inset from the edge of the bar, not a gap between two things. */
+  padding: 4px 4px 4px 8px;
   border-radius: 4px;
   transition: background-color 0.2s ease;
 }
 
-#header-quick-access .home-icon a:hover {
+#header-quick-access .home-icon .header-home-link:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -377,12 +382,12 @@ body:not(.board-view) #header #header-main-bar h1 {
    selected on its own: font-size:0 on the link collapses it, and the icon's own
    font-size brings the icon back. The text stays in the DOM, so screen readers
    and the accessibility tree still announce "All Boards". */
-body.mobile-mode #header-quick-access .home-icon a {
+body.mobile-mode #header-quick-access .home-icon .header-home-link {
   font-size: 0;
   padding: 4px 6px;
 }
 
-body.mobile-mode #header-quick-access .home-icon a .fa-home,
+body.mobile-mode #header-quick-access .home-icon .header-home-link .fa-home,
 body.mobile-mode #header-quick-access .home-icon .fa-home {
   font-size: 16px;
   margin-inline-end: 0;
@@ -490,12 +495,14 @@ body.mobile-mode #header-quick-access .allBoards {
   flex-shrink: 0;
 }
 #header-quick-access #header-user-bar {
-  margin: 2px 0;
+  display: flex;
+  align-items: center;
+  margin: 0;
 }
 #header-quick-access #header-user-bar .header-user-bar-avatar {
-  float: inline-start;
-  position: relative;
-  top: -5px;
+  /* No float and no `top` nudge: its parent centres it now. */
+  display: flex;
+  align-items: center;
   margin-inline-end: 5px;
 }
 #header-quick-access #header-user-bar .header-user-bar-avatar .member,
@@ -508,8 +515,15 @@ body.mobile-mode #header-quick-access .allBoards {
 
 #header-quick-access #header-user-bar .header-user-bar-name,
 #header-quick-access #header-help  {
-  margin: 4px 8px 0 0;
-  float: inline-start;
+  /* Centred on the row, like every other item of this bar. It was floated with
+     a 4px top margin, and the avatar inside it was nudged up 5px by
+     `position: relative; top: -5px` - a float takes an element out of the
+     flex alignment, so the two were being lined up by hand against a row whose
+     height changes with the buttons in it. They are laid out now, and the
+     nudge is gone. */
+  display: flex;
+  align-items: center;
+  margin: 0 8px 0 0;
   /* The same colour the buttons beside it use. `a { color: inherit }` left the
      username taking whatever the bar happened to pass down, so it did not match
      Notifications and the rest sitting next to it - and it is a control of the
@@ -729,7 +743,7 @@ body.mobile-mode #header-quick-access .allBoards {
     margin-inline-end: 4px;
   }
 
-  #header-quick-access .home-icon a {
+  #header-quick-access .home-icon .header-home-link {
     padding: 4px 8px;
     font-size: 12px;
   }
@@ -742,7 +756,7 @@ body.mobile-mode #header-quick-access .allBoards {
 
   /* Adjust for very small screens */
   @media screen and (max-width: 480px) {
-    #header-quick-access .home-icon a {
+    #header-quick-access .home-icon .header-home-link {
       font-size: 11px;
       padding: 3px 6px;
     }
@@ -780,7 +794,7 @@ body.mobile-mode #header-quick-access .allBoards {
       font-size: 1em !important; /* Normal icon size (reverted #6426 oversizing) */
     }
 
-    #header-quick-access .home-icon a {
+    #header-quick-access .home-icon .header-home-link {
       font-size: 1em !important; /* Use inherited 2x scaling */
     }
 
@@ -862,8 +876,8 @@ body.mobile-mode #header-quick-access .allBoards {
       font-size: 1em !important; /* Normal icon size (reverted #6426 oversizing) */
     }
 
-    .wrapper ~ #header-quick-access .home-icon a,
-    body:not(.board-view) #header-quick-access .home-icon a {
+    .wrapper ~ #header-quick-access .home-icon .header-home-link,
+    body:not(.board-view) #header-quick-access .home-icon .header-home-link {
       font-size: 1em !important; /* Use inherited 2x scaling */
     }
 
@@ -929,7 +943,7 @@ body.mobile-mode #header-quick-access .allBoards {
       font-size: 1em !important; /* Normal icon size (reverted #6426 oversizing) */
     }
 
-    #header-quick-access .home-icon a {
+    #header-quick-access .home-icon .header-home-link {
       font-size: 1em !important; /* Use inherited 2x scaling */
     }
 
@@ -1013,7 +1027,7 @@ body.mobile-mode #header-quick-access .allBoards {
       padding: 12px 0px !important;
     }
 
-    #header-quick-access .home-icon a {
+    #header-quick-access .home-icon .header-home-link {
       font-size: 16px !important; /* Much larger text */
       padding: 8px 12px !important;
     }
@@ -1059,7 +1073,7 @@ body.mobile-mode #header-quick-access .allBoards {
     font-size: 1em !important; /* Normal icon size (reverted #6426 oversizing) */
   }
 
-  .iphone-device #header-quick-access .home-icon a {
+  .iphone-device #header-quick-access .home-icon .header-home-link {
     font-size: 1em !important; /* Use inherited 2x scaling */
   }
 
@@ -1128,7 +1142,7 @@ body.mobile-mode #header-quick-access .allBoards {
     font-size: 1em !important; /* Normal icon size (reverted #6426 oversizing) */
   }
 
-  .iphone-device #header-quick-access .home-icon a {
+  .iphone-device #header-quick-access .home-icon .header-home-link {
     font-size: 1em !important; /* Use inherited 2x scaling */
   }
 
@@ -1210,8 +1224,8 @@ body.mobile-mode #header-quick-access .allBoards {
     font-size: 1em !important; /* Normal icon size (reverted #6426 oversizing) */
   }
 
-  .iphone-device .wrapper ~ #header-quick-access .home-icon a,
-  .iphone-device body:not(.board-view) #header-quick-access .home-icon a {
+  .iphone-device .wrapper ~ #header-quick-access .home-icon .header-home-link,
+  .iphone-device body:not(.board-view) #header-quick-access .home-icon .header-home-link {
     font-size: 1em !important; /* Use inherited 2x scaling */
   }
 
@@ -1345,11 +1359,11 @@ body.mobile-mode #header-quick-access .allBoards {
      The home LABEL is a bare text node, not a span, so it cannot be selected:
      font-size:0 on the link collapses it and the icon's own size brings the icon
      back. The text stays in the DOM, so screen readers still announce it. */
-  .iphone-device #header-quick-access .home-icon a {
+  .iphone-device #header-quick-access .home-icon .header-home-link {
     font-size: 0 !important;
     padding: 4px 6px !important;
   }
-  .iphone-device #header-quick-access .home-icon a .fa-home,
+  .iphone-device #header-quick-access .home-icon .header-home-link .fa-home,
   .iphone-device #header-quick-access .home-icon .fa-home {
     font-size: 16px !important;
     margin-inline-end: 0 !important;
@@ -1469,17 +1483,17 @@ body.mobile-mode #header-quick-access .allBoards {
    separate `body.mobile-mode` rule above covers the explicit phone/desktop
    toggle at any width. */
 @media screen and (max-width: 800px) {
-  #header-quick-access .home-icon a,
-  .wrapper ~ #header-quick-access .home-icon a,
-  body:not(.board-view) #header-quick-access .home-icon a,
-  .iphone-device #header-quick-access .home-icon a,
-  .iphone-device .wrapper ~ #header-quick-access .home-icon a,
-  .iphone-device body:not(.board-view) #header-quick-access .home-icon a {
+  #header-quick-access .home-icon .header-home-link,
+  .wrapper ~ #header-quick-access .home-icon .header-home-link,
+  body:not(.board-view) #header-quick-access .home-icon .header-home-link,
+  .iphone-device #header-quick-access .home-icon .header-home-link,
+  .iphone-device .wrapper ~ #header-quick-access .home-icon .header-home-link,
+  .iphone-device body:not(.board-view) #header-quick-access .home-icon .header-home-link {
     font-size: 0 !important;
     padding: 4px 6px !important;
   }
 
-  #header-quick-access .home-icon a .fa-home,
+  #header-quick-access .home-icon .header-home-link .fa-home,
   #header-quick-access .home-icon .fa-home,
   .wrapper ~ #header-quick-access .home-icon .fa-home,
   body:not(.board-view) #header-quick-access .home-icon .fa-home,
@@ -1518,47 +1532,15 @@ body.mobile-mode #header-quick-access .allBoards {
     margin: 0 2px !important;
   }
 
-  /* Avatar only - no username/full name beside it. The template already hides it
-     `unless isMiniScreen`, but that is a JS/Session decision (Utils.isMiniScreen
-     also weighs mobile mode and device), so it can be true while the bar is
-     narrow. A full name is easily 100px+ of a 375px bar, which is what pushed the
-     avatar onto a second row. Same bare-text-node situation as the home link:
-     font-size:0 on the link collapses the name, and the avatar has its own size,
-     so it is unaffected. The name stays in the DOM for screen readers. */
-  #header-quick-access #header-user-bar .header-user-bar-name,
-  .wrapper ~ #header-quick-access #header-user-bar .header-user-bar-name,
-  body:not(.board-view) #header-quick-access #header-user-bar .header-user-bar-name,
-  .iphone-device #header-quick-access #header-user-bar .header-user-bar-name,
-  .iphone-device body:not(.board-view) #header-quick-access #header-user-bar .header-user-bar-name {
-    font-size: 0 !important;
-    gap: 0 !important;
-    padding-inline-end: 0 !important;
-  }
+  /* The username is NOT collapsed here any more. It used to be - a full name is
+     easily 100px of a 375px bar, and that is what pushed the avatar onto a
+     second row - but the bar WRAPS now, so a name that does not fit costs a row
+     rather than an avatar shoved off the edge, and who you are signed in as is
+     worth that row.
 
-  #header-quick-access #header-user-bar .header-user-bar-avatar,
-  .iphone-device #header-quick-access #header-user-bar .header-user-bar-avatar {
-    font-size: 12px !important;
-    margin-inline-end: 0 !important;
-  }
-
-  /* ...except on the pages that keep their text at every width. All Boards and
-     the Admin Panel carry four buttons, so the room a board needs for ten is
-     not needed here and the name can stay - it is who you are signed in as,
-     which is worth more than the pixels on a page that has them.
-
-     Every selector above is repeated with the class, because the widest of
-     them - the two carrying `.iphone-device` - outweigh an id and a class on
-     their own, so a single short override would lose on exactly the narrow
-     screens this is about. client/components/main/header.jade */
-  #header-quick-access.header-keeps-text #header-user-bar .header-user-bar-name,
-  .wrapper ~ #header-quick-access.header-keeps-text #header-user-bar .header-user-bar-name,
-  body:not(.board-view) #header-quick-access.header-keeps-text #header-user-bar .header-user-bar-name,
-  .iphone-device #header-quick-access.header-keeps-text #header-user-bar .header-user-bar-name,
-  .iphone-device body:not(.board-view) #header-quick-access.header-keeps-text #header-user-bar .header-user-bar-name {
-    font-size: 12px !important;
-    gap: 4px !important;
-    padding-inline-end: 4px !important;
-  }
+     The class that exempted All Boards and the Admin Panel from the collapse
+     went with it: with nothing left to exempt from, it was a mechanism that no
+     longer decided anything. */
 }
 #header-quick-access #notifications,
 #header-quick-access #header-user-bar {

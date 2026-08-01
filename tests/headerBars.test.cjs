@@ -88,8 +88,8 @@ test('both bars are the same colour, in every theme', () => {
 
 test('the first bar names the page, not "All Boards"', () => {
   // The house is still the link home; the text beside it is where you ARE.
-  assert.ok(/a\(href="\{\{pathFor 'home'\}\}" title="\{\{_ 'all-boards'\}\}"\)/.test(jade),
-    'the home link keeps its name as a tooltip');
+  assert.ok(/a\.header-home-link\(href="\{\{pathFor 'home'\}\}" title="\{\{_ 'all-boards'\}\}"\)/
+    .test(jade), 'the home link keeps its name as a tooltip');
   assert.ok(/span\.header-page-title/.test(jade), 'and the title has its own element');
   const home = jade.slice(jade.indexOf('span.home-icon.allBoards'), jade.indexOf('// Logo'));
   assert.ok(!/\|\s*\{\{_ 'all-boards'\}\}/.test(home),
@@ -852,29 +852,39 @@ test('and a view menu says its view in words, not only in a tooltip', () => {
   assert.ok(/display:\s*inline-flex/.test(bellFit) && /gap:\s*4px/.test(bellFit),
     'laid out like the other named buttons, so the name is not cut off');
 
-  // The same class keeps the USERNAME, which the narrow-screen rules collapse
-  // to font-size: 0 - the name is who you are signed in as, and these two pages
-  // have the room a board does not.
-  // Found by its DECLARATION: `.header-user-bar-name` appears in the ordinary
-  // styling too, and an indexOf on the selector matched that one - so the guard
-  // asserted "font-size: 0" against a rule that sets a margin, and failed on a
-  // correct stylesheet.
+  // The username is NOT collapsed at any width now, and the class that exempted
+  // All Boards and the Admin Panel from the collapse went with it: the bar
+  // wraps, so a name that does not fit costs a row rather than an avatar shoved
+  // off the edge, and with nothing left to exempt from the class decided
+  // nothing.
   const nameRules = [...css.matchAll(/([^{}]*\.header-user-bar-name[^{}]*)\{([^{}]*)\}/g)];
-  const hides = nameRules.filter(r => /font-size:\s*0\b/.test(r[2]));
-  assert.strictEqual(hides.length, 1, 'exactly one rule collapses the username');
-  const showAt = css.indexOf('#header-quick-access.header-keeps-text #header-user-bar .header-user-bar-name,');
-  assert.notStrictEqual(showAt, -1, 'and these pages put it back');
-  const show = css.slice(showAt, css.indexOf('}', showAt));
-  assert.ok(/font-size:\s*12px/.test(show), 'at a readable size');
+  assert.ok(nameRules.length > 0, 'the username is styled');
+  assert.ok(!nameRules.some(r => /font-size:\s*0\b/.test(r[2])),
+    'nothing collapses the username');
+  assert.ok(!/header-keeps-text/.test(css), 'and the exemption is gone with it');
+  for (const file of ['client/components/main/header.jade',
+    'client/components/main/header.js']) {
+    assert.ok(!/header-keeps-text|keepsText/.test(read(file)),
+      `${file}: the class and its helper are gone, not left inert`);
+  }
 
-  // Every hiding selector must be answered. The widest of them carry
-  // `.iphone-device`, which outweighs an id and a class on its own - so a
-  // single short override would lose on exactly the narrow screens this is for.
-  const selectors = css.slice(showAt, css.indexOf('{', showAt)).split(',');
-  assert.ok(selectors.length >= 5,
-    'each hiding selector is answered with its own, or the widest of them wins');
-  assert.ok(selectors.some(x => x.includes('.iphone-device') && x.includes(':not(.board-view)')),
-    'including the widest one');
+  // The avatar is centred by LAYOUT. It was floated and nudged up 5px with
+  // `position: relative`, which takes it out of the flex alignment - so it was
+  // being lined up by hand against a row whose height changes with the buttons
+  // in it, and it sat low.
+  const avatar = ruleWith(css,
+    '#header-quick-access #header-user-bar .header-user-bar-avatar', 'align-items: center');
+  assert.ok(!/float:/.test(avatar) && !/top:\s*-?\d/.test(avatar),
+    'no float and no nudge - its parent centres it');
+
+  // The rename pencil is an anchor in the SAME box as the home link, so the
+  // rules that collapse that link's label matched it too and reduced its icon
+  // to nothing. They name the link itself now.
+  assert.ok(!/\.home-icon a\b/.test(css),
+    'no rule targets every anchor in the title box');
+  assert.ok(/\.home-icon \.header-home-link/.test(css), 'they name the home link');
+  assert.ok(/a\.header-home-link\(/.test(jade), 'which carries that class');
+
   // The name is still reachable: every one of these buttons has a tooltip.
   for (const cls of ['js-sort-cards', 'js-open-filter-view', 'js-open-search-view',
     'js-toggle-dependencies', 'js-multiselection-activate']) {
