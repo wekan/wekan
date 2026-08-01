@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Հեռացնել աստղը ընտրված տախտակներից",
   "set-selected-home": "Սահմանել որպես Գլխավոր տախտակ (բացվում է մուտքից հետո)",
   "home-board-badge": "Գլխավոր տախտակ (բացվում է մուտքից հետո)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "խմբագրվել է մինչև %s %s-ի վերջնաժամկետը",
   "activity-endDate": "վերջի ամսաթիվը խմբագրվել է %s %s-ի",
   "add-attachment": "Ավելացնել Հավելված",

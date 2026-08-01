@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Deixar de destacar os taboleiros seleccionados",
   "set-selected-home": "Definir como quadro de inicio (ábrese despois de iniciar sesión)",
   "home-board-badge": "Quadro de inicio (ábrese despois de iniciar sesión)",
+  "home-board-empty": "Arrastra aquí un quadro para abrilo despois de iniciar sesión",
   "activity-dueDate": "editou a data limite para %s de %s",
   "activity-endDate": "editou a data de fim para %s de %s",
   "add-attachment": "Engadir anexo",

@@ -46,9 +46,15 @@ test('the Archive is drawn with board icons, like every other section', () => {
   assert.ok(/sel === 'archive'/.test(body),
     'the archive has its own branch in the menu filter');
 
-  // No "Add Board" tile: a board cannot be created already archived.
-  assert.ok(/unless isSelectedMenu 'archive'\n\s+li\.js-add-board/.test(jade),
-    'and no Add Board tile in the Archive');
+  // No "Add Board" tile: a board cannot be created already archived. One
+  // helper rather than a condition in the markup, because Home excludes it too
+  // and nesting a second `unless` moved the tile's own children out from under
+  // it. docs/Features/Board/Home.md
+  assert.ok(/if showsAddBoardTile\n\s+li\.js-add-board/.test(jade),
+    'the tile is drawn only where a board can be created');
+  const helper = js.slice(js.indexOf('  showsAddBoardTile() {'),
+    js.indexOf('  // The count for a row.'));
+  assert.ok(/sel !== 'archive'/.test(helper), 'and no Add Board tile in the Archive');
 });
 
 test('and the tiles are subscribed to, after the vars they read exist', () => {

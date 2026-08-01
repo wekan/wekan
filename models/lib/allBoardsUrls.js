@@ -31,6 +31,10 @@ const SECTION_WORKSPACES = 'workspaces';
 // selected from the left menu and drawn beside it, so it needs an address in
 // the same shape as the other four. docs/Design/Page/Archive.md
 const SECTION_ARCHIVE = 'archive';
+// The Home board - the one board that opens after login - shown as a section of
+// its own so there is a PLACE that says which board that is. It holds exactly
+// one board or none. docs/Features/Board/Home.md
+const SECTION_HOME = 'home';
 
 const ALL_BOARDS_SECTIONS = [
   SECTION_STARRED,
@@ -38,6 +42,7 @@ const ALL_BOARDS_SECTIONS = [
   SECTION_REMAINING,
   SECTION_WORKSPACES,
   SECTION_ARCHIVE,
+  SECTION_HOME,
 ];
 // The section the page opens on, and the order of the first two rows, when the
 // address names neither.
@@ -59,12 +64,23 @@ function defaultSection(hasStarredBoards) {
   return hasStarredBoards ? SECTION_STARRED : SECTION_REMAINING;
 }
 
-// The first two rows, in the order they are shown. The other two - Templates
-// and the Archive - do not move.
-function menuSectionOrder(hasStarredBoards) {
-  return hasStarredBoards
-    ? [SECTION_STARRED, SECTION_REMAINING, SECTION_TEMPLATES, SECTION_ARCHIVE]
-    : [SECTION_REMAINING, SECTION_STARRED, SECTION_TEMPLATES, SECTION_ARCHIVE];
+// The rows of the left menu, in the order they are shown.
+//
+// Home comes FIRST when a Home board is set, because it is the board this user
+// opens after login - the one board they said is where they start - and a row
+// that names it belongs where they look first. With no Home board set the row
+// is still there, empty, so the place to drop a board onto exists before there
+// is anything in it; it just does not take the top.
+//
+// Then the two that swap (see defaultSection), then Templates and the Archive,
+// which never move.
+function menuSectionOrder(hasStarredBoards, hasHomeBoard) {
+  const boardLists = hasStarredBoards
+    ? [SECTION_STARRED, SECTION_REMAINING]
+    : [SECTION_REMAINING, SECTION_STARRED];
+  return hasHomeBoard
+    ? [SECTION_HOME, ...boardLists, SECTION_TEMPLATES, SECTION_ARCHIVE]
+    : [...boardLists, SECTION_HOME, SECTION_TEMPLATES, SECTION_ARCHIVE];
 }
 
 const ALL_BOARDS_BASE = '/allboards';
@@ -86,6 +102,9 @@ const ALL_BOARDS_SECTION_TITLE_KEYS = {
   // reader seeing different words for one place has to work out whether they
   // are one place.
   [SECTION_ARCHIVE]: 'archives',
+  // "Home", an existing key translated in every language WeKan has, and the
+  // same word the menu row shows.
+  [SECTION_HOME]: 'home',
 };
 
 function sectionTitleKey(section) {
@@ -197,6 +216,7 @@ module.exports = {
   SECTION_REMAINING,
   SECTION_WORKSPACES,
   SECTION_ARCHIVE,
+  SECTION_HOME,
   ALL_BOARDS_SECTIONS,
   ALL_BOARDS_BASE,
   DEFAULT_SECTION,

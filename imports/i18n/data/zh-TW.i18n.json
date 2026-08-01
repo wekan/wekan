@@ -116,6 +116,7 @@
   "set-selected-unstarred": "取消所選看板的星標",
   "set-selected-home": "設為首頁看板（登入後開啟）",
   "home-board-badge": "首頁看板（登入後開啟）",
+  "home-board-empty": "將看板拖曳到這裡，登入後即會開啟",
   "activity-dueDate": "已編輯截止日期為 %s %s",
   "activity-endDate": "已編輯結束日期為 %s %s",
   "add-attachment": "新增附件",

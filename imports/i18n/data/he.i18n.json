@@ -116,6 +116,7 @@
   "set-selected-unstarred": "הסר כוכב מהלוחות שנבחרו",
   "set-selected-home": "הגדרה כלוח בית (נפתח אחרי הכניסה)",
   "home-board-badge": "לוח בית (נפתח אחרי הכניסה)",
+  "home-board-empty": "גררו לכאן לוח כדי שייפתח אחרי הכניסה",
   "activity-dueDate": "תאריך היעד השתנה מ־%s ל־%s",
   "activity-endDate": "תאריך הסיום השתנה מ־%s ל־%s",
   "add-attachment": "הוספת קובץ מצורף",

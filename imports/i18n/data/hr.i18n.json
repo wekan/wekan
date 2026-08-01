@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Ukloni zvjezdicu s odabranih ploča",
   "set-selected-home": "Postavi kao početnu ploču (otvara se nakon prijave)",
   "home-board-badge": "Početna ploča (otvara se nakon prijave)",
+  "home-board-empty": "Povucite ploču ovdje da se otvori nakon prijave",
   "activity-dueDate": "је изменио крајњи рок на %s у предмету %s",
   "activity-endDate": "је изменио датум и време %s кад је окончао предмет %s",
   "add-attachment": "Dodaj privitak",

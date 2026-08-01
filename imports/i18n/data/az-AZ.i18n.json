@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Seçilmiş lövhələrdən ulduzu silin",
   "set-selected-home": "Ana lövhə olaraq təyin et (girişdən sonra açılır)",
   "home-board-badge": "Ana lövhə (girişdən sonra açılır)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "redaktə tarixi %s of %s",
   "activity-endDate": "redaktə bitmə tarixi %s, %s",
   "add-attachment": "Qoşma əlavə edin",

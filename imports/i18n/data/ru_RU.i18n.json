@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Убрать выбранные доски из избранного",
   "set-selected-home": "Сделать домашней доской (открывается после входа)",
   "home-board-badge": "Домашняя доска (открывается после входа)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "отредактировал срок исполнения на %s с %s",
   "activity-endDate": "отредактировал дату завершения на %s с %s",
   "add-attachment": "Добавить вложение",

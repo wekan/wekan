@@ -174,6 +174,23 @@
   color: #fff;
 }
 
+/* An empty Home section: the row exists before there is a board at it, so the
+   pane says what to drag rather than showing nothing at all. Sized and spaced
+   like a board tile so it sits where the first tile would.
+   docs/Features/Board/Home.md */
+.board-list-item-empty {
+  display: block;
+  width: 270px;
+  padding: 20px;
+  margin: 7px;
+  border: 2px dashed #b3b3b3;
+  border-radius: 4px;
+  color: #808080;
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: center;
+}
+
 /* Drag-over state for menu items (for dropping boards on Remaining) */
 .boards-left-menu .menu-item a.drag-over {
   background: #d0e8ff;

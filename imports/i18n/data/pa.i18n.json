@@ -116,6 +116,7 @@
   "set-selected-unstarred": "ਚੁਣੇ ਬੋਰਡਾਂ ਤੋਂ ਤਾਰਾ ਹਟਾਓ",
   "set-selected-home": "ਹੋਮ ਬੋਰਡ ਵਜੋਂ ਸੈੱਟ ਕਰੋ (ਲਾਗਇਨ ਤੋਂ ਬਾਅਦ ਖੁੱਲ੍ਹਦਾ ਹੈ)",
   "home-board-badge": "ਹੋਮ ਬੋਰਡ (ਲਾਗਇਨ ਤੋਂ ਬਾਅਦ ਖੁੱਲ੍ਹਦਾ ਹੈ)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "%s ਦੀ %s ਦੀ ਨਿਯਤ ਮਿਤੀ ਨੂੰ ਸੰਪਾਦਿਤ ਕੀਤਾ ਗਿਆ",
   "activity-endDate": "%s ਦੀ %s ਦੀ ਸਮਾਪਤੀ ਮਿਤੀ ਨੂੰ ਸੰਪਾਦਿਤ ਕੀਤਾ ਗਿਆ",
   "add-attachment": "ਅਟੈਚਮੈਂਟ ਸ਼ਾਮਲ ਕਰੋ",

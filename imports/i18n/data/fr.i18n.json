@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Retirer les tableaux sélectionnés des favoris",
   "set-selected-home": "Définir comme tableau d'accueil (ouvert après la connexion)",
   "home-board-badge": "Tableau d'accueil (ouvert après la connexion)",
+  "home-board-empty": "Glissez un tableau ici pour l'ouvrir après la connexion",
   "activity-dueDate": "date d'échéance éditée de %s à %s",
   "activity-endDate": "date de fin éditée de %s à %s",
   "add-attachment": "Ajouter une pièce jointe",

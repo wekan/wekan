@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Noņemt zvaigzni izvēlētajiem dēļiem",
   "set-selected-home": "Iestatīt kā sākuma dēli (atver pēc pieteikšanās)",
   "home-board-badge": "Sākuma dēlis (atver pēc pieteikšanās)",
+  "home-board-empty": "Ievelciet šeit dēli, lai to atvērtu pēc pieteikšanās",
   "activity-dueDate": "redaguota data iki %s iš %s",
   "activity-endDate": "redaguota pabaigos data į %s iš %s",
   "add-attachment": "Pievienot failu",

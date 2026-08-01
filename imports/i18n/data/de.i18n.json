@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Stern von ausgewählten Boards entfernen",
   "set-selected-home": "Als Home-Board festlegen (nach Anmeldung geöffnet)",
   "home-board-badge": "Home-Board (nach Anmeldung geöffnet)",
+  "home-board-empty": "Ziehe ein Board hierher, um es nach der Anmeldung zu öffnen",
   "activity-dueDate": "hat Fälligkeitsdatum zu %s geändert auf %s",
   "activity-endDate": "hat Enddatum zu %s geändert auf %s",
   "add-attachment": "Datei anhängen",

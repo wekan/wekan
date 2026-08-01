@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Odebrat hvězdičku vybraným tablům",
   "set-selected-home": "Nastavit jako domovské tablo (otevře se po přihlášení)",
   "home-board-badge": "Domovské tablo (otevře se po přihlášení)",
+  "home-board-empty": "Přetáhněte sem tablo, které se otevře po přihlášení",
   "activity-dueDate": "editoval(a) termín dokončení na %s z %s",
   "activity-endDate": "editoval(a) datum ukončení na %s z %s",
   "add-attachment": "Přidat přílohu",

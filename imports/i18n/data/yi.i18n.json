@@ -116,6 +116,7 @@
   "set-selected-unstarred": "אַראָפּנעמען דעם שטערן פֿון די אויסגעקליבענע ברעטער",
   "set-selected-home": "שטעל ווי היים־ברעט (געעפֿנט נאָך אָנמעלדונג)",
   "home-board-badge": "היים־ברעט (געעפֿנט נאָך אָנמעלדונג)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "עדיטיד רעכט דאַטע צו %s פון %s",
   "activity-endDate": "עדיטיד סוף טאָג צו %s פון %s",
   "add-attachment": "לייג אַטאַטשמאַנט",

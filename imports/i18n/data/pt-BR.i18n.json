@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Remover os quadros selecionados dos favoritos",
   "set-selected-home": "Definir como quadro Inicial (aberto após o login)",
   "home-board-badge": "Quadro Inicial (aberto após o login)",
+  "home-board-empty": "Arraste um quadro para cá para abri-lo após o login",
   "activity-dueDate": "editou prazo final para %s de %s",
   "activity-endDate": "editou concluído para %s de %s",
   "add-attachment": "Adicionar Anexos",

@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Tanlangan doskalardan yulduzchani olib tashlash",
   "set-selected-home": "Bosh kengash sifatida oʻrnatish (tizimga kirgandan soʻng ochiladi)",
   "home-board-badge": "Bosh kengash (tizimga kirgandan soʻng ochiladi)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "to'lov sanasi tahrirlangan %s / %s",
   "activity-endDate": "tahrirlangan tugash sanasi %s / %s",
   "add-attachment": "Qo'shiq qo'shish",

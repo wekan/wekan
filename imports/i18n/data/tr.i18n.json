@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Seçili panoların yıldızını kaldır",
   "set-selected-home": "Ana pano olarak ayarla (giriş sonrası açılır)",
   "home-board-badge": "Ana pano (giriş sonrası açılır)",
+  "home-board-empty": "Giriş sonrası açılması için bir panoyu buraya sürükleyin",
   "activity-dueDate": "bitiş tarihi %s / %s olarak düzenlendi",
   "activity-endDate": "son bitiş tarihi %s, %s olarak düzenlendi",
   "add-attachment": "Ek Ekle",

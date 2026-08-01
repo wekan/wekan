@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Dindi biddéew bi ci ëtt yi ñu tànn",
   "set-selected-home": "Def ni tablo bu Kër (di ubbeeku ginnaaw dugg)",
   "home-board-badge": "Tablo bu Kër (di ubbeeku ginnaaw dugg)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "date d'échéance éditée de %s à %s",
   "activity-endDate": "date de fin éditée de %s à %s",
   "add-attachment": "Ajouter une pièce jointe",

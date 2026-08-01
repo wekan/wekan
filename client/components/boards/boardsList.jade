@@ -106,9 +106,19 @@ template(name="boardList")
               button.js-boards-next-page(class="{{#if hasBoardsNextPage}}{{else}}disabled{{/if}}")
                 | &gt;
           ul.board-list.clearfix.js-boards.dragscroll(class="{{#if isMiniScreen}}mobile-view{{/if}} {{#if BoardMultiSelection.isActive}}is-multiselection-active{{/if}}")
-            //- No "Add Board" in the Archive: a board cannot be created
-              already archived, and the tile would be an invitation to do it.
-            unless isSelectedMenu 'archive'
+            //- Home is a mark on ONE board rather than a place boards are
+              kept, so an empty Home says what to drag instead of showing a
+              blank pane.
+            if isSelectedMenu 'home'
+              unless boards.length
+                li.board-list-item-empty {{_ 'home-board-empty'}}
+            //- No "Add Board" in the Archive - a board cannot be created
+              already archived - nor in Home, where a new board would not be
+              the board that opens after login: the tile would promise
+              something it cannot do. ONE helper rather than two nested
+              conditions, because nesting one moved the tile's own children out
+              from under it.
+            if showsAddBoardTile
               li.js-add-board
                 if isSelectedMenu 'templates'
                   a.board-list-item.label.is-template-container(title="{{_ 'add-template-container'}}")

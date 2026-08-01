@@ -426,6 +426,39 @@ Meteor.methods({
     await Users.updateAsync(this.userId, updateObject);
   },
 
+  // Set this board as the Home board, whatever was there before. Dropping a
+  // board on the Home row REPLACES - Home holds one board, and a drop that
+  // sometimes set and sometimes cleared (which is what toggleDefaultBoard would
+  // do here) would depend on state the reader cannot see while dragging.
+  // docs/Features/Board/Home.md
+  async setDefaultBoard(boardId) {
+    check(boardId, String);
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    // A board this user cannot open is not a board they can start in: the
+    // after-login redirect would land on a board that refuses to draw. The
+    // membership test is the same one the board publication applies.
+    const board = await Boards.findOneAsync({
+      _id: boardId,
+      archived: false,
+      'members.userId': this.userId,
+    });
+    if (!board) throw new Meteor.Error('board-not-found', 'Board not found');
+    await Users.updateAsync(this.userId, {
+      $set: { 'profile.defaultBoardId': boardId },
+    });
+  },
+
+  // Take this board off Home - and only if it IS Home, so dragging some other
+  // board out of a list cannot clear somebody's Home board as a side effect.
+  async clearDefaultBoard(boardId) {
+    check(boardId, String);
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    await Users.updateAsync(
+      { _id: this.userId, 'profile.defaultBoardId': boardId },
+      { $unset: { 'profile.defaultBoardId': '' } },
+    );
+  },
+
 
   // #5778: set (or clear, when null/'') the caller's global theme color override.
   // Validated against the known board colors so a client cannot inject an arbitrary

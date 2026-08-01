@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Pašalinti žvaigždutę iš pasirinktų lentų",
   "set-selected-home": "Nustatyti kaip pagrindinę lentą (atveriama po prisijungimo)",
   "home-board-badge": "Pagrindinė lenta (atveriama po prisijungimo)",
+  "home-board-empty": "Vilkite čia lentą, kad ji atsidarytų prisijungus",
   "activity-dueDate": "redaguota data iki %s iš %s",
   "activity-endDate": "redaguota pabaigos data į %s iš %s",
   "add-attachment": "Pridėti priedą",

@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Fjern stjernemarkeringen fra de valgte tavler",
   "set-selected-home": "Angiv som hjemtavle (åbnes efter login)",
   "home-board-badge": "Hjemtavle (åbnes efter login)",
+  "home-board-empty": "Træk en tavle hertil for at åbne den efter login",
   "activity-dueDate": "Redigerede forfaldsdato til %s af %s",
   "activity-endDate": "Redigerede slutdato til %s af %s",
   "add-attachment": "Tilføj vedhæftning",

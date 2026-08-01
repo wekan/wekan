@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Unstar the selected boards",
   "set-selected-home": "ⴻⵔⵙ ⴷ ⵜⴰⴼⴻⵍⵡⵉⵜ ⵜⴰⵏⴰⵎⵓⵔⵜ (ⵜⴻⵜⵜⴻⵍⵍⵉ ⴰⵡⴷ ⴷⴻⴼⴼⵉⵔ ⵏ ⵓⵏⴻⴽⵛⵓⵎ)",
   "home-board-badge": "ⵜⴰⴼⴻⵍⵡⵉⵜ ⵜⴰⵏⴰⵎⵓⵔⵜ (ⵜⴻⵜⵜⴻⵍⵍⵉ ⴰⵡⴷ ⴷⴻⴼⴼⵉⵔ ⵏ ⵓⵏⴻⴽⵛⵓⵎ)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "date d'échéance éditée de %s à %s",
   "activity-endDate": "date de fin éditée de %s à %s",
   "add-attachment": "إضافة مرفق",

@@ -116,6 +116,7 @@
   "set-selected-unstarred": "ఎంచుకున్న బోర్డుల నుండి నక్షత్రాన్ని తీసివేయి",
   "set-selected-home": "హోమ్ బోర్డుగా సెట్ చేయండి (లాగిన్ తర్వాత తెరవబడుతుంది)",
   "home-board-badge": "హోమ్ బోర్డు (లాగిన్ తర్వాత తెరవబడుతుంది)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "%s యొక్క %sకి గడువు తేదీని సవరించారు",
   "activity-endDate": "%s యొక్క %sకి ముగింపు తేదీని సవరించారు",
   "add-attachment": "జోడింపుని జోడించండి",

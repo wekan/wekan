@@ -116,6 +116,7 @@
   "set-selected-unstarred": "تاللانغان تاختايلاردىن يۇلتۇزنى چىقىرىۋېتىش",
   "set-selected-home": "باش تاختا قىلىپ بەلگىلەش (كىرگەندىن كېيىن ئېچىلىدۇ)",
   "home-board-badge": "باش تاختا (كىرگەندىن كېيىن ئېچىلىدۇ)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "بەلگىلەنگەن ۋاقىت @@ PH0 @@ نىڭ @@ PH1 @@",
   "activity-endDate": "تەھرىرلەنگەن ئاخىرلىشىش ۋاقتى @@ PH0 @@ نىڭ @@ PH0 @@",
   "add-attachment": "قوشۇمچە ھۆججەت قوشۇڭ",

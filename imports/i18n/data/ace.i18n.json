@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Unstar the selected boards",
   "set-selected-home": "Peugot jadi papan Utama (geubuka lheueh login)",
   "home-board-badge": "Papan utama (geubuka lheueh login)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "geusunting tanggal tempo jadi %s bak %s",
   "activity-endDate": "geusunting tanggal seuleusoe jadi %s bak %s",
   "add-attachment": "Tambah Lampiran",

@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Deixa de destacar els taulers seleccionats",
   "set-selected-home": "Estableix com a tauler d'inici (s'obre després d'iniciar sessió)",
   "home-board-badge": "Tauler d'inici (s'obre després d'iniciar sessió)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "data de venciment editada a %s de %s",
   "activity-endDate": "data de finalització editada a %s de %s",
   "add-attachment": "Afegeix adjunt",

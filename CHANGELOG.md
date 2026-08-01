@@ -266,6 +266,45 @@ browser build to verify).
 This release adds the following new features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9666c6ad5c471c7133add2b5e1cfd9146feaa95e">All Boards: Home, a section for the board that opens after login</a>. Thanks to xet7.</summary>
+
+One board can be Home: logging in opens it instead of the All Boards page. That
+has always existed, set from Multi-Selection's "Set as Home board (opened after
+login)", but there was nowhere that said which board it *was* - the setting was
+write-only, and the only way to find out what you had chosen was to log out.
+
+Home is now a section of All Boards with a row in the left menu, a home icon and
+the word Home, a count beside it like the other lists, and the address
+`/allboards/home`. It is the **first row when a Home board is set** - it is the
+board this user starts in - and still there, further down, when none is, because
+the place to drop a board onto has to exist before there is anything in it.
+
+**Drop a board on the row to make it Home.** The row is one more place in a
+column a board icon can already be dragged onto, so the gesture is the one
+already in the reader's hand; the alternative was three clicks through
+Multi-Selection. A drop **replaces** rather than toggling: Home holds one board,
+and a drop that sometimes set and sometimes cleared would depend on state the
+reader cannot see while dragging.
+
+**Home is a mark on a board, not a place boards are kept** - exactly like a
+star. The board stays in Remaining, or in its workspace, and appears in Home as
+well; dragging it out of Home onto any other row takes it off Home and leaves it
+where it lives. That is why the drag carries where it started: a drop on
+Remaining has to tell the Home board dragged out of Home from the Home board
+dragged out of a workspace.
+
+The server accepts only a board the caller is a member of and that is not
+archived - a Home board that will not open would send that user to a board that
+refuses to draw at every login - and clears only the board that is actually
+theirs, so dragging some other board out of a list can never clear somebody
+else's choice. Nothing automatic writes it; in particular Sandstorm's auto-open
+still persists nothing.
+
+Documented in [Home](https://github.com/wekan/wekan/blob/main/docs/Features/Board/Home.md).
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7ae487f2ecae30e426dfdb19ff3c3f072dcc1994">All Boards opens on Starred, or on Remaining when nothing is starred</a>. Thanks to xet7.</summary>
 
 Starred was always the section All Boards landed on. On an account that has

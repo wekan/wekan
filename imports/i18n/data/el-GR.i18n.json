@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Αφαίρεση αστεριού από τους επιλεγμένους πίνακες",
   "set-selected-home": "Ορισμός ως Αρχικός πίνακας (ανοίγει μετά τη σύνδεση)",
   "home-board-badge": "Αρχικός πίνακας (ανοίγει μετά τη σύνδεση)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "υπέστη επεξεργασία η τιμή της προθεσμίας σε %s από %s",
   "activity-endDate": "η ημερομηνία λήξης άλλαξε σε %s από %s",
   "add-attachment": "Προσθήκη Συνημμένου",

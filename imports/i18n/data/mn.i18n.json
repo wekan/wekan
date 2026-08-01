@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Сонгосон самбаруудаас од хасах",
   "set-selected-home": "Нүүр самбар болгох (нэвтэрсний дараа нээгдэнэ)",
   "home-board-badge": "Нүүр самбар (нэвтэрсний дараа нээгдэнэ)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "отредактировал срок исполнения на %s с %s",
   "activity-endDate": "отредактировал дату завершения на %s с %s",
   "add-attachment": "Хавсралт нэмэх",

@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Hapus bintang dari papan yang dipilih",
   "set-selected-home": "Setel sebagai papan Beranda (dibuka setelah login)",
   "home-board-badge": "Papan beranda (dibuka setelah login)",
+  "home-board-empty": "Seret papan ke sini agar dibuka setelah login",
   "activity-dueDate": "menyunting tanggal jatuh tempo menjadi %s dari %s",
   "activity-endDate": "menyunting tanggal berakhir menjadi %s dari %s",
   "add-attachment": "Tambah Lampiran",

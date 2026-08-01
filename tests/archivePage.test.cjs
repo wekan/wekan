@@ -161,14 +161,21 @@ test('and All Boards reaches it from the left menu, not the header bar', () => {
   assert.ok(/isSelectedMenu type/.test(row), 'highlighting when selected');
   assert.ok(/span\.menu-count \{\{sectionCount type\}\}/.test(row), 'and counting');
 
-  // Both orders, from the module that decides them. Templates and the Archive
-  // never move; only the first two swap.
-  assert.deepStrictEqual(menuSectionOrder(true),
-    ['starred', 'remaining', 'templates', 'archive'],
+  // The orders, from the module that decides them. Templates and the Archive
+  // never move, and the Archive is always the last row.
+  assert.deepStrictEqual(menuSectionOrder(true, false),
+    ['starred', 'remaining', 'home', 'templates', 'archive'],
     'with starred boards, Starred is the first row');
-  assert.deepStrictEqual(menuSectionOrder(false),
-    ['remaining', 'starred', 'templates', 'archive'],
+  assert.deepStrictEqual(menuSectionOrder(false, false),
+    ['remaining', 'starred', 'home', 'templates', 'archive'],
     'with none, Remaining is - an empty first section reads as a broken page');
+  for (const starred of [true, false]) {
+    for (const home of [true, false]) {
+      const order = menuSectionOrder(starred, home);
+      assert.strictEqual(order[order.length - 1], 'archive',
+        'and the Archive is the last row in every case');
+    }
+  }
 
   // The Archive is one of the four, not a stray link below them, and it is the
   // one that carries a second class: its row also refreshes the count.

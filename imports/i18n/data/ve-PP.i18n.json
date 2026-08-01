@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Unstar the selected boards",
   "set-selected-home": "Pane kodilaudaks (avaidase jäl'ges sizälekirjutandad)",
   "home-board-badge": "Kodilaud (avaidase jäl'ges sizälekirjutandad)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "muokkasi eräpäiväksi %s / %s",
   "activity-endDate": "muokkasi loppumispäiväksi %s / %s",
   "add-attachment": "Lisää liite",

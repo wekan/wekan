@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Csillag eltávolítása a kijelölt tábláktól",
   "set-selected-home": "Beállítás kezdőtáblaként (bejelentkezés után nyílik meg)",
   "home-board-badge": "Kezdőtábla (bejelentkezés után nyílik meg)",
+  "home-board-empty": "Húzzon ide egy táblát, hogy bejelentkezés után nyíljon meg",
   "activity-dueDate": "átírta a *határidő* dátumát erről: %s erre: %s",
   "activity-endDate": "átírta a \"befejezés\" dátumát erről: %s erre: %s",
   "add-attachment": "Melléklet hozzáadása",

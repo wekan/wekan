@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Odstrani zvezdico z izbranih tabel",
   "set-selected-home": "Nastavi kot domačo tablo (odpre se po prijavi)",
   "home-board-badge": "Domača tabla (odpre se po prijavi)",
+  "home-board-empty": "Povlecite sem tablo, da se odpre po prijavi",
   "activity-dueDate": "је изменио крајњи рок на %s у предмету %s",
   "activity-endDate": "је изменио датум и време %s кад је окончао предмет %s",
   "add-attachment": "Dodaj priponko",

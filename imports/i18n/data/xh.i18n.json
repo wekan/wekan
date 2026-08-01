@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Susa inkwenkwezi kumabhodi akhethiweyo",
   "set-selected-home": "Misela njengeBhodi yaseKhaya (evulwa emva kokungena)",
   "home-board-badge": "Ibhodi yaseKhaya (evulwa emva kokungena)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "ihlelwe umhla omiselweyo ukuba %s we %s",
   "activity-endDate": "Umhla wokugqibela ohleliweyo ukuya %s we %s",
   "add-attachment": "Yongeza isiqhoboshelo",

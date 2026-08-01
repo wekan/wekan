@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Unstar the selected boards",
   "set-selected-home": "juH raS moj ('elpu'DI' poSlu')",
   "home-board-badge": "juH raS ('elpu'DI' poSlu')",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "hat Fälligkeitsdatum zu %s geändert auf %s",
   "activity-endDate": "hat Enddatum zu %s geändert auf %s",
   "add-attachment": "Datei anhängen",

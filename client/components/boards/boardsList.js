@@ -190,6 +190,60 @@ function hasStarredBoards() {
   return starred.length > 0;
 }
 
+// The Home board's id, or null. `profile.defaultBoardId` - the field the Home
+// board has always been stored in (#2220), which is what "opened after login"
+// reads on its way past. Home is a VIEW of that one field, not a second copy of
+// it, so setting a Home board from the menu and setting it from Multi-Selection
+// cannot disagree. docs/Features/Board/Home.md
+function homeBoardId() {
+  const user = ReactiveCache.getCurrentUser();
+  return (user && user.profile && user.profile.defaultBoardId) || null;
+}
+
+// Is there a board at Home? Read from the user document's own field for the
+// same reason hasStarredBoards() is - it decides the order of the menu, and an
+// answer that depends on the boards subscription would reorder the menu under
+// the reader partway through a load.
+function hasHomeBoard() {
+  return !!homeBoardId();
+}
+
+// Which section a drag started FROM, carried on the drag itself.
+//
+// Home is a mark on a board, like a star: dragging the board OUT of Home takes
+// the mark off and leaves the board where it lives. That means a drop on
+// Remaining has to be able to tell "the Home board, dragged out of Home" from
+// "the Home board, dragged out of a workspace" - which is a fact about where
+// the drag BEGAN, and the only place to put it is the drag.
+const DRAG_SOURCE_SECTION = 'application/x-board-from-section';
+
+function setDragSourceSection(evt, section) {
+  try {
+    evt.originalEvent.dataTransfer.setData(DRAG_SOURCE_SECTION, section || '');
+  } catch (e) {}
+}
+
+function draggedFromHome(evt) {
+  try {
+    return evt.originalEvent.dataTransfer.getData(DRAG_SOURCE_SECTION) === 'home';
+  } catch (e) {
+    return false;
+  }
+}
+
+// Dropping anywhere OTHER than Home, having picked the board up in Home, takes
+// it off Home - and only off Home. Nothing else about the board changes, which
+// is why this is a separate call beside whatever the drop itself did rather
+// than a branch inside it.
+function clearHomeIfDraggedFromHome(evt, boardIds) {
+  if (!draggedFromHome(evt)) return;
+  boardIds.forEach((boardId) => {
+    Meteor.call('clearDefaultBoard', boardId, (err) => {
+      if (err) console.error(err);
+    });
+  });
+}
+
 function menuItemCountOf(type) {
   const currentUser = ReactiveCache.getCurrentUser();
   const assignments =
@@ -221,6 +275,12 @@ function menuItemCountOf(type) {
     return allBoards.filter(
       (b) => !assignments[b._id] && b.type !== 'template-container',
     ).length;
+  } else if (type === 'home') {
+    // 0 or 1, and 1 only if the board is still there to open: a Home board that
+    // was deleted or archived leaves the id behind, and a row that counts 1 with
+    // nothing under it is a row that looks broken.
+    const id = homeBoardId();
+    return id && allBoards.some((b) => b._id === id) ? 1 : 0;
   }
   return 0;
 }
@@ -494,6 +554,12 @@ function boardsForView(tpl) {
       list = list.filter(
         (b) => !assignments[b._id] && b.type !== 'template-container',
       );
+    } else if (sel === 'home') {
+      // Exactly the Home board, wherever else it also lives. Like a star, Home
+      // is a MARK on a board rather than a place a board is moved to, so the
+      // board is still in Remaining or in its workspace as well.
+      const id = homeBoardId();
+      list = id ? list.filter((b) => b._id === id) : [];
     } else if (sel === 'archive') {
       // Everything the query already returned: they are archived, which is the
       // whole of what this section is. A workspace assignment survives
@@ -1019,12 +1085,24 @@ Template.boardList.helpers({
       // carries a second class the others do not.
       archive: { icon: 'fa-archive', labelKey: 'archives',
         extraClass: 'js-open-archived-board' },
+      // The Home row is also a drop target of its own - dropping a board on it
+      // makes that board the one that opens after login - so it carries a
+      // second class like the Archive does. docs/Features/Board/Home.md
+      home: { icon: 'fa-home', labelKey: 'home', extraClass: 'js-home-menu' },
     };
-    return menuSectionOrder(hasStarredBoards()).map(type => ({
+    return menuSectionOrder(hasStarredBoards(), hasHomeBoard()).map(type => ({
       type,
       extraClass: '',
       ...meta[type],
     }));
+  },
+
+  // The "Add Board" tile, which belongs to the sections a board can be created
+  // in. Not the Archive (a board cannot be created already archived) and not
+  // Home (a new board is not the board that opens after login).
+  showsAddBoardTile() {
+    const sel = Template.instance().selectedMenu.get();
+    return sel !== 'archive' && sel !== 'home';
   },
 
   // The count for a row. The three board lists count what the page can see; the
@@ -1386,8 +1464,10 @@ Template.boardList.events({
     const id = target.getAttribute('data-share-id');
     boardIds.forEach(boardId => shareBoardWith(boardId, shareType, name, id));
   },
-  'dragstart .js-board'(evt) {
+  'dragstart .js-board'(evt, tpl) {
     const boardId = this._id;
+    // Which list this board was picked up from - see DRAG_SOURCE_SECTION.
+    setDragSourceSection(evt, tpl && tpl.selectedMenu && tpl.selectedMenu.get());
 
     // Honour the "Show desktop drag handles" setting here too. With handles ON
     // the handle is the ONLY drag source - the rest of the tile stays free, so a
@@ -1454,7 +1534,11 @@ Template.boardList.events({
       el.classList.add('board-drag-hint');
     });
     document.querySelectorAll('.js-select-menu').forEach((el) => {
-      if (el.getAttribute('data-type') === 'remaining') {
+      // Remaining takes a board out of a workspace and Home makes it the board
+      // that opens after login: both are places this drag can end, so both say
+      // so while it is in the air.
+      const type = el.getAttribute('data-type');
+      if (type === 'remaining' || type === 'home') {
         el.classList.add('board-drag-hint');
       }
     });
@@ -1754,6 +1838,15 @@ Template.boardList.events({
       // Get the workspace ID directly from the dropped workspace-node's data-workspace-id attribute
       const workspaceId = targetEl.getAttribute('data-workspace-id');
 
+      // A workspace is another somewhere-else: a board dragged out of Home into
+      // one is filed there and is no longer the board that opens after login.
+      try {
+        clearHomeIfDraggedFromHome(
+          evt,
+          isMultiBoard ? JSON.parse(boardData) : [boardData],
+        );
+      } catch (e) {}
+
       if (workspaceId) {
         if (isMultiBoard) {
           // Multi-board drag
@@ -1835,6 +1928,9 @@ Template.boardList.events({
         if (err) alert(err?.reason || err?.message || 'Failed to archive board');
       });
     });
+    // The Archive is another somewhere-else, and an archived board cannot be
+    // the one that opens after login.
+    clearHomeIfDraggedFromHome(evt, boardIds);
     // The dragged boards are gone from this page, so a selection of them is
     // meaningless now.
     if (isMultiBoard) BoardMultiSelection.reset();
@@ -1843,6 +1939,57 @@ Template.boardList.events({
     const tpl = Template.instance();
     if (tpl && tpl.refreshArchivedBoardsCount) tpl.refreshArchivedBoardsCount();
   },
+  // Drop a board on Home to make it the board that opens after login. The row
+  // is the fifth place in this column a board icon can be dragged onto, so the
+  // gesture is the one already in the reader's hand; the alternative is
+  // Multi-Selection, which is three clicks to set one board.
+  //
+  // Home holds ONE board, so a drop REPLACES whatever was there - there is no
+  // "already at Home, so take it off again" here. That is what makes the drop
+  // predictable: you drop a board on Home and that board is Home, whatever was
+  // there before. Taking a board off Home is the opposite gesture - dragging it
+  // out of the Home section - and clicking the row's Multi-Selection toggle
+  // still toggles. docs/Features/Board/Home.md
+  'dragover .js-home-menu'(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    evt.originalEvent.dataTransfer.dropEffect = 'link';
+    evt.currentTarget.classList.add('drag-over');
+  },
+  'dragleave .js-home-menu'(evt) {
+    evt.currentTarget.classList.remove('drag-over');
+  },
+  'drop .js-home-menu'(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    evt.currentTarget.classList.remove('drag-over');
+
+    const boardData = evt.originalEvent.dataTransfer.getData('text/plain');
+    if (!boardData) return;
+    const isMultiBoard = evt.originalEvent.dataTransfer.getData(
+      'application/x-board-multi',
+    );
+
+    let boardIds = [boardData];
+    if (isMultiBoard) {
+      try {
+        boardIds = JSON.parse(boardData);
+      } catch (e) {
+        return;
+      }
+    }
+    if (!boardIds.length) return;
+
+    // One board opens after login, so a multi-selection dropped here sets the
+    // FIRST of them - the same one the Multi-Selection sidebar's own Home row
+    // sets - rather than doing nothing or silently keeping the last. The
+    // selection is dropped afterwards, so it cannot look as though all of them
+    // went somewhere.
+    Meteor.call('setDefaultBoard', boardIds[0], (err) => {
+      if (err) alert(err?.reason || err?.message || 'Failed to set Home board');
+    });
+    if (isMultiBoard) BoardMultiSelection.reset();
+  },
   'drop .js-select-menu'(evt) {
     evt.preventDefault();
     evt.stopPropagation();
@@ -1850,8 +1997,9 @@ Template.boardList.events({
     const menuType = evt.currentTarget.getAttribute('data-type');
     evt.currentTarget.classList.remove('drag-over');
 
-    // Only handle drops on "remaining" menu
-    if (menuType !== 'remaining') return;
+    // Home has its own handler, and it is the one drop that does NOT take the
+    // board off Home.
+    if (menuType === 'home') return;
 
     const isMultiBoard = evt.originalEvent.dataTransfer.getData(
       'application/x-board-multi',
@@ -1869,6 +2017,16 @@ Template.boardList.events({
         return;
       }
     }
+
+    // Dragging a board OUT of Home onto any other row takes it off Home and
+    // leaves it exactly where it lives - the same as dragging a starred board
+    // out of Starred. This runs for Starred and Templates too, which otherwise
+    // do nothing on a drop: dropped ON one of them the board did move
+    // somewhere, so the mark comes off.
+    clearHomeIfDraggedFromHome(evt, boardIds);
+
+    // Everything below is what a drop on REMAINING means.
+    if (menuType !== 'remaining') return;
 
     boardIds.forEach((boardId) => {
       // Dropping an ARCHIVED board on Remaining brings it back. That is what

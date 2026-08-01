@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Buang bintang daripada papan yang dipilih",
   "set-selected-home": "Tetapkan sebagai papan Utama (dibuka selepas log masuk)",
   "home-board-badge": "Papan utama (dibuka selepas log masuk)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "menyunting tarikh akhir kepada %s bagi %s",
   "activity-endDate": "menyunting tarikh tamat kepada %s bagi %s",
   "add-attachment": "Tambah Lampiran",

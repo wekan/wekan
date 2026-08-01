@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Видалити вибрані дошки з обраних",
   "set-selected-home": "Встановити як домашню дошку (відкривається після входу)",
   "home-board-badge": "Домашня дошка (відкривається після входу)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "змінено термін виконання на %s у %s",
   "activity-endDate": "змінено дату завершення на %s у %s",
   "add-attachment": "Додати вкладення",

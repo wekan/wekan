@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Dejar de destacar los tableros seleccionados",
   "set-selected-home": "Establecer como tablero de inicio (se abre tras iniciar sesión)",
   "home-board-badge": "Tablero de inicio (se abre tras iniciar sesión)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "fecha de vencimiento editada a %s de %s",
   "activity-endDate": "editada la fecha de finalización a %s de %s",
   "add-attachment": "Agregar adjunto",

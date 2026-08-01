@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Verwyder die ster van die gekose borde",
   "set-selected-home": "Stel as Tuisbord (word na aanmelding oopgemaak)",
   "home-board-badge": "Tuisbord (word na aanmelding oopgemaak)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "sperdatum gewysig na %s van %s",
   "activity-endDate": "geredigeer einddatum na %s van %s",
   "add-attachment": "Voeg aanhangsel by",

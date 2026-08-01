@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Forigi la stelon de la elektitaj tabuloj",
   "set-selected-home": "Agordi kiel Hejma tabulo (malfermata post ensaluto)",
   "home-board-badge": "Hejma tabulo (malfermata post ensaluto)",
+  "home-board-empty": "Trenu tabulon ĉi tien por malfermi ĝin post ensaluto",
   "activity-dueDate": "editada la fecha de vencimiento a %s de %s",
   "activity-endDate": "editada la fecha de finalización a %s de %s",
   "add-attachment": "Añadir adjunto",

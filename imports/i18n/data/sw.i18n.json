@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Ondoa nyota kwenye mbao zilizochaguliwa",
   "set-selected-home": "Weka kama bodi ya Nyumbani (inafunguliwa baada ya kuingia)",
   "home-board-badge": "Bodi ya Nyumbani (inafunguliwa baada ya kuingia)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "tarehe ya mwisho iliyohaririwa kuwa %s ya %s",
   "activity-endDate": "tarehe ya mwisho iliyohaririwa kuwa %s ya %s",
   "add-attachment": "Ongeza Kiambatisho",

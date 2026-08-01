@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Eemalda tärn valitud tahvlitelt",
   "set-selected-home": "Määra avatahvliks (avatakse pärast sisselogimist)",
   "home-board-badge": "Avatahvel (avatakse pärast sisselogimist)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "redigeeritud tähtaeg on %s of %s",
   "activity-endDate": "redigeeritud lõpukuupäev %s-i %s-i lõpukuupäevaks",
   "add-attachment": "Lisa lisa",

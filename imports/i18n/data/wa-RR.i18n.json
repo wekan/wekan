@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Oister l' sitoele des tåvleas tchoezis",
   "set-selected-home": "Ihimo nga Home board (aabrehan pagkatapos mag-login)",
   "home-board-badge": "Home board (aabrehan pagkatapos mag-login)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "gin-edit an due date ngadto ha %s han %s",
   "activity-endDate": "gin-edit an petsa han katapusan ngadto ha %s han %s",
   "add-attachment": "Idugang an Attachment",

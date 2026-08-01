@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Dexar de destacar los tableros seleicionaos",
   "set-selected-home": "Afitar como tablero d'aniciu (ábrese dempués d'aniciar sesión)",
   "home-board-badge": "Tablero d'aniciu (ábrese dempués d'aniciar sesión)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "editada la fecha de vencimiento a %s de %s",
   "activity-endDate": "editada la fecha de finalización a %s de %s",
   "add-attachment": "Añadir adjunto",

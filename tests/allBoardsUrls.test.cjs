@@ -53,9 +53,9 @@ function test(name, fn) { tests.push([name, fn]); }
 
 console.log('allBoardsUrls:');
 
-test('the five sections, and Starred is the default', () => {
+test('the six sections, and Starred is the default', () => {
   assert.deepStrictEqual(ALL_BOARDS_SECTIONS,
-    ['starred', 'templates', 'remaining', 'workspaces', 'archive']);
+    ['starred', 'templates', 'remaining', 'workspaces', 'archive', 'home']);
   assert.strictEqual(DEFAULT_SECTION, 'starred');
   for (const section of ALL_BOARDS_SECTIONS) {
     assert.strictEqual(allBoardsPath(section, []), `/allboards/${section}`);
@@ -325,25 +325,38 @@ test('the section the page opens on depends on whether anything is starred', () 
   // the highlighted row is the first row.
   assert.strictEqual(defaultSection(true), 'starred');
   assert.strictEqual(defaultSection(false), 'remaining');
-  assert.deepStrictEqual(menuSectionOrder(true),
-    ['starred', 'remaining', 'templates', 'archive']);
-  assert.deepStrictEqual(menuSectionOrder(false),
-    ['remaining', 'starred', 'templates', 'archive']);
+  assert.deepStrictEqual(menuSectionOrder(true, false),
+    ['starred', 'remaining', 'home', 'templates', 'archive']);
+  assert.deepStrictEqual(menuSectionOrder(false, false),
+    ['remaining', 'starred', 'home', 'templates', 'archive']);
+  // ...and a Home board takes the top, whichever way the two below it are
+  // round: it is the board this user starts in. docs/Features/Board/Home.md
+  assert.deepStrictEqual(menuSectionOrder(true, true),
+    ['home', 'starred', 'remaining', 'templates', 'archive']);
+  assert.deepStrictEqual(menuSectionOrder(false, true),
+    ['home', 'remaining', 'starred', 'templates', 'archive']);
 
   // Both answers are sections the URL layer knows, or the page would open on a
   // name nothing draws.
   const { ALL_BOARDS_SECTIONS } = require('../models/lib/allBoardsUrls');
   for (const starred of [true, false]) {
     assert.ok(ALL_BOARDS_SECTIONS.includes(defaultSection(starred)));
-    for (const section of menuSectionOrder(starred)) {
+    for (const section of menuSectionOrder(starred, true)) {
       assert.ok(ALL_BOARDS_SECTIONS.includes(section), `${section} is a real section`);
     }
   }
   // Only the first two move. Templates and the Archive are the same rows in
   // the same places whichever way round the top two are.
-  assert.deepStrictEqual(menuSectionOrder(true).slice(2), menuSectionOrder(false).slice(2));
-  assert.deepStrictEqual([...menuSectionOrder(true)].sort(),
-    [...menuSectionOrder(false)].sort(), 'and the same four rows either way');
+  assert.deepStrictEqual(menuSectionOrder(true, false).slice(2),
+    menuSectionOrder(false, false).slice(2));
+  for (const home of [true, false]) {
+    assert.deepStrictEqual([...menuSectionOrder(true, home)].sort(),
+      [...menuSectionOrder(false, home)].sort(), 'the same rows either way');
+  }
+  assert.deepStrictEqual([...menuSectionOrder(true, true)].sort(),
+    [...menuSectionOrder(true, false)].sort(),
+    'and Home is a row whether or not there is a board at it - the place to '
+    + 'drop one has to exist before there is anything in it');
 });
 
 test('and `/` lets the page decide, rather than the router deciding for it', () => {

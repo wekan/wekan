@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Unstar the selected boards",
   "set-selected-home": "Öý tagtasy hökmünde belläň (girişden soň açylýar)",
   "home-board-badge": "Öý tagtasy (girişden soň açylýar)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "bellenilen senäni @@ PH0 @@ @@ PH1 @@",
   "activity-endDate": "redaktirlenen gutarýan senesi @@ PH0 @@ @@ PH1 @@",
   "add-attachment": "Goşundy goşuň",

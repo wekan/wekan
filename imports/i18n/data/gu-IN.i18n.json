@@ -116,6 +116,7 @@
   "set-selected-unstarred": "પસંદ કરેલા બોર્ડમાંથી તારો દૂર કરો",
   "set-selected-home": "હોમ બોર્ડ તરીકે સેટ કરો (લોગિન પછી ખૂલે છે)",
   "home-board-badge": "હોમ બોર્ડ (લોગિન પછી ખૂલે છે)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "સંપાદિત નિયત તારીખ %s ની %s",
   "activity-endDate": "સંપાદિત સમાપ્તિ તારીખ %s ની %s",
   "add-attachment": "જોડાણ ઉમેરો",

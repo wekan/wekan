@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Verwijder de ster van de geselecteerde borden",
   "set-selected-home": "Instellen als startbord (geopend na inloggen)",
   "home-board-badge": "Startbord (geopend na inloggen)",
+  "home-board-empty": "Sleep hier een bord naartoe om het na het inloggen te openen",
   "activity-dueDate": "vervaldatum gewijzigd naar %s van %s",
   "activity-endDate": "einddatum gewijzigd naar %s van %s",
   "add-attachment": "Bijlage Toevoegen",

@@ -116,6 +116,7 @@
   "set-selected-unstarred": "取消所選看板嘅星標",
   "set-selected-home": "设为主看板（登录后打开）",
   "home-board-badge": "主看板（登录后打开）",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "編輯截止日期為 %s 的 %s",
   "activity-endDate": "將結束日期編輯為 %s 的 %s",
   "add-attachment": "新增附件",

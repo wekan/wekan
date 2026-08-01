@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Fjern stjernemerket fra de valgte tavlene",
   "set-selected-home": "Angi som hjemtavle (åpnes etter innlogging)",
   "home-board-badge": "Hjemtavle (åpnes etter innlogging)",
+  "home-board-empty": "Dra en tavle hit for å åpne den etter innlogging",
   "activity-dueDate": "redigert forfallsdato til %s av %s",
   "activity-endDate": "redigert sluttdato %s av %s",
   "add-attachment": "Legg til Vedlegg",

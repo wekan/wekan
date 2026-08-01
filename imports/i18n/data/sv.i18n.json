@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Ta bort stjärnmärkningen från de valda tavlorna",
   "set-selected-home": "Ange som hemtavla (öppnas efter inloggning)",
   "home-board-badge": "Hemtavla (öppnas efter inloggning)",
+  "home-board-empty": "Dra en tavla hit för att öppna den efter inloggning",
   "activity-dueDate": "redigerade förfallodag till %s av %s",
   "activity-endDate": "redigerade slutdatum till %s av %s",
   "add-attachment": "Lägg till bilaga",

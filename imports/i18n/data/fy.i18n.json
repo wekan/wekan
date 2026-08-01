@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Helje de stjer fan de selektearre boarden ôf",
   "set-selected-home": "Ynstelle as Thúsboard (iepene nei oanmelden)",
   "home-board-badge": "Thúsboard (iepene nei oanmelden)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "ferfaldatum bewurke nei %s fan %s",
   "activity-endDate": "eindatum bewurke nei %s fan %s",
   "add-attachment": "Taheaksel taheakje",

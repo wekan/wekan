@@ -86,9 +86,25 @@ test('router runs the Sandstorm auto-open reactively and only for Sandstorm', ()
   assert.ok(!/setDefaultBoard/.test(r), 'does not save the single board');
 });
 
-test('auto-open persists nothing: setDefaultBoard is not used anywhere', () => {
-  assert.ok(!/setDefaultBoard/.test(read('server/models/users.js')), 'no unconditional setter method');
-  assert.ok(!/setDefaultBoard/.test(read('models/lib/sandstormAutoOpen.js')), 'decision does not save');
+test('auto-open persists nothing: nothing on that path saves a Home board', () => {
+  // This used to read "the name `setDefaultBoard` appears nowhere", which was a
+  // proxy for "there is no unconditional setter" back when the only way to set
+  // a Home board was the explicit toggle. There IS one now - dropping a board
+  // on the Home row replaces whatever was there (docs/Features/Board/Home.md) -
+  // so the guard checks what it was actually protecting: the auto-open path
+  // does not save anything. A grain that opens its one board must not thereby
+  // decide which board that user starts in.
+  assert.ok(!/setDefaultBoard/.test(read('models/lib/sandstormAutoOpen.js')),
+    'the decision does not save');
+  const users = read('server/models/users.js');
+  const at = users.indexOf('async setDefaultBoard(boardId) {');
+  assert.notStrictEqual(at, -1, 'the setter is a Meteor method');
+  const fn = users.slice(at, users.indexOf('\n  },', at));
+  // It is reachable only by being CALLED as a method - by a user, about a board
+  // they are a member of - which is what keeps it off every automatic path.
+  assert.ok(/check\(boardId, String\)/.test(fn), 'it checks its argument');
+  assert.ok(/'members\.userId': this\.userId/.test(fn),
+    'and only accepts a board the caller can actually open');
 });
 
 console.log(`\nAll ${passed} sandstorm-auto-open tests passed`);

@@ -116,6 +116,7 @@
   "set-selected-unstarred": "Unstar the selected boards",
   "set-selected-home": "تعيين كلوحة رئيسية (تُفتح بعد تسجيل الدخول)",
   "home-board-badge": "اللوحة الرئيسية (تُفتح بعد تسجيل الدخول)",
+  "home-board-empty": "Drag a board here to open it after login",
   "activity-dueDate": "عدّل تاريخ الاستحقاق إلى %s الخاص بـ %s",
   "activity-endDate": "عدّل تاريخ الانتهاء إلى %s الخاص بـ %s",
   "add-attachment": "إضافة مرفق",
