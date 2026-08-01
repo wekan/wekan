@@ -274,10 +274,10 @@ under `/admin` with an address for every pane. **The left menu** those two pages
 share **folds away** and is **resized by dragging** its inner edge. **Public
 Boards** becomes a read-only page of its own, a swimlane, a list and a card can
 each be **linked** to directly, and **board roles** are one capability table
-with a pane that shows it. Below that: dependency updates, ten bug fixes - the
-header bar's layout, a filter that left a spinner turning, a search that
-reached past your own boards, a left-menu caret that did nothing when clicked -
-and the usual documentation and translation work.
+with a pane that shows it. Below that: dependency updates, thirteen bug fixes -
+the header bar's layout and where it starts, a filter that left a spinner
+turning, a search that reached past your own boards, a left-menu caret that did
+nothing when clicked - and the usual documentation and translation work.
 
 This release adds the following new features:
 
@@ -1208,6 +1208,33 @@ and fixes the following bugs:
 **The first header bar** - how it lays itself out, and what sits under it.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/93042642f4fe3ae91d0b54e988a97d7ddcebdd5d">The All Boards house starts at the same X at every window width</a>. Thanks to xet7.</summary>
+
+The house at the start of the bar sat further in on a wide window than on a
+narrow one, and on none of them on the line the left menu's rows below it start
+on.
+
+Its inset is a SUM, and two of the terms were added at some widths only. The
+header carried side padding of its own - 8px below 800px, 16px between 768 and
+1024, none between 1024 and 1920, 8px above 1920: four widths, four insets. And
+`.allBoards` is the SAME element as the house's own `.home-icon`, so its side
+padding lands between that icon's margin and the link - and it was 15px on a
+desktop against 6px on a phone.
+
+Neither adds anything sideways now, and the link's own start padding is the same
+6px in every rule, phone rules included: a bigger tap target on a small screen
+grows at the END, not at the inset. So the house is at 12px of the bar's own
+gutter plus 4px of the icon's margin plus 6px of the link's padding = 22px at
+every width - the same 22px the left menu's rows are indented by, so the two are
+one line down the page.
+
+The existing guard added up the three terms it knew about, got 22, and passed
+while the house still moved. The new one pins the other side of it: no rule, at
+any width, may add a side inset of its own.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9a1463d7e">It fills each row before starting the next one</a>. Thanks to xet7.</summary>
 
 The bar wraps when its buttons do not fit, but everything after the drag-handles
@@ -1266,6 +1293,42 @@ collapsed to its padding.
 </details>
 
 **All Boards** - the overview and its search.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/89d12c6fe689aa970cafda2429ff480ed7038a92">Its view menu opens a titled popup, like the board's own</a>. Thanks to xet7.</summary>
+
+The Lists/Table dropdown in the first header bar opened a bare list of two
+links, while the board's Swimlanes/Lists dropdown - which asks the same question
+about the same kind of page - opens with **Board View** above it and a close ✕
+beside it. A popup with no title renders no header at all, so the two read as
+two different kinds of control.
+
+It is titled now, with the BOARD's own translation. The convention is
+`<popupName>-title`, which here would mean a second key saying the same two
+words - and a new key starts as English in all 142 language files, so most
+languages would have shown English for a phrase they have translated for years.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cdb611340120d0c9f56e890a85fa2f1c3da0e4f8">Archive opens the section of this page, not the full-width page it replaced</a>. Thanks to xet7.</summary>
+
+Member Settings / Archive went to `/archive`, and Boards in Archive is a
+**section** of All Boards now: a row in its left menu, drawn beside it like
+Starred and Remaining. That page is the thing the section replaced. Landing on
+it meant the same list of boards with no menu beside it, no way across to
+another section without going back first, and the menu row that says Archive was
+not the row you had arrived at. A menu entry should land you on the same Archive
+the menu itself offers.
+
+All four entry points are the same line in a different menu - the board menu,
+the member menu, the board sidebar and the All Boards sidebar - so all four go
+to the section now, through the URL helper rather than a path spelled out in
+four places that can drift apart. The member menu also closes itself behind the
+click, like every other entry in it that navigates. `/archive` is still a route
+and still renders, so a bookmark from before does not break.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1049e3e8f">It no longer throws No such function: isAllBoardsView as it renders</a>. Thanks to xet7.</summary>
