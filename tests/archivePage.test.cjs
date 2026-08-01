@@ -322,6 +322,48 @@ test('and selecting it does not fall back to Remaining', () => {
     'ALL_BOARDS_SECTIONS is imported where it is used');
 });
 
+test('and the page content clears the window edge', () => {
+  // Taking the left menu to the window's LEFT edge dropped the wrapper's inset
+  // on both sides, so right-hand content ran to the edge and past it - the
+  // archive pager's ">" was half outside, and `#content` is
+  // `overflow-x: hidden`, so the half outside was cut off rather than
+  // scrollable.
+  const css = read('client/components/boards/boardsList.css');
+  const at = css.indexOf('.boards-layout > .boards-right-grid {');
+  assert.notStrictEqual(at, -1, 'the right column is inset from the window edge');
+  const rule = css.slice(at, css.indexOf('}', at));
+  // Logical, so a right-to-left layout insets the side that is actually far.
+  assert.ok(/padding-inline-end:\s*\d+px/.test(rule), 'with a LOGICAL padding');
+  assert.ok(!/padding-right/.test(rule), 'not a physical one');
+  // On the COLUMN, not back on the wrapper: the wrapper holds the menu too, and
+  // an inset there would push the menu off the edge it must sit against.
+  const wrapAt = css.indexOf('#content .all-boards-wrapper {');
+  const wrap = css.slice(wrapAt, css.indexOf('}', wrapAt));
+  assert.ok(/margin:\s*0/.test(wrap), 'the wrapper itself stays flush');
+  // ...and the clipping this works around is real.
+  assert.ok(/#content \{[^}]*overflow-x:\s*hidden/s
+    .test(read('client/components/main/layouts.css')),
+    'overflow-x: hidden is why an overflow is invisible rather than scrollable');
+});
+
+test('and a disabled pager is dimmed, not erased', () => {
+  // 0.4 was chosen when every accent was a deep colour. The colour-slide themes
+  // are built on light bases, and at 0.4 an outline in one of those on a
+  // near-white page all but disappears - on a one-page list, where BOTH arrows
+  // are disabled, the pager read as broken rather than exhausted.
+  const css = read('client/components/main/paginationControls.css');
+  const at = css.indexOf('.table-page-pagination button.disabled,');
+  assert.notStrictEqual(at, -1);
+  const rule = css.slice(at, css.indexOf('}', at));
+  const opacity = /opacity:\s*([\d.]+)/.exec(rule);
+  assert.ok(opacity, 'a disabled pager is dimmed');
+  const value = Number(opacity[1]);
+  assert.ok(value >= 0.5, `${value} is too faint for a light theme accent`);
+  assert.ok(value < 1, `${value} would not read as disabled at all`);
+  // It still has to be weaker than an enabled one - that is the rule's job.
+  assert.ok(/pointer-events:\s*none/.test(rule), 'and is not clickable');
+});
+
 for (const [name, fn] of tests) {
   try { fn(); passed++; console.log('  ok -', name); }
   catch (err) { console.error(`  FAIL - ${name}\n    ${err.message}`); process.exitCode = 1; }

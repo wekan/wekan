@@ -12,6 +12,20 @@
   margin: 0;
 }
 
+/* ...but only the LEFT edge is meant to be flush. Dropping the wrapper's inset
+   took it off both sides, so the right-hand content ran to the window edge and
+   past it - the archive pager's ">" was half outside, and `#content` is
+   `overflow-x: hidden`, so the half outside was simply cut off rather than
+   scrollable.
+
+   The padding goes on the right COLUMN, not back on the wrapper: the wrapper
+   holds the menu too, and an inset there would push the menu off the edge it is
+   supposed to sit against. `padding-inline-end` rather than `padding-right`, so
+   a right-to-left layout insets the side that is actually the far one. */
+.boards-layout > .boards-right-grid {
+  padding-inline-end: 14px;
+}
+
 .boards-layout {
   display: grid;
   grid-template-columns: 260px 1fr;
