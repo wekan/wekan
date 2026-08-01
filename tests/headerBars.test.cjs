@@ -248,12 +248,23 @@ test('starred boards are a dropdown, not a row of links', () => {
   assert.ok(!/fa-star/.test(head), 'no star on this button - its neighbour is the star');
   assert.ok(head.indexOf('fa-caret-down') < head.indexOf('board-star-counter'),
     'the caret is to the left of the count');
-  assert.ok(/title="\{\{_ 'starred-boards'\}\}"/.test(head), 'named by a tooltip');
+  // "Starred", not "Starred Boards": the dropdown lists bookmarks too now, and
+  // a button named after one of the two kinds under it is a button that names
+  // half of what it opens. docs/Features/Board/Starred.md
+  assert.ok(/title="\{\{_ 'allboards.starred'\}\}"/.test(head), 'named by a tooltip');
   // The count is the button's only label now, so it is shown even at zero -
   // otherwise the button is a bare caret with nothing to say what it opens.
-  const countHelper = js.slice(js.indexOf('starredBoardsCount() {'));
-  assert.ok(/return starred\.length;/.test(countHelper.slice(0, 300)),
+  const countHelper = js.slice(js.indexOf('starredBoardsCount() {'),
+    js.indexOf('  isPageStarrable() {'));
+  assert.ok(!/if \(!\w+\.length\) return ''/.test(countHelper),
     'the count is shown at zero too, not blanked');
+  // Boards AND bookmarks: the dropdown lists both, so a count that left the
+  // bookmarks out would say 2 above five rows.
+  // docs/Features/Board/Starred.md
+  assert.ok(/starredBoards \? .*starredBoards\(\)/.test(countHelper)
+    && /starredPages \? .*starredPages\(\)/.test(countHelper),
+    'and counts both kinds');
+  assert.ok(/boards\.length \+ pages\.length/.test(countHelper), 'added together');
 
   // ...and the board's own star is the button immediately after it: how many
   // boards you have starred, and whether this is one of them, are a pair.
@@ -286,9 +297,20 @@ test('starred boards are a dropdown, not a row of links', () => {
   assert.ok(/each currentUser\.starredBoards/.test(popup), 'listing the starred boards');
   assert.ok(/pathFor 'board' id=_id slug=slug/.test(popup), 'each one a link to it');
   assert.ok(/fa-check/.test(popup), 'with a check on the one you are looking at');
-  assert.ok(/else\n\s+li\.no-items-message/.test(popup), 'and something to say when none are');
-  assert.ok(/'click \.js-open-starred-boards': Popup\.open\('starredBoards', \{ titleKey: 'starred-boards' \}\)/
-    .test(js), 'and the button opens it, titled');
+  // ...then the BOOKMARKS, under their own heading, because they are a
+  // different kind of destination and a flat list of both would leave the
+  // reader working out which rows are boards.
+  // docs/Features/Board/Starred.md
+  assert.ok(/each currentUser\.starredPages/.test(popup), 'listing the bookmarks too');
+  assert.ok(/\{\{_ 'starred-pages'\}\}/.test(popup), 'under their own heading');
+  assert.ok(popup.indexOf('starredBoards') < popup.indexOf('starredPages'),
+    'boards first, bookmarks under them');
+  // The empty line now asks about BOTH - it used to hang off the boards `each`,
+  // so it was drawn under a list of bookmarks.
+  assert.ok(/unless hasAnyStarred\n[\s\S]{0,80}li\.no-items-message/.test(popup),
+    'and something to say when there are none of either');
+  assert.ok(/'click \.js-open-starred-boards': Popup\.open\('starredBoards', \{ titleKey: 'allboards.starred' \}\)/
+    .test(js), 'and the button opens it, titled the same');
   // A title is what gives a pop-over its header, and the header is what carries
   // the close button - a titleless one renders `no-title` with nothing to shut
   // it but clicking away.
@@ -969,9 +991,11 @@ test('and Filter and Search shut the panel they opened', () => {
 test('and the path is the tooltip, root and all, in order', () => {
   // The tooltip is the whole path - the root is IN it, not implied by it.
   const js = read('client/components/main/header.js');
-  const at = js.indexOf('headerTitleFullPath() {');
-  assert.notStrictEqual(at, -1, 'the tooltip helper exists');
-  const body = js.slice(at, js.indexOf('\n  },', at));
+  assert.ok(js.includes('headerTitleFullPath() {'), 'the tooltip helper exists');
+  // Built in `headerFullPath()`, which the browser tab reads too.
+  const at = js.indexOf('function headerFullPath() {');
+  assert.notStrictEqual(at, -1, 'the path is built in one place');
+  const body = js.slice(at, js.indexOf('\n}', at));
   assert.ok(/\[root\]\.concat\(/.test(body), 'the root comes first, then the trail');
   assert.ok(/title\.key \? TAPi18n\.__\(title\.key\) : title\.title/.test(body),
     'the root is translated only when it IS a key - a board title is text');

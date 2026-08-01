@@ -174,6 +174,76 @@
   color: #fff;
 }
 
+/* A BOOKMARK tile in All Boards / Starred.
+   Starred is the list of places you keep and a bookmark is one of them, so it
+   is a tile in the same grid rather than a row somewhere else - but it is a
+   different KIND of destination, so it says so with the white border the
+   template-container tile uses (`border: 4px solid #fff`, above). One border
+   for "this is not an ordinary board" rather than two different ones.
+   The BACKGROUND is the theme's own accent, so the tile belongs to this WeKan
+   rather than being a grey box in a coloured page. `--theme-accent` is set by
+   the applied theme (boardColors.css); the fallback is the default header blue,
+   for the themes that predate the variable.
+   docs/Features/Board/Starred.md */
+.board-list .board-list-item-bookmark .board-list-item {
+  border: 4px solid #fff;
+  background: var(--theme-accent, #2980b9);
+  color: #fff;
+  /* Room at the end for the unstar button, which sits over the tile. */
+  padding-inline-end: 34px;
+}
+.board-list .board-list-item-bookmark .bookmark-title {
+  display: block;
+  font-weight: 700;
+  /* Two lines at most: a title is as long as the page's title and a tile is a
+     tile. The URL under it is what disambiguates two similar titles. */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* The URL, under the title. A bookmark bar shows both - the title says where it
+   goes, the address says what it is - and two pages of one section can have
+   titles that differ only in a word. Quieter than the title, because it is the
+   supporting line. */
+.board-list .board-list-item-bookmark .bookmark-url {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  opacity: 0.85;
+  /* An address is one string and must not be hyphenated into something that
+     reads like a different address. */
+  word-break: break-all;
+  overflow: hidden;
+}
+/* Unstar, in the corner. The star at the top of the page stars the page you are
+   ON, so a bookmark for somewhere else needs its own way off the list; going to
+   the page just to unstar it is a trip for nothing. */
+.board-list .board-list-item-bookmark .bookmark-unstar {
+  position: absolute;
+  top: 6px;
+  inset-inline-end: 6px;
+  z-index: 12;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  color: #fff;
+  opacity: 0.7;
+  text-decoration: none;
+}
+.board-list .board-list-item-bookmark .bookmark-unstar:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.25);
+}
+/* While one is being dragged past another, so the gap says where it will land -
+   the same signal the board tiles give. */
+.board-list .board-list-item-bookmark.bookmark-reorder-over .board-list-item {
+  border-color: #f2d600;
+}
+
 /* The Remove target of the Home section - the Android launcher's Remove bar.
    It appears only while a board from Home is being dragged, spans the width of
    the board area so it cannot be missed, and turns red under the icon. Red at

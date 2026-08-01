@@ -961,3 +961,16 @@ body.mobile-mode .pop-over .content-wrapper {
     max-height: calc(100vh - 48px) !important;
   }
 }
+
+/* The heading over the starred PAGES in the star dropdown. The dropdown lists
+   two kinds of destination - boards and pages - and a flat list of both leaves
+   the reader working out which rows are which. Quiet: it is a label on a group,
+   not a row you can click. docs/Features/Board/Starred.md */
+.pop-over .pop-over-list-title {
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.6;
+}

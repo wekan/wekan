@@ -325,8 +325,13 @@ test('the title bar names the pane, in the menu row\'s own words', () => {
   assert.ok(/headerTitleFullPath\(\) \{/.test(js), 'the tooltip helper exists');
   // A `title` attribute is plain text, so the path is resolved in JS - and a
   // workspace's own name still must not go through the translator.
-  const at = js.indexOf('headerTitleFullPath() {');
-  const body = js.slice(at, js.indexOf('\n  },', at));
+  //
+  // In `headerFullPath()`, a plain function: the browser tab needs the same
+  // string (docs/Features/Board/Starred.md) and a Blaze helper cannot be called
+  // from outside its template, so the helper delegates to it.
+  const at = js.indexOf('function headerFullPath() {');
+  assert.notStrictEqual(at, -1, 'the path is built in one place');
+  const body = js.slice(at, js.indexOf('\n}', at));
   assert.ok(/part\.key \? TAPi18n\.__\(part\.key\) : part\.title/.test(body),
     'each segment translated only if it IS a key');
   assert.ok(/join\(' \/ '\)/.test(body), 'joined with the same separator it used to draw');

@@ -215,6 +215,22 @@ function homeBoardId() {
 // before the drop happens. docs/Features/Board/Home.md
 const DRAG_FROM_HOME = 'application/x-board-from-home';
 
+// Reordering a bookmark carries its own type, so a bookmark and a board cannot
+// be dropped on each other. Readable in `dragover` for the same reason
+// DRAG_FROM_HOME is - a target has to decide whether to accept the drop before
+// the drop happens. docs/Features/Board/Starred.md
+const BOOKMARK_DRAG = 'application/x-wekan-bookmark';
+
+function isBookmarkDrag(evt) {
+  try {
+    const types = evt.originalEvent.dataTransfer.types;
+    if (!types) return false;
+    return Array.prototype.indexOf.call(types, BOOKMARK_DRAG) !== -1;
+  } catch (e) {
+    return false;
+  }
+}
+
 // Is a board from Home in the air right now? The remove target is drawn only
 // while it is - the Android launcher's Remove bar, which appears at the top of
 // the screen when you pick an icon up and is not there the rest of the time.
@@ -1096,6 +1112,14 @@ Template.boardList.helpers({
     }));
   },
 
+  // The bookmarks, drawn as tiles beside the starred boards. Only in Starred:
+  // that is the list of places you keep, and a bookmark is one of them.
+  // docs/Features/Board/Starred.md
+  starredPages() {
+    const user = ReactiveCache.getCurrentUser();
+    return user && user.starredPages ? user.starredPages() : [];
+  },
+
   // Is the Android-launcher Remove bar showing? Only in Home, and only while a
   // board from Home is actually in the air. docs/Features/Board/Home.md
   showsHomeRemoveTarget() {
@@ -1945,6 +1969,68 @@ Template.boardList.events({
     const tpl = Template.instance();
     if (tpl && tpl.refreshArchivedBoardsCount) tpl.refreshArchivedBoardsCount();
   },
+  // Unstar a bookmark from its own tile. The star in the header bar stars the
+  // page you are ON, so a bookmark for somewhere else has no other way off the
+  // list - going to the page just to unstar it is a trip for nothing.
+  'click .js-unstar-bookmark'(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    const li = evt.currentTarget.closest('.js-bookmark');
+    const url = li && li.getAttribute('data-url');
+    if (!url) return;
+    Meteor.call('toggleStarredPage', url, '', (err) => {
+      if (err) console.error(err);
+    });
+  },
+
+  // Reordering the bookmarks. The order is the reader's, and it is ONE order:
+  // these tiles and the header dropdown's rows are two views of the same array,
+  // so a tile dragged past another rearranges the menu too.
+  //
+  // Its own dataTransfer type, so a bookmark and a board cannot be dropped on
+  // each other: they are different things, and a board dropped between two
+  // bookmarks has no meaning to give it.
+  'dragstart .js-bookmark'(evt) {
+    const url = evt.currentTarget.getAttribute('data-url');
+    if (!url) return;
+    try {
+      evt.originalEvent.dataTransfer.setData(BOOKMARK_DRAG, url);
+      evt.originalEvent.dataTransfer.effectAllowed = 'move';
+    } catch (e) {}
+  },
+  'dragover .js-bookmark'(evt) {
+    if (!isBookmarkDrag(evt)) return;
+    evt.preventDefault();
+    evt.stopPropagation();
+    evt.originalEvent.dataTransfer.dropEffect = 'move';
+    evt.currentTarget.classList.add('bookmark-reorder-over');
+  },
+  'dragleave .js-bookmark'(evt) {
+    evt.currentTarget.classList.remove('bookmark-reorder-over');
+  },
+  'dragend .js-bookmark'(evt) {
+    document.querySelectorAll('.bookmark-reorder-over').forEach((el) =>
+      el.classList.remove('bookmark-reorder-over'));
+  },
+  'drop .js-bookmark'(evt) {
+    if (!isBookmarkDrag(evt)) return;
+    evt.preventDefault();
+    evt.stopPropagation();
+    evt.currentTarget.classList.remove('bookmark-reorder-over');
+
+    let url = '';
+    try {
+      url = evt.originalEvent.dataTransfer.getData(BOOKMARK_DRAG);
+    } catch (e) {
+      return;
+    }
+    const before = evt.currentTarget.getAttribute('data-url');
+    if (!url || !before || url === before) return;
+    Meteor.call('moveStarredPage', url, before, (err) => {
+      if (err) console.error(err);
+    });
+  },
+
   // The Remove target: drop a board here to take it off Home.
   //
   // The launcher gesture - drag the icon to the bar that appeared at the top,

@@ -69,6 +69,9 @@ function assertSafeAvatarUrl(avatarUrl) {
 import ImpersonatedUsers from '/models/impersonatedUsers';
 import Avatars from '/models/avatars';
 import Boards from '/models/boards';
+const {
+  isStarrablePageUrl, toggleStarredPage, moveStarredPage,
+} = require('/models/lib/starredPages');
 import InvitationCodes from '/models/invitationCodes';
 import InviteToBoardRolesSettings from '/models/inviteToBoardRolesSettings';
 import Lists from '/models/lists';
@@ -424,6 +427,51 @@ Meteor.methods({
       : { $set: { 'profile.defaultBoardId': boardId } };
 
     await Users.updateAsync(this.userId, updateObject);
+  },
+
+  // Star the page the caller is on, or unstar it if it is already starred.
+  //
+  // The URL and the title come from the client because only the client knows
+  // what page it is looking at - but neither is trusted: the URL is refused
+  // unless it is a RELATIVE path (an absolute or protocol-relative one would
+  // put another site behind a row in this user's own dropdown), and the title
+  // is stored as text and drawn as text. docs/Features/Board/Starred.md
+  async toggleStarredPage(url, title) {
+    check(url, String);
+    check(title, String);
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    if (!isStarrablePageUrl(url)) {
+      throw new Meteor.Error('invalid-page-url', 'Only a relative page URL can be starred');
+    }
+    const user = await Users.findOneAsync(this.userId);
+    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
+
+    const next = toggleStarredPage(
+      (user.profile && user.profile.starredPages) || [], url, title,
+    );
+    await Users.updateAsync(this.userId, {
+      $set: { 'profile.starredPages': next },
+    });
+  },
+
+  // Move a bookmark so it sits where another one is.
+  //
+  // The order is the reader's, and it is ONE order: the tiles in All Boards /
+  // Starred and the rows of the header dropdown are two views of the same
+  // array. docs/Features/Board/Starred.md
+  async moveStarredPage(url, beforeUrl) {
+    check(url, String);
+    check(beforeUrl, Match.OneOf(String, null));
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    const user = await Users.findOneAsync(this.userId);
+    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
+
+    const next = moveStarredPage(
+      (user.profile && user.profile.starredPages) || [], url, beforeUrl,
+    );
+    await Users.updateAsync(this.userId, {
+      $set: { 'profile.starredPages': next },
+    });
   },
 
   // Set this board as the Home board, whatever was there before. Dropping a

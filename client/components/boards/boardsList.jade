@@ -140,6 +140,31 @@ template(name="boardList")
                     span.emoji-icon
                       i.fa.fa-plus
                     | &nbsp;{{_ 'add-board'}}
+            //- The BOOKMARKS, in the Starred section beside the starred
+              boards - because Starred is the list of places you keep, and a
+              bookmark is one of them. A tile rather than a row, so it sits in
+              the same grid as the boards; a white border, so it is legible as
+              a different KIND of thing without being a different shape; and
+              the theme's own colour behind it, so it belongs to this WeKan.
+              It carries the title AND the URL: the title says where it goes
+              and the URL says what it is, which is what a bookmark bar shows.
+              Dragging one past another reorders them, and that order is the
+              order of the header dropdown - the two are views of one array.
+              docs/Features/Board/Starred.md
+            if isSelectedMenu 'starred'
+              each starredPages
+                li.js-bookmark.nodragscroll.board-list-item-bookmark(data-url="{{url}}", draggable="true")
+                  a.board-list-item(href="{{url}}", title="{{title}}")
+                    span.bookmark-title
+                      i.fa.fa-star
+                      |  {{title}}
+                    span.bookmark-url {{url}}
+                  //- A SIBLING of the link, not a child of it: an `a` inside an
+                    `a` is invalid HTML, and browsers repair it by closing the
+                    outer one early - which would leave the URL line outside the
+                    link that is supposed to carry it.
+                  a.js-unstar-bookmark.bookmark-unstar(href="#", title="{{_ 'click-to-unstar-page'}}")
+                    i.fa.fa-times
             each boards
               li.js-board.nodragscroll(class="{{_id}} {{#if isStarred}}starred{{/if}} {{colorClass}} {{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}", draggable="true")
                 if isInvited

@@ -10,6 +10,9 @@ import Announcements, {
 import { Utils } from '/client/lib/utils';
 // What this bar calls the page you are on. models/lib/pageTitles.js
 import { headerTitle } from '/models/lib/pageTitles';
+// The bookmark rules. docs/Features/Board/Starred.md
+import { isStarrablePageUrl } from '/models/lib/starredPages';
+import { headerPathVar } from '/client/lib/headerPathVar';
 // The right sidebar the hamburger opens. On a board that is the board's own; on
 // every other page it is the shared page sidebar.
 import { getSidebarInstance } from '/client/features/sidebar/service';
@@ -63,6 +66,13 @@ Template.header.onCreated(function () {
   templateInstance.currentSetting = new ReactiveVar();
   templateInstance.isLoading = new ReactiveVar(false);
 
+  // Publish the page's path so the browser tab can carry it too. Here rather
+  // than in `Utils`, because this is the one place that already works it out
+  // and the header is on every page. client/lib/headerPathVar.js
+  templateInstance.autorun(() => {
+    headerPathVar.set(headerFullPath());
+  });
+
   Meteor.subscribe('setting', {
     onReady() {
       templateInstance.currentSetting.set(ReactiveCache.getCurrentSetting());
@@ -99,8 +109,27 @@ Template.header.helpers({
   // say what it opens.
   starredBoardsCount() {
     const user = ReactiveCache.getCurrentUser();
-    const starred = user && user.starredBoards ? user.starredBoards() : [];
-    return starred.length;
+    if (!user) return 0;
+    // Boards AND pages: the group is one list of the places you keep, like a
+    // browser's bookmarks, so a count that left the pages out would say 2 above
+    // a dropdown showing five rows. docs/Features/Board/Starred.md
+    const boards = user.starredBoards ? user.starredBoards() : [];
+    const pages = user.starredPages ? user.starredPages() : [];
+    return boards.length + pages.length;
+  },
+
+  // The star at the end of the group, on a page that is not a board: it stars
+  // THIS PAGE. On a board the board's own star is drawn there instead - the
+  // board is what you are looking at, and its star is the one that already
+  // counts stars from every member.
+  isPageStarrable() {
+    if (Utils.getCurrentBoardId()) return false;
+    return isStarrablePageUrl(currentPagePath());
+  },
+
+  isCurrentPageStarred() {
+    const user = ReactiveCache.getCurrentUser();
+    return Boolean(user && user.hasStarredPage && user.hasStarredPage(currentPagePath()));
   },
 
   // Which page's view menu to draw, if any.
@@ -149,16 +178,40 @@ Template.header.helpers({
   // plain text: it cannot hold the `{{_ }}` calls the visible version used. A
   // workspace's own name still does NOT go through the translator.
   headerTitleFullPath() {
-    const route = FlowRouter.getRouteName();
-    const board = Utils.getCurrentBoard();
-    const title = headerTitle(route, board && board.title, customPageTitle(route));
-    const root = title.key ? TAPi18n.__(title.key) : title.title;
-    const parts = [root].concat(
-      headerTitleTrailOf().map(part => (part.key ? TAPi18n.__(part.key) : part.title)),
-    );
-    return parts.filter(Boolean).join(' / ');
+    return headerFullPath();
   },
 });
+
+// The whole path as ONE string: "All Boards / Starred", "Admin Panel /
+// Settings / Version". A plain function, because both the tooltip helper and
+// the browser tab need it and a Blaze helper cannot be called from outside its
+// template.
+function headerFullPath() {
+  const route = FlowRouter.getRouteName();
+  const board = Utils.getCurrentBoard();
+  const title = headerTitle(route, board && board.title, customPageTitle(route));
+  const root = title.key ? TAPi18n.__(title.key) : title.title;
+  const parts = [root].concat(
+    headerTitleTrailOf().map(part => (part.key ? TAPi18n.__(part.key) : part.title)),
+  );
+  return parts.filter(Boolean).join(' / ');
+}
+
+// The page's own address, relative - what a bookmark stores.
+//
+// From the ROUTER rather than from `window.location`, so it is reactive: the
+// star has to turn hollow the moment you navigate away from a page you starred,
+// and `window.location.pathname` is not something Blaze can watch.
+//
+// The query string comes with it. `/allboards/workspaces/engineering` and the
+// same page with a filter on are two different things to bookmark, and dropping
+// the query would silently star the wrong one.
+function currentPagePath() {
+  const current = FlowRouter.current();
+  if (!current) return '';
+  const path = current.path || '';
+  return typeof path === 'string' ? path : '';
+}
 
 // The path after the page's own name: "Settings / Version" under Admin Panel,
 // "Workspaces / Engineering / Backend" under All Boards.
@@ -287,7 +340,20 @@ Template.header.events({
   // something they have already translated. A title also gives the popup its
   // header, and with it the close button - without one it renders as a
   // `no-title` pop-over with nothing to shut it but clicking away.
-  'click .js-open-starred-boards': Popup.open('starredBoards', { titleKey: 'starred-boards' }),
+  'click .js-open-starred-boards': Popup.open('starredBoards', { titleKey: 'allboards.starred' }),
+
+  // Star the page you are on, or unstar it. The title stored with it is the
+  // one in the browser tab - "Product name - All Boards / Remaining" - because
+  // that is what the dropdown lists, and a row saying `/allboards/remaining`
+  // would make the reader parse a path to find out where it goes.
+  'click .js-star-page'(evt) {
+    evt.preventDefault();
+    const url = currentPagePath();
+    if (!isStarrablePageUrl(url)) return;
+    Meteor.call('toggleStarredPage', url, document.title || url, (err) => {
+      if (err) console.error(err);
+    });
+  },
   // The one hamburger, in the bar that is always on screen. Which sidebar it
   // toggles depends on where you are: a board has its own, and every other page
   // shares one. docs/Design/Page/Header.md
@@ -356,5 +422,19 @@ Template.offlineWarning.events({
   'click a.app-try-reconnect'(event) {
     event.preventDefault();
     Meteor.reconnect();
+  },
+});
+
+// The dropdown lists two kinds of thing, so "is it empty" is a question about
+// both. Without this the "Star a board to add a shortcut" line was drawn under
+// a list of starred pages, because the `each` it hung off only knew about
+// boards. docs/Features/Board/Starred.md
+Template.starredBoardsPopup.helpers({
+  hasAnyStarred() {
+    const user = ReactiveCache.getCurrentUser();
+    if (!user) return false;
+    const boards = user.starredBoards ? user.starredBoards() : [];
+    const pages = user.starredPages ? user.starredPages() : [];
+    return boards.length + pages.length > 0;
   },
 });

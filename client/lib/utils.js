@@ -1,4 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { headerPathVar } from '/client/lib/headerPathVar';
+const { pageDocumentTitle } = require('/models/lib/starredPages');
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Tracker } from 'meteor/tracker';
 import { findWhere, where, uniqBy, groupBy, indexBy, debounce, once } from '/imports/lib/collectionHelpers';
@@ -784,9 +786,15 @@ export const Utils = {
     const currentBoard = Utils.getCurrentBoard();
     if (currentBoard) {
       document.title = `${currentBoard.title} - ${productName}`;
-    } else {
-      document.title = productName;
+      return;
     }
+    // Every other page: the product name and then WHERE YOU ARE -
+    // "Product name - All Boards / Remaining". The tab used to say only the
+    // product name, so ten open tabs of one WeKan were ten identical tabs, and
+    // a bookmark of any of them was named after the whole app rather than after
+    // the page. The path is the one the header bar draws, published by it.
+    // docs/Features/Board/Starred.md
+    document.title = pageDocumentTitle(productName, headerPathVar.get());
   },
 
   setMatomo(data) {

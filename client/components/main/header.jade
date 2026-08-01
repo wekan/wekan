@@ -98,14 +98,29 @@ template(name="header")
           bar, so its border is dark against it; these buttons sit on the bar's
           own colour, so theirs has to be light against that.
         .header-star-group
-          a.board-header-btn.js-open-starred-boards(title="{{_ 'starred-boards'}}")
+          a.board-header-btn.js-open-starred-boards(title="{{_ 'allboards.starred'}}")
             i.fa.fa-caret-down
             span.board-star-counter {{starredBoardsCount}}
 
-          //- ...and whether THIS board is one of them.
+          //- ...and whether THIS one is one of them - the third control of the
+            group, so it reads caret, count, star, the way a browser's
+            bookmarks menu does.
+            On a BOARD that is the board's own star, which also carries the
+            count of members who starred it.
             client/components/boards/boardHeader.jade
+            On every other page it stars THE PAGE. All Boards / Remaining, a
+            workspace, Admin Panel / Settings / Version - each of those has had
+            its own address since the All Boards and Admin Panel URLs landed,
+            so each of them is a place that can be kept.
+            TWO conditions rather than if/else: a comment between an `if` and
+            its `else` is a jade parse error, and `isPageStarrable` already
+            answers false on a board. docs/Features/Board/Starred.md
           if isBoardPage
             +boardStarButton
+          if isPageStarrable
+            a.board-header-btn.js-star-page(class="{{#if isCurrentPageStarred}}is-active{{/if}}"
+              title="{{#if isCurrentPageStarred}}{{_ 'click-to-unstar-page'}}{{else}}{{_ 'click-to-star-page'}}{{/if}}")
+              i.fa(class="fa-star{{#unless isCurrentPageStarred}}-o{{/unless}}")
 
         //- On a phone, INSIDE a list, the bar still shows that board's lists:
           that is a different thing from the starred boards, and it is what tells
@@ -257,5 +272,22 @@ template(name="starredBoardsPopup")
             = title
           if $.Session.equals 'currentBoard' _id
             i.fa.fa-check
-    else
+  //- ...then the starred PAGES, under their own heading, because they are a
+    different kind of destination and a flat list of both would leave the reader
+    working out which rows are boards.
+    The link's text is the page's TITLE - the words its browser tab shows - so
+    a row says where it goes rather than making a path be read.
+    Nothing is drawn when there are none: an empty heading is a promise of rows
+    that are not there.
+  if currentUser.starredPages.length
+    hr
+    div.pop-over-list-title {{_ 'starred-pages'}}
+    ul.pop-over-list
+      each currentUser.starredPages
+        li
+          a(href="{{url}}")
+            i.fa.fa-star
+            span {{title}}
+  unless hasAnyStarred
+    ul.pop-over-list
       li.no-items-message {{_ 'quick-access-description'}}

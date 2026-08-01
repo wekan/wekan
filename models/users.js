@@ -18,6 +18,8 @@ const { SimpleSchema } = require('/imports/simpleSchema');
 // Multitenancy option D: the per-tenant Global Admin rules, pure and shared by the
 // client, the server and the tests (docs/Design/Multitenancy/Multitenancy.md).
 import * as tenantAdmin from '/models/lib/tenantAdmin';
+// The bookmark rules, pure so the client, the server and the tests agree.
+const { starredPagesOf, isPageStarred } = require('/models/lib/starredPages');
 const Users = Meteor.users;
 const getUtils = () => require('/client/lib/utils').Utils;
 
@@ -564,6 +566,30 @@ Users.attachSchema(
       optional: true,
     },
     'profile.starredBoards.$': {
+      type: String,
+    },
+    'profile.starredPages': {
+      /**
+       * the starred PAGES - bookmarks. A board is starred by id; a page has no
+       * id, so each entry is the pair a bookmark is: a relative URL and the
+       * title to list it under. docs/Features/Board/Starred.md
+       */
+      type: Array,
+      optional: true,
+    },
+    'profile.starredPages.$': {
+      type: Object,
+    },
+    'profile.starredPages.$.url': {
+      /**
+       * RELATIVE, so a bookmark survives the site moving to another host.
+       */
+      type: String,
+    },
+    'profile.starredPages.$.title': {
+      /**
+       * The words the browser tab shows, which are the words the dropdown lists.
+       */
       type: String,
     },
     'profile.defaultBoardId': {
@@ -1215,6 +1241,26 @@ Users.helpers({
   starredBoards() {
     const { starredBoards = [] } = this.profile || {};
     return Boards.userBoards(this._id, false, { _id: { $in: starredBoards } }, {});
+  },
+
+  // The starred PAGES - the bookmarks. Boards are starred by id; a page has no
+  // id, so it is stored as the pair a bookmark is: where it goes and what to
+  // call it. docs/Features/Board/Starred.md
+  starredPages() {
+    const { starredPages = [] } = this.profile || {};
+    return starredPagesOf(starredPages);
+  },
+
+  hasStarredPage(url) {
+    const { starredPages = [] } = this.profile || {};
+    return isPageStarred(starredPages, url);
+  },
+
+  // What the star group counts: both kinds, because it is one list of the
+  // places you keep. A count that left the pages out would say 2 above a
+  // dropdown showing five rows.
+  starredCount() {
+    return this.starredBoards().length + this.starredPages().length;
   },
 
   hasStarred(boardId) {
