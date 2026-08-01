@@ -1517,6 +1517,25 @@ the split stays deliberate.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e8d9c06a7">The notifications spec looks for the header bar that exists</a>. Thanks to xet7.</summary>
+
+One browser test waited for `header, #header` to be visible on the page of the
+user who had just been mentioned. The first header bar was rebuilt this release
+and there is no `<header>` element and no `#header` id any more - the bar is
+`#header-quick-access`, which two other specs already address it by. The
+locator matched nothing, so the test asserted that a non-existent element was
+visible, and failed in all three browsers.
+
+The guard is what changed, not the app: the bar was deliberately rebuilt. It
+names the bar that is there now, and says so in the test for the next reader.
+It also asserts the BELL inside that bar, which is what the test is about - the
+count beside it arrives asynchronously, so asserting the count would be timing
+rather than behaviour, but a notification the user cannot see the bell for is
+not a notification.
+
+</details>
+
 and documents the following:
 
 <details>
