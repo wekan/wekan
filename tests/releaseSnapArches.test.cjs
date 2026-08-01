@@ -68,8 +68,11 @@ test('every platform in snapcraft.yaml is built by some snap job', () => {
   const nextKey = block.slice(1).search(/\n[a-z][\w-]*:/);
   if (nextKey !== -1) block = block.slice(0, nextKey + 1);
   const platforms = [...block.matchAll(/^ {2}([a-z0-9]+):$/gm)].map(m => m[1]);
+  // i386 and armhf joined once wekan/node started building a Node.js for them:
+  // the snap takes its runtime from the wekan-<arch>.zip bundle, so a snap arch
+  // is possible exactly when a bundle for it is.
   assert.deepStrictEqual(platforms.sort(),
-    ['amd64', 'arm64', 'ppc64el', 'riscv64', 's390x'],
+    ['amd64', 'arm64', 'armhf', 'i386', 'ppc64el', 'riscv64', 's390x'],
     'the platform list changed - the two jobs below must cover the new list');
 
   const native = job('snap-native');
@@ -92,7 +95,9 @@ test('the mainstream arches build natively, the exotic ones on Launchpad', () =>
   const launchpad = job('snap-launchpad');
   const arches = (launchpad.match(/arch: \[([^\]]+)\]/) || [, ''])[1]
     .split(',').map(a => a.trim());
-  assert.deepStrictEqual(arches, ['ppc64el', 's390x', 'riscv64'],
+  // Everything without a native GitHub runner. i386 and armhf are the two that
+  // joined; they have no runner either, and QEMU still cannot do core24.
+  assert.deepStrictEqual(arches, ['ppc64el', 's390x', 'riscv64', 'i386', 'armhf'],
     'ppc64el and s390x belong here: no native runner, and QEMU cannot do core24');
   assert.ok(/snapcraft remote-build/.test(launchpad), 'built with remote-build');
 });
@@ -242,6 +247,71 @@ test('the mongodb part cannot stage bin as a symlink', () => {
   // a case with amd64 and arm64, and everything else exiting early.
   assert.ok(/No MongoDB server for \$\{CRAFT_ARCH_BUILD_FOR\}/.test(part),
     'the FerretDB-only arches still skip mongod');
+});
+
+test('every platform is in all the places that build it', () => {
+  // One release, four lists that have to agree: the bundle matrix in
+  // release-all.yml, the snap `platforms:` block and arch case in
+  // snapcraft.yaml, the snap-launchpad matrix, and the docker --platform list.
+  // They used to be edited one at a time, which is how an arch ends up with a
+  // .zip and no snap, or a snap that downloads a bundle nobody built.
+  const wf = fs.readFileSync(path.join(repoRoot, '.github/workflows/release-all.yml'), 'utf8');
+  const snap = fs.readFileSync(path.join(repoRoot, 'snapcraft.yaml'), 'utf8');
+
+  // The bundles built by the extra-arches job (the non-native Linux ones).
+  const extra = wf.slice(wf.indexOf('  build-extra-arches:'));
+  const matrix = extra.slice(0, extra.indexOf('    steps:'));
+  const bundles = [...matrix.matchAll(/^ +- arch: (\S+)$/gm)].map(m => m[1]);
+  assert.deepStrictEqual(bundles, ['s390x', 'ppc64le', 'riscv64', 'i386', 'armhf', 'loong64'],
+    'the non-native Linux bundles');
+
+  // Every one of them names all three things it needs, and they are distinct
+  // vocabularies: Node says x86 and armv7l where we and FerretDB say i386 and
+  // armhf, so a row that omitted one would download another CPU's binary.
+  for (const key of ['platform', 'node_arch', 'ferretdb_arch']) {
+    const n = (matrix.match(new RegExp(`^ +${key}: `, 'gm')) || []).length;
+    assert.strictEqual(n, bundles.length, `every bundle row names ${key}`);
+  }
+
+  // The snap: `platforms:` and the arch case in the wekan part must list the
+  // same set, and every snap arch must have a bundle to build from. Snap names
+  // ppc64le "ppc64el"; loong64 is not a snap architecture at all.
+  const toSnap = a => (a === 'ppc64le' ? 'ppc64el' : a);
+  const snapPlatforms = [...snap.slice(snap.indexOf('\nplatforms:'), snap.indexOf('\nplugs:'))
+    .matchAll(/^  ([a-z0-9]+):$/gm)].map(m => m[1]);
+  const launchpad = /arch: \[([^\]]+)\]/.exec(wf);
+  assert.ok(launchpad, 'the snap-launchpad matrix must be there');
+  const lpArches = launchpad[1].split(',').map(x => x.trim());
+
+  for (const arch of bundles) {
+    if (arch === 'loong64') {
+      assert.ok(!snapPlatforms.includes('loong64'), 'loong64 is not a snap architecture');
+      continue;
+    }
+    assert.ok(snapPlatforms.includes(toSnap(arch)), `${arch} must be a snap platform`);
+    assert.ok(lpArches.includes(toSnap(arch)), `${arch} must be built on Launchpad`);
+    assert.ok(new RegExp(`^\\s+${toSnap(arch)}\\)\\s+WEKAN_ARCH=`, 'm').test(snap),
+      `${arch} must map to a bundle name in the wekan part`);
+  }
+  // ...and nothing in the snap that has no bundle behind it.
+  for (const arch of snapPlatforms.filter(a => !['amd64', 'arm64'].includes(a))) {
+    const asBundle = arch === 'ppc64el' ? 'ppc64le' : arch;
+    assert.ok(bundles.includes(asBundle), `snap arch ${arch} has no bundle job`);
+  }
+
+  // Docker: the --platform list and the list the push is verified against must
+  // be the same, or a platform is built and never checked (or the reverse).
+  // The buildx one specifically: there is an earlier `docker run --platform
+  // linux/arm64` in this file, and matching the first --platform found it
+  // instead - which made this guard compare one platform against seven.
+  const buildxAt = wf.indexOf('docker buildx build \\');
+  assert.notStrictEqual(buildxAt, -1, 'the multi-arch image build must be there');
+  const built = /--platform (linux\/[^ \\]+)/.exec(wf.slice(buildxAt));
+  assert.ok(built, 'the buildx --platform list must be there');
+  const want = /want="([^"]+)"/.exec(wf);
+  assert.ok(want, 'and the list it is verified against');
+  assert.deepStrictEqual(built[1].split(','), want[1].split(' '),
+    'buildx builds exactly the platforms the push is then checked for');
 });
 
 console.log(`\n${passed} tests passed`);

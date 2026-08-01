@@ -1210,14 +1210,24 @@ jobs:
             echo "::error::build-mac-arm64 FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
 
-  # Extra-architecture Linux bundles (ppc64le, s390x, riscv64) — the arches that
-  # have a Node.js 24 build but NO MongoDB server, so they ship FerretDB instead.
-  # ppc64le and s390x use official nodejs.org binaries; riscv64 uses the
-  # unofficial-builds.nodejs.org binary (nodejs.org ships no riscv64). armv7l
-  # (32-bit ARM) is intentionally excluded: there is NO Node.js 24 build for it
-  # anywhere (official or unofficial), so there is no runtime to run the bundle on
-  # an armv7 device, regardless of RAM. See https://nodejs.org/dist/latest-v24.x/
-  # (no -linux-armv7l) and https://unofficial-builds.nodejs.org/ (riscv64 only).
+  # Extra-architecture Linux bundles — every Linux arch wekan/FerretDB builds for
+  # that has NO MongoDB server, so they ship FerretDB v1 as their database.
+  #
+  # Each one needs a Node.js 24 for its CPU, and there are three places one can
+  # come from. They are tried IN ORDER, by the resolver in the build step below,
+  # and the log says which one served:
+  #
+  #   1. https://nodejs.org/dist/<version>/                    (official)
+  #   2. https://unofficial-builds.nodejs.org/download/release/ (unofficial)
+  #   3. https://github.com/wekan/node/releases                 (this project's
+  #      fork, built by node.yml in the wekan/node repo for the platforms the
+  #      first two do not publish at all: i386, armhf/armv7, loong64)
+  #
+  # An arch is listed here only when one of those three has a runtime for it. The
+  # one FerretDB target deliberately absent is armel (ARMv5, soft-float): V8 has
+  # not supported ARMv5 for many years - nobody publishes a Node.js for it and
+  # this fork cannot build one either - so there would be nothing to run the
+  # bundle with. See docs/Design/Autoupdate/Platforms.md.
   build-extra-arches:
     needs: [prepare, build-amd64, release]
     runs-on: ubuntu-24.04
@@ -1226,15 +1236,34 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          # `node_arch` is what the Node.js download is called, which is not
+          # always what we call the platform: Node says x86 where Debian, snap
+          # and FerretDB all say i386, and armv7l where they say armhf.
+          # `ferretdb_arch` is the asset name in the wekan/FerretDB release.
           - arch: s390x
             platform: linux/s390x
-            node_base: official
+            node_arch: s390x
+            ferretdb_arch: s390x
           - arch: ppc64le
             platform: linux/ppc64le
-            node_base: official
+            node_arch: ppc64le
+            ferretdb_arch: ppc64le
           - arch: riscv64
             platform: linux/riscv64
-            node_base: unofficial
+            node_arch: riscv64
+            ferretdb_arch: riscv64
+          - arch: i386
+            platform: linux/386
+            node_arch: x86
+            ferretdb_arch: i386
+          - arch: armhf
+            platform: linux/arm/v7
+            node_arch: armv7l
+            ferretdb_arch: armhf
+          - arch: loong64
+            platform: linux/loong64
+            node_arch: loong64
+            ferretdb_arch: loong64
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
@@ -1284,7 +1313,7 @@ jobs:
           echo "Using Node ${NODE_FULL} (${{ matrix.node_base }}) for ${{ matrix.arch }}"
           docker run --rm --platform ${{ matrix.platform }} \
             -e NODE_FULL="$NODE_FULL" -e ARCH="${{ matrix.arch }}" \
-            -e NODE_BASE="${{ matrix.node_base }}" \
+            -e NODE_ARCH="${{ matrix.node_arch }}" \
             -v "$(pwd)/bundle:/bundle" \
             -w /bundle/programs/server \
             ubuntu:26.04 \
@@ -1292,14 +1321,43 @@ jobs:
               set -eux
               apt-get update -qq
               apt-get install -y -q build-essential python3 curl xz-utils ca-certificates
-              if [ "$NODE_BASE" = unofficial ]; then
-                NODE_URL="https://unofficial-builds.nodejs.org/download/release/${NODE_FULL}/node-${NODE_FULL}-linux-${ARCH}.tar.xz"
-              else
-                NODE_URL="https://nodejs.org/dist/${NODE_FULL}/node-${NODE_FULL}-linux-${ARCH}.tar.xz"
+              # Where this CPU\'s Node.js comes from, tried in order: nodejs.org,
+              # then unofficial-builds, then this project\'s own fork. The first
+              # two ship a TARBALL (node + npm + the whole runtime); the fork
+              # ships the BARE BINARY it built, because that is the one thing
+              # missing - so when it serves, npm is taken from the official amd64
+              # tarball. npm is JavaScript and runs on whatever node executes it,
+              # so an npm built for one CPU drives a node built for another.
+              #
+              # Which one served is printed. A bundle that silently fell back to
+              # a different source than expected is worth one line in the log.
+              mkdir -p /opt/node/bin
+              OFFICIAL="https://nodejs.org/dist/${NODE_FULL}/node-${NODE_FULL}-linux-${NODE_ARCH}.tar.xz"
+              UNOFFICIAL="https://unofficial-builds.nodejs.org/download/release/${NODE_FULL}/node-${NODE_FULL}-linux-${NODE_ARCH}.tar.xz"
+              FORK="https://github.com/wekan/node/releases/download/${NODE_FULL}/node-${ARCH}"
+              NODE_FROM=""
+              for candidate in "official $OFFICIAL" "unofficial $UNOFFICIAL"; do
+                name="${candidate%% *}"; url="${candidate#* }"
+                if curl -fsSL -o /tmp/node.tar.xz "$url"; then
+                  tar -xJf /tmp/node.tar.xz -C /opt/node --strip-components=1
+                  NODE_FROM="$name"
+                  break
+                fi
+                echo "No Node.js for ${NODE_ARCH} at $name ($url)"
+              done
+              if [ -z "$NODE_FROM" ]; then
+                # The fork: a bare binary, plus npm out of the official amd64
+                # tarball for the same version.
+                curl -fsSL -o /opt/node/bin/node "$FORK"
+                chmod +x /opt/node/bin/node
+                curl -fsSL -o /tmp/npm.tar.xz \
+                  "https://nodejs.org/dist/${NODE_FULL}/node-${NODE_FULL}-linux-x64.tar.xz"
+                mkdir -p /tmp/npm && tar -xJf /tmp/npm.tar.xz -C /tmp/npm --strip-components=1
+                cp -a /tmp/npm/lib /opt/node/
+                cp -a /tmp/npm/bin/npm /tmp/npm/bin/npx /opt/node/bin/
+                NODE_FROM="wekan/node fork"
               fi
-              curl -fsSL -o /tmp/node.tar.xz "$NODE_URL"
-              mkdir -p /opt/node
-              tar -xJf /tmp/node.tar.xz -C /opt/node --strip-components=1
+              echo "Node.js for ${ARCH} came from: ${NODE_FROM}"
               export PATH=/opt/node/bin:$PATH
               node --version
               npm install
@@ -1331,14 +1389,27 @@ jobs:
         # A marker file makes FerretDB the default backend at runtime (see the
         # launcher + Docker entrypoint).
         run: |
+          # `ferretdb_arch`, not `arch`: FerretDB names the 32-bit ARM asset armhf
+          # and the 32-bit x86 one i386, which is what we call them too - but the
+          # two names are kept separate here so a platform whose Node.js name,
+          # FerretDB name and our own name disagree cannot silently download the
+          # wrong CPU's binary.
           curl -fSL --retry 5 --retry-delay 10 -o bundle/ferretdb \
-            "https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-${{ matrix.arch }}"
+            "https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-${{ matrix.ferretdb_arch }}"
           chmod +x bundle/ferretdb
           # Overwrite the inherited amd64 MongoDB Database Tools with this arch's ones.
+          # Tolerant per tool: wekan/mongo-tools does not publish every arch this
+          # bundle is built for, and a missing mongodump is a missing convenience,
+          # not a broken bundle - FerretDB is the database and the launcher does
+          # not need these to start. A silently-amd64 tool would be worse.
           MT="https://github.com/wekan/mongo-tools/releases/latest/download"
           for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
-            curl -fSL --retry 5 --retry-delay 10 -o "bundle/$t" "$MT/$t-${{ matrix.arch }}"
-            chmod +x "bundle/$t"
+            if curl -fSL --retry 3 --retry-delay 5 -o "bundle/$t" "$MT/$t-${{ matrix.ferretdb_arch }}"; then
+              chmod +x "bundle/$t"
+            else
+              echo "::warning::No $t for ${{ matrix.ferretdb_arch }} in wekan/mongo-tools; removing the inherited amd64 one rather than shipping it."
+              rm -f "bundle/$t"
+            fi
           done
           touch bundle/.ferretdb-default
 
@@ -1779,7 +1850,7 @@ jobs:
         # report in the Admin Panel — a stale, different version.
         run: |
           docker buildx build \
-            --platform linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/riscv64 \
+            --platform linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/riscv64,linux/386,linux/arm/v7 \
             --build-arg VERSION=${VERSION} \
             -t wekanteam/wekan:v${VERSION} \
             -t wekanteam/wekan:latest \
@@ -1794,7 +1865,10 @@ jobs:
           # platform, or a tag that never reached one of the three registries, is
           # invisible until somebody on that CPU runs docker pull and is told there is
           # no matching manifest. Ask each registry what it actually has.
-          want="linux/amd64 linux/arm64 linux/ppc64le linux/s390x linux/riscv64"
+          # The same list as --platform above. linux/loong64 is NOT here: the
+          # bundle is built for it, but buildx and the three registries do not
+          # agree on loong64 yet, so it ships as a .zip and not as an image.
+          want="linux/amd64 linux/arm64 linux/ppc64le linux/s390x linux/riscv64 linux/386 linux/arm/v7"
           rc=0
           for image in "wekanteam/wekan:v${VERSION}" "quay.io/wekan/wekan:v${VERSION}" "ghcr.io/wekan/wekan:v${VERSION}"; do
             if ! got="$(docker buildx imagetools inspect "$image" --format '{{range .Manifest.Manifests}}{{.Platform.OS}}/{{.Platform.Architecture}} {{end}}' 2>&1)"; then
@@ -2132,7 +2206,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        arch: [ppc64el, s390x, riscv64]
+        # The snap architectures Launchpad builds and the store accepts. i386 and
+        # armhf join the three that were here: both are real snapd arches and
+        # both now have a bundle to build from. loong64 is deliberately absent -
+        # it is not a snap architecture at all.
+        arch: [ppc64el, s390x, riscv64, i386, armhf]
     runs-on: ubuntu-latest
     env:
       VERSION: ${{ needs.prepare.outputs.version }}

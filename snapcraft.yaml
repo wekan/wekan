@@ -70,6 +70,17 @@ platforms:
   riscv64:
     build-on: riscv64
     build-for: riscv64
+  # 32-bit, and FerretDB-only for the same reason: MongoDB ships no server for
+  # either. Their Node.js comes from the bundle like every other arch's does -
+  # the wekan-<arch>.zip carries the right one already (for these two it is
+  # built by node.yml in the wekan/node fork, because neither nodejs.org nor
+  # unofficial-builds publishes one).
+  i386:
+    build-on: i386
+    build-for: i386
+  armhf:
+    build-on: armhf
+    build-for: armhf
 
 plugs:
   mongodb-plug:
@@ -302,6 +313,8 @@ parts:
                 s390x)   WEKAN_ARCH="s390x"   ;;
                 ppc64el) WEKAN_ARCH="ppc64le" ;;
                 riscv64) WEKAN_ARCH="riscv64" ;;
+                i386)    WEKAN_ARCH="i386"    ;;
+                armhf)   WEKAN_ARCH="armhf"   ;;
                 *) echo "Unsupported architecture: ${CRAFT_ARCH_BUILD_FOR}"; exit 1 ;;
             esac
             WEKAN_ZIP="wekan-10.55-${WEKAN_ARCH}.zip"
