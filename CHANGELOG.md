@@ -271,10 +271,12 @@ board. **All Boards** gains a Home section for the board that opens after login,
 an Archive in its left menu, a Table view, a heading naming the section you are
 in, and an address for every section and workspace; the **Admin Panel** moves
 under `/admin` with an address for every pane. **The left menu** those two pages
-share **folds away** and is **resized by dragging** its inner edge. **Public
-Boards** becomes a read-only page of its own, a swimlane, a list and a card can
-each be **linked** to directly, and **board roles** are one capability table
-with a pane that shows it. Below that: dependency updates, sixteen bug fixes -
+share **folds away** and is **resized by dragging** its inner edge, and the
+**workspaces** in it are a real tree: drop one onto another to nest it, to any
+depth, and fold a branch away with its caret. **Public Boards** becomes a
+read-only page of its own, a swimlane, a list and a card can each be **linked**
+to directly, and **board roles** are one capability table with a pane that shows
+it. Below that: dependency updates, sixteen bug fixes -
 the header bar's layout and where it starts, a filter that left a spinner
 turning, a search that reached past your own boards, a left-menu caret that did
 nothing when clicked - and the usual documentation and translation work.
@@ -350,6 +352,60 @@ width is written straight to the property, so the edge follows the pointer
 without a database write per pixel. There is nothing to drag on a phone, where
 the menu is full width above the content, or while it is folded, where there is
 no edge.
+
+</details>
+
+**Workspaces** - the tree of folders for boards in the All Boards left menu.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/73a136bedd86fe3760ba707eca8612209a5e82ce">A workspace nests inside another one, and a caret folds the tree away</a>. Thanks to xet7.</summary>
+
+A workspace holds boards and, in the data, other workspaces - but a drag could
+only ever say one thing about them, and there was no way to fold a branch at
+all.
+
+**Where in a row a workspace is dropped is now what the drop means.** The top
+quarter makes it that row's previous sibling, the bottom quarter its next
+sibling, and the **middle half** makes it that row's **last child** - a
+sub-workspace. The middle is the biggest target on purpose: reordering can also
+be reached by aiming at the neighbouring row's far edge, but nesting has only
+this one. Coming back up is a drop like any other - a child dragged onto a root
+row's edge is a root again - because nesting has to be undoable, or a workspace
+put one level too deep is stuck there.
+
+**The placeholder is a slot, not a line.** While the pointer is over a row, an
+empty slot a row high opens above it, below it, or - for "into this one" -
+indented underneath it, which is exactly where the workspace will appear. A line
+between two rows is a target that has to be aimed at; a slot is a place to drop
+into. It opens as a pseudo-element of the row, so the rows below shift down and
+the row being aimed at stays where the pointer put it.
+
+A workspace may not be dropped into itself or into its own descendant: the
+subtree would be cut off from the root, taking every workspace under it with it.
+That is refused while the workspace is still in the air, so the cursor says no
+rather than the drop landing and quietly doing nothing.
+
+**A caret folds a workspace's own workspaces away**, at the start of the row -
+before the drag handle, so the carets of a tree line up whatever the
+drag-handles toggle says. It is the control a list has on a board and the one
+the left menu itself has, down to the two words in its tooltip, and it answers
+Enter and Space, because a tree that only opens with a mouse is a tree half the
+readers cannot open. A workspace with nothing under it keeps a spacer of the
+same width, so a row does not shift sideways the moment it gains its first
+child. Open is the default, and only the folded ones are stored - fifty
+workspaces with two folded is two keys - remembered in the same three layers as
+the rest of this menu: a Session value, the user's profile, and a cookie for a
+reader who is not signed in.
+
+The depth is **unlimited** because nothing counts it: the menu draws itself
+again for a workspace's children, each level indenting by one caret's width with
+a logical property, so a right-to-left tree indents from the right by itself.
+
+What a drag does to the tree is a pure module with its own tests - which third
+of a row the pointer is in, and the tree a move produces, guards included - so
+the rules are proved without a browser, and the page is pinned to calling them
+rather than working them out a second time. It is written up as
+[Workspaces](https://github.com/wekan/wekan/blob/main/docs/Design/Page/Workspaces.md).
 
 </details>
 
@@ -1149,6 +1205,21 @@ had accumulated. The card zoom is a different feature and is untouched.
 </details>
 
 **Member Settings** - the per-user panes.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/472ed566c8a86b46be41de33a3ad3902c14c5edb">Change Password's button is themed, like the Save button beside it</a>. Thanks to xet7.</summary>
+
+Change Password draws the useraccounts form, and its submit button carries that
+package's own classes rather than any of ours - so it fell back to the plain
+grey button, while the Save button one entry above it in the same menu was
+painted with the theme accent. Two buttons, one menu, two looks.
+
+It is named in the same rules as every other primary button rather than given a
+copy of them, so the accent and the hover and active states keep one home, and
+it is scoped to a popup: the login page styles that form its own way and is not
+what this is about.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/95b0acd0b">Change Color shows as many swatch columns as the width allows</a>. Thanks to xet7.</summary>
