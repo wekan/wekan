@@ -560,8 +560,18 @@ Meteor.publish('archivedBoards', async function(searchTerm = '', limit = 30, ski
 
 Meteor.methods({
   async getArchivedBoardsCount(searchTerm = '') {
-    if (!Match.test(this.userId, String)) return 0;
+    // check() FIRST, then authorise. Meteor audits that every argument was
+    // checked, and returning early for a signed-out caller skipped the check
+    // entirely - so the method threw "Did not check() all arguments" instead of
+    // answering 0. Nothing tripped it until All Boards began asking for this
+    // count from onCreated, which can run before the user is established; the
+    // archive page had always called it after its subscription was ready.
+    //
+    // Validating the shape of what you were given before deciding whether the
+    // caller may have it is the right order anyway, and it is the order
+    // getPublicBoardsCount above already uses.
     check(searchTerm, Match.OneOf(String, null, undefined));
+    if (!Match.test(this.userId, String)) return 0;
     const cursor = await ReactiveCache.getBoards(archivedBoardsSelector(this.userId, searchTerm), {}, true);
     return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
   },
