@@ -335,7 +335,9 @@ body:not(.board-view) #header #header-main-bar h1 {
 #header-quick-access .home-icon {
   display: flex;
   align-items: center;
-  margin-inline-end: 1rem;
+  /* 4px, like every other item, so the logo beside it gets 4 + 4 = 8px on that
+     side - the same gap the rest of the bar uses. It was 1rem. */
+  margin-inline-end: 4px;
   flex-shrink: 0;
 }
 
@@ -513,6 +515,15 @@ body.mobile-mode #header-quick-access .allBoards {
     
 
 /* Mobile Mode Toggle in Header */
+/* The logo is spaced like every other item of the bar, so it has the same 8px
+   to each side that its neighbours have. The page title's `margin-inline-end`
+   was 1rem and the logo carried nothing of its own, so the gap on its left was
+   16px against 4px on its right. */
+#header-quick-access .header-logo {
+  margin: 0 4px;
+  flex-shrink: 0;
+}
+
 #header-quick-access .mobile-mode-toggle {
   display: flex;
   align-items: center;

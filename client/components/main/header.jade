@@ -43,12 +43,15 @@ template(name="header")
       unless currentSetting.hideLogo
         if currentSetting.customTopLeftCornerLogoImageUrl
           if currentSetting.customTopLeftCornerLogoLinkUrl
-            a(href="{{currentSetting.customTopLeftCornerLogoLinkUrl}}" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
+            a.header-logo(href="{{currentSetting.customTopLeftCornerLogoLinkUrl}}" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
               img(src="{{currentSetting.customTopLeftCornerLogoImageUrl}}" height="{{#if currentSetting.customTopLeftCornerLogoHeight}}#{currentSetting.customTopLeftCornerLogoHeight}{{else}}27{{/if}}" width="auto" margin="0" padding="0")
           unless currentSetting.customTopLeftCornerLogoLinkUrl
-            img(src="{{currentSetting.customTopLeftCornerLogoImageUrl}}" height="{{#if currentSetting.customTopLeftCornerLogoHeight}}#{currentSetting.customTopLeftCornerLogoHeight}{{else}}27{{/if}}" width="auto" margin="0" padding="0" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
+            img.header-logo(src="{{currentSetting.customTopLeftCornerLogoImageUrl}}" height="{{#if currentSetting.customTopLeftCornerLogoHeight}}#{currentSetting.customTopLeftCornerLogoHeight}{{else}}27{{/if}}" width="auto" margin="0" padding="0" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
         unless currentSetting.customTopLeftCornerLogoImageUrl
-          div#headerIsSettingDatabaseCallDone
+          //- `header-logo` on all three branches - a custom logo that links, one
+            that does not, and the stock one - so the bar can space the logo the
+            same way whichever is drawn. docs/Design/Page/Header.md
+          div#headerIsSettingDatabaseCallDone.header-logo
             img(src="{{pathFor '/logo-header.png'}}" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
 
       // Mobile/desktop mode toggle (swapped with zoom)

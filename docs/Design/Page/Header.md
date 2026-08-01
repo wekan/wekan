@@ -88,6 +88,14 @@ one at a time. `#notifications` and the divider-plus-hamburger stay boxes on
 purpose: the first also contains the drawer that opens under the bell, and the
 second is a pair that means nothing apart.
 
+**Every item is spaced the same** — 4px each side, so the gap between any two
+neighbours is 8px. Two of them used to differ: the phone/desktop toggle carried
+14px and the page title's end margin was 1rem, which gave the drag-handles toggle
+18px on its left against 8px on its right, and the logo 16px against 4px. Uneven
+gaps read as holes rather than as spacing, and the logo needed a class of its own
+(`header-logo`, on all three branches — a custom logo that links, one that does
+not, and the stock one) before it could carry a margin at all.
+
 **Everything packs from the start and wraps forward** — left to right in a
 left-to-right language, right to left in a right-to-left one, which flexbox does
 by itself because it follows the writing direction. Nothing is pushed to the far
