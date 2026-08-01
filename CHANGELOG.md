@@ -273,9 +273,10 @@ in, and an address for every section and workspace; the **Admin Panel** moves
 under `/admin` with an address for every pane. **Public Boards** becomes a
 read-only page of its own, a swimlane, a list and a card can each be **linked**
 to directly, and **board roles** are one capability table with a pane that shows
-it. Below that: dependency updates, nine bug fixes - the header bar's layout, a
-filter that left a spinner turning, a search that reached past your own boards -
-and the usual documentation and translation work.
+it. Below that: dependency updates, ten bug fixes - the header bar's layout, a
+filter that left a spinner turning, a search that reached past your own boards,
+a left-menu caret that did nothing when clicked - and the usual documentation
+and translation work.
 
 This release adds the following new features:
 
@@ -1262,6 +1263,32 @@ boards list, the lists and comments lookups — is unchanged. The search names i
 scope once and passes it to all four board lookups plus the `board:` filter's
 name resolution: one missed lookup and that branch still reaches the whole
 instance, with nothing looking wrong.
+
+</details>
+
+**The left menus** - the menu All Boards and the Admin Panel share.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/25265527648cffb1fe479c7a4c2a4f13b69f9041">The caret that folds the menu away does something when clicked</a>. Thanks to xet7.</summary>
+
+The caret at the top of the left menu - on All Boards and in the Admin Panel -
+rendered, pointed down, and did nothing at all when clicked.
+
+Its template draws the caret; the click that folds the menu, and the helper that
+says whether it is folded, live in a `.js` file beside it that nothing imported.
+`package.json` sets `meteor.mainModule`, so the client is **not** eagerly
+loaded: a file nobody imports is not in the bundle at all. The click handler was
+never registered, so the caret was a dead control - and an unregistered Blaze
+helper is undefined, so the menu never took the `collapsed` class either, which
+is why even the caret itself never turned to point right.
+
+One import fixes it. The new guard is what stops it happening a third time - it
+had already happened to the Admin Panel reports' stylesheet: a test walks the
+import graph from the client's entry point and pins that every file under
+`client/components` which REGISTERS something with Blaze - a template's events,
+helpers or lifecycle, a global helper, a `BlazeComponent` - is reachable from
+it, and that every stylesheet and template beside them is too. A file that only
+exports helpers is left alone: whoever uses it pulls it in.
 
 </details>
 
