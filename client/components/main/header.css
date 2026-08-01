@@ -520,6 +520,27 @@ body.mobile-mode #header-quick-access .allBoards {
     
 
 /* Mobile Mode Toggle in Header */
+/* What belongs to YOU rather than to the page - the seam divider, help, your
+   account, and the sidebar toggle - sits at the END of the bar: the right edge
+   in a left-to-right language, the LEFT edge in a right-to-left one. One
+   `margin-inline-start: auto` does both, because it is a LOGICAL property and
+   the mirroring is what the browser already does for the writing direction.
+
+   This is the one group that is placed rather than packed. Everything before it
+   is the page's own, and reads in source order from the start; these five are
+   not about the page at all, and they are where they have always been.
+
+   A BOX, not `display: contents` like the page's button groups: the five belong
+   together, and an avatar left on the first row with its hamburger on the
+   second is worse than the cluster moving down whole. On a row that wrapped
+   there is no free space for the auto margin to absorb, so it packs from the
+   start there - which fills the second row rather than stranding it. */
+#header-quick-access .header-account-group {
+  display: flex;
+  align-items: center;
+  margin-inline-start: auto;
+}
+
 /* The logo is spaced like every other item of the bar, so it has the same 8px
    to each side that its neighbours have. The page title's `margin-inline-end`
    was 1rem and the logo carried nothing of its own, so the gap on its left was

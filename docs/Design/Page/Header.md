@@ -96,10 +96,23 @@ gaps read as holes rather than as spacing, and the logo needed a class of its ow
 (`header-logo`, on all three branches — a custom logo that links, one that does
 not, and the stock one) before it could carry a margin at all.
 
-**Everything packs from the start and wraps forward** — left to right in a
-left-to-right language, right to left in a right-to-left one, which flexbox does
-by itself because it follows the writing direction. Nothing is pushed to the far
-end and nothing is centred in the leftover space.
+**The page's own items pack from the start and wrap forward** — left to right in
+a left-to-right language, right to left in a right-to-left one, which flexbox
+does by itself because it follows the writing direction. Nothing among them is
+pushed to the far end or centred in the leftover space.
+
+**One group is placed rather than packed:** what belongs to *you* rather than to
+the page — the seam divider, help, your account, and the sidebar toggle behind
+its own divider. `.header-account-group` sits at the **end** of the bar, from a
+single `margin-inline-start: auto`, which is a logical property and so mirrors
+itself in a right-to-left language.
+
+It is a **box**, unlike the page's button groups: those are `display: contents`
+so they wrap one button at a time, but these five belong together, and an avatar
+left on the first row with its hamburger on the second is worse than the cluster
+moving down whole. On a row that wrapped there is no free space for the auto
+margin to absorb, so it packs from the start there — which fills the second row
+rather than stranding it.
 
 Both used to happen: the buttons after the drag-handles toggle were pushed by an
 `auto` margin, and on a phone the bell was centred by an `auto` margin on *each*

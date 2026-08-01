@@ -166,30 +166,41 @@ template(name="header")
         // Notifications
         +notifications
 
-        //- A divider after the bell. Everything before it belongs to the PAGE -
-          its controls, its view menu, the panel's tabs; everything after it
-          belongs to YOU - help, your account, and the sidebar toggle. The bar
-          runs them together otherwise, and the run of icons reads as one list
-          of unrelated things.
-        .separator
+        //- Everything that belongs to YOU rather than to the page - the divider
+          that separates the two, help, your account, and the sidebar toggle
+          behind its own divider. This group is aligned to the END of the bar:
+          the right edge in a left-to-right language, the LEFT edge in a
+          right-to-left one, which one `margin-inline-start: auto` does by
+          itself because it is a LOGICAL property.
 
-        if currentSetting.customHelpLinkUrl
-          #header-help
-            a(href="{{currentSetting.customHelpLinkUrl}}", title="{{_ 'help'}}", target="_blank", rel="noopener noreferrer")
-              i.fa.fa-question-circle
+          It is a box rather than `display: contents`, unlike the page's own
+          button groups, and deliberately: these five belong together, and an
+          avatar left on the first row with its hamburger on the second is worse
+          than the whole cluster moving down at once. docs/Design/Page/Header.md
+        .header-account-group
+          //- The divider is the seam. Everything before it belongs to the PAGE -
+            its controls, its view menu, the panel's tabs. The bar runs them
+            together otherwise, and the run of icons reads as one list of
+            unrelated things.
+          .separator
 
-        +headerUserBar
+          if currentSetting.customHelpLinkUrl
+            #header-help
+              a(href="{{currentSetting.customHelpLinkUrl}}", title="{{_ 'help'}}", target="_blank", rel="noopener noreferrer")
+                i.fa.fa-question-circle
 
-        //- The divider and the sidebar hamburger, at the RIGHT of the username.
-          They were the last item of the second header bar; they are here because
-          this bar is the one that is always on screen, and because what the
-          hamburger opens - the right sidebar - is now where a page keeps its
-          controls. docs/Design/Page/Header.md
-        if hasSidebar
-          .board-header-btns.header-sidebar-toggle
-            .separator
-            a.board-header-btn.js-toggle-page-sidebar(title="{{_ 'sidebar-open'}} {{_ 'or'}} {{_ 'sidebar-close'}}")
-              i.fa.fa-bars
+          +headerUserBar
+
+          //- The divider and the sidebar hamburger, at the end of the username.
+            They were the last item of the second header bar; they are here
+            because this bar is the one that is always on screen, and because
+            what the hamburger opens - the right sidebar - is now where a page
+            keeps its controls.
+          if hasSidebar
+            .board-header-btns.header-sidebar-toggle
+              .separator
+              a.board-header-btn.js-toggle-page-sidebar(title="{{_ 'sidebar-open'}} {{_ 'or'}} {{_ 'sidebar-close'}}")
+                i.fa.fa-bars
 
   //- The second bar renders ONLY where a page still has one. Most pages have
     none now - their title is in the bar above and their controls are in a

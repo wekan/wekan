@@ -444,6 +444,11 @@ test('the bar wraps rather than clipping, and its end group hugs the end', () =>
     // of the bar's items.
     if (!sels.some(x => /^[.\w-]*\s*#header-quick-access(\s+[.#][\w-]+)?$/.test(x)
       || x.endsWith('.header-quick-access-end'))) continue;
+    // ONE exception, and it is deliberate: the account group - the seam
+    // divider, help, your account and the sidebar toggle - is aligned to the
+    // end of the bar. Everything before it belongs to the page and reads in
+    // source order from the start; these are not about the page at all.
+    if (sels.some(x => x.endsWith('.header-account-group'))) continue;
     const body = rule[2].replace(/\/\*[\s\S]*?\*\//g, '');
     assert.ok(!/margin(-inline)?(-start|-left|-right|-end)?:\s*auto/.test(body),
       `${sels.join(', ')} pushes items with an auto margin`);
