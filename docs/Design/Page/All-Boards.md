@@ -52,6 +52,28 @@ gesture is the one already in the reader's hand; the alternative was three click
 through Multi-Selection. It asks first, because a drop is easy to make by
 accident — a board dragged to reorder that lands one row low.
 
+## The pane's heading
+
+The right pane opens with a **heading naming the section you are looking at** —
+Starred, Remaining, Home, Templates, Archive, or a workspace's own name. The
+page is five lists of boards under one name, and without it the pane began with
+board tiles and nothing said which list they were.
+
+It is the Admin Panel's **own** `paneTitle` template with the **same**
+`.admin-pane-title` class, so the two pages have one heading at one size and
+colour rather than two written twice that drift apart. Only the space below it
+is set here: the Admin Panel's gap rule is scoped to its own `.main-body` and
+does not reach this page.
+
+Drawn **once, above the view branch**: the board icons and the Table are two
+ways of showing the same section, not two sections.
+
+Its words are the section's own **title key** — the same key the first header
+bar names the page with, and the same one the highlighted menu row carries — so
+all three say the same thing. A **workspace** is the exception: its name is what
+somebody typed, so it is passed as a label and never goes through the
+translator, because a workspace called "starred" is not the Starred section.
+
 ## Which section the page opens on
 
 Starred was always the landing section, and on an account that has starred

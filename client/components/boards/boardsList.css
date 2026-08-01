@@ -571,6 +571,22 @@
   min-width: 0;
 }
 
+/* The pane's heading: which list of boards this is.
+   The SIZE and COLOUR come from `.admin-pane-title` (settingBody.css), the one
+   heading style every Admin Panel pane uses - so the two pages have one heading
+   rather than two that drift apart. Only the space below it is set here: that
+   part of the Admin Panel's rule is scoped to its own `.main-body`, and without
+   this the title would sit directly on top of the first row of board tiles.
+   The board tiles carry a 7px margin of their own, so 12px of margin here plus
+   that 7px is the same gap the Admin Panel's 12px gives above a flush pane.
+   docs/Design/Page/All-Boards.md */
+.boards-right-grid > .admin-pane-title {
+  margin-bottom: 12px;
+  /* The pager and the tiles below start at the tiles' own 7px inset, so the
+     heading lines up with the first tile instead of hanging to its left. */
+  margin-inline-start: 7px;
+}
+
 /* The close ✕ is `position: absolute` (sidebar.css), so it takes no height and
    the `.sidebar-actions` row it sits in collapses to its own 10px of padding.
    On a board that row also holds the keyboard-shortcuts buttons, which give it

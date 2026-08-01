@@ -15,6 +15,8 @@ import {
   menuSectionOrder,
   workspaceIdForSlugPath,
   allBoardsPathForMenu,
+  sectionTitleKey,
+  SECTION_WORKSPACES,
 } from '/models/lib/allBoardsUrls';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { BoardMultiSelection } from '/client/lib/boardMultiSelection';
@@ -1110,6 +1112,33 @@ Template.boardList.helpers({
       extraClass: '',
       ...meta[type],
     }));
+  },
+
+  // The heading at the top of the right pane: which list of boards you are
+  // looking at.
+  //
+  // The same `paneTitle` template and the same `.admin-pane-title` class the
+  // Admin Panel's panes use, so the two pages have ONE heading at one size and
+  // colour rather than two that drift apart. Its words are the section's own
+  // title key - the same key the first header bar names the page with, and the
+  // same one the highlighted menu row carries - so all three say the same
+  // thing. docs/Design/Page/All-Boards.md
+  //
+  // `{ titleKey }` for a section, `{ label }` for a workspace: a workspace's
+  // name is what somebody typed, and a workspace called "starred" is not the
+  // Starred section, so it must not go through the translator.
+  allBoardsPaneTitle() {
+    const tpl = Template.instance();
+    const sel = tpl.selectedMenu.get();
+    if (!sel || ALL_BOARDS_SECTIONS.includes(sel)) {
+      return { titleKey: sectionTitleKey(sel) };
+    }
+    const node = findSpace(tpl.workspacesTreeVar.get() || [], sel);
+    return node && node.name
+      ? { label: node.name }
+      // The tree has not arrived yet, or the workspace is gone: the section it
+      // belongs to still names the pane, rather than leaving it blank.
+      : { titleKey: sectionTitleKey(SECTION_WORKSPACES) };
   },
 
   // The bookmarks, drawn as tiles beside the starred boards. Only in Starred:

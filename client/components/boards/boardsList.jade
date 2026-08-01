@@ -89,6 +89,13 @@ template(name="boardList")
         menu and the actions on a selection - is in the right sidebar, and the
         page is named by the FIRST header bar. docs/Design/Page/All-Boards.md
       .boards-right-grid
+        //- The heading of the pane: which list of boards this is. It sits above
+          the view branch, so it is drawn ONCE whichever view is on - the board
+          icons and the Table are two ways of showing the same section, not two
+          sections.
+          The Admin Panel's own `paneTitle`, so the two pages have one heading
+          at one size and colour. docs/Design/Page/All-Boards.md
+        +paneTitle(allBoardsPaneTitle)
         //- The Archive is a SECTION of this page, drawn here beside the left
           menu, not a page of its own that replaces it - and drawn with the same
           board ICONS every other section uses. It had a table of its own, which

@@ -483,6 +483,68 @@ test('the design doc says what is different and links to the shared one', () => 
     'Table.md must list the All Boards table among the pages that use it');
 });
 
+test('the right pane opens with a heading, the Admin Panel\'s own', () => {
+  // xet7: "there should be title at top, like there is at Admin Panel /
+  // Version right page title Version, with same font color and size".
+  //
+  // The SAME template and the SAME class, not a copy of the styling: two
+  // headings written twice are two headings that drift apart, and the size and
+  // colour are exactly what was asked to match.
+  const jade = read('client/components/boards/boardsList.jade');
+  assert.ok(/\+paneTitle\(allBoardsPaneTitle\)/.test(jade),
+    "the pane title is the Admin Panel's own template");
+  const paneTitle = read('client/components/settings/leftMenu.jade');
+  assert.ok(/template\(name="paneTitle"\)/.test(paneTitle), 'which exists');
+  assert.ok(/h1\.admin-pane-title/.test(paneTitle), 'and carries the one heading class');
+  // Size and colour live in ONE place, and it is not this page.
+  const adminCss = read('client/components/settings/settingBody.css');
+  const rule = adminCss.slice(adminCss.indexOf('.admin-pane-title {'),
+    adminCss.indexOf('}', adminCss.indexOf('.admin-pane-title {')));
+  assert.ok(/font-size:/.test(rule) && /color:/.test(rule),
+    'the shared class is what sets the size and the colour');
+  const boardsCss = read('client/components/boards/boardsList.css');
+  const own = boardsCss.slice(boardsCss.indexOf('.boards-right-grid > .admin-pane-title {'));
+  const ownBody = own.slice(0, own.indexOf('}'));
+  assert.ok(!/font-size|font-weight|(^|[^-])\bcolor:/.test(ownBody),
+    'this page sets only the spacing - restating the size or colour here is how '
+    + 'the two headings would drift apart');
+  assert.ok(/margin-bottom/.test(ownBody),
+    "...and it must set that, because the Admin Panel's own gap rule is scoped "
+    + 'to its main-body and does not reach this page');
+
+  // ONE title, above the view branch: the board icons and the Table are two
+  // ways of showing the same section, not two sections.
+  const grid = jade.slice(jade.indexOf('.boards-right-grid'), jade.indexOf('each boards'));
+  assert.ok(grid.indexOf('+paneTitle') < grid.indexOf("if isAllBoardsView 'table'"),
+    'drawn once, whichever view is on');
+  assert.strictEqual((jade.match(/\+paneTitle/g) || []).length, 1, 'and only once');
+});
+
+test('...and every section of the page has a title to show', () => {
+  const { ALL_BOARDS_SECTIONS, sectionTitleKey } =
+    require('../models/lib/allBoardsUrls');
+  const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
+  // Every section, not just the ones that had a heading before: the request was
+  // "update this at all right pages at All Boards page".
+  for (const section of ALL_BOARDS_SECTIONS) {
+    const key = sectionTitleKey(section);
+    assert.ok(key, `${section} must have a title key`);
+    assert.ok(en[key], `${section}: ${key} must be translated`);
+  }
+  // The heading, the first header bar and the highlighted menu row all read the
+  // SAME key, so a section is never named two ways on one screen.
+  const js = read('client/components/boards/boardsList.js');
+  const helper = js.slice(js.indexOf('  allBoardsPaneTitle() {'),
+    js.indexOf('  // The bookmarks, drawn as tiles'));
+  assert.ok(/sectionTitleKey\(sel\)/.test(helper), 'the heading reads that key');
+  // A WORKSPACE is named by what somebody typed, so it must not be translated -
+  // a workspace called "starred" is not the Starred section.
+  assert.ok(/label: node\.name/.test(helper), 'a workspace shows its own name');
+  assert.ok(/titleKey: sectionTitleKey\(SECTION_WORKSPACES\)/.test(helper),
+    'and a workspace that is gone, or a tree that has not arrived, still names '
+    + 'the pane rather than leaving it blank');
+});
+
 for (const [name, fn] of tests) {
   try { fn(); passed++; console.log('  ok -', name); }
   catch (err) { console.error(`  FAIL - ${name}\n    ${err.message}`); process.exitCode = 1; }
