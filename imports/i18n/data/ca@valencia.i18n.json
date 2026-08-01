@@ -1324,7 +1324,7 @@
   "hide-minicard-label-text": "Amaga el text de l'etiqueta de la minifitxa",
   "show-desktop-drag-handles": "Mostra les nanses d'arrossegament de l'escriptori",
   "drag-to-resize-sidebar": "Arrossega per canviar l'amplària de la barra lateral",
-  "drag-to-resize-left-menu": "Drag to resize left menu",
+  "drag-to-resize-left-menu": "Arrossega per canviar l'amplària del menú esquerre",
   "submit-on-enter": "Envia els editors amb Enter",
   "open-many-cards-at-once": "Obre moltes fitxes alhora",
   "open-many-cards-at-once-description": "Cada fitxa on feu clic es manté oberta en una finestra pròpia. Quan això està desactivat, fer clic en una fitxa tanca la que estava oberta.",

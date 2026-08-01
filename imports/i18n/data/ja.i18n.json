@@ -1324,7 +1324,7 @@
   "hide-minicard-label-text": "ミニカードのラベル名を隠す",
   "show-desktop-drag-handles": "デスクトップへのドラッグハンドルを表示",
   "drag-to-resize-sidebar": "ドラッグしてサイドバーのサイズを変更",
-  "drag-to-resize-left-menu": "Drag to resize left menu",
+  "drag-to-resize-left-menu": "ドラッグして左メニューのサイズを変更",
   "submit-on-enter": "Enter でエディターを送信",
   "open-many-cards-at-once": "複数のカードを同時に開く",
   "open-many-cards-at-once-description": "クリックしたカードをそれぞれのウィンドウで開いたままにします。オフのときは、カードをクリックすると開いていたカードが閉じます。",
