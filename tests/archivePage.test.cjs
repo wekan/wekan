@@ -267,6 +267,24 @@ test('and the All Boards menu is styled like the Admin Panel one', () => {
   assert.ok(/color: #fff/.test(boards.slice(activeAt, activeAt + 900)),
     'and its label and icon go white');
 
+  // A selected WORKSPACE is the same kind of selection and gets the same
+  // treatment. It was left on the old flat #f0f0f0 when the rows above it were
+  // themed, so picking a workspace looked like nothing had been picked.
+  const wsAt = boards.indexOf('.workspace-node.active > .workspace-node-content .js-select-space,');
+  assert.notStrictEqual(wsAt, -1, 'the selected workspace is styled');
+  const ws = boards.slice(wsAt, boards.indexOf('}', wsAt));
+  assert.ok(/background: var\(--theme-accent, #2980b9\)/.test(ws),
+    'filled with the theme, like the menu row above it');
+  assert.ok(/\.workspace-node\.active > \.workspace-node-content:hover/.test(ws),
+    'hover listed on the active rule, or the white hover below washes it out');
+  assert.ok(/color: #fff/.test(boards.slice(wsAt, wsAt + 900)),
+    'and its label and icon go white');
+  // Its count keeps contrast against the fill.
+  const countAt = boards.indexOf('.workspace-node.active .workspace-count {');
+  const count = boards.slice(countAt, boards.indexOf('}', countAt));
+  assert.ok(/rgba\(255, 255, 255/.test(count),
+    'a light pill on the accent, not the mid-grey that worked on white');
+
   // The ROWS are laid out like the Admin Panel's too, not only coloured like
   // them. A selected row there is a block across the menu; here it was a
   // rounded pill floating inside a padded panel, which is a different-looking
@@ -371,6 +389,23 @@ test('and the page content clears the window edge', () => {
   // Logical, so a right-to-left layout insets the side that is actually far.
   assert.ok(/padding-inline-end:\s*\d+px/.test(rule), 'with a LOGICAL padding');
   assert.ok(!/padding-right/.test(rule), 'not a physical one');
+
+  // ...and it starts on the same line the menu's first ROW does, rather than
+  // flush against the header - the boards, the archive's search field and its
+  // pager all began at the very top, so the first tile looked cut off while the
+  // highlighted menu row beside it had a clear edge.
+  const top = /padding-block-start:\s*(\d+)px/.exec(rule);
+  assert.ok(top, 'the column is offset from the header');
+  // Read here rather than borrowed: this test has `css`, not the other's names.
+  const menuAt = css.indexOf('.boards-left-menu {');
+  const menuRule = css.slice(menuAt, css.indexOf('}', menuAt));
+  const panelTop = /padding-block-start:\s*(\d+)px/.exec(menuRule);
+  const rowAt3 = css.indexOf('.boards-left-menu .menu-item {');
+  const rowMargin = /margin:\s*(\d+)px/.exec(css.slice(rowAt3, css.indexOf('}', rowAt3)));
+  assert.ok(panelTop && rowMargin, 'the menu\'s own offset is readable');
+  assert.strictEqual(Number(top[1]), Number(panelTop[1]) + Number(rowMargin[1]),
+    'and it is the menu\'s panel padding plus its row margin, not a number '
+    + 'picked to look right once');
   // On the COLUMN, not back on the wrapper: the wrapper holds the menu too, and
   // an inset there would push the menu off the edge it must sit against.
   const wrapAt = css.indexOf('#content > .wrapper.all-boards-wrapper {');
@@ -395,7 +430,11 @@ test('and a disabled pager is dimmed, not erased', () => {
   const opacity = /opacity:\s*([\d.]+)/.exec(rule);
   assert.ok(opacity, 'a disabled pager is dimmed');
   const value = Number(opacity[1]);
-  assert.ok(value >= 0.5, `${value} is too faint for a light theme accent`);
+  // The button is FILLED with the theme, so dimming is what takes the theme
+  // back out of it: at 0.4 the belize blue arrived on the page's grey as a pale
+  // wash with no resemblance to the header above. It has to stay recognisably
+  // the theme colour and still read as flatter than an enabled button.
+  assert.ok(value >= 0.8, `${value} dims the theme colour out of the button`);
   assert.ok(value < 1, `${value} would not read as disabled at all`);
   // It still has to be weaker than an enabled one - that is the rule's job.
   assert.ok(/pointer-events:\s*none/.test(rule), 'and is not clickable');

@@ -31,6 +31,13 @@
    a right-to-left layout insets the side that is actually the far one. */
 .boards-layout > .boards-right-grid {
   padding-inline-end: 14px;
+  /* The same distance from the top that the menu's FIRST ROW sits at - the
+     panel's 8px of top padding plus the row's own 2px margin. The boards, the
+     archive's search field and its pager all began flush against the header,
+     so the first tile looked cut off at the top while the highlighted menu row
+     beside it had a clear edge. Matching the menu rather than picking a number
+     means the two columns start on the same line. */
+  padding-block-start: 10px;
 }
 
 .boards-layout {
@@ -401,13 +408,33 @@
   font-weight: 600;
 }
 
+/* The selected workspace is filled with the theme, exactly as the selected menu
+   row above it is - it is the same kind of selection, and it was left on the
+   old flat #f0f0f0 when the rows were themed.
+
+   `:hover` is listed on the active rule for the same reason it is up there: the
+   hover rule below sets a white background at equal specificity, and being
+   later in the file it would wash the selected workspace back to white as soon
+   as the pointer crossed it. */
 .workspace-node.active > .workspace-node-content .js-select-space,
+.workspace-node.active > .workspace-node-content:hover .js-select-space {
+  background: var(--theme-accent, #2980b9);
+}
+.workspace-node.active > .workspace-node-content .js-select-space,
+.workspace-node.active > .workspace-node-content .js-select-space i {
+  /* Not `inherit`: that is what left the Admin Panel's selected entry the same
+     grey as an unselected one, on a background that is now dark. */
+  color: #fff;
+}
 .workspace-node > .workspace-node-content:hover .js-select-space {
-  background: #f0f0f0;
+  background: #fff;
 }
 
+/* The count keeps its contrast against the filled row: a light pill on the
+   accent, rather than the mid-grey that worked on white and disappears here. */
 .workspace-node.active .workspace-count {
-  background: #bbb;
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
 }
 
 .boards-right-grid {

@@ -108,15 +108,16 @@
 }
 
 /* Disabled = the same themed outline, faded. Not a grey block. */
-/* A disabled pager still has to be READABLE. 0.4 was chosen when every theme
-   accent was a deep colour - the WeKan blue, belize, midnight - where four
-   tenths of it still reads on a light page. The colour-slide themes are built
-   on light bases (cleargreen #4bbf6b, clearorange #e67e22), and at 0.4 an
-   outline in one of those on the page's own near-white all but disappears: on
-   a one-page list, where BOTH arrows are disabled, the pager looked broken
-   rather than exhausted.
-   0.55 is still visibly weaker than an enabled button beside it - which is the
-   whole job of this rule - without being a ghost. docs/Design/Page/Theme.md */
+/* A disabled pager still has to look like the THEME. It is filled with the
+   theme colour, and dimming it is what takes the theme back out: at 0.4 the
+   belize blue #2980b9 arrived on the page's grey as rgb(122,170,202), a pale
+   wash with no family resemblance to the header above it - and on a one-page
+   list, where BOTH arrows are disabled, that is the whole pager.
+
+   0.85 keeps the colour recognisable, rgb(68,142,191), while still being
+   visibly flatter than an enabled button beside it, which is the only thing
+   this rule is for. The `pointer-events: none` below is what actually makes it
+   unusable; the dimming only has to SAY so. docs/Design/Page/Theme.md */
 .table-page-pagination button.disabled,
 .boards-pagination button.disabled,
 .table-view-pagination button.disabled {
@@ -124,7 +125,7 @@
   background-image: none;
   border-color: transparent;
   color: #fff;
-  opacity: 0.55;
+  opacity: 0.85;
   pointer-events: none;
 }
 
