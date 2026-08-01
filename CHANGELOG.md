@@ -266,6 +266,47 @@ browser build to verify).
 This release adds the following new features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1f2044219a0625a4d8d2de752dd4da2b4c5e5078">Starred: bookmarks to any page, not only to boards</a>. Thanks to xet7.</summary>
+
+The star group in the first header bar is a **bookmarks menu** now: the caret
+that opens the list, the count of what is in it, and the star that says whether
+the thing you are looking at is among them.
+
+It held boards only. A board could be starred and reached from the dropdown;
+every other page - All Boards / Remaining, a workspace, Admin Panel / Settings /
+Version - could not, so the one control for "keep this where I can get at it"
+worked on one kind of destination and was simply absent on the rest, even though
+those pages have had their own addresses since the All Boards and Admin Panel
+URLs landed.
+
+The star on any other page now stars **that page**. A bookmark is a relative URL
+and the title from the browser tab: relative so it survives the site moving to
+another host, and an absolute or protocol-relative URL is refused rather than
+cleaned up, because what is stored goes into an `href` the reader clicks.
+
+**The browser tab says where you are** - `Product name - All Boards / Remaining`
+- instead of only the product name. Ten open tabs of one WeKan were ten
+identical tabs, and a bookmark of any of them was named after the whole app
+rather than after the page. The path is the one the header bar already computes
+for the page title's tooltip, published rather than worked out twice.
+
+In **All Boards / Starred** the bookmarks are tiles beside the starred boards,
+with the white border the template-container tile carries, the theme's own
+colour behind them, and both the title and the URL - the title says where it
+goes, the address says what it is. Each tile has its own unstar button, since
+the star in the header bar stars the page you are on.
+
+**Dragging a tile past another reorders them**, and that is the order of the
+header dropdown: the two are views of one array. The move matches both ends by
+URL rather than by index, because the two views are rendered separately and an
+index from one of them is a guess about the other. The list is capped at 50,
+oldest dropped, because it is a dropdown.
+
+Documented in [Starred](https://github.com/wekan/wekan/blob/main/docs/Features/Board/Starred.md).
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/28a5973c6b00d85a4c2a24e608e6dfd777a36df4">The first header bar starts where the left menus start</a>. Thanks to xet7.</summary>
 
 The All Boards and Admin Panel left menus indent a row by 4px of row margin plus
