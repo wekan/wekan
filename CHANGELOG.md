@@ -266,6 +266,24 @@ browser build to verify).
 This release adds the following new features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/28a5973c6b00d85a4c2a24e608e6dfd777a36df4">The first header bar starts where the left menus start</a>. Thanks to xet7.</summary>
+
+The All Boards and Admin Panel left menus indent a row by 4px of row margin plus
+18px of link padding, so a row's icon lands 22px from the window edge. The first
+header bar sat flush against the edge, so its home icon started 10px in and
+every button under it was a little to the left of the menu below.
+
+The bar now carries a 12px inline gutter: 12 + 4 + 6 = 22, the same x as the
+menu rows. It is on the BAR rather than on its first item because the bar wraps
+- padding applies to every row it wraps onto, while a margin on the first item
+would indent the first row and leave the second starting at the edge. The number
+is a variable so it has one home, and the phone overrides use it too rather than
+putting the bar back against the edge at the widths where the alignment matters
+most.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/eea1f2ffed4af635c67659f176353de57b0d4040">All Boards: Home, a section for the board that opens after login</a>. Thanks to xet7.</summary>
 
 One board can be Home: logging in opens it instead of the All Boards page. That
