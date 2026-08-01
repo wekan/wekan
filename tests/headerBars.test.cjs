@@ -820,12 +820,35 @@ test('and a view menu says its view in words, not only in a tooltip', () => {
   // measurement exists for.
   assert.ok(/bar\.classList\.contains\('header-keeps-text'\)/.test(utils),
     'a page can opt out of the measurement');
-  const fitBody = utils.slice(utils.indexOf('const fitHeaderLabels = () => {'));
+  const fitBody = utils.slice(utils.indexOf('const fitHeaderLabels = () => {'),
+    utils.indexOf('\n  };', utils.indexOf('const fitHeaderLabels = () => {')));
+  // The opt-out path SHOWS the labels before returning. Without that, a page
+  // that opts out would inherit whatever the previous page's measurement left
+  // on the bar - so a link from a narrow board to All Boards would land there
+  // with its names hidden.
   const optOutAt = fitBody.indexOf("contains('header-keeps-text')");
-  const removeAt = fitBody.indexOf('classList.remove(LABELS_HIDDEN)');
-  assert.ok(removeAt !== -1 && removeAt < optOutAt,
-    'and the labels are SHOWN before it returns, or a page that opts out keeps '
-    + 'whatever the previous page measured');
+  assert.notStrictEqual(optOutAt, -1, 'a page can opt out');
+  const optOut = fitBody.slice(optOutAt, fitBody.indexOf('}', optOutAt));
+  assert.ok(/classList\.remove\(LABELS_HIDDEN\)/.test(optOut),
+    'and opting out shows the labels rather than leaving the last page\'s answer');
+
+  // The measurement is skipped when the width has not changed. Measuring means
+  // showing the labels and possibly hiding them again, which RESIZES the
+  // observed element - so measuring on every notification wrote on every
+  // notification and the observer never settled, which the browser reports as
+  // "ResizeObserver loop completed with undelivered notifications".
+  assert.ok(/let fittedAtWidth = null/.test(utils), 'the last measured width is remembered');
+  assert.ok(/if \(width === fittedAtWidth\) return/.test(fitBody),
+    'and an unchanged width is not re-measured, so the steady state writes nothing');
+  // ...and the write happens a frame later, not inside the observer's callback.
+  assert.ok(/const scheduleFitHeaderLabels = \(\) => \{/.test(utils),
+    'the fit is scheduled');
+  assert.ok(/requestAnimationFrame\(run\)/.test(utils), 'on the next frame');
+  const publishAt = utils.indexOf('const publishHeaderHeight = () => {');
+  const publish = utils.slice(publishAt, utils.indexOf('\n  };', publishAt));
+  assert.ok(/scheduleFitHeaderLabels\(\)/.test(publish)
+    && !/^\s*fitHeaderLabels\(\);/m.test(publish),
+    'the observer schedules it rather than writing from inside its own callback');
   // Which page it is comes from the route, in the header - this file knows only
   // about boxes.
   assert.ok(jade.includes('{{#if keepsText}}header-keeps-text{{/if}}'),

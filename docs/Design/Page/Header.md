@@ -138,6 +138,14 @@ answer "it fits", show them again, and do that once per frame forever. Removing
 the class first costs one reflow per resize and is the whole reason it cannot
 oscillate.
 
+It re-measures **only when the bar's width has changed**, and the write happens a
+frame later rather than inside the `ResizeObserver` callback. Measuring means
+showing the labels and possibly hiding them again, which *resizes the element
+being observed* — so measuring on every notification wrote on every notification
+and the observer never settled, which the browser reports as *ResizeObserver loop
+completed with undelivered notifications*. With the width remembered, a bar that
+has not changed writes nothing at all.
+
 A label never wraps mid-button — two lines inside a one-line button is worse than
 the tooltip was — and each one uses the **same translation key as its own
 tooltip**, so a button and its tooltip cannot say different things, and a button

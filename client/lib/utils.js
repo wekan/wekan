@@ -1024,22 +1024,62 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
     return items.some(item => Math.abs(centre(item) - first) > 6);
   };
 
+  // The width the labels were last measured at, so a bar that has not changed
+  // width is not re-measured. This is what stops the ResizeObserver looping:
+  // measuring means showing the labels and possibly hiding them again, which
+  // RESIZES the element being observed, so measuring on every notification
+  // produced a write on every notification and the observer never settled -
+  // the browser reports that as "ResizeObserver loop completed with undelivered
+  // notifications". Re-measuring only when the width actually changed makes the
+  // steady state write nothing at all.
+  let fittedAtWidth = null;
+
   const fitHeaderLabels = () => {
     const bar = document.getElementById('header-quick-access');
     if (!bar) return;
-    bar.classList.remove(LABELS_HIDDEN);
+
     // Some pages keep their names at every width. The class is set by the
     // header from the route (client/components/main/header.js) rather than
     // decided here: which page you are on is the header's business, and this
     // file knows only about boxes.
-    if (bar.classList.contains('header-keeps-text')) return;
+    if (bar.classList.contains('header-keeps-text')) {
+      bar.classList.remove(LABELS_HIDDEN);
+      fittedAtWidth = null;
+      return;
+    }
+
+    const width = bar.clientWidth;
+    if (width === fittedAtWidth) return;
+    fittedAtWidth = width;
+
+    // Always measured from the SHOWN state: hiding the labels is what makes the
+    // bar fit, so measuring after hiding would say "it fits" and show them
+    // again. `remove` on a class that is not there is not a mutation, so the
+    // common case writes nothing.
+    bar.classList.remove(LABELS_HIDDEN);
     // Read a layout property so the removal is applied before the measurement.
     void bar.offsetHeight;
     if (barHasWrapped(bar)) bar.classList.add(LABELS_HIDDEN);
   };
 
+  // Scheduled, not called inline: `fitHeaderLabels` writes to the element the
+  // ResizeObserver is watching, and doing that inside its own callback is what
+  // the "undelivered notifications" warning is about. A frame later the write
+  // is an ordinary one, and the resize it causes is delivered normally.
+  let fitScheduled = false;
+  const scheduleFitHeaderLabels = () => {
+    if (fitScheduled) return;
+    fitScheduled = true;
+    const run = () => { fitScheduled = false; fitHeaderLabels(); };
+    if (typeof window.requestAnimationFrame === 'function') {
+      window.requestAnimationFrame(run);
+    } else {
+      setTimeout(run, 0);
+    }
+  };
+
   const publishHeaderHeight = () => {
-    fitHeaderLabels();
+    scheduleFitHeaderLabels();
     let bottom = 0;
     for (const id of HEADER_IDS) {
       const el = document.getElementById(id);
