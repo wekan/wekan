@@ -1907,26 +1907,17 @@
   padding-inline-end: 8px;
 }
 
-/* #6523: on a phone (either orientation) the count chip sits right after its
-   label, not pushed to the far edge. The menu item is `justify-content:
-   space-between` with a `flex: 1` label, which spreads the label and the count
-   apart across the whole column - fine on a narrow portrait menu, but a wide gap
-   on a landscape iPhone where the column is wider. Packing them left keeps the
-   number beside the text at any menu width. Scoped to the mobile layout so the
-   desktop 260px menu is untouched. */
+/* The counts line up in ONE COLUMN, at every width.
+   #6523 had packed them next to their labels on a phone - the number beside the
+   text rather than across a gap - and that is what this reverses. Starred, Home,
+   Templates and Archive have labels of four different lengths, so a count that
+   follows its label lands at four different x positions and the column of
+   numbers reads as ragged rather than as a column at all. The row keeps the
+   `justify-content: space-between` and the `flex: 1` label the base rule gives
+   it, at every width, so every count sits at the end of its row and they align
+   with each other. */
 @media screen and (max-width: 800px),
        screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
-  .boards-left-menu .menu-item a {
-    justify-content: flex-start;
-    gap: 8px;
-  }
-  .boards-left-menu .menu-item .menu-label {
-    flex: 0 1 auto;
-  }
-  /* No extra left margin now that a flex `gap` sets the spacing. */
-  .boards-left-menu .menu-item .menu-count {
-    margin-inline-start: 0;
-  }
 
   /* The workspace row packs a drag handle, a folder icon, the NAME, a "bars" menu
      button and a count chip. Told only to "give way to the fixed items", the name

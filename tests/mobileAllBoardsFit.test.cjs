@@ -173,4 +173,36 @@ test('the left menu fits its column, so it cannot lie over the boards', () => {
     'the boards column shrinks to its track too');
 });
 
+test('the board counts line up in one column, at every width', () => {
+  // xet7, from an iPhone 12 mini: "count of boards should be at same x
+  // position, of Starred, Home, Templates, Archive".
+  //
+  // Those four labels are four different lengths, so a count that follows its
+  // label lands at four different x positions and the column of numbers reads
+  // as ragged. #6523 had packed them that way on a phone deliberately - the
+  // number beside the text rather than across a gap - and this is the reversal.
+  const boards = read('client/components/boards/boardsList.css');
+  const code = boards.replace(/\/\*[\s\S]*?\*\//g, '');
+  const rules = [...code.matchAll(/([^{}]+)\{([^{}]*)\}/g)];
+
+  // The row spreads its two children apart, and the label takes the slack -
+  // which is what puts every count at the END of its row.
+  const rowRules = rules.filter(r => r[1].trim() === '.boards-left-menu .menu-item a');
+  assert.ok(rowRules.some(r => /justify-content: space-between/.test(r[2])),
+    'the row spreads label and count apart');
+  assert.ok(rules.some(r => r[1].trim() === '.boards-left-menu .menu-item .menu-label'
+    && /flex: 1/.test(r[2])), 'and the label takes the slack');
+
+  // ...and NOTHING may take that back at a narrower width. A phone override is
+  // exactly how they came to be ragged in the first place.
+  for (const r of rowRules) {
+    assert.ok(!/justify-content: flex-start/.test(r[2]),
+      'no width may pack the row from the start - that is what ragged looks like');
+  }
+  for (const r of rules.filter(r => /\.menu-item \.menu-label$/.test(r[1].trim()))) {
+    assert.ok(!/flex: 0/.test(r[2]),
+      'and none may stop the label taking the slack');
+  }
+});
+
 console.log(`\n${passed} tests passed`);
