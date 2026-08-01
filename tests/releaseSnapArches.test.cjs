@@ -314,4 +314,27 @@ test('every platform is in all the places that build it', () => {
     'buildx builds exactly the platforms the push is then checked for');
 });
 
+test('a remote build that never starts still says why', () => {
+  // v10.55 riscv64 failed three times with one line and nothing else:
+  //   "Git operation failed with: Could not push 'HEAD' to git.launchpad.net/..."
+  // The build never started, so there was no Launchpad build log to print - and
+  // snapcraft had put git's own message in its execution log, named it in the
+  // output, and nobody read it.
+  const launchpad = job('snap-launchpad');
+  assert.ok(/\.local\/state\/snapcraft\/log/.test(launchpad),
+    "snapcraft's own execution log must be printed when an attempt fails");
+  assert.ok(/snapcraft-wekan-\*\.txt/.test(launchpad),
+    'and the Launchpad build log, for the builds that did start');
+
+  // A retry has to start from nothing: snapcraft keeps a local clone of the
+  // Launchpad repository, and reusing a half-pushed one repeats the failure -
+  // which is what three identical attempts sixteen minutes apart look like.
+  assert.ok(/rm -rf "\$HOME\/\.cache\/snapcraft\/remote-build"/.test(launchpad),
+    'the remote-build cache is cleared between attempts');
+  const clearAt = launchpad.indexOf('rm -rf "$HOME/.cache/snapcraft/remote-build"');
+  const sleepAt = launchpad.indexOf('sleep 60');
+  assert.ok(clearAt !== -1 && clearAt < sleepAt,
+    '...before the wait, so the next attempt starts clean rather than after it');
+});
+
 console.log(`\n${passed} tests passed`);

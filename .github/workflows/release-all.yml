@@ -2317,7 +2317,26 @@ jobs:
               tail -n 150 "$log"
               echo "::endgroup::"
             done
+            # ...and there is no Launchpad build log at all when the build never
+            # STARTED. v10.55 riscv64 failed three times on
+            #   "Git operation failed with: Could not push 'HEAD' to
+            #    git.launchpad.net/.../+git/snapcraft-wekan-<hash>"
+            # and that one line was everything the job printed: snapcraft
+            # swallows git's own message and writes it to its execution log,
+            # whose path it names and nobody reads. Read it.
+            for sclog in "$HOME"/.local/state/snapcraft/log/*.log; do
+              [ -e "$sclog" ] || continue
+              echo "::group::snapcraft execution log: $(basename "$sclog") (last 120 lines)"
+              tail -n 120 "$sclog"
+              echo "::endgroup::"
+            done
             if [ "$i" -lt "$attempts" ]; then
+              # Start the next attempt from nothing. snapcraft keeps a local
+              # clone of the Launchpad repository under ~/.cache, and a retry
+              # that reuses a half-pushed one repeats the same failure - which is
+              # what three identical attempts sixteen minutes apart look like.
+              echo "Clearing snapcraft's remote-build cache before retrying."
+              rm -rf "$HOME/.cache/snapcraft/remote-build"
               echo "Retrying in 60s..."
               sleep 60
             fi
