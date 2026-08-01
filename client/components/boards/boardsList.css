@@ -391,9 +391,88 @@
   margin-inline-end: 10px;
 }
 
+/* One step of indentation per level, and no limit on the levels: the template
+   draws itself again for a workspace's children, so the depth of the tree is
+   whatever has been dragged into whatever.
+   `padding-inline-start`, so a right-to-left language indents from the right by
+   itself rather than needing a second rule kept in step.
+   docs/Design/Page/Workspaces.md */
 .workspace-tree {
   list-style: none;
   padding-inline-start: 10px;
+}
+/* A NESTED tree is indented further than the outermost one, which sits against
+   the menu's own edge: 16px is one caret's width, so a child's caret lines up
+   under its parent's name rather than under its parent's caret. */
+.workspace-tree .workspace-tree {
+  padding-inline-start: 16px;
+}
+
+/* The caret that folds a workspace's own workspaces away. The same control the
+   left menu and a board's list have, and the same two words in its tooltip.
+   Drawn only when there ARE children; a row without them keeps the spacer below,
+   so a row does not shift sideways the moment it gains its first child. */
+.workspace-collapse-indicator,
+.workspace-collapse-spacer {
+  flex: 0 0 auto;
+  width: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.workspace-collapse-indicator {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.7;
+  font-size: 12px;
+}
+.workspace-collapse-indicator:hover {
+  opacity: 1;
+}
+.workspace-collapse-indicator:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 1px;
+}
+
+/* ── Where a dragged workspace would land ────────────────────────────────────
+   The three drops a row offers, drawn on the row itself while the pointer is
+   over it:
+
+     drop-before / drop-after - an empty SLOT opens above or below the row, the
+       height of a row, so there is somewhere visibly free to drop into rather
+       than a line that has to be aimed at;
+     drop-inside - the row lights up and the slot opens INDENTED under it, which
+       is where the workspace will appear: as its child.
+
+   docs/Design/Page/Workspaces.md */
+.workspace-node.drop-before > .workspace-node-content,
+.workspace-node.drop-after > .workspace-node-content,
+.workspace-node.drop-inside > .workspace-node-content {
+  /* The row itself does not move while a slot is open beside it: the slot is a
+     pseudo-element of the row, so the rows below shift down and the one being
+     aimed at stays where the pointer put it. */
+  position: relative;
+}
+.workspace-node.drop-before::before,
+.workspace-node.drop-after::after,
+.workspace-node.drop-inside::after {
+  content: '';
+  display: block;
+  height: 30px;
+  border: 2px dashed var(--theme-accent, #2980b9);
+  border-radius: 4px;
+  background: rgba(41, 128, 185, 0.08);
+  margin: 2px 0;
+}
+/* Into this one: the slot is indented by one level, because that is where the
+   workspace will be - under this row, not beside it. */
+.workspace-node.drop-inside::after {
+  margin-inline-start: 16px;
+}
+.workspace-node.drop-inside > .workspace-node-content {
+  background: rgba(41, 128, 185, 0.12);
+  border-radius: 4px;
 }
 
 .workspace-node {

@@ -313,6 +313,11 @@ apart, is a control that has to be kept in step with the menu for no gain.
 
 ### What a workspace row shows
 
+The full design of the workspaces tree - folding, nesting, the drop slots and the
+depth - is [Workspaces](Workspaces.md). What follows is the part of it that is
+about this page's left menu.
+
+
 Icon, name, the ⋯ **menu**, then the **count of boards** in it — the count last,
 at the end of the row, where the counts of the sections above it are too.
 
@@ -398,4 +403,5 @@ controls have their own lists in [Search](Search.md) and
 - [Multi-Selection](Multi-Selection.md) — the shared Multi-Selection control and both views
 - [The Table page design](Table.md) — everything shared by table pages
 - [Public Boards](Public.md) — the other board table, read-only
+- [Workspaces](Workspaces.md) — the tree in the left menu: folding, nesting and the drag
 - [Left menu](Left-Menu.md)

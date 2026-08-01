@@ -438,6 +438,40 @@ export const Utils = {
     }
   },
 
+  // Is this workspace of the All Boards left menu folded? The same three layers
+  // the left menu's own fold uses: a Session value so the caret answers at once,
+  // the user's profile behind it, and a cookie for a reader who is not signed
+  // in. OPEN is the default - a tree that opened folded would hide the
+  // workspaces a reader has never touched.
+  // docs/Design/Page/Workspaces.md
+  getWorkspaceCollapseState(workspaceId) {
+    if (!workspaceId) return false;
+    const key = `collapsedWorkspace-${workspaceId}`;
+    const sessionVal = Session.get(key);
+    if (typeof sessionVal === 'boolean') return sessionVal;
+
+    const user = ReactiveCache.getCurrentUser();
+    const stored = user && user.isWorkspaceCollapsed
+      ? user.isWorkspaceCollapsed(workspaceId)
+      : Users.getPublicCollapsedWorkspaces
+        ? Users.getPublicCollapsedWorkspaces()[workspaceId] === true
+        : false;
+    Session.setDefault(key, stored);
+    return stored;
+  },
+
+  setWorkspaceCollapseState(workspaceId, collapsed) {
+    if (!workspaceId) return;
+    Session.set(`collapsedWorkspace-${workspaceId}`, !!collapsed);
+    if (ReactiveCache.getCurrentUser()) {
+      Meteor.call('setWorkspaceCollapsed', workspaceId, !!collapsed);
+      return;
+    }
+    if (Users.setPublicCollapsedWorkspace) {
+      Users.setPublicCollapsedWorkspace(workspaceId, !!collapsed);
+    }
+  },
+
   getSwimlaneCollapseState(swimlane) {
     if (!swimlane) return false;
     const key = `collapsedSwimlane-${swimlane._id}`;

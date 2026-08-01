@@ -33,8 +33,21 @@ import {
   isAllBoardsView,
 } from '/client/lib/allBoardsView';
 import { EscapeActions } from '/client/lib/escapeActions';
+import { Blaze } from 'meteor/blaze';
 import { Utils } from '/client/lib/utils';
 import '/client/lib/dragDropTouch'; // touch -> HTML5 DnD so board icons drag by finger
+// What a drag does to the workspaces tree - move before, after, or INTO another
+// workspace - as pure functions, so the rules are testable without a browser.
+// docs/Design/Page/Workspaces.md
+const {
+  BEFORE: DROP_BEFORE,
+  AFTER: DROP_AFTER,
+  INSIDE: DROP_INSIDE,
+  dropPosition,
+  hasChildren,
+  moveWorkspace,
+  isNoOpMove,
+} = require('/models/lib/workspacesTree');
 import {
   isDragReorderEnabled,
   computeSortIndexMapping,
@@ -738,60 +751,24 @@ Template.boardList.onCreated(function () {
     TAPi18n.setLanguage(userLanguage);
   }
 
-  this.reorderWorkspaces = (draggedSpaceId, targetSpaceId) => {
+  // A workspace was dropped: before, after, or INTO another one. The tree it
+  // becomes is worked out by the pure module - the guards that keep a subtree
+  // attached to the root live there, with their own tests - and this only saves
+  // the answer. docs/Design/Page/Workspaces.md
+  this.moveWorkspaceInTree = (draggedId, targetId, position) => {
     const tree = this.workspacesTreeVar.get();
-
-    // Helper to remove a space from tree
-    const removeSpace = (nodes, id) => {
-      for (let i = 0; i < nodes.length; i++) {
-        if (nodes[i].id === id) {
-          const removed = nodes.splice(i, 1)[0];
-          return { tree: nodes, removed };
-        }
-        if (nodes[i].children) {
-          const result = removeSpace(nodes[i].children, id);
-          if (result.removed) {
-            return { tree: nodes, removed: result.removed };
-          }
-        }
-      }
-      return { tree: nodes, removed: null };
-    };
-
-    // Helper to insert a space after target
-    const insertAfter = (nodes, targetId, spaceToInsert) => {
-      for (let i = 0; i < nodes.length; i++) {
-        if (nodes[i].id === targetId) {
-          nodes.splice(i + 1, 0, spaceToInsert);
-          return true;
-        }
-        if (nodes[i].children) {
-          if (insertAfter(nodes[i].children, targetId, spaceToInsert)) {
-            return true;
-          }
-        }
-      }
-      return false;
-    };
-
-    // Clone the tree
-    const newTree = EJSON.clone(tree);
-
-    // Remove the dragged space
-    const { tree: treeAfterRemoval, removed } = removeSpace(
-      newTree,
-      draggedSpaceId,
-    );
-
-    if (removed) {
-      // Insert after target
-      insertAfter(treeAfterRemoval, targetSpaceId, removed);
-
-      // Save the new tree
-      Meteor.call('setWorkspacesTree', treeAfterRemoval, (err) => {
-        if (err) console.error(err);
-      });
-    }
+    // A drop that puts a workspace back where it already is writes the same tree
+    // to the server and re-renders for nothing.
+    if (isNoOpMove(tree, draggedId, targetId, position)) return;
+    const next = moveWorkspace(tree, draggedId, targetId, position);
+    if (!next) return;
+    // On screen at once, saved behind it: the panel must not sit still while the
+    // server answers, and the autorun below puts the server's tree back when it
+    // arrives.
+    this.workspacesTreeVar.set(next);
+    Meteor.call('setWorkspacesTree', next, (err) => {
+      if (err) console.error(err);
+    });
   };
 
   // Load workspaces tree reactively; reset selection if selected workspace was deleted
@@ -1275,6 +1252,45 @@ Template.boardList.helpers({
   },
 });
 
+// ── Where a dragged workspace would land, drawn on the row it is over ────────
+//
+// One class per position, so the CSS can open an empty slot above the row, below
+// it, or light the row up to say "into this one". The class is also what the
+// drop reads back: the pointer's position is worked out once, while the row is
+// showing it, rather than a second time from a drop event that may land a pixel
+// away from where the slot was drawn. docs/Design/Page/Workspaces.md
+const WORKSPACE_DROP_CLASSES = {
+  [DROP_BEFORE]: 'drop-before',
+  [DROP_INSIDE]: 'drop-inside',
+  [DROP_AFTER]: 'drop-after',
+};
+
+function clearWorkspaceDropMarks(only) {
+  const rows = only ? [only] : document.querySelectorAll('.workspace-node');
+  rows.forEach((el) => {
+    el.classList.remove('drag-over', 'drop-before', 'drop-inside', 'drop-after');
+  });
+}
+
+function markWorkspaceDropTarget(el, position) {
+  const wanted = WORKSPACE_DROP_CLASSES[position];
+  // Already showing this one: leave it alone. `dragover` fires many times a
+  // second, and rewriting the class list every time restarts any transition on
+  // the slot, which shows as a flicker under the pointer.
+  if (el.classList.contains(wanted)) return;
+  clearWorkspaceDropMarks();
+  el.classList.add(wanted);
+}
+
+// What the row under the pointer is currently offering, for the drop to carry
+// out. Defaults to INSIDE only if nothing was marked at all - which cannot
+// normally happen, because a drop is preceded by the dragover that marked it.
+function workspaceDropPositionOf(el) {
+  const found = Object.keys(WORKSPACE_DROP_CLASSES)
+    .find((position) => el.classList.contains(WORKSPACE_DROP_CLASSES[position]));
+  return found || DROP_INSIDE;
+}
+
 Template.workspaceTree.helpers({
   workspaceCount(workspaceId) {
     const currentUser = ReactiveCache.getCurrentUser();
@@ -1295,6 +1311,64 @@ Template.workspaceTree.helpers({
     const allBoards = ReactiveCache.getBoards(query, {});
 
     return allBoards.filter((b) => assignments[b._id] === workspaceId).length;
+  },
+
+  // The caret, and what it says. `Template.currentData()` is the NODE inside the
+  // `each`, which is what makes these read the row they are drawn on rather than
+  // needing the id passed to each of them.
+  // docs/Design/Page/Workspaces.md
+  workspaceHasChildren() {
+    return hasChildren(Template.currentData());
+  },
+
+  isWorkspaceCollapsed() {
+    const node = Template.currentData();
+    return !!(node && Utils.getWorkspaceCollapseState(node.id));
+  },
+
+  // Children are drawn when there ARE children and the row is not folded. One
+  // helper rather than two nested blocks in the template: `..` counts block
+  // levels, and another block between the `each` and the recursive inclusion is
+  // another level for `../selectedWorkspaceId` to climb - which is how the
+  // selected-workspace highlight was lost once already.
+  workspaceShowsChildren() {
+    const node = Template.currentData();
+    if (!hasChildren(node)) return false;
+    return !Utils.getWorkspaceCollapseState(node.id);
+  },
+
+  workspaceCollapseLabel() {
+    const node = Template.currentData();
+    const folded = !!(node && Utils.getWorkspaceCollapseState(node.id));
+    const action = TAPi18n.__(folded ? 'uncollapse' : 'collapse');
+    // Named with the workspace, because an `aria-label` REPLACES what is inside
+    // the element and a tree of carets would otherwise announce the same two
+    // words over and over with nothing to tell them apart.
+    return node && node.name ? `${action}: ${node.name}` : action;
+  },
+});
+
+Template.workspaceTree.events({
+  'click .js-collapse-workspace'(evt) {
+    // The row underneath opens the workspace; folding it is a different act on
+    // a different control, so the click stops here.
+    evt.preventDefault();
+    evt.stopPropagation();
+    const node = Blaze.getData(evt.currentTarget);
+    if (!node || !node.id) return;
+    Utils.setWorkspaceCollapseState(node.id, !Utils.getWorkspaceCollapseState(node.id));
+  },
+  // An anchor with no href is neither focusable nor answers a key by itself.
+  // `tabindex` in the template gives it the focus; this gives it the two keys
+  // `role="button"` beside them promises, so a tree can be walked without a
+  // mouse.
+  'keydown .js-collapse-workspace'(evt) {
+    if (evt.key !== 'Enter' && evt.key !== ' ' && evt.key !== 'Spacebar') return;
+    evt.preventDefault();
+    evt.stopPropagation();
+    const node = Blaze.getData(evt.currentTarget);
+    if (!node || !node.id) return;
+    Utils.setWorkspaceCollapseState(node.id, !Utils.getWorkspaceCollapseState(node.id));
   },
 });
 
@@ -1825,13 +1899,17 @@ Template.boardList.events({
     }
   },
   'dragstart .workspace-node'(evt) {
-    const workspaceId =
-      evt.currentTarget.getAttribute('data-workspace-id');
-    evt.originalEvent.dataTransfer.effectAllowed = 'move';
-    evt.originalEvent.dataTransfer.setData(
-      'application/x-workspace-id',
-      workspaceId,
-    );
+    const workspaceId = evt.currentTarget.getAttribute('data-workspace-id');
+    const dt = evt.originalEvent.dataTransfer;
+    dt.effectAllowed = 'move';
+    // CLEAR first. With the drag handles off the drag starts on an ANCHOR, and
+    // a browser puts that anchor's own text into `text/plain` by itself - which
+    // the drop handler below reads as "a board was dropped here", so the drop
+    // did nothing and the row snapped back. Handles ON started the drag from a
+    // span, which carries no text, which is why the same drop worked there.
+    // docs/Design/Page/Workspaces.md
+    if (typeof dt.clearData === 'function') dt.clearData();
+    dt.setData('application/x-workspace-id', workspaceId);
 
     // Create a better drag image
     const dragImage = evt.currentTarget.cloneNode(true);
@@ -1839,37 +1917,57 @@ Template.boardList.events({
     dragImage.style.top = '-9999px';
     dragImage.style.opacity = '0.8';
     document.body.appendChild(dragImage);
-    evt.originalEvent.dataTransfer.setDragImage(dragImage, 0, 0);
+    dt.setDragImage(dragImage, 0, 0);
     setTimeout(() => document.body.removeChild(dragImage), 0);
 
     evt.currentTarget.classList.add('dragging');
   },
   'dragend .workspace-node'(evt) {
     evt.currentTarget.classList.remove('dragging');
-    document.querySelectorAll('.workspace-node').forEach((el) => {
-      el.classList.remove('drag-over');
-    });
+    clearWorkspaceDropMarks();
   },
   'dragover .workspace-node'(evt) {
     if (isDragFromHome(evt)) return;
-    evt.preventDefault();
-    evt.stopPropagation();
 
     const draggingEl = document.querySelector('.workspace-node.dragging');
     const targetEl = evt.currentTarget;
 
-    // Allow dropping boards on any space
-    // Or allow dropping spaces on other spaces (but not on itself or descendants)
-    if (
-      !draggingEl ||
-      (targetEl !== draggingEl && !draggingEl.contains(targetEl))
-    ) {
-      evt.originalEvent.dataTransfer.dropEffect = 'move';
-      targetEl.classList.add('drag-over');
+    // A workspace may not be dropped into itself or into its own descendant:
+    // the subtree would be cut off from the root, taking every workspace under
+    // it. NOT calling preventDefault() is how HTML5 drag and drop REFUSES a
+    // drop, so the cursor says no while it is still in the air rather than the
+    // drop landing and quietly doing nothing.
+    if (draggingEl && (targetEl === draggingEl || draggingEl.contains(targetEl))) {
+      clearWorkspaceDropMarks();
+      return;
     }
+    evt.preventDefault();
+    evt.stopPropagation();
+    evt.originalEvent.dataTransfer.dropEffect = 'move';
+
+    // A BOARD dropped on a workspace is assigned to it - there is no before or
+    // after for that, so the whole row is one target and it keeps the plain
+    // highlight it always had.
+    if (!draggingEl) {
+      clearWorkspaceDropMarks();
+      targetEl.classList.add('drag-over');
+      return;
+    }
+
+    // A WORKSPACE: which third of the row the pointer is in decides what the
+    // drop means, and the row shows it - a slot above, a slot below, or the row
+    // itself lit up to say "into this one".
+    const rect = targetEl.getBoundingClientRect();
+    const position = dropPosition(evt.originalEvent.clientY - rect.top, rect.height);
+    markWorkspaceDropTarget(targetEl, position);
   },
   'dragleave .workspace-node'(evt) {
-    evt.currentTarget.classList.remove('drag-over');
+    // Only when the pointer has actually left the row: `dragleave` also fires
+    // when it crosses onto a CHILD of the row - the name, the count - and
+    // clearing there made the slot flicker as the pointer moved along a row.
+    const to = evt.originalEvent && evt.originalEvent.relatedTarget;
+    if (to && evt.currentTarget.contains(to)) return;
+    clearWorkspaceDropMarks(evt.currentTarget);
   },
   'drop .workspace-node'(evt, tpl) {
     if (isDragFromHome(evt)) return;
@@ -1877,47 +1975,44 @@ Template.boardList.events({
     evt.stopPropagation();
 
     const targetEl = evt.currentTarget;
-    targetEl.classList.remove('drag-over');
+    const position = workspaceDropPositionOf(targetEl);
+    clearWorkspaceDropMarks();
 
-    // Check what's being dropped - board or workspace
+    // Which of the two kinds of drag is this? The WORKSPACE id decides, and it
+    // decides first: a workspace drag that began on an anchor also carries the
+    // anchor's text in `text/plain`, and reading that first is what made this
+    // handler treat a workspace as a board.
     const draggedWorkspaceId = evt.originalEvent.dataTransfer.getData(
       'application/x-workspace-id',
     );
+    const targetWorkspaceId = targetEl.getAttribute('data-workspace-id');
+
+    if (draggedWorkspaceId) {
+      if (draggedWorkspaceId !== targetWorkspaceId) {
+        tpl.moveWorkspaceInTree(draggedWorkspaceId, targetWorkspaceId, position);
+      }
+      return;
+    }
+
     const isMultiBoard = evt.originalEvent.dataTransfer.getData(
       'application/x-board-multi',
     );
-    const boardData =
-      evt.originalEvent.dataTransfer.getData('text/plain');
+    const boardData = evt.originalEvent.dataTransfer.getData('text/plain');
+    if (!boardData || !targetWorkspaceId) return;
 
-    if (draggedWorkspaceId && !boardData) {
-      // This is a workspace reorder operation
-      const targetWorkspaceId =
-        targetEl.getAttribute('data-workspace-id');
-
-      if (draggedWorkspaceId !== targetWorkspaceId) {
-        tpl.reorderWorkspaces(draggedWorkspaceId, targetWorkspaceId);
+    if (isMultiBoard) {
+      // Multi-board drag
+      try {
+        const boardIds = JSON.parse(boardData);
+        boardIds.forEach((boardId) => {
+          Meteor.call('assignBoardToWorkspace', boardId, targetWorkspaceId);
+        });
+      } catch (e) {
+        // Error parsing multi-board data
       }
-    } else if (boardData) {
-      // This is a board assignment operation
-      // Get the workspace ID directly from the dropped workspace-node's data-workspace-id attribute
-      const workspaceId = targetEl.getAttribute('data-workspace-id');
-
-      if (workspaceId) {
-        if (isMultiBoard) {
-          // Multi-board drag
-          try {
-            const boardIds = JSON.parse(boardData);
-            boardIds.forEach((boardId) => {
-              Meteor.call('assignBoardToWorkspace', boardId, workspaceId);
-            });
-          } catch (e) {
-            // Error parsing multi-board data
-          }
-        } else {
-          // Single board drag
-          Meteor.call('assignBoardToWorkspace', boardData, workspaceId);
-        }
-      }
+    } else {
+      // Single board drag
+      Meteor.call('assignBoardToWorkspace', boardData, targetWorkspaceId);
     }
   },
   'dragover .js-select-menu'(evt) {

@@ -627,6 +627,27 @@ Meteor.methods({
     });
   },
 
+  // Fold or unfold one workspace of the All Boards left menu. Only the folded
+  // ones are stored, so unfolding REMOVES the key rather than writing false: a
+  // reader who folds two workspaces out of fifty has two keys, and a workspace
+  // that is deleted takes its key with it the next time it is unfolded.
+  // docs/Design/Page/Workspaces.md
+  async setWorkspaceCollapsed(workspaceId, collapsed) {
+    check(workspaceId, String);
+    check(collapsed, Boolean);
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    // The id becomes part of a DOTTED field path, and the tree it comes from is
+    // written by the client - so an id carrying a `.` or a `$` would address a
+    // different field, or a nested one, instead of a key in this map.
+    if (!/^[A-Za-z0-9_-]{1,64}$/.test(workspaceId)) {
+      throw new Meteor.Error('invalid-workspace', 'Not a workspace id');
+    }
+    const field = `profile.collapsedWorkspaces.${workspaceId}`;
+    await Users.updateAsync(this.userId, collapsed
+      ? { $set: { [field]: true } }
+      : { $unset: { [field]: '' } });
+  },
+
   // How wide that menu was dragged to. The client already clamps the drag, but
   // a method is reachable without the drag: the width is clamped again here, so
   // a call with 20000 - or with NaN, which passes `check(width, Number)` and

@@ -69,6 +69,23 @@ if (Meteor.isClient) {
     return true;
   };
 
+  // Which WORKSPACES are folded, for somebody who is not signed in. One cookie
+  // holding a map of workspace id -> true, the same shape and the same helpers
+  // as the collapsed lists above. docs/Design/Page/Workspaces.md
+  Users.getPublicCollapsedWorkspaces = () => {
+    const data = readCookieMap('wekan-collapsed-workspaces');
+    return data && typeof data === 'object' ? data : {};
+  };
+
+  Users.setPublicCollapsedWorkspace = (workspaceId, collapsed) => {
+    if (!workspaceId) return false;
+    const data = Users.getPublicCollapsedWorkspaces();
+    if (collapsed) data[workspaceId] = true;
+    else delete data[workspaceId];
+    writeCookieMap('wekan-collapsed-workspaces', data);
+    return true;
+  };
+
   // ...and the width it was dragged to, kept the same way and for the same
   // reason. A COOKIE rather than the localStorage the right sidebar's width
   // uses: this menu already keeps its fold in one, and one reader's menu should
@@ -328,6 +345,17 @@ Users.attachSchema(
        */
       type: Boolean,
       optional: true,
+    },
+    'profile.collapsedWorkspaces': {
+      /**
+       * which workspaces of the All Boards left menu are folded, as a map of
+       * workspace id -> true. Only the folded ones are stored, so a tree of
+       * fifty workspaces with two folded is two keys.
+       * docs/Design/Page/Workspaces.md
+       */
+      type: Object,
+      optional: true,
+      blackbox: true,
     },
     'profile.leftMenuWidth': {
       /**
@@ -1592,6 +1620,15 @@ Users.helpers({
   isLeftMenuCollapsed() {
     const profile = this.profile || {};
     return profile.leftMenuCollapsed || false;
+  },
+
+  // Is this workspace folded? Only the folded ones are in the map, so a missing
+  // key is an OPEN workspace - which is the right default for one you have
+  // never touched. docs/Design/Page/Workspaces.md
+  isWorkspaceCollapsed(workspaceId) {
+    if (!workspaceId) return false;
+    const map = (this.profile || {}).collapsedWorkspaces || {};
+    return map[workspaceId] === true;
   },
 
   // How wide the left menu was dragged to, or undefined for the CSS default -
