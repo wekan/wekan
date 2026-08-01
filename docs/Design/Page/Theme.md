@@ -92,3 +92,43 @@ value gets published in the instance's place.
 
 If a new place needs a different-looking picker, change **this** template so every
 place gets it. That is the point of the design.
+
+## The theme is on the FIRST header bar
+
+It used to be on the second, and most pages no longer render one — so
+`#header-quick-access` is the bar a reader actually sees painted. Three themes
+were wrong once it moved:
+
+- **clearblue** is a colour *slide*, and the slide was only ever on
+  `#header #header-main-bar`, the inner element of the second bar. The first bar
+  took the flat `background-color: #00aecc` from the rule beside it — which is
+  **strongcyan's colour exactly**, so choosing clearblue painted the header
+  strongcyan. The slide is on `#header-quick-access` now.
+- **natural** and **modern** each had a *later* rule repainting the first bar the
+  near-black shade it wore as a thin strip above the coloured main bar
+  (`#2d392b`, `#333 !important`). Picking Natural painted the header near-black
+  and Modern charcoal, whatever their own colours were. Both overrides are gone;
+  the shared `#header, #header-quick-access` rule provides each theme's colour.
+
+clearblue's text is full white too. Half-white was right when this bar was a
+secondary strip and its username and board links were background furniture; it is
+the header now, and no other theme dims them.
+
+### A slide is not a colour
+
+Everything outside a board reads one variable, `--theme-accent`, and that is
+right for the eighteen flat themes. clearblue cannot be carried by it: a variable
+holds a colour, and a gradient is not one. So the rows that must *slide* are
+named in clearblue's own rule — the Admin Panel's selected left-menu row, which
+always was, and the All Boards one, which now is. Without that, All Boards' row
+sat flat `#00aecc` beside an Admin Panel row that slid.
+
+`tests/themeAccents.test.cjs` pins all of it: every theme paints the first bar,
+paints it its *own* colour, and **no two themes paint it the same** — which is
+how clearblue came to be indistinguishable from strongcyan.
+
+**One known exception**, recorded rather than changed: `cleanlight`'s accent is a
+mid-grey scraped from a `#header ul li:hover` rule, because it has no plain
+`#header` rule at all. Its bar is near-white, which cannot serve as an accent for
+white text, so the grey is right by accident. Choosing a deliberate accent for it
+is a maintainer's call about a colour, not a bug fix.

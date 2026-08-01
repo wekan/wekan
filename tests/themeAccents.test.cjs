@@ -151,6 +151,101 @@ test('the Admin Panel chrome reads that variable rather than a hard-coded colour
     'and every primary/Save button');
 });
 
+test('the FIRST header bar carries each theme, and the theme it should', () => {
+  // The theme used to be on the second bar; that bar is gone from most pages,
+  // so `#header-quick-access` is what a reader actually sees painted.
+  const css = read('client/components/boards/boardColors.css');
+
+  // The LAST background wins, as the cascade does.
+  const firstBar = {};
+  for (const rule of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    const body = rule[2].replace(/\/\*[\s\S]*?\*\//g, '');
+    const bg = /(?:^|[\s;])background(?:-color)?:\s*([^;]+)/.exec(body);
+    if (!bg) continue;
+    for (const sel of rule[1].split(',').map(x => x.trim())) {
+      const m = /^\.board-color-([\w-]+)#header-quick-access$/.exec(sel);
+      if (m) firstBar[m[1]] = bg[1].trim();
+    }
+  }
+
+  // cleanlight's accent is a mid-grey read out of a `#header ul li:hover` rule,
+  // not a bar colour: it has no plain `#header` rule at all, and its bar is
+  // near-white, which cannot be an accent for white text. Recorded here rather
+  // than "fixed" by changing a colour nobody asked to change.
+  const KNOWN_ACCENT_IS_NOT_THE_BAR = new Set(['cleanlight']);
+
+  for (const [theme, accent] of Object.entries(THEME_ACCENTS)) {
+    const bar = firstBar[theme];
+    assert.ok(bar, `${theme} must paint the first header bar`);
+    if (KNOWN_ACCENT_IS_NOT_THE_BAR.has(theme)) continue;
+    // Natural and Modern each had a LATER rule repainting this bar the shade it
+    // wore as a thin strip above the coloured main bar - so picking Natural
+    // painted the header near-black and Modern charcoal, whatever their own
+    // colours were.
+    assert.ok(bar === accent || bar.includes(accent),
+      `${theme}: the first bar is ${bar}, but the theme's colour is ${accent}`);
+  }
+
+  // ...and no two themes paint it the same, which is how picking clearblue came
+  // to look exactly like strongcyan.
+  const byColour = {};
+  for (const [theme, bar] of Object.entries(firstBar)) {
+    (byColour[bar] = byColour[bar] || []).push(theme);
+  }
+  for (const [colour, themes] of Object.entries(byColour)) {
+    assert.strictEqual(themes.length, 1,
+      `${themes.join(' and ')} both paint the first bar ${colour} - one is wrong`);
+  }
+});
+
+test('and clearblue keeps its colour SLIDE on the bar you can see', () => {
+  // Its bar is a gradient, and the gradient was only ever on
+  // `#header #header-main-bar` - the inner element of the second bar - because
+  // that is where the theme lived. The first bar got the flat #00aecc from the
+  // rule beside it, which is strongcyan's colour exactly: choosing clearblue
+  // painted the header strongcyan.
+  const css = read('client/components/boards/boardColors.css');
+  // Found by its DECLARATION, not by a selector prefix: the flat rule and the
+  // gradient rule share their first two selector lines, so an `indexOf` on
+  // those matched the flat one and the guard passed while reading the wrong
+  // rule entirely.
+  const SLIDE = 'linear-gradient(180deg, #499bea 0%, #00aecc 100%)';
+  let gradientRule = null;
+  let gradientAt = -1;
+  for (const rule of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    if (!rule[2].includes(SLIDE)) continue;
+    const sels = rule[1].split(',').map(x => x.trim());
+    if (!sels.includes('.board-color-clearblue#header-quick-access')) continue;
+    gradientRule = rule;
+    gradientAt = rule.index;
+  }
+  assert.ok(gradientRule, 'the first bar must be in clearblue\'s gradient rule');
+
+  // The All Boards left menu's selected row too. Every other theme paints that
+  // row through --theme-accent, which is ONE COLOUR and right for them; a slide
+  // is not a colour, so the variable cannot carry it and clearblue's row came
+  // out flat while the Admin Panel's row beside it slid.
+  const sels = gradientRule[1].split(',').map(x => x.trim());
+  for (const sel of [
+    '.board-color-clearblue .setting-content .content-body .side-menu ul li.active',
+    '.board-color-clearblue .boards-left-menu .menu-item.active a',
+  ]) {
+    assert.ok(sels.includes(sel), `${sel} must slide too, not sit flat beside a bar that slides`);
+  }
+
+  // The flat colour must be declared FIRST, or the shorthand would lose to it.
+  assert.ok(css.indexOf('.board-color-clearblue#header,') < gradientAt,
+    'the flat background comes before the gradient that replaces it');
+
+  // Its text is full white. Half-white was right when this bar was a thin
+  // secondary strip; it is the header now, and no other theme dims these.
+  const dimAt = css.indexOf('.board-color-clearblue#header-quick-access #header-user-bar,');
+  assert.notStrictEqual(dimAt, -1);
+  const dim = css.slice(dimAt, css.indexOf('}', dimAt));
+  assert.ok(/color:\s*#fff/.test(dim), 'the username is white, not half-white');
+  assert.ok(!/rgba\(255,\s*255,\s*255,\s*0\.5\)/.test(dim), 'not dimmed');
+});
+
 console.log(`\n${passed} tests passed`);
 
 })();

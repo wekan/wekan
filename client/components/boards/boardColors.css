@@ -1482,10 +1482,15 @@ THEME - Clear Blue
 .board-color-clearblue#header-quick-access {
   color: #fff;
 }
+/* Half-white was right when this bar was a thin SECONDARY strip above the
+   coloured main bar - the username and the board links in it were background
+   furniture. This bar is the header now, so its text is the header's text:
+   full white, like every other theme's, and like the page title beside it.
+   No other theme dims these. docs/Design/Page/Theme.md */
 .board-color-clearblue#header-quick-access #header-new-board-icon,
 .board-color-clearblue#header-quick-access #header-user-bar,
 .board-color-clearblue#header-quick-access ul li {
-  color: rgba(255,255,255,0.5);
+  color: #fff;
 }
 .board-color-clearblue#header,
 .board-color-clearblue#header-quick-access,
@@ -1495,9 +1500,27 @@ THEME - Clear Blue
   border-bottom: 1px solid #008ba3;
   border-top: 1px solid #00687a;
 }
+/* clearblue's bar is a colour SLIDE, and the slide has to be on the bar that is
+   actually on screen. It was only ever on `#header #header-main-bar` - the
+   inner element of the SECOND bar - because that is where the theme used to
+   live. The first bar got the flat `background-color: #00aecc` from the rule
+   above instead, which is exactly strongcyan's colour: picking clearblue
+   painted the header strongcyan.
+   `#header-quick-access` has no inner bar of its own, so the slide goes
+   directly on it.
+
+   The All Boards left menu's selected row is named here too. Every other theme
+   paints that row through `--theme-accent`, which is one colour and is exactly
+   right for them; a slide is not a colour, so the variable cannot carry it and
+   clearblue's row came out flat #00aecc while the Admin Panel's row beside it
+   slid. The Admin Panel's row has always been named in this rule; this is the
+   All Boards row joining it. docs/Design/Page/Theme.md */
 .board-color-clearblue#header #header-main-bar,
+.board-color-clearblue#header-quick-access,
 .board-color-clearblue .setting-content .content-body .side-menu ul li.active,
-.board-color-clearblue .setting-content .content-body .side-menu ul li.active:hover {
+.board-color-clearblue .setting-content .content-body .side-menu ul li.active:hover,
+.board-color-clearblue .boards-left-menu .menu-item.active a,
+.board-color-clearblue .boards-left-menu .menu-item.active a:hover {
   background: linear-gradient(180deg, #499bea 0%, #00aecc 100%);
 }
 .board-color-clearblue#header #header-main-bar p {
@@ -1820,9 +1843,12 @@ THEME - Natural
 .board-color-natural#header-quick-access ul li.current {
   border-bottom: 4px solid #778875;
 }
-.board-color-natural#header-quick-access {
-  background-color: #2d392b;
-}
+/* The first bar keeps this theme's OWN colour. `#2d392b` was here because the
+   quick-access bar used to be a thin dark strip ABOVE the coloured main bar;
+   the main bar is gone and this one carries the theme, so the darker shade
+   painted Natural near-black instead of its green-grey. The shared
+   `#header, #header-quick-access` rule above provides the colour.
+   docs/Design/Page/Theme.md */
 .board-color-natural.board-wrapper {
   background-color: #dedede;
 }
@@ -1942,11 +1968,10 @@ THEME - Modern
 .board-color-modern body {
   background: #f5f5f5;
 }
-.board-color-modern#header-quick-access {
-  padding: 10px;
-  font-size: 14px;
-  background: #333 !important;
-}
+/* Same as Natural: `#333 !important` was the thin dark strip's colour, and it
+   painted Modern charcoal instead of its blue. The padding and font-size were
+   the strip's too - this bar sizes itself like every other theme's now.
+   docs/Design/Page/Theme.md */
 .board-color-modern#header-quick-access ul {
   overflow: visible;
 }
