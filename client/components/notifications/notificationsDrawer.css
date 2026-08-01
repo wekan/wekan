@@ -1,13 +1,23 @@
+/* It starts below the header, and the header is NOT 48px tall.
+   `top: 48px` was a guess at the height of one bar, and the first header bar
+   wraps to a second and a third row - so on any window where it did, the bar's
+   own contents came down over this panel: the user avatar, the tallest thing in
+   it, sat on top of this header beside the ✕ that closes it.
+   `--wekan-header-height` is what the header MEASURES itself to be, kept current
+   by a ResizeObserver (client/lib/utils.js), and it is what everything else laid
+   out against the viewport already uses. docs/Design/Page/Header.md */
 section#notifications-drawer {
   position: fixed;
-  top: 48px;
+  top: var(--wekan-header-height, 48px);
   inset-inline-end: 0;
   width: 100vw;
   max-width: 100vw;
   background-color: #fafafa;
   box-shadow: 0 1px 2px rgba(0,0,0,0.15);
   border-radius: 2px;
-  max-height: calc(100vh - 28px - 36px);
+  /* ...and what is left of the window below it, for the same reason: the old
+     `100vh - 28px - 36px` was that guess again, in two pieces. */
+  max-height: calc(100vh - var(--wekan-header-height, 48px));
   color: #000;
   padding-top: 36px;
 }
@@ -16,7 +26,9 @@ section#notifications-drawer a:hover {
 }
 section#notifications-drawer .header {
   position: fixed;
-  top: 48px;
+  /* The panel's own header is fixed too, so it follows the same measurement -
+     it is the row the ✕ is in, and it is what the avatar used to overlap. */
+  top: var(--wekan-header-height, 48px);
   inset-inline-end: 0;
   width: 100vw;
   box-sizing: border-box;

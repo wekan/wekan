@@ -73,4 +73,40 @@ test('it survives the header not existing yet', () => {
     'and never on the server, where this file is also imported');
 });
 
+test('the notifications drawer starts below the header too', () => {
+  // xet7: "1st top header bar, when Notifications popup is open at full width,
+  // avatar icon should not be above Notifications popup X close popup window."
+  //
+  // The drawer is fixed at `top: 48px` - a guess at the height of ONE header
+  // bar. The first bar wraps to a second and a third row, and the user avatar
+  // is the item that wraps last: on a window where it did, the drawer covered
+  // the row the avatar was on, and the avatar - in a `z-index: 1000` bar -
+  // painted straight over the drawer's own header, right beside the ✕ that
+  // closes it.
+  const drawer = read('client/components/notifications/notificationsDrawer.css');
+  for (const selector of [
+    'section#notifications-drawer {',
+    'section#notifications-drawer .header {',
+  ]) {
+    const at = drawer.indexOf(selector);
+    assert.notStrictEqual(at, -1, `${selector} must be there`);
+    const rule = drawer.slice(at, drawer.indexOf('}', at));
+    assert.ok(/position: fixed;/.test(rule), `${selector} is fixed to the viewport`);
+    assert.ok(/top: var\(--wekan-header-height, 48px\);/.test(rule),
+      `${selector} must start at the measured header height`);
+    assert.ok(!/top:\s*48px;/.test(rule),
+      `${selector}: a hard-coded 48px is the guess that put the avatar over it`);
+  }
+  // ...and the height it may take is the rest of the window under that header,
+  // not the same guess written as a subtraction.
+  const at = drawer.indexOf('section#notifications-drawer {');
+  const rule = drawer.slice(at, drawer.indexOf('}', at));
+  assert.ok(/max-height: calc\(100vh - var\(--wekan-header-height, 48px\)\);/.test(rule),
+    'its height is measured from the same number');
+  // The declarations, not the comments: the comment above that rule quotes the
+  // old value on purpose, so the next reader knows what changed and why.
+  const code = drawer.replace(/\/\*[\s\S]*?\*\//g, '');
+  assert.ok(!/100vh - 28px - 36px/.test(code), 'not from that guess in two pieces');
+});
+
 console.log(`\n${passed} tests passed`);
