@@ -261,7 +261,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.56 2026-08-02 WeKan ® release
 
 **In short:** WeKan is built for **every Linux platform its database is**. The
 three architectures that were missing a Node.js - **i386**, **armhf** and
