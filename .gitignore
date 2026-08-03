@@ -86,6 +86,7 @@ _build-local-test
 #  - node/        : clone of the Node.js 24.x fork WeKan builds its runtime from
 #  - TSC/         : clone of Secretchronicles/TSC
 #  - secretchronicles.github.io/ : clone of the TSC website of the same name
+#  - gitea/       : clone of wekan/gitea, the fork of go-gitea/gitea
 /projects/
 /sandstorm/
 /FerretDB/
@@ -94,6 +95,7 @@ _build-local-test
 /node/
 /TSC/
 /secretchronicles.github.io/
+/gitea/
 
 # Test and build logs, when they land INSIDE the repo. build.sh writes to
 # ../log/<datetime>/ by preference - one level up, so a test run does not show

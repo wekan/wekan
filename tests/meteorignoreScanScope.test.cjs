@@ -65,7 +65,8 @@ test('the foreign checkouts that share this directory are all excluded', () => {
     'node',                      // the Node.js fork checkout, 4,132 dirs, 2.3 GB
     'mongo-tools',               // another Go project, 738 dirs
     'TSC',                       // the game, 472 dirs
-    'secretchronicles.github.io' // its website, 512 dirs
+    'secretchronicles.github.io', // its website, 512 dirs
+    'gitea'                      // the wekan/gitea fork, 1,401 dirs, 384 MB
   ];
   const missing = foreign.filter(d => !ignored.has(d));
   assert.deepStrictEqual(missing, [], 'foreign checkouts Meteor would still walk');

@@ -60,6 +60,11 @@ npm-packages/
 /TSC/
 /secretchronicles.github.io/
 
+# The Gitea fork (wekan/gitea, forked from go-gitea/gitea): a whole Go + web
+# application, 1,401 directories and 384 MB - about a fifth again of everything
+# Meteor legitimately walks here. Nothing in WeKan imports it.
+/gitea/
+
 # Two more WeKan checkouts, 296 directories each. These are worse than the rest:
 # they contain client/, server/ and models/, so they are not merely scanned -
 # Meteor loads server/ and client/ EAGERLY, and it would be pulling a second and
