@@ -527,10 +527,9 @@ Meteor builds one ignore matcher per directory it descends into, each carrying
 the whole accumulated pattern list. There were 6,867 directories under the app
 and roughly 1,000 of them were WeKan. The rest were repositories cloned in
 beside it - the Node.js fork checkout alone is 4,132 directories, 45,527 files
-and 2.3 GB - plus mongo-tools, TSC, the TSC website, two more WeKan checkouts,
-and Meteor's own `_build/` and `_build-local-test/` output, which it was
-scanning as source in order to produce. So the real cost was very nearly seven
-times what the snapshot managed to catch.
+and 2.3 GB - plus mongo-tools, TSC, the TSC website and two more WeKan
+checkouts. So the real cost was very nearly seven times what the snapshot
+managed to catch.
 
 All of them were in `.gitignore`. Meteor does not read `.gitignore`; it reads
 `.meteorignore`, which listed only `.tools/`, `FerretDB/` and `tests/`. The two
@@ -538,6 +537,17 @@ variant checkouts were the worst of them, because `wekan-ondra` and
 `wekan-gantt-gpl` contain `client/`, `server/` and `models/`, and Meteor loads
 `server/` and `client/` eagerly - a second and third copy of the whole app
 pulled into the build.
+
+`_build/` and `_build-local-test/` are the trap here, and the first attempt
+fell into it. They are gitignored, and they were the first two entries of that
+296 KB pattern list, so they read as build output that should be excluded too -
+and excluding them breaks the build, with an error that never mentions
+`.meteorignore`: `Could not find mainModule for 'os' architecture:
+_build/main-prod/server-meteor.js`. They are not leftovers, they are the
+handoff. rspack compiles the app INTO `_build/main-prod/`, and Meteor then reads
+`server-meteor.js` and `client-meteor.js` from there as the application's main
+modules. They are three directories each, so there was nothing to win and a
+build to lose; the guard now asserts the opposite for them.
 
 `tests/meteorignoreScanScope.test.cjs` pins the excludes and that they are
 anchored to the repo root rather than matching a directory of that name at any
