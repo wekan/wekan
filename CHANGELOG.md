@@ -396,6 +396,31 @@ the **MongoDB tools** today, neither of which publishes one.
 **Running the tests locally** - what a run is given, and what it leaves behind.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/03b677f285ec7ba8c9da9e62e3096ba9efff390c">A build that runs out of heap can be told to leave a snapshot behind</a>. Thanks to xet7.</summary>
+
+Three runs have now exhausted the heap in the same phase - after both rspack
+compiles report done, while Meteor writes the production bundle. 8146 MB of
+8192, then 15526 of 15542 once the limit was worked out from the machine, then
+15520 with `standard-minifier-js` removed on the theory that a second JS
+minifier over rspack's already-minified output was the consumer.
+
+That last run settled the theory: taking the minifier out moved the peak by
+**6 MB**, which is noise, and it died in the same place. It was not the
+consumer, so it is back - an unverified change to the release artifact that
+demonstrably fixes nothing does not belong in the tree, and with the build never
+completing there was no way to confirm the bundle was still correctly minified
+either.
+
+Something else is holding 15 GB, and three guesses is enough. `build.sh` takes
+`WEKAN_BUILD_HEAP_SNAPSHOT=1` now, which adds Node's
+`--heapsnapshot-near-heap-limit=1` so the build writes a heap snapshot just
+before it dies instead of only dying. Off by default, because the file is about
+as large as the heap; when it is on, the build says where the snapshot lands and
+what to open it with.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/581475a0d56b69ad94611ff7086f966f22c4b2ee">The heap limit for builds is worked out from the machine, not fixed at 8 GB</a>. Thanks to xet7.</summary>
 
 The build died with
