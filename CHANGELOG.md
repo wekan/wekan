@@ -264,7 +264,7 @@ has not decided on yet (adds a dependency + loosens the XSS sanitizer + needs a
 browser build to verify).
 
 </details>
-# Upcoming WeKan ® release
+# v10.58 2026-08-04 WeKan ® release
 
 **In short:** WeKan is downloadable as an **AppImage** and as a **Flatpak** now,
 both built from the bundle a release already carries rather than from a second
