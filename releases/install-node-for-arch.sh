@@ -23,6 +23,7 @@
 #   ARCH        what WeKan calls it          (i386, armhf, ppc64le, ...)
 #   NODE_FROM   which source has it: official | unofficial | fork
 #   NODE_URL    the exact URL it is at
+#   NODE_SHA256 its published SHA256, or empty when the source publishes none
 #               Both are resolved on the HOST by the preflight step, so this
 #               does not probe the network three times over an emulated CPU -
 #               and so the fork's URL is right even when the fork's newest
@@ -44,13 +45,72 @@ apt-get install -y -q build-essential python3 curl xz-utils ca-certificates
 # built for one CPU drives a node built for another.
 mkdir -p /opt/node/bin
 
+# Download a file and check it against the SHA256 its source publishes.
+#
+# nodejs.org and unofficial-builds are preferred over the fork precisely BECAUSE
+# they publish a checksum, so not checking it would be preferring them for
+# nothing. The fork publishes one now too.
+#
+# A mismatch is retried before it is fatal. The overwhelmingly likely cause is a
+# truncated or corrupted transfer - a CDN edge that served a partial file, a
+# connection cut mid-stream - and that is fixed by asking again. What retrying
+# must NOT do is give up quietly: if the file still does not match after
+# DOWNLOAD_ATTEMPTS tries, the build stops, because at that point the file being
+# served is not the file that was published and there is no reading of that
+# worth continuing on.
+DOWNLOAD_ATTEMPTS="${DOWNLOAD_ATTEMPTS:-3}"
+
+download_and_verify() {
+    url="$1"
+    dest="$2"
+    expected="${NODE_SHA256:-}"
+
+    attempt=1
+    while :; do
+        rm -f "$dest"
+        if ! curl -fsSL --retry 3 --retry-delay 5 -o "$dest" "$url"; then
+            if [ "$attempt" -lt "$DOWNLOAD_ATTEMPTS" ]; then
+                echo "Download of $(basename "$url") failed (attempt ${attempt}/${DOWNLOAD_ATTEMPTS}); retrying."
+                attempt=$((attempt + 1))
+                sleep 5
+                continue
+            fi
+            echo "install-node-for-arch.sh: could not download ${url} after ${DOWNLOAD_ATTEMPTS} attempts." >&2
+            exit 1
+        fi
+
+        if [ -z "$expected" ]; then
+            echo "No published SHA256 for $(basename "$url") - ${NODE_FROM} publishes none, so this download is unverified."
+            return 0
+        fi
+
+        got="$(sha256sum "$dest" | cut -d' ' -f1)"
+        if [ "$got" = "$expected" ]; then
+            echo "SHA256 verified against ${NODE_FROM}: ${got}"
+            return 0
+        fi
+
+        echo "SHA256 mismatch on $(basename "$url") (attempt ${attempt}/${DOWNLOAD_ATTEMPTS})." >&2
+        echo "  published: ${expected}" >&2
+        echo "  got:       ${got}" >&2
+        if [ "$attempt" -lt "$DOWNLOAD_ATTEMPTS" ]; then
+            echo "  Most likely a truncated transfer; downloading again." >&2
+            attempt=$((attempt + 1))
+            sleep 5
+            continue
+        fi
+        echo "install-node-for-arch.sh: $(basename "$url") still does not match its published SHA256 after ${DOWNLOAD_ATTEMPTS} attempts. The file being served is not the file that was published. Not building." >&2
+        exit 1
+    done
+}
+
 case "$NODE_FROM" in
     official|unofficial)
-        curl -fsSL -o /tmp/node.tar.xz "$NODE_URL"
+        download_and_verify "$NODE_URL" /tmp/node.tar.xz
         tar -xJf /tmp/node.tar.xz -C /opt/node --strip-components=1
         ;;
     fork)
-        curl -fsSL -o /opt/node/bin/node "$NODE_URL"
+        download_and_verify "$NODE_URL" /opt/node/bin/node
         chmod +x /opt/node/bin/node
         curl -fsSL -o /tmp/npm.tar.xz \
             "https://nodejs.org/dist/${NODE_FULL}/node-${NODE_FULL}-linux-x64.tar.xz"

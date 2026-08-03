@@ -26,6 +26,8 @@
 #   node_full=vX.Y.Z                        the version that was found
 #   node_from=official|unofficial|fork      where it was found
 #   node_url=https://...                    the exact file to download
+#   node_sha256=<hex>                       its published SHA256, empty if the
+#                                           source publishes none
 #
 # The version is the NEWEST that exists FOR THIS CPU, which is not always the
 # newest that exists - see the walk below.
@@ -73,16 +75,25 @@ fi
 
 # ── 2. Node.js ───────────────────────────────────────────────────────────────
 #
-# THE FORK FIRST, for every CPU. wekan/node is not just "the architectures
-# nobody else builds" any more - it builds all of them, and it carries fixes
-# upstream does not (CHANGELOG-fork.md: the ICU genccode architecture name, the
-# x86 /SAFESEH opt-out, the zlib SSE2 and NEON flags, the V8 template
-# disambiguator). Those are build-configuration fixes that any platform
-# benefits from, and a set of bundles should not be half built on one Node.js
-# and half on another depending on which CPU it is for.
+# THE ORDER IS BY HOW VERIFIABLE THE BUILD IS. The three sources do not offer
+# the same assurances, and this checked rather than assumed it:
 #
-# nodejs.org and unofficial-builds stay as fallbacks, in that order, for the
-# case the fork has not published a version yet.
+#   nodejs.org          SHASUMS256.txt, and SHASUMS256.txt.sig / .asc
+#                       signed with the Node.js release keys
+#   unofficial-builds   SHASUMS256.txt, no signature
+#   wekan/node fork     neither
+#
+# So official first, then unofficial, then the fork - descending verifiability,
+# and the fork as the backstop for what the other two do not build. A binary
+# somebody else signed is worth more than one this project built, and the
+# fork's own fixes are build-configuration fixes that upstream's builds do not
+# need in the first place: they are what makes the CPUs upstream does NOT build
+# compile at all.
+#
+# The expected SHA256 is looked up here, from the source's own SHASUMS256.txt,
+# and handed to the download step, which refuses a file that does not match.
+# Preferring a source because it is verifiable and then not verifying it would
+# be preferring it for nothing.
 #
 # And the rule is still "the NEWEST Node.js that exists for this CPU", not "the
 # newest Node.js". Those are the same thing on amd64 and arm64 and regularly are
@@ -124,17 +135,17 @@ for v in $versions; do
     u="https://unofficial-builds.nodejs.org/download/release/${v}/node-${v}-linux-${node_arch}.tar.xz"
     f="https://github.com/wekan/node/releases/download/${v}/node-${arch}"
 
-    # The fork first - see the note above.
-    if   have "$f"; then node_from=fork;       node_url="$f"; node_full="$v"; break
-    elif have "$o"; then node_from=official;   node_url="$o"; node_full="$v"; break
+    # Most verifiable first - see the note above.
+    if   have "$o"; then node_from=official;   node_url="$o"; node_full="$v"; break
     elif have "$u"; then node_from=unofficial; node_url="$u"; node_full="$v"; break
+    elif have "$f"; then node_from=fork;       node_url="$f"; node_full="$v"; break
     fi
 done
 
 if [ -z "$node_from" ]; then
     newest="$node_full_wanted"
     oldest="$(printf '%s\n' "$versions" | head -n "$MAX_VERSIONS_BACK" | tail -n 1)"
-    echo "::error::No Node.js for ${arch} exists anywhere. Checked every ${node_version}.x release from ${newest} back to ${oldest} at the wekan/node fork (asset 'node-${arch}'), nodejs.org and unofficial-builds (node_arch '${node_arch}'). The fork is the one to fix: build node-${arch} with the node.yml workflow in wekan/node and attach it to a release, then re-run this job."
+    echo "::error::No Node.js for ${arch} exists anywhere. Checked every ${node_version}.x release from ${newest} back to ${oldest} at nodejs.org and unofficial-builds (node_arch '${node_arch}') and at the wekan/node fork (asset 'node-${arch}'). The fork is the one to fix: build node-${arch} with the node.yml workflow in wekan/node and attach it to a release, then re-run this job."
     missing=1
 elif [ "$node_full" != "$node_full_wanted" ]; then
     # Behind, but the newest that exists - which is the best this CPU can have.
@@ -142,6 +153,41 @@ elif [ "$node_full" != "$node_full_wanted" ]; then
     echo "Node.js ${node_full} for ${arch}: ${node_from} (${node_url})"
 else
     echo "Node.js ${node_full} for ${arch}: ${node_from} (${node_url})"
+fi
+
+# The expected SHA256, from the source's own SHASUMS256.txt. Empty for the fork,
+# which publishes none - the download step says so out loud rather than quietly
+# skipping a check the log implies was made.
+node_sha256=""
+if [ -n "$node_from" ]; then
+    case "$node_from" in
+        official)   sums="https://nodejs.org/dist/${node_full}/SHASUMS256.txt" ;;
+        unofficial) sums="https://unofficial-builds.nodejs.org/download/release/${node_full}/SHASUMS256.txt" ;;
+        # The fork publishes one .sha256sum per binary, beside it, rather than
+        # a single SHASUMS256.txt - one file per asset is the shape the rest of
+        # its release already has.
+        fork)       sums="https://github.com/wekan/node/releases/download/${node_full}/node-${arch}.sha256sum" ;;
+        *)          sums="" ;;
+    esac
+    if [ -n "$sums" ]; then
+        want_file="${node_url##*/}"
+        if sums_body="$(curl -fsSL "$sums" 2>/dev/null)"; then
+            # nodejs.org and unofficial-builds publish "<sum>  <filename>" for
+            # every file of the release; the fork publishes one file per binary,
+            # holding just that binary's line. Same format either way.
+            node_sha256="$(printf '%s\n' "$sums_body" |
+                awk -v f="$want_file" '$2 == f || $2 == "./" f { print $1; exit }')"
+            if [ -n "$node_sha256" ]; then
+                echo "  SHA256 published for ${want_file}: ${node_sha256}"
+            else
+                echo "::warning::${node_from} publishes ${sums} but it has no line for ${want_file}, so the download cannot be checked against it."
+            fi
+        else
+            echo "::warning::${node_from} publishes no checksum file at ${sums}, so the download cannot be verified. For the fork this means the release predates node.yml publishing .sha256sum files beside its binaries."
+        fi
+    else
+        echo "::warning::No checksum file for ${node_from}, so this download cannot be verified."
+    fi
 fi
 
 # ── 3. FerretDB ──────────────────────────────────────────────────────────────
@@ -177,3 +223,4 @@ fi
 printf 'node_full=%s\n' "$node_full"
 printf 'node_from=%s\n' "$node_from"
 printf 'node_url=%s\n' "$node_url"
+printf 'node_sha256=%s\n' "$node_sha256"

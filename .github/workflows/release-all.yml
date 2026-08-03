@@ -1344,13 +1344,14 @@ jobs:
             '${{ matrix.image }}' \
             '${{ matrix.platform }}' \
             | tee /tmp/preflight.txt
-          grep -E '^(node_full|node_from|node_url)=' /tmp/preflight.txt >> "$GITHUB_OUTPUT"
+          grep -E '^(node_full|node_from|node_url|node_sha256)=' /tmp/preflight.txt >> "$GITHUB_OUTPUT"
 
       - name: Rebuild native modules for ${{ matrix.arch }} under emulation
         env:
           NODE_FULL: ${{ steps.preflight.outputs.node_full }}
           NODE_FROM: ${{ steps.preflight.outputs.node_from }}
           NODE_URL: ${{ steps.preflight.outputs.node_url }}
+          NODE_SHA256: ${{ steps.preflight.outputs.node_sha256 }}
         run: |
           set -euo pipefail
           # bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3 which
@@ -1380,6 +1381,7 @@ jobs:
             -e NODE_FULL="$NODE_FULL" \
             -e NODE_FROM="$NODE_FROM" \
             -e NODE_URL="$NODE_URL" \
+            -e NODE_SHA256="$NODE_SHA256" \
             -e ARCH='${{ matrix.arch }}' \
             -e NODE_ARCH='${{ matrix.node_arch }}' \
             -v "$(pwd)/bundle:/bundle" \
