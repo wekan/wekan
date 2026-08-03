@@ -541,8 +541,13 @@ pulled into the build.
 
 `tests/meteorignoreScanScope.test.cjs` pins the excludes and that they are
 anchored to the repo root rather than matching a directory of that name at any
-depth, and fails on any new top-level directory that `.gitignore` excludes while
-`.meteorignore` does not - which is exactly how each of these arrived.
+depth. It also states the general rule, so the next clone dropped in here is
+caught by a test rather than by a build running out of memory: it WALKS the tree
+for any directory with a `.git` of its own, rather than comparing against a list
+of names, and requires each one to be ignored by git and listed in
+`.meteorignore`. A directory with a `.git` is another project - not WeKan's
+source and not WeKan's history - so it belongs in both files, and being in
+neither is the state every one of these arrived in.
 
 </details>
 
