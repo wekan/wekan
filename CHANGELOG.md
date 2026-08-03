@@ -277,8 +277,13 @@ now, and says which file is missing and which repository should publish it. The
 against `.meteorignore`**: Meteor reads only the second, so every other
 repository cloned in beside the app - the **Node.js fork**, mongo-tools, TSC,
 two more WeKan checkouts - was being walked as if it were WeKan, at one ignore
-matcher per directory. Below that: where a local run writes its logs, and a
-`build.sh` that reported success after a failed build.
+matcher per directory. And a release can now be **finished** rather than made
+again: `release-all-missing.yml` builds only what a release is short of, in
+every repository WeKan releases from. Below that: an Admin Panel report that
+drew "No results" over data that was there, a phone layout with the menu over
+the boards, seven SSRF tests failing on a fake response that was not a stream,
+where a local run writes its logs, and a `build.sh` that reported success after
+a failed build.
 
 This release fixes the following release-build bugs:
 
@@ -568,6 +573,129 @@ neither is the state every one of these arrived in.
 failed`. The menu called it bare, which throws that status away: the script fell
 off the end and exited 0. Anything driving it non-interactively - `printf
 '1\n2\n' | ./build.sh`, or CI - saw a green run and a missing bundle.
+
+</details>
+
+and fixes the following bugs:
+
+**The Admin Panel reports** - how a pane gets its rows.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/78b2f9ebcd56b699f218e8da06cd99a8eac81b12">A report opened by its own address drew "No results" over data that was there</a>. Thanks to xet7.</summary>
+
+Opening a report BY ITS ADDRESS - `/admin/problems/files` typed, bookmarked or
+just refreshed - drew the column headers, "No results" and a "1 / 1" pager while
+the attachments were plainly in the database. Reached by clicking the menu entry
+it worked, so this only ever happened to the URL.
+
+A full page load resumes the login from `localStorage` **asynchronously**, and
+the route sets the open pane before that lands. The subscription was therefore
+made with no user; the publication's `isAdmin` check answered `this.ready()`
+with no rows; and nothing re-subscribed, because the autorun that opens the pane
+did not depend on the user. The count METHOD, called later from the same page,
+happily reported five - which is what made this look like a publication bug
+rather than a timing one.
+
+The autorun depends on `Meteor.userId()` now. `openReportPane()` returns early
+when the pane is already open, so re-running it after the login would do nothing
+at all - hence the second branch, which re-subscribes the report that is already
+open now that there is a user to subscribe as.
+
+</details>
+
+**Mobile All Boards** - the phone layout, and what decides a column's width.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d80d8de1a0dbc4abf55cb8831c64ee9017440079">The left menu was drawn over the board icons on a phone</a>. Thanks to xet7.</summary>
+
+The menu was 260px wide inside a 157.5px grid track and lay over the boards. The
+grid was right all along: 42% of a 375px phone is 157.5, plus the 8px gap puts
+the board column at x=165.5, which is exactly where the boards start. The menu
+simply did not fit in its track.
+
+260px is `--wekan-left-menu-width`, the DESKTOP width the drag-grip sets, and
+`leftMenu.js` does not even offer that grip below 800px. The menu carried it on
+a phone anyway, because the phone rules never said otherwise and the
+`max-width: 100%` on the base rule does not do what its comment claimed: a
+percentage width on a grid item does not resolve against the track, so it capped
+nothing. That is not a browser quirk - Chromium, Firefox and WebKit all drew the
+same 260px.
+
+`width: auto` in the phone rules instead. A grid item with an auto width
+stretches to its grid area, so it fills the track exactly with no percentage to
+resolve. Measured rather than guessed: decoding the failing test's screenshot
+pixel by pixel shows the menu background `#f7f7f7` running from x=3 to x=255 with
+the blue board tiles painted on top of it from x=170, and the page background
+only from x=260.
+
+</details>
+
+**The security test suite** - what it stands in for, and how faithfully.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/aab81e8ffd4df6b0585f122aea3dac09ded726be">Seven SSRF tests timed out because the fake response was not a stream</a>. Thanks to xet7.</summary>
+
+Every ALLOW case of the DnsBleed suite failed with `Timeout of 2000ms exceeded`,
+while every block case passed - which is what hid it.
+
+The stub was at fault, not `fetchSafe`. It faked `http.IncomingMessage` with a
+bare `EventEmitter` that emitted `data` and `end` from a `process.nextTick`,
+into the void if nothing was listening yet. No real response does that: an
+`IncomingMessage` is a PAUSED `Readable` that buffers its body until a listener
+attaches, so reading late cannot lose data. That only started to matter when
+`fetchSafe` was split into resolving the response and then reading it, which the
+redirect handling needs - the nextTick queue drains BEFORE promise microtasks,
+so the fake had already fired `end` by the time the awaited continuation
+attached its listeners.
+
+Verified rather than assumed, both halves: against a real server, a request
+whose listener is attached two nextTicks, a `setImmediate` and 20ms late still
+receives the whole body; and against the real `fetchSafe`, driven by each stub
+in turn, the old one times out where the `Readable`-backed one returns the body,
+the pinned IP and the Host header. The security assertions still hold through
+the new stub - a 302 refused, a host resolving to 127.0.0.1 refused with ZERO
+requests sent, each redirect hop pinned, and credentials dropped cross-origin.
+
+</details>
+
+and adds the following release tooling:
+
+**Completing a release** - across every repository WeKan releases from.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d62c4f376635461d7cd59ffc6fa791b5a7f39556">A release can be finished without being made again</a>. Thanks to xet7.</summary>
+
+`release-all.yml` is one run that bumps the version, tags, builds every
+platform, and publishes Docker images, snaps, the website and the charts. It is
+the right thing for MAKING a release and the wrong thing for FINISHING one. When
+the v10.57 run ended with all six extra architectures missing, there was no way
+to get those six except to run the whole thing again, version bump and all.
+
+`release-all-missing.yml` finishes a release that already exists. It never bumps
+a version, never tags, and never touches Docker, snap, the website or the
+charts.
+
+What makes it possible: only `build-amd64` runs Meteor. Every other bundle WeKan
+ships is that same bundle with its native modules rebuilt, its Node.js swapped
+and its database binaries replaced. So it downloads the PUBLISHED
+`wekan-<v>-amd64.zip` - verifying its checksum, since it is the bundle every
+other architecture is cut from - and repacks it with
+`releases/repack-bundle-for-arch.sh`, the same script the full release runs. A
+bundle added to a release months later is therefore built exactly like the ones
+already on it.
+
+It does not claim to build everything, and says which: amd64 is the Meteor
+build, arm64/win64/mac-arm64 each need their own kind of runner, and the
+Sandstorm `.spk` is signed. `releases/expected-assets.sh` says what a complete
+release looks like, in one place, and an asset counts as present only when its
+`.sha256sum` is there too - a bundle whose checksum upload failed is
+half-published.
+
+The same pair now exists in **wekan/node**, **wekan/FerretDB**,
+**wekan/mongo-tools**, **wekan/gitea**, **Secretchronicles/TSC** and both snap
+variants, so every repository WeKan releases from can be completed the same way.
+Where the full build had another name - `node.yml`, `build-binaries.yml` - it is
+`release-all.yml` now.
 
 </details>
 
