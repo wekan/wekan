@@ -369,20 +369,26 @@ version from any source, and is the one architecture the run still stops on.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/77d38e099f99f897af1b59350adb58143d092a93">Node.js comes from the wekan/node fork on every architecture now</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1a263e9e21f60f2e1eaa7d1295ede4c21b6f465a">Node.js comes from the most verifiable source that has it, and is checked against its checksum</a>. Thanks to xet7.</summary>
 
-The fork is not "the CPUs nobody else builds" any more. It builds all thirteen
-platforms WeKan ships a bundle for, and it carries fixes upstream does not - the
-ICU genccode architecture name, the x86 `/SAFESEH` opt-out, the zlib SSE2 and
-NEON flags, the V8 template disambiguator. Those are build-configuration fixes
-any platform benefits from, and a set of bundles should not be half built on one
-Node.js and half on another depending on which CPU it is for.
+The three sources do not offer the same assurances, and this was checked rather
+than assumed: **nodejs.org** publishes a `SHASUMS256.txt` and signs it with the
+Node.js release keys, **unofficial-builds** publishes the checksums but no
+signature, and the **wekan/node fork** published neither until the change beside
+this one. So the order is official, then unofficial, then the fork - descending
+verifiability, with the fork as the backstop for what the other two do not
+build.
 
-So the order is the fork, then nodejs.org, then unofficial-builds - the last two
-being fallbacks for when the fork has not published a version yet, rather than
-the other way round. The rest of the rule is unchanged and still matters: the
-newest Node.js that exists FOR THIS CPU. Preferring the fork does not mean
-pinning to whatever the fork last built.
+Preferring a source because it publishes a checksum and then not checking it
+would be preferring it for nothing. The checksum is looked up during the
+preflight and the download step refuses a file that does not match it.
+
+A mismatch is retried before it is fatal: the likely cause is a truncated
+transfer, which asking again fixes. After three attempts the build stops,
+because at that point the file being served is not the file that was published.
+Where no checksum exists the log says so in as many words, rather than leaving
+the reader to assume a check was made - which is the case for **FerretDB** and
+the **MongoDB tools** today, neither of which publishes one.
 
 </details>
 
