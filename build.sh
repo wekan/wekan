@@ -309,13 +309,29 @@ function build_wekan(){
 			local peak
 			peak="$(grep -ao 'Mark-Compact ([a-z ]*) [0-9.]*' "$buildlog" \
 				| tail -1 | awk '{print $NF}')"
-			echo
-			echo "  The build ran out of JavaScript heap. It was allowed ${_heap_mb} MB${peak:+ and reached ${peak} MB}."
-			echo "  If that figure is already large, raising it again is not the answer:"
-			echo "  the build is using that much, and the last run before this one died"
-			echo "  the same way with half as much. Look at what the build is doing when"
-			echo "  it dies - in $buildlog, the last line before"
-			echo "  the GC dump is the stage it got to."
+			# Appended to the log as well as printed. The whole point of the
+			# build log is that "check the newest test logs" answers the
+			# question, and a diagnosis that exists only in terminal scrollback
+			# is one the next person does not have.
+			{
+				echo
+				echo "  The build ran out of JavaScript heap. It was allowed ${_heap_mb} MB${peak:+ and reached ${peak} MB}."
+				echo
+				echo "  Raising that number is NOT the next step. It has been raised once"
+				echo "  already - 8192 to ${_heap_mb} - and the build simply used the extra;"
+				echo "  removing the second JS minifier on the theory that it was the"
+				echo "  consumer moved the peak by 6 MB. The build really is holding that"
+				echo "  much, in the phase after both rspack compiles report done."
+				echo
+				echo "  To find out WHAT is holding it, run once with a heap snapshot:"
+				echo
+				echo "      WEKAN_BUILD_HEAP_SNAPSHOT=1 ./build.sh"
+				echo
+				echo "  That writes Heap.<pid>.<n>.heapsnapshot into $(pwd) just before"
+				echo "  the build dies. Open it in Chrome DevTools (Memory -> Load) and"
+				echo "  sort by retained size; the file is about as large as the heap"
+				echo "  limit, so it is opt-in rather than something every build pays for."
+			} | tee -a "$buildlog"
 		fi
 		return 1
 	fi
