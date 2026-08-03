@@ -699,6 +699,42 @@ Where the full build had another name - `node.yml`, `build-binaries.yml` - it is
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b1d11ac926ddb735647fd04ed2e332c83fbcfa5a">The filter that selects what to build stopped every workflow loading</a>. Thanks to xet7.</summary>
+
+The `only` filter was written as a job-level condition, and GitHub refuses to
+load a workflow that does that:
+
+```
+Invalid workflow file
+(Line: 109, Col: 9): Unrecognized named-value: 'matrix'
+```
+
+`matrix` is available to a job's `runs-on`, `env`, `name`, `container`,
+`services`, `continue-on-error`, `timeout-minutes`, `strategy` and `steps` - but
+NOT to `jobs.<id>.if`, which is evaluated before the matrix is expanded. It
+looks entirely reasonable, which is why it was written in five workflows in one
+sitting.
+
+It is worse than a job that does not run: a workflow that will not load takes
+every workflow that CALLS it with it, so TSC's `release-all-missing.yml` failed
+at startup with "error parsing called workflow" and built nothing at all.
+
+The decision moves to the job's `env:`, which can see matrix, and every step
+asks for it. Steps that already had a condition keep it, ANDed inside
+parentheses. Twelve files across five repositories.
+
+`tests/workflowExpressions.test.cjs` is the guard, and it exists because a YAML
+parser is perfectly happy with every one of these - the file is valid YAML, and
+only GitHub's expression evaluator rejects it, when the workflow is dispatched.
+It pins that no job-level `if:` reads `matrix` or `steps`, that every `${{ }}`
+is closed, and that a workflow declaring an `only` input actually consults it.
+Its brace check strips complete expressions rather than counting braces, because
+three real lines run docker with Go templates full of `}}` that close nothing of
+GitHub's.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
