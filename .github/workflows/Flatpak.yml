@@ -107,9 +107,6 @@ jobs:
           echo "Wrapping the bundles from $tag (version $version)"
 
   build:
-    # Empty `only` means every architecture, which is what a plain run passes.
-    # release-all-missing.yml passes just the ones the release does not carry.
-    if: ${{ inputs.only == '' || contains(fromJSON(inputs.only), matrix.flatpak_arch) }}
     name: flatpak ${{ matrix.flatpak_arch }}
     needs: release
     runs-on: ${{ matrix.runs_on }}
@@ -124,10 +121,23 @@ jobs:
           - flatpak_arch: aarch64
             bundle_arch: arm64
             runs_on: ubuntu-24.04-arm
+    # WHICH entries this run wants, decided here because it cannot be decided
+    # where it belongs. A job-level `if:` cannot see `matrix` - GitHub exposes
+    # that context to runs-on, env, name, steps and a few others, but not to a
+    # job's own condition - and a workflow that tries answers
+    #   Unrecognized named-value: 'matrix'
+    # and refuses to load at all, taking every workflow that CALLS it with it.
+    # A job-level env CAN see matrix, so the answer is computed once here and
+    # every step below asks for it.
+    env:
+      BUILD_THIS: ${{ inputs.only == '' || contains(fromJSON(inputs.only), matrix.flatpak_arch) }}
+
     steps:
       - uses: actions/checkout@v4
+        if: ${{ env.BUILD_THIS == 'true' }}
 
       - name: Install flatpak
+        if: ${{ env.BUILD_THIS == 'true' }}
         run: |
           set -euo pipefail
           sudo apt-get update
@@ -138,6 +148,7 @@ jobs:
             org.freedesktop.Platform//24.08 org.freedesktop.Sdk//24.08
 
       - name: Fetch the release bundle for this architecture
+        if: ${{ env.BUILD_THIS == 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -159,6 +170,7 @@ jobs:
       # runtime, copy the bundle into it, finish it with its permissions, and
       # export it into a repository.
       - name: Build the Flatpak
+        if: ${{ env.BUILD_THIS == 'true' }}
         run: |
           set -euo pipefail
           version='${{ needs.release.outputs.version }}'
@@ -244,6 +256,7 @@ jobs:
           flatpak build-export --arch="$arch" repo build-dir stable
 
       - name: Make the single-file bundle
+        if: ${{ env.BUILD_THIS == 'true' }}
         run: |
           set -euo pipefail
           version='${{ needs.release.outputs.version }}'
@@ -257,12 +270,14 @@ jobs:
           ls -lh dist
 
       - uses: actions/upload-artifact@v4
+        if: ${{ env.BUILD_THIS == 'true' }}
         with:
           name: flatpak-${{ matrix.flatpak_arch }}
           path: dist/
           if-no-files-found: error
 
       - uses: actions/upload-artifact@v4
+        if: ${{ env.BUILD_THIS == 'true' }}
         with:
           name: flatpak-repo-${{ matrix.flatpak_arch }}
           path: repo/

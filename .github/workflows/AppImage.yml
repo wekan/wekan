@@ -104,9 +104,6 @@ jobs:
           echo "Wrapping the bundles from $tag (version $version)"
 
   build:
-    # Empty `only` means every architecture, which is what a plain run passes.
-    # release-all-missing.yml passes just the ones the release does not carry.
-    if: ${{ inputs.only == '' || contains(fromJSON(inputs.only), matrix.appimage_arch) }}
     name: AppImage ${{ matrix.appimage_arch }}
     needs: release
     runs-on: ${{ matrix.runs_on }}
@@ -121,10 +118,23 @@ jobs:
           - appimage_arch: aarch64
             bundle_arch: arm64
             runs_on: ubuntu-24.04-arm
+    # WHICH entries this run wants, decided here because it cannot be decided
+    # where it belongs. A job-level `if:` cannot see `matrix` - GitHub exposes
+    # that context to runs-on, env, name, steps and a few others, but not to a
+    # job's own condition - and a workflow that tries answers
+    #   Unrecognized named-value: 'matrix'
+    # and refuses to load at all, taking every workflow that CALLS it with it.
+    # A job-level env CAN see matrix, so the answer is computed once here and
+    # every step below asks for it.
+    env:
+      BUILD_THIS: ${{ inputs.only == '' || contains(fromJSON(inputs.only), matrix.appimage_arch) }}
+
     steps:
       - uses: actions/checkout@v4
+        if: ${{ env.BUILD_THIS == 'true' }}
 
       - name: Fetch the release bundle for this architecture
+        if: ${{ env.BUILD_THIS == 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -144,6 +154,7 @@ jobs:
           du -sh bundle
 
       - name: Build the AppDir
+        if: ${{ env.BUILD_THIS == 'true' }}
         run: |
           set -euo pipefail
           version='${{ needs.release.outputs.version }}'
@@ -209,6 +220,7 @@ jobs:
           chmod +x AppDir/AppRun
 
       - name: Pack the AppImage
+        if: ${{ env.BUILD_THIS == 'true' }}
         run: |
           set -euo pipefail
           version='${{ needs.release.outputs.version }}'
@@ -232,6 +244,7 @@ jobs:
           ls -lh dist
 
       - name: Check that it starts
+        if: ${{ env.BUILD_THIS == 'true' }}
         run: |
           set -euo pipefail
           version='${{ needs.release.outputs.version }}'
@@ -258,6 +271,7 @@ jobs:
           echo "WeKan answered on port 8080."
 
       - uses: actions/upload-artifact@v4
+        if: ${{ env.BUILD_THIS == 'true' }}
         with:
           name: appimage-${{ matrix.appimage_arch }}
           path: dist/
