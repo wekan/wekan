@@ -34,6 +34,24 @@ name: AppImage
 # variables all still work.
 
 on:
+  # Callable, so release-all-missing.yml can ask for just the architectures
+  # a release is short of. The build itself stays here - a second copy of the
+  # appimages build would drift from this one.
+  workflow_call:
+    inputs:
+      tag:
+        required: false
+        type: string
+      publish:
+        required: false
+        default: true
+        type: boolean
+      only:
+        description: 'Only build these architectures, as a JSON array (e.g. ["aarch64"]); empty = all'
+        required: false
+        default: ''
+        type: string
+
   workflow_dispatch:
     inputs:
       tag:
@@ -45,6 +63,11 @@ on:
         required: false
         default: true
         type: boolean
+      only:
+        description: 'Only build these architectures, as a JSON array (e.g. ["aarch64"]); empty = all'
+        required: false
+        default: ''
+        type: string
 
 permissions:
   contents: write
@@ -81,6 +104,9 @@ jobs:
           echo "Wrapping the bundles from $tag (version $version)"
 
   build:
+    # Empty `only` means every architecture, which is what a plain run passes.
+    # release-all-missing.yml passes just the ones the release does not carry.
+    if: ${{ inputs.only == '' || contains(fromJSON(inputs.only), matrix.appimage_arch) }}
     name: AppImage ${{ matrix.appimage_arch }}
     needs: release
     runs-on: ${{ matrix.runs_on }}

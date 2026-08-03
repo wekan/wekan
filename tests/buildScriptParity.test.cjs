@@ -209,6 +209,8 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     'provenance-table.sh': 'release-workflow: called by the release job',
     'repack-bundle-for-arch.sh': 'release-workflow: needs ./bundle, docker and '
       + 'QEMU already set up by the build job around it',
+    'expected-assets.sh': 'release-workflow: prints what a complete release '
+      + 'carries, for release-all-missing.yml to compare against',
   };
 
   const missing = { sh: [], bat: [] };

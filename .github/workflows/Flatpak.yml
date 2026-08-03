@@ -34,6 +34,24 @@ name: Flatpak
 # says exactly how to sign it when a key exists.
 
 on:
+  # Callable, so release-all-missing.yml can ask for just the architectures
+  # a release is short of. The build itself stays here - a second copy of the
+  # flatpaks build would drift from this one.
+  workflow_call:
+    inputs:
+      tag:
+        required: false
+        type: string
+      publish:
+        required: false
+        default: true
+        type: boolean
+      only:
+        description: 'Only build these architectures, as a JSON array (e.g. ["x86_64"]); empty = all'
+        required: false
+        default: ''
+        type: string
+
   workflow_dispatch:
     inputs:
       tag:
@@ -50,6 +68,11 @@ on:
         required: false
         default: true
         type: boolean
+      only:
+        description: 'Only build these architectures, as a JSON array (e.g. ["x86_64"]); empty = all'
+        required: false
+        default: ''
+        type: string
 
 permissions:
   contents: write
@@ -84,6 +107,9 @@ jobs:
           echo "Wrapping the bundles from $tag (version $version)"
 
   build:
+    # Empty `only` means every architecture, which is what a plain run passes.
+    # release-all-missing.yml passes just the ones the release does not carry.
+    if: ${{ inputs.only == '' || contains(fromJSON(inputs.only), matrix.flatpak_arch) }}
     name: flatpak ${{ matrix.flatpak_arch }}
     needs: release
     runs-on: ${{ matrix.runs_on }}

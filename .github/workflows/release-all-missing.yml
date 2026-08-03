@@ -1,0 +1,318 @@
+name: Release all missing
+
+# Build only the bundles a release does not already carry.
+#
+# WHY: release-all.yml is one run that bumps versions, tags, builds every
+# platform, publishes Docker images, snaps, the website and the charts. It is
+# the right thing for MAKING a release and the wrong thing for FINISHING one.
+# When the v10.57 run ended with the six extra architectures missing - four of
+# them on a shell-quoting bug and two on a base image - there was no way to get
+# those six without running the whole thing again, version bump and all.
+#
+# This finishes a release that already exists. It never bumps a version, never
+# tags, never touches Docker, snap, the website or the charts.
+#
+# WHAT IT CAN BUILD, and why that is not everything. Only build-amd64 runs
+# Meteor; every other bundle WeKan ships is that same bundle repacked. This job
+# downloads the PUBLISHED wekan-<v>-amd64.zip and repacks it, so it can rebuild:
+#
+#   the six extra architectures  s390x ppc64le riscv64 i386 armhf loong64
+#   the AppImages and Flatpaks   by calling their own workflows
+#
+# It cannot rebuild amd64 itself (that is the Meteor build), nor arm64, win64
+# and mac-arm64 (each needs its own kind of runner and its own steps), nor the
+# Sandstorm .spk. When one of those is missing it says so and names
+# release-all.yml, rather than pretending.
+#
+# The repack is releases/repack-bundle-for-arch.sh - the SAME script
+# release-all.yml's build-extra-arches runs, so a bundle added to a release
+# months later is built exactly like the ones already on it.
+#
+# What a complete release looks like is releases/expected-assets.sh, in one
+# place. An asset counts as present only when its .sha256sum is there too; the
+# Sandstorm .spk is signed rather than checksummed and is marked nosums.
+#
+# Usage:
+#   gh workflow run release-all-missing.yml -f version=10.58
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release to complete, without the v (e.g. 10.58). Empty = the newest release.'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+env:
+  # Must match release-all.yml: the Node.js major the bundles carry.
+  NODE_VERSION: '24'
+
+# Never at the same time as a full release run, which would be uploading to the
+# same assets.
+concurrency:
+  group: wekan-release-${{ inputs.version || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    name: what the release is missing
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.plan.outputs.version }}
+      extra: ${{ steps.plan.outputs.extra }}
+      appimage: ${{ steps.plan.outputs.appimage }}
+      flatpak: ${{ steps.plan.outputs.flatpak }}
+      manual: ${{ steps.plan.outputs.manual }}
+      total: ${{ steps.plan.outputs.total }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: plan
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          V='${{ inputs.version }}'
+          V="${V#v}"
+          if [ -z "$V" ]; then
+            V="$(gh release view --json tagName --jq .tagName)"
+            V="${V#v}"
+            echo "No version given; the newest release is v$V."
+          fi
+          echo "version=$V" >> "$GITHUB_OUTPUT"
+
+          if gh release view "v$V" >/dev/null 2>&1; then
+            gh release view "v$V" --json assets --jq '.assets[].name' | sort > existing.txt
+          else
+            echo "::error::There is no release v$V to complete. This workflow FINISHES a release; release-all.yml makes one."
+            exit 1
+          fi
+          echo "v$V carries $(wc -l < existing.txt | tr -d ' ') asset(s)."
+
+          bash releases/expected-assets.sh "$V" > expected.txt
+
+          : > missing.txt
+          present=0
+          while read -r kind selector asset sums; do
+            need="$asset"
+            [ "$sums" = "sums" ] && need="$need ${asset}.sha256sum"
+            have=yes
+            for n in $need; do grep -qxF "$n" existing.txt || have=no; done
+            if [ "$have" = yes ]; then present=$((present + 1)); else echo "$kind $selector" >> missing.txt; fi
+          done < expected.txt
+
+          total="$(wc -l < missing.txt | tr -d ' ')"
+          echo "total=$total" >> "$GITHUB_OUTPUT"
+
+          for kind in extra appimage flatpak; do
+            sels="$(awk -v k="$kind" '$1 == k { print $2 }' missing.txt)"
+            json="$(printf '%s\n' $sels | sed '/^$/d' | jq -R . | jq -sc .)"
+            [ -n "$json" ] || json='[]'
+            echo "$kind=$json" >> "$GITHUB_OUTPUT"
+            echo "  $kind: $json"
+          done
+
+          # The ones this workflow cannot make. Named, not silently skipped.
+          manual="$(awk '$1 == "meteor" || $1 == "repack" || $1 == "sandstorm" { printf "%s/%s ", $1, $2 }' missing.txt)"
+          echo "manual=${manual% }" >> "$GITHUB_OUTPUT"
+
+          {
+            echo "### v$V"
+            echo ""
+            echo "$present of $((present + total)) assets already published."
+            echo ""
+            if [ "$total" -eq 0 ]; then
+              echo "Nothing is missing - the release is complete."
+            else
+              echo "Missing:"
+              echo ""
+              echo '```'
+              cat missing.txt
+              echo '```'
+              if [ -n "$manual" ]; then
+                echo ""
+                echo "Not buildable here (run release-all.yml): \`$manual\`"
+              fi
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "Missing $total. Needs release-all.yml: ${manual:-none}"
+
+      - name: Say plainly what this run will not do
+        if: ${{ steps.plan.outputs.manual != '' }}
+        run: |
+          echo "::warning::v${{ steps.plan.outputs.version }} is missing ${{ steps.plan.outputs.manual }}, which this workflow cannot build: amd64 is the Meteor build, arm64/win64/mac-arm64 each need their own runner, and the Sandstorm .spk is signed. Run release-all.yml for those."
+
+  # The six architectures nobody else builds for, repacked from the PUBLISHED
+  # amd64 bundle - which is what makes this possible without a Meteor build.
+  extra-arches:
+    name: ${{ matrix.arch }}
+    needs: plan
+    if: ${{ needs.plan.outputs.extra != '[]' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # The same table as release-all.yml's build-extra-arches, and it has
+          # to stay the same: `node_arch` is what the Node.js download is
+          # called (Node says x86 where we say i386, armv7l where we say
+          # armhf), `ferretdb_arch` is the asset name in the wekan/FerretDB
+          # release, and `image` must be a base image that PUBLISHES this
+          # platform - ubuntu:26.04 does not build 386, debian:trixie does.
+          - { arch: s390x,   platform: linux/s390x,   image: debian:trixie, node_arch: s390x,   ferretdb_arch: s390x }
+          - { arch: ppc64le, platform: linux/ppc64le, image: debian:trixie, node_arch: ppc64le, ferretdb_arch: ppc64le }
+          - { arch: riscv64, platform: linux/riscv64, image: debian:trixie, node_arch: riscv64, ferretdb_arch: riscv64 }
+          - { arch: i386,    platform: linux/386,     image: debian:trixie, node_arch: x86,     ferretdb_arch: i386 }
+          - { arch: armhf,   platform: linux/arm/v7,  image: debian:trixie, node_arch: armv7l,  ferretdb_arch: armhf }
+          # loong64 has NO base image on Docker Hub at any tag, so there is no
+          # loong64 userland to rebuild the native modules in. Its Node.js and
+          # its FerretDB both exist; the container does not. The preflight
+          # inside the script stops it saying exactly that, and it stays in the
+          # matrix so it is visible rather than quietly absent.
+          - { arch: loong64, platform: linux/loong64, image: debian:trixie, node_arch: loong64, ferretdb_arch: loong64 }
+    env:
+      VERSION: ${{ needs.plan.outputs.version }}
+    steps:
+      - name: Skip the architectures this release already has
+        id: want
+        run: |
+          if printf '%s' '${{ needs.plan.outputs.extra }}' | jq -e --arg a '${{ matrix.arch }}' 'index($a)' >/dev/null; then
+            echo "build=yes" >> "$GITHUB_OUTPUT"
+          else
+            echo "build=no" >> "$GITHUB_OUTPUT"
+            echo "v${VERSION} already has ${{ matrix.arch }}; nothing to do."
+          fi
+
+      - name: Install dependencies
+        if: ${{ steps.want.outputs.build == 'yes' }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl unzip zip
+
+      - name: Set up QEMU for ${{ matrix.arch }} emulation
+        if: ${{ steps.want.outputs.build == 'yes' }}
+        uses: docker/setup-qemu-action@v4
+
+      # Before the download, because actions/checkout cleans the workspace.
+      - uses: actions/checkout@v4
+        if: ${{ steps.want.outputs.build == 'yes' }}
+
+      # THE DIFFERENCE from release-all.yml, and the whole point of this
+      # workflow: the amd64 bundle comes from the RELEASE, not from an artifact
+      # of a build that is not running. Its checksum is verified when the
+      # release has one - a bundle every other architecture is cut from is worth
+      # checking before it is cut.
+      - name: Download the published amd64 bundle
+        if: ${{ steps.want.outputs.build == 'yes' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          zip="wekan-${VERSION}-amd64.zip"
+          gh release download "v${VERSION}" --pattern "$zip" --clobber
+          if gh release download "v${VERSION}" --pattern "${zip}.sha256sum" --clobber 2>/dev/null; then
+            sha256sum -c "${zip}.sha256sum"
+            echo "amd64 bundle checksum verified."
+          else
+            echo "::warning::v${VERSION} publishes no ${zip}.sha256sum, so the bundle every other architecture is cut from could not be verified."
+          fi
+          unzip -q "$zip"
+          [ -d bundle ] || { echo "::error::$zip did not contain a bundle/ directory."; exit 1; }
+          rm -f "$zip" "${zip}.sha256sum"
+
+      - name: Repack it for ${{ matrix.arch }}
+        if: ${{ steps.want.outputs.build == 'yes' }}
+        env:
+          ARCH: ${{ matrix.arch }}
+          NODE_ARCH: ${{ matrix.node_arch }}
+          FERRETDB_ARCH: ${{ matrix.ferretdb_arch }}
+          IMAGE: ${{ matrix.image }}
+          PLATFORM: ${{ matrix.platform }}
+        run: bash releases/repack-bundle-for-arch.sh
+
+      - name: Attach ${{ matrix.arch }} to the release
+        if: ${{ steps.want.outputs.build == 'yes' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          asset="wekan-${VERSION}-${{ matrix.arch }}.zip"
+          # No --clobber: this architecture was absent, so an upload that would
+          # overwrite something means the release changed under this run.
+          gh release upload "v${VERSION}" "$asset" "${asset}.sha256sum"
+          # Confirm from the other side. An upload that reports success and
+          # leaves no asset behind is the failure nobody notices until a
+          # download 404s.
+          gh release view "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
+          grep -qxF "$asset" release-assets.txt || {
+            echo "::error::$asset is not on release v${VERSION} although the upload reported success."
+            exit 1
+          }
+          echo "OK: $asset attached ($(($(wc -c < "$asset")/1024/1024)) MiB)."
+
+  appimage:
+    name: AppImages
+    needs: plan
+    if: ${{ needs.plan.outputs.appimage != '[]' }}
+    uses: ./.github/workflows/AppImage.yml
+    permissions:
+      contents: write
+    with:
+      tag: v${{ needs.plan.outputs.version }}
+      publish: true
+      only: ${{ needs.plan.outputs.appimage }}
+
+  flatpak:
+    name: Flatpaks
+    needs: plan
+    if: ${{ needs.plan.outputs.flatpak != '[]' }}
+    uses: ./.github/workflows/Flatpak.yml
+    permissions:
+      contents: write
+    with:
+      tag: v${{ needs.plan.outputs.version }}
+      publish: true
+      only: ${{ needs.plan.outputs.flatpak }}
+
+  done:
+    name: what is still missing
+    needs: [plan, extra-arches, appimage, flatpak]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          V: ${{ needs.plan.outputs.version }}
+          BEFORE: ${{ needs.plan.outputs.total }}
+        run: |
+          set -euo pipefail
+          if [ "$BEFORE" = "0" ]; then
+            echo "::notice::v$V was already complete - nothing was built."
+            exit 0
+          fi
+          gh release view "v$V" --json assets --jq '.assets[].name' | sort > now.txt
+          bash releases/expected-assets.sh "$V" > expected.txt
+          still=""
+          while read -r kind selector asset sums; do
+            need="$asset"
+            [ "$sums" = "sums" ] && need="$need ${asset}.sha256sum"
+            for n in $need; do
+              grep -qxF "$n" now.txt || { still="$still $kind/$selector"; break; }
+            done
+          done < expected.txt
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          if [ -z "$still" ]; then
+            echo "v$V is complete."
+            echo "**v$V is complete.**" >> "$GITHUB_STEP_SUMMARY"
+          else
+            # A warning, not a failure: what is left may be the parts this
+            # workflow never claimed to build.
+            echo "::warning::v$V is still missing:${still}"
+            echo "Still missing:\`${still# }\`" >> "$GITHUB_STEP_SUMMARY"
+          fi
