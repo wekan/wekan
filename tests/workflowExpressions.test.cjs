@@ -115,4 +115,57 @@ test('a workflow that takes an `only` filter gates its steps on it', () => {
   assert.deepStrictEqual(bad, [], 'workflows that declare `only` but never use it');
 });
 
+test('a called workflow exists, is callable, and takes what it is passed', () => {
+  // The OTHER way to get "Invalid workflow file" before a single job starts.
+  // `uses: ./.github/workflows/X.yml` fails at startup - taking the calling
+  // workflow down with it - when X.yml does not exist, has no `workflow_call`
+  // trigger, or is handed a `with:` key it never declared. None of it is
+  // visible to a YAML parser either.
+  //
+  // Parsed by hand rather than with js-yaml, which is not a dependency of this
+  // repository. These files are machine-written in a fixed shape, so the two
+  // things this needs - which workflows a job calls with which `with:` keys,
+  // and which inputs a workflow declares under workflow_call - are read by
+  // indentation.
+  const declared = {};   // file -> Set of workflow_call input names
+  for (const { name, lines } of files) {
+    const set = new Set();
+    let inCall = false, inInputs = false;
+    for (const l of lines) {
+      if (/^  workflow_call:\s*$/.test(l)) { inCall = true; inInputs = false; continue; }
+      if (/^  [a-z_]+:\s*$/.test(l)) { inCall = false; inInputs = false; continue; }
+      if (inCall && /^    inputs:\s*$/.test(l)) { inInputs = true; continue; }
+      if (inCall && /^    [a-z_]+:/.test(l)) { inInputs = false; continue; }
+      const m = inInputs && l.match(/^      ([A-Za-z_][A-Za-z0-9_-]*):\s*$/);
+      if (m) set.add(m[1]);
+    }
+    declared[name] = inCallSeen(lines) ? set : null;   // null = not callable
+  }
+
+  function inCallSeen(lines) { return lines.some(l => /^  workflow_call:\s*$/.test(l)); }
+
+  const bad = [];
+  for (const { name, lines } of files) {
+    for (let i = 0; i < lines.length; i++) {
+      const u = lines[i].match(/^    uses:\s*\.\/\.github\/workflows\/(\S+)\s*$/);
+      if (!u) continue;
+      const target = u[1];
+      if (!declared.hasOwnProperty(target)) { bad.push(`${name}: calls missing ${target}`); continue; }
+      if (declared[target] === null) { bad.push(`${name}: ${target} has no workflow_call`); continue; }
+      // the `with:` block of this job, if any
+      for (let j = i + 1; j < lines.length && !/^  \S/.test(lines[j]); j++) {
+        if (!/^    with:\s*$/.test(lines[j])) continue;
+        for (let k = j + 1; k < lines.length && /^      \S/.test(lines[k]); k++) {
+          const key = lines[k].match(/^      ([A-Za-z_][A-Za-z0-9_-]*):/);
+          if (key && !declared[target].has(key[1])) {
+            bad.push(`${name}: passes '${key[1]}' which ${target} does not declare`);
+          }
+        }
+        break;
+      }
+    }
+  }
+  assert.deepStrictEqual(bad, [], 'reusable-workflow calls that would fail at startup');
+});
+
 console.log(`workflowExpressions: ${passed} passed`);
