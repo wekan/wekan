@@ -4,8 +4,11 @@ echo "Recommended for development: Newest Debian or Ubuntu amd64 based distro, d
 echo "Note1: If you use other locale than en_US.UTF-8 , you need to additionally install en_US.UTF-8"
 echo "       with 'sudo dpkg-reconfigure locales' , so that MongoDB works correctly."
 echo "       You can still use any other locale as your main locale."
-echo "Note2: Console output is also logged to ../log/wekan-log.log"
-echo "Note3: All logs this script produces go into the ../log/ directory."
+echo "Note2: Console output is also logged to <logs>/wekan-log.log"
+echo "Note3: All logs this script produces go into a log/<datetime>/ directory -"
+echo "       ../log/ when the parent of the repo is writable, otherwise ./log/"
+echo "       inside it (a sandbox that shares only this repository). The path is"
+echo "       printed when a run starts."
 
 # Give the Meteor build tool and Node processes a larger heap so long
 # development sessions and test runs don't crash with
@@ -17,9 +20,35 @@ echo "Note3: All logs this script produces go into the ../log/ directory."
 export TOOL_NODE_FLAGS="${TOOL_NODE_FLAGS:---max-old-space-size=8192}"
 export NODE_OPTIONS="${NODE_OPTIONS:---max-old-space-size=8192}"
 
-# Every log this script writes goes into ../log/ (one directory up from the
-# repo). Create it up front so redirections never fail on a missing directory.
-mkdir -p ../log
+# Every log this script writes goes into a `log/<datetime>/` directory, and
+# WEKAN_LOG_ROOT is where those directories live.
+#
+# ../log by preference - one level up from the repo, so a test run's output is
+# not mixed into the working tree and `git status` after a run is about the code
+# rather than about the run. That is what the docs and the release process say
+# to read.
+#
+# But the parent of the repo is not always there to write into. In the Flatpak
+# sandbox only the repository directory itself is shared, so `..` is either
+# missing or read-only, and `mkdir -p ../log` fails - after which every
+# redirection in this script either failed or quietly dropped its log into the
+# repo root. So: try the parent, and fall back to `log/` INSIDE the repo, which
+# is always writable because the repo is what the sandbox shares. Same
+# `log/<datetime>/` shape either way, so nothing that reads these logs has to
+# care which happened, and the path is printed whenever a run starts.
+#
+# WEKAN_LOG_ROOT can be set to put them somewhere else entirely.
+if [ -z "${WEKAN_LOG_ROOT:-}" ]; then
+	if mkdir -p ../log 2>/dev/null && [ -w ../log ]; then
+		WEKAN_LOG_ROOT="../log"
+	else
+		WEKAN_LOG_ROOT="log"
+		echo "Note: the parent directory is not writable (a sandbox shares only"
+		echo "      this repository), so logs go into $(pwd)/log/ instead of ../log/."
+	fi
+fi
+export WEKAN_LOG_ROOT
+mkdir -p "$WEKAN_LOG_ROOT"
 
 function pause(){
 	read -p "$*"
@@ -197,7 +226,7 @@ function build_wekan(){
 	echo "Building WeKan."
 	# The build's output goes to the run's log directory, not only to the
 	# terminal. A test run that fails IN THE BUILD used to leave nothing behind
-	# to read: ../log/<datetime>/ held the FerretDB and conformance logs and not
+	# to read: log/<datetime>/ held the FerretDB and conformance logs and not
 	# one line about why WeKan itself never got as far as a test, so "check the
 	# newest test logs" could not answer the question the run had just raised.
 	# It is teed, so an interactive build still scrolls past as it always did.
@@ -442,7 +471,7 @@ function run_playwright_parallel(){
 
 	# This run's own ../log/<timestamp>/ dir, so logs are never overwritten.
 	local RUN_LOGDIR
-	RUN_LOGDIR="../log/$(date '+%Y-%m-%d_%H-%M-%S')"
+	RUN_LOGDIR="$WEKAN_LOG_ROOT/$(date '+%Y-%m-%d_%H-%M-%S')"
 	mkdir -p "$RUN_LOGDIR"
 
 	echo "Running Chromium, Firefox and WebKit Playwright suites sequentially (one browser at a time)."
@@ -509,14 +538,14 @@ function run_playwright_parallel(){
 }
 
 # Run one Playwright browser project interactively (single-browser menu items).
-# one_log <name> — a fresh ../log/<datetime>/ for a single test option, and the
+# one_log <name> — a fresh log/<datetime>/ for a single test option, and the
 # path of the file to tee into. Every option in the Tests menu writes there, so
 # "the newest test logs" is one directory whichever option produced them. When a
 # larger run is driving this (EVERYTHING), WEKAN_LOGDIR is already set and is used
 # instead, so one run stays in one directory.
 one_log() {
 	local name="$1" dir
-	dir="${WEKAN_LOGDIR:-../log/$(date '+%Y-%m-%d_%H-%M-%S')}"
+	dir="${WEKAN_LOGDIR:-$WEKAN_LOG_ROOT/$(date '+%Y-%m-%d_%H-%M-%S')}"
 	mkdir -p "$dir" 2>/dev/null || dir="."
 	printf '%s/wekan-%s.log' "$(cd "$dir" && pwd)" "$name"
 }
@@ -569,7 +598,7 @@ function run_all_tests(){
 		RUN_LOGDIR="$WEKAN_LOGDIR"
 	else
 		RUN_TS="$(date '+%Y-%m-%d_%H-%M-%S')"
-		RUN_LOGDIR="../log/$RUN_TS"
+		RUN_LOGDIR="$WEKAN_LOG_ROOT/$RUN_TS"
 	fi
 	mkdir -p "$RUN_LOGDIR"
 	RUN_LOGDIR="$(cd "$RUN_LOGDIR" && pwd)"
@@ -986,7 +1015,7 @@ function run_all_tests(){
 # bundle and starts a server), then the database conformance run (which builds
 # FerretDB from source and runs one query catalogue against every database with an
 # image for this CPU), then FerretDB's own tests (unit, vet, integration). They
-# share one ../log/<datetime>/ directory, so "the newest test logs" is one place.
+# share one log/<datetime>/ directory, so "the newest test logs" is one place.
 #
 # FerretDB is expected to be a subdirectory of this repo. releases/db-conformance.sh
 # clones it if it is not there, so the only thing this checks is that the clone
@@ -994,7 +1023,7 @@ function run_all_tests(){
 function run_everything(){
 	local RUN_TS RUN_LOGDIR FAILED=0
 	RUN_TS="$(date '+%Y-%m-%d_%H-%M-%S')"
-	RUN_LOGDIR="../log/$RUN_TS"
+	RUN_LOGDIR="$WEKAN_LOG_ROOT/$RUN_TS"
 	mkdir -p "$RUN_LOGDIR"
 	RUN_LOGDIR="$(cd "$RUN_LOGDIR" && pwd)"
 	export WEKAN_LOGDIR="$RUN_LOGDIR"
@@ -1777,9 +1806,9 @@ while [ -z "$opt" ]; do
 					"Kill all dev servers|Kill all dev servers (free ports 3000/3001/3100/3101/4000/4001/8080)" ;;
 			"Tests")
 				choose "Tests" \
-					"EVERYTHING (sequential): WeKan tests + all databases + FerretDB tests|Run EVERYTHING sequentially: WeKan's own tests, then the database conformance run for every database with a Docker image for this CPU, then all of FerretDB's own tests (unit, vet, integration) - one stage at a time, all logs in ../log/<datetime>/" \
-					"WeKan's own tests only, parallel|Run WeKan's own tests in parallel on http://localhost:3000: Mocha, the node unit suites, import regression, node E2E and all three browsers, concurrently. No database conformance and no FerretDB tests - logs in ../log/<datetime>/" \
-					"WeKan's own tests only, sequential|Run WeKan's own tests sequentially on http://localhost:3000: Mocha, the node unit suites, import regression, node E2E and all three browsers, one job at a time. No database conformance and no FerretDB tests - logs in ../log/<datetime>/" \
+					"EVERYTHING (sequential): WeKan tests + all databases + FerretDB tests|Run EVERYTHING sequentially: WeKan's own tests, then the database conformance run for every database with a Docker image for this CPU, then all of FerretDB's own tests (unit, vet, integration) - one stage at a time, all logs in log/<datetime>/" \
+					"WeKan's own tests only, parallel|Run WeKan's own tests in parallel on http://localhost:3000: Mocha, the node unit suites, import regression, node E2E and all three browsers, concurrently. No database conformance and no FerretDB tests - logs in log/<datetime>/" \
+					"WeKan's own tests only, sequential|Run WeKan's own tests sequentially on http://localhost:3000: Mocha, the node unit suites, import regression, node E2E and all three browsers, one job at a time. No database conformance and no FerretDB tests - logs in log/<datetime>/" \
 					"Mocha (server-side)|Test Mocha unit + security + API-logic tests (server-side only, no browser)" \
 					"Import regression|Test import regression (tests/wekanCreator.import.test.js, fast, no server)" \
 					"Node E2E regressions|Test Node E2E regressions (tests/e2e/list-regressions.js, needs running server)" \
@@ -1790,8 +1819,8 @@ while [ -z "$opt" ]; do
 					"Playwright ALL browsers|Test Playwright ALL browsers sequentially (Chromium + Firefox + WebKit, one at a time), server already running on :3000" \
 					"Floating-promises guard|Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" \
 					"Count tests by category|Count amount of tests by category" \
-					"Run all FerretDB tests - SEQUENTIAL|Run all FerretDB tests - SEQUENTIAL: unit, vet and the integration suite of the FerretDB subdirectory of this repo, one at a time, logs in ../log/<datetime>/" \
-					"All databases (sequential)|Test all databases that have a Docker image for this CPU, SEQUENTIALLY: build newest FerretDB v1 from source, then run every FerretDB v1 query type against each database and compare that they all answer the same (results in ../log/<datetime>/)" ;;
+					"Run all FerretDB tests - SEQUENTIAL|Run all FerretDB tests - SEQUENTIAL: unit, vet and the integration suite of the FerretDB subdirectory of this repo, one at a time, logs in log/<datetime>/" \
+					"All databases (sequential)|Test all databases that have a Docker image for this CPU, SEQUENTIALLY: build newest FerretDB v1 from source, then run every FerretDB v1 query type against each database and compare that they all answer the same (results in log/<datetime>/)" ;;
 			"Tools")
 				choose "Tools" \
 					"Save Meteor deps list|Save Meteor dependency chain to ../meteor-deps.txt" \
@@ -1910,9 +1939,9 @@ for _once in 1; do
 		kill_meteor_on_port 3000 || break
 		#Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
 		#---------------------------------------------------------------------
-		# Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee ../log/wekan-log.log
+		# Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
 		#WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
-		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 2>&1 | tee ../log/wekan-log.log
+		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
 		#---------------------------------------------------------------------
 		break
 		;;
@@ -1923,8 +1952,8 @@ for _once in 1; do
 		kill_meteor_on_port 3000 || break
                 #Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
                 #---------------------------------------------------------------------
-                # Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee ../log/wekan-log.log
-                DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings --max-old-space-size=8192" WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 2>&1 | tee ../log/wekan-log.log
+                # Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
+                DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings --max-old-space-size=8192" WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
                 #---------------------------------------------------------------------
                 break
                 ;;
@@ -1934,9 +1963,9 @@ for _once in 1; do
 		kill_meteor_on_port 3000 || break
 		#Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
 		#---------------------------------------------------------------------
-		#Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee ../log/wekan-log.log
+		#Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
 		#WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
-		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 --extra-packages bundle-visualizer --production  2>&1 | tee ../log/wekan-log.log
+		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 --extra-packages bundle-visualizer --production  2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
 		#---------------------------------------------------------------------
 		break
 		;;
@@ -1953,9 +1982,9 @@ for _once in 1; do
 		#---------------------------------------------------------------------
 		#Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
 		#---------------------------------------------------------------------
-		#Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee ../log/wekan-log.log
+		#Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
 		#WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
-		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:3000 meteor run --port 3000 2>&1 | tee ../log/wekan-log.log
+		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:3000 meteor run --port 3000 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
 		#---------------------------------------------------------------------
 		break
 		;;
@@ -1972,9 +2001,9 @@ for _once in 1; do
                 #---------------------------------------------------------------------
                 #Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
                 #---------------------------------------------------------------------
-                #Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee ../log/wekan-log.log
+                #Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
                 #WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
-                DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true MONGO_URL=mongodb://127.0.0.1:27019/wekan WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:3000 meteor run --port 3000 2>&1 | tee ../log/wekan-log.log
+                DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true MONGO_URL=mongodb://127.0.0.1:27019/wekan WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:3000 meteor run --port 3000 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
                 #---------------------------------------------------------------------
                 break
                 ;;
@@ -1986,9 +2015,9 @@ for _once in 1; do
 		#---------------------------------------------------------------------
 		# Same environment as the plain localhost:3000 option; only the port and
 		# ROOT_URL differ. Logging of terminal output to console and to
-		# ../log/wekan-log.log at the end of the line: 2>&1 | tee ../log/wekan-log.log
+		# ../log/wekan-log.log at the end of the line: 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
 		#---------------------------------------------------------------------
-		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL="$DEV_ROOT_URL" meteor run --port "$DEV_PORT" 2>&1 | tee ../log/wekan-log.log
+		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL="$DEV_ROOT_URL" meteor run --port "$DEV_PORT" 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
 		#---------------------------------------------------------------------
 		break
 		;;
@@ -2005,9 +2034,9 @@ for _once in 1; do
 		#---------------------------------------------------------------------
 		#Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
 		#---------------------------------------------------------------------
-		#Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee ../log/wekan-log.log
+		#Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
 		#WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
-		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:$PORT meteor run --port $PORT 2>&1 | tee ../log/wekan-log.log
+		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:$PORT meteor run --port $PORT 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
 		#---------------------------------------------------------------------
 		break
 		;;
@@ -2024,12 +2053,12 @@ for _once in 1; do
                 break
                 ;;
 
-    "Run WeKan's own tests in parallel on http://localhost:3000: Mocha, the node unit suites, import regression, node E2E and all three browsers, concurrently. No database conformance and no FerretDB tests - logs in ../log/<datetime>/")
+    "Run WeKan's own tests in parallel on http://localhost:3000: Mocha, the node unit suites, import regression, node E2E and all three browsers, concurrently. No database conformance and no FerretDB tests - logs in log/<datetime>/")
 		run_all_tests parallel
 		break
 		;;
 
-    "Run WeKan's own tests sequentially on http://localhost:3000: Mocha, the node unit suites, import regression, node E2E and all three browsers, one job at a time. No database conformance and no FerretDB tests - logs in ../log/<datetime>/")
+    "Run WeKan's own tests sequentially on http://localhost:3000: Mocha, the node unit suites, import regression, node E2E and all three browsers, one job at a time. No database conformance and no FerretDB tests - logs in log/<datetime>/")
 		run_all_tests sequential
 		break
 		;;
@@ -2156,7 +2185,7 @@ for _once in 1; do
 		break
 		;;
 
-    "Run all FerretDB tests - SEQUENTIAL: unit, vet and the integration suite of the FerretDB subdirectory of this repo, one at a time, logs in ../log/<datetime>/")
+    "Run all FerretDB tests - SEQUENTIAL: unit, vet and the integration suite of the FerretDB subdirectory of this repo, one at a time, logs in log/<datetime>/")
 	# FerretDB is a subdirectory of this repo; releases/db-conformance.sh clones it
 	# when it is not there, and its own build.sh installs Go and the modules.
 	if [ ! -x FerretDB/build.sh ]; then
@@ -2168,11 +2197,11 @@ for _once in 1; do
 	fi
 	;;
 
-    "Run EVERYTHING sequentially: WeKan's own tests, then the database conformance run for every database with a Docker image for this CPU, then all of FerretDB's own tests (unit, vet, integration) - one stage at a time, all logs in ../log/<datetime>/")
+    "Run EVERYTHING sequentially: WeKan's own tests, then the database conformance run for every database with a Docker image for this CPU, then all of FerretDB's own tests (unit, vet, integration) - one stage at a time, all logs in log/<datetime>/")
 	run_everything
 	;;
 
-    "Test all databases that have a Docker image for this CPU, SEQUENTIALLY: build newest FerretDB v1 from source, then run every FerretDB v1 query type against each database and compare that they all answer the same (results in ../log/<datetime>/)")
+    "Test all databases that have a Docker image for this CPU, SEQUENTIALLY: build newest FerretDB v1 from source, then run every FerretDB v1 query type against each database and compare that they all answer the same (results in log/<datetime>/)")
 	# Everything this needs - the FerretDB source, the Go toolchain, the module
 	# dependencies - is fetched or built by the script itself; see the note at its
 	# top for why it is sequential and why SAP HANA is opt-in.

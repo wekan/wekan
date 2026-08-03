@@ -95,6 +95,13 @@ _build-local-test
 /TSC/
 /secretchronicles.github.io/
 
+# Test and build logs, when they land INSIDE the repo. build.sh writes to
+# ../log/<datetime>/ by preference - one level up, so a test run does not show
+# up in git status - but the parent of the repo is not writable in a Flatpak
+# sandbox, which shares only the repository. There it falls back to ./log/,
+# which must not be committed.
+/log/
+
 # Linux core dumps (core.<pid>), e.g. from a crashing Playwright/WebKit browser
 # process. Written into the crashing process CWD (tests/playwright/) by
 # kernel.core_pattern; never source files.

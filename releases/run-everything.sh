@@ -20,7 +20,7 @@
 #                                 that has a Docker image for this CPU.
 #   3. FerretDB's own tests     - unit, vet, and the integration suite.
 #
-# Everything lands in one ../log/<datetime>/ directory, so "the newest test logs"
+# Everything lands in one log/<datetime>/ directory, so "the newest test logs"
 # is one place for all three.
 
 set -uo pipefail

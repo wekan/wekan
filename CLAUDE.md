@@ -374,16 +374,20 @@ All publishing / release steps below are maintainer-only. Contributors never run
   WeKan and run tests.
 - Add tests, negative tests and UI tests for all new features and fixes that do not yet
   have tests. When adding a test, run or validate it and fix it until it works.
-- **"Check newest test logs":** test logs are written outside this repo, in
-  `../log/<datetime>/` (one directory per run, e.g. `../log/2026-07-21_20-58-09/`). The
+- **"Check newest test logs":** test logs go into a `log/<datetime>/` directory,
+  one per run (e.g. `2026-07-21_20-58-09/`). That is **`../log/`**, one level up
+  from the repo, so a run does not show up in `git status` - **unless the parent
+  is not writable**, as in a Flatpak sandbox that shares only the repository;
+  there it is **`./log/`** inside the repo (gitignored). `build.sh` prints which
+  one when a run starts. The
   newest datetime directory is the latest run. Each holds the Playwright per-browser
   logs (`wekan-alltests-chromium.log`, `-firefox.log`, `-webkit.log`), the mocha/unit
   log (`wekan-alltests-mocha.log`), the e2e/import logs, and `wekan-test-server.log`
   (the WeKan test server + database output). A whole-run directory also holds the
   database-conformance logs (`db-conformance-*.log`, `-report.md`, `-summary.txt`)
   and FerretDB's own (`ferretdb-unit.log`, `-vet.log`, `-integration.log`). "Check
-  the newest test logs" means: open the most recent `../log/<datetime>/` and read
-  those.
+  the newest test logs" means: open the most recent `log/<datetime>/` - look in
+  `../log/` first, then `./log/` - and read those.
 - **Check and fix WHILE the tests are still running.** A full run takes a long time
   (three browsers, then every database with an image for this CPU, then FerretDB's
   own suites), and its stages finish one at a time. Do not wait for the end: read

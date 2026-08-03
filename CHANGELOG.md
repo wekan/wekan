@@ -393,6 +393,29 @@ the **MongoDB tools** today, neither of which publishes one.
 </details>
 
 <details>
+<summary>Logs land somewhere writable, so a run inside a sandbox keeps them</summary>
+
+Every log `build.sh` writes goes into a `log/<datetime>/` directory, and the
+root of those was hard-coded to **`../log/`** - one level up from the repo,
+which is the right default: a test run then does not show up in `git status`,
+and the release process and the docs read it there.
+
+It is not always there to write into. A Flatpak sandbox shares only the
+repository directory, so `..` is missing or read-only, `mkdir -p ../log` fails,
+and every redirection after it either failed or quietly dropped its log into the
+repo root - which is the worst of both, because the run looks like it logged
+something and `git status` fills with stray files.
+
+`WEKAN_LOG_ROOT` is resolved once at startup: `../log` when the parent is
+writable, `./log` inside the repo when it is not, and whatever you set if you
+set it. Same `log/<datetime>/` shape either way, so nothing that reads these has
+to care which happened, and the chosen path is printed when a run starts.
+`releases/db-conformance.sh` makes the same choice when run on its own, and
+`/log/` is gitignored for the case it lands inside.
+
+</details>
+
+<details>
 <summary>A test run that fails in the build now leaves the build log behind</summary>
 
 The newest run ended `FAIL WeKan tests (sequential)` and its log directory held
