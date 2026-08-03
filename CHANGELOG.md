@@ -21,6 +21,7 @@ Newest WeKan at these platforms:
   /var/snap/wekan/common/wekan and some cards were not visible, it was fixed at
   WeKan 8.07 where database directory is back to /var/snap/wekan/common and all
   cards are visible.
+
 </details>
 
 # TODO Later
@@ -31,7 +32,9 @@ Newest WeKan at these platforms:
 Investigated but not finished, with findings
 recorded for whoever picks them up next. Entries that have since been FIXED are
 removed from this list as they are handled (their fixes carry `Fixes #NNNN` and
-close on push): e.g. #4560/#4419/#4158 (LDAP, in the startup-upgrade batch), #4825/#4897 (All Boards/OAuth2 data), #4822 (maximized card position), #3826
+close on push): e.g. #4560/#4419/#4158 (LDAP, in the startup-upgrade
+batch), #4825/#4897 (All Boards/OAuth2 data), #4822 (maximized card
+position), #3826
 (subtask drag reorder), #5282/#5547 (mergebox/features batch), #3453/#3199/#3843
 (linked-card/archive/comment attachments), #4593 (late-joining team member board
 membership) and #3037 (REST card board-move).
@@ -40,6 +43,7 @@ Checked against GitHub on 2026-07-28 and removed as no longer open: issues
 \#3138, \#3252, \#3276, \#3378, \#3748, \#3828, \#4055, \#4774, \#5149 and
 \#6511. The "already correct in the current code" category went with them - it
 held only issues \#4774 and \#4055, and both are closed now.
+
 </details>
 
 <details>
@@ -3600,6 +3604,7 @@ which needs readable output more than speed.
 it — the WeKan stage needs a POSIX shell throughout, and a second
 implementation would drift. That script is also the non-interactive way to run
 it anywhere.
+
 </details>
 
 <details>
