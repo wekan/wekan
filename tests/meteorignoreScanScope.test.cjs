@@ -32,6 +32,7 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
+const { execFileSync } = require('child_process');
 
 const ROOT = path.resolve(__dirname, '..');
 const read = rel => fs.readFileSync(path.join(ROOT, rel), 'utf8');
@@ -100,6 +101,58 @@ test('the excludes are anchored to the repo root, not matched at any depth', () 
     !l.startsWith('/') && l !== 'npm-packages/');
   assert.deepStrictEqual(unanchored, [],
     'unanchored patterns match at any depth');
+});
+
+test('every git repository cloned in here is excluded from BOTH files', () => {
+  // The general rule, stated over the whole thing rather than over a list: a
+  // directory with a .git of its own is ANOTHER PROJECT, so it is not WeKan's
+  // source and it is not WeKan's history. It belongs in .gitignore so `git
+  // status` stays readable, and in .meteorignore so the build does not walk it.
+  //
+  // This is the check the rest of the file cannot make. The test below derives
+  // its list FROM .gitignore, so it only catches a clone that got half way; a
+  // clone added to NEITHER file is invisible to it, and that is the state every
+  // one of these arrived in.
+  //
+  // Found by walking rather than by listing, so a clone nobody thought to name
+  // here is still caught.
+  const skip = new Set(['node_modules', '.git', '.meteor', '.build']);
+  const nested = [];
+  (function walk(dir, rel, depth) {
+    if (depth > 4) return;
+    let items;
+    try { items = fs.readdirSync(dir, { withFileTypes: true }); } catch { return; }
+    for (const it of items) {
+      if (!it.isDirectory() || skip.has(it.name)) continue;
+      const childRel = rel ? `${rel}/${it.name}` : it.name;
+      // A submodule's .git is a FILE, not a directory - existsSync covers both.
+      if (fs.existsSync(path.join(dir, it.name, '.git'))) {
+        nested.push(childRel);
+        continue;   // do not descend: its own submodules ride along with it
+      }
+      walk(path.join(dir, it.name), childRel, depth + 1);
+    }
+  })(ROOT, '', 0);
+
+  const notIgnoredByGit = nested.filter(d => {
+    try {
+      execFileSync('git', ['check-ignore', '-q', '--', d],
+        { cwd: ROOT, stdio: 'ignore' });
+      return false;
+    } catch {
+      return true;   // exit 1 = not ignored (and git missing fails loudly here)
+    }
+  });
+  assert.deepStrictEqual(notIgnoredByGit, [],
+    'cloned repositories that git would try to track - add them to .gitignore');
+
+  // Only a TOP-LEVEL entry can be excluded by a root .meteorignore path; a repo
+  // nested deeper is already covered by whichever top-level entry contains it.
+  const notIgnoredByMeteor = nested
+    .filter(d => !d.includes('/'))
+    .filter(d => !ignored.has(d));
+  assert.deepStrictEqual(notIgnoredByMeteor, [],
+    'cloned repositories Meteor would still walk - add them to .meteorignore');
 });
 
 test('nothing gitignored at the top level is left for Meteor to walk', () => {
