@@ -85,6 +85,7 @@ _build-local-test
 #  - mongosh/     : clone of wekan/mongosh
 #  - node/        : clone of the Node.js 24.x fork WeKan builds its runtime from
 #  - TSC/         : clone of Secretchronicles/TSC
+#  - secretchronicles.github.io/ : clone of the TSC website of the same name
 /projects/
 /sandstorm/
 /FerretDB/
@@ -92,6 +93,7 @@ _build-local-test
 /mongosh/
 /node/
 /TSC/
+/secretchronicles.github.io/
 
 # Linux core dumps (core.<pid>), e.g. from a crashing Playwright/WebKit browser
 # process. Written into the crashing process CWD (tests/playwright/) by
