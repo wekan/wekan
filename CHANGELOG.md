@@ -876,6 +876,28 @@ GitHub's.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/18c6dcc68fb3023feaa9382c596ba4df72aa947d">The other way a workflow fails before it starts is guarded too</a>. Thanks to xet7.</summary>
+
+`uses: ./.github/workflows/X.yml` fails at STARTUP - taking the calling workflow
+down with it, so nothing runs and there is no job log to read - when X.yml does
+not exist, has no `workflow_call` trigger, or is handed a `with:` key it never
+declared. Same class of failure as the one above, and just as invisible: the
+YAML is valid, and only GitHub's loader objects.
+
+Worth pinning now because `release-all-missing.yml` calls `AppImage.yml` and
+`Flatpak.yml` here, TSC's calls five workflows, and the `only` input they all
+take was added by hand to each of them. One typo in a `with:` key would stop a
+whole run.
+
+Checked across every repository first - TSC, WeKan, both snap variants,
+wekan/node, wekan/FerretDB, wekan/mongo-tools and wekan/gitea - where all
+reusable-workflow calls already match. Then verified against all three shapes by
+breaking each in turn: an undeclared `with:` key, a missing file, and a called
+workflow with no `workflow_call`.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
