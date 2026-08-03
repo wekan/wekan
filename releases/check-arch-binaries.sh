@@ -73,19 +73,24 @@ fi
 
 # ── 2. Node.js ───────────────────────────────────────────────────────────────
 #
-# The rule is "the NEWEST Node.js that exists for this CPU", not "the newest
-# Node.js". Those are the same thing on amd64 and arm64 and regularly are not
-# anywhere else: nodejs.org builds a handful of architectures, unofficial-builds
-# adds a few more, and the wekan/node fork builds the rest - each on its own
-# schedule, so the further a CPU is off the beaten path the further behind its
-# newest build tends to be. Today nodejs.org is at v24.19.0, unofficial-builds
-# has riscv64 only up to v24.18.1, and the fork has i386 and loong64 at v24.18.1.
+# THE FORK FIRST, for every CPU. wekan/node is not just "the architectures
+# nobody else builds" any more - it builds all of them, and it carries fixes
+# upstream does not (CHANGELOG-fork.md: the ICU genccode architecture name, the
+# x86 /SAFESEH opt-out, the zlib SSE2 and NEON flags, the V8 template
+# disambiguator). Those are build-configuration fixes that any platform
+# benefits from, and a set of bundles should not be half built on one Node.js
+# and half on another depending on which CPU it is for.
 #
-# So this walks the 24.x versions from newest down, and at each one asks all
-# three sources in turn - official, then unofficial, then the fork. The first
-# hit wins, which is by construction the newest build that exists anywhere for
-# this CPU. Pinning to the newest version instead would fail for exactly the
-# architectures this whole job exists to serve.
+# nodejs.org and unofficial-builds stay as fallbacks, in that order, for the
+# case the fork has not published a version yet.
+#
+# And the rule is still "the NEWEST Node.js that exists for this CPU", not "the
+# newest Node.js". Those are the same thing on amd64 and arm64 and regularly are
+# not anywhere else - each source builds on its own schedule, so the further a
+# CPU is off the beaten path the further behind its newest build tends to be.
+# This walks the 24.x versions from newest down and asks all three sources at
+# each one; the first hit wins, which is by construction the newest build that
+# exists anywhere for this CPU.
 #
 # The walk stops after MAX_VERSIONS_BACK. A CPU whose newest build is a dozen
 # releases old is not "slightly behind", it is unmaintained, and saying so is
@@ -119,20 +124,21 @@ for v in $versions; do
     u="https://unofficial-builds.nodejs.org/download/release/${v}/node-${v}-linux-${node_arch}.tar.xz"
     f="https://github.com/wekan/node/releases/download/${v}/node-${arch}"
 
-    if   have "$o"; then node_from=official;   node_url="$o"; node_full="$v"; break
+    # The fork first - see the note above.
+    if   have "$f"; then node_from=fork;       node_url="$f"; node_full="$v"; break
+    elif have "$o"; then node_from=official;   node_url="$o"; node_full="$v"; break
     elif have "$u"; then node_from=unofficial; node_url="$u"; node_full="$v"; break
-    elif have "$f"; then node_from=fork;       node_url="$f"; node_full="$v"; break
     fi
 done
 
 if [ -z "$node_from" ]; then
     newest="$node_full_wanted"
     oldest="$(printf '%s\n' "$versions" | head -n "$MAX_VERSIONS_BACK" | tail -n 1)"
-    echo "::error::No Node.js for ${arch} exists anywhere. Checked every ${node_version}.x release from ${newest} back to ${oldest} at nodejs.org, unofficial-builds and the wekan/node fork, for node_arch '${node_arch}' and asset 'node-${arch}'. The fork is the one to fix: build node-${arch} with the node.yml workflow in wekan/node and attach it to a release, then re-run this job."
+    echo "::error::No Node.js for ${arch} exists anywhere. Checked every ${node_version}.x release from ${newest} back to ${oldest} at the wekan/node fork (asset 'node-${arch}'), nodejs.org and unofficial-builds (node_arch '${node_arch}'). The fork is the one to fix: build node-${arch} with the node.yml workflow in wekan/node and attach it to a release, then re-run this job."
     missing=1
 elif [ "$node_full" != "$node_full_wanted" ]; then
     # Behind, but the newest that exists - which is the best this CPU can have.
-    echo "::warning::${arch} gets Node.js ${node_full} from ${node_from}, not the newest ${node_full_wanted}: no source has ${node_arch}/node-${arch} for ${node_full_wanted} yet. This is the newest build that exists for this CPU. To bring it in line, build node-${arch} for ${node_full_wanted} in wekan/node."
+    echo "::warning::${arch} gets Node.js ${node_full} from ${node_from}, not the newest ${node_full_wanted}: no source has node-${arch} (or ${node_arch}) for ${node_full_wanted} yet. This is the newest build that exists for this CPU. To bring it in line, build node-${arch} for ${node_full_wanted} in wekan/node."
     echo "Node.js ${node_full} for ${arch}: ${node_from} (${node_url})"
 else
     echo "Node.js ${node_full} for ${arch}: ${node_from} (${node_url})"
