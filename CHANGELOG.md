@@ -392,6 +392,30 @@ the **MongoDB tools** today, neither of which publishes one.
 
 </details>
 
+<details>
+<summary>A test run that fails in the build now leaves the build log behind</summary>
+
+The newest run ended `FAIL WeKan tests (sequential)` and its log directory held
+nothing about WeKan at all - the FerretDB and database-conformance logs were
+there, and not one line about why WeKan never got as far as a test. The build's
+output went to the terminal only, so the one question the run raised was the one
+question its logs could not answer.
+
+`build_wekan` tees into `wekan-build.log` in the run's own directory now, and
+says the path before it starts. An interactive build still scrolls past exactly
+as before.
+
+Two things found while looking. `build_wekan` did not check whether the build
+worked - `meteor build` failing left the function returning success, and the
+caller found out only later by noticing `.build/bundle` was missing. And
+`run_all_tests` minted its own `../log/<datetime>/` even when a larger run had
+already set `WEKAN_LOGDIR`, which is exactly the split-across-two-directories
+the per-run directory exists to prevent; it happened to land in the same second
+this time, so nothing showed. It uses the outer directory when there is one, and
+exports its own when there is not.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

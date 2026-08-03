@@ -195,9 +195,30 @@ function kill_all_dev_servers(){
 # next `meteor run` recompiles from scratch instead of serving stale modules.
 function build_wekan(){
 	echo "Building WeKan."
-	rm -rf node_modules node_modules/.cache .meteor/local .build _build
-	(meteor update --npm 2>/dev/null || true) && meteor npm install
-	meteor build .build --directory
+	# The build's output goes to the run's log directory, not only to the
+	# terminal. A test run that fails IN THE BUILD used to leave nothing behind
+	# to read: ../log/<datetime>/ held the FerretDB and conformance logs and not
+	# one line about why WeKan itself never got as far as a test, so "check the
+	# newest test logs" could not answer the question the run had just raised.
+	# It is teed, so an interactive build still scrolls past as it always did.
+	local buildlog
+	buildlog="$(one_log build)"
+	echo "Build log: $buildlog"
+	{
+		echo "===== wekan build started $(date '+%F %T') ====="
+		rm -rf node_modules node_modules/.cache .meteor/local .build _build
+		(meteor update --npm 2>/dev/null || true) && meteor npm install
+		meteor build .build --directory
+		local rc=$?
+		echo "===== wekan build finished $(date '+%F %T') (exit $rc) ====="
+		return $rc
+	} 2>&1 | tee "$buildlog"
+	# The exit status of the pipeline is tee's; take the build's.
+	local rc="${PIPESTATUS[0]}"
+	if [ "$rc" -ne 0 ] || [ ! -d .build/bundle ]; then
+		echo "ERROR: the WeKan build failed. Its output is in $buildlog"
+		return 1
+	fi
 	echo Done.
 }
 
@@ -538,9 +559,21 @@ function run_all_tests(){
 	# (stamped once, when the run starts), so logs are never overwritten and
 	# previous runs are kept.
 	local RUN_TS RUN_LOGDIR
-	RUN_TS="$(date '+%Y-%m-%d_%H-%M-%S')"
-	RUN_LOGDIR="../log/$RUN_TS"
+	# WEKAN_LOGDIR is set when a larger run is driving this (EVERYTHING), and
+	# then it is THE directory for the whole run - minting a second one here
+	# would split one run's logs across two directories, which is the thing the
+	# per-run directory exists to prevent. Standalone, this stamps its own and
+	# exports it, so every job of this run agrees on it rather than each calling
+	# date() again and landing in a different second.
+	if [ -n "${WEKAN_LOGDIR:-}" ]; then
+		RUN_LOGDIR="$WEKAN_LOGDIR"
+	else
+		RUN_TS="$(date '+%Y-%m-%d_%H-%M-%S')"
+		RUN_LOGDIR="../log/$RUN_TS"
+	fi
 	mkdir -p "$RUN_LOGDIR"
+	RUN_LOGDIR="$(cd "$RUN_LOGDIR" && pwd)"
+	export WEKAN_LOGDIR="$RUN_LOGDIR"
 	echo "Logs for this run: $RUN_LOGDIR/  (previous runs are kept)"
 	# Tests ALWAYS run against a freshly built bundle. The :3000 test server runs
 	# the precompiled .build/bundle, so a stale bundle means the suite passes or
