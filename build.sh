@@ -279,6 +279,21 @@ function build_wekan(){
 	local rc="${PIPESTATUS[0]}"
 	if [ "$rc" -ne 0 ] || [ ! -d .build/bundle ]; then
 		echo "ERROR: the WeKan build failed. Its output is in $buildlog"
+		# Name the failure when it is one we can recognise, rather than leaving
+		# a V8 stack trace as the last word. Running out of heap and failing to
+		# compile look identical at this level and have nothing in common.
+		if grep -q "JavaScript heap out of memory" "$buildlog" 2>/dev/null; then
+			local peak
+			peak="$(grep -ao 'Mark-Compact ([a-z ]*) [0-9.]*' "$buildlog" \
+				| tail -1 | awk '{print $NF}')"
+			echo
+			echo "  The build ran out of JavaScript heap. It was allowed ${_heap_mb} MB${peak:+ and reached ${peak} MB}."
+			echo "  If that figure is already large, raising it again is not the answer:"
+			echo "  the build is using that much, and the last run before this one died"
+			echo "  the same way with half as much. Look at what the build is doing when"
+			echo "  it dies - in $buildlog, the last line before"
+			echo "  the GC dump is the stage it got to."
+		fi
 		return 1
 	fi
 	echo Done.
