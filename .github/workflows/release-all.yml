@@ -592,6 +592,17 @@ jobs:
         run: |
           cd .build
           zip -r wekan-${VERSION}-amd64.zip bundle
+          # A checksum beside the bundle, so a download can be checked.
+          sha256sum "wekan-${VERSION}-amd64.zip" > "wekan-${VERSION}-amd64.zip.sha256sum"
+          cat "wekan-${VERSION}-amd64.zip.sha256sum"
+          # Where this bundle's binaries came from, for the release notes.
+          mkdir -p provenance
+          PROVENANCE_FILE=provenance/amd64.tsv bash releases/record-provenance.sh \
+            'amd64' 'Node.js' 'GitHub runner (setup-node)' "$(node --version)" \
+            'https://github.com/actions/setup-node' || true
+          PROVENANCE_FILE=provenance/amd64.tsv bash releases/record-provenance.sh \
+            'amd64' 'FerretDB' 'wekan/FerretDB' 'latest' \
+            'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-amd64' || true
           # A zip that EXISTS is not a zip that WORKS, and the log should say which of the
           # two this is. The size answers "was the bundle directory empty when it was
           # zipped"; the entries answer "can this bundle start at all" - bundle/main.js is
@@ -619,6 +630,12 @@ jobs:
             fi
           done
           echo "OK: $zip is $((bytes/1024/1024)) MiB and contains bundle/main.js and bundle/node."
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: provenance-amd64
+          path: provenance/
+          if-no-files-found: warn
 
       - uses: actions/upload-artifact@v7
         with:
@@ -722,6 +739,17 @@ jobs:
       - name: Create arm64 zip
         run: |
           zip -r wekan-${VERSION}-arm64.zip bundle
+          # A checksum beside the bundle, so a download can be checked.
+          sha256sum "wekan-${VERSION}-arm64.zip" > "wekan-${VERSION}-arm64.zip.sha256sum"
+          cat "wekan-${VERSION}-arm64.zip.sha256sum"
+          # Where this bundle's binaries came from, for the release notes.
+          mkdir -p provenance
+          PROVENANCE_FILE=provenance/arm64.tsv bash releases/record-provenance.sh \
+            'arm64' 'Node.js' 'GitHub runner (setup-node)' "$(node --version)" \
+            'https://github.com/actions/setup-node' || true
+          PROVENANCE_FILE=provenance/arm64.tsv bash releases/record-provenance.sh \
+            'arm64' 'FerretDB' 'wekan/FerretDB' 'latest' \
+            'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-arm64' || true
           # A zip that EXISTS is not a zip that WORKS, and the log should say which of the
           # two this is. The size answers "was the bundle directory empty when it was
           # zipped"; the entries answer "can this bundle start at all" - bundle/main.js is
@@ -749,6 +777,12 @@ jobs:
             fi
           done
           echo "OK: $zip is $((bytes/1024/1024)) MiB and contains bundle/main.js and bundle/node."
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: provenance-arm64
+          path: provenance/
+          if-no-files-found: warn
 
       - uses: actions/upload-artifact@v7
         with:
@@ -794,12 +828,35 @@ jobs:
           pattern: bundle-*
           merge-multiple: true
 
+      # Where every binary in every bundle came from, and whether its download
+      # was checked. It varies per release and per CPU - nodejs.org builds some
+      # architectures, unofficial-builds others, the wekan/node fork the ones
+      # neither of them does, and not all of them publish a checksum - so it is
+      # written down here rather than left in a build log that expires.
+      - uses: actions/checkout@v4
+
+      - name: Collect where the binaries came from
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          pattern: provenance-*
+          path: provenance
+          merge-multiple: true
+
+      - name: Compose the release notes, provenance first
+        run: |
+          set -euo pipefail
+          bash releases/provenance-table.sh > release-notes.md || true
+          printf '%s\n' "${{ needs.prepare.outputs.changelog }}" >> release-notes.md
+          echo "----- release notes -----"
+          head -40 release-notes.md
+
       - name: Create GitHub Release with all bundles
         uses: softprops/action-gh-release@v3
         with:
           tag_name: v${{ needs.prepare.outputs.version }}
           name: v${{ needs.prepare.outputs.version }}
-          body: ${{ needs.prepare.outputs.changelog }}
+          body_path: release-notes.md
           # FerretDB binaries are NOT attached here: the per-arch ferretdb-<arch>
           # binaries live on the wekan/FerretDB releases
           # (https://github.com/wekan/FerretDB/releases), which is where the WeKan
@@ -974,6 +1031,9 @@ jobs:
             echo "::error::$zip was not created - 7z failed above, or the bundle directory was missing."
             exit 1
           fi
+          # A checksum beside the bundle, so a download can be checked.
+          sha256sum "$zip" > "${zip}.sha256sum"
+          cat "${zip}.sha256sum"
           bytes=$(wc -c < "$zip")
           if [ "$bytes" -lt 10000000 ]; then
             echo "::error::$zip is only $bytes bytes; a whole bundle is tens of megabytes. The bundle directory was empty or partial when it was zipped."
@@ -1035,7 +1095,12 @@ jobs:
             echo "::error::$asset does not exist, so there is nothing to attach. The step that builds it failed, or produced a different name."
             exit 1
           fi
-          if ! gh release upload "v${VERSION}" "$asset" --clobber; then
+          # The checksum goes up with it, so a download can be checked. It is
+          # built beside the zip by the step above; older jobs that do not make
+          # one still upload cleanly.
+          up=("$asset")
+          [ -f "${asset}.sha256sum" ] && up+=("${asset}.sha256sum")
+          if ! gh release upload "v${VERSION}" "${up[@]}" --clobber; then
             echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
             exit 1
           fi
@@ -1152,6 +1217,9 @@ jobs:
       - name: Create mac-arm64 zip
         run: |
           zip -r wekan-${VERSION}-mac-arm64.zip bundle
+          # A checksum beside the bundle, so a download can be checked.
+          sha256sum "wekan-${VERSION}-mac-arm64.zip" > "wekan-${VERSION}-mac-arm64.zip.sha256sum"
+          cat "wekan-${VERSION}-mac-arm64.zip.sha256sum"
           # A zip that EXISTS is not a zip that WORKS, and the log should say which of the
           # two this is. The size answers "was the bundle directory empty when it was
           # zipped"; the entries answer "can this bundle start at all" - bundle/main.js is
@@ -1199,7 +1267,12 @@ jobs:
             echo "::error::$asset does not exist, so there is nothing to attach. The step that builds it failed, or produced a different name."
             exit 1
           fi
-          if ! gh release upload "v${VERSION}" "$asset" --clobber; then
+          # The checksum goes up with it, so a download can be checked. It is
+          # built beside the zip by the step above; older jobs that do not make
+          # one still upload cleanly.
+          up=("$asset")
+          [ -f "${asset}.sha256sum" ] && up+=("${asset}.sha256sum")
+          if ! gh release upload "v${VERSION}" "${up[@]}" --clobber; then
             echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
             exit 1
           fi
@@ -1346,6 +1419,17 @@ jobs:
             | tee /tmp/preflight.txt
           grep -E '^(node_full|node_from|node_url|node_sha256)=' /tmp/preflight.txt >> "$GITHUB_OUTPUT"
 
+      - name: Record where this bundle's Node.js came from
+        env:
+          NODE_FULL: ${{ steps.preflight.outputs.node_full }}
+          NODE_FROM: ${{ steps.preflight.outputs.node_from }}
+          NODE_URL: ${{ steps.preflight.outputs.node_url }}
+          NODE_SHA256: ${{ steps.preflight.outputs.node_sha256 }}
+        run: |
+          set -euo pipefail
+          bash releases/record-provenance.sh '${{ matrix.arch }}' 'Node.js' \
+            "$NODE_FROM" "$NODE_FULL" "$NODE_URL" "${NODE_SHA256:-}"
+
       - name: Rebuild native modules for ${{ matrix.arch }} under emulation
         env:
           NODE_FULL: ${{ steps.preflight.outputs.node_full }}
@@ -1402,9 +1486,27 @@ jobs:
           # two names are kept separate here so a platform whose Node.js name,
           # FerretDB name and our own name disagree cannot silently download the
           # wrong CPU's binary.
-          curl -fSL --retry 5 --retry-delay 10 -o bundle/ferretdb \
-            "https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-${{ matrix.ferretdb_arch }}"
+          FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-${{ matrix.ferretdb_arch }}"
+          curl -fSL --retry 5 --retry-delay 10 -o bundle/ferretdb "$FERRET_URL"
           chmod +x bundle/ferretdb
+          # wekan/FerretDB publishes a .sha256sum beside each binary now. Older
+          # releases do not, so a missing one is recorded as unverified rather
+          # than failing the build - the binary IS available, which is the test.
+          FERRET_SHA=""
+          if curl -fsSL "${FERRET_URL}.sha256sum" -o /tmp/ferretdb.sha256sum 2>/dev/null; then
+            FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
+            GOT="$(sha256sum bundle/ferretdb | cut -d' ' -f1)"
+            if [ "$GOT" != "$FERRET_SHA" ]; then
+              echo "::error::FerretDB for ${{ matrix.ferretdb_arch }} does not match its published SHA256 (published $FERRET_SHA, got $GOT)."
+              exit 1
+            fi
+            echo "FerretDB SHA256 verified: $GOT"
+          else
+            echo "::warning::wekan/FerretDB publishes no checksum for ferretdb-${{ matrix.ferretdb_arch }} on this release, so it is unverified."
+          fi
+          FERRET_TAG="$(curl -fsSL https://api.github.com/repos/wekan/FerretDB/releases/latest | python3 -c 'import json,sys; print(json.load(sys.stdin).get("tag_name",""))' || true)"
+          bash releases/record-provenance.sh '${{ matrix.arch }}' 'FerretDB' \
+            'wekan/FerretDB' "${FERRET_TAG:-latest}" "$FERRET_URL" "$FERRET_SHA"
           # Overwrite the inherited amd64 MongoDB Database Tools with this arch's ones.
           # Tolerant per tool: wekan/mongo-tools does not publish every arch this
           # bundle is built for, and a missing mongodump is a missing convenience,
@@ -1458,6 +1560,22 @@ jobs:
           path: wekan-${{ needs.prepare.outputs.version }}-${{ matrix.arch }}.zip
           retention-days: 1
 
+
+      - name: Checksum the ${{ matrix.arch }} zip and collect provenance
+        run: |
+          set -euo pipefail
+          zip="wekan-${VERSION}-${{ matrix.arch }}.zip"
+          sha256sum "$zip" > "${zip}.sha256sum"
+          cat "${zip}.sha256sum"
+          mkdir -p provenance
+          [ -f provenance.tsv ] && mv provenance.tsv "provenance/${{ matrix.arch }}.tsv" || true
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: provenance-${{ matrix.arch }}
+          path: provenance/
+          if-no-files-found: warn
+
       - name: Attach ${{ matrix.arch }} bundle to the GitHub Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -1471,7 +1589,12 @@ jobs:
             echo "::error::$asset does not exist, so there is nothing to attach. The step that builds it failed, or produced a different name."
             exit 1
           fi
-          if ! gh release upload "v${VERSION}" "$asset" --clobber; then
+          # The checksum goes up with it, so a download can be checked. It is
+          # built beside the zip by the step above; older jobs that do not make
+          # one still upload cleanly.
+          up=("$asset")
+          [ -f "${asset}.sha256sum" ] && up+=("${asset}.sha256sum")
+          if ! gh release upload "v${VERSION}" "${up[@]}" --clobber; then
             echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
             exit 1
           fi
@@ -1656,7 +1779,12 @@ jobs:
             echo "::error::$asset does not exist, so there is nothing to attach. The step that builds it failed, or produced a different name."
             exit 1
           fi
-          if ! gh release upload "v${VERSION}" "$asset" --clobber; then
+          # The checksum goes up with it, so a download can be checked. It is
+          # built beside the zip by the step above; older jobs that do not make
+          # one still upload cleanly.
+          up=("$asset")
+          [ -f "${asset}.sha256sum" ] && up+=("${asset}.sha256sum")
+          if ! gh release upload "v${VERSION}" "${up[@]}" --clobber; then
             echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
             exit 1
           fi
@@ -2147,7 +2275,12 @@ jobs:
             echo "::error::$asset does not exist, so there is nothing to attach. The step that builds it failed, or produced a different name."
             exit 1
           fi
-          if ! gh release upload "v${VERSION}" "$asset" --clobber; then
+          # The checksum goes up with it, so a download can be checked. It is
+          # built beside the zip by the step above; older jobs that do not make
+          # one still upload cleanly.
+          up=("$asset")
+          [ -f "${asset}.sha256sum" ] && up+=("${asset}.sha256sum")
+          if ! gh release upload "v${VERSION}" "${up[@]}" --clobber; then
             echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
             exit 1
           fi
@@ -2855,3 +2988,48 @@ jobs:
           if [ "${{ job.status }}" = "failure" ]; then
             echo "::error::nextcloud FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
+
+  # ── The provenance table, completed ─────────────────────────────────────────
+  #
+  # The release is CREATED before win64, mac-arm64 and the extra architectures
+  # are built - those jobs need a release to upload their bundles to - so the
+  # table it is created with can only cover amd64 and arm64. This runs after all
+  # of them and rewrites the notes with every bundle's rows in.
+  #
+  # always(): a platform that failed should not cost the release its table for
+  # the platforms that succeeded.
+  release-notes:
+    name: complete the release notes
+    needs:
+      - prepare
+      - release
+      - build-amd64
+      - build-arm64
+      - build-win64
+      - build-mac-arm64
+      - build-extra-arches
+    if: ${{ always() && needs.release.result == 'success' }}
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          pattern: provenance-*
+          path: provenance
+          merge-multiple: true
+
+      - name: Rewrite the notes with every bundle in the table
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ needs.prepare.outputs.version }}
+        run: |
+          set -euo pipefail
+          rows=$(find provenance -name '*.tsv' 2>/dev/null | wc -l)
+          echo "Provenance files collected: $rows"
+          bash releases/provenance-table.sh > release-notes.md || true
+          printf '%s\n' "${{ needs.prepare.outputs.changelog }}" >> release-notes.md
+          gh release edit "v${VERSION}" --notes-file release-notes.md
+          echo "Release notes updated with the provenance of every bundle built."
+          head -40 release-notes.md
