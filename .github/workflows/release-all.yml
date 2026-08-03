@@ -543,6 +543,12 @@ jobs:
           cd .build/bundle/programs/server
           npm install
 
+      - name: Check the binaries the amd64 bundle needs exist
+        run: |
+          set -euo pipefail
+          bash releases/require-binaries.sh 'amd64 bundle' \
+            'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-amd64'
+
       - name: Embed Node.js, FerretDB (amd64) and launcher into the bundle
         # Make the release .zip self-contained (offline): bundle Node.js + FerretDB
         # + a start-wekan.sh that runs WeKan on the bundled Node against the bundled
@@ -682,6 +688,12 @@ jobs:
             -w /bundle/programs/server \
             node:${NODE_VERSION}-slim \
             sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
+
+      - name: Check the binaries the arm64 bundle needs exist
+        run: |
+          set -euo pipefail
+          bash releases/require-binaries.sh 'arm64 bundle' \
+            'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-arm64'
 
       - name: Embed Node.js + FerretDB (arm64) into the bundle
         # The launcher (start-wekan.sh) is inherited from the amd64 base bundle;
@@ -888,6 +900,12 @@ jobs:
           cd bundle/programs/server
           rm -rf node_modules
           npm install
+
+      - name: Check the binaries the win64 bundle needs exist
+        run: |
+          set -euo pipefail
+          bash releases/require-binaries.sh 'win64 bundle' \
+            'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win64.exe'
 
       - name: Add MongoDB Database Tools to the bundle
         shell: bash
@@ -1100,6 +1118,12 @@ jobs:
           npm install
           cd ../../..
 
+      - name: Check the binaries the mac-arm64 bundle needs exist
+        run: |
+          set -euo pipefail
+          bash releases/require-binaries.sh 'mac-arm64 bundle' \
+            'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-mac-arm64'
+
       - name: Embed Node.js + FerretDB (mac-arm64) into the bundle
         # Bundle the macOS arm64 Node.js (runner's darwin-arm64 Node 24) and the
         # macOS FerretDB binary, downloaded per-arch from the newest wekan/FerretDB
@@ -1240,28 +1264,49 @@ jobs:
           # always what we call the platform: Node says x86 where Debian, snap
           # and FerretDB all say i386, and armv7l where they say armhf.
           # `ferretdb_arch` is the asset name in the wekan/FerretDB release.
+          #
+          # `image` is the base image the emulated container runs, and it has to
+          # be one that PUBLISHES this platform. ubuntu:26.04 does not build 386,
+          # so `docker run --platform linux/386 ubuntu:26.04` answers "no matching
+          # manifest for linux/386 in the manifest list entries" - which is how
+          # the i386 and loong64 jobs failed. debian:trixie publishes 386, amd64,
+          # arm/v5, arm/v7, arm64, ppc64le, riscv64 and s390x, so it covers every
+          # architecture here. The preflight step checks it rather than trusting
+          # this table.
           - arch: s390x
             platform: linux/s390x
+            image: debian:trixie
             node_arch: s390x
             ferretdb_arch: s390x
           - arch: ppc64le
             platform: linux/ppc64le
+            image: debian:trixie
             node_arch: ppc64le
             ferretdb_arch: ppc64le
           - arch: riscv64
             platform: linux/riscv64
+            image: debian:trixie
             node_arch: riscv64
             ferretdb_arch: riscv64
           - arch: i386
             platform: linux/386
+            image: debian:trixie
             node_arch: x86
             ferretdb_arch: i386
           - arch: armhf
             platform: linux/arm/v7
+            image: debian:trixie
             node_arch: armv7l
             ferretdb_arch: armhf
+          # loong64 has NO base image on Docker Hub - not debian, not ubuntu, at
+          # any tag - so there is no loong64 userland to rebuild the native
+          # modules in. node-loong64 and ferretdb-loong64 both exist; the
+          # container does not. The preflight step stops the job saying exactly
+          # that, and it is left in the matrix so it stays visible on every run
+          # instead of the architecture quietly vanishing from the release.
           - arch: loong64
             platform: linux/loong64
+            image: debian:trixie
             node_arch: loong64
             ferretdb_arch: loong64
     env:
@@ -1280,107 +1325,68 @@ jobs:
         with:
           name: bundle-amd64
 
-      - name: Rebuild native modules for ${{ matrix.arch }} under emulation
+      # Everything this bundle needs from another project's releases, checked
+      # BEFORE any of it is used: a base image for this CPU, a Node.js build for
+      # it, the FerretDB binary, the MongoDB tools. Any of them can be absent - a
+      # fork build that has not finished, a release that skipped an architecture
+      # - and when one is, the job should stop here naming WHICH file is missing
+      # and WHERE it should be published, rather than an hour later inside an
+      # emulated container with a 404 in the middle of an npm install.
+      - name: Check the binaries ${{ matrix.arch }} needs exist
+        id: preflight
         run: |
-          unzip -q wekan-${VERSION}-amd64.zip
-          # Same bcrypt fix as the arm64 build: bcrypt 5.0.1 (Meteor
-          # accounts-password) ships node-addon-api@3 which fails to compile on
-          # Node.js 24. Swap in bcrypt 6.0.0 source; the emulated npm install
-          # below compiles it (and any other native module) for the target arch.
+          set -euo pipefail
+          bash releases/check-arch-binaries.sh \
+            '${{ matrix.arch }}' \
+            '${{ matrix.node_arch }}' \
+            '${{ matrix.ferretdb_arch }}' \
+            "$NODE_VERSION" \
+            '${{ matrix.image }}' \
+            '${{ matrix.platform }}' \
+            | tee /tmp/preflight.txt
+          grep -E '^(node_full|node_from|node_url)=' /tmp/preflight.txt >> "$GITHUB_OUTPUT"
+
+      - name: Rebuild native modules for ${{ matrix.arch }} under emulation
+        env:
+          NODE_FULL: ${{ steps.preflight.outputs.node_full }}
+          NODE_FROM: ${{ steps.preflight.outputs.node_from }}
+          NODE_URL: ${{ steps.preflight.outputs.node_url }}
+        run: |
+          set -euo pipefail
+          # bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3 which
+          # fails to compile on Node 24; the npm install inside the container
+          # compiles it (and any other native module) for the target arch.
           BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
           if [ -d "$BCRYPT_DIR" ]; then
-            rm -rf "$BCRYPT_DIR"
-            TMP=$(mktemp -d)
-            pushd "$TMP" > /dev/null
-            npm pack bcrypt@6.0.0
-            mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
-            cd bcrypt && npm install --ignore-scripts && cd ..
-            cp -a bcrypt "$BCRYPT_DIR"
-            popd > /dev/null
-            rm -rf "$TMP"
+            (cd "$BCRYPT_DIR" && npm install --no-save node-addon-api@^8 >/dev/null 2>&1 || true)
           fi
-          # The official node:${NODE_VERSION} Docker image only publishes amd64,
-          # arm64 and ppc64le manifests — no s390x, no riscv64 — so
-          # `docker run --platform linux/s390x node:24-slim` fails with "no matching
-          # manifest". Instead build on an ubuntu:26.04 base (which publishes every
-          # arch) and install the Node.js binary tarball inside the emulated
-          # container: ppc64le/s390x from nodejs.org (official), riscv64 from
-          # unofficial-builds.nodejs.org (nodejs.org ships no riscv64). Resolve the
-          # exact latest ${NODE_VERSION}.x version on the host (fast, no emulation)
-          # and pass it in along with which mirror to use.
-          NODE_FULL=$(curl -fsSL https://nodejs.org/dist/index.json \
-            | python3 -c "import json,sys; print(next(r['version'] for r in json.load(sys.stdin) if r['version'].startswith('v${NODE_VERSION}.')))")
-          echo "Using Node ${NODE_FULL} (${{ matrix.node_base }}) for ${{ matrix.arch }}"
+
+          # The official node:${NODE_VERSION} image publishes only amd64 and
+          # arm64, so `docker run --platform linux/s390x node:24-slim` fails with
+          # "no matching manifest". Run a plain distribution image that does
+          # publish this architecture and install Node.js inside it.
+          echo "Using Node ${NODE_FULL} (${{ matrix.node_arch }}) for ${{ matrix.arch }}, from ${NODE_FROM}"
+
+          # The container script is a FILE, mounted in. It used to be an inline
+          # `bash -c '...'` and it contains apostrophes - which a single-quoted
+          # shell argument cannot hold. The first one ENDED the string, the rest
+          # of the script became separate words, and ${NODE_ARCH} was left to the
+          # RUNNER's shell, which does not have it. So every one of these jobs
+          # asked nodejs.org for "node-v24.18.1-linux-.tar.xz", with an empty
+          # architecture, and died on the 404 - four of the six failures in the
+          # v10.57 run. A file has no quoting layer to get wrong, and `bash -n`
+          # can check it.
           docker run --rm --platform ${{ matrix.platform }} \
-            -e NODE_FULL="$NODE_FULL" -e ARCH="${{ matrix.arch }}" \
-            -e NODE_ARCH="${{ matrix.node_arch }}" \
+            -e NODE_FULL="$NODE_FULL" \
+            -e NODE_FROM="$NODE_FROM" \
+            -e NODE_URL="$NODE_URL" \
+            -e ARCH='${{ matrix.arch }}' \
+            -e NODE_ARCH='${{ matrix.node_arch }}' \
             -v "$(pwd)/bundle:/bundle" \
+            -v "$(pwd)/releases:/releases:ro" \
             -w /bundle/programs/server \
-            ubuntu:26.04 \
-            bash -c '
-              set -eux
-              apt-get update -qq
-              apt-get install -y -q build-essential python3 curl xz-utils ca-certificates
-              # Where this CPU\'s Node.js comes from, tried in order: nodejs.org,
-              # then unofficial-builds, then this project\'s own fork. The first
-              # two ship a TARBALL (node + npm + the whole runtime); the fork
-              # ships the BARE BINARY it built, because that is the one thing
-              # missing - so when it serves, npm is taken from the official amd64
-              # tarball. npm is JavaScript and runs on whatever node executes it,
-              # so an npm built for one CPU drives a node built for another.
-              #
-              # Which one served is printed. A bundle that silently fell back to
-              # a different source than expected is worth one line in the log.
-              mkdir -p /opt/node/bin
-              OFFICIAL="https://nodejs.org/dist/${NODE_FULL}/node-${NODE_FULL}-linux-${NODE_ARCH}.tar.xz"
-              UNOFFICIAL="https://unofficial-builds.nodejs.org/download/release/${NODE_FULL}/node-${NODE_FULL}-linux-${NODE_ARCH}.tar.xz"
-              FORK="https://github.com/wekan/node/releases/download/${NODE_FULL}/node-${ARCH}"
-              NODE_FROM=""
-              for candidate in "official $OFFICIAL" "unofficial $UNOFFICIAL"; do
-                name="${candidate%% *}"; url="${candidate#* }"
-                if curl -fsSL -o /tmp/node.tar.xz "$url"; then
-                  tar -xJf /tmp/node.tar.xz -C /opt/node --strip-components=1
-                  NODE_FROM="$name"
-                  break
-                fi
-                echo "No Node.js for ${NODE_ARCH} at $name ($url)"
-              done
-              if [ -z "$NODE_FROM" ]; then
-                # The fork: a bare binary, plus npm out of the official amd64
-                # tarball for the same version.
-                curl -fsSL -o /opt/node/bin/node "$FORK"
-                chmod +x /opt/node/bin/node
-                curl -fsSL -o /tmp/npm.tar.xz \
-                  "https://nodejs.org/dist/${NODE_FULL}/node-${NODE_FULL}-linux-x64.tar.xz"
-                mkdir -p /tmp/npm && tar -xJf /tmp/npm.tar.xz -C /tmp/npm --strip-components=1
-                cp -a /tmp/npm/lib /opt/node/
-                cp -a /tmp/npm/bin/npm /tmp/npm/bin/npx /opt/node/bin/
-                NODE_FROM="wekan/node fork"
-              fi
-              echo "Node.js for ${ARCH} came from: ${NODE_FROM}"
-              export PATH=/opt/node/bin:$PATH
-              node --version
-              npm install
-              # Bundle the target-arch Node.js binary for the self-contained
-              # launcher. /bundle is the host bundle/ dir (see -v mount above).
-              cp /opt/node/bin/node /bundle/node
-              chmod +x /bundle/node
-              # #6458: replace the inherited amd64 qemu-user with THIS arch own
-              # same-arch qemu-user (from the target-arch distro, so it runs on
-              # this arch), used by bundle/cpu-exec to emulate CPU features a
-              # binary needs but the host CPU lacks. Tolerant: if the package
-              # is unavailable on this arch, the bundle just ships without it
-              # (cpu-exec then falls back to a system qemu-user, or reports).
-              rm -f /bundle/qemu-x86_64
-              if apt-get install -y -q qemu-user-static >/dev/null 2>&1 && \
-                 [ -x "/usr/bin/qemu-$(uname -m)-static" ]; then
-                cp "/usr/bin/qemu-$(uname -m)-static" "/bundle/qemu-$(uname -m)"
-                chmod +x "/bundle/qemu-$(uname -m)"
-                echo "Bundled qemu-$(uname -m) for cpu-exec."
-              else
-                echo "qemu-user-static not available for $(uname -m); bundle ships without a bundled qemu-user."
-              fi
-            '
+            ${{ matrix.image }} \
+            bash /releases/install-node-for-arch.sh
 
       - name: Embed FerretDB (${{ matrix.arch }}) into the bundle
         # These arches have no MongoDB server, so FerretDB is their default DB.
