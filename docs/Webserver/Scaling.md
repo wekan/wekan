@@ -36,7 +36,7 @@ Recommended specs:
   - [Setting `NODE_OPTIONS: --max_old_space_size=4096`](https://github.com/wekan/wekan/issues/3585#issuecomment-782431177)
 
 Minimum specs:
-- [RasPi3](../Platforms/FOSS/RaspberryPi/Raspberry-Pi.md), 1 GB RAM, external SSD disk for Wekan and MongoDB.
+- [RasPi3](../Platforms/FOSS/HW/RaspberryPi/Raspberry-Pi.md), 1 GB RAM, external SSD disk for Wekan and MongoDB.
 - While it works, it's only for minimal usage.
 - Newer RasPi recommended for minimum use.
 
@@ -82,6 +82,6 @@ Related to docker-compose.yml at https://github.com/wekan/wekan , using Docker S
 
 [MongoDB compatible databases](https://github.com/wekan/wekan/issues/2852)
 
-[AWS](../Platforms/Propietary/Cloud/AWS.md)
+[AWS](../Platforms/Propietary/Cloud/AWS)
 
 [Azure OIDC](../Login/Azure/Azure.md)

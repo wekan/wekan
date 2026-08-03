@@ -2,7 +2,7 @@
 
 Today, hosting *n* customers means running *n* WeKan servers: *n* Node.js
 processes, *n* `ROOT_URL`s, *n* databases, *n* upgrades. That is what
-[`docs/Platforms/FOSS/Docker/Meteor3/`](../../Platforms/FOSS/Docker/Meteor3/README.md)
+[`docs/Platforms/FOSS/Container/Docker/Meteor3/`](../../Platforms/FOSS/Container/Docker/Meteor3)
 sets up and it works.
 
 This page designs the **alternatives**: what it would take for **one** WeKan
@@ -23,8 +23,8 @@ Everything the question touches. Paths are from the repository root.
 
 | File Path | File Type | Description |
 | --- | --- | --- |
-| `docs/Platforms/FOSS/Docker/Meteor3/README.md` | `.md` guide | The shipped topology: Caddy in front, one WeKan container per customer, one MongoDB, one database per customer. |
-| `docs/Platforms/FOSS/Docker/Meteor3/multitenancy.md` | `.md` guide | The two supported transports for that topology, and why each instance in one network namespace needs its own internal `uws.port`. |
+| `docs/Platforms/FOSS/Container/Docker/Meteor3` | `.md` guide | The shipped topology: Caddy in front, one WeKan container per customer, one MongoDB, one database per customer. |
+| `docs/Platforms/FOSS/Container/Docker/Meteor3/multitenancy.md` | `.md` guide | The two supported transports for that topology, and why each instance in one network namespace needs its own internal `uws.port`. |
 | `docker-compose-multitenancy.yml` | `.yml` compose file | The working example: per-tenant `PORT`, `ROOT_URL`, `MONGO_URL` database and `uws.port`. |
 | `models/lib/universalUrlGenerator.js` | `.js` module | Builds attachment/avatar URLs that do **not** depend on `ROOT_URL`. Already tenant-safe, and the model the rest of the code should follow. |
 | `server/routes/universalFileServer.js` | `.js` route | Serves `/cdn/storage/…` for any host. Two `Meteor.absoluteUrl()` calls are the only `ROOT_URL` dependency left in it. |

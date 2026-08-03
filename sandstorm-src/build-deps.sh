@@ -3,7 +3,7 @@
 #   Node 24 + FerretDB v1 + Mongo 3.x CLIs + the migration launcher/importer,
 #   on top of upstream meteor-spk 0.6.0 (which already has mongod 3.0 + niscud).
 #
-# See docs/Platforms/FOSS/Sandstorm/Meteor3/Migration.md.
+# See docs/Platforms/FOSS/Container/Sandstorm/Meteor3/Migration.md.
 #
 # NOT tested end-to-end. Run on ubuntu-24.04 (amd64). The result is at
 # $OUT/meteor-spk-0.6.0 ; add its dir to PATH and run `meteor-spk pack`.

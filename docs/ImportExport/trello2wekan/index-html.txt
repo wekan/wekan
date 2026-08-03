@@ -20,7 +20,7 @@
             margin-top: 10px;
         }
     </style>
-	<script defer src="pretty-json-custom-element.js"></script>
+	<!-- <script defer src="pretty-json-custom-elements-js.txt"></script> -->
 </head>
 <body>
     <h1>JSON Viewer</h1>

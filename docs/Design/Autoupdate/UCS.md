@@ -1,6 +1,6 @@
 # Dev: releasing WeKan to Univention Corporate Server (UCS) from release-all.yml
 
-Based on [docs/Platforms/FOSS/UCS/UCS.md](../../Platforms/FOSS/UCS/UCS.md) and the
+Based on [docs/Platforms/FOSS/Container/UCS](../../Platforms/FOSS/Container/UCS) and the
 [wekan/univention](https://github.com/wekan/univention) app repo.
 
 Goal: from `wekan/wekan`'s **release-all.yml**, also release the **Docker-based UCS App
@@ -244,7 +244,7 @@ is safe.
 
 ## See also
 
-- [docs/Platforms/FOSS/UCS/UCS.md](../../Platforms/FOSS/UCS/UCS.md) — the user-facing UCS page.
+- [docs/Platforms/FOSS/Container/UCS](../../Platforms/FOSS/Container/UCS) — the user-facing UCS page.
 - [Snap-Core.md](Forks/Snap-Core.md) — the snap build that already runs the same MongoDB→FerretDB migration.
 - [Snap-Ondra-Gantt.md](Snap-Ondra-Gantt.md) — the same "push to a downstream repo + publish"
   pattern for variant snaps.

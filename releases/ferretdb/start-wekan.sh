@@ -11,7 +11,7 @@
 # By default it starts FerretDB v1 (SQLite) as the database, storing all data —
 # and attachments/avatars on the filesystem — under WRITABLE_PATH (./data next to
 # this script unless you set WRITABLE_PATH). No separate MongoDB or Node install
-# is required. See docs/Platforms/Propietary/Windows/Offline.md for the Windows
+# is required. See docs/Platforms/Propietary/OS/Windows/Offline.md for the Windows
 # equivalent (start-wekan.bat).
 #
 # Override anything via environment variables: WRITABLE_PATH, PORT, ROOT_URL,

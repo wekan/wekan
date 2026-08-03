@@ -80,7 +80,7 @@ files. The pane, its menu entry, its helpers and its handler are commented out i
 
 The grain migration itself is unchanged: it runs in `sandstorm-src/start.js` before
 the app boots — see
-[Sandstorm migration](../../../Platforms/FOSS/Sandstorm/Meteor3/Migration.md).
+[Sandstorm migration](../../../Platforms/FOSS/Container/Sandstorm/Meteor3/Migration.md).
 
 ## Related
 

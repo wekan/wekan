@@ -1,7 +1,7 @@
 'use strict';
 
 // Guards for the Sandstorm grain "please wait" bridge that fixes the framed-grain
-// error noted in docs/Platforms/FOSS/Sandstorm/Sandstorm.md: while nothing is bound on
+// error noted in docs/Platforms/FOSS/Container/Sandstorm: while nothing is bound on
 // the grain's app port during first-launch migration and the handoff to WeKan, the
 // browser shows "This page can not be displayed embedded in another page". start.js now
 // runs migration-bridge.js as a child process on the app port across those windows.
@@ -78,7 +78,7 @@ test('the spk build ships the bridge into the deps payload', () => {
 });
 
 test('the Sandstorm doc no longer tells users to close and reopen the grain', () => {
-  const doc = read('docs/Platforms/FOSS/Sandstorm/Sandstorm.md');
+  const doc = read('docs/Platforms/FOSS/Container/Sandstorm');
   assert.ok(/migration-bridge\.js/.test(doc), 'documents the bridge');
   assert.ok(!/trying to fix it later/i.test(doc), 'the unfixed-workaround note is gone');
 });

@@ -93,22 +93,22 @@ Files in this directory are served by meteor as-is to the client. It hosts some 
 * **[authentication.js](../../server/authentication.js)** add the `Authentication`object to Meteor that provides methods for checking access rights.
 * **[lib/utils.js](../../server/lib/utils.js)** defines some checks used by [checklists.js](../../models/checklists.js)** model. <span style="color:red">*XXX: these methods are defined in server-only code by are used in models, which are visible by the client (in Checklists.allow)?*</span>
 * **[notifications](../../server/notifications)**
-  * **[notifications.js](../../server/notifications/notifications.js)**: defines the `Notifications` object that supports [Activities](models/activities.js) and holds a list of functions to call when its `notify()` method is called along with convenience methods to subscribe, unsubscribe and a way to filter recipients according to user settings for notification;
+  * **[notifications.js](../../server/notifications/notifications.js)**: defines the `Notifications` object that supports [Activities](../../models/activities.js) and holds a list of functions to call when its `notify()` method is called along with convenience methods to subscribe, unsubscribe and a way to filter recipients according to user settings for notification;
      * **[email.js](../../server/notifications/email.js)**: makes use of the notification system to send an email to a user;
      * **[profile.js](../../server/notifications/profile.js)**: *stub*; will allow associating notifications with user ids to be consumed by mobile apps;
   * **[notifications.js](../../server/notifications/notifications.js)**: adds the `watch()` Meteor server-only [method](https://guide.meteor.com/methods.html) that may watch boards, lists or cards using [models/watchable.js](../../models/watchable.js);
   * **[outgoing.js](../../server/notifications/outgoing.js)**: adds the `outgoingWebhooks()` Meteor server-only [method](https://guide.meteor.com/methods.html) that can call external API <span style="color:red">*XXX: I guess*</span>
 * **[publications](../../server/publications)** defines sets of records that are [published](https://docs.meteor.com/api/pubsub.html#Meteor-publish) by the server and how clients can subscribe to those:
-  * **[accountSettings.js](../../server/publications/accountSettings.js)**: [AccountSettings](models/accountSettings.js) collection;
-  * **[activities.js](../../server/publications/activities.js)**: [Activities](models/activities.js) collection filtered and paginated;
-  * **[announcements.js](../../server/publications/announcements.js)**: [Announcements](models/announcements.js) collection;
-  * **[avatars.js](../../server/publications/avatars.js)**: [Avatars](models/avatars.js) collection for current user;
-  * **[boards.js](../../server/publications/boards.js)**: [Boards](models/boards.js) collection for current user, archived boards collection and individual board as a [relation](https://atmospherejs.com/cottz/publish-relations);
+  * **[accountSettings.js](../../server/publications/accountSettings.js)**: [AccountSettings](../../models/accountSettings.js) collection;
+  * **[activities.js](../../server/publications/activities.js)**: [Activities](../../models/activities.js) collection filtered and paginated;
+  * **[announcements.js](../../server/publications/announcements.js)**: [Announcements](../../models/announcements.js) collection;
+  * **[avatars.js](../../server/publications/avatars.js)**: [Avatars](../../models/avatars.js) collection for current user;
+  * **[boards.js](../../server/publications/boards.js)**: [Boards](../../models/boards.js) collection for current user, archived boards collection and individual board as a [relation](https://atmospherejs.com/cottz/publish-relations);
   * **[cards.js](../../server/publications/cards.js)**: a [Card](../../models/cards.js) by its id;
   * **[fast-render.js](https://github.com/wekan/wekan/tree/main/server/publications/fast-render.js)**: configures [FastRender](https://github.com/kadirahq/fast-render) to use the board data; <span style="color:red">*XXX: FastRender docs say "Make sure you're using Meteor.subscribe and not this.subscribe"*</span>
-  * **[people.js](../../server/publications/people.js)**: [Users](models/users.js) collection;
-  * **[settings.js](../../server/publications/settings.js)**: [Settings](models/settings.js) collection and, separately, the mail server;
-  * **[unsavedEdits.js](../../server/publications/unsavedEdits.js)**: [UnsavedEdits](models/unsavedEdits.js) collection;
+  * **[people.js](../../server/publications/people.js)**: [Users](../../models/users.js) collection;
+  * **[settings.js](../../server/publications/settings.js)**: [Settings](../../models/settings.js) collection and, separately, the mail server;
+  * **[unsavedEdits.js](../../server/publications/unsavedEdits.js)**: [UnsavedEdits](../../models/unsavedEdits.js) collection;
   * **[users.js](../../server/publications/users.js)**: provides a "mini-profile" for individual users and a [way](https://docs.meteor.com/api/collections.html#fieldspecifiers) to check if current user is admin.
 
 # Models

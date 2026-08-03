@@ -19,9 +19,9 @@
   - On-Premise:
     - Linux amd64/arm64/s390x
       - https://wekan.fi/install/
-      - [Raspberry Pi](../Platforms/FOSS/RaspberryPi/Raspberry-Pi.md) 
-    - Windows [Offline](../Platforms/Propietary/Windows/Offline.md)
-    - Mac [Mac](../Platforms/Propietary/Mac/Mac.md)
+      - [Raspberry Pi](../Platforms/FOSS/HW/RaspberryPi/Raspberry-Pi.md) 
+    - Windows [Offline](../Platforms/Propietary/OS/Windows/Offline.md)
+    - Mac [Mac](../Platforms/Propietary/OS/Mac)
 - Not like other software:
   - But note that design of all software changes often, when they are in active development.
 - Not bad parts of Trello:

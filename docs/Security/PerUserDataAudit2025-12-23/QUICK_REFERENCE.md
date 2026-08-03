@@ -315,12 +315,12 @@ Meteor.call('userPositionHistory.undo', historyEntryId);
 
 | File | Purpose |
 |------|---------|
-| [models/userPositionHistory.js](models/userPositionHistory.js) | Position history collection |
-| [client/lib/localStorageValidator.js](client/lib/localStorageValidator.js) | Data validation |
-| [server/migrations/ensureValidSwimlaneIds.js](server/migrations/ensureValidSwimlaneIds.js) | Automatic migration |
-| [models/swimlanes.js](models/swimlanes.js) | Swimlane model |
-| [models/lists.js](models/lists.js) | List model |
-| [models/cards.js](models/cards.js) | Card model with tracking |
+| [models/userPositionHistory.js](../../../models/userPositionHistory.js) | Position history collection |
+| [client/lib/localStorageValidator.js](../../../client/lib/localStorageValidator.js) | Data validation |
+| [server/migrations/ensureValidSwimlaneIds.js](../../../server/migrations/ensureValidSwimlaneIds.js) | Automatic migration |
+| [models/swimlanes.js](../../../models/swimlanes.js) | Swimlane model |
+| [models/lists.js](../../../models/lists.js) | List model |
+| [models/cards.js](../../../models/cards.js) | Card model with tracking |
 
 ---
 

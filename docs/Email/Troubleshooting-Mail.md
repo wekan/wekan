@@ -526,7 +526,7 @@ They are moved here from https://github.com/wekan/wekan/issues/961
 Sample:
 ### Wekan with TLS/SSL
 To run Wekan secured with TLS/SSL do the following steps:
-1. Setup a Web-Server/-Proxy with TLS/SSL support that maps requests to wekan. [Link](url)
+1. Setup a Web-Server/-Proxy with TLS/SSL support that maps requests to wekan.
 2. Set protocol to http**s**. 
 `export ROOT_URL='https://example.com/'`
 3. Set Wekan to an internal port. 
@@ -535,7 +535,7 @@ To run Wekan secured with TLS/SSL do the following steps:
 
 ### Wekan at subpath
 To run Wekan to appear at a subpath of your domain:
-1. Setup a Web-Server/-Proxy that maps requests to wekan. [Link](url)
+1. Setup a Web-Server/-Proxy that maps requests to wekan.
 2. Append subpath to domain, without trailing slash. 
 `export ROOT_URL='http://example.com/mywekan'`
 3. Set Wekan to an internal port. 

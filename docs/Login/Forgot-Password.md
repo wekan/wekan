@@ -136,7 +136,7 @@ exit
 
 More info:
 - [Backup](../Backup/Backup.md)
-- [Docker](../Platforms/FOSS/Docker/Docker.md)
+- [Docker](../Platforms/FOSS/Container/Docker)
 
 ***
 

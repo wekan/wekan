@@ -107,5 +107,5 @@ are now implemented (see the topic pages above).
 
 ## More
 
-- [Platforms](../Platforms/FOSS/Platforms.md)
+- [Platforms](../Platforms)
 - [Integrations](../ImportExport/Integrations.md)

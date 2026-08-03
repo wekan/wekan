@@ -249,7 +249,7 @@ https://github.com/wekan/php/blob/main/page/allboardschar.php
   - Redbean amd64 binary works at Win/Mac/Linux/BSD/BIOS without any modifications, because it is based on Cosmopolitan https://github.com/jart/cosmopolitan
   - Uses HTMX https://htmx.org at UI
   - Saves to SQLite database
-- Petclinic fork, using Blink to run at s390x [s390x](../../Platforms/FOSS/s390x.md#petclinic-s390x)
+- Petclinic fork, using Blink to run at s390x [s390x](../../Platforms/FOSS/HW/s390x.md#petclinic-s390x)
 
 ### PHP
 
@@ -290,7 +290,7 @@ https://github.com/wekan/php/blob/main/page/allboardschar.php
 - Deno also includes Node.js as Deno's Node.js compatibility layer.
 - Node.js supports many CPU/OS
   - Node.js is used in production and has traceability. https://changelog.com/jsparty/294
-  - [s390x](../../Platforms/FOSS/s390x.md)
+  - [s390x](../../Platforms/FOSS/HW/s390x.md)
   - https://nodejs.org/dist/latest-v20.x/
   - https://github.com/wekan/node-v14-esm/releases/tag/v14.21.4
 

@@ -9,7 +9,7 @@ This document audits the persistence mechanisms for Wekan board data, including 
 
 ### 1.1 Swimlanes
 
-**Collection**: `swimlanes` ([models/swimlanes.js](models/swimlanes.js))
+**Collection**: `swimlanes` ([models/swimlanes.js](../../../models/swimlanes.js))
 
 **Persisted Fields**:
 - ✅ `title` - Swimlane title (via `rename()` mutation)
@@ -30,7 +30,7 @@ This document audits the persistence mechanisms for Wekan board data, including 
 
 ### 1.2 Lists
 
-**Collection**: `lists` ([models/lists.js](models/lists.js))
+**Collection**: `lists` ([models/lists.js](../../../models/lists.js))
 
 **Persisted Fields**:
 - ✅ `title` - List title
@@ -54,7 +54,7 @@ This document audits the persistence mechanisms for Wekan board data, including 
 
 ### 1.3 Cards
 
-**Collection**: `cards` ([models/cards.js](models/cards.js))
+**Collection**: `cards` ([models/cards.js](../../../models/cards.js))
 
 **Persisted Fields**:
 - ✅ `title` - Card title
@@ -80,7 +80,7 @@ This document audits the persistence mechanisms for Wekan board data, including 
 
 ### 1.4 Checklists
 
-**Collection**: `checklists` ([models/checklists.js](models/checklists.js))
+**Collection**: `checklists` ([models/checklists.js](../../../models/checklists.js))
 
 **Persisted Fields**:
 - ✅ `title` - Checklist title (via `setTitle()` mutation)
@@ -97,7 +97,7 @@ This document audits the persistence mechanisms for Wekan board data, including 
 
 ### 1.5 Checklist Items
 
-**Collection**: `checklistItems` ([models/checklistItems.js](models/checklistItems.js))
+**Collection**: `checklistItems` ([models/checklistItems.js](../../../models/checklistItems.js))
 
 **Persisted Fields**:
 - ✅ `title` - Item text (via `setTitle()` mutation)
@@ -117,7 +117,7 @@ This document audits the persistence mechanisms for Wekan board data, including 
 
 ### 1.6 Position History Tracking
 
-**Collection**: `positionHistory` ([models/positionHistory.js](models/positionHistory.js))
+**Collection**: `positionHistory` ([models/positionHistory.js](../../../models/positionHistory.js))
 
 **Purpose**: Tracks original positions of swimlanes, lists, and cards before changes
 
@@ -138,7 +138,7 @@ This document audits the persistence mechanisms for Wekan board data, including 
 
 ### 2.1 Per-Board, Per-User Settings
 
-**Storage**: User `profile` subdocuments ([models/users.js](models/users.js))
+**Storage**: User `profile` subdocuments ([models/users.js](../../../models/users.js))
 
 #### A. List Widths
 - **Field**: `profile.listWidths` (line 527)
@@ -229,7 +229,7 @@ This document audits the persistence mechanisms for Wekan board data, including 
 
 #### Issue #1: Collapsed State Inconsistency (Swimlanes)
 **Severity**: HIGH  
-**Location**: [models/swimlanes.js](models/swimlanes.js) lines 127, 251-263
+**Location**: [models/swimlanes.js](../../../models/swimlanes.js) lines 127, 251-263
 
 **Problem**:
 - The swimlane schema defines `collapsed` as a board-level field (defaults to false)
@@ -255,7 +255,7 @@ collapsed: {
 
 #### Issue #2: Collapsed State Inconsistency (Lists)
 **Severity**: HIGH  
-**Location**: [models/lists.js](models/lists.js) lines 147, 303-311
+**Location**: [models/lists.js](../../../models/lists.js) lines 147, 303-311
 
 **Problem**:
 - Similar to swimlanes, lists have a board-level `collapsed` field
@@ -272,7 +272,7 @@ collapsed: {
 
 #### Issue #3: Swimlane/List Organization Model Unclear
 **Severity**: MEDIUM  
-**Location**: [models/lists.js](models/lists.js) lines 48, 201-230, 275
+**Location**: [models/lists.js](../../../models/lists.js) lines 48, 201-230, 275
 
 **Problem**:
 - Lists have a `swimlaneId` field but `draggableLists()` filters by `boardId` only
@@ -291,7 +291,7 @@ collapsed: {
 
 #### Issue #4: Position History Only Tracks Original Position
 **Severity**: MEDIUM  
-**Location**: [models/positionHistory.js](models/positionHistory.js)
+**Location**: [models/positionHistory.js](../../../models/positionHistory.js)
 
 **Problem**:
 - Position history tracks the *original* position when an entity is created
@@ -306,7 +306,7 @@ collapsed: {
 
 #### Issue #5: Card Collapsed State is Global Per-User, Not Per-Card
 **Severity**: LOW  
-**Location**: [models/users.js](models/users.js) line 267, users.js line 2088-2091
+**Location**: [models/users.js](../../../models/users.js) line 267, users.js line 2088-2091
 
 **Problem**:
 - `profile.cardCollapsed` is a single boolean affecting all cards for a user
@@ -319,7 +319,7 @@ collapsed: {
 
 #### Issue #6: Public User Settings Storage Incomplete
 **Severity**: MEDIUM  
-**Location**: [models/users.js](models/users.js) lines 44-85
+**Location**: [models/users.js](../../../models/users.js) lines 44-85
 
 **Problem**:
 - Cookie-based storage for public users only covers:

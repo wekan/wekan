@@ -1,4 +1,4 @@
-<img src="https://wekan.fi/wekan-logo.svg" width="60%" alt="Wekan logo" />
+<img src="wekan-logo.svg" width="60%" alt="Wekan logo" />
 
 Wekan is an open-source [kanban board][] which allows a card-based task and to-do management.
 
@@ -54,7 +54,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 
 * [Cron: Hourly restart WeKan, because of memory leaks](Webserver/Cron.md)
 * [Maybe: Add more RAM to Node.js to prevent crash](https://github.com/wekan/wekan/issues/3585)
-* [Clustering AWS etc](Platforms/Propietary/Cloud/AWS.md)
+* [Clustering AWS etc](Platforms/Propietary/Cloud/AWS)
 * [Scaling](Webserver/Scaling.md)
 * [Multitenancy: one server per tenant, and the alternatives](Design/Multitenancy/Multitenancy.md)
 * Kubernetes
@@ -86,9 +86,9 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 # <a name="Repair"></a>Repair
 
 * [Repair MongoDB](Backup/Repair-MongoDB.md)
-* [Using Meteor MongoDB to repair files](Platforms/FOSS/Sandstorm/Export-from-Wekan-Sandstorm-grain-.zip-file.md)
+* [Using Meteor MongoDB to repair files](Platforms/FOSS/Container/Sandstorm/Export-from-Wekan-Sandstorm-grain-.zip-file.md)
 * [If board does not open and keeps loading](Features/Troubleshooting/If-board-does-not-open-and-keeps-loading.md)
-* [Repair Docker](Platforms/FOSS/Docker/Repair-Docker.md)
+* [Repair Docker](Platforms/FOSS/Container/Docker/Repair-Docker.md)
 
 # <a name="Themes"></a> Themes
 
@@ -243,7 +243,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Example: New card with Python3 and REST API](API/New-card-with-Python3-and-REST-API.md)
 * [Python client to REST API](https://github.com/wekan/wekan-python-api-client)
 * [Go client to REST API](https://github.com/wekan/wego)
-* [Wekan Sandstorm cards to CSV using Python](Platforms/FOSS/Sandstorm/Wekan-Sandstorm-cards-to-CSV-using-Python.md)
+* [Wekan Sandstorm cards to CSV using Python](Platforms/FOSS/Container/Sandstorm/Wekan-Sandstorm-cards-to-CSV-using-Python.md)
 * [Excel and VBA](ImportExport/Excel-and-VBA.md)
 
 # <a name="Webhooks"></a>Webhooks
@@ -267,7 +267,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Kadira integration](https://github.com/wekan/wekan/issues/2152)
 * [Debugging](DeveloperDocs/Debugging.md)
 * [Developer Docs for Standalone Wekan](DeveloperDocs/Developer-Documentation.md)
-* [Developer Docs for Sandstorm Wekan](Platforms/FOSS/Sandstorm)
+* [Developer Docs for Sandstorm Wekan](Platforms/FOSS/Container/Sandstorm)
 * [Adding new Snap setting to code](DeveloperDocs/Adding-new-Snap-settings-to-code.md)
 * [Directory Structure](DeveloperDocs/Directory-Structure.md)
 * [Beginner](https://github.com/wekan/wekan/labels/Beginner)

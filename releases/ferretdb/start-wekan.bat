@@ -10,7 +10,7 @@ REM  database, storing all data - and attachments/avatars on the filesystem -
 REM  under WRITABLE_PATH (a "data" folder next to this file unless you set
 REM  WRITABLE_PATH). No separate MongoDB or Node install is required.
 REM
-REM  See docs/Platforms/Propietary/Windows/Offline.md. Override PORT, ROOT_URL,
+REM  See docs/Platforms/Propietary/OS/Windows/Offline.md. Override PORT, ROOT_URL,
 REM  WRITABLE_PATH or MONGO_URL below (or in the environment) as needed.
 REM ============================================================================
 setlocal

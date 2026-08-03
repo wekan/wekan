@@ -9,20 +9,20 @@ All architectural improvements have been successfully implemented and fixed. The
 ## Files Created
 
 ### 1. LocalStorage Validation System
-- **[client/lib/localStorageValidator.js](client/lib/localStorageValidator.js)**
+- **[client/lib/localStorageValidator.js](../../../client/lib/localStorageValidator.js)**
   - Validates all localStorage data for per-user UI preferences
   - Auto-cleanup of invalid/corrupted data
   - Runs on app startup (once per day)
   - Exported functions for use by other modules
 
 ### 2. User Storage Helpers
-- **[models/lib/userStorageHelpers.js](models/lib/userStorageHelpers.js)**
+- **[models/lib/userStorageHelpers.js](../../../models/lib/userStorageHelpers.js)**
   - Helper functions for validated get/set operations
   - Type checking and bounds validation
   - Used by users model for localStorage operations
 
 ### 3. Per-User Position History
-- **[models/userPositionHistory.js](models/userPositionHistory.js)**
+- **[models/userPositionHistory.js](../../../models/userPositionHistory.js)**
   - New Mongo collection for tracking entity movements
   - Per-user history isolation
   - Undo/redo capabilities
@@ -30,7 +30,7 @@ All architectural improvements have been successfully implemented and fixed. The
   - Meteor methods for client interaction
 
 ### 4. SwimlaneId Validation Migration
-- **[server/migrations/ensureValidSwimlaneIds.js](server/migrations/ensureValidSwimlaneIds.js)**
+- **[server/migrations/ensureValidSwimlaneIds.js](../../../server/migrations/ensureValidSwimlaneIds.js)**
   - Automatic migration on server startup
   - Ensures all cards have valid swimlaneId
   - Rescues orphaned data to "Rescued Data" swimlane
@@ -41,25 +41,25 @@ All architectural improvements have been successfully implemented and fixed. The
 ## Files Modified
 
 ### 1. Swimlane Schema
-- **[models/swimlanes.js](models/swimlanes.js)**
+- **[models/swimlanes.js](../../../models/swimlanes.js)**
   - ❌ Removed `collapsed` field (board-level)
   - ❌ Removed `collapse()` mutation
   - ✅ Added comments explaining per-user storage
 
 ### 2. List Schema
-- **[models/lists.js](models/lists.js)**
+- **[models/lists.js](../../../models/lists.js)**
   - ❌ Removed `collapsed` field (board-level)
   - ❌ Removed REST API collapsed field handling
   - ✅ Added comments explaining per-user storage
 
 ### 3. Cards Model
-- **[models/cards.js](models/cards.js)**
+- **[models/cards.js](../../../models/cards.js)**
   - ✅ Enhanced `move()` method to track changes
   - ✅ Automatic UserPositionHistory entry creation
   - ✅ Defensive checks for UserPositionHistory existence
 
 ### 4. User Model
-- **[models/users.js](models/users.js)**
+- **[models/users.js](../../../models/users.js)**
   - Updated to use validated localStorage functions
   - Enhanced validation for list widths and swimlane heights
   - Type checking on all values

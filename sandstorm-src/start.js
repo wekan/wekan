@@ -2,7 +2,7 @@
 //
 // Runs WeKan (Node 24) on FerretDB v1 (embedded SQLite), migrating an existing
 // grain's data to FerretDB on first launch. See
-// docs/Platforms/FOSS/Sandstorm/Meteor3/Migration.md.
+// docs/Platforms/FOSS/Container/Sandstorm/Meteor3/Migration.md.
 //
 // Data an existing grain may hold, and how this handles it:
 //   * none                    → fresh: run WeKan on an empty FerretDB.
@@ -122,7 +122,7 @@ function sleep(sec) { spawnSync('/bin/sleep', [String(sec)]); }
 // Sandstorm frames the grain, proxying to APP_PORT via /sandstorm-http-bridge. Any
 // moment nothing is bound there — during first-launch migration and the handoff to
 // WeKan — the browser shows "This page can not be displayed embedded in another page"
-// (see docs/Platforms/FOSS/Sandstorm/Sandstorm.md). Keep a tiny child-process server
+// (see docs/Platforms/FOSS/Container/Sandstorm). Keep a tiny child-process server
 // answering on APP_PORT across those windows so the grain stays framed until WeKan is
 // up. A CHILD process (not in-process) is required: start.js runs the migration with
 // blocking spawnSync, so it could not service an in-process server nor release its

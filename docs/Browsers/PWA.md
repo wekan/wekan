@@ -93,7 +93,7 @@ Related, for creating apps to other appstores: [Browser compatibility matrix](Br
 
 3. Clone WeKan repo, add favicons etc from step 2 to wekan/public/ , and build WeKan bundle from source like at [Emoji](../Features/Editor/Emoji.md) . Note: Currently WeKan does not have feature for custom favicons, it would require a lot of work for 100+ favicons etc customizations.
 
-4. Run bundle at server like [Offline](../Platforms/Propietary/Windows/Offline.md) or [Raspberry Pi](../Platforms/FOSS/RaspberryPi/Raspberry-Pi.md)
+4. Run bundle at server like [Offline](../Platforms/Propietary/OS/Windows/Offline.md) or [Raspberry Pi](../Platforms/FOSS/HW/RaspberryPi/Raspberry-Pi.md)
 
 5. Install Caddy like [Caddy Webserver Config](../Webserver/Caddy.md) , with this config for PWA at https://boards.example.com , there add assetlinks.json details you got when you downloaded Android .zip file from https://pwabuilder.com , see assetlinks issue about where at Play Console those 2 SHA256 keys https://github.com/pwa-builder/PWABuilder/issues/3867#issuecomment-1450826565
 

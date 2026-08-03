@@ -63,7 +63,7 @@ MONGO_OPLOG_URL=mongodb://<username>:<password>@<host>/local?authSource=admin&re
 ### ✅ Cloud Deployments
 
 **Documentation Already Exists:**
-- `docs/Platforms/Propietary/Cloud/AWS.md` - AWS MONGO_OPLOG_URL configuration
+- `docs/Platforms/Propietary/Cloud/AWS` - AWS MONGO_OPLOG_URL configuration
 - `docs/Databases/ToroDB/PostgreSQL/docker-compose.yml` - ToroDB oplog settings
 
 ### ✅ Documentation
@@ -162,7 +162,7 @@ top -p $(pgrep node)
 ## Related Documentation
 
 - [Oplog-Configuration.md](Oplog-Configuration.md) - Full setup guide
-- [AWS.md](../../Platforms/Propietary/Cloud/AWS.md) - AWS oplog configuration
+- [AWS.md](../../Platforms/Propietary/Cloud/AWS) - AWS oplog configuration
 - [LDAP.md](../../Login/LDAP.md) - LDAP with oplog setup
 - [ToroDB-PostgreSQL](../ToroDB/PostgreSQL/docker-compose.yml) - ToroDB oplog config
 

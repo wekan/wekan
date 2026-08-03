@@ -224,7 +224,7 @@ services:
 
   wekandb:
     # All Wekan data is stored in MongoDB. For backup and restore, see:
-    #   [Export Docker Mongo Data](../Platforms/FOSS/Docker/Export-Docker-Mongo-Data.md)
+    #   [Export Docker Mongo Data](../Platforms/FOSS/Container/Docker/Export-Docker-Mongo-Data.md)
     image: mongo:4.0.3
     container_name: wekan-db
     restart: always

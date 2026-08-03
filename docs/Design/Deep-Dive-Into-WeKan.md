@@ -33,9 +33,9 @@ https://www.youtube.com/watch?v=ke-mbnZM3zE
 ## Meteor WeKan Server
 
 - Meteor.js 2.x, Node.js 14.x https://github.com/wekan/node-v14-esm/releases/tag/v14.21.4 , MongoDB 6.x
-- CPU: amd64, arm64, s390x, Source Bundle at [Raspberry Pi](../Platforms/FOSS/RaspberryPi/Raspberry-Pi.md)
-- Windows On-Premise: [Offline](../Platforms/Propietary/Windows/Offline.md)
-- Mac: Docker, or at [Mac](../Platforms/Propietary/Mac/Mac.md)
+- CPU: amd64, arm64, s390x, Source Bundle at [Raspberry Pi](../Platforms/FOSS/HW/RaspberryPi/Raspberry-Pi.md)
+- Windows On-Premise: [Offline](../Platforms/Propietary/OS/Windows/Offline.md)
+- Mac: Docker, or at [Mac](../Platforms/Propietary/OS/Mac)
 - Newest at platforms: Source Bundle, Snap Candidate, Docker, Kubernetes https://wekan.fi
 - Platforms that will be updated to be up-to-date: Snap Stable, Sandstorm, UCS https://wekan.fi
 

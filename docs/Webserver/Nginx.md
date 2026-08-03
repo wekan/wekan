@@ -2,7 +2,7 @@
 
 From https://github.com/wekan/wekan/issues/3190
 
-I installed Nginx using the instructions on the [AWS wiki](../Platforms/Propietary/Cloud/AWS.md)
+I installed Nginx using the instructions on the [AWS wiki](../Platforms/Propietary/Cloud/AWS)
 
 I followed the [the Nginx wiki](Nginx.md) and reached a point where everything was installed correctly and 'sudo nginx -t' was passing (with warnings), but when I went to the root-url I was still getting the generic welcome screen from nginx saying 'Welcome to nginx! If you see this page, the nginx web server is successfully installed and working. Further configuration is required'
 

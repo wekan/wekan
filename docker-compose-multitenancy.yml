@@ -21,7 +21,7 @@
 # opened exclusively. Give each service its own internal port via
 # METEOR_SETTINGS and they coexist cleanly.
 #
-# Reference: see docs/Platforms/FOSS/Docker/Meteor3/multitenancy.md
+# Reference: see docs/Platforms/FOSS/Container/Docker/Meteor3/multitenancy.md
 # and https://docs.meteor.com/performance/ddp-transport#multitenancy
 #
 # Setup:

@@ -3,7 +3,7 @@
 // whenever nothing else is bound there during first-launch migration and the handoff
 // to WeKan. Without it the http-bridge gets connection-refused on the app port and the
 // browser shows "This page can not be displayed embedded in another page" (the grain
-// frame error noted in docs/Platforms/FOSS/Sandstorm/Sandstorm.md). Answering every URL
+// frame error noted in docs/Platforms/FOSS/Container/Sandstorm). Answering every URL
 // with a small "please wait" page (HTTP 503, auto-refresh) keeps the grain framed until
 // WeKan is up. It is a separate process so start.js can release the port with a kill
 // (a definitive socket close) before the migration importer or Meteor binds the port —

@@ -5,7 +5,7 @@
 
 # Upgrade Sandstorm WeKan
 
-[Upgrade Sandstorm WeKan ](../Platforms/FOSS/Sandstorm/Sandstorm.md) 
+[Upgrade Sandstorm WeKan ](../Platforms/FOSS/Container/Sandstorm) 
 
 # Backup Docker
 
@@ -523,7 +523,7 @@ cat board.json | xclip -se c
 ```
 Then paste to webbrowser Wekan Add Board / Import / From previous export.
 
-You can [save all MongoDB database content as JSON files](../Platforms/FOSS/Sandstorm/Export-from-Wekan-Sandstorm-grain-.zip-file.md). Files are base64 encoded in JSON files.
+You can [save all MongoDB database content as JSON files](../Platforms/FOSS/Container/Sandstorm/Export-from-Wekan-Sandstorm-grain-.zip-file.md). Files are base64 encoded in JSON files.
 
 Export board to Wekan JSON, and import as Wekan JSON can make some part of board to load, but you should check is some data missing.
 
@@ -765,7 +765,7 @@ makesRestore $1
 
 ## Docker Backup and Restore
 
-[Docker Backup and Restore](../Platforms/FOSS/Docker/Export-Docker-Mongo-Data.md)
+[Docker Backup and Restore](../Platforms/FOSS/Container/Docker/Export-Docker-Mongo-Data.md)
 
 [Wekan Docker Upgrade](https://github.com/wekan/wekan-mongodb#backup-before-upgrading)
 
@@ -779,11 +779,11 @@ makesRestore $1
 
 Download Wekan grain with arrow down download button to .zip file. You can restore it later.
 
-[Export data from Wekan Sandstorm grain .zip file](../Platforms/FOSS/Sandstorm/Export-from-Wekan-Sandstorm-grain-.zip-file.md)
+[Export data from Wekan Sandstorm grain .zip file](../Platforms/FOSS/Container/Sandstorm/Export-from-Wekan-Sandstorm-grain-.zip-file.md)
 
 ## <a name="cloudron">Cloudron
 
-If those [Backup](Backup.md) ways are not easily found at [Cloudron](../Platforms/Propietary/Cloud/Cloudron/Cloudron.md), one way is to install [Redash](https://redash.io/) and then backup this way:
+If those [Backup](Backup.md) ways are not easily found at [Cloudron](../Platforms/Propietary/SaaS/Cloudron), one way is to install [Redash](https://redash.io/) and then backup this way:
 
 Redash works with this kind of queries:
 ```json
@@ -844,7 +844,7 @@ but downloading with API script still works:
 
 7) Repeat steps 1-4 and 6 for every collection/table like boards,cards, etc
 
-8) Remove from downloaded .json files extra query related data, so that it is similar like [any other Wekan database backup JSON files](../Platforms/FOSS/Sandstorm/Export-from-Wekan-Sandstorm-grain-.zip-file.md)
+8) Remove from downloaded .json files extra query related data, so that it is similar like [any other Wekan database backup JSON files](../Platforms/FOSS/Container/Sandstorm/Export-from-Wekan-Sandstorm-grain-.zip-file.md)
 
 9) Insert data to some other Wekan install with nosqlbooster like mentioned at page [Backup](Backup.md)
 

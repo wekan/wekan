@@ -1,6 +1,6 @@
 ### Install for example from:
-- [Snap](../../Platforms/FOSS/Snap/Snap.md)
-- [Docker](../../Platforms/FOSS/Docker/Docker.md)
+- [Snap](../../Platforms/FOSS/Container/Snap)
+- [Docker](../../Platforms/FOSS/Container/Docker)
 
 *Make sure you are running at least **v2.21***
 
@@ -177,4 +177,4 @@ You may also find it useful to look at the following configuration information:
 https://login.microsoftonline.com/**the-tenant-name-for-your-organization**/v2.0/.well-known/openid-configuration
 
 Some Azure links also at wiki page about moving from Sandstorm to Docker/Snap , and using Docker Swarm:
-- [Export from Wekan Sandstorm grain ](../../Platforms/FOSS/Sandstorm/Export-from-Wekan-Sandstorm-grain-.zip-file.md).zip-file#azure-links
+- [Export from Wekan Sandstorm grain ](../../Platforms/FOSS/Container/Sandstorm/Export-from-Wekan-Sandstorm-grain-.zip-file.md).zip-file#azure-links

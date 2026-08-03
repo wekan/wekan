@@ -1,1 +1,0 @@
-[OpenSuse](../OpenSuse.md)

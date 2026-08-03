@@ -19,7 +19,7 @@ that by providing one-click installation on various platforms.
 - Wekan largest user has 30k users using Wekan in their company.
 - Wekan has been [translated](https://app.transifex.com/wekan/) to about 70+ languages.
 - [Features](../Features/Features.md): Wekan has real-time user interface.
-- [Platforms](../Platforms/FOSS/Platforms.md): Wekan supports many platforms.
+- [Platforms](../Platforms): Wekan supports many platforms.
   Wekan is critical part of new platforms Wekan is currently being integrated to.
 - [Integrations](../ImportExport/Integrations.md): Current possible integrations and future plans.
 
@@ -41,8 +41,8 @@ It's a very specific niche, with limited amount competitors, with all of this ap
 ## Requirements
 
 - 64bit: Linux [Snap](https://github.com/wekan/wekan-snap/wiki/Install) or [Sandstorm](https://sandstorm.io) /
-  [Mac](../Platforms/Propietary/Mac/Mac.md) / [Windows](../Platforms/Propietary/Windows/Install-Wekan-from-source-on-Windows.md).
-  [More Platforms](../Platforms/FOSS/Platforms.md). [ARM progress](https://github.com/wekan/wekan/issues/1053#issuecomment-410919264).
+  [Mac](../Platforms/Propietary/OS/Mac) / [Windows](../Platforms/Propietary/OS/Windows/Install-Wekan-from-source-on-Windows.md).
+  [More Platforms](../Platforms). [ARM progress](https://github.com/wekan/wekan/issues/1053#issuecomment-410919264).
 - 1 GB RAM minimum free for Wekan. Production server should have miminum total 4 GB RAM.
   For thousands of users, for example with [Docker](../../docker-compose.yml): 3 frontend servers,
   each having 2 CPU and 2 wekan-app containers. One backend wekan-db server with many CPUs.
@@ -119,7 +119,7 @@ Usually:
 * Slowest: Once a month.
 * One release contains anything from one typo fix to many major features and bugfixes.
 
-For [Wekan Platforms](../Platforms/FOSS/Platforms.md), it means these choices:
+For [Wekan Platforms](../Platforms), it means these choices:
 
 * Snap: You get updates automatically immediately, or updates automatically scheduled at midnight
 * Source/Docker/VirtualBox: You need to test and install new Wekan version yourself

@@ -22,11 +22,11 @@ Wildcard:
 
 Wildcard DNS for Sandstorm only works with CloudFlare DNS.
 It does not work with FreeDNS of Namecheap. More info at
-[Sandstorm](../Platforms/FOSS/Sandstorm/Sandstorm.md)
+[Sandstorm](../Platforms/FOSS/Container/Sandstorm)
 
 ## Caddy 2
 
-WeKan Snap Candidate for any Snap distros: [OpenSuse](../Platforms/FOSS/OpenSuse.md) , disable internal old Caddy 1, when using Caddy 2:
+WeKan Snap Candidate for any Snap distros: [OpenSuse](../Platforms/FOSS/OS/OpenSuse.md) , disable internal old Caddy 1, when using Caddy 2:
 ```
 sudo snap set wekan caddy-enabled='false'
 sudo snap set wekan port='3001'

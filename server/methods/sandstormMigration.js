@@ -9,7 +9,7 @@ import path from 'path';
 // Only meaningful when WeKan runs inside a Sandstorm grain (isSandstorm). After
 // the one-time MongoDB 3 → FerretDB v1 (SQLite) migration that the grain's
 // start.js performs on first launch (see
-// docs/Platforms/FOSS/Sandstorm/Meteor3/Migration.md), the raw MongoDB 3.0 database
+// docs/Platforms/FOSS/Container/Sandstorm/Meteor3/Migration.md), the raw MongoDB 3.0 database
 // files are still on disk under the grain, taking space that FerretDB no longer
 // needs. This exposes:
 //   - sandstormMigrationStatus(): whether migration completed, its recorded

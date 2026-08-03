@@ -405,7 +405,7 @@ version_bump_logic() {
   # snapcraft.yaml so the doc's download links re-point to v$NEW_VERSION from any
   # stale value. Only warn (don't fail the release) on a miss — a stale doc link
   # is cosmetic, unlike the snap/Docker bundles above.
-  OFFLINE_DOC="docs/Platforms/Propietary/Windows/Offline.md"
+  OFFLINE_DOC="docs/Platforms/Propietary/OS/Windows/Offline.md"
   sedi -E "s#wekan-[0-9]+\.[0-9]+(\.[0-9]+)?-#wekan-${NEW_VERSION}-#g" "$OFFLINE_DOC"
   sedi -E "s#(releases/download/)v[0-9]+\.[0-9]+(\.[0-9]+)?/#\1v${NEW_VERSION}/#g" "$OFFLINE_DOC"
   if grep -qE "wekan-[0-9]+\.[0-9]+(\.[0-9]+)?-" "$OFFLINE_DOC" \

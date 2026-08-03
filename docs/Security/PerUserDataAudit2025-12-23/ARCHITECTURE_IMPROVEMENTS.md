@@ -11,8 +11,8 @@ This document describes the architectural improvements made to Wekan's persisten
 ### 1.1 Collapsed State Removed from Schemas
 
 **Changes:**
-- ❌ Removed `collapsed` field from Swimlanes schema ([models/swimlanes.js](models/swimlanes.js))
-- ❌ Removed `collapsed` field from Lists schema ([models/lists.js](models/lists.js))
+- ❌ Removed `collapsed` field from Swimlanes schema ([models/swimlanes.js](../../../models/swimlanes.js))
+- ❌ Removed `collapsed` field from Lists schema ([models/lists.js](../../../models/lists.js))
 - ❌ Removed `collapse()` mutation from Swimlanes
 - ❌ Removed collapsed field from REST API `PUT /api/boards/:boardId/lists/:listId`
 
@@ -30,7 +30,7 @@ Collapsed state is a per-user UI preference and should never be stored at the bo
 
 ### 2.1 New Validation Utility
 
-**File:** [client/lib/localStorageValidator.js](client/lib/localStorageValidator.js)
+**File:** [client/lib/localStorageValidator.js](../../../client/lib/localStorageValidator.js)
 
 **Features:**
 - ✅ Validates all numbers (swimlane heights, list widths) are within valid ranges
@@ -59,7 +59,7 @@ Meteor.startup(() => {
 
 ### 2.2 Updated User Storage Methods
 
-**File:** [models/lib/userStorageHelpers.js](models/lib/userStorageHelpers.js)
+**File:** [models/lib/userStorageHelpers.js](../../../models/lib/userStorageHelpers.js)
 
 **Functions:**
 - `getValidatedNumber(key, boardId, itemId, defaultValue, min, max)` - Get with validation
@@ -80,7 +80,7 @@ Meteor.startup(() => {
 
 ### 3.1 New Collection: UserPositionHistory
 
-**File:** [models/userPositionHistory.js](models/userPositionHistory.js)
+**File:** [models/userPositionHistory.js](../../../models/userPositionHistory.js)
 
 **Purpose:**
 Track all position changes (moves, reorders) per user with full undo/redo support.
@@ -148,7 +148,7 @@ Meteor.call('userPositionHistory.restoreToCheckpoint', checkpointId);
 
 ### 3.3 Automatic Tracking Integration
 
-**Card Moves:** [models/cards.js](models/cards.js)
+**Card Moves:** [models/cards.js](../../../models/cards.js)
 
 The `card.move()` method now automatically tracks changes:
 
@@ -184,7 +184,7 @@ UserPositionHistory.trackChange({
 
 ### 4.1 Migration: Ensure Valid Swimlane IDs
 
-**File:** [server/migrations/ensureValidSwimlaneIds.js](server/migrations/ensureValidSwimlaneIds.js)
+**File:** [server/migrations/ensureValidSwimlaneIds.js](../../../server/migrations/ensureValidSwimlaneIds.js)
 
 **Purpose:**
 Ensure all cards and lists have valid swimlaneId references, rescuing orphaned data.

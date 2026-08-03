@@ -137,7 +137,7 @@ docker-compose up -d --build
 1) Install local development version of Sandstorm to your laptop from https://sandstorm.io/install
 
 2) Download and install experimental version to your local Sandstorm:
-[Sandstorm](../Platforms/FOSS/Sandstorm/Sandstorm.md)
+[Sandstorm](../Platforms/FOSS/Container/Sandstorm)
 Local sandstorm is at http://local.sandstorm.io:6080/ .
 
 3) Download your production Wekan grain .zip file with down arrow button. Upload to your dev local Sandstorm.

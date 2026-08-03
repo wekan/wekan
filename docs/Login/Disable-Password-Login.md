@@ -17,7 +17,7 @@ sudo snap set wekan password-login-enabled='false'
 
 ## Windows On-Premise
 
-[Offline](../Platforms/Propietary/Windows/Offline.md)
+[Offline](../Platforms/Propietary/OS/Windows/Offline.md)
 ```
 SET PASSWORD_LOGIN_ENABLED=false
 ```
@@ -25,7 +25,7 @@ SET PASSWORD_LOGIN_ENABLED=false
 
 ## Linux On-Premise
 
-[Raspberry Pi](../Platforms/FOSS/RaspberryPi/Raspberry-Pi.md)
+[Raspberry Pi](../Platforms/FOSS/HW/RaspberryPi/Raspberry-Pi.md)
 ```
 export PASSWORD_LOGIN_ENABLED=false
 ```

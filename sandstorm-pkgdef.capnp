@@ -243,7 +243,7 @@ const myCommand :Spk.Manifest.Command = (
     (key = "PATH", value = "/usr/local/bin:/usr/bin:/bin"),
     # Files root for the Node24/FerretDB build: attachments/, avatars/ and the
     # FerretDB SQLite db/ live under /var/files (start.js also exports this). See
-    # docs/Platforms/FOSS/Sandstorm/Meteor3/Migration.md.
+    # docs/Platforms/FOSS/Container/Sandstorm/Meteor3/Migration.md.
     (key = "WRITABLE_PATH", value = "/var/files"),
     (key = "RESULTS_PER_PAGE", value = ""),
     (key = "WITH_API", value = "true"),

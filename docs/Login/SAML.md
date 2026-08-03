@@ -5,7 +5,7 @@ Related Meteor SAML code, not in WeKan yet:
 
 Sandstorm has SAML login, and old WeKan that will be updated someday:
 
-- [Sandstorm](../Platforms/FOSS/Sandstorm/Sandstorm.md)
+- [Sandstorm](../Platforms/FOSS/Container/Sandstorm)
 
 How SAML works:
 
