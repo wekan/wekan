@@ -78,7 +78,9 @@ test('the spk build ships the bridge into the deps payload', () => {
 });
 
 test('the Sandstorm doc no longer tells users to close and reopen the grain', () => {
-  const doc = read('docs/Platforms/FOSS/Container/Sandstorm');
+  // The Sandstorm doc became a directory when the docs were reorganised
+  // (f628a6988); its landing page is where the bridge is documented now.
+  const doc = read('docs/Platforms/FOSS/Container/Sandstorm/README.md');
   assert.ok(/migration-bridge\.js/.test(doc), 'documents the bridge');
   assert.ok(!/trying to fix it later/i.test(doc), 'the unfixed-workaround note is gone');
 });
