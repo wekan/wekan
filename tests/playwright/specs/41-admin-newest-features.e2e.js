@@ -68,8 +68,48 @@ test.describe('Admin – newest features', () => {
     const table = page.locator('table').first();
     await expect(table).toBeVisible({ timeout: 15_000 });
 
+    // WHICH half is missing, when the table draws its headers and then "No results".
+    //
+    // A row of this report needs TWO things to arrive over DDP, and the server
+    // count above proves only that the query finds them. The publication sends
+    // the page with this.added('attachments', ...) AND one small `report_pages`
+    // index document naming the ids of that page, in order; the pane renders
+    // that index and nothing else, because minimongo holds far more than the
+    // page (models/lib/reportPageIndex.js, reportPageResults in
+    // adminReports.js). So an empty table means the rows did not arrive, or the
+    // index did not, or they disagree - three different bugs that all look like
+    // "element(s) not found".
+    //
+    // Read through Meteor's client stores rather than app globals, which the
+    // production bundle does not expose. Entirely defensive: any failure here
+    // leaves the diagnosis empty and the assertion below fails exactly as it
+    // would have anyway.
+    const diag = await page.evaluate(() => {
+      const countIn = name => {
+        try {
+          const store = window.Meteor?.connection?._stores?.[name];
+          const coll = store && store._getCollection && store._getCollection();
+          return coll ? coll.find().count() : `no client store "${name}"`;
+        } catch (e) { return `error: ${(e && e.message) || e}`; }
+      };
+      let index;
+      try {
+        const store = window.Meteor?.connection?._stores?.report_pages;
+        const coll = store && store._getCollection && store._getCollection();
+        const doc = coll && coll.findOne('report-files');
+        index = doc ? `${(doc.ids || []).length} id(s)` : 'no report-files index doc';
+      } catch (e) { index = `error: ${(e && e.message) || e}`; }
+      return `attachments in minimongo: ${countIn('attachments')}; report_pages index: ${index}`;
+    }).catch(e => `diagnosis unavailable: ${(e && e.message) || e}`);
+
     // URL-encoded name is DECODED for display (and the raw %-encoding is gone).
-    await expect(table.getByText('Гр.png')).toBeVisible();
+    await expect(
+      table.getByText('Гр.png'),
+      `the Files report drew no usable row. ${diag}. ` +
+      'Rows but no index = publishReportPage did not send one; index but no rows = ' +
+      "this.added went to a collection the client does not have; neither = the " +
+      'publication returned early (the isAdmin check) or never ran.',
+    ).toBeVisible();
     await expect(table.getByText('%D0%93%D1%80')).toHaveCount(0);
 
     // Invisible character is REMOVED — the clean "evil.png" is shown, and the old

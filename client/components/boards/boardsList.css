@@ -82,17 +82,18 @@
      The SHARED variable (settingBody.css), so this menu and the Admin Panel's
      are one menu at one width, and dragging either grip changes both. */
   width: var(--wekan-left-menu-width);
-  /* ...but never wider than the track it is in: on a phone that track is capped
-     at 210px (#6523, the rules further down), and a fixed width would have run
-     the menu out past it.
+  /* `min-width: 0` so the menu CAN be narrower than its contents: a grid item's
+     default `min-width: auto` is its content's intrinsic minimum, and a minimum
+     beats a maximum. The rows inside already ellipse (the workspace name carries
+     its own `min-width: 0`), so nothing needs the intrinsic width held open.
 
-     `min-width: 0` is what makes that cap WORK, and it is the same fix the
-     right-hand column below has for the same reason: a grid item's default
-     `min-width: auto` is its content's intrinsic minimum, and a minimum beats a
-     maximum - so the menu kept its 260px and lay over the boards, with
-     `max-width` doing nothing at all. The rows inside it already ellipse (the
-     workspace name carries its own `min-width: 0`), so there is nothing that
-     needs the intrinsic width held open. */
+     `max-width: 100%` does NOT cap the menu to its grid track, whatever it looks
+     like it should do - this comment used to claim it did. A percentage width on
+     a grid item does not resolve against the track, so on a phone the menu kept
+     all 260px and lay over the boards in Chromium, Firefox and WebKit alike.
+     What actually caps it is `width: auto` in the phone rules further down,
+     which makes the item stretch to its grid area. This stays because it is
+     still right for the non-grid places this menu is used. */
   max-width: 100%;
   min-width: 0;
   box-sizing: border-box;
@@ -1315,6 +1316,26 @@
        line - and still leaves ~200px for the tiles. */
     grid-template-columns: minmax(140px, min(42%, 210px)) 1fr;
     gap: 8px;
+  }
+  /* #6488. The TRACK above decides how wide the menu is on a phone, so the menu
+     must not carry a width of its own here: --wekan-left-menu-width is 260px,
+     which is the DESKTOP width the drag-grip sets, and on a 375px phone that is
+     100px wider than the 157.5px track it has to sit in.
+     leftMenu.js does not offer the grip below 800px for exactly this reason.
+
+     `width: auto`, NOT `width: 100%` or `max-width: 100%`: a grid item with an
+     auto width STRETCHES to its grid area (justify-self defaults to stretch),
+     which fills the track exactly with no percentage to resolve. The rule up at
+     .boards-left-menu already says `max-width: 100%` and claims in its comment
+     that this caps the menu to the track - it does not. All three engines
+     (Chromium, Firefox and WebKit) kept the menu at its full 260px and laid it
+     OVER the board column, which is what the screenshot of the failing test
+     shows: the menu's #f7f7f7 background running to x=255 with the board tiles
+     painted on top of it from x=170. A percentage here does not resolve against
+     the track, so the only reliable way to say "be the width of your column" is
+     to not name a width at all. */
+  .boards-left-menu {
+    width: auto;
   }
   .board-list {
     display: grid;
