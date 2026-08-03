@@ -266,7 +266,10 @@ browser build to verify).
 </details>
 # Upcoming WeKan ® release
 
-**In short:** builds were failing at both ends, and none of it was about WeKan's
+**In short:** WeKan is downloadable as an **AppImage** and as a **Flatpak** now,
+both built from the bundle a release already carries rather than from a second
+build of WeKan. Everything else here is about builds, which were failing at both
+ends, and none of it was about WeKan's
 own code. The **release build** for every architecture that is not amd64 or
 arm64 was down: four died on a **shell quoting bug** that emptied the CPU name
 out of the Node.js download URL, two on a **base image** that is not built for
@@ -285,7 +288,40 @@ the boards, seven SSRF tests failing on a fake response that was not a stream,
 where a local run writes its logs, and a `build.sh` that reported success after
 a failed build.
 
-This release fixes the following release-build bugs:
+This release adds the following ways to install WeKan:
+
+**AppImage and Flatpak** - two more formats, from the bundle a release already
+has.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/73e06940c3ee7b597e9f47ce9054dbbb5b69aa82">WeKan is published as an AppImage and as a Flatpak, for x86_64 and aarch64</a>. Thanks to xet7.</summary>
+
+Both are built from `wekan-<version>-<arch>.zip` - the bundle the release
+already carries - rather than from a second build of WeKan, so what is inside an
+AppImage is the same Node.js, the same FerretDB and the same application code
+that the .zip for that architecture contains. Neither needs Meteor to run again.
+
+The AppImage carries its own runtime and starts on any distribution with a
+recent enough glibc; the Flatpak runs against `org.freedesktop.Platform` and is
+published with a repository so `flatpak update` works. Each is checksummed like
+the bundles, with a `.md5sum` and a `.sha256sum` beside it.
+
+</details>
+
+and updates the following dependencies:
+
+- **fast-uri 3.1.4 → 3.1.5** — the URI parser Fastify's JSON schema validation
+  uses.
+- **postcss 8.5.22 → 8.5.25** — the CSS transformer the stylesheet build runs
+  on.
+- **socket.io-parser 4.2.6 → 4.2.7** — encodes and decodes the Socket.IO
+  protocol.
+- **brace-expansion 5.0.8 → 5.0.9** — the `{a,b}` expansion behind glob
+  matching.
+
+Thanks to dependabot.
+
+and fixes the following release-build bugs:
 
 **The extra-architecture bundles** - built from binaries other projects publish.
 
@@ -348,6 +384,31 @@ database, and the launcher does not need them to start.
 
 </details>
 
+**What a release says about itself** - what is in a bundle, and where it came
+from.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c429ea71d92d945076d25f990599fa0b1fd3d535">Every bundle has a checksum, and the release notes open with where its binaries came from</a>. Thanks to xet7.</summary>
+
+A WeKan bundle is assembled out of files other projects publish - a Node.js
+build, a FerretDB binary, the MongoDB Database Tools - and WHICH of them a given
+architecture got varies per release: nodejs.org builds some CPUs,
+unofficial-builds others, the wekan/node fork the ones neither of them does, and
+not all of them publish a checksum to check the download against.
+
+None of that was written down anywhere a downloader could see. It lived in a
+build log that expires.
+
+Every `wekan-<version>-<arch>.zip` now has a `.sha256sum` beside it on the
+release, so a download can be checked. And the release notes OPEN with a
+provenance table: for each architecture, what each binary was, which project
+published it, at what version, from what URL, and with what checksum - or, when
+the publisher offers none, that it could not be verified. It is written by the
+build that used the file, not by hand afterwards, so it describes what actually
+went into the bundle.
+
+</details>
+
 **Which Node.js a bundle carries** - where it comes from, and if it is checked.
 
 <details>
@@ -403,6 +464,11 @@ the reader to assume a check was made - which is the case for **FerretDB** and
 the **MongoDB tools** today, neither of which publishes one.
 
 </details>
+
+- [Taking Node.js from the wekan/node fork first - the first answer, before the
+  verifiability order above replaced
+  it](https://github.com/wekan/wekan/commit/77d38e099f99f897af1b59350adb58143d092a93).
+  Thanks to xet7.
 
 **Running the tests locally** - what a run is given, and what it leaves behind.
 
@@ -512,6 +578,26 @@ exports its own when there is not.
 
 </details>
 
+The steps that got there, each a change of its own:
+
+- [A build that dies of heap exhaustion says so, and how much it had](https://github.com/wekan/wekan/commit/c0d9581df44c45cd4f378e01c6125356459a2be2).
+  Thanks to xet7.
+- [The snapshot needs its own, lower heap cap - at the full limit the kernel
+  killed the process and left a 0-byte
+  file](https://github.com/wekan/wekan/commit/38c5764f753a9461df5d8022cd59e0fcc30e51ab).
+  Thanks to xet7.
+- [The failure names the command that diagnoses it, and the diagnosis goes into
+  the log rather than only into
+  scrollback](https://github.com/wekan/wekan/commit/bc3029aac70c5d5788e24c09465613460b75db8c).
+  Thanks to xet7.
+- [Reading the snapshot: 14,267,543 IgnoreRule objects, an ignore list
+  recompiled hundreds of
+  times](https://github.com/wekan/wekan/commit/317b50b8a756958b08f101a00eb85271dbbf5d78).
+  Thanks to xet7.
+- [Removing the second JS minifier, the theory that the revert above
+  disproved](https://github.com/wekan/wekan/commit/cea2ff6f7dda00a3100301093063bc503b813de7).
+  Thanks to xet7.
+
 and fixes the following local-build bugs:
 
 **What Meteor is allowed to walk** - the app directory, and what has been cloned
@@ -575,6 +661,61 @@ off the end and exited 0. Anything driving it non-interactively - `printf
 '1\n2\n' | ./build.sh`, or CI - saw a green run and a missing bundle.
 
 </details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c6e3e2ef154822ef47559fd4358cbe63db9bff9c">_build is the handoff to Meteor, not leftovers - excluding it broke the build</a>. Thanks to xet7.</summary>
+
+The first attempt at the fix above excluded `_build/` and `_build-local-test/`
+too, and that broke the build outright, with an error that never mentions
+`.meteorignore`:
+
+```
+error: Could not find mainModule for 'os' architecture:
+_build/main-prod/server-meteor.js
+```
+
+They look exactly like build output that should be ignored - they are
+gitignored, and they were the first two entries of the 296 KB pattern list the
+heap snapshot turned up. They are not leftovers, they are the HANDOFF: rspack
+compiles the app INTO `_build/main-prod/`, and Meteor then reads
+`server-meteor.js` and `client-meteor.js` from there as the application's main
+modules. Ignoring them hides the files Meteor is about to be handed. They are
+three directories each, so there was nothing to win and a build to lose.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/062f9127a8e23bfceb007fdbd2885f3d17dff9b8">A cloned repository has to be in both .gitignore and .meteorignore</a>. Thanks to xet7.</summary>
+
+The first guard derived its list FROM `.gitignore`, so it only caught a clone
+that had got half way: one added to NEITHER file was invisible to it, and that
+is the state every one of these arrived in.
+
+The check walks the tree for any directory with a `.git` of its own -
+`existsSync`, because a submodule's `.git` is a file rather than a directory -
+instead of comparing against a list of names, so a clone nobody thought to name
+is caught too. Anything it finds must be ignored by git (asked of `git
+check-ignore`, not of a hand-parsed `.gitignore`) and, when it is top-level,
+listed in `.meteorignore`. It does not descend into a repository it has already
+found: that one's own submodules ride along with it.
+
+Verified by planting a directory with a `.git` in it - the guard fails and names
+it.
+
+</details>
+
+The three clones that arrived during this release, each in both files - git
+ignores them so `git status` stays readable, Meteor ignores them so the build
+does not walk them:
+
+- [TSC, the game, cloned under this working copy](https://github.com/wekan/wekan/commit/b7426212257222a2777c4347534dbc71085bab1c).
+  Thanks to xet7.
+- [Its website, secretchronicles.github.io](https://github.com/wekan/wekan/commit/2e51e7ceecaf7a754b9392ed8c560fad2dfb2468).
+  Thanks to xet7.
+- [The gitea fork, 1,401 directories and 384 MB - more than WeKan's own ~1,000
+  directories, so it would have more than doubled the
+  scan](https://github.com/wekan/wekan/commit/f47018c455fe52227c3d2a153be7e0773fb22c59).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
@@ -700,7 +841,7 @@ Where the full build had another name - `node.yml`, `build-binaries.yml` - it is
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b1d11ac926ddb735647fd04ed2e332c83fbcfa5a">The filter that selects what to build stopped every workflow loading</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/dcdda5f0f8c34aeb4ca5c58f925386e7d507cb40">The filter that selects what to build stopped every workflow loading</a>. Thanks to xet7.</summary>
 
 The `only` filter was written as a job-level condition, and GitHub refuses to
 load a workflow that does that:
