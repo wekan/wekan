@@ -44,6 +44,7 @@ Only newest Wekan is supported. Please check you are running newest Wekan, becau
 ## Production: SaaS, Wekan ready paid services, just start using.
 
 * [Wekan Team](https://wekan.fi/commercial-support/) - Snap Gantt Gpl Automatic Updates. Supports Wekan maintenance and development.
+* [![Deploy with Zenith](https://cdn.zenith.hosting/buttons/deploy-with-zenith.svg)](https://zenith.hosting/host/wekan) - One-click managed Wekan: storage, backups, email and a free subdomain included. A share of every subscription goes back to Wekan.
 * [Cloudron](../Propietary/Cloud/Cloudron/Cloudron.md) - Standalone Wekan
 * [PikaPods](../Propietary/Cloud/PikaPods/PikaPods.md) - Standalone Wekan with managed updates and backups.
 * [Scalingo](../Propietary/Cloud/Scalingo.md) - Standalone Wekan
