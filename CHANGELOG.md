@@ -260,7 +260,7 @@ has not decided on yet (adds a dependency + loosens the XSS sanitizer + needs a
 browser build to verify).
 
 </details>
-# Upcoming WeKan ® release
+# v10.57 2026-08-03 WeKan ® release
 
 **In short:** two reported bypasses of the **SSRF guard** are closed, and they
 are the same mistake in its two halves. **FollowBleed** — the import downloads
