@@ -2042,7 +2042,13 @@ for _once in 1; do
 		;;
 
     "Build WeKan")
-		build_wekan
+		# || exit 1, because build_wekan returns 1 on failure and a bare call
+		# throws that away: the menu breaks, the script falls off the end and
+		# exits 0. A build that printed "ERROR: the WeKan build failed" while
+		# reporting success to its caller is worse than one that just fails -
+		# anything driving this non-interactively (`printf '1\n2\n' | ./build.sh`,
+		# or CI) sees a green run and a missing bundle.
+		build_wekan || exit 1
 		break
 		;;
 

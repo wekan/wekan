@@ -25,3 +25,56 @@ npm-packages/
 # watch or scan it. Both are already in .gitignore, but the watcher only honours
 # .meteorignore.
 /FerretDB/
+
+# ── The other checkouts that have accumulated beside the app ─────────────────
+#
+# Everything below is the SAME problem as /.tools/ and /FerretDB/ above, and it
+# is why `meteor build` ran out of memory: Meteor scans the app directory, and
+# these are in .gitignore only, which the scanner does not read.
+#
+# The count is what makes it fatal. Meteor builds one ignore matcher per
+# directory it descends into, each carrying the whole accumulated pattern list,
+# and a heap snapshot taken at the moment the build died showed 945 of those
+# matchers holding 14.3 million rule objects - 980 MB of IgnoreRule plus 667 MB
+# of sliced strings, 308 MB of concatenated strings and 274 MB in 945 copies of
+# one 296 KB pattern list: about 2.5 GB of the 4.1 GB heap, and still only 945
+# directories in. There are 6,867 directories under this one, of which 5,860 are
+# in the trees named here; WeKan's own code is the remaining ~1,000. So the cost
+# was very nearly SEVEN TIMES what the snapshot caught, which is why raising
+# --max-old-space-size never helped - the ceiling was not the variable.
+#
+# Excluding them takes the scan back to WeKan itself.
+
+# The Node.js fork checkout (github.com/wekan/node): 4,132 directories, 45,527
+# files, 2.3 GB - by far the largest of these. WeKan uses its RELEASE BINARIES,
+# downloaded per architecture at build time; the source is here to build them,
+# and nothing in the app imports it.
+/node/
+
+# The mongo-tools checkout: another Go project, 738 directories. Same story -
+# WeKan ships the built binaries, not this source.
+/mongo-tools/
+
+# TSC (the game) and its website, cloned here for the release work. 472 and 512
+# directories, 810 MB together, and not WeKan at all.
+/TSC/
+/secretchronicles.github.io/
+
+# Two more WeKan checkouts, 296 directories each. These are worse than the rest:
+# they contain client/, server/ and models/, so they are not merely scanned -
+# Meteor loads server/ and client/ EAGERLY, and it would be pulling a second and
+# third copy of the whole app into this build.
+/wekan-gantt-gpl/
+/wekan-ondra/
+
+# Meteor's own build output. `meteor build` writes _build/ and the test run
+# writes _build-local-test/, so the scanner finds the last build's bundle inside
+# the tree it is scanning to make the next one. They are already the first two
+# entries of the 296 KB pattern list above, which is how they were spotted.
+/_build/
+/_build-local-test/
+
+# Local build and test logs. WEKAN_LOG_ROOT prefers ../log/<datetime>/, but
+# falls back to ./log when the parent is not writable - which is exactly the
+# case inside the Flatpak sandbox, so this directory does appear here.
+/log/
