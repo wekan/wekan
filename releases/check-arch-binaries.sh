@@ -22,9 +22,13 @@
 #   image          base image, e.g. debian:trixie   (optional; checked if given)
 #   platform       docker platform, e.g. linux/386  (optional; needs image)
 #
-# Prints, on stdout, two lines for the caller to read:
-#   node_full=vX.Y.Z
-#   node_from=official|unofficial|fork
+# Prints, on stdout, three lines for the caller to read:
+#   node_full=vX.Y.Z                        the version that was found
+#   node_from=official|unofficial|fork      where it was found
+#   node_url=https://...                    the exact file to download
+#
+# The version is the NEWEST that exists FOR THIS CPU, which is not always the
+# newest that exists - see the walk below.
 #
 # Exits non-zero, having printed a ::error:: line per missing piece, if anything
 # the bundle cannot be built without is absent. The MongoDB tools are the one
@@ -68,61 +72,68 @@ if [ -n "$image" ] && [ -n "$platform" ]; then
 fi
 
 # ── 2. Node.js ───────────────────────────────────────────────────────────────
-node_full="$(curl -fsSL https://nodejs.org/dist/index.json |
-    python3 -c "import json,sys; print(next(r['version'] for r in json.load(sys.stdin) if r['version'].startswith('v${node_version}.')))")"
+#
+# The rule is "the NEWEST Node.js that exists for this CPU", not "the newest
+# Node.js". Those are the same thing on amd64 and arm64 and regularly are not
+# anywhere else: nodejs.org builds a handful of architectures, unofficial-builds
+# adds a few more, and the wekan/node fork builds the rest - each on its own
+# schedule, so the further a CPU is off the beaten path the further behind its
+# newest build tends to be. Today nodejs.org is at v24.19.0, unofficial-builds
+# has riscv64 only up to v24.18.1, and the fork has i386 and loong64 at v24.18.1.
+#
+# So this walks the 24.x versions from newest down, and at each one asks all
+# three sources in turn - official, then unofficial, then the fork. The first
+# hit wins, which is by construction the newest build that exists anywhere for
+# this CPU. Pinning to the newest version instead would fail for exactly the
+# architectures this whole job exists to serve.
+#
+# The walk stops after MAX_VERSIONS_BACK. A CPU whose newest build is a dozen
+# releases old is not "slightly behind", it is unmaintained, and saying so is
+# more use than silently shipping something from last year.
+MAX_VERSIONS_BACK=12
 
-node_full_wanted="$node_full"
+versions="$(curl -fsSL https://nodejs.org/dist/index.json |
+    python3 -c "
+import json,sys
+major='v${node_version}.'
+print('\n'.join(r['version'] for r in json.load(sys.stdin) if r['version'].startswith(major)))
+")"
 
-if [ -z "$node_full" ]; then
-    echo "::error::Could not resolve the newest Node.js ${node_version}.x from https://nodejs.org/dist/index.json ."
+if [ -z "$versions" ]; then
+    echo "::error::Could not list Node.js ${node_version}.x versions from https://nodejs.org/dist/index.json ."
     exit 1
 fi
 
-official="https://nodejs.org/dist/${node_full}/node-${node_full}-linux-${node_arch}.tar.xz"
-unofficial="https://unofficial-builds.nodejs.org/download/release/${node_full}/node-${node_full}-linux-${node_arch}.tar.xz"
-fork="https://github.com/wekan/node/releases/download/${node_full}/node-${arch}"
+node_full_wanted="$(printf '%s\n' "$versions" | head -n 1)"
 
 node_from=""
+node_full=""
 node_url=""
-if have "$official"; then
-    node_from=official
-    node_url="$official"
-elif have "$unofficial"; then
-    node_from=unofficial
-    node_url="$unofficial"
-elif have "$fork"; then
-    node_from=fork
-    node_url="$fork"
-else
-    # The fork lags nodejs.org: it builds the architectures nobody else does,
-    # one release at a time, so the newest Node.js is often a version the fork
-    # has not reached yet. Falling back to the fork's newest release that HAS
-    # this CPU is better than failing - the alternative is no bundle at all for
-    # that architecture until the fork catches up - but it is a DIFFERENT patch
-    # version from the one the rest of the release was built against, so it is
-    # said out loud rather than slipped in.
-    fork_tag="$(curl -fsSL "https://api.github.com/repos/wekan/node/releases" 2>/dev/null |
-        python3 -c "
-import json,sys
-want='node-${arch}'
-try:
-    for rel in json.load(sys.stdin):
-        if any(a['name'] == want for a in rel.get('assets', [])):
-            print(rel['tag_name']); break
-except Exception:
-    pass
-" 2>/dev/null)"
-    if [ -n "$fork_tag" ]; then
-        node_from=fork
-        node_full="$fork_tag"
-        node_url="https://github.com/wekan/node/releases/download/${fork_tag}/node-${arch}"
-        echo "::warning::The wekan/node fork has no node-${arch} for ${node_full_wanted:-the newest Node.js}, so ${fork_tag} is used instead - the newest release of the fork that has this CPU. The bundle therefore carries a Node.js one or more patch versions behind the other architectures. Build node-${arch} for the newer version in wekan/node to bring it back in line."
+tried=0
+
+for v in $versions; do
+    tried=$((tried + 1))
+    [ "$tried" -gt "$MAX_VERSIONS_BACK" ] && break
+
+    o="https://nodejs.org/dist/${v}/node-${v}-linux-${node_arch}.tar.xz"
+    u="https://unofficial-builds.nodejs.org/download/release/${v}/node-${v}-linux-${node_arch}.tar.xz"
+    f="https://github.com/wekan/node/releases/download/${v}/node-${arch}"
+
+    if   have "$o"; then node_from=official;   node_url="$o"; node_full="$v"; break
+    elif have "$u"; then node_from=unofficial; node_url="$u"; node_full="$v"; break
+    elif have "$f"; then node_from=fork;       node_url="$f"; node_full="$v"; break
     fi
-fi
+done
 
 if [ -z "$node_from" ]; then
-    echo "::error::No Node.js for ${arch} exists anywhere yet. Looked at nodejs.org (${official}), unofficial-builds (${unofficial}), the wekan/node fork at that exact version (${fork}), and every wekan/node release for a node-${arch} asset. The fork is the one to fix: build node-${arch} with the node.yml workflow in wekan/node and attach it to a release, then re-run this job."
+    newest="$node_full_wanted"
+    oldest="$(printf '%s\n' "$versions" | head -n "$MAX_VERSIONS_BACK" | tail -n 1)"
+    echo "::error::No Node.js for ${arch} exists anywhere. Checked every ${node_version}.x release from ${newest} back to ${oldest} at nodejs.org, unofficial-builds and the wekan/node fork, for node_arch '${node_arch}' and asset 'node-${arch}'. The fork is the one to fix: build node-${arch} with the node.yml workflow in wekan/node and attach it to a release, then re-run this job."
     missing=1
+elif [ "$node_full" != "$node_full_wanted" ]; then
+    # Behind, but the newest that exists - which is the best this CPU can have.
+    echo "::warning::${arch} gets Node.js ${node_full} from ${node_from}, not the newest ${node_full_wanted}: no source has ${node_arch}/node-${arch} for ${node_full_wanted} yet. This is the newest build that exists for this CPU. To bring it in line, build node-${arch} for ${node_full_wanted} in wekan/node."
+    echo "Node.js ${node_full} for ${arch}: ${node_from} (${node_url})"
 else
     echo "Node.js ${node_full} for ${arch}: ${node_from} (${node_url})"
 fi
