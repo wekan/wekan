@@ -336,13 +336,35 @@ mac-arm64 bundles. Each missing file gets a line naming it and the repository
 that should publish it. The MongoDB tools stay a warning - FerretDB is the
 database, and the launcher does not need them to start.
 
-It also handles the fork running behind. wekan/node builds the architectures
-nobody else does, one release at a time, so the newest Node.js is regularly a
-version it has not reached. Demanding the exact newest would fail for precisely
-the CPUs the fork exists to serve, so the check falls back to the fork's newest
-release that HAS that CPU and says out loud that the bundle is a patch version
-behind. That is what makes **i386** and **loong64** resolve today, against the
-fork's `v24.18.1`.
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/60c9e55d2fa4e5a152c2784caa60bb4db0dc3b21">Each CPU gets the newest Node.js that exists for IT, not the newest that exists</a>. Thanks to xet7.</summary>
+
+Those are the same thing on amd64 and arm64, and regularly are not anywhere
+else. nodejs.org builds a handful of architectures, unofficial-builds adds a
+few, the **wekan/node** fork builds the rest, and each runs on its own schedule
+- so the further a CPU is off the beaten path, the further behind its newest
+build tends to be. Asking for the exact newest version fails for precisely the
+architectures this job exists to serve.
+
+The check walks the 24.x releases from newest down and asks all three sources at
+each one, taking the first hit - which is by construction the newest build that
+exists anywhere for that CPU. **riscv64** is why it matters: unofficial-builds
+publishes it up to `v24.18.1` and has not reached `v24.19.0`, so looking only at
+the newest found nothing and stopped the build, while a perfectly good riscv64
+build was sitting there one version back.
+
+When the answer is behind, the log says which version it got, from where, which
+it wanted, and what to build to bring it in line - a warning, not an error,
+because the alternative is no bundle at all for that CPU. The walk stops after
+twelve releases: a CPU whose newest build is a dozen releases old is not
+slightly behind, it is unmaintained, and saying so is more use than quietly
+shipping something from last year.
+
+Today that gives **s390x** and **ppc64le** the newest `v24.19.0`, and
+**riscv64**, **i386** and **loong64** `v24.18.1`. **armhf** has no build at any
+version from any source, and is the one architecture the run still stops on.
 
 </details>
 
