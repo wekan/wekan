@@ -264,6 +264,91 @@ has not decided on yet (adds a dependency + loosens the XSS sanitizer + needs a
 browser build to verify).
 
 </details>
+# Upcoming WeKan ® release
+
+**In short:** the **release build** for every architecture that is not amd64 or
+arm64 was failing, and none of the six failures was about WeKan. Four died on a
+**shell quoting bug** that emptied the CPU name out of the Node.js download URL,
+two on a **base image** that is not built for their CPU, and underneath both,
+nothing checked that the **binaries** those bundles are assembled from had been
+published at all. Every build checks first now, and says which file is missing
+and which repository should publish it.
+
+This release fixes the following release-build bugs:
+
+**The extra-architecture bundles** - i386, armhf, ppc64le, riscv64, s390x and
+loong64, each assembled from binaries other repositories publish.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/92198b0671ee27545d62c9537aaccb50cabe49f7">An apostrophe in a comment emptied the CPU name out of every Node.js download URL</a>. Thanks to xet7.</summary>
+
+Four of the six died with the same 404, on a URL that named no architecture at
+all:
+
+```
+curl: (22) The requested URL returned error: 404
+No Node.js for  at official (https://nodejs.org/dist/v24.18.1/node-v24.18.1-linux-.tar.xz)
+```
+
+The container script was passed as `bash -c '...'` - a single-quoted argument -
+and it contained apostrophes, in comments like "where this CPU's Node.js comes
+from". A single-quoted shell string cannot hold an apostrophe: the backslash
+does not escape it, it ENDS the string. Everything after became separate words,
+and `${NODE_ARCH}` ended up somewhere the RUNNER's shell expanded rather than
+the container's - and the runner has no `NODE_ARCH`, so it expanded to nothing.
+
+The script is a file now, `releases/install-node-for-arch.sh`, mounted into the
+container. A file has no quoting layer to get wrong and `bash -n` can check it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/92198b0671ee27545d62c9537aaccb50cabe49f7">i386 and loong64 asked for a base image that is not built for their CPU</a>. Thanks to xet7.</summary>
+
+The other two died earlier still, on `docker: no matching manifest for
+linux/386 in the manifest list entries`. **ubuntu:26.04** publishes amd64,
+arm/v7, arm64, ppc64le, riscv64 and s390x - not 386, and not loong64.
+**debian:trixie** publishes 386 as well, so that is the base image now, named
+per architecture in the matrix instead of assumed.
+
+loong64 still cannot be built: no image on Docker Hub publishes it at any tag,
+so there is no loong64 userland to rebuild the native modules in. Its Node.js
+and its FerretDB both exist; the container does not. It stays in the matrix, and
+the check below says exactly that on every run, rather than the architecture
+quietly vanishing from the release.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/92198b0671ee27545d62c9537aaccb50cabe49f7">Every build checks the binaries it needs exist, and stops naming the missing one</a>. Thanks to xet7.</summary>
+
+A bundle is assembled out of files other repositories publish: **FerretDB** from
+wekan/FerretDB, the **MongoDB Database Tools** from wekan/mongo-tools, and on
+the CPUs nobody else builds for, **Node.js** from wekan/node. Any of them can be
+absent because a build has not finished, and the build should say so plainly
+rather than failing an hour later with a bare 404 in the middle of an emulated
+`npm install`.
+
+`releases/check-arch-binaries.sh` runs before anything is built and checks the
+base image, the Node.js, the FerretDB binary and the tools;
+`releases/require-binaries.sh` does the same for the amd64, arm64, win64 and
+mac-arm64 bundles. Each missing file gets a line naming it and the repository
+that should publish it. The MongoDB tools stay a warning - FerretDB is the
+database, and the launcher does not need them to start.
+
+It also handles the fork running behind. wekan/node builds the architectures
+nobody else does, one release at a time, so the newest Node.js is regularly a
+version it has not reached. Demanding the exact newest would fail for precisely
+the CPUs the fork exists to serve, so the check falls back to the fork's newest
+release that HAS that CPU and says out loud that the bundle is a patch version
+behind. That is what makes **i386** and **loong64** resolve today, against the
+fork's `v24.18.1`.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.57 2026-08-03 WeKan ® release
 
 **In short:** two reported bypasses of the **SSRF guard** are closed, and they
