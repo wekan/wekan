@@ -5,6 +5,7 @@ import dns from 'dns';
 import http from 'http';
 import https from 'https';
 import { EventEmitter } from 'events';
+import { Readable } from 'stream';
 import {
   isIpBlocked,
   validateAttachmentUrl,
@@ -41,6 +42,38 @@ function stubLookup(map) {
   });
 }
 
+// A stand-in for http.IncomingMessage. It is a real Readable, and that matters:
+// an IncomingMessage is a PAUSED stream that BUFFERS its body until something
+// attaches a 'data' listener or resumes it, so no data can be lost by reading
+// late.
+//
+// These stubs used to be bare EventEmitters that emitted 'data' and 'end' from
+// a process.nextTick, into the void if nobody was listening yet - which no real
+// response does. That made seven tests fail the moment fetchSafe started
+// resolving the response and reading the body as two steps (the redirect
+// handling needs to look at the status before deciding to read at all): the
+// nextTick queue drains BEFORE promise microtasks, so the fake had already
+// fired 'end' by the time the awaited continuation attached its listeners, and
+// the read hung until mocha's 2s timeout. The blocked-host tests kept passing,
+// because they reject before any of this, which is what hid it.
+//
+// Verified against a real server rather than assumed: a request whose 'data'
+// listener is attached two nextTicks, a setImmediate and 20ms after the
+// response callback still receives the whole body.
+function fakeResponse({ statusCode = 200, headers = {}, body = '' }) {
+  const res = new Readable({ read() {} });
+  res.statusCode = statusCode;
+  res.headers = headers;
+  process.nextTick(() => {
+    // A destroyed response pushes nothing - that is how the redirect tests
+    // prove fetchSafe abandoned a body instead of reading it.
+    if (res.destroyed) return;
+    if (body) res.push(Buffer.from(body));
+    res.push(null);
+  });
+  return res;
+}
+
 // Replace the real TCP request with an in-memory fake so "allowed" hosts never
 // hit the network. Returns a `capture` object whose `.opts` holds the request
 // options fetchSafe built (so tests can assert the pinned IP / Host / SNI).
@@ -51,17 +84,8 @@ function stubTransport({ statusCode = 200, headers = {}, body = '' } = {}) {
     const req = new EventEmitter();
     req.write = () => {};
     req.end = () => {};
-    const res = new EventEmitter();
-    res.statusCode = statusCode;
-    res.headers = headers;
-    res.destroy = () => {};
-    process.nextTick(() => {
-      cb(res);
-      process.nextTick(() => {
-        if (body) res.emit('data', Buffer.from(body));
-        res.emit('end');
-      });
-    });
+    const res = fakeResponse({ statusCode, headers, body });
+    process.nextTick(() => cb(res));
     return req;
   };
   sinon.stub(http, 'request').callsFake(fake);
@@ -81,21 +105,15 @@ function stubTransportSequence(steps) {
     const req = new EventEmitter();
     req.write = () => {};
     req.end = () => {};
-    const res = new EventEmitter();
-    res.statusCode = step.statusCode;
-    res.headers = step.headers || {};
-    res.destroyed = false;
-    res.destroy = () => {
-      res.destroyed = true;
-    };
-    process.nextTick(() => {
-      cb(res);
-      process.nextTick(() => {
-        if (res.destroyed) return;
-        if (step.body) res.emit('data', Buffer.from(step.body));
-        res.emit('end');
-      });
+    // Same Readable-backed response as above: `destroyed` and `destroy()` are
+    // the stream's own, so "fetchSafe abandoned this hop's body" is asserted
+    // against real stream behaviour instead of a hand-rolled flag.
+    const res = fakeResponse({
+      statusCode: step.statusCode,
+      headers: step.headers || {},
+      body: step.body || '',
     });
+    process.nextTick(() => cb(res));
     return req;
   };
   sinon.stub(http, 'request').callsFake(fake);
