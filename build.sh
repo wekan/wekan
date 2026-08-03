@@ -17,8 +17,41 @@ echo "       printed when a run starts."
 # (the one that hits the limit during `meteor run`/`meteor test`/`meteor build`);
 # NODE_OPTIONS covers the child Node/rspack processes. Both default to 8 GB here
 # and honor any value you already exported. Lower it if your machine has less RAM.
-export TOOL_NODE_FLAGS="${TOOL_NODE_FLAGS:---max-old-space-size=8192}"
-export NODE_OPTIONS="${NODE_OPTIONS:---max-old-space-size=8192}"
+# The size is worked out from the machine rather than fixed at 8192, because
+# 8192 is where a build died:
+#
+#   FATAL ERROR: Ineffective mark-compacts near heap limit
+#   Allocation failed - JavaScript heap out of memory
+#
+# at 8146 MB of an 8192 MB limit, on a machine with 30 GiB of RAM. The build had
+# not run out of memory, it had run out of the ceiling this line gave it - and
+# because that ceiling was a constant, the same number was too small on a large
+# machine and too large on a small one.
+#
+# Half of total RAM, clamped to [4096, 16384]. Half is the share that leaves the
+# rest of the machine usable while a build runs, the floor keeps a small machine
+# from being given something unusable, and the ceiling is there because a heap
+# larger than that means something is wrong rather than something is big. At
+# 16 GiB this works out to 8192, which is exactly what was hard-coded here
+# before, so nothing changes on the machine that value was chosen for.
+#
+# Anything already exported still wins, which is how to override it.
+# Always computed, never conditionally: if only ONE of the two variables were
+# already set, skipping this would leave the other with an empty size and Node
+# would be handed "--max-old-space-size=".
+_mem_total_mb=$(awk '/^MemTotal:/ { print int($2 / 1024) }' /proc/meminfo 2>/dev/null)
+# macOS has no /proc; hw.memsize is bytes.
+[ -n "${_mem_total_mb:-}" ] || _mem_total_mb=$(( $(sysctl -n hw.memsize 2>/dev/null || echo 0) / 1048576 ))
+[ "${_mem_total_mb:-0}" -gt 0 ] 2>/dev/null || _mem_total_mb=16384
+_heap_mb=$(( _mem_total_mb / 2 ))
+[ "$_heap_mb" -lt 4096 ]  && _heap_mb=4096
+[ "$_heap_mb" -gt 16384 ] && _heap_mb=16384
+if [ -z "${TOOL_NODE_FLAGS:-}${NODE_OPTIONS:-}" ]; then
+	echo "Node heap limit for builds: ${_heap_mb} MB (half of ${_mem_total_mb} MB of RAM)."
+	echo "  Override by exporting TOOL_NODE_FLAGS and NODE_OPTIONS yourself."
+fi
+export TOOL_NODE_FLAGS="${TOOL_NODE_FLAGS:---max-old-space-size=$_heap_mb}"
+export NODE_OPTIONS="${NODE_OPTIONS:---max-old-space-size=$_heap_mb}"
 
 # Every log this script writes goes into a `log/<datetime>/` directory, and
 # WEKAN_LOG_ROOT is where those directories live.
@@ -1953,7 +1986,7 @@ for _once in 1; do
                 #Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
                 #---------------------------------------------------------------------
                 # Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
-                DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings --max-old-space-size=8192" WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
+                DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings --max-old-space-size=$_heap_mb" WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
                 #---------------------------------------------------------------------
                 break
                 ;;

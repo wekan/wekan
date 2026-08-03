@@ -393,6 +393,36 @@ the **MongoDB tools** today, neither of which publishes one.
 </details>
 
 <details>
+<summary>The Node heap limit for builds is worked out from the machine, not fixed at 8 GB</summary>
+
+The build died with
+
+```
+FATAL ERROR: Ineffective mark-compacts near heap limit
+Allocation failed - JavaScript heap out of memory
+```
+
+at **8146 MB of an 8192 MB limit**, on a machine with **30 GiB of RAM**. It had
+not run out of memory - it had run out of the ceiling `build.sh` gave it. And
+because that ceiling was a constant, the same number was simultaneously too
+small on a large machine and too large on a small one.
+
+It is **half of total RAM now, clamped to [4096, 16384]**. Half is the share
+that leaves the rest of the machine usable while a build runs; the floor keeps a
+small machine from being handed something unusable; the ceiling is there because
+a heap bigger than that means something is wrong rather than something is big.
+At 16 GiB it works out to exactly 8192 - the value that was hard-coded - so
+nothing changes on the machine that number was picked for. This one gets 15542.
+
+The chosen size is printed at startup, and exporting `TOOL_NODE_FLAGS` or
+`NODE_OPTIONS` yourself still wins.
+
+This is also the first failure the new build log caught: the run before it
+failed the same way and left nothing behind to read.
+
+</details>
+
+<details>
 <summary>Logs land somewhere writable, so a run inside a sandbox keeps them</summary>
 
 Every log `build.sh` writes goes into a `log/<datetime>/` directory, and the
