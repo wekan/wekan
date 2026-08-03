@@ -282,12 +282,30 @@ function build_wekan(){
 	# sort by retained size. It is roughly as large as the heap, so this is
 	# off by default rather than something every build pays for.
 	if [ "${WEKAN_BUILD_HEAP_SNAPSHOT:-0}" = "1" ]; then
-		export TOOL_NODE_FLAGS="$TOOL_NODE_FLAGS --heapsnapshot-near-heap-limit=1"
-		export NODE_OPTIONS="$NODE_OPTIONS --heapsnapshot-near-heap-limit=1"
-		echo "Heap snapshot: ON. If the build runs out of memory it writes"
-		echo "  $(pwd)/Heap.<pid>.<n>.heapsnapshot before dying - expect a file"
-		echo "  about the size of the heap limit, and open it in Chrome DevTools"
-		echo "  under Memory -> Load, sorted by retained size."
+		# A SMALLER heap on purpose, not the computed one.
+		#
+		# The first attempt at this kept the full limit and the run was killed
+		# outright - "Päätetty" from the kernel, and a 0-byte
+		# Heap.*.heapsnapshot left behind. Writing a snapshot costs memory on
+		# top of the heap being dumped, so asking a 15.5 GB heap to write a
+		# 15.5 GB snapshot on a 30 GB machine that already had 12 GB in use
+		# does not fit, and the OOM killer arrives before the file does.
+		#
+		# A snapshot is not more useful for being bigger. What is wanted is
+		# WHAT is retaining memory, and whatever grows to 15 GB is already the
+		# largest thing on the heap at 4 GB - it just gets there sooner and
+		# writes a file that fits. The build still fails; that is expected.
+		local snap_mb="${WEKAN_BUILD_HEAP_SNAPSHOT_MB:-4096}"
+		export TOOL_NODE_FLAGS="--max-old-space-size=$snap_mb --heapsnapshot-near-heap-limit=1"
+		export NODE_OPTIONS="--max-old-space-size=$snap_mb --heapsnapshot-near-heap-limit=1"
+		echo "Heap snapshot: ON, with the heap capped at ${snap_mb} MB."
+		echo "  The build WILL fail sooner than usual - that is the point: it"
+		echo "  writes $(pwd)/Heap.<date>.<pid>.<n>.heapsnapshot, about ${snap_mb} MB,"
+		echo "  just before it dies. A snapshot at the full ${_heap_mb} MB limit"
+		echo "  cannot be written on this machine - the last attempt was killed"
+		echo "  by the kernel and left a 0-byte file."
+		echo "  Open it in Chrome DevTools: Memory -> Load, sort by retained size."
+		echo "  Raise it with WEKAN_BUILD_HEAP_SNAPSHOT_MB if 4096 is too early."
 	fi
 	{
 		echo "===== wekan build started $(date '+%F %T') ====="
