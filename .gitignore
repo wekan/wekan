@@ -102,6 +102,12 @@ _build-local-test
 # which must not be committed.
 /log/
 
+# V8 heap snapshots from WEKAN_BUILD_HEAP_SNAPSHOT=1. Named
+# Heap.<date>.<pid>.<n>.heapsnapshot by Node, written into the repo root
+# because that is the build's working directory, and as large as the heap that
+# produced them - gigabytes.
+Heap.*.heapsnapshot
+
 # Linux core dumps (core.<pid>), e.g. from a crashing Playwright/WebKit browser
 # process. Written into the crashing process CWD (tests/playwright/) by
 # kernel.core_pattern; never source files.

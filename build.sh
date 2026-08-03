@@ -264,6 +264,10 @@ function build_wekan(){
 	# newest test logs" could not answer the question the run had just raised.
 	# It is teed, so an interactive build still scrolls past as it always did.
 	local buildlog
+	# What the build is actually given - the computed limit, unless the
+	# snapshot mode below caps it. The failure message quoted the computed one
+	# either way, which read as "allowed 15542 MB and reached 4280 MB".
+	_effective_heap_mb="$_heap_mb"
 	buildlog="$(one_log build)"
 	echo "Build log: $buildlog"
 
@@ -296,6 +300,7 @@ function build_wekan(){
 		# largest thing on the heap at 4 GB - it just gets there sooner and
 		# writes a file that fits. The build still fails; that is expected.
 		local snap_mb="${WEKAN_BUILD_HEAP_SNAPSHOT_MB:-4096}"
+		_effective_heap_mb="$snap_mb"
 		export TOOL_NODE_FLAGS="--max-old-space-size=$snap_mb --heapsnapshot-near-heap-limit=1"
 		export NODE_OPTIONS="--max-old-space-size=$snap_mb --heapsnapshot-near-heap-limit=1"
 		echo "Heap snapshot: ON, with the heap capped at ${snap_mb} MB."
@@ -333,7 +338,7 @@ function build_wekan(){
 			# is one the next person does not have.
 			{
 				echo
-				echo "  The build ran out of JavaScript heap. It was allowed ${_heap_mb} MB${peak:+ and reached ${peak} MB}."
+				echo "  The build ran out of JavaScript heap. It was allowed ${_effective_heap_mb} MB${peak:+ and reached ${peak} MB}."
 				echo
 				echo "  Raising that number is NOT the next step. It has been raised once"
 				echo "  already - 8192 to ${_heap_mb} - and the build simply used the extra;"
@@ -341,14 +346,21 @@ function build_wekan(){
 				echo "  consumer moved the peak by 6 MB. The build really is holding that"
 				echo "  much, in the phase after both rspack compiles report done."
 				echo
-				echo "  To find out WHAT is holding it, run once with a heap snapshot:"
-				echo
-				echo "      WEKAN_BUILD_HEAP_SNAPSHOT=1 ./build.sh"
-				echo
-				echo "  That writes Heap.<pid>.<n>.heapsnapshot into $(pwd) just before"
-				echo "  the build dies. Open it in Chrome DevTools (Memory -> Load) and"
-				echo "  sort by retained size; the file is about as large as the heap"
-				echo "  limit, so it is opt-in rather than something every build pays for."
+				if [ "${WEKAN_BUILD_HEAP_SNAPSHOT:-0}" = "1" ]; then
+					echo "  A heap snapshot was requested, so look for"
+					echo "  $(pwd)/Heap.*.heapsnapshot and read it with:"
+					echo
+					echo "      python3 releases/analyse-heapsnapshot.py Heap.*.heapsnapshot"
+				else
+					echo "  To find out WHAT is holding it, run once with a heap snapshot:"
+					echo
+					echo "      WEKAN_BUILD_HEAP_SNAPSHOT=1 ./build.sh"
+					echo
+					echo "  That caps the heap so the snapshot can be written at all, and"
+					echo "  leaves Heap.*.heapsnapshot here. Read it with:"
+					echo
+					echo "      python3 releases/analyse-heapsnapshot.py Heap.*.heapsnapshot"
+				fi
 			} | tee -a "$buildlog"
 		fi
 		return 1
