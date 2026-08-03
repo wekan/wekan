@@ -36,7 +36,7 @@ import {
   calendar
 } from '/imports/lib/dateUtils';
 import getSlug from 'limax';
-import { validateAttachmentUrl } from './lib/attachmentUrlValidation';
+import { fetchImportedAttachment } from './lib/importAttachmentDownload';
 
 const DateString = Match.Where(function(dateAsString) {
   check(dateAsString, String);
@@ -644,12 +644,24 @@ export class TrelloCreator {
               );
               await setCover(fileRef && fileRef._id);
             } else if (att.url) {
-              const validation = await validateAttachmentUrl(att.url);
-              if (!validation.valid) {
+              // Best effort: works for publicly reachable URLs. Trello-hosted
+              // uploads require OAuth and should instead be supplied via the
+              // attachments ZIP (offline) or downloaded server-side in the
+              // live Trello API import.
+              //
+              // FollowBleed (GHSA-j9p2-jm73-p549): the download is NOT
+              // Attachments.loadAsync() any more. Meteor-Files fetches with the
+              // platform fetch(), which follows redirects, so validating att.url
+              // and then handing it to loadAsync let a public URL 302 the
+              // download to 127.0.0.1 and stored that body as the attachment.
+              // fetchImportedAttachment validates every hop and hands back the
+              // bytes, which are stored exactly like inline ones above.
+              const downloaded = await fetchImportedAttachment(att.url);
+              if (downloaded.blocked) {
                 if (process.env.DEBUG === 'true') {
                   console.warn(
                     'Blocked attachment URL during Trello import:',
-                    validation.reason,
+                    downloaded.reason,
                     att.url,
                   );
                 }
@@ -657,13 +669,14 @@ export class TrelloCreator {
                 // whole import.
                 continue;
               }
-              // Best effort: works for publicly reachable URLs. Trello-hosted
-              // uploads require OAuth and should instead be supplied via the
-              // attachments ZIP (offline) or downloaded server-side in the
-              // live Trello API import.
-              const fileRef = await Attachments.loadAsync(
-                att.url,
-                { meta, fileName: att.fileName || att.name },
+              const fileRef = await Attachments.writeAsync(
+                downloaded.buffer,
+                {
+                  fileName: att.fileName || att.name || 'attachment',
+                  type: att.type || downloaded.type || 'application/octet-stream',
+                  userId: this._user(att.userId),
+                  meta,
+                },
                 true,
               );
               await setCover(fileRef && fileRef._id);

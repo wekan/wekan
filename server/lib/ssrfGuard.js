@@ -1,12 +1,20 @@
 /**
  * server/lib/ssrfGuard.js — SSRF + DNS-Rebinding hardened fetch
  *
- * Prevents Server-Side Request Forgery by:
+ * Prevents Server-Side Request Forgery by, for EVERY hop of a request:
  *   1. Blocking private / loopback IP ranges in the URL string.
  *   2. Resolving the hostname exactly once and validating every returned IP.
  *   3. Pinning the TCP connection to the resolved IP — no second DNS lookup
  *      can occur, eliminating the DNS-rebinding window entirely.
- *   4. Blocking all HTTP redirects (a redirect could point to internal IPs).
+ *   4. Refusing HTTP redirects by default, and validating a followed redirect
+ *      the same way as the original URL when a caller opts in to following one.
+ *
+ * "Every hop" is the point. A guard that checks only the URL the caller passed
+ * is a guard the target can step around by ANSWERING with a redirect to
+ * 127.0.0.1 instead of serving the request — the bypass reported as FollowBleed
+ * (GHSA-j9p2-jm73-p549). So a redirect is either refused (maxRedirects: 0, the
+ * default, correct for webhooks and avatar downloads) or followed only after
+ * the new URL has been through the same validation and pinning.
  *
  * Uses only Node.js built-in modules (http, https, dns, net) so there is no
  * external-package version dependency.
@@ -14,6 +22,7 @@
  * Usage:
  *   import { fetchSafe } from '/server/lib/ssrfGuard';
  *   const response = await fetchSafe(url, { method: 'POST', body: '…' });
+ *   const file     = await fetchSafe(url, { maxRedirects: 5 });
  */
 
 import dns from 'dns';
@@ -119,21 +128,6 @@ async function resolveAndPin(hostname) {
 
 // ─── Public API ───────────────────────────────────────────────────────────────
 
-/**
- * Drop-in replacement for `fetch` with full SSRF + DNS-rebinding protection.
- *
- * Protection flow:
- *   1. Parse the URL; reject invalid or non-HTTP(S) protocols.
- *   2. Reject raw private / loopback IPs supplied directly in the URL.
- *   3. Detect decimal / octal / hex integer IP notation, e.g. http://2130706433
- *   4. Resolve the hostname once, reject blocked resolved IPs.
- *   5. Pin the TCP connection to the resolved IP (zero rebinding window).
- *   6. Block all redirects — a redirect could silently point to 127.0.0.1.
- *
- * @param {string} rawUrl           User-supplied URL
- * @param {RequestInit} [options]   Standard fetch options (method, headers, body…)
- * @returns {Promise<Response>}
- */
 // The certificate(s) WeKan should trust for outgoing webhooks, from
 // WEBHOOK_TLS_CA_CERT: either the PEM itself or a path to a file holding it.
 // Read once - an operator changing it restarts WeKan anyway - and never fatal: a
@@ -167,7 +161,18 @@ export function webhookCaCert(env = process.env, readFile = fs.readFileSync) {
   return webhookCaCache;
 }
 
-export async function fetchSafe(rawUrl, options = {}) {
+/**
+ * Validate ONE URL — protocol allowlist, raw blocked IP, decimal-IP notation —
+ * and resolve it to the single IP the connection will be pinned to.
+ *
+ * This is the whole guard for one hop. It is a function of its own because a
+ * REDIRECT is a new hop to a new URL, and a hop that is not put through this is
+ * not guarded at all (FollowBleed, below).
+ *
+ * @param {string} rawUrl
+ * @returns {Promise<{parsed: URL, resolvedIp: string}>}
+ */
+async function validateAndResolve(rawUrl) {
   // Step 1 — parse and protocol allowlist
   let parsed;
   try {
@@ -216,14 +221,24 @@ export async function fetchSafe(rawUrl, options = {}) {
 
   console.info(`SSRF_GUARD: ${hostname} resolved and pinned to ${resolvedIp}`);
 
-  // Step 6 — make the request via Node.js built-in http/https.
-  // By setting hostname = resolvedIp we bypass the OS resolver entirely;
-  // no second DNS lookup can ever occur (rebinding window = 0).
-  // The original hostname is preserved in the Host header and as the TLS
-  // servername (SNI) so virtual-hosting and certificate validation work.
+  return { parsed, resolvedIp };
+}
+
+/**
+ * Send one request to an already-validated URL, pinned to an already-validated
+ * IP, and resolve with the raw Node response. The caller decides whether to
+ * read the body or to follow a redirect.
+ *
+ * By setting hostname = resolvedIp we bypass the OS resolver entirely; no
+ * second DNS lookup can ever occur (rebinding window = 0). The original
+ * hostname is preserved in the Host header and as the TLS servername (SNI) so
+ * virtual-hosting and certificate validation work.
+ */
+function requestOnce(parsed, resolvedIp, options) {
   return new Promise((resolve, reject) => {
     const isHttps = parsed.protocol === 'https:';
     const transport = isHttps ? https : http;
+    const hostname = parsed.hostname;
     const port = parsed.port
       ? parseInt(parsed.port, 10)
       : (isHttps ? 443 : 80);
@@ -263,39 +278,13 @@ export async function fetchSafe(rawUrl, options = {}) {
     }
 
     const req = transport.request(reqOptions, (res) => {
-      // Block all redirects — they could silently point to internal IPs
-      if (res.statusCode >= 300 && res.statusCode < 400) {
-        res.destroy();
-        reject(new Error('SSRF_GUARD: Redirects are not allowed'));
-        return;
-      }
-
-      const chunks = [];
-      res.on('data', (chunk) => chunks.push(chunk));
-      res.on('end', () => {
-        const body = Buffer.concat(chunks);
-        resolve({
-          status: res.statusCode,
-          // `ok` and `arrayBuffer()` mirror the WHATWG fetch Response so callers
-          // that download binary bodies (avatar localization, Trello attachment
-          // import) can use fetchSafe as a drop-in. `headers` stays the Node
-          // lowercased-object form (read as res.headers['content-type']).
-          ok: res.statusCode >= 200 && res.statusCode < 300,
-          headers: res.headers,
-          json: () => {
-            try {
-              return Promise.resolve(JSON.parse(body.toString('utf8')));
-            } catch (e) {
-              return Promise.reject(e);
-            }
-          },
-          text: () => Promise.resolve(body.toString('utf8')),
-          arrayBuffer: () => Promise.resolve(
-            body.buffer.slice(body.byteOffset, body.byteOffset + body.byteLength),
-          ),
-        });
+      // The caller reads the body a microtask later (or destroys the response
+      // and follows a redirect). Hold onto an error that arrives in between so
+      // it is neither unhandled nor lost.
+      res.once('error', (err) => {
+        res.ssrfGuardEarlyError = err;
       });
-      res.on('error', reject);
+      resolve(res);
     });
 
     req.on('error', reject);
@@ -305,4 +294,145 @@ export async function fetchSafe(rawUrl, options = {}) {
     }
     req.end();
   });
+}
+
+// Read a response to the end and wrap it in the small WHATWG-fetch-shaped
+// object callers expect. `ok` and `arrayBuffer()` are here so a caller that
+// downloads a binary body (avatar localization, Trello attachment import) can
+// use fetchSafe as a drop-in. `headers` stays the Node lowercased-object form
+// (res.headers['content-type']) and also answers headers.get('content-type'),
+// so code written against either shape works unchanged.
+function readResponse(res) {
+  return new Promise((resolve, reject) => {
+    if (res.ssrfGuardEarlyError) {
+      reject(res.ssrfGuardEarlyError);
+      return;
+    }
+    const chunks = [];
+    res.on('data', (chunk) => chunks.push(chunk));
+    res.on('error', reject);
+    res.on('end', () => {
+      const body = Buffer.concat(chunks);
+      const headers = Object.assign({}, res.headers);
+      Object.defineProperty(headers, 'get', {
+        enumerable: false,
+        value: name => {
+          const value = headers[String(name).toLowerCase()];
+          return value === undefined ? null : value;
+        },
+      });
+      resolve({
+        status: res.statusCode,
+        ok: res.statusCode >= 200 && res.statusCode < 300,
+        headers,
+        json: () => {
+          try {
+            return Promise.resolve(JSON.parse(body.toString('utf8')));
+          } catch (e) {
+            return Promise.reject(e);
+          }
+        },
+        text: () => Promise.resolve(body.toString('utf8')),
+        arrayBuffer: () => Promise.resolve(
+          body.buffer.slice(body.byteOffset, body.byteOffset + body.byteLength),
+        ),
+      });
+    });
+  });
+}
+
+/**
+ * Drop-in replacement for `fetch` with full SSRF + DNS-rebinding protection.
+ *
+ * Every hop — the URL the caller passed AND every URL a redirect points at — is
+ * put through validateAndResolve() before a packet is sent to it, so the guard
+ * cannot be walked around by an answer instead of a request.
+ *
+ * `options.maxRedirects` (default 0) is how many redirects a caller is willing
+ * to follow. 0 keeps the original behaviour: any 3xx is refused outright, which
+ * is what an outgoing webhook and an avatar download want, because a legitimate
+ * one never redirects. A caller that MUST follow redirects to work at all — the
+ * live Trello import, whose attachment URLs 302 to signed S3 URLs — passes a
+ * small number, and each hop is validated exactly like the first.
+ *
+ * @param {string} rawUrl           User-supplied URL
+ * @param {RequestInit} [options]   Standard fetch options, plus maxRedirects
+ * @returns {Promise<Response>}
+ */
+export async function fetchSafe(rawUrl, options = {}) {
+  const maxRedirects = Number.isInteger(options.maxRedirects)
+    ? Math.max(0, options.maxRedirects)
+    : 0;
+
+  let currentUrl = rawUrl;
+  let currentOptions = Object.assign({}, options, {
+    headers: Object.assign({}, options.headers),
+  });
+  let origin = null;
+
+  for (let hop = 0; ; hop += 1) {
+    const { parsed, resolvedIp } = await validateAndResolve(currentUrl);
+    if (origin === null) {
+      origin = parsed.origin;
+    }
+
+    const res = await requestOnce(parsed, resolvedIp, currentOptions);
+
+    const isRedirect = res.statusCode >= 300 && res.statusCode < 400;
+    if (!isRedirect) {
+      return readResponse(res);
+    }
+
+    // A redirect is never followed silently.
+    res.destroy();
+    if (maxRedirects === 0) {
+      throw new Error('SSRF_GUARD: Redirects are not allowed');
+    }
+    if (hop >= maxRedirects) {
+      throw new Error(`SSRF_GUARD: Too many redirects (limit ${maxRedirects})`);
+    }
+    const location = res.headers && res.headers.location;
+    if (!location) {
+      throw new Error('SSRF_GUARD: Redirect without a Location header');
+    }
+
+    // Resolve a relative Location against the URL that answered, then loop:
+    // the next pass re-validates protocol, IP and DNS for the new URL.
+    let next;
+    try {
+      next = new URL(location, parsed.href).href;
+    } catch {
+      throw new Error('SSRF_GUARD: Invalid redirect Location');
+    }
+
+    const nextOrigin = new URL(next).origin;
+    const headers = Object.assign({}, currentOptions.headers);
+    if (nextOrigin !== origin) {
+      // Credentials belong to the host they were issued for. Following a
+      // cross-origin redirect with them attached hands them to whoever the
+      // redirect names — which is the attacker, when the redirect is the
+      // attack. Native fetch drops them here too.
+      Object.keys(headers).forEach(name => {
+        if (/^(authorization|cookie|proxy-authorization)$/i.test(name)) {
+          delete headers[name];
+        }
+      });
+      origin = nextOrigin;
+    }
+
+    // 303, and 301/302 on a non-GET/HEAD, continue as a bodyless GET; 307/308
+    // keep the method and body. This is what RFC 9110 and every HTTP client do.
+    const method = (currentOptions.method || 'GET').toUpperCase();
+    const downgrade =
+      res.statusCode === 303 ||
+      ((res.statusCode === 301 || res.statusCode === 302) &&
+        method !== 'GET' && method !== 'HEAD');
+
+    currentOptions = Object.assign({}, currentOptions, { headers });
+    if (downgrade) {
+      currentOptions.method = 'GET';
+      delete currentOptions.body;
+    }
+    currentUrl = next;
+  }
 }

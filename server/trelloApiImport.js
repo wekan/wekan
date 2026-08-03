@@ -10,6 +10,7 @@ import Avatars from '/models/avatars';
 import TrelloImportJobs from '/models/trelloImportJobs';
 import { generateUniversalAvatarUrl } from '/models/lib/universalUrlGenerator';
 import { validateAttachmentUrl } from '/models/lib/attachmentUrlValidation';
+import { fetchSafe } from '/server/lib/ssrfGuard';
 
 // Server-only collection holding each user's saved Trello API key + token.
 // It is defined here (not under /models) and never published, so the
@@ -103,17 +104,37 @@ function retryDelayMs(res, attempt) {
   return Math.min(BASE_BACKOFF_MS * 2 ** attempt, MAX_BACKOFF_MS);
 }
 
+// How many redirects a download of an attacker-named URL may follow. Trello's
+// own attachment endpoint answers with a 302 to a signed S3 URL, so refusing
+// every redirect would mean importing no attachments at all; each hop is put
+// through the SSRF guard, so following a few is safe.
+const MAX_DOWNLOAD_REDIRECTS = 5;
+
 // Single rate-limit/error-aware fetch. Retries 429 and 5xx (and network
 // errors), honouring Retry-After; throws a Meteor.Error on a non-retryable
 // failure or once retries are exhausted.
-async function trelloFetch(url, options = {}) {
+//
+// `untrusted` picks WHICH fetch. The Trello REST API calls go to the hardcoded
+// api.trello.com, so they use the platform fetch. A DOWNLOAD goes to a URL that
+// came out of a Trello board — an attachment, a background, an avatar — which
+// its owner chose, so it goes through fetchSafe: DNS resolved once and pinned,
+// blocked ranges refused, and every redirect validated the same way before it
+// is followed (FollowBleed, GHSA-j9p2-jm73-p549).
+async function trelloFetch(url, options = {}, { untrusted = false } = {}) {
   let lastError;
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt += 1) {
     await throttle();
     let res;
     try {
-      res = await fetch(url, options);
+      res = untrusted
+        ? await fetchSafe(url, { ...options, maxRedirects: MAX_DOWNLOAD_REDIRECTS })
+        : await fetch(url, options);
     } catch (networkErr) {
+      // A refusal by the SSRF guard is a verdict, not a hiccup: retrying it
+      // just repeats the same blocked request five more times.
+      if (/^SSRF_GUARD:/.test(networkErr && networkErr.message)) {
+        throw new Meteor.Error('trello-blocked-url', networkErr.message);
+      }
       // Transient network failure — back off and retry.
       lastError = networkErr;
       if (attempt < MAX_RETRIES) {
@@ -182,9 +203,17 @@ async function downloadAttachmentBase64(url, key, token) {
       } catch (e) { /* logging must never break the guard */ }
       return null;
     }
+    // FollowBleed (GHSA-j9p2-jm73-p549, reported by RandomGenerator): validating
+    // the URL above is only half of it. The download itself used the platform
+    // fetch(), which FOLLOWS redirects, so a public URL that passes the check
+    // above could answer `302 Location: http://127.0.0.1:18080/secret` and the
+    // loopback body was what got stored as the imported attachment — the same
+    // non-blind SSRF the validation was added to stop (LiveBleed), reached
+    // through the response instead of the request. It now downloads through
+    // fetchSafe, which validates and pins EVERY hop.
     const res = await trelloFetch(url, {
       headers: { Authorization: authHeader(key, token) },
-    });
+    }, { untrusted: true });
     if (!res.ok) {
       if (process.env.DEBUG === 'true') {
         console.warn('Trello attachment download HTTP', res.status, url);
@@ -289,7 +318,11 @@ export async function inlineBoardBackground(board, key, token) {
     const options = withAuth
       ? { headers: { Authorization: authHeader(key, token) } }
       : {};
-    const res = await fetch(url, options);
+    // FollowBleed: fetchSafe, not fetch — see downloadAttachmentBase64.
+    const res = await fetchSafe(url, {
+      ...options,
+      maxRedirects: MAX_DOWNLOAD_REDIRECTS,
+    });
     if (!res.ok) return null;
     const buffer = Buffer.from(await res.arrayBuffer());
     const type = (res.headers.get('content-type') || 'image/jpeg').split(';')[0];
@@ -352,9 +385,13 @@ export async function inlineMemberAvatars(board, membersMapping, key, token) {
         continue;
       }
       // Trello avatars are public (S3); try without auth, fall back to OAuth.
-      let res = await fetch(imgUrl);
+      // FollowBleed: fetchSafe, not fetch — see downloadAttachmentBase64.
+      let res = await fetchSafe(imgUrl, { maxRedirects: MAX_DOWNLOAD_REDIRECTS });
       if (!res.ok) {
-        res = await fetch(imgUrl, { headers: { Authorization: authHeader(key, token) } });
+        res = await fetchSafe(imgUrl, {
+          headers: { Authorization: authHeader(key, token) },
+          maxRedirects: MAX_DOWNLOAD_REDIRECTS,
+        });
       }
       if (!res.ok) continue;
       const buffer = Buffer.from(await res.arrayBuffer());

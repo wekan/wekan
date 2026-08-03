@@ -46,7 +46,7 @@ import {
   calendar
 } from '/imports/lib/dateUtils';
 import getSlug from 'limax';
-import { validateAttachmentUrl } from './lib/attachmentUrlValidation';
+import { fetchImportedAttachment } from './lib/importAttachmentDownload';
 
 const DateString = Match.Where(function(dateAsString) {
   check(dateAsString, String);
@@ -608,12 +608,18 @@ export class WekanCreator {
               );
               await setCover(fileRef && fileRef._id);
             } else if (att.url) {
-              const validation = await validateAttachmentUrl(att.url);
-              if (!validation.valid) {
+              // FollowBleed (GHSA-j9p2-jm73-p549): downloading through
+              // Attachments.loadAsync() meant downloading with the platform
+              // fetch(), which follows redirects, so a validated public URL
+              // could 302 the download to an internal address and that body
+              // became the attachment. fetchImportedAttachment validates and
+              // pins every hop and hands back the bytes.
+              const downloaded = await fetchImportedAttachment(att.url);
+              if (downloaded.blocked) {
                 if (process.env.DEBUG === 'true') {
                   console.warn(
                     'Blocked attachment URL during Wekan import:',
-                    validation.reason,
+                    downloaded.reason,
                     att.url,
                   );
                 }
@@ -621,9 +627,14 @@ export class WekanCreator {
                 // importing all remaining cards).
                 continue;
               }
-              const fileRef = await Attachments.loadAsync(
-                att.url,
-                { meta, fileName: att.name },
+              const fileRef = await Attachments.writeAsync(
+                downloaded.buffer,
+                {
+                  fileName: att.name || 'attachment',
+                  type: att.type || downloaded.type || 'application/octet-stream',
+                  userId: this._user(att.userId),
+                  meta,
+                },
                 true,
               );
               await setCover(fileRef && fileRef._id);

@@ -69,6 +69,40 @@ function stubTransport({ statusCode = 200, headers = {}, body = '' } = {}) {
   return capture;
 }
 
+// Same, but answering with a different response per request, so a REDIRECT
+// CHAIN can be exercised. `capture.calls` holds the request options of every
+// hop, in order — which is how a test proves a hop was never sent at all.
+function stubTransportSequence(steps) {
+  const capture = { calls: [] };
+  const fake = (opts, cb) => {
+    const step = steps[capture.calls.length] || { statusCode: 200, headers: {}, body: '' };
+    capture.calls.push(opts);
+    capture.opts = opts;
+    const req = new EventEmitter();
+    req.write = () => {};
+    req.end = () => {};
+    const res = new EventEmitter();
+    res.statusCode = step.statusCode;
+    res.headers = step.headers || {};
+    res.destroyed = false;
+    res.destroy = () => {
+      res.destroyed = true;
+    };
+    process.nextTick(() => {
+      cb(res);
+      process.nextTick(() => {
+        if (res.destroyed) return;
+        if (step.body) res.emit('data', Buffer.from(step.body));
+        res.emit('end');
+      });
+    });
+    return req;
+  };
+  sinon.stub(http, 'request').callsFake(fake);
+  sinon.stub(https, 'request').callsFake(fake);
+  return capture;
+}
+
 async function expectReject(promise, matcher) {
   let error;
   try {
@@ -105,6 +139,17 @@ describe('DnsBleed SSRF guard (GHSA-66m2-4wfr-c45p)', function () {
       ['ff02::1', 'IPv6 multicast'],
       ['::ffff:127.0.0.1', 'IPv4-mapped loopback'],
       ['::ffff:169.254.169.254', 'IPv4-mapped metadata'],
+      // TransitBleed (GHSA-c5xr-mg26-vq5w): IPv6 transition addresses carry an
+      // IPv4 destination somewhere other than a literal `::ffff:` prefix, and
+      // on a host with a 6to4 relay or a NAT64 gateway the packet really does
+      // arrive there. tests/transitbleed.test.cjs covers every form.
+      ['0:0:0:0:0:ffff:7f00:1', 'IPv4-mapped loopback, spelled out'],
+      ['2002:a9fe:a9fe::', '6to4 wrapping the metadata address'],
+      ['2002:7f00:0001::', '6to4 wrapping loopback'],
+      ['64:ff9b::a9fe:a9fe', 'NAT64 wrapping the metadata address'],
+      ['64:ff9b::c0a8:101', 'NAT64 wrapping RFC1918'],
+      ['2001:0:5ef5:79fd:0:0:5601:5601', 'Teredo wrapping the metadata address'],
+      ['fec0::1', 'deprecated IPv6 site-local'],
     ];
     blocked.forEach(([ip, label]) => {
       it(`blocks ${ip} (${label})`, function () {
@@ -122,6 +167,8 @@ describe('DnsBleed SSRF guard (GHSA-66m2-4wfr-c45p)', function () {
       ['100.63.255.255', 'just below CGNAT 100.64/10'],
       ['2606:4700:4700::1111', 'public IPv6 (Cloudflare)'],
       ['2001:4860:4860::8888', 'public IPv6 (Google)'],
+      ['2002:5db8:d822::', '6to4 wrapping a PUBLIC IPv4 — still reachable'],
+      ['64:ff9b::93.184.216.34', 'NAT64 wrapping a PUBLIC IPv4 — still reachable'],
     ];
     allowed.forEach(([ip, label]) => {
       it(`allows ${ip} (${label})`, function () {
@@ -339,6 +386,93 @@ describe('DnsBleed SSRF guard (GHSA-66m2-4wfr-c45p)', function () {
       await expectReject(
         fetchSafe('http://redir.example.com/'),
         /Redirects are not allowed/,
+      );
+    });
+  });
+
+  // ── Every hop, not just the first (FollowBleed, GHSA-j9p2-jm73-p549) ──────
+  //
+  // A caller that MUST follow redirects to work at all — the Trello import,
+  // whose attachment URLs 302 to signed S3 URLs — passes maxRedirects. That is
+  // an opt-in to FOLLOWING a redirect, never an opt-out of the guard: the URL a
+  // redirect names is validated and pinned exactly like the one the caller
+  // passed. tests/followbleed.test.cjs covers this in full.
+  describe('fetchSafe({ maxRedirects }) validates every hop', function () {
+    it('refuses a redirect from a public host to loopback', async function () {
+      stubLookup({ 'public.example.com': [{ address: '93.184.216.34', family: 4 }] });
+      const cap = stubTransportSequence([
+        { statusCode: 302, headers: { location: 'http://127.0.0.1:18080/secret' } },
+        { statusCode: 200, body: 'INTERNAL' },
+      ]);
+      await expectReject(
+        fetchSafe('http://public.example.com/attachment.txt', { maxRedirects: 5 }),
+        /Blocked IP in URL: 127\.0\.0\.1/,
+      );
+      // the loopback service was never contacted
+      expect(cap.calls.length).to.equal(1);
+    });
+
+    it('refuses a redirect to a hostname that RESOLVES to a private IP', async function () {
+      stubLookup({
+        'public.example.com': [{ address: '93.184.216.34', family: 4 }],
+        'evil.example.com': [{ address: '10.1.2.3', family: 4 }],
+      });
+      const cap = stubTransportSequence([
+        { statusCode: 302, headers: { location: 'http://evil.example.com/' } },
+      ]);
+      await expectReject(
+        fetchSafe('http://public.example.com/', { maxRedirects: 5 }),
+        /Blocked IP 10\.1\.2\.3 resolved for evil\.example\.com/,
+      );
+      expect(cap.calls.length).to.equal(1);
+    });
+
+    it('follows a redirect between public hosts, pinning each hop', async function () {
+      stubLookup({
+        'trello.example.com': [{ address: '93.184.216.34', family: 4 }],
+        's3.example.com': [{ address: '198.51.99.7', family: 4 }],
+      });
+      const cap = stubTransportSequence([
+        { statusCode: 302, headers: { location: 'https://s3.example.com/signed' } },
+        { statusCode: 200, body: 'FILEBYTES' },
+      ]);
+      const res = await fetchSafe('https://trello.example.com/download/a.png', {
+        maxRedirects: 5,
+      });
+      expect(res.ok).to.equal(true);
+      expect(await res.text()).to.equal('FILEBYTES');
+      expect(cap.calls[0].hostname).to.equal('93.184.216.34');
+      expect(cap.calls[1].hostname).to.equal('198.51.99.7');
+      expect(cap.calls[1].headers.Host).to.equal('s3.example.com');
+    });
+
+    it('does not hand credentials to a cross-origin redirect target', async function () {
+      stubLookup({
+        'trello.example.com': [{ address: '93.184.216.34', family: 4 }],
+        's3.example.com': [{ address: '198.51.99.7', family: 4 }],
+      });
+      const cap = stubTransportSequence([
+        { statusCode: 302, headers: { location: 'https://s3.example.com/signed' } },
+        { statusCode: 200, body: 'ok' },
+      ]);
+      await fetchSafe('https://trello.example.com/download/a.png', {
+        headers: { Authorization: 'OAuth oauth_token="SECRET"' },
+        maxRedirects: 5,
+      });
+      expect(cap.calls[0].headers.Authorization).to.equal('OAuth oauth_token="SECRET"');
+      expect(cap.calls[1].headers.Authorization).to.equal(undefined);
+    });
+
+    it('stops a redirect chain at the caller\'s limit', async function () {
+      stubLookup({ 'public.example.com': [{ address: '93.184.216.34', family: 4 }] });
+      stubTransportSequence([
+        { statusCode: 302, headers: { location: 'http://public.example.com/2' } },
+        { statusCode: 302, headers: { location: 'http://public.example.com/3' } },
+        { statusCode: 302, headers: { location: 'http://public.example.com/4' } },
+      ]);
+      await expectReject(
+        fetchSafe('http://public.example.com/1', { maxRedirects: 2 }),
+        /Too many redirects/,
       );
     });
   });

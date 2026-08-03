@@ -63,6 +63,19 @@ check('#3 live Trello import guards every download with validateAttachmentUrl', 
   const guards = (src.match(/validateAttachmentUrl\(/g) || []).length;
   assert.ok(guards >= 3, `expected >=3 validateAttachmentUrl guards, found ${guards}`);
 });
+// Validating the URL is only half of it: the DOWNLOAD must be guarded too, or
+// the target answers with a redirect to 127.0.0.1 and the guard never sees it
+// (FollowBleed, GHSA-j9p2-jm73-p549 — the bypass of this fix). tests/followbleed
+// .test.cjs proves the redirect behaviour; this keeps the sinks honest here too.
+check('#3 …and downloads through fetchSafe, never a bare redirect-following fetch', () => {
+  const src = read('server/trelloApiImport.js');
+  assert.ok(/import \{ fetchSafe \}/.test(src), 'must import fetchSafe');
+  assert.strictEqual(
+    (src.match(/await fetch\(/g) || []).length,
+    1,
+    'only the hardcoded api.trello.com request may use the platform fetch',
+  );
+});
 
 // ── #4 CAS login global user-data race ──────────────────────────────────────
 check('#4 CAS stores user data per token, not in a module global', () => {
