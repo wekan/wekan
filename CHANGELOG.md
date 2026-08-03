@@ -266,13 +266,19 @@ browser build to verify).
 </details>
 # Upcoming WeKan ® release
 
-**In short:** the **release build** for every architecture that is not amd64 or
-arm64 was failing, and none of the six failures was about WeKan. Four died on a
-**shell quoting bug** that emptied the CPU name out of the Node.js download URL,
-two on a **base image** that is not built for their CPU, and underneath both,
-nothing checked that the **binaries** those bundles are assembled from had been
-published at all. Every build checks first now, and says which file is missing
-and which repository should publish it.
+**In short:** builds were failing at both ends, and none of it was about WeKan's
+own code. The **release build** for every architecture that is not amd64 or
+arm64 was down: four died on a **shell quoting bug** that emptied the CPU name
+out of the Node.js download URL, two on a **base image** that is not built for
+their CPU, and underneath both, nothing checked that the **binaries** those
+bundles are assembled from had been published at all. Every build checks first
+now, and says which file is missing and which repository should publish it. The
+**local build** was running out of memory, which turned out to be **`.gitignore`
+against `.meteorignore`**: Meteor reads only the second, so every other
+repository cloned in beside the app - the **Node.js fork**, mongo-tools, TSC,
+two more WeKan checkouts - was being walked as if it were WeKan, at one ignore
+matcher per directory. Below that: where a local run writes its logs, and a
+`build.sh` that reported success after a failed build.
 
 This release fixes the following release-build bugs:
 
@@ -498,6 +504,55 @@ already set `WEKAN_LOGDIR`, which is exactly the split-across-two-directories
 the per-run directory exists to prevent; it happened to land in the same second
 this time, so nothing showed. It uses the outer directory when there is one, and
 exports its own when there is not.
+
+</details>
+
+and fixes the following local-build bugs:
+
+**What Meteor is allowed to walk** - the app directory, and what has been cloned
+into it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cf178e5948f91041af2a02ad2503d6ce37cae105">The build ran out of memory scanning the other repositories cloned beside it</a>. Thanks to xet7.</summary>
+
+`meteor build` died with `JavaScript heap out of memory`, and raising
+`--max-old-space-size` never helped, because the ceiling was not the variable.
+
+A heap snapshot taken as the build died says what was holding it. Of a 4.1 GB
+heap, 980 MB was 14,267,543 `IgnoreRule` objects, 667 MB sliced strings, 308 MB
+concatenated strings, and 274 MB was 945 copies of a single 296 KB pattern
+list - about 2.5 GB of ignore machinery, and only 945 directories in.
+
+Meteor builds one ignore matcher per directory it descends into, each carrying
+the whole accumulated pattern list. There were 6,867 directories under the app
+and roughly 1,000 of them were WeKan. The rest were repositories cloned in
+beside it - the Node.js fork checkout alone is 4,132 directories, 45,527 files
+and 2.3 GB - plus mongo-tools, TSC, the TSC website, two more WeKan checkouts,
+and Meteor's own `_build/` and `_build-local-test/` output, which it was
+scanning as source in order to produce. So the real cost was very nearly seven
+times what the snapshot managed to catch.
+
+All of them were in `.gitignore`. Meteor does not read `.gitignore`; it reads
+`.meteorignore`, which listed only `.tools/`, `FerretDB/` and `tests/`. The two
+variant checkouts were the worst of them, because `wekan-ondra` and
+`wekan-gantt-gpl` contain `client/`, `server/` and `models/`, and Meteor loads
+`server/` and `client/` eagerly - a second and third copy of the whole app
+pulled into the build.
+
+`tests/meteorignoreScanScope.test.cjs` pins the excludes and that they are
+anchored to the repo root rather than matching a directory of that name at any
+depth, and fails on any new top-level directory that `.gitignore` excludes while
+`.meteorignore` does not - which is exactly how each of these arrived.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cf178e5948f91041af2a02ad2503d6ce37cae105">build.sh exited 0 while printing that the build had failed</a>. Thanks to xet7.</summary>
+
+`build_wekan` returns 1 when the build fails, and prints `ERROR: the WeKan build
+failed`. The menu called it bare, which throws that status away: the script fell
+off the end and exited 0. Anything driving it non-interactively - `printf
+'1\n2\n' | ./build.sh`, or CI - saw a green run and a missing bundle.
 
 </details>
 
