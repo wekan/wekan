@@ -260,6 +260,134 @@ has not decided on yet (adds a dependency + loosens the XSS sanitizer + needs a
 browser build to verify).
 
 </details>
+# Upcoming WeKan ® release
+
+**In short:** the **platform documentation** is arranged by what each platform
+is. `docs/Platforms` had **Android.md**, **Snap/**, **Docker/** and
+**Cloud/AWS.md** sitting side by side with nothing to say which was an operating
+system, which was a container and which was somebody's cloud. Every page now
+lives under **OS**, **HW**, **Container**, **Cloud**, **Package**, **Source** or
+**SaaS**, and a directory's index page is its `README.md`, so opening the
+directory shows the page. Below that: the links that had to follow the move,
+including the ones written from the repository root that never resolved at all,
+the **logos** that are now stored beside their page instead of fetched from
+somebody else's server, and two new platform pages.
+
+This release reorganises the documentation:
+
+**The Platforms docs** - how the pages are arranged, and what points at them.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f628a698890dcbbd965ddee7b3b164523a3acf4a">Every platform page sits under what it is - an OS, container, cloud, hardware or package</a>. Thanks to xet7.</summary>
+
+`docs/Platforms` grew a page at a time, so what a reader met was a flat list:
+`Android.md`, `Debian.md`, `FreeBSD.md` and `SmartOS.md` next to `Snap/`,
+`Docker/` and `Sandstorm/`, next to `ppc.md`, `s390x.md` and `RaspberryPi/`,
+with `Propietary/Cloud/` holding both rented machines and one-click hosting
+services. Nothing said which was which, and the list only ever got longer.
+
+The two halves keep their names and gain a middle layer that says what a thing
+is. **FOSS** has `OS`, `HW`, `Container`, `Cloud`, `Package` and `Source`;
+**Propietary** has `OS`, `HW`, `Cloud` and `SaaS`. So Debian is an OS, Snap and
+Sandstorm are containers, Raspberry Pi is hardware, OpenShift and Helm are
+cloud, and PikaPods, Cloudron, Scalingo, Heroku and Uberspace are SaaS rather
+than being filed beside AWS and OVH.
+
+**A directory's index page is `README.md`**, which is what GitHub renders when
+somebody opens the directory, so a link points at the directory and never spells
+out `README.md`. `Docker/Docker.md`, `Snap/Snap.md`, `Sandstorm/Sandstorm.md`
+and the other pages named after their own directory became that `README.md`.
+`Cloud/OpenShift/` is the one exception, because it already had one.
+
+The old `FOSS/Platforms.md` index is gone, the directory tree being the index
+now, and the pages that linked to it point at `docs/Platforms` instead.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f628a698890dcbbd965ddee7b3b164523a3acf4a">The links follow the move, including the ones inside the pages that moved</a>. Thanks to xet7.</summary>
+
+Two different things break when a documentation tree is rearranged. A link whose
+**target** moved is the obvious one. The other is a link inside a page that
+**itself** moved: `Snap/CentOS-7.md` went one directory deeper, so all ten of
+its links out to `Webserver/`, `Login/`, `Backup/` and `Email/` needed another
+`../` even though nothing they point at had moved at all. Both kinds were
+resolved from where each page used to live, across 213 files.
+
+Not every reference is a markdown link, and those were followed too: the Snap
+settings comments in the eight `docker-compose*.yml` files,
+`sandstorm-pkgdef.capnp`, `sandstorm-src/start.js`,
+`server/methods/sandstormMigration.js`, `snap-src/bin/config`,
+`releases/version.sh` and the two ferretdb `start-wekan` scripts.
+
+One of them is not a comment. `tests/sandstormMigrationBridge.test.cjs` **reads
+the Sandstorm page at run time** to pin what it documents, so this move would
+have failed the test suite rather than merely leaving a dead link behind.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f628a698890dcbbd965ddee7b3b164523a3acf4a">Doc links written from the repository root resolve from the page holding them</a>. Thanks to xet7.</summary>
+
+43 links in five files named a path from the repository root, `models/users.js`
+or `client/lib/localStorageValidator.js`, which resolves to nothing from the
+page holding it. They carry the `../` that gets there now:
+`docs/DeveloperDocs/Directory-Structure.md` has 9, where the *other* link on
+each of those same lines was already correct, and the four
+`docs/Security/PerUserDataAudit2025-12-23/` files have 34.
+
+Only paths that exist in the WeKan repository itself were repointed. `FerretDB`,
+`node`, `wekan-gantt-gpl` and `wekan-ondra` sit inside the working copy but are
+separate git repositories, so nothing resolves into them.
+
+</details>
+
+**Third-party assets** - what a reader's browser fetches when a page opens.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f628a698890dcbbd965ddee7b3b164523a3acf4a">Platform logos are stored beside their page instead of fetched from another host</a>. Thanks to xet7.</summary>
+
+A logo loaded from somebody else's server hands that server the IP address and
+user agent of everyone who opens the page. The deploy buttons were doing exactly
+that, from **cdn.zenith.hosting**, **cdn.scalingo.com** and
+**www.herokucdn.com**, as was the Sandstorm badge from **img.shields.io** and
+the MacStadium and WeKan logos from **wekan.fi**.
+
+Each is stored next to the page that shows it now, named after its platform:
+`zenith.svg`, `scalingo.svg`, `heroku.png`, `sandstorm.svg`,
+`MacStadium-developerlogo.png` and `wekan-logo.svg`. **PikaPods** needed no
+download at all, because `pikapods.svg` was already sitting in its own directory
+unused while the page fetched the same image over the network.
+
+Screenshots are left as they are. This is about the logos, which are small,
+never change, and are fetched on every single visit to the page.
+
+One was beyond saving: the chat badge at `vanila.io` answers with an HTML page
+rather than an image, so it is left alone rather than replaced by a copy of
+something that is already broken.
+
+</details>
+
+and adds the following new platform pages:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f628a698890dcbbd965ddee7b3b164523a3acf4a">Packager.io and Zenith Hosting have a page of their own</a>. Thanks to xet7.</summary>
+
+**Packager.io** at `FOSS/Package/` records the DEB/RPM build at
+[packager.io](https://packager.io/gh/wekan/wekan) and says plainly that it does
+not work yet, which is the useful part: the link exists, and a link that exists
+invites the assumption that what is behind it works.
+
+**Zenith Hosting** at `Propietary/SaaS/` is one-click managed WeKan with
+storage, backups, email and a free subdomain, and a share of every subscription
+goes back to WeKan.
+
+</details>
+
+- [The Zenith Hosting page reads as prose instead of a two-item list](https://github.com/wekan/wekan/commit/aaab92b9f49985671e09f6e1aa41a8b5880eac46). Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
 
 # v10.56 2026-08-02 WeKan ® release
 
