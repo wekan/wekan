@@ -368,6 +368,24 @@ version from any source, and is the one architecture the run still stops on.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/77d38e099f99f897af1b59350adb58143d092a93">Node.js comes from the wekan/node fork on every architecture now</a>. Thanks to xet7.</summary>
+
+The fork is not "the CPUs nobody else builds" any more. It builds all thirteen
+platforms WeKan ships a bundle for, and it carries fixes upstream does not - the
+ICU genccode architecture name, the x86 `/SAFESEH` opt-out, the zlib SSE2 and
+NEON flags, the V8 template disambiguator. Those are build-configuration fixes
+any platform benefits from, and a set of bundles should not be half built on one
+Node.js and half on another depending on which CPU it is for.
+
+So the order is the fork, then nodejs.org, then unofficial-builds - the last two
+being fallbacks for when the fork has not published a version yet, rather than
+the other way round. The rest of the rule is unchanged and still matters: the
+newest Node.js that exists FOR THIS CPU. Preferring the fork does not mean
+pinning to whatever the fork last built.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
