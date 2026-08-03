@@ -205,14 +205,46 @@ Template.adminReports.onCreated(function () {
     });
   };
 
+  // Which user the open report was subscribed as. See the autorun below.
+  this.subscribedAs = null;
+
   // The pane the URL asks for. The route resolved it, so it is always a real
   // pane id; a bare /admin-reports opens Summary. Reactive, so following a link
   // to another report while this page is open switches to it - the route action
   // runs again without re-creating the template.
   // docs/Design/Page/Admin-Panel-URLs.md
+  //
+  // It depends on Meteor.userId() as well, and that is not decoration. Opening
+  // a report BY ITS ADDRESS - /admin/problems/files typed, bookmarked, or just
+  // refreshed - is a full page load, and Meteor resumes the login from
+  // localStorage ASYNCHRONOUSLY. The route sets problemsOpenPane before that
+  // lands, so the subscription was made with no user; the publication's admin
+  // check then answered `this.ready()` with no rows, and nothing ever
+  // re-subscribed because this autorun did not depend on the user. The pane drew
+  // its column headers, "No results" and a "1 / 1" pager over data that was
+  // plainly there - while the count METHOD, called later from the same page,
+  // happily reported five. Reached from the menu it worked, because by then the
+  // login had landed; only the address did not.
+  //
+  // openReportPane() returns early when the pane is already open, so re-running
+  // it after the login would do nothing at all - hence the second branch, which
+  // re-subscribes the report that is already open now that there is a user to
+  // subscribe as.
   this.autorun(() => {
     const paneId = Session.get('problemsOpenPane');
-    if (paneId) openReportPane(this, paneId);
+    const userId = Meteor.userId();
+    if (!paneId) {
+      return;
+    }
+    if (paneId !== this.activeReport.get()) {
+      openReportPane(this, paneId);
+      this.subscribedAs = userId;
+    } else if (userId !== this.subscribedAs) {
+      this.subscribedAs = userId;
+      if (reportConfig(this)[paneId]) {
+        this.loadReport(paneId, { recount: true });
+      }
+    }
   });
 });
 

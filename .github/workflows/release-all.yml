@@ -1393,6 +1393,14 @@ jobs:
       - name: Set up QEMU for ${{ matrix.arch }} emulation
         uses: docker/setup-qemu-action@v4
 
+      # BEFORE the artifact download, and it has to be here at all: this job
+      # runs releases/check-arch-binaries.sh, releases/record-provenance.sh and
+      # mounts $(pwd)/releases into the container, none of which exist without a
+      # checkout - the job would stop at "No such file or directory". It goes
+      # first because actions/checkout cleans the workspace, which would remove
+      # the bundle the next step downloads.
+      - uses: actions/checkout@v4
+
       - name: Download amd64 bundle
         uses: actions/download-artifact@v8
         with:
