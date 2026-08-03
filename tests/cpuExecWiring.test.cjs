@@ -40,10 +40,21 @@ test('arm64 bundle replaces the inherited amd64 qemu with qemu-aarch64', () => {
 });
 
 test('extra arches (ppc64le/s390x/riscv64) bundle their own-arch qemu, tolerantly', () => {
-  assert.ok(releaseAll.includes('rm -f /bundle/qemu-x86_64'));
-  assert.ok(/apt-get install -y -q qemu-user-static[\s\S]*?\/usr\/bin\/qemu-\$\(uname -m\)-static/.test(releaseAll));
-  assert.ok(releaseAll.includes('bundle ships without a bundled qemu-user'),
+  // This lives in releases/install-node-for-arch.sh now, not inline in the
+  // workflow. It used to be a `bash -c '...'` argument, and that string
+  // contained apostrophes - which a single-quoted shell argument cannot hold:
+  // the first one ended it, the rest became separate words, and ${NODE_ARCH}
+  // was left to the runner's shell to expand, where it does not exist. Every
+  // one of these jobs then asked nodejs.org for "node-<version>-linux-.tar.xz".
+  // A file has no quoting layer to get wrong, so the script is the file and
+  // this looks there.
+  const script = read('releases/install-node-for-arch.sh');
+  assert.ok(script.includes('rm -f /bundle/qemu-x86_64'));
+  assert.ok(/apt-get install -y -q qemu-user-static[\s\S]*?\/usr\/bin\/qemu-\$\(uname -m\)-static/.test(script));
+  assert.ok(script.includes('bundle ships without a bundled qemu-user'),
     'a missing qemu package on an exotic arch must not fail the release');
+  assert.ok(/bash \/releases\/install-node-for-arch\.sh/.test(releaseAll),
+    'and the workflow runs that file rather than an inline script');
 });
 
 test('negative: Windows and macOS bundles strip the Linux-only cpu-exec + qemu', () => {

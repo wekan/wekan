@@ -219,10 +219,19 @@ test('a FerretDB that will not start says why, in the output', () => {
 
 test('results are written where every other test run writes them', () => {
   const sh = read('releases/db-conformance.sh');
-  // ../log/<datetime>/ of its own, unless a larger run (EVERYTHING) already named
+  // log/<datetime>/ of its own, unless a larger run (EVERYTHING) already named
   // one in WEKAN_LOGDIR - then the whole run stays in that single directory.
-  assert.ok(/LOGDIR="\$\{WEKAN_LOGDIR:-\.\.\/log\/\$RUN_TS\}"/.test(sh),
-    '../log/<datetime>/, or the directory the caller named');
+  //
+  // The ROOT is no longer hard-coded to ../log. It is WEKAN_LOG_ROOT, which
+  // build.sh resolves to ../log when the parent of the repo is writable and to
+  // ./log inside the repo when it is not - a Flatpak sandbox shares only the
+  // repository, and `mkdir -p ../log` failed there. This script makes the same
+  // choice when it is run on its own, so what is pinned now is that it asks the
+  // same question rather than assuming the parent is there.
+  assert.ok(/LOGDIR="\$\{WEKAN_LOGDIR:-\$WEKAN_LOG_ROOT\/\$RUN_TS\}"/.test(sh),
+    'log/<datetime>/ under WEKAN_LOG_ROOT, or the directory the caller named');
+  assert.ok(/WEKAN_LOG_ROOT="\.\.\/log"/.test(sh) && /WEKAN_LOG_ROOT="log"/.test(sh),
+    'and it falls back to ./log when ../log cannot be written');
   assert.ok(/date '\+%Y-%m-%d_%H-%M-%S'/.test(sh), 'the same datetime format as build.sh');
   assert.ok(read('build.sh').includes("date '+%Y-%m-%d_%H-%M-%S'"),
     'which is the format build.sh uses for its own run directories');
@@ -241,7 +250,11 @@ test('both build scripts offer it, and say it runs sequentially', () => {
   const entry = sh.slice(sh.indexOf(label), sh.indexOf(label) + 400);
   assert.ok(/SEQUENTIALLY/.test(entry), 'the entry says it is sequential');
   assert.ok(/image for this CPU/i.test(entry), 'and that it picks by CPU');
-  assert.ok(/\.\.\/log\//.test(entry), 'and where the results go');
+  // `log/<datetime>/`, not `../log/`: the root is resolved at run time now -
+  // ../log when the parent of the repo is writable, ./log inside it when only
+  // the repository is shared, as in a Flatpak sandbox - so the menu entry names
+  // the shape rather than promising a path that is not always the one used.
+  assert.ok(/log\/<datetime>\//.test(entry), 'and where the results go');
   // And the dispatcher actually runs the script.
   assert.ok(/\.\/releases\/db-conformance\.sh/.test(sh), 'build.sh runs the script');
   assert.ok(/All databases \^\(sequential\^\)/.test(bat), 'build.bat offers it too');
@@ -281,7 +294,9 @@ test('everything can be run in one go, from either build script', () => {
       `"${label}" must not claim to be ALL tests - it does not run the database or FerretDB suites`);
     assert.ok(/No database conformance and no FerretDB tests/.test(description),
       `"${label}" must say what it does NOT cover`);
-    assert.ok(/\.\.\/log\//.test(description), `"${label}" must say where the logs go`);
+    // `log/<datetime>/` rather than `../log/` - see the note on the entry above:
+    // the root is resolved at run time, so the menu names the shape.
+    assert.ok(/log\/<datetime>\//.test(description), `"${label}" must say where the logs go`);
   }
 });
 
@@ -291,7 +306,11 @@ test('every Tests option writes its log to ../log/<datetime>/', () => {
   const sh = read('build.sh');
   const bat = read('build.bat');
   assert.ok(/^one_log\(\) \{/m.test(sh), 'build.sh has the one_log helper');
-  assert.ok(/dir="\$\{WEKAN_LOGDIR:-\.\.\/log\/\$\(date/.test(sh),
+  // The root is WEKAN_LOG_ROOT, resolved once at startup, not a literal ../log:
+  // the parent of the repo is not writable in a Flatpak sandbox, where the
+  // fallback is ./log inside it. What is pinned is that one_log still honours
+  // WEKAN_LOGDIR first, which is what keeps a whole-suite run in one directory.
+  assert.ok(/dir="\$\{WEKAN_LOGDIR:-\$WEKAN_LOG_ROOT\/\$\(date/.test(sh),
     'which honours WEKAN_LOGDIR so a whole-suite run stays in one directory');
   for (const name of ['mocha', 'import', 'e2e', 'floating-promises', 'test-counts',
     '"playwright-$browser"']) {

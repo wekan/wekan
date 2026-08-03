@@ -276,8 +276,7 @@ and which repository should publish it.
 
 This release fixes the following release-build bugs:
 
-**The extra-architecture bundles** - i386, armhf, ppc64le, riscv64, s390x and
-loong64, each assembled from binaries other repositories publish.
+**The extra-architecture bundles** - built from binaries other projects publish.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/92198b0671ee27545d62c9537aaccb50cabe49f7">An apostrophe in a comment emptied the CPU name out of every Node.js download URL</a>. Thanks to xet7.</summary>
@@ -338,8 +337,10 @@ database, and the launcher does not need them to start.
 
 </details>
 
+**Which Node.js a bundle carries** - where it comes from, and if it is checked.
+
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/60c9e55d2fa4e5a152c2784caa60bb4db0dc3b21">Each CPU gets the newest Node.js that exists for IT, not the newest that exists</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/60c9e55d2fa4e5a152c2784caa60bb4db0dc3b21">Each CPU gets the newest that exists for IT, not the newest that exists</a>. Thanks to xet7.</summary>
 
 Those are the same thing on amd64 and arm64, and regularly are not anywhere
 else. nodejs.org builds a handful of architectures, unofficial-builds adds a
@@ -369,7 +370,7 @@ version from any source, and is the one architecture the run still stops on.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/1a263e9e21f60f2e1eaa7d1295ede4c21b6f465a">Node.js comes from the most verifiable source that has it, and is checked against its checksum</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1a263e9e21f60f2e1eaa7d1295ede4c21b6f465a">It comes from the most verifiable source that has it, and is checked against its checksum</a>. Thanks to xet7.</summary>
 
 The three sources do not offer the same assurances, and this was checked rather
 than assumed: **nodejs.org** publishes a `SHASUMS256.txt` and signs it with the
@@ -392,8 +393,10 @@ the **MongoDB tools** today, neither of which publishes one.
 
 </details>
 
+**Running the tests locally** - what a run is given, and what it leaves behind.
+
 <details>
-<summary>The Node heap limit for builds is worked out from the machine, not fixed at 8 GB</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/581475a0d56b69ad94611ff7086f966f22c4b2ee">The heap limit for builds is worked out from the machine, not fixed at 8 GB</a>. Thanks to xet7.</summary>
 
 The build died with
 
@@ -418,12 +421,16 @@ The chosen size is printed at startup, and exporting `TOOL_NODE_FLAGS` or
 `NODE_OPTIONS` yourself still wins.
 
 This is also the first failure the new build log caught: the run before it
-failed the same way and left nothing behind to read.
+failed the same way and left nothing behind to read. And when it happens
+again the error [says so in
+words](https://github.com/wekan/wekan/commit/c0d9581df44c45cd4f378e01c6125356459a2be2) - the limit the build
+had and the peak it reached - rather than ending on a V8 stack trace, which
+reads as a crash rather than as the resource limit it is.
 
 </details>
 
 <details>
-<summary>Logs land somewhere writable, so a run inside a sandbox keeps them</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/76f278871c62049ad419498bd7dbe4c33f7ed11c">Logs land somewhere writable, so a run inside a sandbox keeps them</a>. Thanks to xet7.</summary>
 
 Every log `build.sh` writes goes into a `log/<datetime>/` directory, and the
 root of those was hard-coded to **`../log/`** - one level up from the repo,
@@ -446,7 +453,7 @@ to care which happened, and the chosen path is printed when a run starts.
 </details>
 
 <details>
-<summary>A test run that fails in the build now leaves the build log behind</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/4b77eb655f0a1b4c28a3f66bd98ffc3667d1b52e">A test run that fails in the build now leaves the build log behind</a>. Thanks to xet7.</summary>
 
 The newest run ended `FAIL WeKan tests (sequential)` and its log directory held
 nothing about WeKan at all - the FerretDB and database-conformance logs were

@@ -38,9 +38,16 @@ test('build.sh builds before the tests, every time', () => {
     'building only when the bundle is MISSING leaves a stale bundle in place');
   assert.ok(/Deleting \.build and building WeKan before running the tests/.test(flow),
     'and it says so');
-  // build_wekan is what deletes .build.
-  const fn = sh.slice(sh.indexOf('function build_wekan()'));
-  assert.ok(/rm -rf [^\n]*\.build/.test(fn.slice(0, 400)), 'build_wekan deletes .build');
+  // build_wekan is what deletes .build. Searched over the whole function, not
+  // its first 400 characters: that window was an accident of how long the
+  // comment above the rm happened to be, and it broke the moment build_wekan
+  // gained an explanation of where its log goes. What matters is that the
+  // function deletes .build, not how far down the line sits.
+  const fnStart = sh.indexOf('function build_wekan()');
+  assert.ok(fnStart > 0, 'build_wekan exists');
+  const fnEnd = sh.indexOf('\n}', fnStart);
+  const fn = sh.slice(fnStart, fnEnd > 0 ? fnEnd : undefined);
+  assert.ok(/rm -rf [^\n]*\.build/.test(fn), 'build_wekan deletes .build');
   // The server it starts is the bundle, so the freshness matters.
   assert.ok(/serves Node E2E \+ Playwright browser tests\. Built fresh above/.test(flow),
     'the description must not still promise the old bundle is reused');
@@ -189,6 +196,17 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     'translations/old-pull-translations.sh': 'superseded by pull-translations.sh',
     'build-bundle-win64.bat': 'a Windows batch script - bash cannot run it, so it '
       + 'is not a menu entry; build.bat\'s Bundles menu says to run it directly',
+    // Release-workflow helpers. These are called by
+    // .github/workflows/release-all.yml, not by a person from a menu: they take
+    // their input from the matrix and the environment of a build job and would
+    // have nothing to do on a developer's machine. A menu entry for
+    // "install a target-CPU Node.js into the container we are inside" would be
+    // an entry that cannot work.
+    'check-arch-binaries.sh': 'release-workflow preflight: called per build job',
+    'install-node-for-arch.sh': 'release-workflow: runs inside the build container',
+    'require-binaries.sh': 'release-workflow: called per build job',
+    'record-provenance.sh': 'release-workflow: called per build job',
+    'provenance-table.sh': 'release-workflow: called by the release job',
   };
 
   const missing = { sh: [], bat: [] };
