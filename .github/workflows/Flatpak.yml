@@ -1,0 +1,358 @@
+name: Flatpak
+
+# Build WeKan as a Flatpak for every CPU the runtime exists for, attach the
+# single-file bundles to the newest WeKan release, and publish a Flatpak
+# REPOSITORY that can be added with `flatpak remote-add`.
+#
+# Like AppImage.yml, this does NOT rebuild WeKan. release-all.yml already
+# produces a bundle that runs offline with nothing installed - the Meteor server
+# (main.js), the bundled Node.js the release was built against, the
+# wekan/FerretDB v1 fork with its embedded pure-Go SQLite backend, the
+# wekan/mongo-tools binaries and start-wekan.sh - so this takes the
+# wekan-<version>-<arch>.zip off the release and packages it. The Flatpak is
+# therefore the same server, Node and FerretDB as the zip and the AppImage
+# beside it, not a third build that might differ.
+#
+# A BUNDLE AND A REPOSITORY are two different things and both come out of one
+# build here. A .flatpak bundle is one file you install by hand and update by
+# downloading the next one; a repository is what makes `flatpak update` work,
+# and one repository serves every architecture at once. The bundles go on the
+# GitHub release; the repository is uploaded as an artifact of static files, so
+# it can be copied to a website with no server to run.
+#
+# WHICH CPUs. org.freedesktop.Platform//24.08 is built for x86_64 and aarch64,
+# and WeKan publishes Linux bundles for amd64 and arm64, so those are the two.
+# Each builds on a runner of its own CPU rather than under emulation.
+#
+# THE SANDBOX. WeKan is a server you reach in a browser, so it needs the network
+# and a place to keep its data, and nothing else - no X11, no audio, no access
+# to your files. --share=network and --persist=.wekan are the whole permission
+# list, and FerretDB keeps everything in SQLite inside that one directory.
+#
+# THE REPOSITORY IS UNSIGNED. Signing needs a GPG key, which is a secret rather
+# than something a workflow can invent. The README written into the repository
+# says exactly how to sign it when a key exists.
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag to wrap and attach to (empty = newest release)'
+        required: false
+        type: string
+      publish:
+        description: 'Attach the bundles to the release'
+        required: false
+        default: true
+        type: boolean
+      publish_repo:
+        description: 'Build the Flatpak repository for the website'
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wekan-flatpak-${{ inputs.tag || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: find the release
+    runs-on: ubuntu-24.04
+    outputs:
+      tag: ${{ steps.find.outputs.tag }}
+      version: ${{ steps.find.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: find
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag='${{ inputs.tag }}'
+          [ -n "$tag" ] || tag="$(gh release list --limit 1 --json tagName --jq '.[0].tagName')"
+          if [ -z "$tag" ]; then
+            echo "::error::No release to wrap, and no tag was given."
+            exit 1
+          fi
+          version="${tag#v}"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "Wrapping the bundles from $tag (version $version)"
+
+  build:
+    name: flatpak ${{ matrix.flatpak_arch }}
+    needs: release
+    runs-on: ${{ matrix.runs_on }}
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - flatpak_arch: x86_64
+            bundle_arch: amd64
+            runs_on: ubuntu-24.04
+          - flatpak_arch: aarch64
+            bundle_arch: arm64
+            runs_on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install flatpak
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends flatpak ostree zip
+          flatpak remote-add --if-not-exists --user flathub \
+            https://flathub.org/repo/flathub.flatpakrepo
+          flatpak install --user -y --noninteractive flathub \
+            org.freedesktop.Platform//24.08 org.freedesktop.Sdk//24.08
+
+      - name: Fetch the release bundle for this architecture
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          zip="wekan-${{ needs.release.outputs.version }}-${{ matrix.bundle_arch }}.zip"
+          gh release download '${{ needs.release.outputs.tag }}' --pattern "$zip" --clobber
+          unzip -q "$zip"
+          for f in bundle/main.js bundle/node bundle/ferretdb bundle/start-wekan.sh; do
+            if [ ! -e "$f" ]; then
+              echo "::error::$zip has no $f - it is not a runnable WeKan bundle."
+              exit 1
+            fi
+          done
+          chmod +x bundle/node bundle/ferretdb bundle/start-wekan.sh
+          du -sh bundle
+
+      # flatpak-builder is for building from source. The bundle IS the build, so
+      # this uses `flatpak build` directly: make a build directory from the
+      # runtime, copy the bundle into it, finish it with its permissions, and
+      # export it into a repository.
+      - name: Build the Flatpak
+        run: |
+          set -euo pipefail
+          version='${{ needs.release.outputs.version }}'
+          arch='${{ matrix.flatpak_arch }}'
+
+          rm -rf build-dir repo
+          flatpak build-init --arch="$arch" build-dir \
+            io.github.wekan.WeKan org.freedesktop.Sdk org.freedesktop.Platform 24.08
+
+          mkdir -p build-dir/files/lib/wekan build-dir/files/bin \
+                   build-dir/files/share/applications \
+                   build-dir/files/share/icons/hicolor/512x512/apps \
+                   build-dir/files/share/metainfo
+          cp -a bundle build-dir/files/lib/wekan/bundle
+          cp public/android-chrome-512x512.png \
+             build-dir/files/share/icons/hicolor/512x512/apps/io.github.wekan.WeKan.png
+
+          # The command the Flatpak runs. --persist=.wekan gives the sandbox one
+          # writable directory that survives restarts, and that is where
+          # WRITABLE_PATH points, so FerretDB's SQLite files and the attachments
+          # live there. Everything start-wekan.sh documents still overrides.
+          cat > build-dir/files/bin/wekan <<'SH'
+          #!/bin/sh
+          set -eu
+          BUNDLE=/app/lib/wekan/bundle
+          : "${WRITABLE_PATH:=$HOME/.wekan}"
+          export WRITABLE_PATH
+          : "${PORT:=8080}"
+          export PORT
+          : "${ROOT_URL:=http://localhost:$PORT}"
+          export ROOT_URL
+          mkdir -p "$WRITABLE_PATH"
+          echo "WeKan is starting."
+          echo "  Open:  $ROOT_URL"
+          echo "  Data:  $WRITABLE_PATH  (inside the Flatpak sandbox)"
+          echo "  Stop:  Ctrl-C"
+          echo
+          exec "$BUNDLE/start-wekan.sh" "$@"
+          SH
+          chmod +x build-dir/files/bin/wekan
+
+          cat > build-dir/files/share/applications/io.github.wekan.WeKan.desktop <<'DESKTOP'
+          [Desktop Entry]
+          Type=Application
+          Name=WeKan
+          GenericName=Kanban board
+          Comment=Open Source kanban board with FerretDB and Node.js included
+          Exec=wekan
+          Icon=io.github.wekan.WeKan
+          Terminal=true
+          Categories=Office;ProjectManagement;
+          Keywords=kanban;board;tasks;project;
+          DESKTOP
+
+          cat > build-dir/files/share/metainfo/io.github.wekan.WeKan.metainfo.xml <<XML
+          <?xml version="1.0" encoding="UTF-8"?>
+          <component type="desktop-application">
+            <id>io.github.wekan.WeKan</id>
+            <name>WeKan</name>
+            <summary>Open Source kanban board</summary>
+            <metadata_license>CC0-1.0</metadata_license>
+            <project_license>MIT</project_license>
+            <description>
+              <p>
+                WeKan is an Open Source kanban board. This build carries everything
+                it needs to run: the WeKan server, Node.js, and FerretDB v1 with an
+                embedded SQLite backend, so no separate database is required.
+              </p>
+            </description>
+            <launchable type="desktop-id">io.github.wekan.WeKan.desktop</launchable>
+            <url type="homepage">https://wekan.fi</url>
+            <releases><release version="${version}"/></releases>
+          </component>
+          XML
+
+          # A server reached in a browser needs the network and its own data
+          # directory, and nothing else.
+          flatpak build-finish build-dir \
+            --share=network \
+            --persist=.wekan \
+            --command=wekan
+
+          flatpak build-export --arch="$arch" repo build-dir stable
+
+      - name: Make the single-file bundle
+        run: |
+          set -euo pipefail
+          version='${{ needs.release.outputs.version }}'
+          name="WeKan-${version}-${{ matrix.flatpak_arch }}"
+          mkdir -p dist
+          flatpak build-bundle repo "dist/${name}.flatpak" \
+            --arch='${{ matrix.flatpak_arch }}' io.github.wekan.WeKan stable
+          ( cd dist
+            md5sum    "${name}.flatpak" > "${name}.md5sum"
+            sha256sum "${name}.flatpak" > "${name}.sha256sum" )
+          ls -lh dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: flatpak-${{ matrix.flatpak_arch }}
+          path: dist/
+          if-no-files-found: error
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: flatpak-repo-${{ matrix.flatpak_arch }}
+          path: repo/
+          if-no-files-found: warn
+
+  publish:
+    name: attach to the release, and build the repository
+    needs: [release, build]
+    if: ${{ always() }}
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: flatpak-[0-9a-z]*
+          path: assets
+          merge-multiple: true
+
+      - name: Say what was built, and what was not
+        run: |
+          set -euo pipefail
+          ls -lh assets 2>/dev/null || true
+          if ! ls assets/*.flatpak >/dev/null 2>&1; then
+            echo "::error::No architecture produced a Flatpak bundle; nothing is uploaded."
+            exit 1
+          fi
+          for want in x86_64 aarch64; do
+            ls assets/*"-$want.flatpak" >/dev/null 2>&1 || \
+              echo "::warning::no Flatpak for $want - see that build job's log"
+          done
+
+      - name: Upload the bundles
+        if: ${{ inputs.publish != false }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh release upload '${{ needs.release.outputs.tag }}' assets/* --clobber
+          echo "Uploaded to $(gh release view '${{ needs.release.outputs.tag }}' --json url --jq .url)"
+
+      # ---- the repository -------------------------------------------------
+      - uses: actions/download-artifact@v4
+        if: ${{ inputs.publish_repo != false }}
+        with:
+          pattern: flatpak-repo-*
+          path: repos
+
+      - name: Build the multi-architecture repository
+        if: ${{ inputs.publish_repo != false }}
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends flatpak ostree
+          shopt -s nullglob
+          parts=(repos/flatpak-repo-*)
+          if [ ${#parts[@]} -eq 0 ]; then
+            echo "::warning::no repository halves were produced; skipping"
+            exit 0
+          fi
+          ostree init --repo=flatpak-repo --mode=archive-z2
+          for part in "${parts[@]}"; do
+            name="$(basename "$part")"
+            echo "Pulling $name"
+            ostree --repo=flatpak-repo remote add --no-gpg-verify --if-not-exists \
+              "$name" "file://$PWD/$part"
+            ostree --repo=flatpak-repo pull --mirror "$name" || true
+          done
+          flatpak build-update-repo --prune flatpak-repo
+
+          cat > flatpak-repo/wekan.flatpakrepo <<'REPO'
+          [Flatpak Repo]
+          Title=WeKan
+          Url=https://wekan.fi/flatpak/
+          Homepage=https://wekan.fi
+          Comment=WeKan releases, built by the Flatpak workflow in wekan/wekan
+          Description=Flatpak repository for WeKan, the Open Source kanban board
+          REPO
+
+          cat > flatpak-repo/README.txt <<'TXT'
+          Flatpak repository for WeKan.
+
+          Copy this whole directory to the website under /flatpak/, then:
+
+            flatpak remote-add --if-not-exists wekan \
+              https://wekan.fi/flatpak/wekan.flatpakrepo
+            flatpak install wekan io.github.wekan.WeKan
+            flatpak run io.github.wekan.WeKan
+
+          Then open http://localhost:8080 . Everything is inside: the WeKan
+          server, Node.js, and FerretDB v1 with an embedded SQLite backend, so
+          there is no database to install. The data lives in the sandbox's
+          persistent .wekan directory.
+
+          THIS REPOSITORY IS NOT SIGNED. Signing needs a GPG key, which is a
+          secret rather than something a workflow can invent. To sign it:
+
+            1. Make a key, once, on a machine you trust:
+                 gpg --quick-generate-key "WeKan <security@wekan.fi>" default default never
+                 gpg --export KEYID > wekan-flatpak.gpg          # the public half
+                 gpg --export-secret-keys --armor KEYID          # the private half
+            2. Put the private half in the repository's Actions secrets as
+               GPG_PRIVATE_KEY.
+            3. In Flatpak.yml, import it before the export and add the two flags:
+                 flatpak build-export --gpg-sign=KEYID ...
+                 flatpak build-update-repo --gpg-sign=KEYID ...
+            4. Put wekan-flatpak.gpg beside this file on the website and add
+                 GPGKey=<base64 of wekan-flatpak.gpg>
+               to wekan.flatpakrepo.
+
+          Until then flatpak will say the remote is unsigned, and installing
+          from it trusts whoever serves the files.
+          TXT
+          du -sh flatpak-repo
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ inputs.publish_repo != false }}
+        with:
+          name: flatpak-repository
+          path: flatpak-repo/
+          if-no-files-found: warn

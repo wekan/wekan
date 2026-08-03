@@ -1,0 +1,272 @@
+name: AppImage
+
+# Build WeKan as an AppImage for every CPU an AppImage runtime exists for, and
+# attach them to the newest WeKan release.
+#
+# WHAT IS INSIDE IS WHAT WEKAN ALREADY SHIPS. release-all.yml already produces a
+# bundle that runs offline with nothing installed: the Meteor server (main.js),
+# the bundled Node.js the release was built against, the wekan/FerretDB v1 fork
+# with its embedded pure-Go SQLite backend, the wekan/mongo-tools binaries, the
+# cpu-exec/qemu-user shim from #6458, and start-wekan.sh to bring them up. That
+# bundle is already relocatable and already self-contained - it is the offline
+# zip people download today - so this workflow does NOT rebuild WeKan. It takes
+# the wekan-<version>-<arch>.zip off the release and wraps it, which means the
+# AppImage is byte-for-byte the same server, Node and FerretDB as the zip beside
+# it rather than a second build that might differ.
+#
+# So there is no MongoDB to install, no Node to install, and no database server
+# to run: FerretDB v1 keeps everything in SQLite files under the AppImage's data
+# directory. One download, one file, double-click.
+#
+# WHICH CPUs. An AppImage needs a runtime binary for its architecture, and those
+# exist for x86_64, aarch64, armhf and i686. WeKan publishes Linux bundles for
+# amd64 and arm64, so those are the two that can be wrapped: x86_64 from amd64,
+# aarch64 from arm64. Each is built on a runner of its own CPU, because
+# appimagetool has to run on the architecture it is packing for. If a bundle for
+# another architecture appears on a release, add it to the matrix and it will be
+# wrapped the same way.
+#
+# WHERE THE DATA GOES. A .deb or a container has somewhere obvious to put its
+# data; an AppImage is one file that may live on a USB stick, and the one place
+# it can always write is the user's home. WRITABLE_PATH defaults to
+# ~/.local/share/wekan here, so running the AppImage twice keeps the same boards,
+# and setting WRITABLE_PATH yourself still overrides it - the launcher's own
+# variables all still work.
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag to wrap and attach to (empty = newest release)'
+        required: false
+        type: string
+      publish:
+        description: 'Attach the AppImages to the release'
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wekan-appimage-${{ inputs.tag || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: find the release
+    runs-on: ubuntu-24.04
+    outputs:
+      tag: ${{ steps.find.outputs.tag }}
+      version: ${{ steps.find.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: find
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag='${{ inputs.tag }}'
+          [ -n "$tag" ] || tag="$(gh release list --limit 1 --json tagName --jq '.[0].tagName')"
+          if [ -z "$tag" ]; then
+            echo "::error::No release to wrap, and no tag was given."
+            exit 1
+          fi
+          # The bundles are named wekan-10.57-amd64.zip against tag v10.57.
+          version="${tag#v}"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "Wrapping the bundles from $tag (version $version)"
+
+  build:
+    name: AppImage ${{ matrix.appimage_arch }}
+    needs: release
+    runs-on: ${{ matrix.runs_on }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - appimage_arch: x86_64
+            bundle_arch: amd64
+            runs_on: ubuntu-24.04
+          - appimage_arch: aarch64
+            bundle_arch: arm64
+            runs_on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch the release bundle for this architecture
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          zip="wekan-${{ needs.release.outputs.version }}-${{ matrix.bundle_arch }}.zip"
+          gh release download '${{ needs.release.outputs.tag }}' --pattern "$zip" --clobber
+          unzip -q "$zip"
+          # A zip that exists is not a bundle that runs; these are the two files
+          # the AppImage is built around.
+          for f in bundle/main.js bundle/node bundle/ferretdb bundle/start-wekan.sh; do
+            if [ ! -e "$f" ]; then
+              echo "::error::$zip has no $f - it is not a runnable WeKan bundle."
+              exit 1
+            fi
+          done
+          chmod +x bundle/node bundle/ferretdb bundle/start-wekan.sh
+          du -sh bundle
+
+      - name: Build the AppDir
+        run: |
+          set -euo pipefail
+          version='${{ needs.release.outputs.version }}'
+          rm -rf AppDir
+          mkdir -p AppDir/usr/lib/wekan AppDir/usr/share/applications \
+                   AppDir/usr/share/icons/hicolor/512x512/apps
+          cp -a bundle AppDir/usr/lib/wekan/bundle
+
+          # WeKan's own icon, from public/. 512x512 is what appimagetool wants
+          # for the thumbnail a desktop shows.
+          cp public/android-chrome-512x512.png \
+             AppDir/usr/share/icons/hicolor/512x512/apps/wekan.png
+          cp AppDir/usr/share/icons/hicolor/512x512/apps/wekan.png AppDir/wekan.png
+
+          cat > AppDir/usr/share/applications/wekan.desktop <<'DESKTOP'
+          [Desktop Entry]
+          Type=Application
+          Name=WeKan
+          GenericName=Kanban board
+          Comment=Open Source kanban board with FerretDB and Node.js included
+          Exec=wekan
+          Icon=wekan
+          Terminal=true
+          Categories=Office;ProjectManagement;
+          Keywords=kanban;board;tasks;project;
+          DESKTOP
+          cp AppDir/usr/share/applications/wekan.desktop AppDir/wekan.desktop
+
+          # AppRun is what the AppImage runs. It does three things the launcher
+          # cannot do for itself: pick a writable place for the data (an AppImage
+          # is read-only and may sit on a USB stick), say where WeKan is once it
+          # has started, and then hand over to start-wekan.sh, which is the same
+          # launcher the offline zip uses - so every variable it documents
+          # (WRITABLE_PATH, PORT, ROOT_URL, MONGO_URL, WEKAN_DB, ...) still works.
+          cat > AppDir/AppRun <<'APPRUN'
+          #!/bin/sh
+          set -eu
+          HERE="$(dirname "$(readlink -f "$0")")"
+          BUNDLE="$HERE/usr/lib/wekan/bundle"
+
+          # An AppImage is read-only, so the data cannot live beside it.
+          : "${WRITABLE_PATH:=${XDG_DATA_HOME:-$HOME/.local/share}/wekan}"
+          export WRITABLE_PATH
+          : "${PORT:=8080}"
+          export PORT
+          : "${ROOT_URL:=http://localhost:$PORT}"
+          export ROOT_URL
+
+          mkdir -p "$WRITABLE_PATH"
+
+          echo "WeKan is starting."
+          echo "  Open:  $ROOT_URL"
+          echo "  Data:  $WRITABLE_PATH"
+          echo "  Stop:  Ctrl-C"
+          echo
+          echo "Set WRITABLE_PATH, PORT, ROOT_URL or MONGO_URL to change any of"
+          echo "this; WEKAN_DB=mongodb uses your own database instead of the"
+          echo "bundled FerretDB."
+          echo
+
+          exec "$BUNDLE/start-wekan.sh" "$@"
+          APPRUN
+          chmod +x AppDir/AppRun
+
+      - name: Pack the AppImage
+        run: |
+          set -euo pipefail
+          version='${{ needs.release.outputs.version }}'
+          arch='${{ matrix.appimage_arch }}'
+          name="WeKan-${version}-${arch}"
+
+          curl -fSL --retry 5 --retry-delay 10 -o appimagetool \
+            "https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-${arch}.AppImage"
+          chmod +x appimagetool
+
+          mkdir -p dist
+          # A runner has no FUSE, so the tool cannot mount itself; this unpacks
+          # it to a temporary directory and runs it from there instead.
+          APPIMAGE_EXTRACT_AND_RUN=1 ARCH="$arch" \
+            ./appimagetool AppDir "dist/${name}.AppImage"
+
+          chmod +x "dist/${name}.AppImage"
+          ( cd dist
+            md5sum    "${name}.AppImage" > "${name}.md5sum"
+            sha256sum "${name}.AppImage" > "${name}.sha256sum" )
+          ls -lh dist
+
+      - name: Check that it starts
+        run: |
+          set -euo pipefail
+          version='${{ needs.release.outputs.version }}'
+          app="dist/WeKan-${version}-${{ matrix.appimage_arch }}.AppImage"
+          # An AppImage that packs is not an AppImage that runs. Start it, wait
+          # for WeKan to answer on its port, then stop it - so a broken bundle
+          # is caught here rather than by whoever downloads it.
+          export WRITABLE_PATH="$PWD/smoke-data" PORT=8080
+          APPIMAGE_EXTRACT_AND_RUN=1 "$app" > smoke.log 2>&1 &
+          pid=$!
+          ok=false
+          for _ in $(seq 1 90); do
+            if curl -fsS -o /dev/null "http://localhost:8080/sign-in"; then ok=true; break; fi
+            kill -0 "$pid" 2>/dev/null || break
+            sleep 2
+          done
+          kill "$pid" 2>/dev/null || true
+          wait "$pid" 2>/dev/null || true
+          if [ "$ok" != true ]; then
+            echo "::error::the AppImage did not answer on port 8080; its log follows"
+            tail -n 100 smoke.log
+            exit 1
+          fi
+          echo "WeKan answered on port 8080."
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: appimage-${{ matrix.appimage_arch }}
+          path: dist/
+          if-no-files-found: error
+
+  publish:
+    name: attach to the release
+    needs: [release, build]
+    if: ${{ always() && inputs.publish != false }}
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: appimage-*
+          path: assets
+          merge-multiple: true
+
+      - name: Say what was built, and what was not
+        run: |
+          set -euo pipefail
+          ls -lh assets 2>/dev/null || true
+          if ! ls assets/*.AppImage >/dev/null 2>&1; then
+            echo "::error::No architecture produced an AppImage - every build job" \
+                 "failed. Their logs say why; nothing is uploaded."
+            exit 1
+          fi
+          for want in x86_64 aarch64; do
+            ls assets/*"-$want.AppImage" >/dev/null 2>&1 || \
+              echo "::warning::no AppImage for $want - see that build job's log"
+          done
+
+      - name: Upload them
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh release upload '${{ needs.release.outputs.tag }}' assets/* --clobber
+          echo "Uploaded to $(gh release view '${{ needs.release.outputs.tag }}' --json url --jq .url)"
