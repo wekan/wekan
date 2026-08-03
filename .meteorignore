@@ -67,12 +67,22 @@ npm-packages/
 /wekan-gantt-gpl/
 /wekan-ondra/
 
-# Meteor's own build output. `meteor build` writes _build/ and the test run
-# writes _build-local-test/, so the scanner finds the last build's bundle inside
-# the tree it is scanning to make the next one. They are already the first two
-# entries of the 296 KB pattern list above, which is how they were spotted.
-/_build/
-/_build-local-test/
+# DO NOT ADD /_build/ OR /_build-local-test/ HERE. They look like build output
+# that should be ignored - they are gitignored, and they are the first two
+# entries of the 296 KB pattern list above - and excluding them breaks the
+# build outright:
+#
+#   error: Could not find mainModule for 'os' architecture:
+#   _build/main-prod/server-meteor.js
+#   Check the "meteor" section of your package.json file?
+#
+# They are not leftovers, they are the HANDOFF. rspack compiles the app into
+# _build/main-prod/ (and _build/test/ for a test run), and Meteor then reads
+# _build/main-prod/server-meteor.js and client-meteor.js as the application's
+# main modules - package.json names client/main.js and server/main.js, and the
+# rspack integration repoints mainModule at its own output. Ignoring them hides
+# the files Meteor is about to be handed. They cost 3 directories each, so there
+# was nothing to win here anyway.
 
 # Local build and test logs. WEKAN_LOG_ROOT prefers ../log/<datetime>/, but
 # falls back to ./log when the parent is not writable - which is exactly the

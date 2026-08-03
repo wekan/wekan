@@ -81,12 +81,25 @@ test('and so are the two variant WeKan checkouts, which are worse than the rest'
   }
 });
 
-test('and Meteor\'s own build output, which it would otherwise scan', () => {
-  // `meteor build` writes _build/ and the test run writes _build-local-test/,
-  // both inside the tree being scanned to produce them. They were the first two
-  // entries of that 296 KB pattern list, which is how they were spotted.
+test('but _build is NOT excluded - it is the handoff, not leftovers', () => {
+  // The opposite assertion to the ones above, and it is here because the guard
+  // originally made the wrong one. _build/ and _build-local-test/ look exactly
+  // like build output that should be ignored: they are gitignored, and they are
+  // the first two entries of that 296 KB pattern list. Excluding them breaks
+  // the build outright, in a way that does not name .meteorignore at all:
+  //
+  //   error: Could not find mainModule for 'os' architecture:
+  //   _build/main-prod/server-meteor.js
+  //   Check the "meteor" section of your package.json file?
+  //
+  // rspack compiles the app INTO _build/main-prod/ (and _build/test/ for a test
+  // run), and Meteor then reads server-meteor.js and client-meteor.js from
+  // there as the application's main modules. Ignoring them hides the files
+  // Meteor is about to be handed. They are 3 directories each, so there is
+  // nothing to win by excluding them and a build to lose.
   for (const d of ['_build', '_build-local-test']) {
-    assert.ok(ignored.has(d), `${d} is build output being scanned as source`);
+    assert.ok(!ignored.has(d),
+      `${d} holds the mainModule Meteor reads - excluding it breaks the build`);
   }
 });
 
@@ -163,7 +176,17 @@ test('nothing gitignored at the top level is left for Meteor to walk', () => {
   //
   // The exceptions are the directories Meteor and npm own and handle
   // themselves - excluding those would break the build rather than speed it up.
-  const meteorOwns = new Set(['node_modules', '.meteor', '.build', '.git']);
+  //
+  // _build and _build-local-test are listed for the reason the test above
+  // states: they are gitignored, but they hold the mainModule Meteor reads, so
+  // this rule must not drag them into .meteorignore. Today .gitignore happens to
+  // write them unanchored ("_build/", not "/_build/") so the filter below skips
+  // them anyway - that is luck, not design, and normalising .gitignore would
+  // otherwise turn this guard into the thing that breaks the build.
+  const meteorOwns = new Set([
+    'node_modules', '.meteor', '.build', '.git',
+    '_build', '_build-local-test',
+  ]);
 
   const gitignored = entries('.gitignore')
     .filter(l => l.startsWith('/') && l.endsWith('/') && !l.startsWith('/*'))
