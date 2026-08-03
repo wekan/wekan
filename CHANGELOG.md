@@ -262,18 +262,132 @@ browser build to verify).
 </details>
 # Upcoming WeKan ® release
 
-**In short:** the **platform documentation** is arranged by what each platform
-is. `docs/Platforms` had **Android.md**, **Snap/**, **Docker/** and
-**Cloud/AWS.md** sitting side by side with nothing to say which was an operating
-system, which was a container and which was somebody's cloud. Every page now
-lives under **OS**, **HW**, **Container**, **Cloud**, **Package**, **Source** or
-**SaaS**, and a directory's index page is its `README.md`, so opening the
-directory shows the page. Below that: the links that had to follow the move,
-including the ones written from the repository root that never resolved at all,
-the **logos** that are now stored beside their page instead of fetched from
-somebody else's server, and two new platform pages.
+**In short:** two reported bypasses of the **SSRF guard** are closed, and they
+are the same mistake in its two halves. **FollowBleed** — the import downloads
+validated the URL and then fetched it with something that follows redirects, so
+a public URL could answer *302 to 127.0.0.1* and that body became the imported
+attachment; **fetchSafe** now validates and pins **every hop**, not only the one
+the caller passed. **TransitBleed** — the shared block-list read an IPv6 address
+by its spelling, so **6to4**, **NAT64** and **Teredo** addresses carried an
+internal IPv4 destination straight through it; an address is now expanded to its
+bytes and every embedded IPv4 is re-checked. Below that, the **platform
+documentation** is arranged by what each platform is: every page lives under
+**OS**, **HW**, **Container**, **Cloud**, **Package**, **Source** or **SaaS**,
+with the links that had to follow the move, logos stored beside their page
+instead of fetched from somebody else's server, two new platform pages, and a
+developer-tooling fix.
 
-This release reorganises the documentation:
+This release fixes the following CRITICAL SECURITY ISSUES:
+
+**The SSRF guard** - what it checks, and what it was deciding from.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4c183b4d5942f09ab30d0dcdad4d6e4df889023d">Import downloads validate every redirect hop instead of only the URL they were given</a>. Thanks to RandomGenerator and xet7.</summary>
+
+[FollowBleed](https://wekan.fi/hall-of-fame/followbleed/) is a bypass of the fix
+that closed [LiveBleed](https://wekan.fi/hall-of-fame/livebleed/) /
+CVE-2026-30844. The live Trello import did validate the attachment URL with
+`validateAttachmentUrl()` — and then downloaded it with the platform `fetch()`,
+which **follows redirects**. So the guard only ever saw the request, and the
+target gets to answer:
+
+1. the attacker puts `http://<public-host>/attachment.txt` on a Trello card
+2. `validateAttachmentUrl()` resolves it, sees a public IP, allows it
+3. that host answers `302 Location: http://127.0.0.1:18080/secret`
+4. `fetch()` follows, and the loopback body is stored as the imported
+   attachment, readable back through WeKan
+
+That is non-blind SSRF against loopback services, internal admin panels, cloud
+metadata and anything else reachable from the container — the exact thing the
+validation was added to stop, reached through the response instead of the
+request.
+
+A guard on the URL alone cannot hold, so `fetchSafe()` guards **every hop**.
+`maxRedirects` (default 0) is how many redirects a caller is willing to follow.
+0 keeps the old behaviour of refusing any 3xx outright, which is right for
+outgoing webhooks and avatar downloads, because a legitimate one never
+redirects. A caller that must follow one passes a small number, and each hop
+goes through the same protocol allowlist, blocked-range check and DNS pinning as
+the original URL before a packet is sent to it. Credentials are dropped on a
+cross-origin redirect, so following Trello's 302 to S3 cannot hand the API key
+and token to whoever the redirect names.
+
+Refusing every redirect was not an option: Trello's own attachment endpoint
+answers with a 302 to a signed S3 URL, so that would have meant importing no
+attachments at all.
+
+The **offline** importers had the same hole and were not in the report. They
+handed the validated URL to `Attachments.loadAsync()`, and Meteor-Files
+downloads with the platform `fetch()` too, so a pasted Trello or WeKan board
+export reached `127.0.0.1` by exactly the same 302. They download through the
+guard now, and store the bytes with the same call they already used for an
+attachment that arrived inline.
+
+`tests/followbleed.test.cjs` replays the reported attack against a stubbed
+transport and asserts the second hop is never sent, then pins the rest: a
+redirect to a hostname resolving to a private IP, to metadata, to a non-`http`
+scheme, a relative `Location`, the chain limit, credential stripping across
+origins, 303/307 method handling — and that a legitimate public-to-public
+redirect is still followed with each hop pinned, because the import has to keep
+working.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4c183b4d5942f09ab30d0dcdad4d6e4df889023d">IPv6 addresses are classified by their bytes, not by how they are spelled</a>. Thanks to tonghuaroot and xet7.</summary>
+
+[TransitBleed](https://wekan.fi/hall-of-fame/transitbleed/). `isIpBlocked()` is
+the one block-list behind **both** halves of the SSRF defence — the input-time
+validator and the delivery-time guard — and its IPv6 half classified an address
+by its spelling: `startsWith('::ffff:')`, `startsWith('2001:db8')`, and the
+first hextet parsed out of the string.
+
+IPv6 has several standard ways to write "this packet goes to an IPv4 address",
+and none of them looks like `::ffff:`:
+
+- `2002:a9fe:a9fe::` — 6to4 (RFC 3056) → `169.254.169.254`
+- `64:ff9b::c0a8:101` — NAT64 (RFC 6052) → `192.168.1.1`
+- `2001:0:…` — Teredo (RFC 4380), the IPv4 stored as the complement of the low
+  32 bits
+- `0:0:0:0:0:ffff:7f00:1` — IPv4-mapped, merely spelled out → `127.0.0.1`
+
+On a host with a 6to4 relay or a NAT64 gateway — ordinary in cloud and
+Kubernetes networks — the packet arrives at that IPv4 address. So
+`http://[2002:a9fe:a9fe::]/latest/meta-data/` read cloud metadata straight
+through the guard whose whole job was to stop it.
+
+An address is **expanded to its 16 bytes once** and every check reads those
+bytes, so notation cannot change the answer, and every transition form has its
+embedded IPv4 extracted and re-checked with the IPv4 rules: 6to4, NAT64 (the
+well-known prefix and the RFC 8215 local-use one), Teredo through both its
+server and its obfuscated client address, IPv4-mapped, IPv4-translated,
+IPv4-compatible, and ISATAP under any routing prefix rather than only the
+link-local one. The deprecated `fec0::/10` site-local range is blocked too.
+
+A transition address wrapping a **public** IPv4 is still allowed, and
+`tests/transitbleed.test.cjs` pins that as carefully as it pins the bypasses: a
+guard that blocks everything is a guard somebody switches off.
+
+</details>
+
+and has the following developer-tooling fix:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6cd64284dce838fea38dc967a5729246761bc89f">The Sandstorm bridge guard reads the page at the path it moved to</a>. Thanks to xet7.</summary>
+
+The documentation reorganisation turned
+`docs/Platforms/FOSS/Container/Sandstorm` from a page into a directory, and this
+test reads that page at run time to pin what it documents. So it did not merely
+go stale: `fs.readFileSync` on a directory throws `EISDIR`, and the suite died
+before its assertions ran.
+
+It reads the directory's landing page, `README.md`, which is where the
+migration-bridge documentation ended up. Both assertions are unchanged and both
+pass.
+
+</details>
+
+and reorganises the documentation:
 
 **The Platforms docs** - how the pages are arranged, and what points at them.
 
