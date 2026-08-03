@@ -7,23 +7,8 @@ meteor-base@1.5.2
 
 # Build system
 ecmascript@0.19.0-beta351.0
+standard-minifier-js@3.2.0
 rspack@1.2.0-beta351.0
-# standard-minifier-js is deliberately NOT here.
-#
-# rspack is the bundler, and it minifies for production itself - the asset-size
-# warnings a build prints are about rspack's own minified output. Keeping
-# standard-minifier-js as well meant Meteor's minifier plugin ran over that
-# same output a second time, in the phase after both rspack compiles finish,
-# which is exactly where `meteor build` was running out of memory:
-#
-#   => Compiled Rspack client app:      done
-#   => Compiled Rspack server app:      done
-#   <--- Last few GCs --->              8146 MB of 8192, then 15526 MB of 15542
-#
-# Two runs died there, the second with twice the heap of the first, so it was
-# not a limit that was set too low. If a build with this removed produces a
-# bundle that is wrong rather than one that is merely unminified twice, put it
-# back - that is the thing to check first.
 # Declared explicitly because server/modernBrowsers.js imports it, to say that
 # Yandex Browser is modern and must not be served the legacy bundle (#6557).
 modern-browsers@0.2.3

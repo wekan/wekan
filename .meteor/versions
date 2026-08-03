@@ -95,6 +95,7 @@ shell-server@0.7.0
 socket-stream-client@0.7.1-beta351.0
 spacebars@2.0.1
 spacebars-compiler@2.0.1
+standard-minifier-js@3.2.0
 templating@1.4.5
 templating-compiler@2.0.1
 templating-runtime@2.0.2

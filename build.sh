@@ -266,6 +266,29 @@ function build_wekan(){
 	local buildlog
 	buildlog="$(one_log build)"
 	echo "Build log: $buildlog"
+
+	# WEKAN_BUILD_HEAP_SNAPSHOT=1 makes the build write a heap snapshot just
+	# before it would run out of memory, instead of only dying.
+	#
+	# This exists because guessing at the cause did not work. The build has
+	# exhausted its heap three runs running - 8146 MB of 8192, then 15526 of
+	# 15542, then 15520 with the second JS minifier removed on the theory that
+	# it was the consumer. The last of those settled the theory: taking the
+	# minifier out changed the peak by 6 MB, which is noise. Something else is
+	# holding 15 GB, and the only way to find out what is to look.
+	#
+	# Node writes Heap.<pid>.<seq>.heapsnapshot into the working directory when
+	# it gets near the limit. Open it in Chrome DevTools (Memory -> Load) and
+	# sort by retained size. It is roughly as large as the heap, so this is
+	# off by default rather than something every build pays for.
+	if [ "${WEKAN_BUILD_HEAP_SNAPSHOT:-0}" = "1" ]; then
+		export TOOL_NODE_FLAGS="$TOOL_NODE_FLAGS --heapsnapshot-near-heap-limit=1"
+		export NODE_OPTIONS="$NODE_OPTIONS --heapsnapshot-near-heap-limit=1"
+		echo "Heap snapshot: ON. If the build runs out of memory it writes"
+		echo "  $(pwd)/Heap.<pid>.<n>.heapsnapshot before dying - expect a file"
+		echo "  about the size of the heap limit, and open it in Chrome DevTools"
+		echo "  under Memory -> Load, sorted by retained size."
+	fi
 	{
 		echo "===== wekan build started $(date '+%F %T') ====="
 		rm -rf node_modules node_modules/.cache .meteor/local .build _build
