@@ -264,7 +264,7 @@ has not decided on yet (adds a dependency + loosens the XSS sanitizer + needs a
 browser build to verify).
 
 </details>
-# Upcoming WeKan ® release
+# v10.64 2026-08-04 WeKan ® release
 
 **In short:** this release hardens how the multi-platform release is assembled.
 The **Node.js and FerretDB** inside every platform bundle become **named,
