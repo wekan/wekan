@@ -71,13 +71,17 @@ platforms:
     build-on: riscv64
     build-for: riscv64
   # 32-bit, and FerretDB-only for the same reason: MongoDB ships no server for
-  # either. Their Node.js comes from the bundle like every other arch's does -
-  # the wekan-<arch>.zip carries the right one already (for these two it is
-  # built by node.yml in the wekan/node fork, because neither nodejs.org nor
-  # unofficial-builds publishes one).
-  i386:
-    build-on: i386
-    build-for: i386
+  # it. armhf's Node.js comes from the bundle like every other arch's does - the
+  # wekan-armhf.zip carries the right one already (built by node.yml in the
+  # wekan/node fork, because neither nodejs.org nor unofficial-builds publishes
+  # one).
+  #
+  # There is NO i386 entry: core24 (Ubuntu 24.04) has no i386 port, so snapcraft
+  # rejects `build-on: i386` with "trying to build snap in one of ['i386'], but
+  # none of these build architectures are supported" - and because that is a
+  # PARSE error it failed every snap build, not only i386's. i386 users are
+  # served by the .deb and AppImage instead; an i386 snap is not buildable on a
+  # modern base.
   armhf:
     build-on: armhf
     build-for: armhf

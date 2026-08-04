@@ -978,6 +978,11 @@ jobs:
           npm install
 
       - name: Check the binaries the win64 bundle needs exist
+        # bash, not the Windows default shell: this is a bash script (`set -euo
+        # pipefail`, a bash script call). Without it PowerShell runs the body and
+        # dies on `set -euo pipefail` with "A parameter cannot be found that
+        # matches parameter name 'euo'".
+        shell: bash
         run: |
           set -euo pipefail
           # This job checks the repo out into src/ (see the checkout step above),
@@ -1247,8 +1252,10 @@ jobs:
       - name: Create mac-arm64 zip
         run: |
           zip -r wekan-${VERSION}-mac-arm64.zip bundle
-          # A checksum beside the bundle, so a download can be checked.
-          sha256sum "wekan-${VERSION}-mac-arm64.zip" > "wekan-${VERSION}-mac-arm64.zip.sha256sum"
+          # A checksum beside the bundle, so a download can be checked. macOS has
+          # no `sha256sum` (that is a GNU coreutils name); `shasum -a 256` is the
+          # BSD/macOS spelling and writes the same "<hash>  <file>" format.
+          shasum -a 256 "wekan-${VERSION}-mac-arm64.zip" > "wekan-${VERSION}-mac-arm64.zip.sha256sum"
           cat "wekan-${VERSION}-mac-arm64.zip.sha256sum"
           # A zip that EXISTS is not a zip that WORKS, and the log should say which of the
           # two this is. The size answers "was the bundle directory empty when it was
@@ -1435,6 +1442,14 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: bundle-amd64
+
+      # The artifact IS the zip (build-amd64 uploads wekan-<version>-amd64.zip),
+      # so it has to be unpacked before the container mounts $(pwd)/bundle - the
+      # same unzip build-arm64/win64/mac-arm64 do. Without it Docker creates an
+      # EMPTY /bundle and the rebuild dies with
+      # "ENOENT ... /bundle/programs/server/package.json".
+      - name: Unpack the amd64 bundle
+        run: unzip -q "wekan-${VERSION}-amd64.zip"
 
       # Everything this bundle needs from another project's releases, checked
       # BEFORE any of it is used: a base image for this CPU, a Node.js build for
@@ -2389,7 +2404,9 @@ jobs:
         # armhf join the three that were here: both are real snapd arches and
         # both now have a bundle to build from. loong64 is deliberately absent -
         # it is not a snap architecture at all.
-        arch: [ppc64el, s390x, riscv64, i386, armhf]
+        # No i386: core24 has no i386 port, so an i386 snap is not buildable
+        # (snapcraft.yaml has no i386 platform for the same reason).
+        arch: [ppc64el, s390x, riscv64, armhf]
     runs-on: ubuntu-latest
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
