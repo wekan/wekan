@@ -275,8 +275,13 @@ the **charts, ucs and nextcloud** jobs; loong64 is now **best-effort** like
 **Launchpad** snap builds (**ppc64el, s390x, riscv64, armhf**) could not push
 WeKan's large history to `git.launchpad.net` and timed out mid-upload; the
 repository is flattened to a single commit before the push now, so it fits.
+Below that, a Launchpad failure hint that wrongly blamed the project **licence**
+- which is already set to MIT - is corrected to point at the real cause.
 
 This release fixes the following release-build issues:
+
+**Extra-architecture bundles** - the CPUs the build matrix compiles under
+emulation, and the Docker image that waits on that matrix.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/27da39f9587365003d26cfa6f095a203c67e1eb6">A loong64 with no base image is skipped, not failed, so it stops skipping the Docker image build</a>. Thanks to xet7.</summary>
@@ -299,6 +304,9 @@ published. `tests/releaseArchSkipAndBaseAttach.test.cjs` pins loong64 as
 best-effort and that the base-image gate skips it.
 
 </details>
+
+**The Launchpad snap builds** - the ppc64el, s390x, riscv64 and armhf snaps
+built on Launchpad with `snapcraft remote-build`.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/50e2e14d99bb27455cf69f169bc43ed48cff96d9">The Launchpad snap builds flatten history first, so the push to git.launchpad.net stops timing out</a>. Thanks to xet7.</summary>
