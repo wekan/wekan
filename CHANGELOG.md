@@ -264,6 +264,116 @@ has not decided on yet (adds a dependency + loosens the XSS sanitizer + needs a
 browser build to verify).
 
 </details>
+
+# Upcoming WeKan ® release
+
+**In short:** WeKan now takes its **Node.js from the wekan/node fork for every
+platform** and from nowhere else - the native bundles, the emulated
+cross-builds and the multi-arch **Docker image** alike - so a Node bug can be
+patched and rebuilt from source, and one set of artifacts is never half-built on
+a different Node.js per CPU. On top of that, every platform the fork builds a
+Node.js for now has a `.zip` **bundle**: this adds the missing **armv7**,
+**win32** and **mac-x64** bundles. Below that: a **Docker release-verify** fix
+that was failing a `linux/arm/v7` image that had actually built correctly.
+
+This release takes WeKan's Node.js from the wekan/node fork for every platform:
+
+**Node.js sourcing** - one source, built from source, for every CPU, so a Node
+bug can be patched rather than worked around.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4edabf1b89841b588c679c78d9375564bc0bc554">Every native bundle takes its Node.js from the wekan/node fork, not nodejs.org</a>. Thanks to xet7.</summary>
+
+The four native bundles (amd64, arm64, win64, mac-arm64) embedded a verified
+Node.js downloaded from nodejs.org. They now download the wekan/node fork's bare
+`node-<asset>` binary (`node-x64` / `node-arm64` / `node-win64.exe` /
+`node-mac-arm64`) and verify it against the `node-<asset>.sha256sum` the fork
+publishes beside it. The reason is control: the fork is Node built from source,
+so a Node bug can be patched and rebuilt - which cannot be done with
+nodejs.org's opaque binaries - and one source means a set of bundles is never
+half-built on one Node.js and half on another. A bundle ships only the node
+binary and runs `node main.js`, so no npm is grafted here (the Docker image and
+the emulated cross-builds, which run npm, graft it separately).
+`tests/releaseNodeVerified.test.cjs` pins the fork source for all four.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6952090b667090fea40170e85492620ee45e9770">The extra-arch bundles and the Docker image take Node.js only from the fork</a>. Thanks to xet7.</summary>
+
+The emulated cross-builds and the multi-arch Docker image used to prefer
+nodejs.org, then unofficial-builds, and fall back to the fork only for the CPUs
+neither built. That is now reversed to fork-only, for the same
+built-from-source reason as the native bundles.
+`releases/check-arch-binaries.sh` no longer walks nodejs.org - it lists the
+fork's own releases for this major, newest first, takes the newest that carries
+`node-<arch>`, and verifies it against that release's `.sha256sum`;
+`releases/install-node-for-arch.sh` always installs the fork's bare binary
+(grafting npm - arch-independent JavaScript - from the official amd64 tarball,
+a build tool, not the shipped node); the `Dockerfile` maps every `TARGETARCH` to
+a fork asset. `s390x` becomes best-effort (optional) like i386/armhf/loong64:
+until the fork has published `node-s390x` the preflight skips it with a warning
+instead of failing the whole matrix and taking docker down with it, and it
+returns on its own once the fork publishes it.
+
+</details>
+
+and adds the following new `.zip` bundles:
+
+**Platform bundles** - every CPU the wekan/node fork builds a Node.js for now
+gets a WeKan bundle.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fd82f6502a48c458897a8dd3b21a364f7e165096">A new armv7 .zip bundle, from the fork's node-armv7</a>. Thanks to xet7.</summary>
+
+The wekan/node fork builds a generic ARMv7 Node.js (`node-armv7`) as well as
+Debian's hard-float one (`node-armhf`); each is a real fork platform, so each
+gets its own WeKan `.zip`. A new `armv7` leg of the extra-arches matrix runs in
+the same `linux/arm/v7` emulated container as armhf, takes its Node.js from the
+fork's `node-armv7`, and shares FerretDB's armhf binary (FerretDB has no
+distinct armv7). It is best-effort, like the other 32-bit bundles. The result is
+`wekan-<version>-armv7.zip` alongside the armhf one.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/10c07c10aad0451799edcf75cc5f2fb8cbb02c9a">New win32 and mac-x64 .zip bundles, so every fork platform has a bundle</a>. Thanks to xet7.</summary>
+
+Twelve of the fork's thirteen platforms had a bundle; 32-bit Windows and Intel
+macOS did not, though the fork builds `node-win32.exe` and `node-mac-x64`.
+`build-win32` mirrors the win64 job but installs a 32-bit (x86) Node via
+`setup-node` so the native modules it rebuilds (bcrypt) are ia32, matching the
+fork's 32-bit `node.exe`, and takes `ferretdb-win32.exe`. `build-mac-x64`
+mirrors the mac-arm64 job on a `macos-13` Intel runner, taking `node-mac-x64`
+and `ferretdb-mac-amd64`. Both are best-effort: a preflight step skips the job
+with a warning if the fork has not published that platform's node yet, so the
+bundle appears the run after the fork publishes it.
+`tests/releaseBundleCoverage.test.cjs` pins that all thirteen fork platforms map
+to a bundle.
+
+</details>
+
+and fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3fa45c715d46c839ebfb9d3a1067337d0bd76818">The Docker release verify reads the CPU variant, so linux/arm/v7 is not misread as linux/arm</a>. Thanks to xet7.</summary>
+
+The docker job built and pushed the multi-arch image for all seven platforms
+correctly; the step after it, which inspects each registry's manifest to prove
+every platform arrived, then failed the run over a manifest that was right.
+buildx builds `linux/arm/v7`, but a registry records that as architecture `arm`
+with variant `v7` in a separate field, and the verify's `imagetools --format`
+printed only `OS/Architecture` - so the entry read back as bare `linux/arm` and
+the check for `linux/arm/v7` never matched it. The format now appends
+`/{{.Platform.Variant}}` when a variant is present, and normalises arm64's
+implied `/v8` away so it still matches `linux/arm64`.
+`tests/releaseDockerPlatforms.test.cjs` pins the variant-aware format.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.67 2026-08-04 WeKan ® release
 
 **In short:** the **Docker image** gains **linux/386** and **linux/arm/v7** -
