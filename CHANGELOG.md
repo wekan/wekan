@@ -264,6 +264,42 @@ has not decided on yet (adds a dependency + loosens the XSS sanitizer + needs a
 browser build to verify).
 
 </details>
+# Upcoming WeKan ® release
+
+**In short:** this release fixes the **release workflow** that publishes WeKan.
+The v10.59 release job built the GitHub Release body from the newest CHANGELOG
+section by interpolating it **inline** into a shell `printf`, so every backtick
+in the notes ran as a command — and v10.59's notes are full of `code` spans, so
+the job died with `Incorrect: command not found` and
+`loginFailureDecision.js: Permission denied`, and published nothing. The
+CHANGELOG now reaches the release-notes scripts through the **environment**,
+where the shell treats it as data. A new test pins that the changelog is never
+interpolated into a `run:` script again.
+
+This release fixes the following release-build issue:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b28cfef4a7d424ed031038b80f8eda0ae48601dd">The release notes pass the CHANGELOG through the environment instead of inline into the shell</a>. Thanks to xet7.</summary>
+
+The `release` and `release-notes` jobs of `release-all.yml` composed the GitHub
+Release body with `printf '%s\n' "${{ needs.prepare.outputs.changelog }}"`.
+Interpolated inline with `${{ }}`, the CHANGELOG becomes part of the shell
+*source* before bash parses it, so a backtick in an entry — every `code` span is
+one — runs as a command substitution. The v10.59 notes (this file's own
+LockoutBleed section) turned into `Incorrect: command not found`,
+`User not found: command not found`, `POST: command not found` and
+`server/apiAuthRoutes.js: Permission denied`, the `release` job failed, and the
+release was published with no bundles. Both steps now take the changelog through
+`env: CHANGELOG: ${{ … }}` and write `"$CHANGELOG"`, where the shell treats the
+value as data and never parses its backticks, `$( )` or quotes.
+`tests/releaseNotesNoShellInjection.test.cjs` pins that `outputs.changelog` is
+only ever consumed as an `env:` assignment, never inline in a `run:` script, and
+fails on both pre-fix `printf` lines.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.59 2026-08-04 WeKan ® release
 
 **In short:** this release closes **LockoutBleed** (GHSA-2g94-9x3m-hv37), a
