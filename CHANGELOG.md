@@ -264,7 +264,7 @@ has not decided on yet (adds a dependency + loosens the XSS sanitizer + needs a
 browser build to verify).
 
 </details>
-# Upcoming WeKan ® release
+# v10.62 2026-08-04 WeKan ® release
 
 **In short:** this release fixes the reason the release shipped **no bundles**,
 which is what starved every downstream job (snap, Docker, AppImage) of the
