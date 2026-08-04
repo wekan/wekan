@@ -264,6 +264,39 @@ has not decided on yet (adds a dependency + loosens the XSS sanitizer + needs a
 browser build to verify).
 
 </details>
+# Upcoming WeKan ® release
+
+**In short:** this release stops **"release all missing"** from rebuilding the
+**AppImage and Flatpak** every run when they are already published. Their
+checksum files were named with the extension dropped
+(`WeKan-<v>-<arch>.sha256sum`), but the missing-check looks for the name the
+zip bundles use - the asset name plus `.sha256sum`
+(`WeKan-<v>-<arch>.AppImage.sha256sum`) - so it never found the checksum and
+counted the package as missing. The checksums now keep their extension,
+matching the check.
+
+This release fixes the following release-build issue:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/85d2ec6dadc8a8f04b97d3fa21af3367c7031336">"Release all missing" no longer rebuilds the AppImage and Flatpak that are already published</a>. Thanks to xet7.</summary>
+
+`releases/expected-assets.sh` decides a package is present only when its binary
+AND `<asset>.sha256sum` are both on the release - the same convention the
+`wekan-<v>-<arch>.zip.sha256sum` bundles follow. But `AppImage.yml` and
+`Flatpak.yml` wrote the checksum with the extension DROPPED
+(`WeKan-<v>-<arch>.sha256sum` rather than
+`WeKan-<v>-<arch>.AppImage.sha256sum`), so the check never matched it and
+reported the AppImage and Flatpak as missing on every run - rebuilding and
+re-uploading them even when nothing had changed. The checksum (and md5sum) now
+keep the `.AppImage` / `.flatpak` extension, so the check finds them and only
+genuinely-missing packages are built. The same fix went to the wekan-ondra and
+wekan-gantt-gpl forks, which name their assets the same way.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.62 2026-08-04 WeKan ® release
 
 **In short:** this release fixes the reason the release shipped **no bundles**,
