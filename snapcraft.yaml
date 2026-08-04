@@ -327,7 +327,12 @@ parts:
             mkdir .build
             cd .build
             #wget https://github.com/wekan/wekan/releases/download/v10.61/wekan-10.61-amd64.zip
-            wget "https://github.com/wekan/wekan/releases/download/v10.61/${WEKAN_ZIP}"
+            # Retry: a release asset can 404 for a short while right after it is
+            # uploaded (CDN/propagation lag), and a plain wget treated that as
+            # fatal. --retry-on-http-error covers the 404/5xx window; a genuinely
+            # missing bundle still fails after the tries are spent.
+            wget --tries=20 --waitretry=20 --retry-on-http-error=404,403,500,502,503 \
+              "https://github.com/wekan/wekan/releases/download/v10.61/${WEKAN_ZIP}"
             unzip "${WEKAN_ZIP}"
             rm "${WEKAN_ZIP}"
             # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3

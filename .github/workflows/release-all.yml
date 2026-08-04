@@ -843,7 +843,18 @@ jobs:
       # architectures, unofficial-builds others, the wekan/node fork the ones
       # neither of them does, and not all of them publish a checksum - so it is
       # written down here rather than left in a build log that expires.
+      #
+      # clean: false is CRITICAL here. This checkout runs AFTER "Download all
+      # bundles" put wekan-<version>-{amd64,arm64}.zip in the workspace root, and
+      # actions/checkout's default `clean: true` runs `git clean -ffdx`, which
+      # DELETES those untracked zips. The "Create GitHub Release" step's `files:`
+      # then matched nothing, and softprops does not fail on unmatched files, so
+      # the release was created (job "success") WITH NO BUNDLES - which is why
+      # every downstream job (snap, docker, AppImage) 404'd on
+      # wekan-<version>-amd64.zip. Keep the bundles.
       - uses: actions/checkout@v4
+        with:
+          clean: false
 
       - name: Collect where the binaries came from
         continue-on-error: true
