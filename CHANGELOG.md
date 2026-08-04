@@ -264,7 +264,7 @@ has not decided on yet (adds a dependency + loosens the XSS sanitizer + needs a
 browser build to verify).
 
 </details>
-# Upcoming WeKan ® release
+# v10.59 2026-08-04 WeKan ® release
 
 **In short:** this release closes **LockoutBleed** (GHSA-2g94-9x3m-hv37), a
 reported two-part authentication weakness that chained into account takeover.
@@ -291,7 +291,7 @@ This release fixes the following CRITICAL SECURITY ISSUE of [LockoutBleed](https
 and its REST twin.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ca5f464113bd9489d2ee7511c4327b9e9d11a2d5">The bundled brute-force lockout counts failed logins again instead of silently never firing</a>. Thanks to NinjaGPT and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c3742f2ed7cfeb3dc709997ca9403d3fae5f7188">The bundled brute-force lockout counts failed logins again instead of silently never firing</a>. Thanks to NinjaGPT and xet7.</summary>
 
 WeKan bundles `wekan-accounts-lockout` (default: 3 failures → 60 s lockout), and
 it had been doing nothing at all. Both of its `Accounts.validateLoginAttempt`
@@ -323,7 +323,7 @@ lock is enforced, and that `no-2fa-code` never locks anyone.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ca5f464113bd9489d2ee7511c4327b9e9d11a2d5">A login for a user that does not exist now takes as long as one that does</a>. Thanks to NinjaGPT and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c3742f2ed7cfeb3dc709997ca9403d3fae5f7188">A login for a user that does not exist now takes as long as one that does</a>. Thanks to NinjaGPT and xet7.</summary>
 
 The accounts-password login path runs a bcrypt comparison (~50 ms) only when the
 user exists and has a local password; for a missing user — or an LDAP/OIDC-only
@@ -347,7 +347,7 @@ it never throws.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ca5f464113bd9489d2ee7511c4327b9e9d11a2d5">The REST login endpoint stops naming missing users and throttles password guessing</a>. Thanks to NinjaGPT and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c3742f2ed7cfeb3dc709997ca9403d3fae5f7188">The REST login endpoint stops naming missing users and throttles password guessing</a>. Thanks to NinjaGPT and xet7.</summary>
 
 `POST /users/login` in `server/apiAuthRoutes.js` checks the password directly
 with `Accounts._checkPasswordAsync` and never runs the DDP lockout hooks, so it
@@ -373,7 +373,7 @@ timing equaliser and throttle.
 and has the following release-build fix:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/32dc8f905417f69dae1612ae0b03b518e1bc31e6">Three release-build jobs check the repo out before running the binary pre-check</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3e8c5a89e23c7d51cbe53cde23955aabaf74d635">Three release-build jobs check the repo out before running the binary pre-check</a>. Thanks to xet7.</summary>
 
 The `bash releases/require-binaries.sh` pre-check, wired into the release build
 jobs, needs the repository on disk — but three jobs did not have it there, so
