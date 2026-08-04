@@ -69,8 +69,22 @@ if [ -n "$image" ] && [ -n "$platform" ]; then
     want_arch="$(printf '%s' "$platform" | cut -d/ -f2)"
     if docker manifest inspect "$image" >/tmp/manifest.json 2>/dev/null; then
         if ! grep -q "\"architecture\": *\"${want_arch}\"" /tmp/manifest.json; then
-            echo "::error::${image} publishes no ${platform} image, so a ${arch} bundle cannot be built in a container of its own architecture. Either use a base image that has this platform - debian:trixie covers 386, amd64, arm/v5, arm/v7, arm64, ppc64le, riscv64 and s390x - or drop ${arch} from the matrix."
-            missing=1
+            if [ "$optional" = "true" ]; then
+                # A best-effort arch with no base image for its own CPU (loong64:
+                # node-loong64 and ferretdb-loong64 exist, but no debian/ubuntu
+                # image publishes linux/loong64, so there is no userland to
+                # rebuild the native modules in) is SKIPPED, not failed - exactly
+                # like a best-effort arch with no Node.js. Failing it fails the
+                # whole build-extra-arches matrix job, which SKIPS every job that
+                # needs it (docker, and through docker the charts/ucs/nextcloud
+                # jobs) - so one unbuildable CPU took the Docker image down with
+                # it. It returns on its own when a ${platform} base image exists.
+                echo "::warning::${arch} is skipped this release: ${image} publishes no ${platform} image, so there is no ${arch} userland to build the bundle in. It is best-effort - build node-${arch} exists, but the container does not; it returns when a ${platform} base image is published."
+                skip=1
+            else
+                echo "::error::${image} publishes no ${platform} image, so a ${arch} bundle cannot be built in a container of its own architecture. Either use a base image that has this platform - debian:trixie covers 386, amd64, arm/v5, arm/v7, arm64, ppc64le, riscv64 and s390x - or drop ${arch} from the matrix."
+                missing=1
+            fi
         else
             echo "base image ${image}: has ${platform}"
         fi
@@ -238,7 +252,11 @@ fi
 # failure - and it takes precedence over the FerretDB/mongo checks above, which
 # have nothing to add once there is no Node.js to build with.
 if [ "$skip" -ne 0 ]; then
-    echo "${arch}: skipped (best-effort, no Node.js port yet)."
+    # Set by a best-effort arch that cannot be built this release - no base image
+    # for its CPU (loong64) or no Node.js for it anywhere (i386, armhf). The
+    # ::warning:: above says which; this is the machine-readable signal the
+    # workflow gates its build steps on.
+    echo "${arch}: skipped (best-effort; the warning above says why)."
     printf 'skip=true\n'
     exit 0
 fi

@@ -68,11 +68,19 @@ test('the release job attaches amd64/arm64 with gh release upload, not softprops
 
 // ── 2. Best-effort arch skip ─────────────────────────────────────────────────
 
-test('i386 and armhf are marked best-effort (optional: true)', () => {
+test('the unbuildable arches are marked best-effort (optional: true)', () => {
   const body = job('build-extra-arches');
-  for (const arch of ['i386', 'armhf']) {
-    const m = new RegExp(`- arch: ${arch}\\b[\\s\\S]*?optional: true`);
-    assert.ok(m.test(body), `${arch} must be marked optional: true in the matrix`);
+  // i386/armhf: no Node.js anywhere. loong64: no base image for its CPU. All
+  // three would otherwise fail the whole matrix job and SKIP docker (and the
+  // charts/ucs/nextcloud jobs that need docker).
+  for (const arch of ['i386', 'armhf', 'loong64']) {
+    const re = new RegExp(`- arch: ${arch}\\b[\\s\\S]*?optional: true`);
+    // Bound the match to the arch's own entry (up to the next '- arch:').
+    const start = body.indexOf(`- arch: ${arch}`);
+    assert.notStrictEqual(start, -1, `matrix must have ${arch}`);
+    const entry = body.slice(start, body.indexOf('- arch:', start + 1) === -1
+      ? undefined : body.indexOf('- arch:', start + 1));
+    assert.ok(/optional: true/.test(entry), `${arch} must be marked optional: true in the matrix`);
   }
   // A non-best-effort arch must NOT be optional (a missing Node there is a real
   // failure, not a skip). Isolate riscv64's own matrix entry and check within it.
@@ -120,6 +128,11 @@ test('check-arch-binaries.sh skips a best-effort arch instead of failing', () =>
     'a missing Node for an optional arch must take a different branch');
   assert.ok(/skip=1/.test(checkArch),
     'the optional branch must set skip rather than missing');
+  // BOTH gates skip an optional arch, not just the Node one: the base-image
+  // check (loong64 - no linux/loong64 image) must skip too, not set missing.
+  // Anchor on the image-skip warning (unique to that path); skip=1 follows it.
+  assert.ok(/userland to build the bundle in[\s\S]{0,400}skip=1/.test(checkArch),
+    'a missing BASE IMAGE for an optional arch must skip, not fail the matrix job (loong64 -> docker skip)');
   // The skip is exit 0 and emits skip=true, ahead of the fatal missing gate.
   assert.ok(/if \[ "\$skip" -ne 0 \];[\s\S]*?printf 'skip=true[\s\S]*?exit 0/.test(checkArch),
     'a skipped arch must print skip=true and exit 0 before the missing gate');

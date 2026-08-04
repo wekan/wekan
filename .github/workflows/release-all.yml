@@ -1592,14 +1592,19 @@ jobs:
           # loong64 has NO base image on Docker Hub - not debian, not ubuntu, at
           # any tag - so there is no loong64 userland to rebuild the native
           # modules in. node-loong64 and ferretdb-loong64 both exist; the
-          # container does not. The preflight step stops the job saying exactly
-          # that, and it is left in the matrix so it stays visible on every run
-          # instead of the architecture quietly vanishing from the release.
+          # container does not. It is BEST-EFFORT (optional): the preflight skips
+          # it with a warning instead of failing, because a hard failure here
+          # fails the whole build-extra-arches matrix job and SKIPS every job that
+          # needs it - docker, and through docker charts/ucs/nextcloud - so one
+          # unbuildable CPU took the Docker image down with it. It stays in the
+          # matrix so it is visible on every run (as a skip), and returns to a
+          # real build the day a linux/loong64 base image is published.
           - arch: loong64
             platform: linux/loong64
             image: debian:trixie
             node_arch: loong64
             ferretdb_arch: loong64
+            optional: true
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
