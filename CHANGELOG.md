@@ -339,7 +339,7 @@ names it.)
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b6f2e13e71f14c81a54b2e74a3161d7e24f71a9d">The release job checks out before downloading the bundles, so the checkout stops deleting them</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ea4a7a5eb8fe912d6dbedb4b00b16918da075159">The release job checks out before downloading the bundles, so the checkout stops deleting them</a>. Thanks to xet7.</summary>
 
 The real reason v10.63 (and then v10.64) shipped with no amd64/arm64 bundle was
 not softprops - it was the checkout. The `release` job downloaded the bundles
