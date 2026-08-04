@@ -264,6 +264,42 @@ has not decided on yet (adds a dependency + loosens the XSS sanitizer + needs a
 browser build to verify).
 
 </details>
+# Upcoming WeKan ® release
+
+**In short:** with `linux/386` gone, the multi-arch **Docker image** build got
+past the base image and then failed inside the Dockerfile on **`linux/arm/v7`**
+(armv7l) - the Dockerfile installs Node.js from nodejs.org / unofficial-builds,
+neither of which ships a **Node 24** for armv7l, so its arch case has no `arm`
+branch and the build stopped with *"Unsupported architecture: arm"*. armv7l is
+dropped from the image's platform list, joining 386 and loong64: it ships as a
+`.zip` bundle but not as a Docker image.
+
+This release fixes the following release-build issue:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/370c091cf91ba014a8fde026cac7e8313cd56b76">The Docker image drops linux/arm/v7 too, which its Dockerfile has no Node 24 to install for</a>. Thanks to xet7.</summary>
+
+Removing `linux/386` last release let the multi-arch build get past the
+`ubuntu:26.04` base, and it then failed inside the Dockerfile's RUN step on
+`linux/arm/v7`: *"+ echo Unsupported architecture: arm / + exit 1"*. Docker's
+`TARGETARCH` for `linux/arm/v7` is `arm`, and the Dockerfile's architecture
+`case` handles only amd64/arm64/ppc64le/s390x/riscv64 - it deliberately has no
+`arm` branch, because it installs Node.js from nodejs.org and
+unofficial-builds, and NEITHER ships a Node 24 for armv7l. But `linux/arm/v7`
+was still in the `docker buildx --platform` list, so the RUN reached the
+"Unsupported architecture" guard and the whole build failed. `linux/arm/v7` is
+removed from the build's `--platform` list and from the `want=` list that
+verifies the pushed manifest, joining `linux/386` and `linux/loong64`: all three
+ship as `.zip` bundles (armhf's Node.js comes from the wekan/node fork there)
+but not as Docker images, because the image sources its Node.js from
+nodejs.org/unofficial only. `tests/releaseDockerPlatforms.test.cjs` pins arm/v7
+out of both lists.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.65 2026-08-04 WeKan ® release
 
 **In short:** this release clears the remaining **release-build** failures.
