@@ -1,20 +1,24 @@
 'use strict';
 
-// Plain-Node guard for release-all.yml: the `release` job must not let a later
-// checkout wipe the bundles it just downloaded. Run:
+// Plain-Node guard for release-all.yml: the `release` job must not let its
+// checkout wipe the bundles it downloads. Run:
 //   node tests/releaseBundlesSurviveCheckout.test.cjs
 //
 // The `release` job downloads the per-arch bundles (download-artifact,
-// pattern: bundle-*, merge-multiple) to the workspace root, then attaches them to
-// the GitHub Release with `files: wekan-<version>-<arch>.zip`. It ALSO checks the
-// repo out (for the provenance script). actions/checkout's default clean: true
-// runs `git clean -ffdx`, which DELETES those untracked zips - and because it
-// runs AFTER the download, `files:` then matched nothing. softprops does not fail
-// on unmatched files, so the release was created ("success") with NO BUNDLES, and
-// every downstream job (snap, docker, AppImage) 404'd on wekan-<version>-amd64.zip.
+// pattern: bundle-*, merge-multiple) to the workspace, checks the repo out (for
+// the provenance script), and attaches the base bundles to the GitHub Release.
 //
-// So: in any job that downloads bundle-* AND later checks out, the checkout must
-// set `clean: false` (if it comes before the download instead, that is fine too).
+// The order is what matters, and `clean: false` is NOT enough. The workspace
+// starts empty and is not a git repo, so actions/checkout's FIRST act is
+// "Deleting the contents of '<workspace>'" to make room for a fresh clone - and
+// it does that even with `clean: false` (that flag only skips the `git clean` in
+// an already-checked-out repo). So a checkout placed AFTER "Download all bundles"
+// deletes wekan-<version>-{amd64,arm64}.zip, and the release ships with no base
+// bundles - every downstream job (snap, docker, AppImage) then 404s on
+// wekan-<version>-amd64.zip (v10.63 and v10.64 both failed exactly here).
+//
+// So: the checkout MUST come BEFORE the bundle download, so the bundles land on
+// top of the checked-out tree and survive.
 
 const assert = require('assert');
 const fs = require('fs');
@@ -53,18 +57,19 @@ test('the release job still downloads the bundles and attaches them', () => {
     'attaches the base bundles to the release with gh release upload --clobber');
 });
 
-test('a checkout AFTER the bundle download uses clean: false, or comes before it', () => {
+test('the checkout comes BEFORE the bundle download, so it cannot wipe them', () => {
   const body = job('release');
   const dlIdx = body.indexOf('pattern: bundle-*');
   const coIdx = body.indexOf('actions/checkout@');
   assert.notStrictEqual(coIdx, -1, 'the release job checks the repo out for the provenance script');
-  if (coIdx > dlIdx) {
-    // checkout runs after the bundles are on disk -> it must not clean them away.
-    const coBlock = body.slice(coIdx, coIdx + 200);
-    assert.ok(/clean:\s*false/.test(coBlock),
-      'a checkout after "download bundle-*" MUST set clean: false, or `git clean -ffdx` deletes the bundles and the release ships with none');
-  }
-  // If the checkout comes first, the download lands on top of it - also safe.
+  assert.notStrictEqual(dlIdx, -1, 'the release job downloads the bundle-* artifacts');
+  // clean: false is NOT enough - checkout deletes the workspace contents on its
+  // initial clone regardless. The only safe order is checkout first, then
+  // download the bundles on top of the checked-out tree.
+  assert.ok(coIdx < dlIdx,
+    'actions/checkout must come BEFORE "Download all bundles" (pattern: bundle-*); '
+    + 'a checkout after the download deletes the untracked zips even with clean: false, '
+    + 'and the release ships with no base bundles (v10.63/v10.64 both failed here)');
 });
 
 console.log(`\nreleaseBundlesSurviveCheckout: all ${passed} tests passed`);
