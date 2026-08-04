@@ -1582,9 +1582,11 @@ jobs:
           # and no source builds Node 24 for armv7l, so when their Node.js is
           # absent everywhere the preflight SKIPS them (a warning, exit 0) instead
           # of failing the run - a red job every release for a CPU nothing can
-          # build a Node for is noise. They return on their own the first release
-          # after wekan/node publishes node-i386 / node-armhf. (FerretDB already
-          # ships both, so only Node.js gates them.)
+          # a Node for is noise. They stay best-effort so a future fork hiccup
+          # skips rather than failing the whole matrix (and skipping docker with
+          # it); the wekan/node fork already publishes node-i386 and node-armhf,
+          # so they build real .zip bundles now. (FerretDB ships both too, so only
+          # Node.js gated them.)
           - arch: i386
             platform: linux/386
             image: debian:trixie
@@ -1592,6 +1594,17 @@ jobs:
             ferretdb_arch: i386
             optional: true
           - arch: armhf
+            platform: linux/arm/v7
+            image: debian:trixie
+            node_arch: armv7l
+            ferretdb_arch: armhf
+            optional: true
+          # armv7 is the fork's generic ARMv7 build (node-armv7), a SEPARATE bundle
+          # from armhf (Debian's hard-float node-armhf) - the fork builds both, so
+          # each gets its own .zip. It runs in the same linux/arm/v7 container and
+          # shares FerretDB's armhf binary (FerretDB has no distinct armv7). Best-
+          # effort, like the other 32-bit ARM/x86 bundles.
+          - arch: armv7
             platform: linux/arm/v7
             image: debian:trixie
             node_arch: armv7l

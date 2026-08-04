@@ -77,7 +77,7 @@ test('the arches whose fork Node.js can lag are marked best-effort (optional: tr
   // its CPU. i386/armhf: fork publishes their node now, but they stay best-effort
   // so a future fork hiccup skips instead of failing the whole matrix job and
   // SKIPPING docker (and the charts/ucs/nextcloud jobs that need docker).
-  for (const arch of ['s390x', 'i386', 'armhf', 'loong64']) {
+  for (const arch of ['s390x', 'i386', 'armhf', 'armv7', 'loong64']) {
     // Bound the match to the arch's own entry (up to the next '- arch:').
     const start = body.indexOf(`- arch: ${arch}`);
     assert.notStrictEqual(start, -1, `matrix must have ${arch}`);
