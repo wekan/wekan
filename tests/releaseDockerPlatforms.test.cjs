@@ -47,20 +47,38 @@ const wantLine = body.match(/want="([^"]+)"/);
 assert.ok(wantLine, 'docker job must have a want="..." verification list');
 const wantPlatforms = wantLine[1].split(/\s+/).map(s => s.trim()).filter(Boolean);
 
-test('the base image is ubuntu:26.04 (which has no i386)', () => {
-  assert.ok(/^FROM\s+ubuntu:26\.04/m.test(dockerfile),
-    'Dockerfile base is ubuntu:26.04 - the reason linux/386 cannot be an image');
+test('the base image is debian:trixie (which publishes i386 and arm/v7)', () => {
+  // Debian, not Ubuntu: Ubuntu publishes no linux/386, Debian does - and it
+  // carries every arch this image targets, so one base covers them all.
+  assert.ok(/^FROM\s+debian:trixie/m.test(dockerfile),
+    'Dockerfile base must be debian:trixie - the base that lets linux/386 be an image');
 });
 
-test('linux/386, linux/arm/v7 and linux/loong64 are not in the docker image platforms', () => {
-  // 386: no ubuntu:26.04 base. arm/v7: no Node 24 the Dockerfile can install
-  // (its case has no `arm` branch -> "Unsupported architecture: arm; exit 1").
-  // loong64: registries do not agree on its manifest yet. All ship as .zip only.
-  for (const bad of ['linux/386', 'linux/arm/v7', 'linux/loong64']) {
-    assert.ok(!buildPlatforms.includes(bad),
-      `${bad} must not be in --platform: ubuntu:26.04 (386) / registries (loong64) do not carry it, so the build fails - it ships as a .zip instead`);
-    assert.ok(!wantPlatforms.includes(bad),
-      `${bad} must not be in want=: it is not built as an image, so verifying it would always fail`);
+test('linux/386 and linux/arm/v7 ARE docker platforms; only linux/loong64 is out', () => {
+  // 386 + arm/v7: debian:trixie has the base, and the Dockerfile installs their
+  // Node 24 from the wekan/node fork (node-i386 / node-armhf).
+  for (const need of ['linux/386', 'linux/arm/v7']) {
+    assert.ok(buildPlatforms.includes(need), `${need} must be in --platform`);
+    assert.ok(wantPlatforms.includes(need), `${need} must be in want=`);
+  }
+  // loong64: no Docker base image publishes it and the registries do not agree
+  // on its manifest yet - it ships as a .zip bundle only.
+  assert.ok(!buildPlatforms.includes('linux/loong64'), 'linux/loong64 must not be built as an image');
+  assert.ok(!wantPlatforms.includes('linux/loong64'), 'linux/loong64 must not be verified');
+});
+
+test('the Dockerfile can install Node for every platform it is built for', () => {
+  // Each platform's TARGETARCH must have a branch in the Dockerfile arch case,
+  // or the RUN ends with "Unsupported architecture" (which is how arm/v7 broke
+  // once). Map the docker platform to the TARGETARCH the case switches on.
+  const targetArch = { 'linux/amd64': 'amd64', 'linux/arm64': 'arm64',
+    'linux/ppc64le': 'ppc64le', 'linux/s390x': 's390x', 'linux/riscv64': 'riscv64',
+    'linux/386': '386', 'linux/arm/v7': 'arm' };
+  for (const p of buildPlatforms) {
+    const ta = targetArch[p];
+    assert.ok(ta, `test needs a TARGETARCH mapping for ${p}`);
+    assert.ok(new RegExp(`"${ta}"\\)`).test(dockerfile),
+      `Dockerfile arch case has no "${ta}") branch for ${p} - the RUN would exit "Unsupported architecture"`);
   }
 });
 

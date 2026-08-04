@@ -1,7 +1,12 @@
-FROM ubuntu:26.04
+# debian:trixie (Debian 13), not ubuntu:26.04: Ubuntu publishes no linux/386
+# image, which stopped the image from ever building for i386. Debian ships every
+# arch this image targets - amd64, arm64, 386, arm/v7, ppc64le, riscv64, s390x -
+# so ONE base covers them all, and it is the same base WeKan's per-arch .zip
+# bundles are already built in (releases/... build-extra-arches).
+FROM debian:trixie
 LABEL maintainer="wekan"
-LABEL org.opencontainers.image.ref.name="ubuntu"
-LABEL org.opencontainers.image.version="26.04"
+LABEL org.opencontainers.image.ref.name="debian"
+LABEL org.opencontainers.image.version="trixie"
 LABEL org.opencontainers.image.source="https://github.com/wekan/wekan"
 
 # TARGETARCH and TARGETVARIANT are automatically provided by Docker Buildx
@@ -192,28 +197,64 @@ apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS}
 # unofficial-builds.nodejs.org (nodejs.org ships no riscv64). armv7l is excluded:
 # there is no Node.js 24 build for it anywhere.
 NODE_BASE="official"
+NODE_FORK_ASSET=""
 case "${TARGETARCH}" in
     "amd64")   NODE_ARCH="x64"     WEKAN_ARCH="amd64"   ;;
     "arm64")   NODE_ARCH="arm64"   WEKAN_ARCH="arm64"   ;;
     "ppc64le") NODE_ARCH="ppc64le" WEKAN_ARCH="ppc64le" ;;
     "s390x")   NODE_ARCH="s390x"   WEKAN_ARCH="s390x"   ;;
     "riscv64") NODE_ARCH="riscv64" WEKAN_ARCH="riscv64" NODE_BASE="unofficial" ;;
-    *) echo "Unsupported architecture: ${TARGETARCH}"; exit 1 ;;
+    # 32-bit x86 (linux/386) and 32-bit ARM (linux/arm/v7) have NO Node 24 on
+    # nodejs.org OR unofficial-builds. The wekan/node fork builds them; it ships
+    # a BARE node binary (node-i386 / node-armhf) plus its .sha256sum, not a
+    # tarball, so the install below takes node from the fork and grafts npm from
+    # the official amd64 tarball. Debian's 32-bit ARM port is armhf (ARMv7,
+    # VFPv3-D16), which is what linux/arm/v7 runs, so node-armhf is the match.
+    "386")     WEKAN_ARCH="i386"   NODE_BASE="fork" NODE_FORK_ASSET="node-i386"  ;;
+    "arm")     WEKAN_ARCH="armhf"  NODE_BASE="fork" NODE_FORK_ASSET="node-armhf" ;;
+    *) echo "Unsupported architecture: ${TARGETARCH}${TARGETVARIANT:+/${TARGETVARIANT}}"; exit 1 ;;
 esac
 
-# Node.js installation. Official nodejs.org builds for amd64/arm64/ppc64le/s390x;
-# unofficial-builds.nodejs.org for riscv64 (nodejs.org ships no riscv64 binary).
+# Node.js installation.
+#   official   nodejs.org               amd64/arm64/ppc64le/s390x (a full tarball)
+#   unofficial unofficial-builds.nodejs riscv64 (nodejs.org ships none; a tarball)
+#   fork       github.com/wekan/node    i386, armhf (32-bit x86/ARM, which neither
+#              of the above builds for Node 24). The fork ships a BARE node binary
+#              plus its .sha256sum, so npm - arch-independent JavaScript - is
+#              grafted from the official amd64 tarball of the same version. sha256
+#              is verified in every case: the tarball via SHASUMS256.txt, the fork
+#              binary via its own .sha256sum.
 cd /tmp
-if [ "${NODE_BASE}" = "unofficial" ]; then
-    NODE_DIST="https://unofficial-builds.nodejs.org/download/release/${NODE_VERSION}"
+if [ "${NODE_BASE}" = "fork" ]; then
+    FORK_URL="https://github.com/wekan/node/releases/download/${NODE_VERSION}/${NODE_FORK_ASSET}"
+    wget --tries=20 --waitretry=20 --retry-on-http-error=404,403,500,502,503 -O /usr/local/bin/node "${FORK_URL}"
+    wget --tries=20 --waitretry=20 --retry-on-http-error=404,403,500,502,503 -O fork-node.sha256sum "${FORK_URL}.sha256sum"
+    # The .sha256sum names the released asset; check the installed binary against
+    # the hash it carries.
+    echo "$(awk '{print $1}' fork-node.sha256sum)  /usr/local/bin/node" | sha256sum -c -
+    chmod +x /usr/local/bin/node
+    # npm + npx from the official amd64 tarball (they are JavaScript and run on the
+    # fork's node); extract only those paths, not the amd64 node binary.
+    wget "https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-linux-x64.tar.gz"
+    wget "https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt"
+    grep " node-${NODE_VERSION}-linux-x64.tar.gz\$" SHASUMS256.txt | sha256sum -c -
+    tar xzf "node-${NODE_VERSION}-linux-x64.tar.gz" -C /usr/local --strip-components=1 --no-same-owner \
+        "node-${NODE_VERSION}-linux-x64/lib/node_modules/npm" \
+        "node-${NODE_VERSION}-linux-x64/bin/npm" \
+        "node-${NODE_VERSION}-linux-x64/bin/npx"
+    rm -f fork-node.sha256sum "node-${NODE_VERSION}-linux-x64.tar.gz" SHASUMS256.txt
 else
-    NODE_DIST="https://nodejs.org/dist/${NODE_VERSION}"
+    if [ "${NODE_BASE}" = "unofficial" ]; then
+        NODE_DIST="https://unofficial-builds.nodejs.org/download/release/${NODE_VERSION}"
+    else
+        NODE_DIST="https://nodejs.org/dist/${NODE_VERSION}"
+    fi
+    wget "${NODE_DIST}/node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz"
+    wget "${NODE_DIST}/SHASUMS256.txt"
+    grep " node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz\$" SHASUMS256.txt | sha256sum -c -
+    tar xzf "node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz" -C /usr/local --strip-components=1 --no-same-owner
+    rm -f "node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz" SHASUMS256.txt
 fi
-wget "${NODE_DIST}/node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz"
-wget "${NODE_DIST}/SHASUMS256.txt"
-grep " node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz\$" SHASUMS256.txt | shasum -a 256 -c -
-tar xzf "node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz" -C /usr/local --strip-components=1 --no-same-owner
-rm -f "node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz" SHASUMS256.txt
 ln -s "/usr/local/bin/node" "/usr/local/bin/nodejs"
 
 # NPM configuration
