@@ -317,6 +317,20 @@ returns on its own once the fork publishes it.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/13edf9ed6758fb85da26a7e7c4131682dd2a577c">The native embed resolves the fork's full version from the pinned major</a>. Thanks to xet7.</summary>
+
+The native jobs call `embed-verified-node.sh … node-x64 "$NODE_VERSION"`, but
+`$NODE_VERSION` is the pinned MAJOR, `24`, while the fork tags its releases by
+full version, `v24.19.0`. The helper built
+`…/releases/download/24/node-x64`, which 404s, so the amd64 bundle failed at the
+Node embed step. It now resolves a bare major to the newest fork tag
+`v<major>.x` that carries the asset - the same GitHub-API walk
+`check-arch-binaries.sh` uses - and takes a full tag as given. When no release
+has the asset it stops with a message naming the fork asset to build.
+
+</details>
+
 and adds the following new `.zip` bundles:
 
 **Platform bundles** - every CPU the fork builds a Node.js for gets a bundle.
