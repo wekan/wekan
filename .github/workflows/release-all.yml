@@ -1295,6 +1295,268 @@ jobs:
             echo "::error::build-win64 FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
 
+  # Build win32 (32-bit Windows) bundle.
+  #
+  # BEST-EFFORT, like mac-x64 and the exotic Linux arches: WeKan takes its Node.js
+  # only from the wekan/node fork, and node-win32.exe is one of the binaries the
+  # fork builds on its own schedule (nodejs.org has no 32-bit Windows Node 24 at
+  # all). Until the fork has published node-win32.exe for this version the
+  # preflight SKIPS this job (a warning, not a red failure); it returns on its own
+  # the release after the fork publishes it.
+  #
+  # The runner is 64-bit, but the bundle is 32-bit: setup-node installs a 32-bit
+  # (x86) Node so `npm install` builds ia32 native modules (bcrypt), and the
+  # shipped node.exe is the fork's node-win32.exe.
+  build-win32:
+    needs: [prepare, build-amd64, release]
+    runs-on: windows-latest
+    timeout-minutes: 60
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: refs/tags/v${{ needs.prepare.outputs.version }}
+          path: src
+
+      # A 32-bit Node so the native modules rebuilt below are ia32, matching the
+      # fork's 32-bit node.exe the bundle ships.
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          architecture: x86
+
+      - name: Preflight - is the fork's node-win32.exe published?
+        id: preflight
+        shell: bash
+        run: |
+          set -uo pipefail
+          url="https://github.com/wekan/node/releases/download/${NODE_VERSION}/node-win32.exe"
+          if curl -fsSLI -o /dev/null --retry 3 --retry-delay 5 "$url"; then
+            echo "node-win32.exe for ${NODE_VERSION} is published; building the win32 bundle."
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::win32 is skipped this run because the wekan/node fork has no node-win32.exe for ${NODE_VERSION} yet. It is best-effort and comes back once the fork publishes it."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install 7-zip
+        if: steps.preflight.outputs.skip != 'true'
+        run: choco install -y 7zip
+
+      - name: Download amd64 bundle
+        if: steps.preflight.outputs.skip != 'true'
+        uses: actions/download-artifact@v8
+        with:
+          name: bundle-amd64
+
+      - name: Fix bcrypt for Node.js 24
+        if: steps.preflight.outputs.skip != 'true'
+        shell: bash
+        run: |
+          7z x wekan-${VERSION}-amd64.zip
+          # Drop the Linux node + FerretDB + MongoDB Database Tools + POSIX launcher
+          # inherited from the amd64 base bundle; the Windows node.exe, ferretdb.exe,
+          # *.exe tools and start-wekan.bat are added in later steps.
+          rm -f bundle/node bundle/ferretdb bundle/.ferretdb-default bundle/start-wekan.sh
+          rm -f bundle/bsondump bundle/mongodump bundle/mongoexport bundle/mongofiles \
+                bundle/mongoimport bundle/mongorestore bundle/mongostat bundle/mongotop
+          rm -f bundle/cpu-exec bundle/qemu-x86_64
+          # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
+          # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
+          BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
+          if [ -d "$BCRYPT_DIR" ]; then
+            rm -rf "$BCRYPT_DIR"
+            TMP=$(mktemp -d)
+            pushd "$TMP" > /dev/null
+            npm pack bcrypt@6.0.0
+            mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
+            cd bcrypt && npm install --ignore-scripts && cd ..
+            cp -r bcrypt "$BCRYPT_DIR"
+            popd > /dev/null
+            rm -rf "$TMP"
+          fi
+
+      - name: Rebuild native modules for Windows (32-bit)
+        if: steps.preflight.outputs.skip != 'true'
+        shell: bash
+        run: |
+          cd bundle/programs/server
+          rm -rf node_modules
+          npm install
+
+      - name: Check the binaries the win32 bundle needs exist
+        if: steps.preflight.outputs.skip != 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          bash src/releases/require-binaries.sh 'win32 bundle' \
+            'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win32.exe'
+
+      - name: Add MongoDB Database Tools to the bundle
+        if: steps.preflight.outputs.skip != 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          # MongoDB Database Tools (32-bit Windows) from wekan/mongo-tools; tolerant
+          # (skip any tool not built for win32).
+          BASE="https://github.com/wekan/mongo-tools/releases/latest/download"
+          for tool in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
+            curl -fL --retry 5 --retry-delay 10 -o "bundle/${tool}.exe" "${BASE}/${tool}-win32.exe" \
+              || { rm -f "bundle/${tool}.exe"; echo "No ${tool}-win32.exe; skipping"; }
+          done
+          echo "=== bundle contents ==="
+          ls -1 bundle/
+
+      - name: Embed Node.js, FerretDB (win32) and launcher into the bundle
+        if: steps.preflight.outputs.skip != 'true'
+        shell: bash
+        # Make the Windows .zip self-contained: bundle node.exe (the fork's
+        # node-win32.exe, verified against its .sha256sum), ferretdb.exe
+        # (ferretdb-win32.exe) and start-wekan.bat. FerretDB is tolerant: if its
+        # asset is missing the bundle stays MongoDB-only.
+        run: |
+          node_meta="$(bash src/releases/embed-verified-node.sh bundle/node.exe node-win32.exe "$NODE_VERSION")" \
+            || { echo "::error::Verified Node.js embed failed for win32."; exit 1; }
+          eval "$node_meta"
+          FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win32.exe"
+          if curl -fSL --retry 5 --retry-delay 10 -o bundle/ferretdb.exe "$FERRET_URL"; then
+            echo "Embedded FerretDB win32 -> bundle/ferretdb.exe"
+            if curl -fsSL "${FERRET_URL}.sha256sum" -o /tmp/ferretdb.sha256sum 2>/dev/null; then
+              FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
+              GOT="$(sha256sum bundle/ferretdb.exe | cut -d' ' -f1)"
+              if [ "$GOT" != "$FERRET_SHA" ]; then
+                echo "::error::FerretDB win32 does not match its published SHA256 (published $FERRET_SHA, got $GOT)."
+                exit 1
+              fi
+              echo "FerretDB SHA256 verified: $GOT"
+              echo "FERRET_SHA=$FERRET_SHA" >> "$GITHUB_ENV"
+            else
+              echo "::warning::wekan/FerretDB publishes no checksum for ferretdb-win32.exe on this release, so it is unverified."
+            fi
+          else
+            rm -f bundle/ferretdb.exe
+            echo "No win32 FerretDB asset in the release; Windows bundle stays MongoDB-only."
+          fi
+          cp src/releases/ferretdb/start-wekan.bat bundle/
+          mkdir -p provenance
+          PROVENANCE_FILE=provenance/win32.tsv bash src/releases/record-provenance.sh \
+            'win32' 'Node.js' 'wekan/node' "${node_full:-$NODE_VERSION}" \
+            "https://github.com/wekan/node/releases/download/${node_full:-}/node-win32.exe" \
+            "${node_sha256:-}" || true
+          if [ -s bundle/ferretdb.exe ]; then
+            PROVENANCE_FILE=provenance/win32.tsv bash src/releases/record-provenance.sh \
+              'win32' 'FerretDB' 'wekan/FerretDB' 'latest' \
+              'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win32.exe' \
+              "${FERRET_SHA:-}" || true
+          fi
+          for want in main.js node.exe start-wekan.bat; do
+            if [ ! -s "bundle/$want" ]; then
+              echo "::error::bundle/$want is missing or empty, so the win32 zip cannot start WeKan. The bundle comes from the build job; the lines above say what was copied in."
+              exit 1
+            fi
+          done
+          echo "bundle/ has main.js, node.exe and start-wekan.bat:"
+          ls -la bundle
+
+      - name: Create win32 zip
+        if: steps.preflight.outputs.skip != 'true'
+        shell: cmd
+        run: 7z a wekan-%VERSION%-win32.zip bundle
+
+      - name: Verify the win32 zip
+        if: steps.preflight.outputs.skip != 'true'
+        shell: bash
+        run: |
+          zip="wekan-${VERSION}-win32.zip"
+          if [ ! -f "$zip" ]; then
+            echo "::error::$zip was not created - 7z failed above, or the bundle directory was missing."
+            exit 1
+          fi
+          sha256sum "$zip" > "${zip}.sha256sum"
+          cat "${zip}.sha256sum"
+          bytes=$(wc -c < "$zip")
+          if [ "$bytes" -lt 10000000 ]; then
+            echo "::error::$zip is only $bytes bytes; a whole bundle is tens of megabytes. The bundle directory was empty or partial when it was zipped."
+            exit 1
+          fi
+          if ! 7z t "$zip" > 7z-test.log 2>&1; then
+            echo "::error::$zip did not pass 7z t - the archive is corrupt or truncated."
+            tail -n 30 7z-test.log
+            exit 1
+          fi
+          echo "7z t: archive is intact."
+          7z l -ba "$zip" > zip-listing.txt 2>/dev/null || true
+          entries="$(wc -l < zip-listing.txt)"
+          echo "7z l -ba listed $entries entries; the first five:"
+          head -5 zip-listing.txt || true
+          for want in main.js node.exe; do
+            n="$(grep -F -c -e "bundle\\$want" -e "bundle/$want" zip-listing.txt || true)"
+            echo "  entries matching bundle/$want: $n"
+            if [ "${n:-0}" -eq 0 ]; then
+              echo "::warning::$zip listing shows no bundle/$want, but bundle/$want existed before zipping and the archive passed 7z t. Compare the five listing lines above with what is being searched for."
+            fi
+          done
+          echo "OK: $zip is $((bytes/1024/1024)) MiB, intact, and was built from a bundle that had main.js and node.exe."
+
+      - uses: actions/upload-artifact@v7
+        if: steps.preflight.outputs.skip != 'true'
+        with:
+          name: bundle-win32
+          path: wekan-${{ needs.prepare.outputs.version }}-win32.zip
+          retention-days: 1
+
+      - name: Upload win32 provenance
+        if: steps.preflight.outputs.skip != 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          name: provenance-win32
+          path: provenance/
+          if-no-files-found: ignore
+          retention-days: 1
+
+      - name: Attach win32 bundle to the GitHub Release
+        if: steps.preflight.outputs.skip != 'true'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          asset="wekan-${VERSION}-win32.zip"
+          if [ ! -f "$asset" ]; then
+            echo "::error::$asset does not exist, so there is nothing to attach. The step that builds it failed, or produced a different name."
+            exit 1
+          fi
+          up=("$asset")
+          [ -f "${asset}.sha256sum" ] && up+=("${asset}.sha256sum")
+          if ! gh release upload "v${VERSION}" "${up[@]}" --clobber; then
+            echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
+            exit 1
+          fi
+          gh release view "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
+          if ! grep -qxF "$(basename "$asset")" release-assets.txt; then
+            echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
+            exit 1
+          fi
+          echo "OK: $(basename "$asset") is attached to release v${VERSION} ($(($(wc -c < "$asset")/1024/1024)) MiB)."
+
+      - name: Job result
+        if: always()
+        shell: bash
+        run: |
+          case "${{ job.status }}" in
+            success)   mark='OK       ' ;;
+            failure)   mark='FAILED   ' ;;
+            cancelled) mark='CANCELLED' ;;
+            *)         mark='${{ job.status }}' ;;
+          esac
+          echo "$mark build-win32"
+          echo "$mark build-win32" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ job.status }}" = "failure" ]; then
+            echo "::error::build-win32 FAILED. The ::error:: line in this job's log, above, says which step and why."
+          fi
+
   # Build mac-arm64 bundle (rebuild native modules on Apple Silicon).
   build-mac-arm64:
     needs: [prepare, build-amd64, release]
@@ -1516,24 +1778,238 @@ jobs:
             echo "::error::build-mac-arm64 FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
 
+  # Build mac-x64 bundle (rebuild native modules on an Intel Mac runner).
+  #
+  # BEST-EFFORT, like win32 and the exotic Linux arches: WeKan takes its Node.js
+  # only from the wekan/node fork, and the fork builds node-mac-x64 on its own
+  # schedule. Until it has published node-mac-x64 for this version, the preflight
+  # step SKIPS this job (a warning, not a red failure) and it returns on its own
+  # the release after the fork publishes it.
+  build-mac-x64:
+    needs: [prepare, build-amd64, release]
+    runs-on: macos-13   # macos-13 runners are Intel (x86_64); macos-14+ are arm64
+    timeout-minutes: 60
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: refs/tags/v${{ needs.prepare.outputs.version }}
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      # Does the fork publish node-mac-x64 for this version yet? WeKan's Node.js
+      # comes only from the fork, so if it has not built this binary there is
+      # nothing to ship and the job SKIPS rather than failing. Every build step
+      # below is gated on skip != 'true'.
+      - name: Preflight - is the fork's node-mac-x64 published?
+        id: preflight
+        run: |
+          set -uo pipefail
+          url="https://github.com/wekan/node/releases/download/${NODE_VERSION}/node-mac-x64"
+          if curl -fsSLI -o /dev/null --retry 3 --retry-delay 5 "$url"; then
+            echo "node-mac-x64 for ${NODE_VERSION} is published; building the mac-x64 bundle."
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::mac-x64 is skipped this run because the wekan/node fork has no node-mac-x64 for ${NODE_VERSION} yet. It is best-effort and comes back once the fork publishes it."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Download amd64 bundle
+        if: steps.preflight.outputs.skip != 'true'
+        uses: actions/download-artifact@v8
+        with:
+          name: bundle-amd64
+
+      - name: Rebuild native modules for macOS x64
+        if: steps.preflight.outputs.skip != 'true'
+        run: |
+          unzip -q wekan-${VERSION}-amd64.zip
+          # Replace the Linux node + FerretDB + MongoDB Database Tools inherited from
+          # the amd64 base bundle with the macOS builds (added below). The POSIX
+          # launcher start-wekan.sh works on macOS, so keep it.
+          rm -f bundle/node bundle/ferretdb bundle/.ferretdb-default
+          # Linux-only cpu-exec + qemu-user (#6458) make no sense on macOS.
+          rm -f bundle/cpu-exec bundle/qemu-x86_64
+          rm -f bundle/bsondump bundle/mongodump bundle/mongoexport bundle/mongofiles \
+                bundle/mongoimport bundle/mongorestore bundle/mongostat bundle/mongotop
+          # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
+          # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
+          BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
+          if [ -d "$BCRYPT_DIR" ]; then
+            rm -rf "$BCRYPT_DIR"
+            TMP=$(mktemp -d)
+            pushd "$TMP" > /dev/null
+            npm pack bcrypt@6.0.0
+            mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
+            cd bcrypt && npm install --ignore-scripts && cd ..
+            cp -a bcrypt "$BCRYPT_DIR"
+            popd > /dev/null
+            rm -rf "$TMP"
+          fi
+          cd bundle/programs/server
+          rm -rf node_modules
+          npm install
+          cd ../../..
+
+      - name: Check the binaries the mac-x64 bundle needs exist
+        if: steps.preflight.outputs.skip != 'true'
+        run: |
+          set -euo pipefail
+          bash releases/require-binaries.sh 'mac-x64 bundle' \
+            'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-mac-amd64'
+
+      - name: Embed Node.js + FerretDB (mac-x64) into the bundle
+        if: steps.preflight.outputs.skip != 'true'
+        # Bundle the macOS x64 Node.js from the wekan/node fork (node-mac-x64,
+        # verified against its .sha256sum) and the macOS FerretDB binary
+        # (ferretdb-mac-amd64). FerretDB is tolerant: if its asset is missing the
+        # bundle stays MongoDB-only (start-wekan.sh then won't find ferretdb).
+        run: |
+          node_meta="$(bash releases/embed-verified-node.sh bundle/node node-mac-x64 "$NODE_VERSION")" \
+            || { echo "::error::Verified Node.js embed failed for mac-x64."; exit 1; }
+          eval "$node_meta"
+          FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-mac-amd64"
+          if curl -fSL --retry 5 --retry-delay 10 -o bundle/ferretdb "$FERRET_URL"; then
+            chmod +x bundle/ferretdb
+            echo "Embedded FerretDB mac-amd64 -> bundle/ferretdb"
+            if curl -fsSL "${FERRET_URL}.sha256sum" -o /tmp/ferretdb.sha256sum 2>/dev/null; then
+              FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
+              GOT="$(shasum -a 256 bundle/ferretdb | cut -d' ' -f1)"   # macOS has no sha256sum
+              if [ "$GOT" != "$FERRET_SHA" ]; then
+                echo "::error::FerretDB mac-amd64 does not match its published SHA256 (published $FERRET_SHA, got $GOT)."
+                exit 1
+              fi
+              echo "FerretDB SHA256 verified: $GOT"
+              echo "FERRET_SHA=$FERRET_SHA" >> "$GITHUB_ENV"
+            else
+              echo "::warning::wekan/FerretDB publishes no checksum for ferretdb-mac-amd64 on this release, so it is unverified."
+            fi
+          else
+            rm -f bundle/ferretdb
+            echo "No mac-amd64 FerretDB asset in the release; macOS bundle stays MongoDB-only."
+            rm -f bundle/start-wekan.sh
+          fi
+          # Where this bundle's binaries came from, for the release notes.
+          mkdir -p provenance
+          PROVENANCE_FILE=provenance/mac-x64.tsv bash releases/record-provenance.sh \
+            'mac-x64' 'Node.js' 'wekan/node' "${node_full:-$NODE_VERSION}" \
+            "https://github.com/wekan/node/releases/download/${node_full:-}/node-mac-x64" \
+            "${node_sha256:-}" || true
+          if [ -s bundle/ferretdb ]; then
+            PROVENANCE_FILE=provenance/mac-x64.tsv bash releases/record-provenance.sh \
+              'mac-x64' 'FerretDB' 'wekan/FerretDB' 'latest' \
+              'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-mac-amd64' \
+              "${FERRET_SHA:-}" || true
+          fi
+          # macOS MongoDB Database Tools (mac-x64) from wekan/mongo-tools; tolerant
+          # (skip any tool not built for this arch).
+          MT="https://github.com/wekan/mongo-tools/releases/latest/download"
+          for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
+            curl -fSL --retry 5 --retry-delay 10 -o "bundle/$t" "$MT/$t-mac-x64" \
+              && chmod +x "bundle/$t" || { rm -f "bundle/$t"; echo "No $t-mac-x64; skipping"; }
+          done
+
+      - name: Create mac-x64 zip
+        if: steps.preflight.outputs.skip != 'true'
+        run: |
+          zip -r wekan-${VERSION}-mac-x64.zip bundle
+          shasum -a 256 "wekan-${VERSION}-mac-x64.zip" > "wekan-${VERSION}-mac-x64.zip.sha256sum"
+          cat "wekan-${VERSION}-mac-x64.zip.sha256sum"
+          zip="wekan-${VERSION}-mac-x64.zip"
+          if [ ! -f "$zip" ]; then
+            echo "::error::$zip was not created. The build step above produced no bundle - its log says why."
+            exit 1
+          fi
+          bytes=$(wc -c < "$zip")
+          if [ "$bytes" -lt 10000000 ]; then
+            echo "::error::$zip is only $bytes bytes; a whole bundle is tens of megabytes. The bundle directory was empty or partial when it was zipped."
+            exit 1
+          fi
+          unzip -l "$zip" > zip-listing.txt
+          for want in bundle/main.js bundle/node; do
+            if ! grep -q " $want$" zip-listing.txt; then
+              echo "::error::$zip has no $want, so it cannot start WeKan. The embed step above did not put it into the bundle."
+              exit 1
+            fi
+          done
+          echo "OK: $zip is $((bytes/1024/1024)) MiB and contains bundle/main.js and bundle/node."
+
+      - uses: actions/upload-artifact@v7
+        if: steps.preflight.outputs.skip != 'true'
+        with:
+          name: bundle-mac-x64
+          path: wekan-${{ needs.prepare.outputs.version }}-mac-x64.zip
+          retention-days: 1
+
+      - name: Upload mac-x64 provenance
+        if: steps.preflight.outputs.skip != 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          name: provenance-mac-x64
+          path: provenance/
+          if-no-files-found: ignore
+          retention-days: 1
+
+      - name: Attach mac-x64 bundle to the GitHub Release
+        if: steps.preflight.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          asset="wekan-${VERSION}-mac-x64.zip"
+          if [ ! -f "$asset" ]; then
+            echo "::error::$asset does not exist, so there is nothing to attach. The step that builds it failed, or produced a different name."
+            exit 1
+          fi
+          up=("$asset")
+          [ -f "${asset}.sha256sum" ] && up+=("${asset}.sha256sum")
+          if ! gh release upload "v${VERSION}" "${up[@]}" --clobber; then
+            echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
+            exit 1
+          fi
+          gh release view "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
+          if ! grep -qxF "$(basename "$asset")" release-assets.txt; then
+            echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
+            exit 1
+          fi
+          echo "OK: $(basename "$asset") is attached to release v${VERSION} ($(($(wc -c < "$asset")/1024/1024)) MiB)."
+
+      - name: Job result
+        if: always()
+        shell: bash
+        run: |
+          case "${{ job.status }}" in
+            success)   mark='OK       ' ;;
+            failure)   mark='FAILED   ' ;;
+            cancelled) mark='CANCELLED' ;;
+            *)         mark='${{ job.status }}' ;;
+          esac
+          echo "$mark build-mac-x64"
+          echo "$mark build-mac-x64" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ job.status }}" = "failure" ]; then
+            echo "::error::build-mac-x64 FAILED. The ::error:: line in this job's log, above, says which step and why."
+          fi
+
   # Extra-architecture Linux bundles — every Linux arch wekan/FerretDB builds for
   # that has NO MongoDB server, so they ship FerretDB v1 as their database.
   #
-  # Each one needs a Node.js 24 for its CPU, and there are three places one can
-  # come from. They are tried IN ORDER, by the resolver in the build step below,
-  # and the log says which one served:
+  # Each one needs a Node.js 24 for its CPU, and it comes from ONE place: the
+  # wekan/node fork (https://github.com/wekan/node/releases). WeKan takes its
+  # Node.js only from the fork - it is Node built from source, so a Node bug can
+  # be patched and rebuilt - with no nodejs.org/unofficial-builds fallback; the
+  # preflight (check-arch-binaries.sh) finds the newest fork build for this CPU
+  # and verifies it against its .sha256sum. The fork also covers the CPUs nobody
+  # else builds at all (i386, armhf/armv7, loong64), so it fits every arch here.
   #
-  #   1. https://nodejs.org/dist/<version>/                    (official)
-  #   2. https://unofficial-builds.nodejs.org/download/release/ (unofficial)
-  #   3. https://github.com/wekan/node/releases                 (this project's
-  #      fork, built by node.yml in the wekan/node repo for the platforms the
-  #      first two do not publish at all: i386, armhf/armv7, loong64)
-  #
-  # An arch is listed here only when one of those three has a runtime for it. The
-  # one FerretDB target deliberately absent is armel (ARMv5, soft-float): V8 has
-  # not supported ARMv5 for many years - nobody publishes a Node.js for it and
-  # this fork cannot build one either - so there would be nothing to run the
-  # bundle with. See docs/Design/Autoupdate/Platforms.md.
+  # An arch is listed here only when the fork has (or will have) a node-<arch> for
+  # it. The one FerretDB target deliberately absent is armel (ARMv5, soft-float):
+  # V8 has not supported ARMv5 for many years - nobody, this fork included, can
+  # build a Node.js for it - so there would be nothing to run the bundle with. See
+  # docs/Design/Autoupdate/Platforms.md.
   build-extra-arches:
     needs: [prepare, build-amd64, release]
     runs-on: ubuntu-24.04
@@ -3338,7 +3814,9 @@ jobs:
       - build-amd64
       - build-arm64
       - build-win64
+      - build-win32
       - build-mac-arm64
+      - build-mac-x64
       - build-extra-arches
     if: ${{ always() && needs.release.result == 'success' }}
     runs-on: ubuntu-24.04

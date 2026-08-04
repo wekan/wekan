@@ -59,7 +59,9 @@ test('extra arches (ppc64le/s390x/riscv64) bundle their own-arch qemu, tolerantl
 
 test('negative: Windows and macOS bundles strip the Linux-only cpu-exec + qemu', () => {
   const strips = releaseAll.match(/rm -f bundle\/cpu-exec bundle\/qemu-x86_64/g) || [];
-  assert.strictEqual(strips.length, 2, 'one strip in build-win64, one in build-mac-arm64');
+  // Four non-Linux bundles: build-win64, build-win32, build-mac-arm64, build-mac-x64.
+  assert.strictEqual(strips.length, 4,
+    'one strip in each of build-win64, build-win32, build-mac-arm64 and build-mac-x64');
 });
 
 test('the qemu-user-static build dependency is installed where bundles are built', () => {

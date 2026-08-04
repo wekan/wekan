@@ -266,7 +266,7 @@ test('every platform is in all the places that build it', () => {
   const extra = wf.slice(wf.indexOf('  build-extra-arches:'));
   const matrix = extra.slice(0, extra.indexOf('    steps:'));
   const bundles = [...matrix.matchAll(/^ +- arch: (\S+)$/gm)].map(m => m[1]);
-  assert.deepStrictEqual(bundles, ['s390x', 'ppc64le', 'riscv64', 'i386', 'armhf', 'loong64'],
+  assert.deepStrictEqual(bundles, ['s390x', 'ppc64le', 'riscv64', 'i386', 'armhf', 'armv7', 'loong64'],
     'the non-native Linux bundles');
 
   // Every one of them names all three things it needs, and they are distinct
@@ -300,6 +300,15 @@ test('every platform is in all the places that build it', () => {
       assert.ok(!snapPlatforms.includes('i386'),
         'i386 is not a snap platform (core24 has no i386 port)');
       assert.ok(!lpArches.includes('i386'), 'i386 is not built on Launchpad');
+      continue;
+    }
+    if (arch === 'armv7') {
+      // armv7 has its OWN bundle (the fork's node-armv7) but no separate snap:
+      // the snap's 32-bit ARM platform is armhf, so armv7 is neither a snap
+      // platform nor a Launchpad arch of its own - it is a .zip bundle only.
+      assert.ok(!snapPlatforms.includes('armv7'),
+        'armv7 is not a snap platform (armhf is the snap 32-bit ARM)');
+      assert.ok(!lpArches.includes('armv7'), 'armv7 is not built on Launchpad');
       continue;
     }
     assert.ok(snapPlatforms.includes(toSnap(arch)), `${arch} must be a snap platform`);
