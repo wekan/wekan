@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Session } from 'meteor/session';
+import { Tracker } from 'meteor/tracker';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 // The per-pane URLs of the Admin Panel. docs/Design/Page/Admin-Panel-URLs.md
 import { adminPath } from '/models/lib/adminUrls';
@@ -230,22 +231,52 @@ Template.adminReports.onCreated(function () {
   // it after the login would do nothing at all - hence the second branch, which
   // re-subscribes the report that is already open now that there is a user to
   // subscribe as.
+  //
+  // The ONLY two things that may re-run this autorun are the pane id and the
+  // user - read reactively, above the nonreactive body. Everything the body
+  // touches (activeReport, and the count/page/search that loadReport reads
+  // through pageInfo) is read INSIDE Tracker.nonreactive, on purpose:
+  //
+  //   1. loadReport() calls its count method and then cfg.count.set(...). If the
+  //      autorun depended on cfg.count, that set would re-run it - and a
+  //      Meteor.subscribe made inside an autorun is AUTO-CANCELLED when the
+  //      autorun re-runs. The re-run then took the `else if` (same user, same
+  //      pane), did NOT re-subscribe, and left the report with no subscription
+  //      at all: "attachments in minimongo: 0", the empty table over data that
+  //      was plainly there. From the menu it worked only because switchMenu
+  //      calls openReportPane from an EVENT, not a computation, so that
+  //      subscribe was never auto-managed. By URL it was, which is why only the
+  //      address failed.
+  //   2. The subscription's lifetime is ours to manage (loadReport stops the
+  //      previous one; onDestroyed below stops the last), not the autorun's, so
+  //      it must not be created inside this computation's reactive scope.
   this.autorun(() => {
     const paneId = Session.get('problemsOpenPane');
     const userId = Meteor.userId();
-    if (!paneId) {
-      return;
-    }
-    if (paneId !== this.activeReport.get()) {
-      openReportPane(this, paneId);
-      this.subscribedAs = userId;
-    } else if (userId !== this.subscribedAs) {
-      this.subscribedAs = userId;
-      if (reportConfig(this)[paneId]) {
-        this.loadReport(paneId, { recount: true });
+    Tracker.nonreactive(() => {
+      if (!paneId) {
+        return;
       }
-    }
+      if (paneId !== this.activeReport.get()) {
+        openReportPane(this, paneId);
+        this.subscribedAs = userId;
+      } else if (userId !== this.subscribedAs) {
+        this.subscribedAs = userId;
+        if (reportConfig(this)[paneId]) {
+          this.loadReport(paneId, { recount: true });
+        }
+      }
+    });
   });
+});
+
+// The report subscription is created OUTSIDE a reactive computation now (see the
+// autorun above), so the autorun no longer tears it down - this does, when the
+// panel is left.
+Template.adminReports.onDestroyed(function () {
+  if (this.subscription) {
+    this.subscription.stop();
+  }
 });
 
 // The Problems side menu, as data (docs/Design/Page/Left-Menu.md). Every entry
