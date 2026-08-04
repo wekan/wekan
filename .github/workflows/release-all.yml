@@ -854,10 +854,19 @@ jobs:
           merge-multiple: true
 
       - name: Compose the release notes, provenance first
+        # CHANGELOG goes through the environment, NOT inline `${{ }}` in the
+        # script. Interpolated into the run: text it becomes part of the shell
+        # source, so a backtick in an entry (every `code` span - and this release
+        # is full of them) runs as a command: the v10.59 notes turned into
+        # "Incorrect: command not found", "loginFailureDecision.js: Permission
+        # denied", and the release job failed. As "$CHANGELOG", the value is
+        # data the shell never parses, so backticks, $(), quotes stay literal.
+        env:
+          CHANGELOG: ${{ needs.prepare.outputs.changelog }}
         run: |
           set -euo pipefail
           bash releases/provenance-table.sh > release-notes.md || true
-          printf '%s\n' "${{ needs.prepare.outputs.changelog }}" >> release-notes.md
+          printf '%s\n' "$CHANGELOG" >> release-notes.md
           echo "----- release notes -----"
           head -40 release-notes.md
 
@@ -3050,15 +3059,19 @@ jobs:
           merge-multiple: true
 
       - name: Rewrite the notes with every bundle in the table
+        # CHANGELOG through the environment, not inline `${{ }}`: interpolated
+        # into the script a backtick in an entry runs as a command. See the
+        # "Compose the release notes" step for the full story.
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERSION: ${{ needs.prepare.outputs.version }}
+          CHANGELOG: ${{ needs.prepare.outputs.changelog }}
         run: |
           set -euo pipefail
           rows=$(find provenance -name '*.tsv' 2>/dev/null | wc -l)
           echo "Provenance files collected: $rows"
           bash releases/provenance-table.sh > release-notes.md || true
-          printf '%s\n' "${{ needs.prepare.outputs.changelog }}" >> release-notes.md
+          printf '%s\n' "$CHANGELOG" >> release-notes.md
           gh release edit "v${VERSION}" --notes-file release-notes.md
           echo "Release notes updated with the provenance of every bundle built."
           head -40 release-notes.md
