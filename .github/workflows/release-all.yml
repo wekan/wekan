@@ -673,6 +673,16 @@ jobs:
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
+      # Without a checkout the repo scripts this job runs -
+      # releases/require-binaries.sh (and releases/record-provenance.sh below) -
+      # are not on disk, and the "Check the binaries ..." step dies with exit 127
+      # ("releases/require-binaries.sh: No such file or directory"). Check out
+      # first, before download-artifact drops the bundle into the same workspace,
+      # so the scripts are present at the repo root the calls expect.
+      - uses: actions/checkout@v7
+        with:
+          ref: refs/tags/v${{ needs.prepare.outputs.version }}
+
       - name: Install dependencies
         run: |
           sudo apt-get update
@@ -961,7 +971,10 @@ jobs:
       - name: Check the binaries the win64 bundle needs exist
         run: |
           set -euo pipefail
-          bash releases/require-binaries.sh 'win64 bundle' \
+          # This job checks the repo out into src/ (see the checkout step above),
+          # so the script lives at src/releases/, not the workspace root - the
+          # same path the start-wekan.bat copy below uses.
+          bash src/releases/require-binaries.sh 'win64 bundle' \
             'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win64.exe'
 
       - name: Add MongoDB Database Tools to the bundle
@@ -1143,6 +1156,14 @@ jobs:
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
+      # Without a checkout releases/require-binaries.sh is not on disk and the
+      # "Check the binaries ..." step dies with exit 127. Check out first, before
+      # download-artifact drops the bundle into the same workspace, so the script
+      # is present at the repo root the call expects.
+      - uses: actions/checkout@v7
+        with:
+          ref: refs/tags/v${{ needs.prepare.outputs.version }}
+
       - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
