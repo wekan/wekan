@@ -266,12 +266,14 @@ browser build to verify).
 </details>
 # v10.65 2026-08-04 WeKan ® release
 
-**In short:** this release clears two remaining **release-build** failures.
+**In short:** this release clears the remaining **release-build** failures.
 **loong64** has no `linux/loong64` base image to build its bundle in, so its
 build job failed - and because the **docker** job waits on the whole
 `build-extra-arches` matrix, that one failed leg **skipped docker**, and with it
 the **charts, ucs and nextcloud** jobs; loong64 is now **best-effort** like
-**i386** and **armhf**, skipped with a warning instead of failing. And the
+**i386** and **armhf**, skipped with a warning instead of failing. With docker
+running again, it then dropped **linux/386** from the multi-arch image, which
+its **ubuntu:26.04** base cannot provide. And the
 **Launchpad** snap builds (**ppc64el, s390x, riscv64, armhf**) could not push
 WeKan's large history to `git.launchpad.net` and timed out mid-upload; the
 repository is flattened to a single commit before the push now, so it fits.
@@ -302,6 +304,25 @@ matrix job succeeds and docker runs; loong64 stays visible on every run as a
 skip, and returns to a real build the day a `linux/loong64` base image is
 published. `tests/releaseArchSkipAndBaseAttach.test.cjs` pins loong64 as
 best-effort and that the base-image gate skips it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/160c3eb6c0a9726657af1e5413d7cb961f5df03b">The Docker image drops linux/386, which its ubuntu:26.04 base cannot provide</a>. Thanks to xet7.</summary>
+
+With loong64 no longer skipping `build-extra-arches`, the `docker` job ran again
+for the first time in a while and failed at the base image: *"ubuntu:26.04:
+failed to resolve source metadata ... no match for platform in manifest"*. The
+image is `FROM ubuntu:26.04`, and Ubuntu publishes no i386 image, so `docker
+buildx build --platform ...,linux/386,...` cannot resolve the base for that one
+platform and the whole multi-arch build stops - the workflow's own bundle-build
+comment already notes that `docker run --platform linux/386 ubuntu:26.04`
+answers "no matching manifest". `linux/386` is removed from the build's
+`--platform` list and from the `want=` list that verifies the pushed manifest,
+exactly as `linux/loong64` already was: i386 ships as a `.zip` bundle (built on
+debian:trixie, which has 386) but not as a Docker image.
+`tests/releaseDockerPlatforms.test.cjs` pins that 386 and loong64 are out of
+both lists, that the two lists match, and that the base is ubuntu:26.04.
 
 </details>
 
