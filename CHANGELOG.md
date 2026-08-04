@@ -322,6 +322,24 @@ that the checkout stays full-depth.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/646c5db79d450bfd5ff403e4d0e4fae443671794">A Launchpad snap failure no longer blames the licence when it is already set</a>. Thanks to xet7.</summary>
+
+The Launchpad project the remote builds file under
+([xet7-craft-remote-build](https://launchpad.net/xet7-craft-remote-build)) is
+set to MIT / X/Expat, but the `snap-launchpad` failure hint printed *"check its
+Licence, 'None specified' ... set the licence to MIT"* on EVERY failure - so an
+s390x build that Launchpad had *Stopped* for another reason read as a licence
+problem that was already fixed, and the search went to a correct setting. The
+hint now says the licence should already be MIT (re-set it only if the page
+shows "None specified") and, for the real remaining case, explains that a
+*Stopped* build whose log is `BUILDING` (not `FAILED`) and ends mid-step is
+Launchpad cancelling the build as it runs - typically an out-of-memory in the
+memory-heavy Meteor `npm install`, or a transient build-farm reset, both of
+which the three retries already cover.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
