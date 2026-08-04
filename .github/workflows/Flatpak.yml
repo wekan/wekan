@@ -264,9 +264,13 @@ jobs:
           mkdir -p dist
           flatpak build-bundle repo "dist/${name}.flatpak" \
             --arch='${{ matrix.flatpak_arch }}' io.github.wekan.WeKan stable
+          # Checksum keeps the .flatpak extension in its name, matching the zip
+          # convention and what releases/expected-assets.sh looks for; dropping it
+          # meant "what is missing" never found the checksum and rebuilt the
+          # Flatpak every run even when already published.
           ( cd dist
-            md5sum    "${name}.flatpak" > "${name}.md5sum"
-            sha256sum "${name}.flatpak" > "${name}.sha256sum" )
+            md5sum    "${name}.flatpak" > "${name}.flatpak.md5sum"
+            sha256sum "${name}.flatpak" > "${name}.flatpak.sha256sum" )
           ls -lh dist
 
       - uses: actions/upload-artifact@v4

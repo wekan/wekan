@@ -261,9 +261,14 @@ jobs:
             ./appimagetool AppDir "dist/${name}.AppImage"
 
           chmod +x "dist/${name}.AppImage"
+          # Checksum keeps the .AppImage extension in its name, matching the zip
+          # convention (wekan-<v>-<arch>.zip.sha256sum) and what
+          # releases/expected-assets.sh looks for. Naming it ${name}.sha256sum
+          # (extension dropped) meant "what is missing" never found the checksum,
+          # so every run rebuilt the AppImage even when it was already published.
           ( cd dist
-            md5sum    "${name}.AppImage" > "${name}.md5sum"
-            sha256sum "${name}.AppImage" > "${name}.sha256sum" )
+            md5sum    "${name}.AppImage" > "${name}.AppImage.md5sum"
+            sha256sum "${name}.AppImage" > "${name}.AppImage.sha256sum" )
           ls -lh dist
 
       - name: Check that it starts
