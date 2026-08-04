@@ -35,7 +35,40 @@ set -euo pipefail
 
 dest="${1:?dest path is required}"
 asset="${2:?fork asset name is required (e.g. node-x64)}"
-version="${3:?version is required (e.g. v24.19.0)}"
+version="${3:?version is required (a full tag v24.19.0, or a bare major 24)}"
+
+# The caller passes the pinned Node MAJOR ($NODE_VERSION is '24'), but the fork
+# tags its releases by full version (v24.19.0). Resolve a bare major to the newest
+# fork tag v<major>.x that actually carries this asset; a full tag (with or
+# without the leading v) is used as given. Without this the URL would be
+# .../releases/download/24/node-x64 , which 404s.
+case "$version" in
+    v[0-9]*.[0-9]*.[0-9]*) : ;;                       # already a full tag
+    [0-9]*.[0-9]*.[0-9]*)  version="v$version" ;;     # full version, add the v
+    [0-9]*)                                            # a bare major - resolve it
+        gh_auth=()
+        [ -n "${GITHUB_TOKEN:-}" ] && gh_auth=(-H "Authorization: Bearer ${GITHUB_TOKEN}")
+        releases_json="$(curl -fsSL "${gh_auth[@]}" \
+            "https://api.github.com/repos/wekan/node/releases?per_page=100" 2>/dev/null || true)"
+        resolved="$(printf '%s' "$releases_json" | python3 -c "
+import json,sys
+major='v${version}.'
+asset='${asset}'
+def key(t):
+    try: return [int(x) for x in t.lstrip('v').split('.')[:3]]
+    except Exception: return [0,0,0]
+tags=[r['tag_name'] for r in json.load(sys.stdin)
+      if r.get('tag_name','').startswith(major)
+      and any(a.get('name')==asset for a in r.get('assets',[]))]
+print(sorted(set(tags), key=key, reverse=True)[0] if tags else '')
+" 2>/dev/null || true)"
+        if [ -z "$resolved" ]; then
+            echo "::error::The wekan/node fork has no '${asset}' in any ${version}.x release. WeKan takes its Node.js only from the fork, so build ${asset} in wekan/node (the release-all-missing workflow) and attach it to a v${version}.x release, then re-run." >&2
+            exit 1
+        fi
+        version="$resolved"
+        ;;
+esac
 
 fork_url="https://github.com/wekan/node/releases/download/${version}/${asset}"
 
