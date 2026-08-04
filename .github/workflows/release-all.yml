@@ -2267,11 +2267,24 @@ jobs:
           want="linux/amd64 linux/arm64 linux/ppc64le linux/s390x linux/riscv64 linux/386 linux/arm/v7"
           rc=0
           for image in "wekanteam/wekan:v${VERSION}" "quay.io/wekan/wekan:v${VERSION}" "ghcr.io/wekan/wekan:v${VERSION}"; do
-            if ! got="$(docker buildx imagetools inspect "$image" --format '{{range .Manifest.Manifests}}{{.Platform.OS}}/{{.Platform.Architecture}} {{end}}' 2>&1)"; then
+            # The format MUST carry the CPU variant. buildx builds linux/arm/v7,
+            # but the registry records that as architecture "arm" with variant
+            # "v7" in a SEPARATE field - so an OS/Architecture-only format prints
+            # it as bare "linux/arm", which never matches the "linux/arm/v7" in
+            # want=, and the verify failed a manifest that was actually correct
+            # (the whole image built and pushed fine; only this check was wrong).
+            # Emit os/arch/variant when a variant is present so 32-bit ARM reads
+            # back as linux/arm/v7. arm64's implied "v8" is then normalised away
+            # below, because want= names it linux/arm64, the way everyone writes it.
+            if ! got="$(docker buildx imagetools inspect "$image" --format '{{range .Manifest.Manifests}}{{.Platform.OS}}/{{.Platform.Architecture}}{{if .Platform.Variant}}/{{.Platform.Variant}}{{end}} {{end}}' 2>&1)"; then
               echo "::error::$image cannot be inspected after the push: $got - the tag did not reach that registry."
               rc=1
               continue
             fi
+            # arm64's default variant v8 is implied and usually written linux/arm64;
+            # strip a trailing /v8 so it matches want= (linux/arm/v7 and v6 stay,
+            # because for 32-bit ARM the variant is what tells the CPUs apart).
+            got="$(printf '%s' "$got" | sed 's#/v8 # #g')"
             for plat in $want; do
               case " $got " in
                 *" $plat "*) ;;

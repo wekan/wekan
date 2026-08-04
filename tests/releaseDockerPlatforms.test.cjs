@@ -47,6 +47,23 @@ const wantLine = body.match(/want="([^"]+)"/);
 assert.ok(wantLine, 'docker job must have a want="..." verification list');
 const wantPlatforms = wantLine[1].split(/\s+/).map(s => s.trim()).filter(Boolean);
 
+test('the manifest verify reads the CPU variant, so linux/arm/v7 is not misread as linux/arm', () => {
+  // The whole image built and pushed for all seven platforms; the verify step
+  // then FAILED it, because its imagetools --format printed only OS/Architecture.
+  // buildx builds linux/arm/v7 but the registry records architecture "arm" with
+  // variant "v7" in a SEPARATE field, so the format printed bare "linux/arm",
+  // which never matched the "linux/arm/v7" in want=. The format must include the
+  // variant, and normalise arm64's implied /v8 away (want= writes it linux/arm64).
+  assert.ok(/\{\{if \.Platform\.Variant\}\}\/\{\{\.Platform\.Variant\}\}\{\{end\}\}/.test(body),
+    'docker verify --format must append /{{.Platform.Variant}} when a variant is present, '
+    + 'or linux/arm/v7 reads back as bare linux/arm and the correct manifest is failed');
+  assert.ok(/sed 's#\/v8 # #g'/.test(body),
+    "docker verify must strip a trailing /v8 so arm64 (recorded as arm64/v8) matches want='linux/arm64'");
+  // want= must still ask for arm/v7 by its full name - that is the whole point.
+  assert.ok(wantPlatforms.includes('linux/arm/v7'),
+    'want= must verify linux/arm/v7 explicitly');
+});
+
 test('the base image is debian:trixie (which publishes i386 and arm/v7)', () => {
   // Debian, not Ubuntu: Ubuntu publishes no linux/386, Debian does - and it
   // carries every arch this image targets, so one base covers them all.
