@@ -264,7 +264,7 @@ has not decided on yet (adds a dependency + loosens the XSS sanitizer + needs a
 browser build to verify).
 
 </details>
-# Upcoming WeKan ® release
+# v10.67 2026-08-04 WeKan ® release
 
 **In short:** the **Docker image** gains **linux/386** and **linux/arm/v7** -
 the two 32-bit platforms that were shipping as `.zip` bundles only. The image
