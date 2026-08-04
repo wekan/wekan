@@ -2635,7 +2635,34 @@ jobs:
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
           # remote-build (Launchpad) rejects shallow clones, so fetch full history
+          # here; the next step then replaces it with a small COMPLETE history.
           fetch-depth: 0
+
+      - name: Flatten history so the Launchpad push stays small
+        # snapcraft remote-build pushes the project's git repository to
+        # git.launchpad.net and builds it there. It rejects a SHALLOW clone
+        # (that is why the checkout above is fetch-depth: 0), but it does NOT
+        # need the history - and WeKan's full history is large enough that the
+        # push times out or is refused mid-upload:
+        #   Git operation failed with: Could not push 'HEAD' to
+        #   git.launchpad.net/.../+git/snapcraft-wekan-<hash>
+        # after ~4-5 minutes, three attempts running, which is how v10.55
+        # riscv64 and v10.64 ppc64el failed. Re-init the repo as ONE commit of
+        # the tagged tree: a COMPLETE repository (git rev-parse
+        # --is-shallow-repository is false, so remote-build accepts it), just
+        # without the history it pushes for nothing. The push is then the source
+        # tree (tens of MB) instead of the whole history (hundreds). The snap
+        # version comes from snapcraft.yaml (verified below), not git-describe,
+        # so dropping the history changes nothing about what is built.
+        run: |
+          set -euo pipefail
+          rm -rf .git
+          git init -q
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "WeKan ${VERSION} snapshot for Launchpad remote-build"
+          echo "Re-initialised as one commit; shallow: $(git rev-parse --is-shallow-repository)"
 
       - name: Install snapcraft
         # The Snap Store intermittently rejects the install with a 429-style rate
