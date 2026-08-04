@@ -264,6 +264,52 @@ has not decided on yet (adds a dependency + loosens the XSS sanitizer + needs a
 browser build to verify).
 
 </details>
+# Upcoming WeKan ® release
+
+**In short:** this release makes the **Node.js and FerretDB** inside every
+platform bundle a **named, checksummed** binary, so the release provenance
+table can say exactly which build each platform carries - the thing you need
+when a **Node.js CVE** lands. The four native bundles (**amd64, arm64, win64,
+mac-arm64**) shipped whatever Node the GitHub runner happened to carry (`cp
+$(command -v node)`), which publishes no checksum; **arm64** was even shipping
+**Node 22** because its job has no setup-node and copied the runner's default
+instead of the pinned Node 24. They now download the pinned Node.js from
+**nodejs.org** and verify it against `SHASUMS256.txt`, and verify **FerretDB**
+against the `.sha256sum` **wekan/FerretDB** publishes beside each binary; win64
+and mac-arm64 record provenance too, so no bundle is left untraceable.
+
+This release fixes the following release-build issues:
+
+**Bundle provenance** - which Node.js and FerretDB binary each platform ships.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/081d50b45d3650d909915b92f84f118e7f65c25f">Every native bundle ships a named, checksummed Node.js and FerretDB instead of the runner's node</a>. Thanks to xet7.</summary>
+
+The amd64, arm64, win64 and mac-arm64 bundles embedded Node.js with `cp
+$(command -v node)` - the runner's node. A bare binary extracted onto the
+runner publishes no checksum, so `releases/record-provenance.sh` could only
+write *no checksum published*, and the provenance table at the top of the
+release could not name the exact Node.js build a platform carried. It was also
+the wrong build on arm64: `build-arm64` has no `setup-node` step, so
+`$(command -v node)` was `ubuntu-24.04-arm`'s DEFAULT Node **22.x**, not the
+pinned Node 24 every other bundle shipped - and nothing recorded the
+disagreement. A new `releases/embed-verified-node.sh` downloads the pinned
+Node.js for the bundle's OS+CPU from nodejs.org, verifies the archive against
+the published `SHASUMS256.txt` (fatal on a mismatch), and puts its `node` into
+the bundle; each native job now calls it and records `nodejs.org` + the exact
+version + the verified SHA256. FerretDB is verified the same way, against the
+`.sha256sum` wekan/FerretDB now publishes beside every binary, and win64 and
+mac-arm64 - which recorded no provenance at all - now upload a provenance
+artifact like amd64 and arm64, so every platform is accounted for. The
+emulated arches already did this through `install-node-for-arch.sh`.
+`tests/releaseNodeVerified.test.cjs` pins that no native bundle can go back to
+the runner's node or an unverified download.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.63 2026-08-04 WeKan ® release
 
 **In short:** this release stops **"release all missing"** from rebuilding the
