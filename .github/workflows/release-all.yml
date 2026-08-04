@@ -561,7 +561,7 @@ jobs:
           # from nodejs.org and VERIFY it against SHASUMS256.txt, rather than
           # copying the runner's unnamed, unchecksummed node. The helper exports
           # NODE_FULL and NODE_SHA256 to $GITHUB_ENV for the provenance step.
-          bash releases/embed-verified-node.sh .build/bundle/node linux x64 "$NODE_VERSION"
+          bash releases/embed-verified-node.sh .build/bundle/node node-x64 "$NODE_VERSION"
           # Bundled FerretDB (amd64): download only this arch's binary from the
           # newest wekan/FerretDB release (per-arch assets, no ferretdb.zip).
           FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-amd64"
@@ -616,8 +616,8 @@ jobs:
           # Where this bundle's binaries came from, for the release notes.
           mkdir -p provenance
           PROVENANCE_FILE=provenance/amd64.tsv bash releases/record-provenance.sh \
-            'amd64' 'Node.js' 'nodejs.org' "${NODE_FULL:-$NODE_VERSION.x}" \
-            "https://nodejs.org/dist/${NODE_FULL:-}/node-${NODE_FULL:-}-linux-x64.tar.xz" \
+            'amd64' 'Node.js' 'wekan/node' "${NODE_FULL:-$NODE_VERSION}" \
+            "https://github.com/wekan/node/releases/download/${NODE_FULL:-}/node-x64" \
             "${NODE_SHA256:-}" || true
           PROVENANCE_FILE=provenance/amd64.tsv bash releases/record-provenance.sh \
             'amd64' 'FerretDB' 'wekan/FerretDB' 'latest' \
@@ -751,7 +751,7 @@ jobs:
           # so the old `cp $(command -v node)` shipped the runner's DEFAULT node -
           # Node 22 on ubuntu-24.04-arm - not the pinned 24, and unchecksummed.
           # The helper exports NODE_FULL and NODE_SHA256 for the provenance step.
-          bash releases/embed-verified-node.sh bundle/node linux arm64 "$NODE_VERSION"
+          bash releases/embed-verified-node.sh bundle/node node-arm64 "$NODE_VERSION"
           # Download only the arm64 FerretDB binary from the newest wekan/FerretDB
           # release, and verify it against the .sha256sum wekan/FerretDB now
           # publishes beside each binary (carry the value to the provenance step).
@@ -793,8 +793,8 @@ jobs:
           # Where this bundle's binaries came from, for the release notes.
           mkdir -p provenance
           PROVENANCE_FILE=provenance/arm64.tsv bash releases/record-provenance.sh \
-            'arm64' 'Node.js' 'nodejs.org' "${NODE_FULL:-$NODE_VERSION.x}" \
-            "https://nodejs.org/dist/${NODE_FULL:-}/node-${NODE_FULL:-}-linux-arm64.tar.xz" \
+            'arm64' 'Node.js' 'wekan/node' "${NODE_FULL:-$NODE_VERSION}" \
+            "https://github.com/wekan/node/releases/download/${NODE_FULL:-}/node-arm64" \
             "${NODE_SHA256:-}" || true
           PROVENANCE_FILE=provenance/arm64.tsv bash releases/record-provenance.sh \
             'arm64' 'FerretDB' 'wekan/FerretDB' 'latest' \
@@ -1118,7 +1118,7 @@ jobs:
           # Capture node_full/node_sha256 in THIS shell (provenance is recorded in
           # the same step, and $GITHUB_ENV only reaches later steps); a failed
           # download/verify stops the build here rather than at the later guard.
-          node_meta="$(bash src/releases/embed-verified-node.sh bundle/node.exe win x64 "$NODE_VERSION")" \
+          node_meta="$(bash src/releases/embed-verified-node.sh bundle/node.exe node-win64.exe "$NODE_VERSION")" \
             || { echo "::error::Verified Node.js embed failed for win64."; exit 1; }
           eval "$node_meta"
           # Bundled FerretDB (win64): download this arch's binary and verify it
@@ -1147,8 +1147,8 @@ jobs:
           # Where this bundle's binaries came from, for the release notes.
           mkdir -p provenance
           PROVENANCE_FILE=provenance/win64.tsv bash src/releases/record-provenance.sh \
-            'win64' 'Node.js' 'nodejs.org' "${node_full:-$NODE_VERSION.x}" \
-            "https://nodejs.org/dist/${node_full:-}/node-${node_full:-}-win-x64.zip" \
+            'win64' 'Node.js' 'wekan/node' "${node_full:-$NODE_VERSION}" \
+            "https://github.com/wekan/node/releases/download/${node_full:-}/node-win64.exe" \
             "${node_sha256:-}" || true
           if [ -s bundle/ferretdb.exe ]; then
             PROVENANCE_FILE=provenance/win64.tsv bash src/releases/record-provenance.sh \
@@ -1369,7 +1369,7 @@ jobs:
           # Capture node_full/node_sha256 in THIS shell (provenance is recorded in
           # the same step, and $GITHUB_ENV only reaches later steps); a failed
           # download/verify stops the build here rather than at the later guard.
-          node_meta="$(bash releases/embed-verified-node.sh bundle/node darwin arm64 "$NODE_VERSION")" \
+          node_meta="$(bash releases/embed-verified-node.sh bundle/node node-mac-arm64 "$NODE_VERSION")" \
             || { echo "::error::Verified Node.js embed failed for mac-arm64."; exit 1; }
           eval "$node_meta"
           FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-mac-arm64"
@@ -1396,8 +1396,8 @@ jobs:
           # Where this bundle's binaries came from, for the release notes.
           mkdir -p provenance
           PROVENANCE_FILE=provenance/mac-arm64.tsv bash releases/record-provenance.sh \
-            'mac-arm64' 'Node.js' 'nodejs.org' "${node_full:-$NODE_VERSION.x}" \
-            "https://nodejs.org/dist/${node_full:-}/node-${node_full:-}-darwin-arm64.tar.gz" \
+            'mac-arm64' 'Node.js' 'wekan/node' "${node_full:-$NODE_VERSION}" \
+            "https://github.com/wekan/node/releases/download/${node_full:-}/node-mac-arm64" \
             "${node_sha256:-}" || true
           if [ -s bundle/ferretdb ]; then
             PROVENANCE_FILE=provenance/mac-arm64.tsv bash releases/record-provenance.sh \

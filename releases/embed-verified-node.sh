@@ -1,144 +1,87 @@
 #!/usr/bin/env bash
 #
-# embed-verified-node.sh - put a NAMED, CHECKSUMMED Node.js into a bundle.
+# embed-verified-node.sh - put the wekan/node fork's Node.js binary into a bundle.
 #
-# The four native bundles (amd64, arm64, win64, mac-arm64) used to ship
-# `cp $(command -v node)` - whatever Node the GitHub runner happened to carry.
-# Two things were wrong with that:
+# WeKan takes its Node.js from the wekan/node fork for EVERY platform. One source
+# for all of them means a set of bundles is never half built on one Node.js and
+# half on another depending on the CPU, and the arches nobody else builds - 32-bit
+# x86 (i386), 32-bit ARM (armhf/armv7), loong64, win32 - come from the same place
+# as the mainstream ones. nodejs.org and unofficial-builds do not build several of
+# those at all, so the fork is the only source that covers everything.
 #
-#   1. It is not the pinned version. ubuntu-24.04-arm ships Node 22 by default,
-#      and build-arm64 had no setup-node, so the arm64 bundle shipped Node
-#      22.x while every other bundle shipped 24 - silently, because nothing
-#      recorded which node went in.
-#   2. It has no checksum. The runner's node is extracted from a tarball setup
-#      verified once and threw away; the bare binary on PATH publishes nothing
-#      to check against, so provenance could only say "no checksum published"
-#      and nobody could tell WHICH Node.js build a given platform carried - the
-#      exact thing you need when a Node.js CVE lands and the question is "which
-#      of our platforms has the affected binary".
-#
-# nodejs.org publishes an official build for every mainstream CPU this is used
-# for (linux x64/arm64, darwin arm64, win x64) AND a SHASUMS256.txt beside it.
-# So download THAT, verify it against the published SHA256, and put its node
-# into the bundle. The bundled node is then a named version from a named source
-# with a checksum anyone can re-verify - which is what the provenance table is
-# for. (The emulated arches - i386, ppc64le, s390x, riscv64, ... - already do
-# this through install-node-for-arch.sh with an official->unofficial->fork
-# fallback; those CPUs are the ones the fork exists for. The four here are all
-# built by nodejs.org itself, so they need no fallback.)
+# The fork publishes a BARE node binary per arch - node-x64, node-arm64,
+# node-win64.exe, node-mac-arm64, node-i386, node-armhf, ... - plus a
+# node-<asset>.sha256sum beside it (NOT a tarball). This downloads that binary,
+# verifies it against its published SHA256, and puts it at <dest>. That is enough
+# for a bundle: WeKan runs `node main.js`, so the shipped bundle needs only the
+# node binary; the BUILD uses the runner's own node + npm, so no npm is grafted
+# here (the Docker image and the emulated cross-builds, which DO run npm, graft it
+# from the official amd64 tarball separately).
 #
 # Usage:
-#   embed-verified-node.sh <dest> <os> <node_arch> <version>
-#     dest       where to write the node binary, e.g. bundle/node or bundle/node.exe
-#     os         linux | darwin | win
-#     node_arch  x64 | arm64   (what nodejs.org calls the CPU)
-#     version    "24" (newest 24.x is resolved from nodejs.org) or exact "v24.18.1"
+#   embed-verified-node.sh <dest> <fork-asset> <version>
+#     dest        where to write the node binary (e.g. bundle/node, bundle/node.exe)
+#     fork-asset  the fork's asset name: node-x64 / node-arm64 / node-win64.exe /
+#                 node-mac-x64 / node-mac-arm64 / node-i386 / node-armhf / ...
+#     version     the fork release tag, e.g. v24.19.0 (the same NODE_VERSION the
+#                 rest of the build uses; the fork tags its releases by version)
 #
 # Prints, on success, two shell-eval-able lines (also appended to $GITHUB_OUTPUT
-# and $GITHUB_ENV when set), so the caller can record provenance:
-#     node_full=v24.18.1
-#     node_sha256=<hex of the verified archive>
-#
-# The SHA256 recorded is the archive's published hash - the supply-chain anchor:
-# it names the exact official build the bundled node was extracted from, and it
-# is what SHASUMS256.txt lists. The inner binary is deterministic from it.
+# and $GITHUB_ENV when set) so the caller can record provenance:
+#     node_full=v24.19.0
+#     node_sha256=<hex of the verified binary>
 
 set -euo pipefail
 
 dest="${1:?dest path is required}"
-os="${2:?os is required (linux|darwin|win)}"
-node_arch="${3:?node_arch is required (x64|arm64)}"
-version="${4:?version is required (major like 24, or exact vX.Y.Z)}"
+asset="${2:?fork asset name is required (e.g. node-x64)}"
+version="${3:?version is required (e.g. v24.19.0)}"
 
-DIST="https://nodejs.org/dist"
+fork_url="https://github.com/wekan/node/releases/download/${version}/${asset}"
 
-# Resolve a bare major ("24") to the newest vMAJOR.x nodejs.org actually has.
-# An exact "vX.Y.Z" is taken as given.
-case "$version" in
-  v*) node_full="$version" ;;
-  *)
-    idx="$(curl -fsSL "${DIST}/index.json")"
-    # index.json is newest-first; take the first entry whose version is vMAJOR.*
-    node_full="$(printf '%s' "$idx" | python3 -c '
-import json,sys
-major=sys.argv[1]
-for e in json.load(sys.stdin):
-    v=e.get("version","")
-    if v.startswith("v"+major+"."):
-        print(v); break
-' "$version")"
-    if [ -z "${node_full:-}" ]; then
-      echo "::error::Could not find a Node.js ${version}.x release at ${DIST}/index.json ." >&2
-      exit 1
-    fi
-    ;;
-esac
-
-# The archive nodejs.org publishes for this OS+CPU, and the node inside it.
-case "$os" in
-  linux)  archive="node-${node_full}-linux-${node_arch}.tar.xz";  inner="node-${node_full}-linux-${node_arch}/bin/node" ;;
-  darwin) archive="node-${node_full}-darwin-${node_arch}.tar.gz"; inner="node-${node_full}-darwin-${node_arch}/bin/node" ;;
-  win)    archive="node-${node_full}-win-${node_arch}.zip";        inner="node-${node_full}-win-${node_arch}/node.exe" ;;
-  *) echo "::error::unknown os '${os}' (want linux|darwin|win)." >&2; exit 1 ;;
-esac
-
+mkdir -p "$(dirname "$dest")"
 work="$(mktemp -d)"
 trap 'rm -rf "$work"' EXIT
 
-url="${DIST}/${node_full}/${archive}"
-sums_url="${DIST}/${node_full}/SHASUMS256.txt"
+# Download the binary and its checksum. --retry survives transient 5xx/connection
+# failures; a genuine 404 means the fork has not published node-<asset> for this
+# version yet, which is fatal and named as such (the fork must release first).
+if ! curl -fSL --retry 8 --retry-delay 15 -o "$dest" "$fork_url"; then
+  echo "::error::Could not download ${fork_url} . The wekan/node fork must publish ${asset} for ${version} before this build; build it in wekan/node and re-run." >&2
+  exit 1
+fi
+curl -fSL --retry 8 --retry-delay 15 -o "${work}/sum" "${fork_url}.sha256sum"
 
-# Download the archive and the checksum list, then verify. A mismatch is retried
-# a few times - the overwhelmingly likely cause is a truncated CDN transfer, not
-# a real tampering - and only fatal if it still does not match, because at that
-# point the bytes served are not the bytes published and there is nothing safe
-# to continue on.
-node_sha256=""
-attempts=3
-i=1
-while [ "$i" -le "$attempts" ]; do
-  curl -fSL --retry 5 --retry-delay 10 -o "${work}/${archive}" "$url"
-  curl -fsSL -o "${work}/SHASUMS256.txt" "$sums_url"
-  # SHASUMS256.txt lines are "<sha256>  <filename>".
-  node_sha256="$(awk -v f="$archive" '$2==f {print $1; exit}' "${work}/SHASUMS256.txt")"
-  if [ -z "$node_sha256" ]; then
-    echo "::error::${archive} is not listed in ${sums_url}; cannot verify Node.js." >&2
-    exit 1
-  fi
-  if command -v sha256sum >/dev/null 2>&1; then
-    got="$(sha256sum "${work}/${archive}" | cut -d' ' -f1)"
-  else
-    got="$(shasum -a 256 "${work}/${archive}" | cut -d' ' -f1)"   # macOS spelling
-  fi
-  if [ "$got" = "$node_sha256" ]; then
-    break
-  fi
-  echo "::warning::Node.js archive ${archive} did not match its published SHA256 (try ${i}/${attempts}: published ${node_sha256}, got ${got}); retrying." >&2
-  i=$((i+1))
-  if [ "$i" -gt "$attempts" ]; then
-    echo "::error::Node.js archive ${archive} still does not match its published SHA256 after ${attempts} tries." >&2
-    exit 1
-  fi
-done
+node_sha256="$(awk '{print $1; exit}' "${work}/sum")"
+if [ -z "$node_sha256" ]; then
+  echo "::error::${asset}.sha256sum from the fork is empty; cannot verify Node.js." >&2
+  exit 1
+fi
+if command -v sha256sum >/dev/null 2>&1; then
+  got="$(sha256sum "$dest" | cut -d' ' -f1)"
+else
+  got="$(shasum -a 256 "$dest" | cut -d' ' -f1)"   # macOS has no sha256sum
+fi
+if [ "$got" != "$node_sha256" ]; then
+  echo "::error::${asset} does not match its published SHA256 (published ${node_sha256}, got ${got})." >&2
+  exit 1
+fi
 
-# Extract just the node binary and put it at dest.
-mkdir -p "$(dirname "$dest")"
-case "$os" in
-  linux)  tar -C "$work" -xJf "${work}/${archive}" "$inner"; cp "${work}/${inner}" "$dest"; chmod +x "$dest" ;;
-  darwin) tar -C "$work" -xzf "${work}/${archive}" "$inner"; cp "${work}/${inner}" "$dest"; chmod +x "$dest" ;;
-  win)    unzip -q -o "${work}/${archive}" "$inner" -d "$work"; cp "${work}/${inner}" "$dest" ;;
+# Windows keeps its .exe; everything else needs the exec bit.
+case "$dest" in
+  *.exe) : ;;
+  *)     chmod +x "$dest" ;;
 esac
 
-echo "Embedded Node.js ${node_full} (${os}-${node_arch}) from nodejs.org, verified SHA256 ${node_sha256} -> ${dest}" >&2
+echo "Embedded Node.js ${version} (${asset}) from the wekan/node fork, verified SHA256 ${node_sha256} -> ${dest}" >&2
 
-# Hand the version and verified checksum back to the caller for provenance.
-printf 'node_full=%s\n' "$node_full"
+printf 'node_full=%s\n' "$version"
 printf 'node_sha256=%s\n' "$node_sha256"
 if [ -n "${GITHUB_OUTPUT:-}" ]; then
-  printf 'node_full=%s\n'   "$node_full"   >> "$GITHUB_OUTPUT"
+  printf 'node_full=%s\n'   "$version"    >> "$GITHUB_OUTPUT"
   printf 'node_sha256=%s\n' "$node_sha256" >> "$GITHUB_OUTPUT"
 fi
 if [ -n "${GITHUB_ENV:-}" ]; then
-  printf 'NODE_FULL=%s\n'   "$node_full"   >> "$GITHUB_ENV"
+  printf 'NODE_FULL=%s\n'   "$version"    >> "$GITHUB_ENV"
   printf 'NODE_SHA256=%s\n' "$node_sha256" >> "$GITHUB_ENV"
 fi
