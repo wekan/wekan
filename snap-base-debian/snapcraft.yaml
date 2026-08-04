@@ -1,0 +1,111 @@
+# WeKan Debian base snap — the runtime rootfs for WeKan snaps on architectures
+# Ubuntu's core24 no longer ships (i386 first; the other exotic arches later).
+#
+# WHY THIS EXISTS. core24 is built from Ubuntu 24.04, which has NO i386 port, so
+# `base: core24` + `build-on: i386` is rejected by snapcraft ("none of these
+# build architectures are supported") — and because that is a PARSE error it
+# broke EVERY snap build, not only i386's. Debian, unlike Ubuntu, still ships
+# i386 (and armel/armhf/ppc64el/s390x/riscv64) as full release architectures,
+# AND it is glibc — so, unlike an Alpine/musl base, WeKan's existing glibc
+# binaries (the wekan/node fork's Node.js, FerretDB, mongo-tools, caddy) run
+# unchanged. This packages a minimal Debian 13 (trixie) root filesystem as a
+# `type: base` snap; a WeKan snap then sets `base: wekan-base-debian13` and
+# assembles the SAME prebuilt wekan-<arch>.zip it already uses.
+#
+# i386 IS THE TRACTABLE CASE. i386 binaries run NATIVELY on an amd64 runner
+# (amd64 is a superset of i386), so this base — and the i386 WeKan snap that
+# uses it — build on a normal `ubuntu-24.04` runner with NO qemu and NO
+# Launchpad. `build-on: [amd64] build-for: [i386]` below is exactly that.
+#
+# ⚠️  UNVERIFIED SCAFFOLD. A custom `type: base` snap is advanced snapcraft and
+# this has NOT been built or store-reviewed yet — see README.md for the local
+# test loop (`snapcraft pack`, install with --dangerous, run a WeKan snap on top)
+# and the known pitfalls. Treat the exact part steps as a starting point to
+# iterate on with real snapcraft, not a finished artefact.
+
+name: wekan-base-debian13
+# The store name must be REGISTERED and is globally unique:
+#   snapcraft register wekan-base-debian13
+# Custom base snaps go through MANUAL store review before they can be released.
+type: base
+# A custom base has no base of its own; `build-base` is what snapcraft builds
+# the base's tooling on. `devel` matches the core26 variant in this repo; pin to
+# a stable base (e.g. core24) once the flow is proven.
+build-base: devel
+version: '13'
+summary: Debian 13 (trixie) glibc base for WeKan snaps on i386 and other arches
+description: |
+  A minimal Debian 13 "trixie" root filesystem packaged as a snap base, so WeKan
+  snaps can target architectures Ubuntu's core24 no longer ships — i386 first.
+  It is glibc, so WeKan's existing binaries run unchanged; it exists only because
+  Ubuntu dropped i386 while Debian kept it.
+
+# Start with i386 — the whole reason this base exists — and add the others once
+# the i386 path is proven. i386 builds on amd64 with no emulation.
+platforms:
+  i386:
+    build-on: [amd64]
+    build-for: [i386]
+  # Later, on native/emulated runners:
+  # armhf:    { build-on: [armhf],   build-for: [armhf] }
+  # ppc64el:  { build-on: [ppc64el], build-for: [ppc64el] }
+  # s390x:    { build-on: [s390x],   build-for: [s390x] }
+  # riscv64:  { build-on: [riscv64], build-for: [riscv64] }
+
+parts:
+  debian-rootfs:
+    plugin: nil
+    build-packages:
+      - debootstrap
+      - ca-certificates
+    override-build: |
+      set -eux
+
+      # snapcraft's architecture names map 1:1 to Debian's for the arches this
+      # base is for: i386, amd64, armhf, ppc64el, s390x, riscv64. (arm64 is
+      # arm64 in both too.) So CRAFT_ARCH_BUILD_FOR is also the debootstrap arch.
+      DEB_ARCH="${CRAFT_ARCH_BUILD_FOR}"
+      SUITE=trixie
+      MIRROR=http://deb.debian.org/debian
+
+      # A base is a RUNTIME rootfs, not an installable system: --variant=minbase
+      # drops apt's recommends, the init system and other install-time weight.
+      debootstrap --arch="$DEB_ARCH" --variant=minbase \
+        "$SUITE" "$CRAFT_PART_INSTALL" "$MIRROR"
+
+      # Trim to a runtime image. A base carries no kernel, no init, no apt
+      # metadata, no docs/man/locales — those only bloat the snap.
+      chroot "$CRAFT_PART_INSTALL" apt-get clean
+      rm -rf "$CRAFT_PART_INSTALL"/var/lib/apt/lists/* \
+             "$CRAFT_PART_INSTALL"/var/cache/apt/archives/* \
+             "$CRAFT_PART_INSTALL"/usr/share/doc/* \
+             "$CRAFT_PART_INSTALL"/usr/share/man/* \
+             "$CRAFT_PART_INSTALL"/usr/share/locale/* \
+             "$CRAFT_PART_INSTALL"/var/log/* \
+             "$CRAFT_PART_INSTALL"/boot \
+             "$CRAFT_PART_INSTALL"/usr/share/info/*
+
+      # snapd bind-mounts the host's /dev, /proc, /sys, /run and the snap's data
+      # dirs into the base at runtime, so those mount points MUST exist in it.
+      mkdir -p "$CRAFT_PART_INSTALL"/dev \
+               "$CRAFT_PART_INSTALL"/proc \
+               "$CRAFT_PART_INSTALL"/sys \
+               "$CRAFT_PART_INSTALL"/run \
+               "$CRAFT_PART_INSTALL"/tmp \
+               "$CRAFT_PART_INSTALL"/mnt \
+               "$CRAFT_PART_INSTALL"/media \
+               "$CRAFT_PART_INSTALL"/snap \
+               "$CRAFT_PART_INSTALL"/var/snap \
+               "$CRAFT_PART_INSTALL"/var/lib/snapd \
+               "$CRAFT_PART_INSTALL"/root \
+               "$CRAFT_PART_INSTALL"/home
+
+      # debootstrap's base-files already provides /usr/lib/os-release and the
+      # glibc dynamic linker (/lib/ld-linux.so.2 on i386). Verify the linker is
+      # present so a broken rootfs fails HERE, loudly, not later when an app
+      # cannot start inside the base.
+      test -e "$CRAFT_PART_INSTALL/usr/lib/os-release"
+      case "$DEB_ARCH" in
+        i386)  test -e "$CRAFT_PART_INSTALL/lib/ld-linux.so.2" ;;
+        amd64) test -e "$CRAFT_PART_INSTALL/lib64/ld-linux-x86-64.so.2" ;;
+      esac
