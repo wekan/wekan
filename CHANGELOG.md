@@ -264,7 +264,7 @@ has not decided on yet (adds a dependency + loosens the XSS sanitizer + needs a
 browser build to verify).
 
 </details>
-# Upcoming WeKan ® release
+# v10.63 2026-08-04 WeKan ® release
 
 **In short:** this release stops **"release all missing"** from rebuilding the
 **AppImage and Flatpak** every run when they are already published. Their
