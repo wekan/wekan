@@ -8,11 +8,56 @@ const { WebApp } = require('meteor/webapp');
 const { check, Match } = require('meteor/check');
 const { sendJsonResult } = require('/server/apiMiddleware');
 const { buildLogoutPlan } = require('/models/lib/apiLogout');
+const {
+  LoginAttemptThrottle,
+  resolveClientKey,
+} = require('/server/lib/loginAttemptThrottle');
+const {
+  hasLocalPassword,
+  equalizeMissingUserTiming,
+} = require('/server/lib/loginTimingDefense');
 
 const NonEmptyString = Match.Where(function (x) {
   check(x, String);
   return x.length > 0;
 });
+
+// GHSA-2g94-9x3m-hv37: this REST login path does NOT go through the DDP
+// accounts-lockout validateLoginAttempt hooks, so on its own it had no
+// brute-force protection. Throttle failed attempts per client address. Env-
+// tunable, with the same defaults as the module. Only failures count and a
+// success resets the key, so correct-credential clients are never impeded.
+const restLoginThrottle = new LoginAttemptThrottle({
+  maxFailures: parseInt(process.env.REST_LOGIN_MAX_FAILURES, 10) || undefined,
+  windowMs:
+    (parseInt(process.env.REST_LOGIN_FAILURE_WINDOW_SECONDS, 10) || 0) * 1000 ||
+    undefined,
+  lockoutMs:
+    (parseInt(process.env.REST_LOGIN_LOCKOUT_SECONDS, 10) || 0) * 1000 ||
+    undefined,
+});
+
+// One uniform failure, thrown for BOTH "no such user" and "wrong password", so
+// neither the status code, the message NOR the timing reveals which accounts
+// exist (the old code threw a distinct 'not-found' message for missing users).
+function uniformLoginError() {
+  const error = new Meteor.Error(
+    'login-failed',
+    'Incorrect username, email address or password.',
+  );
+  error.statusCode = 401;
+  return error;
+}
+
+function restLoginClientKey(req) {
+  return resolveClientKey({
+    headers: req.headers,
+    socketAddress:
+      (req.socket && req.socket.remoteAddress) ||
+      (req.connection && req.connection.remoteAddress),
+    forwardedCount: process.env.HTTP_FORWARDED_COUNT,
+  });
+}
 
 // ---------------------------------------------------------------------------
 // POST /users/login
@@ -22,7 +67,23 @@ WebApp.handlers.options('/users/login', function (req, res) {
 });
 
 WebApp.handlers.post('/users/login', async function (req, res) {
+  const clientKey = restLoginClientKey(req);
+  const now = Number(new Date());
   try {
+    // GHSA-2g94-9x3m-hv37: refuse further attempts while this client is locked
+    // out, before doing any user lookup or password work.
+    const gate = restLoginThrottle.check(clientKey, now);
+    if (gate.blocked) {
+      const retryAfterSeconds = Math.ceil(gate.retryAfterMs / 1000);
+      const error = new Meteor.Error(
+        'too-many-requests',
+        'Too many failed login attempts. Try again later.',
+      );
+      error.statusCode = 429;
+      error.retryAfterSeconds = retryAfterSeconds;
+      throw error;
+    }
+
     const options = req.body;
 
     let user;
@@ -42,11 +103,15 @@ WebApp.handlers.post('/users/login', async function (req, res) {
       user = await Meteor.users.findOneAsync({ username: options.username });
     }
 
-    if (!user) {
-      throw new Meteor.Error(
-        'not-found',
-        'User with that username or email address not found.',
-      );
+    // GHSA-2g94-9x3m-hv37: a missing user — or a user with no local password
+    // (LDAP/OIDC only) — would otherwise return with no bcrypt work, leaking
+    // existence by timing. Burn one dummy bcrypt comparison and fail with the
+    // exact same uniform error as a wrong password, so neither text nor timing
+    // distinguishes the two.
+    if (!hasLocalPassword(user)) {
+      await equalizeMissingUserTiming(Accounts._checkPasswordAsync);
+      restLoginThrottle.recordFailure(clientKey, now);
+      throw uniformLoginError();
     }
 
     const result = await Accounts._checkPasswordAsync(user, options.password);
@@ -56,10 +121,13 @@ WebApp.handlers.post('/users/login', async function (req, res) {
     });
 
     if (result.error) {
-      throw result.error;
+      restLoginThrottle.recordFailure(clientKey, now);
+      throw uniformLoginError();
     }
 
-    // 2FA support
+    // 2FA support. The password already checked out here, so a demand for the
+    // second factor is not an enumeration signal; a WRONG second factor is a
+    // real failed attempt and is throttled.
     if (Accounts._check2faEnabled && Accounts._check2faEnabled(user)) {
       if (!options.code) {
         Accounts._handleError('2FA code must be informed', true, 'no-2fa-code');
@@ -70,6 +138,7 @@ WebApp.handlers.post('/users/login', async function (req, res) {
           options.code,
         )
       ) {
+        restLoginThrottle.recordFailure(clientKey, now);
         Accounts._handleError('Invalid 2FA code', true, 'invalid-2fa-code');
       }
     }
@@ -82,6 +151,10 @@ WebApp.handlers.post('/users/login', async function (req, res) {
     const tokenExpiration = Accounts._tokenExpiration(stampedLoginToken.when);
     check(tokenExpiration, Date);
 
+    // A successful login clears this client's failure counter.
+    restLoginThrottle.recordSuccess(clientKey);
+    restLoginThrottle.prune(now);
+
     sendJsonResult(res, {
       data: {
         id: result.userId,
@@ -91,6 +164,9 @@ WebApp.handlers.post('/users/login', async function (req, res) {
     });
   } catch (error) {
     res.statusCode = error.statusCode || 401;
+    if (error.retryAfterSeconds) {
+      res.setHeader('Retry-After', String(error.retryAfterSeconds));
+    }
     res.setHeader('Content-Type', 'application/json');
     res.end(
       JSON.stringify({

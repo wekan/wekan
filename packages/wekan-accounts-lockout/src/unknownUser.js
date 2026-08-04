@@ -2,6 +2,10 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import _AccountsLockoutCollection from './accountsLockoutCollection';
 
+// GHSA-2g94-9x3m-hv37: decide from the attempt's structural fields, not the
+// (ambiguous, Meteor-rewritten) reason string. See loginFailureDecision.js.
+const { shouldProcessUnknownUser } = require('./loginFailureDecision');
+
 class UnknownUser {
   constructor(
     settings,
@@ -104,13 +108,13 @@ class UnknownUser {
   }
 
   async validateLoginAttempt(loginInfo) {
-    // don't interrupt non-password logins
-    if (
-      loginInfo.type !== 'password' ||
-      loginInfo.user !== undefined ||
-      loginInfo.error === undefined ||
-      loginInfo.error.reason !== 'User not found'
-    ) {
+    // GHSA-2g94-9x3m-hv37: this used to early-return whenever
+    // `loginInfo.error.reason !== 'User not found'`, but with Meteor's default
+    // `ambiguousErrorMessages` the reason is never that literal, so the hook
+    // always bailed out and unknown-user attempts were never counted. Decide
+    // from the structural fields instead (a failed password login for which no
+    // user matched), keyed by client address below.
+    if (!shouldProcessUnknownUser(loginInfo)) {
       return loginInfo.allowed;
     }
 

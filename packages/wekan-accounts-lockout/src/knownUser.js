@@ -3,6 +3,10 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 
+// GHSA-2g94-9x3m-hv37: decide from the attempt's structural fields, not the
+// (ambiguous, Meteor-rewritten) reason string. See loginFailureDecision.js.
+const { shouldProcessKnownUser } = require('./loginFailureDecision');
+
 class KnownUser {
   constructor(settings) {
     this.unchangedSettings = settings;
@@ -101,13 +105,14 @@ class KnownUser {
 
 
   async validateLoginAttempt(loginInfo) {
-    if (
-      // don't interrupt non-password logins
-      loginInfo.type !== 'password' ||
-      loginInfo.user === undefined ||
-      // Don't handle errors unless they are due to incorrect password
-      (loginInfo.error !== undefined && loginInfo.error.reason !== 'Incorrect password')
-    ) {
+    // GHSA-2g94-9x3m-hv37: this used to early-return whenever
+    // `loginInfo.error.reason !== 'Incorrect password'`, but with Meteor's
+    // default `ambiguousErrorMessages` the reason is never that literal, so the
+    // hook always bailed out and the lockout never counted a single failure.
+    // Decide from the structural fields instead (password login of a known user
+    // that is not the benign 'no-2fa-code' step), so any wrong-password attempt
+    // is counted and the lockout actually fires.
+    if (!shouldProcessKnownUser(loginInfo)) {
       return loginInfo.allowed;
     }
 
