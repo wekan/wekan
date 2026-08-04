@@ -2235,15 +2235,21 @@ jobs:
         # baking its package.json), so a v${VERSION}-tagged image could ship — and
         # report in the Admin Panel — a stale, different version.
         run: |
-          # linux/386 is NOT in this list: the image is FROM ubuntu:26.04, and
-          # Ubuntu publishes no i386 image, so `docker buildx build` for
-          # linux/386 stops at the base with "ubuntu:26.04: no match for platform
-          # in manifest". i386 ships as a .zip bundle (built on debian:trixie,
-          # which does have 386) but not as a Docker image - the same as
-          # linux/loong64 below. Every platform here IS in ubuntu:26.04's
-          # manifest.
+          # Two platforms are deliberately NOT in this list:
+          #  * linux/386   - the image is FROM ubuntu:26.04, and Ubuntu publishes
+          #    no i386 image, so buildx stops at the base with "ubuntu:26.04: no
+          #    match for platform in manifest".
+          #  * linux/arm/v7 (armv7l) - the Dockerfile installs Node.js from
+          #    nodejs.org / unofficial-builds, and NEITHER ships a Node 24 for
+          #    armv7l, so its arch `case` has no `arm` branch and the RUN step
+          #    ends with "Unsupported architecture: arm; exit 1". (The .zip bundle
+          #    can build armhf from the wekan/node fork; the image does not use
+          #    the fork.)
+          # Both ship as .zip bundles but not as Docker images - like
+          # linux/loong64 below. Every platform here IS in ubuntu:26.04's manifest
+          # AND has a Node 24 the Dockerfile can install.
           docker buildx build \
-            --platform linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/riscv64,linux/arm/v7 \
+            --platform linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/riscv64 \
             --build-arg VERSION=${VERSION} \
             -t wekanteam/wekan:v${VERSION} \
             -t wekanteam/wekan:latest \
@@ -2258,12 +2264,12 @@ jobs:
           # platform, or a tag that never reached one of the three registries, is
           # invisible until somebody on that CPU runs docker pull and is told there is
           # no matching manifest. Ask each registry what it actually has.
-          # The same list as --platform above. linux/386 is NOT here (ubuntu:26.04
-          # has no i386 image, see the build comment above) and neither is
-          # linux/loong64: both are built as .zip bundles but not as Docker images -
-          # 386 because the base has no such platform, loong64 because buildx and
-          # the three registries do not agree on it yet.
-          want="linux/amd64 linux/arm64 linux/ppc64le linux/s390x linux/riscv64 linux/arm/v7"
+          # The same list as --platform above. linux/386, linux/arm/v7 and
+          # linux/loong64 are NOT here (see the build comment above): 386 has no
+          # ubuntu:26.04 base, armv7l has no Node 24 the Dockerfile can install,
+          # and loong64's manifest is not agreed across the three registries yet.
+          # All three ship as .zip bundles but not as Docker images.
+          want="linux/amd64 linux/arm64 linux/ppc64le linux/s390x linux/riscv64"
           rc=0
           for image in "wekanteam/wekan:v${VERSION}" "quay.io/wekan/wekan:v${VERSION}" "ghcr.io/wekan/wekan:v${VERSION}"; do
             if ! got="$(docker buildx imagetools inspect "$image" --format '{{range .Manifest.Manifests}}{{.Platform.OS}}/{{.Platform.Architecture}} {{end}}' 2>&1)"; then

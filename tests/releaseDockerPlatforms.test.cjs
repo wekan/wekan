@@ -52,8 +52,11 @@ test('the base image is ubuntu:26.04 (which has no i386)', () => {
     'Dockerfile base is ubuntu:26.04 - the reason linux/386 cannot be an image');
 });
 
-test('linux/386 and linux/loong64 are not in the docker image platforms', () => {
-  for (const bad of ['linux/386', 'linux/loong64']) {
+test('linux/386, linux/arm/v7 and linux/loong64 are not in the docker image platforms', () => {
+  // 386: no ubuntu:26.04 base. arm/v7: no Node 24 the Dockerfile can install
+  // (its case has no `arm` branch -> "Unsupported architecture: arm; exit 1").
+  // loong64: registries do not agree on its manifest yet. All ship as .zip only.
+  for (const bad of ['linux/386', 'linux/arm/v7', 'linux/loong64']) {
     assert.ok(!buildPlatforms.includes(bad),
       `${bad} must not be in --platform: ubuntu:26.04 (386) / registries (loong64) do not carry it, so the build fails - it ships as a .zip instead`);
     assert.ok(!wantPlatforms.includes(bad),
