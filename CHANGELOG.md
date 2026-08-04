@@ -264,6 +264,88 @@ has not decided on yet (adds a dependency + loosens the XSS sanitizer + needs a
 browser build to verify).
 
 </details>
+# Upcoming WeKan ® release
+
+**In short:** this release is all **release-build** fixes. With the release job
+itself working again (v10.60), the per-platform jobs it feeds surfaced their
+own breakage: **build-win64** ran a bash script under PowerShell,
+**build-mac-arm64** called the Linux-only `sha256sum`, **build-extra-arches**
+never unpacked the bundle it downloaded, and an **i386** entry in
+`snapcraft.yaml` — which core24 cannot build — was a parse error that failed
+*every* snap. The downstream **Docker** and **AppImage** jobs, which only wrap
+an already-published release bundle, now skip gracefully instead of failing
+when that bundle is not up yet. And a **Debian `type: base` snap** is
+scaffolded so i386 can eventually ship as a snap at all, since core24 has no
+i386 port.
+
+This release fixes the following release-build issues:
+
+**The per-platform release jobs** - each broke in its own way once the release
+job started feeding them again.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bbc357874715f1e91e4297a40c7301d5aea354cf">The win64, mac-arm64, extra-arch and snap release jobs each fail on their own bug</a>. Thanks to xet7.</summary>
+
+Four independent failures in the v10.60 run, one per job: `build-win64`'s
+"Check the binaries" step ran `set -euo pipefail` under the Windows default
+shell and PowerShell answered "A parameter cannot be found that matches
+parameter name 'euo'" - it now says `shell: bash`. `build-mac-arm64` ran
+`sha256sum`, a GNU coreutils name macOS does not have, and died exit 127;
+`shasum -a 256` is the BSD/macOS spelling. `build-extra-arches` downloaded
+`wekan-<version>-amd64.zip` but never unpacked it, so the container mounted an
+empty `/bundle` and the native-module rebuild died with `ENOENT ...
+/bundle/programs/server/package.json` (exit 254) - it now unzips the bundle
+like the arm64/win64/mac-arm64 jobs already do. And `snapcraft.yaml` declared
+an `i386` platform that core24 (Ubuntu 24.04, no i386 port) rejects with "none
+of these build architectures are supported" - a PARSE error that failed
+`snap-native` AND every `snap-launchpad` arch, not only i386. The i386 platform
+and its launchpad matrix entry are removed; i386 users are served by the `.deb`
+and AppImage.
+
+</details>
+
+**The downstream packaging jobs** - Docker and AppImage only WRAP a release
+bundle that another job builds, so they cannot run before it exists.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/43ff0e7a5ca56e3c51560e701146e336449affee">Docker and AppImage skip with a notice instead of failing when the release bundle is not published yet</a>. Thanks to xet7.</summary>
+
+`dockerimage.yml` / `docker-publish.yml` build a Dockerfile that DOWNLOADS the
+prebuilt `wekan-<version>-amd64.zip`, and `AppImage.yml` wraps the per-arch
+bundle; all of them `exit`ed hard when that asset was not on the release -
+which it was not while the release was still building, or when a run targeted a
+version whose bundle was not published. Each now checks whether the asset it
+needs is on the release and SKIPS with a `::notice::` (a green run) when it is
+not: the docker jobs gate the build on the pinned version's zip, and AppImage
+flips its per-arch `BUILD_THIS` off and treats "no AppImage, and no base bundle
+either" as nothing-to-do. The release image / AppImages are still built by
+`release-all.yml` once the bundles are up; these standalone runs simply stop
+failing in the meantime.
+
+</details>
+
+and scaffolds an i386 snap on a Debian base:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8790b66806269f26f08c4073ea8d4f7805716ba6">A Debian type:base snap so i386 can ship as a snap at all, since core24 has no i386 port</a>. Thanks to xet7.</summary>
+
+core24 has no i386 port, so `base: core24` cannot build an i386 snap. Debian
+still ships i386 and is glibc, so - unlike an Alpine/musl base - WeKan's
+existing binaries run unchanged, and since the snap only assembles the prebuilt
+`wekan-i386.zip` (which already exists), the one missing piece is an
+i386-capable base. `snap-base-debian/` scaffolds `wekan-base-debian13` (`type:
+base`), a trimmed Debian trixie rootfs, starting with i386 - which builds
+NATIVELY on an amd64 runner, no qemu or Launchpad. It is isolated from the
+working core24 `snapcraft.yaml` and is a documented, UNVERIFIED scaffold: a
+custom base snap needs a real `snapcraft pack` + local install + a WeKan snap
+running on it before CI or the (manual) store review, all of which
+`snap-base-debian/README.md` spells out.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.60 2026-08-04 WeKan ® release
 
 **In short:** this release fixes the **release workflow** that publishes WeKan.
