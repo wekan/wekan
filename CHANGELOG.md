@@ -264,6 +264,112 @@ has not decided on yet (adds a dependency + loosens the XSS sanitizer + needs a
 browser build to verify).
 
 </details>
+# Upcoming WeKan ® release
+
+**In short:** this release closes **LockoutBleed** (GHSA-2g94-9x3m-hv37), a
+reported two-part authentication weakness that chained into account takeover.
+The bundled **accounts-lockout** brute-force protection had gone completely
+inert: its hooks gated on the English failure text `Incorrect password` /
+`User not found`, but Meteor's `ambiguousErrorMessages` (on by default) rewrites
+every credential failure to one generic sentence *before* those hooks run, so
+the failure counter never moved and no account ever locked. Alongside it the
+login path leaked **which usernames and emails exist** — a real user runs bcrypt
+(~50 ms) while a missing one answers in ~2 ms, a timing oracle no uniform error
+text can hide. The **REST `/users/login`** twin was worse: it named the missing
+user outright and never went through the lockout at all. The lockout now counts
+on any genuine password failure regardless of wording, a **dummy bcrypt
+comparison** equalises the missing-user path's timing on both the DDP and REST
+logins, and the REST endpoint answers missing-user and wrong-password
+identically and **throttles** repeated failures per client. Four new unit suites
+pin each half.
+
+This release fixes the following CRITICAL SECURITY ISSUE of [LockoutBleed](https://wekan.fi/hall-of-fame/lockoutbleed/):
+
+**Login and the brute-force lockout** - signing in, the lockout that guards it,
+and its REST twin.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ca5f464113bd9489d2ee7511c4327b9e9d11a2d5">The bundled brute-force lockout counts failed logins again instead of silently never firing</a>. Thanks to NinjaGPT and xet7.</summary>
+
+WeKan bundles `wekan-accounts-lockout` (default: 3 failures → 60 s lockout), and
+it had been doing nothing at all. Both of its `Accounts.validateLoginAttempt`
+hooks decided whether an attempt was a failure by comparing the error's *reason
+string*: `loginInfo.error.reason !== 'Incorrect password'` for a known user,
+`!== 'User not found'` for an unknown one. That reason never arrives. Meteor's
+`accounts-base` ships `ambiguousErrorMessages` defaulting to **true**, so
+`Accounts._handleError` rewrites every credential failure — wrong password, no
+such user, no password set — to the single sentence *"Something went wrong.
+Please check your credentials."* before any validateLoginAttempt hook runs. The
+literals therefore never matched, both hooks returned early, the counter was
+never incremented, and no account ever locked — confirmed in the report by
+`AccountsLockout.Connections` staying empty under unlimited failed logins.
+
+The hooks now decide from the attempt's **structural fields** instead of a
+localized, Meteor-internal string we do not control (new
+`packages/wekan-accounts-lockout/src/loginFailureDecision.js`): a password login
+of a known user that carries an error is a countable failure; a password login
+with no matched user that carries an error is a countable unknown-user failure.
+The one error deliberately **not** counted is `no-2fa-code` — accounts-2fa
+throws it *after* the password already checked out, to ask for the second
+factor, so it is the normal first leg of every two-factor sign-in and counting
+it would lock out legitimate 2FA users. A *wrong* second factor
+(`invalid-2fa-code`) still counts, because there the password was already
+correct. `tests/loginFailureDecision.test.cjs` pins that the ambiguous reason is
+counted (the exact regression), that success still runs the hook so an active
+lock is enforced, and that `no-2fa-code` never locks anyone.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ca5f464113bd9489d2ee7511c4327b9e9d11a2d5">A login for a user that does not exist now takes as long as one that does</a>. Thanks to NinjaGPT and xet7.</summary>
+
+The accounts-password login path runs a bcrypt comparison (~50 ms) only when the
+user exists and has a local password; for a missing user — or an LDAP/OIDC-only
+user with no local password — it throws immediately (~2 ms) with no bcrypt work.
+The two response-time distributions do not overlap, so an unauthenticated
+attacker can tell whether any given username or email exists with near-100%
+reliability, regardless of the uniform error *text* WeKan returns.
+
+The standard mitigation is applied: whenever the real path would skip bcrypt,
+one **dummy bcrypt comparison against a fixed cost-10 hash** is performed so the
+missing-user path costs about the same as a real check (new
+`server/lib/loginTimingDefense.js`). On the DDP `login` method a
+timing-normalization login handler runs ahead of the built-in password handler,
+looks the user up, and — when there is no local password to check — burns the
+compensating time before falling through; it never authenticates
+(`server/loginTimingNormalization.js`).
+`tests/loginTimingDefense.test.cjs` pins the fixed hash's shape, that the
+equaliser feeds the dummy user and digest to the injected comparator, and that
+it never throws.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ca5f464113bd9489d2ee7511c4327b9e9d11a2d5">The REST login endpoint stops naming missing users and throttles password guessing</a>. Thanks to NinjaGPT and xet7.</summary>
+
+`POST /users/login` in `server/apiAuthRoutes.js` checks the password directly
+with `Accounts._checkPasswordAsync` and never runs the DDP lockout hooks, so it
+had no brute-force protection at all — and it enumerated by *message*, throwing
+a distinct *"User with that username or email address not found."* for a missing
+user while a wrong password threw the ambiguous one. It now fails missing-user
+and wrong-password with the **same uniform error**, runs the same dummy-bcrypt
+timing equaliser for a missing or password-less account, and throttles failed
+attempts per client address (new `server/lib/loginAttemptThrottle.js`, default
+10 failures / 60 s → 60 s lockout, env-tunable via `REST_LOGIN_MAX_FAILURES` /
+`REST_LOGIN_FAILURE_WINDOW_SECONDS` / `REST_LOGIN_LOCKOUT_SECONDS`). Only
+failures count and a success clears the client's counter, so correct-credential
+clients are never impeded; `X-Forwarded-For` is honoured only when
+`HTTP_FORWARDED_COUNT` declares the proxy depth, so the header cannot be spoofed
+to dodge the throttle. `tests/loginAttemptThrottle.test.cjs` pins the
+time-injected state machine and the key resolver, and
+`tests/loginBruteForceEnumerationWiring.test.cjs` pins that the fragile
+reason-string guards stay gone and the REST endpoint keeps its uniform error,
+timing equaliser and throttle.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.58 2026-08-04 WeKan ® release
 
 **In short:** WeKan is downloadable as an **AppImage** and as a **Flatpak** now,
