@@ -264,7 +264,7 @@ has not decided on yet (adds a dependency + loosens the XSS sanitizer + needs a
 browser build to verify).
 
 </details>
-# Upcoming WeKan ® release
+# v10.65 2026-08-04 WeKan ® release
 
 **In short:** this release clears two remaining **release-build** failures.
 **loong64** has no `linux/loong64` base image to build its bundle in, so its
