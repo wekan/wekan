@@ -921,7 +921,17 @@ jobs:
           echo "----- release notes -----"
           head -40 release-notes.md
 
-      - name: Create GitHub Release with all bundles
+      # Create the Release (and its notes) so it EXISTS - every downstream bundle
+      # job needs: release and then self-attaches its own zip with
+      # `gh release upload`. The amd64 and arm64 bundles are attached in the next
+      # step, NOT here with softprops `files:`: softprops does not fail on an
+      # unmatched file, so when the bundles were once missing it created a release
+      # with NO base bundles and reported success, and every downstream snap /
+      # docker / AppImage job then 404'd on wekan-<version>-amd64.zip. The next
+      # step attaches them the same robust way every other bundle job does -
+      # loudly, and verified from the release side - and their .sha256sum too,
+      # which softprops `files:` never listed.
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
         with:
           tag_name: v${{ needs.prepare.outputs.version }}
@@ -932,9 +942,47 @@ jobs:
           # (https://github.com/wekan/FerretDB/releases), which is where the WeKan
           # builds fetch them from. Each wekan-<version>-<arch>.zip bundle embeds
           # its own arch's FerretDB binary.
-          files: |
-            wekan-${{ needs.prepare.outputs.version }}-amd64.zip
-            wekan-${{ needs.prepare.outputs.version }}-arm64.zip
+
+      - name: Attach amd64 and arm64 bundles to the GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          # The base bundles are attached here, loudly. "Download all bundles"
+          # above put them in the workspace and the clean:false checkout kept
+          # them; softprops used to attach them silently and drop them without a
+          # word when they were absent. gh release upload fails on a missing file,
+          # and the check below fails on a file that is present but empty, so a
+          # broken base bundle stops the release instead of 404'ing every
+          # downstream job. The .sha256sum goes up beside each zip.
+          up=()
+          for arch in amd64 arm64; do
+            asset="wekan-${VERSION}-${arch}.zip"
+            if [ ! -s "$asset" ]; then
+              echo "::error::$asset is missing or empty, so the base $arch bundle cannot be attached. build-$arch produced no bundle (or a different name); every downstream snap/docker/AppImage job would 404 on it. Its build job's log says why."
+              exit 1
+            fi
+            # Checksum the exact bytes being attached (the bundle-<arch> artifact
+            # carries only the zip, not a .sha256sum), so amd64/arm64 get a
+            # checksum beside them like every other bundle.
+            sha256sum "$asset" > "${asset}.sha256sum"
+            up+=("$asset" "${asset}.sha256sum")
+          done
+          if ! gh release upload "v${VERSION}" "${up[@]}" --clobber; then
+            echo "::error::Could not attach the amd64/arm64 bundles to release v${VERSION}. The release must exist (created above) and GITHUB_TOKEN must be allowed to write releases here."
+            exit 1
+          fi
+          # Confirm from the OTHER side: an upload that reports success but leaves
+          # no asset behind is the failure nobody notices until a download 404s.
+          gh release view "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
+          for arch in amd64 arm64; do
+            if ! grep -qxF "wekan-${VERSION}-${arch}.zip" release-assets.txt; then
+              echo "::error::wekan-${VERSION}-${arch}.zip is not listed in release v${VERSION} although the upload reported success. Re-run the release job."
+              exit 1
+            fi
+          done
+          echo "OK: amd64 and arm64 bundles (and their .sha256sum) are attached to release v${VERSION}."
 
       # Always, as the last step: the run summary then answers "what worked and what
       # did not" for the whole release at a glance, instead of eighteen job logs. A
@@ -1527,16 +1575,25 @@ jobs:
             image: debian:trixie
             node_arch: riscv64
             ferretdb_arch: riscv64
+          # i386 and armhf are BEST-EFFORT: Node has no linux-x86 build at all,
+          # and no source builds Node 24 for armv7l, so when their Node.js is
+          # absent everywhere the preflight SKIPS them (a warning, exit 0) instead
+          # of failing the run - a red job every release for a CPU nothing can
+          # build a Node for is noise. They return on their own the first release
+          # after wekan/node publishes node-i386 / node-armhf. (FerretDB already
+          # ships both, so only Node.js gates them.)
           - arch: i386
             platform: linux/386
             image: debian:trixie
             node_arch: x86
             ferretdb_arch: i386
+            optional: true
           - arch: armhf
             platform: linux/arm/v7
             image: debian:trixie
             node_arch: armv7l
             ferretdb_arch: armhf
+            optional: true
           # loong64 has NO base image on Docker Hub - not debian, not ubuntu, at
           # any tag - so there is no loong64 userland to rebuild the native
           # modules in. node-loong64 and ferretdb-loong64 both exist; the
@@ -1598,10 +1655,14 @@ jobs:
             "$NODE_VERSION" \
             '${{ matrix.image }}' \
             '${{ matrix.platform }}' \
+            '${{ matrix.optional }}' \
             | tee /tmp/preflight.txt
-          grep -E '^(node_full|node_from|node_url|node_sha256)=' /tmp/preflight.txt >> "$GITHUB_OUTPUT"
+          # skip=true when a best-effort arch has no Node.js port yet; the build
+          # steps below are gated on it. node_* are absent in that case.
+          grep -E '^(node_full|node_from|node_url|node_sha256|skip)=' /tmp/preflight.txt >> "$GITHUB_OUTPUT"
 
       - name: Record where this bundle's Node.js came from
+        if: steps.preflight.outputs.skip != 'true'
         env:
           NODE_FULL: ${{ steps.preflight.outputs.node_full }}
           NODE_FROM: ${{ steps.preflight.outputs.node_from }}
@@ -1613,6 +1674,7 @@ jobs:
             "$NODE_FROM" "$NODE_FULL" "$NODE_URL" "${NODE_SHA256:-}"
 
       - name: Rebuild native modules for ${{ matrix.arch }} under emulation
+        if: steps.preflight.outputs.skip != 'true'
         env:
           NODE_FULL: ${{ steps.preflight.outputs.node_full }}
           NODE_FROM: ${{ steps.preflight.outputs.node_from }}
@@ -1657,6 +1719,7 @@ jobs:
             bash /releases/install-node-for-arch.sh
 
       - name: Embed FerretDB (${{ matrix.arch }}) into the bundle
+        if: steps.preflight.outputs.skip != 'true'
         # These arches have no MongoDB server, so FerretDB is their default DB.
         # The launcher (start-wekan.sh) is inherited from the amd64 base bundle;
         # download only this arch's binary from the newest wekan/FerretDB release.
@@ -1706,6 +1769,7 @@ jobs:
           touch bundle/.ferretdb-default
 
       - name: Create ${{ matrix.arch }} zip
+        if: steps.preflight.outputs.skip != 'true'
         run: |
           zip -r wekan-${VERSION}-${{ matrix.arch }}.zip bundle
           # A zip that EXISTS is not a zip that WORKS, and the log should say which of the
@@ -1737,6 +1801,7 @@ jobs:
           echo "OK: $zip is $((bytes/1024/1024)) MiB and contains bundle/main.js and bundle/node."
 
       - uses: actions/upload-artifact@v7
+        if: steps.preflight.outputs.skip != 'true'
         with:
           name: bundle-${{ matrix.arch }}
           path: wekan-${{ needs.prepare.outputs.version }}-${{ matrix.arch }}.zip
@@ -1744,6 +1809,7 @@ jobs:
 
 
       - name: Checksum the ${{ matrix.arch }} zip and collect provenance
+        if: steps.preflight.outputs.skip != 'true'
         run: |
           set -euo pipefail
           zip="wekan-${VERSION}-${{ matrix.arch }}.zip"
@@ -1753,12 +1819,14 @@ jobs:
           [ -f provenance.tsv ] && mv provenance.tsv "provenance/${{ matrix.arch }}.tsv" || true
 
       - uses: actions/upload-artifact@v4
+        if: steps.preflight.outputs.skip != 'true'
         with:
           name: provenance-${{ matrix.arch }}
           path: provenance/
           if-no-files-found: warn
 
       - name: Attach ${{ matrix.arch }} bundle to the GitHub Release
+        if: steps.preflight.outputs.skip != 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # No repo checkout in this job, so set GH_REPO so `gh` knows the target

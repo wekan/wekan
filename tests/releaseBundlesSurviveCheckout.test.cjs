@@ -43,8 +43,14 @@ function test(name, fn) {
 test('the release job still downloads the bundles and attaches them', () => {
   const body = job('release');
   assert.ok(/pattern:\s*bundle-\*/.test(body), 'downloads the bundle-* artifacts');
-  assert.ok(/files:/.test(body) && /wekan-\$\{\{[^}]*version[^}]*\}\}-amd64\.zip/.test(body),
-    'attaches wekan-<version>-amd64.zip to the release');
+  // The attach mechanism deliberately CHANGED: it used to be softprops `files:`,
+  // which fails silently on a missing file (that shipped v10.63 with no
+  // amd64/arm64 bundle). It is now `gh release upload --clobber`, loud on a
+  // missing file and verified from the release side - see
+  // tests/releaseArchSkipAndBaseAttach.test.cjs. The bundles must still be
+  // downloaded and attached; this only stops pinning the old silent path.
+  assert.ok(/gh release upload "v\$\{VERSION\}"[\s\S]*--clobber/.test(body),
+    'attaches the base bundles to the release with gh release upload --clobber');
 });
 
 test('a checkout AFTER the bundle download uses clean: false, or comes before it', () => {

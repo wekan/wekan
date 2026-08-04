@@ -45,8 +45,15 @@ ferretdb_arch="${3:?ferretdb_arch is required}"
 node_version="${4:?node_version is required}"
 image="${5:-}"
 platform="${6:-}"
+# best-effort: this CPU has no Node.js port yet (32-bit x86/ARM: Node has no
+# linux-x86 build at all, and no source builds armv7l for this major). When
+# such an arch's Node.js is absent EVERYWHERE, skip it this release rather than
+# failing the run - it builds automatically once wekan/node publishes node-<arch>.
+# A required arch whose Node.js is missing is still fatal, as before.
+optional="${7:-}"
 
 missing=0
+skip=0
 
 # -I: ask for the headers only. A release binary is tens of megabytes and this
 # runs for every architecture; there is nothing in the body worth downloading to
@@ -145,8 +152,18 @@ done
 if [ -z "$node_from" ]; then
     newest="$node_full_wanted"
     oldest="$(printf '%s\n' "$versions" | head -n "$MAX_VERSIONS_BACK" | tail -n 1)"
-    echo "::error::No Node.js for ${arch} exists anywhere. Checked every ${node_version}.x release from ${newest} back to ${oldest} at nodejs.org and unofficial-builds (node_arch '${node_arch}') and at the wekan/node fork (asset 'node-${arch}'). The fork is the one to fix: build node-${arch} with the node.yml workflow in wekan/node and attach it to a release, then re-run this job."
-    missing=1
+    if [ "$optional" = "true" ]; then
+        # A best-effort arch (32-bit x86/ARM) with no Node.js port anywhere is
+        # SKIPPED, not failed: there is no Node ${node_version} for this CPU to
+        # build against yet, so there is nothing this run can do about it, and a
+        # red job every release is noise, not news. It comes back on its own the
+        # first release after wekan/node publishes node-${arch}.
+        echo "::warning::${arch} is skipped this release: no Node.js ${node_version} build exists for it anywhere (nodejs.org and unofficial-builds have no '${node_arch}', and the wekan/node fork has no 'node-${arch}'). It is best-effort - build node-${arch} in wekan/node to bring it back."
+        skip=1
+    else
+        echo "::error::No Node.js for ${arch} exists anywhere. Checked every ${node_version}.x release from ${newest} back to ${oldest} at nodejs.org and unofficial-builds (node_arch '${node_arch}') and at the wekan/node fork (asset 'node-${arch}'). The fork is the one to fix: build node-${arch} with the node.yml workflow in wekan/node and attach it to a release, then re-run this job."
+        missing=1
+    fi
 elif [ "$node_full" != "$node_full_wanted" ]; then
     # Behind, but the newest that exists - which is the best this CPU can have.
     echo "::warning::${arch} gets Node.js ${node_full} from ${node_from}, not the newest ${node_full_wanted}: no source has node-${arch} (or ${node_arch}) for ${node_full_wanted} yet. This is the newest build that exists for this CPU. To bring it in line, build node-${arch} for ${node_full_wanted} in wekan/node."
@@ -213,6 +230,17 @@ if [ -n "$absent" ]; then
     echo "::warning::wekan/mongo-tools has no${absent} for ${ferretdb_arch}. The bundle ships without them rather than with the amd64 ones; FerretDB is the database and the launcher does not need them to start."
 else
     echo "MongoDB Database Tools for ${ferretdb_arch}: all present"
+fi
+
+# A best-effort arch with no Node.js port: report it and stop cleanly, so the
+# build steps are skipped (they read skip=true) instead of running with no
+# Node.js. This is exit 0 - a skipped best-effort arch is a notice, not a
+# failure - and it takes precedence over the FerretDB/mongo checks above, which
+# have nothing to add once there is no Node.js to build with.
+if [ "$skip" -ne 0 ]; then
+    echo "${arch}: skipped (best-effort, no Node.js port yet)."
+    printf 'skip=true\n'
+    exit 0
 fi
 
 if [ "$missing" -ne 0 ]; then
