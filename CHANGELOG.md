@@ -266,16 +266,17 @@ browser build to verify).
 </details>
 # Upcoming WeKan ® release
 
-**In short:** this release stops one **unbuildable CPU** from taking the
-**Docker image** (and the jobs that follow it) down with it. **loong64** has no
-`linux/loong64` base image to build its bundle in, so its build job failed - and
-because the **docker** job waits on the whole `build-extra-arches` matrix, a
-single failed leg **skipped docker**, and with it the **charts, ucs and
-nextcloud** jobs. loong64 is now **best-effort** like **i386** and **armhf** -
-the preflight skips it with a warning instead of failing, so the matrix succeeds
-and docker runs.
+**In short:** this release clears two remaining **release-build** failures.
+**loong64** has no `linux/loong64` base image to build its bundle in, so its
+build job failed - and because the **docker** job waits on the whole
+`build-extra-arches` matrix, that one failed leg **skipped docker**, and with it
+the **charts, ucs and nextcloud** jobs; loong64 is now **best-effort** like
+**i386** and **armhf**, skipped with a warning instead of failing. And the
+**Launchpad** snap builds (**ppc64el, s390x, riscv64, armhf**) could not push
+WeKan's large history to `git.launchpad.net` and timed out mid-upload; the
+repository is flattened to a single commit before the push now, so it fits.
 
-This release fixes the following release-build issue:
+This release fixes the following release-build issues:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/27da39f9587365003d26cfa6f095a203c67e1eb6">A loong64 with no base image is skipped, not failed, so it stops skipping the Docker image build</a>. Thanks to xet7.</summary>
@@ -296,6 +297,28 @@ matrix job succeeds and docker runs; loong64 stays visible on every run as a
 skip, and returns to a real build the day a `linux/loong64` base image is
 published. `tests/releaseArchSkipAndBaseAttach.test.cjs` pins loong64 as
 best-effort and that the base-image gate skips it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/50e2e14d99bb27455cf69f169bc43ed48cff96d9">The Launchpad snap builds flatten history first, so the push to git.launchpad.net stops timing out</a>. Thanks to xet7.</summary>
+
+The `snap-launchpad` builds (ppc64el, s390x, riscv64, armhf) run through
+`snapcraft remote-build`, which pushes the project's git repository to
+`git.launchpad.net` and builds it there. The push failed - *"Git operation
+failed with: Could not push 'HEAD' to git.launchpad.net/... snapcraft-wekan-
+&lt;hash&gt;"* - about four to five minutes in, on every one of the three
+retries (v10.64 ppc64el, and v10.55 riscv64 before it). remote-build rejects a
+SHALLOW clone, which is why the checkout is `fetch-depth: 0`, but it does not
+need the history, and WeKan's full history is large enough that the push times
+out or is refused mid-upload. After the full checkout the repository is now
+re-initialised as ONE commit of the tagged tree - `git rev-parse
+--is-shallow-repository` is still false, so remote-build accepts it, but the
+push carries the source tree (tens of MB) instead of the whole history
+(hundreds). The snap version comes from `snapcraft.yaml`, not `git describe`, so
+dropping the history changes nothing about what is built.
+`tests/releaseSnapLaunchpadFlatten.test.cjs` pins the flatten, its order, and
+that the checkout stays full-depth.
 
 </details>
 
