@@ -265,7 +265,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.68 2026-08-04 WeKan ® release
 
 **In short:** WeKan now takes its **Node.js from the wekan/node fork for every
 platform** and from nowhere else - the native bundles, the emulated
