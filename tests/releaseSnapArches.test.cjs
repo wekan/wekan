@@ -68,11 +68,14 @@ test('every platform in snapcraft.yaml is built by some snap job', () => {
   const nextKey = block.slice(1).search(/\n[a-z][\w-]*:/);
   if (nextKey !== -1) block = block.slice(0, nextKey + 1);
   const platforms = [...block.matchAll(/^ {2}([a-z0-9]+):$/gm)].map(m => m[1]);
-  // i386 and armhf joined once wekan/node started building a Node.js for them:
-  // the snap takes its runtime from the wekan-<arch>.zip bundle, so a snap arch
-  // is possible exactly when a bundle for it is.
+  // armhf joined once wekan/node built a Node.js for it: the snap takes its
+  // runtime from the wekan-<arch>.zip bundle, so a snap arch is possible exactly
+  // when a bundle for it is. i386 was REMOVED: core24 (Ubuntu 24.04) has no i386
+  // port, so `build-on: i386` is a snapcraft PARSE error that failed EVERY snap
+  // build, not only i386's. i386 users get the .deb and AppImage; an i386 snap
+  // would need a non-core24 base (scaffolded in snap-base-debian/).
   assert.deepStrictEqual(platforms.sort(),
-    ['amd64', 'arm64', 'armhf', 'i386', 'ppc64el', 'riscv64', 's390x'],
+    ['amd64', 'arm64', 'armhf', 'ppc64el', 'riscv64', 's390x'],
     'the platform list changed - the two jobs below must cover the new list');
 
   const native = job('snap-native');
@@ -95,9 +98,10 @@ test('the mainstream arches build natively, the exotic ones on Launchpad', () =>
   const launchpad = job('snap-launchpad');
   const arches = (launchpad.match(/arch: \[([^\]]+)\]/) || [, ''])[1]
     .split(',').map(a => a.trim());
-  // Everything without a native GitHub runner. i386 and armhf are the two that
-  // joined; they have no runner either, and QEMU still cannot do core24.
-  assert.deepStrictEqual(arches, ['ppc64el', 's390x', 'riscv64', 'i386', 'armhf'],
+  // Everything without a native GitHub runner. armhf has no runner either. i386
+  // was removed along with its snapcraft.yaml platform: core24 has no i386 port
+  // (see above), so there is no i386 snap to build here.
+  assert.deepStrictEqual(arches, ['ppc64el', 's390x', 'riscv64', 'armhf'],
     'ppc64el and s390x belong here: no native runner, and QEMU cannot do core24');
   assert.ok(/snapcraft remote-build/.test(launchpad), 'built with remote-build');
 });
@@ -286,6 +290,16 @@ test('every platform is in all the places that build it', () => {
   for (const arch of bundles) {
     if (arch === 'loong64') {
       assert.ok(!snapPlatforms.includes('loong64'), 'loong64 is not a snap architecture');
+      continue;
+    }
+    if (arch === 'i386') {
+      // i386 has a BUNDLE (debian:trixie builds it) but NOT a snap: core24 has
+      // no i386 port, so an i386 snap platform is a snapcraft parse error (see
+      // the platforms test above). So, like loong64, it is deliberately neither
+      // a snap platform nor a Launchpad arch.
+      assert.ok(!snapPlatforms.includes('i386'),
+        'i386 is not a snap platform (core24 has no i386 port)');
+      assert.ok(!lpArches.includes('i386'), 'i386 is not built on Launchpad');
       continue;
     }
     assert.ok(snapPlatforms.includes(toSnap(arch)), `${arch} must be a snap platform`);
