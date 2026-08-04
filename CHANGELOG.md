@@ -279,7 +279,7 @@ alongside.
 This release adds the following new Docker platforms:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a0f573bce4bbd06cb5790a0888438ef611152144">Docker images for linux/386 and linux/arm/v7, on a Debian base with Node from the fork</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/703527a322d2b1557181bdb36bdce5074c601169">Docker images for linux/386 and linux/arm/v7, on a Debian base with Node from the fork</a>. Thanks to xet7.</summary>
 
 Two 32-bit Docker platforms that only ever shipped as `.zip` bundles now build
 as images. The blocker was two-fold and is removed on both sides:
