@@ -273,10 +273,12 @@ build each platform carries - the thing you need when a **Node.js CVE** lands;
 the four native bundles used to ship whatever Node the GitHub runner carried
 (`cp $(command -v node)`), and **arm64** was even shipping **Node 22** because
 its job had no setup-node. Separately, the **base bundles** (**amd64, arm64**)
-are now attached to the release the same robust, loud, verified way every other
-bundle is - the old silent path had shipped **v10.63 with no amd64/arm64 bundle
-at all**, which 404'd every snap build - and **i386/armhf** are skipped when no
-Node.js exists for them anywhere instead of failing the run every release. It
+are now attached to the release loudly and verified, and - the real fix behind
+that - the release job **checks out before downloading the bundles** instead of
+after: the after-checkout deleted the just-downloaded zips (that is what
+shipped **v10.63 and v10.64 with no amd64/arm64 bundle**, 404'ing every snap
+build). And **i386/armhf** are skipped when no Node.js exists for them anywhere
+instead of failing the run every release. It
 also fixes an **Admin Panel** bug where a report opened by its own URL came up
 empty over data that was plainly there, because the subscription was cancelled
 by its own count re-render.
@@ -329,7 +331,31 @@ them. The release job now creates the release with softprops (so it exists for
 the self-attaching jobs) and attaches amd64/arm64 in a following step with `gh
 release upload --clobber` - failing the release if a base bundle is missing or
 empty, rather than 404'ing ten downstream jobs - and it checksums the exact
-bytes it attaches, so the base bundles get a `.sha256sum` like the rest.
+bytes it attaches, so the base bundles get a `.sha256sum` like the rest. (Why
+the base zip was missing in the first place is the next entry - the loud,
+verified attach is what turned that silent gap into a failed release that
+names it.)
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b6f2e13e71f14c81a54b2e74a3161d7e24f71a9d">The release job checks out before downloading the bundles, so the checkout stops deleting them</a>. Thanks to xet7.</summary>
+
+The real reason v10.63 (and then v10.64) shipped with no amd64/arm64 bundle was
+not softprops - it was the checkout. The `release` job downloaded the bundles
+into the workspace and THEN ran `actions/checkout` for the provenance script.
+The workspace is not a git repository at that point, so checkout's very first
+act is *"Deleting the contents of '&lt;workspace&gt;'"* to make room for a fresh
+clone - and it does this even with `clean: false`, which only skips the
+`git clean` in an already-checked-out repo, not the initial wipe. The
+just-downloaded `wekan-<version>-{amd64,arm64}.zip` were deleted before the
+attach step, which then failed with *"wekan-<version>-amd64.zip is missing or
+empty"* - and, because of the loud attach above, that now failed the release
+outright rather than shipping an empty one. The checkout runs FIRST now, into
+the empty workspace, and the bundles are downloaded on top of the checked-out
+tree, where nothing removes them. `tests/releaseBundlesSurviveCheckout.test.cjs`
+pins the order (checkout before the bundle download) rather than `clean: false`,
+which was never enough.
 
 </details>
 
