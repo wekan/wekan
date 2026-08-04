@@ -16,5 +16,33 @@ jobs:
 
     steps:
     - uses: actions/checkout@v7
+
+    # The Dockerfile does not build WeKan from source — it DOWNLOADS the prebuilt
+    # release zip (wekan-<VERSION>-amd64.zip) that release-all.yml publishes, and
+    # `exit 8`s if it is missing. So this image can only be built once the release
+    # for the version pinned in the Dockerfile is up. On a push during the release
+    # window (the version was just bumped but the release job has not attached the
+    # zip yet), or if the release failed, the asset 404s and this job failed hard
+    # even though nothing here is wrong. Check first and SKIP (a notice, green run)
+    # when the release is not published yet; the real image is built by
+    # release-all.yml's docker job once the release is up.
+    - name: Is the release this Dockerfile needs published yet?
+      id: rel
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        set -euo pipefail
+        VERSION="$(sed -n 's/^ARG VERSION=//p' Dockerfile | head -1)"
+        asset="wekan-${VERSION}-amd64.zip"
+        if gh release view "v${VERSION}" --repo "${{ github.repository }}" \
+             --json assets --jq '.assets[].name' 2>/dev/null | grep -qx "$asset"; then
+          echo "build=yes" >> "$GITHUB_OUTPUT"
+          echo "OK: $asset is on the v${VERSION} release; building the image."
+        else
+          echo "build=no" >> "$GITHUB_OUTPUT"
+          echo "::notice::$asset is not on the v${VERSION} release yet - skipping. release-all.yml builds the image once the release is published."
+        fi
+
     - name: Build the Docker image
+      if: steps.rel.outputs.build == 'yes'
       run: docker build . --file Dockerfile --tag wekan:$(date +%s)

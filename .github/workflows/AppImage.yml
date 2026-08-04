@@ -133,6 +133,29 @@ jobs:
       - uses: actions/checkout@v4
         if: ${{ env.BUILD_THIS == 'true' }}
 
+      # An AppImage only WRAPS an existing release bundle
+      # (wekan-<version>-<arch>.zip); it cannot build one. When this workflow is
+      # asked to fill a gap for a release whose base bundle is not published yet
+      # (release in progress, or it failed), `gh release download` finds "no
+      # assets to download" and the job failed hard. Turn that into a graceful
+      # skip: if the bundle this arch needs is not on the release, flip BUILD_THIS
+      # off so every step below (all gated on it) is skipped with a notice. The
+      # AppImage is built normally once the base bundle exists.
+      - name: Skip this arch if its release bundle is not published yet
+        if: ${{ env.BUILD_THIS == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          zip="wekan-${{ needs.release.outputs.version }}-${{ matrix.bundle_arch }}.zip"
+          if gh release view '${{ needs.release.outputs.tag }}' --repo "${{ github.repository }}" \
+               --json assets --jq '.assets[].name' 2>/dev/null | grep -qx "$zip"; then
+            echo "OK: $zip is on ${{ needs.release.outputs.tag }}; building its AppImage."
+          else
+            echo "::notice::$zip is not on ${{ needs.release.outputs.tag }} yet - skipping this AppImage (it can only wrap a bundle that exists)."
+            echo "BUILD_THIS=false" >> "$GITHUB_ENV"
+          fi
+
       - name: Fetch the release bundle for this architecture
         if: ${{ env.BUILD_THIS == 'true' }}
         env:
@@ -290,23 +313,41 @@ jobs:
           merge-multiple: true
 
       - name: Say what was built, and what was not
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           ls -lh assets 2>/dev/null || true
-          if ! ls assets/*.AppImage >/dev/null 2>&1; then
-            echo "::error::No architecture produced an AppImage - every build job" \
-                 "failed. Their logs say why; nothing is uploaded."
+          if ls assets/*.AppImage >/dev/null 2>&1; then
+            for want in x86_64 aarch64; do
+              ls assets/*"-$want.AppImage" >/dev/null 2>&1 || \
+                echo "::warning::no AppImage for $want - see that build job's log"
+            done
+          else
+            # No AppImage was produced. That is only a FAILURE if there was a base
+            # bundle to wrap: an AppImage cannot be built without one, and the
+            # build jobs skip (not fail) when the base bundle is not published yet.
+            published="$(gh release view '${{ needs.release.outputs.tag }}' --repo "${{ github.repository }}" --json assets --jq '.assets[].name' 2>/dev/null || true)"
+            base_present=false
+            for arch in amd64 arm64; do
+              printf '%s\n' "$published" | grep -qx "wekan-${{ needs.release.outputs.version }}-${arch}.zip" && base_present=true
+            done
+            if [ "$base_present" = false ]; then
+              echo "::notice::No base bundle (wekan-${{ needs.release.outputs.version }}-{amd64,arm64}.zip) is on ${{ needs.release.outputs.tag }} yet, so there is nothing to wrap - skipping. release-all.yml builds the AppImages once the base bundles are published."
+              exit 0
+            fi
+            echo "::error::A base bundle is published but no architecture produced an AppImage - every build job failed. Their logs say why; nothing is uploaded."
             exit 1
           fi
-          for want in x86_64 aarch64; do
-            ls assets/*"-$want.AppImage" >/dev/null 2>&1 || \
-              echo "::warning::no AppImage for $want - see that build job's log"
-          done
 
       - name: Upload them
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
+          if ! ls assets/*.AppImage >/dev/null 2>&1; then
+            echo "Nothing to upload (no base bundle was published to wrap)."
+            exit 0
+          fi
           gh release upload '${{ needs.release.outputs.tag }}' assets/* --clobber
           echo "Uploaded to $(gh release view '${{ needs.release.outputs.tag }}' --json url --jq .url)"
