@@ -283,7 +283,7 @@ This release fixes the following release-build issues:
 **Bundle provenance** - which Node.js and FerretDB binary each platform ships.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/081d50b45d3650d909915b92f84f118e7f65c25f">Every native bundle ships a named, checksummed Node.js and FerretDB instead of the runner's node</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e802d52eed3c41bb65071c2c17bb6890c704232b">Every native bundle ships a named, checksummed Node.js and FerretDB instead of the runner's node</a>. Thanks to xet7.</summary>
 
 The amd64, arm64, win64 and mac-arm64 bundles embedded Node.js with `cp
 $(command -v node)` - the runner's node. A bare binary extracted onto the
@@ -311,7 +311,7 @@ the runner's node or an unverified download.
 built at all.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/17d7493d6f66b8363271cc5ae89ddee0d692fd9e">The base amd64/arm64 bundles are attached loudly and verified, not silently by softprops</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/55463f685a09f75b07a127ec901b3d564353d46b">The base amd64/arm64 bundles are attached loudly and verified, not silently by softprops</a>. Thanks to xet7.</summary>
 
 Every bundle except amd64 and arm64 attaches itself with `gh release upload
 --clobber`, which fails on a missing file and is verified from the release
@@ -331,7 +331,7 @@ bytes it attaches, so the base bundles get a `.sha256sum` like the rest.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/17d7493d6f66b8363271cc5ae89ddee0d692fd9e">i386 and armhf are skipped when no Node.js exists for them, instead of failing the run</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/55463f685a09f75b07a127ec901b3d564353d46b">i386 and armhf are skipped when no Node.js exists for them, instead of failing the run</a>. Thanks to xet7.</summary>
 
 `build-extra-arches` failed on i386 and armhf because there is no Node.js to
 build them against: Node has no `linux-x86` build at all, and no source builds
