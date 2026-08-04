@@ -276,7 +276,10 @@ its job had no setup-node. Separately, the **base bundles** (**amd64, arm64**)
 are now attached to the release the same robust, loud, verified way every other
 bundle is - the old silent path had shipped **v10.63 with no amd64/arm64 bundle
 at all**, which 404'd every snap build - and **i386/armhf** are skipped when no
-Node.js exists for them anywhere instead of failing the run every release.
+Node.js exists for them anywhere instead of failing the run every release. It
+also fixes an **Admin Panel** bug where a report opened by its own URL came up
+empty over data that was plainly there, because the subscription was cancelled
+by its own count re-render.
 
 This release fixes the following release-build issues:
 
@@ -346,6 +349,35 @@ returns on its own the first release after wekan/node publishes `node-i386` /
 `node-armhf`. A *required* arch whose Node.js is missing is still fatal, as
 before. `tests/releaseArchSkipAndBaseAttach.test.cjs` pins both this and the
 base-bundle attachment above.
+
+</details>
+
+and fixes the following Admin Panel bug:
+
+**Admin Panel reports** - loading a report by its own URL.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c5a40924187545b3f954ba1eca7970346432a314">An admin report opened by its URL keeps the subscription its own count re-render used to cancel</a>. Thanks to xet7.</summary>
+
+Opening an admin report by its address - `/admin/problems/files` typed,
+bookmarked or refreshed - drew the column headers, "No results" and a "1 / 1"
+pager over data that was plainly there, while the count method reported five.
+An [earlier fix](https://github.com/wekan/wekan/commit/78b2f9ebcd56b699f218e8da06cd99a8eac81b12)
+addressed one half (re-subscribe once the login lands), but the report still
+came up empty. The `onCreated` autorun opens the pane and subscribes when the
+open-pane or the logged-in user changes, and it called `openReportPane()` /
+`loadReport()` directly in its reactive body - so it became reactive on
+`cfg.count` (which `loadReport` reads through `pageInfo`), and `loadReport`'s
+own count method then did `cfg.count.set(...)`. That re-ran the autorun, and a
+`Meteor.subscribe` made inside an autorun is AUTO-CANCELLED when the autorun
+re-runs; the re-run took the "same user, same pane" path, did not re-subscribe,
+and left the report with no subscription - *attachments in minimongo: 0*. From
+the left menu it worked, because that opens the pane from an event rather than a
+computation, so the subscribe was never auto-managed; only the URL path hit it.
+The autorun now reads only the pane id and the user reactively and runs its body
+inside `Tracker.nonreactive`, so a count re-render no longer cancels the
+subscription, whose lifetime is managed explicitly (a new `onDestroyed` stops
+the last one). `tests/adminReportsSubscriptionLifetime.test.cjs` pins it.
 
 </details>
 
