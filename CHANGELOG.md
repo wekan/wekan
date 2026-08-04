@@ -266,17 +266,17 @@ browser build to verify).
 </details>
 # Upcoming WeKan ® release
 
-**In short:** this release makes the **Node.js and FerretDB** inside every
-platform bundle a **named, checksummed** binary, so the release provenance
-table can say exactly which build each platform carries - the thing you need
-when a **Node.js CVE** lands. The four native bundles (**amd64, arm64, win64,
-mac-arm64**) shipped whatever Node the GitHub runner happened to carry (`cp
-$(command -v node)`), which publishes no checksum; **arm64** was even shipping
-**Node 22** because its job has no setup-node and copied the runner's default
-instead of the pinned Node 24. They now download the pinned Node.js from
-**nodejs.org** and verify it against `SHASUMS256.txt`, and verify **FerretDB**
-against the `.sha256sum` **wekan/FerretDB** publishes beside each binary; win64
-and mac-arm64 record provenance too, so no bundle is left untraceable.
+**In short:** this release hardens how the multi-platform release is assembled.
+The **Node.js and FerretDB** inside every platform bundle become **named,
+checksummed** binaries, so the release provenance table can say exactly which
+build each platform carries - the thing you need when a **Node.js CVE** lands;
+the four native bundles used to ship whatever Node the GitHub runner carried
+(`cp $(command -v node)`), and **arm64** was even shipping **Node 22** because
+its job had no setup-node. Separately, the **base bundles** (**amd64, arm64**)
+are now attached to the release the same robust, loud, verified way every other
+bundle is - the old silent path had shipped **v10.63 with no amd64/arm64 bundle
+at all**, which 404'd every snap build - and **i386/armhf** are skipped when no
+Node.js exists for them anywhere instead of failing the run every release.
 
 This release fixes the following release-build issues:
 
@@ -304,6 +304,48 @@ artifact like amd64 and arm64, so every platform is accounted for. The
 emulated arches already did this through `install-node-for-arch.sh`.
 `tests/releaseNodeVerified.test.cjs` pins that no native bundle can go back to
 the runner's node or an unverified download.
+
+</details>
+
+**Release assembly** - attaching the base bundles, and the arches that can be
+built at all.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/17d7493d6f66b8363271cc5ae89ddee0d692fd9e">The base amd64/arm64 bundles are attached loudly and verified, not silently by softprops</a>. Thanks to xet7.</summary>
+
+Every bundle except amd64 and arm64 attaches itself with `gh release upload
+--clobber`, which fails on a missing file and is verified from the release
+side. The two base bundles were the exception: the central `release` job
+attached them with softprops `files:`, which does NOT fail on an unmatched
+file. So when a run produced no base zip, softprops created the release with
+none of them and reported success - and [v10.63](https://github.com/wekan/wekan/releases/tag/v10.63)
+shipped with **no amd64 or arm64 bundle at all**, which 404'd every snap build
+(native, wekan-ondra, wekan-gantt-gpl) on `wekan-10.63-amd64.zip`. softprops
+also never listed the `.sha256sum`, so the base bundles had no checksum beside
+them. The release job now creates the release with softprops (so it exists for
+the self-attaching jobs) and attaches amd64/arm64 in a following step with `gh
+release upload --clobber` - failing the release if a base bundle is missing or
+empty, rather than 404'ing ten downstream jobs - and it checksums the exact
+bytes it attaches, so the base bundles get a `.sha256sum` like the rest.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/17d7493d6f66b8363271cc5ae89ddee0d692fd9e">i386 and armhf are skipped when no Node.js exists for them, instead of failing the run</a>. Thanks to xet7.</summary>
+
+`build-extra-arches` failed on i386 and armhf because there is no Node.js to
+build them against: Node has no `linux-x86` build at all, and no source builds
+Node 24 for `armv7l` (nodejs.org and unofficial-builds have neither, and the
+wekan/node fork has not built them yet). A red job every release for a CPU
+nothing can currently produce a Node for is noise, not news. Both are now
+marked **best-effort** (`optional: true`), and when a best-effort arch's
+Node.js is absent everywhere `releases/check-arch-binaries.sh` emits
+`skip=true` (a warning, exit 0) rather than a fatal error; every build step in
+the job is gated on it, so the arch is skipped cleanly with nothing built. It
+returns on its own the first release after wekan/node publishes `node-i386` /
+`node-armhf`. A *required* arch whose Node.js is missing is still fatal, as
+before. `tests/releaseArchSkipAndBaseAttach.test.cjs` pins both this and the
+base-bundle attachment above.
 
 </details>
 
