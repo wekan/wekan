@@ -264,6 +264,44 @@ has not decided on yet (adds a dependency + loosens the XSS sanitizer + needs a
 browser build to verify).
 
 </details>
+# Upcoming WeKan ® release
+
+**In short:** this release stops one **unbuildable CPU** from taking the
+**Docker image** (and the jobs that follow it) down with it. **loong64** has no
+`linux/loong64` base image to build its bundle in, so its build job failed - and
+because the **docker** job waits on the whole `build-extra-arches` matrix, a
+single failed leg **skipped docker**, and with it the **charts, ucs and
+nextcloud** jobs. loong64 is now **best-effort** like **i386** and **armhf** -
+the preflight skips it with a warning instead of failing, so the matrix succeeds
+and docker runs.
+
+This release fixes the following release-build issue:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/27da39f9587365003d26cfa6f095a203c67e1eb6">A loong64 with no base image is skipped, not failed, so it stops skipping the Docker image build</a>. Thanks to xet7.</summary>
+
+The `docker` job has `needs: [prepare, release, build-extra-arches]`, and GitHub
+skips a job whose needed job failed. `build-extra-arches` is a matrix, and its
+**loong64** leg hard-failed: no Docker Hub image publishes `linux/loong64`
+(`node-loong64` and `ferretdb-loong64` exist, but the container to rebuild the
+native modules in does not), so the preflight stopped it. One failed matrix leg
+makes the WHOLE `build-extra-arches` job `failure`, which skipped `docker` - and
+through docker the `charts`, `ucs` and `nextcloud` jobs that need it. That is
+why run #209 left docker skipped, even though every buildable architecture
+succeeded. loong64 is now marked `optional: true`, like i386 and armhf, and
+`releases/check-arch-binaries.sh` skips a best-effort arch whose BASE IMAGE is
+missing - not only one whose Node.js is missing - with a warning and `exit 0`
+emitting `skip=true`, gated the same way as every other best-effort skip. So the
+matrix job succeeds and docker runs; loong64 stays visible on every run as a
+skip, and returns to a real build the day a `linux/loong64` base image is
+published. `tests/releaseArchSkipAndBaseAttach.test.cjs` pins loong64 as
+best-effort and that the base-image gate skips it.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.64 2026-08-04 WeKan ® release
 
 **In short:** this release hardens how the multi-platform release is assembled.
