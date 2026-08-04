@@ -519,7 +519,7 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential g++ make python3 curl wget zip unzip qemu-user-static
+          sudo apt-get install -y build-essential g++ make python3 curl wget zip unzip xz-utils qemu-user-static
 
       - uses: actions/setup-node@v7
         with:
@@ -557,15 +557,33 @@ jobs:
         # derived from; those jobs overwrite bundle/node and bundle/ferretdb with
         # their own arch's binaries and inherit this launcher.
         run: |
-          # Bundled Node.js: the runner's node (setup-node) is linux-x64 Node 24,
-          # matching this base bundle's arch.
-          cp -L "$(command -v node)" .build/bundle/node
-          chmod +x .build/bundle/node
+          # Bundled Node.js: download the pinned Node ${NODE_VERSION} for linux-x64
+          # from nodejs.org and VERIFY it against SHASUMS256.txt, rather than
+          # copying the runner's unnamed, unchecksummed node. The helper exports
+          # NODE_FULL and NODE_SHA256 to $GITHUB_ENV for the provenance step.
+          bash releases/embed-verified-node.sh .build/bundle/node linux x64 "$NODE_VERSION"
           # Bundled FerretDB (amd64): download only this arch's binary from the
           # newest wekan/FerretDB release (per-arch assets, no ferretdb.zip).
-          curl -fSL --retry 5 --retry-delay 10 -o .build/bundle/ferretdb \
-            "https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-amd64"
+          FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-amd64"
+          curl -fSL --retry 5 --retry-delay 10 -o .build/bundle/ferretdb "$FERRET_URL"
           chmod +x .build/bundle/ferretdb
+          # wekan/FerretDB publishes a .sha256sum beside each binary now. Verify
+          # the download against it and carry the value to the provenance step
+          # (record-provenance runs in the later Create-zip step). Older releases
+          # publish none, so a missing one is unverified, not fatal - the binary
+          # IS present, which is the test.
+          if curl -fsSL "${FERRET_URL}.sha256sum" -o /tmp/ferretdb.sha256sum 2>/dev/null; then
+            FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
+            GOT="$(sha256sum .build/bundle/ferretdb | cut -d' ' -f1)"
+            if [ "$GOT" != "$FERRET_SHA" ]; then
+              echo "::error::FerretDB amd64 does not match its published SHA256 (published $FERRET_SHA, got $GOT)."
+              exit 1
+            fi
+            echo "FerretDB SHA256 verified: $GOT"
+            echo "FERRET_SHA=$FERRET_SHA" >> "$GITHUB_ENV"
+          else
+            echo "::warning::wekan/FerretDB publishes no checksum for ferretdb-amd64 on this release, so it is unverified."
+          fi
           # Bundled MongoDB Database Tools (amd64) from wekan/mongo-tools (per-arch,
           # no mongodb.com). This base amd64 bundle is inherited by the other Linux
           # arches, which overwrite these with their own arch's tools below.
@@ -598,11 +616,13 @@ jobs:
           # Where this bundle's binaries came from, for the release notes.
           mkdir -p provenance
           PROVENANCE_FILE=provenance/amd64.tsv bash releases/record-provenance.sh \
-            'amd64' 'Node.js' 'GitHub runner (setup-node)' "$(node --version)" \
-            'https://github.com/actions/setup-node' || true
+            'amd64' 'Node.js' 'nodejs.org' "${NODE_FULL:-$NODE_VERSION.x}" \
+            "https://nodejs.org/dist/${NODE_FULL:-}/node-${NODE_FULL:-}-linux-x64.tar.xz" \
+            "${NODE_SHA256:-}" || true
           PROVENANCE_FILE=provenance/amd64.tsv bash releases/record-provenance.sh \
             'amd64' 'FerretDB' 'wekan/FerretDB' 'latest' \
-            'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-amd64' || true
+            'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-amd64' \
+            "${FERRET_SHA:-}" || true
           # A zip that EXISTS is not a zip that WORKS, and the log should say which of the
           # two this is. The size answers "was the bundle directory empty when it was
           # zipped"; the entries answer "can this bundle start at all" - bundle/main.js is
@@ -686,7 +706,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential g++ make python3 curl unzip zip qemu-user-static
+          sudo apt-get install -y build-essential g++ make python3 curl unzip zip xz-utils qemu-user-static
 
       - name: Download amd64 bundle
         uses: actions/download-artifact@v8
@@ -726,12 +746,30 @@ jobs:
         # The launcher (start-wekan.sh) is inherited from the amd64 base bundle;
         # swap bundle/node (runner is arm64 -> linux-arm64 Node 24) and bundle/ferretdb.
         run: |
-          cp -L "$(command -v node)" bundle/node
-          chmod +x bundle/node
-          # Download only the arm64 FerretDB binary from the newest wekan/FerretDB release.
-          curl -fSL --retry 5 --retry-delay 10 -o bundle/ferretdb \
-            "https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-arm64"
+          # Bundled Node.js: download the pinned Node ${NODE_VERSION} for
+          # linux-arm64 from nodejs.org and VERIFY it. This job has no setup-node,
+          # so the old `cp $(command -v node)` shipped the runner's DEFAULT node -
+          # Node 22 on ubuntu-24.04-arm - not the pinned 24, and unchecksummed.
+          # The helper exports NODE_FULL and NODE_SHA256 for the provenance step.
+          bash releases/embed-verified-node.sh bundle/node linux arm64 "$NODE_VERSION"
+          # Download only the arm64 FerretDB binary from the newest wekan/FerretDB
+          # release, and verify it against the .sha256sum wekan/FerretDB now
+          # publishes beside each binary (carry the value to the provenance step).
+          FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-arm64"
+          curl -fSL --retry 5 --retry-delay 10 -o bundle/ferretdb "$FERRET_URL"
           chmod +x bundle/ferretdb
+          if curl -fsSL "${FERRET_URL}.sha256sum" -o /tmp/ferretdb.sha256sum 2>/dev/null; then
+            FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
+            GOT="$(sha256sum bundle/ferretdb | cut -d' ' -f1)"
+            if [ "$GOT" != "$FERRET_SHA" ]; then
+              echo "::error::FerretDB arm64 does not match its published SHA256 (published $FERRET_SHA, got $GOT)."
+              exit 1
+            fi
+            echo "FerretDB SHA256 verified: $GOT"
+            echo "FERRET_SHA=$FERRET_SHA" >> "$GITHUB_ENV"
+          else
+            echo "::warning::wekan/FerretDB publishes no checksum for ferretdb-arm64 on this release, so it is unverified."
+          fi
           # Overwrite the inherited amd64 MongoDB Database Tools with arm64 ones.
           MT="https://github.com/wekan/mongo-tools/releases/latest/download"
           for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
@@ -755,11 +793,13 @@ jobs:
           # Where this bundle's binaries came from, for the release notes.
           mkdir -p provenance
           PROVENANCE_FILE=provenance/arm64.tsv bash releases/record-provenance.sh \
-            'arm64' 'Node.js' 'GitHub runner (setup-node)' "$(node --version)" \
-            'https://github.com/actions/setup-node' || true
+            'arm64' 'Node.js' 'nodejs.org' "${NODE_FULL:-$NODE_VERSION.x}" \
+            "https://nodejs.org/dist/${NODE_FULL:-}/node-${NODE_FULL:-}-linux-arm64.tar.xz" \
+            "${NODE_SHA256:-}" || true
           PROVENANCE_FILE=provenance/arm64.tsv bash releases/record-provenance.sh \
             'arm64' 'FerretDB' 'wekan/FerretDB' 'latest' \
-            'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-arm64' || true
+            'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-arm64' \
+            "${FERRET_SHA:-}" || true
           # A zip that EXISTS is not a zip that WORKS, and the log should say which of the
           # two this is. The size answers "was the bundle directory empty when it was
           # zipped"; the entries answer "can this bundle start at all" - bundle/main.js is
@@ -1028,20 +1068,51 @@ jobs:
         # tolerant: if the win64 asset is missing the bundle stays MongoDB-only
         # (start-wekan.bat then won't find ferretdb.exe).
         run: |
-          # Bundled Node.js (win-x64 node.exe from setup-node).
-          NODE_SRC="$(command -v node)"
-          [ -f "$NODE_SRC" ] || NODE_SRC="${NODE_SRC}.exe"
-          cp "$NODE_SRC" bundle/node.exe
-          # Bundled FerretDB (win64): download only this arch's binary.
-          if curl -fSL --retry 5 --retry-delay 10 -o bundle/ferretdb.exe \
-               "https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win64.exe"; then
+          # Bundled Node.js: download the pinned Node ${NODE_VERSION} win-x64
+          # node.exe from nodejs.org and VERIFY it, rather than copying the
+          # runner's unchecksummed node. Exports NODE_FULL/NODE_SHA256 for
+          # provenance.
+          # Capture node_full/node_sha256 in THIS shell (provenance is recorded in
+          # the same step, and $GITHUB_ENV only reaches later steps); a failed
+          # download/verify stops the build here rather than at the later guard.
+          node_meta="$(bash src/releases/embed-verified-node.sh bundle/node.exe win x64 "$NODE_VERSION")" \
+            || { echo "::error::Verified Node.js embed failed for win64."; exit 1; }
+          eval "$node_meta"
+          # Bundled FerretDB (win64): download this arch's binary and verify it
+          # against the .sha256sum wekan/FerretDB publishes beside it.
+          FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win64.exe"
+          if curl -fSL --retry 5 --retry-delay 10 -o bundle/ferretdb.exe "$FERRET_URL"; then
             echo "Embedded FerretDB win64 -> bundle/ferretdb.exe"
+            if curl -fsSL "${FERRET_URL}.sha256sum" -o /tmp/ferretdb.sha256sum 2>/dev/null; then
+              FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
+              GOT="$(sha256sum bundle/ferretdb.exe | cut -d' ' -f1)"
+              if [ "$GOT" != "$FERRET_SHA" ]; then
+                echo "::error::FerretDB win64 does not match its published SHA256 (published $FERRET_SHA, got $GOT)."
+                exit 1
+              fi
+              echo "FerretDB SHA256 verified: $GOT"
+              echo "FERRET_SHA=$FERRET_SHA" >> "$GITHUB_ENV"
+            else
+              echo "::warning::wekan/FerretDB publishes no checksum for ferretdb-win64.exe on this release, so it is unverified."
+            fi
           else
             rm -f bundle/ferretdb.exe
             echo "No win64 FerretDB asset in the release; Windows bundle stays MongoDB-only."
           fi
           # Self-contained Windows launcher (defaults to FerretDB SQLite).
           cp src/releases/ferretdb/start-wekan.bat bundle/
+          # Where this bundle's binaries came from, for the release notes.
+          mkdir -p provenance
+          PROVENANCE_FILE=provenance/win64.tsv bash src/releases/record-provenance.sh \
+            'win64' 'Node.js' 'nodejs.org' "${node_full:-$NODE_VERSION.x}" \
+            "https://nodejs.org/dist/${node_full:-}/node-${node_full:-}-win-x64.zip" \
+            "${node_sha256:-}" || true
+          if [ -s bundle/ferretdb.exe ]; then
+            PROVENANCE_FILE=provenance/win64.tsv bash src/releases/record-provenance.sh \
+              'win64' 'FerretDB' 'wekan/FerretDB' 'latest' \
+              'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win64.exe' \
+              "${FERRET_SHA:-}" || true
+          fi
           # Check what goes IN, before anything is archived. This is the honest place
           # for it: whether the zip can hold a startable bundle is decided here, in a
           # plain directory, with no archive-listing format in the way.
@@ -1116,6 +1187,14 @@ jobs:
         with:
           name: bundle-win64
           path: wekan-${{ needs.prepare.outputs.version }}-win64.zip
+          retention-days: 1
+
+      - name: Upload win64 provenance
+        uses: actions/upload-artifact@v7
+        with:
+          name: provenance-win64
+          path: provenance/
+          if-no-files-found: ignore
           retention-days: 1
 
       - name: Attach win64 bundle to the GitHub Release
@@ -1241,16 +1320,47 @@ jobs:
         # release. FerretDB is tolerant: if the mac-arm64 asset is missing the
         # bundle stays MongoDB-only (start-wekan.sh then won't find ferretdb).
         run: |
-          cp -L "$(command -v node)" bundle/node
-          chmod +x bundle/node
-          if curl -fSL --retry 5 --retry-delay 10 -o bundle/ferretdb \
-               "https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-mac-arm64"; then
+          # Bundled Node.js: download the pinned Node ${NODE_VERSION} darwin-arm64
+          # build from nodejs.org and VERIFY it, rather than copying the runner's
+          # unchecksummed node. Exports NODE_FULL/NODE_SHA256 for provenance.
+          # Capture node_full/node_sha256 in THIS shell (provenance is recorded in
+          # the same step, and $GITHUB_ENV only reaches later steps); a failed
+          # download/verify stops the build here rather than at the later guard.
+          node_meta="$(bash releases/embed-verified-node.sh bundle/node darwin arm64 "$NODE_VERSION")" \
+            || { echo "::error::Verified Node.js embed failed for mac-arm64."; exit 1; }
+          eval "$node_meta"
+          FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-mac-arm64"
+          if curl -fSL --retry 5 --retry-delay 10 -o bundle/ferretdb "$FERRET_URL"; then
             chmod +x bundle/ferretdb
             echo "Embedded FerretDB mac-arm64 -> bundle/ferretdb"
+            if curl -fsSL "${FERRET_URL}.sha256sum" -o /tmp/ferretdb.sha256sum 2>/dev/null; then
+              FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
+              GOT="$(shasum -a 256 bundle/ferretdb | cut -d' ' -f1)"   # macOS has no sha256sum
+              if [ "$GOT" != "$FERRET_SHA" ]; then
+                echo "::error::FerretDB mac-arm64 does not match its published SHA256 (published $FERRET_SHA, got $GOT)."
+                exit 1
+              fi
+              echo "FerretDB SHA256 verified: $GOT"
+              echo "FERRET_SHA=$FERRET_SHA" >> "$GITHUB_ENV"
+            else
+              echo "::warning::wekan/FerretDB publishes no checksum for ferretdb-mac-arm64 on this release, so it is unverified."
+            fi
           else
             rm -f bundle/ferretdb
             echo "No mac-arm64 FerretDB asset in the release; macOS bundle stays MongoDB-only."
             rm -f bundle/start-wekan.sh
+          fi
+          # Where this bundle's binaries came from, for the release notes.
+          mkdir -p provenance
+          PROVENANCE_FILE=provenance/mac-arm64.tsv bash releases/record-provenance.sh \
+            'mac-arm64' 'Node.js' 'nodejs.org' "${node_full:-$NODE_VERSION.x}" \
+            "https://nodejs.org/dist/${node_full:-}/node-${node_full:-}-darwin-arm64.tar.gz" \
+            "${node_sha256:-}" || true
+          if [ -s bundle/ferretdb ]; then
+            PROVENANCE_FILE=provenance/mac-arm64.tsv bash releases/record-provenance.sh \
+              'mac-arm64' 'FerretDB' 'wekan/FerretDB' 'latest' \
+              'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-mac-arm64' \
+              "${FERRET_SHA:-}" || true
           fi
           # macOS MongoDB Database Tools (mac-arm64) from wekan/mongo-tools; tolerant
           # (skip any tool not built for macOS).
@@ -1300,6 +1410,14 @@ jobs:
         with:
           name: bundle-mac-arm64
           path: wekan-${{ needs.prepare.outputs.version }}-mac-arm64.zip
+          retention-days: 1
+
+      - name: Upload mac-arm64 provenance
+        uses: actions/upload-artifact@v7
+        with:
+          name: provenance-mac-arm64
+          path: provenance/
+          if-no-files-found: ignore
           retention-days: 1
 
       - name: Attach mac-arm64 bundle to the GitHub Release

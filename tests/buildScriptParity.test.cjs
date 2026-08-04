@@ -203,6 +203,8 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     // "install a target-CPU Node.js into the container we are inside" would be
     // an entry that cannot work.
     'check-arch-binaries.sh': 'release-workflow preflight: called per build job',
+    'embed-verified-node.sh': 'release-workflow: called per native build job to '
+      + 'download+verify the bundled Node.js from nodejs.org',
     'install-node-for-arch.sh': 'release-workflow: runs inside the build container',
     'require-binaries.sh': 'release-workflow: called per build job',
     'record-provenance.sh': 'release-workflow: called per build job',
