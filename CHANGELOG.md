@@ -264,6 +264,42 @@ has not decided on yet (adds a dependency + loosens the XSS sanitizer + needs a
 browser build to verify).
 
 </details>
+# Upcoming WeKan ® release
+
+**In short:** this release fixes the reason the release shipped **no bundles**,
+which is what starved every downstream job (snap, Docker, AppImage) of the
+`wekan-<version>-amd64.zip` they download - the 404s those jobs kept hitting
+were never their own fault. The `release` job downloaded the bundles and then
+checked the repo out, and `actions/checkout`'s default clean **deleted** the
+untracked zips before they could be attached; the checkout now keeps them. The
+snap download also stops treating the brief post-upload 404 as fatal.
+
+This release fixes the following release-build issue:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/809dc794f2627c6fbc18ea0570128b4a8bac57a6">The release stops deleting its own bundles before attaching them</a>. Thanks to xet7.</summary>
+
+The `release` job downloads the per-arch bundles to the workspace root, then
+checks the repo out (for the provenance script) before creating the GitHub
+Release. `actions/checkout` defaults to `clean: true`, whose `git clean -ffdx`
+**deletes those untracked zips** - so the "Create GitHub Release" step's
+`files: wekan-<version>-{amd64,arm64}.zip` matched nothing. softprops does not
+fail on unmatched files, so the release was created (job "success") with NO
+bundles attached, and every downstream job that downloads one 404'd on
+`wekan-<version>-amd64.zip` - the snap, Docker and AppImage failures were all
+this. The checkout now sets `clean: false`, so the bundles survive and are
+attached; the same fix went to the wekan-ondra and wekan-gantt-gpl forks, which
+had the identical job. Separately, the snapcraft `wekan` part downloaded its
+bundle with a single `wget` that treated a 404 as fatal, so it also broke on
+the brief CDN lag right after an upload; it now retries like the other release
+downloads. `tests/releaseBundlesSurviveCheckout.test.cjs` pins that a checkout
+after the bundle download keeps `clean: false`.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.61 2026-08-04 WeKan ® release
 
 **In short:** this release is all **release-build** fixes. With the release job
