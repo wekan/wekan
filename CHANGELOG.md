@@ -265,6 +265,33 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** a follow-up to the **fork-everywhere Node.js** switch in v10.68.
+The native bundle jobs pass the pinned Node **major** (`24`), but the wekan/node
+fork tags its releases by full version (`v24.19.0`), so the embed helper built a
+`…/download/24/node-x64` URL that 404s and the amd64 bundle failed. The helper
+now resolves the major to the newest fork tag that carries the asset.
+
+This release fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/414594ce99ac7dd44de2affaa15d7b135f6c319e">The native embed resolves the fork's full version from the pinned major</a>. Thanks to xet7.</summary>
+
+The native jobs call `embed-verified-node.sh … node-x64 "$NODE_VERSION"`, but
+`$NODE_VERSION` is the pinned MAJOR, `24`, while the fork tags its releases by
+full version, `v24.19.0`. The helper built
+`…/releases/download/24/node-x64`, which 404s, so the amd64 bundle failed at the
+Node embed step. It now resolves a bare major to the newest fork tag
+`v<major>.x` that carries the asset - the same GitHub-API walk
+`check-arch-binaries.sh` uses - and takes a full tag as given. When no release
+has the asset it stops with a message naming the fork asset to build.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.68 2026-08-04 WeKan ® release
 
 **In short:** WeKan now takes its **Node.js from the wekan/node fork for every
@@ -314,20 +341,6 @@ a fork asset. `s390x` becomes best-effort (optional) like i386/armhf/loong64:
 until the fork has published `node-s390x` the preflight skips it with a warning
 instead of failing the whole matrix and taking docker down with it, and it
 returns on its own once the fork publishes it.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/13edf9ed6758fb85da26a7e7c4131682dd2a577c">The native embed resolves the fork's full version from the pinned major</a>. Thanks to xet7.</summary>
-
-The native jobs call `embed-verified-node.sh … node-x64 "$NODE_VERSION"`, but
-`$NODE_VERSION` is the pinned MAJOR, `24`, while the fork tags its releases by
-full version, `v24.19.0`. The helper built
-`…/releases/download/24/node-x64`, which 404s, so the amd64 bundle failed at the
-Node embed step. It now resolves a bare major to the newest fork tag
-`v<major>.x` that carries the asset - the same GitHub-API walk
-`check-arch-binaries.sh` uses - and takes a full tag as given. When no release
-has the asset it stops with a message naming the fork asset to build.
 
 </details>
 
