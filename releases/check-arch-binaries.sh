@@ -4,13 +4,13 @@
 # every binary the bundle needs from somewhere else actually exists.
 #
 # A WeKan bundle for an architecture other than amd64 is assembled out of files
-# that other projects publish: a Node.js build (nodejs.org, unofficial-builds, or
-# the wekan/node fork), a FerretDB binary (wekan/FerretDB), and the MongoDB
-# Database Tools (wekan/mongo-tools). Any of them can be absent - a fork build
-# that has not finished, a release that skipped an architecture - and when one is,
-# the build should stop HERE, saying which file is missing and where it should be
-# published, rather than an hour later inside an emulated container with a 404 in
-# the middle of an npm install.
+# that other projects publish: a Node.js build (the wekan/node fork, and ONLY the
+# fork - see §2), a FerretDB binary (wekan/FerretDB), and the MongoDB Database
+# Tools (wekan/mongo-tools). Any of them can be absent - a fork build that has not
+# finished, a release that skipped an architecture - and when one is, the build
+# should stop HERE, saying which file is missing and where it should be published,
+# rather than an hour later inside an emulated container with a 404 in the middle
+# of an npm install.
 #
 # Usage:
 #   check-arch-binaries.sh <arch> <node_arch> <ferretdb_arch> <node_version> [image] [platform]
@@ -22,12 +22,12 @@
 #   image          base image, e.g. debian:trixie   (optional; checked if given)
 #   platform       docker platform, e.g. linux/386  (optional; needs image)
 #
-# Prints, on stdout, three lines for the caller to read:
-#   node_full=vX.Y.Z                        the version that was found
-#   node_from=official|unofficial|fork      where it was found
+# Prints, on stdout, four lines for the caller to read:
+#   node_full=vX.Y.Z                        the fork tag that was found
+#   node_from=fork                          always the fork - there is no other source
 #   node_url=https://...                    the exact file to download
-#   node_sha256=<hex>                       its published SHA256, empty if the
-#                                           source publishes none
+#   node_sha256=<hex>                       its published SHA256, empty only if a
+#                                           very old fork release published none
 #
 # The version is the NEWEST that exists FOR THIS CPU, which is not always the
 # newest that exists - see the walk below.
@@ -94,130 +94,121 @@ if [ -n "$image" ] && [ -n "$platform" ]; then
     fi
 fi
 
-# ── 2. Node.js ───────────────────────────────────────────────────────────────
+# ── 2. Node.js - the wekan/node fork, and ONLY the fork ──────────────────────
 #
-# THE ORDER IS BY HOW VERIFIABLE THE BUILD IS. The three sources do not offer
-# the same assurances, and this checked rather than assumed it:
+# WeKan takes its Node.js from the wekan/node fork for EVERY platform, and from
+# nowhere else. The reason is control: the fork is Node built from source, so a
+# Node bug can be PATCHED and rebuilt - which cannot be done with nodejs.org's or
+# unofficial-builds' opaque binaries - and one source means a set of bundles is
+# never half built on one Node.js and half on another depending on the CPU. The
+# fork also already covers the CPUs the other two do not build at all (32-bit
+# x86/ARM, loong64, win32), so it is the only source that fits every platform.
+# There is no official/unofficial fallback here on purpose: a binary this project
+# cannot rebuild from source is exactly the one it will not ship.
 #
-#   nodejs.org          SHASUMS256.txt, and SHASUMS256.txt.sig / .asc
-#                       signed with the Node.js release keys
-#   unofficial-builds   SHASUMS256.txt, no signature
-#   wekan/node fork     neither
+# The fork publishes one BARE binary per arch - node-${arch} - plus a
+# node-${arch}.sha256sum beside it, per release tag (v24.19.0, ...). The rule is
+# "the NEWEST fork build that exists FOR THIS CPU", which is not always the
+# newest fork release: the fork builds each CPU on its own schedule, so an exotic
+# arch's newest build can be a tag or two behind. This lists the fork's own
+# ${node_version}.x releases, newest first, and takes the first that carries
+# node-${arch}; the SHA256 comes from that release's node-${arch}.sha256sum and
+# is handed to the download step, which refuses a file that does not match.
 #
-# So official first, then unofficial, then the fork - descending verifiability,
-# and the fork as the backstop for what the other two do not build. A binary
-# somebody else signed is worth more than one this project built, and the
-# fork's own fixes are build-configuration fixes that upstream's builds do not
-# need in the first place: they are what makes the CPUs upstream does NOT build
-# compile at all.
-#
-# The expected SHA256 is looked up here, from the source's own SHASUMS256.txt,
-# and handed to the download step, which refuses a file that does not match.
-# Preferring a source because it is verifiable and then not verifying it would
-# be preferring it for nothing.
-#
-# And the rule is still "the NEWEST Node.js that exists for this CPU", not "the
-# newest Node.js". Those are the same thing on amd64 and arm64 and regularly are
-# not anywhere else - each source builds on its own schedule, so the further a
-# CPU is off the beaten path the further behind its newest build tends to be.
-# This walks the 24.x versions from newest down and asks all three sources at
-# each one; the first hit wins, which is by construction the newest build that
-# exists anywhere for this CPU.
-#
-# The walk stops after MAX_VERSIONS_BACK. A CPU whose newest build is a dozen
-# releases old is not "slightly behind", it is unmaintained, and saying so is
-# more use than silently shipping something from last year.
+# The walk stops after MAX_VERSIONS_BACK. A CPU whose newest fork build is a
+# dozen releases old is not "slightly behind", it is unmaintained, and saying so
+# is more use than silently shipping something from last year.
 MAX_VERSIONS_BACK=12
 
-versions="$(curl -fsSL https://nodejs.org/dist/index.json |
-    python3 -c "
-import json,sys
-major='v${node_version}.'
-print('\n'.join(r['version'] for r in json.load(sys.stdin) if r['version'].startswith(major)))
-")"
+# Ask the fork's own release list which tags carry node-${arch}, newest first.
+# The API needs no auth for a public repo, but CI passes GITHUB_TOKEN to dodge
+# the low unauthenticated rate limit; use it when it is set.
+gh_auth=()
+[ -n "${GITHUB_TOKEN:-}" ] && gh_auth=(-H "Authorization: Bearer ${GITHUB_TOKEN}")
+releases_json="$(curl -fsSL "${gh_auth[@]}" \
+    "https://api.github.com/repos/wekan/node/releases?per_page=100" 2>/dev/null || true)"
 
-if [ -z "$versions" ]; then
-    echo "::error::Could not list Node.js ${node_version}.x versions from https://nodejs.org/dist/index.json ."
+if [ -z "$releases_json" ]; then
+    echo "::error::Could not list wekan/node releases from the GitHub API, so there is no way to find the newest fork build of Node.js ${node_version} for ${arch}."
     exit 1
 fi
 
-node_full_wanted="$(printf '%s\n' "$versions" | head -n 1)"
+# Tags for this major that actually have a node-${arch} asset, newest first by
+# semver. python3 sorts them; asset presence is read straight from the release.
+fork_tags="$(printf '%s' "$releases_json" | python3 -c "
+import json,sys
+major='v${node_version}.'
+asset='node-${arch}'
+def key(t):
+    try: return [int(x) for x in t.lstrip('v').split('.')[:3]]
+    except Exception: return [0,0,0]
+tags=[r['tag_name'] for r in json.load(sys.stdin)
+      if r.get('tag_name','').startswith(major)
+      and any(a.get('name')==asset for a in r.get('assets',[]))]
+print('\n'.join(sorted(set(tags), key=key, reverse=True)))
+" 2>/dev/null || true)"
+
+# The newest fork tag for this major at all (whether or not it has this arch),
+# for the "behind" message below.
+node_full_wanted="$(printf '%s' "$releases_json" | python3 -c "
+import json,sys
+major='v${node_version}.'
+def key(t):
+    try: return [int(x) for x in t.lstrip('v').split('.')[:3]]
+    except Exception: return [0,0,0]
+tags=[r['tag_name'] for r in json.load(sys.stdin) if r.get('tag_name','').startswith(major)]
+print(sorted(set(tags), key=key, reverse=True)[0] if tags else '')
+" 2>/dev/null || true)"
 
 node_from=""
 node_full=""
 node_url=""
 tried=0
-
-for v in $versions; do
+for v in $fork_tags; do
     tried=$((tried + 1))
     [ "$tried" -gt "$MAX_VERSIONS_BACK" ] && break
-
-    o="https://nodejs.org/dist/${v}/node-${v}-linux-${node_arch}.tar.xz"
-    u="https://unofficial-builds.nodejs.org/download/release/${v}/node-${v}-linux-${node_arch}.tar.xz"
     f="https://github.com/wekan/node/releases/download/${v}/node-${arch}"
-
-    # Most verifiable first - see the note above.
-    if   have "$o"; then node_from=official;   node_url="$o"; node_full="$v"; break
-    elif have "$u"; then node_from=unofficial; node_url="$u"; node_full="$v"; break
-    elif have "$f"; then node_from=fork;       node_url="$f"; node_full="$v"; break
-    fi
+    if have "$f"; then node_from=fork; node_url="$f"; node_full="$v"; break; fi
 done
 
 if [ -z "$node_from" ]; then
-    newest="$node_full_wanted"
-    oldest="$(printf '%s\n' "$versions" | head -n "$MAX_VERSIONS_BACK" | tail -n 1)"
     if [ "$optional" = "true" ]; then
-        # A best-effort arch (32-bit x86/ARM) with no Node.js port anywhere is
-        # SKIPPED, not failed: there is no Node ${node_version} for this CPU to
-        # build against yet, so there is nothing this run can do about it, and a
-        # red job every release is noise, not news. It comes back on its own the
-        # first release after wekan/node publishes node-${arch}.
-        echo "::warning::${arch} is skipped this release: no Node.js ${node_version} build exists for it anywhere (nodejs.org and unofficial-builds have no '${node_arch}', and the wekan/node fork has no 'node-${arch}'). It is best-effort - build node-${arch} in wekan/node to bring it back."
+        # A best-effort arch whose fork build has not landed yet is SKIPPED, not
+        # failed: there is nothing this run can do until wekan/node publishes
+        # node-${arch}, and a red job every release is noise, not news. It comes
+        # back on its own the first release after the fork publishes it.
+        echo "::warning::${arch} is skipped this release: the wekan/node fork has no 'node-${arch}' for any ${node_version}.x release yet. It is best-effort - build node-${arch} in wekan/node (the release-all-missing workflow) to bring it back."
         skip=1
     else
-        echo "::error::No Node.js for ${arch} exists anywhere. Checked every ${node_version}.x release from ${newest} back to ${oldest} at nodejs.org and unofficial-builds (node_arch '${node_arch}') and at the wekan/node fork (asset 'node-${arch}'). The fork is the one to fix: build node-${arch} with the node.yml workflow in wekan/node and attach it to a release, then re-run this job."
+        echo "::error::The wekan/node fork has no 'node-${arch}' for any ${node_version}.x release. WeKan takes its Node.js only from the fork, so this bundle cannot be built until the fork publishes it: build node-${arch} in wekan/node (the release-all-missing workflow) and attach it to a release, then re-run this job."
         missing=1
     fi
-elif [ "$node_full" != "$node_full_wanted" ]; then
-    # Behind, but the newest that exists - which is the best this CPU can have.
-    echo "::warning::${arch} gets Node.js ${node_full} from ${node_from}, not the newest ${node_full_wanted}: no source has node-${arch} (or ${node_arch}) for ${node_full_wanted} yet. This is the newest build that exists for this CPU. To bring it in line, build node-${arch} for ${node_full_wanted} in wekan/node."
-    echo "Node.js ${node_full} for ${arch}: ${node_from} (${node_url})"
+elif [ -n "$node_full_wanted" ] && [ "$node_full" != "$node_full_wanted" ]; then
+    # Behind, but the newest fork build that exists - the best this CPU can have.
+    echo "::warning::${arch} gets Node.js ${node_full} from the wekan/node fork, not the newest ${node_full_wanted}: the fork has no node-${arch} for ${node_full_wanted} yet. This is the newest fork build for this CPU. To bring it in line, build node-${arch} for ${node_full_wanted} in wekan/node."
+    echo "Node.js ${node_full} for ${arch}: fork (${node_url})"
 else
-    echo "Node.js ${node_full} for ${arch}: ${node_from} (${node_url})"
+    echo "Node.js ${node_full} for ${arch}: fork (${node_url})"
 fi
 
-# The expected SHA256, from the source's own SHASUMS256.txt. Empty for the fork,
-# which publishes none - the download step says so out loud rather than quietly
-# skipping a check the log implies was made.
+# The expected SHA256, from the fork's node-${arch}.sha256sum beside the binary.
+# The fork publishes one .sha256sum per binary - one file per asset is the shape
+# the rest of its release already has.
 node_sha256=""
 if [ -n "$node_from" ]; then
-    case "$node_from" in
-        official)   sums="https://nodejs.org/dist/${node_full}/SHASUMS256.txt" ;;
-        unofficial) sums="https://unofficial-builds.nodejs.org/download/release/${node_full}/SHASUMS256.txt" ;;
-        # The fork publishes one .sha256sum per binary, beside it, rather than
-        # a single SHASUMS256.txt - one file per asset is the shape the rest of
-        # its release already has.
-        fork)       sums="https://github.com/wekan/node/releases/download/${node_full}/node-${arch}.sha256sum" ;;
-        *)          sums="" ;;
-    esac
-    if [ -n "$sums" ]; then
-        want_file="${node_url##*/}"
-        if sums_body="$(curl -fsSL "$sums" 2>/dev/null)"; then
-            # nodejs.org and unofficial-builds publish "<sum>  <filename>" for
-            # every file of the release; the fork publishes one file per binary,
-            # holding just that binary's line. Same format either way.
-            node_sha256="$(printf '%s\n' "$sums_body" |
-                awk -v f="$want_file" '$2 == f || $2 == "./" f { print $1; exit }')"
-            if [ -n "$node_sha256" ]; then
-                echo "  SHA256 published for ${want_file}: ${node_sha256}"
-            else
-                echo "::warning::${node_from} publishes ${sums} but it has no line for ${want_file}, so the download cannot be checked against it."
-            fi
+    sums="https://github.com/wekan/node/releases/download/${node_full}/node-${arch}.sha256sum"
+    want_file="node-${arch}"
+    if sums_body="$(curl -fsSL "${gh_auth[@]}" "$sums" 2>/dev/null)"; then
+        # "<sum>  node-<arch>", or just the bare sum on its own line.
+        node_sha256="$(printf '%s\n' "$sums_body" |
+            awk -v f="$want_file" '$2 == f || $2 == "./" f { print $1; exit } NF==1 { print $1; exit }')"
+        if [ -n "$node_sha256" ]; then
+            echo "  SHA256 published for ${want_file}: ${node_sha256}"
         else
-            echo "::warning::${node_from} publishes no checksum file at ${sums}, so the download cannot be verified. For the fork this means the release predates node.yml publishing .sha256sum files beside its binaries."
+            echo "::warning::the fork publishes ${sums} but it has no line for ${want_file}, so the download cannot be checked against it."
         fi
     else
-        echo "::warning::No checksum file for ${node_from}, so this download cannot be verified."
+        echo "::warning::the fork publishes no checksum file at ${sums}, so this download cannot be verified. This means the release predates node.yml publishing .sha256sum files beside its binaries."
     fi
 fi
 

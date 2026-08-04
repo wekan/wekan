@@ -1555,11 +1555,19 @@ jobs:
           # arm/v5, arm/v7, arm64, ppc64le, riscv64 and s390x, so it covers every
           # architecture here. The preflight step checks it rather than trusting
           # this table.
+          # s390x is BEST-EFFORT: WeKan takes its Node.js only from the wekan/node
+          # fork, and the fork builds node-s390x on its own schedule. Until it has
+          # published node-s390x for this major, the preflight SKIPS s390x (a
+          # warning, exit 0) rather than failing the whole matrix job and skipping
+          # docker with it; it returns on its own the release after the fork
+          # publishes it. (FerretDB and the debian:trixie base already have s390x,
+          # so only the fork's Node.js gates it.)
           - arch: s390x
             platform: linux/s390x
             image: debian:trixie
             node_arch: s390x
             ferretdb_arch: s390x
+            optional: true
           - arch: ppc64le
             platform: linux/ppc64le
             image: debian:trixie

@@ -13,12 +13,15 @@
 //    for exactly this reason). Their .sha256sum is attached too, which the old
 //    softprops `files:` never listed.
 //
-// 2. A BEST-EFFORT arch (i386, armhf) whose Node.js exists nowhere - Node has no
-//    linux-x86 build at all, and no source builds Node 24 for armv7l - is
-//    SKIPPED for the release (a warning, exit 0), not a red failure every run.
-//    check-arch-binaries.sh emits skip=true and every build step in
-//    build-extra-arches is gated on it, so the arch returns on its own once
-//    wekan/node publishes node-<arch>.
+// 2. WeKan takes its Node.js only from the wekan/node fork (built from source, so
+//    a Node bug can be patched), for EVERY arch - no nodejs.org/unofficial
+//    fallback. A BEST-EFFORT arch whose fork build has not landed yet (s390x
+//    until the fork publishes node-s390x; loong64, which also has no base image
+//    for its own CPU) is SKIPPED for the release (a warning, exit 0), not a red
+//    failure every run. check-arch-binaries.sh emits skip=true and every build
+//    step in build-extra-arches is gated on it, so the arch returns on its own
+//    once wekan/node publishes node-<arch>. i386/armhf are best-effort for the
+//    same reason but the fork already publishes their node, so they build now.
 
 const assert = require('assert');
 const fs = require('fs');
@@ -68,13 +71,13 @@ test('the release job attaches amd64/arm64 with gh release upload, not softprops
 
 // ── 2. Best-effort arch skip ─────────────────────────────────────────────────
 
-test('the unbuildable arches are marked best-effort (optional: true)', () => {
+test('the arches whose fork Node.js can lag are marked best-effort (optional: true)', () => {
   const body = job('build-extra-arches');
-  // i386/armhf: no Node.js anywhere. loong64: no base image for its CPU. All
-  // three would otherwise fail the whole matrix job and SKIP docker (and the
-  // charts/ucs/nextcloud jobs that need docker).
-  for (const arch of ['i386', 'armhf', 'loong64']) {
-    const re = new RegExp(`- arch: ${arch}\\b[\\s\\S]*?optional: true`);
+  // s390x: the fork has not published node-s390x yet. loong64: no base image for
+  // its CPU. i386/armhf: fork publishes their node now, but they stay best-effort
+  // so a future fork hiccup skips instead of failing the whole matrix job and
+  // SKIPPING docker (and the charts/ucs/nextcloud jobs that need docker).
+  for (const arch of ['s390x', 'i386', 'armhf', 'loong64']) {
     // Bound the match to the arch's own entry (up to the next '- arch:').
     const start = body.indexOf(`- arch: ${arch}`);
     assert.notStrictEqual(start, -1, `matrix must have ${arch}`);
@@ -83,10 +86,31 @@ test('the unbuildable arches are marked best-effort (optional: true)', () => {
     assert.ok(/optional: true/.test(entry), `${arch} must be marked optional: true in the matrix`);
   }
   // A non-best-effort arch must NOT be optional (a missing Node there is a real
-  // failure, not a skip). Isolate riscv64's own matrix entry and check within it.
-  const rv = body.slice(body.indexOf('- arch: riscv64'));
-  const rvEntry = rv.slice(0, rv.indexOf('- arch:', 1));
-  assert.ok(!/optional: true/.test(rvEntry), 'riscv64 must not be optional');
+  // failure, not a skip). ppc64le and riscv64 have reliable fork builds.
+  for (const arch of ['ppc64le', 'riscv64']) {
+    const rv = body.slice(body.indexOf(`- arch: ${arch}`));
+    const rvEntry = rv.slice(0, rv.indexOf('- arch:', 1));
+    assert.ok(!/optional: true/.test(rvEntry), `${arch} must not be optional`);
+  }
+});
+
+test('Node.js is taken only from the wekan/node fork - no nodejs.org/unofficial fallback', () => {
+  // The whole point: a binary this project cannot rebuild from source is the one
+  // it will not ship. The preflight must not walk to nodejs.org/unofficial-builds
+  // for the node BINARY any more (npm, arch-independent JS, still comes from the
+  // official amd64 tarball - that is a build tool, not the shipped node).
+  assert.ok(/only from the fork|ONLY the fork|only from the wekan\/node fork/.test(checkArch),
+    'check-arch-binaries.sh must state Node.js comes only from the fork');
+  assert.ok(!/node_from=official|node_from=unofficial/.test(checkArch),
+    'the preflight must not select an official/unofficial node source');
+  assert.ok(!/unofficial-builds\.nodejs\.org\/download\/release\/\$\{v\}\/node-/.test(checkArch),
+    'the preflight must not download the node binary from unofficial-builds');
+  const install = fs.readFileSync(
+    path.join(repoRoot, 'releases/install-node-for-arch.sh'), 'utf8');
+  assert.ok(/NODE_FROM.*!= "fork"|"\$\{NODE_FROM\}" != "fork"/.test(install),
+    'install-node-for-arch.sh must require NODE_FROM=fork');
+  assert.ok(!/official\|unofficial\)/.test(install),
+    'install-node-for-arch.sh must not have an official/unofficial tarball branch');
 });
 
 test('the preflight passes optional through and captures skip', () => {
