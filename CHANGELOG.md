@@ -264,6 +264,52 @@ has not decided on yet (adds a dependency + loosens the XSS sanitizer + needs a
 browser build to verify).
 
 </details>
+# Upcoming WeKan ® release
+
+**In short:** the **Docker image** gains **linux/386** and **linux/arm/v7** -
+the two 32-bit platforms that were shipping as `.zip` bundles only. The image
+base moves from **ubuntu:26.04** to **debian:trixie** (Ubuntu publishes no i386
+image, Debian does, and Debian carries every arch the image targets), and the
+Dockerfile installs their **Node 24 from the wekan/node fork** (`node-i386` /
+`node-armhf`) - which nodejs.org and unofficial-builds do not build - grafting
+**npm** from the official amd64 tarball. v10.66 had *removed* arm/v7 as a
+stopgap so the build could pass; this brings it back properly, with i386
+alongside.
+
+This release adds the following new Docker platforms:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a0f573bce4bbd06cb5790a0888438ef611152144">Docker images for linux/386 and linux/arm/v7, on a Debian base with Node from the fork</a>. Thanks to xet7.</summary>
+
+Two 32-bit Docker platforms that only ever shipped as `.zip` bundles now build
+as images. The blocker was two-fold and is removed on both sides:
+
+The **base image** moves from `ubuntu:26.04` to `debian:trixie`. Ubuntu dropped
+i386 years ago and its image has no `linux/386` manifest, so 386 stopped at the
+base; Debian still ships i386, and `debian:trixie` carries every arch this image
+targets (amd64, arm64, 386, arm/v7, ppc64le, riscv64, s390x), so one base covers
+them all - and it is the same base the per-arch `.zip` bundles already build in.
+The image installs no MongoDB server (every arch defaults to the bundle's
+FerretDB), so nothing was Ubuntu-specific; the sha checks moved from `shasum` to
+coreutils `sha256sum`.
+
+**Node.js** for 32-bit x86 and ARM exists on neither nodejs.org nor
+unofficial-builds, but the [wekan/node](https://github.com/wekan/node) fork
+builds it - as a bare `node-i386` / `node-armhf` binary plus a `.sha256sum`, not
+a tarball. A new `fork` branch in the Dockerfile's arch case downloads and
+verifies that binary and grafts `npm`/`npx` from the official amd64 tarball (npm
+is arch-independent JavaScript). Debian's 32-bit ARM port is armhf (ARMv7
+VFPv3-D16), which is what `linux/arm/v7` runs, so `node-armhf` is the match.
+`linux/loong64` still ships as a `.zip` only - no Docker base publishes it and
+the registries do not agree on its manifest yet.
+`tests/releaseDockerPlatforms.test.cjs` pins the Debian base, 386/arm/v7 in and
+loong64 out, and that every built platform has a Dockerfile arch-case branch.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.66 2026-08-04 WeKan ® release
 
 **In short:** with `linux/386` gone, the multi-arch **Docker image** build got
