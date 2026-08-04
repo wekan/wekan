@@ -264,7 +264,7 @@ has not decided on yet (adds a dependency + loosens the XSS sanitizer + needs a
 browser build to verify).
 
 </details>
-# Upcoming WeKan ® release
+# v10.66 2026-08-04 WeKan ® release
 
 **In short:** with `linux/386` gone, the multi-arch **Docker image** build got
 past the base image and then failed inside the Dockerfile on **`linux/arm/v7`**
