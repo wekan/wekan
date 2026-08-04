@@ -308,7 +308,7 @@ best-effort and that the base-image gate skips it.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/160c3eb6c0a9726657af1e5413d7cb961f5df03b">The Docker image drops linux/386, which its ubuntu:26.04 base cannot provide</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a2d47df8c2322b357199d27abf0f139a2cd8f5a6">The Docker image drops linux/386, which its ubuntu:26.04 base cannot provide</a>. Thanks to xet7.</summary>
 
 With loong64 no longer skipping `build-extra-arches`, the `docker` job ran again
 for the first time in a while and failed at the base image: *"ubuntu:26.04:
