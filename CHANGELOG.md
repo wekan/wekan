@@ -278,11 +278,10 @@ that was failing a `linux/arm/v7` image that had actually built correctly.
 
 This release takes WeKan's Node.js from the wekan/node fork for every platform:
 
-**Node.js sourcing** - one source, built from source, for every CPU, so a Node
-bug can be patched rather than worked around.
+**Node.js sourcing** - one source, built from source, for every CPU.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/4edabf1b89841b588c679c78d9375564bc0bc554">Every native bundle takes its Node.js from the wekan/node fork, not nodejs.org</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ac899ece2d3c2a5445cbb48e77df545b6b9ac808">Every native bundle takes its Node.js from the wekan/node fork, not nodejs.org</a>. Thanks to xet7.</summary>
 
 The four native bundles (amd64, arm64, win64, mac-arm64) embedded a verified
 Node.js downloaded from nodejs.org. They now download the wekan/node fork's bare
@@ -299,7 +298,7 @@ the emulated cross-builds, which run npm, graft it separately).
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/6952090b667090fea40170e85492620ee45e9770">The extra-arch bundles and the Docker image take Node.js only from the fork</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e9171ff7d16456a38b6066a242b261b969abd4ba">The extra-arch bundles and the Docker image take Node.js only from the fork</a>. Thanks to xet7.</summary>
 
 The emulated cross-builds and the multi-arch Docker image used to prefer
 nodejs.org, then unofficial-builds, and fall back to the fork only for the CPUs
@@ -320,11 +319,10 @@ returns on its own once the fork publishes it.
 
 and adds the following new `.zip` bundles:
 
-**Platform bundles** - every CPU the wekan/node fork builds a Node.js for now
-gets a WeKan bundle.
+**Platform bundles** - every CPU the fork builds a Node.js for gets a bundle.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/fd82f6502a48c458897a8dd3b21a364f7e165096">A new armv7 .zip bundle, from the fork's node-armv7</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/41d4eaf7e8d03f43aa3a1f7d661ca9f373549dc8">A new armv7 .zip bundle, from the fork's node-armv7</a>. Thanks to xet7.</summary>
 
 The wekan/node fork builds a generic ARMv7 Node.js (`node-armv7`) as well as
 Debian's hard-float one (`node-armhf`); each is a real fork platform, so each
@@ -337,7 +335,7 @@ distinct armv7). It is best-effort, like the other 32-bit bundles. The result is
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/10c07c10aad0451799edcf75cc5f2fb8cbb02c9a">New win32 and mac-x64 .zip bundles, so every fork platform has a bundle</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/bff53e93adfb7cc596fb87f51d1769e795afe208">New win32 and mac-x64 .zip bundles, so every fork platform has a bundle</a>. Thanks to xet7.</summary>
 
 Twelve of the fork's thirteen platforms had a bundle; 32-bit Windows and Intel
 macOS did not, though the fork builds `node-win32.exe` and `node-mac-x64`.
@@ -356,7 +354,7 @@ to a bundle.
 and fixes the following bug:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3fa45c715d46c839ebfb9d3a1067337d0bd76818">The Docker release verify reads the CPU variant, so linux/arm/v7 is not misread as linux/arm</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/d71f030527bbc1c225e0d062113f61f4726be4b3">The Docker release verify reads the CPU variant, so linux/arm/v7 is not misread as linux/arm</a>. Thanks to xet7.</summary>
 
 The docker job built and pushed the multi-arch image for all seven platforms
 correctly; the step after it, which inspects each registry's manifest to prove
