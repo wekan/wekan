@@ -281,7 +281,9 @@ on any genuine password failure regardless of wording, a **dummy bcrypt
 comparison** equalises the missing-user path's timing on both the DDP and REST
 logins, and the REST endpoint answers missing-user and wrong-password
 identically and **throttles** repeated failures per client. Four new unit suites
-pin each half.
+pin each half. Below that, a **release-build fix**: three build jobs ran the
+binary pre-check without the repo checked out where the call looked for it, so
+the arm64 build died with `exit 127` before assembling a bundle.
 
 This release fixes the following CRITICAL SECURITY ISSUE of [LockoutBleed](https://wekan.fi/hall-of-fame/lockoutbleed/):
 
@@ -365,6 +367,29 @@ time-injected state machine and the key resolver, and
 `tests/loginBruteForceEnumerationWiring.test.cjs` pins that the fragile
 reason-string guards stay gone and the REST endpoint keeps its uniform error,
 timing equaliser and throttle.
+
+</details>
+
+and has the following release-build fix:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/32dc8f905417f69dae1612ae0b03b518e1bc31e6">Three release-build jobs check the repo out before running the binary pre-check</a>. Thanks to xet7.</summary>
+
+The `bash releases/require-binaries.sh` pre-check, wired into the release build
+jobs, needs the repository on disk — but three jobs did not have it there, so
+the arm64 build failed with `exit code 127`
+(`releases/require-binaries.sh: No such file or directory`) before it ever
+assembled a bundle. `build-arm64` and `build-mac-arm64` download a prebuilt
+bundle artifact and never checked the repo out at all; each now checks the tag
+out first, before `download-artifact` drops the bundle into the same workspace
+(a root checkout would otherwise wipe it). `build-win64` checks the repo out
+into `src/` for `start-wekan.bat` and `snapcraft.yaml`, but called the script at
+the workspace root; it now calls `src/releases/require-binaries.sh`, the same
+`src/` path its `start-wekan.bat` copy already uses.
+`tests/releaseBuildJobsCheckout.test.cjs` pins, for every build job that runs
+the pre-check, that the job checks the repo out where the call looks for it and
+that a root checkout precedes `download-artifact`; it fails on all three pre-fix
+breakages.
 
 </details>
 
