@@ -264,7 +264,7 @@ has not decided on yet (adds a dependency + loosens the XSS sanitizer + needs a
 browser build to verify).
 
 </details>
-# Upcoming WeKan ® release
+# v10.60 2026-08-04 WeKan ® release
 
 **In short:** this release fixes the **release workflow** that publishes WeKan.
 The v10.59 release job built the GitHub Release body from the newest CHANGELOG
@@ -279,7 +279,7 @@ interpolated into a `run:` script again.
 This release fixes the following release-build issue:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b28cfef4a7d424ed031038b80f8eda0ae48601dd">The release notes pass the CHANGELOG through the environment instead of inline into the shell</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/541dc8b7b6499ef39f7812deacdebc5927570b9b">The release notes pass the CHANGELOG through the environment instead of inline into the shell</a>. Thanks to xet7.</summary>
 
 The `release` and `release-notes` jobs of `release-all.yml` composed the GitHub
 Release body with `printf '%s\n' "${{ needs.prepare.outputs.changelog }}"`.
