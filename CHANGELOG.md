@@ -265,7 +265,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.70 2026-08-05 WeKan ® release
 
 **In short:** WeKan takes its **Node.js** from **three sources, in order** -
 official **nodejs.org**, then **unofficial-builds.nodejs.org**, then
