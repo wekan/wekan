@@ -347,6 +347,25 @@ cleanly again.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/59e54e384aa70a44d0825cb4ade7d9acc0918be3">win32 and mac-x64 resolve the fork version, and win32 cross-builds ia32 addons against the fork's node.lib</a>. Thanks to xet7.</summary>
+
+The win32 and mac-x64 preflights checked
+`…/releases/download/${NODE_VERSION}/…` with `NODE_VERSION=24` (the bare MAJOR),
+which 404s - the fork tags by full version (`v24.19.0`) - so both jobs ALWAYS
+skipped. They now resolve the newest `v24.x` fork tag that carries the asset
+via a shared helper, `releases/resolve-fork-node-tag.sh` (authenticated with
+the workflow token, so the API is not rate-limited). And the win32
+native-module rebuild is finished: `npm_config_arch=ia32` alone could not link,
+because an ia32 addon needs an ia32 `node.lib` and nodejs.org dropped 32-bit
+Windows in Node 23, so node-gyp cannot fetch `win-x86/node.lib`. The rebuild now
+assembles a nodedir node-gyp can use - node headers (arch-independent, from
+nodejs.org) plus the fork's own `node-win32.lib` (now published beside
+`node-win32.exe`) - and points node-gyp at it, so bcrypt cross-builds to ia32
+against the fork's Node.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
