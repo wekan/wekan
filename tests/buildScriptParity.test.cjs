@@ -203,8 +203,10 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     // "install a target-CPU Node.js into the container we are inside" would be
     // an entry that cannot work.
     'check-arch-binaries.sh': 'release-workflow preflight: called per build job',
+    'resolve-fork-node-tag.sh': 'release-workflow: resolves the fork\'s newest '
+      + 'v<major>.x tag carrying an asset, for the win32/mac-x64 preflights',
     'embed-verified-node.sh': 'release-workflow: called per native build job to '
-      + 'download+verify the bundled Node.js from nodejs.org',
+      + 'download+verify the bundled Node.js from the wekan/node fork',
     'install-node-for-arch.sh': 'release-workflow: runs inside the build container',
     'require-binaries.sh': 'release-workflow: called per build job',
     'record-provenance.sh': 'release-workflow: called per build job',

@@ -1337,17 +1337,23 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Preflight - is the fork's node-win32.exe published?
+      - name: Preflight - resolve the fork's newest node-win32.exe
         id: preflight
         shell: bash
         run: |
           set -uo pipefail
-          url="https://github.com/wekan/node/releases/download/${NODE_VERSION}/node-win32.exe"
-          if curl -fsSLI -o /dev/null --retry 3 --retry-delay 5 "$url"; then
-            echo "node-win32.exe for ${NODE_VERSION} is published; building the win32 bundle."
+          # $NODE_VERSION is the pinned MAJOR (24); the fork tags by full version
+          # (v24.19.0). Resolve the newest v24.x release that carries node-win32.exe
+          # (authenticated via the workflow GITHUB_TOKEN, so the API is not
+          # rate-limited), and hand node_full to the rebuild + embed steps. The repo
+          # is checked out into src/ here.
+          tag="$(bash src/releases/resolve-fork-node-tag.sh node-win32.exe "$NODE_VERSION")"
+          if [ -n "$tag" ]; then
+            echo "node-win32.exe resolved to ${tag}; building the win32 bundle."
             echo "skip=false" >> "$GITHUB_OUTPUT"
+            echo "node_full=${tag}" >> "$GITHUB_OUTPUT"
           else
-            echo "::warning::win32 is skipped this run because the wekan/node fork has no node-win32.exe for ${NODE_VERSION} yet. It is best-effort and comes back once the fork publishes it."
+            echo "::warning::win32 is skipped: the wekan/node fork has no node-win32.exe in any ${NODE_VERSION}.x release yet. It is best-effort and comes back once the fork publishes it."
             echo "skip=true" >> "$GITHUB_OUTPUT"
           fi
 
@@ -1391,14 +1397,32 @@ jobs:
       - name: Rebuild native modules for Windows (32-bit)
         if: steps.preflight.outputs.skip != 'true'
         shell: bash
-        # npm_config_arch/target_arch=ia32 make node-gyp build 32-bit (Win32)
-        # binaries with the x64 Node driving it - the bundle ships the fork's
-        # 32-bit node.exe, so its native modules (bcrypt) must be ia32 too, or the
-        # 32-bit node cannot load them.
+        # The x64 runner Node drives node-gyp, and npm_config_arch=ia32 makes it
+        # cross-build 32-bit (Win32) native modules (bcrypt). But an ia32 addon
+        # must LINK against an ia32 node.lib, and nodejs.org dropped 32-bit Windows
+        # in Node 23 - so node-gyp cannot fetch win-x86/node.lib. Build a nodedir
+        # it CAN use: node headers (arch-independent, from nodejs.org) plus the
+        # fork's own node-win32.lib, and point node-gyp at it with nodedir.
         env:
           npm_config_arch: ia32
           npm_config_target_arch: ia32
+          NODE_FULL: ${{ steps.preflight.outputs.node_full }}
         run: |
+          set -euo pipefail
+          ND="${RUNNER_TEMP}/node-ia32"
+          mkdir -p "$ND/ia32" "$ND/Release"
+          # Headers (same for every arch); try /download/release then /dist.
+          curl -fSL --retry 5 --retry-delay 10 -o /tmp/nodehdr.tar.gz \
+            "https://nodejs.org/download/release/${NODE_FULL}/node-${NODE_FULL}-headers.tar.gz" \
+          || curl -fSL --retry 5 --retry-delay 10 -o /tmp/nodehdr.tar.gz \
+            "https://nodejs.org/dist/${NODE_FULL}/node-${NODE_FULL}-headers.tar.gz"
+          tar -xzf /tmp/nodehdr.tar.gz -C "$ND" --strip-components=1
+          # The fork's 32-bit import library, at the two paths node-gyp may look in.
+          curl -fSL --retry 5 --retry-delay 10 -o "$ND/ia32/node.lib" \
+            "https://github.com/wekan/node/releases/download/${NODE_FULL}/node-win32.lib"
+          cp "$ND/ia32/node.lib" "$ND/Release/node.lib"
+          export npm_config_nodedir="$ND"
+          echo "Cross-building ia32 native modules against nodedir $ND (fork node.lib)."
           cd bundle/programs/server
           rm -rf node_modules
           npm install
@@ -1822,16 +1846,19 @@ jobs:
       # comes only from the fork, so if it has not built this binary there is
       # nothing to ship and the job SKIPS rather than failing. Every build step
       # below is gated on skip != 'true'.
-      - name: Preflight - is the fork's node-mac-x64 published?
+      - name: Preflight - resolve the fork's newest node-mac-x64
         id: preflight
         run: |
           set -uo pipefail
-          url="https://github.com/wekan/node/releases/download/${NODE_VERSION}/node-mac-x64"
-          if curl -fsSLI -o /dev/null --retry 3 --retry-delay 5 "$url"; then
-            echo "node-mac-x64 for ${NODE_VERSION} is published; building the mac-x64 bundle."
+          # Resolve the pinned MAJOR ($NODE_VERSION=24) to the newest fork v24.x
+          # release that carries node-mac-x64 (authenticated, so not rate-limited).
+          # This job checks out at the repo root, so the script is at releases/.
+          tag="$(bash releases/resolve-fork-node-tag.sh node-mac-x64 "$NODE_VERSION")"
+          if [ -n "$tag" ]; then
+            echo "node-mac-x64 resolved to ${tag}; building the mac-x64 bundle."
             echo "skip=false" >> "$GITHUB_OUTPUT"
           else
-            echo "::warning::mac-x64 is skipped this run because the wekan/node fork has no node-mac-x64 for ${NODE_VERSION} yet. It is best-effort and comes back once the fork publishes it."
+            echo "::warning::mac-x64 is skipped: the wekan/node fork has no node-mac-x64 in any ${NODE_VERSION}.x release yet. It is best-effort and comes back once the fork publishes it."
             echo "skip=true" >> "$GITHUB_OUTPUT"
           fi
 
