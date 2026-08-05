@@ -265,7 +265,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.69 2026-08-05 WeKan ® release
 
 **In short:** a follow-up to the **fork-everywhere Node.js** switch in v10.68.
 The native bundle jobs pass the pinned Node **major** (`24`), but the wekan/node
