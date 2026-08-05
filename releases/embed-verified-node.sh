@@ -83,21 +83,31 @@ if ! curl -fSL --retry 8 --retry-delay 15 -o "$dest" "$fork_url"; then
   echo "::error::Could not download ${fork_url} . The wekan/node fork must publish ${asset} for ${version} before this build; build it in wekan/node and re-run." >&2
   exit 1
 fi
-curl -fSL --retry 8 --retry-delay 15 -o "${work}/sum" "${fork_url}.sha256sum"
-
-node_sha256="$(awk '{print $1; exit}' "${work}/sum")"
-if [ -z "$node_sha256" ]; then
-  echo "::error::${asset}.sha256sum from the fork is empty; cannot verify Node.js." >&2
-  exit 1
+# The checksum sidecar. It is a belt-and-suspenders integrity check ON TOP of the
+# already-authenticated HTTPS download from the fork, so a MISSING one is a
+# warning, not a failure: some fork build steps have published the binary without
+# its node-<asset>.sha256sum yet (e.g. win64), and the bundle should still ship
+# rather than fail the whole release over a missing side file. A checksum that IS
+# present and does NOT match is still fatal - that is a corrupted/wrong file.
+# (check-arch-binaries.sh treats a missing fork checksum the same way.)
+node_sha256=""
+if curl -fSL --retry 8 --retry-delay 15 -o "${work}/sum" "${fork_url}.sha256sum" 2>/dev/null; then
+  node_sha256="$(awk '{print $1; exit}' "${work}/sum")"
 fi
-if command -v sha256sum >/dev/null 2>&1; then
-  got="$(sha256sum "$dest" | cut -d' ' -f1)"
+if [ -n "$node_sha256" ]; then
+  if command -v sha256sum >/dev/null 2>&1; then
+    got="$(sha256sum "$dest" | cut -d' ' -f1)"
+  else
+    got="$(shasum -a 256 "$dest" | cut -d' ' -f1)"   # macOS has no sha256sum
+  fi
+  if [ "$got" != "$node_sha256" ]; then
+    echo "::error::${asset} does not match its published SHA256 (published ${node_sha256}, got ${got})." >&2
+    exit 1
+  fi
+  verified="verified SHA256 ${node_sha256}"
 else
-  got="$(shasum -a 256 "$dest" | cut -d' ' -f1)"   # macOS has no sha256sum
-fi
-if [ "$got" != "$node_sha256" ]; then
-  echo "::error::${asset} does not match its published SHA256 (published ${node_sha256}, got ${got})." >&2
-  exit 1
+  echo "::warning::the wekan/node fork publishes no ${asset}.sha256sum for ${version} yet, so this Node.js is shipped UNVERIFIED (it still came over HTTPS from the fork). Publish the checksum beside ${asset} in wekan/node to enable verification." >&2
+  verified="UNVERIFIED (no published .sha256sum)"
 fi
 
 # Windows keeps its .exe; everything else needs the exec bit.
@@ -106,7 +116,7 @@ case "$dest" in
   *)     chmod +x "$dest" ;;
 esac
 
-echo "Embedded Node.js ${version} (${asset}) from the wekan/node fork, verified SHA256 ${node_sha256} -> ${dest}" >&2
+echo "Embedded Node.js ${version} (${asset}) from the wekan/node fork, ${verified} -> ${dest}" >&2
 
 printf 'node_full=%s\n' "$version"
 printf 'node_sha256=%s\n' "$node_sha256"

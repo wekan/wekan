@@ -134,6 +134,14 @@ permissions:
 # rebuilds on every platform — it must match the amd64 build's Node ABI.
 env:
   NODE_VERSION: '24'
+  # Authenticate the api.github.com calls that embed-verified-node.sh and
+  # check-arch-binaries.sh make to resolve the fork's newest v24.x tag. Without a
+  # token those are UNauthenticated (60 requests/hour per IP, shared across all
+  # runners), which 403-rate-limits intermittently — that is why one native embed
+  # (e.g. mac-arm64) could fail the major→tag resolution while another (amd64,
+  # which ran first) succeeded. github.token is the standard Actions token; a
+  # public-repo read with it gets the 5000/hour authenticated limit.
+  GITHUB_TOKEN: ${{ github.token }}
 
 jobs:
 
@@ -1304,9 +1312,12 @@ jobs:
   # preflight SKIPS this job (a warning, not a red failure); it returns on its own
   # the release after the fork publishes it.
   #
-  # The runner is 64-bit, but the bundle is 32-bit: setup-node installs a 32-bit
-  # (x86) Node so `npm install` builds ia32 native modules (bcrypt), and the
-  # shipped node.exe is the fork's node-win32.exe.
+  # The runner is 64-bit and the bundle is 32-bit. There is NO 32-bit Windows
+  # Node 24 to install (that is the whole reason the fork exists), so setup-node
+  # runs the runner's normal x64 Node to DRIVE the build, and the native modules
+  # (bcrypt) are cross-compiled to ia32 by passing npm_config_arch=ia32 in the
+  # rebuild step below - node-gyp then fetches the ia32 headers and builds Win32
+  # binaries. The shipped node.exe is the fork's 32-bit node-win32.exe.
   build-win32:
     needs: [prepare, build-amd64, release]
     runs-on: windows-latest
@@ -1319,12 +1330,12 @@ jobs:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
           path: src
 
-      # A 32-bit Node so the native modules rebuilt below are ia32, matching the
-      # fork's 32-bit node.exe the bundle ships.
+      # x64 Node (the runner's own): there is no 32-bit Windows Node 24 to
+      # install. It only DRIVES npm/node-gyp; the ia32 output comes from
+      # npm_config_arch=ia32 in the rebuild step.
       - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
-          architecture: x86
 
       - name: Preflight - is the fork's node-win32.exe published?
         id: preflight
@@ -1380,6 +1391,13 @@ jobs:
       - name: Rebuild native modules for Windows (32-bit)
         if: steps.preflight.outputs.skip != 'true'
         shell: bash
+        # npm_config_arch/target_arch=ia32 make node-gyp build 32-bit (Win32)
+        # binaries with the x64 Node driving it - the bundle ships the fork's
+        # 32-bit node.exe, so its native modules (bcrypt) must be ia32 too, or the
+        # 32-bit node cannot load them.
+        env:
+          npm_config_arch: ia32
+          npm_config_target_arch: ia32
         run: |
           cd bundle/programs/server
           rm -rf node_modules
