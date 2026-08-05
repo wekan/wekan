@@ -314,7 +314,7 @@ This release changes where the bundled Node.js comes from:
 **Bundled Node.js** - the runtime inside every bundle, image and snap.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/babd424ca33373c9ae15731fa9222193842ff0b8">Node.js comes from official, then unofficial, then patched builds, and one script decides</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b9eff391b97427f4ed31ff07753a83d1f571f511">Node.js comes from official, then unofficial, then patched builds, and one script decides</a>. Thanks to xet7.</summary>
 
 WeKan took its Node.js only from the `wekan/node` fork, for every platform. That
 fork is retired in favour of
@@ -349,7 +349,7 @@ found a published checksum for, the "shipped unverified" path that a missing
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/babd424ca33373c9ae15731fa9222193842ff0b8">A platform no source has a Node.js for is not built, instead of failing the release</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b9eff391b97427f4ed31ff07753a83d1f571f511">A platform no source has a Node.js for is not built, instead of failing the release</a>. Thanks to xet7.</summary>
 
 There is nothing a release run can do about a CPU nobody publishes a runtime
 for, so it no longer tries: the resolver answers "not found", the preflight in
@@ -371,7 +371,7 @@ platform and call an empty release normal.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/babd424ca33373c9ae15731fa9222193842ff0b8">The release notes name the source that actually served, not a hardcoded one</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b9eff391b97427f4ed31ff07753a83d1f571f511">The release notes name the source that actually served, not a hardcoded one</a>. Thanks to xet7.</summary>
 
 Every bundle job recorded its Node.js provenance row with the literal source
 `wekan/node`, whatever had actually served, so the provenance table at the top
@@ -387,7 +387,7 @@ without a build log that expires. `CLAUDE.md` describes its shape.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/babd424ca33373c9ae15731fa9222193842ff0b8">The 32-bit Windows import library moves with the runtime it belongs to</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b9eff391b97427f4ed31ff07753a83d1f571f511">The 32-bit Windows import library moves with the runtime it belongs to</a>. Thanks to xet7.</summary>
 
 A 32-bit Windows native addon must link against an ia32 `node.lib`, and
 nodejs.org stopped publishing one in Node 23, so `node-gyp` is pointed at a
@@ -401,7 +401,7 @@ runtime they run on are then from the same build.
 and has the following developer-facing changes:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/babd424ca33373c9ae15731fa9222193842ff0b8">The guards pin the three-source order, and no longer pin the fork-only rule they replaced</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b9eff391b97427f4ed31ff07753a83d1f571f511">The guards pin the three-source order, and no longer pin the fork-only rule they replaced</a>. Thanks to xet7.</summary>
 
 `tests/releaseNodeSources.test.cjs` is new and pins what the change above is
 worth: that the three sources are tried in that order, that version is the outer
