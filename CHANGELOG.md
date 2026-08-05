@@ -311,6 +311,42 @@ release that builds it - the image is never skipped and never fails on one CPU.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/406067dbc16c448eafaaeda67f7479a5fa4b5ad1">The native embeds authenticate the fork lookup, tolerate a missing checksum, and cross-build win32</a>. Thanks to xet7.</summary>
+
+Three native-bundle failures in one run. mac-arm64 failed the fork major->tag
+lookup: `embed-verified-node.sh` and `check-arch-binaries.sh` call the GitHub
+API to find the newest `v24.x` fork tag, but no step passed a token, so the
+call was UNauthenticated (60/hour per shared runner IP) and 403-rate-limited -
+amd64 (run first) resolved, mac-arm64 (later) did not. A workflow-level
+`GITHUB_TOKEN: ${{ github.token }}` authenticates every such call. win64 failed
+because the fork published `node-win64.exe` WITHOUT its `.sha256sum`, and the
+helper 404'd on the sidecar; a missing checksum is now a warning (the binary
+still ships, over authenticated HTTPS, UNVERIFIED - a checksum that is present
+and does not match is still fatal). win32 failed at setup-node
+("Unable to find Node version '24' for platform win32 and architecture x86" -
+there is no 32-bit Windows Node 24); it now runs the x64 Node to drive node-gyp
+and cross-builds the native modules to ia32 with `npm_config_arch=ia32`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5300449cc58d10f61c8f61e3c96dc9754804d659">Every extra-arch bundle is best-effort, so an emulated CPU that crashes cannot fail the release</a>. Thanks to xet7.</summary>
+
+Each extra arch is built by running the fork's target-CPU node UNDER QEMU to
+rebuild the native modules, and qemu-user does not run every binary perfectly:
+ppc64le crashed at node startup deserializing its V8 snapshot
+(`Check failed: IsFreeSpaceOrFiller(filler)` in `v8::Isolate::Initialize`, then
+`qemu: uncaught target signal 5`), failing its leg. With ppc64le and riscv64
+still REQUIRED, that failed the whole build-extra-arches matrix. They join
+s390x/i386/armhf/armv7/loong64 as best-effort: a leg that cannot run this
+release SKIPS with a warning, so the matrix never fails on one exotic CPU, the
+docker job is never dragged down, and the release ships whatever built. amd64
+and arm64 (native) remain the required core; ppc64le returns the release it runs
+cleanly again.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
