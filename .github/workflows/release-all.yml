@@ -2062,16 +2062,29 @@ jobs:
             node_arch: s390x
             ferretdb_arch: s390x
             optional: true
+          # ppc64le and riscv64 are BEST-EFFORT too. Every extra arch is built by
+          # running the fork's target-CPU node UNDER QEMU to rebuild the native
+          # modules, and qemu-user does not run every Node.js perfectly: ppc64le
+          # crashed at node startup deserializing its V8 snapshot -
+          #   # Check failed: IsFreeSpaceOrFiller(filler).
+          #   ... v8::Isolate::Initialize ... qemu: uncaught target signal 5
+          # so `npm install` trapped and the leg failed. A single emulated CPU
+          # that cannot run this release must NOT fail the whole matrix (which
+          # would, before the docker job learned to build only the bundles that
+          # landed, have skipped docker too). optional=true makes such a leg SKIP
+          # with a warning; the arch returns the release it runs cleanly again.
           - arch: ppc64le
             platform: linux/ppc64le
             image: debian:trixie
             node_arch: ppc64le
             ferretdb_arch: ppc64le
+            optional: true
           - arch: riscv64
             platform: linux/riscv64
             image: debian:trixie
             node_arch: riscv64
             ferretdb_arch: riscv64
+            optional: true
           # i386 and armhf are BEST-EFFORT: Node has no linux-x86 build at all,
           # and no source builds Node 24 for armv7l, so when their Node.js is
           # absent everywhere the preflight SKIPS them (a warning, exit 0) instead

@@ -71,26 +71,23 @@ test('the release job attaches amd64/arm64 with gh release upload, not softprops
 
 // ── 2. Best-effort arch skip ─────────────────────────────────────────────────
 
-test('the arches whose fork Node.js can lag are marked best-effort (optional: true)', () => {
+test('EVERY extra-arch is best-effort (optional: true), so one exotic CPU cannot fail the matrix', () => {
   const body = job('build-extra-arches');
-  // s390x: the fork has not published node-s390x yet. loong64: no base image for
-  // its CPU. i386/armhf: fork publishes their node now, but they stay best-effort
-  // so a future fork hiccup skips instead of failing the whole matrix job and
-  // SKIPPING docker (and the charts/ucs/nextcloud jobs that need docker).
-  for (const arch of ['s390x', 'i386', 'armhf', 'armv7', 'loong64']) {
+  // All of them: each is built by running the fork's target-CPU node UNDER QEMU,
+  // and any one can fail for reasons this release cannot fix (fork Node not
+  // published yet - s390x; no base image - loong64; qemu cannot run the target
+  // node - ppc64le's V8 heap check; a plain fork hiccup). None of those must fail
+  // the whole matrix job: with every leg optional the matrix never "fails", the
+  // docker job (which builds only the bundles that landed) is never skipped, and
+  // the release ships whatever built. amd64/arm64 (native, not here) stay the
+  // required core.
+  for (const arch of ['s390x', 'ppc64le', 'riscv64', 'i386', 'armhf', 'armv7', 'loong64']) {
     // Bound the match to the arch's own entry (up to the next '- arch:').
     const start = body.indexOf(`- arch: ${arch}`);
     assert.notStrictEqual(start, -1, `matrix must have ${arch}`);
     const entry = body.slice(start, body.indexOf('- arch:', start + 1) === -1
       ? undefined : body.indexOf('- arch:', start + 1));
     assert.ok(/optional: true/.test(entry), `${arch} must be marked optional: true in the matrix`);
-  }
-  // A non-best-effort arch must NOT be optional (a missing Node there is a real
-  // failure, not a skip). ppc64le and riscv64 have reliable fork builds.
-  for (const arch of ['ppc64le', 'riscv64']) {
-    const rv = body.slice(body.indexOf(`- arch: ${arch}`));
-    const rvEntry = rv.slice(0, rv.indexOf('- arch:', 1));
-    assert.ok(!/optional: true/.test(rvEntry), `${arch} must not be optional`);
   }
 });
 
