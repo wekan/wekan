@@ -174,6 +174,13 @@ ENV \
     MONGO_PASSWORD_FILE="" \
     S3_SECRET_FILE=""
 
+# Where this image's Node.js comes from is decided by the SAME script the .zip
+# bundles and the snap use - official nodejs.org, then unofficial-builds, then
+# wekan/node-patches - so the image and the bundle of the same architecture can
+# never end up on Node.js from different places. It is copied in rather than
+# reimplemented here; a second copy of that order would drift from the first.
+COPY --chmod=755 releases/resolve-node-source.sh /tmp/resolve-node-source.sh
+
 RUN <<EOR
 set -o xtrace
 # Fail hard on any error so a missing release zip / failed download can never
@@ -190,54 +197,73 @@ apt-get update --assume-yes
 apt-get upgrade --assume-yes
 apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS}
 
-# Multi-arch mapping: Docker TARGETARCH -> wekan/node fork asset + WeKan bundle
-# name. amd64/arm64 have MongoDB Community; ppc64le/s390x/riscv64 have no MongoDB
+# Multi-arch mapping: Docker TARGETARCH -> WeKan's own platform name, which is
+# both the bundle .zip's name and what resolve-node-source.sh is asked about.
+# amd64/arm64 have MongoDB Community; ppc64le/s390x/riscv64 have no MongoDB
 # server and ship FerretDB v1 instead (the ferretdb binary is baked into their
-# .zip and started by wekan-entrypoint.sh). Every arch's Node.js is the fork's -
-# see the install below. Debian's 32-bit ARM port is armhf (ARMv7, VFPv3-D16),
-# which is what linux/arm/v7 runs, so node-armhf is the match.
+# .zip and started by wekan-entrypoint.sh). Debian's 32-bit ARM port is armhf
+# (ARMv7, VFPv3-D16), which is what linux/arm/v7 runs.
 case "${TARGETARCH}" in
-    "amd64")   WEKAN_ARCH="amd64"   NODE_FORK_ASSET="node-x64"     ;;
-    "arm64")   WEKAN_ARCH="arm64"   NODE_FORK_ASSET="node-arm64"   ;;
-    "ppc64le") WEKAN_ARCH="ppc64le" NODE_FORK_ASSET="node-ppc64le" ;;
-    "s390x")   WEKAN_ARCH="s390x"   NODE_FORK_ASSET="node-s390x"   ;;
-    "riscv64") WEKAN_ARCH="riscv64" NODE_FORK_ASSET="node-riscv64" ;;
-    "386")     WEKAN_ARCH="i386"    NODE_FORK_ASSET="node-i386"    ;;
-    "arm")     WEKAN_ARCH="armhf"   NODE_FORK_ASSET="node-armhf"   ;;
+    "amd64")   WEKAN_ARCH="amd64"   ;;
+    "arm64")   WEKAN_ARCH="arm64"   ;;
+    "ppc64le") WEKAN_ARCH="ppc64le" ;;
+    "s390x")   WEKAN_ARCH="s390x"   ;;
+    "riscv64") WEKAN_ARCH="riscv64" ;;
+    "386")     WEKAN_ARCH="i386"    ;;
+    "arm")     WEKAN_ARCH="armhf"   ;;
     *) echo "Unsupported architecture: ${TARGETARCH}${TARGETVARIANT:+/${TARGETVARIANT}}"; exit 1 ;;
 esac
 
-# Node.js installation - the wekan/node fork, for EVERY architecture.
+# Node.js installation - official nodejs.org, then unofficial-builds.nodejs.org,
+# then wekan/node-patches, in that order, for EVERY architecture.
 #
-# WeKan takes its Node.js only from the fork: it is Node built from source, so a
-# Node bug can be PATCHED and rebuilt, and one source means the image and the .zip
-# bundles never run a different Node.js per CPU. nodejs.org and unofficial-builds
-# are not used here at all - a binary this project cannot rebuild from source is
-# the one it will not ship. The fork ships a BARE node binary (node-<arch>) plus
-# its .sha256sum, not a tarball, so npm - arch-independent JavaScript - is grafted
-# from the official amd64 tarball of the same version (a build-time tool, not the
-# shipped node). The fork binary is verified against its own .sha256sum.
+# The choice is made by releases/resolve-node-source.sh, copied in above and used
+# by the .zip bundles and the snap as well, so the image and the bundle of one
+# architecture always carry the same Node.js from the same place. It is asked
+# about the MAJOR, so a CPU whose newest build lags a release still gets its
+# newest: it answers with the exact file, what shape that file is, and the
+# SHA256 the source published for it.
+#
+# npm is arch-independent JavaScript, so it is grafted from the official amd64
+# tarball of the version that was resolved - a build-time tool, not the shipped
+# node. (node-patches publishes a bare node binary and no npm at all, which is
+# why npm is fetched separately rather than taken from the archive above.)
 cd /tmp
-FORK_URL="https://github.com/wekan/node/releases/download/${NODE_VERSION}/${NODE_FORK_ASSET}"
-wget --tries=20 --waitretry=20 --retry-on-http-error=403,500,502,503 -O /usr/local/bin/node "${FORK_URL}" || {
-    echo "Could not download ${FORK_URL} . WeKan takes its Node.js only from the wekan/node fork, which must publish ${NODE_FORK_ASSET} for ${NODE_VERSION} before this image builds; build it in wekan/node (the release-all-missing workflow) and re-run." >&2
+NODE_MAJOR="${NODE_VERSION#v}"; NODE_MAJOR="${NODE_MAJOR%%.*}"
+if ! NODE_META="$(bash /tmp/resolve-node-source.sh "${WEKAN_ARCH}" "${NODE_MAJOR}")"; then
+    echo "No Node.js ${NODE_MAJOR}.x for ${WEKAN_ARCH} at nodejs.org, unofficial-builds.nodejs.org or wekan/node-patches, so this image cannot be built for it. Build node-${WEKAN_ARCH} in wekan/node-patches, or drop ${TARGETARCH} from the image's platform list." >&2
     exit 1
-}
-wget --tries=20 --waitretry=20 --retry-on-http-error=403,500,502,503 -O fork-node.sha256sum "${FORK_URL}.sha256sum"
-# The .sha256sum names the released asset; check the installed binary against
-# the hash it carries.
-echo "$(awk '{print $1}' fork-node.sha256sum)  /usr/local/bin/node" | sha256sum -c -
+fi
+eval "${NODE_META}"
+echo "Node.js ${node_full} for ${WEKAN_ARCH}: ${node_from} (${node_url})"
+wget --tries=20 --waitretry=20 --retry-on-http-error=403,500,502,503 -O node-download "${node_url}"
+echo "${node_sha256}  node-download" | sha256sum -c -
+case "${node_kind}" in
+    binary)
+        cp node-download /usr/local/bin/node
+        ;;
+    tar.xz|tar.gz|tar)
+        # bsdtar (libarchive-tools) is installed below for the bundle; plain tar
+        # here, letting it detect the compression rather than naming it.
+        tar -xf node-download --no-same-owner "${node_member}"
+        cp "${node_member}" /usr/local/bin/node
+        ;;
+    *)
+        echo "resolve-node-source.sh returned an unknown kind '${node_kind}'." >&2
+        exit 1
+        ;;
+esac
 chmod +x /usr/local/bin/node
-# npm + npx from the official amd64 tarball (they are JavaScript and run on the
-# fork's node); extract only those paths, not the amd64 node binary.
-wget "https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-linux-x64.tar.gz"
-wget "https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt"
-grep " node-${NODE_VERSION}-linux-x64.tar.gz\$" SHASUMS256.txt | sha256sum -c -
-tar xzf "node-${NODE_VERSION}-linux-x64.tar.gz" -C /usr/local --strip-components=1 --no-same-owner \
-    "node-${NODE_VERSION}-linux-x64/lib/node_modules/npm" \
-    "node-${NODE_VERSION}-linux-x64/bin/npm" \
-    "node-${NODE_VERSION}-linux-x64/bin/npx"
-rm -f fork-node.sha256sum "node-${NODE_VERSION}-linux-x64.tar.gz" SHASUMS256.txt
+# npm + npx from the official amd64 tarball of the SAME version; extract only
+# those paths, not the amd64 node binary.
+wget "https://nodejs.org/dist/${node_full}/node-${node_full}-linux-x64.tar.gz"
+wget "https://nodejs.org/dist/${node_full}/SHASUMS256.txt"
+grep " node-${node_full}-linux-x64.tar.gz\$" SHASUMS256.txt | sha256sum -c -
+tar xzf "node-${node_full}-linux-x64.tar.gz" -C /usr/local --strip-components=1 --no-same-owner \
+    "node-${node_full}-linux-x64/lib/node_modules/npm" \
+    "node-${node_full}-linux-x64/bin/npm" \
+    "node-${node_full}-linux-x64/bin/npx"
+rm -rf node-download "node-${node_full}-linux-x64.tar.gz" "node-${node_full}-linux-x64" SHASUMS256.txt
 ln -s "/usr/local/bin/node" "/usr/local/bin/nodejs"
 
 # NPM configuration

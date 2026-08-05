@@ -18,19 +18,21 @@
 # A file has no quoting layer to get wrong, and `bash -n` can check it.
 #
 # Environment (all set by the workflow):
-#   NODE_FULL   the exact fork tag, e.g. v24.19.0
+#   NODE_FULL   the exact version, e.g. v24.19.0
 #   NODE_ARCH   what Node.js calls this CPU  (x86, armv7l, ppc64le, ...) - used
-#               only to name the amd64 npm tarball; the node binary is the fork's
+#               only to name the amd64 npm tarball
 #   ARCH        what WeKan calls it          (i386, armhf, ppc64le, ...)
-#   NODE_FROM   always "fork" - WeKan takes its Node.js only from the wekan/node
-#               fork, so it can rebuild it from source (see check-arch-binaries.sh)
-#   NODE_URL    the exact fork binary URL it is at
-#   NODE_SHA256 its published SHA256, empty only for a very old fork release
+#   NODE_FROM   which source it came from: official (nodejs.org), unofficial
+#               (unofficial-builds.nodejs.org) or node-patches
+#               (wekan/node-patches) - see releases/resolve-node-source.sh
+#   NODE_URL    the exact file to download
+#   NODE_KIND   what that file is: tar.xz / tar.gz / binary
+#   NODE_MEMBER the path to node inside the archive; empty when kind=binary
+#   NODE_SHA256 the SHA256 that source published for the file at NODE_URL
 #               All resolved on the HOST by the preflight step, so this does not
-#               probe the network over an emulated CPU - and so the fork's URL is
-#               right even when the fork's newest build for this CPU is an older
-#               tag than its newest release: the fork builds the exotic CPUs one
-#               at a time, so an arch can lag a tag or two behind.
+#               probe the network over an emulated CPU - and so the URL is right
+#               even when the newest build FOR THIS CPU is an older release than
+#               the newest release: a CPU can lag a version or two behind.
 
 set -eux
 
@@ -39,18 +41,20 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get update -qq
 apt-get install -y -q build-essential python3 curl xz-utils ca-certificates
 
-# The fork ships the BARE node BINARY it built - just node, no npm - because the
-# node binary is the one thing that has to be for THIS CPU. npm is JavaScript, so
-# it runs on whatever node executes it; it comes from the official amd64 tarball
-# of the same version and drives the fork's node for this arch all the same. Only
-# the node binary WeKan SHIPS is the fork's; the build-time npm need not be.
+# Only the node BINARY has to be for this CPU. npm is JavaScript, so it runs on
+# whatever node executes it: it comes from the official amd64 tarball of the same
+# version and drives this arch's node all the same. Only the node WeKan SHIPS is
+# the target CPU's; the build-time npm need not be. (node-patches publishes the
+# bare binary and no npm at all, which is why npm is fetched separately rather
+# than taken from whatever archive the node came in.)
 mkdir -p /opt/node/bin
 
-# Download a file and check it against the SHA256 the fork publishes beside it.
+# Download a file and check it against the SHA256 its source published.
 #
-# The fork publishes a node-${arch}.sha256sum next to every binary; the preflight
-# read it and passed it here as NODE_SHA256, and the download is refused if it
-# does not match - a binary this project cannot verify is not one it ships.
+# All three sources publish one - SHASUMS256.txt at nodejs.org and
+# unofficial-builds, a .sha256sum sidecar at node-patches. The preflight read it
+# and passed it here as NODE_SHA256, and the download is refused if it does not
+# match: a binary this project cannot verify is not one it ships.
 #
 # A mismatch is retried before it is fatal. The overwhelmingly likely cause is a
 # truncated or corrupted transfer - a CDN edge that served a partial file, a
@@ -105,23 +109,43 @@ download_and_verify() {
     done
 }
 
-# WeKan's Node.js comes only from the fork, which ships the bare node binary.
-# NODE_FROM is always "fork"; anything else means the preflight in release-all.yml
-# handed this script a source it no longer supports, and it stops rather than
-# guessing.
-if [ "${NODE_FROM}" != "fork" ]; then
-    echo "install-node-for-arch.sh: NODE_FROM is '${NODE_FROM}', but WeKan takes" \
-         "its Node.js only from the wekan/node fork. The preflight step in" \
-         "release-all.yml decides this and should have set NODE_FROM=fork." >&2
-    exit 1
-fi
+# The Node.js for THIS CPU, from whichever of the three sources the preflight
+# picked, verified against the SHA256 that source published.
+#
+# The two SHAPES the sources publish are the only difference that reaches this
+# script: nodejs.org and unofficial-builds publish a TARBALL of the whole
+# distribution, node-patches publishes the BARE binary. NODE_KIND says which and
+# NODE_MEMBER names the node inside an archive - both resolved on the host, so
+# nothing is guessed from the URL here.
+download_and_verify "$NODE_URL" /tmp/node-download
 
-# The fork's bare node binary for THIS CPU, verified against its .sha256sum.
-download_and_verify "$NODE_URL" /opt/node/bin/node
+case "${NODE_KIND:-binary}" in
+    binary)
+        cp /tmp/node-download /opt/node/bin/node
+        ;;
+    tar.xz|tar.gz|tar)
+        mkdir -p /tmp/nodedist
+        # -xf and let tar detect the compression: unofficial-builds publishes
+        # .tar.gz beside .tar.xz and either may be what was resolved.
+        if ! tar -xf /tmp/node-download -C /tmp/nodedist "${NODE_MEMBER}"; then
+            echo "install-node-for-arch.sh: ${NODE_MEMBER} is not in the archive" \
+                 "from ${NODE_FROM} (${NODE_URL})." >&2
+            exit 1
+        fi
+        cp "/tmp/nodedist/${NODE_MEMBER}" /opt/node/bin/node
+        ;;
+    *)
+        echo "install-node-for-arch.sh: unknown NODE_KIND '${NODE_KIND}'. The" \
+             "preflight (check-arch-binaries.sh) sets it; a kind this script" \
+             "does not unpack is a bug there, not something to guess at." >&2
+        exit 1
+        ;;
+esac
 chmod +x /opt/node/bin/node
+rm -f /tmp/node-download
 # npm from the official amd64 tarball of the same version - JavaScript, so it runs
-# on the fork's node for this arch. This tarball is a build-time tool, not what
-# WeKan ships; the shipped node is the fork's, above.
+# on this arch's node just as well. The tarball is a build-time tool, not what
+# WeKan ships; the shipped node is the target CPU's, above.
 curl -fsSL -o /tmp/npm.tar.xz \
     "https://nodejs.org/dist/${NODE_FULL}/node-${NODE_FULL}-linux-x64.tar.xz"
 mkdir -p /tmp/npm

@@ -208,6 +208,7 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     'embed-verified-node.sh': 'release-workflow: called per native build job to '
       + 'download+verify the bundled Node.js from the wekan/node fork',
     'install-node-for-arch.sh': 'release-workflow: runs inside the build container',
+    'resolve-node-source.sh': 'release-workflow: a lookup the other scripts, the\n      bundle jobs and the Dockerfile call - it prints where a platform\'s Node.js\n      comes from and downloads nothing itself',
     'require-binaries.sh': 'release-workflow: called per build job',
     'record-provenance.sh': 'release-workflow: called per build job',
     'provenance-table.sh': 'release-workflow: called by the release job',

@@ -72,9 +72,10 @@ platforms:
     build-for: riscv64
   # 32-bit, and FerretDB-only for the same reason: MongoDB ships no server for
   # it. armhf's Node.js comes from the bundle like every other arch's does - the
-  # wekan-armhf.zip carries the right one already (built by node.yml in the
-  # wekan/node fork, because neither nodejs.org nor unofficial-builds publishes
-  # one).
+  # wekan-armhf.zip carries the right one already. For armhf that means
+  # wekan/node-patches, which is the only one of WeKan's three Node.js sources
+  # that builds 32-bit ARM; when it has none, there is no wekan-armhf.zip that
+  # release and so no armhf snap either.
   #
   # There is NO i386 entry: core24 (Ubuntu 24.04) has no i386 port, so snapcraft
   # rejects `build-on: i386` with "trying to build snap in one of ['i386'], but

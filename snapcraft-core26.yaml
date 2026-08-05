@@ -285,8 +285,10 @@ parts:
             # Copy to Snap. Use the bundle's OWN arch-correct Node.js: the
             # wekan-<arch>.zip already ships the right node for this platform
             # (nodejs.org for amd64/arm64/s390x/ppc64le, unofficial-builds.nodejs.org
-            # for riscv64), so the snap needs no separate node download and works on
-            # every arch the bundle is built for.
+            # for riscv64/loong64, wekan/node-patches for the 32-bit ones nobody
+            # else builds), so the snap needs no separate node download and works
+            # on every arch the bundle is built for - and only on those, since an
+            # arch with no Node.js anywhere has no bundle to take one from.
             mkdir -p $SNAPCRAFT_PART_INSTALL/bin
             cp -p .build/bundle/node $SNAPCRAFT_PART_INSTALL/bin/node
             chmod +x $SNAPCRAFT_PART_INSTALL/bin/node

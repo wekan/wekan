@@ -26,15 +26,25 @@ prints which one served:
 
 1. **Official** — <https://nodejs.org/dist/>
 2. **Unofficial** — <https://unofficial-builds.nodejs.org/download/release/>
-3. **This project's fork** — <https://github.com/wekan/node/releases>, built by
-   `node.yml` in [wekan/node](https://github.com/wekan/node) for the platforms
-   the first two do not publish at all.
+3. **This project's patches** — <https://github.com/wekan/node-patches/releases>,
+   upstream Node.js plus WeKan's patches, built for the platforms the first two
+   do not publish at all.
 
-The first two ship a **tarball** (node, npm, the whole runtime). The fork ships
-the **bare binary** it built, because that is the only part missing — so when the
-fork serves, npm is taken from the official amd64 tarball of the same version.
-npm is JavaScript and runs on whatever node executes it, so an npm built for one
-CPU drives a node built for another.
+And when **none** of the three has a platform, that platform is **not built**
+that release — no bundle, no snap, no image architecture, and no red job either.
+Nothing has to be edited for it to come back: the next run resolves again and
+builds it the moment a Node.js for it is published anywhere.
+
+The first two ship a **tarball** (node, npm, the whole runtime); node-patches
+ships the **bare binary**, because that is the only part missing — so when it
+serves, npm is taken from the official amd64 tarball of the same version. npm is
+JavaScript and runs on whatever node executes it, so an npm built for one CPU
+drives a node built for another.
+
+[`releases/resolve-node-source.sh`](../../../releases/resolve-node-source.sh) is
+the one place that order and the platform-name mapping live: the bundle jobs, the
+extra-arch preflight and the `Dockerfile` all ask it, so they cannot disagree
+about where a platform's Node.js comes from.
 
 ## What is built, and where each part comes from
 
@@ -45,9 +55,13 @@ CPU drives a node built for another.
 | ppc64le | ✅ | ✅ `ppc64el` | ✅ | `ferretdb-ppc64le` | official |
 | s390x | ✅ | ✅ | ✅ | `ferretdb-s390x` | official |
 | riscv64 | ✅ | ✅ | ✅ | `ferretdb-riscv64` | unofficial |
-| i386 | ✅ | ✅ | ✅ `linux/386` | `ferretdb-i386` | fork (`node-i386`) |
-| armhf | ✅ | ✅ | ✅ `linux/arm/v7` | `ferretdb-armhf` | fork (`node-armv7`) |
-| loong64 | ✅ | — | — | `ferretdb-loong64` | fork (`node-loong64`) |
+| i386 | ✅ | ✅ | ✅ `linux/386` | `ferretdb-i386` | node-patches (`node-i386`) |
+| armhf | ✅ | ✅ | ✅ `linux/arm/v7` | `ferretdb-armhf` | node-patches (`node-armhf`) |
+| loong64 | ✅ | — | — | `ferretdb-loong64` | unofficial |
+
+A "Node.js from" of node-patches is the one column that can be EMPTY for a
+release: those are the platforms only node-patches builds, so until it has
+published one, that row is not built at all.
 
 Three vocabularies meet in that table and they disagree, which is why the build
 matrix names all three separately (`arch`, `node_arch`, `ferretdb_arch`):
@@ -62,8 +76,10 @@ mistake would not show until somebody ran it.
 ## What is deliberately not built
 
 **armel** (ARMv5, soft-float) — FerretDB builds it; Node.js cannot. V8 has not
-supported ARMv5 for many years, nobody publishes a runtime for it, and the fork
-cannot make one either. A bundle with no runtime in it is not a bundle.
+supported ARMv5 for many years, nobody publishes a runtime for it, and
+node-patches cannot make one either. A bundle with no runtime in it is not a
+bundle. It is the permanent case of the general rule above: no Node.js, no
+platform.
 
 **loong64 snap and image** — the bundle exists, but loong64 is not a snap
 architecture, and buildx and the three registries do not agree on it yet. It
@@ -88,4 +104,6 @@ snap, or a snap that downloads a bundle nobody built.
 
 - [Snap-Core.md](Forks/Snap-Core.md) — why the exotic arches build on Launchpad
 - `.github/workflows/release-all.yml` — the bundle, snap and image jobs
-- `node.yml` in [wekan/node](https://github.com/wekan/node) — the fork's builds
+- `releases/resolve-node-source.sh` — which of the three sources serves a platform
+- `release-all.yml` in [wekan/node-patches](https://github.com/wekan/node-patches)
+  — how the third source is built (upstream Node.js plus WeKan's patches)

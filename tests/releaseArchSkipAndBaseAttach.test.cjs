@@ -13,15 +13,17 @@
 //    for exactly this reason). Their .sha256sum is attached too, which the old
 //    softprops `files:` never listed.
 //
-// 2. WeKan takes its Node.js only from the wekan/node fork (built from source, so
-//    a Node bug can be patched), for EVERY arch - no nodejs.org/unofficial
-//    fallback. A BEST-EFFORT arch whose fork build has not landed yet (s390x
-//    until the fork publishes node-s390x; loong64, which also has no base image
-//    for its own CPU) is SKIPPED for the release (a warning, exit 0), not a red
-//    failure every run. check-arch-binaries.sh emits skip=true and every build
-//    step in build-extra-arches is gated on it, so the arch returns on its own
-//    once wekan/node publishes node-<arch>. i386/armhf are best-effort for the
-//    same reason but the fork already publishes their node, so they build now.
+// 2. An arch with NO Node.js is SKIPPED for the release (a warning, exit 0), not
+//    a red failure every run. WeKan takes its Node.js from three sources in
+//    order - official nodejs.org, then unofficial-builds.nodejs.org, then
+//    wekan/node-patches - and when none of them publishes one for a CPU there is
+//    nothing a run can do about it, so that platform is simply not built this
+//    time. check-arch-binaries.sh emits skip=true and every build step in
+//    build-extra-arches is gated on it, so the arch returns on its own the first
+//    run after a Node.js for it appears anywhere. (This is what the guard below
+//    used to phrase as "only from the wekan/node fork": the fork was retired in
+//    favour of node-patches, and the two sources that DO publish most CPUs are
+//    preferred over it - see tests/releaseNodeSources.test.cjs.)
 
 const assert = require('assert');
 const fs = require('fs');
@@ -91,31 +93,41 @@ test('EVERY extra-arch is best-effort (optional: true), so one exotic CPU cannot
   }
 });
 
-test('Node.js is taken only from the wekan/node fork - no nodejs.org/unofficial fallback', () => {
-  // The whole point: a binary this project cannot rebuild from source is the one
-  // it will not ship. The preflight must not walk to nodejs.org/unofficial-builds
-  // for the node BINARY any more (npm, arch-independent JS, still comes from the
-  // official amd64 tarball - that is a build tool, not the shipped node).
-  assert.ok(/only from the fork|ONLY the fork|only from the wekan\/node fork/.test(checkArch),
-    'check-arch-binaries.sh must state Node.js comes only from the fork');
-  assert.ok(!/node_from=official|node_from=unofficial/.test(checkArch),
-    'the preflight must not select an official/unofficial node source');
-  assert.ok(!/unofficial-builds\.nodejs\.org\/download\/release\/\$\{v\}\/node-/.test(checkArch),
-    'the preflight must not download the node binary from unofficial-builds');
+test('the preflight asks the one resolver where this arch\'s Node.js comes from', () => {
+  // WHY THIS CHANGED: the guard here used to require "only from the wekan/node
+  // fork". That fork is retired; WeKan now prefers official nodejs.org, then
+  // unofficial-builds, then wekan/node-patches, and the ORDER lives in exactly
+  // one file so the bundles, the extra arches and the Dockerfile cannot disagree.
+  // What must not come back is this preflight growing its OWN copy of that walk.
+  assert.ok(/resolve-node-source\.sh/.test(checkArch),
+    'check-arch-binaries.sh must resolve the Node.js source with resolve-node-source.sh');
+  assert.ok(!/api\.github\.com\/repos\/wekan\/node\/releases/.test(checkArch),
+    'the preflight must not walk the retired wekan/node fork\'s releases itself');
+  assert.ok(!/https:\/\/nodejs\.org\/dist\/\$\{?v/.test(checkArch),
+    'the preflight must not build download URLs itself - the resolver returns them');
+
+  // The container script unpacks whatever shape that source publishes, and the
+  // preflight must tell it which: nodejs.org and unofficial-builds ship a
+  // tarball, node-patches a bare binary. Guessing from the URL is what this
+  // replaced.
   const install = fs.readFileSync(
     path.join(repoRoot, 'releases/install-node-for-arch.sh'), 'utf8');
-  assert.ok(/NODE_FROM.*!= "fork"|"\$\{NODE_FROM\}" != "fork"/.test(install),
-    'install-node-for-arch.sh must require NODE_FROM=fork');
-  assert.ok(!/official\|unofficial\)/.test(install),
-    'install-node-for-arch.sh must not have an official/unofficial tarball branch');
+  assert.ok(/NODE_KIND/.test(install) && /NODE_MEMBER/.test(install),
+    'install-node-for-arch.sh must unpack by NODE_KIND/NODE_MEMBER, not by guessing');
+  assert.ok(/tar\.xz\|tar\.gz\|tar\)/.test(install),
+    'install-node-for-arch.sh must handle the tarball the official sources publish');
+  assert.ok(/\bbinary\)/.test(install),
+    'install-node-for-arch.sh must handle the bare binary node-patches publishes');
+  assert.ok(!/NODE_FROM.*!= "fork"/.test(install),
+    'install-node-for-arch.sh must not require the retired fork as the source');
 });
 
 test('the preflight passes optional through and captures skip', () => {
   const body = job('build-extra-arches');
   assert.ok(/check-arch-binaries\.sh[\s\S]*?matrix\.optional/.test(body),
     'preflight must pass ${{ matrix.optional }} to check-arch-binaries.sh');
-  assert.ok(/grep -E '\^\(node_full\|node_from\|node_url\|node_sha256\|skip\)='/.test(body),
-    'preflight must capture skip into $GITHUB_OUTPUT');
+  assert.ok(/grep -E '\^\(node_full\|node_from\|node_url\|node_kind\|node_member\|node_sha256\|skip\)='/.test(body),
+    'preflight must capture skip - and the kind/member the container unpacks by - into $GITHUB_OUTPUT');
 });
 
 test('every extra-arches build step is gated on skip', () => {

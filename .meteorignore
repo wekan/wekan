@@ -72,6 +72,12 @@ npm-packages/
 /wekan-gantt-gpl/
 /wekan-ondra/
 
+# The node-patches checkout (wekan/node-patches): the PATCHES to upstream
+# Node.js that WeKan's third Node.js source is built from - .patch files, their
+# checksums and their docs. Nothing in WeKan imports it; it is here because it is
+# worked on beside WeKan, and it is gitignored for the same reason.
+/node-patches/
+
 # DO NOT ADD /_build/ OR /_build-local-test/ HERE. They look like build output
 # that should be ignored - they are gitignored, and they are the first two
 # entries of the 296 KB pattern list above - and excluding them breaks the

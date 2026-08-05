@@ -248,15 +248,70 @@ test('Upcoming opens with a short summary of the whole release', () => {
   // Between the heading and the first `This release …:` header. It is the first
   // thing a reader sees, and a release this size is otherwise forty collapsed
   // blocks with no way to tell what it amounts to.
+  //
+  // TWO things live there now, in this order: the **In short:** paragraph, and
+  // then the binaries table - what each platform's bundle ships, where it came
+  // from and what it hashes to. The table is FULL of links by design, so the
+  // "links nothing" rule below applies to the PARAGRAPH, which is what it was
+  // ever about: a summary that quietly turns into a second list of entries.
   const firstHeader = lines.findIndex((l, i) => i > start && /^This release .*:$/.test(l));
   assert.ok(firstHeader > start, 'the first subsection header follows it');
-  const intro = lines.slice(start + 1, firstHeader).join('\n').trim();
+  const head = lines.slice(start + 1, firstHeader);
+  const tableAt = head.findIndex(l => /^\| Platform \| Binary \|/.test(l));
+  const intro = (tableAt === -1 ? head : head.slice(0, tableAt)).join('\n').trim();
   assert.ok(intro.startsWith('**In short:**'),
     'the Upcoming section opens with an **In short:** paragraph');
   // A summary, not a second list: no links, and long enough to be a summary.
   assert.ok(!/<details>|<summary>/.test(intro), 'prose, not entries');
   assert.ok(!/https?:\/\//.test(intro), 'and it links nothing - the entries do that');
   assert.ok(intro.length > 200, 'and it actually summarises the release');
+});
+
+test('Upcoming then says which binaries each platform ships', () => {
+  // A WeKan bundle is not only WeKan: it carries a Node.js and a FerretDB that
+  // other projects publish, and WHICH source has a given CPU changes from
+  // release to release. "Which Node.js is in the arm64 bundle of 10.69, and was
+  // it checked" must be answerable from the CHANGELOG rather than from a build
+  // log that expires - so the same table the release notes carry is here too,
+  // right under the summary. See CLAUDE.md.
+  const start = lines.indexOf('# Upcoming WeKan ® release');
+  if (start === -1) {
+    console.log('    (no Upcoming section right now - nothing to check)');
+    return;
+  }
+  const firstHeader = lines.findIndex((l, i) => i > start && /^This release .*:$/.test(l));
+  const head = lines.slice(start + 1, firstHeader);
+  const at = head.findIndex(l => /^\| Platform \| Binary \| From \| Version \| SHA256 \|$/.test(l));
+  assert.ok(at !== -1,
+    'the binaries table follows the summary: | Platform | Binary | From | Version | SHA256 |');
+  assert.ok(/^\|( ---+ \|)+$/.test(head[at + 1]), 'with its separator row');
+
+  const rows = [];
+  for (let i = at + 2; i < head.length && head[i].startsWith('|'); i++) rows.push(head[i]);
+  assert.ok(rows.length >= 2, 'and at least one platform in it');
+  const seen = [];
+  for (const r of rows) {
+    const cells = r.split('|').map(c => c.trim()).filter(Boolean);
+    assert.strictEqual(cells.length, 5, `a row has five cells: ${r.slice(0, 60)}`);
+    // The URL is the link on the From cell - never a bare URL as visible text.
+    assert.ok(/^\[[^\]]+\]\(https:\/\/[^)]+\)$/.test(cells[2]),
+      `the From cell links the exact file it came from: ${cells[2]}`);
+    // A checksum, or an honest statement that the source publishes none.
+    assert.ok(/^`[0-9a-f]{64}`$/.test(cells[4]) || cells[4] === '*no checksum published*',
+      `the SHA256 cell is a checksum or says none is published: ${cells[4]}`);
+    seen.push(cells[0]);
+  }
+  // Grouped by platform: one platform's rows stay together, so the table is read
+  // a platform at a time rather than hunted through.
+  const firstSeen = new Map();
+  seen.forEach((p, i) => { if (!firstSeen.has(p)) firstSeen.set(p, i); });
+  for (const [p, i] of firstSeen) {
+    const last = seen.lastIndexOf(p);
+    for (let k = i; k <= last; k++) {
+      assert.strictEqual(seen[k], p,
+        `${p}'s rows must stay together - ${seen[k]} interrupts them`);
+    }
+  }
 });
 
 test('entries are grouped by area, and no summary repeats its group', () => {

@@ -265,6 +265,167 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** WeKan takes its **Node.js** from **three sources, in order** -
+official **nodejs.org**, then **unofficial-builds.nodejs.org**, then
+**wekan/node-patches** - instead of only from the retired **wekan/node** fork,
+and a platform that none of the three publishes a Node.js for is simply **not
+built** that release instead of failing it. The order lives in one new script
+that the bundle `.zip` jobs, the extra-architecture preflight and the
+`Dockerfile` all ask, so the image and the `.zip` of one CPU can never be built
+on Node.js from different places; the **snap** takes its node out of the bundle,
+so it follows without a change of its own, and **Sandstorm** (amd64 only) is
+untouched. Below that: the release notes now say which source actually served
+each platform instead of a hardcoded name, the 32-bit Windows import library
+moves with the runtime, and the guards that pinned the old fork-only rule are
+updated to the new one.
+
+| Platform | Binary | From | Version | SHA256 |
+| --- | --- | --- | --- | --- |
+| amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
+| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-amd64) | v1.45.0 | `94713f605167abb45a3717482d35de4824cb4a8f199c1400e826a8a2b04f3893` |
+| arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
+| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-arm64) | v1.45.0 | `275ae50ac97e6a70eee72e6de37766c458775c5997c896352db5189c6cf1f04b` |
+| loong64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-loong64.tar.xz) | v24.19.0 | `c24f224726f2d785bd18a1fd09f5e6d1fecf0269928451a60c5da9eac8e92e68` |
+| loong64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-loong64) | v1.45.0 | `28bf67981168dfc4bd67698b41dd62628aafe347a77f2b1e6ffcadf009d575e0` |
+| mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-arm64.tar.xz) | v24.19.0 | `3f1cf157479c1480352083105e13faf9d008ede98e7e157746b6df940d197b94` |
+| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-mac-arm64) | v1.45.0 | `639ed58b84820b3d588f4161c64d0ab940d0cc6e7d022088d60c2b0b97f99f8e` |
+| mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
+| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-mac-amd64) | v1.45.0 | `fd519903f5630e881e38e7c5814f00c0e89ad26f6785f1ddcbab4058356fc9f3` |
+| ppc64le | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-ppc64le.tar.xz) | v24.19.0 | `c510c6ce12f07010f771e6edb22a3fe23f4f2e6f40b1ffd4941aed0646a0d8b3` |
+| ppc64le | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-ppc64le) | v1.45.0 | `de4518c7774d302533369c477759ddd866785d6741d98d399388eb8de3df175a` |
+| riscv64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-riscv64.tar.xz) | v24.19.0 | `cd1f14af2812148002f58b58a5f9af512a50e3b8e8c148e0db44019dcb68edfd` |
+| riscv64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-riscv64) | v1.45.0 | `7dc2952f554e8800c4029577901999e06e10272da686f7e402177080067028f9` |
+| s390x | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-s390x.tar.xz) | v24.19.0 | `a4792e65962ffa0af42627aacf1122a60c3c88dbf4e4184f06820d66f9da8ba4` |
+| s390x | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-s390x) | v1.45.0 | `0ae2e2f2cffdc5dd2ea4f125281a5e12eea216fbe49b5561d9c001700c3fc0c1` |
+| win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
+| win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-win64.exe) | v1.45.0 | `f6337994368a52d011d438c82b914b0cedb3178fd030acac8db3dab8017cee85` |
+
+**i386**, **armhf**, **armv7** and **win32** have no rows because they are not
+built this release: nodejs.org publishes no 32-bit x86 or ARMv7 Node 24 and no
+32-bit Windows one at all, unofficial-builds has none of them either, and
+wekan/node-patches has not published its first release yet. Each returns by
+itself on the first run after a Node.js for it appears - nothing has to be
+edited for that to happen.
+
+This release changes where the bundled Node.js comes from:
+
+**Bundled Node.js** - the runtime inside every bundle, image and snap.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/babd424ca33373c9ae15731fa9222193842ff0b8">Node.js comes from official, then unofficial, then patched builds, and one script decides</a>. Thanks to xet7.</summary>
+
+WeKan took its Node.js only from the `wekan/node` fork, for every platform. That
+fork is retired in favour of
+[wekan/node-patches](https://github.com/wekan/node-patches), which carries
+patches rather than a whole Node.js source tree - so the question "where does
+this platform's Node.js come from" had to be answered again, and the answer is
+now three sources tried in order: **nodejs.org**, then
+**unofficial-builds.nodejs.org**, then **wekan/node-patches**.
+
+The order is a preference, not a last resort. Where nodejs.org publishes a
+build, that is the one WeKan ships: it is the build the rest of the world runs
+and its checksums are the ones everyone else verifies against. unofficial-builds
+covers the CPUs nodejs.org does not release - riscv64 and loong64 - and
+node-patches covers what neither publishes at all: 32-bit x86, 32-bit ARM and
+32-bit Windows.
+
+`releases/resolve-node-source.sh` is the one place that order and the
+platform-name mapping live. The bundle jobs (through
+`releases/embed-verified-node.sh`), the extra-architecture preflight
+(`releases/check-arch-binaries.sh`) and the `Dockerfile` all ask it, so the
+image and the `.zip` of one CPU cannot be built on Node.js from different
+places - which is exactly what happened when each of them carried its own copy
+of the walk. The snap copies its node out of the bundle, so it follows with no
+change of its own, and Sandstorm is amd64-only and untouched.
+
+It answers with the exact file, what shape that file is - nodejs.org and
+unofficial-builds publish a tarball or a `.zip`, node-patches a bare binary -
+and the SHA256 that source published for it. Because it only returns a build it
+found a published checksum for, the "shipped unverified" path that a missing
+`.sha256sum` used to open is gone.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/babd424ca33373c9ae15731fa9222193842ff0b8">A platform no source has a Node.js for is not built, instead of failing the release</a>. Thanks to xet7.</summary>
+
+There is nothing a release run can do about a CPU nobody publishes a runtime
+for, so it no longer tries: the resolver answers "not found", the preflight in
+each bundle job turns that into a skip, and every step after it is gated on
+that. A red job every release for such a CPU is noise, and when it was an error
+it took the whole extra-architecture matrix with it - and, through that, the
+Docker image and the jobs that need it.
+
+Nothing has to be edited when that changes. The next run resolves again, and the
+platform builds the moment a Node.js for it is published at any of the three
+sources. That is what the four missing rows in the table above are: i386,
+armhf, armv7 and win32 are waiting for wekan/node-patches to publish its first
+release, and they come back by themselves when it does.
+
+A lookup that could not be MADE is kept apart from an answer of "nobody
+publishes it": an unreachable nodejs.org is an error, not a reason to skip every
+platform and call an empty release normal.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/babd424ca33373c9ae15731fa9222193842ff0b8">The release notes name the source that actually served, not a hardcoded one</a>. Thanks to xet7.</summary>
+
+Every bundle job recorded its Node.js provenance row with the literal source
+`wekan/node`, whatever had actually served, so the provenance table at the top
+of the release notes could not answer the one question it exists for. The rows
+now carry what the embed step reported - `nodejs.org`,
+`unofficial-builds.nodejs.org` or `wekan/node-patches` - together with the exact
+URL and the verified SHA256.
+
+The same table is now part of the CHANGELOG too, at the top of each release
+section under the summary, so which binaries a release carries can be read
+without a build log that expires. `CLAUDE.md` describes its shape.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/babd424ca33373c9ae15731fa9222193842ff0b8">The 32-bit Windows import library moves with the runtime it belongs to</a>. Thanks to xet7.</summary>
+
+A 32-bit Windows native addon must link against an ia32 `node.lib`, and
+nodejs.org stopped publishing one in Node 23, so `node-gyp` is pointed at a
+`nodedir` built by hand: headers from nodejs.org plus a `node-win32.lib`. That
+library came from the retired fork; it now comes from wekan/node-patches, which
+is also where the `node-win32.exe` in the bundle comes from. The addons and the
+runtime they run on are then from the same build.
+
+</details>
+
+and has the following developer-facing changes:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/babd424ca33373c9ae15731fa9222193842ff0b8">The guards pin the three-source order, and no longer pin the fork-only rule they replaced</a>. Thanks to xet7.</summary>
+
+`tests/releaseNodeSources.test.cjs` is new and pins what the change above is
+worth: that the three sources are tried in that order, that version is the outer
+loop and source the inner one - so a current patched build beats an ancient
+official one rather than the other way round - that every consumer asks the one
+resolver instead of carrying its own walk, that a platform with no Node.js is a
+skip rather than a failure, and that no file downloads from the retired fork any
+more.
+
+`releaseNodeVerified` and `releaseArchSkipAndBaseAttach` pinned the fork-only
+rule, which was the correct rule until this release. They are updated to the new
+one and say in the test why, so the next reader can see it was a decision. Each
+keeps the assertion that made it valuable: a named version, a verified download,
+and no path that ships an unverified Node.js.
+
+`releaseSnapArches` read `release: ` out of ordinary English in a `run:` block
+and took the following word for a snap channel; it now keeps only the matches
+that name one. `node-patches`, checked out beside WeKan, is added to
+`.meteorignore` for the same reason the other sibling repositories are there.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.69 2026-08-05 WeKan ® release
 
 **In short:** two fixes to the release build after the **fork-everywhere

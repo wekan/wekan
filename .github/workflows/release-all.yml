@@ -624,8 +624,8 @@ jobs:
           # Where this bundle's binaries came from, for the release notes.
           mkdir -p provenance
           PROVENANCE_FILE=provenance/amd64.tsv bash releases/record-provenance.sh \
-            'amd64' 'Node.js' 'wekan/node' "${NODE_FULL:-$NODE_VERSION}" \
-            "https://github.com/wekan/node/releases/download/${NODE_FULL:-}/node-x64" \
+            'amd64' 'Node.js' "${NODE_FROM:-}" "${NODE_FULL:-$NODE_VERSION}" \
+            "${NODE_URL:-}" \
             "${NODE_SHA256:-}" || true
           PROVENANCE_FILE=provenance/amd64.tsv bash releases/record-provenance.sh \
             'amd64' 'FerretDB' 'wekan/FerretDB' 'latest' \
@@ -716,12 +716,37 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y build-essential g++ make python3 curl unzip zip xz-utils qemu-user-static
 
+      # Which Node.js this platform gets - and whether it is built at all.
+      #
+      # WeKan takes its Node.js from official nodejs.org, then
+      # unofficial-builds.nodejs.org, then wekan/node-patches
+      # (releases/resolve-node-source.sh is the one place that order lives).
+      # When NO source has one for this CPU the platform is simply NOT BUILT
+      # this release: every step below is gated on skip, and it comes back by
+      # itself the first run after a Node.js for it is published anywhere.
+      - name: Preflight - resolve this platform's Node.js
+        id: preflight
+        shell: bash
+        run: |
+          set -uo pipefail
+          out="$(bash releases/resolve-node-source.sh 'arm64' "$NODE_VERSION")" || true
+          if printf '%s\n' "$out" | grep -q '^node_found=true$'; then
+            printf '%s\n' "$out" | grep -E '^node_(full|from|url|kind|member|sha256)=' >> "$GITHUB_OUTPUT"
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+            printf '%s\n' "$out" | grep -E '^node_(full|from|url)='
+          else
+            echo "::warning::arm64 is not built this time. No Node.js for it at nodejs.org, unofficial-builds.nodejs.org or wekan/node-patches; it returns by itself when one is published."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Download amd64 bundle
+        if: steps.preflight.outputs.skip != 'true'
         uses: actions/download-artifact@v8
         with:
           name: bundle-amd64
 
       - name: Rebuild native modules for arm64 in container
+        if: steps.preflight.outputs.skip != 'true'
         run: |
           unzip wekan-${VERSION}-amd64.zip
           # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
@@ -745,12 +770,14 @@ jobs:
             sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
 
       - name: Check the binaries the arm64 bundle needs exist
+        if: steps.preflight.outputs.skip != 'true'
         run: |
           set -euo pipefail
           bash releases/require-binaries.sh 'arm64 bundle' \
             'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-arm64'
 
       - name: Embed Node.js + FerretDB (arm64) into the bundle
+        if: steps.preflight.outputs.skip != 'true'
         # The launcher (start-wekan.sh) is inherited from the amd64 base bundle;
         # swap bundle/node (runner is arm64 -> linux-arm64 Node 24) and bundle/ferretdb.
         run: |
@@ -793,6 +820,7 @@ jobs:
           chmod +x bundle/qemu-aarch64
 
       - name: Create arm64 zip
+        if: steps.preflight.outputs.skip != 'true'
         run: |
           zip -r wekan-${VERSION}-arm64.zip bundle
           # A checksum beside the bundle, so a download can be checked.
@@ -801,8 +829,8 @@ jobs:
           # Where this bundle's binaries came from, for the release notes.
           mkdir -p provenance
           PROVENANCE_FILE=provenance/arm64.tsv bash releases/record-provenance.sh \
-            'arm64' 'Node.js' 'wekan/node' "${NODE_FULL:-$NODE_VERSION}" \
-            "https://github.com/wekan/node/releases/download/${NODE_FULL:-}/node-arm64" \
+            'arm64' 'Node.js' "${NODE_FROM:-}" "${NODE_FULL:-$NODE_VERSION}" \
+            "${NODE_URL:-}" \
             "${NODE_SHA256:-}" || true
           PROVENANCE_FILE=provenance/arm64.tsv bash releases/record-provenance.sh \
             'arm64' 'FerretDB' 'wekan/FerretDB' 'latest' \
@@ -837,12 +865,14 @@ jobs:
           echo "OK: $zip is $((bytes/1024/1024)) MiB and contains bundle/main.js and bundle/node."
 
       - uses: actions/upload-artifact@v4
+        if: steps.preflight.outputs.skip != 'true'
         with:
           name: provenance-arm64
           path: provenance/
           if-no-files-found: warn
 
       - uses: actions/upload-artifact@v7
+        if: steps.preflight.outputs.skip != 'true'
         with:
           name: bundle-arm64
           path: wekan-${{ needs.prepare.outputs.version }}-arm64.zip
@@ -1037,15 +1067,41 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
+      # Which Node.js this platform gets - and whether it is built at all.
+      #
+      # WeKan takes its Node.js from official nodejs.org, then
+      # unofficial-builds.nodejs.org, then wekan/node-patches
+      # (releases/resolve-node-source.sh is the one place that order lives).
+      # When NO source has one for this CPU the platform is simply NOT BUILT
+      # this release: every step below is gated on skip, and it comes back by
+      # itself the first run after a Node.js for it is published anywhere.
+      - name: Preflight - resolve this platform's Node.js
+        id: preflight
+        shell: bash
+        run: |
+          set -uo pipefail
+          out="$(bash src/releases/resolve-node-source.sh 'win64' "$NODE_VERSION")" || true
+          if printf '%s\n' "$out" | grep -q '^node_found=true$'; then
+            printf '%s\n' "$out" | grep -E '^node_(full|from|url|kind|member|sha256)=' >> "$GITHUB_OUTPUT"
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+            printf '%s\n' "$out" | grep -E '^node_(full|from|url)='
+          else
+            echo "::warning::win64 is not built this time. No Node.js for it at nodejs.org, unofficial-builds.nodejs.org or wekan/node-patches; it returns by itself when one is published."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Install 7-zip
+        if: steps.preflight.outputs.skip != 'true'
         run: choco install -y 7zip
 
       - name: Download amd64 bundle
+        if: steps.preflight.outputs.skip != 'true'
         uses: actions/download-artifact@v8
         with:
           name: bundle-amd64
 
       - name: Fix bcrypt for Node.js 24
+        if: steps.preflight.outputs.skip != 'true'
         shell: bash
         run: |
           7z x wekan-${VERSION}-amd64.zip
@@ -1073,6 +1129,7 @@ jobs:
           fi
 
       - name: Rebuild native modules for Windows
+        if: steps.preflight.outputs.skip != 'true'
         shell: bash
         run: |
           cd bundle/programs/server
@@ -1080,6 +1137,7 @@ jobs:
           npm install
 
       - name: Check the binaries the win64 bundle needs exist
+        if: steps.preflight.outputs.skip != 'true'
         # bash, not the Windows default shell: this is a bash script (`set -euo
         # pipefail`, a bash script call). Without it PowerShell runs the body and
         # dies on `set -euo pipefail` with "A parameter cannot be found that
@@ -1094,6 +1152,7 @@ jobs:
             'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win64.exe'
 
       - name: Add MongoDB Database Tools to the bundle
+        if: steps.preflight.outputs.skip != 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -1112,6 +1171,7 @@ jobs:
           ls -1 bundle/
 
       - name: Embed Node.js, FerretDB (win64) and launcher into the bundle
+        if: steps.preflight.outputs.skip != 'true'
         shell: bash
         # Make the Windows .zip self-contained: bundle node.exe (from the runner's
         # win-x64 Node 24), ferretdb.exe (downloaded per-arch from the newest
@@ -1155,8 +1215,8 @@ jobs:
           # Where this bundle's binaries came from, for the release notes.
           mkdir -p provenance
           PROVENANCE_FILE=provenance/win64.tsv bash src/releases/record-provenance.sh \
-            'win64' 'Node.js' 'wekan/node' "${node_full:-$NODE_VERSION}" \
-            "https://github.com/wekan/node/releases/download/${node_full:-}/node-win64.exe" \
+            'win64' 'Node.js' "${node_from:-}" "${node_full:-$NODE_VERSION}" \
+            "${node_url:-}" \
             "${node_sha256:-}" || true
           if [ -s bundle/ferretdb.exe ]; then
             PROVENANCE_FILE=provenance/win64.tsv bash src/releases/record-provenance.sh \
@@ -1177,10 +1237,12 @@ jobs:
           ls -la bundle
 
       - name: Create win64 zip
+        if: steps.preflight.outputs.skip != 'true'
         shell: cmd
         run: 7z a wekan-%VERSION%-win64.zip bundle
 
       - name: Verify the win64 zip
+        if: steps.preflight.outputs.skip != 'true'
         shell: bash
         run: |
           # Same question as on the other platforms, asked in bash because the zip
@@ -1235,12 +1297,14 @@ jobs:
           echo "OK: $zip is $((bytes/1024/1024)) MiB, intact, and was built from a bundle that had main.js and node.exe."
 
       - uses: actions/upload-artifact@v7
+        if: steps.preflight.outputs.skip != 'true'
         with:
           name: bundle-win64
           path: wekan-${{ needs.prepare.outputs.version }}-win64.zip
           retention-days: 1
 
       - name: Upload win64 provenance
+        if: steps.preflight.outputs.skip != 'true'
         uses: actions/upload-artifact@v7
         with:
           name: provenance-win64
@@ -1249,6 +1313,7 @@ jobs:
           retention-days: 1
 
       - name: Attach win64 bundle to the GitHub Release
+        if: steps.preflight.outputs.skip != 'true'
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -1305,12 +1370,12 @@ jobs:
 
   # Build win32 (32-bit Windows) bundle.
   #
-  # BEST-EFFORT, like mac-x64 and the exotic Linux arches: WeKan takes its Node.js
-  # only from the wekan/node fork, and node-win32.exe is one of the binaries the
-  # fork builds on its own schedule (nodejs.org has no 32-bit Windows Node 24 at
-  # all). Until the fork has published node-win32.exe for this version the
-  # preflight SKIPS this job (a warning, not a red failure); it returns on its own
-  # the release after the fork publishes it.
+  # BEST-EFFORT, like mac-x64 and the exotic Linux arches: nodejs.org has no
+  # 32-bit Windows Node 24 at all (upstream removed the build in Node 23) and
+  # unofficial-builds has none either, so this bundle's node.exe can only come
+  # from wekan/node-patches. Until node-win32.exe is published there the preflight
+  # SKIPS this job (a warning, not a red failure); it returns on its own the
+  # release after it appears.
   #
   # The runner is 64-bit and the bundle is 32-bit. There is NO 32-bit Windows
   # Node 24 to install (that is the whole reason the fork exists), so setup-node
@@ -1337,23 +1402,28 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Preflight - resolve the fork's newest node-win32.exe
+      # Which Node.js this platform gets - and whether it is built at all.
+      #
+      # WeKan takes its Node.js from official nodejs.org, then
+      # unofficial-builds.nodejs.org, then wekan/node-patches
+      # (releases/resolve-node-source.sh is the one place that order lives).
+      # 32-bit Windows is the platform that needs the third source: neither
+      # nodejs.org nor unofficial-builds has published it since Node 23.
+      # When NO source has one for this CPU the platform is simply NOT BUILT
+      # this release: every step below is gated on skip, and it comes back by
+      # itself the first run after a Node.js for it is published anywhere.
+      - name: Preflight - resolve this platform's Node.js
         id: preflight
         shell: bash
         run: |
           set -uo pipefail
-          # $NODE_VERSION is the pinned MAJOR (24); the fork tags by full version
-          # (v24.19.0). Resolve the newest v24.x release that carries node-win32.exe
-          # (authenticated via the workflow GITHUB_TOKEN, so the API is not
-          # rate-limited), and hand node_full to the rebuild + embed steps. The repo
-          # is checked out into src/ here.
-          tag="$(bash src/releases/resolve-fork-node-tag.sh node-win32.exe "$NODE_VERSION")"
-          if [ -n "$tag" ]; then
-            echo "node-win32.exe resolved to ${tag}; building the win32 bundle."
+          out="$(bash src/releases/resolve-node-source.sh 'win32' "$NODE_VERSION")" || true
+          if printf '%s\n' "$out" | grep -q '^node_found=true$'; then
+            printf '%s\n' "$out" | grep -E '^node_(full|from|url|kind|member|sha256)=' >> "$GITHUB_OUTPUT"
             echo "skip=false" >> "$GITHUB_OUTPUT"
-            echo "node_full=${tag}" >> "$GITHUB_OUTPUT"
+            printf '%s\n' "$out" | grep -E '^node_(full|from|url)='
           else
-            echo "::warning::win32 is skipped: the wekan/node fork has no node-win32.exe in any ${NODE_VERSION}.x release yet. It is best-effort and comes back once the fork publishes it."
+            echo "::warning::win32 is not built this time. No Node.js for it at nodejs.org, unofficial-builds.nodejs.org or wekan/node-patches; it returns by itself when one is published."
             echo "skip=true" >> "$GITHUB_OUTPUT"
           fi
 
@@ -1402,7 +1472,8 @@ jobs:
         # must LINK against an ia32 node.lib, and nodejs.org dropped 32-bit Windows
         # in Node 23 - so node-gyp cannot fetch win-x86/node.lib. Build a nodedir
         # it CAN use: node headers (arch-independent, from nodejs.org) plus the
-        # fork's own node-win32.lib, and point node-gyp at it with nodedir.
+        # node-win32.lib that wekan/node-patches publishes beside its
+        # node-win32.exe, and point node-gyp at it with nodedir.
         env:
           npm_config_arch: ia32
           npm_config_target_arch: ia32
@@ -1417,9 +1488,12 @@ jobs:
           || curl -fSL --retry 5 --retry-delay 10 -o /tmp/nodehdr.tar.gz \
             "https://nodejs.org/dist/${NODE_FULL}/node-${NODE_FULL}-headers.tar.gz"
           tar -xzf /tmp/nodehdr.tar.gz -C "$ND" --strip-components=1
-          # The fork's 32-bit import library, at the two paths node-gyp may look in.
+          # The 32-bit import library, at the two paths node-gyp may look in. It
+          # comes from wekan/node-patches, which is also where the node-win32.exe
+          # in this bundle comes from (nobody else builds either any more), so the
+          # addons link against the import library of the very node they run on.
           curl -fSL --retry 5 --retry-delay 10 -o "$ND/ia32/node.lib" \
-            "https://github.com/wekan/node/releases/download/${NODE_FULL}/node-win32.lib"
+            "https://github.com/wekan/node-patches/releases/download/${NODE_FULL}/node-win32.lib"
           cp "$ND/ia32/node.lib" "$ND/Release/node.lib"
           export npm_config_nodedir="$ND"
           echo "Cross-building ia32 native modules against nodedir $ND (fork node.lib)."
@@ -1483,8 +1557,8 @@ jobs:
           cp src/releases/ferretdb/start-wekan.bat bundle/
           mkdir -p provenance
           PROVENANCE_FILE=provenance/win32.tsv bash src/releases/record-provenance.sh \
-            'win32' 'Node.js' 'wekan/node' "${node_full:-$NODE_VERSION}" \
-            "https://github.com/wekan/node/releases/download/${node_full:-}/node-win32.exe" \
+            'win32' 'Node.js' "${node_from:-}" "${node_full:-$NODE_VERSION}" \
+            "${node_url:-}" \
             "${node_sha256:-}" || true
           if [ -s bundle/ferretdb.exe ]; then
             PROVENANCE_FILE=provenance/win32.tsv bash src/releases/record-provenance.sh \
@@ -1619,12 +1693,37 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
+      # Which Node.js this platform gets - and whether it is built at all.
+      #
+      # WeKan takes its Node.js from official nodejs.org, then
+      # unofficial-builds.nodejs.org, then wekan/node-patches
+      # (releases/resolve-node-source.sh is the one place that order lives).
+      # When NO source has one for this CPU the platform is simply NOT BUILT
+      # this release: every step below is gated on skip, and it comes back by
+      # itself the first run after a Node.js for it is published anywhere.
+      - name: Preflight - resolve this platform's Node.js
+        id: preflight
+        shell: bash
+        run: |
+          set -uo pipefail
+          out="$(bash releases/resolve-node-source.sh 'mac-arm64' "$NODE_VERSION")" || true
+          if printf '%s\n' "$out" | grep -q '^node_found=true$'; then
+            printf '%s\n' "$out" | grep -E '^node_(full|from|url|kind|member|sha256)=' >> "$GITHUB_OUTPUT"
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+            printf '%s\n' "$out" | grep -E '^node_(full|from|url)='
+          else
+            echo "::warning::mac-arm64 is not built this time. No Node.js for it at nodejs.org, unofficial-builds.nodejs.org or wekan/node-patches; it returns by itself when one is published."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Download amd64 bundle
+        if: steps.preflight.outputs.skip != 'true'
         uses: actions/download-artifact@v8
         with:
           name: bundle-amd64
 
       - name: Rebuild native modules for macOS arm64
+        if: steps.preflight.outputs.skip != 'true'
         run: |
           unzip -q wekan-${VERSION}-amd64.zip
           # Replace the Linux node + FerretDB binaries + MongoDB Database Tools
@@ -1656,12 +1755,14 @@ jobs:
           cd ../../..
 
       - name: Check the binaries the mac-arm64 bundle needs exist
+        if: steps.preflight.outputs.skip != 'true'
         run: |
           set -euo pipefail
           bash releases/require-binaries.sh 'mac-arm64 bundle' \
             'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-mac-arm64'
 
       - name: Embed Node.js + FerretDB (mac-arm64) into the bundle
+        if: steps.preflight.outputs.skip != 'true'
         # Bundle the macOS arm64 Node.js (runner's darwin-arm64 Node 24) and the
         # macOS FerretDB binary, downloaded per-arch from the newest wekan/FerretDB
         # release. FerretDB is tolerant: if the mac-arm64 asset is missing the
@@ -1700,8 +1801,8 @@ jobs:
           # Where this bundle's binaries came from, for the release notes.
           mkdir -p provenance
           PROVENANCE_FILE=provenance/mac-arm64.tsv bash releases/record-provenance.sh \
-            'mac-arm64' 'Node.js' 'wekan/node' "${node_full:-$NODE_VERSION}" \
-            "https://github.com/wekan/node/releases/download/${node_full:-}/node-mac-arm64" \
+            'mac-arm64' 'Node.js' "${node_from:-}" "${node_full:-$NODE_VERSION}" \
+            "${node_url:-}" \
             "${node_sha256:-}" || true
           if [ -s bundle/ferretdb ]; then
             PROVENANCE_FILE=provenance/mac-arm64.tsv bash releases/record-provenance.sh \
@@ -1718,6 +1819,7 @@ jobs:
           done
 
       - name: Create mac-arm64 zip
+        if: steps.preflight.outputs.skip != 'true'
         run: |
           zip -r wekan-${VERSION}-mac-arm64.zip bundle
           # A checksum beside the bundle, so a download can be checked. macOS has
@@ -1754,12 +1856,14 @@ jobs:
           echo "OK: $zip is $((bytes/1024/1024)) MiB and contains bundle/main.js and bundle/node."
 
       - uses: actions/upload-artifact@v7
+        if: steps.preflight.outputs.skip != 'true'
         with:
           name: bundle-mac-arm64
           path: wekan-${{ needs.prepare.outputs.version }}-mac-arm64.zip
           retention-days: 1
 
       - name: Upload mac-arm64 provenance
+        if: steps.preflight.outputs.skip != 'true'
         uses: actions/upload-artifact@v7
         with:
           name: provenance-mac-arm64
@@ -1768,6 +1872,7 @@ jobs:
           retention-days: 1
 
       - name: Attach mac-arm64 bundle to the GitHub Release
+        if: steps.preflight.outputs.skip != 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # No repo checkout in this job, so set GH_REPO so `gh` knows the target
@@ -1822,11 +1927,10 @@ jobs:
 
   # Build mac-x64 bundle (rebuild native modules on an Intel Mac runner).
   #
-  # BEST-EFFORT, like win32 and the exotic Linux arches: WeKan takes its Node.js
-  # only from the wekan/node fork, and the fork builds node-mac-x64 on its own
-  # schedule. Until it has published node-mac-x64 for this version, the preflight
-  # step SKIPS this job (a warning, not a red failure) and it returns on its own
-  # the release after the fork publishes it.
+  # BEST-EFFORT, like win32 and the exotic Linux arches: nodejs.org publishes
+  # darwin-x64, so this normally resolves there - but the preflight stays, so the
+  # day Intel macOS stops being published this job SKIPS with a warning instead of
+  # failing red, and returns on its own if a Node.js for it appears again.
   build-mac-x64:
     needs: [prepare, build-amd64, release]
     runs-on: macos-13   # macos-13 runners are Intel (x86_64); macos-14+ are arm64
@@ -1846,19 +1950,27 @@ jobs:
       # comes only from the fork, so if it has not built this binary there is
       # nothing to ship and the job SKIPS rather than failing. Every build step
       # below is gated on skip != 'true'.
-      - name: Preflight - resolve the fork's newest node-mac-x64
+      # Which Node.js this platform gets - and whether it is built at all.
+      #
+      # WeKan takes its Node.js from official nodejs.org, then
+      # unofficial-builds.nodejs.org, then wekan/node-patches
+      # (releases/resolve-node-source.sh is the one place that order lives).
+      # Intel macOS is published by nodejs.org, so this normally resolves
+      # there; the preflight stays so it skips rather than fails if it stops.
+      # When NO source has one for this CPU the platform is simply NOT BUILT
+      # this release: every step below is gated on skip, and it comes back by
+      # itself the first run after a Node.js for it is published anywhere.
+      - name: Preflight - resolve this platform's Node.js
         id: preflight
         run: |
           set -uo pipefail
-          # Resolve the pinned MAJOR ($NODE_VERSION=24) to the newest fork v24.x
-          # release that carries node-mac-x64 (authenticated, so not rate-limited).
-          # This job checks out at the repo root, so the script is at releases/.
-          tag="$(bash releases/resolve-fork-node-tag.sh node-mac-x64 "$NODE_VERSION")"
-          if [ -n "$tag" ]; then
-            echo "node-mac-x64 resolved to ${tag}; building the mac-x64 bundle."
+          out="$(bash releases/resolve-node-source.sh 'mac-x64' "$NODE_VERSION")" || true
+          if printf '%s\n' "$out" | grep -q '^node_found=true$'; then
+            printf '%s\n' "$out" | grep -E '^node_(full|from|url|kind|member|sha256)=' >> "$GITHUB_OUTPUT"
             echo "skip=false" >> "$GITHUB_OUTPUT"
+            printf '%s\n' "$out" | grep -E '^node_(full|from|url)='
           else
-            echo "::warning::mac-x64 is skipped: the wekan/node fork has no node-mac-x64 in any ${NODE_VERSION}.x release yet. It is best-effort and comes back once the fork publishes it."
+            echo "::warning::mac-x64 is not built this time. No Node.js for it at nodejs.org, unofficial-builds.nodejs.org or wekan/node-patches; it returns by itself when one is published."
             echo "skip=true" >> "$GITHUB_OUTPUT"
           fi
 
@@ -1908,8 +2020,9 @@ jobs:
 
       - name: Embed Node.js + FerretDB (mac-x64) into the bundle
         if: steps.preflight.outputs.skip != 'true'
-        # Bundle the macOS x64 Node.js from the wekan/node fork (node-mac-x64,
-        # verified against its .sha256sum) and the macOS FerretDB binary
+        # Bundle the macOS x64 Node.js the preflight resolved (nodejs.org's
+        # darwin-x64 build, verified against its published SHA256) and the macOS
+        # FerretDB binary
         # (ferretdb-mac-amd64). FerretDB is tolerant: if its asset is missing the
         # bundle stays MongoDB-only (start-wekan.sh then won't find ferretdb).
         run: |
@@ -1940,8 +2053,8 @@ jobs:
           # Where this bundle's binaries came from, for the release notes.
           mkdir -p provenance
           PROVENANCE_FILE=provenance/mac-x64.tsv bash releases/record-provenance.sh \
-            'mac-x64' 'Node.js' 'wekan/node' "${node_full:-$NODE_VERSION}" \
-            "https://github.com/wekan/node/releases/download/${node_full:-}/node-mac-x64" \
+            'mac-x64' 'Node.js' "${node_from:-}" "${node_full:-$NODE_VERSION}" \
+            "${node_url:-}" \
             "${node_sha256:-}" || true
           if [ -s bundle/ferretdb ]; then
             PROVENANCE_FILE=provenance/mac-x64.tsv bash releases/record-provenance.sh \
@@ -2042,13 +2155,14 @@ jobs:
   # Extra-architecture Linux bundles — every Linux arch wekan/FerretDB builds for
   # that has NO MongoDB server, so they ship FerretDB v1 as their database.
   #
-  # Each one needs a Node.js 24 for its CPU, and it comes from ONE place: the
-  # wekan/node fork (https://github.com/wekan/node/releases). WeKan takes its
-  # Node.js only from the fork - it is Node built from source, so a Node bug can
-  # be patched and rebuilt - with no nodejs.org/unofficial-builds fallback; the
-  # preflight (check-arch-binaries.sh) finds the newest fork build for this CPU
-  # and verifies it against its .sha256sum. The fork also covers the CPUs nobody
-  # else builds at all (i386, armhf/armv7, loong64), so it fits every arch here.
+  # Each one needs a Node.js 24 for its CPU, and it comes from the three sources
+  # in order: official nodejs.org (ppc64le, s390x), then
+  # unofficial-builds.nodejs.org (riscv64, loong64), then wekan/node-patches
+  # (i386, armhf, armv7 - what neither of the others builds). The preflight
+  # (check-arch-binaries.sh, through resolve-node-source.sh) picks the first that
+  # has this CPU and verifies the download against the SHA256 that source
+  # published. An arch none of the three has is NOT BUILT this release, and comes
+  # back by itself the first run after a Node.js for it appears.
   #
   # An arch is listed here only when the fork has (or will have) a node-<arch> for
   # it. The one FerretDB target deliberately absent is armel (ARMv5, soft-float):
@@ -2112,15 +2226,14 @@ jobs:
             node_arch: riscv64
             ferretdb_arch: riscv64
             optional: true
-          # i386 and armhf are BEST-EFFORT: Node has no linux-x86 build at all,
-          # and no source builds Node 24 for armv7l, so when their Node.js is
-          # absent everywhere the preflight SKIPS them (a warning, exit 0) instead
-          # of failing the run - a red job every release for a CPU nothing can
-          # a Node for is noise. They stay best-effort so a future fork hiccup
-          # skips rather than failing the whole matrix (and skipping docker with
-          # it); the wekan/node fork already publishes node-i386 and node-armhf,
-          # so they build real .zip bundles now. (FerretDB ships both too, so only
-          # Node.js gated them.)
+          # i386 and armhf are the two 32-bit CPUs neither nodejs.org nor
+          # unofficial-builds publishes a Node 24 for - nodejs.org has no
+          # linux-x86 build at all, and no armv7l one for this major - so their
+          # Node.js can only come from wekan/node-patches. Until it is published
+          # there the preflight SKIPS them (a warning, exit 0) instead of failing
+          # the run: a red job every release for a CPU nothing publishes a runtime
+          # for is noise. (FerretDB ships both already, so only Node.js gates
+          # them.)
           - arch: i386
             platform: linux/386
             image: debian:trixie
@@ -2214,7 +2327,7 @@ jobs:
             | tee /tmp/preflight.txt
           # skip=true when a best-effort arch has no Node.js port yet; the build
           # steps below are gated on it. node_* are absent in that case.
-          grep -E '^(node_full|node_from|node_url|node_sha256|skip)=' /tmp/preflight.txt >> "$GITHUB_OUTPUT"
+          grep -E '^(node_full|node_from|node_url|node_kind|node_member|node_sha256|skip)=' /tmp/preflight.txt >> "$GITHUB_OUTPUT"
 
       - name: Record where this bundle's Node.js came from
         if: steps.preflight.outputs.skip != 'true'
@@ -2234,6 +2347,8 @@ jobs:
           NODE_FULL: ${{ steps.preflight.outputs.node_full }}
           NODE_FROM: ${{ steps.preflight.outputs.node_from }}
           NODE_URL: ${{ steps.preflight.outputs.node_url }}
+          NODE_KIND: ${{ steps.preflight.outputs.node_kind }}
+          NODE_MEMBER: ${{ steps.preflight.outputs.node_member }}
           NODE_SHA256: ${{ steps.preflight.outputs.node_sha256 }}
         run: |
           set -euo pipefail
@@ -2264,6 +2379,8 @@ jobs:
             -e NODE_FULL="$NODE_FULL" \
             -e NODE_FROM="$NODE_FROM" \
             -e NODE_URL="$NODE_URL" \
+            -e NODE_KIND="$NODE_KIND" \
+            -e NODE_MEMBER="$NODE_MEMBER" \
             -e NODE_SHA256="$NODE_SHA256" \
             -e ARCH='${{ matrix.arch }}' \
             -e NODE_ARCH='${{ matrix.node_arch }}' \

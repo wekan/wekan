@@ -121,3 +121,6 @@ core.[0-9]*
 # they should not show up as untracked noise either.
 /wekan-ondra/
 /wekan-gantt-gpl/
+
+# node-patches: a SEPARATE repo (github.com/wekan/node-patches) checked out here.
+node-patches/

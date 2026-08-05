@@ -15,14 +15,15 @@
 //   2. FerretDB was downloaded without verifying the .sha256sum wekan/FerretDB
 //      now publishes beside every binary.
 //
-// Now each native bundle downloads the pinned Node.js from the wekan/node fork
-// (releases/embed-verified-node.sh) and verifies it against the fork's
-// node-<asset>.sha256sum, and verifies FerretDB against its published .sha256sum.
-// WeKan takes its Node.js from the fork for EVERY platform - one source built
-// from source, so a Node bug can be patched and rebuilt, and the arches nobody
-// else builds (32-bit x86/ARM, loong64, win32) come from the same place as the
-// mainstream ones. This pins that, so a future edit cannot quietly go back to
-// the runner's node or an unverified download.
+// Now each native bundle downloads its Node.js through
+// releases/embed-verified-node.sh and verifies it against the checksum the
+// SOURCE published. WHICH source that is comes from
+// releases/resolve-node-source.sh - official nodejs.org, then
+// unofficial-builds.nodejs.org, then wekan/node-patches - and the order itself is
+// pinned by tests/releaseNodeSources.test.cjs. What THIS file pins is the part
+// that must hold whoever serves: a NAMED version, a VERIFIED download, and
+// provenance that records where it actually came from rather than a hardcoded
+// name. (It used to require the wekan/node fork by name; that fork is retired.)
 
 const assert = require('assert');
 const fs = require('fs');
@@ -49,51 +50,73 @@ function test(name, fn) {
   console.log('  ok -', name);
 }
 
-// job -> the wekan/node fork asset the bundle embeds.
+// job -> the platform the bundle embeds a Node.js for. The helper takes either
+// spelling (win64 or node-win64.exe); these are what the workflow passes.
 const NATIVE = [
-  { job: 'build-amd64',     fork_asset: 'node-x64',       ferret: 'ferretdb-amd64' },
-  { job: 'build-arm64',     fork_asset: 'node-arm64',     ferret: 'ferretdb-arm64' },
-  { job: 'build-win64',     fork_asset: 'node-win64.exe', ferret: 'ferretdb-win64.exe' },
-  { job: 'build-mac-arm64', fork_asset: 'node-mac-arm64', ferret: 'ferretdb-mac-arm64' },
+  { job: 'build-amd64',     asset: 'node-x64',       ferret: 'ferretdb-amd64' },
+  { job: 'build-arm64',     asset: 'node-arm64',     ferret: 'ferretdb-arm64' },
+  { job: 'build-win64',     asset: 'node-win64.exe', ferret: 'ferretdb-win64.exe' },
+  { job: 'build-mac-arm64', asset: 'node-mac-arm64', ferret: 'ferretdb-mac-arm64' },
 ];
 
-test('the verified-node helper fetches from the wekan/node fork and verifies it', () => {
+test('the verified-node helper resolves a source and verifies what it downloads', () => {
   const helper = fs.readFileSync(
     path.join(repoRoot, 'releases/embed-verified-node.sh'), 'utf8',
   );
-  assert.ok(/github\.com\/wekan\/node\/releases\/download/.test(helper),
-    'helper must download from the wekan/node fork releases');
-  assert.ok(/\$\{fork_url\}\.sha256sum|\.sha256sum/.test(helper),
-    'helper must fetch the fork asset .sha256sum');
-  // A mismatch must be fatal, not a warning it walks past.
+  // It must not carry its own idea of where Node.js comes from.
+  assert.ok(/resolve-node-source\.sh/.test(helper),
+    'helper must ask resolve-node-source.sh which source serves this platform');
+  assert.ok(!/github\.com\/wekan\/node\/releases\/download/.test(helper),
+    'helper must not hardcode the retired wekan/node fork');
+  // A mismatch must be fatal, not a warning it walks past - and there is no
+  // "no checksum published, ship it anyway" path any more: the resolver only
+  // returns a build it found a published checksum for.
   assert.ok(
-    /does not match its published SHA256[\s\S]*exit 1/.test(helper),
-    'helper must exit non-zero when the binary does not match its published SHA256',
+    /does not match the SHA256[\s\S]*?exit 1/.test(helper),
+    'helper must exit non-zero when the download does not match its published SHA256',
   );
-  // It must hand the exact version and checksum back for provenance.
-  assert.ok(/node_full=/.test(helper) && /node_sha256=/.test(helper),
-    'helper must print node_full and node_sha256 for the caller to record');
+  assert.ok(!/shipped UNVERIFIED/.test(helper),
+    'helper must not have a path that ships an unverified Node.js');
+  // The two shapes the three sources publish: an archive, and a bare binary.
+  assert.ok(/tar\.xz\|tar\.gz\|tar\)/.test(helper) && /\bzip\)/.test(helper),
+    'helper must unpack the tarball/zip nodejs.org and unofficial-builds publish');
+  assert.ok(/\bbinary\)/.test(helper),
+    'helper must also take the bare binary node-patches publishes');
+  // It must hand the exact version, source and checksum back for provenance.
+  for (const field of ['node_full=', 'node_from=', 'node_url=', 'node_sha256=']) {
+    assert.ok(helper.includes(field),
+      `helper must print ${field} for the caller to record`);
+  }
+  // And a platform NO source has is a skip the caller can act on, not a failure.
+  assert.ok(/exit 3/.test(helper),
+    'helper must exit 3 when no source has a Node.js for this platform');
 });
 
 for (const b of NATIVE) {
-  test(`${b.job} ships the fork's ${b.fork_asset}, verified, not the runner's node`, () => {
+  test(`${b.job} embeds a verified ${b.asset}, not the runner's node`, () => {
     const body = job(b.job);
-    // The shipped node comes from the helper, for this exact fork asset.
+    // The shipped node comes from the helper, for this exact platform.
     const re = new RegExp(
-      `embed-verified-node\\.sh\\s+\\S*node\\S*\\s+${b.fork_asset.replace('.', '\\.')}\\s+"\\$NODE_VERSION"`,
+      `embed-verified-node\\.sh\\s+\\S*node\\S*\\s+${b.asset.replace('.', '\\.')}\\s+"\\$NODE_VERSION"`,
     );
     assert.ok(re.test(body),
-      `${b.job} must embed node via embed-verified-node.sh ${b.fork_asset}`);
+      `${b.job} must embed node via embed-verified-node.sh ${b.asset}`);
     // No copying the runner's node into the bundle any more.
     assert.ok(
       !/cp\s+(?:-L\s+)?"\$\(command -v node\)"/.test(body)
         && !/cp\s+"\$NODE_SRC"/.test(body),
       `${b.job} must not copy the runner's node ($(command -v node)/$NODE_SRC) into the bundle`,
     );
-    // Provenance names the wekan/node fork as the source, not the runner or nodejs.org.
+    // Provenance records the source the helper REPORTED. A hardcoded name is the
+    // bug this replaces: every row said wekan/node whatever actually served, so
+    // the table could not answer the one question it exists for.
     assert.ok(
-      /record-provenance\.sh[\s\S]*?'Node\.js'[\s\S]*?'wekan\/node'/.test(body),
-      `${b.job} must record Node.js provenance with source wekan/node`,
+      /record-provenance\.sh[\s\S]*?'Node\.js'\s+"\$\{(?:NODE_FROM|node_from):-\}"/.test(body),
+      `${b.job} must record Node.js provenance with the source the embed reported`,
+    );
+    assert.ok(
+      !/'Node\.js'[\s\S]{0,40}'wekan\/node'/.test(body),
+      `${b.job} must not hardcode wekan/node as the Node.js source`,
     );
     assert.ok(
       !/'Node\.js'\s+'GitHub runner \(setup-node\)'/.test(body),
@@ -119,7 +142,7 @@ for (const b of NATIVE) {
 test('build-arm64 no longer depends on the runner default node (the Node 22 bug)', () => {
   const body = job('build-arm64');
   assert.ok(/embed-verified-node\.sh\s+bundle\/node\s+node-arm64\s+"\$NODE_VERSION"/.test(body),
-    'build-arm64 must download+verify the fork node-arm64, not use the runner default');
+    'build-arm64 must download+verify an arm64 node, not use the runner default');
 });
 
 console.log(`\nreleaseNodeVerified: all ${passed} tests passed`);

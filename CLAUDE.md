@@ -216,6 +216,40 @@ pushed to Transifex as if it were human.
   documentation and translation work.`). Keep it current as entries are added —
   it is the first thing a reader sees, so a stale one misdescribes the release.
   A finished release keeps the paragraph it was written with.
+- **Under the summary comes the BINARIES TABLE: what each platform ships.** So the
+  top of a release section is, in order, (1) the `**In short:**` paragraph and
+  (2) this table, and only then the `This release …:` subsections. A WeKan bundle
+  is not only WeKan — it carries a Node.js, a FerretDB and the MongoDB Database
+  Tools that other projects publish, and WHICH source has a given CPU changes
+  from release to release: nodejs.org builds some architectures,
+  unofficial-builds others, and [wekan/node-patches](https://github.com/wekan/node-patches)
+  the ones neither of them does. "Which Node.js is in the arm64 bundle of 10.69,
+  and was it checked" must be answerable from the CHANGELOG, not from a build log
+  that expires.
+
+  ```
+  | Platform | Binary | From | Version | SHA256 |
+  | --- | --- | --- | --- | --- |
+  | amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `a1b2…` |
+  | amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.24.0/ferretdb-amd64) | v1.24.0 | `c3d4…` |
+  | arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `e5f6…` |
+  ```
+
+  **GROUPED BY PLATFORM**: rows are sorted by platform and then by binary, so one
+  platform's binaries stay together and the table is read a platform at a time.
+  The URL is the LINK ON THE "From" CELL — never a bare URL as visible text, the
+  same rule as everywhere else — and it is the exact file that was downloaded, not
+  the project's front page. The SHA256 is the checksum the source published and the
+  build verified, in backticks; a source that publishes none says *no checksum
+  published*, which is not a failed check but a source worth fixing. Table rows
+  carry links, so the 80-character wrap does not apply to them.
+
+  It is the same table `releases/provenance-table.sh` puts at the top of the GitHub
+  release notes, from the `provenance.tsv` rows each build job records — so the two
+  are filled from the same data and cannot disagree. **A platform that was NOT built
+  has no rows**, which is how the table also answers "why is there no i386 bundle
+  this time": no source published a Node.js for it (see
+  `releases/resolve-node-source.sh`).
 - **Inside a subsection, entries are GROUPED BY AREA.** A release touches a handful
   of areas and repeating the area's name in every summary is the noise this
   removes — twelve entries that each begin "All Boards:" say "All Boards" twelve

@@ -199,8 +199,14 @@ test('every snap the release publishes is core24, and goes to all four channels'
   assert.ok(/^grade: stable$/m.test(snapcraft), 'and is grade: stable, or stable refuses it');
   assert.ok(!/^build-base:/m.test(snapcraft), 'a build-base would force grade: devel');
 
+  // `release: ` also occurs in ordinary English inside a run: block ("is not
+  // built this release. No Node.js ..."), and that is not a channel list. Keep
+  // only the matches that actually name a channel - a publish that lists too FEW
+  // channels still names one, so nothing this guard is for slips through.
+  const CHANNELS = ['stable', 'candidate', 'beta', 'edge'];
   const publishes = [...code(workflow).matchAll(/(?:--release=|release: )([a-z,]+)/g)]
-    .map(m => m[1]);
+    .map(m => m[1])
+    .filter(v => v.split(',').some(c => CHANNELS.includes(c)));
   assert.ok(publishes.length >= 3,
     'the native, Launchpad and variant snap jobs each publish somewhere');
   for (const channels of publishes) {
