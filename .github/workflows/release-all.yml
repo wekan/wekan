@@ -2575,6 +2575,16 @@ jobs:
   # whose zips (with FerretDB baked in) are attached by that job after `release`.
   docker:
     needs: [prepare, release, build-extra-arches]
+    # always() + release success: build-extra-arches is a matrix, and if ANY leg
+    # fails (e.g. one exotic CPU) the whole matrix job is "failed", which would
+    # SKIP this job the moment it appears in `needs`. That is how one failed
+    # ppc64le/s390x/... skipped the entire Docker image. Run whenever the release
+    # itself succeeded; the "Decide platforms" step below then builds the image
+    # for exactly the bundles that DID land, dropping any arch whose build failed
+    # rather than taking the whole image down with it. (It still lists
+    # build-extra-arches in needs, so it waits for the successful legs to upload
+    # their bundles first.)
+    if: ${{ always() && needs.release.result == 'success' }}
     runs-on: ubuntu-latest
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
@@ -2644,6 +2654,46 @@ jobs:
       # (The login to all three registries happens in the secrets check above, so a
       # bad credential names itself before anything is built.)
 
+      - name: Decide which platforms have a bundle on the release
+        # The image is built from the wekan-<version>-<arch>.zip bundles on the
+        # release. amd64 and arm64 are REQUIRED - without them there is no image
+        # worth pushing, and the release would not have succeeded. The exotic
+        # arches are OPTIONAL here: a platform is included only if its bundle
+        # actually landed, so one failed extra-arch (ppc64le/s390x/riscv64/i386/
+        # armhf) drops only ITSELF from the image instead of failing or skipping
+        # the whole Docker job. The chosen set drives the wait loop, the buildx
+        # --platform list and the push-verify want= list, so all three always agree.
+        run: |
+          set -euo pipefail
+          base="https://github.com/wekan/wekan/releases/download/v${VERSION}"
+          have() { curl -fsSL -o /dev/null -I --retry 3 --retry-delay 5 "$1"; }
+          # docker platform : the wekan bundle arch the Dockerfile downloads for it.
+          req="linux/amd64:amd64 linux/arm64:arm64"
+          opt="linux/ppc64le:ppc64le linux/s390x:s390x linux/riscv64:riscv64 linux/386:i386 linux/arm/v7:armhf"
+          platforms=""; want=""; arches=""
+          for pair in $req; do
+            p="${pair%%:*}"; a="${pair#*:}"
+            if have "${base}/wekan-${VERSION}-${a}.zip"; then
+              platforms="${platforms:+$platforms,}$p"; want="${want:+$want }$p"; arches="${arches:+$arches }$a"
+            else
+              echo "::error::Core bundle wekan-${VERSION}-${a}.zip is not on the release; the image needs at least amd64 and arm64."
+              exit 1
+            fi
+          done
+          for pair in $opt; do
+            p="${pair%%:*}"; a="${pair#*:}"
+            if have "${base}/wekan-${VERSION}-${a}.zip"; then
+              platforms="${platforms},$p"; want="${want} $p"; arches="${arches} $a"
+              echo "including $p  (wekan-${VERSION}-${a}.zip present)"
+            else
+              echo "::warning::$p is dropped from the image: wekan-${VERSION}-${a}.zip is not on the release (its build failed, or is best-effort and skipped). The image ships without it and gains it back the next release that builds it."
+            fi
+          done
+          echo "PLATFORMS=$platforms" >> "$GITHUB_ENV"
+          echo "WANT=$want"           >> "$GITHUB_ENV"
+          echo "BUNDLE_ARCHES=$arches" >> "$GITHUB_ENV"
+          echo "Image platforms: $platforms"
+
       - name: Wait for release bundles to be downloadable
         # The Dockerfile downloads wekan-<version>-<arch>.zip from the GitHub
         # Release for each built platform. Even though this job needs `release`
@@ -2651,12 +2701,13 @@ jobs:
         # URL can briefly 404 right after upload (CDN/propagation lag), which used
         # to fail the multi-arch build mid-way. Poll here until every arch bundle
         # baked into the image returns 200, so the (expensive, emulated) buildx run
-        # only starts once the assets are actually fetchable. The Dockerfile also
+        # only starts once the assets are actually fetchable. Only the arches the
+        # step above CHOSE (BUNDLE_ARCHES) are waited for. The Dockerfile also
         # retries per-arch as a second layer of safety.
         run: |
           set -euo pipefail
           base="https://github.com/wekan/wekan/releases/download/v${VERSION}"
-          for arch in amd64 arm64 ppc64le s390x riscv64; do
+          for arch in $BUNDLE_ARCHES; do
             url="${base}/wekan-${VERSION}-${arch}.zip"
             echo "Waiting for ${url} ..."
             ok=0
@@ -2732,17 +2783,16 @@ jobs:
         # baking its package.json), so a v${VERSION}-tagged image could ship — and
         # report in the Admin Panel — a stale, different version.
         run: |
-          # linux/386 and linux/arm/v7 are HERE now: the image base is
-          # debian:trixie (Ubuntu publishes no i386, Debian does), and the
-          # Dockerfile installs their Node 24 from the wekan/node fork
-          # (node-i386 / node-armhf), which nodejs.org and unofficial-builds do
-          # not build. The only platform still NOT here is linux/loong64: no
-          # Docker base image publishes it, and buildx + the three registries do
-          # not agree on a loong64 manifest yet. loong64 ships as a .zip bundle
-          # only. Every platform here is in debian:trixie's manifest AND has a
-          # Node 24 the Dockerfile can install.
+          # $PLATFORMS is decided by the "Decide which platforms" step: amd64 and
+          # arm64 always, plus each exotic arch (ppc64le/s390x/riscv64/386/arm/v7)
+          # whose wekan-<v>-<arch>.zip actually landed on the release, so a failed
+          # extra-arch drops only itself. linux/loong64 is never here: no Docker
+          # base image publishes it and the registries do not agree on a loong64
+          # manifest yet, so it ships as a .zip bundle only. Every candidate arch
+          # is in debian:trixie's manifest AND has a fork Node the Dockerfile can
+          # install.
           docker buildx build \
-            --platform linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/riscv64,linux/386,linux/arm/v7 \
+            --platform "${PLATFORMS}" \
             --build-arg VERSION=${VERSION} \
             -t wekanteam/wekan:v${VERSION} \
             -t wekanteam/wekan:latest \
@@ -2757,11 +2807,10 @@ jobs:
           # platform, or a tag that never reached one of the three registries, is
           # invisible until somebody on that CPU runs docker pull and is told there is
           # no matching manifest. Ask each registry what it actually has.
-          # The same list as --platform above. Only linux/loong64 is NOT here
-          # (see the build comment above): no Docker base publishes it and the
-          # registries do not agree on its manifest yet, so it ships as a .zip
-          # bundle only.
-          want="linux/amd64 linux/arm64 linux/ppc64le linux/s390x linux/riscv64 linux/386 linux/arm/v7"
+          # $WANT is exactly the set that was built (same source as --platform, from
+          # the "Decide which platforms" step), so the verify never asks for an arch
+          # the image deliberately dropped.
+          want="${WANT}"
           rc=0
           for image in "wekanteam/wekan:v${VERSION}" "quay.io/wekan/wekan:v${VERSION}" "ghcr.io/wekan/wekan:v${VERSION}"; do
             # The format MUST carry the CPU variant. buildx builds linux/arm/v7,

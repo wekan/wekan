@@ -322,19 +322,31 @@ test('every platform is in all the places that build it', () => {
     assert.ok(bundles.includes(asBundle), `snap arch ${arch} has no bundle job`);
   }
 
-  // Docker: the --platform list and the list the push is verified against must
-  // be the same, or a platform is built and never checked (or the reverse).
-  // The buildx one specifically: there is an earlier `docker run --platform
-  // linux/arm64` in this file, and matching the first --platform found it
-  // instead - which made this guard compare one platform against seven.
-  const buildxAt = wf.indexOf('docker buildx build \\');
-  assert.notStrictEqual(buildxAt, -1, 'the multi-arch image build must be there');
-  const built = /--platform (linux\/[^ \\]+)/.exec(wf.slice(buildxAt));
-  assert.ok(built, 'the buildx --platform list must be there');
-  const want = /want="([^"]+)"/.exec(wf);
-  assert.ok(want, 'and the list it is verified against');
-  assert.deepStrictEqual(built[1].split(','), want[1].split(' '),
-    'buildx builds exactly the platforms the push is then checked for');
+  // Docker: the platform set is DECIDED at run time from the bundles that landed
+  // (see release-all.yml's "Decide which platforms" step and
+  // releaseDockerPlatforms.test.cjs), so buildx uses --platform "${PLATFORMS}"
+  // and the verify uses want="${WANT}" - built and verified from one variable,
+  // so they cannot disagree. Here just cross-check that every EXOTIC docker
+  // candidate has an extra-arches bundle behind it (the docker image downloads
+  // wekan-<v>-<arch>.zip). amd64/arm64 are native (not extra-arch) bundles.
+  const dockerJob = (() => {
+    const s = wf.indexOf('\n  docker:\n');
+    const rest = wf.slice(s + 1);
+    const n = rest.search(/\n  [a-z0-9-]+:\n/);
+    return n === -1 ? rest : rest.slice(0, n);
+  })();
+  assert.ok(/--platform\s+"\$\{PLATFORMS\}"/.test(dockerJob),
+    'buildx must build the decided set --platform "${PLATFORMS}"');
+  assert.ok(/want="\$\{WANT\}"/.test(dockerJob),
+    'the push verify must use the same decided set want="${WANT}"');
+  // The optional docker platforms, as <plat>:<bundle-arch> pairs.
+  const opt = /\n\s*opt="([^"]+)"/.exec(dockerJob);
+  assert.ok(opt, 'the Decide step must list optional docker platforms in opt="..."');
+  for (const tok of opt[1].trim().split(/\s+/)) {
+    const bundleArch = tok.split(':')[1];
+    assert.ok(bundles.includes(bundleArch),
+      `docker exotic platform ${tok} has no extra-arches bundle "${bundleArch}" to build from`);
+  }
 });
 
 test('a remote build that never starts still says why', () => {
