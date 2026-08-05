@@ -267,13 +267,17 @@ browser build to verify).
 
 # v10.69 2026-08-05 WeKan ® release
 
-**In short:** a follow-up to the **fork-everywhere Node.js** switch in v10.68.
-The native bundle jobs pass the pinned Node **major** (`24`), but the wekan/node
-fork tags its releases by full version (`v24.19.0`), so the embed helper built a
-`…/download/24/node-x64` URL that 404s and the amd64 bundle failed. The helper
-now resolves the major to the newest fork tag that carries the asset.
+**In short:** two fixes to the release build after the **fork-everywhere
+Node.js** switch in v10.68. The native jobs pass the pinned Node **major**
+(`24`), but the wekan/node fork tags releases by full version (`v24.19.0`), so
+the embed helper built a `…/download/24/node-x64` URL that 404s - it now
+resolves the major to the newest fork tag that carries the asset. And the
+multi-arch **Docker image** no longer skips when one exotic CPU fails to build:
+it now builds for whatever bundles landed, dropping just the missing arch.
 
-This release fixes the following bug:
+This release fixes the following bugs:
+
+**The release build** - the fork Node.js download and the Docker platform set.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/414594ce99ac7dd44de2affaa15d7b135f6c319e">The native embed resolves the fork's full version from the pinned major</a>. Thanks to xet7.</summary>
@@ -286,6 +290,24 @@ Node embed step. It now resolves a bare major to the newest fork tag
 `v<major>.x` that carries the asset - the same GitHub-API walk
 `check-arch-binaries.sh` uses - and takes a full tag as given. When no release
 has the asset it stops with a message naming the fork asset to build.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/44fe7970cedb0ba1d1326904de2d54d2fa5fc00d">The Docker image builds for whatever bundles landed, so one failed exotic arch never skips it</a>. Thanks to xet7.</summary>
+
+The docker job `needs: build-extra-arches`, a matrix. When one leg failed - a
+single exotic CPU like ppc64le - the whole matrix job was "failed", and a job
+whose `needs` dependency failed is SKIPPED, so one failed arch skipped the
+entire image. It now runs on `always() && needs.release.result == 'success'`,
+and a new "Decide which platforms" step probes which
+`wekan-<version>-<arch>.zip` bundles actually landed: amd64 and arm64 are
+required, the exotic arches
+(ppc64le/s390x/riscv64/386/arm/v7) are included only if their bundle is present,
+and a missing one is a warning that drops just that platform. The decided set
+drives the wait loop, `--platform` and the push-verify list from one place, so a
+failed or best-effort-skipped arch drops only itself and returns the next
+release that builds it - the image is never skipped and never fails on one CPU.
 
 </details>
 
