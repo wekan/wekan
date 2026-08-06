@@ -189,7 +189,7 @@ parts:
     # Node.js 24 + the `mongodb` driver via $SNAP/bin/db-eval (see snap-src/bin).
 
     # No separate mongotools part: the per-arch MongoDB Database Tools are already
-    # embedded in the wekan-<arch>.zip bundle (built from wekan/mongo-tools by
+    # embedded in the wekan-<arch>.zip bundle (built from wekan/mongo-tools-patches by
     # release-all.yml) and the wekan part above moves them from the bundle into
     # $SNAP/bin. This keeps the snap bundle-centric — every binary comes from the
     # one wekan-<arch>.zip — and avoids downloading the tools twice.

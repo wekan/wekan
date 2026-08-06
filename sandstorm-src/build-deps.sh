@@ -93,7 +93,7 @@ FERRETDB_URL="${FERRETDB_URL:-https://github.com/wekan/FerretDB/releases/latest/
 curl -fsSL "$FERRETDB_URL" -o "$DEPS/ferretdb"
 chmod +x "$DEPS/ferretdb"
 
-# NOTE: the modern MongoDB Database Tools (wekan/mongo-tools: mongodump, mongorestore,
+# NOTE: the modern MongoDB Database Tools (wekan/mongo-tools-patches: mongodump, mongorestore,
 # …) are intentionally NOT bundled in the Sandstorm .spk. They are ~300 MB and are
 # not used here — Sandstorm backs up/restores whole grains itself, and the one-time
 # MongoDB 3 -> FerretDB migration below uses the legacy migratemongo CLIs + the .mjs

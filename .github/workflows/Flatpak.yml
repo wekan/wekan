@@ -8,7 +8,7 @@ name: Flatpak
 # produces a bundle that runs offline with nothing installed - the Meteor server
 # (main.js), the bundled Node.js the release was built against, the
 # wekan/FerretDB v1 fork with its embedded pure-Go SQLite backend, the
-# wekan/mongo-tools binaries and start-wekan.sh - so this takes the
+# wekan/mongo-tools-patches binaries and start-wekan.sh - so this takes the
 # wekan-<version>-<arch>.zip off the release and packages it. The Flatpak is
 # therefore the same server, Node and FerretDB as the zip and the AppImage
 # beside it, not a third build that might differ.

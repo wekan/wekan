@@ -592,10 +592,10 @@ jobs:
           else
             echo "::warning::wekan/FerretDB publishes no checksum for ferretdb-amd64 on this release, so it is unverified."
           fi
-          # Bundled MongoDB Database Tools (amd64) from wekan/mongo-tools (per-arch,
+          # Bundled MongoDB Database Tools (amd64) from wekan/mongo-tools-patches (per-arch,
           # no mongodb.com). This base amd64 bundle is inherited by the other Linux
           # arches, which overwrite these with their own arch's tools below.
-          MT="https://github.com/wekan/mongo-tools/releases/latest/download"
+          MT="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
           for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
             curl -fSL --retry 5 --retry-delay 10 -o ".build/bundle/$t" "$MT/$t-amd64"
             chmod +x ".build/bundle/$t"
@@ -806,7 +806,7 @@ jobs:
             echo "::warning::wekan/FerretDB publishes no checksum for ferretdb-arm64 on this release, so it is unverified."
           fi
           # Overwrite the inherited amd64 MongoDB Database Tools with arm64 ones.
-          MT="https://github.com/wekan/mongo-tools/releases/latest/download"
+          MT="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
           for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
             curl -fSL --retry 5 --retry-delay 10 -o "bundle/$t" "$MT/$t-arm64"
             chmod +x "bundle/$t"
@@ -1156,13 +1156,13 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          # MongoDB Database Tools (Windows) built by wekan/mongo-tools (pure Go),
+          # MongoDB Database Tools (Windows) built by wekan/mongo-tools-patches (pure Go),
           # one <tool>-win64.exe per tool from that repo's newest release — no
           # mongodb.com dependency. No mongosh: WeKan no longer bundles the MongoDB
           # Shell; scripted DB access uses the bundled Node.js 24 + `mongodb` driver.
           # (The Windows launcher, start-wekan.bat, is added by the FerretDB embed
           # step below from releases/ferretdb/start-wekan.bat.)
-          BASE="https://github.com/wekan/mongo-tools/releases/latest/download"
+          BASE="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
           for tool in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
             curl -fL --retry 5 --retry-delay 10 -o "bundle/${tool}.exe" "${BASE}/${tool}-win64.exe"
           done
@@ -1514,9 +1514,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          # MongoDB Database Tools (32-bit Windows) from wekan/mongo-tools; tolerant
+          # MongoDB Database Tools (32-bit Windows) from wekan/mongo-tools-patches; tolerant
           # (skip any tool not built for win32).
-          BASE="https://github.com/wekan/mongo-tools/releases/latest/download"
+          BASE="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
           for tool in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
             curl -fL --retry 5 --retry-delay 10 -o "bundle/${tool}.exe" "${BASE}/${tool}-win32.exe" \
               || { rm -f "bundle/${tool}.exe"; echo "No ${tool}-win32.exe; skipping"; }
@@ -1810,9 +1810,9 @@ jobs:
               'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-mac-arm64' \
               "${FERRET_SHA:-}" || true
           fi
-          # macOS MongoDB Database Tools (mac-arm64) from wekan/mongo-tools; tolerant
+          # macOS MongoDB Database Tools (mac-arm64) from wekan/mongo-tools-patches; tolerant
           # (skip any tool not built for macOS).
-          MT="https://github.com/wekan/mongo-tools/releases/latest/download"
+          MT="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
           for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
             curl -fSL --retry 5 --retry-delay 10 -o "bundle/$t" "$MT/$t-mac-arm64" \
               && chmod +x "bundle/$t" || { rm -f "bundle/$t"; echo "No $t-mac-arm64; skipping"; }
@@ -2062,9 +2062,9 @@ jobs:
               'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-mac-amd64' \
               "${FERRET_SHA:-}" || true
           fi
-          # macOS MongoDB Database Tools (mac-x64) from wekan/mongo-tools; tolerant
+          # macOS MongoDB Database Tools (mac-x64) from wekan/mongo-tools-patches; tolerant
           # (skip any tool not built for this arch).
-          MT="https://github.com/wekan/mongo-tools/releases/latest/download"
+          MT="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
           for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
             curl -fSL --retry 5 --retry-delay 10 -o "bundle/$t" "$MT/$t-mac-x64" \
               && chmod +x "bundle/$t" || { rm -f "bundle/$t"; echo "No $t-mac-x64; skipping"; }
@@ -2425,16 +2425,16 @@ jobs:
           bash releases/record-provenance.sh '${{ matrix.arch }}' 'FerretDB' \
             'wekan/FerretDB' "${FERRET_TAG:-latest}" "$FERRET_URL" "$FERRET_SHA"
           # Overwrite the inherited amd64 MongoDB Database Tools with this arch's ones.
-          # Tolerant per tool: wekan/mongo-tools does not publish every arch this
+          # Tolerant per tool: wekan/mongo-tools-patches does not publish every arch this
           # bundle is built for, and a missing mongodump is a missing convenience,
           # not a broken bundle - FerretDB is the database and the launcher does
           # not need these to start. A silently-amd64 tool would be worse.
-          MT="https://github.com/wekan/mongo-tools/releases/latest/download"
+          MT="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
           for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
             if curl -fSL --retry 3 --retry-delay 5 -o "bundle/$t" "$MT/$t-${{ matrix.ferretdb_arch }}"; then
               chmod +x "bundle/$t"
             else
-              echo "::warning::No $t for ${{ matrix.ferretdb_arch }} in wekan/mongo-tools; removing the inherited amd64 one rather than shipping it."
+              echo "::warning::No $t for ${{ matrix.ferretdb_arch }} in wekan/mongo-tools-patches; removing the inherited amd64 one rather than shipping it."
               rm -f "bundle/$t"
             fi
           done

@@ -47,10 +47,10 @@ echo ""
 
 # mongosh is no longer used (WeKan uses the bundled Node.js + `mongodb` driver).
 
-echo "=== MongoDB Database Tools (wekan/mongo-tools, per-arch, newest release) ==="
+echo "=== MongoDB Database Tools (wekan/mongo-tools-patches, per-arch, newest release) ==="
 for a in amd64 arm64 s390x ppc64le riscv64; do
-  check "mongodump-$a (wekan/mongo-tools)" \
-    "https://github.com/wekan/mongo-tools/releases/latest/download/mongodump-$a"
+  check "mongodump-$a (wekan/mongo-tools-patches)" \
+    "https://github.com/wekan/mongo-tools-patches/releases/latest/download/mongodump-$a"
 done
 echo ""
 

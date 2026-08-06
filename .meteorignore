@@ -78,6 +78,12 @@ npm-packages/
 # worked on beside WeKan, and it is gitignored for the same reason.
 /node-patches/
 
+# The mongo-tools-patches checkout (wekan/mongo-tools-patches): the PATCHES to
+# the upstream MongoDB Database Tools the bundled bsondump/mongodump/... are
+# built from - .patch files, their checksums, their docs and the build. Nothing
+# in WeKan imports it, and it replaces the /mongo-tools/ fork excluded above.
+/mongo-tools-patches/
+
 # DO NOT ADD /_build/ OR /_build-local-test/ HERE. They look like build output
 # that should be ignored - they are gitignored, and they are the first two
 # entries of the 296 KB pattern list above - and excluding them breaks the

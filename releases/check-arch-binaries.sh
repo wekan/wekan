@@ -6,7 +6,7 @@
 # A WeKan bundle for an architecture other than amd64 is assembled out of files
 # that other projects publish: a Node.js build (official nodejs.org, then
 # unofficial-builds, then wekan/node-patches - see §2), a FerretDB binary
-# (wekan/FerretDB), and the MongoDB Database Tools (wekan/mongo-tools). Any of
+# (wekan/FerretDB), and the MongoDB Database Tools (wekan/mongo-tools-patches). Any of
 # them can be absent - a build that has not finished, a release that skipped an
 # architecture - and when one is, the build should stop HERE, saying which file
 # is missing and where it should be published, rather than an hour later inside
@@ -171,13 +171,13 @@ else
 fi
 
 # ── 4. MongoDB Database Tools - a convenience, not a requirement ─────────────
-mt="https://github.com/wekan/mongo-tools/releases/latest/download"
+mt="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
 absent=""
 for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
     have "${mt}/${t}-${ferretdb_arch}" || absent="${absent} ${t}"
 done
 if [ -n "$absent" ]; then
-    echo "::warning::wekan/mongo-tools has no${absent} for ${ferretdb_arch}. The bundle ships without them rather than with the amd64 ones; FerretDB is the database and the launcher does not need them to start."
+    echo "::warning::wekan/mongo-tools-patches has no${absent} for ${ferretdb_arch}. The bundle ships without them rather than with the amd64 ones; FerretDB is the database and the launcher does not need them to start."
 else
     echo "MongoDB Database Tools for ${ferretdb_arch}: all present"
 fi

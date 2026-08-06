@@ -6,7 +6,7 @@ name: AppImage
 # WHAT IS INSIDE IS WHAT WEKAN ALREADY SHIPS. release-all.yml already produces a
 # bundle that runs offline with nothing installed: the Meteor server (main.js),
 # the bundled Node.js the release was built against, the wekan/FerretDB v1 fork
-# with its embedded pure-Go SQLite backend, the wekan/mongo-tools binaries, the
+# with its embedded pure-Go SQLite backend, the wekan/mongo-tools-patches binaries, the
 # cpu-exec/qemu-user shim from #6458, and start-wekan.sh to bring them up. That
 # bundle is already relocatable and already self-contained - it is the offline
 # zip people download today - so this workflow does NOT rebuild WeKan. It takes

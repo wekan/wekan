@@ -124,3 +124,9 @@ core.[0-9]*
 
 # node-patches: a SEPARATE repo (github.com/wekan/node-patches) checked out here.
 node-patches/
+
+# mongo-tools-patches: a SEPARATE repo (github.com/wekan/mongo-tools-patches)
+# checked out here. Same story as node-patches: the PATCHES to the upstream
+# MongoDB Database Tools that WeKan's bundled bsondump/mongodump/... are built
+# from, replacing the wekan/mongo-tools source fork.
+mongo-tools-patches/

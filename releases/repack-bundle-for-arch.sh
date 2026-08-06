@@ -129,16 +129,16 @@ bash releases/record-provenance.sh "$ARCH" 'FerretDB' \
   'wekan/FerretDB' "${FERRET_TAG:-latest}" "$FERRET_URL" "$FERRET_SHA"
 
 # ── MongoDB Database Tools, this architecture's own ──────────────────────────
-# Overwrite the inherited amd64 tools. Tolerant per tool: wekan/mongo-tools does
+# Overwrite the inherited amd64 tools. Tolerant per tool: wekan/mongo-tools-patches does
 # not publish every arch this bundle is built for, and a missing mongodump is a
 # missing convenience, not a broken bundle - FerretDB is the database and the
 # launcher does not need these to start. A silently-amd64 tool would be worse.
-MT="https://github.com/wekan/mongo-tools/releases/latest/download"
+MT="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
 for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
   if curl -fSL --retry 3 --retry-delay 5 -o "bundle/$t" "$MT/$t-${FERRETDB_ARCH}"; then
     chmod +x "bundle/$t"
   else
-    echo "::warning::No $t for ${FERRETDB_ARCH} in wekan/mongo-tools; removing the inherited amd64 one rather than shipping the wrong CPU's binary."
+    echo "::warning::No $t for ${FERRETDB_ARCH} in wekan/mongo-tools-patches; removing the inherited amd64 one rather than shipping the wrong CPU's binary."
     rm -f "bundle/$t"
   fi
 done

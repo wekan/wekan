@@ -5,7 +5,7 @@
 # does not.
 #
 # A WeKan bundle is assembled out of files other repositories publish: FerretDB
-# from wekan/FerretDB, the MongoDB Database Tools from wekan/mongo-tools, and on
+# from wekan/FerretDB, the MongoDB Database Tools from wekan/mongo-tools-patches, and on
 # some CPUs a Node.js from wekan/node. Any of them can be absent - a build that
 # has not finished, a release that skipped an architecture - and the build
 # should say so plainly, naming the file and where it should be published,

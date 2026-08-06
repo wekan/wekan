@@ -233,7 +233,7 @@ update_releases_mongo_versions() {
 
   # Only the MongoDB 7 server (mongod) is version-managed now: mongosh is no longer
   # bundled, and the MongoDB Database Tools come unversioned from the newest
-  # wekan/mongo-tools release, so neither is pinned in any releases/ file.
+  # wekan/mongo-tools-patches release, so neither is pinned in any releases/ file.
   mapfile -t files < <(grep -RIlE 'mongodb-linux-' releases || true)
   if [ ${#files[@]} -eq 0 ]; then
     echo "[DEBUG] No MongoDB server artifact references found under releases/."
@@ -306,7 +306,7 @@ version_bump_logic() {
 
     # mongosh and the MongoDB Database Tools are no longer probed from mongodb.com:
     # mongosh is not bundled anymore (WeKan uses the bundled Node.js + `mongodb`
-    # driver), and the Database Tools come from the wekan/mongo-tools fork's newest
+    # driver), and the Database Tools come from wekan/mongo-tools-patches' newest
     # release (no version pinned in snapcraft.yaml). Only the MongoDB 7 server
     # (mongod, amd64/arm64) is still version-managed here.
   fi
@@ -430,7 +430,7 @@ version_bump_logic() {
     ensure_cache_or_download "mongodb-linux-aarch64-ubuntu2204-${MONGO_VER}.tgz" "https://fastdl.mongodb.org/linux/mongodb-linux-aarch64-ubuntu2204-${MONGO_VER}.tgz"
 
     # mongosh is no longer bundled; the MongoDB Database Tools come from the
-    # wekan/mongo-tools release, so nothing is fetched from mongodb.com for them.
+    # wekan/mongo-tools-patches release, so nothing is fetched from mongodb.com for them.
   fi
 
   # 8. Update Wekan website (manual/local flow only; the remote flow handles the

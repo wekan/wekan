@@ -22,7 +22,7 @@ and how the one-time MongoDB 3 → FerretDB v1 migration works.
   on every architecture. See [MongoDB client binaries](#mongodb-client-binaries-source-and-availability).
 - **The MongoDB Database Tools are downloaded from WeKan's own fork, not from the
   MongoDB website** — `mongodump-<arch>` etc. from
-  [wekan/mongo-tools](https://github.com/wekan/mongo-tools/releases).
+  [wekan/mongo-tools-patches](https://github.com/wekan/mongo-tools-patches/releases).
 - **Existing MongoDB 7 data (amd64/arm64) is NOT migrated to FerretDB v1** — that
   snap keeps using its existing MongoDB 7.
 - **Only the amd64 snap migrates existing MongoDB 3 data to FerretDB v1** (see
@@ -40,7 +40,7 @@ and how the one-time MongoDB 3 → FerretDB v1 migration works.
 
 - **MongoDB 7 server (mongod)**: amd64/arm64 only (MongoDB ships no server for the others).
 - **MongoDB Database Tools**: every arch — WeKan builds them for all platforms from
-  [wekan/mongo-tools](https://github.com/wekan/mongo-tools) (they are pure Go).
+  [wekan/mongo-tools-patches](https://github.com/wekan/mongo-tools-patches) (they are pure Go).
 - **mongosh**: not bundled on any arch — replaced by the bundled Node.js 24 +
   `mongodb` driver (`$SNAP/bin/db-eval`).
 
@@ -69,7 +69,7 @@ sudo snap set wekan database=ferretdb  # the default
 
 WeKan does not download MongoDB clients from the MongoDB website:
 
-- **MongoDB Database Tools** come from [wekan/mongo-tools](https://github.com/wekan/mongo-tools/releases).
+- **MongoDB Database Tools** come from [wekan/mongo-tools-patches](https://github.com/wekan/mongo-tools-patches/releases).
   These are pure Go, so its `build-binaries.yml` workflow cross-compiles **every
   architecture** (`bsondump`, `mongodump`, `mongoexport`, `mongofiles`,
   `mongoimport`, `mongorestore`, `mongostat`, `mongotop`), including arches MongoDB
@@ -148,7 +148,7 @@ bundle the snap's `wekan` part downloads, and staged to `$SNAP/ferretdb`
 - The **FerretDB v1** server and the **MongoDB client binaries** are not pinned:
   every build fetches the newest per-arch asset from the WeKan forks —
   `ferretdb-<arch>` from [wekan/FerretDB](https://github.com/wekan/FerretDB/releases),
-  `<tool>-<arch>` from [wekan/mongo-tools](https://github.com/wekan/mongo-tools/releases),
+  `<tool>-<arch>` from [wekan/mongo-tools-patches](https://github.com/wekan/mongo-tools-patches/releases),
   and `mongosh-<arch>` from [wekan/mongosh](https://github.com/wekan/mongosh/releases).
 
 ## Snap channels
