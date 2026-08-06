@@ -265,6 +265,40 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** a release-tooling fix. When a **Launchpad** remote snap build for
+an exotic architecture (ppc64el, s390x, riscv64, armhf) ends as **Stopped** with
+no `.snap`, the **snap-launchpad** job no longer blames a working
+**LP_CREDENTIALS**: its authorization-failure check was matching stray digits in
+the build log, so it fired on almost every Stopped build. It now reports a
+credential problem only when the log actually shows one.
+
+This release has the following developer-tooling fix:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8ebeb85832c62aeba72d774cdb4df7d5c6105f43">The snap-launchpad job stops blaming LP_CREDENTIALS for every Stopped Launchpad build</a>. Thanks to xet7.</summary>
+
+The exotic snap architectures (ppc64el, s390x, riscv64, armhf) have no native
+runner and cannot be cross-built, so they are built with `snapcraft
+remote-build` on Launchpad. When such a build ends as `Stopped` with no `.snap`
+- Launchpad cancelling it mid-run, usually an out-of-memory in the Meteor `npm
+install` or a transient build-farm reset - the job scans the downloaded build
+log to tell that apart from a real credential failure. The scan pattern was
+`unauthoriz|401|403`, and a bare `401`/`403` matches any three digits anywhere
+in a large build log - a package size, a hash, an `attempt 4/6` line - so it
+fired on almost every Stopped build and told the maintainer to re-create
+`LP_CREDENTIALS` that were working: the build had reached `Building:`, which
+already needs valid credentials. The pattern now matches those codes only in an
+HTTP-error context (`HTTP Error 401`, `403 Forbidden`) or an explicit phrase
+(`invalid credentials`, `not logged in`, `bad credentials`), so the credential
+hint appears only for a genuine authorization failure. The Launchpad `Stopped`
+builds themselves are a Launchpad-side limit on slow emulated architectures, not
+a WeKan bug; the job already retries three times and is `continue-on-error`, so
+it never fails the release.
+
+</details>
+
 # v10.71 2026-08-06 WeKan ® release
 
 **In short:** the bundled **MongoDB Database Tools** - bsondump, mongodump,
