@@ -265,7 +265,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.71 2026-08-06 WeKan ® release
 
 **In short:** the bundled **MongoDB Database Tools** - bsondump, mongodump,
 mongoexport, mongofiles, mongoimport, mongorestore, mongostat and mongotop - now
