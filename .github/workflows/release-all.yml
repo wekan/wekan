@@ -3523,11 +3523,16 @@ jobs:
           #      (The large-history push that also broke these builds is fixed
           #      separately, by flattening the repo before the push.)
           echo "::error::If the build ended as 'Stopped' with no artifact: the Launchpad project https://launchpad.net/xet7-craft-remote-build should be MIT / X/Expat (it is set now) - re-set it only if it shows 'None specified'. Otherwise Launchpad cancelled the build as it ran (often an OOM in the Meteor npm install, or a transient build-farm reset - the printed build log ends mid-step); re-run, and if it persists on this arch open a Launchpad question. Builds: https://launchpad.net/~xet7/+snaps" >&2
-          # The commonest cause after a plain build error is the credential: Launchpad
-          # answers 401/403 for an expired or wrong LP_CREDENTIALS, which reads as an
-          # ordinary build failure unless the log says so.
-          if grep -qiE 'unauthoriz|401|403|invalid credentials|not logged in' snapcraft-wekan-*.txt 2>/dev/null; then
-            echo "::error::LP_CREDENTIALS may not work: Launchpad answered unauthorized. Re-create it (snapcraft remote-build once locally) and set: base64 -w0 ~/.local/share/snapcraft/launchpad-credentials" >&2
+          # A wrong or expired LP_CREDENTIALS makes Launchpad answer 401/403, which
+          # reads as an ordinary build failure unless the log is checked. But the
+          # pattern must be SPECIFIC: a bare `401`/`403` matches any three digits in
+          # the build log - a package size, a hash, "attempt 4/6" - so the old
+          # `401|403` fired on almost every large log and told the maintainer to
+          # re-create working credentials on every Stopped build. A build that
+          # reached "Building:" authenticated fine; the giveaway of a real auth
+          # failure is those codes in an HTTP-error context, or an explicit phrase.
+          if grep -qiE 'HTTP Error 40[13]|(^|[^0-9])40[13] (Unauthorized|Forbidden)|\bunauthoriz(ed|ation)\b|invalid credentials|bad credentials|not logged in|need to (log|sign) in|macaroon' snapcraft-wekan-*.txt 2>/dev/null; then
+            echo "::error::LP_CREDENTIALS may not work: the Launchpad build log shows an authorization failure. Re-create it (snapcraft remote-build once locally) and set: base64 -w0 ~/.local/share/snapcraft/launchpad-credentials" >&2
           fi
           exit 1
 
