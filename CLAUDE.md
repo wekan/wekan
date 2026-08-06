@@ -14,8 +14,7 @@ git config user.name && git config user.email
   `Lauri Ojansivu <x@xet7.org>` (name `Lauri Ojansivu`, email `x@xet7.org`). Then, and
   only then: commit **directly to the current branch** as `Lauri Ojansivu <x@xet7.org>`
   with no AI trailer and no pull request, and the **publishing / release steps** below
-  are available. (Per the standing rule you still **commit only; do not push** unless
-  explicitly asked.)
+  are available.
 - **Contributor mode** — any other git identity. Then: do **not** commit directly to
   the branch and do **not** run any release/publishing step. Make changes on a branch
   and open a **pull request** for the maintainer to review. The "commit as Lauri
@@ -122,7 +121,6 @@ pushed to Transifex as if it were human.
   "Co-Authored-By" or any other AI trailer, directly to the `main` branch of WeKan and
   the `main-v1` branch of the FerretDB fork. **Do not make pull requests.** (Contributors
   do the opposite: work on a branch and open a pull request — see the top section.)
-- **[maintainer only]** **Commit only. Do not push** (unless explicitly asked).
 - Lauri Ojansivu (xet7) maintains WeKan (https://wekan.fi) and the FerretDB v1 fork.
 - Directory structure:
   - `wekan` — this repo (https://github.com/wekan/wekan); see
