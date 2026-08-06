@@ -265,6 +265,93 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** the bundled **MongoDB Database Tools** - bsondump, mongodump,
+mongoexport, mongofiles, mongoimport, mongorestore, mongostat and mongotop - now
+come from **wekan/mongo-tools-patches** instead of the **wekan/mongo-tools**
+fork, in every place that downloads them: the amd64 base bundle, the per-arch
+overwrite in each Linux bundle, the Windows and macOS bundles, the preflight and
+download checks, the **Dockerfile**, both **snapcraft** files, the **Flatpak**
+and **AppImage** workflows and the docs. The fork changed none of upstream's Go
+source and existed only to carry a build; the new repository keeps that build,
+clones the newest upstream release and applies patches to it, exactly as
+**wekan/node-patches** replaced the wekan/node fork. Nothing about the bundles
+changes - the same asset names, the same per-tool tolerance for an architecture
+with no binary, the same checksum verification - and the new checkout beside the
+repository is excluded from git and from Meteor's file scan like its siblings.
+
+| Platform | Binary | From | Version | SHA256 |
+| --- | --- | --- | --- | --- |
+| amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
+| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-amd64) | v1.45.0 | `94713f605167abb45a3717482d35de4824cb4a8f199c1400e826a8a2b04f3893` |
+| arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
+| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-arm64) | v1.45.0 | `275ae50ac97e6a70eee72e6de37766c458775c5997c896352db5189c6cf1f04b` |
+| loong64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-loong64.tar.xz) | v24.19.0 | `c24f224726f2d785bd18a1fd09f5e6d1fecf0269928451a60c5da9eac8e92e68` |
+| loong64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-loong64) | v1.45.0 | `28bf67981168dfc4bd67698b41dd62628aafe347a77f2b1e6ffcadf009d575e0` |
+| mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-arm64.tar.xz) | v24.19.0 | `3f1cf157479c1480352083105e13faf9d008ede98e7e157746b6df940d197b94` |
+| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-mac-arm64) | v1.45.0 | `639ed58b84820b3d588f4161c64d0ab940d0cc6e7d022088d60c2b0b97f99f8e` |
+| mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
+| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-mac-amd64) | v1.45.0 | `fd519903f5630e881e38e7c5814f00c0e89ad26f6785f1ddcbab4058356fc9f3` |
+| ppc64le | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-ppc64le.tar.xz) | v24.19.0 | `c510c6ce12f07010f771e6edb22a3fe23f4f2e6f40b1ffd4941aed0646a0d8b3` |
+| ppc64le | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-ppc64le) | v1.45.0 | `de4518c7774d302533369c477759ddd866785d6741d98d399388eb8de3df175a` |
+| riscv64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-riscv64.tar.xz) | v24.19.0 | `cd1f14af2812148002f58b58a5f9af512a50e3b8e8c148e0db44019dcb68edfd` |
+| riscv64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-riscv64) | v1.45.0 | `7dc2952f554e8800c4029577901999e06e10272da686f7e402177080067028f9` |
+| s390x | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-s390x.tar.xz) | v24.19.0 | `a4792e65962ffa0af42627aacf1122a60c3c88dbf4e4184f06820d66f9da8ba4` |
+| s390x | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-s390x) | v1.45.0 | `0ae2e2f2cffdc5dd2ea4f125281a5e12eea216fbe49b5561d9c001700c3fc0c1` |
+| win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
+| win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-win64.exe) | v1.45.0 | `f6337994368a52d011d438c82b914b0cedb3178fd030acac8db3dab8017cee85` |
+
+This release changes where the bundled MongoDB Database Tools come from:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ab6bcb28f">The MongoDB Database Tools come from wekan/mongo-tools-patches now</a>. Thanks to xet7.</summary>
+
+`wekan/mongo-tools` was a fork of a large Go project that changed none of its
+source: its six commits were the build workflow and its changelog, and the 738
+directories of upstream Go beside them were kept in a fork only so that workflow
+had somewhere to live. `wekan/mongo-tools-patches` keeps the build and drops the
+fork - it clones the newest upstream `mongodb/mongo-tools` release, applies the
+patches in its `dist/` (there are none yet, which is the honest state of a fork
+that changed nothing), cross-compiles the eight tools for sixteen platforms with
+CGO disabled and publishes the same `<tool>-<arch>[.exe]` assets with a
+`.sha256sum` beside each. It is the same move `wekan/node-patches` made for the
+retired `wekan/node` fork.
+
+So every download URL here moved with it: the amd64 base bundle and the per-arch
+overwrite in the Linux bundle jobs and in `releases/repack-bundle-for-arch.sh`,
+the Windows and macOS bundle jobs, `releases/check-arch-binaries.sh`,
+`releases/require-binaries.sh`, `releases/test-download-urls.sh`, the
+`Dockerfile`, `snapcraft.yaml` and `snapcraft-core26.yaml`, the Flatpak and
+AppImage workflows, the Sandstorm build-deps note and the CPU-platforms
+documentation.
+
+Nothing else changes. The asset names are the same, the per-tool tolerance for
+an architecture the tools were not built for is the same, and the checksum
+verification is the same, because the build script moved across unchanged. What
+does change is that the next release needs `wekan/mongo-tools-patches` to have
+published a release first: its **Release All** has not run yet, and the amd64
+bundle's download of the eight tools is not tolerant of a missing release.
+
+</details>
+
+and has the following developer-tooling change:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ab6bcb28f">The mongo-tools-patches checkout is excluded from git and from Meteor's scan</a>. Thanks to xet7.</summary>
+
+`mongo-tools-patches/` is a separate git repository worked on beside WeKan, like
+`node-patches/`, `FerretDB/` and the `mongo-tools/` clone it replaces. It is in
+`.gitignore` so it is not untracked noise in `git status`, and in
+`.meteorignore` so Meteor does not walk it during a build - nothing in WeKan
+imports it. The guard that checks every git repository cloned in here is
+excluded from BOTH files covers it now.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.70 2026-08-05 WeKan ® release
 
 **In short:** WeKan takes its **Node.js** from **three sources, in order** -
