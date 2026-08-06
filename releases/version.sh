@@ -200,7 +200,9 @@ update_releases_node_versions() {
   local files=()
 
   # Only touch files that clearly contain Node.js release references.
-  mapfile -t files < <(grep -RIlE 'nodejs\.org/dist|node-v24\.[0-9]+\.[0-9]+-linux-|npm-node-version: 24\.' releases || true)
+  # Portable read loop instead of `mapfile` (bash 4+ only; macOS ships bash 3.2).
+  files=()
+  while IFS= read -r f; do files+=("$f"); done < <(grep -RIlE 'nodejs\.org/dist|node-v24\.[0-9]+\.[0-9]+-linux-|npm-node-version: 24\.' releases || true)
   if [ ${#files[@]} -eq 0 ]; then
     echo "[DEBUG] No Node.js references found under releases/."
     return 0
@@ -234,7 +236,9 @@ update_releases_mongo_versions() {
   # Only the MongoDB 7 server (mongod) is version-managed now: mongosh is no longer
   # bundled, and the MongoDB Database Tools come unversioned from the newest
   # wekan/mongo-tools-patches release, so neither is pinned in any releases/ file.
-  mapfile -t files < <(grep -RIlE 'mongodb-linux-' releases || true)
+  # Portable read loop instead of `mapfile` (bash 4+ only; macOS ships bash 3.2).
+  files=()
+  while IFS= read -r f; do files+=("$f"); done < <(grep -RIlE 'mongodb-linux-' releases || true)
   if [ ${#files[@]} -eq 0 ]; then
     echo "[DEBUG] No MongoDB server artifact references found under releases/."
     return 0
@@ -487,7 +491,9 @@ version_bump_logic() {
 # If manual arguments are missing, parse CHANGELOG.md
 if [ -z "${1:-}" ] || [ -z "${2:-}" ]; then
   echo "No arguments. Detecting versions from CHANGELOG.md..."
-  mapfile -t RELEASE_LINES < <(grep -E '^# v[0-9]+\.[0-9]+(\.[0-9]+)?[ -]+[0-9]{4}-[0-9]{2}-[0-9]{2}' CHANGELOG.md | head -2)
+  # Portable read loop instead of `mapfile` (bash 4+ only; macOS ships bash 3.2).
+  RELEASE_LINES=()
+  while IFS= read -r line; do RELEASE_LINES+=("$line"); done < <(grep -E '^# v[0-9]+\.[0-9]+(\.[0-9]+)?[ -]+[0-9]{4}-[0-9]{2}-[0-9]{2}' CHANGELOG.md | head -2)
   NEW_VERSION=$(echo "${RELEASE_LINES[0]:-}" | grep -oE 'v[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1 | sed 's/^v//')
   OLD_VERSION=$(echo "${RELEASE_LINES[1]:-}" | grep -oE 'v[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1 | sed 's/^v//')
   if [ -z "${NEW_VERSION:-}" ] || [ -z "${OLD_VERSION:-}" ]; then

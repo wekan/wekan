@@ -61,7 +61,10 @@ wekan_dec() { printf '%d.%02d' $(( $1 / 100 )) $(( $1 % 100 )); }
 
 # The RELEASED versions from CHANGELOG.md ("# vNN.MM <date> ..." headings), newest
 # first. The "# Upcoming ..." heading has no version, so it is skipped.
-mapfile -t RELEASED < <(grep -oE '^# v[0-9]+\.[0-9]+ ' CHANGELOG.md | grep -oE '[0-9]+\.[0-9]+')
+# Portable read loop instead of `mapfile` (a bash 4+ builtin absent from the
+# bash 3.2 that macOS ships), so this trigger runs on a stock Mac too.
+RELEASED=()
+while IFS= read -r line; do RELEASED+=("$line"); done < <(grep -oE '^# v[0-9]+\.[0-9]+ ' CHANGELOG.md | grep -oE '[0-9]+\.[0-9]+')
 
 # ── Repoint stale commit links in the section about to be released ───────────
 # A rebase / amend / squash between writing a CHANGELOG bullet and releasing it
