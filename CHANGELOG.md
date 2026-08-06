@@ -280,6 +280,8 @@ clones the newest upstream release and applies patches to it, exactly as
 changes - the same asset names, the same per-tool tolerance for an architecture
 with no binary, the same checksum verification - and the new checkout beside the
 repository is excluded from git and from Meteor's file scan like its siblings.
+Below that: the **release scripts** now run on the **bash 3.2** that macOS
+ships, so a release can be triggered from a Mac.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -305,7 +307,7 @@ repository is excluded from git and from Meteor's file scan like its siblings.
 This release changes where the bundled MongoDB Database Tools come from:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ab6bcb28f">The MongoDB Database Tools come from wekan/mongo-tools-patches now</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/354d356a0">The MongoDB Database Tools come from wekan/mongo-tools-patches now</a>. Thanks to xet7.</summary>
 
 `wekan/mongo-tools` was a fork of a large Go project that changed none of its
 source: its six commits were the build workflow and its changelog, and the 738
@@ -335,10 +337,10 @@ bundle's download of the eight tools is not tolerant of a missing release.
 
 </details>
 
-and has the following developer-tooling change:
+and has the following developer-tooling changes:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ab6bcb28f">The mongo-tools-patches checkout is excluded from git and from Meteor's scan</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/354d356a0">The mongo-tools-patches checkout is excluded from git and from Meteor's scan</a>. Thanks to xet7.</summary>
 
 `mongo-tools-patches/` is a separate git repository worked on beside WeKan, like
 `node-patches/`, `FerretDB/` and the `mongo-tools/` clone it replaces. It is in
@@ -346,6 +348,23 @@ and has the following developer-tooling change:
 `.meteorignore` so Meteor does not walk it during a build - nothing in WeKan
 imports it. The guard that checks every git repository cloned in here is
 excluded from BOTH files covers it now.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c09e538fe">The release scripts run on the bash 3.2 that macOS ships</a>. Thanks to xet7.</summary>
+
+`releases/release-all.sh` and `releases/version.sh` built arrays with
+`mapfile`, a bash 4+ builtin absent from the bash 3.2 that macOS still ships,
+so `./releases/release-all.sh` stopped with `mapfile: command not found` and
+could not trigger a release from a Mac - and `brew install mapfile` finds
+nothing, because `mapfile` is a shell builtin, not a program. Each
+`mapfile -t VAR < <(cmd)` became the portable read loop
+`VAR=(); while IFS= read -r line; do VAR+=("$line"); done < <(cmd)`, which
+builds the same array on bash 3.2 and on the bash 5 the Ubuntu release runner
+uses. Converted: release-all.sh's RELEASED version list, and version.sh's three
+reads - the Node.js files, the MongoDB files, and the two newest CHANGELOG
+release lines.
 
 </details>
 
