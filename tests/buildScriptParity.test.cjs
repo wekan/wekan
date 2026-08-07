@@ -303,6 +303,66 @@ test('both scripts run an entry from the command line, not only from the menu', 
   }
 });
 
+test('every menu entry in build.sh dispatches to something', () => {
+  // How the menu works: choose() is given "Short label|Full description" pairs,
+  // shows the short labels, and sets $opt to the FULL DESCRIPTION of the one
+  // picked. The big `case "$opt" in` below then matches that description STRING,
+  // in full, to decide what to run.
+  //
+  // So the description is an identifier written twice, in two places, hundreds
+  // of lines apart - and editing the menu text without editing the case arm
+  // leaves an entry that matches nothing. There is no `*)` catch-all, so the
+  // case simply falls through, the `for _once` loop ends, and the script EXITS:
+  // the option appears to work, prints nothing, and runs nothing. That is what
+  // happened to "EVERYTHING (sequential)" when its description gained the
+  // floating-promises stage: picking Tests -> 1 quit the script.
+  const menuStart = sh.indexOf('select cat in "Setup"');
+  assert.ok(menuStart !== -1, 'the category menu must be there');
+  const menuEnd = sh.indexOf('\nfor _once in 1; do', menuStart);
+  assert.ok(menuEnd > menuStart, 'and the dispatcher after it');
+  const block = sh.slice(menuStart, menuEnd);
+
+  const descriptions = [...block.matchAll(/"([^"]+\|[^"]*)"\s*\\?\n/g)]
+    .map(m => m[1].split('|').slice(1).join('|'));
+  assert.ok(descriptions.length > 20,
+    `expected the whole menu, found ${descriptions.length} entries`);
+
+  // Every case arm of the dispatcher: `    "…")` on its own line, including the
+  // `"a"|"b")` alternations.
+  const arms = new Set();
+  for (const m of sh.matchAll(/^\s*"([^"]+)"\)\s*$/gm)) arms.add(m[1]);
+  for (const m of sh.matchAll(/^\s*((?:"[^"]+"\s*\|\s*)+"[^"]+")\)\s*$/gm)) {
+    for (const a of m[1].match(/"[^"]+"/g)) arms.add(a.slice(1, -1));
+  }
+
+  const dead = descriptions.filter(d => !arms.has(d));
+  assert.deepStrictEqual(dead.map(d => d.slice(0, 70)), [],
+    'these menu entries match no case arm, so choosing one runs nothing and '
+    + 'quits the script - the description is the identifier, and it has to be '
+    + 'identical in both places');
+
+  // And if one ever gets past this guard, the person at the menu must be told
+  // rather than dropped back to the shell: the dispatcher has a catch-all.
+  const dispatcher = sh.slice(menuEnd);
+  assert.ok(/^\s*\*\)\s*$/m.test(dispatcher),
+    'the menu case needs a *) arm, or an unmatched option exits silently');
+  assert.ok(/no handler for this menu option/.test(dispatcher),
+    'and it must say what went wrong');
+});
+
+test('build.bat cannot fail the same way', () => {
+  // The .bat menus dispatch on the NUMBER typed, not on a description string,
+  // so there is no second copy of a label to drift - and EVERYTHING there hands
+  // the whole run to bash rather than reimplementing it. The two ways a .bat
+  // menu CAN break are covered by the numbering and label guards above; this
+  // pins the structural reason it is not exposed to the build.sh failure.
+  const everything = bat.slice(bat.indexOf(':test_everything'));
+  assert.ok(/bash \.\/releases\/run-everything\.sh/.test(everything.slice(0, 1200)),
+    'the .bat EVERYTHING delegates to the shared script');
+  assert.ok(/if "%choice%"=="1"\s+goto test_everything/.test(bat),
+    'and is reached by number, not by matching a sentence');
+});
+
 test('EVERYTHING runs every test either script offers', () => {
   // "Tests -> 1" is what a maintainer runs before a release, so a check that is
   // in the Tests menu but not in EVERYTHING is a check that only runs when

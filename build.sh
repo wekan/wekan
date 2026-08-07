@@ -2357,7 +2357,7 @@ for _once in 1; do
 	fi
 	;;
 
-    "Run EVERYTHING sequentially: WeKan's own tests, then the database conformance run for every database with a Docker image for this CPU, then all of FerretDB's own tests (unit, vet, integration) - one stage at a time, all logs in log/<datetime>/")
+    "Run EVERYTHING sequentially: the floating-promises guard (seconds), then WeKan's own tests (mocha, the node suites, import regression, node E2E and all three browsers), then the database conformance run for every database with a Docker image for this CPU, then all of FerretDB's own tests (unit, vet, integration) - one stage at a time, all logs in log/<datetime>/")
 	run_everything
 	;;
 
@@ -2445,6 +2445,22 @@ for _once in 1; do
 			echo "**Total: $total tests**"
 		} 2>&1 | tee "$LOG"
 		break
+		;;
+
+    # No arm matched. $opt is the menu entry's FULL DESCRIPTION, written twice -
+    # once in the choose() list far above, once as the arm here - so an edit to
+    # the menu text that misses the arm leaves an option that matches nothing.
+    # Without this, the case simply falls through, the `for _once` loop ends and
+    # the script EXITS: the option looks like it worked, printed nothing and ran
+    # nothing. That is what renaming "EVERYTHING (sequential)" did to it.
+    # tests/buildScriptParity.test.cjs fails on the mismatch itself; this is what
+    # the person in front of the menu sees if one ever gets past it.
+    *)
+		echo "build.sh: no handler for this menu option - that is a bug in build.sh." >&2
+		echo "          The menu entry's description and its case arm must be the SAME string:" >&2
+		echo "            $opt" >&2
+		echo "          Nothing was run. Please report it, or run the same thing from the command line:" >&2
+		echo "            ./build.sh --list" >&2
 		;;
 
     esac
