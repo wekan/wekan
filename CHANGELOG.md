@@ -730,6 +730,37 @@ it points at.
 **The build scripts** - what `Tests -> 1` runs, on both platforms.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/40fff29d08ead7306911e112e97d381eb2f296c5">Companion repos live in .tools/, and the build scripts clone them there</a>. Thanks to xet7.</summary>
+
+`wekan/FerretDB` is a separate git repository that WeKan's test runs need - the
+conformance run builds it from source, and "Run all FerretDB tests" runs its own
+suites. It was cloned as a subdirectory of the repo root, which is why
+`.gitignore` and `.meteorignore` carried an entry per companion repo: nine of
+them, each one a chance for a clone to reach a commit or a Meteor rebuild. They
+live in `.tools/` now, one directory both files already exclude.
+
+`build.sh` gains `ensure_tool_repo`: it returns the path to `.tools/<name>`,
+cloning `wekan/<name>` if it is not there - SSH first, since a maintainer
+pushes, HTTPS after, so everyone else still gets a working clone. Its messages
+go to stderr, because the path is what it prints, and the directory comes from
+the script's own location rather than the caller's cwd. EVERYTHING's FerretDB
+stage calls it rather than assuming an earlier stage cloned already - a
+whole-run must not depend on the order of its own stages - and `build.bat`
+clones into `.tools\FerretDB` with the same fallback instead of printing
+instructions and stopping.
+
+The other half is that a repo inside `.tools` still has to find its way back
+out. FerretDB's own `build.sh` writes its logs where WeKan writes its own, and
+reached them with `$ROOT/../../log` - correct from `wekan/FerretDB`, one level
+short from `wekan/.tools/FerretDB`, where it means `wekan/log` and nothing else
+looks. It walks up until it recognises a WeKan checkout now, then applies
+WeKan's own rule: `../log` when that is writable, `log/` inside the checkout
+otherwise. Verified against five layouts, including the old one.
+
+</details>
+
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c6b0af16ebae40005f19f28a8bf4dac2c00b0081">EVERYTHING runs the floating-promises guard too, and Windows gets one log per browser</a>. Thanks to xet7.</summary>
 
 `./build.sh` -> Tests -> **EVERYTHING (sequential)** is what a maintainer runs
