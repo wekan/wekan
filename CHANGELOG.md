@@ -284,11 +284,14 @@ and a `bin` that is staged when it is not a directory - and the
 retries, which is what made those three take two attempts to find. On a board,
 **picking up a card** no longer stretches every list to fill the window: a card
 drag switches the board's panning off by removing a class, and in lists view
-that same class was the only thing holding the lists at their width. Below that:
-an npm dependency refresh, `Tests -> EVERYTHING` in **build.sh** and
-**build.bat** growing the one check it never ran and one browser log per browser
-on Windows, guards pinning what a **board export** contains, and the usual
-documentation and translation work.
+that same class was the only thing holding the lists at their width. **Moving a
+card to another board** failed for everyone with a 403 from Meteor's
+insecure-write rule, and the REST route offered as a workaround left the card
+pointing at a list on a board it was not on; both are fixed. Below that: an npm
+dependency refresh, `Tests -> EVERYTHING` in **build.sh** and **build.bat**
+growing the one check it never ran and one browser log per browser on Windows,
+guards pinning what a **board export** contains, and the usual documentation and
+translation work.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -352,6 +355,49 @@ This release updates the following dependencies:
   Thanks to developers of dependencies and xet7.
 
 and fixes the following bugs:
+
+**Moving a card to another board** - the card dialog, and the REST route.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/24927c3a7a2d114dc3813068bbe2380082ba8458">A cross-board move no longer fails with "Untrusted code may only updateAsync documents by ID"</a>. Thanks to jullbo and xet7.</summary>
+
+[#6572](https://github.com/wekan/wekan/issues/6572): every cross-board move
+failed immediately with `Not permitted. Untrusted code may only updateAsync
+documents by ID. [403]` - whether or not the card had any dependencies, and
+before the move itself ever ran, so the card stayed where it was.
+
+`models/cards.js` is isomorphic, so its helpers run in the client bundle, and
+client code calls `card.move()` directly. Meteor lets untrusted code update only
+BY ID - a bare id, or an `{ _id: ... }` selector. The cross-board branch of
+`move()` cleaned up inbound *Red Strings*
+([#3392](https://github.com/wekan/wekan/issues/3392)) with a compound selector
+and `multi: true`, which the client rejects every time, including when it would
+have matched nothing. `addDependency`, `setDependencyProps` and
+`removeDependency` in the same file each carry a comment saying updates must be
+by `_id` only - this was the one place that did not follow it.
+
+The card's own dependencies are still cleared by the move; that rides along in
+the by-id update. The inbound half - the links pointing AT the card from the
+board it left - is a `Cards.after.update` hook in `server/models/cards.js` now,
+where a selector is allowed, and being server-side it also covers the REST API
+and import paths, which never called the helper at all. It pulls both stored
+shapes: the `{ cardId, ... }` objects, and the bare id strings older data still
+holds, which `normalizeDependencies` hides on read.
+
+The report also says the REST workaround corrupts the card, and it does. A PUT
+of `boardId`/`listId`/`swimlaneId` naming the DESTINATION board is not a board
+move - that needs `newBoardId`, `newSwimlaneId` and `newListId` - so the
+board-move branch never ran, while the same-board swimlane and list branches
+did: the card kept its old `boardId` and got the other board's `listId` and
+`swimlaneId` written onto it, pointing at a list and a swimlane on a board it
+was not on. It showed on neither board and took a hand-written database update
+to undo. Both branches now check that the target belongs to the board in the URL
+and otherwise refuse with a 400 naming the parameters to use, and they are
+skipped during a board move - they would rewrite `listId` before the board-move
+update, whose selector pins the card's original `listId`, so that update would
+match nothing and silently do nothing: the same broken card by another route.
+
+</details>
 
 **Dragging a card** - what the rest of the board does while one is in the air.
 
