@@ -559,6 +559,33 @@ including that the shared checks install nothing.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b55cbda20dcb1faa82d9c080472017f1e275c0e6">Tests -> EVERYTHING runs again instead of quitting the script</a>. Thanks to xet7.</summary>
+
+Renaming the menu entry above broke it, between one commit and the next.
+`choose()` shows the SHORT labels and sets `$opt` to the FULL DESCRIPTION of the
+one picked, and the dispatcher hundreds of lines below matches that description
+as a `case` arm - so the description is an identifier written twice, and the
+rename changed only one of the two. With no arm matching and no catch-all, the
+case fell through, the `for _once` loop ended and the script EXITED: choosing
+`Tests -> 1` printed nothing and ran nothing at all.
+
+The arm carries the same string as the menu entry again. Two guards so it cannot
+come back: the parity test now checks every one of the 25 `choose()` entries
+against the case arms and fails on a description that matches none - it fails on
+the previous commit - and the dispatcher has a `*)` arm that names the option
+with no handler and says nothing was run, so if one ever does get past the test,
+the person at the menu is told rather than dropped back to the shell.
+
+`build.bat` was checked for the same fault and cannot have it: its menus
+dispatch on the NUMBER typed rather than on a sentence, and its EVERYTHING hands
+the run to `releases/run-everything.sh` instead of reimplementing it. Verified
+in both directions anyway - every printed menu number has an if-dispatch in all
+seven menus, and every `goto` / `call` target resolves to a label - and that is
+pinned now too.
+
+</details>
+
 **Board export** - what a backup contains, pinned against the source.
 
 <details>
