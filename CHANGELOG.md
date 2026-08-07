@@ -284,6 +284,27 @@ and a `bin` that is staged when it is not a directory - and the
 retries, which is what made those three take two attempts to find. Below that:
 an npm dependency refresh and the usual documentation and translation work.
 
+| Platform | Binary | From | Version | SHA256 |
+| --- | --- | --- | --- | --- |
+| amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
+| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-amd64) | v1.45.0 | `94713f605167abb45a3717482d35de4824cb4a8f199c1400e826a8a2b04f3893` |
+| arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
+| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-arm64) | v1.45.0 | `275ae50ac97e6a70eee72e6de37766c458775c5997c896352db5189c6cf1f04b` |
+| loong64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-loong64.tar.xz) | v24.19.0 | `c24f224726f2d785bd18a1fd09f5e6d1fecf0269928451a60c5da9eac8e92e68` |
+| loong64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-loong64) | v1.45.0 | `28bf67981168dfc4bd67698b41dd62628aafe347a77f2b1e6ffcadf009d575e0` |
+| mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-arm64.tar.xz) | v24.19.0 | `3f1cf157479c1480352083105e13faf9d008ede98e7e157746b6df940d197b94` |
+| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-mac-arm64) | v1.45.0 | `639ed58b84820b3d588f4161c64d0ab940d0cc6e7d022088d60c2b0b97f99f8e` |
+| mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
+| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-mac-amd64) | v1.45.0 | `fd519903f5630e881e38e7c5814f00c0e89ad26f6785f1ddcbab4058356fc9f3` |
+| ppc64le | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-ppc64le.tar.xz) | v24.19.0 | `c510c6ce12f07010f771e6edb22a3fe23f4f2e6f40b1ffd4941aed0646a0d8b3` |
+| ppc64le | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-ppc64le) | v1.45.0 | `de4518c7774d302533369c477759ddd866785d6741d98d399388eb8de3df175a` |
+| riscv64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-riscv64.tar.xz) | v24.19.0 | `cd1f14af2812148002f58b58a5f9af512a50e3b8e8c148e0db44019dcb68edfd` |
+| riscv64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-riscv64) | v1.45.0 | `7dc2952f554e8800c4029577901999e06e10272da686f7e402177080067028f9` |
+| s390x | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-s390x.tar.xz) | v24.19.0 | `a4792e65962ffa0af42627aacf1122a60c3c88dbf4e4184f06820d66f9da8ba4` |
+| s390x | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-s390x) | v1.45.0 | `0ae2e2f2cffdc5dd2ea4f125281a5e12eea216fbe49b5561d9c001700c3fc0c1` |
+| win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
+| win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-win64.exe) | v1.45.0 | `f6337994368a52d011d438c82b914b0cedb3178fd030acac8db3dab8017cee85` |
+
 This release updates the following dependencies:
 
 - **Meteor 3.5.1-beta.0 → 3.5.1** — the framework WeKan is built on, now on the
@@ -364,8 +385,7 @@ what catches the next one.
 
 and has the following developer-tooling fixes:
 
-**What the snap is built from** - the parts in `snapcraft.yaml`, and the three
-separate ways they stopped v10.71's snaps from building.
+**What the snap is built from** - the parts in `snapcraft.yaml`.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d352ca6eadeb1c78495064ed6e34a4cc8046d627">The Caddy part stops asking the GitHub API which version to download</a>. Thanks to xet7.</summary>
@@ -453,8 +473,77 @@ it points at.
 
 </details>
 
-**The snap-launchpad job** - how the remote builds are run, and what they leave
-behind to read afterwards.
+**Board export** - what a backup contains, pinned against the source.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/06b0b7e64b70fc395a93577aaa1a76a9a0f9f66e">Every section of a board export is pinned, so a backup cannot quietly lose one</a>. Thanks to Tuphal, KhaoulaMaleh and xet7.</summary>
+
+[#6274](https://github.com/wekan/wekan/issues/6274) was "export includes only
+comments from current year": the exporters selected comments and activities by
+`boardId`, and records written by older WeKan versions carry no `boardId`, so
+every comment from a previous year was dropped from the JSON and the Excel
+export alike. [#6275](https://github.com/wekan/wekan/pull/6275) fixed it by
+selecting on the cards' ids, which every comment has. Its reporter then came
+back with a second one: *"the export is now missing the lists part"*.
+
+Both were checked against the current source rather than assumed. The fix from
+PR #6275 is intact and survived the streaming-export rewrite that came after it:
+`models/exporter.js` and `models/server/ExporterExcel.js` each select comments
+by `cardId` and activities by `boardId` OR `cardId`, in all three of the
+streaming JSON writer, the in-memory one and the spreadsheet. The missing
+`lists` is not reproducible: `result.lists` has been written by the JSON
+exporter continuously since the CSV/TSV export was added, both JSON writers emit
+the same fourteen sections, and the flat formats carry each list's name on the
+card's own row.
+
+So nothing needed fixing, and nothing about the export changed - what was
+missing was the guard. `tests/exportBoardSections.test.cjs` pins the section
+list, that the two JSON writers agree on it (a key only one of them writes is a
+section that appears or not depending on which path served the download), that
+no exporter selects comments by board again, and the two smaller fixes from that
+PR: the class has no `this.boardId`, which was the undefined field that ran a
+query against no board, and a comment whose author has been deleted falls back
+instead of writing `undefined` into the cell.
+
+One thing that PR also fixed is deliberately gone: the Excel exporter used to
+LOAD custom fields and render them nowhere, and the streaming rewrite dropped
+that dead load along with the activities, checklists, subtasks and rules the
+spreadsheet also never showed. Custom fields survive where an import reads them
+back - the JSON export - and the guard pins them there.
+
+</details>
+
+**The mocha test stage** - what a suite on the client side may import.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/06b0b7e64b70fc395a93577aaa1a76a9a0f9f66e">A test that reads the repository moves to the side that has a filesystem</a>. Thanks to xet7.</summary>
+
+`client/lib/tests/boardTriggersClass.tests.js` is the regression guard for
+[#5188](https://github.com/wekan/wekan/issues/5188), the rule trigger that could
+not be activated because a class name in the jade template and the one in the
+event handler had drifted apart by a letter. It reads both files off disk with
+`fs` and `path` and compares them - which is a server-side thing to do, and it
+ran on the client, where it worked only because node-polyfill-webpack-plugin's
+browser shims were in the bundle.
+
+The **@meteorjs/rspack 2.1.0** update above drops that plugin, so the shims went
+with it and the `meteor test` client build stopped on one line: `Cannot find
+module 'path' for matched aliased key 'path'`. That is not one suite failing -
+the client bundle does not build, so every mocha suite is skipped and the stage
+reports a crash where its results should be. One file's import took out the
+whole stage.
+
+The suite was never wrong, only on the wrong side; it now lives in
+`server/lib/tests`, registered in that index. A new guard,
+`tests/clientTestsNoNodeBuiltins.test.cjs`, walks the client suites for imports
+of Node builtins - the mirror of the existing guard that keeps browser-only
+packages out of the server bundle - and pins where this one went. It strips
+comments before looking, or the sentence explaining the fix would be reported as
+the fault.
+
+</details>
+
+**Running the exotic builds on Launchpad** - and reading them afterwards.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d352ca6eadeb1c78495064ed6e34a4cc8046d627">A Launchpad build keeps its whole log, and the job outlives its own retries</a>. Thanks to xet7.</summary>

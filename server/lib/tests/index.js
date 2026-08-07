@@ -62,3 +62,13 @@ import './brokenCardsRepair.tests';
 import './checklistbleed.security.tests';
 import './proxybleed.security.tests';
 import './filenameTruncation.tests';
+
+// Moved here from client/lib/tests in v10.72. It reads boardTriggers.jade and
+// boardTriggers.js off disk with fs/path, which are server-only: while the
+// client bundle still carried node-polyfill-webpack-plugin's browser shims it
+// bundled anyway, and when that plugin left with the @meteorjs/rspack 2.1.0
+// update the whole `meteor test` client build stopped with "Cannot find module
+// 'path' for matched aliased key 'path'" - one file's imports failing every
+// mocha suite there is. A test that reads the repository belongs on the side
+// that has a filesystem.
+import './boardTriggersClass.tests';

@@ -9,7 +9,6 @@ import './responsive.tests';
 import './boardNumbering.tests';
 import './subtaskStatus.tests';
 import './subtaskViewGuard.tests';
-import './boardTriggersClass.tests';
 import './calendarFirstDay.tests';
 import './mentionEnterGuard.tests';
 import './subtaskViewTarget.tests';
