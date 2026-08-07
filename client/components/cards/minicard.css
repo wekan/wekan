@@ -249,6 +249,11 @@
   text-align: center;
 }
 .minicard .minicard-title {
+  /* #6465: one step below the list heading above it (16px), and above the
+     "Add card" affordance below (13px). It used to inherit the 16px document
+     size, which made a card title exactly as loud as the heading of the column
+     holding it. See the note on .list-header-name in lists/list.css. */
+  font-size: 14px;
   margin-inline-end: 21px;
   /* #6444: isolate each title's bidirectional context. The title is a
      dir="auto" .viewer; under a global dir="rtl" document, non-isolated

@@ -468,11 +468,20 @@ form.inlined-form .list-composer {
 }
 .list-header .list-header-name {
   display: block;
-  font-size: 14px;
+  /* #6465: the type scale of a list, from the outside in. A list heading is to
+     its cards what an h2 is to its paragraphs, and it had ended up SMALLER than
+     them: the heading was 14px while a minicard title and the "Add card" link
+     both inherited the 16px document size, so the column looked like it was
+     labelled in fine print and the affordance to add a card shouted louder than
+     the cards. The scale is now heading 16 > card title 14 >= add-card link 13,
+     kept in that order by tests/listTypeScale.test.cjs. Mobile keeps its own
+     larger sizes (the !important rules further down) - a phone is read at arm's
+     length. */
+  font-size: 16px;
   line-height: 1.2;
   margin: 0;
   font-weight: bold;
-  min-height: 14px;
+  min-height: 16px;
   min-width: 56px;
   overflow-wrap: break-word;
   word-wrap: break-word;
@@ -798,12 +807,20 @@ form.inlined-form .list-composer {
   margin-bottom: 9px;
 }
 .list-body .minicards .add-controls button {
-  min-height: 50px;
+  /* Was min-height: 50px - taller than a minicard is for its title, so the
+     "Add" button was the biggest thing on the board while typing. 34px is a
+     comfortable touch target that still reads as a control rather than a slab. */
+  min-height: 34px;
+  font-size: 14px;
 }
 .list-body .open-minicard-composer {
   border-radius: 2px;
   color: #8c8c8c;
   display: block;
+  /* Smaller than a card title, because it is not a card: it is the affordance
+     for making one. At the inherited 16px it was the largest text in the list
+     body, level with the board's real content. */
+  font-size: 13px;
   padding: 7px 10px;
   position: relative;
   text-decoration: none;
