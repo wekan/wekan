@@ -111,7 +111,7 @@ test('every menu entry of build.sh exists in build.bat', () => {
     'Mocha (server-side)': 'Mocha',
     // The .bat menu escapes its parentheses (echo 1^) EVERYTHING ^(sequential^)),
     // so the label is compared without them.
-    'EVERYTHING (sequential): WeKan tests + all databases + FerretDB tests':
+    'EVERYTHING (sequential): the guard + WeKan tests + all databases + FerretDB tests':
       'EVERYTHING ^(sequential^)',
     'FerretDB v1 MySQL (experimental)': 'FerretDB v1 MySQL',
     'FerretDB v1 MariaDB (experimental)': 'FerretDB v1 MariaDB',
@@ -301,6 +301,74 @@ test('both scripts run an entry from the command line, not only from the menu', 
   for (const n of helpNames) {
     assert.ok(known.has(n), `./build.sh --help gives an example "${n}" that is not a command`);
   }
+});
+
+test('EVERYTHING runs every test either script offers', () => {
+  // "Tests -> 1" is what a maintainer runs before a release, so a check that is
+  // in the Tests menu but not in EVERYTHING is a check that only runs when
+  // somebody remembers it. The floating-promises guard was exactly that.
+  const at = sh.indexOf('function run_everything()');
+  assert.ok(at !== -1, 'run_everything must be there');
+  const flow = sh.slice(at, sh.indexOf('\n}\n', at));
+
+  assert.ok(/floating_promises_checks/.test(flow),
+    'EVERYTHING must run the floating-promises guard');
+  assert.ok(/run_all_tests sequential/.test(flow),
+    'and WeKan\'s own suite - mocha, the node suites, import, E2E, three browsers');
+  assert.ok(/db-conformance\.sh/.test(flow), 'and the database conformance run');
+  assert.ok(/build\.sh test-all/.test(flow), 'and all of FerretDB\'s own tests');
+
+  // The stage that fails must fail the run: every stage's return code is in the
+  // verdict, not just the last one's.
+  for (const rc of ['guard_rc', 'wekan_rc', 'conf_rc', 'ferret_rc']) {
+    assert.ok(new RegExp(`\\[ \\$${rc} -eq 0 \\]`).test(flow),
+      `${rc} must be part of the final verdict`);
+  }
+
+  // The guard EVERYTHING runs may not install anything or edit the working tree:
+  // it runs unattended, and a run that rewrites .eslintrc.json is no longer
+  // testing the commit it started from.
+  const fnAt = sh.indexOf('function floating_promises_checks()');
+  assert.ok(fnAt !== -1, 'the checks must be their own function, shared with the menu option');
+  const fn = sh.slice(fnAt, sh.indexOf('\n}\n', fnAt));
+  for (const forbidden of ['sudo', 'npm install', 'writeFileSync']) {
+    assert.ok(!fn.includes(forbidden),
+      `the shared checks must not ${forbidden} - only the interactive menu option may`);
+  }
+  assert.ok(/server\/models/.test(fn) && /checkBoardWriteAccess/.test(fn),
+    'it scans server/models for unawaited board auth checks');
+
+  // Windows hands the whole run to the same bash script rather than carrying a
+  // second implementation of it.
+  assert.ok(/bash \.\/releases\/run-everything\.sh/.test(bat),
+    'build.bat must delegate EVERYTHING to releases/run-everything.sh');
+  assert.ok(/exec \.\/build\.sh --run-everything/.test(read('releases/run-everything.sh')),
+    'and that script must call build.sh --run-everything, so there is one implementation');
+});
+
+test('both scripts write ONE LOG PER BROWSER, not one for all three', () => {
+  // CLAUDE.md's "check the newest test logs" names wekan-alltests-chromium.log,
+  // -firefox.log and -webkit.log. build.sh has always written those; build.bat
+  // ran the three browsers as a single Playwright invocation into one
+  // wekan-alltests-browsers.log, so on Windows neither "which browser failed"
+  // nor "what did WebKit print" could be answered afterwards.
+  for (const b of ['chromium', 'firefox', 'webkit']) {
+    assert.ok(sh.includes(`wekan-alltests-$k.log`) || sh.includes(b),
+      `build.sh must know about ${b}`);
+    assert.ok(bat.includes(`wekan-alltests-%~1.log`),
+      'build.bat names its per-browser log from the browser argument');
+    assert.ok(new RegExp(`call :start_browser_job ${b}`).test(bat),
+      `build.bat must start ${b} as its own job`);
+    assert.ok(new RegExp(`S_${b}`).test(bat) && new RegExp(`C_${b}`).test(bat),
+      `${b} needs its own status and count in build.bat's summary`);
+  }
+  assert.ok(!/wekan-alltests-browsers\.log/.test(bat.replace(/^\s*REM.*$/gm, '')),
+    'nothing may still write the combined browsers log (a comment may explain it)');
+  // Playwright clears its output dir at startup, so three jobs need three of them.
+  assert.ok(/--output=test-results\\%~1/.test(bat),
+    'each browser job needs its own --output, or they wipe each other\'s traces');
+  assert.ok(/--output="?\$?\{?outdir/.test(sh) || /--output=/.test(sh),
+    'build.sh does the same');
 });
 
 console.log(`\n${passed} tests passed`);

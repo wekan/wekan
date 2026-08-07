@@ -119,6 +119,7 @@ body.list-resizing-active * {
 }
 
 /* More aggressive override for any container that might interfere */
+.js-lists .list.list-resizing,
 .js-swimlane .list.list-resizing,
 .dragscroll .list.list-resizing,
 [id^="swimlane-"] .list.list-resizing {
@@ -140,6 +141,18 @@ body.list-resizing-active * {
    property, and without :not() this !important rule overrode the 30px collapsed
    width, so collapsing a list that had a custom width left it full width.
    See https://github.com/wekan/wekan/issues/5892 */
+/* #6573: `.js-lists` is the selector that has to be here, and `.dragscroll` is
+   the one that cannot be relied on. In LISTS view the container is
+   `.swimlane.list-group.js-lists.dragscroll` - no `js-swimlane` class and no
+   `swimlane-<id>` id - so `.dragscroll` was the only one of the three that
+   matched, and the width of every list hung on it. Starting a card drag calls
+   suspendBoardDragscroll(), which REMOVES the dragscroll class from the board so
+   the same pointer cannot pan and drag at once (#6558); this rule stopped
+   matching with it, every list fell back to the flex rules below, and the whole
+   board re-flowed to fill the window the instant a card was picked up - then
+   snapped back on drop, when the class returned. Both views' containers carry
+   `js-lists`, and nothing removes it. */
+.js-lists .list[style*="--list-width"]:not(.list-collapsed),
 .js-swimlane .list[style*="--list-width"]:not(.list-collapsed),
 .dragscroll .list[style*="--list-width"]:not(.list-collapsed),
 [id^="swimlane-"] .list[style*="--list-width"]:not(.list-collapsed) {
@@ -163,6 +176,7 @@ body.list-resizing-active * {
    in mobile mode on a desktop browser the inline width was there and the lists stayed
    at their desktop width while everything else was in mobile layout. Same three
    selectors, prefixed with body.mobile-mode so this one is the more specific. */
+body.mobile-mode .js-lists .list[style*="--list-width"]:not(.list-collapsed),
 body.mobile-mode .js-swimlane .list[style*="--list-width"]:not(.list-collapsed),
 body.mobile-mode .dragscroll .list[style*="--list-width"]:not(.list-collapsed),
 body.mobile-mode [id^="swimlane-"] .list[style*="--list-width"]:not(.list-collapsed) {

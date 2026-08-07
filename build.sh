@@ -1126,13 +1126,63 @@ function run_all_tests(){
 	return "$FAILED"
 }
 
+# floating_promises_checks — the guard's CHECKS, with nothing that installs or
+# edits anything.
+#
+# The menu option of the same name may install ripgrep and the @typescript-eslint
+# packages and write the rule into .eslintrc.json: that is a person choosing to
+# set the guard up, interactively. EVERYTHING runs unattended, must not call
+# sudo, and must not modify the tree it is testing - a run that edits
+# .eslintrc.json is no longer testing the commit it started from. So the checks
+# themselves live here, are pure reads, and are what both callers run:
+#
+#   * the no-floating-promises rule is configured in .eslintrc.json;
+#   * every Authentication.checkBoardAccess / checkBoardWriteAccess in
+#     server/models is awaited. An unawaited permission check returns a pending
+#     promise, and a promise is truthy, so the call site passes a check that
+#     never ran - which is a permission bug that looks like working code.
+#
+# grep, not ripgrep: this must work on a machine where rg is not installed and
+# where nothing may be installed to make it work.
+function floating_promises_checks(){
+	local rc=0 calls
+	echo "Checking that @typescript-eslint/no-floating-promises is configured in .eslintrc.json"
+	if grep -q '"@typescript-eslint/no-floating-promises"' .eslintrc.json 2>/dev/null; then
+		echo "OK: the rule is configured."
+	else
+		echo "FAIL: @typescript-eslint/no-floating-promises is NOT configured in .eslintrc.json."
+		echo "      Tests -> 'Floating-promises guard' installs the packages and writes it."
+		rc=1
+	fi
+	echo
+	echo "Scanning server/models for unawaited Authentication.checkBoardAccess / checkBoardWriteAccess"
+	calls="$(grep -RInE 'Authentication\.(checkBoardAccess|checkBoardWriteAccess)\(' server/models 2>/dev/null \
+		| grep -vE 'await Authentication\.(checkBoardAccess|checkBoardWriteAccess)\(' || true)"
+	if [ -n "$calls" ]; then
+		echo "FAIL: these board auth checks are not awaited:"
+		printf '%s\n' "$calls"
+		rc=1
+	else
+		echo "OK: every board auth check in server/models is awaited."
+	fi
+	return $rc
+}
+
 # run_everything — every test WeKan and FerretDB have, one after another.
 #
-# Three stages, sequential on purpose: the WeKan suite (which builds a fresh
-# bundle and starts a server), then the database conformance run (which builds
-# FerretDB from source and runs one query catalogue against every database with an
-# image for this CPU), then FerretDB's own tests (unit, vet, integration). They
-# share one log/<datetime>/ directory, so "the newest test logs" is one place.
+# Four stages, sequential on purpose: the static guard (seconds, so a broken
+# permission check is reported before an hour of browsers), then the WeKan suite
+# (which builds a fresh bundle and starts a server, and runs mocha, the node
+# suites, the import regression, the node E2E and all three browsers), then the
+# database conformance run (which builds FerretDB from source and runs one query
+# catalogue against every database with an image for this CPU), then FerretDB's
+# own tests (unit, vet - which includes its no-LFS guard - and integration).
+# They share one log/<datetime>/ directory, so "the newest test logs" is one
+# place.
+#
+# Everything in the Tests menu that is a TEST is in here. What is deliberately
+# not: "Install Playwright browsers" (setup, and the browser stages install what
+# they need), and "Count tests by category" (a report, not a check).
 #
 # FerretDB is expected to be a subdirectory of this repo. releases/db-conformance.sh
 # clones it if it is not there, so the only thing this checks is that the clone
@@ -1147,20 +1197,30 @@ function run_everything(){
 
 	echo "=============================================================================="
 	echo "EVERYTHING, one stage at a time. Logs: $RUN_LOGDIR/"
-	echo "  1/3  WeKan's own tests      (builds the bundle, starts a server)"
-	echo "  2/3  Database conformance   (builds FerretDB, every database this CPU runs)"
-	echo "  3/3  FerretDB's own tests   (unit, vet, integration)"
+	echo "  1/4  Floating-promises guard (seconds: the rule, and unawaited auth checks)"
+	echo "  2/4  WeKan's own tests       (builds the bundle, starts a server; mocha, the"
+	echo "                                node suites, import, node E2E, three browsers)"
+	echo "  3/4  Database conformance    (builds FerretDB, every database this CPU runs)"
+	echo "  4/4  FerretDB's own tests    (unit, vet, integration)"
 	echo "This takes a long time. Nothing runs concurrently, so a failure is readable."
 	echo "=============================================================================="
 	echo
 
-	local wekan_rc=0 conf_rc=0 ferret_rc=0
+	local guard_rc=0 wekan_rc=0 conf_rc=0 ferret_rc=0
 
-	echo "### 1/3 WeKan tests ###########################################################"
+	echo "### 1/4 Floating-promises guard ###############################################"
+	# Checks only - no installing, no editing of .eslintrc.json. It takes seconds,
+	# so it runs first: an unawaited permission check should not be reported after
+	# an hour of browser tests.
+	floating_promises_checks 2>&1 | tee "$RUN_LOGDIR/wekan-floating-promises.log"
+	guard_rc=${PIPESTATUS[0]}
+
+	echo
+	echo "### 2/4 WeKan tests ###########################################################"
 	run_all_tests sequential || wekan_rc=$?
 
 	echo
-	echo "### 2/3 Database conformance ##################################################"
+	echo "### 3/4 Database conformance ##################################################"
 	if [ -x ./releases/db-conformance.sh ]; then
 		./releases/db-conformance.sh || conf_rc=$?
 	else
@@ -1168,24 +1228,25 @@ function run_everything(){
 	fi
 
 	echo
-	echo "### 3/3 FerretDB tests ########################################################"
+	echo "### 4/4 FerretDB tests ########################################################"
 	if [ -x FerretDB/build.sh ]; then
 		( cd FerretDB && WEKAN_LOGDIR="$RUN_LOGDIR" ./build.sh test-all ) || ferret_rc=$?
 	else
 		echo "ERROR: FerretDB/build.sh is missing - db-conformance.sh clones wekan/FerretDB"
-		echo "       into this repo; run stage 2 first, or clone it by hand."
+		echo "       into this repo; run stage 3 first, or clone it by hand."
 		ferret_rc=1
 	fi
 
 	echo
 	echo "=============================== EVERYTHING ==================================="
-	printf '  %-6s %s\n' "$([ $wekan_rc  -eq 0 ] && echo PASS || echo FAIL)" "WeKan tests (sequential)"
+	printf '  %-6s %s\n' "$([ $guard_rc  -eq 0 ] && echo PASS || echo FAIL)" "Floating-promises guard (rule + unawaited board auth checks)"
+	printf '  %-6s %s\n' "$([ $wekan_rc  -eq 0 ] && echo PASS || echo FAIL)" "WeKan tests (mocha, node suites, import, E2E, three browsers)"
 	printf '  %-6s %s\n' "$([ $conf_rc   -eq 0 ] && echo PASS || echo FAIL)" "Database conformance (all databases for this CPU)"
 	printf '  %-6s %s\n' "$([ $ferret_rc -eq 0 ] && echo PASS || echo FAIL)" "FerretDB tests (unit, vet, integration)"
 	echo "=============================================================================="
 	echo "All logs: $RUN_LOGDIR/"
 	unset WEKAN_LOGDIR
-	[ $wekan_rc -eq 0 ] && [ $conf_rc -eq 0 ] && [ $ferret_rc -eq 0 ] || FAILED=1
+	[ $guard_rc -eq 0 ] && [ $wekan_rc -eq 0 ] && [ $conf_rc -eq 0 ] && [ $ferret_rc -eq 0 ] || FAILED=1
 	if [ "$FAILED" -eq 0 ]; then echo "RESULT: EVERYTHING passed."; else echo "RESULT: something FAILED - see the stage summaries above."; fi
 	return "$FAILED"
 }
@@ -1923,7 +1984,7 @@ while [ -z "$opt" ]; do
 					"Kill all dev servers|Kill all dev servers (free ports 3000/3001/3100/3101/4000/4001/8080)" ;;
 			"Tests")
 				choose "Tests" \
-					"EVERYTHING (sequential): WeKan tests + all databases + FerretDB tests|Run EVERYTHING sequentially: WeKan's own tests, then the database conformance run for every database with a Docker image for this CPU, then all of FerretDB's own tests (unit, vet, integration) - one stage at a time, all logs in log/<datetime>/" \
+					"EVERYTHING (sequential): the guard + WeKan tests + all databases + FerretDB tests|Run EVERYTHING sequentially: the floating-promises guard (seconds), then WeKan's own tests (mocha, the node suites, import regression, node E2E and all three browsers), then the database conformance run for every database with a Docker image for this CPU, then all of FerretDB's own tests (unit, vet, integration) - one stage at a time, all logs in log/<datetime>/" \
 					"WeKan's own tests only, parallel|Run WeKan's own tests in parallel on http://localhost:3000: Mocha, the node unit suites, import regression, node E2E and all three browsers, concurrently. No database conformance and no FerretDB tests - logs in log/<datetime>/" \
 					"WeKan's own tests only, sequential|Run WeKan's own tests sequentially on http://localhost:3000: Mocha, the node unit suites, import regression, node E2E and all three browsers, one job at a time. No database conformance and no FerretDB tests - logs in log/<datetime>/" \
 					"Mocha (server-side)|Test Mocha unit + security + API-logic tests (server-side only, no browser)" \
@@ -2261,39 +2322,15 @@ for _once in 1; do
 			echo "Ensuring .eslintrc.json includes @typescript-eslint plugin and no-floating-promises rule"
 			node -e "const fs=require('fs');const p='.eslintrc.json';const c=JSON.parse(fs.readFileSync(p,'utf8'));c.plugins=Array.isArray(c.plugins)?c.plugins:[];if(!c.plugins.includes('@typescript-eslint'))c.plugins.push('@typescript-eslint');c.rules=c.rules||{};c.rules['@typescript-eslint/no-floating-promises']='error';fs.writeFileSync(p,JSON.stringify(c,null,2)+'\\n');"
 
-			echo "Checking whether @typescript-eslint/no-floating-promises is configured in .eslintrc.json"
-			if command -v rg >/dev/null 2>&1; then
-				RULE_CHECK_CMD='rg -n'
-			else
-				RULE_CHECK_CMD='grep -nE'
-			fi
-
-			if $RULE_CHECK_CMD '"@typescript-eslint/no-floating-promises"' .eslintrc.json >/dev/null 2>&1; then
-				echo "OK: Rule @typescript-eslint/no-floating-promises is configured in .eslintrc.json"
-			else
-				echo "WARNING: Rule @typescript-eslint/no-floating-promises is NOT configured in .eslintrc.json"
-				echo "Suggested: add @typescript-eslint/eslint-plugin and set '@typescript-eslint/no-floating-promises': 'error'"
-			fi
-
 			echo "Quick note: @typescript-eslint/no-floating-promises is a type-aware rule and may require further parser/project setup for full enforcement in all files."
-
 			echo
-			echo "Scanning for unawaited Authentication.checkBoardAccess/checkBoardWriteAccess in server/models"
-			AUTH_CALL_PATTERN='Authentication\.checkBoardAccess\(|Authentication\.checkBoardWriteAccess\('
-			AUTH_AWAIT_PATTERN='await Authentication\.checkBoardAccess\(|await Authentication\.checkBoardWriteAccess\('
-			if command -v rg >/dev/null 2>&1; then
-				if rg -n "$AUTH_CALL_PATTERN" server/models | rg -v "$AUTH_AWAIT_PATTERN"; then
-					echo "WARNING: Found possible unawaited board auth checks above"
-				else
-					echo "OK: No unawaited board auth checks found"
-				fi
-			else
-				if grep -RInE "$AUTH_CALL_PATTERN" server/models | grep -vE "$AUTH_AWAIT_PATTERN"; then
-					echo "WARNING: Found possible unawaited board auth checks above"
-				else
-					echo "OK: No unawaited board auth checks found"
-				fi
-			fi
+
+			# The checks themselves - the same function EVERYTHING runs, so the
+			# menu option and the whole-run stage can never drift apart. Above
+			# this line is the setting-up half, which only a person asking for
+			# this option gets: it installs packages and writes the rule into
+			# .eslintrc.json, and a test run must do neither.
+			floating_promises_checks
 		} 2>&1 | tee "$LOG"
 		break
 		;;

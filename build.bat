@@ -138,8 +138,10 @@ REM ===========================================================================
 :menu_tests
 echo.
 echo -- Tests --   ^(0 = Back^)
-echo   1^) EVERYTHING ^(sequential^): WeKan's own tests, then every database with an
-echo       image for this CPU, then all FerretDB tests. Logs in ..\log\^<datetime^>\
+echo   1^) EVERYTHING ^(sequential^): the floating-promises guard, then WeKan's own
+echo       tests ^(mocha, node suites, import, node E2E, three browsers^), then every
+echo       database with an image for this CPU, then all FerretDB tests ^(unit, vet,
+echo       integration^). Logs in ..\log\^<datetime^>\
 echo   2^) WeKan's own tests only, parallel: Mocha, node unit suites, import, node
 echo       E2E and all three browsers, concurrently. No databases, no FerretDB
 echo   3^) WeKan's own tests only, sequential: the same suite, one job at a time
@@ -949,8 +951,10 @@ call :rebuild_for_tests
 if errorlevel 1 goto end
 
 set "FAILED=0"
-set "S_mocha=RUN" & set "S_unit=RUN" & set "S_import=RUN" & set "S_e2e=RUN" & set "S_browsers=RUN"
-set "C_mocha=0" & set "C_unit=0" & set "C_import=0" & set "C_e2e=0" & set "C_browsers=0"
+set "S_mocha=RUN" & set "S_unit=RUN" & set "S_import=RUN" & set "S_e2e=RUN"
+set "S_chromium=RUN" & set "S_firefox=RUN" & set "S_webkit=RUN"
+set "C_mocha=0" & set "C_unit=0" & set "C_import=0" & set "C_e2e=0"
+set "C_chromium=0" & set "C_firefox=0" & set "C_webkit=0"
 REM Each run gets its own ..\log\<timestamp>\ dir (stamped once at run start), so
 REM logs are never overwritten and previous runs are kept. PowerShell gives a
 REM locale-independent yyyy-MM-dd_HH-mm-ss; %RUN_LOGDIR% is absolute so it works
@@ -960,7 +964,7 @@ set "RUN_LOGDIR=%REPO%\..\log\%RUN_TS%"
 if not exist "%RUN_LOGDIR%" md "%RUN_LOGDIR%"
 echo Logs for this run: %RUN_LOGDIR%\  - previous runs are kept
 REM Clear completion flags from any previous run.
-del /q ".done-mocha" ".done-unit" ".done-import" ".done-e2e" ".done-browsers" 2>nul
+del /q ".done-mocha" ".done-unit" ".done-import" ".done-e2e" ".done-chromium" ".done-firefox" ".done-webkit" 2>nul
 
 REM Start the :3000 server FIRST and let it build alone. Mocha runs its own
 REM Meteor build (.meteor\local-test); launching it here would make two full
@@ -982,11 +986,19 @@ start "Wekan import" /MIN /D "%REPO%" cmd /c "(echo ===== Import regression [no 
 
 if "!SERVER_READY!"=="0" (
 	echo FAIL: server did not become ready on http://localhost:3000 ^(see %RUN_LOGDIR%\wekan-test-server.log^)
-	set "S_e2e=SKIP" & set "S_browsers=SKIP" & set "FAILED=1"
+	set "S_e2e=SKIP" & set "S_chromium=SKIP" & set "S_firefox=SKIP" & set "S_webkit=SKIP" & set "FAILED=1"
 ) else (
-	echo ==^> Server is up: starting Node E2E and Playwright ^(Chromium + Firefox + WebKit, --workers=3^) in parallel.
+	echo ==^> Server is up: starting Node E2E and Playwright ^(Chromium, Firefox and WebKit as three separate jobs^) in parallel.
 	start "Wekan e2e" /MIN /D "%REPO%" cmd /c "(echo ===== Node E2E [M1 node:3000 db:3001] test run: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-alltests-e2e.log 2>&1 & call meteor npm run test:e2e 1>>%RUN_LOGDIR%\wekan-alltests-e2e.log 2>&1 & if errorlevel 1 (echo FAIL>.done-e2e) else (echo PASS>.done-e2e)"
-	start "Wekan browsers" /MIN /D "%REPO%\tests\playwright" cmd /c "set WEKAN_PLAYWRIGHT_ALL=1&& (echo ===== Playwright browsers [M1 node:3000 db:3001] test run: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-alltests-browsers.log 2>&1 & call meteor npm exec playwright test -- --project=chromium --project=firefox --project=webkit --workers=3 --reporter=list 1>>%RUN_LOGDIR%\wekan-alltests-browsers.log 2>&1 & if errorlevel 1 (echo FAIL>..\..\.done-browsers) else (echo PASS>..\..\.done-browsers)"
+	REM One job, one log, one summary row PER BROWSER - the same shape build.sh
+	REM produces. A single combined "browsers" job wrote one wekan-alltests-browsers.log
+	REM for all three, so "which browser failed, and what did WebKit print" could not
+	REM be answered from the logs, and CLAUDE.md's "check the newest test logs" names
+	REM the per-browser files. --output keeps each browser's artifacts in its own
+	REM directory, or the three would clear each other's at startup.
+	call :start_browser_job chromium
+	call :start_browser_job firefox
+	call :start_browser_job webkit
 )
 
 REM Live progress: re-print a status line every ~3s until all expected jobs
@@ -1001,18 +1013,25 @@ call :jcount C_unit unit "%RUN_LOGDIR%\wekan-alltests-unit.log"
 call :jcount C_import check "%RUN_LOGDIR%\wekan-alltests-import.log"
 if "!SERVER_READY!"=="1" (
 	call :jstate e2e
-	call :jstate browsers
+	call :jstate chromium
+	call :jstate firefox
+	call :jstate webkit
 	call :jcount C_e2e e2e "%RUN_LOGDIR%\wekan-alltests-e2e.log"
-	call :jcount C_browsers check "%RUN_LOGDIR%\wekan-alltests-browsers.log"
+	call :jcount C_chromium check "%RUN_LOGDIR%\wekan-alltests-chromium.log"
+	call :jcount C_firefox check "%RUN_LOGDIR%\wekan-alltests-firefox.log"
+	call :jcount C_webkit check "%RUN_LOGDIR%\wekan-alltests-webkit.log"
 )
-echo   mocha [M2 :3100/db:3101] !S_mocha! tests:!C_mocha!  ^| unit [no server] !S_unit! tests:!C_unit!  ^| import [no server] !S_import! tests:!C_import!  ^| e2e [M1 :3000/db:3001] !S_e2e! tests:!C_e2e!  ^| browsers [M1 :3000/db:3001] !S_browsers! tests:!C_browsers!
+echo   mocha [M2 :3100/db:3101] !S_mocha! tests:!C_mocha!  ^| unit [no server] !S_unit! tests:!C_unit!  ^| import [no server] !S_import! tests:!C_import!  ^| e2e [M1 :3000/db:3001] !S_e2e! tests:!C_e2e!
+echo   chromium !S_chromium! tests:!C_chromium!  ^| firefox !S_firefox! tests:!C_firefox!  ^| webkit !S_webkit! tests:!C_webkit!   [all three on M1 :3000/db:3001]
 set "ALLDONE=1"
 if not exist ".done-mocha" set "ALLDONE=0"
 if not exist ".done-unit" set "ALLDONE=0"
 if not exist ".done-import" set "ALLDONE=0"
 if "!SERVER_READY!"=="1" (
 	if not exist ".done-e2e" set "ALLDONE=0"
-	if not exist ".done-browsers" set "ALLDONE=0"
+	if not exist ".done-chromium" set "ALLDONE=0"
+	if not exist ".done-firefox" set "ALLDONE=0"
+	if not exist ".done-webkit" set "ALLDONE=0"
 )
 if "!ALLDONE!"=="0" (
 	ping -n 4 127.0.0.1 >nul
@@ -1029,7 +1048,9 @@ if "!S_mocha!"=="FAIL" set "FAILED=1"
 if "!S_unit!"=="FAIL" set "FAILED=1"
 if "!S_import!"=="FAIL" set "FAILED=1"
 if "!S_e2e!"=="FAIL" set "FAILED=1"
-if "!S_browsers!"=="FAIL" set "FAILED=1"
+if "!S_chromium!"=="FAIL" set "FAILED=1"
+if "!S_firefox!"=="FAIL" set "FAILED=1"
+if "!S_webkit!"=="FAIL" set "FAILED=1"
 
 echo.
 echo ==================== TEST SUMMARY ====================
@@ -1038,9 +1059,11 @@ call :report "!S_unit!"      "Unit tests (node)"                    "[no server]
 call :report "!S_import!"    "Import regression"                    "[no server]        tests:!C_import!"
 if "!SERVER_READY!"=="1" ( call :report "PASS" "Server startup" "[M1 :3000/db:3001]" ) else ( call :report "FAIL" "Server startup" "[M1 :3000/db:3001]" )
 call :report "!S_e2e!"       "Node E2E regressions"                 "[M1 :3000/db:3001] tests:!C_e2e!"
-call :report "!S_browsers!"  "Playwright (Chromium+Firefox+WebKit)" "[M1 :3000/db:3001] tests:!C_browsers!"
+call :report "!S_chromium!"  "Playwright Chromium"                  "[M1 :3000/db:3001] tests:!C_chromium!"
+call :report "!S_firefox!"   "Playwright Firefox"                   "[M1 :3000/db:3001] tests:!C_firefox!"
+call :report "!S_webkit!"    "Playwright WebKit"                    "[M1 :3000/db:3001] tests:!C_webkit!"
 echo =====================================================
-echo (per-job logs in: %RUN_LOGDIR%\  as wekan-alltests-^<mocha^|unit^|import^|e2e^|browsers^>.log and wekan-test-server.log)
+echo (per-job logs in: %RUN_LOGDIR%\  as wekan-alltests-^<mocha^|unit^|import^|e2e^|chromium^|firefox^|webkit^>.log and wekan-test-server.log)
 if "!FAILED!"=="0" ( echo RESULT: All tests passed. ) else ( echo RESULT: Some tests FAILED ^(see details above^). )
 goto end
 
@@ -1066,8 +1089,10 @@ call :rebuild_for_tests
 if errorlevel 1 goto end
 
 set "FAILED=0"
-set "S_mocha=RUN" & set "S_unit=RUN" & set "S_import=RUN" & set "S_e2e=RUN" & set "S_browsers=RUN"
-set "C_mocha=0" & set "C_unit=0" & set "C_import=0" & set "C_e2e=0" & set "C_browsers=0"
+set "S_mocha=RUN" & set "S_unit=RUN" & set "S_import=RUN" & set "S_e2e=RUN"
+set "S_chromium=RUN" & set "S_firefox=RUN" & set "S_webkit=RUN"
+set "C_mocha=0" & set "C_unit=0" & set "C_import=0" & set "C_e2e=0"
+set "C_chromium=0" & set "C_firefox=0" & set "C_webkit=0"
 REM Each run gets its own ..\log\<timestamp>\ dir (stamped once at run start), so
 REM logs are never overwritten and previous runs are kept. PowerShell gives a
 REM locale-independent yyyy-MM-dd_HH-mm-ss; %RUN_LOGDIR% is absolute so it works
@@ -1077,7 +1102,7 @@ set "RUN_LOGDIR=%REPO%\..\log\%RUN_TS%"
 if not exist "%RUN_LOGDIR%" md "%RUN_LOGDIR%"
 echo Logs for this run: %RUN_LOGDIR%\  - previous runs are kept
 REM Clear completion flags from any previous run.
-del /q ".done-mocha" ".done-unit" ".done-import" ".done-e2e" ".done-browsers" 2>nul
+del /q ".done-mocha" ".done-unit" ".done-import" ".done-e2e" ".done-chromium" ".done-firefox" ".done-webkit" 2>nul
 
 REM Start the :3000 server FIRST and let it build alone. Mocha runs its own
 REM Meteor build (.meteor\local-test); launching it here would make two full
@@ -1116,15 +1141,23 @@ echo ==^> Running Node E2E regressions on Meteor #1 [Node.js :3000, MongoDB :300
 start "Wekan e2e" /MIN /D "%REPO%" cmd /c "(echo ===== Node E2E [M1 node:3000 db:3001] test run: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-alltests-e2e.log 2>&1 & call meteor npm run test:e2e 1>>%RUN_LOGDIR%\wekan-alltests-e2e.log 2>&1 & if errorlevel 1 (echo FAIL>.done-e2e) else (echo PASS>.done-e2e)"
 call :seq_run_wait e2e e2e C_e2e "%RUN_LOGDIR%\wekan-alltests-e2e.log"
 
-echo ==^> Running Playwright Chromium, Firefox and WebKit one at a time ^(--workers=1^) on Meteor #1 [Node.js :3000, MongoDB :3001]. Full log: %RUN_LOGDIR%\wekan-alltests-browsers.log
-start "Wekan browsers" /MIN /D "%REPO%\tests\playwright" cmd /c "set WEKAN_PLAYWRIGHT_ALL=1&& (echo ===== Playwright browsers [M1 node:3000 db:3001] test run: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-alltests-browsers.log 2>&1 & call :onelog playwright-all
-call meteor npm exec playwright test -- --project=chromium --project=firefox --project=webkit --workers=1 --reporter=list 2>&1 | powershell -NoProfile -Command "$input | Tee-Object -FilePath '%ONELOG%'" 1>>%RUN_LOGDIR%\wekan-alltests-browsers.log 2>&1 & if errorlevel 1 (echo FAIL>..\..\.done-browsers) else (echo PASS>..\..\.done-browsers)"
-call :seq_run_wait browsers check C_browsers "%RUN_LOGDIR%\wekan-alltests-browsers.log"
+echo ==^> Running Playwright Chromium, Firefox and WebKit one browser at a time on Meteor #1 [Node.js :3000, MongoDB :3001].
+REM One job, one log and one summary row per browser, as build.sh does. The
+REM combined run wrote a single wekan-alltests-browsers.log for all three, so
+REM neither "which browser failed" nor "what did WebKit print" was answerable
+REM from the logs afterwards - and CLAUDE.md's "check the newest test logs"
+REM names wekan-alltests-chromium.log, -firefox.log and -webkit.log.
+call :start_browser_job chromium
+call :seq_run_wait chromium check C_chromium "%RUN_LOGDIR%\wekan-alltests-chromium.log"
+call :start_browser_job firefox
+call :seq_run_wait firefox check C_firefox "%RUN_LOGDIR%\wekan-alltests-firefox.log"
+call :start_browser_job webkit
+call :seq_run_wait webkit check C_webkit "%RUN_LOGDIR%\wekan-alltests-webkit.log"
 goto server_jobs_done
 
 :skip_server_jobs
 echo FAIL: server did not become ready on http://localhost:3000 ^(see %RUN_LOGDIR%\wekan-test-server.log^)
-set "S_e2e=SKIP" & set "S_browsers=SKIP" & set "FAILED=1"
+set "S_e2e=SKIP" & set "S_chromium=SKIP" & set "S_firefox=SKIP" & set "S_webkit=SKIP" & set "FAILED=1"
 
 :server_jobs_done
 
@@ -1138,14 +1171,18 @@ if "!S_mocha!"=="FAIL" set "FAILED=1"
 if "!S_unit!"=="FAIL" set "FAILED=1"
 if "!S_import!"=="FAIL" set "FAILED=1"
 if "!S_e2e!"=="FAIL" set "FAILED=1"
-if "!S_browsers!"=="FAIL" set "FAILED=1"
+if "!S_chromium!"=="FAIL" set "FAILED=1"
+if "!S_firefox!"=="FAIL" set "FAILED=1"
+if "!S_webkit!"=="FAIL" set "FAILED=1"
 
 REM Count passing tests per job from each log (advances shown in the summary).
 call :jcount C_mocha check "%RUN_LOGDIR%\wekan-alltests-mocha.log"
 call :jcount C_unit unit "%RUN_LOGDIR%\wekan-alltests-unit.log"
 call :jcount C_import check "%RUN_LOGDIR%\wekan-alltests-import.log"
 call :jcount C_e2e e2e "%RUN_LOGDIR%\wekan-alltests-e2e.log"
-call :jcount C_browsers check "%RUN_LOGDIR%\wekan-alltests-browsers.log"
+call :jcount C_chromium check "%RUN_LOGDIR%\wekan-alltests-chromium.log"
+call :jcount C_firefox check "%RUN_LOGDIR%\wekan-alltests-firefox.log"
+call :jcount C_webkit check "%RUN_LOGDIR%\wekan-alltests-webkit.log"
 
 echo.
 echo ==================== TEST SUMMARY ====================
@@ -1154,9 +1191,11 @@ call :report "!S_unit!"      "Unit tests (node)"                    "[no server]
 call :report "!S_import!"    "Import regression"                    "[no server]        tests:!C_import!"
 if "!SERVER_READY!"=="1" ( call :report "PASS" "Server startup" "[M1 :3000/db:3001]" ) else ( call :report "FAIL" "Server startup" "[M1 :3000/db:3001]" )
 call :report "!S_e2e!"       "Node E2E regressions"                 "[M1 :3000/db:3001] tests:!C_e2e!"
-call :report "!S_browsers!"  "Playwright (Chromium+Firefox+WebKit)" "[M1 :3000/db:3001] tests:!C_browsers!"
+call :report "!S_chromium!"  "Playwright Chromium"                  "[M1 :3000/db:3001] tests:!C_chromium!"
+call :report "!S_firefox!"   "Playwright Firefox"                   "[M1 :3000/db:3001] tests:!C_firefox!"
+call :report "!S_webkit!"    "Playwright WebKit"                    "[M1 :3000/db:3001] tests:!C_webkit!"
 echo =====================================================
-echo (per-job logs in: %RUN_LOGDIR%\  as wekan-alltests-^<mocha^|unit^|import^|e2e^|browsers^>.log and wekan-test-server.log)
+echo (per-job logs in: %RUN_LOGDIR%\  as wekan-alltests-^<mocha^|unit^|import^|e2e^|chromium^|firefox^|webkit^>.log and wekan-test-server.log)
 if "!FAILED!"=="0" ( echo RESULT: All tests passed. ) else ( echo RESULT: Some tests FAILED ^(see details above^). )
 goto end
 
@@ -1722,6 +1761,25 @@ set "MONGO_URL=" & set "ROOT_URL=" & set "PORT=" & set "WRITABLE_PATH=" & set "W
 
 REM 6) Wait for :3000 to answer (bundle boots in seconds; curl-timeout poll).
 call :wait_server_ready
+exit /b 0
+
+:start_browser_job
+REM Start ONE Playwright browser as its own job: %1 = chromium^|firefox^|webkit.
+REM
+REM One job, one log, one .done flag and one summary row per browser - the same
+REM shape build.sh's run_pw_all_browser produces, and what CLAUDE.md means by the
+REM per-browser logs in log\^<datetime^>\. The combined three-project run this
+REM replaced wrote everything into one wekan-alltests-browsers.log, where a
+REM failure could not be attributed to a browser without reading the whole file.
+REM
+REM --output is per browser as well: Playwright CLEARS its output directory at
+REM startup, so three jobs sharing test-results\ would delete each other's traces
+REM and screenshots - exactly the artifacts wanted after a failure. The job runs
+REM in tests\playwright, so the .done flag is written two levels up, in the repo
+REM root, where the wait loops look for it.
+if "%~1"=="" exit /b 1
+echo ==^> Playwright %~1 on Meteor #1 [Node.js :3000, MongoDB :3001]. Log: %RUN_LOGDIR%\wekan-alltests-%~1.log
+start "Wekan %~1" /MIN /D "%REPO%\tests\playwright" cmd /c "set WEKAN_PLAYWRIGHT_ALL=1&& (echo ===== Playwright %~1 [M1 node:3000 db:3001] test run: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-alltests-%~1.log 2>&1 & call meteor npm exec playwright test -- --project=%~1 --output=test-results\%~1 --reporter=list 1>>%RUN_LOGDIR%\wekan-alltests-%~1.log 2>&1 & if errorlevel 1 (echo FAIL>..\..\.done-%~1) else (echo PASS>..\..\.done-%~1)"
 exit /b 0
 
 :seq_run_wait
