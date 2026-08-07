@@ -586,6 +586,35 @@ pinned now too.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f138b3124f7514909b0314ab3a6db367eb806056">The "Playwright ALL browsers" option on Windows writes logs again</a>. Thanks to xet7.</summary>
+
+The `EVERYTHING` run above found this on its first green pass: the WeKan stage
+failed on one node suite, `dbConformanceWiring`, with "build.bat: playwright-all
+must be logged". Splitting the whole-suite browser job into three uncovered a
+real gap rather than causing one.
+
+`call :onelog playwright-all` existed in exactly one place - inside the combined
+three-project browser line of the sequential all-tests flow, which is gone now
+that each browser is its own job with its own log. Where it did exist it never
+worked: the call sat inside the `cmd /c` string of a STARTED child process,
+which has no `build.bat` labels to call, so `%ONELOG%` was empty and
+`Tee-Object` was handed an empty path.
+
+Meanwhile the option that name was supposed to cover - `Tests -> 11`,
+"Playwright ALL browsers" - wrote no log at all: one `playwright test` call with
+three `--project` flags straight to the terminal, nothing left to read
+afterwards. That is exactly what the guard is about, and `build.sh`'s same
+option has always written one log per browser. It now runs the three browsers
+one at a time - still sequential, because three at once against one dev server
+exhausts RAM on smaller machines - each through the same `:onelog` helper as
+every other Tests option, and each with its own `--output` so Playwright does
+not clear another browser's traces at startup. The guard drops `playwright-all`,
+which named an implementation that is gone and was broken, and gains what it was
+reaching for: that the ALL-browsers option logs, and covers all three.
+
+</details>
+
 **Board export** - what a backup contains, pinned against the source.
 
 <details>
