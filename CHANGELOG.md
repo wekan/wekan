@@ -65,17 +65,7 @@ e-mail in Profile settings — environment-specific, no repro on a clean install
 [#3001](https://github.com/wekan/wekan/issues/3001) (manipulated headers / high
 traffic behind an Apache reverse proxy — an Apache proxy-configuration concern,
 not reproducible from WeKan code alone; needs the reporter's proxy setup to
-investigate), [#6500](https://github.com/wekan/wekan/issues/6500) (Docker
-`latest` does not load in the browser on a fresh `docker compose up -d` —
-"Connection reset by peer"; xet7 is actively fixing the bundled FerretDB Docker
-startup, and MongoDB / other backends work as a workaround, so this needs the
-running Docker stack to reproduce, not source-verifiable here),
-[#6542](https://github.com/wekan/wekan/issues/6542) (LDAP import reports 60
-users imported while fewer are listed — the People page is paginated with a
-visible total now, which is what the count in the report was reading, but
-whether the import itself dropped users needs the reporter's directory: two
-entries whose username slugifies to the same value are merged, and only a live
-LDAP tree shows that), [#6548](https://github.com/wekan/wekan/issues/6548) (LDAP
+investigate), [#6548](https://github.com/wekan/wekan/issues/6548) (LDAP
 debug output not visible inside an LXC container — needs that container and an
 Active Directory to see what is logged and what is not),
 [#6549](https://github.com/wekan/wekan/issues/6549) (OAuth2 through
@@ -251,11 +241,7 @@ webhook — card title/description edits ALREADY reach the global webhook via
 from #3619/#5482; a single consolidated `act-editCard` action needs a decision
 on which fields count and whether it supplements or replaces the existing
 per-field events, to avoid duplicate webhook deliveries),
-[#3113](https://github.com/wekan/wekan/issues/3113) (webhook `user` field shows
-the full name, not the username — the same `params.user` feeds both the e-mail
-notification text, where the full name is intended, and the webhook payload,
-where a username is expected; the safe change is to ADD a `username` field to
-the webhook rather than repurpose `user`).
+.
 
 </details>
 

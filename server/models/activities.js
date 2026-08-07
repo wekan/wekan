@@ -77,6 +77,15 @@ Activities.after.insert(async (userId, doc) => {
     const user = await activity.user();
     if (user) {
       params.user = getActivityUserName(user, activity.userId);
+      // #3113: `user` is a DISPLAY name - getActivityUserName prefers the full
+      // name, which is what the e-mail notification text wants ("Lauri Ojansivu
+      // commented ..."). A webhook consumer wants the stable identifier instead,
+      // and had no way to get it: it received "Lauri Ojansivu" where it needed
+      // "xet7", and matching users by display name is wrong the moment two people
+      // share one. So the username travels as its own field rather than by
+      // changing what `user` means - nothing that already reads `user` breaks,
+      // and the missing identifier is simply there now.
+      params.username = user.username || '';
       if (user.emails) {
         params.userEmails = user.emails;
       }

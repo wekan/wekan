@@ -55,6 +55,10 @@ const Lock = {
     'boardId',
     'comment',
     'user',
+    // #3113: the display name (`user`) and the login name, both. WEBHOOKS_ATTRIBUTES
+    // overrides this list wholesale, so a deployment that already sets it keeps
+    // exactly the fields it asked for.
+    'username',
     'card',
     'commentId',
     'swimlaneId',
