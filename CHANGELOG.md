@@ -369,6 +369,57 @@ This release updates the following dependencies:
 
 and fixes the following bugs:
 
+**Signing in with LDAP** - where WeKan looks for the groups.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8b2e0038df5513c6cd9b409e063f1c9e3183514c">Groups may live in their own subtree, not only under the user base</a>. Thanks to leandro-cyberproject and xet7.</summary>
+
+[#5539](https://github.com/wekan/wekan/issues/5539): WeKan could not
+authenticate LDAP users whose groups sit in a different `ou` than the users.
+Both group searches - `getUserGroups`, which feeds the login restriction, admin
+status sync, group-to-role sync and org/team sync, and `isUserInGroup` -
+searched `BaseDN`, which is the USER base. A directory that keeps `ou=groups`
+beside `ou=people` has no groups under it, so every group search came back
+empty; with `LDAP_GROUP_FILTER_ENABLE` on, `isUserInGroup` concluded "not a
+member" and refused the login. Nothing in the package could say where the groups
+were.
+
+`LDAP_GROUP_BASEDN` says where, and falls back to `BaseDN` when unset or blank,
+so a directory with one subtree behaves exactly as before - a present-but-empty
+variable is one somebody meant to fill in, and searching `""` would silently
+search the directory root. The three USER searches keep `BaseDN`: pointing those
+at a group subtree would break login for everyone, so the guard pins which
+searches moved and which did not. Documented in `docs/Login/LDAP.md` and
+`docker-compose.yml`, because a setting nobody can find is one that does not
+exist.
+
+</details>
+
+**The REST API** - what a list can be asked about.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/50083104c74f4b6ea2c55431e1c0cece2074442c">A list says when it changed, and when its cards last did</a>. Thanks to mimZD and xet7.</summary>
+
+[#5251](https://github.com/wekan/wekan/issues/5251) asked for a list's last
+change date, to build an offline client that syncs only what moved. Neither half
+existed: the list endpoint returned `{_id, title}` and no dates, and while the
+single-list endpoint returns the whole document, its `modifiedAt` answers the
+wrong question - it moves when the LIST changes (title, sort, archived), and a
+card being added, edited or archived does not touch it.
+
+`GET /api/boards/:boardId/lists` reports both now: `modifiedAt` for the list
+itself, and `cardsModifiedAt` for the newest change among its cards, null when
+there is none. One query for the board and a reduction in memory, not a query
+per list - which is what made this expensive enough to ask about - and archived
+cards count, since archiving is one of the changes named. The reduction is a
+pure helper: it reads the legacy `dateLastActivity` as well as `modifiedAt` and
+takes whichever is newer, skips a card with no usable date rather than counting
+it as now, and leaves a list with no dated cards ABSENT so the endpoint reports
+null instead of an invented time - a client polling on a wrong date either never
+syncs or syncs forever.
+
+</details>
+
 **Controls and the things they belong to** - five reports, five causes.
 
 <details>
