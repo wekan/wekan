@@ -446,6 +446,36 @@ that is the whole of what was circled needs a browser, and the guard says so.
 
 </details>
 
+**Outgoing webhooks** - who a webhook says did something.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5b83e8e256ca1fc77db4bd42e530d1249e63ffb2">A webhook sends the username as well as the display name</a>. Thanks to xet7.</summary>
+
+[#3113](https://github.com/wekan/wekan/issues/3113): an outgoing webhook said
+who did something by DISPLAY name, and had no field for the login name.
+`params.user` comes from `getActivityUserName()`, which prefers `getName()`
+because the same params feed the e-mail notification text - "Lauri Ojansivu
+commented on ..." is what a person wants to read there. A webhook consumer needs
+the identifier instead: it received the full name where it needed `xet7`, and
+matching users by display name is wrong the moment two people share one.
+
+Changing what `user` means would break every consumer already reading it, which
+is why this sat in TODO Later as needing a decision. It needs none: the username
+travels as its own field. `user` is untouched, `username` is beside it in the
+default `WEBHOOKS_ATTRIBUTES` list, and a deployment that pinned its own list
+still gets exactly the fields it asked for.
+
+Two more left the backlog with it.
+[#6542](https://github.com/wekan/wekan/issues/6542) - "Users imported: 60, but
+only 25 are listed" - is already true in this source: the People pane paginates
+and shows its total beside the rows, which is what the report was about.
+[#6500](https://github.com/wekan/wekan/issues/6500) was closed upstream and was
+only sitting there. The rest of the backlog stays, each with its reason - an
+SMTP server, an LDAP directory, a container, a browser to drag in, or a decision
+on an intended contract, none of which a source reading settles.
+
+</details>
+
 **Logging in with OIDC** - what happens when the provider says no.
 
 <details>
