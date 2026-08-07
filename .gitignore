@@ -75,28 +75,6 @@ _build-local-test
 */build-assets-local-test
 */build-chunks-local-test
 
-# Local-only working copies: other wekan repos cloned under this repo for editing,
-# and build inputs. These are separate git repos / large machine-specific dirs;
-# never commit them.
-#  - projects/    : unarchived meteor-spk fork (Node/Mongo/FerretDB binaries)
-#  - sandstorm/   : clone of sandstorm-io/sandstorm (platform source, for reference)
-#  - FerretDB/    : clone of wekan/FerretDB
-#  - mongo-tools/ : clone of wekan/mongo-tools
-#  - mongosh/     : clone of wekan/mongosh
-#  - node/        : clone of the Node.js 24.x fork WeKan builds its runtime from
-#  - TSC/         : clone of Secretchronicles/TSC
-#  - secretchronicles.github.io/ : clone of the TSC website of the same name
-#  - gitea/       : clone of wekan/gitea, the fork of go-gitea/gitea
-/projects/
-/sandstorm/
-/FerretDB/
-/mongo-tools/
-/mongosh/
-/node/
-/TSC/
-/secretchronicles.github.io/
-/gitea/
-
 # Test and build logs, when they land INSIDE the repo. build.sh writes to
 # ../log/<datetime>/ by preference - one level up, so a test run does not show
 # up in git status - but the parent of the repo is not writable in a Flatpak
