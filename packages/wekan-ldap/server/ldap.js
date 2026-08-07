@@ -86,6 +86,13 @@ export default class LDAP {
       User_Search_Field                  : this.constructor.settings_get('LDAP_USER_SEARCH_FIELD'),
       Search_Page_Size                   : this.constructor.settings_get('LDAP_SEARCH_PAGE_SIZE'),
       Search_Size_Limit                  : this.constructor.settings_get('LDAP_SEARCH_SIZE_LIMIT'),
+      // #5539: groups do not have to live under the users' base DN. The group
+      // searches used BaseDN - the USER base - so a directory that keeps
+      // ou=groups beside ou=people (a common layout, and the reporter's) found
+      // no groups at all: with LDAP_GROUP_FILTER_ENABLE on, isUserInGroup then
+      // said "not a member" and refused every login. Unset, this stays BaseDN,
+      // so nothing changes for a directory that keeps both in one subtree.
+      GroupBaseDN                        : this.constructor.settings_get('LDAP_GROUP_BASEDN'),
       group_filter_enabled               : this.constructor.settings_get('LDAP_GROUP_FILTER_ENABLE'),
       group_filter_object_class          : this.constructor.settings_get('LDAP_GROUP_FILTER_OBJECTCLASS'),
       group_filter_group_id_attribute    : this.constructor.settings_get('LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE'),
@@ -193,6 +200,19 @@ export default class LDAP {
       fields.push(...searchField.replace(/\s/g, '').split(','));
     }
     return fields;
+  }
+
+  // #5539: where to look for groups. LDAP_GROUP_BASEDN when it is set, the user
+  // base otherwise - an install that never had groups in a separate subtree
+  // behaves exactly as before. A blank string counts as unset: an env var that is
+  // present but empty is one somebody meant to fill in, not a search base, and
+  // searching "" would silently search the whole directory root.
+  groupBaseDN() {
+    const groupBase = this.options.GroupBaseDN;
+    if (typeof groupBase === 'string' && groupBase.trim() !== '') {
+      return groupBase.trim();
+    }
+    return this.options.BaseDN;
   }
 
   async searchAll(BaseDN, options) {
@@ -480,7 +500,8 @@ export default class LDAP {
 
     Log.debug(`Group list filter LDAP: ${searchOptions.filter}`);
 
-    const result = await this.searchAll(this.options.BaseDN, searchOptions);
+    // #5539: the GROUP subtree, which equals the user one only by default.
+    const result = await this.searchAll(this.groupBaseDN(), searchOptions);
 
     if (!Array.isArray(result) || result.length === 0) {
       return [];
@@ -552,8 +573,9 @@ export default class LDAP {
     };
 
     Log.debug(`Group filter LDAP: ${searchOptions.filter}`);
+    // #5539: the GROUP subtree, which equals the user one only by default.
 
-    const result = await this.searchAll(this.options.BaseDN, searchOptions);
+    const result = await this.searchAll(this.groupBaseDN(), searchOptions);
 
     if (!Array.isArray(result) || result.length === 0) {
       return false;

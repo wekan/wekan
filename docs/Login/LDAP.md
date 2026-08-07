@@ -341,6 +341,13 @@ services:
       # LDAP_BASEDN : The base DN for the LDAP Tree
       # example : LDAP_BASEDN=ou=user,dc=example,dc=org
       - LDAP_BASEDN=ou=prod,dc=mydomain,dc=com
+      # LDAP_GROUP_BASEDN : Where the GROUPS are, when they are not under
+      # LDAP_BASEDN. Leave unset when users and groups share one subtree - then
+      # the group searches use LDAP_BASEDN, exactly as before. Set it when the
+      # directory keeps them apart (ou=groups beside ou=people), or the group
+      # searches find nothing and LDAP_GROUP_FILTER_ENABLE refuses every login.
+      # example : LDAP_GROUP_BASEDN=ou=groups,dc=example,dc=org
+      #- LDAP_GROUP_BASEDN=ou=groups,dc=mydomain,dc=com
       # LDAP_LOGIN_FALLBACK : Fallback on the default authentication method
       # example : LDAP_LOGIN_FALLBACK=true
       - LDAP_LOGIN_FALLBACK=false
