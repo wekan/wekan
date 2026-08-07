@@ -551,6 +551,43 @@ Cards.after.update(async (userId, doc, fieldNames) => {
   await ChecklistItems.direct.updateAsync({ cardId: doc._id }, { $set: { boardId } }, { multi: true });
 });
 
+// #6572 / #3392: "Red Strings" only connect cards on the same board, so a card
+// that moves away must also lose the INBOUND links pointing at it from the board
+// it left, or those cards keep a dangling line to a card that is no longer there.
+//
+// The card's own dependencies are cleared by the move itself (cardDependencies:
+// [] is part of the by-_id update). The inbound ones live on OTHER cards, so they
+// need a multi-document update with a compound selector - and that used to sit in
+// Cards.move() in models/cards.js, which the client calls directly. Meteor only
+// lets untrusted code updateAsync BY ID, so the selector made every cross-board
+// move fail with "Not permitted. Untrusted code may only updateAsync documents by
+// ID" before the move ran at all, whether or not the card had any dependencies.
+//
+// Server-side the selector is allowed, and this covers every path that moves a
+// card - the client helper, the REST API, and import - rather than only the one
+// that happened to call the model helper. .direct like the hook above: this is a
+// denormalization cleanup on other documents, not an edit anyone is watching.
+//
+// Two pulls, because an entry may be either shape: dependencies are stored as
+// { cardId, type, color, icon } objects, and data written before #3392's rewrite
+// can still hold bare card-id strings (normalizeDependencies upgrades those on
+// read, so they are invisible until something has to delete one).
+Cards.after.update(async function(userId, doc, fieldNames) {
+  if (!fieldNames.includes('boardId')) return;
+  const oldBoardId = (this.previous || {}).boardId;
+  if (!oldBoardId || oldBoardId === doc.boardId) return;
+  await Cards.direct.updateAsync(
+    { boardId: oldBoardId, 'cardDependencies.cardId': doc._id },
+    { $pull: { cardDependencies: { cardId: doc._id } } },
+    { multi: true },
+  );
+  await Cards.direct.updateAsync(
+    { boardId: oldBoardId, cardDependencies: doc._id },
+    { $pull: { cardDependencies: doc._id } },
+    { multi: true },
+  );
+});
+
 Cards.after.update(async function(userId, doc, fieldNames) {
   const previous = this.previous || {};
   const oldListId = previous.listId || doc.listId;
@@ -1240,14 +1277,61 @@ WebApp.handlers.put(
       );
       updated = true;
     }
-    if (moveParams.swimlaneId) {
+    // #6572: a body that names a swimlane or list belonging to ANOTHER board is
+    // refused, and a cross-board move is only ever done by the isBoardMove
+    // branch below.
+    //
+    // The reporter of #6572 tried to work around the client-side move by sending
+    // boardId/listId/swimlaneId of the DESTINATION board to this route. Those are
+    // not the board-move parameters - isBoardMove needs newBoardId, newSwimlaneId
+    // and newListId - so the board move never ran, while these two branches did:
+    // the card kept its old boardId and got the destination board's listId and
+    // swimlaneId written onto it, which points it at a list and a swimlane that
+    // belong to a different board than the card does. It shows on neither board,
+    // and it took a hand-written database update to undo.
+    //
+    // These two branches are for moving WITHIN the board in the URL, so that is
+    // what they now enforce; anything else says which parameters to use instead.
+    // They are also skipped entirely during a board move: they would rewrite
+    // listId before the isBoardMove update runs, and that update's selector pins
+    // the card's original listId, so it would then match nothing and silently do
+    // nothing - the same inconsistent card, by a different route.
+    if (moveParams.swimlaneId && !moveParams.isBoardMove) {
+      const sameBoardSwimlane = await ReactiveCache.getSwimlane({
+        _id: moveParams.swimlaneId,
+        boardId: paramBoardId,
+      });
+      if (!sameBoardSwimlane) {
+        sendJsonResult(res, {
+          code: 400,
+          data: {
+            error: 'swimlaneId does not belong to this board. To move a card to '
+              + 'another board, send newBoardId, newSwimlaneId and newListId.',
+          },
+        });
+        return;
+      }
       await Cards.direct.updateAsync(
         { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
         { $set: { swimlaneId: moveParams.swimlaneId } },
       );
       updated = true;
     }
-    if (moveParams.listId) {
+    if (moveParams.listId && !moveParams.isBoardMove) {
+      const sameBoardList = await ReactiveCache.getList({
+        _id: moveParams.listId,
+        boardId: paramBoardId,
+      });
+      if (!sameBoardList) {
+        sendJsonResult(res, {
+          code: 400,
+          data: {
+            error: 'listId does not belong to this board. To move a card to '
+              + 'another board, send newBoardId, newSwimlaneId and newListId.',
+          },
+        });
+        return;
+      }
       // Issue #5399: a same-board list move must land the card on TOP of the
       // destination list (like the Move Card dialog: getMinSort then
       // minSort - 1), otherwise it only $set listId and the card landed at a

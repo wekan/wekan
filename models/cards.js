@@ -2614,17 +2614,24 @@ Cards.helpers({
 
       // #3392: card-to-card dependencies ("Red Strings") only connect cards on
       // the same board. When a card moves to another board, drop its now
-      // cross-board dependencies and remove inbound references to it from the
-      // cards left behind on the old board, so no dangling lines remain.
+      // cross-board dependencies. This half is part of the by-_id update below,
+      // so it is allowed from the client.
+      //
+      // The OTHER half - removing inbound references to this card from the cards
+      // left behind on the old board - needs a multi-document update with a
+      // compound selector, and it used to be done right here. This helper is
+      // called straight from client code (list.js, swimlanes.js, globalSearch.js,
+      // sidebarFilters.js, minicard.js), and Meteor's insecure-write rule only
+      // lets untrusted code updateAsync BY ID: every cross-board move therefore
+      // threw "Not permitted. Untrusted code may only updateAsync documents by
+      // ID" and never reached the move itself (#6572). addDependency,
+      // setDependencyProps and removeDependency above already follow that rule -
+      // this was the one place that did not.
+      //
+      // It is a Cards.after.update hook in server/models/cards.js now, where a
+      // selector is allowed, and being server-side it also covers the REST API
+      // and import paths, which never ran this helper at all.
       mutatedFields.cardDependencies = [];
-      await Cards.updateAsync(
-        {
-          boardId: previousState.boardId,
-          'cardDependencies.cardId': this._id,
-        },
-        { $pull: { cardDependencies: { cardId: this._id } } },
-        { multi: true },
-      );
     }
 
     await Cards.updateAsync(this._id, { $set: mutatedFields });
