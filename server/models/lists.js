@@ -753,11 +753,32 @@ WebApp.handlers.get('/api/boards/:boardId/lists', async function(req, res) {
     const paramBoardId = req.params.boardId;
     await Authentication.checkBoardAccess(req.userId, paramBoardId);
 
+    // #5251: two dates per list, so a client can tell whether anything changed
+    // without fetching every card and diffing it.
+    //
+    //   modifiedAt      - the LIST document: title, sort, archived.
+    //   cardsModifiedAt - the newest change among the cards IN it: a card added,
+    //                     edited or archived. The list's own modifiedAt does not
+    //                     move for those, which is what made this unanswerable.
+    //
+    // One query for the board's cards and a reduction in memory, rather than a
+    // query per list. Archived cards are included on purpose: archiving a card is
+    // one of the changes the client is asking about.
+    const { newestCardChangeByList } = require('/models/lib/listActivityDates');
+    const lists = await ReactiveCache.getLists({ boardId: paramBoardId, archived: false });
+    const cards = await ReactiveCache.getCards(
+      { boardId: paramBoardId },
+      { fields: { listId: 1, modifiedAt: 1, dateLastActivity: 1 } },
+    );
+    const newestByList = newestCardChangeByList(cards);
+
     sendJsonResult(res, {
       code: 200,
-      data: (await ReactiveCache.getLists({ boardId: paramBoardId, archived: false })).map(doc => ({
+      data: lists.map(doc => ({
         _id: doc._id,
         title: doc.title,
+        modifiedAt: doc.modifiedAt || null,
+        cardsModifiedAt: newestByList.get(doc._id) || null,
       })),
     });
   } catch (error) {
