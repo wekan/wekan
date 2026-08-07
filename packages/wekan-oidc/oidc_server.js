@@ -38,8 +38,30 @@ OAuth.registerService('oidc', 2, null, async function (query) {
   var token = await getToken(query);
   if (debug) console.log('XXX: register token:', token);
 
+  // #5174: everything below reads fields off the provider's answer, so the
+  // answer has to BE something first. When it is not, the failure has to name
+  // the provider's own complaint rather than surface as a TypeError three lines
+  // later - the reported case was a scope mismatch, and what the admin saw was
+  // "Cannot read property 'ocs' of null".
+  if (!token || typeof token !== 'object') {
+    throw new Error('OIDC: the token endpoint returned no usable response. '
+      + 'Check the provider log for the authorization code exchange.');
+  }
+
   var accessToken = token.access_token || token.id_token;
-  var expiresAt = (+new Date) + (1000 * parseInt(token.expires_in, 10));
+  if (!accessToken) {
+    // A 200 with neither token in it: the provider answered, and what it
+    // answered with is the useful part. Keys only - the values are secrets.
+    throw new Error('OIDC: the token endpoint returned neither access_token nor '
+      + 'id_token. It returned these fields: ' + Object.keys(token).join(', ')
+      + (token.error_description ? ' (' + token.error_description + ')' : ''));
+  }
+
+  // parseInt(undefined) is NaN, and NaN propagates into the account's expiry
+  // silently. A provider that sends no expires_in gets the OAuth2 default hour.
+  var expiresIn = parseInt(token.expires_in, 10);
+  if (!Number.isFinite(expiresIn)) expiresIn = 3600;
+  var expiresAt = (+new Date) + (1000 * expiresIn);
 
   var claimsInAccessToken = (process.env.OAUTH2_ADFS_ENABLED === 'true'  ||
                              process.env.OAUTH2_ADFS_ENABLED === true    ||
@@ -57,8 +79,29 @@ OAuth.registerService('oidc', 2, null, async function (query) {
     userinfo = await getUserInfo(accessToken);
   }
 
-  if (userinfo.ocs) userinfo = userinfo.ocs.data; // Nextcloud hack
+  // #5174: getTokenContent() returns NULL for a token it cannot parse, and the
+  // ADFS/B2C branch above assigns that straight into userinfo - so this line was
+  // `null.ocs` and threw "Cannot read property 'ocs' of null", which says
+  // nothing about what actually went wrong. Both branches are checked here, once,
+  // before anything reads a claim.
+  if (!userinfo || typeof userinfo !== 'object') {
+    throw new Error('OIDC: no user information came back from the provider ('
+      + (claimsInAccessToken
+        ? 'claims were expected inside the access token, which could not be parsed'
+        : 'the userinfo endpoint returned nothing usable')
+      + '). Check the provider log, and that the scopes WeKan requests '
+      + '(OAUTH2_REQUEST_PERMISSIONS) are the ones the provider allows.');
+  }
+
+  // Both hacks re-point userinfo at a nested object, so both need that object to
+  // exist: a Nextcloud response with `ocs` but no `ocs.data` used to replace
+  // userinfo with undefined and fail on the next line instead of this one.
+  if (userinfo.ocs && userinfo.ocs.data) userinfo = userinfo.ocs.data; // Nextcloud hack
   if (userinfo.metadata) userinfo = userinfo.metadata // Openshift hack
+  if (!userinfo || typeof userinfo !== 'object') {
+    throw new Error('OIDC: the provider response unwrapped to nothing usable '
+      + '(ocs/metadata). Check the provider log.');
+  }
   if (debug) console.log('XXX: userinfo:', userinfo);
 
   serviceData.id = userinfo[process.env.OAUTH2_ID_MAP]; // || userinfo["id"];
@@ -86,6 +129,12 @@ OAuth.registerService('oidc', 2, null, async function (query) {
   }
 
   if (process.env.OAUTH2_B2C_ENABLED  === 'true'  || process.env.OAUTH2_B2C_ENABLED  === true) {
+    // #5174: an Azure AD B2C token without the `emails` claim - which is what a
+    // scope the tenant did not grant produces - made this `undefined[0]`.
+    if (!Array.isArray(userinfo.emails) || !userinfo.emails.length) {
+      throw new Error('OIDC (B2C): the token carries no "emails" claim. The '
+        + 'tenant must be configured to release it for the requested scopes.');
+    }
     serviceData.email = userinfo["emails"][0];
   }
 
