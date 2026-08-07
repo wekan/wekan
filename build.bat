@@ -1291,16 +1291,33 @@ if /i "%INSTALL_DEPS%"=="y" (
 	popd
 )
 
-REM All three browsers run natively on Windows. Use --workers=1 so a single
-REM Playwright run executes Chromium, Firefox and WebKit tests one at a time
-REM (sequentially) rather than concurrently: running all three at once uses too
-REM much RAM/swap and can crash the machine. WEKAN_PLAYWRIGHT_ALL=1 enables all
-REM projects.
-cd /d "%REPO%\tests\playwright"
-set "WEKAN_PLAYWRIGHT_ALL=1"
-call meteor npm exec playwright test -- --project=chromium --project=firefox --project=webkit --workers=1 --reporter=list
-if errorlevel 1 ( echo RESULT: Some Playwright browsers FAILED ^(see details above^). ) else ( echo RESULT: All Playwright browsers passed. )
+REM One browser at a time, each with its own log - the same as build.sh's
+REM run_playwright_parallel, and the same per-browser logs the whole-suite runs
+REM write. Running all three concurrently against one dev server uses too much
+REM RAM/swap on smaller machines and can crash it, so this stays sequential.
+REM
+REM It used to be a single `playwright test --project=... --project=...` call
+REM with no log at all: everything went to the terminal and there was nothing
+REM left to read afterwards, which is what tests/dbConformanceWiring.test.cjs
+REM means by "every Tests option writes its log to ../log/<datetime>/".
+set "PW_ALL_FAILED=0"
+for %%B in (chromium firefox webkit) do call :pw_one_browser %%B
+if "%PW_ALL_FAILED%"=="1" ( echo RESULT: Some Playwright browsers FAILED ^(see the logs above^). ) else ( echo RESULT: All Playwright browsers passed. )
 goto end
+
+:pw_one_browser
+REM One browser of the "ALL browsers" option: %1 = chromium^|firefox^|webkit.
+REM Streams live AND writes wekan-playwright-^<browser^>.log, via the same
+REM :onelog helper every other Tests option uses.
+set "PW_PROJECT=%~1"
+call :onelog playwright-%PW_PROJECT%
+echo ==^> Playwright %PW_PROJECT% ^(one browser at a time^). Log: %ONELOG%
+pushd "%REPO%\tests\playwright"
+set "WEKAN_PLAYWRIGHT_ALL=1"
+call meteor npm exec playwright test -- --project=%PW_PROJECT% --output=test-results\%PW_PROJECT% --reporter=list 2>&1 | powershell -NoProfile -Command "$input | Tee-Object -FilePath '%ONELOG%'"
+if errorlevel 1 set "PW_ALL_FAILED=1"
+popd
+exit /b 0
 
 REM ===========================================================================
 :check_floating

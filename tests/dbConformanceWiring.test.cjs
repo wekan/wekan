@@ -317,9 +317,25 @@ test('every Tests option writes its log to ../log/<datetime>/', () => {
     assert.ok(sh.includes(`one_log ${name}`), `build.sh: ${name} must be logged`);
   }
   assert.ok(/^:onelog/m.test(bat), 'build.bat has the same helper');
+  // `playwright-all` was on this list and is deliberately gone. It named a
+  // single combined log for a run of all three browsers, and two things were
+  // wrong with it: build.sh writes one log PER BROWSER for the same option (and
+  // CLAUDE.md's "check the newest test logs" names the per-browser files), and
+  // the one place build.bat wrote it, the call sat inside a `cmd /c` child
+  // process, which has no build.bat labels to call - so %ONELOG% was empty there
+  // and the log was never written. Both the "ALL browsers" option and the
+  // whole-suite runs now log per browser through playwright-%PW_PROJECT%.
   for (const name of ['mocha', 'import', 'e2e', 'floating-promises', 'test-counts',
-    'playwright-%PW_PROJECT%', 'playwright-all']) {
+    'playwright-%PW_PROJECT%']) {
     assert.ok(bat.includes(`call :onelog ${name}`), `build.bat: ${name} must be logged`);
+  }
+  // And the ALL-browsers option must log at ALL - it printed to the terminal and
+  // nowhere else, which is the exact thing this test is about.
+  const pwAll = bat.slice(bat.indexOf(':test_pw_parallel'), bat.indexOf(':check_floating'));
+  assert.ok(/call :onelog playwright-/.test(pwAll),
+    'build.bat: the "Playwright ALL browsers" option must write logs, not just print');
+  for (const b of ['chromium', 'firefox', 'webkit']) {
+    assert.ok(new RegExp(`\\b${b}\\b`).test(pwAll), `and cover ${b}`);
   }
   assert.ok(/Run all FerretDB tests - SEQUENTIAL/.test(bat), 'build.bat: FerretDB entry');
   assert.ok(/EVERYTHING \^\(sequential\^\)/.test(bat), 'build.bat: EVERYTHING entry');
