@@ -113,8 +113,16 @@ test('a slow Launchpad arch can neither fail the release nor cancel another arch
   assert.ok(/fail-fast: false/.test(launchpad), 'fail-fast: false');
   const timeout = launchpad.match(/timeout-minutes: (\d+)/);
   assert.ok(timeout, 'timeout-minutes must bound a stuck build');
-  assert.ok(Number(timeout[1]) >= 120,
-    `timeout-minutes: ${timeout[1]} is too short for a Launchpad queue`);
+  // Raised from 180 after v10.71: the riscv64 leg spent 2h24m queueing for a
+  // builder on attempt 1 alone, so 180 minutes bought ONE attempt out of three
+  // and the job's own timeout - "The operation was canceled." - was what ended
+  // it, 35 minutes into attempt 2. A retry loop the job does not outlive is not
+  // a retry loop, so this must fit two slow attempts. GitHub's per-job ceiling
+  // is 360.
+  assert.ok(Number(timeout[1]) >= 300,
+    `timeout-minutes: ${timeout[1]} does not fit two attempts on a slow arch`);
+  assert.ok(Number(timeout[1]) <= 360,
+    `timeout-minutes: ${timeout[1]} is over GitHub's per-job ceiling`);
 });
 
 test('it names the secret it is missing, and the one Launchpad refused', () => {
@@ -245,18 +253,115 @@ test('the mongodb part cannot stage bin as a symlink', () => {
   assert.ok(/stage:\n\s+- bin\n/.test(part), 'it stages bin');
   // ...so it must guarantee bin is a real directory by then.
   assert.ok(/override-stage: \|/.test(part), 'and it takes over the stage step to do it');
-  assert.ok(/if \[ -L "\$\{CRAFT_PART_INSTALL\}\/bin" \]/.test(part),
-    'testing for a SYMLINK specifically - a real directory must be left alone');
-  assert.ok(/rm -f "\$\{CRAFT_PART_INSTALL\}\/bin"/.test(part),
-    'replacing it rather than mkdir -p, which follows a symlink and changes nothing');
-  assert.ok(/mkdir -p "\$\{CRAFT_PART_INSTALL\}\/bin"/.test(part), 'with a real directory');
-  assert.ok(/craftctl default/.test(part),
+
+  const stageAt = part.indexOf('override-stage: |');
+  const stage = code(part.slice(stageAt, part.indexOf('\n        stage:', stageAt)));
+
+  // CHANGED after v10.71, and this is the reason. The first fix tested for a
+  // symlink and nothing else - `if [ -L ... ]` - and the v10.71 logs show that
+  // test running, coming out FALSE on s390x, ppc64el and riscv64, and the build
+  // dying in exactly the same IsADirectoryError immediately after it. So `bin`
+  // was some other thing that is not a directory, the symlink was only the
+  // shape the FIRST failure happened to have, and a guard written to one shape
+  // of a failure is a guard that passes while the build breaks. What the part
+  // needs is the invariant, not the diagnosis: when this part carries no mongod,
+  // bin is an empty real directory whatever it was before.
+  assert.ok(/if \[ ! -f "\$\{CRAFT_PART_INSTALL\}\/bin\/mongod" \]/.test(stage),
+    'the condition is "this part has no mongod", which covers every shape bin '
+    + 'can have - symlink, regular file, or missing - not just the symlink');
+  assert.ok(!/if \[ -L "\$\{CRAFT_PART_INSTALL\}\/bin" \]/.test(stage),
+    'the symlink-only test is what let v10.71 through; it must not come back');
+  assert.ok(/rm -rf "\$\{CRAFT_PART_INSTALL\}\/bin"/.test(stage),
+    'removing first - mkdir -p FOLLOWS a symlink and would change nothing - and '
+    + 'rm -rf takes a directory or a regular file too, where rm -f took neither');
+  assert.ok(/mkdir -p "\$\{CRAFT_PART_INSTALL\}\/bin"/.test(stage),
+    'then a real directory, which merges into stage/bin without changing it');
+  assert.ok((stage.match(/ls -ld "\$\{CRAFT_PART_INSTALL\}\/bin"/g) || []).length >= 2,
+    'and it prints what bin was before and after: the reason this took two '
+    + 'attempts is that no log ever said what the thing actually was');
+  assert.ok(/craftctl default/.test(stage),
     'and then staging normally - an override-stage that forgets this stages nothing at all');
 
   // The arch split that creates the situation is still the one described above:
   // a case with amd64 and arm64, and everything else exiting early.
   assert.ok(/No MongoDB server for \$\{CRAFT_ARCH_BUILD_FOR\}/.test(part),
     'the FerretDB-only arches still skip mongod');
+});
+
+test('the mongodb stage-packages are the names noble actually publishes', () => {
+  // v10.71 armhf never got as far as building anything:
+  //     Stage package not found in part 'mongodb': libssl3.
+  //     Stage package not found in part 'mongodb': libgoogle-perftools4.
+  // Ubuntu 24.04's 64-bit time_t transition renamed both to `...t64`. On the
+  // 64-bit architectures the renamed package also PROVIDES the old name, so the
+  // old spelling resolves there and the mistake is invisible; on armhf the ABI
+  // genuinely changed, there is no compatibility provide, and the old name does
+  // not exist. Checked against the noble archive: libssl3t64 is published for
+  // all seven architectures and libgoogle-perftools4t64 for every one that
+  // builds a snap.
+  const yaml = fs.readFileSync(path.join(repoRoot, 'snapcraft.yaml'), 'utf8');
+  const partAt = yaml.indexOf('\n    mongodb:\n        plugin: nil');
+  const part = yaml.slice(partAt, yaml.indexOf('\n    migratemongo:', partAt));
+  const listAt = part.indexOf('stage-packages:');
+  const pkgs = [...code(part.slice(listAt, part.indexOf('override-build:', listAt)))
+    .matchAll(/^\s+- (\S+)$/gm)].map(m => m[1]);
+  assert.ok(pkgs.length > 5, 'the stage-packages list must still be there');
+
+  for (const [wrong, right] of [['libssl3', 'libssl3t64'],
+                                ['libgoogle-perftools4', 'libgoogle-perftools4t64']]) {
+    assert.ok(pkgs.includes(right), `${right} is the name noble publishes on every snap arch`);
+    assert.ok(!pkgs.includes(wrong),
+      `${wrong} resolves on the 64-bit arches through a compatibility provide and `
+      + 'fails on armhf, which is a build that breaks on one architecture only');
+  }
+});
+
+test('the caddy part resolves its version without the GitHub API', () => {
+  // v10.71's wekan-gantt-gpl amd64 snap died on one line of this part:
+  //     curl: (22) The requested URL returned error: 403
+  // api.github.com rate-limits unauthenticated callers by IP and a CI runner
+  // shares its address with every other job on the host. The pinned fallback
+  // was already there, on the very next line, and never ran: snapcraft runs a
+  // scriptlet under `set -o pipefail`, so the 403 failed the ASSIGNMENT and
+  // `set -e` ended the part one line above its own safety net.
+  const yaml = fs.readFileSync(path.join(repoRoot, 'snapcraft.yaml'), 'utf8');
+  const caddy = code(yaml.slice(yaml.indexOf('\n    caddy:\n')));
+
+  assert.ok(!/api\.github\.com/.test(caddy),
+    'nothing the shell RUNS may call api.github.com - the comment above it may '
+    + 'name the API, since it is explaining what broke');
+  assert.ok(/releases\/latest/.test(caddy) && /url_effective/.test(caddy),
+    'the version comes from the releases/latest REDIRECT, which is not the API '
+    + 'and is not rate-limited the same way');
+  assert.ok(/\|\| true/.test(caddy),
+    'and the lookup is allowed to fail: without that, pipefail plus set -e ends '
+    + 'the part before the fallback, which is exactly what happened');
+  assert.ok(/CADDY_PINNED_VERSION="\d+\.\d+\.\d+"/.test(caddy),
+    'there is a pinned version to fall back to');
+  assert.ok(/CADDY_VERSION="\$\{CADDY_PINNED_VERSION\}"/.test(caddy),
+    'and something actually falls back to it - a pin nothing assigns is a comment');
+  assert.ok(/if \[ -n "\$\{CADDY_VERSION:-\}" \]/.test(caddy),
+    'CADDY_VERSION from the environment still wins, for a reproducible build');
+});
+
+test('the Launchpad build logs outlive the job that made them', () => {
+  // The Launchpad build log is deleted with the temporary snap recipe, so when
+  // v10.71 needed the mongodb part's output from an hour before the failure,
+  // the only copy that had ever existed was a 150-line tail in a job log.
+  const launchpad = job('snap-launchpad');
+  assert.ok(/uses: actions\/upload-artifact/.test(launchpad),
+    'the full logs must be uploaded as an artifact');
+  assert.ok(/name: snap-launchpad-logs-\$\{\{ matrix\.arch \}\}/.test(launchpad),
+    'one artifact per arch, or six jobs collide on one name');
+  const collectAt = launchpad.indexOf('Collect the FULL build logs');
+  assert.notStrictEqual(collectAt, -1, 'the logs are collected into a directory first');
+  assert.ok(/if: always\(\)/.test(launchpad.slice(collectAt)),
+    'always(), not failure(): a build that succeeded on attempt 2 still hides why '
+    + 'attempt 1 did not');
+  // And the excerpt in the job log itself must not be a blind tail any more.
+  assert.ok(/grep -n -E -B 5 -A 20 'Build failed\|/.test(launchpad),
+    'the job log prints the lines around the failure markers, not only the tail: '
+    + 'in v10.71 the tail was 150 lines of lpbuildd traceback');
 });
 
 test('every platform is in all the places that build it', () => {

@@ -3337,7 +3337,14 @@ jobs:
     # clear message instead of GitHub's silent 6h cancel. fail-fast: false so one arch
     # never cancels the others - each publishes the moment it finishes.
     continue-on-error: true
-    timeout-minutes: 180
+    # 180 minutes was one attempt on the slow arches, not three. In v10.71 the
+    # riscv64 leg spent 2h24m on attempt 1 - almost all of it queueing for a
+    # riscv64 builder - failed it, and was cancelled by this timeout 35 minutes
+    # into attempt 2, which is the "The operation was canceled." in that job and
+    # not a Launchpad problem at all. The retry loop is only worth having if the
+    # job outlives the retries, so allow for two full slow-arch attempts. 350 is
+    # under GitHub's 360-minute per-job ceiling.
+    timeout-minutes: 350
     strategy:
       fail-fast: false
       matrix:
@@ -3477,7 +3484,15 @@ jobs:
             # when snapcraft's exit code is non-zero, which is how v10.48 fetched it
             # and threw it away.
             for log in snapcraft-wekan-*.txt; do
-              echo "::group::Launchpad build log: $log (last 150 lines)"
+              echo "::group::Launchpad build log: $log (what failed, then the last 150 lines)"
+              # The tail alone is not where the cause is. snapcraft's own error is
+              # followed by lpbuildd's Python traceback, the proxy-token revocation
+              # and the process scan, so on v10.71 the 150 lines held the
+              # IsADirectoryError but NOT the mongodb part's build output that
+              # would have said what `bin` actually was. Print the lines around
+              # every failure marker first, and keep the tail after it.
+              grep -n -E -B 5 -A 20 'Build failed|failed with code|Detailed information|Stage package not found|Failed to run snapcraft|error:' "$log" | tail -n 250 || true
+              echo "--- last 150 lines ---"
               tail -n 150 "$log"
               echo "::endgroup::"
             done
@@ -3535,6 +3550,30 @@ jobs:
             echo "::error::LP_CREDENTIALS may not work: the Launchpad build log shows an authorization failure. Re-create it (snapcraft remote-build once locally) and set: base64 -w0 ~/.local/share/snapcraft/launchpad-credentials" >&2
           fi
           exit 1
+
+      - name: Collect the FULL build logs for ${{ matrix.arch }}
+        # An excerpt in the job log answers "what failed"; it does not answer
+        # "what did the mongodb part print an hour earlier", which is what the
+        # v10.71 staging failure needed and nobody could get afterwards - the
+        # Launchpad build log is deleted with the temporary snap recipe, so once
+        # the job is over the only copy is the one kept here. always(), not
+        # failure(): a build that succeeded on attempt 2 hides why attempt 1 did
+        # not, and these are a few hundred KB of text.
+        if: always()
+        run: |
+          set -uo pipefail
+          mkdir -p snap-logs
+          cp -f snapcraft-wekan-*.txt snap-logs/ 2>/dev/null || true
+          cp -f "$HOME"/.local/state/snapcraft/log/*.log snap-logs/ 2>/dev/null || true
+          ls -la snap-logs || true
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: snap-launchpad-logs-${{ matrix.arch }}
+          path: snap-logs/
+          if-no-files-found: ignore
+          retention-days: 30
 
       - name: Push ${{ matrix.arch }} to the Snap Store (stable + candidate + beta + edge)
         env:

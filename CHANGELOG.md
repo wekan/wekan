@@ -274,10 +274,15 @@ starting at all. It throws `jQuery requires a window with a document` the moment
 it is loaded outside a browser, and the **CSV importer** carried an unused
 jQuery import that the server bundle pulled in, so every start died before the
 first route existed. That import is gone, and a new guard walks the server's
-import graph so no browser-only package can reach it again. Below that: an npm
-dependency refresh, the **snap-launchpad** job that stopped blaming a working
-**LP_CREDENTIALS** for every Stopped Launchpad build, and the usual
-documentation and translation work.
+import graph so no browser-only package can reach it again. The **snap** builds
+are the other half: v10.71 published no snap for **armhf**, **s390x**,
+**ppc64el** or **riscv64** and no **wekan-gantt-gpl** amd64, for three unrelated
+reasons - a **Caddy** version lookup rate-limited by the GitHub API, two
+**MongoDB** library packages under names Ubuntu 24.04 does not publish on armhf,
+and a `bin` that is staged when it is not a directory - and the
+**snap-launchpad** job now keeps the whole build log and outlives its own
+retries, which is what made those three take two attempts to find. Below that:
+an npm dependency refresh and the usual documentation and translation work.
 
 This release updates the following dependencies:
 
@@ -357,7 +362,126 @@ what catches the next one.
 
 </details>
 
-and has the following developer-tooling fix:
+and has the following developer-tooling fixes:
+
+**What the snap is built from** - the parts in `snapcraft.yaml`, and the three
+separate ways they stopped v10.71's snaps from building.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d352ca6eadeb1c78495064ed6e34a4cc8046d627">The Caddy part stops asking the GitHub API which version to download</a>. Thanks to xet7.</summary>
+
+The `caddy` part resolved the newest Caddy release through
+`api.github.com/repos/caddyserver/caddy/releases/latest`. That API rate-limits
+unauthenticated callers by IP address, and a CI runner shares its address with
+every other job on the same host, so it answers 403 whenever the neighbours have
+been busy. In v10.71 it did, and one line failed the whole wekan-gantt-gpl amd64
+snap: `curl: (22) The requested URL returned error: 403`, then `'override-build'
+in part 'caddy' failed with code 22`.
+
+There was already a pinned fallback for exactly this, on the very next line, and
+it never ran. snapcraft executes a scriptlet under `set -o pipefail` as well as
+`set -e`, so the 403 failed the *assignment* and ended the part one line above
+its own safety net - which is why the job log shows `CADDY_VERSION=` being set
+to nothing and then nothing more. A fallback that the failure it covers skips
+over is not a fallback.
+
+The version now comes from `github.com/caddyserver/caddy/releases/latest`, which
+is a redirect to the newest tag rather than an API call and is not rate-limited
+the same way; the tag is read out of the URL it lands on. The lookup is allowed
+to fail (`|| true` keeps the substitution's status 0), an empty answer selects
+the pin, and a release that publishes no archive for this architecture falls
+back to the pin as well instead of failing the snap. Setting `CADDY_VERSION` in
+the environment still overrides everything, for a reproducible build. Verified
+by running the scriptlet: it resolves 2.11.4 from the redirect, falls back to
+the pin with the lookup pointed at an unreachable host, honours an explicit
+`CADDY_VERSION` - and the old line, under the same shell options, dies before
+its fallback exactly as it did in the release.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d352ca6eadeb1c78495064ed6e34a4cc8046d627">The mongodb part asks for the package names Ubuntu 24.04 really publishes</a>. Thanks to xet7.</summary>
+
+The armhf snap never got as far as building anything: `Stage package not found
+in part 'mongodb': libssl3.` and, on the next attempts, the same for
+`libgoogle-perftools4`. Ubuntu 24.04's 64-bit `time_t` transition renamed both
+packages to `libssl3t64` and `libgoogle-perftools4t64`. On the 64-bit
+architectures the renamed package also *provides* the old name, so the old
+spelling resolves there and the mistake stays invisible; on armhf the ABI
+genuinely changed, there is no compatibility provide, and the old name does not
+exist at all. One architecture failing on a name every other architecture
+accepts is what that looks like from the outside.
+
+Both are now spelled the way the archive spells them. Checked against the noble
+archive rather than assumed: `libssl3t64` is published for amd64, arm64, armhf,
+i386, ppc64el, riscv64 and s390x, and `libgoogle-perftools4t64` for every one of
+those except i386 - which builds no snap, because core24 has no i386 port.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d352ca6eadeb1c78495064ed6e34a4cc8046d627">The mongodb part makes bin a real directory whatever it was before</a>. Thanks to xet7.</summary>
+
+The s390x, ppc64el and riscv64 snaps died in the stage step, right after
+`Staging mongodb`: `/build/.../stage/bin: Is a directory`, `IsADirectoryError`.
+The part is staged last of the ones that carry a `bin/`, so `stage/bin` is
+already a real directory by then, and staging something that is *not* a
+directory on top of it fails the whole snap rather than that one part.
+
+This was fixed once, in v10.70, by replacing a `bin` **symlink** with a real
+directory - the shape the first failure had. The v10.71 logs show that guard
+running, its `[ -L ... ]` test coming out **false**, and the build dying in the
+identical way immediately afterwards. So `bin` was something else that is not a
+directory, the symlink was only one shape of the problem, and a guard written to
+one shape passes while the build breaks.
+
+The condition is now the invariant rather than the diagnosis: when this part
+carries no `mongod` - the FerretDB-only architectures, where MongoDB ships no
+server and the build exits early - `bin` becomes an empty real directory
+whatever it was, since `rm -rf` takes a symlink, a regular file or a directory
+where the old `rm -f` took neither of the last two, and removing a symlink
+leaves what it pointed at alone. An empty real directory merges into `stage/bin`
+and changes nothing. Where `mongod` really is there, amd64 and arm64, nothing is
+touched.
+
+It also prints `ls -ld` of `bin` before and after, because the reason this
+needed two attempts is that no log ever recorded what the thing actually was.
+Verified by running the scriptlet against each shape - symlink, regular file,
+missing, empty directory, and a directory holding `mongod` - and checking what
+it leaves behind, including that the symlink case does not delete the directory
+it points at.
+
+</details>
+
+**The snap-launchpad job** - how the remote builds are run, and what they leave
+behind to read afterwards.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d352ca6eadeb1c78495064ed6e34a4cc8046d627">A Launchpad build keeps its whole log, and the job outlives its own retries</a>. Thanks to xet7.</summary>
+
+Two things about the job made the failures above harder to fix than they should
+have been.
+
+The build log is downloaded by `remote-build` and printed as its last 150 lines.
+For v10.71's staging failure those 150 lines were the `IsADirectoryError` and
+then lpbuildd's own Python traceback, the proxy-token revocation and the process
+scan - everything except the mongodb part's output from an hour earlier, which
+is the part that would have said what `bin` was. The Launchpad build log is
+deleted along with the temporary snap recipe, so once the job ended, no copy of
+it existed anywhere. The job now prints the lines *around* every failure marker
+as well as the tail, and uploads the complete Launchpad and snapcraft logs as a
+`snap-launchpad-logs-<arch>` artifact - on `always()`, not `failure()`, because
+a build that succeeds on attempt 2 otherwise hides why attempt 1 did not.
+
+The other is the job timeout, which was 180 minutes for a step that retries
+three times. The riscv64 leg spent 2h24m on attempt 1 alone, almost all of it
+queueing for a riscv64 builder, failed it on the `bin` bug above, and was cut
+off 35 minutes into attempt 2 - the `The operation was canceled.` in that job is
+this timeout and not Launchpad at all. A retry loop the job does not outlive is
+not a retry loop; 350 minutes fits two slow attempts and stays under GitHub's
+360-minute per-job ceiling.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8ebeb85832c62aeba72d774cdb4df7d5c6105f43">The snap-launchpad job stops blaming LP_CREDENTIALS for every Stopped Launchpad build</a>. Thanks to xet7.</summary>

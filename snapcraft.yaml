@@ -188,8 +188,21 @@ parts:
     mongodb:
         plugin: nil
         #source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-7.0.34.tgz
+        # The `t64` names are the real package names in Ubuntu 24.04 (noble), and
+        # they are spelled out here because the plain ones are not portable
+        # across its architectures. The 64-bit time_t transition renamed both of
+        # these; on the 64-bit arches the new package also PROVIDES the old name,
+        # so `libssl3` and `libgoogle-perftools4` resolve there and nobody
+        # noticed, but on armhf the ABI really changed, there is no such
+        # compatibility provide, and the build stops before it starts:
+        #     Stage package not found in part 'mongodb': libssl3.
+        #     Stage package not found in part 'mongodb': libgoogle-perftools4.
+        # which is how the v10.71 armhf snap failed all three attempts. Checked
+        # against the noble archive: libssl3t64 is published for amd64, arm64,
+        # armhf, i386, ppc64el, riscv64 and s390x, and libgoogle-perftools4t64
+        # for every one of those except i386 - which builds no snap.
         stage-packages:
-            - libssl3
+            - libssl3t64
             - libcurl4
             - libstemmer0d
             - zlib1g
@@ -201,7 +214,7 @@ parts:
             - libboost-iostreams1.83.0
             - libboost-filesystem1.83.0
             - libboost-program-options1.83.0
-            - libgoogle-perftools4
+            - libgoogle-perftools4t64
         override-build: |
             set -eu
             case "${CRAFT_ARCH_BUILD_FOR}" in
@@ -228,19 +241,37 @@ parts:
         # and riscv64 the build exits before that - MongoDB ships no server for
         # them - so the symlink survives.
         #
-        # Staging a `bin` SYMLINK on top of the real `stage/bin` DIRECTORY that
-        # an earlier part has already staged is what killed the whole build:
+        # Staging a `bin` that is NOT a real directory, on top of the real
+        # `stage/bin` DIRECTORY that an earlier part has already staged, is what
+        # killed the whole build:
         #     /build/.../stage/bin: Is a directory
         #     IsADirectoryError: filename: '/build/.../stage/bin'
         # right after "Staging mongodb", which is staged last of the parts that
         # carry a bin/. An empty real directory merges into it instead, and
         # merging an empty directory changes nothing.
+        #
+        # This used to test for a symlink ONLY - `if [ -L ... ]` - and in v10.71
+        # that test came out FALSE on s390x, ppc64el and riscv64 and the build
+        # died in exactly the same way anyway; the job log records the test
+        # running and `craftctl default` failing right after it. So `bin` was
+        # something else that is not a directory, and the only way to know what
+        # is to look: the listing below prints it, and the normalisation covers
+        # every shape - symlink, regular file, or missing entirely - instead of
+        # the one shape that was guessed from the first failure. `rm -rf` on a
+        # symlink removes the LINK, not the directory it points at, and mkdir -p
+        # after it is what makes a real one; mkdir -p alone would follow the
+        # symlink and change nothing, which is the trap the earlier fix noted.
+        #
+        # Nothing is removed when mongod is really there (amd64, arm64): that
+        # `bin` is a real directory full of binaries and must stage as it is.
         override-stage: |
-            if [ -L "${CRAFT_PART_INSTALL}/bin" ]; then
-                echo "mongodb: bin is a symlink here (no mongod for this arch); replacing it with a real directory so it can be staged."
-                rm -f "${CRAFT_PART_INSTALL}/bin"
+            echo "mongodb: bin before staging: $(ls -ld "${CRAFT_PART_INSTALL}/bin" 2>&1 || true)"
+            if [ ! -f "${CRAFT_PART_INSTALL}/bin/mongod" ]; then
+                echo "mongodb: no mongod in this part (FerretDB-only arch); making bin an empty real directory so it merges into stage/bin."
+                rm -rf "${CRAFT_PART_INSTALL}/bin"
                 mkdir -p "${CRAFT_PART_INSTALL}/bin"
             fi
+            echo "mongodb: bin as staged: $(ls -ld "${CRAFT_PART_INSTALL}/bin" 2>&1 || true)"
             craftctl default
         stage:
             - bin
@@ -416,8 +447,39 @@ parts:
             # apt repo (their network is restricted to a fetch proxy).
             # Tracks the latest stable Caddy with a pinned fallback; set
             # CADDY_VERSION explicitly for fully reproducible builds.
-            CADDY_VERSION="$(curl -fsSL https://api.github.com/repos/caddyserver/caddy/releases/latest | sed -n 's/.*"tag_name": *"v\([^"]*\)".*/\1/p' | head -1)"
-            [ -n "${CADDY_VERSION}" ] || CADDY_VERSION="2.8.4"
+            #
+            # The version is resolved WITHOUT api.github.com. That API rate-limits
+            # unauthenticated callers by IP, and a CI runner shares its address
+            # with every other job on the same host, so it answers 403 whenever
+            # the neighbours have been busy. In v10.71 that one line failed the
+            # whole wekan-gantt-gpl amd64 snap:
+            #     curl: (22) The requested URL returned error: 403
+            #     'override-build' in part 'caddy' failed with code 22.
+            # and the pinned fallback that used to sit on the next line never
+            # ran - snapcraft executes a scriptlet under `set -o pipefail` as
+            # well, so the 403 failed the ASSIGNMENT and `set -e` ended the part
+            # one line before its own safety net. A fallback that the failure it
+            # covers skips over is not a fallback, so the lookup is now allowed
+            # to fail: `|| true` keeps the substitution's status 0, and an empty
+            # answer selects the pin.
+            #
+            # github.com/…/releases/latest is a REDIRECT to the newest tag, not an
+            # API call, so it is not rate-limited the same way and answers where
+            # the API will not. The tag is read out of the URL it lands on.
+            CADDY_PINNED_VERSION="2.11.4"
+            if [ -n "${CADDY_VERSION:-}" ]; then
+                echo "caddy: using CADDY_VERSION=${CADDY_VERSION} from the environment."
+            else
+                CADDY_LATEST_URL="$(curl -fsSLI -o /dev/null -w '%{url_effective}' \
+                    https://github.com/caddyserver/caddy/releases/latest || true)"
+                CADDY_VERSION="$(printf '%s' "${CADDY_LATEST_URL}" | sed -n 's|.*/releases/tag/v\([0-9][0-9.]*\)$|\1|p')"
+                if [ -n "${CADDY_VERSION}" ]; then
+                    echo "caddy: newest release is ${CADDY_VERSION}."
+                else
+                    CADDY_VERSION="${CADDY_PINNED_VERSION}"
+                    echo "caddy: could not resolve the newest release (landed on '${CADDY_LATEST_URL}'); using the pinned ${CADDY_VERSION}."
+                fi
+            fi
             case "${CRAFT_ARCH_BUILD_FOR}" in
                 amd64)   CADDY_ARCH=amd64 ;;
                 arm64)   CADDY_ARCH=arm64 ;;
@@ -427,8 +489,21 @@ parts:
                 *) CADDY_ARCH="${CRAFT_ARCH_BUILD_FOR}" ;;
             esac
             echo "Downloading Caddy ${CADDY_VERSION} (linux/${CADDY_ARCH}) from GitHub releases..."
-            curl -fsSL -o /tmp/caddy.tar.gz \
-                "https://github.com/caddyserver/caddy/releases/download/v${CADDY_VERSION}/caddy_${CADDY_VERSION}_linux_${CADDY_ARCH}.tar.gz"
+            # The newest release does not have to publish every architecture -
+            # riscv64 and s390x are the ones that come and go - so a missing
+            # archive falls back to the pin rather than failing the snap.
+            caddy_url() {
+                echo "https://github.com/caddyserver/caddy/releases/download/v$1/caddy_$1_linux_${CADDY_ARCH}.tar.gz"
+            }
+            if ! curl -fsSL -o /tmp/caddy.tar.gz "$(caddy_url "${CADDY_VERSION}")"; then
+                if [ "${CADDY_VERSION}" = "${CADDY_PINNED_VERSION}" ]; then
+                    echo "caddy: no linux/${CADDY_ARCH} archive in Caddy ${CADDY_VERSION}, and that is the pinned version - nothing left to try." >&2
+                    exit 1
+                fi
+                echo "caddy: Caddy ${CADDY_VERSION} publishes no linux/${CADDY_ARCH} archive; falling back to the pinned ${CADDY_PINNED_VERSION}." >&2
+                CADDY_VERSION="${CADDY_PINNED_VERSION}"
+                curl -fsSL -o /tmp/caddy.tar.gz "$(caddy_url "${CADDY_VERSION}")"
+            fi
             mkdir -p /tmp/caddy-extract
             tar -xzf /tmp/caddy.tar.gz -C /tmp/caddy-extract caddy
 
