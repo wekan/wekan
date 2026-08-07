@@ -1,6 +1,5 @@
 import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
-import { isEmptyObject } from 'jquery';
 import Activities from '/models/activities';
 import Boards from './boards';
 import Cards from '/models/cards';
