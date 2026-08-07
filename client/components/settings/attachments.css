@@ -238,3 +238,21 @@
   line-height: 1.4;
   margin-top: 2px;
 }
+
+/* #6465: "Please move the button down. This is too close" - Save sat directly
+   under the 1..28 day buttons of the monthly schedule, close enough to be hit
+   while aiming for a date. The gap is on the form-group that FOLLOWS the day
+   grid, so it applies wherever that grid is used and nowhere else. */
+.attachments-content .schedule-day-buttons + .form-group,
+.schedule-day-buttons + .form-group {
+  margin-top: 18px;
+}
+
+/* #6465: "The alignment is out of place" - the move button and the labelled
+   selects beside it are one row (align-items: flex-end), so a margin of the
+   button's own would offset it from the controls it acts on. Zero it, and let
+   the row do the aligning. */
+.attachments-content .move-storage-form > button {
+  margin: 0;
+  align-self: flex-end;
+}

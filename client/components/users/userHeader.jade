@@ -266,10 +266,16 @@ template(name="changeSettingsPopup")
               option(value="#{day.value}") #{day.name}
         label.bold.clear
           | {{_ 'card-settings'}}
+        //- #6465: the checkbox and its label are ONE row, built the way every
+        //- other checkbox row in this file is (see the board list above):
+        //- a .flex anchor, the .materialCheckBox, then the text. It used to
+        //- carry a `b &nbsp;` spacer and `.left` (float: inline-start) as
+        //- well - a float inside a flex container is ignored, so the spacer
+        //- became a stray flex item and the box drifted away from the text it
+        //- belongs to, up beside the "Card settings" heading above.
         ul#cards.card-description-rescued
           a.flex.js-rescue-card-description(title="{{_ 'rescue-card-description'}}")
-            b &nbsp;
-            #rescue-card-description.materialCheckBox.left(class="{{#if rescueCardDescription}}is-checked{{/if}}", value=rescueCardDescription)
+            #rescue-card-description.materialCheckBox(class="{{#if rescueCardDescription}}is-checked{{/if}}", value=rescueCardDescription)
             span {{_ 'rescue-card-description'}}
         //- "Save", and themed. It said "Apply" while every other settings form in
         //- WeKan says Save, and it carried no `.primary` class - so it fell to the

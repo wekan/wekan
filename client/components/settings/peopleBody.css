@@ -264,3 +264,19 @@ table:not(.table-page-table) td:first-child {
    (docs/Design/Page/Table.md), so its controls row, pagination and table are
    styled there - and its pager is themed by paginationControls.css like every
    other pager. Nothing pane-specific is needed here any more. */
+
+/* #6465: the "all users" select-all in a table heading. One row, box after the
+   word, with a gap that cannot collapse - the two used to be loose inline nodes
+   in a centred heading cell, and at the column's width the box sat on top of the
+   text. inline-flex keeps the heading's own centring intact. */
+.select-all-user {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.select-all-user input.allUserChkBox {
+  margin: 0;
+  flex: none;
+}

@@ -101,8 +101,14 @@ template(name="peopleGeneral")
   +tablePage(this)
 
 template(name="selectAllUser")
-  | {{_ 'dueCardsViewChange-choice-all'}}
-  input.allUserChkBox(type="checkbox", id="chkSelectAll")
+  //- #6465: label AND box in one <label>, so the box cannot land on top of the
+  //- word. They were two loose inline nodes in a table heading: the heading
+  //- centres its content, the checkbox is replaced-content with its own
+  //- baseline, and at the width the column happens to have, the box overlapped
+  //- the text. A label also makes the word itself click the box.
+  label.select-all-user(for="chkSelectAll")
+    span {{_ 'dueCardsViewChange-choice-all'}}
+    input.allUserChkBox(type="checkbox", id="chkSelectAll")
 
 template(name="domainGeneral")
   +tablePage(tablePageData)

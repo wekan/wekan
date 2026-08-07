@@ -755,6 +755,23 @@ form.inlined-form .list-composer {
 .list-header .highlight {
   color: #ce1414;
 }
+/* #6465: the WIP counter belongs on the title line, and the header of a list
+   that has one must be as tall as its neighbours - the report showed "(2/5)"
+   dropped onto a second line under the title, making that one column's header
+   taller than the lists either side of it.
+   The counter is already inside the h2, right after the title (listHeader.jade),
+   but the title is a `+viewer`, and `.viewer` is display: block with a 22px
+   min-height: a block in the middle of a heading pushes everything after it onto
+   the next line and reserves a band under it. Inline, the counter stays where the
+   markup already puts it. Same treatment the quick-access header and the table
+   view give their viewers. */
+.list-header .list-header-name .viewer,
+.list-header .list-header-name .viewer p {
+  display: inline;
+  min-height: 0;
+  margin: 0;
+}
+
 .list-header .cardCount {
   color: #8c8c8c;
   font-size: 12px;
