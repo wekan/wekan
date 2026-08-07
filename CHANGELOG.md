@@ -356,6 +356,38 @@ This release updates the following dependencies:
 
 and fixes the following bugs:
 
+**Logging in with OIDC** - what happens when the provider says no.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a50b483ff92786886acf2faf99e7072e6b2c9607">A provider that refuses the request says so, instead of "Cannot read property 'ocs' of null"</a>. Thanks to Esther125 and xet7.</summary>
+
+[#5174](https://github.com/wekan/wekan/issues/5174): an OIDC login against a
+provider that rejected the request failed with `Error in OAuth Server: Cannot
+read property 'ocs' of null`, which says nothing about the refusal that caused
+it - the reporter's actual problem was a scope the provider did not allow.
+
+`getTokenContent()` returns NULL for a token it cannot parse, and the ADFS/B2C
+branch assigns that straight into `userinfo`. The next line was the Nextcloud
+hack, `if (userinfo.ocs)`, so the first thing to touch the failed response was a
+property read on null. Every claim read after it had the same problem; that line
+was first only by accident of ordering. So the fix is not one null check but an
+order: the provider's answer is validated once, as a whole, before anything
+reads a field off it, and each failure names what failed.
+
+Checked now: that the token response is an object; that it carries an
+`access_token` or an `id_token`, with a 200 carrying neither reported by listing
+the fields that DID come back - keys only, because the values are secrets; that
+`userinfo` is a non-null object, saying which path produced nothing and pointing
+at `OAUTH2_REQUEST_PERMISSIONS`; that the `ocs` and `metadata` hacks unwrap to
+something, since `ocs` without `ocs.data` used to set `userinfo` to undefined
+and fail one line later; that Azure AD B2C's `emails` claim is an array before
+it is indexed; and that `expires_in` parses to a finite number, since
+`parseInt(undefined)` is NaN and NaN propagated into the account's expiry
+silently. The guard pins the ORDER, because an edit that reads a claim earlier
+would restore the bug without touching a check.
+
+</details>
+
 **The size of things on a board** - what is bigger than what.
 
 <details>
