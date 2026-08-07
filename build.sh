@@ -83,6 +83,52 @@ fi
 export WEKAN_LOG_ROOT
 mkdir -p "$WEKAN_LOG_ROOT"
 
+# ── Companion repositories: wekan/.tools/<name> ──────────────────────────────
+#
+# The repos WeKan needs to run everything - wekan/FerretDB for the database
+# conformance run and FerretDB's own suites, and the patch repos - are separate
+# git repositories, not part of this one. They live in .tools/ inside this
+# checkout, which .gitignore and .meteorignore already exclude, so a clone of
+# them can never end up in a commit or in a Meteor rebuild.
+#
+# They used to be cloned as subdirectories of the repo root (wekan/FerretDB),
+# each needing its own ignore entry; one ignored directory holds all of them.
+# The repo directory, from the script's own path rather than the caller's cwd:
+# ./build.sh is normally run from the checkout, but a clone must not land in
+# whatever directory somebody happened to be in.
+WEKAN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+WEKAN_TOOLS_DIR="$WEKAN_DIR/.tools"
+export WEKAN_DIR WEKAN_TOOLS_DIR
+
+# ensure_tool_repo <name> [git-url] - the path to .tools/<name>, cloning it if it
+# is not there yet. Prints the path on stdout; everything else goes to stderr, so
+# a caller can do `dir="$(ensure_tool_repo FerretDB)"`.
+#
+# SSH first, HTTPS second: a maintainer has a key and wants to push, and anyone
+# else still gets a working clone. Returns non-zero when neither works, so the
+# caller can say what it cannot do rather than cd into nothing.
+function ensure_tool_repo(){
+	local name="$1"
+	local url="${2:-git@github.com:wekan/$name}"
+	local https_url="${url/git@github.com:/https://github.com/}"
+	local dir="$WEKAN_TOOLS_DIR/$name"
+
+	if [ -d "$dir/.git" ]; then
+		printf '%s\n' "$dir"
+		return 0
+	fi
+	mkdir -p "$WEKAN_TOOLS_DIR" || { echo "ERROR: cannot create $WEKAN_TOOLS_DIR" >&2; return 1; }
+	echo "==> $name is not in .tools/ yet; cloning $url" >&2
+	if ! git clone "$url" "$dir" >&2; then
+		echo "==> SSH clone failed (no key for github.com?); trying HTTPS." >&2
+		if ! git clone "$https_url" "$dir" >&2; then
+			echo "ERROR: could not clone $name from $url or $https_url" >&2
+			return 1
+		fi
+	fi
+	printf '%s\n' "$dir"
+}
+
 function pause(){
 	read -p "$*"
 }
@@ -1184,9 +1230,9 @@ function floating_promises_checks(){
 # not: "Install Playwright browsers" (setup, and the browser stages install what
 # they need), and "Count tests by category" (a report, not a check).
 #
-# FerretDB is expected to be a subdirectory of this repo. releases/db-conformance.sh
-# clones it if it is not there, so the only thing this checks is that the clone
-# worked before handing it the FerretDB stage.
+# FerretDB lives in .tools/FerretDB, cloned on demand by ensure_tool_repo (and by
+# releases/db-conformance.sh, which needs it a stage earlier). .tools/ is ignored
+# by git and by Meteor, so a companion repo cannot reach a commit or a rebuild.
 function run_everything(){
 	local RUN_TS RUN_LOGDIR FAILED=0
 	RUN_TS="$(date '+%Y-%m-%d_%H-%M-%S')"
@@ -1229,11 +1275,15 @@ function run_everything(){
 
 	echo
 	echo "### 4/4 FerretDB tests ########################################################"
-	if [ -x FerretDB/build.sh ]; then
-		( cd FerretDB && WEKAN_LOGDIR="$RUN_LOGDIR" ./build.sh test-all ) || ferret_rc=$?
+	# .tools/FerretDB, cloned here if this is the first run on this machine -
+	# stage 3 usually got there first, but EVERYTHING must not depend on the
+	# order of its own stages.
+	ferret_dir="$(ensure_tool_repo FerretDB)" || ferret_dir=""
+	if [ -n "$ferret_dir" ] && [ -x "$ferret_dir/build.sh" ]; then
+		( cd "$ferret_dir" && WEKAN_LOGDIR="$RUN_LOGDIR" ./build.sh test-all ) || ferret_rc=$?
 	else
-		echo "ERROR: FerretDB/build.sh is missing - db-conformance.sh clones wekan/FerretDB"
-		echo "       into this repo; run stage 3 first, or clone it by hand."
+		echo "ERROR: .tools/FerretDB/build.sh is missing and could not be cloned."
+		echo "       Clone it by hand: git clone git@github.com:wekan/FerretDB .tools/FerretDB"
 		ferret_rc=1
 	fi
 

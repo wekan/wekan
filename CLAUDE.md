@@ -126,11 +126,16 @@ pushed to Transifex as if it were human.
   - `wekan` — this repo (https://github.com/wekan/wekan); see
     `docs/DeveloperDocs/Directory-Structure.md`; `CHANGELOG.md` at root.
   - `../w/wekan.fi` — the WeKan website.
-  - `FerretDB` subdirectory (when present) — https://github.com/wekan/FerretDB, its own
+  - `.tools/` — companion repos cloned INSIDE this checkout, in one directory
+    that `.gitignore` and `.meteorignore` already exclude (they used to be one
+    ignored subdirectory each at the repo root). `build.sh`'s `ensure_tool_repo`
+    clones one on demand, so a fresh checkout needs no manual setup:
+    `.tools/FerretDB`, `.tools/node-patches`, `.tools/mongo-tools-patches`.
+  - `.tools/FerretDB` (cloned on demand) — https://github.com/wekan/FerretDB, its own
     `CHANGELOG.md`. FerretDB `.go` files must contain **no** application-specific names
     (say "the client" / "a Meteor 3 driver" / a bare `#NNNN`); its `CHANGELOG.md` may
     use `wekan/wekan#NNNN`.
-  - `sandstorm` subdirectory (when present) — https://github.com/sandstorm-io/sandstorm.
+  - `.tools/sandstorm` (when present) — https://github.com/sandstorm-io/sandstorm.
 
 ### CHANGELOG
 
@@ -342,7 +347,7 @@ All publishing / release steps below are maintainer-only. Contributors never run
   version reference, then the release jobs tag `v<new>` and publish the GitHub Release).
   An explicit `oldversion newversion` pair still overrides. Adding entries under Upcoming
   is the only hand step.
-- FerretDB: run `./build.sh release-ferretdb` from the `FerretDB` subdirectory (no
+- FerretDB: run `./build.sh release-ferretdb` from `.tools/FerretDB` (no
   version). It renames `## Upcoming FerretDB release` to the next version with the
   correct git-tag link, commits + tags + pushes, then triggers `release-all.yml` (which
   in turn triggers `docker.yml` for the multi-arch image). It refuses to re-release an

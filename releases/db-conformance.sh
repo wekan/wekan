@@ -62,10 +62,12 @@ LOGDIR="${WEKAN_LOGDIR:-$WEKAN_LOG_ROOT/$RUN_TS}"
 mkdir -p "$LOGDIR"
 LOGDIR="$(cd "$LOGDIR" && pwd)"
 
-FERRET_DIR="$WEKAN_DIR/FerretDB"
+# .tools/FerretDB: companion repos live in one ignored directory inside the
+# checkout, instead of one ignored subdirectory each at the repo root.
+FERRET_DIR="$WEKAN_DIR/.tools/FerretDB"
 # The binary this script BUILDS and tests with: FerretDB/bin/ferretdb, never a
 # downloaded release.
-FERRET_BIN="$WEKAN_DIR/FerretDB/bin/ferretdb"
+FERRET_BIN="$WEKAN_DIR/.tools/FerretDB/bin/ferretdb"
 FERRET_REPO_SSH="git@github.com:wekan/FerretDB"
 FERRET_REPO_HTTPS="https://github.com/wekan/FerretDB"
 
@@ -135,7 +137,8 @@ fi
 
 # ── 1. the FerretDB source ──────────────────────────────────────────────────
 if [ ! -d "$FERRET_DIR/.git" ]; then
-  echo "---- FerretDB source is not here; cloning wekan/FerretDB ----"
+  echo "---- FerretDB source is not in .tools/; cloning wekan/FerretDB ----"
+  mkdir -p "$(dirname "$FERRET_DIR")"
   if ! git clone "$FERRET_REPO_SSH" "$FERRET_DIR" 2>&1 | tee -a "$LOGDIR/db-conformance-build.log"; then
     echo "SSH clone failed (no key for github.com?); trying HTTPS."
     git clone "$FERRET_REPO_HTTPS" "$FERRET_DIR" 2>&1 | tee -a "$LOGDIR/db-conformance-build.log" || {
