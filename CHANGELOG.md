@@ -356,6 +356,46 @@ This release updates the following dependencies:
 
 and fixes the following bugs:
 
+**Controls and the things they belong to** - five reports, five causes.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c687daadf4d357e5653c7807320e3161302a798e">Two misplaced checkboxes, a crowded Save button, and the WIP counter back on the list title line</a>. Thanks to Alishara and xet7.</summary>
+
+The screenshots in
+[#6465](https://github.com/wekan/wekan/issues/6465#issuecomment-5187985815),
+each with the fault circled.
+
+*"Checkbox is misplaced"* - the Admin Panel people table. The select-all box and
+the "all users" it labels were two loose inline nodes in a centred table
+heading: the box is replaced content with its own baseline, and at that column's
+width it landed on the word. One `<label for>` now, an inline-flex row with a
+gap that cannot collapse - which also makes the word click the box.
+
+*"This checkbox is crazy"* - Member settings. That row carried a `b &nbsp;`
+spacer and `.left`, which is `float: inline-start`. A float inside a flex
+container is ignored and the spacer became a stray flex item, so the box drifted
+up beside the "Card settings" heading instead of sitting with its own text. It
+is the same shape every other checkbox row in that file uses now.
+
+*"(2/5) move this up here"* and *"make this same height as the lanes left and
+right"* - one cause, not two. The WIP counter is already inside the heading
+right after the title; the title is a `+viewer`, and `.viewer` is `display:
+block` with a 22px `min-height`, so it pushed everything after it onto a second
+line AND reserved a band under it, which is what made that list's header taller
+than its neighbours'. Inline, the counter stays where the markup already puts
+it.
+
+*"Please move the button down. This is too close"* - the backup schedule's Save
+sat directly under the 1-28 day buttons, close enough to hit while aiming for a
+date. The gap is on the group that FOLLOWS the day grid, so it applies where
+that grid is and nowhere else. And *"the alignment is out of place"* - the
+attachment move button - is normalisation rather than a measured fix: the row
+aligns at the bottom, so a margin of the button's own offsets it from the
+controls it acts on; that is zeroed and the alignment made explicit. Whether
+that is the whole of what was circled needs a browser, and the guard says so.
+
+</details>
+
 **Logging in with OIDC** - what happens when the provider says no.
 
 <details>
