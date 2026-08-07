@@ -356,6 +356,32 @@ This release updates the following dependencies:
 
 and fixes the following bugs:
 
+**The size of things on a board** - what is bigger than what.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a95451c67b65eb459d0ad94d3ea7ccec7e4319ed">A list heading is bigger than the cards under it again, and the Add button is a control</a>. Thanks to xet7.</summary>
+
+Reported by email with a screenshot: the *Add card* link and the *Add* button
+are too big, and things should be sized in relation to each other the way an h1
+is bigger than an h2.
+
+The measurements agreed. A list heading was 14px, while a minicard title and the
+*Add card* link set no size at all and inherited the document's 16px, and the
+composer's Add button was a 50px-tall slab. The column was labelled in fine
+print, the affordance for making a card was as loud as the cards themselves, and
+the biggest thing on screen while typing was a button.
+
+The scale is heading 16 > card title 14 >= add-card link 13 now, each stating
+its own size instead of inheriting, and the Add button is a 34px control. Mobile
+keeps its own larger sizes - the `.mobile-view` rules and the `@media` blocks -
+because a phone is read at arm's length. The guard pins the ORDER rather than
+the numbers, since that is what "in relation to each other" means, and that each
+of the three states a size of its own: an inherited size is exactly how the link
+and the card title both landed on 16px, level with each other and above their
+heading.
+
+</details>
+
 **Moving a card to another board** - the card dialog, and the REST route.
 
 <details>
