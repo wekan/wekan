@@ -49,6 +49,11 @@ held only issues \#4774 and \#4055, and both are closed now.
 <details>
 <summary>Need specific infrastructure / a running server stack we cannot reproduce here (left for environment owners).</summary>
 
+[#5707](https://github.com/wekan/wekan/issues/5707) (board invitation email
+never arrives - the reporter's own title says environment specific, and the send
+path needs a real SMTP server to tell a WeKan defect from a rejected or
+silently-dropped message; the code that composes and sends it is worth reading
+against a live log rather than guessed at),
 [#3707](https://github.com/wekan/wekan/issues/3707) &
 [#3700](https://github.com/wekan/wekan/issues/3700) (LDAP),
 [#3575](https://github.com/wekan/wekan/issues/3575) (WebHooks),
@@ -86,6 +91,14 @@ feature or a wrapper change verified on a real snap install).
 <details>
 <summary>Need the running app to reproduce/verify (runtime UI or publication/mergebox state), not unit-testable here.</summary>
 
+[#6430](https://github.com/wekan/wekan/issues/6430) (the ~1s card flicker left
+after the server-side half was fixed: on drop, list.js calls
+`$cards.sortable('cancel')` to put the DOM back BEFORE writing the move, so the
+card is drawn in its old place and then moved again by Blaze's re-render - which
+is the flicker, and why it shows on large boards and intermittently. Writing
+before cancelling, or reconciling without the cancel, is a change to the
+drag-drop reconciliation that has to be dragged in a browser to know it works;
+made blind it can break dropping entirely),
 [#4959](https://github.com/wekan/wekan/issues/4959) (per-list card counts on the
 All Boards page — the `boardLists`/`boardMembers` helpers in
 `client/components/boards/boardsList.js` were deliberately stubbed to `[]` to
