@@ -281,8 +281,14 @@ reasons - a **Caddy** version lookup rate-limited by the GitHub API, two
 **MongoDB** library packages under names Ubuntu 24.04 does not publish on armhf,
 and a `bin` that is staged when it is not a directory - and the
 **snap-launchpad** job now keeps the whole build log and outlives its own
-retries, which is what made those three take two attempts to find. Below that:
-an npm dependency refresh and the usual documentation and translation work.
+retries, which is what made those three take two attempts to find. On a board,
+**picking up a card** no longer stretches every list to fill the window: a card
+drag switches the board's panning off by removing a class, and in lists view
+that same class was the only thing holding the lists at their width. Below that:
+an npm dependency refresh, `Tests -> EVERYTHING` in **build.sh** and
+**build.bat** growing the one check it never ran and one browser log per browser
+on Windows, guards pinning what a **board export** contains, and the usual
+documentation and translation work.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -345,7 +351,47 @@ This release updates the following dependencies:
   [Update](https://github.com/wekan/wekan/commit/e30eb57e1a6435d5b151c01dc0bc6cf2e4e8a603).
   Thanks to developers of dependencies and xet7.
 
-and fixes the following bug:
+and fixes the following bugs:
+
+**Dragging a card** - what the rest of the board does while one is in the air.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c6b0af16ebae40005f19f28a8bf4dac2c00b0081">Picking up a card no longer stretches every list to fill the window</a>. Thanks to yulqen and xet7.</summary>
+
+[#6573](https://github.com/wekan/wekan/issues/6573): the moment a card was
+picked up, every list on the board expanded horizontally to fill the page, and
+dropping it snapped them all back - which makes landing a card in the intended
+list a guess. It happened when dragging inside one list too.
+
+Two changes that are each correct alone met. A list's custom width is an inline
+`--list-width` custom property, and what turns that property into an actual
+width is a rule in `list.css` whose selector needs an ancestor: `.js-swimlane`,
+`.dragscroll`, or a `swimlane-<id>` id. In **lists view** the container is
+`.swimlane.list-group.js-lists.dragscroll` - it has no `js-swimlane` class and
+no such id - so `.dragscroll` was the only one of the three that matched, and
+every list's width on that view hung on that one class. Then
+[#6558](https://github.com/wekan/wekan/issues/6558) taught a card drag to stop
+the board panning under the same pointer, and the way it does that is to REMOVE
+the `dragscroll` class from the board for the duration of the drag and put it
+back on drop.
+
+So the drag deleted the class the width rule was matching on: `flex: none` and
+the three width declarations switched off, the lists fell back to the flex rules
+and re-flowed to fill the window, for exactly as long as the drag lasted. It
+explains the workaround in the report too - dragging a list's edge first sets
+that list's width through the resize path, which is why that one column stopped
+jumping while the others still did.
+
+A layout rule may not hang on a class that an interaction removes. `.js-lists`
+is on the container in BOTH views and nothing takes it off, so the width rules,
+their mobile-mode counterpart and the resize rules now name it.
+`tests/listWidthDuringDrag.test.cjs` pins that every width rule still matches in
+lists view with `dragscroll` gone - it fails on the previous CSS, and it also
+pins the premise, that suspending the pan really does remove that class.
+
+</details>
+
+**The server bundle** - what a client-side import may drag into it.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6cada892d9bff5775995e90e70df027f5bc4e1f3">An unused jQuery import in the CSV importer crashed the server at boot under jQuery 4</a>. Thanks to xet7.</summary>
@@ -388,7 +434,7 @@ and has the following developer-tooling fixes:
 **What the snap is built from** - the parts in `snapcraft.yaml`.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/d352ca6eadeb1c78495064ed6e34a4cc8046d627">The Caddy part stops asking the GitHub API which version to download</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3c7926662c5e14dde16465d6a5380746cf298708">The Caddy part stops asking the GitHub API which version to download</a>. Thanks to xet7.</summary>
 
 The `caddy` part resolved the newest Caddy release through
 `api.github.com/repos/caddyserver/caddy/releases/latest`. That API rate-limits
@@ -420,7 +466,7 @@ its fallback exactly as it did in the release.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/d352ca6eadeb1c78495064ed6e34a4cc8046d627">The mongodb part asks for the package names Ubuntu 24.04 really publishes</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3c7926662c5e14dde16465d6a5380746cf298708">The mongodb part asks for the package names Ubuntu 24.04 really publishes</a>. Thanks to xet7.</summary>
 
 The armhf snap never got as far as building anything: `Stage package not found
 in part 'mongodb': libssl3.` and, on the next attempts, the same for
@@ -440,7 +486,7 @@ those except i386 - which builds no snap, because core24 has no i386 port.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/d352ca6eadeb1c78495064ed6e34a4cc8046d627">The mongodb part makes bin a real directory whatever it was before</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3c7926662c5e14dde16465d6a5380746cf298708">The mongodb part makes bin a real directory whatever it was before</a>. Thanks to xet7.</summary>
 
 The s390x, ppc64el and riscv64 snaps died in the stage step, right after
 `Staging mongodb`: `/build/.../stage/bin: Is a directory`, `IsADirectoryError`.
@@ -473,10 +519,50 @@ it points at.
 
 </details>
 
+**The build scripts** - what `Tests -> 1` runs, on both platforms.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c6b0af16ebae40005f19f28a8bf4dac2c00b0081">EVERYTHING runs the floating-promises guard too, and Windows gets one log per browser</a>. Thanks to xet7.</summary>
+
+`./build.sh` -> Tests -> **EVERYTHING (sequential)** is what a maintainer runs
+before a release, so a check that is in the Tests menu but not in EVERYTHING is
+a check that runs only when somebody remembers it. The **floating-promises
+guard** was exactly that: it is menu entry 12 and was in no whole-run. It is now
+the first stage of four - it takes seconds, so an unawaited permission check is
+reported before an hour of browsers rather than after it - and its return code
+is part of the verdict like every other stage's.
+
+What it runs there is checks only. The menu entry may install ripgrep and the
+`@typescript-eslint` packages and write the rule into `.eslintrc.json`, which is
+a person setting the guard up; EVERYTHING runs unattended, must not call `sudo`,
+and must not modify the tree it is testing - a run that rewrites
+`.eslintrc.json` is no longer testing the commit it started from. So the two
+checks themselves - the rule is configured, and every
+`Authentication.checkBoardAccess` / `checkBoardWriteAccess` in `server/models`
+is awaited - are one function that both callers share, and it uses `grep` rather
+than ripgrep so it also works where nothing may be installed to make it work. An
+unawaited permission check returns a pending promise, and a promise is truthy,
+so the call site passes a check that never ran.
+
+On the Windows side, `build.bat` ran the three browsers as a single Playwright
+invocation writing one `wekan-alltests-browsers.log`, where "which browser
+failed" and "what did WebKit print" could not be answered afterwards - and
+CLAUDE.md's "check the newest test logs" names the per-browser files. It now
+starts chromium, firefox and webkit as three jobs with a log, a status and a
+summary row each, as `build.sh` has always done, with a per-browser `--output`
+because Playwright clears its output directory at startup and three jobs sharing
+one would delete each other's traces. EVERYTHING itself is not reimplemented
+there: Windows hands the whole run to `releases/run-everything.sh`, which calls
+`build.sh --run-everything`, so there is one implementation and the new stage
+arrives on both platforms at once. The parity guard now pins all of it,
+including that the shared checks install nothing.
+
+</details>
+
 **Board export** - what a backup contains, pinned against the source.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/06b0b7e64b70fc395a93577aaa1a76a9a0f9f66e">Every section of a board export is pinned, so a backup cannot quietly lose one</a>. Thanks to Tuphal, KhaoulaMaleh and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ee16a41a9963d2c579f52c62f9fccc14849c7aba">Every section of a board export is pinned, so a backup cannot quietly lose one</a>. Thanks to Tuphal, KhaoulaMaleh and xet7.</summary>
 
 [#6274](https://github.com/wekan/wekan/issues/6274) was "export includes only
 comments from current year": the exporters selected comments and activities by
@@ -516,7 +602,7 @@ back - the JSON export - and the guard pins them there.
 **The mocha test stage** - what a suite on the client side may import.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/06b0b7e64b70fc395a93577aaa1a76a9a0f9f66e">A test that reads the repository moves to the side that has a filesystem</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ee16a41a9963d2c579f52c62f9fccc14849c7aba">A test that reads the repository moves to the side that has a filesystem</a>. Thanks to xet7.</summary>
 
 `client/lib/tests/boardTriggersClass.tests.js` is the regression guard for
 [#5188](https://github.com/wekan/wekan/issues/5188), the rule trigger that could
@@ -546,7 +632,7 @@ the fault.
 **Running the exotic builds on Launchpad** - and reading them afterwards.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/d352ca6eadeb1c78495064ed6e34a4cc8046d627">A Launchpad build keeps its whole log, and the job outlives its own retries</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3c7926662c5e14dde16465d6a5380746cf298708">A Launchpad build keeps its whole log, and the job outlives its own retries</a>. Thanks to xet7.</summary>
 
 Two things about the job made the failures above harder to fix than they should
 have been.
