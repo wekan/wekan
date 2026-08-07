@@ -267,14 +267,97 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** a release-tooling fix. When a **Launchpad** remote snap build for
-an exotic architecture (ppc64el, s390x, riscv64, armhf) ends as **Stopped** with
-no `.snap`, the **snap-launchpad** job no longer blames a working
-**LP_CREDENTIALS**: its authorization-failure check was matching stray digits in
-the build log, so it fired on almost every Stopped build. It now reports a
-credential problem only when the log actually shows one.
+**In short:** the prereleases WeKan was running on become finals - **Meteor
+3.5.1** and **@meteorjs/rspack 2.1.0** - and two dependencies take a major
+version: **jQuery 4** and **@babel/parser 8**. jQuery 4 stopped the server from
+starting at all. It throws `jQuery requires a window with a document` the moment
+it is loaded outside a browser, and the **CSV importer** carried an unused
+jQuery import that the server bundle pulled in, so every start died before the
+first route existed. That import is gone, and a new guard walks the server's
+import graph so no browser-only package can reach it again. Below that: an npm
+dependency refresh, the **snap-launchpad** job that stopped blaming a working
+**LP_CREDENTIALS** for every Stopped Launchpad build, and the usual
+documentation and translation work.
 
-This release has the following developer-tooling fix:
+This release updates the following dependencies:
+
+- **Meteor 3.5.1-beta.0 → 3.5.1** — the framework WeKan is built on, now on the
+  final release instead of the prerelease it was tracking. The four packages
+  that were on `-beta351.0` builds move to their finals with it: `ecmascript`
+  0.19.0, `rspack` 1.2.0, `mongo` 2.5.0 and `accounts-password` 3.3.1.
+  [Update](https://github.com/wekan/wekan/commit/65984b912ee0857a49f240cbaa5b74965b57eb3c).
+  Thanks to Meteor developers and xet7.
+- **@meteorjs/rspack 2.1.0-beta.0 → 2.1.0** — the bundler Meteor builds the
+  client with, the counterpart of the Meteor release above and off its
+  prerelease for the same reason. Fifteen packages leave the lockfile with it:
+  `node-polyfill-webpack-plugin` and the browser shims it carried
+  (`crypto-browserify`, `browserify-sign`, `elliptic`, `node-stdlib-browser`
+  and their dependencies). `body-parser` moves 1.20.5 → 1.20.6 in the same
+  install.
+  [Update](https://github.com/wekan/wekan/commit/0878de010e418a613df3e19b9e171d31eaf6016c).
+  Thanks to developers of dependencies and xet7.
+- **jquery 3.7.1 → 4.0.0** — the DOM library the whole client is written
+  against, a major version. It drops Internet Explorer and the long-deprecated
+  helpers `$.isArray`, `$.isFunction`, `$.isNumeric`, `$.type`, `$.trim`,
+  `$.proxy`, `$.now` and `$.parseJSON` - gone from
+  `node_modules/jquery/dist/jquery.js`, and none of them called anywhere in
+  WeKan's own client code - and it no longer tolerates being loaded where there
+  is no document, which is the boot crash fixed below.
+  [Update](https://github.com/wekan/wekan/commit/459ea80d041f4e542bb26cdbad1ff84a75bc409d).
+  Thanks to dependabot, jQuery developers and xet7.
+- **@babel/parser 7.29.7 → 8.0.4** — the parser Babel reads JavaScript source
+  with, also a major version. Nothing in WeKan's source imports it; it is
+  declared in `package.json` so the build resolves a single version of it.
+  [Update](https://github.com/wekan/wekan/commit/7727e5129682d09e807af40c1769c60f16010927).
+  Thanks to dependabot and xet7.
+- **An npm dependency refresh** — 926 → 903 packages in the lockfile, moving the
+  AWS S3 client 3.1095.0 → 3.1105.0, `dompurify` 3.4.12 → 3.4.13, `markdown-it`
+  14.2.0 → 14.3.0, `markdown-it-emoji` 3.0.0 → 3.1.0, `temml` 0.13.3 → 0.13.4,
+  `@rsdoctor/rspack-plugin` 1.5.11 → 1.6.1, `puppeteer` 25.3.0 → 25.5.0 and both
+  halves of `typescript-eslint` 8.65.0 → 8.66.0. Only the lockfile changes: the
+  version ranges in `package.json` stay as they are.
+  [Update](https://github.com/wekan/wekan/commit/e30eb57e1a6435d5b151c01dc0bc6cf2e4e8a603).
+  Thanks to developers of dependencies and xet7.
+
+and fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6cada892d9bff5775995e90e70df027f5bc4e1f3">An unused jQuery import in the CSV importer crashed the server at boot under jQuery 4</a>. Thanks to xet7.</summary>
+
+jQuery 4 changed what loading it outside a browser does. Its CommonJS entry
+point runs the factory as soon as the module is required - `module.exports =
+factory( global, true )` - and the factory's first statement throws when
+`window.document` is missing. Under jQuery 3 the same import did not stop the
+server: it had been sitting in `models/csvCreator.js` since the CSV importer was
+written and WeKan started with it in place every time. Line 3 was `import {
+isEmptyObject } from 'jquery'`, and the file never called `isEmptyObject`
+anywhere - the import was unused from the day it was added.
+
+`server/imports.js` loads `/models/csvCreator`, because the server is what
+imports a CSV or TSV board, so that unused import put jQuery in the server
+bundle - where there is no window and no document. The bump to jQuery 4 turned
+it into a boot crash: the bundle threw while it was still being evaluated,
+before a single route, publication or method existed, so there was no error page
+and no log entry, only a stack trace ending in `Object../models/csvCreator.js`
+and `Module../server/imports.js`, and `Exited with code: 1`.
+
+The import is removed, and nothing else changes, because nothing used it. It was
+the only jQuery import anywhere under `models/`, `server/`, `imports/` and
+`config/`, and the rebuilt `_build/main-dev/server-rspack.cjs` now contains the
+csvCreator module with no reference to `node_modules/jquery` left in it.
+
+The new `tests/serverBundleBrowserImports.test.cjs` keeps it that way. It walks
+the import graph from `server/main.js` - 410 files - and fails if any file it
+reaches names a package that needs a DOM: jquery, jquery-ui, the touch-punch and
+dragscroll add-ons, blaze, bootstrap. Its negative tests pin that the bug as it
+actually was is reported, that a deep path such as `jquery/dist/jquery.js`
+counts as the same package, and that an ordinary server package is not flagged.
+An unused import is invisible in review and free on the client, so a guard is
+what catches the next one.
+
+</details>
+
+and has the following developer-tooling fix:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8ebeb85832c62aeba72d774cdb4df7d5c6105f43">The snap-launchpad job stops blaming LP_CREDENTIALS for every Stopped Launchpad build</a>. Thanks to xet7.</summary>
@@ -298,6 +381,14 @@ a WeKan bug; the job already retries three times and is `continue-on-error`, so
 it never fails the release.
 
 </details>
+
+and updates the documentation and translations:
+
+- [CLAUDE.md drops the standing rule that forbade pushing](https://github.com/wekan/wekan/commit/a7f840be489b1769b7248a673e8873fa57859f2f). Thanks to xet7.
+- [Serbian translations](https://github.com/wekan/wekan/commit/a74aee2e45d2833ae7b0029763bfb403da9d4ec3). Thanks to translators and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
 
 # v10.71 2026-08-06 WeKan ® release
 
@@ -595,7 +686,7 @@ has the asset it stops with a message naming the fork asset to build.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/44fe7970cedb0ba1d1326904de2d54d2fa5fc00d">The Docker image builds for whatever bundles landed, so one failed exotic arch never skips it</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0aa74076a20b191f3055932d1cc795115ea966f2">The Docker image builds for whatever bundles landed, so one failed exotic arch never skips it</a>. Thanks to xet7.</summary>
 
 The docker job `needs: build-extra-arches`, a matrix. When one leg failed - a
 single exotic CPU like ppc64le - the whole matrix job was "failed", and a job
@@ -613,7 +704,7 @@ release that builds it - the image is never skipped and never fails on one CPU.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/406067dbc16c448eafaaeda67f7479a5fa4b5ad1">The native embeds authenticate the fork lookup, tolerate a missing checksum, and cross-build win32</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/d0934867661a0186d2a21f1b6e0e551fa5af5c51">The native embeds authenticate the fork lookup, tolerate a missing checksum, and cross-build win32</a>. Thanks to xet7.</summary>
 
 Three native-bundle failures in one run. mac-arm64 failed the fork major->tag
 lookup: `embed-verified-node.sh` and `check-arch-binaries.sh` call the GitHub
@@ -632,7 +723,7 @@ and cross-builds the native modules to ia32 with `npm_config_arch=ia32`.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5300449cc58d10f61c8f61e3c96dc9754804d659">Every extra-arch bundle is best-effort, so an emulated CPU that crashes cannot fail the release</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b46acc47c5cae3b4e0ee543436cf994532408d80">Every extra-arch bundle is best-effort, so an emulated CPU that crashes cannot fail the release</a>. Thanks to xet7.</summary>
 
 Each extra arch is built by running the fork's target-CPU node UNDER QEMU to
 rebuild the native modules, and qemu-user does not run every binary perfectly:
