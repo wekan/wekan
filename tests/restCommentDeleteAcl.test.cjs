@@ -1,8 +1,8 @@
 'use strict';
 
-// GHSA-pqr4-rxgp-hv2m — "REST comment DELETE allows any board member to delete
-// other users' comments (BOLA)" (Moderate, CWE-639 / CWE-863), reported by
-// Alpastx.
+// CommentBleed — GHSA-pqr4-rxgp-hv2m, "REST comment DELETE allows any board
+// member to delete other users' comments (BOLA)" (Moderate, CWE-639 / CWE-863),
+// reported by Alpastx. https://wekan.fi/hall-of-fame/commentbleed/
 //
 // Over DDP, deleting a comment is author-or-board-admin, and a board that sets
 // restrictCommentEditing takes even the admin's ability away (#5906). That rule

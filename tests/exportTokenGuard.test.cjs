@@ -1,6 +1,11 @@
 'use strict';
 
-// GHSA-3gcg-g6rf-w2rx — a bad authToken crashed the server.
+// CrashBleed — CVE-2026-68901, GHSA-3gcg-g6rf-w2rx (CWE-476): a bad authToken
+// crashed the server. https://wekan.fi/hall-of-fame/crashbleed/
+//
+// The name matters as much as the id: tests/securityRegressionCoverage.test.cjs
+// checks the published Hall of Fame list against the tests that guard it, and it
+// can only do that for a test that says which vulnerability it belongs to.
 //
 // The board export REST endpoints look a user up by the login token in
 // `?authToken=`. A token that matches nothing makes that lookup answer `undefined`,

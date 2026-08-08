@@ -1,5 +1,10 @@
 'use strict';
 
+// LockoutBleed - https://wekan.fi/hall-of-fame/lockoutbleed/ (the REST throttle)
+// Named for tests/securityRegressionCoverage.test.cjs, which checks the published
+// Hall of Fame list against the tests that guard it - a test that does not say
+// which vulnerability it belongs to cannot be checked against that list.
+
 // Plain-Node unit test (no Meteor) for the REST /users/login brute-force
 // throttle. Run: node tests/loginAttemptThrottle.test.cjs
 //

@@ -1,5 +1,9 @@
 'use strict';
 
+// Guards the Hall of Fame vulnerabilities IdentityBleed and PatternBleed, which
+// are the same CodeQL finding twice - naming them here is what lets
+// tests/securityRegressionCoverage.test.cjs confirm they still have a test.
+//
 // A string replacement that replaces something with itself does nothing, and it
 // is almost never written on purpose - GitHub CodeQL reports it as
 // js/identity-replacement (CWE-116), tagged both correctness and security.

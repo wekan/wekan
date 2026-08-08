@@ -1,5 +1,10 @@
 'use strict';
 
+// LockoutBleed - https://wekan.fi/hall-of-fame/lockoutbleed/ (the wiring)
+// Named for tests/securityRegressionCoverage.test.cjs, which checks the published
+// Hall of Fame list against the tests that guard it - a test that does not say
+// which vulnerability it belongs to cannot be checked against that list.
+
 // Plain-Node source guard for GHSA-2g94-9x3m-hv37. The behaviour is unit-tested
 // in loginFailureDecision / loginTimingDefense / loginAttemptThrottle; this
 // suite pins the WIRING that connects those helpers to the real login paths, so

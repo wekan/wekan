@@ -1,7 +1,8 @@
 'use strict';
 
-// GHSA-4mxf-m8pq-xc9p — "Avatar versions.path client update enables arbitrary
-// file read via board export" (High, CWE-22 / CWE-73), reported by Alpastx.
+// PathBleed — GHSA-4mxf-m8pq-xc9p, "Avatar versions.path client update enables
+// arbitrary file read via board export" (High, CWE-22 / CWE-73), reported by
+// Alpastx. https://wekan.fi/hall-of-fame/pathbleed/
 //
 // Attachments blocked client-supplied `versions.*.path`; avatars did not — their
 // allow rule was the single line `update: isOwner`, with no field restriction at

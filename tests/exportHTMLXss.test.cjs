@@ -1,5 +1,10 @@
 'use strict';
 
+// ExportBleed - https://wekan.fi/hall-of-fame/exportbleed/
+// Named for tests/securityRegressionCoverage.test.cjs, which checks the published
+// Hall of Fame list against the tests that guard it - a test that does not say
+// which vulnerability it belongs to cannot be checked against that list.
+
 // Regression for GHSA-8r5p-4q9j-f5jx: Stored XSS in HTML board exports through a
 // card-title second parse.
 //

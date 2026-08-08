@@ -1,8 +1,9 @@
 'use strict';
 
-// GHSA-gwc4-fw7p-gw58 — "Board publication ignores isActive on org/team/domain
-// shares, so revoked access still exposes private boards" (Moderate, CWE-639 /
-// CWE-863), reported by Alpastx.
+// RevokeBleed — GHSA-gwc4-fw7p-gw58, "Board publication ignores isActive on
+// org/team/domain shares, so revoked access still exposes private boards"
+// (Moderate, CWE-639 / CWE-863), reported by Alpastx.
+// https://wekan.fi/hall-of-fame/revokebleed/
 //
 // `isActive: false` is how a board admin REVOKES an org, team or domain share.
 // The All Boards list honoured it (`$elemMatch` with `isActive: true`), so a

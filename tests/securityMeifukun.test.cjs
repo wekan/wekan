@@ -4,6 +4,12 @@
 // against WeKan v9.95.0 (see ../log/v10/sec/). These assert, from source, that
 // each fix is present and each vulnerable pattern is gone. They run under plain
 // node (no Meteor/DB), matching the other tests/*.test.cjs guards.
+//
+// Each section names the Hall of Fame vulnerability it guards - RedirectBleed,
+// SourceBleed, LiveBleed, CasBleed, OidcBleed, MetricsBleed, ImpersonateBleed,
+// InviteBleed - because a regression test that does not say WHICH published
+// vulnerability it belongs to cannot be checked against the published list. See
+// tests/securityRegressionCoverage.test.cjs, which does that checking.
 
 const fs = require('fs');
 const path = require('path');
@@ -19,7 +25,7 @@ function check(name, fn) {
   console.log('  ok -', name);
 }
 
-// ── #1 Avatar localization redirect SSRF ────────────────────────────────────
+// ── #1 Avatar localization redirect SSRF — RedirectBleed ────────────────────
 check('#1 avatar localization fetches via fetchSafe, not native redirect-follow', () => {
   const src = read('server/lib/localizeAvatar.js');
   assert.ok(/fetchSafe\(url,/.test(src), 'localizeAvatar must fetch via fetchSafe');
@@ -40,7 +46,7 @@ check('#1 setAvatarUrl validates the URL scheme at write time', () => {
   assert.ok(/scheme === 'http' \|\| scheme === 'https'/.test(src));
 });
 
-// ── #2 Trello import source URL stored XSS ──────────────────────────────────
+// ── #2 Trello import source URL stored XSS — SourceBleed ────────────────────
 check('#2 activity sourceLink only links http(s) URLs', () => {
   const src = read('client/components/activities/activities.js');
   const fn = src.slice(src.indexOf('sourceLink()'), src.indexOf('memberLink()'));
@@ -55,7 +61,7 @@ check('#2 Trello import stores only http(s) source.url', () => {
   );
 });
 
-// ── #3 Trello live import readable-response SSRF ────────────────────────────
+// ── #3 Trello live import readable-response SSRF — LiveBleed ────────────────
 check('#3 live Trello import guards every download with validateAttachmentUrl', () => {
   const src = read('server/trelloApiImport.js');
   assert.ok(/import \{ validateAttachmentUrl \}/.test(src), 'must import validateAttachmentUrl');
@@ -77,7 +83,7 @@ check('#3 …and downloads through fetchSafe, never a bare redirect-following fe
   );
 });
 
-// ── #4 CAS login global user-data race ──────────────────────────────────────
+// ── #4 CAS login global user-data race — CasBleed ───────────────────────────
 check('#4 CAS stores user data per token, not in a module global', () => {
   const src = read('packages/wekan-accounts-cas/cas_server.js');
   assert.ok(!/^\s*let _userData\b/m.test(src), 'the module-global _userData must be gone');
@@ -88,7 +94,7 @@ check('#4 CAS stores user data per token, not in a module global', () => {
     'login handler must read the per-token userData');
 });
 
-// ── #5 OIDC shared serviceData race (already fixed upstream, #4897) ──────────
+// ── #5 OIDC shared serviceData race — OidcBleed (fixed upstream, #4897) ─────
 check('#5 OIDC per-login objects are declared inside the callback', () => {
   const src = read('packages/wekan-oidc/oidc_server.js');
   const cbStart = src.indexOf("OAuth.registerService('oidc'");
@@ -101,7 +107,7 @@ check('#5 OIDC per-login objects are declared inside the callback', () => {
   }
 });
 
-// ── #6 Metrics X-Forwarded-For whitelist bypass ─────────────────────────────
+// ── #6 Metrics X-Forwarded-For whitelist bypass — MetricsBleed ──────────────
 check('#6 metrics endpoint does not trust X-Forwarded-For unconditionally', () => {
   const src = read('models/server/metrics.js');
   assert.ok(/function metricsClientIp/.test(src), 'metricsClientIp helper must exist');
@@ -114,7 +120,7 @@ check('#6 metrics endpoint does not trust X-Forwarded-For unconditionally', () =
   assert.ok(/const ipAddress = metricsClientIp\(req\)/.test(src));
 });
 
-// ── #7 Stale impersonation record allows private board export ───────────────
+// ── #7 Stale impersonation allows private board export — ImpersonateBleed ───
 check('#7 export authorization no longer bypasses via stale impersonation', () => {
   for (const f of ['models/export.js', 'models/exportExcel.js', 'models/exportExcelCard.js', 'models/exportPDF.js']) {
     const src = read(f);
@@ -123,7 +129,7 @@ check('#7 export authorization no longer bypasses via stale impersonation', () =
   }
 });
 
-// ── #8 Invitation code brute force ──────────────────────────────────────────
+// ── #8 Invitation code brute force — InviteBleed ────────────────────────────
 check('#8 invitation codes are CSPRNG, not 6-digit Math.random', () => {
   const src = read('server/models/settings.js');
   assert.ok(!/getRandomNum\(100000, 999999\)/.test(src), 'the 6-digit Math.random code must be gone');
