@@ -335,7 +335,12 @@ test('entries are grouped by area, and no summary repeats its group', () => {
     if (line === '<details>') { inEntry = true; }
     if (line === '</details>') { inEntry = false; continue; }
     if (inEntry && !line.startsWith('<summary>')) continue;
-    if (/^(This release|and ) .*:$/.test(line)) { group = null; continue; }
+    // `(This release|and )` with a space INSIDE the alternative and another one
+    // after it needs "and  updates" - two spaces - so every `and ...:` header
+    // silently failed to match and never reset the group. Entries under a later
+    // subsection were then still attributed to the last group line above them,
+    // which is exactly the mistake this loop exists to catch.
+    if (/^(This release|and) .*:$/.test(line)) { group = null; continue; }
     if (!inEntry) {
       const m = GROUP.exec(line);
       if (m) { group = m[1]; continue; }

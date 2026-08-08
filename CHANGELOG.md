@@ -264,6 +264,73 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** a **GitHub CodeQL** finding fixed after v10.72 was tagged -
+**PatternBleed**, a string replacement that replaced a hyphen with itself, so an
+escape that looked like one was not there - and a guard that catches the whole
+class in WeKan's own test run rather than days later in a web interface. The
+binaries below are v10.72's: nothing here rebuilds them.
+
+| Platform | Binary | From | Version | SHA256 |
+| --- | --- | --- | --- | --- |
+| amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
+| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-amd64) | v1.45.0 | `94713f605167abb45a3717482d35de4824cb4a8f199c1400e826a8a2b04f3893` |
+| arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
+| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-arm64) | v1.45.0 | `275ae50ac97e6a70eee72e6de37766c458775c5997c896352db5189c6cf1f04b` |
+| loong64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-loong64.tar.xz) | v24.19.0 | `c24f224726f2d785bd18a1fd09f5e6d1fecf0269928451a60c5da9eac8e92e68` |
+| loong64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-loong64) | v1.45.0 | `28bf67981168dfc4bd67698b41dd62628aafe347a77f2b1e6ffcadf009d575e0` |
+| mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-arm64.tar.xz) | v24.19.0 | `3f1cf157479c1480352083105e13faf9d008ede98e7e157746b6df940d197b94` |
+| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-mac-arm64) | v1.45.0 | `639ed58b84820b3d588f4161c64d0ab940d0cc6e7d022088d60c2b0b97f99f8e` |
+| mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
+| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-mac-amd64) | v1.45.0 | `fd519903f5630e881e38e7c5814f00c0e89ad26f6785f1ddcbab4058356fc9f3` |
+| ppc64le | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-ppc64le.tar.xz) | v24.19.0 | `c510c6ce12f07010f771e6edb22a3fe23f4f2e6f40b1ffd4941aed0646a0d8b3` |
+| ppc64le | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-ppc64le) | v1.45.0 | `de4518c7774d302533369c477759ddd866785d6741d98d399388eb8de3df175a` |
+| riscv64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-riscv64.tar.xz) | v24.19.0 | `cd1f14af2812148002f58b58a5f9af512a50e3b8e8c148e0db44019dcb68edfd` |
+| riscv64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-riscv64) | v1.45.0 | `7dc2952f554e8800c4029577901999e06e10272da686f7e402177080067028f9` |
+| s390x | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-s390x.tar.xz) | v24.19.0 | `a4792e65962ffa0af42627aacf1122a60c3c88dbf4e4184f06820d66f9da8ba4` |
+| s390x | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-s390x) | v1.45.0 | `0ae2e2f2cffdc5dd2ea4f125281a5e12eea216fbe49b5561d9c001700c3fc0c1` |
+| win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
+| win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-win64.exe) | v1.45.0 | `f6337994368a52d011d438c82b914b0cedb3178fd030acac8db3dab8017cee85` |
+
+This release fixes the following SECURITY ISSUE found by GitHub CodeQL code
+scanning:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f3a12533d756a01472e0d1904eaafb39ec776880">PatternBleed: a string replacement that replaced a hyphen with itself, and a guard for the whole class</a>. Thanks to GitHub CodeQL code scanning and xet7.</summary>
+
+[PatternBleed](https://wekan.fi/hall-of-fame/patternbleed/) - code scanning
+alert #431, rule `js/identity-replacement` (CWE-116), in
+`tests/releaseNodeSources.test.cjs`: a platform name was interpolated into a
+regex through `p.replace('-', '-')`, which replaces a hyphen with a hyphen. It
+reads as "escape this before putting it in a pattern" and does nothing at all,
+so the value went in raw.
+
+Nothing failed, because a hyphen outside a character class needs no escaping -
+but the guard it looked like was not there, and a platform name carrying a `.`
+or a `+` would have matched the wrong row or thrown. CodeQL is right to flag the
+shape: its usual cause is a mistyped backslash escape, where a replacement meant
+to double a character silently is that character. The name is escaped for real
+now, with the same `escapeRegExp` the other guards in `tests/` use.
+
+`tests/noIdentityReplacement.test.cjs` catches the class rather than the
+instance - code scanning reports these days later in a web UI, the node suites
+report in fifteen seconds. Three things it took to make it honest: it compares
+the two sides as VALUES rather than as source text, since an escaped quote and a
+plain one are the same value and a text comparison would miss the very mistake
+it exists for; the two quote styles are separate alternatives rather than one
+character class excluding both, because CodeQL's own example puts a double quote
+inside a single-quoted literal and the first shape of the pattern could not
+match it; and comments are stripped, with the guard skipping its own file,
+because this file and the one it was written for both quote the bad line to
+explain it. Verified in both directions - the repository is clean, and the same
+scan against the previous commit reports the offending line.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.72 2026-08-08 WeKan ® release
 
 **In short:** a **GitHub CodeQL** finding is fixed - a string replacement that
@@ -320,42 +387,7 @@ work.
 | win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
 | win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-win64.exe) | v1.45.0 | `f6337994368a52d011d438c82b914b0cedb3178fd030acac8db3dab8017cee85` |
 
-This release fixes the following SECURITY ISSUE found by GitHub CodeQL code
-scanning:
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/2cdad92ba6146c00018d1be56fd2e16bceeb1450">PatternBleed: a string replacement that replaced a hyphen with itself, and a guard for the whole class</a>. Thanks to GitHub CodeQL code scanning and xet7.</summary>
-
-[PatternBleed](https://wekan.fi/hall-of-fame/patternbleed/) - code scanning
-alert #431, rule `js/identity-replacement` (CWE-116), in
-`tests/releaseNodeSources.test.cjs`: a platform name was interpolated into a
-regex through `p.replace('-', '-')`, which replaces a hyphen with a hyphen. It
-reads as "escape this before putting it in a pattern" and does nothing at all,
-so the value went in raw.
-
-Nothing failed, because a hyphen outside a character class needs no escaping -
-but the guard it looked like was not there, and a platform name carrying a `.`
-or a `+` would have matched the wrong row or thrown. CodeQL is right to flag the
-shape: its usual cause is a mistyped backslash escape, where a replacement meant
-to double a character silently is that character. The name is escaped for real
-now, with the same `escapeRegExp` the other guards in `tests/` use.
-
-`tests/noIdentityReplacement.test.cjs` catches the class rather than the
-instance - code scanning reports these days later in a web UI, the node suites
-report in fifteen seconds. Three things it took to make it honest: it compares
-the two sides as VALUES rather than as source text, since an escaped quote and a
-plain one are the same value and a text comparison would miss the very mistake
-it exists for; the two quote styles are separate alternatives rather than one
-character class excluding both, because CodeQL's own example puts a double quote
-inside a single-quoted literal and the first shape of the pattern could not
-match it; and comments are stripped, with the guard skipping its own file,
-because this file and the one it was written for both quote the bad line to
-explain it. Verified in both directions - the repository is clean, and the same
-scan against the previous commit reports the offending line.
-
-</details>
-
-and updates the following dependencies:
+This release updates the following dependencies:
 
 - **Meteor 3.5.1-beta.0 → 3.5.1** — the framework WeKan is built on, now on the
   final release instead of the prerelease it was tracking. The four packages
