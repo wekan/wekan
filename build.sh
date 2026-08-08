@@ -1637,62 +1637,160 @@ function ask_dev_url(){
 	esac
 }
 
-# ── Update git: make the working copy current in one step ────────────────────
+# ── Keeping the checkout in step with origin ─────────────────────────────────
 # Fetch + rebase the current branch onto its upstream, then repoint any CHANGELOG
 # commit links the rebase made stale (same shared script release-all.sh uses), and
 # show the resulting status. One menu action instead of the fetch/pull/rebase/
 # hash-fix/status dance by hand.
-function update_git(){
-	git rev-parse --git-dir >/dev/null 2>&1 || { echo "Not a git repository."; return 0; }
-	local branch upstream here
-	here="$(cd "$(dirname "$0")" && pwd)"
-	branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
-	echo "== Update git — branch: ${branch:-?} =="
+# ── git pull / git push, doing the whole job ─────────────────────────────────
+#
+# These replace the old "Update git", which did a fetch+rebase, ran the CHANGELOG
+# hash repair, printed `git status` and left the rest to the reader. The rest is
+# where the mistakes were: a rebase rewrites local commits, so the CHANGELOG links
+# written before it point at commits that no longer exist; the repair fixes the
+# file but commits nothing, so the next push carries a dirty tree; and a push
+# rejected as non-fast-forward leaves a repo that needs a pull the caller has to
+# know to run.
+#
+# So: one action per direction, each ending in a state that is either correct or
+# unchanged. Conflicts are the one thing a script must not paper over - a rebase
+# that stops half-applied IS the wrong state - so on conflict the rebase is
+# aborted, the working tree is exactly what it was, and the message says what to
+# do by hand.
+#
+# Nothing here force-pushes, ever.
 
-	# Do not surprise anyone: a dirty tree is stashed by --autostash below, but say
-	# so first and let the user opt out.
-	if [ -n "$(git status --porcelain 2>/dev/null)" ]; then
-		echo "Working tree has uncommitted changes:"
-		git status --short
-		printf "They will be auto-stashed for the rebase and re-applied after. Continue? [y/N] "
-		read -r ans
-		case "$ans" in y|Y|yes|YES) : ;; *) echo "Aborted (nothing changed)."; return 0 ;; esac
-	fi
-
-	echo "--- git fetch --all --prune ---"
-	git fetch --all --prune || { echo "fetch failed - check network/remote and retry."; return 0; }
-
-	upstream="origin/$branch"
-	if git rev-parse --verify --quiet "$upstream" >/dev/null 2>&1; then
-		echo "--- git pull --rebase --autostash origin $branch ---"
-		if ! git pull --rebase --autostash origin "$branch"; then
-			echo
-			echo "Rebase stopped (conflicts or autostash conflict). Resolve them, then:"
-			echo "    git rebase --continue     # or: git rebase --abort"
-			echo "and run this option again to finish the hash fix + status."
-			return 0
-		fi
-	else
-		echo "No upstream '$upstream' - skipping rebase (nothing to pull for this branch)."
-	fi
-
-	# The rebase may have rewritten commits the CHANGELOG links to; repoint the
-	# stale links in the unreleased section (shared with releases/release-all.sh).
-	# A link is only repointed when NO ref in this clone reaches its commit, so a
-	# link into an old release tag - which GitHub serves fine - is left alone.
-	echo "--- Fixing CHANGELOG commit links (releases/fix-changelog-hashes.sh) ---"
-	bash "$here/releases/fix-changelog-hashes.sh" || true
-	echo "    (whole file, including released sections:"
-	echo "     bash releases/fix-changelog-hashes.sh --all-sections [--dry-run])"
-
-	echo "--- git status ---"
-	git status
+# The CHANGELOG links after history moved. The repair only repoints a link whose
+# commit is reachable from NO ref in this clone (a link into an old release tag
+# is fine and is left alone), so running it when nothing moved is a no-op.
+# Returns 0 when the file was changed and committed, 1 when there was nothing to do.
+function git_fix_changelog_links(){
+	local script="$WEKAN_DIR/releases/fix-changelog-hashes.sh"
+	[ -f "$script" ] || return 1
+	bash "$script" || true
 	if [ -n "$(git status --porcelain -- CHANGELOG.md 2>/dev/null)" ]; then
-		echo
-		echo "NOTE: CHANGELOG.md was updated by the hash fix above."
-		echo "      Review 'git diff CHANGELOG.md' and commit it (this script never commits for you)."
+		git add CHANGELOG.md
+		git commit -q -m "CHANGELOG: repoint commit links after history moved.
+
+A rebase rewrote the commits these entries link to, so the links named commits
+that no longer exist and would have 404ed on GitHub. Repointed by
+releases/fix-changelog-hashes.sh, which only touches a link no ref in this clone
+can reach.
+
+Thanks to xet7 !"
+		echo "==> CHANGELOG commit links repointed and committed."
+		return 0
 	fi
+	return 1
 }
+
+# git pull: fast-forward when that is all it takes, rebase when the branch has
+# diverged, and never end half-way through either.
+function git_pull(){
+	git rev-parse --git-dir >/dev/null 2>&1 || { echo "Not a git repository."; return 1; }
+	local branch upstream before ahead behind
+	branch="$(git rev-parse --abbrev-ref HEAD)"
+	upstream="origin/$branch"
+	echo "== git pull - branch $branch =="
+
+	# The exact commit to return to if anything goes wrong.
+	before="$(git rev-parse HEAD)"
+
+	if [ -n "$(git status --porcelain)" ]; then
+		echo "==> Working tree is not clean; the changes are stashed for the pull and"
+		echo "    re-applied afterwards (git's own --autostash)."
+	fi
+
+	echo "--- git fetch origin $branch ---"
+	git fetch origin "$branch" || { echo "ERROR: fetch failed - network or remote. Nothing changed."; return 1; }
+	git rev-parse --verify --quiet "$upstream" >/dev/null || {
+		echo "No $upstream yet - nothing to pull. Push first to create it."; return 0; }
+
+	behind="$(git rev-list --count HEAD.."$upstream")"
+	ahead="$(git rev-list --count "$upstream"..HEAD)"
+	echo "    $ahead commit(s) here that origin does not have, $behind the other way."
+
+	if [ "$behind" -eq 0 ]; then
+		echo "==> Already up to date with $upstream."
+	elif [ "$ahead" -eq 0 ]; then
+		# Nothing of ours to replay: a fast-forward moves the branch pointer and
+		# rewrites no commit, so no link can go stale.
+		echo "--- fast-forward (no local commits to replay) ---"
+		git merge --ff-only "$upstream" || { echo "ERROR: fast-forward failed. Nothing changed."; return 1; }
+	else
+		echo "--- rebase: replaying $ahead local commit(s) onto $upstream ---"
+		echo "    This gives them NEW hashes, which is why the CHANGELOG links are"
+		echo "    repaired straight after."
+		if ! git -c rebase.autoStash=true rebase "$upstream"; then
+			git rebase --abort 2>/dev/null
+			git stash list >/dev/null 2>&1
+			echo
+			echo "ERROR: the rebase hit a conflict, so it was ABORTED - this repo is"
+			echo "       exactly as it was before ($(git rev-parse --short "$before"))."
+			echo "       Resolve it by hand:"
+			echo "         git rebase $upstream        # then fix the conflicts"
+			echo "         git rebase --continue       # or: git rebase --abort"
+			echo "       and run this option again afterwards."
+			return 1
+		fi
+	fi
+
+	git_fix_changelog_links || echo "==> CHANGELOG commit links all resolve; nothing to repoint."
+	echo "--- git status ---"
+	git status --short --branch
+	return 0
+}
+
+# git push: make sure what is about to be published is correct first, and turn
+# the one rejection that has an obvious answer into that answer.
+function git_push(){
+	git rev-parse --git-dir >/dev/null 2>&1 || { echo "Not a git repository."; return 1; }
+	local branch ahead
+	branch="$(git rev-parse --abbrev-ref HEAD)"
+	echo "== git push - branch $branch =="
+
+	if [ -n "$(git status --porcelain)" ]; then
+		echo "==> NOTE: there are uncommitted changes; a push publishes commits only."
+		git status --short
+	fi
+
+	# Before publishing, not after: a stale link that reaches GitHub 404s for
+	# everyone who reads the release notes.
+	git_fix_changelog_links || echo "==> CHANGELOG commit links all resolve."
+
+	git fetch origin "$branch" >/dev/null 2>&1 || true
+	if git rev-parse --verify --quiet "origin/$branch" >/dev/null; then
+		ahead="$(git rev-list --count "origin/$branch"..HEAD)"
+		[ "$ahead" -eq 0 ] && { echo "==> Nothing to push; origin/$branch is already at this commit."; return 0; }
+		echo "    $ahead commit(s) to push."
+	fi
+
+	echo "--- git push origin $branch ---"
+	if git push origin "$branch"; then
+		echo "==> Pushed."
+		return 0
+	fi
+
+	# The common rejection: origin moved while this was being written. That has
+	# one right answer - pull, then push again - so do it once, rather than
+	# printing the advice and leaving the caller to it. Once only: a second
+	# rejection is something else, and retrying a loop is not a fix.
+	echo
+	echo "==> Push was rejected. Pulling first, then trying once more."
+	git_pull || { echo "ERROR: the pull did not finish, so nothing was pushed."; return 1; }
+	echo "--- git push origin $branch (retry) ---"
+	if git push origin "$branch"; then
+		echo "==> Pushed."
+		return 0
+	fi
+	echo
+	echo "ERROR: still rejected. This is NOT a case to force - force-pushing a"
+	echo "       branch somebody has pulled rewrites their history too. Read what"
+	echo "       git said above; if origin has commits this clone should keep,"
+	echo "       run this option's pull first and look at 'git log --oneline'."
+	return 1
+}
+
 
 echo
 PS3='Please enter your choice: '
@@ -1813,6 +1911,8 @@ RELEASE_SCRIPTS=(	"Release|Release ALL platforms: push CHANGELOG, trigger releas
 	"Translations|Report English strings that regressed|releases/translations/report-english-regressions.mjs|||"
 	"Translations|Prove a pull keeps human translations (no network)|releases/translations/verify-human-preference.mjs|||"
 	"Translations|Merge a finished pull by hand|releases/translations/merge-translations.mjs|||"
+	"Git and repo|git pull - fetch, fast-forward or rebase, repoint moved CHANGELOG links|!git_pull|||git-pull"
+	"Git and repo|git push - verify the CHANGELOG links, push, pull-and-retry once if origin moved|!git_push|||git-push"
 	"Git and repo|Commit with the editor open for a multi-line message|releases/commit.sh|||"
 	"Git and repo|Add everything, then revert it again|!git restore --staged|Path to unstage||git-add-revert"
 	"Git and repo|Delete a branch, locally and on the remote|releases/delete-branch-local-and-remote.sh|Branch name||"
@@ -2021,7 +2121,8 @@ while [ -z "$opt" ]; do
 				choose "Setup" \
 					"Install dependencies|Install WeKan dependencies" \
 					"Build WeKan|Build WeKan" \
-					"Update git|Update git: fetch + rebase onto origin, fix CHANGELOG hashes, show status" ;;
+					"git pull|git pull: fetch, fast-forward or rebase onto origin, repoint the CHANGELOG commit links the rebase moved, and leave the repo unchanged if anything conflicts" \
+					"git push|git push: check the CHANGELOG commit links resolve before publishing them, push this branch to origin, and pull-then-retry once if origin moved meanwhile" ;;
 			"Dev server")
 				choose "Dev server" \
 					"localhost:3000|Run Meteor for dev on http://localhost:3000" \
@@ -2163,8 +2264,13 @@ for _once in 1; do
 		break
 		;;
 
-    "Update git: fetch + rebase onto origin, fix CHANGELOG hashes, show status")
-		update_git
+    "git pull: fetch, fast-forward or rebase onto origin, repoint the CHANGELOG commit links the rebase moved, and leave the repo unchanged if anything conflicts")
+		git_pull
+		break
+		;;
+
+    "git push: check the CHANGELOG commit links resolve before publishing them, push this branch to origin, and pull-then-retry once if origin moved meanwhile")
+		git_push
 		break
 		;;
 

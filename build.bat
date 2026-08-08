@@ -100,12 +100,14 @@ echo.
 echo -- Setup --   ^(0 = Back^)
 echo   1^) Install dependencies
 echo   2^) Build WeKan
-echo   3^) Update git ^(fetch + rebase onto origin, fix CHANGELOG hashes, status^)
+echo   3^) git pull ^(fetch, fast-forward or rebase, repoint moved CHANGELOG links^)
+echo   4^) git push ^(check the CHANGELOG links, push, pull-and-retry once if rejected^)
 set "choice="
 set /p "choice=Choose: "
 if "%choice%"=="1" goto install
 if "%choice%"=="2" goto build
-if "%choice%"=="3" goto updategit
+if "%choice%"=="3" goto gitpull
+if "%choice%"=="4" goto gitpush
 if "%choice%"=="0" goto menu
 goto menu_setup
 
@@ -801,51 +803,32 @@ echo Done.
 goto end
 
 REM ===========================================================================
-REM Make the working copy current in one step: fetch + rebase the current branch
-REM onto its upstream, repoint any CHANGELOG commit links the rebase made stale
-REM (the same shared releases\fix-changelog-hashes.sh release-all.sh uses), and
-REM show the status. Parity with build.sh's Setup -> "Update git ...".
-:updategit
-echo Updating git: fetch + rebase onto origin, fix CHANGELOG hashes, show status.
-git rev-parse --git-dir >nul 2>&1
-if errorlevel 1 ( echo Not a git repository. & goto end )
-set "BRANCH="
-for /f "delims=" %%b in ('git rev-parse --abbrev-ref HEAD 2^>nul') do set "BRANCH=%%b"
-echo Branch: %BRANCH%
-echo (A dirty tree is auto-stashed for the rebase and re-applied after.)
-echo --- git fetch --all --prune ---
-git fetch --all --prune
-git rev-parse --verify --quiet "origin/%BRANCH%" >nul 2>&1
-if errorlevel 1 (
-	echo No upstream origin/%BRANCH% - skipping rebase.
-) else (
-	echo --- git pull --rebase --autostash origin %BRANCH% ---
-	git pull --rebase --autostash origin "%BRANCH%"
-	if errorlevel 1 (
-		echo.
-		echo Rebase stopped ^(conflicts^). Resolve them, then:
-		echo     git rebase --continue     ^(or: git rebase --abort^)
-		echo and run this option again to finish the hash fix + status.
-		goto end
-	)
-)
-echo --- Fixing CHANGELOG commit links ^(releases\fix-changelog-hashes.sh^) ---
-echo     ^(whole file, including released sections: bash releases/fix-changelog-hashes.sh --all-sections^)
+:gitpull
+REM Both git actions are build.sh's git_pull / git_push, run through bash rather
+REM than written a second time here. What they do - fast-forward or rebase,
+REM repoint the CHANGELOG links a rebase moved, abort a conflicting rebase so the
+REM repo is left exactly as it was, pull-and-retry once when a push is rejected -
+REM is shell logic, and the batch copy of the old "Update git" that used to live
+REM here is why this file drifted: it reimplemented the same steps, so a fix to
+REM one never reached the other.
 where bash >nul 2>&1
 if errorlevel 1 (
-	echo bash not found - the CHANGELOG hash fix needs Git Bash, bundled with Git for Windows.
-	echo Skipping it. Run it yourself in Git Bash:  bash releases/fix-changelog-hashes.sh
-) else (
-	bash releases/fix-changelog-hashes.sh
+  echo ERROR: bash was not found. It comes with Git for Windows ^(Git Bash^) and with WSL.
+  goto end
 )
-echo --- git status ---
-git status
-echo.
-echo NOTE: if CHANGELOG.md was changed above, review 'git diff CHANGELOG.md' and
-echo       commit it - this script never commits for you.
+bash ./build.sh git-pull
 goto end
 
 REM ===========================================================================
+:gitpush
+where bash >nul 2>&1
+if errorlevel 1 (
+  echo ERROR: bash was not found. It comes with Git for Windows ^(Git Bash^) and with WSL.
+  goto end
+)
+bash ./build.sh git-push
+goto end
+
 :dev_local
 call :ensure_dirs
 call :set_dev_env
