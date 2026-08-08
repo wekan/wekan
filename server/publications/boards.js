@@ -65,14 +65,16 @@ publishComposite('boards', function() {
         // the All Boards / Templates view can list them; the client filters by
         // type per sub-view.
         type: { $in: ['board', 'template-container'] },
-        $or: [
-          { permission: 'public' },
-          { members: { $elemMatch: { userId, isActive: true } } },
-          { orgs: { $elemMatch: { orgId: { $in: user.orgIds() }, isActive: true } } },
-          { teams: { $elemMatch: { teamId: { $in: user.teamIds() }, isActive: true } } },
-          // #5850: domain-based board sharing.
-          { domains: { $elemMatch: { domain: { $in: user.emailDomains() }, isActive: true } } },
-        ],
+        // GHSA-gwc4-fw7p-gw58: one builder answers "which boards may this user
+        // see", everywhere. This used to be a hand-written copy of the same
+        // array - and the `board` publication's copy was the one that forgot
+        // isActive and served revoked shares.
+        $or: boardVisibilitySelectors({
+          userId,
+          orgIds: user.orgIds(),
+          teamIds: user.teamIds(),
+          emailDomains: user.emailDomains(),
+        }),
       };
       return await ReactiveCache.getBoards(
         selector,
@@ -357,13 +359,12 @@ Meteor.methods({
     const selector = {
       archived: false,
       type: { $in: ['board', 'template-container'] },
-      $or: [
-        { permission: 'public' },
-        { members: { $elemMatch: { userId, isActive: true } } },
-        { orgs: { $elemMatch: { orgId: { $in: user.orgIds() }, isActive: true } } },
-        { teams: { $elemMatch: { teamId: { $in: user.teamIds() }, isActive: true } } },
-        { domains: { $elemMatch: { domain: { $in: user.emailDomains() }, isActive: true } } },
-      ],
+      $or: boardVisibilitySelectors({
+        userId,
+        orgIds: user.orgIds(),
+        teamIds: user.teamIds(),
+        emailDomains: user.emailDomains(),
+      }),
     };
     if (search) {
       selector.title = new RegExp(
@@ -446,13 +447,12 @@ Meteor.methods({
     const selector = {
       archived: false,
       type: 'board',
-      $or: [
-        { permission: 'public' },
-        { members: { $elemMatch: { userId, isActive: true } } },
-        { orgs: { $elemMatch: { orgId: { $in: user.orgIds() }, isActive: true } } },
-        { teams: { $elemMatch: { teamId: { $in: user.teamIds() }, isActive: true } } },
-        { domains: { $elemMatch: { domain: { $in: user.emailDomains() }, isActive: true } } },
-      ],
+      $or: boardVisibilitySelectors({
+        userId,
+        orgIds: user.orgIds(),
+        teamIds: user.teamIds(),
+        emailDomains: user.emailDomains(),
+      }),
     };
 
     let boards = await ReactiveCache.getBoards(
@@ -666,6 +666,66 @@ publishComposite('board', async function(boardId, isArchived) {
     teamIds: teamsIds,
     emailDomains,
   });
+
+  // The linked cards of this board, MINUS the ones whose board this subscriber
+  // may not see.
+  //
+  // GHSA-jvv9-498p-hxrg was reported against the ancestor (parentId) cursor, and
+  // the linked-card cursors below had the identical hole - worse, in fact, since
+  // they publish the linked card's comments, attachments, checklists and
+  // checklist items as well. A `cardType-linkedCard` names a card by id, that
+  // card may live on any board, and creating one requires read access to that
+  // board (server/models/cards.js) - but the person who created it is not the
+  // person this publication is sending to. Every subscriber of THIS board was
+  // getting the linked card's full document and all of its children, whether or
+  // not they may see the board it lives on.
+  //
+  // A linked card whose source board the subscriber cannot see is simply not
+  // sent, exactly as an invisible ancestor is not sent. Cards on THIS board are
+  // their own answer - they are already going to this subscriber.
+  //
+  // The five cursors used to repeat this preamble verbatim; sharing it is also
+  // what stops the next one from being written without the check.
+  const _linkedIdsByBoard = new Map();
+  const visibleLinkedCardIds = async board => {
+    if (_linkedIdsByBoard.has(board._id)) return _linkedIdsByBoard.get(board._id);
+
+    const compute = (async () => {
+      const cardSelector = {
+        ...boardCardScope(board),
+        archived: isArchived,
+      };
+
+      if (thisUserId && board.members) {
+        const member = findWhere(board.members, { userId: thisUserId, isActive: true });
+        if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+          cardSelector.assignees = { $in: [thisUserId] };
+        }
+      }
+
+      const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1, type: 1, linkedId: 1 } }, false);
+      if (!cards || cards.length === 0) return [];
+
+      const linkedCardIds = cards
+        .filter(c => c.type === 'cardType-linkedCard' && c.linkedId)
+        .map(c => c.linkedId);
+      if (linkedCardIds.length === 0) return [];
+
+      const linked = await ReactiveCache.getCards(
+        { _id: { $in: linkedCardIds } },
+        { fields: { _id: 1, boardId: 1 } },
+        false,
+      );
+      const linkedBoardIds = [...new Set((linked || []).map(c => c.boardId).filter(Boolean))];
+      const allowedBoardIds = await visibleBoardIds(thisUserId, linkedBoardIds);
+      allowedBoardIds.add(board._id);
+
+      return (linked || []).filter(c => allowedBoardIds.has(c.boardId)).map(c => c._id);
+    })();
+
+    _linkedIdsByBoard.set(board._id, compute);
+    return compute;
+  };
 
   // Per-board adaptive card-loading decision. In 'auto' mode we count this board's
   // (non-archived) cards ONCE and decide lazy vs eager from the threshold; the
@@ -946,22 +1006,9 @@ publishComposite('board', async function(boardId, isArchived) {
       // Linked cards (cardType-linkedCard)
       {
         async find(board) {
-          const cardSelector = {
-            ...boardCardScope(board),
-            archived: isArchived,
-          };
-
-          if (thisUserId && board.members) {
-            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
-            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
-              cardSelector.assignees = { $in: [thisUserId] };
-            }
-          }
-
-          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1, type: 1, linkedId: 1 } }, false);
-          if (!cards || cards.length === 0) return null;
-
-          const linkedCardIds = cards.filter(c => c.type === 'cardType-linkedCard' && c.linkedId).map(c => c.linkedId);
+          // Only the linked cards whose board this subscriber may see
+          // (GHSA-jvv9-498p-hxrg class).
+          const linkedCardIds = await visibleLinkedCardIds(board);
           if (linkedCardIds.length === 0) return null;
 
           return await ReactiveCache.getCards({ _id: { $in: linkedCardIds }, archived: isArchived }, {}, true);
@@ -970,22 +1017,9 @@ publishComposite('board', async function(boardId, isArchived) {
       // Comments for linked cards
       {
         async find(board) {
-          const cardSelector = {
-            ...boardCardScope(board),
-            archived: isArchived,
-          };
-
-          if (thisUserId && board.members) {
-            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
-            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
-              cardSelector.assignees = { $in: [thisUserId] };
-            }
-          }
-
-          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1, type: 1, linkedId: 1 } }, false);
-          if (!cards || cards.length === 0) return null;
-
-          const linkedCardIds = cards.filter(c => c.type === 'cardType-linkedCard' && c.linkedId).map(c => c.linkedId);
+          // Only the linked cards whose board this subscriber may see
+          // (GHSA-jvv9-498p-hxrg class).
+          const linkedCardIds = await visibleLinkedCardIds(board);
           if (linkedCardIds.length === 0) return null;
 
           return await ReactiveCache.getCardComments({ cardId: { $in: linkedCardIds } }, {}, true);
@@ -994,22 +1028,9 @@ publishComposite('board', async function(boardId, isArchived) {
       // Attachments for linked cards
       {
         async find(board) {
-          const cardSelector = {
-            ...boardCardScope(board),
-            archived: isArchived,
-          };
-
-          if (thisUserId && board.members) {
-            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
-            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
-              cardSelector.assignees = { $in: [thisUserId] };
-            }
-          }
-
-          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1, type: 1, linkedId: 1 } }, false);
-          if (!cards || cards.length === 0) return null;
-
-          const linkedCardIds = cards.filter(c => c.type === 'cardType-linkedCard' && c.linkedId).map(c => c.linkedId);
+          // Only the linked cards whose board this subscriber may see
+          // (GHSA-jvv9-498p-hxrg class).
+          const linkedCardIds = await visibleLinkedCardIds(board);
           if (linkedCardIds.length === 0) return null;
 
           const result = await ReactiveCache.getAttachments({ 'meta.cardId': { $in: linkedCardIds } }, {}, true);
@@ -1019,22 +1040,9 @@ publishComposite('board', async function(boardId, isArchived) {
       // Checklists for linked cards
       {
         async find(board) {
-          const cardSelector = {
-            ...boardCardScope(board),
-            archived: isArchived,
-          };
-
-          if (thisUserId && board.members) {
-            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
-            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
-              cardSelector.assignees = { $in: [thisUserId] };
-            }
-          }
-
-          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1, type: 1, linkedId: 1 } }, false);
-          if (!cards || cards.length === 0) return null;
-
-          const linkedCardIds = cards.filter(c => c.type === 'cardType-linkedCard' && c.linkedId).map(c => c.linkedId);
+          // Only the linked cards whose board this subscriber may see
+          // (GHSA-jvv9-498p-hxrg class).
+          const linkedCardIds = await visibleLinkedCardIds(board);
           if (linkedCardIds.length === 0) return null;
 
           return await ReactiveCache.getChecklists({ cardId: { $in: linkedCardIds } }, {}, true);
@@ -1043,22 +1051,9 @@ publishComposite('board', async function(boardId, isArchived) {
       // ChecklistItems for linked cards
       {
         async find(board) {
-          const cardSelector = {
-            ...boardCardScope(board),
-            archived: isArchived,
-          };
-
-          if (thisUserId && board.members) {
-            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
-            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
-              cardSelector.assignees = { $in: [thisUserId] };
-            }
-          }
-
-          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1, type: 1, linkedId: 1 } }, false);
-          if (!cards || cards.length === 0) return null;
-
-          const linkedCardIds = cards.filter(c => c.type === 'cardType-linkedCard' && c.linkedId).map(c => c.linkedId);
+          // Only the linked cards whose board this subscriber may see
+          // (GHSA-jvv9-498p-hxrg class).
+          const linkedCardIds = await visibleLinkedCardIds(board);
           if (linkedCardIds.length === 0) return null;
 
           return await ReactiveCache.getChecklistItems({ cardId: { $in: linkedCardIds } }, {}, true);

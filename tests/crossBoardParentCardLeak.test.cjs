@@ -1,8 +1,10 @@
 'use strict';
 
-// GHSA-jvv9-498p-hxrg — "Cross-board card parentId causes the board publication
-// to over-publish private ancestor cards" (Moderate, CWE-200 / CWE-862),
-// reported by Alpastx.
+// ParentBleed — GHSA-jvv9-498p-hxrg, "Cross-board card parentId causes the board
+// publication to over-publish private ancestor cards" (Moderate, CWE-200 /
+// CWE-862), reported by Alpastx. https://wekan.fi/hall-of-fame/parentbleed/
+//
+// Also guards BoardBleed's cross-board move deny (see the bottom of this file).
 //
 // A card's `parentId` may name a card on ANOTHER board, and setting it was
 // authorized only against the CHILD board's write ACL. The board publication
@@ -103,10 +105,19 @@ test('negative: clearing or omitting a parent is still allowed', () => {
   assert.ok(/if \(!set\) return false;/.test(deny), 'a modifier without $set is not a parent change');
 });
 
-test('negative: the pre-existing cross-board MOVE deny is still enforced', () => {
-  // GHSA-gm7v-pc38-53jr — the same rule one field over. Adding the parentId
-  // check must not have replaced it.
-  assert.ok(/denyCrossBoardMove\(userId, modifier\)/.test(cardPermissions));
+test('negative: BoardBleed\'s cross-board MOVE deny is still enforced', () => {
+  // BoardBleed (CVE-2026-55234, GHSA-gm7v-pc38-53jr) is the same rule one field
+  // over: the allow rule checked write access on the card's SOURCE board only,
+  // so a client could $set a new boardId and inject content into a private board
+  // it cannot even read. Adding the parentId check must not have displaced it -
+  // and it covered Cards, Lists and Swimlanes alike.
+  assert.ok(/denyCrossBoardMove\(userId, modifier\)/.test(cardPermissions),
+    'Cards keeps its BoardBleed deny');
+  ['lists', 'swimlanes'].forEach(collection => {
+    const src = read(`server/permissions/${collection}.js`);
+    assert.ok(/\.deny\(\{/.test(src), `${collection} keeps its BoardBleed deny rule`);
+    assert.ok(/denyCrossBoardMove/.test(src), `${collection} still calls the shared move guard`);
+  });
 });
 
 test('both REST paths that set a parent check it first', () => {
@@ -127,6 +138,69 @@ test('the linked-card read check it was modelled on is still there', () => {
   // The advisory pointed at this as the precedent: linking across boards
   // already required read access to the source card's board.
   assert.ok(/checkBoardAccess\(req\.userId, sourceCard\.boardId\)/.test(restCards));
+});
+
+// ------------------------------------------------- the same hole, five cursors
+//
+// The advisory named the ancestor cursor. The LINKED-CARD cursors beside it had
+// the identical bug and a wider blast radius: they published the linked card,
+// its comments, its attachments, its checklists AND its checklist items, from
+// whatever board the linked card lives on, to every subscriber of this board.
+// A `cardType-linkedCard` names a card by id exactly as `parentId` does.
+
+test('all five linked-card cursors filter by the subscriber\'s visible boards', () => {
+  const calls = publication.match(/const linkedCardIds = await visibleLinkedCardIds\(board\);/g) || [];
+  assert.strictEqual(calls.length, 5,
+    'linked cards, comments, attachments, checklists and checklist items — all five');
+});
+
+test('the shared helper asks the same visibility question as the ancestor cursor', () => {
+  const helper = publication.match(/const visibleLinkedCardIds = async board => \{[\s\S]*?\n  \};/);
+  assert.ok(helper, 'the helper exists');
+  const body = helper[0];
+  assert.ok(/visibleBoardIds\(thisUserId, linkedBoardIds\)/.test(body));
+  assert.ok(/allowedBoardIds\.add\(board\._id\)/.test(body),
+    'cards on THIS board are their own answer');
+  assert.ok(/filter\(c => allowedBoardIds\.has\(c\.boardId\)\)/.test(body));
+});
+
+test('negative: no cursor publishes the raw linkedId list any more', () => {
+  // This is the shape that leaked: ids straight off this board's cards, with
+  // nothing asked about the boards they point at.
+  assert.ok(
+    !/getCards\(\{ _id: \{ \$in: linkedCardIds \}, archived: isArchived \}, \{\}, true\)[\s\S]{0,80}?linkedCardIds = cards/.test(publication),
+    'no cursor may build linkedCardIds itself and publish them unfiltered',
+  );
+  const selfBuilt = publication.match(/const linkedCardIds = cards\.filter\(/g) || [];
+  assert.strictEqual(selfBuilt.length, 0,
+    'the five duplicated preambles are gone; there is one helper and it checks');
+});
+
+test('the assigned-only member restriction survived the de-duplication', () => {
+  // Members marked isNormalAssignedOnly / isCommentAssignedOnly /
+  // isReadAssignedOnly only see cards they are assigned to. That narrowing used
+  // to be repeated in each cursor; it must still be applied inside the helper.
+  const helper = publication.match(/const visibleLinkedCardIds = async board => \{[\s\S]*?\n  \};/)[0];
+  assert.ok(/isNormalAssignedOnly \|\| member\.isCommentAssignedOnly \|\| member\.isReadAssignedOnly/.test(helper));
+  assert.ok(/cardSelector\.assignees = \{ \$in: \[thisUserId\] \}/.test(helper));
+});
+
+test('the helper is memoized per board, so five cursors are not five sets of queries', () => {
+  const helper = publication.match(/const _linkedIdsByBoard = new Map\(\);[\s\S]*?\n  \};/)[0];
+  assert.ok(/_linkedIdsByBoard\.has\(board\._id\)/.test(helper));
+  assert.ok(/_linkedIdsByBoard\.set\(board\._id, compute\)/.test(helper));
+});
+
+// ------------------------------------------- no hand-written visibility copies
+
+test('every board-visibility selector in the publication comes from the builder', () => {
+  // RevokeBleed was one hand-written copy disagreeing with another. There were
+  // three more copies in this file, all correct at the time — and that is
+  // exactly the state the broken one was in before it drifted.
+  const copies = publication.match(/\{ orgs: \{ \$elemMatch: \{ orgId: \{ \$in: user\.orgIds\(\) \}/g) || [];
+  assert.strictEqual(copies.length, 0, 'no hand-written visibility array remains');
+  const builders = publication.match(/boardVisibilitySelectors\(\{/g) || [];
+  assert.ok(builders.length >= 4, `every selector uses the builder, found ${builders.length}`);
 });
 
 console.log(`\n${passed} tests passed`);

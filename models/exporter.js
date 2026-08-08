@@ -474,7 +474,13 @@ export class Exporter {
         if (!this._excludeAttachments) {
           await w(',"file":"');
           const filePath = att.versions && att.versions.original && att.versions.original.path;
-          if (filePath && fs.existsSync(filePath)) {
+          // GHSA-4mxf-m8pq-xc9p class: the ATTACHMENT half of the same read. The
+          // attachment allow rule refuses a client-supplied path, so this is not
+          // the reported hole - but a path is only as trustworthy as every way it
+          // could have been written, and this streaming export is the one
+          // remaining place that read a stored path with nothing but an
+          // existsSync. Same containment check as the avatars above.
+          if (filePath && isReadableStoredFilePath(filePath) && fs.existsSync(filePath)) {
             await new Promise((resolve, reject) => {
               const rs = fs.createReadStream(filePath);
               let leftover = Buffer.alloc(0);
