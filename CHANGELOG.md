@@ -264,7 +264,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.73 2026-08-08 WeKan ® release
 
 **In short:** a **GitHub CodeQL** finding fixed after v10.72 was tagged -
 **PatternBleed**, a string replacement that replaced a hyphen with itself, so an
