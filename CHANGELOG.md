@@ -264,7 +264,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.72 2026-08-08 WeKan ® release
 
 **In short:** the prereleases WeKan was running on become finals - **Meteor
 3.5.1** and **@meteorjs/rspack 2.1.0** - and two dependencies take a major
