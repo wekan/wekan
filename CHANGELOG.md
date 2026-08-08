@@ -279,8 +279,14 @@ nothing checked who may see the parent's board. **CommentBleed** let any board
 member delete anyone's comment over REST, because the object-level rule lived in
 a collection hook that cannot see an HTTP caller. Each fix puts the rule in ONE
 place that both callers use, and each comes with a plain-node suite that pins
-the attack and the negatives. The binaries below are v10.73's: nothing here
-rebuilds them.
+the attack and the negatives. Auditing for more of the same found **five more
+cursors** leaking cross-board content the way ParentBleed did, three more
+hand-written copies of the visibility query, and a **comment reaction** anybody
+on the board could put in somebody else's name. Below that, the security tests
+themselves: they now say WHICH published vulnerability they guard, and a new
+guard checks the whole Hall of Fame list against them - **29 of 58** are
+covered, and the other 29 are recorded gaps with reasons. The binaries below are
+v10.73's: nothing here rebuilds them.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -304,6 +310,9 @@ rebuilds them.
 | win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-win64.exe) | v1.45.0 | `f6337994368a52d011d438c82b914b0cedb3178fd030acac8db3dab8017cee85` |
 
 This release fixes the following CRITICAL SECURITY ISSUES:
+
+**Avatars and board export** - where an uploaded picture lives on disk, and
+what an export is allowed to read.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0a9eb0ef4fb3600917ef8b55d4c6afb089873e98">PathBleed: an avatar could name any file on disk, and board export read it</a>. Thanks to Alpastx and xet7.</summary>
@@ -335,9 +344,14 @@ WeKan's own storage. That half also holds when a path is poisoned some other way
 it sits at the one place export turns a stored path into bytes, for attachments
 and avatars alike. The download path had always checked containment this way;
 its private copy of the function is gone, so download and export ask the same
-question.
+question. The streaming attachment export, which read a stored path with
+nothing but an `existsSync`, was the last place left and takes the same check -
+not the reported hole, since the attachment allow rule refuses a client-supplied
+path, but a path is only as trustworthy as every way it could have been written.
 
 </details>
+
+**The board publication** - who is sent a board, and which of its cards.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/08baf7fd1b76a9bb889de2220bdc10c36aad6a65">RevokeBleed: revoking an org, team or domain share did not revoke it</a>. Thanks to Alpastx and xet7.</summary>
@@ -397,7 +411,18 @@ is unchanged. This is the shape of check the linked-card path already made -
 creating a linked card requires read access to the source card's board -
 applied to the field that did not have it.
 
+Auditing for more of the same found the LINKED-CARD cursors beside the ancestor
+one with the identical hole and a wider blast radius: five of them, publishing
+the linked card, its comments, its attachments, its checklists and its checklist
+items. A `cardType-linkedCard` names a card by id exactly as `parentId` does,
+and that card may live on any board. They take the same answer - a linked card
+whose source board the subscriber cannot see is not sent - and they share one
+helper now instead of repeating the same fifteen-line preamble five times, which
+is what stops the sixth from being written without the check.
+
 </details>
+
+**The REST API** - what an HTTP caller may do to somebody else's content.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a8fa6cfa3fb6c519245a4425399da3a9838bea95">CommentBleed: the REST API let any board member delete anyone's comment</a>. Thanks to Alpastx and xet7.</summary>
@@ -426,6 +451,72 @@ exported function the hooks and the handler both call, so DDP and HTTP cannot
 enforce different things, and it carries a 403 so a refusal answers Forbidden
 rather than 500. The no-userId path stays, documented for the internal callers
 it was written for.
+
+</details>
+
+and hardens the following, found while auditing for more of the same:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/156121c4bc0428a5a1edf5db9fbda6cac916d3ea">Comment reactions: react as yourself, not as somebody else</a>. Thanks to xet7.</summary>
+
+The same shape as CommentBleed, one collection over. A `CardCommentReactions`
+document holds
+`{ cardCommentId, reactions: [ { reactionCodepoint, userIds } ] }` and the whole
+array is ONE field, whose allow rule was board membership for
+insert, update and remove alike. So any member could `$set` `reactions` to
+anything: add a colleague's userId to a reaction they never made, or remove one
+they did. `toggleReaction()` only ever touches the caller's own id, so no
+legitimate client sends anything else - the rule simply never said so.
+
+Integrity rather than confidentiality, since reactions are visible to the whole
+board already, but it puts words in another person's mouth. A deny rule now
+refuses an update that changes any OTHER user's presence in any reaction. The
+decision compares MEMBERSHIP rather than array order, because the client
+rebuilds the array on every toggle and a reordered array with the same
+membership is the same set of reactions. The modifier forms that cannot be
+checked that way - `$push`, `$pull`, `$addToSet`, `$unset`, a dotted
+`reactions.0.userIds` - are refused outright. Read-only and no-comment members
+still may not react at all, as before.
+
+</details>
+
+and improves the security tests themselves:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a4a9c03b1fc75d61760a35c87decbaf7a3081973">Security tests say which vulnerability they guard, and the list is checked</a>. Thanks to xet7.</summary>
+
+"Are the security tests enough to prevent what is in the Hall of Fame" was
+unanswerable. WeKan publishes 58 named vulnerabilities; some suites named the
+one they belong to, most did not, and the Hall of Fame lives in a different
+repository that CI never checks out - so answering it meant reading 58 pages
+against 300 suites by hand, which means it was never answered. A regression test
+that quietly stops existing is worth nothing, which is the failure mode
+`tests/testsAreRegistered.test.cjs` already caught once, when two \*bleed suites
+had drifted out of the mocha index.
+
+The list lives in the repository that has the tests now, and
+`tests/securityRegressionCoverage.test.cjs` keeps the two in step. Every
+published vulnerability is either GUARDED - named by a suite that still exists -
+or RECORDED, a gap with a written reason, which is this CHANGELOG's `TODO Later`
+pattern applied to tests. The gap count is pinned, so a vulnerability cannot be
+published with neither a test nor a note; a gap that turns out to be guarded
+after all fails too, so coverage is never understated; and a file that merely
+REGISTERS suites is not accepted as coverage, or the guard would pass itself.
+
+Getting there meant naming vulnerabilities in the suites that already guarded
+them. `tests/securityMeifukun.test.cjs` guards eight reports and named one: its
+sections are RedirectBleed, SourceBleed, LiveBleed, CasBleed, OidcBleed,
+MetricsBleed, ImpersonateBleed and InviteBleed - seven vulnerabilities that
+looked untested and were not. `tests/noIdentityReplacement.test.cjs` guards
+IdentityBleed and PatternBleed. ExportBleed, CrashBleed, MimeBleed and the four
+LockoutBleed suites now say so too, and the cross-board suite also checks
+BoardBleed's move deny on Lists and Swimlanes, not only Cards.
+
+The count that comes out of it: **29 of 58 published vulnerabilities have a
+named regression test, and 29 are recorded gaps** - mostly older fixes from
+before WeKan tested its security fixes at all. They are not known to be
+unprotected; they are known to be unchecked, which is a different and more
+honest statement, and each one now says what it would take to close it.
 
 </details>
 
