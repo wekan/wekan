@@ -273,14 +273,14 @@ jobs:
             sha256sum "${name}.flatpak" > "${name}.flatpak.sha256sum" )
           ls -lh dist
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: ${{ env.BUILD_THIS == 'true' }}
         with:
           name: flatpak-${{ matrix.flatpak_arch }}
           path: dist/
           if-no-files-found: error
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: ${{ env.BUILD_THIS == 'true' }}
         with:
           name: flatpak-repo-${{ matrix.flatpak_arch }}
@@ -395,7 +395,7 @@ jobs:
           TXT
           du -sh flatpak-repo
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: ${{ inputs.publish_repo != false }}
         with:
           name: flatpak-repository
