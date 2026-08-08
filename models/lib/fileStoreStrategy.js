@@ -31,18 +31,11 @@ export {
 const { sanitizeFilename } = require('./filenameSanitizer');
 const { hasEnoughDiskSpace } = require('./diskSpace');
 
-function normalizeForCompare(inputPath) {
-  const normalized = path.resolve(inputPath);
-  return process.platform === 'win32' ? normalized.toLowerCase() : normalized;
-}
-
-function isPathInside(basePath, targetPath) {
-  const normalizedBase = normalizeForCompare(basePath);
-  const normalizedTarget = normalizeForCompare(targetPath);
-  const relative = path.relative(normalizedBase, normalizedTarget);
-
-  return relative === '' || (!relative.startsWith('..') && !path.isAbsolute(relative));
-}
+// GHSA-4mxf-m8pq-xc9p: this containment check used to be written out here and
+// nowhere else, so the board exporter - which reads the very same stored paths -
+// had none. It lives in models/lib/storagePathContainment.js now, where the
+// exporter uses it too and where plain Node can test it.
+const { isPathInsideBase: isPathInside } = require('./storagePathContainment');
 
 function tryRealPath(inputPath) {
   try {

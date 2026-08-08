@@ -2,23 +2,14 @@ import Attachments from '/models/attachments';
 import Boards from '/models/boards';
 import AttachmentStorageSettings from '/models/attachmentStorageSettings';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
-
-function hasUnsafeClientVersionFields(fileObj) {
-  const versions = fileObj?.versions;
-  if (!versions || typeof versions !== 'object') {
-    return false;
-  }
-
-  return Object.values(versions).some((version) => {
-    if (!version || typeof version !== 'object') {
-      return false;
-    }
-
-    // Path and storage are internal server-managed metadata.
-    return Object.prototype.hasOwnProperty.call(version, 'path') ||
-      Object.prototype.hasOwnProperty.call(version, 'storage');
-  });
-}
+// GHSA-4mxf-m8pq-xc9p: these guards used to be written out here and NOT in
+// server/permissions/avatars.js, which is how avatars ended up without them.
+// They live in one place now, and both collections import that one.
+import {
+  hasUnsafeClientVersionFields,
+  touchesVersionFields,
+  onlyTouchesAllowedFields,
+} from '/models/lib/fileVersionFields';
 
 Attachments.allow({
   async insert(userId, fileObj) {
@@ -51,8 +42,7 @@ Attachments.allow({
     // path traversal attacks via storage migration exploits.
 
     // Block direct updates to server-managed version metadata.
-    const touchesVersions = fields.some(field => field === 'versions' || field.startsWith('versions.'));
-    if (touchesVersions) {
+    if (touchesVersionFields(fields)) {
       if (process.env.DEBUG === 'true') {
         console.warn('Blocked attempt to update attachment versions metadata:', fields);
       }
@@ -61,13 +51,7 @@ Attachments.allow({
 
     // Allow normal updates for file upload/management
     const allowedFields = ['name', 'size', 'type', 'extension', 'extensionWithDot', 'meta'];
-    const isAllowedField = fields.every(field => {
-      // Allow field itself or nested properties like 'versions.original'
-      const baseField = field.split('.')[0];
-      return allowedFields.includes(baseField);
-    });
-
-    if (!isAllowedField) {
+    if (!onlyTouchesAllowedFields(fields, allowedFields)) {
       if (process.env.DEBUG === 'true') {
         console.warn('Blocked attempt to update restricted attachment fields:', fields);
       }

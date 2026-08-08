@@ -61,6 +61,29 @@ export function writeWithBackpressure(res, str) {
   });
 }
 
+// GHSA-4mxf-m8pq-xc9p: an avatar's `versions.original.path` comes out of the
+// DATABASE, and the export below reads it off disk and embeds the bytes as
+// base64. The avatar allow rule now refuses to let a client write that field
+// (server/permissions/avatars.js), and this is the second lock: a path is only
+// read when it resolves to somewhere inside WeKan's own storage, so a path
+// poisoned any other way - an old document written before the fix, a restored
+// backup, a bad migration - still cannot turn an export into a file read.
+//
+// The roots are computed the same way models/avatars.js and models/attachments.js
+// compute their storagePath, via the shared helper both of them are kept in sync
+// with.
+export function avatarStorageRoots() {
+  const { computeStoragePaths } = require('./lib/attachmentStoragePath');
+  const paths = computeStoragePaths(process.env.WRITABLE_PATH);
+  return [paths.avatars, paths.attachments];
+}
+
+// True when `storedPath` may be read. Exported so the guard itself is testable.
+export function isReadableStoredFilePath(storedPath, roots) {
+  const { isPathInsideAny } = require('./lib/storagePathContainment');
+  return isPathInsideAny(storedPath, roots || avatarStorageRoots());
+}
+
 // exporter maybe is broken since Gridfs introduced, add fs and path
 export class Exporter {
   constructor(boardId, attachmentId, options = {}) {
@@ -117,12 +140,26 @@ export class Exporter {
       buffer.fill(0);
 
       // callback has the form function (err, res) {}
+
+      // GHSA-4mxf-m8pq-xc9p: this is the ONE place the export turns a stored
+      // path into bytes, for attachments and avatars alike, so the containment
+      // check belongs here as well as at the call sites. A path that does not
+      // resolve inside WeKan's storage is not a file this export may read.
+      const storedPath = doc?.versions?.original?.path;
+      if (!isReadableStoredFilePath(storedPath)) {
+        if (process.env.DEBUG === 'true') {
+          console.warn('Refused to export a file stored outside the storage root:', storedPath);
+        }
+        callback(null, null);
+        return;
+      }
+
       const tmpFile = path.join(
         os.tmpdir(),
         `tmpexport${process.pid}${Math.random()}`,
       );
       const tmpWriteable = fs.createWriteStream(tmpFile);
-      const readStream = fs.createReadStream(doc.versions.original.path);
+      const readStream = fs.createReadStream(storedPath);
       readStream.on('data', function (chunk) {
         buffer = Buffer.concat([buffer, chunk]);
       });
@@ -295,7 +332,10 @@ export class Exporter {
         const m = localUrl.match(/\/(?:cdn\/storage\/avatars|cfs\/files\/avatars)\/([^/?#]+)/);
         if (m && m[1]) {
           const avatar = await ReactiveCache.getAvatar(m[1]);
-          if (avatar && avatar.versions && avatar.versions.original && avatar.versions.original.path) {
+          const avatarPath = avatar?.versions?.original?.path;
+          // GHSA-4mxf-m8pq-xc9p: only read it when it is really inside WeKan's
+          // own storage. A path pointing anywhere else is not an avatar.
+          if (avatarPath && isReadableStoredFilePath(avatarPath)) {
             const file = await getBase64DataAsync(avatar);
             if (file) {
               user.profile = user.profile || {};
@@ -512,7 +552,9 @@ export class Exporter {
           if (m && m[1]) {
             const avatar = await avatarsRaw.findOne({ _id: m[1] });
             const p = avatar && avatar.versions && avatar.versions.original && avatar.versions.original.path;
-            if (p) {
+            // GHSA-4mxf-m8pq-xc9p: same containment check as the non-streaming
+            // export above - never read a stored path from outside the storage.
+            if (p && isReadableStoredFilePath(p)) {
               try {
                 const buf = fs.readFileSync(p);
                 user.profile = user.profile || {};
