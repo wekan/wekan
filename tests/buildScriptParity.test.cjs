@@ -186,14 +186,12 @@ test('every script in releases/ is reachable from BOTH menus', () => {
   const SKIP = {
     'run-everything.sh': 'the Tests menu runs it (EVERYTHING, sequential)',
     'db-conformance.sh': 'the Tests menu runs it (all databases)',
-    'fix-changelog-hashes.sh': 'Setup -> Update git runs it',
+    'fix-changelog-hashes.sh': 'Setup -> git pull and git push both run it',
     'ensure-tools.sh': 'a helper the other scripts source, not an action',
     'ferretdb/start-wekan.sh': 'runs INSIDE the built snap/bundle, not here',
     'ferretdb/wekan-entrypoint.sh': 'the Docker image entrypoint',
     'ferretdb/recovery-bridge.mjs': 'runs inside the running server',
     'ferretdb/start-wekan.bat': 'shipped INSIDE the Windows bundle, to start it',
-    'old-build-bundle-arm64.sh': 'superseded by build-bundle-arm64.sh',
-    'translations/old-pull-translations.sh': 'superseded by pull-translations.sh',
     'build-bundle-win64.bat': 'a Windows batch script - bash cannot run it, so it '
       + 'is not a menu entry; build.bat\'s Bundles menu says to run it directly',
     // Release-workflow helpers. These are called by
@@ -203,8 +201,6 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     // "install a target-CPU Node.js into the container we are inside" would be
     // an entry that cannot work.
     'check-arch-binaries.sh': 'release-workflow preflight: called per build job',
-    'resolve-fork-node-tag.sh': 'release-workflow: resolves the fork\'s newest '
-      + 'v<major>.x tag carrying an asset, for the win32/mac-x64 preflights',
     'embed-verified-node.sh': 'release-workflow: called per native build job to '
       + 'download+verify the bundled Node.js from the wekan/node fork',
     'install-node-for-arch.sh': 'release-workflow: runs inside the build container',
