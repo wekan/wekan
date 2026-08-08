@@ -87,7 +87,7 @@
     "jquery-ui": "^1.14.2",
     "jszip": "^3.7.1",
     "limax": "^4.2.3",
-    "markdown-it": "^14.1.1",
+    "markdown-it": "^15.0.0",
     "markdown-it-emoji": "^3.0.0",
     "markdown-it-math": "^6.0.0",
     "meteor-accounts-t9n": "^2.6.0",
