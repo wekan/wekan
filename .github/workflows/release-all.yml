@@ -931,7 +931,7 @@ jobs:
 
       - name: Collect where the binaries came from
         continue-on-error: true
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           pattern: provenance-*
           path: provenance
@@ -4091,7 +4091,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         continue-on-error: true
         with:
           pattern: provenance-*
