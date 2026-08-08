@@ -264,6 +264,174 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** four security reports from **Alpastx**, all of them the same
+mistake in four places - a rule that exists, is correct, and is not asked.
+**PathBleed** let an avatar's owner write the on-disk path of their own avatar
+and have board export read that file back out, because the guard attachments
+have was never copied to avatars. **RevokeBleed** left a revoked organization,
+team or domain share working in the `board` publication, because that
+publication had its own copy of the visibility query and the copy ignored
+`isActive`. **ParentBleed** let a card on one board name a parent on a private
+one and had the publication deliver that private card to everybody, because
+nothing checked who may see the parent's board. **CommentBleed** let any board
+member delete anyone's comment over REST, because the object-level rule lived in
+a collection hook that cannot see an HTTP caller. Each fix puts the rule in ONE
+place that both callers use, and each comes with a plain-node suite that pins
+the attack and the negatives. The binaries below are v10.73's: nothing here
+rebuilds them.
+
+| Platform | Binary | From | Version | SHA256 |
+| --- | --- | --- | --- | --- |
+| amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
+| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-amd64) | v1.45.0 | `94713f605167abb45a3717482d35de4824cb4a8f199c1400e826a8a2b04f3893` |
+| arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
+| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-arm64) | v1.45.0 | `275ae50ac97e6a70eee72e6de37766c458775c5997c896352db5189c6cf1f04b` |
+| loong64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-loong64.tar.xz) | v24.19.0 | `c24f224726f2d785bd18a1fd09f5e6d1fecf0269928451a60c5da9eac8e92e68` |
+| loong64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-loong64) | v1.45.0 | `28bf67981168dfc4bd67698b41dd62628aafe347a77f2b1e6ffcadf009d575e0` |
+| mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-arm64.tar.xz) | v24.19.0 | `3f1cf157479c1480352083105e13faf9d008ede98e7e157746b6df940d197b94` |
+| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-mac-arm64) | v1.45.0 | `639ed58b84820b3d588f4161c64d0ab940d0cc6e7d022088d60c2b0b97f99f8e` |
+| mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
+| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-mac-amd64) | v1.45.0 | `fd519903f5630e881e38e7c5814f00c0e89ad26f6785f1ddcbab4058356fc9f3` |
+| ppc64le | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-ppc64le.tar.xz) | v24.19.0 | `c510c6ce12f07010f771e6edb22a3fe23f4f2e6f40b1ffd4941aed0646a0d8b3` |
+| ppc64le | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-ppc64le) | v1.45.0 | `de4518c7774d302533369c477759ddd866785d6741d98d399388eb8de3df175a` |
+| riscv64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-riscv64.tar.xz) | v24.19.0 | `cd1f14af2812148002f58b58a5f9af512a50e3b8e8c148e0db44019dcb68edfd` |
+| riscv64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-riscv64) | v1.45.0 | `7dc2952f554e8800c4029577901999e06e10272da686f7e402177080067028f9` |
+| s390x | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-s390x.tar.xz) | v24.19.0 | `a4792e65962ffa0af42627aacf1122a60c3c88dbf4e4184f06820d66f9da8ba4` |
+| s390x | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-s390x) | v1.45.0 | `0ae2e2f2cffdc5dd2ea4f125281a5e12eea216fbe49b5561d9c001700c3fc0c1` |
+| win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
+| win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-win64.exe) | v1.45.0 | `f6337994368a52d011d438c82b914b0cedb3178fd030acac8db3dab8017cee85` |
+
+This release fixes the following CRITICAL SECURITY ISSUES:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0a9eb0ef4fb3600917ef8b55d4c6afb089873e98">PathBleed: an avatar could name any file on disk, and board export read it</a>. Thanks to Alpastx and xet7.</summary>
+
+[PathBleed](https://wekan.fi/hall-of-fame/pathbleed/) -
+[GHSA-4mxf-m8pq-xc9p](https://github.com/wekan/wekan/security/advisories/GHSA-4mxf-m8pq-xc9p),
+High, CWE-22 and CWE-73. Attachments blocked client-supplied
+`versions.*.path`; avatars did not. The avatar allow rule was the single line
+`update: isOwner` - being the owner let you write ANY field of your own avatar
+document, `versions.original.path` included. That field is server-managed: it
+says where on disk the bytes are.
+
+Board export then read it. For every member whose avatar is a local WeKan file
+the exporter opens that path and embeds the bytes as base64 in
+`profile.avatarFile`, so an authenticated user could point their own avatar at
+`/etc/passwd` - or anything else under `WRITABLE_PATH` - export a board they
+are a member of, and decode the file out of the JSON. Arbitrary file read as
+the WeKan OS user, from any account that can own an avatar.
+
+Both halves are closed. The WRITE: the guards attachments had now live in one
+module and BOTH permission files import it - avatars had gone without them
+precisely because each collection wrote its own copy. Avatars refuse an insert
+carrying `versions.*.path` or `.storage`, refuse any update touching the
+versions subtree, and restrict updates to the same field whitelist attachments
+use; being the owner is still required and no longer sufficient. The READ:
+nothing is read from a stored path unless it RESOLVES to somewhere inside
+WeKan's own storage. That half also holds when a path is poisoned some other way
+- a document written before this fix, a restored backup, a bad migration - and
+it sits at the one place export turns a stored path into bytes, for attachments
+and avatars alike. The download path had always checked containment this way;
+its private copy of the function is gone, so download and export ask the same
+question.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/08baf7fd1b76a9bb889de2220bdc10c36aad6a65">RevokeBleed: revoking an org, team or domain share did not revoke it</a>. Thanks to Alpastx and xet7.</summary>
+
+[RevokeBleed](https://wekan.fi/hall-of-fame/revokebleed/) -
+[GHSA-gwc4-fw7p-gw58](https://github.com/wekan/wekan/security/advisories/GHSA-gwc4-fw7p-gw58),
+Moderate, CWE-639 and CWE-863. `isActive: false` is how a board admin REVOKES a
+share with an organization, a team or an email domain. All Boards honoured it -
+it matches shares with `$elemMatch: { ..., isActive: true }` - so the board
+disappeared from the revoked user's list and everything looked correct.
+
+The `board` publication did not. That is the publication that sends the board
+document and its lists, swimlanes, cards, comments and attachments, and it
+matched shares with `'orgs.orgId': { $in: orgsIds }` instead. A dotted path
+matches an element of the array without saying anything about that element's
+other fields, so `isActive` was never consulted: anyone who still knew the
+boardId - a bookmark, a browser tab, a note - could subscribe and receive the
+whole private board after their access had been taken away. A revoke the
+primary data publication does not honour is not a revoke.
+
+The rule was written out twice and the two copies disagreed, so it is written
+once now: one builder makes the `$or`, both `Boards.userBoards` and the `board`
+publication call it, and every share kind is matched with `$elemMatch`
+requiring `isActive: true`. `includePublic: false` still drops the public clause
+and only that clause, which is what the search over all boards needs.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/35daaaa2795e83da9a23172d6279a9ba63ef1b0f">ParentBleed: one card id bridged a private board into another board's feed</a>. Thanks to Alpastx and xet7.</summary>
+
+[ParentBleed](https://wekan.fi/hall-of-fame/parentbleed/) -
+[GHSA-jvv9-498p-hxrg](https://github.com/wekan/wekan/security/advisories/GHSA-jvv9-498p-hxrg),
+Moderate, CWE-200 and CWE-862. A card's `parentId` may name a card on ANOTHER
+board, and setting it was authorized only against the CHILD board's write ACL.
+Nothing asked whether the person setting it, or the people subscribed to the
+child board, were allowed to see the other board at all.
+
+The board publication walks the whole ancestor chain, because the
+prefix-with-full-path subtask setting renders a subtask's complete path
+(\#3453), and it published the complete ancestor card DOCUMENTS to every
+subscriber of the child board. A member who could write on shared board B and
+knew a card id on private board A could point a card at it and have A's card -
+title, description, custom fields - delivered over DDP to people who are not
+members of A.
+
+Closed at both ends, because either alone leaves half the hole open. The WRITE
+refuses a parent whose board the actor cannot see - one question, asked in one
+place with the same selectors the publication and All Boards use, so an ACTIVE
+org, team or domain share counts and a revoked one does not. It is enforced on
+the REST card create, on the REST card update, and on DDP by a deny rule
+covering insert as well as update, beside the cross-board MOVE deny that
+[GHSA-gm7v-pc38-53jr](https://wekan.fi/hall-of-fame/boardbleed/) added. The
+PUBLICATION sends only the ancestors whose board the subscriber may see; the
+board being published is its own answer, so an ordinary same-board subtask path
+is unchanged. This is the shape of check the linked-card path already made -
+creating a linked card requires read access to the source card's board -
+applied to the field that did not have it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a8fa6cfa3fb6c519245a4425399da3a9838bea95">CommentBleed: the REST API let any board member delete anyone's comment</a>. Thanks to Alpastx and xet7.</summary>
+
+[CommentBleed](https://wekan.fi/hall-of-fame/commentbleed/) -
+[GHSA-pqr4-rxgp-hv2m](https://github.com/wekan/wekan/security/advisories/GHSA-pqr4-rxgp-hv2m),
+Moderate, CWE-639 and CWE-863. Over DDP, deleting a comment is
+author-or-board-admin, and a board that sets `restrictCommentEditing` takes even
+the admin's ability away (\#5906). That rule was enforced in a collection hook
+keyed off the Meteor userId, with an early return for the genuine
+server-internal callers - board copy, cleanup, migrations - that run with no
+authenticated user.
+
+An HTTP request carries no Meteor userId into the invocation context. So
+`DELETE /api/boards/:boardId/cards/:cardId/comments/:commentId`, which checked
+only board MEMBERSHIP, reached the collection with no user, the hook took its
+"server-internal, trust it" path, and any normal member could delete any comment
+on the board: HTTP 200, the comment gone, `restrictCommentEditing` or not, while
+the same deletion over DDP was correctly refused. Harassment and evidence
+destruction on a shared board.
+
+The fix does not rely on the hook seeing something it cannot see. The handler
+loads the comment - 404 when there is none - and applies the same rule itself,
+with the REST caller's id, before removing anything. That rule is now an
+exported function the hooks and the handler both call, so DDP and HTTP cannot
+enforce different things, and it carries a 403 so a refusal answers Forbidden
+rather than 500. The no-userId path stays, documented for the internal callers
+it was written for.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.73 2026-08-08 WeKan ® release
 
 **In short:** a **GitHub CodeQL** finding fixed after v10.72 was tagged -
