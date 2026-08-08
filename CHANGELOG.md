@@ -266,7 +266,11 @@ browser build to verify).
 
 # v10.72 2026-08-08 WeKan ® release
 
-**In short:** the prereleases WeKan was running on become finals - **Meteor
+**In short:** a **GitHub CodeQL** finding is fixed - a string replacement that
+replaced a hyphen with itself, so an escape that looked like one was not there -
+with a guard that now catches the whole class in the test run rather than days
+later in a web UI. Then: the prereleases WeKan was running on become finals -
+**Meteor
 3.5.1** and **@meteorjs/rspack 2.1.0** - and two dependencies take a major
 version: **jQuery 4** and **@babel/parser 8**. jQuery 4 stopped the server from
 starting at all. It throws `jQuery requires a window with a document` the moment
@@ -316,7 +320,41 @@ work.
 | win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
 | win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-win64.exe) | v1.45.0 | `f6337994368a52d011d438c82b914b0cedb3178fd030acac8db3dab8017cee85` |
 
-This release updates the following dependencies:
+This release fixes the following SECURITY ISSUE found by GitHub CodeQL code
+scanning:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2cdad92ba6146c00018d1be56fd2e16bceeb1450">A string replacement that replaced a hyphen with itself, and a guard for the whole class</a>. Thanks to GitHub CodeQL code scanning and xet7.</summary>
+
+Code scanning alert #431, rule `js/identity-replacement` (CWE-116), in
+`tests/releaseNodeSources.test.cjs`: a platform name was interpolated into a
+regex through `p.replace('-', '-')`, which replaces a hyphen with a hyphen. It
+reads as "escape this before putting it in a pattern" and does nothing at all,
+so the value went in raw.
+
+Nothing failed, because a hyphen outside a character class needs no escaping -
+but the guard it looked like was not there, and a platform name carrying a `.`
+or a `+` would have matched the wrong row or thrown. CodeQL is right to flag the
+shape: its usual cause is a mistyped backslash escape, where a replacement meant
+to double a character silently is that character. The name is escaped for real
+now, with the same `escapeRegExp` the other guards in `tests/` use.
+
+`tests/noIdentityReplacement.test.cjs` catches the class rather than the
+instance - code scanning reports these days later in a web UI, the node suites
+report in fifteen seconds. Three things it took to make it honest: it compares
+the two sides as VALUES rather than as source text, since an escaped quote and a
+plain one are the same value and a text comparison would miss the very mistake
+it exists for; the two quote styles are separate alternatives rather than one
+character class excluding both, because CodeQL's own example puts a double quote
+inside a single-quoted literal and the first shape of the pattern could not
+match it; and comments are stripped, with the guard skipping its own file,
+because this file and the one it was written for both quote the bad line to
+explain it. Verified in both directions - the repository is clean, and the same
+scan against the previous commit reports the offending line.
+
+</details>
+
+and updates the following dependencies:
 
 - **Meteor 3.5.1-beta.0 → 3.5.1** — the framework WeKan is built on, now on the
   final release instead of the prerelease it was tracking. The four packages
