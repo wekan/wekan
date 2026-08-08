@@ -25,6 +25,7 @@ const {
   DEFAULT_LAZY_THRESHOLD,
 } = require('/models/lib/cardsLoading');
 const { boardCardScope } = require('/models/lib/boardCardScope');
+const { boardVisibilitySelectors } = require('/models/lib/boardVisibilitySelectors');
 
 // Card-loading mode (Admin Panel / Features): 'all' ships every card/checklist to
 // minimongo; 'lazy' ships none (each list loads its visible window via the
@@ -634,7 +635,6 @@ publishComposite('board', async function(boardId, isArchived) {
   localizeBoardMemberAvatars(boardId).catch(() => {});
 
   const thisUserId = this.userId;
-  const $or = [{ permission: 'public' }];
 
   let currUser = (!Match.test(thisUserId, String) || !thisUserId) ? 'undefined' : await ReactiveCache.getUser(thisUserId);
   let orgIdsUserBelongs = currUser !== 'undefined' && currUser.teams !== 'undefined' ? currUser.orgIdsUserBelongs() : '';
@@ -653,12 +653,18 @@ publishComposite('board', async function(boardId, isArchived) {
     teamsIds = teamIdsUserBelongs.split(',');
   }
 
-  if (thisUserId) {
-    $or.push({ members: { $elemMatch: { userId: thisUserId, isActive: true } } });
-    $or.push({ 'orgs.orgId': { $in: orgsIds } });
-    $or.push({ 'teams.teamId': { $in: teamsIds } });
-    $or.push({ 'domains.domain': { $in: emailDomains } });
-  }
+  // GHSA-gwc4-fw7p-gw58: this used to match org/team/domain shares with a
+  // dotted `'orgs.orgId': { $in: [...] }`, which says nothing about isActive -
+  // the flag a board admin flips to REVOKE a share. A revoked user disappeared
+  // from All Boards (that list uses the $elemMatch form) yet could still
+  // subscribe here with a boardId they remembered and receive the whole private
+  // board. Both now come from the one builder, which requires isActive: true.
+  const $or = boardVisibilitySelectors({
+    userId: thisUserId,
+    orgIds: orgsIds,
+    teamIds: teamsIds,
+    emailDomains,
+  });
 
   // Per-board adaptive card-loading decision. In 'auto' mode we count this board's
   // (non-archived) cards ONCE and decide lazy vs eager from the threshold; the

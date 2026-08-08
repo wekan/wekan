@@ -43,15 +43,36 @@ test('the public clause is optional, and only that clause', () => {
   const body = boards.slice(at, boards.indexOf('Boards.userBoardIds', at));
   assert.ok(/includePublic = options\.includePublic !== false/.test(body),
     'it must default to INCLUDING public boards, so every existing caller is unchanged');
-  assert.ok(/\.\.\.\(includePublic \? \[\{ permission: 'public' \}\] : \[\]\)/.test(body),
+
+  // The `$or` used to be written out here as an array literal, and this test
+  // matched that literal. GHSA-gwc4-fw7p-gw58 moved it into ONE builder shared
+  // with the `board` publication - the publication had its own copy that
+  // ignored isActive, so a revoked org/team/domain share still published the
+  // whole private board. The BEHAVIOUR this test protects is unchanged, so it
+  // now asks the builder instead of the literal.
+  assert.ok(/selector\.\$or = boardVisibilitySelectors\(\{/.test(body),
+    'the scope comes from the shared builder');
+  assert.ok(/includePublic,/.test(body), 'and the option is passed to it');
+
+  const { boardVisibilitySelectors } = require('../models/lib/boardVisibilitySelectors');
+  const args = {
+    userId: 'u', orgIds: ['o'], teamIds: ['t'], emailDomains: ['example.com'],
+  };
+  const withPublic = boardVisibilitySelectors(args);
+  const withoutPublic = boardVisibilitySelectors({ ...args, includePublic: false });
+
+  assert.ok(withPublic.some(c => c.permission === 'public'),
+    'included by default');
+  assert.ok(!withoutPublic.some(c => c.permission === 'public'),
     'the public clause is the one that drops out');
 
   // The four ways a user actually reaches a board must never be optional.
-  for (const clause of ['members:', 'orgs:', 'teams:', 'domains:']) {
-    const line = body.split('\n').find(l => l.includes(clause));
-    assert.ok(line && !/includePublic/.test(line),
+  for (const clause of ['members', 'orgs', 'teams', 'domains']) {
+    assert.ok(withoutPublic.some(c => Object.prototype.hasOwnProperty.call(c, clause)),
       `${clause} is a real relationship and must always be in the scope`);
   }
+  assert.strictEqual(withPublic.length - withoutPublic.length, 1,
+    'dropping the public clause drops nothing else');
 });
 
 test('the option reaches userBoardIds, which is what the search calls', () => {

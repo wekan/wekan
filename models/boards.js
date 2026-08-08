@@ -4,6 +4,7 @@ import { check, Match } from 'meteor/check';
 import { Random } from 'meteor/random';
 import { ReactiveCache } from '/imports/reactiveCache';
 const { notHelperBoardTitle } = require('/models/lib/helperBoards');
+const { boardVisibilitySelectors } = require('/models/lib/boardVisibilitySelectors');
 import escapeForRegex from 'escape-string-regexp';
 import CustomFields from './customFields';
 import {
@@ -2452,14 +2453,15 @@ Boards.userBoards = (
     if (selector.title === undefined) {
       selector.title = notHelperBoardTitle();
     }
-    selector.$or = [
-      ...(includePublic ? [{ permission: 'public' }] : []),
-      { members: { $elemMatch: { userId, isActive: true } } },
-      { orgs: { $elemMatch: { orgId: { $in: user.orgIds() }, isActive: true } } },
-      { teams: { $elemMatch: { teamId: { $in: user.teamIds() }, isActive: true } } },
-      // #5850: domain-based board sharing — board shared with the user's email domain.
-      { domains: { $elemMatch: { domain: { $in: user.emailDomains() }, isActive: true } } },
-    ];
+    // GHSA-gwc4-fw7p-gw58: the same builder the `board` publication uses, so
+    // "which boards may this user see" has one answer and cannot drift.
+    selector.$or = boardVisibilitySelectors({
+      userId,
+      orgIds: user.orgIds(),
+      teamIds: user.teamIds(),
+      emailDomains: user.emailDomains(),
+      includePublic,
+    });
     return selector;
   };
 
