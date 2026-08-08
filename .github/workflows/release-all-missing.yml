@@ -68,7 +68,7 @@ jobs:
       manual: ${{ steps.plan.outputs.manual }}
       total: ${{ steps.plan.outputs.total }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - id: plan
         env:
@@ -199,7 +199,7 @@ jobs:
         uses: docker/setup-qemu-action@v4
 
       # Before the download, because actions/checkout cleans the workspace.
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         if: ${{ steps.want.outputs.build == 'yes' }}
 
       # THE DIFFERENCE from release-all.yml, and the whole point of this
@@ -285,7 +285,7 @@ jobs:
     if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           V: ${{ needs.plan.outputs.version }}

@@ -921,7 +921,7 @@ jobs:
       # 404'd on wekan-<version>-amd64.zip - v10.63 and v10.64 both. Checking out
       # first, then downloading on top, keeps the bundles. (The checkout is here
       # for the provenance script under releases/.)
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Download all bundles
         uses: actions/download-artifact@v8
@@ -2290,7 +2290,7 @@ jobs:
       # checkout - the job would stop at "No such file or directory". It goes
       # first because actions/checkout cleans the workspace, which would remove
       # the bundle the next step downloads.
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Download amd64 bundle
         uses: actions/download-artifact@v8
@@ -4089,7 +4089,7 @@ jobs:
     if: ${{ always() && needs.release.result == 'success' }}
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: actions/download-artifact@v8
         continue-on-error: true

@@ -89,7 +89,7 @@ jobs:
       tag: ${{ steps.find.outputs.tag }}
       version: ${{ steps.find.outputs.version }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - id: find
         env:
           GH_TOKEN: ${{ github.token }}
@@ -133,7 +133,7 @@ jobs:
       BUILD_THIS: ${{ inputs.only == '' || contains(fromJSON(inputs.only), matrix.flatpak_arch) }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         if: ${{ env.BUILD_THIS == 'true' }}
 
       - name: Install flatpak
