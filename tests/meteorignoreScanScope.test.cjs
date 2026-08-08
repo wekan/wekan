@@ -54,32 +54,57 @@ const ignored = new Set(meteorignore.map(l => l.replace(/^\/+/, '').replace(/\/+
 
 console.log('meteorignoreScanScope:');
 
-test('the foreign checkouts that share this directory are all excluded', () => {
-  // Each of these is a whole other project cloned in beside WeKan. Nothing in
-  // the app imports any of them: the Node.js, FerretDB and mongo-tools binaries
-  // are downloaded from their releases at build time, and TSC and its website
-  // are not WeKan at all.
-  const foreign = [
-    '.tools',                    // Node headers + a Go toolchain, 20,535 dirs
-    'FerretDB',                  // the v1 fork checkout, 9,568 dirs
-    'node',                      // the Node.js fork checkout, 4,132 dirs, 2.3 GB
-    'mongo-tools',               // another Go project, 738 dirs
-    'TSC',                       // the game, 472 dirs
-    'secretchronicles.github.io', // its website, 512 dirs
-    'gitea'                      // the wekan/gitea fork, 1,401 dirs, 384 MB
-  ];
-  const missing = foreign.filter(d => !ignored.has(d));
-  assert.deepStrictEqual(missing, [], 'foreign checkouts Meteor would still walk');
+test('every foreign checkout in this directory is excluded', () => {
+  // A whole other project cloned inside this working copy is thousands of
+  // directories Meteor would walk on every rebuild, and for the two WeKan
+  // variants it is worse than walking: they contain client/ and server/, which
+  // Meteor loads EAGERLY, so leaving one in pulls a second copy of the whole app
+  // into the build.
+  //
+  // These used to be listed here by name - FerretDB, node, mongo-tools, TSC,
+  // gitea, the variants - matching one .meteorignore entry each. They live in
+  // .tools/ now, one entry that covers all of them, so a list of names is a list
+  // of history: it fails for the directories that moved, and says nothing about
+  // the next repo somebody clones.
+  //
+  // What matters has not changed, so ask THAT instead: .tools is excluded, and
+  // nothing at the top of this checkout that is its own git repository is left
+  // for Meteor to walk.
+  assert.ok(ignored.has('.tools'),
+    '.tools is where companion repos live, and it is the one entry that keeps '
+    + 'every one of them out of the build');
+
+  const strays = fs.readdirSync(ROOT, { withFileTypes: true })
+    .filter(e => e.isDirectory() && e.name !== '.git')
+    .filter(e => fs.existsSync(path.join(ROOT, e.name, '.git')))
+    .map(e => e.name)
+    .filter(name => !ignored.has(name));
+  assert.deepStrictEqual(strays, [],
+    'these are separate git repositories inside the checkout that .meteorignore '
+    + 'does not exclude - Meteor walks every one of them on every rebuild. Clone '
+    + 'companion repos into .tools/ instead');
 });
 
-test('and so are the two variant WeKan checkouts, which are worse than the rest', () => {
+test('and a variant WeKan checkout is worse than the rest, so it is caught too', () => {
   // wekan-ondra and wekan-gantt-gpl each contain client/, server/ and models/.
-  // Meteor loads server/ and client/ EAGERLY, so these are not merely scanned -
-  // leaving them in pulls a second and third copy of the whole app into the
-  // build.
-  for (const d of ['wekan-ondra', 'wekan-gantt-gpl']) {
-    assert.ok(ignored.has(d), `${d} is app code Meteor would load eagerly`);
-  }
+  // Meteor loads server/ and client/ EAGERLY, so one of those is not merely
+  // scanned - leaving it in pulls a second copy of the whole app into the build.
+  // They belong in .tools/ with the others, and the check above catches them
+  // wherever they are (they are git repositories); this one states the case
+  // separately because the consequence is different in kind, and checks the
+  // stronger property: no client/ or server/ tree from another checkout is
+  // reachable from the top of this one.
+  const appLike = fs.readdirSync(ROOT, { withFileTypes: true })
+    .filter(e => e.isDirectory() && !e.name.startsWith('.') && e.name !== 'client' && e.name !== 'server')
+    .filter(e => fs.existsSync(path.join(ROOT, e.name, 'client'))
+              && fs.existsSync(path.join(ROOT, e.name, 'server'))
+              && fs.existsSync(path.join(ROOT, e.name, 'models')))
+    .map(e => e.name)
+    .filter(name => !ignored.has(name));
+  assert.deepStrictEqual(appLike, [],
+    'this is another WeKan checkout inside this one, and Meteor loads its '
+    + 'client/ and server/ eagerly - a second copy of the whole app in the '
+    + 'build. Keep it in .tools/');
 });
 
 test('but _build is NOT excluded - it is the handoff, not leftovers', () => {

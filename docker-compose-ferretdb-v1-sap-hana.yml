@@ -731,6 +731,14 @@ services:
       # must still be configured for any group search to work.
       #- LDAP_GROUP_FILTER_ENABLE=false
       #
+      # Where the GROUPS are, when they are not under LDAP_BASEDN. Leave this
+      # unset when users and groups share one subtree: the group searches then
+      # use LDAP_BASEDN, exactly as they always have. Set it when the directory
+      # keeps them apart - ou=groups beside ou=people is a common layout - or
+      # every group search runs under the USER base, finds nothing, and
+      # LDAP_GROUP_FILTER_ENABLE=true refuses every login (wekan/wekan#5539).
+      #- LDAP_GROUP_BASEDN=ou=groups,dc=example,dc=org
+      #
       # The object class for filtering. Example: group
       #- LDAP_GROUP_FILTER_OBJECTCLASS=
       #

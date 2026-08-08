@@ -6,11 +6,21 @@ import Attachments from '/models/attachments';
 import { ReactiveCache } from '/imports/reactiveCache';
 
 // #3392: card-to-card dependencies ("Red Strings") only connect cards on the
-// same board. When a card is moved to another board, card.move() must drop the
-// moved card's now cross-board dependencies and pull inbound references to it
-// from the cards left behind on the old board. These are pure-logic stub tests
-// of the model helper (there is no `cards.move` Meteor method — the client calls
-// the helper directly).
+// same board, so a card that moves to another board must lose its own
+// cross-board dependencies AND the inbound references to it from the cards left
+// behind. These are pure-logic stub tests of the model helper (there is no
+// `cards.move` Meteor method — the client calls the helper directly).
+//
+// #6572 split those two halves apart, and this file changed with it. move()
+// clears the moved card's own dependencies as before, in the by-_id update. It
+// must NOT do the inbound half: that needs a multi-document update with a
+// compound selector, and this helper runs in the CLIENT bundle, where Meteor
+// allows updates only by id. It threw "Not permitted. Untrusted code may only
+// updateAsync documents by ID" on every cross-board move — before the move
+// itself ran, whether or not the card had any dependencies — so the inbound
+// cleanup is a Cards.after.update hook in server/models/cards.js now, where a
+// selector is allowed and which also covers the REST and import paths that never
+// called this helper. tests/cardMoveUntrustedUpdate.test.cjs pins that side.
 
 const origGetBoard = ReactiveCache.getBoard;
 
@@ -55,7 +65,7 @@ describe('cards move: dependency cleanup (#3392)', function () {
     ReactiveCache.getBoard = origGetBoard;
   });
 
-  it('clears the moved card deps and pulls inbound refs on a cross-board move', async function () {
+  it('clears the moved card deps, and leaves the inbound half to the server', async function () {
     const oldBoardId = 'b-old';
     const newBoardId = 'b-new';
     ReactiveCache.getBoard = id => {
@@ -81,14 +91,26 @@ describe('cards move: dependency cleanup (#3392)', function () {
     expect(mainCall.args[1].$set.cardDependencies).to.deep.equal([]);
     expect(mainCall.args[1].$set.boardId).to.equal(newBoardId);
 
-    // A multi-update pulls inbound references to the moved card from the old board.
-    const cleanupCall = updateStub
-      .getCalls()
-      .find(c => c.args[0] && c.args[0]['cardDependencies.cardId'] === 'cardA');
-    expect(cleanupCall, 'inbound cleanup update').to.exist;
-    expect(cleanupCall.args[0].boardId).to.equal(oldBoardId);
-    expect(cleanupCall.args[1].$pull.cardDependencies).to.deep.equal({ cardId: 'cardA' });
-    expect(cleanupCall.args[2]).to.deep.equal({ multi: true });
+    // #6572: and it does NOT do the inbound half itself. Every update this
+    // helper makes must be BY ID - a selector, or `multi: true`, is rejected on
+    // the client with "Untrusted code may only updateAsync documents by ID", and
+    // that is what used to fail the whole move before it started.
+    // `{ _id: x }` is allowed - Meteor's rule is "by id", not "not an object" -
+    // so only a selector that asks for anything else is the violation.
+    const selectorCall = updateStub.getCalls().find(c => {
+      const sel = c.args[0];
+      if (!sel || typeof sel !== 'object') return false;
+      const keys = Object.keys(sel);
+      return keys.length !== 1 || keys[0] !== '_id';
+    });
+    expect(
+      selectorCall,
+      selectorCall
+        ? `move() ran a selector update the client may not make: ${JSON.stringify(selectorCall.args[0])}`
+        : '',
+    ).to.not.exist;
+    const multiCall = updateStub.getCalls().find(c => c.args[2] && c.args[2].multi);
+    expect(multiCall, 'move() ran a multi-document update, which the client may not').to.not.exist;
   });
 
   it('does not touch dependencies on a same-board move', async function () {

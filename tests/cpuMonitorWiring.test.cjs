@@ -84,14 +84,25 @@ check('WeKan rate-limits asks, times out, backs off, and logs the outage startâ†
 });
 
 check('FerretDB self-regulates its own CPU and reports its operations summary', () => {
-  const s = read('FerretDB/internal/handler/selfregulate.go');
+  // The FerretDB fork is a companion repo, cloned into .tools/ - one ignored
+  // directory for all of them, instead of one ignored subdirectory each at the
+  // repo root. It used to be read from FerretDB/ here, and this guard broke the
+  // moment it moved; the path comes from the layout now, and a checkout that has
+  // not cloned it yet is skipped rather than failed - it is another repository,
+  // and not every checkout has it.
+  const FERRET = '.tools/FerretDB';
+  if (!fs.existsSync(path.join(__dirname, '..', FERRET, 'internal/handler/selfregulate.go'))) {
+    console.log(`    (${FERRET} is not cloned here - ./build.sh clones it on demand)`);
+    return;
+  }
+  const s = read(`${FERRET}/internal/handler/selfregulate.go`);
   assert.ok(/nextAutoSlowdown/.test(s) && /autoSlowdownMs/.test(s), 'autonomous delay decision');
   assert.ok(/procStatCPU/.test(s) && /\/proc\/stat/.test(s), 'measures host CPU itself');
   assert.ok(/runSelfRegulation/.test(s), 'background loop');
-  const t = read('FerretDB/internal/handler/throttle.go');
+  const t = read(`${FERRET}/internal/handler/throttle.go`);
   assert.ok(/effectiveDelay/.test(t) && /autoSlowdownMs/.test(t), 'effective delay = max(client, self-regulated)');
   assert.ok(/commandSummary/.test(t) && /commandCounts/.test(t), 'per-command summary of what FerretDB is doing');
-  const mt = read('FerretDB/internal/handler/msg_throttle.go');
+  const mt = read(`${FERRET}/internal/handler/msg_throttle.go`);
   assert.ok(/operationsSummary/.test(mt), 'summary returned in the throttle response');
 });
 

@@ -118,10 +118,14 @@ test('the big local-only clones are ignored, node included', () => {
   // untracked they are noise in every `git status` that hides the files that
   // matter.
   const rules = read('.gitignore').split(/\r?\n/).map(line => line.trim());
-  for (const dir of ['/projects/', '/sandstorm/', '/FerretDB/', '/mongo-tools/',
-    '/mongosh/', '/node/']) {
-    assert.ok(rules.includes(dir), `${dir} must be ignored`);
-  }
+  // One entry, not one per repo. They were listed here by name - /FerretDB/,
+  // /node/, /mongo-tools/, /mongosh/, /sandstorm/, /projects/ - each needing its
+  // own .gitignore line. They are cloned into .tools/ now, which covers all of
+  // them and any that come later; a name list would fail for the ones that moved
+  // and stay silent about the next one.
+  assert.ok(rules.includes('.tools/'),
+    '.tools/ is where companion repos are cloned, and ignoring it is what keeps '
+    + 'gigabytes of other projects out of git status');
   // Rooted, every one of them: a bare `node` would also match `node` anywhere
   // below - including anything a package happens to call that - and a bare
   // `node/` would match a `node/` directory at any depth.
