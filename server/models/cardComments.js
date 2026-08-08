@@ -9,7 +9,7 @@ import {
 } from '/server/lib/apiResponseHelpers';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Activities from '/models/activities';
-import CardComments from '/models/cardComments';
+import CardComments, { assertCanMutateComment } from '/models/cardComments';
 import { ensureIndex } from '/server/lib/mongoStartup';
 
 async function commentCreation(userId, doc) {
@@ -194,6 +194,25 @@ WebApp.handlers.delete(
       const paramCommentId = req.params.commentId;
       const paramCardId = req.params.cardId;
       await Authentication.checkBoardAccess(req.userId, paramBoardId);
+
+      // GHSA-pqr4-rxgp-hv2m: board membership is not permission to delete
+      // ANOTHER member's comment. This used to be the only check here, and the
+      // object-level rule (author, or a board admin unless the board sets
+      // restrictCommentEditing) lived in a collection hook keyed off the Meteor
+      // userId — which an HTTP request does not carry, so the hook took its
+      // "server-internal, no user" path and allowed every deletion. Load the
+      // comment and apply the same rule DDP applies, before removing anything.
+      const comment = await ReactiveCache.getCardComment({
+        _id: paramCommentId,
+        cardId: paramCardId,
+        boardId: paramBoardId,
+      });
+      if (!comment) {
+        sendJsonResult(res, { code: 404, data: { error: 'Comment not found' } });
+        return;
+      }
+      await assertCanMutateComment(req.userId, comment);
+
       await CardComments.removeAsync({
         _id: paramCommentId,
         cardId: paramCardId,
