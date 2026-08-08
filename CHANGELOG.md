@@ -289,8 +289,11 @@ insecure-write rule, and the REST route offered as a workaround left the card
 pointing at a list on a board it was not on; both are fixed. Below that: an npm
 dependency refresh, `Tests -> EVERYTHING` in **build.sh** and **build.bat**
 growing the one check it never ran and one browser log per browser on Windows,
-guards pinning what a **board export** contains, and the usual documentation and
-translation work.
+companion repositories moving into **.tools/** with the build scripts cloning
+them on demand, an **LDAP** group base for directories that keep users and
+groups apart, a **REST** answer for when a list last changed, guards pinning
+what a **board export** contains, and the usual documentation and translation
+work.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -740,6 +743,76 @@ Verified by running the scriptlet against each shape - symlink, regular file,
 missing, empty directory, and a directory holding `mongod` - and checking what
 it leaves behind, including that the symlink case does not delete the directory
 it points at.
+
+</details>
+
+**The test suite itself** - guards that described the world before a change.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/55480290884fc3891083b83fbb6b1de4113a66be">Five guards catch up with the companion-repo move and the cross-board card fix</a>. Thanks to xet7.</summary>
+
+A whole-run found five failures, all of them consequences of the two changes
+before it, and every one a guard doing its job.
+
+Three broke on the companion-repo move. Two of them - the `.meteorignore` scan
+scope and the swc helper guard - listed the foreign checkouts BY NAME, one
+ignore entry each: FerretDB, node, mongo-tools, TSC, gitea, the two WeKan
+variants. A list of names is a list of history; it fails for the ones that moved
+and says nothing about the next repo somebody clones. They ask the property now
+- `.tools` is excluded, and nothing at the top of the checkout that is its own
+git repository is left for Meteor to walk - and the variant check became the
+stronger version of itself: no directory holding `client/`, `server/` and
+`models/` is reachable from the top, since a second WeKan is loaded EAGERLY
+rather than merely scanned. The third reads FerretDB's Go source and still
+opened the old path; it reads `.tools/FerretDB`, and skips with a note when the
+clone is not there, because that is another repository and not every checkout
+has it.
+
+The compose guard caught a real omission: the `LDAP_GROUP_BASEDN` block went
+into `docker-compose.yml` only, and every compose file's `wekan` service must be
+identical - what a user reads while editing their settings must not depend on
+which backend they picked.
+
+The mocha failure is the one worth reading twice. Its test pinned `move()`
+issuing the inbound dependency cleanup itself: a multi-document update with a
+compound selector - exactly what the cross-board move fix removed, because that
+helper runs in the client bundle where Meteor allows updates only by id. **The
+test was pinning the bug.** It asserts the contract that replaced it now:
+`move()` clears the card's own dependencies and makes no update that is not by
+id, with `{ _id: x }` still counting as by id - the rule is "by id", not "not an
+object".
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/96daaac3dbf988b72d3af2bc184333c3a4de49ee">A retry loop that outlived its own test, and an ignore entry that explains itself</a>. Thanks to xet7.</summary>
+
+Two left over, and the second is not a flake.
+
+The swc guard also required the `.gitignore` comment naming each clone - `-
+node/ : clone of the Node.js ...` - which went with the entries it described.
+`.gitignore` says what `.tools/` holds now, naming the entries it replaced so
+the change is legible, and the guard requires that: an ignore of a whole
+directory with no explanation is the kind nobody dares remove later.
+
+One WebKit test of 243 failed, in the shared `boardPage` fixture rather than in
+an assertion: *Test timeout of 60000ms exceeded while setting up "boardPage"*,
+then *Target page, context or browser has been closed*. `openBoard` retries five
+times, waiting up to 20s for a list each time with a second between - about 105
+seconds, against a 60 second test timeout. The loop could never reach its own
+error: Playwright killed the test first, so the report said the page had closed
+instead of saying the board never rendered. Retrying past the point where the
+result can still be used is not resilience, it is a worse error message.
+
+It is bounded by a deadline now - 45s, leaving room for the rest of the fixture
+inside the 60s timeout. The first attempt keeps its full 20s look, later
+attempts get whatever is left, and it stops rather than starting a wait it
+cannot finish, so a slow board still gets one long look and a board that will
+not render fails with "did not render any lists within 45s". Simulated across
+never-renders, renders-at-4s and renders-at-19s: all inside the test timeout,
+where the old shape overran it by 45 seconds. The run after it was green - 328
+node suites, 518 mocha tests, 249/243/243 in the three browsers, 98 conformance
+cases with none differing, and FerretDB's own suites.
 
 </details>
 
