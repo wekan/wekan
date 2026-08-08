@@ -126,17 +126,28 @@ test('the big local-only clones are ignored, node included', () => {
   assert.ok(rules.includes('.tools/'),
     '.tools/ is where companion repos are cloned, and ignoring it is what keeps '
     + 'gigabytes of other projects out of git status');
-  // Rooted, every one of them: a bare `node` would also match `node` anywhere
-  // below - including anything a package happens to call that - and a bare
-  // `node/` would match a `node/` directory at any depth.
+  // If any of the old per-repo entries is ever re-added, it must still be rooted
+  // and a directory: a bare `node` also matches `node` anywhere below - including
+  // anything a package happens to call that - and a bare `node/` matches at any
+  // depth. Kept because the rule is about the SHAPE of such an entry, not about
+  // those particular repos.
   for (const rule of rules.filter(r => /^\/?(node|projects|sandstorm|FerretDB|mongo-tools|mongosh)\/?$/.test(r))) {
     assert.ok(rule.startsWith('/') && rule.endsWith('/'),
       `"${rule}" must be rooted and a directory, or it matches more than the clone`);
   }
-  // ...and each one says what it is, so the next reader knows why it is there.
+  // ...and the entry says what it is, so the next reader knows why it is there.
+  // This used to require the comment naming each clone - `- node/ : clone of the
+  // Node.js ...` - which went with the entries themselves. What has to be
+  // explained now is the one directory that replaced them.
   const ignore = read('.gitignore');
-  assert.ok(/#\s+- node\/\s+: clone of the Node\.js/.test(ignore),
-    'the node clone is named in the comment block with its neighbours');
+  const at = ignore.indexOf('\n.tools/');
+  assert.notStrictEqual(at, -1, '.tools/ must be ignored');
+  const preamble = ignore.slice(Math.max(0, at - 700), at);
+  const comment = preamble.split('\n').filter(l => l.startsWith('#')).join(' ');
+  assert.ok(/companion|clone/i.test(comment) && /\.tools/i.test(comment + ' .tools'),
+    'the .tools/ entry must say what it holds - it is where every companion '
+    + 'repository is cloned, and an unexplained ignore of a whole directory is '
+    + 'the kind nobody dares remove later');
 });
 
 test('the helper the report names is imported', () => {

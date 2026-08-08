@@ -219,9 +219,28 @@ async function waitForMeteor(page) {
 async function openBoard(page, boardId, slug) {
   // Up to 5 attempts so the slowest browser (WebKit) survives the contention
   // of the 3-browser parallel run against a single shared dev server.
+  //
+  // Bounded by a DEADLINE, not just by the attempt count: five attempts of a
+  // 20s wait plus a 1s pause is ~105s, and the test timeout is 60s (see
+  // playwright.config.js). The loop could therefore never reach its own error -
+  // Playwright killed the whole test first, and what a webkit run reported was
+  //
+  //     Test timeout of 60000ms exceeded while setting up "boardPage".
+  //     Error: page.waitForTimeout: Target page, context or browser has been closed
+  //
+  // which says nothing about the board. Retrying past the point where the result
+  // can still be used is not resilience, it is just a worse error message. The
+  // budget leaves room for the rest of the fixture, the first attempt keeps the
+  // full generous wait, and later attempts get whatever is left - so a slow
+  // board still gets one long look, and a hopeless one fails with the reason.
+  const BUDGET_MS = 45_000;
+  const MIN_WAIT_MS = 3_000;
+  const deadline = Date.now() + BUDGET_MS;
   let lastError = null;
 
   for (let attempt = 1; attempt <= 5; attempt++) {
+    const remaining = deadline - Date.now();
+    if (remaining < MIN_WAIT_MS) break;
     // The navigation itself can fail, not just the rendering: WebKit answers
     // "WebKit encountered an internal error" now and then under the load of a
     // three-browser run, and a throw here escaped the retry loop that exists for
@@ -230,6 +249,7 @@ async function openBoard(page, boardId, slug) {
       await page.goto(`${BASE_URL}/b/${boardId}/${slug}`, { waitUntil: 'commit' });
     } catch (error) {
       lastError = error;
+      if (deadline - Date.now() < MIN_WAIT_MS) break;
       await page.waitForTimeout(1_000);
       continue;
     }
@@ -237,10 +257,11 @@ async function openBoard(page, boardId, slug) {
     const hasList = await page
       .locator('.js-list:not(.js-list-composer)')
       .first()
-      .waitFor({ timeout: 20_000 })
+      .waitFor({ timeout: Math.min(20_000, Math.max(MIN_WAIT_MS, deadline - Date.now())) })
       .then(() => true)
       .catch(() => false);
     if (hasList) return;
+    if (deadline - Date.now() < MIN_WAIT_MS) break;
     await page.waitForTimeout(1_000);
   }
 
@@ -252,7 +273,9 @@ async function openBoard(page, boardId, slug) {
     );
   }
 
-  throw new Error(`Board ${boardId} did not render any lists`);
+  throw new Error(
+    `Board ${boardId} did not render any lists within ${BUDGET_MS / 1000}s`,
+  );
 }
 
 module.exports = { loginWithToken, loginWithCredentials, logout, waitForMeteor, openBoard };
