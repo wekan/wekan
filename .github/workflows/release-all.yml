@@ -659,7 +659,7 @@ jobs:
           done
           echo "OK: $zip is $((bytes/1024/1024)) MiB and contains bundle/main.js and bundle/node."
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: provenance-amd64
           path: provenance/
@@ -864,7 +864,7 @@ jobs:
           done
           echo "OK: $zip is $((bytes/1024/1024)) MiB and contains bundle/main.js and bundle/node."
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: steps.preflight.outputs.skip != 'true'
         with:
           name: provenance-arm64
@@ -2490,7 +2490,7 @@ jobs:
           mkdir -p provenance
           [ -f provenance.tsv ] && mv provenance.tsv "provenance/${{ matrix.arch }}.tsv" || true
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: steps.preflight.outputs.skip != 'true'
         with:
           name: provenance-${{ matrix.arch }}
@@ -3567,7 +3567,7 @@ jobs:
           cp -f "$HOME"/.local/state/snapcraft/log/*.log snap-logs/ 2>/dev/null || true
           ls -la snap-logs || true
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: snap-launchpad-logs-${{ matrix.arch }}

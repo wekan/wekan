@@ -298,7 +298,7 @@ jobs:
           fi
           echo "WeKan answered on port 8080."
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: ${{ env.BUILD_THIS == 'true' }}
         with:
           name: appimage-${{ matrix.appimage_arch }}
