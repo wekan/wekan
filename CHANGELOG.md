@@ -324,9 +324,10 @@ This release fixes the following SECURITY ISSUE found by GitHub CodeQL code
 scanning:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/2cdad92ba6146c00018d1be56fd2e16bceeb1450">A string replacement that replaced a hyphen with itself, and a guard for the whole class</a>. Thanks to GitHub CodeQL code scanning and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2cdad92ba6146c00018d1be56fd2e16bceeb1450">PatternBleed: a string replacement that replaced a hyphen with itself, and a guard for the whole class</a>. Thanks to GitHub CodeQL code scanning and xet7.</summary>
 
-Code scanning alert #431, rule `js/identity-replacement` (CWE-116), in
+[PatternBleed](https://wekan.fi/hall-of-fame/patternbleed/) - code scanning
+alert #431, rule `js/identity-replacement` (CWE-116), in
 `tests/releaseNodeSources.test.cjs`: a platform name was interpolated into a
 regex through `p.replace('-', '-')`, which replaces a hyphen with a hyphen. It
 reads as "escape this before putting it in a pattern" and does nothing at all,
