@@ -13,6 +13,7 @@ const { applyCardBoardConsistency } = require('/server/lib/cardBoardConsistency'
 import { titleChanged } from '/server/lib/titleChangeActivity';
 import { descriptionChanged } from '/server/lib/descriptionChangeActivity';
 import { buildDeleteCardActivity } from '/server/lib/deleteActivities';
+import { assertParentCardIsVisible } from '/server/lib/visibleBoardIds';
 import Activities from '/models/activities';
 import Boards from '/models/boards';
 import Cards, {
@@ -911,6 +912,12 @@ WebApp.handlers.post('/api/boards/:boardId/lists/:listId/cards', async function(
     return;
   }
 
+  // GHSA-jvv9-498p-hxrg: the same read check the linked-card branch above makes
+  // for `linkedId`, for the parent card. A parent on another board is only
+  // allowed when the caller may see that board; otherwise creating one card
+  // would publish that board's ancestor cards to everyone subscribed here.
+  await assertParentCardIsVisible(req.userId, paramParentId);
+
   const nextCardNumber = await board.getNextCardNumber();
 
   const customFields = await ReactiveCache.getCustomFields({ boardIds: paramBoardId });
@@ -1125,6 +1132,12 @@ WebApp.handlers.put(
       updated = true;
     }
     if (req.body.parentId) {
+      // GHSA-jvv9-498p-hxrg: a parent card may live on another board, and write
+      // access HERE says nothing about read access THERE. Without this check a
+      // board member could name a card on a private board as the parent and the
+      // board publication would then hand that private card to everyone
+      // subscribed to this board.
+      await assertParentCardIsVisible(req.userId, req.body.parentId);
       await Cards.direct.updateAsync(
         { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
         { $set: { parentId: req.body.parentId } },

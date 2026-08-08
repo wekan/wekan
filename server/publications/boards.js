@@ -15,6 +15,7 @@ import Boards from '/models/boards';
 import Cards from '/models/cards';
 import { localizeBoardMemberAvatars } from '/server/lib/localizeAvatar';
 import { collectAncestorIds } from '/server/lib/subtaskAncestors';
+import { visibleBoardIds } from '/server/lib/visibleBoardIds';
 import {
   showsCardCounterList,
   countCardsByListId,
@@ -913,8 +914,33 @@ publishComposite('board', async function(boardId, isArchived) {
               false,
             ),
           );
+          if (ancestorIds.length === 0) return null;
 
-          return await ReactiveCache.getCards({ _id: { $in: ancestorIds } }, {}, true);
+          // GHSA-jvv9-498p-hxrg: an ancestor may live on ANOTHER board, and
+          // being able to write on THIS board says nothing about being allowed
+          // to read that one. Anyone who can set a parentId (a member with
+          // write access, or the REST API) could otherwise point a card at a
+          // card on a private board and have this cursor publish that board's
+          // full card documents - title, description, custom fields - to every
+          // subscriber here. Publish only the ancestors whose board this
+          // subscriber may actually see.
+          const ancestors = await ReactiveCache.getCards(
+            { _id: { $in: ancestorIds } },
+            { fields: { _id: 1, boardId: 1 } },
+            false,
+          );
+          const ancestorBoardIds = [...new Set((ancestors || []).map(c => c.boardId).filter(Boolean))];
+          const allowedBoardIds = await visibleBoardIds(thisUserId, ancestorBoardIds);
+          // This board is being published to this subscriber already, so its own
+          // cards need no second decision.
+          allowedBoardIds.add(board._id);
+
+          const allowedAncestorIds = (ancestors || [])
+            .filter(c => allowedBoardIds.has(c.boardId))
+            .map(c => c._id);
+          if (allowedAncestorIds.length === 0) return null;
+
+          return await ReactiveCache.getCards({ _id: { $in: allowedAncestorIds } }, {}, true);
         }
       },
       // Linked cards (cardType-linkedCard)
