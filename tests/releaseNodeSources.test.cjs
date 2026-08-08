@@ -163,8 +163,16 @@ test('every platform WeKan builds has a row in the resolver mapping table', () =
   // the build matrix with no row here cannot be resolved at all.
   const PLATFORMS = ['x64', 'arm64', 'i386', 'armhf', 'armv7', 'ppc64le', 's390x',
     'riscv64', 'loong64', 'win64', 'win32', 'mac-x64', 'mac-arm64'];
+  // The platform name goes into a RegExp, so it is escaped rather than
+  // interpolated raw. It used to read `p.replace('-', '-')`, which replaces a
+  // hyphen with a hyphen: a no-op that LOOKS like escaping, so nothing here was
+  // escaped and a platform name containing a regex metacharacter would have
+  // matched something else entirely (or thrown). GitHub CodeQL reports that
+  // shape as js/identity-replacement, and it is right - the usual cause is a
+  // mistyped backslash escape.
+  const escapeRegExp = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   for (const p of PLATFORMS) {
-    const re = new RegExp(`^\\s*${p.replace('-', '-')}\\)\\s+nodename=`, 'm');
+    const re = new RegExp(`^\\s*${escapeRegExp(p)}\\)\\s+nodename=`, 'm');
     assert.ok(re.test(resolver), `resolve-node-source.sh has no row for ${p}`);
   }
   // amd64 is WeKan's name for x64 and every caller uses it; it must map, not fail.
