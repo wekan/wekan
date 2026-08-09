@@ -464,7 +464,8 @@ at random is worse than showing both.
 `cd .build` before `mkdir -p provenance`, so the rows went to
 `.build/provenance` while the upload looked at `provenance/` from the workspace
 root and found nothing. Every other build job records from the workspace root,
-which is why only this one was affected.
+which is why only this one was affected. That turned out to be half the story;
+the entry below is the other half.
 
 **Six platforms said Version `latest`.** amd64, arm64, win64, win32, mac-arm64
 and mac-x64 passed the literal string; only the extra-architecture job asked
@@ -479,6 +480,45 @@ release note must never fail a build that produced a good bundle.
 The table's prose also linked `wekan/node`; the binaries come from
 [wekan/node-patches](https://github.com/wekan/node-patches), which is what the
 rows themselves already linked.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e59680519">The amd64 provenance scripts were never found, only never complained</a>. Thanks to xet7.</summary>
+
+The amd64 build failed with exit 127, after the bundle had been zipped and
+checksummed:
+
+```
+a95d331b…  wekan-10.78-amd64.zip
+bash: releases/record-provenance.sh: No such file or directory
+bash: releases/ferretdb-latest-tag.sh: No such file or directory
+```
+
+The step runs `cd .build` first, so nothing relative in it means what it looks
+like it means - and that is **two** bugs, of which only the second had ever been
+visible. `bash releases/record-provenance.sh` resolves against `.build/`, which
+has no `releases/`, so it had printed *"No such file or directory"* on every run
+since it was written and the `|| true` on the end swallowed it. amd64 had
+therefore never recorded any provenance at all, and the only symptom was its
+absence from the table - so the missing-directory fix above repaired the half
+that showed and left the half that did not.
+
+What made it loud is that the FerretDB tag lookup added alongside it is an
+**assignment**. Under `set -e`, and every GitHub `run:` is `bash -e`,
+`VAR="$(cmd)"` ends the step when the command fails - so a line that had been
+quietly doing nothing for months became a hard failure of the whole amd64 build.
+
+Every path in that step is absolute now, and every `FERRET_TAG` assignment
+across all seven sites ends `|| true`: the bundle is the deliverable, and which
+version string reaches a markdown cell is not worth failing a good build for.
+Only amd64's step `cd`s - the other six run from the workspace root, which is
+exactly what the v10.77 run showed, since all six uploaded provenance and amd64
+did not.
+
+The guard added with it is the general form rather than this one line: it walks
+back from every provenance call to its step header and requires an absolute path
+whenever a `cd` runs inside that step.
 
 </details>
 
