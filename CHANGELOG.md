@@ -264,7 +264,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.77 2026-08-09 WeKan ® release
 
 **In short:** the **snap** side, which had three problems that looked like one.
 The helper that put a build on channels released ONE snap, ONE revision, to
