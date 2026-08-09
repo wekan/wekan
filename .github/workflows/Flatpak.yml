@@ -24,6 +24,15 @@ name: Flatpak
 # and WeKan publishes Linux bundles for amd64 and arm64, so those are the two.
 # Each builds on a runner of its own CPU rather than under emulation.
 #
+# AND THAT IS THE WHOLE LIST - there is no third to add. A flatpak runs against
+# a RUNTIME, not against the host's libraries, so an architecture exists here
+# only if freedesktop.org publishes org.freedesktop.Platform for it. It does so
+# for x86_64 and aarch64; the i386 and arm runtimes were discontinued. That is
+# the difference from AppImage.yml, which was able to grow from two
+# architectures to four: an AppImage carries its own runtime binary, and
+# runtimes exist for i686 and armhf as well. WeKan's ppc64le, s390x, riscv64,
+# loong64 and 32-bit bundles are served by the zip and the .deb.
+#
 # THE SANDBOX. WeKan is a server you reach in a browser, so it needs the network
 # and a place to keep its data, and nothing else - no X11, no audio, no access
 # to your files. --share=network and --persist=.wekan are the whole permission
@@ -96,7 +105,11 @@ jobs:
         run: |
           set -euo pipefail
           tag='${{ inputs.tag }}'
-          [ -n "$tag" ] || tag="$(gh release list --limit 1 --json tagName --jq '.[0].tagName')"
+          # --repo on every gh call, whether or not the job happens to have
+          # checked out: one that relies on an inferred remote breaks the day
+          # somebody removes the checkout.
+          [ -n "$tag" ] || tag="$(gh release list --repo "${{ github.repository }}" \
+            --limit 1 --json tagName --jq '.[0].tagName')"
           if [ -z "$tag" ]; then
             echo "::error::No release to wrap, and no tag was given."
             exit 1
@@ -154,7 +167,8 @@ jobs:
         run: |
           set -euo pipefail
           zip="wekan-${{ needs.release.outputs.version }}-${{ matrix.bundle_arch }}.zip"
-          gh release download '${{ needs.release.outputs.tag }}' --pattern "$zip" --clobber
+          gh release download '${{ needs.release.outputs.tag }}' \
+            --repo "${{ github.repository }}" --pattern "$zip" --clobber
           unzip -q "$zip"
           for f in bundle/main.js bundle/node bundle/ferretdb bundle/start-wekan.sh; do
             if [ ! -e "$f" ]; then
@@ -318,8 +332,21 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          gh release upload '${{ needs.release.outputs.tag }}' assets/* --clobber
-          echo "Uploaded to $(gh release view '${{ needs.release.outputs.tag }}' --json url --jq .url)"
+          # --repo, because this job does NOT check the repository out - it
+          # only downloads artifacts - so `gh` has no git remote to infer the
+          # repo from and fails with "fatal: not a git repository". The same
+          # line was wrong in AppImage.yml for the same reason.
+          #
+          # And the bundles BY NAME, not assets/*: the artifacts also carry the
+          # ostree repository the flatpak was exported through - config,
+          # objects/, refs/, summaries/, summary, summary.idx - which is build
+          # scaffolding, not something to attach to a release. TSC hit this
+          # exact thing ("upload only the bundle files, not the ostree repo").
+          gh release upload '${{ needs.release.outputs.tag }}' \
+            assets/*.flatpak assets/*.flatpak.md5sum assets/*.flatpak.sha256sum \
+            --repo "${{ github.repository }}" --clobber
+          echo "Uploaded to $(gh release view '${{ needs.release.outputs.tag }}' \
+            --repo "${{ github.repository }}" --json url --jq .url)"
 
       # ---- the repository -------------------------------------------------
       - uses: actions/download-artifact@v8
