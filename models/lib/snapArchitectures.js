@@ -64,6 +64,11 @@ const ARCHITECTURES = [
 // from the outside, and somebody re-adding one of these would be repeating a
 // mistake that has already been made.
 const NOT_SNAP_ARCHITECTURES = {
+  armv6:
+    'the Snap Store has no armv6 architecture at all - its only 32-bit ARM is ' +
+    'armhf, which is ARMv7-A hard-float. An ARMv6 board (Raspberry Pi 1, Zero) ' +
+    'cannot run an armhf snap, and there is nothing to publish it as, so ARMv6 ' +
+    'ships as a bundle zip and a linux/arm/v6 Docker image only.',
   i386:
     'core24 (Ubuntu 24.04) has no i386 port, so snapcraft rejects `build-on: i386` - ' +
     'and because that is a PARSE error it failed EVERY architecture\'s snap build, not ' +

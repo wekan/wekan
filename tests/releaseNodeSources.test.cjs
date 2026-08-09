@@ -161,8 +161,9 @@ test('every platform WeKan builds has a row in the resolver mapping table', () =
   // The mapping is the one place Node's spelling and WeKan's meet (Node says x86
   // where everyone else says i386, armv7l where they say armhf). A platform in
   // the build matrix with no row here cannot be resolved at all.
-  const PLATFORMS = ['x64', 'arm64', 'i386', 'armhf', 'armv7', 'ppc64le', 's390x',
-    'riscv64', 'loong64', 'win64', 'win32', 'mac-x64', 'mac-arm64'];
+  const PLATFORMS = ['x64', 'arm64', 'i386', 'armv6', 'armhf', 'armv7', 'ppc64le',
+    's390x', 'riscv64', 'loong64', 'win64', 'win32', 'win-arm64',
+    'mac-x64', 'mac-arm64'];
   // The platform name goes into a RegExp, so it is escaped rather than
   // interpolated raw. It used to read `p.replace('-', '-')`, which replaces a
   // hyphen with a hyphen: a no-op that LOOKS like escaping, so nothing here was

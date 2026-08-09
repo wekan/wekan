@@ -52,7 +52,7 @@ echo "repack mac-arm64 wekan-${v}-mac-arm64.zip sums"
 # release-all.yml: build-extra-arches. The matrix, and it must match that job's
 # - if an architecture is added there and not here, this will not notice it is
 # missing.
-for arch in s390x ppc64le riscv64 i386 armhf loong64; do
+for arch in s390x ppc64le riscv64 i386 armv6 armhf loong64; do
     echo "extra ${arch} wekan-${v}-${arch}.zip sums"
 done
 

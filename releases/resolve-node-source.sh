@@ -28,7 +28,7 @@
 #   resolve-node-source.sh <platform> <major|version>
 #
 #   platform   what WeKan calls the CPU: amd64/x64, arm64, i386, armhf, armv7,
-#              ppc64le, s390x, riscv64, loong64, win64, win32, win-arm64,
+#              armv6, ppc64le, s390x, riscv64, loong64, win64, win32, win-arm64,
 #              mac-x64,
 #              mac-arm64. A node-patches asset name (node-x64, node-win64.exe)
 #              is accepted too, so callers that already hold one need not
@@ -106,6 +106,11 @@ case "$platform" in
   arm64)     nodename="linux-arm64"   ; asset="node-arm64"        ; ext="tar.xz" ;;
   i386)      nodename="linux-x86"     ; asset="node-i386"         ; ext="tar.xz" ;;
   armhf)     nodename="linux-armv7l"  ; asset="node-armhf"        ; ext="tar.xz" ;;
+  # ARMv6 (Raspberry Pi 1, Zero). nodejs.org dropped its ARMv6 binaries after
+  # Node 11 and unofficial-builds has none, so the linux-armv6l name below will
+  # never match there - it is given so the search is honest, and wekan/node-patches'
+  # node-armv6 is what actually answers.
+  armv6)     nodename="linux-armv6l"  ; asset="node-armv6"        ; ext="tar.xz" ;;
   armv7)     nodename="linux-armv7l"  ; asset="node-armv7"        ; ext="tar.xz" ;;
   ppc64le)   nodename="linux-ppc64le" ; asset="node-ppc64le"      ; ext="tar.xz" ;;
   s390x)     nodename="linux-s390x"   ; asset="node-s390x"        ; ext="tar.xz" ;;

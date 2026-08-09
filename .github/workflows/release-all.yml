@@ -2622,6 +2622,18 @@ jobs:
             node_arch: x86
             ferretdb_arch: i386
             optional: true
+          # ARMv6: Raspberry Pi 1 and Zero. It runs in a linux/arm/v6 container,
+          # takes wekan/node-patches' node-armv6 (nobody else publishes an ARMv6
+          # Node - nodejs.org dropped it after Node 11), and FerretDB and the
+          # MongoDB tools build a GOARM=6 armv6 of their own. Their armel is
+          # GOARM=5 and WOULD run on these boards, but in software floating
+          # point, so it is not used here.
+          - arch: armv6
+            platform: linux/arm/v6
+            image: debian:trixie
+            node_arch: armv6
+            ferretdb_arch: armv6
+            optional: true
           - arch: armhf
             platform: linux/arm/v7
             image: debian:trixie

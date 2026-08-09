@@ -377,7 +377,8 @@ test('every platform is in all the places that build it', () => {
   const extra = wf.slice(wf.indexOf('  build-extra-arches:'));
   const matrix = extra.slice(0, extra.indexOf('    steps:'));
   const bundles = [...matrix.matchAll(/^ +- arch: (\S+)$/gm)].map(m => m[1]);
-  assert.deepStrictEqual(bundles, ['s390x', 'ppc64le', 'riscv64', 'i386', 'armhf', 'armv7', 'loong64'],
+  assert.deepStrictEqual(bundles,
+    ['s390x', 'ppc64le', 'riscv64', 'i386', 'armv6', 'armhf', 'armv7', 'loong64'],
     'the non-native Linux bundles');
 
   // Every one of them names all three things it needs, and they are distinct
@@ -411,6 +412,18 @@ test('every platform is in all the places that build it', () => {
       assert.ok(!snapPlatforms.includes('i386'),
         'i386 is not a snap platform (core24 has no i386 port)');
       assert.ok(!lpArches.includes('i386'), 'i386 is not built on Launchpad');
+      continue;
+    }
+    if (arch === 'armv6') {
+      // armv6 has a BUNDLE (Raspberry Pi 1 and Zero, on wekan/node-patches'
+      // node-armv6) but no snap and never can: the Snap Store has no armv6
+      // architecture at all - its only 32-bit ARM is armhf, which is ARMv7-A
+      // hard-float and will not run on an ARMv6 board. Bundle zip and a
+      // linux/arm/v6 Docker image only. models/lib/snapArchitectures.js records
+      // the same reason in NOT_SNAP_ARCHITECTURES.
+      assert.ok(!snapPlatforms.includes('armv6'),
+        'armv6 is not a snap platform (the Snap Store has no armv6)');
+      assert.ok(!lpArches.includes('armv6'), 'armv6 is not built on Launchpad');
       continue;
     }
     if (arch === 'armv7') {
