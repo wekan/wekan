@@ -264,7 +264,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.78 2026-08-09 WeKan ® release
 
 **In short:** the **AppImage** workflow. It built both AppImages, started them,
 waited for WeKan to answer on port 8080, uploaded them as artifacts - and then
