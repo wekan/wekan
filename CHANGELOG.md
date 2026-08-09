@@ -264,7 +264,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.75 2026-08-09 WeKan ® release
 
 **In short:** two things the full test run turned up, one in WeKan and one in
 the scripts that run it. A **linked-card cache** that could not see a card
