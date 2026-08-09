@@ -112,6 +112,9 @@ jobs:
     name: AppImage ${{ matrix.appimage_arch }}
     needs: release
     runs-on: ${{ matrix.runs_on }}
+    # A 32-bit job that cannot run on the runner it was given must not fail the
+    # release for the architectures that built fine.
+    continue-on-error: ${{ matrix.tolerate_failure || false }}
     timeout-minutes: 60
     strategy:
       fail-fast: false
@@ -123,6 +126,28 @@ jobs:
           - appimage_arch: aarch64
             bundle_arch: arm64
             runs_on: ubuntu-24.04-arm
+          # The other two architectures an AppImage runtime EXISTS for. There
+          # are four in total - x86_64, aarch64, i686, armhf - and that is the
+          # whole limit: the runtime is the ELF the kernel executes, so an
+          # architecture with no runtime cannot have an AppImage at all. That is
+          # why ppc64le, s390x, riscv64 and loong64 are not here and never will
+          # be; they are served by the bundle zip and the .deb.
+          #
+          # i686 builds on the x86_64 runner, which runs 32-bit x86 natively -
+          # no emulation, no multiarch, and appimagetool-i686 runs as-is.
+          - appimage_arch: i686
+            bundle_arch: i386
+            runs_on: ubuntu-24.04
+          # armhf builds on the aarch64 runner, which runs 32-bit ARM only if
+          # the kernel was built with CONFIG_COMPAT and the 32-bit loader is
+          # installed. GitHub does not promise either, so this one is allowed to
+          # fail without taking the release with it - the same treatment TSC
+          # gives its emulated armhf job. If it turns out to work reliably,
+          # drop the flag; if it never does, drop the entry.
+          - appimage_arch: armhf
+            bundle_arch: armhf
+            runs_on: ubuntu-24.04-arm
+            tolerate_failure: true
     # WHICH entries this run wants, decided here because it cannot be decided
     # where it belongs. A job-level `if:` cannot see `matrix` - GitHub exposes
     # that context to runs-on, env, name, steps and a few others, but not to a
@@ -287,6 +312,22 @@ jobs:
           # for WeKan to answer on its port, then stop it - so a broken bundle
           # is caught here rather than by whoever downloads it.
           export WRITABLE_PATH="$PWD/smoke-data" PORT=8080
+
+          # A CHECK THAT CANNOT RUN IS NOT A FAILED CHECK. The 32-bit builds are
+          # packed on a 64-bit runner, which executes them only if the kernel and
+          # loader for that word size are present - GitHub promises neither. If
+          # the binary cannot be executed AT ALL, the AppImage is as good as
+          # anything here knows and the release must not be withheld for it; say
+          # so and move on. Anything else - it starts and does not answer - is
+          # the bug this step exists for and still fails.
+          if ! APPIMAGE_EXTRACT_AND_RUN=1 "$app" --appimage-help >/dev/null 2>&1 \
+             && ! APPIMAGE_EXTRACT_AND_RUN=1 "$app" --help >/dev/null 2>&1; then
+            if ! file "$app" | grep -q "$(uname -m)"; then
+              echo "::warning::this runner cannot execute a ${{ matrix.appimage_arch }} binary, so the AppImage was packed but not started. It is uploaded unchecked."
+              exit 0
+            fi
+          fi
+
           APPIMAGE_EXTRACT_AND_RUN=1 "$app" > smoke.log 2>&1 &
           pid=$!
           ok=false
@@ -330,7 +371,11 @@ jobs:
           set -euo pipefail
           ls -lh assets 2>/dev/null || true
           if ls assets/*.AppImage >/dev/null 2>&1; then
-            for want in x86_64 aarch64; do
+            # Every architecture the matrix builds. A missing one WARNS rather
+          # than fails: the 32-bit pair is allowed not to build, and an
+          # architecture whose base bundle was never published has nothing to
+          # wrap. What must not happen silently is one going missing unnoticed.
+          for want in x86_64 aarch64 i686 armhf; do
               ls assets/*"-$want.AppImage" >/dev/null 2>&1 || \
                 echo "::warning::no AppImage for $want - see that build job's log"
             done
@@ -340,7 +385,7 @@ jobs:
             # build jobs skip (not fail) when the base bundle is not published yet.
             published="$(gh release view '${{ needs.release.outputs.tag }}' --repo "${{ github.repository }}" --json assets --jq '.assets[].name' 2>/dev/null || true)"
             base_present=false
-            for arch in amd64 arm64; do
+            for arch in amd64 arm64 i386 armhf; do
               printf '%s\n' "$published" | grep -qx "wekan-${{ needs.release.outputs.version }}-${arch}.zip" && base_present=true
             done
             if [ "$base_present" = false ]; then
