@@ -74,6 +74,16 @@ WebApp.handlers.post('/users/login', async function (req, res) {
     // out, before doing any user lookup or password work.
     const gate = restLoginThrottle.check(clientKey, now);
     if (gate.blocked) {
+      // A canary: being locked out means this address already failed the
+      // configured number of logins in a row, which nobody typing their own
+      // password does. The 429 below is unchanged - the attacker learns only
+      // what the throttle already told them (docs/Security/Remediation/WeKan.md §12).
+      try {
+        require('/server/lib/canary').tripCanary('brute.login-lockout', {
+          req,
+          detail: 'REST login refused while locked out',
+        });
+      } catch (e) { /* a canary must never break the login path */ }
       const retryAfterSeconds = Math.ceil(gate.retryAfterMs / 1000);
       const error = new Meteor.Error(
         'too-many-requests',

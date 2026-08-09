@@ -43,6 +43,18 @@ export function record(evt = {}) {
       detail: sanitizeDetail(m.detail),
     };
     if (m.userId || m.userid) doc.userId = String(m.userId || m.userid);
+    // WHO and FROM WHERE (docs/Security/Remediation/WeKan.md §12). Both are
+    // optional: a guard that fires on an unauthenticated request has no
+    // username, and one that fires outside a request context has no address.
+    // Truncated here as well as sanitized, because both are attacker-influenced
+    // strings - a username can be chosen at registration and an XFF header is
+    // whatever was sent.
+    if (m.username) doc.username = String(m.username).slice(0, 100);
+    if (m.ip) doc.ip = String(m.ip).slice(0, 64);
+    // How many attempts this row stands for; 1 unless a canary is flushing a
+    // window's summary.
+    const count = Number(m.count);
+    doc.count = Number.isFinite(count) && count > 0 ? Math.floor(count) : 1;
     insert(doc);
   } catch (e) {
     if (process.env.DEBUG === 'true') console.warn('securityLog.record failed:', e && e.message);

@@ -11,6 +11,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import Activities from '/models/activities';
 import CardComments, { assertCanMutateComment } from '/models/cardComments';
 import { ensureIndex } from '/server/lib/mongoStartup';
+import { tripCanary } from '/server/lib/canary';
 
 async function commentCreation(userId, doc) {
   const card = await ReactiveCache.getCard(doc.cardId);
@@ -211,7 +212,20 @@ WebApp.handlers.delete(
         sendJsonResult(res, { code: 404, data: { error: 'Comment not found' } });
         return;
       }
-      await assertCanMutateComment(req.userId, comment);
+      // A canary with the REQUEST in hand, so the event carries the real client
+      // address and not just the account (docs/Security/Remediation/WeKan.md §12).
+      // Deleting somebody else's comment is refused exactly as before - the
+      // canary only records the attempt, and the 403 below is unchanged.
+      if (comment.userId && comment.userId !== req.userId) {
+        try {
+          await assertCanMutateComment(req.userId, comment);
+        } catch (refusal) {
+          tripCanary('comment.foreign-delete', { req, userId: req.userId });
+          throw refusal;
+        }
+      } else {
+        await assertCanMutateComment(req.userId, comment);
+      }
 
       await CardComments.removeAsync({
         _id: paramCommentId,

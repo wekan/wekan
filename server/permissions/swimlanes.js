@@ -1,6 +1,7 @@
 import Boards from '/models/boards';
 import Swimlanes from '/models/swimlanes';
 import { allowIsBoardMemberWithWriteAccess, denyCrossBoardMove } from '/server/lib/utils';
+import { tripCanaryDeny } from '/server/lib/canary';
 
 Swimlanes.allow({
   async insert(userId, doc) {
@@ -24,7 +25,8 @@ Swimlanes.allow({
 // where the caller lacks write access to the destination board.
 Swimlanes.deny({
   async update(userId, doc, fieldNames, modifier) {
-    return await denyCrossBoardMove(userId, modifier);
+    if (!(await denyCrossBoardMove(userId, modifier))) return false;
+    return tripCanaryDeny('swimlane.cross-board-move', { userId });
   },
   fetch: [],
 });

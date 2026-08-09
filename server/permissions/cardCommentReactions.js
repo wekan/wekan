@@ -2,6 +2,7 @@ import CardCommentReactions from '/models/cardCommentReactions';
 import Boards from '/models/boards';
 import { allowIsBoardMemberCommentOnly } from '/server/lib/utils';
 const { denyForeignReactionChange } = require('/models/lib/reactionOwnership');
+import { tripCanaryDeny } from '/server/lib/canary';
 
 // Reacting to a comment is a form of commenting, so it follows the same rule as
 // CardComments.insert: members who may comment (Normal / Comment-only) are
@@ -37,7 +38,8 @@ CardCommentReactions.allow({
 // cannot be checked this way and that no client uses.
 CardCommentReactions.deny({
   update(userId, doc, fieldNames, modifier) {
-    return denyForeignReactionChange(userId, doc, modifier);
+    if (!denyForeignReactionChange(userId, doc, modifier)) return false;
+    return tripCanaryDeny('reaction.foreign', { userId });
   },
   fetch: ['reactions'],
 });

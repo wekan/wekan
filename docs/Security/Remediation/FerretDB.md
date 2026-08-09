@@ -70,6 +70,86 @@ problem *observable* to WeKan; the recording is WeKan's job. Concretely:
 WeKan maps these to `eventlog` documents via the category catalog
 (`models/lib/securityCategories.js`) using `source:'sqlite.*'`.
 
+---
+
+## 3b. Canary tokens — operations the client never issues
+
+The database is reached over a **local socket by one application**, whose driver
+is a Meteor 3 one. That makes a class of operations interesting **by their mere
+presence**: server-side JavaScript evaluation, an aggregation writing its result
+into a collection, dropping a database, a server-administration command. The
+driver does not send them. A request that does is either a bug or somebody who
+has reached the socket and is looking around — and both are worth telling the
+operator about.
+
+`internal/util/canary` (paired with `tests` in the same package) is the FerretDB
+half of [WeKan.md §12](WeKan.md), and it keeps the same three properties:
+
+- **SILENT.** A tripped canary returns the ordinary *"operation not supported by
+  this build"* refusal — the same answer an unimplemented command gets. The id is
+  appended as `canary:<id>`, which the client parses and the operator reads;
+  nothing in it says that anything was detected or recorded, so a probe cannot
+  tell a watched operation from an unimplemented one and route around the watched
+  ones. A Go test asserts the message contains none of *detect*, *record*, *log*,
+  *alert*.
+- **BOUNDED.** The package writes **nothing** — no file, no table, no counter. It
+  is a map lookup and an error value, so a caller hammering it in a loop costs
+  this process one string comparison per request and this package **no memory at
+  all**. This is what §2's "FerretDB does not write to any database or file"
+  means for canaries, and a Go test asserts the package is stateless.
+- **ATTRIBUTED.** The marker names *which* canary, so the operator's report says
+  "tried to run server-side JavaScript" rather than "an error".
+
+The canaries:
+
+| Id | Operations | Why the client never sends it |
+| --- | --- | --- |
+| `db.javascript` | `eval`, `$where`, `$function`, `$accumulator`, `mapReduce` | the driver has no feature that evaluates JavaScript in the database |
+| `db.result-to-collection` | `$out`, `$merge` | aggregation results are read, never persisted by the database |
+| `db.drop-database` | `dropDatabase`, `dropAllDatabases` | the application drops collections it owns; dropping the database is an operator action taken with the database's own tools |
+| `db.server-admin` | `shutdown`, `setParameter`, `getParameter`, `profile`, `logRotate` | these manage the server, not the data |
+
+`Check(op)` returns `nil` for everything else, and a Go test pins the ordinary
+vocabulary — `find`, `insert`, `update`, `aggregate`, `$match`, `$group`,
+`$lookup`, … — as **not** tripping. A canary that fires on normal traffic is
+worse than no canary: it buries the real ones.
+
+### How it reaches the operator
+
+Exactly as §2 describes for every other FerretDB event — the database reports,
+the client records:
+
+```
+FerretDB                                     WeKan
+  Check(op) → canary:<id> in the error   ──►  recordDatabaseProblem()
+                                                │ databaseCanaryId() reads the marker
+                                                ▼
+                                              tripCanary('database.canary')   ← rate-limited,
+                                                │                               aggregated,
+                                                ▼                               attributed
+                                              eventlog (stream:'security')
+                                                │
+                                                ▼
+                                     Admin Panel → Problems → Security
+```
+
+Two things that are deliberate on the WeKan side
+(`server/lib/databaseProblems.js`):
+
+1. The id is **not trusted as a category**. It is matched against a known list,
+   and anything else is recorded generically. An error string is
+   attacker-influenced, and a marker parsed out of one must never be able to
+   choose which security category it lands in — or to inject anything, which is
+   why the extractor accepts only `[a-z][a-z0-9.-]{0,60}`.
+2. A canary goes to the **security** stream and does **not** fall through to the
+   `database` stream. Filing it under "the database said something" would put an
+   intrusion attempt in the list of things to triage as configuration problems.
+
+On **MongoDB** there is no FerretDB to mark anything, and these operations simply
+never appear — the WeKan side is inert, and the feature degrades to nothing
+rather than misbehaving. That is the same property as §2: storage and reporting
+are WeKan's job, so nothing here depends on which database is underneath.
+
 ## 4. Security remediation points → logger
 
 | Point | Remediation (present/added) | Logged as |

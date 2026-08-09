@@ -163,7 +163,21 @@ check('upload rejections are logged (fileValidation)', () => {
 });
 check('forged X-Forwarded-For denial is logged (metrics)', () => {
   const src = read('models/server/metrics.js');
-  assert.ok(/key: 'spoofing\.xff'/.test(src) && /x-forwarded-for/.test(src));
+  // It used to call securityLog.record({ key: 'spoofing.xff' }) directly. It
+  // trips a CANARY now (docs/Security/Remediation/WeKan.md §12), which records
+  // the same category through the same logger and adds the two things the raw
+  // call could not: the client address, resolved spoofing-safely from the
+  // request, and rate limiting - this endpoint is unauthenticated, so a bare
+  // record() there was one insert per request an attacker chose to send. The
+  // behaviour this guard protects is unchanged: a denial with a forwarded-for
+  // header present must reach Admin Panel / Problems / Security.
+  assert.ok(/tripCanary\('spoof\.forwarded-header'/.test(src));
+  assert.ok(/x-forwarded-for/.test(src));
+  // ...and the canary resolves to the same category it always did.
+  const { canaryFor } = require('../models/lib/canaryTokens');
+  assert.strictEqual(canaryFor('spoof.forwarded-header').key, 'spoofing.xff');
+  // The 401 is untouched: the caller must not be able to tell.
+  assert.ok(/res\.writeHead\(401\)/.test(src));
 });
 check('export authorization denials are logged (export.js)', () => {
   const src = read('models/export.js');

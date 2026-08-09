@@ -1,6 +1,7 @@
 import Cards from '/models/cards';
 import Checklists from '/models/checklists';
 import { allowIsBoardMemberWithWriteAccessByCard, denyCrossBoardMoveByCard } from '/server/lib/utils';
+import { tripCanaryDeny } from '/server/lib/canary';
 
 Checklists.allow({
   async insert(userId, doc) {
@@ -25,7 +26,8 @@ Checklists.allow({
 // card). Deny any move whose destination board the caller cannot write to.
 Checklists.deny({
   async update(userId, doc, fieldNames, modifier) {
-    return await denyCrossBoardMoveByCard(userId, modifier);
+    if (!(await denyCrossBoardMoveByCard(userId, modifier))) return false;
+    return tripCanaryDeny('checklist.cross-board-move', { userId });
   },
   fetch: [],
 });

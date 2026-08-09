@@ -17,6 +17,23 @@ function sanitizeText(text) {
     previous = sanitized;
     sanitized = sanitized.replace(/<[^>]*>/g, '');
   } while (sanitized !== previous);
+
+  // A comment losing a `<b>` is an everyday thing and says nothing. A comment
+  // losing a SCRIPT TAG, an event handler or a javascript: URI is a stored-XSS
+  // attempt that this line defused, and an admin should be told who wrote it
+  // (docs/Security/Remediation/WeKan.md §12.6). The comment is stored sanitized
+  // either way; the author is told nothing.
+  if (Meteor.isServer && sanitized !== text) {
+    try {
+      const { removedActiveMarkup, CANARY_IDS } = require('/models/lib/injectionDetect');
+      if (removedActiveMarkup(text, sanitized)) {
+        require('/server/lib/canary').tripCanary(CANARY_IDS.text, {
+          detail: 'active markup removed from a comment',
+        });
+      }
+    } catch (e) { /* a canary must never break a comment */ }
+  }
+
   return sanitized;
 }
 

@@ -150,6 +150,13 @@ export class Exporter {
         if (process.env.DEBUG === 'true') {
           console.warn('Refused to export a file stored outside the storage root:', storedPath);
         }
+        // A canary, not a guess: every path WeKan writes is inside the storage
+        // root, so one that is not was put there by something that should not
+        // have. The export continues without the file, exactly as before.
+        try {
+          const { tripCanary } = require('/server/lib/canary');
+          tripCanary('export.path-outside-storage', { detail: 'during board export' });
+        } catch (e) { /* never break an export to report on it */ }
         callback(null, null);
         return;
       }

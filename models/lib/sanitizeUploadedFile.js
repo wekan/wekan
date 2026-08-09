@@ -32,6 +32,22 @@ function sanitizeUploadedFileExploits(fileObj) {
     });
   }
 
+  // Active markup had to be REMOVED from an uploaded file - a script, an event
+  // handler, a javascript: URI inside an SVG. Nothing a drawing program produces
+  // needs any of it, so this is a stored-XSS attempt that was defused rather than
+  // a file that needed tidying, and it trips a canary with the uploader attached
+  // (docs/Security/Remediation/WeKan.md §12.6). The sanitized file is stored
+  // exactly as before; the uploader is told nothing.
+  if (changed) {
+    try {
+      const { tripCanary } = require('/server/lib/canary');
+      tripCanary('sanitize.dangerous-content', {
+        userId: (fileObj.userId || (fileObj.meta && fileObj.meta.userId)) || undefined,
+        detail: 'active markup removed from an uploaded ' + (fileObj.type || 'file'),
+      });
+    } catch (e) { /* a canary must never break an upload */ }
+  }
+
   return changed;
 }
 

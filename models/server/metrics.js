@@ -243,9 +243,13 @@ Meteor.startup(() => {
         // that is a likely forged-whitelisted-IP attempt (MetricsBleed) — record it.
         if (req.headers['x-forwarded-for']) {
           try {
-            require('/server/lib/securityLog').record({
-              key: 'spoofing.xff', action: 'blocked', source: 'metrics',
-              detail: 'denied /metrics with X-Forwarded-For present (socket ' + (req.socket && req.socket.remoteAddress) + ')',
+            // A canary, with the REQUEST in hand: nothing legitimate sends a
+            // forwarded-for header to an endpoint that does not trust one, so
+            // this is somebody trying to look like a whitelisted address. The
+            // 401 below is unchanged (docs/Security/Remediation/WeKan.md §12).
+            require('/server/lib/canary').tripCanary('spoof.forwarded-header', {
+              req,
+              detail: 'denied /metrics with X-Forwarded-For present',
             });
           } catch (e) { /* logging must never break the endpoint */ }
         }

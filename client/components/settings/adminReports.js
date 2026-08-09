@@ -835,8 +835,28 @@ const EVENT_STREAM_COLUMNS = [
   { labelKey: 'event-severity', value: r => r.severity, data: r => r.severity },
   { labelKey: 'event-action', value: r => r.action || r.type },
   { labelKey: 'event-source', value: r => r.source },
-  // The user who triggered the event (e.g. who uploaded a sanitized file).
-  { labelKey: 'username', value: r => userName(r.userId), userId: r => r.userId },
+  // WHO tried it. The stored `username` wins over looking the account up: it is
+  // what the account was CALLED when the event happened, so a later rename does
+  // not rewrite history and a deleted account does not erase it. The lookup
+  // stays as the fallback for the older events that predate the stored field.
+  {
+    labelKey: 'username',
+    value: r => r.username || userName(r.userId),
+    userId: r => r.userId,
+  },
+  // FROM WHERE. Resolved with the same spoofing-safe rule as the login throttle -
+  // X-Forwarded-For only as far as HTTP_FORWARDED_COUNT says to trust it - so this
+  // column cannot be written by sending a header.
+  { labelKey: 'event-ip', nowrap: true, value: r => r.ip || '' },
+  // HOW MANY attempts this row stands for. A canary counts repeats inside its
+  // window rather than writing one row each, so "1" is an ordinary event and a
+  // larger number is a burst that was deliberately not written out in full
+  // (docs/Security/Remediation/WeKan.md §12).
+  {
+    labelKey: 'event-attempts',
+    nowrap: true,
+    value: r => (r.count && r.count > 1 ? String(r.count) : ''),
+  },
   // The `database` stream's detail is WeKan's reading of the error - what it means
   // and what to do - and it is worth little without the sentence the database
   // itself produced, which is the one thing an admin can search for or paste into

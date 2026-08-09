@@ -2339,5 +2339,7 @@
   "event-severity": "Severity",
   "event-action": "Action",
   "event-source": "Source",
-  "event-detail": "Detail"
+  "event-detail": "Detail",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts"
 }

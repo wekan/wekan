@@ -10,6 +10,7 @@ import {
   touchesVersionFields,
   onlyTouchesAllowedFields,
 } from '/models/lib/fileVersionFields';
+import { tripCanary } from '/server/lib/canary';
 
 Attachments.allow({
   async insert(userId, fileObj) {
@@ -18,7 +19,7 @@ Attachments.allow({
       if (process.env.DEBUG === 'true') {
         console.warn('Blocked attachment insert with client-supplied versions.path/storage');
       }
-      return false;
+      return tripCanary('attachment.version-path', { userId });
     }
 
     // Admin-level hard stop for all non-API attachment uploads.
@@ -46,7 +47,7 @@ Attachments.allow({
       if (process.env.DEBUG === 'true') {
         console.warn('Blocked attempt to update attachment versions metadata:', fields);
       }
-      return false;
+      return tripCanary('attachment.version-path', { userId });
     }
 
     // Allow normal updates for file upload/management
@@ -55,7 +56,7 @@ Attachments.allow({
       if (process.env.DEBUG === 'true') {
         console.warn('Blocked attempt to update restricted attachment fields:', fields);
       }
-      return false;
+      return tripCanary('attachment.restricted-field', { userId });
     }
 
     // ReadOnly users cannot update attachments

@@ -3,6 +3,26 @@ import { publishComposite } from 'meteor/reywood:publish-composite';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
 const { hasWhere } = require('/models/lib/mongoSelectorSafety');
+const { classifySelector, injectionDetail } = require('/models/lib/injectionDetect');
+import { tripCanary } from '/server/lib/canary';
+
+// A client-supplied selector is run against the database, so an execution
+// operator in one is not a query - it is an attempt to make the database run
+// something. The publication already refuses it; this names WHO tried, from
+// where, and what they sent (docs/Security/Remediation/WeKan.md §12.6).
+// Returns the same boolean the old hasWhere() call did, so both refusal sites
+// below are unchanged.
+function selectorIsInjection(selector, where) {
+  const verdict = classifySelector(selector);
+  if (!verdict.injection && !hasWhere(selector)) return false;
+  tripCanary('injection.nosql-selector', {
+    detail: injectionDetail(
+      verdict.injection ? verdict : { kind: 'execution', operators: ['$where'] },
+      where,
+    ),
+  });
+  return true;
+}
 const {
   boardCardScope,
   assignedOnlyCardScope,
@@ -59,7 +79,9 @@ publishComposite('boardCardsWindow', function(boardId, cardSelector, sort, limit
 
   const userId = this.userId;
   const lim = Math.max(1, Math.min(Math.floor(limit) || 1, MAX_WINDOW));
-  const safe = hasWhere(cardSelector) ? { _id: { $in: [] } } : cardSelector;
+  const safe = selectorIsInjection(cardSelector, 'boardCardsWindow')
+    ? { _id: { $in: [] } }
+    : cardSelector;
   // #6511: a UNIQUE _id tiebreaker so the LIMITED published window is deterministic
   // (equal-`sort` ties would otherwise make the "first N cards" vary between polls,
   // feeding the client's #each an inconsistent ordered set).
@@ -186,7 +208,7 @@ Meteor.publish('boardListCardCount', async function(countId, boardId, cardSelect
   check(cardSelector, Object);
 
   const board = await boardVisibleTo(this.userId, boardId);
-  if (!board || hasWhere(cardSelector)) {
+  if (!board || selectorIsInjection(cardSelector, 'boardCardsCount')) {
     return this.ready();
   }
 

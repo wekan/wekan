@@ -85,6 +85,18 @@ const GUARDED = {
   transitbleed: ['tests/transitbleed.test.cjs'],
   webhookbleed: ['server/lib/tests/dnsbleed.security.tests.js'],
   zipbleed: ['tests/zipbleed.test.cjs'],
+
+  // Guarded by ATTEMPT DETECTION rather than by a fix-regression test: a canary
+  // sits where the attack is tried, and tests/canaryCoverage.test.cjs pins that
+  // the canary is there, is silent, and is attributed
+  // (docs/Security/Remediation/WeKan.md §12). That is weaker than a test of the
+  // fix itself - it proves an attempt is SEEN, not that it still fails - so
+  // these stay candidates for a real regression test. It is stronger than
+  // nothing, which is what they had.
+  escapebleed: ['tests/canaryCoverage.test.cjs'],
+  filebleed: ['tests/canaryCoverage.test.cjs'],
+  inputbleed: ['tests/canaryCoverage.test.cjs'],
+  spacebleed: ['tests/canaryCoverage.test.cjs'],
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -105,13 +117,10 @@ const RECORDED = {
   bypassbleed: 'authentication bypass; predates the *bleed test suites, no source guard was written',
   duebleed: 'Due Cards showed other users\' private board cards to an Admin; needs a publication test',
   emailbleed: 'SMTP password readable behind the asterisks in Admin Panel; a UI-only fix',
-  escapebleed: 'incomplete escaping building a regex from a CSS declaration (CWE-116); same class as patternbleed, no test names it',
   excelbleed: 'un-awaited access-control guard in the Excel export route; same class as bflableed',
   fieldbleed: 'JavaScript stored in a field ran when the page was reloaded; predates the *bleed test suites',
-  filebleed: 'XSS in a filename; partly covered by tests/fileNameDisplay.test.cjs, which does not name it',
   floppybleed: 'FileBleed variant; predates the *bleed test suites, no source guard was written',
   framebleed: 'cross-frame scripting; a header fix with no test',
-  inputbleed: 'incomplete multi-character HTML sanitization (CWE-79/80); no test names it',
   invisiblebleed: 'HTML comments were not visible in rendered content; predates the *bleed test suites',
   ldapbleed: 'LDAP TLS certificate validation off by default; needs an LDAP stack to test',
   megableed: 'IDOR in setCreateTranslation; needs a DDP method test',
@@ -121,7 +130,6 @@ const RECORDED = {
   scannerbleed: 'CVE-2026-68560 shell injection via an upload filename in the antivirus scanner command; needs a source guard on the command path',
   snowbleed: 'MigrationsBleed - a database migration fix; predates the *bleed test suites',
   socialbleed: 'social media links on wekan.fi - a website fix, not a WeKan one',
-  spacebleed: 'stored XSS via file attachments; overlaps mimebleed, which IS guarded',
   splicebleed: 'incomplete multi-character sanitization stripping markup from a shown filename; tests/fileNameDisplay.test.cjs is the likely guard but does not name it',
   tokenbleed: 'predates the *bleed test suites; the REST token paths are exercised by 23-rest-api-more.e2e.js, which does not name it',
   userbleed: 'user data published unconditionally; overlaps brutebleed',
@@ -198,7 +206,7 @@ test('the gap list may not grow', () => {
   // Publishing a vulnerability with neither a test nor a note must fail here.
   // Lower this number when a gap is closed; raising it is the thing this guard
   // exists to make deliberate.
-  assert.strictEqual(Object.keys(RECORDED).length, 29,
+  assert.strictEqual(Object.keys(RECORDED).length, 25,
     'the number of published vulnerabilities with no regression test changed');
 });
 

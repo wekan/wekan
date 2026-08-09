@@ -19,10 +19,37 @@ function record(evt) {
   } catch (e) { /* logging must never break the caller */ }
 }
 
+// Sanitizing a filename is routine - names get trimmed, unicode gets normalised,
+// an extension gets corrected - and routine is not worth an admin's attention.
+// What IS worth it is a name that carried an EXPLOIT: markup, a shell
+// metacharacter, a path trying to leave its directory. Those reasons, and only
+// those, also trip a canary, so the Security report separates "somebody uploaded
+// a file with an awkward name" from "somebody is probing the upload path"
+// (docs/Security/Remediation/WeKan.md §12.6).
+const DANGEROUS_REASON = /^exploit: |traversal|invisible characters|URL-encoded name/i;
+
+function canaryForReasons(reasons, fileObj) {
+  try {
+    const list = Array.isArray(reasons) ? reasons : [];
+    const dangerous = list.filter(r => typeof r === 'string' && DANGEROUS_REASON.test(r));
+    if (!dangerous.length) return;
+
+    const traversal = dangerous.some(r => /traversal/i.test(r));
+    const { tripCanary } = require('/server/lib/canary');
+    tripCanary(traversal ? 'sanitize.path-traversal' : 'sanitize.dangerous-filename', {
+      userId: (fileObj && (fileObj.userId || (fileObj.meta && fileObj.meta.userId))) || undefined,
+      // The REASONS, which are a short fixed vocabulary - never the filename,
+      // which is the attacker's own text.
+      detail: dangerous.slice(0, 4).join(', '),
+    });
+  } catch (e) { /* a canary must never break an upload */ }
+}
+
 // Record that a stored filename was sanitized. `reasons` is the array from
 // uploadFileName.sanitizationReasons(); `fileObj` supplies the uploader + location.
 async function logFilenameSanitized({ fileObj, source, reasons, from, to }) {
   try {
+    canaryForReasons(reasons, fileObj);
     const why = Array.isArray(reasons) && reasons.length ? reasons.join('; ') : 'normalized';
     let context = '';
     try { context = formatFileContext(await resolveFileContext(fileObj)); } catch (e) { /* omit */ }

@@ -31,6 +31,19 @@ EventLog.attachSchema(
     source:   { type: String, optional: true },     // guard/module/test name (wekan… or sqlite…/ferretdb…)
     cwe:      { type: String, optional: true },
     userId:   { type: String, optional: true },
+    // WHO and FROM WHERE. A security event that says only "something was
+    // blocked" cannot be acted on: the admin needs the account and the address
+    // to decide whether to lock it, and to recognise the same actor across
+    // several events. Denormalised at write time on purpose - the username is
+    // what the account was CALLED when it tried, which a later rename must not
+    // rewrite, and a deleted account must not erase.
+    username: { type: String, optional: true },
+    ip:       { type: String, optional: true },
+    // How many attempts this one row stands for. A canary sits on a path an
+    // attacker controls in a loop, so repeats inside a window are counted rather
+    // than each written (models/lib/canaryTokens.js): 1 for an ordinary event, N
+    // for a summary flush.
+    count:    { type: Number, optional: true },
     detail:   { type: String, optional: true },
     // The 'database' stream's own four fields (server/lib/databaseProblems.js).
     // They MUST be declared here: collection2 cleans every insert against this
@@ -97,6 +110,11 @@ if (Meteor.isServer) {
       selector.$or = [
         { category: rx }, { bleed: rx }, { source: rx }, { detail: rx },
         { db: rx }, { kind: rx }, { type: rx }, { message: rx },
+        // WHO and FROM WHERE are the two things an admin looking at a security
+        // event actually wants to pivot on: every other event from this address,
+        // every other event from this account. Searching the table for either
+        // has to find the rows that DISPLAY it, so both columns are searched.
+        { username: rx }, { ip: rx },
       ];
     }
     return selector;

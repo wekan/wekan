@@ -2,6 +2,7 @@ import Cards from '/models/cards';
 import Boards from '/models/boards';
 import { allowIsBoardMemberWithWriteAccess, denyCrossBoardMove } from '/server/lib/utils';
 import { canUserSeeBoard } from '/server/lib/visibleBoardIds';
+import { tripCanary, tripCanaryDeny } from '/server/lib/canary';
 
 // GHSA-jvv9-498p-hxrg: may this user name that card as a parent? Only if they
 // may see the board it is on — the same question the `board` publication asks
@@ -30,12 +31,14 @@ export const canUpdateCard = async function(userId, doc, fields) {
   if (!userId) return false;
   const fieldNames = fields || [];
   // Block direct updates to voting fields; voting must go through Meteor method 'cards.vote'
+  // A canary: the UI never writes these directly, so reaching here is somebody
+  // trying the field instead of the method (docs/Security/Remediation/WeKan.md §12).
   if (fieldNames.some(f => typeof f === 'string' && (f === 'vote' || f.indexOf('vote.') === 0))) {
-    return false;
+    return tripCanary('card.vote-field', { userId });
   }
   // Block direct updates to poker fields; poker must go through Meteor methods
   if (fieldNames.some(f => typeof f === 'string' && (f === 'poker' || f.indexOf('poker.') === 0))) {
-    return false;
+    return tripCanary('card.poker-field', { userId });
   }
   // ReadOnly users cannot edit cards
   return allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(doc.boardId));
@@ -70,8 +73,13 @@ Cards.allow({
 // those ancestors either; this stops the bridge being built in the first place.)
 Cards.deny({
   async update(userId, doc, fieldNames, modifier) {
-    if (await denyCrossBoardMove(userId, modifier)) return true;
-    return await denyInvisibleParentCard(userId, modifier);
+    if (await denyCrossBoardMove(userId, modifier)) {
+      return tripCanaryDeny('card.cross-board-move', { userId });
+    }
+    if (await denyInvisibleParentCard(userId, modifier)) {
+      return tripCanaryDeny('card.invisible-parent', { userId });
+    }
+    return false;
   },
   fetch: [],
 });
@@ -80,7 +88,8 @@ Cards.deny({
 Cards.deny({
   async insert(userId, doc) {
     if (!doc || !doc.parentId) return false;
-    return !(await canUserSeeParentCard(userId, doc.parentId));
+    if (await canUserSeeParentCard(userId, doc.parentId)) return false;
+    return tripCanaryDeny('card.invisible-parent', { userId });
   },
   fetch: [],
 });

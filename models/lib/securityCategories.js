@@ -33,6 +33,22 @@ const CATALOG = {
   'file.disk':       { category: 'file', bleed: 'FloppyBleed', severity: 'low', cwe: 'CWE-400' },
   'file.avatar-url': { category: 'ssrf', bleed: 'RedirectBleed', severity: 'high', cwe: 'CWE-918' },
   'file.policy':     { category: 'file', bleed: 'PolicyBleed', severity: 'info', cwe: '' },
+
+  // Canary tokens (docs/Security/Remediation/WeKan.md §12). A canary sits where
+  // somebody could TRY to override permissions, so every one of these is an
+  // ATTEMPT that the rules already refused - the event is the attribution, not
+  // the defence. They resolve through this same catalog so a canary's category
+  // and *Bleed name cannot drift from the guard it sits next to.
+  'authz.canary':    { category: 'authz', bleed: 'CanaryBleed', severity: 'medium', cwe: 'CWE-863' },
+  'authz.checklist': { category: 'authz', bleed: 'ChecklistBleed', severity: 'high', cwe: 'CWE-863' },
+  'authz.comment':   { category: 'authz', bleed: 'CommentBleed', severity: 'medium', cwe: 'CWE-639' },
+  'authz.file-path': { category: 'authz', bleed: 'PathBleed', severity: 'high', cwe: 'CWE-22' },
+  'authz.parent':    { category: 'authz', bleed: 'ParentBleed', severity: 'high', cwe: 'CWE-862' },
+  'authz.share':     { category: 'authz', bleed: 'RevokeBleed', severity: 'high', cwe: 'CWE-863' },
+  'authz.readonly':  { category: 'authz', bleed: 'ReadOnlyBleed', severity: 'medium', cwe: 'CWE-863' },
+  'authz.database':  { category: 'authz', bleed: 'DatabaseBleed', severity: 'high', cwe: 'CWE-863' },
+  'injection.nosql': { category: 'injection', bleed: 'SelectorBleed', severity: 'high', cwe: 'CWE-943' },
+  'injection.sql':   { category: 'injection', bleed: 'EscapeBleed', severity: 'critical', cwe: 'CWE-89' },
 };
 
 const DEFAULT = { category: 'unknown', bleed: 'Generic', severity: 'info', cwe: '' };
