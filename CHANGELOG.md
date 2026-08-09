@@ -301,7 +301,7 @@ This release makes the following faster:
 **The REST API** - how many times one request talks to the database.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/4fd7b28ad">Bulk label changes read every card in one query, and write them together</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/90a41dbb2">Bulk label changes read every card in one query, and write them together</a>. Thanks to xet7.</summary>
 
 `PUT .../cards/labels` awaited a `getCard` per id and then an update per id. At
 the `BULK_CARDS_MAX` of 500 that is **one thousand sequential round-trips** for
@@ -328,7 +328,7 @@ query.
 **Global search** - what happens before the search itself starts.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/4fd7b28ad">Every username a query names is resolved in one lookup</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/90a41dbb2">Every username a query names is resolved in one lookup</a>. Thanks to xet7.</summary>
 
 Each `user:`, `member:`, `assignee:` and `creator:` predicate resolved its name
 with its own awaited `findOne`, so `member:ann member:bob member:carol` was
