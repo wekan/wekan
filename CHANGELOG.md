@@ -456,8 +456,10 @@ it was written for.
 
 and hardens the following, found while auditing for more of the same:
 
+**Comment reactions** - who a reaction says it belongs to.
+
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/156121c4bc0428a5a1edf5db9fbda6cac916d3ea">Comment reactions: react as yourself, not as somebody else</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/156121c4bc0428a5a1edf5db9fbda6cac916d3ea">React as yourself, not as somebody else</a>. Thanks to xet7.</summary>
 
 The same shape as CommentBleed, one collection over. A `CardCommentReactions`
 document holds
@@ -480,7 +482,154 @@ still may not react at all, as before.
 
 </details>
 
+and adds the following new feature:
+
+**Admin Panel / Problems / Security** - what an admin is told when somebody
+probes.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d577f0770">Canary tokens record who tried to override permissions, and from where</a>. Thanks to xet7.</summary>
+
+The security event log said what a guard DID - a request blocked, a filename
+sanitized - which answers "is WeKan defending itself" and not the question an
+admin asks next: **who did that, and from where**. It also could not tell a
+browser that got confused from somebody working through the
+[Hall of Fame](https://wekan.fi/hall-of-fame/) one entry at a time.
+
+A **canary** is a tripwire at a point that only a permission-override attempt
+reaches. Ordinary use never gets there, so a trip is not noise. Three properties
+define one, and each is enforced by a test.
+
+**Silent.** Tripping one changes nothing the caller can observe: `tripCanary()`
+always returns `false` and `tripCanaryDeny()` always `true`, so a call site
+reads as the refusal it replaces, and the REST handler re-throws the ORIGINAL
+error. This is not politeness - a canary that announces itself is a map of which
+paths are watched, and a probe would avoid them.
+
+**Bounded.** A canary sits where an attacker can loop, so one database row per
+attempt would be a denial of service they get for free. The first trip of a
+(canary, actor) pair is recorded at once, the rest of the window are COUNTED,
+and one summary carrying the total is written when the window closes; a pair
+that never gives up stops writing after sixty summaries. The tracked-pair map is
+capped and evicts the least RECENTLY seen, so a long-running attacker is not
+pushed out by a passing one. A thousand attempts in a minute cost **one row**,
+and a suppressed trip costs one map lookup.
+
+**Attributed.** Every event carries the account, the **username**, the **IP
+address** and the attempt count. The username is stored at write time on purpose
+- it is what the account was called when it tried, so a rename does not rewrite
+history. The address uses the same spoofing-safe rule as the login throttle, or
+an attacker could write a colleague's address into the security log by sending a
+header.
+
+Seventeen canaries sit at the permission checks that refuse the attempts behind
+BoardBleed, ParentBleed, ChecklistBleed, PathBleed and CommentBleed, and nine
+more cover **NoSQL injection** (an execution operator in a client selector, or
+`{"$ne": null}` where a typed value belongs), **SQL injection** (the database's
+own guard now marks its refusal so the attempt reaches the admin instead of a
+log file), **sanitization that removed something dangerous** rather than merely
+tidying, a **forged forwarded-for header**, and a **login lockout**. All
+server-side: no browser, nothing to install.
+
+Admin Panel / Problems / Security gains **Username**, **IP address** and
+**Attempts** columns, both new ones searchable - the thing an admin does with
+one security event is pivot on it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a260a53e">The database marks the operations WeKan never issues, so an operator sees them</a>. Thanks to xet7.</summary>
+
+FerretDB is reached over a local socket by one application, whose driver is a
+Meteor 3 one. That makes a class of operations interesting by their mere
+presence: server-side JavaScript (`$where`, `eval`, `$function`), an aggregation
+writing into a collection (`$out`, `$merge`), dropping a database, a
+server-administration command. The driver does not send them, so a request that
+does is either a bug or somebody who reached the socket and is looking around.
+
+`internal/util/canary` refuses them with the ordinary *"operation not supported
+by this build"* - the same answer an unimplemented command gets - and appends
+`canary:<id>`, which WeKan reads off the error and records with the account and
+the address. The package **writes nothing**: no file, no table, no counter, so
+hammering it costs one string comparison per request. The **SQL guard** marks
+its refusals the same way; it already refused a statement carrying what only
+injection produces, but a line in the database's own log is not somewhere
+anybody looks.
+
+On MongoDB there is no FerretDB to mark anything and these operations simply
+never appear, so the feature degrades to nothing rather than misbehaving.
+
+</details>
+
+and adds the following to Admin Panel / Problems:
+
+**Filesystem integrity** - whether the stored files are still the files WeKan
+stored, and whether this server stopped cleanly.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2cc0d42dd">A daily paced check of every stored file's name, date and four hashes</a>. Thanks to xet7.</summary>
+
+Attachments and avatars are files under `WRITABLE_PATH`, and the database holds
+one document per file. **Nothing checked that the two still agree.** A file can
+be replaced, truncated, back-dated or deleted by anything that reaches the
+filesystem - a bad restore, a sync tool, a container rebuild, a shell on the
+volume - and WeKan would keep serving whatever is there now.
+
+A baseline per file now lives in the existing WeKan database (no new files under
+`WRITABLE_PATH`): path, size, modification time and **md5, sha256 and sha512**.
+Three, because md5 is what other tools print - so an admin can compare with a
+backup using what they already have - and because two digests over the same
+bytes cannot disagree: when they do, the bytes were not read the same way twice,
+which is a failing disk rather than a substitution, and is its own critical
+finding. **ed25519** is the fourth check and is not a hash but a signature,
+answering what the digests cannot: *who says these are the right hashes?*
+Anybody who can rewrite a file can rewrite a row of hashes, so each entry is
+signed and verified on every scan.
+
+The scan runs **once a day**, never at or above **60% CPU**, with a **pause
+between every file** (50 ms, plus 20 ms per megabyte) and a **fifteen-minute
+budget** after which it stops and continues tomorrow - and reads each file
+**once** for all three digests. A run that stopped early does not report what it
+never reached as missing.
+
+The finding is a change **with no record saying why**. A change WeKan made is
+reported once and re-baselined; a change nothing accounts for keeps showing
+until somebody looks. Crashes and downtime are in the same stream, from a
+heartbeat the next start reads: a first run and a clean stop record nothing, and
+a long gap with no clean-shutdown mark says so, with how long the server was
+down.
+
+</details>
+
+**Database problems** - two of its own reports, acted on.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/30e8e38f6">Fix the two bugs the Database problems page was reporting</a>. Thanks to xet7.</summary>
+
+The page was doing its job and nobody had acted on it. `moveSwimlane` threw
+*"update is not available on the server. Please use updateAsync()"* four times
+in
+a week, because the default-swimlane self-heal called the synchronous
+`Swimlanes.upsert()` that Meteor 3 removed on the server; it starts the async
+one
+without waiting now, since the getter around it cannot await. `moveList` threw
+*"ValidationError: Failed validation, Cannot read properties of undefined
+(reading 'title')"* when a list had no title: the insert failed schema
+validation and collection2's error formatter then crashed on the undefined
+field, so the admin saw neither the list nor the real problem. It now says
+"This list has no title, so it cannot be moved to another board" before the
+insert, and the two `console.log` lines that printed the title to a log nobody
+reads are gone.
+
+Both errors also gained a classifier rule, so neither reads as *unknown /
+unclassified* again: they say plainly that this is WeKan's bug rather than the
+database's or the admin's, and where to report it.
+
+</details>
+
 and improves the security tests themselves:
+
+**The test suite** - what it claims to guard, and what it actually does.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a4a9c03b1fc75d61760a35c87decbaf7a3081973">Security tests say which vulnerability they guard, and the list is checked</a>. Thanks to xet7.</summary>
