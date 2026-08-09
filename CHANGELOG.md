@@ -264,7 +264,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.74 2026-08-09 WeKan ® release
 
 **In short:** four security reports from **Alpastx**, all of them the same
 mistake in four places - a rule that exists, is correct, and is not asked.
