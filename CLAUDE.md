@@ -2,7 +2,32 @@
 
 Claude Code reads this file at the repo root before doing work here. Follow it.
 
-## First: are you the maintainer or a contributor?
+## First: who maintains this, and who is committing?
+
+**WeKan and every repository under `.tools/` are maintained by Lauri Ojansivu
+(xet7) `<x@xet7.org>`** — [wekan/wekan](https://github.com/wekan/wekan),
+[wekan/FerretDB](https://github.com/wekan/FerretDB),
+[wekan/node-patches](https://github.com/wekan/node-patches) and
+[wekan/mongo-tools-patches](https://github.com/wekan/mongo-tools-patches). Work done
+on the maintainer's behalf is committed as **`Lauri Ojansivu <x@xet7.org>`** — that
+author, in every one of those repositories, every time. Two rules follow from it and
+neither has an exception:
+
+- **Never attribute a commit to an AI.** No `Co-Authored-By:` trailer, no "Generated
+  with", no assistant or model name — not in the commit message, not in a pull-request
+  body, not in the CHANGELOG. [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) is where this
+  comes from: *"For pull requests, mention only those participants that are
+  **human**."* A `Thanks to ... and xet7 !` line credits people — the issue reporter
+  and xet7 — never a tool.
+- **If the git identity is missing or wrong in one of these checkouts, set it; do not
+  commit under something else.** The `.tools/` clones are made by `build.sh` inside
+  this checkout and can come up with no `user.name`/`user.email` of their own, which
+  would silently author a commit as whatever the machine's default is:
+
+  ```
+  git -C .tools/<repo> config user.name  'Lauri Ojansivu'
+  git -C .tools/<repo> config user.email 'x@xet7.org'
+  ```
 
 Check the current git identity before committing or releasing:
 
@@ -10,16 +35,18 @@ Check the current git identity before committing or releasing:
 git config user.name && git config user.email
 ```
 
-- **Maintainer mode** — ONLY when the identity is exactly
-  `Lauri Ojansivu <x@xet7.org>` (name `Lauri Ojansivu`, email `x@xet7.org`). Then, and
-  only then: commit **directly to the current branch** as `Lauri Ojansivu <x@xet7.org>`
-  with no AI trailer and no pull request, and the **publishing / release steps** below
-  are available.
-- **Contributor mode** — any other git identity. Then: do **not** commit directly to
-  the branch and do **not** run any release/publishing step. Make changes on a branch
-  and open a **pull request** for the maintainer to review. The "commit as Lauri
-  Ojansivu", "commit directly", and all release instructions below are **maintainer-only
-  and do not apply to you**.
+- **Maintainer mode** — the identity is `Lauri Ojansivu <x@xet7.org>` (name
+  `Lauri Ojansivu`, email `x@xet7.org`), or it is unset in a checkout of one of the
+  repositories above, which means it is to be SET to that as above rather than worked
+  around. Then: commit **directly to the current branch** as
+  `Lauri Ojansivu <x@xet7.org>` with no AI trailer and no pull request, and the
+  **publishing / release steps** below are available.
+- **Contributor mode** — the identity is somebody ELSE, in a fork or a clone of your
+  own. Then: do **not** commit directly to the branch and do **not** run any
+  release/publishing step. Make changes on a branch and open a **pull request** for
+  the maintainer to review, and keep that pull request free of AI attribution too.
+  The "commit as Lauri Ojansivu", "commit directly", and all release instructions
+  below are **maintainer-only and do not apply to you**.
 
 Everything below marked as maintainer-specific (committing directly, the exact commit
 author, and the entire "Making a release" / publishing flow) applies only in maintainer
@@ -121,7 +148,10 @@ pushed to Transifex as if it were human.
   "Co-Authored-By" or any other AI trailer, directly to the `main` branch of WeKan and
   the `main-v1` branch of the FerretDB fork. **Do not make pull requests.** (Contributors
   do the opposite: work on a branch and open a pull request — see the top section.)
-- Lauri Ojansivu (xet7) maintains WeKan (https://wekan.fi) and the FerretDB v1 fork.
+  This is the same rule as the top section, restated where the release work is: one
+  author, `Lauri Ojansivu <x@xet7.org>`, and no AI attribution anywhere.
+- Lauri Ojansivu (xet7) maintains WeKan (https://wekan.fi), the FerretDB v1 fork, and
+  the two patch repositories under `.tools/` — node-patches and mongo-tools-patches.
 - Directory structure:
   - `wekan` — this repo (https://github.com/wekan/wekan); see
     `docs/DeveloperDocs/Directory-Structure.md`; `CHANGELOG.md` at root.
