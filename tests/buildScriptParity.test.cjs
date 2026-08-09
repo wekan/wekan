@@ -208,6 +208,7 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     'require-binaries.sh': 'release-workflow: called per build job',
     'record-provenance.sh': 'release-workflow: called per build job',
     'provenance-table.sh': 'release-workflow: called by the release job',
+    'ferretdb-latest-tag.sh': 'release-workflow: a lookup the build jobs call so\n      the provenance table can name the version `latest` resolved to - it prints\n      a tag and downloads nothing',
     'repack-bundle-for-arch.sh': 'release-workflow: needs ./bundle, docker and '
       + 'QEMU already set up by the build job around it',
     'expected-assets.sh': 'release-workflow: prints what a complete release '

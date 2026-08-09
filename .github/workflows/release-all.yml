@@ -622,13 +622,23 @@ jobs:
           sha256sum "wekan-${VERSION}-amd64.zip" > "wekan-${VERSION}-amd64.zip.sha256sum"
           cat "wekan-${VERSION}-amd64.zip.sha256sum"
           # Where this bundle's binaries came from, for the release notes.
-          mkdir -p provenance
-          PROVENANCE_FILE=provenance/amd64.tsv bash releases/record-provenance.sh \
+          #
+          # $GITHUB_WORKSPACE, not a relative path: this step ran `cd .build`
+          # above, so `mkdir -p provenance` made .build/provenance while the
+          # upload-artifact below looks at provenance/ from the workspace root.
+          # It found nothing - "No files were found with the provided path:
+          # provenance/" - and amd64, the platform most people download, was the
+          # one bundle missing from the v10.77 release-notes table. Every other
+          # build job records from the workspace root, which is why only this one
+          # was affected.
+          mkdir -p "$GITHUB_WORKSPACE/provenance"
+          PROVENANCE_FILE="$GITHUB_WORKSPACE/provenance/amd64.tsv" bash releases/record-provenance.sh \
             'amd64' 'Node.js' "${NODE_FROM:-}" "${NODE_FULL:-$NODE_VERSION}" \
             "${NODE_URL:-}" \
             "${NODE_SHA256:-}" || true
-          PROVENANCE_FILE=provenance/amd64.tsv bash releases/record-provenance.sh \
-            'amd64' 'FerretDB' 'wekan/FerretDB' 'latest' \
+          FERRET_TAG="$(bash releases/ferretdb-latest-tag.sh)"
+          PROVENANCE_FILE="$GITHUB_WORKSPACE/provenance/amd64.tsv" bash releases/record-provenance.sh \
+            'amd64' 'FerretDB' 'wekan/FerretDB' "${FERRET_TAG:-latest}" \
             'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-amd64' \
             "${FERRET_SHA:-}" || true
           # A zip that EXISTS is not a zip that WORKS, and the log should say which of the
@@ -832,8 +842,9 @@ jobs:
             'arm64' 'Node.js' "${NODE_FROM:-}" "${NODE_FULL:-$NODE_VERSION}" \
             "${NODE_URL:-}" \
             "${NODE_SHA256:-}" || true
+          FERRET_TAG="$(bash releases/ferretdb-latest-tag.sh)"
           PROVENANCE_FILE=provenance/arm64.tsv bash releases/record-provenance.sh \
-            'arm64' 'FerretDB' 'wekan/FerretDB' 'latest' \
+            'arm64' 'FerretDB' 'wekan/FerretDB' "${FERRET_TAG:-latest}" \
             'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-arm64' \
             "${FERRET_SHA:-}" || true
           # A zip that EXISTS is not a zip that WORKS, and the log should say which of the
@@ -1219,8 +1230,9 @@ jobs:
             "${node_url:-}" \
             "${node_sha256:-}" || true
           if [ -s bundle/ferretdb.exe ]; then
+            FERRET_TAG="$(bash src/releases/ferretdb-latest-tag.sh)"
             PROVENANCE_FILE=provenance/win64.tsv bash src/releases/record-provenance.sh \
-              'win64' 'FerretDB' 'wekan/FerretDB' 'latest' \
+              'win64' 'FerretDB' 'wekan/FerretDB' "${FERRET_TAG:-latest}" \
               'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win64.exe' \
               "${FERRET_SHA:-}" || true
           fi
@@ -1561,8 +1573,9 @@ jobs:
             "${node_url:-}" \
             "${node_sha256:-}" || true
           if [ -s bundle/ferretdb.exe ]; then
+            FERRET_TAG="$(bash src/releases/ferretdb-latest-tag.sh)"
             PROVENANCE_FILE=provenance/win32.tsv bash src/releases/record-provenance.sh \
-              'win32' 'FerretDB' 'wekan/FerretDB' 'latest' \
+              'win32' 'FerretDB' 'wekan/FerretDB' "${FERRET_TAG:-latest}" \
               'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win32.exe' \
               "${FERRET_SHA:-}" || true
           fi
@@ -1805,8 +1818,9 @@ jobs:
             "${node_url:-}" \
             "${node_sha256:-}" || true
           if [ -s bundle/ferretdb ]; then
+            FERRET_TAG="$(bash releases/ferretdb-latest-tag.sh)"
             PROVENANCE_FILE=provenance/mac-arm64.tsv bash releases/record-provenance.sh \
-              'mac-arm64' 'FerretDB' 'wekan/FerretDB' 'latest' \
+              'mac-arm64' 'FerretDB' 'wekan/FerretDB' "${FERRET_TAG:-latest}" \
               'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-mac-arm64' \
               "${FERRET_SHA:-}" || true
           fi
@@ -2057,8 +2071,9 @@ jobs:
             "${node_url:-}" \
             "${node_sha256:-}" || true
           if [ -s bundle/ferretdb ]; then
+            FERRET_TAG="$(bash releases/ferretdb-latest-tag.sh)"
             PROVENANCE_FILE=provenance/mac-x64.tsv bash releases/record-provenance.sh \
-              'mac-x64' 'FerretDB' 'wekan/FerretDB' 'latest' \
+              'mac-x64' 'FerretDB' 'wekan/FerretDB' "${FERRET_TAG:-latest}" \
               'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-mac-amd64' \
               "${FERRET_SHA:-}" || true
           fi
@@ -2421,7 +2436,7 @@ jobs:
           else
             echo "::warning::wekan/FerretDB publishes no checksum for ferretdb-${{ matrix.ferretdb_arch }} on this release, so it is unverified."
           fi
-          FERRET_TAG="$(curl -fsSL https://api.github.com/repos/wekan/FerretDB/releases/latest | python3 -c 'import json,sys; print(json.load(sys.stdin).get("tag_name",""))' || true)"
+          FERRET_TAG="$(bash releases/ferretdb-latest-tag.sh)"
           bash releases/record-provenance.sh '${{ matrix.arch }}' 'FerretDB' \
             'wekan/FerretDB' "${FERRET_TAG:-latest}" "$FERRET_URL" "$FERRET_SHA"
           # Overwrite the inherited amd64 MongoDB Database Tools with this arch's ones.
@@ -3577,11 +3592,29 @@ jobs:
         run: |
           set -uo pipefail
           mkdir -p snap-logs
-          cp -f snapcraft-wekan-*.txt snap-logs/ 2>/dev/null || true
-          cp -f "$HOME"/.local/state/snapcraft/log/*.log snap-logs/ 2>/dev/null || true
+          # RENAMED, not just copied. snapcraft names a remote-build log after the
+          # recipe and an ISO timestamp:
+          #     snapcraft-wekan-f82a93c2…_s390x_2026-08-09T11:39:05.txt
+          # and upload-artifact REFUSES a colon - "Invalid characters include:
+          # Double quote, Colon, Less than, ..." - because NTFS cannot hold one.
+          # That failed the whole job for s390x, ppc64el and riscv64 in v10.77
+          # AFTER all three snaps had built and downloaded on attempt 1, so three
+          # good builds were reported as FAILED by the step that saves their logs.
+          # The timestamp is worth keeping, so the colons become dashes rather
+          # than the name being thrown away.
+          for f in snapcraft-wekan-*.txt "$HOME"/.local/state/snapcraft/log/*.log; do
+            [ -f "$f" ] || continue
+            base="$(basename "$f")"
+            cp -f "$f" "snap-logs/${base//:/-}" || true
+          done
           ls -la snap-logs || true
 
       - uses: actions/upload-artifact@v7
+        # A DIAGNOSTIC upload can never fail the build it is diagnosing. The snap
+        # is the deliverable; these logs are here so a failure can be read
+        # afterwards, and the renaming above is not the last thing that could
+        # ever make one of them unuploadable.
+        continue-on-error: true
         if: always()
         with:
           name: snap-launchpad-logs-${{ matrix.arch }}
