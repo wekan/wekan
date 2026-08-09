@@ -278,12 +278,19 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** a **new platform** and the **snap** jobs. WeKan now builds a
+**In short:** two **new platforms** and the **snap** jobs. WeKan now builds a
 **win-arm64** bundle - Windows on ARM - which needed no new work anywhere else,
 because nodejs.org, FerretDB and the MongoDB tools all publish that
-architecture already and nothing here had asked for it. (armv5, armv6 and armel
-were checked at the same time and cannot be added: Node.js does not exist for
-any of them, and the Snap Store has no such architecture either.) On the snap
+architecture already and nothing here had asked for it. **armv6** - Raspberry
+Pi 1 and Zero - was the opposite: nobody publishes a Node.js for it any more,
+so **wekan/node-patches** gained an armv6 target, and FerretDB and the MongoDB
+tools gained `GOARM=6` ones beside their armhf builds. It ships as a bundle zip
+and **no snap**, because the Snap Store has no armv6 architecture at all; the
+**Docker** image is wired for it too, but stays gated until a base image
+publishes `linux/arm/v6` — Debian has no ARMv6 port, and a request for one
+silently resolves to soft-float armel rather than failing. (armv5
+and armel still cannot be added at all: V8's accepted `--arm-arch` list stops at
+armv6, so there is no Node.js to build.) On the snap
 side, one thing had been quietly failing for months: **armhf** asked Caddy for
 a `linux_armhf` archive that has never existed - Caddy is built by Go and its
 assets carry Go's architecture names -
@@ -293,8 +300,10 @@ duplicate check; the upload is retried now, and the message no longer blames
 credentials. Beside that, the **amd64** bundle had never recorded where its
 Node.js and FerretDB came from - not because the directory was wrong, which was
 last release's fix, but because the scripts themselves were never found, and the
-`|| true` meant for release notes swallowed the error every run. The binaries
-below are v10.78's: nothing here rebuilds them.
+`|| true` meant for release notes swallowed the error every run. Below that, the
+**CPU platforms** of the image and of the snap now have a page each, and the
+FerretDB v1 page lists every architecture its binary is built for. The binaries
+in the table below are v10.78's: nothing here rebuilds them.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -317,7 +326,7 @@ below are v10.78's: nothing here rebuilds them.
 | win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
 | win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-win64.exe) | v1.48.0 | `ea57e1bcd153b51d2065ab01515b21ec05d8f615444c15603ab8158b8a661dd2` |
 
-This release adds the following new feature:
+This release adds the following new features:
 
 **Windows on ARM** - a bundle whose every binary was already published.
 
@@ -340,14 +349,103 @@ for the runner's architecture either way, and the only architecture-specific
 things in the zip are the three binaries above, which are downloaded rather
 than built.
 
-**What cannot be added, checked at the same time: armv5, armv6 and armel.**
-FerretDB and the MongoDB tools publish `armel` - they are Go, and Go still
-targets it - but **Node.js does not exist for any of the three**. nodejs.org
-publishes no 32-bit ARM at all for v24.19.0, unofficial-builds has no `armv6l`,
-and node-patches builds `node-armhf` and `node-armv7` only. No Node.js means no
-bundle, so no Docker image and no snap either. The Snap Store has no armv5 or
-armv6 architecture in any case - its only 32-bit ARM is `armhf`, which WeKan
-already publishes.
+**What cannot be added, checked at the same time: armv5 and armel.** FerretDB
+and the MongoDB tools publish `armel` - they are Go, and Go still targets it -
+but **Node.js does not exist for either**, and it cannot be built either: V8's
+accepted `--arm-arch` list stops at armv6. No Node.js means no bundle, so no
+Docker image and no snap either. armv6 was checked in the same pass and looked
+like the same answer - nodejs.org publishes no 32-bit ARM at all for v24.19.0
+and unofficial-builds has no `armv6l` - but there the SUPPORT was still in the
+source and only the build was missing, which is what the next entry does.
+
+</details>
+
+**Raspberry Pi 1 and Zero** - the platform whose Node.js had to be built first.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d9e4cd57c">Build an armv6 bundle</a>. Thanks to xet7.</summary>
+
+Every piece of the chain exists now, and the piece that was missing was
+Node.js. nodejs.org dropped its ARMv6 binaries after Node 11 and
+unofficial-builds has none, so
+[wekan/node-patches](https://github.com/wekan/node-patches) gained an armv6
+target - V8 still accepts `--arm-arch=armv6` and `configure.py` still carries
+`is_arch_armv6()` with `vfp` among its valid ARM FPUs, so only the build was
+missing - and [wekan/FerretDB](https://github.com/wekan/FerretDB) and
+[wekan/mongo-tools-patches](https://github.com/wekan/mongo-tools-patches)
+gained `GOARM=6` targets beside their armhf ones.
+
+Their `armel` is `GOARM=5` and WOULD run on these boards, which is exactly why
+it looks like a substitute and is not one: `GOARM=5` does floating point in
+software, and an ARMv6 board has VFPv2.
+
+The bundle builds in a `linux/arm/v6` container and takes `node-armv6`, and
+`releases/resolve-node-source.sh` resolves it - naming `linux-armv6l` as the
+upstream spelling even though nothing upstream will ever answer to it, so the
+search it prints is honest about where it looked.
+
+**No snap, and that is not an oversight.** The Snap Store has no armv6
+architecture at all - its only 32-bit ARM is `armhf`, which is ARMv7-A
+hard-float and will not run on an ARMv6 board. So armv6 ships as a bundle zip
+and a `linux/arm/v6` Docker image, and `models/lib/snapArchitectures.js`
+records that reason in `NOT_SNAP_ARCHITECTURES` beside i386's and armv7's.
+
+Four tests found the four places a new platform has to be registered, which is
+what they are for: `releases/expected-assets.sh` (or "Release all missing"
+never notices the asset is absent), the resolver's mapping table, the
+non-native bundle list, and the snap-platform exemption. Each list was updated
+rather than the guard loosened.
+
+**What is not verified: none of these binaries has been built yet.** The
+Node.js one is a multi-hour ARM cross compile and the first CI run is its test.
+Everything checkable from source was checked - V8's accepted `--arm-arch`
+values, `configure.py`'s ARM handling, Go's `GOARM` semantics, and that zlib's
+ARM SIMD is gated on `arm_fpu == "neon"`, so an armv6 build selects the scalar
+code by itself and needs none of the NEON patching armv7 does.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f342d54d1">The Docker image gains it as a candidate platform, gated on a base that publishes linux/arm/v6</a>. Thanks to xet7.</summary>
+
+**`TARGETARCH` does not identify a 32-bit ARM platform.** `linux/arm/v6` and
+`linux/arm/v7` both arrive in the `Dockerfile` as `TARGETARCH=arm`; the CPU
+generation is in `TARGETVARIANT`. The architecture `case` mapped `arm` straight
+to `armhf`, so the moment armv6 existed as a bundle, an ARMv6 build would have
+been handed the armhf zip — ARMv7-A instructions for a CPU that cannot execute
+them. It now branches on the variant: `v6` takes the `armv6` bundle, `v7` and an
+unset variant take `armhf`, and anything else exits. `v5` is armel: FerretDB and
+the MongoDB tools publish it, but Node.js does not exist for ARMv5, so there is
+no bundle and refusing is the only honest answer.
+
+`linux/arm/v6` is in the docker job's optional platform list beside the others,
+and the release then asks a question it never asked before: **does the base
+image publish this platform?** For every other architecture that question is
+uninteresting, because a base that lacks one fails the build. For 32-bit ARM it
+does not fail — containerd treats a **lower** ARM variant as compatible, so a
+`linux/arm/v6` request against a base with `arm/v5` and `arm/v7` quietly
+resolves to `arm/v5`, Debian **armel**, soft float. The image would build on a
+userland whose loader cannot start the hard-float `node-armv6` inside the
+bundle. A silent downgrade is worse than a dropped platform.
+
+So the job reads the base name out of the `Dockerfile` — no second copy of it —
+asks `docker buildx imagetools inspect` what that base publishes, and drops a
+candidate it lacks with a warning saying why. Today `debian:trixie` is `386`,
+`amd64`, `arm64/v8`, `arm/v5`, `arm/v7`, `ppc64le`, `riscv64`, `s390x`: **no
+`arm/v6`**, because Debian has no ARMv6 port — its 32-bit ARM ports are armel
+and armhf, and ARMv6 hard-float is Raspberry Pi OS territory. **The armv6
+bundle zip is unaffected**, and that is how an ARMv6 board runs WeKan today; the
+image platform is wired end to end and turns itself on the day a base publishes
+the variant, with nothing else to change.
+
+Checked against the real registry rather than assumed: `debian:trixie`'s
+manifest list was read, and the decide step was run against both that list
+(armv6 drops, the other seven build) and a base that does publish `arm/v6`
+(armv6 is included, paired with the `armv6` bundle).
+`tests/releaseDockerPlatforms.test.cjs` pins the variant split, the refusal of
+`v5`, the platform-to-bundle pairing, and that both loops ask the base — the
+last one so that "just delete the check" cannot quietly become an image whose
+Node.js will not start.
 
 </details>
 
@@ -447,6 +545,40 @@ did not.
 The guard added with it is the general form rather than this one line: it walks
 back from every provenance call to its step header and requires an absolute path
 whenever a `cd` runs inside that step.
+
+</details>
+
+and documents which CPU platforms each package is built for:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5ec9f3ae5">A page for the Docker image's CPU platforms, beside the one the snap already had</a>. Thanks to xet7.</summary>
+
+"Which CPUs is this published for, and why not that one" was answerable for the
+snap and nowhere else, so the same page now exists for the image:
+`docs/Platforms/FOSS/Container/Docker/CPU-platforms.md`. It carries the
+platform matrix with each platform's `TARGETARCH`, `TARGETVARIANT` and bundle,
+how the set is decided on every release from what the base image publishes and
+which bundles landed, the three names that differ between Docker, Debian and the
+WeKan bundles, and one section per platform that is deliberately NOT an image:
+loong64 (no base image exists at any tag), armv6 (gated on a base with
+`arm/v6`), armv7 (the one 32-bit ARM slot must carry the armhf baseline) and the
+Windows and macOS bundles. It ends with why the FerretDB image covers more
+platforms than the WeKan one — `FROM scratch` around a static Go binary needs no
+userland at all.
+
+The snap's page gains the matching armv6 section — the Snap Store has no armv6
+architecture, and its only 32-bit ARM is armhf, which an ARMv6 board cannot
+run — and a table of all fifteen bundles against which six become snaps, so
+"it is missing" and "it cannot be there" stop looking alike. The two pages link
+each other, because the answer differs between them.
+
+`docs/Databases/FerretDB/1/README.md` said the per-architecture FerretDB binary
+was embedded in the bundles "for ppc64le, s390x, riscv64". Every bundle carries
+one; those three are part of a longer list of platforms where it is the DEFAULT
+because MongoDB publishes no server. It now lists all seventeen built binaries
+and separates the three 32-bit ARM builds that are not variants of each other:
+`armhf` is `GOARM=7`, `armv6` is `GOARM=6`, `armel` is `GOARM=5` software
+floating point.
 
 </details>
 
