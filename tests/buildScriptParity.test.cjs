@@ -237,7 +237,30 @@ test('the Releases menu is the same list, in the same order, in both scripts', (
   // Same entries, same order, in the .bat's dispatch lines - EXCEPT the ones
   // marked linux: systemd, ufw, snap and multipass are things Windows cannot do
   // at all, so offering them there would be a menu entry that can only fail.
-  const forWindows = entries.filter(e => e.platform !== 'linux');
+  // A `!`-prefixed entry is a build.sh FUNCTION, not a script in releases/, so
+  // there is nothing for the .bat to `call :rel_run`. Windows implements those
+  // natively instead - `git pull` and `git push` are entries 3 and 4 of its main
+  // menu, going to :gitpull and :gitpush - and the assertion below checks that
+  // it really does, rather than letting a function entry silently drop out of
+  // one menu. Comparing them as scripts is what made this guard fail the moment
+  // "Update git" was replaced by the two that finish the job.
+  // A `!` marks an entry build.sh runs itself rather than by executing a file in
+  // releases/. Most are raw commands, and the .bat runs those the same way -
+  // those still compare. The exception is an entry naming a build.sh FUNCTION,
+  // which is shell the .bat has no way to call: Windows implements the same
+  // thing natively, and the loop below checks that it does.
+  const isFunction = e =>
+    e.script.startsWith('!') &&
+    /^[a-z][a-z0-9_]*$/.test(e.script.slice(1)) &&
+    new RegExp(`^function ${e.script.slice(1)}\\(\\)`, 'm').test(sh);
+
+  const forWindows = entries.filter(e => e.platform !== 'linux' && !isFunction(e));
+
+  for (const e of entries.filter(x => isFunction(x) && x.platform !== 'linux')) {
+    const label = e.script.slice(1).replace(/_/g, '');   // git_pull -> gitpull
+    assert.ok(new RegExp(`^:${label}\\b`, 'm').test(bat),
+      `build.sh offers "${e.label}" as a function; build.bat must implement :${label}`);
+  }
   const inBat = [...bat.matchAll(/call :rel_(?:run|cmd) "([^"]+)" "([^"]*)"/g)]
     .map(m => ({ what: m[1], prompt: m[2] }));
   assert.deepStrictEqual(inBat.map(e => e.what),

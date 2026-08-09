@@ -676,6 +676,11 @@ if /I "%K%"=="push-copy-en-gb-translation" (set "CMD=bash releases/translations/
 if /I "%K%"=="report-english-regressions" (set "CMD=node releases/translations/report-english-regressions.mjs" ^& goto cli_go)
 if /I "%K%"=="verify-human-preference" (set "CMD=node releases/translations/verify-human-preference.mjs" ^& goto cli_go)
 if /I "%K%"=="merge-translations" (set "CMD=node releases/translations/merge-translations.mjs" ^& goto cli_go)
+REM `git pull` and `git push` are shell functions in build.sh, not scripts in
+REM releases/, so this answers to the same two names with its own labels - the
+REM ones the interactive menu already uses.
+if /I "%K%"=="git-pull" (goto gitpull)
+if /I "%K%"=="git-push" (goto gitpush)
 if /I "%K%"=="commit" (set "CMD=bash releases/commit.sh" ^& goto cli_go)
 if /I "%K%"=="git-add-revert" (set "SHCMD=git restore --staged" ^& goto cli_go)
 if /I "%K%"=="delete-branch-local-and-remote" (set "CMD=bash releases/delete-branch-local-and-remote.sh" ^& goto cli_go)
