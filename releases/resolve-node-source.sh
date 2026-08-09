@@ -28,7 +28,8 @@
 #   resolve-node-source.sh <platform> <major|version>
 #
 #   platform   what WeKan calls the CPU: amd64/x64, arm64, i386, armhf, armv7,
-#              ppc64le, s390x, riscv64, loong64, win64, win32, mac-x64,
+#              ppc64le, s390x, riscv64, loong64, win64, win32, win-arm64,
+#              mac-x64,
 #              mac-arm64. A node-patches asset name (node-x64, node-win64.exe)
 #              is accepted too, so callers that already hold one need not
 #              translate it.
@@ -112,6 +113,10 @@ case "$platform" in
   loong64)   nodename="linux-loong64" ; asset="node-loong64"      ; ext="tar.xz" ;;
   win64)     nodename="win-x64"       ; asset="node-win64.exe"    ; ext="zip"    ;;
   win32)     nodename="win-x86"       ; asset="node-win32.exe"    ; ext="zip"    ;;
+  # Windows on ARM. nodejs.org publishes node-<version>-win-arm64.zip itself, so
+  # this resolves from the official source like win64 does and never needs a
+  # node-patches build - the asset name is given anyway, for the day it does.
+  win-arm64) nodename="win-arm64"     ; asset="node-win-arm64.exe"; ext="zip"    ;;
   mac-x64)   nodename="darwin-x64"    ; asset="node-mac-x64"      ; ext="tar.xz" ;;
   mac-arm64) nodename="darwin-arm64"  ; asset="node-mac-arm64"    ; ext="tar.xz" ;;
   *)

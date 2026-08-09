@@ -58,10 +58,30 @@ test('extra arches (ppc64le/s390x/riscv64) bundle their own-arch qemu, tolerantl
 });
 
 test('negative: Windows and macOS bundles strip the Linux-only cpu-exec + qemu', () => {
+  // Counted from the jobs that exist rather than from a number written here:
+  // the count was 4 and became 5 the day build-win-arm64 was added, and a bare
+  // number tells whoever hits that only that it changed, not whether the new
+  // job strips its own copy - which is the thing that actually matters.
+  const NON_LINUX = ['build-win64', 'build-win-arm64', 'build-win32',
+                     'build-mac-arm64', 'build-mac-x64'];
+  const missing = NON_LINUX.filter(job => {
+    const at = releaseAll.indexOf(`\n  ${job}:`);
+    if (at < 0) return false;                 // job removed; covered below
+    const rest = releaseAll.slice(at + 1);
+    const next = rest.search(/\n  [a-z][a-z0-9-]*:\n/);
+    const body = next < 0 ? rest : rest.slice(0, next);
+    return !/rm -f bundle\/cpu-exec bundle\/qemu-x86_64/.test(body);
+  });
+  assert.deepStrictEqual(missing, [],
+    'these ship a Linux-only cpu-exec and qemu-x86_64 they cannot run');
+
+  const present = NON_LINUX.filter(job => releaseAll.includes(`\n  ${job}:`));
+  assert.deepStrictEqual(present, NON_LINUX,
+    'a non-Linux bundle job disappeared; update this list deliberately');
+
   const strips = releaseAll.match(/rm -f bundle\/cpu-exec bundle\/qemu-x86_64/g) || [];
-  // Four non-Linux bundles: build-win64, build-win32, build-mac-arm64, build-mac-x64.
-  assert.strictEqual(strips.length, 4,
-    'one strip in each of build-win64, build-win32, build-mac-arm64 and build-mac-x64');
+  assert.strictEqual(strips.length, NON_LINUX.length,
+    `one strip per non-Linux bundle, found ${strips.length} for ${NON_LINUX.length} jobs`);
 });
 
 test('the qemu-user-static build dependency is installed where bundles are built', () => {

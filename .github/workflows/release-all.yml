@@ -39,7 +39,8 @@ name: Release All Platforms
 #              not compiled here) and embeds it
 #   - release: creates the GitHub Release with the newest CHANGELOG.md notes and
 #              uploads the core wekan-<version>-{amd64,arm64}.zip bundles
-#   - build-win64 / build-mac-arm64 / build-extra-arches: built AFTER release, each
+#   - build-win64 / build-win-arm64 / build-mac-arm64 / build-extra-arches: built
+#     AFTER release, each
 #              rebuilds the amd64 bundle's native modules for its platform (Windows,
 #              macOS arm64, and QEMU-emulated ppc64le/s390x/riscv64) and attaches
 #              its .zip to the Release. Windows/macOS strip the Linux FerretDB back
@@ -1397,6 +1398,353 @@ jobs:
           echo "$mark build-win64" >> "$GITHUB_STEP_SUMMARY"
           if [ "${{ job.status }}" = "failure" ]; then
             echo "::error::build-win64 FAILED. The ::error:: line in this job's log, above, says which step and why."
+          fi
+
+  # Build win32 (32-bit Windows) bundle.
+  #
+  # BEST-EFFORT, like mac-x64 and the exotic Linux arches: nodejs.org has no
+  # 32-bit Windows Node 24 at all (upstream removed the build in Node 23) and
+  # unofficial-builds has none either, so this bundle's node.exe can only come
+  # from wekan/node-patches. Until node-win32.exe is published there the preflight
+  # SKIPS this job (a warning, not a red failure); it returns on its own the
+  # release after it appears.
+  #
+  # The runner is 64-bit and the bundle is 32-bit. There is NO 32-bit Windows
+  # Node 24 to install (that is the whole reason the fork exists), so setup-node
+  # runs the runner's normal x64 Node to DRIVE the build, and the native modules
+  # (bcrypt) are cross-compiled to ia32 by passing npm_config_arch=ia32 in the
+  # rebuild step below - node-gyp then fetches the ia32 headers and builds Win32
+  # binaries. The shipped node.exe is the fork's 32-bit node-win32.exe.
+  # Windows on ARM. Every binary this bundle needs is published: nodejs.org
+  # builds node-<version>-win-arm64.zip itself, wekan/FerretDB publishes
+  # ferretdb-win-arm64.exe and wekan/mongo-tools-patches publishes the tools
+  # as -win-arm64.exe - so this is a bundle WeKan could always have shipped
+  # and simply did not.
+  #
+  # It builds on the x64 Windows runner, like win32 does: the Meteor bundle is
+  # JavaScript, the native modules are installed with --ignore-scripts and are
+  # not compiled for the runner's architecture either way, and the only
+  # architecture-specific things in the zip are the three binaries above,
+  # which are downloaded rather than built.
+  build-win-arm64:
+    needs: [prepare, build-amd64, release]
+    runs-on: windows-latest
+    timeout-minutes: 60
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      # Checked out into src/ so start-wekan.bat and snapcraft.yaml (which pins
+      # the MongoDB tools/mongosh versions) are available; the downloaded bundle
+      # is extracted alongside it in the workspace root.
+      - uses: actions/checkout@v7
+        with:
+          ref: refs/tags/v${{ needs.prepare.outputs.version }}
+          path: src
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      # Which Node.js this platform gets - and whether it is built at all.
+      #
+      # WeKan takes its Node.js from official nodejs.org, then
+      # unofficial-builds.nodejs.org, then wekan/node-patches
+      # (releases/resolve-node-source.sh is the one place that order lives).
+      # When NO source has one for this CPU the platform is simply NOT BUILT
+      # this release: every step below is gated on skip, and it comes back by
+      # itself the first run after a Node.js for it is published anywhere.
+      - name: Preflight - resolve this platform's Node.js
+        id: preflight
+        shell: bash
+        run: |
+          set -uo pipefail
+          out="$(bash src/releases/resolve-node-source.sh 'win-arm64' "$NODE_VERSION")" || true
+          if printf '%s\n' "$out" | grep -q '^node_found=true$'; then
+            printf '%s\n' "$out" | grep -E '^node_(full|from|url|kind|member|sha256)=' >> "$GITHUB_OUTPUT"
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+            printf '%s\n' "$out" | grep -E '^node_(full|from|url)='
+          else
+            echo "::warning::win-arm64 is not built this time. No Node.js for it at nodejs.org, unofficial-builds.nodejs.org or wekan/node-patches; it returns by itself when one is published."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install 7-zip
+        if: steps.preflight.outputs.skip != 'true'
+        run: choco install -y 7zip
+
+      - name: Download amd64 bundle
+        if: steps.preflight.outputs.skip != 'true'
+        uses: actions/download-artifact@v8
+        with:
+          name: bundle-amd64
+
+      - name: Fix bcrypt for Node.js 24
+        if: steps.preflight.outputs.skip != 'true'
+        shell: bash
+        run: |
+          7z x wekan-${VERSION}-amd64.zip
+          # Drop the Linux node + FerretDB binaries + MongoDB Database Tools + POSIX
+          # launcher inherited from the amd64 base bundle; the Windows node.exe,
+          # ferretdb.exe, *.exe tools and start-wekan.bat are added in later steps.
+          rm -f bundle/node bundle/ferretdb bundle/.ferretdb-default bundle/start-wekan.sh
+          rm -f bundle/bsondump bundle/mongodump bundle/mongoexport bundle/mongofiles \
+                bundle/mongoimport bundle/mongorestore bundle/mongostat bundle/mongotop
+          # Linux-only cpu-exec + qemu-user (#6458) make no sense on Windows.
+          rm -f bundle/cpu-exec bundle/qemu-x86_64
+          # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
+          # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
+          BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
+          if [ -d "$BCRYPT_DIR" ]; then
+            rm -rf "$BCRYPT_DIR"
+            TMP=$(mktemp -d)
+            pushd "$TMP" > /dev/null
+            npm pack bcrypt@6.0.0
+            mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
+            cd bcrypt && npm install --ignore-scripts && cd ..
+            cp -r bcrypt "$BCRYPT_DIR"
+            popd > /dev/null
+            rm -rf "$TMP"
+          fi
+
+      - name: Rebuild native modules for Windows
+        if: steps.preflight.outputs.skip != 'true'
+        shell: bash
+        run: |
+          cd bundle/programs/server
+          rm -rf node_modules
+          npm install
+
+      - name: Check the binaries the win-arm64 bundle needs exist
+        if: steps.preflight.outputs.skip != 'true'
+        # bash, not the Windows default shell: this is a bash script (`set -euo
+        # pipefail`, a bash script call). Without it PowerShell runs the body and
+        # dies on `set -euo pipefail` with "A parameter cannot be found that
+        # matches parameter name 'euo'".
+        shell: bash
+        run: |
+          set -euo pipefail
+          # This job checks the repo out into src/ (see the checkout step above),
+          # so the script lives at src/releases/, not the workspace root - the
+          # same path the start-wekan.bat copy below uses.
+          bash src/releases/require-binaries.sh 'win-arm64 bundle' \
+            'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win-arm64.exe'
+
+      - name: Add MongoDB Database Tools to the bundle
+        if: steps.preflight.outputs.skip != 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          # MongoDB Database Tools (Windows) built by wekan/mongo-tools-patches (pure Go),
+          # one <tool>-win-arm64.exe per tool from that repo's newest release — no
+          # mongodb.com dependency. No mongosh: WeKan no longer bundles the MongoDB
+          # Shell; scripted DB access uses the bundled Node.js 24 + `mongodb` driver.
+          # (The Windows launcher, start-wekan.bat, is added by the FerretDB embed
+          # step below from releases/ferretdb/start-wekan.bat.)
+          BASE="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
+          for tool in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
+            curl -fL --retry 5 --retry-delay 10 -o "bundle/${tool}.exe" "${BASE}/${tool}-win-arm64.exe"
+          done
+
+          echo "=== bundle contents ==="
+          ls -1 bundle/
+
+      - name: Embed Node.js, FerretDB (win-arm64) and launcher into the bundle
+        if: steps.preflight.outputs.skip != 'true'
+        shell: bash
+        # Make the Windows .zip self-contained: bundle node.exe (from the runner's
+        # win-arm64 Node 24), ferretdb.exe (downloaded per-arch from the newest
+        # wekan/FerretDB release) and start-wekan.bat. FerretDB embedding is
+        # tolerant: if the win-arm64 asset is missing the bundle stays MongoDB-only
+        # (start-wekan.bat then won't find ferretdb.exe).
+        run: |
+          # Bundled Node.js: download the pinned Node ${NODE_VERSION} win-arm64
+          # node.exe from nodejs.org and VERIFY it, rather than copying the
+          # runner's unchecksummed node. Exports NODE_FULL/NODE_SHA256 for
+          # provenance.
+          # Capture node_full/node_sha256 in THIS shell (provenance is recorded in
+          # the same step, and $GITHUB_ENV only reaches later steps); a failed
+          # download/verify stops the build here rather than at the later guard.
+          node_meta="$(bash src/releases/embed-verified-node.sh bundle/node.exe node-win-arm64.exe "$NODE_VERSION")" \
+            || { echo "::error::Verified Node.js embed failed for win-arm64."; exit 1; }
+          eval "$node_meta"
+          # Bundled FerretDB (win-arm64): download this arch's binary and verify it
+          # against the .sha256sum wekan/FerretDB publishes beside it.
+          FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win-arm64.exe"
+          if curl -fSL --retry 5 --retry-delay 10 -o bundle/ferretdb.exe "$FERRET_URL"; then
+            echo "Embedded FerretDB win-arm64 -> bundle/ferretdb.exe"
+            if curl -fsSL "${FERRET_URL}.sha256sum" -o /tmp/ferretdb.sha256sum 2>/dev/null; then
+              FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
+              GOT="$(sha256sum bundle/ferretdb.exe | cut -d' ' -f1)"
+              if [ "$GOT" != "$FERRET_SHA" ]; then
+                echo "::error::FerretDB win-arm64 does not match its published SHA256 (published $FERRET_SHA, got $GOT)."
+                exit 1
+              fi
+              echo "FerretDB SHA256 verified: $GOT"
+              echo "FERRET_SHA=$FERRET_SHA" >> "$GITHUB_ENV"
+            else
+              echo "::warning::wekan/FerretDB publishes no checksum for ferretdb-win-arm64.exe on this release, so it is unverified."
+            fi
+          else
+            rm -f bundle/ferretdb.exe
+            echo "No win-arm64 FerretDB asset in the release; Windows bundle stays MongoDB-only."
+          fi
+          # Self-contained Windows launcher (defaults to FerretDB SQLite).
+          cp src/releases/ferretdb/start-wekan.bat bundle/
+          # Where this bundle's binaries came from, for the release notes.
+          mkdir -p provenance
+          PROVENANCE_FILE=provenance/win-arm64.tsv bash src/releases/record-provenance.sh \
+            'win-arm64' 'Node.js' "${node_from:-}" "${node_full:-$NODE_VERSION}" \
+            "${node_url:-}" \
+            "${node_sha256:-}" || true
+          if [ -s bundle/ferretdb.exe ]; then
+            FERRET_TAG="$(bash src/releases/ferretdb-latest-tag.sh || true)"
+            PROVENANCE_FILE=provenance/win-arm64.tsv bash src/releases/record-provenance.sh \
+              'win-arm64' 'FerretDB' 'wekan/FerretDB' "${FERRET_TAG:-latest}" \
+              'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win-arm64.exe' \
+              "${FERRET_SHA:-}" || true
+          fi
+          # Check what goes IN, before anything is archived. This is the honest place
+          # for it: whether the zip can hold a startable bundle is decided here, in a
+          # plain directory, with no archive-listing format in the way.
+          for want in main.js node.exe start-wekan.bat; do
+            if [ ! -s "bundle/$want" ]; then
+              echo "::error::bundle/$want is missing or empty, so the win-arm64 zip cannot start WeKan. The bundle comes from the build job; the lines above say what was copied in."
+              exit 1
+            fi
+          done
+          echo "bundle/ has main.js, node.exe and start-wekan.bat:"
+          ls -la bundle
+
+      - name: Create win-arm64 zip
+        if: steps.preflight.outputs.skip != 'true'
+        shell: cmd
+        run: 7z a wekan-%VERSION%-win-arm64.zip bundle
+
+      - name: Verify the win-arm64 zip
+        if: steps.preflight.outputs.skip != 'true'
+        shell: bash
+        run: |
+          # Same question as on the other platforms, asked in bash because the zip
+          # itself is made with 7-Zip under cmd: does this zip actually carry a
+          # startable bundle, or only a name that looks like one?
+          zip="wekan-${VERSION}-win-arm64.zip"
+          if [ ! -f "$zip" ]; then
+            echo "::error::$zip was not created - 7z failed above, or the bundle directory was missing."
+            exit 1
+          fi
+          # A checksum beside the bundle, so a download can be checked.
+          sha256sum "$zip" > "${zip}.sha256sum"
+          cat "${zip}.sha256sum"
+          bytes=$(wc -c < "$zip")
+          if [ "$bytes" -lt 10000000 ]; then
+            echo "::error::$zip is only $bytes bytes; a whole bundle is tens of megabytes. The bundle directory was empty or partial when it was zipped."
+            exit 1
+          fi
+          # Integrity: `7z t` reads every entry and fails on a truncated or corrupt
+          # archive. Together with the check on bundle/ before zipping, that is what
+          # actually decides whether this zip is startable.
+          if ! 7z t "$zip" > 7z-test.log 2>&1; then
+            echo "::error::$zip did not pass 7z t - the archive is corrupt or truncated."
+            tail -n 30 7z-test.log
+            exit 1
+          fi
+          echo "7z t: archive is intact."
+          # The listing is EVIDENCE, printed, not a hidden verdict. v10.48 failed the
+          # release because `grep` found neither "bundle\main.js" nor "bundle/main.js"
+          # in `7z l -ba` output that nothing ever printed, so a bad zip and a bad
+          # grep looked exactly alike. Now the listing shows itself, and a missing
+          # match is a WARNING: bundle/main.js was verified to exist before zipping
+          # and the archive passed its integrity test, so a zero count here says
+          # something about 7-Zip's output format, not about the bundle.
+          # Through a FILE, never a pipe. `cmd | head`/`cmd | grep -q` ends the
+          # reader early, the writer gets SIGPIPE, and with `set -o pipefail` (which
+          # GitHub's bash uses) the pipeline's status becomes 141 - so under `set -e`
+          # a MATCH fails the step. That is what "has no bundle/main.js" was in
+          # v10.48, and what exit code 141 was in v10.49: the file was there both
+          # times, and the listing below proves it (`bundle\main.js`, five lines in).
+          7z l -ba "$zip" > zip-listing.txt 2>/dev/null || true
+          entries="$(wc -l < zip-listing.txt)"
+          echo "7z l -ba listed $entries entries; the first five:"
+          head -5 zip-listing.txt || true
+          for want in main.js node.exe; do
+            n="$(grep -F -c -e "bundle\\$want" -e "bundle/$want" zip-listing.txt || true)"
+            echo "  entries matching bundle/$want: $n"
+            if [ "${n:-0}" -eq 0 ]; then
+              echo "::warning::$zip listing shows no bundle/$want, but bundle/$want existed before zipping and the archive passed 7z t. Compare the five listing lines above with what is being searched for."
+            fi
+          done
+          echo "OK: $zip is $((bytes/1024/1024)) MiB, intact, and was built from a bundle that had main.js and node.exe."
+
+      - uses: actions/upload-artifact@v7
+        if: steps.preflight.outputs.skip != 'true'
+        with:
+          name: bundle-win-arm64
+          path: wekan-${{ needs.prepare.outputs.version }}-win-arm64.zip
+          retention-days: 1
+
+      - name: Upload win-arm64 provenance
+        if: steps.preflight.outputs.skip != 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          name: provenance-win-arm64
+          path: provenance/
+          if-no-files-found: ignore
+          retention-days: 1
+
+      - name: Attach win-arm64 bundle to the GitHub Release
+        if: steps.preflight.outputs.skip != 'true'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # The repo is checked out into src/, so the workspace root is not a git
+          # repository; set GH_REPO so `gh` targets wekan/wekan without relying on
+          # git remote detection (else: "fatal: not a git repository").
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          asset="wekan-${VERSION}-win-arm64.zip"
+          if [ ! -f "$asset" ]; then
+            echo "::error::$asset does not exist, so there is nothing to attach. The step that builds it failed, or produced a different name."
+            exit 1
+          fi
+          # The checksum goes up with it, so a download can be checked. It is
+          # built beside the zip by the step above; older jobs that do not make
+          # one still upload cleanly.
+          up=("$asset")
+          [ -f "${asset}.sha256sum" ] && up+=("${asset}.sha256sum")
+          if ! gh release upload "v${VERSION}" "${up[@]}" --clobber; then
+            echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
+            exit 1
+          fi
+          # Confirm from the OTHER side. An upload that reports success but leaves no
+          # asset behind is the failure nobody notices until a download 404s.
+          gh release view "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
+          if ! grep -qxF "$(basename "$asset")" release-assets.txt; then
+            echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
+            exit 1
+          fi
+          echo "OK: $(basename "$asset") is attached to release v${VERSION} ($(($(wc -c < "$asset")/1024/1024)) MiB)."
+
+      # Always, as the last step: the run summary then answers "what worked and what
+      # did not" for the whole release at a glance, instead of eighteen job logs. A
+      # step that failed has already printed an ::error:: saying why; this names the
+      # job it was in.
+      - name: Job result
+        if: always()
+        # bash explicitly: this same step runs on the Windows and macOS runners too,
+        # where the default shell is PowerShell / not necessarily this bash.
+        shell: bash
+        run: |
+          case "${{ job.status }}" in
+            success)   mark='OK       ' ;;
+            failure)   mark='FAILED   ' ;;
+            cancelled) mark='CANCELLED' ;;
+            *)         mark='${{ job.status }}' ;;
+          esac
+          echo "$mark build-win-arm64"
+          echo "$mark build-win-arm64" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ job.status }}" = "failure" ]; then
+            echo "::error::build-win-arm64 FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
 
   # Build win32 (32-bit Windows) bundle.
@@ -4193,6 +4541,7 @@ jobs:
       - build-amd64
       - build-arm64
       - build-win64
+      - build-win-arm64
       - build-win32
       - build-mac-arm64
       - build-mac-x64

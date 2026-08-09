@@ -40,11 +40,13 @@ v="${1:?usage: expected-assets.sh <version>   e.g. 10.58}"
 
 echo "meteor amd64 wekan-${v}-amd64.zip sums"
 
-# release-all.yml: build-arm64, build-win64, build-mac-arm64. Each starts from
+# release-all.yml: build-arm64, build-win64, build-win-arm64, build-mac-arm64.
+# Each starts from
 # the amd64 bundle and runs on its own kind of runner, so they are not the
 # emulated repack below and cannot be built by it.
 echo "repack arm64 wekan-${v}-arm64.zip sums"
 echo "repack win64 wekan-${v}-win64.zip sums"
+echo "repack win-arm64 wekan-${v}-win-arm64.zip sums"
 echo "repack mac-arm64 wekan-${v}-mac-arm64.zip sums"
 
 # release-all.yml: build-extra-arches. The matrix, and it must match that job's
