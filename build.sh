@@ -1873,6 +1873,7 @@ RELEASE_SCRIPTS=(	"Release|Release ALL platforms: push CHANGELOG, trigger releas
 	"Snap|Release the snap for one version|releases/release-snap.sh|WeKan version, e.g. 10.50||"
 	"Snap|List the newest Snap Store revisions|releases/snap-store-revisions.sh|||"
 	"Snap|Release one store revision to edge, beta and candidate|releases/snap-store-release-revision-to-channels.sh|Snap Store revision number||"
+	"Snap|Release every snap, every architecture, to all four channels|releases/snap-release-all-channels.sh|Version, or empty for the newest||snap-release-all-channels"
 	"Snap|Switch the installed snap to the edge channel|releases/snap-edge.sh|||"
 	"Snap|Switch the installed snap to the stable channel|releases/snap-stable.sh|||"
 	"Snap|snapcraft help topics|releases/snapcraft-help.sh|||"

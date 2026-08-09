@@ -303,6 +303,7 @@ if "%choice%"=="3" call :rel_run "releases/snap-push-to-store.sh" "Path to the .
 if "%choice%"=="4" call :rel_run "releases/release-snap.sh" "WeKan version, e.g. 10.50"
 if "%choice%"=="5" call :rel_run "releases/snap-store-revisions.sh" ""
 if "%choice%"=="6" call :rel_run "releases/snap-store-release-revision-to-channels.sh" "Snap Store revision number"
+if "%choice%"=="7" call :rel_run "releases/snap-release-all-channels.sh" "Version, or empty for the newest"
 if "%choice%"=="7" call :rel_run "releases/snap-edge.sh" ""
 if "%choice%"=="8" call :rel_run "releases/snap-stable.sh" ""
 if "%choice%"=="9" call :rel_run "releases/snapcraft-help.sh" ""
@@ -560,6 +561,7 @@ echo   snap-push-to-store                 Push one .snap to the Snap Store   ^<P
 echo   release-snap                       Release the snap for one version   ^<WeKan version, e.g. 10.50^>
 echo   snap-store-revisions               List the newest Snap Store revisions
 echo   snap-store-release-revision-to-channels Release one store revision to edge, beta and candidate   ^<Snap Store revision number^>
+echo   snap-release-all-channels Release every snap, every architecture, to all four channels   ^<Version, or empty for the newest^>
 echo   snap-edge                          Switch the installed snap to the edge channel
 echo   snap-stable                        Switch the installed snap to the stable channel
 echo   snapcraft-help                     snapcraft help topics
@@ -642,6 +644,7 @@ if /I "%K%"=="snap-push-to-store" (set "CMD=bash releases/snap-push-to-store.sh"
 if /I "%K%"=="release-snap" (set "CMD=bash releases/release-snap.sh" ^& goto cli_go)
 if /I "%K%"=="snap-store-revisions" (set "CMD=bash releases/snap-store-revisions.sh" ^& goto cli_go)
 if /I "%K%"=="snap-store-release-revision-to-channels" (set "CMD=bash releases/snap-store-release-revision-to-channels.sh" ^& goto cli_go)
+if /I "%K%"=="snap-release-all-channels" (set "CMD=bash releases/snap-release-all-channels.sh" ^& goto cli_go)
 if /I "%K%"=="snap-edge" (set "CMD=bash releases/snap-edge.sh" ^& goto cli_go)
 if /I "%K%"=="snap-stable" (set "CMD=bash releases/snap-stable.sh" ^& goto cli_go)
 if /I "%K%"=="snapcraft-help" (set "CMD=bash releases/snapcraft-help.sh" ^& goto cli_go)
