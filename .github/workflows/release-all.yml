@@ -3237,11 +3237,37 @@ jobs:
           base="https://github.com/wekan/wekan/releases/download/v${VERSION}"
           have() { curl -fsSL -o /dev/null -I --retry 3 --retry-delay 5 "$1"; }
           # docker platform : the wekan bundle arch the Dockerfile downloads for it.
+          # linux/arm/v6 and linux/arm/v7 are BOTH TARGETARCH=arm and differ only in
+          # TARGETVARIANT, which is why the Dockerfile's arch case reads the variant.
           req="linux/amd64:amd64 linux/arm64:arm64"
-          opt="linux/ppc64le:ppc64le linux/s390x:s390x linux/riscv64:riscv64 linux/386:i386 linux/arm/v7:armhf"
+          opt="linux/ppc64le:ppc64le linux/s390x:s390x linux/riscv64:riscv64 linux/386:i386 linux/arm/v6:armv6 linux/arm/v7:armhf"
+
+          # A bundle on the release is not enough: the BASE IMAGE has to publish the
+          # platform too, and for 32-bit ARM that is not a clean failure when it does
+          # not. containerd treats a LOWER arm variant as compatible, so a
+          # linux/arm/v6 request against a base that has arm/v5 and arm/v7 silently
+          # resolves to arm/v5 - Debian armel, SOFT-float - and the hard-float
+          # node-armv6 inside the armv6 bundle cannot run on that userland. Ask the
+          # base once, and treat a platform it does not publish exactly like a bundle
+          # that did not land. The base is read out of the Dockerfile so there is no
+          # second copy of its name here. arm64 is recorded as arm64/v8, which
+          # everyone writes as linux/arm64, so the implied /v8 is normalised away -
+          # the same normalisation the push-verify does below.
+          base_image="$(awk '/^FROM /{print $2; exit}' Dockerfile)"
+          base_plats="$(docker buildx imagetools inspect "$base_image" \
+            --format '{{range .Manifest.Manifests}}{{.Platform.OS}}/{{.Platform.Architecture}}{{if .Platform.Variant}}/{{.Platform.Variant}}{{end}} {{end}}' \
+            | sed 's#/v8 # #g')" || {
+              echo "::error::Cannot read the platform list of the base image ${base_image}."; exit 1; }
+          echo "Base image ${base_image} publishes: ${base_plats}"
+          base_has() { case " $base_plats " in *" $1 "*) return 0 ;; *) return 1 ;; esac; }
+
           platforms=""; want=""; arches=""
           for pair in $req; do
             p="${pair%%:*}"; a="${pair#*:}"
+            if ! base_has "$p"; then
+              echo "::error::The base image ${base_image} does not publish $p, so the image cannot be built for it - and it is a CORE platform."
+              exit 1
+            fi
             if have "${base}/wekan-${VERSION}-${a}.zip"; then
               platforms="${platforms:+$platforms,}$p"; want="${want:+$want }$p"; arches="${arches:+$arches }$a"
             else
@@ -3251,6 +3277,10 @@ jobs:
           done
           for pair in $opt; do
             p="${pair%%:*}"; a="${pair#*:}"
+            if ! base_has "$p"; then
+              echo "::warning::$p is dropped from the image: the base image ${base_image} publishes no $p, and a request for it would resolve to a lower-variant base the ${a} bundle cannot run on. The ${a} bundle zip is unaffected."
+              continue
+            fi
             if have "${base}/wekan-${VERSION}-${a}.zip"; then
               platforms="${platforms},$p"; want="${want} $p"; arches="${arches} $a"
               echo "including $p  (wekan-${VERSION}-${a}.zip present)"

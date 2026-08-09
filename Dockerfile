@@ -3,6 +3,14 @@
 # arch this image targets - amd64, arm64, 386, arm/v7, ppc64le, riscv64, s390x -
 # so ONE base covers them all, and it is the same base WeKan's per-arch .zip
 # bundles are already built in (releases/... build-extra-arches).
+#
+# The ONE it does not ship is arm/v6: debian:trixie's manifest list has arm/v5
+# and arm/v7 and nothing between them. That matters because containerd treats a
+# LOWER ARM variant as compatible, so a linux/arm/v6 request does not fail - it
+# quietly resolves to the arm/v5 (armel, SOFT-float) image, whose loader and
+# glibc cannot run the hard-float node-armv6 in the armv6 bundle. The docker job
+# therefore asks this base what it publishes and drops a platform it lacks; see
+# docs/Platforms/FOSS/Container/Docker/CPU-platforms.md.
 FROM debian:trixie
 LABEL maintainer="wekan"
 LABEL org.opencontainers.image.ref.name="debian"
@@ -210,7 +218,22 @@ case "${TARGETARCH}" in
     "s390x")   WEKAN_ARCH="s390x"   ;;
     "riscv64") WEKAN_ARCH="riscv64" ;;
     "386")     WEKAN_ARCH="i386"    ;;
-    "arm")     WEKAN_ARCH="armhf"   ;;
+    # BOTH linux/arm/v6 and linux/arm/v7 arrive here as TARGETARCH=arm - the CPU
+    # generation is in TARGETVARIANT, not in TARGETARCH - so this branch MUST read
+    # the variant. Mapping "arm" straight to armhf, as it did, would hand an ARMv6
+    # board (Raspberry Pi 1, Zero) the armhf bundle, which is built to Debian's
+    # ARMv7-A baseline and whose instructions that board cannot execute.
+    "arm")
+        case "${TARGETVARIANT}" in
+            "v6")    WEKAN_ARCH="armv6" ;;
+            # v7, and an unset variant, are Debian's armhf port: ARMv7-A,
+            # VFPv3-D16 hard-float. That is what linux/arm/v7 runs.
+            "v7"|"") WEKAN_ARCH="armhf" ;;
+            # v5 is armel: FerretDB and the MongoDB tools publish it (they are Go),
+            # but Node.js does not exist for ARMv5 at all, so there is no bundle to
+            # put in an image and refusing is the only honest answer.
+            *) echo "Unsupported 32-bit ARM variant: ${TARGETVARIANT} (only v6 and v7 have a WeKan bundle)"; exit 1 ;;
+        esac ;;
     *) echo "Unsupported architecture: ${TARGETARCH}${TARGETVARIANT:+/${TARGETVARIANT}}"; exit 1 ;;
 esac
 
