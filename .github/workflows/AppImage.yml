@@ -92,7 +92,12 @@ jobs:
         run: |
           set -euo pipefail
           tag='${{ inputs.tag }}'
-          [ -n "$tag" ] || tag="$(gh release list --limit 1 --json tagName --jq '.[0].tagName')"
+          # --repo on every gh call, whether or not the job happens to have
+          # checked out: a call that relies on an inferred remote breaks the day
+          # somebody removes the checkout, and the error it gives - "fatal: not
+          # a git repository" - names neither gh nor the workflow.
+          [ -n "$tag" ] || tag="$(gh release list --repo "${{ github.repository }}" \
+            --limit 1 --json tagName --jq '.[0].tagName')"
           if [ -z "$tag" ]; then
             echo "::error::No release to wrap, and no tag was given."
             exit 1
@@ -163,7 +168,8 @@ jobs:
         run: |
           set -euo pipefail
           zip="wekan-${{ needs.release.outputs.version }}-${{ matrix.bundle_arch }}.zip"
-          gh release download '${{ needs.release.outputs.tag }}' --pattern "$zip" --clobber
+          gh release download '${{ needs.release.outputs.tag }}' \
+            --repo "${{ github.repository }}" --pattern "$zip" --clobber
           unzip -q "$zip"
           # A zip that exists is not a bundle that runs; these are the two files
           # the AppImage is built around.
@@ -354,5 +360,13 @@ jobs:
             echo "Nothing to upload (no base bundle was published to wrap)."
             exit 0
           fi
-          gh release upload '${{ needs.release.outputs.tag }}' assets/* --clobber
-          echo "Uploaded to $(gh release view '${{ needs.release.outputs.tag }}' --json url --jq .url)"
+          # --repo, because this job does NOT check the repository out - it only
+          # downloads artifacts - so `gh` has no git remote to infer the repo
+          # from and fails with "fatal: not a git repository". Every other gh
+          # call in this workflow already passes it; these two did not, so the
+          # AppImages were built, smoke-tested and uploaded as artifacts, and
+          # then nothing was attached to the release.
+          gh release upload '${{ needs.release.outputs.tag }}' assets/* \
+            --repo "${{ github.repository }}" --clobber
+          echo "Uploaded to $(gh release view '${{ needs.release.outputs.tag }}' \
+            --repo "${{ github.repository }}" --json url --jq .url)"
