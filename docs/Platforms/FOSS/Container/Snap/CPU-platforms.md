@@ -9,9 +9,13 @@ and how the one-time MongoDB 3 → FerretDB v1 migration works.
 - **New installs use FerretDB v1 (SQLite) by default on every CPU architecture.**
   FerretDB v1 is the wekan/FerretDB fork with an embedded pure-Go SQLite backend
   that speaks the MongoDB wire protocol, so WeKan talks to it exactly like MongoDB.
+- **Six architectures are built as snaps**: amd64, arm64, armhf, ppc64el, riscv64
+  and s390x — exactly `snapcraft.yaml`'s `build-for:` list. i386 and armv7 are
+  release bundles but **not** snaps, for reasons that are not oversights; see
+  [CPU architecture names](#cpu-architecture-names-and-what-they-mean).
 - **MongoDB 7 *server* binaries (mongod) are included for amd64 and arm64 only.**
-  The other architectures (s390x, riscv64, ppc64le) have no MongoDB server — they
-  run FerretDB v1 only.
+  The other architectures (armhf, ppc64el, riscv64, s390x) have no MongoDB server
+  — they run FerretDB v1 only.
 - **Every Snap platform includes the FerretDB v1 server and the MongoDB Database
   Tools** (`mongodump`, `mongorestore`, `mongofiles`, `mongoexport`, …), on every
   architecture.
@@ -30,13 +34,20 @@ and how the one-time MongoDB 3 → FerretDB v1 migration works.
 
 ## Per-architecture matrix
 
-| CPU arch | MongoDB 7 server (mongod) | MongoDB Database Tools | FerretDB v1 server | MongoDB 3 → FerretDB migration | Default DB (new install) |
-|----------|:------------------------:|:----------------------:|:------------------:|:------------------------------:|:------------------------:|
-| amd64    | ✅ | ✅ | ✅ | ✅ (if MongoDB 3 data present) | FerretDB v1 |
-| arm64    | ✅ | ✅ | ✅ | ❌ | FerretDB v1 |
-| s390x    | ❌ | ✅ | ✅ | ❌ | FerretDB v1 |
-| ppc64le  | ❌ | ✅ | ✅ | ❌ | FerretDB v1 |
-| riscv64  | ❌ | ✅ | ✅ | ❌ | FerretDB v1 |
+| Snap arch | Bundle | MongoDB 7 server (mongod) | MongoDB Database Tools | FerretDB v1 server | MongoDB 3 → FerretDB migration | Default DB (new install) |
+|-----------|--------|:------------------------:|:----------------------:|:------------------:|:------------------------------:|:------------------------:|
+| amd64     | `amd64`   | ✅ | ✅ | ✅ | ✅ (if MongoDB 3 data present) | FerretDB v1 |
+| arm64     | `arm64`   | ✅ | ✅ | ✅ | ❌ | FerretDB v1 |
+| armhf     | `armhf`   | ❌ | ✅ | ✅ | ❌ | FerretDB v1 |
+| ppc64el   | `ppc64le` | ❌ | ✅ | ✅ | ❌ | FerretDB v1 |
+| riscv64   | `riscv64` | ❌ | ✅ | ✅ | ❌ | FerretDB v1 |
+| s390x     | `s390x`   | ❌ | ✅ | ✅ | ❌ | FerretDB v1 |
+
+These six are exactly the `build-for:` entries in `snapcraft.yaml`. The **Bundle**
+column is the release-asset name at
+[github.com/wekan/wekan/releases](https://github.com/wekan/wekan/releases), which
+is not always the Snap Store's name for the same hardware — see
+[CPU architecture names](#cpu-architecture-names-and-what-they-mean).
 
 - **MongoDB 7 server (mongod)**: amd64/arm64 only (MongoDB ships no server for the others).
 - **MongoDB Database Tools**: every arch — WeKan builds them for all platforms from
@@ -46,6 +57,60 @@ and how the one-time MongoDB 3 → FerretDB v1 migration works.
 
 All architectures default new installs to FerretDB v1 with `DDP_TRANSPORT=sockjs`
 and polling reactivity.
+
+## CPU architecture names and what they mean
+
+An architecture can go by one name in the release bundles and another in the Snap
+Store, and two names that look like variants of each other can be different
+builds. Nothing warns about either: an unrecognised `--arch` is simply an
+architecture the store has never heard of, so a wrong name looks like it worked.
+The mapping is kept in one place, `models/lib/snapArchitectures.js`, and is unit
+tested (`tests/snapArchitectures.test.cjs`).
+
+### ppc64le and ppc64el are the same hardware
+
+64-bit little-endian POWER. The bundles name it the way Node.js and the kernel do
+(`ppc64le`); the Snap Store names it the way Debian does (`ppc64el`). It is the
+**only** architecture whose two names differ, and a test asserts that stays true.
+
+### armhf and armv7 are the same CPU family, built to different baselines
+
+This one is not a naming difference, and getting it wrong ships a snap that
+crashes. [wekan/node-patches](https://github.com/wekan/node-patches) builds two
+32-bit ARM Node.js binaries:
+
+| Bundle | Built for | Runs on |
+|--------|-----------|---------|
+| `armhf` | hard-float, **VFPv3-D16**, no NEON assumed — the Debian armhf baseline | **any** ARMv7-A board |
+| `armv7` | hard-float, **NEON**, ARMv7-A tuned | only boards that have NEON (an ODroid-U3, say) |
+
+The Snap Store has **one** 32-bit ARM architecture, `armhf`, and it serves every
+such device. It must therefore carry the **baseline** build: the NEON one would
+be an illegal instruction on any armhf board without NEON. So the armhf snap uses
+the `armhf` bundle, and **`armv7` has no snap** — it ships as a bundle only. A
+separate snap name or track would be the only way to offer the NEON build, which
+is not worth a second listing for one board family.
+
+### i386 has no snap, and cannot have a new one
+
+core24 is Ubuntu 24.04, which has **no i386 port**, so there is no i386 core24
+base snap. `build-on: i386` is not merely unsupported — it is a **parse error**,
+and because snapcraft parses the whole file first it failed *every* architecture's
+build, not only i386's. This is not something a patch set can fix the way
+[node-patches](https://github.com/wekan/node-patches) fixes a missing Node.js
+build: node-patches patches source so a binary *can* be built, whereas here the
+**base snap itself does not exist** for the architecture. The last base with a
+real i386 port was `core18`, which is end-of-life.
+
+The Snap Store still shows an i386 column for **wekan-ondra** (revision 70,
+version `0.X-ci`) because the store keeps whatever was ever uploaded. It is years
+stale, nothing new can be built for it, and re-releasing it would only re-publish
+`0.X-ci`. **i386 users are served by the .deb and the AppImage.**
+
+### loong64, win64, win32, mac-x64, mac-arm64
+
+Bundle platforms with no Snap Store architecture at all. They are not snaps and
+are not expected to be.
 
 ## New installs
 
@@ -151,18 +216,82 @@ bundle the snap's `wekan` part downloads, and staged to `$SNAP/ferretdb`
   `<tool>-<arch>` from [wekan/mongo-tools-patches](https://github.com/wekan/mongo-tools-patches/releases),
   and `mongosh-<arch>` from [wekan/mongosh](https://github.com/wekan/mongosh/releases).
 
-## Snap channels
+## Snaps and channels
 
-The default `snapcraft.yaml` is built on `base: core24`, which allows the
-**candidate** channel (core26 does not). The automated release workflow publishes
-it to the **candidate**, **beta**, and **edge** channels; the **stable** channel is
-published manually later, once it is proven.
-`snapcraft-core26.yaml` is the same WeKan on the newer `base: core26`
-(`build-base: devel`, `grade: devel`), kept for testing the next base; it can only
-go to Beta/Edge until core26 is a released stable base.
+There are **three snaps** of the same application, and each should reach **all
+four channels on every architecture it is built for**:
+
+| Snap | What it is |
+|------|------------|
+| [`wekan`](https://snapcraft.io/wekan) | the default |
+| [`wekan-ondra`](https://snapcraft.io/wekan-ondra) | same WeKan, separate listing |
+| [`wekan-gantt-gpl`](https://snapcraft.io/wekan-gantt-gpl) | same WeKan, separate listing |
+
+**All four channels — Stable, Candidate, Beta and Edge.** The default
+`snapcraft.yaml` is built on `base: core24`, a *released* base, so the snap carries
+`grade: stable` and may be published to **stable** as well as the other three.
+That is what makes the full set possible: a `grade: devel` snap is refused by
+stable and candidate outright.
+
+`snapcraft-core26.yaml` is the same WeKan on `base: core26`, kept for testing the
+next base and **not** built by the release: core26 still requires
+`build-base: devel` and therefore `grade: devel`, so it can only reach beta and
+edge. That is the whole reason the release builds core24.
+
+### Publishing to every channel
+
+A revision is **per architecture** — the store's own listing shows `wekan` at
+revision 3601 on amd64 and 3600 on arm64 for the same version 10.76 — so one
+revision number can never be released to every architecture. Use:
+
+```bash
+releases/snap-release-all-channels.sh --dry-run      # see the plan first
+releases/snap-release-all-channels.sh 10.76          # pin the version
+releases/snap-release-all-channels.sh                # or the newest of each
+```
+
+It resolves the revision per (snap, architecture) from the store and releases it
+to `stable,candidate,beta,edge` in **one** call, so a revision reaches all four
+or none. A (snap, architecture) with no revision is reported and skipped — the
+three snaps genuinely have different architecture sets today. It reads the
+architecture table from `models/lib/snapArchitectures.js`, so there is no second
+copy of it in shell.
+
+**Pinning the version matters.** Without one, the newest revision of each
+architecture is promoted — and edge is often ahead of stable, so a bare run
+publishes edge builds to stable users. Pass the version, or `--dry-run` first.
+
+### What each snap currently has, and what is still to add
+
+As of WeKan 10.76 the store holds:
+
+| Snap | amd64 | arm64 | armhf | ppc64el | riscv64 | s390x |
+|------|:-----:|:-----:|:-----:|:-------:|:-------:|:-----:|
+| `wekan` | ✅ | ✅ | — | ✅ | — | ✅ |
+| `wekan-ondra` | ✅ | ✅ | ⚠️ | — | — | — |
+| `wekan-gantt-gpl` | ✅ | ✅ | — | — | — | — |
+
+- **—** the architecture is built by `snapcraft.yaml` but that snap has no
+  revision for it yet. Uploading one is all that is needed; the release script
+  then puts it on all four channels.
+- **⚠️** `wekan-ondra`'s armhf is stuck at version **0.22**, and its i386 column at
+  **0.X-ci**, on all four channels — fossils the store kept from years ago.
+  Promoting channels cannot fix these: there is no newer revision to promote.
+  armhf needs a build uploaded for that snap; i386 cannot be built at all (see
+  [i386](#i386-has-no-snap-and-cannot-have-a-new-one)).
+
+Publishing the **stable** channel is safe for these because the snap performs its
+**automatic migrations** on start — the schema upgrades and the one-time
+MongoDB 3 → FerretDB v1 migration on amd64 — so an existing installation moving
+from an older revision to this one is upgraded in place rather than needing a
+manual step.
 
 ## Related
 
 - FerretDB v1 fork: https://github.com/wekan/FerretDB
 - Snap install: [Install.md](Install.md)
 - Snap settings keys: [Supported-settings-keys.md](Supported-settings-keys.md)
+- The architecture table in code: `models/lib/snapArchitectures.js`
+  (tested by `tests/snapArchitectures.test.cjs`)
+- Publish every snap to every channel: `releases/snap-release-all-channels.sh`
+- Node.js builds per platform: [wekan/node-patches](https://github.com/wekan/node-patches)

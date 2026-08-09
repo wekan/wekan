@@ -16,12 +16,14 @@
 //    --arch is simply an architecture the store has never heard of - so the
 //    rename is written down once, here.
 //
-// 2. armhf and armv7 are DIFFERENT CPUs, and different bundles. armhf is 32-bit
-//    Raspberry Pi OS; armv7 is the ODroid-U3. They are not two names for one
-//    thing and must never be mapped onto each other: shipping the ODroid build
-//    to Raspberry Pi users is exactly the failure that would cause. The Snap
-//    Store has ONE 32-bit ARM architecture, `armhf`, so that is the one that is
-//    published, and armv7 has no snap - see NOT_SNAP_ARCHITECTURES below.
+// 2. armhf and armv7 are NOT two names for one thing, and must never be mapped
+//    onto each other. They are the same CPU family built to different
+//    baselines: node-patches builds `armhf` to the Debian armhf baseline
+//    (hard-float, VFPv3-D16, assuming NO NEON) so it runs on any ARMv7-A, and
+//    `armv7` with NEON for boards that have it. The Snap Store has ONE 32-bit
+//    ARM architecture serving every such device, so it must carry the BASELINE
+//    build; the NEON one would be an illegal instruction on a board without
+//    NEON. armv7 therefore has no snap - see NOT_SNAP_ARCHITECTURES below.
 //
 // The list is therefore the six architectures snapcraft.yaml actually declares a
 // `build-for` for, not the eight the release bundles cover. Both directions are
@@ -70,10 +72,12 @@ const NOT_SNAP_ARCHITECTURES = {
     'years stale; nothing new can be built for it, and re-releasing what is there would ' +
     'only re-publish 0.X-ci. i386 users are served by the .deb and the AppImage.',
   armv7:
-    'the Snap Store has ONE 32-bit ARM architecture, armhf, and that is the Raspberry ' +
-    'Pi OS build. armv7 (ODroid-U3) is a different CPU with its own bundle; publishing ' +
-    'it as armhf would hand Raspberry Pi users the ODroid build. It ships as a bundle ' +
-    'only.',
+    'the same CPU family as armhf, tuned differently: node-patches builds armhf to the ' +
+    'Debian armhf baseline (hard-float, VFPv3-D16, NO NEON assumed) so it runs on any ' +
+    'ARMv7-A, and armv7 with NEON for boards that have it (an ODroid-U3, say). The Snap ' +
+    'Store has ONE 32-bit ARM architecture and it serves every such device, so it must ' +
+    'carry the BASELINE build - shipping the NEON one would be an illegal instruction on ' +
+    'any armhf board without NEON. armv7 ships as a bundle only.',
 };
 
 /** Every Snap Store architecture, in a stable order. */

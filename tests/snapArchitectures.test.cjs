@@ -99,9 +99,29 @@ test('NEGATIVE, THE IMPORTANT ONE: armv7 is not another name for armhf', () => {
 
 test('armv7 is recorded as not-a-snap, with the reason', () => {
   assert.ok(NOT_SNAP_ARCHITECTURES.armv7, 'it is written down, not merely absent');
-  assert.ok(/ODroid/i.test(NOT_SNAP_ARCHITECTURES.armv7));
-  assert.ok(/Raspberry Pi/i.test(NOT_SNAP_ARCHITECTURES.armv7),
-    'and says what would go wrong');
+  // The reason is NEON, not the CPU generation: node-patches builds armhf to the
+  // Debian baseline (VFPv3-D16, no NEON) and armv7 with NEON. The store's single
+  // 32-bit ARM architecture must carry the baseline, or the snap is an illegal
+  // instruction on any board without NEON.
+  assert.ok(/NEON/.test(NOT_SNAP_ARCHITECTURES.armv7));
+  assert.ok(/baseline/i.test(NOT_SNAP_ARCHITECTURES.armv7),
+    'and says which build the store must carry');
+  assert.ok(/illegal instruction/i.test(NOT_SNAP_ARCHITECTURES.armv7),
+    'and what happens if it carries the other one');
+});
+
+test('the reason matches what node-patches actually builds', () => {
+  // The single thing that would make the note above a story rather than a fact.
+  const wf = path.join(repoRoot, '.tools/node-patches/.github/workflows/release-all.yml');
+  if (!fs.existsSync(wf)) {
+    console.log('  -- .tools/node-patches not cloned; skipping the cross-check');
+    return;
+  }
+  const src = fs.readFileSync(wf, 'utf8');
+  assert.ok(/node-armhf[\s\S]{0,200}?VFPv3-D16/.test(src),
+    'armhf is the VFPv3-D16 Debian baseline');
+  assert.ok(/node-armv7[\s\S]{0,200}?NEON/.test(src),
+    'armv7 is the NEON-tuned build');
 });
 
 test('i386 is recorded as not-a-snap, with the reason', () => {
