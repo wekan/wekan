@@ -282,11 +282,18 @@ place that both callers use, and each comes with a plain-node suite that pins
 the attack and the negatives. Auditing for more of the same found **five more
 cursors** leaking cross-board content the way ParentBleed did, three more
 hand-written copies of the visibility query, and a **comment reaction** anybody
-on the board could put in somebody else's name. Below that, the security tests
-themselves: they now say WHICH published vulnerability they guard, and a new
-guard checks the whole Hall of Fame list against them - **29 of 58** are
-covered, and the other 29 are recorded gaps with reasons. The binaries below are
-v10.73's: nothing here rebuilds them.
+on the board could put in somebody else's name.
+
+The features under them are two answers to "and then what": **canary tokens**,
+which record WHO tried a permission override and from WHERE without telling them
+they were seen, and a daily **filesystem integrity** check that asks whether
+every stored file is still the file WeKan stored - name, date, md5, sha256,
+sha512 and an ed25519 signature - and warns when one changed with no record
+saying why. Below that: dependency updates, the two bugs Admin Panel / Problems
+was itself reporting, and the security tests, which now say WHICH published
+vulnerability they guard so a new guard can check the whole Hall of Fame list
+against them - **33 of 58** covered, the other 25 recorded gaps with reasons.
+The binaries below are v10.73's: nothing here rebuilds them.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -454,35 +461,7 @@ it was written for.
 
 </details>
 
-and hardens the following, found while auditing for more of the same:
-
-**Comment reactions** - who a reaction says it belongs to.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/156121c4bc0428a5a1edf5db9fbda6cac916d3ea">React as yourself, not as somebody else</a>. Thanks to xet7.</summary>
-
-The same shape as CommentBleed, one collection over. A `CardCommentReactions`
-document holds
-`{ cardCommentId, reactions: [ { reactionCodepoint, userIds } ] }` and the whole
-array is ONE field, whose allow rule was board membership for
-insert, update and remove alike. So any member could `$set` `reactions` to
-anything: add a colleague's userId to a reaction they never made, or remove one
-they did. `toggleReaction()` only ever touches the caller's own id, so no
-legitimate client sends anything else - the rule simply never said so.
-
-Integrity rather than confidentiality, since reactions are visible to the whole
-board already, but it puts words in another person's mouth. A deny rule now
-refuses an update that changes any OTHER user's presence in any reaction. The
-decision compares MEMBERSHIP rather than array order, because the client
-rebuilds the array on every toggle and a reordered array with the same
-membership is the same set of reactions. The modifier forms that cannot be
-checked that way - `$push`, `$pull`, `$addToSet`, `$unset`, a dotted
-`reactions.0.userIds` - are refused outright. Read-only and no-comment members
-still may not react at all, as before.
-
-</details>
-
-and adds the following new feature:
+and adds the following new features:
 
 **Admin Panel / Problems / Security** - what an admin is told when somebody
 probes.
@@ -561,10 +540,8 @@ never appear, so the feature degrades to nothing rather than misbehaving.
 
 </details>
 
-and adds the following to Admin Panel / Problems:
-
-**Filesystem integrity** - whether the stored files are still the files WeKan
-stored, and whether this server stopped cleanly.
+**Admin Panel / Problems / Filesystem integrity** - whether the stored files
+are still the files WeKan stored.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2cc0d42dd">A daily paced check of every stored file's name, date and four hashes</a>. Thanks to xet7.</summary>
@@ -601,7 +578,51 @@ down.
 
 </details>
 
-**Database problems** - two of its own reports, acted on.
+and updates the following dependencies:
+
+- **@aws-sdk/lib-storage 3.1085.0 → 3.1104.0** — the S3 multipart uploader the
+  optional S3 attachment storage uses.
+- **markdown-it 15.0.0** — the markdown renderer behind card descriptions and
+  comments. A major version; its breaking changes are in plugin APIs WeKan does
+  not use.
+- **@playwright/test 1.62.0 → 1.62.1** — the browser test runner, in
+  `tests/playwright` only; it ships in no WeKan bundle.
+- **actions/checkout 4 → 7**, **actions/download-artifact 4 → 8**,
+  **actions/upload-artifact 4 → 7** — the GitHub Actions steps every release
+  workflow starts and ends with. Build-time only.
+
+Thanks to dependabot.
+
+and fixes the following bugs:
+
+**Comment reactions** - who a reaction says it belongs to.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/156121c4bc0428a5a1edf5db9fbda6cac916d3ea">React as yourself, not as somebody else</a>. Thanks to xet7.</summary>
+
+The same shape as CommentBleed, one collection over. A `CardCommentReactions`
+document holds
+`{ cardCommentId, reactions: [ { reactionCodepoint, userIds } ] }` and the whole
+array is ONE field, whose allow rule was board membership for
+insert, update and remove alike. So any member could `$set` `reactions` to
+anything: add a colleague's userId to a reaction they never made, or remove one
+they did. `toggleReaction()` only ever touches the caller's own id, so no
+legitimate client sends anything else - the rule simply never said so.
+
+Integrity rather than confidentiality, since reactions are visible to the whole
+board already, but it puts words in another person's mouth. A deny rule now
+refuses an update that changes any OTHER user's presence in any reaction. The
+decision compares MEMBERSHIP rather than array order, because the client
+rebuilds the array on every toggle and a reordered array with the same
+membership is the same set of reactions. The modifier forms that cannot be
+checked that way - `$push`, `$pull`, `$addToSet`, `$unset`, a dotted
+`reactions.0.userIds` - are refused outright. Read-only and no-comment members
+still may not react at all, as before.
+
+</details>
+
+**Admin Panel / Problems / Database problems** - two of its own reports, acted
+on.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/30e8e38f6">Fix the two bugs the Database problems page was reporting</a>. Thanks to xet7.</summary>
@@ -627,7 +648,7 @@ database's or the admin's, and where to report it.
 
 </details>
 
-and improves the security tests themselves:
+and has the following developer-facing changes:
 
 **The test suite** - what it claims to guard, and what it actually does.
 
@@ -666,6 +687,29 @@ named regression test, and 29 are recorded gaps** - mostly older fixes from
 before WeKan tested its security fixes at all. They are not known to be
 unprotected; they are known to be unchecked, which is a different and more
 honest statement, and each one now says what it would take to close it.
+
+</details>
+
+**The release and setup scripts** - what the build menu offers, and what it
+still carries.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6def3a14d">Setup: "git pull" and "git push" that finish the job, replacing "Update git"</a>. Thanks to xet7.</summary>
+
+The build menu's `Update git` did a `git pull` and left it there, so a
+contributor who used it still had to know the other half by heart. It is two
+entries now - one that pulls and one that pushes - and each does the whole
+thing, submodules included, rather than the first step of it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8c2565e99">releases/: delete two superseded scripts, and two exemptions that outlived them</a>. Thanks to xet7.</summary>
+
+Two scripts in `releases/` had been replaced by the release workflow and were
+kept only because guards had been written to exempt them. Both the scripts and
+their exemptions are gone, so the guards now describe what is really there -
+an exemption that outlives its reason is how a check quietly stops checking.
 
 </details>
 
