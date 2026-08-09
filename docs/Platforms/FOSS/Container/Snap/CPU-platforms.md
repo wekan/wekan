@@ -302,22 +302,35 @@ publishes edge builds to stable users. Pass the version, or `--dry-run` first.
 
 ### What each snap currently has, and what is still to add
 
-As of WeKan 10.76 the store holds:
+As of WeKan **10.78** the store holds:
 
 | Snap | amd64 | arm64 | armhf | ppc64el | riscv64 | s390x |
 |------|:-----:|:-----:|:-----:|:-------:|:-------:|:-----:|
-| `wekan` | ✅ | ✅ | — | ✅ | — | ✅ |
-| `wekan-ondra` | ✅ | ✅ | ⚠️ | — | — | — |
-| `wekan-gantt-gpl` | ✅ | ✅ | — | — | — | — |
+| `wekan` | ✅ 10.78 | ✅ 10.78 | ❌ | ✅ 10.78 | ✅ 10.78 | ✅ 10.78 |
+| `wekan-ondra` | ✅ 10.78 | ✅ 10.78 | ⚠️ 0.22 | 🚫 | 🚫 | 🚫 |
+| `wekan-gantt-gpl` | ✅ 10.78 | ✅ 10.78 | 🚫 | 🚫 | 🚫 | 🚫 |
 
-- **—** the architecture is built by `snapcraft.yaml` but that snap has no
-  revision for it yet. Uploading one is all that is needed; the release script
-  then puts it on all four channels.
-- **⚠️** `wekan-ondra`'s armhf is stuck at version **0.22**, and its i386 column at
-  **0.X-ci**, on all four channels — fossils the store kept from years ago.
-  Promoting channels cannot fix these: there is no newer revision to promote.
-  armhf needs a build uploaded for that snap; i386 cannot be built at all (see
-  [i386](#i386-has-no-snap-and-cannot-have-a-new-one)).
+`wekan-ondra` also shows an **i386** column at `0.X-ci`; nothing builds it and
+nothing can (see [i386](#i386-has-no-snap-and-cannot-have-a-new-one)).
+
+The three marks mean three different things, and the difference is the whole
+point of the table:
+
+- **❌ built by the release, not in the store.** `wekan`'s armhf is the only one:
+  `snapcraft.yaml` declares it, the `snap-launchpad` job builds it, and it has
+  been failing — most recently on Caddy, which publishes no `linux_armhf` archive
+  because its asset names are Go's. That is fixed for the next release. Nothing
+  to do here but release.
+- **🚫 the release does not build it for that snap at all.** The `snap-variants`
+  job that publishes `wekan-ondra` and `wekan-gantt-gpl` has FOUR matrix entries —
+  each variant on amd64 and on arm64, on GitHub runners. The exotic architectures
+  come from `snap-launchpad`, which builds only the `wekan` name. So no upload is
+  pending for these squares: they need the variant job extended to Launchpad
+  remote builds under the variant snap names first.
+- **⚠️ a fossil.** `wekan-ondra`'s armhf is stuck at version **0.22** on all four
+  channels — a revision the store kept from years ago. Promoting channels cannot
+  fix it: there is no newer revision to promote, and per the row above nothing
+  currently builds one.
 
 Publishing the **stable** channel is safe for these because the snap performs its
 **automatic migrations** on start — the schema upgrades and the one-time
