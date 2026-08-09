@@ -278,9 +278,15 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** the **snap** jobs, and one thing that had been quietly failing for
-months. **armhf** asked Caddy for a `linux_armhf` archive that has never
-existed - Caddy is built by Go and its assets carry Go's architecture names -
+**In short:** a **new platform** and the **snap** jobs. WeKan now builds a
+**win-arm64** bundle - Windows on ARM - which needed no new work anywhere else,
+because nodejs.org, FerretDB and the MongoDB tools all publish that
+architecture already and nothing here had asked for it. (armv5, armv6 and armel
+were checked at the same time and cannot be added: Node.js does not exist for
+any of them, and the Snap Store has no such architecture either.) On the snap
+side, one thing had been quietly failing for months: **armhf** asked Caddy for
+a `linux_armhf` archive that has never existed - Caddy is built by Go and its
+assets carry Go's architecture names -
 and **riscv64**, **ppc64el** and **s390x** each built a perfectly good snap that
 the Snap Store then refused while processing it, with an error about its own
 duplicate check; the upload is retried now, and the message no longer blames
@@ -311,7 +317,41 @@ below are v10.78's: nothing here rebuilds them.
 | win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
 | win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-win64.exe) | v1.48.0 | `ea57e1bcd153b51d2065ab01515b21ec05d8f615444c15603ab8158b8a661dd2` |
 
-This release fixes the following bugs:
+This release adds the following new feature:
+
+**Windows on ARM** - a bundle whose every binary was already published.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8bb7b9ba6">Build a win-arm64 bundle</a>. Thanks to xet7.</summary>
+
+WeKan could always have shipped this and simply did not. All three suppliers
+publish the architecture: nodejs.org builds `node-v24.19.0-win-arm64.zip`
+itself, [wekan/FerretDB](https://github.com/wekan/FerretDB) publishes
+`ferretdb-win-arm64.exe`, and
+[wekan/mongo-tools-patches](https://github.com/wekan/mongo-tools-patches)
+publishes every tool as `-win-arm64.exe`.
+
+`releases/resolve-node-source.sh` gains the platform and resolves it to
+nodejs.org with a published SHA256, so it needs no node-patches build at all.
+The job is the win64 one with the architecture changed: it builds on the x64
+Windows runner exactly as win32 does, because the Meteor bundle is JavaScript,
+the native modules are installed with `--ignore-scripts` and are not compiled
+for the runner's architecture either way, and the only architecture-specific
+things in the zip are the three binaries above, which are downloaded rather
+than built.
+
+**What cannot be added, checked at the same time: armv5, armv6 and armel.**
+FerretDB and the MongoDB tools publish `armel` - they are Go, and Go still
+targets it - but **Node.js does not exist for any of the three**. nodejs.org
+publishes no 32-bit ARM at all for v24.19.0, unofficial-builds has no `armv6l`,
+and node-patches builds `node-armhf` and `node-armv7` only. No Node.js means no
+bundle, so no Docker image and no snap either. The Snap Store has no armv5 or
+armv6 architecture in any case - its only 32-bit ARM is `armhf`, which WeKan
+already publishes.
+
+</details>
+
+and fixes the following bugs:
 
 **The snap builds** - what they download, and what the store does with the
 result.
