@@ -87,3 +87,7 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          # Full build provenance (SLSA), not the minimal default that BuildKit
+          # attaches on its own. See release-all.yml for what it is and why the
+          # manifest list gains an `unknown/unknown` entry per platform.
+          provenance: mode=max

@@ -2966,7 +2966,21 @@ jobs:
           # manifest yet, so it ships as a .zip bundle only. Every candidate arch
           # is in debian:trixie's manifest AND has a fork Node the Dockerfile can
           # install.
+          # --provenance=mode=max: full build provenance (SLSA), not the
+          # minimal default - what built this image, from which commit, with
+          # which base and build arguments. It rides in the manifest list as an
+          # `unknown/unknown` entry per platform, the OCI marker for "not a
+          # runnable image" so `docker pull` never selects it, which is why Quay
+          # lists one beside each real platform. mode=max makes those entries
+          # BIGGER, not fewer; `--provenance=false` is what removes them, at the
+          # cost of the evidence.
+          #
+          # The comment is here and not among the arguments: a `#` after a line
+          # continuation comments out the rest of the joined line, leaving
+          # `docker buildx build` with no platforms and no tags. This block is a
+          # shell script like any other, and it was written the wrong way first.
           docker buildx build \
+            --provenance=mode=max \
             --platform "${PLATFORMS}" \
             --build-arg VERSION=${VERSION} \
             -t wekanteam/wekan:v${VERSION} \
@@ -4002,6 +4016,7 @@ jobs:
           set -euo pipefail
           cd exapp
           docker buildx build --push \
+            --provenance=mode=max \
             -t ghcr.io/wekan/wekan-exapp:v${VERSION} \
             -t ghcr.io/wekan/wekan-exapp:latest \
             --build-arg WEKAN_VERSION=${VERSION} .

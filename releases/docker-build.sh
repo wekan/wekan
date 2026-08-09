@@ -89,7 +89,16 @@ echo "  OK: No Go buildinfo binaries found"
 '
 
 echo "=== Step 3: Checks passed - building and pushing multi-arch image to registries ==="
+# --provenance=mode=max: full build provenance (SLSA), matching release-all.yml.
+# The local --load build above gets none - the docker exporter cannot carry
+# attestations - so only this pushing build has it.
+#
+# The comment is HERE and not among the arguments below: a `#` after a line
+# continuation comments out the REST OF THE JOINED LINE, so the command becomes
+# `buildx build` with every argument swallowed. `bash -n` accepts it, because it
+# is valid syntax - it is just a different command.
 ${DOCKER} buildx build \
+  --provenance=mode=max \
   --platform linux/amd64,linux/arm64 \
   -t wekanteam/wekan:v${VERSION} \
   -t wekanteam/wekan:latest \
