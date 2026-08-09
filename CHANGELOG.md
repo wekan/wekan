@@ -418,10 +418,11 @@ is unchanged. This is the shape of check the linked-card path already made -
 creating a linked card requires read access to the source card's board -
 applied to the field that did not have it.
 
-Auditing for more of the same found the LINKED-CARD cursors beside the ancestor
-one with the identical hole and a wider blast radius: five of them, publishing
-the linked card, its comments, its attachments, its checklists and its checklist
-items. A `cardType-linkedCard` names a card by id exactly as `parentId` does,
+[Auditing for more of the same](https://github.com/wekan/wekan/commit/2c4e81ae3)
+found the LINKED-CARD cursors beside the ancestor one with the identical hole
+and a wider blast radius: five of them, publishing the linked card, its
+comments, its attachments, its checklists and its checklist items. A
+`cardType-linkedCard` names a card by id exactly as `parentId` does,
 and that card may live on any board. They take the same answer - a linked card
 whose source board the subscriber cannot see is not sent - and they share one
 helper now instead of repeating the same fifteen-line preamble five times, which
