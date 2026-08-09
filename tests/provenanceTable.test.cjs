@@ -374,4 +374,56 @@ test('a release-note lookup can never fail the build it annotates', () => {
   });
 });
 
+// ───────────────────── the Snap Store can fail for reasons that are not ours
+
+test('a store PROCESSING failure is retried; a rejected snap is not', () => {
+  // The store accepts the file, scans it, and can then answer:
+  //     Status: error while processing
+  //     Issues while processing snap:
+  //     - binary_sha3_384: Error checking upload uniqueness.
+  // which is the store failing its OWN duplicate check on a digest it just
+  // computed. It hit riscv64, ppc64el and s390x in one v10.78 run, each after a
+  // Launchpad build that had SUCCEEDED, so three good snaps were lost at once
+  // and the printed advice was about credentials and ACLs - none of which
+  // applied.
+  //
+  // Retrying must stay narrow. A rejected file, bad credentials or a missing
+  // ACL will be rejected identically three times, and retrying those only
+  // buries the one message that says what to fix.
+  const src = read(WORKFLOW);
+  const step = src.slice(src.indexOf('Uploading $f to the Snap Store'));
+  const upTo = step.slice(0, step.indexOf('- name:'));
+
+  assert.ok(/Error checking upload uniqueness/.test(upTo),
+    'the store-side processing failure is not recognised');
+  assert.ok(/up_attempts/.test(upTo) && /sleep/.test(upTo),
+    'there is no retry with a backoff');
+
+  // The classifier itself, applied to the messages that must NOT be retried.
+  const m = upTo.match(/grep -qiE '([^']+)'/);
+  assert.ok(m, 'the retryable-error pattern is gone');
+  const re = new RegExp(m[1], 'i');
+  assert.ok(re.test('- binary_sha3_384: Error checking upload uniqueness.'),
+    'the real v10.78 failure must be retried');
+  assert.ok(re.test('Status: error while processing'));
+  [
+    'wekan_10.78_s390x.snap is not a valid file',
+    'Credentials could not be parsed',
+    'Error 403: forbidden - no permission for snap name',
+    'Error 401: unauthorized',
+  ].forEach(line => assert.ok(!re.test(line),
+    `"${line}" must NOT be retried - three identical rejections hide the fix`));
+});
+
+test('and it says the snap is fine when the store is not', () => {
+  // The failure that remains after three attempts is still not a problem with
+  // the snap, and the message has to say so - otherwise the next person goes
+  // looking through a build that succeeded.
+  const src = read(WORKFLOW);
+  const step = src.slice(src.indexOf('Uploading $f to the Snap Store'));
+  const upTo = step.slice(0, step.indexOf('- name:'));
+  assert.ok(/Nothing in this repository needs to change/.test(upTo),
+    'the give-up message must not send somebody debugging a good build');
+});
+
 console.log(`\n${passed} tests passed`);

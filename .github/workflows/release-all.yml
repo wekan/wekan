@@ -3670,11 +3670,42 @@ jobs:
           fi
           # base: core24 allows publishing to stable and candidate (core26 does not).
           for f in "${snaps[@]}"; do
-            echo "Uploading $f to the Snap Store (stable,candidate,beta,edge)..."
-            if ! snapcraft upload --release=stable,candidate,beta,edge "$f"; then
-              echo "::error::The Snap Store refused the upload of $f. The snapcraft line above says which: 'is not a valid file' means the build produced nothing usable; 'Credentials could not be parsed' means SNAP_AUTH is not a readable exported login; 401/403 means it lacks the ACL for this snap name. The last two are fixed by re-exporting for all three names: snapcraft export-login --snaps wekan,wekan-ondra,wekan-gantt-gpl --acls package_access,package_push,package_release,package_update snap-auth.txt"
+            # RETRIED, because the upload can fail for a reason that has nothing
+            # to do with the snap. The store accepts the file, scans it, and can
+            # then answer:
+            #     Status: error while processing
+            #     Issues while processing snap:
+            #     - binary_sha3_384: Error checking upload uniqueness.
+            # which is the store failing its OWN duplicate check on the digest
+            # it just computed - a server-side hiccup, not a bad snap. It hit
+            # riscv64, ppc64el and s390x in the same v10.78 run, each after a
+            # Launchpad build that had succeeded, so three good snaps were lost
+            # to it at once. Re-uploading the identical file is what fixes it.
+            up_attempts=3
+            uploaded=0
+            for u in $(seq 1 "$up_attempts"); do
+              echo "Uploading $f to the Snap Store (stable,candidate,beta,edge), attempt $u/$up_attempts..."
+              if snapcraft upload --release=stable,candidate,beta,edge "$f" 2>&1 | tee /tmp/snap-upload.log; then
+                uploaded=1
+                break
+              fi
+              # Only the store's own processing errors are worth retrying. A
+              # rejected file, or credentials the store will not accept, will be
+              # rejected exactly the same way three times - and retrying those
+              # only buries the message that says what to fix.
+              if grep -qiE 'Error checking upload uniqueness|error while processing|502 Bad Gateway|503 Service|504 Gateway|Timeout|Connection (reset|aborted)' /tmp/snap-upload.log; then
+                if [ "$u" -lt "$up_attempts" ]; then
+                  echo "::warning::The Snap Store failed while PROCESSING $f (not a problem with the snap). Retrying in $((u * 30))s."
+                  sleep $((u * 30))
+                  continue
+                fi
+                echo "::error::The Snap Store failed while processing $f on every one of $up_attempts attempts. This is the store's own upload-uniqueness/processing check failing on a snap it accepted - the file itself built and downloaded fine, so re-running this job later usually publishes it unchanged. Nothing in this repository needs to change." >&2
+                exit 1
+              fi
+              echo "::error::The Snap Store refused the upload of $f. The snapcraft line above says which: 'is not a valid file' means the build produced nothing usable; 'Credentials could not be parsed' means SNAP_AUTH is not a readable exported login; 401/403 means it lacks the ACL for this snap name. The last two are fixed by re-exporting for all three names: snapcraft export-login --snaps wekan,wekan-ondra,wekan-gantt-gpl --acls package_access,package_push,package_release,package_update snap-auth.txt" >&2
               exit 1
-            fi
+            done
+            [ "$uploaded" -eq 1 ] || exit 1
           done
 
       - name: Attach the ${{ matrix.arch }} snap to the GitHub Release

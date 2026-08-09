@@ -75,6 +75,18 @@ const T64_RENAMED = {
   'libboost-filesystem1.83.0': null,      // NOT renamed - real on armhf
 };
 
+// The Caddy architecture `case` block, and not the WEKAN_ARCH one above it:
+// snapcraft.yaml has more than one `case "${CRAFT_ARCH_BUILD_FOR}" in`, and
+// taking the first match tested the wrong block while looking like it worked.
+function caddyCase() {
+  const at = yaml.indexOf('CADDY_ARCH=');
+  assert.ok(at > 0, 'the Caddy architecture mapping is gone');
+  const start = yaml.lastIndexOf('case "${CRAFT_ARCH_BUILD_FOR}" in', at);
+  assert.ok(start > 0, 'the Caddy mapping is no longer a case statement');
+  const end = yaml.indexOf('esac', start);
+  return yaml.slice(start, end);
+}
+
 test('snapcraft.yaml declares stage-packages at all', () => {
   const pkgs = stagePackages();
   assert.ok(pkgs.length >= 10,
@@ -130,6 +142,60 @@ test('the reason is written down where the next person will read it', () => {
   assert.ok(/armhf/.test(near), 'and which architecture it breaks');
   assert.ok(/Stage package not found/.test(near),
     'and the error it produces, so a search for it lands here');
+});
+
+// ─────────────────────────────────── Caddy is built by Go, and named like it
+
+test('THE BUG: every snap architecture maps to a Caddy asset that exists', () => {
+  // Caddy's release assets carry GO's architecture names, not Debian's. There
+  // is no linux_armhf archive and there never has been - the 32-bit ARM ones
+  // are armv5, armv6 and armv7 - so armhf fell through to the default branch,
+  // asked for caddy_<v>_linux_armhf.tar.gz and got
+  //     curl: (22) The requested URL returned error: 404
+  // which failed the whole armhf snap. The "fall back to the pinned version"
+  // path then retried the SAME wrong name, so the error blamed the Caddy
+  // release for something the case statement got wrong.
+  const caseBlock = caddyCase();
+
+  const EXPECTED = {
+    amd64: 'amd64',
+    arm64: 'arm64',
+    s390x: 's390x',
+    ppc64el: 'ppc64le',   // Caddy uses Go's name, not Debian's
+    riscv64: 'riscv64',
+    armhf: 'armv7',       // Debian armhf's baseline IS Go's GOARM=7
+  };
+  Object.entries(EXPECTED).forEach(([deb, go]) => {
+    const re = new RegExp(`${deb.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\)\\s*CADDY_ARCH=${go}\\b`);
+    assert.ok(re.test(caseBlock),
+      `${deb} must map to Caddy's ${go}; Caddy publishes no linux_${deb} archive`);
+  });
+});
+
+test('every architecture snapcraft builds has a Caddy mapping', () => {
+  // The list that decides which snaps exist is build-for in this same file, so
+  // a new architecture added there without a Caddy branch is caught here rather
+  // than by a 404 halfway through a release.
+  const buildFor = [...new Set(
+    [...yaml.matchAll(/^\s*build-for:\s*(\S+)\s*$/gm)].map(m => m[1]))];
+  assert.ok(buildFor.length >= 5, `expected the build-for list, found ${buildFor.length}`);
+  const caseBlock = caddyCase();
+  buildFor.forEach(a => {
+    assert.ok(new RegExp(`(^|\\s|\\|)${a}\\)`, 'm').test(caseBlock),
+      `snapcraft builds ${a} but no Caddy architecture is mapped for it`);
+  });
+});
+
+test('NEGATIVE: an unmapped architecture fails loudly instead of 404ing', () => {
+  // The old default silently produced a URL that cannot exist. A guess that
+  // looks like a Caddy release name is worse than no guess, because the failure
+  // then reads as "Caddy stopped publishing this architecture".
+  const caseBlock = caddyCase();
+  assert.ok(!/\*\)\s*CADDY_ARCH="\$\{CRAFT_ARCH_BUILD_FOR\}"/.test(caseBlock),
+    'the default branch still passes the Debian name straight through');
+  assert.ok(/no Caddy architecture is mapped for/.test(caseBlock),
+    'the default branch must say what went wrong');
+  assert.ok(/exit 1/.test(caseBlock), 'and must stop rather than 404 later');
 });
 
 console.log(`\n${passed} tests passed`);
