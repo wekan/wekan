@@ -110,6 +110,7 @@ Template.adminReports.onCreated(function () {
   this.showTests = new ReactiveVar(false);
   this.showCpu = new ReactiveVar(false);
   this.showDatabase = new ReactiveVar(false);
+  this.showIntegrity = new ReactiveVar(false);
   this.error = new ReactiveVar('');
   this.loading = new ReactiveVar(false);
 
@@ -315,6 +316,10 @@ const PROBLEMS_MENU = [
   // What the database itself said, classified: which database type, what it
   // means and what to do (server/lib/databaseProblems.js).
   { id: 'report-database', icon: 'fa-database', labelKey: 'databaseReportTitle' },
+  // What the FILESYSTEM said: a stored file that is no longer the file WeKan
+  // stored, and whether this server stopped cleanly
+  // (docs/Security/Remediation/WeKan.md §13).
+  { id: 'report-integrity', icon: 'fa-fingerprint', labelKey: 'integrityReportTitle' },
 ];
 
 Template.adminReports.helpers({
@@ -497,6 +502,7 @@ function openReportPane(tmpl, targetID) {
     tmpl.showTests.set(false);
     tmpl.showCpu.set(false);
     tmpl.showDatabase.set(false);
+    tmpl.showIntegrity.set(false);
     if (tmpl.subscription) {
       tmpl.subscription.stop();
     }
@@ -532,6 +538,9 @@ function openReportPane(tmpl, targetID) {
       tmpl.loading.set(false);
     } else if ('report-database' === targetID) {
       tmpl.showDatabase.set(true);
+      tmpl.loading.set(false);
+    } else if ('report-integrity' === targetID) {
+      tmpl.showIntegrity.set(true);
       tmpl.loading.set(false);
     } else if ('report-broken' === targetID) {
       // A report like the others now: same controls, same paging, same loader.

@@ -101,6 +101,7 @@ const ADMIN_PAGES = {
       cards: 'report-cards',
       recovery: 'report-recovery',
       database: 'report-database',
+      integrity: 'report-integrity',
     },
   },
   attachments: {
@@ -173,6 +174,7 @@ const ADMIN_PANE_TITLES = {
     cards: { titleKey: 'cardsReportTitle' },
     recovery: { titleKey: 'recoveryReportTitle' },
     database: { titleKey: 'databaseReportTitle' },
+    integrity: { titleKey: 'integrityReportTitle' },
   },
   attachments: {
     backup: { titleKey: 'backup' },

@@ -77,6 +77,7 @@ The bare `/admin/settings` still resolves; it *redirects* to
 | `/admin/problems/cards` | Cards Report | `report-cards` |
 | `/admin/problems/recovery` | Recovery | `report-recovery` |
 | `/admin/problems/database` | Database problems | `report-database` |
+| `/admin/problems/integrity` | Filesystem integrity | `report-integrity` |
 
 Two panes are called Security, and they are different things: the *settings*
 pane and the *report*. `security` is the settings one, beside `notifications`

@@ -75,7 +75,10 @@ EventLogAcks.attachSchema(
 // (MongoDB, or FerretDB over SQLite/PostgreSQL/MySQL/MariaDB/SAP HANA), what the
 // message means, and what an admin should do about it. See
 // models/lib/databaseErrors.js and server/lib/databaseProblems.js.
-export const EVENT_STREAMS = ['security', 'speed', 'tests', 'cpu', 'database'];
+// 'integrity' is what the FILESYSTEM said: a stored file that is not the file
+// WeKan stored (server/lib/fileIntegrityScan.js), and whether this server
+// stopped cleanly last time (server/lib/uptimeWatch.js).
+export const EVENT_STREAMS = ['security', 'speed', 'tests', 'cpu', 'database', 'integrity'];
 
 if (Meteor.isServer) {
   // The Security/Speed/Tests report pages filter by `stream` and sort by `at`

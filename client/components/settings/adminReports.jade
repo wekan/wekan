@@ -30,6 +30,8 @@ template(name="adminReports")
             +eventStreamReport(stream="cpu")
           else if showDatabase.get
             +eventStreamReport(stream="database")
+          else if showIntegrity.get
+            +eventStreamReport(stream="integrity")
           else if tablePageData
             +tablePage(tablePageData)
 

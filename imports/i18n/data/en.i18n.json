@@ -2341,5 +2341,6 @@
   "event-source": "Source",
   "event-detail": "Detail",
   "event-ip": "IP address",
-  "event-attempts": "Attempts"
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

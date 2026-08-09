@@ -547,7 +547,137 @@ database insert per request an attacker chose to send. Going through the canary
 gives them the §12.2 rate limit and the §12.3 attribution, and the responses —
 the 401 and the 429 — are untouched.
 
-## 13. Out of scope / follow-ups
+## 13. Filesystem storage integrity, crashes and downtime
+
+§12 watches what somebody **tries to do through WeKan**. This section is about
+what happened to WeKan's own files and process **when nobody was asking it
+anything**.
+
+WeKan's attachments and avatars are files under `WRITABLE_PATH`, and the database
+holds one document per file. **Nothing checked that the two still agree.** A file
+can be replaced, truncated, back-dated or deleted by anything that reaches the
+filesystem — a bad restore, a sync tool, a container rebuild, a shell on the
+volume — and WeKan would keep serving whatever is there now, silently.
+
+### 13.1 The baseline, and the four hashes
+
+One document per file in the existing WeKan database (`fileIntegrity`; **no new
+files under `WRITABLE_PATH`**, per §3): the path, the size, the modification
+time, and **md5, sha256 and sha512**.
+
+Three digests, not one, because they answer different questions. **md5** is fast
+and is what most other tools print, so an admin can compare against a backup with
+the tool they already have — it is never alone here, because its collision
+resistance is gone. **sha256** is the working digest. **sha512** is a second,
+different-width one, and it earns its place on the day the two *disagree*: two
+digests over the same bytes cannot disagree, so when they do, the bytes were not
+read the same way twice — a failing disk, a partial write, a truncated copy —
+which is a different problem from a substitution and is reported as its own,
+**critical**, finding.
+
+**ed25519 is the fourth, and it is not a hash — it is a signature**, which is the
+only thing that answers the question the three digests cannot: *who says these
+are the right hashes?* Anybody who can rewrite a file can rewrite a row of
+hashes. So each baseline entry is signed over a canonical line
+(`manifestLine()` — fixed field order, no JSON, whose key order and escaping are
+not guaranteed stable across versions), and the signature is verified on every
+scan. A record that does not match its signature is a **critical** finding, and
+it is never explained away by an ordinary edit: WeKan does not rewrite a baseline
+without re-signing it.
+
+The key:
+
+| Source | What it protects against |
+| --- | --- |
+| `WEKAN_INTEGRITY_PRIVATE_KEY` (PKCS#8 PEM), supplied by the operator and **never stored by WeKan** | an attacker who reaches the **database** as well as the disk |
+| otherwise, generated on first run and kept in the database | filesystem-only tampering — a restore, a sync tool, a container rebuild, a shell on the volume |
+
+The second is the common case and is honest about not being more than that. A
+**malformed** supplied key is reported and the scan runs **without** signing
+rather than silently falling back to a generated one, which would look like it
+was working while checking nothing the operator meant.
+
+### 13.2 The scan: once a day, when nothing else needs the machine
+
+Reading every stored byte is the last thing that should compete with users, so
+the scan is paced by policy rather than by hope (`models/lib/fileIntegrity.js`,
+pure and time-injected):
+
+- **once a day** (`intervalMs`), checked hourly — not on every restart;
+- **not while the machine is busy**: at or above **60% CPU** it does not start,
+  and it stops if the load rises mid-run. It is never urgent;
+- **a pause between every file** — 50 ms, plus 20 ms per megabyte, so a
+  directory of large files does not become a sustained read;
+- **a time budget** (15 minutes). A scan that stops and continues tomorrow is
+  better than one that holds a machine down;
+- **one read per file for all three digests.** Three passes would be three times
+  the disk for the same bytes.
+
+A run that stopped early does **not** report the files it never reached as
+missing — it has not looked everywhere, and saying otherwise would be a lie.
+
+### 13.3 The finding: changed, with no record saying why
+
+Files change when people use WeKan; reporting that would be noise. So each change
+is classified against WeKan's own record of the file:
+
+| Situation | Result |
+| --- | --- |
+| unchanged | nothing recorded |
+| changed, and WeKan has a record of the operation | `info` — reported once, then **re-baselined** so it does not repeat daily |
+| **changed, with nothing to account for it** | **the warning** — at least `medium`, and deliberately **not** re-baselined, so it keeps showing until somebody looks |
+| the record's signature does not verify | `critical`, never explained |
+| recorded and now missing | `high` |
+| present and never recorded | `low` — a leftover or a backup copy is not evidence of anything |
+
+A modification time that moved **backwards** is called out separately: nothing
+does that by accident.
+
+The event carries the **file's name and the finding, never its contents and never
+the digests** — an admin needs to know which file, not to read it here.
+
+### 13.4 Crashes, downtime and errors nobody caught
+
+Admin Panel → Problems answered "what did WeKan refuse" and "what did the
+database say", and not the plainest question: **did this server stop, and did it
+stop cleanly?**
+
+A crash leaves nothing behind — the process is gone, so it cannot write a message
+about being gone. A **heartbeat** is the only thing that works: WeKan writes the
+time every minute, and the NEXT start reads it.
+
+| What the next start finds | Recorded as |
+| --- | --- |
+| no previous run | nothing — a first run is not a problem |
+| last heartbeat with a **clean-shutdown mark** | nothing — a deliberate restart is not a problem |
+| a **short** gap, no mark | `low` — the shutdown hook may simply not have run |
+| a **long** gap, no mark | **`high`** — it stopped without shutting down cleanly, and here is how long it was down |
+
+Recording every deliberate restart is how a Problems page becomes a page nobody
+opens, which is why the first two record nothing at all.
+
+Two more land in the same stream, because they are the same question one level
+down: an **uncaught exception** and an **unhandled promise rejection**. This app
+turns the second into a process exit, so it is a crash *with a cause attached* —
+and the cause is worth recording before the process goes. The listeners are
+**added, never replaced**: removing whatever else is listening would change how
+the app handles its own failures.
+
+### 13.5 Where it appears
+
+A new event stream, `integrity`, in the same `eventlog` collection and the same
+Admin Panel → **Problems → Filesystem integrity** table as the others (§8), with
+the Username / IP address / Attempts columns §12.3 added. It counts towards the
+red **Problems** button like every other stream.
+
+The `fileIntegrity` baseline itself is **never published and never client-writable**:
+it is a map of every file on the server, and the key document is a private key.
+Neither belongs on a client, admin or not — Admin Panel reads the **findings**,
+which are ordinary event rows.
+
+---
+
+## 14. Out of scope / follow-ups
 
 - Rotating/retention: a cron trims `eventlog` to the newest N per stream (`remove` older docs).
 - Shipping logs to an external SIEM (kept local by design).
