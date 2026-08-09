@@ -284,7 +284,13 @@ below is that working: **FerretDB v1.48.0** replaces v10.77's v1.45.0 on every
 platform, with no change in this repository, because `latest` now resolves to
 it. That is the release carrying `go1.25.11` and `x/sys v0.46.0`, which answers
 the Go advisories a Quay scan reported against the v10.77 image. Node.js stays
-v24.19.0, the newest 24.x.
+v24.19.0, the newest 24.x. The rest of this release is the same theme - what a
+build REPORTS versus what it did. The **armhf snap** failed three times on a
+package name that has not existed since Ubuntu 24.04 renamed it, while the
+message blamed a transient build-farm reset; three snaps that BUILT were
+reported FAILED by the step that saves their logs; and the provenance table
+printed every row twice, left **amd64** out entirely, and gave six platforms the
+version "latest".
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -375,6 +381,106 @@ which is where it happened the first time.
 </details>
 
 and fixes the following bugs:
+
+**The snap builds** - what the Launchpad jobs build, and what they report.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a820b056b">libcurl4 does not exist on armhf, so name the package noble ships</a>. Thanks to xet7.</summary>
+
+The armhf snap failed all three attempts in v10.77 while s390x, ppc64el and
+riscv64 each built on attempt 1. The Launchpad build log says why, one line into
+the mongodb part:
+
+```
+Stage package not found in part 'mongodb': libcurl4.
+Build failed
+```
+
+Ubuntu 24.04's 64-bit `time_t` transition renamed the library, and `libcurl4` is
+not a real package on **any** architecture in noble - the binary is
+`libcurl4t64` everywhere. On the 64-bit architectures the renamed package keeps
+the old name alive, `Provides: libcurl4 (= 8.5.0-2ubuntu10)`, and the armhf
+`libcurl4t64` has no `Provides` line at all, because there the ABI really
+changed. That is what makes this class of bug reach exactly one architecture -
+which is also what makes it look like flakiness on that architecture.
+
+It had already happened, to `libssl3` and `libgoogle-perftools4` in v10.71, and
+the comment above this list describes it exactly; `libcurl4` was the same
+transition and was left behind. All fourteen stage-packages were checked against
+the noble armhf main+universe indices this time, and it was the only one that
+did not resolve.
+
+The workflow's own guidance made it worse. snapcraft ends a missing
+stage-package as a *Stopped* build with no artifact, which from the outside is
+indistinguishable from Launchpad cancelling a build, so the message offered "an
+OOM in the Meteor npm install, or a transient build-farm reset - re-run" for a
+failure that will never succeed on a re-run. The step now looks for that line
+first, names the missing package, says it is not transient, explains the
+`Provides` asymmetry, and gives the one-line archive query that checks a name.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6dce9dda7">Three good snaps were reported as FAILED by the step that saves their logs</a>. Thanks to xet7.</summary>
+
+s390x, ppc64el and riscv64 each printed *"Remote build &lt;arch&gt; succeeded on
+attempt 1"* and downloaded their `.snap` - and each job then ended FAILED,
+because the step that saves the build log could not upload it:
+
+```
+The path for one of the files in artifact is not valid:
+/snapcraft-wekan-f82a93c2…_s390x_2026-08-09T11:39:05.txt.
+Contains the following character:  Colon :
+```
+
+snapcraft names a remote-build log after the recipe and an ISO timestamp, and
+`upload-artifact` refuses a colon because NTFS cannot hold one. The colons
+become dashes now, so the timestamp is kept rather than the name thrown away -
+and the upload is `continue-on-error`, because a **diagnostic** upload must
+never be able to fail the build it is diagnosing. The snap is the deliverable,
+and the renaming is not the last thing that could ever make a log unuploadable.
+
+</details>
+
+**The release notes** - what the provenance table says each bundle carries.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6dce9dda7">Every row appeared twice, amd64 appeared not at all, and six platforms said "latest"</a>. Thanks to xet7.</summary>
+
+Three things wrong at once in the v10.77 table, and every one of them silent -
+nothing errored, the table was simply not what it claimed to be.
+
+**Every row appeared twice.** `provenance-table.sh` globbed
+`provenance/**/*.tsv provenance/*.tsv`, and with `globstar` a `**/` matches
+**zero** or more directories, so the first pattern already covered the second
+and every file was read twice. It is one pattern now, and rows are also
+deduplicated on the WHOLE line - a retried step records an identical line and
+nothing tells the copies apart. Deliberately not `sort -u -k1,1 -k2,2`: two rows
+sharing a bundle and a binary but differing elsewhere are not a duplicate, they
+are a real disagreement about which Node.js went into a bundle, and hiding one
+at random is worse than showing both.
+
+**amd64 was missing** - the platform most people download. Its step runs
+`cd .build` before `mkdir -p provenance`, so the rows went to
+`.build/provenance` while the upload looked at `provenance/` from the workspace
+root and found nothing. Every other build job records from the workspace root,
+which is why only this one was affected.
+
+**Six platforms said Version `latest`.** amd64, arm64, win64, win32, mac-arm64
+and mac-x64 passed the literal string; only the extra-architecture job asked
+what `latest` actually was, with its own inline `curl`. "Which FerretDB did
+v10.77 ship" is the one question that column exists to answer. All seven sites
+now call `releases/ferretdb-latest-tag.sh`, which asks once per job and caches,
+authenticates when there is a token so a shared 60/hour limit is not what makes
+it fail, checks the answer is shaped like a tag before printing it into a
+markdown cell, and prints nothing and exits 0 when it cannot find out - a
+release note must never fail a build that produced a good bundle.
+
+The table's prose also linked `wekan/node`; the binaries come from
+[wekan/node-patches](https://github.com/wekan/node-patches), which is what the
+rows themselves already linked.
+
+</details>
 
 **The release upload** - what reaches the release page.
 
