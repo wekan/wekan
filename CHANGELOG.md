@@ -264,7 +264,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.76 2026-08-09 WeKan ® release
 
 **In short:** three round-trip counts that were linear in the input, and are not
 any more. The **bulk label** endpoint asked the database twice per card - a
