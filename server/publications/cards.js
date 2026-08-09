@@ -638,16 +638,44 @@ async function buildSelector(queryParams, userId) {
     queryUsers[OPERATOR_MEMBER] = [];
     queryUsers[OPERATOR_CREATOR] = [];
 
-    if (queryParams.hasOperator(OPERATOR_USER)) {
-      const users = [];
-      for (const username of queryParams.getPredicates(OPERATOR_USER)) {
-        const user = await ReactiveCache.getUser({ username });
-        if (user) {
-          users.push(user._id);
-        } else {
-          errors.addNotFound(OPERATOR_USER, username);
-        }
+    // Resolve every username the query names in ONE lookup.
+    //
+    // Each `user:`/`member:`/`assignee:`/`creator:` predicate used to do its own
+    // awaited findOne, so `member:ann member:bob member:carol` was three serial
+    // round-trips before the search itself could start. They are all the same
+    // question - which of these names is an account - so it is asked once, with
+    // `$in`, and answered from a map. Names that matched nothing are still
+    // reported per operator, exactly as before, because the operator is what
+    // tells the user WHERE the unknown name was typed.
+    const namedUsernames = new Set();
+    for (const key of [OPERATOR_USER, OPERATOR_MEMBER, OPERATOR_ASSIGNEE, OPERATOR_CREATOR]) {
+      if (queryParams.hasOperator(key)) {
+        for (const username of queryParams.getPredicates(key)) namedUsernames.add(username);
       }
+    }
+
+    const userIdByUsername = new Map();
+    if (namedUsernames.size) {
+      const found = await ReactiveCache.getUsers(
+        { username: { $in: [...namedUsernames] } },
+        { fields: { _id: 1, username: 1 } },
+      );
+      (found || []).forEach(user => userIdByUsername.set(user.username, user._id));
+    }
+
+    // The ids a predicate names, and the names it got wrong.
+    const resolvePredicates = key => {
+      const ids = [];
+      for (const username of queryParams.getPredicates(key)) {
+        const id = userIdByUsername.get(username);
+        if (id) ids.push(id);
+        else errors.addNotFound(key, username);
+      }
+      return ids;
+    };
+
+    if (queryParams.hasOperator(OPERATOR_USER)) {
+      const users = resolvePredicates(OPERATOR_USER);
       if (users.length) {
         selector.$and.push({
           $or: [{ members: { $in: users } }, { assignees: { $in: users } }],
@@ -657,15 +685,7 @@ async function buildSelector(queryParams, userId) {
 
     for (const key of [OPERATOR_MEMBER, OPERATOR_ASSIGNEE, OPERATOR_CREATOR]) {
       if (queryParams.hasOperator(key)) {
-        const users = [];
-        for (const username of queryParams.getPredicates(key)) {
-          const user = await ReactiveCache.getUser({ username });
-          if (user) {
-            users.push(user._id);
-          } else {
-            errors.addNotFound(key, username);
-          }
-        }
+        const users = resolvePredicates(key);
         if (users.length) {
           selector[key] = { $in: users };
         }

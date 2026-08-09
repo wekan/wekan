@@ -1612,22 +1612,44 @@ WebApp.handlers.post('/api/boards/:boardId/cards/labels', async function(req, re
     return;
   }
 
+  // ONE read for every card, not one per card.
+  //
+  // This used to await a getCard per id and then an update per id - at the
+  // BULK_CARDS_MAX of 500 that is a thousand round-trips, issued one at a time,
+  // for a single request. The reads are all the same question, so they are one
+  // `$in` query; the writes genuinely differ (each card merges its own labels),
+  // so they stay individual, but they are issued TOGETHER instead of each
+  // waiting for the last.
+  const cards = await ReactiveCache.getCards(
+    { _id: { $in: cardIds }, boardId: paramBoardId, archived: false },
+    { fields: { _id: 1, labelIds: 1 } },
+  );
+  const cardById = new Map((cards || []).map(card => [card._id, card]));
+
   const updated = [];
   const notFound = [];
+  const writes = [];
+  // Iterate cardIds, not the query result: the response has to preserve the
+  // caller's order and report the ids that matched nothing.
   for (const cardId of cardIds) {
-    const card = await ReactiveCache.getCard({ _id: cardId, boardId: paramBoardId, archived: false });
+    const card = cardById.get(cardId);
     if (!card) {
       notFound.push(cardId);
       continue;
     }
     // Merge: keep existing minus removed, then add new ones, de-duplicated.
     const merged = mergeLabelIds(card.labelIds, addLabelIds, removeLabelIds);
-    await Cards.direct.updateAsync(
-      { _id: cardId, boardId: paramBoardId, archived: false },
-      { $set: { labelIds: merged } },
+    writes.push(
+      Cards.direct.updateAsync(
+        { _id: cardId, boardId: paramBoardId, archived: false },
+        { $set: { labelIds: merged } },
+      ),
     );
     updated.push({ _id: cardId, labelIds: merged });
   }
+
+  // Every write must land before the 200 says they did.
+  await Promise.all(writes);
 
   sendJsonResult(res, { code: 200, data: { updated, notFound } });
 });
