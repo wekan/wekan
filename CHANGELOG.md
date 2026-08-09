@@ -264,6 +264,119 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** the **snap** side, which had three problems that looked like one.
+The helper that put a build on channels released ONE snap, ONE revision, to
+THREE channels - and a revision number is per architecture, so it could only
+ever
+be right for one of them. The page documenting the CPU platforms listed five
+architectures and omitted **armhf**, which has been built all along. And the two
+architectures that are release bundles but NOT snaps - **i386** and **armv7** -
+were nowhere, so "missing" and "cannot be there" looked identical. The binaries
+below are v10.76's: nothing here rebuilds them.
+
+| Platform | Binary | From | Version | SHA256 |
+| --- | --- | --- | --- | --- |
+| amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
+| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-amd64) | v1.45.0 | `94713f605167abb45a3717482d35de4824cb4a8f199c1400e826a8a2b04f3893` |
+| arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
+| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-arm64) | v1.45.0 | `275ae50ac97e6a70eee72e6de37766c458775c5997c896352db5189c6cf1f04b` |
+| loong64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-loong64.tar.xz) | v24.19.0 | `c24f224726f2d785bd18a1fd09f5e6d1fecf0269928451a60c5da9eac8e92e68` |
+| loong64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-loong64) | v1.45.0 | `28bf67981168dfc4bd67698b41dd62628aafe347a77f2b1e6ffcadf009d575e0` |
+| mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-arm64.tar.xz) | v24.19.0 | `3f1cf157479c1480352083105e13faf9d008ede98e7e157746b6df940d197b94` |
+| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-mac-arm64) | v1.45.0 | `639ed58b84820b3d588f4161c64d0ab940d0cc6e7d022088d60c2b0b97f99f8e` |
+| mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
+| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-mac-amd64) | v1.45.0 | `fd519903f5630e881e38e7c5814f00c0e89ad26f6785f1ddcbab4058356fc9f3` |
+| ppc64le | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-ppc64le.tar.xz) | v24.19.0 | `c510c6ce12f07010f771e6edb22a3fe23f4f2e6f40b1ffd4941aed0646a0d8b3` |
+| ppc64le | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-ppc64le) | v1.45.0 | `de4518c7774d302533369c477759ddd866785d6741d98d399388eb8de3df175a` |
+| riscv64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-riscv64.tar.xz) | v24.19.0 | `cd1f14af2812148002f58b58a5f9af512a50e3b8e8c148e0db44019dcb68edfd` |
+| riscv64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-riscv64) | v1.45.0 | `7dc2952f554e8800c4029577901999e06e10272da686f7e402177080067028f9` |
+| s390x | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-s390x.tar.xz) | v24.19.0 | `a4792e65962ffa0af42627aacf1122a60c3c88dbf4e4184f06820d66f9da8ba4` |
+| s390x | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-s390x) | v1.45.0 | `0ae2e2f2cffdc5dd2ea4f125281a5e12eea216fbe49b5561d9c001700c3fc0c1` |
+| win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
+| win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-win64.exe) | v1.45.0 | `f6337994368a52d011d438c82b914b0cedb3178fd030acac8db3dab8017cee85` |
+
+This release adds the following new feature:
+
+**Snap publishing** - getting every snap onto every channel without typing a
+revision number.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a5d8a1fd9">Release every snap, every architecture, to all four channels</a>. Thanks to xet7.</summary>
+
+The helper this replaces was `snapcraft release wekan $1 edge,beta,candidate`,
+which is wrong three ways at once. It names only `wekan`, leaving `wekan-ondra`
+and `wekan-gantt-gpl` to be done by hand. It takes ONE revision number, and
+revisions are PER ARCHITECTURE - the store shows `wekan` at 3601 on amd64 and
+3600 on arm64 for the same 10.76 - so one number can only ever be right for one
+of them. And it leaves out `stable`, so a build reached three channels of four
+and somebody had to remember the fourth.
+
+`releases/snap-release-all-channels.sh` resolves the revision per (snap,
+architecture) from the store itself, so no revision number is ever typed, and
+releases it to all four channels in ONE call - a revision reaches all of them or
+none. A pair with no revision is reported and skipped rather than failing the
+run: the three snaps genuinely have different architecture sets today.
+
+The mapping is the hazard, and it lives in one place now
+(`models/lib/snapArchitectures.js`) with both directions tested. `ppc64le` and
+`ppc64el` ARE the same hardware - the bundles use the kernel's name, the store
+uses Debian's - and it is the only rename. Nothing warns when the wrong one is
+used: an unrecognised architecture is simply one the store has never heard of,
+so it looks like it worked.
+
+Pass the version to pin it. Without one the newest revision of each architecture
+is promoted, and edge is often ahead of stable, so a bare run publishes edge
+builds to stable users; `--dry-run` prints the plan first.
+
+</details>
+
+and improves the following documentation:
+
+**Snap CPU platforms** - which six, why not the other two, and how the names
+differ.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3c9291338">Say which six architectures are snaps, and why i386 and armv7 are not</a>. Thanks to xet7.</summary>
+
+`docs/Platforms/FOSS/Container/Snap/CPU-platforms.md` listed five architectures
+and omitted **armhf**, which `snapcraft.yaml` has built all along. It said the
+release publishes candidate, beta and edge and that stable "is published
+manually
+later" - no longer true, and the reason a build reached three channels of four.
+
+The matrix is now the six `build-for:` entries with the bundle name beside each,
+and a new section explains the three ways the two naming systems differ.
+
+**armhf and armv7 are not a rename**, and getting it wrong ships a snap that
+crashes. [node-patches](https://github.com/wekan/node-patches) builds `armhf` to
+the Debian baseline - hard-float, VFPv3-D16, assuming no NEON - so it runs on
+any
+ARMv7-A, and `armv7` with NEON for boards that have it. The Snap Store has ONE
+32-bit ARM architecture serving every such device, so it must carry the BASELINE
+build: the NEON one would be an illegal instruction on a board without NEON. So
+armv7 ships as a bundle only, and a test cross-checks that explanation against
+node-patches' own workflow so it cannot drift from the binaries.
+
+**i386 cannot have a new snap at all**, and it is categorically different from a
+missing Node.js build. node-patches patches SOURCE so a binary can be built;
+here
+the BASE SNAP does not exist, because Ubuntu 24.04 has no i386 port - no patch
+set produces a base Canonical does not publish. The last base with one was
+`core18`, end-of-life. The store still shows an i386 column for `wekan-ondra`
+because it keeps whatever was ever uploaded; that revision is `0.X-ci` and
+nothing can replace it.
+
+The page also records what each snap has in the store today and what is still to
+upload, including the two fossils channel promotion cannot fix - `wekan-ondra`'s
+armhf at 0.22 and its i386 at 0.X-ci, which have no newer revision to promote.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.76 2026-08-09 WeKan ® release
 
 **In short:** three round-trip counts that were linear in the input, and are not
