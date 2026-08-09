@@ -342,7 +342,25 @@ parts:
                 s390x)   CADDY_ARCH=s390x ;;
                 ppc64el) CADDY_ARCH=ppc64le ;;   # Caddy uses ppc64le, not Debian's ppc64el
                 riscv64) CADDY_ARCH=riscv64 ;;
-                *) CADDY_ARCH="${CRAFT_ARCH_BUILD_FOR}" ;;
+                # Caddy is built by Go and its release assets carry GO's names,
+                # not Debian's: there is no linux_armhf archive, the 32-bit ARM
+                # ones are armv5, armv6 and armv7. core26 does not build armhf
+                # today, so this branch is not reached - it is here because the
+                # identical gap in snapcraft.yaml failed the whole armhf snap
+                # with a 404, and adding an architecture should not re-find it.
+                # armv7, not armv6: Debian armhf's baseline is ARMv7-A with
+                # VFPv3-D16, which is exactly Go's GOARM=7.
+                armhf)   CADDY_ARCH=armv7 ;;
+                *)
+                    # Not a guess. Passing the Debian name straight through
+                    # builds a URL that cannot exist, and the 404 then reads as
+                    # Caddy having dropped the architecture.
+                    echo "caddy: no Caddy architecture is mapped for '${CRAFT_ARCH_BUILD_FOR}'." >&2
+                    echo "  Caddy publishes linux_amd64, linux_arm64, linux_armv5, linux_armv6," >&2
+                    echo "  linux_armv7, linux_ppc64le, linux_riscv64 and linux_s390x - Go's names," >&2
+                    echo "  not Debian's. Add a branch above rather than guessing here." >&2
+                    exit 1
+                    ;;
             esac
             echo "Downloading Caddy ${CADDY_VERSION} (linux/${CADDY_ARCH}) from GitHub releases..."
             curl -fsSL -o /tmp/caddy.tar.gz \

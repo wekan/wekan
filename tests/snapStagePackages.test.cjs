@@ -78,13 +78,27 @@ const T64_RENAMED = {
 // The Caddy architecture `case` block, and not the WEKAN_ARCH one above it:
 // snapcraft.yaml has more than one `case "${CRAFT_ARCH_BUILD_FOR}" in`, and
 // taking the first match tested the wrong block while looking like it worked.
-function caddyCase() {
-  const at = yaml.indexOf('CADDY_ARCH=');
-  assert.ok(at > 0, 'the Caddy architecture mapping is gone');
-  const start = yaml.lastIndexOf('case "${CRAFT_ARCH_BUILD_FOR}" in', at);
+function caddyCaseIn(text) {
+  const at = text.indexOf('CADDY_ARCH=');
+  if (at < 0) return null;
+  const start = text.lastIndexOf('case "${CRAFT_ARCH_BUILD_FOR}" in', at);
   assert.ok(start > 0, 'the Caddy mapping is no longer a case statement');
-  const end = yaml.indexOf('esac', start);
-  return yaml.slice(start, end);
+  const end = text.indexOf('esac', start);
+  return text.slice(start, end);
+}
+
+// EVERY snapcraft file that downloads Caddy, not just the main one. The armhf
+// gap existed identically in snapcraft.yaml and snapcraft-core26.yaml, and
+// fixing one while the other kept the passthrough default is exactly how it
+// would come back the day core26 gains an armhf build.
+const CADDY_FILES = fs.readdirSync(repoRoot)
+  .filter(f => /^snapcraft.*\.ya?ml$/.test(f))
+  .filter(f => fs.readFileSync(path.join(repoRoot, f), 'utf8').includes('CADDY_ARCH='));
+
+function caddyCase() {
+  const c = caddyCaseIn(yaml);
+  assert.ok(c, 'the Caddy architecture mapping is gone');
+  return c;
 }
 
 test('snapcraft.yaml declares stage-packages at all', () => {
@@ -196,6 +210,47 @@ test('NEGATIVE: an unmapped architecture fails loudly instead of 404ing', () => 
   assert.ok(/no Caddy architecture is mapped for/.test(caseBlock),
     'the default branch must say what went wrong');
   assert.ok(/exit 1/.test(caseBlock), 'and must stop rather than 404 later');
+});
+
+test('EVERY snapcraft file that fetches Caddy has the same mapping', () => {
+  // snapcraft.yaml was fixed first; snapcraft-core26.yaml had the identical
+  // passthrough default and was missed. core26 does not build armhf today, so
+  // nothing failed - which is precisely why it would have been rediscovered by
+  // a release rather than by a test.
+  // Not "there must be two". WeKan ships core24 - snapcraft.yaml, grade:
+  // stable - because that is what may publish to the stable channel;
+  // snapcraft-core26.yaml is a variant carried alongside it at grade: devel.
+  // Either could be removed one day, so the invariant is about the files that
+  // DO fetch Caddy, not about how many there are.
+  assert.ok(CADDY_FILES.length >= 1,
+    'no snapcraft file fetches Caddy any more - this test checks nothing');
+  CADDY_FILES.forEach(f => {
+    const block = caddyCaseIn(fs.readFileSync(path.join(repoRoot, f), 'utf8'));
+    assert.ok(block, `${f} fetches Caddy but has no architecture case`);
+    assert.ok(/armhf\)\s*CADDY_ARCH=armv7\b/.test(block),
+      `${f} has no armhf -> armv7 branch; Caddy publishes no linux_armhf archive`);
+    assert.ok(!/\*\)\s*CADDY_ARCH="\$\{CRAFT_ARCH_BUILD_FOR\}"/.test(block),
+      `${f} still passes the Debian name straight through for unmapped architectures`);
+    assert.ok(/no Caddy architecture is mapped for/.test(block),
+      `${f} does not say what went wrong for an unmapped architecture`);
+  });
+});
+
+test('stock Caddy is enough - no plugin, so no xcaddy build', () => {
+  // The bundled Caddyfile is a reverse proxy and nothing else. Every directive
+  // it uses is in the standard distribution, so the official release binaries
+  // serve - which is why this downloads them instead of building Caddy from
+  // source with xcaddy. A directive from a third-party module would change
+  // that, and would not fail until Caddy refused the config at runtime.
+  const caddyfile = yaml.slice(yaml.indexOf('etc/Caddyfile'));
+  const body = caddyfile.slice(0, caddyfile.indexOf('stage:'));
+  assert.ok(/reverse_proxy\s+localhost:3000/.test(body),
+    'the default Caddyfile no longer reverse-proxies WeKan');
+  // Directives that only exist in a plugin build. If one appears, the snap
+  // needs an xcaddy build and downloading the release binary is not enough.
+  [/\bcloudflare\b/, /\broute53\b/, /\bdns\s+\w/, /\bsecurity\s*\{/, /\bgit\b/]
+    .forEach(re => assert.ok(!re.test(body),
+      `the Caddyfile uses ${re} - a plugin directive; stock Caddy cannot load it`));
 });
 
 console.log(`\n${passed} tests passed`);
