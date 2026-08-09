@@ -241,6 +241,18 @@ webhook — card title/description edits ALREADY reach the global webhook via
 from #3619/#5482; a single consolidated `act-editCard` action needs a decision
 on which fields count and whether it supplements or replaces the existing
 per-field events, to avoid duplicate webhook deliveries),
+[#6580](https://github.com/wekan/wekan/issues/6580) (CHANGELOG.md is 43,748
+lines and 2.02 MB, over the size at which GitHub refuses to render it — its
+Blame tab answers *"we can't show files that are this big"* and the file view
+truncates. Splitting it by year was tried and abandoned: git records no move,
+so a plain `git blame` on a per-year file credits every line to the commit that
+split it, and only `git blame -C` reaches the real history — which editors do
+not pass by default. That traded working local blame on eleven years of entries
+for a smaller file, and local blame is worth more. Reverting a split does not
+undo it either: the restored lines blame to the revert, so the only clean way
+back is to not land it. Any fix needs a way to shrink the file that keeps `git
+blame` working with no flag — or a decision that the trade is acceptable after
+all),
 .
 
 </details>
@@ -263,6 +275,81 @@ has not decided on yet (adds a dependency + loosens the XSS sanitizer + needs a
 browser build to verify).
 
 </details>
+
+# Upcoming WeKan ® release
+
+**In short:** the **amd64** bundle had never recorded where its Node.js and
+FerretDB came from - not because the directory was wrong, which was last
+release's fix, but because the scripts themselves were never found, and the
+`|| true` meant for release notes swallowed the error every run. The binaries
+below are v10.78's: nothing here rebuilds them.
+
+| Platform | Binary | From | Version | SHA256 |
+| --- | --- | --- | --- | --- |
+| amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
+| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-amd64) | v1.48.0 | `2737687fd29a8a761cd960e45f300b68cf7b4a87d50c4cc5280bcbd42b6aa163` |
+| arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
+| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-arm64) | v1.48.0 | `5ae705dd49515a4ecd4e295c3b9aa4f3b454fad78613ec60fb99316bd7c34e3f` |
+| loong64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-loong64.tar.xz) | v24.19.0 | `c24f224726f2d785bd18a1fd09f5e6d1fecf0269928451a60c5da9eac8e92e68` |
+| loong64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-loong64) | v1.48.0 | `06ec86263455a7b598d22a87df0e044ea73ab5a3b72e96ad12ebed03c1374ac2` |
+| mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-arm64.tar.xz) | v24.19.0 | `3f1cf157479c1480352083105e13faf9d008ede98e7e157746b6df940d197b94` |
+| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-mac-arm64) | v1.48.0 | `9b15f4c10e473cd0a2c4feb4cb43e18042bd60c7035ec66cab3cfbe13edaabab` |
+| mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
+| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-mac-amd64) | v1.48.0 | `4e188246dfa33bccef4cdd86701bc498b037cb3e91f579ff0dccb93aa0ef03ad` |
+| ppc64le | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-ppc64le.tar.xz) | v24.19.0 | `c510c6ce12f07010f771e6edb22a3fe23f4f2e6f40b1ffd4941aed0646a0d8b3` |
+| ppc64le | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-ppc64le) | v1.48.0 | `0400cd6dfc3d10d987a0fe80d75baa86c03c19170770fa2e602c92d558c3cfa6` |
+| riscv64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-riscv64.tar.xz) | v24.19.0 | `cd1f14af2812148002f58b58a5f9af512a50e3b8e8c148e0db44019dcb68edfd` |
+| riscv64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-riscv64) | v1.48.0 | `d37c35af988670b9ed182b8c5966c06a06362f6c6ace6aebd93ccdfa32c9a26b` |
+| s390x | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-s390x.tar.xz) | v24.19.0 | `a4792e65962ffa0af42627aacf1122a60c3c88dbf4e4184f06820d66f9da8ba4` |
+| s390x | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-s390x) | v1.48.0 | `6c7d61fbb8c79b2e8733be8f71910f710e8c5cd25208c451bdc513c8313b0340` |
+| win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
+| win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-win64.exe) | v1.48.0 | `ea57e1bcd153b51d2065ab01515b21ec05d8f615444c15603ab8158b8a661dd2` |
+
+This release fixes the following bug:
+
+**The release notes** - what the provenance table can say about amd64.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e59680519">The amd64 provenance scripts were never found, only never complained</a>. Thanks to xet7.</summary>
+
+The amd64 build failed with exit 127, after the bundle had been zipped and
+checksummed:
+
+```
+a95d331b…  wekan-10.78-amd64.zip
+bash: releases/record-provenance.sh: No such file or directory
+bash: releases/ferretdb-latest-tag.sh: No such file or directory
+```
+
+The step runs `cd .build` first, so nothing relative in it means what it looks
+like it means - and that is **two** bugs, of which only the second had ever been
+visible. `bash releases/record-provenance.sh` resolves against `.build/`, which
+has no `releases/`, so it had printed *"No such file or directory"* on every run
+since it was written and the `|| true` on the end swallowed it. amd64 had
+therefore never recorded any provenance at all, and the only symptom was its
+absence from the table - so the missing-directory fix above repaired the half
+that showed and left the half that did not.
+
+What made it loud is that the FerretDB tag lookup added alongside it is an
+**assignment**. Under `set -e`, and every GitHub `run:` is `bash -e`,
+`VAR="$(cmd)"` ends the step when the command fails - so a line that had been
+quietly doing nothing for months became a hard failure of the whole amd64 build.
+
+Every path in that step is absolute now, and every `FERRET_TAG` assignment
+across all seven sites ends `|| true`: the bundle is the deliverable, and which
+version string reaches a markdown cell is not worth failing a good build for.
+Only amd64's step `cd`s - the other six run from the workspace root, which is
+exactly what the v10.77 run showed, since all six uploaded provenance and amd64
+did not.
+
+The guard added with it is the general form rather than this one line: it walks
+back from every provenance call to its step header and requires an absolute path
+whenever a `cd` runs inside that step.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
 
 # v10.78 2026-08-09 WeKan ® release
 
@@ -464,8 +551,9 @@ at random is worse than showing both.
 `cd .build` before `mkdir -p provenance`, so the rows went to
 `.build/provenance` while the upload looked at `provenance/` from the workspace
 root and found nothing. Every other build job records from the workspace root,
-which is why only this one was affected. That turned out to be half the story;
-the entry below is the other half.
+which is why only this one was affected. That turned out to be half the story:
+the scripts themselves were not being found either, which the next release
+fixes.
 
 **Six platforms said Version `latest`.** amd64, arm64, win64, win32, mac-arm64
 and mac-x64 passed the literal string; only the extra-architecture job asked
@@ -480,45 +568,6 @@ release note must never fail a build that produced a good bundle.
 The table's prose also linked `wekan/node`; the binaries come from
 [wekan/node-patches](https://github.com/wekan/node-patches), which is what the
 rows themselves already linked.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/e59680519">The amd64 provenance scripts were never found, only never complained</a>. Thanks to xet7.</summary>
-
-The amd64 build failed with exit 127, after the bundle had been zipped and
-checksummed:
-
-```
-a95d331b…  wekan-10.78-amd64.zip
-bash: releases/record-provenance.sh: No such file or directory
-bash: releases/ferretdb-latest-tag.sh: No such file or directory
-```
-
-The step runs `cd .build` first, so nothing relative in it means what it looks
-like it means - and that is **two** bugs, of which only the second had ever been
-visible. `bash releases/record-provenance.sh` resolves against `.build/`, which
-has no `releases/`, so it had printed *"No such file or directory"* on every run
-since it was written and the `|| true` on the end swallowed it. amd64 had
-therefore never recorded any provenance at all, and the only symptom was its
-absence from the table - so the missing-directory fix above repaired the half
-that showed and left the half that did not.
-
-What made it loud is that the FerretDB tag lookup added alongside it is an
-**assignment**. Under `set -e`, and every GitHub `run:` is `bash -e`,
-`VAR="$(cmd)"` ends the step when the command fails - so a line that had been
-quietly doing nothing for months became a hard failure of the whole amd64 build.
-
-Every path in that step is absolute now, and every `FERRET_TAG` assignment
-across all seven sites ends `|| true`: the bundle is the deliverable, and which
-version string reaches a markdown cell is not worth failing a good build for.
-Only amd64's step `cd`s - the other six run from the workspace root, which is
-exactly what the v10.77 run showed, since all six uploaded provenance and amd64
-did not.
-
-The guard added with it is the general form rather than this one line: it walks
-back from every provenance call to its step header and requires an absolute path
-whenever a `cd` runs inside that step.
 
 </details>
 
