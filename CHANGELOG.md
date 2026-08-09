@@ -273,7 +273,10 @@ checks the repository out and its two `gh` calls were the only ones in the file
 without `--repo`. Fixed, and the matrix grows from two architectures to
 **four**:
 `i686` and `armhf` are the other two an AppImage runtime exists for. The
-binaries below are v10.77's: nothing here rebuilds them.
+**Flatpak** workflow had the same one-line bug and a second beside it - it was
+attaching the ostree repository along with the bundles - and it stays at two
+architectures, because a flatpak needs a published runtime and only x86_64 and
+aarch64 have one. The binaries below are v10.77's: nothing here rebuilds them.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -327,7 +330,7 @@ answer still fails - that is the bug the step exists for.
 
 </details>
 
-and fixes the following bug:
+and fixes the following bugs:
 
 **The release upload** - what reaches the release page.
 
@@ -360,6 +363,33 @@ They carry the escape codes of the `##[group]` header - they are the SCRIPT
 being echoed, not output - and a few lines below them `ls -lh assets` shows both
 AppImages sitting there at 225M and 227M. One line in the whole run was a real
 error.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/04fb6e338">Flatpak: attach the bundles to the release, and only the bundles</a>. Thanks to xet7.</summary>
+
+The same one-line bug as the AppImage workflow above, from the same cause: the
+job that attaches the bundles does not check the repository out - it only
+downloads artifacts - so `gh` had no git remote to infer the repository from and
+`gh release upload` failed with *"fatal: not a git repository"*. Both flatpaks
+had built and uploaded as artifacts; nothing reached the release. Every `gh`
+call in that workflow passes `--repo` now too.
+
+And a second one beside it: `assets/*` was not the bundles. The artifacts also
+carry the **ostree repository** the flatpak was exported through - `config`,
+`objects/`, `refs/`, `summaries/`, `summary`, `summary.idx` - which is build
+scaffolding, and attaching it would have put a few hundred directories on the
+release beside the two files anyone wants. The upload names the bundles and
+their checksums instead.
+
+No architectures could be added here, and the workflow header now says why
+rather than leaving it to be rediscovered. A flatpak runs against a RUNTIME, not
+the host's libraries, so an architecture exists only if freedesktop.org
+publishes `org.freedesktop.Platform` for it: x86_64 and aarch64, the i386 and
+arm runtimes having been discontinued. That is the difference from the AppImage
+work above, which could grow from two architectures to four - an AppImage
+carries its own runtime binary, and those exist for i686 and armhf as well.
 
 </details>
 
