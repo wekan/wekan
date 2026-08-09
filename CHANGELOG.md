@@ -276,7 +276,12 @@ without `--repo`. Fixed, and the matrix grows from two architectures to
 **Flatpak** workflow had the same one-line bug and a second beside it - it was
 attaching the ostree repository along with the bundles - and it stays at two
 architectures, because a flatpak needs a published runtime and only x86_64 and
-aarch64 have one. The binaries below are v10.77's: nothing here rebuilds them.
+aarch64 have one. Beside that, the **Docker** images now carry full SLSA
+**provenance** at every one of the four sites that pushes one, and a test pins
+that every **bundled binary** - FerretDB, the MongoDB Database Tools, Node.js -
+is still fetched as the NEWEST one everywhere it is fetched, which is what makes
+those projects' security fixes arrive without a commit here. The binaries below
+are v10.77's: nothing here rebuilds them.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -299,7 +304,7 @@ aarch64 have one. The binaries below are v10.77's: nothing here rebuilds them.
 | win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
 | win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-win64.exe) | v1.45.0 | `f6337994368a52d011d438c82b914b0cedb3178fd030acac8db3dab8017cee85` |
 
-This release adds the following new feature:
+This release adds the following new features:
 
 **AppImage** - which CPUs get one.
 
@@ -327,6 +332,42 @@ A check that cannot RUN is not a failed check: when the binary will not execute
 at all AND it is not this machine's architecture, it warns, says the AppImage is
 uploaded unchecked, and moves on. A build that DOES start and then does not
 answer still fails - that is the bug the step exists for.
+
+</details>
+
+**Docker images** - what an image records about how it was built.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5b3169534">Attach full build provenance at every site that pushes an image</a>. Thanks to xet7.</summary>
+
+BuildKit attaches MINIMAL provenance on its own, which is where the
+`unknown on unknown` rows beside each real platform on quay.io come from - that
+is the OCI marker for "not a runnable image", so `docker pull` never selects
+one. Minimal is a build id and a timestamp, which answers nothing anybody asks
+of a supply chain. `mode=max` records what does: which commit, which base
+image, which build arguments, which frontend.
+
+The hazard is not getting it wrong once, it is that WeKan pushes images from
+FOUR places - `docker-publish.yml`, two sites in `release-all.yml`, and
+`releases/docker-build.sh` - and a fifth added later would silently fall back to
+the default. So the test finds the call sites by searching the repository
+instead of from a list, and fails when a pushing one lacks the flag.
+
+SBOM stays off, deliberately: it enumerates every OS package and npm
+dependency, so the attestation grows from tens of kilobytes to megabytes per
+platform. Turning it on is a decision rather than a default to drift into.
+
+The `--load` build in `docker-build.sh` must NOT ask for it - the docker
+exporter cannot carry an attestation at all - and that is a test of its own, so
+the flag is not added there by symmetry one day.
+
+One more thing the test pins, because it was written the wrong way twice while
+this was being done: a `#` comment sitting among a continued command's
+arguments. `docker buildx build \` followed by a comment line comments out the
+REST OF THE JOINED LINE, so the command becomes a bare `docker buildx build`
+with every platform, tag and flag swallowed. `bash -n` accepts it - it is valid
+syntax, just a different command - and a YAML `run:` block is a shell script,
+which is where it happened the first time.
 
 </details>
 
@@ -390,6 +431,50 @@ publishes `org.freedesktop.Platform` for it: x86_64 and aarch64, the i386 and
 arm runtimes having been discontinued. That is the difference from the AppImage
 work above, which could grow from two architectures to four - an AppImage
 carries its own runtime binary, and those exist for i686 and armhf as well.
+
+</details>
+
+and has the following developer-facing change:
+
+**Bundled binaries** - keeping "newest" true everywhere it is claimed.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ce69db8c5">Pin that every bundled binary is fetched as the newest one</a>. Thanks to xet7.</summary>
+
+WeKan ships binaries other projects publish - FerretDB, the MongoDB Database
+Tools, Node.js - and fetches each from a release URL. There are many such URLs,
+across workflows, release scripts and compose files, and they must all agree:
+one that names a fixed version stops receiving that project's security fixes
+silently, and nothing about the build fails when it does.
+
+That is not hypothetical. A Quay scan of the v10.77 image reported Go
+advisories in the FerretDB binary baked into the bundle - `stdlib 1.25.9`
+wanting 1.25.11, `golang.org/x/sys v0.38.0` wanting 0.44.0. The source was
+already fixed and v1.48.0 was already published carrying `go1.25.11` and
+`x/sys v0.46.0`; the image had simply captured an older `latest` at build time.
+Had any of these URLs been pinned instead, the rebuild would not have fixed it
+either.
+
+The URLs are found by searching the repository rather than from a list, so a
+build site added later is checked too, and three shapes are accepted:
+`latest/download/<asset>`, the bare `latest` API endpoint that `release-all.yml`
+asks which version `latest` resolved to so the provenance table can record it,
+and `${VAR}` whose default is separately asserted to be `latest` - that is
+`FERRETDB_RELEASE` in the compose files, which an operator may pin for their own
+reasons but which must not freeze everybody who does not.
+
+Node.js is a different mechanism with the same effect, so it is pinned too:
+`NODE_VERSION` is the bare major `24`, and `releases/resolve-node-source.sh`
+answers with that CPU's newest 24.x from whichever of nodejs.org,
+unofficial-builds or [wekan/node-patches](https://github.com/wekan/node-patches)
+has one.
+
+What makes `latest` safe rather than merely convenient is the provenance table
+above: rebuilding an old release would embed a different FerretDB than it
+shipped with, and the only reason that is a trade rather than a hole is that
+every release RECORDS the versions and SHA256s it actually shipped. So that is
+asserted here as well - `releases/record-provenance.sh` exists, and the
+CHANGELOG still carries the table it produces.
 
 </details>
 
