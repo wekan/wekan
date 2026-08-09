@@ -55,8 +55,24 @@ The compose files do not use a FerretDB image: a small Debian container download
 the `ferretdb-<arch>` binary for its own architecture from the newest
 [wekan/FerretDB release](https://github.com/wekan/FerretDB/releases), caches it on
 the volume and runs it. Pin a version with `FERRETDB_RELEASE=download/v1.24.2`.
-The same per-arch binaries are embedded in the WeKan bundles for the platforms
-MongoDB has no server build for — ppc64le, s390x, riscv64.
+
+**Seventeen of those binaries are built**, all cross-compiled from one checkout
+with CGO disabled: ten Linux (`amd64`, `arm64`, `armhf`, `armv6`, `armel`,
+`i386`, `ppc64le`, `s390x`, `riscv64`, `loong64`), three Windows (`win64`,
+`win-arm64`, `win32`), two macOS (`mac-amd64`, `mac-arm64`) and two FreeBSD
+(`freebsd-amd64`, `freebsd-arm64`). The 32-bit ARM ones are three different
+builds, not three names for one: `armhf` is `GOARM=7`, `armv6` is `GOARM=6` for
+the Raspberry Pi 1 and Zero, and `armel` is `GOARM=5` software floating point for
+genuine ARMv5.
+
+A `ferretdb-<arch>` binary is embedded in **every** WeKan bundle, and it is the
+default database on the platforms MongoDB publishes no server for — ppc64le,
+s390x, riscv64, i386, armv6 and armhf — where nothing else can be. There is also
+a multi-arch image (`wekanteam/ferretdb`, `quay.io/wekan/ferretdb`,
+`ghcr.io/wekan/ferretdb`) built `FROM scratch` around these same binaries, which
+is why it covers every Linux one of them, including `linux/arm/v6` and
+`linux/loong64` that the WeKan image cannot reach — see
+[Docker CPU platforms](../../../Platforms/FOSS/Container/Docker/CPU-platforms.md).
 
 The `hana` handler is behind the `ferretdb_hana` build tag; the released binaries
 are built with it, so `--handler=hana` exists. A FerretDB built elsewhere without

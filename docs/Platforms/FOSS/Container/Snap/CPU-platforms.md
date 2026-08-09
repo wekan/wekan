@@ -10,8 +10,8 @@ and how the one-time MongoDB 3 → FerretDB v1 migration works.
   FerretDB v1 is the wekan/FerretDB fork with an embedded pure-Go SQLite backend
   that speaks the MongoDB wire protocol, so WeKan talks to it exactly like MongoDB.
 - **Six architectures are built as snaps**: amd64, arm64, armhf, ppc64el, riscv64
-  and s390x — exactly `snapcraft.yaml`'s `build-for:` list. i386 and armv7 are
-  release bundles but **not** snaps, for reasons that are not oversights; see
+  and s390x — exactly `snapcraft.yaml`'s `build-for:` list. i386, armv6 and armv7
+  are release bundles but **not** snaps, for reasons that are not oversights; see
   [CPU architecture names](#cpu-architecture-names-and-what-they-mean).
 - **MongoDB 7 *server* binaries (mongod) are included for amd64 and arm64 only.**
   The other architectures (armhf, ppc64el, riscv64, s390x) have no MongoDB server
@@ -91,6 +91,32 @@ the `armhf` bundle, and **`armv7` has no snap** — it ships as a bundle only. A
 separate snap name or track would be the only way to offer the NEON build, which
 is not worth a second listing for one board family.
 
+### armv6 has no snap, because the store has no such architecture
+
+ARMv6 is the Raspberry Pi 1 and the Pi Zero: 32-bit ARM with **VFPv2** hardware
+floating point and **no NEON**. The Snap Store's only 32-bit ARM architecture is
+`armhf`, which is the **ARMv7-A** hard-float baseline — an ARMv6 board cannot run
+an armhf snap, and there is no armv6 architecture to publish one as. So there is
+nothing to fix here and nothing to add: **armv6 ships as a release bundle zip**,
+and nothing else in the Snap Store. (It is a candidate platform of the Docker
+image too, gated on a base image that publishes `linux/arm/v6` — see
+[Docker CPU platforms](../Docker/CPU-platforms.md#armv6-wired-end-to-end-waiting-on-a-base-image).)
+
+It is a separate build from armhf all the way down, not a re-tag of it:
+[wekan/node-patches](https://github.com/wekan/node-patches) builds `node-armv6`
+(`--with-arm-fpu=vfp`, `-march=armv6+fp`) because nobody publishes an ARMv6
+Node.js any more — nodejs.org dropped it after Node 11 —
+and [wekan/FerretDB](https://github.com/wekan/FerretDB) and
+[wekan/mongo-tools-patches](https://github.com/wekan/mongo-tools-patches) build
+`GOARM=6` binaries beside their armhf ones. Their `armel` (`GOARM=5`) would run
+on an ARMv6 board, which is what makes it look like a substitute: it does
+floating point in **software**, so it is not one.
+
+`models/lib/snapArchitectures.js` records this reason in
+`NOT_SNAP_ARCHITECTURES`, beside i386's and armv7's, and
+`tests/releaseSnapArches.test.cjs` asserts armv6 is neither a snap platform nor a
+Launchpad build.
+
 ### i386 has no snap, and cannot have a new one
 
 core24 is Ubuntu 24.04, which has **no i386 port**, so there is no i386 core24
@@ -107,10 +133,23 @@ version `0.X-ci`) because the store keeps whatever was ever uploaded. It is year
 stale, nothing new can be built for it, and re-releasing it would only re-publish
 `0.X-ci`. **i386 users are served by the .deb and the AppImage.**
 
-### loong64, win64, win32, mac-x64, mac-arm64
+### loong64, win64, win32, win-arm64, mac-x64, mac-arm64
 
 Bundle platforms with no Snap Store architecture at all. They are not snaps and
 are not expected to be.
+
+### The whole bundle list, and which of it is a snap
+
+The release builds fifteen bundles; six of them become snaps. The rest are
+bundles (and, for some, Docker images) only:
+
+| Bundle | Snap? | Why not |
+|--------|-------|---------|
+| `amd64`, `arm64`, `armhf`, `ppc64le` (→ `ppc64el`), `riscv64`, `s390x` | ✅ | — |
+| `armv6` | ❌ | the store has no armv6 architecture |
+| `armv7` | ❌ | the store's one 32-bit ARM slot must carry the armhf baseline |
+| `i386` | ❌ | core24 has no i386 port |
+| `loong64`, `win64`, `win32`, `win-arm64`, `mac-x64`, `mac-arm64` | ❌ | no Snap Store architecture at all |
 
 ## New installs
 
@@ -288,6 +327,8 @@ manual step.
 
 ## Related
 
+- [Docker CPU platforms](../Docker/CPU-platforms.md) — the same page for the
+  Docker image, which has a different platform list and different reasons
 - FerretDB v1 fork: https://github.com/wekan/FerretDB
 - Snap install: [Install.md](Install.md)
 - Snap settings keys: [Supported-settings-keys.md](Supported-settings-keys.md)

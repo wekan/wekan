@@ -1,3 +1,6 @@
+Which CPU platforms the image is published for, and why some bundle platforms are
+not images: [CPU-platforms.md](CPU-platforms.md).
+
 ## WeKan Docker compose files (which database?)
 
 Since the default database changed, the compose files in https://github.com/wekan/wekan are:
