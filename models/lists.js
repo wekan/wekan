@@ -328,8 +328,23 @@ Lists.helpers({
         await card.move(boardId, this._id, boardList._id);
       }
     } else {
-      console.log('list.title:', this.title);
-      console.log('boardList:', boardList);
+      // A list with no usable title cannot be inserted: `title` is required by
+      // the schema, so the insert fails validation - and collection2's own error
+      // formatter then reads a property of the undefined field and throws
+      //   ValidationError: Failed validation
+      //   Cannot read properties of undefined (reading 'title')
+      // which is what an admin actually saw in Admin Panel / Problems /
+      // Database problems: an opaque crash naming neither the list nor the
+      // real problem. Say what is wrong instead, and say it before the insert.
+      // (The two console.log lines that used to be here printed it to a log
+      // nobody reads and did not stop the crash.)
+      if (typeof this.title !== 'string' || this.title.trim().length === 0) {
+        throw new Meteor.Error(
+          'list-has-no-title',
+          'This list has no title, so it cannot be moved to another board. ' +
+            'Give it a title first.',
+        );
+      }
       listId = await Lists.insertAsync({
         title: this.title,
         boardId,

@@ -1863,7 +1863,29 @@ Boards.helpers({
     // Upsert keyed on the deterministic _id: concurrent self-heals collide on
     // the _id unique index, so only one insert wins instead of racing the
     // check-then-insert and each inserting a new swimlane.
-    Swimlanes.upsert({ _id: defaultId }, { $setOnInsert: this.defaultSwimlaneFields() });
+    //
+    // It must be the ASYNC upsert. Meteor 3 removed the synchronous one on the
+    // server, and calling it threw
+    //   Error: update is not available on the server. Please use updateAsync()
+    // out of every `moveSwimlane` that reached this self-heal - the failure an
+    // admin kept seeing in Admin Panel / Problems / Database problems. This
+    // getter is SYNCHRONOUS and cannot await, so the upsert is started and not
+    // waited for: the self-heal still happens, and this call returns whatever
+    // is in the cache, which the caller already had to handle (it was undefined
+    // before the self-heal existed too). A caller that needs the swimlane back
+    // in the same tick uses ensureDefaultSwimlaneIdAsync().
+    try {
+      const p = Swimlanes.upsertAsync(
+        { _id: defaultId },
+        { $setOnInsert: this.defaultSwimlaneFields() },
+      );
+      if (p && typeof p.catch === 'function') p.catch(() => {});
+    } catch (e) {
+      if (process.env.DEBUG === 'true') {
+        // eslint-disable-next-line no-console
+        console.warn('default swimlane self-heal failed:', e && e.message);
+      }
+    }
     return ReactiveCache.getSwimlane({ _id: defaultId });
   },
 

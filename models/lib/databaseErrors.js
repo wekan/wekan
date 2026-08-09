@@ -20,6 +20,41 @@ const DATABASES = ['mongodb', 'sqlite', 'postgresql', 'mysql', 'mariadb', 'hana'
 // doing it is obviously right. Everything else is advice, because a database
 // that is out of disk is not something an application should "handle".
 const RULES = [
+  // ── WeKan's own bugs, arriving as database errors ─────────────────────────
+  //
+  // These two filled Admin Panel / Problems / Database problems with rows
+  // marked "unknown / unclassified", whose advice was "add a rule to
+  // models/lib/databaseErrors.js". They are not the database's fault and there
+  // is nothing an admin can configure: they are WeKan calling the database
+  // wrongly, so the rule says so and names the version that fixes it rather
+  // than sending the admin to read a stack trace.
+  {
+    id: 'meteor3-sync-api',
+    match: /(update|insert|remove|upsert|find\w*) is not available on the server\. Please use \w+Async\(\) instead/i,
+    databases: ['mongodb', 'sqlite', 'postgresql', 'mysql', 'mariadb', 'hana'],
+    severity: 'warning',
+    kind: 'bug',
+    means: 'WeKan called a synchronous collection method on the server, which Meteor 3 removed. ' +
+      'The operation did not happen.',
+    whatToDo: 'A WeKan bug, not a database or configuration problem. Upgrade WeKan; if it ' +
+      'persists on the newest version, report it at https://github.com/wekan/wekan/issues ' +
+      'with the method name from the message.',
+    act: null,
+  },
+  {
+    id: 'schema-validation',
+    match: /ValidationError: Failed validation|Cannot read properties of undefined \(reading 'title'\)/i,
+    databases: ['mongodb', 'sqlite', 'postgresql', 'mysql', 'mariadb', 'hana'],
+    severity: 'warning',
+    kind: 'bug',
+    means: 'A write was refused because the document did not match its schema - usually a ' +
+      'required field that was empty. The document was not saved.',
+    whatToDo: 'Check whether the item named in the message is missing a title or another ' +
+      'required field, and fill it in. If nothing obvious is missing, it is a WeKan bug: ' +
+      'report it at https://github.com/wekan/wekan/issues with the method name.',
+    act: null,
+  },
+
   // ── injection and malformed SQL: FerretDB's bug, never the admin's ────────
   {
     id: 'sql-guard-refused',
