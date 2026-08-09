@@ -264,6 +264,108 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** the **AppImage** workflow. It built both AppImages, started them,
+waited for WeKan to answer on port 8080, uploaded them as artifacts - and then
+attached nothing to the release, because the job that does the attaching never
+checks the repository out and its two `gh` calls were the only ones in the file
+without `--repo`. Fixed, and the matrix grows from two architectures to
+**four**:
+`i686` and `armhf` are the other two an AppImage runtime exists for. The
+binaries below are v10.77's: nothing here rebuilds them.
+
+| Platform | Binary | From | Version | SHA256 |
+| --- | --- | --- | --- | --- |
+| amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
+| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-amd64) | v1.45.0 | `94713f605167abb45a3717482d35de4824cb4a8f199c1400e826a8a2b04f3893` |
+| arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
+| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-arm64) | v1.45.0 | `275ae50ac97e6a70eee72e6de37766c458775c5997c896352db5189c6cf1f04b` |
+| loong64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-loong64.tar.xz) | v24.19.0 | `c24f224726f2d785bd18a1fd09f5e6d1fecf0269928451a60c5da9eac8e92e68` |
+| loong64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-loong64) | v1.45.0 | `28bf67981168dfc4bd67698b41dd62628aafe347a77f2b1e6ffcadf009d575e0` |
+| mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-arm64.tar.xz) | v24.19.0 | `3f1cf157479c1480352083105e13faf9d008ede98e7e157746b6df940d197b94` |
+| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-mac-arm64) | v1.45.0 | `639ed58b84820b3d588f4161c64d0ab940d0cc6e7d022088d60c2b0b97f99f8e` |
+| mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
+| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-mac-amd64) | v1.45.0 | `fd519903f5630e881e38e7c5814f00c0e89ad26f6785f1ddcbab4058356fc9f3` |
+| ppc64le | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-ppc64le.tar.xz) | v24.19.0 | `c510c6ce12f07010f771e6edb22a3fe23f4f2e6f40b1ffd4941aed0646a0d8b3` |
+| ppc64le | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-ppc64le) | v1.45.0 | `de4518c7774d302533369c477759ddd866785d6741d98d399388eb8de3df175a` |
+| riscv64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-riscv64.tar.xz) | v24.19.0 | `cd1f14af2812148002f58b58a5f9af512a50e3b8e8c148e0db44019dcb68edfd` |
+| riscv64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-riscv64) | v1.45.0 | `7dc2952f554e8800c4029577901999e06e10272da686f7e402177080067028f9` |
+| s390x | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-s390x.tar.xz) | v24.19.0 | `a4792e65962ffa0af42627aacf1122a60c3c88dbf4e4184f06820d66f9da8ba4` |
+| s390x | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-s390x) | v1.45.0 | `0ae2e2f2cffdc5dd2ea4f125281a5e12eea216fbe49b5561d9c001700c3fc0c1` |
+| win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
+| win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-win64.exe) | v1.45.0 | `f6337994368a52d011d438c82b914b0cedb3178fd030acac8db3dab8017cee85` |
+
+This release adds the following new feature:
+
+**AppImage** - which CPUs get one.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/97e57e531">Build the other two architectures an AppImage runtime exists for</a>. Thanks to xet7.</summary>
+
+x86_64 and aarch64 become four, with **i686** and **armhf**. That is the whole
+set: an AppImage BEGINS with a runtime binary the kernel executes, and runtimes
+exist for exactly those four. `ppc64le`, `s390x`, `riscv64` and `loong64` have
+none, so they cannot have an AppImage however the job is written - they are
+served by the bundle zip and the .deb, and the matrix now says so where somebody
+would otherwise try.
+
+The two are not equally safe and are not treated as though they were. **i686**
+builds on the x86_64 runner, which runs 32-bit x86 natively: no emulation, no
+multiarch, `appimagetool-i686` runs as-is. **armhf** builds on the aarch64
+runner, which runs 32-bit ARM only if the kernel has `CONFIG_COMPAT` and the
+32-bit loader is installed - GitHub promises neither - so it is
+`continue-on-error`, the same treatment TSC gives its emulated armhf job. It
+cannot decide whether the other three reach the release.
+
+The smoke test needed the distinction too. It starts the AppImage and waits for
+port 8080, which a 64-bit runner cannot do for a 32-bit build it cannot execute.
+A check that cannot RUN is not a failed check: when the binary will not execute
+at all AND it is not this machine's architecture, it warns, says the AppImage is
+uploaded unchecked, and moves on. A build that DOES start and then does not
+answer still fails - that is the bug the step exists for.
+
+</details>
+
+and fixes the following bug:
+
+**The release upload** - what reaches the release page.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fa296d0c8">Attach the built AppImages to the release again</a>. Thanks to xet7.</summary>
+
+Both AppImages built. Both passed the smoke test that starts them and waits for
+WeKan to answer. Both uploaded as artifacts, and both were downloaded by the
+attaching job with matching SHA256 digests. Then:
+
+```
+gh release upload 'v10.77' assets/* --clobber
+failed to run git: fatal: not a git repository
+```
+
+That job does not check the repository out - it has no reason to, it only
+downloads artifacts - so `gh` had no git remote to infer the repository from.
+Every other `gh` call in the workflow already passed `--repo`; those two did
+not.
+
+Every call passes it now, including the ones in jobs that DO check out: a call
+relying on an inferred remote breaks the day somebody removes the checkout, and
+the error it gives names neither `gh` nor the workflow.
+
+Worth recording for whoever reads that failed run, because the log looks far
+worse than the bug: `::error::` lines appear in the build jobs for the
+bundle-file check and the port check, and in the attaching job for "no
+architecture produced an AppImage - every build job failed". None of them fired.
+They carry the escape codes of the `##[group]` header - they are the SCRIPT
+being echoed, not output - and a few lines below them `ls -lh assets` shows both
+AppImages sitting there at 225M and 227M. One line in the whole run was a real
+error.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.77 2026-08-09 WeKan ® release
 
 **In short:** the **snap** side, which had three problems that looked like one.
