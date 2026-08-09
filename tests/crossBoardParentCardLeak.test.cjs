@@ -185,10 +185,17 @@ test('the assigned-only member restriction survived the de-duplication', () => {
   assert.ok(/cardSelector\.assignees = \{ \$in: \[thisUserId\] \}/.test(helper));
 });
 
-test('the helper is memoized per board, so five cursors are not five sets of queries', () => {
-  const helper = publication.match(/const _linkedIdsByBoard = new Map\(\);[\s\S]*?\n  \};/)[0];
-  assert.ok(/_linkedIdsByBoard\.has\(board\._id\)/.test(helper));
-  assert.ok(/_linkedIdsByBoard\.set\(board\._id, compute\)/.test(helper));
+test('the helper is NOT cached across a cursor re-run', () => {
+  // It was, briefly. publishComposite re-runs a child's find() when the parent
+  // document changes, so a cache living for the whole subscription serves the
+  // ids computed the FIRST time forever: a linked card added later would never
+  // be published, and one removed would go on being published. The five cursors
+  // each ran these queries before the helper existed, so computing per call is
+  // the cost they always had - and it is correct.
+  assert.ok(!/_linkedIdsByBoard/.test(publication),
+    'no subscription-lifetime cache of the linked card ids');
+  const helper = publication.match(/const visibleLinkedCardIds = async board => \{[\s\S]*?\n  \};/)[0];
+  assert.ok(/NOT memoized/.test(helper), 'and the reason is written where the next reader is');
 });
 
 // ------------------------------------------- no hand-written visibility copies

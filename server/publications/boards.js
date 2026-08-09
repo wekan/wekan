@@ -686,10 +686,15 @@ publishComposite('board', async function(boardId, isArchived) {
   //
   // The five cursors used to repeat this preamble verbatim; sharing it is also
   // what stops the next one from being written without the check.
-  const _linkedIdsByBoard = new Map();
   const visibleLinkedCardIds = async board => {
-    if (_linkedIdsByBoard.has(board._id)) return _linkedIdsByBoard.get(board._id);
-
+    // NOT memoized. An earlier version cached the result per board to spare the
+    // five cursors their duplicate queries - but publishComposite re-runs a
+    // child's find() when the parent document changes, and a cache that lives
+    // for the whole subscription would then serve the ids computed the FIRST
+    // time forever: a linked card added later would never be published, and one
+    // removed would go on being published. The five cursors each ran these same
+    // queries before this helper existed, so computing per call is exactly the
+    // cost they always had, and it is correct.
     const compute = (async () => {
       const cardSelector = {
         ...boardCardScope(board),
@@ -723,7 +728,6 @@ publishComposite('board', async function(boardId, isArchived) {
       return (linked || []).filter(c => allowedBoardIds.has(c.boardId)).map(c => c._id);
     })();
 
-    _linkedIdsByBoard.set(board._id, compute);
     return compute;
   };
 
