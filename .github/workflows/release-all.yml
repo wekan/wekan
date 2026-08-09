@@ -3550,6 +3550,19 @@ jobs:
             fi
           done
           echo "::error::Remote build ${{ matrix.arch }} failed after $attempts attempts (no wekan_${VERSION}_${{ matrix.arch }}.snap produced). The Launchpad build log printed above says why; the builds are also at https://launchpad.net/~xet7/+snaps" >&2
+          # A DETERMINISTIC failure, named before the guesses below. Three
+          # identical attempts on ONE architecture while the others build on
+          # attempt 1 is not the build farm having a bad day - and the guidance
+          # below ("often an OOM, or a transient reset; re-run") sent v10.77's
+          # armhf failure down exactly that path. snapcraft ends a missing
+          # stage-package as a "Stopped" build with no artifact, which looks
+          # identical to a cancelled one from the outside; the difference is one
+          # line in the log, so say it here rather than leave it to be found.
+          if grep -qs 'Stage package not found' snapcraft-wekan-*.txt; then
+            missingpkg="$(grep -hs -o "Stage package not found in part '[^']*': [^ ]*" snapcraft-wekan-*.txt | sort -u | tr '\n' ' ')"
+            echo "::error::This is NOT a transient failure and re-running will not fix it: ${missingpkg}. A stage-package that resolves on the 64-bit architectures can be missing on ${{ matrix.arch }} - Ubuntu 24.04's 64-bit time_t transition renamed libraries to a t64 suffix, and the renamed package carries 'Provides: <old name>' on amd64/arm64 but NOT on armhf, where the ABI really changed. Name the real package in snapcraft.yaml (libssl3 -> libssl3t64, libcurl4 -> libcurl4t64, libgoogle-perftools4 -> libgoogle-perftools4t64). Check a name against the archive: curl -fsSL http://ports.ubuntu.com/ubuntu-ports/dists/noble/main/binary-armhf/Packages.gz | gunzip -c | grep '^Package: <name>$'" >&2
+            exit 1
+          fi
           # A "Stopped" build with no artifact is Launchpad ENDING the build
           # itself, not a compile error in it. Two causes, in the order to check:
           #   1. The auto-generated Launchpad PROJECT (xet7-craft-remote-build)

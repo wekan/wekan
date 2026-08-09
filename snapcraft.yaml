@@ -201,9 +201,25 @@ parts:
         # against the noble archive: libssl3t64 is published for amd64, arm64,
         # armhf, i386, ppc64el, riscv64 and s390x, and libgoogle-perftools4t64
         # for every one of those except i386 - which builds no snap.
+        #
+        # libcurl4 was the SAME transition, left behind when those two were
+        # renamed, and it failed the v10.77 armhf snap the same way and for the
+        # same reason:
+        #     Stage package not found in part 'mongodb': libcurl4.
+        # while s390x, ppc64el and riscv64 all built on attempt 1. Checked
+        # against the noble indices the same way: `libcurl4` is not a real
+        # package on ANY architecture - the binary is `libcurl4t64` everywhere -
+        # and on amd64/arm64 it carries `Provides: libcurl4 (= 8.5.0-2ubuntu10)`
+        # so the old name resolves, while the armhf libcurl4t64 has no Provides
+        # line at all. That is what makes this class of bug reach exactly one
+        # architecture and look like flakiness on it.
+        #
+        # Every other stage-package below was checked against the noble armhf
+        # main+universe indices at the same time; libcurl4 was the only one that
+        # did not resolve.
         stage-packages:
             - libssl3t64
-            - libcurl4
+            - libcurl4t64
             - libstemmer0d
             - zlib1g
             - libsnappy1v5
