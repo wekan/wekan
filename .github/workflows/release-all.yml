@@ -623,21 +623,40 @@ jobs:
           cat "wekan-${VERSION}-amd64.zip.sha256sum"
           # Where this bundle's binaries came from, for the release notes.
           #
-          # $GITHUB_WORKSPACE, not a relative path: this step ran `cd .build`
-          # above, so `mkdir -p provenance` made .build/provenance while the
-          # upload-artifact below looks at provenance/ from the workspace root.
-          # It found nothing - "No files were found with the provided path:
-          # provenance/" - and amd64, the platform most people download, was the
-          # one bundle missing from the v10.77 release-notes table. Every other
-          # build job records from the workspace root, which is why only this one
-          # was affected.
+          # EVERY path here is absolute, because this step ran `cd .build` above
+          # and NOTHING relative means what it looks like it means from inside
+          # it. Both halves of that bit:
+          #
+          #   The SCRIPT. `bash releases/record-provenance.sh` resolves against
+          #   .build/, which has no releases/ - so it was
+          #       bash: releases/record-provenance.sh: No such file or directory
+          #   every single run, and the `|| true` on the end swallowed it. amd64
+          #   had therefore never recorded anything, and the only visible symptom
+          #   was its absence from the release-notes table.
+          #
+          #   The OUTPUT. `mkdir -p provenance` makes .build/provenance, while
+          #   the upload-artifact below looks at provenance/ from the workspace
+          #   root - "No files were found with the provided path: provenance/".
+          #
+          # Every other build job records from the workspace root, which is why
+          # only this one was affected by either.
+          #
+          # The `|| true` stays on the record calls: a release note must not fail
+          # a build that produced a good bundle. It is exactly what hid this for
+          # so long, so the absolute paths are what make it honest rather than
+          # the error handling.
           mkdir -p "$GITHUB_WORKSPACE/provenance"
-          PROVENANCE_FILE="$GITHUB_WORKSPACE/provenance/amd64.tsv" bash releases/record-provenance.sh \
+          PROVENANCE_FILE="$GITHUB_WORKSPACE/provenance/amd64.tsv" bash "$GITHUB_WORKSPACE/releases/record-provenance.sh" \
             'amd64' 'Node.js' "${NODE_FROM:-}" "${NODE_FULL:-$NODE_VERSION}" \
             "${NODE_URL:-}" \
             "${NODE_SHA256:-}" || true
-          FERRET_TAG="$(bash releases/ferretdb-latest-tag.sh)"
-          PROVENANCE_FILE="$GITHUB_WORKSPACE/provenance/amd64.tsv" bash releases/record-provenance.sh \
+          # ...and `|| true` here too, for the same reason: this is an
+          # ASSIGNMENT, so under `set -e` a missing script ends the step with
+          # exit 127 - which is what this line did on v10.78 before the path was
+          # made absolute, failing the whole amd64 build after the zip was
+          # already built and checksummed.
+          FERRET_TAG="$(bash "$GITHUB_WORKSPACE/releases/ferretdb-latest-tag.sh" || true)"
+          PROVENANCE_FILE="$GITHUB_WORKSPACE/provenance/amd64.tsv" bash "$GITHUB_WORKSPACE/releases/record-provenance.sh" \
             'amd64' 'FerretDB' 'wekan/FerretDB' "${FERRET_TAG:-latest}" \
             'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-amd64' \
             "${FERRET_SHA:-}" || true
@@ -842,7 +861,7 @@ jobs:
             'arm64' 'Node.js' "${NODE_FROM:-}" "${NODE_FULL:-$NODE_VERSION}" \
             "${NODE_URL:-}" \
             "${NODE_SHA256:-}" || true
-          FERRET_TAG="$(bash releases/ferretdb-latest-tag.sh)"
+          FERRET_TAG="$(bash releases/ferretdb-latest-tag.sh || true)"
           PROVENANCE_FILE=provenance/arm64.tsv bash releases/record-provenance.sh \
             'arm64' 'FerretDB' 'wekan/FerretDB' "${FERRET_TAG:-latest}" \
             'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-arm64' \
@@ -1230,7 +1249,7 @@ jobs:
             "${node_url:-}" \
             "${node_sha256:-}" || true
           if [ -s bundle/ferretdb.exe ]; then
-            FERRET_TAG="$(bash src/releases/ferretdb-latest-tag.sh)"
+            FERRET_TAG="$(bash src/releases/ferretdb-latest-tag.sh || true)"
             PROVENANCE_FILE=provenance/win64.tsv bash src/releases/record-provenance.sh \
               'win64' 'FerretDB' 'wekan/FerretDB' "${FERRET_TAG:-latest}" \
               'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win64.exe' \
@@ -1573,7 +1592,7 @@ jobs:
             "${node_url:-}" \
             "${node_sha256:-}" || true
           if [ -s bundle/ferretdb.exe ]; then
-            FERRET_TAG="$(bash src/releases/ferretdb-latest-tag.sh)"
+            FERRET_TAG="$(bash src/releases/ferretdb-latest-tag.sh || true)"
             PROVENANCE_FILE=provenance/win32.tsv bash src/releases/record-provenance.sh \
               'win32' 'FerretDB' 'wekan/FerretDB' "${FERRET_TAG:-latest}" \
               'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win32.exe' \
@@ -1818,7 +1837,7 @@ jobs:
             "${node_url:-}" \
             "${node_sha256:-}" || true
           if [ -s bundle/ferretdb ]; then
-            FERRET_TAG="$(bash releases/ferretdb-latest-tag.sh)"
+            FERRET_TAG="$(bash releases/ferretdb-latest-tag.sh || true)"
             PROVENANCE_FILE=provenance/mac-arm64.tsv bash releases/record-provenance.sh \
               'mac-arm64' 'FerretDB' 'wekan/FerretDB' "${FERRET_TAG:-latest}" \
               'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-mac-arm64' \
@@ -2071,7 +2090,7 @@ jobs:
             "${node_url:-}" \
             "${node_sha256:-}" || true
           if [ -s bundle/ferretdb ]; then
-            FERRET_TAG="$(bash releases/ferretdb-latest-tag.sh)"
+            FERRET_TAG="$(bash releases/ferretdb-latest-tag.sh || true)"
             PROVENANCE_FILE=provenance/mac-x64.tsv bash releases/record-provenance.sh \
               'mac-x64' 'FerretDB' 'wekan/FerretDB' "${FERRET_TAG:-latest}" \
               'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-mac-amd64' \
@@ -2436,7 +2455,7 @@ jobs:
           else
             echo "::warning::wekan/FerretDB publishes no checksum for ferretdb-${{ matrix.ferretdb_arch }} on this release, so it is unverified."
           fi
-          FERRET_TAG="$(bash releases/ferretdb-latest-tag.sh)"
+          FERRET_TAG="$(bash releases/ferretdb-latest-tag.sh || true)"
           bash releases/record-provenance.sh '${{ matrix.arch }}' 'FerretDB' \
             'wekan/FerretDB' "${FERRET_TAG:-latest}" "$FERRET_URL" "$FERRET_SHA"
           # Overwrite the inherited amd64 MongoDB Database Tools with this arch's ones.

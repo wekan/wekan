@@ -227,7 +227,7 @@ test('every FerretDB provenance call resolves the tag first', () => {
       `${WORKFLOW}:${c.i + 1} does not use the resolved tag:\n    ${c.l.trim()}`);
     // ...and FERRET_TAG has to have been set just above it.
     const above = lines.slice(Math.max(0, c.i - 4), c.i).join('\n');
-    assert.ok(/FERRET_TAG="\$\(bash \S*ferretdb-latest-tag\.sh\)"/.test(above),
+    assert.ok(/FERRET_TAG="\$\(bash [^\n]*ferretdb-latest-tag\.sh/.test(above),
       `${WORKFLOW}:${c.i + 1} uses FERRET_TAG without resolving it above`);
   });
 });
@@ -331,6 +331,47 @@ test('and that upload can never fail the job it is diagnosing', () => {
   const step = src.slice(src.lastIndexOf('- uses: actions/upload-artifact', i), i);
   assert.ok(/continue-on-error:\s*true/.test(step),
     'the snap is the deliverable; saving its log must not be able to fail it');
+});
+
+test('THE BUG: a call inside a step that cds uses an ABSOLUTE script path', () => {
+  // `cd .build` makes `bash releases/record-provenance.sh` resolve against
+  // .build/, which has no releases/ - so every run printed
+  //     bash: releases/record-provenance.sh: No such file or directory
+  // and the `|| true` on the end swallowed it. amd64 had never recorded
+  // anything; the only visible symptom was its absence from the table, which
+  // is why the missing directory looked like the whole story.
+  //
+  // It only became loud when the FerretDB tag lookup was added: that is an
+  // ASSIGNMENT, so under `set -e` a missing script ends the step, and v10.78's
+  // amd64 build failed with exit 127 after the zip was built and checksummed.
+  const lines = read(WORKFLOW).split('\n');
+  const offenders = [];
+  lines.forEach((ln, i) => {
+    if (!/record-provenance\.sh|ferretdb-latest-tag\.sh/.test(ln)) return;
+    if (/^\s*#/.test(ln)) return;
+    // Walk back to this step's header, then look for a cd inside it.
+    let s = i;
+    while (s > 0 && !/^      - (name|uses):/.test(lines[s])) s -= 1;
+    const step = lines.slice(s, i);
+    const cds = step.filter(l => /^\s*cd\s+\S/.test(l) && !/^\s*#/.test(l));
+    if (!cds.length) return;                       // runs from the workspace root
+    if (/\$\{?GITHUB_WORKSPACE\}?/.test(ln)) return;  // already absolute
+    offenders.push(`${WORKFLOW}:${i + 1} after \`${cds[cds.length - 1].trim()}\`:\n    ${ln.trim()}`);
+  });
+  assert.deepStrictEqual(offenders, [],
+    'a relative path after a cd resolves somewhere else entirely');
+});
+
+test('a release-note lookup can never fail the build it annotates', () => {
+  // `VAR="$(cmd)"` under `set -e` exits the step when cmd fails, and every
+  // GitHub `run:` is `bash -e`. The bundle is the deliverable; which version
+  // string ends up in a markdown cell is not worth failing it for.
+  const lines = read(WORKFLOW).split('\n');
+  lines.forEach((ln, i) => {
+    if (!/FERRET_TAG="\$\(/.test(ln)) return;
+    assert.ok(/\|\| true\)"/.test(ln),
+      `${WORKFLOW}:${i + 1} lets a lookup end the step:\n    ${ln.trim()}`);
+  });
 });
 
 console.log(`\n${passed} tests passed`);
