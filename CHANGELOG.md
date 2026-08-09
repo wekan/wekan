@@ -264,6 +264,86 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** two things the full test run turned up, one in WeKan and one in
+the scripts that run it. A **linked-card cache** that could not see a card
+added after the first time a subscription asked, and the **build script parity**
+guard that was the one red suite - right twice over, because `build.bat` really
+was missing the two entries and the guard really could not tell a shell function
+from a script. The binaries below are v10.74's: nothing here rebuilds them.
+
+| Platform | Binary | From | Version | SHA256 |
+| --- | --- | --- | --- | --- |
+| amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
+| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-amd64) | v1.45.0 | `94713f605167abb45a3717482d35de4824cb4a8f199c1400e826a8a2b04f3893` |
+| arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
+| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-arm64) | v1.45.0 | `275ae50ac97e6a70eee72e6de37766c458775c5997c896352db5189c6cf1f04b` |
+| loong64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-loong64.tar.xz) | v24.19.0 | `c24f224726f2d785bd18a1fd09f5e6d1fecf0269928451a60c5da9eac8e92e68` |
+| loong64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-loong64) | v1.45.0 | `28bf67981168dfc4bd67698b41dd62628aafe347a77f2b1e6ffcadf009d575e0` |
+| mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-arm64.tar.xz) | v24.19.0 | `3f1cf157479c1480352083105e13faf9d008ede98e7e157746b6df940d197b94` |
+| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-mac-arm64) | v1.45.0 | `639ed58b84820b3d588f4161c64d0ab940d0cc6e7d022088d60c2b0b97f99f8e` |
+| mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
+| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-mac-amd64) | v1.45.0 | `fd519903f5630e881e38e7c5814f00c0e89ad26f6785f1ddcbab4058356fc9f3` |
+| ppc64le | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-ppc64le.tar.xz) | v24.19.0 | `c510c6ce12f07010f771e6edb22a3fe23f4f2e6f40b1ffd4941aed0646a0d8b3` |
+| ppc64le | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-ppc64le) | v1.45.0 | `de4518c7774d302533369c477759ddd866785d6741d98d399388eb8de3df175a` |
+| riscv64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-riscv64.tar.xz) | v24.19.0 | `cd1f14af2812148002f58b58a5f9af512a50e3b8e8c148e0db44019dcb68edfd` |
+| riscv64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-riscv64) | v1.45.0 | `7dc2952f554e8800c4029577901999e06e10272da686f7e402177080067028f9` |
+| s390x | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-s390x.tar.xz) | v24.19.0 | `a4792e65962ffa0af42627aacf1122a60c3c88dbf4e4184f06820d66f9da8ba4` |
+| s390x | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-s390x) | v1.45.0 | `0ae2e2f2cffdc5dd2ea4f125281a5e12eea216fbe49b5561d9c001700c3fc0c1` |
+| win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
+| win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-win64.exe) | v1.45.0 | `f6337994368a52d011d438c82b914b0cedb3178fd030acac8db3dab8017cee85` |
+
+This release fixes the following bug:
+
+**The board publication** - what a subscriber is sent, and when.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ada480c93">Linked-card ids are no longer cached for the life of a subscription</a>. Thanks to xet7.</summary>
+
+The helper the five linked-card cursors share memoized its result per board, to
+spare them the duplicate queries the five copies of that preamble used to make.
+That is wrong: `publishComposite` re-runs a child's `find()` when the parent
+document changes, and a cache living for the whole subscription then serves the
+ids computed the FIRST time forever - a linked card added later would never be
+published, and one removed would go on being published.
+
+The five cursors each ran these same queries before the helper existed, so
+computing per call is exactly the cost they always had, and it is correct. The
+guard that pinned the memoization now pins its absence, with the reason, so the
+next reader does not put it back.
+
+</details>
+
+and has the following developer-facing change:
+
+**The build scripts** - what each menu offers, and what the guard between them
+compares.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/114d6c059">git pull and git push work on Windows too, and the parity guard knows what a function entry is</a>. Thanks to xet7.</summary>
+
+The one red suite in the full test run, and it was right twice over.
+
+The commit that replaced `Update git` with a `git pull` and a `git push` that
+finish the job added both to `build.sh`'s menu and left `build.bat` behind, so
+`build.bat git-pull` answered nothing. It answers to both names now, with its
+own `:gitpull` / `:gitpush` labels - the ones its interactive menu already used.
+
+The guard also had to learn what a `!` entry is. It marks something `build.sh`
+runs ITSELF rather than by executing a file in `releases/`. Most are raw
+commands and the `.bat` runs those the same way, so those still compare as
+before; the exception is an entry naming a `build.sh` FUNCTION, which is shell
+the `.bat` has no way to call. Comparing those as scripts is what made the suite
+fail the moment `Update git` was replaced. A function entry is exempt from the
+script comparison now and checked separately: `build.bat` must implement a label
+of the same name, so one dropping out of a menu still fails.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.74 2026-08-09 WeKan ® release
 
 **In short:** four security reports from **Alpastx**, all of them the same
