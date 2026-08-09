@@ -278,9 +278,15 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** the **amd64** bundle had never recorded where its Node.js and
-FerretDB came from - not because the directory was wrong, which was last
-release's fix, but because the scripts themselves were never found, and the
+**In short:** the **snap** jobs, and one thing that had been quietly failing for
+months. **armhf** asked Caddy for a `linux_armhf` archive that has never
+existed - Caddy is built by Go and its assets carry Go's architecture names -
+and **riscv64**, **ppc64el** and **s390x** each built a perfectly good snap that
+the Snap Store then refused while processing it, with an error about its own
+duplicate check; the upload is retried now, and the message no longer blames
+credentials. Beside that, the **amd64** bundle had never recorded where its
+Node.js and FerretDB came from - not because the directory was wrong, which was
+last release's fix, but because the scripts themselves were never found, and the
 `|| true` meant for release notes swallowed the error every run. The binaries
 below are v10.78's: nothing here rebuilds them.
 
@@ -305,7 +311,63 @@ below are v10.78's: nothing here rebuilds them.
 | win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
 | win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-win64.exe) | v1.48.0 | `ea57e1bcd153b51d2065ab01515b21ec05d8f615444c15603ab8158b8a661dd2` |
 
-This release fixes the following bug:
+This release fixes the following bugs:
+
+**The snap builds** - what they download, and what the store does with the
+result.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4e9be22f9">Caddy has no armhf archive, and a store hiccup is not a bad snap</a>. Thanks to xet7.</summary>
+
+Two failures in the v10.78 snap jobs, neither of them a problem with WeKan.
+
+**armhf asked for a Caddy architecture that does not exist.** With the
+`libcurl4t64` fix in, the armhf build got past the stage-packages and died
+further along:
+
+```
+:: Downloading Caddy 2.11.4 (linux/armhf) from GitHub releases...
+:: curl: (22) The requested URL returned error: 404
+'override-build' in part 'caddy' failed with code 1.
+```
+
+Caddy is built by Go and its release assets carry **Go's** architecture names,
+not Debian's. There is no `linux_armhf` archive and there never has been - the
+32-bit ARM ones are `armv5`, `armv6` and `armv7` - and the case statement had no
+armhf branch, so it fell through to a default that passed the Debian name
+straight into the URL. The "fall back to the pinned version" path then retried
+the same wrong name, so the failure read as *"Caddy stopped publishing this
+architecture"* when it was this file's mapping all along.
+
+armhf maps to `armv7`, not `armv6`: Debian armhf's baseline is ARMv7-A with
+VFPv3-D16 hard-float, and Go's armv7 build is `GOARM=7`, which is exactly that.
+This is **not** the armhf/armv7 distinction that matters for Node.js in
+[wekan/node-patches](https://github.com/wekan/node-patches) - that one is about
+NEON, and `GOARM=7` does not use NEON. Checked against the actual release: all
+six mapped URLs answer and `linux_armhf` 404s. The default branch now names the
+problem and stops, instead of guessing a name and letting a 404 blame the wrong
+project.
+
+**Three good snaps were lost to a store hiccup.** riscv64, ppc64el and s390x
+each built on Launchpad, downloaded, and were then refused:
+
+```
+Status: error while processing
+Issues while processing snap:
+- binary_sha3_384: Error checking upload uniqueness.
+```
+
+That is the store failing its **own** duplicate check on a digest it had just
+computed - a server-side error, not a bad snap - while the message the job
+printed was about *"is not a valid file"*, credentials and ACLs, none of which
+applied. The upload is retried three times with a backoff now, and the give-up
+message says the snap is fine and nothing here needs changing. The retry stays
+narrow on purpose: a rejected file, unparseable credentials or a missing ACL
+will be rejected identically three times, and retrying those only buries the one
+message that says what to fix - so the classifier is tested against all four,
+not just the one that happened.
+
+</details>
 
 **The release notes** - what the provenance table can say about amd64.
 
