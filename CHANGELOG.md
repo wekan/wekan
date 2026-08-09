@@ -271,10 +271,9 @@ waited for WeKan to answer on port 8080, uploaded them as artifacts - and then
 attached nothing to the release, because the job that does the attaching never
 checks the repository out and its two `gh` calls were the only ones in the file
 without `--repo`. Fixed, and the matrix grows from two architectures to
-**four**:
-`i686` and `armhf` are the other two an AppImage runtime exists for. The
-**Flatpak** workflow had the same one-line bug and a second beside it - it was
-attaching the ostree repository along with the bundles - and it stays at two
+**four**: `i686` and `armhf` are the other two an AppImage runtime exists for.
+The **Flatpak** workflow had the same one-line bug and a second beside it - it
+was attaching the ostree repository along with the bundles - and it stays at two
 architectures, because a flatpak needs a published runtime and only x86_64 and
 aarch64 have one. Beside that, the **Docker** images now carry full SLSA
 **provenance** at every one of the four sites that pushes one, and a test pins
