@@ -4,8 +4,8 @@ Claude Code reads this file at the repo root before doing work here. Follow it.
 
 ## First: who maintains this, and who is committing?
 
-**WeKan and every repository under `.tools/` are maintained by Lauri Ojansivu
-(xet7) `<x@xet7.org>`** — [wekan/wekan](https://github.com/wekan/wekan),
+**WeKan and the `wekan/` repositories cloned under `.tools/` are maintained by Lauri
+Ojansivu (xet7) `<x@xet7.org>`** — [wekan/wekan](https://github.com/wekan/wekan),
 [wekan/FerretDB](https://github.com/wekan/FerretDB),
 [wekan/node-patches](https://github.com/wekan/node-patches) and
 [wekan/mongo-tools-patches](https://github.com/wekan/mongo-tools-patches). Work done
@@ -47,6 +47,12 @@ git config user.name && git config user.email
   the maintainer to review, and keep that pull request free of AI attribution too.
   The "commit as Lauri Ojansivu", "commit directly", and all release instructions
   below are **maintainer-only and do not apply to you**.
+
+`.tools/` also holds repositories xet7 does NOT maintain — `Secretchronicles/TSC` and
+`sandstorm-io/sandstorm` are other people's projects he contributes to. The author is
+the same there (`Lauri Ojansivu <x@xet7.org>`, no AI attribution), but everything else
+is that project's call: its branch, its contribution process, and its changelog format
+— see the CHANGELOG section below.
 
 Everything below marked as maintainer-specific (committing directly, the exact commit
 author, and the entire "Making a release" / publishing flow) applies only in maintainer
@@ -156,21 +162,67 @@ pushed to Transifex as if it were human.
   - `wekan` — this repo (https://github.com/wekan/wekan); see
     `docs/DeveloperDocs/Directory-Structure.md`; `CHANGELOG.md` at root.
   - `../w/wekan.fi` — the WeKan website.
-  - `.tools/` — companion repos cloned INSIDE this checkout, in one directory
-    that `.gitignore` and `.meteorignore` already exclude (they used to be one
-    ignored subdirectory each at the repo root). `build.sh`'s `ensure_tool_repo`
-    clones one on demand, so a fresh checkout needs no manual setup:
-    `.tools/FerretDB`, `.tools/node-patches`, `.tools/mongo-tools-patches`.
-  - `.tools/FerretDB` (cloned on demand) — https://github.com/wekan/FerretDB, its own
-    `CHANGELOG.md`. FerretDB `.go` files must contain **no** application-specific names
-    (say "the client" / "a Meteor 3 driver" / a bare `#NNNN`); its `CHANGELOG.md` may
-    use `wekan/wekan#NNNN`.
-  - `.tools/sandstorm` (when present) — https://github.com/sandstorm-io/sandstorm.
+  - `.tools/` — everything that is NOT part of this repository but is needed to
+    build, test and release it, in ONE directory that `.gitignore` and
+    `.meteorignore` already exclude (each used to need its own ignore entry at
+    the repo root), so nothing in it can reach a commit or a Meteor rebuild. Two
+    different kinds of thing live there, and the difference matters:
+
+    **Companion git repositories.** Separate repositories with their own history,
+    branches, changelog and release flow — a commit here is never a commit there.
+    `build.sh`'s `ensure_tool_repo` clones one on demand (SSH first, HTTPS
+    second), so a fresh checkout needs no manual setup:
+
+    | Path | Repository | Branch | What it is |
+    | --- | --- | --- | --- |
+    | `.tools/FerretDB` | wekan/FerretDB | `main-v1` | the FerretDB v1 fork WeKan ships as its default database |
+    | `.tools/node-patches` | wekan/node-patches | `main` | patches to upstream Node.js; builds the `node-<platform>` binaries the bundles, the Docker image and the snap embed |
+    | `.tools/mongo-tools-patches` | wekan/mongo-tools-patches | `main` | patches to the MongoDB Database Tools; builds `<tool>-<arch>` |
+    | `.tools/TSC` | Secretchronicles/TSC | `devel` | an UPSTREAM project (not a wekan/ repository) xet7 contributes to |
+    | `.tools/sandstorm` | sandstorm-io/sandstorm | — | upstream Sandstorm, when present |
+
+    **Unpacked toolchains and caches.** Downloads, not repositories — put there by
+    the sandbox instructions in `docs/Security/Sandboxes/vscode/README.md`, deleted
+    and re-fetched freely, never committed anywhere:
+    `node-v<version>-linux-<arch>/` (the Node.js the test suites are run with),
+    `go/` with `gopath/`, `gomodcache/` and `gocache/` (FerretDB's Go builds),
+    `.meteor/` when `HOME` is pointed at `.tools`, and the `TSC*` AppImage.
+  - **Do NOT add a `CLAUDE.md` or an `AGENTS.md` to any repository under
+    `.tools/`.** node-patches and mongo-tools-patches each had a pair and they were
+    REMOVED on purpose: the rules are the same for every one of these repositories,
+    and a second copy of a rule drifts from the first. THIS file, and its `AGENTS.md`
+    twin beside it, are where they live for all of them. Something true of only one
+    of those repositories goes in that repository's own `README.md` or `docs/`,
+    never in a new instruction file — and if you find one there, remove it rather
+    than updating it.
+  - `.tools/FerretDB` specifics — FerretDB `.go` files must contain **no**
+    application-specific names (say "the client" / "a Meteor 3 driver" / a bare
+    `#NNNN`); its `CHANGELOG.md` may use `wekan/wekan#NNNN`.
 
 ### CHANGELOG
 
+- **Every repository writes its changelog in the format that repository's own file
+  already uses.** Open its changelog, read the entries above the place you are
+  adding one, and match them — never import another project's shape into it. The
+  five that come up here:
+
+  | Repository | File | Format |
+  | --- | --- | --- |
+  | `wekan/wekan` | `CHANGELOG.md` | the WeKan format this section describes: `# Platforms`, `# TODO Later`, then `# v<MAJOR>.<MINOR> YYYY-MM-DD WeKan ® release` sections of `<details>` entries whose `<summary>` links the commit |
+  | `wekan/node-patches` | `CHANGELOG.md` | the same WeKan format, with `# Upcoming node-patches release` |
+  | `wekan/mongo-tools-patches` | `CHANGELOG.md` | the same WeKan format, with `# Upcoming mongo-tools-patches release` |
+  | `wekan/FerretDB` | `CHANGELOG.md` | **upstream FerretDB's** format, not WeKan's: `## [v1.48.0](tag URL) (YYYY-MM-DD)` and `### New Features 🎉` / `### Fixed 🐛` / `### Other Changes 🤖` bullets ending `by @xet7. Thanks to xet7.` |
+  | `Secretchronicles/TSC` | `CHANGELOG` (no extension) | **GNU ChangeLog** format: a `YYYY-MM-DD  Name  <email>` header line, then TAB-indented `* Version …` / `* Fix: …` / `* Misc: …` entries, wrapped and continued with further tabs, each ending `(by Name)` |
+
+  The reason is the reader, not consistency for its own sake: a FerretDB release is
+  read beside upstream FerretDB's releases, and a TSC entry beside a decade of GNU
+  ChangeLog entries. A WeKan-shaped `<details>` block in either would be the odd one
+  out and would break the tooling that parses them. When this file and the file being
+  edited disagree, **the file being edited wins** — and everything below in this
+  section is about the WeKan format specifically.
 - During development, add entries under a new `# Upcoming WeKan ® release` section above
-  the newest release (FerretDB uses `## Upcoming FerretDB release`). Do **not** hand-edit
+  the newest release (FerretDB uses `## Upcoming FerretDB release`; the patch repos use
+  `# Upcoming <repo> release`). Do **not** hand-edit
   `package.json` or any other version reference — the release workflow bumps those.
 - **The file's shape, top to bottom** — keep it exactly as it is now:
   1. `# Platforms` — the line `Newest WeKan at these platforms:` and the Install /
