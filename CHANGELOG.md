@@ -280,29 +280,33 @@ aarch64 have one. Beside that, the **Docker** images now carry full SLSA
 **provenance** at every one of the four sites that pushes one, and a test pins
 that every **bundled binary** - FerretDB, the MongoDB Database Tools, Node.js -
 is still fetched as the NEWEST one everywhere it is fetched, which is what makes
-those projects' security fixes arrive without a commit here. The binaries below
-are v10.77's: nothing here rebuilds them.
+those projects' security fixes arrive without a commit here - and the table
+below is that working: **FerretDB v1.48.0** replaces v10.77's v1.45.0 on every
+platform, with no change in this repository, because `latest` now resolves to
+it. That is the release carrying `go1.25.11` and `x/sys v0.46.0`, which answers
+the Go advisories a Quay scan reported against the v10.77 image. Node.js stays
+v24.19.0, the newest 24.x.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
 | amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
-| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-amd64) | v1.45.0 | `94713f605167abb45a3717482d35de4824cb4a8f199c1400e826a8a2b04f3893` |
+| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-amd64) | v1.48.0 | `2737687fd29a8a761cd960e45f300b68cf7b4a87d50c4cc5280bcbd42b6aa163` |
 | arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
-| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-arm64) | v1.45.0 | `275ae50ac97e6a70eee72e6de37766c458775c5997c896352db5189c6cf1f04b` |
+| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-arm64) | v1.48.0 | `5ae705dd49515a4ecd4e295c3b9aa4f3b454fad78613ec60fb99316bd7c34e3f` |
 | loong64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-loong64.tar.xz) | v24.19.0 | `c24f224726f2d785bd18a1fd09f5e6d1fecf0269928451a60c5da9eac8e92e68` |
-| loong64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-loong64) | v1.45.0 | `28bf67981168dfc4bd67698b41dd62628aafe347a77f2b1e6ffcadf009d575e0` |
+| loong64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-loong64) | v1.48.0 | `06ec86263455a7b598d22a87df0e044ea73ab5a3b72e96ad12ebed03c1374ac2` |
 | mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-arm64.tar.xz) | v24.19.0 | `3f1cf157479c1480352083105e13faf9d008ede98e7e157746b6df940d197b94` |
-| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-mac-arm64) | v1.45.0 | `639ed58b84820b3d588f4161c64d0ab940d0cc6e7d022088d60c2b0b97f99f8e` |
+| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-mac-arm64) | v1.48.0 | `9b15f4c10e473cd0a2c4feb4cb43e18042bd60c7035ec66cab3cfbe13edaabab` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
-| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-mac-amd64) | v1.45.0 | `fd519903f5630e881e38e7c5814f00c0e89ad26f6785f1ddcbab4058356fc9f3` |
+| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-mac-amd64) | v1.48.0 | `4e188246dfa33bccef4cdd86701bc498b037cb3e91f579ff0dccb93aa0ef03ad` |
 | ppc64le | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-ppc64le.tar.xz) | v24.19.0 | `c510c6ce12f07010f771e6edb22a3fe23f4f2e6f40b1ffd4941aed0646a0d8b3` |
-| ppc64le | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-ppc64le) | v1.45.0 | `de4518c7774d302533369c477759ddd866785d6741d98d399388eb8de3df175a` |
+| ppc64le | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-ppc64le) | v1.48.0 | `0400cd6dfc3d10d987a0fe80d75baa86c03c19170770fa2e602c92d558c3cfa6` |
 | riscv64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-riscv64.tar.xz) | v24.19.0 | `cd1f14af2812148002f58b58a5f9af512a50e3b8e8c148e0db44019dcb68edfd` |
-| riscv64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-riscv64) | v1.45.0 | `7dc2952f554e8800c4029577901999e06e10272da686f7e402177080067028f9` |
+| riscv64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-riscv64) | v1.48.0 | `d37c35af988670b9ed182b8c5966c06a06362f6c6ace6aebd93ccdfa32c9a26b` |
 | s390x | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-s390x.tar.xz) | v24.19.0 | `a4792e65962ffa0af42627aacf1122a60c3c88dbf4e4184f06820d66f9da8ba4` |
-| s390x | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-s390x) | v1.45.0 | `0ae2e2f2cffdc5dd2ea4f125281a5e12eea216fbe49b5561d9c001700c3fc0c1` |
+| s390x | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-s390x) | v1.48.0 | `6c7d61fbb8c79b2e8733be8f71910f710e8c5cd25208c451bdc513c8313b0340` |
 | win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
-| win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.45.0/ferretdb-win64.exe) | v1.45.0 | `f6337994368a52d011d438c82b914b0cedb3178fd030acac8db3dab8017cee85` |
+| win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-win64.exe) | v1.48.0 | `ea57e1bcd153b51d2065ab01515b21ec05d8f615444c15603ab8158b8a661dd2` |
 
 This release adds the following new features:
 
