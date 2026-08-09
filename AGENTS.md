@@ -4,14 +4,17 @@ Codex reads this file at the repo root before doing work here. Follow it.
 
 ## First: who maintains this, and who is committing?
 
-**WeKan and the `wekan/` repositories cloned under `.tools/` are maintained by Lauri
-Ojansivu (xet7) `<x@xet7.org>`** — [wekan/wekan](https://github.com/wekan/wekan),
+**WeKan, the `wekan/` repositories cloned under `.tools/`, and
+[Secretchronicles/TSC](https://github.com/Secretchronicles/TSC) are all maintained by
+Lauri Ojansivu (xet7) `<x@xet7.org>`** — [wekan/wekan](https://github.com/wekan/wekan),
 [wekan/FerretDB](https://github.com/wekan/FerretDB),
-[wekan/node-patches](https://github.com/wekan/node-patches) and
-[wekan/mongo-tools-patches](https://github.com/wekan/mongo-tools-patches). Work done
-on the maintainer's behalf is committed as **`Lauri Ojansivu <x@xet7.org>`** — that
-author, in every one of those repositories, every time. Two rules follow from it and
-neither has an exception:
+[wekan/node-patches](https://github.com/wekan/node-patches),
+[wekan/mongo-tools-patches](https://github.com/wekan/mongo-tools-patches) and TSC,
+which is under the **Secretchronicles** organisation rather than **wekan** and is his
+all the same — his GitHub profile, [xet7](https://github.com/xet7), says exactly that:
+*"WeKan and TSC maintainer"*. Work done on the maintainer's behalf is committed as
+**`Lauri Ojansivu <x@xet7.org>`** — that author, in every one of those repositories,
+every time. Two rules follow from it and neither has an exception:
 
 - **Never attribute a commit to an AI.** No `Co-Authored-By:` trailer, no "Generated
   with", no assistant or model name — not in the commit message, not in a pull-request
@@ -48,11 +51,12 @@ git config user.name && git config user.email
   The "commit as Lauri Ojansivu", "commit directly", and all release instructions
   below are **maintainer-only and do not apply to you**.
 
-`.tools/` also holds repositories xet7 does NOT maintain — `Secretchronicles/TSC` and
-`sandstorm-io/sandstorm` are other people's projects he contributes to. The author is
-the same there (`Lauri Ojansivu <x@xet7.org>`, no AI attribution), but everything else
-is that project's call: its branch, its contribution process, and its changelog format
-— see the CHANGELOG section below.
+Maintainer mode covers TSC as well: commit directly to its `devel` branch, no pull
+request, same author and no AI attribution. What it does NOT bring along is WeKan's
+house style — TSC keeps its own **GNU ChangeLog** `CHANGELOG` and its own release
+process, because a project is read on its own terms (see the CHANGELOG section below).
+The one repository under `.tools/` that is somebody else's is `sandstorm-io/sandstorm`,
+cloned for reference only.
 
 Everything below marked as maintainer-specific (committing directly, the exact commit
 author, and the entire "Making a release" / publishing flow) applies only in maintainer
@@ -178,8 +182,8 @@ pushed to Transifex as if it were human.
     | `.tools/FerretDB` | wekan/FerretDB | `main-v1` | the FerretDB v1 fork WeKan ships as its default database |
     | `.tools/node-patches` | wekan/node-patches | `main` | patches to upstream Node.js; builds the `node-<platform>` binaries the bundles, the Docker image and the snap embed |
     | `.tools/mongo-tools-patches` | wekan/mongo-tools-patches | `main` | patches to the MongoDB Database Tools; builds `<tool>-<arch>` |
-    | `.tools/TSC` | Secretchronicles/TSC | `devel` | an UPSTREAM project (not a wekan/ repository) xet7 contributes to |
-    | `.tools/sandstorm` | sandstorm-io/sandstorm | — | upstream Sandstorm, when present |
+    | `.tools/TSC` | Secretchronicles/TSC | `devel` | the game xet7 also maintains — same author and maintainer mode, its own GNU ChangeLog and release process |
+    | `.tools/sandstorm` | sandstorm-io/sandstorm | — | upstream Sandstorm, when present — somebody else's project, cloned for reference |
 
     **Unpacked toolchains and caches.** Downloads, not repositories — put there by
     the sandbox instructions in `docs/Security/Sandboxes/vscode/README.md`, deleted
