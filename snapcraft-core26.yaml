@@ -64,6 +64,25 @@ platforms:
   riscv64:
     build-on: riscv64
     build-for: riscv64
+  # 32-bit ARM, FerretDB-only for the same reason as the three above: MongoDB
+  # ships no server for it. armhf's Node.js comes from the bundle like every
+  # other arch's does - the wekan-armhf.zip carries the right one already, built
+  # by wekan/node-patches, which is the only one of WeKan's three Node.js
+  # sources that builds 32-bit ARM.
+  #
+  # It is here because THIS FILE IS THE NEXT BASE. snapcraft.yaml (core24) has
+  # all six architectures; this one had five, and the missing one does not
+  # announce itself - the day core26 becomes the base, armhf would simply stop
+  # being published and the store column would go stale exactly like
+  # wekan-ondra's did. tests/releaseSnapArches.test.cjs now requires the two
+  # files to declare the same set.
+  #
+  # There is NO i386 entry here either: no modern base has an i386 port, and
+  # `build-on: i386` is a PARSE error that fails every architecture's build, not
+  # only i386's. i386 users are served by the .deb and the AppImage.
+  armhf:
+    build-on: armhf
+    build-for: armhf
 
 plugs:
   mongodb-plug:
@@ -148,9 +167,14 @@ parts:
     mongodb:
         plugin: nil
         #source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-7.0.34.tgz
+        # The t64 names, exactly as in snapcraft.yaml - see the long note there
+        # for why. Short version: Ubuntu's 64-bit time_t transition renamed
+        # these, the 64-bit architectures kept a compatibility Provides so the
+        # old spelling still resolves, and armhf did NOT - so the old names fail
+        # on armhf alone, which is the architecture added to this file above.
         stage-packages:
-            - libssl3
-            - libcurl4
+            - libssl3t64
+            - libcurl4t64
             - libstemmer0d
             - zlib1g
             - libsnappy1v5
@@ -161,7 +185,7 @@ parts:
             - libboost-iostreams1.83.0
             - libboost-filesystem1.83.0
             - libboost-program-options1.83.0
-            - libgoogle-perftools4
+            - libgoogle-perftools4t64
         override-build: |
             set -eu
             case "${CRAFT_ARCH_BUILD_FOR}" in
@@ -344,10 +368,10 @@ parts:
                 riscv64) CADDY_ARCH=riscv64 ;;
                 # Caddy is built by Go and its release assets carry GO's names,
                 # not Debian's: there is no linux_armhf archive, the 32-bit ARM
-                # ones are armv5, armv6 and armv7. core26 does not build armhf
-                # today, so this branch is not reached - it is here because the
-                # identical gap in snapcraft.yaml failed the whole armhf snap
-                # with a 404, and adding an architecture should not re-find it.
+                # ones are armv5, armv6 and armv7. The identical gap in
+                # snapcraft.yaml failed the whole armhf snap with a 404, and
+                # armhf is a platform of this file too now, so this branch is
+                # reached rather than merely prepared.
                 # armv7, not armv6: Debian armhf's baseline is ARMv7-A with
                 # VFPv3-D16, which is exactly Go's GOARM=7.
                 armhf)   CADDY_ARCH=armv7 ;;

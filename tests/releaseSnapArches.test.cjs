@@ -232,6 +232,35 @@ test('every snap the release publishes is core24, and goes to all four channels'
   }
 });
 
+test('the next base declares the same architectures as the current one', () => {
+  // snapcraft-core26.yaml is the SAME WeKan on the next base, kept so the move
+  // can be tested before it is made. It is not built by the release (the guard
+  // above), which is exactly why an architecture can go missing from it without
+  // anything failing - and then reappear as a silently dropped platform on the
+  // day core26 becomes the base. That is how it stood: core24 declared six and
+  // core26 declared five, with armhf the one missing, and the only symptom would
+  // have been an armhf column in the store going stale like wekan-ondra's.
+  const core26 = read('snapcraft-core26.yaml');
+  // Both files use the `platforms:` key - snapcraft 8 took it for core24 as well,
+  // as snapcraft.yaml's own comment says - and both list the architecture as a
+  // key with build-on/build-for under it, so read the keys of that block.
+  const archesOf = (text, key) => {
+    const start = text.indexOf(`\n${key}:\n`);
+    assert.notStrictEqual(start, -1, `no ${key}: block`);
+    const rest = text.slice(start + 1);
+    const end = rest.search(/\n[a-z-]+:\n/);
+    const block = end === -1 ? rest : rest.slice(0, end);
+    return [...block.matchAll(/^ {2}([a-z0-9]+):$/gm)].map(m => m[1]).sort();
+  };
+  const current = archesOf(snapcraft, 'platforms');
+  const next = archesOf(core26, 'platforms');
+  assert.deepStrictEqual(current, ['amd64', 'arm64', 'armhf', 'ppc64el', 'riscv64', 's390x'],
+    'snapcraft.yaml declares the six architectures the store gets');
+  assert.deepStrictEqual(next, current,
+    'snapcraft-core26.yaml must declare the same architectures as snapcraft.yaml, '
+    + 'or moving to that base silently drops the ones it forgot');
+});
+
 test('the mongodb part cannot stage bin as a symlink', () => {
   // The s390x build died right after "Staging mongodb":
   //     /build/.../stage/bin: Is a directory
@@ -299,20 +328,29 @@ test('the mongodb stage-packages are the names noble actually publishes', () => 
   // not exist. Checked against the noble archive: libssl3t64 is published for
   // all seven architectures and libgoogle-perftools4t64 for every one that
   // builds a snap.
-  const yaml = fs.readFileSync(path.join(repoRoot, 'snapcraft.yaml'), 'utf8');
+  // BOTH snapcraft files, not just the one the release builds: core26 is the next
+  // base, it declares armhf as well now, and it carried the pre-t64 names - so a
+  // move to that base would have re-found this exact failure on this exact
+  // architecture.
+  for (const file of ['snapcraft.yaml', 'snapcraft-core26.yaml']) {
+  const yaml = fs.readFileSync(path.join(repoRoot, file), 'utf8');
   const partAt = yaml.indexOf('\n    mongodb:\n        plugin: nil');
-  const part = yaml.slice(partAt, yaml.indexOf('\n    migratemongo:', partAt));
+  assert.notStrictEqual(partAt, -1, `${file} has no mongodb part`);
+  const nextPart = yaml.indexOf('\n    migratemongo:', partAt);
+  const part = yaml.slice(partAt, nextPart === -1 ? undefined : nextPart);
   const listAt = part.indexOf('stage-packages:');
   const pkgs = [...code(part.slice(listAt, part.indexOf('override-build:', listAt)))
     .matchAll(/^\s+- (\S+)$/gm)].map(m => m[1]);
-  assert.ok(pkgs.length > 5, 'the stage-packages list must still be there');
+  assert.ok(pkgs.length > 5, `the stage-packages list must still be there in ${file}`);
 
   for (const [wrong, right] of [['libssl3', 'libssl3t64'],
+                                ['libcurl4', 'libcurl4t64'],
                                 ['libgoogle-perftools4', 'libgoogle-perftools4t64']]) {
-    assert.ok(pkgs.includes(right), `${right} is the name noble publishes on every snap arch`);
+    assert.ok(pkgs.includes(right), `${file}: ${right} is the name noble publishes on every snap arch`);
     assert.ok(!pkgs.includes(wrong),
-      `${wrong} resolves on the 64-bit arches through a compatibility provide and `
+      `${file}: ${wrong} resolves on the 64-bit arches through a compatibility provide and `
       + 'fails on armhf, which is a build that breaks on one architecture only');
+  }
   }
 });
 
