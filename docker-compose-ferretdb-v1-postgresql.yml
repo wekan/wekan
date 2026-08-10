@@ -207,8 +207,18 @@ services:
       #- S3_SECRET_FILE=/run/secrets/s3_secret
       #-----------------------------------------------------------------
       # ==== MONGO_URL — points to FerretDB (MongoDB-compatible) ====
-      #- MONGO_URL=mongodb://wekan-ferretdb:27017/wekan
-      - MONGO_URL=mongodb://ferretdb:27017/wekan
+      # directConnection=true is REQUIRED (wekan/wekan#6582). The ferretdb service
+      # above runs with --repl-set-name=rs0, so its handshake advertises a replica
+      # set whose only member is its own LISTEN address, 0.0.0.0:27017. Without
+      # directConnection the MongoDB driver does replica-set discovery: it drops the
+      # host written here and dials the advertised 0.0.0.0:27017 instead, which
+      # inside the wekan container is the wekan container itself — that is the
+      # "MongoServerSelectionError: connect ECONNREFUSED 0.0.0.0:27017" a fresh
+      # `docker compose up` died with. directConnection=true keeps the driver on
+      # exactly this host. OpLog tailing is unaffected: Meteor only needs setName in
+      # the handshake, which is still there.
+      #- MONGO_URL=mongodb://wekan-ferretdb:27017/wekan?directConnection=true
+      - MONGO_URL=mongodb://ferretdb:27017/wekan?directConnection=true
       #- MONGO_PASSWORD_FILE=/run/secrets/mongo_password
       #---------------------------------------------------------------
       # ==== ROOT_URL SETTING ====
@@ -263,7 +273,8 @@ services:
       # MONGO_OPLOG_URL makes Meteor start an OpLog tail regardless of the
       # reactivity order (#6498), so it is commented out. To try OpLog tailing,
       # uncomment the next line AND set METEOR_REACTIVITY_ORDER=oplog,polling above.
-      #- MONGO_OPLOG_URL=mongodb://ferretdb:27017/local?replicaSet=rs0
+      # directConnection=true for the same reason as MONGO_URL above (#6582).
+      #- MONGO_OPLOG_URL=mongodb://ferretdb:27017/local?replicaSet=rs0&directConnection=true
       #---------------------------------------------------------------
       # ==== OPTIONAL: KADIRA PERFORMANCE MONITORING FOR METEOR ====
       # https://github.com/edemaine/kadira-compose

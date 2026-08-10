@@ -7,8 +7,10 @@ the **default database of WeKan**: `docker-compose.yml` runs FerretDB v1 on its
 embedded SQLite, so there is no separate database server to install at all.
 
 Whichever backend is used, WeKan talks only to FerretDB
-(`MONGO_URL=mongodb://ferretdb:27017/wekan`) — nothing in WeKan knows what is
-behind it.
+(`MONGO_URL=mongodb://ferretdb:27017/wekan?directConnection=true`) — nothing in
+WeKan knows what is behind it. See
+[directConnection](#why-the-url-says-directconnectiontrue) for why that parameter
+is not optional.
 
 ## Which one to use
 
@@ -90,6 +92,53 @@ merely setting `MONGO_OPLOG_URL` starts a tail regardless of the reactivity orde
 ([#6498](https://github.com/wekan/wekan/issues/6498)).
 
 FerretDB has no MongoDB change streams at all, in either version.
+
+## Why the URL says `directConnection=true`
+
+Every FerretDB v1 compose file connects with
+`mongodb://ferretdb:27017/wekan?directConnection=true`, and dropping that
+parameter breaks the stack on the first start
+([#6582](https://github.com/wekan/wekan/issues/6582)):
+
+```
+MongoServerSelectionError: connect ECONNREFUSED 0.0.0.0:27017
+reason: TopologyDescription {
+  type: 'ReplicaSetNoPrimary',
+  servers: Map(1) { '0.0.0.0:27017' => [ServerDescription] },
+  setName: 'rs0', ... }
+```
+
+`0.0.0.0` appears in no compose file. It is FerretDB's own **listen** address,
+and the driver was handed it by the server.
+
+Because the `ferretdb` service runs with `--repl-set-name=rs0` (see
+[The OpLog](#the-oplog) above), FerretDB answers the `hello` handshake as a
+one-member replica set, and fills the `hosts`, `me` and `primary` fields with its
+`--listen-addr` — the wildcard `0.0.0.0:27017`. A MongoDB driver that is not in
+direct-connection mode treats such a reply as an invitation to do replica-set
+**discovery**: it adopts the member list the server advertised, and drops the
+seed it was given, because the server reports a name other than the one that was
+dialled. So `mongodb://ferretdb:27017` turns into `0.0.0.0:27017`, which inside
+the `wekan-app` container means that container itself — where nothing is
+listening. Hence `ECONNREFUSED`, on a compose file that was never edited.
+
+`directConnection=true` tells the driver to stay on exactly the host it was
+given and skip discovery entirely. Measured against FerretDB v1.49.0 with the
+driver the bundle ships:
+
+| MONGO\_URL | Topology the driver ends up with |
+| --- | --- |
+| `mongodb://localhost:27017/wekan` | `ReplicaSetWithPrimary`, servers: `0.0.0.0:27017` — the seed was discarded |
+| `mongodb://localhost:27017/wekan?directConnection=true` | `Single`, servers: `localhost:27017` |
+
+It costs nothing else. The handshake still reports `setName: 'rs0'`, and that is
+the only thing Meteor checks before it will tail an OpLog, so
+`MONGO_OPLOG_URL=...?replicaSet=rs0&directConnection=true` keeps working exactly
+as [#6480/#6481](https://github.com/wekan/wekan/issues/6480) left it.
+
+This applies only to FerretDB. The MongoDB compose files talk to a real replica
+set whose members are configured with names that do resolve, so they keep plain
+`replicaSet=rs0` and must **not** gain `directConnection`.
 
 ## Do they all answer the same?
 

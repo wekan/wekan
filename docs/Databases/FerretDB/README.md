@@ -2,7 +2,12 @@
 
 FerretDB speaks the MongoDB wire protocol and stores the data in something else,
 so WeKan runs unchanged on top of it — WeKan only ever connects to
-`mongodb://ferretdb:27017/wekan` and knows nothing about what is behind it.
+`mongodb://ferretdb:27017/wekan?directConnection=true` and knows nothing about
+what is behind it. The `directConnection=true` is required, not decoration:
+without it the driver follows FerretDB's replica-set handshake to the wildcard
+address FerretDB listens on and the stack cannot start
+([#6582](https://github.com/wekan/wekan/issues/6582), explained in
+[1/README.md](1/README.md#why-the-url-says-directconnectiontrue)).
 
 There are two versions, and they are different products:
 
