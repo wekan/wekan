@@ -254,6 +254,7 @@ echo   20^) Move the 'stable' tag to HEAD
 echo   21^) Release the wekan-ondra / wekan-gantt-gpl variants, part 1
 echo   22^) Release the wekan-ondra / wekan-gantt-gpl variants, part 2
 echo   23^) Report ^(or repair^) the Helm chart index for past releases
+echo   24^) Rebuild the Helm index.yaml from the chart packages
 set "choice="
 set /p "choice=Choose: "
 if "%choice%"=="1" call :rel_run "releases/release-all.sh" ""
@@ -279,6 +280,7 @@ if "%choice%"=="20" call :rel_cmd "git tag --force stable HEAD && git push --tag
 if "%choice%"=="21" call :rel_run "releases/release-ondra-1.sh" ""
 if "%choice%"=="22" call :rel_run "releases/release-ondra-2.sh" ""
 if "%choice%"=="23" call :rel_run "releases/backfill-charts.sh" ""
+if "%choice%"=="24" call :rel_run "releases/reindex-charts.py" ""
 if "%choice%"=="0" goto menu_releases
 goto rel_release
 
@@ -631,6 +633,7 @@ if /I "%K%"=="release-x2" (set "CMD=bash releases/release-x2.sh" ^& goto cli_go)
 if /I "%K%"=="release-cleanup" (set "CMD=bash releases/release-cleanup.sh" ^& goto cli_go)
 if /I "%K%"=="release-charts" (set "CMD=bash releases/release-charts.sh" ^& goto cli_go)
 if /I "%K%"=="backfill-charts" (set "CMD=bash releases/backfill-charts.sh" ^& goto cli_go)
+if /I "%K%"=="reindex-charts" (set "CMD=python3 releases/reindex-charts.py" ^& goto cli_go)
 if /I "%K%"=="release-website" (set "CMD=bash releases/release-website.sh" ^& goto cli_go)
 if /I "%K%"=="npm-publish" (set "CMD=bash releases/npm-publish.sh" ^& goto cli_go)
 if /I "%K%"=="test-download-urls" (set "CMD=bash releases/test-download-urls.sh" ^& goto cli_go)

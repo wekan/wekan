@@ -64,14 +64,21 @@ done
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 CHART_BASE_URL="https://wekan.github.io/charts"
 
+# .tools/charts first: companion repositories are kept under .tools/ (CLAUDE.md),
+# which is where the wekan/charts clone lives. ../w/charts stays as the older
+# location, so an existing checkout there keeps working.
 if [ -z "${CHARTS_DIR:-}" ]; then
-  if [ ! -d "$REPO_DIR/../w/charts/wekan" ]; then
-    echo "Charts repo not found at $REPO_DIR/../w/charts/wekan."
-    echo "Set CHARTS_DIR to the wekan/charts checkout, or run with no --apply for a plan."
-    [ "$APPLY" = true ] && exit 1
-  else
-    CHARTS_DIR="$(cd "$REPO_DIR/../w/charts" && pwd)"
-  fi
+  for candidate in "$REPO_DIR/.tools/charts" "$REPO_DIR/../w/charts"; do
+    if [ -d "$candidate" ]; then
+      CHARTS_DIR="$(cd "$candidate" && pwd)"
+      break
+    fi
+  done
+fi
+if [ -z "${CHARTS_DIR:-}" ]; then
+  echo "Charts repo not found at $REPO_DIR/.tools/charts or $REPO_DIR/../w/charts."
+  echo "Set CHARTS_DIR to the wekan/charts checkout, or run with no --apply for a plan."
+  [ "$APPLY" = true ] && exit 1
 fi
 
 # ── 1. The plan ──────────────────────────────────────────────────────────────

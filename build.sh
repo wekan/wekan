@@ -1868,6 +1868,7 @@ RELEASE_SCRIPTS=(	"Release|Release ALL platforms: push CHANGELOG, trigger releas
 	"Release|Release the wekan-ondra / wekan-gantt-gpl variants, part 1|releases/release-ondra-1.sh|||"
 	"Release|Release the wekan-ondra / wekan-gantt-gpl variants, part 2|releases/release-ondra-2.sh|||"
 	"Release|Report (or repair) the Helm chart index for past releases|releases/backfill-charts.sh|||"
+	"Release|Rebuild the Helm index.yaml from the chart packages|releases/reindex-charts.py|||"
 	"Snap|Build the snap from snapcraft.yaml|releases/snap-build.sh|||"
 	"Snap|Install the locally built .snap|releases/snap-install.sh|||"
 	"Snap|Push one .snap to the Snap Store|releases/snap-push-to-store.sh|Path to the .snap file||"
