@@ -500,7 +500,7 @@ into the run summary.
 - [The chart-index report is a Release menu entry in build.sh and build.bat](https://github.com/wekan/wekan/commit/01f691ba3). Thanks to xet7.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/8f3d34410">Rebuild the Helm index.yaml from the chart packages it actually serves</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1a2ec0633">Rebuild the Helm index.yaml from the chart packages it actually serves</a>. Thanks to xet7.</summary>
 
 With the charts repository cloned it became clear the index had drifted from its
 own packages in four ways at once, all from the same habit: an entry was written
@@ -511,18 +511,18 @@ it.
 **146 packages had no entry at all** - 362 packages, 220 entries. They are
 downloadable by URL but invisible to `helm search`, to
 `helm install wekan --version 9.63.0` and to Artifact Hub. **9.36.0 had four
-entries and 10.30.0 two**, each copy with a different digest and the same url, so
-a client could pick a digest matching no file and fail integrity on a good
+entries and 10.30.0 two**, each copy with a different digest and the same url,
+so a client could pick a digest matching no file and fail integrity on a good
 package. **appVersion was the CHART version on every entry** - `10.79.0` where
-the package says `10.79`, which is the WeKan version a reader is looking for. And
-**every entry claimed the mongodb subchart was 0.7.2**, a field nobody
+the package says `10.79`, which is the WeKan version a reader is looking for.
+And **every entry claimed the mongodb subchart was 0.7.2**, a field nobody
 substituted, while the packages had long since moved to 0.7.6.
 
 `releases/reindex-charts.py` derives the index from the packages, reading each
 one's `Chart.yaml` out of the archive, so an entry cannot describe a package
-wrongly. Nothing is invented: `created` is preserved exactly on every entry whose
-digest matches its package, and a package being added takes the date it was
-committed to `gh-pages`, which is when it was really published. Two 2023
+wrongly. Nothing is invented: `created` is preserved exactly on every entry
+whose digest matches its package, and a package being added takes the date
+it was committed to `gh-pages`, which is when it was really published. Two 2023
 packaging slips - `wekan-1.2.7.tgz` containing chart 1.2.6, and `wekan-6.96.tgz`
 containing 6.9.6 - are reported and left out rather than making one version mean
 two files; both files stay on the server.
