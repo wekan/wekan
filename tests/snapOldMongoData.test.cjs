@@ -157,6 +157,72 @@ async function pageSaysIt() {
   }
 }
 
+test('mongod 4.2 is bundled for amd64 and arm64, and only used to READ', () => {
+  // #6471's actual repair: a third reader. mongod 7 opens FCV 6.0/7.0, the 3.2
+  // tools open 3.2, and everything between was unreadable - which is the whole
+  // bug. mongod 4.2 opens FCV 4.0 and 4.2, the vintage that was reported.
+  const snapcraft = read('snapcraft.yaml');
+  const at = snapcraft.indexOf('    mongo42:');
+  assert.notStrictEqual(at, -1, 'snapcraft.yaml has a mongo42 part');
+  const part = snapcraft.slice(at, snapcraft.indexOf('\n    wekan:', at));
+
+  assert.ok(/mongodb-linux-\$\{MARCH\}-ubuntu1804-\$\{V\}\.tgz/.test(part),
+    'it downloads the MongoDB 4.2 server');
+  assert.ok(/amd64\) MARCH=x86_64/.test(part) && /arm64\) MARCH=aarch64/.test(part),
+    'for amd64 and arm64');
+  assert.ok(/\*\)\s*\n\s*echo "mongo42: no MongoDB 4\.2 for/.test(part),
+    'and skips every other architecture, which never had a MongoDB to migrate from');
+
+  // The checksum MongoDB publishes is checked, and a mismatch does not ship.
+  assert.ok(/sha256sum "\$work\/\$tgz"/.test(part), 'the download is checksummed');
+  assert.ok(/checksum mismatch[\s\S]{0,120}exit 0/.test(part),
+    'and a mismatch stages nothing');
+
+  // OpenSSL 1.1: core24 has 3, and mongod 4.2 will not even load without it.
+  assert.ok(/libssl1\\?\.1_/.test(part), 'it fetches libssl1.1');
+  assert.ok(/libssl\.so\.1\.1/.test(part) && /libcrypto\.so\.1\.1/.test(part),
+    'and stages both shared objects it needs');
+  assert.ok(/sort -V \| tail -1/.test(part),
+    'resolving the filename from the pool rather than pinning a version that rots');
+  assert.ok((part.match(/pool\/(updates\/)?main\/o\/openssl/g) || []).length >= 3,
+    'from more than one archive, so one going away is not the end of it');
+
+  // It must RUN in the build, not merely exist.
+  assert.ok(/LD_LIBRARY_PATH="\$dest\/lib" "\$dest\/bin\/mongod" --version/.test(part),
+    'the build runs the staged binary once, so a missing library is found here');
+  assert.ok(/does not run in this environment[\s\S]{0,200}rm -rf "\$dest"/.test(part),
+    'and unstages it rather than shipping something that cannot start');
+
+  // Optional by design: a failure must not fail the snap.
+  assert.ok((part.match(/exit 0/g) || []).length >= 4,
+    'every failure path ends the part cleanly, leaving the snap buildable');
+});
+
+test('the migration tries the readers newest-first, and 4.2 uses the driver importer', () => {
+  const m = read('snap-src/bin/migration-control');
+  const seven = m.indexOf('Checking whether mongod 7 can open the existing data');
+  const four = m.indexOf('trying the bundled mongod 4.2');
+  const three = m.indexOf('checking whether it is MongoDB 3.x');
+  const stop = m.indexOf('stop_data_too_old\n');
+  assert.ok(seven > -1 && four > -1 && three > -1, 'all three probes are there');
+  assert.ok(seven < four && four < three,
+    'newest first: mongod 7, then 4.2, then the 3.2 tools');
+  assert.ok(three < m.indexOf('if mongod_says_data_too_old; then'),
+    'and only when all three have failed does it stop and explain');
+
+  // The 4.2 branch reads with the DRIVER importer: the bundled mongodb driver
+  // supports servers from 4.2 up, so the same importer that reads a 6/7 source
+  // reads this one - no second copy of that code.
+  const branch = m.slice(four, three);
+  assert.ok(/"\$NODE" "\$IMPORTER_MODERN"/.test(branch),
+    'the 4.x branch uses the modern (driver) importer');
+  assert.ok(/M42_LIB/.test(branch),
+    'and runs mongod 4.2 with its own OpenSSL 1.1 on LD_LIBRARY_PATH');
+  // And it must NOT hand back to a mongod 7 that cannot open this data either.
+  assert.ok(/fail_3x_keep_progress "\$rc"/.test(branch),
+    'a failed 4.x migration keeps its progress instead of falling back to a mongod that cannot start');
+});
+
 test('the other two maintenance pages are unchanged', () => {
   // The generic and the recovery pages are WAITS - something is happening and the
   // page should refresh - so they keep the refresh and the spinner this one drops.

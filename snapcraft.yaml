@@ -338,6 +338,133 @@ parts:
             esac
 
 
+    # mongo42: the THIRD reader, so a database from a MongoDB 4.x snap can be
+    # migrated instead of stranding the site (#6471).
+    #
+    # The snap could read exactly two kinds of database: whatever mongod 7 opens
+    # (its own, and 6.0), and MongoDB 3.2 through the migratemongo tools. A
+    # server only starts on data whose featureCompatibilityVersion is at most one
+    # major behind it, so everything in between - the 4.x and 5.x snaps WeKan
+    # shipped for years - could be opened by neither, and there was nothing to
+    # migrate FROM. The report is mongod 7's own words: "This version of MongoDB
+    # is too recent to start up on the existing data files. Try MongoDB 4.2 or
+    # earlier."
+    #
+    # mongod 4.2 is what that message asks for: it opens FCV 4.0 and 4.2, which
+    # is the vintage that was reported twice. It is used ONLY to read the old
+    # data during the migration - never as the running database - and the modern
+    # importer talks to it with the bundled driver, which supports servers from
+    # 4.2 up.
+    #
+    # WHY IT NEEDS ITS OWN LIBRARIES. MongoDB's 4.2 build links OpenSSL 1.1
+    # (libssl.so.1.1, libcrypto.so.1.1), and core24 is Ubuntu 24.04, which ships
+    # OpenSSL 3. Both come from one Debian libssl1.1 package, staged beside the
+    # binary; migration-control runs it with LD_LIBRARY_PATH pointing there, the
+    # same way it already runs the 3.2 tools. libcurl.so.4 it also needs is in
+    # the snap already (libcurl4t64 provides it).
+    #
+    # amd64 and arm64 ONLY: MongoDB publishes no 4.2 for the other architectures,
+    # and they never had a MongoDB to migrate from - they have been FerretDB from
+    # their first boot.
+    #
+    # OPTIONAL BY DESIGN: every failure here ends the part with a message and no
+    # binary, and migration-control simply does not find one. The snap still
+    # builds and behaves as it did before - the unreadable-database page - rather
+    # than a release failing over a migration aid.
+    mongo42:
+        plugin: nil
+        build-packages:
+            - ca-certificates
+            - curl
+            - dpkg
+        override-build: |
+            set -eu
+            V=4.2.25
+            case "${CRAFT_ARCH_BUILD_FOR}" in
+                amd64) MARCH=x86_64  ; DEBARCH=amd64 ;;
+                arm64) MARCH=aarch64 ; DEBARCH=arm64 ;;
+                *)
+                    echo "mongo42: no MongoDB 4.2 for ${CRAFT_ARCH_BUILD_FOR}, and nothing to migrate from there; skipping."
+                    exit 0
+                    ;;
+            esac
+
+            dest="$SNAPCRAFT_PART_INSTALL/mongo42"
+            mkdir -p "$dest/bin" "$dest/lib"
+            work="$(mktemp -d)"
+            trap 'rm -rf "$work"' EXIT
+
+            # ── the server, checked against the checksum MongoDB publishes ────
+            tgz="mongodb-linux-${MARCH}-ubuntu1804-${V}.tgz"
+            url="https://fastdl.mongodb.org/linux/${tgz}"
+            if ! curl -fsSL --retry 3 -o "$work/$tgz" "$url"; then
+                echo "mongo42: could not download $url; skipping (the snap keeps working, that migration path is simply unavailable)."
+                exit 0
+            fi
+            if curl -fsSL --retry 3 -o "$work/$tgz.sha256" "$url.sha256"; then
+                want="$(cut -d' ' -f1 < "$work/$tgz.sha256")"
+                got="$(sha256sum "$work/$tgz" | cut -d' ' -f1)"
+                if [ "$want" != "$got" ]; then
+                    echo "mongo42: checksum mismatch for $tgz - MongoDB says $want, the download is $got. Not staging it."
+                    exit 0
+                fi
+                echo "mongo42: $tgz checksum verified."
+            else
+                echo "mongo42: MongoDB published no .sha256 for $tgz; staging it unverified."
+            fi
+            tar -xzf "$work/$tgz" -C "$work"
+            cp "$work/mongodb-linux-${MARCH}-ubuntu1804-${V}/bin/mongod" "$dest/bin/mongod"
+            chmod +x "$dest/bin/mongod"
+
+            # ── OpenSSL 1.1, which core24 does not have ──────────────────────
+            # Resolved by listing the pool rather than pinning a filename: the
+            # point releases roll, and a hardcoded version 404s the day they do.
+            # Debian security first (the patched 1.1.1w), then Debian main, then
+            # Ubuntu focal - amd64 lives on archive.ubuntu.com and arm64 on
+            # ports.ubuntu.com, which is why both are listed.
+            pools="https://security.debian.org/debian-security/pool/updates/main/o/openssl
+            https://deb.debian.org/debian/pool/main/o/openssl
+            http://archive.ubuntu.com/ubuntu/pool/main/o/openssl
+            http://ports.ubuntu.com/ubuntu-ports/pool/main/o/openssl"
+            got_ssl=no
+            for pool in $pools; do
+                deb="$(curl -fsSL "$pool/" 2>/dev/null | grep -o "libssl1\.1_[^\"]*_${DEBARCH}\.deb" | sort -V | tail -1 || true)"
+                [ -n "$deb" ] || continue
+                curl -fsSL --retry 3 -o "$work/ssl.deb" "$pool/$deb" || continue
+                rm -rf "$work/sslx"; mkdir -p "$work/sslx"
+                dpkg-deb -x "$work/ssl.deb" "$work/sslx" 2>/dev/null || continue
+                found=0
+                for so in libssl.so.1.1 libcrypto.so.1.1; do
+                    f="$(find "$work/sslx" -name "$so" -type f | head -1)"
+                    [ -n "$f" ] && cp "$f" "$dest/lib/" && found=$((found + 1))
+                done
+                if [ "$found" = 2 ]; then
+                    echo "mongo42: OpenSSL 1.1 taken from $deb ($pool)."
+                    got_ssl=yes
+                    break
+                fi
+            done
+            if [ "$got_ssl" != yes ]; then
+                echo "mongo42: could not obtain OpenSSL 1.1 for ${DEBARCH}; mongod 4.2 cannot run without it, so it is not staged."
+                rm -rf "$dest"
+                exit 0
+            fi
+
+            # It has to RUN, not just exist. A staged binary that dies on a
+            # missing library would only be discovered by an admin whose site is
+            # already down, so the build asks it here.
+            if ! LD_LIBRARY_PATH="$dest/lib" "$dest/bin/mongod" --version >/dev/null 2>&1; then
+                echo "mongo42: the staged mongod 4.2 does not run in this environment; removing it rather than shipping something that cannot start."
+                rm -rf "$dest"
+                exit 0
+            fi
+            echo "mongo42: staged $("$dest/bin/mongod" --version 2>/dev/null | head -1 || echo "mongod $V") for ${CRAFT_ARCH_BUILD_FOR}."
+        stage:
+            - mongo42
+        prime:
+            - mongo42
+
+
     wekan:
         source: .
         plugin: npm

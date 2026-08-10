@@ -48,6 +48,14 @@ TGT_PORT=27098                                         # temp target FerretDB
 NODE="$SNAP/bin/node"
 IMPORTER="$SNAP/bin/migrate-mongo3-to-ferretdb.mjs"      # MongoDB 3.2 (legacy CLI)
 IMPORTER_MODERN="$SNAP/bin/migrate-mongodb-to-ferretdb.mjs"  # MongoDB 6/7 (driver)
+# #6471: the third reader. mongod 4.2 opens featureCompatibilityVersion 4.0 and
+# 4.2 - the vintage neither mongod 7 nor the 3.2 tools can touch - and is used
+# ONLY to read the old data during a migration, never as the running database.
+# It carries its own OpenSSL 1.1 (core24 has 3); see the mongo42 part in
+# snapcraft.yaml. Absent on the architectures MongoDB never built it for, which
+# is why every use is guarded on the binary being there.
+M42="$SNAP/mongo42"
+M42_LIB="$M42/lib"
 FERRETDB="$SNAP/ferretdb"
 DB_EVAL="$SNAP/bin/db-eval"                            # Node + `mongodb` driver
 SRC_URL="mongodb://127.0.0.1:$SRC_PORT/?directConnection=true"
@@ -348,7 +356,7 @@ stop_data_too_old() {
   local can; can="$(data_too_old_can_read)"
   printf '%s\n' "$can" > "$SNAP_COMMON/.mongodb-data-too-old"
   log "The database files were made by an older MongoDB${can:+ (MongoDB $can or earlier can still read them)}."
-  log "This snap bundles MongoDB 7 and the MongoDB 3.2 tools; neither can open them, and no retry can change that."
+  log "This snap can read a MongoDB 6/7 database (mongod 7), a MongoDB 4.0/4.2 one (mongod 4.2) and a MongoDB 3.2 one (the migratemongo tools); these files are none of those, and no retry can change that."
   log "NOTHING has been changed: your data, attachments and avatars are untouched."
   log "Two ways forward:"
   log "  1. Go back to the revision that worked:  sudo snap revert ${SNAP_INSTANCE_NAME:-wekan}   (then: sudo snap refresh --hold=forever ${SNAP_INSTANCE_NAME:-wekan})"
@@ -372,9 +380,9 @@ fall_back_to_mongodb() {   # $1 = human-readable reason
   snapctl set migrate=off 2>/dev/null || true
   exec bash "$SNAP/bin/mongodb-control"
 }
-# #6466: failure handler for the MongoDB 3.x branch. For a 3.x source there is NO
-# working MongoDB fallback: the only service mongod is 7.x, which cannot open 3.x
-# data files ("This version of MongoDB is too recent ... Try MongoDB 4.2 or
+# #6466: failure handler for the branches with NO MongoDB fallback - the 3.x one
+# it was written for, and since #6471 the 4.x one as well. For either source the
+# only service mongod is 7.x, which cannot open those data files ("This version of MongoDB is too recent ... Try MongoDB 4.2 or
 # earlier"), so fail_and_run_mongodb used to delete the (possibly fully-copied)
 # FerretDB SQLite over a handful of per-item errors and then strand the snap in a
 # mongod crash loop serving 502 Bad Gateway. Instead: KEEP the partial FerretDB
@@ -430,6 +438,46 @@ if start_mongod "$SNAP/bin/mongod" "" "--wiredTigerCacheSizeGB ${SRC_WT_CACHE_GB
 fi
 stop_via_node
 force_stop_src
+
+# ── Otherwise a MongoDB 4.x database? mongod 4.2 opens FCV 4.0 and 4.2. ──────
+# This is the gap #6471 fell into: a database from one of the 4.x snaps, which
+# mongod 7 refuses ("too recent to start up on the existing data files. Try
+# MongoDB 4.2 or earlier") and the 3.2 tools cannot read either. Reading it is
+# all that is needed - the modern importer then copies it into FerretDB with the
+# bundled driver, which supports servers from 4.2 up, exactly as it does for a
+# 6/7 source.
+if [ -x "$M42/bin/mongod" ]; then
+  log "mongod 7 could not open the data; trying the bundled mongod 4.2 ..."
+  if start_mongod "$M42/bin/mongod" "$M42_LIB" "--wiredTigerCacheSizeGB ${SRC_WT_CACHE_GB}" && ready_via_node; then
+    if [ ! -x "$FERRETDB" ] || [ ! -x "$NODE" ] || [ ! -f "$IMPORTER_MODERN" ]; then
+      # NOT fall_back_to_mongodb: the only service mongod is 7.x, and it cannot
+      # open this data either - handing back to it is the loop this whole branch
+      # exists to end.
+      stop_via_node
+      force_stop_src
+      fall_back_to_mongodb "Migration tools unavailable; cannot migrate this MongoDB 4.x database to FerretDB."
+    fi
+    log "Detected MongoDB 4.x (mongod 4.2 opened it). Migrating to FerretDB (SQLite) ..."
+    start_target_ferretdb "stop_via_node"
+    log "Migrating MongoDB 4.x → FerretDB (driver). Progress at ${ROOT_URL:-http://localhost:$WEKAN_PORT}"
+    NODE_PATH="$SNAP/programs/server/node_modules" \
+    SOURCE_MONGO_URL="mongodb://127.0.0.1:$SRC_PORT/wekan?directConnection=true" \
+    TARGET_MONGO_URL="mongodb://127.0.0.1:$TGT_PORT/wekan" \
+    WRITABLE_PATH="$SNAP_COMMON" \
+    MIGRATION_PORT="$WEKAN_PORT" \
+      "$NODE" "$IMPORTER_MODERN"
+    rc=$?
+    if [ "$rc" -eq 0 ] && finish_success; then exit 0; fi
+    [ "$rc" -ge 128 ] && resume_next_start "$rc"
+    # Same reasoning as the 3.x branch below: there is no MongoDB to fall back
+    # to for this vintage, so keep the partial FerretDB and its checkpoint and
+    # let the next start resume, rather than deleting good work and stranding
+    # the site.
+    fail_3x_keep_progress "$rc"
+  fi
+  stop_via_node
+  force_stop_src
+fi
 
 # ── Otherwise, old MongoDB 3.x? Read it with the bundled migratemongo 3.2 CLI. ─
 if [ ! -x "$MM/bin/mongod" ] || [ ! -x "$MM/bin/mongo" ] || [ ! -x "$FERRETDB" ] || [ ! -x "$NODE" ] || [ ! -f "$IMPORTER" ]; then

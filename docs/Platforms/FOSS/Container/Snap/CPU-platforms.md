@@ -222,20 +222,40 @@ After a successful migration the snap switches to `database=ferretdb`.
 Architectures other than amd64 ship no MongoDB server and no MongoDB 3 client, so
 there is nothing to migrate from — they are FerretDB v1 from the first boot.
 
-### A database from a MongoDB the snap cannot read (4.x / 5.x)
+### Which MongoDB databases the snap can migrate from
 
-The snap carries **two** readers: MongoDB 7, the server it runs, and the MongoDB
-3.2 tools, for a 6.09-era database. There is nothing in between. A database left
-by a **MongoDB 4.x or 5.x** snap opens in neither — mongod 7 refuses it with
+**Three readers, on amd64 and arm64.** A MongoDB server only starts on data whose
+`featureCompatibilityVersion` is at most one major behind it, so which versions
+can be read is a property of which servers the snap carries:
+
+| Reader | Opens data from | Used for |
+|--------|-----------------|----------|
+| mongod 7 (the server it runs) | MongoDB 6.0, 7.0 | the running database, and reading a 6/7 one to migrate |
+| **mongod 4.2** (migration only) | MongoDB 4.0, 4.2 | reading a 4.x database to migrate |
+| the MongoDB 3.2 tools (`migratemongo`) | MongoDB 3.2 | reading a 6.09-era database to migrate |
+
+mongod 4.2 is bundled for **amd64 and arm64 only** — MongoDB publishes no 4.2 for
+the others, and they have been FerretDB from their first boot, so there is nothing
+there to migrate from. It carries its own OpenSSL 1.1, because core24 ships
+OpenSSL 3 and the 4.2 build will not load without 1.1. It is used **only to read**
+during a migration; the running database is never mongod 4.2.
+
+What is still unreadable, therefore: **3.4, 3.6, 4.4 and 5.0**. A database from
+one of those gets the page below rather than a migration.
+
+### A database from a MongoDB none of the three can read
+
+A database left by a **MongoDB 4.4 or 5.0** snap (or a 3.4/3.6 one) opens in none
+of them — mongod 7 refuses it with
 
 ```
 This version of MongoDB is too recent to start up on the existing data files.
 Try MongoDB 4.2 or earlier.
 ```
 
-and the 3.2 tools cannot read 4.x files either. Reading those files needs a
-binary the snap does not have, so **no retry can succeed**, and there is nothing
-the snap can migrate from.
+and neither mongod 4.2 nor the 3.2 tools can open them either. Reading those
+files needs a server the snap does not carry, so **no retry can succeed**, and
+there is nothing the snap can migrate from.
 
 What it does instead of trying: it **stops**, writes
 `$SNAP_COMMON/.mongodb-data-too-old` with the version mongod itself named as

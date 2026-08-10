@@ -54,7 +54,7 @@ const HEADING = IS_RECOVERY ? `${PRODUCT} is recovering your data`
 const BODY = IS_RECOVERY
   ? 'Your data is being restored. The service will return automatically when recovery finishes.'
   : IS_DATA_TOO_OLD
-  ? `The database files were created by an older MongoDB${CAN_READ ? ` (MongoDB ${CAN_READ} or earlier can still read them)` : ''}. This version bundles MongoDB 7 and the MongoDB 3.2 tools, and neither can open them, so nothing has been changed and your data is untouched.`
+  ? `The database files were created by an older MongoDB${CAN_READ ? ` (MongoDB ${CAN_READ} or earlier can still read them)` : ''}. This version can read a MongoDB 6/7 database, a MongoDB 4.0/4.2 one, and a MongoDB 3.2 one - and these files are none of those, so nothing has been changed and your data is untouched.`
   : 'The service is temporarily unavailable while maintenance is in progress.';
 
 // Only the data-too-old page has instructions: the other two are waits, and this one
