@@ -949,6 +949,12 @@
   "global-webhook": "Webhooks globales",
   "new-outgoing-webhook": "Irteera-webhook berria",
   "no-name": "(Ezezaguna)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Datu-basea",
+  "Node": "Node",
   "Node_version": "Nodo bertsioa",
   "Meteor_version": "Meteor bertsioa",
   "Database_type": "Datu-base mota",
@@ -2339,5 +2345,8 @@
   "event-severity": "Larritasuna",
   "event-action": "Ekintza",
   "event-source": "Iturria",
-  "event-detail": "Xehetasuna"
+  "event-detail": "Xehetasuna",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

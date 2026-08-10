@@ -949,6 +949,12 @@
   "global-webhook": "Global Webhooks",
   "new-outgoing-webhook": "Webhook ọhụrụ na-apụ apụ",
   "no-name": "(Amaghị)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Ebe nchekwa data",
+  "Node": "Node",
   "Node_version": "Ụdị ọnụ",
   "Meteor_version": "Ụdị meteor",
   "Database_type": "Ụdị Database",
@@ -2339,5 +2345,8 @@
   "event-severity": "Ịdị njọ",
   "event-action": "Omume",
   "event-source": "Isi mmalite",
-  "event-detail": "Nkọwa"
+  "event-detail": "Nkọwa",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

@@ -949,6 +949,12 @@
   "global-webhook": "Webhook globali",
   "new-outgoing-webhook": "Nuovo webhook in uscita",
   "no-name": "(Sconosciuto)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Bază de date",
+  "Node": "Node",
   "Node_version": "Versione Node",
   "Meteor_version": "Versione Meteor",
   "Database_type": "Tipul bazei de date",
@@ -2339,5 +2345,8 @@
   "event-severity": "Severitate",
   "event-action": "Acțiune",
   "event-source": "Sursă",
-  "event-detail": "Detaliu"
+  "event-detail": "Detaliu",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

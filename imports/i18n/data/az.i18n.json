@@ -949,6 +949,12 @@
   "global-webhook": "Qlobal Webhooks",
   "new-outgoing-webhook": "Yeni Gedən Webhook",
   "no-name": "(Naməlum)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Verilənlər bazası",
+  "Node": "Node",
   "Node_version": "Node versiyası",
   "Meteor_version": "Meteor versiyası",
   "Database_type": "Verilənlər bazası növü",
@@ -2339,5 +2345,8 @@
   "event-severity": "Ciddilik",
   "event-action": "Əməliyyat",
   "event-source": "Mənbə",
-  "event-detail": "Təfərrüat"
+  "event-detail": "Təfərrüat",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

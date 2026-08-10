@@ -949,6 +949,12 @@
   "global-webhook": "התליות גלובליות",
   "new-outgoing-webhook": "קרסי רשת יוצאים חדשים",
   "no-name": "(לא ידוע)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "מסד נתונים",
+  "Node": "Node",
   "Node_version": "גרסת Node",
   "Meteor_version": "גרסת Meteor",
   "Database_type": "סוג מסד נתונים",
@@ -2339,5 +2345,8 @@
   "event-severity": "חומרה",
   "event-action": "פעולה",
   "event-source": "מקור",
-  "event-detail": "פרט"
+  "event-detail": "פרט",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

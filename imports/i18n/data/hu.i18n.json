@@ -949,6 +949,12 @@
   "global-webhook": "Globális webhurkok",
   "new-outgoing-webhook": "Új kimenő webhurok",
   "no-name": "(Ismeretlen)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Adatbázis",
+  "Node": "Node",
   "Node_version": "Node verzió",
   "Meteor_version": "Meteor verzió",
   "Database_type": "Adatbázis típusa",
@@ -2339,5 +2345,8 @@
   "event-severity": "Súlyosság",
   "event-action": "Művelet",
   "event-source": "Forrás",
-  "event-detail": "Részlet"
+  "event-detail": "Részlet",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

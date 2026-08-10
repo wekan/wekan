@@ -949,6 +949,12 @@
   "global-webhook": "גלאבאלע וועבהאָאָקס",
   "new-outgoing-webhook": "ניו אַוטגאָוינג וועבהאָאָק",
   "no-name": "(אומבאַקאַנט)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "דאַטן־באַזע",
+  "Node": "Node",
   "Node_version": "נאָדע ווערסיע",
   "Meteor_version": "מעטעאָר ווערסיע",
   "Database_type": "דאַטן־באַזע טיפּ",
@@ -2339,5 +2345,8 @@
   "event-severity": "שווערקייט",
   "event-action": "אַקציע",
   "event-source": "קוואַל",
-  "event-detail": "פּרט"
+  "event-detail": "פּרט",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

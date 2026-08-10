@@ -949,6 +949,12 @@
   "global-webhook": "Webhooks globaux",
   "new-outgoing-webhook": "Nouveau webhook sortant",
   "no-name": "(Inconnu)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Base bu dénk-yoon",
+  "Node": "Node",
   "Node_version": "Version de Node",
   "Meteor_version": "Version de Meteor",
   "Database_type": "Xeetu database",
@@ -2339,5 +2345,8 @@
   "event-severity": "Tar",
   "event-action": "Jëf",
   "event-source": "Cosaan",
-  "event-detail": "Firnde"
+  "event-detail": "Firnde",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

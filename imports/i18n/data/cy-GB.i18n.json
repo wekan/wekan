@@ -949,6 +949,12 @@
   "global-webhook": "Bachau Gwe Byd-eang",
   "new-outgoing-webhook": "Llyfr Gwe Allan Newydd",
   "no-name": "(Anhysbys)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Cronfa ddata",
+  "Node": "Node",
   "Node_version": "Fersiwn nod",
   "Meteor_version": "Fersiwn Meteor",
   "Database_type": "Math o gronfa ddata",
@@ -2339,5 +2345,8 @@
   "event-severity": "Difrifoldeb",
   "event-action": "Gweithred",
   "event-source": "Ffynhonnell",
-  "event-detail": "Manylion"
+  "event-detail": "Manylion",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

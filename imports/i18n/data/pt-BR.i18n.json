@@ -949,6 +949,12 @@
   "global-webhook": "Webhooks globais",
   "new-outgoing-webhook": "Novo Webhook de saída",
   "no-name": "(Desconhecido)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Banco de dados",
+  "Node": "Node",
   "Node_version": "Versão do Node",
   "Meteor_version": "Versão do Meteor",
   "Database_type": "Tipo de banco de dados",
@@ -2339,5 +2345,8 @@
   "event-severity": "Gravidade",
   "event-action": "Ação",
   "event-source": "Origem",
-  "event-detail": "Detalhe"
+  "event-detail": "Detalhe",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

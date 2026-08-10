@@ -949,6 +949,12 @@
   "global-webhook": "Globalūs žiniatinklio kabliukai (Webhooks)",
   "new-outgoing-webhook": "Naujas siunčiamas žiniatinklio kabliukas",
   "no-name": "(Nežinoma)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Duomenų bazė",
+  "Node": "Node",
   "Node_version": "Mazgo versija",
   "Meteor_version": "Meteor versija",
   "Database_type": "Duomenų bazės tipas",
@@ -2339,5 +2345,8 @@
   "event-severity": "Rimtumas",
   "event-action": "Veiksmas",
   "event-source": "Šaltinis",
-  "event-detail": "Išsami informacija"
+  "event-detail": "Išsami informacija",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

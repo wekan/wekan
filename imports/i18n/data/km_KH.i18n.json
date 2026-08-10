@@ -949,6 +949,12 @@
   "global-webhook": "គេហទំព័រសកល",
   "new-outgoing-webhook": "Webhook ចេញថ្មី។",
   "no-name": "(មិនស្គាល់)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "មូលដ្ឋានទិន្នន័យ",
+  "Node": "Node",
   "Node_version": "កំណែថ្នាំង",
   "Meteor_version": "កំណែ Meteor",
   "Database_type": "ប្រភេទមូលដ្ឋានទិន្នន័យ",
@@ -2339,5 +2345,8 @@
   "event-severity": "កម្រិតធ្ងន់ធ្ងរ",
   "event-action": "សកម្មភាព",
   "event-source": "ប្រភព",
-  "event-detail": "ព័ត៌មានលម្អិត"
+  "event-detail": "ព័ត៌មានលម្អិត",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

@@ -949,6 +949,12 @@
   "global-webhook": "Глобальные Веб-Хуки",
   "new-outgoing-webhook": "Новый исходящий Веб-Хук",
   "no-name": "(Неизвестный)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "База данных",
+  "Node": "Node",
   "Node_version": "Версия NodeJS",
   "Meteor_version": "Версия Meteor",
   "Database_type": "Тип базы данных",
@@ -2339,5 +2345,8 @@
   "event-severity": "Серьёзность",
   "event-action": "Действие",
   "event-source": "Источник",
-  "event-detail": "Подробности"
+  "event-detail": "Подробности",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

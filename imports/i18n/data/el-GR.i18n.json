@@ -949,6 +949,12 @@
   "global-webhook": "Webhook globali",
   "new-outgoing-webhook": "Νέο Εξερχόμενο Webhook",
   "no-name": "(Άγνωστο)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Βάση δεδομένων",
+  "Node": "Node",
   "Node_version": "Έκδοση Node",
   "Meteor_version": "Έκδοση Meteor",
   "Database_type": "Τύπος βάσης δεδομένων",
@@ -2339,5 +2345,8 @@
   "event-severity": "Σοβαρότητα",
   "event-action": "Ενέργεια",
   "event-source": "Πηγή",
-  "event-detail": "Λεπτομέρεια"
+  "event-detail": "Λεπτομέρεια",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

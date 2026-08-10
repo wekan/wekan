@@ -949,6 +949,12 @@
   "global-webhook": "Global nga mga Webhook",
   "new-outgoing-webhook": "Bag-o nga Papagawas nga Webhook",
   "no-name": "(Diri kilala)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Båze di dnêyes",
+  "Node": "Node",
   "Node_version": "Bersyon han Node",
   "Meteor_version": "Bersyon han Meteor",
   "Database_type": "Klase han Database",
@@ -2339,5 +2345,8 @@
   "event-severity": "Grandeu",
   "event-action": "Accion",
   "event-source": "Sourdant",
-  "event-detail": "Detay"
+  "event-detail": "Detay",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

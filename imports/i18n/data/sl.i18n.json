@@ -949,6 +949,12 @@
   "global-webhook": "Globalni spletni vmesnik (webhook)",
   "new-outgoing-webhook": "Nov izhodni spletni vmesnik (webhook)",
   "no-name": "(Neznano)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Zbirka podatkov",
+  "Node": "Node",
   "Node_version": "Node različica",
   "Meteor_version": "Meteor različica",
   "Database_type": "Vrsta zbirke podatkov",
@@ -2339,5 +2345,8 @@
   "event-severity": "Resnost",
   "event-action": "Dejanje",
   "event-source": "Vir",
-  "event-detail": "Podrobnosti"
+  "event-detail": "Podrobnosti",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

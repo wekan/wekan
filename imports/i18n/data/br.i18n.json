@@ -949,6 +949,12 @@
   "global-webhook": "Webhooks globaux",
   "new-outgoing-webhook": "Nouveau webhook sortant",
   "no-name": "(Inconnu)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Diaz roadennoù",
+  "Node": "Node",
   "Node_version": "Version de Node",
   "Meteor_version": "Version de Meteor",
   "Database_type": "Rizh ar bank-roadennoù",
@@ -2339,5 +2345,8 @@
   "event-severity": "Garvder",
   "event-action": "Ober",
   "event-source": "Mammenn",
-  "event-detail": "Munud"
+  "event-detail": "Munud",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

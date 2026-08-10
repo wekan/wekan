@@ -949,6 +949,12 @@
   "global-webhook": "ئومۇمىي Webhook لار",
   "new-outgoing-webhook": "يېڭى چىققان Webhook",
   "no-name": "(نامەلۇم)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "ساندان",
+  "Node": "Node",
   "Node_version": "تۈگۈن نۇسخىسى",
   "Meteor_version": "مېتېئورىت نۇسخىسى",
   "Database_type": "ساندان تىپى",
@@ -2339,5 +2345,8 @@
   "event-severity": "ئېغىرلىق دەرىجىسى",
   "event-action": "مەشغۇلات",
   "event-source": "مەنبە",
-  "event-detail": "تەپسىلات"
+  "event-detail": "تەپسىلات",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

@@ -949,6 +949,12 @@
   "global-webhook": "وب‌هوک‌های سراسری",
   "new-outgoing-webhook": "ويبهوك جديدة",
   "no-name": "(غير معروف)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "قاعدة البيانات",
+  "Node": "Node",
   "Node_version": "إصدار النود",
   "Meteor_version": "نسخه متئور",
   "Database_type": "نوع قاعدة البيانات",
@@ -2339,5 +2345,8 @@
   "event-severity": "الخطورة",
   "event-action": "الإجراء",
   "event-source": "المصدر",
-  "event-detail": "التفاصيل"
+  "event-detail": "التفاصيل",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

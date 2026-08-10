@@ -949,6 +949,12 @@
   "global-webhook": "全域訂閱 (Webhooks)",
   "new-outgoing-webhook": "新增連外訂閱 (Webhooks)",
   "no-name": "（未知）",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "資料庫",
+  "Node": "Node",
   "Node_version": "Node.js 版本",
   "Meteor_version": "Meteor 版本",
   "Database_type": "資料庫類型",
@@ -2339,5 +2345,8 @@
   "event-severity": "嚴重程度",
   "event-action": "動作",
   "event-source": "來源",
-  "event-detail": "詳細資訊"
+  "event-detail": "詳細資訊",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

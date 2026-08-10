@@ -949,6 +949,12 @@
   "global-webhook": "Globala Webhooks",
   "new-outgoing-webhook": "Ny utgående webhook",
   "no-name": "(Okänd)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Databas",
+  "Node": "Node",
   "Node_version": "Nodversion",
   "Meteor_version": "Meteor-version",
   "Database_type": "Databastyp",
@@ -2339,5 +2345,8 @@
   "event-severity": "Allvarlighetsgrad",
   "event-action": "Åtgärd",
   "event-source": "Källa",
-  "event-detail": "Detalj"
+  "event-detail": "Detalj",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

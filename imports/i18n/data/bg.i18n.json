@@ -949,6 +949,12 @@
   "global-webhook": "Глобални Webhooks",
   "new-outgoing-webhook": "Нов Изходящ Webhook",
   "no-name": "(Непознат)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "База данни",
+  "Node": "Node",
   "Node_version": "Версия на Node",
   "Meteor_version": "Версия на Meteor",
   "Database_type": "Тип на базата данни",
@@ -2339,5 +2345,8 @@
   "event-severity": "Сериозност",
   "event-action": "Действие",
   "event-source": "Източник",
-  "event-detail": "Детайл"
+  "event-detail": "Детайл",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

@@ -949,6 +949,12 @@
   "global-webhook": "Webhook toàn cầu",
   "new-outgoing-webhook": "Webhook gửi đi mới",
   "no-name": "(Không xác định)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Cơ sở dữ liệu",
+  "Node": "Node",
   "Node_version": "Phiên bản Node",
   "Meteor_version": "Phiên bản Meteor",
   "Database_type": "Loại cơ sở dữ liệu",
@@ -2339,5 +2345,8 @@
   "event-severity": "Mức độ nghiêm trọng",
   "event-action": "Hành động",
   "event-source": "Nguồn",
-  "event-detail": "Chi tiết"
+  "event-detail": "Chi tiết",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

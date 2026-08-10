@@ -949,6 +949,12 @@
   "global-webhook": "وب‌هوک‌های سراسری",
   "new-outgoing-webhook": "ويبهوك جديدة",
   "no-name": "(ناشناخته)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "پایگاه داده",
+  "Node": "Node",
   "Node_version": "نسخه Node",
   "Meteor_version": "نسخه متئور",
   "Database_type": "نوع پایگاه داده",
@@ -2339,5 +2345,8 @@
   "event-severity": "شدت",
   "event-action": "اقدام",
   "event-source": "منبع",
-  "event-detail": "جزئیات"
+  "event-detail": "جزئیات",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

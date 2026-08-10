@@ -949,6 +949,12 @@
   "global-webhook": "Kaikenkattavat Webkoukut",
   "new-outgoing-webhook": "Uusi lähtevä Webkoukku",
   "no-name": "(Tuntematon)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Database",
+  "Node": "Node",
   "Node_version": "Node-versio",
   "Meteor_version": "Meteor-versio",
   "Database_type": "Andmbazan tip",
@@ -2339,5 +2345,8 @@
   "event-severity": "Vhukuma",
   "event-action": "Nyito",
   "event-source": "Tsimo",
-  "event-detail": "Zwidodombedzwa"
+  "event-detail": "Zwidodombedzwa",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

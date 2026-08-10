@@ -949,6 +949,12 @@
   "global-webhook": "Глобальні Webhooks",
   "new-outgoing-webhook": "Новий вихідний Webhook",
   "no-name": "(Невідомо)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "База даних",
+  "Node": "Node",
   "Node_version": "Версія Node",
   "Meteor_version": "Версія Meteor",
   "Database_type": "Тип бази даних",
@@ -2339,5 +2345,8 @@
   "event-severity": "Серйозність",
   "event-action": "Дія",
   "event-source": "Джерело",
-  "event-detail": "Деталі"
+  "event-detail": "Деталі",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

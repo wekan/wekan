@@ -949,6 +949,12 @@
   "global-webhook": "Globaalsed veebikonksud",
   "new-outgoing-webhook": "Uus väljaminev veebikonks",
   "no-name": "(Tundmatu)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Andmebaas",
+  "Node": "Node",
   "Node_version": "Sõlme versioon",
   "Meteor_version": "Meteori versioon",
   "Database_type": "Andmebaasi tüüp",
@@ -2339,5 +2345,8 @@
   "event-severity": "Raskusaste",
   "event-action": "Toiming",
   "event-source": "Allikas",
-  "event-detail": "Üksikasjad"
+  "event-detail": "Üksikasjad",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

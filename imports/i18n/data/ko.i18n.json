@@ -949,6 +949,12 @@
   "global-webhook": "グローバルWebフック",
   "new-outgoing-webhook": "発信Webフックの作成",
   "no-name": "(名前なし)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "데이터베이스",
+  "Node": "Node",
   "Node_version": "Node.js版本",
   "Meteor_version": "Meteor 버전",
   "Database_type": "데이터베이스 유형",
@@ -2339,5 +2345,8 @@
   "event-severity": "심각도",
   "event-action": "작업",
   "event-source": "출처",
-  "event-detail": "세부 정보"
+  "event-detail": "세부 정보",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

@@ -949,6 +949,12 @@
   "global-webhook": "Globální webhooks",
   "new-outgoing-webhook": "Nové odchozí Webhooky",
   "no-name": "(Neznámé)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Databáze",
+  "Node": "Node",
   "Node_version": "Node verze",
   "Meteor_version": "Verze Meteor",
   "Database_type": "Typ databáze",
@@ -2339,5 +2345,8 @@
   "event-severity": "Závažnost",
   "event-action": "Akce",
   "event-source": "Zdroj",
-  "event-detail": "Detail"
+  "event-detail": "Detail",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

@@ -949,6 +949,12 @@
   "global-webhook": "Global Webhooks",
   "new-outgoing-webhook": "New Outgoing Webhook",
   "no-name": "(Unknown)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Database",
+  "Node": "Node",
   "Node_version": "Node version",
   "Meteor_version": "Meteor version",
   "Database_type": "Database type",
@@ -2339,5 +2345,8 @@
   "event-severity": "Severity",
   "event-action": "Action",
   "event-source": "Source",
-  "event-detail": "Detail"
+  "event-detail": "Detail",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

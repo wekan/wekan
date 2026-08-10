@@ -949,6 +949,12 @@
   "global-webhook": "Дојава догађаја",
   "new-outgoing-webhook": "Нова дојава догађаја",
   "no-name": "(непознато)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "База података",
+  "Node": "Node",
   "Node_version": "Node верзија",
   "Meteor_version": "Meteor верзија",
   "Database_type": "Тип базе података",
@@ -2339,5 +2345,8 @@
   "event-severity": "Озбиљност",
   "event-action": "Радња",
   "event-source": "Извор",
-  "event-detail": "Детаљ"
+  "event-detail": "Детаљ",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

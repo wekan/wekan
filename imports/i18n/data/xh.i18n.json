@@ -949,6 +949,12 @@
   "global-webhook": "IiWebhooks zehlabathi",
   "new-outgoing-webhook": "IWebhook Entsha Ephumayo",
   "no-name": "(Akwaziwa)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Isiseko sedatha",
+  "Node": "Node",
   "Node_version": "Uguqulelo lweNode",
   "Meteor_version": "Inguqulelo yeMeteor",
   "Database_type": "Uhlobo lwe-database",
@@ -2339,5 +2345,8 @@
   "event-severity": "Ubunzima",
   "event-action": "Isenzo",
   "event-source": "Umthombo",
-  "event-detail": "Iinkcukacha"
+  "event-detail": "Iinkcukacha",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

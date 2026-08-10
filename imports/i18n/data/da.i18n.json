@@ -949,6 +949,12 @@
   "global-webhook": "Globale webhooks",
   "new-outgoing-webhook": "Ny udgående webhook",
   "no-name": "(Ukendt)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Database",
+  "Node": "Node",
   "Node_version": "Node-version",
   "Meteor_version": "Meteor-version",
   "Database_type": "Databasetype",
@@ -2339,5 +2345,8 @@
   "event-severity": "Alvorsgrad",
   "event-action": "Handling",
   "event-source": "Kilde",
-  "event-detail": "Detalje"
+  "event-detail": "Detalje",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

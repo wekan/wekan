@@ -949,6 +949,12 @@
   "global-webhook": "Webhooks globaux",
   "new-outgoing-webhook": "Nouveau webhook sortant",
   "no-name": "(Inconnu)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Dätabäs",
+  "Node": "Node",
   "Node_version": "Version de Node",
   "Meteor_version": "Version de Meteor",
   "Database_type": "Nünodemüpa tip",
@@ -2339,5 +2345,8 @@
   "event-severity": "Fikuläd",
   "event-action": "Zäl",
   "event-source": "Fon",
-  "event-detail": "Vüot"
+  "event-detail": "Vüot",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

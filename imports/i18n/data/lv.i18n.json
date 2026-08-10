@@ -949,6 +949,12 @@
   "global-webhook": "Globālie Webhook",
   "new-outgoing-webhook": "Jauns izejošais Webhook",
   "no-name": "(Nezināms)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Datubāze",
+  "Node": "Node",
   "Node_version": "Node versija",
   "Meteor_version": "Meteor versija",
   "Database_type": "Datubāzes tips",
@@ -2339,5 +2345,8 @@
   "event-severity": "Nopietnība",
   "event-action": "Darbība",
   "event-source": "Avots",
-  "event-detail": "Detaļas"
+  "event-detail": "Detaļas",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

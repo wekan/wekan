@@ -949,6 +949,12 @@
   "global-webhook": "Cangkuk Web Global",
   "new-outgoing-webhook": "Cangkuk Web Keluar Baru",
   "no-name": "(Tidak Diketahui)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Pangkalan data",
+  "Node": "Node",
   "Node_version": "Versi Nod",
   "Meteor_version": "Versi Meteor",
   "Database_type": "Jenis pangkalan data",
@@ -2339,5 +2345,8 @@
   "event-severity": "Keterukan",
   "event-action": "Tindakan",
   "event-source": "Sumber",
-  "event-detail": "Butiran"
+  "event-detail": "Butiran",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

@@ -949,6 +949,12 @@
   "global-webhook": "ਗਲੋਬਲ ਵੈਬਹੁੱਕਸ",
   "new-outgoing-webhook": "ਨਵਾਂ ਆਊਟਗੋਇੰਗ ਵੈਬਹੁੱਕ",
   "no-name": "(ਅਣਜਾਣ)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "ਡਾਟਾਬੇਸ",
+  "Node": "Node",
   "Node_version": "ਨੋਡ ਸੰਸਕਰਣ",
   "Meteor_version": "Meteor ਸੰਸਕਰਣ",
   "Database_type": "ਡਾਟਾਬੇਸ ਕਿਸਮ",
@@ -2339,5 +2345,8 @@
   "event-severity": "ਗੰਭੀਰਤਾ",
   "event-action": "ਕਾਰਵਾਈ",
   "event-source": "ਸਰੋਤ",
-  "event-detail": "ਵੇਰਵਾ"
+  "event-detail": "ਵੇਰਵਾ",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

@@ -949,6 +949,12 @@
   "global-webhook": "Globale webhooks",
   "new-outgoing-webhook": "Nije útgeande webhook",
   "no-name": "(Ûnbekend)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Database",
+  "Node": "Node",
   "Node_version": "Node ferzje",
   "Meteor_version": "Meteor ferzje",
   "Database_type": "Databasetype",
@@ -2339,5 +2345,8 @@
   "event-severity": "Earnst",
   "event-action": "Aksje",
   "event-source": "Boarne",
-  "event-detail": "Detail"
+  "event-detail": "Detail",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

@@ -949,6 +949,12 @@
   "global-webhook": "Глабальныя вэб-хукі",
   "new-outgoing-webhook": "Новы выходны вэб-хук",
   "no-name": "(Невядома)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "База даных",
+  "Node": "Node",
   "Node_version": "Версія Node",
   "Meteor_version": "Версія Meteor",
   "Database_type": "Тып базы дадзеных",
@@ -2339,5 +2345,8 @@
   "event-severity": "Сур'ёзнасць",
   "event-action": "Дзеянне",
   "event-source": "Крыніца",
-  "event-detail": "Дэталі"
+  "event-detail": "Дэталі",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

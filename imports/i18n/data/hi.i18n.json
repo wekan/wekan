@@ -949,6 +949,12 @@
   "global-webhook": "વૈશ્વિક વેબહુક્સ",
   "new-outgoing-webhook": "નવું આઉટગોઇંગ વેબહૂક",
   "no-name": "(અજ્ઞાત)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "डेटाबेस",
+  "Node": "Node",
   "Node_version": "નોડ સંસ્કરણ",
   "Meteor_version": "ઉલ્કા સંસ્કરણ",
   "Database_type": "डेटाबेस प्रकार",
@@ -2339,5 +2345,8 @@
   "event-severity": "गंभीरता",
   "event-action": "क्रिया",
   "event-source": "स्रोत",
-  "event-detail": "विवरण"
+  "event-detail": "विवरण",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

@@ -949,6 +949,12 @@
   "global-webhook": "全局 Webhooks",
   "new-outgoing-webhook": "新的传出 Webhook",
   "no-name": "（未知）",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "数据库",
+  "Node": "Node",
   "Node_version": "节点版本",
   "Meteor_version": "流星版",
   "Database_type": "数据库类型",
@@ -2339,5 +2345,8 @@
   "event-severity": "严重程度",
   "event-action": "操作",
   "event-source": "来源",
-  "event-detail": "详情"
+  "event-detail": "详情",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

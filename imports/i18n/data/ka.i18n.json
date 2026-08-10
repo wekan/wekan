@@ -949,6 +949,12 @@
   "global-webhook": "Глобальные Веб-Хуки",
   "new-outgoing-webhook": "Новый исходящий Веб-Хук",
   "no-name": "(უცნობი)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "მონაცემთა ბაზა",
+  "Node": "Node",
   "Node_version": "Node ვერსია",
   "Meteor_version": "Версия Meteor",
   "Database_type": "მონაცემთა ბაზის ტიპი",
@@ -2339,5 +2345,8 @@
   "event-severity": "სიმძიმე",
   "event-action": "მოქმედება",
   "event-source": "წყარო",
-  "event-detail": "დეტალი"
+  "event-detail": "დეტალი",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

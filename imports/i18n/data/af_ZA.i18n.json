@@ -949,6 +949,12 @@
   "global-webhook": "Globale Webhooks",
   "new-outgoing-webhook": "Nuwe Uitgaande Webhook",
   "no-name": "(Onbekend)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Databasis",
+  "Node": "Node",
   "Node_version": "Node weergawe",
   "Meteor_version": "Meteoor weergawe",
   "Database_type": "Databasistipe",
@@ -2339,5 +2345,8 @@
   "event-severity": "Erns",
   "event-action": "Aksie",
   "event-source": "Bron",
-  "event-detail": "Besonderhede"
+  "event-detail": "Besonderhede",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

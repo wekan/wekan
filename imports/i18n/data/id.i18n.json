@@ -949,6 +949,12 @@
   "global-webhook": "Cangkuk Web Global",
   "new-outgoing-webhook": "Cangkuk Web Keluar Baru",
   "no-name": "(Tidak Diketahui)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Basis data",
+  "Node": "Node",
   "Node_version": "Versi Node",
   "Meteor_version": "Versi Meteor",
   "Database_type": "Tipe database",
@@ -2339,5 +2345,8 @@
   "event-severity": "Tingkat keparahan",
   "event-action": "Tindakan",
   "event-source": "Sumber",
-  "event-detail": "Rincian"
+  "event-detail": "Rincian",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

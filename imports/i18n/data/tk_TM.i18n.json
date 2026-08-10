@@ -949,6 +949,12 @@
   "global-webhook": "Global webhooks",
   "new-outgoing-webhook": "Täze çykýan webhook",
   "no-name": "(Näbelli)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Maglumat bazasy",
+  "Node": "Node",
   "Node_version": "Düwün görnüşi",
   "Meteor_version": "Meteor wersiýasy",
   "Database_type": "Maglumat bazasynyň görnüşi",
@@ -2339,5 +2345,8 @@
   "event-severity": "Agyrlyk",
   "event-action": "Hereket",
   "event-source": "Çeşme",
-  "event-detail": "Jikme-jiklik"
+  "event-detail": "Jikme-jiklik",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

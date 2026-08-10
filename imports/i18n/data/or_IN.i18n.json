@@ -949,6 +949,12 @@
   "global-webhook": "ଗ୍ଲୋବାଲ୍ ୱେବହକ୍ସ |",
   "new-outgoing-webhook": "ନୂତନ ଆଉଟକିଙ୍ଗ୍ ୱେବ୍ ହକ୍ |",
   "no-name": "(ଅଜ୍ଞାତ)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "ଡାଟାବେସ",
+  "Node": "Node",
   "Node_version": "ନୋଡ୍ ସଂସ୍କରଣ |",
   "Meteor_version": "ପାଣିପାଗ ସଂସ୍କରଣ |",
   "Database_type": "ଡାଟାବେସ୍ ପ୍ରକାର",
@@ -2339,5 +2345,8 @@
   "event-severity": "ଗମ୍ଭୀରତା",
   "event-action": "କାର୍ଯ୍ୟ",
   "event-source": "ଉତ୍ସ",
-  "event-detail": "ବିବରଣୀ"
+  "event-detail": "ବିବରଣୀ",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

@@ -949,6 +949,12 @@
   "global-webhook": "Mtandao wa Kimataifa",
   "new-outgoing-webhook": "Mtandao Mpya Unaotoka",
   "no-name": "(Haijulikani)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Hifadhidata",
+  "Node": "Node",
   "Node_version": "Toleo la nodi",
   "Meteor_version": "Toleo la Meteor",
   "Database_type": "Aina ya hifadhidata",
@@ -2339,5 +2345,8 @@
   "event-severity": "Ukali",
   "event-action": "Kitendo",
   "event-source": "Chanzo",
-  "event-detail": "Maelezo"
+  "event-detail": "Maelezo",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

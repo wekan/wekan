@@ -949,6 +949,12 @@
   "global-webhook": "గ్లోబల్ వెబ్‌హుక్స్",
   "new-outgoing-webhook": "కొత్త అవుట్‌గోయింగ్ వెబ్‌హుక్",
   "no-name": "(తెలియదు)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "தரவுத்தளம்",
+  "Node": "Node",
   "Node_version": "నోడ్ వెర్షన్",
   "Meteor_version": "ఉల్కాపాతం వెర్షన్",
   "Database_type": "தரவுத்தள வகை",
@@ -2339,5 +2345,8 @@
   "event-severity": "தீவிரம்",
   "event-action": "செயல்",
   "event-source": "மூலம்",
-  "event-detail": "விவரம்"
+  "event-detail": "விவரம்",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

@@ -949,6 +949,12 @@
   "global-webhook": "Agbaye Webhooks",
   "new-outgoing-webhook": "Titun ti njade Webhook",
   "no-name": "(Aimọ)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Ibùdó ìsọfúnni",
+  "Node": "Node",
   "Node_version": "Ẹya Node",
   "Meteor_version": "Ẹya Meteor",
   "Database_type": "Iru ibi ipamọ data",
@@ -2339,5 +2345,8 @@
   "event-severity": "Ìdiwọ̀n",
   "event-action": "Ìṣe",
   "event-source": "Orísun",
-  "event-detail": "Àlàyé"
+  "event-detail": "Àlàyé",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

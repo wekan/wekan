@@ -949,6 +949,12 @@
   "global-webhook": "Global Bağlantılar",
   "new-outgoing-webhook": "Yeni Dışarı Giden Web Bağlantısı",
   "no-name": "(Bilinmeyen)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Veritabanı",
+  "Node": "Node",
   "Node_version": "Node sürümü",
   "Meteor_version": "Meteor sürümü",
   "Database_type": "Veritabanı türü",
@@ -2339,5 +2345,8 @@
   "event-severity": "Önem derecesi",
   "event-action": "Eylem",
   "event-source": "Kaynak",
-  "event-detail": "Ayrıntı"
+  "event-detail": "Ayrıntı",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

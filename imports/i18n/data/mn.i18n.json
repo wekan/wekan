@@ -949,6 +949,12 @@
   "global-webhook": "Глобальные Веб-Хуки",
   "new-outgoing-webhook": "Новый исходящий Веб-Хук",
   "no-name": "(Неизвестный)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Өгөгдлийн сан",
+  "Node": "Node",
   "Node_version": "Версия NodeJS",
   "Meteor_version": "Версия Meteor",
   "Database_type": "Өгөгдлийн сангийн төрөл",
@@ -2339,5 +2345,8 @@
   "event-severity": "Ноцтой байдал",
   "event-action": "Үйлдэл",
   "event-source": "Эх сурвалж",
-  "event-detail": "Дэлгэрэнгүй"
+  "event-detail": "Дэлгэрэнгүй",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

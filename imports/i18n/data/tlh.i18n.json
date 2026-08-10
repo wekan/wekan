@@ -949,6 +949,12 @@
   "global-webhook": "Globale Webhooks",
   "new-outgoing-webhook": "Neuer ausgehender Webhook",
   "no-name": "(Unbekannt)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "De'wI' De'",
+  "Node": "Node",
   "Node_version": "Node-Version",
   "Meteor_version": "Meteor-Version",
   "Database_type": "qawHaq Segh",
@@ -2339,5 +2345,8 @@
   "event-severity": "Saghghach",
   "event-action": "vangghach",
   "event-source": "mung",
-  "event-detail": "'ay'Hom"
+  "event-detail": "'ay'Hom",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

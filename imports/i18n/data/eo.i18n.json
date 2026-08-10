@@ -949,6 +949,12 @@
   "global-webhook": "Webhooks globales",
   "new-outgoing-webhook": "Nuevo webhook saliente",
   "no-name": "(Desconocido)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Datumbazo",
+  "Node": "Node",
   "Node_version": "Versión de Node",
   "Meteor_version": "Versión de Meteor",
   "Database_type": "Datumbaza tipo",
@@ -2339,5 +2345,8 @@
   "event-severity": "Graveco",
   "event-action": "Ago",
   "event-source": "Fonto",
-  "event-detail": "Detalo"
+  "event-detail": "Detalo",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

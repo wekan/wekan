@@ -949,6 +949,12 @@
   "global-webhook": "Համաշխարհային վեբ-կեռիկներ",
   "new-outgoing-webhook": "Նոր ելքային Webhook",
   "no-name": "(Անհայտ)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Տվյալների բազա",
+  "Node": "Node",
   "Node_version": "Հանգույցի տարբերակը",
   "Meteor_version": "Երկնաքարի տարբերակ",
   "Database_type": "Տվյալների բազայի տեսակ",
@@ -2339,5 +2345,8 @@
   "event-severity": "Լրջություն",
   "event-action": "Գործողություն",
   "event-source": "Աղբյուր",
-  "event-detail": "Մանրամասն"
+  "event-detail": "Մանրամասն",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

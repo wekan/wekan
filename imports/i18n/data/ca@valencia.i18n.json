@@ -949,6 +949,12 @@
   "global-webhook": "Webhooks globals",
   "new-outgoing-webhook": "Nou Webbook sortt",
   "no-name": "Importa tauler des de Wekan",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Base de dades",
+  "Node": "Node",
   "Node_version": "Versió Node",
   "Meteor_version": "Versió Meteor",
   "Database_type": "Tipus de base de dades",
@@ -2339,5 +2345,8 @@
   "event-severity": "Gravetat",
   "event-action": "Acció",
   "event-source": "Origen",
-  "event-detail": "Detall"
+  "event-detail": "Detall",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }

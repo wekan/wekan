@@ -949,6 +949,12 @@
   "global-webhook": "Global Webhooklar",
   "new-outgoing-webhook": "Yangi chiquvchi vebhuk",
   "no-name": "(Noma'lum)",
+  "Platform": "Platform",
+  "package": "Package",
+  "OS": "OS",
+  "Meteor": "Meteor",
+  "Database": "Ma'lumotlar bazasi",
+  "Node": "Node",
   "Node_version": "Tugun versiyasi",
   "Meteor_version": "Meteor versiyasi",
   "Database_type": "Maʼlumotlar bazasi turi",
@@ -2339,5 +2345,8 @@
   "event-severity": "Jiddiylik",
   "event-action": "Amal",
   "event-source": "Manba",
-  "event-detail": "Tafsilot"
+  "event-detail": "Tafsilot",
+  "event-ip": "IP address",
+  "event-attempts": "Attempts",
+  "integrityReportTitle": "Filesystem integrity"
 }
