@@ -380,6 +380,33 @@ parts:
         override-build: |
             set -eu
             V=4.2.25
+
+            # The directory is created FIRST, before anything can decide to skip.
+            # `stage:` and `prime:` below name `mongo42` explicitly, and a filter
+            # that names a path the part did not produce is not ignored - snapcraft
+            # stops the whole build on it:
+            #
+            #   Staging mongo42
+            #   Failed to copy '/build/.../parts/mongo42/install/mongo42':
+            #     no such file or directory.
+            #   Build failed
+            #
+            # That is what failed EVERY Launchpad snap in v10.80 - armhf, s390x,
+            # ppc64el and riscv64, three attempts each - because this part is
+            # amd64/arm64 only and every other architecture took the `exit 0`
+            # below, leaving nothing to stage. The part was meant to be optional
+            # ("OPTIONAL BY DESIGN", above) and on those arches it silently was
+            # not: it took the entire snap down with it, on the four
+            # architectures that have no native runner and can only be built
+            # here.
+            #
+            # An empty directory stages fine and primes to a few bytes, and
+            # migration-control looks for the BINARY inside it, which is still
+            # not there - so "no MongoDB 4.2 to migrate from" stays exactly as
+            # true as it was, without being fatal.
+            dest="$SNAPCRAFT_PART_INSTALL/mongo42"
+            mkdir -p "$dest/bin" "$dest/lib"
+
             case "${CRAFT_ARCH_BUILD_FOR}" in
                 amd64) MARCH=x86_64  ; DEBARCH=amd64 ;;
                 arm64) MARCH=aarch64 ; DEBARCH=arm64 ;;
@@ -389,8 +416,6 @@ parts:
                     ;;
             esac
 
-            dest="$SNAPCRAFT_PART_INSTALL/mongo42"
-            mkdir -p "$dest/bin" "$dest/lib"
             work="$(mktemp -d)"
             trap 'rm -rf "$work"' EXIT
 
@@ -526,7 +551,31 @@ parts:
             fi
             cd bundle/programs/server
             rm -rf node_modules
-            npm install
+            # Retried, because on Launchpad this is the step that loses the race
+            # with the network. Every request goes through the build farm's proxy,
+            # and one tarball out of a couple of thousand can simply be cut:
+            #
+            #   npm ERR! code ECONNRESET
+            #   npm ERR! network request to https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz
+            #             failed, reason: socket hang up
+            #   'override-build' in part 'wekan' failed with code 1.
+            #
+            # which is what ended the riscv64 snap in v10.80 after it had already
+            # built for half an hour. Nothing is wrong with the build when that
+            # happens and asking again fixes it; npm's own --fetch-retries only
+            # covers the request, not a socket dropped mid-stream. Three tries,
+            # then it is a real failure and the log says so.
+            for attempt in 1 2 3; do
+                if npm install; then
+                    break
+                fi
+                if [ "$attempt" = 3 ]; then
+                    echo "npm install failed three times in a row - this is not the network." >&2
+                    exit 1
+                fi
+                echo "npm install failed (attempt ${attempt}/3); retrying in 15s."
+                sleep 15
+            done
             cd ../../../..
             # Copy to Snap. Use the bundle's OWN arch-correct Node.js: the
             # wekan-<arch>.zip already ships the right node for this platform

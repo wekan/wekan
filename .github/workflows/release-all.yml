@@ -4046,7 +4046,18 @@ jobs:
           #      usually transient, so the three attempts above cover a one-off.
           #      (The large-history push that also broke these builds is fixed
           #      separately, by flattening the repo before the push.)
-          echo "::error::If the build ended as 'Stopped' with no artifact: the Launchpad project https://launchpad.net/xet7-craft-remote-build should be MIT / X/Expat (it is set now) - re-set it only if it shows 'None specified'. Otherwise Launchpad cancelled the build as it ran (often an OOM in the Meteor npm install, or a transient build-farm reset - the printed build log ends mid-step); re-run, and if it persists on this arch open a Launchpad question. Builds: https://launchpad.net/~xet7/+snaps" >&2
+          # THE BUILD LOG IS PRINTED ABOVE AND IT SAYS WHY. Read it before
+          # believing any guess in this message - the guess has been wrong. For
+          # four releases this line said "often an OOM in the Meteor npm install,
+          # or a transient build-farm reset", and every one of the four
+          # architectures was in fact failing on one deterministic line:
+          #     Failed to copy '.../parts/mongo42/install/mongo42':
+          #       no such file or directory
+          # a `stage:` filter naming a path that an amd64/arm64-only part does not
+          # produce anywhere else. Nothing transient about it, and "re-run" was
+          # the one thing that could not help. So these are named as the things to
+          # LOOK FOR in the log above, not as what probably happened.
+          echo "::error::snap-launchpad ${{ matrix.arch }}: the Launchpad build log is printed above - read it first; it names the part and the line that failed. Common causes, in the order they are worth checking: (1) a 'Failed to copy .../parts/<part>/install/<path>' - a stage:/prime: filter naming something the part did not produce on THIS architecture, which is deterministic and will not pass on a re-run; (2) an npm/network error inside a part's override-build, which is transient and is retried; (3) 'Stopped' with no artifact and no error - then check that https://launchpad.net/xet7-craft-remote-build still has a licence set (MIT / X/Expat), and otherwise Launchpad ended the build itself. Builds: https://launchpad.net/~xet7/+snaps" >&2
           # A wrong or expired LP_CREDENTIALS makes Launchpad answer 401/403, which
           # reads as an ordinary build failure unless the log is checked. But the
           # pattern must be SPECIFIC: a bare `401`/`403` matches any three digits in
