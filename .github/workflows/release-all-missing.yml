@@ -10,7 +10,13 @@ name: Release all missing
 # those six without running the whole thing again, version bump and all.
 #
 # This finishes a release that already exists. It never bumps a version, never
-# tags, never touches Docker, snap, the website or the charts.
+# tags, and never touches Docker, snap or the website.
+#
+# It DOES publish the Helm chart, because that is a thing a release can be
+# missing like any other: the chart entry is written once, during the release it
+# belongs to, so a release whose charts job did not run leaves a hole that the
+# next release never goes back for - v10.80 is one of those, and it was not
+# alone. See the charts job at the end.
 #
 # WHAT IT CAN BUILD, and why that is not everything. Only build-amd64 runs
 # Meteor; every other bundle WeKan ships is that same bundle repacked. This job
@@ -279,9 +285,107 @@ jobs:
       publish: true
       only: ${{ needs.plan.outputs.flatpak }}
 
+
+  # ─── The Helm chart, for a release that never got one ───────────────────────
+  #
+  # Everything else here rebuilds a missing BUNDLE; this publishes a missing
+  # CHART, which goes missing the same way and for the same reason. A chart is
+  # written once, by release-charts.sh, during the release it belongs to, so a
+  # release whose charts job did not run has no chart and nothing ever goes back
+  # for it. That is not rare - 146 of the packages already on gh-pages had no
+  # index entry, and v10.80 has no package at all, because a cancelled
+  # build-mac-x64 cancelled its run before the charts job started.
+  #
+  # It is the one part of this workflow that PUSHES to another repository, so it
+  # is guarded twice: it does nothing unless a token that can push to
+  # wekan/charts is configured, and nothing if the chart for this version is
+  # already published. Re-publishing an existing version would re-tar the package
+  # and change the digest of a chart people have already pulled.
+  charts:
+    name: Helm chart
+    needs: plan
+    if: ${{ always() && needs.plan.outputs.version != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Is a chart already published for this version?
+        id: check
+        env:
+          V: ${{ needs.plan.outputs.version }}
+          REPO_TOKEN: ${{ secrets.WEKAN_REPO_TOKEN }}
+        run: |
+          set -uo pipefail
+          if [ -z "${REPO_TOKEN:-}" ]; then
+            echo "::warning::No WEKAN_REPO_TOKEN, so the Helm chart cannot be published. Add a token that can push to wekan/charts to have this finish the chart too."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          # The published index is the authority on what exists, not this
+          # checkout. An entry's own version is at EXACTLY four spaces; the
+          # mongodb subchart's version sits deeper and would match a loose grep.
+          curl -fsSL --retry 3 -o index.yaml https://wekan.github.io/charts/index.yaml || {
+            echo "::warning::Could not read the published chart index; not touching the charts repo."
+            echo "skip=true" >> "$GITHUB_OUTPUT"; exit 0; }
+          # -F, a FIXED string: the dots in a version are regex wildcards
+          # otherwise, so "10.80" would also match a line reading 10x80. -x so it
+          # is the whole line, and the four-space indent is what makes it an
+          # entry's own version rather than the mongodb subchart's, which sits
+          # deeper.
+          if grep -qxF "    version: ${V}.0" index.yaml; then
+            echo "::notice::v$V already has a published Helm chart (${V}.0); nothing to do."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "v$V has no published chart; publishing ${V}.0."
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout wekan (for releases/release-charts.sh)
+        if: steps.check.outputs.skip != 'true'
+        uses: actions/checkout@v7
+        with:
+          path: wekan
+
+      - name: Checkout wekan/charts (main + gh-pages)
+        if: steps.check.outputs.skip != 'true'
+        uses: actions/checkout@v7
+        with:
+          repository: wekan/charts
+          token: ${{ secrets.WEKAN_REPO_TOKEN }}
+          fetch-depth: 0
+          path: charts
+
+      - name: Install Helm
+        if: steps.check.outputs.skip != 'true'
+        uses: azure/setup-helm@v5
+
+      - name: Publish the chart for this release
+        if: steps.check.outputs.skip != 'true'
+        env:
+          CHARTS_DIR: ${{ github.workspace }}/charts
+        run: |
+          set -euo pipefail
+          cd charts
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin '+refs/heads/*:refs/remotes/origin/*'
+          git branch --track gh-pages origin/gh-pages 2>/dev/null || true
+          git checkout main
+          cd ..
+          ./wekan/releases/release-charts.sh "${{ needs.plan.outputs.version }}"
+
+      - name: Job result
+        if: always()
+        run: |
+          case "${{ job.status }}" in
+            success)   mark='OK       ' ;;
+            failure)   mark='FAILED   ' ;;
+            cancelled) mark='CANCELLED' ;;
+            *)         mark='${{ job.status }}' ;;
+          esac
+          echo "$mark charts" >> "$GITHUB_STEP_SUMMARY"
+
   done:
     name: what is still missing
-    needs: [plan, extra-arches, appimage, flatpak]
+    needs: [plan, extra-arches, appimage, flatpak, charts]
     if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:

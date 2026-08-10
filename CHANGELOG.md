@@ -533,6 +533,41 @@ present, and no version that was listed before missing.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/PUBHASH">Both release workflows publish the chart, and the index is derived rather than edited</a>. Thanks to xet7.</summary>
+
+The charts repository keeps the chart SOURCE on `main` and the published
+packages plus `index.yaml` on `gh-pages`, and its own two scripts move between
+them: `release.sh` commits the source, tars `wekan/` into
+`wekan-<version>.0.tgz`, checks out gh-pages and drops the package there;
+`release2.sh` commits and pushes. `release-charts.sh` drives both and owns the
+index in between - and that middle part is what changes here.
+
+**The index is now rebuilt from the packages** instead of being edited. It used
+to copy the newest entry, substitute a few fields and prepend the result, and
+all four of the index's defects came from exactly that. Deriving it makes them
+impossible rather than fixed: one entry per package, digest computed from the
+file, fields read out of the archive, and any package that was missed picked up
+on the next run.
+
+**The package is checked against its own filename before it is indexed.**
+`release.sh` names the tarball from its argument while the version INSIDE comes
+from the `Chart.yaml` that was just edited, so when those drift the repository
+gains a file called one version that declares another - which is how
+`wekan-1.2.7.tgz` (containing 1.2.6) and `wekan-6.96.tgz` (containing 6.9.6)
+came to exist. Both are now removed, and a package like them stops the release
+with a message instead of being published.
+
+**Release All Missing publishes a chart too.** It could rebuild any missing
+bundle but not a missing chart, so a release that never got one never would -
+its header even said the charts were out of scope. It has a charts job now,
+guarded twice: nothing happens without a token that can push to wekan/charts,
+and nothing happens if the chart for that version is already published, because
+re-publishing would re-tar the package and change the digest of a chart people
+have already pulled.
+
+</details>
+
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
