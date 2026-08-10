@@ -950,7 +950,7 @@
   "new-outgoing-webhook": "New Outgoing Webhook",
   "no-name": "(Unknown)",
   "Platform": "Platform",
-  "Platform_packaging": "Installed as",
+  "package": "Package",
   "OS": "OS",
   "Meteor": "Meteor",
   "Database": "Database",

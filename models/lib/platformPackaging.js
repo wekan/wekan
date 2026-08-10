@@ -40,6 +40,14 @@
 // ============================================================================
 
 // The four the Version pane names, in the order that page lists them.
+//
+// THESE ARE NOT TRANSLATED, anywhere, and none of them is an i18n key. They are
+// the names of the things themselves - a package format, a store, a product -
+// not words describing them, so one identifier stays one string in every
+// language: what an admin reads in the pane is what they can put in an issue,
+// search the docs for and grep a log with. The pane's LABEL beside them is
+// translated (`package`), because that is ordinary UI text.
+// tests/versionPaneCategories.test.cjs holds both halves of that.
 const PACKAGINGS = ['bundle.zip', 'Snap', 'Docker', 'Sandstorm'];
 
 // Files a container runtime leaves in the filesystem root. Docker writes

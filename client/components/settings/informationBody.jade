@@ -22,9 +22,13 @@ template(name='statistics')
         tr
           th WeKan ® {{_ 'info'}}
           td {{statistics.version}}
-        //- bundle.zip / Snap / Docker / Sandstorm - see models/lib/platformPackaging.js.
+        //- The LABEL is translated; the VALUE never is. bundle.zip, Snap, Docker
+          and Sandstorm are the names of the things themselves - a package
+          format, a store, a product - not words describing them, and a reader
+          reporting an issue, searching the docs or grepping a log needs the same
+          four strings in every language. See models/lib/platformPackaging.js.
         tr
-          th {{_ 'Platform_packaging'}}
+          th {{_ 'package'}}
           td {{statistics.platform.packaging}}
 
     h3.info-category {{_ 'OS'}}

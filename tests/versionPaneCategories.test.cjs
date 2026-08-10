@@ -75,7 +75,7 @@ test('the rows are under the category they belong to', () => {
     return marks.length ? marks[marks.length - 1][1] : null;
   };
 
-  assert.strictEqual(categoryOf('Platform_packaging'), 'Platform');
+  assert.strictEqual(categoryOf('package'), 'Platform');
   assert.strictEqual(categoryOf('Meteor_version'), 'Meteor');
   // Reactivity and DDP are Meteor's, not the database's: they are how the client
   // is fed, and they were the two rows most often read as database settings.
@@ -116,7 +116,36 @@ test('no row was lost when the one table became five', () => {
   for (const key of BEFORE) {
     assert.ok(jade.includes(`{{_ '${key}'}}`), `${key} is still shown somewhere in the pane`);
   }
-  assert.ok(rowKeys.includes('Platform_packaging'), 'and the packaging row was added');
+  assert.ok(rowKeys.includes('package'), 'and the packaging row was added');
+});
+
+test('the packaging row translates its LABEL and never its VALUE', () => {
+  // bundle.zip, Snap, Docker and Sandstorm are the names of the things
+  // themselves - a package format, a store, a product - not words describing
+  // them. Translating them would give a reader reporting an issue, searching the
+  // docs or grepping a log a different string per language for one identifier,
+  // and there is nothing to gain in exchange: the four names are the same in
+  // every language already.
+  assert.ok(/th \{\{_ 'package'\}\}/.test(jade),
+    "the label is the translated key 'package'");
+  assert.ok(Object.prototype.hasOwnProperty.call(en, 'package'),
+    "'package' must be a key in en.i18n.json");
+  assert.strictEqual(en.package, 'Package', 'and its English string is Package');
+
+  // The value is printed as it comes from the server: no {{_ ...}}, no helper
+  // that could route it through a translation.
+  assert.ok(/td \{\{statistics\.platform\.packaging\}\}/.test(jade),
+    'the value is rendered raw, straight from statistics.platform.packaging');
+  assert.ok(!/\{\{_ statistics\.platform\.packaging\}\}/.test(jade),
+    'the value must never be passed through the translation helper');
+
+  // And the four names are not translation keys at all - adding one would be the
+  // first step towards translating them somewhere else later.
+  const { PACKAGINGS } = require(path.join(repoRoot, 'models/lib/platformPackaging.js'));
+  for (const name of PACKAGINGS) {
+    assert.ok(!Object.prototype.hasOwnProperty.call(en, name),
+      `${name} must NOT be an i18n key: it is an identifier, not UI text`);
+  }
 });
 
 test('the category heading is SMALLER than the pane title above it', () => {
