@@ -1,0 +1,31 @@
+services:
+  ai-systems-mcp:
+    build:
+      context: .
+    image: wekan-ai-systems-mcp:latest
+    container_name: wekan-ai-systems-mcp
+    restart: unless-stopped
+    environment:
+      WEKAN_BASE_URL: ${WEKAN_BASE_URL:-http://wekan-ui:8080}
+      WEKAN_API_TOKEN: ${WEKAN_API_TOKEN:-}
+      WEKAN_USER_ID: ${WEKAN_USER_ID:-}
+      WEKAN_USERNAME: ${WEKAN_USERNAME:-}
+      WEKAN_EMAIL: ${WEKAN_EMAIL:-}
+      WEKAN_PASSWORD: ${WEKAN_PASSWORD:-}
+      WEKAN_TIMEOUT_SECONDS: ${WEKAN_TIMEOUT_SECONDS:-20}
+      WEKAN_VERIFY_TLS: ${WEKAN_VERIFY_TLS:-true}
+      MCP_TRANSPORT: streamable-http
+      MCP_HOST: 0.0.0.0
+      MCP_PORT: 8000
+      MCP_STATELESS_HTTP: ${MCP_STATELESS_HTTP:-true}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - wekan
+    ports:
+      - "${MCP_BIND:-127.0.0.1}:${MCP_PUBLIC_PORT:-18080}:8000"
+
+networks:
+  wekan:
+    external: true
+    name: ${WEKAN_DOCKER_NETWORK:-wekan-ui_wekan-ui}

@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.pyc
+ai_systems.json
+ai_systems.remote.json
+.DS_Store

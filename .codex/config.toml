@@ -1,5 +1,6 @@
 # Project-scoped Codex configuration.
 #
-# Claude has no non-default tool permissions or MCP servers configured for this
-# repository, so there are no settings to translate here. Project instructions
-# live in AGENTS.md and the nested AGENTS.md files.
+# Project instructions live in AGENTS.md and the nested AGENTS.md files.
+
+[mcp_servers.wekan_scrum]
+url = "https://trello.1nutrouter.com/mcp"

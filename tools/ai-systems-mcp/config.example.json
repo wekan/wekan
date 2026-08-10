@@ -1,0 +1,26 @@
+{
+  "systems": {
+    "local_echo": {
+      "provider": "echo",
+      "model": "offline-echo"
+    },
+    "openai": {
+      "provider": "openai-compatible",
+      "base_url": "https://api.openai.com/v1",
+      "api_key_env": "OPENAI_API_KEY",
+      "model": "gpt-5-mini",
+      "timeout_seconds": 60
+    },
+    "ollama": {
+      "provider": "openai-compatible",
+      "base_url": "http://localhost:11434/v1",
+      "api_key": "ollama",
+      "model": "llama3.1",
+      "timeout_seconds": 120
+    }
+  },
+  "defaults": {
+    "temperature": 0.2,
+    "max_tokens": 1200
+  }
+}
