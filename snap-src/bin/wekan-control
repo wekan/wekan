@@ -25,6 +25,17 @@ WEKAN_SNAP_SVC="${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}"
 CPU_EXEC="$SNAP/bin/cpu-exec"
 [ -x "$CPU_EXEC" ] || CPU_EXEC=""
 
+# #6471: the database files are from a MongoDB this snap has no reader for, so no
+# database is ever going to answer. Waiting for one means 502 Bad Gateway with the
+# reason only in `snap logs`; serve a page that says what happened, that nothing was
+# changed, and what the two ways forward are. Cleared by removing the marker (or by
+# reverting the snap, which is one of the two).
+if [ -f "$SNAP_COMMON/.mongodb-data-too-old" ]; then
+    echo "DATABASE TOO OLD FOR THIS SNAP (.mongodb-data-too-old present): serving the explanatory page instead of WeKan."
+    export PORT="${PORT:-80}"
+    exec ${CPU_EXEC:+bash "$CPU_EXEC"} env WEKAN_MAINTENANCE_REASON=data-too-old "$SNAP/bin/node" "$SNAP/bin/wekan-maintenance-page.mjs"
+fi
+
 if [ -f "$SNAP_COMMON/.wekan-maintenance" ]; then
     echo "MAINTENANCE MODE (.wekan-maintenance present): serving the maintenance page instead of WeKan."
     export PORT="${PORT:-80}"
@@ -317,6 +328,13 @@ elif [ "true" != "${DISABLE_MONGODB}" ]; then
         # migration does restart us, but that restart is the LAST step of a script
         # that is itself being stopped, so it must not be the only thing that can get
         # us out of this loop: notice the switch ourselves and re-exec onto FerretDB.
+        # #6471: the marker can appear WHILE we wait here - migration-control writes it
+        # the moment it finds nothing can read the data - and no database is coming
+        # after that, so waiting is waiting for nothing. Re-exec to serve the page.
+        if [ -f "$SNAP_COMMON/.mongodb-data-too-old" ]; then
+            echo "the database files are from a MongoDB this snap cannot read; serving the explanatory page."
+            exec "$0" "$@"
+        fi
         if [ "ferretdb" = "$(snapctl get database 2>/dev/null)" ]; then
             echo "database is now set to ferretdb (migration finished while WeKan was waiting for MongoDB); restarting onto FerretDB."
             exec "$0" "$@"

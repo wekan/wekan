@@ -195,6 +195,25 @@ trap cleanup EXIT
 # exists, else (re)run the MongoDB → FerretDB migration (FerretDB is pure Go +
 # SQLite — no AVX needed; MongoDB 3.x data is read with the bundled 3.2 tools),
 # with a counter so a persistently failing migration cannot ping-pong forever.
+# #6471: the database files are from a MongoDB this snap has no reader for (4.x /
+# 5.x: mongod 7 says "too recent to start up on the existing data files", and the
+# bundled 3.2 tools cannot open them either). migration-control writes this marker
+# after finding that out. Starting mongod here would fail in exactly the same way,
+# be restarted by snapd, re-trigger the migration, and loop - so do not start it at
+# all. wekan-control serves the explanatory page; the data is untouched.
+MONGODB_DATA_TOO_OLD="${SNAP_COMMON}/.mongodb-data-too-old"
+if [ -f "$MONGODB_DATA_TOO_OLD" ]; then
+    _can="$(cat "$MONGODB_DATA_TOO_OLD" 2>/dev/null)"
+    echo "MongoDB will NOT be started: the database files were made by an older MongoDB${_can:+ (MongoDB $_can or earlier can still read them)},"
+    echo "which this snap carries no reader for. Nothing has been changed - your data is untouched."
+    echo "See the page WeKan serves on its web port, or:"
+    echo "  1. sudo snap revert ${SNAP_INSTANCE_NAME:-wekan}   (and: sudo snap refresh --hold=forever ${SNAP_INSTANCE_NAME:-wekan})"
+    echo "  2. or dump the data with a MongoDB that can read it and restore it into this version."
+    echo "Remove ${MONGODB_DATA_TOO_OLD} to let the snap try again."
+    # 0, not 1: snapd restarts a failing service forever, and there is nothing here
+    # that a restart can fix.
+    exit 0
+fi
 MONGOD_FAIL_COUNT_FILE="${SNAP_COMMON}/.mongod-start-failures"
 # A COMPLETED FerretDB migration exists (marker + non-empty SQLite): switch the
 # snap to it and exit. (A PARTIAL migration — SQLite present but no marker — is

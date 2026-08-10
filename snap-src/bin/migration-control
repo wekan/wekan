@@ -323,6 +323,45 @@ fail_and_run_mongodb() {
   force_stop_src
   exec bash "$SNAP/bin/mongodb-control"
 }
+# #6471: the data was made by a MongoDB this snap carries NO reader for. It bundles
+# mongod 7 (the server) and the MongoDB 3.2 tools (to read a 6.09-era database) and
+# nothing in between, so a database left by a MongoDB 4.x or 5.x snap opens in neither
+# and mongod says so exactly:
+#
+#   This version of MongoDB is too recent to start up on the existing data files.
+#   Try MongoDB 4.2 or earlier.
+#
+# Handing that back to mongodb-control - which is what "not readable" used to do -
+# starts a mongod that CANNOT start, so mongodb-control re-runs the migration, which
+# fails the same way, three times, and then the snap serves 502 Bad Gateway with the
+# reason only in `snap logs`. Nothing retried here can succeed: reading those files
+# needs a binary the snap does not have. So STOP, leave every byte untouched, and say
+# so where an admin will see it - the web port - with the version mongod itself named
+# as still able to read the data.
+data_too_old_can_read() {   # what mongod said can still read these files, e.g. "4.2"
+  sed -n 's/.*Try MongoDB \([0-9][0-9.]*\) or earlier.*/\1/p' "$LOGF" 2>/dev/null | tail -1
+}
+mongod_says_data_too_old() {
+  grep -q "too recent to start up on the existing data files" "$LOGF" 2>/dev/null
+}
+stop_data_too_old() {
+  local can; can="$(data_too_old_can_read)"
+  printf '%s\n' "$can" > "$SNAP_COMMON/.mongodb-data-too-old"
+  log "The database files were made by an older MongoDB${can:+ (MongoDB $can or earlier can still read them)}."
+  log "This snap bundles MongoDB 7 and the MongoDB 3.2 tools; neither can open them, and no retry can change that."
+  log "NOTHING has been changed: your data, attachments and avatars are untouched."
+  log "Two ways forward:"
+  log "  1. Go back to the revision that worked:  sudo snap revert ${SNAP_INSTANCE_NAME:-wekan}   (then: sudo snap refresh --hold=forever ${SNAP_INSTANCE_NAME:-wekan})"
+  log "  2. Move the data across with a MongoDB that can read it${can:+ (MongoDB $can or earlier)}: start it on this data directory, mongodump, then restore into this version and let it migrate to FerretDB."
+  log "WeKan now serves an explanatory page on the web port instead of 502."
+  snapctl set migrate=off 2>/dev/null || true
+  force_stop_src
+  # 0, not 1: there is nothing for snapd to retry, and a failing service would be
+  # restarted forever. The marker is what mongodb-control and wekan-control read.
+  trap - EXIT INT TERM
+  cleanup_all
+  exit 0
+}
 # Last resort when the data can be read by neither mongod 7 nor mongod 3.2 (unusual / corrupt),
 # or the migration tools are missing: don't loop with nothing running — pause auto-migration and
 # hand back to mongodb-control so mongod starts normally. Data is never modified or deleted.
@@ -400,6 +439,12 @@ fi
 log "mongod 7 could not open the data; checking whether it is MongoDB 3.x ..."
 if ! start_mongod "$MM/bin/mongod" "$MM_LIB" || ! ready_via "$MM/bin/mongo" "$MM_LIB"; then
   stop_via "$MM/bin/mongo" "$MM_LIB"
+  # #6471: distinguish "no reader for this vintage" from "unreadable/corrupt". The
+  # first has a definite answer for the admin and no useful retry; only the second
+  # is worth handing back to mongodb-control.
+  if mongod_says_data_too_old; then
+    stop_data_too_old
+  fi
   fall_back_to_mongodb "Data is not readable as modern MongoDB or MongoDB 3.x; not migrating."
 fi
 

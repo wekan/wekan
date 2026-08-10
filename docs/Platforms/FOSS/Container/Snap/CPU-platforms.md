@@ -222,6 +222,53 @@ After a successful migration the snap switches to `database=ferretdb`.
 Architectures other than amd64 ship no MongoDB server and no MongoDB 3 client, so
 there is nothing to migrate from — they are FerretDB v1 from the first boot.
 
+### A database from a MongoDB the snap cannot read (4.x / 5.x)
+
+The snap carries **two** readers: MongoDB 7, the server it runs, and the MongoDB
+3.2 tools, for a 6.09-era database. There is nothing in between. A database left
+by a **MongoDB 4.x or 5.x** snap opens in neither — mongod 7 refuses it with
+
+```
+This version of MongoDB is too recent to start up on the existing data files.
+Try MongoDB 4.2 or earlier.
+```
+
+and the 3.2 tools cannot read 4.x files either. Reading those files needs a
+binary the snap does not have, so **no retry can succeed**, and there is nothing
+the snap can migrate from.
+
+What it does instead of trying: it **stops**, writes
+`$SNAP_COMMON/.mongodb-data-too-old` with the version mongod itself named as
+still able to read the data, and serves an explanatory page on the web port
+instead of 502. MongoDB is not started (a start that cannot work would be
+restarted by snapd forever, and used to bounce between mongod and the migration
+three times before giving up), auto-migration is paused, and **nothing is
+changed**: the database files, the attachments and the avatars are exactly as
+they were.
+
+Two ways forward, both keeping the data:
+
+1. **Go back to the revision that worked** and stay there for now:
+
+   ```
+   sudo snap revert wekan
+   sudo snap refresh --hold=forever wekan
+   ```
+
+2. **Move the data across** with a MongoDB that can read it (the version the page
+   names): start that MongoDB on the data directory, `mongodump` from it, restore
+   the dump into this version, and let the MongoDB → FerretDB migration above run.
+
+Attachments and avatars are **files on disk**, not database rows, so they are
+unaffected either way — see `$SNAP_COMMON/files`.
+
+To let the snap try again — after moving the data, say — remove the marker:
+
+```
+sudo rm /var/snap/wekan/common/.mongodb-data-too-old
+sudo snap restart wekan
+```
+
 ## Where the FerretDB v1 binary comes from
 
 FerretDB v1 is built and released separately in
