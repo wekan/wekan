@@ -472,6 +472,11 @@ requires each to still be shown.
 `Sandstorm`.** It is the first thing a support answer turns on and the pane
 never said it: the same version keeps its data somewhere else, carries a
 different database and gives the admin different reach in each of the four.
+The row's label is translated (`package`, "Package"); **the four values never
+are**, and none of them is a translation key — they are the names of the things
+themselves, not words describing them, so what an admin reads is the same string
+they can put in an issue, search the docs for and grep a log with, in every
+language.
 `models/lib/platformPackaging.js` decides it most-specific-first — an explicit
 `WEKAN_PACKAGING` wins, then Sandstorm, then snapd's own `SNAP`/`SNAP_NAME`,
 then a container runtime's marker file, then the bundle. Sandstorm and Snap are
