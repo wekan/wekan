@@ -486,6 +486,21 @@ jobs:
         run: |
           ./wekan/releases/release-charts.sh "${{ inputs.new_version }}"
 
+      # What the index does NOT have, reported every release rather than
+      # discovered years later. A chart entry is written once, during the release
+      # it belongs to, so a release whose charts job did not run leaves a hole
+      # that nothing ever fills - v10.80's, when a cancelled build-mac-x64
+      # cancelled the run, is one of many. This is a PLAN ONLY: it reads the
+      # releases API, the live index and ghcr, writes nothing, and prints which
+      # releases have a chart, which are missing one that could be built, and
+      # which are omitted because they have no container image for a chart to
+      # point at. Filling them in is `backfill-charts.sh --apply --push`, run by
+      # hand: rewriting a published Helm index is not a side effect of a release.
+      - name: Report which releases the chart index is missing
+        continue-on-error: true
+        run: |
+          ./wekan/releases/backfill-charts.sh | tee -a "$GITHUB_STEP_SUMMARY"
+
       # Always, as the last step: the run summary then answers "what worked and what
       # did not" for the whole release at a glance, instead of eighteen job logs. A
       # step that failed has already printed an ::error:: saying why; this names the
