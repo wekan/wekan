@@ -820,6 +820,8 @@ whenever a `cd` runs inside that step.
 </details>
 
 and documents which CPU platforms each package is built for:
+**The Docker image and the snap** - a page each for what they are built for.
+
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5ec9f3ae5">A page for the Docker image's CPU platforms, beside the one the snap already had</a>. Thanks to xet7.</summary>
@@ -852,6 +854,108 @@ and separates the three 32-bit ARM builds that are not variants of each other:
 floating point.
 
 </details>
+
+
+**The snap store** - what it actually holds, and what it cannot.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cf0c347b2">The snap page says what the store holds at 10.78, and why the empty squares differ</a>. Thanks to xet7.</summary>
+
+The table of what each snap has was "as of 10.76" and marked every empty square
+the same way: *built by snapcraft.yaml but that snap has no revision for it yet;
+uploading one is all that is needed*. For eight of the twelve squares that is
+not true, and it sends whoever reads it at the wrong job.
+
+Three marks now, because there are three situations. `wekan`'s **armhf** is
+BUILT by the release and missing from the store: snapcraft.yaml declares it,
+`snap-launchpad` builds it, and it has been failing - most recently on Caddy,
+which publishes no `linux_armhf` archive because its asset names are Go's.
+The exotic squares of `wekan-ondra` and `wekan-gantt-gpl` are **not pending
+uploads at all**: the `snap-variants` job has four matrix entries, each variant
+on amd64 and arm64, and the ppc64el/s390x/riscv64/armhf builds come from
+`snap-launchpad`, which builds only the `wekan` name. And `wekan-ondra`'s
+armhf **0.22 is a fossil**: there is no newer revision to promote, and nothing
+currently builds one.
+
+riscv64 moved from missing to published since 10.76, so `wekan` is five of six.
+Every published architecture is on all four channels, which is the
+release-to-every-channel work holding.
+
+</details>
+
+and documents how to work on these repositories:
+
+**CLAUDE.md and AGENTS.md** - who maintains them, what is in `.tools/`, and how
+each repository's changelog is written.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/35dd10b89">They say who maintains these repositories and who commits, before any identity check</a>. Thanks to xet7.</summary>
+
+Both files opened with an identity CHECK - *"maintainer mode only when the
+identity is exactly Lauri Ojansivu"* - which says what to do with an identity
+but never says whose repositories these are. They are xet7's: WeKan, the
+FerretDB v1 fork, node-patches and mongo-tools-patches. That is now the first
+thing both files say, and the commit author follows from it rather than from a
+conditional.
+
+Two rules are spelled out under it. **No commit, pull-request body or CHANGELOG
+line ever attributes work to an AI** - no `Co-Authored-By`, no "Generated with",
+no assistant or model name - and CODE_OF_CONDUCT.md is cited as where that comes
+from: *"mention only those participants that are human"*. And **a missing or
+wrong git identity in one of these checkouts is to be SET, not worked around**:
+the `.tools/` clones can come up with no `user.name`/`user.email` at all -
+mongo-tools-patches did - which would author a commit as whatever the machine's
+default is.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d07794811">What is in .tools/, and the changelog format of every repository under it</a>. Thanks to xet7.</summary>
+
+`.tools/` was one sentence naming three clones. It is now the two kinds of thing
+that directory holds, because they are treated differently: **companion git
+repositories** - wekan/FerretDB on `main-v1`, node-patches and
+mongo-tools-patches on `main`, Secretchronicles/TSC on `devel`,
+sandstorm-io/sandstorm - each with their own history, branches, changelog and
+release flow, cloned on demand by `build.sh`'s `ensure_tool_repo`; and
+**unpacked toolchains** that are downloads rather than repositories -
+`node-v<version>-linux-<arch>`, `go` with its caches, `.meteor`, the TSC
+AppImage - to be deleted and re-fetched freely.
+
+**No CLAUDE.md or AGENTS.md under `.tools/`.** node-patches and
+mongo-tools-patches each had a pair, and they were removed: the rules are
+identical for all of these repositories and a second copy drifts from the first.
+A fact true of one repository only belongs in that repository's own README or
+docs - and an instruction file found there is to be removed rather than updated.
+
+**Each repository's changelog is written in the format its own file already
+uses**, as a table: WeKan, node-patches and mongo-tools-patches use the WeKan
+format; wekan/FerretDB keeps upstream FerretDB's; and TSC uses **GNU ChangeLog**
+- a `YYYY-MM-DD  Name  <email>` header over tab-indented `* Fix:` entries in a
+file called `CHANGELOG` with no extension. The reason is the reader: a FerretDB
+release is read beside upstream's, and a TSC entry beside a decade of GNU
+entries.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bf1f7aea4">TSC is xet7's too, under another organisation</a>. Thanks to xet7.</summary>
+
+The commit above read Secretchronicles/TSC's remote, saw it was not a `wekan/`
+repository, and concluded it was somebody else's project xet7 contributes to. It
+is his: the organisation is Secretchronicles rather than wekan, and that is the
+only difference. His GitHub profile says it in three words - *"WeKan and TSC
+maintainer"* - and the files cite it, so the next reader checks a source instead
+of inferring from a remote URL as that one did.
+
+So maintainer mode covers it - commit directly to `devel`, no pull request, same
+author, no AI attribution - and the files name the one `.tools/` repository that
+really is somebody else's: `sandstorm-io/sandstorm`, cloned for reference. What
+does NOT follow from maintaining it is WeKan's house style: TSC keeps its own
+GNU ChangeLog and its own release process.
+
+</details>
+
 
 Thanks to above GitHub users for their contributions and translators for their
 translations.
