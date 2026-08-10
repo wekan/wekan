@@ -365,6 +365,13 @@ Template.adminReports.helpers({
   showDatabase() {
     return Template.instance().showDatabase;
   },
+  // Filesystem integrity. Without this helper the pane rendered NOTHING: the
+  // menu entry set tmpl.showIntegrity, the template asked for `showIntegrity.get`,
+  // and an undefined helper is simply falsy - so the branch never ran, the page
+  // was blank, and Summary went on counting the problems it could not show.
+  showIntegrity() {
+    return Template.instance().showIntegrity;
+  },
   showCpu() {
     return Template.instance().showCpu;
   },
