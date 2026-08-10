@@ -51,7 +51,13 @@ function test(name, fn) {
   await test('Persian datetime string parses to the correct Date', () => {
     const d = new Date(normalizeDigits('۲۰۲۶-۰۶-۲۳T۱۷:۳۰:00'));
     assert.ok(!isNaN(d.getTime()), 'should be a valid Date');
-    assert.strictEqual(d.toISOString(), '2026-06-23T14:30:00.000Z');
+    // No timezone is present, so JavaScript interprets this as local time.
+    // Assert the parsed local fields instead of a UTC string tied to one runner.
+    assert.strictEqual(d.getFullYear(), 2026);
+    assert.strictEqual(d.getMonth(), 5);
+    assert.strictEqual(d.getDate(), 23);
+    assert.strictEqual(d.getHours(), 17);
+    assert.strictEqual(d.getMinutes(), 30);
   });
   await test('isValidDate() accepts a Persian-digit date string', () => {
     assert.strictEqual(isValidDate('۲۰۲۶-۰۶-۲۳'), true);

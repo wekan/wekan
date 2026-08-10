@@ -1458,6 +1458,312 @@ THEME - Corteza
 /* === END Corteza THEME === */
 
 /* ===============
+THEME - Apple Glass Pastel
+=================*/
+
+.board-color-appleglasspastel {
+  background:
+    radial-gradient(60% 50% at 85% 5%, rgba(255, 200, 220, 0.55), transparent 60%),
+    radial-gradient(55% 50% at 5% 25%, rgba(180, 215, 255, 0.55), transparent 65%),
+    radial-gradient(55% 50% at 95% 95%, rgba(200, 230, 255, 0.5), transparent 60%),
+    radial-gradient(70% 60% at 0% 100%, rgba(230, 215, 255, 0.5), transparent 65%),
+    linear-gradient(180deg, #f6f7fb 0%, #eef0f7 100%);
+  color: #111827;
+}
+
+.board-color-appleglasspastel#header,
+.board-color-appleglasspastel#header-quick-access,
+.board-color-appleglasspastel.sk-spinner div,
+.board-color-appleglasspastel .setting-content .content-body .side-menu ul li.active,
+.board-color-appleglasspastel .setting-content .content-body .side-menu ul li.active:hover {
+  background: #2563eb;
+  color: #fff;
+}
+
+.board-backgrounds-list .board-color-appleglasspastel.background-box,
+.public-board-row.board-color-appleglasspastel,
+.board-list .board-color-appleglasspastel a {
+  background:
+    radial-gradient(80% 70% at 80% 0%, rgba(255, 200, 220, 0.7), transparent 62%),
+    radial-gradient(70% 80% at 0% 15%, rgba(180, 215, 255, 0.75), transparent 66%),
+    radial-gradient(75% 70% at 100% 100%, rgba(230, 215, 255, 0.7), transparent 62%),
+    linear-gradient(180deg, #f6f7fb 0%, #eef0f7 100%);
+  color: #111827 !important;
+}
+
+.board-color-appleglasspastel#header-quick-access {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.board-color-appleglasspastel#header #header-main-bar,
+.board-color-appleglasspastel#header-quick-access,
+.board-color-appleglasspastel .boards-left-menu .menu-item.active a,
+.board-color-appleglasspastel .boards-left-menu .menu-item.active a:hover {
+  background: #2563eb;
+}
+
+.board-color-appleglasspastel#header ul li.current,
+.board-color-appleglasspastel#header-quick-access ul li.current {
+  border-bottom: 4px solid #dbeafe;
+}
+
+.board-color-appleglasspastel#header-quick-access #header-new-board-icon,
+.board-color-appleglasspastel#header-quick-access #header-user-bar,
+.board-color-appleglasspastel#header-quick-access ul li,
+.board-color-appleglasspastel#header-quick-access a,
+.board-color-appleglasspastel#header .board-header-btn,
+.board-color-appleglasspastel#header .board-header-btn i {
+  color: #fff;
+}
+
+.board-color-appleglasspastel#header ul li:hover,
+.board-color-appleglasspastel#header-quick-access ul li:hover,
+.board-color-appleglasspastel .board-header-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+}
+
+.board-color-appleglasspastel#header #header-main-bar .board-header-btn.emphasis {
+  background: #1e3a8a;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.12), 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.board-color-appleglasspastel#header #header-main-bar .board-header-btn.emphasis:hover,
+.board-color-appleglasspastel#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
+  background: #1d4ed8;
+}
+
+.board-color-appleglasspastel#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
+  background: #1e3a8a;
+}
+
+.board-color-appleglasspastel.board-wrapper {
+  background:
+    radial-gradient(60% 50% at 85% 5%, rgba(255, 200, 220, 0.55), transparent 60%),
+    radial-gradient(55% 50% at 5% 25%, rgba(180, 215, 255, 0.55), transparent 65%),
+    radial-gradient(55% 50% at 95% 95%, rgba(200, 230, 255, 0.5), transparent 60%),
+    radial-gradient(70% 60% at 0% 100%, rgba(230, 215, 255, 0.5), transparent 65%),
+    linear-gradient(180deg, #f6f7fb 0%, #eef0f7 100%);
+}
+
+.board-color-appleglasspastel .board-canvas {
+  scrollbar-color: rgba(37, 99, 235, 0.35) rgba(255, 255, 255, 0);
+  scrollbar-width: thin;
+}
+
+.board-color-appleglasspastel .swimlane {
+  background: transparent;
+}
+
+.board-color-appleglasspastel .swimlane .swimlane-header-wrap {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+}
+
+.board-color-appleglasspastel .swimlane-header {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.board-color-appleglasspastel .list {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-inline-start: none;
+  border-radius: 18px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  color: #111827;
+  margin: 10px 0;
+  padding-bottom: 8px;
+}
+
+.board-color-appleglasspastel .list-header {
+  background: rgba(255, 255, 255, 0.45);
+  border-bottom: 1px solid rgba(229, 231, 235, 0.75);
+  border-radius: 18px 18px 0 0;
+}
+
+.board-color-appleglasspastel .list-header .list-header-name,
+.board-color-appleglasspastel .list-header .viewer,
+.board-color-appleglasspastel .minicard-title {
+  color: #0f172a;
+}
+
+.board-color-appleglasspastel .list-body {
+  margin-top: 8px;
+  padding: 11px;
+  scrollbar-color: rgba(37, 99, 235, 0.35) rgba(255, 255, 255, 0);
+  scrollbar-width: thin;
+}
+
+.board-color-appleglasspastel .minicard,
+.board-color-appleglasspastel .card-details,
+.board-color-appleglasspastel.pop-over,
+.board-color-appleglasspastel .sidebar {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  color: #111827;
+}
+
+.board-color-appleglasspastel .minicard {
+  border-radius: 12px;
+  padding: 10px 10px 4px 10px;
+}
+
+.board-color-appleglasspastel .minicard:hover:not(.minicard-composer),
+.board-color-appleglasspastel .is-selected .minicard,
+.board-color-appleglasspastel .draggable-hover-card .minicard {
+  background: rgba(239, 246, 255, 0.88);
+}
+
+.board-color-appleglasspastel .is-selected .minicard {
+  border-inline-start: 3px solid #2563eb;
+}
+
+.board-color-appleglasspastel .card-details {
+  border-radius: 18px;
+}
+
+.board-color-appleglasspastel .card-details-header {
+  background: rgba(239, 246, 255, 0.78);
+  border-bottom: 1px solid rgba(229, 231, 235, 0.75);
+  color: #0f172a;
+}
+
+.board-color-appleglasspastel .card-details-item-title,
+.board-color-appleglasspastel .card-details-left .viewer p,
+.board-color-appleglasspastel .activity-desc .activity-member {
+  color: #111827;
+}
+
+.board-color-appleglasspastel .quiet,
+.board-color-appleglasspastel .quiet a,
+.board-color-appleglasspastel .activity-desc,
+.board-color-appleglasspastel .sidebar-list-item-description {
+  color: #6b7280;
+}
+
+.board-color-appleglasspastel .list.list-composer,
+.board-color-appleglasspastel .list-body .open-minicard-composer,
+.board-color-appleglasspastel .list.list-composer .open-list-composer {
+  background: rgba(255, 255, 255, 0.45);
+  border-radius: 12px;
+  color: #6b7280;
+}
+
+.board-color-appleglasspastel .list-body .open-minicard-composer:hover,
+.board-color-appleglasspastel .list.list-composer .open-list-composer:hover,
+.board-color-appleglasspastel.pop-over .pop-over-list li a:not(.disabled):hover,
+.board-color-appleglasspastel .sidebar .sidebar-content .sidebar-btn:hover,
+.board-color-appleglasspastel .sidebar-list li a:hover {
+  background: rgba(219, 234, 254, 0.78);
+  color: #1e3a8a;
+}
+
+.board-color-appleglasspastel button[type=submit].primary,
+.board-color-appleglasspastel input[type=submit].primary,
+.board-color-appleglasspastel button.primary,
+.board-color-appleglasspastel input.primary,
+.board-color-appleglasspastel .sidebar .sidebar-content .sidebar-btn {
+  background: #2563eb;
+  border: 0;
+  border-radius: 999px;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.12), 0 1px 2px rgba(0,0,0,0.04);
+  color: #fff;
+}
+
+.board-color-appleglasspastel button[type="submit"].primary:hover,
+.board-color-appleglasspastel input[type="submit"].primary:hover,
+.board-color-appleglasspastel button.primary:hover,
+.board-color-appleglasspastel input.primary:hover {
+  background: #1d4ed8;
+  color: #fff;
+}
+
+.board-color-appleglasspastel input[type="email"],
+.board-color-appleglasspastel input[type="password"],
+.board-color-appleglasspastel input[type="text"],
+.board-color-appleglasspastel textarea,
+.board-color-appleglasspastel select {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(229, 231, 235, 0.9);
+  border-radius: 12px;
+  color: #111827;
+}
+
+.board-color-appleglasspastel input:focus,
+.board-color-appleglasspastel textarea:focus,
+.board-color-appleglasspastel select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.board-color-appleglasspastel .materialCheckBox.is-checked {
+  border-bottom: 2px solid #2563eb;
+  border-inline-end: 2px solid #2563eb;
+}
+
+.board-color-appleglasspastel .checklist-progress-bar {
+  background-color: #dbeafe !important;
+}
+
+.board-color-appleglasspastel .checklist-progress-bar .checklist-progress {
+  background-color: #2563eb !important;
+}
+
+.board-color-appleglasspastel .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
+  background: #eff6ff;
+}
+
+.board-color-appleglasspastel .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.board-color-appleglasspastel .toggle-label:after {
+  background-color: #2563eb;
+}
+
+.board-color-appleglasspastel .toggle-switch:checked ~ .toggle-label {
+  background-color: #93c5fd;
+}
+
+.board-color-appleglasspastel .toggle-switch:checked ~ .toggle-label:after {
+  background-color: #2563eb;
+}
+
+.board-color-appleglasspastel .card-date.current,
+.board-color-appleglasspastel .minicard .current {
+  background: #1f7d38;
+  color: #fff !important;
+}
+
+.board-color-appleglasspastel .card-date.due,
+.board-color-appleglasspastel .minicard .due {
+  background: #dc3545;
+  color: #fff !important;
+}
+
+.board-color-appleglasspastel .sidebar .sidebar-content {
+  scrollbar-color: rgba(37, 99, 235, 0.35) rgba(255, 255, 255, 0);
+}
+
+@media screen and (max-width: 800px) {
+  .board-color-appleglasspastel.pop-over .header {
+    background: #2563eb;
+    color: #fff;
+  }
+}
+
+/* === END Apple Glass Pastel THEME === */
+
+/* ===============
 THEME - Clear Blue
 =================*/
 

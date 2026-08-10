@@ -38,7 +38,8 @@ test('categories partition into flat/clear/dark/special in order', () => {
   }
   assert.deepStrictEqual(TC.colorsInCategory('dark'), ['midnight', 'dark', 'moderndark', 'exodark', 'cleandark']);
   assert.strictEqual(TC.colorsInCategory('flat').length, 9);
-  assert.strictEqual(TC.colorsInCategory('special').length, 4);
+  assert.deepStrictEqual(TC.colorsInCategory('special'),
+    ['relax', 'corteza', 'appleglasspastel', 'modern', 'cleanlight']);
 });
 
 test('categoryOf maps each color, null for unknown', () => {

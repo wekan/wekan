@@ -29,7 +29,7 @@ const THEME_CATEGORIES = {
   ],
   clear: ['clearblue', 'cleargreen', 'clearorange', 'clearpink', 'clearpurple', 'clearred'],
   dark: ['midnight', 'dark', 'moderndark', 'exodark', 'cleandark'],
-  special: ['relax', 'corteza', 'modern', 'cleanlight'],
+  special: ['relax', 'corteza', 'appleglasspastel', 'modern', 'cleanlight'],
 };
 
 // 1st-level dropdown order.
