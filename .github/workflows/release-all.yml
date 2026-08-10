@@ -410,6 +410,17 @@ jobs:
   # is actually on the registries. If `docker` fails, this job is skipped.
   charts:
     needs: docker
+    # `always()` so that a CANCELLATION somewhere else in the run cannot skip
+    # this job. It is not defensive dressing: in v10.80 the release itself, the
+    # image and every bundle were published, and then charts, ucs and nextcloud
+    # were all skipped the moment `docker` finished - because build-mac-x64 was
+    # queued on a retired runner label and had to be cancelled by hand, and a
+    # cancelled job cancels the RUN, which skips every job that has not started.
+    # A job whose `if` is `always()` still runs while a run is cancelling, so the
+    # chart is published for a release that IS on the registries. The guard is
+    # then explicit about the only condition that ever mattered: docker SUCCEEDED
+    # - the chart points at the image that job pushes, so it must exist first.
+    if: ${{ always() && needs.docker.result == 'success' }}
     runs-on: ubuntu-latest
     steps:
       # First step on purpose: a missing secret is then ONE named line at the top of
@@ -2314,7 +2325,18 @@ jobs:
   # failing red, and returns on its own if a Node.js for it appears again.
   build-mac-x64:
     needs: [prepare, build-amd64, release]
-    runs-on: macos-13   # macos-13 runners are Intel (x86_64); macos-14+ are arm64
+    # Intel (x86_64) macOS. It was `macos-13`, and GitHub RETIRED that image -
+    # actions/runner-images publishes macos-14, macos-15 and macos-26 only, and
+    # macos-13 is gone from the hosted-runner table. A retired label does not
+    # fail: the job QUEUES FOREVER waiting for a runner that will never come, so
+    # every release since then had a build-mac-x64 sitting there for hours until
+    # it was cancelled by hand - and cancelling it cancelled the RUN, which is
+    # what skipped the charts, ucs and nextcloud jobs (they had not started yet).
+    # No release has ever carried a wekan-<version>-mac-x64.zip because of it.
+    # Intel macOS is still offered, under new labels: macos-15-intel and
+    # macos-26-intel (macos-14/15/26 without the suffix are Apple Silicon). This
+    # is the same label .tools/TSC already builds its Intel Mac on.
+    runs-on: macos-15-intel
     timeout-minutes: 60
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
@@ -2622,17 +2644,37 @@ jobs:
             node_arch: x86
             ferretdb_arch: i386
             optional: true
-          # ARMv6: Raspberry Pi 1 and Zero. It runs in a linux/arm/v6 container,
-          # takes wekan/node-patches' node-armv6 (nobody else publishes an ARMv6
-          # Node - nodejs.org dropped it after Node 11), and FerretDB and the
-          # MongoDB tools build a GOARM=6 armv6 of their own. Their armel is
-          # GOARM=5 and WOULD run on these boards, but in software floating
-          # point, so it is not used here.
+          # ARMv6: Raspberry Pi 1 and Zero. It takes wekan/node-patches'
+          # node-armv6 (nobody else publishes an ARMv6 Node - nodejs.org dropped
+          # it after Node 11), and FerretDB and the MongoDB tools build a GOARM=6
+          # armv6 of their own. Their armel is GOARM=5 and WOULD run on these
+          # boards, but in software floating point, so it is not used here.
+          #
+          # The CONTAINER is linux/arm/v7, not linux/arm/v6, and that is not a
+          # typo. DEBIAN HAS NO ARMv6 PORT: debian:trixie publishes arm/v5 and
+          # arm/v7 only, and because containerd treats a lower ARM variant as
+          # compatible, asking it for linux/arm/v6 silently handed back arm/v5 -
+          # Debian armel, ARMv5 SOFT-float. node-armv6 is HARD-float, so it could
+          # not start there and the job died on
+          #   qemu-arm: Could not open '/lib/ld-linux-armhf.so.3'
+          # after the whole apt install (v10.80). Debian's arm/v7 IS armhf: the
+          # same hard-float ABI and the same loader, so node-armv6 runs in it.
+          #
+          # Nothing ARMv7 reaches the bundle. What the container does is run
+          # `npm install`, and that install compiles NOTHING - it is npm-rebuild
+          # over pure-JavaScript packages ("rebuilt dependencies successfully",
+          # no node-gyp, no CXX). Every binary in the bundle is downloaded already
+          # built FOR ARMv6: node-armv6, ferretdb-armv6 and the armv6 MongoDB
+          # tools. The container only has to be a userland this arch's node can
+          # RUN in, and armhf is exactly that. The one thing that would have been
+          # the container's own CPU is the bundled qemu-user, and that is why
+          # SAME_ARCH_CONTAINER is false below.
           - arch: armv6
-            platform: linux/arm/v6
+            platform: linux/arm/v7
             image: debian:trixie
             node_arch: armv6
             ferretdb_arch: armv6
+            same_arch_container: false
             optional: true
           - arch: armhf
             platform: linux/arm/v7
@@ -2778,6 +2820,7 @@ jobs:
             -e NODE_SHA256="$NODE_SHA256" \
             -e ARCH='${{ matrix.arch }}' \
             -e NODE_ARCH='${{ matrix.node_arch }}' \
+            -e SAME_ARCH_CONTAINER='${{ matrix.same_arch_container }}' \
             -v "$(pwd)/bundle:/bundle" \
             -v "$(pwd)/releases:/releases:ro" \
             -w /bundle/programs/server \
@@ -4361,8 +4404,13 @@ jobs:
   ucs:
     # ENABLED. `continue-on-error: true` below means a failure here can never
     # fail the release or hold up another job - the point of running it is to
-    # SEE what it reports. Disable again with `if: ${{ false }}`.
+    # SEE what it reports. Disable again by replacing the `if` below with
+    # `if: ${{ false }}`.
     needs: [prepare, release, docker]
+    # always(), for the same reason as the charts job above: a cancellation
+    # elsewhere in the run skips every job that has not started yet, and in
+    # v10.80 that silently dropped this one along with charts.
+    if: ${{ always() && needs.prepare.result == 'success' && needs.release.result == 'success' && needs.docker.result == 'success' }}
     continue-on-error: true
     timeout-minutes: 45
     runs-on: ubuntu-latest
@@ -4456,8 +4504,13 @@ jobs:
   nextcloud:
     # ENABLED. `continue-on-error: true` below means a failure here can never
     # fail the release or hold up another job - the point of running it is to
-    # SEE what it reports. Disable again with `if: ${{ false }}`.
+    # SEE what it reports. Disable again by replacing the `if` below with
+    # `if: ${{ false }}`.
     needs: [prepare, release, docker]
+    # always(), for the same reason as the charts job above: a cancellation
+    # elsewhere in the run skips every job that has not started yet, and in
+    # v10.80 that silently dropped this one along with charts.
+    if: ${{ always() && needs.prepare.result == 'success' && needs.release.result == 'success' && needs.docker.result == 'success' }}
     continue-on-error: true
     timeout-minutes: 60
     runs-on: ubuntu-latest

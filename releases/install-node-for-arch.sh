@@ -177,8 +177,20 @@ chmod +x /bundle/node
 # by bundle/cpu-exec to emulate CPU features a binary needs but the host CPU
 # lacks. Tolerant: if the package is unavailable on this arch, the bundle just
 # ships without it - cpu-exec then falls back to a system qemu-user, or reports.
+#
+# It is the ONE thing here taken from the CONTAINER rather than downloaded built
+# for the target, so it is the one thing a container that is not the target's own
+# CPU must not contribute. SAME_ARCH_CONTAINER=false says this is such a build:
+# the armv6 bundle is assembled in Debian's arm/v7 (armhf) container, because
+# Debian publishes no ARMv6 port and the armel one cannot run a hard-float node.
+# There `uname -m` is armv7l, so this would drop an ARMv7 qemu-armv7l into an
+# ARMv6 bundle - a binary a Raspberry Pi 1 cannot execute, under a name its
+# cpu-exec (which looks for qemu-armv6l) would never ask for anyway. Ship
+# without it and let cpu-exec fall back, which is what it is written to do.
 rm -f /bundle/qemu-x86_64
-if apt-get install -y -q qemu-user-static >/dev/null 2>&1 &&
+if [ "${SAME_ARCH_CONTAINER:-true}" != "true" ]; then
+    echo "Bundle ${ARCH} is built in a $(uname -m) container that is not its own CPU; no qemu-user is bundled (cpu-exec falls back to the system one)."
+elif apt-get install -y -q qemu-user-static >/dev/null 2>&1 &&
    [ -x "/usr/bin/qemu-$(uname -m)-static" ]; then
     cp "/usr/bin/qemu-$(uname -m)-static" "/bundle/qemu-$(uname -m)"
     chmod +x "/bundle/qemu-$(uname -m)"

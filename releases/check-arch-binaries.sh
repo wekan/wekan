@@ -72,10 +72,52 @@ have() { curl -fsSLI -o /dev/null --retry 3 --retry-delay 5 "$1"; }
 # Without this the job dies 400 lines in, with docker saying "no matching
 # manifest for linux/386 in the manifest list entries" - which is true of
 # ubuntu:26.04 and was how the i386 and loong64 jobs failed.
+#
+# The VARIANT is part of the platform, and leaving it out is not a near miss: on
+# 32-bit ARM it turns a clean "this image does not exist" into a bundle built in
+# the WRONG userland. `docker manifest inspect debian:trixie` lists arm/v5 and
+# arm/v7 and no arm/v6 - Debian has no ARMv6 port - but an architecture-only
+# grep for "arm" matches, so the check passed and `docker run --platform
+# linux/arm/v6` then resolved DOWNWARDS to arm/v5, Debian armel: ARMv5,
+# SOFT-float, with no /lib/ld-linux-armhf.so.3 in it. The hard-float node-armv6
+# cannot start there, and that is how the armv6 job died in v10.80:
+#
+#   qemu-arm: Could not open '/lib/ld-linux-armhf.so.3': No such file or directory
+#
+# 400 lines in, after the whole apt install. Comparing architecture AND variant
+# is what makes "publishes no linux/arm/v6" the answer at the top instead.
 if [ -n "$image" ] && [ -n "$platform" ]; then
     want_arch="$(printf '%s' "$platform" | cut -d/ -f2)"
+    want_variant="$(printf '%s' "$platform" | cut -d/ -f3-)"
     if docker manifest inspect "$image" >/tmp/manifest.json 2>/dev/null; then
-        if ! grep -q "\"architecture\": *\"${want_arch}\"" /tmp/manifest.json; then
+        if ! WANT_ARCH="$want_arch" WANT_VARIANT="$want_variant" python3 - <<'PYEOF'
+import json, os, sys
+
+want_arch    = os.environ["WANT_ARCH"]
+want_variant = os.environ["WANT_VARIANT"]
+
+with open("/tmp/manifest.json", encoding="utf-8") as fh:
+    doc = json.load(fh)
+
+# A single-platform image has no "manifests" list; its own config names the
+# architecture. Both shapes are answered the same way.
+if "manifests" in doc:
+    plats = [m.get("platform", {}) for m in doc["manifests"]]
+else:
+    plats = [{"architecture": doc.get("architecture", ""),
+              "variant": doc.get("variant", "")}]
+
+for p in plats:
+    if p.get("architecture") != want_arch:
+        continue
+    # arm64 is published as arm64/v8 and everyone writes it linux/arm64, so an
+    # unrequested variant matches anything; a REQUESTED one must be exact,
+    # because arm/v6 and arm/v5 are different userlands, not near neighbours.
+    if not want_variant or p.get("variant", "") == want_variant:
+        sys.exit(0)
+sys.exit(1)
+PYEOF
+        then
             if [ "$optional" = "true" ]; then
                 # A best-effort arch with no base image for its own CPU (loong64:
                 # node-loong64 and ferretdb-loong64 exist, but no debian/ubuntu
