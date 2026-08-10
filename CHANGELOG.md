@@ -413,6 +413,52 @@ test.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/71ba0c2dc">A third MongoDB reader, so a 4.x database migrates instead of stopping</a>. Thanks to Philippe-Bentegeac, JDeepix, imlit and xet7.</summary>
+
+The entry above stopped the crash loop and explained it. This removes the reason
+for it in the case that was actually reported.
+
+A MongoDB server only starts on data whose `featureCompatibilityVersion` is at
+most one major behind it, so what the snap can READ is decided by which servers
+it carries: mongod 7 (FCV 6.0, 7.0) and the MongoDB 3.2 tools (3.2). Everything
+in between was unreadable — and the WeKan snap has shipped 3.6, 4.0, 4.2, 4.4
+and 5.0 over the years. The reported error names the gap exactly: *"Try
+MongoDB 4.2 or earlier"*, which is FCV 4.0.
+
+**mongod 4.2 is now bundled as a third reader**, used only to read the old data
+during a migration and never as the running database. It opens FCV 4.0 and 4.2,
+and the modern importer reads it with the bundled driver, which supports servers
+from 4.2 up — the same importer that reads a 6/7 source, not a second copy of
+it. The probes run newest-first: 7, then 4.2, then the 3.2 tools, then the page.
+
+**amd64 and arm64 only.** MongoDB publishes no 4.2 for the others, and they have
+been FerretDB from their first boot, so there is nothing there to migrate from.
+
+**It carries its own OpenSSL 1.1.** The 4.2 build links `libssl.so.1.1` and
+`libcrypto.so.1.1`, and core24 is Ubuntu 24.04, which ships OpenSSL 3 — without
+them the binary does not even load. Both come from one Debian `libssl1.1`
+package, staged beside the binary and put on `LD_LIBRARY_PATH` exactly as the
+3.2 tools already are, with the filename resolved by listing the pool rather
+than pinned, because point releases roll and a pinned name 404s the day they
+do.
+
+Optional by design: every failure in that part — download, checksum, OpenSSL, or
+the binary not running — ends it with a message and no binary, and the migration
+simply does not find one. A release is never failed over a migration aid.
+
+Verified as far as a machine without a snap allows: mongod 4.2.25 aarch64 was
+downloaded, staged with the Debian libssl1.1 and RUN — *"db version v4.2.25,
+OpenSSL version: OpenSSL 1.1.1w"* — then started on a dbpath, forked and
+listened on a port. That is the whole mechanism, on a 2026 system. The build
+repeats the check and unstages the binary if it fails.
+
+Still unreadable, and still answered by the page rather than a migration: 3.4,
+3.6, 4.4 and 5.0. Bundling mongod 5.0 beside this one would close 4.4 and 5.0
+the same way, at the same cost in size.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
