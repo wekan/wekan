@@ -276,6 +276,95 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** the **Admin Panel**, in the two panes v10.79 had just changed.
+**Version** is one table again rather than five: five tables sized their columns
+independently, so the values started at a different x in every category. The
+categories are rows inside one table now - bold, spanning both columns - over
+two equal 50% columns. **Problems / Filesystem integrity** drew a blank page:
+the one piece of its wiring that was missing was a template helper, and Blaze
+reads an undefined helper as false rather than complaining. The binaries below
+are v10.79's: nothing here rebuilds them.
+
+| Platform | Binary | From | Version | SHA256 |
+| --- | --- | --- | --- | --- |
+| amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
+| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-amd64) | v1.48.0 | `2737687fd29a8a761cd960e45f300b68cf7b4a87d50c4cc5280bcbd42b6aa163` |
+| arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
+| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-arm64) | v1.48.0 | `5ae705dd49515a4ecd4e295c3b9aa4f3b454fad78613ec60fb99316bd7c34e3f` |
+| loong64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-loong64.tar.xz) | v24.19.0 | `c24f224726f2d785bd18a1fd09f5e6d1fecf0269928451a60c5da9eac8e92e68` |
+| loong64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-loong64) | v1.48.0 | `06ec86263455a7b598d22a87df0e044ea73ab5a3b72e96ad12ebed03c1374ac2` |
+| mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-arm64.tar.xz) | v24.19.0 | `3f1cf157479c1480352083105e13faf9d008ede98e7e157746b6df940d197b94` |
+| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-mac-arm64) | v1.48.0 | `9b15f4c10e473cd0a2c4feb4cb43e18042bd60c7035ec66cab3cfbe13edaabab` |
+| mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
+| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-mac-amd64) | v1.48.0 | `4e188246dfa33bccef4cdd86701bc498b037cb3e91f579ff0dccb93aa0ef03ad` |
+| ppc64le | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-ppc64le.tar.xz) | v24.19.0 | `c510c6ce12f07010f771e6edb22a3fe23f4f2e6f40b1ffd4941aed0646a0d8b3` |
+| ppc64le | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-ppc64le) | v1.48.0 | `0400cd6dfc3d10d987a0fe80d75baa86c03c19170770fa2e602c92d558c3cfa6` |
+| riscv64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-riscv64.tar.xz) | v24.19.0 | `cd1f14af2812148002f58b58a5f9af512a50e3b8e8c148e0db44019dcb68edfd` |
+| riscv64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-riscv64) | v1.48.0 | `d37c35af988670b9ed182b8c5966c06a06362f6c6ace6aebd93ccdfa32c9a26b` |
+| s390x | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-s390x.tar.xz) | v24.19.0 | `a4792e65962ffa0af42627aacf1122a60c3c88dbf4e4184f06820d66f9da8ba4` |
+| s390x | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-s390x) | v1.48.0 | `6c7d61fbb8c79b2e8733be8f71910f710e8c5cd25208c451bdc513c8313b0340` |
+| win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
+| win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-win64.exe) | v1.48.0 | `ea57e1bcd153b51d2065ab01515b21ec05d8f615444c15603ab8158b8a661dd2` |
+
+This release reorganises the Admin Panel:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/aed26c677">Version is one table with combined category rows, over two 50% columns</a>. Thanks to xet7.</summary>
+
+The pane arrived at v10.79 as five tables, one per category. Five tables size
+their columns independently: "WeKan ® Version" made the first one's label column
+wide and "OS Type" made the next one's narrow, so the values started at a
+different x in every group and the pane read as five unrelated things.
+
+One table now, and each category is a **row** in it — a `th` with `colspan=2`,
+bold and start-aligned, so it says what the rows under it are about instead of
+being a label with an empty cell beside it. A `colgroup` of two 50% columns plus
+`table-layout: fixed` puts every label and every value in the same place down
+the whole pane; the 240px header cap the other admin tables carry is undone for
+this one, since its width is now stated outright and the cap would fight it.
+
+The category title keeps the table's own font size deliberately: at the pane
+title's size, five of them would read as five pane titles and "Version" would
+be lost among them.
+
+Two of the repository's own guards caught mistakes on the way, which is what
+they are for. The jade compile check refused `th(colspan=2)` — the Meteor jade
+dialect wants the value quoted, and an unquoted one is a build failure rather
+than a rendering difference — and the RTL check refused `text-align: left`,
+because the label column is on the RIGHT in Arabic and Hebrew, so it is
+`start`.
+
+</details>
+
+and fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/01c36852d">Problems / Filesystem integrity showed a blank page</a>. Thanks to xet7.</summary>
+
+The pane drew its title and then empty space, while Summary went on reporting
+*"7 new problems"* for it.
+
+Everything about it looked right, which is why it survived: the menu has a
+`report-integrity` entry, clicking it is handled, the handler sets
+`tmpl.showIntegrity`, and the template has `else if showIntegrity.get` with an
+integrity event stream under it. The missing piece was the **helper**.
+`showIntegrity()` was never added beside `showDatabase()` and the eight others,
+and in Blaze **an undefined helper is not an error — it is falsy**. So the
+branch never ran, the page was blank, and nothing anywhere said why.
+
+The guard added with it is the class rather than this one pane: every
+`show*.get` branch in a settings template must have a helper of that name in
+that template's own `.js`, and a `ReactiveVar` behind it. The templates are
+FOUND rather than listed, so a pane added later is covered without editing the
+test.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.79 2026-08-10 WeKan ® release
 
 **In short:** two **new platforms** and the **snap** jobs. WeKan now builds a
@@ -501,30 +590,6 @@ lost among them.
 
 
 and fixes the following bugs:
-
-**The Admin Panel** - a pane that drew nothing, and said nothing about it.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/01c36852d">Problems / Filesystem integrity showed a blank page</a>. Thanks to xet7.</summary>
-
-The pane drew its title and then empty space, while Summary went on reporting
-*"7 new problems"* for it.
-
-Everything about it looked right, which is why it survived: the menu has a
-`report-integrity` entry, clicking it is handled, the handler sets
-`tmpl.showIntegrity`, and the template has `else if showIntegrity.get` with an
-integrity event stream under it. The missing piece was the **helper**.
-`showIntegrity()` was never added beside `showDatabase()` and the eight others,
-and in Blaze **an undefined helper is not an error — it is falsy**. So the
-branch never ran, the page was blank, and nothing anywhere said why.
-
-The guard added with it is the class rather than this one pane: every
-`show*.get` branch in a settings template must have a helper of that name in
-that template's own `.js`, and a `ReactiveVar` behind it. The templates are
-FOUND rather than listed, so a pane added later is covered without editing the
-test.
-
-</details>
 
 
 
