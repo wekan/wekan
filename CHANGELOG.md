@@ -507,6 +507,38 @@ not just the one that happened.
 
 </details>
 
+**The snap on the next base** - what `snapcraft-core26.yaml` builds.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/664b8fde6">The next base declares all six architectures too, armhf included</a>. Thanks to xet7.</summary>
+
+`snapcraft.yaml` declares six platforms — amd64, arm64, armhf, ppc64el, riscv64,
+s390x — and every one is built: two natively, four on Launchpad.
+`snapcraft-core26.yaml` declared **five**. armhf was missing, and nothing could
+notice: that file is not built by any release, it is the next base kept so the
+move can be tested before it is made. The day core26 becomes the base, armhf
+would simply stop being published, and the only symptom would be a store column
+going stale — exactly as `wekan-ondra`'s armhf did at 0.22.
+
+Adding the platform alone would have been nominal. The same file still carried
+the **pre-t64** stage-package names — `libssl3`, `libcurl4`,
+`libgoogle-perftools4` — and those are precisely what failed armhf on core24
+twice: Ubuntu's 64-bit `time_t` transition renamed them, the 64-bit
+architectures kept a compatibility `Provides` so the old spelling resolves
+there, and armhf did not. armhf on core26 would have failed on the first thing
+it tried, in the way this repository has already debugged. It has the t64 names
+now, and its Caddy branch — which already mapped armhf to Go's `armv7` — no
+longer claims to be unreachable.
+
+Two guards, both checked in the failing direction as well: the two snapcraft
+files must declare the SAME set of architectures, and the stage-package check
+runs over BOTH files instead of only the one the release builds.
+
+Nothing here changes what the release builds today. core24 stays the built base,
+and `wekan`'s armhf snap is still waiting on the Caddy armhf fix above.
+
+</details>
+
 **The release notes** - what the provenance table can say about amd64.
 
 <details>
