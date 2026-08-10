@@ -49,7 +49,9 @@ nhung client khong giu MCP session header tot.
 ## Tool List
 
 - `wekan_health_status` - kiem tra MCP co ket noi duoc den WeKan REST API khong.
-- `list_boards` - liet ke board ma user server-side nhin thay.
+- `list_boards` - liet ke board ma user server-side nhin thay, bao gom private
+  board cua user. MCP dung `/api/users/:userId/boards` cho viec nay; WeKan
+  `/api/boards` chi list public boards.
 - `get_board` - doc chi tiet mot board theo `board_id`.
 - `create_board` - tao board moi.
 - `list_swimlanes` - liet ke swimlane trong board.
@@ -353,6 +355,11 @@ Also call `list_boards` when credentials are configured:
 ```sh
 python test_client.py --call-boards
 ```
+
+`list_boards` should include private boards owned by or shared with the
+authenticated user. If it returns `0` while `get_board` by a known private board
+id works, rebuild/restart the MCP server so it is using
+`/api/users/:userId/boards` instead of the public-only `/api/boards` endpoint.
 
 ## Docker Runtime
 

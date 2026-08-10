@@ -9,6 +9,7 @@ import os
 import sys
 from dataclasses import dataclass
 from typing import Any
+from urllib.parse import quote
 
 import httpx
 from mcp.server import MCPServer
@@ -204,6 +205,17 @@ async def _default_swimlane_id(client: WekanClient, board_id: str) -> str:
     return str(first["_id"])
 
 
+async def _visible_user_boards(client: WekanClient) -> list[Any]:
+    await client._login()
+    if not client.user_id:
+        raise WekanConfigError("Missing WeKan user id after login")
+    user_id = quote(client.user_id, safe="")
+    boards = await client.request("GET", f"/api/users/{user_id}/boards")
+    if not isinstance(boards, list):
+        raise WekanAPIError("WeKan user boards response was not a list")
+    return boards
+
+
 def _server() -> MCPServer:
     config = WekanConfig.from_env()
     client = WekanClient(config)
@@ -217,7 +229,7 @@ def _server() -> MCPServer:
             "create_board, list_swimlanes, list_lists, create_list, list_cards, "
             "and create_card to manage the WeKan board data."
         ),
-        version="0.2.0",
+        version="0.2.1",
     )
 
     @server.tool()
@@ -228,10 +240,11 @@ def _server() -> MCPServer:
             app_status = await client._request_without_auth("GET", "/")
             auth_probe: dict[str, Any] | None = None
             if config.can_authenticate:
-                boards = await client.request("GET", "/api/boards")
+                boards = await _visible_user_boards(client)
                 auth_probe = {
                     "authenticated": True,
-                    "boards_visible": len(boards) if isinstance(boards, list) else None,
+                    "board_discovery_endpoint": "/api/users/{userId}/boards",
+                    "boards_visible": len(boards),
                     "user_id": client.user_id,
                 }
             return {
@@ -248,9 +261,9 @@ def _server() -> MCPServer:
         """List boards visible to the authenticated WeKan user."""
 
         async def run() -> dict[str, Any]:
-            boards = await client.request("GET", "/api/boards")
+            boards = await _visible_user_boards(client)
             return {
-                "count": len(boards) if isinstance(boards, list) else None,
+                "count": len(boards),
                 "boards": boards,
             }
 
