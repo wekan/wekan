@@ -505,7 +505,7 @@ and fixes the following bugs:
 **The Admin Panel** - a pane that drew nothing, and said nothing about it.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7b0209813">Problems / Filesystem integrity showed a blank page</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/01c36852d">Problems / Filesystem integrity showed a blank page</a>. Thanks to xet7.</summary>
 
 The pane drew its title and then empty space, while Summary went on reporting
 *"7 new problems"* for it.
