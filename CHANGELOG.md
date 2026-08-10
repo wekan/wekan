@@ -276,6 +276,231 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** the release pipeline, and two bugs that stopped WeKan starting at
+all. **FerretDB** advertises its own listen address as the member list of a
+one-node replica set, so the MongoDB driver threw away the host in `MONGO_URL`
+and dialled `0.0.0.0:27017` instead - a fresh `docker compose up` could not
+reach its database, and every FerretDB compose file now says
+`directConnection=true`. **All Boards on a phone** could not be scrolled to its
+last boards, its Table view could not be scrolled at all, single rows of board
+icons were drawn several times their proper height, and the icons sat too close
+together - four separate causes, one of them a `calc(100dvh - 48px)` in
+`layouts.css` that guessed at a header height which is measured at runtime
+precisely because it is never one number. On the release side: the **Mac x64
+bundle** has never once been built, because its runner label was retired by
+GitHub and a retired label queues forever instead of failing - and cancelling
+that queue is what silently skipped the **charts**, **ucs** and **nextcloud**
+jobs. The **armv6 bundle** was being assembled in a soft-float ARMv5 userland
+that its own hard-float Node.js cannot start in, and **every Launchpad snap**
+was ended by an optional MongoDB-migration part that stages a path it does not
+build outside amd64 and arm64. Below that: a report of the WeKan releases the
+Helm chart index is missing, and the duplicate entries found in it. The
+binaries below are v10.80's: nothing here rebuilds them.
+
+| Platform | Binary | From | Version | SHA256 |
+| --- | --- | --- | --- | --- |
+| amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
+| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-amd64) | v1.48.0 | `2737687fd29a8a761cd960e45f300b68cf7b4a87d50c4cc5280bcbd42b6aa163` |
+| arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
+| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-arm64) | v1.48.0 | `5ae705dd49515a4ecd4e295c3b9aa4f3b454fad78613ec60fb99316bd7c34e3f` |
+| loong64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-loong64.tar.xz) | v24.19.0 | `c24f224726f2d785bd18a1fd09f5e6d1fecf0269928451a60c5da9eac8e92e68` |
+| loong64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-loong64) | v1.48.0 | `06ec86263455a7b598d22a87df0e044ea73ab5a3b72e96ad12ebed03c1374ac2` |
+| mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-arm64.tar.xz) | v24.19.0 | `3f1cf157479c1480352083105e13faf9d008ede98e7e157746b6df940d197b94` |
+| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-mac-arm64) | v1.48.0 | `9b15f4c10e473cd0a2c4feb4cb43e18042bd60c7035ec66cab3cfbe13edaabab` |
+| mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
+| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-mac-amd64) | v1.48.0 | `4e188246dfa33bccef4cdd86701bc498b037cb3e91f579ff0dccb93aa0ef03ad` |
+| ppc64le | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-ppc64le.tar.xz) | v24.19.0 | `c510c6ce12f07010f771e6edb22a3fe23f4f2e6f40b1ffd4941aed0646a0d8b3` |
+| ppc64le | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-ppc64le) | v1.48.0 | `0400cd6dfc3d10d987a0fe80d75baa86c03c19170770fa2e602c92d558c3cfa6` |
+| riscv64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-riscv64.tar.xz) | v24.19.0 | `cd1f14af2812148002f58b58a5f9af512a50e3b8e8c148e0db44019dcb68edfd` |
+| riscv64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-riscv64) | v1.48.0 | `d37c35af988670b9ed182b8c5966c06a06362f6c6ace6aebd93ccdfa32c9a26b` |
+| s390x | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-s390x.tar.xz) | v24.19.0 | `a4792e65962ffa0af42627aacf1122a60c3c88dbf4e4184f06820d66f9da8ba4` |
+| s390x | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-s390x) | v1.48.0 | `6c7d61fbb8c79b2e8733be8f71910f710e8c5cd25208c451bdc513c8313b0340` |
+| win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
+| win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-win64.exe) | v1.48.0 | `ea57e1bcd153b51d2065ab01515b21ec05d8f615444c15603ab8158b8a661dd2` |
+
+This release fixes the following bugs:
+
+**FerretDB** - the default database, and how WeKan is told to reach it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e1c6221f2">Connect with directConnection=true, so a fresh docker compose up starts</a>. Thanks to Dandrass and xet7.</summary>
+
+A new install with nothing changed but the port and `ROOT_URL` could not reach
+the database:
+
+```
+MongoServerSelectionError: connect ECONNREFUSED 0.0.0.0:27017
+reason: TopologyDescription { type: 'ReplicaSetNoPrimary',
+        servers: Map(1) { '0.0.0.0:27017' => [ServerDescription] },
+        setName: 'rs0', ... }
+```
+
+`0.0.0.0` is in no compose file. It is FerretDB's own listen address, and the
+driver was handed it by the server. The `ferretdb` service runs with
+`--repl-set-name=rs0` - added in
+[#6480](https://github.com/wekan/wekan/issues/6480) so Meteor can tail an OpLog
+instead of poll-and-diff - so FerretDB answers the `hello` handshake as a
+one-member replica set and fills `hosts`, `me` and `primary` with its
+`--listen-addr`. A driver not in direct-connection mode reads that as an
+invitation to do replica-set discovery: it adopts the advertised member list and
+drops the seed it was given, because the server reports a name other than the
+one that was dialled. `mongodb://ferretdb:27017` became `0.0.0.0:27017`, which
+inside the `wekan-app` container is that container itself.
+
+Measured against FerretDB v1.49.0 with the driver the bundle ships:
+without the parameter the topology ends up `ReplicaSetWithPrimary` with the seed
+discarded, with it the topology is `Single` on the host that was given.
+It costs nothing else - the handshake still reports `setName: rs0`, the only
+thing Meteor checks before it will tail an OpLog. All five FerretDB v1 compose
+files carry it; the MongoDB ones deliberately do not, being real replica sets
+whose members are reachable under the names they advertise.
+
+</details>
+
+**All Boards on a phone** - the scroll, the tiles and the spacing between them.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c0a5c2b7c">The board list scrolls to its last board, the Table view scrolls at all, and the tiles are their own size</a>. Thanks to mimZD and xet7.</summary>
+
+Four things at once, in an issue reopened against 10.10, 10.37, 10.38, 10.72 and
+10.77.
+
+THE SCROLL. Every earlier fix removed viewport arithmetic from `boardsList.css`.
+The last piece of it was in `layouts.css`:
+`body.mobile-mode #content { height: calc(100dvh - 48px) }`. 48px is a guess at
+the height of the header, and the header is not 48px and is not any one number -
+`--wekan-header-height` is published from a `ResizeObserver` for exactly this
+reason. On a phone whose bar wraps, `#content` was taller than the room under
+the header, its bottom sat below the screen, and `body.mobile-mode` is
+`position: fixed` and `overflow: hidden`, so that strip is unreachable. Nothing
+needs computing: `body` is a flex column of one viewport and `#content` is its
+`flex: 1` item.
+
+THE TABLE VIEW. The right column has two branches - the board icons and
+`+tablePage` - and only the icons were ever given a scroller, so in Table view
+the rows past the fold were clipped with nothing to scroll.
+
+THE 4x-TALL TILES. A grid defaults to `align-content: stretch`, so a list
+shorter than its column has the leftover height divided among its rows and each
+tile grown into it - and a board tile paints its colour over the whole cell.
+This was fixed once, but only on `.board-list.mobile-view`; the phone media
+query builds a grid too, and a narrow window that is not a mini screen took
+that path.
+
+THE SPACING. An 8px grid gap plus a `margin-bottom: 0.5rem` per tile: 16px
+between rows and 8px between columns, which reads as crowded sideways. One value
+now, in both directions. The mobile full-screen popup had the same class of bug
+as the first and states `dvh` now too. Desktop is unaffected.
+
+</details>
+
+and fixes the following release-pipeline failures:
+
+**The release workflow** - which jobs run, and on what.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7b8c37709">The retired Mac runner, the jobs a cancellation skipped, and the armv6 userland</a>. Thanks to xet7.</summary>
+
+`build-mac-x64` asked for `macos-13`, and GitHub has retired that image -
+`actions/runner-images` publishes macos-14, macos-15 and macos-26 only. A
+retired label does not fail: the job QUEUES, for a runner that is never coming.
+It has been sitting there every release until cancelled by hand, and no WeKan
+release has ever carried a `wekan-<version>-mac-x64.zip` because of it. Intel
+macOS was renamed, not removed: `macos-15-intel`, which is what TSC already
+builds on.
+
+Cancelling it is what skipped `charts`, `ucs` and `nextcloud`: a cancelled job
+cancels the run, and a cancelling run skips every job that has not started - so
+all three were skipped the second the `docker` job they wait on succeeded, after
+everything had already shipped. A job whose `if` is `always()` still runs while
+a run is cancelling, so the three now say `always()` and name the needs that
+must have succeeded.
+
+The armv6 bundle died on
+`qemu-arm: Could not open '/lib/ld-linux-armhf.so.3'`. Debian has no ARMv6 port
+- `debian:trixie` publishes arm/v5 and arm/v7 - and containerd treats a lower
+ARM variant as compatible, so `--platform linux/arm/v6` quietly resolved to
+arm/v5: Debian armel, soft-float, with no hard-float loader in it. The preflight
+compared the architecture and ignored the variant, so it never said so; it
+compares both now, and armv6 is built in Debian's arm/v7 container, which is
+armhf and runs node-armv6 fine. Nothing ARMv7 reaches the bundle - the container
+compiles nothing, and node, FerretDB and the MongoDB tools are all downloaded
+already built for ARMv6 - except the bundled qemu-user, which is copied out of
+the container and is therefore skipped for that one bundle.
+
+</details>
+
+**The snap** - what the four Launchpad architectures were really failing on.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/18da0d261">An optional part was ending every Launchpad build</a>. Thanks to xet7.</summary>
+
+armhf, s390x, ppc64el and riscv64 all failed, three attempts each, and the job
+reported it as a Launchpad problem: "often an OOM in the Meteor npm install, or
+a transient build-farm reset; re-run". It was neither. The build log said the
+same deterministic thing every time:
+
+```
+Staging mongo42
+Failed to copy '/build/.../parts/mongo42/install/mongo42': no such file or
+directory. Build failed
+```
+
+The `mongo42` part downloads MongoDB 4.2 so a database from an old MongoDB snap
+can still be migrated ([#6471](https://github.com/wekan/wekan/issues/6471)), and
+MongoDB publishes 4.2 for amd64 and arm64 only. Everywhere else the part prints
+"nothing to migrate from there; skipping" and exits 0 having created nothing -
+its own comment calls that optional by design. It was not: the part also carries
+`stage: [mongo42]`, and snapcraft does not skip a filter whose path is missing,
+it ends the build. So a migration helper no exotic architecture has ever needed
+took the whole snap down on exactly the four that can only be built on
+Launchpad. The directory is created before anything can decide to skip; the
+binary is still downloaded only where it exists.
+
+riscv64 additionally lost its last attempt to `npm ERR! code ECONNRESET` on one
+tarball, after half an hour of building - every request there goes through
+Launchpad's proxy - so that `npm install` is retried three times. The
+`::error::` no longer guesses: it sends the reader to the build log printed
+above it.
+
+</details>
+
+and improves the release tooling:
+
+**The Helm chart index** - which WeKan releases it lists.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8248892e3">Report the releases the chart index is missing, and repair its duplicates</a>. Thanks to xet7.</summary>
+
+A chart entry is written once, during the release it belongs to, so a release
+whose `charts` job did not run leaves a hole nothing ever fills. Counted against
+the live index: 216 of 690 WeKan releases have a chart entry.
+
+`releases/backfill-charts.sh` answers which releases the index should list - the
+ones that exist and can be installed. 216 are kept (never repackaged; that would
+change a digest helm clients have seen), 369 could be built, and 162 are OMITTED
+because they have no container image on ghcr: a chart is a pointer to an image,
+so an entry for one of those is an install that fails at the pull. The index is
+rebuilt from the packages actually present, so omission needs no bookkeeping.
+
+It also found something already wrong: the published index has four entries for
+9.36.0 and two for 10.30.0, each with a different digest and the same url,
+because the release script prepends an entry every time it runs. At most one of
+those digests can be the one of the package really served, and a helm client
+that picks another fails the integrity check on a good file. The rebuild keeps
+the entry whose digest matches the package, falling back to the newest only when
+there is no package to compare against. Nothing is written without `--apply` and
+nothing is pushed without `--push`; the charts job runs it in plan mode only,
+into the run summary.
+
+</details>
+
+- [The chart-index report is a Release menu entry in build.sh and build.bat](https://github.com/wekan/wekan/commit/01f691ba3). Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.80 2026-08-10 WeKan ® release
 
 **In short:** the **Admin Panel**, in the two panes v10.79 had just changed.
