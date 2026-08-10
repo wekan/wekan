@@ -276,7 +276,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.79 2026-08-10 WeKan ® release
 
 **In short:** two **new platforms** and the **snap** jobs. WeKan now builds a
 **win-arm64** bundle - Windows on ARM - which needed no new work anywhere else,
