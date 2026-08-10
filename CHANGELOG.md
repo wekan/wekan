@@ -534,7 +534,7 @@ present, and no version that was listed before missing.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/PUBHASH">Both release workflows publish the chart, and the index is derived rather than edited</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a434bb4bd">Both release workflows publish the chart, and the index is derived rather than edited</a>. Thanks to xet7.</summary>
 
 The charts repository keeps the chart SOURCE on `main` and the published
 packages plus `index.yaml` on `gh-pages`, and its own two scripts move between
