@@ -338,7 +338,58 @@ because the label column is on the RIGHT in Arabic and Hebrew, so it is
 
 </details>
 
-and fixes the following bug:
+and fixes the following bugs:
+
+**The snap** - what it does when it cannot read the database it was upgraded
+onto.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/562fa0271">A database this snap cannot read stops and says so, instead of serving 502 forever</a>. Thanks to Philippe-Bentegeac, JDeepix, imlit and xet7.</summary>
+
+A snap upgraded onto a database left by a **MongoDB 4.x or 5.x** snap served 502
+Bad Gateway indefinitely, with the reason only in `snap logs`:
+
+```
+This version of MongoDB is too recent to start up on the existing data files.
+Try MongoDB 4.2 or earlier.
+```
+
+The snap carries **two** readers — mongod 7, the server it runs, and the MongoDB
+3.2 tools for a 6.09-era database — and nothing in between, so 4.x data opens in
+neither. What the code did then is the one thing that cannot work: the migration
+found that neither reader could open it and handed back to `mongodb-control`,
+which started mongod, which failed the same way, which re-ran the migration —
+three times by its own counter — and then exited for snapd to restart. Nothing
+in that loop can succeed, because reading those files needs a binary the snap
+does not have.
+
+**It stops now.** The migration tells "no reader for this vintage" from
+"unreadable or corrupt" by mongod's own words, records the version mongod named
+as still able to read the data, pauses auto-migration and exits **0** — zero,
+because snapd restarts a failing service forever and no restart can help here.
+`mongodb-control` will not start a mongod it knows cannot start, and WeKan
+serves an explanatory page on the web port, both at startup and from inside the
+database wait loop, so an instance already waiting switches over without a
+restart.
+
+The page names the MongoDB version that can still read the files and gives the
+two ways forward — go back to the revision that worked, or dump with a MongoDB
+that can read it and restore into this version — says plainly that **nothing was
+changed** and that attachments and avatars are files on disk, and drops the
+auto-refresh and the spinner the other two maintenance pages carry: this is a
+stop, not a wait, and the page should not promise that something is happening.
+
+Nothing is deleted or modified on this path: the source data is exactly as it
+was, the marker file is the only thing written, and removing it lets the snap
+try again. The snap documentation gains the section an admin searching for that
+mongod line will find, with the commands.
+
+The test covers the wiring in all three scripts and then RUNS the page — it is
+standalone Node with no dependencies — to check what an admin actually sees:
+503, the version, "untouched", both remedies, no refresh, no spinner.
+
+</details>
+
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/01c36852d">Problems / Filesystem integrity showed a blank page</a>. Thanks to xet7.</summary>
