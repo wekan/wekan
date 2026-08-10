@@ -1,6 +1,8 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Meteor } from 'meteor/meteor';
 import { MongoInternals } from 'meteor/mongo';
+import fs from 'fs';
+import { detectPackaging } from '/models/lib/platformPackaging';
 
 // Sandstorm context is detected using the METEOR_SETTINGS environment variable
 // in the package definition.
@@ -17,6 +19,19 @@ Meteor.methods({
       let wekanVersion = pjson.version;
       wekanVersion = wekanVersion.replace('v', '');
       statistics.version = wekanVersion;
+      // HOW this WeKan was installed - bundle.zip, Snap, Docker or Sandstorm.
+      // The same version behaves differently in each (where its data lives, what
+      // database it carries, what the admin can reach), so the Version pane says
+      // which one rather than leaving it to be asked on every issue. The
+      // detection is a pure function so it can be tested without a snap, a
+      // container or a grain; see models/lib/platformPackaging.js.
+      statistics.platform = {
+        packaging: detectPackaging({
+          env: process.env,
+          isSandstorm,
+          fileExists: p => fs.existsSync(p),
+        }),
+      };
       statistics.os = {
         type: os.type(),
         platform: os.platform(),

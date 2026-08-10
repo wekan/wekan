@@ -40,6 +40,7 @@ import '/client/components/settings/translationBody.js';
 // forms.css and rendered with a black/grey background instead of the theme.
 import '/client/components/settings/adminReports.css';
 import '/client/components/settings/attachments.css';
+import '/client/components/settings/informationBody.css';
 import '/client/components/settings/lockedUsersBody.css';
 import '/client/components/settings/migrationProgress.css';
 import '/client/components/settings/peopleBody.css';

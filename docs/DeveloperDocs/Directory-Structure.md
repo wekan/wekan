@@ -43,7 +43,7 @@ Files in this directory are served by meteor as-is to the client. It hosts some 
   * **[popup.tpl.jade](../../client/components/main/popup.tpl.jade)**: tpl files only define a single template so there's no need to wrap content in a template tag; the name of the template is the base name of the file (`popup` in this case);
   * **[spinner.tpl.jade](https://github.com/wekan/wekan/tree/main/client/components/main/spinner.tpl.jade)**: is the template for a "waiting" dialog;
 * **[settings](../../client/components/settings)**:
-  * **[informationBody.jade](../../client/components/settings/informationBody.jade)**: `information`, `statistics` templates;
+  * **[informationBody.jade](../../client/components/settings/informationBody.jade)**: the `statistics` template — the Version pane of Admin Panel / Settings, five tables (Platform, OS, Meteor, Database, Node). There is no `information` template any more: it is a pane rendered by `settingBody.jade`, not a page;
   * **[invitationCode.jade](../../client/components/settings/invitationCode.jade)**: `invitationCode` template;
   * **[peopleBody.jade](../../client/components/settings/peopleBody.jade)**: `people`, `peopleGeneral`, `peopleRow`, `editUserPopup`;
   * **[settingBody.jade](../../client/components/settings/settingBody.jade)**: `setting`, `general`, `email`, `accountSettings`, `announcementSettings`

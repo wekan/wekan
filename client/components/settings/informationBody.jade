@@ -5,49 +5,31 @@
 //- templates are global) inside the Settings page, which brings the left menu, the
 //- pane title and the admin check with it. The /information URL redirects to
 //- Settings, the same way the old /translation URL does.
+//-
+//- FIVE TABLES, not one. This was a single 40-row table in which the WeKan
+//- version, the OS load average, the DDP transport and a V8 heap counter were the
+//- same kind of thing - one flat list, read top to bottom, with no way to jump to
+//- the part you came for. It is now one table per subject, each under a small
+//- heading, in the order somebody debugging reads them: what this IS (version and
+//- packaging), what it runs ON, how Meteor is talking to the client, what the
+//- database is, and finally Node's own memory. The headings are deliberately
+//- SMALLER than the pane title above them (.info-category in informationBody.css):
+//- they group rows, they do not compete with "Version".
 template(name='statistics')
+    h3.info-category {{_ 'Platform'}}
     table
       tbody
         tr
           th WeKan ® {{_ 'info'}}
           td {{statistics.version}}
+        //- bundle.zip / Snap / Docker / Sandstorm - see models/lib/platformPackaging.js.
         tr
-          th {{_ 'Meteor_version'}}
-          td {{statistics.meteor.meteorVersion}}
-        tr
-          th {{_ 'Node_version'}}
-          td {{statistics.process.nodeVersion}}
-        tr
-          th {{_ 'Database_type'}}
-          td {{statistics.mongo.databaseType}}
-        tr
-          th {{_ 'MongoDB_version'}}
-          td {{statistics.mongo.mongoVersion}}
-        tr
-          th {{_ 'Database_commit'}}
-          td {{statistics.mongo.databaseCommit}}
-        if statistics.mongo.ferretdbVersion
-          tr
-            th {{_ 'FerretDB_version'}}
-            td {{statistics.mongo.ferretdbVersion}}
-          tr
-            th {{_ 'FerretDB_commit'}}
-            td {{statistics.mongo.ferretdbCommit}}
-        tr
-          th {{_ 'MongoDB_storage_engine'}}
-          td {{statistics.mongo.mongoStorageEngine}}
-        tr
-          th {{_ 'MongoDB_Oplog_enabled'}}
-          td {{formatBoolean statistics.mongo.mongoOplogEnabled}}
-        tr
-          th {{_ 'Reactivity_mode'}}
-          td {{statistics.mongo.reactivity}}
-        tr
-          th {{_ 'Reactivity_order'}}
-          td {{statistics.mongo.reactivityOrder}}
-        tr
-          th {{_ 'DDP_transport'}}
-          td {{statistics.mongo.ddpTransport}}
+          th {{_ 'Platform_packaging'}}
+          td {{statistics.platform.packaging}}
+
+    h3.info-category {{_ 'OS'}}
+    table
+      tbody
         tr
           th {{_ 'OS_Type'}}
           td {{statistics.os.type}}
@@ -75,6 +57,68 @@ template(name='statistics')
         tr
           th {{_ 'OS_Cpus'}}
           td {{statistics.os.cpus.length}}
+
+    h3.info-category {{_ 'Meteor'}}
+    table
+      tbody
+        tr
+          th {{_ 'Meteor_version'}}
+          td {{statistics.meteor.meteorVersion}}
+        //- Reactivity and DDP are Meteor's, not the database's: what is LIVE
+          (reactivity), what was ASKED for (reactivity order), and how the client
+          is connected (DDP transport). Whether an OpLog exists to tail is a
+          property of the database and stays in that table.
+        tr
+          th {{_ 'Reactivity_mode'}}
+          td {{statistics.mongo.reactivity}}
+        tr
+          th {{_ 'Reactivity_order'}}
+          td {{statistics.mongo.reactivityOrder}}
+        tr
+          th {{_ 'DDP_transport'}}
+          td {{statistics.mongo.ddpTransport}}
+
+    h3.info-category {{_ 'Database'}}
+    table
+      tbody
+        tr
+          th {{_ 'Database_type'}}
+          td {{statistics.mongo.databaseType}}
+        tr
+          th {{_ 'MongoDB_version'}}
+          td {{statistics.mongo.mongoVersion}}
+        tr
+          th {{_ 'Database_commit'}}
+          td {{statistics.mongo.databaseCommit}}
+        //- Only when FerretDB is what answered: on MongoDB these two rows have
+          nothing to say, and an empty row reads as a missing value.
+        if statistics.mongo.ferretdbVersion
+          tr
+            th {{_ 'FerretDB_version'}}
+            td {{statistics.mongo.ferretdbVersion}}
+          tr
+            th {{_ 'FerretDB_commit'}}
+            td {{statistics.mongo.ferretdbCommit}}
+        tr
+          th {{_ 'MongoDB_storage_engine'}}
+          td {{statistics.mongo.mongoStorageEngine}}
+        tr
+          th {{_ 'MongoDB_Oplog_enabled'}}
+          td {{formatBoolean statistics.mongo.mongoOplogEnabled}}
+        unless isSandstorm
+          tr
+            th {{_ 'Mongo_sessions_count'}}
+            td {{statistics.session.sessionsCount}}
+
+    h3.info-category {{_ 'Node'}}
+    table
+      tbody
+        tr
+          th {{_ 'Node_version'}}
+          td {{statistics.process.nodeVersion}}
+        //- A Sandstorm grain has no V8 heap figures collected for it (see
+          server/statistics.js), so the version above is all this table can say
+          there.
         unless isSandstorm
           tr
             th {{_ 'Node_heap_total_heap_size'}}
@@ -121,6 +165,3 @@ template(name='statistics')
           tr
             th {{_ 'Node_memory_usage_external'}}
             td {{fileSize statistics.nodeMemoryUsage.external}}
-          tr
-            th {{_ 'Mongo_sessions_count'}}
-            td {{statistics.session.sessionsCount}}

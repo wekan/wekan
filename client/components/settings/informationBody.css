@@ -1,0 +1,27 @@
+/* ── Admin Panel / Settings / Version ────────────────────────────────────────
+   The pane is five tables now - Platform, OS, Meteor, Database, Node - instead
+   of one 40-row list, and each one is introduced by a small heading.
+
+   SMALLER THAN THE PANE TITLE, deliberately. `.admin-pane-title` (settingBody.css)
+   is 1.25rem/700 and names the whole pane: "Version". These name a group of rows
+   INSIDE it, so at the same size they would read as five pane titles and the
+   real one would be lost among them. 1rem keeps them a step below it while
+   staying above the table text, and the browser's own h3 default - larger than
+   the pane title, which is what an unstyled h3 would be here - never applies.
+
+   Sized in rem so it follows the reader's browser font size, and `color: inherit`
+   so it stays readable on a dark theme: the same two rules `.admin-pane-title`
+   is written with, for the same reasons. */
+.info-category {
+  margin: 18px 0 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: inherit;
+}
+
+/* The first heading sits right under the pane title, which already brings its
+   own 12px below it, so it does not add a second gap on top. */
+.info-category:first-child {
+  margin-top: 0;
+}
