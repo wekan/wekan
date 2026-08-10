@@ -310,6 +310,8 @@ are v10.79's: nothing here rebuilds them.
 
 This release reorganises the Admin Panel:
 
+**Admin Panel / Settings** - the Version pane, and how it lays itself out.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/aed26c677">Version is one table with combined category rows, over two 50% columns</a>. Thanks to xet7.</summary>
 
@@ -339,6 +341,31 @@ because the label column is on the RIGHT in Arabic and Hebrew, so it is
 </details>
 
 and fixes the following bugs:
+
+**Admin Panel / Problems** - a pane that drew nothing, and said nothing about
+it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/01c36852d">Problems / Filesystem integrity showed a blank page</a>. Thanks to xet7.</summary>
+
+The pane drew its title and then empty space, while Summary went on reporting
+*"7 new problems"* for it.
+
+Everything about it looked right, which is why it survived: the menu has a
+`report-integrity` entry, clicking it is handled, the handler sets
+`tmpl.showIntegrity`, and the template has `else if showIntegrity.get` with an
+integrity event stream under it. The missing piece was the **helper**.
+`showIntegrity()` was never added beside `showDatabase()` and the eight others,
+and in Blaze **an undefined helper is not an error — it is falsy**. So the
+branch never ran, the page was blank, and nothing anywhere said why.
+
+The guard added with it is the class rather than this one pane: every
+`show*.get` branch in a settings template must have a helper of that name in
+that template's own `.js`, and a `ReactiveVar` behind it. The templates are
+FOUND rather than listed, so a pane added later is covered without editing the
+test.
+
+</details>
 
 **The snap** - what it does when it cannot read the database it was upgraded
 onto.
@@ -390,29 +417,6 @@ standalone Node with no dependencies — to check what an admin actually sees:
 
 </details>
 
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/01c36852d">Problems / Filesystem integrity showed a blank page</a>. Thanks to xet7.</summary>
-
-The pane drew its title and then empty space, while Summary went on reporting
-*"7 new problems"* for it.
-
-Everything about it looked right, which is why it survived: the menu has a
-`report-integrity` entry, clicking it is handled, the handler sets
-`tmpl.showIntegrity`, and the template has `else if showIntegrity.get` with an
-integrity event stream under it. The missing piece was the **helper**.
-`showIntegrity()` was never added beside `showDatabase()` and the eight others,
-and in Blaze **an undefined helper is not an error — it is falsy**. So the
-branch never ran, the page was blank, and nothing anywhere said why.
-
-The guard added with it is the class rather than this one pane: every
-`show*.get` branch in a settings template must have a helper of that name in
-that template's own `.js`, and a `ReactiveVar` behind it. The templates are
-FOUND rather than listed, so a pane added later is covered without editing the
-test.
-
-</details>
-
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/71ba0c2dc">A third MongoDB reader, so a 4.x database migrates instead of stopping</a>. Thanks to Philippe-Bentegeac, JDeepix, imlit and xet7.</summary>
 
@@ -456,6 +460,48 @@ repeats the check and unstages the binary if it fails.
 Still unreadable, and still answered by the page rather than a migration: 3.4,
 3.6, 4.4 and 5.0. Bundling mongod 5.0 beside this one would close 4.4 and 5.0
 the same way, at the same cost in size.
+
+</details>
+
+and improves the translations:
+
+**Translations** - the new strings, and the languages that keep the English
+placeholder.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/132a64484">The Version pane's new strings, translated into 113 languages</a>. Thanks to xet7.</summary>
+
+The pane's five category labels and the packaging row arrived in English only,
+so every other language showed them in English. Three of the six needed
+translating at all: **Platform**, **package** ("Package") and **OS**. `Database`
+was already translated in 131 languages — the key existed before and this
+revived it — and **Meteor** and **Node** are product names that stay as they
+are in every language, which is also why the filler ignores a value equal to the
+English source.
+
+Translated directly, with no external service, using each language's own
+existing strings as the reference. Its `OS_Type` and `OS_Platform` show the
+form that language's translators use — *"Typ des Betriebssystems"*, *"Tipo
+SO"*, *"Тип ОС"*, *"Käyttöjärjestelmän tyyppi"* — so OS is `Betriebssystem` in
+German, `SO` in Italian and Portuguese, `ОС` in Russian and
+`Käyttöjärjestelmä` in Finnish, rather than one spelling imposed on all of them.
+
+Two files were deliberately NOT copied from: Greek's `OS_Type` and `OS_Platform`
+hold Italian, and Korean's hold Japanese. Propagating that would have spread
+somebody else's mistake into three more strings, so those two got proper Greek
+and Korean instead.
+
+Applied through `fill-translations.mjs --apply`, which writes **only** into a
+placeholder, so no human translation could be overwritten even by accident — and
+the diff shows it: 292 changed lines across 106 files, every one of them
+`Platform`, `package` or `OS`. Key order and indentation are unchanged, every
+file still parses, and `verify-human-preference.mjs` passes 10/10.
+
+**40 files keep the English placeholder on purpose** — ace, ary, br, gu-IN, ig,
+km, mn, oc, or_IN, pa, tk_TM, tlh, ug, ve, vl-SS, vo, wa, wo, xh, yi, yo, zgh,
+zu and the `en-*` variants, which are English by design. A placeholder that
+says so is better than a translation nobody can stand behind, and Transifex can
+still replace any of them with a human one: nothing here is pushed there.
 
 </details>
 
