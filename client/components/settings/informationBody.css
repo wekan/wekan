@@ -1,27 +1,60 @@
 /* ── Admin Panel / Settings / Version ────────────────────────────────────────
-   The pane is five tables now - Platform, OS, Meteor, Database, Node - instead
-   of one 40-row list, and each one is introduced by a small heading.
+   ONE table, in five categories - Platform, OS, Meteor, Database, Node - where
+   each category is a row of its own that spans both columns.
 
-   SMALLER THAN THE PANE TITLE, deliberately. `.admin-pane-title` (settingBody.css)
-   is 1.25rem/700 and names the whole pane: "Version". These name a group of rows
-   INSIDE it, so at the same size they would read as five pane titles and the
-   real one would be lost among them. 1rem keeps them a step below it while
-   staying above the table text, and the browser's own h3 default - larger than
-   the pane title, which is what an unstyled h3 would be here - never applies.
+   WHY ONE TABLE. It was five, one per category, and five tables size their
+   columns independently: "WeKan ® Version" made the first one's label column
+   wide and "OS Type" made the next one's narrow, so the values started at a
+   different x in every group and the pane read as five unrelated things. One
+   table puts every label and every value in the same place. */
 
-   Sized in rem so it follows the reader's browser font size, and `color: inherit`
-   so it stays readable on a dark theme: the same two rules `.admin-pane-title`
-   is written with, for the same reasons. */
-.info-category {
-  margin: 18px 0 6px;
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1.3;
-  color: inherit;
+/* Two EQUAL columns, and they stay equal whatever the longest label happens to
+   be. `table-layout: fixed` makes the browser take the widths from the colgroup
+   instead of measuring the content, and the two `col` rules below are that
+   colgroup - written here rather than as inline width attributes so a theme can
+   override them in one place.
+
+   The `max-width: none` undoes settingBody.css's 240px cap on admin table
+   headers, which exists to stop a long label blowing a column up; here the
+   column width is stated outright, so the cap has nothing to protect and would
+   only fight the 50%. Both rules are scoped through .info-table, so no other
+   admin table is touched. */
+.setting-content .content-body .main-body table.info-table {
+  table-layout: fixed;
 }
 
-/* The first heading sits right under the pane title, which already brings its
-   own 12px below it, so it does not add a second gap on top. */
-.info-category:first-child {
-  margin-top: 0;
+.setting-content .content-body .main-body table.info-table > colgroup > col {
+  width: 50%;
+}
+
+.setting-content .content-body .main-body table.info-table th,
+.setting-content .content-body .main-body table.info-table td {
+  max-width: none;
+}
+
+/* The category row. It spans both columns, so it is not a label with a value
+   beside it - it is a line that says what the rows under it are about.
+
+   BOLD and start-aligned, at the table's own font size: it names a group of rows
+   inside the pane, and the pane title above it (`.admin-pane-title`, 1.25rem)
+   names the pane. Growing these to that size would read as five pane titles and
+   "Version" would be lost among them. `color: inherit` for the same reason it is
+   on the pane title: the panel is themeable and a fixed colour goes unreadable
+   on a dark one. */
+.setting-content .content-body .main-body table.info-table tr.info-category > th {
+  /* start, not left: a th centres by default, and this must sit over the label
+     column - which is the RIGHT edge in Arabic and Hebrew (tests/rtl.test.js). */
+  text-align: start;
+  font-weight: 700;
+  color: inherit;
+  /* Space above the group, none below it: the separation belongs BETWEEN
+     groups, and a gap under the title would push it away from the rows it
+     introduces. */
+  padding-top: 18px;
+}
+
+/* ...except the first one, which sits directly under the pane title and needs no
+   second gap on top of the 12px that title already brings. */
+.setting-content .content-body .main-body table.info-table tr.info-category:first-child > th {
+  padding-top: 0;
 }

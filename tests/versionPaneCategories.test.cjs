@@ -1,10 +1,11 @@
 'use strict';
 
-// Admin Panel / Settings / Version was ONE table of ~40 rows: the WeKan version,
-// the OS load average, the DDP transport and a V8 heap counter all in the same
-// flat list, read top to bottom, with no way to jump to the part you came for.
-// It is five tables now - Platform, OS, Meteor, Database, Node - each under a
-// small heading.
+// Admin Panel / Settings / Version was ONE table of ~40 rows read as a flat
+// list: the WeKan version, the OS load average, the DDP transport and a V8 heap
+// counter all the same kind of thing, with no way to jump to the part you came
+// for. It is one table in five CATEGORIES now - Platform, OS, Meteor, Database,
+// Node - each introduced by a bold row that spans both columns, over two equal
+// 50% columns so every label and every value lines up down the whole pane.
 //
 // What this guards is what a reader cannot see is missing: a row added later to
 // the wrong table, a heading quietly dropped, or a heading grown to the size of
@@ -29,8 +30,9 @@ const en = JSON.parse(fs.readFileSync(
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
-// The headings, in the order they appear in the file.
-const headings = [...jade.matchAll(/^\s*h3\.info-category \{\{_ '([^']+)'\}\}$/gm)].map(m => m[1]);
+// The category rows, in the order they appear in the file.
+const headings = [...jade.matchAll(/^\s*tr\.info-category\n\s*th\(colspan="2"\) \{\{_ '([^']+)'\}\}$/gm)]
+  .map(m => m[1]);
 // Every `{{_ 'key'}}` used as a row label (a th), in order.
 const rowKeys = [...jade.matchAll(/^\s*th \{\{_ '([^']+)'\}\}$/gm)].map(m => m[1]);
 
@@ -43,16 +45,38 @@ test('the five categories are there, in the order the pane is read in', () => {
   assert.deepStrictEqual(headings, ['Platform', 'OS', 'Meteor', 'Database', 'Node']);
 });
 
-test('each category has its own table, so a row cannot drift between them', () => {
-  // One `table` per heading, and the first thing after each heading.
-  const blocks = jade.split(/^\s*h3\.info-category /m).slice(1);
-  assert.strictEqual(blocks.length, headings.length, 'one block per heading');
-  for (const [i, block] of blocks.entries()) {
-    assert.ok(/^\s*\{\{_ '[^']+'\}\}\n\s*table\n/.test(block),
-      `${headings[i]} must be followed directly by its own table`);
-    assert.strictEqual((block.match(/^\s{4}table$/gm) || []).length, 1,
-      `${headings[i]} has exactly one table`);
-  }
+test('it is ONE table, and each category is a row spanning both columns', () => {
+  // Five tables sized their columns independently, so the values started at a
+  // different x in every group. One table, and the category is a row in it.
+  const tables = jade.match(/^\s*table(\.[\w-]+)?$/gm) || [];
+  assert.strictEqual(tables.length, 1, 'the pane draws exactly one table');
+  assert.ok(/^\s*table\.info-table$/m.test(jade),
+    'and it carries the .info-table class the 50/50 columns are scoped to');
+
+  // Each category row is a `th` spanning BOTH columns - not a label with an
+  // empty cell beside it, which is what a plain th would leave.
+  const rows = jade.match(/^\s*tr\.info-category$/gm) || [];
+  assert.strictEqual(rows.length, headings.length,
+    'every category is a tr.info-category');
+  const spans = jade.match(/^\s*th\(colspan="2"\) \{\{_ '[^']+'\}\}$/gm) || [];
+  assert.strictEqual(spans.length, headings.length,
+    'and each of them spans both columns');
+});
+
+test('the two columns are declared 50/50, not left to the longest label', () => {
+  // A colgroup plus table-layout:fixed is what makes the browser use these
+  // widths instead of measuring the content of each cell.
+  assert.ok(/^\s*colgroup\n\s*col\n\s*col$/m.test(jade),
+    'the table declares a colgroup of two columns');
+  assert.ok(/table\.info-table\s*\{[^}]*table-layout:\s*fixed/.test(css),
+    '.info-table must be table-layout: fixed, or the colgroup widths are ignored');
+  const colRule = css.slice(css.indexOf('table.info-table > colgroup > col'));
+  assert.ok(/width:\s*50%/.test(colRule.slice(0, 200)),
+    'and each column is 50%');
+  // settingBody.css caps admin table headers at 240px; with the width stated
+  // outright that cap has nothing to protect and would fight the 50%.
+  assert.ok(/max-width:\s*none/.test(css),
+    'the 240px header cap from settingBody.css is undone for this table');
 });
 
 test('every heading is a translated key that exists in English', () => {
@@ -71,7 +95,7 @@ test('the rows are under the category they belong to', () => {
     const at = jade.indexOf(`th {{_ '${key}'}}`);
     assert.notStrictEqual(at, -1, `${key} is a row in the pane`);
     const before = jade.slice(0, at);
-    const marks = [...before.matchAll(/h3\.info-category \{\{_ '([^']+)'\}\}/g)];
+    const marks = [...before.matchAll(/th\(colspan="2"\) \{\{_ '([^']+)'\}\}/g)];
     return marks.length ? marks[marks.length - 1][1] : null;
   };
 
@@ -100,8 +124,8 @@ test('the rows are under the category they belong to', () => {
   }
 });
 
-test('no row was lost when the one table became five', () => {
-  // Every label the flat table had is still shown somewhere, plus the new one.
+test('no row was lost when the flat list became five categories', () => {
+  // Every label the flat list had is still shown somewhere, plus the new one.
   const BEFORE = ['info', 'Meteor_version', 'Node_version', 'Database_type', 'MongoDB_version',
     'Database_commit', 'FerretDB_version', 'FerretDB_commit', 'MongoDB_storage_engine',
     'MongoDB_Oplog_enabled', 'Reactivity_mode', 'Reactivity_order', 'DDP_transport',
@@ -148,26 +172,22 @@ test('the packaging row translates its LABEL and never its VALUE', () => {
   }
 });
 
-test('the category heading is SMALLER than the pane title above it', () => {
-  // Five headings at the pane title's size read as five pane titles, and
-  // "Version" is lost among them. An unstyled h3 is larger still, which is what
-  // this class exists to prevent.
-  const settingBody = fs.readFileSync(
-    path.join(repoRoot, 'client/components/settings/settingBody.css'), 'utf8');
-  const sizeOf = (text, selector) => {
-    const at = text.indexOf(`${selector} {`);
-    assert.notStrictEqual(at, -1, `${selector} must be styled`);
-    const block = text.slice(at, text.indexOf('}', at));
-    const m = block.match(/font-size:\s*([\d.]+)rem/);
-    assert.ok(m, `${selector} must set font-size in rem, so it follows the browser's font size`);
-    return parseFloat(m[1]);
-  };
-  const category = sizeOf(css, '.info-category');
-  const paneTitle = sizeOf(settingBody, '.admin-pane-title');
-  assert.ok(category < paneTitle,
-    `.info-category (${category}rem) must be smaller than .admin-pane-title (${paneTitle}rem)`);
-  assert.ok(/color:\s*inherit/.test(css.slice(css.indexOf('.info-category {'))),
-    'and inherit its colour, or it is unreadable on a dark theme');
+test('the category title is BOLD, and does not grow into a second pane title', () => {
+  const at = css.indexOf('tr.info-category > th');
+  assert.notStrictEqual(at, -1, 'the category row must be styled');
+  const block = css.slice(at, css.indexOf('}', at));
+  assert.ok(/font-weight:\s*(700|bold)/.test(block), 'the category title is bold');
+  // `start`, not `left`: a th centres by default, and the label column is on the
+  // RIGHT in Arabic and Hebrew (tests/rtl.test.js enforces the logical property).
+  assert.ok(/text-align:\s*start/.test(block),
+    'and start-aligned, so it sits over the label column in every writing direction');
+  assert.ok(/color:\s*inherit/.test(block),
+    'and inherits its colour, or it is unreadable on a dark theme');
+  // It stays at the table's own size. Growing it to the pane title's size would
+  // read as five pane titles with "Version" lost among them - so a font-size
+  // here at all is the thing to notice.
+  assert.ok(!/font-size:/.test(block),
+    'it takes the table\'s font size; a size here would compete with the pane title');
 });
 
 console.log(`\nversionPaneCategories: ${passed} tests passed`);
