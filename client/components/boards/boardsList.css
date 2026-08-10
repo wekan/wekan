@@ -1193,7 +1193,8 @@
      (e.g. a laptop in mobile mode) gets more columns instead of two stretched ones. */
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(46%, 200px), 1fr));
-  gap: 8px;
+  /* The same single spacing value as the phone grid above, in both directions. */
+  gap: 10px;
   /* #6488: sized by the column it lives in (the flex chain in the phone block
      below), not by the viewport minus a guess at the bars above it. */
   flex: 1 1 auto;
@@ -1210,7 +1211,8 @@
   width: auto; /* the grid controls the column width */
   float: none;
   display: block;
-  margin-bottom: 0.5rem;
+  /* The grid gap is the spacing; this added a second one, downwards only. */
+  margin-bottom: 0;
   /* NO handle reserve here. The drag handle is positioned INSIDE the tile, and
      the tile already keeps its text clear of it - so 32px here was a second,
      invisible reserve on top of that one. On a phone the tile is only ~97px
@@ -1340,18 +1342,42 @@
   .board-list {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
+    /* ONE spacing value, in both directions. It used to be an 8px gap PLUS a
+       `margin-bottom: 0.5rem` on each li, so the tiles were 16px apart vertically
+       and 8px apart horizontally - which reads as "the icons are too close
+       together" side to side even though there is space between the rows. The
+       margin is gone (below) and the gap is the whole answer. */
+    gap: 10px;
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 0 0.25rem;
     margin: 0;
+    /* #6488. Without these a grid's rows default to `align-content: stretch` and
+       its items to `align-items: stretch`, so when the list is SHORTER than the
+       column it is given - one or two rows of boards - the leftover height is
+       divided among the rows and each tile is grown to fill it. A board tile
+       paints its board colour over the whole cell, so a single row of boards
+       became one band several times the height of a normal icon: "some board
+       icons are 4x normal height or more".
+       This was fixed once, but only on `.board-list.mobile-view` - the class the
+       template sets from Utils.isMiniScreen(). A narrow WINDOW that is not a mini
+       screen (a desktop browser resized under 800px, a tablet in desktop mode)
+       matches this media query, becomes a grid here, and never got the fix. It
+       belongs on the rule that creates the grid. */
+    align-content: start;
+    align-items: start;
   }
   .board-list li {
     width: auto; /* the grid controls the column width */
     float: none;
     display: block;
-    margin-bottom: 0.5rem;
+    /* The grid gap spaces the tiles; a margin here spaced them a second time,
+       and only downwards. */
+    margin-bottom: 0;
+    /* ...and the tile is its own height, not the height of a stretched cell. */
+    align-self: start;
+    height: auto;
     /* Same as `.board-list.mobile-view li` above: the tile keeps its own text
        clear of the handle, so reserving the width a second time out here only
        narrowed the title. */
@@ -1659,6 +1685,35 @@
      start at the top of the column now. */
   .boards-right-grid > .boards-pagination {
     flex: 0 0 auto;
+  }
+
+  /* ...and so does the pane's heading. Without this it is a flex item with the
+     default `flex-shrink: 1`, so in a column too short for its contents the
+     TITLE is what gets squeezed instead of the scroller below it growing a
+     scrollbar. */
+  .boards-right-grid > .admin-pane-title {
+    flex: 0 0 auto;
+  }
+
+  /* #6488. The right column has TWO branches, not one: the board icons, and -
+     when the view is Table - `+tablePage`, which is a `.table-page` (see
+     boardsList.jade). Only the icons were ever given a scroller, so in Table view
+     the table simply grew past the bottom of the column, and `#content .wrapper`
+     is `overflow: hidden`, so the rows past the fold were clipped with no way to
+     reach them. Every section of All Boards can be shown as a table - Starred,
+     Templates, Remaining, Workspaces, Archive - so that was the whole page in
+     one of its two views.
+     The same shape as the board list: take what the column has left, be allowed
+     to be shorter than the content, and scroll inside. The table is also WIDER
+     than a phone, so this one scrolls in both directions. */
+  .boards-right-grid > .table-page {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    touch-action: pan-x pan-y;
   }
 
   /* The left menu (Starred / Templates / Remaining / Workspaces / Add board) is its

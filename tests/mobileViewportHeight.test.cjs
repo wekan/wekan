@@ -106,13 +106,54 @@ test('a vertical swipe in those scrollers is a scroll, and stays in them', () =>
   }
 });
 
-test('mobile mode sizes the body and the content area the same way', () => {
+test('the mobile body is exactly one viewport, stated in dvh as well as vh', () => {
   // `position: fixed; height: 100vh` on the body has the same problem, and it is
   // what the whole mobile layout hangs from.
   const body = layouts.slice(layouts.indexOf('body.mobile-mode {'));
   assert.ok(/height: 100vh;[\s\S]{0,400}height: 100dvh;/.test(body));
-  const content = layouts.slice(layouts.indexOf('body.mobile-mode #content {'));
-  assert.ok(/height: calc\(100vh - 48px\);\s*\n\s*height: calc\(100dvh - 48px\);/.test(content));
+});
+
+test('#content is sized by the flex column, not by a guess at the header height', () => {
+  // CHANGED DELIBERATELY, and the change is the fix for #6488 rather than a
+  // relaxation of this guard. This used to REQUIRE
+  //   height: calc(100vh - 48px); height: calc(100dvh - 48px);
+  // and getting the dvh fallback right there was the whole point - but the rule
+  // was wrong in a way no dvh can repair: `- 48px` is a guess at how tall the
+  // header is, and the header is not 48px and is not any one number. Utils
+  // publishes --wekan-header-height from a ResizeObserver precisely because the
+  // quick-access bar wraps to a second and third row depending on language and
+  // width, and its comment says every fixed number for it has been wrong.
+  //
+  // On a phone with a wrapped header, #content was therefore TALLER than the room
+  // under it, so its bottom sat below the screen - and body.mobile-mode is
+  // `position: fixed` and `overflow: hidden`, so that strip is unreachable. The
+  // `height: 100%` chain below it inherited the error and the last boards ended
+  // up where no gesture could reach: "at smartphone, at All Boards page, it is
+  // not possible to scroll down to see remaining of boards."
+  //
+  // body is a flex column of exactly one viewport and #content is its `flex: 1`
+  // item, so the space under the header ALREADY is this box, at whatever height
+  // the header really is. So what is pinned now is the absence of the arithmetic.
+  const contentAt = layouts.indexOf('body.mobile-mode #content {');
+  assert.notStrictEqual(contentAt, -1, 'layouts.css has no body.mobile-mode #content rule');
+  // Comments stripped first: the rule explains at length what it used to say,
+  // and quoting the old declaration must not read as still declaring it.
+  const content = layouts.slice(contentAt, layouts.indexOf('}', contentAt))
+    .replace(/\/\*[\s\S]*?\*\//g, '');
+  assert.ok(!/height:\s*calc\(/.test(content),
+    'body.mobile-mode #content must not compute a height from the viewport: a ' +
+    'fixed number for the header is what put the bottom of the page off screen');
+  assert.ok(/min-height:\s*0;/.test(content),
+    'it must be allowed to be shorter than its content, or the inner scroller ' +
+    'below it can never scroll');
+  // ...and the flex item it depends on is really there.
+  const base = layouts.slice(layouts.indexOf('\n#content {'));
+  assert.ok(/flex:\s*1;/.test(base.slice(0, base.indexOf('}'))),
+    '#content must stay the flex: 1 item of the body column - that is what now ' +
+    'gives it the height the calc() was guessing at');
+  const bodyRule = layouts.slice(layouts.indexOf('\nbody {'));
+  assert.ok(/flex-direction:\s*column;/.test(bodyRule.slice(0, bodyRule.indexOf('}'))),
+    'and body must stay a flex column, or #content has no share to take');
 });
 
 test('the board tiles still drag from their handle only, on a touch screen', () => {

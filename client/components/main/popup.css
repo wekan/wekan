@@ -893,14 +893,29 @@ body.mobile-mode .pop-over {
   inset-inline-end: 0 !important;
   bottom: 0 !important;
   width: 100vw !important;
-  height: 100vh !important;
   max-width: 100vw !important;
+  /* #6488. `100vh` is the viewport with the browser's toolbars HIDDEN, so a
+     `position: fixed` box sized that way reaches under them: on a phone the
+     bottom of this popup is off screen, and being fixed there is no gesture that
+     brings it back. `100dvh` is the viewport as it is right now. The `vh` pair
+     stays first as the fallback where `dvh` is unknown - the same fix
+     body.mobile-mode already carries in layouts.css. */
+  height: 100vh !important;
   max-height: 100vh !important;
+  height: 100dvh !important;
+  max-height: 100dvh !important;
 }
 body.mobile-mode .pop-over .content-wrapper {
   width: 100% !important;
-  height: calc(100vh - 48px) !important;
-  max-height: calc(100vh - 48px) !important;
+  /* #6488. This was `calc(100vh - 48px)`, which is two guesses at once: the
+     viewport measured with the toolbars hidden, minus a fixed 48px for the
+     popup's own title bar. When the title wraps - a long board name, a
+     translated label - the bar is taller than 48px and the list inside this
+     wrapper ends below the screen, so its last rows cannot be scrolled to.
+     Nothing needs measuring: `.pop-over` above is a flex column of exactly one
+     viewport, `.pop-over .header` is `flex-shrink: 0`, and this wrapper is
+     already `flex: 1 1 auto; min-height: 0` - so it is whatever the title bar
+     leaves, at whatever height the title bar really is. */
   overflow-y: auto !important;
   overflow-x: hidden !important;
 }

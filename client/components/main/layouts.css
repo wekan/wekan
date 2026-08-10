@@ -243,8 +243,30 @@ body.mobile-mode #content {
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  height: calc(100vh - 48px);
-  height: calc(100dvh - 48px);
+  /* #6488, and the reason that issue kept coming back after being closed three
+     times: THE LAST PIECE OF VIEWPORT ARITHMETIC. This said
+     `height: calc(100dvh - 48px)`, and 48px is a guess at how tall the header is.
+     The header is not 48px and is not any one number - Utils publishes
+     --wekan-header-height from a ResizeObserver for exactly this reason, because
+     the quick-access bar WRAPS to a second and third row depending on the
+     language and the window width, and its own comment says "every fixed number
+     for it has been wrong for some of those".
+     On a phone, where the bar does wrap, #content was therefore taller than the
+     room under the header by however much the header exceeded 48px, so its
+     bottom sat BELOW the bottom of the screen. body.mobile-mode is
+     `position: fixed` and the phone rules make it `overflow: hidden`, so that
+     strip is unreachable: everything below it inherits the error through the
+     `height: 100%` chain (boardsList.css), and the last rows of the board list
+     end up where no gesture can reach them. That is "in mobile board menu you
+     cant scroll boards" - the list scrolls, it just ends off screen.
+     Nothing has to be computed here. body is a flex COLUMN of exactly one
+     viewport and this is its `flex: 1` item (below), so the space left under the
+     header - whatever the header turns out to be this paint - IS this box. The
+     arithmetic was overriding a correct answer with a wrong one.
+     `min-height: 0` so it can be SHORTER than its content: a flex item will not
+     shrink below its content otherwise, and an inner scroller whose ancestor
+     refuses to shrink never scrolls. */
+  min-height: 0;
   overscroll-behavior: contain;
 }
 #content {
