@@ -502,6 +502,32 @@ lost among them.
 
 and fixes the following bugs:
 
+**The Admin Panel** - a pane that drew nothing, and said nothing about it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7b0209813">Problems / Filesystem integrity showed a blank page</a>. Thanks to xet7.</summary>
+
+The pane drew its title and then empty space, while Summary went on reporting
+*"7 new problems"* for it.
+
+Everything about it looked right, which is why it survived: the menu has a
+`report-integrity` entry, clicking it is handled, the handler sets
+`tmpl.showIntegrity`, and the template has `else if showIntegrity.get` with an
+integrity event stream under it. The missing piece was the **helper**.
+`showIntegrity()` was never added beside `showDatabase()` and the eight others,
+and in Blaze **an undefined helper is not an error — it is falsy**. So the
+branch never ran, the page was blank, and nothing anywhere said why.
+
+The guard added with it is the class rather than this one pane: every
+`show*.get` branch in a settings template must have a helper of that name in
+that template's own `.js`, and a `ReactiveVar` behind it. The templates are
+FOUND rather than listed, so a pane added later is covered without editing the
+test.
+
+</details>
+
+
+
 **The snap builds** - what they download, and what the store does with the
 result.
 
