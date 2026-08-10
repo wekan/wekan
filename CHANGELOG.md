@@ -276,7 +276,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.80 2026-08-10 WeKan ® release
 
 **In short:** the **Admin Panel**, in the two panes v10.79 had just changed.
 **Version** is one table again rather than five: five tables sized their columns
