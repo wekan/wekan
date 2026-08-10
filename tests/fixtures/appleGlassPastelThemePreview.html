@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apple Glass Pastel Theme Preview</title>
+  <link rel="stylesheet" href="../../client/components/boards/boardColors.css">
+  <style>
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    #header,
+    #header-quick-access {
+      box-sizing: border-box;
+      min-height: 46px;
+      padding: 10px 18px;
+    }
+
+    #header-main-bar,
+    .header-row {
+      align-items: center;
+      display: flex;
+      gap: 12px;
+    }
+
+    .board-header-btn,
+    .sidebar-btn,
+    button.primary {
+      border: 0;
+      display: inline-flex;
+      font: inherit;
+      padding: 8px 14px;
+      text-decoration: none;
+    }
+
+    .preview-shell {
+      height: calc(100vh - 92px);
+      padding: 20px;
+    }
+
+    .board-canvas {
+      display: flex;
+      gap: 16px;
+      height: 100%;
+      overflow: auto;
+    }
+
+    .list {
+      box-sizing: border-box;
+      flex: 0 0 280px;
+      max-height: 100%;
+    }
+
+    .list-header {
+      padding: 14px;
+    }
+
+    .list-body {
+      display: grid;
+      gap: 12px;
+    }
+
+    .minicard,
+    .card-details,
+    .sidebar,
+    .pop-over {
+      box-sizing: border-box;
+    }
+
+    .minicard {
+      min-height: 76px;
+    }
+
+    .card-details,
+    .sidebar {
+      flex: 0 0 320px;
+      padding: 18px;
+    }
+
+    .metric-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .card-date,
+    .badge {
+      border-radius: 999px;
+      display: inline-flex;
+      padding: 5px 10px;
+    }
+
+    .form-row {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    input,
+    textarea,
+    select {
+      box-sizing: border-box;
+      font: inherit;
+      padding: 9px 11px;
+      width: 100%;
+    }
+
+    .pop-over {
+      margin-top: 16px;
+      padding: 14px;
+    }
+  </style>
+</head>
+<body>
+  <header id="header-quick-access" class="board-color-appleglasspastel">
+    <div class="header-row">
+      <a class="board-header-btn" href="#">All Boards</a>
+      <span id="header-user-bar">xet7</span>
+      <a id="header-new-board-icon" class="board-header-btn" href="#">+</a>
+    </div>
+  </header>
+
+  <header id="header" class="board-color-appleglasspastel">
+    <div id="header-main-bar">
+      <a class="board-header-btn" href="#">Board</a>
+      <a class="board-header-btn emphasis" href="#">Save</a>
+      <ul>
+        <li class="current">Kanban</li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="preview-shell board-color-appleglasspastel board-wrapper">
+    <section class="board-canvas">
+      <article class="list">
+        <div class="list-header">
+          <strong class="list-header-name">Sprint Backlog</strong>
+        </div>
+        <div class="list-body">
+          <article class="minicard is-selected">
+            <div class="minicard-title">Apple Glass Pastel theme</div>
+            <div class="metric-row">
+              <span class="card-date current">Ready</span>
+              <span class="badge">P1</span>
+            </div>
+          </article>
+          <article class="minicard">
+            <div class="minicard-title">Visual QA checklist</div>
+            <div class="metric-row">
+              <span class="card-date due">Needs app run</span>
+            </div>
+          </article>
+          <a class="open-minicard-composer" href="#">Add a card</a>
+        </div>
+      </article>
+
+      <aside class="card-details">
+        <div class="card-details-header">
+          <h2 class="card-details-title">Theme Details</h2>
+        </div>
+        <p class="card-details-item-title">Glass surface, readable text, blue CTA.</p>
+        <div class="checklist-progress-bar">
+          <div class="checklist-progress" style="width: 72%;">72%</div>
+        </div>
+        <div class="form-row">
+          <input type="text" value="Focus ring target">
+          <textarea rows="3">Pastel mesh stays behind glass panels.</textarea>
+          <button class="primary" type="button">Primary action</button>
+        </div>
+        <div class="pop-over board-color-appleglasspastel">
+          <div class="pop-over-list">
+            <a href="#">Popover item</a>
+          </div>
+        </div>
+      </aside>
+
+      <aside class="sidebar">
+        <h3>Sidebar</h3>
+        <a class="sidebar-btn" href="#">Themed control</a>
+        <p class="sidebar-list-item-description">Muted text remains readable.</p>
+      </aside>
+    </section>
+  </main>
+</body>
+</html>

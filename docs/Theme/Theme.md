@@ -4,11 +4,11 @@ Status: **Core implemented · picker UI design** · Owner: xet7 · Related: #577
 per-user theme), Board Settings / Change Color, Member Settings / Change Color, #5514
 (the native color-wheel `<input type="color">` already used for list colors).
 
-WeKan ships ~19 board theme colors. Many are near-duplicates that differ only by **one or
-two accent colors**; a few (`clearblue`) are **two-color "color slides"** (gradients). This
-document defines how the **Select Color** picker — used in **both** Board Settings and
-Member Settings (the global override) — is reorganized into **categories** with **two-level
-dropdowns** and **custom colors** where it makes sense.
+WeKan ships named board theme colors. Many are near-duplicates that differ only by **one
+or two accent colors**; the `clear*` themes are **two-color "color slides"** (gradients).
+This document defines how the **Select Color** picker — used in **both** Board Settings
+and Member Settings (the global override) — is reorganized into **categories** with
+**two-level dropdowns** and **custom colors** where it makes sense.
 
 ## 1. Categories
 
@@ -19,9 +19,9 @@ The colors partition into four categories (single source of truth:
 | Category | Colors | Custom colors |
 |----------|--------|---------------|
 | **flat** | belize, nephritis, pomegranate, pumpkin, wisteria, moderatepink, strongcyan, limegreen, natural | **1** (single accent) |
-| **clear** | clearblue | **2** (color slide / gradient) |
+| **clear** | clearblue, cleargreen, clearorange, clearpink, clearpurple, clearred | **2** (color slide / gradient) |
 | **dark** | midnight, dark, moderndark, exodark, cleandark | **none** (fixed) |
-| **special** | relax, corteza, modern, cleanlight | **none** (fixed) |
+| **special** | relax, corteza, appleglasspastel, modern, cleanlight | **none** (fixed) |
 
 Rationale: **flat** designs are one accent color over a flat surface, so a single custom color
 fully re-skins them. **clear** designs are a two-color gradient ("slide"), so they take two

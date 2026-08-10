@@ -99,6 +99,7 @@ const THEME_PROGRESS_COLOR = {
   dark:        'FF2C3E51',
   relax:       'FF27AE61',
   corteza:     'FF568BA2',
+  appleglasspastel: 'FF2563EB',
   clearblue:   'FF499BEA',
   natural:     'FF596557',
   modern:      'FF2A80B8',

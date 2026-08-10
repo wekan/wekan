@@ -11,6 +11,7 @@ export const ALLOWED_BOARD_COLORS = [
   'dark',
   'relax',
   'corteza',
+  'appleglasspastel',
   'clearblue',
   'cleargreen',
   'clearorange',

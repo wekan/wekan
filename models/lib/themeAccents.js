@@ -29,6 +29,7 @@ const THEME_ACCENTS = {
   dark: '#2c3e51',
   relax: '#27ae61',
   corteza: '#568ba2',
+  appleglasspastel: '#2563eb',
   // The MAIN header bar's colour. It read #2d8ce7 - the quick-access bar's
   // separate, lighter shade - because the guard that derives these matched
   // `#header-quick-access` as well as `#header`. The two bars are one colour
