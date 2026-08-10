@@ -449,6 +449,52 @@ Node.js will not start.
 
 </details>
 
+and reorganises the Admin Panel:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dcc6c8fe5">Version is five tables with a heading each, and says what WeKan is installed as</a>. Thanks to xet7.</summary>
+
+Admin Panel / Settings / Version was ONE table of 38 rows, in which the WeKan
+version, the OS load average, the DDP transport and a V8 heap counter were the
+same kind of thing: a flat list read top to bottom, with no way to jump to the
+part you came for.
+
+It is five tables now, each under a small heading, in the order somebody
+debugging reads them — **Platform** (what this is), **OS** (what it runs on),
+**Meteor** (how it talks to the client), **Database** and **Node**. Reactivity,
+reactivity order and the DDP transport moved to Meteor, where they belong: they
+are how the client is fed, and they were the rows most often read as database
+settings. Whether an OpLog *exists* stays with the database, because that is a
+property of it. Nothing was dropped — a test lists all 38 rows by name and
+requires each to still be shown.
+
+**The new row is what WeKan is installed as: `bundle.zip`, `Snap`, `Docker` or
+`Sandstorm`.** It is the first thing a support answer turns on and the pane
+never said it: the same version keeps its data somewhere else, carries a
+different database and gives the admin different reach in each of the four.
+`models/lib/platformPackaging.js` decides it most-specific-first — an explicit
+`WEKAN_PACKAGING` wins, then Sandstorm, then snapd's own `SNAP`/`SNAP_NAME`,
+then a container runtime's marker file, then the bundle. Sandstorm and Snap are
+asked BEFORE the container markers on purpose: a grain **is** a container and a
+confined snap can look like one, so the other order answers "Docker" for both.
+It claims nothing it cannot know: there is no "source checkout" answer, because
+a `meteor run` and an unpacked bundle are identical from inside the process.
+
+The detection is a pure function — it takes the environment, the Sandstorm flag
+and a file-exists callback — so all nine of its tests run in a sandbox with no
+snap, no container and no grain: that an empty `SNAP` is not a snap, that an
+empty `WEKAN_PACKAGING` falls through instead of blanking the field, and that an
+unreadable filesystem root answers `bundle.zip` rather than throwing away an
+admin's Version page.
+
+The headings are deliberately smaller than the pane title above them, and a test
+compares the two font sizes instead of trusting the CSS to stay that way: five
+headings at the pane title's size read as five pane titles, and "Version" is
+lost among them.
+
+</details>
+
+
 and fixes the following bugs:
 
 **The snap builds** - what they download, and what the store does with the
