@@ -222,6 +222,9 @@ import '/server/methods/lockoutSettings';
 import '/server/methods/migrateTextDatabase';
 import '/server/methods/repairBoardData';
 import '/server/methods/repairBrokenCards';
+// Removes the "Templates" container boards made for accounts that never used
+// them (pre-v10.00 signups). Dry run by default; see the method for why.
+import '/server/methods/cleanupTemplateContainers';
 import '/server/methods/systemStatus';
 import '/server/methods/positionHistory';
 import '/server/methods/sandstormMigration';
