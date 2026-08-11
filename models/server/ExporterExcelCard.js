@@ -210,7 +210,32 @@ class ExporterExcelCard {
   // ── Internal build ───────────────────────────────────────────────────────
 
   async _buildAndWrite(res) {
-    const card = await ReactiveCache.getCard(this._cardId);
+    // GHSA-6p5m-f9p2-wqm5: the card must be looked up INSIDE the board and list
+    // the caller was authorised for, not by its id alone.
+    //
+    // canExport() above answers "may this user see the board in :boardId?" - it
+    // never sees :cardId. So with a bare primary-key lookup here the two
+    // identifiers came apart: :boardId decided the authorisation and :cardId
+    // decided the data. Any authenticated user could create their own public
+    // board (POST /api/boards takes `permission` straight from the body), name
+    // it as :boardId, and pass the id of a card in somebody's private board as
+    // :cardId. The export then returned that card's title, description, members,
+    // every comment with its author, checklists, subtasks, attachment metadata -
+    // and, because image attachments are read through getReadStream() and
+    // embedded in the workbook further down, the attachment BYTES.
+    //
+    // The same route shape for PDF has always been right
+    // (ExporterCardPDF._getCardData: getCard({ _id, boardId, listId })), which is
+    // what makes this an omission rather than a decision. Constraining the query
+    // is the fix rather than a check bolted on after it: a card outside the
+    // authorised board now does not resolve at all, so nothing downstream - the
+    // checklist, subtask, comment and attachment fan-out, all keyed on the same
+    // card id - can read anything either.
+    const card = await ReactiveCache.getCard({
+      _id: this._cardId,
+      boardId: this._boardId,
+      listId: this._listId,
+    });
     if (!card) {
       res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
       res.end('Card not found');

@@ -46,6 +46,28 @@ runOnServer(function() {
         return;
       }
 
+      // GHSA-6p5m-f9p2-wqm5: the card has to BELONG to the board being
+      // authorised. Every check below is about `board` - isPublic() on one
+      // branch, canExport() on the other - and both were deciding access to one
+      // object while the export read a different one, named by a path parameter
+      // the caller also controls. Bound here, at the routing layer, as well as in
+      // the exporter's own query: the two identifiers arrive together, so this is
+      // where their relationship is cheapest to state, and it holds for the
+      // public branch too, which skips authentication entirely.
+      //
+      // 404, not 403: whether a given card id exists at all is not something an
+      // unauthorised caller should learn from the difference.
+      const containedCard = await ReactiveCache.getCard({
+        _id: paramCardId,
+        boardId,
+        listId: paramListId,
+      });
+      if (!containedCard) {
+        res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+        res.end('Card not found');
+        return;
+      }
+
       // Public boards skip authentication
       if (board.isPublic()) {
         const fieldsParam = req.query.fields;
