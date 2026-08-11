@@ -38,6 +38,15 @@ template(name="checklistDetail")
     else
       .checklist-title
         span
+        //- #1591: fold a long checklist out of the way. A caret rather than
+          another entry in the actions menu, because the whole point is to do it
+          at a glance while reading the card - and it is a view preference of
+          this user, so it does not touch the card.
+        a.fa.checklist-collapse.js-collapse-checklist(
+          class="{{#if checklistCollapsed}}fa-caret-right{{else}}fa-caret-down{{/if}}"
+          title="{{#if checklistCollapsed}}{{_ 'expand-checklist'}}{{else}}{{_ 'collapse-checklist'}}{{/if}}"
+          role="button" tabindex="0"
+          aria-expanded="{{#if checklistCollapsed}}false{{else}}true{{/if}}")
         if canModifyCard
           a.fa.fa-navicon.checklist-details-menu.js-open-checklist-details-menu(title="{{_ 'checklistActionsPopup-title'}}")
 
@@ -52,12 +61,15 @@ template(name="checklistDetail")
             +viewer
                 = checklist.title
 
+    //- The progress bar stays visible when folded: it is the summary of what was
+      folded away, so hiding it too would leave a title that says nothing.
     if $gt finishedPercent 0
       .checklist-progress-bar-container
         .checklist-progress-text {{finishedPercent}}%
         .checklist-progress-bar
           .checklist-progress(style="width:{{finishedPercent}}%")
-    +checklistItems(checklist = checklist card = card)
+    unless checklistCollapsed
+      +checklistItems(checklist = checklist card = card)
 
 template(name="checklistDeletePopup")
   p {{_ 'confirm-checklist-delete-popup'}}

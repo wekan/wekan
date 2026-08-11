@@ -1146,3 +1146,33 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
   user-select: none;
   margin: 8px 0;
 }
+
+/* #1591: foldable feature groups on the opened card.
+   The title is the handle. Everything after it inside the section is what folds
+   away - a sibling rule rather than "hide .card-details-item-content", because
+   the sections are not uniform inside: all sixteen start with an
+   h3.card-details-item-title, but only three wrap what follows in a content
+   element. Hiding the siblings works whatever a section puts there. */
+.card-details-item > .card-details-item-title {
+  cursor: pointer;
+  user-select: none;
+}
+
+/* The caret, drawn on the title rather than added to sixteen templates. It
+   points down when open and right when folded, like the checklist one. */
+.card-details-item > .card-details-item-title::after {
+  content: "\f0d7";                 /* fa-caret-down */
+  font-family: FontAwesome;
+  font-size: 12px;
+  color: #808080;
+  margin-inline-start: 6px;
+  vertical-align: middle;
+}
+
+.card-details-item.is-collapsed > .card-details-item-title::after {
+  content: "\f0da";                 /* fa-caret-right */
+}
+
+.card-details-item.is-collapsed > *:not(.card-details-item-title) {
+  display: none;
+}

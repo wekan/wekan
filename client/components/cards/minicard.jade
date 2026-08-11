@@ -265,6 +265,13 @@ template(name="editCardSortOrderPopup")
 template(name="minicardChecklist")
   .minicard-checklist
     .checklist-header
+      //- #1591: the same caret as on the opened card, and the same stored key,
+        so folding a checklist folds it in both places.
+      a.fa.checklist-collapse.js-collapse-checklist(
+        class="{{#if checklistCollapsed}}fa-caret-right{{else}}fa-caret-down{{/if}}"
+        title="{{#if checklistCollapsed}}{{_ 'expand-checklist'}}{{else}}{{_ 'collapse-checklist'}}{{/if}}"
+        role="button" tabindex="0"
+        aria-expanded="{{#if checklistCollapsed}}false{{else}}true{{/if}}")
       if canModifyCard
         +inlinedForm(classNames="js-edit-checklist-title" checklist=checklist)
           +editChecklistForm(checklist=checklist)
@@ -275,16 +282,17 @@ template(name="minicardChecklist")
       if canModifyCard
         a.checklist-menu.js-open-checklist-menu(title="{{_ 'checklistActionsPopup-title'}}")
           i.fa.fa-bars
-    .checklist-items.js-checklist-items
-      each visibleItems
-        +inlinedForm(classNames="js-edit-checklist-item" item=. checklist=checklist)
-          +editChecklistItemForm(type='item' item=. checklist=checklist)
+    unless checklistCollapsed
+      .checklist-items.js-checklist-items
+        each visibleItems
+          +inlinedForm(classNames="js-edit-checklist-item" item=. checklist=checklist)
+            +editChecklistItemForm(type='item' item=. checklist=checklist)
+          else
+            +checklistItemDetail(item=. checklist=checklist card=card)
+      if canModifyCard
+        +inlinedForm(autoclose=false classNames="js-add-checklist-item" checklist=checklist)
+          +addChecklistItemForm(checklist=checklist showNewlineBecomesNewChecklistItem=false)
         else
-          +checklistItemDetail(item=. checklist=checklist card=card)
-    if canModifyCard
-      +inlinedForm(autoclose=false classNames="js-add-checklist-item" checklist=checklist)
-        +addChecklistItemForm(checklist=checklist showNewlineBecomesNewChecklistItem=false)
-      else
-        a.add-checklist-item.js-open-inlined-form(title="{{_ 'add-checklist-item'}}")
-          i.fa.fa-plus
+          a.add-checklist-item.js-open-inlined-form(title="{{_ 'add-checklist-item'}}")
+            i.fa.fa-plus
 

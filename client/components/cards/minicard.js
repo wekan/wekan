@@ -375,6 +375,18 @@ Template.minicard.events({
 });
 
 Template.minicardChecklist.helpers({
+  /** #1591: folded for THIS user, under the same key the opened card uses, so
+   * the two agree. `this.checklist || this` because this template is called both
+   * with an explicit checklist and with one as the data context. */
+  checklistCollapsed() {
+    const checklist = this.checklist || this;
+    if (!checklist || !checklist._id) return false;
+    const user = ReactiveCache.getCurrentUser();
+    if (!user) return false;
+    const cardId = (this.card && this.card._id) || checklist.cardId;
+    return user.getCollapsedCardSection(
+      cardId, user.checklistSectionKey(checklist._id)) === true;
+  },
   visibleItems() {
     const checklist = this.checklist || this;
     const items = checklist.items();
@@ -416,6 +428,26 @@ function addMinicardChecklistItems(textarea, checklist) {
 }
 
 Template.minicardChecklist.events({
+  'click .js-collapse-checklist'(event) {
+    // A minicard is a link to the card, and the title opens the rename form -
+    // neither must happen because somebody folded a checklist.
+    event.preventDefault();
+    event.stopPropagation();
+    const data = Template.currentData();
+    const checklist = (data && data.checklist) || data || this;
+    const user = ReactiveCache.getCurrentUser();
+    if (!checklist || !checklist._id || !user) return;
+    const cardId = (data && data.card && data.card._id) || checklist.cardId;
+    const key = user.checklistSectionKey(checklist._id);
+    const collapsed = user.getCollapsedCardSection(cardId, key) === true;
+    user.setCollapsedCardSection(cardId, key, !collapsed);
+  },
+  'keydown .js-collapse-checklist'(event) {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    event.stopPropagation();
+    $(event.currentTarget).trigger('click');
+  },
   'click .js-convert-checklist-item-to-card'(event) {
     event.stopPropagation();
     const formData = Blaze.getData(event.currentTarget);

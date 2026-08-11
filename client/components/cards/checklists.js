@@ -82,6 +82,47 @@ Template.checklistDetail.helpers({
     const ret = this.checklist.finishedPercent();
     return ret;
   },
+  /** #1591: is this checklist folded for THIS user?
+   *
+   * Per-user, keyed by card and checklist, exactly like collapsed lists and
+   * swimlanes - not the checklist's own hideAllChecklistItems, which is a field
+   * on the checklist and so changes what everyone on the board sees. `null` from
+   * the getter means "never set", which is what makes the default (expanded)
+   * distinguishable from somebody having deliberately expanded it. */
+  checklistCollapsed() {
+    const checklist = this.checklist;
+    if (!checklist || !checklist._id) return false;
+    const user = ReactiveCache.getCurrentUser();
+    if (!user) return false;
+    const cardId = (this.card && this.card._id) || checklist.cardId;
+    const stored = user.getCollapsedCardSection(
+      cardId, user.checklistSectionKey(checklist._id));
+    return stored === true;
+  },
+});
+
+Template.checklistDetail.events({
+  'click .js-collapse-checklist'(event) {
+    // The caret sits inside the title, which opens the inline rename form when
+    // clicked - so this must not reach it.
+    event.preventDefault();
+    event.stopPropagation();
+    const checklist = this.checklist;
+    const user = ReactiveCache.getCurrentUser();
+    if (!checklist || !checklist._id || !user) return;
+    const cardId = (this.card && this.card._id) || checklist.cardId;
+    const key = user.checklistSectionKey(checklist._id);
+    const collapsed = user.getCollapsedCardSection(cardId, key) === true;
+    user.setCollapsedCardSection(cardId, key, !collapsed);
+  },
+  'keydown .js-collapse-checklist'(event) {
+    // It is a link acting as a button, so it has to answer the keys a button
+    // answers or it is unreachable without a mouse.
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    event.stopPropagation();
+    $(event.currentTarget).trigger('click');
+  },
 });
 
 Template.checklists.helpers({

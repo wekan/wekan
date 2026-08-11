@@ -191,3 +191,26 @@ textarea.js-edit-checklist-item {
 .edit-controls label.toggle-label {
   margin-inline-start: 2px;
 }
+
+/* #1591: the fold caret on a checklist title. Sized and coloured like the
+   actions menu beside it so the two read as one row of controls, and given a
+   real hit area - it is a single glyph, and a caret you have to aim at is worse
+   than no caret. */
+.checklist-title .checklist-collapse {
+  /* Logical, so the caret sits on the reading-start side under dir=rtl too
+     (tests/rtl.test.js enforces this across component CSS). */
+  float: inline-start;
+  margin-block-start: 2px;
+  margin-inline-end: 4px;
+  padding: 2px 4px;
+  color: #808080;
+  font-size: 14px;
+  line-height: 14px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.checklist-title .checklist-collapse:hover,
+.checklist-title .checklist-collapse:focus-visible {
+  color: #2980b9;
+}

@@ -850,6 +850,27 @@ Users.attachSchema(
       defaultValue: {},
       blackbox: true,
     },
+    'profile.collapsedCardSections': {
+      /**
+       * Per-user collapsed state for the sections of a card (#1591).
+       * profile[cardId][sectionKey] = true|false
+       *
+       * ONE map for every foldable thing on a card, because they are all the
+       * same question: a whole feature group ('labels', 'members', 'due', ...)
+       * uses the section's own name, and an individual checklist uses
+       * 'checklist-<checklistId>'. The same key works on the opened card and on
+       * the minicard, so folding a checklist folds it in both.
+       *
+       * Per USER, like collapsedLists and collapsedSwimlanes above, and unlike
+       * the checklist's own hideAllChecklistItems, which is a field on the
+       * checklist and therefore changes what EVERYONE on the board sees.
+       * Folding something to get it out of your way is a view preference, not
+       * an edit to the card.
+       */
+      type: Object,
+      defaultValue: {},
+      blackbox: true,
+    },
     'profile.keyboardShortcuts': {
       /**
        * User-specified state of keyboard shortcut activation.
@@ -1935,6 +1956,20 @@ Users.helpers({
     }
     return null;
   },
+  /** #1591: null means "never set", so the caller can apply its own default
+   * (expanded) instead of a stored false being indistinguishable from absent. */
+  getCollapsedCardSection(cardId, sectionKey) {
+    const { collapsedCardSections = {} } = this.profile || {};
+    if (collapsedCardSections[cardId] &&
+        typeof collapsedCardSections[cardId][sectionKey] === 'boolean') {
+      return collapsedCardSections[cardId][sectionKey];
+    }
+    return null;
+  },
+  /** The key for one checklist, so the opened card and the minicard agree. */
+  checklistSectionKey(checklistId) {
+    return `checklist-${checklistId}`;
+  },
   setCollapsedListToStorage(boardId, listId, collapsed) {
     // Logged-in users: save to profile
     if (this._id) {
@@ -2317,6 +2352,13 @@ Users.helpers({
     if (!current[boardId]) current[boardId] = {};
     current[boardId][swimlaneId] = !!collapsed;
     return await Users.updateAsync(this._id, { $set: { 'profile.collapsedSwimlanes': current } });
+  },
+
+  async setCollapsedCardSection(cardId, sectionKey, collapsed) {
+    const current = (this.profile && this.profile.collapsedCardSections) || {};
+    if (!current[cardId]) current[cardId] = {};
+    current[cardId][sectionKey] = !!collapsed;
+    return await Users.updateAsync(this._id, { $set: { 'profile.collapsedCardSections': current } });
   },
 
   async setMobileMode(enabled) {
