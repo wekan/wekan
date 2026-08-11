@@ -288,8 +288,10 @@ correctly, which is what showed this was an omission rather than a decision, and
 it is what the Excel exporter now does. It also fixes **broken avatar images**,
 seen after upgrading from v6 but never actually working: the route that serves
 them asked `Meteor.userId()`, which throws in a plain HTTP handler rather than
-answering "nobody", and the handler turned that into a 500. The binaries below
-are v10.82's: nothing here rebuilds them.
+answering "nobody", and the handler turned that into a 500 - and, once that was
+fixed, that the same route had always ignored the `boardId` the client appends
+so a **public board** can show its members' pictures to visitors. The binaries
+below are v10.82's: nothing here rebuilds them.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -360,10 +362,12 @@ whether a card id exists.
 
 </details>
 
-and fixes the following bug:
+and fixes the following bugs:
+
+**Avatars** - the routes that serve a profile picture, and who they serve it to.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f1659253d">Avatars: ask the request who it is, because Meteor.userId() cannot</a>. Thanks to markusst1982 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/bf047d53c">Ask the request who it is, because Meteor.userId() cannot</a>. Thanks to markusst1982 and xet7.</summary>
 
 Following the same upgrade as [#6583](https://github.com/wekan/wekan/issues/6583),
 profile pictures came back as broken images - initials rendered fine, and the
@@ -400,6 +404,32 @@ answer, not an exception its own `catch` will turn back into a 500.
 truthy and would authorise everybody - that all four token carriers and the
 Sandstorm path are handled, and that the migration still reuses the id the old
 URL names. Confirming the served image needs an upgraded instance.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/484eae736">Honour the boardId parameter the client has been sending all along</a>. Thanks to markusst1982 and xet7.</summary>
+
+Found while checking why the Admin Panel showed a picture that a board did not.
+The two URLs differ in one thing: the `avatarUrl` helper in
+`client/components/users/userAvatar.js` appends `?boardId=<id>`, and says why in
+its own comment - *"so public viewers can access avatars on public boards"*. The
+Admin Panel uses `profile.avatarUrl` raw.
+
+`/cdn/storage/avatars/:fileName` never read that parameter. It required a
+signed-in user and nothing else, so on a public board every visitor who was not
+logged in got a 401 and the missing-picture icon - the exact case the parameter
+was added for. Fixing `Meteor.userId()` alone would have left that half broken.
+
+The named board must now exist, be public, AND have the avatar's owner as a
+member. The last part is not ceremony: without it, naming any public board would
+unlock any avatar on the instance, and a public board publishes its own members,
+not everybody.
+
+The legacy redirect keeps the query string too. `/cfs/files/avatars/<id>` 301s
+to `/cdn/storage/avatars/<id>`, and that is the path EVERY migrated 6.x avatar
+URL takes, so dropping `?boardId=` there would 401 exactly the installs the
+entry above sets out to fix.
 
 </details>
 
