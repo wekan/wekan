@@ -40845,9 +40845,9 @@ separate option to hide logo at Admin Panel/Layout
 </details>
 
 - Added and then reverted option to redirect OIDC OAuth2 login
-  [part1](https://github.com/wekan/wekan-ldap/commit/82a894ac20ba9e7c6fdf053cff1721cab709bf8a),
+  [part1](https://github.com/wekan/wekan/commit/188d42dcd),
   [part
-  2](https://github.com/wekan/wekan-ldap/commit/36900cc360d0d406f8fba5e43378f85c92747870)
+  2](https://github.com/wekan/wekan/commit/d173844f9)
   and
   [part3](https://github.com/wekan/wekan/commit/7919ae362866c0cacf2a486bf91b12e4d25807d7).
   This does not work yet. In Progress. Thanks to xet7.
