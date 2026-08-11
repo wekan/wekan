@@ -276,7 +276,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.82 2026-08-11 WeKan ® release
 
 **In short:** a **CRITICAL SECURITY ISSUE**, **WhereBleed**: eight Admin Panel
 handlers took a query selector from the client and checked only its type, so a
