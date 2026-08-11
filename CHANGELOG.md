@@ -294,8 +294,12 @@ release: **checklists and card feature groups fold away**, on the opened card
 and on the minicard, asked for since 2018. Below that: a typed two-digit year
 refused rather than stored as the year 26, the **Helm chart index** listing only
 charts that can be installed, and a way to remove the Templates containers made
-for accounts that never used them. The binaries below are v10.81's: nothing here
-rebuilds them.
+for accounts that never used them. And two developer-facing fixes: the
+database-conformance stage no longer opens a debug port nothing in it uses - one
+taken by an unrelated FerretDB made every backend report a database problem that
+was not one - and two more snap give-up paths that deleted the directory their
+own stage filter names. The binaries below are v10.81's: nothing here rebuilds
+them.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -649,6 +653,52 @@ missing, only a definite 404, so a registry hiccup cannot silently unpublish
 charts. `release-charts.sh` now refuses to publish a chart at all when
 `ghcr.io/wekan/wekan:v<version>` does not exist, which is what created these six
 in the first place.
+
+</details>
+
+and has the following developer-facing fixes:
+
+**The test run** - a stage that failed for a reason that was not about WeKan.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/09a525ae8">The database-conformance run no longer opens a debug port nothing in it uses</a>. Thanks to xet7.</summary>
+
+Every backend of the conformance stage failed before a single query was
+compared: "Failed to create debug handler ... listen tcp 127.0.0.1:8088: bind:
+address already in use", then "FerretDB did not start on this backend" for each
+of them.
+
+FerretDB opens a debug handler for metrics and profiling at 127.0.0.1:8088 by
+default and EXITS when that address is taken, so an unrelated FerretDB running
+on the machine made the whole stage report a database problem that was nothing
+of the sort - as it would for anyone with anything on that port.
+
+The script already takes this seriously for the two ports it knows about: it
+picks a free wire port, makes both overridable, and says in its own comment that
+they are chosen so it can run while something else is running. The debug port
+was simply never passed. Nothing in the run queries it, so it is not opened at
+all - which is also what FerretDB's own integration tests effectively do,
+choosing a random debug port rather than the default.
+
+</details>
+
+**The snap build** - the part that could end it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b6d0be0f4">Two more mongo42 give-up paths deleted the directory their stage filter names</a>. Thanks to xet7.</summary>
+
+The earlier fix for this covered one of the three ways the mongo42 part gives up
+- the unsupported-architecture exit. The other two removed the whole staged
+directory and exited 0, which leaves `stage: mongo42` naming a path that is not
+there, and snapcraft ends the build on that rather than skipping it.
+
+Those two are reached on amd64 and arm64, where the binary IS downloaded:
+OpenSSL 1.1 unavailable for the architecture, or the staged mongod 4.2 failing
+the check that it actually runs. Either would have ended the snap build for the
+two architectures that matter most, the same way it ended all four Launchpad
+ones. Both now clear the CONTENTS and keep the directory; an empty one still
+means "no 4.2 reader", because every use is guarded on the binary rather than
+the directory.
 
 </details>
 
