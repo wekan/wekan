@@ -2,27 +2,17 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { publishComposite } from 'meteor/reywood:publish-composite';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
-const { hasWhere } = require('/models/lib/mongoSelectorSafety');
-const { classifySelector, injectionDetail } = require('/models/lib/injectionDetect');
-import { tripCanary } from '/server/lib/canary';
-
 // A client-supplied selector is run against the database, so an execution
 // operator in one is not a query - it is an attempt to make the database run
-// something. The publication already refuses it; this names WHO tried, from
-// where, and what they sent (docs/Security/Remediation/WeKan.md §12.6).
-// Returns the same boolean the old hasWhere() call did, so both refusal sites
-// below are unchanged.
-function selectorIsInjection(selector, where) {
-  const verdict = classifySelector(selector);
-  if (!verdict.injection && !hasWhere(selector)) return false;
-  tripCanary('injection.nosql-selector', {
-    detail: injectionDetail(
-      verdict.injection ? verdict : { kind: 'execution', operators: ['$where'] },
-      where,
-    ),
-  });
-  return true;
-}
+// something. This publication refuses it and names WHO tried, from where, and
+// what they sent (docs/Security/Remediation/WeKan.md §12.6).
+//
+// The check used to live here as a local helper. GHSA-phm4-4v26-j2vq was eight
+// OTHER handlers taking the same shape of client-supplied selector and never
+// calling it, so it moved to /server/lib/selectorGuard - unchanged - and every
+// caller now shares the one copy. Leaving a second copy behind here would be the
+// same mistake set up to happen again.
+import { selectorIsInjection } from '/server/lib/selectorGuard';
 const {
   boardCardScope,
   assignedOnlyCardScope,

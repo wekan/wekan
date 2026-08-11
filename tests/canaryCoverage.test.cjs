@@ -53,7 +53,10 @@ const WIRED = [
   ['export.path-outside-storage',      'models/exporter.js',                          'PathBleed'],
   ['database.canary',                  'server/lib/databaseProblems.js',              '-'],
   // Injection - the attacker sends a query instead of a value.
-  ['injection.nosql-selector',         'server/publications/cardsWindow.js',          '-'],
+  // GHSA-phm4-4v26-j2vq: this trip moved OUT of cardsWindow.js into the shared
+  // guard, because eight other handlers needed the same check and a second copy
+  // of it would be the same bug set up to happen again.
+  ['injection.nosql-selector',         'server/lib/selectorGuard.js',                '-'],
   ['injection.nosql-operator',         'models/lib/injectionDetect.js',               '-'],
   ['injection.sql-statement',          'server/lib/databaseProblems.js',              'EscapeBleed'],
   // Sanitization - something DANGEROUS had to be removed, not merely tidied.

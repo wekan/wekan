@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import Translation from '/models/translation';
+import { safeSelector } from '/server/lib/selectorGuard';
 import { ensureIndex } from '/server/lib/mongoStartup';
 
 const getReactiveCache = () => require('/imports/reactiveCache').ReactiveCache;
@@ -58,7 +59,7 @@ Meteor.methods({
     if (!(await getReactiveCache().getCurrentUser())?.isAdmin) {
       throw new Meteor.Error('not-authorized');
     }
-    const cursor = await getReactiveCache().getTranslations(query || {}, {}, true);
+    const cursor = await getReactiveCache().getTranslations(safeSelector(query || {}, 'getTranslationsCollectionCount'), {}, true);
     return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
   },
 });

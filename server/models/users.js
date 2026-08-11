@@ -3,6 +3,7 @@ import { WebApp } from 'meteor/webapp';
 import { Accounts } from 'meteor/accounts-base';
 import { Email } from 'meteor/email';
 import { check, Match } from 'meteor/check';
+import { safeSelector } from '/server/lib/selectorGuard';
 import { EJSON } from 'meteor/ejson';
 import { Random } from 'meteor/random';
 import { CollectionHooks } from 'meteor/matb33:collection-hooks';
@@ -2340,7 +2341,7 @@ Meteor.methods({
     }
 
     const cursor = await ReactiveCache.getUsers(
-      tenantAdmin.peopleScopeSelector(currentUser, query || {}), {}, true);
+      tenantAdmin.peopleScopeSelector(currentUser, safeSelector(query || {}, 'getUsersCollectionCount')), {}, true);
     return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
   },
 
@@ -2379,7 +2380,7 @@ Meteor.methods({
     // The same selector, the same sort and the same window as the publication -
     // anything else would name a different page than the one that was sent.
     const cursor = await ReactiveCache.getUsers(
-      tenantAdmin.peopleScopeSelector(currentUser, query || {}),
+      tenantAdmin.peopleScopeSelector(currentUser, safeSelector(query || {}, 'getPeoplePageIds')),
       {
         limit,
         skip: skip || 0,

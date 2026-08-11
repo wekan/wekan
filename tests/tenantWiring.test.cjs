@@ -104,18 +104,29 @@ test('the people publication and its count use the SAME scope function', () => {
   const count = read('server/models/users.js');
   assert.ok(/tenantAdmin\.canOpenAdminPanel\(user\)/.test(pub),
     'the publication opens for a per-tenant admin too');
-  assert.ok(/tenantAdmin\.peopleScopeSelector\(user, query\)/.test(pub),
-    'and scopes with the shared rule instead of the raw query');
+  // GHSA-phm4-4v26-j2vq: what reaches the scope function is the selector AFTER the
+  // injection guard, not the raw one. The scoping rule is unchanged - it still
+  // merges the restriction under $and - but it no longer has to be handed a
+  // selector that might carry $where, because merging never stripped that out.
+  assert.ok(/tenantAdmin\.peopleScopeSelector\(user, safeQuery\)/.test(pub),
+    'and scopes with the shared rule, applied to the guarded query');
+  assert.ok(/safeSelector\(query, 'people'\)/.test(pub),
+    'which means the guard has to run first');
   assert.ok(!/user\.isAdmin/.test(live(pub)), 'no second opinion left in the publication');
-  assert.ok(/tenantAdmin\.peopleScopeSelector\(currentUser, query \|\| \{\}\)/.test(count),
+  // Same rule, same guard: the count and the page ids both scope the selector the
+  // publication scopes, and both hand it over only after the injection guard
+  // (GHSA-phm4-4v26-j2vq) has had it.
+  assert.ok(/tenantAdmin\.peopleScopeSelector\(currentUser, safeSelector\(query \|\| \{\}, 'getUsersCollectionCount'\)\)/.test(count),
     'getUsersCollectionCount is scoped the same way, or the pager counts the wrong set');
+  assert.ok(/tenantAdmin\.peopleScopeSelector\(currentUser, safeSelector\(query \|\| \{\}, 'getPeoplePageIds'\)\)/.test(count),
+    'and so is getPeoplePageIds, which reads the page back');
 });
 
 test('the org publication and its count are scoped the same way', () => {
   const pub = read('server/publications/org.js');
   const count = read('server/models/org.js');
-  assert.ok(/tenantAdmin\.orgScopeSelector\(user, query\)/.test(pub));
-  assert.ok(/tenantAdmin\.orgScopeSelector\(user, query \|\| \{\}\)/.test(count));
+  assert.ok(/tenantAdmin\.orgScopeSelector\(user, safeQuery\)/.test(pub));
+  assert.ok(/tenantAdmin\.orgScopeSelector\(user, safeSelector\(query \|\| \{\}, 'getOrgsCollectionCount'\)\)/.test(count));
   assert.ok(/tenantAdmin\.canOpenAdminPanel\(user\)/.test(count));
 });
 

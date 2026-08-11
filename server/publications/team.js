@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { safeSelector } from '/server/lib/selectorGuard';
 
 Meteor.publish('team', async function(query, limit, skip = 0) {
   check(query, Match.OneOf(Object, null));
@@ -8,8 +9,13 @@ Meteor.publish('team', async function(query, limit, skip = 0) {
   const user = await ReactiveCache.getCurrentUser();
 
   let ret = [];
+  // GHSA-phm4-4v26-j2vq: the check above validates the TYPE of the selector and
+  // nothing else, and a selector is executable data - `$where` makes the database
+  // run the caller's JavaScript per document scanned. Refuse one that carries an
+  // execution operator, with the same "match nothing" the card window uses.
+  const safeQuery = safeSelector(query, 'team');
   if (user && user.isAdmin) {
-    ret = await ReactiveCache.getTeams(query,
+    ret = await ReactiveCache.getTeams(safeQuery,
       {
         limit,
         skip: skip || 0,

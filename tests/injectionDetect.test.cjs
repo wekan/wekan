@@ -141,9 +141,18 @@ test('the detail names the operators and nothing else', () => {
 // ---------------------------------------------------------------- the wiring
 
 test('the windowed card publication trips a canary on an injected selector', () => {
+  // GHSA-phm4-4v26-j2vq moved selectorIsInjection out of this publication and into
+  // /server/lib/selectorGuard, because eight OTHER handlers took the same
+  // client-supplied selector and never called it. The publication's behaviour is
+  // unchanged - it imports the same function - so what is pinned here is that the
+  // definition exists in one place and that both refusal sites still use it.
   const src = read('server/publications/cardsWindow.js');
-  assert.ok(/function selectorIsInjection\(selector, where\)/.test(src));
-  assert.ok(/tripCanary\('injection\.nosql-selector'/.test(src));
+  const guard = read('server/lib/selectorGuard.js');
+  assert.ok(/function selectorIsInjection\(selector, where\)/.test(guard),
+    'the one definition lives in the shared guard now');
+  assert.ok(/import \{ selectorIsInjection \} from '\/server\/lib\/selectorGuard'/.test(src),
+    'and the publication imports it rather than keeping a copy');
+  assert.ok(/tripCanary\('injection\.nosql-selector'/.test(guard));
   // Both refusal sites go through it.
   const uses = src.match(/selectorIsInjection\(cardSelector, '/g) || [];
   assert.strictEqual(uses.length, 2, 'the window AND the count');
@@ -155,13 +164,17 @@ test('SILENT: the publication still answers exactly as before', () => {
   // caller cannot tell the canary is there.
   assert.ok(/\? \{ _id: \{ \$in: \[\] \} \}/.test(src));
   assert.ok(/if \(!board \|\| selectorIsInjection\(cardSelector, 'boardCardsCount'\)\) \{\s*\n\s*return this\.ready\(\);/.test(src));
-  assert.ok(/return true;/.test(src.match(/function selectorIsInjection[\s\S]*?\n\}/)[0]),
+  const guard = read('server/lib/selectorGuard.js');
+  assert.ok(/return true;/.test(guard.match(/function selectorIsInjection[\s\S]*?\n\}/)[0]),
     'and it returns the same boolean hasWhere() did');
 });
 
 test('the old $where-only check is still honoured, not replaced', () => {
-  const src = read('server/publications/cardsWindow.js');
-  assert.ok(/hasWhere\(selector\)/.test(src),
+  // Looked for in the shared guard now (GHSA-phm4-4v26-j2vq moved the function
+  // there); the point is unchanged - hasWhere is the narrower, older check and the
+  // widened classifier must not quietly replace it.
+  const guard = read('server/lib/selectorGuard.js');
+  assert.ok(/hasWhere\(selector\)/.test(guard),
     'the narrower existing guard stays: a widened detector must not lose a case');
 });
 

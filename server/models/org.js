@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { safeSelector } from '/server/lib/selectorGuard';
 import Org from '/models/org';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { Authentication } from '/server/authentication';
@@ -290,7 +291,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
     const cursor = await ReactiveCache.getOrgs(
-      tenantAdmin.orgScopeSelector(user, query || {}), {}, true);
+      tenantAdmin.orgScopeSelector(user, safeSelector(query || {}, 'getOrgsCollectionCount')), {}, true);
     return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
   },
 });

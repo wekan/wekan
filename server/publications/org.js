@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { safeSelector } from '/server/lib/selectorGuard';
 
 // Multitenancy option D (D.7): the site admin sees every Organization, a per-tenant
 // Global Admin sees the ones they administer. Same rule module as the people
@@ -13,8 +14,13 @@ Meteor.publish('org', async function(query, limit, skip = 0) {
   let ret = [];
   const user = await ReactiveCache.getCurrentUser();
 
+  // GHSA-phm4-4v26-j2vq: the check above validates the TYPE of the selector and
+  // nothing else, and a selector is executable data - `$where` makes the database
+  // run the caller's JavaScript per document scanned. Refuse one that carries an
+  // execution operator, with the same "match nothing" the card window uses.
+  const safeQuery = safeSelector(query, 'org');
   if (tenantAdmin.canOpenAdminPanel(user)) {
-    ret = await ReactiveCache.getOrgs(tenantAdmin.orgScopeSelector(user, query),
+    ret = await ReactiveCache.getOrgs(tenantAdmin.orgScopeSelector(user, safeQuery),
       {
         limit,
         skip: skip || 0,

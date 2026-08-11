@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { safeSelector } from '/server/lib/selectorGuard';
 import Team from '/models/team';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { Authentication } from '/server/authentication';
@@ -254,7 +255,7 @@ Meteor.methods({
     if (!(await ReactiveCache.getCurrentUser())?.isAdmin) {
       throw new Meteor.Error('not-authorized');
     }
-    const cursor = await ReactiveCache.getTeams(query || {}, {}, true);
+    const cursor = await ReactiveCache.getTeams(safeSelector(query || {}, 'getTeamsCollectionCount'), {}, true);
     return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
   },
 });
