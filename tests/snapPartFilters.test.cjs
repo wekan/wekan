@@ -92,6 +92,23 @@ test('mongo42 creates its staged directory BEFORE it can decide to skip', () => 
   assert.ok(dest !== -1 && dest < skip, '$dest must be set before the skip too');
 });
 
+test('no path in mongo42 deletes the directory its stage filter names', () => {
+  // The first fix covered the unsupported-architecture `exit 0`. It did NOT cover
+  // the other two ways this part gives up - OpenSSL 1.1 unavailable, and the
+  // staged mongod failing its smoke test - which both did `rm -rf "$dest"` and
+  // exited 0, leaving `stage: mongo42` naming a path that is not there. On
+  // amd64/arm64, where the binary IS downloaded, either of those would have ended
+  // the whole snap build exactly as the unsupported arches did.
+  const part = allParts.mongo42;
+  assert.ok(!/rm -rf "\$dest"\s*$/m.test(part) && !/rm -rf "\$\{dest\}"\s*$/m.test(part),
+    'a give-up path must remove the CONTENTS and keep the directory, so the ' +
+    'filter has something to copy: rm -rf "${dest:?}"/*');
+  const gives_up = (part.match(/rm -rf "\$\{dest:\?\}"\/\*/g) || []).length;
+  assert.ok(gives_up >= 2,
+    `both give-up paths (no OpenSSL 1.1, smoke test failed) must clear contents ` +
+    `only; found ${gives_up}`);
+});
+
 test('mongo42 is still amd64/arm64 only - the fix is not "download it everywhere"', () => {
   const part = allParts.mongo42;
   assert.ok(/amd64\) MARCH=x86_64/.test(part) && /arm64\) MARCH=aarch64/.test(part),

@@ -190,7 +190,13 @@ test('mongod 4.2 is bundled for amd64 and arm64, and only used to READ', () => {
   // It must RUN in the build, not merely exist.
   assert.ok(/LD_LIBRARY_PATH="\$dest\/lib" "\$dest\/bin\/mongod" --version/.test(part),
     'the build runs the staged binary once, so a missing library is found here');
-  assert.ok(/does not run in this environment[\s\S]{0,200}rm -rf "\$dest"/.test(part),
+  // CHANGED DELIBERATELY: it used to require `rm -rf "$dest"`, and removing the
+  // DIRECTORY is what ended the whole snap build - `stage: mongo42` names that
+  // path, and snapcraft fails on a filter whose path is missing rather than
+  // skipping it. The give-up still unstages the binary; it just leaves the empty
+  // directory behind for the filter to copy. migration-control guards every use
+  // on `-x "$M42/bin/mongod"`, so an empty one still means "no 4.2 reader".
+  assert.ok(/does not run in this environment[\s\S]{0,300}rm -rf "\$\{dest:\?\}"\/\*/.test(part),
     'and unstages it rather than shipping something that cannot start');
 
   // Optional by design: a failure must not fail the snap.

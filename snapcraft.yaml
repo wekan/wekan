@@ -471,7 +471,13 @@ parts:
             done
             if [ "$got_ssl" != yes ]; then
                 echo "mongo42: could not obtain OpenSSL 1.1 for ${DEBARCH}; mongod 4.2 cannot run without it, so it is not staged."
-                rm -rf "$dest"
+                # The CONTENTS go, the DIRECTORY stays - `stage: mongo42` below
+                # names it, and snapcraft ends the whole build on a filter whose
+                # path is missing (see the comment at the top of override-build).
+                # An empty directory stages to nothing and migration-control
+                # guards every use on `-x $M42/bin/mongod`, so "no 4.2 reader" is
+                # still exactly what this means.
+                rm -rf "${dest:?}"/* 2>/dev/null || true
                 exit 0
             fi
 
@@ -480,7 +486,8 @@ parts:
             # already down, so the build asks it here.
             if ! LD_LIBRARY_PATH="$dest/lib" "$dest/bin/mongod" --version >/dev/null 2>&1; then
                 echo "mongo42: the staged mongod 4.2 does not run in this environment; removing it rather than shipping something that cannot start."
-                rm -rf "$dest"
+                # Contents only, directory kept - same reason as above.
+                rm -rf "${dest:?}"/* 2>/dev/null || true
                 exit 0
             fi
             echo "mongo42: staged $("$dest/bin/mongod" --version 2>/dev/null | head -1 || echo "mongod $V") for ${CRAFT_ARCH_BUILD_FOR}."
