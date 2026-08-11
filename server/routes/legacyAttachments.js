@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
+import { getUserIdFromRequest } from '/server/lib/requestUser';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { getAttachmentWithBackwardCompatibility, getOldAttachmentStream } from '/models/lib/attachmentBackwardCompatibility';
 const { sanitizeDownloadFileName } = require('/imports/lib/fileNameDisplay');
@@ -88,7 +89,9 @@ if (Meteor.isServer) {
       }
 
       // Check if user has permission to download
-      const userId = Meteor.userId();
+      // From the REQUEST, not Meteor.userId(): this is a WebApp handler, where
+      // that throws rather than returning null (see server/lib/requestUser.js).
+      const userId = await getUserIdFromRequest(req);
       if (!board.isPublic() && (!userId || !board.hasMember(userId))) {
         res.writeHead(403);
         res.end('Access denied');

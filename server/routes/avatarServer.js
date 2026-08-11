@@ -5,6 +5,7 @@
 
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
+import { getUserIdFromRequest } from '/server/lib/requestUser';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Avatars from '/models/avatars';
 import { fileStoreStrategyFactory } from '/models/avatars.server';
@@ -81,8 +82,19 @@ WebApp.handlers.use('/cdn/storage/avatars/:fileName', async (req, res, next) => 
     }
 
     // Check if user has permission to view this avatar
-    // For avatars, we allow viewing by any logged-in user
-    const userId = Meteor.userId();
+    // For avatars, we allow viewing by any logged-in user.
+    //
+    // Resolved FROM THE REQUEST. This was `Meteor.userId()`, which reads the
+    // current DDP invocation's environment - it exists in a method or a
+    // publication and not in a WebApp handler, where it THROWS
+    // ("Meteor.userId can only be invoked in method calls or publications").
+    // The catch at the bottom of this handler turned that into a 500, so no
+    // avatar served through this route ever reached anybody, and it looked like
+    // a broken image rather than broken authentication. That is what a 6.x
+    // upgrade shows as lost profile pictures: `/cfs/files/avatars/<id>` is
+    // redirected here, and here is where it died - the migrated file itself was
+    // fine.
+    const userId = await getUserIdFromRequest(req);
     if (!userId) {
       res.writeHead(401);
       res.end('Authentication required');
