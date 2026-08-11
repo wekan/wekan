@@ -423,8 +423,46 @@ Template.list.onRendered(function () {
           scrolled = true;
         }
       }
-      // vertical auto-scroll stays on the board canvas
-      const canvas = document.querySelector('.board-canvas');
+      // #6584: VERTICALLY, the thing to scroll is the LIST the pointer is over,
+      // not the board canvas. `.list-body` is `overflow-y: scroll` (list.css) and
+      // is what holds the cards; `.board-canvas` is `overflow-y: auto` and holds
+      // the swimlanes. Scrolling the canvas moves the whole board, which is what
+      // the report describes: "The whole Page/Site scrolls down and not the Line".
+      //
+      // It only showed up DOWNWARDS, and the asymmetry is the tell. Dragging up,
+      // the canvas is usually already at scrollTop 0, so computeEdgeScroll
+      // returned null, nothing here fired, and jQuery UI's own `scroll` option -
+      // which acts on the placeholder's scrollParent, i.e. the list body - scrolled
+      // the list, exactly as expected. Dragging down, the canvas nearly always HAS
+      // room, so this fired first and scrolled the board instead of the list.
+      //
+      // The canvas is still scrolled, but only once the list under the pointer
+      // cannot go further that way - so a drag down a long list scrolls the list,
+      // and a drag past the end of it moves on to the board. Same shape as the
+      // horizontal case above, which already picks the lane under the pointer.
+      let scrolledList = false;
+      const listBodies = document.querySelectorAll('.list-body');
+      const listRects = Array.prototype.map.call(listBodies, el =>
+        el.getBoundingClientRect());
+      // findLaneUnderPointer is a plain rectangle hit-test; the name is about
+      // where it was first used, not what it can be given.
+      const listIndex = findLaneUnderPointer(listRects, event.clientX, event.clientY);
+      if (listIndex !== -1) {
+        const nextListTop = computeEdgeScroll({
+          pointer: event.clientY,
+          lowEdge: listRects[listIndex].top,
+          highEdge: listRects[listIndex].bottom,
+          scrollPos: listBodies[listIndex].scrollTop,
+          scrollSize: listBodies[listIndex].scrollHeight,
+          clientSize: listBodies[listIndex].clientHeight,
+        });
+        if (nextListTop !== null) {
+          listBodies[listIndex].scrollTop = nextListTop;
+          scrolled = true;
+          scrolledList = true;
+        }
+      }
+      const canvas = scrolledList ? null : document.querySelector('.board-canvas');
       if (canvas) {
         const crect = canvas.getBoundingClientRect();
         const nextTop = computeEdgeScroll({
