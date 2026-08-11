@@ -456,6 +456,34 @@ body.left-menu-resizing-active {
 
 /* …and exactly .materialCheckBox.is-checked: the square becomes the tick, which is
    what the transition above animates. */
+/* #6465: THE FOCUS RING MUST NOT BE DRAWN ON THE ROTATED BOX.
+   The checked state below turns the square into a tick by making two borders
+   transparent and rotating the element 40deg. A browser draws its focus ring
+   around the element as it is - rotated - so a checkbox that is both checked and
+   focused (which is exactly what a checkbox you just clicked is) comes out as a
+   blue DIAMOND sitting where the tick should be. That is the glitch reported on
+   the Problems page.
+
+   The ring is not simply removed: keyboard users need to see where they are. It
+   moves to the row that CONTAINS the checkbox, which is not rotated - every one
+   of these lives inside a label (problemsSummary.jade: `label.admin-problem-item
+   > input.js-problem-check`) - so the indicator is a normal rectangle around the
+   whole row, which is easier to see than a 13px box anyway.
+
+   `:focus-visible` rather than `:focus`, so clicking with a mouse does not leave
+   a ring behind; `:focus-within` is the fallback where :has() is not supported,
+   and lands on the same element. */
+.setting-content input[type="checkbox"]:focus,
+.setting-content input[type="checkbox"]:focus-visible {
+  outline: none;
+}
+
+.setting-content label:has(> input[type="checkbox"]:focus-visible) {
+  outline: 2px solid #2980b9;
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
 .setting-content input[type="checkbox"]:checked {
   top: -4px;
   inset-inline-start: -3px;

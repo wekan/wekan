@@ -256,6 +256,16 @@ Template.listBody.onCreated(function () {
     if (clickedTitle && !clickedLinkedReference) {
       evt.stopImmediatePropagation();
       evt.preventDefault();
+      // #6465: clicking the OPEN card again closes it. The toggle below has
+      // always been here, but this branch returned before ever reaching it - and
+      // the title covers most of the minicard, so in practice the second click
+      // almost always lands here and just re-opened the card that was already
+      // open. That is why it read as a missing feature rather than a dead
+      // branch. Same call as below, so both click targets behave alike.
+      if (Session.equals('currentCard', card._id)) {
+        Utils.goBoardId(Session.get('currentBoard'));
+        return;
+      }
       Session.delete('popupCardId');
       Session.delete('popupCardBoardId');
       Session.set('currentCard', card._id);
@@ -265,6 +275,12 @@ Template.listBody.onCreated(function () {
 
     if (Utils.isMiniScreen()) {
       evt.preventDefault();
+      // ...and on a phone, where the card is a popup rather than a pane, the
+      // second click closes that popup for the same reason.
+      if (Session.equals('popupCardId', card._id) && Popup.isOpen()) {
+        Popup.back();
+        return;
+      }
       Session.set('popupCardId', card._id);
       this.cardDetailsPopup(evt);
     } else if (Session.equals('currentCard', card._id)) {
