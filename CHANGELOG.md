@@ -569,7 +569,7 @@ have already pulled.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/IMGHASH">List only the charts whose container images still exist</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1a77d42e4">List only the charts whose container images still exist</a>. Thanks to xet7.</summary>
 
 Backfilling the index taught this within the hour: Artifact Hub scans every
 entry and mailed a list of errors.
