@@ -710,6 +710,7 @@
   "initials": "Initials",
   "invalid-date": "Invalid date",
   "invalid-time": "Invalid time",
+  "invalid-year": "Invalid year. Please type all four digits, for example 2026.",
   "invalid-user": "Invalid user",
   "joined": "joined",
   "just-invited": "You are just invited to this board",

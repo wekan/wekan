@@ -3,6 +3,13 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { getCurrentCardFromContext } from '/client/lib/currentCard';
 import { normalizeDigits } from '/imports/lib/dateUtils';
+
+// The window a typed year has to fall in. Wide on purpose: WeKan holds real
+// historical received dates and long-dated deadlines, so this is only meant to
+// catch a year that cannot have been intended - the two-digit one a browser
+// reports verbatim (0026), and the five-digit slip in the other direction.
+const MIN_PLAUSIBLE_YEAR = 1000;
+const MAX_PLAUSIBLE_YEAR = 9999;
 import {
   isValidDate,
   formatTime,
@@ -162,6 +169,26 @@ export function datePickerEvents({ storeDate, deleteDate }) {
 
       if (!isValidDate(newCompleteDate)) {
         tpl.datePicker.error.set('invalid');
+        return;
+      }
+
+      // A TWO-DIGIT YEAR is a real date that is not the one anybody meant.
+      // `<input type="date">` reports YYYY-MM-DD, but the browser lets the year
+      // sub-field be typed as two digits and reports that literally: typing
+      // 31-12-26 gives "0026-12-31", the year 26 AD. Nothing above rejects it -
+      // it is a perfectly valid Date - so the card got a due date two thousand
+      // years in the past, which is why the reporter saw a date they had TYPED
+      // come out red (overdue) while the same date picked from the calendar,
+      // which always fills four digits, came out yellow (due soon). The colour
+      // was right; the year was wrong.
+      //
+      // Refused rather than corrected: 0026 could be meant as 2026, but guessing
+      // silently rewrites what somebody typed, and this is a date other people's
+      // reminders hang off. The error names the year so the fix is obvious.
+      const year = newCompleteDate.getFullYear();
+      if (year < MIN_PLAUSIBLE_YEAR || year > MAX_PLAUSIBLE_YEAR) {
+        tpl.datePicker.error.set('invalid-year');
+        evt.target.date.focus();
         return;
       }
 
