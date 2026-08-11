@@ -278,17 +278,19 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** the **Helm chart index**, immediately after v10.81 shipped its
-rebuild. Artifact Hub scans every entry in a chart index, and it answered the
-rebuilt one with a list of errors: **135 of the 360 published packages point at
-container images that no longer exist** - six WeKan images that were never
-pushed, and 129 older charts pinning Bitnami mongodb tags Bitnami has deleted. A
-chart is a pointer to images, so listing one of those announces that the
-repository is broken when the repository is fine. The index now lists only the
-charts that can actually be installed, the exclusions are recorded beside the
-packages so a rebuild cannot quietly undo them, and publishing refuses a version
-with no image at all. The binaries below are v10.81's: nothing here rebuilds
-them.
+**In short:** a **CRITICAL SECURITY ISSUE**, **WhereBleed**: eight Admin Panel
+handlers took a query selector from the client and checked only its type, so a
+`$where` in one made the database run the caller's JavaScript - a repeatable
+denial of service, reachable by a per-tenant admin. The detector for it was
+already in the codebase and wired into one publication; the eight siblings never
+called it, and now share the one copy. Then the **Helm chart index**,
+immediately after v10.81 shipped its rebuild: Artifact Hub scans every entry in
+a chart index and answered the rebuilt one with a list of errors, because **135
+of the 360 published packages point at container images that no longer exist**.
+The index now lists only the charts that can actually be installed. Below that:
+the snap serving a migrated database copy older than the MongoDB beside it, and
+a card drag that scrolled the whole board instead of the list. The binaries
+below are v10.81's: nothing here rebuilds them.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -311,16 +313,72 @@ them.
 | win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
 | win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-win64.exe) | v1.48.0 | `ea57e1bcd153b51d2065ab01515b21ec05d8f615444c15603ab8158b8a661dd2` |
 
-This release fixes the following bugs:
+This release fixes the following CRITICAL SECURITY ISSUE of
+[WhereBleed](https://wekan.fi/hall-of-fame/wherebleed/):
+
+**The Admin Panel's People, Org, Team and Translation panes** - what a query
+from the client is allowed to be.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b4ebe48d7">WhereBleed: eight Admin Panel handlers ran the caller's selector unchecked</a>. Thanks to TungNGo02 and xet7.</summary>
+
+[WhereBleed](https://wekan.fi/hall-of-fame/wherebleed/) -
+[GHSA-phm4-4v26-j2vq](https://github.com/wekan/wekan/security/advisories/GHSA-phm4-4v26-j2vq),
+Moderate, CWE-943, CVSS 5.8. The people, org, team and translation publications
+and their companion count/page methods take a query selector from the client and
+validate only its TYPE - `check(query, Match.OneOf(Object, null))` - which is
+not validation, because a MongoDB selector is executable data. `$where` makes
+the database run the caller's JavaScript once per document scanned, so
+`Meteor.subscribe('team', { $where: 'while(true){}' }, 25, 0)` pins a database
+worker for as long as the caller likes, repeatably: denial of service for every
+tenant on the instance from one narrowly-scoped account.
+
+The reporter demonstrated both halves on v10.81 against a real MongoDB 7:
+`$where: 'sleep(2000) || true'` made the subscription take 2.03s and return the
+document, `$where: 'false'` returned nothing in 0.00s - the caller deciding, in
+JavaScript, which documents come back.
+
+It needs an authenticated admin session, so no board member or visitor can reach
+it. It matters at this severity because the people and org surfaces are open to
+a **per-tenant Global Admin**, a role meant to be confined to one Organization,
+and those two wrap the caller's selector as `{ $and: [query, restriction] }`
+rather than stripping execution operators out of it - so merging the tenant
+restriction never removed the `$where`, and a role scoped to one tenant reached
+instance-wide impact.
+
+What makes this one particular is that **the defence was already in the
+codebase**. `classifySelector` and `hasWhere` were written for exactly this
+class, are unit-tested, and were wired into the card-window publication. Eight
+sibling handlers taking the identical shape of selector simply never called
+them. So the fix adds no new detection logic: that publication's own helper
+moves unchanged into a shared module and all nine call sites use the one copy -
+a second copy would be the same bug set up to happen again.
+
+Each handler refuses with the "match nothing" selector the card window already
+uses in production, `{ _id: { $in: [] } }`, so a refused request returns an
+empty result instead of throwing at an admin mid-page. Ordinary behaviour is
+untouched: none of the searches, filters, regexes,
+`$or`/`$and`/`$in`/`$elemMatch` or date ranges those panes send carries an
+execution operator.
+
+FerretDB, WeKan's default database, rejects `$where` itself, so this degrades to
+a rejected query there; the supported MongoDB path is where it was reproduced.
+MongoDB 7 also happens to reject `$where` inside the aggregation pipeline the
+count methods use - but that is an engine accident for one operator on one call
+path, so those methods are guarded like the rest rather than left to it.
+
+</details>
+
+and fixes the following bugs:
 
 **The snap database** - which copy of the data it serves.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b1e7b1e53">A FerretDB copy older than the MongoDB beside it is never served</a>. Thanks to markusst1982 and xet7.</summary>
 
-After upgrading from v6 the reporter saw *"the state of the data from days
-ago"* and suspected a `snap revert` done four weeks earlier. They were right
-about the cause, and nothing was lost.
+After upgrading from v6 the reporter saw *"the state of the data from days ago"*
+and suspected a `snap revert` done four weeks earlier. They were right about the
+cause, and nothing was lost.
 
 The MongoDB to FerretDB migration copies MongoDB into SQLite **once** and writes
 `.migration-to-ferretdb-done`. That copy is a snapshot; nothing keeps it in
@@ -392,9 +450,8 @@ Backfilling the index taught this within the hour: Artifact Hub scans every
 entry and mailed a list of errors.
 
 ```
-error scanning image ghcr.io/wekan/wekan:v9.62: image not found
-error scanning image docker.io/bitnami/mongodb:7.0.14-debian-12-r3:
-  image not found
+error scanning image ghcr.io/wekan/wekan:v9.62: image not found error scanning
+image docker.io/bitnami/mongodb:7.0.14-debian-12-r3: image not found
 ```
 
 That was this side's doing. The rebuild listed every package on gh-pages, and a
@@ -426,7 +483,8 @@ in the first place.
 
 </details>
 
-Thanks to above GitHub users for their contributions and translators for their translations.
+Thanks to above GitHub users for their contributions and translators for their
+translations.
 
 # v10.81 2026-08-11 WeKan ® release
 
