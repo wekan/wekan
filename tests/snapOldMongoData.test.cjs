@@ -81,13 +81,21 @@ test('it changes nothing and stops cleanly, rather than failing into a restart',
 test('mongodb-control does not start a mongod that is known to fail', () => {
   const at = mongodb.indexOf(MARKER);
   assert.notStrictEqual(at, -1, 'mongodb-control reads the marker');
-  const block = mongodb.slice(at, at + 1400);
+  // Window widened for #6471: the refusal is now preceded by the staleness check
+  // that lets a NEW revision retry, so the block being asserted on starts further
+  // up. The behaviour asserted below is unchanged.
+  const block = mongodb.slice(at, at + 2600);
   assert.ok(/exit 0/.test(block), 'and exits 0 rather than looping through snapd restarts');
   // The marker check must come BEFORE mongod is started, or the loop is unchanged.
   assert.ok(mongodb.indexOf(MARKER) < mongodb.indexOf('handle_mongod_start_failure'),
     'the check is before the start-failure handling it replaces');
   assert.ok(/snap revert/.test(block) && /mongodump|dump the data/.test(block),
     'and the log says both ways forward');
+  // #6471: ...but only when the marker is about THIS revision. A marker written
+  // by an older snap, which had fewer readers, must not stop this one trying -
+  // that is what made 10.81 behave exactly like 10.79 for the reporter.
+  assert.ok(/stale-marker" "\$MONGODB_DATA_TOO_OLD"/.test(block),
+    'the refusal must first ask whether the marker is even about this snap');
 });
 
 test('wekan-control serves the page instead of waiting for a database that is not coming', () => {

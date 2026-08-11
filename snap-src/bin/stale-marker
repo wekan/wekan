@@ -1,0 +1,68 @@
+#!/bin/bash
+# stale-marker — is a "give up" marker one that a DIFFERENT snap revision wrote?
+#
+# Exit 0 when the marker exists and was written by a revision other than the one
+# running now (so it is stale and should be ignored), 1 otherwise.
+#
+# WHY (wekan/wekan#6471). Two markers in $SNAP_COMMON stop the snap doing work:
+#
+#   .mongodb-data-too-old    written when no reader in the snap could open the
+#                            MongoDB data. mongodb-control then refuses to start
+#                            mongod at all and wekan-control serves an
+#                            explanatory page instead of WeKan.
+#   .mongod-start-failures   a counter; after three failures mongodb-control
+#                            stops re-running the MongoDB -> FerretDB migration,
+#                            so a migration<->mongod restart loop cannot form.
+#
+# Both are right, and both were PERMANENT. That is the bug: each records a
+# conclusion about what THIS SNAP can do, and a later revision can do more. The
+# 4.2 reader was added in v10.81 for exactly the databases the marker is written
+# for - but an instance that had already failed on v10.79 or v10.80 carried a
+# marker saying "no reader can open this", and the counter had long passed three,
+# so v10.81 never started mongod, never ran the migration, and printed none of
+# the new messages. The reporter upgraded to the version with the fix and saw no
+# change at all, which is exactly what a permanent latch looks like from outside:
+#
+#     Database selection: setting='mongodb' ferretdb_has_data=false mongodb_has_data=true
+#     Waiting for MongoDB replica set primary...
+#     MongoDB not ready yet, retrying in 5 seconds...
+#
+# A NEW REVISION IS A NEW CHANCE. Every marker records the revision that wrote
+# it; when the running revision differs, the marker is stale and the snap tries
+# again with whatever it can do now. Within one revision nothing changes: the
+# loop protection and the "do not start mongod on data it cannot read" refusal
+# both still hold, because the revision matches.
+#
+# The revision is kept in a COMPANION file (<marker>.revision) rather than inside
+# the marker, because .mongodb-data-too-old's contents are read and displayed by
+# wekan-control and wekan-maintenance-page.mjs, and this must not change what
+# they show.
+#
+# Usage:
+#   stale-marker <marker-path>            # exit 0 if stale (written elsewhere)
+#   stale-marker --stamp <marker-path>    # record the current revision for it
+#
+# With no SNAP_REVISION - running outside a snap - nothing is ever called stale:
+# not knowing the revision is not evidence that it changed.
+
+MARKER="${2:-$1}"
+[ -n "$MARKER" ] || exit 1
+REV_FILE="${MARKER}.revision"
+NOW="${SNAP_REVISION:-}"
+
+if [ "$1" = "--stamp" ]; then
+    [ -n "$NOW" ] || exit 0
+    printf '%s\n' "$NOW" > "$REV_FILE" 2>/dev/null || true
+    exit 0
+fi
+
+[ -f "$MARKER" ] || exit 1
+[ -n "$NOW" ] || exit 1
+
+# No companion file: the marker predates this mechanism, so it was written by an
+# older revision by definition - which is the case this exists for.
+[ -f "$REV_FILE" ] || exit 0
+
+WROTE="$(cat "$REV_FILE" 2>/dev/null)"
+[ "$WROTE" = "$NOW" ] && exit 1
+exit 0

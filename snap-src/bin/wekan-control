@@ -30,6 +30,15 @@ CPU_EXEC="$SNAP/bin/cpu-exec"
 # reason only in `snap logs`; serve a page that says what happened, that nothing was
 # changed, and what the two ways forward are. Cleared by removing the marker (or by
 # reverting the snap, which is one of the two).
+# #6471: a marker from a DIFFERENT revision is not an answer about this one, so
+# it must not keep the explanatory page up either. mongodb-control removes it and
+# retries; this service can start first, so it makes the same judgement rather
+# than serving "your data is too old for this snap" on a snap that has not tried.
+if [ -f "$SNAP_COMMON/.mongodb-data-too-old" ] && \
+   bash "$SNAP/bin/stale-marker" "$SNAP_COMMON/.mongodb-data-too-old"; then
+    echo "The 'database too old' marker was written by a different snap revision; ignoring it so this one can try."
+    rm -f "$SNAP_COMMON/.mongodb-data-too-old" "$SNAP_COMMON/.mongodb-data-too-old.revision"
+fi
 if [ -f "$SNAP_COMMON/.mongodb-data-too-old" ]; then
     echo "DATABASE TOO OLD FOR THIS SNAP (.mongodb-data-too-old present): serving the explanatory page instead of WeKan."
     export PORT="${PORT:-80}"

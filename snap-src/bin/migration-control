@@ -355,6 +355,11 @@ mongod_says_data_too_old() {
 stop_data_too_old() {
   local can; can="$(data_too_old_can_read)"
   printf '%s\n' "$can" > "$SNAP_COMMON/.mongodb-data-too-old"
+  # #6471: record WHICH revision concluded this. The conclusion is about the
+  # readers this snap has, and a later one may have more - the 4.2 reader was
+  # added for exactly these databases. A newer revision therefore ignores this
+  # marker and tries again (snap-src/bin/stale-marker).
+  bash "$SNAP/bin/stale-marker" --stamp "$SNAP_COMMON/.mongodb-data-too-old"
   log "The database files were made by an older MongoDB${can:+ (MongoDB $can or earlier can still read them)}."
   log "This snap can read a MongoDB 6/7 database (mongod 7), a MongoDB 4.0/4.2 one (mongod 4.2) and a MongoDB 3.2 one (the migratemongo tools); these files are none of those, and no retry can change that."
   log "NOTHING has been changed: your data, attachments and avatars are untouched."

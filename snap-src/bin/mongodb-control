@@ -202,6 +202,18 @@ trap cleanup EXIT
 # be restarted by snapd, re-trigger the migration, and loop - so do not start it at
 # all. wekan-control serves the explanatory page; the data is untouched.
 MONGODB_DATA_TOO_OLD="${SNAP_COMMON}/.mongodb-data-too-old"
+# #6471: a marker written by an OLDER revision is not an answer about this one.
+# It records that no reader in THAT snap could open the data - and v10.81 added a
+# third reader (mongod 4.2) for exactly these databases. An instance that had
+# already failed on v10.79/v10.80 carried the marker, so the version with the fix
+# refused to start mongod, never ran the migration, and printed none of the new
+# messages: upgrading changed nothing, which is what the reporter saw. Same
+# revision, same refusal; new revision, new chance.
+if [ -f "$MONGODB_DATA_TOO_OLD" ] && bash "$SNAP/bin/stale-marker" "$MONGODB_DATA_TOO_OLD"; then
+    echo "The 'database too old' marker was written by a different snap revision; this one may have readers it did not. Trying again."
+    rm -f "$MONGODB_DATA_TOO_OLD" "${MONGODB_DATA_TOO_OLD}.revision"
+    rm -f "${SNAP_COMMON}/.mongod-start-failures"
+fi
 if [ -f "$MONGODB_DATA_TOO_OLD" ]; then
     _can="$(cat "$MONGODB_DATA_TOO_OLD" 2>/dev/null)"
     echo "MongoDB will NOT be started: the database files were made by an older MongoDB${_can:+ (MongoDB $_can or earlier can still read them)},"
@@ -260,11 +272,20 @@ handle_mongod_start_failure() {
 
     switch_to_completed_ferretdb || true
 
+    # #6471: the count belongs to a REVISION, not to the installation. Three
+    # failures is loop protection - it stops migration<->mongod restarting each
+    # other forever - but it was never reset, so an instance that had failed more
+    # than three times on an older snap would not even attempt the migration on a
+    # newer one that could have completed it. A different revision starts at zero.
     local fails=0
-    [ -f "$MONGOD_FAIL_COUNT_FILE" ] && fails="$(cat "$MONGOD_FAIL_COUNT_FILE" 2>/dev/null || echo 0)"
+    if [ -f "$MONGOD_FAIL_COUNT_FILE" ] && \
+       ! bash "$SNAP/bin/stale-marker" "$MONGOD_FAIL_COUNT_FILE"; then
+        fails="$(cat "$MONGOD_FAIL_COUNT_FILE" 2>/dev/null || echo 0)"
+    fi
     case "$fails" in (*[!0-9]*|'') fails=0;; esac
     fails=$((fails + 1))
     echo "$fails" > "$MONGOD_FAIL_COUNT_FILE"
+    bash "$SNAP/bin/stale-marker" --stamp "$MONGOD_FAIL_COUNT_FILE"
 
     # MongoDB data that this mongod cannot serve: the only way forward is the
     # MongoDB → FerretDB migration. Re-enable and run it now (it RESUMES from its
@@ -394,7 +415,7 @@ until "$DB_EVAL" ping "$_RS_URL" >/dev/null 2>&1; do
 done
 # mongod is answering: clear the start-failure counter (see
 # handle_mongod_start_failure) so past failures don't count against future ones.
-[ $_wait -lt 90 ] && rm -f "$MONGOD_FAIL_COUNT_FILE"
+[ $_wait -lt 90 ] && rm -f "$MONGOD_FAIL_COUNT_FILE" "${MONGOD_FAIL_COUNT_FILE}.revision"
 
 # Check replica set status and current member host (prints OK:<host> or ERROR:<msg>)
 _rs_check=$("$DB_EVAL" rs-conf-host "$_RS_URL" 2>/dev/null)
