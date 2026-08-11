@@ -276,7 +276,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.83 2026-08-11 WeKan ® release
 
 **In short:** a **CRITICAL SECURITY ISSUE**, **PassBleed**: the single-card
 Excel export authorised against the board named in the URL and then read the
