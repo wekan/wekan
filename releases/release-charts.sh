@@ -96,9 +96,11 @@ echo "=== Helm chart release: WeKan v$VERSION (chart $CHART_VERSION) ==="
 #
 # A registry that cannot be reached is NOT taken as "no image": the check has to
 # be sure before it stops a release.
-if ! python3 - "$VERSION" <<'PYEOF'
+# PYTHONDONTWRITEBYTECODE: the check imports releases/reindex-charts.py, and
+# importing a module writes releases/__pycache__ beside it - untracked junk
+# appearing in the repository on every release.
+if ! PYTHONDONTWRITEBYTECODE=1 python3 - "$VERSION" <<'PYEOF'
 import importlib.util, os, sys
-here = os.path.dirname(os.path.abspath(sys.argv[0])) if False else None
 spec = importlib.util.spec_from_file_location(
     "reindex", os.path.join(os.environ["REPO_DIR"], "releases", "reindex-charts.py"))
 mod = importlib.util.module_from_spec(spec)
