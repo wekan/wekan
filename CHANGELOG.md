@@ -315,7 +315,7 @@ This release fixes the following CRITICAL SECURITY ISSUE of
 **The single-card Excel export** - which card it is allowed to read.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b12b24c45">PassBleed: the export authorised against one board and read a card from another</a>. Thanks to TWPaMWang and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/5269d0ba5">PassBleed: the export authorised against one board and read a card from another</a>. Thanks to TWPaMWang and xet7.</summary>
 
 [PassBleed](https://wekan.fi/hall-of-fame/passbleed/) -
 [GHSA-6p5m-f9p2-wqm5](https://github.com/wekan/wekan/security/advisories/GHSA-6p5m-f9p2-wqm5),
