@@ -2268,7 +2268,7 @@ one security event is pivot on it.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a260a53e">The database marks the operations WeKan never issues, so an operator sees them</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/FerretDB/commit/a260a53e">The database marks the operations WeKan never issues, so an operator sees them</a>. Thanks to xet7.</summary>
 
 FerretDB is reached over a local socket by one application, whose driver is a
 Meteor 3 one. That makes a class of operations interesting by their mere
