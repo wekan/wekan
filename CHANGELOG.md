@@ -283,14 +283,17 @@ handlers took a query selector from the client and checked only its type, so a
 `$where` in one made the database run the caller's JavaScript - a repeatable
 denial of service, reachable by a per-tenant admin. The detector for it was
 already in the codebase and wired into one publication; the eight siblings never
-called it, and now share the one copy. Then the **Helm chart index**,
-immediately after v10.81 shipped its rebuild: Artifact Hub scans every entry in
-a chart index and answered the rebuilt one with a list of errors, because **135
-of the 360 published packages point at container images that no longer exist**.
-The index now lists only the charts that can actually be installed. Below that:
-the snap serving a migrated database copy older than the MongoDB beside it, and
-a card drag that scrolled the whole board instead of the list. The binaries
-below are v10.81's: nothing here rebuilds them.
+called it, and now share the one copy. Then **the snap**, where two permanent
+markers meant an instance that had failed on an older revision never retried on
+the fixed one, so the MongoDB 4.2 reader added for it never ran.
+**Notifications** grew an unbounded array inside the user document that SQLite
+was rewriting on every addition, which is the slow login and the pinned CPU.
+**Clicking an open card** closes it again, and a focused Admin Panel checkbox is
+no longer drawn as a diamond. Below that: a typed two-digit year refused rather
+than stored as the year 26, the **Helm chart index** listing only charts that
+can be installed, and a way to remove the Templates containers made for accounts
+that never used them. The binaries below are v10.81's: nothing here rebuilds
+them.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -370,6 +373,134 @@ path, so those methods are guarded like the rest rather than left to it.
 </details>
 
 and fixes the following bugs:
+
+**The snap, upgrading from an old MongoDB** - and why a fixed version changed
+nothing. 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/097ad9160">A new snap revision is a new chance, so the MongoDB 4.2 reader actually gets to run</a>. Thanks to Philippe-Bentegeac, JDeepix, imlit and xet7.</summary>
+
+Reported against 10.81: "I still have the exact same issue, MongoDB cannot
+start. The web interface is still unreachable, and I do not see the messages you
+added in the last commits." The messages were missing because the code that
+prints them never ran.
+
+Two markers in `$SNAP_COMMON` stop the snap doing work, and both were PERMANENT.
+`.mongodb-data-too-old` is written when no reader in the snap could open the
+data, after which mongod is not started at all; `.mongod-start-failures` is a
+counter that, past three, stops the migration being re-run so a migration/mongod
+restart loop cannot form. Both are right, and both record a conclusion about
+what THAT snap could do.
+
+An instance that had already failed on 10.79 or 10.80 - before mongod 4.2 was
+bundled - carried a marker saying "no reader can open this" and a counter far
+past three. So 10.81 never started mongod, never attempted the migration, and
+printed nothing new. Upgrading to the version with the fix changed nothing,
+which is exactly what their log shows: the database-selection line, then
+"Waiting for MongoDB replica set primary..." forever.
+
+Each marker now records the revision that wrote it, and one from a different
+revision is ignored and cleared - a marker with no revision recorded at all is
+stale by definition, which is precisely what the affected instances carry.
+Within one revision nothing changes, so the loop protection still holds; and not
+knowing the revision is never taken as evidence that it changed.
+
+</details>
+
+**Notifications** - and the database write behind a slow login.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/184e1713d">The notification tray is capped, so SQLite is not rewriting an ever-growing array</a>. Thanks to Nissulya and xet7.</summary>
+
+An instance reports FerretDB at 737% CPU, logins over a minute, boards not
+appearing, and logs full of `database is locked (5) (SQLITE_BUSY)`. The stack
+names the same write every time: `addNotification`.
+
+That is an `$addToSet` on `profile.notifications`, an array inside the user
+document - so adding one entry reads the whole document, scans the array and
+writes the document back, at a cost proportional to the array. FerretDB on
+SQLite has a single writer, so those rewrites queue and start failing, and
+login, which also writes to the user document, queues behind them.
+
+It grows without limit because the existing cleanup only removes notifications
+that have been READ. A user who never clears their tray accumulates entries
+forever. The same pass now also keeps the newest
+`NOTIFICATION_TRAY_MAX_PER_USER` (default 1000) and drops the rest. It is
+applied to what is left after the expiry pull, a user needing no change is not
+written to at all, and it stays one write per user. This bounds the array; it
+does not make SQLite a multi-writer engine, and a busy instance still wants the
+PostgreSQL backend.
+
+</details>
+
+**Cards and the Admin Panel** - two things people asked for in the same thread.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6420819cf">Clicking an open card closes it, and a focused checkbox is not drawn as a diamond</a>. Thanks to csonkaoszimt, Heart1010 and xet7.</summary>
+
+Closing a card by clicking it again was not a missing feature - it was an
+unreachable one. The handler already ended with a branch that closed the open
+card, but the TITLE branch above it returned first, and a minicard's title
+covers most of the minicard. So the second click almost always re-opened the
+card that was already open, and the toggle worked only if you managed to miss
+the title. The title branch now makes the same decision, and on a phone, where
+the card is a popup, the second click closes that.
+
+The Problems page glitch in the screenshot is the focus ring. The Admin Panel
+draws its checkboxes as a square that morphs into a tick, and the tick IS a
+40-degree rotation of the element - so a browser draws its focus ring around a
+rotated box, and a checkbox that is both checked and focused (which is what one
+you just clicked is) comes out as a blue diamond. The ring moves to the row that
+contains it, which is not rotated; keyboard focus stays visible.
+
+</details>
+
+**Card dates** - what a typed date actually becomes.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c5cb99b7">A typed two-digit year is refused instead of stored as the year 26</a>. Thanks to xet7.</summary>
+
+From email feedback: "If i write the expiration date with the keyboard it turns
+red, if i choose it with the date picker it is yellow. Can you please tell me
+the difference?" The colour was never the difference - the YEAR was.
+
+`<input type="date">` reports its value as YYYY-MM-DD, but a browser lets the
+year sub-field be typed as two digits and reports exactly that: entering
+31-12-26 gives "0026-12-31", the year 26 AD. That is a valid Date, so nothing
+refused it, and the card was saved with a due date two thousand years in the
+past. Red is what an overdue date looks like. The attached screenshot shows it:
+the yellow badges read "31-12-2026" and the red ones "31-12-26".
+
+Saving now refuses a year outside 1000-9999 and says which digits are missing.
+It refuses rather than silently correcting 0026 to 2026, because that would be a
+guess about a date other people's reminders hang off.
+
+</details>
+
+**Old template containers** - the boards nobody asked for.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/80f551872">Remove the Templates containers that were made for accounts which never used them</a>. Thanks to xet7.</summary>
+
+From email feedback: FerretDB at 190-350% CPU on an instance with 14490 boards,
+of which 13404 are template containers, for 9264 accounts of which 478 have ever
+logged in.
+
+Before v10.00 every new account got a "Templates" container board at signup
+whether or not the person ever saved a template. v10.00 made that lazy
+(\#2339, \#5850), so no new account creates one - but nothing removed the ones
+already made, and they are not visible enough for anybody to delete by hand. On
+that instance they are 13x the boards collection, and every query that touches
+boards carries it.
+
+Because this deletes boards, the rule for what may go is narrow: only a
+container nobody ever used. A template saved into it, a list, swimlane or card,
+a second member, a rename, a star or a manual archive all keep it, and every
+board that is kept reports why. A rename is judged only against the titles the
+app itself used, so a container whose default name is in another language is not
+deleted for it. The default is a dry run showing what WOULD go; deleting takes a
+second, explicit request.
+
+</details>
 
 **The snap database** - which copy of the data it serves.
 
