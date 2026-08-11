@@ -276,6 +276,90 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** a **CRITICAL SECURITY ISSUE**, **PassBleed**: the single-card
+Excel export authorised against the board named in the URL and then read the
+card named in the URL, with nothing tying the two together. Any authenticated
+user could create their own public board, name it as the board, and export any
+card from any private board on the instance - including the bytes of its image
+attachments. The identically shaped PDF route had always resolved its card
+correctly, which is what showed this was an omission rather than a decision, and
+it is what the Excel exporter now does. The binaries below are v10.82's: nothing
+here rebuilds them.
+
+| Platform | Binary | From | Version | SHA256 |
+| --- | --- | --- | --- | --- |
+| amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
+| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-amd64) | v1.48.0 | `2737687fd29a8a761cd960e45f300b68cf7b4a87d50c4cc5280bcbd42b6aa163` |
+| arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
+| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-arm64) | v1.48.0 | `5ae705dd49515a4ecd4e295c3b9aa4f3b454fad78613ec60fb99316bd7c34e3f` |
+| loong64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-loong64.tar.xz) | v24.19.0 | `c24f224726f2d785bd18a1fd09f5e6d1fecf0269928451a60c5da9eac8e92e68` |
+| loong64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-loong64) | v1.48.0 | `06ec86263455a7b598d22a87df0e044ea73ab5a3b72e96ad12ebed03c1374ac2` |
+| mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-arm64.tar.xz) | v24.19.0 | `3f1cf157479c1480352083105e13faf9d008ede98e7e157746b6df940d197b94` |
+| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-mac-arm64) | v1.48.0 | `9b15f4c10e473cd0a2c4feb4cb43e18042bd60c7035ec66cab3cfbe13edaabab` |
+| mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
+| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-mac-amd64) | v1.48.0 | `4e188246dfa33bccef4cdd86701bc498b037cb3e91f579ff0dccb93aa0ef03ad` |
+| ppc64le | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-ppc64le.tar.xz) | v24.19.0 | `c510c6ce12f07010f771e6edb22a3fe23f4f2e6f40b1ffd4941aed0646a0d8b3` |
+| ppc64le | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-ppc64le) | v1.48.0 | `0400cd6dfc3d10d987a0fe80d75baa86c03c19170770fa2e602c92d558c3cfa6` |
+| riscv64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-riscv64.tar.xz) | v24.19.0 | `cd1f14af2812148002f58b58a5f9af512a50e3b8e8c148e0db44019dcb68edfd` |
+| riscv64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-riscv64) | v1.48.0 | `d37c35af988670b9ed182b8c5966c06a06362f6c6ace6aebd93ccdfa32c9a26b` |
+| s390x | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-s390x.tar.xz) | v24.19.0 | `a4792e65962ffa0af42627aacf1122a60c3c88dbf4e4184f06820d66f9da8ba4` |
+| s390x | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-s390x) | v1.48.0 | `6c7d61fbb8c79b2e8733be8f71910f710e8c5cd25208c451bdc513c8313b0340` |
+| win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
+| win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-win64.exe) | v1.48.0 | `ea57e1bcd153b51d2065ab01515b21ec05d8f615444c15603ab8158b8a661dd2` |
+
+This release fixes the following CRITICAL SECURITY ISSUE of
+[PassBleed](https://wekan.fi/hall-of-fame/passbleed/):
+
+**The single-card Excel export** - which card it is allowed to read.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b12b24c45">PassBleed: the export authorised against one board and read a card from another</a>. Thanks to TWPaMWang and xet7.</summary>
+
+[PassBleed](https://wekan.fi/hall-of-fame/passbleed/) -
+[GHSA-6p5m-f9p2-wqm5](https://github.com/wekan/wekan/security/advisories/GHSA-6p5m-f9p2-wqm5),
+Moderate, CWE-639, CVSS 6.5. `GET
+/api/boards/:boardId/lists/:listId/cards/:cardId/exportExcel` checked whether
+the caller could see the board in `:boardId`, then resolved the card by
+`:cardId` alone. Nothing confirmed that the card was on that board, so the two
+identifiers came apart: one decided the authorisation, the other decided the
+data.
+
+The pass is self-service. `POST /api/boards` takes `permission` straight from
+the request body, so any authenticated user could mint their own PUBLIC board,
+name it as `:boardId`, and pass the id of a card in somebody else's private
+board as `:cardId`. `:listId` was never used in a query at all and could be any
+string.
+
+What came back was the card: title, full description, members and assignees,
+every comment with its author, checklists and checklist items, subtask titles,
+attachment metadata - and, because image attachments are read through
+`getReadStream()` and embedded with `workbook.addImage`, the attachment BYTES.
+The same board could be reused while `:cardId` was substituted, which made it a
+scriptable bulk read rather than a single disclosure. The REST API is on by
+default in the shipped Docker configuration.
+
+The fix was already in the codebase one file away: the identically shaped PDF
+route has always resolved `getCard({ _id, boardId, listId })` and 404s a
+cross-board id. That control is what shows the Excel exporter's omission was a
+defect rather than a decision, and it is what the Excel exporter now does.
+Constraining the QUERY matters more than a check after it - the exporter fans
+out on the same card id for checklists, subtasks, comments and attachments, none
+of which carry a board constraint of their own, so a card that cannot resolve
+outside the authorised board makes all of them safe by construction.
+
+The route binds the two identifiers as well, before either branch builds -
+deliberate duplication, because that is where both arrive together and it covers
+the public-board branch, which skips authentication entirely. A card that is not
+on the named board is a 404 rather than a 403, so the difference does not reveal
+whether a card id exists.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.82 2026-08-11 WeKan ® release
 
 **In short:** a **CRITICAL SECURITY ISSUE**, **WhereBleed**: eight Admin Panel
