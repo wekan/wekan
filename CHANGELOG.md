@@ -276,7 +276,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.81 2026-08-11 WeKan ® release
 
 **In short:** the release pipeline, and two bugs that stopped WeKan starting at
 all. **FerretDB** advertises its own listen address as the member list of a
