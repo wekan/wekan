@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v10.81
+  version: v10.82
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -6800,6 +6800,23 @@ definitions:
            Per-user collapsed state for swimlanes.
            profile[boardId][swimlaneId] = true|false
         type: object
+      collapsedCardSections:
+        description: |
+           Per-user collapsed state for the sections of a card (#1591).
+           profile[cardId][sectionKey] = true|false
+
+           ONE map for every foldable thing on a card, because they are all the
+           same question: a whole feature group ('labels', 'members', 'due', ...)
+           uses the section's own name, and an individual checklist uses
+           'checklist-<checklistId>'. The same key works on the opened card and on
+           the minicard, so folding a checklist folds it in both.
+
+           Per USER, like collapsedLists and collapsedSwimlanes above, and unlike
+           the checklist's own hideAllChecklistItems, which is a field on the
+           checklist and therefore changes what EVERYONE on the board sees.
+           Folding something to get it out of your way is a view preference, not
+           an edit to the card.
+        type: object
       keyboardShortcuts:
         description: |
            User-specified state of keyboard shortcut activation.
@@ -6843,6 +6860,7 @@ definitions:
       - swimlaneHeights
       - collapsedLists
       - collapsedSwimlanes
+      - collapsedCardSections
       - keyboardShortcuts
       - verticalScrollbars
       - showWeekOfYear
