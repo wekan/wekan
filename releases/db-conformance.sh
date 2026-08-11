@@ -186,6 +186,19 @@ skipped=0
 #   WEKAN_CONFORMANCE_PORT     FerretDB itself     (default 37017)
 #   WEKAN_CONFORMANCE_DB_PORT  the database server (default 35432)
 #
+# There is a THIRD port, and it is the one that bit: FerretDB also opens a debug
+# handler for metrics and profiling, at 127.0.0.1:8088 by default, and it EXITS
+# when that address is taken. Nothing here uses it, but every backend died with
+#
+#   Failed to create debug handler ... listen tcp 127.0.0.1:8088: bind: address
+#   already in use
+#   ERROR sqlite  FerretDB did not start on this backend
+#
+# because an unrelated FerretDB was running on the machine. Choosing a free port
+# for it would work; not opening it at all is better, since the run never asks it
+# anything - so every launch below passes `--debug-addr=-`, which is how
+# FerretDB's main.go spells "no debug handler".
+#
 # is_free: a port nothing is listening on. bash's /dev/tcp needs no extra tools;
 # a refused connection means free.
 is_free() {
@@ -385,16 +398,16 @@ for entry in "${BACKENDS[@]}"; do
   case "$handler" in
     sqlite)     "$FERRET_BIN" --handler=sqlite --sqlite-url="$url" \
                   --listen-addr=127.0.0.1:$FERRET_PORT --repl-set-name=rs0 \
-                  --telemetry=disable --log-level=error >>"$log" 2>&1 & ;;
+                  --telemetry=disable --debug-addr=- --log-level=error >>"$log" 2>&1 & ;;
     postgresql) "$FERRET_BIN" --handler=postgresql --postgresql-url="$url" \
                   --listen-addr=127.0.0.1:$FERRET_PORT --repl-set-name=rs0 \
-                  --telemetry=disable --log-level=error >>"$log" 2>&1 & ;;
+                  --telemetry=disable --debug-addr=- --log-level=error >>"$log" 2>&1 & ;;
     mysql)      "$FERRET_BIN" --handler=mysql --mysql-url="$url" \
                   --listen-addr=127.0.0.1:$FERRET_PORT --repl-set-name=rs0 \
-                  --telemetry=disable --log-level=error >>"$log" 2>&1 & ;;
+                  --telemetry=disable --debug-addr=- --log-level=error >>"$log" 2>&1 & ;;
     hana)       "$FERRET_BIN" --handler=hana --hana-url="$url" \
                   --listen-addr=127.0.0.1:$FERRET_PORT --repl-set-name=rs0 \
-                  --telemetry=disable --log-level=error >>"$log" 2>&1 & ;;
+                  --telemetry=disable --debug-addr=- --log-level=error >>"$log" 2>&1 & ;;
   esac
   FERRET_PID=$!
 
