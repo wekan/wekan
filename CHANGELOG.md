@@ -313,6 +313,76 @@ them.
 
 This release fixes the following bugs:
 
+**The snap database** - which copy of the data it serves.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b1e7b1e53">A FerretDB copy older than the MongoDB beside it is never served</a>. Thanks to markusst1982 and xet7.</summary>
+
+After upgrading from v6 the reporter saw *"the state of the data from days
+ago"* and suspected a `snap revert` done four weeks earlier. They were right
+about the cause, and nothing was lost.
+
+The MongoDB to FerretDB migration copies MongoDB into SQLite **once** and writes
+`.migration-to-ferretdb-done`. That copy is a snapshot; nothing keeps it in
+step. Revert the snap to a revision that runs `mongod` and WeKan carries on
+writing to MongoDB - for four weeks here - while the finished SQLite sits frozen
+at the date it was made. Refresh forward again and the snap saw a marker plus a
+non-empty SQLite, called that a completed migration and switched onto it. Every
+board and card written during the revert was still on disk and simply not being
+served.
+
+The data was never in danger: it lives in `$SNAP_COMMON`, which is shared across
+revisions and is **not** rolled back by a revert (unlike `$SNAP_DATA`, which is
+per-revision). What was wrong was *which* of the two copies got served, and
+nothing compared their ages.
+
+A new check answers exactly that: `mongod` rewrites its WiredTiger files on
+every commit, so the newest mtime among them is when MongoDB was last written
+to, and later than the marker means the copy is behind. It counts data files
+only - a newer `mongodb.log` means the snap was started, not that the database
+changed - and allows a margin, because the migration stops its own temporary
+source `mongod` moments after writing the marker. Anything it cannot tell is
+reported as NOT stale, since the callers act on a yes.
+
+Where `mongod` runs, the snap now stays on MongoDB, which has the newest data.
+Where `mongod` cannot start at all - the case that forces the migration in the
+first place - it migrates again from scratch rather than serve the old copy; the
+migration reads with its own temporary `mongod` and the 4.2/3.2 readers, so it
+still reaches everything written since. And `wekan-control` gains the second
+half of a guard it already had: it refused to start an *empty* FerretDB while
+MongoDB had data, and a *full but out-of-date* one looks worse, because WeKan
+comes up with everything present except the last weeks.
+
+</details>
+
+**Board and card drag** - what scrolls while a card is held.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8456170d4">Dragging a card down scrolls the list, not the whole board</a>. Thanks to markusst1982 and xet7.</summary>
+
+*"Upwards is no problem, the Line scrolls automaticly up, but this does not work
+downwards. The whole Page/Site scrolls down and not ne Line"*.
+
+The card drag auto-scrolls at the edges. Horizontally it picks the lane under
+the pointer ([#443](https://github.com/wekan/wekan/issues/443)); vertically it picked
+nothing, and always scrolled `.board-canvas` - which holds the swimlanes -
+rather than the `.list-body` under the pointer, which is `overflow-y: scroll`
+and holds the cards. Scrolling the canvas moves the whole board.
+
+The asymmetry is what makes it reproducible. Dragging **up**, the canvas is
+usually already at the top, so the handler did nothing and jQuery UI's own
+scroll option - which acts on the placeholder's scroll parent, the list body -
+scrolled the list, which is why up always worked. Dragging **down**, the canvas
+nearly always has room left, so the handler fired first and scrolled the board
+instead.
+
+The list under the pointer is scrolled first now, and the board only once that
+list cannot go further - so a drag down a long list scrolls the list, and a drag
+past the end of it moves on to the board, which is what dragging a card into
+another swimlane needs.
+
+</details>
+
 **The Helm chart index** - which charts it lists.
 
 <details>
