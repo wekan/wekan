@@ -285,8 +285,11 @@ user could create their own public board, name it as the board, and export any
 card from any private board on the instance - including the bytes of its image
 attachments. The identically shaped PDF route had always resolved its card
 correctly, which is what showed this was an omission rather than a decision, and
-it is what the Excel exporter now does. The binaries below are v10.82's: nothing
-here rebuilds them.
+it is what the Excel exporter now does. It also fixes **broken avatar images**,
+seen after upgrading from v6 but never actually working: the route that serves
+them asked `Meteor.userId()`, which throws in a plain HTTP handler rather than
+answering "nobody", and the handler turned that into a 500. The binaries below
+are v10.82's: nothing here rebuilds them.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -354,6 +357,49 @@ deliberate duplication, because that is where both arrive together and it covers
 the public-board branch, which skips authentication entirely. A card that is not
 on the named board is a 404 rather than a 403, so the difference does not reveal
 whether a card id exists.
+
+</details>
+
+and fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f1659253d">Avatars: ask the request who it is, because Meteor.userId() cannot</a>. Thanks to markusst1982 and xet7.</summary>
+
+Following the same upgrade as [#6583](https://github.com/wekan/wekan/issues/6583),
+profile pictures came back as broken images - initials rendered fine, and the
+Admin Panel showed a user's picture while a board showed the missing-picture
+icon for the same person.
+
+Nothing was lost, and the migration is not at fault. The avatar files migrate,
+and the Meteor-Files record made from a CollectionFS filerecord even reuses its
+`_id`, so a 6.x URL still names the right object. What broke is the request for
+it. A 6.x install stores `profile.avatarUrl` as `/cfs/files/avatars/<id>`; that
+route serves the legacy bytes if they are still there and otherwise redirects to
+`/cdn/storage/avatars/<id>`, which asked who was asking with `Meteor.userId()`.
+
+That reads the current DDP invocation's environment, which exists inside a
+method or a publication and NOT in a WebApp handler - where it does not return
+"nobody", it THROWS. The handler wraps its body in a `try`/`catch` that answers
+500, so the throw was swallowed into a broken image, and no avatar served
+through that route ever reached anybody on any install. The upgrade did not
+cause it; it moved every avatar URL onto the route where it already applied.
+`server/routes/legacyAttachments.js` had the identical call, so legacy
+attachment URLs failed the same way.
+
+An HTTP request carries its identity in the request: a bearer token, an
+`X-Auth-Token` header, an `?authToken=` parameter, or the login cookie - and on
+Sandstorm, a platform-injected user id and no Meteor token at all.
+`server/routes/universalFileServer.js` has always resolved it that way and
+serves attachments correctly today. `server/lib/requestUser.js` lifts that
+resolution out so the two routes that were guessing share it rather than grow a
+third copy. It never throws: a caller deciding whether to serve a file wants an
+answer, not an exception its own `catch` will turn back into a 500.
+
+`tests/requestUserAuth.test.cjs` pins that neither route calls
+`Meteor.userId()`, that both `await` the resolver - an unawaited Promise is
+truthy and would authorise everybody - that all four token carriers and the
+Sandstorm path are handled, and that the migration still reuses the id the old
+URL names. Confirming the served image needs an upgraded instance.
 
 </details>
 
