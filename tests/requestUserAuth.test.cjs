@@ -113,6 +113,39 @@ test('the legacy avatar URL still has somewhere to go', () => {
     'and it redirects to the current route when the legacy bytes are gone');
 });
 
+test('a visitor who is not signed in can still see a public board avatar', () => {
+  // The client appends ?boardId= to every avatar URL "so public viewers can
+  // access avatars on public boards" (userAvatar.js), and the route ignored it
+  // and answered 401, so a public board showed the missing-picture icon to
+  // everybody who was not logged in.
+  const body = code(avatarServer);
+  assert.ok(/avatarIsOnAPublicBoard/.test(body),
+    'the ?boardId= the client sends has to be honoured somewhere');
+  const at = body.indexOf('async function avatarIsOnAPublicBoard');
+  const fn = body.slice(at, body.indexOf('\n}', at));
+  assert.ok(/parseQuery\(req\)\.boardId/.test(fn), 'read from the query string');
+  assert.ok(/board\.isPublic\(\)/.test(fn),
+    'a private board must not open its avatars to anonymous callers');
+  assert.ok(/board\.hasMember\(avatar\.userId\)/.test(fn),
+    'without this, naming ANY public board would unlock ANY avatar on the ' +
+    'instance - a public board publishes its own members, not everybody');
+  assert.ok(/await avatarIsOnAPublicBoard/.test(body),
+    'awaited, or the 401 branch is never taken and every avatar is public');
+});
+
+test('the legacy redirect keeps the query string', () => {
+  // Every migrated 6.x avatar URL goes through this redirect, so dropping
+  // ?boardId= here would 401 exactly the installs this fixes.
+  const body = code(avatarServer);
+  const at = body.indexOf('/cdn/storage/avatars/${fileName}');
+  assert.ok(at !== -1);
+  const around = body.slice(at - 200, at + 120);
+  assert.ok(/req\.url \|\| ''\)\.split\('\?'\)\[1\]/.test(around),
+    'the query has to be carried across the redirect');
+  assert.ok(/\$\{query \? `\?\$\{query\}` : ''\}/.test(around),
+    'and appended only when there is one, so a plain URL stays plain');
+});
+
 test('the migration keeps the id the old URL names', () => {
   // This is why the redirect can work at all: the Meteor-Files record created
   // from a CollectionFS filerecord reuses its _id.

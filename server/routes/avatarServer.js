@@ -5,7 +5,7 @@
 
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
-import { getUserIdFromRequest } from '/server/lib/requestUser';
+import { getUserIdFromRequest, parseQuery } from '/server/lib/requestUser';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Avatars from '/models/avatars';
 import { fileStoreStrategyFactory } from '/models/avatars.server';
@@ -43,6 +43,27 @@ async function serveLegacyAvatar(fileId, req, res) {
     }
   });
   return true;
+}
+
+// May a caller who is NOT signed in see this avatar?
+//
+// Only on a public board, and only for somebody who is on it. The client appends
+// ?boardId= to every avatar URL it renders for exactly this case - see the
+// avatarUrl helper in client/components/users/userAvatar.js, whose own comment
+// says "so public viewers can access avatars on public boards" - and this route
+// ignored the parameter, so a public board showed the missing-picture icon to
+// every visitor who was not logged in.
+//
+// The board has to be named AND public AND actually have the avatar's owner on
+// it. Without that last part, naming any public board would unlock any avatar on
+// the instance, which is not what a public board publishes.
+async function avatarIsOnAPublicBoard(req, avatar) {
+  const boardId = parseQuery(req).boardId;
+  if (!boardId || !avatar || !avatar.userId) {
+    return false;
+  }
+  const board = await ReactiveCache.getBoard(boardId);
+  return !!(board && board.isPublic() && board.hasMember(avatar.userId));
 }
 
 // Handle avatar file downloads
@@ -95,7 +116,7 @@ WebApp.handlers.use('/cdn/storage/avatars/:fileName', async (req, res, next) => 
     // redirected here, and here is where it died - the migrated file itself was
     // fine.
     const userId = await getUserIdFromRequest(req);
-    if (!userId) {
+    if (!userId && !(await avatarIsOnAPublicBoard(req, avatar))) {
       res.writeHead(401);
       res.end('Authentication required');
       return;
@@ -165,8 +186,13 @@ WebApp.handlers.use('/cfs/files/avatars/:fileName', async (req, res, next) => {
       return;
     }
 
-    // Not a legacy avatar — redirect to the new avatar URL format.
-    const newUrl = `/cdn/storage/avatars/${fileName}`;
+    // Not a legacy avatar — redirect to the new avatar URL format, KEEPING the
+    // query string. A redirect that drops it drops ?boardId=, which is how a
+    // visitor who is not signed in is allowed to see an avatar on a public board
+    // at all - and this is the redirect every migrated 6.x avatar URL goes
+    // through, so losing it there would 401 exactly the installs this fixes.
+    const query = (req.url || '').split('?')[1];
+    const newUrl = `/cdn/storage/avatars/${fileName}${query ? `?${query}` : ''}`;
     res.writeHead(301, { 'Location': newUrl });
     res.end();
 
