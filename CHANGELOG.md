@@ -289,11 +289,13 @@ the fixed one, so the MongoDB 4.2 reader added for it never ran.
 **Notifications** grew an unbounded array inside the user document that SQLite
 was rewriting on every addition, which is the slow login and the pinned CPU.
 **Clicking an open card** closes it again, and a focused Admin Panel checkbox is
-no longer drawn as a diamond. Below that: a typed two-digit year refused rather
-than stored as the year 26, the **Helm chart index** listing only charts that
-can be installed, and a way to remove the Templates containers made for accounts
-that never used them. The binaries below are v10.81's: nothing here rebuilds
-them.
+no longer drawn as a diamond. It also adds the first new feature in this
+release: **checklists and card feature groups fold away**, on the opened card
+and on the minicard, asked for since 2018. Below that: a typed two-digit year
+refused rather than stored as the year 26, the **Helm chart index** listing only
+charts that can be installed, and a way to remove the Templates containers made
+for accounts that never used them. The binaries below are v10.81's: nothing here
+rebuilds them.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -369,6 +371,42 @@ a rejected query there; the supported MongoDB path is where it was reproduced.
 MongoDB 7 also happens to reject `$where` inside the aggregation pipeline the
 count methods use - but that is an engine accident for one operator on one call
 path, so those methods are guarded like the rest rather than left to it.
+
+</details>
+
+and adds the following new feature:
+
+**Cards** - folding away what you are not reading.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1cef5ede9">Checklists and card feature groups collapse, on the opened card and on the minicard</a>. Thanks to czinkos, MikeRatcliffe, JannetGen and xet7.</summary>
+
+Asked for in 2018: "It would be great to have collapsable checklists on cards",
+and again this week - "Long checklists can make a card pretty cluttered, so
+being able to collapse them and expand only when needed would keep the board
+much cleaner."
+
+WeKan had something adjacent and it was not this. A checklist carries
+`hideAllChecklistItems`, reachable through a toggle switch inside the checklist
+actions popup - but that is a field ON THE CHECKLIST, so flipping it changes
+what everyone on the board sees, and it is an edit to the card rather than a
+view preference. It is untouched; it has its own uses.
+
+Collapsing is per-user, which WeKan already says twice in its own models for
+lists and swimlanes, so this follows them: one map in the user profile keyed by
+card. A feature group uses its own section name, an individual checklist uses a
+key of its own - which is why folding a checklist on the opened card folds it on
+the minicard too.
+
+The control is a caret on the title rather than another entry in a menu, since
+the point is to fold at a glance while reading the card. It carries
+aria-expanded and answers Enter and Space. For the sixteen feature groups on the
+opened card it is done once, with a delegated handler and CSS: they all open
+with a title but only three wrap what follows in a content element, so folding
+hides every sibling after the title, which works whatever a section puts there.
+
+A checklist's progress bar stays visible when folded - it is the summary of what
+was folded away - and the fold survives reopening the card.
 
 </details>
 
