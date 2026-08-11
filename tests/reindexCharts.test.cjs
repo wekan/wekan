@@ -254,4 +254,64 @@ if (!hasPyYaml) {
   });
 }
 
+
+// ── charts that cannot be installed ─────────────────────────────────────────
+//
+// Backfilling 146 old packages taught this the hard way. Artifact Hub scans
+// EVERY entry in the index and mailed a list of errors within the hour:
+//
+//   error scanning image ghcr.io/wekan/wekan:v9.62: image not found
+//   error scanning image docker.io/bitnami/mongodb:7.0.14-debian-12-r3: image not found
+//
+// A chart is a pointer to container images; one whose images are gone installs
+// and then fails at the pull, so listing it tells everyone the repository is
+// broken when the repository is fine. 135 of the 360 packages are in that state
+// - six WeKan images that were never pushed (the releases whose docker job
+// failed) and 129 older charts vendoring the Bitnami mongodb subchart, whose
+// pinned tags Bitnami has deleted.
+
+test('the exclusion list is a file in the repository, not a decision made per run', () => {
+  const src = fs.readFileSync(script, 'utf8');
+  assert.ok(/UNINDEXED_FILE = "unindexed\.txt"/.test(src),
+    'which packages are not listed must be RECORDED, so a rebuild during a ' +
+    'release does not depend on reaching two registries - a network blip would ' +
+    'otherwise drop half the index');
+  assert.ok(/def read_unindexed\(/.test(src), 'and read back on every run');
+  assert.ok(/--check-images/.test(src),
+    'with an explicit flag to regenerate it, rather than doing it implicitly');
+});
+
+test('an image that cannot be checked is never treated as missing', () => {
+  const src = fs.readFileSync(script, 'utf8');
+  assert.ok(/never "missing"/.test(src),
+    'image_exists must distinguish "gone" from "could not tell"');
+  assert.ok(/if verdicts\.get\(\(h, r, t\)\) is False/.test(src),
+    'only a definite False may exclude a chart - None must not, or a registry ' +
+    'hiccup silently unpublishes charts');
+});
+
+test('the registry handshake is the registry\'s own, not a guess per host', () => {
+  const src = fs.readFileSync(script, 'utf8');
+  assert.ok(/WWW-Authenticate/.test(src),
+    'a hard-coded token URL per registry reported every quay.io image as missing, ' +
+    'including quay.io/wekan/wekan:latest - the 401 challenge says which realm ' +
+    'and scope to use');
+  assert.ok(/localhost/.test(src) && /"\." in head/.test(src),
+    'and a repository that already begins with a host must not be read as a ' +
+    'docker.io path - that is how ghcr.io/wekan/wekan came back unknown');
+});
+
+test('publishing refuses a version with no container image', () => {
+  const rel = fs.readFileSync(path.join(repoRoot, 'releases/release-charts.sh'), 'utf8');
+  assert.ok(/does not exist/.test(rel) && /image pull/.test(rel),
+    'release-charts.sh must not publish a chart pointing at an image that is not ' +
+    'there - that is exactly what produced the Artifact Hub scan errors');
+  const guard = rel.indexOf('ghcr.io/wekan/wekan');
+  const work = rel.indexOf('git checkout main');
+  assert.ok(guard !== -1 && guard < work,
+    'and it must check BEFORE it starts changing the charts repository');
+  assert.ok(/continuing\./.test(rel),
+    'a registry it cannot reach must not block a release either');
+});
+
 console.log(`\n${passed} passed`);

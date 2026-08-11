@@ -568,6 +568,47 @@ have already pulled.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/IMGHASH">List only the charts whose container images still exist</a>. Thanks to xet7.</summary>
+
+Backfilling the index taught this within the hour: Artifact Hub scans every
+entry and mailed a list of errors.
+
+```
+error scanning image ghcr.io/wekan/wekan:v9.62: image not found
+error scanning image docker.io/bitnami/mongodb:7.0.14-debian-12-r3:
+  image not found
+```
+
+That was this side's doing. The rebuild listed every package on gh-pages, and a
+chart is a POINTER TO CONTAINER IMAGES - one whose images have been deleted
+installs and then fails at the pull, so listing it says the repository is broken
+when the repository is fine and the images are gone. 135 of the 360 packages are
+in that state, from two unrelated causes: **six WeKan images were never pushed**
+(v8.30, v9.12, v9.14, v9.38, v9.39, v9.62 - releases whose own docker job
+failed, and exactly the six Artifact Hub named), and **129 older charts vendor
+the Bitnami mongodb subchart** and pin tags Bitnami has since deleted. Charts
+from 8.41 on vendor groundhog2k's mongodb, which uses the official `mongo` image
+and is unaffected.
+
+The index now holds 225 entries: every one of the 216 that were listed before -
+none dropped - plus the 9 backfilled packages whose images all resolve. The
+exclusions are recorded in `unindexed.txt` beside the packages, not decided per
+run, so a rebuild during a release cannot depend on reaching two registries, and
+an image that comes back is one deleted line away from being listed again. The
+`.tgz` files stay, so direct URLs keep working.
+
+Two things this shook out. `--check-images` asks each registry with ITS OWN 401
+challenge instead of a hard-coded token URL per host - the first attempt
+reported every quay.io image as missing, including `quay.io/wekan/wekan:latest`,
+which plainly exists. And an image that cannot be checked is never treated as
+missing, only a definite 404, so a registry hiccup cannot silently unpublish
+charts. `release-charts.sh` now refuses to publish a chart at all when
+`ghcr.io/wekan/wekan:v<version>` does not exist, which is what created these six
+in the first place.
+
+</details>
+
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 

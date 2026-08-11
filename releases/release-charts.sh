@@ -46,6 +46,7 @@ CHART_VERSION="${VERSION}.0"  # e.g. 9.36.0  (chart SemVer + index version)
 # The remote (GitHub Actions) flow sets CHARTS_DIR to the charts repo it checked
 # out; otherwise it is resolved below.
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+export REPO_DIR
 # .tools/charts first: companion repositories are cloned there (CLAUDE.md), which
 # is where the wekan/charts checkout lives. ../w/charts stays as the older
 # location so an existing checkout keeps working. The chart SOURCE is on the main
@@ -76,6 +77,48 @@ CHART_YAML="$CHARTS_DIR/wekan/Chart.yaml"
 CHART_VALUES="$CHARTS_DIR/wekan/values.yaml"
 
 echo "=== Helm chart release: WeKan v$VERSION (chart $CHART_VERSION) ==="
+
+# ── 0. Is there an image for this version to point AT? ───────────────────────
+#
+# A chart is a pointer to a container image, so publishing one for a version
+# whose image was never pushed produces a chart that installs and then fails at
+# the pull - and Artifact Hub, which scans every entry in the index, reports it
+# as an error against the whole repository:
+#
+#   error scanning image ghcr.io/wekan/wekan:v9.62: image not found
+#
+# Six versions are in that state already (v8.30, v9.12, v9.14, v9.38, v9.39,
+# v9.62 - releases whose own docker job failed), and they had to be taken back
+# out of the index by hand. One request stops the seventh. In a full release the
+# charts job runs after `docker` has pushed the image, so this passes; it is the
+# out-of-band paths - release-all-missing.yml, and running this by hand - where a
+# version can have no image at all.
+#
+# A registry that cannot be reached is NOT taken as "no image": the check has to
+# be sure before it stops a release.
+if ! python3 - "$VERSION" <<'PYEOF'
+import importlib.util, os, sys
+here = os.path.dirname(os.path.abspath(sys.argv[0])) if False else None
+spec = importlib.util.spec_from_file_location(
+    "reindex", os.path.join(os.environ["REPO_DIR"], "releases", "reindex-charts.py"))
+mod = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(mod)
+host, repo, tag = mod.split_image(None, "ghcr.io/wekan/wekan", "v" + sys.argv[1])
+verdict = mod.image_exists(host, repo, tag)
+if verdict is False:
+    sys.exit(1)
+if verdict is None:
+    print(f"  Could not reach the registry to check ghcr.io/wekan/wekan:v{sys.argv[1]};"
+          " continuing.")
+PYEOF
+then
+  echo "Error: ghcr.io/wekan/wekan:v${VERSION} does not exist." >&2
+  echo "  A chart for it would install and then fail at the image pull, and" >&2
+  echo "  Artifact Hub would report it as a scan error against wekan/charts." >&2
+  echo "  Publish the image first (the docker job), then run this again." >&2
+  exit 1
+fi
+
 
 # ── 1. Bump only the WeKan version numbers on the main branch ────────────────
 ( cd "$CHARTS_DIR" && git checkout main && git pull )
