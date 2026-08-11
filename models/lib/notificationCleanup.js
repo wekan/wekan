@@ -58,4 +58,52 @@ function expiredNotificationActivityIds(notifications, removeAgeDays, now) {
   return ids;
 }
 
-module.exports = { expiredNotificationActivityIds };
+// #6533: THE ARRAY ALSO HAS TO BE BOUNDED, and the rule above cannot do it.
+// Only notifications that have been READ are ever removed, so a user who does
+// not clear their tray accumulates entries with no upper limit - and they live
+// in an array INSIDE the user document, `profile.notifications`.
+//
+// That is what shows up as a database problem rather than a tray problem. Every
+// new notification is an `$addToSet` on that array, which means reading the whole
+// user document, scanning the array for a duplicate, and writing the whole
+// document back. FerretDB on SQLite has ONE writer, so those rewrites queue
+// behind each other and start failing:
+//
+//   [db-retry] the database was busy: ... 3 given up on
+//   ValidationError: ... [collection.go:191 sqlite.(*collection).UpdateAll]
+//     database is locked (5) (SQLITE_BUSY)
+//     at _helpersConstructor.addNotification (models/users.js)
+//
+// with FerretDB at 737% CPU. The work is proportional to the array, so it gets
+// worse exactly as the array gets longer, and login - which writes to the user
+// document - queues behind it.
+//
+// So the newest KEEP entries are kept and the rest dropped. Newest, not oldest:
+// the tray shows recent activity, and an unread notification from last year is
+// not something anyone is going to act on. Order is positional - `$addToSet`
+// appends - so the tail is the newest.
+//
+// Returns the entries to KEEP, or null when nothing needs dropping (so the
+// caller can skip the write entirely rather than rewrite the array with itself).
+function cappedNotifications(notifications, maxPerUser) {
+  if (!Array.isArray(notifications)) return null;
+  const cap = Number.isInteger(maxPerUser) && maxPerUser > 0 ? maxPerUser : 0;
+  if (cap === 0 || notifications.length <= cap) return null;
+  return notifications.slice(notifications.length - cap);
+}
+
+// How many the tray keeps per user. Generous - this is a backstop against
+// unbounded growth, not a retention policy - and overridable for an instance
+// whose users really do want a longer history.
+function notificationCapFromEnv(env) {
+  const raw = (env || {}).NOTIFICATION_TRAY_MAX_PER_USER;
+  const parsed = parseInt(raw, 10);
+  if (Number.isInteger(parsed) && parsed > 0) return parsed;
+  return 1000;
+}
+
+module.exports = {
+  expiredNotificationActivityIds,
+  cappedNotifications,
+  notificationCapFromEnv,
+};

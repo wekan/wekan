@@ -78,7 +78,11 @@ import InviteToBoardRolesSettings from '/models/inviteToBoardRolesSettings';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
 import Users, { allowedSortValues, allowedAllBoardsSortValues } from '/models/users';
-import { expiredNotificationActivityIds } from '/models/lib/notificationCleanup';
+import {
+  expiredNotificationActivityIds,
+  cappedNotifications,
+  notificationCapFromEnv,
+} from '/models/lib/notificationCleanup';
 import { chooseInviteEmailLanguage } from '/models/lib/inviteEmailLanguage';
 import { paginateDomains } from '/models/lib/domainTablePage';
 import { orgsToAutoAddForEmail } from '/models/lib/orgAutoAddByDomain';
@@ -1713,19 +1717,39 @@ const runNotificationCleanup = async function runNotificationCleanup() {
   const users = await ReactiveCache.getUsers({
     'profile.notifications': { $exists: true, $ne: [] },
   });
+  // #6533: the cap is a BACKSTOP for the array the rule above cannot shrink.
+  // Only READ notifications are ever pruned, so a user who does not clear their
+  // tray grows `profile.notifications` without limit - and every new
+  // notification is an `$addToSet` that rewrites that whole array inside the user
+  // document. On FerretDB's SQLite backend, which has one writer, those rewrites
+  // queue and start failing with SQLITE_BUSY while FerretDB burns CPU scanning
+  // the array. See models/lib/notificationCleanup.js.
+  const maxPerUser = notificationCapFromEnv(process.env);
   for (const user of users) {
+    const notifications = user.profile && user.profile.notifications;
     const activityIds = expiredNotificationActivityIds(
-      user.profile && user.profile.notifications,
+      notifications,
       removeAge,
       now,
     );
-    if (activityIds.length === 0) continue;
+    // What the array would be after the $pull, so the cap is applied to the
+    // result rather than to a length that is about to shrink anyway.
+    const remaining = activityIds.length
+      ? (notifications || []).filter(n => !(n && activityIds.includes(n.activity)))
+      : notifications;
+    const kept = cappedNotifications(remaining, maxPerUser);
+    if (activityIds.length === 0 && kept === null) continue;
     try {
-      await Users.updateAsync(user._id, {
-        $pull: {
-          'profile.notifications': { activity: { $in: activityIds } },
-        },
-      });
+      // ONE write per user either way. When the cap applies, `$set` replaces the
+      // array outright - a `$pull` for the overflow would need the entries it is
+      // removing listed, and the point is that there are too many of them.
+      await Users.updateAsync(user._id, kept !== null
+        ? { $set: { 'profile.notifications': kept } }
+        : {
+            $pull: {
+              'profile.notifications': { activity: { $in: activityIds } },
+            },
+          });
     } catch (error) {
       console.error(
         'Notification cleanup: failed to prune notifications for user',
