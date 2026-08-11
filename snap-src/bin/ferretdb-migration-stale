@@ -1,0 +1,84 @@
+#!/bin/bash
+# ferretdb-migration-stale — exit 0 if the completed MongoDB -> FerretDB migration
+# is OLDER than the MongoDB data it was made from, i.e. MongoDB has been written
+# to since. Exit 1 when it is current, when there is no completed migration, or
+# when it cannot be told.
+#
+# WHY THIS EXISTS (wekan/wekan#6583: "Missing Data after Upgrade from v6").
+#
+# The migration copies MongoDB into FerretDB's SQLite and writes
+# .migration-to-ferretdb-done. That copy is a SNAPSHOT, taken once. Nothing keeps
+# it in step afterwards - so if MongoDB goes on being used after a migration
+# completed, the SQLite beside it silently falls behind, by as long as that goes
+# on.
+#
+# Which is exactly what a `snap revert` produces. Revert to a revision that runs
+# mongod and WeKan carries on writing to MongoDB, for days or weeks, while the
+# finished FerretDB copy sits frozen at the date it was made. Refresh forward
+# again and mongodb-control saw a marker plus a non-empty SQLite, called that a
+# completed migration and switched the snap to it - serving the frozen snapshot.
+# Every board, card and comment written since the migration was still on disk in
+# MongoDB and simply not being shown, which reads exactly like the reported
+# "changes made in recent days were lost ... the state of the data from days ago".
+#
+# The database directory is $SNAP_COMMON, which is shared across revisions and NOT
+# rolled back by `snap revert` - so the data was never in danger. What was wrong
+# was WHICH of the two copies got served, and nothing compared their ages.
+#
+# HOW IT DECIDES. mongod rewrites its WiredTiger files whenever it commits, so the
+# newest mtime under the data directory is when MongoDB was last written to. If
+# that is later than when the migration finished, the migration is stale.
+#
+# The margin exists because the migration itself touches MongoDB on the way out:
+# it starts a temporary mongod to read from and stops it again, and that shutdown
+# writes to the data directory a moment after the marker appears. A few minutes
+# of slack tells that apart from the case this is for, which is days or weeks.
+#
+# Usage:  ferretdb-migration-stale [data-dir] [sqlite-dir]
+# Env:    FERRETDB_STALE_MARGIN_SECONDS   default 600
+
+DBPATH="${1:-${SNAP_COMMON:-/var/snap/${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}/common}}"
+SQLITE_DIR="${2:-$DBPATH/files/db}"
+MARKER="$DBPATH/.migration-to-ferretdb-done"
+MARGIN="${FERRETDB_STALE_MARGIN_SECONDS:-600}"
+
+# No completed migration means nothing to be stale about. Both halves are needed:
+# the marker is also written when the migration finishes with no data at all.
+[ -f "$MARKER" ] || exit 1
+have_sqlite=1
+for f in "$SQLITE_DIR"/*.sqlite; do
+    if [ -f "$f" ] && [ -s "$f" ]; then have_sqlite=0; break; fi
+done
+[ "$have_sqlite" -eq 0 ] || exit 1
+
+mtime() { stat -c %Y "$1" 2>/dev/null || stat -f %m "$1" 2>/dev/null || echo ""; }
+
+marker_at="$(mtime "$MARKER")"
+case "$marker_at" in ''|*[!0-9]*) exit 1 ;; esac
+
+# The MongoDB data files, and only those: a log or a pid file in the same
+# directory is touched by starting the snap and says nothing about whether the
+# DATABASE was written to.
+newest=0
+newest_file=""
+for f in "$DBPATH"/WiredTiger "$DBPATH"/WiredTiger.wt "$DBPATH"/WiredTiger.turtle \
+         "$DBPATH"/_mdb_catalog.wt "$DBPATH"/sizeStorer.wt \
+         "$DBPATH"/collection-*.wt "$DBPATH"/index-*.wt \
+         "$DBPATH"/journal/WiredTigerLog.* ; do
+    [ -f "$f" ] || continue
+    m="$(mtime "$f")"
+    case "$m" in ''|*[!0-9]*) continue ;; esac
+    if [ "$m" -gt "$newest" ]; then newest="$m"; newest_file="$f"; fi
+done
+
+# No MongoDB data at all: a FerretDB-only install, nothing to be behind.
+[ "$newest" -gt 0 ] || exit 1
+
+if [ "$newest" -gt "$((marker_at + MARGIN))" ]; then
+    behind=$(( (newest - marker_at) / 86400 ))
+    echo "The FerretDB migration finished $(date -d "@$marker_at" '+%Y-%m-%d %H:%M' 2>/dev/null || echo "at $marker_at')")," >&2
+    echo "but MongoDB was written to as recently as $(date -d "@$newest" '+%Y-%m-%d %H:%M' 2>/dev/null || echo "$newest") ($(basename "$newest_file"))" >&2
+    echo "- about ${behind} day(s) later. The migrated copy is BEHIND the MongoDB data." >&2
+    exit 0
+fi
+exit 1

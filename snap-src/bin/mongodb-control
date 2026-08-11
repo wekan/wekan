@@ -220,6 +220,20 @@ MONGOD_FAIL_COUNT_FILE="${SNAP_COMMON}/.mongod-start-failures"
 # NOT switched to.) Returns 1 when there is no completed migration.
 switch_to_completed_ferretdb() {
     local svc="${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}"
+    # #6583: "completed" is not the same as "up to date". The migration is a
+    # SNAPSHOT and nothing keeps it in step, so if MongoDB went on being written
+    # to afterwards - which is what a `snap revert` to a mongod revision produces,
+    # for as long as the revert lasts - the SQLite beside it is behind by that
+    # much. Switching to it then serves data from the day the migration ran and
+    # hides everything since, which is not a lost database (it is all still in
+    # $SNAP_COMMON, which `snap revert` does not roll back) but is indistinguishable
+    # from one to the person looking at it.
+    if bash "$SNAP/bin/ferretdb-migration-stale" "$SNAP_COMMON" 2>&1; then
+        echo "NOT switching to FerretDB: the migrated copy is OLDER than the MongoDB data."
+        echo "MongoDB keeps serving, so the newest data is the data you see. To move to"
+        echo "FerretDB, migrate again so the copy is current:  snap run wekan.migrate"
+        return 1
+    fi
     if [ -f "$SNAP_COMMON/.migration-to-ferretdb-done" ] && \
        bash "$SNAP/bin/ferretdb-has-data" "$SNAP_COMMON/files/db" 2>/dev/null; then
         echo "A completed FerretDB migration exists; switching to database=ferretdb."
@@ -256,8 +270,35 @@ handle_mongod_start_failure() {
     # MongoDB → FerretDB migration. Re-enable and run it now (it RESUMES from its
     # checkpoint if one exists), unless it keeps failing too (counter guards
     # against a migration↔mongod restart loop).
-    if [ "$fails" -le 3 ] && [ ! -f "$SNAP_COMMON/.migration-to-ferretdb-done" ] && \
+    # ...or a migration that COMPLETED but has since fallen behind the MongoDB data
+    # (#6583). mongod cannot start, so keeping MongoDB is not on offer here and the
+    # only two outcomes are a FRESH copy or a stale one. Migrate again: the
+    # migration reads the data with its own temporary mongod and the 4.2/3.2
+    # readers, none of which is the mongod that just failed, so it can still reach
+    # everything written since. Serving the stale copy instead would show data from
+    # the day it ran and say nothing about it.
+    local stale_migration=1
+    if [ -f "$SNAP_COMMON/.migration-to-ferretdb-done" ] && \
+       bash "$SNAP/bin/ferretdb-migration-stale" "$SNAP_COMMON" 2>/dev/null; then
+        stale_migration=0
+    fi
+    if [ "$fails" -le 3 ] && \
+       { [ ! -f "$SNAP_COMMON/.migration-to-ferretdb-done" ] || [ "$stale_migration" -eq 0 ]; } && \
        { [ -f "$SNAP_COMMON/WiredTiger" ] || ls "$SNAP_COMMON"/collection-*.wt >/dev/null 2>&1; }; then
+        if [ "$stale_migration" -eq 0 ]; then
+            # A stale migration has to be RESTARTED, not resumed. migration-control
+            # exits immediately while the marker is there ("already handled"), and
+            # the checkpoint plus the old SQLite describe a finished copy of
+            # last month's data - resuming onto that would keep every row the
+            # revert period added out of it. Clear the three things that say
+            # "already done" so the migration reads MongoDB again from the start.
+            # The MongoDB data itself is never touched, here or by the migration.
+            echo "The completed FerretDB migration is older than the MongoDB data; migrating again from scratch so nothing written since is left out."
+            rm -f "$SNAP_COMMON/.migration-to-ferretdb-done"
+            rm -f "$SNAP_COMMON/migration-progress.json"
+            rm -f "$SNAP_COMMON/.attachments-files-v2-done"
+            rm -rf "${SNAP_COMMON:?}/files/db/"* 2>/dev/null || true
+        fi
         echo "mongod cannot serve this data; running the MongoDB -> FerretDB migration instead (attempt ${fails}/3)."
         snapctl set migrate=on 2>/dev/null || true
         rm -f "${SNAP_COMMON}/mongodb.pid"

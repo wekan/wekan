@@ -76,6 +76,34 @@ if [ "ferretdb" = "$DATABASE" ] && [ "$ferretdb_has_data" != "true" ] && [ "$mon
     snapctl set database=mongodb 2>/dev/null || true
 fi
 
+# SAFETY, the second half (#6583): never serve a FerretDB copy that is OLDER than the
+# MongoDB data sitting beside it. The guard above catches an EMPTY FerretDB; this
+# catches a FULL but out-of-date one, which looks worse - WeKan comes up, boards and
+# cards are all there, and only the last weeks of work are missing, so it reads as
+# data loss rather than as a misconfiguration.
+#
+# It gets that way because the migration is a snapshot and nothing keeps it in step.
+# `snap revert` to a revision that runs mongod, carry on using WeKan for a month, and
+# the finished SQLite is a month behind; refresh forward and it would be served.
+# Nothing is lost either way - $SNAP_COMMON is shared across revisions and is not
+# rolled back by a revert, so the MongoDB data is still there - so the right move is
+# simply to serve the newer of the two and say why.
+if [ "ferretdb" = "$DATABASE" ] && [ "$mongodb_has_data" = "true" ] && \
+   bash "$SNAP/bin/ferretdb-migration-stale" "$SNAP_COMMON" 2>/dev/null; then
+    echo "========================================================================"
+    echo "WeKan: the FerretDB database in $FERRETDB_SQLITE_DIR was migrated from MongoDB,"
+    echo "but the MongoDB data has been written to SINCE that migration - so the migrated"
+    echo "copy is missing everything added after it, and serving it would look like those"
+    echo "changes were lost. They are not: they are in the MongoDB data in $SNAP_COMMON,"
+    echo "which 'snap revert' does not roll back."
+    echo ""
+    echo "Staying on database=mongodb, which has the newest data. To move to FerretDB,"
+    echo "migrate again so the copy is current:  snap run ${WEKAN_SNAP_SVC:-wekan}.migrate"
+    echo "========================================================================"
+    export DATABASE="mongodb"
+    snapctl set database=mongodb 2>/dev/null || true
+fi
+
 # Bring up the chosen database service and stop the other, so exactly one runs on the
 # shared port and WeKan does not wait forever for a stopped service. snapctl start --enable
 # = snap enable + snap start; targets the snap INSTANCE name so parallel snaps hit their own.
