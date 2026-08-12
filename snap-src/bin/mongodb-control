@@ -284,6 +284,20 @@ handle_mongod_start_failure() {
         echo "qemu-user was available to emulate it (see cpu-exec in the log above)."
         echo "FerretDB (pure Go + SQLite) has no such CPU requirements and is the supported fallback."
     fi
+    if [ "$rc" -eq 134 ]; then
+        # An upgrade report: an admin restored a dump into the new snap, then copied
+        # the WHOLE old common directory back on top of it ("cp -pR /root/common/*
+        # /var/snap/wekan/common/") to get their attachments. That replaced the data
+        # files mongod had open, mongod aborted seconds later, and after the restart
+        # every board was gone. The abort is all the log shows, so say what it
+        # usually means - docs/Backup/Backup.md says which directory to copy back.
+        echo "Exit 134 = SIGABRT: mongod aborted. The usual cause is the data directory being"
+        echo "changed underneath a RUNNING mongod - typically an old backup copied on top of it,"
+        echo "e.g. 'cp -pR /root/common/* $SNAP_COMMON/'. Only the 'files' directory (attachments"
+        echo "and avatars) may be copied back like that; the raw database files (*.wt, WiredTiger*,"
+        echo "_mdb_catalog.wt, sizeStorer.wt, storage.bson, mongod.lock, journal/) must not be."
+        echo "If that is what happened, restore your dump again:  snap run ${SNAP_INSTANCE_NAME:-wekan}.database-restore <archive>"
+    fi
     echo "Last mongod log lines:"
     tail -n 5 "$MONGO_LOG_FILE" 2>/dev/null || true
 

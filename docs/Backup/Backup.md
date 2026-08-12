@@ -106,7 +106,24 @@ mv /var/snap/wekan/common/* /root/common/
 sudo snap refresh wekan --channel=latest/candidate --amend
 ```
 5. [Restore Snap](#restore-wekan-snap)
-6. Copy back files directory, if it is there: `sudo cp -pR /root/common/files /var/snap/wekan/common/`
+6. Copy back **only the `files` directory**, if it is there — that is the attachments
+   and avatars, which live on disk and are not in the database:
+   `sudo cp -pR /root/common/files /var/snap/wekan/common/`
+
+   **Do NOT copy the rest of `/root/common` back.** Step 3 moved the whole directory
+   aside, so `cp -pR /root/common/* /var/snap/wekan/common/` looks like the obvious
+   way to undo it — and it is the one command here that destroys the database you
+   have just restored. Everything beside `files` is the OLD raw database
+   (`*.wt`, `WiredTiger*`, `_mdb_catalog.wt`, `sizeStorer.wt`, `storage.bson`,
+   `mongod.lock`, `journal/`), and dropping those on top of a RUNNING MongoDB
+   replaces the files it has open underneath it: mongod aborts (`SIGABRT`,
+   `status=134/n/a` in `snap logs wekan.mongodb`), and when the snap restarts, the
+   boards restored in step 5 are gone. Nothing is recoverable from that except your
+   backup, which is why step 2 exists.
+
+   The old database directory is only ever put back as a WHOLE, onto a STOPPED snap,
+   with the current contents removed first — that is the "going back to 6.09"
+   procedure below, and it is a different operation from this step.
 7. If you use [Caddy](../Webserver/Caddy.md), that is included in WeKan, edit /var/snap/wekan/Caddyfile to new syntax:
 ```
 wekan.yourcompany.com {
