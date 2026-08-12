@@ -260,15 +260,31 @@ test('wekan-control keeps MongoDB when the migrated copy is behind it', () => {
     'message reads as a report of data loss');
 });
 
-test('wekan-control switches NOTHING when both databases have been used', () => {
+test('wekan-control never switches on a GUESS when both databases have been used', () => {
+  // What changed, and why the assertion did with it: this branch used to do
+  // nothing but print, because the only evidence it had was mtimes and an mtime
+  // cannot tell a used database from a started one. It now asks
+  // bin/database-autopick, which READS both databases - counts and the newest
+  // moment their data carries - and serves the copy holding the work, merging the
+  // other copy's documents into it insert-only so nothing is stranded or
+  // overwritten (#6585 follow-up, and an email report of users unable to log in
+  // and boards missing on an instance that was being served the older copy).
+  //
+  // The rule this test protects is unchanged: no switch on a guess. So what is
+  // pinned is that this branch does not set the database ITSELF from the mtime
+  // verdict, and that when autopick declines - too close to call, nothing
+  // readable - the admin still gets both commands.
   const at = wekanControl.indexOf('migration_stale_rc" -eq 2');
   assert.ok(at !== -1, 'the ambiguous case needs a branch of its own');
-  const branch = wekanControl.slice(at, wekanControl.indexOf('-eq 0', at));
+  const branch = wekanControl.slice(at, wekanControl.indexOf('if [ "ferretdb" = "$DATABASE" ]', at));
   assert.ok(!/snapctl set database=/.test(branch),
-    'switching on a guess between two databases that both hold work is the bug ' +
-    'this whole guard exists to prevent - in either direction');
+    'this branch must not choose from the timestamps it has - that is the bug ' +
+    'this whole guard exists to prevent, in either direction');
+  assert.ok(/bin\/database-autopick/.test(branch),
+    'the choice is delegated to the one thing that can make it: what is IN the ' +
+    'two databases');
   assert.ok(/database=mongodb/.test(branch) && /database=ferretdb/.test(branch),
-    'it has to hand the admin both commands, since only they can tell which is which');
+    'and when even that cannot tell them apart, the admin gets both commands');
 });
 
 test('the detector ships inside the snap', () => {

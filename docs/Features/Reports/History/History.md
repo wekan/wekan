@@ -293,6 +293,62 @@ each knows how to re-apply its own `previousContent`.
 - No client-exposed update/delete on `cardGroupHistory` (append-only invariant).
 - Retention cap per card/board via a server cron (reuse the `userPositionHistory.cleanup` pattern).
 
+## 9a. Append-only is what makes two copies of a database mergeable
+
+This section is here because the snap now depends on it (#6583, #6585). It is a
+consequence of section 9's invariant, not a new rule.
+
+**The situation.** A WeKan snap can end up holding TWO copies of its data that
+have both been written to since they were copies of each other: the MongoDB to
+FerretDB migration is a snapshot and nothing keeps it in step, `snap revert` does
+not roll back `$SNAP_COMMON`, and `snap set wekan database=...` can be switched
+back and forth. Which copy gets served then decides what a user sees, and getting
+it wrong looks exactly like data loss — that is what both of those issues were.
+
+**Why history decides it.** File timestamps cannot answer "which copy holds the
+work": an mtime says when a file was touched, and merely starting a database
+touches its files. The DATA can answer it, and history is the part of the data
+that answers it best — every change a user makes writes a row, so the newest
+history row is the newest moment somebody was actually working, on either side.
+`snap-src/bin/db-eval.mjs evidence` reads exactly that (per-collection counts plus
+the newest timestamp any document carries) and `snap-src/bin/database-choose.mjs`
+compares the two.
+
+**Why the other copy is not lost.** Because history is APPEND-ONLY — never
+rewritten in place, never updated, only added to — rows from one copy can be
+inserted into the other without contradicting anything already there. So the snap
+serves the copy holding the newer work and copies into it every document whose
+`_id` is ABSENT from it (`snap-src/bin/database-merge-missing.mjs`):
+
+- nothing that exists in the served copy is overwritten, so the newer version of
+  a card that was edited on both sides stands;
+- nothing is deleted, on either side, and the copy that was not chosen stays on
+  disk — switching back is still one `snap set` away;
+- the activities, comments and (once this design ships) `changeHistory` rows
+  written on the other copy become part of the served copy's history, so the work
+  done there is READABLE IN THE CARD'S HISTORY rather than stranded in a database
+  nobody opens.
+
+**What is deliberately not attempted.** Reconciling two edits of the same field —
+a three-way merge — is a decision about somebody's work and is not made by a
+script. When the two copies cannot be told apart (their newest moments are within
+hours of each other, or neither carries a timestamp), the snap changes nothing and
+says so, which is the behaviour #6583 arrived at the hard way.
+
+**What this design owes the snap**, when it ships:
+
+1. Every `changeHistory` row keeps a stable, content-derived or random `_id` that
+   is never reused, so "absent by `_id`" is a safe test for "this row is not here".
+2. Rows stay immutable after insert (section 9 already requires this); a row that
+   could be updated in place would make two copies of it disagree, and the merge
+   would then have to choose between them.
+3. The retention cron prunes by age, not by rewriting rows, so a pruned copy and a
+   full copy merge to the full one rather than to a contradiction.
+4. `changeHistory` is listed in the merge's collection list
+   (`MERGE_COLLECTIONS` in `snap-src/bin/database-choose.mjs`) the moment the
+   collection exists — the list is the only place the snap learns which
+   collections carry history.
+
 ## 10. Phasing (each phase verified live before the next)
 
 1. **`changeHistory` model + write helper + pure helpers (paging/search/selection/pick undo-redo) +

@@ -17,6 +17,7 @@
 //   rs-reconfig <url> <host>  force replSetReconfig rs0 to a single member <host>
 //   shutdown <url>            best-effort admin shutdownServer
 //   product-name <url>        print the Admin Panel product name (settings.productName), if set
+//   evidence <url>            print JSON: per-collection counts + the newest timestamp in the data
 
 // Resolve the mongodb driver via createRequire (CommonJS), NOT a bare ESM
 // `import { MongoClient } from 'mongodb'`. Node's ESM loader IGNORES NODE_PATH, but the
@@ -127,6 +128,55 @@ try {
           console.log(doc.productName.trim());
         }
       } catch { /* ignore — leave output empty */ }
+      code = 0;
+      break;
+    }
+    case 'evidence': {
+      // #6583/#6585: WHICH of two databases holds the work. When both MongoDB and
+      // the migrated FerretDB have been written to since the migration, a file
+      // timestamp cannot answer that - it says when a file was touched, not what
+      // is in it. This asks the database itself, and prints JSON for
+      // bin/database-choose.mjs to compare:
+      //
+      //   counts   documents per collection, so "one side has everything the
+      //            other has, and more" can be recognised
+      //   newest   the newest timestamp any of them carries, so "which one has
+      //            been used more recently" is answered by DATA rather than by
+      //            an mtime that a service start also moves
+      //
+      // Read-only, and bounded: countDocuments plus one indexed-ish sort per
+      // timestamped collection.
+      const db = client.db('wekan');
+      const out = { counts: {}, newest: null, newestFrom: null };
+      const COLLECTIONS = ['boards', 'lists', 'swimlanes', 'cards', 'checklists',
+        'checklistItems', 'card_comments', 'activities', 'users', 'attachments'];
+      for (const name of COLLECTIONS) {
+        try { out.counts[name] = await db.collection(name).countDocuments(); }
+        catch { /* a collection that does not exist counts as absent, not as 0 */ }
+      }
+      // The newest moment either database can show. dateLastActivity is what the
+      // board view sorts by; createdAt covers a database whose cards predate it.
+      const TIMESTAMPS = [
+        ['cards', 'dateLastActivity'], ['cards', 'modifiedAt'], ['cards', 'createdAt'],
+        ['activities', 'createdAt'], ['card_comments', 'createdAt'],
+        ['checklists', 'createdAt'], ['boards', 'modifiedAt'],
+      ];
+      for (const [name, field] of TIMESTAMPS) {
+        try {
+          const doc = await db.collection(name)
+            .find({ [field]: { $type: 'date' } }, { projection: { [field]: 1 } })
+            .sort({ [field]: -1 }).limit(1).next();
+          const value = doc && doc[field];
+          if (value instanceof Date && !Number.isNaN(value.getTime())) {
+            const ms = value.getTime();
+            if (out.newest === null || ms > out.newest) {
+              out.newest = ms;
+              out.newestFrom = `${name}.${field}`;
+            }
+          }
+        } catch { /* absent collection or field: nothing to learn here */ }
+      }
+      console.log(JSON.stringify(out));
       code = 0;
       break;
     }

@@ -140,12 +140,37 @@ if [ "$mongodb_has_data" = "true" ] && [ "$migration_stale_rc" -eq 2 ]; then
     echo "WeKan: BOTH databases have been written to since the migration."
     echo "$migration_stale_why"
     echo ""
-    echo "Staying on database=${DATABASE} - the setting you already have - because"
-    echo "switching on a guess is how the wrong one gets served. To compare them,"
-    echo "start each in turn and look:"
-    echo "  sudo snap set ${WEKAN_SNAP_SVC:-wekan} database=mongodb    # then look at the boards"
-    echo "  sudo snap set ${WEKAN_SNAP_SVC:-wekan} database=ferretdb   # then look again"
-    echo "Neither is deleted by choosing the other, and both live in $SNAP_COMMON."
+    # A timestamp cannot answer this, but the DATABASES can: bin/database-autopick
+    # starts each one on a temporary port, counts what is in it and finds the newest
+    # moment its data carries, and serves the copy that holds the work. Where both
+    # hold something the other does not, the documents that exist only in the other
+    # one are copied across - inserting what is missing, overwriting nothing - so
+    # WeKan's append-only history (docs/Features/Reports/History/History.md) carries
+    # the work done on the copy that is not being served into the card History of
+    # the one that is, instead of leaving it in a database nobody opens.
+    #
+    # Nothing is deleted on either side and the other copy stays on disk, so the
+    # admin can still switch, and now it is a choice rather than a repair. When the
+    # two cannot be told apart from their contents either, autopick changes nothing
+    # and the explanation below stands - that case is a decision about somebody's
+    # work, and #6583 is what guessing at it costs.
+    autopick_rc=1
+    if [ -x "$SNAP/bin/database-autopick" ] || [ -f "$SNAP/bin/database-autopick" ]; then
+        bash "$SNAP/bin/database-autopick" && autopick_rc=0
+    fi
+    if [ "$autopick_rc" -eq 0 ]; then
+        # The setting has just changed underneath us; re-read it so this start
+        # brings up the database that was chosen rather than the previous one.
+        DATABASE="$(snapctl get database 2>/dev/null || echo "$DATABASE")"
+        echo "WeKan: continuing on database=${DATABASE}, chosen from what the databases hold."
+    else
+        echo "Staying on database=${DATABASE} - the setting you already have - because"
+        echo "switching on a guess is how the wrong one gets served. To compare them,"
+        echo "start each in turn and look:"
+        echo "  sudo snap set ${WEKAN_SNAP_SVC:-wekan} database=mongodb    # then look at the boards"
+        echo "  sudo snap set ${WEKAN_SNAP_SVC:-wekan} database=ferretdb   # then look again"
+        echo "Neither is deleted by choosing the other, and both live in $SNAP_COMMON."
+    fi
     echo "========================================================================"
 fi
 if [ "ferretdb" = "$DATABASE" ] && [ "$mongodb_has_data" = "true" ] && [ "$migration_stale_rc" -eq 0 ]; then

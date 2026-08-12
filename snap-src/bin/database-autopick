@@ -1,0 +1,199 @@
+#!/bin/bash
+# database-autopick — when the snap has TWO copies of its data and both have been
+# written to, pick the one to serve by looking INSIDE them, bring across what only
+# exists in the other, and leave the admin nothing to type.
+#
+# THE SITUATION. #6583 and #6585 are the same accident from opposite ends: a snap
+# serving a copy of its own data instead of the data. The migration to FerretDB is
+# a snapshot, `snap revert` does not roll back $SNAP_COMMON, and the database
+# setting can be switched by hand - so an instance can end up with a MongoDB and a
+# FerretDB that have BOTH been used since they were copies of each other.
+#
+# bin/ferretdb-migration-stale answers that from file timestamps, and an mtime
+# cannot tell "somebody used this database" from "this database was started". When
+# both look used it says AMBIGUOUS, and until now that meant a message in
+# `snap logs` telling the admin to run `snap set wekan database=...` twice and look
+# at the boards each time. Most people never read it, and their site is meanwhile
+# showing the wrong copy.
+#
+# WHAT THIS DOES INSTEAD. Both copies can be read - so read them. Each database is
+# started on a temporary port, `db-eval evidence` counts its documents and finds
+# the newest timestamp any of them carries, and bin/database-choose.mjs decides:
+#
+#   * one side holds everything the other does (and is not older) -> serve it;
+#   * both hold work the other does not, and one is clearly newer -> serve the
+#     newer one AND copy the documents that exist only in the older one into it,
+#     inserting what is missing and overwriting nothing
+#     (bin/database-merge-missing.mjs);
+#   * too close to call, or nothing to compare -> change NOTHING and let the
+#     existing message stand, because that case is a decision about somebody's
+#     work.
+#
+# The merge is what makes this safe to do automatically, and WeKan's own design is
+# what makes the merge safe: the history is append-only
+# (docs/Features/Reports/History/History.md), so the activities, comments and
+# change-history rows from the copy that is not being served are ADDED to the one
+# that is. The work done there stops being stranded in a database nobody opens and
+# becomes readable in the card's History.
+#
+# Nothing is ever deleted, on either side, and the copy that was not chosen stays
+# on disk exactly as it was - so `snap set wekan database=<the other one>` is still
+# the way back, and it is now a choice rather than a repair.
+#
+# Usage:  database-autopick [--dry-run]
+# Exit:   0 a choice was made (and applied unless --dry-run), 1 nothing was changed
+# Env:    WEKAN_AUTOPICK=false            do not choose automatically at all
+#         AUTOPICK_MERGE_LIMIT            max documents to copy (default 200000)
+
+DRY_RUN=false
+[ "${1:-}" = "--dry-run" ] && DRY_RUN=true
+
+log() { echo "[autopick] $*"; }
+
+if [ "${WEKAN_AUTOPICK:-true}" != "true" ]; then
+  log "automatic database choice is off (WEKAN_AUTOPICK=${WEKAN_AUTOPICK}); nothing done."
+  exit 1
+fi
+
+SNAP_COMMON="${SNAP_COMMON:-/var/snap/${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}/common}"
+DBPATH="$SNAP_COMMON"
+SQLITE_DIR="$SNAP_COMMON/files/db"
+NODE="$SNAP/bin/node"
+FERRETDB="$SNAP/ferretdb"
+MONGO_PORT=27097          # temporary, and not the port either service uses
+FERRET_PORT=27096
+MONGO_URL="mongodb://127.0.0.1:$MONGO_PORT/wekan?directConnection=true"
+FERRET_URL="mongodb://127.0.0.1:$FERRET_PORT/wekan"
+LOGF="$SNAP_COMMON/database-autopick.log"
+PIDFILE="$SNAP_COMMON/database-autopick-mongod.pid"
+MERGE_LIMIT="${AUTOPICK_MERGE_LIMIT:-200000}"
+
+MONGOD_PID=""
+FERRET_PID=""
+cleanup() {
+  if [ -f "$PIDFILE" ]; then
+    p="$(cat "$PIDFILE" 2>/dev/null)"
+    [ -n "$p" ] && { kill "$p" 2>/dev/null || true; sleep 1; kill -9 "$p" 2>/dev/null || true; }
+    rm -f "$PIDFILE"
+  fi
+  [ -n "$FERRET_PID" ] && kill "$FERRET_PID" 2>/dev/null || true
+}
+trap cleanup EXIT INT TERM
+
+have_mongo_data() { [ -f "$DBPATH/WiredTiger" ] || ls "$DBPATH"/collection-*.wt >/dev/null 2>&1; }
+have_ferret_data() { bash "$SNAP/bin/ferretdb-has-data" "$SQLITE_DIR" 2>/dev/null; }
+
+# Read one database's evidence, starting it on a temporary port first. Prints the
+# JSON, or nothing when the database cannot be read - which the caller treats as
+# "no evidence", never as "empty".
+evidence_from_mongodb() {
+  have_mongo_data || return 1
+  rm -f "$PIDFILE"
+  # The same cpu-exec + fork + pidfile shape migration-control uses, so a mongod
+  # that cannot run on this CPU is emulated rather than SIGILL, and a mongod left
+  # behind cannot hold the dbpath lock against the real service.
+  bash "$SNAP/bin/cpu-exec" --features "x86_64=avx,aarch64=atomics" "$SNAP/bin/mongod" \
+    --dbpath "$DBPATH" --bind_ip 127.0.0.1 --port "$MONGO_PORT" \
+    --logpath "$LOGF" --logappend --fork --pidfilepath "$PIDFILE" >/dev/null 2>&1 || return 1
+  local i=0
+  while [ $i -lt 30 ]; do
+    bash "$SNAP/bin/db-eval" ping "$MONGO_URL" >/dev/null 2>&1 && break
+    i=$((i + 1)); sleep 1
+  done
+  [ $i -lt 30 ] || return 1
+  bash "$SNAP/bin/db-eval" evidence "$MONGO_URL" 2>/dev/null
+  local rc=$?
+  bash "$SNAP/bin/db-eval" shutdown "$MONGO_URL" >/dev/null 2>&1 || true
+  sleep 1
+  cleanup
+  return $rc
+}
+
+evidence_from_ferretdb() {
+  have_ferret_data || return 1
+  DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable "$FERRETDB" --handler=sqlite \
+    --sqlite-url="file:$SQLITE_DIR/" --listen-addr="127.0.0.1:$FERRET_PORT" \
+    --telemetry=disable >>"$LOGF" 2>&1 &
+  FERRET_PID=$!
+  local i=0
+  while [ $i -lt 30 ]; do
+    bash "$SNAP/bin/db-eval" ping "$FERRET_URL" >/dev/null 2>&1 && break
+    i=$((i + 1)); sleep 1
+  done
+  [ $i -lt 30 ] || { kill "$FERRET_PID" 2>/dev/null; FERRET_PID=""; return 1; }
+  bash "$SNAP/bin/db-eval" evidence "$FERRET_URL" 2>/dev/null
+  local rc=$?
+  kill "$FERRET_PID" 2>/dev/null || true
+  FERRET_PID=""
+  sleep 1
+  return $rc
+}
+
+if [ ! -x "$NODE" ] || [ ! -x "$FERRETDB" ]; then
+  log "the bundled node or ferretdb is missing; cannot read the databases."
+  exit 1
+fi
+
+log "reading both databases to see which one holds the work ..."
+MONGO_EVIDENCE="$(evidence_from_mongodb)" || MONGO_EVIDENCE=""
+FERRET_EVIDENCE="$(evidence_from_ferretdb)" || FERRET_EVIDENCE=""
+log "MongoDB:  ${MONGO_EVIDENCE:-<unreadable>}"
+log "FerretDB: ${FERRET_EVIDENCE:-<unreadable>}"
+
+DECISION="$(NODE_PATH="$SNAP/programs/server/node_modules" "$NODE" \
+  "$SNAP/bin/database-choose.mjs" "${MONGO_EVIDENCE:-null}" "${FERRET_EVIDENCE:-null}" 2>/dev/null)"
+CHOICE="$(printf '%s' "$DECISION" | sed -n 's/.*"choice":"\([a-z]*\)".*/\1/p')"
+MERGE_FROM="$(printf '%s' "$DECISION" | sed -n 's/.*"merge":"\([a-z]*\)".*/\1/p')"
+DETAIL="$(printf '%s' "$DECISION" | sed -n 's/.*"detail":"\([^"]*\)".*/\1/p')"
+
+if [ -z "$CHOICE" ]; then
+  log "no automatic choice: ${DETAIL:-the two databases cannot be told apart from their contents}."
+  log "Nothing has been changed. Both databases are still in $SNAP_COMMON."
+  exit 1
+fi
+
+log "choosing database=$CHOICE. $DETAIL"
+
+if [ -n "$MERGE_FROM" ]; then
+  log "copying the documents that exist only in $MERGE_FROM into $CHOICE (inserting what is missing, overwriting nothing) ..."
+  # Both databases have to be up at once for this one, on their temporary ports.
+  if have_mongo_data; then
+    rm -f "$PIDFILE"
+    bash "$SNAP/bin/cpu-exec" --features "x86_64=avx,aarch64=atomics" "$SNAP/bin/mongod" \
+      --dbpath "$DBPATH" --bind_ip 127.0.0.1 --port "$MONGO_PORT" \
+      --logpath "$LOGF" --logappend --fork --pidfilepath "$PIDFILE" >/dev/null 2>&1 || true
+  fi
+  DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable "$FERRETDB" --handler=sqlite \
+    --sqlite-url="file:$SQLITE_DIR/" --listen-addr="127.0.0.1:$FERRET_PORT" \
+    --telemetry=disable >>"$LOGF" 2>&1 &
+  FERRET_PID=$!
+  i=0
+  while [ $i -lt 30 ]; do
+    bash "$SNAP/bin/db-eval" ping "$MONGO_URL" >/dev/null 2>&1 \
+      && bash "$SNAP/bin/db-eval" ping "$FERRET_URL" >/dev/null 2>&1 && break
+    i=$((i + 1)); sleep 1
+  done
+  if [ $i -lt 30 ]; then
+    if [ "$MERGE_FROM" = "mongodb" ]; then SRC="$MONGO_URL"; TGT="$FERRET_URL";
+    else SRC="$FERRET_URL"; TGT="$MONGO_URL"; fi
+    MERGE_ARGS=(--limit "$MERGE_LIMIT")
+    [ "$DRY_RUN" = true ] && MERGE_ARGS+=(--dry-run)
+    SUMMARY="$(NODE_PATH="$SNAP/programs/server/node_modules" "$NODE" \
+      "$SNAP/bin/database-merge-missing.mjs" "$SRC" "$TGT" "${MERGE_ARGS[@]}" 2>&1)"
+    log "merge: $SUMMARY"
+  else
+    log "could not start both databases at once; nothing was merged and nothing was lost - the other copy is untouched in $SNAP_COMMON."
+  fi
+  bash "$SNAP/bin/db-eval" shutdown "$MONGO_URL" >/dev/null 2>&1 || true
+  cleanup
+fi
+
+if [ "$DRY_RUN" = true ]; then
+  log "--dry-run: database=$CHOICE was NOT set."
+  exit 0
+fi
+
+snapctl set database="$CHOICE" 2>/dev/null || true
+log "database=$CHOICE is now the one WeKan serves. The other copy is untouched;"
+log "switch back at any time with:  sudo snap set ${SNAP_INSTANCE_NAME:-wekan} database=$([ "$CHOICE" = mongodb ] && echo ferretdb || echo mongodb)"
+exit 0
