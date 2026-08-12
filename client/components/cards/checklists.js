@@ -8,6 +8,7 @@ import { BoardSwimlaneListCardDialog } from '/client/lib/dialogWithBoardSwimlane
 import { EscapeActions } from '/client/lib/escapeActions';
 import { Utils } from '/client/lib/utils';
 import autosize from 'autosize';
+import { isChecklistShownAtMinicard } from '/models/lib/minicardChecklistVisibility';
 
 // SubsManager removed for Meteor 3 migration
 const { calculateIndexData } = Utils;
@@ -297,6 +298,24 @@ Template.addChecklistItemForm.events({
   },
 });
 
+// The board default this checklist's own setting overrides. Read here rather than
+// in the model helper, because the model runs on the server too, where looking a
+// board up is asynchronous - and a Blaze helper has to answer now.
+function boardAllowsChecklistsOnMinicard(checklist) {
+  if (!checklist) return false;
+  const board = ReactiveCache.getBoard(checklist.boardId);
+  return !!(board && board.allowsChecklistsOnMinicard);
+}
+
+Template.checklistActionsPopup.helpers({
+  // What the "Show on minicard" switch draws: whether the checklist is on the
+  // minicard right now, board default included.
+  shownAtMinicard() {
+    const checklist = this.checklist;
+    return isChecklistShownAtMinicard(checklist, boardAllowsChecklistsOnMinicard(checklist));
+  },
+});
+
 Template.checklistActionsPopup.events({
   'click .js-delete-checklist': Popup.afterConfirm('checklistDelete', function () {
     Popup.back(2);
@@ -320,7 +339,12 @@ Template.checklistActionsPopup.events({
   },
   'click .js-show-checklist-at-minicard'(event) {
     event.preventDefault();
-    Template.currentData().checklist.toggleShowChecklistAtMinicard();
+    const checklist = Template.currentData().checklist;
+    // The board's setting is the default this one overrides, so the toggle has to
+    // flip what is ON SCREEN, not the raw field. Flipping the field is what made
+    // the first click do nothing while the board default was on (false -> true,
+    // still shown) - reported by email.
+    checklist.toggleShowChecklistAtMinicard(boardAllowsChecklistsOnMinicard(checklist));
     Popup.back();
   },
 });

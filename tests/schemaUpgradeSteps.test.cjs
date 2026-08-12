@@ -548,6 +548,45 @@ await test('board-permission-lowercase: PUBLIC boards become public again (batch
   assert.strictEqual(db._dump('boards')[1].permission, 'private', 'already-lowercase untouched');
 });
 
+// ── checklist-minicard-unset (email report: "Show on minicard" did nothing) ──
+// The old schema wrote showChecklistAtMinicard: false on every checklist, and the
+// minicard ORed it with the board default - so that false meant "follow the board".
+// It is an OVERRIDE now, so the same false would mean "hide this one", and leaving
+// the ones the default wrote would hide every checklist on every minicard: the
+// mirror image of the reported bug. They are cleared ONCE.
+const clUnsetStep = steps.find(s => s.name === 'checklist-minicard-unset');
+
+await test('checklist-minicard-unset: the old default is cleared, an explicit true is kept', async () => {
+  const db = fakeDb({
+    checklists: [
+      { _id: 'k1', showChecklistAtMinicard: false },  // written by the old default
+      { _id: 'k2', showChecklistAtMinicard: true },   // somebody asked for this one
+      { _id: 'k3' },                                  // already has no opinion
+    ],
+  });
+  assert.strictEqual(await clUnsetStep.check(db), true, 'the old default is detected');
+  const res = await clUnsetStep.run(db);
+  assert.strictEqual(res.fixed, 1, 'only the false is touched');
+  const by = id => db._dump('checklists').find(c => c._id === id);
+  assert.strictEqual('showChecklistAtMinicard' in by('k1'), false,
+    'cleared, so the checklist follows the board exactly as it did before');
+  assert.strictEqual(by('k2').showChecklistAtMinicard, true, 'an explicit yes is not data to clean up');
+  assert.strictEqual('showChecklistAtMinicard' in by('k3'), false);
+});
+
+await test('checklist-minicard-unset: runs ONCE EVER, so a later "hidden" survives the next release (negative)', async () => {
+  const db = fakeDb({ checklists: [{ _id: 'k1', showChecklistAtMinicard: false }] });
+  await clUnsetStep.run(db);
+  // After the step, a false is a CHOICE - somebody switched "Show on minicard" off.
+  // Every other step here may re-run on the next version because re-running changes
+  // nothing; this one would quietly put their checklist back on the minicard.
+  db._dump('checklists')[0].showChecklistAtMinicard = false;
+  assert.strictEqual(await clUnsetStep.check(db), false,
+    'the marker has to stop it, not the absence of matching documents');
+  assert.strictEqual(db._dump('checklists')[0].showChecklistAtMinicard, false,
+    'and the choice stands');
+});
+
 // ── nonfinite-sort-repair (#6481) ────────────────────────────────────────────
 // The global fakeDb JSON-clones documents, which turns Infinity/NaN into null,
 // so build a NON-cloning db here to keep the non-finite sorts intact and drive

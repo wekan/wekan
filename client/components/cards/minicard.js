@@ -7,6 +7,7 @@ import { Utils } from '/client/lib/utils';
 import ChecklistItems from '/models/checklistItems';
 import Cards from '/models/cards';
 import { resolveCoverId } from '/models/lib/linkedCardCover';
+import { isChecklistShownAtMinicard } from '/models/lib/minicardChecklistVisibility';
 import {
   parseChecklistItemTitles,
   buildChecklistItemPayload,
@@ -231,14 +232,13 @@ Template.minicard.helpers({
     const visibleChecklists = [];
 
     checklists.forEach(checklist => {
-      // Show checklist if either:
-      // 1. Board-wide setting is enabled, OR
-      // 2. This specific checklist has the setting enabled
-      // #5565: use the same board field the sidebar toggle writes
-      // (`allowsChecklistsOnMinicard`); this previously checked a different,
-      // UI-less field (`allowsChecklistAtMinicard`), so the board toggle to show
-      // checklists on minicards had no effect.
-      if (currentBoard.allowsChecklistsOnMinicard || checklist.showChecklistAtMinicard) {
+      // The board setting is the DEFAULT and the checklist's own setting is an
+      // OVERRIDE. This was an OR - board || checklist - and the board setting
+      // (`allowsChecklistsOnMinicard`, #5565) defaults to TRUE, so unchecking
+      // "Show on minicard" on a checklist could never hide it: reported by email
+      // with a screenshot of a checklist still on the minicard after the toggle
+      // was switched off. See models/lib/minicardChecklistVisibility.js.
+      if (isChecklistShownAtMinicard(checklist, currentBoard.allowsChecklistsOnMinicard)) {
         visibleChecklists.push(checklist);
       }
     });

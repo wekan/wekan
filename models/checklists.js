@@ -3,6 +3,10 @@ import { Mongo } from 'meteor/mongo';
 import { ReactiveCache, ReactiveMiniMongoIndex } from '/imports/reactiveCache';
 import Activities from '/models/activities';
 import ChecklistItems from '/models/checklistItems';
+import {
+  isChecklistShownAtMinicard,
+  toggledChecklistAtMinicard,
+} from '/models/lib/minicardChecklistVisibility';
 const { SimpleSchema } = require('/imports/simpleSchema');
 
 const Checklists = new Mongo.Collection('checklists');
@@ -92,10 +96,17 @@ Checklists.attachSchema(
     },
     showChecklistAtMinicard: {
       /**
-       * show this checklist on minicard?
+       * show this checklist on minicard? Unset = follow the board's
+       * allowsChecklistsOnMinicard default; true/false override it.
        */
+      // Reported by email: unchecking "Show on minicard" did nothing. It could not
+      // do anything - the minicard ORed this with the board default, which is TRUE
+      // out of the box, so the only value that ever mattered was the board's. This
+      // is an OVERRIDE now, and an override needs a third state: with
+      // `defaultValue: false` every checklist was born "hidden", making "hidden"
+      // and "not chosen" the same value. See models/lib/minicardChecklistVisibility.js.
       type: Boolean,
-      defaultValue: false,
+      optional: true,
     },
   }),
 );
@@ -228,9 +239,20 @@ Checklists.helpers({
       $set: { hideAllChecklistItems: !this.hideAllChecklistItems },
     });
   },
-  async toggleShowChecklistAtMinicard() {
+  // Is this checklist on the minicard right now? The board's
+  // allowsChecklistsOnMinicard is the default and this checklist's own field, when
+  // it has one, overrides it (models/lib/minicardChecklistVisibility.js). The
+  // caller passes the board's value: this runs in client templates, where a
+  // synchronous answer is needed.
+  isShownAtMinicard(boardAllowsChecklistsOnMinicard) {
+    return isChecklistShownAtMinicard(this, boardAllowsChecklistsOnMinicard);
+  },
+  async toggleShowChecklistAtMinicard(boardAllowsChecklistsOnMinicard) {
     return await Checklists.updateAsync(this._id, {
-      $set: { showChecklistAtMinicard: !this.showChecklistAtMinicard },
+      $set: {
+        showChecklistAtMinicard:
+          toggledChecklistAtMinicard(this, boardAllowsChecklistsOnMinicard),
+      },
     });
   },
 });
