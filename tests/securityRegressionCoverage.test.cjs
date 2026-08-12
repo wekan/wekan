@@ -61,6 +61,11 @@ const GUARDED = {
   exportbleed: ['tests/exportHTMLXss.test.cjs'],
   followbleed: ['tests/followbleed.test.cjs'],
   identitybleed: ['tests/noIdentityReplacement.test.cjs'],
+  // Moved up from RECORDED: the guard is repo-wide rather than per-site - every
+  // place that folds random bytes onto an alphabet has to reject the bytes that
+  // would bias it, and every file that makes a secret has to use a cryptographic
+  // source. That is what RandomBleed (CWE-1204) was.
+  randombleed: ['tests/fixedVulnerabilityClasses.test.cjs'],
   impersonatebleed: ['tests/securityMeifukun.test.cjs'],
   integrationbleed: ['server/lib/tests/dnsbleed.security.tests.js'],
   invitebleed: ['tests/securityMeifukun.test.cjs'],
@@ -124,7 +129,6 @@ const RECORDED = {
   invisiblebleed: 'HTML comments were not visible in rendered content; predates the *bleed test suites',
   ldapbleed: 'LDAP TLS certificate validation off by default; needs an LDAP stack to test',
   megableed: 'IDOR in setCreateTranslation; needs a DDP method test',
-  randombleed: 'modulo bias on crypto.randomBytes (CWE-1204); tests/securityMeifukun.test.cjs touches randomBytes but guards invitebleed, not this',
   reactionbleed: 'XSS in comment reactions; predates the *bleed test suites - note the reaction OWNERSHIP hole found in this round is a different bug and is guarded by tests/reactionOwnership.test.cjs',
   readonlybleed: 'read-only members could write Custom Fields; needs a permissions test',
   scannerbleed: 'CVE-2026-68560 shell injection via an upload filename in the antivirus scanner command; needs a source guard on the command path',
@@ -206,7 +210,10 @@ test('the gap list may not grow', () => {
   // Publishing a vulnerability with neither a test nor a note must fail here.
   // Lower this number when a gap is closed; raising it is the thing this guard
   // exists to make deliberate.
-  assert.strictEqual(Object.keys(RECORDED).length, 25,
+  // 25 -> 24: randombleed moved to GUARDED when the repo-wide class guard
+  // (tests/fixedVulnerabilityClasses.test.cjs) started holding the rejection
+  // sampling that CWE-1204 was about, everywhere rather than in one file.
+  assert.strictEqual(Object.keys(RECORDED).length, 24,
     'the number of published vulnerabilities with no regression test changed');
 });
 

@@ -74,4 +74,43 @@ test('$where inside $elemMatch is rejected', () => {
   );
 });
 
+// #6588-class follow-up, found by tests/fixedVulnerabilityClasses.test.cjs asking
+// whether a fixed mistake exists anywhere else: $where was never the only way a
+// FIND filter can run JavaScript. MongoDB 4.4+ takes an aggregation expression in
+// a find filter, and $function there runs a JavaScript body with arguments - the
+// same capability through the same client-supplied selector.
+test('$expr + $function is rejected - the modern spelling of $where', () => {
+  assert.strictEqual(
+    hasWhere({ $expr: { $function: { body: 'function(){ return true }', args: [], lang: 'js' } } }),
+    true,
+  );
+});
+test('$accumulator is rejected too', () => {
+  assert.strictEqual(hasWhere({ x: { $accumulator: { init: 'function(){}', lang: 'js' } } }), true);
+});
+test('$function nested in an array element is rejected', () => {
+  assert.strictEqual(
+    hasWhere({ $or: [{ a: 1 }, { $expr: { $eq: [{ $function: { body: 'x' } }, 1] } }] }),
+    true,
+  );
+});
+test('a field literally named function or accumulator is safe (negative)', () => {
+  // No $, no execution: these are ordinary field names a board could really use.
+  assert.strictEqual(hasWhere({ function: 'value', accumulator: 2 }), false);
+  assert.strictEqual(hasWhere({ meta: { function: { body: 'not an operator' } } }), false);
+});
+test('$expr WITHOUT a code operator is still safe (negative)', () => {
+  // $expr on its own is ordinary comparison, and refusing it would break honest
+  // queries - what is refused is the code body inside it.
+  assert.strictEqual(hasWhere({ $expr: { $gt: ['$spent', '$budget'] } }), false);
+});
+test('a selector that refers to itself does not hang the check (negative)', () => {
+  const cyclic = { a: 1 };
+  cyclic.self = cyclic;
+  assert.strictEqual(hasWhere(cyclic), false);
+  const cyclicEvil = { $and: [{ $where: 'x' }] };
+  cyclicEvil.self = cyclicEvil;
+  assert.strictEqual(hasWhere(cyclicEvil), true);
+});
+
 console.log(`\nmongoSelectorSafety: ${passed} tests passed`);
