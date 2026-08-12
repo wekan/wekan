@@ -276,7 +276,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.85 2026-08-12 WeKan ® release
 
 **In short:** one fix, and it is to the **browser console** rather than to
 anything a user sees. Firefox logged a warning for every **Font Awesome** glyph
