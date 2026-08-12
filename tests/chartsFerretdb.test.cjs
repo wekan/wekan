@@ -170,6 +170,55 @@ test('upgrading from the MongoDB chart does not lose the old database', () => {
     'the README has to say both ways out: keep the MongoDB, or move the data');
 });
 
+test('every FerretDB-specific setting says what it would be on MongoDB', () => {
+  // Somebody reading values.yaml is usually deciding between the two, or moving
+  // from one to the other. The comparison belongs where they are editing, not
+  // only in a README - and each pairing here is a real difference between
+  // WeKan's own docker-compose.yml and docker-compose-mongodb-v7.yml.
+  const values = read('values.yaml');
+  const envBlock = values.slice(values.indexOf('\nenv:'), values.indexOf('## EVERY OTHER SETTING'));
+  for (const [setting, mongoValue] of [
+    ['METEOR_REACTIVITY_ORDER', 'changeStreams,oplog,polling'],
+    ['DDP_TRANSPORT', 'uws'],
+    ['MONGO_URL', 'mongodb://wekandb:27017/wekan'],
+    ['MONGO_OPLOG_URL', 'replicaSet=rs0'],
+  ]) {
+    assert.ok(envBlock.includes(setting), `${setting} is not discussed at all`);
+    assert.ok(envBlock.includes(mongoValue),
+      `${setting} does not say what it is on MongoDB (expected to find ${mongoValue})`);
+  }
+  assert.ok(/ON MONGODB/.test(envBlock),
+    'the MongoDB side has to be labelled, or the reader has to guess which value is which');
+  assert.ok(/docker-compose-mongodb-v7\.yml/.test(values),
+    'and the file those values come from must be named');
+});
+
+test('the MongoDB image the chart used to install is still named', () => {
+  // For anyone reading an older values.yaml, or going back to it: the chart
+  // installed Docker Hub's official mongo image, pinned to 7 because WeKan needs
+  // 7. That is not obvious from a chart that no longer mentions MongoDB.
+  const statefulset = read('templates/ferretdb-statefulset.yaml');
+  const values = read('values.yaml');
+  assert.ok(/docker\.io\/library\/mongo/.test(statefulset),
+    'the registry it came from - beside the three FerretDB ones');
+  assert.ok(/7\.0\.34|mongo:7/.test(statefulset), 'and the version that was pinned');
+  assert.ok(/docker\.io\/library\/mongo/.test(values),
+    'values.yaml names it too, next to the image that replaced it');
+});
+
+test('production deployment notes are linked where they are needed', () => {
+  const link = 'docs/Platforms/FOSS/Container/Docker/Meteor3';
+  for (const file of ['values.yaml', 'README.md', 'templates/_helpers.tpl']) {
+    assert.ok(read(file).includes(link),
+      `${file} does not point at the production notes`);
+  }
+  // The link has to be to something that exists.
+  assert.ok(fs.existsSync(path.join(repoRoot, link)),
+    'the linked directory must be in this repository');
+  assert.ok(fs.existsSync(path.join(repoRoot, link, 'README.md')),
+    'and have something to read at the top of it');
+});
+
 // ── the release path ────────────────────────────────────────────────────────
 // These run whether or not the charts clone is present: they are about THIS
 // repository's release scripts, which are what decide that the next WeKan
@@ -202,6 +251,30 @@ releaseTest('the chart is published only for a version whose image exists', () =
     'a chart is a pointer to an image; publishing one for a version with no image '
     + 'is an install that fails at the pull');
   assert.ok(/ghcr\.io\/wekan\/wekan/.test(script));
+});
+
+releaseTest('a package whose image is gone cannot come back into the index', () => {
+  // An Artifact Hub scan report, 2026-08-11:
+  //   error scanning image ghcr.io/wekan/wekan:v9.62: image not found (package wekan:9.62.0)
+  // plus five more WeKan images and a Bitnami MongoDB subchart image Bitnami has
+  // deleted. Those entries were taken out of the index by reindex-charts.py,
+  // which asks the registry about every image a package pins - but the packages
+  // stayed on the branch, and `helm repo index` indexes what it FINDS. One
+  // backfill run would have put every one of them back.
+  const backfill = fs.readFileSync(path.join(repoRoot, 'releases/backfill-charts.sh'), 'utf8');
+  const code = backfill.split('\n').filter(l => !l.trim().startsWith('#')).join('\n');
+  assert.ok(!/helm repo index/.test(code),
+    'the index may not be rebuilt by a tool that cannot tell a live image from a '
+    + 'deleted one - that is what mailed the repository owner every scan');
+  assert.ok(/reindex-charts\.py"? --write/.test(code),
+    'it is rebuilt by the one that checks, which is also what release-charts.sh uses');
+  const reindex = fs.readFileSync(path.join(repoRoot, 'releases/reindex-charts.py'), 'utf8');
+  assert.ok(/def check_images\(/.test(reindex) && /image not found/.test(reindex),
+    'and that tool has to actually probe the registry');
+  assert.ok(/treated as\s*"?\s*\n?\s*f?"?PRESENT, never as missing/.test(reindex)
+    || /never as missing/.test(reindex),
+    'a registry that cannot be reached must not be read as "image gone" - that '
+    + 'would drop good entries on a network hiccup');
 });
 
 releaseTest('backfilling old releases does not hand them today\'s FerretDB chart', () => {

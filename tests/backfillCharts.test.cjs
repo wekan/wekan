@@ -78,121 +78,43 @@ test('the published-chart scan reads entry versions, not dependency versions', (
     "version: is at six, and a loose \\s* counts 0.7.2 as a published WeKan chart");
 });
 
-// The dedup rule, run for real.
-function runDedup(dir) {
-  const body = script.split("python3 - <<'PYEOF'\nimport hashlib")[1].split('\nPYEOF')[0];
-  const py = path.join(dir, 'dedup.py');
-  fs.writeFileSync(py, 'import hashlib' + body);
-  return execFileSync('python3', [py], { cwd: dir, encoding: 'utf8' });
-}
+// THE DEDUP RULE MOVED, with the tool that needed it.
+//
+// This file used to extract the python block that repaired `helm repo index
+// --merge`'s duplicates and run it for real. That block is gone, because the
+// index is no longer rebuilt by a tool that produces duplicates: backfill calls
+// releases/reindex-charts.py, which writes ONE entry per package, keyed on the
+// version inside the package. A duplicate cannot be written, so there is nothing
+// left to repair - and the rule itself (keep the entry whose digest matches the
+// package on disk) is exercised where it now lives, in
+// tests/reindexCharts.test.cjs.
+//
+// What is checked here instead is that backfill really does use that tool - the
+// reason being an Artifact Hub scan report:
+//
+//   error scanning image ghcr.io/wekan/wekan:v9.62: image not found (package wekan:9.62.0)
+//
+// Six WeKan images that were never published, and 129 charts vendoring a Bitnami
+// MongoDB image Bitnami deleted, are on that branch as .tgz files. `helm repo
+// index` indexes what it FINDS, so one backfill run would have put every one of
+// them back into the index and mailed the repository owner again.
 
-// A minimal index in the real shape: entry keys at four spaces, a dependency
-// block at six, and the "  wekan:" header the script looks for.
-function makeIndex(entries) {
-  const head = 'apiVersion: v1\nentries:\n  wekan:\n';
-  const body = entries.map(e =>
-    `  - apiVersion: v2\n` +
-    `    appVersion: "${e.version}"\n` +
-    `    created: "${e.created}"\n` +
-    `    dependencies:\n` +
-    `    - name: mongodb\n` +
-    `      version: 0.7.2\n` +
-    `    digest: ${e.digest}\n` +
-    `    name: wekan\n` +
-    `    urls:\n` +
-    `    - https://wekan.github.io/charts/wekan-${e.version}.tgz\n` +
-    `    version: ${e.version}\n`).join('');
-  return head + body + 'generated: "2026-08-11T00:00:00.000000+00:00"\n';
-}
-
-function readVersions(file) {
-  return fs.readFileSync(file, 'utf8')
-    .split('\n')
-    .filter(l => /^ {4}version: /.test(l))
-    .map(l => l.trim().replace('version: ', ''));
-}
-
-test('a duplicated version is reduced to the entry whose digest matches the package', () => {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'wekan-charts-'));
-  try {
-    const pkg = Buffer.from('pretend chart package');
-    const realDigest = crypto.createHash('sha256').update(pkg).digest('hex');
-    fs.writeFileSync(path.join(dir, 'wekan-9.36.0.tgz'), pkg);
-
-    // The matching digest is on the OLDEST copy on purpose: if "newest wins" were
-    // the rule rather than the fallback, this is the case that would expose it.
-    fs.writeFileSync(path.join(dir, 'index.yaml'), makeIndex([
-      { version: '10.79.0', created: '2026-08-10T02:46:52+00:00', digest: 'a'.repeat(64) },
-      { version: '9.36.0',  created: '2026-06-11T03:41:02+00:00', digest: 'b'.repeat(64) },
-      { version: '9.36.0',  created: '2026-06-11T02:26:50+00:00', digest: 'c'.repeat(64) },
-      { version: '9.36.0',  created: '2026-06-10T21:20:06+00:00', digest: realDigest },
-    ]));
-
-    const out = runDedup(dir);
-    const versions = readVersions(path.join(dir, 'index.yaml'));
-    assert.deepStrictEqual(versions, ['10.79.0', '9.36.0'],
-      'one entry per version must remain, and the untouched version must survive');
-    const kept = fs.readFileSync(path.join(dir, 'index.yaml'), 'utf8');
-    assert.ok(kept.includes(realDigest),
-      'the entry kept for 9.36.0 must be the one whose digest is the digest of ' +
-      'wekan-9.36.0.tgz - a helm client checks the package against it');
-    assert.ok(kept.includes('2026-06-10T21:20:06'),
-      'which here is the OLDEST copy: the digest decides, the timestamp does not');
-    assert.ok(/2 duplicate\(s\) removed/.test(out), `expected a report of 2 removals, got: ${out}`);
-  } finally {
-    fs.rmSync(dir, { recursive: true, force: true });
-  }
+test('the index is rebuilt by the tool that checks images, not by helm', () => {
+  const code = script.split('\n').filter(l => !l.trim().startsWith('#')).join('\n');
+  assert.ok(!/helm repo index/.test(code),
+    'helm repo index cannot tell a live image from a deleted one, and the '
+    + 'difference is what Artifact Hub mails about');
+  assert.ok(/reindex-charts\.py"? --write/.test(code),
+    'reindex-charts.py asks the registry about every image a package pins');
+  assert.ok(/--charts-dir/.test(code), 'and is pointed at the checkout being backfilled');
 });
 
-test('with no package to compare against, the newest duplicate is the fallback', () => {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'wekan-charts-'));
-  try {
-    // No wekan-10.30.0.tgz in the directory, so nothing can be verified.
-    fs.writeFileSync(path.join(dir, 'index.yaml'), makeIndex([
-      { version: '10.30.0', created: '2026-07-23T12:50:37+00:00', digest: 'd'.repeat(64) },
-      { version: '10.30.0', created: '2026-07-23T11:58:18+00:00', digest: 'e'.repeat(64) },
-    ]));
-    runDedup(dir);
-    const kept = fs.readFileSync(path.join(dir, 'index.yaml'), 'utf8');
-    assert.deepStrictEqual(readVersions(path.join(dir, 'index.yaml')), ['10.30.0']);
-    assert.ok(kept.includes('2026-07-23T12:50:37'), 'the newest is the fallback');
-  } finally {
-    fs.rmSync(dir, { recursive: true, force: true });
-  }
-});
-
-test('an index with no duplicates is left exactly as it was', () => {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'wekan-charts-'));
-  try {
-    const before = makeIndex([
-      { version: '10.79.0', created: '2026-08-10T02:46:52+00:00', digest: 'a'.repeat(64) },
-      { version: '10.78.0', created: '2026-08-09T02:46:52+00:00', digest: 'b'.repeat(64) },
-    ]);
-    fs.writeFileSync(path.join(dir, 'index.yaml'), before);
-    const out = runDedup(dir);
-    assert.strictEqual(fs.readFileSync(path.join(dir, 'index.yaml'), 'utf8'), before,
-      'a clean index must not be rewritten at all - no reformatting, no reordering');
-    assert.ok(/0 duplicate\(s\) removed/.test(out), out);
-  } finally {
-    fs.rmSync(dir, { recursive: true, force: true });
-  }
-});
-
-test('the charts job reports the gap on every release', () => {
-  const workflow = fs.readFileSync(
-    path.join(repoRoot, '.github/workflows/release-all.yml'), 'utf8');
-  assert.ok(/backfill-charts\.sh \| tee -a "\$GITHUB_STEP_SUMMARY"/.test(workflow),
-    'the charts job should print the plan into the run summary, so a hole in the ' +
-    'index is visible the release it appears in');
-  // Comments may name `--apply --push` as the command to run by hand; what must
-  // not exist is a line that actually RUNS it.
-  const invocations = workflow.split('\n')
-    .filter(l => l.includes('backfill-charts.sh'))
-    .filter(l => !/^\s*#/.test(l.trim()) && !l.trim().startsWith('#'));
-  const publishing = invocations.filter(l => /--push|--apply/.test(l));
-  assert.deepStrictEqual(publishing, [],
-    'the workflow must never package or push a rewritten index by itself:\n  ' +
-    publishing.join('\n  '));
+test('helm is still needed for what only helm does', () => {
+  // Packaging, not indexing. If this ever stops being true the dependency check
+  // at the top of --apply should go with it.
+  assert.ok(/helm package/.test(script), 'packaging a chart is helm\'s job');
+  assert.ok(/command -v helm/.test(script),
+    'and --apply says so up front rather than failing in the middle');
 });
 
 console.log(`\n${passed} passed`);

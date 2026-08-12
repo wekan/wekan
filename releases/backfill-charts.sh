@@ -25,9 +25,12 @@
 #            no chart for them either.
 #
 # The index is then REBUILT from the .tgz files that are actually in the
-# directory (`helm repo index --merge`), so "omitted" needs no bookkeeping: a
-# version with no package is simply not in the index, and an entry can never
-# point at a package that is not there.
+# directory, by releases/reindex-charts.py - which asks the registry about every
+# image each package pins and leaves out the ones whose image is gone. So
+# "omitted" needs no bookkeeping: a version with no package is simply not in the
+# index, an entry can never point at a package that is not there, and a package
+# whose image has been deleted since cannot come back into the index by being
+# indexed again.
 #
 # Usage:
 #   ./releases/backfill-charts.sh              # PLAN ONLY - prints what it would do
@@ -286,103 +289,34 @@ for VERSION in $(jq -r '.build[]' "$PLAN_JSON"); do
 done
 echo "packaged ${built} chart(s)."
 
-# --merge keeps every entry that is already there, with its original `created`
-# and digest, and adds one for each package that is new. A version with no .tgz
-# in this directory gets no entry, which is how "omit" is enforced: not by a
-# list, but by there being nothing to index.
-helm repo index . --merge index.yaml --url "$CHART_BASE_URL"
+# THE INDEX IS REBUILT BY releases/reindex-charts.py, not by `helm repo index`.
+#
+# It used to be `helm repo index . --merge index.yaml`, and that indexes WHAT IT
+# FINDS: every .tgz in the directory, including the ones whose container image no
+# longer exists. Artifact Hub scans every entry in the index and mails the
+# repository owner about each one it cannot pull -
+#
+#   error scanning image ghcr.io/wekan/wekan:v9.62: image not found (package wekan:9.62.0)
+#
+# - which is how six WeKan images that were never published, and 129 charts
+# vendoring a Bitnami MongoDB subchart image Bitnami has since deleted, became a
+# recurring report. They were taken out of the index by the reindex tool, and one
+# `--merge` run here would have put every one of them back.
+#
+# reindex-charts.py asks the registry about every image each package pins and
+# leaves out the packages whose image is gone, so "omit" is enforced by the same
+# rule in both places - here and in release-charts.sh - rather than by two tools
+# that disagree. It also keeps `created` from git history and collapses the
+# duplicate entries an older release-charts.sh left behind, which is what the
+# python block below used to do by hand.
+"$REPO_DIR/releases/reindex-charts.py" --write --charts-dir "$PWD"
 
-# --merge preserves what is already there, INCLUDING entries that should never
-# have been there twice. The live index has four entries for 9.36.0 and two for
-# 10.30.0, each with a DIFFERENT digest and the SAME url - written by
-# release-charts.sh, which prepends an entry every time it runs, so re-running a
-# release duplicated its version instead of replacing it. At most one of those
-# digests can be the digest of the wekan-9.36.0.tgz that is actually served, and
-# a helm client that picks one of the others fails the integrity check on a file
-# that is perfectly fine. So: for any version with more than one entry, keep the
-# one whose digest matches the package on disk, and if none does, the newest.
-python3 - <<'PYEOF'
-import hashlib, os, re, sys
-from collections import defaultdict
-
-path = "index.yaml"
-lines = open(path, encoding="utf-8").readlines()
-
-hdr = next((i for i, ln in enumerate(lines) if ln.rstrip("\n") == "  wekan:"), None)
-if hdr is None:
-    sys.exit("index.yaml has no '  wekan:' entries block")
-
-# Split the block into entries: each starts at a "  - " line and runs until the
-# next one, or until a line that dedents out of the block.
-starts = []
-end_of_block = len(lines)
-for i in range(hdr + 1, len(lines)):
-    ln = lines[i]
-    if ln.startswith("  - "):
-        starts.append(i)
-    elif ln.strip() and not ln.startswith("   "):
-        end_of_block = i
-        break
-bounds = [(s, (starts[k + 1] if k + 1 < len(starts) else end_of_block))
-          for k, s in enumerate(starts)]
-
-def field(block, key):
-    for ln in block:
-        m = re.match(r"^ {4}" + re.escape(key) + r":\s*\"?([^\"\n]*)\"?\s*$", ln)
-        if m:
-            return m.group(1).strip()
-    return None
-
-entries = []
-for a, b in bounds:
-    block = lines[a:b]
-    entries.append({"block": block,
-                    "version": field(block, "version"),
-                    "digest": field(block, "digest"),
-                    "created": field(block, "created") or ""})
-
-by_version = defaultdict(list)
-for e in entries:
-    by_version[e["version"]].append(e)
-
-def real_digest(version):
-    tgz = f"wekan-{version}.tgz"
-    if not os.path.exists(tgz):
-        return None
-    h = hashlib.sha256()
-    with open(tgz, "rb") as fh:
-        for chunk in iter(lambda: fh.read(1 << 20), b""):
-            h.update(chunk)
-    return h.hexdigest()
-
-kept, dropped = [], []
-for e in entries:
-    dupes = by_version[e["version"]]
-    if len(dupes) == 1:
-        kept.append(e)
-        continue
-    want = real_digest(e["version"])
-    if want is not None:
-        winner = next((d for d in dupes if d["digest"] == want), None)
-    else:
-        winner = None
-    if winner is None:
-        winner = max(dupes, key=lambda d: d["created"])
-    (kept if e is winner else dropped).append(e)
-
-if dropped:
-    out = lines[:hdr + 1]
-    for e in entries:
-        if e in kept:
-            out += e["block"]
-    out += lines[end_of_block:]
-    open(path, "w", encoding="utf-8").write("".join(out))
-    for e in dropped:
-        print(f"  dropped a duplicate entry for {e['version']} "
-              f"(digest {e['digest'][:12]}..., created {e['created']})")
-
-print(f"index.yaml: {len(kept)} entries, {len(dropped)} duplicate(s) removed.")
-PYEOF
+# The duplicate-entry repair that used to be here is gone with the tool that
+# needed it. `--merge` preserved everything it found, including the four entries
+# for 9.36.0 and two for 10.30.0 that an older release-charts.sh prepended -
+# same url, different digests, so a helm client could pick a digest matching no
+# file. reindex-charts.py writes ONE entry per package, keyed on the version
+# inside it, so a duplicate cannot be written in the first place.
 
 if [ "$PUSH" != true ]; then
   echo
