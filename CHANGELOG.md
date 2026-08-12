@@ -582,7 +582,7 @@ out.
 **The board** - what a card looks like, and what an export says.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ec99f2e98">A Worker can move a card and assign themselves to it, which is what the role is for</a>. Thanks to rptl and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/7b35cb5f0">A Worker can move a card and assign themselves to it, which is what the role is for</a>. Thanks to rptl and xet7.</summary>
 
 "User with Worker permission can't assignee card if it has been assigned to
 someone else before" — and in fact could not assign themselves at all. The card
