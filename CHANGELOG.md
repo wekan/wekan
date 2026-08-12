@@ -315,12 +315,12 @@ upgrade documentation let an admin copy the old database directory back over a
 **running** database, which destroys the restore they had just made. Then: the
 **PDF export** writes umlauts instead of question marks and no longer prints
 markdown at a reader, **minicards** follow the Member Settings font size, and
-unchecking **"Show on minicard"** on a checklist finally hides it. Below that: a
-repo-wide guard that asks whether an already-fixed vulnerability exists anywhere
-ELSE - which found one - and the tests for all of it. The binaries below are
-carried over from v10.85 and have NOT been checked against a newer build;
-`releases/provenance-table.sh` prints the real table from the provenance each
-build job records.
+unchecking **"Show on minicard"** on a checklist finally hides it. Below that:
+dependency updates, a repo-wide guard that asks whether an already-fixed
+vulnerability exists anywhere ELSE - which found one - and the tests for all of
+it. The binaries below are carried over from v10.85 and have NOT been checked
+against a newer build; `releases/provenance-table.sh` prints the real table from
+the provenance each build job records.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -351,7 +351,44 @@ build job records.
 | win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
 | win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-win64.exe) | v1.49.0 | `f42c50aa84095a9616b00f27a584c66b7bf79e3b109450c62a5f146ba3c85478` |
 
-This release fixes the following bugs:
+This release updates the following dependencies:
+
+- **aldeed:collection2 4.2.1 → 4.2.2** — the Meteor package that validates every
+  write against a collection's schema. It is the one that formats the error a
+  list with no title used to crash inside.
+- **rspack 1.2.0 → 1.2.1** — the Meteor build plugin that bundles the client.
+  Build-time only.
+- **@aws-sdk/client-s3 3.1105.0 → 3.1108.0**, with the eighteen
+  `@aws-sdk/*` credential, signing and presigner packages it pulls in — the
+  optional S3 attachment storage. Unused unless S3 is configured.
+- **@smithy/core 3.31.1 → 3.32.0** and its HTTP handler, IMDS credential and
+  signature-v4 packages — the transport layer under those AWS clients.
+- **@google-cloud/storage 7.21.0 → 7.22.0** — the other optional attachment
+  backend.
+- **bson 7.3.1 → 7.3.2** — the BSON codec the MongoDB driver speaks to MongoDB
+  and to FerretDB with.
+- **ws 8.21.2 → 8.21.3** — the WebSocket implementation Meteor's DDP connection
+  runs over.
+- **nanoid 3.3.17 → 3.3.18** — id generation inside the build toolchain.
+- **terser 5.49.2 → 5.50.0**, **browserslist 4.28.7 → 4.28.8**,
+  **electron-to-chromium 1.5.402 → 1.5.405**, **baseline-browser-mapping
+  2.11.12 → 2.11.13**, **update-browserslist-db 1.3.0 → 1.3.1** — the minifier
+  and the browser-support tables it targets. Build-time only.
+- **eslint 10.8.0 → 10.8.1** and the **@typescript-eslint 8.66.0 → 8.67.0**
+  family — linting, development only.
+- **puppeteer 25.5.0 → 25.6.0** (with `puppeteer-core` and
+  `@puppeteer/browsers 3.1.0 → 3.2.0`) — the headless browser some tests drive.
+  It ships in no WeKan bundle.
+- **memfs 4.68.0 → 4.68.1** and the eight **@jsonjoy.com/fs-\* 4.68.0 →
+  4.68.1** packages it is built from — the in-memory filesystem the build uses.
+- **modern-tar 0.7.7 → 0.8.4**, **markdown-it-math 6.0.0 → 6.0.1**,
+  **bare-url 2.4.7 → 2.5.2**, **@babel/helper-validator-identifier 7.29.7 →
+  8.0.4**, **@types/node 26.1.2 → 26.2.0** — transitive updates that came with
+  the rest.
+
+Thanks to dependabot.
+
+and fixes the following bugs:
 
 **The snap** - which database it serves, and what it says when it cannot.
 
