@@ -207,6 +207,7 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     'resolve-node-source.sh': 'release-workflow: a lookup the other scripts, the\n      bundle jobs and the Dockerfile call - it prints where a platform\'s Node.js\n      comes from and downloads nothing itself',
     'require-binaries.sh': 'release-workflow: called per build job',
     'record-provenance.sh': 'release-workflow: called per build job',
+    'fetch.sh': 'release-workflow: the downloader every build job, and the\n      preflight, and the Dockerfile use - it waits out a 503 and tells that\n      apart from a 404, and has no release step of its own',
     'npm-retry.sh': 'release-workflow: the wrapper the build jobs run their\n      npm installs through, inside the container as well as on the runner -\n      it retries a 503 and runs no release step of its own',
     'provenance-table.sh': 'release-workflow: called by the release job',
     'ferretdb-latest-tag.sh': 'release-workflow: a lookup the build jobs call so\n      the provenance table can name the version `latest` resolved to - it prints\n      a tag and downloads nothing',

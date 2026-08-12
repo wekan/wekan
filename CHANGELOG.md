@@ -310,11 +310,14 @@ browser build to verify).
 # v10.87 2026-08-12 WeKan ® release
 
 **In short:** the **release workflow** stops throwing a release away when
-somebody else's server has a bad minute. Every download in it already retried;
-the **`npm install`s did not**, so five minutes of `503 Service Unavailable`
-from github.com ended the v10.86 run in its first job and skipped everything
-derived from it — eleven bundles, the Docker images, the snap. They now retry
-with backoff, and a real npm error still fails on the first attempt.
+somebody else's server has a bad afternoon. github.com spent 2026-08-12
+returning `503`, and it cost two release runs an hour apart: the first in an
+**`npm install`**, which had no retry at all, the second **downloading
+FerretDB**, where `curl --retry 5 --retry-delay 10` is fifty seconds of
+patience. Both now wait an outage out — and, just as important, still fail at
+once on a real error, because a **`404` is an answer, not an outage**: an
+existence check that reads a `503` as "that binary was never published" drops
+an architecture that is sitting right there on the release.
 
 The binaries below are carried over from v10.86 and have NOT been checked
 against a newer build; `releases/provenance-table.sh` prints the real table
@@ -349,7 +352,51 @@ from the provenance each build job records.
 | win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
 | win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-win64.exe) | v1.49.0 | `f42c50aa84095a9616b00f27a584c66b7bf79e3b109450c62a5f146ba3c85478` |
 
-This release fixes the following release-tooling bug:
+This release fixes the following release-tooling bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASHFETCH">A download that 503s is retried for a quarter of an hour, and a 404 still fails at once</a>. Thanks to xet7.</summary>
+
+The second run of the same afternoon died one step later than the first, in
+`build-amd64`, on the FerretDB binary:
+
+```
+curl: (22) The requested URL returned error: 503
+Warning: Problem : HTTP error. Will retry in 10 seconds. 5 retries left.
+...
+curl: (56) Connection died, tried 5 times before giving up
+```
+
+Nothing was wrong with WeKan, and nothing was wrong with nodejs.org either -
+the bundled Node.js downloaded and verified in the same step, seconds earlier.
+It was github.com, and `--retry 5 --retry-delay 10` gives it fifty seconds.
+
+`releases/fetch.sh` is now what downloads a file in a release. It retries
+`5xx`, `429`, `408` and the connection errors on a backoff that adds up to
+about fifteen minutes, and every download in Release All, Release All Missing,
+the preflight scripts and the emulated build containers goes through it - with
+the `Dockerfile` carrying it alongside `resolve-node-source.sh`, which now asks
+it which Node.js builds exist.
+
+The distinction it adds is the one a longer `--retry` cannot: **a `404` is not
+an outage.** Several callers here legitimately ask "is this published for this
+CPU?" and get "no" - the preflight that skips an architecture with no Node.js
+build yet, the MongoDB Database Tools that are not built for every platform,
+the `.sha256sum` a source may not publish. Those fail immediately and quietly.
+Everything else waits.
+
+And an existence check now has **three** answers instead of two: present,
+absent, or *the server would not say*. That third one used to be
+indistinguishable from "absent", which is how an outage could silently drop a
+platform from the Docker image or skip an architecture whose binary was
+published all along - a `::warning::` nobody reads until somebody on ppc64le
+asks where their image went. It now stops the job and says to re-run it.
+
+`tests/releaseDownloads.test.cjs` runs the script against a local server that
+503s, 404s and 429s on demand, and reads the workflows for a download that
+still goes straight to `curl`.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/644e61f6a">A five-minute outage at github.com no longer costs a whole release</a>. Thanks to xet7.</summary>

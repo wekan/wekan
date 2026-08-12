@@ -148,7 +148,7 @@ case "$want" in
   v[0-9]*.[0-9]*.[0-9]*) versions="$want" ;;
   [0-9]*.[0-9]*.[0-9]*)  versions="v$want" ;;
   [0-9]*)
-    index="$(curl -fsSL --retry 3 --retry-delay 3 "$DIST/index.json" 2>/dev/null)"
+    index="$(bash "$(dirname "$0")/fetch.sh" -o - "$DIST/index.json" 2>/dev/null)"
     if [ -z "$index" ]; then
       log "::error::Could not read ${DIST}/index.json, so there is no list of Node.js ${want}.x releases to choose from."
       exit 1
@@ -186,7 +186,7 @@ trap 'rm -rf "$cache"' EXIT
 shasums() {   # <base-url> <version> <tag-for-the-cache-file>
   f="${cache}/$3-$2"
   if [ ! -e "$f" ]; then
-    curl -fsSL --retry 3 --retry-delay 3 -o "$f" "$1/$2/SHASUMS256.txt" 2>/dev/null \
+    bash "$(dirname "$0")/fetch.sh" --optional -o "$f" "$1/$2/SHASUMS256.txt" 2>/dev/null \
       || : > "$f"
   fi
   cat "$f"
@@ -247,7 +247,7 @@ for V in $versions; do
   #    checksum beside it is not taken: the whole point of these three sources is
   #    that what is shipped can be verified.)
   url="${PATCHES}/${V}/${asset}"
-  sums_body="$(curl -fsSL --retry 3 --retry-delay 3 "${url}.sha256sum" 2>/dev/null)"
+  sums_body="$(bash "$(dirname "$0")/fetch.sh" --optional -o - "${url}.sha256sum" 2>/dev/null)"
   if [ -n "$sums_body" ]; then
     sha="$(printf '%s\n' "$sums_body" \
       | awk -v f="$asset" '$2 == f || $2 == "./" f { print $1; exit } NF == 1 { print $1; exit }')"

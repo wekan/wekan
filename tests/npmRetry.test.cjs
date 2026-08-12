@@ -161,8 +161,10 @@ test('the Meteor installer is downloaded before it is run, so it can be retried'
   // download fails, sh is already running half a script.
   assert.ok(!/curl\s+https:\/\/install\.meteor\.com\/\s*\|\s*sh/.test(workflow),
     'a piped installer is one more unretried download in the same job');
-  assert.ok(/curl[^\n]*--retry[^\n]*install\.meteor\.com/.test(workflow),
-    'it is fetched with --retry, like every other download here');
+  // It goes through releases/fetch.sh now, like every other download here -
+  // see tests/releaseDownloads.test.cjs for what that adds over `curl --retry`.
+  assert.ok(/fetch\.sh"? -o \/tmp\/install-meteor\.sh https:\/\/install\.meteor\.com\//.test(workflow),
+    'it is fetched by the helper that waits out an outage');
 });
 
 console.log(`\nnpmRetry: ${passed} tests passed`);

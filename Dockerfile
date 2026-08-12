@@ -188,6 +188,11 @@ ENV \
 # never end up on Node.js from different places. It is copied in rather than
 # reimplemented here; a second copy of that order would drift from the first.
 COPY --chmod=755 releases/resolve-node-source.sh /tmp/resolve-node-source.sh
+# It asks nodejs.org and github.com which builds exist, through releases/fetch.sh
+# - which retries a 503 instead of reading it as "that build does not exist".
+# The two travel together: without this line the resolve step dies on the first
+# lookup. tests/releaseDownloads.test.cjs pins the pair.
+COPY --chmod=755 releases/fetch.sh /tmp/fetch.sh
 
 RUN <<EOR
 set -o xtrace
@@ -279,8 +284,12 @@ esac
 chmod +x /usr/local/bin/node
 # npm + npx from the official amd64 tarball of the SAME version; extract only
 # those paths, not the amd64 node binary.
-wget "https://nodejs.org/dist/${node_full}/node-${node_full}-linux-x64.tar.gz"
-wget "https://nodejs.org/dist/${node_full}/SHASUMS256.txt"
+# Same flags as the download above: a bare wget treats a 503 as fatal, and
+# nodejs.org has them.
+wget --tries=20 --waitretry=20 --retry-on-http-error=403,500,502,503 \
+  "https://nodejs.org/dist/${node_full}/node-${node_full}-linux-x64.tar.gz"
+wget --tries=20 --waitretry=20 --retry-on-http-error=403,500,502,503 \
+  "https://nodejs.org/dist/${node_full}/SHASUMS256.txt"
 grep " node-${node_full}-linux-x64.tar.gz\$" SHASUMS256.txt | sha256sum -c -
 tar xzf "node-${node_full}-linux-x64.tar.gz" -C /usr/local --strip-components=1 --no-same-owner \
     "node-${node_full}-linux-x64/lib/node_modules/npm" \

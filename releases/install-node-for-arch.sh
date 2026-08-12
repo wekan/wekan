@@ -73,7 +73,7 @@ download_and_verify() {
     attempt=1
     while :; do
         rm -f "$dest"
-        if ! curl -fsSL --retry 3 --retry-delay 5 -o "$dest" "$url"; then
+        if ! bash "$(dirname "$0")/fetch.sh" -o "$dest" "$url"; then
             if [ "$attempt" -lt "$DOWNLOAD_ATTEMPTS" ]; then
                 echo "Download of $(basename "$url") failed (attempt ${attempt}/${DOWNLOAD_ATTEMPTS}); retrying."
                 attempt=$((attempt + 1))
@@ -146,7 +146,7 @@ rm -f /tmp/node-download
 # npm from the official amd64 tarball of the same version - JavaScript, so it runs
 # on this arch's node just as well. The tarball is a build-time tool, not what
 # WeKan ships; the shipped node is the target CPU's, above.
-curl -fsSL -o /tmp/npm.tar.xz \
+bash "$(dirname "$0")/fetch.sh" -o /tmp/npm.tar.xz \
     "https://nodejs.org/dist/${NODE_FULL}/node-${NODE_FULL}-linux-x64.tar.xz"
 mkdir -p /tmp/npm
 tar -xJf /tmp/npm.tar.xz -C /tmp/npm --strip-components=1

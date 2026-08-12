@@ -65,7 +65,21 @@ skip=0
 # -I: ask for the headers only. A release binary is tens of megabytes and this
 # runs for every architecture; there is nothing in the body worth downloading to
 # answer "does it exist".
-have() { curl -fsSLI -o /dev/null --retry 3 --retry-delay 5 "$1"; }
+# Three outcomes: 0 present, 1 absent, 2 the server would not say. The third
+# used to be indistinguishable from the second, so a github.com 503 read as "no
+# Node.js is published for riscv64 yet" and skipped an architecture that was
+# fine. `have` keeps its two answers for the callers below; `have_or_unknown`
+# stops the job when nobody could tell.
+have_or_unknown() { bash "$(dirname "$0")/fetch.sh" --check "$1"; }
+have() {
+  have_or_unknown "$1"
+  case $? in
+    0) return 0 ;;
+    1) return 1 ;;
+    *) echo "::error::Could not tell whether $1 exists - the server did not answer. That is an outage, not a missing binary: re-run this job rather than skip this architecture." >&2
+       exit 1 ;;
+  esac
+}
 
 # ── 1. The base image has to publish this platform ───────────────────────────
 #

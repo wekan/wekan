@@ -322,7 +322,7 @@ jobs:
           # The published index is the authority on what exists, not this
           # checkout. An entry's own version is at EXACTLY four spaces; the
           # mongodb subchart's version sits deeper and would match a loose grep.
-          curl -fsSL --retry 3 -o index.yaml https://wekan.github.io/charts/index.yaml || {
+          bash "$GITHUB_WORKSPACE/releases/fetch.sh" -o index.yaml https://wekan.github.io/charts/index.yaml || {
             echo "::warning::Could not read the published chart index; not touching the charts repo."
             echo "skip=true" >> "$GITHUB_OUTPUT"; exit 0; }
           # -F, a FIXED string: the dots in a version are regex wildcards

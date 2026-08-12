@@ -75,7 +75,7 @@ trap 'rm -rf "$work"' EXIT
 # source's own checksum file and still is not downloadable, which is worth saying
 # plainly rather than retrying forever.
 dl="${work}/download"
-if ! curl -fSL --retry 8 --retry-delay 15 -o "$dl" "$node_url"; then
+if ! bash "$(dirname "$0")/fetch.sh" -o "$dl" "$node_url"; then
   echo "::error::Could not download ${node_url} , although ${node_from} lists it in its published checksums. Re-run when it is reachable." >&2
   exit 1
 fi

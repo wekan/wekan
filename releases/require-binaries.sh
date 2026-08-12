@@ -39,13 +39,23 @@ for url in "$@"; do
     name="${url##*/}"
     # -I: the headers answer "does it exist"; the body is tens of megabytes and
     # this runs once per file per build.
-    if curl -fsSLI -o /dev/null --retry 3 --retry-delay 5 "$url"; then
-        echo "  ok       ${name}"
-    else
+    bash "$(dirname "$0")/fetch.sh" --check "$url"
+    case $? in
+      0)
+        echo "  ok       ${name}" ;;
+      2)
+        # The server would not say. Reporting that as MISSING would tell the
+        # maintainer to go and build a file that is already published, so it is
+        # its own outcome - and still a failure, because a bundle must not be
+        # assembled around a binary nobody could confirm.
+        echo "  UNKNOWN  ${name}"
+        echo "::error::${label}: could not tell whether ${name} exists at ${url} - the server did not answer. This is an outage, not a missing file: re-run this job."
+        missing=$((missing + 1)) ;;
+      *)
         echo "  MISSING  ${name}"
         echo "::error::${label}: ${name} does not exist at ${url} . The bundle cannot be assembled without it. Build it in the project that publishes it and attach it to that project's newest release, then re-run this job."
-        missing=$((missing + 1))
-    fi
+        missing=$((missing + 1)) ;;
+    esac
 done
 
 if [ "$missing" -ne 0 ]; then

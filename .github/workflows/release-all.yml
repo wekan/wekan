@@ -565,7 +565,7 @@ jobs:
       - name: Install Meteor
         run: |
           if [ ! -f ~/.meteor/meteor ]; then
-            curl -fsSL --retry 5 --retry-delay 10 -o /tmp/install-meteor.sh https://install.meteor.com/
+            bash "$GITHUB_WORKSPACE/releases/fetch.sh" -o /tmp/install-meteor.sh https://install.meteor.com/
             sh /tmp/install-meteor.sh
           fi
           echo "$HOME/.meteor" >> $GITHUB_PATH
@@ -603,14 +603,14 @@ jobs:
           # Bundled FerretDB (amd64): download only this arch's binary from the
           # newest wekan/FerretDB release (per-arch assets, no ferretdb.zip).
           FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-amd64"
-          curl -fSL --retry 5 --retry-delay 10 -o .build/bundle/ferretdb "$FERRET_URL"
+          bash "$GITHUB_WORKSPACE/releases/fetch.sh" -o .build/bundle/ferretdb "$FERRET_URL"
           chmod +x .build/bundle/ferretdb
           # wekan/FerretDB publishes a .sha256sum beside each binary now. Verify
           # the download against it and carry the value to the provenance step
           # (record-provenance runs in the later Create-zip step). Older releases
           # publish none, so a missing one is unverified, not fatal - the binary
           # IS present, which is the test.
-          if curl -fsSL "${FERRET_URL}.sha256sum" -o /tmp/ferretdb.sha256sum 2>/dev/null; then
+          if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
             FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
             GOT="$(sha256sum .build/bundle/ferretdb | cut -d' ' -f1)"
             if [ "$GOT" != "$FERRET_SHA" ]; then
@@ -627,7 +627,7 @@ jobs:
           # arches, which overwrite these with their own arch's tools below.
           MT="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
           for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
-            curl -fSL --retry 5 --retry-delay 10 -o ".build/bundle/$t" "$MT/$t-amd64"
+            bash "$GITHUB_WORKSPACE/releases/fetch.sh" -o ".build/bundle/$t" "$MT/$t-amd64"
             chmod +x ".build/bundle/$t"
           done
           # Self-contained launcher (defaults to FerretDB SQLite + WRITABLE_PATH).
@@ -851,9 +851,9 @@ jobs:
           # release, and verify it against the .sha256sum wekan/FerretDB now
           # publishes beside each binary (carry the value to the provenance step).
           FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-arm64"
-          curl -fSL --retry 5 --retry-delay 10 -o bundle/ferretdb "$FERRET_URL"
+          bash "$GITHUB_WORKSPACE/releases/fetch.sh" -o bundle/ferretdb "$FERRET_URL"
           chmod +x bundle/ferretdb
-          if curl -fsSL "${FERRET_URL}.sha256sum" -o /tmp/ferretdb.sha256sum 2>/dev/null; then
+          if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
             FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
             GOT="$(sha256sum bundle/ferretdb | cut -d' ' -f1)"
             if [ "$GOT" != "$FERRET_SHA" ]; then
@@ -868,7 +868,7 @@ jobs:
           # Overwrite the inherited amd64 MongoDB Database Tools with arm64 ones.
           MT="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
           for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
-            curl -fSL --retry 5 --retry-delay 10 -o "bundle/$t" "$MT/$t-arm64"
+            bash "$GITHUB_WORKSPACE/releases/fetch.sh" -o "bundle/$t" "$MT/$t-arm64"
             chmod +x "bundle/$t"
           done
           # #6458: replace the inherited amd64 qemu-user with this arch's own
@@ -1225,7 +1225,7 @@ jobs:
           # step below from releases/ferretdb/start-wekan.bat.)
           BASE="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
           for tool in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
-            curl -fL --retry 5 --retry-delay 10 -o "bundle/${tool}.exe" "${BASE}/${tool}-win64.exe"
+            bash "$GITHUB_WORKSPACE/releases/fetch.sh" -o "bundle/${tool}.exe" "${BASE}/${tool}-win64.exe"
           done
 
           echo "=== bundle contents ==="
@@ -1253,9 +1253,9 @@ jobs:
           # Bundled FerretDB (win64): download this arch's binary and verify it
           # against the .sha256sum wekan/FerretDB publishes beside it.
           FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win64.exe"
-          if curl -fSL --retry 5 --retry-delay 10 -o bundle/ferretdb.exe "$FERRET_URL"; then
+          if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o bundle/ferretdb.exe "$FERRET_URL"; then
             echo "Embedded FerretDB win64 -> bundle/ferretdb.exe"
-            if curl -fsSL "${FERRET_URL}.sha256sum" -o /tmp/ferretdb.sha256sum 2>/dev/null; then
+            if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
               FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
               GOT="$(sha256sum bundle/ferretdb.exe | cut -d' ' -f1)"
               if [ "$GOT" != "$FERRET_SHA" ]; then
@@ -1572,7 +1572,7 @@ jobs:
           # step below from releases/ferretdb/start-wekan.bat.)
           BASE="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
           for tool in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
-            curl -fL --retry 5 --retry-delay 10 -o "bundle/${tool}.exe" "${BASE}/${tool}-win-arm64.exe"
+            bash "$GITHUB_WORKSPACE/releases/fetch.sh" -o "bundle/${tool}.exe" "${BASE}/${tool}-win-arm64.exe"
           done
 
           echo "=== bundle contents ==="
@@ -1600,9 +1600,9 @@ jobs:
           # Bundled FerretDB (win-arm64): download this arch's binary and verify it
           # against the .sha256sum wekan/FerretDB publishes beside it.
           FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win-arm64.exe"
-          if curl -fSL --retry 5 --retry-delay 10 -o bundle/ferretdb.exe "$FERRET_URL"; then
+          if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o bundle/ferretdb.exe "$FERRET_URL"; then
             echo "Embedded FerretDB win-arm64 -> bundle/ferretdb.exe"
-            if curl -fsSL "${FERRET_URL}.sha256sum" -o /tmp/ferretdb.sha256sum 2>/dev/null; then
+            if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
               FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
               GOT="$(sha256sum bundle/ferretdb.exe | cut -d' ' -f1)"
               if [ "$GOT" != "$FERRET_SHA" ]; then
@@ -1892,16 +1892,16 @@ jobs:
           ND="${RUNNER_TEMP}/node-ia32"
           mkdir -p "$ND/ia32" "$ND/Release"
           # Headers (same for every arch); try /download/release then /dist.
-          curl -fSL --retry 5 --retry-delay 10 -o /tmp/nodehdr.tar.gz \
+          bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o /tmp/nodehdr.tar.gz \
             "https://nodejs.org/download/release/${NODE_FULL}/node-${NODE_FULL}-headers.tar.gz" \
-          || curl -fSL --retry 5 --retry-delay 10 -o /tmp/nodehdr.tar.gz \
+          || bash "$GITHUB_WORKSPACE/releases/fetch.sh" -o /tmp/nodehdr.tar.gz \
             "https://nodejs.org/dist/${NODE_FULL}/node-${NODE_FULL}-headers.tar.gz"
           tar -xzf /tmp/nodehdr.tar.gz -C "$ND" --strip-components=1
           # The 32-bit import library, at the two paths node-gyp may look in. It
           # comes from wekan/node-patches, which is also where the node-win32.exe
           # in this bundle comes from (nobody else builds either any more), so the
           # addons link against the import library of the very node they run on.
-          curl -fSL --retry 5 --retry-delay 10 -o "$ND/ia32/node.lib" \
+          bash "$GITHUB_WORKSPACE/releases/fetch.sh" -o "$ND/ia32/node.lib" \
             "https://github.com/wekan/node-patches/releases/download/${NODE_FULL}/node-win32.lib"
           cp "$ND/ia32/node.lib" "$ND/Release/node.lib"
           export npm_config_nodedir="$ND"
@@ -1927,7 +1927,7 @@ jobs:
           # (skip any tool not built for win32).
           BASE="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
           for tool in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
-            curl -fL --retry 5 --retry-delay 10 -o "bundle/${tool}.exe" "${BASE}/${tool}-win32.exe" \
+            bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o "bundle/${tool}.exe" "${BASE}/${tool}-win32.exe" \
               || { rm -f "bundle/${tool}.exe"; echo "No ${tool}-win32.exe; skipping"; }
           done
           echo "=== bundle contents ==="
@@ -1945,9 +1945,9 @@ jobs:
             || { echo "::error::Verified Node.js embed failed for win32."; exit 1; }
           eval "$node_meta"
           FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win32.exe"
-          if curl -fSL --retry 5 --retry-delay 10 -o bundle/ferretdb.exe "$FERRET_URL"; then
+          if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o bundle/ferretdb.exe "$FERRET_URL"; then
             echo "Embedded FerretDB win32 -> bundle/ferretdb.exe"
-            if curl -fsSL "${FERRET_URL}.sha256sum" -o /tmp/ferretdb.sha256sum 2>/dev/null; then
+            if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
               FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
               GOT="$(sha256sum bundle/ferretdb.exe | cut -d' ' -f1)"
               if [ "$GOT" != "$FERRET_SHA" ]; then
@@ -2188,10 +2188,10 @@ jobs:
             || { echo "::error::Verified Node.js embed failed for mac-arm64."; exit 1; }
           eval "$node_meta"
           FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-mac-arm64"
-          if curl -fSL --retry 5 --retry-delay 10 -o bundle/ferretdb "$FERRET_URL"; then
+          if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o bundle/ferretdb "$FERRET_URL"; then
             chmod +x bundle/ferretdb
             echo "Embedded FerretDB mac-arm64 -> bundle/ferretdb"
-            if curl -fsSL "${FERRET_URL}.sha256sum" -o /tmp/ferretdb.sha256sum 2>/dev/null; then
+            if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
               FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
               GOT="$(shasum -a 256 bundle/ferretdb | cut -d' ' -f1)"   # macOS has no sha256sum
               if [ "$GOT" != "$FERRET_SHA" ]; then
@@ -2225,7 +2225,7 @@ jobs:
           # (skip any tool not built for macOS).
           MT="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
           for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
-            curl -fSL --retry 5 --retry-delay 10 -o "bundle/$t" "$MT/$t-mac-arm64" \
+            bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o "bundle/$t" "$MT/$t-mac-arm64" \
               && chmod +x "bundle/$t" || { rm -f "bundle/$t"; echo "No $t-mac-arm64; skipping"; }
           done
 
@@ -2452,10 +2452,10 @@ jobs:
             || { echo "::error::Verified Node.js embed failed for mac-x64."; exit 1; }
           eval "$node_meta"
           FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-mac-amd64"
-          if curl -fSL --retry 5 --retry-delay 10 -o bundle/ferretdb "$FERRET_URL"; then
+          if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o bundle/ferretdb "$FERRET_URL"; then
             chmod +x bundle/ferretdb
             echo "Embedded FerretDB mac-amd64 -> bundle/ferretdb"
-            if curl -fsSL "${FERRET_URL}.sha256sum" -o /tmp/ferretdb.sha256sum 2>/dev/null; then
+            if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
               FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
               GOT="$(shasum -a 256 bundle/ferretdb | cut -d' ' -f1)"   # macOS has no sha256sum
               if [ "$GOT" != "$FERRET_SHA" ]; then
@@ -2489,7 +2489,7 @@ jobs:
           # (skip any tool not built for this arch).
           MT="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
           for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
-            curl -fSL --retry 5 --retry-delay 10 -o "bundle/$t" "$MT/$t-mac-x64" \
+            bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o "bundle/$t" "$MT/$t-mac-x64" \
               && chmod +x "bundle/$t" || { rm -f "bundle/$t"; echo "No $t-mac-x64; skipping"; }
           done
 
@@ -2860,13 +2860,13 @@ jobs:
           # FerretDB name and our own name disagree cannot silently download the
           # wrong CPU's binary.
           FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-${{ matrix.ferretdb_arch }}"
-          curl -fSL --retry 5 --retry-delay 10 -o bundle/ferretdb "$FERRET_URL"
+          bash "$GITHUB_WORKSPACE/releases/fetch.sh" -o bundle/ferretdb "$FERRET_URL"
           chmod +x bundle/ferretdb
           # wekan/FerretDB publishes a .sha256sum beside each binary now. Older
           # releases do not, so a missing one is recorded as unverified rather
           # than failing the build - the binary IS available, which is the test.
           FERRET_SHA=""
-          if curl -fsSL "${FERRET_URL}.sha256sum" -o /tmp/ferretdb.sha256sum 2>/dev/null; then
+          if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
             FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
             GOT="$(sha256sum bundle/ferretdb | cut -d' ' -f1)"
             if [ "$GOT" != "$FERRET_SHA" ]; then
@@ -2887,7 +2887,7 @@ jobs:
           # not need these to start. A silently-amd64 tool would be worse.
           MT="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
           for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
-            if curl -fSL --retry 3 --retry-delay 5 -o "bundle/$t" "$MT/$t-${{ matrix.ferretdb_arch }}"; then
+            if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o "bundle/$t" "$MT/$t-${{ matrix.ferretdb_arch }}"; then
               chmod +x "bundle/$t"
             else
               echo "::warning::No $t for ${{ matrix.ferretdb_arch }} in wekan/mongo-tools-patches; removing the inherited amd64 one rather than shipping it."
@@ -3076,7 +3076,7 @@ jobs:
           if [ ! -f "$HOME/.meteor/meteor" ]; then
             # Downloaded, then run: a `curl | sh` cannot be retried, because
             # by the time the download fails sh is already half way through it.
-            curl -fsSL --retry 5 --retry-delay 10 -o /tmp/install-meteor.sh https://install.meteor.com/
+            bash "$GITHUB_WORKSPACE/releases/fetch.sh" -o /tmp/install-meteor.sh https://install.meteor.com/
             sh /tmp/install-meteor.sh
           fi
           echo "$HOME/.meteor" >> "$GITHUB_PATH"
@@ -3302,7 +3302,21 @@ jobs:
         run: |
           set -euo pipefail
           base="https://github.com/wekan/wekan/releases/download/v${VERSION}"
-          have() { curl -fsSL -o /dev/null -I --retry 3 --retry-delay 5 "$1"; }
+          # Three answers, not two: present, absent, or "the server would not
+          # say". github.com 503s for minutes at a time, and a 503 read as
+          # "that bundle is not on the release" would drop an architecture that
+          # is sitting right there - silently, with a ::warning:: nobody reads
+          # until somebody on ppc64le asks where their image went. fetch.sh
+          # --check retries a 503 and exits 2 when it still cannot tell; that
+          # stops the job instead of shipping a quietly smaller image.
+          have() {
+            bash "$GITHUB_WORKSPACE/releases/fetch.sh" --check "$1"
+            case $? in
+              0) return 0 ;;
+              1) return 1 ;;
+              *) echo "::error::Cannot tell whether $1 is on the release: github.com did not answer. Re-run this job rather than ship an image missing a platform."; exit 1 ;;
+            esac
+          }
           # docker platform : the wekan bundle arch the Dockerfile downloads for it.
           # linux/arm/v6 and linux/arm/v7 are BOTH TARGETARCH=arm and differ only in
           # TARGETVARIANT, which is why the Dockerfile's arch case reads the variant.
@@ -3604,7 +3618,7 @@ jobs:
             # Two attempts: a single failed HTTPS call is not evidence about a
             # registry, only about the network between here and it.
             for attempt in 1 2; do
-              token="$(curl -sS --max-time 30 "$token_url" | jq -r '.token // empty' 2>/dev/null || true)"
+              token="$(bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o - "$token_url" 2>/dev/null | jq -r '.token // empty' 2>/dev/null || true)"
               code="$(curl -sS --max-time 30 -o /dev/null -w '%{http_code}' \
                 -H "Authorization: Bearer ${token:-}" \
                 -H 'Accept: application/vnd.oci.image.index.v1+json' \
@@ -4615,7 +4629,7 @@ jobs:
           # univention-appcenter-control is the App Provider CLI. Fetch it and
           # upload the app metadata/component. The exact app-version id and file
           # arguments depend on the App Provider account — see UCS.md.
-          if ! curl -fsSL -o univention-appcenter-control \
+          if ! bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o univention-appcenter-control \
                 https://provider-portal.software-univention.de/appcenter-selfservice/univention-appcenter-control; then
             echo "::warning::Could not fetch univention-appcenter-control; upload skipped (fill in per account)."
             exit 0
