@@ -374,6 +374,39 @@ test('entries are grouped by area, and no summary repeats its group', () => {
     `${loose.length} entries sit outside any group, e.g. ${loose[0]}`);
 });
 
+test('a RELEASED section never claims its binaries were not rebuilt', () => {
+  // An Upcoming section that changes no build may say so - "The binaries below
+  // are v10.82's: nothing here rebuilds them" - and copy the previous release's
+  // table rather than inventing one. Releasing invalidates both halves of that:
+  // release-all.sh renames the heading and every bundle IS rebuilt, so the
+  // sentence becomes false and the copied table describes the wrong build.
+  //
+  // v10.83 shipped exactly that way. Its table was v10.82's, so it named
+  // FerretDB v1.48.0 when v1.49.0 was built, listed loong64 (skipped this time -
+  // debian:trixie publishes no linux/loong64 image) and omitted armhf, armv6,
+  // armv7, i386 and win-arm64, which were built. The generated table at the top
+  // of the GitHub release notes was right, and the CHANGELOG's contradicted it.
+  //
+  // The whole point of this table is that "which Node.js is in the arm64 bundle
+  // of 10.69, and was it checked" is answerable from the CHANGELOG after the
+  // build log has expired. A table carried forward unchanged answers it wrongly,
+  // which is worse than not answering.
+  // Checked on the NEWEST release only - the one release-all.sh just renamed,
+  // where the mistake is fresh and the build log is still there to correct it
+  // from. v10.73 through v10.81 carry the same sentence; whether each of those
+  // releases really rebuilt its bundles cannot be established now that their
+  // logs have expired, and rewriting eight historical tables on a guess would
+  // put invented provenance where merely doubtful provenance is. They are left
+  // as they shipped.
+  const newest = changelog.split(/^# (?=v\d)/m)[1] || '';
+  const version = (newest.match(/^v[\d.]+/) || ['?'])[0];
+  assert.ok(!/nothing here rebuilds them/.test(newest),
+    `${version} carries the Upcoming section's "nothing here rebuilds them" - ` +
+    `a release rebuilds every bundle, so its table has to be that build's own ` +
+    `provenance (releases/provenance-table.sh prints it from provenance.tsv, ` +
+    `and the same table heads the GitHub release notes)`);
+});
+
 test('CLAUDE.md states these rules, so they are not folklore', () => {
   const claude = read('CLAUDE.md');
   assert.ok(/Every entry is a `<details>` block/.test(claude));
