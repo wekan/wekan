@@ -22,7 +22,13 @@
 #        <charts>/wekan/Chart.yaml   - appVersion  (e.g. "9.36")
 #                                    - version     (e.g. 9.36.0)
 #        <charts>/wekan/values.yaml  - WeKan image tag (e.g. tag: v9.36)
-#      Dependency versions (mongodb chart, mongodb image, etc.) are NOT changed.
+#      Nothing else is touched, and everything else is what makes the chart what
+#      it is: since charts#54/#55 the database is FerretDB
+#      (ghcr.io/wekan/ferretdb:latest, `tag: latest`, which the version sed below
+#      cannot match), installed by the chart's own
+#      templates/ferretdb-{statefulset,service}.yaml. So a release publishes
+#      whatever is on the charts repo's main branch, with this release's numbers
+#      on it - which is how the FerretDB chart reaches people: in a release.
 #   2. Run <charts>/release.sh <version>: commit+push main, package
 #      wekan-<version>.0.tgz, then `git checkout gh-pages` and move the .tgz into
 #      the gh-pages working tree.
@@ -125,14 +131,17 @@ fi
 # ── 1. Bump only the WeKan version numbers on the main branch ────────────────
 ( cd "$CHARTS_DIR" && git checkout main && git pull )
 
-# Chart.yaml: appVersion (app version) is anchored at column 0; the chart's own
-# version is also at column 0, so the indented mongodb dependency "version:" is
-# left untouched.
+# Chart.yaml: appVersion is anchored at column 0, and so is the chart's own
+# version. The anchor matters for any INDENTED "version:" - a dependency's, if
+# one is ever added back (the MongoDB dependency this was written for is gone
+# since charts#54).
 sedi -E "s|^appVersion: \"[^\"]*\"|appVersion: \"${VERSION}\"|" "$CHART_YAML"
 sedi -E "s|^version: [0-9]+\.[0-9]+\.[0-9]+|version: ${CHART_VERSION}|" "$CHART_YAML"
 
-# values.yaml: only the WeKan container image tag (tag: v<digits>). The mongodb
-# image tag (e.g. 7.0.34) and any "tag: latest" are left unchanged.
+# values.yaml: only the WeKan container image tag (tag: v<digits>). Every other
+# image in the chart is pinned to "tag: latest" - FerretDB and the busybox init
+# and test images - and this pattern cannot match those, which is what keeps
+# ghcr.io/wekan/ferretdb:latest out of a WeKan version bump.
 sedi -E "s|tag: v[0-9]+\.[0-9]+(\.[0-9]+)?|tag: v${VERSION}|" "$CHART_VALUES"
 
 echo "  Updated Chart.yaml (appVersion ${VERSION}, version ${CHART_VERSION}) and values.yaml (tag v${VERSION})."

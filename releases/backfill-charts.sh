@@ -161,11 +161,31 @@ def image_exists(tag):
         # it is, which for a release with no chart means no chart this run.
         return None
 
-keep, candidates = [], []
+# THE CHART THIS SCRIPT BUILDS IS TODAY'S CHART, and today's chart installs
+# FerretDB (charts#54, charts#55). That is right for a release that shipped with
+# FerretDB and wrong for one that did not: WeKan's own docker-compose.yml made
+# FerretDB the default in v10.00 (commit 4dbf99010, released 2026-07-18), and a
+# chart pairing a v6.09 image with FerretDB would be an install nobody has ever
+# run, published under a version number that says it is that release's chart.
+#
+# So versions below the floor are left without a chart rather than given a
+# plausible-looking one. It is not a statement that they cannot work - WeKan
+# speaks the MongoDB wire protocol and FerretDB answers it - only that this
+# script cannot reconstruct the chart those releases actually had, and inventing
+# one is worse than the hole.
+#
+# Old ENTRIES are never touched either way: a version whose package is already
+# published is "keep", and keep is never rebuilt.
+FERRETDB_FLOOR = os.environ.get("CHART_FERRETDB_FLOOR", "10.00")
+floor_key = tuple(int(x) for x in FERRETDB_FLOOR.split("."))
+
+keep, candidates, predates = [], [], []
 for major, minor in versions:
     ver = f"{major}.{minor:02d}"
     if f"{ver}.0" in published:
         keep.append(ver)
+    elif (major, minor) < floor_key:
+        predates.append(ver)
     else:
         candidates.append(ver)
 
@@ -181,13 +201,16 @@ omit    = [v for v, ok in zip(candidates, have_image) if ok is False]
 unknown = [v for v, ok in zip(candidates, have_image) if ok is None]
 
 with open(out_path, "w", encoding="utf-8") as fh:
-    json.dump({"keep": keep, "build": build, "omit": omit, "unknown": unknown}, fh)
+    json.dump({"keep": keep, "build": build, "omit": omit, "unknown": unknown,
+               "predates": predates, "floor": FERRETDB_FLOOR}, fh)
 PYEOF
 
 KEEP_N=$(jq '.keep   | length' "$PLAN_JSON")
 BUILD_N=$(jq '.build  | length' "$PLAN_JSON")
 OMIT_N=$(jq '.omit   | length' "$PLAN_JSON")
 UNKNOWN_N=$(jq '.unknown | length' "$PLAN_JSON")
+PREDATES_N=$(jq '.predates | length' "$PLAN_JSON")
+FLOOR=$(jq -r '.floor' "$PLAN_JSON")
 
 echo
 echo "=== Helm chart backfill plan ==="
@@ -195,6 +218,10 @@ printf '  keep   %-5s chart already published; not rebuilt\n' "$KEEP_N"
 printf '  build  %-5s release and image exist, no chart yet\n' "$BUILD_N"
 printf '  omit   %-5s release exists but has NO container image, so a chart for it\n' "$OMIT_N"
 printf '                would install and then fail at the image pull\n'
+printf '  older  %-5s released before WeKan %s, when FerretDB became the default\n' "$PREDATES_N" "$FLOOR"
+printf '                database. This script builds TODAY\x27s chart, which installs\n'
+printf '                FerretDB, so those releases are left without one rather than\n'
+printf '                given a chart nobody ever ran (CHART_FERRETDB_FLOOR overrides)\n'
 [ "$UNKNOWN_N" != "0" ] && printf '  ?      %-5s ghcr did not answer; left alone this run\n' "$UNKNOWN_N"
 
 echo

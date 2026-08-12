@@ -733,29 +733,40 @@ font for those is in TODO Later.
 and has the following test coverage work:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5d1c9d0a3">The Helm chart's move to FerretDB is pinned from this side of the fence</a>. Thanks to salcinad, ouvry-ems and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/5d1c9d0a3">This release switches the Helm chart to FerretDB, and its release job is what publishes it</a>. Thanks to salcinad, ouvry-ems and xet7.</summary>
 
-[wekan/charts](https://github.com/wekan/charts) 10.86.0 replaces its bundled
-MongoDB with FerretDB (`ghcr.io/wekan/ferretdb`), which answers both
+[wekan/charts](https://github.com/wekan/charts) drops its bundled MongoDB for
+FerretDB (`ghcr.io/wekan/ferretdb`), installed by the chart itself as one
+StatefulSet and one ClusterIP Service. That answers
 [charts#55](https://github.com/wekan/charts/issues/55) — WeKan runs on FerretDB
 and the chart did not — and
 [charts#54](https://github.com/wekan/charts/issues/54): the chart built its
 `MONGO_URL` out of a different chart's naming, Bitnami's per-pod
 `<release>-mongodb-0.<release>-mongodb-headless` against the services
 groundhog2k actually creates, so WeKan dialled a host that does not exist. The
-database is defined by the chart now, so the Service in the URL is the Service
-the chart creates.
+database is the chart's own now, so the Service in the URL is the Service the
+chart creates.
 
-That repository has no test runner, and the things that went wrong in it are
-WeKan's own settings — the `directConnection=true` the driver needs
-([#6582](https://github.com/wekan/wekan/issues/6582)) and the environment
-WeKan's `docker-compose.yml` runs FerretDB with. So the guard is here, reading
-`.tools/charts` and skipping with a message when that clone is absent.
+**The chart reaches people with THIS release, not before it.** The charts job of
+the Release All workflow publishes chart `<version>.0` from the charts repo's
+`main` branch, and that branch now holds the FerretDB chart — so the release
+publishes it, with an image that exists and an index entry written by the script
+that owns the index. Nothing was published out of band, and no existing entry in
+the index is touched: charts already in it keep their package and their digest.
 
-One of its checks is a sweep rather than an example: every setting
-`docker-compose.yml` documents must appear in the chart's `values.yaml`. It
-found `NODE_OPTIONS` missing, and a Helm user now has the same complete
-reference a Docker user has instead of a subset.
+The chart carries what WeKan needs on FerretDB rather than what it needed on
+MongoDB — polling reactivity, `sockjs`, `WRITABLE_PATH`, `WITH_API`, no
+`MONGO_OPLOG_URL`, and `directConnection=true` in the URL
+([#6582](https://github.com/wekan/wekan/issues/6582)) — plus every setting
+`docker-compose.yml` documents, commented, so a Helm user has the same reference
+a Docker user has.
+
+Two release-path guards come with it. The version bump a release performs cannot
+touch `tag: latest`, so a WeKan version bump can never rewrite the database
+image tag. And filling holes in the index for OLD releases
+(`releases/backfill-charts.sh`) stops at WeKan 10.00, the release FerretDB
+became the default in: it packages today's chart, and giving a v6.09 image a
+FerretDB chart would publish an install nobody has ever run.
 
 </details>
 

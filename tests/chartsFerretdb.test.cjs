@@ -170,5 +170,54 @@ test('upgrading from the MongoDB chart does not lose the old database', () => {
     'the README has to say both ways out: keep the MongoDB, or move the data');
 });
 
+// ── the release path ────────────────────────────────────────────────────────
+// These run whether or not the charts clone is present: they are about THIS
+// repository's release scripts, which are what decide that the next WeKan
+// release publishes the FerretDB chart rather than something else.
+function releaseTest(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
+
+releaseTest('a release changes only the version numbers, so it ships whatever main has', () => {
+  const script = fs.readFileSync(path.join(repoRoot, 'releases/release-charts.sh'), 'utf8');
+  const seds = [...script.matchAll(/^sedi -E "([^"]+)"/gm)].map(m => m[1]);
+  assert.strictEqual(seds.length, 3,
+    'three substitutions: appVersion, the chart version, and the WeKan image tag. '
+    + 'A fourth would be something else being rewritten at release time');
+  assert.ok(seds.some(s => s.includes('^appVersion')));
+  assert.ok(seds.some(s => s.includes('^version: [0-9]')),
+    'anchored at column 0, so an indented dependency version is not touched');
+  const tagSed = seds.find(s => s.includes('tag: v'));
+  assert.ok(tagSed, 'the WeKan image tag is bumped');
+  // The one that matters for FerretDB: `tag: latest` must not match this
+  // pattern, or a WeKan version bump would rewrite the database image tag.
+  assert.ok(!/tag: \(v\?\|latest\)|latest/.test(tagSed),
+    'the tag pattern must not be able to match "tag: latest"');
+  const pattern = new RegExp(tagSed.split('|')[1]);
+  assert.ok(!pattern.test('    tag: latest'), 'and it does not, in fact, match it');
+  assert.ok(pattern.test('  tag: v10.85'), 'while it does match the WeKan tag');
+});
+
+releaseTest('the chart is published only for a version whose image exists', () => {
+  const script = fs.readFileSync(path.join(repoRoot, 'releases/release-charts.sh'), 'utf8');
+  assert.ok(/image_exists/.test(script),
+    'a chart is a pointer to an image; publishing one for a version with no image '
+    + 'is an install that fails at the pull');
+  assert.ok(/ghcr\.io\/wekan\/wekan/.test(script));
+});
+
+releaseTest('backfilling old releases does not hand them today\'s FerretDB chart', () => {
+  // release-all-missing.yml can fill holes in the index, and it packages the
+  // CURRENT chart source with an old release's numbers on it. Today's source
+  // installs FerretDB, which WeKan did not default to until v10.00 - so a chart
+  // for v6.09 built this way would be an install nobody has ever run, published
+  // under a version number that says it is that release's chart.
+  const backfill = fs.readFileSync(path.join(repoRoot, 'releases/backfill-charts.sh'), 'utf8');
+  assert.ok(/CHART_FERRETDB_FLOOR/.test(backfill), 'there is a floor, and it is overridable');
+  assert.ok(/"10\.00"/.test(backfill), 'and it is the release FerretDB became the default in');
+  assert.ok(/predates/.test(backfill), 'versions below it are reported, not silently dropped');
+  assert.ok(/keep is never rebuilt|never rebuilt/.test(backfill),
+    'and a version that already HAS a package keeps it - old entries are not '
+    + 'touched by any of this');
+});
+
 console.log(`\nchartsFerretdb: ${passed} tests passed`
   + (skipped ? `, ${skipped} skipped (no .tools/charts clone)` : ''));
