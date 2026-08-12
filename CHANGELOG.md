@@ -233,6 +233,30 @@ reminder, a feature).
 </details>
 
 <details>
+<summary>Carried from a fix that went as far as it could without a new dependency.</summary>
+
+[#6586](https://github.com/wekan/wekan/issues/6586) has two parts left. The PDF
+export now writes Windows-1252, which covers the Western European letters the
+report was about and transliterates the rest of the Latin script - but a
+Cyrillic, Greek, Hebrew, Arabic or CJK board still exports as `?`, because the
+base-14 PDF fonts have no glyphs for them. Fixing that means EMBEDDING a Unicode
+font: a TrueType binary in the repository (DejaVu Sans is about half a
+megabyte), plus glyph-id mapping, a widths array and a ToUnicode CMap in the
+writer. That is a dependency decision rather than a bug fix. The same issue also
+asks for the markdown-flavoured export to be offered as a `.md` file in its own
+right, which is a new export format, not a change to this one.
+
+An upgrade report by email has one more: after a 6.09 to 10.85 dump-and-restore,
+one board that has attachments loads forever - "it only loads and shows nothing:
+no cards, nothing but the loading animation" - while every other board on the
+same instance is fine. The attached `snap logs wekan.mongodb` is mongod startup
+only, with no errors in it, so there is nothing yet to point at; it needs that
+board's data, or the browser console and the WeKan (not mongod) log while it
+hangs.
+
+</details>
+
+<details>
 <summary>Needs a maintainer decision on the intended contract (partly already works).</summary>
 
 [#4912](https://github.com/wekan/wekan/issues/4912) (a global `act-editCard`
