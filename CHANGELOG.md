@@ -739,7 +739,7 @@ and changes what the Helm chart installs and how it is published:
 <summary><a href="https://github.com/wekan/wekan/commit/5d1c9d0a3">This release switches the Helm chart to FerretDB, and its release job is what publishes it</a>. Thanks to salcinad, ouvry-ems and xet7.</summary>
 
 [wekan/charts](https://github.com/wekan/charts) drops its bundled MongoDB for
-FerretDB (`quay.io/wekan/ferretdb`), installed by the chart itself as one
+FerretDB (`ghcr.io/wekan/ferretdb`), installed by the chart itself as one
 StatefulSet and one ClusterIP Service. That answers
 [charts#55](https://github.com/wekan/charts/issues/55) — WeKan runs on FerretDB
 and the chart did not — and
@@ -757,16 +757,19 @@ publishes it, with an image that exists and an index entry written by the script
 that owns the index. Nothing was published out of band, and no existing entry in
 the index is touched: charts already in it keep their package and their digest.
 
-The image is the one that can be PULLED. wekan/FerretDB publishes the same
-multi-arch image to three registries, and Artifact Hub's scan of the chart said
-`error scanning image ghcr.io/wekan/ferretdb:latest: image not found` — because
-a GHCR package is private until somebody makes it public, and that one has not
-been, so an anonymous pull is denied and a cluster would have hit
-`ImagePullBackOff`. quay.io and Docker Hub serve it to anyone; quay.io is the
-default and all three are named, with which of them works and why. Chart.yaml
-also declares its images and its changes to Artifact Hub now, written at release
-time from the version being released, so the scanner reads a list instead of
-inferring one.
+The image is one that can be PULLED, which took finding out. Artifact Hub's scan
+of the chart said `error scanning image ghcr.io/wekan/ferretdb:latest: image not
+found` — because a GHCR package is private until somebody makes it public, and
+the WeKan organisation had public packages disabled entirely, so the setting was
+greyed out. In a cluster that is `ImagePullBackOff`, not a scanner complaint.
+The organisation policy and the package are public now, so
+`ghcr.io/wekan/ferretdb` is the default, with `quay.io/wekan/ferretdb` and
+Docker Hub's `wekanteam/ferretdb` beside it — all three verified to serve the
+full multi-arch set. The chart keeps the story, because "check the package's
+visibility" is the first thing to try if a pull ever fails that way again.
+Chart.yaml also declares its images and its changes to Artifact Hub now, written
+at release time from the version being released, so the scanner reads a list
+instead of inferring one.
 
 The chart carries what WeKan needs on FerretDB rather than what it needed on
 MongoDB — polling reactivity, `sockjs`, `WRITABLE_PATH`, `WITH_API`, no
@@ -786,6 +789,34 @@ image tag. And filling holes in the index for OLD releases
 (`releases/backfill-charts.sh`) stops at WeKan 10.00, the release FerretDB
 became the default in: it packages today's chart, and giving a v6.09 image a
 FerretDB chart would publish an install nobody has ever run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4a519b656">The two variant images are published on GHCR by the release itself</a>. Thanks to xet7.</summary>
+
+`wekan-ondra` and `wekan-gantt-gpl` are the same WeKan as `wekan`: those
+repositories are byte-identical to `wekan/wekan` apart from the snap `name:` in
+`snapcraft.yaml`. Their Docker images have therefore never been rebuilt — they
+are retags of the released manifest — and on Docker Hub they still are, by the
+manual `docker-variant.yml`.
+
+On GHCR they are now tagged in the release's own `docker buildx build --push`,
+beside `ghcr.io/wekan/wekan`. Being in the same build is the point: the variant
+tags carry the release's own digests for every architecture, there is no second
+emulated build to go wrong, and there is no window in which a variant image can
+differ from the release it names. The push verification asks the registry about
+them like any other tag, so a variant tag that never arrived fails the job
+instead of being found months later by somebody on that CPU.
+
+Release All Missing has no Docker part to change: its jobs are plan,
+extra-arches, appimage, flatpak, charts and done, and it fills in artifacts for
+versions whose image already exists.
+
+If a variant repository ever stops being identical to `wekan/wekan`, those two
+tags become a lie and that variant needs its own build — which is written where
+the tags are, and in
+[Snap-Ondra-Gantt.md](https://github.com/wekan/wekan/blob/main/docs/Design/Autoupdate/Snap-Ondra-Gantt.md).
 
 </details>
 
