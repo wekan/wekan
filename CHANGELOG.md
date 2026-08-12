@@ -276,7 +276,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.84 2026-08-12 WeKan ® release
 
 **In short:** one fix, to the **snap**, and it is a fix to the previous
 release's fix. The guard v10.82 added so an out-of-date FerretDB copy could not
