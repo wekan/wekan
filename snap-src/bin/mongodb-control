@@ -240,10 +240,27 @@ switch_to_completed_ferretdb() {
     # hides everything since, which is not a lost database (it is all still in
     # $SNAP_COMMON, which `snap revert` does not roll back) but is indistinguishable
     # from one to the person looking at it.
-    if bash "$SNAP/bin/ferretdb-migration-stale" "$SNAP_COMMON" 2>&1; then
+    local stale_rc=0
+    bash "$SNAP/bin/ferretdb-migration-stale" "$SNAP_COMMON" || stale_rc=$?
+    if [ "$stale_rc" -eq 0 ]; then
         echo "NOT switching to FerretDB: the migrated copy is OLDER than the MongoDB data."
         echo "MongoDB keeps serving, so the newest data is the data you see. To move to"
         echo "FerretDB, migrate again so the copy is current:  snap run wekan.migrate"
+        return 1
+    fi
+    # AMBIGUOUS (2): both copies have been written to since the migration, so which
+    # one is "the database" is not something a timestamp knows. Switching here is
+    # an automatic, silent choice between two databases that both contain work -
+    # so it does not happen. mongod is already up; it keeps serving, and the admin
+    # is told what to look at. (#6583, comment 5259638482: an automatic switch made
+    # on the wrong evidence is exactly how the wrong copy gets served.)
+    if [ "$stale_rc" -eq 2 ]; then
+        echo "NOT switching to FerretDB: both it and MongoDB have been written to since"
+        echo "the migration, and which holds the work you want cannot be told from"
+        echo "timestamps. MongoDB keeps serving - nothing has been changed or deleted."
+        echo "To compare them, switch deliberately and look at the boards each time:"
+        echo "  sudo snap set ${svc} database=ferretdb"
+        echo "  sudo snap set ${svc} database=mongodb"
         return 1
     fi
     if [ -f "$SNAP_COMMON/.migration-to-ferretdb-done" ] && \
@@ -298,6 +315,12 @@ handle_mongod_start_failure() {
     # readers, none of which is the mongod that just failed, so it can still reach
     # everything written since. Serving the stale copy instead would show data from
     # the day it ran and say nothing about it.
+    #
+    # ONLY exit 0 counts, and that matters more here than anywhere else: this is
+    # the branch that goes on to DELETE files/db. AMBIGUOUS (2) means the SQLite
+    # has been written to since the migration - it holds work of its own - so
+    # wiping it to re-copy MongoDB would destroy the very thing in doubt. The `if`
+    # gives that for free, and it must stay a test for 0 rather than "not 1".
     local stale_migration=1
     if [ -f "$SNAP_COMMON/.migration-to-ferretdb-done" ] && \
        bash "$SNAP/bin/ferretdb-migration-stale" "$SNAP_COMMON" 2>/dev/null; then

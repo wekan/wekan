@@ -97,8 +97,40 @@ fi
 # Nothing is lost either way - $SNAP_COMMON is shared across revisions and is not
 # rolled back by a revert, so the MongoDB data is still there - so the right move is
 # simply to serve the newer of the two and say why.
-if [ "ferretdb" = "$DATABASE" ] && [ "$mongodb_has_data" = "true" ] && \
-   bash "$SNAP/bin/ferretdb-migration-stale" "$SNAP_COMMON" 2>/dev/null; then
+#
+# It has to be the NEWER of the two, not simply "not FerretDB". The first version
+# of this guard compared MongoDB against the migration marker and nothing else,
+# and starting mongod at all rewrites its WiredTiger files - so one service start
+# during a refresh made a two-week-old MongoDB look newer than the FerretDB that
+# had been serving all along, and this guard switched the admin onto it:
+# "my database suddenly reverted to an old version from what looks like weeks
+# ago ... upgrading to 10.83 did not fix the problem automatically" (#6583). It
+# did not, because this ran again at every start. The detector now answers about
+# both copies and says AMBIGUOUS (2) when both have been written to, which is not
+# something to resolve by guessing - so that case switches nothing and says so.
+migration_stale_rc=0
+migration_stale_why="$(bash "$SNAP/bin/ferretdb-migration-stale" "$SNAP_COMMON" 2>&1)" \
+    || migration_stale_rc=$?
+#
+# Note there is NO `database=ferretdb` condition on this one, and that is the
+# point: an instance the old guard already moved to database=mongodb is sitting on
+# the wrong copy right now, and saying nothing would leave it there forever. The
+# admin has to hear that the other database holds writes of its own whichever one
+# is currently selected.
+if [ "$mongodb_has_data" = "true" ] && [ "$migration_stale_rc" -eq 2 ]; then
+    echo "========================================================================"
+    echo "WeKan: BOTH databases have been written to since the migration."
+    echo "$migration_stale_why"
+    echo ""
+    echo "Staying on database=${DATABASE} - the setting you already have - because"
+    echo "switching on a guess is how the wrong one gets served. To compare them,"
+    echo "start each in turn and look:"
+    echo "  sudo snap set ${WEKAN_SNAP_SVC:-wekan} database=mongodb    # then look at the boards"
+    echo "  sudo snap set ${WEKAN_SNAP_SVC:-wekan} database=ferretdb   # then look again"
+    echo "Neither is deleted by choosing the other, and both live in $SNAP_COMMON."
+    echo "========================================================================"
+fi
+if [ "ferretdb" = "$DATABASE" ] && [ "$mongodb_has_data" = "true" ] && [ "$migration_stale_rc" -eq 0 ]; then
     echo "========================================================================"
     echo "WeKan: the FerretDB database in $FERRETDB_SQLITE_DIR was migrated from MongoDB,"
     echo "but the MongoDB data has been written to SINCE that migration - so the migrated"

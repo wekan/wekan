@@ -48,7 +48,11 @@ test('the detector exists, is executable, and parses', () => {
 
 // A $SNAP_COMMON as the snap really lays it out: WiredTiger files at the top,
 // the FerretDB SQLite under files/db, the marker beside them.
-function makeCommon({ mongoAt, migratedAt, sqlite = true, mongo = true, extra = {} }) {
+// sqliteAt defaults to the migration time because that is what the migration
+// itself leaves behind: it writes the SQLite and the marker in the same breath. A
+// LATER sqliteAt means something has been using FerretDB since - which is the
+// whole difference between a copy nobody touched and a live database.
+function makeCommon({ mongoAt, migratedAt, sqliteAt, sqlite = true, mongo = true, extra = {} }) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'wekan-common-'));
   fs.mkdirSync(path.join(dir, 'files/db'), { recursive: true });
   fs.mkdirSync(path.join(dir, 'journal'), { recursive: true });
@@ -58,7 +62,12 @@ function makeCommon({ mongoAt, migratedAt, sqlite = true, mongo = true, extra = 
       fs.utimesSync(path.join(dir, f), new Date(mongoAt), new Date(mongoAt));
     }
   }
-  if (sqlite) fs.writeFileSync(path.join(dir, 'files/db/wekan.sqlite'), 'data');
+  if (sqlite) {
+    const db = path.join(dir, 'files/db/wekan.sqlite');
+    fs.writeFileSync(db, 'data');
+    const at = sqliteAt || migratedAt;
+    if (at) fs.utimesSync(db, new Date(at), new Date(at));
+  }
   if (migratedAt) {
     const marker = path.join(dir, '.migration-to-ferretdb-done');
     fs.writeFileSync(marker, '');
@@ -71,9 +80,13 @@ function makeCommon({ mongoAt, migratedAt, sqlite = true, mongo = true, extra = 
   return dir;
 }
 
-// Exit 0 = stale. Anything else = current / cannot tell.
+// Exit 0 = stale, 1 = current / cannot tell, 2 = both written since the migration.
+function run(dir) {
+  const r = spawnSync('bash', [stale, dir], { encoding: 'utf8' });
+  return { code: r.status, out: r.stderr };
+}
 function isStale(dir) {
-  return spawnSync('bash', [stale, dir], { encoding: 'utf8' }).status === 0;
+  return run(dir).code === 0;
 }
 
 function withCommon(opts, fn) {
@@ -93,6 +106,58 @@ test('the reported case: MongoDB written to for weeks after the migration', () =
     assert.ok(/BEHIND the MongoDB data/.test(out), `it must say so: ${out}`);
     assert.ok(/day\(s\) later/.test(out), 'and by how much');
   });
+});
+
+// ── the regression this guard itself caused (#6583 comment 5259638482) ──────
+//
+//   "A couple of weeks ago, I did a snap revert ... but then completed the
+//    migration successfully. Today, my database suddenly reverted to an old
+//    version from what looks like weeks ago. Upgrading to 10.83 did not fix the
+//    problem automatically."
+//
+// Their FerretDB was the LIVE database and had been for two weeks; MongoDB was
+// the frozen one. But STARTING mongod rewrites its WiredTiger files - recovery
+// and the startup checkpoint - so one service start during a refresh put
+// MongoDB's newest mtime hours ago against a marker from two weeks ago. The first
+// version of this script compared only those two, called the live copy stale, and
+// wekan-control switched them onto the frozen MongoDB. Every start re-applied it,
+// which is why upgrading did not help: the upgrade was the cause.
+
+test('a LIVE FerretDB is not called stale because mongod was started once', () => {
+  const { code, out } = (() => {
+    const dir = makeCommon({
+      migratedAt: JULY,            // migrated a couple of weeks ago
+      sqliteAt: AUGUST,            // and FerretDB has been serving ever since
+      mongoAt: AUGUST,             // mongod merely started today: files touched
+    });
+    try { return run(dir); } finally { fs.rmSync(dir, { recursive: true, force: true }); }
+  })();
+  assert.notStrictEqual(code, 0,
+    'calling the live database stale is what "reverted to an old version from ' +
+    'weeks ago" WAS - the guard did it, at every start');
+  assert.strictEqual(code, 2, 'both were touched after the migration: ambiguous');
+  assert.ok(/BOTH databases have been written to/.test(out), out);
+  assert.ok(/cannot be told from timestamps/.test(out),
+    'and it has to say that it does not know, rather than pick');
+  assert.ok(/Nothing has\s+been changed or switched/.test(out),
+    'the admin needs to know their data was left alone');
+});
+
+test('ambiguity is never resolved by acting - only exit 0 may be acted on', () => {
+  // Both callers test with `if`, so 2 falls through to "do not switch". The one
+  // that matters most is the branch in mongodb-control that DELETES files/db to
+  // re-migrate: on ambiguity the SQLite holds work of its own, and wiping it
+  // would destroy exactly the copy in doubt.
+  const control = fs.readFileSync(
+    path.join(repoRoot, 'snap-src/bin/mongodb-control'), 'utf8');
+  const at = control.indexOf('local stale_migration=1');
+  assert.ok(at !== -1);
+  const branch = control.slice(at, at + 400);
+  assert.ok(/bash "\$SNAP\/bin\/ferretdb-migration-stale"[^\n]*; then\n\s*stale_migration=0/.test(branch),
+    'stale_migration may only be set from a plain success test, never from ' +
+    '"not 1" - which would let ambiguity reach the rm -rf');
+  const wipe = control.indexOf('rm -rf "${SNAP_COMMON:?}/files/db/"*');
+  assert.ok(wipe > at, 'and the deletion is downstream of it');
 });
 
 test('a migration newer than the data is current', () => {
@@ -181,7 +246,11 @@ test('wekan-control keeps MongoDB when the migrated copy is behind it', () => {
   assert.ok(/ferretdb-migration-stale/.test(wekanControl),
     'wekan-control guards against an EMPTY FerretDB already; a full but out-of-date ' +
     'one looks worse, because WeKan comes up with only the last weeks missing');
-  const at = wekanControl.indexOf('ferretdb-migration-stale');
+  // Anchored on the STALE branch specifically. The ambiguous branch sits above it
+  // and deliberately switches nothing, so a window that starts at the first
+  // mention of the detector would be reading the wrong block.
+  const at = wekanControl.indexOf('migration_stale_rc" -eq 0');
+  assert.ok(at !== -1, 'the stale branch must test for exactly 0');
   const after = wekanControl.slice(at, at + 1600);
   assert.ok(/export DATABASE="mongodb"/.test(after) &&
             /snapctl set database=mongodb/.test(after),
@@ -189,6 +258,17 @@ test('wekan-control keeps MongoDB when the migrated copy is behind it', () => {
   assert.ok(/snap revert. does not roll back|not rolled back by a revert/.test(after),
     'and say that nothing is lost - $SNAP_COMMON is shared across revisions - or the ' +
     'message reads as a report of data loss');
+});
+
+test('wekan-control switches NOTHING when both databases have been used', () => {
+  const at = wekanControl.indexOf('migration_stale_rc" -eq 2');
+  assert.ok(at !== -1, 'the ambiguous case needs a branch of its own');
+  const branch = wekanControl.slice(at, wekanControl.indexOf('-eq 0', at));
+  assert.ok(!/snapctl set database=/.test(branch),
+    'switching on a guess between two databases that both hold work is the bug ' +
+    'this whole guard exists to prevent - in either direction');
+  assert.ok(/database=mongodb/.test(branch) && /database=ferretdb/.test(branch),
+    'it has to hand the admin both commands, since only they can tell which is which');
 });
 
 test('the detector ships inside the snap', () => {
