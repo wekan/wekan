@@ -169,8 +169,7 @@ jobs:
 
       - name: Install version-bump and docs build dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y python3 python3-pip curl wget
+          bash "$GITHUB_WORKSPACE/releases/apt-install.sh" python3 python3-pip curl wget
 
       - name: Bump versions and rebuild API docs
         env:
@@ -555,8 +554,7 @@ jobs:
 
       - name: Install system dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential g++ make python3 curl wget zip unzip xz-utils qemu-user-static
+          bash "$GITHUB_WORKSPACE/releases/apt-install.sh" build-essential g++ make python3 curl wget zip unzip xz-utils qemu-user-static
 
       - uses: actions/setup-node@v7
         with:
@@ -772,8 +770,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential g++ make python3 curl unzip zip xz-utils qemu-user-static
+          bash "$GITHUB_WORKSPACE/releases/apt-install.sh" build-essential g++ make python3 curl unzip zip xz-utils qemu-user-static
 
       # Which Node.js this platform gets - and whether it is built at all.
       #
@@ -827,7 +824,7 @@ jobs:
             -v "$(pwd)/releases:/releases:ro" \
             -w /bundle/programs/server \
             node:${NODE_VERSION}-slim \
-            sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && bash /releases/npm-retry.sh npm install"
+            sh -c "bash /releases/apt-install.sh build-essential python3 && bash /releases/npm-retry.sh npm install"
 
       - name: Check the binaries the arm64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -2733,8 +2730,7 @@ jobs:
     steps:
       - name: Install dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y curl unzip zip
+          bash "$GITHUB_WORKSPACE/releases/apt-install.sh" curl unzip zip
 
       - name: Set up QEMU for ${{ matrix.arch }} emulation
         uses: docker/setup-qemu-action@v4
@@ -3071,8 +3067,7 @@ jobs:
 
       - name: Install system dependencies and Meteor
         run: |
-          sudo apt-get update
-          sudo apt-get install -y p7zip-full wget curl build-essential g++ make python3 unzip xz-utils git qemu-user-static
+          bash "$GITHUB_WORKSPACE/releases/apt-install.sh" p7zip-full wget curl build-essential g++ make python3 unzip xz-utils git qemu-user-static
           if [ ! -f "$HOME/.meteor/meteor" ]; then
             # Downloaded, then run: a `curl | sh` cannot be retried, because
             # by the time the download fails sh is already half way through it.

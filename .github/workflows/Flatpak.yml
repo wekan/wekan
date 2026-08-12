@@ -153,8 +153,7 @@ jobs:
         if: ${{ env.BUILD_THIS == 'true' }}
         run: |
           set -euo pipefail
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends flatpak ostree zip
+          bash "$GITHUB_WORKSPACE/releases/apt-install.sh" --no-install-recommends flatpak ostree zip
           flatpak remote-add --if-not-exists --user flathub \
             https://flathub.org/repo/flathub.flatpakrepo
           flatpak install --user -y --noninteractive flathub \
@@ -359,8 +358,7 @@ jobs:
         if: ${{ inputs.publish_repo != false }}
         run: |
           set -euo pipefail
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends flatpak ostree
+          bash "$GITHUB_WORKSPACE/releases/apt-install.sh" --no-install-recommends flatpak ostree
           shopt -s nullglob
           parts=(repos/flatpak-repo-*)
           if [ ${#parts[@]} -eq 0 ]; then

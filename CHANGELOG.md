@@ -355,6 +355,42 @@ from the provenance each build job records.
 This release fixes the following release-tooling bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASHAPT">A package index that is mid-republish no longer ends a release</a>. Thanks to xet7.</summary>
+
+The `bump` job of the same afternoon died on a repository the release does not
+use:
+
+```
+E: Failed to fetch https://dl.google.com/linux/chrome-stable/deb/dists/stable/main/binary-amd64/Packages.gz  Hash Sum mismatch
+E: Some index files failed to download.
+Error: Process completed with exit code 100.
+```
+
+It was installing `python3` and `curl`. A GitHub runner comes with
+google-chrome, microsoft-prod, azure-cli and docker repositories configured,
+and `apt-get update` fails as a **whole** when any one of them serves an index
+that does not match its own hashes - which is what a mirror looks like while it
+is being republished.
+
+`releases/apt-install.sh` installs the packages instead. It retries the update,
+clearing the cached lists first - a Hash Sum mismatch is a cached index
+disagreeing with the server, so re-reading it reports the same thing - and if
+it still fails it moves the third-party lists aside and updates from the
+distribution archive alone, which is where every package a release job installs
+comes from. Both steps say what they did: a silent change of package sources
+would be worse than the failure. A mirror that never comes back still fails the
+job, saying it is the mirror.
+
+Every `apt-get update` + `apt-get install` pair in Release All, Release All
+Missing, the Sandstorm, meteor-spk and Flatpak workflows, and the emulated
+build container, goes through it. `tests/releaseAptInstall.test.cjs` drives it
+with a fake `apt-get` that mismatches on demand and a fake `sudo` that records
+rather than runs - a test must not move the package sources of the machine it
+runs on.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e771f8c66">A download that 503s is retried for a quarter of an hour, and a 404 still fails at once</a>. Thanks to xet7.</summary>
 
 The second run of the same afternoon died one step later than the first, in

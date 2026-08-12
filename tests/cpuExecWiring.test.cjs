@@ -85,10 +85,14 @@ test('negative: Windows and macOS bundles strip the Linux-only cpu-exec + qemu',
 });
 
 test('the qemu-user-static build dependency is installed where bundles are built', () => {
-  // amd64 + arm64 bundle jobs, and both sandstorm jobs (release-all + standalone)
-  const aptLines = releaseAll.match(/apt-get install[^\n]*qemu-user-static/g) || [];
+  // amd64 + arm64 bundle jobs, and both sandstorm jobs (release-all + standalone).
+  // The package list moved behind releases/apt-install.sh, which retries a
+  // mirror that is mid-republish (tests/releaseAptInstall.test.cjs); what this
+  // guard is about is that qemu-user-static is still asked for, wherever the
+  // asking happens.
+  const aptLines = releaseAll.match(/(apt-get install|apt-install\.sh)[^\n]*qemu-user-static/g) || [];
   assert.ok(aptLines.length >= 3, `found ${aptLines.length} apt lines with qemu-user-static in release-all.yml`);
-  assert.ok(/apt-get install[^\n]*qemu-user-static/.test(sandstormYml));
+  assert.ok(/(apt-get install|apt-install\.sh)[^\n]*qemu-user-static/.test(sandstormYml));
 });
 
 // --- Sandstorm .spk ------------------------------------------------------------

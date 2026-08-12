@@ -140,7 +140,7 @@ test('every release download goes through it', () => {
       // Not downloads: apt package lists; a POST that publishes something; the
       // registry API calls that read an HTTP code out of `-w '%{http_code}'`
       // and act on it themselves; and prose that happens to name curl.
-      if (/apt-get|%\{http_code\}|-X POST|install\.sandstorm|githubcli/.test(line)) return;
+      if (/apt-get|apt-install\.sh|%\{http_code\}|-X POST|install\.sandstorm|githubcli/.test(line)) return;
       if (/^\s*(#|echo )/.test(line.trim()) || /::(error|warning)::/.test(line)) return;
       bare.push(`${file}:${i + 1}: ${line.trim().slice(0, 70)}`);
     });

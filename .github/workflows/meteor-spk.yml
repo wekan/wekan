@@ -50,8 +50,7 @@ jobs:
 
       - name: Install system dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y p7zip-full wget curl build-essential g++ make python3 unzip xz-utils git zip
+          bash "$GITHUB_WORKSPACE/releases/apt-install.sh" p7zip-full wget curl build-essential g++ make python3 unzip xz-utils git zip
 
       - name: Install Sandstorm (dev, unattended)
         # build-deps.sh's [bridge] step copies the modern

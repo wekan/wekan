@@ -197,8 +197,7 @@ jobs:
       - name: Install dependencies
         if: ${{ steps.want.outputs.build == 'yes' }}
         run: |
-          sudo apt-get update
-          sudo apt-get install -y curl unzip zip
+          bash "$GITHUB_WORKSPACE/releases/apt-install.sh" curl unzip zip
 
       - name: Set up QEMU for ${{ matrix.arch }} emulation
         if: ${{ steps.want.outputs.build == 'yes' }}

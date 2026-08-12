@@ -38,8 +38,7 @@ set -eux
 
 export DEBIAN_FRONTEND=noninteractive
 
-apt-get update -qq
-apt-get install -y -q build-essential python3 curl xz-utils ca-certificates
+bash "$(dirname "$0")/apt-install.sh" build-essential python3 curl xz-utils ca-certificates
 
 # Only the node BINARY has to be for this CPU. npm is JavaScript, so it runs on
 # whatever node executes it: it comes from the official amd64 tarball of the same
