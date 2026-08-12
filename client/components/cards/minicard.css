@@ -58,13 +58,13 @@
 .minicard-details-menu-with-handle {
   float: inline-end;
   padding-inline-start: 10px;
-  font-size: 14px;
+  font-size: 0.875rem;
   padding: 0;
   z-index: 1;
 }
 .minicard-details-menu {
   float: inline-end;
-  font-size: 14px;
+  font-size: 0.875rem;
   padding-inline-start: 10px;
 }
 @media print {
@@ -237,12 +237,12 @@
   }
   body.mobile-mode .minicard .handle .drag-handle,
   body.mobile-mode .minicard .handle .fa {
-    font-size: 22px;
+    font-size: 1.375rem;
   }
 }
 
 .minicard .handle .drag-handle {
-  font-size: 16px;
+  font-size: 1rem;
   color: #ccc;
   display: inline-block;
   width: 1.4em;
@@ -253,7 +253,7 @@
      "Add card" affordance below (13px). It used to inherit the 16px document
      size, which made a card title exactly as loud as the heading of the column
      holding it. See the note on .list-header-name in lists/list.css. */
-  font-size: 14px;
+  font-size: 0.875rem;
   margin-inline-end: 21px;
   /* #6444: isolate each title's bidirectional context. The title is a
      dir="auto" .viewer; under a global dir="rtl" document, non-isolated

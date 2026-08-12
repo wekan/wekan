@@ -476,8 +476,12 @@ form.inlined-form .list-composer {
      the cards. The scale is now heading 16 > card title 14 >= add-card link 13,
      kept in that order by tests/listTypeScale.test.cjs. Mobile keeps its own
      larger sizes (the !important rules further down) - a phone is read at arm's
-     length. */
-  font-size: 16px;
+     length.
+     #6587: written in rem, not px. The three sizes are the same as before at the
+     default root size (1rem = 16px), but a px size cannot follow Member Settings
+     / Font size, which sets the root font size - so a board's type was the one
+     part of the UI that ignored the setting entirely. */
+  font-size: 1rem;
   line-height: 1.2;
   margin: 0;
   font-weight: bold;
@@ -837,7 +841,7 @@ form.inlined-form .list-composer {
   /* Smaller than a card title, because it is not a card: it is the affordance
      for making one. At the inherited 16px it was the largest text in the list
      body, level with the board's real content. */
-  font-size: 13px;
+  font-size: 0.8125rem;
   padding: 7px 10px;
   position: relative;
   text-decoration: none;

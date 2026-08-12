@@ -14,8 +14,15 @@ body.has-ui-font .wekan-form-control {
 
 /* Font size preset (#4759): scale the root font size. Elements using relative units
  * (em/rem/%) scale with it; the variable is a percentage set by uiFont.js only for a
- * known preset. 'default'/unset removes it. */
-body.has-ui-font-size {
+ * known preset. 'default'/unset removes it.
+ *
+ * #6587: this is on <html>, and it used to be on <body>. `rem` is measured against
+ * the ROOT element, so a size on body never reached it — and a board's type is
+ * written in rem (px would not follow this setting at all, and vw would change with
+ * the window), which is why minicards were the part of the UI that ignored the
+ * preset. Everything relative to body still scales, because body inherits from the
+ * root; putting the size on BOTH would compound the two. */
+html.has-ui-font-size {
   font-size: var(--wekan-ui-font-size) !important;
 }
 

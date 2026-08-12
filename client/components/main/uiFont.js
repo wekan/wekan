@@ -9,14 +9,28 @@ import { fontFamilyValue, fontSizeValue, colorValue } from '/models/lib/uiFonts'
 // saved values are also validated server-side. Unset => nothing applied (defaults).
 
 Meteor.startup(() => {
+  // #6587: the font-size preset has to land on the ROOT element, not on <body>.
+  // A size on <body> is inherited only by children that ask for a relative size,
+  // and it leaves `rem` — which is measured against the root — untouched. So a
+  // board's type, which states its sizes in rem so it does not change with the
+  // window, ignored the setting completely: "The font size setting in the user
+  // menu (Settings -> Font Size) has no effect on mini cards, while it correctly
+  // applies to other UI elements."
+  //
+  // Only ONE element may carry it. With the size on both html and body, a 130%
+  // preset would compound to 169% for anything relative to body, so this marks
+  // the root for font-size and <body> for everything else (the font-family and
+  // colour rules match on body, and form controls are listed there explicitly).
+  const ROOT_CLASSES = new Set(['has-ui-font-size']);
   function toggle(varName, className, value) {
     try {
+      const el = ROOT_CLASSES.has(className) ? document.documentElement : document.body;
       if (value) {
         document.documentElement.style.setProperty(varName, value);
-        document.body.classList.add(className);
+        el.classList.add(className);
       } else {
         document.documentElement.style.removeProperty(varName);
-        document.body.classList.remove(className);
+        el.classList.remove(className);
       }
     } catch (_) {
       // document not ready in exotic embeddings; ignore.
