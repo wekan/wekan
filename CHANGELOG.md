@@ -440,6 +440,54 @@ and fixes the following bugs:
 **The snap** - which database it runs on, and how everything gets there.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASHPATHS">A release script the job cannot see, and an hour of build thrown away at the push</a>. Thanks to xet7.</summary>
+
+The v10.88 run lost seven jobs to two mistakes of the same kind: a step that
+needs something and does not check whether it is there.
+
+**The scripts were not on disk yet.** Moving the downloads and the package
+installs behind `releases/fetch.sh` and `releases/apt-install.sh` turned steps
+that needed nothing into steps that need this repository:
+
+```
+bash: /home/runner/work/wekan/wekan/releases/apt-install.sh: No such file or directory
+bash: D:\a\wekan\wekan/releases/npm-retry.sh: No such file or directory
+```
+
+The first is `build-extra-arches`, where "Install dependencies" was the FIRST
+step of the job, before `actions/checkout` — fine while it was a plain
+`apt-get`. The second is the Windows jobs, which check this repository out to
+`path: src`, so `$GITHUB_WORKSPACE/releases` is a directory that does not exist
+there; they already called the other scripts as `src/releases/…`. The same two
+shapes were in the Flatpak job (no checkout at all), Release All Missing's
+extra-arches and its charts job (`path: wekan`), and the UCS job
+(`path: univention`).
+
+`tests/workflowRepoScripts.test.cjs` now reads every workflow and reports a step
+that runs `releases/…` before its job checks out, or through a prefix that does
+not match where that job put the repository. It also checks that every script a
+workflow names exists here.
+
+**And the push that was never going to work.** The docker job built every
+architecture, emulated, for the best part of an hour, and threw it all away on
+the last line:
+
+```
+ERROR: failed to push quay.io/wekan/wekan-ondra:v10.88:
+  unauthorized: access to the requested resource is not authorized
+```
+
+The credentials were fine — the login check passed. Quay grants push **per
+repository**, and `wekan-ondra` had just been created, so the account that
+pushes `wekan` and `wekan-gantt-gpl` had no rights on it. A registry will say
+whether it would grant a push token in one request, so the job now asks — for
+all nine images, before building anything — and fails in seconds with what to
+change, naming the per-repository setting. A registry that does not answer is a
+warning: that is the network, not the rights.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d8bc8ead8">There is no database setting on the snap any more, and nothing to type</a>. Thanks to xet7.</summary>
 
 `snap set wekan database=mongodb|ferretdb` is **removed**, and so is

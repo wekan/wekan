@@ -194,6 +194,8 @@ jobs:
             echo "v${VERSION} already has ${{ matrix.arch }}; nothing to do."
           fi
 
+      - uses: actions/checkout@v7
+
       - name: Install dependencies
         if: ${{ steps.want.outputs.build == 'yes' }}
         run: |
@@ -203,9 +205,7 @@ jobs:
         if: ${{ steps.want.outputs.build == 'yes' }}
         uses: docker/setup-qemu-action@v4
 
-      # Before the download, because actions/checkout cleans the workspace.
-      - uses: actions/checkout@v7
-        if: ${{ steps.want.outputs.build == 'yes' }}
+      # Before the download, because actions/checkout cleans the workspace.        if: ${{ steps.want.outputs.build == 'yes' }}
 
       # THE DIFFERENCE from release-all.yml, and the whole point of this
       # workflow: the amd64 bundle comes from the RELEASE, not from an artifact
@@ -306,6 +306,12 @@ jobs:
     if: ${{ always() && needs.plan.outputs.version != '' }}
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout wekan (for releases/release-charts.sh)
+        if: steps.check.outputs.skip != 'true'
+        uses: actions/checkout@v7
+        with:
+          path: wekan
+
       - name: Is a chart already published for this version?
         id: check
         env:
@@ -321,7 +327,7 @@ jobs:
           # The published index is the authority on what exists, not this
           # checkout. An entry's own version is at EXACTLY four spaces; the
           # mongodb subchart's version sits deeper and would match a loose grep.
-          bash "$GITHUB_WORKSPACE/releases/fetch.sh" -o index.yaml https://wekan.github.io/charts/index.yaml || {
+          bash wekan/releases/fetch.sh -o index.yaml https://wekan.github.io/charts/index.yaml || {
             echo "::warning::Could not read the published chart index; not touching the charts repo."
             echo "skip=true" >> "$GITHUB_OUTPUT"; exit 0; }
           # -F, a FIXED string: the dots in a version are regex wildcards
@@ -337,11 +343,6 @@ jobs:
             echo "skip=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Checkout wekan (for releases/release-charts.sh)
-        if: steps.check.outputs.skip != 'true'
-        uses: actions/checkout@v7
-        with:
-          path: wekan
 
       - name: Checkout wekan/charts (main + gh-pages)
         if: steps.check.outputs.skip != 'true'

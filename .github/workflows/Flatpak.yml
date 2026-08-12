@@ -306,6 +306,12 @@ jobs:
     if: ${{ always() }}
     runs-on: ubuntu-24.04
     steps:
+      # FIRST: this job runs releases/apt-install.sh, and actions/checkout cleans
+      # the workspace - so it has to happen before the artifacts are downloaded
+      # into it. Without the checkout the step fails with "No such file or
+      # directory", which is how the v10.88 run ended.
+      - uses: actions/checkout@v7
+
       - uses: actions/download-artifact@v8
         with:
           pattern: flatpak-[0-9a-z]*

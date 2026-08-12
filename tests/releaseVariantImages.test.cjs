@@ -123,4 +123,38 @@ test('the docs say the same thing as the workflow', () => {
     + 'runs it after every release for nothing');
 });
 
+test('push rights are checked BEFORE the hour-long build', () => {
+  // v10.88 built every architecture under emulation and threw it away on the
+  // last line: "failed to push quay.io/wekan/wekan-ondra: unauthorized". The
+  // login check passed - Quay grants push per REPOSITORY, and that one had just
+  // been created by this release, so the account had no rights on it. A
+  // registry will say whether it would grant a push token in one request.
+  const at = workflow.indexOf('Check we can PUSH to every repository');
+  assert.notStrictEqual(at, -1, 'the docker job checks push rights');
+  const build = workflow.indexOf('name: Build and push multi-arch image', at);
+  assert.ok(build > at, 'and it does so BEFORE the build, which is the whole point');
+  const step = workflow.slice(at, build);
+  for (const [prefix] of REGISTRIES) {
+    for (const image of ['wekan'].concat(VARIANTS)) {
+      assert.ok(step.includes(`${prefix}${image}`),
+        `${prefix}${image} must be in the push check`);
+    }
+  }
+  assert.ok(/push,pull/.test(step),
+    'it asks for a PUSH scope - a pull token proves nothing about pushing');
+  assert.ok(/rc=1/.test(step) && /exit \$rc/.test(step),
+    'and a repository that would not grant it fails the job');
+  assert.ok(/per-repository/.test(step),
+    'with the fix named, because "unauthorized" does not say where to click');
+});
+
+test('a registry that cannot be reached does not fail the push check (negative)', () => {
+  const at = workflow.indexOf('Check we can PUSH to every repository');
+  const step = workflow.slice(at, workflow.indexOf('name: Build and push multi-arch image', at));
+  assert.ok(/no token; skipping|returned no token/.test(step),
+    'no answer is the network, not a permission - it must warn, not fail');
+  assert.ok(/inconclusive/.test(step),
+    'and the same for a token whose scopes cannot be read');
+});
+
 console.log(`\nreleaseVariantImages: ${passed} tests passed`);

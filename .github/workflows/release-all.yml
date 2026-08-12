@@ -1178,9 +1178,9 @@ jobs:
             rm -rf "$BCRYPT_DIR"
             TMP=$(mktemp -d)
             pushd "$TMP" > /dev/null
-            bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm pack bcrypt@6.0.0
+            bash "src/releases/npm-retry.sh" npm pack bcrypt@6.0.0
             mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
-            cd bcrypt && bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm install --ignore-scripts && cd ..
+            cd bcrypt && bash "src/releases/npm-retry.sh" npm install --ignore-scripts && cd ..
             cp -r bcrypt "$BCRYPT_DIR"
             popd > /dev/null
             rm -rf "$TMP"
@@ -1192,7 +1192,7 @@ jobs:
         run: |
           cd bundle/programs/server
           rm -rf node_modules
-          bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm install
+          bash "src/releases/npm-retry.sh" npm install
 
       - name: Check the binaries the win64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -1222,7 +1222,7 @@ jobs:
           # step below from releases/ferretdb/start-wekan.bat.)
           BASE="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
           for tool in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
-            bash "$GITHUB_WORKSPACE/releases/fetch.sh" -o "bundle/${tool}.exe" "${BASE}/${tool}-win64.exe"
+            bash "src/releases/fetch.sh" -o "bundle/${tool}.exe" "${BASE}/${tool}-win64.exe"
           done
 
           echo "=== bundle contents ==="
@@ -1250,9 +1250,9 @@ jobs:
           # Bundled FerretDB (win64): download this arch's binary and verify it
           # against the .sha256sum wekan/FerretDB publishes beside it.
           FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win64.exe"
-          if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o bundle/ferretdb.exe "$FERRET_URL"; then
+          if bash "src/releases/fetch.sh" --optional -o bundle/ferretdb.exe "$FERRET_URL"; then
             echo "Embedded FerretDB win64 -> bundle/ferretdb.exe"
-            if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
+            if bash "src/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
               FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
               GOT="$(sha256sum bundle/ferretdb.exe | cut -d' ' -f1)"
               if [ "$GOT" != "$FERRET_SHA" ]; then
@@ -1525,9 +1525,9 @@ jobs:
             rm -rf "$BCRYPT_DIR"
             TMP=$(mktemp -d)
             pushd "$TMP" > /dev/null
-            bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm pack bcrypt@6.0.0
+            bash "src/releases/npm-retry.sh" npm pack bcrypt@6.0.0
             mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
-            cd bcrypt && bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm install --ignore-scripts && cd ..
+            cd bcrypt && bash "src/releases/npm-retry.sh" npm install --ignore-scripts && cd ..
             cp -r bcrypt "$BCRYPT_DIR"
             popd > /dev/null
             rm -rf "$TMP"
@@ -1539,7 +1539,7 @@ jobs:
         run: |
           cd bundle/programs/server
           rm -rf node_modules
-          bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm install
+          bash "src/releases/npm-retry.sh" npm install
 
       - name: Check the binaries the win-arm64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -1569,7 +1569,7 @@ jobs:
           # step below from releases/ferretdb/start-wekan.bat.)
           BASE="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
           for tool in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
-            bash "$GITHUB_WORKSPACE/releases/fetch.sh" -o "bundle/${tool}.exe" "${BASE}/${tool}-win-arm64.exe"
+            bash "src/releases/fetch.sh" -o "bundle/${tool}.exe" "${BASE}/${tool}-win-arm64.exe"
           done
 
           echo "=== bundle contents ==="
@@ -1597,9 +1597,9 @@ jobs:
           # Bundled FerretDB (win-arm64): download this arch's binary and verify it
           # against the .sha256sum wekan/FerretDB publishes beside it.
           FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win-arm64.exe"
-          if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o bundle/ferretdb.exe "$FERRET_URL"; then
+          if bash "src/releases/fetch.sh" --optional -o bundle/ferretdb.exe "$FERRET_URL"; then
             echo "Embedded FerretDB win-arm64 -> bundle/ferretdb.exe"
-            if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
+            if bash "src/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
               FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
               GOT="$(sha256sum bundle/ferretdb.exe | cut -d' ' -f1)"
               if [ "$GOT" != "$FERRET_SHA" ]; then
@@ -1862,9 +1862,9 @@ jobs:
             rm -rf "$BCRYPT_DIR"
             TMP=$(mktemp -d)
             pushd "$TMP" > /dev/null
-            bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm pack bcrypt@6.0.0
+            bash "src/releases/npm-retry.sh" npm pack bcrypt@6.0.0
             mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
-            cd bcrypt && bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm install --ignore-scripts && cd ..
+            cd bcrypt && bash "src/releases/npm-retry.sh" npm install --ignore-scripts && cd ..
             cp -r bcrypt "$BCRYPT_DIR"
             popd > /dev/null
             rm -rf "$TMP"
@@ -1889,23 +1889,23 @@ jobs:
           ND="${RUNNER_TEMP}/node-ia32"
           mkdir -p "$ND/ia32" "$ND/Release"
           # Headers (same for every arch); try /download/release then /dist.
-          bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o /tmp/nodehdr.tar.gz \
+          bash "src/releases/fetch.sh" --optional -o /tmp/nodehdr.tar.gz \
             "https://nodejs.org/download/release/${NODE_FULL}/node-${NODE_FULL}-headers.tar.gz" \
-          || bash "$GITHUB_WORKSPACE/releases/fetch.sh" -o /tmp/nodehdr.tar.gz \
+          || bash "src/releases/fetch.sh" -o /tmp/nodehdr.tar.gz \
             "https://nodejs.org/dist/${NODE_FULL}/node-${NODE_FULL}-headers.tar.gz"
           tar -xzf /tmp/nodehdr.tar.gz -C "$ND" --strip-components=1
           # The 32-bit import library, at the two paths node-gyp may look in. It
           # comes from wekan/node-patches, which is also where the node-win32.exe
           # in this bundle comes from (nobody else builds either any more), so the
           # addons link against the import library of the very node they run on.
-          bash "$GITHUB_WORKSPACE/releases/fetch.sh" -o "$ND/ia32/node.lib" \
+          bash "src/releases/fetch.sh" -o "$ND/ia32/node.lib" \
             "https://github.com/wekan/node-patches/releases/download/${NODE_FULL}/node-win32.lib"
           cp "$ND/ia32/node.lib" "$ND/Release/node.lib"
           export npm_config_nodedir="$ND"
           echo "Cross-building ia32 native modules against nodedir $ND (fork node.lib)."
           cd bundle/programs/server
           rm -rf node_modules
-          bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm install
+          bash "src/releases/npm-retry.sh" npm install
 
       - name: Check the binaries the win32 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -1924,7 +1924,7 @@ jobs:
           # (skip any tool not built for win32).
           BASE="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
           for tool in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
-            bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o "bundle/${tool}.exe" "${BASE}/${tool}-win32.exe" \
+            bash "src/releases/fetch.sh" --optional -o "bundle/${tool}.exe" "${BASE}/${tool}-win32.exe" \
               || { rm -f "bundle/${tool}.exe"; echo "No ${tool}-win32.exe; skipping"; }
           done
           echo "=== bundle contents ==="
@@ -1942,9 +1942,9 @@ jobs:
             || { echo "::error::Verified Node.js embed failed for win32."; exit 1; }
           eval "$node_meta"
           FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win32.exe"
-          if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o bundle/ferretdb.exe "$FERRET_URL"; then
+          if bash "src/releases/fetch.sh" --optional -o bundle/ferretdb.exe "$FERRET_URL"; then
             echo "Embedded FerretDB win32 -> bundle/ferretdb.exe"
-            if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
+            if bash "src/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
               FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
               GOT="$(sha256sum bundle/ferretdb.exe | cut -d' ' -f1)"
               if [ "$GOT" != "$FERRET_SHA" ]; then
@@ -2728,20 +2728,25 @@ jobs:
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
+      # FIRST, and before "Install dependencies": this job runs
+      # releases/check-arch-binaries.sh, releases/record-provenance.sh,
+      # releases/apt-install.sh and releases/fetch.sh, and mounts $(pwd)/releases
+      # into the container - none of which exist without a checkout. Installing
+      # the packages first is what broke the v10.88 run: the install step is
+      # itself one of those scripts now, so it stopped at
+      #
+      #   bash: /home/runner/work/wekan/wekan/releases/apt-install.sh: No such file or directory
+      #
+      # It also has to come before the artifact download, because
+      # actions/checkout cleans the workspace and would remove the bundle.
+      - uses: actions/checkout@v7
+
       - name: Install dependencies
         run: |
           bash "$GITHUB_WORKSPACE/releases/apt-install.sh" curl unzip zip
 
       - name: Set up QEMU for ${{ matrix.arch }} emulation
         uses: docker/setup-qemu-action@v4
-
-      # BEFORE the artifact download, and it has to be here at all: this job
-      # runs releases/check-arch-binaries.sh, releases/record-provenance.sh and
-      # mounts $(pwd)/releases into the container, none of which exist without a
-      # checkout - the job would stop at "No such file or directory". It goes
-      # first because actions/checkout cleans the workspace, which would remove
-      # the bundle the next step downloads.
-      - uses: actions/checkout@v7
 
       - name: Download amd64 bundle
         uses: actions/download-artifact@v8
@@ -3449,6 +3454,71 @@ jobs:
             exit 1
           fi
           echo "Bundle app version ${found} matches release v${VERSION}."
+
+      - name: Check we can PUSH to every repository, before building anything
+        env:
+          DOCKERHUB_AUTH: ${{ secrets.DOCKERHUB_AUTH }}
+          QUAY_AUTH: ${{ secrets.QUAY_AUTH }}
+          GHCR_AUTH: ${{ secrets.GHCR_AUTH }}
+        # v10.88 built every architecture, emulated, for the best part of an hour,
+        # and threw it away on the last line:
+        #
+        #   ERROR: failed to push quay.io/wekan/wekan-ondra:v10.88:
+        #     unauthorized: access to the requested resource is not authorized
+        #
+        # The credentials were fine - the login check above passed. Quay grants
+        # push per REPOSITORY, and wekan-ondra had just been created, so the
+        # account that pushes wekan and wekan-gantt-gpl had no rights on it.
+        # Nothing about that needs a build to discover: a registry will say
+        # whether it would grant a push token for a repository, in one request.
+        run: |
+          set -uo pipefail
+          rc=0
+          can_push() {   # <image> <base64 user:token>
+            image="$1"; auth="$2"
+            case "$image" in
+              ghcr.io/*) repo="${image#ghcr.io/}"; token_url="https://ghcr.io/token?service=ghcr.io&scope=repository:${repo}:push,pull" ;;
+              quay.io/*) repo="${image#quay.io/}"; token_url="https://quay.io/v2/auth?service=quay.io&scope=repository:${repo}:push,pull" ;;
+              *)         repo="$image";            token_url="https://auth.docker.io/token?service=registry.docker.io&scope=repository:${repo}:push,pull" ;;
+            esac
+            token="$(curl -sS --max-time 30 -H "Authorization: Basic ${auth}" "$token_url" | sed -n 's/.*"token":"\([^"]*\)".*/\1/p')"
+            if [ -z "$token" ]; then
+              echo "::warning::${image}: the registry returned no token; skipping this check (that is the network, not the rights)."
+              return 0
+            fi
+            # The scopes the registry GRANTED are in the token it handed back -
+            # asking for push,pull and being given pull is exactly this failure.
+            # The payload is the middle part of the JWT, base64url without padding.
+            payload="$(printf '%s' "$token" | cut -d. -f2 | tr '_-' '/+')"
+            case $(( ${#payload} % 4 )) in
+              2) payload="${payload}==" ;;
+              3) payload="${payload}=" ;;
+            esac
+            claims="$(printf '%s' "$payload" | base64 -d 2>/dev/null || true)"
+            if [ -z "$claims" ]; then
+              echo "::warning::${image}: could not read the granted scopes; this check is inconclusive."
+              return 0
+            fi
+            case "$claims" in
+              *'"push"'*) echo "OK   ${image} can be pushed to" ;;
+              *)
+                echo "::error::${image}: the registry will NOT grant push. Give the account these credentials belong to write access to THAT repository - on Quay it is per-repository (Repository Settings -> User and Robot Permissions), and a repository created by an earlier push does not inherit it."
+                rc=1 ;;
+            esac
+          }
+          for image in ghcr.io/wekan/wekan ghcr.io/wekan/wekan-ondra ghcr.io/wekan/wekan-gantt-gpl; do
+            can_push "$image" "$GHCR_AUTH"
+          done
+          for image in wekanteam/wekan wekanteam/wekan-ondra wekanteam/wekan-gantt-gpl; do
+            can_push "$image" "$DOCKERHUB_AUTH"
+          done
+          for image in quay.io/wekan/wekan quay.io/wekan/wekan-ondra quay.io/wekan/wekan-gantt-gpl; do
+            can_push "$image" "$QUAY_AUTH"
+          done
+          if [ "$rc" -ne 0 ]; then
+            echo "::error::Nothing was built. Fix the permissions above and re-run this job - an hour of emulated build is not where this should be found out."
+          fi
+          exit $rc
 
       - name: Build and push multi-arch image
         # Pass VERSION explicitly as a build-arg. The Dockerfile's `ARG VERSION`
@@ -4624,7 +4694,7 @@ jobs:
           # univention-appcenter-control is the App Provider CLI. Fetch it and
           # upload the app metadata/component. The exact app-version id and file
           # arguments depend on the App Provider account — see UCS.md.
-          if ! bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o univention-appcenter-control \
+          if ! bash "univention/releases/fetch.sh" --optional -o univention-appcenter-control \
                 https://provider-portal.software-univention.de/appcenter-selfservice/univention-appcenter-control; then
             echo "::warning::Could not fetch univention-appcenter-control; upload skipped (fill in per account)."
             exit 0
