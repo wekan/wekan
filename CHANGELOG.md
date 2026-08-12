@@ -307,6 +307,201 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** the **snap stops asking which database it runs on**. It runs on
+**FerretDB** — every platform — and MongoDB is in the amd64/arm64 snaps to be
+**read** while a migration is owed, so `snap set wekan database=…` and
+`snap run wekan.database` are **gone**: the data decides, and it cannot
+contradict itself the way a setting could. With them go the three ways a snap
+could stay on MongoDB for good — a **5.0 database no reader could open**, a
+migrated copy that had fallen behind being answered by **switching back to
+MongoDB** ("WeKan changed to old MongoDB data") instead of merging, and a failed
+migration that **never tried again**. Below that, the release workflow: a repo
+script the job could not see, and an hour of emulated build thrown away on a
+push that was never going to be authorized.
+
+The binaries below are carried over from v10.88 and have NOT been checked
+against a newer build; `releases/provenance-table.sh` prints the real table
+from the provenance each build job records.
+
+| Platform | Binary | From | Version | SHA256 |
+| --- | --- | --- | --- | --- |
+| amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
+| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-amd64) | v1.49.0 | `7c74941ff043f26aa4411ef5065d6b2d0766e369fc2a4458364c2f5571c12762` |
+| arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
+| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-arm64) | v1.49.0 | `092132531555a39eac12566240a5f1ed02f62148b2dca0540a74c68e5957f6b5` |
+| armhf | Node.js | [wekan/node-patches](https://github.com/wekan/node-patches/releases/download/v24.19.0/node-armhf) | v24.19.0 | `b55350f3071b765a98ed66fdc410657ff168a937935057077fd7ab33cb30b9aa` |
+| armhf | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-armhf) | v1.49.0 | `144404fb9793dc8e039874812f4e2cb3e6d8b1df0ffdbe50254e7790a342a2f4` |
+| armv6 | Node.js | [wekan/node-patches](https://github.com/wekan/node-patches/releases/download/v24.19.0/node-armv6) | v24.19.0 | `128ded0cda638c1f144eadb23ad249889515df017d298fd49c8faf3db110f0f1` |
+| armv6 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-armv6) | v1.49.0 | `7c27b2c15448709a24eace9b3c951c62fbe33413f7d20d56cb5520f4436efe2d` |
+| armv7 | Node.js | [wekan/node-patches](https://github.com/wekan/node-patches/releases/download/v24.19.0/node-armv7) | v24.19.0 | `8dbe0a9aa8550ad5275c5538ebf868eb2037f0c4d9cccbe319f63b7e5854cd45` |
+| armv7 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-armhf) | v1.49.0 | `144404fb9793dc8e039874812f4e2cb3e6d8b1df0ffdbe50254e7790a342a2f4` |
+| i386 | Node.js | [wekan/node-patches](https://github.com/wekan/node-patches/releases/download/v24.19.0/node-i386) | v24.19.0 | `3b0b3bbfe27daf583b3a0f432efacc508407a012cdd9e8847250e7c015565bac` |
+| i386 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-i386) | v1.49.0 | `1f70cb1687411b2a0fa9ac3b5bfc8c4ed9ce25ec2ddfa17e6fd3efb38136a39c` |
+| mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-arm64.tar.xz) | v24.19.0 | `3f1cf157479c1480352083105e13faf9d008ede98e7e157746b6df940d197b94` |
+| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-mac-arm64) | v1.49.0 | `576364db59dfce3ba564b9a3e484496eb57f95d76d2007b9f83241acdbd2f4fa` |
+| mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
+| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-mac-amd64) | v1.49.0 | `37d70cd90aad6d3867b6686507ff1888f1edf6791818c31d014d130e8f39fc14` |
+| ppc64le | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-ppc64le.tar.xz) | v24.19.0 | `c510c6ce12f07010f771e6edb22a3fe23f4f2e6f40b1ffd4941aed0646a0d8b3` |
+| ppc64le | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-ppc64le) | v1.49.0 | `7c61d4853d5163ad8761449d693fd458ebbb8611a2351c718014876242c5b1fb` |
+| riscv64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-riscv64.tar.xz) | v24.19.0 | `cd1f14af2812148002f58b58a5f9af512a50e3b8e8c148e0db44019dcb68edfd` |
+| riscv64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-riscv64) | v1.49.0 | `bd4912da70f5e6c1475ab989668c76b4ab7db4ee06c44357693df64f5e1d0e0b` |
+| s390x | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-s390x.tar.xz) | v24.19.0 | `a4792e65962ffa0af42627aacf1122a60c3c88dbf4e4184f06820d66f9da8ba4` |
+| s390x | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-s390x) | v1.49.0 | *no checksum published* |
+| win-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-arm64.zip) | v24.19.0 | `8502f4a50b458d4cc38ed8f2001556c2cd239d464920f74017926ccb1e1c157f` |
+| win-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-win-arm64.exe) | v1.49.0 | `792166623e774b0af2aced31ed3ae39f545ca5268dc4c2b8d1a329228ff52cbc` |
+| win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
+| win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-win64.exe) | v1.49.0 | `f42c50aa84095a9616b00f27a584c66b7bf79e3b109450c62a5f146ba3c85478` |
+
+This release fixes the following bugs:
+
+**The snap** - which database it runs on, and how everything gets into it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/60b4ceda3">A snap ends up on FerretDB, whatever it was running before</a>. Thanks to xet7.</summary>
+
+Three ways a snap could stay on MongoDB for good, all of them reported. The
+snap runs on **FerretDB** on every platform — MongoDB is bundled to be READ
+during a migration, and is not what WeKan runs on — so each of these is a bug.
+
+**A database nothing could open.** A MongoDB server starts only on data whose
+`featureCompatibilityVersion` is at most one major behind it, so the readers
+covered FCV 6.0/7.0 (mongod 7), 4.0/4.2 (mongod 4.2) and 3.x (the 3.2 tools) —
+and **nothing** covered 4.4 or 5.0. That is not a hypothetical rung: the WeKan
+snap shipped MongoDB 5 in February 2023 and 6.0.6 only in May, so a site that
+stayed on it has 5.0 files, and every reader refused them. Those instances got
+`.mongodb-data-too-old` and an explanatory page while their boards sat in a
+database nobody could read. `mongod 5.0` is bundled now, as a fourth read-only
+reader, tried between 7 and 4.2 — and through `cpu-exec`, because MongoDB 5.0
+requires AVX on x86_64 and a CPU without it should read the database under
+emulation rather than die on a SIGILL.
+
+**"WeKan changed to old MongoDB data."** When the migrated FerretDB copy had
+fallen behind the MongoDB beside it, the snap answered by switching itself to
+`database=mongodb`. That is the mail this came from: the site is put back on
+the database the snap is migrating away from — and when the detector guessed
+wrong ([#6583](https://github.com/wekan/wekan/issues/6583)), onto a copy that
+was weeks behind. The repair is the **merge**, not the switch: the documents
+MongoDB has and FerretDB does not are copied into FerretDB — inserting what is
+missing, overwriting nothing — and WeKan carries on there. WeKan's history is
+append-only, so the work done on MongoDB after the migration lands in the card
+History instead of a database nobody opens. Switching to MongoDB is now only
+the fallback for when the merge cannot run, because serving a copy that is
+behind is exactly the complaint.
+
+**A failed migration that never tried again.** A failure set `migrate=off` so
+it would not loop, and nothing ever set it back on. The snap stayed on MongoDB
+until an admin read `snap logs` and typed a command, and most never do. A
+failure is recorded now — how many attempts, when, and which snap revision —
+and retried by itself: **immediately after the next snap refresh**, since the
+next release is the most likely thing to have fixed it, and otherwise after a
+wait that doubles from an hour up to a day. The same record replaces
+`migrate=off` on the unreadable-database path, which is what makes this
+release's 5.0 reader reach the instances that were already given up on.
+`snap set wekan migrate=off` still stops it completely — an admin saying "not
+now" is a decision, not a failure.
+
+None of this deletes anything: the MongoDB data stays in `$SNAP_COMMON` and a
+`snap set wekan database=mongodb` is still the way back.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bb76e7bf1">There is no database setting on the snap any more, and nothing to type</a>. Thanks to xet7.</summary>
+
+`snap set wekan database=mongodb|ferretdb` is **removed**, and so is
+`snap run wekan.database`. WeKan runs on **FerretDB** — every platform, every
+install — and MongoDB is in the amd64/arm64 snaps to be **read** while a
+migration is owed, not to be run on.
+
+A setting could say something the data did not support, and each way it could
+was a report:
+
+- set to `mongodb`, it kept a site on the database the snap migrates away from,
+  for good, because nothing ever set it back — including the instances a failed
+  migration or a wrong staleness guess had put there;
+- set to `ferretdb` with no FerretDB present, it would have served an empty
+  site, so the guard against that had to exist anyway;
+- and every script had its own copy of "which database is this, then".
+
+`snap-src/bin/database-role` replaced it: one helper, asked by `wekan-control`,
+`mongodb-control`, `ferretdb-control`, `migration-pending`, `attachment-repair`
+and the configure hook, that answers from the data — is there a FerretDB with
+something in it, and has the migration that fills it finished? An interrupted
+migration is told from a finished one by the importer's own checkpoint, so a
+partial FerretDB resumes and a finished one whose marker went missing is not
+migrated over again ([#6585](https://github.com/wekan/wekan/issues/6585)). A
+snap that still carries the old setting is told once that it is ignored, and it
+is unset.
+
+The **explanatory page** stopped being a dead end too. When the MongoDB files
+cannot be read by this snap but a FerretDB copy is there, that copy is now
+**served** instead of the page — older beats unreadable — and the page's first
+instruction, which used to be a command to type, says so. The rest of it now
+opens with the fact that the snap keeps trying by itself.
+
+[Migration-to-FerretDB.md](https://github.com/wekan/wekan/blob/main/docs/Platforms/FOSS/Container/Snap/Migration-to-FerretDB.md)
+is the whole design in one page: what moves (all text data to SQLite,
+CollectionFS **and** Meteor-Files attachments to the filesystem, the card
+History with it), which MongoDB versions can be read, when it runs, what happens
+when it fails, and how two copies are reconciled. The Admin Panel, Snap and
+CPU-platform docs point at it instead of describing a setting that is gone.
+
+</details>
+
+**The release workflow** - what it needs to be there before it runs.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bdacff80e">A release script the job cannot see, and an hour of build thrown away at the push</a>. Thanks to xet7.</summary>
+
+The v10.88 run lost seven jobs to two mistakes of the same kind: a step that
+needs something and does not check whether it is there.
+
+**The scripts were not on disk yet.** Moving the downloads and the package
+installs behind `releases/fetch.sh` and `releases/apt-install.sh` turned steps
+that needed nothing into steps that need this repository:
+
+```
+bash: /home/runner/work/wekan/wekan/releases/apt-install.sh:
+        No such file or directory
+bash: D:\a\wekan\wekan/releases/npm-retry.sh: No such file or directory
+```
+
+The first is `build-extra-arches`, where "Install dependencies" was the FIRST
+step of the job, before `actions/checkout` — fine while it was a plain
+`apt-get`. The second is the Windows jobs, which check this repository out to
+`path: src`, so `$GITHUB_WORKSPACE/releases` is a directory that does not exist
+there; they already called the other scripts as `src/releases/…`. The same two
+shapes were in the Flatpak job (no checkout at all), Release All Missing's
+extra-arches and its charts job (`path: wekan`), and the UCS job
+(`path: univention`).
+
+`tests/workflowRepoScripts.test.cjs` now reads every workflow and reports a step
+that runs `releases/…` before its job checks out, or through a prefix that does
+not match where that job put the repository. It also checks that every script a
+workflow names exists here.
+
+**And the push that was never going to work.** The docker job built every
+architecture, emulated, for the best part of an hour, and threw it all away on
+the last line:
+
+```
+ERROR: failed to push quay.io/wekan/wekan-ondra:v10.88:
+  unauthorized: access to the requested resource is not authorized
+```
+
+The credentials were fine — the login check passed. Quay grants push **per
+repository**, and `wekan-ondra` had just been created, so the account that
+pushes `wekan` and `wekan-gantt-gpl` had no rights on it. A registry will say
+whether it would grant a push token in one request, so the job now asks — for
+all nine images, before building anything — and fails in seconds with what to
+change, naming the per-repository setting. A registry that does not answer is a
+warning: that is the network, not the rights.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 # v10.88 2026-08-12 WeKan ® release
 
 **In short:** the rest of the **afternoon github.com spent returning `503`**,
@@ -432,151 +627,6 @@ asks where their image went. It now stops the job and says to re-run it.
 `tests/releaseDownloads.test.cjs` runs the script against a local server that
 503s, 404s and 429s on demand, and reads the workflows for a download that
 still goes straight to `curl`.
-
-</details>
-
-and fixes the following bugs:
-
-**The snap** - which database it runs on, and how everything gets there.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/bdacff80e">A release script the job cannot see, and an hour of build thrown away at the push</a>. Thanks to xet7.</summary>
-
-The v10.88 run lost seven jobs to two mistakes of the same kind: a step that
-needs something and does not check whether it is there.
-
-**The scripts were not on disk yet.** Moving the downloads and the package
-installs behind `releases/fetch.sh` and `releases/apt-install.sh` turned steps
-that needed nothing into steps that need this repository:
-
-```
-bash: /home/runner/work/wekan/wekan/releases/apt-install.sh:
-        No such file or directory
-bash: D:\a\wekan\wekan/releases/npm-retry.sh: No such file or directory
-```
-
-The first is `build-extra-arches`, where "Install dependencies" was the FIRST
-step of the job, before `actions/checkout` — fine while it was a plain
-`apt-get`. The second is the Windows jobs, which check this repository out to
-`path: src`, so `$GITHUB_WORKSPACE/releases` is a directory that does not exist
-there; they already called the other scripts as `src/releases/…`. The same two
-shapes were in the Flatpak job (no checkout at all), Release All Missing's
-extra-arches and its charts job (`path: wekan`), and the UCS job
-(`path: univention`).
-
-`tests/workflowRepoScripts.test.cjs` now reads every workflow and reports a step
-that runs `releases/…` before its job checks out, or through a prefix that does
-not match where that job put the repository. It also checks that every script a
-workflow names exists here.
-
-**And the push that was never going to work.** The docker job built every
-architecture, emulated, for the best part of an hour, and threw it all away on
-the last line:
-
-```
-ERROR: failed to push quay.io/wekan/wekan-ondra:v10.88:
-  unauthorized: access to the requested resource is not authorized
-```
-
-The credentials were fine — the login check passed. Quay grants push **per
-repository**, and `wekan-ondra` had just been created, so the account that
-pushes `wekan` and `wekan-gantt-gpl` had no rights on it. A registry will say
-whether it would grant a push token in one request, so the job now asks — for
-all nine images, before building anything — and fails in seconds with what to
-change, naming the per-repository setting. A registry that does not answer is a
-warning: that is the network, not the rights.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/bb76e7bf1">There is no database setting on the snap any more, and nothing to type</a>. Thanks to xet7.</summary>
-
-`snap set wekan database=mongodb|ferretdb` is **removed**, and so is
-`snap run wekan.database`. WeKan runs on **FerretDB** — every platform, every
-install — and MongoDB is in the amd64/arm64 snaps to be **read** while a
-migration is owed, not to be run on.
-
-A setting could say something the data did not support, and each way it could
-was a report:
-
-- set to `mongodb`, it kept a site on the database the snap migrates away from,
-  for good, because nothing ever set it back — including the instances a failed
-  migration or a wrong staleness guess had put there;
-- set to `ferretdb` with no FerretDB present, it would have served an empty
-  site, so the guard against that had to exist anyway;
-- and every script had its own copy of "which database is this, then".
-
-`snap-src/bin/database-role` replaced it: one helper, asked by `wekan-control`,
-`mongodb-control`, `ferretdb-control`, `migration-pending`, `attachment-repair`
-and the configure hook, that answers from the data — is there a FerretDB with
-something in it, and has the migration that fills it finished? An interrupted
-migration is told from a finished one by the importer's own checkpoint, so a
-partial FerretDB resumes and a finished one whose marker went missing is not
-migrated over again ([#6585](https://github.com/wekan/wekan/issues/6585)). A
-snap that still carries the old setting is told once that it is ignored, and it
-is unset.
-
-The **explanatory page** stopped being a dead end too. When the MongoDB files
-cannot be read by this snap but a FerretDB copy is there, that copy is now
-**served** instead of the page — older beats unreadable — and the page's first
-instruction, which used to be a command to type, says so. The rest of it now
-opens with the fact that the snap keeps trying by itself.
-
-[Migration-to-FerretDB.md](https://github.com/wekan/wekan/blob/main/docs/Platforms/FOSS/Container/Snap/Migration-to-FerretDB.md)
-is the whole design in one page: what moves (all text data to SQLite,
-CollectionFS **and** Meteor-Files attachments to the filesystem, the card
-History with it), which MongoDB versions can be read, when it runs, what happens
-when it fails, and how two copies are reconciled. The Admin Panel, Snap and
-CPU-platform docs point at it instead of describing a setting that is gone.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/60b4ceda3">A snap ends up on FerretDB, whatever it was running before</a>. Thanks to xet7.</summary>
-
-Three ways a snap could stay on MongoDB for good, all of them reported. The
-snap runs on **FerretDB** on every platform — MongoDB is bundled to be READ
-during a migration, and is not what WeKan runs on — so each of these is a bug.
-
-**A database nothing could open.** A MongoDB server starts only on data whose
-`featureCompatibilityVersion` is at most one major behind it, so the readers
-covered FCV 6.0/7.0 (mongod 7), 4.0/4.2 (mongod 4.2) and 3.x (the 3.2 tools) —
-and **nothing** covered 4.4 or 5.0. That is not a hypothetical rung: the WeKan
-snap shipped MongoDB 5 in February 2023 and 6.0.6 only in May, so a site that
-stayed on it has 5.0 files, and every reader refused them. Those instances got
-`.mongodb-data-too-old` and an explanatory page while their boards sat in a
-database nobody could read. `mongod 5.0` is bundled now, as a fourth read-only
-reader, tried between 7 and 4.2 — and through `cpu-exec`, because MongoDB 5.0
-requires AVX on x86_64 and a CPU without it should read the database under
-emulation rather than die on a SIGILL.
-
-**"WeKan changed to old MongoDB data."** When the migrated FerretDB copy had
-fallen behind the MongoDB beside it, the snap answered by switching itself to
-`database=mongodb`. That is the mail this came from: the site is put back on
-the database the snap is migrating away from — and when the detector guessed
-wrong ([#6583](https://github.com/wekan/wekan/issues/6583)), onto a copy that
-was weeks behind. The repair is the **merge**, not the switch: the documents
-MongoDB has and FerretDB does not are copied into FerretDB — inserting what is
-missing, overwriting nothing — and WeKan carries on there. WeKan's history is
-append-only, so the work done on MongoDB after the migration lands in the card
-History instead of a database nobody opens. Switching to MongoDB is now only
-the fallback for when the merge cannot run, because serving a copy that is
-behind is exactly the complaint.
-
-**A failed migration that never tried again.** A failure set `migrate=off` so
-it would not loop, and nothing ever set it back on. The snap stayed on MongoDB
-until an admin read `snap logs` and typed a command, and most never do. A
-failure is recorded now — how many attempts, when, and which snap revision —
-and retried by itself: **immediately after the next snap refresh**, since the
-next release is the most likely thing to have fixed it, and otherwise after a
-wait that doubles from an hour up to a day. The same record replaces
-`migrate=off` on the unreadable-database path, which is what makes this
-release's 5.0 reader reach the instances that were already given up on.
-`snap set wekan migrate=off` still stops it completely — an admin saying "not
-now" is a decision, not a failure.
-
-None of this deletes anything: the MongoDB data stays in `$SNAP_COMMON` and a
-`snap set wekan database=mongodb` is still the way back.
 
 </details>
 
