@@ -453,6 +453,45 @@ CPU-platform docs point at it instead of describing a setting that is gone.
 **The release workflow** - what it needs to be there before it runs.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASHNOVAR">Only the wekan Docker image is published; the two variant names are commented out</a>. Thanks to xet7.</summary>
+
+`wekan-ondra` and `wekan-gantt-gpl` are **snap** names — they exist because a
+snap name cannot be changed once people have it installed — and as Docker images
+they were only ever a second name for the same image. The release tagged them on
+all three registries for two versions; it does not any more, and
+`docker pull wekanteam/wekan` (or `quay.io/wekan/wekan`, or
+`ghcr.io/wekan/wekan`) is the image, as it always was.
+
+Six extra repositories across three registries, each with its own visibility and
+its own push permission, is six new ways for a release to fail in order to
+publish a copy of something already published — and v10.88 failed exactly that
+way, an hour into an emulated build:
+
+```
+ERROR: failed to push quay.io/wekan/wekan-ondra:v10.88:
+  unauthorized: access to the requested resource is not authorized
+```
+
+Quay grants push per repository and that repository had just been created by the
+release itself.
+
+The `-t` lines are **commented out, not deleted**, with what it would cost to
+uncomment them written beside them — a line that vanishes is a line somebody
+re-adds next year — and the same for the names in the two verification loops and
+the push preflight. The manual
+[`docker-variant.yml`](https://github.com/wekan/wekan/blob/main/.github/workflows/docker-variant.yml)
+stays for publishing one out of band; it is `workflow_dispatch` only and no
+release calls it.
+
+Nothing is deleted from any registry: `ghcr.io/wekan/wekan-ondra` up to v6.99.2,
+`quay.io/wekan/wekan-gantt-gpl` to v4.41 and `wekanteam/wekan-gantt-gpl` to
+v5.62 keep working for whoever pinned them. They stop gaining versions. The
+**snaps** keep both names and are still built and published, which is the point
+of having them.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/18b881262">A path that stops resolving when the step changes directory, and the last bare downloads</a>. Thanks to xet7.</summary>
 
 The v10.89 run failed four more jobs, all of them the same two mistakes one step

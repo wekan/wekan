@@ -173,16 +173,26 @@ that gives armv7 no snap — see
 Bundle platforms that are not Linux. They are not container images and are not
 expected to be.
 
-## Variant images
+## There are no variant images
 
-[`docker-variant.yml`](../../../../../.github/workflows/docker-variant.yml)
-publishes the variant repositories, **manually and never as part of a release**.
-It rebuilds nothing: `docker buildx imagetools create` copies the *manifest*, so
-a variant tag points at the very digests the release built and verified, and can
-never drift from `wekanteam/wekan`. Before and after the retag it checks that
-`linux/amd64`, `linux/arm64`, `linux/ppc64le`, `linux/s390x` and `linux/riscv64`
-are all present, so a variant cannot silently cover fewer architectures than
-`wekan` does. `releases/docker-publish-variant.sh` is the same thing locally.
+`wekan-ondra` and `wekan-gantt-gpl` are **snap** names — a snap name cannot be
+changed once people have it installed, so the two variants keep theirs. As Docker
+images they were never anything but a second name for `wekan`, and they are no
+longer published: `wekanteam/wekan`, `quay.io/wekan/wekan` and
+`ghcr.io/wekan/wekan` are the image.
+
+The tags that exist keep working (`ghcr.io/wekan/wekan-ondra` to v6.99.2,
+`quay.io/wekan/wekan-gantt-gpl` to v4.41, `wekanteam/wekan-gantt-gpl` to v5.62);
+they just stop gaining versions. Publishing them cost a release the right to fail
+in six new ways — three registries × two names, each with its own visibility and
+push permission — and v10.88 did fail that way, an hour into an emulated build,
+on a Quay repository the release had created itself and had no push rights on.
+
+The `-t` lines are commented out rather than deleted, and
+[`docker-variant.yml`](../../../../../.github/workflows/docker-variant.yml) still
+retags a variant by hand when somebody deliberately wants one: it rebuilds
+nothing (`docker buildx imagetools create` copies the manifest, so the digests
+are the release's own) and it is `workflow_dispatch` only.
 
 ## The FerretDB image covers more platforms than the WeKan image
 

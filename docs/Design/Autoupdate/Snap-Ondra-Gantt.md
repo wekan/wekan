@@ -38,35 +38,34 @@ before it is uploaded — a `wekan_*.snap` published from here would overwrite t
 default snap — and the two repositories were synced by hand on 2026-07-29, so they
 are the newest WeKan with the snap name changed and nothing else.
 
-The Docker side is automatic on **all three registries**. `release-all.yml`'s
-`docker` job tags `wekan-ondra` and `wekan-gantt-gpl` — on Docker Hub, Quay and
-GHCR — in the SAME `docker buildx build --push` as `wekan` itself, so the variant
-tags carry the release's own digests for every architecture. No second build, and
-no window in which a variant image can differ from the release it names.
+There is **no Docker side**. `wekan-ondra` and `wekan-gantt-gpl` are **snap
+names** — they exist because a snap name cannot be changed once people have it
+installed — and as Docker images they were only ever a second name for the same
+image. They are not pushed to any registry: `docker pull wekanteam/wekan` (or
+`quay.io/wekan/wekan`, or `ghcr.io/wekan/wekan`) is the image, and it always was.
 
-Two guards ride with it. The push verification asks each registry what it
-actually has, and a second step asks the way a STRANGER would — an anonymous pull
-token and a manifest request — because a private image passes every check made
-with the release's own credentials. That is how `ghcr.io/wekan/ferretdb` shipped
-private until Artifact Hub mailed about it.
+They were tagged in the release build for two versions, and that is what removing
+them is about. Three image names on three registries is nine repositories, each
+with its own visibility and its own push permission, and each an independent way
+for a release to fail — which v10.88 did, an hour into an emulated build:
 
-That second guard matters most the first time: `wekanteam/wekan-ondra` and
-`quay.io/wekan/wekan-ondra` do not exist yet, and a repository created by a first
-push takes the registry's default visibility — Docker Hub public, **Quay
-private**. So the first release after this change is expected to fail that step
-for the Quay one, with the page to open and the setting to change; the image is
-already pushed, so making it public and re-running the job is all it takes.
+```
+ERROR: failed to push quay.io/wekan/wekan-ondra:v10.88:
+  unauthorized: access to the requested resource is not authorized
+```
 
-[`docker-variant.yml`](../../../.github/workflows/docker-variant.yml) and
-`releases/docker-publish-variant.sh` remain for everything outside a release:
-publishing a variant for an older version, repairing a tag, or pointing a variant
-somewhere deliberately.
+Quay grants push per repository and the repository had just been created by the
+release itself. Nothing was gained for that: the image behind the name is the one
+already published under `wekan`.
 
-Both rest on the same fact, and it is the thing to check before touching either:
-the variant repositories are byte-identical to `wekan/wekan` apart from the snap
-`name:` in `snapcraft.yaml`. If that ever stops being true, the GHCR tags in
-`release-all.yml` and the retag in `docker-variant.yml` both become a lie, and the
-variant needs its own build from its own Dockerfile.
+The old tags stay where they are — `ghcr.io/wekan/wekan-ondra` up to v6.99.2,
+`quay.io/wekan/wekan-gantt-gpl` to v4.41, `wekanteam/wekan-gantt-gpl` to v5.62 —
+because deleting a published image breaks whoever pinned it. They simply stop
+gaining versions. The `-t` lines are still in `release-all.yml`, commented out
+with the reason beside them, and
+[`docker-variant.yml`](../../../.github/workflows/docker-variant.yml) with
+`releases/docker-publish-variant.sh` still exist for publishing one out of band —
+they are `workflow_dispatch` only and no release calls them.
 
 ## Remaining steps
 

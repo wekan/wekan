@@ -3489,10 +3489,11 @@ jobs:
         #     unauthorized: access to the requested resource is not authorized
         #
         # The credentials were fine - the login check above passed. Quay grants
-        # push per REPOSITORY, and wekan-ondra had just been created, so the
-        # account that pushes wekan and wekan-gantt-gpl had no rights on it.
-        # Nothing about that needs a build to discover: a registry will say
-        # whether it would grant a push token for a repository, in one request.
+        # push per REPOSITORY, and that one had just been created by the release
+        # itself. (The variant images are not pushed at all any more, but the
+        # lesson is the reason this step exists.) Nothing about a permission
+        # needs a BUILD to discover: a registry will say whether it would grant a
+        # push token for a repository, in one request, before anything is built.
         run: |
           set -uo pipefail
           rc=0
@@ -3528,13 +3529,17 @@ jobs:
                 rc=1 ;;
             esac
           }
-          for image in ghcr.io/wekan/wekan ghcr.io/wekan/wekan-ondra ghcr.io/wekan/wekan-gantt-gpl; do
+          # ghcr.io/wekan/wekan-ondra and ghcr.io/wekan/wekan-gantt-gpl are
+          # commented out with the -t lines they went with.
+          for image in ghcr.io/wekan/wekan; do
             can_push "$image" "$GHCR_AUTH"
           done
-          for image in wekanteam/wekan wekanteam/wekan-ondra wekanteam/wekan-gantt-gpl; do
+          # wekanteam/wekan-ondra and wekanteam/wekan-gantt-gpl: not published.
+          for image in wekanteam/wekan; do
             can_push "$image" "$DOCKERHUB_AUTH"
           done
-          for image in quay.io/wekan/wekan quay.io/wekan/wekan-ondra quay.io/wekan/wekan-gantt-gpl; do
+          # quay.io/wekan/wekan-ondra and quay.io/wekan/wekan-gantt-gpl: not published.
+          for image in quay.io/wekan/wekan; do
             can_push "$image" "$QUAY_AUTH"
           done
           if [ "$rc" -ne 0 ]; then
@@ -3571,30 +3576,21 @@ jobs:
           # continuation comments out the rest of the joined line, leaving
           # `docker buildx build` with no platforms and no tags. This block is a
           # shell script like any other, and it was written the wrong way first.
-          # THE TWO VARIANT NAMES ON GHCR are the same image under another name, and
-          # that is not a shortcut: wekan/wekan-ondra and wekan/wekan-gantt-gpl are
-          # byte-identical to wekan/wekan apart from the snap name in
-          # snapcraft.yaml (see docker-variant.yml, which retags them by hand for
-          # Docker Hub). Tagging them in THIS build gives them the same digests as
-          # the release, for every architecture, with no second build and no way to
-          # drift - and the verify below asks the registry about them like any other
-          # tag.
+          # ONE IMAGE NAME, on three registries. wekan-ondra and wekan-gantt-gpl
+          # are SNAP names - they exist because a snap name cannot be changed once
+          # people have installed it - and there is nothing for them to be as
+          # Docker images: the image is the same image, and `docker pull
+          # wekanteam/wekan` is how you get it. They were tagged here for two
+          # releases and are not any more, on purpose: three extra repositories on
+          # three registries, each with its own visibility and its own push
+          # permission, is a release that can fail in six new ways to publish a
+          # copy of something already published.
           #
-          # If a variant repository ever stops being identical to wekan/wekan, these
-          # two -t lines become a lie and the variant needs its own build.
-          #
-          # ALL THREE REGISTRIES, not GHCR only. docker-variant.yml still exists
-          # for publishing a variant out of band - an older version, or a repair -
-          # but a release no longer needs it.
-          #
-          # A NEW REPOSITORY IS CREATED BY THE FIRST PUSH, and its visibility is
-          # the registry's default, not ours: Docker Hub creates public (subject
-          # to the account default), QUAY CREATES PRIVATE. wekanteam/wekan-ondra
-          # and quay.io/wekan/wekan-ondra do not exist yet, so the first release
-          # to run this creates them - and a private image is a broken release
-          # nobody notices until somebody pulls it. That is exactly how
-          # ghcr.io/wekan/ferretdb shipped private. The anonymous-pull check after
-          # the push is what turns that into a failed job instead of a surprise.
+          # A NEW REPOSITORY IS CREATED BY THE FIRST PUSH, with the registry's
+          # default visibility rather than ours - Docker Hub public, QUAY PRIVATE
+          # - which is how ghcr.io/wekan/ferretdb shipped private for weeks. That
+          # is why the anonymous-pull check below exists, and why adding an image
+          # name here is never only a tag.
           docker buildx build \
             --provenance=mode=max \
             --platform "${PLATFORMS}" \
@@ -3605,20 +3601,31 @@ jobs:
             -t quay.io/wekan/wekan:latest \
             -t ghcr.io/wekan/wekan:v${VERSION} \
             -t ghcr.io/wekan/wekan:latest \
-            -t ghcr.io/wekan/wekan-ondra:v${VERSION} \
-            -t ghcr.io/wekan/wekan-ondra:latest \
-            -t ghcr.io/wekan/wekan-gantt-gpl:v${VERSION} \
-            -t ghcr.io/wekan/wekan-gantt-gpl:latest \
-            -t wekanteam/wekan-ondra:v${VERSION} \
-            -t wekanteam/wekan-ondra:latest \
-            -t wekanteam/wekan-gantt-gpl:v${VERSION} \
-            -t wekanteam/wekan-gantt-gpl:latest \
-            -t quay.io/wekan/wekan-ondra:v${VERSION} \
-            -t quay.io/wekan/wekan-ondra:latest \
-            -t quay.io/wekan/wekan-gantt-gpl:v${VERSION} \
-            -t quay.io/wekan/wekan-gantt-gpl:latest \
             --push \
             .
+
+          # COMMENTED OUT ON PURPOSE - the variant images are not published:
+          #
+          #   -t wekanteam/wekan-ondra:v${VERSION}      -t wekanteam/wekan-ondra:latest
+          #   -t wekanteam/wekan-gantt-gpl:v${VERSION}  -t wekanteam/wekan-gantt-gpl:latest
+          #   -t quay.io/wekan/wekan-ondra:v${VERSION}  -t quay.io/wekan/wekan-ondra:latest
+          #   -t quay.io/wekan/wekan-gantt-gpl:v${VERSION}
+          #   -t quay.io/wekan/wekan-gantt-gpl:latest
+          #   -t ghcr.io/wekan/wekan-ondra:v${VERSION}  -t ghcr.io/wekan/wekan-ondra:latest
+          #   -t ghcr.io/wekan/wekan-gantt-gpl:v${VERSION}
+          #   -t ghcr.io/wekan/wekan-gantt-gpl:latest
+          #
+          # They are SNAP names - a snap name cannot be changed once people have
+          # it installed - and as Docker images they were only ever a second name
+          # for this same image. Six extra repositories across three registries,
+          # each with its own visibility and its own push permission, is six new
+          # ways for a release to fail in order to publish a copy of something
+          # already published. v10.88 did fail that way, an hour into an emulated
+          # build, on a Quay repository the release itself had just created.
+          #
+          # If they are ever wanted again: uncomment the lines above, add the
+          # same names to the two verification loops and the push preflight, and
+          # make sure each repository exists and is PUBLIC first.
 
           # Pushed is not the same as pushed EVERYWHERE. A manifest that is missing a
           # platform, or a tag that never reached one of the three registries, is
@@ -3630,13 +3637,7 @@ jobs:
           want="${WANT}"
           rc=0
           for image in "wekanteam/wekan:v${VERSION}" "quay.io/wekan/wekan:v${VERSION}" \
-                       "ghcr.io/wekan/wekan:v${VERSION}" \
-                       "ghcr.io/wekan/wekan-ondra:v${VERSION}" \
-                       "ghcr.io/wekan/wekan-gantt-gpl:v${VERSION}" \
-                       "wekanteam/wekan-ondra:v${VERSION}" \
-                       "wekanteam/wekan-gantt-gpl:v${VERSION}" \
-                       "quay.io/wekan/wekan-ondra:v${VERSION}" \
-                       "quay.io/wekan/wekan-gantt-gpl:v${VERSION}"; do
+                       "ghcr.io/wekan/wekan:v${VERSION}"; do
             # The format MUST carry the CPU variant. buildx builds linux/arm/v7,
             # but the registry records that as architecture "arm" with variant
             # "v7" in a SEPARATE field - so an OS/Architecture-only format prints
@@ -3676,8 +3677,7 @@ jobs:
       # For a user that is ImagePullBackOff. And it is one push away from
       # happening again: a repository that does not exist yet is CREATED by the
       # first push with the registry's default visibility - Docker Hub public,
-      # QUAY PRIVATE - and wekanteam/wekan-ondra and quay.io/wekan/wekan-ondra do
-      # not exist yet.
+      # QUAY PRIVATE.
       #
       # So ask each registry the way a stranger would: fetch an anonymous pull
       # token and request the manifest. 200 is public. 401/403/404 is not, and the
@@ -3729,11 +3729,10 @@ jobs:
               *) echo "::warning::$image answered HTTP $code, which is neither public nor a definite refusal. Not failing on it." ;;
             esac
           }
+          # The variant names are commented out with the -t lines they went with;
+          # nothing pushes them, so nothing checks them.
           for image in "wekanteam/wekan:v${VERSION}" "quay.io/wekan/wekan:v${VERSION}" \
-                       "ghcr.io/wekan/wekan:v${VERSION}" \
-                       "wekanteam/wekan-ondra:v${VERSION}" "wekanteam/wekan-gantt-gpl:v${VERSION}" \
-                       "quay.io/wekan/wekan-ondra:v${VERSION}" "quay.io/wekan/wekan-gantt-gpl:v${VERSION}" \
-                       "ghcr.io/wekan/wekan-ondra:v${VERSION}" "ghcr.io/wekan/wekan-gantt-gpl:v${VERSION}"; do
+                       "ghcr.io/wekan/wekan:v${VERSION}"; do
             anon_check "$image"
           done
           exit $rc
