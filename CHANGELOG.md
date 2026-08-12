@@ -435,6 +435,59 @@ still goes straight to `curl`.
 
 </details>
 
+and fixes the following bugs:
+
+**The snap** - which database it runs on, and how everything gets there.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASHSNAP">A snap ends up on FerretDB, whatever it was running before</a>. Thanks to xet7.</summary>
+
+Three ways a snap could stay on MongoDB for good, all of them reported. The
+snap runs on **FerretDB** on every platform — MongoDB is bundled to be READ
+during a migration, and is not what WeKan runs on — so each of these is a bug.
+
+**A database nothing could open.** A MongoDB server starts only on data whose
+`featureCompatibilityVersion` is at most one major behind it, so the readers
+covered FCV 6.0/7.0 (mongod 7), 4.0/4.2 (mongod 4.2) and 3.x (the 3.2 tools) —
+and **nothing** covered 4.4 or 5.0. That is not a hypothetical rung: the WeKan
+snap shipped MongoDB 5 in February 2023 and 6.0.6 only in May, so a site that
+stayed on it has 5.0 files, and every reader refused them. Those instances got
+`.mongodb-data-too-old` and an explanatory page while their boards sat in a
+database nobody could read. `mongod 5.0` is bundled now, as a fourth read-only
+reader, tried between 7 and 4.2 — and through `cpu-exec`, because MongoDB 5.0
+requires AVX on x86_64 and a CPU without it should read the database under
+emulation rather than die on a SIGILL.
+
+**"WeKan changed to old MongoDB data."** When the migrated FerretDB copy had
+fallen behind the MongoDB beside it, the snap answered by switching itself to
+`database=mongodb`. That is the mail this came from: the site is put back on
+the database the snap is migrating away from — and when the detector guessed
+wrong ([#6583](https://github.com/wekan/wekan/issues/6583)), onto a copy that
+was weeks behind. The repair is the **merge**, not the switch: the documents
+MongoDB has and FerretDB does not are copied into FerretDB — inserting what is
+missing, overwriting nothing — and WeKan carries on there. WeKan's history is
+append-only, so the work done on MongoDB after the migration lands in the card
+History instead of a database nobody opens. Switching to MongoDB is now only
+the fallback for when the merge cannot run, because serving a copy that is
+behind is exactly the complaint.
+
+**A failed migration that never tried again.** A failure set `migrate=off` so
+it would not loop, and nothing ever set it back on. The snap stayed on MongoDB
+until an admin read `snap logs` and typed a command, and most never do. A
+failure is recorded now — how many attempts, when, and which snap revision —
+and retried by itself: **immediately after the next snap refresh**, since the
+next release is the most likely thing to have fixed it, and otherwise after a
+wait that doubles from an hour up to a day. The same record replaces
+`migrate=off` on the unreadable-database path, which is what makes this
+release's 5.0 reader reach the instances that were already given up on.
+`snap set wekan migrate=off` still stops it completely — an admin saying "not
+now" is a decision, not a failure.
+
+None of this deletes anything: the MongoDB data stays in `$SNAP_COMMON` and a
+`snap set wekan database=mongodb` is still the way back.
+
+</details>
+
 and has the following test-tooling fix:
 
 <details>

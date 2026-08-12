@@ -71,7 +71,15 @@ test('it records WHICH MongoDB can still read the files, from mongod itself', ()
 test('it changes nothing and stops cleanly, rather than failing into a restart', () => {
   const fn = migration.slice(migration.indexOf('stop_data_too_old() {'),
                              migration.indexOf('# Last resort when the data'));
-  assert.ok(/snapctl set migrate=off/.test(fn), 'auto-migration is paused');
+  // It used to be `snapctl set migrate=off`, which was permanent: nothing ever
+  // turned it back on, so an instance parked here stayed on MongoDB for good.
+  // "No retry can change that" is true of THIS snap and false of the next one -
+  // the 4.2 reader was added for databases already given up on, and the 5.0
+  // reader after it. The retry record makes a NEW REVISION try again by itself.
+  assert.ok(/record_retry/.test(fn),
+    'the attempt is recorded so a later snap, with a reader this one lacks, retries');
+  assert.ok(!/snapctl set migrate=off/.test(fn),
+    'and it is not parked for good');
   assert.ok(/exit 0/.test(fn),
     'and it exits 0 - snapd restarts a failing service forever, and no restart can help here');
   assert.ok(!/rm -rf|rm -f "\$DBPATH|discard_partial_ferretdb/.test(fn),

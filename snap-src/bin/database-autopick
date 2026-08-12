@@ -40,13 +40,29 @@
 # on disk exactly as it was - so `snap set wekan database=<the other one>` is still
 # the way back, and it is now a choice rather than a repair.
 #
-# Usage:  database-autopick [--dry-run]
+# --to-ferretdb: the destination is DECIDED, and only the merge is in question.
+# The snap's answer to "which database" is FerretDB - every platform, every
+# install, MongoDB is bundled to be READ during a migration and never to be the
+# database WeKan runs on. So when both copies exist and the migrated one has
+# fallen behind, the repair is not to serve the MongoDB copy: it is to bring what
+# MongoDB has into FerretDB and carry on there. The evidence is still read and
+# still logged - it says how far behind the copy was - but it does not get to
+# choose MongoDB. Without this the snap "changed to old MongoDB data", which is
+# what the reports were about.
+#
+# Usage:  database-autopick [--dry-run] [--to-ferretdb]
 # Exit:   0 a choice was made (and applied unless --dry-run), 1 nothing was changed
 # Env:    WEKAN_AUTOPICK=false            do not choose automatically at all
 #         AUTOPICK_MERGE_LIMIT            max documents to copy (default 200000)
 
 DRY_RUN=false
-[ "${1:-}" = "--dry-run" ] && DRY_RUN=true
+TO_FERRETDB=false
+for arg in "$@"; do
+  case "$arg" in
+    --dry-run)     DRY_RUN=true ;;
+    --to-ferretdb) TO_FERRETDB=true ;;
+  esac
+done
 
 log() { echo "[autopick] $*"; }
 
@@ -145,6 +161,20 @@ DECISION="$(NODE_PATH="$SNAP/programs/server/node_modules" "$NODE" \
 CHOICE="$(printf '%s' "$DECISION" | sed -n 's/.*"choice":"\([a-z]*\)".*/\1/p')"
 MERGE_FROM="$(printf '%s' "$DECISION" | sed -n 's/.*"merge":"\([a-z]*\)".*/\1/p')"
 DETAIL="$(printf '%s' "$DECISION" | sed -n 's/.*"detail":"\([^"]*\)".*/\1/p')"
+
+if [ "$TO_FERRETDB" = true ]; then
+  # FerretDB has to BE there to be merged into. When it is not, this is not a
+  # two-copies situation at all - it is a migration that has not run - and
+  # migration-control is what does that, so say so and change nothing.
+  if ! have_ferret_data; then
+    log "there is no FerretDB database to merge into yet; the migration has to run first (snap run ${SNAP_INSTANCE_NAME:-wekan}.migrate). Nothing changed."
+    exit 1
+  fi
+  log "destination is FerretDB by policy${CHOICE:+ (the evidence would have chosen $CHOICE: $DETAIL)}."
+  CHOICE=ferretdb
+  MERGE_FROM=""
+  have_mongo_data && MERGE_FROM=mongodb
+fi
 
 if [ -z "$CHOICE" ]; then
   log "no automatic choice: ${DETAIL:-the two databases cannot be told apart from their contents}."

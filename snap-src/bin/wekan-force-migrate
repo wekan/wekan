@@ -32,6 +32,9 @@ rm -f "$COMMON/migration-progress.json"
 # #6473: a forced fresh migration re-does the file phase too, and finish_success
 # re-writes this marker — clear it so the startup attachment-repair state matches.
 rm -f "$COMMON/.attachments-files-v2-done"
+# The automatic retry's backoff record: an admin asking for it now is not waiting
+# an hour, and the next automatic attempt should count from scratch.
+rm -f "$COMMON/.migration-retry"
 rm -rf "${COMMON:?}/files/db/"* 2>/dev/null || true
 
 # Put the snap back on mongodb so the normal path (mongodb-control -> migration-control) runs;

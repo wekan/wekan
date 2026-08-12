@@ -29,6 +29,37 @@ fi
 # FAILS also sets migrate=off automatically so it does not loop and cause downtime. Re-enable
 # and retry with `snap run wekan.migrate`.
 [ "$(snapctl get migrate 2>/dev/null)" = "off" ] && exit 1
+# A previous attempt FAILED. It is retried - every WeKan snap is meant to end up on
+# FerretDB - but not on every start, or a migration that cannot succeed yet would
+# re-hijack every boot. migration-control writes the record; this decides when the
+# next attempt is due:
+#
+#   * a different snap revision than the one that failed -> retry NOW. The next
+#     release is the most likely thing to have fixed it, and waiting a day after
+#     installing the fix is a day of not being migrated.
+#   * otherwise wait, doubling from one hour to a maximum of one day.
+#
+# `snap run wekan.migrate` deletes this file, so a manual retry is never delayed.
+RETRY="$SNAP_COMMON/.migration-retry"
+if [ -f "$RETRY" ]; then
+  r_attempts="$(sed -n 's/^attempts=\([0-9]*\)$/\1/p' "$RETRY" 2>/dev/null)"
+  r_when="$(sed -n 's/^when=\([0-9]*\)$/\1/p' "$RETRY" 2>/dev/null)"
+  r_revision="$(sed -n 's/^revision=\(.*\)$/\1/p' "$RETRY" 2>/dev/null)"
+  [ -n "$r_attempts" ] || r_attempts=1
+  [ -n "$r_when" ] || r_when=0
+  if [ -n "${SNAP_REVISION:-}" ] && [ -n "$r_revision" ] && [ "$SNAP_REVISION" != "$r_revision" ]; then
+    :   # a new revision: retry now
+  else
+    wait_s=3600
+    i=1
+    while [ "$i" -lt "$r_attempts" ] && [ "$wait_s" -lt 86400 ]; do
+      wait_s=$((wait_s * 2)); i=$((i + 1))
+    done
+    [ "$wait_s" -gt 86400 ] && wait_s=86400
+    now="$(date +%s)"
+    [ $((now - r_when)) -lt "$wait_s" ] && exit 1
+  fi
+fi
 [ -x "$SNAP/ferretdb" ] || exit 1
 [ -x "$SNAP/bin/node" ] || exit 1
 [ -f "$SNAP/bin/migrate-mongodb-to-ferretdb.mjs" ] || exit 1

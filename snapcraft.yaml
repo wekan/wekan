@@ -371,6 +371,165 @@ parts:
     # binary, and migration-control simply does not find one. The snap still
     # builds and behaves as it did before - the unreadable-database page - rather
     # than a release failing over a migration aid.
+    # mongo50: the FOURTH reader, for the vintage BETWEEN the other three.
+    #
+    # A server starts only on data whose featureCompatibilityVersion is at most
+    # one major behind it, so the readers this snap had covered
+    #
+    #     mongod 7    FCV 6.0, 7.0
+    #     mongod 4.2  FCV 4.0, 4.2
+    #     3.2 tools   3.x            (amd64 only)
+    #
+    # and NOTHING opened FCV 4.4 or 5.0. That is not a hypothetical rung: the
+    # WeKan snap shipped MongoDB 5 in February 2023 ("MongoDB 5 to Snap Beta
+    # Channel for Meridiana") and 6.0.6 only in May, so a site that sat on that
+    # snap has 5.0 data files - and every reader here refuses them. mongod 7
+    # says "too recent to start up on the existing data files. Try MongoDB 4.2
+    # or earlier", mongod 4.2 says the same about 5.0 data, and the snap writes
+    # .mongodb-data-too-old and serves the explanatory page instead of the
+    # boards. mongod 5.0 opens FCV 4.4 AND 5.0, which closes both.
+    #
+    # Same shape as mongo42 below in every other way: read-only, used for the
+    # one migration and never as the running database; the modern importer talks
+    # to it with the bundled driver; amd64 and arm64 only, because MongoDB
+    # publishes no other build and no other architecture ever had a MongoDB to
+    # migrate from; and OPTIONAL - any failure here leaves no binary and
+    # migration-control simply does not find one.
+    #
+    # AVX: MongoDB 5.0 and later REQUIRE it on x86_64. migration-control runs
+    # this reader through bin/cpu-exec with `x86_64=avx`, the same way it runs
+    # mongod 7, so a CPU without AVX reads the database under qemu-user
+    # emulation - slow, and a one-time read.
+    #
+    # The tarball is the ubuntu2004 build, not ubuntu1804: MongoDB published no
+    # 18.04 build of 5.0. 20.04 is still OpenSSL 1.1, so the libssl1.1 staging
+    # below is the same as 4.2's.
+    mongo50:
+        plugin: nil
+        build-packages:
+            - ca-certificates
+            - curl
+            - dpkg
+        override-build: |
+            set -eu
+            V=5.0.31
+
+            # The directory is created FIRST, before anything can decide to skip.
+            # `stage:` and `prime:` below name `mongo50` explicitly, and a filter
+            # that names a path the part did not produce is not ignored - snapcraft
+            # stops the whole build on it:
+            #
+            #   Staging mongo50
+            #   Failed to copy '/build/.../parts/mongo50/install/mongo50':
+            #     no such file or directory.
+            #   Build failed
+            #
+            # That is what failed EVERY Launchpad snap in v10.80 - armhf, s390x,
+            # ppc64el and riscv64, three attempts each - because this part is
+            # amd64/arm64 only and every other architecture took the `exit 0`
+            # below, leaving nothing to stage. The part was meant to be optional
+            # ("OPTIONAL BY DESIGN", above) and on those arches it silently was
+            # not: it took the entire snap down with it, on the four
+            # architectures that have no native runner and can only be built
+            # here.
+            #
+            # An empty directory stages fine and primes to a few bytes, and
+            # migration-control looks for the BINARY inside it, which is still
+            # not there - so "no MongoDB 5.0 to migrate from" stays exactly as
+            # true as it was, without being fatal.
+            dest="$SNAPCRAFT_PART_INSTALL/mongo50"
+            mkdir -p "$dest/bin" "$dest/lib"
+
+            case "${CRAFT_ARCH_BUILD_FOR}" in
+                amd64) MARCH=x86_64  ; DEBARCH=amd64 ;;
+                arm64) MARCH=aarch64 ; DEBARCH=arm64 ;;
+                *)
+                    echo "mongo50: no MongoDB 5.0 for ${CRAFT_ARCH_BUILD_FOR}, and nothing to migrate from there; skipping."
+                    exit 0
+                    ;;
+            esac
+
+            work="$(mktemp -d)"
+            trap 'rm -rf "$work"' EXIT
+
+            # ── the server, checked against the checksum MongoDB publishes ────
+            tgz="mongodb-linux-${MARCH}-ubuntu2004-${V}.tgz"
+            url="https://fastdl.mongodb.org/linux/${tgz}"
+            if ! curl -fsSL --retry 3 -o "$work/$tgz" "$url"; then
+                echo "mongo50: could not download $url; skipping (the snap keeps working, that migration path is simply unavailable)."
+                exit 0
+            fi
+            if curl -fsSL --retry 3 -o "$work/$tgz.sha256" "$url.sha256"; then
+                want="$(cut -d' ' -f1 < "$work/$tgz.sha256")"
+                got="$(sha256sum "$work/$tgz" | cut -d' ' -f1)"
+                if [ "$want" != "$got" ]; then
+                    echo "mongo50: checksum mismatch for $tgz - MongoDB says $want, the download is $got. Not staging it."
+                    exit 0
+                fi
+                echo "mongo50: $tgz checksum verified."
+            else
+                echo "mongo50: MongoDB published no .sha256 for $tgz; staging it unverified."
+            fi
+            tar -xzf "$work/$tgz" -C "$work"
+            cp "$work/mongodb-linux-${MARCH}-ubuntu2004-${V}/bin/mongod" "$dest/bin/mongod"
+            chmod +x "$dest/bin/mongod"
+
+            # ── OpenSSL 1.1, which core24 does not have ──────────────────────
+            # Resolved by listing the pool rather than pinning a filename: the
+            # point releases roll, and a hardcoded version 404s the day they do.
+            # Debian security first (the patched 1.1.1w), then Debian main, then
+            # Ubuntu focal - amd64 lives on archive.ubuntu.com and arm64 on
+            # ports.ubuntu.com, which is why both are listed.
+            pools="https://security.debian.org/debian-security/pool/updates/main/o/openssl
+            https://deb.debian.org/debian/pool/main/o/openssl
+            http://archive.ubuntu.com/ubuntu/pool/main/o/openssl
+            http://ports.ubuntu.com/ubuntu-ports/pool/main/o/openssl"
+            got_ssl=no
+            for pool in $pools; do
+                deb="$(curl -fsSL "$pool/" 2>/dev/null | grep -o "libssl1\.1_[^\"]*_${DEBARCH}\.deb" | sort -V | tail -1 || true)"
+                [ -n "$deb" ] || continue
+                curl -fsSL --retry 3 -o "$work/ssl.deb" "$pool/$deb" || continue
+                rm -rf "$work/sslx"; mkdir -p "$work/sslx"
+                dpkg-deb -x "$work/ssl.deb" "$work/sslx" 2>/dev/null || continue
+                found=0
+                for so in libssl.so.1.1 libcrypto.so.1.1; do
+                    f="$(find "$work/sslx" -name "$so" -type f | head -1)"
+                    [ -n "$f" ] && cp "$f" "$dest/lib/" && found=$((found + 1))
+                done
+                if [ "$found" = 2 ]; then
+                    echo "mongo50: OpenSSL 1.1 taken from $deb ($pool)."
+                    got_ssl=yes
+                    break
+                fi
+            done
+            if [ "$got_ssl" != yes ]; then
+                echo "mongo50: could not obtain OpenSSL 1.1 for ${DEBARCH}; mongod 5.0 cannot run without it, so it is not staged."
+                # The CONTENTS go, the DIRECTORY stays - `stage: mongo50` below
+                # names it, and snapcraft ends the whole build on a filter whose
+                # path is missing (see the comment at the top of override-build).
+                # An empty directory stages to nothing and migration-control
+                # guards every use on `-x $M42/bin/mongod`, so "no 4.2 reader" is
+                # still exactly what this means.
+                rm -rf "${dest:?}"/* 2>/dev/null || true
+                exit 0
+            fi
+
+            # It has to RUN, not just exist. A staged binary that dies on a
+            # missing library would only be discovered by an admin whose site is
+            # already down, so the build asks it here.
+            if ! LD_LIBRARY_PATH="$dest/lib" "$dest/bin/mongod" --version >/dev/null 2>&1; then
+                echo "mongo50: the staged mongod 5.0 does not run in this environment; removing it rather than shipping something that cannot start."
+                # Contents only, directory kept - same reason as above.
+                rm -rf "${dest:?}"/* 2>/dev/null || true
+                exit 0
+            fi
+            echo "mongo50: staged $("$dest/bin/mongod" --version 2>/dev/null | head -1 || echo "mongod $V") for ${CRAFT_ARCH_BUILD_FOR}."
+        stage:
+            - mongo50
+        prime:
+            - mongo50
+
+
     mongo42:
         plugin: nil
         build-packages:

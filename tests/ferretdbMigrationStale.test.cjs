@@ -242,7 +242,7 @@ test('when mongod cannot run at all, a stale migration is redone rather than ser
     'and the MongoDB data itself must never be touched');
 });
 
-test('wekan-control keeps MongoDB when the migrated copy is behind it', () => {
+test('a migrated copy that is behind is caught up, not abandoned', () => {
   assert.ok(/ferretdb-migration-stale/.test(wekanControl),
     'wekan-control guards against an EMPTY FerretDB already; a full but out-of-date ' +
     'one looks worse, because WeKan comes up with only the last weeks missing');
@@ -251,13 +251,22 @@ test('wekan-control keeps MongoDB when the migrated copy is behind it', () => {
   // mention of the detector would be reading the wrong block.
   const at = wekanControl.indexOf('migration_stale_rc" -eq 0');
   assert.ok(at !== -1, 'the stale branch must test for exactly 0');
-  const after = wekanControl.slice(at, at + 1600);
-  assert.ok(/export DATABASE="mongodb"/.test(after) &&
-            /snapctl set database=mongodb/.test(after),
-    'it must fall back to MongoDB, which has the newest data');
+  const after = wekanControl.slice(at, at + 3000);
+  // This assertion was the opposite until the reports came in: the branch used
+  // to answer by switching the snap to database=mongodb, and what people saw was
+  // "WeKan changed to old MongoDB data" - onto the database the snap is
+  // migrating away from, and when the detector had guessed wrong (#6583) onto a
+  // copy that was weeks behind. Merging is the repair; switching is the
+  // fallback for when the merge cannot run.
+  assert.ok(/database-autopick" --to-ferretdb/.test(after),
+    'the newer MongoDB documents are merged INTO FerretDB, and WeKan stays there');
+  const merge = after.indexOf('--to-ferretdb');
+  const revert = after.indexOf('snapctl set database=mongodb');
+  assert.ok(revert > merge,
+    'MongoDB is only what it falls back to when the merge could not run');
   assert.ok(/snap revert. does not roll back|not rolled back by a revert/.test(after),
-    'and say that nothing is lost - $SNAP_COMMON is shared across revisions - or the ' +
-    'message reads as a report of data loss');
+    'and it still says that nothing is lost - $SNAP_COMMON is shared across revisions - ' +
+    'or the message reads as a report of data loss');
 });
 
 test('wekan-control never switches on a GUESS when both databases have been used', () => {

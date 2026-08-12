@@ -177,15 +177,47 @@ if [ "ferretdb" = "$DATABASE" ] && [ "$mongodb_has_data" = "true" ] && [ "$migra
     echo "========================================================================"
     echo "WeKan: the FerretDB database in $FERRETDB_SQLITE_DIR was migrated from MongoDB,"
     echo "but the MongoDB data has been written to SINCE that migration - so the migrated"
-    echo "copy is missing everything added after it, and serving it would look like those"
-    echo "changes were lost. They are not: they are in the MongoDB data in $SNAP_COMMON,"
-    echo "which 'snap revert' does not roll back."
+    echo "copy is missing everything added after it. Those changes are not lost: they are"
+    echo "in the MongoDB data in $SNAP_COMMON, which 'snap revert' does not roll back."
     echo ""
-    echo "Staying on database=mongodb, which has the newest data. To move to FerretDB,"
-    echo "migrate again so the copy is current:  snap run ${WEKAN_SNAP_SVC:-wekan}.migrate"
+    # This used to answer by switching the snap to database=mongodb, and that is
+    # what the reports were: "WeKan changed to old MongoDB data". Even when the
+    # copy it switched to really was the newer one, it left the site on the
+    # database the snap is migrating AWAY from, with no way back except an admin
+    # typing commands - and when the detector had guessed wrong (#6583), it put
+    # the site on a database that was weeks behind.
+    #
+    # FerretDB is where a WeKan snap runs, on every platform; MongoDB is bundled
+    # to be READ during a migration. So the repair is the merge, not a switch:
+    # bring the documents MongoDB has and FerretDB does not into FerretDB -
+    # inserting what is missing, overwriting nothing - and carry on there. WeKan's
+    # history is append-only (docs/Features/Reports/History/History.md), so the
+    # work done on MongoDB after the migration lands in the card History rather
+    # than staying in a database nobody opens.
+    merged=false
+    if [ -f "$SNAP/bin/database-autopick" ]; then
+        echo "Bringing the newer MongoDB data into FerretDB (inserting what is missing,"
+        echo "overwriting nothing), so WeKan can stay on FerretDB with all of it ..."
+        if bash "$SNAP/bin/database-autopick" --to-ferretdb; then merged=true; fi
+    fi
+    if [ "$merged" = true ]; then
+        DATABASE="$(snapctl get database 2>/dev/null || echo ferretdb)"
+        export DATABASE
+        echo "WeKan: continuing on database=${DATABASE}, with the MongoDB data merged into it."
+        echo "The MongoDB data is untouched in $SNAP_COMMON; nothing was deleted."
+    else
+        # The merge is what makes staying on FerretDB honest. Without it, FerretDB
+        # is a copy that is behind, and serving it IS the "old data" complaint -
+        # so this falls back to the database that demonstrably holds the newest
+        # writes, says so, and tries the merge again on the next start.
+        echo "The merge could not run this time (see 'snap logs ${WEKAN_SNAP_SVC:-wekan}'), and serving a"
+        echo "FerretDB copy that is behind would be showing old data. Staying on"
+        echo "database=mongodb for now - it has the newest writes - and trying again on the"
+        echo "next start. To do it by hand:  snap run ${WEKAN_SNAP_SVC:-wekan}.migrate"
+        export DATABASE="mongodb"
+        snapctl set database=mongodb 2>/dev/null || true
+    fi
     echo "========================================================================"
-    export DATABASE="mongodb"
-    snapctl set database=mongodb 2>/dev/null || true
 fi
 
 # Bring up the chosen database service and stop the other, so exactly one runs on the

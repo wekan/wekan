@@ -63,7 +63,7 @@ const allParts = parts();
 test('the parts of snapcraft.yaml are found', () => {
   assert.ok(Object.keys(allParts).length >= 3,
     `expected several parts, found ${Object.keys(allParts).join(', ') || 'none'}`);
-  for (const name of ['mongo42', 'wekan']) {
+  for (const name of ['mongo50', 'mongo42', 'wekan']) {
     assert.ok(allParts[name], `snapcraft.yaml has no ${name} part`);
   }
 });
@@ -73,6 +73,8 @@ test('snapcraft.yaml is valid YAML and its filters read the same as the text', (
   const doc = yaml.load(raw);
   assert.deepStrictEqual(doc.parts.mongo42.stage, ['mongo42']);
   assert.deepStrictEqual(doc.parts.mongo42.prime, ['mongo42']);
+  assert.deepStrictEqual(doc.parts.mongo50.stage, ['mongo50']);
+  assert.deepStrictEqual(doc.parts.mongo50.prime, ['mongo50']);
 });
 
 test('mongo42 creates its staged directory BEFORE it can decide to skip', () => {
