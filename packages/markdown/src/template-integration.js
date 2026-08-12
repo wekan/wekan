@@ -63,9 +63,68 @@ var urlschemes = [
 
 
 
+// #6588: a card whose description or comment contains a `file://` link could not
+// be OPENED at all - the details panel never mounted, and the swallowed exception
+// was
+//
+//   TypeError: this.__schemas__[...].validate is not a function
+//
+// thrown out of markdown-it's linkify pass, so the whole card render died on one
+// link.
+//
+// The cause is the line that used to be here: `linkify.add(scheme + ':', 'http:')`.
+// A STRING second argument was linkify-it 4/5's way of saying "this scheme behaves
+// like that one". linkify-it 6 removed aliases and builds the definition by
+// spreading it:
+//
+//   const def = { normalize: ..., ...definition };
+//
+// Spreading the string 'http:' gives `{0:'h',1:'t',2:'t',3:'p',4:':'}` - an entry
+// with NO validate - and `testSchemaAt` then calls `.validate(...)` on it. So
+// every one of the schemes below was a landmine: any text containing `file:`,
+// `onenote:`, `thunderlink:` and the rest crashed the viewer, and the card holding
+// it could not be opened again.
+//
+// Each scheme now carries a validate of its own, which is also what the alias was
+// only ever standing in for. It matches the URL after the scheme - an optional
+// `//`, then everything up to whitespace or a bracket - and hands back trailing
+// sentence punctuation, so "see file://server/share/doc.xlsm." does not swallow
+// the full stop.
+const SCHEME_TAIL_RE = /^\/\/[^\s<>"'`{}|\\^\[\]]+|^[^\s<>"'`{}|\\^\[\]]+/;
+const TRAILING_PUNCTUATION_RE = /[.,;:!?)\]}>'"]+$/;
+
+function validateSchemeTail(text, pos) {
+  const tail = String(text || '').slice(pos);
+  const match = SCHEME_TAIL_RE.exec(tail);
+  if (!match) return 0;
+  // A scheme with nothing after it ("file:" on its own) is not a link.
+  const link = match[0].replace(TRAILING_PUNCTUATION_RE, '');
+  return link.length;
+}
+
+// WHAT THIS DOES AND DOES NOT ACHIEVE, since the list above promises more than it
+// delivers: registering a scheme here makes markdown-it RECOGNISE it as a link,
+// and two later filters then decide whether the reader gets a clickable one.
+// markdown-it's own validateLink refuses `file:` (along with javascript:,
+// vbscript: and data:), and the viewer's DOMPurify allows only
+// http/https/ftp/ftps/mailto/tel/callto/cid/xmpp hrefs (secureDOMPurify.js), so
+// EVERY scheme in this list currently has its href removed before it reaches the
+// page. They render as text, which is what they did before this fix as well - on
+// the cards that could still be opened.
+//
+// Making them genuinely clickable means relaxing both filters, and each of these
+// schemes launches a local application, so that is a security decision (the ask in
+// #3218) and not something to slip in while fixing a crash. What is fixed here is
+// that a card containing one can be OPENED.
+//
+// Exposed for tests/markdownCustomUrlSchemes.test.cjs, which renders real
+// markdown through this configuration rather than reading it.
+Markdown.validateSchemeTail = validateSchemeTail;
+Markdown.customUrlSchemes = urlschemes;
+
 // put all url schemes into the linkify configuration to automatically make it clickable
-for(var i=0; i<urlschemes.length;i++){
-  Markdown.linkify.add(urlschemes[i]+":",'http:');
+for (var i = 0; i < urlschemes.length; i++) {
+  Markdown.linkify.add(urlschemes[i] + ':', { validate: validateSchemeTail });
 }
 
 const emojiPlugin = markdownItEmoji.full || markdownItEmoji.default || markdownItEmoji;
@@ -281,8 +340,31 @@ Blaze.Template.registerHelper('markdown', new Template('markdown', function () {
     // Prevent hiding info: https://wekan.github.io/hall-of-fame/invisiblebleed/
     // If text does not have hidden markdown link, render all markdown.
     // Also show html comments.
-    const renderedMarkdown = Markdown.render(text).replace('<!--', '<font color="red" title="Warning! Hidden HTML comment!" aria-label="Warning! Hidden HTML comment!">&lt;!--</font>').replace('-->', '<font color="red" title="Warning! Hidden HTML comment!" aria-label="Warning! Hidden HTML comment!">--&gt;</font>');
-    const sanitized = DOMPurify.sanitize(renderedMarkdown, getSecureDOMPurifyConfig());
+    //
+    // #6588: NOTHING a card contains may make that card impossible to open. A
+    // renderer that throws here throws inside a Blaze view, Blaze swallows the
+    // exception, and the details panel simply never mounts - the reporter saw a
+    // card that played the open animation and then showed nothing, with no error
+    // anywhere until they overrode Meteor._debug. One malformed link brought down
+    // the whole view.
+    //
+    // The linkify crash that caused it is fixed above, but the guarantee is worth
+    // more than that one fix: a plugin, a pathological formula or the next
+    // markdown-it upgrade can all throw. The content is then shown as escaped
+    // plain text, which is exactly what the "show code as plain text" branch above
+    // renders - unformatted, but readable, and the card opens.
+    let sanitized;
+    try {
+      const renderedMarkdown = Markdown.render(text).replace('<!--', '<font color="red" title="Warning! Hidden HTML comment!" aria-label="Warning! Hidden HTML comment!">&lt;!--</font>').replace('-->', '<font color="red" title="Warning! Hidden HTML comment!" aria-label="Warning! Hidden HTML comment!">--&gt;</font>');
+      sanitized = DOMPurify.sanitize(renderedMarkdown, getSecureDOMPurifyConfig());
+    } catch (error) {
+      const message = (error && error.message) ? error.message : String(error);
+      // eslint-disable-next-line no-console
+      console.error('[markdown] rendering failed, showing the text as-is:', message);
+      const title = 'This text could not be formatted, so it is shown as it was written';
+      sanitized = '<pre title="' + title + '" aria-label="' + title + '">'
+        + DOMPurify.sanitize(escapeHtmlSource(text), getSecureDOMPurifyConfig()) + '</pre>';
+    }
     return HTML.Raw(sanitized);
   }
 }));
