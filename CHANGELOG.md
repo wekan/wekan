@@ -307,7 +307,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.86 2026-08-12 WeKan ® release
 
 **In short:** a **snap** release and a batch of reported bugs. The snap half is
 one theme in four places: a copy made at one moment being used as if it were
