@@ -440,7 +440,7 @@ and fixes the following bugs:
 **The snap** - which database it runs on, and how everything gets there.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASHPATHS">A release script the job cannot see, and an hour of build thrown away at the push</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f976adb9c">A release script the job cannot see, and an hour of build thrown away at the push</a>. Thanks to xet7.</summary>
 
 The v10.88 run lost seven jobs to two mistakes of the same kind: a step that
 needs something and does not check whether it is there.
