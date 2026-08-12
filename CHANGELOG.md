@@ -284,6 +284,20 @@ all),
 <details>
 <summary>Deferred pending a security decision.</summary>
 
+Making WeKan's eight custom URL schemes (`file:`, `thunderlink:`,
+`cbthunderlink:`, `onenote:`, `aodroplink:`, `abasurl:`, `conisio:`,
+`mailspring:`) actually CLICKABLE — the ask in
+[#3218](https://github.com/wekan/wekan/issues/3218). They are registered with
+markdown-it so they are recognised, and two filters then remove the link:
+markdown-it's own `validateLink` refuses `file:` (with `javascript:`,
+`vbscript:` and `data:`), and the viewer's DOMPurify allows only
+http/https/ftp/ftps/mailto/tel/callto/cid/xmpp hrefs. So the schemes have never
+produced a link, and #6588 showed that their only observable effect was a crash.
+Enabling them means relaxing both filters for schemes whose whole purpose is to
+launch a local application from a link somebody else may have written into a
+card — a decision for xet7, not a side effect of a crash fix.
+
+
 Syntax/color highlighting for code blocks in the card viewer (`+viewer`; the
 copy-to-clipboard half of #5149, which asked for both, is done and that issue is
 closed). It IS
@@ -312,15 +326,19 @@ shown "Wekan cannot open the existing database" instead of its own working site;
 a **MongoDB 3.x database on any CPU without the 3.2 reader** waited for a
 database that was never coming, with the reason only in `snap logs`; and the
 upgrade documentation let an admin copy the old database directory back over a
-**running** database, which destroys the restore they had just made. Then: the
-**PDF export** writes umlauts instead of question marks and no longer prints
-markdown at a reader, **minicards** follow the Member Settings font size, and
-unchecking **"Show on minicard"** on a checklist finally hides it. Below that:
-dependency updates, a repo-wide guard that asks whether an already-fixed
-vulnerability exists anywhere ELSE - which found one - and the tests for all of
-it. The binaries below are carried over from v10.85 and have NOT been checked
-against a newer build; `releases/provenance-table.sh` prints the real table from
-the provenance each build job records.
+**running** database, which destroys the restore they had just made. Two copies
+of one database are also **reconciled automatically** now — the newer is served
+and the older is merged into its history — so an instance being shown the wrong
+copy repairs itself instead of waiting for somebody to type two commands. Then:
+a **`file://` link no longer makes a card impossible to open**, the **PDF
+export** writes umlauts instead of question marks and no longer prints markdown
+at a reader, **minicards** follow the Member Settings font size, and unchecking
+**"Show on minicard"** on a checklist finally hides it. Below that: dependency
+updates, a repo-wide guard that asks whether an already-fixed vulnerability
+exists anywhere ELSE - which found one - and the tests for all of it. The
+binaries below are carried over from v10.85 and have NOT been checked against a
+newer build; `releases/provenance-table.sh` prints the real table from the
+provenance each build job records.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -500,6 +518,51 @@ with a MongoDB that can read it".
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/40ff8151e">Two copies of one database are reconciled automatically: the newer is served, the older merged into history</a>. Thanks to xet7.</summary>
+
+An email report, on an instance being served the older of its two copies: "some
+users are unable to log in (error: 'user not found'), and boards created after
+mid-July appear to be missing." That is what serving a copy looks like from the
+outside — the accounts and boards made after the copy was taken are simply not
+there.
+
+Until now the snap handled that by handing it back to the admin.
+[#6583](https://github.com/wekan/wekan/issues/6583) taught it not to switch on a
+guess, so when both MongoDB and the migrated FerretDB have been written to since
+the migration it printed the two `snap set wekan database=...` commands and
+stayed where it was. That message lives in `snap logs`; most people never see
+it, and their site meanwhile shows the wrong copy.
+
+A file timestamp cannot answer "which copy holds the work" — an mtime says when
+a file was touched, and starting a database touches its files. But both copies
+can be READ. Each is started on a temporary port, asked how many documents it
+holds and what the newest moment in its data is, and the copy holding the work
+is served. Where both hold something the other does not, the documents that
+exist only in the other one are copied across, and where the two cannot be told
+apart nothing is changed and the old message stands.
+
+The merge is what makes this safe to do automatically, and WeKan's own design is
+what makes the merge safe: the history is append-only, so activities, comments
+and the coming change-history rows can only be ADDED to. Every document whose
+`_id` is absent from the chosen copy is inserted and nothing else happens — what
+is already there is never overwritten, so a card edited on both sides keeps the
+newer version; nothing is deleted on either side; and the copy that was not
+chosen stays on disk, so switching back is still one command, now a choice
+rather than a repair. The work done on the copy that is not being served becomes
+readable in the served copy's card History instead of sitting in a database
+nobody opens.
+
+For the reported symptoms that means the missing users and boards are inserted
+rather than left behind. Reconciling two edits of the same field is still not
+attempted: that is a decision about somebody's work. `WEKAN_AUTOPICK=false`
+turns the whole thing off and `database-autopick --dry-run` shows what it would
+do.
+[docs/Features/Reports/History/History.md](https://github.com/wekan/wekan/blob/main/docs/Features/Reports/History/History.md)
+gains the section that states the append-only invariant this depends on.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/440062906">Copying the old snap common directory back is what destroys the restore</a>. Thanks to xet7.</summary>
 
 From an upgrade report by email. The admin upgraded 6.09 to 10.85 exactly by the
@@ -522,6 +585,38 @@ out.
 </details>
 
 **The board** - what a card looks like, and what an export says.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/75a23b76a">A file:// link in a card no longer makes the card impossible to open</a>. Thanks to rmb82 and xet7.</summary>
+
+"A card whose description or a comment contains a `file://` URL cannot be
+opened. Clicking the minicard plays the open animation but the card details
+panel never mounts." There was no visible error, because Blaze swallows a render
+exception; captured, it was `TypeError: this.__schemas__[...].validate is not a
+function`, thrown out of markdown-it's linkify pass.
+
+WeKan registers eight custom URL schemes — `file:`, `thunderlink:`, `onenote:`
+and five more — and registered them the linkify-it 4/5 way, passing the string
+`'http:'` to mean "behave like that one". linkify-it 6 removed string aliases
+and builds the definition by spreading it, so that string became
+`{0:'h',1:'t',2:'t',3:'p',4:':'}` — an entry with no `validate` — and the
+recogniser then called `.validate(...)` on it. Every one of those schemes was a
+landmine in any card's text.
+
+Each scheme carries a validate of its own now, which is all the alias stood for.
+The guarantee behind the fix is worth more than the fix: nothing a card contains
+may make that card impossible to open, so the render is wrapped and a throw from
+any future plugin, formula or upgrade shows the text as written — escaped,
+sanitised, unformatted and readable — instead of a panel that never mounts.
+
+The schemes still do not produce clickable links, and never did: markdown-it's
+own link validation refuses `file:`, and the viewer's sanitiser allows only
+http/https/ftp/ftps/mailto/tel/callto/cid/xmpp. Making them clickable means
+relaxing both for schemes that launch local applications, which is the security
+decision [#3218](https://github.com/wekan/wekan/issues/3218) asks for; it is in
+TODO Later, and the tests pin today's answer so that changing it is a decision.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f7b0a4d1d">A board's type now follows Member Settings / Font size</a>. Thanks to CCmesch and xet7.</summary>
