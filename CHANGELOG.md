@@ -352,7 +352,7 @@ from the provenance each build job records.
 This release fixes the following release-tooling bug:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASHRETRY">A five-minute outage at github.com no longer costs a whole release</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/7952d3a06">A five-minute outage at github.com no longer costs a whole release</a>. Thanks to xet7.</summary>
 
 The v10.86 run failed in `build-amd64`, installing the bundle's server modules:
 
