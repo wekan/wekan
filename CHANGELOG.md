@@ -453,7 +453,7 @@ CPU-platform docs point at it instead of describing a setting that is gone.
 **The release workflow** - what it needs to be there before it runs.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASHV1089">A path that stops resolving when the step changes directory, and the last bare downloads</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8b4ade9bc">A path that stops resolving when the step changes directory, and the last bare downloads</a>. Thanks to xet7.</summary>
 
 The v10.89 run failed four more jobs, all of them the same two mistakes one step
 further along.
