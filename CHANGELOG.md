@@ -287,8 +287,9 @@ refresh made a frozen MongoDB look newer than the **FerretDB that had been live
 for two weeks**, and the snap was switched onto the frozen one. It now asks the
 question of BOTH copies, and when both have been written to since the migration
 it switches nothing and says so, because a timestamp says when a file was
-touched and not how much is in it. The binaries below are v10.82's: nothing here
-rebuilds them.
+touched and not how much is in it. Below that, the three newest interface
+strings are translated into **133 languages**. The binaries below are v10.82's:
+nothing here rebuilds them.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -362,6 +363,48 @@ hears that the other one holds writes of its own.
 `tests/ferretdbMigrationStale.test.cjs` gains the reported regression - a
 two-week-old migration, a FerretDB written to a minute ago, a `mongod` started
 an hour ago - and pins that ambiguity can never reach the deletion.
+
+</details>
+
+and improves the translations:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/639214574">The three new Version-pane and checklist strings, in 133 languages</a>. Thanks to xet7.</summary>
+
+`invalid-year`, `collapse-checklist` and `expand-checklist` shipped in
+`en.i18n.json` with the card-date fix and the collapsible checklists; every
+other language file carried them as English placeholders. Translated directly,
+as `CLAUDE.md` requires - no external translation service, API or key - from
+each language's OWN existing strings, so the wording matches what that file
+already says rather than being invented beside it.
+
+Three anchors did most of the work. `checklist` and `collapse` / `uncollapse`
+give each language its established terms, and `invalid-domain` is the same shape
+of sentence as the new one - a rejection, then an instruction with an example -
+so its phrasing, punctuation and register carried over directly.
+
+Where an anchor was itself wrong the correct term was used instead of copying
+the mistake forward. Several files have terms that drifted in from another
+language: Italian *Non collassare* in the Greek and Romanian files, Russian in
+the Georgian and Mongolian ones, Vietnamese in the Thai one, Serbian in the
+Slovenian and Bulgarian ones. Others use a literal sense of "collapse" that is
+not the UI one - Azerbaijani *Yıxılma*, Estonian *Kokkupõrge*, Khmer *ដួលរលំ*
+and Chinese *崩溃* are structural collapse, a building falling down. The new
+strings use the folding sense each language actually uses for this control.
+
+Nine languages are deliberately left as English placeholders rather than guessed
+at: Klingon, Volapük, Tamazight, Walloon, Wolof, Uzbek in Arabic script, and the
+three `ve` files, whose contents disagree with their own locale tags - `ve-CC`
+reads as Venetian and `ve-PP` as Veps, so which language to write is a question
+about the file, not about the string. A placeholder says "nobody has translated
+this yet", which is true; a fabrication would say something false in a shipped
+product.
+
+Applied with `fill-translations.mjs --apply`, which writes ONLY into
+placeholders: every language reported *filled 3, skipped 0 existing human
+translation(s)*, so no human translation was touched. Key order and the 2-space
+indent are preserved, all 154 files still parse, and
+`verify-human-preference.mjs` passes 10/10.
 
 </details>
 
