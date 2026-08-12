@@ -94,10 +94,7 @@ All Boards page — the `boardLists`/`boardMembers` helpers in
 `client/components/boards/boardsList.js` were deliberately stubbed to `[]` to
 stop the #4214 "icons random dance"; re-enabling needs a non-reactive count
 source and a lists/cards subscription for the dashboard, verified live so #4214
-does not return), [#3189](https://github.com/wekan/wekan/issues/3189)
-(Worker-role user cannot re-assign a card to themselves after a prior assignee
-was removed — role/deny permission),
-[#6541](https://github.com/wekan/wekan/issues/6541) (users disappear from the
+does not return), [#6541](https://github.com/wekan/wekan/issues/6541) (users disappear from the
 Users collection while their id stays on the board, WeKan 6.09 / MongoDB 3.2 —
 nothing in the server log and no webhook, so there is no path to follow in the
 code; the deletion helpers since gained the cleanup that removes a user from
@@ -105,10 +102,6 @@ every board they were on, so a repeat today would leave no orphan ids, but the
 disappearance itself has no reproduction),
 [#3576](https://github.com/wekan/wekan/issues/3576) (mobile back button after
 search returns to settings, not the board — router),
-[#3144](https://github.com/wekan/wekan/issues/3144) (archived-card activities
-render "undefined" in board settings — the card lookup returns nothing once the
-card is archived/unpublished; needs the activity to carry a stored card title or
-the feed to fall back to "{title} [archived]", verified live),
 [#3114](https://github.com/wekan/wekan/issues/3114) (mobile card view stays open
 but blank after another client deletes/moves the card — reactive
 close-on-remove), [#3070](https://github.com/wekan/wekan/issues/3070) (using a
@@ -330,15 +323,17 @@ upgrade documentation let an admin copy the old database directory back over a
 of one database are also **reconciled automatically** now — the newer is served
 and the older is merged into its history — so an instance being shown the wrong
 copy repairs itself instead of waiting for somebody to type two commands. Then:
-a **`file://` link no longer makes a card impossible to open**, the **PDF
-export** writes umlauts instead of question marks and no longer prints markdown
-at a reader, **minicards** follow the Member Settings font size, and unchecking
-**"Show on minicard"** on a checklist finally hides it. Below that: dependency
-updates, a repo-wide guard that asks whether an already-fixed vulnerability
-exists anywhere ELSE - which found one - and the tests for all of it. The
-binaries below are carried over from v10.85 and have NOT been checked against a
-newer build; `releases/provenance-table.sh` prints the real table from the
-provenance each build job records.
+a **`file://` link no longer makes a card impossible to open**, a **Worker** can
+finally move a card and assign themselves to it, an **archived card is still
+named** in its own history, the **PDF export** writes umlauts instead of
+question marks and no longer prints markdown at a reader, **minicards** follow
+the Member Settings font size, and unchecking **"Show on minicard"** on a
+checklist finally hides it. Below that: dependency updates, a repo-wide guard
+that asks whether an already-fixed vulnerability exists anywhere ELSE - which
+found one - and the tests for all of it. The binaries below are carried over
+from v10.85 and have NOT been checked against a newer build;
+`releases/provenance-table.sh` prints the real table from the provenance each
+build job records.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -585,6 +580,56 @@ out.
 </details>
 
 **The board** - what a card looks like, and what an export says.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ec99f2e98">A Worker can move a card and assign themselves to it, which is what the role is for</a>. Thanks to rptl and xet7.</summary>
+
+"User with Worker permission can't assignee card if it has been assigned to
+someone else before" — and in fact could not assign themselves at all. The card
+showed their name for a moment and then showed the previous assignee again,
+which is what a rejected optimistic write looks like.
+
+The board schema defines the role as "only allowed to move card, assign himself
+to card and comment". Both of those are card updates, and the capability table
+gives Worker no write access — so the role defined by two specific writes was
+allowed neither, while the client already offered the UI for it: the assignee
+popup shows a Worker exactly one name, their own.
+
+Widening write access was never the fix; that hands a Worker every field of
+every card. Moving and self-assigning are their own capability now, enforced
+field by field on the server: a Worker may write `listId`, `swimlaneId`, `sort`
+and their OWN id in `assignees`, and nothing else. The policy allows only what
+it recognises, so a title, a label, somebody else's name, a whole-document
+replacement or an operator added by a future MongoDB are all refused by default.
+[Roles.md](https://github.com/wekan/wekan/blob/main/docs/Features/Members/Roles.md)
+gains the column, and its "Known gaps" section is now empty.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f2e58945f">An archived card is still named in its own history</a>. Thanks to rptl and xet7.</summary>
+
+"Activities for archived card displayed as undefined on board settings." Move a
+card around, archive it, open the board sidebar — and the sentences that named
+that card name nothing.
+
+The feed asked for the card document and rendered its title, and an archived
+card is not published to the client: a card that still exists, still has a
+title, and whose activities are right there on the page went nameless in its own
+history. The activity itself already recorded the title in most cases, so that
+is what is read now — the card's current title when the card is here, marked
+`[archived]` when it says it is, the recorded title when it is not, and "this
+card" when neither exists, rather than a gap in the middle of a sentence. The
+link survives all of it, because a card URL can be built from the ids the
+activity carries.
+
+The two activities that were NOT recording a title were the two about archiving,
+which are exactly the ones guaranteed to be about a card the client can no
+longer look up. They record it now. A card that is merely absent is not called
+archived: with lazy card loading it may just be outside the window this client
+was sent, and that would be a claim the feed cannot support.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/75a23b76a">A file:// link in a card no longer makes the card impossible to open</a>. Thanks to rmb82 and xet7.</summary>
