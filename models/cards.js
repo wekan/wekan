@@ -3230,6 +3230,11 @@ async function cardState(userId, doc, fieldNames) {
         boardId: doc.boardId,
         listId: doc.listId,
         cardId: doc._id,
+        // #3144: the title, recorded WITH the activity. An archived card is not
+        // published to the client, so the board feed could not name the card that
+        // had just been archived - the sentence about it was the one sentence
+        // guaranteed to be about a card nobody could look up.
+        cardTitle: doc.title,
         swimlaneId: doc.swimlaneId,
       });
     } else {
@@ -3240,6 +3245,7 @@ async function cardState(userId, doc, fieldNames) {
         listName: list.title,
         listId: doc.listId,
         cardId: doc._id,
+        cardTitle: doc.title,
         swimlaneId: doc.swimlaneId,
       });
     }
