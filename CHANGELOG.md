@@ -450,7 +450,8 @@ installs behind `releases/fetch.sh` and `releases/apt-install.sh` turned steps
 that needed nothing into steps that need this repository:
 
 ```
-bash: /home/runner/work/wekan/wekan/releases/apt-install.sh: No such file or directory
+bash: /home/runner/work/wekan/wekan/releases/apt-install.sh:
+        No such file or directory
 bash: D:\a\wekan\wekan/releases/npm-retry.sh: No such file or directory
 ```
 
