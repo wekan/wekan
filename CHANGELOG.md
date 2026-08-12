@@ -288,8 +288,10 @@ for two weeks**, and the snap was switched onto the frozen one. It now asks the
 question of BOTH copies, and when both have been written to since the migration
 it switches nothing and says so, because a timestamp says when a file was
 touched and not how much is in it. Below that, the three newest interface
-strings are translated into **133 languages**. The binaries below are v10.83's:
-nothing here rebuilds them.
+strings are translated into **133 languages**. The binaries below are carried
+over from v10.83 and have NOT yet been checked against this release's own build;
+`releases/provenance-table.sh` prints the real table from the provenance each
+build job records, and it heads this release's GitHub release notes.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
