@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v10.85
+  version: v10.86
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -5721,15 +5721,16 @@ definitions:
         x-nullable: true
       showChecklistAtMinicard:
         description: |
-           show this checklist on minicard?
+           show this checklist on minicard? Unset = follow the board's
+           allowsChecklistsOnMinicard default; true/false override it.
         type: boolean
+        x-nullable: true
     required:
       - cardId
       - title
       - createdAt
       - modifiedAt
       - sort
-      - showChecklistAtMinicard
   CustomFields:
     type: object
     description:  A custom field on a card in the board
