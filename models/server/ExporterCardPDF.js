@@ -1,11 +1,13 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import {
+  wrapTextBlock,
+  line,
+  buildPdfBuffer,
+} from '/models/lib/pdfDocument';
 
-const PAGE_WIDTH = 595;
-const PAGE_HEIGHT = 842;
-const PAGE_MARGIN = 50;
-const LINE_HEIGHT = 14;
-const FONT_SIZE = 10;
-const TEXT_WIDTH = 90;
+// #6586: the PDF itself - encoding, markdown flattening, wrapping, pagination -
+// lives in models/lib/pdfDocument.js, where it can be tested against the bytes a
+// reader's viewer sees. This file decides WHAT a card and a board export say.
 
 function sanitizeFilename(value) {
   return String(value || 'export-card')
@@ -13,150 +15,6 @@ function sanitizeFilename(value) {
     .replace(/-+/g, '-')
     .replace(/^-|-$/g, '')
     .slice(0, 80) || 'export-card';
-}
-
-function normalizePdfText(value) {
-  return String(value ?? '')
-    .replace(/<[^>]*>/g, ' ')
-    .replace(/\r/g, '')
-    .replace(/\t/g, ' ')
-    .replace(/[^\x20-\x7E\n]/g, '?');
-}
-
-function escapePdfText(value) {
-  return normalizePdfText(value)
-    .replace(/\\/g, '\\\\')
-    .replace(/\(/g, '\\(')
-    .replace(/\)/g, '\\)');
-}
-
-function wrapLine(line, width = TEXT_WIDTH) {
-  if (!line) {
-    return [''];
-  }
-
-  const words = line.split(/\s+/).filter(Boolean);
-  if (words.length === 0) {
-    return [''];
-  }
-
-  const wrapped = [];
-  let current = '';
-
-  for (const word of words) {
-    if (!current) {
-      current = word;
-      continue;
-    }
-
-    if (`${current} ${word}`.length <= width) {
-      current = `${current} ${word}`;
-      continue;
-    }
-
-    wrapped.push(current);
-    current = word;
-  }
-
-  if (current) {
-    wrapped.push(current);
-  }
-
-  const splitLongWords = [];
-  for (const item of wrapped) {
-    if (item.length <= width) {
-      splitLongWords.push(item);
-      continue;
-    }
-
-    for (let index = 0; index < item.length; index += width) {
-      splitLongWords.push(item.slice(index, index + width));
-    }
-  }
-
-  return splitLongWords;
-}
-
-function wrapTextBlock(text) {
-  return normalizePdfText(text)
-    .split('\n')
-    .flatMap(line => wrapLine(line));
-}
-
-function paginateLines(lines) {
-  const linesPerPage = Math.floor(
-    (PAGE_HEIGHT - PAGE_MARGIN * 2) / LINE_HEIGHT,
-  );
-  const pages = [];
-
-  for (let index = 0; index < lines.length; index += linesPerPage) {
-    pages.push(lines.slice(index, index + linesPerPage));
-  }
-
-  return pages.length > 0 ? pages : [['No data']];
-}
-
-function buildPdfBuffer(lines) {
-  const pages = paginateLines(lines);
-  const objects = [];
-  const addObject = content => {
-    objects.push(content);
-    return objects.length;
-  };
-
-  const catalogId = addObject('');
-  const pagesId = addObject('');
-  const fontId = addObject(
-    '<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>',
-  );
-
-  const pageIds = [];
-
-  for (const pageLines of pages) {
-    const textCommands = ['BT', `/F1 ${FONT_SIZE} Tf`, `${LINE_HEIGHT} TL`];
-    textCommands.push(
-      `1 0 0 1 ${PAGE_MARGIN} ${PAGE_HEIGHT - PAGE_MARGIN - FONT_SIZE} Tm`,
-    );
-
-    pageLines.forEach((line, index) => {
-      if (index > 0) {
-        textCommands.push('T*');
-      }
-      textCommands.push(`(${escapePdfText(line)}) Tj`);
-    });
-
-    textCommands.push('ET');
-    const stream = textCommands.join('\n');
-    const contentId = addObject(
-      `<< /Length ${Buffer.byteLength(stream, 'utf8')} >>\nstream\n${stream}\nendstream`,
-    );
-    const pageId = addObject(
-      `<< /Type /Page /Parent ${pagesId} 0 R /MediaBox [0 0 ${PAGE_WIDTH} ${PAGE_HEIGHT}] /Resources << /Font << /F1 ${fontId} 0 R >> >> /Contents ${contentId} 0 R >>`,
-    );
-    pageIds.push(pageId);
-  }
-
-  objects[catalogId - 1] = `<< /Type /Catalog /Pages ${pagesId} 0 R >>`;
-  objects[pagesId - 1] = `<< /Type /Pages /Kids [${pageIds.map(id => `${id} 0 R`).join(' ')}] /Count ${pageIds.length} >>`;
-
-  let pdf = '%PDF-1.4\n';
-  const offsets = [0];
-
-  objects.forEach((object, index) => {
-    offsets.push(Buffer.byteLength(pdf, 'utf8'));
-    pdf += `${index + 1} 0 obj\n${object}\nendobj\n`;
-  });
-
-  const xrefOffset = Buffer.byteLength(pdf, 'utf8');
-  pdf += `xref\n0 ${objects.length + 1}\n`;
-  pdf += '0000000000 65535 f \n';
-
-  for (let index = 1; index < offsets.length; index += 1) {
-    pdf += `${String(offsets[index]).padStart(10, '0')} 00000 n \n`;
-  }
-
-  pdf += `trailer\n<< /Size ${objects.length + 1} /Root ${catalogId} 0 R >>\nstartxref\n${xrefOffset}\n%%EOF`;
-  return Buffer.from(pdf, 'utf8');
 }
 
 function formatDateValue(value) {
@@ -261,8 +119,11 @@ class ExporterCardPDF {
         .map(label => [label._id, label.name || label.color || label._id]),
     );
 
+    // Every value goes through the document's own encoder as it is written
+    // (models/lib/pdfDocument.js), so a title, a name or a comment with umlauts in
+    // it arrives as those letters rather than as question marks (#6586).
     const lines = [
-      'Wekan Card Export',
+      line('Wekan Card Export', true),
       '',
       `Title: ${card.title || '-'}`,
       `Board: ${board.title || '-'}`,
@@ -280,35 +141,36 @@ class ExporterCardPDF {
       `End: ${formatDateValue(card.endAt)}`,
       `Spent time: ${card.spentTime ?? '-'}`,
       '',
-      'Description:',
+      line('Description:', true),
       ...wrapTextBlock(card.description || '-'),
     ];
 
-    lines.push('', 'Checklists:');
+    lines.push('', line('Checklists:', true));
     if (checklists.length === 0) {
       lines.push('-');
     } else {
       for (const checklist of checklists) {
-        lines.push(...wrapTextBlock(`- ${checklist.title || 'Checklist'}`));
+        lines.push(...wrapTextBlock(`${checklist.title || 'Checklist'}`, '- '));
         const items = checklistItemsByChecklistId[checklist._id] || [];
         if (items.length === 0) {
           lines.push('  (no items)');
           continue;
         }
         for (const item of items) {
-          lines.push(...wrapTextBlock(`  ${item.isFinished ? '[x]' : '[ ]'} ${item.title || ''}`));
+          lines.push(...wrapTextBlock(`${item.isFinished ? '[x]' : '[ ]'} ${item.title || ''}`, '  '));
         }
       }
     }
 
-    lines.push('', 'Comments:');
+    lines.push('', line('Comments:', true));
     if (comments.length === 0) {
       lines.push('-');
     } else {
       for (const comment of comments) {
         lines.push(
           ...wrapTextBlock(
-            `- ${formatDateValue(comment.createdAt)} ${formatUser(usersById[comment.userId])}: ${comment.text || ''}`,
+            `${formatDateValue(comment.createdAt)} ${formatUser(usersById[comment.userId])}: ${comment.text || ''}`,
+            '- ',
           ),
         );
       }
@@ -331,8 +193,19 @@ class ExporterCardPDF {
   }
 }
 
-// #395: board-level PDF export. Reuses the same simple PDF builder as the card
-// PDF export, writing the board title and each list's cards (title + description).
+// #395: board-level PDF export, written with the same document builder as the card
+// export (models/lib/pdfDocument.js).
+//
+// #6586: it used to print MARKDOWN - "## List (3)" and "- Card title" - into a PDF,
+// where a "##" is just two hash marks: "all the text in this PDF file is markdown
+// formatted - this doesn't make sense in a pdf file, does it?" It does not. The
+// structure is drawn instead: headings in the bold font, cards as bullets, and the
+// card's own markdown flattened rather than reproduced.
+//
+// The same report asked for what was missing: "I can't see in which swimlane a card
+// is in that export, no tags". So the board is walked SWIMLANE by swimlane (when it
+// has more than the one every board is created with), and each card carries its
+// labels, members, assignees and dates.
 class ExporterBoardPDF {
   constructor(boardId) {
     this._boardId = boardId;
@@ -345,33 +218,87 @@ class ExporterBoardPDF {
       res.end('Board not found');
       return;
     }
-    const lines = [];
-    lines.push(normalizePdfText(board.title));
-    lines.push('');
+
+    const labelsById = Object.fromEntries(
+      (board.labels || [])
+        .filter(label => label && label._id)
+        .map(label => [label._id, label.name || label.color || label._id]),
+    );
 
     const lists = await ReactiveCache.getLists(
       { boardId: this._boardId, archived: false },
       { sort: { sort: 1 } },
     );
-    for (const list of lists) {
-      const cards = await ReactiveCache.getCards(
-        { boardId: this._boardId, listId: list._id, archived: false },
-        { sort: { sort: 1 } },
-      );
-      lines.push(`## ${normalizePdfText(list.title)} (${cards.length})`);
-      for (const card of cards) {
-        lines.push(`- ${normalizePdfText(card.title)}`);
-        if (card.description) {
-          wrapTextBlock(card.description).forEach(l => lines.push(`    ${l}`));
-        }
+    const swimlanes = await ReactiveCache.getSwimlanes(
+      { boardId: this._boardId, archived: false },
+      { sort: { sort: 1 } },
+    );
+    const cards = await ReactiveCache.getCards(
+      { boardId: this._boardId, archived: false },
+      { sort: { sort: 1 } },
+    );
+
+    // The names behind the ids on the cards. One pass, so a board with hundreds of
+    // cards does not do a lookup per member.
+    const userIds = new Set();
+    for (const card of cards) {
+      if (card.userId) userIds.add(card.userId);
+      (card.members || []).forEach(id => userIds.add(id));
+      (card.assignees || []).forEach(id => userIds.add(id));
+    }
+    const usersById = {};
+    await Promise.all([...userIds].filter(Boolean).map(async userId => {
+      usersById[userId] = await ReactiveCache.getUser({ _id: userId });
+    }));
+
+    const lines = [line(board.title || 'Board', true), ''];
+
+    // A board created normally has exactly one swimlane and nobody thinks in terms
+    // of it; only name the swimlanes when there is a choice to be made.
+    const named = swimlanes.filter(swimlane => swimlane && swimlane.type !== 'template-swimlane');
+    const groups = named.length > 1
+      ? named.map(swimlane => ({ swimlane, title: swimlane.title || 'Swimlane' }))
+      : [{ swimlane: null, title: null }];
+
+    for (const group of groups) {
+      if (group.title) {
+        lines.push(line(`Swimlane: ${group.title}`, true));
       }
-      lines.push('');
+      for (const list of lists) {
+        const listCards = cards.filter(card =>
+          String(card.listId) === String(list._id)
+          && (!group.swimlane || String(card.swimlaneId) === String(group.swimlane._id)));
+        if (group.title && listCards.length === 0) continue;
+        lines.push(line(`${list.title || 'List'} (${listCards.length})`, true));
+        for (const card of listCards) {
+          lines.push(...wrapTextBlock(card.title || '', '\u2022 '));
+          const labels = (card.labelIds || [])
+            .map(labelId => labelsById[labelId] || labelId)
+            .filter(Boolean);
+          if (labels.length) lines.push(...wrapTextBlock(`Labels: ${labels.join(', ')}`, '    '));
+          const members = (card.members || []).map(id => formatUser(usersById[id])).filter(Boolean);
+          if (members.length) lines.push(...wrapTextBlock(`Members: ${members.join(', ')}`, '    '));
+          const assignees = (card.assignees || []).map(id => formatUser(usersById[id])).filter(Boolean);
+          if (assignees.length) lines.push(...wrapTextBlock(`Assignees: ${assignees.join(', ')}`, '    '));
+          const dates = [];
+          if (card.receivedAt) dates.push(`received ${formatDateValue(card.receivedAt)}`);
+          if (card.startAt) dates.push(`start ${formatDateValue(card.startAt)}`);
+          if (card.dueAt) dates.push(`due ${formatDateValue(card.dueAt)}`);
+          if (card.endAt) dates.push(`end ${formatDateValue(card.endAt)}`);
+          if (dates.length) lines.push(...wrapTextBlock(dates.join(', '), '    '));
+          if (card.description) {
+            lines.push(...wrapTextBlock(card.description, '    '));
+          }
+        }
+        lines.push('');
+      }
     }
 
     const pdf = buildPdfBuffer(lines);
     res.writeHead(200, {
       'Content-Type': 'application/pdf',
       'Content-Disposition': `attachment; filename="${sanitizeFilename(board.title)}.pdf"`,
+      'Content-Length': pdf.length,
     });
     res.end(pdf);
   }
