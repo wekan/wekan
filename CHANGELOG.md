@@ -320,7 +320,7 @@ provenance each build job records.
 This release fixes the following bug:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/4f2a143e0">Font Awesome: state the bounding box each glyph actually has</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f368c1a2a">Font Awesome: state the bounding box each glyph actually has</a>. Thanks to xet7.</summary>
 
 Firefox logged one warning per glyph, on every page load, for every Font Awesome
 file WeKan serves:
