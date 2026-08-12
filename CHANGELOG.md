@@ -325,7 +325,7 @@ build job records.
 This release fixes the following bug:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e39c35be8">A migration interrupted weeks ago no longer resumes onto a database MongoDB has outgrown</a>. Thanks to Alishara and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c78382982">A migration interrupted weeks ago no longer resumes onto a database MongoDB has outgrown</a>. Thanks to Alishara and xet7.</summary>
 
 "Our snap updated automatically from 10.81 yesterday to 10.85 this morning. Data
 in the DB is from about 2 - 3 weeks ago. Many cards and work is lost."
