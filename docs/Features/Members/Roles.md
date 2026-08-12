@@ -19,25 +19,29 @@ Everything below is what the **server** allows. The server is the authority: the
 UI can only hide buttons, and where the two disagree it is listed under
 [Where the UI is more generous than the server](#where-the-ui-is-more-generous-than-the-server).
 
-| Role | Member flag | Which cards they see | Comment | Create / edit cards, lists, swimlanes, checklists — and move a card | Board settings, members, roles |
+| Role | Member flag | Which cards they see | Comment | Create / edit cards, lists, swimlanes, checklists | Board settings, members, roles | Move a card, assign yourself |
 |---|---|---|---|---|---|
-| **Board admin** | `isAdmin` | all | yes | yes | **yes** |
-| **Normal** | *(none set)* | all | yes | yes | no |
-| **Normal, assigned only** | `isNormalAssignedOnly` | **only assigned to them** | yes | yes | no |
-| **No comments** | `isNoComments` | all | **no** | yes | no |
-| **Comment only** | `isCommentOnly` | all | yes | no | no |
-| **Comment only, assigned** | `isCommentAssignedOnly` | **only assigned to them** | yes | no | no |
-| **Worker** | `isWorker` | all | yes | no ⚠ | no |
-| **Read only** | `isReadOnly` | all | no | no | no |
-| **Read only, assigned** | `isReadAssignedOnly` | **only assigned to them** | no | no | no |
+| **Board admin** | `isAdmin` | all | yes | yes | **yes** | yes |
+| **Normal** | *(none set)* | all | yes | yes | no | yes |
+| **Normal, assigned only** | `isNormalAssignedOnly` | **only assigned to them** | yes | yes | no | yes |
+| **No comments** | `isNoComments` | all | **no** | yes | no | yes |
+| **Comment only** | `isCommentOnly` | all | yes | no | no | no |
+| **Comment only, assigned** | `isCommentAssignedOnly` | **only assigned to them** | yes | no | no | no |
+| **Worker** | `isWorker` | all | yes | no | no | **yes** |
+| **Read only** | `isReadOnly` | all | no | no | no | no |
+| **Read only, assigned** | `isReadAssignedOnly` | **only assigned to them** | no | no | no | no |
 
 ⚠ = the code does not do what the role's name says — see
 [Known gaps](#known-gaps). Nothing here is written to make the table say
 something nicer than the code does.
 
-**Why moving a card is not its own column.** A move is a card *update*, so it goes
-through the same rule as editing one. There is no way for a role to move a card
-but not edit it, which is exactly the Worker problem below.
+**Why moving a card IS its own column** (#3189). A move is a card *update*, so for
+a long time it went through the same rule as editing one — and the Worker role,
+whose whole purpose is moving cards and assigning itself, could do neither.
+Moving and self-assigning are their own capability now, `moveCard`, enforced on
+the server field by field (`models/lib/workerCardWrite.js`). Every role that can
+create and edit can also move, so the column adds one answer rather than changing
+eight.
 
 The same table is in the product: **Admin Panel → People → Roles**, under the Save
 button, as the read-only *Roles Status* pane. It is rendered from
@@ -73,9 +77,15 @@ comments, attachments, checklists and checklist items follow the same scope.
 
 **Board settings, members, roles** is `isBoardAdmin()`.
 
-**Move cards** is `Utils.canMoveCard()` in the UI; on the server a move is a card
-update, so it goes through the write-access rule above — which is why Worker,
-whose whole purpose is moving cards, is marked "yes" here but "no" for editing.
+**Move a card, assign yourself** is the `moveCard` capability:
+`Utils.canMoveCard()` in the UI, and on the server `canUpdateCard()` in
+`server/permissions/cards.js`, which falls through to
+`models/lib/workerCardWrite.js` for a member who has `moveCard` but not `write`.
+That policy reads the update itself and allows only a move (`listId`,
+`swimlaneId`, `sort`, and the `dateLastActivity` / `modifiedAt` written with them)
+or an `$addToSet` / `$pull` of the caller's OWN id on `assignees`. Anything else —
+a title, a label, somebody else's name, a whole-document replacement, an operator
+it does not recognise — is refused.
 
 ## Fixed
 
@@ -96,7 +106,20 @@ different places, and the three lists had drifted. They now read one table, and
    the edit buttons for. It blocks commenting only now, which is what the name and
    the board schema both say it is for.
 
-3. **The write rule did not exempt board admins.** Every `has*()` helper on the
+3. **A Worker could not move a card or assign itself** (#3189) — the two things
+   the role exists for. The board schema calls it "only allowed to move card,
+   assign himself to card and comment"; both are card *updates*, so both went
+   through the write rule, which excludes Worker. The reporter saw it as a card
+   that showed their own name for a moment and then showed the previous assignee
+   again: an optimistic write the server threw away.
+
+   The fix is the field-level policy the old "Known gaps" entry said this needed,
+   and not a widening of `write`: `moveCard` is its own capability, and
+   `models/lib/workerCardWrite.js` decides each update by what it writes. A
+   Worker may move a card and add or remove their own id in `assignees`;
+   everything else, including assigning somebody else, is refused by default.
+
+4. **The write rule did not exempt board admins.** Every `has*()` helper on the
    board ignores a flag on an admin; the write rule read the raw flags, so an
    admin who also carried `isNoComments` silently lost write access. Not reachable
    from the Web UI, which writes all eight flags at once, but reachable over the
@@ -110,19 +133,8 @@ somebody whose write the server then refused. All three now ask the same table.
 
 ## Known gaps
 
-4. **A Worker cannot move a card**, which is the one thing the role is for. The
-   board schema calls it "only allowed to move card, assign himself to card and
-   comment", and moving a card is a card *update*, so it goes through the write
-   rule — which excludes Worker. The UI used to offer the drag anyway and the
-   server refused it; now the UI does not offer it either, so the role is at least
-   honest, but it is still a role that does nothing except comment.
-
-   Not fixed here because the fix is not a table edit: it means letting a role
-   write SOME fields of a card (`listId`, `swimlaneId`, `sort`, and `boardId`
-   under the existing cross-board guard) and not others, and "assign himself"
-   means validating that a member/assignee change only ever adds the caller. That
-   is a field-level policy on the path every card update takes, and it wants
-   deciding on purpose rather than as a side effect of documenting the table.
+None recorded. A new one belongs here, with the reason it is not fixed — not in
+the table as a softer word.
 
 ## Setting a role
 

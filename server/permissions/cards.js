@@ -3,6 +3,7 @@ import Boards from '/models/boards';
 import { allowIsBoardMemberWithWriteAccess, denyCrossBoardMove } from '/server/lib/utils';
 import { canUserSeeBoard } from '/server/lib/visibleBoardIds';
 import { tripCanary, tripCanaryDeny } from '/server/lib/canary';
+const { workerMayUpdateCard } = require('/models/lib/workerCardWrite');
 
 // GHSA-jvv9-498p-hxrg: may this user name that card as a parent? Only if they
 // may see the board it is on — the same question the `board` publication asks
@@ -27,7 +28,14 @@ export async function denyInvisibleParentCard(userId, modifier) {
 
 // Centralized update policy for Cards
 // Security: deny any direct client updates to 'vote' fields; require write access otherwise
-export const canUpdateCard = async function(userId, doc, fields) {
+//
+// #3189: the `modifier` argument is read as well now. A Worker has `write: false`
+// in the capability table and always will - the role is not "can edit cards" - but
+// the board schema defines it as "move card, assign himself to card and comment",
+// and both of those are card UPDATES. So an update that a Worker is allowed to
+// make is recognised by WHAT IT WRITES (models/lib/workerCardWrite.js): a move, or
+// their own name into `assignees`. Everything else is refused exactly as before.
+export const canUpdateCard = async function(userId, doc, fields, modifier) {
   if (!userId) return false;
   const fieldNames = fields || [];
   // Block direct updates to voting fields; voting must go through Meteor method 'cards.vote'
@@ -41,7 +49,16 @@ export const canUpdateCard = async function(userId, doc, fields) {
     return tripCanary('card.poker-field', { userId });
   }
   // ReadOnly users cannot edit cards
-  return allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(doc.boardId));
+  const board = await Boards.findOneAsync(doc.boardId);
+  if (allowIsBoardMemberWithWriteAccess(userId, board)) return true;
+  // #3189: a Worker, doing one of the two things a Worker is for. The client
+  // already offers it - the assignee popup shows a Worker their own name and
+  // nobody else's - and the write was being thrown away here, so the card sprang
+  // back to its previous assignee in front of them.
+  if (board && board.hasWorker && board.hasWorker(userId)) {
+    return workerMayUpdateCard(userId, modifier);
+  }
+  return false;
 };
 
 Cards.allow({
@@ -49,8 +66,8 @@ Cards.allow({
     // ReadOnly users cannot create cards
     return allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(doc.boardId));
   },
-  async update(userId, doc, fields) {
-    return await canUpdateCard(userId, doc, fields);
+  async update(userId, doc, fields, modifier) {
+    return await canUpdateCard(userId, doc, fields, modifier);
   },
   async remove(userId, doc) {
     // ReadOnly users cannot delete cards

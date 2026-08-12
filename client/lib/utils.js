@@ -238,11 +238,12 @@ export const Utils = {
   canModifyCard() {
     return Utils.currentUserCan('write');
   },
-  // A move IS a card update on the server, so it is the same capability. They are
-  // kept as two names because the call sites mean different things, not because
-  // the answer differs.
+  // A move is a card update on the server, but it is NOT the same capability: a
+  // Worker may move a card and assign themselves to it while writing nothing else
+  // (#3189, models/lib/workerCardWrite.js enforces exactly that field by field).
+  // Every role that can `write` can also move, so this only ever ADDS the Worker.
   canMoveCard() {
-    return Utils.currentUserCan('write');
+    return Utils.currentUserCan('moveCard');
   },
   canModifyBoard() {
     return Utils.currentUserCan('write');

@@ -144,12 +144,23 @@ test('the UI offers exactly what the server would accept', () => {
   // Every disagreement here was a button offered to somebody whose write the
   // server then refused, which reads as a bug to the person clicking it.
   const code = clientUtils.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
-  for (const fn of ['canModifyCard', 'canMoveCard', 'canModifyBoard']) {
+  // #3189 split one of these off: a move is no longer the same question as an
+  // edit. A Worker may move a card and put their own name in its assignees while
+  // writing nothing else, enforced field by field on the server
+  // (models/lib/workerCardWrite.js), so canMoveCard asks for `moveCard` and the
+  // other two still ask for `write`. Every role with `write` also has `moveCard`,
+  // so this widened the answer for exactly one role.
+  const CAPABILITY_OF = {
+    canModifyCard: 'write',
+    canMoveCard: 'moveCard',
+    canModifyBoard: 'write',
+  };
+  for (const [fn, capability] of Object.entries(CAPABILITY_OF)) {
     const at = code.indexOf(`  ${fn}() {`);
     assert.notStrictEqual(at, -1, `${fn} must exist`);
     const body = code.slice(at, code.indexOf('\n  },', at));
-    assert.ok(/currentUserCan\('write'\)/.test(body),
-      `${fn} must ask the table for the write capability`);
+    assert.ok(new RegExp(`currentUserCan\\('${capability}'\\)`).test(body),
+      `${fn} must ask the table for the ${capability} capability`);
     for (const flag of Object.values(ROLE_FLAGS)) {
       assert.ok(!body.includes(flag), `${fn} must not name ${flag} itself`);
     }
@@ -161,7 +172,10 @@ test('the UI offers exactly what the server would accept', () => {
 // ── the documentation table ─────────────────────────────────────────────────
 // | Role | Member flag | sees | comment | write | manage |
 
-const COLUMNS = ['role', 'flag', 'sees', 'comment', 'write', 'manage'];
+// #3189 added the last one: moving a card and assigning yourself is its own
+// capability now, because the Worker role is defined by exactly those two writes
+// and by no other.
+const COLUMNS = ['role', 'flag', 'sees', 'comment', 'write', 'manage', 'move'];
 const rows = doc
   .split('\n')
   .filter(line => line.startsWith('| **'))
@@ -182,7 +196,7 @@ test('the doc table parses, one row per role, each answering every column', () =
   assert.strictEqual(rows.length, BOARD_ROLES.length,
     `expected ${BOARD_ROLES.length} rows, parsed ${rows.length}`);
   for (const row of rows) {
-    for (const col of ['comment', 'write', 'manage']) {
+    for (const col of ['comment', 'write', 'manage', 'move']) {
       assert.ok(isYes(row[col]) !== isNo(row[col]),
         `${row.name}: the "${col}" cell must say yes or no, got "${row[col]}"`);
     }
@@ -215,6 +229,7 @@ test('every cell of the doc table matches the capability table', () => {
     assert.strictEqual(isYes(row.comment), caps.comment, `${row.name}: comment`);
     assert.strictEqual(isYes(row.write), caps.write, `${row.name}: create / edit`);
     assert.strictEqual(isYes(row.manage), caps.manageBoard, `${row.name}: board settings`);
+    assert.strictEqual(isYes(row.move), caps.moveCard, `${row.name}: move a card / assign yourself`);
     assert.strictEqual(/assigned/i.test(row.sees), !caps.seesAllCards,
       `${row.name}: which cards they see`);
   }
@@ -234,23 +249,31 @@ test('"which cards they see" matches the assigned-only publication scope', () =>
     'the publication scope and the capability table must restrict the same roles');
 });
 
-test('the gap the table still marks is real, and still explained', () => {
+test('the table marks no gap, because there is none left', () => {
   // A table that warns about a fixed problem is as wrong as one that hides a real
-  // one, so fixing gap 4 has to remove its ⚠ and its section.
+  // one. #3189 was the last ⚠ - a Worker can move a card and assign itself now -
+  // so the warning and its "Known gaps" entry had to go with the fix, and this
+  // test flipped with them.
   const warned = rows.filter(r => Object.values(r).some(c => String(c).includes('⚠')));
-  assert.deepStrictEqual(warned.map(r => r.flagName), ['isWorker'],
-    'Worker is the one role left that cannot do what its name says');
-  assert.strictEqual(roleCan('worker', 'write'), false, 'and it still cannot move a card');
+  assert.deepStrictEqual(warned.map(r => r.flagName), [],
+    'a ⚠ in the table means a role that cannot do what its name says; add the '
+    + 'entry under "Known gaps" with it');
+  assert.strictEqual(roleCan('worker', 'moveCard'), true, 'and a Worker can move a card');
+  assert.strictEqual(roleCan('worker', 'write'), false,
+    'while still not being able to edit one - that is what made this a field-level '
+    + 'policy rather than a table edit');
 
-  const gaps = doc.slice(doc.indexOf('## Known gaps'));
-  assert.ok(gaps.includes('isWorker') || /Worker/.test(gaps),
-    'the Worker gap must be explained under "Known gaps"');
+  const gaps = doc.slice(doc.indexOf('## Known gaps'), doc.indexOf('## Setting a role'));
+  assert.ok(/None recorded/.test(gaps), 'the section says so plainly');
+  assert.ok(!/isWorker/.test(gaps), 'and no longer carries the Worker entry');
 
-  // The three that ARE fixed must be recorded as fixed, not as gaps.
+  // The four that ARE fixed must be recorded as fixed, not as gaps.
   const fixed = doc.slice(doc.indexOf('## Fixed'), doc.indexOf('## Known gaps'));
   for (const flag of ['isCommentAssignedOnly', 'isNoComments', 'isAdmin']) {
     assert.ok(fixed.includes(flag), `${flag} must be recorded under "Fixed"`);
   }
+  assert.ok(/#3189/.test(fixed) && /Worker/.test(fixed),
+    'including the Worker one, with the issue it came from');
 });
 
 // ── Admin Panel / People / Roles: the Roles Status table ────────────────────

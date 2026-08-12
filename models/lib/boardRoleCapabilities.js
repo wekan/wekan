@@ -49,29 +49,32 @@ const ROLE_FLAGS = {
 //                 a card, because a move is a card update and goes through the
 //                 same rule.
 //   manageBoard   the board's settings, its members and their roles.
-const CAPABILITIES = ['seesAllCards', 'comment', 'write', 'manageBoard'];
+//   moveCard      move a card between lists/swimlanes, and put your OWN name in
+//                 or out of its assignees. It is a subset of `write` for every
+//                 role that has `write` - and it is the whole of what a Worker
+//                 may do to a card (#3189, models/lib/workerCardWrite.js).
+const CAPABILITIES = ['seesAllCards', 'comment', 'write', 'manageBoard', 'moveCard'];
 
 const ROLE_CAPABILITIES = {
-  'board-admin':           { seesAllCards: true,  comment: true,  write: true,  manageBoard: true },
-  'normal':                { seesAllCards: true,  comment: true,  write: true,  manageBoard: false },
-  'normal-assigned-only':  { seesAllCards: false, comment: true,  write: true,  manageBoard: false },
+  'board-admin':           { seesAllCards: true,  comment: true,  write: true,  manageBoard: true,  moveCard: true },
+  'normal':                { seesAllCards: true,  comment: true,  write: true,  manageBoard: false, moveCard: true },
+  'normal-assigned-only':  { seesAllCards: false, comment: true,  write: true,  manageBoard: false, moveCard: true },
   // "No comments" is the one that blocks COMMENTING. It used to block writing as
   // well, which made it a second read-only role under a name that says otherwise.
-  'no-comments':           { seesAllCards: true,  comment: false, write: true,  manageBoard: false },
-  'comment-only':          { seesAllCards: true,  comment: true,  write: false, manageBoard: false },
+  'no-comments':           { seesAllCards: true,  comment: false, write: true,  manageBoard: false, moveCard: true },
+  'comment-only':          { seesAllCards: true,  comment: true,  write: false, manageBoard: false, moveCard: false },
   // ...and this is "comment only" plus the assigned-cards restriction. It used to
   // have full write access, because nothing outside the card publications read
   // its flag — so it was really "normal, assigned only" under another name.
-  'comment-assigned-only': { seesAllCards: false, comment: true,  write: false, manageBoard: false },
+  'comment-assigned-only': { seesAllCards: false, comment: true,  write: false, manageBoard: false, moveCard: false },
   // A Worker is meant to "move card, assign himself to card and comment" (the
-  // board schema's own words). A move IS a card update, so `write: false` blocks
-  // it — the role currently cannot do the one thing it is for. Left as it is
-  // rather than quietly widened: letting a role write SOME fields of a card is a
-  // field-level policy and a security decision, not a table edit. Recorded under
-  // "Known gaps" in docs/Features/Members/Roles.md.
-  'worker':                { seesAllCards: true,  comment: true,  write: false, manageBoard: false },
-  'read-only':             { seesAllCards: true,  comment: false, write: false, manageBoard: false },
-  'read-assigned-only':    { seesAllCards: false, comment: false, write: false, manageBoard: false },
+  // board schema's own words). `write` stays false - the role is not "can edit
+  // cards" - and the two writes it IS for are now their own capability, enforced
+  // field by field on the server by models/lib/workerCardWrite.js (#3189). That
+  // is the field-level policy this line used to say was missing.
+  'worker':                { seesAllCards: true,  comment: true,  write: false, manageBoard: false, moveCard: true },
+  'read-only':             { seesAllCards: true,  comment: false, write: false, manageBoard: false, moveCard: false },
+  'read-assigned-only':    { seesAllCards: false, comment: false, write: false, manageBoard: false, moveCard: false },
 };
 
 // The role of ONE member document. The order matters and matches
