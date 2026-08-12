@@ -307,7 +307,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.89 2026-08-12 WeKan ® release
 
 **In short:** the **snap stops asking which database it runs on**. It runs on
 **FerretDB** — every platform — and MongoDB is in the amd64/arm64 snaps to be
