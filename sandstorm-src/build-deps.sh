@@ -18,6 +18,16 @@
 #   MIGRATEMONGO    git URL of the Mongo 3.x CLIs      [github.com/wekan/migratemongo]
 set -euo pipefail
 
+
+# Every download here goes through releases/fetch.sh, which waits out a 5xx or a
+# dropped connection (about fifteen minutes) and still fails at once on a 404.
+# github.com spent an afternoon returning 503 and this script died on
+#
+#   curl: (56) Connection died, tried 5 times before giving up
+#
+# at "[4/7] FerretDB v1 (amd64)", taking the whole Sandstorm build with it.
+FETCH="$(cd "$(dirname "$0")/.." && pwd)/releases/fetch.sh"
+
 REPO="$(cd "$(dirname "$0")/.." && pwd)"     # wekan repo root
 OUT="${OUT:-$HOME/projects/meteor-spk}"
 NODE_VERSION="${NODE_VERSION:-24}"
@@ -29,7 +39,7 @@ mkdir -p "$OUT"
 
 echo "==> [1/7] Base: meteor-spk 0.6.0 (has mongod 3.0 + niscud + old node_modules)"
 if [ ! -d "$OUT/meteor-spk-0.6.0" ]; then
-  curl -fsSL "$SPK_URL" -o "$OUT/meteor-spk-0.6.0.tar.xz"
+  bash "$FETCH" -o "$OUT/meteor-spk-0.6.0.tar.xz" "$SPK_URL"
   tar -xJf "$OUT/meteor-spk-0.6.0.tar.xz" -C "$OUT"
 fi
 [ -x "$DEPS/bin/mongod" ] && [ -x "$DEPS/bin/niscud" ] || { echo "base deps missing mongod/niscud"; exit 1; }
@@ -43,9 +53,9 @@ if command -v meteor >/dev/null 2>&1; then
   [ -x "$DEVBUNDLE" ] && NODE_BIN="$DEVBUNDLE"
 fi
 if [ -z "$NODE_BIN" ]; then
-  NV="$(curl -fsSL https://nodejs.org/dist/index.json | \
+  NV="$(bash "$FETCH" -o - https://nodejs.org/dist/index.json | \
         node -e 'const v=JSON.parse(require("fs").readFileSync(0)).find(x=>x.version.startsWith("v'"$NODE_VERSION"'."));console.log(v.version)')"
-  curl -fsSL "https://nodejs.org/dist/${NV}/node-${NV}-linux-x64.tar.xz" -o "$OUT/node.tar.xz"
+  bash "$FETCH" -o "$OUT/node.tar.xz" "https://nodejs.org/dist/${NV}/node-${NV}-linux-x64.tar.xz"
   tar -xJf "$OUT/node.tar.xz" -C "$OUT"
   NODE_BIN="$OUT/node-${NV}-linux-x64/bin/node"
 fi
@@ -90,7 +100,7 @@ echo "==> [4/7] FerretDB v1 (amd64) at deps root"
 # assets, no ferretdb.zip). /releases/latest/download/<asset> resolves to the
 # newest non-prerelease release.
 FERRETDB_URL="${FERRETDB_URL:-https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-amd64}"
-curl -fsSL "$FERRETDB_URL" -o "$DEPS/ferretdb"
+bash "$FETCH" -o "$DEPS/ferretdb" "$FERRETDB_URL"
 chmod +x "$DEPS/ferretdb"
 
 # NOTE: the modern MongoDB Database Tools (wekan/mongo-tools-patches: mongodump, mongorestore,

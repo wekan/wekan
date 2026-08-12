@@ -51,7 +51,10 @@ const JOBS = ['build-amd64', 'build-arm64', 'build-win64', 'build-mac-arm64'];
 test('every build job actually runs the binary pre-check', () => {
   for (const name of JOBS) {
     assert.ok(
-      /bash\s+(?:src\/)?releases\/require-binaries\.sh/.test(job(name)),
+      // The Windows jobs check out to src/ and name it through $SRC, fixed at
+      // the top of the step - a relative path stops resolving as soon as the
+      // step pushd's (tests/workflowRepoScripts.test.cjs).
+      /bash\s+"?(?:\$SRC\/|src\/)?releases\/require-binaries\.sh/.test(job(name)),
       `${name} should run require-binaries.sh`,
     );
   }
@@ -61,9 +64,11 @@ for (const name of JOBS) {
   test(`${name} checks the repo out where its require-binaries.sh call looks`, () => {
     const body = job(name);
 
-    const call = body.match(/bash\s+(src\/)?releases\/require-binaries\.sh/);
+    // `$SRC/` is the same statement as `src/`, made absolute at the top of the
+    // step so it survives a pushd - see tests/workflowRepoScripts.test.cjs.
+    const call = body.match(/bash\s+"?(\$SRC\/|src\/)?releases\/require-binaries\.sh/);
     assert.ok(call, `${name} runs require-binaries.sh`);
-    const callAtSrc = Boolean(call[1]); // 'src/' prefix or undefined
+    const callAtSrc = Boolean(call[1]);
 
     const checkoutIdx = body.indexOf('actions/checkout@');
     assert.notStrictEqual(

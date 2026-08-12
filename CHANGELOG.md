@@ -453,6 +453,49 @@ CPU-platform docs point at it instead of describing a setting that is gone.
 **The release workflow** - what it needs to be there before it runs.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASHV1089">A path that stops resolving when the step changes directory, and the last bare downloads</a>. Thanks to xet7.</summary>
+
+The v10.89 run failed four more jobs, all of them the same two mistakes one step
+further along.
+
+**The Windows jobs.** They check this repository out to `path: src`, so the
+scripts were addressed as `src/releases/…` — correct until the bcrypt step does
+`pushd "$TMP"`, after which a relative path resolves against a temp directory:
+
+```
+bash: src/releases/npm-retry.sh: No such file or directory
+```
+
+The location is fixed now BEFORE anything moves — `SRC="$PWD/src"` at the top of
+the step, then `"$SRC/releases/…"` — in all eighteen blocks that need it, and
+the same for the UCS job's `univention/`.
+
+**The downloads that are not in a workflow.** `snapcraft.yaml` builds the snap
+in its own container, and `sandstorm-src/build-deps.sh` runs on the runner; both
+still used a bare `curl`, and github.com's 503s took them out:
+
+```
+:: curl: (56) Connection died, tried 5 times before giving up
+:: caddy: no linux/arm64 archive in Caddy 2.11.4 - nothing left to try.
+==> [4/7] FerretDB v1 (amd64) at deps root
+curl: (56) Connection died, tried 5 times before giving up
+```
+
+Both go through `releases/fetch.sh` now — the snap parts reach it through
+`CRAFT_PROJECT_DIR`, since snapcraft mounts the project into the build — so the
+caddy, MongoDB, mongod 4.2/5.0 and OpenSSL downloads, the meteor-spk and Node.js
+tarballs and the FerretDB binary all wait an outage out. The Caddy version
+lookup stays a plain `curl`: when it fails the pinned version is used, which
+is what it is for. `curl https://install.sandstorm.io | sudo bash` became a download and a
+run, because a pipe cannot be retried.
+
+`tests/workflowRepoScripts.test.cjs` grew the two checks that would have caught
+these: a repo-script path that is relative in a step which changes directory,
+and a bare download in the snap build or the Sandstorm deps.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/bdacff80e">A release script the job cannot see, and an hour of build thrown away at the push</a>. Thanks to xet7.</summary>
 
 The v10.88 run lost seven jobs to two mistakes of the same kind: a step that

@@ -142,4 +142,44 @@ test('the helper scripts the release depends on are executable files here', () =
     'and the three that wait out an outage are actually used');
 });
 
+test('a step that changes directory addresses the scripts absolutely', () => {
+  // The Windows jobs check out to `src/` and their bcrypt step does
+  // `pushd "$TMP"` before installing - so `bash src/releases/npm-retry.sh`
+  // resolved against a temp directory and died with "No such file or
+  // directory", twice in one release. The path has to be fixed BEFORE anything
+  // moves: SRC="$PWD/src" at the top of the block, then "$SRC/releases/...".
+  const bad = [];
+  for (const job of jobs()) {
+    job.steps.forEach((step, i) => {
+      const run = step.text;
+      if (!/\b(pushd|cd )\b/.test(run)) return;
+      const rel = run.split('\n').filter(l =>
+        /(^|[\s"'])(src|univention|wekan)\/releases\/[\w.-]+\.(sh|mjs|py)/.test(l)
+        && !/\$\{?(SRC|UNIV|GITHUB_WORKSPACE|PWD)/.test(l));
+      if (rel.length) {
+        bad.push(`${job.file}:${job.name} step ${i} "${stepName(step)}": ${rel[0].trim().slice(0, 60)}`);
+      }
+    });
+  }
+  assert.deepStrictEqual(bad, [],
+    'a relative path stops resolving the moment the step changes directory');
+});
+
+test('the snap build and the Sandstorm deps download through fetch.sh too', () => {
+  // Both are outside the workflows and both lost a v10.89 job to a 503: the
+  // caddy part ("curl: (56) Connection died"), and build-deps.sh at "[4/7]
+  // FerretDB v1". The snap build has the project mounted, so it can reach the
+  // same helper the jobs use.
+  const snapcraft = fs.readFileSync(path.join(repoRoot, 'snapcraft.yaml'), 'utf8');
+  assert.ok(/CRAFT_PROJECT_DIR[^\n]*releases\/fetch\.sh/.test(snapcraft),
+    'snapcraft parts call releases/fetch.sh through the project directory');
+  for (const what of ['caddy.tar.gz', 'mongodb.tgz']) {
+    const line = snapcraft.split('\n').find(l => l.includes(what) && /curl|wget|fetch\.sh/.test(l));
+    assert.ok(/fetch\.sh/.test(line || ''), `${what} must not be a bare download: ${line}`);
+  }
+  const deps = fs.readFileSync(path.join(repoRoot, 'sandstorm-src/build-deps.sh'), 'utf8');
+  assert.ok(/FETCH=/.test(deps) && !/curl -fsSL "\$FERRETDB_URL"/.test(deps),
+    'build-deps.sh downloads through fetch.sh');
+});
+
 console.log(`\nworkflowRepoScripts: ${passed} tests passed`);

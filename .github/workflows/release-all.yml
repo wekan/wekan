@@ -1137,8 +1137,9 @@ jobs:
         id: preflight
         shell: bash
         run: |
+          SRC="$PWD/src"
           set -uo pipefail
-          out="$(bash src/releases/resolve-node-source.sh 'win64' "$NODE_VERSION")" || true
+          out="$(bash $SRC/releases/resolve-node-source.sh 'win64' "$NODE_VERSION")" || true
           if printf '%s\n' "$out" | grep -q '^node_found=true$'; then
             printf '%s\n' "$out" | grep -E '^node_(full|from|url|kind|member|sha256)=' >> "$GITHUB_OUTPUT"
             echo "skip=false" >> "$GITHUB_OUTPUT"
@@ -1162,6 +1163,7 @@ jobs:
         if: steps.preflight.outputs.skip != 'true'
         shell: bash
         run: |
+          SRC="$PWD/src"
           7z x wekan-${VERSION}-amd64.zip
           # Drop the Linux node + FerretDB binaries + MongoDB Database Tools + POSIX
           # launcher inherited from the amd64 base bundle; the Windows node.exe,
@@ -1178,9 +1180,9 @@ jobs:
             rm -rf "$BCRYPT_DIR"
             TMP=$(mktemp -d)
             pushd "$TMP" > /dev/null
-            bash "src/releases/npm-retry.sh" npm pack bcrypt@6.0.0
+            bash "$SRC/releases/npm-retry.sh" npm pack bcrypt@6.0.0
             mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
-            cd bcrypt && bash "src/releases/npm-retry.sh" npm install --ignore-scripts && cd ..
+            cd bcrypt && bash "$SRC/releases/npm-retry.sh" npm install --ignore-scripts && cd ..
             cp -r bcrypt "$BCRYPT_DIR"
             popd > /dev/null
             rm -rf "$TMP"
@@ -1190,9 +1192,10 @@ jobs:
         if: steps.preflight.outputs.skip != 'true'
         shell: bash
         run: |
+          SRC="$PWD/src"
           cd bundle/programs/server
           rm -rf node_modules
-          bash "src/releases/npm-retry.sh" npm install
+          bash "$SRC/releases/npm-retry.sh" npm install
 
       - name: Check the binaries the win64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -1202,17 +1205,19 @@ jobs:
         # matches parameter name 'euo'".
         shell: bash
         run: |
+          SRC="$PWD/src"
           set -euo pipefail
           # This job checks the repo out into src/ (see the checkout step above),
-          # so the script lives at src/releases/, not the workspace root - the
+          # so the script lives at $SRC/releases/, not the workspace root - the
           # same path the start-wekan.bat copy below uses.
-          bash src/releases/require-binaries.sh 'win64 bundle' \
+          bash $SRC/releases/require-binaries.sh 'win64 bundle' \
             'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win64.exe'
 
       - name: Add MongoDB Database Tools to the bundle
         if: steps.preflight.outputs.skip != 'true'
         shell: bash
         run: |
+          SRC="$PWD/src"
           set -euo pipefail
           # MongoDB Database Tools (Windows) built by wekan/mongo-tools-patches (pure Go),
           # one <tool>-win64.exe per tool from that repo's newest release — no
@@ -1222,7 +1227,7 @@ jobs:
           # step below from releases/ferretdb/start-wekan.bat.)
           BASE="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
           for tool in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
-            bash "src/releases/fetch.sh" -o "bundle/${tool}.exe" "${BASE}/${tool}-win64.exe"
+            bash "$SRC/releases/fetch.sh" -o "bundle/${tool}.exe" "${BASE}/${tool}-win64.exe"
           done
 
           echo "=== bundle contents ==="
@@ -1237,6 +1242,7 @@ jobs:
         # tolerant: if the win64 asset is missing the bundle stays MongoDB-only
         # (start-wekan.bat then won't find ferretdb.exe).
         run: |
+          SRC="$PWD/src"
           # Bundled Node.js: download the pinned Node ${NODE_VERSION} win-x64
           # node.exe from nodejs.org and VERIFY it, rather than copying the
           # runner's unchecksummed node. Exports NODE_FULL/NODE_SHA256 for
@@ -1244,15 +1250,15 @@ jobs:
           # Capture node_full/node_sha256 in THIS shell (provenance is recorded in
           # the same step, and $GITHUB_ENV only reaches later steps); a failed
           # download/verify stops the build here rather than at the later guard.
-          node_meta="$(bash src/releases/embed-verified-node.sh bundle/node.exe node-win64.exe "$NODE_VERSION")" \
+          node_meta="$(bash $SRC/releases/embed-verified-node.sh bundle/node.exe node-win64.exe "$NODE_VERSION")" \
             || { echo "::error::Verified Node.js embed failed for win64."; exit 1; }
           eval "$node_meta"
           # Bundled FerretDB (win64): download this arch's binary and verify it
           # against the .sha256sum wekan/FerretDB publishes beside it.
           FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win64.exe"
-          if bash "src/releases/fetch.sh" --optional -o bundle/ferretdb.exe "$FERRET_URL"; then
+          if bash "$SRC/releases/fetch.sh" --optional -o bundle/ferretdb.exe "$FERRET_URL"; then
             echo "Embedded FerretDB win64 -> bundle/ferretdb.exe"
-            if bash "src/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
+            if bash "$SRC/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
               FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
               GOT="$(sha256sum bundle/ferretdb.exe | cut -d' ' -f1)"
               if [ "$GOT" != "$FERRET_SHA" ]; then
@@ -1269,16 +1275,16 @@ jobs:
             echo "No win64 FerretDB asset in the release; Windows bundle stays MongoDB-only."
           fi
           # Self-contained Windows launcher (defaults to FerretDB SQLite).
-          cp src/releases/ferretdb/start-wekan.bat bundle/
+          cp $SRC/releases/ferretdb/start-wekan.bat bundle/
           # Where this bundle's binaries came from, for the release notes.
           mkdir -p provenance
-          PROVENANCE_FILE=provenance/win64.tsv bash src/releases/record-provenance.sh \
+          PROVENANCE_FILE=provenance/win64.tsv bash $SRC/releases/record-provenance.sh \
             'win64' 'Node.js' "${node_from:-}" "${node_full:-$NODE_VERSION}" \
             "${node_url:-}" \
             "${node_sha256:-}" || true
           if [ -s bundle/ferretdb.exe ]; then
-            FERRET_TAG="$(bash src/releases/ferretdb-latest-tag.sh || true)"
-            PROVENANCE_FILE=provenance/win64.tsv bash src/releases/record-provenance.sh \
+            FERRET_TAG="$(bash $SRC/releases/ferretdb-latest-tag.sh || true)"
+            PROVENANCE_FILE=provenance/win64.tsv bash $SRC/releases/record-provenance.sh \
               'win64' 'FerretDB' 'wekan/FerretDB' "${FERRET_TAG:-latest}" \
               'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win64.exe' \
               "${FERRET_SHA:-}" || true
@@ -1484,8 +1490,9 @@ jobs:
         id: preflight
         shell: bash
         run: |
+          SRC="$PWD/src"
           set -uo pipefail
-          out="$(bash src/releases/resolve-node-source.sh 'win-arm64' "$NODE_VERSION")" || true
+          out="$(bash $SRC/releases/resolve-node-source.sh 'win-arm64' "$NODE_VERSION")" || true
           if printf '%s\n' "$out" | grep -q '^node_found=true$'; then
             printf '%s\n' "$out" | grep -E '^node_(full|from|url|kind|member|sha256)=' >> "$GITHUB_OUTPUT"
             echo "skip=false" >> "$GITHUB_OUTPUT"
@@ -1509,6 +1516,7 @@ jobs:
         if: steps.preflight.outputs.skip != 'true'
         shell: bash
         run: |
+          SRC="$PWD/src"
           7z x wekan-${VERSION}-amd64.zip
           # Drop the Linux node + FerretDB binaries + MongoDB Database Tools + POSIX
           # launcher inherited from the amd64 base bundle; the Windows node.exe,
@@ -1525,9 +1533,9 @@ jobs:
             rm -rf "$BCRYPT_DIR"
             TMP=$(mktemp -d)
             pushd "$TMP" > /dev/null
-            bash "src/releases/npm-retry.sh" npm pack bcrypt@6.0.0
+            bash "$SRC/releases/npm-retry.sh" npm pack bcrypt@6.0.0
             mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
-            cd bcrypt && bash "src/releases/npm-retry.sh" npm install --ignore-scripts && cd ..
+            cd bcrypt && bash "$SRC/releases/npm-retry.sh" npm install --ignore-scripts && cd ..
             cp -r bcrypt "$BCRYPT_DIR"
             popd > /dev/null
             rm -rf "$TMP"
@@ -1537,9 +1545,10 @@ jobs:
         if: steps.preflight.outputs.skip != 'true'
         shell: bash
         run: |
+          SRC="$PWD/src"
           cd bundle/programs/server
           rm -rf node_modules
-          bash "src/releases/npm-retry.sh" npm install
+          bash "$SRC/releases/npm-retry.sh" npm install
 
       - name: Check the binaries the win-arm64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -1549,17 +1558,19 @@ jobs:
         # matches parameter name 'euo'".
         shell: bash
         run: |
+          SRC="$PWD/src"
           set -euo pipefail
           # This job checks the repo out into src/ (see the checkout step above),
-          # so the script lives at src/releases/, not the workspace root - the
+          # so the script lives at $SRC/releases/, not the workspace root - the
           # same path the start-wekan.bat copy below uses.
-          bash src/releases/require-binaries.sh 'win-arm64 bundle' \
+          bash $SRC/releases/require-binaries.sh 'win-arm64 bundle' \
             'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win-arm64.exe'
 
       - name: Add MongoDB Database Tools to the bundle
         if: steps.preflight.outputs.skip != 'true'
         shell: bash
         run: |
+          SRC="$PWD/src"
           set -euo pipefail
           # MongoDB Database Tools (Windows) built by wekan/mongo-tools-patches (pure Go),
           # one <tool>-win-arm64.exe per tool from that repo's newest release — no
@@ -1569,7 +1580,7 @@ jobs:
           # step below from releases/ferretdb/start-wekan.bat.)
           BASE="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
           for tool in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
-            bash "src/releases/fetch.sh" -o "bundle/${tool}.exe" "${BASE}/${tool}-win-arm64.exe"
+            bash "$SRC/releases/fetch.sh" -o "bundle/${tool}.exe" "${BASE}/${tool}-win-arm64.exe"
           done
 
           echo "=== bundle contents ==="
@@ -1584,6 +1595,7 @@ jobs:
         # tolerant: if the win-arm64 asset is missing the bundle stays MongoDB-only
         # (start-wekan.bat then won't find ferretdb.exe).
         run: |
+          SRC="$PWD/src"
           # Bundled Node.js: download the pinned Node ${NODE_VERSION} win-arm64
           # node.exe from nodejs.org and VERIFY it, rather than copying the
           # runner's unchecksummed node. Exports NODE_FULL/NODE_SHA256 for
@@ -1591,15 +1603,15 @@ jobs:
           # Capture node_full/node_sha256 in THIS shell (provenance is recorded in
           # the same step, and $GITHUB_ENV only reaches later steps); a failed
           # download/verify stops the build here rather than at the later guard.
-          node_meta="$(bash src/releases/embed-verified-node.sh bundle/node.exe node-win-arm64.exe "$NODE_VERSION")" \
+          node_meta="$(bash $SRC/releases/embed-verified-node.sh bundle/node.exe node-win-arm64.exe "$NODE_VERSION")" \
             || { echo "::error::Verified Node.js embed failed for win-arm64."; exit 1; }
           eval "$node_meta"
           # Bundled FerretDB (win-arm64): download this arch's binary and verify it
           # against the .sha256sum wekan/FerretDB publishes beside it.
           FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win-arm64.exe"
-          if bash "src/releases/fetch.sh" --optional -o bundle/ferretdb.exe "$FERRET_URL"; then
+          if bash "$SRC/releases/fetch.sh" --optional -o bundle/ferretdb.exe "$FERRET_URL"; then
             echo "Embedded FerretDB win-arm64 -> bundle/ferretdb.exe"
-            if bash "src/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
+            if bash "$SRC/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
               FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
               GOT="$(sha256sum bundle/ferretdb.exe | cut -d' ' -f1)"
               if [ "$GOT" != "$FERRET_SHA" ]; then
@@ -1616,16 +1628,16 @@ jobs:
             echo "No win-arm64 FerretDB asset in the release; Windows bundle stays MongoDB-only."
           fi
           # Self-contained Windows launcher (defaults to FerretDB SQLite).
-          cp src/releases/ferretdb/start-wekan.bat bundle/
+          cp $SRC/releases/ferretdb/start-wekan.bat bundle/
           # Where this bundle's binaries came from, for the release notes.
           mkdir -p provenance
-          PROVENANCE_FILE=provenance/win-arm64.tsv bash src/releases/record-provenance.sh \
+          PROVENANCE_FILE=provenance/win-arm64.tsv bash $SRC/releases/record-provenance.sh \
             'win-arm64' 'Node.js' "${node_from:-}" "${node_full:-$NODE_VERSION}" \
             "${node_url:-}" \
             "${node_sha256:-}" || true
           if [ -s bundle/ferretdb.exe ]; then
-            FERRET_TAG="$(bash src/releases/ferretdb-latest-tag.sh || true)"
-            PROVENANCE_FILE=provenance/win-arm64.tsv bash src/releases/record-provenance.sh \
+            FERRET_TAG="$(bash $SRC/releases/ferretdb-latest-tag.sh || true)"
+            PROVENANCE_FILE=provenance/win-arm64.tsv bash $SRC/releases/record-provenance.sh \
               'win-arm64' 'FerretDB' 'wekan/FerretDB' "${FERRET_TAG:-latest}" \
               'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win-arm64.exe' \
               "${FERRET_SHA:-}" || true
@@ -1822,8 +1834,9 @@ jobs:
         id: preflight
         shell: bash
         run: |
+          SRC="$PWD/src"
           set -uo pipefail
-          out="$(bash src/releases/resolve-node-source.sh 'win32' "$NODE_VERSION")" || true
+          out="$(bash $SRC/releases/resolve-node-source.sh 'win32' "$NODE_VERSION")" || true
           if printf '%s\n' "$out" | grep -q '^node_found=true$'; then
             printf '%s\n' "$out" | grep -E '^node_(full|from|url|kind|member|sha256)=' >> "$GITHUB_OUTPUT"
             echo "skip=false" >> "$GITHUB_OUTPUT"
@@ -1847,6 +1860,7 @@ jobs:
         if: steps.preflight.outputs.skip != 'true'
         shell: bash
         run: |
+          SRC="$PWD/src"
           7z x wekan-${VERSION}-amd64.zip
           # Drop the Linux node + FerretDB + MongoDB Database Tools + POSIX launcher
           # inherited from the amd64 base bundle; the Windows node.exe, ferretdb.exe,
@@ -1862,9 +1876,9 @@ jobs:
             rm -rf "$BCRYPT_DIR"
             TMP=$(mktemp -d)
             pushd "$TMP" > /dev/null
-            bash "src/releases/npm-retry.sh" npm pack bcrypt@6.0.0
+            bash "$SRC/releases/npm-retry.sh" npm pack bcrypt@6.0.0
             mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
-            cd bcrypt && bash "src/releases/npm-retry.sh" npm install --ignore-scripts && cd ..
+            cd bcrypt && bash "$SRC/releases/npm-retry.sh" npm install --ignore-scripts && cd ..
             cp -r bcrypt "$BCRYPT_DIR"
             popd > /dev/null
             rm -rf "$TMP"
@@ -1885,46 +1899,49 @@ jobs:
           npm_config_target_arch: ia32
           NODE_FULL: ${{ steps.preflight.outputs.node_full }}
         run: |
+          SRC="$PWD/src"
           set -euo pipefail
           ND="${RUNNER_TEMP}/node-ia32"
           mkdir -p "$ND/ia32" "$ND/Release"
           # Headers (same for every arch); try /download/release then /dist.
-          bash "src/releases/fetch.sh" --optional -o /tmp/nodehdr.tar.gz \
+          bash "$SRC/releases/fetch.sh" --optional -o /tmp/nodehdr.tar.gz \
             "https://nodejs.org/download/release/${NODE_FULL}/node-${NODE_FULL}-headers.tar.gz" \
-          || bash "src/releases/fetch.sh" -o /tmp/nodehdr.tar.gz \
+          || bash "$SRC/releases/fetch.sh" -o /tmp/nodehdr.tar.gz \
             "https://nodejs.org/dist/${NODE_FULL}/node-${NODE_FULL}-headers.tar.gz"
           tar -xzf /tmp/nodehdr.tar.gz -C "$ND" --strip-components=1
           # The 32-bit import library, at the two paths node-gyp may look in. It
           # comes from wekan/node-patches, which is also where the node-win32.exe
           # in this bundle comes from (nobody else builds either any more), so the
           # addons link against the import library of the very node they run on.
-          bash "src/releases/fetch.sh" -o "$ND/ia32/node.lib" \
+          bash "$SRC/releases/fetch.sh" -o "$ND/ia32/node.lib" \
             "https://github.com/wekan/node-patches/releases/download/${NODE_FULL}/node-win32.lib"
           cp "$ND/ia32/node.lib" "$ND/Release/node.lib"
           export npm_config_nodedir="$ND"
           echo "Cross-building ia32 native modules against nodedir $ND (fork node.lib)."
           cd bundle/programs/server
           rm -rf node_modules
-          bash "src/releases/npm-retry.sh" npm install
+          bash "$SRC/releases/npm-retry.sh" npm install
 
       - name: Check the binaries the win32 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
         shell: bash
         run: |
+          SRC="$PWD/src"
           set -euo pipefail
-          bash src/releases/require-binaries.sh 'win32 bundle' \
+          bash $SRC/releases/require-binaries.sh 'win32 bundle' \
             'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win32.exe'
 
       - name: Add MongoDB Database Tools to the bundle
         if: steps.preflight.outputs.skip != 'true'
         shell: bash
         run: |
+          SRC="$PWD/src"
           set -euo pipefail
           # MongoDB Database Tools (32-bit Windows) from wekan/mongo-tools-patches; tolerant
           # (skip any tool not built for win32).
           BASE="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
           for tool in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
-            bash "src/releases/fetch.sh" --optional -o "bundle/${tool}.exe" "${BASE}/${tool}-win32.exe" \
+            bash "$SRC/releases/fetch.sh" --optional -o "bundle/${tool}.exe" "${BASE}/${tool}-win32.exe" \
               || { rm -f "bundle/${tool}.exe"; echo "No ${tool}-win32.exe; skipping"; }
           done
           echo "=== bundle contents ==="
@@ -1938,13 +1955,14 @@ jobs:
         # (ferretdb-win32.exe) and start-wekan.bat. FerretDB is tolerant: if its
         # asset is missing the bundle stays MongoDB-only.
         run: |
-          node_meta="$(bash src/releases/embed-verified-node.sh bundle/node.exe node-win32.exe "$NODE_VERSION")" \
+          SRC="$PWD/src"
+          node_meta="$(bash $SRC/releases/embed-verified-node.sh bundle/node.exe node-win32.exe "$NODE_VERSION")" \
             || { echo "::error::Verified Node.js embed failed for win32."; exit 1; }
           eval "$node_meta"
           FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win32.exe"
-          if bash "src/releases/fetch.sh" --optional -o bundle/ferretdb.exe "$FERRET_URL"; then
+          if bash "$SRC/releases/fetch.sh" --optional -o bundle/ferretdb.exe "$FERRET_URL"; then
             echo "Embedded FerretDB win32 -> bundle/ferretdb.exe"
-            if bash "src/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
+            if bash "$SRC/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
               FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
               GOT="$(sha256sum bundle/ferretdb.exe | cut -d' ' -f1)"
               if [ "$GOT" != "$FERRET_SHA" ]; then
@@ -1960,15 +1978,15 @@ jobs:
             rm -f bundle/ferretdb.exe
             echo "No win32 FerretDB asset in the release; Windows bundle stays MongoDB-only."
           fi
-          cp src/releases/ferretdb/start-wekan.bat bundle/
+          cp $SRC/releases/ferretdb/start-wekan.bat bundle/
           mkdir -p provenance
-          PROVENANCE_FILE=provenance/win32.tsv bash src/releases/record-provenance.sh \
+          PROVENANCE_FILE=provenance/win32.tsv bash $SRC/releases/record-provenance.sh \
             'win32' 'Node.js' "${node_from:-}" "${node_full:-$NODE_VERSION}" \
             "${node_url:-}" \
             "${node_sha256:-}" || true
           if [ -s bundle/ferretdb.exe ]; then
-            FERRET_TAG="$(bash src/releases/ferretdb-latest-tag.sh || true)"
-            PROVENANCE_FILE=provenance/win32.tsv bash src/releases/record-provenance.sh \
+            FERRET_TAG="$(bash $SRC/releases/ferretdb-latest-tag.sh || true)"
+            PROVENANCE_FILE=provenance/win32.tsv bash $SRC/releases/record-provenance.sh \
               'win32' 'FerretDB' 'wekan/FerretDB' "${FERRET_TAG:-latest}" \
               'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win32.exe' \
               "${FERRET_SHA:-}" || true
@@ -3085,7 +3103,11 @@ jobs:
         # Installed BEFORE assembling the deps: build-deps.sh's [bridge] step copies
         # the modern /opt/sandstorm/latest/bin/sandstorm-http-bridge over the ancient
         # bundled one, so the Sandstorm install must be in place first.
-        run: curl https://install.sandstorm.io | sudo bash -s -- -d
+        run: |
+          # Downloaded, then run: a `curl | sh` cannot be retried, because by the
+          # time the download fails sh is already half way through the script.
+          bash "$GITHUB_WORKSPACE/releases/fetch.sh" -o /tmp/install-sandstorm.sh https://install.sandstorm.io
+          sudo bash /tmp/install-sandstorm.sh -d
 
       - name: Assemble modern meteor-spk.deps (Node 24 + FerretDB + Mongo 3.x CLIs)
         # Base = upstream meteor-spk 0.6.0 from dl.sandstorm.io (has mongod 3.0 +
@@ -4690,11 +4712,12 @@ jobs:
           UNIVENTION_APPCENTER_USER: ${{ secrets.UNIVENTION_APP_PROVIDER_USER }}
           UNIVENTION_APPCENTER_PASSWORD: ${{ secrets.UNIVENTION_APP_PROVIDER_PASSWORD }}
         run: |
+          UNIV="$PWD/univention"
           set -euo pipefail
           # univention-appcenter-control is the App Provider CLI. Fetch it and
           # upload the app metadata/component. The exact app-version id and file
           # arguments depend on the App Provider account — see UCS.md.
-          if ! bash "univention/releases/fetch.sh" --optional -o univention-appcenter-control \
+          if ! bash "$UNIV/releases/fetch.sh" --optional -o univention-appcenter-control \
                 https://provider-portal.software-univention.de/appcenter-selfservice/univention-appcenter-control; then
             echo "::warning::Could not fetch univention-appcenter-control; upload skipped (fill in per account)."
             exit 0

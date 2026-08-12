@@ -239,7 +239,7 @@ parts:
                 *) echo "No MongoDB server for ${CRAFT_ARCH_BUILD_FOR}; FerretDB-only arch, skipping mongod."; exit 0 ;;
             esac
             MONGO_URL="https://fastdl.mongodb.org/linux/mongodb-linux-${MONGO_ARCH}-ubuntu2204-7.0.34.tgz"
-            wget -O mongodb.tgz "$MONGO_URL"
+            bash "${CRAFT_PROJECT_DIR:-${SNAPCRAFT_PROJECT_DIR:-$PWD}}/releases/fetch.sh" -o mongodb.tgz "$MONGO_URL"
             tar -xzf mongodb.tgz --strip-components=1
             mkdir -p "$SNAPCRAFT_PART_INSTALL/bin"
             cp -a bin/* "$SNAPCRAFT_PART_INSTALL/bin/"
@@ -452,11 +452,11 @@ parts:
             # ── the server, checked against the checksum MongoDB publishes ────
             tgz="mongodb-linux-${MARCH}-ubuntu2004-${V}.tgz"
             url="https://fastdl.mongodb.org/linux/${tgz}"
-            if ! curl -fsSL --retry 3 -o "$work/$tgz" "$url"; then
+            if ! bash "${CRAFT_PROJECT_DIR:-${SNAPCRAFT_PROJECT_DIR:-$PWD}}/releases/fetch.sh" -o "$work/$tgz" "$url"; then
                 echo "mongo50: could not download $url; skipping (the snap keeps working, that migration path is simply unavailable)."
                 exit 0
             fi
-            if curl -fsSL --retry 3 -o "$work/$tgz.sha256" "$url.sha256"; then
+            if bash "${CRAFT_PROJECT_DIR:-${SNAPCRAFT_PROJECT_DIR:-$PWD}}/releases/fetch.sh" --optional -o "$work/$tgz.sha256" "$url.sha256"; then
                 want="$(cut -d' ' -f1 < "$work/$tgz.sha256")"
                 got="$(sha256sum "$work/$tgz" | cut -d' ' -f1)"
                 if [ "$want" != "$got" ]; then
@@ -485,7 +485,7 @@ parts:
             for pool in $pools; do
                 deb="$(curl -fsSL "$pool/" 2>/dev/null | grep -o "libssl1\.1_[^\"]*_${DEBARCH}\.deb" | sort -V | tail -1 || true)"
                 [ -n "$deb" ] || continue
-                curl -fsSL --retry 3 -o "$work/ssl.deb" "$pool/$deb" || continue
+                bash "${CRAFT_PROJECT_DIR:-${SNAPCRAFT_PROJECT_DIR:-$PWD}}/releases/fetch.sh" -o "$work/ssl.deb" "$pool/$deb" || continue
                 rm -rf "$work/sslx"; mkdir -p "$work/sslx"
                 dpkg-deb -x "$work/ssl.deb" "$work/sslx" 2>/dev/null || continue
                 found=0
@@ -578,11 +578,11 @@ parts:
             # ── the server, checked against the checksum MongoDB publishes ────
             tgz="mongodb-linux-${MARCH}-ubuntu1804-${V}.tgz"
             url="https://fastdl.mongodb.org/linux/${tgz}"
-            if ! curl -fsSL --retry 3 -o "$work/$tgz" "$url"; then
+            if ! bash "${CRAFT_PROJECT_DIR:-${SNAPCRAFT_PROJECT_DIR:-$PWD}}/releases/fetch.sh" -o "$work/$tgz" "$url"; then
                 echo "mongo42: could not download $url; skipping (the snap keeps working, that migration path is simply unavailable)."
                 exit 0
             fi
-            if curl -fsSL --retry 3 -o "$work/$tgz.sha256" "$url.sha256"; then
+            if bash "${CRAFT_PROJECT_DIR:-${SNAPCRAFT_PROJECT_DIR:-$PWD}}/releases/fetch.sh" --optional -o "$work/$tgz.sha256" "$url.sha256"; then
                 want="$(cut -d' ' -f1 < "$work/$tgz.sha256")"
                 got="$(sha256sum "$work/$tgz" | cut -d' ' -f1)"
                 if [ "$want" != "$got" ]; then
@@ -611,7 +611,7 @@ parts:
             for pool in $pools; do
                 deb="$(curl -fsSL "$pool/" 2>/dev/null | grep -o "libssl1\.1_[^\"]*_${DEBARCH}\.deb" | sort -V | tail -1 || true)"
                 [ -n "$deb" ] || continue
-                curl -fsSL --retry 3 -o "$work/ssl.deb" "$pool/$deb" || continue
+                bash "${CRAFT_PROJECT_DIR:-${SNAPCRAFT_PROJECT_DIR:-$PWD}}/releases/fetch.sh" -o "$work/ssl.deb" "$pool/$deb" || continue
                 rm -rf "$work/sslx"; mkdir -p "$work/sslx"
                 dpkg-deb -x "$work/ssl.deb" "$work/sslx" 2>/dev/null || continue
                 found=0
@@ -825,6 +825,8 @@ parts:
             if [ -n "${CADDY_VERSION:-}" ]; then
                 echo "caddy: using CADDY_VERSION=${CADDY_VERSION} from the environment."
             else
+                # Only a lookup: when it fails, the pinned version below is used,
+                # so this one stays a plain curl.
                 CADDY_LATEST_URL="$(curl -fsSLI -o /dev/null -w '%{url_effective}' \
                     https://github.com/caddyserver/caddy/releases/latest || true)"
                 CADDY_VERSION="$(printf '%s' "${CADDY_LATEST_URL}" | sed -n 's|.*/releases/tag/v\([0-9][0-9.]*\)$|\1|p')"
@@ -875,14 +877,18 @@ parts:
             caddy_url() {
                 echo "https://github.com/caddyserver/caddy/releases/download/v$1/caddy_$1_linux_${CADDY_ARCH}.tar.gz"
             }
-            if ! curl -fsSL -o /tmp/caddy.tar.gz "$(caddy_url "${CADDY_VERSION}")"; then
+            # --optional: a version that publishes no archive for this CPU is a 404,
+            # and that is the fallback below, not an outage. Everything else - the
+            # 503s and dropped connections that ended the v10.89 arm64 snap - is
+            # waited out by fetch.sh.
+            if ! bash "${CRAFT_PROJECT_DIR:-${SNAPCRAFT_PROJECT_DIR:-$PWD}}/releases/fetch.sh" --optional -o /tmp/caddy.tar.gz "$(caddy_url "${CADDY_VERSION}")"; then
                 if [ "${CADDY_VERSION}" = "${CADDY_PINNED_VERSION}" ]; then
                     echo "caddy: no linux/${CADDY_ARCH} archive in Caddy ${CADDY_VERSION}, and that is the pinned version - nothing left to try." >&2
                     exit 1
                 fi
                 echo "caddy: Caddy ${CADDY_VERSION} publishes no linux/${CADDY_ARCH} archive; falling back to the pinned ${CADDY_PINNED_VERSION}." >&2
                 CADDY_VERSION="${CADDY_PINNED_VERSION}"
-                curl -fsSL -o /tmp/caddy.tar.gz "$(caddy_url "${CADDY_VERSION}")"
+                bash "${CRAFT_PROJECT_DIR:-${SNAPCRAFT_PROJECT_DIR:-$PWD}}/releases/fetch.sh" -o /tmp/caddy.tar.gz "$(caddy_url "${CADDY_VERSION}")"
             fi
             mkdir -p /tmp/caddy-extract
             tar -xzf /tmp/caddy.tar.gz -C /tmp/caddy-extract caddy
