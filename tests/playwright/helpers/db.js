@@ -111,6 +111,31 @@ function seedUser(overrides = {}) {
 }
 
 /**
+ * Add ANOTHER resume token to an existing user, and return the raw token.
+ *
+ * A seeded user has one token, and a browser session that logs out deletes it
+ * for every session that shares it - which is what Meteor's logout does, and
+ * what stranded the second page of the copy-link test:
+ *
+ *   Token login failed: You've been logged out by the server.
+ *
+ * A test that logs a SECOND page (or a second browser context) in takes its own
+ * token from here, the way two real browsers would each have their own.
+ */
+function addResumeToken(userId) {
+  const { raw, hashed } = createResumeToken();
+  runOps([
+    {
+      collection: 'users',
+      method: 'updateOne',
+      filter: { _id: userId },
+      update: { $push: { 'services.resume.loginTokens': { when: new Date(), hashedToken: hashed } } },
+    },
+  ]);
+  return raw;
+}
+
+/**
  * Seed a minimal board with one swimlane, N lists, and optional seeded cards.
  * Returns IDs for use in tests.
  */
@@ -456,6 +481,7 @@ function getBoard(boardId) {
 module.exports = {
   seedUser, seedBoard, addBoardMember, setUserGroups, seedTemplatesBoard,
   findCardIdByTitle, setCardDependencies, setBoardShowDependencies, cleanup,
+  addResumeToken,
   getCard, getBoard, uid,
   // generic collection helpers (replace ad-hoc mongosh `mongoEval` scripts)
   find, findOne, insertOne, insertMany, updateOne, updateMany, deleteOne,

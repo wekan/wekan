@@ -435,6 +435,53 @@ still goes straight to `curl`.
 
 </details>
 
+and has the following test-tooling fix:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASHE2E">One browser test logging in no longer logs the other tabs out</a>. Thanks to xet7.</summary>
+
+The last WeKan test run failed one test in **all three browsers** - a test that
+had passed for a month:
+
+```
+02-cards-open-view.e2e.js:66 copy-link button produces a URL that
+opens the card in full-screen view
+  Error: Token login failed: You've been logged out by the server.
+```
+
+Driving the running server over DDP with a token seeded the way the fixtures
+seed one shows what it is:
+
+```
+session A: ok           tokens: [CfgBWImyytla]
+session B: ok           tokens: [CfgBWImyytla]  <- two sessions, one token
+after B logged out      tokens: []              <- logout removed it
+session C (same token): ERROR You've been logged out by the server.
+```
+
+A seeded test user has **one** resume token, and `Meteor.logout()` deletes it on
+the SERVER — for every session using it. The login helper called it when a page
+was logged in as somebody else, so switching users in one page stranded every
+other page of that test. Only the copy-link test logs a second page in, which is
+why it was the one that failed.
+
+The helper now ends the previous session in the CLIENT instead: it drops the
+three `Accounts` keys and reloads, which the helper already knows how to do for
+its own first load. The token is untouched, and the page still arrives with no
+user on it. `logout()` stays as its own helper, because logging out is a real
+thing to test — 05-admin-users logs out and back in with a password.
+
+Two pages are two browsers, so they now get two tokens: `db.addResumeToken()`
+adds one to an existing user, and the second tab uses it. That tab also stopped
+waiting for `networkidle` before looking for the card — a card is rendered when
+the subscriptions land, which is not a network event a browser can be idle
+about, and on a loaded machine the wait ended before the card existed.
+
+`tests/e2eSessionTokens.test.cjs` pins both rules, including a scan of every
+spec for two logins sharing one token.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v10.87 2026-08-12 WeKan ® release

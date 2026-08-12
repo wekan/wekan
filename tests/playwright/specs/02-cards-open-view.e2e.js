@@ -82,11 +82,19 @@ test.describe('Cards – open & view modes', () => {
 
     // Open the card URL in a new tab (simulates Ctrl+Click).
     // New pages share browser cookies but not Meteor's localStorage session,
-    // so we re-authenticate with the same resume token before navigating.
-    const { loginWithToken: login } = require('../helpers/auth');
+    // so we authenticate before navigating - with a resume token of its OWN.
+    // The seeded user has one token and the first page is already using it;
+    // two real browsers would each have their own, and sharing one means
+    // anything that ends one session ends the other's too.
+    const { loginWithToken: login, waitForMeteor } = require('../helpers/auth');
+    const db = require('../helpers/db');
     const newPage = await context.newPage();
-    await login(newPage, board.owner.id, board.owner.token);
-    await newPage.goto(`${BASE_URL}${href}`, { waitUntil: 'networkidle' });
+    await login(newPage, board.owner.id, db.addResumeToken(board.owner.id));
+    // 'commit' + waitForMeteor rather than 'networkidle': the card is rendered
+    // by the client after its subscriptions land, which is not a network event
+    // the browser can be idle about.
+    await newPage.goto(`${BASE_URL}${href}`, { waitUntil: 'commit' });
+    await waitForMeteor(newPage);
     const newCp = new CardPage(newPage);
     await newCp.waitForOpen();
     await expect(newCp.root).toBeVisible({ timeout: 10_000 });

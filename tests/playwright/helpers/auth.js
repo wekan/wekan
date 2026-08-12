@@ -76,31 +76,48 @@ async function loginWithToken(page, userId, token) {
       }),
   );
 
-  // Switching users in the same page: log the previous one OUT first and wait
-  // for the session to be empty. Without this, `Meteor.userId()` can still be
-  // the OLD user while the new login is in flight, and the poll below cannot
-  // tell "the new login has not landed yet" from "it landed on the wrong user"
-  // - it just times out and reports the old id. That is the WebKit failure of
+  // Switching users in the same page: end the previous session first and wait
+  // for it to be empty. Without this, `Meteor.userId()` can still be the OLD
+  // user while the new login is in flight, and the poll below cannot tell "the
+  // new login has not landed yet" from "it landed on the wrong user" - it just
+  // times out and reports the old id. That is the WebKit failure of
   // 33-board-domains: the admin id was still there when the test switched to
   // the non-admin.
-  await page.evaluate(
-    expectedId =>
-      new Promise(resolve => {
-        if (!Meteor.userId() || Meteor.userId() === expectedId) {
-          resolve();
-          return;
-        }
-        Meteor.logout(() => {
+  //
+  // It ends the session in the CLIENT, and that is the whole point of this
+  // block being what it is. It used to call `Meteor.logout()`, which is a
+  // SERVER call: it deletes the resume token from the user document. A seeded
+  // test user has exactly one token, shared by every page of the test, so one
+  // logout stranded all of them - the next login with that token answered
+  //
+  //   Token login failed: You've been logged out by the server. Please log in again.
+  //
+  // which is how 02-cards-open-view's copy-link test (the only one that logs a
+  // SECOND page in) failed in all three browsers at once. Dropping the three
+  // Accounts keys and reloading leaves the token alone and still gives the page
+  // a connection with no user on it.
+  const wrongUser = await page.evaluate(
+    expectedId => Boolean(Meteor.userId()) && Meteor.userId() !== expectedId,
+    userId,
+  );
+  if (wrongUser) {
+    await page.evaluate(armKey => {
+      try { window.localStorage.setItem(armKey, '1'); } catch (e) { /* no storage */ }
+    }, ARM_KEY);
+    await page.reload({ waitUntil: 'commit' });
+    await waitForMeteor(page);
+    await page.evaluate(
+      () =>
+        new Promise(resolve => {
           const deadline = Date.now() + 10000;
           const waitEmpty = () => {
             if (!Meteor.userId() || Date.now() > deadline) resolve();
             else setTimeout(waitEmpty, 50);
           };
           waitEmpty();
-        });
-      }),
-    userId,
-  );
+        }),
+    );
+  }
 
   const result = await page.evaluate(
     ({ tok, expectedId }) =>
