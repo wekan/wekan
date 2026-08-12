@@ -793,6 +793,53 @@ async function copyCollection(srcDb, tgtDb, collName, transformer) {
   await cursor.close();
 }
 
+// Count what is in the copy, rather than trusting what was recorded about it.
+//
+// #6585 ("Data Lost in DB after Update 10.81 to 10.85"): a resumed migration skips
+// every collection an earlier run finished, and MongoDB goes on being used between
+// an interrupted migration and its retry — the snap hands WeKan back to it. So those
+// skips can leave out everything written in between, and the migration still reports
+// success. The reporter's snap refreshed overnight, finished a migration that had
+// been interrupted weeks earlier, and served boards and cards as they had been then.
+//
+// Whether the checkpoint is too old to resume from is judged before the migration
+// starts (snap-src/bin/migration-checkpoint-stale.mjs), from the mtimes of the
+// MongoDB data files. This asks the two databases themselves, at the end, when both
+// are quiet — so it does not care WHY a copy came up short, which is the point of a
+// check standing behind another one.
+//
+// Only a SHORTFALL is acted on, and it is acted on by copying that collection again
+// from the source as it is NOW. A copy holding MORE documents than the source is a
+// resumed migration carrying documents that have since been deleted from MongoDB;
+// deleting anything on that evidence is not something this may do. Documents a
+// transformer deliberately dropped are counted out of the expected total by
+// droppedFor. A shortfall that survives the second copy is RETURNED to be reported,
+// not thrown: one document FerretDB will not accept must not leave the snap in a
+// migration it can never finish.
+//
+// Every collaborator is injected so this can be exercised on its own
+// (tests/migrationCopyShortfall.test.cjs).
+async function verifyCollectionCounts({ names, isText, countSource, countTarget,
+                                        recopy, droppedFor, log }) {
+  const short = [];
+  for (const name of names) {
+    if (!isText(name)) continue;
+    let srcN, tgtN;
+    try { srcN = await countSource(name); } catch { continue; }
+    try { tgtN = await countTarget(name); } catch { continue; }
+    if (!(srcN >= 0) || !(tgtN >= 0)) continue;
+    if (tgtN >= srcN - droppedFor(name)) continue;
+    log(`${name}: the copy holds ${tgtN} of ${srcN} documents — copying it again from the current source.`);
+    await recopy(name);
+    let afterN = -1;
+    try { afterN = await countTarget(name); } catch { afterN = -1; }
+    if (afterN >= 0 && afterN < srcN - droppedFor(name)) {
+      short.push({ collection: name, source: srcN, target: afterN });
+    }
+  }
+  return short;
+}
+
 // ── Main migration logic ───────────────────────────────────────────────────
 async function run() {
   // Resume from a previous interrupted run if a checkpoint exists in WRITABLE_PATH.
@@ -956,6 +1003,22 @@ async function run() {
   // Repair mode NEVER touches text collections: users may have added/changed
   // boards and cards on FerretDB since the original migration, and re-copying
   // from the frozen MongoDB source would overwrite or resurrect data.
+  // The schema upgrades a collection needs on the way over. Named here rather than
+  // inside the loop because the verification pass below copies collections too, and
+  // a collection copied a second time must go through exactly the same transform.
+  const transformerFor = (name) => {
+    if (name === 'boards') return doc => upgradeBoard(doc);
+    if (name === 'lists') return doc => upgradeList(doc, defaultSwimlaneIdFor);
+    if (name === 'cards') return doc => upgradeCard(doc, listSwimlaneMap, defaultSwimlaneIdFor);
+    return null;
+  };
+  const isTextCollection = (name) => !name.includes('.') && !gridFsCols.has(name);
+  // Copied by THIS run — so the verification below knows whose per-collection
+  // counters describe the copy it is looking at. A resumed run restores those
+  // counters from the checkpoint, and a "skipped" from an earlier run says nothing
+  // about what is in the target now.
+  const copiedThisRun = new Set();
+
   if (!repairMode) {
   state.phase = 'migrating-collections';
   for (const name of allColls) {
@@ -975,20 +1038,60 @@ async function run() {
       continue;
     }
 
-    let transformer = null;
-    if (name === 'boards') {
-      transformer = doc => upgradeBoard(doc);
-    } else if (name === 'lists') {
-      transformer = doc => upgradeList(doc, defaultSwimlaneIdFor);
-    } else if (name === 'cards') {
-      transformer = doc => upgradeCard(doc, listSwimlaneMap, defaultSwimlaneIdFor);
-    }
-
     state.phase_detail = name;
     console.log(`[migrate] Copying collection: ${name}`);
-    await copyCollection(srcDb, tgtDb, name, transformer);
+    await copyCollection(srcDb, tgtDb, name, transformerFor(name));
+    copiedThisRun.add(name);
     completedCollections.add(name);
     saveCheckpoint(true);   // persist progress to WRITABLE_PATH after each collection
+  }
+
+  // ── 4b. COUNT what is in the copy, rather than trusting what was recorded ──
+  // #6585 ("Data Lost in DB after Update 10.81 to 10.85"): a resume skips every
+  // collection an earlier run finished, and if MongoDB went on being used in
+  // between — which is what the snap does with WeKan while a migration waits to be
+  // retried — those skips silently leave out everything written since. The reporter
+  // saw boards and cards as they had been three weeks earlier.
+  //
+  // The checkpoint's age is judged before the migration starts
+  // (snap-src/bin/migration-checkpoint-stale.mjs), but that reasons from file
+  // timestamps. This asks the two databases instead, at the end, when both are
+  // quiet: a collection whose copy holds FEWER documents than the source is copied
+  // again, from the source as it is now. It costs one count per collection and it
+  // does not care WHY the copy was short, which is the point of a check that stands
+  // behind another one.
+  //
+  // Only a SHORTFALL is acted on. A copy with MORE documents than the source is a
+  // resumed migration holding documents deleted from MongoDB since, and deleting
+  // things here on that evidence is not something this may do. Documents a
+  // transformer deliberately dropped are counted out of the expected total, and a
+  // shortfall that survives the second copy is REPORTED, not fatal — FerretDB
+  // refusing a particular document must not put the snap in a migration loop it can
+  // never finish.
+  if (!DRY_RUN) {
+    state.phase = 'verifying-collections';
+    const short = await verifyCollectionCounts({
+      names: allColls,
+      isText: isTextCollection,
+      countSource: (name) => srcDb.collection(name).countDocuments(),
+      countTarget: (name) => tgtDb.collection(name).countDocuments(),
+      droppedFor: (name) => (copiedThisRun.has(name)
+        ? ((state.collections[name] && state.collections[name].skipped) || 0) : 0),
+      recopy: async (name) => {
+        state.phase_detail = name;
+        copiedThisRun.add(name);
+        await copyCollection(srcDb, tgtDb, name, transformerFor(name));
+      },
+      log: (message) => console.log('[migrate] ' + message),
+    });
+    state.shortCollections = short;
+    for (const s of short) {
+      pushError(`${s.collection}: ${s.target} of ${s.source} documents in the copy after copying it again.`);
+    }
+    console.log(short.length
+      ? '[migrate] WARNING: collections still short after a second copy: ' +
+        short.map(s => `${s.collection} ${s.target}/${s.source}`).join(', ')
+      : '[migrate] Verified: every text collection holds at least as many documents as the source.');
   }
   }   // end !repairMode (text collections)
 

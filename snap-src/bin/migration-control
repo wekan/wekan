@@ -73,6 +73,27 @@ if [ ! -f "$DBPATH/WiredTiger" ] && ! ls "$DBPATH"/collection-*.wt >/dev/null 2>
   exit 0
 fi
 
+# #6585: FIRST, before anything here starts a mongod of its own. The importer's
+# resume checkpoint lists the collections it has already copied so an interrupted
+# migration continues instead of starting over - but between the interruption and
+# the resume, WeKan is handed back to MongoDB and goes on being used, for as long as
+# that lasts. Weeks later the resume would skip every collection it finished back
+# then, copy only the rest, and report success: a FerretDB holding the database as
+# it was on the day the migration stopped. That is what "Data Lost in DB after
+# Update 10.81 to 10.85" was - the update ran the resume, and the copy it completed
+# was three weeks old.
+#
+# So the checkpoint is only good while the SOURCE has not moved on. The evidence is
+# the mtime of the MongoDB data files, which is why this runs before start_mongod:
+# starting a mongod writes to them, and once ours has, the question can no longer be
+# asked. Only the collection half is dropped; extracted attachments and avatars are
+# kept, so the expensive part of a resume survives.
+CHECKPOINT_STALE="$SNAP/bin/migration-checkpoint-stale.mjs"
+if [ -x "$NODE" ] && [ -f "$CHECKPOINT_STALE" ]; then
+  _cp_out="$("$NODE" "$CHECKPOINT_STALE" "$DBPATH" 2>&1)"
+  [ -n "${_cp_out:-}" ] && log "$_cp_out"
+fi
+
 export LC_ALL=C
 # Base library path so the snap's own mongod 7 finds its libraries
 # (docs/Backup/Backup.md: $SNAP/lib/<arch>-linux-gnu).

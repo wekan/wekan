@@ -710,6 +710,53 @@ function onDiskAbort() {
   writeStatus();
 }
 
+// Count what is in the copy, rather than trusting what was recorded about it.
+//
+// #6585 ("Data Lost in DB after Update 10.81 to 10.85"): a resumed migration skips
+// every collection an earlier run finished, and MongoDB goes on being used between
+// an interrupted migration and its retry — the snap hands WeKan back to it. So those
+// skips can leave out everything written in between, and the migration still reports
+// success. The reporter's snap refreshed overnight, finished a migration that had
+// been interrupted weeks earlier, and served boards and cards as they had been then.
+//
+// Whether the checkpoint is too old to resume from is judged before the migration
+// starts (snap-src/bin/migration-checkpoint-stale.mjs), from the mtimes of the
+// MongoDB data files. This asks the two databases themselves, at the end, when both
+// are quiet — so it does not care WHY a copy came up short, which is the point of a
+// check standing behind another one.
+//
+// Only a SHORTFALL is acted on, and it is acted on by copying that collection again
+// from the source as it is NOW. A copy holding MORE documents than the source is a
+// resumed migration carrying documents that have since been deleted from MongoDB;
+// deleting anything on that evidence is not something this may do. Documents a
+// transformer deliberately dropped are counted out of the expected total by
+// droppedFor (this importer drops none). A shortfall that survives the second copy is
+// RETURNED to be reported, not thrown: one document FerretDB will not accept must not
+// leave the snap in a migration it can never finish.
+//
+// Every collaborator is injected so this can be exercised on its own
+// (tests/migrationCopyShortfall.test.cjs).
+async function verifyCollectionCounts({ names, isText, countSource, countTarget,
+                                        recopy, droppedFor, log }) {
+  const short = [];
+  for (const name of names) {
+    if (!isText(name)) continue;
+    let srcN, tgtN;
+    try { srcN = await countSource(name); } catch { continue; }
+    try { tgtN = await countTarget(name); } catch { continue; }
+    if (!(srcN >= 0) || !(tgtN >= 0)) continue;
+    if (tgtN >= srcN - droppedFor(name)) continue;
+    log(`${name}: the copy holds ${tgtN} of ${srcN} documents — copying it again from the current source.`);
+    await recopy(name);
+    let afterN = -1;
+    try { afterN = await countTarget(name); } catch { afterN = -1; }
+    if (afterN >= 0 && afterN < srcN - droppedFor(name)) {
+      short.push({ collection: name, source: srcN, target: afterN });
+    }
+  }
+  return short;
+}
+
 async function run() {
   ensureDir(ATTACH_DIR); ensureDir(AVATAR_DIR);
   loadCheckpoint();   // resume an interrupted migration instead of redoing it
@@ -770,6 +817,25 @@ async function run() {
     'cfs._tempstore.chunks', 'cfs_gridfs._tempstore.chunks', 'cfs_gridfs._tempstore.files',
   ]);
 
+  // Export one collection from the source and insert it into the target. A named
+  // step because it is done in two places: once per collection on the way through,
+  // and again for any collection the verification pass below finds short — which
+  // must copy it exactly the same way it was copied the first time.
+  async function copyText(name) {
+    state.detail = name;
+    const docs = exportDocs(name);
+    state.collections[name] = { total: docs.length, done: 0 };
+    logline(`${name}: exported ${docs.length}${docs.length ? ', inserting…' : ''}`);
+    const coll = db.collection(name);
+    for (let i = 0; i < docs.length; i += BATCH) {
+      const chunk = docs.slice(i, i + BATCH);
+      try { await coll.insertMany(chunk, { ordered: false }); }
+      catch (e) { /* upsert one-by-one on conflict */ for (const d of chunk) { try { await coll.replaceOne({ _id: d._id }, d, { upsert: true }); } catch (e2) { err(`${name}/${d._id}: ${e2.message}`); } } }
+      state.collections[name].done = Math.min(i + chunk.length, docs.length);
+    }
+    if (docs.length) logline(`${name}: inserted ${state.collections[name].done}/${docs.length}`);
+  }
+
   // ── text collections (everything except the GridFS chunk/file collections) ──
   // #6473: FILES_ONLY repair NEVER touches text collections — users may have
   // added/changed boards and cards on FerretDB since the original migration, and
@@ -790,21 +856,30 @@ async function run() {
     // snap refresh part-way through meant exporting and re-inserting every collection
     // from the beginning.
     if (completedCollections.has(name)) { logline(`${name}: already migrated (checkpoint), skipping.`); continue; }
-    state.detail = name;
-    const docs = exportDocs(name);
-    state.collections[name] = { total: docs.length, done: 0 };
-    logline(`${name}: exported ${docs.length}${docs.length ? ', inserting…' : ''}`);
-    const coll = db.collection(name);
-    for (let i = 0; i < docs.length; i += BATCH) {
-      const chunk = docs.slice(i, i + BATCH);
-      try { await coll.insertMany(chunk, { ordered: false }); }
-      catch (e) { /* upsert one-by-one on conflict */ for (const d of chunk) { try { await coll.replaceOne({ _id: d._id }, d, { upsert: true }); } catch (e2) { err(`${name}/${d._id}: ${e2.message}`); } } }
-      state.collections[name].done = Math.min(i + chunk.length, docs.length);
-    }
-    if (docs.length) logline(`${name}: inserted ${state.collections[name].done}/${docs.length}`);
+    await copyText(name);
     completedCollections.add(name);
     saveCheckpoint(true);   // a collection boundary is worth a guaranteed write
   }
+
+  // COUNT what is in the copy, rather than trusting what was recorded about it
+  // (#6585) — see verifyCollectionCounts above for why this exists.
+  state.phase = 'verifying-collections';
+  const short = await verifyCollectionCounts({
+    names: all,
+    isText: (name) => !name.includes('.') && !gridFs.has(name),
+    countSource: (name) => countColl(name),
+    countTarget: (name) => db.collection(name).countDocuments(),
+    droppedFor: () => 0,   // this importer inserts every exported document
+    recopy: (name) => copyText(name),
+    log: (message) => logline(message),
+  });
+  state.shortCollections = short;
+  for (const s of short) {
+    err(`${s.collection}: ${s.target} of ${s.source} documents in the copy after copying it again.`);
+  }
+  logline(short.length
+    ? `WARNING: collections still short after a second copy: ${short.map(s => `${s.collection} ${s.target}/${s.source}`).join(', ')}`
+    : 'Verified: every text collection holds at least as many documents as the source.');
   }   // end !FILES_ONLY (text collections)
 
   // ── GridFS attachments + avatars -> filesystem ──────────────────────────────
