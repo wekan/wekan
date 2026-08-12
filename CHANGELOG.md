@@ -440,7 +440,7 @@ and fixes the following bugs:
 **The snap** - which database it runs on, and how everything gets there.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f976adb9c">A release script the job cannot see, and an hour of build thrown away at the push</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/bdacff80e">A release script the job cannot see, and an hour of build thrown away at the push</a>. Thanks to xet7.</summary>
 
 The v10.88 run lost seven jobs to two mistakes of the same kind: a step that
 needs something and does not check whether it is there.
@@ -489,7 +489,7 @@ warning: that is the network, not the rights.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/d8bc8ead8">There is no database setting on the snap any more, and nothing to type</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/bb76e7bf1">There is no database setting on the snap any more, and nothing to type</a>. Thanks to xet7.</summary>
 
 `snap set wekan database=mongodb|ferretdb` is **removed**, and so is
 `snap run wekan.database`. WeKan runs on **FerretDB** — every platform, every
@@ -532,7 +532,7 @@ CPU-platform docs point at it instead of describing a setting that is gone.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f7afbe1b8">A snap ends up on FerretDB, whatever it was running before</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/60b4ceda3">A snap ends up on FerretDB, whatever it was running before</a>. Thanks to xet7.</summary>
 
 Three ways a snap could stay on MongoDB for good, all of them reported. The
 snap runs on **FerretDB** on every platform — MongoDB is bundled to be READ
