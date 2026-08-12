@@ -440,7 +440,7 @@ and fixes the following bugs:
 **The snap** - which database it runs on, and how everything gets there.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASHNOSETTING">There is no database setting on the snap any more, and nothing to type</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/d8bc8ead8">There is no database setting on the snap any more, and nothing to type</a>. Thanks to xet7.</summary>
 
 `snap set wekan database=mongodb|ferretdb` is **removed**, and so is
 `snap run wekan.database`. WeKan runs on **FerretDB** — every platform, every
