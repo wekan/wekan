@@ -733,6 +733,33 @@ font for those is in TODO Later.
 and has the following test coverage work:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5d1c9d0a3">The Helm chart's move to FerretDB is pinned from this side of the fence</a>. Thanks to salcinad, ouvry-ems and xet7.</summary>
+
+[wekan/charts](https://github.com/wekan/charts) 10.86.0 replaces its bundled
+MongoDB with FerretDB (`ghcr.io/wekan/ferretdb`), which answers both
+[charts#55](https://github.com/wekan/charts/issues/55) — WeKan runs on FerretDB
+and the chart did not — and
+[charts#54](https://github.com/wekan/charts/issues/54): the chart built its
+`MONGO_URL` out of a different chart's naming, Bitnami's per-pod
+`<release>-mongodb-0.<release>-mongodb-headless` against the services
+groundhog2k actually creates, so WeKan dialled a host that does not exist. The
+database is defined by the chart now, so the Service in the URL is the Service
+the chart creates.
+
+That repository has no test runner, and the things that went wrong in it are
+WeKan's own settings — the `directConnection=true` the driver needs
+([#6582](https://github.com/wekan/wekan/issues/6582)) and the environment
+WeKan's `docker-compose.yml` runs FerretDB with. So the guard is here, reading
+`.tools/charts` and skipping with a message when that clone is absent.
+
+One of its checks is a sweep rather than an example: every setting
+`docker-compose.yml` documents must appear in the chart's `values.yaml`. It
+found `NODE_OPTIONS` missing, and a Helm user now has the same complete
+reference a Docker user has instead of a subset.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/eb47e0465">A guard that asks whether an already-fixed mistake exists anywhere else</a>. Thanks to xet7.</summary>
 
 Every entry in the [Hall of Fame](https://wekan.fi/hall-of-fame/) has a suite
