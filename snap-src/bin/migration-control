@@ -506,7 +506,31 @@ if [ -x "$M42/bin/mongod" ]; then
 fi
 
 # ── Otherwise, old MongoDB 3.x? Read it with the bundled migratemongo 3.2 CLI. ─
+# #6471 (comment 5264028470): "It turns out the mongodb version on my installation
+# was even older. It was running on mongodb 3.2, this is why your 4.2 check was not
+# doing anything." Their site never showed the explanatory page either - it waited
+# for MongoDB forever - and this is why.
+#
+# The migratemongo 3.2 tools are staged for amd64 ONLY (see the migratemongo part in
+# snapcraft.yaml: MongoDB published no 3.2 build for any other architecture). So on
+# arm64 and everything else, a MongoDB 3.x database has NO reader in this snap at
+# all - and this branch handed that to fall_back_to_mongodb, which starts mongod 7
+# again. mongod 7 is the binary that has ALREADY said it cannot open these files, so
+# it fails, mongodb-control re-runs the migration, and the site sits on "MongoDB not
+# ready yet, retrying in 5 seconds..." forever with nothing said on the web port.
+# That loop is the whole of what #6471 was opened about.
+#
+# A missing reader and an unreadable database are not the same thing, and only one of
+# them can be retried. When mongod has already refused the files, "the tool that could
+# have read them is not in this snap" is a final answer: stop, keep every byte, and
+# serve the page that says so. Genuinely unreadable data - where no mongod ever said
+# "too recent" - still falls back to MongoDB as before, because that case may yet come
+# up serving.
 if [ ! -x "$MM/bin/mongod" ] || [ ! -x "$MM/bin/mongo" ] || [ ! -x "$FERRETDB" ] || [ ! -x "$NODE" ] || [ ! -f "$IMPORTER" ]; then
+  if mongod_says_data_too_old; then
+    log "The MongoDB 3.x reader (migratemongo) is not in this snap for $(uname -m); mongod 7 and mongod 4.2 have both refused these files."
+    stop_data_too_old
+  fi
   fall_back_to_mongodb "Migration tools unavailable; cannot migrate MongoDB 3.x to FerretDB."
 fi
 

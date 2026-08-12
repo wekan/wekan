@@ -221,8 +221,18 @@ test('the migration tries the readers newest-first, and 4.2 uses the driver impo
   assert.ok(seven > -1 && four > -1 && three > -1, 'all three probes are there');
   assert.ok(seven < four && four < three,
     'newest first: mongod 7, then 4.2, then the 3.2 tools');
-  assert.ok(three < m.indexOf('if mongod_says_data_too_old; then'),
-    'and only when all three have failed does it stop and explain');
+  // There are two ways the third reader can fail to produce a database, and both
+  // stop with the page - so "the first mongod_says_data_too_old comes after the 3.x
+  // probe" is no longer the way to check it (comment 5264028470). The reader can be
+  // ABSENT, which is decided just before the probe, or it can RUN and refuse, which
+  // is decided just after; neither is reachable until mongod 7 and mongod 4.2 have
+  // both failed, which is what this is really about.
+  const toolsMissing = m.indexOf('if [ ! -x "$MM/bin/mongod" ]');
+  assert.ok(four < toolsMissing && toolsMissing < three,
+    'the "no 3.x reader on this architecture" stop sits between the 4.2 probe and ' +
+    'the 3.x one - after both other readers have failed, before a probe it cannot run');
+  assert.ok(m.indexOf('if mongod_says_data_too_old; then', three) > three,
+    'and a 3.x reader that runs and refuses stops and explains as well');
 
   // The 4.2 branch reads with the DRIVER importer: the bundled mongodb driver
   // supports servers from 4.2 up, so the same importer that reads a 6/7 source
@@ -246,7 +256,73 @@ test('the other two maintenance pages are unchanged', () => {
     'the refresh is dropped only for the data-too-old page');
 });
 
-pageSaysIt().then(() => {
+// ── comment 5264028470: a MongoDB 3.x database on an architecture with no 3.x
+// reader. "It turns out the mongodb version on my installation was even older. It
+// was running on mongodb 3.2, this is why your 4.2 check was not doing anything."
+// Their site never showed this page at all - it waited for MongoDB forever.
+test('a missing 3.x reader is an answer, not a reason to hand back to mongod', () => {
+  // The migratemongo 3.2 tools are staged for amd64 only (MongoDB published no 3.2
+  // build for anything else), so on arm64 a MongoDB 3.x database has no reader in
+  // this snap at all. That went to fall_back_to_mongodb, which starts the mongod 7
+  // that has ALREADY refused these files - the crash loop this issue is about.
+  const at = migration.indexOf('if [ ! -x "$MM/bin/mongod" ]');
+  assert.notStrictEqual(at, -1, 'the tools check is still there');
+  const branch = migration.slice(at, at + 700);
+  assert.ok(/if mongod_says_data_too_old; then/.test(branch),
+    'a missing reader and an unreadable database are not the same thing, and only ' +
+    'the mongod-said-too-old half has a definite answer');
+  assert.ok(branch.indexOf('stop_data_too_old') < branch.indexOf('fall_back_to_mongodb'),
+    'so that half stops with the page');
+  assert.ok(/fall_back_to_mongodb "Migration tools unavailable/.test(branch),
+    'while the other half still hands back to MongoDB, which may yet serve');
+  assert.ok(/uname -m/.test(branch),
+    'and the log says which architecture is missing the reader, since that is the ' +
+    'part an admin cannot see');
+});
+
+// The steps on the page are the reporter's own successful recipe, in this snap's
+// paths - they had to work it out themselves. Step 3 is the one that is expensive to
+// get wrong: another admin copied the old database files back into a RUNNING data
+// directory and mongod aborted, taking the restored database with it.
+async function pageGivesTheRecipe() {
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'wekan-6471-steps-'));
+  fs.writeFileSync(path.join(tmp, MARKER), '3.6\n');
+  const port = 18500 + (process.pid % 400);
+  const child = spawn(process.execPath, [path.join(repoRoot, 'snap-src/bin/wekan-maintenance-page.mjs')], {
+    env: { ...process.env, SNAP_COMMON: tmp, WEKAN_MAINTENANCE_REASON: 'data-too-old', PORT: String(port) },
+    stdio: 'ignore',
+  });
+  try {
+    let body = null;
+    const deadline = Date.now() + 5000;
+    while (body === null) {
+      try {
+        body = await new Promise((resolve, reject) => {
+          http.get({ host: '127.0.0.1', port, path: '/' }, res => {
+            let b = ''; res.on('data', c => { b += c; }); res.on('end', () => resolve(b));
+          }).on('error', reject);
+        });
+      } catch (e) { if (Date.now() > deadline) throw e; await new Promise(r => setTimeout(r, 150)); }
+    }
+    assert.ok(/mongodump --archive=wekan\.archive --gzip/.test(body),
+      'the dump command, not a description of one');
+    assert.ok(body.includes(tmp),
+      'and this snap\'s own data directory, so the paths can be copied as they are');
+    assert.ok(/database-restore/.test(body),
+      'the snap restores from an archive itself; an admin should not have to find mongorestore');
+    assert.ok(/Do NOT copy those database files back/.test(body),
+      'the step that cost somebody their restored database has to be spelled out');
+    assert.ok(/Leave\s+<code>files\/<\/code>/.test(body),
+      'while attachments and avatars DO have to be kept');
+    passed += 1;
+    console.log('  ok - the page gives the four steps, in this snap\'s paths');
+  } finally {
+    child.kill();
+    fs.rmSync(tmp, { recursive: true, force: true });
+  }
+}
+
+pageSaysIt().then(pageGivesTheRecipe).then(() => {
   console.log(`\nsnapOldMongoData: ${passed} tests passed`);
 }).catch(err => {
   console.error('  FAIL -', err.message);

@@ -83,6 +83,15 @@ const BODY = IS_RECOVERY
 // is a stop that needs a decision from a person.
 const SNAP_NAME = (process.env.SNAP_INSTANCE_NAME || process.env.SNAP_NAME || 'wekan')
   .replace(/[^A-Za-z0-9_-]/g, '').slice(0, 40) || 'wekan';
+// #6471, comment 5264028470: the reporter got here with a MongoDB 3.2 database and
+// had to work the way out for themselves - dump it with a MongoDB of that vintage,
+// clear the data directory, restore. The page said "move the data across" and left
+// the rest to them, so it says the steps now, in this snap's own paths and with this
+// snap's own restore command. The third step is the one that is easy to get wrong and
+// expensive to get wrong: an admin who copies the old database files back into a
+// RUNNING database directory loses the database they just restored (mongod aborts).
+const SNAP_COMMON_PATH = (process.env.SNAP_COMMON || `/var/snap/${SNAP_NAME}/common`)
+  .replace(/[<>&"]/g, '').slice(0, 120);
 const STEPS = IS_DATA_TOO_OLD ? `
   <p class="muted" style="text-align:start">${HAS_FERRETDB ? 'Three ways forward, all' : 'Two ways forward, both'} keeping your data:</p>
   <ol class="muted" style="text-align:start">${HAS_FERRETDB ? `
@@ -96,9 +105,24 @@ const STEPS = IS_DATA_TOO_OLD ? `
       than the MongoDB data beside it.</li>` : ''}
     <li><b>Go back to the revision that worked</b> and stay there for now:<br>
       <code>sudo snap revert ${SNAP_NAME}</code> then <code>sudo snap refresh --hold=forever ${SNAP_NAME}</code></li>
-    <li><b>Move the data across</b> with a MongoDB that can read it${CAN_READ ? ` (MongoDB ${CAN_READ} or earlier)` : ''}:
-      start that MongoDB on this data directory, <code>mongodump</code> from it, then
-      restore into the new version and let it migrate to FerretDB.</li>
+    <li><b>Move the data across</b> with a MongoDB that can read it${CAN_READ ? ` (MongoDB ${CAN_READ} or earlier)` : ''}.
+      This is the way that ends on the current version, and it is four steps:
+      <ol>
+        <li>Copy <code>${SNAP_COMMON_PATH}</code> somewhere safe first.</li>
+        <li>Run a MongoDB${CAN_READ ? ` ${CAN_READ}` : ''} of your own on that copy - a container image of
+          that version is the usual way - and dump it:<br>
+          <code>mongodump --archive=wekan.archive --gzip</code></li>
+        <li><b>Move the old database files OUT of ${SNAP_COMMON_PATH}</b> so this
+          version starts on an empty database: <code>*.wt</code>,
+          <code>WiredTiger*</code>, <code>_mdb_catalog.wt</code>,
+          <code>sizeStorer.wt</code>, <code>storage.bson</code>,
+          <code>mongod.lock</code> and <code>journal/</code>. Leave
+          <code>files/</code> where it is - that is your attachments and avatars.
+          Do NOT copy those database files back afterwards: dropping them into a
+          running database is what destroys it.</li>
+        <li>Start ${PRODUCT} and restore into it:<br>
+          <code>sudo snap run ${SNAP_NAME}.database-restore /path/to/wekan.archive</code></li>
+      </ol></li>
   </ol>
   <p class="muted" style="text-align:start">Attachments and avatars are files on disk, not in
     the database, and are unaffected either way.</p>` : '';
