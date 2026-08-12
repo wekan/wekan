@@ -40,10 +40,12 @@ if [ "true" == "${DISABLE_MONGODB}" ]; then
     exit 0
 fi
 
-# The `database` snap setting is AUTHORITATIVE (see wekan-control): MongoDB is disabled only
-# when database=ferretdb (below), NOT just because a FerretDB SQLite exists. This lets an admin
-# keep WeKan on MongoDB (`snap run wekan.database mongodb`) while a migration is being fixed.
-# A successful migration sets database=ferretdb itself (finish_success).
+# WHEN MongoDB RUNS AT ALL. There is no `database` setting to consult any more:
+# MongoDB is in this snap to be READ while a migration is owed, and bin/database-role
+# says whether that is still the case. It answers from the data - a FerretDB with
+# something in it, and a finished migration - so this service stops itself exactly
+# when the site no longer needs it, and keeps running when the site still does
+# (an unfinished migration, or a FerretDB that is missing).
 
 # First-boot migration: upgrading from an old MongoDB-based WeKan snap. Before
 # starting mongod normally, hand off to migration-control, which reads the
@@ -51,8 +53,8 @@ fi
 # on newest WeKan; the bundled old mongod for amd64 6.09/MongoDB 3.2 data),
 # migrates text data to FerretDB v1 (SQLite) and CollectionFS/Meteor-Files GridFS
 # attachments+avatars to the filesystem (progress at ROOT_URL, resumable), then
-# switches the snap to database=ferretdb. It is idempotent and only switches on
-# success; if not pending it returns non-zero and mongod starts as usual.
+# and marks the migration done. It is idempotent and only marks on success; if not
+# pending it returns non-zero and mongod starts as usual.
 if [ ! -f "$WEKAN_MAINTENANCE" ] && bash "$SNAP/bin/migration-pending"; then
     echo "MongoDB -> FerretDB migration pending; running migration-control..."
     exec bash "$SNAP/bin/migration-control"
@@ -60,8 +62,8 @@ fi
 
 # If the FerretDB backend is selected, MongoDB must not run (FerretDB binds the
 # same port). Disable this service; ferretdb-control starts FerretDB instead.
-if [ ! -f "$WEKAN_MAINTENANCE" ] && [ "ferretdb" == "${DATABASE}" ]; then
-    echo "database is set to ferretdb. Stopping mongodb service."
+if [ ! -f "$WEKAN_MAINTENANCE" ] && [ "ferretdb" = "$(bash "$SNAP/bin/database-role")" ]; then
+    echo "$(bash "$SNAP/bin/database-role" --why): WeKan runs on FerretDB. Stopping mongodb service."
     snapctl stop --disable ${SNAP_NAME}.mongodb 2>/dev/null || true
     exit 0
 fi
@@ -258,15 +260,14 @@ switch_to_completed_ferretdb() {
         echo "NOT switching to FerretDB: both it and MongoDB have been written to since"
         echo "the migration, and which holds the work you want cannot be told from"
         echo "timestamps. MongoDB keeps serving - nothing has been changed or deleted."
-        echo "To compare them, switch deliberately and look at the boards each time:"
-        echo "  sudo snap set ${svc} database=ferretdb"
-        echo "  sudo snap set ${svc} database=mongodb"
+        echo "The next start reads both databases and brings what MongoDB has into"
+        echo "FerretDB (inserting what is missing, overwriting nothing), so the work done"
+        echo "on either one ends up in the card History of the database WeKan serves."
         return 1
     fi
     if [ -f "$SNAP_COMMON/.migration-to-ferretdb-done" ] && \
        bash "$SNAP/bin/ferretdb-has-data" "$SNAP_COMMON/files/db" 2>/dev/null; then
-        echo "A completed FerretDB migration exists; switching to database=ferretdb."
-        snapctl set database=ferretdb 2>/dev/null || true
+        echo "A completed FerretDB migration exists; starting FerretDB and stopping MongoDB."
         snapctl start --enable "${svc}.ferretdb" 2>/dev/null || true
         snapctl restart "${svc}.ferretdb" 2>/dev/null || true
         snapctl restart "${svc}.wekan" 2>/dev/null || true

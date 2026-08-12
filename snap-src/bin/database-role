@@ -1,0 +1,98 @@
+#!/bin/bash
+# database-role — which database this snap should be running RIGHT NOW.
+#
+#     mongodb   only while a migration is still owed (mongod is the source it is
+#               read from, and it keeps the site up until that finishes)
+#     ferretdb  every other time - which is what WeKan runs on
+#
+# There used to be a `database` snap setting with those two values, and an admin
+# could pin either one. It is gone, and this file is what replaced it, because
+# the setting could say something the data did not support:
+#
+#   * set to mongodb, it kept a site on the database the snap migrates AWAY from -
+#     for good, since nothing set it back. "WeKan changed to old MongoDB data" was
+#     that, and so was every instance still on MongoDB years after its migration
+#     was available.
+#   * set to ferretdb with no FerretDB there, it would have served an empty site;
+#     the guard for that had to be written anyway.
+#   * and a failed migration set it to mongodb as a repair, which is how the
+#     repair became permanent.
+#
+# The DATA answers the question and cannot disagree with itself, so it is asked
+# instead: is there a FerretDB with something in it, and has the migration that
+# fills it finished? Every caller - wekan-control, mongodb-control,
+# ferretdb-control and the configure hook - asks here, so there is one rule.
+#
+# Usage:  database-role            prints "mongodb" or "ferretdb"
+#         database-role --why      prints the role and a sentence about why
+set -u
+
+SNAP_COMMON="${SNAP_COMMON:-/var/snap/${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}/common}"
+SNAP="${SNAP:-/snap/${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}/current}"
+MARKER="$SNAP_COMMON/.migration-to-ferretdb-done"
+SQLITE_DIR="$SNAP_COMMON/files/db"
+
+has_ferretdb_data() {
+  if [ -x "$SNAP/bin/ferretdb-has-data" ] || [ -f "$SNAP/bin/ferretdb-has-data" ]; then
+    bash "$SNAP/bin/ferretdb-has-data" "$SQLITE_DIR" 2>/dev/null
+    return $?
+  fi
+  # Same test ferretdb-has-data makes, for a caller that has no $SNAP (a test).
+  ls "$SQLITE_DIR"/*.sqlite >/dev/null 2>&1 || return 1
+  for f in "$SQLITE_DIR"/*.sqlite; do [ -s "$f" ] && return 0; done
+  return 1
+}
+
+has_mongodb_data() {
+  [ -f "$SNAP_COMMON/WiredTiger" ] || ls "$SNAP_COMMON"/collection-*.wt >/dev/null 2>&1
+}
+
+role=ferretdb
+why="nothing to migrate: WeKan runs on FerretDB"
+
+# The MongoDB files are from a version no reader in this snap can open, and there
+# IS a FerretDB copy: serve that. It may be older than the MongoDB beside it, but
+# "older" beats "unreadable" - the alternative is an explanatory page while a
+# database full of boards sits next to it, which is what people saw. The snap
+# keeps retrying the migration on its own (a later revision may carry a reader
+# this one does not), and the merge brings the rest across when it can.
+if [ -f "$SNAP_COMMON/.mongodb-data-too-old" ] && has_ferretdb_data; then
+  if [ "${1:-}" = "--why" ]; then
+    echo "ferretdb (the MongoDB files cannot be read by this snap, and the FerretDB copy can)"
+  else
+    echo ferretdb
+  fi
+  exit 0
+fi
+
+# A FerretDB with data in it and NO migration in progress is a finished
+# migration, marker or no marker. The marker can be missing legitimately - a
+# forced re-migration removes it, and snaps old enough never wrote one - and
+# #6585 is what treating that as "not migrated yet" costs: the snap re-reads the
+# old MongoDB files on every start, over a FerretDB that has been serving for
+# months. An INTERRUPTED migration is the case that must not be mistaken for a
+# finished one, and it is distinguishable: it leaves migration-progress.json,
+# the checkpoint the importer resumes from.
+if has_ferretdb_data && { [ -f "$MARKER" ] || ! has_mongodb_data || \
+     [ ! -f "$SNAP_COMMON/migration-progress.json" ]; }; then
+  role=ferretdb
+  why="the migration is done and the FerretDB database has data in it"
+elif has_mongodb_data; then
+  # Either the migration has not finished, or it has and the FerretDB it produced
+  # is gone. Both mean the same thing here: the data is in MongoDB, so MongoDB is
+  # what keeps the site up, and migration-control migrates it (retrying on its own
+  # schedule when an attempt fails). NEVER serve an empty FerretDB beside a
+  # MongoDB that has the boards - that is what looks like total data loss.
+  role=mongodb
+  if [ -f "$MARKER" ]; then
+    why="the migration is marked done but the FerretDB database is empty or missing, and the data is in MongoDB"
+  else
+    why="the migration to FerretDB has not finished yet, and MongoDB holds the data"
+  fi
+fi
+
+if [ "${1:-}" = "--why" ]; then
+  echo "$role ($why)"
+else
+  echo "$role"
+fi

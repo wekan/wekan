@@ -219,9 +219,12 @@ test('mongodb-control will not switch to a stale migration', () => {
     'the switch must consult the check - "a completed migration exists" was the ' +
     'whole of its test, and completed is not the same as up to date');
   const guard = body.indexOf('ferretdb-migration-stale');
-  const doSwitch = body.indexOf('snapctl set database=ferretdb');
+  // There is no `snapctl set database=ferretdb` any more - the completion marker
+  // and the data say which database runs (bin/database-role) - so what has to
+  // come after the check is the SERVICE move.
+  const doSwitch = body.indexOf('start --enable "${svc}.ferretdb"');
   assert.ok(guard !== -1 && guard < doSwitch,
-    'and consult it BEFORE switching, not after');
+    'and consult it BEFORE starting FerretDB, not after');
   assert.ok(/return 1/.test(body.slice(guard, doSwitch)),
     'a stale migration must leave MongoDB running, which has the newest data');
 });
@@ -261,9 +264,14 @@ test('a migrated copy that is behind is caught up, not abandoned', () => {
   assert.ok(/database-autopick" --to-ferretdb/.test(after),
     'the newer MongoDB documents are merged INTO FerretDB, and WeKan stays there');
   const merge = after.indexOf('--to-ferretdb');
-  const revert = after.indexOf('snapctl set database=mongodb');
-  assert.ok(revert > merge,
+  // Nothing is written down for the fallback either: there is no setting to
+  // write. It serves MongoDB for THIS start, and the next start asks the data
+  // again and retries the merge.
+  const fallback = after.indexOf('export DATABASE="mongodb"');
+  assert.ok(fallback > merge,
     'MongoDB is only what it falls back to when the merge could not run');
+  assert.ok(!/snapctl set database=/.test(after),
+    'and the fallback is for this start only - it does not pin the snap to MongoDB');
   assert.ok(/snap revert. does not roll back|not rolled back by a revert/.test(after),
     'and it still says that nothing is lost - $SNAP_COMMON is shared across revisions - ' +
     'or the message reads as a report of data loss');

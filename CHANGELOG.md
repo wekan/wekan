@@ -440,6 +440,49 @@ and fixes the following bugs:
 **The snap** - which database it runs on, and how everything gets there.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASHNOSETTING">There is no database setting on the snap any more, and nothing to type</a>. Thanks to xet7.</summary>
+
+`snap set wekan database=mongodb|ferretdb` is **removed**, and so is
+`snap run wekan.database`. WeKan runs on **FerretDB** — every platform, every
+install — and MongoDB is in the amd64/arm64 snaps to be **read** while a
+migration is owed, not to be run on.
+
+A setting could say something the data did not support, and each way it could
+was a report:
+
+- set to `mongodb`, it kept a site on the database the snap migrates away from,
+  for good, because nothing ever set it back — including the instances a failed
+  migration or a wrong staleness guess had put there;
+- set to `ferretdb` with no FerretDB present, it would have served an empty
+  site, so the guard against that had to exist anyway;
+- and every script had its own copy of "which database is this, then".
+
+`snap-src/bin/database-role` replaced it: one helper, asked by `wekan-control`,
+`mongodb-control`, `ferretdb-control`, `migration-pending`, `attachment-repair`
+and the configure hook, that answers from the data — is there a FerretDB with
+something in it, and has the migration that fills it finished? An interrupted
+migration is told from a finished one by the importer's own checkpoint, so a
+partial FerretDB resumes and a finished one whose marker went missing is not
+migrated over again ([#6585](https://github.com/wekan/wekan/issues/6585)). A
+snap that still carries the old setting is told once that it is ignored, and it
+is unset.
+
+The **explanatory page** stopped being a dead end too. When the MongoDB files
+cannot be read by this snap but a FerretDB copy is there, that copy is now
+**served** instead of the page — older beats unreadable — and the page's first
+instruction, which used to be a command to type, says so. The rest of it now
+opens with the fact that the snap keeps trying by itself.
+
+[Migration-to-FerretDB.md](https://github.com/wekan/wekan/blob/main/docs/Platforms/FOSS/Container/Snap/Migration-to-FerretDB.md)
+is the whole design in one page: what moves (all text data to SQLite,
+CollectionFS **and** Meteor-Files attachments to the filesystem, the card
+History with it), which MongoDB versions can be read, when it runs, what happens
+when it fails, and how two copies are reconciled. The Admin Panel, Snap and
+CPU-platform docs point at it instead of describing a setting that is gone.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f7afbe1b8">A snap ends up on FerretDB, whatever it was running before</a>. Thanks to xet7.</summary>
 
 Three ways a snap could stay on MongoDB for good, all of them reported. The

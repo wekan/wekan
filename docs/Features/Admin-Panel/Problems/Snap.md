@@ -71,7 +71,7 @@ If `top` shows the **ferretdb** process pegged near 100%/200% for a long time, t
 FerretDB v1 (SQLite) backend is saturated under WeKan's poll load — the usual cause
 of pages taking minutes, counts stuck at `0`, and raw i18n keys. Mitigations: check
 whether a migration/repair is still running (`snap run wekan.problems migrations`),
-and consider running on MongoDB instead (`snap set wekan database=mongodb`, then
+and check the reactivity mode below (`snap set wekan wekan-ferretdb-oplog=false`, then
 migrate the text data across — see [Migrations.md](Migrations.md)).
 
 ## Notes

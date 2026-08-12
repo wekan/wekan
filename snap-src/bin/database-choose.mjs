@@ -8,7 +8,7 @@
 // out of them (bin/ferretdb-migration-stale) answer from mtimes, and an mtime
 // cannot tell "somebody used this database" from "this database was started" - so
 // when BOTH copies have been written to since the migration, that guard says
-// AMBIGUOUS and the admin was left to run `snap set wekan database=...` twice and
+// AMBIGUOUS and the admin was left to start each database by hand twice and
 // look at the boards each time. Most people never see that message: it is in
 // `snap logs`, and their site is meanwhile showing the wrong copy.
 //

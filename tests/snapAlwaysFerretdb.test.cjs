@@ -124,7 +124,9 @@ test('a successful migration leaves no retry record behind', () => {
   const fn = migrationControl.slice(at, migrationControl.indexOf('\n}', at));
   assert.ok(/rm -f "\$SNAP_COMMON\/\.migration-retry"/.test(fn),
     'or the next failure would count from the old attempts and wait a day too soon');
-  assert.ok(/snapctl set database=ferretdb/.test(fn),
+  // The `database` setting is gone; `touch "$MARKER"` plus the service move IS
+  // the switch, and bin/database-role reads that marker.
+  assert.ok(/touch "\$MARKER"/.test(fn) && /start --enable "\$\{svc\}\.ferretdb"/.test(fn),
     'and it ends on FerretDB, which is the whole point');
 });
 
@@ -133,10 +135,10 @@ test('the migration is not gated on the database setting', () => {
   // migration-pending refuses only for: already done, already ON FerretDB with
   // data, admin pause, missing tools, no MongoDB data, or a backoff that has not
   // elapsed. database=mongodb is not one of them.
-  assert.ok(!/get database[^\n]*=\s*"mongodb"/.test(pending),
-    'database=mongodb must not stop a migration');
-  assert.ok(/= "ferretdb" \] && \\\n   bash "\$SNAP\/bin\/ferretdb-has-data"/.test(pending),
-    'the only database-setting check is "already on FerretDB, with data in it"');
+  assert.ok(!/snapctl get database/.test(pending),
+    'there is no database setting left to gate a migration on');
+  assert.ok(/database-role" 2>\/dev\/null\)" = "ferretdb"/.test(pending),
+    'the only check is what the DATA says: already on FerretDB, with data in it');
 });
 
 console.log(`\nsnapAlwaysFerretdb: ${passed} tests passed`);

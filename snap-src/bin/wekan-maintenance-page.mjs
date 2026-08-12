@@ -93,16 +93,15 @@ const SNAP_NAME = (process.env.SNAP_INSTANCE_NAME || process.env.SNAP_NAME || 'w
 const SNAP_COMMON_PATH = (process.env.SNAP_COMMON || `/var/snap/${SNAP_NAME}/common`)
   .replace(/[<>&"]/g, '').slice(0, 120);
 const STEPS = IS_DATA_TOO_OLD ? `
-  <p class="muted" style="text-align:start">${HAS_FERRETDB ? 'Three ways forward, all' : 'Two ways forward, both'} keeping your data:</p>
+  <p class="muted" style="text-align:start">The snap keeps trying by itself - every WeKan
+    release may carry a reader for an older MongoDB than the last one did, and a new
+    revision retries immediately. ${HAS_FERRETDB ? 'Meanwhile:' : 'If you would rather not wait, two ways forward, both keeping your data:'}</p>
   <ol class="muted" style="text-align:start">${HAS_FERRETDB ? `
-    <li><b>Use the FerretDB database that is already here</b> - this snap was migrated
-      to FerretDB at some point and that copy holds data, so it can be served right
-      now:<br>
-      <code>sudo snap set ${SNAP_NAME} database=ferretdb</code><br>
-      The MongoDB files are left exactly as they are, so this is reversible with
-      <code>sudo snap set ${SNAP_NAME} database=mongodb</code>. Check the boards after
-      switching: this copy is as new as the last migration ran, which may be older
-      than the MongoDB data beside it.</li>` : ''}
+    <li><b>The FerretDB database that is already here is being served</b> - this snap
+      was migrated to FerretDB at some point and that copy holds data, so WeKan uses
+      it rather than showing you this page. Nothing to type. Check the boards: this
+      copy is as new as the last migration ran, which may be older than the MongoDB
+      data beside it, and the snap keeps trying to bring the rest across.</li>` : ''}
     <li><b>Go back to the revision that worked</b> and stay there for now:<br>
       <code>sudo snap revert ${SNAP_NAME}</code> then <code>sudo snap refresh --hold=forever ${SNAP_NAME}</code></li>
     <li><b>Move the data across</b> with a MongoDB that can read it${CAN_READ ? ` (MongoDB ${CAN_READ} or earlier)` : ''}.

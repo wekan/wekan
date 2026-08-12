@@ -12,9 +12,9 @@
 # bin/ferretdb-migration-stale answers that from file timestamps, and an mtime
 # cannot tell "somebody used this database" from "this database was started". When
 # both look used it says AMBIGUOUS, and until now that meant a message in
-# `snap logs` telling the admin to run `snap set wekan database=...` twice and look
-# at the boards each time. Most people never read it, and their site is meanwhile
-# showing the wrong copy.
+# `snap logs` telling the admin to switch databases twice and look at the boards
+# each time. Most people never read it, and their site is meanwhile showing the
+# wrong copy. (That switch does not even exist any more - WeKan runs on FerretDB.)
 #
 # WHAT THIS DOES INSTEAD. Both copies can be read - so read them. Each database is
 # started on a temporary port, `db-eval evidence` counts its documents and finds
@@ -37,8 +37,8 @@
 # becomes readable in the card's History.
 #
 # Nothing is ever deleted, on either side, and the copy that was not chosen stays
-# on disk exactly as it was - so `snap set wekan database=<the other one>` is still
-# the way back, and it is now a choice rather than a repair.
+# on disk exactly as it was, so nothing about this is one-way: the MongoDB files
+# are still there to be read, dumped or migrated again.
 #
 # --to-ferretdb: the destination is DECIDED, and only the merge is in question.
 # The snap's answer to "which database" is FerretDB - every platform, every
@@ -219,11 +219,17 @@ if [ -n "$MERGE_FROM" ]; then
 fi
 
 if [ "$DRY_RUN" = true ]; then
-  log "--dry-run: database=$CHOICE was NOT set."
+  log "--dry-run: nothing was changed (the choice would have been $CHOICE)."
   exit 0
 fi
 
-snapctl set database="$CHOICE" 2>/dev/null || true
-log "database=$CHOICE is now the one WeKan serves. The other copy is untouched;"
-log "switch back at any time with:  sudo snap set ${SNAP_INSTANCE_NAME:-wekan} database=$([ "$CHOICE" = mongodb ] && echo ferretdb || echo mongodb)"
+# There is no `database` setting to write: WeKan runs on FerretDB, and what this
+# script does is make sure FerretDB HOLDS everything - the merge above. The other
+# copy is untouched in $SNAP_COMMON, and its documents are now in the FerretDB
+# one's collections, so the work done there is in the card History rather than in
+# a database nobody opens.
+if [ "$CHOICE" != ferretdb ]; then
+  log "the newest work is in MongoDB; it has been merged into FerretDB, which is what WeKan serves."
+fi
+log "done. Both copies are still in $SNAP_COMMON; nothing was deleted."
 exit 0

@@ -301,7 +301,7 @@ consequence of section 9's invariant, not a new rule.
 **The situation.** A WeKan snap can end up holding TWO copies of its data that
 have both been written to since they were copies of each other: the MongoDB to
 FerretDB migration is a snapshot and nothing keeps it in step, `snap revert` does
-not roll back `$SNAP_COMMON`, and `snap set wekan database=...` can be switched
+not roll back `$SNAP_COMMON`, and both databases can be written to
 back and forth. Which copy gets served then decides what a user sees, and getting
 it wrong looks exactly like data loss — that is what both of those issues were.
 

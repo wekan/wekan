@@ -7,7 +7,7 @@ fi
 # FerretDB Control Script
 # Starts FerretDB v1 (the wekan/FerretDB fork) with its embedded pure-Go SQLite
 # backend, which speaks the MongoDB wire protocol. It is the MongoDB-compatible
-# alternative database, selected with:  snap set wekan database=ferretdb
+# database WeKan runs on. MongoDB runs beside it only while a migration is owed.
 #
 # Only one database runs at a time. This service starts FerretDB only when
 # `database` is set to ferretdb; otherwise it disables itself (mirroring how
@@ -19,21 +19,21 @@ echo "Reading snap settings..."
 source $SNAP/bin/wekan-read-settings
 
 # Maintenance mode: if $SNAP_COMMON/.wekan-maintenance exists, do NOT self-disable; start
-# FerretDB regardless of the `database` setting, so an admin can run FerretDB by hand
+# FerretDB even mid-migration, so an admin can run FerretDB by hand
 # (`snap start wekan.ferretdb`) to reach the data over the MongoDB wire protocol. Toggle with
 # `snap run wekan.maintenance on|off`. FerretDB and MongoDB share port 27019 - run one at a time.
 WEKAN_MAINTENANCE="$SNAP_COMMON/.wekan-maintenance"
 if [ -f "$WEKAN_MAINTENANCE" ]; then
-    echo "MAINTENANCE MODE (.wekan-maintenance present): starting FerretDB directly, ignoring the"
-    echo "database setting. Stop with 'snap stop wekan.ferretdb'."
+    echo "MAINTENANCE MODE (.wekan-maintenance present): starting FerretDB directly, whatever"
+    echo "the migration state is. Stop with 'snap stop wekan.ferretdb'."
 fi
 
-# The `database` snap setting is AUTHORITATIVE (see wekan-control): FerretDB runs only when
-# database=ferretdb. This lets an admin keep WeKan on MongoDB (`snap run wekan.database mongodb`)
-# while a migration is being fixed, instead of being force-switched to FerretDB just because a
-# SQLite file exists. A successful migration sets database=ferretdb itself (finish_success).
-if [ ! -f "$WEKAN_MAINTENANCE" ] && [ "ferretdb" != "${DATABASE}" ]; then
-    echo "database is '${DATABASE:-mongodb}', not 'ferretdb'. Disabling ferretdb service."
+# FerretDB is what WeKan runs on, so this service starts unless the snap is still
+# in the middle of getting there: bin/database-role says mongodb while a migration
+# is owed (mongod holds the shared port then, and it has the data), and ferretdb
+# the rest of the time. There is no setting in it - the data decides.
+if [ ! -f "$WEKAN_MAINTENANCE" ] && [ "ferretdb" != "$(bash "$SNAP/bin/database-role")" ]; then
+    echo "$(bash "$SNAP/bin/database-role" --why). Disabling ferretdb service until that is done."
     snapctl stop --disable ${SNAP_NAME}.ferretdb 2>/dev/null || true
     exit 0
 fi

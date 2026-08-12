@@ -17,17 +17,18 @@ DBPATH="$SNAP_COMMON"
 # WeKan serves "Wekan cannot open the existing database" - while the boards and
 # cards are sitting in FerretDB, readable, and nothing is wrong with them.
 #
-# "Already on FerretDB" has to mean the setting AND real data, not the setting
-# alone: database=ferretdb with an empty files/db is the case the migration exists
-# for, and it must still run.
-if [ "$(snapctl get database 2>/dev/null)" = "ferretdb" ] && \
-   bash "$SNAP/bin/ferretdb-has-data" "$SNAP_COMMON/files/db" 2>/dev/null; then
+# "Already on FerretDB" is a question about the DATA, not about a setting - and
+# there is no setting any more. bin/database-role answers it the same way for
+# every script in the snap: a FerretDB with something in it, and a migration that
+# has finished (or no MongoDB data to migrate). An empty files/db is exactly the
+# case the migration exists for, and it still runs.
+if [ "$(bash "$SNAP/bin/database-role" 2>/dev/null)" = "ferretdb" ]; then
   exit 1
 fi
-# Admin can pause auto-migration so WeKan keeps running on MongoDB while a migration is being
-# fixed: `snap set wekan migrate=off` (or `snap run wekan.database mongodb`). A migration that
-# FAILS also sets migrate=off automatically so it does not loop and cause downtime. Re-enable
-# and retry with `snap run wekan.migrate`.
+# An admin can pause auto-migration while a problem is being looked at:
+# `snap set wekan migrate=off`. That is the only way it stops - a FAILED migration
+# does not stop it any more, it schedules a retry (see the record below). Retry now
+# with `snap run wekan.migrate`.
 [ "$(snapctl get migrate 2>/dev/null)" = "off" ] && exit 1
 # A previous attempt FAILED. It is retried - every WeKan snap is meant to end up on
 # FerretDB - but not on every start, or a migration that cannot succeed yet would

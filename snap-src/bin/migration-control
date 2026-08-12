@@ -21,7 +21,7 @@
 #      the legacy mongo CLI (mongoexport — the modern Node driver can't talk to 3.2)
 #      and inserts into FerretDB with the Node driver, extracting GridFS the same
 #      way. NO mongodump/mongorestore and no intermediate MongoDB 7.
-#   3. On success it switches the snap to database=ferretdb (MongoDB is then stopped
+#   3. On success it marks the migration done (MongoDB is then stopped
 #      and disabled by mongodb-control). Progress is shown at ROOT_URL.
 #   4. If neither mongod can open the data (unusual/corrupt) or the tools are
 #      missing, it falls back to a normal MongoDB start so the service is never left
@@ -217,7 +217,7 @@ cleanup_all() {
 # call once the handler returns, reads the importer's signal exit code (143) as a
 # failure, and discards the partial SQLite — throwing away hours of work on every snap
 # refresh. The source MongoDB data is untouched either way, and the snap is still on
-# database=mongodb (only finish_success switches it), so WeKan comes back up on MongoDB
+# the migration unfinished (only finish_success marks it), so WeKan comes back up on MongoDB
 # and the migration continues on the next start.
 interrupted_keep_progress() {
   trap - EXIT INT TERM     # this handler does the cleanup; do not run it twice
@@ -256,7 +256,7 @@ resume_next_start() {   # $1 = importer exit code
 }
 # On a successful migration: mark done and switch the snap to FerretDB. The MongoDB
 # source mongod (temporary) is stopped by the EXIT trap, and mongodb-control, seeing
-# database=ferretdb on the next activation, stops+disables the MongoDB service — so
+# FerretDB on the next activation, stops+disables the MongoDB service — so
 # afterwards only WeKan (Node.js) + FerretDB (SQLite) run.
 finish_success() {
   # VERIFY the migration actually produced a non-empty FerretDB SQLite database before
@@ -284,10 +284,13 @@ finish_success() {
   rm -f "$SNAP_COMMON/.mongod-start-failures" 2>/dev/null || true
   # The retry record describes attempts that failed; this one did not.
   rm -f "$SNAP_COMMON/.migration-retry" 2>/dev/null || true
-  snapctl set database=ferretdb 2>/dev/null || true
-  # CRUCIAL: an INTERNAL `snapctl set` does NOT re-run the configure hook, so we must flip
-  # the database services here ourselves — exactly as snap/hooks/configure's ferretdb
-  # branch does. Otherwise FerretDB (which disabled its own service while database=mongodb)
+  # The marker above IS the switch now: bin/database-role reads it (plus a FerretDB
+  # with data in it) and every service asks database-role. There is no `database`
+  # setting to set - it was removed, because a setting could say mongodb while the
+  # data said otherwise, and then nothing ever set it back.
+  #
+  # The services still have to be flipped HERE, exactly as snap/hooks/configure's
+  # ferretdb branch does. Otherwise FerretDB (which disabled its own service while the migration was owed)
   # is never enabled/started, MongoDB stays enabled, and WeKan is left with no database to
   # talk to ("MongoDB not ready yet, retrying in 5 seconds..." forever). Enable+start
   # FerretDB FIRST (so a DB is running before we stop MongoDB, and before disabling THIS
@@ -314,7 +317,7 @@ finish_success() {
   # the one command that can terminate us goes LAST.
   snapctl start --enable "${svc}.ferretdb" 2>/dev/null || true
   snapctl restart "${svc}.ferretdb" 2>/dev/null || true
-  # WeKan is still waiting for MongoDB; restart it so it re-reads database=ferretdb
+  # WeKan is still waiting for MongoDB; restart it so it sees the finished migration
   # and connects to the FerretDB that is now running.
   snapctl restart "${svc}.wekan" 2>/dev/null || true
   # The migration is finished and the switch is recorded, so a SIGTERM from here on

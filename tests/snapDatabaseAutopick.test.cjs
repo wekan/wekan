@@ -267,8 +267,8 @@ test('wekan-control asks autopick before it repeats the old advice', () => {
   const branch = wekan.slice(at, wekan.indexOf('if [ "ferretdb" = "$DATABASE" ]', at));
   assert.ok(/bin\/database-autopick/.test(branch),
     'the ambiguous case is where the admin used to be sent away to run commands');
-  assert.ok(/snapctl get database/.test(branch),
-    'and after a choice the setting has to be re-read, or this start brings up the '
+  assert.ok(/database-role/.test(branch),
+    'and after a merge the role has to be asked again, or this start brings up the '
     + 'database that was NOT chosen');
   assert.ok(/sudo snap set .* database=mongodb/.test(branch)
     && /sudo snap set .* database=ferretdb/.test(branch),

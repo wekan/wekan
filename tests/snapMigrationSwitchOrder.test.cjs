@@ -84,19 +84,22 @@ test('the switch is still verified and recorded before any of it', () => {
   // Guard the safety property the reorder must not have disturbed: nothing is
   // switched until a non-empty FerretDB SQLite is confirmed.
   const verify = finish.indexOf('ferretdb-has-data');
-  const setDb = finish.indexOf('snapctl set database=ferretdb');
+  // `snapctl set database=ferretdb` is gone with the setting; the MARKER is what
+  // records the switch now, and bin/database-role reads it. Same order, same
+  // property: nothing moves until a non-empty FerretDB SQLite is confirmed.
+  const mark = finish.indexOf('touch "$MARKER"');
   const startFerret = finish.indexOf('start --enable "${svc}.ferretdb"');
-  assert.ok(verify >= 0 && verify < setDb && setDb < startFerret,
-    'verify the SQLite, then record database=ferretdb, then move the services');
+  assert.ok(verify >= 0 && verify < mark && mark < startFerret,
+    'verify the SQLite, then record the migration as done, then move the services');
 });
 
 test('wekan-control leaves the wait loop when the database is switched under it', () => {
   const loop = wekanControl.slice(
     wekanControl.indexOf('Waiting for MongoDB replica set primary...'),
     wekanControl.indexOf('MongoDB replica set primary is ready.'));
-  assert.ok(/snapctl get database/.test(loop),
-    'the loop must re-read the live database setting, not only the value it ' +
-    'sampled at startup');
+  assert.ok(/database-role/.test(loop),
+    'the loop must ask again which database should be running - bin/database-role, ' +
+    'from the data - and not only use the value it sampled at startup');
   assert.ok(/exec "\$0"/.test(loop),
     'on a switch it must re-exec onto FerretDB instead of waiting for a MongoDB ' +
     'that is never coming back');

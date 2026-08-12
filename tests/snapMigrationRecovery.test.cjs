@@ -58,7 +58,11 @@ test('failure handler switches to a COMPLETED FerretDB migration only', () => {
     'must require the completion marker');
   assert.ok(switcher[0].includes('ferretdb-has-data'),
     'must require a non-empty SQLite');
-  assert.ok(switcher[0].includes('snapctl set database=ferretdb'));
+  // It used to also `snapctl set database=ferretdb`. The setting is gone: the
+  // marker it already requires above is the record, and every service asks
+  // bin/database-role, so starting FerretDB is the whole of the switch.
+  assert.ok(switcher[0].includes('start --enable "${svc}.ferretdb"'),
+    'and start FerretDB, which is what switching now is');
   const handler = mongodbControl.match(/handle_mongod_start_failure\(\) \{[\s\S]*?\n\}/);
   assert.ok(handler, 'handler found');
   assert.ok(handler[0].includes('switch_to_completed_ferretdb'),

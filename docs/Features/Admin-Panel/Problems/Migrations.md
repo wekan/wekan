@@ -19,8 +19,10 @@ upserting by `_id` (idempotent — re-running is safe).
 2. **Migrating** — every non-file collection is copied in batches to the other
    database.
 
-After it finishes, point `MONGO_URL` at the other database (on the snap:
-`snap set wekan database=ferretdb` or `=mongodb`) and restart.
+After it finishes, point `MONGO_URL` at the other database and restart. On the
+**snap** there is nothing to point: WeKan runs on FerretDB and the snap migrates
+itself, with no setting to choose — see
+[Migration-to-FerretDB.md](../../../Platforms/FOSS/Container/Snap/Migration-to-FerretDB.md).
 
 ## Runs server-side
 
@@ -50,10 +52,12 @@ page in another session could not read it.
 
 If the **ferretdb** process is pegged near 200% CPU for a long time (pages take
 minutes, All Boards counts stay `0`, raw i18n keys appear), the FerretDB v1
-(SQLite) backend is saturated under WeKan's poll load. Migrating the text data to
-**MongoDB** and switching to it (`snap set wekan database=mongodb`) removes that
-bottleneck for a heavy instance. First check that a migration/repair is not simply
-still running (`snap run wekan.problems`).
+(SQLite) backend is saturated under WeKan's poll load. First check that a
+migration or repair is not simply still running (`snap run wekan.problems`), then
+the reactivity mode below — polling instead of the OpLog is the usual cause and
+the one thing that is a setting. On the snap there is no longer a way to move
+back to MongoDB: WeKan runs on FerretDB
+([Migration-to-FerretDB.md](../../../Platforms/FOSS/Container/Snap/Migration-to-FerretDB.md)).
 
 ## FerretDB reactivity mode (polling vs OpLog) — the usual CPU cause
 

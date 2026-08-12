@@ -165,8 +165,9 @@ these snap defaults (in [`snap-src/bin/config`](../../../../../snap-src/bin/conf
 On amd64/arm64 you can still switch an install to the bundled MongoDB 7 server:
 
 ```
-sudo snap set wekan database=mongodb   # amd64/arm64 only (mongod is bundled there)
-sudo snap set wekan database=ferretdb  # the default
+# Nothing to set: WeKan runs on FerretDB on every platform, and an amd64/arm64
+# snap that still has MongoDB data migrates it by itself. See
+# Migration-to-FerretDB.md
 ```
 
 ## MongoDB client binaries: source and availability

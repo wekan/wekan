@@ -60,6 +60,11 @@ function makeSnap({ database, ferretdbData, mongoData = true, marker = false, mi
   fs.writeFileSync(path.join(snap, 'bin/migrate-mongodb-to-ferretdb.mjs'), '');
   fs.copyFileSync(path.join(repoRoot, 'snap-src/bin/ferretdb-has-data'),
                   path.join(snap, 'bin/ferretdb-has-data'));
+  // migration-pending asks bin/database-role now (there is no `database`
+  // setting), so the real helper goes in beside it and the fixture's files are
+  // what it reads.
+  fs.copyFileSync(path.join(repoRoot, 'snap-src/bin/database-role'),
+                  path.join(snap, 'bin/database-role'));
   if (mongoData) fs.writeFileSync(path.join(common, 'WiredTiger'), 'x');
   if (marker) fs.writeFileSync(path.join(common, '.migration-to-ferretdb-done'), '');
   if (ferretdbData) fs.writeFileSync(path.join(common, 'files/db/wekan.sqlite'), 'x');
@@ -98,12 +103,28 @@ test('migration-pending: database=ferretdb with an EMPTY files/db still migrates
   fs.rmSync(env.dir, { recursive: true, force: true });
 });
 
-test('migration-pending: on MongoDB, a FerretDB copy beside it changes nothing', () => {
-  // database=mongodb means the admin chose MongoDB (or a guard put them back on it).
-  // A FerretDB copy sitting there does not make that choice for them.
+test('migration-pending: a FerretDB copy with no migration in progress is migrated', () => {
+  // This assertion was the other way around while there was a `database`
+  // setting: database=mongodb meant somebody had chosen MongoDB, so a FerretDB
+  // copy beside it did not count. There is no setting to choose with any more,
+  // and what is left is the data - a FerretDB with content and no checkpoint is
+  // a migration that finished. Bringing MongoDB's newer writes across is the
+  // MERGE's job (database-autopick --to-ferretdb), not a second migration on
+  // top of a database that has been serving.
   const env = makeSnap({ database: 'mongodb', ferretdbData: true, marker: false });
+  assert.strictEqual(migrationPending(env), 1,
+    'nothing is owed: this is a migrated snap whose marker went missing');
+  fs.rmSync(env.dir, { recursive: true, force: true });
+});
+
+test('migration-pending: an INTERRUPTED migration is owed, and resumes', () => {
+  // The one case a non-empty FerretDB does not mean "done": the importer writes
+  // migration-progress.json as it goes and resumes from it, so a checkpoint
+  // beside a partial FerretDB is a migration in progress.
+  const env = makeSnap({ database: 'mongodb', ferretdbData: true, marker: false });
+  fs.writeFileSync(path.join(env.common, 'migration-progress.json'), '{"collections":[]}');
   assert.strictEqual(migrationPending(env), 0,
-    'the migration is still owed; what it must not do is start from a stale checkpoint');
+    'a partial FerretDB must not be mistaken for a finished migration');
   fs.rmSync(env.dir, { recursive: true, force: true });
 });
 
@@ -141,7 +162,7 @@ test('the marker re-exec in the wait loop cannot spin', () => {
 
 test('mongodb-control still asks migration-pending, and stops for ferretdb right after', () => {
   const pending = mongodbControl.indexOf('bin/migration-pending');
-  const stop = mongodbControl.indexOf('"ferretdb" == "${DATABASE}"');
+  const stop = mongodbControl.indexOf('bin/database-role")" ]; then');
   assert.ok(pending !== -1 && stop > pending,
     'the order is fine now that migration-pending itself knows about FerretDB: ' +
     'nothing pending, so this falls through to stopping the MongoDB service');
@@ -173,13 +194,17 @@ async function pageOffersFerretdb() {
       try { body = await get(); }
       catch (e) { if (Date.now() > deadline) throw e; await new Promise(r => setTimeout(r, 150)); }
     }
-    assert.ok(/Three ways forward/.test(body),
-      'with a FerretDB copy present there is a third way, and it is the quick one');
-    assert.ok(/snap set wekan database=ferretdb/.test(body),
-      'the page has to give the exact command, or it is just news');
-    assert.ok(/snap set wekan database=mongodb/.test(body),
-      'and say how to undo it, since the MongoDB files are left untouched');
-    assert.ok(/older\s+than the MongoDB data beside it/.test(body),
+    // The page used to tell the reader to run `snap set wekan database=ferretdb`.
+    // There is no such command, and there is nothing to type: with a readable
+    // FerretDB copy present the snap SERVES it (bin/database-role), so the page
+    // says that rather than asking for a decision.
+    assert.ok(/is being served/.test(body),
+      'the FerretDB copy that exists is used, not offered');
+    assert.ok(!/snap set wekan database=/.test(body),
+      'and the removed setting is not printed as advice');
+    assert.ok(/keeps trying by itself/.test(body),
+      'and the page says the migration retries on its own, since it does');
+    assert.ok(/older than the MongoDB\s+data beside it/.test(body),
       'and warn that a migrated copy is only as new as the migration - the #6583 trap');
     assert.ok(/snap revert/.test(body) && /mongodump/.test(body),
       'the two original ways forward stay');
@@ -205,9 +230,9 @@ async function pageOffersFerretdb() {
           });
         } catch (e) { if (Date.now() > dl2) throw e; await new Promise(r => setTimeout(r, 150)); }
       }
-      assert.ok(/Two ways forward/.test(plain) && !/database=ferretdb/.test(plain),
-        'no FerretDB copy, no offer to switch to one - the page must not name a ' +
-        'database that is not there');
+      assert.ok(/two ways forward/i.test(plain) && !/is being served/.test(plain),
+        'no FerretDB copy, so the page must not say one is being served - and it ' +
+        'must not name a database that is not there');
       passed += 1;
       console.log('  ok - and says nothing about FerretDB when there is no copy to serve');
     } finally { child2.kill(); }

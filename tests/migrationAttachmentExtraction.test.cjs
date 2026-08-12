@@ -220,17 +220,23 @@ test('migrate-gridfs-to-fs reads each source from its OWN GridFS bucket', () => 
     'a GridFS-flagged record with no reference is reported as an error, not silently skipped');
 });
 
-// --- snap wekan-database: point lost users at the actual re-migration ----------
+// --- there is no `wekan.database` command any more ----------------------------
+//
+// It used to switch between mongodb and ferretdb, and its own help had to explain
+// that switching is not migrating ("does NOT migrate data") because people ran it
+// expecting their attachments to appear. Both the command and the setting behind
+// it are gone: WeKan runs on FerretDB, the migration happens by itself, and
+// `snap run wekan.migrate` is the one command that re-runs it.
 
-const wekanDatabase = read('snap-src/bin/wekan-database');
-
-test('wekan.database ferretdb explains it does not migrate and names wekan.migrate', () => {
-  assert.ok(wekanDatabase.includes('does NOT migrate data'));
-  assert.ok(wekanDatabase.includes('snap run ${svc}.migrate'));
-});
-
-test('wekan.database ferretdb says when nothing was switched', () => {
-  assert.ok(wekanDatabase.includes('already using FerretDB'));
+test('the switch command is gone, and nothing points at it', () => {
+  assert.ok(!fs.existsSync(path.join(repoRoot, 'snap-src/bin/wekan-database')),
+    'the command is removed');
+  const snapcraft = read('snapcraft.yaml');
+  assert.ok(!/command: \.\/bin\/wekan-database/.test(snapcraft),
+    'and it is not registered as a snap app');
+  for (const f of ['snap-src/bin/wekan-force-migrate', 'snap-src/bin/migration-pending']) {
+    assert.ok(!/wekan\.database/.test(read(f)), `${f} must not send anybody to it`);
+  }
 });
 
 console.log(`migrationAttachmentExtraction.test.cjs: ${passed} tests passed`);

@@ -7,6 +7,15 @@ fi
 # get wekan/mongo settings
 source $SNAP/bin/wekan-read-settings
 
+# WHICH DATABASE. There is no `database` setting any more - WeKan runs on
+# FerretDB, and MongoDB exists in this snap to be READ while a migration is
+# owed. bin/database-role answers from the data itself (is there a FerretDB with
+# something in it, and has the migration finished?), so the answer cannot
+# disagree with what is on disk the way a setting could. Everything below that
+# reads "$DATABASE" is unchanged: it is the same two values, decided better.
+DATABASE="$(bash "$SNAP/bin/database-role")"
+export DATABASE
+
 # Sibling snap service prefix ("wekan", or the instance name for a parallel install).
 WEKAN_SNAP_SVC="${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}"
 
@@ -49,7 +58,7 @@ fi
 #
 # The marker is left in place rather than deleted. It is true - those files really
 # are unreadable by this snap - and it belongs to MongoDB, so if the admin switches
-# back with `snap set wekan database=mongodb` the page is right to return.
+# back to a snap that cannot read the data, the page is right to return.
 SERVING_FERRETDB=false
 if [ "ferretdb" = "$DATABASE" ] && \
    bash "$SNAP/bin/ferretdb-has-data" "$SNAP_COMMON/files/db" 2>/dev/null; then
@@ -73,13 +82,12 @@ fi
 
 # ---------------------------------------------------------------------------------------
 # Which database does WeKan use? The `database` snap setting is AUTHORITATIVE:
-#   snap set wekan database=mongodb    -> WeKan runs on MongoDB
-#   snap set wekan database=ferretdb   -> WeKan runs on FerretDB (migrated SQLite)
-# So an admin can keep WeKan working on MongoDB while a FerretDB migration is being fixed -
-# there is NO forced auto-switch to FerretDB just because a SQLite file exists. A successful
-# migration sets database=ferretdb itself (migration-control's finish_success). The ONLY
-# override is the safety guard below: never start an EMPTY FerretDB while real data still
-# lives in MongoDB (that would look like all data was lost).
+# WeKan runs on FerretDB. MongoDB runs only while a migration is still owed - it is
+# the source that gets READ, and it keeps the site up until the migration finishes.
+# There is no `database` setting to choose between them any more: bin/database-role
+# decides from the data, so the answer cannot contradict what is on disk, and the
+# safety it exists for is built in - never start an EMPTY FerretDB while real data
+# still lives in MongoDB (that would look like all data was lost).
 # ---------------------------------------------------------------------------------------
 FERRETDB_SQLITE_DIR="$SNAP_COMMON/files/db"
 ferretdb_has_data=false
@@ -100,7 +108,6 @@ if [ "ferretdb" = "$DATABASE" ] && [ "$ferretdb_has_data" != "true" ] && [ "$mon
     echo "migrate, or 'snap set wekan database=ferretdb' again once it is migrated."
     echo "========================================================================"
     export DATABASE="mongodb"
-    snapctl set database=mongodb 2>/dev/null || true
 fi
 
 # SAFETY, the second half (#6583): never serve a FerretDB copy that is OLDER than the
@@ -161,7 +168,7 @@ if [ "$mongodb_has_data" = "true" ] && [ "$migration_stale_rc" -eq 2 ]; then
     if [ "$autopick_rc" -eq 0 ]; then
         # The setting has just changed underneath us; re-read it so this start
         # brings up the database that was chosen rather than the previous one.
-        DATABASE="$(snapctl get database 2>/dev/null || echo "$DATABASE")"
+        DATABASE="$(bash "$SNAP/bin/database-role")"
         echo "WeKan: continuing on database=${DATABASE}, chosen from what the databases hold."
     else
         echo "Staying on database=${DATABASE} - the setting you already have - because"
@@ -201,7 +208,7 @@ if [ "ferretdb" = "$DATABASE" ] && [ "$mongodb_has_data" = "true" ] && [ "$migra
         if bash "$SNAP/bin/database-autopick" --to-ferretdb; then merged=true; fi
     fi
     if [ "$merged" = true ]; then
-        DATABASE="$(snapctl get database 2>/dev/null || echo ferretdb)"
+        DATABASE="$(bash "$SNAP/bin/database-role")"
         export DATABASE
         echo "WeKan: continuing on database=${DATABASE}, with the MongoDB data merged into it."
         echo "The MongoDB data is untouched in $SNAP_COMMON; nothing was deleted."
@@ -211,11 +218,12 @@ if [ "ferretdb" = "$DATABASE" ] && [ "$mongodb_has_data" = "true" ] && [ "$migra
         # so this falls back to the database that demonstrably holds the newest
         # writes, says so, and tries the merge again on the next start.
         echo "The merge could not run this time (see 'snap logs ${WEKAN_SNAP_SVC:-wekan}'), and serving a"
-        echo "FerretDB copy that is behind would be showing old data. Staying on"
-        echo "database=mongodb for now - it has the newest writes - and trying again on the"
-        echo "next start. To do it by hand:  snap run ${WEKAN_SNAP_SVC:-wekan}.migrate"
+        echo "FerretDB copy that is behind would be showing old data. Serving MongoDB for"
+        echo "this start - it has the newest writes - and trying the merge again on the next"
+        echo "one. To do it now:  snap run ${WEKAN_SNAP_SVC:-wekan}.migrate"
+        # For THIS start only. Nothing is written down: the next start asks the
+        # data again, and the merge that failed here is what has to succeed.
         export DATABASE="mongodb"
-        snapctl set database=mongodb 2>/dev/null || true
     fi
     echo "========================================================================"
 fi
@@ -479,8 +487,8 @@ elif [ "true" != "${DISABLE_MONGODB}" ]; then
             echo "the database files are from a MongoDB this snap cannot read; serving the explanatory page."
             exec "$0" "$@"
         fi
-        if [ "ferretdb" = "$(snapctl get database 2>/dev/null)" ]; then
-            echo "database is now set to ferretdb (migration finished while WeKan was waiting for MongoDB); restarting onto FerretDB."
+        if [ "ferretdb" = "$(bash "$SNAP/bin/database-role" 2>/dev/null)" ]; then
+            echo "the migration finished while WeKan was waiting for MongoDB; restarting onto FerretDB."
             exec "$0" "$@"
         fi
         echo "MongoDB not ready yet, retrying in 5 seconds..."

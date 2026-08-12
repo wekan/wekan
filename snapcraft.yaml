@@ -116,11 +116,12 @@ apps:
         daemon: simple
         plugs: [network, network-bind]
 
-    # Alternative MongoDB-compatible database: FerretDB v1 (the wekan/FerretDB
-    # fork) with its embedded SQLite backend. Only one of mongodb / ferretdb runs
-    # at a time; switch with `snap set wekan database=ferretdb` (the configure
-    # hook stops mongod and starts this, and vice-versa). The ferretdb binary is
-    # shipped inside the WeKan bundle (staged to $SNAP/ferretdb by the wekan part).
+    # The database WeKan runs on: FerretDB v1 (the wekan/FerretDB fork) with its
+    # embedded SQLite backend. The mongodb service beside it runs only while a
+    # migration is still owed - it is the source that is READ - and bin/database-role
+    # says which of the two that is, from the data. Both bind the same port, so one
+    # runs at a time. The ferretdb binary is shipped inside the WeKan bundle
+    # (staged to $SNAP/ferretdb by the wekan part).
     ferretdb:
         command: ./bin/ferretdb-control
         daemon: simple
@@ -169,10 +170,6 @@ apps:
 
     maintenance:
         command: ./bin/wekan-maintenance
-        plugs: [network, network-bind]
-
-    database:
-        command: ./bin/wekan-database
         plugs: [network, network-bind]
 
     # Print the Admin Panel / Problems "Status" overview as text (problems,

@@ -44,10 +44,11 @@ if [ -f "$COMMON/.wekan-maintenance" ]; then
   exit 0
 fi
 
-# Only meaningful when WeKan runs on FerretDB. Before the switch, the normal
-# migration path (migration-control, with the fixed importers) covers files.
-if [ "$(snapctl get database 2>/dev/null)" != "ferretdb" ]; then
-  log "database is not ferretdb; nothing to repair yet."
+# Only meaningful once WeKan is running on FerretDB. While a migration is still
+# owed, the migration path (migration-control, with the fixed importers) is what
+# covers the files. bin/database-role knows which of those is true.
+if [ "$(bash "$SNAP/bin/database-role" 2>/dev/null)" != "ferretdb" ]; then
+  log "the migration to FerretDB is not finished yet; nothing to repair."
   exit 0
 fi
 

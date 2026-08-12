@@ -31,7 +31,7 @@ function test(name, fn) {
 }
 
 // Build a disposable environment: fake $SNAP with stub tools, fake $SNAP_COMMON.
-// opts: {database, ferretdbData, mongodbData, marker, maintenance, nodeExit}
+// opts: {migrationDone, ferretdbData, mongodbData, marker, maintenance, nodeExit}
 function makeEnv(opts = {}) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'attachment-repair-'));
   const snap = path.join(root, 'snap');
@@ -45,11 +45,12 @@ function makeEnv(opts = {}) {
   // Real guard helper, stubbed tools.
   fs.copyFileSync(path.join(repoRoot, 'snap-src/bin/ferretdb-has-data'), path.join(snap, 'bin/ferretdb-has-data'));
 
-  // snapctl stub: `snapctl get database` prints the configured value.
-  fs.writeFileSync(path.join(stubBin, 'snapctl'), `#!/bin/sh
-if [ "$1" = "get" ] && [ "$2" = "database" ]; then echo "${opts.database || 'ferretdb'}"; fi
-exit 0
-`, { mode: 0o755 });
+  // There is no `database` setting any more: attachment-repair asks
+  // bin/database-role, which answers from the data. The REAL helper is copied in
+  // and the fixture below arranges the data it reads, so this stays a test of
+  // the repair rather than of a stub.
+  fs.copyFileSync(path.join(repoRoot, 'snap-src/bin/database-role'), path.join(snap, 'bin/database-role'));
+  fs.writeFileSync(path.join(stubBin, 'snapctl'), '#!/bin/sh\nexit 0\n', { mode: 0o755 });
 
   // db-eval stub: ping/shutdown always succeed (FerretDB and temp mongod "ready").
   fs.writeFileSync(path.join(snap, 'bin/db-eval'), `#!/bin/sh
@@ -90,6 +91,17 @@ exit ${Number.isInteger(opts.nodeExit) ? opts.nodeExit : 0}
   }
   if (opts.mongodbData !== false) {
     fs.writeFileSync(path.join(common, 'WiredTiger'), 'WiredTiger');
+  }
+  // The migration marker is what says "WeKan is on FerretDB now" - the state a
+  // file repair belongs to. It replaced `snap set wekan database=ferretdb`, which
+  // is why this fixture writes a file instead of stubbing a setting.
+  if (opts.migrationDone !== false) {
+    fs.writeFileSync(path.join(common, '.migration-to-ferretdb-done'), '');
+  } else {
+    // Not merely "no marker": a FerretDB with data and no checkpoint IS a
+    // finished migration whose marker went missing (#6585). An UNFINISHED one
+    // leaves the importer's checkpoint behind, and that is this state.
+    fs.writeFileSync(path.join(common, 'migration-progress.json'), '{"collections":[]}');
   }
   if (opts.marker) fs.writeFileSync(path.join(common, '.attachments-files-v2-done'), '');
   if (opts.maintenance) fs.writeFileSync(path.join(common, '.wekan-maintenance'), '');
@@ -150,8 +162,10 @@ test('negative: importer failure leaves NO marker so the next start retries', ()
 
 // ── guards (negative cases) ───────────────────────────────────────────────────
 
-test('negative: skips while still on MongoDB (normal migration path covers files)', () => {
-  const env = makeEnv({ database: 'mongodb' });
+test('negative: skips while the migration is still owed (that path covers files)', () => {
+  // Was `{ database: 'mongodb' }` - the setting is gone, and "not on FerretDB
+  // yet" is now what the data says: no migration marker.
+  const env = makeEnv({ migrationDone: false });
   const r = runRepair(env);
   assert.strictEqual(r.status, 0);
   assert.ok(!markerExists(env), 'must not mark done — migration has not happened yet');
