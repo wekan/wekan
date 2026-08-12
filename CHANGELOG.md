@@ -355,7 +355,7 @@ from the provenance each build job records.
 This release fixes the following release-tooling bugs:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/87279288f">A download that 503s is retried for a quarter of an hour, and a 404 still fails at once</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e771f8c66">A download that 503s is retried for a quarter of an hour, and a 404 still fails at once</a>. Thanks to xet7.</summary>
 
 The second run of the same afternoon died one step later than the first, in
 `build-amd64`, on the FerretDB binary:
