@@ -739,7 +739,7 @@ and changes what the Helm chart installs and how it is published:
 <summary><a href="https://github.com/wekan/wekan/commit/5d1c9d0a3">This release switches the Helm chart to FerretDB, and its release job is what publishes it</a>. Thanks to salcinad, ouvry-ems and xet7.</summary>
 
 [wekan/charts](https://github.com/wekan/charts) drops its bundled MongoDB for
-FerretDB (`ghcr.io/wekan/ferretdb`), installed by the chart itself as one
+FerretDB (`quay.io/wekan/ferretdb`), installed by the chart itself as one
 StatefulSet and one ClusterIP Service. That answers
 [charts#55](https://github.com/wekan/charts/issues/55) — WeKan runs on FerretDB
 and the chart did not — and
@@ -756,6 +756,17 @@ the Release All workflow publishes chart `<version>.0` from the charts repo's
 publishes it, with an image that exists and an index entry written by the script
 that owns the index. Nothing was published out of band, and no existing entry in
 the index is touched: charts already in it keep their package and their digest.
+
+The image is the one that can be PULLED. wekan/FerretDB publishes the same
+multi-arch image to three registries, and Artifact Hub's scan of the chart said
+`error scanning image ghcr.io/wekan/ferretdb:latest: image not found` — because
+a GHCR package is private until somebody makes it public, and that one has not
+been, so an anonymous pull is denied and a cluster would have hit
+`ImagePullBackOff`. quay.io and Docker Hub serve it to anyone; quay.io is the
+default and all three are named, with which of them works and why. Chart.yaml
+also declares its images and its changes to Artifact Hub now, written at release
+time from the version being released, so the scanner reads a list instead of
+inferring one.
 
 The chart carries what WeKan needs on FerretDB rather than what it needed on
 MongoDB — polling reactivity, `sockjs`, `WRITABLE_PATH`, `WITH_API`, no

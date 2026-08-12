@@ -59,20 +59,35 @@ test('the chart installs FerretDB, and no longer depends on a MongoDB chart', ()
     'including the Service its URL names');
 });
 
-test('the image is the WeKan FerretDB, from a registry that publishes it', () => {
+test('the default image is one that can be pulled WITHOUT credentials', () => {
+  // An Artifact Hub scan of the published chart:
+  //   error scanning image ghcr.io/wekan/ferretdb:latest: image not found
+  // wekan/FerretDB pushes the same image to three registries, but a GHCR package
+  // is private until somebody makes it public and this one has not been - so an
+  // anonymous pull is denied, which in a cluster is ImagePullBackOff and in a
+  // scanner is "not found". quay.io and Docker Hub serve it to anyone.
   const values = read('values.yaml');
   const at = values.indexOf('\nferretdb:');
   assert.notStrictEqual(at, -1, 'there is a ferretdb section');
-  const section = values.slice(at, at + 800);
-  assert.ok(/repository: ghcr\.io\/wekan\/ferretdb/.test(section),
-    'the default is the GHCR image');
+  const section = values.slice(at, at + 2000);
+  const repo = (/^    repository: (\S+)/m.exec(section) || [])[1];
+  assert.ok(repo, 'the ferretdb image has a repository');
+  assert.ok(repo !== 'ghcr.io/wekan/ferretdb',
+    'ghcr.io/wekan/ferretdb cannot be pulled anonymously; the default must be one '
+    + 'that can (quay.io/wekan/ferretdb or wekanteam/ferretdb)');
+  assert.ok(['quay.io/wekan/ferretdb', 'wekanteam/ferretdb'].includes(repo),
+    `the default is ${repo}, which is neither of the two registries known to serve `
+    + 'this image publicly');
   assert.ok(/tag: latest/.test(section));
   const statefulset = read('templates/ferretdb-statefulset.yaml');
   for (const registry of ['ghcr.io/wekan/ferretdb', 'quay.io/wekan/ferretdb', 'wekanteam/ferretdb']) {
     assert.ok(statefulset.includes(registry),
-      `${registry} must be named as an alternative - wekan/FerretDB pushes to all three, `
-      + 'so a cluster that cannot reach one is not stuck');
+      `${registry} must be named - all three exist, and which of them a cluster can `
+      + 'reach is exactly what a reader needs to know');
   }
+  assert.ok(/private|anonymous pull/i.test(statefulset),
+    'and the comment has to say WHY the GHCR one is not the default, or somebody '
+    + 'switches back to it');
 });
 
 test('the URL names the Service this chart creates - charts#54', () => {
@@ -224,6 +239,41 @@ test('production deployment notes are linked where they are needed', () => {
 // repository's release scripts, which are what decide that the next WeKan
 // release publishes the FerretDB chart rather than something else.
 function releaseTest(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
+
+test('the chart declares what is new in it, and which images it runs', () => {
+  // "A chart version with no changelog is a version nobody can tell apart from
+  // the one before it" - and an images list the scanner has to INFER is what
+  // produced "error scanning image ghcr.io/wekan/ferretdb:latest" for an image
+  // the chart no longer uses. Both are written by the release, from release facts.
+  const chart = read('Chart.yaml');
+  assert.ok(/^annotations:/m.test(chart), 'Artifact Hub reads these from the chart');
+  assert.ok(/artifacthub\.io\/changes:/.test(chart), 'what this version is');
+  assert.ok(/artifacthub\.io\/images:/.test(chart), 'and what it runs');
+  const version = (/^appVersion: "([^"]+)"/m.exec(chart) || [])[1];
+  assert.ok(version, 'the chart states its WeKan version');
+  assert.ok(chart.includes(`ghcr.io/wekan/wekan:v${version}`),
+    'the declared WeKan image must be THIS version, not the one before it');
+  assert.ok(chart.includes(`releases/tag/v${version}`),
+    'and the changelog link must point at that release');
+  // The declared database image has to be the one values.yaml actually uses.
+  const values = read('values.yaml');
+  const at = values.indexOf('\nferretdb:');
+  const repo = (/^    repository: (\S+)/m.exec(values.slice(at, at + 2000)) || [])[1];
+  const tag = (/^    tag: (\S+)/m.exec(values.slice(at, at + 2000)) || [])[1];
+  assert.ok(chart.includes(`${repo}:${tag}`),
+    `Chart.yaml declares a database image that values.yaml does not use (${repo}:${tag})`);
+});
+
+releaseTest('the release writes those annotations, so they cannot go stale', () => {
+  const script = fs.readFileSync(path.join(repoRoot, 'releases/release-charts.sh'), 'utf8');
+  assert.ok(/artifacthub\.io\/changes/.test(script) && /artifacthub\.io\/images/.test(script),
+    'both are written at release time');
+  assert.ok(/releases\/tag\/v\{version\}/.test(script),
+    'the changelog link is built from the version being released');
+  assert.ok(/CHART_VALUES/.test(script) && /repository: /.test(script),
+    'the database image is READ from values.yaml, not repeated - a declaration '
+    + 'that can drift from what is pulled is worse than none');
+});
 
 releaseTest('a release changes only the version numbers, so it ships whatever main has', () => {
   const script = fs.readFileSync(path.join(repoRoot, 'releases/release-charts.sh'), 'utf8');

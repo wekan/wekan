@@ -144,6 +144,86 @@ sedi -E "s|^version: [0-9]+\.[0-9]+\.[0-9]+|version: ${CHART_VERSION}|" "$CHART_
 # ghcr.io/wekan/ferretdb:latest out of a WeKan version bump.
 sedi -E "s|tag: v[0-9]+\.[0-9]+(\.[0-9]+)?|tag: v${VERSION}|" "$CHART_VALUES"
 
+# ── 1b. What is NEW in this chart version, written into the chart ────────────
+#
+# A chart version with no changelog is a version nobody can tell apart from the
+# one before it. Artifact Hub reads two annotations for that, and both are
+# written here rather than by hand, because both are release facts:
+#
+#   artifacthub.io/changes  what this version is - "WeKan updated to v<version>"
+#                           with a link to that release's own notes, so the chart
+#                           page says what the release said.
+#   artifacthub.io/images   the images this chart runs, with the exact tags. The
+#                           scanner uses this list instead of inferring one, and
+#                           an inferred list is what produced
+#                             error scanning image ghcr.io/wekan/ferretdb:latest
+#                           for an image that is not anonymously pullable. What
+#                           is declared here is what the chart actually pulls.
+#
+# Both are rewritten every release, so they can never describe the version before
+# this one. The FerretDB image is read out of values.yaml rather than repeated,
+# so changing it there changes it here too.
+CHART_YAML="$CHART_YAML" CHART_VALUES="$CHART_VALUES" VERSION="$VERSION" \
+  CHART_VERSION="$CHART_VERSION" PYTHONDONTWRITEBYTECODE=1 python3 - <<'PYEOF'
+import os, re
+
+chart_path = os.environ["CHART_YAML"]
+values_path = os.environ["CHART_VALUES"]
+version = os.environ["VERSION"]
+chart_version = os.environ["CHART_VERSION"]
+
+# The database image as values.yaml has it - repository and tag, in the ferretdb
+# section. Read, never assumed: the whole point of declaring images is that the
+# declaration matches what is pulled.
+values = open(values_path, encoding="utf-8").read()
+ferret = values[values.index("\nferretdb:"):]
+repo = re.search(r"^    repository: (\S+)", ferret, re.M)
+tag = re.search(r"^    tag: (\S+)", ferret, re.M)
+ferret_image = f"{repo.group(1)}:{tag.group(1)}" if repo and tag else None
+
+block = [
+    "annotations:",
+    "  artifacthub.io/changes: |",
+    "    - kind: changed",
+    f"      description: WeKan updated to v{version}",
+    "      links:",
+    "        - name: Release notes",
+    f"          url: https://github.com/wekan/wekan/releases/tag/v{version}",
+    "        - name: CHANGELOG",
+    "          url: https://github.com/wekan/wekan/blob/main/CHANGELOG.md",
+    "  artifacthub.io/images: |",
+    "    - name: wekan",
+    f"      image: ghcr.io/wekan/wekan:v{version}",
+]
+if ferret_image:
+    block += ["    - name: ferretdb", f"      image: {ferret_image}"]
+block = "\n".join(block) + "\n"
+
+lines = open(chart_path, encoding="utf-8").read().split("\n")
+out, i, replaced = [], 0, False
+while i < len(lines):
+    if lines[i].startswith("annotations:"):
+        # Skip the old block: it and everything indented under it.
+        i += 1
+        while i < len(lines) and (lines[i].startswith((" ", "\t")) or not lines[i].strip()):
+            if lines[i].strip() and not lines[i].startswith((" ", "\t")):
+                break
+            i += 1
+        out.append(block.rstrip("\n"))
+        replaced = True
+        continue
+    out.append(lines[i])
+    i += 1
+if not replaced:
+    # Keep the file's shape: annotations go after apiVersion/appVersion, which is
+    # where helm's own `helm create` puts them.
+    at = next((k for k, l in enumerate(out) if l.startswith("description:")), len(out))
+    out[at:at] = block.rstrip("\n").split("\n")
+open(chart_path, "w", encoding="utf-8").write("\n".join(out))
+print(f"  Chart.yaml annotations: changes + images for v{version}"
+      + (f" (ferretdb {ferret_image})" if ferret_image else ""))
+PYEOF
+
 echo "  Updated Chart.yaml (appVersion ${VERSION}, version ${CHART_VERSION}) and values.yaml (tag v${VERSION})."
 
 # ── 2. Build, commit+push main, package, and switch to gh-pages ──────────────
