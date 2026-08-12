@@ -276,6 +276,98 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** one fix, to the **snap**, and it is a fix to the previous
+release's fix. The guard v10.82 added so an out-of-date FerretDB copy could not
+be served had the opposite failure of the bug it fixed: it decided which copy
+was newer by comparing MongoDB's file timestamps against the migration marker,
+and STARTING mongod rewrites those files - so a single service start during a
+refresh made a frozen MongoDB look newer than the **FerretDB that had been live
+for two weeks**, and the snap was switched onto the frozen one. It now asks the
+question of BOTH copies, and when both have been written to since the migration
+it switches nothing and says so, because a timestamp says when a file was
+touched and not how much is in it. The binaries below are v10.82's: nothing here
+rebuilds them.
+
+| Platform | Binary | From | Version | SHA256 |
+| --- | --- | --- | --- | --- |
+| amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
+| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-amd64) | v1.48.0 | `2737687fd29a8a761cd960e45f300b68cf7b4a87d50c4cc5280bcbd42b6aa163` |
+| arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
+| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-arm64) | v1.48.0 | `5ae705dd49515a4ecd4e295c3b9aa4f3b454fad78613ec60fb99316bd7c34e3f` |
+| loong64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-loong64.tar.xz) | v24.19.0 | `c24f224726f2d785bd18a1fd09f5e6d1fecf0269928451a60c5da9eac8e92e68` |
+| loong64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-loong64) | v1.48.0 | `06ec86263455a7b598d22a87df0e044ea73ab5a3b72e96ad12ebed03c1374ac2` |
+| mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-arm64.tar.xz) | v24.19.0 | `3f1cf157479c1480352083105e13faf9d008ede98e7e157746b6df940d197b94` |
+| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-mac-arm64) | v1.48.0 | `9b15f4c10e473cd0a2c4feb4cb43e18042bd60c7035ec66cab3cfbe13edaabab` |
+| mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
+| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-mac-amd64) | v1.48.0 | `4e188246dfa33bccef4cdd86701bc498b037cb3e91f579ff0dccb93aa0ef03ad` |
+| ppc64le | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-ppc64le.tar.xz) | v24.19.0 | `c510c6ce12f07010f771e6edb22a3fe23f4f2e6f40b1ffd4941aed0646a0d8b3` |
+| ppc64le | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-ppc64le) | v1.48.0 | `0400cd6dfc3d10d987a0fe80d75baa86c03c19170770fa2e602c92d558c3cfa6` |
+| riscv64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-riscv64.tar.xz) | v24.19.0 | `cd1f14af2812148002f58b58a5f9af512a50e3b8e8c148e0db44019dcb68edfd` |
+| riscv64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-riscv64) | v1.48.0 | `d37c35af988670b9ed182b8c5966c06a06362f6c6ace6aebd93ccdfa32c9a26b` |
+| s390x | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-s390x.tar.xz) | v24.19.0 | `a4792e65962ffa0af42627aacf1122a60c3c88dbf4e4184f06820d66f9da8ba4` |
+| s390x | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-s390x) | v1.48.0 | `6c7d61fbb8c79b2e8733be8f71910f710e8c5cd25208c451bdc513c8313b0340` |
+| win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
+| win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.48.0/ferretdb-win64.exe) | v1.48.0 | `ea57e1bcd153b51d2065ab01515b21ec05d8f615444c15603ab8158b8a661dd2` |
+
+This release fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/016f11e9e">Snap: a started mongod is not a used mongod, so stop calling the live copy stale</a>. Thanks to lukechao, markusst1982 and xet7.</summary>
+
+The staleness guard added for
+[#6583](https://github.com/wekan/wekan/issues/6583) had the opposite failure of
+the bug it fixed:
+
+> A couple of weeks ago, I did a snap revert ... but then completed the
+> migration successfully. Today, my database suddenly reverted to an old version
+> from what looks like weeks ago. Upgrading to 10.83 did not fix the problem
+> automatically.
+
+Their FerretDB was the live database and had been for two weeks; MongoDB was the
+frozen one. The guard decided otherwise because it compared exactly two things:
+the newest mtime under the MongoDB data directory, and the migration marker.
+Starting `mongod` rewrites those files - recovery, and the checkpoint it writes
+on startup - so one service start during a refresh put MongoDB's newest mtime at
+today against a marker from two weeks ago. The guard called the live copy stale,
+`wekan-control` set `database=mongodb`, and what came up was the data as it
+stood on the day of the migration. Upgrading could not help, because the upgrade
+was the cause: this runs at every start, so every start re-applied it.
+
+An mtime cannot tell *somebody used this database* from *this database was
+started*, so asking it of one copy cannot answer the question. Asking it of both
+can, because the case the guard exists for has a shape the mistaken one does
+not. The migrated copy untouched since the migration while MongoDB moved on is
+STALE - nothing has been using FerretDB. The migrated copy moved on while
+MongoDB did not is CURRENT, the normal state after a successful switch. Both
+moved on is AMBIGUOUS: two databases have been written to since they were copies
+of each other, and there is no answer there, only a choice, and it is the
+admin's.
+
+Only the first may be acted on automatically. The ambiguous case switches
+nothing, prints both databases' last-written times and the two commands to look
+at each, and says that nothing was changed or deleted - both copies live in
+`$SNAP_COMMON`, which `snap revert` does not roll back. That restraint matters
+most in the branch of `mongodb-control` that DELETES `files/db` to migrate again
+when `mongod` cannot start at all: on ambiguity the SQLite holds work of its
+own, so wiping it would destroy the very copy in doubt.
+
+The message has no `database=ferretdb` condition on it, deliberately. An
+instance the old guard already moved to `database=mongodb` is sitting on the
+wrong copy now and that setting persists, so speaking up only when FerretDB is
+selected would leave it there silently. Whichever side is selected, the admin
+hears that the other one holds writes of its own.
+
+`tests/ferretdbMigrationStale.test.cjs` gains the reported regression - a
+two-week-old migration, a FerretDB written to a minute ago, a `mongod` started
+an hour ago - and pins that ambiguity can never reach the deletion.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.83 2026-08-11 WeKan ® release
 
 **In short:** a **CRITICAL SECURITY ISSUE**, **PassBleed**: the single-card
