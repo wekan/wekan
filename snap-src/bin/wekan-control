@@ -39,7 +39,25 @@ if [ -f "$SNAP_COMMON/.mongodb-data-too-old" ] && \
     echo "The 'database too old' marker was written by a different snap revision; ignoring it so this one can try."
     rm -f "$SNAP_COMMON/.mongodb-data-too-old" "$SNAP_COMMON/.mongodb-data-too-old.revision"
 fi
-if [ -f "$SNAP_COMMON/.mongodb-data-too-old" ]; then
+# #6585: the marker says the OLD MongoDB files cannot be read by this snap, and that
+# stops WeKan only when MongoDB is the database WeKan needs. An instance running on
+# FerretDB, with its data in it, is not waiting for those files at all - they are
+# what it was migrated FROM, still on disk because the migration never deletes them.
+# Serving the page there hides a working site behind an explanation of something
+# that does not matter to it: "It somehow tries to access Mongodb again instead of
+# Ferretdb. I don't even have an old version, but just this [page]."
+#
+# The marker is left in place rather than deleted. It is true - those files really
+# are unreadable by this snap - and it belongs to MongoDB, so if the admin switches
+# back with `snap set wekan database=mongodb` the page is right to return.
+SERVING_FERRETDB=false
+if [ "ferretdb" = "$DATABASE" ] && \
+   bash "$SNAP/bin/ferretdb-has-data" "$SNAP_COMMON/files/db" 2>/dev/null; then
+    SERVING_FERRETDB=true
+fi
+if [ -f "$SNAP_COMMON/.mongodb-data-too-old" ] && [ "true" = "$SERVING_FERRETDB" ]; then
+    echo "The 'database too old' marker is about the old MongoDB files; this snap runs on FerretDB, which has the data. Starting WeKan normally."
+elif [ -f "$SNAP_COMMON/.mongodb-data-too-old" ]; then
     echo "DATABASE TOO OLD FOR THIS SNAP (.mongodb-data-too-old present): serving the explanatory page instead of WeKan."
     export PORT="${PORT:-80}"
     exec ${CPU_EXEC:+bash "$CPU_EXEC"} env WEKAN_MAINTENANCE_REASON=data-too-old "$SNAP/bin/node" "$SNAP/bin/wekan-maintenance-page.mjs"

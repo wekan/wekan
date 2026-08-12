@@ -6,6 +6,24 @@
 MARKER="$SNAP_COMMON/.migration-to-ferretdb-done"
 DBPATH="$SNAP_COMMON"
 [ -f "$MARKER" ] && exit 1
+# #6585: a snap that is ALREADY on FerretDB, with data in it, has nothing pending.
+# The MongoDB files in $SNAP_COMMON are what it was migrated FROM - the migration
+# never deletes them, on purpose - so "MongoDB data is present" says nothing about
+# whether a migration is still owed. Without this, only the marker did, and an
+# instance whose marker is gone (a re-migration was forced, or it was migrated by a
+# snap old enough not to have written one) is dragged back to those files on every
+# start: mongodb-control hands off to migration-control, which probes them with
+# every reader it has, and when none can open them writes .mongodb-data-too-old and
+# WeKan serves "Wekan cannot open the existing database" - while the boards and
+# cards are sitting in FerretDB, readable, and nothing is wrong with them.
+#
+# "Already on FerretDB" has to mean the setting AND real data, not the setting
+# alone: database=ferretdb with an empty files/db is the case the migration exists
+# for, and it must still run.
+if [ "$(snapctl get database 2>/dev/null)" = "ferretdb" ] && \
+   bash "$SNAP/bin/ferretdb-has-data" "$SNAP_COMMON/files/db" 2>/dev/null; then
+  exit 1
+fi
 # Admin can pause auto-migration so WeKan keeps running on MongoDB while a migration is being
 # fixed: `snap set wekan migrate=off` (or `snap run wekan.database mongodb`). A migration that
 # FAILS also sets migrate=off automatically so it does not loop and cause downtime. Re-enable

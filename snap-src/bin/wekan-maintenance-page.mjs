@@ -46,6 +46,28 @@ function readMarker() {
 }
 const CAN_READ = IS_DATA_TOO_OLD ? readMarker() : '';
 
+// #6585: this page is about the OLD MongoDB files, and it is shown while the snap is
+// set to MongoDB. But a migrated FerretDB may be sitting right beside them with the
+// data in it - the migration never deletes what it copied from - and then the page
+// as it stood offered a revert and a mongodump while the one database this snap CAN
+// serve went unmentioned: "It somehow tries to access Mongodb again instead of
+// Ferretdb. I don't even have an old version, but just this."
+//
+// So look, and say so. Nothing is switched from here - the page's promise is that
+// nothing changes until an admin acts, and #6583 is what choosing between two copies
+// on the snap's own initiative costs - but an admin who has a working copy should not
+// have to guess that from a page whose whole subject is the unreadable one.
+function ferretdbHasData() {
+  const dir = (process.env.SNAP_COMMON || '') + '/files/db';
+  try {
+    return fs.readdirSync(dir).some(f => {
+      if (!f.endsWith('.sqlite')) return false;
+      try { return fs.statSync(dir + '/' + f).size > 0; } catch { return false; }
+    });
+  } catch { return false; }
+}
+const HAS_FERRETDB = IS_DATA_TOO_OLD ? ferretdbHasData() : false;
+
 const TITLE_WORD = IS_RECOVERY ? 'Recovering data'
   : IS_DATA_TOO_OLD ? 'Database needs an upgrade' : 'Maintenance';
 const HEADING = IS_RECOVERY ? `${PRODUCT} is recovering your data`
@@ -59,11 +81,21 @@ const BODY = IS_RECOVERY
 
 // Only the data-too-old page has instructions: the other two are waits, and this one
 // is a stop that needs a decision from a person.
+const SNAP_NAME = (process.env.SNAP_INSTANCE_NAME || process.env.SNAP_NAME || 'wekan')
+  .replace(/[^A-Za-z0-9_-]/g, '').slice(0, 40) || 'wekan';
 const STEPS = IS_DATA_TOO_OLD ? `
-  <p class="muted" style="text-align:start">Two ways forward, both keeping your data:</p>
-  <ol class="muted" style="text-align:start">
+  <p class="muted" style="text-align:start">${HAS_FERRETDB ? 'Three ways forward, all' : 'Two ways forward, both'} keeping your data:</p>
+  <ol class="muted" style="text-align:start">${HAS_FERRETDB ? `
+    <li><b>Use the FerretDB database that is already here</b> - this snap was migrated
+      to FerretDB at some point and that copy holds data, so it can be served right
+      now:<br>
+      <code>sudo snap set ${SNAP_NAME} database=ferretdb</code><br>
+      The MongoDB files are left exactly as they are, so this is reversible with
+      <code>sudo snap set ${SNAP_NAME} database=mongodb</code>. Check the boards after
+      switching: this copy is as new as the last migration ran, which may be older
+      than the MongoDB data beside it.</li>` : ''}
     <li><b>Go back to the revision that worked</b> and stay there for now:<br>
-      <code>sudo snap revert wekan</code> then <code>sudo snap refresh --hold=forever wekan</code></li>
+      <code>sudo snap revert ${SNAP_NAME}</code> then <code>sudo snap refresh --hold=forever ${SNAP_NAME}</code></li>
     <li><b>Move the data across</b> with a MongoDB that can read it${CAN_READ ? ` (MongoDB ${CAN_READ} or earlier)` : ''}:
       start that MongoDB on this data directory, <code>mongodump</code> from it, then
       restore into the new version and let it migrate to FerretDB.</li>
