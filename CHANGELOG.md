@@ -355,7 +355,7 @@ from the provenance each build job records.
 This release fixes the following release-tooling bugs:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASHAPT">A package index that is mid-republish no longer ends a release</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a6edf86bc">A package index that is mid-republish no longer ends a release</a>. Thanks to xet7.</summary>
 
 The `bump` job of the same afternoon died on a repository the release does not
 use:
