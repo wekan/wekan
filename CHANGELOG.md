@@ -307,7 +307,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.87 2026-08-12 WeKan ® release
 
 **In short:** the **release workflow** stops throwing a release away when
 somebody else's server has a bad minute. Every download in it already retried;
