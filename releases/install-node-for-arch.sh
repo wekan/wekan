@@ -165,7 +165,10 @@ if ! node --version; then
     exit 1
 fi
 
-npm install
+# Retried when the registry or github.com 5xxes: this install is an hour into an
+# emulated build, and a network blip here throws that hour away. Real errors are
+# not retried - see releases/npm-retry.sh.
+bash "$(dirname "$0")/npm-retry.sh" npm install
 
 # Bundle the target-arch Node.js for the self-contained launcher. /bundle is the
 # host's bundle/ directory, mounted by the workflow.

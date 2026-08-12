@@ -565,20 +565,21 @@ jobs:
       - name: Install Meteor
         run: |
           if [ ! -f ~/.meteor/meteor ]; then
-            curl https://install.meteor.com/ | sh
+            curl -fsSL --retry 5 --retry-delay 10 -o /tmp/install-meteor.sh https://install.meteor.com/
+            sh /tmp/install-meteor.sh
           fi
           echo "$HOME/.meteor" >> $GITHUB_PATH
 
       - name: Build WeKan bundle
         run: |
           rm -rf .build node_modules .meteor/local
-          (meteor update --npm 2>/dev/null || true) && meteor npm install
+          (meteor update --npm 2>/dev/null || true) && bash releases/npm-retry.sh meteor npm install
           meteor build .build --directory
 
       - name: Install server npm modules
         run: |
           cd .build/bundle/programs/server
-          npm install
+          bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm install
 
       - name: Check the binaries the amd64 bundle needs exist
         run: |
@@ -814,18 +815,19 @@ jobs:
             rm -rf "$BCRYPT_DIR"
             TMP=$(mktemp -d)
             pushd "$TMP" > /dev/null
-            npm pack bcrypt@6.0.0
+            bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm pack bcrypt@6.0.0
             mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
-            cd bcrypt && npm install --ignore-scripts && cd ..
+            cd bcrypt && bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm install --ignore-scripts && cd ..
             cp -a bcrypt "$BCRYPT_DIR"
             popd > /dev/null
             rm -rf "$TMP"
           fi
           docker run --rm --platform linux/arm64 \
             -v "$(pwd)/bundle:/bundle" \
+            -v "$(pwd)/releases:/releases:ro" \
             -w /bundle/programs/server \
             node:${NODE_VERSION}-slim \
-            sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
+            sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && bash /releases/npm-retry.sh npm install"
 
       - name: Check the binaries the arm64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -1179,9 +1181,9 @@ jobs:
             rm -rf "$BCRYPT_DIR"
             TMP=$(mktemp -d)
             pushd "$TMP" > /dev/null
-            npm pack bcrypt@6.0.0
+            bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm pack bcrypt@6.0.0
             mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
-            cd bcrypt && npm install --ignore-scripts && cd ..
+            cd bcrypt && bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm install --ignore-scripts && cd ..
             cp -r bcrypt "$BCRYPT_DIR"
             popd > /dev/null
             rm -rf "$TMP"
@@ -1193,7 +1195,7 @@ jobs:
         run: |
           cd bundle/programs/server
           rm -rf node_modules
-          npm install
+          bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm install
 
       - name: Check the binaries the win64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -1526,9 +1528,9 @@ jobs:
             rm -rf "$BCRYPT_DIR"
             TMP=$(mktemp -d)
             pushd "$TMP" > /dev/null
-            npm pack bcrypt@6.0.0
+            bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm pack bcrypt@6.0.0
             mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
-            cd bcrypt && npm install --ignore-scripts && cd ..
+            cd bcrypt && bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm install --ignore-scripts && cd ..
             cp -r bcrypt "$BCRYPT_DIR"
             popd > /dev/null
             rm -rf "$TMP"
@@ -1540,7 +1542,7 @@ jobs:
         run: |
           cd bundle/programs/server
           rm -rf node_modules
-          npm install
+          bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm install
 
       - name: Check the binaries the win-arm64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -1863,9 +1865,9 @@ jobs:
             rm -rf "$BCRYPT_DIR"
             TMP=$(mktemp -d)
             pushd "$TMP" > /dev/null
-            npm pack bcrypt@6.0.0
+            bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm pack bcrypt@6.0.0
             mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
-            cd bcrypt && npm install --ignore-scripts && cd ..
+            cd bcrypt && bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm install --ignore-scripts && cd ..
             cp -r bcrypt "$BCRYPT_DIR"
             popd > /dev/null
             rm -rf "$TMP"
@@ -1906,7 +1908,7 @@ jobs:
           echo "Cross-building ia32 native modules against nodedir $ND (fork node.lib)."
           cd bundle/programs/server
           rm -rf node_modules
-          npm install
+          bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm install
 
       - name: Check the binaries the win32 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -2150,16 +2152,16 @@ jobs:
             rm -rf "$BCRYPT_DIR"
             TMP=$(mktemp -d)
             pushd "$TMP" > /dev/null
-            npm pack bcrypt@6.0.0
+            bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm pack bcrypt@6.0.0
             mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
-            cd bcrypt && npm install --ignore-scripts && cd ..
+            cd bcrypt && bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm install --ignore-scripts && cd ..
             cp -a bcrypt "$BCRYPT_DIR"
             popd > /dev/null
             rm -rf "$TMP"
           fi
           cd bundle/programs/server
           rm -rf node_modules
-          npm install
+          bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm install
           cd ../../..
 
       - name: Check the binaries the mac-arm64 bundle needs exist
@@ -2419,16 +2421,16 @@ jobs:
             rm -rf "$BCRYPT_DIR"
             TMP=$(mktemp -d)
             pushd "$TMP" > /dev/null
-            npm pack bcrypt@6.0.0
+            bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm pack bcrypt@6.0.0
             mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
-            cd bcrypt && npm install --ignore-scripts && cd ..
+            cd bcrypt && bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm install --ignore-scripts && cd ..
             cp -a bcrypt "$BCRYPT_DIR"
             popd > /dev/null
             rm -rf "$TMP"
           fi
           cd bundle/programs/server
           rm -rf node_modules
-          npm install
+          bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm install
           cd ../../..
 
       - name: Check the binaries the mac-x64 bundle needs exist
@@ -3071,7 +3073,12 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y p7zip-full wget curl build-essential g++ make python3 unzip xz-utils git qemu-user-static
-          if [ ! -f "$HOME/.meteor/meteor" ]; then curl https://install.meteor.com/ | sh; fi
+          if [ ! -f "$HOME/.meteor/meteor" ]; then
+            # Downloaded, then run: a `curl | sh` cannot be retried, because
+            # by the time the download fails sh is already half way through it.
+            curl -fsSL --retry 5 --retry-delay 10 -o /tmp/install-meteor.sh https://install.meteor.com/
+            sh /tmp/install-meteor.sh
+          fi
           echo "$HOME/.meteor" >> "$GITHUB_PATH"
 
       - name: Install Sandstorm (dev, unattended)
@@ -3116,7 +3123,7 @@ jobs:
         env:
           PUPPETEER_SKIP_DOWNLOAD: '1'
         run: |
-          (meteor update --npm 2>/dev/null || true) && meteor npm install
+          (meteor update --npm 2>/dev/null || true) && bash releases/npm-retry.sh meteor npm install
 
       - name: Build the Sandstorm .spk
         id: build
