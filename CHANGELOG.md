@@ -453,7 +453,7 @@ CPU-platform docs point at it instead of describing a setting that is gone.
 **The release workflow** - what it needs to be there before it runs.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASHNOVAR">Only the wekan Docker image is published; the two variant names are commented out</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e533829f5">Only the wekan Docker image is published; the two variant names are commented out</a>. Thanks to xet7.</summary>
 
 `wekan-ondra` and `wekan-gantt-gpl` are **snap** names — they exist because a
 snap name cannot be changed once people have it installed — and as Docker images
