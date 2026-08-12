@@ -438,7 +438,7 @@ still goes straight to `curl`.
 and has the following test-tooling fix:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASHE2E">One browser test logging in no longer logs the other tabs out</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/4c68a8a49">One browser test logging in no longer logs the other tabs out</a>. Thanks to xet7.</summary>
 
 The last WeKan test run failed one test in **all three browsers** - a test that
 had passed for a month:
