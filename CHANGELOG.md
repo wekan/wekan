@@ -793,7 +793,7 @@ FerretDB chart would publish an install nobody has ever run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/da3c7c83c">The two variant images are published on all three registries by the release itself</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1d76e0d43">The two variant images are published on all three registries by the release itself</a>. Thanks to xet7.</summary>
 
 `wekan-ondra` and `wekan-gantt-gpl` are the same WeKan as `wekan`: those
 repositories are byte-identical to `wekan/wekan` apart from the snap `name:` in
