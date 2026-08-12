@@ -5,11 +5,17 @@
 //
 // Two things must stay true, and both are decisions rather than details:
 //
-//   * it is MANUAL. release-all.yml publishes wekanteam/wekan on every release;
-//     the variant images are published when the maintainer decides to. A push,
-//     tag or schedule trigger sneaking into this workflow would turn "also
-//     publish that one" into "publish that one every time", which is not what
-//     was asked for.
+//   * this WORKFLOW is manual. It is `workflow_dispatch` only: a push, tag or
+//     schedule trigger sneaking in would turn "republish that one now" into
+//     "republish it on every push", which is not what it is for.
+//
+//     It is no longer the only way the variants get published. The release now
+//     tags wekan-ondra and wekan-gantt-gpl on all three registries in the same
+//     build as wekan itself (tests/releaseVariantImages.test.cjs), because a
+//     variant that is published by hand is a variant that is a release or three
+//     behind. This workflow stays for republishing one out of band - a registry
+//     that was down, a repository created after the fact - which is exactly the
+//     job that wants a human to start it.
 //   * it RETAGS rather than rebuilds. The variant repositories are byte-identical
 //     to wekan/wekan apart from the snap name, so the image is the same image;
 //     `docker buildx imagetools create` copies the manifest, which keeps the
@@ -54,14 +60,19 @@ test('the variant image workflow can only be started by hand', () => {
   }
 });
 
-test('release-all.yml does not publish the variant images', () => {
-  // The release publishes wekanteam/wekan to Docker Hub, Quay and GHCR. The
-  // variant images are deliberately not part of that.
+test('release-all.yml publishes the variant images itself', () => {
+  // This assertion used to be the opposite: the release published only
+  // wekanteam/wekan and the variants waited for someone to dispatch the
+  // workflow above. That was the decision until the variants were asked to be
+  // automatic, and it is the reason the guard changed rather than the code -
+  // publishing by hand is how wekan-ondra ends up naming a version whose image
+  // is older than it says.
   for (const variant of ['wekan-gantt-gpl', 'wekan-ondra']) {
-    const docker = code(releaseAll).split('\n')
-      .filter(l => l.includes(`wekanteam/${variant}`));
-    assert.deepStrictEqual(docker, [],
-      `release-all.yml must not push wekanteam/${variant}`);
+    const pushed = code(releaseAll).split('\n')
+      .filter(l => /^\s*-t /.test(l) && l.includes(variant));
+    assert.ok(pushed.length >= 6,
+      `release-all.yml must tag ${variant} on all three registries, `
+      + `version and latest; found ${pushed.length} tag lines`);
   }
 });
 

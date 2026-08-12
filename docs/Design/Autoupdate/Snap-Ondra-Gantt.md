@@ -38,19 +38,29 @@ before it is uploaded — a `wekan_*.snap` published from here would overwrite t
 default snap — and the two repositories were synced by hand on 2026-07-29, so they
 are the newest WeKan with the snap name changed and nothing else.
 
-The Docker side is split by registry, and the split is deliberate:
+The Docker side is automatic on **all three registries**. `release-all.yml`'s
+`docker` job tags `wekan-ondra` and `wekan-gantt-gpl` — on Docker Hub, Quay and
+GHCR — in the SAME `docker buildx build --push` as `wekan` itself, so the variant
+tags carry the release's own digests for every architecture. No second build, and
+no window in which a variant image can differ from the release it names.
 
-- **GHCR is automatic.** `release-all.yml`'s `docker` job tags
-  `ghcr.io/wekan/wekan-ondra` and `ghcr.io/wekan/wekan-gantt-gpl` in the SAME
-  `docker buildx build --push` as `ghcr.io/wekan/wekan`, so the variant tags carry
-  the release's own digests for every architecture — no second build, and no way
-  for them to drift from the release they claim to be. The push verification asks
-  the registry about them like any other tag.
-- **Docker Hub and Quay stay manual.** `wekanteam/wekan-gantt-gpl` and
-  `wekanteam/wekan-ondra` are published by
-  [`.github/workflows/docker-variant.yml`](../../../.github/workflows/docker-variant.yml)
-  ("Publish variant Docker image (manual)") or `releases/docker-publish-variant.sh`,
-  which retag the released `wekanteam/wekan` manifest rather than rebuilding it.
+Two guards ride with it. The push verification asks each registry what it
+actually has, and a second step asks the way a STRANGER would — an anonymous pull
+token and a manifest request — because a private image passes every check made
+with the release's own credentials. That is how `ghcr.io/wekan/ferretdb` shipped
+private until Artifact Hub mailed about it.
+
+That second guard matters most the first time: `wekanteam/wekan-ondra` and
+`quay.io/wekan/wekan-ondra` do not exist yet, and a repository created by a first
+push takes the registry's default visibility — Docker Hub public, **Quay
+private**. So the first release after this change is expected to fail that step
+for the Quay one, with the page to open and the setting to change; the image is
+already pushed, so making it public and re-running the job is all it takes.
+
+[`docker-variant.yml`](../../../.github/workflows/docker-variant.yml) and
+`releases/docker-publish-variant.sh` remain for everything outside a release:
+publishing a variant for an older version, repairing a tag, or pointing a variant
+somewhere deliberately.
 
 Both rest on the same fact, and it is the thing to check before touching either:
 the variant repositories are byte-identical to `wekan/wekan` apart from the snap

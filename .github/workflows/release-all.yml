@@ -3475,8 +3475,18 @@ jobs:
           # If a variant repository ever stops being identical to wekan/wekan, these
           # two -t lines become a lie and the variant needs its own build.
           #
-          # GHCR only. Docker Hub and Quay variants stay with docker-variant.yml,
-          # which the maintainer runs deliberately.
+          # ALL THREE REGISTRIES, not GHCR only. docker-variant.yml still exists
+          # for publishing a variant out of band - an older version, or a repair -
+          # but a release no longer needs it.
+          #
+          # A NEW REPOSITORY IS CREATED BY THE FIRST PUSH, and its visibility is
+          # the registry's default, not ours: Docker Hub creates public (subject
+          # to the account default), QUAY CREATES PRIVATE. wekanteam/wekan-ondra
+          # and quay.io/wekan/wekan-ondra do not exist yet, so the first release
+          # to run this creates them - and a private image is a broken release
+          # nobody notices until somebody pulls it. That is exactly how
+          # ghcr.io/wekan/ferretdb shipped private. The anonymous-pull check after
+          # the push is what turns that into a failed job instead of a surprise.
           docker buildx build \
             --provenance=mode=max \
             --platform "${PLATFORMS}" \
@@ -3491,6 +3501,14 @@ jobs:
             -t ghcr.io/wekan/wekan-ondra:latest \
             -t ghcr.io/wekan/wekan-gantt-gpl:v${VERSION} \
             -t ghcr.io/wekan/wekan-gantt-gpl:latest \
+            -t wekanteam/wekan-ondra:v${VERSION} \
+            -t wekanteam/wekan-ondra:latest \
+            -t wekanteam/wekan-gantt-gpl:v${VERSION} \
+            -t wekanteam/wekan-gantt-gpl:latest \
+            -t quay.io/wekan/wekan-ondra:v${VERSION} \
+            -t quay.io/wekan/wekan-ondra:latest \
+            -t quay.io/wekan/wekan-gantt-gpl:v${VERSION} \
+            -t quay.io/wekan/wekan-gantt-gpl:latest \
             --push \
             .
 
@@ -3506,7 +3524,11 @@ jobs:
           for image in "wekanteam/wekan:v${VERSION}" "quay.io/wekan/wekan:v${VERSION}" \
                        "ghcr.io/wekan/wekan:v${VERSION}" \
                        "ghcr.io/wekan/wekan-ondra:v${VERSION}" \
-                       "ghcr.io/wekan/wekan-gantt-gpl:v${VERSION}"; do
+                       "ghcr.io/wekan/wekan-gantt-gpl:v${VERSION}" \
+                       "wekanteam/wekan-ondra:v${VERSION}" \
+                       "wekanteam/wekan-gantt-gpl:v${VERSION}" \
+                       "quay.io/wekan/wekan-ondra:v${VERSION}" \
+                       "quay.io/wekan/wekan-gantt-gpl:v${VERSION}"; do
             # The format MUST carry the CPU variant. buildx builds linux/arm/v7,
             # but the registry records that as architecture "arm" with variant
             # "v7" in a SEPARATE field - so an OS/Architecture-only format prints
@@ -3532,6 +3554,79 @@ jobs:
               esac
             done
             echo "OK: $image carries:$got"
+          done
+          exit $rc
+
+      # PUSHED IS NOT THE SAME AS PULLABLE BY ANYONE.
+      #
+      # The check above asks the registries with the release's own credentials, so
+      # a private image passes it. That is how ghcr.io/wekan/ferretdb shipped
+      # private and stayed that way until Artifact Hub mailed about it:
+      #
+      #   error scanning image ghcr.io/wekan/ferretdb:latest: image not found
+      #
+      # For a user that is ImagePullBackOff. And it is one push away from
+      # happening again: a repository that does not exist yet is CREATED by the
+      # first push with the registry's default visibility - Docker Hub public,
+      # QUAY PRIVATE - and wekanteam/wekan-ondra and quay.io/wekan/wekan-ondra do
+      # not exist yet.
+      #
+      # So ask each registry the way a stranger would: fetch an anonymous pull
+      # token and request the manifest. 200 is public. 401/403/404 is not, and the
+      # message says which package to make public and where. A registry that
+      # cannot be REACHED is a warning, never a failure - the same rule the chart
+      # tooling uses, because a network hiccup must not fail a release that is
+      # otherwise fine.
+      - name: Verify every pushed tag can be pulled ANONYMOUSLY
+        env:
+          VERSION: ${{ needs.prepare.outputs.version }}
+        run: |
+          set -uo pipefail
+          rc=0
+          anon_check() {
+            image="$1"
+            case "$image" in
+              ghcr.io/*)  reg="https://ghcr.io"; repo="${image#ghcr.io/}"
+                          token_url="https://ghcr.io/token?service=ghcr.io&scope=repository:${repo%%:*}:pull" ;;
+              quay.io/*)  reg="https://quay.io"; repo="${image#quay.io/}"
+                          token_url="https://quay.io/v2/auth?service=quay.io&scope=repository:${repo%%:*}:pull" ;;
+              *)          reg="https://registry-1.docker.io"; repo="$image"
+                          token_url="https://auth.docker.io/token?service=registry.docker.io&scope=repository:${repo%%:*}:pull" ;;
+            esac
+            name="${repo%%:*}"; tag="${repo##*:}"
+            # Two attempts: a single failed HTTPS call is not evidence about a
+            # registry, only about the network between here and it.
+            for attempt in 1 2; do
+              token="$(curl -sS --max-time 30 "$token_url" | jq -r '.token // empty' 2>/dev/null || true)"
+              code="$(curl -sS --max-time 30 -o /dev/null -w '%{http_code}' \
+                -H "Authorization: Bearer ${token:-}" \
+                -H 'Accept: application/vnd.oci.image.index.v1+json' \
+                -H 'Accept: application/vnd.docker.distribution.manifest.list.v2+json' \
+                "$reg/v2/$name/manifests/$tag" 2>/dev/null || echo 000)"
+              [ "$code" = "000" ] || break
+              sleep 5
+            done
+            case "$code" in
+              200) echo "OK: $image can be pulled by anyone." ;;
+              000) echo "::warning::$image could not be checked ($reg unreachable). Not treated as private." ;;
+              401|403|404)
+                echo "::error::$image is NOT publicly pullable (HTTP $code). It was pushed, so it exists - it is PRIVATE, which for a user is ImagePullBackOff and for Artifact Hub is 'image not found'."
+                case "$image" in
+                  ghcr.io/*) echo "  Fix: github.com/orgs/wekan/packages -> ${name#wekan/} -> Package settings -> Change visibility -> Public. If Public is greyed out, enable it first at https://github.com/organizations/wekan/settings/packages (Package creation -> Public)." ;;
+                  quay.io/*) echo "  Fix: quay.io/repository/${name}?tab=settings -> Repository Visibility -> Make Public."
+                             echo "  EXPECTED THE FIRST TIME a tag is pushed to a repository that did not exist: Quay creates it PRIVATE. Make it public and re-run this job; nothing needs rebuilding, the image is already there." ;;
+                  *)         echo "  Fix: hub.docker.com/repository/docker/${name}/settings -> Visibility settings -> Public." ;;
+                esac
+                rc=1 ;;
+              *) echo "::warning::$image answered HTTP $code, which is neither public nor a definite refusal. Not failing on it." ;;
+            esac
+          }
+          for image in "wekanteam/wekan:v${VERSION}" "quay.io/wekan/wekan:v${VERSION}" \
+                       "ghcr.io/wekan/wekan:v${VERSION}" \
+                       "wekanteam/wekan-ondra:v${VERSION}" "wekanteam/wekan-gantt-gpl:v${VERSION}" \
+                       "quay.io/wekan/wekan-ondra:v${VERSION}" "quay.io/wekan/wekan-gantt-gpl:v${VERSION}" \
+                       "ghcr.io/wekan/wekan-ondra:v${VERSION}" "ghcr.io/wekan/wekan-gantt-gpl:v${VERSION}"; do
+            anon_check "$image"
           done
           exit $rc
 

@@ -10,10 +10,15 @@
 # half-hour emulated build, and no way for the variant image to drift from the
 # release it claims to be.
 #
-# `workflow_dispatch` ONLY, on purpose. release-all.yml publishes wekanteam/wekan
-# to Docker Hub, Quay and GHCR on every release; the variant images are published
-# when the maintainer decides to, which is what this file exists for. Nothing
-# here runs on a push, a tag or a schedule.
+# A RELEASE NO LONGER NEEDS THIS. release-all.yml's docker job tags both variants
+# on all three registries in its own `docker buildx build --push`, so every
+# release publishes them with the release's own digests. What this file is for now
+# is everything outside a release: publishing a variant for a version whose
+# release predates that change, repairing a tag, or pointing a variant at a
+# different version deliberately.
+#
+# `workflow_dispatch` ONLY, on purpose: nothing here runs on a push, a tag or a
+# schedule.
 #
 # If a variant repository ever stops being identical to wekan/wekan, this
 # retag becomes wrong: build that repository's own Dockerfile instead.

@@ -793,21 +793,34 @@ FerretDB chart would publish an install nobody has ever run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/4a519b656">The two variant images are published on GHCR by the release itself</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/da3c7c83c">The two variant images are published on all three registries by the release itself</a>. Thanks to xet7.</summary>
 
 `wekan-ondra` and `wekan-gantt-gpl` are the same WeKan as `wekan`: those
 repositories are byte-identical to `wekan/wekan` apart from the snap `name:` in
 `snapcraft.yaml`. Their Docker images have therefore never been rebuilt — they
-are retags of the released manifest — and on Docker Hub they still are, by the
-manual `docker-variant.yml`.
+were retags of the released manifest, published when somebody remembered to
+start `docker-variant.yml` by hand, which is how an image comes to name a
+version newer than the bits inside it.
 
-On GHCR they are now tagged in the release's own `docker buildx build --push`,
-beside `ghcr.io/wekan/wekan`. Being in the same build is the point: the variant
-tags carry the release's own digests for every architecture, there is no second
-emulated build to go wrong, and there is no window in which a variant image can
-differ from the release it names. The push verification asks the registry about
-them like any other tag, so a variant tag that never arrived fails the job
-instead of being found months later by somebody on that CPU.
+They are now tagged in the release's own `docker buildx build --push`, beside
+`wekan` itself, on GHCR **and** Docker Hub **and** Quay — eighteen tags from one
+build. Being in the same build is the point: the variant tags carry the
+release's own digests for every architecture, there is no second emulated build
+to go wrong, and there is no window in which a variant image can differ from the
+release it names. `docker-variant.yml` stays, for republishing one out of band
+when a registry was down or a repository was created after the fact, and that is
+work a human should start.
+
+Two guards, because a tag that is pushed is not a tag that anyone else can pull.
+The existing verification asks the registry about all nine images with the
+release's own credentials; a new step then asks for each one **anonymously**,
+the way a user does, and a `401`/`404` there fails the job with what to fix. It
+matters on the first release after this: Quay creates a new repository
+**private**, so `quay.io/wekan/wekan-ondra` will exist, will pull for the
+pusher, and will not pull for anybody else until its visibility is changed —
+the same trap `ghcr.io/wekan/ferretdb` fell into. A registry that cannot be
+reached at all is a warning, not a failure: that is the network, not the
+release.
 
 Release All Missing has no Docker part to change: its jobs are plan,
 extra-arches, appimage, flatpak, charts and done, and it fills in artifacts for
