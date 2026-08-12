@@ -440,7 +440,7 @@ and fixes the following bugs:
 **The snap** - which database it runs on, and how everything gets there.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASHSNAP">A snap ends up on FerretDB, whatever it was running before</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f7afbe1b8">A snap ends up on FerretDB, whatever it was running before</a>. Thanks to xet7.</summary>
 
 Three ways a snap could stay on MongoDB for good, all of them reported. The
 snap runs on **FerretDB** on every platform — MongoDB is bundled to be READ
