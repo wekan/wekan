@@ -59,35 +59,37 @@ test('the chart installs FerretDB, and no longer depends on a MongoDB chart', ()
     'including the Service its URL names');
 });
 
-test('the default image is one that can be pulled WITHOUT credentials', () => {
-  // An Artifact Hub scan of the published chart:
-  //   error scanning image ghcr.io/wekan/ferretdb:latest: image not found
-  // wekan/FerretDB pushes the same image to three registries, but a GHCR package
-  // is private until somebody makes it public and this one has not been - so an
-  // anonymous pull is denied, which in a cluster is ImagePullBackOff and in a
-  // scanner is "not found". quay.io and Docker Hub serve it to anyone.
+test('the default image is one of the registries that publish it, publicly', () => {
+  // WHAT CHANGED, and why this assertion did with it: for a day this said the
+  // default must NOT be the GHCR one. That was right at the time - a GHCR package
+  // is private until somebody makes it public, the wekan org had public packages
+  // disabled so the setting was greyed out, and an anonymous pull answered 403.
+  // Artifact Hub reported it as "image not found (package wekan:10.86.0)" and a
+  // cluster would have met ImagePullBackOff. The org policy and the package were
+  // then made public, so GHCR is the default again, beside ghcr.io/wekan/wekan.
+  //
+  // What is pinned is the rule that outlives either state: the default is one of
+  // the three registries wekan/FerretDB actually pushes to, and the file says
+  // which of them can be pulled - so a private package is a documented fact
+  // rather than a surprise in somebody's cluster.
+  const PUBLISHED = ['ghcr.io/wekan/ferretdb', 'quay.io/wekan/ferretdb', 'wekanteam/ferretdb'];
   const values = read('values.yaml');
   const at = values.indexOf('\nferretdb:');
   assert.notStrictEqual(at, -1, 'there is a ferretdb section');
-  const section = values.slice(at, at + 2000);
+  const section = values.slice(at, at + 3000);
   const repo = (/^    repository: (\S+)/m.exec(section) || [])[1];
-  assert.ok(repo, 'the ferretdb image has a repository');
-  assert.ok(repo !== 'ghcr.io/wekan/ferretdb',
-    'ghcr.io/wekan/ferretdb cannot be pulled anonymously; the default must be one '
-    + 'that can (quay.io/wekan/ferretdb or wekanteam/ferretdb)');
-  assert.ok(['quay.io/wekan/ferretdb', 'wekanteam/ferretdb'].includes(repo),
-    `the default is ${repo}, which is neither of the two registries known to serve `
-    + 'this image publicly');
+  assert.ok(PUBLISHED.includes(repo),
+    `the default is ${repo}, which is not one of the registries wekan/FerretDB pushes to`);
   assert.ok(/tag: latest/.test(section));
   const statefulset = read('templates/ferretdb-statefulset.yaml');
-  for (const registry of ['ghcr.io/wekan/ferretdb', 'quay.io/wekan/ferretdb', 'wekanteam/ferretdb']) {
+  for (const registry of PUBLISHED) {
     assert.ok(statefulset.includes(registry),
       `${registry} must be named - all three exist, and which of them a cluster can `
       + 'reach is exactly what a reader needs to know');
   }
-  assert.ok(/private|anonymous pull/i.test(statefulset),
-    'and the comment has to say WHY the GHCR one is not the default, or somebody '
-    + 'switches back to it');
+  assert.ok(/private|ImagePullBackOff/i.test(statefulset),
+    'and the comment has to keep the story of the private package: it is the first '
+    + 'thing to check when a pull of the default fails');
 });
 
 test('the URL names the Service this chart creates - charts#54', () => {

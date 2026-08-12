@@ -53,7 +53,9 @@ name: Release All Platforms
 #              Sandstorm build is the experimental/fragile part of CI, so it
 #              never fails the release
 #   - docker:  builds and pushes the multi-arch image (amd64, arm64, ppc64le, s390x,
-#              riscv64) to Docker Hub, Quay.io, GHCR
+#              riscv64) to Docker Hub, Quay.io, GHCR - and on GHCR also under the
+#              two variant names, wekan-ondra and wekan-gantt-gpl, which are the
+#              same image (the variant repos differ only in the snap name)
 #   - snap:    builds the snap from the default core24 snapcraft.yaml and pushes it
 #              to the Snap Store stable + candidate + beta + edge channels, and
 #              attaches the .snap files to the GitHub Release. Two jobs: snap-native
@@ -3461,6 +3463,20 @@ jobs:
           # continuation comments out the rest of the joined line, leaving
           # `docker buildx build` with no platforms and no tags. This block is a
           # shell script like any other, and it was written the wrong way first.
+          # THE TWO VARIANT NAMES ON GHCR are the same image under another name, and
+          # that is not a shortcut: wekan/wekan-ondra and wekan/wekan-gantt-gpl are
+          # byte-identical to wekan/wekan apart from the snap name in
+          # snapcraft.yaml (see docker-variant.yml, which retags them by hand for
+          # Docker Hub). Tagging them in THIS build gives them the same digests as
+          # the release, for every architecture, with no second build and no way to
+          # drift - and the verify below asks the registry about them like any other
+          # tag.
+          #
+          # If a variant repository ever stops being identical to wekan/wekan, these
+          # two -t lines become a lie and the variant needs its own build.
+          #
+          # GHCR only. Docker Hub and Quay variants stay with docker-variant.yml,
+          # which the maintainer runs deliberately.
           docker buildx build \
             --provenance=mode=max \
             --platform "${PLATFORMS}" \
@@ -3471,6 +3487,10 @@ jobs:
             -t quay.io/wekan/wekan:latest \
             -t ghcr.io/wekan/wekan:v${VERSION} \
             -t ghcr.io/wekan/wekan:latest \
+            -t ghcr.io/wekan/wekan-ondra:v${VERSION} \
+            -t ghcr.io/wekan/wekan-ondra:latest \
+            -t ghcr.io/wekan/wekan-gantt-gpl:v${VERSION} \
+            -t ghcr.io/wekan/wekan-gantt-gpl:latest \
             --push \
             .
 
@@ -3483,7 +3503,10 @@ jobs:
           # the image deliberately dropped.
           want="${WANT}"
           rc=0
-          for image in "wekanteam/wekan:v${VERSION}" "quay.io/wekan/wekan:v${VERSION}" "ghcr.io/wekan/wekan:v${VERSION}"; do
+          for image in "wekanteam/wekan:v${VERSION}" "quay.io/wekan/wekan:v${VERSION}" \
+                       "ghcr.io/wekan/wekan:v${VERSION}" \
+                       "ghcr.io/wekan/wekan-ondra:v${VERSION}" \
+                       "ghcr.io/wekan/wekan-gantt-gpl:v${VERSION}"; do
             # The format MUST carry the CPU variant. buildx builds linux/arm/v7,
             # but the registry records that as architecture "arm" with variant
             # "v7" in a SEPARATE field - so an OS/Architecture-only format prints

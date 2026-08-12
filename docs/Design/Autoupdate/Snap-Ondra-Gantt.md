@@ -38,11 +38,25 @@ before it is uploaded — a `wekan_*.snap` published from here would overwrite t
 default snap — and the two repositories were synced by hand on 2026-07-29, so they
 are the newest WeKan with the snap name changed and nothing else.
 
-The Docker side is deliberately **manual**: `wekanteam/wekan-gantt-gpl` and
-`wekanteam/wekan-ondra` are published by
-[`.github/workflows/docker-variant.yml`](../../../.github/workflows/docker-variant.yml)
-("Publish variant Docker image (manual)") or `releases/docker-publish-variant.sh`,
-which retag the released `wekanteam/wekan` manifest rather than rebuilding it.
+The Docker side is split by registry, and the split is deliberate:
+
+- **GHCR is automatic.** `release-all.yml`'s `docker` job tags
+  `ghcr.io/wekan/wekan-ondra` and `ghcr.io/wekan/wekan-gantt-gpl` in the SAME
+  `docker buildx build --push` as `ghcr.io/wekan/wekan`, so the variant tags carry
+  the release's own digests for every architecture — no second build, and no way
+  for them to drift from the release they claim to be. The push verification asks
+  the registry about them like any other tag.
+- **Docker Hub and Quay stay manual.** `wekanteam/wekan-gantt-gpl` and
+  `wekanteam/wekan-ondra` are published by
+  [`.github/workflows/docker-variant.yml`](../../../.github/workflows/docker-variant.yml)
+  ("Publish variant Docker image (manual)") or `releases/docker-publish-variant.sh`,
+  which retag the released `wekanteam/wekan` manifest rather than rebuilding it.
+
+Both rest on the same fact, and it is the thing to check before touching either:
+the variant repositories are byte-identical to `wekan/wekan` apart from the snap
+`name:` in `snapcraft.yaml`. If that ever stops being true, the GHCR tags in
+`release-all.yml` and the retag in `docker-variant.yml` both become a lie, and the
+variant needs its own build from its own Dockerfile.
 
 ## Remaining steps
 
