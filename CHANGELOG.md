@@ -278,17 +278,22 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** one fix, to the **snap**, and it is about work that looked lost
-after an overnight update. The **MongoDB to FerretDB migration** is resumable -
-it can run for hours, so being interrupted by a refresh or a reboot is normal -
-and it skips every collection an earlier run finished. What it never checked is
-whether **MongoDB has been used since**, and it always has been: between an
-interrupted migration and its retry the snap hands WeKan back to MongoDB. So a
-migration interrupted weeks ago and finished by an update copied only what was
-left, reported success, and served **boards and cards as they stood weeks
-earlier** while everything written since sat untouched in MongoDB. A resume now
-drops progress the source has outgrown before it starts, and the finished copy
-is **counted against the source** rather than trusted. The binaries below are
+**In short:** a **snap** release and a batch of reported bugs. The snap half is
+one theme in four places: a copy made at one moment being used as if it were
+current. A **MongoDB to FerretDB migration** interrupted weeks ago and finished
+by an update copied only what was left, so an overnight refresh could serve
+boards and cards as they stood weeks earlier; an instance already **running on
+FerretDB** was dragged back to the old MongoDB files it was migrated from, and
+shown "Wekan cannot open the existing database" instead of its own working site;
+a **MongoDB 3.x database on any CPU without the 3.2 reader** waited for a
+database that was never coming, with the reason only in `snap logs`; and the
+upgrade documentation let an admin copy the old database directory back over a
+**running** database, which destroys the restore they had just made. Then: the
+**PDF export** writes umlauts instead of question marks and no longer prints
+markdown at a reader, **minicards** follow the Member Settings font size, and
+unchecking **"Show on minicard"** on a checklist finally hides it. Below that: a
+repo-wide guard that asks whether an already-fixed vulnerability exists anywhere
+ELSE - which found one - and the tests for all of it. The binaries below are
 carried over from v10.85 and have NOT been checked against a newer build;
 `releases/provenance-table.sh` prints the real table from the provenance each
 build job records.
@@ -322,7 +327,9 @@ build job records.
 | win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
 | win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-win64.exe) | v1.49.0 | `f42c50aa84095a9616b00f27a584c66b7bf79e3b109450c62a5f146ba3c85478` |
 
-This release fixes the following bug:
+This release fixes the following bugs:
+
+**The snap** - which database it serves, and what it says when it cannot.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c78382982">A migration interrupted weeks ago no longer resumes onto a database MongoDB has outgrown</a>. Thanks to Alishara and xet7.</summary>
@@ -349,9 +356,9 @@ result.
 A new snap revision is usually what sets a stalled resume going again, because
 the per-revision failure counter starts at zero - which is why this reads as
 "the update lost my data". The update is when the weeks-old copy finally got
-served. It is the same family as [#6583](https://github.com/wekan/wekan/issues/6583)
-and has the same answer: a copy made at one time may not be used as if it were
-current.
+served. It is the same family as
+[#6583](https://github.com/wekan/wekan/issues/6583) and has the same answer: a
+copy made at one time may not be used as if it were current.
 
 Two checks now stand in the way, because they fail differently. Before the
 migration starts, and before it starts a mongod of its own - starting one
@@ -374,6 +381,181 @@ reported case, an ordinary resume minutes later, the margin that covers the
 migration stopping its own temporary mongod, and a `mongodb.log` that must not
 count as somebody having used the database - and exercise the count check
 extracted from both importers.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4b99fa701">A snap already running on FerretDB is not stopped by the old MongoDB files beside it</a>. Thanks to mueschel and xet7.</summary>
+
+"It somehow tries to access Mongodb again instead of Ferretdb. I don't even have
+an old version, but just this" - and the screenshot is the page from
+[#6471](https://github.com/wekan/wekan/issues/6471), "Wekan cannot open the
+existing database", on a snap whose data was in FerretDB and perfectly readable.
+
+The migration never deletes what it copied from, so a migrated snap keeps its
+old MongoDB files in `$SNAP_COMMON` forever. Two places treated their presence
+as something WeKan had to act on. The migration was called "pending" for any
+`$SNAP_COMMON` holding those files without the completed-migration marker - the
+database setting was never consulted - so an instance whose marker is gone (a
+forced re-migration cleared it, or it was migrated by a snap old enough never to
+have written one) probed the old files on every start, and when no reader could
+open them the site was replaced by an explanation of a database it does not use.
+
+Both now ask what the snap is actually running, and "already on FerretDB" means
+the setting AND real data: `database=ferretdb` with an empty `files/db` is
+exactly the case the migration exists for and must still run. Nothing is
+switched automatically - [#6583](https://github.com/wekan/wekan/issues/6583) is
+what choosing between two copies on the snap's own initiative costs - but where
+a FerretDB copy exists, the page now says so and gives the one command that
+serves it, the one that undoes it, and the warning that a migrated copy is only
+as new as the migration that made it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c3811c528">A MongoDB this snap has no reader for stops and says so, on every CPU</a>. Thanks to Philippe-Bentegeac, JDeepix and xet7.</summary>
+
+"It turns out the mongodb version on my installation was even older. It was
+running on mongodb 3.2, this is why your 4.2 check was not doing anything."
+Their site never showed the explanatory page either - it waited for MongoDB
+forever, which is the loop [#6471](https://github.com/wekan/wekan/issues/6471)
+was opened about.
+
+The MongoDB 3.2 tools are staged for amd64 only, because MongoDB published no
+3.2 build for anything else. So on every other architecture a MongoDB 3.x
+database has no reader in this snap at all - and that case was handed back to
+mongod 7, the binary that has already refused the files. It fails, the migration
+re-runs, and the site sits on "MongoDB not ready yet, retrying in 5 seconds..."
+with the reason only in `snap logs`.
+
+A missing reader and an unreadable database are not the same thing, and only one
+of them can usefully be retried. Where mongod has already said "too recent to
+start up on the existing data files", the reader not being in this snap is a
+final answer: stop, keep every byte, serve the page. The page also stops leaving
+the way out as an exercise - it gives the four steps in this snap's own paths,
+ending in `snap run wekan.database-restore`, rather than "move the data across
+with a MongoDB that can read it".
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/440062906">Copying the old snap common directory back is what destroys the restore</a>. Thanks to xet7.</summary>
+
+From an upgrade report by email. The admin upgraded 6.09 to 10.85 exactly by the
+documented route - dump, move `/var/snap/wekan/common` aside, refresh, restore -
+and it worked: the boards were back. Then, to get their attachments, they undid
+that step the way it reads, with `cp -pR /root/common/*
+/var/snap/wekan/common/`, and seconds later `mongod` aborted (`status=134/n/a`).
+"After that, Wekan was still running, but all the boards were missing."
+
+Everything beside `files/` in that directory is the raw database, and copying it
+over a RUNNING mongod replaces the files it has open underneath it. The
+documentation is where this is decided, because the mistake is made before any
+WeKan code runs: the step already said to copy back only `files`, and it now
+says what the obvious inversion costs, which files those are, and what the
+failure looks like in `snap logs wekan.mongodb` so somebody who has already done
+it recognises their own log. `mongodb-control` recognises that abort too - exit
+134 gets a case of its own beside the AVX one, naming the cause and the one way
+out.
+
+</details>
+
+**The board** - what a card looks like, and what an export says.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f7b0a4d1d">A board's type now follows Member Settings / Font size</a>. Thanks to CCmesch and xet7.</summary>
+
+"The font size setting in the user menu (Settings - Font Size) has no effect on
+mini cards, while it correctly applies to other UI elements."
+
+Two halves, and both had to be wrong for this. The preset was applied to
+`<body>`, and `rem` is measured against the ROOT element, so anything sized in
+rem never heard about the setting. And a board's type is sized in px - the list
+heading, the minicard title and the "Add card" link were pinned to 16/14/13px in
+[#6465](https://github.com/wekan/wekan/issues/6465) - which follows nothing at
+all, so the board was the part of the UI the setting could not reach whichever
+element carried it.
+
+The preset moves to `<html>` and those sizes become rem: the same 16/14/13px at
+the default root size, so the type scale is unchanged, but a 130% preset now
+scales it and 80% shrinks it. The size goes on one element only, because on both
+html and body a 130% preset compounds to 169%.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/32b61f186">Unchecking "Show on minicard" on a checklist now hides it</a>. Thanks to xet7.</summary>
+
+Reported by email with a screenshot: the switch is off and the checklist is on
+the minicard anyway. It was off for everybody, because the minicard asked
+`board.allowsChecklistsOnMinicard || checklist.showChecklistAtMinicard` and the
+board flag defaults to true. An OR cannot be argued with: while the board
+setting is on, no value of the checklist's own field changes the answer. The
+popup made it look like a working switch - it drew the state from the raw field,
+which starts false, so it read OFF beside a checklist that was plainly showing,
+and clicking it changed nothing visible in either direction.
+
+The two settings are a DEFAULT and an OVERRIDE now, which needs three states:
+the field loses its `defaultValue: false`, because with every checklist born
+false "hidden" and "not chosen" are the same value. Checklists written under the
+old default carry a false that meant "follow the board", so a schema-upgrade
+step clears exactly those - once ever, not once per version, since afterwards a
+stored false is somebody's choice.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eb1416889">The PDF export writes umlauts instead of question marks, and no longer prints markdown</a>. Thanks to Heart1010 and xet7.</summary>
+
+"the umlauts (german, ä, ü, ö,...) are corrupt", "all the text in this PDF file
+is markdown formatted - this doesn't make sense in a pdf file, does it?", and "I
+can't see in which swimlane a card is in that export, no tags".
+
+The umlauts were removed on purpose, one line before anything was written: every
+character outside printable ASCII became a question mark, so "Grüße" left the
+server as "Gr??e". That was a workaround rather than a choice - text in a PDF is
+bytes plus an encoding, and the exporter declared neither, so there was nothing
+safe to write those letters into. The font now declares `WinAnsiEncoding`, the
+text is encoded to those single bytes, and the file is assembled as binary; the
+cross-reference offsets are measured in bytes for the same reason, since
+measured as UTF-8 every offset after the first accented character is wrong.
+
+Markdown is flattened to its words instead of printed as syntax, list headings
+and card titles are drawn in the bold font rather than with `##`, and the board
+export now names swimlanes, labels, members, assignees and dates. What
+Windows-1252 has no room for is transliterated rather than erased; a script the
+base-14 fonts cannot draw at all still degrades to `?`, and an embedded Unicode
+font for those is in TODO Later.
+
+</details>
+
+and has the following test coverage work:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eb47e0465">A guard that asks whether an already-fixed mistake exists anywhere else</a>. Thanks to xet7.</summary>
+
+Every entry in the [Hall of Fame](https://wekan.fi/hall-of-fame/) has a suite
+pinning the place it was found, and none of them could answer the other half of
+the question: is the same MISTAKE somewhere else, in WeKan or in the FerretDB
+fork WeKan ships as its default database? A per-site regression test knows one
+file, and the next occurrence is written months later by somebody who never read
+the advisory.
+
+The new guard asks it as a class, over the whole tree and over `.tools/FerretDB`
+when the clone is there: an archive entry naming its own destination, a client
+selector carrying operators that execute JavaScript, TLS verification switched
+off (including Go's `InsecureSkipVerify`), `eval`, an SVG served inline
+unsanitised, and a secret from a non-cryptographic source or folded onto an
+alphabet with a biased `%`. Comments and strings are stripped before matching,
+or the notes explaining a fix would trip the check enforcing it, and every check
+was confirmed to FAIL on the mistake before being kept.
+
+It found one immediately: the selector guard rejected `$where` and nothing else,
+but `$where` stopped being the only way a find filter runs JavaScript in MongoDB
+4.4 - `$expr` with `$function`, and `$accumulator`, do the same through the same
+client-supplied selector. Both are rejected now. A release entry that had
+shipped with no test at all - the two Admin Panel / Problems database bugs -
+gets one too.
 
 </details>
 
