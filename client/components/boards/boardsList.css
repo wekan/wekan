@@ -1604,6 +1604,42 @@
 .board-list .board-color-moderndark { background-color: #2a2a2a; }
 .board-list .board-color-exodark { background-color: #222; }
 
+/* All Boards uses ordinary neutral cards. The board's saved colour belongs to
+   the board canvas and header, not to the overview tile; keeping it here made
+   a mixed set of boards read like a gradient palette instead of one list. */
+.board-list > li.js-board,
+.board-list > li.js-board > .board-list-item,
+.board-list > li.js-board > .board-list-item.has-background-image,
+.board-list > li.js-board > .board-list-item > .js-open-board {
+  background: #fff !important;
+  background-image: none !important;
+  background-color: #fff !important;
+  color: #202124;
+}
+
+.board-list > li.js-board > .board-list-item.has-background-image::after {
+  display: none;
+}
+
+.board-list > li.js-board .board-list-item-name,
+.board-list > li.js-board .board-list-item-desc,
+.board-list > li.js-board .board-list-card-count {
+  color: #202124;
+  text-shadow: none;
+}
+
+.board-list > li.js-board .board-list-item-desc {
+  color: #6b7280;
+}
+
+.board-list > li.js-board .board-list-card-count {
+  background: #f3f4f6;
+}
+
+.board-list > li.js-board .board-list-card-count i.fa {
+  color: #6b7280;
+}
+
 .minicard-members {
   padding: 6px 0 6px 8px;
   width: 100%;
