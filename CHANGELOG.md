@@ -276,6 +276,90 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** one fix, and it is to the **browser console** rather than to
+anything a user sees. Firefox logged a warning for every **Font Awesome** glyph
+whose stored bounding box was tighter than its own outline, on every page load -
+**819 of 2163 glyphs** across the four font files - which buried anything else
+worth reading there. The boxes are recomputed, with a script to redo it after a
+font upgrade and a guard so the warnings cannot come back unnoticed. The
+binaries below are carried over from v10.83 and have NOT been checked against a
+newer build; `releases/provenance-table.sh` prints the real table from the
+provenance each build job records.
+
+| Platform | Binary | From | Version | SHA256 |
+| --- | --- | --- | --- | --- |
+| amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
+| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-amd64) | v1.49.0 | `7c74941ff043f26aa4411ef5065d6b2d0766e369fc2a4458364c2f5571c12762` |
+| arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
+| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-arm64) | v1.49.0 | `092132531555a39eac12566240a5f1ed02f62148b2dca0540a74c68e5957f6b5` |
+| armhf | Node.js | [wekan/node-patches](https://github.com/wekan/node-patches/releases/download/v24.19.0/node-armhf) | v24.19.0 | `b55350f3071b765a98ed66fdc410657ff168a937935057077fd7ab33cb30b9aa` |
+| armhf | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-armhf) | v1.49.0 | `144404fb9793dc8e039874812f4e2cb3e6d8b1df0ffdbe50254e7790a342a2f4` |
+| armv6 | Node.js | [wekan/node-patches](https://github.com/wekan/node-patches/releases/download/v24.19.0/node-armv6) | v24.19.0 | `128ded0cda638c1f144eadb23ad249889515df017d298fd49c8faf3db110f0f1` |
+| armv6 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-armv6) | v1.49.0 | `7c27b2c15448709a24eace9b3c951c62fbe33413f7d20d56cb5520f4436efe2d` |
+| armv7 | Node.js | [wekan/node-patches](https://github.com/wekan/node-patches/releases/download/v24.19.0/node-armv7) | v24.19.0 | `8dbe0a9aa8550ad5275c5538ebf868eb2037f0c4d9cccbe319f63b7e5854cd45` |
+| armv7 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-armhf) | v1.49.0 | `144404fb9793dc8e039874812f4e2cb3e6d8b1df0ffdbe50254e7790a342a2f4` |
+| i386 | Node.js | [wekan/node-patches](https://github.com/wekan/node-patches/releases/download/v24.19.0/node-i386) | v24.19.0 | `3b0b3bbfe27daf583b3a0f432efacc508407a012cdd9e8847250e7c015565bac` |
+| i386 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-i386) | v1.49.0 | `1f70cb1687411b2a0fa9ac3b5bfc8c4ed9ce25ec2ddfa17e6fd3efb38136a39c` |
+| mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-arm64.tar.xz) | v24.19.0 | `3f1cf157479c1480352083105e13faf9d008ede98e7e157746b6df940d197b94` |
+| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-mac-arm64) | v1.49.0 | `576364db59dfce3ba564b9a3e484496eb57f95d76d2007b9f83241acdbd2f4fa` |
+| mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
+| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-mac-amd64) | v1.49.0 | `37d70cd90aad6d3867b6686507ff1888f1edf6791818c31d014d130e8f39fc14` |
+| ppc64le | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-ppc64le.tar.xz) | v24.19.0 | `c510c6ce12f07010f771e6edb22a3fe23f4f2e6f40b1ffd4941aed0646a0d8b3` |
+| ppc64le | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-ppc64le) | v1.49.0 | `7c61d4853d5163ad8761449d693fd458ebbb8611a2351c718014876242c5b1fb` |
+| riscv64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-riscv64.tar.xz) | v24.19.0 | `cd1f14af2812148002f58b58a5f9af512a50e3b8e8c148e0db44019dcb68edfd` |
+| riscv64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-riscv64) | v1.49.0 | `bd4912da70f5e6c1475ab989668c76b4ab7db4ee06c44357693df64f5e1d0e0b` |
+| s390x | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-s390x.tar.xz) | v24.19.0 | `a4792e65962ffa0af42627aacf1122a60c3c88dbf4e4184f06820d66f9da8ba4` |
+| s390x | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-s390x) | v1.49.0 | *no checksum published* |
+| win-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-arm64.zip) | v24.19.0 | `8502f4a50b458d4cc38ed8f2001556c2cd239d464920f74017926ccb1e1c157f` |
+| win-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-win-arm64.exe) | v1.49.0 | `792166623e774b0af2aced31ed3ae39f545ca5268dc4c2b8d1a329228ff52cbc` |
+| win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
+| win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-win64.exe) | v1.49.0 | `f42c50aa84095a9616b00f27a584c66b7bf79e3b109450c62a5f146ba3c85478` |
+
+This release fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4f2a143e0">Font Awesome: state the bounding box each glyph actually has</a>. Thanks to xet7.</summary>
+
+Firefox logged one warning per glyph, on every page load, for every Font Awesome
+file WeKan serves:
+
+    downloadable font: glyf: Glyph bbox was incorrect; adjusting (glyph 19)
+    (font-family: "Font Awesome 6 Free" ...) source: .../fa-regular-400.woff2
+
+819 of the 2163 glyphs were affected - 540 in `fa-solid-900`, 204 in
+`fa-brands-400`, 59 in `fa-regular-400`, 16 in `fa-v4compatibility` - so the
+console filled with hundreds of lines and stopped being useful for spotting
+anything else.
+
+Every TrueType glyph stores its own bounding box in the `glyf` table. Font
+Awesome ships boxes that are TIGHTER than the outline: they bound the on-curve
+points only, while the box has to bound the control points too, because a
+quadratic curve can bulge past its endpoints. Firefox's OpenType sanitiser
+notices, corrects each box in memory and says so. Nothing rendered wrongly - the
+warning was the whole of the damage - but the numbers in the file were wrong,
+and they are wrong upstream, in Font Awesome's own build.
+
+`releases/fix-font-bboxes.py` recomputes them, and writes the `.ttf` and the
+`.woff2` from one corrected font so the pair cannot drift. Only `head` and
+`hhea` differ from what Font Awesome shipped, and both follow from the boxes;
+every other table compiles identically, which the script verifies by reading
+back what it wrote. It keeps Font Awesome's own `head.modified`, so two runs
+over the same input agree byte for byte rather than churning a committed binary.
+
+`tests/fontGlyphBounds.test.cjs` parses the fonts with its own reader rather
+than the tool that wrote them, and that guard matters more than the fix: these
+fonts are VENDORED, so the next Font Awesome upgrade drops fresh upstream files
+straight back into the tree and the warnings would return silently, months from
+anything that would explain them. The failure message names the script to
+re-run.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.84 2026-08-12 WeKan ® release
 
 **In short:** one fix, to the **snap**, and it is a fix to the previous
