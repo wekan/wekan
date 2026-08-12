@@ -314,7 +314,7 @@ rebuilds them.
 This release fixes the following bug:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/016f11e9e">Snap: a started mongod is not a used mongod, so stop calling the live copy stale</a>. Thanks to lukechao, markusst1982 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1993d7d3c">Snap: a started mongod is not a used mongod, so stop calling the live copy stale</a>. Thanks to lukechao, markusst1982 and xet7.</summary>
 
 The staleness guard added for
 [#6583](https://github.com/wekan/wekan/issues/6583) had the opposite failure of
