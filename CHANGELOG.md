@@ -307,7 +307,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.88 2026-08-12 WeKan ® release
 
 **In short:** the rest of the **afternoon github.com spent returning `503`**,
 and one repository that had nothing to do with WeKan at all. Two more release
