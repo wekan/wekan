@@ -328,10 +328,11 @@ finally move a card and assign themselves to it, an **archived card is still
 named** in its own history, the **PDF export** writes umlauts instead of
 question marks and no longer prints markdown at a reader, **minicards** follow
 the Member Settings font size, and unchecking **"Show on minicard"** on a
-checklist finally hides it. Below that: dependency updates, a repo-wide guard
-that asks whether an already-fixed vulnerability exists anywhere ELSE - which
-found one - and the tests for all of it. The binaries below are carried over
-from v10.85 and have NOT been checked against a newer build;
+checklist finally hides it. Below that: dependency updates, the **Helm chart**
+moving to FerretDB with the release that publishes it, a repo-wide guard that
+asks whether an already-fixed vulnerability exists anywhere ELSE - which found
+one - and the tests for all of it. The binaries below are carried over from
+v10.85 and have NOT been checked against a newer build;
 `releases/provenance-table.sh` prints the real table from the provenance each
 build job records.
 
@@ -730,7 +731,9 @@ font for those is in TODO Later.
 
 </details>
 
-and has the following test coverage work:
+and changes what the Helm chart installs and how it is published:
+
+**The Helm chart** - the database it installs, and the index that lists it.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5d1c9d0a3">This release switches the Helm chart to FerretDB, and its release job is what publishes it</a>. Thanks to salcinad, ouvry-ems and xet7.</summary>
@@ -757,9 +760,14 @@ the index is touched: charts already in it keep their package and their digest.
 The chart carries what WeKan needs on FerretDB rather than what it needed on
 MongoDB — polling reactivity, `sockjs`, `WRITABLE_PATH`, `WITH_API`, no
 `MONGO_OPLOG_URL`, and `directConnection=true` in the URL
-([#6582](https://github.com/wekan/wekan/issues/6582)) — plus every setting
-`docker-compose.yml` documents, commented, so a Helm user has the same reference
-a Docker user has.
+([#6582](https://github.com/wekan/wekan/issues/6582)) — and each of those says,
+where the setting is, what it would be on MongoDB instead, with both of WeKan's
+compose files linked and the production notes
+([docs/Platforms/FOSS/Container/Docker/Meteor3](https://github.com/wekan/wekan/tree/main/docs/Platforms/FOSS/Container/Docker/Meteor3))
+pointed at from `values.yaml`, the README and the URL helper. The image comment
+names the three registries that carry FerretDB and the Docker Hub `mongo:7` it
+replaced. Plus every setting `docker-compose.yml` documents, commented, so a
+Helm user has the same reference a Docker user has.
 
 Two release-path guards come with it. The version bump a release performs cannot
 touch `tag: latest`, so a WeKan version bump can never rewrite the database
@@ -769,6 +777,62 @@ became the default in: it packages today's chart, and giving a v6.09 image a
 FerretDB chart would publish an install nobody has ever run.
 
 </details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2ad02cccc">A version bump cannot rewrite the database image, and old releases are not backfilled onto FerretDB</a>. Thanks to xet7.</summary>
+
+Two guards on the release path, found by checking the Release All and Release
+All Missing workflows against the chart change rather than assuming they still
+fit.
+
+A release rewrites exactly three things in the chart: `appVersion`, the chart
+version, and the WeKan image tag. That last substitution matches `tag:
+v<digits>` and every other image in the chart is `tag: latest` — FerretDB and
+the two busybox images — so a WeKan version bump cannot reach the database
+image. The test asserts that against the pattern itself rather than a copy of
+it, and the whole release was simulated for a hypothetical 10.86: no
+dependencies, FerretDB enabled, both its templates in the package, and the
+FerretDB URL helper.
+
+`releases/backfill-charts.sh` fills holes in the published index by packaging
+TODAY's chart with an old release's numbers on it, and today's chart installs
+FerretDB — which WeKan did not default to until v10.00. A backfilled chart for
+v6.09 would pair that image with a database nobody ever ran it against,
+published under a version number that says it is that release's chart. It now
+stops at 10.00, reports the older ones rather than dropping them silently, and
+`CHART_FERRETDB_FLOOR` overrides it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/de8a29385">A chart package whose container image was deleted cannot come back into the index</a>. Thanks to xet7.</summary>
+
+From an Artifact Hub scan report of the chart repository:
+
+    error scanning image ghcr.io/wekan/wekan:v9.62: image not found
+      (package wekan:9.62.0)
+
+and six more like it. Checked against the live registry, the index itself is
+already clean — every one of its 230 entries points at an image that exists,
+because `releases/reindex-charts.py` asks the registry about every image a
+package pins and leaves out the ones whose image is gone.
+
+The hole was in the backfill: it rebuilt the index with `helm repo index
+--merge`, and helm indexes what it FINDS. 135 packages on that branch have an
+image that no longer exists — six WeKan images that were never published, and
+129 charts vendoring a Bitnami MongoDB image Bitnami has since deleted — so one
+run would have put all of them back and produced the same report again. It now
+uses `reindex-charts.py`, so "a package whose image is gone stays out of the
+index" is one rule in one place rather than two tools that disagree. A registry
+that cannot be REACHED is still never read as "image gone": that would drop good
+entries on a network hiccup.
+
+The duplicate-entry repair that followed the merge went with it — `--merge` was
+what produced the duplicates, and one entry per package cannot duplicate.
+
+</details>
+
+and has the following test coverage work:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/eb47e0465">A guard that asks whether an already-fixed mistake exists anywhere else</a>. Thanks to xet7.</summary>
