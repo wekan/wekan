@@ -664,7 +664,7 @@ screen.
 **Board, swimlane and list export** - printing a board, and what goes in it.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">The board Export menu is grouped under subheadings instead of one flat list</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8d716de7ccbae184cc3cdda4a54c82e8e90461ab">The board Export menu is grouped under subheadings instead of one flat list</a>. Thanks to xet7.</summary>
 
 It was nineteen entries in one list, each spelling out its whole family:
 "Export / CSV (,)", "Export / CSV (;)", "Export / TSV", then eleven lines
