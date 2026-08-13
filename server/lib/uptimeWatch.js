@@ -141,16 +141,54 @@ if (Meteor.isServer) {
 
     // A clean stop marks itself, which is the only way the next start can tell
     // the difference between "stopped" and "died".
-    const markClean = () => {
-      try {
-        IntegrityKeys.update(
-          { _id: 'heartbeat' },
-          { $set: { at: new Date(), cleanShutdown: true } },
-        );
-      } catch (e) { /* nothing useful to do while exiting */ }
+    //
+    // Two things were wrong here, and together they made every ordinary restart
+    // look like a crash - which is what an admin's Filesystem integrity page was
+    // full of: "the previous run STOPPED WITHOUT SHUTTING DOWN CLEANLY, and this
+    // server was down for about 4 minute(s)", severity high, on a snap that had
+    // simply been refreshed.
+    //
+    //   1. `IntegrityKeys.update()` is not synchronous in Meteor 3. It starts a
+    //      write and returns a promise nobody waited for, so the process was
+    //      killed with the mark unwritten. Every stop was an unclean stop.
+    //   2. Worse: registering ANY listener for SIGTERM replaces Node's default
+    //      behaviour, which is to terminate. Nothing here exited, so WeKan
+    //      ignored SIGTERM entirely - systemd/snapd then waited out its stop
+    //      timeout and used SIGKILL, which is both the minutes of "downtime"
+    //      those rows reported and a genuinely unclean kill of the app.
+    //
+    // So: write the mark, then exit, and exit even if the write cannot be made.
+    // A shutdown must never be held open by the bookkeeping about shutdowns.
+    const MARK_TIMEOUT_MS = 2000;
+    let stopping = false;
+    const markCleanAndExit = () => {
+      if (stopping) return;
+      stopping = true;
+      let finished = false;
+      const finish = () => {
+        if (finished) return;
+        finished = true;
+        // 0, not 128+15: a stop that was asked for is a success, and a non-zero
+        // code makes systemd mark the service failed on every restart.
+        process.exit(0);
+      };
+      const timer = setTimeout(finish, MARK_TIMEOUT_MS);
+      if (typeof timer.unref === 'function') timer.unref();
+      Promise.resolve()
+        .then(() =>
+          IntegrityKeys.updateAsync(
+            { _id: 'heartbeat' },
+            { $set: { at: new Date(), cleanShutdown: true } },
+          ),
+        )
+        .catch(() => { /* nothing useful to do while exiting */ })
+        .then(() => {
+          clearTimeout(timer);
+          finish();
+        });
     };
-    process.once('SIGTERM', markClean);
-    process.once('SIGINT', markClean);
+    process.once('SIGTERM', markCleanAndExit);
+    process.once('SIGINT', markCleanAndExit);
 
     // The cause, recorded before the process goes. Listeners are ADDED, never
     // replaced: removing whatever else is listening would change how the app

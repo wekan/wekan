@@ -239,25 +239,58 @@ Meteor.startup(() => {
         res.writeHead(200); // HTTP status
         res.end(metricsRes);
       } else {
-        // If the request carried an X-Forwarded-For header but was still denied,
-        // that is a likely forged-whitelisted-IP attempt (MetricsBleed) — record it.
-        if (req.headers['x-forwarded-for']) {
+        // A denied request that carried an X-Forwarded-For header MIGHT be a
+        // forged-whitelisted-IP attempt (MetricsBleed) — but only if the header
+        // claimed an address that is actually on the allowlist.
+        //
+        // "Nothing legitimate sends a forwarded-for header here" turned out to
+        // be wrong, and an admin's Security Report is where it showed: every
+        // reverse proxy adds X-Forwarded-For to everything it forwards. A
+        // Prometheus scrape through a local proxy, on a server whose allowlist
+        // simply does not cover it, was recorded as a medium-severity spoofing
+        // attempt from 127.0.0.1, over and over. A report full of the proxy
+        // doing its job is a report nobody reads.
+        //
+        // The spoof has a signature, so ask for it: the header names an
+        // allowlisted address while the connection itself is not from one. That
+        // is somebody claiming to be a whitelisted host. Anything else is an
+        // ordinary refusal, and the 401 is the whole of the answer.
+        const forwardedFor = req.headers['x-forwarded-for'];
+        if (forwardedFor) {
           try {
-            // A canary, with the REQUEST in hand: nothing legitimate sends a
-            // forwarded-for header to an endpoint that does not trust one, so
-            // this is somebody trying to look like a whitelisted address. The
-            // 401 below is unchanged (docs/Security/Remediation/WeKan.md §12).
-            require('/server/lib/canary').tripCanary('spoof.forwarded-header', {
-              req,
-              detail: 'denied /metrics with X-Forwarded-For present',
-            });
+            const claimed = String(forwardedFor)
+              .split(',')
+              .map(s => s.trim())
+              .filter(Boolean);
+            const impersonating =
+              claimed.some(addr => acceptedIpAddress(addr)) &&
+              !acceptedIpAddress(req.socket.remoteAddress);
+            if (impersonating) {
+              // A canary, with the REQUEST in hand. The 401 below is unchanged
+              // (docs/Security/Remediation/WeKan.md §12).
+              require('/server/lib/canary').tripCanary('spoof.forwarded-header', {
+                req,
+                detail: 'denied /metrics with a forwarded-for header naming an allowed address',
+              });
+            }
           } catch (e) { /* logging must never break the endpoint */ }
         }
         res.writeHead(401); // HTTP status
         res.end(
           'IpAddress: ' +
             ipAddress +
-            ' is not authorized to perform this action !!\n',
+            ' is not authorized to perform this action !!\n' +
+            // The address above is the SOCKET peer unless METRICS_TRUST_PROXY
+            // says how many proxies to trust, so behind a reverse proxy this is
+            // the proxy and never the scraper. Somebody staring at a 401 from
+            // their own Prometheus deserves to be told that here, in the answer
+            // they are actually looking at, rather than in the server log.
+            (forwardedFor && !process.env.METRICS_TRUST_PROXY
+              ? 'This request came through a proxy (X-Forwarded-For present) and the ' +
+                'address above is the proxy. Add it to METRICS_ACCEPTED_IP_ADDRESS, or ' +
+                'set METRICS_TRUST_PROXY to the number of trusted proxy hops so the ' +
+                "scraper's own address is used.\n"
+              : ''),
         );
       }
     } catch (e) {
