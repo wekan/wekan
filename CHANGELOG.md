@@ -508,7 +508,7 @@ offered it at all.
 **All Boards** - the overview and the tiles in it.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">A starred page and a Template Container are the same height as a board and as "+ Add Board"</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6c591968024d8889accdd9a1c342d05db7d6738e">A starred page and a Template Container are the same height as a board and as "+ Add Board"</a>. Thanks to xet7.</summary>
 
 In All Boards / Starred, a bookmark tile stood 8px taller than the board tile
 beside it and than the grey "+ Add Board" box, and pulled its whole row up with
