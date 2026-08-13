@@ -307,7 +307,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.90 2026-08-13 WeKan ® release
 
 **In short:** things that were reported this week, and one of them is data
 coming back from the dead: **previously archived cards, some years old,
