@@ -307,9 +307,14 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** four reports from admins who could not tell what their own WeKan
-was doing. Clicking a **minicard again did not close the card** it had opened -
-the toggle was there and had a test, and it was closing the wrong thing, so it
-was the one part of this that nobody could see was broken. A snap **waiting for
+was doing, and two pieces of theming. **Member Settings / Change color** gained
+an **All Boards** switch beside "Default (no override)" - the overview's tiles
+take the theme's lighter colour instead of eleven different board colours, if
+that is what you want - and a highlighted popup row now follows the theme like
+the left menu does instead of being a fixed navy. Clicking a **minicard again
+did not close the card** it had opened - the toggle was there and had a test,
+and it was closing the wrong thing, so it was the one part of this that nobody
+could see was broken. A snap **waiting for
 its database** answered nothing at all on the web port, so an upgrade that left
 the database down looked like WeKan itself loading forever; the wait is a page
 now, with the commands that say why, and it carries the product name and the
@@ -384,6 +389,38 @@ several open, `currentCard` is only the last one clicked, so every earlier
 window was impossible to close from its minicard. Closing navigates back to the
 board only when the card really IS the address - a card opened by a click is
 not, and navigating would reset the board view for nothing.
+
+</details>
+
+**Member Settings** - the theme, and what it reaches.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e86e7abe0">All Boards tiles can take the theme's lighter colour, and a highlighted popup row follows the theme too</a>. Thanks to khuongsatou and xet7.</summary>
+
+Two things in Member Settings / Change color.
+
+Beside **Default (no override)**, on the same row, a second switch: **All
+Boards**. Turned on, every tile in the All Boards overview takes the theme's
+lighter colour — a white veil over the theme accent, which is one shade up from
+whatever the theme is — with white text on it, instead of the colour its own
+board was given. Turned off, which is the default, the overview is exactly what
+it was. A board with a background *image* keeps its image: that is a picture
+somebody chose, not a colour.
+
+That is [#6593](https://github.com/wekan/wekan/pull/6593)'s observation as a
+per-user choice rather than a stylesheet. The pull request paints every tile
+white for everybody, and what it noticed is right — a wall of boards in eleven
+colours reads as a palette rather than a list — but *"the tile colours are
+noise"* and *"the tile colours are how I find my board"* are both true, of
+different people. So it lives where the rest of that user's theme is chosen, and
+only there: a board has no overview of its own, and a site admin does not choose
+this for everybody.
+
+And the **highlighted row** in a popup: it was filled with a fixed dark navy
+that appears nowhere else in WeKan and stayed navy however the user had themed
+it. The All Boards left menu fills its selected row with the theme accent and
+turns the label and icon white, and so does the Admin Panel — the popup does now
+too, so there is one selected-thing look rather than three.
 
 </details>
 
