@@ -306,10 +306,13 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** two reports from admins who could not tell what their own WeKan
+**In short:** three reports from admins who could not tell what their own WeKan
 was doing. Clicking a **minicard again did not close the card** it had opened -
 the toggle was there and had a test, and it was closing the wrong thing, so it
-was the one part of this that nobody could see was broken. And a snap serving
+was the one part of this that nobody could see was broken. A snap **waiting for
+its database** answered nothing at all on the web port, so an upgrade that left
+the database down looked like WeKan itself loading forever; the wait is a page
+now, with the commands that say why. And a snap serving
 **the older of its two copies of the data** was told "No problems detected",
 because the status report reads only the database WeKan is connected to and
 never said WHICH one that is; it now ends with a section that does, and names
@@ -377,6 +380,39 @@ several open, `currentCard` is only the last one clicked, so every earlier
 window was impossible to close from its minicard. Closing navigates back to the
 board only when the card really IS the address - a card opened by a click is
 not, and navigating would reset the board view for nothing.
+
+</details>
+
+**Starting up** - and what a browser shows while WeKan cannot yet serve.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4254dfa39">A snap waiting for its database says so in the browser, instead of timing out</a>. Thanks to Alishara and xet7.</summary>
+
+*"We upgraded from 10.85 to 10.89 and later to 10.90 - a reload of wekan got a
+timeout (loading forever)"* -
+[#6592](https://github.com/wekan/wekan/issues/6592).
+
+WeKan does not open its web port until the database answers, and the snap's two
+waits are endless on purpose: a database can take minutes to come up after an
+update, and giving up on it would be worse than waiting. They are not silent
+either - after two minutes each prints what to check. But nothing was listening
+on the web port while they waited, so the browser got a timeout and everything
+printed went to `snap logs`, which is the last place somebody whose site is down
+thinks to look. It also makes the two possible faults look the same: *"WeKan
+does not load"* is the report whether WeKan is broken or FerretDB simply did not
+start.
+
+The wait now serves a page saying **WeKan is waiting for its database**, naming
+the database it is waiting for and, in the browser, the commands that answer
+why: the service's own log (an `exec format error` is the bundled binary not
+running on this CPU), `wekan.problems` for which copy of the data is served,
+`snap start --enable` for a service left stopped by a failed migration, and
+`snap revert` back to the revision that worked. It refreshes itself away when
+WeKan starts, appears only after 30 seconds so an ordinary restart never shows
+it, and is stopped before anything else binds the web port.
+
+This does not say why the reporter's database did not come up - the issue has no
+logs yet - but the next person sees the reason instead of a timeout.
 
 </details>
 
