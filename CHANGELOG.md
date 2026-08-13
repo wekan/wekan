@@ -384,7 +384,7 @@ not, and navigating would reset the board view for nothing.
 has.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c456b87cd">The status report says which copy of the data is being served, and how to compare them</a>. Thanks to waltermhl and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/504e450a1">The status report says which copy of the data is being served, and how to compare them</a>. Thanks to waltermhl and xet7.</summary>
 
 *"error: cannot find app "database-compare" in "wekan". It seems, that database
 compare is not included in wekan 10.82"* -
