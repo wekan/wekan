@@ -35,26 +35,67 @@ function prop(blk, name) {
   return m ? m[1].trim() : null;
 }
 
-test('the add-board grey tile matches the board tile box model (same height)', () => {
+// The RENDERED height of a tile, from its rule. With `box-sizing: border-box`
+// the declared min-height IS that height; without it, padding and border are
+// added outside it - which is the whole bug this guards.
+function outerHeight(blk, extraBorderPx = 0) {
+  const minH = parseInt(prop(blk, 'min-height'), 10);
+  const borderBox = /box-sizing:\s*border-box/.test(blk);
+  if (borderBox) return minH;
+  const padding = prop(blk, 'padding');
+  const p = padding ? padding.split(/\s+/).map(v => parseInt(v, 10)) : [0];
+  const vpad = p[0] + (p[2] === undefined ? p[0] : p[2]);
+  return minH + vpad + extraBorderPx * 2;
+}
+
+test('every All Boards tile renders the same height, bordered ones included', () => {
+  // A board tile, the grey "+ Add Board" tile, a BOOKMARK in Starred and the
+  // Template Container tile all sit in the same grid, and two of those four
+  // carry `border: 4px solid #fff`. On a content-box element that border is
+  // added OUTSIDE the height, so a starred page stood 8px taller than the board
+  // next to it and than "+ Add Board", and dragged its whole row taller.
   const tile = block('.board-list .board-list-item');
   const add = block('.board-list .js-add-board .label');
 
-  const tileMinH = prop(tile, 'min-height');
-  // Total vertical padding (top+bottom) drives tile height; the add-board tile may
-  // split it differently (to nudge the text) as long as the SUM matches.
-  const vpad = blk => {
-    const p = prop(blk, 'padding').split(/\s+/).map(v => parseInt(v, 10));
-    return p[0] + (p[2] === undefined ? p[0] : p[2]); // top + bottom
-  };
+  assert.ok(/box-sizing:\s*border-box/.test(tile),
+    'the board tile folds its padding and border into its height');
+  assert.ok(/box-sizing:\s*border-box/.test(add),
+    'and so does the add-board tile, or a border would push it out again');
 
-  assert.strictEqual(tileMinH, '72px', 'board tile min-height (sanity)');
-  assert.strictEqual(prop(add, 'min-height'), tileMinH, 'add-board min-height matches board tile');
-  assert.strictEqual(vpad(add), vpad(tile), 'add-board total vertical padding matches board tile (same height)');
+  const height = outerHeight(tile);
+  assert.strictEqual(height, 114, 'the height an ordinary tile already rendered at');
+  assert.strictEqual(outerHeight(add), height, '"+ Add Board" matches a board tile');
+
+  // The two bordered variants add only a border - which now costs nothing,
+  // because the base rule is border-box. If either ever set its own min-height
+  // or box-sizing, it would be a second answer to "how tall is a tile".
+  for (const selector of [
+    '.board-list .board-list-item.template-container',
+    '.board-list .board-list-item-bookmark .board-list-item',
+  ]) {
+    const variant = block(selector);
+    assert.ok(/border:\s*4px solid/.test(variant), `${selector} is the bordered kind`);
+    assert.strictEqual(prop(variant, 'min-height'), null,
+      `${selector} must not restate the height`);
+    assert.strictEqual(prop(variant, 'box-sizing'), null,
+      `${selector} must not opt out of border-box`);
+  }
 
   // NEGATIVE guard: the old oversized values must be gone.
   assert.ok(!/min-height:\s*100px/.test(add), 'no leftover 100px min-height');
   assert.ok(!/line-height:\s*56px/.test(add), 'no leftover 56px line-height');
   assert.ok(!/padding:\s*36px/.test(add), 'no leftover 36px padding');
+});
+
+test('no tile rule opts back into content-box (negative)', () => {
+  // content-box is what made the border grow the tile. A rule that sets it on a
+  // tile would put the 8px back without changing a single height value.
+  const tileRules = css.split('}').filter(rule =>
+    /\.board-list[^{]*\.(board-list-item|label)[^{]*\{/.test(rule));
+  for (const rule of tileRules) {
+    assert.ok(!/box-sizing:\s*content-box/.test(rule),
+      `a tile rule sets content-box: ${rule.slice(0, 60).trim()}`);
+  }
 });
 
 test('the controls wrap so none of them is cut off on a narrow window', () => {

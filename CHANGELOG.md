@@ -505,6 +505,32 @@ offered it at all.
 
 </details>
 
+**All Boards** - the overview and the tiles in it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">A starred page and a Template Container are the same height as a board and as "+ Add Board"</a>. Thanks to xet7.</summary>
+
+In All Boards / Starred, a bookmark tile stood 8px taller than the board tile
+beside it and than the grey "+ Add Board" box, and pulled its whole row up with
+it.
+
+Two of the four tiles in that grid carry `border: 4px solid #fff` - a bookmark
+and the Template Container - to say they are not an ordinary board. The tile's
+height was a 72px floor with 42px of padding added outside it, which comes to
+the same 114px for a plain tile and to 122px for a bordered one, because on a
+content-box element a border is added to the height rather than taken out of it.
+The heights all said 72px, so nothing in the stylesheet looked wrong.
+
+The tile now states the height it actually renders at - 114px, with the padding
+and the border folded into it (`box-sizing: border-box`), which is what the
+mobile rules in the same file already do for the same reason. Nothing moves
+except the two bordered tiles, which lose the 8px they were never meant to have.
+The guard compares RENDERED heights now, borders included, instead of comparing
+the declared `min-height` of two tiles that were both content-box - which is how
+this went unnoticed while a test watched it.
+
+</details>
+
 **Search** - finding a card by what people call it.
 
 <details>

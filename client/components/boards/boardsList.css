@@ -887,7 +887,19 @@
   overflow: hidden;
   background-color: inherit; /* Inherit board color from parent li.js-board */
   color: #f6f6f6;
-  min-height: 72px; /* #6465: thinner tiles so more boards fit in the overview */
+  /* The number IS the rendered height, padding and border folded in - the same
+     thing the mobile rules below do for the same reason (#6523).
+     It used to be a 72px floor with 42px of padding added outside it, which came
+     to the same 114px for an ordinary tile and to 122px for a BORDERED one: the
+     bookmarks in All Boards / Starred and the Template Container tile both carry
+     `border: 4px solid #fff`, and on a content-box element those 8px are added
+     to the height rather than taken out of it. So a starred page sat 8px taller
+     than the board beside it and than the grey "+ Add Board" tile, and the row
+     it was in inherited the extra height.
+     114px is what an ordinary tile already rendered at (72 + 24 + 18), so
+     nothing moves except the bordered tiles, which now match. */
+  box-sizing: border-box;
+  min-height: 114px;
   font-size: 16px;
   line-height: 22px;
   border-radius: 0; /* No border-radius - parent .js-board has it */
@@ -949,7 +961,10 @@
      "+ Add Template Container" box is the same height as a board icon:
      same min-height, padding and line-height as .board-list-item above. */
   line-height: 22px;
-  min-height: 72px;
+  /* Border-box and the full height, like .board-list-item above: the two are
+     compared by eye on the same row, so they are stated the same way. */
+  box-sizing: border-box;
+  min-height: 114px;
   display: flex;
   align-items: center;
   justify-content: center;
