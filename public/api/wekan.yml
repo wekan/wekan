@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v10.90
+  version: v10.91
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -6536,6 +6536,18 @@ definitions:
            open. Turned on, every clicked card stays open as its own draggable window,
            which is what WeKan did unconditionally and what the issue reported as a
            bug: the previous card simply never closed.
+        type: boolean
+      allBoardsThemeTiles:
+        description: |
+           Member Settings / Change color, beside "Default (no override)": paint the
+           board tiles on the All Boards page in the THEME's lighter colour instead
+           of each board's own colour. Off by default, so All Boards looks as it
+           always has - a wall of boards in the colours their owners chose.
+
+           Turned on, the overview reads as one list rather than a palette, which is
+           what #6593 asked for by making every tile white for everybody. It is a
+           per-user preference here, because "the tile colours are noise" and "the
+           tile colours are how I find my board" are both true, of different people.
         type: boolean
       globalThemeColor:
         description: |
