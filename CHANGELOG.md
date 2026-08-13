@@ -684,14 +684,18 @@ a description, a due date and labels; those three parts are gated and nothing
 pretends to gate what is not there.
 
 **And the menu is a menu again.** Twenty-odd entries under three subheadings
-were
-a single column you scrolled past. On a window with room it is now laid out in
-COLUMNS, the way the language list is - `width: min(90vw, 760px)` and
-`repeat(auto-fill, minmax(210px, 1fr))` - so the whole menu is visible at once.
-Below 800px nothing changes, because popup.css already lays every popup out as a
-full-screen sheet there. The 760 is mirrored in `client/lib/popupOffset.js`,
-which places a popup using its width: left at the default 380 a wide menu opened
-near the right edge lands half off the screen.
+were a single column you scrolled past. On a window with room it is now TWO
+PANES - what to include on the left, what to export to on the right - each
+filling its own width with as many columns as fit, so the whole menu is visible
+at once. The panes are grid COLUMNS, which is what makes the right-to-left case
+free: a mirrored page puts the first column on the right, so the selection lands
+on the right and the formats on the left with no second rule to write or forget,
+and the divider between them is a `border-inline-start` for the same reason.
+Below 800px they stack, because popup.css already lays every popup out as a
+full-screen sheet there, which is what a phone should get. The 1100px width is
+mirrored in `client/lib/popupOffset.js`, which places a popup using its width:
+left at the default 380 a wide menu opened near the right edge lands most of the
+way off the screen.
 
 </details>
 
