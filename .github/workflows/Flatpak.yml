@@ -347,10 +347,10 @@ jobs:
           # objects/, refs/, summaries/, summary, summary.idx - which is build
           # scaffolding, not something to attach to a release. TSC hit this
           # exact thing ("upload only the bundle files, not the ostree repo").
-          gh release upload '${{ needs.release.outputs.tag }}' \
+          gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" '${{ needs.release.outputs.tag }}' \
             assets/*.flatpak assets/*.flatpak.md5sum assets/*.flatpak.sha256sum \
             --repo "${{ github.repository }}" --clobber
-          echo "Uploaded to $(gh release view '${{ needs.release.outputs.tag }}' \
+          echo "Uploaded to $(gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" '${{ needs.release.outputs.tag }}' \
             --repo "${{ github.repository }}" --json url --jq .url)"
 
       # ---- the repository -------------------------------------------------

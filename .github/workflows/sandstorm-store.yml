@@ -109,7 +109,7 @@ jobs:
           # 3) Download the newest .spk asset on that release. sandstorm.yml attaches it
           #    as wekan-sandstorm-YYYY_MM_DD-HH_MM_SS.spk; if several exist, take the
           #    lexicographically-newest (the timestamp sorts chronologically).
-          ASSET="$(gh release view "$TAG" --json assets \
+          ASSET="$(gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "$TAG" --json assets \
             --jq '[.assets[].name | select(endswith(".spk"))] | sort | last' 2>/dev/null || true)"
           if [ -z "${ASSET:-}" ] || [ "$ASSET" = "null" ]; then
             echo "::error::Release $TAG has no .spk asset. Run sandstorm.yml first to build and attach one."

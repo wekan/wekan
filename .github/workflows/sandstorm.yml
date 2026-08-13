@@ -140,4 +140,4 @@ jobs:
             exit 1
           fi
           echo "Uploading ${{ steps.build.outputs.spk }} to the newest release: $TAG"
-          gh release upload "$TAG" "${{ steps.build.outputs.spk }}" --clobber
+          gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "$TAG" "${{ steps.build.outputs.spk }}" --clobber

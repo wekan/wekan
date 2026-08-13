@@ -182,4 +182,29 @@ test('the snap build and the Sandstorm deps download through fetch.sh too', () =
     'build-deps.sh downloads through fetch.sh');
 });
 
+test('every gh release call names the repository', () => {
+  // The snap-launchpad jobs flatten history for the Launchpad push, and the git
+  // remote goes with it. gh then has nothing to infer from:
+  //
+  //   Revision 3661 created for 'wekan' and released to 'beta', ... 'stable'
+  //   no git remotes found
+  //   Error: Process completed with exit code 1
+  //
+  // - a job that failed AFTER publishing the snap, on the line that attaches it
+  // to the GitHub Release. --repo makes the call independent of the checkout.
+  const workflows = fs.readdirSync(dir).filter(f => /\.ya?ml$/.test(f));
+  const bad = [];
+  for (const file of workflows) {
+    const text = fs.readFileSync(path.join(dir, file), 'utf8');
+    text.split('\n').forEach((line, i) => {
+      if (!/gh release (upload|view|edit|create|delete-asset)/.test(line)) return;
+      if (/--repo/.test(line)) return;
+      if (/^\s*#/.test(line)) return;          // a comment quoting the command
+      bad.push(`${file}:${i + 1}: ${line.trim().slice(0, 70)}`);
+    });
+  }
+  assert.deepStrictEqual(bad, [],
+    'gh needs --repo when the checkout has no remote');
+});
+
 console.log(`\nworkflowRepoScripts: ${passed} tests passed`);

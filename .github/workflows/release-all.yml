@@ -1060,13 +1060,13 @@ jobs:
             sha256sum "$asset" > "${asset}.sha256sum"
             up+=("$asset" "${asset}.sha256sum")
           done
-          if ! gh release upload "v${VERSION}" "${up[@]}" --clobber; then
+          if ! gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${up[@]}" --clobber; then
             echo "::error::Could not attach the amd64/arm64 bundles to release v${VERSION}. The release must exist (created above) and GITHUB_TOKEN must be allowed to write releases here."
             exit 1
           fi
           # Confirm from the OTHER side: an upload that reports success but leaves
           # no asset behind is the failure nobody notices until a download 404s.
-          gh release view "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
+          gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
           for arch in amd64 arm64; do
             if ! grep -qxF "wekan-${VERSION}-${arch}.zip" release-assets.txt; then
               echo "::error::wekan-${VERSION}-${arch}.zip is not listed in release v${VERSION} although the upload reported success. Re-run the release job."
@@ -1398,13 +1398,13 @@ jobs:
           # one still upload cleanly.
           up=("$asset")
           [ -f "${asset}.sha256sum" ] && up+=("${asset}.sha256sum")
-          if ! gh release upload "v${VERSION}" "${up[@]}" --clobber; then
+          if ! gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${up[@]}" --clobber; then
             echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
             exit 1
           fi
           # Confirm from the OTHER side. An upload that reports success but leaves no
           # asset behind is the failure nobody notices until a download 404s.
-          gh release view "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
+          gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
           if ! grep -qxF "$(basename "$asset")" release-assets.txt; then
             echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
             exit 1
@@ -1751,13 +1751,13 @@ jobs:
           # one still upload cleanly.
           up=("$asset")
           [ -f "${asset}.sha256sum" ] && up+=("${asset}.sha256sum")
-          if ! gh release upload "v${VERSION}" "${up[@]}" --clobber; then
+          if ! gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${up[@]}" --clobber; then
             echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
             exit 1
           fi
           # Confirm from the OTHER side. An upload that reports success but leaves no
           # asset behind is the failure nobody notices until a download 404s.
-          gh release view "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
+          gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
           if ! grep -qxF "$(basename "$asset")" release-assets.txt; then
             echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
             exit 1
@@ -2071,11 +2071,11 @@ jobs:
           fi
           up=("$asset")
           [ -f "${asset}.sha256sum" ] && up+=("${asset}.sha256sum")
-          if ! gh release upload "v${VERSION}" "${up[@]}" --clobber; then
+          if ! gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${up[@]}" --clobber; then
             echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
             exit 1
           fi
-          gh release view "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
+          gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
           if ! grep -qxF "$(basename "$asset")" release-assets.txt; then
             echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
             exit 1
@@ -2316,13 +2316,13 @@ jobs:
           # one still upload cleanly.
           up=("$asset")
           [ -f "${asset}.sha256sum" ] && up+=("${asset}.sha256sum")
-          if ! gh release upload "v${VERSION}" "${up[@]}" --clobber; then
+          if ! gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${up[@]}" --clobber; then
             echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
             exit 1
           fi
           # Confirm from the OTHER side. An upload that reports success but leaves no
           # asset behind is the failure nobody notices until a download 404s.
-          gh release view "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
+          gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
           if ! grep -qxF "$(basename "$asset")" release-assets.txt; then
             echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
             exit 1
@@ -2563,11 +2563,11 @@ jobs:
           fi
           up=("$asset")
           [ -f "${asset}.sha256sum" ] && up+=("${asset}.sha256sum")
-          if ! gh release upload "v${VERSION}" "${up[@]}" --clobber; then
+          if ! gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${up[@]}" --clobber; then
             echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
             exit 1
           fi
-          gh release view "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
+          gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
           if ! grep -qxF "$(basename "$asset")" release-assets.txt; then
             echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
             exit 1
@@ -2991,13 +2991,13 @@ jobs:
           # one still upload cleanly.
           up=("$asset")
           [ -f "${asset}.sha256sum" ] && up+=("${asset}.sha256sum")
-          if ! gh release upload "v${VERSION}" "${up[@]}" --clobber; then
+          if ! gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${up[@]}" --clobber; then
             echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
             exit 1
           fi
           # Confirm from the OTHER side. An upload that reports success but leaves no
           # asset behind is the failure nobody notices until a download 404s.
-          gh release view "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
+          gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
           if ! grep -qxF "$(basename "$asset")" release-assets.txt; then
             echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
             exit 1
@@ -3189,13 +3189,13 @@ jobs:
           # one still upload cleanly.
           up=("$asset")
           [ -f "${asset}.sha256sum" ] && up+=("${asset}.sha256sum")
-          if ! gh release upload "v${VERSION}" "${up[@]}" --clobber; then
+          if ! gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${up[@]}" --clobber; then
             echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
             exit 1
           fi
           # Confirm from the OTHER side. An upload that reports success but leaves no
           # asset behind is the failure nobody notices until a download 404s.
-          gh release view "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
+          gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
           if ! grep -qxF "$(basename "$asset")" release-assets.txt; then
             echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
             exit 1
@@ -4008,13 +4008,13 @@ jobs:
           # one still upload cleanly.
           up=("$asset")
           [ -f "${asset}.sha256sum" ] && up+=("${asset}.sha256sum")
-          if ! gh release upload "v${VERSION}" "${up[@]}" --clobber; then
+          if ! gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${up[@]}" --clobber; then
             echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
             exit 1
           fi
           # Confirm from the OTHER side. An upload that reports success but leaves no
           # asset behind is the failure nobody notices until a download 404s.
-          gh release view "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
+          gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
           if ! grep -qxF "$(basename "$asset")" release-assets.txt; then
             echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
             exit 1
@@ -4449,7 +4449,7 @@ jobs:
           shopt -s nullglob
           snaps=( wekan_${VERSION}_${{ matrix.arch }}*.snap *_${{ matrix.arch }}.snap )
           if [ "${#snaps[@]}" -gt 0 ] && [ -s "${snaps[0]}" ]; then
-            gh release upload "v${VERSION}" "${snaps[@]}" --clobber
+            gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${snaps[@]}" --clobber
           else
             echo "No ${{ matrix.arch }} snap to attach - the build produced none."
           fi
@@ -4890,7 +4890,7 @@ jobs:
           rm -f app.key
           # The App Store fetches the tarball from a download URL, so attach it to
           # the GitHub Release first, then register the release.
-          gh release upload "v${VERSION}" "${APP_ID}.tar.gz" --clobber
+          gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${APP_ID}.tar.gz" --clobber
           DL="https://github.com/wekan/wekan/releases/download/v${VERSION}/${APP_ID}.tar.gz"
           curl -fsSL -X POST https://apps.nextcloud.com/api/v1/apps/releases \
             -H "Authorization: Token ${APPSTORE_TOKEN}" \
@@ -4968,6 +4968,6 @@ jobs:
           echo "Provenance files collected: $rows"
           bash releases/provenance-table.sh > release-notes.md || true
           printf '%s\n' "$CHANGELOG" >> release-notes.md
-          gh release edit "v${VERSION}" --notes-file release-notes.md
+          gh release edit --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" --notes-file release-notes.md
           echo "Release notes updated with the provenance of every bundle built."
           head -40 release-notes.md

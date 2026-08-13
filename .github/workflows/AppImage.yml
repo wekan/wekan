@@ -178,7 +178,7 @@ jobs:
         run: |
           set -euo pipefail
           zip="wekan-${{ needs.release.outputs.version }}-${{ matrix.bundle_arch }}.zip"
-          if gh release view '${{ needs.release.outputs.tag }}' --repo "${{ github.repository }}" \
+          if gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" '${{ needs.release.outputs.tag }}' --repo "${{ github.repository }}" \
                --json assets --jq '.assets[].name' 2>/dev/null | grep -qx "$zip"; then
             echo "OK: $zip is on ${{ needs.release.outputs.tag }}; building its AppImage."
           else
@@ -383,7 +383,7 @@ jobs:
             # No AppImage was produced. That is only a FAILURE if there was a base
             # bundle to wrap: an AppImage cannot be built without one, and the
             # build jobs skip (not fail) when the base bundle is not published yet.
-            published="$(gh release view '${{ needs.release.outputs.tag }}' --repo "${{ github.repository }}" --json assets --jq '.assets[].name' 2>/dev/null || true)"
+            published="$(gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" '${{ needs.release.outputs.tag }}' --repo "${{ github.repository }}" --json assets --jq '.assets[].name' 2>/dev/null || true)"
             base_present=false
             for arch in amd64 arm64 i386 armhf; do
               printf '%s\n' "$published" | grep -qx "wekan-${{ needs.release.outputs.version }}-${arch}.zip" && base_present=true
@@ -411,7 +411,7 @@ jobs:
           # call in this workflow already passes it; these two did not, so the
           # AppImages were built, smoke-tested and uploaded as artifacts, and
           # then nothing was attached to the release.
-          gh release upload '${{ needs.release.outputs.tag }}' assets/* \
+          gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" '${{ needs.release.outputs.tag }}' assets/* \
             --repo "${{ github.repository }}" --clobber
-          echo "Uploaded to $(gh release view '${{ needs.release.outputs.tag }}' \
+          echo "Uploaded to $(gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" '${{ needs.release.outputs.tag }}' \
             --repo "${{ github.repository }}" --json url --jq .url)"

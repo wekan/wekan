@@ -103,4 +103,4 @@ jobs:
             exit 0
           fi
           echo "Uploading ${{ steps.zip.outputs.zip }} to the newest release: $TAG"
-          gh release upload "$TAG" "${{ steps.zip.outputs.zip }}" --clobber
+          gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "$TAG" "${{ steps.zip.outputs.zip }}" --clobber

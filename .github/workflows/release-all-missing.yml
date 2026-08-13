@@ -85,14 +85,14 @@ jobs:
           V='${{ inputs.version }}'
           V="${V#v}"
           if [ -z "$V" ]; then
-            V="$(gh release view --json tagName --jq .tagName)"
+            V="$(gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" --json tagName --jq .tagName)"
             V="${V#v}"
             echo "No version given; the newest release is v$V."
           fi
           echo "version=$V" >> "$GITHUB_OUTPUT"
 
-          if gh release view "v$V" >/dev/null 2>&1; then
-            gh release view "v$V" --json assets --jq '.assets[].name' | sort > existing.txt
+          if gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v$V" >/dev/null 2>&1; then
+            gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v$V" --json assets --jq '.assets[].name' | sort > existing.txt
           else
             echo "::error::There is no release v$V to complete. This workflow FINISHES a release; release-all.yml makes one."
             exit 1
@@ -249,11 +249,11 @@ jobs:
           asset="wekan-${VERSION}-${{ matrix.arch }}.zip"
           # No --clobber: this architecture was absent, so an upload that would
           # overwrite something means the release changed under this run.
-          gh release upload "v${VERSION}" "$asset" "${asset}.sha256sum"
+          gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "$asset" "${asset}.sha256sum"
           # Confirm from the other side. An upload that reports success and
           # leaves no asset behind is the failure nobody notices until a
           # download 404s.
-          gh release view "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
+          gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
           grep -qxF "$asset" release-assets.txt || {
             echo "::error::$asset is not on release v${VERSION} although the upload reported success."
             exit 1
@@ -400,7 +400,7 @@ jobs:
             echo "::notice::v$V was already complete - nothing was built."
             exit 0
           fi
-          gh release view "v$V" --json assets --jq '.assets[].name' | sort > now.txt
+          gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v$V" --json assets --jq '.assets[].name' | sort > now.txt
           bash releases/expected-assets.sh "$V" > expected.txt
           still=""
           while read -r kind selector asset sums; do
