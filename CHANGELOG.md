@@ -563,7 +563,7 @@ bookmark and back button lands exactly where it did.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">Imported cards bring their attachments, from a .json and from a .zip</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/bada25de4d95b0e5b473ec3176dccffcc5a999a7">Imported cards bring their attachments, from a .json and from a .zip</a>. Thanks to xet7.</summary>
 
 The round trip was half a round trip: a card imported from a swimlane, list or
 card menu arrived with its checklists and comments and without its files.
@@ -723,7 +723,7 @@ and fixes the following bugs:
 **Card details** - the card as it is opened and edited.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">Editing a card title keeps the X that closes it</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/bada25de4d95b0e5b473ec3176dccffcc5a999a7">Editing a card title keeps the X that closes it</a>. Thanks to xet7.</summary>
 
 Clicking a card's title opens the title editor in place of the card header - and
 the header is where the card's own close X lives, so the X disappeared the
