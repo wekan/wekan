@@ -758,7 +758,7 @@ and fixes the following bugs:
 **Card details** - the card as it is opened and edited.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">A dependency's card title wraps instead of being cut off at the pane edge</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0c7b3e8df36d185d97a7cbe442f0eba76ecd897e">A dependency's card title wraps instead of being cut off at the pane edge</a>. Thanks to xet7.</summary>
 
 In an opened card's **Dependencies** section each row is an icon, the linked
 card's title and its controls, and the title was held on one line with an
