@@ -1003,3 +1003,35 @@ body.mobile-mode .pop-over .content-wrapper {
   letter-spacing: 0.04em;
   opacity: 0.6;
 }
+
+/* Export board: many formats, so width buys COLUMNS.
+   The same idea as the language list above - a wide window shows the whole menu
+   at once instead of a single column somebody scrolls past twenty entries of.
+   Each group (Dependencies, CSV, JSON) is its own list, so each fills the width
+   it needs and the subheadings stay full width between them.
+
+   Desktop only: below 800px popup.css lays every popup out as a full-screen
+   sheet, and a width here would fight that rule and win.
+
+   760px is mirrored in client/lib/popupOffset.js, which clamps a popup into the
+   viewport using its width - computed for the default 380px, a wide popup
+   opened near the right edge lands half off the screen. Change one, change the
+   other. */
+@media screen and (min-width: 801px) {
+  .pop-over[data-popup='exportBoardPopup'] {
+    width: min(90vw, 760px) !important;
+    max-width: 90vw !important;
+  }
+  .pop-over[data-popup='exportBoardPopup'] .pop-over-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    align-content: start;
+    column-gap: 4px;
+  }
+  /* The parts checkboxes are a list too, and they read better in columns for
+     the same reason: twelve of them down one edge is a scroll, three columns is
+     a glance. */
+  .pop-over[data-popup='exportBoardPopup'] .pop-over-list li {
+    min-width: 0;
+  }
+}

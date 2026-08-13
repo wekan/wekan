@@ -63,6 +63,10 @@ function computePopupOffset(params) {
     // Select Color: the swatches are a grid, so width buys columns.
     changeColorPopup: 720,       // Member Settings / Change Color
     boardChangeColorPopup: 720,  // Board Settings / Change Color
+    // Export board: twenty-odd formats under three subheadings, laid out in
+    // columns like the language list, so a wide window shows them at once
+    // instead of a column you scroll. Same number as popup.css.
+    exportBoardPopup: 760,       // Board Settings / Export board
   };
   const wide = WIDE_POPUP_WIDTHS[popupName];
   const popupWidth = wide

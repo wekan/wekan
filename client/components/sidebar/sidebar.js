@@ -985,73 +985,25 @@ Template.exportBoardPopup.helpers({
     const board = ReactiveCache.getBoard(Session.get('currentBoard'));
     return (board && board.title) || 'export-board';
   },
-  exportUrlKanboard() {
-    const params = {
-      boardId: Session.get('currentBoard'),
-    };
-    const queryParams = {
-      authToken: Accounts._storedLoginToken(),
-    };
-    return FlowRouter.path('/api/boards/:boardId/export/kanboard', params, queryParams);
-  },
+  // #1173: every board export goes through the one url builder, so the parts
+  // ticked in the popup ride along with ALL of them - not only the four that
+  // used to carry them. What a format can drop depends on what it has: a CSV
+  // loses columns, a Trello export loses the description, the labels or the due
+  // date, and a format that never had comments cannot lose them.
+  exportUrlKanboard() { return boardScopeUrl('export/kanboard'); },
   exportFilenameKanboard() {
     const boardId = Session.get('currentBoard');
     return `export-board-kanboard-${boardId}.json`;
   },
   // Generalized export URL/filename for the external tools (Deck, OpenProject,
   // GitHub, GitLab, Gitea, Forgejo).
-  exportUrlExternal(format) {
-    return FlowRouter.path(
-      `/api/boards/:boardId/export/${format}`,
-      { boardId: Session.get('currentBoard') },
-      { authToken: Accounts._storedLoginToken() },
-    );
-  },
+  exportUrlExternal(format) { return boardScopeUrl(`export/${format}`); },
   exportFilenameExternal(format) {
     return `export-board-${format}-${Session.get('currentBoard')}.json`;
   },
-  exportCsvUrl() {
-    const params = {
-      boardId: Session.get('currentBoard'),
-    };
-    const queryParams = {
-      authToken: Accounts._storedLoginToken(),
-      delimiter: ',',
-    };
-    return FlowRouter.path(
-      '/api/boards/:boardId/export/csv',
-      params,
-      queryParams,
-    );
-  },
-  exportScsvUrl() {
-    const params = {
-      boardId: Session.get('currentBoard'),
-    };
-    const queryParams = {
-      authToken: Accounts._storedLoginToken(),
-      delimiter: ';',
-    };
-    return FlowRouter.path(
-      '/api/boards/:boardId/export/csv',
-      params,
-      queryParams,
-    );
-  },
-  exportTsvUrl() {
-    const params = {
-      boardId: Session.get('currentBoard'),
-    };
-    const queryParams = {
-      authToken: Accounts._storedLoginToken(),
-      delimiter: '\t',
-    };
-    return FlowRouter.path(
-      '/api/boards/:boardId/export/csv',
-      params,
-      queryParams,
-    );
-  },
+  exportCsvUrl() { return boardScopeUrl('export/csv', { delimiter: ',' }); },
+  exportScsvUrl() { return boardScopeUrl('export/csv', { delimiter: ';' }); },
+  exportTsvUrl() { return boardScopeUrl('export/csv', { delimiter: '\t' }); },
   exportJsonFilename() {
     const boardId = Session.get('currentBoard');
     return `export-board-${boardId}.json`;

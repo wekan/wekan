@@ -4,7 +4,22 @@ import { ReactiveCache } from '/imports/reactiveCache';
 // per-format formatter emits the target platform's JSON shape. This mirrors the
 // generalized import (externalParsers.js): one collector + a map of formatters.
 
-async function collect(boardId) {
+// #1173: what the export selection can reach in these formats.
+//
+// A Trello, Jira or GitHub export is a card's title, description, due date and
+// labels - it has no comments, checklists or attachments to leave out. So the
+// selection gates the three parts that ARE here and nothing else, which is the
+// honest answer: a format drops what it has.
+function gateItem(item, wanted) {
+  if (!wanted) return item;
+  const out = { ...item };
+  if (!wanted.has('description')) out.description = '';
+  if (!wanted.has('labels')) { out.labelIds = []; out.labels = []; }
+  if (!wanted.has('dates')) delete out.dueAt;
+  return out;
+}
+
+async function collect(boardId, fields) {
   const board = await ReactiveCache.getBoard(boardId);
   const lists = await ReactiveCache.getLists({ boardId, archived: false }, { sort: { sort: 1 } });
   const swimlanes = await ReactiveCache.getSwimlanes({ boardId, archived: false }, { sort: { sort: 1 } });
@@ -26,7 +41,8 @@ async function collect(boardId) {
     labelIds: c.labelIds || [],
     labels: (c.labelIds || []).map(id => labelById[id]).filter(Boolean),
   }));
-  return { board, lists, swimlanes, items };
+  const wanted = fields && fields.length ? new Set(fields) : null;
+  return { board, lists, swimlanes, items: items.map(item => gateItem(item, wanted)) };
 }
 
 // A WeKan list maps to a "closed" issue state when its name looks terminal.
@@ -144,8 +160,8 @@ const formatters = {
 
 export const EXTERNAL_EXPORT_FORMATS = Object.keys(formatters);
 
-export async function buildExternalExport(boardId, format) {
+export async function buildExternalExport(boardId, format, fields) {
   const formatter = formatters[format];
   if (!formatter) return null;
-  return formatter(await collect(boardId));
+  return formatter(await collect(boardId, fields));
 }

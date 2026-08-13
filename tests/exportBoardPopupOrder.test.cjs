@@ -117,4 +117,72 @@ test('every format that existed before is still offered (negative)', () => {
   }
 });
 
+// ── the selection reaches every format ─────────────────────────────────────
+
+test('every board export link is built by the one url helper', () => {
+  // The four that took the selection used to be the only ones; CSV, TSV,
+  // Kanboard and the eleven dialects built their own query strings and could
+  // not carry it.
+  for (const helper of ['exportUrlPDF', 'exportUrlExcel', 'exportUrlJsonSelected',
+    'exportUrlZip', 'exportUrlKanboard', 'exportUrlExternal', 'exportCsvUrl',
+    'exportScsvUrl', 'exportTsvUrl']) {
+    const at = js.indexOf(`${helper}(`);
+    assert.ok(at !== -1, `${helper} exists`);
+    const body = js.slice(at, js.indexOf('},', at) + 2);
+    assert.ok(/boardScopeUrl\(/.test(body), `${helper} goes through boardScopeUrl`);
+  }
+  assert.ok(/exportUrlFor\(`\/api\/boards\/:boardId\/\$\{pathSuffix\}`/.test(js),
+    'which is the shared builder, so `fields` rides along with all of them');
+});
+
+test('a CSV honours the selection as COLUMNS', () => {
+  // A CSV has no comments to leave out; what it has is columns, and unticking
+  // People removes five of them.
+  const fields = read('models/lib/exportFields.js');
+  assert.ok(/CSV_COLUMN_PARTS/.test(fields), 'each column knows which part it belongs to');
+  assert.ok(/csvColumnMask/.test(fields), 'and a mask is built from the selection');
+  const exporter = read('models/exporter.js');
+  assert.ok(/applyMask\(columnHeaders, columnMask\)/.test(exporter), 'the header is filtered');
+  assert.ok(/applyMask\(buildCsvCardRow\([^)]*\), columnMask\)/.test(exporter),
+    'and every row is filtered by the SAME mask, so the two cannot drift');
+});
+
+test('a format only drops what it actually has (negative)', () => {
+  // A Trello or Jira export carries a title, a description, a due date and
+  // labels. Pretending the selection removes comments from it would be a lie in
+  // the UI; gating what is there is the honest half.
+  const external = read('models/lib/externalExporters.js');
+  assert.ok(/a format drops what it has/.test(external), 'the reason is written down');
+  assert.ok(/wanted\.has\('description'\)/.test(external)
+    && /wanted\.has\('labels'\)/.test(external)
+    && /wanted\.has\('dates'\)/.test(external),
+    'the three parts these formats carry are gated');
+  assert.ok(!/comments|checklists|attachments/.test(
+    external.slice(external.indexOf('function gateItem'), external.indexOf('async function collect'))),
+    'and nothing pretends to gate what is not there');
+});
+
+// ── the popup is big when there is room ────────────────────────────────────
+
+test('a wide window lays the menu out in columns', () => {
+  const popupCss = read('client/components/main/popup.css');
+  const rule = popupCss.slice(popupCss.indexOf("data-popup='exportBoardPopup'"));
+  assert.ok(/width: min\(90vw, 760px\)/.test(rule.slice(0, 400)),
+    'wide enough for several columns');
+  assert.ok(/grid-template-columns: repeat\(auto-fill, minmax\(210px, 1fr\)\)/.test(rule),
+    'and the lists fill it with as many columns as fit');
+  assert.ok(/min-width: 801px/.test(popupCss.slice(popupCss.lastIndexOf('@media', popupCss.indexOf("data-popup='exportBoardPopup'")))),
+    'desktop only - below 800px every popup is a full-screen sheet already');
+});
+
+test('the width is mirrored where the clamp reads it (negative)', () => {
+  // popupOffset.js places a popup using its width. Left at the default 380,
+  // a 760px popup opened near the right edge lands half off the screen.
+  const offset = read('client/lib/popupOffset.js');
+  assert.ok(/exportBoardPopup: 760/.test(offset),
+    'the clamp knows the real width');
+  assert.ok(/Same number as popup.css/.test(offset),
+    'and says where the other copy is');
+});
+
 console.log(`\nexportBoardPopupOrder: ${passed} tests passed`);

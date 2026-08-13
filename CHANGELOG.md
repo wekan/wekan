@@ -664,6 +664,38 @@ screen.
 **Board, swimlane and list export** - printing a board, and what goes in it.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">The export selection reaches every format, and the menu opens wide enough to read at once</a>. Thanks to xet7.</summary>
+
+Two halves of the same menu.
+
+**The selection now reaches all of it.** PDF, Excel, JSON and .zip took the
+parts checkboxes; CSV, TSV, Kanboard and the eleven JSON dialects built their
+own
+addresses and could not carry them, so ticking "no comments" changed four
+downloads out of nineteen. Every board export link is built by the one url
+helper now, so `?fields=` rides along with all of them.
+
+What a format can DROP depends on what it has, and that is the honest part. A
+**CSV** has no comments to leave out - what it has is columns, so the selection
+lands there: unticking People removes five of them, Dates removes eight, Custom
+Fields removes the trailing block. One mask filters the header and every row, so
+the two cannot drift apart. A **Trello, Jira or GitHub** export carries a title,
+a description, a due date and labels; those three parts are gated and nothing
+pretends to gate what is not there.
+
+**And the menu is a menu again.** Twenty-odd entries under three subheadings
+were
+a single column you scrolled past. On a window with room it is now laid out in
+COLUMNS, the way the language list is - `width: min(90vw, 760px)` and
+`repeat(auto-fill, minmax(210px, 1fr))` - so the whole menu is visible at once.
+Below 800px nothing changes, because popup.css already lays every popup out as a
+full-screen sheet there. The 760 is mirrored in `client/lib/popupOffset.js`,
+which places a popup using its width: left at the default 380 a wide menu opened
+near the right edge lands half off the screen.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b77299c8063859f11855467bbfd59e0a6097c7bc">A component that other components import now loads its own template, so the client bundle cannot die at startup</a>. Thanks to xet7.</summary>
 
 `Template.exportScopeBody.helpers(...)` runs at module scope, and it throws when

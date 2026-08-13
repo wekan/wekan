@@ -1,6 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 const Papa = require('papaparse');
 const { buildCsvCardRow } = require('./lib/exporterCsvRow');
+const { csvColumnMask, applyMask } = require('./lib/exportFields');
 const { encodeAligned, encodeFinal } = require('./lib/base64Chunk');
 const {
   getImportExportSecuritySettings,
@@ -803,11 +804,17 @@ export class Exporter {
     const writeRow = row => w(Papa.unparse([row], papaconfig) + papaconfig.newline);
 
     // Header row + custom-field columns (same order as buildCsv).
-    const columnHeaders = [
+    //
+    // #1173: the export selection lands on COLUMNS here. The keys are kept
+    // UNTRANSLATED first so the mask can be built from them - a translated
+    // header is a label, not an identity - and the same mask then filters the
+    // header and every row, so the two cannot drift apart.
+    const columnKeys = [
       'title','description','list','swimlane','owner','requested-by','assigned-by',
       'members','assignee','labels','card-start','card-due','card-end','overtime-hours',
       'spent-time-hours','createdAt','last-modified-at','last-activity','voting','archived',
-    ].map(k => TAPi18n.__(k, '', userLanguage));
+    ];
+    const columnHeaders = columnKeys.map(k => TAPi18n.__(k, '', userLanguage));
     const customFieldMap = {};
     lookup.customFields.forEach((cf, i) => {
       customFieldMap[cf._id] = { position: i, type: cf.type };
@@ -821,7 +828,9 @@ export class Exporter {
         columnHeaders.push(`CustomField-${cf.name}-${cf.type}`);
       }
     });
-    await writeRow(columnHeaders);
+    const columnMask = csvColumnMask(columnKeys, lookup.customFields.length,
+      this._fields ? [...this._fields] : null);
+    await writeRow(applyMask(columnHeaders, columnMask));
 
     // Pass 1 — collect referenced user ids (ids only, cheap).
     const userIds = new Set();
@@ -843,7 +852,7 @@ export class Exporter {
     {
       const cursor = cardsRaw.find(cardSelector);
       for await (const card of cursor) {
-        await writeRow(buildCsvCardRow(card, lookup, customFieldMap));
+        await writeRow(applyMask(buildCsvCardRow(card, lookup, customFieldMap), columnMask));
       }
     }
   }

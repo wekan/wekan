@@ -79,7 +79,55 @@ function parseExportScope(query) {
   return scope;
 }
 
+// WHICH SELECTION KEY EACH CSV COLUMN BELONGS TO.
+//
+// A CSV is one row per card, so the selection lands on COLUMNS: unticking
+// Comments cannot remove a column a CSV never had, and unticking People removes
+// five. A column that is not named here is always exported - the title and the
+// archived flag are what a row IS, not a part of it.
+//
+// The keys are the untranslated ones the header row is built from, in the order
+// it builds them, so the same mask filters the header and every row and the two
+// cannot drift apart.
+const CSV_COLUMN_PARTS = {
+  description: 'description',
+  list: 'board-info',
+  swimlane: 'board-info',
+  owner: 'people',
+  'requested-by': 'people',
+  'assigned-by': 'people',
+  members: 'people',
+  assignee: 'people',
+  labels: 'labels',
+  'card-start': 'dates',
+  'card-due': 'dates',
+  'card-end': 'dates',
+  'overtime-hours': 'dates',
+  'spent-time-hours': 'dates',
+  createdAt: 'dates',
+  'last-modified-at': 'dates',
+  'last-activity': 'dates',
+  voting: 'voting',
+};
+
+// true for every column that stays, given the selection. `customFieldCount`
+// columns follow the fixed ones and all belong to `custom-fields`.
+function csvColumnMask(columnKeys, customFieldCount, fields) {
+  const wanted = fields && fields.length ? new Set(fields) : null;
+  const keep = key => wanted === null || !CSV_COLUMN_PARTS[key]
+    || wanted.has(CSV_COLUMN_PARTS[key]);
+  const mask = columnKeys.map(keep);
+  const customWanted = wanted === null || wanted.has('custom-fields');
+  for (let i = 0; i < customFieldCount; i += 1) mask.push(customWanted);
+  return mask;
+}
+
+const applyMask = (row, mask) => row.filter((value, index) => mask[index] !== false);
+
 export {
+  CSV_COLUMN_PARTS,
+  csvColumnMask,
+  applyMask,
   EXPORT_SCOPE_KEYS,
   parseExportScope,
   CARD_EXPORT_FIELDS,

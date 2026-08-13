@@ -334,7 +334,8 @@ if (Meteor.isServer) {
       return;
     }
     const respond = async () =>
-      sendJsonResult(res, { code: 200, data: await buildExternalExport(boardId, format) });
+      sendJsonResult(res, { code: 200, data: await buildExternalExport(boardId, format,
+        parseExportFields(req.query && req.query.fields, BOARD_EXPORT_FIELD_KEYS)) });
     if (board.isPublic()) {
       await respond();
       return;
@@ -599,7 +600,11 @@ if (Meteor.isServer) {
       });
     }
 
-    const exporter = new Exporter(boardId);
+    // #1173: the same selection every other board export honours - on a CSV it
+    // lands on COLUMNS, since that is what a CSV has.
+    const exporter = new Exporter(boardId, undefined, {
+      fields: parseExportFields(req.query && req.query.fields, BOARD_EXPORT_FIELD_KEYS),
+    });
     if (await exporter.canExport(user)) {
       if (impersonateDone) {
         let exportType = 'exportCSV';
