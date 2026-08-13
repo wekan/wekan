@@ -758,7 +758,7 @@ and fixes the following bugs:
 **Card details** - the card as it is opened and edited.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">Every section of an opened card collapses from its own caret, with one rule between sections</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/384f03b359a47592e08a16060675e330319ec36c">Every section of an opened card collapses from its own caret, with one rule between sections</a>. Thanks to xet7.</summary>
 
 A card had ONE caret, in its header, which collapsed the whole card - and
 **Activities** had an eye beside its heading. Every other section was a heading
