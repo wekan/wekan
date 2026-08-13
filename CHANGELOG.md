@@ -664,6 +664,29 @@ screen.
 **Board, swimlane and list export** - printing a board, and what goes in it.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">The board Export menu is grouped under subheadings instead of one flat list</a>. Thanks to xet7.</summary>
+
+It was nineteen entries in one list, each spelling out its whole family:
+"Export / CSV (,)", "Export / CSV (;)", "Export / TSV", then eleven lines
+beginning "Export / JSON /". The part that differed - the only part worth
+reading - started two thirds of the way along every line.
+
+A subheading names the family once and the entries under it say only what they
+are: **PDF**, **Excel**, then **Dependencies** (JSON, SVG), **HTML**, **CSV**
+((,), (;), TSV) and **JSON** (JSON, JSON without attachments, .zip, Kanboard,
+Trello, Jira, NextCloud Deck, OpenProject, GitHub, GitLab, Gitea, Forgejo,
+Asana, Zenkit). The `.zip` sits with the JSON it is a container for.
+
+The parts checkboxes stay at the top, from the shared popup body: the board
+passes `hideFormats` because it lays the formats out itself, and borrows the
+selection rather than growing a second copy of it. Its links are built by the
+same url helper every other menu uses, so a menu cannot send a different
+selection than the one on the screen. Nothing was dropped in the regrouping, and
+a test walks the whole list in order to say so.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b0ca22609905c45c35090d097f46d339fb4a748a">JSON and .zip export at every menu, streamed, with the attachments as files</a>. Thanks to xet7.</summary>
 
 The board's Export menu had JSON; nothing else did, and there was no .zip at

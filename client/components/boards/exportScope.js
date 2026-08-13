@@ -288,4 +288,12 @@ Template.exportScopeBody.events({
   },
 });
 
-export { selectedFields, selection, readExportFile };
+// `exportUrlFor` is what the board popup uses to build the same URLs with the
+// same selection - one query string, built in one place, whichever popup asks.
+export {
+  selectedFields,
+  selection,
+  readExportFile,
+  exportUrl as exportUrlFor,
+  exportFilename as exportFilenameFor,
+};

@@ -6,6 +6,7 @@ import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 const { allBoardsPath, SECTION_ARCHIVE } = require('/models/lib/allBoardsUrls');
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
+import { exportUrlFor, exportFilenameFor } from '/client/components/boards/exportScope';
 import AccessibilitySettings from '/models/accessibilitySettings';
 import Boards from '/models/boards';
 import Attachments from '/models/attachments';
@@ -937,7 +938,22 @@ Template.outgoingWebhooksPopup.events({
   },
 });
 
+// The five formats that take the export SELECTION, built with the same helper
+// the shared popup body uses - so the board popup's own list cannot drift from
+// the one every other menu shows.
+function boardScopeUrl(pathSuffix, extra = {}) {
+  return exportUrlFor(`/api/boards/:boardId/${pathSuffix}`, extra);
+}
+
 Template.exportBoardPopup.helpers({
+  exportUrlPDF() { return boardScopeUrl('exportPDF'); },
+  exportUrlExcel() { return boardScopeUrl('exportExcel'); },
+  exportUrlJsonSelected() { return boardScopeUrl('export'); },
+  exportUrlJsonNoAttachments() { return boardScopeUrl('export', { attachments: 'false' }); },
+  exportUrlZip() { return boardScopeUrl('exportZip'); },
+  exportFilenamePDF() { return exportFilenameFor('pdf'); },
+  exportFilenameExcelSelected() { return exportFilenameFor('xlsx'); },
+  exportFilenameZip() { return exportFilenameFor('zip'); },
   withApi() {
     return Template.instance().apiEnabled.get();
   },

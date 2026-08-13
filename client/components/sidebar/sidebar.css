@@ -518,3 +518,20 @@ body.sidebar-resizing-active {
   display: inline-block;
   margin-bottom: 8px;
 }
+
+/* Subheadings inside a pop-over list - "Dependencies", "CSV", "JSON" in the
+   board's Export menu. The list under one of them is a family of the same
+   thing, and naming the family once is what lets the entries be "(,)", "(;)"
+   and "TSV" rather than "Export / CSV (,)" three times over. */
+.pop-over-list-subheading {
+  margin: 10px 0 2px 0;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.65;
+}
+.pop-over-list-subheading + .pop-over-list {
+  margin-top: 0;
+}

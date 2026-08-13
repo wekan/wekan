@@ -13,28 +13,32 @@ template(name="exportScopeBody")
         a.js-export-field-toggle(data-field="{{field}}" href="#")
           i.fa.fa-check
           | {{_ label}}
-  hr
-  ul.pop-over-list
-    li
-      a(href="{{exportUrlPDF}}", download="{{exportFilenamePDF}}")
-        i.fa.fa-file-pdf-o
-        | {{_ 'export'}} / PDF
-    li
-      a(href="{{exportUrlExcel}}", download="{{exportFilenameExcel}}")
-        i.fa.fa-file-excel-o
-        | {{_ 'export'}} / Excel
-    li
-      a(href="{{exportUrlJson}}", download="{{exportFilenameJson}}")
-        i.fa.fa-file-code-o
-        | {{_ 'export'}} / JSON
-    li
-      a(href="{{exportUrlJsonNoAttachments}}", download="{{exportFilenameJson}}")
-        i.fa.fa-file-code-o
-        | {{_ 'export'}} / JSON ({{_ 'export-board-without-attachments'}})
-    li
-      a(href="{{exportUrlZip}}", download="{{exportFilenameZip}}")
-        i.fa.fa-file-archive-o
-        | {{_ 'export'}} / .zip ({{_ 'attachments'}})
+  //- The board popup lays its own formats out, grouped under subheadings, and
+    borrows only the checkboxes above - so the parts selection is written once
+    while each menu shows the formats that make sense for it.
+  unless hideFormats
+    hr
+    ul.pop-over-list
+      li
+        a(href="{{exportUrlPDF}}", download="{{exportFilenamePDF}}")
+          i.fa.fa-file-pdf-o
+          | {{_ 'export'}} / PDF
+      li
+        a(href="{{exportUrlExcel}}", download="{{exportFilenameExcel}}")
+          i.fa.fa-file-excel-o
+          | {{_ 'export'}} / Excel
+      li
+        a(href="{{exportUrlJson}}", download="{{exportFilenameJson}}")
+          i.fa.fa-file-code-o
+          | {{_ 'export'}} / JSON
+      li
+        a(href="{{exportUrlJsonNoAttachments}}", download="{{exportFilenameJson}}")
+          i.fa.fa-file-code-o
+          | {{_ 'export'}} / JSON ({{_ 'export-board-without-attachments'}})
+      li
+        a(href="{{exportUrlZip}}", download="{{exportFilenameZip}}")
+          i.fa.fa-file-archive-o
+          | {{_ 'export'}} / .zip ({{_ 'attachments'}})
   //- #1173: the same popup, the other direction. The checkboxes above say what
     goes OUT of an export and what comes IN from an import - one selection, so
     "no comments" means the same thing whichever way the file is moving.
