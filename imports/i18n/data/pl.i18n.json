@@ -549,6 +549,7 @@
   "error-board-doesNotExist": "Ta tablica nie istnieje",
   "error-board-notAdmin": "Musisz być administratorem tej tablicy żeby to zrobić",
   "error-board-notAMember": "Musisz być użytkownikiem tej tablicy, żeby wykonać tę czynność",
+  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
   "error-notAllowed": "Twoja rola na tablicy nie pozwala na wykonanie tej czynności",
   "error-json-malformed": "Twoja fraza nie jest w formacie JSON",
   "error-json-schema": "Twoje dane JSON nie zawierają prawidłowych informacji w poprawnym formacie",

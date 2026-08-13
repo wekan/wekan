@@ -549,6 +549,7 @@
   "error-board-doesNotExist": "მსგავსი დაფა არ არსებობს",
   "error-board-notAdmin": "ამის გასაკეთებლად საჭიროა იყოთ დაფის ადმინისტრატორი",
   "error-board-notAMember": "ამის გასაკეთებლად საჭიროა იყოთ დაფის წევრი",
+  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
   "error-notAllowed": "თქვენს დაფის როლს ეს არ ეშვება",
   "error-json-malformed": "შენი ტექსტი არ არის ვალიდური JSON",
   "error-json-schema": "თქვენი JSON  მონაცემები არ შეიცავს ზუსტ ინფორმაციას სწორ ფორმატში",

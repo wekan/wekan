@@ -549,6 +549,7 @@
   "error-board-doesNotExist": "Nid yw'r bwrdd hwn yn bodoli",
   "error-board-notAdmin": "Mae angen i chi fod yn weinyddwr y bwrdd hwn i wneud hynny",
   "error-board-notAMember": "Mae angen ichi fod yn aelod o’r bwrdd hwn i wneud hynny",
+  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
   "error-notAllowed": "Nid yw'ch rôl ar y bwrdd yn cael gwneud hynny",
   "error-json-malformed": "Nid yw eich testun yn ddilys JSON",
   "error-json-schema": "Nid yw eich data JSON yn cynnwys y wybodaeth gywir yn y fformat cywir",

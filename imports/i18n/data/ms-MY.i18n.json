@@ -549,6 +549,7 @@
   "error-board-doesNotExist": "Papan tidak wujud",
   "error-board-notAdmin": "Anda perlu menjadi Admin Papan untuk tindakan itu",
   "error-board-notAMember": "Anda perlu menjadi Ahli Papan untuk tindakan itu",
+  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
   "error-notAllowed": "Peranan papan anda tidak dibenarkan untuk melakukannya",
   "error-json-malformed": "Teks anda tidak sah sebagai JSON",
   "error-json-schema": "Data JSON anda tidak terdiri daripada maklumat yang diperlukan dalam format yang betul",

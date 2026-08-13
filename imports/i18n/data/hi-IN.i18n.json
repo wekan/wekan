@@ -549,6 +549,7 @@
   "error-board-doesNotExist": "यह बोर्ड does not exist",
   "error-board-notAdmin": "You need तक be  व्यवस्थापक of  यह बोर्ड तक do that",
   "error-board-notAMember": "You need तक be एक सदस्य of  यह बोर्ड तक do that",
+  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
   "error-notAllowed": "आपकी बोर्ड भूमिका को ऐसा करने की अनुमति नहीं है",
   "error-json-malformed": "તમારું લખાણ માન્ય JSON નથી",
   "error-json-schema": "आपके JSON डेटा में सही प्रारूप में सही जानकारी शामिल नहीं है",

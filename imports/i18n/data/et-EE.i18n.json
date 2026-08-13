@@ -549,6 +549,7 @@
   "error-board-doesNotExist": "Seda tahvlit ei ole olemas",
   "error-board-notAdmin": "Selleks peate olema selle foorumi administraator.",
   "error-board-notAMember": "Selleks peate olema selle foorumi liige.",
+  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
   "error-notAllowed": "Sinu tahvli roll ei luba seda teha",
   "error-json-malformed": "Teie tekst ei ole kehtiv JSON",
   "error-json-schema": "Teie JSON-andmed ei sisalda õiget teavet õiges formaadis.",

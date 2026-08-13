@@ -549,6 +549,7 @@
   "error-board-doesNotExist": "Šis dēlis neeksistē",
   "error-board-notAdmin": "Jums jābūt dēļa administratoram, lai veiktu šo darbību",
   "error-board-notAMember": "Jums jābūt šī dēļa dalībniekam, lai veiktu šo darbību",
+  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
   "error-notAllowed": "Jūsu dēļa lomai tas nav atļauts",
   "error-json-malformed": "Teksts nav derīgs JSON",
   "error-json-schema": "JSON dati nesatur nepieciešamo informāciju pareizajā formātā",

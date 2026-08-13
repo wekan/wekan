@@ -549,6 +549,7 @@
   "error-board-doesNotExist": "Este tablero no existe",
   "error-board-notAdmin": "Necesitás ser administrador de este tablero para hacer eso",
   "error-board-notAMember": "Necesitás ser miembro de este tablero para hacer eso",
+  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
   "error-notAllowed": "Tu rol en el tablero no permite hacer eso",
   "error-json-malformed": "Tu texto no es JSON válido",
   "error-json-schema": "Tus datos JSON no incluyen la información correcta en el formato adecuado",

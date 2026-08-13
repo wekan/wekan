@@ -549,6 +549,7 @@
   "error-board-doesNotExist": "Ce tableau n'existe pas",
   "error-board-notAdmin": "Vous devez être administrateur de ce tableau pour faire cela",
   "error-board-notAMember": "Vous devez être participant de ce tableau pour faire cela",
+  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
   "error-notAllowed": "Vosse role sol tåvlea n' a nén l' droet di fé çoula",
   "error-json-malformed": "Votre texte JSON n'est pas valide",
   "error-json-schema": "Vos données JSON ne contiennent pas l'information appropriée dans un format correct",

@@ -549,6 +549,7 @@
   "error-board-doesNotExist": "Le bhodi ayikho",
   "error-board-notAdmin": "Kufuneka ube admin wale bhodi ukwenza lonto",
   "error-board-notAMember": "Kufuneka ube lilungu lale bhodi ukwenza oko",
+  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
   "error-notAllowed": "Indima yakho yebhodi ayivumelekanga ukwenza oko",
   "error-json-malformed": "Umbhalo wakho awusebenzi kwi-JSON",
   "error-json-schema": "Idatha yakho ye-JSON ayibandakanyi ulwazi olufanelekileyo kwifomethi echanekileyo",

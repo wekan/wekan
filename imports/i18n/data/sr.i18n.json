@@ -549,6 +549,7 @@
   "error-board-doesNotExist": "Овакви списи не постоје",
   "error-board-notAdmin": "Да би то урадили, треба да постанете водећи сарадник ових списа",
   "error-board-notAMember": "Да би то урадили за почетак треба да постанете сарадник на овим списима",
+  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
   "error-notAllowed": "Ваша улога на табли не дозвољава то",
   "error-json-malformed": "То што сте укуцали нема исправан JSON облик",
   "error-json-schema": "Ваши подаци у JSON облику не укључују исправне информације у предвиђеном облику",

@@ -549,6 +549,7 @@
   "error-board-doesNotExist": "ଏହି ବୋର୍ଡ ବିଦ୍ୟମାନ ନାହିଁ |",
   "error-board-notAdmin": "ତାହା କରିବା ପାଇଁ ତୁମେ ଏହି ବୋର୍ଡର ଆଡମିନି ହେବା ଆବଶ୍ୟକ |",
   "error-board-notAMember": "ତାହା କରିବା ପାଇଁ ତୁମେ ଏହି ବୋର୍ଡର ସଦସ୍ୟ ହେବା ଆବଶ୍ୟକ |",
+  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
   "error-notAllowed": "ଆପଣଙ୍କ ବୋର୍ଡ ଭୂମିକାକୁ ଏହା କରିବାର ଅନୁମତି ନାହିଁ",
   "error-json-malformed": "ଆପଣଙ୍କର ପାଠ ବ valid ଧ JSON ନୁହେଁ |",
   "error-json-schema": "ଆପଣଙ୍କର JSON ତଥ୍ୟ ସଠିକ୍ ଫର୍ମାଟରେ ସଠିକ୍ ସୂଚନା ଅନ୍ତର୍ଭୂକ୍ତ କରେ ନାହିଁ |",

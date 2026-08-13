@@ -549,6 +549,7 @@
   "error-board-doesNotExist": "Bu tagt ýok",
   "error-board-notAdmin": "Munuň üçin bu geňeşiň dolandyryjysy bolmaly",
   "error-board-notAMember": "Munuň üçin bu geňeşiň agzasy bolmaly",
+  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
   "error-notAllowed": "Tagta roluňyza muny etmäge rugsat berilmeýär",
   "error-json-malformed": "Tekstiňiz JSON dogry däl",
   "error-json-schema": "JSON maglumatlaryňyz dogry formatda dogry maglumatlary öz içine almaýar",

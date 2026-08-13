@@ -549,6 +549,7 @@
   "error-board-doesNotExist": "ਇਹ ਬੋਰਡ ਮੌਜੂਦ ਨਹੀਂ ਹੈ",
   "error-board-notAdmin": "ਅਜਿਹਾ ਕਰਨ ਲਈ ਤੁਹਾਨੂੰ ਇਸ ਬੋਰਡ ਦਾ ਪ੍ਰਸ਼ਾਸਕ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ",
   "error-board-notAMember": "ਅਜਿਹਾ ਕਰਨ ਲਈ ਤੁਹਾਨੂੰ ਇਸ ਬੋਰਡ ਦਾ ਮੈਂਬਰ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ",
+  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
   "error-notAllowed": "ਤੁਹਾਡੀ ਬੋਰਡ ਭੂਮਿਕਾ ਨੂੰ ਇਹ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਨਹੀਂ ਹੈ",
   "error-json-malformed": "ਤੁਹਾਡਾ ਟੈਕਸਟ ਵੈਧ JSON ਨਹੀਂ ਹੈ",
   "error-json-schema": "ਤੁਹਾਡੇ JSON ਡੇਟਾ ਵਿੱਚ ਸਹੀ ਫਾਰਮੈਟ ਵਿੱਚ ਸਹੀ ਜਾਣਕਾਰੀ ਸ਼ਾਮਲ ਨਹੀਂ ਹੈ",

@@ -549,6 +549,7 @@
   "error-board-doesNotExist": "דעם ברעט טוט נישט עקסיסטירן",
   "error-board-notAdmin": "איר דאַרפֿן צו זיין אַדמיניסטראַטאָר פון דעם ברעט צו טאָן דאָס",
   "error-board-notAMember": "איר דאַרפֿן צו זיין אַ מיטגליד פון דעם ברעט צו טאָן דאָס",
+  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
   "error-notAllowed": "אייַער ברעט־ראָלע איז נישט דערלויבט צו טאָן דאָס",
   "error-json-malformed": "דיין טעקסט איז נישט גילטיק JSON",
   "error-json-schema": "דיין JSON דאַטן אַנטהאַלטן נישט די ריכטיק אינפֿאָרמאַציע אין די ריכטיק פֿאָרמאַט",

@@ -549,6 +549,7 @@
   "error-board-doesNotExist": "보드가 없습니다.",
   "error-board-notAdmin": "이 작업은 보드의 관리자만 실행할 수 있습니다.",
   "error-board-notAMember": "이 작업은 보드의 멤버만 실행할 수 있습니다.",
+  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
   "error-notAllowed": "귀하의 보드 역할로는 해당 작업을 수행할 수 없습니다",
   "error-json-malformed": "텍스트가 JSON 형식에 유효하지 않습니다.",
   "error-json-schema": "JSON 데이터에 정보가 올바른 형식으로 포함되어 있지 않습니다.",

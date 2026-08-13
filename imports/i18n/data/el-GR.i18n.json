@@ -549,6 +549,7 @@
   "error-board-doesNotExist": "Αυτός ο πίνακας δεν υφίσταται",
   "error-board-notAdmin": "Πρέπει να είστε διαχειριστής του πίνακα αυτού για να προβείτε σε αυτό",
   "error-board-notAMember": "Πρέπει να είστε μέλος του πίνακα αυτού για να προβείτε σε αυτό",
+  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
   "error-notAllowed": "Ο ρόλος σας στον πίνακα δεν επιτρέπεται να το κάνει αυτό",
   "error-json-malformed": "Το κείμενο δεν είναι έγκυρο JSON",
   "error-json-schema": "Τα JSON δεδομένα σας δεν περιλαμβάνουν την ορθή πληροφορία στην ορθή μορφοποίηση",

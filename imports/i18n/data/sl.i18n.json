@@ -549,6 +549,7 @@
   "error-board-doesNotExist": "Ta tabla ne obstaja",
   "error-board-notAdmin": "Nimate administrativnih pravic za tablo.",
   "error-board-notAMember": "Niste član table.",
+  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
   "error-notAllowed": "Vaša vloga na tabli tega ne dovoljuje",
   "error-json-malformed": "Vaše besedilo ni veljaven JSON",
   "error-json-schema": "Vaši JSON podatki ne vsebujejo pravilnih informacij v ustreznem formatu",

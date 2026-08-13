@@ -422,6 +422,24 @@ Fixes #1234,
 Fixes #1235.
 ```
 
+- **A commit that fixes a GitHub issue ENDS with `Fixes #NNNN`** — last lines of
+  the message, one per issue, comma after each and a full stop on the last. That
+  trailer is what closes the issue when the commit is pushed; a fix that only
+  *mentions* the number in prose leaves the issue open, and somebody has to close
+  it by hand later or it stays open forever. Several issues in one commit get
+  several lines. The same applies to an issue that turns out to be **already
+  fixed**: commit the test or the note that proves it and end with `Fixes #NNNN,`
+  so the issue closes with a reference to where it was fixed.
+- **Only when the commit really fixes it.** A commit that improves the
+  diagnostics, narrows the cause, or fixes one of several reported problems
+  references the issue in the body (`#6585 comment 5276581923`) and does NOT
+  carry the trailer — closing an issue whose reporter is still stuck is worse
+  than leaving it open. If an issue was closed and then REOPENED for follow-up
+  items (as #6586 was), it is fixed again only when those items are done.
+- **A commit with no issue behind it has no trailer** — the email reports, the
+  release-tooling fixes found in build logs, refactors. `Thanks to ... and xet7 !`
+  still names whoever reported it.
+
 ### Making a release — no version number needed  **[maintainer only]**
 
 All publishing / release steps below are maintainer-only. Contributors never run them.

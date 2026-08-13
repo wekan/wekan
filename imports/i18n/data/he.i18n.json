@@ -549,6 +549,7 @@
   "error-board-doesNotExist": "לוח זה אינו קיים",
   "error-board-notAdmin": "צריכות להיות לך הרשאות ניהול על לוח זה כדי לעשות זאת",
   "error-board-notAMember": "עליך לקבל חברות בלוח זה כדי לעשות זאת",
+  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
   "error-notAllowed": "התפקיד שלך בלוח לא מורשה לעשות את זה",
   "error-json-malformed": "הטקסט שלך אינו JSON תקין",
   "error-json-schema": "נתוני ה־JSON שלך לא כוללים את המידע הנכון בתבנית הנכונה",

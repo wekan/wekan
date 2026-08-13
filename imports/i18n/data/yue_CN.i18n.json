@@ -549,6 +549,7 @@
   "error-board-doesNotExist": "該板塊不存在",
   "error-board-notAdmin": "您需要成為該委員會的管理員才能執行此操作",
   "error-board-notAMember": "您需要成為該委員會的成員才能執行此操作",
+  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
   "error-notAllowed": "你的看板角色无权执行此操作",
   "error-json-malformed": "您的文字不是有效的 JSON",
   "error-json-schema": "您的 JSON 資料未包含正確格式的正確訊息",
