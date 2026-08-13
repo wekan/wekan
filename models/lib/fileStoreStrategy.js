@@ -395,7 +395,24 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
   /** returns a read stream
    * @return the read stream
    */
-  getReadStream() {
+  /** every place the physical file could be, in priority order
+   *
+   * The recorded `versions[<v>].path` is a GUESS about the past: it was written
+   * by whichever WeKan stored the file, and the layout has changed - `<id>`,
+   * `<id>.<ext>`, `<id>-<version>-<name>` - while a migration, a storage move or
+   * an extension correction could rewrite one of the two and not the other.
+   *
+   * #6589 is what that costs when only the reader knows: a .drawio attachment
+   * was served fine (this search found it) and could not be RENAMED, because
+   * rename used the recorded path alone:
+   *
+   *   Error: ENOENT: no such file or directory, rename
+   *     '/data/files/attachments/6a7d66369c6aee799e857d36.drawio' -> ...
+   *
+   * So the search is a method now, and reading, renaming and deleting all use it.
+   * @return array of absolute candidate paths
+   */
+  candidatePaths() {
     const v = this.fileObj.versions[this.versionName] || {};
     const originalPath = v.path || '';
     const normalized = (originalPath || '').replace(/\\/g, '/');
@@ -483,15 +500,22 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
       }
     }
 
-    // Pick first existing candidate
-    let chosen;
-    for (const c of candidates) {
-      if (isSafeReadableFile(c, resolvedStorageRoot)) {
-        chosen = c;
-        break;
-      }
-    }
+    return { candidates, resolvedStorageRoot };
+  }
 
+  /** the path the file is ACTUALLY at, or undefined when none of them exists
+   * @return absolute path or undefined
+   */
+  resolveExistingPath() {
+    const { candidates, resolvedStorageRoot } = this.candidatePaths();
+    for (const c of candidates) {
+      if (isSafeReadableFile(c, resolvedStorageRoot)) return c;
+    }
+    return undefined;
+  }
+
+  getReadStream() {
+    const chosen = this.resolveExistingPath();
     if (!chosen) {
       return undefined;
     }
@@ -518,8 +542,11 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
 
   /** remove the file */
   unlink() {
-    const filePath = this.fileObj.versions[this.versionName].path;
-    fs.unlink(filePath, () => {});
+    // The file that is THERE, not the one the database remembers - see
+    // candidatePaths(). A delete that misses leaves the bytes on disk forever.
+    const filePath = this.resolveExistingPath()
+      || (this.fileObj.versions[this.versionName] || {}).path;
+    if (filePath) fs.unlink(filePath, () => {});
   }
 
   /** rename the file (physical)
@@ -527,7 +554,21 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
    * @param newFilePath the new file path
    */
   rename(newFilePath) {
-    fs.renameSync(this.fileObj.versions[this.versionName].path, newFilePath);
+    const current = this.resolveExistingPath();
+    if (!current) {
+      // #6589: this used to be `fs.renameSync(<recorded path>, ...)` and the
+      // recorded path did not exist, so every rename of that attachment threw
+      // ENOENT and it stayed stuck under the wrong name for good. Say what is
+      // actually wrong - the file is gone, not the rename - and name the
+      // attachment, because the ENOENT named a path nobody recognised.
+      const recorded = (this.fileObj.versions[this.versionName] || {}).path || '(none recorded)';
+      throw new Error(
+        `Attachment ${this.fileObj._id} (${this.fileObj.name || 'unnamed'}), version `
+        + `${this.versionName}: no file found on disk. The database says ${recorded}, `
+        + `and neither that nor any of the older layouts is there, so there is nothing to rename.`);
+    }
+    if (path.resolve(current) === path.resolve(newFilePath)) return;
+    fs.renameSync(current, newFilePath);
   }
 
   /** return the storage name

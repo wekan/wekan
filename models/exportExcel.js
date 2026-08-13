@@ -108,7 +108,24 @@ runOnServer(function() {
           reason: 'exportExcel',
         });
       }
-      exporterExcel.build(res);
+      // AWAITED, and that is #6591's other half. `build(res)` is async: without
+      // the await its rejection went nowhere - no 500, no log line, and a
+      // response that was never written or ended, so the browser waited for an
+      // export that had already failed. "The Board Settings -> Export board ->
+      // export/Excel didn't work", with nothing in the logs to say why.
+      try {
+        await exporterExcel.build(res);
+      } catch (error) {
+        console.error('exportExcel failed for board', boardId, error);
+        if (!res.headersSent) {
+          res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
+          res.end(`Excel export failed: ${error && error.message ? error.message : error}`);
+        } else {
+          // Bytes are already on the wire, so the file is truncated whatever we
+          // do; end it rather than leave the request open forever.
+          res.end();
+        }
+      }
     } else {
       res.end(TAPi18n.__('user-can-not-export-excel'));
     }

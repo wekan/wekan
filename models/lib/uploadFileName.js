@@ -56,8 +56,33 @@ function baseNameForMime(mimeType) {
   return 'file';
 }
 
+// A MIME type that says NOTHING about the file. `application/octet-stream` is
+// what a browser sends for a type it does not know and what `file` reports for
+// anything it cannot identify - it is the absence of an answer, not an answer.
+//
+// #6589: a .drawio upload came in as application/octet-stream, and correcting
+// the extension "to the type" turned it into "sso-proconnect-keycloak.drawio.bin"
+// - unopenable, and the rename that would have repaired it failed too. Anything
+// unrecognised - .drawio, .kdbx, .ova, a new format, an internal one - was
+// renamed to .bin the same way. mime.extension('application/octet-stream') is
+// 'bin', and that is the only reason.
+const UNINFORMATIVE_MIME = new Set([
+  'application/octet-stream',
+  'binary/octet-stream',
+  'application/binary',
+  'application/x-binary',
+  'application/unknown',
+  '*/*',
+]);
+
+function mimeSaysNothing(mimeType) {
+  const t = String(mimeType || '').toLowerCase().trim();
+  return !t || UNINFORMATIVE_MIME.has(t);
+}
+
 // The correct extension (with leading dot) for a MIME type, or '' if unknown.
 function extensionForMime(mimeType) {
+  if (mimeSaysNothing(mimeType)) return '';
   const ext = mime.extension(String(mimeType || '').toLowerCase());
   return ext ? '.' + ext : '';
 }
@@ -163,6 +188,7 @@ module.exports = {
   sanitizationReasons,
   baseNameForMime,
   extensionForMime,
+  mimeSaysNothing,
   filenameLooksLikeExploit,
   sanitizeUploadFileName,
 };
