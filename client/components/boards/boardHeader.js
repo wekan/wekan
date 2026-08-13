@@ -484,18 +484,38 @@ Template.boardChangeWatchPopup.helpers({
 
 Template.boardChangeWatchPopup.events({
   'click .js-select-watch'() {
-    const level = this;
-    if (typeof level === 'string') {
-      Meteor.call(
-        'watch',
-        'board',
-        Session.get('currentBoard'),
-        level,
-        (err, ret) => {
-          if (!err && ret) Popup.back();
-        },
-      );
-    }
+    // `this` is the data context of the clicked row - the string from the
+    // enclosing {{#with "watching"}}. Blaze can hand that back as a boxed
+    // String, so read it through String() rather than refusing anything that is
+    // not typeof 'string'.
+    const level = this === null || this === undefined ? '' : String(this);
+    if (!level) return;
+    Meteor.call(
+      'watch',
+      'board',
+      Session.get('currentBoard'),
+      level,
+      (err, ret) => {
+        if (!err && ret) {
+          Popup.back();
+          return;
+        }
+        // AN ERROR MUST NOT BE SILENT. It was: the callback closed the popup on
+        // success and did nothing at all otherwise, so a refusal looked exactly
+        // like a broken button - "Silent does not respond. If we try to change
+        // it does not change. Nothing happens." (email, 2026-08-13). The server
+        // refuses for two reasons an admin can act on: the watch feature is
+        // turned off in the Admin Panel, and the board is not visible to this
+        // user.
+        const reason = err && (err.error || err.reason || err.message);
+        const message = reason === 'error-watch-disabled'
+          ? TAPi18n.__('error-watch-disabled')
+          : TAPi18n.__('error-board-notAMember');
+        // eslint-disable-next-line no-alert
+        if (typeof window !== 'undefined' && window.alert) window.alert(message);
+        if (process.env.DEBUG === 'true') console.error('watch failed:', err);
+      },
+    );
   },
 });
 

@@ -219,13 +219,24 @@ const steps = [
       const listIds = new Set((await db.collection('lists').distinct('_id')).map(String));
       const usedListIds = (await db.collection('cards').distinct('listId')).map(String);
       if (usedListIds.some(id => id && id !== 'null' && id !== 'undefined' && !listIds.has(id))) return true;
-      // #1959/#1971: any unarchived card under a deleted/archived/foreign swimlane?
-      const visibleSwimlaneOfBoard = await loadVisibleSwimlanes(db);
+      // #1959/#1971: any unarchived card under a DELETED or foreign swimlane?
+      //
+      // Not an archived one, and that is a correction rather than a detail.
+      // Archiving a swimlane leaves its cards where they are, `archived: false`,
+      // hidden because their swimlane is hidden - so treating "swimlane is
+      // archived" as breakage hoisted them into the first visible swimlane and
+      // they came back, sometimes years later. Reported by email on 2026-08-13:
+      // "Previously archived cards (some several years old) have reappeared.
+      // These cards have incorrectly been placed in the top swimlane."
+      //
+      // A card is only orphaned when its swimlane does not exist at all, or
+      // belongs to another board. existsById knows the difference.
+      const swimlanes = await loadVisibleSwimlanes(db);
       const usedSwimlaneIds = (await db.collection('cards').distinct('swimlaneId', { archived: false })).map(String);
       for (const swId of usedSwimlaneIds) {
         if (!swId || swId === 'null' || swId === 'undefined') continue;
-        const owner = visibleSwimlaneOfBoard.byId.get(swId);
-        if (!owner) return true;   // deleted or archived swimlane
+        const owner = swimlanes.existsById.get(swId);
+        if (!owner) return true;   // deleted swimlane: the card has nowhere to be
         // same-board check needs the referencing boards (bounded by board count)
         const boards = (await db.collection('cards').distinct('boardId', { swimlaneId: swId, archived: false })).map(String);
         if (boards.some(b => b !== owner)) return true;   // foreign swimlane
@@ -288,14 +299,17 @@ const steps = [
           fixed += (r && r.modifiedCount) || 0;
         }
       }
-      // #1959/#1971: unarchived cards whose swimlaneId points at a DELETED,
-      // ARCHIVED or other-board swimlane never render in the Swimlanes view.
-      // distinct() bounds the work by the number of referenced swimlanes; the
-      // fix is one updateMany per (bad swimlane, board).
+      // #1959/#1971: unarchived cards whose swimlaneId points at a DELETED or
+      // other-board swimlane never render in the Swimlanes view. A card under an
+      // ARCHIVED swimlane is NOT one of those: it is hidden on purpose, and
+      // moving it to the first visible swimlane is how archived cards reappeared
+      // years later (email, 2026-08-13). distinct() bounds the work by the
+      // number of referenced swimlanes; the fix is one updateMany per (bad
+      // swimlane, board).
       const usedSwimlaneIds = (await db.collection('cards').distinct('swimlaneId', { archived: false })).map(String);
       for (const swId of usedSwimlaneIds) {
         if (!swId || swId === 'null' || swId === 'undefined') continue;
-        const owner = visible.byId.get(swId);
+        const owner = visible.existsById.get(swId);
         const boardsOfSw = (await db.collection('cards').distinct('boardId', { swimlaneId: swId, archived: false })).map(String);
         for (const boardId of boardsOfSw) {
           if (owner === boardId) continue;   // visible swimlane on the right board
@@ -738,14 +752,19 @@ const steps = [
 async function loadVisibleSwimlanes(db) {
   const byId = new Map();
   const firstOfBoard = new Map();
+  // existsById: EVERY swimlane, archived ones included. An archived swimlane is
+  // not a missing one - it is a swimlane whose cards are meant to be out of
+  // sight - and the difference is the whole of the report below.
+  const existsById = new Map();
   const all = await db.collection('swimlanes')
     .find({}, { projection: { _id: 1, boardId: 1, archived: 1, type: 1, sort: 1 } }).toArray();
   for (const s of all.sort((a, b) => (a.sort || 0) - (b.sort || 0))) {
+    existsById.set(String(s._id), String(s.boardId));
     if (s.archived === true || s.type === 'template-swimlane') continue;
     byId.set(String(s._id), String(s.boardId));
     if (!firstOfBoard.has(String(s.boardId))) firstOfBoard.set(String(s.boardId), String(s._id));
   }
-  return { byId, firstOfBoard };
+  return { byId, firstOfBoard, existsById };
 }
 
 // A version needs healing when it is (or defaults to) filesystem storage but

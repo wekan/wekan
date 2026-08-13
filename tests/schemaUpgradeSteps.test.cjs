@@ -308,7 +308,18 @@ await test('#1959: card under a DELETED swimlane is rescued to the board\'s visi
   assert.strictEqual(db._dump('cards')[0].swimlaneId, 'sVisible', 'card visible in Swimlanes view again');
 });
 
-await test('#1971: card under an ARCHIVED swimlane is rescued to a visible one', async () => {
+await test('a card under an ARCHIVED swimlane STAYS there - archiving is not breakage', async () => {
+  // This assertion used to be the opposite, and the opposite is what an email
+  // on 2026-08-13 reported: "Previously archived cards (some several years old)
+  // have reappeared. These cards have incorrectly been placed in the top
+  // swimlane." Archiving a swimlane leaves its cards where they are - they are
+  // hidden because the swimlane is - so sweeping them into the first visible
+  // swimlane un-archives, silently, years later.
+  //
+  // #1971 itself is about cards ADDED in List view landing in an archived
+  // swimlane, and that is fixed where cards are created: getDefaultSwimline()
+  // (models/boards.js) picks a non-archived swimlane. It never needed a bulk
+  // sweep over data somebody archived on purpose.
   const db = fakeDb({
     boards: [{ _id: 'b1', archived: false }],
     swimlanes: [
@@ -319,10 +330,17 @@ await test('#1971: card under an ARCHIVED swimlane is rescued to a visible one',
     cards: [{ _id: 'c1', boardId: 'b1', listId: 'l1', swimlaneId: 'sArchived', archived: false }],
   });
   await runSchemaUpgrade(db, opts);
-  assert.strictEqual(db._dump('cards')[0].swimlaneId, 'sVisible');
+  assert.strictEqual(db._dump('cards')[0].swimlaneId, 'sArchived',
+    'the card is where its owner put it');
 });
 
-await test('#1971: when EVERY swimlane is archived, a visible Default is created for the rescue', async () => {
+await test('a board whose every swimlane is archived is left exactly as it is', async () => {
+  // Nothing here is broken: an archived swimlane holding archived work is a
+  // board somebody put away. The step used to create a visible Default and move
+  // the card into it, which is the reappearance from the report. Where a board
+  // genuinely needs a swimlane - somebody adds a card to it - the app creates
+  // one then (models/boards.js getDefaultSwimline -> ensureDefaultSwimlaneId),
+  // which is the right moment for it.
   const db = fakeDb({
     boards: [{ _id: 'b1', archived: false }],
     swimlanes: [{ _id: 'sArchived', boardId: 'b1', archived: true, sort: 0 }],
@@ -330,9 +348,10 @@ await test('#1971: when EVERY swimlane is archived, a visible Default is created
     cards: [{ _id: 'c1', boardId: 'b1', listId: 'l1', swimlaneId: 'sArchived', archived: false }],
   });
   await runSchemaUpgrade(db, opts);
-  const visible = db._dump('swimlanes').find(s => s.archived === false);
-  assert.ok(visible, 'a visible Default swimlane was created');
-  assert.strictEqual(db._dump('cards')[0].swimlaneId, String(visible._id));
+  assert.strictEqual(db._dump('cards')[0].swimlaneId, 'sArchived',
+    'the card stayed where it was archived');
+  assert.strictEqual(db._dump('swimlanes').length, 1,
+    'and no swimlane was invented for data nobody is looking at');
 });
 
 await test('negative: ARCHIVED cards under archived swimlanes are left alone (intentionally hidden)', async () => {
