@@ -590,7 +590,7 @@ a board whose attachments are too large to sit inside one JSON string.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">A large .zip is uploaded and streamed instead of unpacked in the browser</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/fe77b7461e6737a528e953b1080e91f206812b45">A large .zip is uploaded and streamed instead of unpacked in the browser</a>. Thanks to xet7.</summary>
 
 Reading an archive in the browser and sending its attachments as base64 over DDP
 is fine for a card and wrong for a board: 2 GB of attachments become 2.7 GB in
