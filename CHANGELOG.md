@@ -508,7 +508,7 @@ offered it at all.
 **Search** - finding a card by what people call it.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">Cards can be searched by their card number</a>. Thanks to mfilser and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/530ef32c16c41dfa52f408e31da21a2d32cbb93e">Cards can be searched by their card number</a>. Thanks to mfilser and xet7.</summary>
 
 [#5006](https://github.com/wekan/wekan/issues/5006), open since 2023: "A
 customer has just hinted us that we are not able to search cards by its number
