@@ -549,7 +549,7 @@
   "error-board-doesNotExist": "ボードがありません",
   "error-board-notAdmin": "操作にはボードの管理者権限が必要です",
   "error-board-notAMember": "操作にはボードメンバーである必要があります",
-  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
+  "error-watch-disabled": "管理者によってボードとカードのウォッチが無効にされています",
   "error-notAllowed": "あなたのボード権限ではこの操作は許可されていません",
   "error-json-malformed": "このテキストは、有効なJSON形式ではありません",
   "error-json-schema": "JSONデータが不正な値を含んでいます",

@@ -549,7 +549,7 @@
   "error-board-doesNotExist": "Доска не найдена",
   "error-board-notAdmin": "Вы должны обладать правами администратора этой доски, чтобы сделать это",
   "error-board-notAMember": "Вы должны быть участником доски, чтобы сделать это",
-  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
+  "error-watch-disabled": "Самбар болон картуудыг ажиглахыг администратор унтраасан",
   "error-notAllowed": "Таны самбарын үүрэг үүнийг хийхийг зөвшөөрөхгүй",
   "error-json-malformed": "Ваше текст не является правильным JSON",
   "error-json-schema": "Содержимое вашего JSON не содержит информацию в корректном формате",

@@ -549,7 +549,7 @@
   "error-board-doesNotExist": "Bodi hii haipo",
   "error-board-notAdmin": "Unahitaji kuwa msimamizi wa bodi hii kufanya hivyo",
   "error-board-notAMember": "Unahitaji kuwa mwanachama wa bodi hii kufanya hivyo",
-  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
+  "error-watch-disabled": "Kufuatilia mbao na kadi kumezimwa na msimamizi",
   "error-notAllowed": "Jukumu lako la bodi haliruhusiwi kufanya hivyo",
   "error-json-malformed": "Maandishi yako si sahihi JSON",
   "error-json-schema": "Data yako ya JSON haijumuishi maelezo sahihi katika umbizo sahihi",

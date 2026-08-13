@@ -549,7 +549,7 @@
   "error-board-doesNotExist": "Pano bulunamadı",
   "error-board-notAdmin": "Bu işlemi yapmak için pano yöneticisi olmalısın.",
   "error-board-notAMember": "Bu işlemi yapmak için panoya üye olmalısın.",
-  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
+  "error-watch-disabled": "Panoları ve kartları izleme yönetici tarafından kapatıldı",
   "error-notAllowed": "Pano rolünüz bunu yapmaya izin vermiyor",
   "error-json-malformed": "Girilen metin geçerli bir JSON formatında değil",
   "error-json-schema": "Girdiğin JSON metni tüm bilgileri doğru biçimde barındırmıyor",

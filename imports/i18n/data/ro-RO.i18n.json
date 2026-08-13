@@ -549,7 +549,7 @@
   "error-board-doesNotExist": "Questa bacheca non esiste",
   "error-board-notAdmin": "Devi essere admin di questa bacheca per poterlo fare",
   "error-board-notAMember": "Devi essere un membro di questa bacheca per poterlo fare",
-  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
+  "error-watch-disabled": "Urmărirea panourilor și a cardurilor este dezactivată de administrator",
   "error-notAllowed": "Rolul tău pe panou nu permite acest lucru",
   "error-json-malformed": "Il testo non è in un formato JSON valido",
   "error-json-schema": "Il tuo file JSON non contiene le giuste informazioni nel formato corretto",

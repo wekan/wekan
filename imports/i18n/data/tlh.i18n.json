@@ -549,7 +549,7 @@
   "error-board-doesNotExist": "Dieses Board existiert nicht",
   "error-board-notAdmin": "Um das zu tun, müssen Sie Administrator dieses Boards sein",
   "error-board-notAMember": "Um das zu tun, müssen Sie Mitglied dieses Boards sein",
-  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
+  "error-watch-disabled": "Das Beobachten von Boards und Karten wurde vom Administrator deaktiviert",
   "error-notAllowed": "raS patlhlIj: vangvam chaw'be'lu'.",
   "error-json-malformed": "Ihre Eingabe ist kein gültiges JSON",
   "error-json-schema": "Ihre JSON-Daten enthalten nicht die gewünschten Informationen im richtigen Format",

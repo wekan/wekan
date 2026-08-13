@@ -549,7 +549,7 @@
   "error-board-doesNotExist": "Това табло не съществува",
   "error-board-notAdmin": "За да направите това трябва да сте администратор на това табло",
   "error-board-notAMember": "За да направите това трябва да сте член на това табло",
-  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
+  "error-watch-disabled": "Следењето на табли и картички е исклучено од администраторот",
   "error-notAllowed": "Вашата улога на таблата не дозволува да го направите тоа",
   "error-json-malformed": "Текстът Ви не е валиден JSON",
   "error-json-schema": "JSON информацията Ви не съдържа информация във валиден формат",

@@ -549,7 +549,7 @@
   "error-board-doesNotExist": "Šios lentos nėra",
   "error-board-notAdmin": "Norėdami tai padaryti, turite būti šios lentos administratoriumi",
   "error-board-notAMember": "Norėdami tai padaryti, turite būti šios tarybos nariu",
-  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
+  "error-watch-disabled": "Lentų ir kortelių stebėjimą išjungė administratorius",
   "error-notAllowed": "Jūsų lentos rolei tai daryti neleidžiama",
   "error-json-malformed": "Jūsų tekstas netinkamas JSON",
   "error-json-schema": "Jūsų JSON duomenyse nėra tinkamo formato tinkamos informacijos",

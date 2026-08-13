@@ -549,7 +549,7 @@
   "error-board-doesNotExist": "Dit boerd bestiet net",
   "error-board-notAdmin": "Jo moatte admin wêze fan dit boerd om dat te dwaan",
   "error-board-notAMember": "Jo moatte lid wêze fan dit bestjoer om dat te dwaan",
-  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
+  "error-watch-disabled": "It folgjen fan boarden en kaarten is troch de behearder útskeakele",
   "error-notAllowed": "Jo boardrol mei dat net dwaan",
   "error-json-malformed": "Jo tekst is net jildich JSON",
   "error-json-schema": "Jo JSON-gegevens befetsje net de juste ynformaasje yn it juste formaat",

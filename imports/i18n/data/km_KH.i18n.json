@@ -549,7 +549,7 @@
   "error-board-doesNotExist": "បន្ទះនេះមិនមានទេ។",
   "error-board-notAdmin": "អ្នក​ត្រូវ​ធ្វើ​ជា​អ្នក​គ្រប់គ្រង​ក្រុមប្រឹក្សាភិបាល​ដើម្បី​ធ្វើ​ដូច្នេះ",
   "error-board-notAMember": "អ្នកត្រូវតែជាសមាជិកនៃក្រុមប្រឹក្សាភិបាលនេះដើម្បីធ្វើដូច្នេះបាន។",
-  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
+  "error-watch-disabled": "ការតាមដានក្តារ និងកាតត្រូវបានបិទដោយអ្នកគ្រប់គ្រង",
   "error-notAllowed": "តួនាទីក្តាររបស់អ្នកមិនត្រូវបានអនុញ្ញាតឱ្យធ្វើដូច្នេះទេ",
   "error-json-malformed": "អត្ថបទរបស់អ្នកមិនត្រឹមត្រូវ JSON",
   "error-json-schema": "ទិន្នន័យ JSON របស់អ្នកមិនរួមបញ្ចូលព័ត៌មានត្រឹមត្រូវក្នុងទម្រង់ត្រឹមត្រូវទេ។",

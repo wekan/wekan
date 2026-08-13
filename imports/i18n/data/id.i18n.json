@@ -549,7 +549,7 @@
   "error-board-doesNotExist": "Panel ini tidak ada",
   "error-board-notAdmin": "Anda harus admin dari panel ini untuk melakukan itu",
   "error-board-notAMember": "Anda harus jadi member panel ini untuk melakukannya",
-  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
+  "error-watch-disabled": "Pemantauan papan dan kartu dimatikan oleh administrator",
   "error-notAllowed": "Peran papan Anda tidak diizinkan untuk melakukan itu",
   "error-json-malformed": "Teks Anda bukan JSON yang sah",
   "error-json-schema": "Data JSON Anda tidak mengikutsertakan informasi yang sesuai format",

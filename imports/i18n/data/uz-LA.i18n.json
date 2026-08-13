@@ -549,7 +549,7 @@
   "error-board-doesNotExist": "Bu kengash mavjud emas",
   "error-board-notAdmin": "Buning uchun siz ushbu kengashning administratori bo'lishingiz kerak",
   "error-board-notAMember": "Buning uchun siz ushbu kengash a'zosi bo'lishingiz kerak",
-  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
+  "error-watch-disabled": "Doskalar va kartalarni kuzatish administrator tomonidan oʻchirilgan",
   "error-notAllowed": "Sizning kengashdagi rolingizga bunga ruxsat berilmagan",
   "error-json-malformed": "Matningiz noto‘g‘ri JSON",
   "error-json-schema": "JSON maʼlumotlaringizda toʻgʻri formatdagi tegishli maʼlumotlar mavjud emas",

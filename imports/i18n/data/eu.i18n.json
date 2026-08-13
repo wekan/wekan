@@ -549,7 +549,7 @@
   "error-board-doesNotExist": "Arbel hau ez da existitzen",
   "error-board-notAdmin": "Arbel honetako kudeatzailea izan behar zara hori egin ahal izateko",
   "error-board-notAMember": "Arbel honetako kidea izan behar zara hori egin ahal izateko",
-  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
+  "error-watch-disabled": "Administratzaileak desgaitu du taulen eta txartelen jarraipena",
   "error-notAllowed": "Zure arbeleko rolak ez du hori egiteko baimenik",
   "error-json-malformed": "Zure testua ez da baliozko JSON",
   "error-json-schema": "Zure JSON datuek ez dute formatu zuzenaren informazio egokia",

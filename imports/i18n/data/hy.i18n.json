@@ -549,7 +549,7 @@
   "error-board-doesNotExist": "Այս խորհուրդը գոյություն չունի",
   "error-board-notAdmin": "Դա անելու համար դուք պետք է լինեք այս խորհրդի ադմինիստրատորը",
   "error-board-notAMember": "Դա անելու համար դուք պետք է լինեք այս խորհրդի անդամ",
-  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
+  "error-watch-disabled": "Տախտակների և քարտերի հետևումն անջատված է ադմինիստրատորի կողմից",
   "error-notAllowed": "Ձեր տախտակի դերին թույլ չի տրվում դա անել",
   "error-json-malformed": "Ձեր տեքստը վավեր JSON չէ",
   "error-json-schema": "Ձեր JSON տվյալները չեն ներառում համապատասխան տեղեկատվությունը ճիշտ ձևաչափով",

@@ -549,7 +549,7 @@
   "error-board-doesNotExist": "Este quadro não existe",
   "error-board-notAdmin": "Precisa de ser administrador deste quadro para fazer isso",
   "error-board-notAMember": "Precisa de ser um membro deste quadro para fazer isso",
-  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
+  "error-watch-disabled": "A observação de quadros e cartões foi desativada pelo administrador",
   "error-notAllowed": "O seu papel no quadro não permite fazer isso",
   "error-json-malformed": "O seu texto não é um JSON válido",
   "error-json-schema": "O seu JSON não inclui as informações apropriadas no formato correto",

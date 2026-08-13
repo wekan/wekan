@@ -549,7 +549,7 @@
   "error-board-doesNotExist": "Bu lövhə mövcud deyil",
   "error-board-notAdmin": "Bunu etmək üçün bu lövhənin admini olmalısınız",
   "error-board-notAMember": "Bunun üçün siz bu idarə heyətinin üzvü olmalısınız",
-  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
+  "error-watch-disabled": "Lövhələrin və kartların izlənməsi administrator tərəfindən söndürülüb",
   "error-notAllowed": "Sizin lövhə rolunuza bunu etməyə icazə verilmir",
   "error-json-malformed": "Sizin mətn düzgün JSON deyil",
   "error-json-schema": "JSON məlumatlarınız düzgün formatda düzgün məlumatları ehtiva etmir",

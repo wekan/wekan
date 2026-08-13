@@ -549,7 +549,7 @@
   "error-board-doesNotExist": "بۇ تاختا مەۋجۇت ئەمەس",
   "error-board-notAdmin": "بۇنى قىلىش ئۈچۈن سىز بۇ مۇدىرىيەتنىڭ باشقۇرغۇچىسى بولۇشىڭىز كېرەك",
   "error-board-notAMember": "بۇنى قىلىش ئۈچۈن سىز بۇ ھەيئەتنىڭ ئەزاسى بولۇشىڭىز كېرەك",
-  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
+  "error-watch-disabled": "تاختا ۋە كارتىلارنى كۆزىتىشنى باشقۇرغۇچى ئېتىۋەتتى",
   "error-notAllowed": "تاختىدىكى رولىڭىزنىڭ بۇنى قىلىشقا رۇخسىتى يوق",
   "error-json-malformed": "تېكىستىڭىز JSON ئىناۋەتلىك ئەمەس",
   "error-json-schema": "JSON سانلىق مەلۇماتلىرىڭىز توغرا فورماتتىكى مۇۋاپىق ئۇچۇرلارنى ئۆز ئىچىگە ئالمايدۇ",

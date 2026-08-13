@@ -549,7 +549,7 @@
   "error-board-doesNotExist": "Aqueste tablèu existís pas",
   "error-board-notAdmin": "Devètz èsser un administrator del tablèu per far aquò",
   "error-board-notAMember": "Devètz èsser un participant del tablèu per far aquò",
-  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
+  "error-watch-disabled": "Lo seguiment dels tablèus e de las cartas es desactivat per l'administrator",
   "error-notAllowed": "Vòstre ròtle sul tablèu vos permet pas de far aquò",
   "error-json-malformed": "Vòstre tèxte es pas valid JSON",
   "error-json-schema": "Vòstre JSON es pas al format correct",

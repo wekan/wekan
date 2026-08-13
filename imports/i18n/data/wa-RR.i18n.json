@@ -549,7 +549,7 @@
   "error-board-doesNotExist": "Waray ini nga board",
   "error-board-notAdmin": "Kinahanglan ikaw admin hini nga board basi mahimo ito",
   "error-board-notAMember": "Kinahanglan ikaw membro hini nga board basi mahimo ito",
-  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
+  "error-watch-disabled": "Shûre des tåvleas et des cåtes est distcweyou pa l' manaedjeu",
   "error-notAllowed": "Diri gintutugotan an imo papel ha board nga buhaton ito",
   "error-json-malformed": "An imo teksto diri balido nga JSON",
   "error-json-schema": "An imo datos nga JSON waray upod han husto nga impormasyon ha husto nga pormat",

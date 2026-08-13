@@ -549,7 +549,7 @@
   "error-board-doesNotExist": "برد مورد نظر وجود ندارد",
   "error-board-notAdmin": "شما جهت انجام آن باید مدیر برد باشید",
   "error-board-notAMember": "شما برای انجام آن، باید عضو این برد باشید",
-  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
+  "error-watch-disabled": "دنبال‌کردن بردها و کارت‌ها توسط مدیر غیرفعال شده است",
   "error-notAllowed": "نقش شما در برد اجازه انجام این کار را ندارد",
   "error-json-malformed": "متن در قالب صحیح Json نمی باشد.",
   "error-json-schema": "داده‌های Json شما، شامل اطلاعات صحیح در قالب درستی نمی‌باشد.",

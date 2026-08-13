@@ -549,7 +549,7 @@
   "error-board-doesNotExist": "Yi ọkọ ko ni tẹlẹ",
   "error-board-notAdmin": "O nilo lati jẹ alabojuto igbimọ yii lati ṣe iyẹn",
   "error-board-notAMember": "O nilo lati jẹ ọmọ ẹgbẹ ti igbimọ yii lati ṣe iyẹn",
-  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
+  "error-watch-disabled": "Wíwo àwọn pátákó àti káàdì ti wà ní pipa látọwọ́ alábòójútó",
   "error-notAllowed": "Ipa igbimọ rẹ ko gba laaye lati ṣe iyẹn",
   "error-json-malformed": "Ọrọ rẹ ko wulo JSON",
   "error-json-schema": "Awọn data JSON rẹ ko pẹlu alaye to pe ni ọna kika to pe",

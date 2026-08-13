@@ -549,7 +549,7 @@
   "error-board-doesNotExist": "Bảng này không tồn tại",
   "error-board-notAdmin": "Bạn cần phải là quản trị viên của bảng này để làm điều đó",
   "error-board-notAMember": "Bạn cần phải là thành viên của bảng này để làm điều đó",
-  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
+  "error-watch-disabled": "Việc theo dõi bảng và thẻ đã bị quản trị viên tắt",
   "error-notAllowed": "Vai trò của bạn trên bảng không được phép làm điều đó",
   "error-json-malformed": "Văn bản của bạn không phải là JSON hợp lệ",
   "error-json-schema": "Dữ liệu JSON của bạn không bao gồm thông tin thích hợp ở định dạng chính xác",

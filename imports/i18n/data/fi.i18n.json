@@ -549,7 +549,7 @@
   "error-board-doesNotExist": "Tätä taulua ei ole olemassa",
   "error-board-notAdmin": "Tehdäksesi tämän sinun täytyy olla tämän taulun ylläpitäjä",
   "error-board-notAMember": "Tehdäksesi tämän sinun täytyy olla tämän taulun jäsen",
-  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
+  "error-watch-disabled": "Ylläpitäjä on poistanut taulujen ja korttien seurannan käytöstä",
   "error-notAllowed": "Taulu roolisi ei salli sitä",
   "error-json-malformed": "Tekstisi ei ole kelvollisessa JSON-muodossa",
   "error-json-schema": "JSON-tietosi ei sisällä oikeaa tietoa oikeassa muodossa",

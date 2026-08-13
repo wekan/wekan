@@ -549,7 +549,7 @@
   "error-board-doesNotExist": "บอร์ดนี้ไม่มีอยู่แล้ว",
   "error-board-notAdmin": "คุณจะต้องเป็นผู้ดูแลระบบถึงจะทำสิ่งเหล่านี้ได้",
   "error-board-notAMember": "คุณต้องเป็นสมาชิกของบอร์ดนี้ถึงจะทำได้",
-  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
+  "error-watch-disabled": "ผู้ดูแลระบบปิดการติดตามบอร์ดและการ์ดแล้ว",
   "error-notAllowed": "บทบาทบอร์ดของคุณไม่ได้รับอนุญาตให้ทำสิ่งนั้น",
   "error-json-malformed": "ข้อความของคุณไม่ใช่ JSON",
   "error-json-schema": "รูปแบบข้้้อมูล JSON ของคุณไม่ถูกต้อง",

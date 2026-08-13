@@ -549,7 +549,7 @@
   "error-board-doesNotExist": "Toto tablo neexistuje",
   "error-board-notAdmin": "K provedení změny musíš být administrátor tohoto tabla",
   "error-board-notAMember": "K provedení změny musíš být členem tohoto tabla",
-  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
+  "error-watch-disabled": "Sledování tabulí a karet je vypnuto administrátorem",
   "error-notAllowed": "Vaše role na tablu toto neumožňuje",
   "error-json-malformed": "Tvůj text není validní JSON",
   "error-json-schema": "Tato JSON data neobsahují správné informace v platném formátu",

@@ -549,7 +549,7 @@
   "error-board-doesNotExist": "Ez a tábla nem létezik",
   "error-board-notAdmin": "A tábla adminisztrátorának kell lennie, hogy ezt megtehesse",
   "error-board-notAMember": "A tábla tagjának kell lennie, hogy ezt megtehesse",
-  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
+  "error-watch-disabled": "A táblák és kártyák figyelését a rendszergazda kikapcsolta",
   "error-notAllowed": "A tábla szerepköröd nem engedélyezi ezt",
   "error-json-malformed": "A szöveg nem érvényes JSON",
   "error-json-schema": "A JSON adatok nem a helyes formátumban tartalmazzák a megfelelő információkat",

@@ -549,7 +549,7 @@
   "error-board-doesNotExist": "આ બોર્ડ અસ્તિત્વમાં નથી",
   "error-board-notAdmin": "તે કરવા માટે તમારે આ બોર્ડના એડમિન બનવાની જરૂર છે",
   "error-board-notAMember": "તે કરવા માટે તમારે આ બોર્ડના સભ્ય બનવાની જરૂર છે",
-  "error-watch-disabled": "Watching boards and cards is turned off by the administrator",
+  "error-watch-disabled": "બોર્ડ અને કાર્ડ જોવાનું સંચાલક દ્વારા બંધ કરવામાં આવ્યું છે",
   "error-notAllowed": "તમારી બોર્ડ ભૂમિકાને તે કરવાની મંજૂરી નથી",
   "error-json-malformed": "તમારું લખાણ માન્ય JSON નથી",
   "error-json-schema": "તમારા JSON ડેટામાં યોગ્ય ફોર્મેટમાં યોગ્ય માહિતી શામેલ નથી",
