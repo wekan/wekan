@@ -664,7 +664,7 @@ screen.
 **Board, swimlane and list export** - printing a board, and what goes in it.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">A component that other components import now loads its own template, so the client bundle cannot die at startup</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b77299c8063859f11855467bbfd59e0a6097c7bc">A component that other components import now loads its own template, so the client bundle cannot die at startup</a>. Thanks to xet7.</summary>
 
 `Template.exportScopeBody.helpers(...)` runs at module scope, and it throws when
 that template is not defined YET. That does not break one popup - it stops the
