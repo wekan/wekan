@@ -169,12 +169,55 @@ test('a downloaded attachment is still validated at every hop (negative)', () =>
   assert.ok(/downloaded\.blocked/.test(importer), 'and a blocked download is skipped');
 });
 
-test('a .zip is unpacked in the browser, so there is one import path', () => {
-  assert.ok(/JSZip/.test(scopeJs), 'the .zip is read client-side');
-  assert.ok(/zip\.file\('wekan\.json'\)/.test(scopeJs),
-    'and the document inside it is the one the export wrote');
+test('a .zip is UPLOADED, not unpacked in the browser', () => {
+  // Unpacking here and sending base64 over DDP is what made a large archive
+  // expensive: 2 GB of attachments became 2.7 GB in one message.
+  assert.ok(/uploadZipImport\(file, target\)/.test(scopeJs), 'the archive goes as a file');
+  assert.ok(/fetch\(`\/api\/import\/zip\?/.test(scopeJs), 'to the streaming route');
+  assert.ok(/body: file/.test(scopeJs), 'as the body, so the browser holds no copy');
   assert.ok(/return JSON\.parse\(await file\.text\(\)\)/.test(scopeJs),
-    'a .json is the same object without the unpacking');
+    'while a .json still travels as a document');
+});
+
+test('the upload route never holds the archive in memory', () => {
+  const route = read('models/importZip.js');
+  assert.ok(/req\.pipe\(out\)/.test(route), 'the body is streamed to a temp file');
+  assert.ok(/unzipper\.Open\.file\(tempPath\)/.test(route),
+    'and the archive is read through its central directory, entry by entry');
+  assert.ok(/entry\.stream\(\)/.test(route), 'each attachment is opened as a stream');
+  assert.ok(!/\.buffer\(\)[\s\S]{0,80}attachment/i.test(route),
+    'attachments are never buffered whole - only the document is');
+  assert.ok(/finally \{[\s\S]{0,120}unlink/.test(route), 'and the temp file always goes');
+});
+
+test('an oversized upload is refused as it arrives (negative)', () => {
+  const route = read('models/importZip.js');
+  assert.ok(/received > MAX_ZIP_BYTES/.test(route), 'the cap is checked per chunk');
+  assert.ok(/WEKAN_IMPORT_ZIP_MAX_BYTES/.test(route), 'and is configurable');
+  assert.ok(/import-zip-too-large/.test(route), 'with an answer that says which limit');
+});
+
+test('an entry name is data, never a path (negative)', () => {
+  // ZipBleed: `attachments/../../etc/cron.d/x` must be an attachment with a
+  // strange name, not a write outside the storage.
+  const route = read('models/importZip.js');
+  assert.ok(/ZipBleed/.test(route), 'the reason is written where the names are read');
+  assert.ok(/base\.slice\(0, dash\)/.test(route),
+    'only the id before the first dash is read from the entry name');
+  const helper = read('models/lib/fileStoreStrategy.js');
+  assert.ok(/sanitizeFilename\(fileName \|\| 'attachment'\)/.test(helper),
+    'and the temp file is named by us, not by the archive');
+});
+
+test('an uploaded attachment lands in the Admin Panel default storage', () => {
+  const helper = read('models/lib/fileStoreStrategy.js');
+  assert.ok(/collection\.addFile\(/.test(helper),
+    'addFile, not write - a path rather than a Buffer');
+  assert.ok(/onAfterUpload/.test(read('models/server/scopedImporter.js')),
+    'and the importer says why: addFile fires the hook that moves it there');
+  const attachments = read('models/attachments.server.js');
+  assert.ok(/getDefaultStorage\(\)/.test(attachments) && /moveToStorage/.test(attachments),
+    'which is where the configured storage is applied');
 });
 
 console.log(`\nscopedImport: ${passed} tests passed`);

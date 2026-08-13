@@ -589,6 +589,41 @@ a board whose attachments are too large to sit inside one JSON string.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">A large .zip is uploaded and streamed instead of unpacked in the browser</a>. Thanks to xet7.</summary>
+
+Reading an archive in the browser and sending its attachments as base64 over DDP
+is fine for a card and wrong for a board: 2 GB of attachments become 2.7 GB in
+one message, in the browser's memory and then in the server's.
+
+A `.zip` now goes to `POST /api/import/zip` as the file itself, and nothing is
+ever whole in memory on the way in. The request body is streamed to a temp file
+as it arrives; `unzipper.Open.file` reads the archive's central directory, so
+entries are opened on demand rather than inflated together - the same approach
+the backup restore already takes; and each attachment is piped from the archive
+into the attachments collection by `addAttachmentFromStream`, which writes it to
+a temp file and hands Meteor-Files the PATH rather than a Buffer. That helper is
+lifted out of the attachment-copy code that already did exactly this, so there
+is one way to add an attachment from a stream rather than two.
+
+Where the files END UP is not decided by the import: `addFile` fires the
+collection's `onAfterUpload`, which validates the file and moves it to the
+**default storage configured in the Admin Panel**, exactly as an ordinary upload
+does.
+
+The upload is capped as it ARRIVES rather than after
+(`WEKAN_IMPORT_ZIP_MAX_BYTES`,
+5 GB by default), so an oversized archive never lands, and the temp file is
+removed whatever happens. An entry's name is data and never a path: only the
+attachment id before the first dash is read from it, the temp file is named by
+WeKan, and the path is built through the same `safeEntryPath` containment check
+the backup restore uses - so an entry called `../../etc/cron.d/x` can only ever
+be an attachment with a strange name ([ZipBleed](https://wekan.fi/hall-of-fame/zipbleed/)).
+
+A `.json` still travels as a document over DDP, which is what it is.
+
+</details>
+
 **Search** - finding a card by what people call it.
 
 <details>

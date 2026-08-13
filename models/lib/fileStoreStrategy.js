@@ -1037,6 +1037,52 @@ export const moveToStorage = async function(fileObj, storageDestination, fileSto
   return Promise.all(versionPromises);
 };
 
+// Add an attachment FROM A STREAM: the bytes go to a temp file as they arrive
+// and the collection takes that file, so nothing is ever held whole in memory.
+//
+// This is what `copyFile` below does per version, lifted out so the .zip import
+// can do it too (#1173): a 500 MB attachment inside an archive is piped from the
+// archive to disk and handed over, never buffered. `Attachments.addFile` is the
+// Meteor-Files call that takes a path rather than a Buffer - `write()` takes a
+// Buffer, which is the thing to avoid here.
+export const addAttachmentFromStream = function(
+  readStream, { fileName, type, meta, userId, size }, factory,
+) {
+  return new Promise((resolve, reject) => {
+    const collection = (factory && factory.collection) || Attachments;
+    const storagePath = (factory && factory.storagePath) || '/tmp';
+    const safeName = sanitizeFilename(fileName || 'attachment');
+    const tempPath = path.join(storagePath, `${Random.id()}-import-${safeName}`);
+    const writeStream = fs.createWriteStream(tempPath);
+
+    const fail = error => {
+      try { readStream.destroy(); } catch (e) { /* already gone */ }
+      try { writeStream.destroy(); } catch (e) { /* already gone */ }
+      fs.promises.unlink(tempPath).catch(() => {});
+      reject(error);
+    };
+
+    readStream.on('error', fail);
+    writeStream.on('error', fail);
+    writeStream.on('finish', () => {
+      collection.addFile(
+        tempPath,
+        {
+          fileName: fileName || 'attachment',
+          type: type || 'application/octet-stream',
+          meta,
+          userId,
+          size,
+          fileId: new ObjectId().toString(),
+        },
+        (err, fileRef) => (err ? fail(err) : resolve(fileRef)),
+      );
+    });
+
+    readStream.pipe(writeStream);
+  });
+};
+
 export const copyFile = async function(fileObj, newCardId, fileStoreStrategyFactory) {
   const newCard = await ReactiveCache.getCard(newCardId);
 

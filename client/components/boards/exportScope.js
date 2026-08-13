@@ -150,6 +150,38 @@ async function readExportFile(file) {
   return doc;
 }
 
+// A .json is small enough to travel as a document: it is parsed here and sent
+// over DDP, which is the path the per-menu import has always used.
+function importJsonDocument(doc, target) {
+  return new Promise((resolve, reject) => {
+    Meteor.call('importScoped', target, doc, selectedFields(),
+      (err, res) => (err ? reject(err) : resolve(res)));
+  });
+}
+
+// POST the archive itself to /api/import/zip. `fetch` streams a File body, so
+// the browser does not hold a copy either.
+async function uploadZipImport(file, target) {
+  const params = new URLSearchParams({
+    authToken: Accounts._storedLoginToken() || '',
+    boardId: target.boardId,
+    fields: selectedFields().join(','),
+  });
+  for (const key of ['swimlaneId', 'listId', 'cardId', 'checklistId']) {
+    if (target[key]) params.set(key, target[key]);
+  }
+  const response = await fetch(`/api/import/zip?${params.toString()}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/zip' },
+    body: file,
+  });
+  const answer = await response.json().catch(() => ({}));
+  if (!response.ok || !answer.ok) {
+    throw new Error(answer.error || 'import-scoped-failed');
+  }
+  return answer.counts;
+}
+
 Template.exportScopeBody.helpers({
   // Import writes to the board, so unlike export it is offered only to somebody
   // who may change it.
@@ -219,11 +251,14 @@ Template.exportScopeBody.events({
     importState.set('done', '');
     importState.set('busy', true);
     try {
-      const doc = await readExportFile(file);
-      const counts = await new Promise((resolve, reject) => {
-        Meteor.call('importScoped', target, doc, selectedFields(), (err, res) =>
-          (err ? reject(err) : resolve(res)));
-      });
+      const counts = String(file.name || '').toLowerCase().endsWith('.zip')
+        // A .zip goes to the server AS A FILE. Unpacking it here and sending
+        // base64 over DDP is what made a large archive expensive: 2 GB of
+        // attachments became 2.7 GB in one message. The route streams it to
+        // disk, reads the archive's directory, and pipes one attachment at a
+        // time into storage.
+        ? await uploadZipImport(file, target)
+        : await importJsonDocument(await readExportFile(file), target);
       importState.set('done', Object.entries(counts || {})
         .filter(([, n]) => n > 0)
         .map(([what, n]) => `${n} ${what}`)

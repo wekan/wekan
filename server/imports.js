@@ -95,6 +95,7 @@ import '/models/lib/userStorageHelpers';
 // Models — server-only sub-modules
 import '/models/server/createWorkbook';
 import '/models/server/ExporterCardPDF';
+import '/models/importZip';
 import '/models/server/ExporterExcelCard';
 import '/models/server/ExporterExcel';
 import '/models/server/metrics';

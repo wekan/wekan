@@ -42,6 +42,10 @@ class ScopedImporter {
     this._fields = options.fields && options.fields.length > 0
       ? new Set(options.fields)
       : null;
+    // #1173: given by the .zip upload route - a function that opens a read
+    // stream for one attachment, so a large file is piped from the archive
+    // instead of arriving as base64 in the document.
+    this._attachmentStream = options.attachmentStream || null;
     // Old id -> new id, so a card's checklists and comments find it again.
     this._cardIdMap = {};
     // Where each new card landed, so an attachment's meta points at the list and
@@ -273,6 +277,33 @@ class ScopedImporter {
       const cardId = this._cardIdMap[attachment.cardId];
       if (!cardId) continue;
       try {
+        // A stream if the caller has one: nothing is held whole in memory, and
+        // `addFile` underneath it fires the collection's onAfterUpload, so the
+        // file lands in the default storage configured in the Admin Panel just
+        // as an ordinary upload does.
+        if (this._attachmentStream) {
+          const stream = this._attachmentStream(attachment);
+          if (stream) {
+            const { addAttachmentFromStream } = require('/models/lib/fileStoreStrategy');
+            const { fileStoreStrategyFactory } = require('/models/attachments.server');
+            await addAttachmentFromStream(stream, {
+              fileName: attachment.name || 'attachment',
+              type: attachment.type,
+              userId: this._userId,
+              size: attachment.size,
+              meta: {
+                boardId: this._target.boardId,
+                cardId,
+                listId: this._cardListId[cardId],
+                swimlaneId: this._cardSwimlaneId[cardId],
+                source: 'import',
+              },
+            }, fileStoreStrategyFactory);
+            this._counts.attachments += 1;
+            continue;
+          }
+        }
+
         let buffer = null;
         if (attachment.file) {
           buffer = Buffer.from(attachment.file, 'base64');
