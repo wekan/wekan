@@ -578,6 +578,17 @@ jobs:
         run: |
           cd .build/bundle/programs/server
           bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm install
+          # node-gyp's tree is 83 of the 120 packages that install leaves behind,
+          # and this bundle compiles nothing at run time. Every other arch's
+          # bundle is derived from this one, so pruning here prunes them all -
+          # they each prune again after their own rebuild anyway.
+          node "$GITHUB_WORKSPACE/releases/prune-build-only-modules.mjs" \
+            "$GITHUB_WORKSPACE/.build/bundle"
+          # And raise the npm packages Meteor's own packages bundle - the ones
+          # no package.json here can reach. This is the pass that matters: the
+          # meteor/ tree travels to every other arch untouched.
+          node "$GITHUB_WORKSPACE/releases/bump-bundle-npm-deps.mjs" \
+            "$GITHUB_WORKSPACE/.build/bundle"
 
       - name: Check the binaries the amd64 bundle needs exist
         run: |
@@ -824,7 +835,7 @@ jobs:
             -v "$(pwd)/releases:/releases:ro" \
             -w /bundle/programs/server \
             node:${NODE_VERSION}-slim \
-            sh -c "bash /releases/apt-install.sh build-essential python3 && bash /releases/npm-retry.sh npm install"
+            sh -c "bash /releases/apt-install.sh build-essential python3 && bash /releases/npm-retry.sh npm install && node /releases/prune-build-only-modules.mjs /bundle && node /releases/bump-bundle-npm-deps.mjs /bundle"
 
       - name: Check the binaries the arm64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -1196,6 +1207,9 @@ jobs:
           cd bundle/programs/server
           rm -rf node_modules
           bash "$SRC/releases/npm-retry.sh" npm install
+          # ../.. is the bundle root: this step is inside programs/server.
+          node "$SRC/releases/prune-build-only-modules.mjs" ../..
+          node "$SRC/releases/bump-bundle-npm-deps.mjs" ../..
 
       - name: Check the binaries the win64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -1549,6 +1563,9 @@ jobs:
           cd bundle/programs/server
           rm -rf node_modules
           bash "$SRC/releases/npm-retry.sh" npm install
+          # ../.. is the bundle root: this step is inside programs/server.
+          node "$SRC/releases/prune-build-only-modules.mjs" ../..
+          node "$SRC/releases/bump-bundle-npm-deps.mjs" ../..
 
       - name: Check the binaries the win-arm64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -1921,6 +1938,9 @@ jobs:
           cd bundle/programs/server
           rm -rf node_modules
           bash "$SRC/releases/npm-retry.sh" npm install
+          # ../.. is the bundle root: this step is inside programs/server.
+          node "$SRC/releases/prune-build-only-modules.mjs" ../..
+          node "$SRC/releases/bump-bundle-npm-deps.mjs" ../..
 
       - name: Check the binaries the win32 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -2177,6 +2197,9 @@ jobs:
           cd bundle/programs/server
           rm -rf node_modules
           bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm install
+          # ../.. is the bundle root: this is still inside programs/server.
+          node "$GITHUB_WORKSPACE/releases/prune-build-only-modules.mjs" ../..
+          node "$GITHUB_WORKSPACE/releases/bump-bundle-npm-deps.mjs" ../..
           cd ../../..
 
       - name: Check the binaries the mac-arm64 bundle needs exist
@@ -2446,6 +2469,9 @@ jobs:
           cd bundle/programs/server
           rm -rf node_modules
           bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm install
+          # ../.. is the bundle root: this is still inside programs/server.
+          node "$GITHUB_WORKSPACE/releases/prune-build-only-modules.mjs" ../..
+          node "$GITHUB_WORKSPACE/releases/bump-bundle-npm-deps.mjs" ../..
           cd ../../..
 
       - name: Check the binaries the mac-x64 bundle needs exist

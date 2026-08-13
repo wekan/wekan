@@ -1,0 +1,63 @@
+{
+  "comment": [
+    "Minimum versions for npm packages that Meteor's own packages bundle inside a",
+    "built bundle, at programs/server/npm/node_modules/meteor/<package>/node_modules.",
+    "Those are pinned by each Meteor package's Npm.depends and cannot be reached",
+    "from this repository's package.json or its overrides - the only place they can",
+    "be raised is the bundle, after `meteor build` has produced it.",
+    "",
+    "Every entry is a version that FIXES a published advisory in the version the",
+    "bundle would otherwise ship, and stays INSIDE THE SAME MAJOR. That is not",
+    "caution for its own sake: a Meteor bundle records the file a package resolves",
+    "to when it is built, so a major that moves its entry point cannot be swapped",
+    "in afterwards - see uuid under notFixable, which is what taught us that.",
+    "",
+    "Applied by releases/bump-bundle-npm-deps.mjs, pinned by",
+    "tests/bundleNpmSecurityBumps.test.cjs. A package NOT listed here is a package",
+    "no advisory has been reported against, or one whose fix needs a new major -",
+    "see the notFixable list at the bottom for those, so a reader does not have to",
+    "guess which it was."
+  ],
+  "minimums": {
+    "@babel/runtime": "7.29.7",
+    "body-parser": "1.20.6",
+    "cookie": "0.7.2",
+    "diff": "3.5.1",
+    "lodash": "4.18.1",
+    "nanoid": "3.3.18",
+    "nodemailer": "8.0.11",
+    "on-headers": "1.1.0",
+    "openpgp": "5.11.3",
+    "picomatch": "4.0.5",
+    "postcss": "8.5.26",
+    "qs": "6.15.3",
+    "svgo": "2.8.3",
+    "tmp": "0.2.7",
+    "underscore": "1.13.8"
+  },
+  "notFixable": {
+    "lodash.template": [
+      "CVE-2021-23337 and CVE-2026-4800 have no fixed release: the package is",
+      "deprecated and its last version is 4.5.0. It reaches the bundle through",
+      "aldeed:simple-schema, and moving off it is that package's change to make."
+    ],
+    "nodemailer": [
+      "GHSA-p6gq-j5cr-w38f is fixed in 9.0.1 only, a major the Meteor email",
+      "package is not written against. 8.0.11 fixes the other four."
+    ],
+    "uuid": [
+      "CVE-2026-41907 affects the 8.3.2 in meteor/ddp-server and",
+      "meteor/inter-process-messaging and the 9.0.1 ldapts brings to wekan-ldap,",
+      "and the lowest fixed release is 11.1.1 - a major that MOVED its entry",
+      "point from dist/index.js to dist/cjs/index.js. The bundle resolves the old",
+      "path, so putting 11.1.1 in its place stops the server before it starts:",
+      "",
+      "  error on boot.js Error: Cannot find module",
+      "  \"/node_modules/meteor/inter-process-messaging/node_modules/uuid/dist/index.js\"",
+      "",
+      "It was tried, it failed exactly there, and it is left at the version the",
+      "packages were built against. It moves when those packages move: Meteor's",
+      "for ddp-server and inter-process-messaging, ldapts' for wekan-ldap."
+    ]
+  }
+}

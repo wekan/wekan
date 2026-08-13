@@ -169,6 +169,16 @@ fi
 # not retried - see releases/npm-retry.sh.
 bash "$(dirname "$0")/npm-retry.sh" npm install
 
+# That install brought node-gyp's whole tree along to compile native modules,
+# and this bundle compiles none - every native module in it is a prebuilt .node.
+# Drop it before the .zip is made, so a scan of what was shipped does not report
+# npm's `tar` and networking stack as content of a bundle that cannot run them.
+node "$(dirname "$0")/prune-build-only-modules.mjs" /bundle
+# And put back the one thing that install undoes: meteor-dev-bundle pins
+# underscore 1.13.7, which npm reinstalls over the bumped copy the amd64 bundle
+# came with. The meteor/ tree it does not touch, so this pass is a small one.
+node "$(dirname "$0")/bump-bundle-npm-deps.mjs" /bundle
+
 # Bundle the target-arch Node.js for the self-contained launcher. /bundle is the
 # host's bundle/ directory, mounted by the workflow.
 cp /opt/node/bin/node /bundle/node

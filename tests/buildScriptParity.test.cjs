@@ -216,6 +216,13 @@ test('every script in releases/ is reachable from BOTH menus', () => {
       + 'QEMU already set up by the build job around it',
     'expected-assets.sh': 'release-workflow: prints what a complete release '
       + 'carries, for release-all-missing.yml to compare against',
+    'prune-build-only-modules.mjs': 'release-workflow + Dockerfile: takes a BUILT\n'
+      + '      bundle and removes node-gyp\'s tree from programs/server, right after\n'
+      + '      the npm install that needed it - there is nothing for it to do on a\n'
+      + '      developer\'s machine, and a menu entry would need a bundle to point at',
+    'bump-bundle-npm-deps.mjs': 'release-workflow + Dockerfile: the same shape -\n'
+      + '      it raises the npm packages inside a BUILT bundle to the minimums in\n'
+      + '      bundle-npm-security-bumps.json, and is run by the build jobs',
   };
 
   const missing = { sh: [], bat: [] };

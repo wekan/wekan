@@ -193,6 +193,17 @@ COPY --chmod=755 releases/resolve-node-source.sh /tmp/resolve-node-source.sh
 # The two travel together: without this line the resolve step dies on the first
 # lookup. tests/releaseDownloads.test.cjs pins the pair.
 COPY --chmod=755 releases/fetch.sh /tmp/fetch.sh
+# The bundle's `npm install` leaves node-gyp's whole tree - 83 of the 120
+# packages in programs/server/node_modules - in a bundle that compiles nothing at
+# run time, and a scan of the published image reads it as what it is. The same
+# script runs in every per-arch leg of release-all.yml, so the .zip bundles and
+# this image are pruned identically. tests/imageBuildOnlyModules.test.cjs pins it.
+COPY --chmod=755 releases/prune-build-only-modules.mjs /tmp/prune-build-only-modules.mjs
+# Its companion, and its manifest: the npm packages Meteor's own packages bundle,
+# which nothing in package.json can reach. The .zip is built with these already
+# applied; what this run has to redo is the part `npm install` puts back.
+COPY --chmod=755 releases/bump-bundle-npm-deps.mjs /tmp/bump-bundle-npm-deps.mjs
+COPY --chmod=644 releases/bundle-npm-security-bumps.json /tmp/bundle-npm-security-bumps.json
 
 RUN <<EOR
 set -o xtrace
@@ -320,6 +331,15 @@ wget --tries=20 --waitretry=20 --retry-on-http-error=404,403,500,502,503 "${WEKA
 unzip "wekan-${VERSION}-${WEKAN_ARCH}.zip"
 rm "wekan-${VERSION}-${WEKAN_ARCH}.zip"
 npm install --prefix ./bundle/programs/server
+# node-gyp and @mapbox/node-pre-gyp compiled nothing here - every native module
+# in the bundle is a prebuilt .node - and nothing in boot.js reaches them. Their
+# tree is what shipped `tar` 6.2.1 (CRITICAL) and npm's networking stack to the
+# published image, so it goes now that the install is done.
+node /tmp/prune-build-only-modules.mjs ./bundle
+# The .zip already carries the bumped meteor/ tree; this install put back
+# meteor-dev-bundle's own underscore 1.13.7 pin (CVE-2026-27601) over it, so the
+# same pass runs here.
+node /tmp/bump-bundle-npm-deps.mjs ./bundle
 mv /home/wekan/app/bundle /build
 
 # The .zip bundle now ships a self-contained launcher + its own Node.js for the
@@ -334,6 +354,13 @@ rm -f /build/node /build/start-wekan.sh /build/start-wekan.bat
 mv $(which tar)~ $(which tar)
 
 # Cleanup
+# npm is a BUILD tool in this image and nothing else: the only thing it does is
+# the `npm install` above, and the container starts bash + wekan-entrypoint.sh,
+# which never calls it. Shipping it shipped npm's own bundled dependencies - its
+# `tar` (CRITICAL), `sigstore`, `@sigstore/*`, `ip-address`, `brace-expansion` -
+# as image content that no code path can reach. node itself stays, because that
+# is what runs WeKan.
+rm -rf /usr/local/lib/node_modules/npm /usr/local/bin/npm /usr/local/bin/npx
 # Remove unused Go-based pebble binary shipped by base image to reduce CVE surface.
 apt-get remove --purge --assume-yes pebble || true
 rm -f /usr/bin/pebble

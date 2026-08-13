@@ -304,6 +304,159 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** what the published Docker image SHIPS, cleaned up against a
+container scan of `ghcr.io/wekan/wekan:v10.91`. That scan reported 80 findings
+against "Node.js", three of them CRITICAL, and not one of them was in code WeKan
+runs: **npm** and **node-gyp** are build tools that were left in the finished
+image, and their trees are where `tar` 6.2.1, `sigstore`, `ip-address` and the
+rest came from. Both go now, after the install that needs them - 83 of the 120
+packages in `programs/server`, and npm itself. The rest of that list is the npm
+packages **Meteor's own packages bundle**, which no `package.json` here can
+reach: **nodemailer**, **openpgp**, **svgo**, **postcss**, **nanoid**,
+**lodash**, **qs**, **body-parser**, **cookie**, **on-headers**, **tmp**,
+**diff**, **@babel/runtime** and **underscore** are raised inside the built
+bundle, to fixed versions in the same major, by a manifest the release jobs and
+the `Dockerfile` share. Below that: the guard suites that keep both from coming
+back, and what could NOT be fixed and why.
+
+| Platform | Binary | From | Version | SHA256 |
+| --- | --- | --- | --- | --- |
+| amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
+| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-amd64) | v1.49.0 | `7c74941ff043f26aa4411ef5065d6b2d0766e369fc2a4458364c2f5571c12762` |
+| arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
+| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-arm64) | v1.49.0 | `092132531555a39eac12566240a5f1ed02f62148b2dca0540a74c68e5957f6b5` |
+| armhf | Node.js | [wekan/node-patches](https://github.com/wekan/node-patches/releases/download/v24.19.0/node-armhf) | v24.19.0 | `b55350f3071b765a98ed66fdc410657ff168a937935057077fd7ab33cb30b9aa` |
+| armhf | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-armhf) | v1.49.0 | `144404fb9793dc8e039874812f4e2cb3e6d8b1df0ffdbe50254e7790a342a2f4` |
+| armv6 | Node.js | [wekan/node-patches](https://github.com/wekan/node-patches/releases/download/v24.19.0/node-armv6) | v24.19.0 | `128ded0cda638c1f144eadb23ad249889515df017d298fd49c8faf3db110f0f1` |
+| armv6 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-armv6) | v1.49.0 | `7c27b2c15448709a24eace9b3c951c62fbe33413f7d20d56cb5520f4436efe2d` |
+| armv7 | Node.js | [wekan/node-patches](https://github.com/wekan/node-patches/releases/download/v24.19.0/node-armv7) | v24.19.0 | `8dbe0a9aa8550ad5275c5538ebf868eb2037f0c4d9cccbe319f63b7e5854cd45` |
+| armv7 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-armhf) | v1.49.0 | `144404fb9793dc8e039874812f4e2cb3e6d8b1df0ffdbe50254e7790a342a2f4` |
+| i386 | Node.js | [wekan/node-patches](https://github.com/wekan/node-patches/releases/download/v24.19.0/node-i386) | v24.19.0 | `3b0b3bbfe27daf583b3a0f432efacc508407a012cdd9e8847250e7c015565bac` |
+| i386 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-i386) | v1.49.0 | `1f70cb1687411b2a0fa9ac3b5bfc8c4ed9ce25ec2ddfa17e6fd3efb38136a39c` |
+| mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-arm64.tar.xz) | v24.19.0 | `3f1cf157479c1480352083105e13faf9d008ede98e7e157746b6df940d197b94` |
+| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-mac-arm64) | v1.49.0 | `576364db59dfce3ba564b9a3e484496eb57f95d76d2007b9f83241acdbd2f4fa` |
+| mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
+| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-mac-amd64) | v1.49.0 | `37d70cd90aad6d3867b6686507ff1888f1edf6791818c31d014d130e8f39fc14` |
+| ppc64le | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-ppc64le.tar.xz) | v24.19.0 | `c510c6ce12f07010f771e6edb22a3fe23f4f2e6f40b1ffd4941aed0646a0d8b3` |
+| ppc64le | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-ppc64le) | v1.49.0 | `7c61d4853d5163ad8761449d693fd458ebbb8611a2351c718014876242c5b1fb` |
+| riscv64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-riscv64.tar.xz) | v24.19.0 | `cd1f14af2812148002f58b58a5f9af512a50e3b8e8c148e0db44019dcb68edfd` |
+| riscv64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-riscv64) | v1.49.0 | `bd4912da70f5e6c1475ab989668c76b4ab7db4ee06c44357693df64f5e1d0e0b` |
+| s390x | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-s390x.tar.xz) | v24.19.0 | `a4792e65962ffa0af42627aacf1122a60c3c88dbf4e4184f06820d66f9da8ba4` |
+| s390x | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-s390x) | v1.49.0 | *no checksum published* |
+| win-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-arm64.zip) | v24.19.0 | `8502f4a50b458d4cc38ed8f2001556c2cd239d464920f74017926ccb1e1c157f` |
+| win-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-win-arm64.exe) | v1.49.0 | `792166623e774b0af2aced31ed3ae39f545ca5268dc4c2b8d1a329228ff52cbc` |
+| win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
+| win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-win64.exe) | v1.49.0 | `f42c50aa84095a9616b00f27a584c66b7bf79e3b109450c62a5f146ba3c85478` |
+
+This release fixes the following SECURITY ISSUES found by container scanning:
+
+**The published image** - what it carries that it never runs.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4da759ce522f693ea54a5fd36b44f5c21566d2d0">npm and node-gyp's tree are not shipped any more, after the install that needed them</a>. Thanks to xet7.</summary>
+
+Three CRITICAL findings and most of the HIGH ones were three copies of one
+package - `tar` 6.2.1 twice and `tar` 7.5.11 once - and none of them is
+reachable from `boot.js`:
+
+- `node-gyp` and `@mapbox/node-pre-gyp` are dependencies of Meteor's
+  `meteor-dev-bundle`, there to COMPILE native modules during the `npm install`
+  in `programs/server`. WeKan compiles nothing at run time: uWebSockets.js,
+  bcrypt and argon2 all ship prebuilt `.node` files that `node-gyp-build` picks
+  at require time. Their tree is 83 of the 120 packages that install leaves
+  behind, and it brought `tar` 6.2.1 (via `node-gyp` and `cacache`),
+  `brace-expansion`, `minimatch` and npm's networking stack with it.
+- `npm` itself runs exactly once in the image, for that install. The container
+  starts `bash /build/wekan-entrypoint.sh`, which never calls it. Shipping it
+  shipped its own bundled `tar` 7.5.11, `sigstore` 4.1.0, `@sigstore/verify`,
+  `@sigstore/core`, `ip-address` 10.1.0 and `brace-expansion` 5.0.4 as image
+  content no code path can reach.
+
+`releases/prune-build-only-modules.mjs` removes the first, and it is a
+REACHABILITY walk rather than a list of 83 names - start from every dependency
+of `programs/server/package.json` except those two, follow each package's own
+dependencies, keep the closure - so it cannot go stale the next time Meteor
+changes its dev-bundle. The `Dockerfile` deletes npm and npx in its cleanup
+step; `node` stays, because that is what runs WeKan.
+
+It runs in every place a bundle is made, not only in the image: the amd64 build,
+the arm64 container, the three Windows legs, both macOS legs, and
+`install-node-for-arch.sh` for the emulated arches - each one reinstalls
+`programs/server`, so each one has the tree to remove. The pruned bundle was
+booted before and after to prove nothing needs what it takes:
+identical failure at the database, no missing module.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4da759ce522f693ea54a5fd36b44f5c21566d2d0">The npm packages Meteor's own packages bundle are raised inside the built bundle</a>. Thanks to xet7.</summary>
+
+The rest of that scan was `nodemailer` 8.0.3 and `openpgp` 5.11.1
+(meteor/email),
+`svgo` 2.8.2, `postcss` 8.5.1 and `nanoid` 3.3.15 (meteor/minifier-css), `qs`
+6.13.0, `cookie` 0.4.1, `on-headers` 1.0.2 and `tmp` 0.2.3 (meteor/webapp),
+`lodash` 4.17.21 and `diff` 3.5.0 (ostrio:files), `body-parser` 1.20.3
+(meteor/oauth), `@babel/runtime` 7.20.7 and `underscore` 1.13.7.
+
+`Npm.depends` names an EXACT version, and `meteor build` copies that version
+into
+`programs/server/npm/node_modules/meteor/<package>/node_modules`. Nothing in
+this
+repository's `package.json` is consulted for it - not a dependency, not an
+`overrides` entry - so the only place those versions can be raised is the
+bundle,
+after it has been built. `releases/bump-bundle-npm-deps.mjs` does that from the
+minimums in `releases/bundle-npm-security-bumps.json`, installing with
+`--ignore-scripts` so no prebuilt native module is rebuilt by a version bump,
+and
+replacing only copies BELOW the minimum.
+
+A minimum stays inside the major the Meteor package was built against, and that
+rule was learned rather than assumed: `uuid` 8.3.2 and 9.0.1 are both affected
+and the lowest fixed release is 11.1.1, which moved its entry point to
+`dist/cjs/index.js` - the bundle records `dist/index.js` at build time, and the
+server died on boot with `Cannot find module .../uuid/dist/index.js`. It is in
+the manifest's `notFixable` list with that error, beside `lodash.template`,
+which has no fixed release at all.
+
+One pass on the amd64 bundle reaches every architecture, because every other
+bundle is that bundle with `programs/server` reinstalled. That reinstall is also
+why every leg runs it again: `meteor-dev-bundle` pins `underscore` 1.13.7
+(CVE-2026-27601) and puts it back over the bumped copy - including in the
+`Dockerfile`, which reinstalls from the .zip.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4da759ce522f693ea54a5fd36b44f5c21566d2d0">Guard suites for both, and the Debian findings that no upgrade can fix</a>. Thanks to xet7.</summary>
+
+`tests/imageBuildOnlyModules.test.cjs` pins that the pruner is
+reachability-driven
+and never touches `npm/node_modules`, that the image prunes AFTER the install
+and
+before the bundle is moved, that npm and npx are removed and `node` is not, and
+that every leg which installs `programs/server` prunes afterwards.
+`tests/bundleNpmSecurityBumps.test.cjs` pins the manifest's versions, the
+`--ignore-scripts` install, the below-the-minimum-only replacement, and that
+`uuid` is NOT in `minimums` and says why.
+
+Not everything in that report can be fixed here, and it is worth saying which:
+
+- The `debian 13.6` target's 176 findings are ALL `Fixed in: -` - unfixed
+  upstream, in `perl-base`, `util-linux`, `ncurses`, `glibc` and the rest of a
+  base system. No upgrade closes them; only carrying fewer packages helps, which
+  is what the build-dependency purge and the `pebble` removal already do.
+- `lodash.template` 4.5.0 has no fixed release; it reaches the bundle through
+  aldeed:simple-schema.
+- `nodemailer`'s fifth advisory needs 9.0.1, a major the Meteor email package is
+  not written against; 8.0.11 fixes the other four.
+- The nine `build/<tool>` binaries and `build/ferretdb` are other repositories'
+  builds - wekan/mongo-tools-patches and wekan/FerretDB - and are fixed there.
+
+</details>
+
 # v10.91 2026-08-13 WeKan ® release
 
 **In short:** four reports from admins who could not tell what their own WeKan
