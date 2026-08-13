@@ -455,6 +455,23 @@ fail_and_run_mongodb() {
 # needs a binary the snap does not have. So STOP, leave every byte untouched, and say
 # so where an admin will see it - the web port - with the version mongod itself named
 # as still able to read the data.
+# WHY a reader did not open the data - from the reader's own words, not ours.
+#
+# #6585 (comment 5276581923) is a log that says everything except that:
+#
+#   [migration] mongod 7 could not open the data; trying the bundled mongod 5.0 ...
+#   [migration] mongod 7 could not open the data; trying the bundled mongod 4.2 ...
+#   [migration] The database files were made by an older MongoDB
+#               (MongoDB 4.2 or earlier can still read them).
+#
+# mongod 7 asked for 4.2, this snap HAS 4.2, it was tried, and the report ends
+# recommending the version that just failed. Whatever 4.2 said is in
+# migration-mongod.log and was never shown, so the next person to look has the
+# same three lines and no more. Print the last of it whenever a reader fails.
+reader_failed() {   # $1 = human name of the reader that did not open the data
+  log "$1 did not open the data. Its own last words:"
+  tail -n 25 "$LOGF" 2>/dev/null | sed 's/^/[migration]   /' || true
+}
 data_too_old_can_read() {   # what mongod said can still read these files, e.g. "4.2"
   sed -n 's/.*Try MongoDB \([0-9][0-9.]*\) or earlier.*/\1/p' "$LOGF" 2>/dev/null | tail -1
 }
@@ -469,12 +486,36 @@ stop_data_too_old() {
   # added for exactly these databases. A newer revision therefore ignores this
   # marker and tries again (snap-src/bin/stale-marker).
   bash "$SNAP/bin/stale-marker" --stamp "$SNAP_COMMON/.mongodb-data-too-old"
-  log "The database files were made by an older MongoDB${can:+ (MongoDB $can or earlier can still read them)}."
-  log "This snap can read a MongoDB 6/7 database (mongod 7), a MongoDB 4.4/5.0 one (mongod 5.0), a MongoDB 4.0/4.2 one (mongod 4.2) and a MongoDB 3.2 one (the migratemongo tools); these files are none of those, and no retry can change that."
+  log "The database files were made by an older MongoDB${can:+ (mongod 7 says MongoDB $can or earlier can still read them)}."
+  log "This snap carries four readers and every one of them was tried on these files:"
+  log "  mongod 7    - MongoDB 6.0/7.0 data"
+  log "  mongod 5.0  - MongoDB 4.4/5.0 data"
+  log "  mongod 4.2  - MongoDB 4.0/4.2 data"
+  log "  the migratemongo 3.2 tools - MongoDB 3.x data (amd64 only)"
+  log "Each one's own error is printed above, under \"did not open the data\"; that is what to read, and what to send if you report this."
+  # #6585 (comment 5276581923): the report ended by recommending the exact
+  # version this snap had ALREADY tried - "MongoDB 4.2 or earlier can still read
+  # them" under a log line saying mongod 4.2 was tried. mongod 7 names the
+  # version that can open the FORMAT; it cannot know the file is also damaged,
+  # locked by an unclean shutdown, or built with options the reader lacks. So
+  # say which of the two this is, rather than sending somebody after a binary
+  # this snap already ran.
+  case "$can" in
+    4.2|4.0|4.4|5.0)
+      log "NOTE: this snap HAS a reader for MongoDB $can and it refused the files too, so the format is not the whole story - see its error above. A stock MongoDB $can will most likely say the same thing, and --repair on a COPY is the usual next step."
+      ;;
+  esac
   log "NOTHING has been changed: your data, attachments and avatars are untouched."
-  log "Two ways forward:"
+  log "Three ways forward:"
   log "  1. Go back to the revision that worked:  sudo snap revert ${SNAP_INSTANCE_NAME:-wekan}   (then: sudo snap refresh --hold=forever ${SNAP_INSTANCE_NAME:-wekan})"
-  log "  2. Move the data across with a MongoDB that can read it${can:+ (MongoDB $can or earlier)}: start it on this data directory, mongodump, then restore into this version and let it migrate to FerretDB."
+  log "  2. Wait: this is retried by itself after every snap refresh, and each release may carry a reader this one does not."
+  log "  3. Move the data across yourself, with a MongoDB you download - they are all still published:"
+  log "       https://www.mongodb.com/try/download/community  (pick the version above, 'Archive' / tgz)"
+  log "       or directly: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-<version>.tgz"
+  log "     Then, on a COPY of $SNAP_COMMON (never the original):"
+  log "       ./bin/mongod --dbpath /path/to/copy --port 27099          # add --repair first if it refuses"
+  log "       ./bin/mongodump --port 27099 --db wekan --out /path/to/dump"
+  log "     and restore that dump into a MongoDB 7 this snap can read, or ask on the issue and attach the mongod error above."
   log "WeKan now serves an explanatory page on the web port instead of 502."
   # NOT migrate=off. "No retry can change that" is true of THIS snap and false of
   # the next one: the 4.2 reader was added for databases that had already been
@@ -571,7 +612,8 @@ force_stop_src
 # the same feature spec as mongod 7: no AVX means qemu-user emulation, slow and
 # one-time, rather than a SIGILL and a site that stays down.
 if [ -x "$M50/bin/mongod" ]; then
-  log "mongod 7 could not open the data; trying the bundled mongod 5.0 ..."
+  reader_failed "mongod 7"
+  log "Trying the bundled mongod 5.0 (it opens featureCompatibilityVersion 4.4 and 5.0) ..."
   if [ "$(uname -m)" = "x86_64" ] && ! grep -qw avx /proc/cpuinfo 2>/dev/null; then
     log "CPU has no AVX support: the mongod 5.0 probe runs through qemu-user emulation (slower)."
   fi
@@ -612,7 +654,8 @@ fi
 # bundled driver, which supports servers from 4.2 up, exactly as it does for a
 # 6/7 source.
 if [ -x "$M42/bin/mongod" ]; then
-  log "mongod 7 could not open the data; trying the bundled mongod 4.2 ..."
+  reader_failed "mongod 5.0"
+  log "Trying the bundled mongod 4.2 (it opens featureCompatibilityVersion 4.0 and 4.2) ..."
   if start_mongod "$M42/bin/mongod" "$M42_LIB" "--wiredTigerCacheSizeGB ${SRC_WT_CACHE_GB}" && ready_via_node; then
     if [ ! -x "$FERRETDB" ] || [ ! -x "$NODE" ] || [ ! -f "$IMPORTER_MODERN" ]; then
       # NOT fall_back_to_mongodb: the only service mongod is 7.x, and it cannot
@@ -673,7 +716,8 @@ if [ ! -x "$MM/bin/mongod" ] || [ ! -x "$MM/bin/mongo" ] || [ ! -x "$FERRETDB" ]
   fall_back_to_mongodb "Migration tools unavailable; cannot migrate MongoDB 3.x to FerretDB."
 fi
 
-log "mongod 7 could not open the data; checking whether it is MongoDB 3.x ..."
+reader_failed "mongod 4.2"
+log "Checking whether it is MongoDB 3.x (the bundled 3.2 tools, amd64 only) ..."
 if ! start_mongod "$MM/bin/mongod" "$MM_LIB" || ! ready_via "$MM/bin/mongo" "$MM_LIB"; then
   stop_via "$MM/bin/mongo" "$MM_LIB"
   # #6471: distinguish "no reader for this vintage" from "unreadable/corrupt". The

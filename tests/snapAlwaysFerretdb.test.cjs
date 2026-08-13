@@ -57,8 +57,8 @@ test('the readers cover every MongoDB the snap ever shipped', () => {
 });
 
 test('the 5.0 reader is tried between 7 and 4.2, and only to READ', () => {
-  const i7 = migrationControl.indexOf('trying the bundled mongod 5.0');
-  const i42 = migrationControl.indexOf('trying the bundled mongod 4.2');
+  const i7 = migrationControl.indexOf('Trying the bundled mongod 5.0');
+  const i42 = migrationControl.indexOf('Trying the bundled mongod 4.2');
   assert.ok(i7 !== -1 && i42 !== -1 && i7 < i42,
     'newest reader first: 7, then 5.0, then 4.2, then the 3.2 tools');
   const branch = migrationControl.slice(i7, i42);

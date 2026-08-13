@@ -191,6 +191,30 @@ test('the viewer never lets a render failure close the card (negative)', () => {
     'and it must RETURN something - returning nothing is the blank panel again');
 });
 
+test('#6590: the onenote: link that hung a whole BOARD renders too', async () => {
+  // Reported separately, and the same crash: "A board gets stuck indefinitely on
+  // the loading animation (three dots) for all users. The root cause was traced
+  // to a single card whose description and a checklist item title contained a
+  // string starting with an unregistered URL-like scheme". #6588 was one card
+  // that would not open; #6590 is one card that stopped the board rendering for
+  // everyone, out of the same `this.__schemas__[...].validate is not a function`.
+  //
+  // The braces are worth pinning: the tail matcher stops at `{`, so the GUID
+  // stays as text rather than being swallowed into a link - and nothing throws.
+  const { default: MarkdownIt } = await import('markdown-it');
+  const md = new MarkdownIt({ html: true, linkify: true, typographer: true, breaks: true });
+  for (const scheme of SCHEMES) md.linkify.add(scheme + ':', { validate: validateSchemeTail });
+  const text = 'onenote:///path/to/file.one#section-id={GUID}';
+  let rendered;
+  assert.doesNotThrow(() => { rendered = md.render(text); },
+    "whether a board renders must not depend on one card's description");
+  assert.match(rendered, /onenote:/, 'the text is still there');
+  assert.match(rendered, /\{GUID\}/, 'and so is the part after the brace');
+  // A checklist item title goes through the same renderer - the other half of
+  // the report.
+  assert.doesNotThrow(() => md.render(`- [ ] ${text}`));
+});
+
 (async () => {
   for (const [name, fn] of queued) { await fn(); passed += 1; console.log('  ok -', name); }
   console.log(`\nmarkdownCustomUrlSchemes: ${passed} tests passed`);

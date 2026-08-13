@@ -43,6 +43,44 @@ const MARKER = '.mongodb-data-too-old';
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
+test('#6585: a reader that fails prints its OWN error, not just "could not open"', () => {
+  // The report (comment 5276581923) is three lines that say everything except
+  // what went wrong:
+  //
+  //   mongod 7 could not open the data; trying the bundled mongod 5.0 ...
+  //   mongod 7 could not open the data; trying the bundled mongod 4.2 ...
+  //   The database files were made by an older MongoDB (MongoDB 4.2 or earlier
+  //   can still read them).
+  //
+  // Every reader was tried, each said something, and none of it was shown - so
+  // the answer ended up recommending the version that had just failed.
+  assert.ok(/^reader_failed\(\)/m.test(migration), 'there is one helper for it');
+  const fn = migration.slice(migration.indexOf('reader_failed() {'));
+  assert.ok(/tail -n \d+ "\$LOGF"/.test(fn.slice(0, 400)),
+    'and it prints the tail of the reader log, which is where the reason is');
+  for (const reader of ['mongod 7', 'mongod 5.0', 'mongod 4.2']) {
+    assert.ok(migration.includes(`reader_failed "${reader}"`),
+      `${reader}'s failure must be shown before the next reader is tried`);
+  }
+  // The only place that wording survives is the comment quoting the report.
+  const code = migration.split('\n').filter(l => !/^\s*#/.test(l)).join('\n');
+  assert.ok(!/mongod 7 could not open the data; trying the bundled/.test(code),
+    'and the copied line that blamed mongod 7 for every reader is gone');
+});
+
+test('#6585: it does not send you after a reader it already ran', () => {
+  const fn = migration.slice(migration.indexOf('stop_data_too_old() {'),
+                             migration.indexOf('# Last resort when the data'));
+  assert.ok(/case "\$can" in/.test(fn) && /HAS a reader for MongoDB \$can/.test(fn),
+    'when mongod 7 names a version this snap carries, the message says it was tried');
+  assert.ok(/--repair/.test(fn), 'and names the usual next step for files that are damaged');
+  assert.ok(/mongodb\.com\/try\/download\/community/.test(fn) && /fastdl\.mongodb\.org/.test(fn),
+    'with somewhere to GET an old MongoDB - "it would be good to provide a source '
+    + 'for them" is the other half of the report');
+  assert.ok(/on a COPY of/.test(fn),
+    'and the copy-first warning, because --repair on the original is how data is lost');
+});
+
 console.log('snapOldMongoData:');
 
 test('migration-control tells "no reader for this vintage" from "unreadable"', () => {
@@ -223,8 +261,10 @@ test('mongod 4.2 is bundled for amd64 and arm64, and only used to READ', () => {
 test('the migration tries the readers newest-first, and 4.2 uses the driver importer', () => {
   const m = read('snap-src/bin/migration-control');
   const seven = m.indexOf('Checking whether mongod 7 can open the existing data');
-  const four = m.indexOf('trying the bundled mongod 4.2');
-  const three = m.indexOf('checking whether it is MongoDB 3.x');
+  // The wording changed when each reader started printing its own error
+  // (#6585): the line now names the reader being TRIED, not the one that failed.
+  const four = m.indexOf('Trying the bundled mongod 4.2');
+  const three = m.indexOf('Checking whether it is MongoDB 3.x');
   const stop = m.indexOf('stop_data_too_old\n');
   assert.ok(seven > -1 && four > -1 && three > -1, 'all three probes are there');
   assert.ok(seven < four && four < three,

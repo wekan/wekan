@@ -108,9 +108,18 @@ const STEPS = IS_DATA_TOO_OLD ? `
       This is the way that ends on the current version, and it is four steps:
       <ol>
         <li>Copy <code>${SNAP_COMMON_PATH}</code> somewhere safe first.</li>
-        <li>Run a MongoDB${CAN_READ ? ` ${CAN_READ}` : ''} of your own on that copy - a container image of
-          that version is the usual way - and dump it:<br>
-          <code>mongodump --archive=wekan.archive --gzip</code></li>
+        <li>Run a MongoDB${CAN_READ ? ` ${CAN_READ}` : ''} of your own on that copy and dump it. Every
+          version is still published, so this is a download rather than a hunt
+          (asked for in <a href="https://github.com/wekan/wekan/issues/6585">#6585</a>):<br>
+          <a href="https://www.mongodb.com/try/download/community">mongodb.com/try/download/community</a>
+          — pick the version, platform Linux, package <b>Archive</b> — or straight from
+          <code>https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-${CAN_READ ? `${CAN_READ}.x` : '&lt;version&gt;'}.tgz</code>,
+          and <code>docker run --rm -v /path/to/copy:/data/db mongo:${CAN_READ || '&lt;version&gt;'}</code> does the same thing
+          without installing anything.<br>
+          <code>mongodump --archive=wekan.archive --gzip</code><br>
+          If it refuses to start, run it once with <code>--repair</code> <b>on the copy</b> — the
+          error this snap's own readers printed is in <code>snap logs ${SNAP_NAME}.mongodb</code>, and it is
+          the thing to read first.</li>
         <li><b>Move the old database files OUT of ${SNAP_COMMON_PATH}</b> so this
           version starts on an empty database: <code>*.wt</code>,
           <code>WiredTiger*</code>, <code>_mdb_catalog.wt</code>,
