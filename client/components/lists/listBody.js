@@ -53,6 +53,45 @@ function openCardWindow(cardId) {
   }
 }
 
+// #6465: "Clicking the mini card again to close the popout is still not
+// possible."
+//
+// On a desktop-sized screen the card details are NOT the route: clicking a
+// minicard only writes `openCards`, and boardBody renders one draggable window
+// per id in that list. The URL stays on the board. So closing by navigating to
+// the board - which is what the second click did - cleared `currentCard` and
+// left the window on screen, because nothing had taken the card OUT of
+// `openCards`. Only the window's own X button did that, which is why closing
+// worked from the card and not from the minicard.
+//
+// This is the close button's logic (cardDetails.js, `click
+// .js-close-card-details`), so both ways of closing a card do the same thing.
+function cardWindowIsOpen(cardId) {
+  if (!Utils.isMiniScreen() && (Session.get('openCards') || []).includes(cardId)) {
+    return true;
+  }
+  return Session.equals('currentCard', cardId);
+}
+
+function closeCardWindow(cardId) {
+  Session.set(
+    'openCards',
+    (Session.get('openCards') || []).filter(id => id !== cardId),
+  );
+  if (Session.equals('currentCard', cardId)) {
+    Session.set('currentCard', null);
+  }
+  Session.delete('popupCardId');
+  Session.delete('popupCardBoardId');
+  // A card opened by its own URL IS the route, and then the board has to be
+  // navigated back to. A card opened by clicking a minicard is not, and
+  // navigating would reset the board view for nothing.
+  const boardId = Session.get('currentBoard');
+  if (FlowRouter.current()?.params?.cardId === cardId && boardId) {
+    Utils.goBoardId(boardId);
+  }
+}
+
 Template.listBody.onCreated(function () {
   // for infinite scrolling
   this.cardlimit = new ReactiveVar(InfiniteScrollIter);
@@ -262,8 +301,8 @@ Template.listBody.onCreated(function () {
       // almost always lands here and just re-opened the card that was already
       // open. That is why it read as a missing feature rather than a dead
       // branch. Same call as below, so both click targets behave alike.
-      if (Session.equals('currentCard', card._id)) {
-        Utils.goBoardId(Session.get('currentBoard'));
+      if (cardWindowIsOpen(card._id)) {
+        closeCardWindow(card._id);
         return;
       }
       Session.delete('popupCardId');
@@ -283,10 +322,10 @@ Template.listBody.onCreated(function () {
       }
       Session.set('popupCardId', card._id);
       this.cardDetailsPopup(evt);
-    } else if (Session.equals('currentCard', card._id)) {
+    } else if (cardWindowIsOpen(card._id)) {
       evt.stopImmediatePropagation();
       evt.preventDefault();
-      Utils.goBoardId(Session.get('currentBoard'));
+      closeCardWindow(card._id);
     } else {
       // Allow normal href navigation, but if it's the same card URL,
       // we'll handle it by directly setting the session

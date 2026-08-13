@@ -54,15 +54,62 @@ test('the title branch closes the card when it is already the open one', () => {
   const titleAt = handler.indexOf('if (clickedTitle && !clickedLinkedReference)');
   assert.notStrictEqual(titleAt, -1, 'the title branch must still exist');
   const branch = handler.slice(titleAt, handler.indexOf('if (Utils.isMiniScreen())', titleAt));
-  assert.ok(/Session\.equals\('currentCard', card\._id\)/.test(branch),
+  // This guard used to require `Session.equals('currentCard', ...)` and
+  // `Utils.goBoardId(...)` here, and it passed while the card stayed on screen:
+  // on a desktop the window is rendered from `openCards`, not from the route,
+  // so routing back to the board closed nothing (#6465, comment 5281667054 -
+  // "Clicking the mini card again to close the popout is still not possible").
+  // Both questions now go through the two helpers, which is what makes the
+  // decision the same one the card's own X button makes.
+  assert.ok(/cardWindowIsOpen\(card\._id\)/.test(branch),
     'the title is most of a minicard, so this is where the second click lands - ' +
     'it has to ask whether the card is already open');
-  assert.ok(/Utils\.goBoardId\(Session\.get\('currentBoard'\)\)/.test(branch),
-    'and close it the same way the existing branch below does');
-  const check = branch.indexOf("Session.equals('currentCard'");
+  assert.ok(/closeCardWindow\(card\._id\)/.test(branch),
+    'and close it the way the card details close themselves');
+  const check = branch.indexOf('cardWindowIsOpen(card._id)');
   const open = branch.indexOf('openCardWindow(card._id)');
   assert.ok(check !== -1 && open !== -1 && check < open,
     'the close decision must come BEFORE re-opening, or it never happens');
+});
+
+test('"already open" is asked of the list that renders the window', () => {
+  // The desktop card is a draggable window per id in `openCards`
+  // (boardBody.jade `each openCards`), and clicking a minicard does not change
+  // the URL at all - so `currentCard` alone cannot answer this. With "Open many
+  // cards at once" on, `currentCard` is the LAST card clicked, which made every
+  // earlier window impossible to close by clicking its minicard.
+  const fn = listBody.slice(listBody.indexOf('function cardWindowIsOpen('));
+  const body = fn.slice(0, fn.indexOf('\n}'));
+  assert.ok(/!Utils\.isMiniScreen\(\)/.test(body) &&
+            /Session\.get\('openCards'\) \|\| \[\]\)\.includes\(cardId\)/.test(body),
+    'on a desktop-sized screen the open windows ARE the openCards list');
+  assert.ok(/Session\.equals\('currentCard', cardId\)/.test(body),
+    'and a card opened by its own URL, which sets only currentCard, still counts');
+});
+
+test('closing takes the card OUT of openCards', () => {
+  const fn = listBody.slice(listBody.indexOf('function closeCardWindow('));
+  const body = fn.slice(0, fn.indexOf('\n}\n'));
+  assert.ok(/Session\.set\(\s*'openCards',\s*\(Session\.get\('openCards'\) \|\| \[\]\)\.filter\(id => id !== cardId\)/.test(body),
+    'the window is rendered from this list, so nothing else can close it');
+  assert.ok(/Session\.equals\('currentCard', cardId\)[\s\S]{0,80}Session\.set\('currentCard', null\)/.test(body),
+    'and the closed card is no longer the current one');
+  assert.ok(/popupCardId/.test(body) && /popupCardBoardId/.test(body),
+    'the phone popup ids are cleared too, as the close button clears them');
+  assert.ok(/FlowRouter\.current\(\)\?\.params\?\.cardId === cardId/.test(body),
+    'a card opened by its own URL still needs the board navigated back to - and ' +
+    'a card opened by a click does not, or the board view resets for nothing');
+});
+
+test('it closes a card exactly as the card details close button does', () => {
+  // One behaviour, two entry points. If the close button ever stops removing
+  // the id, this fix is wrong in the same way the old toggle was.
+  const details = read('client/components/cards/cardDetails.js');
+  const close = details.slice(details.indexOf("'click .js-close-card-details'"));
+  const body = close.slice(0, close.indexOf('\n  },'));
+  assert.ok(/openCards\.filter\(\(id\) => id !== cardId\)/.test(body),
+    'the close button removes the id from openCards');
+  assert.ok(/Session\.set\('currentCard', null\)/.test(body));
 });
 
 test('opening a DIFFERENT card from a title click still works', () => {
@@ -75,10 +122,11 @@ test('opening a DIFFERENT card from a title click still works', () => {
     'and still clear the phone popup ids, which is what that branch did before');
 });
 
-test('the original toggle further down is untouched', () => {
-  // Clicking a non-title part of an open card already closed it; this fix must
-  // not change that path.
-  assert.ok(/\} else if \(Session\.equals\('currentCard', card\._id\)\) \{[\s\S]{0,200}Utils\.goBoardId/.test(handler),
+test('the toggle further down makes the same decision', () => {
+  // Clicking a non-title part of an open card closes it too - through the same
+  // two helpers, so a click anywhere on a minicard behaves alike. (It used to
+  // route to the board here as well, and left the window open just the same.)
+  assert.ok(/\} else if \(cardWindowIsOpen\(card\._id\)\) \{[\s\S]{0,200}closeCardWindow\(card\._id\)/.test(handler),
     'the else-if that already toggled must stay, so both click targets agree');
 });
 
