@@ -758,6 +758,44 @@ and fixes the following bugs:
 **Card details** - the card as it is opened and edited.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">Every section of an opened card collapses from its own caret, with one rule between sections</a>. Thanks to xet7.</summary>
+
+A card had ONE caret, in its header, which collapsed the whole card - and
+**Activities** had an eye beside its heading. Every other section was a heading
+with no control at all, and the rules between them were written by hand wherever
+somebody remembered one.
+
+**Labels**, **Date Format**, **Members**, **Dependencies**, **Sort**, **Custom
+Fields**, **Description**, **Checklists**, **Subtasks**, **Attachments**,
+**Comments** and **Activities** each carry a caret that collapses that section,
+and one rule above it. Both come from ONE template, so eleven sections cannot
+end
+up with ten separators and nine carets. The heading is a real button - it
+announces itself as one and Enter or Space works it - rather than a click target
+only a mouse can find. The caret points DOWN when a section is open and toward
+the way the reader reads when it is closed: right in English, left in Arabic,
+Hebrew and Persian.
+
+**Activities starts collapsed** and everything else open, because a card is
+opened to read the card and its history is the thing you go looking for.
+
+The eye is gone, and that needed one piece of care: it was NOT the same control
+as the caret. `showActivities: false` - its default - subscribed to
+`activityType: 'addComment'` only, so the eye chose between "comments" and "the
+whole history" as much as it showed and hid. Removing it without more would have
+quietly turned an opened Activities section into a comments-only list. So a card
+section that is OPEN now asks for the whole history, and one that is closed
+subscribes to nothing at all - which is the cheaper half of what the flag was
+for, without a second control to keep in step. A card that had the flag
+explicitly set to false keeps it.
+
+Custom Fields is one section with one caret however many fields a card has: its
+header was briefly inside the loop that draws them, which would have been six
+sections sharing a caret on a card with six fields.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0c7b3e8df36d185d97a7cbe442f0eba76ecd897e">A dependency's card title wraps instead of being cut off at the pane edge</a>. Thanks to xet7.</summary>
 
 In an opened card's **Dependencies** section each row is an icon, the linked

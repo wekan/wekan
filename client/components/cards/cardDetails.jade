@@ -106,18 +106,17 @@ template(name="cardDetails")
       .card-details-items
         if currentBoard.allowsLabels
           .card-details-item.card-details-item-labels
-            h3.card-details-item-title
-              i.fa.fa-tags
-              | {{_ 'labels'}}
-            a(class="{{#if canModifyCard}}js-add-labels{{else}}is-disabled{{/if}}" title="{{_ 'card-labels-title'}}")
-              each labels
-                span.card-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}" title=name)
-                  +viewer
-                    = name
-            if canModifyCard
-              unless currentUser.isWorker
-                a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
-                  i.fa.fa-plus
+            +cardSectionHeader(section="labels" icon="fa-tags" label="labels")
+            if isSectionOpen "labels"
+              a(class="{{#if canModifyCard}}js-add-labels{{else}}is-disabled{{/if}}" title="{{_ 'card-labels-title'}}")
+                each labels
+                  span.card-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}" title=name)
+                    +viewer
+                      = name
+              if canModifyCard
+                unless currentUser.isWorker
+                  a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
+                    i.fa.fa-plus
 
         .card-details-item.card-details-item-stickers
           h3.card-details-item-title
@@ -163,17 +162,14 @@ template(name="cardDetails")
         +cardButtons(_id=_id boardId=boardId)
 
         if currentBoard.hasAnyAllowsDate
-          hr
-
           .card-details-item.card-details-item-date-format
-            h3.card-details-item-title
-              i.fa.fa-calendar
-              | {{_ 'date-format'}}
-            .card-details-item-content
-              select.js-date-format-selector
-                option(value="YYYY-MM-DD" selected="{{#if isDateFormat 'YYYY-MM-DD'}}selected{{/if}}") {{_ 'date-format-yyyy-mm-dd'}}
-                option(value="DD-MM-YYYY" selected="{{#if isDateFormat 'DD-MM-YYYY'}}selected{{/if}}") {{_ 'date-format-dd-mm-yyyy'}}
-                option(value="MM-DD-YYYY" selected="{{#if isDateFormat 'MM-DD-YYYY'}}selected{{/if}}") {{_ 'date-format-mm-dd-yyyy'}}
+            +cardSectionHeader(section="date-format" icon="fa-calendar" label="date-format")
+            if isSectionOpen "date-format"
+              .card-details-item-content
+                select.js-date-format-selector
+                  option(value="YYYY-MM-DD" selected="{{#if isDateFormat 'YYYY-MM-DD'}}selected{{/if}}") {{_ 'date-format-yyyy-mm-dd'}}
+                  option(value="DD-MM-YYYY" selected="{{#if isDateFormat 'DD-MM-YYYY'}}selected{{/if}}") {{_ 'date-format-dd-mm-yyyy'}}
+                  option(value="MM-DD-YYYY" selected="{{#if isDateFormat 'MM-DD-YYYY'}}selected{{/if}}") {{_ 'date-format-mm-dd-yyyy'}}
 
         if currentBoard.allowsReceivedDate
           .card-details-item.card-details-item-received
@@ -245,16 +241,15 @@ template(name="cardDetails")
         //.card-details-items
         if currentBoard.allowsMembers
           .card-details-item.card-details-item-members
-            h3.card-details-item-title
-              i.fa.fa-users
-              | {{_ 'members'}}
-            each userId in getMembers
-              +userAvatar(userId=userId cardId=_id)
-              | {{! XXX Hack to hide syntaxic coloration /// }}
-            if canModifyCard
-              unless currentUser.isWorker
-                a.member.add-member.card-details-item-add-button.js-add-members(title="{{_ 'card-members-title'}}")
-                  i.fa.fa-plus
+            +cardSectionHeader(section="members" icon="fa-users" label="members")
+            if isSectionOpen "members"
+              each userId in getMembers
+                +userAvatar(userId=userId cardId=_id)
+                | {{! XXX Hack to hide syntaxic coloration /// }}
+              if canModifyCard
+                unless currentUser.isWorker
+                  a.member.add-member.card-details-item-add-button.js-add-members(title="{{_ 'card-members-title'}}")
+                    i.fa.fa-plus
 
         //if assigneeSelected
         if currentBoard.allowsAssignee
@@ -315,50 +310,45 @@ template(name="cardDetails")
                 = getAssignedBy
 
         .card-details-item.card-details-item-dependencies
-          h3.card-details-item-title
-            i.fa.fa-link
-            | {{_ 'card-dependencies'}}
-          .card-details-dependencies-list
-            each getDependencyCards
-              .card-dependency(data-target-id="{{card._id}}")
-                i.fa(class="fa-{{icon}}" style="color:{{color}}")
-                a.card-dependency-link(href="{{linkUrl}}")
-                  +viewer
-                    = card.title
-                if canModifyCard
-                  select.js-dependency-type(data-target-id="{{card._id}}")
-                    each typeOption
-                      if selected
-                        option(value="{{id}}" selected="selected") {{_ label}}
-                      else
-                        option(value="{{id}}") {{_ label}}
-                  input.js-dependency-color(type="color" value="{{color}}" data-target-id="{{card._id}}" title="{{_ 'dependency-color'}}")
-                  a.js-dependency-icon(data-target-id="{{card._id}}" title="{{_ 'dependency-icon'}}")
-                    i.fa.fa-pencil
-                  a.card-dependency-remove.js-remove-dependency(data-target-id="{{card._id}}" title="{{_ 'remove-dependency'}}")
-                    i.fa.fa-times
-                else
-                  span.card-dependency-type {{_ typeLabel}}
-          if canModifyCard
-            a.js-add-dependency(title="{{_ 'add-dependency'}}")
-              i.fa.fa-plus
-              | {{_ 'add-dependency'}}
-
-        if $or currentBoard.allowsCardSortingByNumber getSpentTime
-          hr
+          +cardSectionHeader(section="dependencies" icon="fa-link" label="card-dependencies")
+          if isSectionOpen "dependencies"
+            .card-details-dependencies-list
+              each getDependencyCards
+                .card-dependency(data-target-id="{{card._id}}")
+                  i.fa(class="fa-{{icon}}" style="color:{{color}}")
+                  a.card-dependency-link(href="{{linkUrl}}")
+                    +viewer
+                      = card.title
+                  if canModifyCard
+                    select.js-dependency-type(data-target-id="{{card._id}}")
+                      each typeOption
+                        if selected
+                          option(value="{{id}}" selected="selected") {{_ label}}
+                        else
+                          option(value="{{id}}") {{_ label}}
+                    input.js-dependency-color(type="color" value="{{color}}" data-target-id="{{card._id}}" title="{{_ 'dependency-color'}}")
+                    a.js-dependency-icon(data-target-id="{{card._id}}" title="{{_ 'dependency-icon'}}")
+                      i.fa.fa-pencil
+                    a.card-dependency-remove.js-remove-dependency(data-target-id="{{card._id}}" title="{{_ 'remove-dependency'}}")
+                      i.fa.fa-times
+                  else
+                    span.card-dependency-type {{_ typeLabel}}
+            if canModifyCard
+              a.js-add-dependency(title="{{_ 'add-dependency'}}")
+                i.fa.fa-plus
+                | {{_ 'add-dependency'}}
 
         if currentBoard.allowsCardSortingByNumber
           .card-details-item.card-details-sort-order
-            h3.card-details-item-title
-              i.fa.fa-sort-numeric-asc
-              | {{_ 'sort'}}
-            if canModifyCard
-              +inlinedForm(classNames="js-card-details-sort")
-                +editCardSortOrderForm
-              else
-                a.js-open-inlined-form
-                  +viewer
-                    = sort
+            +cardSectionHeader(section="sort" icon="fa-sort" label="sort")
+            if isSectionOpen "sort"
+              if canModifyCard
+                +inlinedForm(classNames="js-card-details-sort")
+                  +editCardSortOrderForm
+                else
+                  a.js-open-inlined-form
+                    +viewer
+                      = sort
 
         if currentBoard.allowsShowLists
           .card-details-item.card-details-show-lists
@@ -382,16 +372,14 @@ template(name="cardDetails")
 
         //.card-details-items
         if customFieldsWD
-          unless customFieldsGrid
-            hr
-          each customFieldsWD
-            if customFieldsGrid
-              hr
-            .card-details-item.card-details-item-customfield
-              h3.card-details-item-title
-                i.fa.fa-list
-                = definition.name
-              +cardCustomField
+          //- ONE header for the whole group, outside the loop: a card with six
+            custom fields is one Custom Fields section, not six sections that
+            happen to share a caret and draw six rules.
+          +cardSectionHeader(section="custom-fields" icon="fa-list-alt" label="custom-fields")
+          if isSectionOpen "custom-fields"
+            each customFieldsWD
+              .card-details-item.card-details-item-customfield
+                +cardCustomField
 
           if $gt customFieldsWD.length 1
             .material-toggle-switch(title="{{_ 'change'}} {{_ 'custom-fields'}} {{_ 'layout'}}")
@@ -637,109 +625,111 @@ template(name="cardDetails")
       if canModifyCard
         unless currentUser.isWorker
           if currentBoard.allowsDescriptionTitle
-            hr
-            h3.card-details-item-title
-              i.fa.fa-file-text-o
-              | {{_ 'description'}}
+            +cardSectionHeader(section="description" icon="fa-file-text-o" label="description")
           if currentBoard.allowsDescriptionText
-            +inlinedCardDescription(classNames="card-description js-card-description")
-              +descriptionForm
-              .edit-controls.clearfix
-                button.primary(type="submit") {{_ 'save'}}
-                a.js-close-inlined-form
-            else
-              if currentBoard.allowsDescriptionText
-                a.js-open-inlined-form(title="{{_ 'edit'}}" value=title)
-                  i.fa.fa-pencil-square-o
-                a.js-open-inlined-form(title="{{_ 'edit'}}" value=title)
-                  if getDescription
-                    +viewer
-                      = getDescription
-                if (hasUnsavedValue 'cardDescription' _id)
-                  p.quiet
-                    | {{_ 'unsaved-description'}}
-                    a.js-open-inlined-form {{_ 'view-it'}}
-                    = ' - '
-                    a.js-close-inlined-form {{_ 'discard'}}
+            if isSectionOpen "description"
+              +inlinedCardDescription(classNames="card-description js-card-description")
+                +descriptionForm
+                .edit-controls.clearfix
+                  button.primary(type="submit") {{_ 'save'}}
+                  a.js-close-inlined-form
+              else
+                if currentBoard.allowsDescriptionText
+                  a.js-open-inlined-form(title="{{_ 'edit'}}" value=title)
+                    i.fa.fa-pencil-square-o
+                  a.js-open-inlined-form(title="{{_ 'edit'}}" value=title)
+                    if getDescription
+                      +viewer
+                        = getDescription
+                  if (hasUnsavedValue 'cardDescription' _id)
+                    p.quiet
+                      | {{_ 'unsaved-description'}}
+                      a.js-open-inlined-form {{_ 'view-it'}}
+                      = ' - '
+                      a.js-close-inlined-form {{_ 'discard'}}
       else if getDescription
         if currentBoard.allowsDescriptionTitle
-          hr
-          h3.card-details-item-title {{_ 'description'}}
+          +cardSectionHeader(section="description" icon="fa-file-text-o" label="description")
         if currentBoard.allowsDescriptionText
-          +viewer
-            = getDescription
+          if isSectionOpen "description"
+            +viewer
+              = getDescription
 
       .card-checklist-attachmentGalleries
         .card-checklist-attachmentGallery.card-checklists
           if currentBoard.allowsChecklists
-            hr
-            //- Total checklist item count (finished/total) shown above all
-              checklists. The board flag is a cheap boolean, so when it is off
-              the checklist counting below is never evaluated.
-            if currentBoard.allowsChecklistCountBadgeOnCard
-              if checklists.length
-                h3.card-details-item-title
-                  i.fa.fa-check-square-o
-                  |  {{checklistFinishedCount}}/{{checklistItemCount}}
-            +checklists(cardId = _id card = this)
+            +cardSectionHeader(section="checklists" icon="fa-check-square-o" label="checklists")
+            if isSectionOpen "checklists"
+              //- Total checklist item count (finished/total) shown above all
+                checklists. The board flag is a cheap boolean, so when it is off
+                the checklist counting below is never evaluated.
+              if currentBoard.allowsChecklistCountBadgeOnCard
+                if checklists.length
+                  h4.card-details-item-subtitle
+                    |  {{checklistFinishedCount}}/{{checklistItemCount}}
+              +checklists(cardId = _id card = this)
           if currentBoard.allowsSubtasks
-            hr
-            +subtasks(cardId = _id)
+            +cardSectionHeader(section="subtasks" icon="fa-sitemap" label="subtasks")
+            if isSectionOpen "subtasks"
+              +subtasks(cardId = _id)
         if currentBoard.allowsAttachments
-          hr
-          h3.card-details-item-title
-            i.fa.fa-paperclip
-            | {{_ 'attachments'}}
-            if currentBoard.allowsAttachmentCountOnCard
-              |  ({{attachments.length}})
-          if Meteor.settings.public.attachmentsUploadMaxSize
-            | {{_ 'max-upload-filesize'}} {{Meteor.settings.public.attachmentsUploadMaxSize}}
-            br
-          if Meteor.settings.public.attachmentsUploadMimeTypes
-            | {{_ 'allowed-upload-filetypes'}} {{Meteor.settings.public.attachmentsUploadMimeTypes}}
-            br
-          | {{_ 'invalid-file'}}
-          .card-checklist-attachmentGallery.card-attachmentGallery
-            +attachmentGallery
-      hr
+          +cardSectionHeader(section="attachments" icon="fa-paperclip" label="attachments")
+          if isSectionOpen "attachments"
+            if Meteor.settings.public.attachmentsUploadMaxSize
+              | {{_ 'max-upload-filesize'}} {{Meteor.settings.public.attachmentsUploadMaxSize}}
+              br
+            if Meteor.settings.public.attachmentsUploadMimeTypes
+              | {{_ 'allowed-upload-filetypes'}} {{Meteor.settings.public.attachmentsUploadMimeTypes}}
+              br
+            | {{_ 'invalid-file'}}
+            .card-checklist-attachmentGallery.card-attachmentGallery
+              +attachmentGallery
 
       if currentBoard.allowsComments
         .comment-title
-          h3.card-details-item-title
-            i.fa.fa-comment-o
-            | {{_ 'comments'}}
-
-        if currentUser.isBoardMember
-          unless currentUser.isNoComments
-            unless currentUser.isReadOnly
-              unless currentUser.isReadAssignedOnly
-                +commentForm
-        +comments
-      hr
+          +cardSectionHeader(section="comments" icon="fa-comment-o" label="comments")
+        if isSectionOpen "comments"
+          if currentUser.isBoardMember
+            unless currentUser.isNoComments
+              unless currentUser.isReadOnly
+                unless currentUser.isReadAssignedOnly
+                  +commentForm
+          +comments
 
     .card-details-right
 
       if currentUser.isBoardAdmin
         .activity-title
-          h3.card-details-item-title
-            i.fa.fa-history
-            | {{ _ 'activities'}}
-          if currentUser.isBoardMember
-            if showActivities
-              a.activities-eye-toggle.js-toggle-show-activities-card(title="{{_ 'hide-activities'}}" aria-label="{{_ 'hide-activities'}}")
-                i.fa.fa-eye.eye-icon
-            else
-              a.activities-eye-toggle.js-toggle-show-activities-card(title="{{_ 'show-activities'}}" aria-label="{{_ 'show-activities'}}")
-                i.fa.fa-eye-slash.eye-slash-icon
+          //- The eye that used to sit here showed and hid exactly what the
+            caret shows and hides, so there were two controls for one thing and
+            they could disagree. The caret is the one that stayed, and this
+            section is the one that starts CLOSED - a card is opened to read the
+            card, not its history.
+          +cardSectionHeader(section="activities" icon="fa-history" label="activities")
 
       if currentUser.isBoardAdmin
-        if isLoaded.get
-          if isLinkedCard
-            +activities(card=this mode="linkedcard")
-          else if isLinkedBoard
-            +activities(card=this mode="linkedboard")
-          else
-            +activities(card=this mode="card")
+        if isSectionOpen "activities"
+          if isLoaded.get
+            if isLinkedCard
+              +activities(card=this mode="linkedcard")
+            else if isLinkedBoard
+              +activities(card=this mode="linkedboard")
+            else
+              +activities(card=this mode="card")
+
+//- #1173-adjacent: ONE header for every collapsible section of a card - the
+  rule above it, the caret that collapses it, its icon and its name. Written
+  once, so eleven sections cannot end up with ten separators and nine carets.
+  The caret points DOWN when the section is open and toward the reading
+  direction's end when it is closed (right in English, left in Arabic), which
+  is what `sectionCaret` works out.
+template(name="cardSectionHeader")
+  hr.card-details-section-rule
+  h3.card-details-item-title.js-toggle-card-section(data-section="{{section}}" role="button" tabindex="0")
+    i.fa(class="{{sectionCaret section}}")
+    if icon
+      i.fa(class="{{icon}}")
+    | {{_ label}}
 
 template(name="editCardTitleForm")
   //- The X that closes the editor, where the card's own X is when the title is

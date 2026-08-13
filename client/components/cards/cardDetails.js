@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
+import { ReactiveDict } from 'meteor/reactive-dict';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { ReactiveVar } from 'meteor/reactive-var';
 import {
@@ -878,6 +879,68 @@ function cardSectionKeyOf(element) {
   return named ? named.replace('card-details-item-', '') : null;
 }
 
+// WHICH SECTIONS OF A CARD ARE OPEN.
+//
+// Every section of an opened card - Labels, Date Format, Members, Dependencies,
+// Sort, Custom Fields, Description, Checklists, Subtasks, Attachments, Comments
+// and Activities - carries a caret that collapses it, and one rule above it.
+// Before this there was one caret for the whole card and an EYE on Activities
+// that showed and hid exactly what a caret would: two controls for one idea,
+// able to disagree with each other.
+//
+// The state is module-level, so it survives closing and reopening a card in the
+// same session: somebody who works with the description collapsed wants it
+// collapsed on the next card too, not just on this one.
+//
+// ACTIVITIES starts CLOSED and everything else open. A card is opened to read
+// the card; its history is the thing you go looking for.
+const CARD_SECTIONS = [
+  'labels', 'date-format', 'members', 'dependencies', 'sort', 'custom-fields',
+  'description', 'checklists', 'subtasks', 'attachments', 'comments', 'activities',
+];
+const COLLAPSED_BY_DEFAULT = ['activities'];
+
+const cardSectionState = new ReactiveDict();
+CARD_SECTIONS.forEach(section => {
+  cardSectionState.set(section, !COLLAPSED_BY_DEFAULT.includes(section));
+});
+
+function isCardSectionOpen(section) {
+  const state = cardSectionState.get(section);
+  // An unknown section is open: a new one must show up, not hide silently.
+  return state === undefined ? true : state;
+}
+
+Template.registerHelper('isSectionOpen', isCardSectionOpen);
+
+// Down when open. When closed it points the way the reader's eye travels - to
+// the RIGHT in English and to the LEFT in Arabic, Hebrew and Persian - because
+// a caret is an arrow saying "there is more this way", and in a mirrored page
+// "this way" is the other way.
+Template.registerHelper('sectionCaret', section => {
+  if (isCardSectionOpen(section)) return 'fa-caret-down';
+  const rtl = (TAPi18n.getLanguageDirection && TAPi18n.getLanguageDirection()) === 'rtl';
+  return rtl ? 'fa-caret-left' : 'fa-caret-right';
+});
+
+Template.cardSectionHeader.events({
+  'click .js-toggle-card-section'(event) {
+    event.preventDefault();
+    const section = event.currentTarget.dataset.section;
+    if (!section) return;
+    cardSectionState.set(section, !isCardSectionOpen(section));
+  },
+  // A heading that can be operated with the mouse can be operated with the
+  // keyboard: it carries role="button" and tabindex, so Enter and Space are
+  // what a screen reader user presses.
+  'keydown .js-toggle-card-section'(event) {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    const section = event.currentTarget.dataset.section;
+    if (section) cardSectionState.set(section, !isCardSectionOpen(section));
+  },
+});
+
 Template.cardDetails.events({
   'click .card-details-item > .card-details-item-title'(event) {
     const key = cardSectionKeyOf(event.currentTarget);
@@ -1250,10 +1313,6 @@ Template.cardDetails.events({
   async 'click #toggleHideCheckedChecklistItems'() {
     const card = Template.currentData();
     await card.toggleHideCheckedChecklistItems();
-  },
-  async 'click .js-toggle-show-activities-card'() {
-    const card = Template.currentData();
-    await card.toggleShowActivities();
   },
   'click #toggleCustomFieldsGridButton'() {
     Meteor.call('toggleCustomFieldsGrid');

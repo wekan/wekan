@@ -1176,3 +1176,44 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
 .card-details-item.is-collapsed > *:not(.card-details-item-title) {
   display: none;
 }
+
+/* Collapsible card sections.
+   Every section of an opened card - Labels, Date Format, Members, Dependencies,
+   Sort, Custom Fields, Description, Checklists, Subtasks, Attachments, Comments
+   and Activities - has one rule above it and a caret in its heading that
+   collapses it. The rule comes from the same template as the caret, so eleven
+   sections cannot end up with ten separators.
+   The heading is a button: it says so to a screen reader (role/tabindex in the
+   template) and it looks like one to a mouse. */
+.card-details .card-details-section-rule {
+  margin: 10px 0 6px 0;
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+.card-details h3.card-details-item-title.js-toggle-card-section {
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+/* The caret is the widest part of the heading that must not move as the label
+   changes length, so it gets a fixed box. `text-align: center` rather than a
+   side, because the glyph itself differs between the open and closed states
+   (down, and right or left) and a fixed side would make it jump. */
+.card-details h3.card-details-item-title.js-toggle-card-section > .fa:first-child {
+  width: 12px;
+  text-align: center;
+  flex: 0 0 auto;
+}
+.card-details h3.card-details-item-title.js-toggle-card-section:hover {
+  opacity: 0.85;
+}
+/* The checklist "3/7" line that used to be a second h3 under the Checklists
+   heading: a subtitle, so it is not read as another section. */
+.card-details .card-details-item-subtitle {
+  margin: 0 0 4px 0;
+  font-size: 13px;
+  font-weight: 400;
+  opacity: 0.8;
+}

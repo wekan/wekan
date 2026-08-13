@@ -88,9 +88,20 @@ function _showActivities(data) {
       const currentCard = Utils.getCurrentCard();
       ret = currentCard.showActivities ?? false;
     } else if (mode === 'card') {
-      // For card mode, get showActivities from data context or fallback to current card
+      // The card's Activities section is COLLAPSED by default and renders this
+      // template only when its caret has been opened - so being here means the
+      // reader asked for the history, and the history is what they get.
+      //
+      // Until the section had a caret, the card carried a `showActivities` flag
+      // toggled by an eye beside the heading, and `false` - the default -
+      // subscribed to comments ONLY (server/publications/activities.js). The eye
+      // is gone: one control for one idea. Nothing is fetched at all while the
+      // section is closed, which is the cheaper half of what the flag was for,
+      // and opening it now means the whole history rather than a filtered part
+      // of it. `card.showActivities` still overrides when it was explicitly set
+      // to false, so a card somebody had set that way keeps its setting.
       const card = data?.card || Utils.getCurrentCard();
-      ret = card?.showActivities ?? false;
+      ret = card?.showActivities ?? true;
     } else {
       ret = Utils.getCurrentBoard().showActivities ?? false;
     }
