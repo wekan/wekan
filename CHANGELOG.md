@@ -738,7 +738,7 @@ beginning "Export / JSON /". The part that differed - the only part worth
 reading - started two thirds of the way along every line.
 
 A subheading names the family once and the entries under it say only what they
-are: **PDF**, **Excel**, then **Dependencies** (JSON, SVG), **HTML**, **CSV**
+are: **PDF**, **Excel** and **HTML**, then **Dependencies** (JSON, SVG), **CSV**
 ((,), (;), TSV) and **JSON** (JSON, JSON without attachments, .zip, Kanboard,
 Trello, Jira, NextCloud Deck, OpenProject, GitHub, GitLab, Gitea, Forgejo,
 Asana, Zenkit). The `.zip` sits with the JSON it is a container for.

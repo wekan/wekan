@@ -11,10 +11,8 @@
 // It is grouped now. A subheading names the family once, and the entries under
 // it say only what they are:
 //
-//   PDF
-//   Excel
+//   PDF, Excel, HTML
 //   Dependencies:  JSON, SVG
-//   HTML
 //   CSV:           (,), (;), TSV
 //   JSON:          JSON, JSON (without attachments), .zip, Kanboard, Trello,
 //                  Jira, NextCloud Deck, OpenProject, GitHub, GitLab, Gitea,
@@ -46,9 +44,10 @@ console.log('exportBoardPopupOrder:');
 
 test('the formats appear in the order asked for', () => {
   const order = [
-    'exportUrlPDF', 'exportUrlExcel',
+    // The three that render a board as a document to LOOK at sit together on
+    // the first row; the groups under the headings are data to reimport.
+    'exportUrlPDF', 'exportUrlExcel', 'html-export-board',
     'js-export-dependencies-json', 'js-export-dependencies-svg',
-    'html-export-board',
     'exportCsvUrl', 'exportScsvUrl', 'exportTsvUrl',
     'exportUrlJsonSelected', 'exportUrlJsonNoAttachments', 'exportUrlZip',
     'exportUrlKanboard', "'trello'", "'jira'", "'deck'", "'openproject'",

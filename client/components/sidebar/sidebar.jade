@@ -736,6 +736,10 @@ template(name="exportBoardPopup")
           a(href="{{exportUrlExcel}}", download="{{exportFilenameExcelSelected}}")
             i.fa.fa-file-excel-o
             | Excel
+        li
+          a.html-export-board
+            i.fa.fa-archive
+            | HTML
       hr
       h4.pop-over-list-subheading {{_ 'card-dependencies'}}
       ul.pop-over-list
@@ -747,11 +751,6 @@ template(name="exportBoardPopup")
           a.js-export-dependencies-svg
             i.fa.fa-link
             | SVG
-      ul.pop-over-list
-        li
-          a.html-export-board
-            i.fa.fa-archive
-            | HTML
       hr
       h4.pop-over-list-subheading CSV
       ul.pop-over-list
