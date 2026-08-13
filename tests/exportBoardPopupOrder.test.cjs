@@ -164,22 +164,45 @@ test('a format only drops what it actually has (negative)', () => {
 
 // ── the popup is big when there is room ────────────────────────────────────
 
-test('a wide window lays the menu out in columns', () => {
+test('a wide window puts the selection and the formats side by side', () => {
+  // What to include on one side, what to export to on the other, so the whole
+  // menu is visible at once rather than being a column to scroll.
+  assert.ok(/\.export-board-panes/.test(popup), 'the popup has two panes');
+  assert.ok(/\.export-board-pane\.export-board-pane-select/.test(popup)
+    && /\.export-board-pane\.export-board-pane-formats/.test(popup),
+    'one for the selection, one for the formats');
+  assert.ok(popup.indexOf('export-board-pane-select') < popup.indexOf('export-board-pane-formats'),
+    'selection first in the markup, which is the left in a left-to-right page');
+
   const popupCss = read('client/components/main/popup.css');
   const rule = popupCss.slice(popupCss.indexOf("data-popup='exportBoardPopup'"));
-  assert.ok(/width: min\(90vw, 760px\)/.test(rule.slice(0, 400)),
-    'wide enough for several columns');
-  assert.ok(/grid-template-columns: repeat\(auto-fill, minmax\(210px, 1fr\)\)/.test(rule),
-    'and the lists fill it with as many columns as fit');
+  assert.ok(/width: min\(96vw, 1100px\)/.test(rule.slice(0, 400)),
+    'wide enough for two panes');
+  assert.ok(/grid-template-columns: minmax\(260px, 0\.8fr\) minmax\(340px, 1\.2fr\)/.test(rule),
+    'laid out as two grid columns');
+  assert.ok(/grid-template-columns: repeat\(auto-fill, minmax\(190px, 1fr\)\)/.test(rule),
+    'and each pane still fills its own width with as many columns as fit');
   assert.ok(/min-width: 801px/.test(popupCss.slice(popupCss.lastIndexOf('@media', popupCss.indexOf("data-popup='exportBoardPopup'")))),
-    'desktop only - below 800px every popup is a full-screen sheet already');
+    'desktop only - below 800px every popup is a full-screen sheet and they stack');
+});
+
+test('RTL mirrors the panes by itself (negative)', () => {
+  const popupCss = read('client/components/main/popup.css');
+  const rule = popupCss.slice(popupCss.indexOf("data-popup='exportBoardPopup'"));
+  // Grid columns mirror under `dir=rtl`, so the selection lands on the right
+  // with no second rule. A physical border or padding would not.
+  assert.ok(/border-inline-start/.test(rule) && /padding-inline-start/.test(rule),
+    'the divider between the panes is a logical edge');
+  assert.ok(!/border-left|padding-left|float: right/.test(rule),
+    'nothing physical to mirror by hand');
+  assert.ok(!/\[dir="rtl"\]|:dir\(rtl\)/.test(rule), 'and no RTL branch at all');
 });
 
 test('the width is mirrored where the clamp reads it (negative)', () => {
-  // popupOffset.js places a popup using its width. Left at the default 380,
-  // a 760px popup opened near the right edge lands half off the screen.
+  // popupOffset.js places a popup using its width. Left at the default 380, a
+  // 1100px popup opened near the right edge lands most of the way off screen.
   const offset = read('client/lib/popupOffset.js');
-  assert.ok(/exportBoardPopup: 760/.test(offset),
+  assert.ok(/exportBoardPopup: 1100/.test(offset),
     'the clamp knows the real width');
   assert.ok(/Same number as popup.css/.test(offset),
     'and says where the other copy is');

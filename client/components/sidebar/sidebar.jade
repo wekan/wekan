@@ -717,112 +717,112 @@ template(name="boardMenuPopup")
             | {{_ 'archive-board'}}
 
 template(name="exportBoardPopup")
-  //- #1173: the board's own export list, grouped. The parts checkboxes come
-    from the shared body (`hideFormats`, because the formats are laid out here
-    with their subheadings); everything below is board-only - CSV, HTML, the
-    dependency graph and the JSON dialects other trackers read.
-  +exportScopeBody(title=boardTitle hideFormats=true)
-  hr
-  ul.pop-over-list
-    li
-      a(href="{{exportUrlPDF}}", download="{{exportFilenamePDF}}")
-        i.fa.fa-file-pdf-o
-        | PDF
-    li
-      a(href="{{exportUrlExcel}}", download="{{exportFilenameExcelSelected}}")
-        i.fa.fa-file-excel-o
-        | Excel
-  h4.pop-over-list-subheading {{_ 'card-dependencies'}}
-  ul.pop-over-list
-    li
-      a.js-export-dependencies-json
-        i.fa.fa-link
-        | JSON
-    li
-      a.js-export-dependencies-svg
-        i.fa.fa-link
-        | SVG
-  ul.pop-over-list
-    li
-      a.html-export-board
-        i.fa.fa-archive
-        | HTML
-  h4.pop-over-list-subheading CSV
-  ul.pop-over-list
-    li
-      a(href="{{exportCsvUrl}}", download="{{exportCsvFilename}}")
-        i.fa.fa-upload
-        | (,)
-    li
-      a(href="{{exportScsvUrl}}", download="{{exportCsvFilename}}")
-        i.fa.fa-upload
-        | (;)
-    li
-      a(href="{{exportTsvUrl}}", download="{{exportTsvFilename}}")
-        i.fa.fa-upload
-        | TSV
-  h4.pop-over-list-subheading JSON
-  ul.pop-over-list
-    li
-      a.download-json-link(href="{{exportUrlJsonSelected}}", download="{{exportJsonFilename}}")
-        i.fa.fa-file-code-o
-        | JSON
-    li
-      a.download-json-link(href="{{exportUrlJsonNoAttachments}}", download="{{exportJsonFilename}}")
-        i.fa.fa-file-code-o
-        | JSON ({{_ 'export-board-without-attachments'}})
-    li
-      //- The same document as the JSON above it, with the attachments beside it
-        as files instead of base64 inside it - which is the shape to use when a
-        board's attachments are too large for one JSON string.
-      a(href="{{exportUrlZip}}", download="{{exportFilenameZip}}")
-        i.fa.fa-file-archive-o
-        | .zip ({{_ 'attachments'}})
-    li
-      a(href="{{exportUrlKanboard}}", download="{{exportFilenameKanboard}}")
-        i.fa.fa-upload
-        | Kanboard
-    li
-      a(href="{{exportUrlExternal 'trello'}}", download="{{exportFilenameExternal 'trello'}}")
-        i.fa.fa-upload
-        | Trello
-    li
-      a(href="{{exportUrlExternal 'jira'}}", download="{{exportFilenameExternal 'jira'}}")
-        i.fa.fa-upload
-        | Jira
-    li
-      a(href="{{exportUrlExternal 'deck'}}", download="{{exportFilenameExternal 'deck'}}")
-        i.fa.fa-upload
-        | NextCloud Deck
-    li
-      a(href="{{exportUrlExternal 'openproject'}}", download="{{exportFilenameExternal 'openproject'}}")
-        i.fa.fa-upload
-        | OpenProject
-    li
-      a(href="{{exportUrlExternal 'github'}}", download="{{exportFilenameExternal 'github'}}")
-        i.fa.fa-upload
-        | GitHub
-    li
-      a(href="{{exportUrlExternal 'gitlab'}}", download="{{exportFilenameExternal 'gitlab'}}")
-        i.fa.fa-upload
-        | GitLab
-    li
-      a(href="{{exportUrlExternal 'gitea'}}", download="{{exportFilenameExternal 'gitea'}}")
-        i.fa.fa-upload
-        | Gitea
-    li
-      a(href="{{exportUrlExternal 'forgejo'}}", download="{{exportFilenameExternal 'forgejo'}}")
-        i.fa.fa-upload
-        | Forgejo
-    li
-      a(href="{{exportUrlExternal 'asana'}}", download="{{exportFilenameExternal 'asana'}}")
-        i.fa.fa-upload
-        | Asana
-    li
-      a(href="{{exportUrlExternal 'zenkit'}}", download="{{exportFilenameExternal 'zenkit'}}")
-        i.fa.fa-upload
-        | Zenkit
-
+  //- Two panes when there is width for them: WHAT to include on the left and
+    what to export TO on the right, so a wide window shows the whole menu at
+    once instead of one column to scroll. They are grid COLUMNS, so a
+    right-to-left page mirrors them by itself - the selection lands on the
+    right and the formats on the left, with no second rule. Below the
+    breakpoint they stack, which is what a phone gets.
+  .export-board-panes
+    .export-board-pane.export-board-pane-select
+      +exportScopeBody(title=boardTitle hideFormats=true)
+    .export-board-pane.export-board-pane-formats
+      ul.pop-over-list
+        li
+          a(href="{{exportUrlPDF}}", download="{{exportFilenamePDF}}")
+            i.fa.fa-file-pdf-o
+            | PDF
+        li
+          a(href="{{exportUrlExcel}}", download="{{exportFilenameExcelSelected}}")
+            i.fa.fa-file-excel-o
+            | Excel
+      h4.pop-over-list-subheading {{_ 'card-dependencies'}}
+      ul.pop-over-list
+        li
+          a.js-export-dependencies-json
+            i.fa.fa-link
+            | JSON
+        li
+          a.js-export-dependencies-svg
+            i.fa.fa-link
+            | SVG
+      ul.pop-over-list
+        li
+          a.html-export-board
+            i.fa.fa-archive
+            | HTML
+      h4.pop-over-list-subheading CSV
+      ul.pop-over-list
+        li
+          a(href="{{exportCsvUrl}}", download="{{exportCsvFilename}}")
+            i.fa.fa-upload
+            | (,)
+        li
+          a(href="{{exportScsvUrl}}", download="{{exportCsvFilename}}")
+            i.fa.fa-upload
+            | (;)
+        li
+          a(href="{{exportTsvUrl}}", download="{{exportTsvFilename}}")
+            i.fa.fa-upload
+            | TSV
+      h4.pop-over-list-subheading JSON
+      ul.pop-over-list
+        li
+          a.download-json-link(href="{{exportUrlJsonSelected}}", download="{{exportJsonFilename}}")
+            i.fa.fa-file-code-o
+            | JSON
+        li
+          a.download-json-link(href="{{exportUrlJsonNoAttachments}}", download="{{exportJsonFilename}}")
+            i.fa.fa-file-code-o
+            | JSON ({{_ 'export-board-without-attachments'}})
+        li
+          a(href="{{exportUrlZip}}", download="{{exportFilenameZip}}")
+            i.fa.fa-file-archive-o
+            | .zip ({{_ 'attachments'}})
+        li
+          a(href="{{exportUrlKanboard}}", download="{{exportFilenameKanboard}}")
+            i.fa.fa-upload
+            | Kanboard
+        li
+          a(href="{{exportUrlExternal 'trello'}}", download="{{exportFilenameExternal 'trello'}}")
+            i.fa.fa-upload
+            | Trello
+        li
+          a(href="{{exportUrlExternal 'jira'}}", download="{{exportFilenameExternal 'jira'}}")
+            i.fa.fa-upload
+            | Jira
+        li
+          a(href="{{exportUrlExternal 'deck'}}", download="{{exportFilenameExternal 'deck'}}")
+            i.fa.fa-upload
+            | NextCloud Deck
+        li
+          a(href="{{exportUrlExternal 'openproject'}}", download="{{exportFilenameExternal 'openproject'}}")
+            i.fa.fa-upload
+            | OpenProject
+        li
+          a(href="{{exportUrlExternal 'github'}}", download="{{exportFilenameExternal 'github'}}")
+            i.fa.fa-upload
+            | GitHub
+        li
+          a(href="{{exportUrlExternal 'gitlab'}}", download="{{exportFilenameExternal 'gitlab'}}")
+            i.fa.fa-upload
+            | GitLab
+        li
+          a(href="{{exportUrlExternal 'gitea'}}", download="{{exportFilenameExternal 'gitea'}}")
+            i.fa.fa-upload
+            | Gitea
+        li
+          a(href="{{exportUrlExternal 'forgejo'}}", download="{{exportFilenameExternal 'forgejo'}}")
+            i.fa.fa-upload
+            | Forgejo
+        li
+          a(href="{{exportUrlExternal 'asana'}}", download="{{exportFilenameExternal 'asana'}}")
+            i.fa.fa-upload
+            | Asana
+        li
+          a(href="{{exportUrlExternal 'zenkit'}}", download="{{exportFilenameExternal 'zenkit'}}")
+            i.fa.fa-upload
+            | Zenkit
 template(name="labelsWidget")
   .board-widget.board-widget-labels
     h3
