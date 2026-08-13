@@ -131,6 +131,28 @@ snapd answers `cannot find app "database-compare" in "wekan"`
 for: a refresh does not import an old MongoDB over a FerretDB that is already in
 use, and neither copy is ever deleted.
 
+## When the database does not come up
+
+WeKan does not open its web port until the database answers, and it waits for as
+long as that takes — a large database can need minutes after an update, and
+giving up would be worse. While it waits, the browser gets a page saying
+**WeKan is waiting for its database**, which names the database being waited for
+and the commands that say why it is not there
+([#6592](https://github.com/wekan/wekan/issues/6592) — before this, nothing was
+listening on the web port and the symptom was a timeout, "loading forever", with
+the reason only in `snap logs`).
+
+It appears after 30 seconds (`WEKAN_DB_WAIT_PAGE_SECONDS`), so an ordinary
+restart never shows it, and it refreshes itself away when WeKan starts. If it
+stays, the database is the thing to look at:
+
+```
+sudo snap logs wekan.ferretdb     # or wekan.mongodb — the real reason
+sudo snap run wekan.problems      # which copy is served, and is there a second
+sudo snap start --enable wekan.ferretdb
+sudo snap revert wekan            # back to the revision that worked; data stays
+```
+
 `wekan.problems` ends with a **Databases on this machine** section saying which
 copy is being served and whether there is a second one — it used to report "No
 problems detected" on an instance serving a month-old copy, because every check

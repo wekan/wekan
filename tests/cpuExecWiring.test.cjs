@@ -146,8 +146,19 @@ test('the snap runs node (the app and the maintenance page) through cpu-exec', (
   // The main application start, which keeps its ulimit -s 65500.
   assert.ok(/ulimit -s 65500; exec \$\{CPU_EXEC:\+bash \\"\$CPU_EXEC\\"\} \$NODE_PATH\/node \$APPLICATION_START/
     .test(wekanControl), 'the main app start is routed and keeps its stack ulimit');
-  const pages = wekanControl.match(/\$\{CPU_EXEC:\+bash "\$CPU_EXEC"\} "\$SNAP\/bin\/node"/g) || [];
-  assert.strictEqual(pages.length, 2, 'both maintenance-page launches are routed');
+  // Every launch of the maintenance page, however many there are - this was a
+  // count of two, and #6592 added a third (the "waiting for its database" page
+  // served during the endless database wait). A count says nothing about the
+  // launch that was added; asking each launch line instead cannot go stale.
+  const launches = wekanControl.split('\n')
+    .filter(l => /wekan-maintenance-page\.mjs/.test(l) && /\$SNAP\/bin\/node/.test(l) && !/^\s*#/.test(l));
+  assert.ok(launches.length >= 3, `expected the maintenance-page launches, found ${launches.length}`);
+  for (const line of launches) {
+    // `env VAR=value` may sit between the two (the data-too-old page passes its
+    // reason that way), so this asks for the order, not for adjacency.
+    assert.ok(/\$\{CPU_EXEC:\+bash "\$CPU_EXEC"\}.*"\$SNAP\/bin\/node"/.test(line),
+      `a maintenance page started around cpu-exec cannot run on a CPU that needs it: ${line.trim()}`);
+  }
 });
 
 // --- Docker entrypoint ----------------------------------------------------------

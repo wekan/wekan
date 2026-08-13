@@ -365,6 +365,38 @@ esac
 # set is initiated).
 DB_URL="mongodb://${MONGO_HOST}:${MONGO_PORT}/?directConnection=true"
 
+# #6592: "a reload of wekan got a timeout (loading forever)" after a refresh from
+# 10.85. WeKan does not open its web port until the database answers, and the two
+# waits below are deliberately endless - a database can take minutes to come up
+# after an update, and giving up on it would be worse than waiting. But while they
+# wait, NOTHING is listening on the web port: the browser gets a timeout, and the
+# reason is in `snap logs`, which is the last place somebody whose site is down
+# thinks to look. It is also indistinguishable from WeKan itself being broken.
+#
+# So the wait says so, on the web port, with the commands that name the real
+# reason. After a grace period, not immediately: an ordinary restart passes
+# through here in a few seconds and a page that flashes up during every restart
+# would be noise (and would make proxies cache a 503 for a healthy site).
+#
+# The page is a child process holding $PORT, so it MUST be stopped before WeKan -
+# or another wekan-control after an exec - tries to bind that port.
+WEKAN_DB_WAIT_PAGE_SECONDS="${WEKAN_DB_WAIT_PAGE_SECONDS:-30}"
+_db_wait_page_pid=""
+start_db_wait_page() {
+    [ -n "$_db_wait_page_pid" ] && return 0
+    [ -r "$SNAP/bin/wekan-maintenance-page.mjs" ] || return 0
+    echo "WeKan: still waiting for ${1}; serving the \"waiting for its database\" page on port ${PORT:-80} until it answers."
+    WEKAN_MAINTENANCE_REASON=waiting-for-database WEKAN_WAITING_DB="$1" PORT="${PORT:-80}" \
+        ${CPU_EXEC:+bash "$CPU_EXEC"} "$SNAP/bin/node" "$SNAP/bin/wekan-maintenance-page.mjs" &
+    _db_wait_page_pid=$!
+}
+stop_db_wait_page() {
+    [ -n "$_db_wait_page_pid" ] || return 0
+    kill "$_db_wait_page_pid" 2>/dev/null || true
+    wait "$_db_wait_page_pid" 2>/dev/null || true
+    _db_wait_page_pid=""
+}
+
 if [ "ferretdb" = "${DATABASE}" ]; then
     # FerretDB v1 has no replica set / oplog — just wait until it accepts
     # connections, then start WeKan (which uses polling for reactivity).
@@ -415,10 +447,14 @@ if [ "ferretdb" = "${DATABASE}" ]; then
             echo ""
             db_hint_shown=true
         fi
+        if [ "$db_waited" -ge "$WEKAN_DB_WAIT_PAGE_SECONDS" ]; then
+            start_db_wait_page ferretdb
+        fi
         echo "FerretDB not ready yet, retrying in 5 seconds..."
         sleep 5
         db_waited=$((db_waited + 5))
     done
+    stop_db_wait_page
     echo "FerretDB is ready."
     # #6473: SELF-HEALING attachments. Older MongoDB -> FerretDB migrations silently
     # lost attachments/avatars (CollectionFS copies.<bucket>.key was never resolved;
@@ -485,16 +521,24 @@ elif [ "true" != "${DISABLE_MONGODB}" ]; then
         # after that, so waiting is waiting for nothing. Re-exec to serve the page.
         if [ -f "$SNAP_COMMON/.mongodb-data-too-old" ]; then
             echo "the database files are from a MongoDB this snap cannot read; serving the explanatory page."
+            # The page below holds the web port, and exec keeps this process's
+            # children - so it has to go before the next start binds that port.
+            stop_db_wait_page
             exec "$0" "$@"
         fi
         if [ "ferretdb" = "$(bash "$SNAP/bin/database-role" 2>/dev/null)" ]; then
             echo "the migration finished while WeKan was waiting for MongoDB; restarting onto FerretDB."
+            stop_db_wait_page
             exec "$0" "$@"
+        fi
+        if [ "$db_waited" -ge "$WEKAN_DB_WAIT_PAGE_SECONDS" ]; then
+            start_db_wait_page mongodb
         fi
         echo "MongoDB not ready yet, retrying in 5 seconds..."
         sleep 5
         db_waited=$((db_waited + 5))
     done
+    stop_db_wait_page
     echo "MongoDB replica set primary is ready."
 fi
 

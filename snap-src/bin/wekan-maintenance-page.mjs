@@ -38,6 +38,17 @@ const IS_RECOVERY = process.env.WEKAN_MAINTENANCE_REASON === 'recovery';
 // two ways forward. The version mongod itself named as still able to read the data
 // is in the marker file, so the page can be specific rather than general.
 const IS_DATA_TOO_OLD = process.env.WEKAN_MAINTENANCE_REASON === 'data-too-old';
+
+// #6592: "a reload of wekan got a timeout (loading forever)" after a snap refresh.
+// WeKan does not open its web port until the database answers, and the wait has no
+// end - correctly, because a database can take minutes to come up and giving up
+// would be worse. But nothing was listening while it waited, so the browser got a
+// timeout and the reason was in `snap logs`, which is exactly where somebody who
+// cannot open WeKan does not think to look. wekan-control serves this page during
+// that wait instead, and the page names the database being waited for and the
+// command that says why it is not there.
+const IS_WAITING_DB = process.env.WEKAN_MAINTENANCE_REASON === 'waiting-for-database';
+const WAITING_DB = process.env.WEKAN_WAITING_DB === 'mongodb' ? 'MongoDB' : 'FerretDB';
 function readMarker() {
   try {
     return fs.readFileSync((process.env.SNAP_COMMON || '') + '/.mongodb-data-too-old', 'utf8')
@@ -69,14 +80,18 @@ function ferretdbHasData() {
 const HAS_FERRETDB = IS_DATA_TOO_OLD ? ferretdbHasData() : false;
 
 const TITLE_WORD = IS_RECOVERY ? 'Recovering data'
-  : IS_DATA_TOO_OLD ? 'Database needs an upgrade' : 'Maintenance';
+  : IS_DATA_TOO_OLD ? 'Database needs an upgrade'
+  : IS_WAITING_DB ? 'Starting' : 'Maintenance';
 const HEADING = IS_RECOVERY ? `${PRODUCT} is recovering your data`
   : IS_DATA_TOO_OLD ? `${PRODUCT} cannot open the existing database`
+  : IS_WAITING_DB ? `${PRODUCT} is waiting for its database`
   : `${PRODUCT} is under maintenance`;
 const BODY = IS_RECOVERY
   ? 'Your data is being restored. The service will return automatically when recovery finishes.'
   : IS_DATA_TOO_OLD
   ? `The database files were created by an older MongoDB${CAN_READ ? ` (MongoDB ${CAN_READ} or earlier can still read them)` : ''}. This version can read a MongoDB 6/7 database, a MongoDB 4.0/4.2 one, and a MongoDB 3.2 one - and these files are none of those, so nothing has been changed and your data is untouched.`
+  : IS_WAITING_DB
+  ? `${PRODUCT} does not open its web port until ${WAITING_DB} answers, and ${WAITING_DB} has not answered yet. This page is that wait - it goes away by itself the moment the database is up. A large database can take minutes after an update; longer than that means something is wrong with the database, and nothing has been changed or lost while this page is showing.`
   : 'The service is temporarily unavailable while maintenance is in progress.';
 
 // Only the data-too-old page has instructions: the other two are waits, and this one
@@ -135,6 +150,31 @@ const STEPS = IS_DATA_TOO_OLD ? `
   <p class="muted" style="text-align:start">Attachments and avatars are files on disk, not in
     the database, and are unaffected either way.</p>` : '';
 
+// #6592: the same guidance wekan-control prints to the log after two minutes of
+// waiting - put where the person who cannot open WeKan is actually looking. The
+// service name is the one to ask, because "WeKan is down" and "FerretDB did not
+// start" produce the same blank browser and only one of them is true here.
+const WAIT_SVC = process.env.WEKAN_WAITING_DB === 'mongodb' ? 'mongodb' : 'ferretdb';
+const WAIT_STEPS = IS_WAITING_DB ? `
+  <p class="muted" style="text-align:start">If this page does not go away, ${WAITING_DB}
+    is not starting. It says why in its own log - a snap service can show as
+    <code>active</code> and still have exited:</p>
+  <ol class="muted" style="text-align:start">
+    <li><code>sudo snap logs ${SNAP_NAME}.${WAIT_SVC}</code> — the real reason. An
+      <code>exec format error</code> means the bundled binary cannot run on this
+      CPU; report it with your <code>snap version</code> and architecture.</li>
+    <li><code>sudo snap run ${SNAP_NAME}.problems</code> — which copy of the data
+      this snap is serving, and whether there is a second one.</li>
+    <li><code>sudo snap start --enable ${SNAP_NAME}.${WAIT_SVC}</code> — if the
+      service was left stopped or disabled by a failed migration.</li>
+    <li>If this started right after an update:
+      <code>sudo snap revert ${SNAP_NAME}</code> goes back to the revision that
+      worked. Your data stays where it is; <code>snap revert</code> does not roll
+      back <code>${SNAP_COMMON_PATH}</code>.</li>
+  </ol>
+  <p class="muted" style="text-align:start">Attachments and avatars are files on disk,
+    not in the database, so they are unaffected either way.</p>` : '';
+
 const HTML = `<!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 ${IS_DATA_TOO_OLD ? "" : '<meta http-equiv="refresh" content="30">'}
@@ -145,7 +185,7 @@ ${IS_DATA_TOO_OLD ? "" : '<meta http-equiv="refresh" content="30">'}
     min-height:100vh;display:flex;align-items:center;justify-content:center;
     background:#eceff1;color:#2c3e50}
   @media (prefers-color-scheme:dark){body{background:#1b1f23;color:#e6e6e6}}
-  .card{max-width:${IS_DATA_TOO_OLD ? "44" : "34"}em;margin:1.5em;padding:2em 2.4em;border-radius:10px;text-align:center;
+  .card{max-width:${IS_DATA_TOO_OLD || IS_WAITING_DB ? "44" : "34"}em;margin:1.5em;padding:2em 2.4em;border-radius:10px;text-align:center;
     background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.08)}
   @media (prefers-color-scheme:dark){.card{background:#24292e;box-shadow:0 2px 10px rgba(0,0,0,.4)}}
   h1{color:#2980b9;font-size:1.6em;margin:.2em 0 .4em}
@@ -157,7 +197,7 @@ ${IS_DATA_TOO_OLD ? "" : '<meta http-equiv="refresh" content="30">'}
 </style></head><body>
 <div class="card">
   <h1>${IS_DATA_TOO_OLD ? "" : '<span class="spin"></span>'}${HEADING}</h1>
-  <p>${BODY}</p>${STEPS}
+  <p>${BODY}</p>${STEPS}${WAIT_STEPS}
   <p class="muted">${IS_DATA_TOO_OLD
     ? 'This page stays until an admin acts; nothing is retried in the background.'
     : 'This page refreshes automatically. Please try again shortly.'}</p>
