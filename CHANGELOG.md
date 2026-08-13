@@ -470,7 +470,7 @@ and adds the following new features:
 **Board, swimlane and list export** - printing a board, and what goes in it.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">JSON and .zip export at every menu, streamed, with the attachments as files</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b0ca22609905c45c35090d097f46d339fb4a748a">JSON and .zip export at every menu, streamed, with the attachments as files</a>. Thanks to xet7.</summary>
 
 The board's Export menu had JSON; nothing else did, and there was no .zip at
 all.
