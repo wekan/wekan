@@ -133,6 +133,42 @@ test('the popup offers import only to somebody who may write', () => {
   assert.ok(/if canImport/.test(scopeJade), 'and the template asks');
 });
 
+test('the files come back too, from a .json and from a .zip', () => {
+  // The round trip was half a round trip: the cards came back and their
+  // attachments did not.
+  assert.ok(/_importAttachments\(\)/.test(importer), 'the importer writes attachments');
+  assert.ok(/Buffer\.from\(attachment\.file, 'base64'\)/.test(importer),
+    'from the base64 a .json carries');
+  assert.ok(/attachments\/<attachmentId>-<name>/.test(scopeJs)
+    || /attachment\.file = await archived\.async\('base64'\)/.test(scopeJs),
+    'and from the files a .zip carries, put back on the same field');
+  assert.ok(/one import path rather than one per container/.test(scopeJs)
+    || /one import path/.test(scopeJs),
+    'so the server sees one shape either way');
+});
+
+test('an attachment lands where its card landed, not where it came from', () => {
+  assert.ok(/_cardListId\[cardId\]/.test(importer) && /_cardSwimlaneId\[cardId\]/.test(importer),
+    'the meta points at the list and swimlane the card is in now');
+  assert.ok(/boardId: this\._target\.boardId/.test(importer),
+    'and at the board it was imported into');
+});
+
+test('one unreadable attachment does not lose the rest (negative)', () => {
+  assert.ok(/One unreadable attachment is not a reason to lose the rest/.test(importer),
+    'the loop says so');
+  assert.ok(/catch \(error\) \{[\s\S]{0,200}console\.warn/.test(importer),
+    'and carries on after warning');
+  assert.ok(/if \(!buffer \|\| !buffer\.length\) continue;/.test(importer),
+    'an empty file is skipped rather than written as a zero-byte attachment');
+});
+
+test('a downloaded attachment is still validated at every hop (negative)', () => {
+  // FollowBleed: a validated public URL can 302 to an internal address.
+  assert.ok(/fetchImportedAttachment/.test(importer), 'the pinning downloader is used');
+  assert.ok(/downloaded\.blocked/.test(importer), 'and a blocked download is skipped');
+});
+
 test('a .zip is unpacked in the browser, so there is one import path', () => {
   assert.ok(/JSZip/.test(scopeJs), 'the .zip is read client-side');
   assert.ok(/zip\.file\('wekan\.json'\)/.test(scopeJs),

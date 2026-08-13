@@ -108,14 +108,46 @@ importState.set('done', '');
 // not two.
 async function readExportFile(file) {
   const name = String(file.name || '').toLowerCase();
-  if (name.endsWith('.zip')) {
-    const JSZip = (await import('jszip')).default;
-    const zip = await JSZip.loadAsync(file);
-    const entry = zip.file('wekan.json') || zip.file(/wekan\.json$/)[0];
-    if (!entry) throw new Error('import-not-wekan-export');
-    return JSON.parse(await entry.async('string'));
+  if (!name.endsWith('.zip')) {
+    // A .json already carries its attachments as base64 under `file`, which is
+    // what the importer reads.
+    return JSON.parse(await file.text());
   }
-  return JSON.parse(await file.text());
+
+  const JSZip = (await import('jszip')).default;
+  const zip = await JSZip.loadAsync(file);
+  const entry = zip.file('wekan.json') || zip.file(/wekan\.json$/)[0];
+  if (!entry) throw new Error('import-not-wekan-export');
+  const doc = JSON.parse(await entry.async('string'));
+
+  // The FILES beside the document. The export writes them as
+  // `attachments/<attachmentId>-<name>`, and the id is what ties a file back to
+  // its metadata row - two attachments called "photo.png" are two entries.
+  //
+  // They go onto the SAME `file` field a .json export uses, so the server has
+  // one import path rather than one per container. That is also the tradeoff to
+  // know about: the archive is unpacked in the browser and sent as base64, so a
+  // .zip full of large attachments costs memory on the way in. It is the shape
+  // the board import has always used, and the reason to reach for a .zip is
+  // still the same - the JSON of a board with many attachments may be too large
+  // for one string, while its archive is not.
+  const byId = new Map(
+    (Array.isArray(doc.attachments) ? doc.attachments : [])
+      .filter(attachment => attachment && attachment._id)
+      .map(attachment => [attachment._id, attachment]),
+  );
+  const files = zip.file(/^attachments\//);
+  for (const archived of files || []) {
+    const base = archived.name.slice('attachments/'.length);
+    const dash = base.indexOf('-');
+    const attachmentId = dash === -1 ? base : base.slice(0, dash);
+    const attachment = byId.get(attachmentId);
+    // A file whose row is not in the document is one the selection left out, or
+    // a hand-made archive: skipping it is better than inventing a row for it.
+    if (!attachment) continue;
+    attachment.file = await archived.async('base64');
+  }
+  return doc;
 }
 
 Template.exportScopeBody.helpers({
@@ -221,4 +253,4 @@ Template.exportScopeBody.events({
   },
 });
 
-export { selectedFields, selection };
+export { selectedFields, selection, readExportFile };

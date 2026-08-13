@@ -2367,5 +2367,6 @@
   "globalSearch-instructions-operator-number": "`__operator_number__:<number>` - cards whose card number is *<number>*",
   "import-board-source": "Import board (Trello, Jira, WeKan export, CSV, Excel, …)",
   "import-source-heading": "Import from:",
-  "import-parts-instruction": "Only the ticked parts are imported. The same choice is used when exporting."
+  "import-parts-instruction": "Only the ticked parts are imported. The same choice is used when exporting.",
+  "import-wekan-file": "Import from a .json or .zip export file:"
 }

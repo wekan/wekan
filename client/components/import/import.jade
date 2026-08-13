@@ -42,6 +42,14 @@ template(name="importTextarea")
     else
       textarea.js-import-json(id='import-textarea' placeholder="{{_ importPlaceHolder}}" autofocus)
         | {{jsonText}}
+    if isWekanImport
+      //- #1173: a WeKan export can be a .json or a .zip - the .zip is the one to
+        use when a board's attachments are too large to sit inside one JSON
+        string. Both land in the same place; the .zip is unpacked in the browser
+        and its files are put back on their metadata rows.
+      p.import-file-row
+        label(for='import-wekan-file') {{_ 'import-wekan-file'}}
+        input.js-import-json-file(id='import-wekan-file' type="file" accept=".json,.zip,application/json,application/zip")
     if isTrelloImport
       p.import-file-row
         label(for='import-json-file') {{_ 'import-trello-json-file'}}

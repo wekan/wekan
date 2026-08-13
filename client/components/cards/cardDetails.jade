@@ -742,25 +742,35 @@ template(name="cardDetails")
             +activities(card=this mode="card")
 
 template(name="editCardTitleForm")
+  //- The X that closes the editor, where the card's own X is when the title is
+    NOT being edited: opening the editor replaces the whole header, so the close
+    button used to vanish and leave Save as the only way out. It reuses
+    `.close-card-details`, so it is the same size in the same place and does not
+    jump as the editor opens and closes - and that class floats to
+    `inline-end`, which is the right in English and the left in Arabic without a
+    second rule.
+  a.close-card-details.js-close-inlined-form(title="{{_ 'close-card'}}")
+    i.fa.fa-times-thin
   a(title="{{_ 'copy-text-to-clipboard'}}")
   span.copied-tooltip {{_ 'copied'}}
   textarea.js-edit-card-title(rows='1' autofocus dir="auto")
     = getTitle
   .edit-controls.clearfix
     button.primary.confirm.js-submit-edit-card-title-form(type="submit") {{_ 'save'}}
-    a.js-close-inlined-form
 
 template(name="editCardRequesterForm")
   input.js-edit-card-requester(type='text' autofocus value=getRequestedBy dir="auto")
   .edit-controls.clearfix
     button.primary.confirm.js-submit-edit-card-requester-form(type="submit") {{_ 'save'}}
     a.js-close-inlined-form
+      i.fa.fa-times-thin
 
 template(name="editCardAssignerForm")
   input.js-edit-card-assigner(type='text' autofocus value=getAssignedBy dir="auto")
   .edit-controls.clearfix
     button.primary.confirm.js-submit-edit-card-assigner-form(type="submit") {{_ 'save'}}
     a.js-close-inlined-form
+      i.fa.fa-times-thin
 
 template(name="editCardSortOrderForm")
   input.js-edit-card-sort(type='text' autofocus value=sort dir="auto")

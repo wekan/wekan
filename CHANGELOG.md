@@ -562,6 +562,33 @@ bookmark and back button lands exactly where it did.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">Imported cards bring their attachments, from a .json and from a .zip</a>. Thanks to xet7.</summary>
+
+The round trip was half a round trip: a card imported from a swimlane, list or
+card menu arrived with its checklists and comments and without its files.
+
+A `.json` export carries each attachment's bytes as base64, and the importer now
+writes them the way the board import always has - the server-side Meteor-Files
+`writeAsync`, one attachment at a time. A `.zip` carries them as the files they
+are, named `attachments/<id>-<name>`; the archive is unpacked in the browser and
+each file is put back on the metadata row its id names, so the server sees the
+same document either way and there is one import path rather than one per
+container.
+
+An attachment lands where its CARD landed - the list and swimlane it is in now,
+not the ones it was exported from - and one unreadable file is warned about and
+skipped rather than losing the rest of the import. A `url` attachment from an
+older export is still fetched through the downloader that validates and pins
+every hop, so [FollowBleed](https://wekan.fi/hall-of-fame/followbleed/) stays
+fixed on this path too.
+
+The **whole-board** import on the new import page takes a `.json` or a `.zip`
+the same way, through the same reader, which is the case the `.zip` exists for:
+a board whose attachments are too large to sit inside one JSON string.
+
+</details>
+
 **Search** - finding a card by what people call it.
 
 <details>
@@ -692,6 +719,28 @@ even fetched.
 </details>
 
 and fixes the following bugs:
+
+**Card details** - the card as it is opened and edited.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">Editing a card title keeps the X that closes it</a>. Thanks to xet7.</summary>
+
+Clicking a card's title opens the title editor in place of the card header - and
+the header is where the card's own close X lives, so the X disappeared the
+moment you started editing and **Save** became the only visible way out. Escape
+still worked; nothing on the screen said so.
+
+The editor draws the X itself now, reusing the header button's own class, so it
+is the same size in the same place and does not jump as the editor opens and
+closes. That class floats to `inline-end`, which is the right in English and the
+left in Arabic, Hebrew and Persian without a second rule - so the mirroring
+needs no direction branch and must not grow one.
+
+The same one-line omission was in the **Requested by** and **Assigned by**
+editors right below it: the close anchor was there, its icon was not, so the
+click target existed and was invisible. They have their X now too.
+
+</details>
 
 **Card export** - what it says, and in whose language, format and time zone.
 

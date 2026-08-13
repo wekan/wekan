@@ -44,9 +44,15 @@ class ScopedImporter {
       : null;
     // Old id -> new id, so a card's checklists and comments find it again.
     this._cardIdMap = {};
+    // Where each new card landed, so an attachment's meta points at the list and
+    // swimlane it is in NOW rather than the ones it was exported from.
+    this._cardListId = {};
+    this._cardSwimlaneId = {};
     this._listIdMap = {};
     this._swimlaneIdMap = {};
-    this._counts = { swimlanes: 0, lists: 0, cards: 0, checklists: 0, comments: 0 };
+    this._counts = {
+      swimlanes: 0, lists: 0, cards: 0, checklists: 0, comments: 0, attachments: 0,
+    };
   }
 
   hasField(key) { return this._fields === null || this._fields.has(key); }
@@ -237,11 +243,75 @@ class ScopedImporter {
 
       const newCardId = await Cards.direct.insertAsync(toCreate);
       this._cardIdMap[card._id] = newCardId;
+      this._cardListId[newCardId] = listId;
+      this._cardSwimlaneId[newCardId] = swimlaneId;
       this._counts.cards += 1;
     }
 
     await this._importChecklists();
     await this._importComments();
+    await this._importAttachments();
+  }
+
+  // The FILES, from the same document. A WeKan export carries each attachment's
+  // bytes as base64 under `file` (or, for an old export, a `url` to fetch), and
+  // a .zip carries them as files beside the document - the client puts those
+  // back on the same `file` field before calling, so there is one path here.
+  //
+  // This is the board importer's own approach (models/wekanCreator.js): the
+  // server-side Meteor-Files `writeAsync`, one attachment at a time, and a
+  // failure on one attachment must never abort the rest of the import - a card
+  // that arrives without one of its files is worth more than no import at all.
+  async _importAttachments() {
+    if (!this.hasField('attachments')) return;
+    const rows = this._rows('attachments');
+    if (!rows.length) return;
+
+    // Default export, like models/wekanCreator.js imports it.
+    const Attachments = require('/models/attachments').default;
+    for (const attachment of rows) {
+      const cardId = this._cardIdMap[attachment.cardId];
+      if (!cardId) continue;
+      try {
+        let buffer = null;
+        if (attachment.file) {
+          buffer = Buffer.from(attachment.file, 'base64');
+        } else if (attachment.url) {
+          // FollowBleed (GHSA-j9p2-jm73-p549): a validated public URL can 302
+          // to an internal address, so the download is validated and pinned at
+          // every hop by the same helper the board import uses.
+          const { fetchImportedAttachment } = require('/models/lib/importAttachmentDownload');
+          const downloaded = await fetchImportedAttachment(attachment.url);
+          if (downloaded.blocked) continue;
+          buffer = downloaded.buffer;
+        }
+        if (!buffer || !buffer.length) continue;
+
+        await Attachments.writeAsync(
+          buffer,
+          {
+            fileName: attachment.name || 'attachment',
+            type: attachment.type || 'application/octet-stream',
+            userId: this._userId,
+            meta: {
+              boardId: this._target.boardId,
+              cardId,
+              // The board and the swimlane the card actually landed in, not the
+              // ones it came from: the file belongs where the card is now.
+              listId: this._cardListId[cardId],
+              swimlaneId: this._cardSwimlaneId[cardId],
+              source: 'import',
+            },
+          },
+          true,
+        );
+        this._counts.attachments += 1;
+      } catch (error) {
+        // One unreadable attachment is not a reason to lose the rest.
+        console.warn('scoped import: could not import attachment',
+          attachment.name, error && error.message);
+      }
+    }
   }
 
   // A custom field is a BOARD's, so an imported card's values only survive when

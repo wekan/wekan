@@ -10,7 +10,11 @@ import { UserSearchIndex } from '/models/users';
 import { Utils } from '/client/lib/utils';
 import { productNameOrDefault } from '/models/lib/productName';
 import { BOARD_EXPORT_FIELDS } from '/models/lib/exportFields';
-import { selection as importSelection, selectedFields } from '/client/components/boards/exportScope';
+import {
+  selection as importSelection,
+  selectedFields,
+  readExportFile,
+} from '/client/components/boards/exportScope';
 import { pruneImportDocument } from '/models/lib/importParts';
 import { TAPi18n } from '/imports/i18n';
 import TrelloImportJobs from '/models/trelloImportJobs';
@@ -237,10 +241,17 @@ Template.import.onCreated(function () {
       // exports are awkward to paste) or from the textarea.
       let input = this.find('.js-import-json').value;
       const jsonFileEl = this.find('.js-import-json-file');
+      let dataObject = null;
       if (jsonFileEl && jsonFileEl.files && jsonFileEl.files[0]) {
-        input = await jsonFileEl.files[0].text();
+        // #1173: a .zip is read the same way the per-menu import reads one -
+        // the document out of `wekan.json`, and every file under `attachments/`
+        // put back on the metadata row it belongs to, so an export that was
+        // taken as a .zip imports with its files rather than without them.
+        // readExportFile handles a .json unchanged.
+        dataObject = await readExportFile(jsonFileEl.files[0]);
+      } else {
+        dataObject = JSON.parse(input);
       }
-      const dataObject = JSON.parse(input);
       // Guard against importing a broken/old WeKan export that has no board
       // content (see wekanExportIsEmpty): warn the user to re-export rather than
       // silently creating an empty board with only a Default swimlane.
@@ -494,6 +505,10 @@ Template.importTextarea.helpers({
   },
   isTrelloImport() {
     return Session.get('importSource') === 'trello';
+  },
+  // #1173: a previous export of this WeKan, as a .json or as a .zip.
+  isWekanImport() {
+    return Session.get('importSource') === 'wekan';
   },
   isExcelImport() {
     return Session.get('importSource') === 'excel';
