@@ -847,6 +847,30 @@ and fixes the following bugs:
 **Card details** - the card as it is opened and edited.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">A section is one full-width row with one rule, and is named once</a>. Thanks to xet7.</summary>
+
+Two things the collapsible sections got wrong the first time, both visible the
+moment a card was opened.
+
+**Short rules everywhere.** `.card-details-items` is a wrapping flex row, and
+the
+rule was drawn INSIDE a section - so it was as wide as that box, which is a stub
+of a line beside a heading rather than a separator across the card. The six
+sections that live in that row are now rows of their own, so the rule in them
+spans the card, and the items that were laid out side by side on purpose -
+Stickers, Location, the four dates, Creator, Assignees - still share rows as
+they
+did.
+
+**Two headings for one section.** The Checklists and Subtasks templates draw
+their own title, and the new section header drew it again, so a card showed each
+of those names twice, one above the other. The templates keep what belongs to
+the LIST - add a checklist, add a subtask - and the section header is the only
+thing that names the section.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/384f03b359a47592e08a16060675e330319ec36c">Every section of an opened card collapses from its own caret, with one rule between sections</a>. Thanks to xet7.</summary>
 
 A card had ONE caret, in its header, which collapsed the whole card - and

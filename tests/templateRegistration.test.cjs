@@ -69,7 +69,11 @@ test('and every +template it includes is defined by one of them', () => {
   // initialised to false in subtasks.js and never set to true by anything. So
   // it is unreachable dead markup around a template that was never written,
   // left here with its reason so whoever picks up subtask deletion sees it.
-  const KNOWN_DANGLING = new Set(['client/components/cards/subtasks.jade:8: +subtaskDeleteDialog']);
+  // The LINE is pinned on purpose - it is what stops this exemption covering a
+  // new dangling include in the same file - so it moves when the file does: it
+  // was line 8 until the template's own <h3> came out, the card's section
+  // header drawing that title now.
+  const KNOWN_DANGLING = new Set(['client/components/cards/subtasks.jade:7: +subtaskDeleteDialog']);
 
   const unresolved = [];
   for (const f of jadeFiles) {

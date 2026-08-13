@@ -1,7 +1,6 @@
 template(name="subtasks")
-  h3.card-details-item-title
-    i.fa.fa-globe
-    | {{_ 'subtasks'}}
+  //- No title here: +cardSectionHeader draws it, with the caret and the rule.
+    Two headings for one section is what a card showed before.
   if currentUser.isBoardAdmin
     if toggleDeleteDialog.get
       .board-overlay#card-details-overlay

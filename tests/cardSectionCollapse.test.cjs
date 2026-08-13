@@ -137,4 +137,46 @@ test('the sections not in the list are left alone (negative)', () => {
   }
 });
 
+test('a section is a full-width row, so its rule spans the card', () => {
+  // `.card-details-items` is a wrapping flex row. A rule inside one of its
+  // items is as wide as that item, which is how eleven sections came to be
+  // separated by SHORT lines beside their headings instead of one line across
+  // the card.
+  for (const item of ['card-details-item-labels', 'card-details-item-date-format',
+    'card-details-item-members', 'card-details-item-dependencies',
+    'card-details-sort-order', 'card-details-item-customfield']) {
+    assert.ok(new RegExp(`${item}\\.card-details-section`).test(jade),
+      `${item} is marked as a full-width section`);
+  }
+  assert.ok(/\.card-details-item\.card-details-section \{[\s\S]{0,120}flex: 0 0 100%/.test(css),
+    'and the class makes it a row of its own');
+  assert.ok(/\.card-details-section-rule \{[\s\S]{0,80}width: 100%/.test(css),
+    'so the rule in it spans the card');
+});
+
+test('the items that are NOT sections still share rows (negative)', () => {
+  // Stickers, Location, the four dates, Creator and Assignees were laid out
+  // side by side on purpose; making everything full width would be a different
+  // change from the one asked for.
+  for (const item of ['card-details-item-stickers', 'card-details-item-location',
+    'card-details-item-received', 'card-details-item-creator']) {
+    assert.ok(!new RegExp(`${item}\\.card-details-section`).test(jade),
+      `${item} is not turned into a full-width row`);
+  }
+});
+
+test('a section is named ONCE (negative)', () => {
+  // Checklists and Subtasks drew their own <h3> as well, so a card showed each
+  // of those two names twice, one above the other.
+  const checklists = read('client/components/cards/checklists.jade');
+  const subtasks = read('client/components/cards/subtasks.jade');
+  assert.ok(!/\| \{\{_ 'checklists'\}\}/.test(checklists),
+    'the checklists template no longer prints its own title');
+  assert.ok(!/\| \{\{_ 'subtasks'\}\}/.test(subtasks),
+    'nor does the subtasks template');
+  // What belongs to the LIST rather than to the section stays with the list.
+  assert.ok(/js-add-checklist/.test(checklists), 'adding a checklist is still there');
+  assert.ok(/js-add-subtask/.test(subtasks), 'and adding a subtask');
+});
+
 console.log(`\ncardSectionCollapse: ${passed} tests passed`);

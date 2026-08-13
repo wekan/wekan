@@ -1,8 +1,9 @@
 template(name="checklists")
+  //- The NAME of this section is drawn by +cardSectionHeader in cardDetails.jade,
+    with the caret that collapses it and the rule above it. What stays here is
+    the control that belongs to the list itself: add a checklist.
   .checklists-title
     h3.card-details-item-title
-      i.fa.fa-check
-      | {{_ 'checklists'}}
       if canModifyCard
         +inlinedForm(autoclose=false classNames="js-add-checklist" cardId = cardId
           position="top")

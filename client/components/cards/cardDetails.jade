@@ -105,7 +105,7 @@ template(name="cardDetails")
 
       .card-details-items
         if currentBoard.allowsLabels
-          .card-details-item.card-details-item-labels
+          .card-details-item.card-details-item-labels.card-details-section
             +cardSectionHeader(section="labels" icon="fa-tags" label="labels")
             if isSectionOpen "labels"
               a(class="{{#if canModifyCard}}js-add-labels{{else}}is-disabled{{/if}}" title="{{_ 'card-labels-title'}}")
@@ -162,7 +162,7 @@ template(name="cardDetails")
         +cardButtons(_id=_id boardId=boardId)
 
         if currentBoard.hasAnyAllowsDate
-          .card-details-item.card-details-item-date-format
+          .card-details-item.card-details-item-date-format.card-details-section
             +cardSectionHeader(section="date-format" icon="fa-calendar" label="date-format")
             if isSectionOpen "date-format"
               .card-details-item-content
@@ -240,7 +240,7 @@ template(name="cardDetails")
 
         //.card-details-items
         if currentBoard.allowsMembers
-          .card-details-item.card-details-item-members
+          .card-details-item.card-details-item-members.card-details-section
             +cardSectionHeader(section="members" icon="fa-users" label="members")
             if isSectionOpen "members"
               each userId in getMembers
@@ -309,7 +309,7 @@ template(name="cardDetails")
               +viewer
                 = getAssignedBy
 
-        .card-details-item.card-details-item-dependencies
+        .card-details-item.card-details-item-dependencies.card-details-section
           +cardSectionHeader(section="dependencies" icon="fa-link" label="card-dependencies")
           if isSectionOpen "dependencies"
             .card-details-dependencies-list
@@ -339,7 +339,7 @@ template(name="cardDetails")
                 | {{_ 'add-dependency'}}
 
         if currentBoard.allowsCardSortingByNumber
-          .card-details-item.card-details-sort-order
+          .card-details-item.card-details-sort-order.card-details-section
             +cardSectionHeader(section="sort" icon="fa-sort" label="sort")
             if isSectionOpen "sort"
               if canModifyCard
@@ -378,7 +378,7 @@ template(name="cardDetails")
           +cardSectionHeader(section="custom-fields" icon="fa-list-alt" label="custom-fields")
           if isSectionOpen "custom-fields"
             each customFieldsWD
-              .card-details-item.card-details-item-customfield
+              .card-details-item.card-details-item-customfield.card-details-section
                 +cardCustomField
 
           if $gt customFieldsWD.length 1
