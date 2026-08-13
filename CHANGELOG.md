@@ -468,7 +468,7 @@ Not everything in that report can be fixed here, and it is worth saying which:
 and adds the following new features:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">Import into a swimlane, a list or a card, beside the one whose menu was used</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/d11f5ffdb768f5ebcb6bc447c385d77147e0c59a">Import into a swimlane, a list or a card, beside the one whose menu was used</a>. Thanks to xet7.</summary>
 
 The other direction of the same popup. Importing used to mean one thing: a whole
 new board, from the full-width page at All Boards. A swimlane's menu now imports
