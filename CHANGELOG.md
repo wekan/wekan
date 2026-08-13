@@ -847,7 +847,7 @@ and fixes the following bugs:
 **Card details** - the card as it is opened and edited.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">A section is one full-width row with one rule, and is named once</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c4d1801022c1c2ce021c2bb759208b820d128c9d">A section is one full-width row with one rule, and is named once</a>. Thanks to xet7.</summary>
 
 Two things the collapsible sections got wrong the first time, both visible the
 moment a card was opened.
