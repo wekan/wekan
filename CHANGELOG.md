@@ -359,7 +359,7 @@ This release fixes the following bugs:
 **Boards** - what shows on them, and what quietly does not.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/30f13b9a0">Cards archived years ago no longer reappear in the top swimlane</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8ec78bb14">Cards archived years ago no longer reappear in the top swimlane</a>. Thanks to xet7.</summary>
 
 Reported by email: *"Previously archived cards (some several years old) have
 reappeared. These cards have incorrectly been placed in the top swimlane."*
@@ -384,7 +384,7 @@ reason, and a board whose every swimlane is archived is left exactly as it is.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/30f13b9a0">The watch popup works for everyone who can open the board, and says so when it refuses</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8ec78bb14">The watch popup works for everyone who can open the board, and says so when it refuses</a>. Thanks to xet7.</summary>
 
 Reported by email, with a screenshot of the *Ändra bevaka* popup: *"Silent does
 not respond. If we try to change it does not change. Nothing happens."*
@@ -418,7 +418,7 @@ never translated, exists as a string.
 **Cards and attachments** - what a card holds, and getting it back out.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/db231f103">An unknown file type is no longer renamed to .bin, and a stuck attachment can be repaired</a>. Thanks to rmb82 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a712db947">An unknown file type is no longer renamed to .bin, and a stuck attachment can be repaired</a>. Thanks to rmb82 and xet7.</summary>
 
 [#6589](https://github.com/wekan/wekan/issues/6589): a `.drawio` upload was
 stored and displayed as `.bin`, could not be opened, and could not be renamed
@@ -448,7 +448,7 @@ is no file, the error names the attachment instead of a path nobody recognises.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f901fcb60">A card containing an onenote: link no longer stops a whole board from rendering</a>. Thanks to titver968 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1f83020b4">A card containing an onenote: link no longer stops a whole board from rendering</a>. Thanks to titver968 and xet7.</summary>
 
 [#6590](https://github.com/wekan/wekan/issues/6590): *"A board gets stuck
 indefinitely on the loading animation (three dots) for all users"*, traced to
@@ -467,7 +467,7 @@ rather than being swallowed into a link.
 **Exporting a board** - the format that answered nothing.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/db231f103">The Excel export produces a file again, and a failure answers instead of hanging</a>. Thanks to titver968 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a712db947">The Excel export produces a file again, and a failure answers instead of hanging</a>. Thanks to titver968 and xet7.</summary>
 
 [#6591](https://github.com/wekan/wekan/issues/6591): *"Board Settings -> Export
 board -> export/Excel didn't work"*. Reproduced against a running WeKan — CSV
@@ -502,7 +502,7 @@ now, and a failure answers 500 with the reason.
 **The snap** - when it cannot read the database it is asked to migrate.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f901fcb60">Each reader says why it refused the data, and the page says where to get an old MongoDB</a>. Thanks to mueschel and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1f83020b4">Each reader says why it refused the data, and the page says where to get an old MongoDB</a>. Thanks to mueschel and xet7.</summary>
 
 From [#6585](https://github.com/wekan/wekan/issues/6585), a log that says
 everything except the useful part:
@@ -536,7 +536,7 @@ out `mongod --dbpath` / `mongodump` on a copy, never the original.
 and fixes the following release-tooling bugs:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e714a2a49">A snap that reached the Snap Store also reaches the GitHub Release</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/d38ca4680">A snap that reached the Snap Store also reaches the GitHub Release</a>. Thanks to xet7.</summary>
 
 The v10.89 run published the armhf, ppc64el and s390x snaps and then failed on
 the next line:
@@ -559,7 +559,7 @@ bare one fails the guard.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/950a4a9b7">A Launchpad build that outlives its job says so, instead of just CANCELLED</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a70e69767">A Launchpad build that outlives its job says so, instead of just CANCELLED</a>. Thanks to xet7.</summary>
 
 v10.89's riscv64 leg ran five hours and fifty minutes — its cap — with Launchpad
 still printing `Building: riscv64`, and the run showed **CANCELLED** and nothing
