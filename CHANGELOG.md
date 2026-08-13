@@ -467,6 +467,44 @@ Not everything in that report can be fixed here, and it is worth saying which:
 
 and adds the following new features:
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">Import into a swimlane, a list or a card, beside the one whose menu was used</a>. Thanks to xet7.</summary>
+
+The other direction of the same popup. Importing used to mean one thing: a whole
+new board, from the full-width page at All Boards. A swimlane's menu now imports
+a swimlane BELOW that swimlane, a list's menu imports a list after it - which is
+to its RIGHT in English and to its LEFT in Arabic - and a card's menu imports a
+card below it, into the board that is already open.
+
+The RTL side of that is ONE rule and not two, which is worth saying because it
+looks like a missing branch: the page carries `dir`, so the board's row of lists
+mirrors itself and "after in sort order" is already "the other side". A
+direction
+branch in the placement would mirror it twice and put the list back where it
+started.
+
+Placement is a FRACTION between the target's sort and the next one's, not a
+renumbering of every sibling - renumbering is what a board with ten thousand
+cards cannot afford, and what two clients doing it at once get wrong. Several
+imported items spread evenly through that gap, so importing a swimlane of ten
+lists does not put nine of them in the same position.
+
+The file is what the export writes, at any scope, and the SAME checkboxes decide
+what comes in: a document full of comments imported with **Comments** unticked
+brings the cards and leaves the comments. A `.zip` is unpacked in the browser
+and
+its `wekan.json` handed to the same method, so there is one import path rather
+than two. Nothing is merged - everything created is new, because an import that
+half-updated a board would be an edit nobody could undo - and a custom field is
+matched by NAME, since an id from another board matches nothing here.
+
+Importing WRITES, so unlike the exports beside it, it asks whether you may
+change
+the board rather than whether you may see it, and a read-only member is not
+offered it at all.
+
+</details>
+
 **Board, swimlane and list export** - printing a board, and what goes in it.
 
 <details>

@@ -1,7 +1,9 @@
 import { ReactiveDict } from 'meteor/reactive-dict';
 import { Template } from 'meteor/templating';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
+import { ReactiveCache } from '/imports/reactiveCache';
 import { Accounts } from 'meteor/accounts-base';
 import { BOARD_EXPORT_FIELDS } from '/models/lib/exportFields';
 import { exportLocaleParams } from '/client/lib/exportLocale';
@@ -92,7 +94,41 @@ function exportFilename(extension) {
   return `${name}.${extension}`;
 }
 
+// The import half's state. Module-level like the selection, because the popup is
+// destroyed and recreated as it is reopened and a half-finished import should
+// still be able to say how it went.
+const importState = new ReactiveDict();
+importState.set('busy', false);
+importState.set('error', '');
+importState.set('done', '');
+
+// A WeKan export is either the document itself or a .zip with the document
+// inside it. Reading the .zip in the BROWSER is what keeps the server out of it:
+// the method takes the same object either way, so there is one import path and
+// not two.
+async function readExportFile(file) {
+  const name = String(file.name || '').toLowerCase();
+  if (name.endsWith('.zip')) {
+    const JSZip = (await import('jszip')).default;
+    const zip = await JSZip.loadAsync(file);
+    const entry = zip.file('wekan.json') || zip.file(/wekan\.json$/)[0];
+    if (!entry) throw new Error('import-not-wekan-export');
+    return JSON.parse(await entry.async('string'));
+  }
+  return JSON.parse(await file.text());
+}
+
 Template.exportScopeBody.helpers({
+  // Import writes to the board, so unlike export it is offered only to somebody
+  // who may change it.
+  canImport() {
+    const user = ReactiveCache.getCurrentUser();
+    return Boolean(user && !user.isWorker && !user.isCommentOnly
+      && !user.isReadOnly && !user.isReadAssignedOnly);
+  },
+  importBusy() { return importState.get('busy'); },
+  importError() { return importState.get('error'); },
+  importDone() { return importState.get('done'); },
   exportFields() {
     return BOARD_EXPORT_FIELDS.map(({ field, label }) => ({
       field,
@@ -135,6 +171,44 @@ Template.exportScopeBody.helpers({
 });
 
 Template.exportScopeBody.events({
+  async 'change .js-import-file'(event) {
+    const file = event.currentTarget.files && event.currentTarget.files[0];
+    if (!file) return;
+    const data = Template.currentData() || {};
+    const target = {
+      boardId: Session.get('currentBoard'),
+      ...currentScope(),
+    };
+    // A card's menu imports below THAT card, so the target is the card the popup
+    // was opened on - the same id the export side uses as its scope.
+    if (data.cardId) target.cardId = data.cardId;
+
+    importState.set('error', '');
+    importState.set('done', '');
+    importState.set('busy', true);
+    try {
+      const doc = await readExportFile(file);
+      const counts = await new Promise((resolve, reject) => {
+        Meteor.call('importScoped', target, doc, selectedFields(), (err, res) =>
+          (err ? reject(err) : resolve(res)));
+      });
+      importState.set('done', Object.entries(counts || {})
+        .filter(([, n]) => n > 0)
+        .map(([what, n]) => `${n} ${what}`)
+        .join(', ') || '0');
+    } catch (error) {
+      const message = error && error.message === 'import-not-wekan-export'
+        ? 'import-not-wekan-export'
+        : 'import-scoped-failed';
+      importState.set('error', message);
+      // The reason, for somebody reading the console - the popup has room for a
+      // sentence, not for a stack.
+      console.error('scoped import failed', error);
+    } finally {
+      importState.set('busy', false);
+      event.currentTarget.value = '';
+    }
+  },
   'click .js-export-field-toggle'(event) {
     // The popup stays open: choosing five sections should not be five reopens.
     event.preventDefault();

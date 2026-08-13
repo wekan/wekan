@@ -35,6 +35,24 @@ template(name="exportScopeBody")
       a(href="{{exportUrlZip}}", download="{{exportFilenameZip}}")
         i.fa.fa-file-archive-o
         | {{_ 'export'}} / .zip ({{_ 'attachments'}})
+  //- #1173: the same popup, the other direction. The checkboxes above say what
+    goes OUT of an export and what comes IN from an import - one selection, so
+    "no comments" means the same thing whichever way the file is moving.
+  if canImport
+    hr
+    p.quiet {{_ 'import-here-instruction'}}
+    ul.pop-over-list
+      li
+        label.js-import-file-label
+          i.fa.fa-download
+          | {{_ 'import'}} / JSON, .zip
+          input.js-import-file(type="file" accept=".json,application/json,.zip,application/zip" hidden)
+    if importBusy
+      p.quiet {{_ 'importing'}}
+    if importError
+      .warning {{_ importError}}
+    if importDone
+      p.quiet {{_ 'import-done'}} {{importDone}}
 
 template(name="exportSwimlanePopup")
   +exportScopeBody(swimlaneId=_id title=title)

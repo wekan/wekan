@@ -142,9 +142,9 @@ template(name="listActionPopup")
     the link above it, so it is not behind the edit permissions below.
   ul.pop-over-list
     li: a.js-export-list
-      i.fa.fa-upload
+      i.fa.fa-exchange
       span
-        | {{_ 'export-list'}}
+        | {{_ 'export-list'}} / {{_ 'import'}}
   hr
   unless currentUser.isReadOnly
     unless currentUser.isReadAssignedOnly

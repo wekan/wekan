@@ -72,9 +72,9 @@ template(name="swimlaneActionPopup")
       the board and is not guarded by them.
     ul.pop-over-list
       li: a.js-export-swimlane
-        i.fa.fa-upload
+        i.fa.fa-exchange
         span
-          | {{_ 'export-swimlane'}}
+          | {{_ 'export-swimlane'}} / {{_ 'import'}}
     hr
     unless currentUser.isCommentOnly
       unless currentUser.isReadOnly

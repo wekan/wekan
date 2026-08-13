@@ -2357,5 +2357,10 @@
   "export-list": "Export list",
   "export-select-what-to-include": "Select what to include:",
   "export-card-details": "Card details (each card as in card export)",
-  "card-number": "Card number"
+  "card-number": "Card number",
+  "importing": "Importing...",
+  "import-done": "Imported:",
+  "import-here-instruction": "Import a WeKan export (.json or .zip) here:",
+  "import-scoped-failed": "Import failed",
+  "import-not-wekan-export": "That file is not a WeKan export"
 }
