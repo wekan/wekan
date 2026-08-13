@@ -20,6 +20,10 @@ export const OPERATOR_TEAM = 'team';
 export const OPERATOR_UNKNOWN = 'unknown';
 export const OPERATOR_USER = 'user';
 export const OPERATOR_TITLE = 'title';
+// #5006 "feature request: Search for card number/#": the number a board shows on
+// a card and refers to it by. `cardNumber` is the field, so the operator is
+// named for what it searches, like every other one here.
+export const OPERATOR_NUMBER = 'cardNumber';
 export const OPERATOR_DESCRIPTION = 'description';
 export const OPERATOR_CUSTOMFIELD = 'customfield';
 export const OPERATOR_ATTACHMENT_TEXT = 'attachment-text';

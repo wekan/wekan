@@ -505,6 +505,34 @@ offered it at all.
 
 </details>
 
+**Search** - finding a card by what people call it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">Cards can be searched by their card number</a>. Thanks to mfilser and xet7.</summary>
+
+[#5006](https://github.com/wekan/wekan/issues/5006), open since 2023: "A
+customer has just hinted us that we are not able to search cards by its number
+(#)". A card carries a number, the board shows it, people quote it to each other
+in meetings and in tickets - and the one thing that could not be done with it
+was
+find the card again.
+
+`number:12` now does, in the global search and everywhere else that parses the
+same query. It is an EQUALITY match on a number rather than a regular expression
+on text, which is the whole difference between finding card 12 and finding cards
+12, 120 and 312. `number:abc` is refused with the same "expected a number" error
+`limit:` already gives, because a string never equals a numeric field and a
+search that quietly finds nothing teaches nobody anything.
+
+The issue's title says "number/#", and `#12` is deliberately NOT this: `#` is
+already the abbreviation for a LABEL search, and reinterpreting it when the text
+after it happens to be digits would break searching for a label called *2024* -
+which is a real label name - and would make what a query means depend on the
+data rather than on what was typed. The operator is the part that can be added
+without taking something else away.
+
+</details>
+
 **Board, swimlane and list export** - printing a board, and what goes in it.
 
 <details>

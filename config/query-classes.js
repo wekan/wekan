@@ -39,6 +39,7 @@ import {
   OPERATOR_SWIMLANE,
   OPERATOR_TEAM,
   OPERATOR_TITLE,
+  OPERATOR_NUMBER,
   OPERATOR_DESCRIPTION,
   OPERATOR_CUSTOMFIELD,
   OPERATOR_ATTACHMENT_TEXT,
@@ -345,6 +346,7 @@ export class Query {
       'operator-org': OPERATOR_ORG,
       'operator-team': OPERATOR_TEAM,
       'operator-title': OPERATOR_TITLE,
+      'operator-number': OPERATOR_NUMBER,
       'operator-description': OPERATOR_DESCRIPTION,
       'operator-customfield': OPERATOR_CUSTOMFIELD,
       'operator-attachment-text': OPERATOR_ATTACHMENT_TEXT,
@@ -564,6 +566,19 @@ export class Query {
                 exists: !negated,
               };
             }
+          } else if (operator === OPERATOR_NUMBER) {
+            // #5006: a card number is a NUMBER. `number:abc` is a typo, and
+            // saying so is better than a search that silently finds nothing
+            // because a string never equals a numeric field.
+            const cardNumber = parseInt(value, 10);
+            if (isNaN(cardNumber)) {
+              this.addError(OPERATOR_NUMBER, {
+                tag: 'operator-number-expected',
+                value: { operator: op, value },
+              });
+              continue;
+            }
+            value = cardNumber;
           } else if (operator === OPERATOR_LIMIT) {
             const limit = parseInt(value, 10);
             if (isNaN(limit) || limit < 0) {

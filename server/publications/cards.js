@@ -53,6 +53,7 @@ import {
   OPERATOR_SWIMLANE, OPERATOR_TEAM,
   OPERATOR_USER,
   OPERATOR_TITLE,
+  OPERATOR_NUMBER,
   OPERATOR_DESCRIPTION,
   OPERATOR_CUSTOMFIELD,
   OPERATOR_ATTACHMENT_TEXT,
@@ -825,6 +826,17 @@ async function buildSelector(queryParams, userId) {
         cardsSelector.push({ customFields: { $elemMatch: { value: queryParams.text === "true" } } } );
       }
       selector.$and.push({ $or: cardsSelector });
+    }
+
+    // #5006: the number the board refers to a card by. An equality match on a
+    // number, not a regex on a string: "number:12" is card 12, never card 120.
+    if (queryParams.hasOperator(OPERATOR_NUMBER)) {
+      const numbers = queryParams.getPredicates(OPERATOR_NUMBER)
+        .map(value => parseInt(value, 10))
+        .filter(value => !isNaN(value));
+      if (numbers.length) {
+        selector.$and.push({ $or: numbers.map(cardNumber => ({ cardNumber })) });
+      }
     }
 
     if (queryParams.hasOperator(OPERATOR_TITLE)) {
