@@ -664,7 +664,7 @@ screen.
 **Board, swimlane and list export** - printing a board, and what goes in it.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">The export selection reaches every format, and the menu opens wide enough to read at once</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/bb6f18c469810c787ce1ac6b2872cc39b5dc1ae5">The export selection reaches every format, and the menu opens wide enough to read at once</a>. Thanks to xet7.</summary>
 
 Two halves of the same menu.
 
