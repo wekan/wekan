@@ -153,6 +153,21 @@ apps:
     database-list-backups:
         command: ./bin/database-list-backups
 
+    # #6583/#6585: when a migration re-ran or was interrupted, a snap can end up
+    # with two copies of its data and be serving the older one - "we just see the
+    # old data from a migration we did in july 2026". These two answer the only
+    # questions that follow: what does each copy hold, and bring the other one's
+    # missing documents into the one being served. Both read the databases
+    # themselves rather than their file timestamps; compare changes nothing, and
+    # merge only ever INSERTS what is absent.
+    database-compare:
+        command: ./bin/database-compare
+        plugs: [network, network-bind]
+
+    database-merge:
+        command: ./bin/database-merge
+        plugs: [network, network-bind]
+
     database-restore:
         command: ./bin/mongodb-restore
         plugs: [network, network-bind]

@@ -356,6 +356,48 @@ from the provenance each build job records.
 
 This release fixes the following bugs:
 
+**Recovering a snap that has two copies of its data**
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASHRECOVER">Two commands for a snap that is serving the older of its two copies</a>. Thanks to waltermhl, lukechao and xet7.</summary>
+
+From [#6583](https://github.com/wekan/wekan/issues/6583): *"The migration and
+the update to 10.83 startet at 11.08.2026 at 6:35 pm and migration failed. Now
+we just see the old data from a migration we did in july 2026. … Which steps
+exactly could we do, to restore the database with our most recent data?"*
+
+Everything needed to answer that already existed — `db-eval evidence`,
+`database-choose.mjs`, `database-merge-missing.mjs`, `database-autopick` — and
+none of it was a command anybody could run. `snap run wekan.problems` answered
+*"No problems detected"*, which is true of the things it checks and no help at
+all here.
+
+```
+sudo snap run wekan.database-compare    # what does each copy hold?
+sudo snap run wekan.database-merge      # bring the missing documents across
+```
+
+**compare** starts each database on a temporary port, counts its documents and
+finds the newest moment its data carries, and prints both sides — the running
+WeKan is not disturbed, and nothing is written. A file timestamp cannot answer
+this question: starting a database moves its files, and a file written a minute
+ago may hold nothing anybody typed.
+
+**merge** inserts the documents that exist in the MongoDB copy and not in the
+FerretDB one. It overwrites nothing, deletes nothing, and reads the MongoDB
+files only — so it is safe to run without first knowing which copy is "right".
+That is WeKan's own design doing the work: the history is append-only, so
+merging can only ADD to what a card shows, and the work that was stranded
+becomes readable in that card's History. What it does not do is reconcile two
+edits of the same card; the served copy's version stands, and the other stays
+where it is. It asks for a copy of `$SNAP_COMMON` first, with the command, and
+takes `--dry-run`.
+
+The removed `snap run wekan.database` switch is gone from the core26 snapcraft
+file as well, where it had been left behind.
+
+</details>
+
 **Boards** - what shows on them, and what quietly does not.
 
 <details>

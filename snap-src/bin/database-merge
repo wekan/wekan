@@ -1,0 +1,81 @@
+#!/bin/bash
+# database-merge — bring what the OTHER copy has into the one WeKan serves.
+#
+#     snap run wekan.database-merge            # do it
+#     snap run wekan.database-merge --dry-run  # say what it would do
+#
+# WHAT IT DOES, and the whole of it: for every document that exists in the
+# MongoDB copy and NOT in the FerretDB one, insert it. Nothing is overwritten,
+# nothing is deleted, and the MongoDB files are only read.
+#
+#     "we just see the old data from a migration we did in july 2026 ... Which
+#      steps exactly could we do, to restore the database with our most recent
+#      data" - #6583, comment 5280504937
+#
+# That is what this is for. A migration that re-ran, or one that was interrupted,
+# can leave a snap serving a FerretDB copy older than the MongoDB it was made
+# from - and the newer work is sitting in the other file, unread. WeKan's history
+# is APPEND-ONLY (docs/Features/Reports/History/History.md): activities, comments
+# and the change-history rows are never rewritten in place, so adding the other
+# copy's rows can only ADD to what a card shows. That is why this is safe to run
+# without knowing which copy is "right".
+#
+# WHAT IT CANNOT DO: reconcile two edits of the SAME card. The served copy's
+# version stands, and the other side's edit stays where it is - in the database
+# that is still on disk, and in the merged history rows that describe it.
+# Merging field by field is a decision about somebody's work, not a script's.
+#
+# BEFORE YOU RUN IT, take a copy. It is one command and it makes this reversible:
+#     sudo snap stop wekan
+#     sudo cp -a /var/snap/wekan/common /root/wekan-common-backup-$(date +%F)
+#     sudo snap start wekan
+set -u
+
+SNAP="${SNAP:-/snap/${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}/current}"
+SNAP_COMMON="${SNAP_COMMON:-/var/snap/${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}/common}"
+svc="${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}"
+
+DRY_RUN=false
+[ "${1:-}" = "--dry-run" ] && DRY_RUN=true
+
+if [ ! -f "$SNAP/bin/database-autopick" ]; then
+  echo "This snap revision cannot merge (no bin/database-autopick). Refresh to a newer WeKan."
+  exit 1
+fi
+
+echo "WeKan — merge the other copy of your data into the one being served"
+echo "==================================================================="
+echo
+if [ "$DRY_RUN" = true ]; then
+  echo "--dry-run: nothing will be written."
+else
+  echo "This ADDS documents that are missing. It overwrites nothing and deletes"
+  echo "nothing, and both databases stay on disk in $SNAP_COMMON."
+  echo
+  echo "If you have not taken a copy yet, stop and take one first:"
+  echo "  sudo snap stop ${svc} && sudo cp -a $SNAP_COMMON /root/wekan-common-backup-\$(date +%F) && sudo snap start ${svc}"
+fi
+echo
+
+# --to-ferretdb: the destination is FerretDB, which is what WeKan runs on. The
+# evidence is still read and printed - it says how far apart the two copies are -
+# but it does not get to choose MongoDB, because there is nothing to choose:
+# MongoDB is the copy being migrated away from.
+args=(--to-ferretdb)
+[ "$DRY_RUN" = true ] && args+=(--dry-run)
+bash "$SNAP/bin/database-autopick" "${args[@]}"
+rc=$?
+
+echo
+if [ "$rc" -eq 0 ] && [ "$DRY_RUN" != true ]; then
+  echo "Done. Restart WeKan so it reads the merged database:"
+  echo "  sudo snap restart ${svc}.wekan"
+  echo
+  echo "Then look at a board that was missing work. The documents that came from"
+  echo "the other copy are in their cards' History as well, because that is how"
+  echo "WeKan records them."
+else
+  echo "Nothing was merged (the lines above say why). Both databases are untouched."
+  echo "To see what each one holds:  sudo snap run ${svc}.database-compare"
+fi
+exit "$rc"

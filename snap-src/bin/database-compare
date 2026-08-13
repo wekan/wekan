@@ -1,0 +1,74 @@
+#!/bin/bash
+# database-compare — what is in each copy of this snap's data, side by side.
+#
+#     snap run wekan.database-compare
+#
+# WHY THIS EXISTS. #6583 and #6585 are the same accident from opposite ends: a
+# snap serving a copy of its own data instead of the data. A migration that
+# re-ran imported an old MongoDB over a FerretDB that had been in use for weeks;
+# an interrupted one left two databases where one was weeks behind. The reports
+# read the same way -
+#
+#   "we just see the old data from a migration we did in july 2026"
+#   (#6583, comment 5280504937)
+#
+# - and the first question is always the same: WHICH copy holds our work? A
+# timestamp cannot answer it. Starting a database moves its files, and a file
+# that was written a minute ago may hold nothing anybody typed. So this asks the
+# DATABASES: it starts each one on a temporary port, counts documents per
+# collection and finds the newest moment the data itself carries, and prints
+# both sides next to each other.
+#
+# It CHANGES NOTHING. No setting is written, no document is copied, nothing is
+# deleted. `snap run wekan.database-merge` is the one that acts, and it says at
+# the end what it would do.
+set -u
+
+SNAP="${SNAP:-/snap/${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}/current}"
+SNAP_COMMON="${SNAP_COMMON:-/var/snap/${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}/common}"
+svc="${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}"
+
+echo "WeKan — what each copy of your data holds"
+echo "========================================="
+echo
+echo "Reading both databases. Nothing is changed: each is started on a temporary"
+echo "port, counted, and stopped again - the running WeKan is not disturbed."
+echo
+
+# database-autopick already does exactly this reading, and --dry-run makes it
+# report without applying anything. Running it here keeps ONE implementation of
+# "read both databases and compare them" rather than a second that can drift.
+if [ ! -f "$SNAP/bin/database-autopick" ]; then
+  echo "This snap revision has no bin/database-autopick, so there is nothing to compare with."
+  echo "Refresh to a newer WeKan and run this again."
+  exit 1
+fi
+
+bash "$SNAP/bin/database-autopick" --dry-run
+rc=$?
+
+echo
+echo "Where the two copies live"
+echo "-------------------------"
+echo "  MongoDB (the database migrations read FROM): $SNAP_COMMON"
+ls -la "$SNAP_COMMON"/WiredTiger "$SNAP_COMMON"/collection-*.wt 2>/dev/null | head -3 || echo "    (no MongoDB files)"
+echo "  FerretDB (what WeKan runs on):                $SNAP_COMMON/files/db"
+ls -la "$SNAP_COMMON/files/db"/*.sqlite 2>/dev/null || echo "    (no FerretDB database)"
+echo
+echo "Neither is deleted by anything WeKan does, so both are still here to be"
+echo "read, copied or backed up:"
+echo "  sudo snap stop ${svc}"
+echo "  sudo cp -a $SNAP_COMMON /root/wekan-common-backup-\$(date +%F)"
+echo "  sudo snap start ${svc}"
+echo
+if [ "$rc" -eq 0 ]; then
+  echo "A choice IS available from what the databases hold. To bring the documents"
+  echo "that exist only in the other copy into the one WeKan serves - inserting what"
+  echo "is missing, overwriting nothing:"
+else
+  echo "No automatic choice: the two cannot be told apart from their contents, or"
+  echo "one of them could not be read (the lines above say which). You can still"
+  echo "merge, and it will only ever ADD documents that are missing:"
+fi
+echo "  sudo snap run ${svc}.database-merge"
+exit 0
