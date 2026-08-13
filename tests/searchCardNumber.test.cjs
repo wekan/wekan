@@ -14,12 +14,17 @@
 // number" error `limit:` uses, because a string never equals a numeric field and
 // a search that silently finds nothing teaches nobody anything.
 //
-// `#12` is NOT this. `#` is already the abbreviation for a LABEL search
-// (globalSearch-instructions-operator-hash), and quietly reinterpreting it when
-// the text after it happens to be digits would break searching for a label
-// called "2024" - a real label name - and would depend on data rather than on
-// what was typed. The issue's title says "number/#"; the operator is the part
-// that can be added without taking something else away.
+// `#12` and a bare `12` search for BOTH: a label called 12, and the card whose
+// number is 12. The issue's title says "number/#", and a board calls a card
+// "#12" while a label can be called anything - so which of the two a person
+// means cannot be read off the text. Answering with both is the only reading
+// that never hides what they were looking for.
+//
+// The property that makes that safe, and what these tests are really about, is
+// that the two are joined with OR. A search that used to find a label called
+// "2024" still finds it; the card numbered 2024 is added to the answer, not
+// substituted for it. An AND here would find nothing at all in almost every
+// case, and would look like the feature working.
 
 const assert = require('assert');
 const fs = require('fs');
@@ -80,14 +85,45 @@ test('the search help documents it, in the users\' own words', () => {
     'so a translated WeKan shows its own word for it');
 });
 
-test('# still means a label, and is not quietly reinterpreted (negative)', () => {
-  // This is the guard against the tempting version of this feature.
+test('#12 searches label AND card number, joined with OR', () => {
+  const block = cards.slice(cards.indexOf('hasOperator(OPERATOR_LABEL)'),
+    cards.indexOf('hasOperator(OPERATOR_HAS)'));
+  assert.ok(/\$or: \[labelClause, numberClause\]/.test(block),
+    'both, as alternatives - an AND would find nothing in almost every case');
+  assert.ok(/\/\^\[0-9\]\+\$\/\.test/.test(block),
+    'and only a numeric term gets the card-number half');
+});
+
+test('a bare 12 finds card 12 as well as the text "12"', () => {
+  const block = cards.slice(cards.indexOf('if (queryParams.text)'));
+  assert.ok(/cardsSelector\.push\(\{ cardNumber: asNumber \}\)/.test(block),
+    'the card number joins the same $or the title and description are in');
+  assert.ok(block.indexOf('cardsSelector.push({ cardNumber: asNumber })')
+    < block.indexOf('selector.$and.push({ $or: cardsSelector })'),
+    'and it is added before that $or is used, not after');
+});
+
+test('#red still means the label red, and nothing else changed (negative)', () => {
+  // The union is for NUMBERS. A word is a label, exactly as before.
+  const block = cards.slice(cards.indexOf('hasOperator(OPERATOR_LABEL)'),
+    cards.indexOf('hasOperator(OPERATOR_HAS)'));
+  assert.ok(/selector\.labelIds = labelClause\.labelIds/.test(block),
+    'a label-only search takes the path it always took');
   assert.ok(en['globalSearch-instructions-operator-hash'],
-    '# is the documented label abbreviation');
-  assert.ok(!/cardNumber/.test(en['globalSearch-instructions-operator-hash']),
-    'and it still says label, not card number');
-  const hashHandling = queryClasses.match(/'operator-label-abbrev': OPERATOR_LABEL/);
-  assert.ok(hashHandling, 'the abbreviation is still mapped to labels');
+    '# is still the documented label abbreviation');
+  assert.ok(/'operator-label-abbrev': OPERATOR_LABEL/.test(queryClasses),
+    'and is still mapped to labels');
+});
+
+test('#12 with no such label is not reported as a missing label', () => {
+  // The card-number half is a real answer, so "label not found" beside the card
+  // it did find would contradict the results on the screen.
+  const block = cards.slice(cards.indexOf('hasOperator(OPERATOR_LABEL)'),
+    cards.indexOf('hasOperator(OPERATOR_HAS)'));
+  assert.ok(/\} else if \(!\/\^\[0-9\]\+\$\/\.test\(String\(label\)\.trim\(\)\)\) \{/.test(block),
+    'a numeric label term skips the not-found error');
+  assert.ok(/errors\.addNotFound\(OPERATOR_LABEL, label\)/.test(block),
+    'while a word that matches no label still reports one');
 });
 
 console.log(`\nsearchCardNumber: ${passed} tests passed`);

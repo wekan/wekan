@@ -729,13 +729,40 @@ async function buildSelector(queryParams, userId) {
                   queryLabels.push(boardLabel._id);
                 });
             });
-          } else {
+          } else if (!/^[0-9]+$/.test(String(label).trim())) {
+            // #5006: `#12` with no label called 12 is not a mistake - it is a
+            // card-number search, answered below. Reporting "label not found"
+            // beside the card it did find is a message that contradicts the
+            // results on the screen.
             errors.addNotFound(OPERATOR_LABEL, label);
           }
         }
       }
-      if (queryLabels.length) {
-        selector.labelIds = { $in: [...new Set(queryLabels)] };
+      // #5006: `#12` searches for BOTH - a label called 12 and the card whose
+      // number is 12. A board calls a card "#12" and a label can be called
+      // anything, so which of the two a person means cannot be known from the
+      // text; answering with both is the only reading that never hides what
+      // they were looking for. It is an OR, so every card the label search
+      // returned before is still returned.
+      const numericLabels = [...new Set(queryParams.getPredicates(OPERATOR_LABEL)
+        .map(label => String(label).trim())
+        .filter(label => /^[0-9]+$/.test(label))
+        .map(label => parseInt(label, 10))
+        .filter(value => !isNaN(value)))];
+      const labelClause = queryLabels.length
+        ? { labelIds: { $in: [...new Set(queryLabels)] } }
+        : null;
+      const numberClause = numericLabels.length
+        ? { cardNumber: { $in: numericLabels } }
+        : null;
+
+      if (labelClause && numberClause) {
+        selector.$and.push({ $or: [labelClause, numberClause] });
+      } else if (labelClause) {
+        // Unchanged from before, for the ordinary `#red` / `label:urgent` case.
+        selector.labelIds = labelClause.labelIds;
+      } else if (numberClause) {
+        selector.$and.push(numberClause);
       }
     }
 
@@ -824,6 +851,13 @@ async function buildSelector(queryParams, userId) {
         ];
       if (queryParams.text === "false" || queryParams.text === "true") {
         cardsSelector.push({ customFields: { $elemMatch: { value: queryParams.text === "true" } } } );
+      }
+      // #5006: typing `12` finds the card the board calls #12, as well as every
+      // card with "12" in its text. Another alternative in the same $or, so a
+      // search that used to find a title cannot stop finding it.
+      if (/^[0-9]+$/.test(String(queryParams.text).trim())) {
+        const asNumber = parseInt(queryParams.text, 10);
+        if (!isNaN(asNumber)) cardsSelector.push({ cardNumber: asNumber });
       }
       selector.$and.push({ $or: cardsSelector });
     }

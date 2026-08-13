@@ -550,12 +550,21 @@ on text, which is the whole difference between finding card 12 and finding cards
 `limit:` already gives, because a string never equals a numeric field and a
 search that quietly finds nothing teaches nobody anything.
 
-The issue's title says "number/#", and `#12` is deliberately NOT this: `#` is
-already the abbreviation for a LABEL search, and reinterpreting it when the text
-after it happens to be digits would break searching for a label called *2024* -
-which is a real label name - and would make what a query means depend on the
-data rather than on what was typed. The operator is the part that can be added
-without taking something else away.
+The issue's title says "number/#", and both of those forms work too: `#12` and a
+bare `12` search for a label called 12 AND the card numbered 12. A board calls a
+card "#12" and a label can be called anything, so which of the two somebody
+means cannot be read off the text - answering with both is the only reading that
+never hides what they were looking for.
+
+The two halves are joined with **OR**, which is what makes that safe rather than
+destructive: a search that used to find a label called *2024* still finds it,
+and the card numbered 2024 is ADDED to the answer instead of replacing it. An
+AND would have found nothing at all in almost every case and looked like the
+feature working. Only a term that is entirely digits gets the second half, so
+`#red` is the label red exactly as before. And `#12` on a board with no label
+called 12 no longer reports "label not found" - the card-number half is a real
+answer, and a not-found message beside the card it just found contradicts the
+screen.
 
 </details>
 
