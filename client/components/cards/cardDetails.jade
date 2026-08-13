@@ -939,7 +939,7 @@ template(name="exportCardPopup")
         i.fa.fa-file-pdf-o
         | {{_ 'export-card-pdf'}}
   hr
-  p.quiet {{_ 'export-card-excel-fields'}}
+  p.quiet {{_ 'export-select-what-to-include'}}
   ul.pop-over-list
     each excelExportFields
       li(class="{{#if checked}}active{{/if}}")

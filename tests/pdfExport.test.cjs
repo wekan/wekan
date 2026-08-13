@@ -202,26 +202,25 @@ test('the exporter uses the shared document, and no longer erases non-ASCII', ()
     'the question-mark replacement is the bug; it must not survive anywhere');
 });
 
-test('the board export names swimlanes and labels, and prints no markdown', () => {
+test('the board export draws its cards with the CARD export\'s own block', () => {
   const exporter = read('models/server/ExporterCardPDF.js');
   const board = exporter.slice(exporter.indexOf('class ExporterBoardPDF'));
   assert.ok(/getSwimlanes/.test(board),
     '"I can\'t see in which swimlane a card is in that export"');
-  // The label used to be the literal "Labels: ". It is now this.field('labels',
-  // …), because the reopened #6586 asked for the titles in the user's language -
-  // the point of the assertion is unchanged: the board export still says which
-  // labels a card carries, and still resolves their names.
-  assert.ok(/this\.field\('labels'/.test(board) && /labelsById/.test(board),
-    'and "no tags"');
-  assert.ok(/this\.field\('members'/.test(board) && /this\.field\('assignees'/.test(board));
-  // The reported "there is 'Assignee: ', 'Labels:' and then 'due' (lowercase
-  // letter and no `:`)": the board export built its date text by hand while the
-  // card export used a label and a colon. Both now come from the same keys, so
-  // the two cannot disagree again - which is what this checks, rather than the
-  // English word that used to be hard-coded here.
-  assert.ok(/this\.field\('card-due', 'Due', this\.date\(card\.dueAt\)\)/.test(board),
+  // #1173: the board export used to render a thinner version of each card, which
+  // is how it ended up saying "due" where the card export said "Due:" and
+  // leaving out most of what a card holds. It now calls cardBlockLines - the
+  // card export's own block - so the labels, the dates and the sections cannot
+  // be two different things again.
+  assert.ok(/this\.cardBlockLines\(/.test(board),
+    'every card is drawn by the card export block');
+  const shared = exporter.slice(exporter.indexOf('class PDFExporterBase'),
+    exporter.indexOf('class ExporterCardPDF'));
+  assert.ok(/this\.field\('labels'/.test(shared) && /labelsById/.test(shared),
+    'and "no tags" - the block names a card\'s labels');
+  assert.ok(/this\.field\('card-due', 'Due', this\.date\(card\.dueAt\)\)/.test(shared),
     'and the dates, with the same label the card export gives them');
-  assert.ok(!/dates\.push\(`due /.test(board),
+  assert.ok(!/dates\.push\(`due /.test(exporter),
     'the lowercase colon-less "due" is what was reported; it must not come back');
   assert.ok(!/`## \$\{/.test(board) && !/'## '/.test(board),
     'a "##" in a PDF is two hash marks - the structure is drawn with the bold font');

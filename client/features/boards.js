@@ -3,6 +3,8 @@ import '/client/components/boards/boardBody.jade';
 import '/client/components/boards/dependencyOverlay.jade';
 import '/client/components/boards/boardHeader.jade';
 import '/client/components/boards/boardsList.jade';
+// #1173: the shared body of the board, swimlane and list export popups.
+import '/client/components/boards/exportScope.jade';
 import '/client/components/boards/allBoardsSidebar.jade';
 import '/client/components/boards/publicBoards.jade';
 import '/client/components/boards/miniboard.jade';
@@ -17,6 +19,7 @@ import '/client/components/boards/boardHeader.js';
 import '/client/lib/allBoardsView';
 import '/client/lib/allBoardsSidebar';
 import '/client/components/boards/boardsList.js';
+import '/client/components/boards/exportScope.js';
 import '/client/components/boards/allBoardsSidebar.js';
 import '/client/components/boards/publicBoards.js';
 import '/client/components/boards/originalPositionsView.js';

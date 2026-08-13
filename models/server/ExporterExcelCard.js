@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
+import { CARD_EXPORT_FIELD_KEYS } from '/models/lib/exportFields';
 import { createWorkbook } from './createWorkbook';
 import { fileStoreStrategyFactory } from '/models/attachments.server';
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
@@ -7,25 +8,10 @@ import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 // ── Constants ────────────────────────────────────────────────────────────────
 
 /** All selectable field section keys (order determines display order). */
-const ALL_FIELDS = [
-  'labels',
-  'people',
-  'board-info',
-  'dates',
-  'description',
-  // #6586: "I think all those other things we set in a card should be also
-  // present ... Location, Voting, Checklists, Subtasks, Custom Fields,
-  // Attachments, Comments,...?" - the three sections neither export carried.
-  // They are appended rather than inserted, because ?fields= names them and a
-  // reordering would not change what an existing link asks for.
-  'custom-fields',
-  'checklists',
-  'subtasks',
-  'comments',
-  'attachments',
-  'voting',
-  'poker',
-];
+// #1173: ONE list, shared with the popup that offers these as checkboxes and
+// with the PDF export that gates the same sections - see models/lib/exportFields.js
+// for why a "must match" comment is not a mechanism.
+const ALL_FIELDS = CARD_EXPORT_FIELD_KEYS;
 
 /**
  * Map WeKan label color names to opaque ARGB hex strings for ExcelJS.
@@ -232,164 +218,40 @@ class ExporterExcelCard {
     return board && board.isVisibleBy(user);
   }
 
-  // ── Build ────────────────────────────────────────────────────────────────
+  /**
+   * ONE CARD, drawn as the card export draws it, onto a worksheet the caller
+   * owns - which is how the BOARD export renders every card in the same layout
+   * (#1173) instead of carrying a second, thinner rendering of the same data.
+   *
+   * Everything it needs is passed in rather than fetched: the card export reads
+   * one card's checklists, comments and attachments per card, which is right for
+   * one card and would be fifteen hundred queries for a board of three hundred.
+   * The board export reads each collection once and hands the slices in here.
+   *
+   * @returns {{row: number, pageBreakRows: number[]}} where the next block starts
+   */
+  async renderCardBlock(ws, workbook, startRow, data) {
+    const {
+      card, board, list, swimlane, userMap = {},
+      creatorName = '', ownerName = '', memberNames = '', assigneeNames = '',
+      checklists = [], checklistItems = [], subtasks = [], comments = [],
+      attachments = [], customFieldsById = {},
+    } = data;
 
-  async build(res) {
-    try {
-      await this._buildAndWrite(res);
-    } catch (err) {
-      console.error('ExporterExcelCard: build error', err);
-      if (!res.headersSent) {
-        res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
-        res.end(`Export failed: ${err.message}`);
-      }
-    }
-  }
-
-  // ── Internal build ───────────────────────────────────────────────────────
-
-  async _buildAndWrite(res) {
-    // GHSA-6p5m-f9p2-wqm5: the card must be looked up INSIDE the board and list
-    // the caller was authorised for, not by its id alone.
-    //
-    // canExport() above answers "may this user see the board in :boardId?" - it
-    // never sees :cardId. So with a bare primary-key lookup here the two
-    // identifiers came apart: :boardId decided the authorisation and :cardId
-    // decided the data. Any authenticated user could create their own public
-    // board (POST /api/boards takes `permission` straight from the body), name
-    // it as :boardId, and pass the id of a card in somebody's private board as
-    // :cardId. The export then returned that card's title, description, members,
-    // every comment with its author, checklists, subtasks, attachment metadata -
-    // and, because image attachments are read through getReadStream() and
-    // embedded in the workbook further down, the attachment BYTES.
-    //
-    // The same route shape for PDF has always been right
-    // (ExporterCardPDF._getCardData: getCard({ _id, boardId, listId })), which is
-    // what makes this an omission rather than a decision. Constraining the query
-    // is the fix rather than a check bolted on after it: a card outside the
-    // authorised board now does not resolve at all, so nothing downstream - the
-    // checklist, subtask, comment and attachment fan-out, all keyed on the same
-    // card id - can read anything either.
-    const card = await ReactiveCache.getCard({
-      _id: this._cardId,
-      boardId: this._boardId,
-      listId: this._listId,
-    });
-    if (!card) {
-      res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
-      res.end('Card not found');
-      return;
-    }
-
-    const needsLabels      = this.hasField('labels');
-    const needsPeople      = this.hasField('people');
-    const needsBoardInfo   = this.hasField('board-info');
-    const needsDates       = this.hasField('dates');
-    const needsDescription = this.hasField('description');
-    const needsChecklists  = this.hasField('checklists');
-    const needsSubtasks    = this.hasField('subtasks');
-    const needsComments    = this.hasField('comments');
-    const needsAttachments = this.hasField('attachments');
+    const needsLabels       = this.hasField('labels');
+    const needsPeople       = this.hasField('people');
+    const needsBoardInfo    = this.hasField('board-info');
+    const needsDates        = this.hasField('dates');
+    const needsDescription  = this.hasField('description');
+    const needsChecklists   = this.hasField('checklists');
+    const needsSubtasks     = this.hasField('subtasks');
+    const needsComments     = this.hasField('comments');
+    const needsAttachments  = this.hasField('attachments');
     const needsCustomFields = this.hasField('custom-fields');
-    const needsVoting      = this.hasField('voting');
-    const needsPoker       = this.hasField('poker');
-
-    // ── Fetch data ───────────────────────────────────────────────────────
-    const board    = (needsBoardInfo || needsLabels || needsChecklists) ? await ReactiveCache.getBoard(this._boardId) : null;
-    const list     = needsBoardInfo ? await ReactiveCache.getList(card.listId)               : null;
-    const swimlane = needsBoardInfo ? await ReactiveCache.getSwimlane(card.swimlaneId)        : null;
-
-    const userMap = {};
-    if (needsPeople || needsDates || needsComments || needsAttachments) {
-      const userIds = new Set();
-      if (card.userId) userIds.add(card.userId);
-      if (needsPeople) {
-        if (card.members)   card.members.forEach(id => userIds.add(id));
-        if (card.assignees) card.assignees.forEach(id => userIds.add(id));
-      }
-      const uDocs = await ReactiveCache.getUsers(
-        { _id: { $in: Array.from(userIds) } },
-        { fields: { _id: 1, username: 1 } },
-      );
-      uDocs.forEach(u => { userMap[u._id] = u.username; });
-    }
-
-    const creatorName   = userMap[card.userId] || '';
-    const ownerName     = (card.members && card.members.length > 0)
-      ? (userMap[card.members[0]] || creatorName)
-      : creatorName;
-    const memberNames   = (card.members   || []).map(id => userMap[id] || id).join(', ');
-    const assigneeNames = (card.assignees || []).map(id => userMap[id] || id).join(', ');
-
-    const checklists    = needsChecklists  ? await ReactiveCache.getChecklists({ cardId: this._cardId })                                 : [];
-    const checklistItems= needsChecklists  ? await ReactiveCache.getChecklistItems({ cardId: this._cardId })                             : [];
-    const subtasks      = needsSubtasks    ? await ReactiveCache.getCards({ parentId: this._cardId })                                    : [];
-    const comments      = needsComments    ? await ReactiveCache.getCardComments({ cardId: this._cardId }, { sort: { createdAt: 1 } })   : [];
-    const attachments   = needsAttachments ? await ReactiveCache.getAttachments({ 'meta.cardId': this._cardId }, { sort: { uploadedAt: -1 } }) : [];
-
-    // A card stores a custom field as { _id, value }; the NAME - and, for a
-    // dropdown, the name behind the item id it stores - is on the definition.
-    const customFieldsById = {};
-    if (needsCustomFields) {
-      const customFieldIds = (card.customFields || []).map(f => f && f._id).filter(Boolean);
-      if (customFieldIds.length > 0) {
-        const definitions = await ReactiveCache.getCustomFields({ _id: { $in: customFieldIds } });
-        (definitions || []).forEach(d => { customFieldsById[d._id] = d; });
-      }
-    }
-
-    // Batch-load any missing user IDs (comments + attachments uploaders, voters)
-    if (needsComments || needsAttachments || needsVoting) {
-      const extraIds = new Set();
-      if (needsComments)    comments.forEach(c => c.userId && extraIds.add(c.userId));
-      if (needsAttachments) attachments.forEach(a => (a.userId || (a.meta && a.meta.userId)) && extraIds.add(a.userId || a.meta.userId));
-      // Who voted is the part of a vote worth printing; a count alone is a
-      // number nobody can check afterwards.
-      if (needsVoting && card.vote) {
-        (card.vote.positive || []).forEach(id => extraIds.add(id));
-        (card.vote.negative || []).forEach(id => extraIds.add(id));
-      }
-      // Remove already-fetched
-      Object.keys(userMap).forEach(id => extraIds.delete(id));
-      if (extraIds.size > 0) {
-        const extra = await ReactiveCache.getUsers(
-          { _id: { $in: Array.from(extraIds) } },
-          { fields: { _id: 1, username: 1 } },
-        );
-        extra.forEach(u => { userMap[u._id] = u.username; });
-      }
-    }
-
-    // ── Workbook & worksheet setup ───────────────────────────────────────
-    const workbook = createWorkbook();
-    workbook.creator  = this.__('export-board');
-    workbook.created  = new Date();
-    workbook.modified = new Date();
-
-    const sheetName = sanitizeSheetName(card.title || 'Card');
-    const ws = workbook.addWorksheet(sheetName, {
-      pageSetup: {
-        paperSize:   9,          // A4
-        orientation: 'portrait',
-        fitToPage:   true,
-        fitToWidth:  1,
-        fitToHeight: 0,
-        horizontalCentered: false,
-        margins: { left: 0.5, right: 0.5, top: 0.75, bottom: 0.75, header: 0.3, footer: 0.3 },
-      },
-    });
+    const needsVoting       = this.hasField('voting');
+    const needsPoker        = this.hasField('poker');
 
     const fontName = this.__('excel-font');
-
-    // 6-column layout: alternating label(18) / value(30) triplets
-    ws.columns = [
-      { key: 'a', width: 18 },
-      { key: 'b', width: 30 },
-      { key: 'c', width: 18 },
-      { key: 'd', width: 30 },
-      { key: 'e', width: 18 },
-      { key: 'f', width: 30 },
-    ];
 
     // ── Style constants ──────────────────────────────────────────────────
     const fillGray   = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFD9D9D9' } };
@@ -397,7 +259,7 @@ class ExporterExcelCard {
     const thickBdr   = { top: { style: 'medium' }, left: { style: 'medium' }, bottom: { style: 'medium' }, right: { style: 'medium' } };
     const thinBdr    = { top: { style: 'thin'   }, left: { style: 'thin'   }, bottom: { style: 'thin'   }, right: { style: 'thin'   } };
 
-    let row = 1;
+    let row = startRow;
     const pageBreakRows = []; // collect rows where we want explicit page breaks
 
     // ── Style helpers (closures capturing ws / fontName / row) ───────────
@@ -984,6 +846,176 @@ class ExporterExcelCard {
       ]);
       blankRow();
     }
+
+    return { row, pageBreakRows };
+  }
+
+  // ── Build ────────────────────────────────────────────────────────────────
+
+  async build(res) {
+    try {
+      await this._buildAndWrite(res);
+    } catch (err) {
+      console.error('ExporterExcelCard: build error', err);
+      if (!res.headersSent) {
+        res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
+        res.end(`Export failed: ${err.message}`);
+      }
+    }
+  }
+
+  // ── Internal build ───────────────────────────────────────────────────────
+
+  async _buildAndWrite(res) {
+    // GHSA-6p5m-f9p2-wqm5: the card must be looked up INSIDE the board and list
+    // the caller was authorised for, not by its id alone.
+    //
+    // canExport() above answers "may this user see the board in :boardId?" - it
+    // never sees :cardId. So with a bare primary-key lookup here the two
+    // identifiers came apart: :boardId decided the authorisation and :cardId
+    // decided the data. Any authenticated user could create their own public
+    // board (POST /api/boards takes `permission` straight from the body), name
+    // it as :boardId, and pass the id of a card in somebody's private board as
+    // :cardId. The export then returned that card's title, description, members,
+    // every comment with its author, checklists, subtasks, attachment metadata -
+    // and, because image attachments are read through getReadStream() and
+    // embedded in the workbook further down, the attachment BYTES.
+    //
+    // The same route shape for PDF has always been right
+    // (ExporterCardPDF._getCardData: getCard({ _id, boardId, listId })), which is
+    // what makes this an omission rather than a decision. Constraining the query
+    // is the fix rather than a check bolted on after it: a card outside the
+    // authorised board now does not resolve at all, so nothing downstream - the
+    // checklist, subtask, comment and attachment fan-out, all keyed on the same
+    // card id - can read anything either.
+    const card = await ReactiveCache.getCard({
+      _id: this._cardId,
+      boardId: this._boardId,
+      listId: this._listId,
+    });
+    if (!card) {
+      res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+      res.end('Card not found');
+      return;
+    }
+
+    const needsLabels      = this.hasField('labels');
+    const needsPeople      = this.hasField('people');
+    const needsBoardInfo   = this.hasField('board-info');
+    const needsDates       = this.hasField('dates');
+    const needsDescription = this.hasField('description');
+    const needsChecklists  = this.hasField('checklists');
+    const needsSubtasks    = this.hasField('subtasks');
+    const needsComments    = this.hasField('comments');
+    const needsAttachments = this.hasField('attachments');
+    const needsCustomFields = this.hasField('custom-fields');
+    const needsVoting      = this.hasField('voting');
+    const needsPoker       = this.hasField('poker');
+
+    // ── Fetch data ───────────────────────────────────────────────────────
+    const board    = (needsBoardInfo || needsLabels || needsChecklists) ? await ReactiveCache.getBoard(this._boardId) : null;
+    const list     = needsBoardInfo ? await ReactiveCache.getList(card.listId)               : null;
+    const swimlane = needsBoardInfo ? await ReactiveCache.getSwimlane(card.swimlaneId)        : null;
+
+    const userMap = {};
+    if (needsPeople || needsDates || needsComments || needsAttachments) {
+      const userIds = new Set();
+      if (card.userId) userIds.add(card.userId);
+      if (needsPeople) {
+        if (card.members)   card.members.forEach(id => userIds.add(id));
+        if (card.assignees) card.assignees.forEach(id => userIds.add(id));
+      }
+      const uDocs = await ReactiveCache.getUsers(
+        { _id: { $in: Array.from(userIds) } },
+        { fields: { _id: 1, username: 1 } },
+      );
+      uDocs.forEach(u => { userMap[u._id] = u.username; });
+    }
+
+    const creatorName   = userMap[card.userId] || '';
+    const ownerName     = (card.members && card.members.length > 0)
+      ? (userMap[card.members[0]] || creatorName)
+      : creatorName;
+    const memberNames   = (card.members   || []).map(id => userMap[id] || id).join(', ');
+    const assigneeNames = (card.assignees || []).map(id => userMap[id] || id).join(', ');
+
+    const checklists    = needsChecklists  ? await ReactiveCache.getChecklists({ cardId: this._cardId })                                 : [];
+    const checklistItems= needsChecklists  ? await ReactiveCache.getChecklistItems({ cardId: this._cardId })                             : [];
+    const subtasks      = needsSubtasks    ? await ReactiveCache.getCards({ parentId: this._cardId })                                    : [];
+    const comments      = needsComments    ? await ReactiveCache.getCardComments({ cardId: this._cardId }, { sort: { createdAt: 1 } })   : [];
+    const attachments   = needsAttachments ? await ReactiveCache.getAttachments({ 'meta.cardId': this._cardId }, { sort: { uploadedAt: -1 } }) : [];
+
+    // A card stores a custom field as { _id, value }; the NAME - and, for a
+    // dropdown, the name behind the item id it stores - is on the definition.
+    const customFieldsById = {};
+    if (needsCustomFields) {
+      const customFieldIds = (card.customFields || []).map(f => f && f._id).filter(Boolean);
+      if (customFieldIds.length > 0) {
+        const definitions = await ReactiveCache.getCustomFields({ _id: { $in: customFieldIds } });
+        (definitions || []).forEach(d => { customFieldsById[d._id] = d; });
+      }
+    }
+
+    // Batch-load any missing user IDs (comments + attachments uploaders, voters)
+    if (needsComments || needsAttachments || needsVoting) {
+      const extraIds = new Set();
+      if (needsComments)    comments.forEach(c => c.userId && extraIds.add(c.userId));
+      if (needsAttachments) attachments.forEach(a => (a.userId || (a.meta && a.meta.userId)) && extraIds.add(a.userId || a.meta.userId));
+      // Who voted is the part of a vote worth printing; a count alone is a
+      // number nobody can check afterwards.
+      if (needsVoting && card.vote) {
+        (card.vote.positive || []).forEach(id => extraIds.add(id));
+        (card.vote.negative || []).forEach(id => extraIds.add(id));
+      }
+      // Remove already-fetched
+      Object.keys(userMap).forEach(id => extraIds.delete(id));
+      if (extraIds.size > 0) {
+        const extra = await ReactiveCache.getUsers(
+          { _id: { $in: Array.from(extraIds) } },
+          { fields: { _id: 1, username: 1 } },
+        );
+        extra.forEach(u => { userMap[u._id] = u.username; });
+      }
+    }
+
+    // ── Workbook & worksheet setup ───────────────────────────────────────
+    const workbook = createWorkbook();
+    workbook.creator  = this.__('export-board');
+    workbook.created  = new Date();
+    workbook.modified = new Date();
+
+    const sheetName = sanitizeSheetName(card.title || 'Card');
+    const ws = workbook.addWorksheet(sheetName, {
+      pageSetup: {
+        paperSize:   9,          // A4
+        orientation: 'portrait',
+        fitToPage:   true,
+        fitToWidth:  1,
+        fitToHeight: 0,
+        horizontalCentered: false,
+        margins: { left: 0.5, right: 0.5, top: 0.75, bottom: 0.75, header: 0.3, footer: 0.3 },
+      },
+    });
+
+    const fontName = this.__('excel-font');
+
+    // 6-column layout: alternating label(18) / value(30) triplets
+    ws.columns = [
+      { key: 'a', width: 18 },
+      { key: 'b', width: 30 },
+      { key: 'c', width: 18 },
+      { key: 'd', width: 30 },
+      { key: 'e', width: 18 },
+      { key: 'f', width: 30 },
+    ];
+
+    const data = {
+      card, board, list, swimlane, userMap,
+      creatorName, ownerName, memberNames, assigneeNames,
+      checklists, checklistItems, subtasks, comments, attachments,
+      customFieldsById,
+    };
+    const { pageBreakRows } = await this.renderCardBlock(ws, workbook, 1, data);
 
     // ── Apply collected page breaks ──────────────────────────────────────
     if (pageBreakRows.length > 0) {

@@ -39,6 +39,7 @@ const excelRoute = read('models/exportExcelCard.js');
 const cardDetails = read('client/components/cards/cardDetails.js');
 const exportLocale = read('client/lib/exportLocale.js');
 const dateUtils = read('imports/lib/dateUtils.js');
+const exportFields = read('models/lib/exportFields.js');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -80,20 +81,27 @@ test('the new sections are selectable, and the client offers them', () => {
   // ?fields= names them, and the popup's checkboxes must offer the same list -
   // a section the server can build and the UI cannot ask for is a section
   // nobody sees.
+  // #1173: the server's ALL_FIELDS and the popup's list are now the SAME list,
+  // imported from models/lib/exportFields.js by both - a "must match" comment is
+  // not a mechanism, and a section added on one side used to be a checkbox that
+  // did nothing or a section nobody could turn off.
   for (const field of ['custom-fields', 'voting', 'poker']) {
-    assert.ok(new RegExp(`^\\s*'${field}',`, 'm').test(excel),
-      `${field} is in ALL_FIELDS`);
-    assert.ok(new RegExp(`field: '${field}'`).test(cardDetails),
-      `${field} is a checkbox in the export popup`);
+    assert.ok(new RegExp(`field: '${field}'`).test(exportFields),
+      `${field} is in the shared field list`);
   }
+  assert.ok(/ALL_FIELDS = CARD_EXPORT_FIELD_KEYS/.test(excel),
+    'the Excel exporter takes its list from there');
+  assert.ok(/EXCEL_EXPORT_FIELDS = CARD_EXPORT_FIELDS/.test(cardDetails),
+    'and so does the popup');
 });
 
 test('the fields were APPENDED to ALL_FIELDS, not inserted (negative)', () => {
   // ?fields=labels,people,... is a URL people have saved. Reordering the list
   // would not change what such a link asks for, but the reason it is safe should
   // be written down rather than rediscovered.
-  const list = excel.slice(excel.indexOf('const ALL_FIELDS'), excel.indexOf('];'));
-  const order = [...list.matchAll(/'([a-z-]+)'/g)].map(m => m[1]);
+  const list = exportFields.slice(exportFields.indexOf('const CARD_EXPORT_FIELDS'),
+    exportFields.indexOf('];', exportFields.indexOf('const CARD_EXPORT_FIELDS')));
+  const order = [...list.matchAll(/field: '([a-z-]+)'/g)].map(m => m[1]);
   assert.deepStrictEqual(order.slice(0, 5),
     ['labels', 'people', 'board-info', 'dates', 'description'],
     'the original five keep their places');
@@ -166,11 +174,16 @@ test('the client sends zone, language and the card\'s own date format', () => {
   assert.ok(/TAPi18n\.getLanguage\(\)/.test(exportLocale), 'and the language');
 });
 
-test('every export link carries them - PDF card, PDF board and Excel', () => {
-  const sidebar = read('client/components/sidebar/sidebar.js');
+test('every export link carries them - card, board, swimlane and list', () => {
   const links = (cardDetails.match(/exportLocaleParams\(\)/g) || []).length;
   assert.ok(links >= 2, `both card export links send them, found ${links}`);
-  assert.ok(/exportLocaleParams\(\)/.test(sidebar), 'and the board PDF link');
+  // #1173: the board, swimlane and list downloads are ONE shared popup body now,
+  // so there is one place that builds those URLs instead of three.
+  const scope = read('client/components/boards/exportScope.js');
+  assert.ok(/exportLocaleParams\(\)/.test(scope),
+    'and the shared board/swimlane/list export body');
+  assert.ok(/exportPDF/.test(scope) && /exportExcel/.test(scope),
+    'which is what both of its downloads are built from');
 });
 
 test('the routes validate the date format instead of trusting the query', () => {

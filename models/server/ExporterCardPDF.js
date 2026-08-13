@@ -1,6 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
+import { BOARD_EXPORT_FIELD_KEYS } from '/models/lib/exportFields';
 import {
   wrapTextBlock,
   wrapRichTextBlock,
@@ -85,11 +86,19 @@ function formatFileSize(bytes) {
 // on the board it is in. The English text is the fallback for every key, so a
 // language that has not translated one shows the word rather than the key.
 class PDFExporterBase {
-  constructor(userLanguage, timezone, dateFormat) {
+  constructor(userLanguage, timezone, dateFormat, fields) {
     this.userLanguage = userLanguage || 'en';
     this.timezone = timezone || '';
     this.dateFormat = dateFormat || 'YYYY-MM-DD';
+    // #1173: the same `?fields=` the Excel exports read, so the popup's
+    // checkboxes mean the same thing whichever format is downloaded. No
+    // selection means everything.
+    this._fields = fields && fields.length > 0
+      ? new Set(fields)
+      : new Set(BOARD_EXPORT_FIELD_KEYS);
   }
+
+  hasField(key) { return this._fields.has(key); }
 
   __(key, fallback) {
     try {
@@ -110,11 +119,218 @@ class PDFExporterBase {
   date(value) {
     return formatDateValue(value, this.timezone, this.dateFormat);
   }
+
+  // The vote as a reader can check it: the question, who was for and against, and
+  // when it closes. Counts alone would not say who, which is the part a printed
+  // card is kept for.
+  _voteLines(card, usersById) {
+    const vote = card.vote;
+    if (!vote || (!vote.question && !(vote.positive || []).length && !(vote.negative || []).length)) {
+      return [];
+    }
+
+    // The same six values the Excel export's Voting section carries, in the same
+    // order and from the same keys.
+    const names = ids => (ids || []).map(id => formatUser(usersById[id])).join(', ') || '-';
+    const yesNo = value => (value ? this.__('yes', 'Yes') : this.__('no', 'No'));
+    return [
+      '',
+      line(`${this.__('voting', 'Voting')}:`, true),
+      this.field('vote-question', 'Voting question', vote.question || '-'),
+      this.field('vote-public', 'Show who voted what', yesNo(vote.public)),
+      this.field('card-end', 'End', this.date(vote.end)),
+      this.field('vote-for-it', 'for it', (vote.positive || []).length),
+      this.field('vote-against', 'against', (vote.negative || []).length),
+      this.field('positiveVoteMembersPopup-title', 'Proponents', names(vote.positive)),
+      this.field('negativeVoteMembersPopup-title', 'Opponents', names(vote.negative)),
+    ];
+  }
+
+  // Planning Poker keeps its estimation and its deadline; the per-value member
+  // lists are a board-side detail and would be a page of ids here.
+  _pokerLines(card) {
+    const poker = card.poker;
+    if (!poker || (poker.estimation === undefined && !poker.end)) return [];
+
+    const lines = ['', line(`${this.__('poker-question', 'Planning Poker')}:`, true)];
+    lines.push(this.field('set-estimation', 'Set Estimation', poker.estimation ?? '-'));
+    if (poker.end) lines.push(this.field('card-end', 'End', this.date(poker.end)));
+    return lines;
+  }
+
+  // ONE CARD, as the card export draws it. The board export calls this too, so
+  // "what a card looks like when it is exported" is written once (#1173): a
+  // board's PDF is its cards in the card export's own layout, not a second,
+  // thinner rendering of the same data.
+  cardBlockLines(data) {
+    const {
+      board, list, card, swimlane, checklists, checklistItemsByChecklistId,
+      comments, subtasks, attachments, customFieldsById, usersById,
+    } = data;
+    const labelsById = Object.fromEntries(
+      ((board && board.labels) || [])
+        .filter(label => label && label._id)
+        .map(label => [label._id, label.name || label.color || label._id]),
+    );
+
+    const names = ids => (ids || []).map(userId => formatUser(usersById[userId])).join(', ') || '-';
+
+    // Every value goes through the document's own encoder as it is written
+    // (models/lib/pdfDocument.js), so a title, a name or a comment with umlauts in
+    // it arrives as those letters rather than as question marks (#6586).
+    //
+    // The ORDER, the section names and the i18n keys are the Excel card export's
+    // (models/server/ExporterExcelCard.js): title, labels, people, board info,
+    // dates, description, custom fields, checklists, subtasks, comments,
+    // attachments, voting, poker. Two exports of one card that disagree about
+    // what a card contains, or about what a field is called, is the same bug
+    // twice - so they carry the same fields, in the same order, under the same
+    // words, and only the medium differs.
+    //
+    // Each block is gated by the same `?fields=` key the Excel export gates it
+    // by, so a checkbox in the popup means one thing in both formats (#1173).
+    const lines = [line(card.title || '-', true), ''];
+
+    if (this.hasField('labels')) {
+      lines.push(this.field('labels', 'Labels',
+        (card.labelIds || []).map(labelId => labelsById[labelId] || labelId).join(', ') || '-'));
+    }
+
+    if (this.hasField('people')) {
+      lines.push(
+        this.field('creator', 'Creator', formatUser(usersById[card.userId])),
+        this.field('assignees', 'Assignees', names(card.assignees)),
+        this.field('members', 'Members', names(card.members)),
+      );
+    }
+
+    if (this.hasField('board-info')) {
+      lines.push(
+        '',
+        this.field('board', 'Board', (board && board.title) || '-'),
+        this.field('swimlane', 'Swimlane', swimlane?.title || '-'),
+        this.field('list', 'List', (list && list.title) || '-'),
+        this.field('card-number', 'Card number', card.cardNumber ?? '-'),
+        this.field('requested-by', 'Requested By', card.requestedBy || '-'),
+        this.field('assigned-by', 'Assigned By', card.assignedBy || '-'),
+      );
+    }
+
+    if (this.hasField('dates')) {
+      lines.push(
+        '',
+        this.field('createdAt', 'Created at', this.date(card.createdAt)),
+        this.field('card-received', 'Received', this.date(card.receivedAt)),
+        this.field('card-start', 'Start', this.date(card.startAt)),
+        this.field('card-due', 'Due', this.date(card.dueAt)),
+        this.field('card-end', 'End', this.date(card.endAt)),
+        this.field('last-activity', 'Last activity', this.date(card.dateLastActivity)),
+        this.field('card-spent', 'Spent Time', card.spentTime ?? '-'),
+        this.field('overtime', 'Overtime', card.isOvertime ? this.__('yes', 'Yes') : this.__('no', 'No')),
+      );
+    }
+
+    if (this.hasField('description')) {
+      lines.push('', line(`${this.__('description', 'Description')}:`, true));
+      // The one place the card's own markdown is RENDERED rather than flattened:
+      // "so it gets transformed correct in the pdf output with bold, ...".
+      lines.push(...wrapRichTextBlock(card.description || '-'));
+    }
+
+    if (this.hasField('custom-fields')) {
+      lines.push('', line(`${this.__('custom-fields', 'Custom Fields')}:`, true));
+      const customFields = (card.customFields || []).filter(field => field && field._id);
+      if (!customFields.length) {
+        lines.push('-');
+      } else {
+        for (const field of customFields) {
+          const definition = customFieldsById[field._id];
+          const name = definition?.name || field._id;
+          // A dropdown stores the id of its item, which says nothing on paper.
+          let value = field.value;
+          if (definition?.type === 'dropdown') {
+            const item = (definition.settings?.dropdownItems || [])
+              .find(entry => entry && entry._id === field.value);
+            if (item) value = item.name;
+          }
+          lines.push(...wrapTextBlock(
+            `${name}: ${formatCustomFieldValue(value, this.timezone, this.dateFormat)}`, '- '));
+        }
+      }
+    }
+
+    if (this.hasField('checklists')) {
+      lines.push('', line(`${this.__('checklists', 'Checklists')}:`, true));
+      if (!checklists.length) {
+        lines.push('-');
+      } else {
+        for (const checklist of checklists) {
+          const items = checklistItemsByChecklistId[checklist._id] || [];
+          // The same progress the Excel export shows beside a checklist title.
+          const finished = items.filter(item => item.isFinished).length;
+          lines.push(...wrapTextBlock(
+            `${checklist.title || 'Checklist'} (${finished}/${items.length})`, '- '));
+          if (!items.length) {
+            lines.push('  (no items)');
+            continue;
+          }
+          for (const item of items) {
+            lines.push(...wrapTextBlock(`${item.isFinished ? '[x]' : '[ ]'} ${item.title || ''}`, '  '));
+          }
+        }
+      }
+    }
+
+    if (this.hasField('subtasks')) {
+      lines.push('', line(`${this.__('export-card-subtasks', 'Subtasks')}:`, true));
+      if (!subtasks.length) {
+        lines.push('-');
+      } else {
+        for (const subtask of subtasks) {
+          lines.push(...wrapTextBlock(`${subtask.archived ? '[x]' : '[ ]'} ${subtask.title || ''}`, '- '));
+        }
+      }
+    }
+
+    if (this.hasField('comments')) {
+      lines.push('', line(`${this.__('comments', 'Comments')}:`, true));
+      if (!comments.length) {
+        lines.push('-');
+      } else {
+        for (const comment of comments) {
+          lines.push(
+            ...wrapTextBlock(
+              `${this.date(comment.createdAt)} ${formatUser(usersById[comment.userId])}: ${comment.text || ''}`,
+              '- ',
+            ),
+          );
+        }
+      }
+    }
+
+    if (this.hasField('attachments')) {
+      lines.push('', line(`${this.__('attachments', 'Attachments')}:`, true));
+      if (!attachments.length) {
+        lines.push('-');
+      } else {
+        for (const attachment of attachments) {
+          const name = attachment.name || attachment.meta?.name || attachment._id;
+          const size = formatFileSize(attachment.size);
+          lines.push(...wrapTextBlock(size ? `${name} (${size})` : `${name}`, '- '));
+        }
+      }
+    }
+
+    if (this.hasField('voting')) lines.push(...this._voteLines(card, usersById));
+    if (this.hasField('poker')) lines.push(...this._pokerLines(card));
+
+    return lines;
+  }
 }
 
 class ExporterCardPDF extends PDFExporterBase {
-  constructor(boardId, listId, cardId, userLanguage, timezone, dateFormat) {
-    super(userLanguage, timezone, dateFormat);
+  constructor(boardId, listId, cardId, userLanguage, timezone, dateFormat, fields) {
+    super(userLanguage, timezone, dateFormat, fields);
     this._boardId = boardId;
     this._listId = listId;
     this._cardId = cardId;
@@ -213,44 +429,6 @@ class ExporterCardPDF extends PDFExporterBase {
     };
   }
 
-  // The vote as a reader can check it: the question, who was for and against, and
-  // when it closes. Counts alone would not say who, which is the part a printed
-  // card is kept for.
-  _voteLines(card, usersById) {
-    const vote = card.vote;
-    if (!vote || (!vote.question && !(vote.positive || []).length && !(vote.negative || []).length)) {
-      return [];
-    }
-
-    // The same six values the Excel export's Voting section carries, in the same
-    // order and from the same keys.
-    const names = ids => (ids || []).map(id => formatUser(usersById[id])).join(', ') || '-';
-    const yesNo = value => (value ? this.__('yes', 'Yes') : this.__('no', 'No'));
-    return [
-      '',
-      line(`${this.__('voting', 'Voting')}:`, true),
-      this.field('vote-question', 'Voting question', vote.question || '-'),
-      this.field('vote-public', 'Show who voted what', yesNo(vote.public)),
-      this.field('card-end', 'End', this.date(vote.end)),
-      this.field('vote-for-it', 'for it', (vote.positive || []).length),
-      this.field('vote-against', 'against', (vote.negative || []).length),
-      this.field('positiveVoteMembersPopup-title', 'Proponents', names(vote.positive)),
-      this.field('negativeVoteMembersPopup-title', 'Opponents', names(vote.negative)),
-    ];
-  }
-
-  // Planning Poker keeps its estimation and its deadline; the per-value member
-  // lists are a board-side detail and would be a page of ids here.
-  _pokerLines(card) {
-    const poker = card.poker;
-    if (!poker || (poker.estimation === undefined && !poker.end)) return [];
-
-    const lines = ['', line(`${this.__('poker-question', 'Planning Poker')}:`, true)];
-    lines.push(this.field('set-estimation', 'Set Estimation', poker.estimation ?? '-'));
-    if (poker.end) lines.push(this.field('card-end', 'End', this.date(poker.end)));
-    return lines;
-  }
-
   async build(res) {
     const data = await this._getCardData();
     if (!data) {
@@ -259,137 +437,8 @@ class ExporterCardPDF extends PDFExporterBase {
       return;
     }
 
-    const {
-      board, list, card, swimlane, checklists, checklistItemsByChecklistId,
-      comments, subtasks, attachments, customFieldsById, usersById,
-    } = data;
-    const labelsById = Object.fromEntries(
-      (board.labels || [])
-        .filter(label => label && label._id)
-        .map(label => [label._id, label.name || label.color || label._id]),
-    );
-
-    const names = ids => (ids || []).map(userId => formatUser(usersById[userId])).join(', ') || '-';
-
-    // Every value goes through the document's own encoder as it is written
-    // (models/lib/pdfDocument.js), so a title, a name or a comment with umlauts in
-    // it arrives as those letters rather than as question marks (#6586).
-    //
-    // The ORDER, the section names and the i18n keys are the Excel card export's
-    // (models/server/ExporterExcelCard.js): title, labels, people, board info,
-    // dates, description, custom fields, checklists, subtasks, comments,
-    // attachments, voting, poker. Two exports of one card that disagree about
-    // what a card contains, or about what a field is called, is the same bug
-    // twice - so they carry the same fields, in the same order, under the same
-    // words, and only the medium differs.
-    const lines = [
-      line(card.title || '-', true),
-      '',
-      this.field('labels', 'Labels',
-        (card.labelIds || []).map(labelId => labelsById[labelId] || labelId).join(', ') || '-'),
-      this.field('creator', 'Creator', formatUser(usersById[card.userId])),
-      this.field('assignees', 'Assignees', names(card.assignees)),
-      this.field('members', 'Members', names(card.members)),
-      '',
-      this.field('board', 'Board', board.title || '-'),
-      this.field('swimlane', 'Swimlane', swimlane?.title || '-'),
-      this.field('list', 'List', list.title || '-'),
-      this.field('card-number', 'Card number', card.cardNumber ?? '-'),
-      this.field('requested-by', 'Requested By', card.requestedBy || '-'),
-      this.field('assigned-by', 'Assigned By', card.assignedBy || '-'),
-      '',
-      this.field('createdAt', 'Created at', this.date(card.createdAt)),
-      this.field('card-received', 'Received', this.date(card.receivedAt)),
-      this.field('card-start', 'Start', this.date(card.startAt)),
-      this.field('card-due', 'Due', this.date(card.dueAt)),
-      this.field('card-end', 'End', this.date(card.endAt)),
-      this.field('last-activity', 'Last activity', this.date(card.dateLastActivity)),
-      this.field('card-spent', 'Spent Time', card.spentTime ?? '-'),
-      this.field('overtime', 'Overtime', card.isOvertime ? this.__('yes', 'Yes') : this.__('no', 'No')),
-      '',
-      line(`${this.__('description', 'Description')}:`, true),
-      // The one place the card's own markdown is RENDERED rather than flattened:
-      // "so it gets transformed correct in the pdf output with bold, ...".
-      ...wrapRichTextBlock(card.description || '-'),
-    ];
-
-    lines.push('', line(`${this.__('custom-fields', 'Custom Fields')}:`, true));
-    const customFields = (card.customFields || []).filter(field => field && field._id);
-    if (!customFields.length) {
-      lines.push('-');
-    } else {
-      for (const field of customFields) {
-        const definition = customFieldsById[field._id];
-        const name = definition?.name || field._id;
-        // A dropdown stores the id of its item, which says nothing on paper.
-        let value = field.value;
-        if (definition?.type === 'dropdown') {
-          const item = (definition.settings?.dropdownItems || [])
-            .find(entry => entry && entry._id === field.value);
-          if (item) value = item.name;
-        }
-        lines.push(...wrapTextBlock(`${name}: ${formatCustomFieldValue(value, this.timezone, this.dateFormat)}`, '- '));
-      }
-    }
-
-    lines.push('', line(`${this.__('checklists', 'Checklists')}:`, true));
-    if (checklists.length === 0) {
-      lines.push('-');
-    } else {
-      for (const checklist of checklists) {
-        const items = checklistItemsByChecklistId[checklist._id] || [];
-        // The same progress the Excel export shows beside a checklist title.
-        const finished = items.filter(item => item.isFinished).length;
-        lines.push(...wrapTextBlock(
-          `${checklist.title || 'Checklist'} (${finished}/${items.length})`, '- '));
-        if (items.length === 0) {
-          lines.push('  (no items)');
-          continue;
-        }
-        for (const item of items) {
-          lines.push(...wrapTextBlock(`${item.isFinished ? '[x]' : '[ ]'} ${item.title || ''}`, '  '));
-        }
-      }
-    }
-
-    lines.push('', line(`${this.__('export-card-subtasks', 'Subtasks')}:`, true));
-    if (!subtasks.length) {
-      lines.push('-');
-    } else {
-      for (const subtask of subtasks) {
-        lines.push(...wrapTextBlock(`${subtask.archived ? '[x]' : '[ ]'} ${subtask.title || ''}`, '- '));
-      }
-    }
-
-    lines.push('', line(`${this.__('comments', 'Comments')}:`, true));
-    if (comments.length === 0) {
-      lines.push('-');
-    } else {
-      for (const comment of comments) {
-        lines.push(
-          ...wrapTextBlock(
-            `${this.date(comment.createdAt)} ${formatUser(usersById[comment.userId])}: ${comment.text || ''}`,
-            '- ',
-          ),
-        );
-      }
-    }
-
-    lines.push('', line(`${this.__('attachments', 'Attachments')}:`, true));
-    if (!attachments.length) {
-      lines.push('-');
-    } else {
-      for (const attachment of attachments) {
-        const name = attachment.name || attachment.meta?.name || attachment._id;
-        const size = formatFileSize(attachment.size);
-        lines.push(...wrapTextBlock(size ? `${name} (${size})` : `${name}`, '- '));
-      }
-    }
-
-    lines.push(...this._voteLines(card, usersById));
-    lines.push(...this._pokerLines(card));
-
-    const filename = `${sanitizeFilename(card.title)}.pdf`;
+    const lines = this.cardBlockLines(data);
+    const filename = `${sanitizeFilename(data.card.title)}.pdf`;
     const pdf = buildPdfBuffer(lines);
 
     res.writeHead(200, {
@@ -420,24 +469,25 @@ class ExporterCardPDF extends PDFExporterBase {
 // has more than the one every board is created with), and each card carries its
 // labels, members, assignees and dates.
 class ExporterBoardPDF extends PDFExporterBase {
-  constructor(boardId, userLanguage, timezone, dateFormat) {
-    super(userLanguage, timezone, dateFormat);
+  // `scope` is {swimlaneId} or {listId}: the same export restricted to one
+  // swimlane or one list, because those menus offer it too (#1173).
+  constructor(boardId, userLanguage, timezone, dateFormat, fields, scope = {}) {
+    super(userLanguage, timezone, dateFormat, fields);
     this._boardId = boardId;
+    this._swimlaneId = scope.swimlaneId || '';
+    this._listId = scope.listId || '';
   }
 
-  async build(res) {
+  // Everything the board's cards need, in one pass per collection.
+  //
+  // The obvious way to write this is to ask for a card's checklists, items,
+  // subtasks, comments and attachments as each card is drawn - which is what the
+  // CARD export does, correctly, for its one card. A board with three hundred
+  // cards would make fifteen hundred queries that way. So each collection is
+  // read once for the whole board and grouped by card here.
+  async _getBoardData() {
     const board = await ReactiveCache.getBoard(this._boardId);
-    if (!board) {
-      res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
-      res.end('Board not found');
-      return;
-    }
-
-    const labelsById = Object.fromEntries(
-      (board.labels || [])
-        .filter(label => label && label._id)
-        .map(label => [label._id, label.name || label.color || label._id]),
-    );
+    if (!board) return null;
 
     const lists = await ReactiveCache.getLists(
       { boardId: this._boardId, archived: false },
@@ -447,25 +497,135 @@ class ExporterBoardPDF extends PDFExporterBase {
       { boardId: this._boardId, archived: false },
       { sort: { sort: 1 } },
     );
-    const cards = await ReactiveCache.getCards(
-      { boardId: this._boardId, archived: false },
-      { sort: { sort: 1 } },
-    );
+    const cardSelector = { boardId: this._boardId, archived: false };
+    if (this._swimlaneId) cardSelector.swimlaneId = this._swimlaneId;
+    if (this._listId) cardSelector.listId = this._listId;
+    const cards = await ReactiveCache.getCards(cardSelector, { sort: { sort: 1 } });
+    const cardIds = cards.map(card => card._id);
 
-    // The names behind the ids on the cards. One pass, so a board with hundreds of
-    // cards does not do a lookup per member.
-    const userIds = new Set();
+    const byCard = (rows, key = 'cardId') => {
+      const map = {};
+      for (const row of rows || []) {
+        const id = row[key];
+        if (!id) continue;
+        (map[id] = map[id] || []).push(row);
+      }
+      return map;
+    };
+
+    const checklists = this.hasField('checklists')
+      ? await ReactiveCache.getChecklists({ cardId: { $in: cardIds } }, { sort: { sort: 1 } })
+      : [];
+    const checklistItems = this.hasField('checklists')
+      ? await ReactiveCache.getChecklistItems(
+        { checklistId: { $in: checklists.map(checklist => checklist._id) } },
+        { sort: { sort: 1 } })
+      : [];
+    const subtasks = this.hasField('subtasks')
+      ? await ReactiveCache.getCards({ parentId: { $in: cardIds } }, { sort: { sort: 1 } })
+      : [];
+    const comments = this.hasField('comments')
+      ? await ReactiveCache.getCardComments({ cardId: { $in: cardIds } }, { sort: { createdAt: 1 } })
+      : [];
+    const attachments = this.hasField('attachments')
+      ? await ReactiveCache.getAttachments({ 'meta.cardId': { $in: cardIds } }, { sort: { uploadedAt: 1 } })
+      : [];
+
+    const customFieldsById = {};
+    if (this.hasField('custom-fields')) {
+      const ids = [...new Set(cards.flatMap(card =>
+        (card.customFields || []).map(field => field && field._id).filter(Boolean)))];
+      if (ids.length) {
+        const definitions = await ReactiveCache.getCustomFields({ _id: { $in: ids } });
+        for (const definition of definitions || []) customFieldsById[definition._id] = definition;
+      }
+    }
+
+    // Every person named anywhere in the export, resolved once.
+    const userIds = new Set((board.members || []).map(member => member.userId));
     for (const card of cards) {
       if (card.userId) userIds.add(card.userId);
       (card.members || []).forEach(id => userIds.add(id));
       (card.assignees || []).forEach(id => userIds.add(id));
+      ((card.vote && card.vote.positive) || []).forEach(id => userIds.add(id));
+      ((card.vote && card.vote.negative) || []).forEach(id => userIds.add(id));
     }
+    comments.forEach(comment => comment.userId && userIds.add(comment.userId));
     const usersById = {};
     await Promise.all([...userIds].filter(Boolean).map(async userId => {
       usersById[userId] = await ReactiveCache.getUser({ _id: userId });
     }));
 
-    const lines = [line(board.title || 'Board', true), ''];
+    const itemsByChecklist = byCard(checklistItems, 'checklistId');
+
+    return {
+      board,
+      lists: this._listId ? lists.filter(list => list._id === this._listId) : lists,
+      swimlanes: this._swimlaneId
+        ? swimlanes.filter(swimlane => swimlane._id === this._swimlaneId)
+        : swimlanes,
+      cards,
+      usersById,
+      customFieldsById,
+      checklistsByCard: byCard(checklists),
+      itemsByChecklist,
+      subtasksByCard: byCard(subtasks, 'parentId'),
+      commentsByCard: byCard(comments),
+      attachmentsByCard: (() => {
+        const map = {};
+        for (const attachment of attachments) {
+          const id = attachment.meta && attachment.meta.cardId;
+          if (!id) continue;
+          (map[id] = map[id] || []).push(attachment);
+        }
+        return map;
+      })(),
+    };
+  }
+
+  // The board's own header, before the cards: what the board IS, which the card
+  // export shows per card and a board export should say once.
+  _boardHeaderLines(data) {
+    const { board, usersById, lists, swimlanes } = data;
+    // What this export IS: the board, or the one swimlane or list it was asked
+    // for - a PDF titled with the board that holds one list is a file nobody can
+    // place afterwards.
+    const scopeTitle = this._listId
+      ? `${board.title} - ${(lists[0] && lists[0].title) || this.__('list', 'List')}`
+      : (this._swimlaneId
+        ? `${board.title} - ${(swimlanes[0] && swimlanes[0].title) || this.__('swimlane', 'Swimlane')}`
+        : (board.title || 'Board'));
+    this._scopeTitle = scopeTitle;
+    const lines = [line(scopeTitle, true), ''];
+    if (!this.hasField('board-header')) return lines;
+
+    const memberNames = (board.members || [])
+      .map(member => formatUser(usersById[member.userId]))
+      .filter(Boolean)
+      .join(', ');
+    lines.push(
+      this.field('members', 'Members', memberNames || '-'),
+      this.field('createdAt', 'Created at', this.date(board.createdAt)),
+      this.field('modifiedAt', 'Modified at', this.date(board.modifiedAt)),
+    );
+    if (board.description) {
+      lines.push('', line(`${this.__('description', 'Description')}:`, true));
+      lines.push(...wrapRichTextBlock(board.description));
+    }
+    lines.push('');
+    return lines;
+  }
+
+  async build(res) {
+    const data = await this._getBoardData();
+    if (!data) {
+      res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+      res.end('Board not found');
+      return;
+    }
+
+    const { board, lists, swimlanes, cards } = data;
+    const lines = this._boardHeaderLines(data);
 
     // A board created normally has exactly one swimlane and nobody thinks in terms
     // of it; only name the swimlanes when there is a choice to be made.
@@ -474,53 +634,50 @@ class ExporterBoardPDF extends PDFExporterBase {
       ? named.map(swimlane => ({ swimlane, title: swimlane.title || 'Swimlane' }))
       : [{ swimlane: null, title: null }];
 
+    const listById = Object.fromEntries(lists.map(list => [list._id, list]));
+    const swimlaneById = Object.fromEntries(swimlanes.map(swimlane => [swimlane._id, swimlane]));
+
     for (const group of groups) {
       if (group.title) {
-        lines.push(line(this.field('swimlane', 'Swimlane', group.title), true));
+        lines.push(line(this.field('swimlane', 'Swimlane', group.title), true), '');
       }
       for (const list of lists) {
         const listCards = cards.filter(card =>
           String(card.listId) === String(list._id)
           && (!group.swimlane || String(card.swimlaneId) === String(group.swimlane._id)));
         if (group.title && listCards.length === 0) continue;
-        lines.push(line(`${list.title || 'List'} (${listCards.length})`, true));
+        lines.push(line(`${list.title || 'List'} (${listCards.length})`, true), '');
+
+        // #1173: every card in the CARD export's own layout, drawn by the card
+        // export's own code - a board export used to be a thinner rendering of
+        // the same cards, which is how it ended up saying "due" where the card
+        // export said "Due:" and leaving out half of what a card holds.
         for (const card of listCards) {
-          lines.push(...wrapTextBlock(card.title || '', '\u2022 '));
-          const labels = (card.labelIds || [])
-            .map(labelId => labelsById[labelId] || labelId)
-            .filter(Boolean);
-          if (labels.length) {
-            lines.push(...wrapTextBlock(this.field('labels', 'Labels', labels.join(', ')), '    '));
-          }
-          const members = (card.members || []).map(id => formatUser(usersById[id])).filter(Boolean);
-          if (members.length) {
-            lines.push(...wrapTextBlock(this.field('members', 'Members', members.join(', ')), '    '));
-          }
-          const assignees = (card.assignees || []).map(id => formatUser(usersById[id])).filter(Boolean);
-          if (assignees.length) {
-            lines.push(...wrapTextBlock(this.field('assignees', 'Assignees', assignees.join(', ')), '    '));
-          }
-          // The same labels the card export uses, from the same keys: this is
-          // where "due" was lowercase and colonless while the card export said
-          // "Due: ", and one vocabulary is what stops that happening again.
-          const dates = [];
-          if (card.receivedAt) dates.push(this.field('card-received', 'Received', this.date(card.receivedAt)));
-          if (card.startAt) dates.push(this.field('card-start', 'Start', this.date(card.startAt)));
-          if (card.dueAt) dates.push(this.field('card-due', 'Due', this.date(card.dueAt)));
-          if (card.endAt) dates.push(this.field('card-end', 'End', this.date(card.endAt)));
-          for (const entry of dates) lines.push(...wrapTextBlock(entry, '    '));
-          if (card.description) {
-            lines.push(...wrapRichTextBlock(card.description, '    '));
-          }
+          lines.push(...this.cardBlockLines({
+            board,
+            list: listById[card.listId] || list,
+            card,
+            swimlane: swimlaneById[card.swimlaneId] || group.swimlane,
+            checklists: data.checklistsByCard[card._id] || [],
+            checklistItemsByChecklistId: data.itemsByChecklist,
+            comments: data.commentsByCard[card._id] || [],
+            subtasks: data.subtasksByCard[card._id] || [],
+            attachments: data.attachmentsByCard[card._id] || [],
+            customFieldsById: data.customFieldsById,
+            usersById: data.usersById,
+          }));
+          // One blank line between cards: the card block already ends with its
+          // last section, and a page break per card would waste paper on a board
+          // of one-line cards.
+          lines.push('', '');
         }
-        lines.push('');
       }
     }
 
     const pdf = buildPdfBuffer(lines);
     res.writeHead(200, {
       'Content-Type': 'application/pdf',
-      'Content-Disposition': `attachment; filename="${sanitizeFilename(board.title)}.pdf"`,
+      'Content-Disposition': `attachment; filename="${sanitizeFilename(this._scopeTitle || board.title)}.pdf"`,
       'Content-Length': pdf.length,
     });
     res.end(pdf);

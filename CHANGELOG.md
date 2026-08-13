@@ -325,6 +325,9 @@ and
 are now one - the same fields under the same translated labels, dates in the
 reader's own **time zone** and in the **date format the opened card shows**, and
 a description's markdown drawn as **bold** and *italic* rather than stripped.
+On top of that, **#1173** after eight years: a **board**, a **swimlane** or a
+**list** exports to PDF and Excel in that same card layout, from one selection
+popup that says what to include.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -462,10 +465,69 @@ Not everything in that report can be fixed here, and it is worth saying which:
 
 </details>
 
+and adds the following new features:
+
+**Board, swimlane and list export** - printing a board, and what goes in it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">A board, a swimlane and a list export to PDF and Excel in the card export's own layout</a>. Thanks to xet7.</summary>
+
+[#1173](https://github.com/wekan/wekan/issues/1173) "Add Feature: Print Board
+with Params" has been open since 2017, and two things were missing. There was no
+CHOICE of what to print: the board's Excel and PDF exports took everything they
+knew how to render and nothing else, while the card export already had a popup
+with a checkbox per section. And they did not LOOK like the card export - the
+board's Excel export was a spreadsheet table, one row per card and eighteen
+columns, which is a data dump rather than a printed board.
+
+Both now render a board as the board's own header followed by every card as the
+CARD export's block, drawn by the card export's own code - `cardBlockLines()`
+for the PDF, `ExporterExcelCard.renderCardBlock()` for the Excel one - so a card
+looks the same whether it was exported alone or as part of its board, and the
+two cannot drift into two layouts again. Each card starts on its own page in the
+Excel export, because a printed board is read a card at a time.
+
+The **swimlane and list menus** offer the same export, which is the board export
+with one more parameter saying which cards are in scope. They sit beside "Copy
+link" rather than below the permission checks, because exporting is reading. The
+file is named for what was exported - a PDF titled with the board that holds one
+list is a file nobody can place afterwards.
+
+Rendering a card block needs the whole board in memory, and
+`models/server/ExporterExcel.js` STREAMS on purpose - it was rewritten that way
+after the in-memory version ate gigabytes on boards with thousands of cards. So
+that exporter is still there and still reachable: unticking **Card details**
+asks for it. That is a checkbox in the popup, not a silent fallback nobody can
+see.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">One selection popup, and one list of what an export can contain</a>. Thanks to xet7.</summary>
+
+The card export's popup had a list of sections, and the server had another one,
+under a comment reading "Must match ALL_FIELDS in
+models/server/ExporterExcelCard.js" - which is a comment, not a mechanism. A
+section added on one side and forgotten on the other is either a checkbox that
+does nothing or a section nobody can turn off.
+
+Both now import [`models/lib/exportFields.js`](models/lib/exportFields.js), and
+so do the board, swimlane and list popups, which are ONE shared body -
+`exportScopeBody` - included with a different scope each. The selection is
+remembered for the session, because somebody printing a board rarely wants a
+different shape for each list of it.
+
+The same `?fields=` gates the same sections in both formats: the card export's
+checkboxes used to be labelled "fields to include in Excel export" and did
+nothing to the PDF, so one popup meant two things. A section a request does not
+name is not rendered and, where the export is the only reason to read it, not
+even fetched.
+
+</details>
+
 and fixes the following bugs:
 
-**Card export** - what an exported card says, and in whose language, format and
-time zone it says it.
+**Card export** - what it says, and in whose language, format and time zone.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/698e980e27522b53f60ad6fce347727cb11eb017">A card's PDF and Excel exports carry the same fields, under the same translated labels</a>. Thanks to Heart1010 and xet7.</summary>

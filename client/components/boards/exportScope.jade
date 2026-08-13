@@ -1,0 +1,31 @@
+//- The body of an export popup: what to include, then the two downloads that
+  include it. Used by the board, swimlane and list export popups with a
+  different scope each (#1173) - see exportScope.js.
+template(name="exportScopeBody")
+  p.quiet {{_ 'export-select-what-to-include'}}
+  ul.pop-over-list
+    li(class="{{#if cardDetailsChecked}}active{{/if}}")
+      a.js-export-card-details-toggle(href="#")
+        i.fa.fa-check
+        | {{_ 'export-card-details'}}
+    each exportFields
+      li(class="{{#if checked}}active{{/if}}")
+        a.js-export-field-toggle(data-field="{{field}}" href="#")
+          i.fa.fa-check
+          | {{_ label}}
+  hr
+  ul.pop-over-list
+    li
+      a(href="{{exportUrlPDF}}", download="{{exportFilenamePDF}}")
+        i.fa.fa-file-pdf-o
+        | {{_ 'export'}} / PDF
+    li
+      a(href="{{exportUrlExcel}}", download="{{exportFilenameExcel}}")
+        i.fa.fa-file-excel-o
+        | {{_ 'export'}} / Excel
+
+template(name="exportSwimlanePopup")
+  +exportScopeBody(swimlaneId=_id title=title)
+
+template(name="exportListPopup")
+  +exportScopeBody(listId=_id title=title)

@@ -10,6 +10,7 @@ import {
 } from '/models/metadata/dependencies';
 import { canArchiveCard } from '/client/lib/archivePermission';
 import { exportLocaleParams } from '/client/lib/exportLocale';
+import { CARD_EXPORT_FIELDS } from '/models/lib/exportFields';
 import { isTextSelectionInsideCard } from '/client/lib/cardCloseGuard';
 import { placeCardDetailsX, MARGIN } from '/client/lib/cardDetailsPlacement';
 
@@ -1457,22 +1458,9 @@ Template.cardDetailsPopup.helpers({
   },
 });
 
-// Ordered list of Excel export field keys and their i18n label keys.
-// Must match ALL_FIELDS in models/server/ExporterExcelCard.js.
-const EXCEL_EXPORT_FIELDS = [
-  { field: 'labels',        label: 'labels' },
-  { field: 'people',        label: 'export-card-field-people' },
-  { field: 'board-info',    label: 'export-card-field-board-info' },
-  { field: 'dates',         label: 'export-card-field-dates' },
-  { field: 'description',   label: 'description' },
-  { field: 'custom-fields', label: 'custom-fields' },
-  { field: 'checklists',    label: 'checklists' },
-  { field: 'subtasks',      label: 'export-card-subtasks' },
-  { field: 'comments',      label: 'comments' },
-  { field: 'attachments',   label: 'attachments' },
-  { field: 'voting',        label: 'voting' },
-  { field: 'poker',         label: 'poker-question' },
-];
+// #1173: ONE list, shared with the server's ALL_FIELDS and with the board,
+// swimlane and list export popups - see models/lib/exportFields.js.
+const EXCEL_EXPORT_FIELDS = CARD_EXPORT_FIELDS;
 
 Template.exportCardPopup.onCreated(function () {
   // Track which Excel sections the user wants to include (all on by default)
@@ -1483,12 +1471,19 @@ Template.exportCardPopup.onCreated(function () {
 
 Template.exportCardPopup.helpers({
   exportUrlCardPDF() {
+    const instance = Template.instance();
     const card = getCurrentCardFromContext({ ignorePopupCard: true }) || this;
     const params = {
       boardId: card.boardId || Session.get('currentBoard'),
       listId: card.listId,
       cardId: card._id || card.cardId,
     };
+    // #1173: the checkboxes above drive BOTH downloads. They used to be labelled
+    // "fields to include in Excel export" and to do nothing to the PDF, which
+    // made the same popup mean two things.
+    const selectedFields = EXCEL_EXPORT_FIELDS
+      .map(f => f.field)
+      .filter(f => instance.excelFields.get(f));
     return FlowRouter.path(
       '/api/boards/:boardId/lists/:listId/cards/:cardId/exportPDF',
       params,
@@ -1499,6 +1494,7 @@ Template.exportCardPopup.helpers({
       // user to read a language off.
       {
         authToken: Accounts._storedLoginToken(),
+        fields: selectedFields.join(','),
         ...exportLocaleParams(),
       },
     );

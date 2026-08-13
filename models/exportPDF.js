@@ -10,8 +10,21 @@ runOnServer(function() {
   // if (Meteor.isServer) block
   const { ExporterCardPDF, ExporterBoardPDF } = require('./server/ExporterCardPDF');
 
+  const { CARD_EXPORT_FIELD_KEYS, BOARD_EXPORT_FIELD_KEYS, parseExportFields } =
+    require('/models/lib/exportFields');
+
   // What formatDateByUserPreference understands, and nothing else.
   const DATE_FORMATS = ['YYYY-MM-DD', 'DD-MM-YYYY', 'MM-DD-YYYY'];
+
+  // #1173: the popup's checkboxes, and - for the board export - which swimlane
+  // or list was asked for, since those menus offer the same export.
+  const exportSelection = (req, allowed) => ({
+    fields: parseExportFields(req.query && req.query.fields, allowed),
+    scope: {
+      swimlaneId: (req.query && req.query.swimlaneId) || '',
+      listId: (req.query && req.query.listId) || '',
+    },
+  });
 
   // #6586: the two things the export needs about the reader and the server
   // cannot know on its own.
@@ -102,6 +115,7 @@ runOnServer(function() {
         language,
         timezone,
         dateFormat,
+        exportSelection(req, CARD_EXPORT_FIELD_KEYS).fields,
       );
       await exporterCardPDF.build(res);
       return;
@@ -153,6 +167,7 @@ runOnServer(function() {
       language,
       timezone,
       dateFormat,
+      exportSelection(req, CARD_EXPORT_FIELD_KEYS).fields,
     );
     if (await exporterCardPDF.canExport(user)) {
       if (impersonateDone) {
@@ -190,7 +205,13 @@ runOnServer(function() {
 
     if (board.isPublic()) {
       const { language, timezone, dateFormat } = await exportLocale(req, null);
-      await new ExporterBoardPDF(boardId, language, timezone, dateFormat).build(res);
+      const selection = exportSelection(req, BOARD_EXPORT_FIELD_KEYS);
+      const publicExporter = new ExporterBoardPDF(
+        boardId, language, timezone, dateFormat, selection.fields, selection.scope);
+      // On ONE line, and awaited: tests/excelExport.test.cjs reads it line by
+      // line because an un-awaited build(res) is #6591 - a rejection that goes
+      // nowhere and a response that is never ended.
+      await publicExporter.build(res);
       return;
     }
 
@@ -223,7 +244,9 @@ runOnServer(function() {
     }
 
     const { language, timezone, dateFormat } = await exportLocale(req, user);
-    const exporter = new ExporterBoardPDF(boardId, language, timezone, dateFormat);
+    const selection = exportSelection(req, BOARD_EXPORT_FIELD_KEYS);
+    const exporter = new ExporterBoardPDF(
+      boardId, language, timezone, dateFormat, selection.fields, selection.scope);
     if (await exporter.canExport(user)) {
       await exporter.build(res);
     } else {

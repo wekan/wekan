@@ -736,6 +736,10 @@ template(name="boardMenuPopup")
             | {{_ 'archive-board'}}
 
 template(name="exportBoardPopup")
+  //- #1173: the board in the CARD export's layout, with a choice of what goes
+    in it. The formats below are whole-board data dumps and take no selection.
+  +exportScopeBody(title=boardTitle)
+  hr
   ul.pop-over-list
     li
       a.download-json-link(href="{{exportUrl}}", download="{{exportJsonFilename}}")
@@ -745,10 +749,6 @@ template(name="exportBoardPopup")
       a.download-json-link(href="{{exportUrlNoAttachments}}", download="{{exportJsonFilename}}")
         i.fa.fa-upload
         | {{_ 'export'}} / JSON ({{_ 'export-board-without-attachments'}})
-    li
-      a(href="{{exportUrlExcel}}", download="{{exportFilenameExcel}}")
-        i.fa.fa-upload
-        | {{_ 'export'}} / Excel
     li
       a(href="{{exportCsvUrl}}", download="{{exportCsvFilename}}")
         i.fa.fa-upload
@@ -761,10 +761,6 @@ template(name="exportBoardPopup")
       a(href="{{exportTsvUrl}}", download="{{exportTsvFilename}}")
         i.fa.fa-upload
         | {{_ 'export'}} / TSV
-    li
-      a(href="{{exportUrlPDF}}", download="{{exportFilenamePDF}}")
-        i.fa.fa-upload
-        | {{_ 'export'}} / PDF
     li
       a(href="{{exportUrlKanboard}}", download="{{exportFilenameKanboard}}")
         i.fa.fa-upload

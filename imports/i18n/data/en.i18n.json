@@ -2352,5 +2352,10 @@
   "event-detail": "Detail",
   "event-ip": "IP address",
   "event-attempts": "Attempts",
-  "integrityReportTitle": "Filesystem integrity"
+  "integrityReportTitle": "Filesystem integrity",
+  "export-swimlane": "Export swimlane",
+  "export-list": "Export list",
+  "export-select-what-to-include": "Select what to include:",
+  "export-card-details": "Card details (each card as in card export)",
+  "card-number": "Card number"
 }

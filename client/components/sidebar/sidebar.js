@@ -6,7 +6,6 @@ import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 const { allBoardsPath, SECTION_ARCHIVE } = require('/models/lib/allBoardsUrls');
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
-import { exportLocaleParams } from '/client/lib/exportLocale';
 import AccessibilitySettings from '/models/accessibilitySettings';
 import Boards from '/models/boards';
 import Attachments from '/models/attachments';
@@ -964,35 +963,11 @@ Template.exportBoardPopup.helpers({
     };
     return FlowRouter.path('/api/boards/:boardId/export', params, queryParams);
   },
-  exportUrlExcel() {
-    const params = {
-      boardId: Session.get('currentBoard'),
-    };
-    const queryParams = {
-      authToken: Accounts._storedLoginToken(),
-    };
-    return FlowRouter.path(
-      '/api/boards/:boardId/exportExcel',
-      params,
-      queryParams,
-    );
-  },
-  exportUrlPDF() {
-    const params = {
-      boardId: Session.get('currentBoard'),
-    };
-    // #6586: the same two the card export sends - the browser's IANA zone, so
-    // the dates are not printed in UTC, and the language the reader is looking
-    // at WeKan in, for a public board that has no user to read one off.
-    const queryParams = {
-      authToken: Accounts._storedLoginToken(),
-      ...exportLocaleParams(),
-    };
-    return FlowRouter.path('/api/boards/:boardId/exportPDF', params, queryParams);
-  },
-  exportFilenamePDF() {
-    const boardId = Session.get('currentBoard');
-    return `export-board-${boardId}.pdf`;
+  // #1173: the shared export body names the file after what was exported, and
+  // for the board popup that is the board.
+  boardTitle() {
+    const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+    return (board && board.title) || 'export-board';
   },
   exportUrlKanboard() {
     const params = {
@@ -1018,10 +993,6 @@ Template.exportBoardPopup.helpers({
   },
   exportFilenameExternal(format) {
     return `export-board-${format}-${Session.get('currentBoard')}.json`;
-  },
-  exportFilenameExcel() {
-    const boardId = Session.get('currentBoard');
-    return `export-board-excel-${boardId}.xlsx`;
   },
   exportCsvUrl() {
     const params = {

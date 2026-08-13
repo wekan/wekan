@@ -111,6 +111,7 @@ Template.swimlaneActionPopup.events({
     if (!url) return;
     Utils.showCopied(Utils.copyTextToClipboard(url), tpl.$('.copied-tooltip'));
   },
+  'click .js-export-swimlane': Popup.open('exportSwimlane'),
   'click .js-add-swimlane': Popup.open('swimlaneAdd'),
   'click .js-add-list-from-swimlane': Popup.open('addList'),
   'click .js-set-swimlane-color': Popup.open('setSwimlaneColor'),

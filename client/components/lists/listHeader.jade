@@ -138,6 +138,14 @@ template(name="listActionPopup")
         | {{_ 'copy-link-to-clipboard'}}
   span.copied-tooltip {{_ 'copied'}}
   hr
+  //- #1173: exporting a list is the board export restricted to it. Reading, like
+    the link above it, so it is not behind the edit permissions below.
+  ul.pop-over-list
+    li: a.js-export-list
+      i.fa.fa-upload
+      span
+        | {{_ 'export-list'}}
+  hr
   unless currentUser.isReadOnly
     unless currentUser.isReadAssignedOnly
       ul.pop-over-list

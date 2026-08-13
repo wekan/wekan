@@ -67,6 +67,15 @@ template(name="swimlaneActionPopup")
           | {{_ 'copy-link-to-clipboard'}}
     span.copied-tooltip {{_ 'copied'}}
     hr
+    //- #1173: exporting a swimlane is the board export restricted to it, and
+      like copying a link it is READING - so it sits above the rows that change
+      the board and is not guarded by them.
+    ul.pop-over-list
+      li: a.js-export-swimlane
+        i.fa.fa-upload
+        span
+          | {{_ 'export-swimlane'}}
+    hr
     unless currentUser.isCommentOnly
       unless currentUser.isReadOnly
         unless currentUser.isReadAssignedOnly

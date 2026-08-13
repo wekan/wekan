@@ -9,6 +9,38 @@ runOnServer(function() {
   // it here we use runOnServer to have it inside a function instead of an
   // if (Meteor.isServer) block
   const { ExporterExcel } = require('./server/ExporterExcel');
+  const { ExporterExcelBoard } = require('./server/ExporterExcelBoard');
+  const { BOARD_EXPORT_FIELD_KEYS, parseExportFields } = require('/models/lib/exportFields');
+
+  // What formatDateByUserPreference understands, and nothing else.
+  const DATE_FORMATS = ['YYYY-MM-DD', 'DD-MM-YYYY', 'MM-DD-YYYY'];
+
+  // The export the request asks for (#1173). `card-details` - every card in the
+  // CARD export's layout - is what the popup ticks by default, and it needs an
+  // in-memory workbook: a card block merges and styles cells and comes back to
+  // earlier rows, which the streaming writer cannot do. Untick it and the old
+  // STREAMING table exporter answers instead, which is the one to use on a board
+  // too large to hold in memory. Both are real exports; the checkbox chooses.
+  const boardExcelExporter = (req, boardId, user) => {
+    const fields = parseExportFields(req.query && req.query.fields, BOARD_EXPORT_FIELD_KEYS);
+    const language = (req.query && req.query.lang)
+      || (user && user.profile && user.profile.language) || 'en';
+    const requested = req.query && req.query.dateFormat;
+    const dateFormat = DATE_FORMATS.includes(requested)
+      ? requested
+      : ((user && user.profile && user.profile.dateFormat) || 'YYYY-MM-DD');
+    const timezone = (req.query && typeof req.query.tz === 'string' && req.query.tz.length <= 64)
+      ? req.query.tz : '';
+    const scope = {
+      swimlaneId: (req.query && req.query.swimlaneId) || '',
+      listId: (req.query && req.query.listId) || '',
+    };
+
+    if (fields && !fields.includes('card-details')) {
+      return new ExporterExcel(boardId, language);
+    }
+    return new ExporterExcelBoard(boardId, language, fields, dateFormat, timezone, scope);
+  };
   const { WebApp } = require('meteor/webapp');
   const { safeRoute } = require('/server/apiMiddleware');
   const { Authentication } = require('/server/authentication');
@@ -50,8 +82,8 @@ runOnServer(function() {
     // If board is public, skip expensive authentication operations
     if (board.isPublic()) {
       // Public boards don't require authentication - skip hash operations
-      const exporterExcel = new ExporterExcel(boardId, 'en');
-      exporterExcel.build(res);
+      const exporterExcel = boardExcelExporter(req, boardId, null);
+      await exporterExcel.build(res);
       return;
     }
 
@@ -94,12 +126,7 @@ runOnServer(function() {
       });
     }
 
-    let userLanguage = 'en';
-    if(user && user.profile){
-      userLanguage = user.profile.language
-    }
-
-    const exporterExcel = new ExporterExcel(boardId, userLanguage);
+    const exporterExcel = boardExcelExporter(req, boardId, user);
     if ((await exporterExcel.canExport(user))) {
       if (impersonateDone) {
         await ImpersonatedUsers.insertAsync({
