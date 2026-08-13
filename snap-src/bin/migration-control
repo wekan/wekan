@@ -194,6 +194,40 @@ stop_via() {       # $1 = shell binary (legacy mongo), $2 = LD_LIBRARY_PATH pref
 
 WEKAN_PORT="${PORT:-8080}"
 
+# ── A FINISHED MIGRATION IS NOT A MIGRATION TO RUN ───────────────────────────
+#
+# Before anything is probed, read or deleted: if there is a FerretDB with data in
+# it and NO importer checkpoint beside it, this instance was migrated already and
+# has been serving from that database - possibly for months. Importing the old
+# MongoDB over it would replace months of work with the copy it was made from.
+#
+# That is not hypothetical. #6583 comment 5273400932: "the migration re-ran
+# yesterday (even though it had already run successfully a few weeks ago). The
+# .migration-to-ferretdb-done file is time stamped yesterday ... That explains
+# why I'm seeing old data." The marker had gone, the old staleness guard had
+# moved the instance back to MongoDB, and the re-run did the rest.
+#
+# bin/migration-pending already answers this the same way (through
+# bin/database-role), so this branch should never be reached - which is exactly
+# why it is here. The cost of being wrong in this direction is somebody's data.
+#
+# The checkpoint is what tells a finished migration from an interrupted one: the
+# importer writes migration-progress.json as it goes and resumes from it, so a
+# non-empty FerretDB WITHOUT one is a database that is finished and in use.
+if bash "$SNAP/bin/ferretdb-has-data" "$SQLITE_DIR" 2>/dev/null && \
+   [ ! -f "$SNAP_COMMON/migration-progress.json" ]; then
+  log "The FerretDB database in $SQLITE_DIR already holds data and no migration is in progress."
+  log "This instance is migrated. NOT importing MongoDB over it - that would replace what is being served with the copy it was made from (#6583)."
+  log "Marking the migration done and starting FerretDB. The MongoDB data stays in $SNAP_COMMON, untouched."
+  touch "$MARKER" 2>/dev/null || true
+  rm -f "$SNAP_COMMON/.migration-retry" 2>/dev/null || true
+  svc="${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}"
+  snapctl start --enable "${svc}.ferretdb" 2>/dev/null || true
+  snapctl restart "${svc}.wekan" 2>/dev/null || true
+  snapctl stop --disable "${svc}.mongodb" 2>/dev/null || true
+  exit 0
+fi
+
 # Start a temporary FerretDB v1 (SQLite at <files>/db) as the migration TARGET, and
 # arm the traps that stop it and the source mongod. $1 = the source-mongod stop command.
 FPID=""
@@ -338,6 +372,17 @@ finish_success() {
 discard_partial_ferretdb() {
   [ -n "${FPID:-}" ] && kill "$FPID" 2>/dev/null || true
   sleep 1
+  # ONLY what THIS attempt produced. The checkpoint is the importer's own record
+  # of the migration it is in the middle of; without one, the SQLite here is not
+  # partial - it is a database that was finished before this run started, and
+  # deleting it is how weeks of work disappear (#6583). The guard at the top of
+  # this file should have stopped us long before, and this is the second lock on
+  # the same door.
+  if [ ! -f "$SNAP_COMMON/migration-progress.json" ] && \
+     bash "$SNAP/bin/ferretdb-has-data" "$SQLITE_DIR" 2>/dev/null; then
+    log "NOT deleting the FerretDB database in $SQLITE_DIR: there is no migration checkpoint beside it, so it is a FINISHED database rather than this attempt's partial one."
+    return 0
+  fi
   rm -rf "${SQLITE_DIR:?}/"* 2>/dev/null || true
   # CRUCIAL: the importer's resume checkpoint lists the collections it has already
   # copied, and lives in $SNAP_COMMON (NOT in $SQLITE_DIR), so the rm above does not

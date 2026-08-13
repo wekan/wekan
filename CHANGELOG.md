@@ -359,6 +359,38 @@ This release fixes the following bugs:
 **The snap** - which database it runs on, and how everything gets into it.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH6583">A migration never runs over the database it already produced</a>. Thanks to lukechao and xet7.</summary>
+
+From [#6583](https://github.com/wekan/wekan/issues/6583): *"the migration
+re-ran yesterday (even though it had already run successfully a few weeks ago).
+The `.migration-to-ferretdb-done` file is time stamped yesterday … That explains
+why I'm seeing old data."*
+
+That is the worst version of this bug. The instance had been migrated and had
+been serving from FerretDB for weeks; the marker went missing, the old staleness
+guard put it back on `database=mongodb`, and the migration ran again — importing
+the MongoDB copy it had been made from, over the database holding the work
+since. `discard_partial_ferretdb` could delete that database outright, because
+"partial" was assumed rather than checked.
+
+Two locks on that door now, and the same fact opens both: the importer writes
+`migration-progress.json` as it goes and resumes from it, so a **FerretDB with
+data and no checkpoint beside it is a finished database, in use** — never a
+migration to continue.
+
+- `migration-control` checks that before it probes, reads or deletes anything.
+  If it finds one it marks the migration done, starts FerretDB, stops MongoDB
+  and exits. Nothing is imported.
+- `discard_partial_ferretdb` checks it again before removing a SQLite, and says
+  so when it declines. The MongoDB data is never touched either way.
+
+`bin/migration-pending` already answered the same question through
+`bin/database-role`, so neither branch should be reachable — which is why they
+are there. The cost of being wrong in this direction is somebody's data.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/60b4ceda3">A snap ends up on FerretDB, whatever it was running before</a>. Thanks to xet7.</summary>
 
 Three ways a snap could stay on MongoDB for good, all of them reported. The

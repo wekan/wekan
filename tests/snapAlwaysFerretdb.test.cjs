@@ -141,4 +141,27 @@ test('the migration is not gated on the database setting', () => {
     'the only check is what the DATA says: already on FerretDB, with data in it');
 });
 
+test('a migration never runs over, or deletes, a FerretDB that holds work', () => {
+  // #6583 comment 5273400932: "the migration re-ran yesterday (even though it
+  // had already run successfully a few weeks ago) ... That explains why I'm
+  // seeing old data." The marker had gone, the old staleness guard had put the
+  // instance back on MongoDB, and the re-run replaced months of work with the
+  // copy it had been made from. Two locks on that door now, and the checkpoint
+  // is what tells a FINISHED database from an interrupted migration.
+  const top = migrationControl.slice(0, migrationControl.indexOf('start_target_ferretdb() {'));
+  assert.ok(/already holds data and no migration is in progress/.test(top),
+    'migration-control refuses to import over a database that is already serving');
+  assert.ok(/touch "\$MARKER"/.test(top) && /start --enable "\$\{svc\}\.ferretdb"/.test(top),
+    'and marks it done and serves FerretDB instead of doing nothing');
+
+  const discard = migrationControl.slice(migrationControl.indexOf('discard_partial_ferretdb() {'));
+  const body = discard.slice(0, discard.indexOf('\n}'));
+  const guard = body.indexOf('migration-progress.json');
+  const rm = body.indexOf('rm -rf "${SQLITE_DIR');
+  assert.ok(guard !== -1 && guard < rm,
+    'and the cleanup checks for the checkpoint BEFORE deleting anything');
+  assert.ok(/NOT deleting the FerretDB database/.test(body),
+    'saying so when it declines, because a silent skip reads as a failed cleanup');
+});
+
 console.log(`\nsnapAlwaysFerretdb: ${passed} tests passed`);

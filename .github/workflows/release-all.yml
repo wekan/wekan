@@ -3509,28 +3509,41 @@ jobs:
               echo "::warning::${image}: the registry returned no token; skipping this check (that is the network, not the rights)."
               return 0
             fi
-            # The scopes the registry GRANTED are in the token it handed back -
-            # asking for push,pull and being given pull is exactly this failure.
-            # The payload is the middle part of the JWT, base64url without padding.
+            # ONLY AN EXPLICIT REFUSAL FAILS THE JOB, and that is not caution -
+            # it is what the registries actually return. Quay and Docker Hub hand
+            # back a JWT whose payload lists what was granted:
+            #
+            #   {"access":[{"type":"repository","name":"wekan/wekan","actions":["pull"]}]}
+            #
+            # so asking for push,pull and being given pull is a refusal, in
+            # writing. GHCR does not: its token is opaque and has no payload at
+            # all - "v1:wekan/wekan:1786595038984745940", no dots, no claims - so
+            # there is nothing to read. Treating that silence as a refusal is
+            # what this step did on its first run, and it stopped the v10.89
+            # Docker publish with "ghcr.io/wekan/wekan: the registry will NOT
+            # grant push" while Docker Hub and Quay were fine. So: a claim that
+            # names this repository and omits push is an error; anything else
+            # says so and carries on, and the push itself remains the last word.
             payload="$(printf '%s' "$token" | cut -d. -f2 | tr '_-' '/+')"
             case $(( ${#payload} % 4 )) in
               2) payload="${payload}==" ;;
               3) payload="${payload}=" ;;
             esac
-            claims="$(printf '%s' "$payload" | base64 -d 2>/dev/null || true)"
-            if [ -z "$claims" ]; then
-              echo "::warning::${image}: could not read the granted scopes; this check is inconclusive."
-              return 0
-            fi
+            claims="$(printf '%s' "$token" | grep -q '\.' && printf '%s' "$payload" | base64 -d 2>/dev/null || true)"
             case "$claims" in
-              *'"push"'*) echo "OK   ${image} can be pushed to" ;;
+              *'"access"'*)
+                case "$claims" in
+                  *'"push"'*) echo "OK   ${image} can be pushed to" ;;
+                  *)
+                    echo "::error::${image}: the registry granted pull and REFUSED push. Give the account these credentials belong to write access to THAT repository - on Quay it is per-repository (Repository Settings -> User and Robot Permissions), and a repository created by an earlier push does not inherit it."
+                    rc=1 ;;
+                esac
+                ;;
               *)
-                echo "::error::${image}: the registry will NOT grant push. Give the account these credentials belong to write access to THAT repository - on Quay it is per-repository (Repository Settings -> User and Robot Permissions), and a repository created by an earlier push does not inherit it."
-                rc=1 ;;
+                echo "${image}: this registry does not say what it granted (GHCR hands back an opaque token), so the push is the check."
+                ;;
             esac
           }
-          # ghcr.io/wekan/wekan-ondra and ghcr.io/wekan/wekan-gantt-gpl are
-          # commented out with the -t lines they went with.
           for image in ghcr.io/wekan/wekan; do
             can_push "$image" "$GHCR_AUTH"
           done
@@ -4182,17 +4195,46 @@ jobs:
         run: |
           set -uo pipefail
           shopt -s nullglob
+          # A .snap is a squashfs image, and squashfs starts with the four bytes
+          # "hsqs". That is the difference between "a file arrived" and "the file
+          # arrived": v10.89 armhf, ppc64el and s390x all downloaded a snap that
+          # existed and was not one, and the first thing that noticed was the
+          # Snap Store, at the end of the job -
+          #
+          #   Unsquashing snap file 'wekan_10.89_armhf.snap'.
+          #   could not unsquash snap file 'wekan_10.89_armhf.snap'
+          #
+          # - which reads like the build was bad when it was the transfer. The
+          # size floor is the same test in the other direction: the smallest
+          # WeKan snap is a few hundred megabytes, so anything under 50 MB is a
+          # truncated download or an error page, whatever its first four bytes.
+          snap_ok() {   # <file>
+            [ -f "$1" ] || return 1
+            [ "$(stat -c%s "$1")" -ge 52428800 ] || {
+              echo "$1 is only $(stat -c%s "$1") bytes - truncated."; return 1; }
+            [ "$(head -c4 "$1")" = "hsqs" ] || {
+              echo "$1 does not start with the squashfs magic 'hsqs' - it is not a snap."; return 1; }
+          }
           attempts=3
           for i in $(seq 1 "$attempts"); do
+            # A partial file from a previous attempt must not be mistaken for
+            # this attempt's artifact: snapcraft does not re-download a name it
+            # already has, so the truncated one would be uploaded again.
+            rm -f wekan_${VERSION}_${{ matrix.arch }}*.snap *_${{ matrix.arch }}.snap
             echo "::group::Remote build ${{ matrix.arch }} attempt $i/$attempts"
             snapcraft remote-build --launchpad-accept-public-upload \
               --build-for ${{ matrix.arch }} && rc=0 || rc=$?
             echo "::endgroup::"
-            # A real glob, so nullglob can empty it, plus any name Launchpad chose.
-            snaps=( wekan_${VERSION}_${{ matrix.arch }}*.snap *_${{ matrix.arch }}.snap )
-            if [ "$rc" -eq 0 ] && [ "${#snaps[@]}" -gt 0 ] && [ -s "${snaps[0]}" ]; then
-              echo "Remote build ${{ matrix.arch }} succeeded on attempt $i: ${snaps[*]}"
+            # A real glob, so nullglob can empty it, plus any name Launchpad chose -
+            # deduplicated, because the two patterns match the same file and it was
+            # printed (and would be uploaded) twice.
+            snaps=( $(printf '%s\n' wekan_${VERSION}_${{ matrix.arch }}*.snap *_${{ matrix.arch }}.snap | sort -u) )
+            if [ "$rc" -eq 0 ] && [ "${#snaps[@]}" -gt 0 ] && snap_ok "${snaps[0]}"; then
+              echo "Remote build ${{ matrix.arch }} succeeded on attempt $i: ${snaps[*]} ($(stat -c%s "${snaps[0]}") bytes, squashfs)"
               exit 0
+            fi
+            if [ "$rc" -eq 0 ] && [ "${#snaps[@]}" -gt 0 ]; then
+              echo "::warning::Attempt $i produced ${snaps[0]}, but it is not a usable snap (see above). Deleting it and building again rather than handing it to the Snap Store."
             fi
             if [ "$rc" -eq 0 ]; then
               echo "Attempt $i: snapcraft exited 0 but produced NO .snap for ${{ matrix.arch }} - the Launchpad build did not finish (a 'Stopped' build downloads logs and no artifact). Everything in the directory:"
@@ -4344,12 +4386,19 @@ jobs:
         run: |
           set -euo pipefail
           shopt -s nullglob
-          snaps=( wekan_${VERSION}_${{ matrix.arch }}*.snap *_${{ matrix.arch }}.snap )
-          # "No file" and "the store said no" are two different problems with two
-          # different owners, so they are two different messages. v10.48 printed the
-          # SNAP_AUTH one for a file that was never built.
+          # Deduplicated: the two patterns match the same file, and uploading it
+          # twice is how one build became two Snap Store revisions.
+          snaps=( $(printf '%s\n' wekan_${VERSION}_${{ matrix.arch }}*.snap *_${{ matrix.arch }}.snap | sort -u) )
+          # "No file", "not a snap" and "the store said no" are three different
+          # problems with three different owners, so they get three messages.
+          # v10.48 printed the SNAP_AUTH one for a file that was never built, and
+          # v10.89 let the store be the first to notice a truncated download.
           if [ "${#snaps[@]}" -eq 0 ] || [ ! -s "${snaps[0]}" ]; then
             echo "::error::No wekan_${VERSION}_${{ matrix.arch }}.snap to upload - the Launchpad build produced no artifact. This is NOT a SNAP_AUTH problem; see the build step above."
+            exit 1
+          fi
+          if [ "$(head -c4 "${snaps[0]}")" != "hsqs" ]; then
+            echo "::error::${snaps[0]} is $(stat -c%s "${snaps[0]}") bytes but does not start with the squashfs magic 'hsqs', so it is not a snap - the download from Launchpad was truncated or replaced by an error page. NOT a SNAP_AUTH problem and not a bad build: re-run this job."
             exit 1
           fi
           # base: core24 allows publishing to stable and candidate (core26 does not).
