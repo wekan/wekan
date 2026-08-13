@@ -114,10 +114,7 @@ needs live confirmation on current code),
 go grey after refresh — the linked card's real members live on ANOTHER board, so
 their avatar user docs are not published to the viewing board; the fix is a
 publication/subscription change verified live),
-[#5052](https://github.com/wekan/wekan/issues/5052) (.eml attachment download
-returns 401 on copied boards — a runtime download-auth/session issue; the
-file-serving code has been fully rewritten since the 2023 report, so it needs
-live re-confirmation), [#5421](https://github.com/wekan/wekan/issues/5421)
+[#5421](https://github.com/wekan/wekan/issues/5421)
 (moving a card fast — drag/reactivity glitch),
 [#761](https://github.com/wekan/wekan/issues/761) (cannot drop into a list when
 it is scrolled to the bottom — drag-drop/scroll),
@@ -355,6 +352,42 @@ from the provenance each build job records.
 | win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-win64.exe) | v1.49.0 | `f42c50aa84095a9616b00f27a584c66b7bf79e3b109450c62a5f146ba3c85478` |
 
 This release fixes the following bugs:
+
+**Reported behaviour that the current code already gets right**
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASHVERIFY">Two open issues answered by reading the code, and pinned so they stay answered</a>. Thanks to xet7.</summary>
+
+Both sat in `TODO Later` as "needs the running app", and both are decided by
+files that can simply be read.
+
+[#5052](https://github.com/wekan/wekan/issues/5052) — *"Attachments cannot be
+opened (.eml)"*, a blank page in the browser and nothing usable in Thunderbird
+after a board was copied. Three things could produce that, and each is handled
+now. The NAME: an unknown MIME used to append `.bin`
+([#6589](https://github.com/wekan/wekan/issues/6589)), and Thunderbird will not
+open a `.bin`; every type a mail file arrives as now keeps its extension, and
+the board copy names copies with the same rule. The SERVING: `message/rfc822`
+is in neither the dangerous-types nor the safe-inline list, so it takes the
+"unknown types" branch, which forces the download under the file's own name —
+inline is what shows a browser a blank page. The FILE: an attachment whose
+recorded path and on-disk name had diverged is found by the same search reading
+already used (#6589), so a copied board's attachments open even when the
+database's idea of the path is stale.
+
+[#5081](https://github.com/wekan/wekan/issues/5081) — *"Owner is on the very
+left, followed by members (if there are any) and on the very right there are
+the assignees"*, wrapping to a second right-aligned row when they do not fit.
+That is what the current minicard renders, and the reason is the float: three
+groups that float to the inline end are laid out RIGHT to left in DOM order, so
+the markup's `assignees, members, creator` renders as creator | members |
+assignees. Each avatar floats too, so a row that does not fit wraps and stays
+right-aligned, and an empty group is `display: none` rather than a gap.
+
+`tests/openIssuesVerifiedFromCode.test.cjs` holds both, so neither can quietly
+stop being true.
+
+</details>
 
 **Recovering a snap that has two copies of its data**
 
