@@ -8,6 +8,10 @@ import { kanboardGetMembersToMap } from './kanboardMembersMapper';
 import getSlug from 'limax';
 import { UserSearchIndex } from '/models/users';
 import { Utils } from '/client/lib/utils';
+import { productNameOrDefault } from '/models/lib/productName';
+import { BOARD_EXPORT_FIELDS } from '/models/lib/exportFields';
+import { selection as importSelection, selectedFields } from '/client/components/boards/exportScope';
+import { pruneImportDocument } from '/models/lib/importParts';
 import { TAPi18n } from '/imports/i18n';
 import TrelloImportJobs from '/models/trelloImportJobs';
 
@@ -350,9 +354,13 @@ Template.import.onCreated(function () {
       settled = true;
       this.setError('import-timeout');
     }, timeoutMs);
+    // #1173: the parts the page's checkboxes did not tick are taken OUT of the
+    // document here, before any creator sees it. A creator that never sees a
+    // comment cannot import one, which is how one selection works for five
+    // sources without teaching each of them a selection of its own.
     Meteor.call(
       'importBoard',
-      importedData,
+      pruneImportDocument(importedData, selectedFields()),
       { membersMapping: mappingById },
       this.importSource,
       Session.get('fromBoard'),
@@ -371,15 +379,76 @@ Template.import.onCreated(function () {
   };
 });
 
+// #1173: every import source, in one list, so the page says what it can read
+// instead of the answer living in a menu somewhere else. The order is the one
+// the board sidebar's links were in - the familiar one - and the WeKan entry is
+// named for the PRODUCT NAME this instance is branded with, because "a previous
+// export of ..." should say the name the person sees at the top of their screen.
+const IMPORT_SOURCES = [
+  { key: 'wekan', product: true },
+  { key: 'trello', name: 'Trello' },
+  { key: 'csv', name: 'CSV / TSV' },
+  { key: 'excel', name: 'Excel' },
+  { key: 'jira', name: 'Jira' },
+  { key: 'kanboard', name: 'Kanboard' },
+  { key: 'deck', name: 'NextCloud Deck' },
+  { key: 'openproject', name: 'OpenProject' },
+  { key: 'github', name: 'GitHub' },
+  { key: 'gitlab', name: 'GitLab' },
+  { key: 'gitea', name: 'Gitea' },
+  { key: 'forgejo', name: 'Forgejo' },
+  { key: 'asana', name: 'Asana' },
+  { key: 'zenkit', name: 'Zenkit' },
+];
+
 Template.import.helpers({
   error() {
     return Template.instance().error;
+  },
+  importSources() {
+    const setting = ReactiveCache.getCurrentSetting();
+    const product = productNameOrDefault(setting && setting.productName);
+    const current = Session.get('importSource');
+    return IMPORT_SOURCES.map(source => ({
+      key: source.key,
+      // "a previous export of <Product name>", which for an unbranded WeKan is
+      // "WeKan" and for a rebranded one is whatever it was rebranded to.
+      name: source.product ? `${product} (JSON, .zip)` : source.name,
+      selected: source.key === current,
+    }));
+  },
+  hasImportSource() {
+    return Boolean(Session.get('importSource'));
+  },
+  // The SAME selection the export popups use - one list, one meaning: on an
+  // export it is what goes out, on an import it is what comes in.
+  importParts() {
+    return BOARD_EXPORT_FIELDS.map(({ field, label }) => ({
+      field,
+      label,
+      checked: importSelection.get(field),
+    }));
   },
   currentTemplate() {
     return Template.instance().steps[Template.instance()._currentStepIndex.get()];
   },
   zipImporting() {
     return Template.instance().zipImporting.get();
+  },
+});
+
+Template.import.events({
+  'click .js-select-import-source'(event) {
+    event.preventDefault();
+    const source = event.currentTarget.dataset.source;
+    // The address still names the source, so an import page can be linked and
+    // the back button works - the picker sets it rather than replacing it.
+    FlowRouter.go(`/import/${source}`);
+  },
+  'click .js-import-part-toggle'(event) {
+    event.preventDefault();
+    const field = event.currentTarget.dataset.field;
+    importSelection.set(field, !importSelection.get(field));
   },
 });
 

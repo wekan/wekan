@@ -568,36 +568,17 @@ template(name="boardSubtaskSettingsPopup")
             else
               option(value=_id) {{title}}
 
+//- #1173: the fourteen per-source links that were here are the import PAGE now
+  - one full-width page that lists every source, offers the same "what to
+  include" checkboxes every export offers, and keeps its own address per source
+  so the old links still work. What is left in the popup is the one import that
+  is not a board: card dependencies.
 template(name="chooseBoardSourcePopup")
   ul.pop-over-list
     li
-      a(href="{{pathFor '/import/trello'}}") {{_ 'import'}} / Trello
-    li
-      a(href="{{pathFor '/import/wekan'}}") {{_ 'import'}} / JSON
-    li
-      a(href="{{pathFor '/import/csv'}}") {{_ 'import'}} / CSV-TSV
-    li
-      a(href="{{pathFor '/import/excel'}}") {{_ 'import'}} / Excel
-    li
-      a(href="{{pathFor '/import/jira'}}") {{_ 'import'}} / Jira
-    li
-      a(href="{{pathFor '/import/kanboard'}}") {{_ 'import'}} / Kanboard
-    li
-      a(href="{{pathFor '/import/deck'}}") {{_ 'import'}} / NextCloud Deck
-    li
-      a(href="{{pathFor '/import/openproject'}}") {{_ 'import'}} / OpenProject
-    li
-      a(href="{{pathFor '/import/github'}}") {{_ 'import'}} / GitHub
-    li
-      a(href="{{pathFor '/import/gitlab'}}") {{_ 'import'}} / GitLab
-    li
-      a(href="{{pathFor '/import/gitea'}}") {{_ 'import'}} / Gitea
-    li
-      a(href="{{pathFor '/import/forgejo'}}") {{_ 'import'}} / Forgejo
-    li
-      a(href="{{pathFor '/import/asana'}}") {{_ 'import'}} / Asana
-    li
-      a(href="{{pathFor '/import/zenkit'}}") {{_ 'import'}} / Zenkit
+      a.js-open-import-page(href="{{pathFor '/import'}}")
+        i.fa.fa-download
+        |  {{_ 'import-board-source'}}
     li
       a.js-import-dependencies {{_ 'import'}} / {{_ 'card-dependencies'}} (JSON/SVG)
 

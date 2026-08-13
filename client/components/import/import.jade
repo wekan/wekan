@@ -1,10 +1,36 @@
 template(name="import")
-  .wrapper
+  .wrapper.import-page
     if error.get
       .warning {{_ error.get}}
     if zipImporting
       .warning {{_ 'import-trello-zip-progress'}}
-    +Template.dynamic(template=currentTemplate)
+    //- #1173: ONE import page. Every source used to be its own address reached
+      from its own link in the board sidebar, and the page never said which
+      others existed - so "where do I import a Jira export" was answered by a
+      menu somewhere else. The source is picked HERE, the parts are picked with
+      the same checkboxes every export uses, and the boards inside a file that
+      holds several are picked below that.
+    .import-sources
+      h2 {{_ 'import-source-heading'}}
+      ul.import-source-list
+        each importSources
+          li(class="{{#if selected}}active{{/if}}")
+            a.js-select-import-source(data-source="{{key}}" href="#")
+              i.fa.fa-check
+              | {{name}}
+    if hasImportSource
+      hr
+      .import-parts
+        h2 {{_ 'export-select-what-to-include'}}
+        p.quiet {{_ 'import-parts-instruction'}}
+        ul.import-part-list
+          each importParts
+            li(class="{{#if checked}}active{{/if}}")
+              a.js-import-part-toggle(data-field="{{field}}" href="#")
+                i.fa.fa-check
+                | {{_ label}}
+      hr
+      +Template.dynamic(template=currentTemplate)
 
 template(name="importTextarea")
   form

@@ -531,6 +531,37 @@ this went unnoticed while a test watched it.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">One import page, for every source, with the same checkboxes the exports use</a>. Thanks to xet7.</summary>
+
+The last piece of [#1173](https://github.com/wekan/wekan/issues/1173): "combine
+all import options to same template". They were fourteen - a link per source in
+a pop-over, each going to its own address - and the page each one landed on
+never said which other sources existed, so "where do I import a Jira export"
+was answered by a menu somewhere else, if you knew it was there.
+
+**All Boards / + Add Board / Import** is now one full-width page that lists
+every source it can read - Trello, Jira, CSV/TSV, Excel, Kanboard, NextCloud
+Deck, OpenProject, GitHub, GitLab, Gitea, Forgejo, Asana, Zenkit, and a previous
+export of this WeKan, named with the **Product name** this instance is branded
+with rather than with a product the reader has never seen.
+
+Under the source picker are the same **what to include** checkboxes every export
+offers, from the same list, and on this side they say what comes IN. That works
+for every source without teaching five different creators a selection each: the
+parts that were not ticked are taken OUT of the parsed document before any
+creator sees it, and a creator that never sees a comment cannot import one. A
+section that was not ticked is EMPTIED rather than removed, because the creators
+read `board.comments` directly and an undefined array is a crash where an empty
+one is "there were none". A source's own name for a part is pruned with it -
+Trello calls its comments `actions` - and a key this list does not know about is
+left alone rather than silently dropped.
+
+`/import/:source` still works, under its own route name, so every existing link,
+bookmark and back button lands exactly where it did.
+
+</details>
+
 **Search** - finding a card by what people call it.
 
 <details>

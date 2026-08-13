@@ -689,6 +689,32 @@ FlowRouter.route('/broken-cards', {
   },
 });
 
+// #1173: the import page with no source chosen yet. The page picks the source
+// itself now, so the address does not have to carry one - but /import/:source
+// below still works, so every existing link, bookmark and back button does.
+FlowRouter.route('/import', {
+  name: 'import-start',
+  triggersEnter: [ensureSignedInUnlessSandstorm],
+  action() {
+    if (Session.get('currentBoard')) {
+      Session.set('fromBoard', Session.get('currentBoard'));
+    }
+    Session.set('currentBoard', null);
+    Session.set('currentList', null);
+    Session.set('currentCard', null);
+    Session.set('popupCardId', null);
+    Session.set('popupCardBoardId', null);
+    Session.set('importSource', null);
+
+    Filter.reset();
+    Session.set('sortBy', '');
+    EscapeActions.executeAll();
+    this.render('defaultLayout', {
+      content: 'import',
+    });
+  },
+});
+
 FlowRouter.route('/import/:source', {
   name: 'import',
   triggersEnter: [ensureSignedInUnlessSandstorm],
