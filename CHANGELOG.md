@@ -359,7 +359,7 @@ This release fixes the following bugs:
 **The snap** - which database it runs on, and how everything gets into it.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH6583">A migration never runs over the database it already produced</a>. Thanks to lukechao and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e63ac0e77">A migration never runs over the database it already produced</a>. Thanks to lukechao and xet7.</summary>
 
 From [#6583](https://github.com/wekan/wekan/issues/6583): *"the migration
 re-ran yesterday (even though it had already run successfully a few weeks ago).
