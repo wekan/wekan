@@ -470,7 +470,7 @@ and adds the following new features:
 **Board, swimlane and list export** - printing a board, and what goes in it.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">A board, a swimlane and a list export to PDF and Excel in the card export's own layout</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/bd009cf601b81072308f7e1f56e73c88a89aa7cd">A board, a swimlane and a list export to PDF and Excel in the card export's own layout</a>. Thanks to xet7.</summary>
 
 [#1173](https://github.com/wekan/wekan/issues/1173) "Add Feature: Print Board
 with Params" has been open since 2017, and two things were missing. There was no
@@ -503,7 +503,7 @@ see.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">One selection popup, and one list of what an export can contain</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/bd009cf601b81072308f7e1f56e73c88a89aa7cd">One selection popup, and one list of what an export can contain</a>. Thanks to xet7.</summary>
 
 The card export's popup had a list of sections, and the server had another one,
 under a comment reading "Must match ALL_FIELDS in
