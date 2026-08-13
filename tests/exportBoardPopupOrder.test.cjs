@@ -63,6 +63,20 @@ test('the formats appear in the order asked for', () => {
   }
 });
 
+test('a rule sits above every subheading', () => {
+  // The heading names a family; the rule says where the family before it ended.
+  const lines = popup.split('\n');
+  lines.forEach((line, index) => {
+    if (!/h4\.pop-over-list-subheading/.test(line)) return;
+    assert.strictEqual((lines[index - 1] || '').trim(), 'hr',
+      `no rule above ${line.trim()}`);
+  });
+  const rules = lines.filter(line => line.trim() === 'hr').length;
+  const headings = lines.filter(line => /h4\.pop-over-list-subheading/.test(line)).length;
+  assert.strictEqual(rules, headings,
+    'one rule per subheading - no stray separators between the groups');
+});
+
 test('three subheadings name the three families', () => {
   const headings = [...popup.matchAll(/h4\.pop-over-list-subheading (.+)/g)].map(m => m[1].trim());
   assert.deepStrictEqual(headings, ["{{_ 'card-dependencies'}}", 'CSV', 'JSON'],

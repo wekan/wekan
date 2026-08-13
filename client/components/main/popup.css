@@ -1055,3 +1055,12 @@ body.mobile-mode .pop-over .content-wrapper {
     min-width: 0;
   }
 }
+
+/* The rule above each subheading in the Export board menu. Tighter than the
+   default so a group's heading stays visually attached to the list under it
+   rather than floating between two gaps. */
+.pop-over[data-popup='exportBoardPopup'] .export-board-pane hr {
+  margin: 10px 0 0 0;
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}

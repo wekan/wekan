@@ -697,6 +697,9 @@ mirrored in `client/lib/popupOffset.js`, which places a popup using its width:
 left at the default 380 a wide menu opened near the right edge lands most of the
 way off the screen.
 
+A rule sits above each subheading, so a group's name says where the group before
+it ended - one rule per heading and no stray separators, which a test counts.
+
 </details>
 
 <details>
