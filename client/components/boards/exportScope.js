@@ -1,3 +1,16 @@
+// ITS OWN TEMPLATE FIRST. This module is imported by sidebar.js, by
+// cardDetails.js and by the import page, and any of them can be evaluated
+// before client/features/boards.js gets to the .jade - at which point
+// `Template.exportScopeBody` is undefined and `.helpers()` on it throws at
+// module scope. That does not break this popup, it breaks THE WHOLE BUNDLE:
+// evaluation stops, every template registered after it never registers, and
+// the sign-in page comes up with "no template passwordInput found".
+//
+// A component whose .js is imported by other components cannot rely on the
+// central import order in client/features/*.js. Importing the template here
+// makes the order a fact rather than a hope; the module cache means the second
+// import costs nothing.
+import './exportScope.jade';
 import { ReactiveDict } from 'meteor/reactive-dict';
 import { Template } from 'meteor/templating';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';

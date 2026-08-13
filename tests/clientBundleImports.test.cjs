@@ -99,6 +99,50 @@ test('the walk reaches the client entry point and what it loads', () => {
   assert.ok(bundle.size > 300, `the graph is a whole app, not a few files (${bundle.size})`);
 });
 
+// ── a component .js that others import must bring its own template ──────────
+//
+// `Template.exportScopeBody.helpers(...)` at module scope throws when the
+// template is not defined YET, and that does not break one popup - it stops the
+// module evaluating, so every template registered after it never registers. The
+// sign-in page came up with "no template passwordInput found" and a blank form.
+//
+// The central lists in client/features/*.js import a component's .jade before
+// its .js, which is enough for a component nobody else imports. It is NOT enough
+// for one that other components import: whichever module reaches it first
+// evaluates it, and that can happen long before the feature list gets to the
+// .jade. Such a file has to import its own template.
+test('a component .js imported by other components imports its own .jade', () => {
+  const strip = code => code
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .split('\n').filter(line => !/^\s*\/\//.test(line)).join('\n');
+
+  const jsFiles = allFiles('client/components', /\.js$/);
+  const importedByAnother = new Set();
+  for (const file of jsFiles) {
+    const code = strip(read(file));
+    for (const m of code.matchAll(/(?:from|import)\s+'([^']*components\/[^']+)'/g)) {
+      const spec = m[1];
+      if (spec.endsWith('.jade') || spec.endsWith('.css')) continue;
+      importedByAnother.add(spec.replace(/^\//, '').replace(/\.js$/, ''));
+    }
+  }
+
+  const offenders = [];
+  for (const file of jsFiles) {
+    const key = file.replace(/\.js$/, '');
+    if (!importedByAnother.has(key)) continue;
+    const template = `${key}.jade`;
+    if (!fs.existsSync(path.join(root, template))) continue;
+    const code = strip(read(file));
+    if (!/Template\.\w+\.(helpers|events|onCreated|onRendered|onDestroyed)/.test(code)) continue;
+    if (!code.includes(`${path.basename(template)}`)) offenders.push(file);
+  }
+  assert.deepStrictEqual(offenders, [],
+    'these register on a template they do not import, and are imported by another '
+    + 'component - so the template may not exist yet when they run:\n  '
+    + offenders.join('\n  '));
+});
+
 // ── every component that registers something with Blaze is in it ─────────────
 
 function allFiles(dir, match) {

@@ -664,6 +664,32 @@ screen.
 **Board, swimlane and list export** - printing a board, and what goes in it.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">A component that other components import now loads its own template, so the client bundle cannot die at startup</a>. Thanks to xet7.</summary>
+
+`Template.exportScopeBody.helpers(...)` runs at module scope, and it throws when
+that template is not defined YET. That does not break one popup - it stops the
+module evaluating, so every template registered after it never registers either.
+The visible symptom was the SIGN-IN page: a blank form and
+
+```
+Uncaught TypeError: can't access property "helpers", Template.exportScopeBody is undefined
+[UserAccounts] Warning no template passwordInput found!
+```
+
+The central lists in `client/features/*.js` import a component's `.jade` before
+its `.js`, which is enough for a component nobody else imports. The export popup
+body is imported by the sidebar, by the card details and by the import page, and
+whichever of those is reached first evaluates it - long before the feature list
+gets to the template. It imports its own `.jade` now, so the order is a fact
+rather than a hope.
+
+A guard in `tests/clientBundleImports.test.cjs` checks the whole rule, and found
+a second component with the same fragility that had not fired yet -
+`migrationProgress.js`, imported by `boardBody.js`. Fixed the same way.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8d716de7ccbae184cc3cdda4a54c82e8e90461ab">The board Export menu is grouped under subheadings instead of one flat list</a>. Thanks to xet7.</summary>
 
 It was nineteen entries in one list, each spelling out its whole family:
