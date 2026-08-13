@@ -304,7 +304,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.91 2026-08-13 WeKan ® release
 
 **In short:** four reports from admins who could not tell what their own WeKan
 was doing, and two pieces of theming. **Member Settings / Change color** gained
