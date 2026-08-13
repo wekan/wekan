@@ -4078,7 +4078,7 @@ jobs:
     # not a Launchpad problem at all. The retry loop is only worth having if the
     # job outlives the retries, so allow for two full slow-arch attempts. 350 is
     # under GitHub's 360-minute per-job ceiling.
-    timeout-minutes: 350
+    timeout-minutes: 360
     strategy:
       fail-fast: false
       matrix:
@@ -4458,6 +4458,25 @@ jobs:
       # did not" for the whole release at a glance, instead of eighteen job logs. A
       # step that failed has already printed an ::error:: saying why; this names the
       # job it was in.
+      # A TIMEOUT HERE IS NOT A FAILED BUILD. v10.89's riscv64 leg ran 5h50m -
+      # the cap - with Launchpad still printing "Building: riscv64", and the run
+      # showed CANCELLED with nothing else said. What is true at that moment:
+      # the LAUNCHPAD build carries on, it keeps its name (snapcraft names the
+      # remote build from the project, not from the run), and re-running this
+      # job reconnects to the SAME build and downloads the snap instead of
+      # starting a new one. That is worth printing, because "CANCELLED" reads
+      # like the work is gone.
+      - name: Say what a cancelled ${{ matrix.arch }} job leaves behind
+        if: cancelled()
+        run: |
+          echo "::warning::snap-launchpad ${{ matrix.arch }} ran out of time (the job cap), but the Launchpad build was NOT cancelled - it is still building there."
+          echo "Re-run THIS job when it has finished: snapcraft remote-build reconnects to the same Launchpad build and downloads the snap; nothing is rebuilt."
+          for log in snapcraft-wekan-*.txt; do
+            [ -e "$log" ] || continue
+            echo "Launchpad build log left by this attempt: $log"
+          done
+          grep -ho 'https://launchpad.net/[^ ]*' "$HOME/.local/state/snapcraft/log/"*.log 2>/dev/null | sort -u | head -5 || true
+
       - name: Job result
         if: always()
         # bash explicitly: this same step runs on the Windows and macOS runners too,
