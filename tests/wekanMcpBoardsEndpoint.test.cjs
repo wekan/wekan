@@ -78,4 +78,28 @@ test('MCP server version was bumped for the board-discovery fix', () => {
   assert.ok(/version="0\.2\.1"/.test(server), 'serverInfo should identify the fixed build');
 });
 
+test('untrusted resource ids cannot alter WeKan REST paths', () => {
+  assert.ok(
+    /def _resource_id\(value: str, name: str\)[\s\S]*?re\.fullmatch\(r"\[A-Za-z0-9\]\+", value\)/
+      .test(server),
+    'opaque ids should be validated before interpolation into an API path',
+  );
+  for (const name of ['board_id', 'list_id', 'user_id']) {
+    assert.ok(
+      server.includes(`_resource_id(${name === 'user_id' ? 'client.user_id' : name}, "${name}")`),
+      `${name} should pass through the resource-id validator`,
+    );
+  }
+});
+
+test('the repository does not auto-connect contributors to a remote MCP', () => {
+  const projectConfig = read('.codex/config.toml');
+  assert.ok(!projectConfig.includes('[mcp_servers.'), 'project config must remain opt-in');
+  assert.ok(!projectConfig.includes('1nutrouter.com'), 'project config must not trust a personal host');
+  assert.ok(
+    readme.includes('127.0.0.1') && readme.includes('authenticated reverse proxy'),
+    'deployment docs should default to loopback and require remote client authentication',
+  );
+});
+
 console.log(`\n${passed} tests passed`);

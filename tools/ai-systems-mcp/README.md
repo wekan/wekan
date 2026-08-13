@@ -4,10 +4,10 @@ MCP server nay expose board/list/card tools cho WeKan, ung dung Trello-like cua
 du an. Endpoint nay KHONG ket noi den Trello official va khong can Trello API
 key.
 
-Production endpoint:
+The server is local-only by default:
 
 ```text
-https://trello.1nutrouter.com/mcp
+http://127.0.0.1:8000/mcp
 ```
 
 Transport:
@@ -16,8 +16,10 @@ Transport:
 streamable-http
 ```
 
-Server-side MCP da tu xu ly WeKan auth. Agent ket noi MCP chi can goi tools; dung
-gui Trello token/key.
+Server-side MCP tu xu ly WeKan auth. Vi server giu quyen tao board/list/card,
+khong expose endpoint nay ra Internet neu khong co lop authentication va access
+control o reverse proxy. Khong commit hoac gui WeKan token/password cho MCP
+client.
 
 ## For Agents
 
@@ -27,7 +29,7 @@ Neu client ho tro remote MCP URL, cau hinh:
 {
   "mcpServers": {
     "wekan": {
-      "url": "https://trello.1nutrouter.com/mcp",
+      "url": "http://127.0.0.1:8000/mcp",
       "transport": "streamable-http"
     }
   }
@@ -43,7 +45,7 @@ Neu client yeu cau headers cho streamable HTTP, dung:
 }
 ```
 
-Endpoint production chay stateless HTTP de tranh loi `400 Missing session ID` voi
+Endpoint local chay stateless HTTP de tranh loi `400 Missing session ID` voi
 nhung client khong giu MCP session header tot.
 
 ## Tool List
@@ -202,7 +204,7 @@ Date fields should be ISO-like date strings accepted by WeKan, for example
 Initialize:
 
 ```sh
-curl -sS https://trello.1nutrouter.com/mcp \
+curl -sS http://127.0.0.1:8000/mcp \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json, text/event-stream' \
   --data '{
@@ -220,7 +222,7 @@ curl -sS https://trello.1nutrouter.com/mcp \
 List tools:
 
 ```sh
-curl -sS https://trello.1nutrouter.com/mcp \
+curl -sS http://127.0.0.1:8000/mcp \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json, text/event-stream' \
   --data '{
@@ -234,7 +236,7 @@ curl -sS https://trello.1nutrouter.com/mcp \
 Call health:
 
 ```sh
-curl -sS https://trello.1nutrouter.com/mcp \
+curl -sS http://127.0.0.1:8000/mcp \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json, text/event-stream' \
   --data '{
@@ -283,7 +285,7 @@ Common cases:
   not include `swimlaneId`. Use the MCP `create_card` tool; it fills default
   swimlane automatically.
 - `400 Missing session ID` - client is speaking stateful streamable HTTP. The
-  production server is configured stateless; reconnect to the production endpoint
+  server is configured stateless; reconnect to the configured endpoint
   or verify the request path is exactly `/mcp`.
 
 ## Local Configuration
@@ -363,7 +365,7 @@ id works, rebuild/restart the MCP server so it is using
 
 ## Docker Runtime
 
-Production compose maps the container to `127.0.0.1:18080` by default:
+Compose maps the container to `127.0.0.1:18080` by default:
 
 ```sh
 cd tools/ai-systems-mcp
@@ -374,3 +376,7 @@ By default compose joins the external Docker network
 `WEKAN_DOCKER_NETWORK=wekan-ui_wekan-ui` and reaches WeKan at
 `WEKAN_BASE_URL=http://wekan-ui:8080`. Override those values when the WeKan
 container/network uses different names.
+
+Keep `MCP_BIND=127.0.0.1` unless an authenticated reverse proxy is in front of
+the service. TLS alone is not client authentication: a public unauthenticated
+MCP endpoint would give anyone the WeKan privileges configured in the server.

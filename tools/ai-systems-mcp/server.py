@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sys
 from dataclasses import dataclass
 from typing import Any
@@ -195,8 +196,16 @@ def _clean_body(values: dict[str, Any]) -> dict[str, Any]:
     return {key: value for key, value in values.items() if value is not None}
 
 
+def _resource_id(value: str, name: str) -> str:
+    """Validate an opaque WeKan id before placing it in a REST path."""
+    if not isinstance(value, str) or not re.fullmatch(r"[A-Za-z0-9]+", value):
+        raise WekanConfigError(f"{name} must be a non-empty alphanumeric WeKan id")
+    return quote(value, safe="")
+
+
 async def _default_swimlane_id(client: WekanClient, board_id: str) -> str:
-    swimlanes = await client.request("GET", f"/api/boards/{board_id}/swimlanes")
+    board_path = _resource_id(board_id, "board_id")
+    swimlanes = await client.request("GET", f"/api/boards/{board_path}/swimlanes")
     if not isinstance(swimlanes, list) or not swimlanes:
         raise WekanAPIError(f"Board {board_id} does not have an active swimlane")
     first = swimlanes[0]
@@ -209,7 +218,7 @@ async def _visible_user_boards(client: WekanClient) -> list[Any]:
     await client._login()
     if not client.user_id:
         raise WekanConfigError("Missing WeKan user id after login")
-    user_id = quote(client.user_id, safe="")
+    user_id = _resource_id(client.user_id, "user_id")
     boards = await client.request("GET", f"/api/users/{user_id}/boards")
     if not isinstance(boards, list):
         raise WekanAPIError("WeKan user boards response was not a list")
@@ -274,7 +283,8 @@ def _server() -> MCPServer:
         """Read one board by id."""
 
         async def run() -> dict[str, Any]:
-            board = await client.request("GET", f"/api/boards/{board_id}")
+            board_path = _resource_id(board_id, "board_id")
+            board = await client.request("GET", f"/api/boards/{board_path}")
             return {"board": board}
 
         return await _safe_call("board", run)
@@ -315,7 +325,8 @@ def _server() -> MCPServer:
         """List non-archived lists on a board."""
 
         async def run() -> dict[str, Any]:
-            lists = await client.request("GET", f"/api/boards/{board_id}/lists")
+            board_path = _resource_id(board_id, "board_id")
+            lists = await client.request("GET", f"/api/boards/{board_path}/lists")
             return {
                 "count": len(lists) if isinstance(lists, list) else None,
                 "lists": lists,
@@ -328,7 +339,8 @@ def _server() -> MCPServer:
         """List non-archived swimlanes on a board."""
 
         async def run() -> dict[str, Any]:
-            swimlanes = await client.request("GET", f"/api/boards/{board_id}/swimlanes")
+            board_path = _resource_id(board_id, "board_id")
+            swimlanes = await client.request("GET", f"/api/boards/{board_path}/swimlanes")
             return {
                 "count": len(swimlanes) if isinstance(swimlanes, list) else None,
                 "swimlanes": swimlanes,
@@ -347,9 +359,10 @@ def _server() -> MCPServer:
         async def run() -> dict[str, Any]:
             if not title.strip():
                 raise WekanConfigError("title is required")
+            board_path = _resource_id(board_id, "board_id")
             created = await client.request(
                 "POST",
-                f"/api/boards/{board_id}/lists",
+                f"/api/boards/{board_path}/lists",
                 json_body=_clean_body({"title": title.strip(), "swimlaneId": swimlane_id}),
             )
             return {
@@ -364,9 +377,11 @@ def _server() -> MCPServer:
         """List non-archived cards in a board list."""
 
         async def run() -> dict[str, Any]:
+            board_path = _resource_id(board_id, "board_id")
+            list_path = _resource_id(list_id, "list_id")
             cards = await client.request(
                 "GET",
-                f"/api/boards/{board_id}/lists/{list_id}/cards",
+                f"/api/boards/{board_path}/lists/{list_path}/cards",
             )
             return {
                 "count": len(cards) if isinstance(cards, list) else None,
@@ -395,6 +410,8 @@ def _server() -> MCPServer:
         async def run() -> dict[str, Any]:
             if not title.strip():
                 raise WekanConfigError("title is required")
+            board_path = _resource_id(board_id, "board_id")
+            list_path = _resource_id(list_id, "list_id")
             effective_author = author_id or client.user_id
             if not effective_author:
                 await client._login()
@@ -421,7 +438,7 @@ def _server() -> MCPServer:
             )
             created = await client.request(
                 "POST",
-                f"/api/boards/{board_id}/lists/{list_id}/cards",
+                f"/api/boards/{board_path}/lists/{list_path}/cards",
                 json_body=body,
             )
             return {

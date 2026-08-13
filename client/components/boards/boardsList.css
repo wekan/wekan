@@ -1640,6 +1640,44 @@
   color: #6b7280;
 }
 
+/* A neutral card still follows an explicitly dark site/user theme. Without
+   this override the rule above makes All Boards the only bright-white surface
+   in dark, moderndark and exodark, and its forced dark text ignores the theme. */
+body.board-color-dark .board-list > li.js-board,
+body.board-color-dark .board-list > li.js-board > .board-list-item,
+body.board-color-dark .board-list > li.js-board > .board-list-item > .js-open-board,
+body.board-color-moderndark .board-list > li.js-board,
+body.board-color-moderndark .board-list > li.js-board > .board-list-item,
+body.board-color-moderndark .board-list > li.js-board > .board-list-item > .js-open-board,
+body.board-color-exodark .board-list > li.js-board,
+body.board-color-exodark .board-list > li.js-board > .board-list-item,
+body.board-color-exodark .board-list > li.js-board > .board-list-item > .js-open-board {
+  background: #1f2937 !important;
+  background-color: #1f2937 !important;
+  color: #f9fafb;
+}
+
+body.board-color-dark .board-list > li.js-board .board-list-item-name,
+body.board-color-dark .board-list > li.js-board .board-list-card-count,
+body.board-color-moderndark .board-list > li.js-board .board-list-item-name,
+body.board-color-moderndark .board-list > li.js-board .board-list-card-count,
+body.board-color-exodark .board-list > li.js-board .board-list-item-name,
+body.board-color-exodark .board-list > li.js-board .board-list-card-count {
+  color: #f9fafb;
+}
+
+body.board-color-dark .board-list > li.js-board .board-list-item-desc,
+body.board-color-moderndark .board-list > li.js-board .board-list-item-desc,
+body.board-color-exodark .board-list > li.js-board .board-list-item-desc {
+  color: #cbd5e1;
+}
+
+body.board-color-dark .board-list > li.js-board .board-list-card-count,
+body.board-color-moderndark .board-list > li.js-board .board-list-card-count,
+body.board-color-exodark .board-list > li.js-board .board-list-card-count {
+  background: #374151;
+}
+
 .minicard-members {
   padding: 6px 0 6px 8px;
   width: 100%;

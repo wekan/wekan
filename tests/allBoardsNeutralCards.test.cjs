@@ -35,5 +35,17 @@ assert.match(
   /\.board-list > li\.js-board \.board-list-item-name,[\s\S]*?text-shadow: none;/,
   'card text does not retain the image-overlay shadow',
 );
+for (const theme of ['dark', 'moderndark', 'exodark']) {
+  assert.match(
+    css,
+    new RegExp(`body\\.board-color-${theme} \\.board-list > li\\.js-board`),
+    `${theme} gets a neutral dark card instead of the forced white surface`,
+  );
+}
+assert.match(
+  css,
+  /body\.board-color-dark \.board-list[\s\S]*?background: #1f2937 !important;[\s\S]*?color: #f9fafb;/,
+  'dark neutral cards keep readable foreground and background contrast',
+);
 
 console.log('allBoardsNeutralCards: ok');
