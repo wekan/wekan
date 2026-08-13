@@ -356,7 +356,7 @@ This release fixes the following bugs:
 **Reported behaviour that the current code already gets right**
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASHVERIFY">Two open issues answered by reading the code, and pinned so they stay answered</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/af369cbc0">Two open issues answered by reading the code, and pinned so they stay answered</a>. Thanks to xet7.</summary>
 
 Both sat in `TODO Later` as "needs the running app", and both are decided by
 files that can simply be read.
