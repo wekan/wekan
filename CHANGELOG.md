@@ -304,6 +304,150 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** two reports from admins who could not tell what their own WeKan
+was doing. Clicking a **minicard again did not close the card** it had opened -
+the toggle was there and had a test, and it was closing the wrong thing, so it
+was the one part of this that nobody could see was broken. And a snap serving
+**the older of its two copies of the data** was told "No problems detected",
+because the status report reads only the database WeKan is connected to and
+never said WHICH one that is; it now ends with a section that does, and names
+the two recovery commands. Below that: two open issues that the current code
+already answers, closed by reading it.
+
+The binaries below are carried over from v10.90 and have NOT been checked
+against a newer build; `releases/provenance-table.sh` prints the real table
+from the provenance each build job records.
+
+| Platform | Binary | From | Version | SHA256 |
+| --- | --- | --- | --- | --- |
+| amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
+| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-amd64) | v1.49.0 | `7c74941ff043f26aa4411ef5065d6b2d0766e369fc2a4458364c2f5571c12762` |
+| arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
+| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-arm64) | v1.49.0 | `092132531555a39eac12566240a5f1ed02f62148b2dca0540a74c68e5957f6b5` |
+| armhf | Node.js | [wekan/node-patches](https://github.com/wekan/node-patches/releases/download/v24.19.0/node-armhf) | v24.19.0 | `b55350f3071b765a98ed66fdc410657ff168a937935057077fd7ab33cb30b9aa` |
+| armhf | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-armhf) | v1.49.0 | `144404fb9793dc8e039874812f4e2cb3e6d8b1df0ffdbe50254e7790a342a2f4` |
+| armv6 | Node.js | [wekan/node-patches](https://github.com/wekan/node-patches/releases/download/v24.19.0/node-armv6) | v24.19.0 | `128ded0cda638c1f144eadb23ad249889515df017d298fd49c8faf3db110f0f1` |
+| armv6 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-armv6) | v1.49.0 | `7c27b2c15448709a24eace9b3c951c62fbe33413f7d20d56cb5520f4436efe2d` |
+| armv7 | Node.js | [wekan/node-patches](https://github.com/wekan/node-patches/releases/download/v24.19.0/node-armv7) | v24.19.0 | `8dbe0a9aa8550ad5275c5538ebf868eb2037f0c4d9cccbe319f63b7e5854cd45` |
+| armv7 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-armhf) | v1.49.0 | `144404fb9793dc8e039874812f4e2cb3e6d8b1df0ffdbe50254e7790a342a2f4` |
+| i386 | Node.js | [wekan/node-patches](https://github.com/wekan/node-patches/releases/download/v24.19.0/node-i386) | v24.19.0 | `3b0b3bbfe27daf583b3a0f432efacc508407a012cdd9e8847250e7c015565bac` |
+| i386 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-i386) | v1.49.0 | `1f70cb1687411b2a0fa9ac3b5bfc8c4ed9ce25ec2ddfa17e6fd3efb38136a39c` |
+| mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-arm64.tar.xz) | v24.19.0 | `3f1cf157479c1480352083105e13faf9d008ede98e7e157746b6df940d197b94` |
+| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-mac-arm64) | v1.49.0 | `576364db59dfce3ba564b9a3e484496eb57f95d76d2007b9f83241acdbd2f4fa` |
+| mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
+| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-mac-amd64) | v1.49.0 | `37d70cd90aad6d3867b6686507ff1888f1edf6791818c31d014d130e8f39fc14` |
+| ppc64le | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-ppc64le.tar.xz) | v24.19.0 | `c510c6ce12f07010f771e6edb22a3fe23f4f2e6f40b1ffd4941aed0646a0d8b3` |
+| ppc64le | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-ppc64le) | v1.49.0 | `7c61d4853d5163ad8761449d693fd458ebbb8611a2351c718014876242c5b1fb` |
+| riscv64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-riscv64.tar.xz) | v24.19.0 | `cd1f14af2812148002f58b58a5f9af512a50e3b8e8c148e0db44019dcb68edfd` |
+| riscv64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-riscv64) | v1.49.0 | `bd4912da70f5e6c1475ab989668c76b4ab7db4ee06c44357693df64f5e1d0e0b` |
+| s390x | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-s390x.tar.xz) | v24.19.0 | `a4792e65962ffa0af42627aacf1122a60c3c88dbf4e4184f06820d66f9da8ba4` |
+| s390x | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-s390x) | v1.49.0 | *no checksum published* |
+| win-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-arm64.zip) | v24.19.0 | `8502f4a50b458d4cc38ed8f2001556c2cd239d464920f74017926ccb1e1c157f` |
+| win-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-win-arm64.exe) | v1.49.0 | `792166623e774b0af2aced31ed3ae39f545ca5268dc4c2b8d1a329228ff52cbc` |
+| win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
+| win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-win64.exe) | v1.49.0 | `f42c50aa84095a9616b00f27a584c66b7bf79e3b109450c62a5f146ba3c85478` |
+
+This release fixes the following bugs:
+
+**Cards on the board** - opening one, and closing it again.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/664cc6b95">Clicking a minicard again really closes the card, wherever the card was opened from</a>. Thanks to Heart1010, csonkaoszimt and xet7.</summary>
+
+*"you now can click outside your mini card and the popout will close. Clicking
+the mini card again to close the popout is still not possible I think"* -
+[#6465](https://github.com/wekan/wekan/issues/6465), on v10.90, which already
+had the toggle and a test suite pinning it.
+
+The toggle was closing the wrong thing. On a desktop-sized screen the card
+details are not the address you are at: clicking a minicard writes the card id
+into the `openCards` session list and the board renders one draggable window per
+id in it, leaving the URL on the board. The toggle asked whether the card was
+`currentCard` and closed it by navigating to the board - which clears
+`currentCard` and leaves the window on screen, because nothing had taken the
+card OUT of `openCards`. Only the window's own X button did that, which is why
+closing worked from the card and not from the minicard.
+
+Both questions are now the card details' own close logic, so both ways of
+closing a card do the same thing. "Already open" is asked of the list that
+renders the window, which also fixes it for *Open many cards at once*: with
+several open, `currentCard` is only the last one clicked, so every earlier
+window was impossible to close from its minicard. Closing navigates back to the
+board only when the card really IS the address - a card opened by a click is
+not, and navigating would reset the board view for nothing.
+
+</details>
+
+**Recovering a snap that has two copies of its data** - and finding out that it
+has.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c456b87cd">The status report says which copy of the data is being served, and how to compare them</a>. Thanks to waltermhl and xet7.</summary>
+
+*"error: cannot find app "database-compare" in "wekan". It seems, that database
+compare is not included in wekan 10.82"* -
+[#6583](https://github.com/wekan/wekan/issues/6583). It is not: the two recovery
+commands are snap apps, so they exist only in the revision that ships them,
+v10.90. That is the smaller half.
+
+The larger half is what happened before it. The same instance, serving data from
+a migration done in July, ran `snap run wekan.problems` and was told *"No
+problems detected"* - which was true of everything it checks, because it reads
+the one database WeKan is connected to and every check inside it passed. Nothing
+asked WHICH of the two copies that is, while the documentation already claimed
+this command answered it.
+
+The report now ends with a **Databases on this machine** section: which copy is
+being served and why, whether MongoDB files and a FerretDB database both exist,
+and - when they do - the two commands to run. It reads the files rather than a
+database, so it answers with WeKan down, and it declares no fault: two copies is
+the normal state of a migrated snap. A revision without the commands says to
+refresh rather than leaving snapd's "cannot find app" as the last word, and says
+why a refresh is safe here - it does not import an old MongoDB over a FerretDB
+already in use, and neither copy is ever deleted. `wekan.help` and
+[Migration-to-FerretDB.md](https://github.com/wekan/wekan/blob/main/docs/Platforms/FOSS/Container/Snap/Migration-to-FerretDB.md)
+list both commands with the release they arrived in.
+
+</details>
+
+**Reported behaviour that the current code already gets right**
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b9e00dbb8">Two open issues answered by reading the code, and pinned so they stay answered</a>. Thanks to xet7.</summary>
+
+Both sat in `TODO Later` as "needs the running app", and both are decided by
+files that can simply be read.
+
+[#5052](https://github.com/wekan/wekan/issues/5052) — *"Attachments cannot be
+opened (.eml)"*, a blank page in the browser and nothing usable in Thunderbird
+after a board was copied. Three things could produce that, and each is handled
+now. The NAME: an unknown MIME used to append `.bin`
+([#6589](https://github.com/wekan/wekan/issues/6589)), and Thunderbird will not
+open a `.bin`; every type a mail file arrives as now keeps its extension, and
+the board copy names copies with the same rule. The SERVING: `message/rfc822`
+is in neither the dangerous-types nor the safe-inline list, so it takes the
+"unknown types" branch, which forces the download under the file's own name —
+inline is what shows a browser a blank page. The FILE: an attachment whose
+recorded path and on-disk name had diverged is found by the same search reading
+already used (#6589), so a copied board's attachments open even when the
+database's idea of the path is stale.
+
+[#5081](https://github.com/wekan/wekan/issues/5081) — *"Owner is on the very
+left, followed by members (if there are any) and on the very right there are
+the assignees"*, wrapping to a second right-aligned row when they do not fit.
+That is what the current minicard renders, and the reason is the float: three
+groups that float to the inline end are laid out RIGHT to left in DOM order, so
+the markup's `assignees, members, creator` renders as creator | members |
+assignees. Each avatar floats too, so a row that does not fit wraps and stays
+right-aligned, and an empty group is `display: none` rather than a gap.
+
+`tests/openIssuesVerifiedFromCode.test.cjs` holds both, so neither can quietly
+stop being true.
+
+</details>
+
 # v10.90 2026-08-13 WeKan ® release
 
 **In short:** things that were reported this week, and one of them is data
@@ -352,42 +496,6 @@ from the provenance each build job records.
 | win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-win64.exe) | v1.49.0 | `f42c50aa84095a9616b00f27a584c66b7bf79e3b109450c62a5f146ba3c85478` |
 
 This release fixes the following bugs:
-
-**Reported behaviour that the current code already gets right**
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/b9e00dbb8">Two open issues answered by reading the code, and pinned so they stay answered</a>. Thanks to xet7.</summary>
-
-Both sat in `TODO Later` as "needs the running app", and both are decided by
-files that can simply be read.
-
-[#5052](https://github.com/wekan/wekan/issues/5052) — *"Attachments cannot be
-opened (.eml)"*, a blank page in the browser and nothing usable in Thunderbird
-after a board was copied. Three things could produce that, and each is handled
-now. The NAME: an unknown MIME used to append `.bin`
-([#6589](https://github.com/wekan/wekan/issues/6589)), and Thunderbird will not
-open a `.bin`; every type a mail file arrives as now keeps its extension, and
-the board copy names copies with the same rule. The SERVING: `message/rfc822`
-is in neither the dangerous-types nor the safe-inline list, so it takes the
-"unknown types" branch, which forces the download under the file's own name —
-inline is what shows a browser a blank page. The FILE: an attachment whose
-recorded path and on-disk name had diverged is found by the same search reading
-already used (#6589), so a copied board's attachments open even when the
-database's idea of the path is stale.
-
-[#5081](https://github.com/wekan/wekan/issues/5081) — *"Owner is on the very
-left, followed by members (if there are any) and on the very right there are
-the assignees"*, wrapping to a second right-aligned row when they do not fit.
-That is what the current minicard renders, and the reason is the float: three
-groups that float to the inline end are laid out RIGHT to left in DOM order, so
-the markup's `assignees, members, creator` renders as creator | members |
-assignees. Each avatar floats too, so a row that does not fit wraps and stays
-right-aligned, and an empty group is `display: none` rather than a gap.
-
-`tests/openIssuesVerifiedFromCode.test.cjs` holds both, so neither can quietly
-stop being true.
-
-</details>
 
 **Recovering a snap that has two copies of its data**
 
