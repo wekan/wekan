@@ -47,6 +47,34 @@
   margin: 0 0 4px;
   padding: 0;
 }
+/* Two switches, one row: what the theme IS on the start side ("Default (no
+   override)"), and where it ALSO applies on the end side ("All Boards", which
+   paints the overview's tiles in the theme's lighter colour). They are one
+   decision about the same theme, so they are one row rather than two stacked
+   menus, and each takes half the width so neither reads as the heading of the
+   other. On a narrow popup the row wraps and they stack, which is the same
+   layout one item at a time. */
+.theme-color-picker ul.pop-over-list.theme-scope-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.theme-color-picker ul.pop-over-list.theme-scope-row > li {
+  flex: 1 1 12em;
+  min-width: 0;
+}
+/* The chosen one is filled, not merely ticked: the tick alone is easy to miss on
+   a row that is otherwise identical to the one beside it. Same fill as the
+   selected row of the All Boards left menu and of the Admin Panel - one
+   selected-thing look everywhere. */
+.theme-color-picker ul.pop-over-list.theme-scope-row > li.active > a,
+.theme-color-picker ul.pop-over-list.theme-scope-row > li.active > a:hover {
+  background: var(--theme-accent, #2980b9);
+  color: #fff !important;
+}
+.theme-color-picker ul.pop-over-list.theme-scope-row > li.active > a i {
+  color: #fff !important;
+}
 
 /* As many colour swatches visible at once as the width allows.
  *

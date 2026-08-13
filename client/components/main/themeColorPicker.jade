@@ -6,13 +6,26 @@
 template(name="themeColorPicker")
   form.theme-color-picker.edit-label
     if isGlobal
-      ul.pop-over-list
+      //- Two switches on ONE row: what the theme IS on the start side, and where
+        it also applies on the end side. "Default (no override)" clears the
+        user's theme; "All Boards" paints the overview's tiles in the theme's
+        lighter colour instead of each board's own (models/users.js
+        profile.allBoardsThemeTiles). Only the user's own scope has the second
+        one - a site admin does not decide this for everybody.
+      ul.pop-over-list.theme-scope-row
         li(class="{{#if isNoneSelected}}active{{/if}}")
           a.js-theme-none
             i.fa.fa-ban
             | {{_ 'theme-default'}}
             if isNoneSelected
               i.fa.fa-check
+        if isUserScope
+          li(class="{{#if allBoardsTilesOn}}active{{/if}}")
+            a.js-theme-all-boards
+              i.fa.fa-th-large
+              | {{_ 'all-boards'}}
+              if allBoardsTilesOn
+                i.fa.fa-check
     each themeGroups
       .theme-category-group
         .theme-category-label {{label}}

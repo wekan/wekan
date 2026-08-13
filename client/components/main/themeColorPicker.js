@@ -80,6 +80,16 @@ Template.themeColorPicker.helpers({
     const tpl = Template.instance();
     return tpl.scope !== 'board' && !tpl.color.get();
   },
+  // "All Boards" sits beside "Default (no override)" and belongs to the USER's own
+  // theme only: it is a preference about the overview page, not something a site
+  // admin sets for everybody, and a board has no overview of its own.
+  isUserScope() {
+    return Template.instance().scope === 'global';
+  },
+  allBoardsTilesOn() {
+    const u = ReactiveCache.getCurrentUser();
+    return !!(u && u.hasAllBoardsThemeTiles && u.hasAllBoardsThemeTiles());
+  },
   // Visible swatches grouped by category, each group labelled with its category name.
   themeGroups() {
     const cur = Template.instance().color.get();
@@ -187,6 +197,17 @@ Template.themeColorPicker.events({
   // server on every intermediate value during the drag).
   'change .js-theme-wheel'(event, tpl) {
     applySelection(tpl);
+  },
+  // Paint the All Boards tiles in the theme's lighter colour, or give them back
+  // their own colours. Applies immediately, like everything else in this popup,
+  // and the popup stays open so the effect can be seen and undone in one place.
+  'click .js-theme-all-boards'(event) {
+    event.preventDefault();
+    Meteor.call('toggleAllBoardsThemeTiles', err => {
+      if (err && process.env.DEBUG === 'true') {
+        console.error('toggleAllBoardsThemeTiles error', err);
+      }
+    });
   },
   // Clear the global override (Default) — applies immediately too.
   'click .js-theme-none'(event, tpl) {

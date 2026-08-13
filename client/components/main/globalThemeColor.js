@@ -110,6 +110,20 @@ Meteor.startup(() => {
     }
   }
 
+  // Member Settings / Change color, beside "Default (no override)": paint the All
+  // Boards tiles in the theme's lighter colour instead of each board's own. It is
+  // a class on <body> rather than one on the list, because the preference is the
+  // user's and follows them to every page that shows board tiles.
+  Tracker.autorun(() => {
+    const user = Meteor.user();
+    const on = !!(user && user.profile && user.profile.allBoardsThemeTiles);
+    try {
+      document.body.classList.toggle('has-theme-board-tiles', on);
+    } catch (_) {
+      // document.body may not exist yet in exotic embeddings; ignore.
+    }
+  });
+
   Tracker.autorun(() => {
     const user = Meteor.user();
     const globalColor = user && user.profile && user.profile.globalThemeColor;

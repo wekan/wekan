@@ -702,6 +702,19 @@ Meteor.methods({
     await Users.updateAsync(this.userId, { $set: { 'profile.openManyCardsAtOnce': !current } });
   },
 
+  // Member Settings / Change color, beside "Default (no override)": paint the All
+  // Boards tiles in the theme's lighter colour rather than each board's own. A
+  // per-user preference, off by default, and a toggle for the same reason
+  // toggleOpenManyCardsAtOnce is one - the row it sits in has no Save button.
+  async toggleAllBoardsThemeTiles() {
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    const user = await Users.findOneAsync(this.userId);
+    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
+    const current = !!((user.profile || {}).allBoardsThemeTiles);
+    await Users.updateAsync(this.userId, { $set: { 'profile.allBoardsThemeTiles': !current } });
+    return !current;
+  },
+
   async createWorkspace(params) {
     check(params, Object);
     const { parentId = null, name } = params;

@@ -1604,6 +1604,43 @@
 .board-list .board-color-moderndark { background-color: #2a2a2a; }
 .board-list .board-color-exodark { background-color: #222; }
 
+/* Member Settings / Change color, beside "Default (no override)": "All Boards".
+   Every tile in the overview takes the THEME's lighter colour instead of the
+   colour its own board was given, so the page reads as one list rather than as a
+   palette - which is what #6593 asked for by making every tile white for
+   everybody, and this is the same thing as a per-user choice, because "the tile
+   colours are noise" and "the tile colours are how I find my board" are both
+   true, of different people.
+
+   LIGHTER, not another colour: a flat white veil over the accent is one shade up
+   from whatever the theme is, at any theme and with no second variable to keep
+   in step (and no color-mix(), which is newer than the browsers WeKan supports).
+   White text on it, the same treatment the selected row in the left menu gets.
+
+   A board with a background IMAGE keeps its image: that is a picture somebody
+   chose, not a colour, and painting over it would be losing something rather
+   than calming it down. */
+body.has-theme-board-tiles .board-list > li.js-board {
+  background-color: var(--theme-accent, #2980b9);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.22));
+}
+body.has-theme-board-tiles .board-list > li.js-board .board-list-item:not(.has-background-image) {
+  background-color: transparent;
+  background-image: none;
+  color: #fff;
+}
+body.has-theme-board-tiles .board-list > li.js-board .board-list-item-name,
+body.has-theme-board-tiles .board-list > li.js-board .board-list-item-desc {
+  color: #fff;
+}
+/* The count pill keeps its contrast on the accent the same way the left menu's
+   does: a translucent white pill rather than the mid-grey that only works on
+   white. */
+body.has-theme-board-tiles .board-list > li.js-board .board-list-card-count {
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
 .minicard-members {
   padding: 6px 0 6px 8px;
   width: 100%;

@@ -78,7 +78,22 @@ value gets published in the instance's place.
   (`THEME_CATEGORY_ORDER`), and the colour wheels appear only for the categories
   that take a custom colour — one for flat, two for clear (a gradient).
 - **A "Default theme" row wherever there is something to fall back to**, i.e. every
-  scope except `board`.
+  scope except `board`. In the user's own scope a second switch sits beside it on
+  the same row, **All Boards**, which paints the tiles of the All Boards overview
+  in the theme's lighter colour (a white veil over `--theme-accent`) instead of
+  each board's own colour, with white text on them. It is
+  `profile.allBoardsThemeTiles`, off by default, flipped by
+  `toggleAllBoardsThemeTiles`, and it reaches the page as `has-theme-board-tiles`
+  on `<body>`. A board with a background **image** keeps its image.
+
+  It answers [#6593](https://github.com/wekan/wekan/pull/6593), which proposed
+  making every tile white for everybody: the observation is right — a wall of
+  boards in eleven colours reads as a palette rather than a list — but "the tile
+  colours are noise" and "the tile colours are how I find my board" are both
+  true, of different people, so it is a per-user switch and not a stylesheet.
+
+  Only the `global` scope has it: a board has no overview of its own, and a site
+  admin does not choose this for everybody.
 - **The value is validated on the server.** A theme name must be one of
   `BOARD_COLORS` and a custom colour must be a hex colour; anything else is refused
   rather than stored and rendered as a class.

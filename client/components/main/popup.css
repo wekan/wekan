@@ -642,9 +642,23 @@
   width: auto;
   padding-inline-end: 22px;
 }
+/* The highlighted row is the SAME highlight the All Boards left menu gives its
+   selected entry, and the Admin Panel gives its own: the theme accent, with the
+   label AND the icon in white. It was a fixed dark navy (#005377), so Member
+   Settings highlighted "My Cards" in a colour that appeared nowhere else on the
+   page and stayed navy however the user had themed WeKan.
+
+   The fallback is the WeKan header blue, so with no chosen theme the row matches
+   the bar above it exactly. `!important` on the colour because the base rule
+   above pins every row's text to `#000 !important`; the icon is named separately
+   for the same reason. */
 .pop-over-list li > a:not(.disabled):hover {
-  background-color: #005377;
-  color: #fff;
+  background-color: var(--theme-accent, #2980b9);
+  color: #fff !important;
+}
+.pop-over-list li > a:not(.disabled):hover i,
+.pop-over-list li > a:not(.disabled):hover i.fa {
+  color: #fff !important;
 }
 .pop-over-list li > a:not(.disabled):hover .sub-name,
 .pop-over-list li > a:not(.disabled):hover .quiet {

@@ -387,6 +387,21 @@ Users.attachSchema(
       type: Boolean,
       optional: true,
     },
+    'profile.allBoardsThemeTiles': {
+      /**
+       * Member Settings / Change color, beside "Default (no override)": paint the
+       * board tiles on the All Boards page in the THEME's lighter colour instead
+       * of each board's own colour. Off by default, so All Boards looks as it
+       * always has - a wall of boards in the colours their owners chose.
+       *
+       * Turned on, the overview reads as one list rather than a palette, which is
+       * what #6593 asked for by making every tile white for everybody. It is a
+       * per-user preference here, because "the tile colours are noise" and "the
+       * tile colours are how I find my board" are both true, of different people.
+       */
+      type: Boolean,
+      optional: true,
+    },
     'profile.globalThemeColor': {
       /**
        * #5778: optional per-user GLOBAL theme color override. When set to one of
@@ -1670,6 +1685,13 @@ Users.helpers({
   hasOpenManyCardsAtOnce() {
     const profile = this.profile || {};
     return profile.openManyCardsAtOnce || false;
+  },
+
+  // Member Settings / Change color: are the All Boards tiles painted in the
+  // theme's lighter colour instead of each board's own? Off by default.
+  hasAllBoardsThemeTiles() {
+    const profile = this.profile || {};
+    return profile.allBoardsThemeTiles || false;
   },
 
 
