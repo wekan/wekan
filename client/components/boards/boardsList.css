@@ -1604,6 +1604,80 @@
 .board-list .board-color-moderndark { background-color: #2a2a2a; }
 .board-list .board-color-exodark { background-color: #222; }
 
+/* All Boards uses ordinary neutral cards. The board's saved colour belongs to
+   the board canvas and header, not to the overview tile; keeping it here made
+   a mixed set of boards read like a gradient palette instead of one list. */
+.board-list > li.js-board,
+.board-list > li.js-board > .board-list-item,
+.board-list > li.js-board > .board-list-item.has-background-image,
+.board-list > li.js-board > .board-list-item > .js-open-board {
+  background: #fff !important;
+  background-image: none !important;
+  background-color: #fff !important;
+  color: #202124;
+}
+
+.board-list > li.js-board > .board-list-item.has-background-image::after {
+  display: none;
+}
+
+.board-list > li.js-board .board-list-item-name,
+.board-list > li.js-board .board-list-item-desc,
+.board-list > li.js-board .board-list-card-count {
+  color: #202124;
+  text-shadow: none;
+}
+
+.board-list > li.js-board .board-list-item-desc {
+  color: #6b7280;
+}
+
+.board-list > li.js-board .board-list-card-count {
+  background: #f3f4f6;
+}
+
+.board-list > li.js-board .board-list-card-count i.fa {
+  color: #6b7280;
+}
+
+/* A neutral card still follows an explicitly dark site/user theme. Without
+   this override the rule above makes All Boards the only bright-white surface
+   in dark, moderndark and exodark, and its forced dark text ignores the theme. */
+body.board-color-dark .board-list > li.js-board,
+body.board-color-dark .board-list > li.js-board > .board-list-item,
+body.board-color-dark .board-list > li.js-board > .board-list-item > .js-open-board,
+body.board-color-moderndark .board-list > li.js-board,
+body.board-color-moderndark .board-list > li.js-board > .board-list-item,
+body.board-color-moderndark .board-list > li.js-board > .board-list-item > .js-open-board,
+body.board-color-exodark .board-list > li.js-board,
+body.board-color-exodark .board-list > li.js-board > .board-list-item,
+body.board-color-exodark .board-list > li.js-board > .board-list-item > .js-open-board {
+  background: #1f2937 !important;
+  background-color: #1f2937 !important;
+  color: #f9fafb;
+}
+
+body.board-color-dark .board-list > li.js-board .board-list-item-name,
+body.board-color-dark .board-list > li.js-board .board-list-card-count,
+body.board-color-moderndark .board-list > li.js-board .board-list-item-name,
+body.board-color-moderndark .board-list > li.js-board .board-list-card-count,
+body.board-color-exodark .board-list > li.js-board .board-list-item-name,
+body.board-color-exodark .board-list > li.js-board .board-list-card-count {
+  color: #f9fafb;
+}
+
+body.board-color-dark .board-list > li.js-board .board-list-item-desc,
+body.board-color-moderndark .board-list > li.js-board .board-list-item-desc,
+body.board-color-exodark .board-list > li.js-board .board-list-item-desc {
+  color: #cbd5e1;
+}
+
+body.board-color-dark .board-list > li.js-board .board-list-card-count,
+body.board-color-moderndark .board-list > li.js-board .board-list-card-count,
+body.board-color-exodark .board-list > li.js-board .board-list-card-count {
+  background: #374151;
+}
+
 .minicard-members {
   padding: 6px 0 6px 8px;
   width: 100%;

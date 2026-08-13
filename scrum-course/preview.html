@@ -1,0 +1,2927 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scrum Course Preview</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --surface: #ffffff;
+      --surface-2: #eef7f5;
+      --ink: #182031;
+      --muted: #5d687a;
+      --line: #d7dde8;
+      --blue: #2754c5;
+      --teal: #0f766e;
+      --rose: #b4235d;
+      --amber: #936315;
+      --green: #207044;
+      --shadow: 0 12px 30px rgba(24, 32, 49, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      min-height: 72px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand strong {
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+
+    .brand span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    nav a {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--ink);
+      font-size: 14px;
+      padding: 8px 10px;
+      background: #fafbfe;
+    }
+
+    main {
+      padding: 28px 0 48px;
+    }
+
+    .intro {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
+      gap: 18px;
+      align-items: stretch;
+      margin-bottom: 18px;
+    }
+
+    section,
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    h1 {
+      font-size: clamp(28px, 4vw, 46px);
+      max-width: 780px;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 14px;
+    }
+
+    h3 {
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
+
+    p {
+      color: var(--muted);
+      margin: 10px 0 0;
+    }
+
+    .summary {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .metric {
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      min-height: 96px;
+    }
+
+    .metric b {
+      display: block;
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 8px;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 6px 9px;
+      background: var(--teal);
+      margin-top: 14px;
+    }
+
+    .course-map {
+      display: grid;
+      gap: 14px;
+      margin: 18px 0;
+    }
+
+    .exercise {
+      display: grid;
+      grid-template-columns: minmax(120px, 0.24fr) minmax(0, 1fr);
+      gap: 16px;
+      align-items: start;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      background: #ffffff;
+    }
+
+    .exercise-number {
+      border-left: 5px solid var(--blue);
+      padding-left: 12px;
+      min-width: 0;
+    }
+
+    .exercise-number b {
+      display: block;
+      font-size: 22px;
+    }
+
+    .exercise-number span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .chip {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--muted);
+      display: inline-flex;
+      font-size: 13px;
+      padding: 5px 8px;
+      background: #f8fafc;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid var(--line);
+      padding: 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .numeric-table td:nth-child(2),
+    .numeric-table th:nth-child(2),
+    .workflow-table .wip {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .workflow-table .policy {
+      color: var(--muted);
+      min-width: 220px;
+    }
+
+    .rule-list {
+      display: grid;
+      gap: 8px;
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+
+    .rule-list li {
+      color: var(--muted);
+    }
+
+    .split-panel {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .score {
+      color: var(--rose);
+      font-weight: 800;
+    }
+
+    .target {
+      color: var(--green);
+      font-weight: 800;
+    }
+
+    .actions {
+      counter-reset: action;
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .actions li {
+      counter-increment: action;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcff;
+      padding: 12px 12px 12px 48px;
+      position: relative;
+    }
+
+    .actions li::before {
+      content: counter(action);
+      align-items: center;
+      background: var(--amber);
+      border-radius: 8px;
+      color: #ffffff;
+      display: flex;
+      font-weight: 800;
+      height: 26px;
+      justify-content: center;
+      left: 12px;
+      position: absolute;
+      top: 12px;
+      width: 26px;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .checklist label {
+      align-items: flex-start;
+      display: flex;
+      gap: 9px;
+      color: var(--ink);
+      border-bottom: 1px solid #edf0f6;
+      padding-bottom: 8px;
+    }
+
+    .checklist input {
+      margin-top: 5px;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+      padding: 20px 0;
+      background: #ffffff;
+    }
+
+    @media (max-width: 820px) {
+      .topbar,
+      .intro,
+      .grid,
+      .split-panel,
+      .exercise,
+      .metric-row {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        padding: 14px 0;
+      }
+
+      nav {
+        justify-content: flex-start;
+      }
+
+      .wrap {
+        padding: 0 16px;
+      }
+    }
+
+    @media print {
+      header {
+        position: static;
+      }
+
+      section,
+      .panel {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap topbar">
+      <div class="brand">
+        <strong>Scrum Course Preview</strong>
+        <span>Mục lục tổng và preview bài tập</span>
+      </div>
+      <nav aria-label="Điều hướng">
+        <a href="#overview">Tổng quan</a>
+        <a href="#exercise-1">Bài 1</a>
+        <a href="#exercise-2">Bài 2</a>
+        <a href="#exercise-3">Bài 3</a>
+        <a href="#exercise-4">Bài 4</a>
+        <a href="#exercise-5">Bài 5</a>
+        <a href="#exercise-6">Bài 6</a>
+        <a href="#exercise-7">Bài 7</a>
+        <a href="#exercise-8">Bài 8</a>
+        <a href="#exercise-9">Bài 9</a>
+        <a href="#exercise-10">Bài 10</a>
+        <a href="#exercise-11">Bài 11</a>
+        <a href="#exercise-12">Bài 12</a>
+        <a href="#exercise-13">Bài 13</a>
+        <a href="#exercise-14">Bài 14</a>
+        <a href="#exercise-15">Bài 15</a>
+        <a href="#exercise-16">Bài 16</a>
+        <a href="#exercise-17">Bài 17</a>
+        <a href="#exercise-18">Bài 18</a>
+        <a href="#exercise-19">Bài 19</a>
+        <a href="#exercise-20">Bài 20</a>
+        <a href="#exercise-21">Bài 21</a>
+        <a href="#exercise-22">Bài 22</a>
+        <a href="#exercise-23">Bài 23</a>
+        <a href="#exercise-24">Bài 24</a>
+        <a href="#exercise-25">Bài 25</a>
+        <a href="#exercise-26">Bài 26</a>
+        <a href="#exercise-27">Bài 27</a>
+        <a href="#exercise-28">Bài 28</a>
+        <a href="#exercise-29">Bài 29</a>
+        <a href="#exercise-30">Bài 30</a>
+        <a href="#exercise-31">Bài 31</a>
+        <a href="#plan">Cải thiện</a>
+        <a href="exercises/31-test-strategy-automation-planning.md">File mới nhất</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="intro" id="overview">
+      <section>
+        <h1>Khóa học Scrum cho công ty phần mềm mini</h1>
+        <p>
+          Preview này gom các bài tập thành một trang xem nhanh. Mỗi bài tập
+          vẫn có một file Markdown riêng để học, sửa và nộp bài.
+        </p>
+        <div class="summary">
+          <div class="metric-row">
+            <div class="metric">
+              <b>31</b>
+              <span>Bài tập đã tạo file riêng</span>
+            </div>
+            <div class="metric">
+              <b class="score">2.3/5</b>
+              <span>Agile maturity hiện tại trong Bài 1</span>
+            </div>
+            <div class="metric">
+              <b class="target">3.25/5</b>
+              <span>Target sau Sprint 1 cải thiện</span>
+            </div>
+          </div>
+        </div>
+        <span class="status">Đang học: test strategy và automation planning</span>
+      </section>
+
+      <aside class="panel">
+        <h2>Cấu trúc file</h2>
+        <p>
+          Tất cả bài tập nằm trong <code>scrum-course/exercises/</code>.
+          File tổng này nằm tại <code>scrum-course/preview.html</code>.
+        </p>
+        <div class="chips">
+          <span class="chip">Markdown riêng</span>
+          <span class="chip">Preview tổng</span>
+          <span class="chip">Checklist nộp bài</span>
+        </div>
+      </aside>
+    </div>
+
+    <section>
+      <h2>Danh sách bài tập</h2>
+      <div class="course-map">
+        <article class="exercise" id="exercise-1">
+          <div class="exercise-number">
+            <b>Bài 1</b>
+            <span>Agile Gap Assessment</span>
+          </div>
+          <div>
+            <h3>Đánh giá team đang Agile tới đâu</h3>
+            <p>
+              Bài này giả lập một công ty phần mềm 10 người, chấm điểm team
+              qua 6 tiêu chí: Product clarity, Backlog quality, Scrum events,
+              Engineering quality, Team autonomy và Customer feedback.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/01-agile-gap-assessment.md">Mở file bài tập</a>
+              <span class="chip">Kết quả: 14/30</span>
+              <span class="chip">Maturity: 2.3/5</span>
+              <span class="chip">Target: 3.25/5</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-2">
+          <div class="exercise-number">
+            <b>Bài 2</b>
+            <span>Scrum, Kanban và Lean</span>
+          </div>
+          <div>
+            <h3>Thiết kế workflow delivery cho team phần mềm</h3>
+            <p>
+              Bài này biến Scrum thành nhịp sprint, Kanban thành board dòng
+              chảy công việc, và Lean thành bộ lọc loại bỏ lãng phí trong
+              delivery.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/02-scrum-kanban-lean-workflow.md">Mở file bài tập</a>
+              <span class="chip">Output: workflow 10 cột</span>
+              <span class="chip">Có WIP limit</span>
+              <span class="chip">Có DoR và DoD</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-3">
+          <div class="exercise-number">
+            <b>Bài 3</b>
+            <span>Sprint Planning</span>
+          </div>
+          <div>
+            <h3>Biến workflow thành một sprint có thể chạy</h3>
+            <p>
+              Bài này chuẩn bị backlog trước sprint, viết Sprint Goal, kiểm
+              capacity, chọn item đủ Ready và đặt luật xử lý risk/scope change.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/03-sprint-planning-backlog-refinement.md">Mở file bài tập</a>
+              <span class="chip">Output: planning playbook</span>
+              <span class="chip">5 ready items</span>
+              <span class="chip">16 points</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-4">
+          <div class="exercise-number">
+            <b>Bài 4</b>
+            <span>Review & Retro</span>
+          </div>
+          <div>
+            <h3>Khép vòng học hỏi sau sprint</h3>
+            <p>
+              Bài này biến demo, stakeholder feedback và metric thành quyết
+              định backlog, rework rõ ràng và action cải thiện cho sprint sau.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/04-sprint-review-retrospective-feedback-loop.md">Mở file bài tập</a>
+              <span class="chip">Output: feedback loop</span>
+              <span class="chip">7 feedback notes</span>
+              <span class="chip">2 retro actions</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-5">
+          <div class="exercise-number">
+            <b>Bài 5</b>
+            <span>Release Handoff</span>
+          </div>
+          <div>
+            <h3>Đưa increment đã accept tới release an toàn</h3>
+            <p>
+              Bài này chuẩn bị checklist release, go/no-go decision, rollback,
+              release note, support handoff và monitoring sau release.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/05-release-readiness-handoff.md">Mở file bài tập</a>
+              <span class="chip">Output: release checklist</span>
+              <span class="chip">Go/no-go</span>
+              <span class="chip">Rollback plan</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-6">
+          <div class="exercise-number">
+            <b>Bài 6</b>
+            <span>Metrics Loop</span>
+          </div>
+          <div>
+            <h3>Đưa dữ liệu sau release thành cải tiến thật</h3>
+            <p>
+              Bài này chọn metric cốt lõi, đọc trend, đặt experiment nhỏ và
+              đẩy insight quay lại backlog để sprint sau có mục tiêu rõ hơn.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/06-metrics-improvement-loop.md">Mở file bài tập</a>
+              <span class="chip">Output: improvement loop</span>
+              <span class="chip">5 metrics</span>
+              <span class="chip">1 experiment</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-7">
+          <div class="exercise-number">
+            <b>Bài 7</b>
+            <span>Roadmap Prioritization</span>
+          </div>
+          <div>
+            <h3>Chọn việc kế tiếp bằng score và trade-off</h3>
+            <p>
+              Bài này dùng metrics và feedback để chấm value, effort và risk,
+              rồi chốt backlog ordering cho sprint hoặc quarter tiếp theo.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/07-roadmap-prioritization.md">Mở file bài tập</a>
+              <span class="chip">Output: roadmap slice</span>
+              <span class="chip">Value / Effort / Risk</span>
+              <span class="chip">Now / Next / Later</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-8">
+          <div class="exercise-number">
+            <b>Bài 8</b>
+            <span>Execution Planning</span>
+          </div>
+          <div>
+            <h3>Biến roadmap thành sprint plan có thể làm được</h3>
+            <p>
+              Bài này tính capacity thật, slice nhỏ item, assign owner và
+              giữ buffer để sprint plan không vượt quá khả năng team.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/08-execution-planning-capacity.md">Mở file bài tập</a>
+              <span class="chip">Output: sprint plan</span>
+              <span class="chip">Capacity check</span>
+              <span class="chip">20% buffer</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-9">
+          <div class="exercise-number">
+            <b>Bài 9</b>
+            <span>Daily Scrum</span>
+          </div>
+          <div>
+            <h3>Giữ sprint chạy mỗi ngày và mở blocker sớm</h3>
+            <p>
+              Bài này biến Daily Scrum thành nhịp đồng bộ ngắn, giúp team
+              nhìn progress thật, nhắc blocker và chốt phối hợp trong ngày.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/09-daily-scrum-blocker-coordination.md">Mở file bài tập</a>
+              <span class="chip">Output: daily coordination</span>
+              <span class="chip">15 phút</span>
+              <span class="chip">Blocker escalation</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-10">
+          <div class="exercise-number">
+            <b>Bài 10</b>
+            <span>Sprint Health</span>
+          </div>
+          <div>
+            <h3>Đọc tín hiệu sprint để forecast sớm</h3>
+            <p>
+              Bài này nhìn burndown, WIP aging và blocker trend để biết sprint
+              đang khỏe hay đang trễ, rồi chọn hành động trước khi quá muộn.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/10-sprint-health-burndown-forecasting.md">Mở file bài tập</a>
+              <span class="chip">Output: sprint forecast</span>
+              <span class="chip">Burndown</span>
+              <span class="chip">Intervention rules</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-11">
+          <div class="exercise-number">
+            <b>Bài 11</b>
+            <span>Recovery</span>
+          </div>
+          <div>
+            <h3>Reset sprint khi forecast chuyển đỏ</h3>
+            <p>
+              Bài này chốt cách cắt scope, reforecast và thông báo thay đổi để
+              sprint vẫn có cơ hội giữ mục tiêu thật thay vì cố giữ mọi thứ.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/11-sprint-recovery-scope-reset.md">Mở file bài tập</a>
+              <span class="chip">Output: recovery plan</span>
+              <span class="chip">Scope cut</span>
+              <span class="chip">Reforecast</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-12">
+          <div class="exercise-number">
+            <b>Bài 12</b>
+            <span>Retro Actions</span>
+          </div>
+          <div>
+            <h3>Biến retrospective thành backlog cải tiến thật</h3>
+            <p>
+              Bài này chốt cách ghi action, gắn owner và due date, rồi đưa nó
+              vào backlog để sprint sau có cải tiến thật thay vì note đẹp.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/12-retro-action-tracking-improvement-backlog.md">Mở file bài tập</a>
+              <span class="chip">Output: improvement backlog</span>
+              <span class="chip">Owner & due</span>
+              <span class="chip">Success measure</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-13">
+          <div class="exercise-number">
+            <b>Bài 13</b>
+            <span>Backlog Cleanup</span>
+          </div>
+          <div>
+            <h3>Giữ backlog sạch trước khi sprint planning</h3>
+            <p>
+              Bài này dọn item stale, merge duplicate và refresh readiness để
+              planning bắt đầu từ một backlog gọn, sống và đúng ưu tiên.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/13-backlog-aging-cleanup.md">Mở file bài tập</a>
+              <span class="chip">Output: backlog hygiene</span>
+              <span class="chip">Stale items</span>
+              <span class="chip">Ready refresh</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-14">
+          <div class="exercise-number">
+            <b>Bài 14</b>
+            <span>Planning Poker</span>
+          </div>
+          <div>
+            <h3>Calibrate size để estimate ổn định hơn</h3>
+            <p>
+              Bài này dùng Planning Poker, calibration rules và split rules để
+              team estimate backlog items theo cùng một thang size.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/14-planning-poker-estimate-calibration.md">Mở file bài tập</a>
+              <span class="chip">Output: calibrated estimate</span>
+              <span class="chip">Planning Poker</span>
+              <span class="chip">Split before estimate</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-15">
+          <div class="exercise-number">
+            <b>Bài 15</b>
+            <span>Working Agreement</span>
+          </div>
+          <div>
+            <h3>Chốt luật vận hành chung cho team</h3>
+            <p>
+              Bài này biến các kỳ vọng ngầm thành working agreement rõ ràng:
+              meetings, communication, WIP, blocker, quality, decision và
+              escalation rules.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/15-working-agreement-team-operating-rules.md">Mở file bài tập</a>
+              <span class="chip">Output: team agreement</span>
+              <span class="chip">Operating rules</span>
+              <span class="chip">Escalation path</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-16">
+          <div class="exercise-number">
+            <b>Bài 16</b>
+            <span>Dependency Risk</span>
+          </div>
+          <div>
+            <h3>Map dependency và risk trước khi sprint bị lệch</h3>
+            <p>
+              Bài này đưa dependency, risk score, owner, mitigation và review
+              cadence lên board để team xử lý sớm thay vì đợi thành blocker.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/16-dependency-mapping-risk-board.md">Mở file bài tập</a>
+              <span class="chip">Output: risk board</span>
+              <span class="chip">Mitigation owner</span>
+              <span class="chip">Review cadence</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-17">
+          <div class="exercise-number">
+            <b>Bài 17</b>
+            <span>Review Prep</span>
+          </div>
+          <div>
+            <h3>Chuẩn bị stakeholder trước Sprint Review</h3>
+            <p>
+              Bài này map stakeholder, viết review objective, chuẩn bị demo
+              narrative và route feedback để Sprint Review tạo quyết định thật.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/17-stakeholder-alignment-review-prep.md">Mở file bài tập</a>
+              <span class="chip">Output: review prep</span>
+              <span class="chip">Stakeholder map</span>
+              <span class="chip">Feedback routing</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-18">
+          <div class="exercise-number">
+            <b>Bài 18</b>
+            <span>Facilitation</span>
+          </div>
+          <div>
+            <h3>Mở decision deadlock trong Scrum events</h3>
+            <p>
+              Bài này giúp facilitator nhận ra looping debate, chọn decision
+              method, map conflict và kết thúc discussion bằng action rõ.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/18-facilitation-decision-deadlock-resolution.md">Mở file bài tập</a>
+              <span class="chip">Output: decision path</span>
+              <span class="chip">Conflict map</span>
+              <span class="chip">Escalation note</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-19">
+          <div class="exercise-number">
+            <b>Bài 19</b>
+            <span>Swarming</span>
+          </div>
+          <div>
+            <h3>Cứu flow bằng cross-functional swarm</h3>
+            <p>
+              Bài này giúp team dừng start work, gom đúng người và swarm vào
+              bottleneck để mở blocker, giảm queue và bảo vệ Sprint Goal.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/19-cross-functional-swarming-flow-rescue.md">Mở file bài tập</a>
+              <span class="chip">Output: swarm board</span>
+              <span class="chip">WIP stop</span>
+              <span class="chip">Exit criteria</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-20">
+          <div class="exercise-number">
+            <b>Bài 20</b>
+            <span>Knowledge Sharing</span>
+          </div>
+          <div>
+            <h3>Giảm bus factor bằng chia sẻ tri thức có evidence</h3>
+            <p>
+              Bài này giúp team nhìn single point of knowledge, tạo skill
+              matrix, pair/rotate trên work thật và viết artifact để người thứ
+              hai dùng được kiến thức.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/20-knowledge-sharing-bus-factor-reduction.md">Mở file bài tập</a>
+              <span class="chip">Output: knowledge board</span>
+              <span class="chip">Skill matrix</span>
+              <span class="chip">Learning checkpoints</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-21">
+          <div class="exercise-number">
+            <b>Bài 21</b>
+            <span>Technical Debt</span>
+          </div>
+          <div>
+            <h3>Map technical debt và chọn quality investment</h3>
+            <p>
+              Bài này giúp team biến debt từ cảm giác mơ hồ thành register có
+              evidence, impact score, repayment decision và success signal rõ.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/21-technical-debt-quality-investment.md">Mở file bài tập</a>
+              <span class="chip">Output: debt board</span>
+              <span class="chip">Impact scoring</span>
+              <span class="chip">Quality investment</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-22">
+          <div class="exercise-number">
+            <b>Bài 22</b>
+            <span>Quality Gates</span>
+          </div>
+          <div>
+            <h3>Thiết kế CI gates để bắt lỗi sớm mà không nghẽn flow</h3>
+            <p>
+              Bài này giúp team định nghĩa required checks, warning gates,
+              merge rules, flaky handling và release gate evidence rõ ràng.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/22-quality-gates-continuous-integration.md">Mở file bài tập</a>
+              <span class="chip">Output: CI board</span>
+              <span class="chip">Merge rules</span>
+              <span class="chip">Release gates</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-23">
+          <div class="exercise-number">
+            <b>Bài 23</b>
+            <span>Incident Response</span>
+          </div>
+          <div>
+            <h3>Ứng phó sự cố production và học lại sau incident</h3>
+            <p>
+              Bài này giúp team phân loại severity, chia role, khôi phục
+              service, giao tiếp rõ và đưa root cause thành backlog cải tiến.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/23-incident-response-production-learning.md">Mở file bài tập</a>
+              <span class="chip">Output: incident board</span>
+              <span class="chip">Severity levels</span>
+              <span class="chip">Learning backlog</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-24">
+          <div class="exercise-number">
+            <b>Bài 24</b>
+            <span>SLO Readiness</span>
+          </div>
+          <div>
+            <h3>Đặt SLO và kiểm operational readiness trước launch</h3>
+            <p>
+              Bài này giúp team chọn reliability signal, định nghĩa SLI/SLO,
+              đọc error budget và quyết định go/hold bằng readiness evidence.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/24-slos-operational-readiness.md">Mở file bài tập</a>
+              <span class="chip">Output: SLO board</span>
+              <span class="chip">Error budget</span>
+              <span class="chip">Launch readiness</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-25">
+          <div class="exercise-number">
+            <b>Bài 25</b>
+            <span>Progressive Rollout</span>
+          </div>
+          <div>
+            <h3>Chọn release strategy và rollout theo phase có kiểm soát</h3>
+            <p>
+              Bài này giúp team dùng feature flag, canary, cohort, monitoring
+              cadence và rollback trigger để expand hoặc rollback bằng evidence.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/25-release-strategy-progressive-rollout.md">Mở file bài tập</a>
+              <span class="chip">Output: rollout board</span>
+              <span class="chip">Feature flags</span>
+              <span class="chip">Rollback triggers</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-26">
+          <div class="exercise-number">
+            <b>Bài 26</b>
+            <span>Adoption Feedback</span>
+          </div>
+          <div>
+            <h3>Đo adoption sau rollout và triage feedback thành backlog</h3>
+            <p>
+              Bài này giúp team đọc activation, usage, retention, feedback
+              định tính và support signal để quyết định backlog sau launch.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/26-product-adoption-post-launch-feedback.md">Mở file bài tập</a>
+              <span class="chip">Output: adoption board</span>
+              <span class="chip">Feedback triage</span>
+              <span class="chip">Backlog evidence</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-27">
+          <div class="exercise-number">
+            <b>Bài 27</b>
+            <span>Experiment Design</span>
+          </div>
+          <div>
+            <h3>Thiết kế experiment và A/B test từ feedback evidence</h3>
+            <p>
+              Bài này giúp team viết hypothesis, chọn experiment type, đặt
+              metric/guardrail và quyết định build, iterate hoặc stop.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/27-experiment-design-ab-testing.md">Mở file bài tập</a>
+              <span class="chip">Output: experiment board</span>
+              <span class="chip">A/B setup</span>
+              <span class="chip">Decision rules</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-28">
+          <div class="exercise-number">
+            <b>Bài 28</b>
+            <span>Opportunity Mapping</span>
+          </div>
+          <div>
+            <h3>Gom learning thành opportunity map trước khi cam kết scope</h3>
+            <p>
+              Bài này giúp team nối feedback, data và experiment vào problem,
+              segment, solution candidates, assumptions và decision handoff.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/28-product-discovery-opportunity-mapping.md">Mở file bài tập</a>
+              <span class="chip">Output: opportunity board</span>
+              <span class="chip">Assumption map</span>
+              <span class="chip">Discovery backlog</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-29">
+          <div class="exercise-number">
+            <b>Bài 29</b>
+            <span>Story Mapping</span>
+          </div>
+          <div>
+            <h3>Biến opportunity map thành release slices có thể refine</h3>
+            <p>
+              Bài này giúp team dựng user journey backbone, chọn walking
+              skeleton, slice MVP/release và handoff stories sang refinement
+              mà vẫn giữ outcome và evidence.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/29-user-story-mapping-release-slicing.md">Mở file bài tập</a>
+              <span class="chip">Output: story map</span>
+              <span class="chip">MVP slice</span>
+              <span class="chip">Refinement handoff</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-30">
+          <div class="exercise-number">
+            <b>Bài 30</b>
+            <span>Example Mapping</span>
+          </div>
+          <div>
+            <h3>Làm rõ story bằng rules, examples và acceptance criteria</h3>
+            <p>
+              Bài này giúp team lấy story từ story map, tìm business rules,
+              viết examples, mở questions, edge cases và testable scenarios
+              trước khi estimate hoặc build.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/30-example-mapping-acceptance-criteria.md">Mở file bài tập</a>
+              <span class="chip">Output: example map</span>
+              <span class="chip">Acceptance criteria</span>
+              <span class="chip">Test scenarios</span>
+            </div>
+          </div>
+        </article>
+        <article class="exercise" id="exercise-31">
+          <div class="exercise-number">
+            <b>Bài 31</b>
+            <span>Test Strategy</span>
+          </div>
+          <div>
+            <h3>Chọn test level, automation và CI signal đúng rủi ro</h3>
+            <p>
+              Bài này giúp team biến acceptance criteria thành test strategy:
+              risk ranking, test pyramid, automation candidates, negative
+              coverage, test data, CI policy và exploratory charter.
+            </p>
+            <div class="chips">
+              <a class="chip" href="exercises/31-test-strategy-automation-planning.md">Mở file bài tập</a>
+              <span class="chip">Output: test strategy</span>
+              <span class="chip">Automation plan</span>
+              <span class="chip">CI signal</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Preview Bài 31 - Test strategy và automation planning</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Test planning signal</th>
+            <th>Team decision</th>
+            <th>Handoff output</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Acceptance scenario có nhiều risk khác nhau</td>
+            <td>Rank theo user impact, business impact và regression chance.</td>
+            <td>Risk-based test plan.</td>
+          </tr>
+          <tr>
+            <td>Rule nhỏ có thể kiểm nhanh</td>
+            <td>Đẩy xuống unit/form/API test thay vì UI e2e.</td>
+            <td>Fast required PR signal.</td>
+          </tr>
+          <tr>
+            <td>Critical path cần confidence end-to-end</td>
+            <td>Giữ một UI smoke hoặc integration flow đại diện.</td>
+            <td>Core flow regression signal.</td>
+          </tr>
+          <tr>
+            <td>Permission, duplicate hoặc boundary dễ regression</td>
+            <td>Thêm negative/regression coverage có owner.</td>
+            <td>Negative test + protected rule note.</td>
+          </tr>
+          <tr>
+            <td>Environment hoặc browser matrix chưa có</td>
+            <td>Ghi coverage gap và follow-up gate rõ ràng.</td>
+            <td>Residual risk + release readiness action.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 30 - Example mapping và acceptance criteria</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Clarification signal</th>
+            <th>Team decision</th>
+            <th>Handoff output</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Story từ map còn rule ẩn</td>
+            <td>Tách business rules khỏi title/story text.</td>
+            <td>Rule list có actor, condition và expected behavior.</td>
+          </tr>
+          <tr>
+            <td>Team hiểu behavior khác nhau</td>
+            <td>Viết concrete examples cho happy path và alternate path.</td>
+            <td>Example map thống nhất giữa PO, dev, QA và design.</td>
+          </tr>
+          <tr>
+            <td>Còn câu hỏi ảnh hưởng scope hoặc acceptance</td>
+            <td>Ghi open question với owner và decision date.</td>
+            <td>DoR note hoặc discovery follow-up.</td>
+          </tr>
+          <tr>
+            <td>Permission, duplicate hoặc error case dễ regression</td>
+            <td>Thêm edge/negative cases vào acceptance/test scenarios.</td>
+            <td>Negative test hoặc explicit out-of-scope note.</td>
+          </tr>
+          <tr>
+            <td>Story sẵn sàng estimate/build</td>
+            <td>Chốt acceptance criteria dạng verify được.</td>
+            <td>Given/When/Then, checklist hoặc metric acceptance.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 29 - User story mapping và release slicing</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Mapping signal</th>
+            <th>Team decision</th>
+            <th>Handoff output</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Opportunity đã rõ nhưng backlog còn rời rạc</td>
+            <td>Dựng journey backbone theo hoạt động của user.</td>
+            <td>Story map có outcome, segment và evidence.</td>
+          </tr>
+          <tr>
+            <td>Team chưa chứng minh được flow end-to-end</td>
+            <td>Chọn walking skeleton mỏng nhất qua nhiều backbone step.</td>
+            <td>Release 1 có path dùng được từ đầu tới cuối.</td>
+          </tr>
+          <tr>
+            <td>MVP đang phình thành full product nhỏ</td>
+            <td>Slice theo learning/value thay vì gom mọi polish.</td>
+            <td>MVP slice + Later list có lý do rõ.</td>
+          </tr>
+          <tr>
+            <td>Assumption còn rủi ro hoặc evidence yếu</td>
+            <td>Tạo learning slice hoặc discovery follow-up trước build lớn.</td>
+            <td>Hypothesis, success signal và owner.</td>
+          </tr>
+          <tr>
+            <td>Story sẵn sàng vào refinement</td>
+            <td>Handoff kèm acceptance, evidence source và slice placement.</td>
+            <td>Refinement-ready story có DoR rõ.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 28 - Product discovery và opportunity mapping</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Discovery signal</th>
+            <th>Team decision</th>
+            <th>Handoff output</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Feedback/data/experiment cùng chỉ một problem</td>
+            <td>Frame opportunity theo segment và desired outcome.</td>
+            <td>Opportunity card có evidence strength.</td>
+          </tr>
+          <tr>
+            <td>Solution được đề xuất nhưng problem chưa rõ</td>
+            <td>Quay lại opportunity framing trước khi refine story.</td>
+            <td>Problem statement + learning question.</td>
+          </tr>
+          <tr>
+            <td>Assumption risk cao, evidence yếu</td>
+            <td>Tạo discovery backlog item hoặc experiment.</td>
+            <td>Hypothesis, owner và review date.</td>
+          </tr>
+          <tr>
+            <td>Evidence strong và strategic fit</td>
+            <td>Handoff sang roadmap hoặc backlog refinement.</td>
+            <td>Outcome, segment, acceptance và success signal.</td>
+          </tr>
+          <tr>
+            <td>Evidence yếu hoặc stale</td>
+            <td>Park/watch hoặc revalidate trước khi quyết định.</td>
+            <td>Watch signal + revisit date.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 27 - Experiment design và A/B testing</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Experiment signal</th>
+            <th>Team decision</th>
+            <th>Backlog output</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Feedback có evidence nhưng solution chưa chắc</td>
+            <td>Viết hypothesis trước khi build full feature.</td>
+            <td>Experiment card có audience và success metric.</td>
+          </tr>
+          <tr>
+            <td>Traffic thấp</td>
+            <td>Dùng prototype, interview hoặc beta cohort thay vì A/B test.</td>
+            <td>Learning note + refined story.</td>
+          </tr>
+          <tr>
+            <td>Primary metric tăng nhưng guardrail xấu</td>
+            <td>Không promote variant; điều tra side effect.</td>
+            <td>UX/support/reliability follow-up card.</td>
+          </tr>
+          <tr>
+            <td>Sample chưa đủ hoặc signal mâu thuẫn</td>
+            <td>Kết luận inconclusive, extend hoặc redesign test.</td>
+            <td>Decision log + next evidence plan.</td>
+          </tr>
+          <tr>
+            <td>Variant thắng rõ</td>
+            <td>Promote variant và cleanup experiment/flag.</td>
+            <td>Implementation card + cleanup checklist.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 26 - Product adoption và post-launch feedback</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Adoption signal</th>
+            <th>Team decision</th>
+            <th>Backlog output</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Activation thấp</td>
+            <td>Kiểm tra entry point, onboarding hoặc first action.</td>
+            <td>UX/copy improvement có success signal.</td>
+          </tr>
+          <tr>
+            <td>Usage cao nhưng ticket tăng</td>
+            <td>Giữ value nhưng ưu tiên friction/bug fix.</td>
+            <td>Prioritized support pain card.</td>
+          </tr>
+          <tr>
+            <td>Retention thấp</td>
+            <td>Kiểm tra repeat value, reminder hoặc workflow fit.</td>
+            <td>Learning experiment hoặc story refinement.</td>
+          </tr>
+          <tr>
+            <td>Feedback lặp lại cùng theme</td>
+            <td>Merge duplicate và đọc impact theo segment.</td>
+            <td>Opportunity/backlog slice có evidence.</td>
+          </tr>
+          <tr>
+            <td>Evidence yếu</td>
+            <td>Park request, watch signal hoặc phỏng vấn thêm user.</td>
+            <td>Discovery task + review date.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 25 - Release strategy và progressive rollout</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Rollout signal</th>
+            <th>Team decision</th>
+            <th>Release output</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>High-risk feature</td>
+            <td>Chọn feature flag + canary thay vì big bang.</td>
+            <td>Initial cohort, owner và watch window.</td>
+          </tr>
+          <tr>
+            <td>Canary healthy</td>
+            <td>Expand sang phase kế tiếp sau decision time.</td>
+            <td>Evidence note + next cohort.</td>
+          </tr>
+          <tr>
+            <td>SLO breach hoặc error spike</td>
+            <td>Hold expansion hoặc rollback theo trigger đã viết trước.</td>
+            <td>Incident/fix card và support update.</td>
+          </tr>
+          <tr>
+            <td>Support tickets tăng bất thường</td>
+            <td>Pause rollout và kiểm tra pattern user impact.</td>
+            <td>Known issue, FAQ hoặc rollback decision.</td>
+          </tr>
+          <tr>
+            <td>100% rollout healthy</td>
+            <td>Finish rollout và dọn feature flag.</td>
+            <td>Release summary + cleanup backlog item.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 24 - SLOs và operational readiness</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Reliability signal</th>
+            <th>Team decision</th>
+            <th>Backlog output</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Checkout success rate</td>
+            <td>Set SLO và theo dõi error budget burn.</td>
+            <td>Guard hoặc monitor cho checkout flow.</td>
+          </tr>
+          <tr>
+            <td>Error budget near exhausted</td>
+            <td>Ưu tiên reliability work hơn feature phụ.</td>
+            <td>Reliability backlog có owner.</td>
+          </tr>
+          <tr>
+            <td>Launch readiness gap</td>
+            <td>Hold hoặc partial rollout nếu monitor/rollback thiếu.</td>
+            <td>Readiness item + next decision date.</td>
+          </tr>
+          <tr>
+            <td>Go with watch</td>
+            <td>Launch với owner, watch window và rollback trigger.</td>
+            <td>Monitoring note và stop criteria.</td>
+          </tr>
+          <tr>
+            <td>Incident learning</td>
+            <td>Chuyển root cause thành SLI, alert hoặc runbook.</td>
+            <td>Reliability backlog item có success signal.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 23 - Incident response và production learning</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Incident signal</th>
+            <th>Team move</th>
+            <th>Learning output</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sev1 service down</td>
+            <td>Incident lead, roles, status cadence và rollback decision.</td>
+            <td>Timeline + post-incident review scheduled.</td>
+          </tr>
+          <tr>
+            <td>Sev2 critical flow lỗi</td>
+            <td>Mitigate hoặc hotfix trong ngày với verifier riêng.</td>
+            <td>Root cause + quality gate follow-up.</td>
+          </tr>
+          <tr>
+            <td>Support/customer cần update</td>
+            <td>Communicator gửi status ngắn, hứa next update thay vì ETA mù.</td>
+            <td>Status template hoặc FAQ cải tiến.</td>
+          </tr>
+          <tr>
+            <td>Rollback tranh luận khi áp lực</td>
+            <td>Dùng decision rule giảm customer impact trước.</td>
+            <td>Rollback runbook hoặc dry-run action.</td>
+          </tr>
+          <tr>
+            <td>Incident đã resolved</td>
+            <td>Blameless review, learning backlog và success signal.</td>
+            <td>Action có owner, review date và evidence.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 22 - Quality gates và continuous integration</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>CI signal</th>
+            <th>Team decision</th>
+            <th>Evidence</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Green</td>
+            <td>Merge nếu review và acceptance evidence đủ.</td>
+            <td>Required checks pass và card có evidence.</td>
+          </tr>
+          <tr>
+            <td>Red</td>
+            <td>Không merge; owner xử lý root cause.</td>
+            <td>Failed log, owner và next action rõ.</td>
+          </tr>
+          <tr>
+            <td>Unstable</td>
+            <td>Tạo flaky card, quarantine có deadline nếu cần.</td>
+            <td>Review date và reason được ghi.</td>
+          </tr>
+          <tr>
+            <td>Skipped</td>
+            <td>Xác định lý do trước khi merge/release.</td>
+            <td>Risk acceptance hoặc check chạy lại.</td>
+          </tr>
+          <tr>
+            <td>Release gate</td>
+            <td>Smoke, rollback, support, monitoring và go/no-go.</td>
+            <td>Release checklist có owner và link evidence.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 21 - Technical debt mapping và quality investment</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Debt signal</th>
+            <th>Decision</th>
+            <th>Success signal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Review lâu bất thường</td>
+            <td>Spike hoặc pair with feature để giảm review pain.</td>
+            <td>Reviewer thứ hai review được bằng checklist.</td>
+          </tr>
+          <tr>
+            <td>Bug lặp lại qua nhiều sprint</td>
+            <td>Fix now nếu defect risk cao.</td>
+            <td>Root cause có test/guard mới.</td>
+          </tr>
+          <tr>
+            <td>Build hoặc test feedback chậm</td>
+            <td>Quality investment nhỏ vào tooling.</td>
+            <td>Feedback loop giảm dưới ngưỡng team chọn.</td>
+          </tr>
+          <tr>
+            <td>Release checklist thủ công dài</td>
+            <td>Automate top risky steps.</td>
+            <td>Manual checklist giảm bước và ít lỗi hơn.</td>
+          </tr>
+          <tr>
+            <td>Debt register</td>
+            <td>Score flow cost, defect risk, learning cost và fix size.</td>
+            <td>Planning có quyết định fix, spike, pair hoặc track later.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 20 - Knowledge sharing và bus factor reduction</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Knowledge risk</th>
+            <th>Learning move</th>
+            <th>Evidence</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Một người approve mọi PR cùng domain</td>
+            <td>Reviewer rotation với shadow notes.</td>
+            <td>Reviewer thứ hai approve được.</td>
+          </tr>
+          <tr>
+            <td>QA path chỉ một người biết</td>
+            <td>Dev-QA pair trên regression thật.</td>
+            <td>Checklist test được attach/link.</td>
+          </tr>
+          <tr>
+            <td>Support hỏi cùng một người</td>
+            <td>Support rotation viết FAQ ngắn.</td>
+            <td>FAQ được PO/support approve.</td>
+          </tr>
+          <tr>
+            <td>Swarm lặp lại cùng bottleneck</td>
+            <td>Knowledge map + pairing plan cho domain đó.</td>
+            <td>Người thứ hai xử lý được card nhỏ.</td>
+          </tr>
+          <tr>
+            <td>Bus factor risk</td>
+            <td>Skill matrix, artifact owner và learning checkpoint.</td>
+            <td>Board có evidence tri thức đã lan ra.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 19 - Cross-functional swarming và flow rescue</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Trigger</th>
+            <th>Swarm move</th>
+            <th>Exit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>QA queue overload</td>
+            <td>Dev + QA pair để repro, fix hoặc attach evidence.</td>
+            <td>Queue giảm hoặc owner tiếp theo rõ.</td>
+          </tr>
+          <tr>
+            <td>Blocker aging</td>
+            <td>Kéo đúng domain helper vào swarm có timebox.</td>
+            <td>Unblocked, split hoặc escalation note.</td>
+          </tr>
+          <tr>
+            <td>Sprint Goal risk</td>
+            <td>Dừng start item mới và cứu card chính.</td>
+            <td>Goal item chuyển state hợp lệ.</td>
+          </tr>
+          <tr>
+            <td>Review bottleneck</td>
+            <td>Reviewer pair theo slot cố định trong ngày.</td>
+            <td>Decision/review evidence trên card.</td>
+          </tr>
+          <tr>
+            <td>Flow rescue</td>
+            <td>Swarm target, roles, timebox và exit criteria.</td>
+            <td>Board phản ánh next state thật.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 18 - Facilitation và decision deadlock</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Deadlock signal</th>
+            <th>Facilitation move</th>
+            <th>Output</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Looping debate</td>
+            <td>Tóm tắt options và hỏi decision needed.</td>
+            <td>Option list ngắn hơn.</td>
+          </tr>
+          <tr>
+            <td>Hidden assumption</td>
+            <td>Tách fact, risk, opinion và assumption.</td>
+            <td>Assumption rõ để kiểm chứng.</td>
+          </tr>
+          <tr>
+            <td>Data gap</td>
+            <td>Timebox spike hoặc experiment nhỏ.</td>
+            <td>Learning card có owner.</td>
+          </tr>
+          <tr>
+            <td>Authority gap</td>
+            <td>Escalate với recommendation và deadline.</td>
+            <td>Decision owner được xác định.</td>
+          </tr>
+          <tr>
+            <td>Conflict</td>
+            <td>Map position, interest, constraint và trade-off.</td>
+            <td>Decision note ít cảm tính hơn.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 17 - Stakeholder alignment và review prep</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Prep area</th>
+            <th>Rule</th>
+            <th>Output</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Stakeholder map</td>
+            <td>Mời đúng người theo decision/feedback cần lấy.</td>
+            <td>Invite có objective rõ.</td>
+          </tr>
+          <tr>
+            <td>Review objective</td>
+            <td>Review phải biết cần học hoặc chốt điều gì.</td>
+            <td>Main decision needed.</td>
+          </tr>
+          <tr>
+            <td>Demo narrative</td>
+            <td>Demo theo user journey và Sprint Goal.</td>
+            <td>Stakeholder hiểu value thay vì task list.</td>
+          </tr>
+          <tr>
+            <td>Decision capture</td>
+            <td>Feedback được chốt thành accept, rework, follow-up hoặc defer.</td>
+            <td>Decision note có owner.</td>
+          </tr>
+          <tr>
+            <td>Feedback routing</td>
+            <td>Feedback đi đúng backlog hoặc handoff checklist.</td>
+            <td>Review loop được đóng gọn.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 16 - Dependency mapping và risk board</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Signal</th>
+            <th>Board rule</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>People dependency</td>
+            <td>Ghi owner, due date và người đang chờ.</td>
+            <td>Follow up trước khi thành blocker.</td>
+          </tr>
+          <tr>
+            <td>Technical risk</td>
+            <td>Chấm impact/likelihood và tạo spike nếu cần.</td>
+            <td>Mitigation nhỏ trong Sprint Backlog.</td>
+          </tr>
+          <tr>
+            <td>Capacity risk</td>
+            <td>Nhìn QA/dev queue và WIP aging mỗi ngày.</td>
+            <td>Swarm hoặc giảm scope sớm.</td>
+          </tr>
+          <tr>
+            <td>External risk</td>
+            <td>Ghi escalation path cho đội/người ngoài team.</td>
+            <td>Escalate theo review date.</td>
+          </tr>
+          <tr>
+            <td>Risk review</td>
+            <td>Risk high không được nằm im qua nhiều ngày.</td>
+            <td>Owner mới, mitigation mới hoặc reset scope.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 15 - Working agreement và team operating rules</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Rule area</th>
+            <th>Agreement</th>
+            <th>Evidence</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Daily Scrum</td>
+            <td>Nói quanh Sprint Goal, progress thật và blocker.</td>
+            <td>Board được cập nhật sau Daily.</td>
+          </tr>
+          <tr>
+            <td>Communication</td>
+            <td>Decision quan trọng không chỉ nằm trong chat.</td>
+            <td>Card có decision note.</td>
+          </tr>
+          <tr>
+            <td>WIP</td>
+            <td>Không kéo thêm item nếu QA/Test đang dồn.</td>
+            <td>Team swarm trước khi start thêm việc.</td>
+          </tr>
+          <tr>
+            <td>Blocker</td>
+            <td>Blocker quá 1 ngày phải có owner và escalation path.</td>
+            <td>Blocker format được ghi trên card.</td>
+          </tr>
+          <tr>
+            <td>Quality</td>
+            <td>Không Done nếu thiếu review hoặc test evidence.</td>
+            <td>DoD được kiểm trước khi chuyển Done.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 14 - Planning poker và estimate calibration</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Step</th>
+            <th>Focus</th>
+            <th>Output</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Read item</td>
+            <td>Hiểu outcome và acceptance criteria.</td>
+            <td>Team có cùng scope trong đầu.</td>
+          </tr>
+          <tr>
+            <td>Reveal</td>
+            <td>Mỗi người chọn size riêng trước.</td>
+            <td>Spread được nhìn thấy rõ.</td>
+          </tr>
+          <tr>
+            <td>Discuss</td>
+            <td>So assumption khi size lệch.</td>
+            <td>Lý do lệch được giải thích.</td>
+          </tr>
+          <tr>
+            <td>Calibrate</td>
+            <td>So với ví dụ cũ đã xong.</td>
+            <td>Size giữ cùng thang.</td>
+          </tr>
+          <tr>
+            <td>Split</td>
+            <td>Tách item quá to trước khi estimate lại.</td>
+            <td>Item sẵn sàng hơn cho planning.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 13 - Backlog aging và cleanup</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Signal</th>
+            <th>Look for</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Item age</td>
+            <td>Card nào quá cũ mà chưa được chạm.</td>
+            <td>Archive, defer hoặc refresh.</td>
+          </tr>
+          <tr>
+            <td>Duplicate count</td>
+            <td>Card nào đang lặp ý.</td>
+            <td>Merge thành một card chính.</td>
+          </tr>
+          <tr>
+            <td>Owner coverage</td>
+            <td>Card nào không có owner rõ.</td>
+            <td>Gắn owner hoặc bỏ khỏi top backlog.</td>
+          </tr>
+          <tr>
+            <td>Dependency freshness</td>
+            <td>Dependency nào chưa được xác nhận lại.</td>
+            <td>Revalidate trước planning.</td>
+          </tr>
+          <tr>
+            <td>Ready ratio</td>
+            <td>Top item có đủ Ready để planning chưa.</td>
+            <td>Refresh criteria trước sprint.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 12 - Retro action tracking và improvement backlog</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Action area</th>
+            <th>Owner</th>
+            <th>Measure</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Daily format</td>
+            <td>SM</td>
+            <td>Daily ngắn hơn và blocker rõ hơn.</td>
+          </tr>
+          <tr>
+            <td>QA swarming</td>
+            <td>QA lead</td>
+            <td>QA queue cuối sprint giảm.</td>
+          </tr>
+          <tr>
+            <td>Scope control</td>
+            <td>PO</td>
+            <td>Ít item bị cứu muộn.</td>
+          </tr>
+          <tr>
+            <td>Stakeholder sync</td>
+            <td>PO</td>
+            <td>Ít surprise ở Sprint Review.</td>
+          </tr>
+          <tr>
+            <td>Backlog intake</td>
+            <td>SM + PO</td>
+            <td>Action item được theo dõi qua sprint sau.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 11 - Sprint recovery và scope reset</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Trigger</th>
+            <th>Signal</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Forecast đỏ</td>
+            <td>Capacity không đủ cho phần còn lại.</td>
+            <td>Reset scope và chốt item giữ lại.</td>
+          </tr>
+          <tr>
+            <td>Burndown phẳng</td>
+            <td>Remaining work không giảm đều.</td>
+            <td>Swarm, split hoặc cắt phần phụ.</td>
+          </tr>
+          <tr>
+            <td>QA dồn</td>
+            <td>Test queue tăng về cuối sprint.</td>
+            <td>Đẩy QA sớm và cắt item ít giá trị.</td>
+          </tr>
+          <tr>
+            <td>Blocker mở lâu</td>
+            <td>Blocker nằm nhiều ngày không mở.</td>
+            <td>Escalate và cập nhật forecast.</td>
+          </tr>
+          <tr>
+            <td>Scope reset</td>
+            <td>Item nào còn giữ sau khi cắt.</td>
+            <td>PO và team chốt lại commitment mới.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 10 - Sprint health, burndown và forecasting</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Signal</th>
+            <th>Look for</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Burndown</td>
+            <td>Remaining work có giảm đều không.</td>
+            <td>Giữ nhịp hoặc kiểm lại scope.</td>
+          </tr>
+          <tr>
+            <td>WIP aging</td>
+            <td>Card nào nằm quá lâu ở một cột.</td>
+            <td>Swarm hoặc split card nhỏ hơn.</td>
+          </tr>
+          <tr>
+            <td>Blocker count</td>
+            <td>Blocker có tăng qua nhiều ngày không.</td>
+            <td>Escalate và chốt owner trong ngày.</td>
+          </tr>
+          <tr>
+            <td>QA queue</td>
+            <td>Test có dồn cuối sprint không.</td>
+            <td>Đẩy QA sớm hoặc review sớm hơn.</td>
+          </tr>
+          <tr>
+            <td>Forecast</td>
+            <td>Capacity còn lại có đủ cho Sprint Goal không.</td>
+            <td>Giảm scope hoặc renegotiate goal.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 9 - Daily Scrum và blocker coordination</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Moment</th>
+            <th>Question</th>
+            <th>Output</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Start</td>
+            <td>Sprint Goal hôm nay là gì?</td>
+            <td>Team nhắc lại mục tiêu chung trước khi nói việc riêng.</td>
+          </tr>
+          <tr>
+            <td>Progress</td>
+            <td>Việc nào hôm qua đã đẩy goal đi lên?</td>
+            <td>Progress thật được ghi nhận trên board.</td>
+          </tr>
+          <tr>
+            <td>Blocker</td>
+            <td>Card nào đang kẹt hoặc chờ người khác?</td>
+            <td>Blocker được viết ra và có owner xử lý.</td>
+          </tr>
+          <tr>
+            <td>Coordination</td>
+            <td>Ai cần sync ngay sau Daily?</td>
+            <td>Cuộc hẹn ngắn sau Daily thay cho tranh luận dài trong Daily.</td>
+          </tr>
+          <tr>
+            <td>Escalation</td>
+            <td>Có blocker nào cần vượt quá team không?</td>
+            <td>PO, SM hoặc DevOps nhận escalation trong ngày.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 8 - Execution planning và capacity</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Role</th>
+            <th>Planned</th>
+            <th>Effective</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Frontend</td>
+            <td>8</td>
+            <td>7</td>
+          </tr>
+          <tr>
+            <td>Backend</td>
+            <td>8</td>
+            <td>7</td>
+          </tr>
+          <tr>
+            <td>QA</td>
+            <td>5</td>
+            <td>4</td>
+          </tr>
+          <tr>
+            <td>UX/UI</td>
+            <td>4</td>
+            <td>3</td>
+          </tr>
+          <tr>
+            <td>DevOps</td>
+            <td>3</td>
+            <td>2</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 7 - Roadmap và prioritization</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Score</th>
+            <th>Decision</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Explain invite states better</td>
+            <td>24</td>
+            <td>Now</td>
+          </tr>
+          <tr>
+            <td>Improve mobile empty-state CTA</td>
+            <td>20</td>
+            <td>Next</td>
+          </tr>
+          <tr>
+            <td>Add more starter templates</td>
+            <td>12</td>
+            <td>Later</td>
+          </tr>
+          <tr>
+            <td>Advanced permission editor</td>
+            <td>7</td>
+            <td>Hold</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 6 - Metrics và improvement loop</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Baseline</th>
+            <th>Target</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Board creation success rate</td>
+            <td>78%</td>
+            <td>88%</td>
+          </tr>
+          <tr>
+            <td>Invite email failure rate</td>
+            <td>7%</td>
+            <td>&lt; 4%</td>
+          </tr>
+          <tr>
+            <td>Mobile empty-state activation</td>
+            <td>32%</td>
+            <td>45%</td>
+          </tr>
+          <tr>
+            <td>Support ticket count</td>
+            <td>18</td>
+            <td>&lt; 12</td>
+          </tr>
+          <tr>
+            <td>Escaped defects</td>
+            <td>2</td>
+            <td>0</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 5 - Release readiness và handoff</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Release area</th>
+            <th>Evidence cần có</th>
+            <th>Decision/action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Product readiness</td>
+            <td>PO accepted Review output và Sprint Goal đạt.</td>
+            <td>Go / conditional go / no-go.</td>
+          </tr>
+          <tr>
+            <td>Quality readiness</td>
+            <td>Acceptance criteria pass, không còn critical/high blocker.</td>
+            <td>Release hoặc rework trước release.</td>
+          </tr>
+          <tr>
+            <td>Rollback</td>
+            <td>Rollback owner và path đã đọc trước deploy.</td>
+            <td>Revert, disable feature hoặc hotfix.</td>
+          </tr>
+          <tr>
+            <td>Support handoff</td>
+            <td>Known issues, FAQ, escalation và support macro.</td>
+            <td>Support accepted hoặc bổ sung context.</td>
+          </tr>
+          <tr>
+            <td>Monitoring</td>
+            <td>Success rate, email failure, mobile activation, support tickets.</td>
+            <td>Check 1 giờ, 24 giờ, 3 ngày và tạo follow-up backlog.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 4 - Review và Retro feedback loop</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Hoạt động</th>
+            <th>Input</th>
+            <th>Output</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sprint Review</td>
+            <td>Working increment, Sprint Goal, stakeholder/user feedback.</td>
+            <td>Accepted/rework/follow-up decisions và Product Backlog update.</td>
+          </tr>
+          <tr>
+            <td>Feedback capture</td>
+            <td>Source, evidence, impact và decision.</td>
+            <td>Backlog action có owner, due date và lý do rõ.</td>
+          </tr>
+          <tr>
+            <td>Metric review</td>
+            <td>Throughput, cycle time, WIP aging, feedback count, defects.</td>
+            <td>Insight về bottleneck và waste.</td>
+          </tr>
+          <tr>
+            <td>Retrospective</td>
+            <td>Facts, feedback, metrics và team observations.</td>
+            <td>1-2 improvement actions có success signal.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preview Bài 3 - Sprint Planning playbook</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Planning input</th>
+            <th>Điều kiện tối thiểu</th>
+            <th>Output trong sprint</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Product Goal</td>
+            <td>Một câu rõ user, outcome và capability.</td>
+            <td>Sprint Goal 1-2 câu.</td>
+          </tr>
+          <tr>
+            <td>Top backlog items</td>
+            <td>Đã ordered theo value/risk.</td>
+            <td>5 item hỗ trợ Sprint Goal.</td>
+          </tr>
+          <tr>
+            <td>Capacity</td>
+            <td>Đã trừ ngày nghỉ, support duty và buffer.</td>
+            <td>16 points được chọn có kiểm WIP.</td>
+          </tr>
+          <tr>
+            <td>Definition of Ready</td>
+            <td>Acceptance criteria, risk và estimate đủ rõ.</td>
+            <td>Item chưa Ready không vào Sprint Backlog.</td>
+          </tr>
+          <tr>
+            <td>Definition of Done</td>
+            <td>Test, review, UI check và demo path rõ.</td>
+            <td>Review demo được board + invite flow.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="exercise-2-workflow">
+      <h2>Preview Bài 2 - Delivery workflow</h2>
+      <table class="workflow-table">
+        <thead>
+          <tr>
+            <th>Cột</th>
+            <th>WIP</th>
+            <th>Policy chính</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Idea / Intake</td>
+            <td class="wip">Không giới hạn</td>
+            <td class="policy">Có nguồn, lý do và owner quyết định discovery.</td>
+          </tr>
+          <tr>
+            <td>Discovery</td>
+            <td class="wip">3</td>
+            <td class="policy">Làm rõ problem, user, value và risk trước khi refine.</td>
+          </tr>
+          <tr>
+            <td>Ready for Refinement</td>
+            <td class="wip">8</td>
+            <td class="policy">Có mô tả user/problem để team làm rõ acceptance criteria.</td>
+          </tr>
+          <tr>
+            <td>Ready for Sprint</td>
+            <td class="wip">10</td>
+            <td class="policy">Đã refine, nhỏ, có value và đủ điều kiện vào Planning.</td>
+          </tr>
+          <tr>
+            <td>Sprint Backlog</td>
+            <td class="wip">Theo capacity</td>
+            <td class="policy">Gắn với Sprint Goal và được team cam kết.</td>
+          </tr>
+          <tr>
+            <td>In Progress</td>
+            <td class="wip">3</td>
+            <td class="policy">Developer nhận việc, build và test local trước review.</td>
+          </tr>
+          <tr>
+            <td>Code Review</td>
+            <td class="wip">2</td>
+            <td class="policy">Pull request sẵn sàng review, pass hoặc trả về rework.</td>
+          </tr>
+          <tr>
+            <td>QA / Validation</td>
+            <td class="wip">3</td>
+            <td class="policy">Kiểm acceptance criteria, regression và risk.</td>
+          </tr>
+          <tr>
+            <td>Ready for Release</td>
+            <td class="wip">5</td>
+            <td class="policy">Pass DoD, release note/docs sẵn sàng nếu cần.</td>
+          </tr>
+          <tr>
+            <td>Done</td>
+            <td class="wip">Không giới hạn</td>
+            <td class="policy">Đã release hoặc deployable theo policy của team.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="split-panel">
+      <section>
+        <h2>Definition of Ready</h2>
+        <ul class="rule-list">
+          <li>User hoặc customer segment rõ.</li>
+          <li>Business/user value rõ.</li>
+          <li>Có acceptance criteria và estimate sơ bộ.</li>
+          <li>Dependencies/risk đã được ghi lại.</li>
+          <li>Không còn câu hỏi lớn cản trở implementation.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Definition of Done</h2>
+        <ul class="rule-list">
+          <li>Acceptance criteria met và code reviewed.</li>
+          <li>Unit/integration tests pass nếu liên quan.</li>
+          <li>UI checked nếu có thay đổi UI.</li>
+          <li>Security/privacy checked nếu có dữ liệu nhạy cảm.</li>
+          <li>Deployable hoặc đã deployed theo policy.</li>
+        </ul>
+      </section>
+    </div>
+
+    <section>
+      <h2>Sample Sprint 1 backlog</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>User story</th>
+            <th>Acceptance criteria</th>
+            <th>Size</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Tạo board đầu tiên</td>
+            <td>Owner mới tạo board để tổ chức công việc team.</td>
+            <td>Board tạo được từ empty state, xuất hiện sau khi tạo, có error state.</td>
+            <td>3</td>
+          </tr>
+          <tr>
+            <td>Mời teammate</td>
+            <td>Owner nhập email để mời team vào board.</td>
+            <td>Email không hợp lệ báo lỗi, trạng thái invite hiển thị rõ.</td>
+            <td>5</td>
+          </tr>
+          <tr>
+            <td>Email mời rõ ràng</td>
+            <td>Teammate hiểu mình được mời vào đâu và cần làm gì.</td>
+            <td>Email có board name, inviter, CTA và expiry note.</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>Starter lists</td>
+            <td>User mới không bắt đầu từ board trống.</td>
+            <td>Board mới có Todo, Doing, Done và cho đổi tên list.</td>
+            <td>3</td>
+          </tr>
+          <tr>
+            <td>Failed invites</td>
+            <td>Support xem được invite lỗi để hỗ trợ khách hàng.</td>
+            <td>Invite lỗi được log với reason và trạng thái kiểm tra được.</td>
+            <td>3</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="grid">
+      <section>
+        <h2>Điểm hiện tại</h2>
+        <table class="numeric-table">
+          <thead>
+            <tr>
+              <th>Tiêu chí</th>
+              <th>Điểm</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Product clarity</td>
+              <td>2/5</td>
+            </tr>
+            <tr>
+              <td>Backlog quality</td>
+              <td>2/5</td>
+            </tr>
+            <tr>
+              <td>Scrum events</td>
+              <td>3/5</td>
+            </tr>
+            <tr>
+              <td>Engineering quality</td>
+              <td>3/5</td>
+            </tr>
+            <tr>
+              <td>Team autonomy</td>
+              <td>2/5</td>
+            </tr>
+            <tr>
+              <td>Customer feedback</td>
+              <td>2/5</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="plan">
+        <h2>Kế hoạch cải thiện</h2>
+        <ol class="actions">
+          <li>Viết Product Goal và 3 success metrics.</li>
+          <li>Làm sạch top 10 backlog items.</li>
+          <li>Đổi Daily Scrum quanh Sprint Goal.</li>
+          <li>Chạy Sprint Review có feedback thật.</li>
+          <li>Áp dụng luật đổi scope giữa sprint.</li>
+          <li>Nâng cấp Definition of Done.</li>
+        </ol>
+      </section>
+    </div>
+
+    <section>
+      <h2>Metrics cho workflow mới</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Ý nghĩa</th>
+            <th>Target ban đầu</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Cycle time</td>
+            <td>Thời gian từ lúc bắt đầu làm đến Done.</td>
+            <td>Giảm 20% sau 3 sprint.</td>
+          </tr>
+          <tr>
+            <td>Throughput</td>
+            <td>Số item hoàn thành thật trong mỗi sprint.</td>
+            <td>5-8 item nhỏ/sprint.</td>
+          </tr>
+          <tr>
+            <td>WIP aging</td>
+            <td>Card nào nằm quá lâu ở một cột.</td>
+            <td>Không card nào kẹt quá 3 ngày.</td>
+          </tr>
+          <tr>
+            <td>Escaped defects</td>
+            <td>Bug lọt ra sau release.</td>
+            <td>Giảm dần qua mỗi sprint.</td>
+          </tr>
+          <tr>
+            <td>Review feedback count</td>
+            <td>Sprint Review có tạo học hỏi thật không.</td>
+            <td>Ít nhất 5 feedback notes/sprint.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 1</h2>
+      <div class="checklist">
+        <label><input type="checkbox"> Product Goal đã được viết.</label>
+        <label><input type="checkbox"> 3 success metrics đã được chọn.</label>
+        <label><input type="checkbox"> Top 10 backlog items đã được refine.</label>
+        <label><input type="checkbox"> Daily Scrum đã đổi sang format quanh Sprint Goal.</label>
+        <label><input type="checkbox"> Sprint Review có stakeholder hoặc user feedback.</label>
+        <label><input type="checkbox"> Luật đổi scope giữa sprint đã được áp dụng.</label>
+        <label><input type="checkbox"> Definition of Done mới đã được pin trên board.</label>
+        <label><input type="checkbox"> Team đã re-score trong Retrospective.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 2</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Board có đủ các cột workflow.</label>
+        <label><input type="checkbox" checked> Mỗi cột có entry policy và exit policy.</label>
+        <label><input type="checkbox" checked> WIP limit đã được thống nhất.</label>
+        <label><input type="checkbox" checked> Definition of Ready đã được dùng trong refinement.</label>
+        <label><input type="checkbox" checked> Definition of Done đã được dùng trước khi chuyển Done.</label>
+        <label><input type="checkbox" checked> Bug, blocker và scope change có rule xử lý.</label>
+        <label><input type="checkbox" checked> Sprint Goal đã được viết.</label>
+        <label><input type="checkbox" checked> Ít nhất 5 backlog items được refine theo format mới.</label>
+        <label><input type="checkbox" checked> Metrics được chọn cho sprint tiếp theo.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 3</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Product Goal/Sprint Goal đã rõ.</label>
+        <label><input type="checkbox" checked> Planning inputs đã được liệt kê.</label>
+        <label><input type="checkbox" checked> Backlog Refinement policy đã có.</label>
+        <label><input type="checkbox" checked> Sprint Planning agenda đã có timebox và output.</label>
+        <label><input type="checkbox" checked> Ít nhất 5 backlog items được chọn và đủ Ready.</label>
+        <label><input type="checkbox" checked> Capacity và WIP check đã có.</label>
+        <label><input type="checkbox" checked> Risk và scope-change handling đã có.</label>
+        <label><input type="checkbox" checked> Definition of Done cho Sprint 1 đã có.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 4</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Sprint Review agenda đã có.</label>
+        <label><input type="checkbox" checked> Feedback capture format đã có.</label>
+        <label><input type="checkbox" checked> Accept/rework/follow-up rules đã rõ.</label>
+        <label><input type="checkbox" checked> Retrospective agenda đã có.</label>
+        <label><input type="checkbox" checked> Metric review đã có insight và action.</label>
+        <label><input type="checkbox" checked> Improvement actions có owner và success signal.</label>
+        <label><input type="checkbox" checked> Sample output sau Review/Retro đã có.</label>
+        <label><input type="checkbox" checked> Backlog update loop đã rõ.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 5</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Release readiness checklist đã có.</label>
+        <label><input type="checkbox" checked> Go/no-go decision format đã có.</label>
+        <label><input type="checkbox" checked> Risk và rollback plan đã rõ.</label>
+        <label><input type="checkbox" checked> Release note mẫu đã có.</label>
+        <label><input type="checkbox" checked> Support handoff đã có.</label>
+        <label><input type="checkbox" checked> Post-release monitoring metrics đã có threshold/action.</label>
+        <label><input type="checkbox" checked> Incident response nhẹ đã có.</label>
+        <label><input type="checkbox" checked> Monitoring loop quay lại Product Backlog đã rõ.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 6</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Metric cốt lõi đã được chọn.</label>
+        <label><input type="checkbox" checked> Baseline và target đã rõ.</label>
+        <label><input type="checkbox" checked> Trend review format đã có.</label>
+        <label><input type="checkbox" checked> Experiment design có hypothesis, owner và stop signal.</label>
+        <label><input type="checkbox" checked> Backlog feedback action đã có format.</label>
+        <label><input type="checkbox" checked> Review cadence đã có.</label>
+        <label><input type="checkbox" checked> Sample output đã có.</label>
+        <label><input type="checkbox" checked> Team biết khi nào phải dừng hoặc đổi experiment.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 7</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Prioritization method đã được chọn.</label>
+        <label><input type="checkbox" checked> Scoring criteria đã có.</label>
+        <label><input type="checkbox" checked> Roadmap slices đã có.</label>
+        <label><input type="checkbox" checked> Trade-off discussion đã có.</label>
+        <label><input type="checkbox" checked> Sample prioritization table đã có.</label>
+        <label><input type="checkbox" checked> Backlog ordering đã rõ.</label>
+        <label><input type="checkbox" checked> Decision note đã có format.</label>
+        <label><input type="checkbox" checked> Team biết item nào nên làm next sprint.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 8</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Capacity calculation đã có.</label>
+        <label><input type="checkbox" checked> Team availability đã có.</label>
+        <label><input type="checkbox" checked> Slice sizing rules đã có.</label>
+        <label><input type="checkbox" checked> Sprint commitment rules đã có.</label>
+        <label><input type="checkbox" checked> Ownership assignment đã có.</label>
+        <label><input type="checkbox" checked> Dependency and risk tracking đã có.</label>
+        <label><input type="checkbox" checked> Sample sprint plan đã có.</label>
+        <label><input type="checkbox" checked> Buffer rule đã rõ.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 9</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Daily Scrum purpose đã rõ.</label>
+        <label><input type="checkbox" checked> Agenda 15 phút đã có.</label>
+        <label><input type="checkbox" checked> Blocker handling đã có rule.</label>
+        <label><input type="checkbox" checked> Coordination rules đã rõ.</label>
+        <label><input type="checkbox" checked> Sample daily update format đã có.</label>
+        <label><input type="checkbox" checked> Escalation policy đã có.</label>
+        <label><input type="checkbox" checked> Team biết cách park discussion dài.</label>
+        <label><input type="checkbox" checked> Board và Sprint Backlog được cập nhật sau Daily.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 10</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Sprint health signals đã rõ.</label>
+        <label><input type="checkbox" checked> Burndown interpretation đã có.</label>
+        <label><input type="checkbox" checked> Forecast rules đã có.</label>
+        <label><input type="checkbox" checked> Intervention rules đã có.</label>
+        <label><input type="checkbox" checked> Sample health snapshot đã có.</label>
+        <label><input type="checkbox" checked> Team biết khi nào cần giảm scope hoặc swarm.</label>
+        <label><input type="checkbox" checked> Board và metric được nhìn cùng nhau.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 11</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Recovery triggers đã rõ.</label>
+        <label><input type="checkbox" checked> Scope-cut rules đã có.</label>
+        <label><input type="checkbox" checked> Reforecast rules đã có.</label>
+        <label><input type="checkbox" checked> Communication rules đã có.</label>
+        <label><input type="checkbox" checked> Sample recovery plan đã có.</label>
+        <label><input type="checkbox" checked> Team biết giữ Sprint Goal và cắt phần phụ.</label>
+        <label><input type="checkbox" checked> Board và forecast được reset cùng lúc.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 12</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Retrospective action capture đã có.</label>
+        <label><input type="checkbox" checked> Owner assignment đã rõ.</label>
+        <label><input type="checkbox" checked> Due date rules đã có.</label>
+        <label><input type="checkbox" checked> Success measure rules đã có.</label>
+        <label><input type="checkbox" checked> Backlog intake đã có.</label>
+        <label><input type="checkbox" checked> Sample improvement backlog đã có.</label>
+        <label><input type="checkbox" checked> Team biết review action ở sprint sau.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 13</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Backlog health signals đã rõ.</label>
+        <label><input type="checkbox" checked> Cleanup rules đã có.</label>
+        <label><input type="checkbox" checked> Stale item rules đã có.</label>
+        <label><input type="checkbox" checked> Duplicate merge rules đã có.</label>
+        <label><input type="checkbox" checked> Readiness refresh rules đã có.</label>
+        <label><input type="checkbox" checked> Sample cleanup session đã có.</label>
+        <label><input type="checkbox" checked> Team biết giữ top backlog sạch trước planning.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 14</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Estimation principles đã có.</label>
+        <label><input type="checkbox" checked> Planning Poker flow đã có.</label>
+        <label><input type="checkbox" checked> Calibration rules đã có.</label>
+        <label><input type="checkbox" checked> Split rules đã có.</label>
+        <label><input type="checkbox" checked> Consensus rules đã có.</label>
+        <label><input type="checkbox" checked> Sample estimation session đã có.</label>
+        <label><input type="checkbox" checked> Team biết split trước khi estimate nếu item quá to.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 15</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Working agreement principles đã có.</label>
+        <label><input type="checkbox" checked> Meeting rules đã có.</label>
+        <label><input type="checkbox" checked> Communication rules đã có.</label>
+        <label><input type="checkbox" checked> WIP and blocker policies đã có.</label>
+        <label><input type="checkbox" checked> Quality agreements đã có.</label>
+        <label><input type="checkbox" checked> Decision and escalation rules đã có.</label>
+        <label><input type="checkbox" checked> Sample working agreement đã có.</label>
+        <label><input type="checkbox" checked> Team biết review agreement trong Retrospective.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 16</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Dependency types đã có.</label>
+        <label><input type="checkbox" checked> Risk categories đã có.</label>
+        <label><input type="checkbox" checked> Mapping workflow đã có.</label>
+        <label><input type="checkbox" checked> Risk scoring đã có.</label>
+        <label><input type="checkbox" checked> Owner and mitigation rules đã có.</label>
+        <label><input type="checkbox" checked> Review cadence đã có.</label>
+        <label><input type="checkbox" checked> Sample dependency-risk board đã có.</label>
+        <label><input type="checkbox" checked> Team biết phân biệt risk, blocker và dependency.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 17</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Stakeholder map đã có.</label>
+        <label><input type="checkbox" checked> Review objective đã có.</label>
+        <label><input type="checkbox" checked> Invite and readiness rules đã có.</label>
+        <label><input type="checkbox" checked> Demo narrative đã có.</label>
+        <label><input type="checkbox" checked> Decision capture đã có.</label>
+        <label><input type="checkbox" checked> Feedback routing đã có.</label>
+        <label><input type="checkbox" checked> Sample review-prep board đã có.</label>
+        <label><input type="checkbox" checked> Team biết route feedback sau Sprint Review.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 18</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Deadlock signals đã có.</label>
+        <label><input type="checkbox" checked> Facilitation stance đã có.</label>
+        <label><input type="checkbox" checked> Decision methods đã có.</label>
+        <label><input type="checkbox" checked> Conflict mapping đã có.</label>
+        <label><input type="checkbox" checked> Discussion timeboxes đã có.</label>
+        <label><input type="checkbox" checked> Escalation rules đã có.</label>
+        <label><input type="checkbox" checked> Sample facilitation board đã có.</label>
+        <label><input type="checkbox" checked> Team biết kết thúc discussion khó bằng decision hoặc next action.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 19</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Swarm triggers đã có.</label>
+        <label><input type="checkbox" checked> Swarm roles đã có.</label>
+        <label><input type="checkbox" checked> Flow rescue workflow đã có.</label>
+        <label><input type="checkbox" checked> WIP stop rules đã có.</label>
+        <label><input type="checkbox" checked> Pairing and mobbing patterns đã có.</label>
+        <label><input type="checkbox" checked> Exit criteria đã có.</label>
+        <label><input type="checkbox" checked> Sample swarm board đã có.</label>
+        <label><input type="checkbox" checked> Team biết dừng start work để cứu flow.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 20</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Bus factor signals đã có.</label>
+        <label><input type="checkbox" checked> Skill matrix đã có.</label>
+        <label><input type="checkbox" checked> Knowledge map đã có.</label>
+        <label><input type="checkbox" checked> Pairing and rotation plan đã có.</label>
+        <label><input type="checkbox" checked> Documentation rules đã có.</label>
+        <label><input type="checkbox" checked> Learning checkpoints đã có.</label>
+        <label><input type="checkbox" checked> Sample knowledge-sharing board đã có.</label>
+        <label><input type="checkbox" checked> Team biết tạo evidence rằng người thứ hai dùng được kiến thức.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 21</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Technical debt signals đã có.</label>
+        <label><input type="checkbox" checked> Debt categories đã có.</label>
+        <label><input type="checkbox" checked> Debt register đã có.</label>
+        <label><input type="checkbox" checked> Impact scoring đã có.</label>
+        <label><input type="checkbox" checked> Repayment decision rules đã có.</label>
+        <label><input type="checkbox" checked> Quality investment plan đã có.</label>
+        <label><input type="checkbox" checked> Sample debt board đã có.</label>
+        <label><input type="checkbox" checked> Team biết quyết định debt bằng evidence và trade-off.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 22</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Quality gate types đã có.</label>
+        <label><input type="checkbox" checked> CI signal policy đã có.</label>
+        <label><input type="checkbox" checked> Merge rules đã có.</label>
+        <label><input type="checkbox" checked> Flaky check handling đã có.</label>
+        <label><input type="checkbox" checked> Release gate checklist đã có.</label>
+        <label><input type="checkbox" checked> Gate ownership đã có.</label>
+        <label><input type="checkbox" checked> Sample CI board đã có.</label>
+        <label><input type="checkbox" checked> Team biết dùng gate để bảo vệ chất lượng mà không làm nghẽn flow.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 23</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Severity levels đã có.</label>
+        <label><input type="checkbox" checked> Incident roles đã có.</label>
+        <label><input type="checkbox" checked> Response workflow đã có.</label>
+        <label><input type="checkbox" checked> Communication rules đã có.</label>
+        <label><input type="checkbox" checked> Mitigation and rollback decisions đã có.</label>
+        <label><input type="checkbox" checked> Post-incident review đã có.</label>
+        <label><input type="checkbox" checked> Learning backlog đã có.</label>
+        <label><input type="checkbox" checked> Sample incident board đã có.</label>
+        <label><input type="checkbox" checked> Team biết biến incident thành cải tiến không đổ lỗi.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 24</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Reliability signals đã có.</label>
+        <label><input type="checkbox" checked> SLI/SLO definitions đã có.</label>
+        <label><input type="checkbox" checked> Error budget rules đã có.</label>
+        <label><input type="checkbox" checked> Operational readiness checklist đã có.</label>
+        <label><input type="checkbox" checked> Launch readiness decision đã có.</label>
+        <label><input type="checkbox" checked> Reliability backlog đã có.</label>
+        <label><input type="checkbox" checked> Sample SLO board đã có.</label>
+        <label><input type="checkbox" checked> Team biết dùng SLO để quyết định reliability và feature trade-off.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 25</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Rollout strategies đã có.</label>
+        <label><input type="checkbox" checked> Feature flag rules đã có.</label>
+        <label><input type="checkbox" checked> Canary/phased rollout plan đã có.</label>
+        <label><input type="checkbox" checked> Rollback triggers đã có.</label>
+        <label><input type="checkbox" checked> Launch cohort rules đã có.</label>
+        <label><input type="checkbox" checked> Monitoring cadence đã có.</label>
+        <label><input type="checkbox" checked> Go/expand/rollback decision rules đã có.</label>
+        <label><input type="checkbox" checked> Sample rollout board đã có.</label>
+        <label><input type="checkbox" checked> Team biết launch theo phase và quyết định bằng evidence.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 26</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Adoption signals đã có.</label>
+        <label><input type="checkbox" checked> Activation/usage/retention measures đã có.</label>
+        <label><input type="checkbox" checked> Feedback intake channels đã có.</label>
+        <label><input type="checkbox" checked> Friction triage rules đã có.</label>
+        <label><input type="checkbox" checked> Qualitative/quantitative synthesis đã có.</label>
+        <label><input type="checkbox" checked> Backlog update rules đã có.</label>
+        <label><input type="checkbox" checked> Stakeholder communication đã có.</label>
+        <label><input type="checkbox" checked> Sample adoption board đã có.</label>
+        <label><input type="checkbox" checked> Team biết biến post-launch feedback thành backlog evidence.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 27</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Hypothesis format đã có.</label>
+        <label><input type="checkbox" checked> Experiment types đã có.</label>
+        <label><input type="checkbox" checked> A/B testing setup đã có.</label>
+        <label><input type="checkbox" checked> Audience and sample guardrails đã có.</label>
+        <label><input type="checkbox" checked> Success metrics đã có.</label>
+        <label><input type="checkbox" checked> Risk/ethics checks đã có.</label>
+        <label><input type="checkbox" checked> Decision rules đã có.</label>
+        <label><input type="checkbox" checked> Backlog follow-up rules đã có.</label>
+        <label><input type="checkbox" checked> Sample experiment board đã có.</label>
+        <label><input type="checkbox" checked> Team biết biến feedback thành experiment và backlog decision.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 28</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Discovery inputs đã có.</label>
+        <label><input type="checkbox" checked> Opportunity framing đã có.</label>
+        <label><input type="checkbox" checked> Customer segment rules đã có.</label>
+        <label><input type="checkbox" checked> Opportunity solution tree đã có.</label>
+        <label><input type="checkbox" checked> Assumption mapping đã có.</label>
+        <label><input type="checkbox" checked> Evidence strength đã có.</label>
+        <label><input type="checkbox" checked> Discovery backlog rules đã có.</label>
+        <label><input type="checkbox" checked> Decision handoff đã có.</label>
+        <label><input type="checkbox" checked> Sample opportunity board đã có.</label>
+        <label><input type="checkbox" checked> Team biết biến learning thành opportunity map và decision handoff.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 29</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Story map inputs đã có.</label>
+        <label><input type="checkbox" checked> User journey backbone đã có.</label>
+        <label><input type="checkbox" checked> Activities and tasks đã có.</label>
+        <label><input type="checkbox" checked> Story cards đã có.</label>
+        <label><input type="checkbox" checked> Walking skeleton and MVP slice đã có.</label>
+        <label><input type="checkbox" checked> Release slicing rules đã có.</label>
+        <label><input type="checkbox" checked> Prioritization within the map đã có.</label>
+        <label><input type="checkbox" checked> Refinement handoff đã có.</label>
+        <label><input type="checkbox" checked> Sample story map board đã có.</label>
+        <label><input type="checkbox" checked> Team biết biến opportunity thành release slices và refinement-ready stories.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 30</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Example mapping inputs đã có.</label>
+        <label><input type="checkbox" checked> Story rule discovery đã có.</label>
+        <label><input type="checkbox" checked> Concrete examples đã có.</label>
+        <label><input type="checkbox" checked> Open questions đã có.</label>
+        <label><input type="checkbox" checked> Edge and negative cases đã có.</label>
+        <label><input type="checkbox" checked> Acceptance criteria formats đã có.</label>
+        <label><input type="checkbox" checked> Testable scenarios đã có.</label>
+        <label><input type="checkbox" checked> DoR and DoD alignment đã có.</label>
+        <label><input type="checkbox" checked> Sample example map board đã có.</label>
+        <label><input type="checkbox" checked> Team biết biến story thành examples, criteria và test scenarios.</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Checklist hoàn thành Bài 31</h2>
+      <div class="checklist">
+        <label><input type="checkbox" checked> Test strategy inputs đã có.</label>
+        <label><input type="checkbox" checked> Risk-based test planning đã có.</label>
+        <label><input type="checkbox" checked> Test pyramid selection đã có.</label>
+        <label><input type="checkbox" checked> Automation candidates đã có.</label>
+        <label><input type="checkbox" checked> Negative and regression coverage đã có.</label>
+        <label><input type="checkbox" checked> Test data and environment plan đã có.</label>
+        <label><input type="checkbox" checked> CI signal policy đã có.</label>
+        <label><input type="checkbox" checked> Exploratory testing đã có.</label>
+        <label><input type="checkbox" checked> Coverage gaps đã có.</label>
+        <label><input type="checkbox" checked> Sample test strategy board đã có.</label>
+        <label><input type="checkbox" checked> Team biết biến criteria thành test strategy và automation plan.</label>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      Preview tổng cho khóa Scrum. Cập nhật thêm mỗi khi có bài tập mới.
+    </div>
+  </footer>
+</body>
+</html>

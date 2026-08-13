@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Preview Dự Án - .agent / .manager / .feedback</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --panel: #ffffff;
+      --ink: #172033;
+      --muted: #5b6477;
+      --line: #d8deea;
+      --accent: #2457d6;
+      --accent-2: #0f8b8d;
+      --soft: #eef3ff;
+      --soft-2: #eefaf8;
+      --warn: #fff8e6;
+      --shadow: 0 10px 24px rgba(20, 33, 61, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #f8faff 0%, var(--bg) 100%);
+      line-height: 1.55;
+    }
+
+    header {
+      padding: 40px 24px 18px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,0.78);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1, h2, h3 { margin: 0 0 12px; line-height: 1.2; }
+    h1 { font-size: 32px; }
+    h2 { font-size: 24px; }
+    h3 { font-size: 18px; }
+    p { margin: 0 0 12px; color: var(--muted); }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--accent);
+      background: var(--soft);
+      border: 1px solid #d7e2ff;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 14px;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .col-6 { grid-column: span 6; }
+    .col-12 { grid-column: span 12; }
+
+    @media (max-width: 900px) {
+      .col-6 { grid-column: span 12; }
+      header { position: static; }
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      overflow: hidden;
+    }
+
+    th, td {
+      border: 1px solid var(--line);
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+      font-size: 14px;
+    }
+
+    th {
+      background: #f2f5fb;
+      color: #25314a;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0;
+      margin-right: 8px;
+    }
+
+    .pill.agent { background: var(--soft); color: var(--accent); }
+    .pill.manager { background: var(--soft-2); color: var(--accent-2); }
+    .pill.feedback { background: var(--warn); color: #a76a00; }
+
+    .note {
+      border-left: 4px solid var(--accent);
+      background: #f4f7ff;
+      padding: 14px 16px;
+      border-radius: 10px;
+      color: var(--ink);
+    }
+
+    ul { margin: 8px 0 0 18px; color: var(--muted); }
+    li { margin-bottom: 6px; }
+
+    .mini {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+      background: #fbfcff;
+    }
+
+    .card strong { display: block; margin-bottom: 6px; }
+
+    @media (max-width: 800px) {
+      .mini { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Preview Dự Án: .agent / .manager / .feedback</h1>
+      <p>Bản trình bày chi tiết về flow, pipeline, prompt, vai trò, đầu vào, đầu ra,
+      điểm mạnh và luồng vận hành của dự án.</p>
+      <nav>
+        <a href="#tong-quan">Tổng quan</a>
+        <a href="#flow">Flow &amp; Pipeline</a>
+        <a href="#chuc-nang">Chức năng</a>
+        <a href="#io">Đầu vào / Đầu ra</a>
+        <a href="#strengths">Điểm mạnh</a>
+        <a href="#goi-y">Gợi ý thêm</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="tong-quan">
+      <span class="pill agent">.agent</span>
+      <span class="pill manager">.manager</span>
+      <span class="pill feedback">.feedback</span>
+      <h2>Tổng quan kiến trúc</h2>
+      <p>Hệ thống được chia thành ba lớp: lớp quy ước vận hành, lớp quản lý trạng thái,
+      và lớp xử lý phản hồi. Cách tách này giúp dự án có kỷ luật, dễ mở rộng và dễ bàn giao.</p>
+      <div class="mini">
+        <div class="card">
+          <strong>PM</strong>
+          Người đứng đầu dự án, chốt ưu tiên, chia task và tổng hợp trạng thái.
+        </div>
+        <div class="card">
+          <strong>Developer / Agent</strong>
+          Thực thi thay đổi đúng phạm vi, ghi chú rõ và không phá cấu trúc cũ.
+        </div>
+        <div class="card">
+          <strong>Customer Reviewer</strong>
+          Đánh giá giao diện và chức năng theo góc nhìn người dùng thật.
+        </div>
+      </div>
+    </section>
+
+    <section id="flow">
+      <h2>Flow và Pipeline</h2>
+      <p>Luồng vận hành đi từ nhận yêu cầu đến bàn giao cuối cùng, với từng bước có file
+      lưu trạng thái riêng để không bị đứt mạch.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Bước</th>
+            <th>Mục đích</th>
+            <th>Đầu vào</th>
+            <th>Đầu ra</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Intake</td>
+            <td>Chuẩn hóa yêu cầu</td>
+            <td>Mô tả task</td>
+            <td><code>requirements.md</code></td>
+          </tr>
+          <tr>
+            <td>Plan</td>
+            <td>Chia việc và xác định hướng xử lý</td>
+            <td>Yêu cầu + ràng buộc</td>
+            <td><code>current_task.md</code></td>
+          </tr>
+          <tr>
+            <td>Implement</td>
+            <td>Sửa đúng phần cần sửa</td>
+            <td>Kế hoạch + code</td>
+            <td>Diff, notes</td>
+          </tr>
+          <tr>
+            <td>QA</td>
+            <td>Xác nhận kết quả</td>
+            <td>Build / thay đổi mới</td>
+            <td><code>test-report.md</code></td>
+          </tr>
+          <tr>
+            <td>Feedback</td>
+            <td>Xử lý phản hồi</td>
+            <td>Feedback mới</td>
+            <td><code>responses.md</code>, <code>action-plan.md</code></td>
+          </tr>
+          <tr>
+            <td>Handoff</td>
+            <td>Bàn giao và tổng kết</td>
+            <td>Tất cả state</td>
+            <td><code>final_report.md</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="chuc-nang">
+      <h2>Chi tiết từng chức năng</h2>
+      <div class="grid">
+        <div class="col-6">
+          <h3>.agent</h3>
+          <p>Chứa skills, rules, workflows và roles. Đây là phần mô tả “cách làm việc” của
+          hệ thống. Nó trả lời câu hỏi: ai làm, làm theo luật nào, và đi qua những bước nào.</p>
+        </div>
+        <div class="col-6">
+          <h3>.manager</h3>
+          <p>Chứa state file cho PM và các vai trò khác. Đây là sổ cái vận hành, giúp nhìn
+          nhanh task đang ở đâu, đã kiểm thử chưa, và còn gì cần chốt.</p>
+        </div>
+        <div class="col-6">
+          <h3>.feedback</h3>
+          <p>Chứa luồng inbox -> response -> action plan. Đây là nơi gom phản hồi rời rạc
+          thành việc có thể xử lý và theo dõi đến khi đóng xong.</p>
+        </div>
+        <div class="col-6">
+          <h3>refer/</h3>
+          <p>Chứa tài liệu phân tích chi tiết, giúp người mới đọc vào là hiểu cấu trúc,
+          luồng xử lý và các đề xuất mở rộng của dự án.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="io">
+      <h2>Đầu vào và đầu ra</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nhóm</th>
+            <th>Đầu vào</th>
+            <th>Đầu ra</th>
+            <th>Điểm hay</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>PM</td>
+            <td>Task, priority, blocker</td>
+            <td>State file, summary</td>
+            <td>Nhìn được tiến độ ngay</td>
+          </tr>
+          <tr>
+            <td>Agent</td>
+            <td>Yêu cầu, code hiện có</td>
+            <td>Diff, notes, file mới</td>
+            <td>Giữ thay đổi nhỏ và có kiểm soát</td>
+          </tr>
+          <tr>
+            <td>Tester</td>
+            <td>Feature cần kiểm tra</td>
+            <td>Test report</td>
+            <td>Có bằng chứng pass/fail rõ</td>
+          </tr>
+          <tr>
+            <td>Customer Reviewer</td>
+            <td>Giao diện, luồng thao tác</td>
+            <td>UX feedback</td>
+            <td>Phản ánh đúng trải nghiệm thật</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="strengths">
+      <h2>Điểm hay</h2>
+      <div class="note">
+        <ul>
+          <li>Phân tầng rõ nên không lẫn giữa quy ước, trạng thái và phản hồi.</li>
+          <li>Có rule chia nhỏ file để giảm tràn context khi task lớn.</li>
+          <li>Có PM đứng đầu nên luôn có nơi chốt quyết định.</li>
+          <li>Có reviewer từ góc nhìn khách hàng nên không chỉ đúng kỹ thuật mà còn đúng trải nghiệm.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="goi-y">
+      <h2>Gợi ý thêm rule và workflow</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Rule / Workflow</th>
+            <th>Ý nghĩa</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Single Responsibility</td>
+            <td>Mỗi file chỉ làm một việc chính.</td>
+          </tr>
+          <tr>
+            <td>Verify Before Merge</td>
+            <td>Kiểm tra xong mới chốt thay đổi.</td>
+          </tr>
+          <tr>
+            <td>Intake → Clarify → Plan</td>
+            <td>Chuẩn cho task còn mơ hồ.</td>
+          </tr>
+          <tr>
+            <td>Review → Feedback → Action</td>
+            <td>Chuẩn cho vòng phản hồi từ khách hàng.</td>
+          </tr>
+          <tr>
+            <td>QA → Fix → Recheck</td>
+            <td>Chuẩn cho bug fix nhiều vòng.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

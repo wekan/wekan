@@ -115,3 +115,10 @@ node-patches/
 # MongoDB Database Tools that WeKan's bundled bsondump/mongodump/... are built
 # from, replacing the wekan/mongo-tools source fork.
 mongo-tools-patches/
+
+# Local agent/runtime files for personal Codex workflows. Keep credentials,
+# virtualenvs and Python bytecode out of commits.
+.env*
+**/.venv/
+**/__pycache__/
+*.py[cod]
