@@ -468,7 +468,7 @@ and fixes the following bugs:
 time zone it says it.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">A card's PDF and Excel exports carry the same fields, under the same translated labels</a>. Thanks to Heart1010 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/698e980e27522b53f60ad6fce347727cb11eb017">A card's PDF and Excel exports carry the same fields, under the same translated labels</a>. Thanks to Heart1010 and xet7.</summary>
 
 [#6586](https://github.com/wekan/wekan/issues/6586) was reopened for what the
 first fix left: the PDF export of a card had grown separately from the Excel
@@ -503,7 +503,7 @@ language that has not translated a key shows the word rather than the key.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">Exported dates are in the reader's own time zone and date format, not the server's</a>. Thanks to Heart1010 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/698e980e27522b53f60ad6fce347727cb11eb017">Exported dates are in the reader's own time zone and date format, not the server's</a>. Thanks to Heart1010 and xet7.</summary>
 
 "The marked due date - here the time is not in the user set timezone (-2h wrong
 for Europe/Berlin)." It was worse than -2h: the PDF export printed UTC and the
@@ -533,7 +533,7 @@ runtime does not know falls back instead of failing the download.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">A description's markdown is drawn as bold and italic instead of being stripped</a>. Thanks to Heart1010 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/698e980e27522b53f60ad6fce347727cb11eb017">A description's markdown is drawn as bold and italic instead of being stripped</a>. Thanks to Heart1010 and xet7.</summary>
 
 "Would it make sense to support markdown formated text in description? (so it
 gets transformed correct in the pdf output with bold, underline,....)" The first
