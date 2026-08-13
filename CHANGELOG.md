@@ -359,7 +359,7 @@ This release fixes the following bugs:
 **Recovering a snap that has two copies of its data**
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASHRECOVER">Two commands for a snap that is serving the older of its two copies</a>. Thanks to waltermhl, lukechao and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/073a327d6">Two commands for a snap that is serving the older of its two copies</a>. Thanks to waltermhl, lukechao and xet7.</summary>
 
 From [#6583](https://github.com/wekan/wekan/issues/6583): *"The migration and
 the update to 10.83 startet at 11.08.2026 at 6:35 pm and migration failed. Now
