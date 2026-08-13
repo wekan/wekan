@@ -6,6 +6,7 @@ import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 const { allBoardsPath, SECTION_ARCHIVE } = require('/models/lib/allBoardsUrls');
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
+import { exportLocaleParams } from '/client/lib/exportLocale';
 import AccessibilitySettings from '/models/accessibilitySettings';
 import Boards from '/models/boards';
 import Attachments from '/models/attachments';
@@ -980,8 +981,12 @@ Template.exportBoardPopup.helpers({
     const params = {
       boardId: Session.get('currentBoard'),
     };
+    // #6586: the same two the card export sends - the browser's IANA zone, so
+    // the dates are not printed in UTC, and the language the reader is looking
+    // at WeKan in, for a public board that has no user to read one off.
     const queryParams = {
       authToken: Accounts._storedLoginToken(),
+      ...exportLocaleParams(),
     };
     return FlowRouter.path('/api/boards/:boardId/exportPDF', params, queryParams);
   },

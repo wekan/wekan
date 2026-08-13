@@ -9,6 +9,7 @@ import {
   DEFAULT_DEPENDENCY_ICON,
 } from '/models/metadata/dependencies';
 import { canArchiveCard } from '/client/lib/archivePermission';
+import { exportLocaleParams } from '/client/lib/exportLocale';
 import { isTextSelectionInsideCard } from '/client/lib/cardCloseGuard';
 import { placeCardDetailsX, MARGIN } from '/client/lib/cardDetailsPlacement';
 
@@ -1459,15 +1460,18 @@ Template.cardDetailsPopup.helpers({
 // Ordered list of Excel export field keys and their i18n label keys.
 // Must match ALL_FIELDS in models/server/ExporterExcelCard.js.
 const EXCEL_EXPORT_FIELDS = [
-  { field: 'labels',      label: 'labels' },
-  { field: 'people',      label: 'export-card-field-people' },
-  { field: 'board-info',  label: 'export-card-field-board-info' },
-  { field: 'dates',       label: 'export-card-field-dates' },
-  { field: 'description', label: 'description' },
-  { field: 'checklists',  label: 'checklists' },
-  { field: 'subtasks',    label: 'export-card-subtasks' },
-  { field: 'comments',    label: 'comments' },
-  { field: 'attachments', label: 'attachments' },
+  { field: 'labels',        label: 'labels' },
+  { field: 'people',        label: 'export-card-field-people' },
+  { field: 'board-info',    label: 'export-card-field-board-info' },
+  { field: 'dates',         label: 'export-card-field-dates' },
+  { field: 'description',   label: 'description' },
+  { field: 'custom-fields', label: 'custom-fields' },
+  { field: 'checklists',    label: 'checklists' },
+  { field: 'subtasks',      label: 'export-card-subtasks' },
+  { field: 'comments',      label: 'comments' },
+  { field: 'attachments',   label: 'attachments' },
+  { field: 'voting',        label: 'voting' },
+  { field: 'poker',         label: 'poker-question' },
 ];
 
 Template.exportCardPopup.onCreated(function () {
@@ -1488,7 +1492,15 @@ Template.exportCardPopup.helpers({
     return FlowRouter.path(
       '/api/boards/:boardId/lists/:listId/cards/:cardId/exportPDF',
       params,
-      { authToken: Accounts._storedLoginToken() },
+      // #6586: the browser's own IANA zone, because the server prints the card's
+      // dates and WeKan stores no timezone on a profile - without it a due date
+      // set for 14:00 in Berlin prints as 12:00. `lang` is sent for the same
+      // reason the Excel card export sends it: a PUBLIC board has no logged-in
+      // user to read a language off.
+      {
+        authToken: Accounts._storedLoginToken(),
+        ...exportLocaleParams(),
+      },
     );
   },
   exportFilenameCardPDF() {
@@ -1521,7 +1533,14 @@ Template.exportCardPopup.helpers({
     return FlowRouter.path(
       '/api/boards/:boardId/lists/:listId/cards/:cardId/exportExcel',
       params,
-      { authToken: Accounts._storedLoginToken(), fields: selectedFields.join(','), lang: TAPi18n.getLanguage() },
+      // The same locale params the PDF export sends: the reader's zone and the
+      // date format the opened card is showing, so the two exports of one card
+      // cannot print its dates differently (#6586).
+      {
+        authToken: Accounts._storedLoginToken(),
+        fields: selectedFields.join(','),
+        ...exportLocaleParams(),
+      },
     );
   },
   exportFilenameCardExcel() {

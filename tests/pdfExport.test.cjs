@@ -27,8 +27,10 @@ const read = rel => fs.readFileSync(path.join(repoRoot, rel), 'utf8');
 const {
   encodeWinAnsi,
   flattenMarkdown,
+  inlineRuns,
   normalizePdfText,
   wrapTextBlock,
+  wrapRichTextBlock,
   line,
   buildPdfBuffer,
 } = require('../models/lib/pdfDocument.js');
@@ -205,9 +207,22 @@ test('the board export names swimlanes and labels, and prints no markdown', () =
   const board = exporter.slice(exporter.indexOf('class ExporterBoardPDF'));
   assert.ok(/getSwimlanes/.test(board),
     '"I can\'t see in which swimlane a card is in that export"');
-  assert.ok(/Labels: /.test(board) && /labelsById/.test(board), 'and "no tags"');
-  assert.ok(/Members: /.test(board) && /Assignees: /.test(board));
-  assert.ok(/due \$\{formatDateValue\(card\.dueAt\)\}/.test(board), 'and the dates');
+  // The label used to be the literal "Labels: ". It is now this.field('labels',
+  // …), because the reopened #6586 asked for the titles in the user's language -
+  // the point of the assertion is unchanged: the board export still says which
+  // labels a card carries, and still resolves their names.
+  assert.ok(/this\.field\('labels'/.test(board) && /labelsById/.test(board),
+    'and "no tags"');
+  assert.ok(/this\.field\('members'/.test(board) && /this\.field\('assignees'/.test(board));
+  // The reported "there is 'Assignee: ', 'Labels:' and then 'due' (lowercase
+  // letter and no `:`)": the board export built its date text by hand while the
+  // card export used a label and a colon. Both now come from the same keys, so
+  // the two cannot disagree again - which is what this checks, rather than the
+  // English word that used to be hard-coded here.
+  assert.ok(/this\.field\('card-due', 'Due', this\.date\(card\.dueAt\)\)/.test(board),
+    'and the dates, with the same label the card export gives them');
+  assert.ok(!/dates\.push\(`due /.test(board),
+    'the lowercase colon-less "due" is what was reported; it must not come back');
   assert.ok(!/`## \$\{/.test(board) && !/'## '/.test(board),
     'a "##" in a PDF is two hash marks - the structure is drawn with the bold font');
   assert.ok(/line\(`\$\{list\.title \|\| 'List'\} \(\$\{listCards\.length\}\)`, true\)/.test(board),
@@ -222,6 +237,88 @@ test('a board with one swimlane does not talk about swimlanes (negative)', () =>
     + 'export is noise, not information');
   assert.ok(/type !== 'template-swimlane'/.test(board),
     'and a template swimlane is not a place a card lives');
+});
+
+// ── markdown as formatting, not as words (the reopened #6586) ───────────────
+// "Would it make sense to support markdown formated text in description? (so it
+// gets transformed correct in the pdf output with bold, underline,....)"
+
+test('bold, italic and both become runs, and lose their markers', () => {
+  assert.deepStrictEqual(inlineRuns('a **b** c'), [
+    { text: 'a ', bold: false, italic: false },
+    { text: 'b', bold: true, italic: false },
+    { text: ' c', bold: false, italic: false },
+  ]);
+  assert.deepStrictEqual(inlineRuns('*i*'), [{ text: 'i', bold: false, italic: true }]);
+  assert.deepStrictEqual(inlineRuns('***both***'), [{ text: 'both', bold: true, italic: true }]);
+  // Nested, because a description writes it: the inner style is kept too.
+  assert.deepStrictEqual(inlineRuns('**b *i* b**'), [
+    { text: 'b ', bold: true, italic: false },
+    { text: 'i', bold: true, italic: true },
+    { text: ' b', bold: true, italic: false },
+  ]);
+});
+
+test('what has no face keeps its words and loses its markers', () => {
+  // There is no strike and no fifth Courier, so `~~` and `` ` `` are not invented.
+  assert.deepStrictEqual(inlineRuns('~~gone~~'), [{ text: 'gone', bold: false, italic: false }]);
+  assert.deepStrictEqual(inlineRuns('`code`'), [{ text: 'code', bold: false, italic: false }]);
+});
+
+test('an underscore inside a word is an identifier, not emphasis (negative)', () => {
+  // The rule flattenMarkdown already applied: turning half of snake_case italic
+  // rewrites the text the card actually holds.
+  assert.deepStrictEqual(inlineRuns('file_name_here'),
+    [{ text: 'file_name_here', bold: false, italic: false }]);
+  assert.deepStrictEqual(inlineRuns('a _i_ b'), [
+    { text: 'a ', bold: false, italic: false },
+    { text: 'i', bold: false, italic: true },
+    { text: ' b', bold: false, italic: false },
+  ]);
+});
+
+test('an unclosed marker is text, not a style that runs to the end', () => {
+  assert.deepStrictEqual(inlineRuns('2 ** 3'), [{ text: '2 ** 3', bold: false, italic: false }]);
+  assert.deepStrictEqual(inlineRuns('a * b'), [{ text: 'a * b', bold: false, italic: false }]);
+});
+
+test('a wrapped rich line still fits the page, and keeps its indent', () => {
+  // No space just inside the markers: `** x **` is not emphasis in markdown
+  // either, and inlineRuns follows that rule.
+  const long = `**${'bold '.repeat(30).trim()}** and ${'plain '.repeat(30)}`;
+  const lines = wrapRichTextBlock(long, '    ');
+  assert.ok(lines.length > 1, 'it wrapped');
+  for (const item of lines) {
+    const text = item.runs.map(run => run.text).join('');
+    assert.ok(text.length <= 90, `a wrapped line is ${text.length} characters wide`);
+    assert.ok(text.startsWith('    '), 'and keeps its indent');
+  }
+  assert.ok(lines.some(item => item.runs.some(run => run.bold)),
+    'and the emphasis survived the wrap');
+});
+
+test('block markdown is still flattened around the runs', () => {
+  const lines = wrapRichTextBlock('## Heading\n- item **b**');
+  const texts = lines.map(item => item.runs.map(run => run.text).join(''));
+  assert.ok(texts.includes('Heading'), 'a "##" is two hash marks in a PDF');
+  assert.ok(texts.some(t => t.startsWith('- item')), 'a bullet keeps one shape');
+  assert.ok(!texts.some(t => t.includes('**')), 'and no marker is printed');
+});
+
+test('the PDF declares all four Courier faces and switches between them', () => {
+  const pdf = buildPdfBuffer([
+    ...wrapRichTextBlock('plain **bold** *italic* ***both***'),
+  ]).toString('latin1');
+  for (const face of ['Courier', 'Courier-Bold', 'Courier-Oblique', 'Courier-BoldOblique']) {
+    assert.ok(pdf.includes(`/BaseFont /${face} `), `${face} is declared`);
+  }
+  for (const id of ['/F1', '/F2', '/F3', '/F4']) {
+    assert.ok(pdf.includes(`${id} `), `${id} is in the page resources`);
+  }
+  // Runs are drawn as consecutive Tj with a font switch between them - which is
+  // what makes them line up without measuring a single glyph.
+  assert.ok(/\(plain \) Tj\n\/F2 10 Tf\n\(bold\) Tj/.test(pdf),
+    'a bold run follows the plain one on the same line');
 });
 
 console.log(`\npdfExport: ${passed} tests passed`);

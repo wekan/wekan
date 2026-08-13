@@ -319,7 +319,12 @@ reach: **nodemailer**, **openpgp**, **svgo**, **postcss**, **nanoid**,
 **diff**, **@babel/runtime** and **underscore** are raised inside the built
 bundle, to fixed versions in the same major, by a manifest the release jobs and
 the `Dockerfile` share. Below that: the guard suites that keep both from coming
-back, and what could NOT be fixed and why.
+back, and what could NOT be fixed and why. Then **card export**: the PDF and
+Excel exports of a card were two different answers to "what is on this card",
+and
+are now one - the same fields under the same translated labels, dates in the
+reader's own **time zone** and in the **date format the opened card shows**, and
+a description's markdown drawn as **bold** and *italic* rather than stripped.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -454,6 +459,105 @@ Not everything in that report can be fixed here, and it is worth saying which:
   not written against; 8.0.11 fixes the other four.
 - The nine `build/<tool>` binaries and `build/ferretdb` are other repositories'
   builds - wekan/mongo-tools-patches and wekan/FerretDB - and are fixed there.
+
+</details>
+
+and fixes the following bugs:
+
+**Card export** - what an exported card says, and in whose language, format and
+time zone it says it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">A card's PDF and Excel exports carry the same fields, under the same translated labels</a>. Thanks to Heart1010 and xet7.</summary>
+
+[#6586](https://github.com/wekan/wekan/issues/6586) was reopened for what the
+first fix left: the PDF export of a card had grown separately from the Excel
+export of the same card, and every point the reporter came back with was a
+symptom of that. The labels were hard-coded English - "Assignee, Labels, due,...
+these titels should be in the user set language". They were not even consistent
+with each other: the card export wrote `Due: `, the board export wrote `due `
+with no colon and a lowercase letter. And a card carries more than either export
+printed - "I think all those other things we set in a card should be also
+present
+in the pdf? Location, Voting, Checklists, Subtasks, Custom Fields, Attachments,
+Comments...".
+
+Two exports of one card that disagree about what is on it are one bug reported
+twice, so the fix is to stop them being two things. Both now carry the same
+fields, in the same order, under the same i18n keys, in the language the request
+carries: title, labels, creator, assignees, members, board, swimlane, list, card
+number, requested by, assigned by, the six dates, spent time, description,
+custom
+fields, checklists, subtasks, comments, attachments, voting and Planning Poker.
+The three sections neither export had - **custom fields**, **voting** and
+**poker** - are new on both sides, selectable like the others in the Excel
+export's field checkboxes, and appended to that list rather than inserted, so a
+saved `?fields=` link still asks for what it always asked for.
+
+Inside the PDF exporters one `field()` helper writes every `Label: value`, which
+is what makes the board export's "due" and the card export's "Due:" impossible
+to
+have at once again. Every label carries its English text as the fallback, so a
+language that has not translated a key shows the word rather than the key.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">Exported dates are in the reader's own time zone and date format, not the server's</a>. Thanks to Heart1010 and xet7.</summary>
+
+"The marked due date - here the time is not in the user set timezone (-2h wrong
+for Europe/Berlin)." It was worse than -2h: the PDF export printed UTC and the
+Excel export printed whatever zone the server process was started in, so the
+same
+card could come out with two different times on it and neither was the reader's.
+
+Dates are stored in UTC, and a WeKan profile carries no time zone at all, so the
+only place the reader's zone exists is the browser. Every export link now sends
+it - `Intl.DateTimeFormat().resolvedOptions().timeZone`, the IANA name the
+server's own `Intl` wants back - together with the **date format the opened card
+is showing**, which for a reader who is not logged in lives in `localStorage`
+where no server-side lookup can reach it. An export that printed `2026-08-14`
+for
+a card showing `14-08-2026` was the same card in two formats.
+
+Both exports format through one helper, `formatDateByUserPreference`, which
+gained an optional zone; without one it still renders in the process's own zone,
+which is what every client-side caller - the card view itself - wants. A
+server-built export that is given no zone renders UTC and SAYS UTC, rather than
+printing the server's and looking like the reader's. The route accepts only the
+three formats that helper understands, and a zone name is length-bounded: they
+are request parameters, not free text. `12:00Z` now prints as `14:00` for
+Europe/Berlin, as `00:00` on the 15th for Pacific/Auckland, and a zone the
+runtime does not know falls back instead of failing the download.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">A description's markdown is drawn as bold and italic instead of being stripped</a>. Thanks to Heart1010 and xet7.</summary>
+
+"Would it make sense to support markdown formated text in description? (so it
+gets transformed correct in the pdf output with bold, underline,....)" The first
+fix removed the syntax and kept the words, because `**bold**` in a PDF is four
+stray asterisks; this is the other half.
+
+A description is now cut into RUNS - `**bold**` into a bold run, `*italic*` into
+an italic one, `***both***` into both, nested emphasis keeping both - and each
+is
+drawn in the matching Courier face: Courier, Courier-Bold, Courier-Oblique,
+Courier-BoldOblique, all base-14, so no font binary is embedded. Nothing is
+measured to place them: consecutive `Tj` operators continue at the current text
+position, so a font switch between two of them lands the next run exactly where
+the last ended, whatever the glyph widths are. Wrapping counts characters across
+the whole line, indent included, so an emphasised word does not push a line past
+the page.
+
+What has no face is not invented: `~~strikethrough~~` and `` `code` `` keep
+their
+words and lose their markers, because a base-14 Type1 font has no strike and
+there is no fifth Courier to give code. Block markdown is still flattened either
+way - a heading loses its `#` and is drawn in the bold font, a bullet keeps one
+shape, a fence keeps its code. An underscore inside a word stays an underscore:
+`file_name_here` is an identifier, not three-quarters of an italic.
 
 </details>
 

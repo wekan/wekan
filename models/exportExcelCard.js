@@ -130,7 +130,22 @@ runOnServer(function() {
         userLanguage = 'en';
       }
 
-      const dateFormat = (user && user.profile && user.profile.dateFormat) || 'YYYY-MM-DD';
+      // #6586: the date format the OPENED CARD is showing, sent by the export
+      // link - for a reader who is not logged in it lives in localStorage, which
+      // this lookup cannot reach. The profile is the fallback, and only the
+      // three formats formatDateByUserPreference understands are accepted.
+      const DATE_FORMATS = ['YYYY-MM-DD', 'DD-MM-YYYY', 'MM-DD-YYYY'];
+      const requestedFormat = req.query && req.query.dateFormat;
+      const dateFormat = DATE_FORMATS.includes(requestedFormat)
+        ? requestedFormat
+        : ((user && user.profile && user.profile.dateFormat) || 'YYYY-MM-DD');
+
+      // #6586: the reader's IANA zone, sent by the export link. Without it the
+      // dates come out in the server's zone, which is the "-2h wrong for
+      // Europe/Berlin" the PDF export was reported for and this export shared.
+      const timezone = (req.query && typeof req.query.tz === 'string' && req.query.tz.length <= 64)
+        ? req.query.tz
+        : '';
 
       // Parse optional ?fields=people,dates,... query param
       const fieldsParam = req.query.fields;
@@ -138,7 +153,7 @@ runOnServer(function() {
         ? fieldsParam.split(',').map(f => f.trim()).filter(f => ALL_FIELDS.includes(f))
         : null;
 
-      const exporter = new ExporterExcelCard(boardId, paramListId, paramCardId, userLanguage, fields, dateFormat);
+      const exporter = new ExporterExcelCard(boardId, paramListId, paramCardId, userLanguage, fields, dateFormat, timezone);
       if ((await exporter.canExport(user))) {
         if (impersonateDone) {
           await ImpersonatedUsers.insertAsync({

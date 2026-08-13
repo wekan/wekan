@@ -77,25 +77,68 @@ export function formatDate(date) {
 }
 
 /**
+ * The calendar parts of a date IN A GIVEN TIME ZONE.
+ *
+ * #6586: a date is stored in UTC, and `getFullYear()` / `getHours()` answer in
+ * whatever zone the process runs in. In a browser that is the reader's own zone
+ * and is right; on the SERVER, where the exports are built, it is the server's -
+ * so a due date set for 14:00 in Berlin was printed as 12:00 ("-2h wrong for
+ * Europe/Berlin"), and a server started with a different TZ would have printed
+ * a third time. An explicit IANA zone removes the guess.
+ *
+ * @param {Date} d - the date
+ * @param {string} timeZone - IANA name, e.g. 'Europe/Berlin'
+ * @returns {object|null} {year, month, day, hours, minutes} as padded strings,
+ *   or null when the runtime does not know the zone
+ */
+function dateParcelsIn(d, timeZone) {
+  try {
+    const parts = new Intl.DateTimeFormat('en-CA', {
+      timeZone,
+      year: 'numeric', month: '2-digit', day: '2-digit',
+      hour: '2-digit', minute: '2-digit', hour12: false,
+    }).formatToParts(d).reduce((acc, part) => {
+      acc[part.type] = part.value;
+      return acc;
+    }, {});
+    if (!parts.year) return null;
+    return {
+      year: parts.year,
+      month: parts.month,
+      day: parts.day,
+      // 'en-CA' with hour12:false gives 24 for midnight in some runtimes.
+      hours: parts.hour === '24' ? '00' : parts.hour,
+      minutes: parts.minute,
+    };
+  } catch (error) {
+    return null;
+  }
+}
+
+/**
  * Format a date according to user's preferred format
  * @param {Date|string} date - Date to format
  * @param {string} format - Format string (YYYY-MM-DD, DD-MM-YYYY, MM-DD-YYYY)
  * @param {boolean} includeTime - Whether to include time (HH:MM)
+ * @param {string} [timeZone] - IANA zone to render in; the process's own zone
+ *   when omitted, which is what every client-side caller wants (#6586)
  * @returns {string} Formatted date string
  */
 export function formatDateByUserPreference(
   date,
   format = 'YYYY-MM-DD',
   includeTime = true,
+  timeZone = '',
 ) {
   const d = toDate(date);
   if (isNaN(d.getTime())) return '';
 
-  const year = d.getFullYear();
-  const month = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  const hours = String(d.getHours()).padStart(2, '0');
-  const minutes = String(d.getMinutes()).padStart(2, '0');
+  const inZone = timeZone ? dateParcelsIn(d, timeZone) : null;
+  const year = inZone ? inZone.year : d.getFullYear();
+  const month = inZone ? inZone.month : String(d.getMonth() + 1).padStart(2, '0');
+  const day = inZone ? inZone.day : String(d.getDate()).padStart(2, '0');
+  const hours = inZone ? inZone.hours : String(d.getHours()).padStart(2, '0');
+  const minutes = inZone ? inZone.minutes : String(d.getMinutes()).padStart(2, '0');
 
   let dateString;
   switch (format) {

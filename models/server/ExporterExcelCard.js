@@ -13,10 +13,18 @@ const ALL_FIELDS = [
   'board-info',
   'dates',
   'description',
+  // #6586: "I think all those other things we set in a card should be also
+  // present ... Location, Voting, Checklists, Subtasks, Custom Fields,
+  // Attachments, Comments,...?" - the three sections neither export carried.
+  // They are appended rather than inserted, because ?fields= names them and a
+  // reordering would not change what an existing link asks for.
+  'custom-fields',
   'checklists',
   'subtasks',
   'comments',
   'attachments',
+  'voting',
+  'poker',
 ];
 
 /**
@@ -172,21 +180,52 @@ class ExporterExcelCard {
    * @param {string[]|null} fields        Sections to include; null = all
    * @param {string}        dateFormat    User date format: 'YYYY-MM-DD' | 'DD-MM-YYYY' | 'MM-DD-YYYY'
    */
-  constructor(boardId, listId, cardId, userLanguage, fields, dateFormat) {
+  constructor(boardId, listId, cardId, userLanguage, fields, dateFormat, timezone) {
     this._boardId     = boardId;
     this._listId      = listId;
     this._cardId      = cardId;
     this.userLanguage = userLanguage || 'en';
     this._fields      = fields && fields.length > 0 ? new Set(fields) : new Set(ALL_FIELDS);
     this.dateFormat   = dateFormat || 'YYYY-MM-DD';
+    this.timezone     = timezone || '';
   }
 
   __(key) { return TAPi18n.__(key, '', this.userLanguage); }
 
-  /** Format a date value using the user's preferred format, always including time. */
-  fmtDate(d) { return d ? formatDateByUserPreference(d, this.dateFormat, true) : ''; }
+  /**
+   * Format a date value using the user's preferred format, always including time.
+   *
+   * #6586: in the READER's time zone, sent by the export link, because the dates
+   * are stored in UTC and this runs on the server - `getHours()` here answers in
+   * whatever zone the server was started with, which is nobody's. Without a zone
+   * it renders UTC and says so, rather than silently printing the server's.
+   */
+  fmtDate(d) {
+    if (!d) return '';
+    const zone = this.timezone || 'UTC';
+    const formatted = formatDateByUserPreference(d, this.dateFormat, true, zone);
+    if (!formatted) return '';
+    return this.timezone ? formatted : `${formatted} UTC`;
+  }
 
   hasField(key) { return this._fields.has(key); }
+
+  /**
+   * A custom field's value as text: a dropdown stores the ITEM ID it selected,
+   * which says nothing on paper, so the definition is asked for the name (#6586).
+   */
+  customFieldValueText(definition, value) {
+    if (value === null || value === undefined || value === '') return '';
+    if (definition && definition.type === 'dropdown') {
+      const items = (definition.settings && definition.settings.dropdownItems) || [];
+      const item = items.find(entry => entry && entry._id === value);
+      if (item) return item.name || '';
+    }
+    if (value instanceof Date) return this.fmtDate(value);
+    if (Array.isArray(value)) return value.join(', ');
+    if (typeof value === 'boolean') return value ? this.__('yes') : this.__('no');
+    return String(value);
+  }
 
   async canExport(user) {
     const board = await ReactiveCache.getBoard(this._boardId);
@@ -251,6 +290,9 @@ class ExporterExcelCard {
     const needsSubtasks    = this.hasField('subtasks');
     const needsComments    = this.hasField('comments');
     const needsAttachments = this.hasField('attachments');
+    const needsCustomFields = this.hasField('custom-fields');
+    const needsVoting      = this.hasField('voting');
+    const needsPoker       = this.hasField('poker');
 
     // ── Fetch data ───────────────────────────────────────────────────────
     const board    = (needsBoardInfo || needsLabels || needsChecklists) ? await ReactiveCache.getBoard(this._boardId) : null;
@@ -285,11 +327,28 @@ class ExporterExcelCard {
     const comments      = needsComments    ? await ReactiveCache.getCardComments({ cardId: this._cardId }, { sort: { createdAt: 1 } })   : [];
     const attachments   = needsAttachments ? await ReactiveCache.getAttachments({ 'meta.cardId': this._cardId }, { sort: { uploadedAt: -1 } }) : [];
 
-    // Batch-load any missing user IDs (comments + attachments uploaders)
-    if (needsComments || needsAttachments) {
+    // A card stores a custom field as { _id, value }; the NAME - and, for a
+    // dropdown, the name behind the item id it stores - is on the definition.
+    const customFieldsById = {};
+    if (needsCustomFields) {
+      const customFieldIds = (card.customFields || []).map(f => f && f._id).filter(Boolean);
+      if (customFieldIds.length > 0) {
+        const definitions = await ReactiveCache.getCustomFields({ _id: { $in: customFieldIds } });
+        (definitions || []).forEach(d => { customFieldsById[d._id] = d; });
+      }
+    }
+
+    // Batch-load any missing user IDs (comments + attachments uploaders, voters)
+    if (needsComments || needsAttachments || needsVoting) {
       const extraIds = new Set();
       if (needsComments)    comments.forEach(c => c.userId && extraIds.add(c.userId));
       if (needsAttachments) attachments.forEach(a => (a.userId || (a.meta && a.meta.userId)) && extraIds.add(a.userId || a.meta.userId));
+      // Who voted is the part of a vote worth printing; a count alone is a
+      // number nobody can check afterwards.
+      if (needsVoting && card.vote) {
+        (card.vote.positive || []).forEach(id => extraIds.add(id));
+        (card.vote.negative || []).forEach(id => extraIds.add(id));
+      }
       // Remove already-fetched
       Object.keys(userMap).forEach(id => extraIds.delete(id));
       if (extraIds.size > 0) {
@@ -543,6 +602,13 @@ class ExporterExcelCard {
         ['swimlane', (swimlane && swimlane.title) || ''],
         ['list',     (list     && list.title)     || ''],
       ]);
+      // #6586: the card's own identity, which neither export carried - the
+      // number a board refers to it by, and the two "by" fields beside it.
+      metaRow([
+        ['card-number',  card.cardNumber === undefined ? '' : String(card.cardNumber)],
+        ['requested-by', card.requestedBy || ''],
+        ['assigned-by',  card.assignedBy  || ''],
+      ]);
     }
 
     // ════════════════════════════════════════════════════════════════════
@@ -558,6 +624,11 @@ class ExporterExcelCard {
         ['creator', creatorName],
         ['card-due',   this.fmtDate(card.dueAt)],
         ['card-end',   this.fmtDate(card.endAt)],
+      ]);
+      metaRow([
+        ['last-activity', this.fmtDate(card.dateLastActivity)],
+        ['card-spent',    card.spentTime === undefined || card.spentTime === null ? '' : String(card.spentTime)],
+        ['overtime', card.isOvertime ? this.__('yes') : this.__('no')],
       ]);
     }
 
@@ -577,6 +648,31 @@ class ExporterExcelCard {
       dc.border    = thinBdr;
       ws.getRow(row).height = estimateHeight(descText, 30, 300);
       row++;
+      blankRow();
+    }
+
+    // ════════════════════════════════════════════════════════════════════
+    // CUSTOM FIELDS — name and value, one row each (#6586)
+    // ════════════════════════════════════════════════════════════════════
+    if (needsCustomFields) {
+      sectionHeader(this.__('custom-fields'));
+      const cardCustomFields = (card.customFields || []).filter(f => f && f._id);
+      if (cardCustomFields.length === 0) {
+        mergeRow('', { border: thinBdr });
+      } else {
+        for (const field of cardCustomFields) {
+          const definition = customFieldsById[field._id];
+          setLabel(`A${row}`, `${(definition && definition.name) || field._id}:`);
+          ws.mergeCells(`B${row}:F${row}`);
+          const cv = ws.getCell(`B${row}`);
+          cv.value     = this.customFieldValueText(definition, field.value);
+          cv.font      = { name: fontName, size: 10 };
+          cv.alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
+          cv.border    = thinBdr;
+          ws.getRow(row).height = 20;
+          row++;
+        }
+      }
       blankRow();
     }
 
@@ -842,6 +938,51 @@ class ExporterExcelCard {
         ws.getRow(row).height = 18;
         row++;
       }
+    }
+
+    // ════════════════════════════════════════════════════════════════════
+    // VOTING — the question, who was for and against, and when it closes (#6586)
+    // ════════════════════════════════════════════════════════════════════
+    if (needsVoting && card.vote && (card.vote.question
+        || (card.vote.positive || []).length || (card.vote.negative || []).length)) {
+      sectionHeader(this.__('voting'));
+      const voterNames = ids => (ids || []).map(id => userMap[id] || id).join(', ');
+      metaRow([
+        ['vote-question', card.vote.question || ''],
+        ['vote-public',   card.vote.public ? this.__('yes') : this.__('no')],
+        ['card-end',      this.fmtDate(card.vote.end)],
+      ]);
+      setLabel(`A${row}`, `${this.__('vote-for-it')}:`);
+      setValue(`B${row}`, `${(card.vote.positive || []).length}`);
+      setLabel(`C${row}`, `${this.__('vote-against')}:`);
+      ws.mergeCells(`D${row}:F${row}`);
+      setValue(`D${row}`, `${(card.vote.negative || []).length}`);
+      ws.getRow(row).height = 20;
+      row++;
+      setLabel(`A${row}`, `${this.__('positiveVoteMembersPopup-title')}:`);
+      ws.mergeCells(`B${row}:F${row}`);
+      setValue(`B${row}`, voterNames(card.vote.positive));
+      ws.getRow(row).height = 20;
+      row++;
+      setLabel(`A${row}`, `${this.__('negativeVoteMembersPopup-title')}:`);
+      ws.mergeCells(`B${row}:F${row}`);
+      setValue(`B${row}`, voterNames(card.vote.negative));
+      ws.getRow(row).height = 20;
+      row++;
+      blankRow();
+    }
+
+    // ════════════════════════════════════════════════════════════════════
+    // PLANNING POKER — the estimation and its deadline (#6586)
+    // ════════════════════════════════════════════════════════════════════
+    if (needsPoker && card.poker && (card.poker.estimation !== undefined || card.poker.end)) {
+      sectionHeader(this.__('poker-question'));
+      metaRow([
+        ['set-estimation', card.poker.estimation === undefined || card.poker.estimation === null
+          ? '' : String(card.poker.estimation)],
+        ['card-end', this.fmtDate(card.poker.end)],
+      ]);
+      blankRow();
     }
 
     // ── Apply collected page breaks ──────────────────────────────────────

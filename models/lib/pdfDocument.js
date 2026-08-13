@@ -31,11 +31,30 @@
 // the fix for that is an embedded Unicode font, which is a font binary this
 // repository does not carry.
 //
-// MARKDOWN IS FLATTENED, not printed. The same report: "all the text in this PDF
-// file is markdown formatted - this doesn't make sense in a pdf file, does it?" It
-// does not: `**bold**` in a PDF is four stray asterisks. There is no markdown
-// renderer here, so the syntax is removed and the words are kept, with headings and
-// titles drawn in the bold font instead.
+// MARKDOWN IS RENDERED, not printed and not thrown away. The same report: "all the
+// text in this PDF file is markdown formatted - this doesn't make sense in a pdf
+// file, does it?" It does not: `**bold**` in a PDF is four stray asterisks. The
+// first fix removed the syntax and kept the words (flattenMarkdown, still used for
+// the places where a line has one style); the follow-up asked for the other half -
+// "would it make sense to support markdown formated text in description? (so it
+// gets transformed correct in the pdf output with bold, underline,....)".
+//
+// So a description is now cut into RUNS - `inlineRuns` turns `**bold**` into a run
+// with bold set, `*italic*` into an italic one, `***both***` into both - and each
+// run is drawn in the matching Courier face: Courier, Courier-Bold,
+// Courier-Oblique, Courier-BoldOblique. Nothing is measured to do it: consecutive
+// `Tj` operators continue at the current text position, so a font switch between
+// two of them lands the second run exactly where the first ended, whatever the
+// glyph widths are.
+//
+// What has no face is not invented: strikethrough and inline code keep their words
+// and lose their markers, because a Type1 base-14 font has no strike and there is
+// no fifth face to give code. Underline would be a drawn line rather than a font,
+// and is not done here.
+//
+// BLOCK-level markdown is still flattened either way - a heading loses its `#`
+// and is drawn in the bold font, a bullet keeps one shape, a fence keeps its code
+// and loses the fence.
 
 const PAGE_WIDTH = 595;      // A4 at 72 dpi
 const PAGE_HEIGHT = 842;
@@ -144,6 +163,175 @@ function normalizePdfText(value) {
   );
 }
 
+// Block-level markdown only: what `flattenMarkdown` does MINUS the emphasis
+// stripping, so `**bold**` survives as far as inlineRuns below. A heading still
+// loses its `#`, a bullet is still one shape, a fence still keeps its code.
+function flattenMarkdownBlocks(value) {
+  return String(value ?? '')
+    .replace(/\r/g, '')
+    .replace(/^```[^\n]*\n?/gm, '')
+    .replace(/^~~~[^\n]*\n?/gm, '')
+    .replace(/!\[([^\]]*)\]\(([^)\s]+)[^)]*\)/g, (m, alt, url) => (alt ? `${alt} (${url})` : url))
+    .replace(/\[([^\]]*)\]\(([^)\s]+)[^)]*\)/g, (m, text, url) => (text ? `${text} (${url})` : url))
+    .replace(/^\s{0,3}(#{1,6})\s+/gm, '')
+    .replace(/^\s{0,3}>\s?/gm, '')
+    .replace(/^\s{0,3}([-*+])\s+/gm, '- ')
+    .replace(/^\s{0,3}([-*_])\s*(\1\s*){2,}$/gm, '')
+    .replace(/[ \t]+$/gm, '');
+}
+
+// The inline markers, longest first so `***` is not read as `*` and then `**`.
+//
+// `word` marks the underscore forms, which only count at a word boundary - the
+// same rule markdown itself applies and flattenMarkdown already relied on:
+// `file_name_here` and `snake_case` are identifiers, and turning half of one
+// italic would rewrite the text the card holds.
+//
+// `~~` and `` ` `` carry no face: their words are kept and their markers dropped.
+const INLINE_MARKERS = [
+  { mark: '***', bold: true, italic: true, word: false },
+  { mark: '___', bold: true, italic: true, word: true },
+  { mark: '**', bold: true, italic: false, word: false },
+  { mark: '__', bold: true, italic: false, word: true },
+  { mark: '~~', bold: false, italic: false, word: false },
+  { mark: '*', bold: false, italic: true, word: false },
+  { mark: '_', bold: false, italic: true, word: true },
+  { mark: '`', bold: false, italic: false, word: false },
+];
+
+const OPENS_WORD = /[\s([{"']/;
+const CLOSES_WORD = /[\s)\]}"'.,!?:;]/;
+
+// ONE line of text as styled runs. Adjacent runs of the same style are merged, so
+// a caller gets the fewest font switches the line needs.
+function inlineRuns(value) {
+  const text = String(value ?? '');
+  const runs = [];
+  const push = (chunk, bold, italic) => {
+    if (!chunk) return;
+    const last = runs[runs.length - 1];
+    if (last && last.bold === bold && last.italic === italic) last.text += chunk;
+    else runs.push({ text: chunk, bold, italic });
+  };
+
+  let plain = '';
+  let index = 0;
+  while (index < text.length) {
+    let matched = null;
+    for (const marker of INLINE_MARKERS) {
+      if (!text.startsWith(marker.mark, index)) continue;
+      const from = index + marker.mark.length;
+      const close = text.indexOf(marker.mark, from);
+      // An unclosed marker, or `** **`, is not emphasis - it is text.
+      if (close === -1 || close === from) continue;
+      const content = text.slice(from, close);
+      if (/^\s|\s$/.test(content)) continue;
+      if (marker.word) {
+        const before = index === 0 ? '' : text[index - 1];
+        const after = text[close + marker.mark.length] || '';
+        if (before && !OPENS_WORD.test(before)) continue;
+        if (after && !CLOSES_WORD.test(after)) continue;
+      }
+      matched = { marker, content, end: close + marker.mark.length };
+      break;
+    }
+
+    if (!matched) {
+      plain += text[index];
+      index += 1;
+      continue;
+    }
+
+    push(plain, false, false);
+    plain = '';
+    // The content is scanned again, so `**bold with *italic* inside**` keeps both.
+    for (const run of inlineRuns(matched.content)) {
+      push(run.text, run.bold || matched.marker.bold, run.italic || matched.marker.italic);
+    }
+    index = matched.end;
+  }
+  push(plain, false, false);
+
+  return runs.length ? runs : [{ text: '', bold: false, italic: false }];
+}
+
+// A line of runs, for buildPdfBuffer. `line()` above is the single-style form.
+function richLine(runs) {
+  return { runs: (runs || []).map(run => ({
+    text: String(run.text ?? ''),
+    bold: !!run.bold,
+    italic: !!run.italic,
+  })) };
+}
+
+// The same job wrapTextBlock does - HTML out, block markdown flattened, wrapped to
+// the page - except the inline emphasis is kept as runs instead of being stripped.
+// Wrapping counts CHARACTERS across the whole line, because the four Courier faces
+// are one monospaced width; a run boundary is not a wrap opportunity of its own.
+function wrapRichTextBlock(text, indent = '') {
+  const width = TEXT_WIDTH - indent.length;
+  const source = flattenMarkdownBlocks(
+    String(text ?? '')
+      .replace(/<[^>]*>/g, ' ')
+      .replace(/\r/g, '')
+      .replace(/\t/g, ' '),
+  );
+
+  const out = [];
+  for (const rawLine of source.split('\n')) {
+    // Words carrying their style, so a wrap can happen between any two of them.
+    const words = [];
+    for (const run of inlineRuns(rawLine)) {
+      for (const part of run.text.split(/(\s+)/)) {
+        if (!part) continue;
+        if (/^\s+$/.test(part)) words.push(null);            // a space
+        else words.push({ text: part, bold: run.bold, italic: run.italic });
+      }
+    }
+
+    let current = [];
+    let length = 0;
+    const flush = () => {
+      out.push(richLine(current.length
+        ? [{ text: indent, bold: false, italic: false }, ...current]
+        : [{ text: indent, bold: false, italic: false }]));
+      current = [];
+      length = 0;
+    };
+    const add = word => {
+      const last = current[current.length - 1];
+      if (last && last.bold === word.bold && last.italic === word.italic) last.text += word.text;
+      else current.push({ ...word });
+      length += word.text.length;
+    };
+
+    for (const word of words) {
+      if (word === null) {
+        if (length && length < width) add({ text: ' ', bold: false, italic: false });
+        continue;
+      }
+      let rest = word;
+      // A word longer than the page is cut, the way wrapLine cuts one.
+      while (rest.text.length > width) {
+        if (length) flush();
+        add({ ...rest, text: rest.text.slice(0, width) });
+        rest = { ...rest, text: rest.text.slice(width) };
+        flush();
+      }
+      if (!rest.text) continue;
+      if (length + rest.text.length > width) {
+        // Do not leave the trailing space of the previous word on the old line.
+        const last = current[current.length - 1];
+        if (last && last.text.endsWith(' ')) last.text = last.text.replace(/ +$/, '');
+        flush();
+      }
+      add(rest);
+    }
+    flush();
+  }
+  return out;
+}
+
 function escapePdfText(value) {
   return String(value ?? '')
     .replace(/\\/g, '\\\\')
@@ -221,6 +409,20 @@ function buildPdfBuffer(rawLines) {
   const boldFontId = addObject(
     '<< /Type /Font /Subtype /Type1 /BaseFont /Courier-Bold /Encoding /WinAnsiEncoding >>',
   );
+  // The other two faces of the same family, for the markdown runs (#6586). All
+  // four are base-14, so no font binary is embedded and no metric is needed.
+  const italicFontId = addObject(
+    '<< /Type /Font /Subtype /Type1 /BaseFont /Courier-Oblique /Encoding /WinAnsiEncoding >>',
+  );
+  const boldItalicFontId = addObject(
+    '<< /Type /Font /Subtype /Type1 /BaseFont /Courier-BoldOblique /Encoding /WinAnsiEncoding >>',
+  );
+  const fontFor = (bold, italic) => {
+    if (bold && italic) return 'F4';
+    if (bold) return 'F2';
+    if (italic) return 'F3';
+    return 'F1';
+  };
 
   const pageIds = [];
   for (const pageLines of pages) {
@@ -228,15 +430,26 @@ function buildPdfBuffer(rawLines) {
     textCommands.push(`1 0 0 1 ${PAGE_MARGIN} ${PAGE_HEIGHT - PAGE_MARGIN - FONT_SIZE} Tm`);
 
     let currentFont = 'F1';
-    pageLines.forEach((item, index) => {
-      if (index > 0) textCommands.push('T*');
-      const wanted = item.bold ? 'F2' : 'F1';
+    const draw = (text, bold, italic) => {
+      const wanted = fontFor(bold, italic);
       if (wanted !== currentFont) {
         textCommands.push(`/${wanted} ${FONT_SIZE} Tf`);
         currentFont = wanted;
       }
       // Encoded HERE, once, at the boundary where text becomes bytes.
-      textCommands.push(`(${escapePdfText(encodeWinAnsi(item.text))}) Tj`);
+      textCommands.push(`(${escapePdfText(encodeWinAnsi(text))}) Tj`);
+    };
+
+    pageLines.forEach((item, index) => {
+      if (index > 0) textCommands.push('T*');
+      // A line is either one style, or a list of runs. Consecutive Tj operators
+      // continue where the previous one ended, so the runs need no measuring.
+      if (item.runs) {
+        if (item.runs.length === 0) draw('', false, false);
+        for (const run of item.runs) draw(run.text, run.bold, run.italic);
+        return;
+      }
+      draw(item.text, item.bold, false);
     });
 
     textCommands.push('ET');
@@ -246,7 +459,8 @@ function buildPdfBuffer(rawLines) {
     );
     const pageId = addObject(
       `<< /Type /Page /Parent ${pagesId} 0 R /MediaBox [0 0 ${PAGE_WIDTH} ${PAGE_HEIGHT}] `
-      + `/Resources << /Font << /F1 ${fontId} 0 R /F2 ${boldFontId} 0 R >> >> `
+      + `/Resources << /Font << /F1 ${fontId} 0 R /F2 ${boldFontId} 0 R `
+      + `/F3 ${italicFontId} 0 R /F4 ${boldItalicFontId} 0 R >> >> `
       + `/Contents ${contentId} 0 R >>`,
     );
     pageIds.push(pageId);
@@ -284,11 +498,15 @@ export {
   TEXT_WIDTH,
   encodeWinAnsi,
   flattenMarkdown,
+  flattenMarkdownBlocks,
+  inlineRuns,
   normalizePdfText,
   escapePdfText,
   wrapLine,
   wrapTextBlock,
+  wrapRichTextBlock,
   line,
+  richLine,
   paginateLines,
   buildPdfBuffer,
 };
