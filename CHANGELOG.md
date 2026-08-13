@@ -470,6 +470,40 @@ and adds the following new features:
 **Board, swimlane and list export** - printing a board, and what goes in it.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">JSON and .zip export at every menu, streamed, with the attachments as files</a>. Thanks to xet7.</summary>
+
+The board's Export menu had JSON; nothing else did, and there was no .zip at
+all.
+Both are now offered wherever an export is - the board, a swimlane, a list, a
+card and a checklist - from the same popup, with the same checkboxes deciding
+what goes in.
+
+They are the same export in two shapes, not two exports. The document is written
+by `models/exporter.js`'s streaming writer either way, so a `.zip`'s
+`wekan.json`
+and a `.json` download of the same scope are the same bytes. What differs is
+where the attachments are: base64 INSIDE the document for JSON - or omitted,
+with
+the existing "without attachments" option now offered at every menu - and beside
+it under `attachments/` as the files they are for the `.zip`.
+
+Both halves stream. The JSON writer already wrote a document at a time from raw
+cursors with backpressure; the `.zip` gives it a `PassThrough` that archiver
+compresses as it fills, and pipes every attachment from the file store rather
+than reading it into a Buffer. A board with a gigabyte of attachments costs a
+gigabyte of disk reads and not a gigabyte of RAM - which is what makes the
+`.zip`
+the shape to use when the JSON is too large to hold as one string.
+
+A SCOPED export is the same `wekan-board-1.0.0` document with fewer rows in it,
+plus the lists and swimlanes its cards refer to, so what comes out can be
+imported back into somewhere. A section the popup did not tick is an EMPTY array
+rather than a missing key, for the same reason. A checklist scope exports the
+card that holds it, because a checklist alone has nowhere to land.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/bd009cf601b81072308f7e1f56e73c88a89aa7cd">A board, a swimlane and a list export to PDF and Excel in the card export's own layout</a>. Thanks to xet7.</summary>
 
 [#1173](https://github.com/wekan/wekan/issues/1173) "Add Feature: Print Board

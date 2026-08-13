@@ -9,8 +9,6 @@ import {
   DEFAULT_DEPENDENCY_ICON,
 } from '/models/metadata/dependencies';
 import { canArchiveCard } from '/client/lib/archivePermission';
-import { exportLocaleParams } from '/client/lib/exportLocale';
-import { CARD_EXPORT_FIELDS } from '/models/lib/exportFields';
 import { isTextSelectionInsideCard } from '/client/lib/cardCloseGuard';
 import { placeCardDetailsX, MARGIN } from '/client/lib/cardDetailsPlacement';
 
@@ -1458,103 +1456,9 @@ Template.cardDetailsPopup.helpers({
   },
 });
 
-// #1173: ONE list, shared with the server's ALL_FIELDS and with the board,
-// swimlane and list export popups - see models/lib/exportFields.js.
-const EXCEL_EXPORT_FIELDS = CARD_EXPORT_FIELDS;
-
-Template.exportCardPopup.onCreated(function () {
-  // Track which Excel sections the user wants to include (all on by default)
-  const initial = {};
-  EXCEL_EXPORT_FIELDS.forEach(({ field }) => { initial[field] = true; });
-  this.excelFields = new ReactiveDict(initial);
-});
-
-Template.exportCardPopup.helpers({
-  exportUrlCardPDF() {
-    const instance = Template.instance();
-    const card = getCurrentCardFromContext({ ignorePopupCard: true }) || this;
-    const params = {
-      boardId: card.boardId || Session.get('currentBoard'),
-      listId: card.listId,
-      cardId: card._id || card.cardId,
-    };
-    // #1173: the checkboxes above drive BOTH downloads. They used to be labelled
-    // "fields to include in Excel export" and to do nothing to the PDF, which
-    // made the same popup mean two things.
-    const selectedFields = EXCEL_EXPORT_FIELDS
-      .map(f => f.field)
-      .filter(f => instance.excelFields.get(f));
-    return FlowRouter.path(
-      '/api/boards/:boardId/lists/:listId/cards/:cardId/exportPDF',
-      params,
-      // #6586: the browser's own IANA zone, because the server prints the card's
-      // dates and WeKan stores no timezone on a profile - without it a due date
-      // set for 14:00 in Berlin prints as 12:00. `lang` is sent for the same
-      // reason the Excel card export sends it: a PUBLIC board has no logged-in
-      // user to read a language off.
-      {
-        authToken: Accounts._storedLoginToken(),
-        fields: selectedFields.join(','),
-        ...exportLocaleParams(),
-      },
-    );
-  },
-  exportFilenameCardPDF() {
-    const card = getCurrentCardFromContext({ ignorePopupCard: true }) || this;
-    return `${String(card.title || 'export-card')
-      .replace(/[^a-z0-9._-]+/gi, '-')
-      .replace(/-+/g, '-')
-      .replace(/^-|-$/g, '') || 'export-card'}.pdf`;
-  },
-  // Returns the field list with current checked state — reactive
-  excelExportFields() {
-    const instance = Template.instance();
-    return EXCEL_EXPORT_FIELDS.map(f => ({
-      field:   f.field,
-      label:   f.label,
-      checked: instance.excelFields.get(f.field),
-    }));
-  },
-  exportUrlCardExcel() {
-    const instance = Template.instance();
-    const card = getCurrentCardFromContext({ ignorePopupCard: true }) || this;
-    const params = {
-      boardId: card.boardId || Session.get('currentBoard'),
-      listId:  card.listId,
-      cardId:  card._id || card.cardId,
-    };
-    const selectedFields = EXCEL_EXPORT_FIELDS
-      .map(f => f.field)
-      .filter(f => instance.excelFields.get(f));
-    return FlowRouter.path(
-      '/api/boards/:boardId/lists/:listId/cards/:cardId/exportExcel',
-      params,
-      // The same locale params the PDF export sends: the reader's zone and the
-      // date format the opened card is showing, so the two exports of one card
-      // cannot print its dates differently (#6586).
-      {
-        authToken: Accounts._storedLoginToken(),
-        fields: selectedFields.join(','),
-        ...exportLocaleParams(),
-      },
-    );
-  },
-  exportFilenameCardExcel() {
-    const card = getCurrentCardFromContext({ ignorePopupCard: true }) || this;
-    return `${String(card.title || 'export-card')
-      .replace(/[^a-z0-9._-]+/gi, '-')
-      .replace(/-+/g, '-')
-      .replace(/^-|-$/g, '') || 'export-card'}.xlsx`;
-  },
-});
-
-Template.exportCardPopup.events({
-  'click .js-excel-field-toggle'(event, instance) {
-    event.preventDefault();
-    const field = event.currentTarget.dataset.field;
-    instance.excelFields.set(field, !instance.excelFields.get(field));
-  },
-});
+// #1173: the card export popup is client/components/boards/exportScope.js now -
+// one body, one field list and one url builder for the card, the list, the
+// swimlane and the board. What was here was a second copy of all three.
 
 // only allow number input
 Template.editCardSortOrderForm.onRendered(function () {

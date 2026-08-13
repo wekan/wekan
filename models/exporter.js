@@ -98,6 +98,50 @@ export class Exporter {
     // "käyttäjä" -> käyttäjä1). Defaults to English when the caller cannot supply
     // the exporting user's language.
     this._userLanguage = options.userLanguage || 'en';
+    // #1173: WHAT of the board, and WHICH PARTS of it.
+    //
+    // `scope` narrows the export to one swimlane, one list, one card or one
+    // checklist, for the menus that offer it there. The FORMAT does not change -
+    // it is still `wekan-board-1.0.0`, still the board's own fields with the
+    // arrays under them - because the file has to import back, and an importer
+    // that had to understand four shapes would be four times the code and four
+    // times the bugs. A scoped export is the same document with fewer rows in
+    // it, plus the lists and swimlanes its cards refer to, so what comes back in
+    // still has somewhere to land.
+    //
+    // `fields` is the selection popup's `?fields=`, the same keys the PDF and
+    // Excel exports gate on. An unselected section is emitted as an EMPTY ARRAY
+    // rather than left out: a missing key is a format change, an empty one is an
+    // export with nothing of that kind in it.
+    this._scope = options.scope || {};
+    this._fields = options.fields && options.fields.length > 0
+      ? new Set(options.fields)
+      : null;
+  }
+
+  // No selection means everything, the same rule every other exporter follows.
+  hasField(key) { return this._fields === null || this._fields.has(key); }
+
+  // The cards this export is about. A card scope is one card; a checklist scope
+  // is the card that checklist is on, because a checklist without its card
+  // cannot be imported anywhere.
+  async _scopedCardSelector(boardId) {
+    const selector = { boardId, linkedId: { $in: ['', null] } };
+    if (this._scope.cardId) {
+      selector._id = this._scope.cardId;
+    } else if (this._scope.checklistId) {
+      const checklist = await ReactiveCache.getChecklist(this._scope.checklistId);
+      selector._id = checklist ? checklist.cardId : '__no_such_card__';
+    } else {
+      if (this._scope.swimlaneId) selector.swimlaneId = this._scope.swimlaneId;
+      if (this._scope.listId) selector.listId = this._scope.listId;
+    }
+    return selector;
+  }
+
+  hasScope() {
+    return Boolean(this._scope.swimlaneId || this._scope.listId
+      || this._scope.cardId || this._scope.checklistId);
   }
 
   async build() {
@@ -456,6 +500,19 @@ export class Exporter {
       return i;
     };
 
+    // #1173: which cards this export is about, resolved BEFORE anything keyed off
+    // them is written - the attachments array is emitted first and has to be the
+    // scope's attachments, not the whole board's.
+    const cardSelector = await this._scopedCardSelector(boardId);
+    const scoped = this.hasScope();
+    let scopedCardIds = null;
+    if (scoped) {
+      scopedCardIds = [];
+      for await (const d of cardsRaw.find(cardSelector, { projection: { _id: 1 } })) {
+        scopedCardIds.push(d._id);
+      }
+    }
+
     // Open the object with the board's own fields + _format (board data is small).
     const board = await ReactiveCache.getBoard(boardId, { fields: { stars: 0 } });
     (board.members || []).forEach(m => userIds.add(m.userId));
@@ -465,7 +522,14 @@ export class Exporter {
     // Attachments — file bytes streamed as base64 in aligned chunks.
     await w(`,"attachments":[`);
     {
-      const cursor = attachmentsRaw.find({ 'meta.boardId': boardId });
+      // An unselected section is an EMPTY array, not a missing key: the file
+      // still imports, it just has no attachments in it.
+      const attachmentSelector = !this.hasField('attachments')
+        ? { _id: '__none__' }
+        : (scoped
+          ? { 'meta.cardId': { $in: scopedCardIds } }
+          : { 'meta.boardId': boardId });
+      const cursor = attachmentsRaw.find(attachmentSelector);
       let i = 0;
       for await (const att of cursor) {
         const head = {
@@ -512,13 +576,31 @@ export class Exporter {
     await w(']');
 
     // Lists / swimlanes / custom fields (bounded, but streamed uniformly).
-    await streamArray('lists', listsRaw, { boardId }, noBoardId, d => userIds.add(d.userId));
-    await streamArray('swimlanes', swimlanesRaw, { boardId });
-    await streamArray('customFields', customFieldsRaw, { boardIds: boardId }, { projection: { boardIds: 0 } });
+    // A scoped export carries the lists and swimlanes ITS cards refer to - the
+    // whole board's would be rows that import into empty columns, and none at
+    // all would leave the cards with nowhere to land.
+    let listSelector = { boardId };
+    let swimlaneSelector = { boardId };
+    if (scoped) {
+      const referenced = await cardsRaw
+        .find({ _id: { $in: scopedCardIds } }, { projection: { listId: 1, swimlaneId: 1 } })
+        .toArray();
+      const listIds = [...new Set(referenced.map(c => c.listId).filter(Boolean))];
+      const swimlaneIds = [...new Set(referenced.map(c => c.swimlaneId).filter(Boolean))];
+      if (this._scope.listId) listIds.push(this._scope.listId);
+      if (this._scope.swimlaneId) swimlaneIds.push(this._scope.swimlaneId);
+      listSelector = { boardId, _id: { $in: [...new Set(listIds)] } };
+      swimlaneSelector = { boardId, _id: { $in: [...new Set(swimlaneIds)] } };
+    }
+    await streamArray('lists', listsRaw, listSelector, noBoardId, d => userIds.add(d.userId));
+    await streamArray('swimlanes', swimlanesRaw, swimlaneSelector);
+    await streamArray('customFields', customFieldsRaw,
+      this.hasField('custom-fields') ? { boardIds: boardId } : { _id: '__none__' },
+      { projection: { boardIds: 0 } });
 
     // Cards (non-linked, like build()) — collect ids + userIds as we go, and
     // (when anonymizing) rewrite @mentions + requestedBy/assignedBy in each card.
-    await streamArray('cards', cardsRaw, { boardId, linkedId: { $in: ['', null] } }, noBoardId, d => {
+    await streamArray('cards', cardsRaw, cardSelector, noBoardId, d => {
       cardIds.push(d._id);
       userIds.add(d.userId);
       (d.members || []).forEach(id => userIds.add(id));
@@ -526,19 +608,41 @@ export class Exporter {
     });
 
     // Everything keyed by the card ids we just streamed.
-    await streamArray('comments', cardCommentsRaw, { cardId: { $in: cardIds } }, noBoardId, d => {
+    await streamArray('comments', cardCommentsRaw,
+      this.hasField('comments') ? { cardId: { $in: cardIds } } : { _id: '__none__' },
+      noBoardId, d => {
       userIds.add(d.userId);
       if (anonMap) anonymizeBoardTextInPlace({ comments: [d] }, anonMap.byUsername);
     });
-    await streamArray('activities', activitiesRaw, { $or: [{ boardId }, { cardId: { $in: cardIds } }] }, noBoardId, d => userIds.add(d.userId));
-    await streamArray('checklists', checklistsRaw, { cardId: { $in: cardIds } }, {}, d => userIds.add(d.userId));
-    await streamArray('checklistItems', checklistItemsRaw, { cardId: { $in: cardIds } }, {});
-    await streamArray('subtaskItems', cardsRaw, { parentId: { $in: cardIds } }, {});
+    // A scoped export's activities are its cards', not the board's - a swimlane
+    // export carrying every board-level activity would be mostly other people's
+    // swimlanes.
+    const activitySelector = !this.hasField('activities')
+      ? { _id: '__none__' }
+      : (scoped
+        ? { cardId: { $in: cardIds } }
+        : { $or: [{ boardId }, { cardId: { $in: cardIds } }] });
+    await streamArray('activities', activitiesRaw, activitySelector, noBoardId, d => userIds.add(d.userId));
+    // A checklist scope exports THAT checklist, on the card that holds it.
+    const checklistSelector = !this.hasField('checklists')
+      ? { _id: '__none__' }
+      : (this._scope.checklistId
+        ? { _id: this._scope.checklistId }
+        : { cardId: { $in: cardIds } });
+    const checklistItemSelector = !this.hasField('checklists')
+      ? { _id: '__none__' }
+      : (this._scope.checklistId
+        ? { checklistId: this._scope.checklistId }
+        : { cardId: { $in: cardIds } });
+    await streamArray('checklists', checklistsRaw, checklistSelector, {}, d => userIds.add(d.userId));
+    await streamArray('checklistItems', checklistItemsRaw, checklistItemSelector, {});
+    await streamArray('subtaskItems', cardsRaw,
+      this.hasField('subtasks') ? { parentId: { $in: cardIds } } : { _id: '__none__' }, {});
 
     // Rules + their triggers/actions.
     const ruleTriggerIds = [];
     const ruleActionIds = [];
-    await streamArray('rules', rulesRaw, { boardId }, noBoardId, d => { if (d.triggerId) ruleTriggerIds.push(d.triggerId); if (d.actionId) ruleActionIds.push(d.actionId); });
+    await streamArray('rules', rulesRaw, scoped ? { _id: '__none__' } : { boardId }, noBoardId, d => { if (d.triggerId) ruleTriggerIds.push(d.triggerId); if (d.actionId) ruleActionIds.push(d.actionId); });
     await streamArray('triggers', triggersRaw, { _id: { $in: ruleTriggerIds } }, noBoardId);
     await streamArray('actions', actionsRaw, { _id: { $in: ruleActionIds } }, noBoardId);
 

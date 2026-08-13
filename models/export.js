@@ -1,6 +1,11 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Exporter } from './exporter';
 import { buildExternalExport, EXTERNAL_EXPORT_FORMATS } from './lib/externalExporters';
+import {
+  BOARD_EXPORT_FIELD_KEYS,
+  parseExportFields,
+  parseExportScope,
+} from './lib/exportFields';
 import { Meteor } from 'meteor/meteor';
 import ImpersonatedUsers from '/models/impersonatedUsers';
 
@@ -106,8 +111,14 @@ if (Meteor.isServer) {
     // #5870: ?attachments=false exports the board without the base64 attachment
     // file data, so very large boards can be exported without overflowing the
     // JSON serializer. Default (omitted/any other value) keeps the full export.
+    // #1173: the same two the PDF, Excel and .zip exports read - WHICH cards
+    // (a swimlane, a list, a card, a checklist, or the whole board) and WHICH
+    // PARTS of them, from the one selection popup. Parsed by the shared reader
+    // so a menu's `listId` means the same thing at every export route.
     const exportOptions = {
       excludeAttachments: req.query.attachments === 'false',
+      scope: parseExportScope(req.query),
+      fields: parseExportFields(req.query && req.query.fields, BOARD_EXPORT_FIELD_KEYS),
     };
 
     // If board is public, skip expensive authentication operations
@@ -176,6 +187,78 @@ if (Meteor.isServer) {
     } else {
       // we could send an explicit error message, but on the other hand the only
       // way to get there is by hacking the UI so let's keep it raw.
+      logExportDenied();
+      sendJsonResult(res, { code: 403, data: { error: 'Forbidden' } });
+    }
+  }));
+
+  /**
+   * @operation exportZip
+   * @tag Boards
+   * @summary Export as a .zip - the JSON document, and the attachments as files.
+   * @description The same export the JSON route produces, with the attachments
+   * beside it as the files they are instead of base64 inside the document, so a
+   * board whose attachments are too large for one JSON string still exports.
+   * Takes the same `fields`, `swimlaneId`, `listId`, `cardId` and `checklistId`
+   * parameters as every other export.
+   * @param {string} boardId the ID of the board we are exporting
+   * @param {string} authToken the loginToken
+   */
+  WebApp.handlers.get('/api/boards/:boardId/exportZip', safeRoute(async function (req, res) {
+    const boardId = req.params.boardId;
+    let user = null;
+
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!board) {
+      sendJsonResult(res, { code: 404, data: { error: 'Not found' } });
+      return;
+    }
+
+    const options = {
+      scope: parseExportScope(req.query),
+      fields: parseExportFields(req.query && req.query.fields, BOARD_EXPORT_FIELD_KEYS),
+    };
+
+    if (!board.isPublic()) {
+      const loginToken = req.query.authToken;
+      if (loginToken) {
+        if (loginToken.length > 10000) {
+          sendJsonResult(res, { code: 400, data: { error: 'Bad request' } });
+          return;
+        }
+        const hashToken = Accounts._hashLoginToken(loginToken);
+        user = await ReactiveCache.getUser({
+          'services.resume.loginTokens.hashedToken': hashToken,
+        });
+        if (!user) {
+          sendJsonResult(res, { code: 401, data: { error: 'Invalid token' } });
+          return;
+        }
+      } else if (!Meteor.settings.public.sandstorm) {
+        try {
+          Authentication.checkLoggedIn(req.userId);
+        } catch (error) {
+          sendJsonResult(res, {
+            code: error.statusCode || 403,
+            data: { error: (error && error.reason) || 'Forbidden' },
+          });
+          return;
+        }
+        user = await ReactiveCache.getUser({ _id: req.userId });
+      }
+    }
+
+    options.userLanguage = (user && user.profile && user.profile.language) || 'en';
+    const { ExporterZip } = require('./server/ExporterZip');
+    const exporter = new ExporterZip(boardId, options);
+    if (await exporter.canExport(user)) {
+      const name = String(board.title || 'export-board')
+        .replace(/[^a-z0-9._-]+/gi, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
+        .slice(0, 80) || 'export-board';
+      // AWAITED: an un-awaited build(res) is #6591 - a rejection that goes
+      // nowhere and a response that is never ended.
+      await exporter.build(res, `${name}.zip`);
+    } else {
       logExportDenied();
       sendJsonResult(res, { code: 403, data: { error: 'Forbidden' } });
     }

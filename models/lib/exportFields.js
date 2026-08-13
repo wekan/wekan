@@ -61,7 +61,27 @@ function parseExportFields(value, allowed) {
   return kept.length > 0 ? kept : null;
 }
 
+// WHICH cards an export is about: the whole board, or one swimlane, list, card
+// or checklist. Four ids, read the same way by every export route (JSON, .zip,
+// PDF, Excel) so a menu that sends `listId` means the same thing to all of them.
+const EXPORT_SCOPE_KEYS = ['swimlaneId', 'listId', 'cardId', 'checklistId'];
+
+// A Mongo id is [A-Za-z0-9] and short; anything else is not one, and a query
+// parameter is not a place to trust.
+const isId = value => typeof value === 'string' && /^[A-Za-z0-9_-]{1,64}$/.test(value);
+
+function parseExportScope(query) {
+  const scope = {};
+  for (const key of EXPORT_SCOPE_KEYS) {
+    const value = query && query[key];
+    if (isId(value)) scope[key] = value;
+  }
+  return scope;
+}
+
 export {
+  EXPORT_SCOPE_KEYS,
+  parseExportScope,
   CARD_EXPORT_FIELDS,
   BOARD_EXPORT_FIELDS,
   CARD_EXPORT_FIELD_KEYS,

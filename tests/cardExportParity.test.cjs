@@ -91,8 +91,10 @@ test('the new sections are selectable, and the client offers them', () => {
   }
   assert.ok(/ALL_FIELDS = CARD_EXPORT_FIELD_KEYS/.test(excel),
     'the Excel exporter takes its list from there');
-  assert.ok(/EXCEL_EXPORT_FIELDS = CARD_EXPORT_FIELDS/.test(cardDetails),
-    'and so does the popup');
+  // The card popup is the shared export body now (#1173), so its list is the
+  // shared list by construction rather than by a second assignment.
+  const scopeJs = read('client/components/boards/exportScope.js');
+  assert.ok(/BOARD_EXPORT_FIELDS/.test(scopeJs), 'and so does the popup');
 });
 
 test('the fields were APPENDED to ALL_FIELDS, not inserted (negative)', () => {
@@ -175,8 +177,6 @@ test('the client sends zone, language and the card\'s own date format', () => {
 });
 
 test('every export link carries them - card, board, swimlane and list', () => {
-  const links = (cardDetails.match(/exportLocaleParams\(\)/g) || []).length;
-  assert.ok(links >= 2, `both card export links send them, found ${links}`);
   // #1173: the board, swimlane and list downloads are ONE shared popup body now,
   // so there is one place that builds those URLs instead of three.
   const scope = read('client/components/boards/exportScope.js');

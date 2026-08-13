@@ -10,7 +10,7 @@ runOnServer(function() {
   // if (Meteor.isServer) block
   const { ExporterCardPDF, ExporterBoardPDF } = require('./server/ExporterCardPDF');
 
-  const { CARD_EXPORT_FIELD_KEYS, BOARD_EXPORT_FIELD_KEYS, parseExportFields } =
+  const { CARD_EXPORT_FIELD_KEYS, BOARD_EXPORT_FIELD_KEYS, parseExportFields, parseExportScope } =
     require('/models/lib/exportFields');
 
   // What formatDateByUserPreference understands, and nothing else.
@@ -20,10 +20,7 @@ runOnServer(function() {
   // or list was asked for, since those menus offer the same export.
   const exportSelection = (req, allowed) => ({
     fields: parseExportFields(req.query && req.query.fields, allowed),
-    scope: {
-      swimlaneId: (req.query && req.query.swimlaneId) || '',
-      listId: (req.query && req.query.listId) || '',
-    },
+    scope: parseExportScope(req.query),
   });
 
   // #6586: the two things the export needs about the reader and the server

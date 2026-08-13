@@ -10,7 +10,8 @@ runOnServer(function() {
   // if (Meteor.isServer) block
   const { ExporterExcel } = require('./server/ExporterExcel');
   const { ExporterExcelBoard } = require('./server/ExporterExcelBoard');
-  const { BOARD_EXPORT_FIELD_KEYS, parseExportFields } = require('/models/lib/exportFields');
+  const { BOARD_EXPORT_FIELD_KEYS, parseExportFields, parseExportScope } =
+    require('/models/lib/exportFields');
 
   // What formatDateByUserPreference understands, and nothing else.
   const DATE_FORMATS = ['YYYY-MM-DD', 'DD-MM-YYYY', 'MM-DD-YYYY'];
@@ -31,10 +32,7 @@ runOnServer(function() {
       : ((user && user.profile && user.profile.dateFormat) || 'YYYY-MM-DD');
     const timezone = (req.query && typeof req.query.tz === 'string' && req.query.tz.length <= 64)
       ? req.query.tz : '';
-    const scope = {
-      swimlaneId: (req.query && req.query.swimlaneId) || '',
-      listId: (req.query && req.query.listId) || '',
-    };
+    const scope = parseExportScope(req.query);
 
     if (fields && !fields.includes('card-details')) {
       return new ExporterExcel(boardId, language);

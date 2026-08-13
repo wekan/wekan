@@ -48,13 +48,39 @@ function scopeTitle() {
   return data.title || 'export';
 }
 
-function exportUrl(path) {
+// ONE url builder for every format and every scope. A second one would be a
+// second place for a query parameter to go missing from - which is how the card
+// popup's checkboxes ended up driving the Excel download and not the PDF.
+// A CARD has export routes of its own - /lists/:listId/cards/:cardId/exportPDF
+// and exportExcel - which produce the one card rather than a board document with
+// one card in it. They are the same renderers underneath, so the popup uses them
+// when it is a card being exported and the board routes otherwise, instead of
+// there being two ways to ask for the same file.
+function routeFor(path) {
+  const data = Template.currentData() || {};
+  if (!data.cardId || !data.listId) return path;
+  if (path.endsWith('exportPDF')) {
+    return '/api/boards/:boardId/lists/:listId/cards/:cardId/exportPDF';
+  }
+  if (path.endsWith('exportExcel')) {
+    return '/api/boards/:boardId/lists/:listId/cards/:cardId/exportExcel';
+  }
+  return path;
+}
+
+function exportUrl(path, extra = {}) {
   const boardId = Session.get('currentBoard');
-  return FlowRouter.path(path, { boardId }, {
+  const data = Template.currentData() || {};
+  const route = routeFor(path);
+  const params = { boardId };
+  if (route.includes(':listId')) params.listId = data.listId;
+  if (route.includes(':cardId')) params.cardId = data.cardId;
+  return FlowRouter.path(route, params, {
     authToken: Accounts._storedLoginToken(),
     fields: selectedFields().join(','),
     ...currentScope(),
     ...exportLocaleParams(),
+    ...extra,
   });
 }
 
@@ -82,6 +108,23 @@ Template.exportScopeBody.helpers({
   },
   exportUrlExcel() {
     return exportUrl('/api/boards/:boardId/exportExcel');
+  },
+  exportUrlJson() {
+    return exportUrl('/api/boards/:boardId/export');
+  },
+  // The same document without the base64 file data - #5870's option, offered
+  // wherever an export is offered rather than only on the board menu.
+  exportUrlJsonNoAttachments() {
+    return exportUrl('/api/boards/:boardId/export', { attachments: 'false' });
+  },
+  exportUrlZip() {
+    return exportUrl('/api/boards/:boardId/exportZip');
+  },
+  exportFilenameJson() {
+    return exportFilename('json');
+  },
+  exportFilenameZip() {
+    return exportFilename('zip');
   },
   exportFilenamePDF() {
     return exportFilename('pdf');

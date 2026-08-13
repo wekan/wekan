@@ -107,13 +107,21 @@ test('no selection means everything, in every exporter (negative)', () => {
 
 // ── one popup, three scopes ─────────────────────────────────────────────────
 
-test('the popup body is shared by the board, swimlane and list menus', () => {
+test('the popup body is shared by the card, board, swimlane and list menus', () => {
   assert.ok(/template\(name="exportScopeBody"\)/.test(scopeJade), 'one body');
   assert.ok(/template\(name="exportSwimlanePopup"\)/.test(scopeJade)
     && /template\(name="exportListPopup"\)/.test(scopeJade),
     'and the two new popups are that body with a scope');
   const sidebar = read('client/components/sidebar/sidebar.jade');
   assert.ok(/\+exportScopeBody/.test(sidebar), 'the board popup uses it too');
+  // The card popup was its own template with its own field list and its own url
+  // builder - which is how its checkboxes drove the Excel download and not the
+  // PDF. It is the shared body now, with the card as its scope.
+  const cardJade = read('client/components/cards/cardDetails.jade');
+  assert.ok(/template\(name="exportCardPopup"\)\n  \+exportScopeBody/.test(cardJade),
+    'and so does the card popup');
+  assert.ok(!/js-excel-field-toggle/.test(read('client/components/cards/cardDetails.js')),
+    'with no second copy of the toggle left behind');
   assert.ok(/swimlaneId=_id/.test(scopeJade) && /listId=_id/.test(scopeJade),
     'the scope is the one thing that differs');
 });
@@ -138,13 +146,47 @@ test('the menus offer it, above the rows that need write permission', () => {
     .test(read('client/components/lists/listHeader.js')), 'and so does the other');
 });
 
-test('the routes read the scope, and only the two ids that are a scope', () => {
-  for (const [name, source] of [['PDF', pdfRoute], ['Excel', excelRoute]]) {
-    assert.ok(/swimlaneId/.test(source) && /listId/.test(source),
-      `the ${name} route takes a swimlane or a list`);
+test('every export route reads the scope through ONE parser', () => {
+  // The routes used to pick `swimlaneId` and `listId` out of the query
+  // themselves, which is three places for a fifth scope to be added to and two
+  // for it to be forgotten in. They all call parseExportScope now.
+  const jsonRoute = read('models/export.js');
+  for (const [name, source] of [['PDF', pdfRoute], ['Excel', excelRoute], ['JSON/zip', jsonRoute]]) {
+    assert.ok(/parseExportScope\(req\.query\)/.test(source),
+      `the ${name} route reads the scope through the shared parser`);
     assert.ok(/parseExportFields/.test(source),
       `and the ${name} route validates the field list rather than trusting it`);
   }
+  assert.ok(/EXPORT_SCOPE_KEYS = \['swimlaneId', 'listId', 'cardId', 'checklistId'\]/.test(fields),
+    'and the four scopes are named once');
+  assert.ok(/A Mongo id is/.test(fields),
+    'a query parameter is validated as an id, not trusted as one');
+});
+
+test('JSON and .zip are the same export in two shapes', () => {
+  const zip = read('models/server/ExporterZip.js');
+  const exporter = read('models/exporter.js');
+  assert.ok(/exporter\.buildStream\(jsonStream\)/.test(zip),
+    'the .zip document is written by the JSON exporter, not by a second one');
+  assert.ok(/excludeAttachments: true/.test(zip),
+    'and it carries no base64 file data, because the files are beside it');
+  assert.ok(/archive\.append\(stream, \{ name: `attachments\//.test(zip),
+    'each attachment is piped into the archive as the file it is');
+  assert.ok(/getReadStream\(\)/.test(zip) && !/streamToBuffer/.test(zip),
+    'piped, never buffered - that is the point of the .zip on a large board');
+  assert.ok(/An unselected section is an EMPTY array/.test(exporter),
+    'an unselected section keeps the format importable');
+});
+
+test('a scoped JSON export still carries what its cards need', () => {
+  const exporter = read('models/exporter.js');
+  assert.ok(/carries the lists and swimlanes ITS cards refer to/.test(exporter),
+    'a card without its list imports into nothing');
+  assert.ok(/_scopedCardSelector/.test(exporter), 'and the scope decides which cards');
+  assert.ok(/checklist \? checklist\.cardId/.test(exporter),
+    'a checklist scope exports the card that holds it');
+  assert.ok(/scoped \? \{ _id: '__none__' \} : \{ boardId \}/.test(exporter),
+    'and a swimlane export carries no board-wide rules');
 });
 
 // ── the streaming exporter is still reachable ───────────────────────────────

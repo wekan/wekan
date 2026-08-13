@@ -23,9 +23,24 @@ template(name="exportScopeBody")
       a(href="{{exportUrlExcel}}", download="{{exportFilenameExcel}}")
         i.fa.fa-file-excel-o
         | {{_ 'export'}} / Excel
+    li
+      a(href="{{exportUrlJson}}", download="{{exportFilenameJson}}")
+        i.fa.fa-file-code-o
+        | {{_ 'export'}} / JSON
+    li
+      a(href="{{exportUrlJsonNoAttachments}}", download="{{exportFilenameJson}}")
+        i.fa.fa-file-code-o
+        | {{_ 'export'}} / JSON ({{_ 'export-board-without-attachments'}})
+    li
+      a(href="{{exportUrlZip}}", download="{{exportFilenameZip}}")
+        i.fa.fa-file-archive-o
+        | {{_ 'export'}} / .zip ({{_ 'attachments'}})
 
 template(name="exportSwimlanePopup")
   +exportScopeBody(swimlaneId=_id title=title)
 
 template(name="exportListPopup")
   +exportScopeBody(listId=_id title=title)
+
+template(name="exportChecklistPopup")
+  +exportScopeBody(checklistId=_id title=title)

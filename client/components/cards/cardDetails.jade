@@ -932,25 +932,12 @@ template(name="cardDetailsActionsPopup")
                 i.fa.fa-link
               | {{_ 'cardMorePopup-title'}}
 
+//- #1173: the card export popup IS the shared export body - the same checkbox
+  list and the same four formats every other menu offers, with the card as its
+  scope. It used to be its own template with its own field list, which is how
+  its checkboxes came to drive the Excel download and not the PDF.
 template(name="exportCardPopup")
-  ul.pop-over-list
-    li
-      a(href="{{exportUrlCardPDF}}", download="{{exportFilenameCardPDF}}")
-        i.fa.fa-file-pdf-o
-        | {{_ 'export-card-pdf'}}
-  hr
-  p.quiet {{_ 'export-select-what-to-include'}}
-  ul.pop-over-list
-    each excelExportFields
-      li(class="{{#if checked}}active{{/if}}")
-        a.js-excel-field-toggle(data-field="{{field}}" href="#")
-          i.fa.fa-check
-          | {{_ label}}
-  ul.pop-over-list
-    li
-      a(href="{{exportUrlCardExcel}}", download="{{exportFilenameCardExcel}}")
-        i.fa.fa-file-excel-o
-        | {{_ 'download'}}
+  +exportScopeBody(cardId=_id listId=listId title=title)
 
 template(name="moveCardPopup")
   label(for='move-card-title') {{_ 'title'}}:

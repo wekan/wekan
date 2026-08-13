@@ -167,6 +167,14 @@ template(name='checklistItemDetail')
           = item.title
 
 template(name="checklistActionsPopup")
+  //- #1173: a checklist exports like everything else - the same popup body, with
+    the checklist as its scope. Reading, so it is above the rows that change it.
+  ul.pop-over-list
+    li
+      a.js-export-checklist
+        i.fa.fa-upload
+        | {{_ 'export'}} ...
+  hr
   ul.pop-over-list
     li
       a.js-delete-checklist.delete-checklist
