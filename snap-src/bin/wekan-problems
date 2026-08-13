@@ -23,5 +23,59 @@ if [ -r "$SNAP/bin/wekan-read-settings" ]; then
   . "$SNAP/bin/wekan-read-settings" >/dev/null 2>&1 || true
 fi
 
-exec env NODE_PATH="$SNAP/programs/server/node_modules" \
+env NODE_PATH="$SNAP/programs/server/node_modules" \
   "$SNAP/bin/node" "$SNAP/bin/wekan-problems.mjs" "$@"
+rc=$?
+
+# ── Which copy of the data is being served ───────────────────────────────────
+#
+# #6583, comment 5282677837: an admin whose site was showing data from a
+# migration done a month earlier ran this command and was told "No problems
+# detected". That was true of everything it checks — it reads ONE database, the
+# one WeKan is connected to, and every check inside it passed. The question that
+# mattered, "which of my two copies am I looking at", was not asked by anything.
+#
+# It is asked here, from the files, so it works even when the site is down. This
+# is a report: nothing is started, nothing is written.
+#
+# A section, not a "problem": two copies is the normal state of a migrated snap.
+# It becomes a problem only when the copy being served is not the one with the
+# work in it, and that is what database-compare answers.
+case "${1:-}" in
+  ''|status|databases)
+    SNAP_COMMON="${SNAP_COMMON:-/var/snap/${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}/common}"
+    svc="${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}"
+    echo
+    echo "Databases on this machine"
+    echo "-------------------------"
+    if [ -r "$SNAP/bin/database-role" ]; then
+      echo "  Serving: $(bash "$SNAP/bin/database-role" --why 2>/dev/null)"
+    fi
+    mongo=no
+    ferret=no
+    { [ -f "$SNAP_COMMON/WiredTiger" ] || ls "$SNAP_COMMON"/collection-*.wt >/dev/null 2>&1; } && mongo=yes
+    ls "$SNAP_COMMON/files/db"/*.sqlite >/dev/null 2>&1 && ferret=yes
+    echo "  MongoDB files in $SNAP_COMMON: $mongo"
+    echo "  FerretDB database in $SNAP_COMMON/files/db: $ferret"
+    if [ "$mongo" = yes ] && [ "$ferret" = yes ]; then
+      echo
+      echo "  There are TWO copies of this site's data. That is normal after a"
+      echo "  migration - $SNAP_COMMON is shared across snap revisions and nothing"
+      echo "  deletes the old copy. If what WeKan shows looks older than your work:"
+      if [ -r "$SNAP/bin/database-compare" ]; then
+        echo "    sudo snap run ${svc}.database-compare   # what does each copy hold? changes nothing"
+        echo "    sudo snap run ${svc}.database-merge     # insert into the served copy what only the other has"
+      else
+        # The two commands arrived in WeKan v10.90; on an older revision the
+        # error is snapd's `cannot find app "database-compare" in "wekan"`,
+        # which says nothing about what to do next. This does.
+        echo "    This WeKan revision has no database-compare / database-merge."
+        echo "    sudo snap refresh ${svc}   # then run: sudo snap run ${svc}.database-compare"
+        echo "    Refreshing does not re-import the old MongoDB over a FerretDB that"
+        echo "    is already in use, and neither copy is deleted."
+      fi
+    fi
+    ;;
+esac
+
+exit $rc

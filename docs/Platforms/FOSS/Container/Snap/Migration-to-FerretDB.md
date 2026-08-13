@@ -116,7 +116,22 @@ missing.
 ## The commands that still exist
 
 ```
-sudo snap run wekan.migrate     # re-run the whole migration now, from scratch
-sudo snap run wekan.problems    # status: which database, what has run, what failed
-sudo snap set wekan migrate=off # stop the automatic retries (and on to resume)
+sudo snap run wekan.migrate          # re-run the whole migration now, from scratch
+sudo snap run wekan.problems         # status: which database, what has run, what failed
+sudo snap run wekan.database-compare # what does each copy hold? changes nothing
+sudo snap run wekan.database-merge   # insert into the served copy what only the other has
+sudo snap set wekan migrate=off      # stop the automatic retries (and on to resume)
 ```
+
+`database-compare` and `database-merge` are apps of the snap, so they exist only
+in the revision that ships them — WeKan **v10.90** and newer. On an older one
+snapd answers `cannot find app "database-compare" in "wekan"`
+([#6583](https://github.com/wekan/wekan/issues/6583), comment 5282677837);
+`sudo snap refresh wekan` first. Refreshing is safe for the case they are needed
+for: a refresh does not import an old MongoDB over a FerretDB that is already in
+use, and neither copy is ever deleted.
+
+`wekan.problems` ends with a **Databases on this machine** section saying which
+copy is being served and whether there is a second one — it used to report "No
+problems detected" on an instance serving a month-old copy, because every check
+it makes is about the ONE database WeKan is connected to.
