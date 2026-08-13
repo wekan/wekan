@@ -68,16 +68,29 @@
 /* #3392: card detail "Dependencies" rows */
 .card-details-dependencies-list .card-dependency {
   display: flex;
-  align-items: center;
+  /* The title WRAPS now, so the row can be two or three lines tall. Centring
+     the icon and the controls against that block would float them halfway down
+     it; they belong beside the first line. */
+  align-items: flex-start;
   gap: 6px;
   margin-bottom: 4px;
 }
 
 .card-details-dependencies-list .card-dependency-link {
   flex: 1 1 auto;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  /* A card's title is a sentence, and the card details pane is narrow. It used
+     to be one line with an ellipsis, so everything past the width of the pane -
+     which is most of a real title, sitting right of the coloured icon - could
+     not be read at all. There is no reason to hide it: the row can be tall.
+     `min-width: 0` is what makes that work. A flex item's default is
+     `min-width: auto`, which refuses to shrink below its content, so the text
+     overflowed the row instead of wrapping inside it - and no amount of
+     `white-space: normal` alone would have fixed that. */
+  min-width: 0;
+  white-space: normal;
+  /* A title can be a URL or an id with no spaces in it; break inside the word
+     rather than let one long token push the controls off the row. */
+  overflow-wrap: anywhere;
 }
 
 .card-details-dependencies-list .js-dependency-type {

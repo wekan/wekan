@@ -758,6 +758,26 @@ and fixes the following bugs:
 **Card details** - the card as it is opened and edited.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">A dependency's card title wraps instead of being cut off at the pane edge</a>. Thanks to xet7.</summary>
+
+In an opened card's **Dependencies** section each row is an icon, the linked
+card's title and its controls, and the title was held on one line with an
+ellipsis. The card details pane is narrow and a card title is a sentence, so
+most of a real title - everything to the right of the coloured icon - could not
+be read at all.
+
+It wraps now, and the row grows as tall as it needs to. Two properties, and the
+second is the one that is easy to miss: `white-space: normal` alone would have
+changed nothing, because a flex item's default `min-width: auto` refuses to
+shrink below its content, so the text overflowed the row instead of wrapping
+inside it. `min-width: 0` is what lets it. A title that is one long token - a
+URL, an id - breaks inside itself rather than pushing the type, colour and
+remove controls off the row, and the icon and those controls now sit beside the
+FIRST line instead of floating halfway down a three-line block.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/bada25de4d95b0e5b473ec3176dccffcc5a999a7">Editing a card title keeps the X that closes it</a>. Thanks to xet7.</summary>
 
 Clicking a card's title opens the title editor in place of the card header - and
