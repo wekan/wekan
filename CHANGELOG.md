@@ -672,7 +672,8 @@ module evaluating, so every template registered after it never registers either.
 The visible symptom was the SIGN-IN page: a blank form and
 
 ```
-Uncaught TypeError: can't access property "helpers", Template.exportScopeBody is undefined
+Uncaught TypeError: can't access property "helpers", Template.exportScopeBody is
+undefined
 [UserAccounts] Warning no template passwordInput found!
 ```
 
