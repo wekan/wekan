@@ -306,13 +306,17 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** three reports from admins who could not tell what their own WeKan
+**In short:** four reports from admins who could not tell what their own WeKan
 was doing. Clicking a **minicard again did not close the card** it had opened -
 the toggle was there and had a test, and it was closing the wrong thing, so it
 was the one part of this that nobody could see was broken. A snap **waiting for
 its database** answered nothing at all on the web port, so an upgrade that left
 the database down looked like WeKan itself loading forever; the wait is a page
-now, with the commands that say why. And a snap serving
+now, with the commands that say why, and it carries the product name and the
+schema-upgrade dashboard's colours. The **Admin Panel reports** were full of
+things that never happened - an ordinary restart written up as a crash (and,
+because of the same bug, actually turned into minutes of downtime), and a
+reverse proxy written up as a spoofing attempt. And a snap serving
 **the older of its two copies of the data** was told "No problems detected",
 because the status report reads only the database WeKan is connected to and
 never said WHICH one that is; it now ends with a section that does, and names
@@ -413,6 +417,61 @@ it, and is stopped before anything else binds the web port.
 
 This does not say why the reporter's database did not come up - the issue has no
 logs yet - but the next person sees the reason instead of a timeout.
+
+</details>
+
+**The Admin Panel reports** - what they say happened, and whether it did.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/034a23ede">A restart is not a crash, and a reverse proxy is not a spoofer</a>. Thanks to xet7.</summary>
+
+Two reports from a server running 10.90 Snap, both full of things that never
+happened.
+
+**Filesystem integrity**, over and over: *"the previous run STOPPED WITHOUT
+SHUTTING DOWN CLEANLY, and this server was down for about 4 minute(s)"*,
+severity high — on a snap that had been refreshed, not crashed. Two faults, and
+the second made the downtime real rather than merely reported.
+`IntegrityKeys.update()` is not synchronous in Meteor 3: it starts a write and
+hands back a promise nobody waited for, so the clean-shutdown mark was never on
+disk when the process went. And registering ANY listener for `SIGTERM` replaces
+Node's default behaviour, which is to terminate — nothing in that listener
+exited, so WeKan ignored `SIGTERM` outright, systemd waited out its stop timeout
+and used `SIGKILL`. That is both the minutes of "downtime" in those rows and a
+genuinely unclean kill on every ordinary restart. The mark is written with
+`updateAsync` now and the handler exits: with 0, after at most two seconds, and
+exactly once however many signals arrive. What a crash IS was not touched — the
+rows were wrong because the input was wrong.
+
+**Security Report**, over and over: a medium-severity *spoofing* row for
+`/metrics` denied *"with X-Forwarded-For present"*, from 127.0.0.1. Every
+reverse proxy adds that header to everything it forwards, so a Prometheus scrape
+through a local proxy on a server whose allowlist does not cover it was being
+written up as an attack, in the report where a real one would have to be
+noticed. The spoof has a signature and it is asked for now: the header NAMES an
+allowlisted address while the connection is not from one. The 401 is unchanged
+and gained the sentence the admin needs — the address in it is the proxy, not
+the scraper, unless `METRICS_TRUST_PROXY` says how many hops to trust.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/55552a720">The pages shown when there is no database use the product name and the dashboard's colours</a>. Thanks to xet7.</summary>
+
+The snap's standalone pages — under maintenance, recovering data, database too
+old, and the new one above — are a small HTTP server with no database
+connection, which is the whole point of them. The product name therefore comes
+from a file that `wekan-control` cached once per start, which leaves the case
+that matters: the name is set in the Admin Panel and the snap is not restarted
+before the next outage, so a rebranded WeKan tells its users *"WeKan is waiting
+for its database"* — a word they have never seen. WeKan is the only thing that
+knows the name the moment it changes, so WeKan writes it, at startup and
+whenever the setting changes.
+
+They also wear the schema-upgrade dashboard's colours now — the same `#111`
+ground, `#7bf` blue and monospace face — because that dashboard and these pages
+are the same thing to a reader: the product saying what it is doing while it
+cannot show them the app.
 
 </details>
 
