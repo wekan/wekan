@@ -532,7 +532,7 @@ this went unnoticed while a test watched it.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">One import page, for every source, with the same checkboxes the exports use</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f0745dec4aec88703e0d19ddea0f6b8d59c747e9">One import page, for every source, with the same checkboxes the exports use</a>. Thanks to xet7.</summary>
 
 The last piece of [#1173](https://github.com/wekan/wekan/issues/1173): "combine
 all import options to same template". They were fourteen - a link per source in
