@@ -53,8 +53,10 @@ test('the release job still downloads the bundles and attaches them', () => {
   // missing file and verified from the release side - see
   // tests/releaseArchSkipAndBaseAttach.test.cjs. The bundles must still be
   // downloaded and attached; this only stops pinning the old silent path.
-  assert.ok(/gh release upload "v\$\{VERSION\}"[\s\S]*--clobber/.test(body),
+  assert.ok(/gh release upload[^\n]*"v\$\{VERSION\}"[\s\S]*--clobber/.test(body),
     'attaches the base bundles to the release with gh release upload --clobber');
+  assert.ok(/gh release upload --repo/.test(body),
+    'naming the repository, since gh cannot infer it without a git remote');
 });
 
 test('the checkout comes BEFORE the bundle download, so it cannot wipe them', () => {

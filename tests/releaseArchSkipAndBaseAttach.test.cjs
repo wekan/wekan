@@ -58,13 +58,16 @@ test('the release job attaches amd64/arm64 with gh release upload, not softprops
     'the release job must not attach the base bundles via softprops files: (it fails silently on a missing file)',
   );
   // It must upload them explicitly, and clobber like the other bundle jobs.
-  assert.ok(/gh release upload "v\$\{VERSION\}"[\s\S]*--clobber/.test(body),
+  assert.ok(/gh release upload[^\n]*"v\$\{VERSION\}"[\s\S]*--clobber/.test(body),
     'the release job must attach the base bundles with gh release upload --clobber');
+  assert.ok(/gh release upload --repo/.test(body),
+    'and name the repository, because a job that flattened its history for the '
+    + 'Launchpad push has no remote for gh to infer one from');
   // A missing/empty base bundle must be fatal here, not a silent skip.
   assert.ok(/is missing or empty[\s\S]*exit 1/.test(body),
     'the release job must fail loudly when a base bundle zip is missing or empty');
   // And it must verify from the release side that they landed.
-  assert.ok(/gh release view "v\$\{VERSION\}"[\s\S]*is not listed in release[\s\S]*exit 1/.test(body),
+  assert.ok(/gh release view[^\n]*"v\$\{VERSION\}"[\s\S]*is not listed in release[\s\S]*exit 1/.test(body),
     'the release job must confirm the base bundles are actually attached');
   // The .sha256sum goes up with each base zip.
   assert.ok(/sha256sum "\$asset" > "\$\{asset\}\.sha256sum"/.test(body),
