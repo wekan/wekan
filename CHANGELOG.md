@@ -355,7 +355,7 @@ This release fixes the following SECURITY ISSUES found by container scanning:
 **The published image** - what it carries that it never runs.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b939c82ab7f652e9bb686845cae4b219075d0176">npm and node-gyp's tree are not shipped any more, after the install that needed them</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6157094ab8e633e65427c7cd046537af77956bff">npm and node-gyp's tree are not shipped any more, after the install that needed them</a>. Thanks to xet7.</summary>
 
 Three CRITICAL findings and most of the HIGH ones were three copies of one
 package - `tar` 6.2.1 twice and `tar` 7.5.11 once - and none of them is
@@ -391,7 +391,7 @@ identical failure at the database, no missing module.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b939c82ab7f652e9bb686845cae4b219075d0176">The npm packages Meteor's own packages bundle are raised inside the built bundle</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6157094ab8e633e65427c7cd046537af77956bff">The npm packages Meteor's own packages bundle are raised inside the built bundle</a>. Thanks to xet7.</summary>
 
 The rest of that scan was `nodemailer` 8.0.3 and `openpgp` 5.11.1
 (meteor/email),
@@ -430,7 +430,7 @@ why every leg runs it again: `meteor-dev-bundle` pins `underscore` 1.13.7
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b939c82ab7f652e9bb686845cae4b219075d0176">Guard suites for both, and the Debian findings that no upgrade can fix</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6157094ab8e633e65427c7cd046537af77956bff">Guard suites for both, and the Debian findings that no upgrade can fix</a>. Thanks to xet7.</summary>
 
 `tests/imageBuildOnlyModules.test.cjs` pins that the pruner is
 reachability-driven
