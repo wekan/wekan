@@ -180,19 +180,28 @@ const HTML = `<!DOCTYPE html><html lang="en"><head>
 ${IS_DATA_TOO_OLD ? "" : '<meta http-equiv="refresh" content="30">'}
 <title>${PRODUCT} — ${TITLE_WORD}</title>
 <style>
-  :root{color-scheme:light dark}
-  body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;
+  /* The schema-upgrade dashboard's palette (server/startupSchemaUpgrade.js):
+     #111 ground, #ddd text, #7bf blue for the heading, monospace. These pages
+     and that one are the same thing to a reader - the product saying what it is
+     doing while it cannot show them the app - so they look like each other and
+     not like two different products. Dark only, as the dashboard is. */
+  :root{color-scheme:dark}
+  body{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;margin:0;
     min-height:100vh;display:flex;align-items:center;justify-content:center;
-    background:#eceff1;color:#2c3e50}
-  @media (prefers-color-scheme:dark){body{background:#1b1f23;color:#e6e6e6}}
-  .card{max-width:${IS_DATA_TOO_OLD || IS_WAITING_DB ? "44" : "34"}em;margin:1.5em;padding:2em 2.4em;border-radius:10px;text-align:center;
-    background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.08)}
-  @media (prefers-color-scheme:dark){.card{background:#24292e;box-shadow:0 2px 10px rgba(0,0,0,.4)}}
-  h1{color:#2980b9;font-size:1.6em;margin:.2em 0 .4em}
-  p{font-size:1.1em;line-height:1.5;margin:.6em 0}
-  .muted{color:#7f8c9a;font-size:.95em}
+    background:#111;color:#ddd}
+  .card{max-width:${IS_DATA_TOO_OLD || IS_WAITING_DB ? "46" : "36"}em;margin:1.5em;padding:2em 2.4em;border-radius:10px;text-align:center;
+    background:#181818;border:1px solid #333}
+  h1{color:#7bf;font-size:1.5em;margin:.2em 0 .5em;font-weight:600}
+  p{font-size:1.05em;line-height:1.55;margin:.6em 0}
+  .muted{color:#aaa;font-size:.95em}
+  ol{line-height:1.6}
+  li{margin:.45em 0}
+  code{color:#7bf;background:#0c0c0c;border:1px solid #2b2b2b;border-radius:4px;
+    padding:.05em .35em;word-break:break-word}
+  a{color:#7bf}
+  b{color:#eee}
   .spin{display:inline-block;width:1.1em;height:1.1em;margin-right:.4em;vertical-align:-.15em;
-    border:3px solid #d6e4ef;border-top-color:#2980b9;border-radius:50%;animation:s .9s linear infinite}
+    border:3px solid #2b3b4a;border-top-color:#7bf;border-radius:50%;animation:s .9s linear infinite}
   @keyframes s{to{transform:rotate(360deg)}}
 </style></head><body>
 <div class="card">

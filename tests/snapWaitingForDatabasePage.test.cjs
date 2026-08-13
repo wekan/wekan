@@ -122,6 +122,64 @@ test('the page names the database, and what to run', async () => {
   }
 });
 
+test('it uses the Admin Panel product name', async () => {
+  // A rebranded WeKan told its users "WeKan is waiting for its database" - a
+  // word they have never seen. The page has no database (that is the point of
+  // it), so the name comes from the file WeKan writes whenever the setting is
+  // known: $SNAP_COMMON/.productname.txt.
+  const dir = fs.mkdtempSync(path.join(require('os').tmpdir(), 'wekan-product-'));
+  fs.writeFileSync(path.join(dir, '.productname.txt'), 'Acme Boards\n');
+  const port = 8794;
+  const child = spawn(process.execPath, [path.join(repoRoot, 'snap-src/bin/wekan-maintenance-page.mjs')], {
+    env: { ...process.env, PORT: String(port), WEKAN_MAINTENANCE_REASON: 'waiting-for-database',
+      WEKAN_WAITING_DB: 'ferretdb', SNAP_INSTANCE_NAME: 'wekan', SNAP_COMMON: dir, PRODUCT_NAME: '' },
+    stdio: 'ignore',
+  });
+  try {
+    let body = '';
+    for (let i = 0; i < 40 && !body; i++) {
+      await new Promise(r => setTimeout(r, 100));
+      try { body = await (await fetch(`http://127.0.0.1:${port}/`)).text(); } catch { /* not up yet */ }
+    }
+    assert.ok(/<h1>.*Acme Boards is waiting for its database<\/h1>/.test(body),
+      'the heading is the product name, not WeKan');
+    assert.ok(/<title>Acme Boards — Starting<\/title>/.test(body), 'and so is the tab');
+    assert.ok(!/WeKan is waiting/.test(body), 'with no WeKan left in it (negative)');
+  } finally {
+    child.kill();
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test('WeKan keeps that file current, so the name is not the last restart\'s', () => {
+  // wekan-control caches it once per start, right after the database comes up.
+  // That leaves the case this is for: the name is set in the Admin Panel and the
+  // snap is not restarted before the next outage. WeKan is the only thing that
+  // knows the moment it changes, so WeKan writes it.
+  const cache = read('server/productNameCache.js');
+  assert.ok(/process\.env\.SNAP_COMMON/.test(cache) && /\.productname\.txt/.test(cache),
+    'the same file the page reads');
+  assert.ok(/observeChanges\(/.test(cache), 'updated when the setting changes, not only at startup');
+  assert.ok(/if \(!name\) return false;/.test(cache),
+    'an empty product name is not written - the pages fall back to WeKan themselves');
+  assert.ok(/catch \(error\)/.test(cache),
+    'and a read-only $SNAP_COMMON must never stop WeKan from starting');
+});
+
+test('the pages wear the migration dashboard\'s colours', () => {
+  // The schema-upgrade dashboard and these pages are the same thing to a
+  // reader - the product saying what it is doing while it cannot show the app.
+  const dashboard = read('server/startupSchemaUpgrade.js');
+  for (const token of ['#111', '#7bf']) {
+    assert.ok(dashboard.includes(token), `the dashboard still uses ${token}`);
+    assert.ok(page.includes(token), `the maintenance page must use ${token} too`);
+  }
+  assert.ok(/monospace/.test(page), 'including the monospace face');
+  assert.ok(!/prefers-color-scheme/.test(page),
+    'dark only, as the dashboard is - a half-light page beside it looks like a '
+    + 'different product (negative)');
+});
+
 test('the MongoDB wording is the MongoDB one', () => {
   // One page, two waits: `WEKAN_WAITING_DB=mongodb` has to change every place
   // the database is named, or the page sends the admin to the wrong log.
