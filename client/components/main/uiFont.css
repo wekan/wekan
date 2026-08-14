@@ -46,19 +46,46 @@ html.has-ui-font-size {
  * half-applied. tests/uiFonts.test.cjs fails on any bare px text size, so a new
  * one cannot quietly opt out of the setting. */
 
-/* Text color (#4759): the variable is a validated hex set by uiFont.js. Icon fonts
- * keep their own color rules; this recolors ordinary UI text + form controls. */
+/* Text color (#4759): the variable is a validated hex set by uiFont.js.
+ *
+ * EVERY element, not just <body> and the form controls. Colour is inherited, so
+ * setting it on the body reached only text that had no colour of its own - and
+ * WeKan gives most of its text a colour of its own: the header bar's buttons,
+ * the left menu's rows, a minicard's title, a list header. Choosing green
+ * recoloured the page heading and the menu and left the rest exactly as it was,
+ * which is the same "half a setting" the size preset had.
+ *
+ * `.fa` is left out because it is not text: those elements are Font Awesome
+ * GLYPHS, drawn with `color` because that is how an icon font works. The ones
+ * that are meant to follow their label already say `color: inherit` and so
+ * follow this anyway; the ones with a colour of their own - a red alert, a
+ * green tick - keep saying what they mean. */
 body.has-ui-text-color,
-body.has-ui-text-color button,
-body.has-ui-text-color input,
-body.has-ui-text-color textarea,
-body.has-ui-text-color select,
-body.has-ui-text-color .wekan-form-control {
+body.has-ui-text-color *:not(.fa) {
   color: var(--wekan-ui-text-color) !important;
 }
 
-/* Text background color (#4759). */
-body.has-ui-bg-color,
+/* Text background color (#4759): behind the TEXT, not behind the page.
+ *
+ * This was on <body>, so choosing orange painted the whole window orange - the
+ * board canvas, the empty space under the lists, everything - which is a page
+ * background, not a text background. It is a marker pen: it goes on the
+ * elements that carry text, and never on the boxes that carry elements (body,
+ * div, section, the board canvas, a minicard). */
+body.has-ui-bg-color span,
+body.has-ui-bg-color a,
+body.has-ui-bg-color p,
+body.has-ui-bg-color h1,
+body.has-ui-bg-color h2,
+body.has-ui-bg-color h3,
+body.has-ui-bg-color h4,
+body.has-ui-bg-color h5,
+body.has-ui-bg-color h6,
+body.has-ui-bg-color li,
+body.has-ui-bg-color td,
+body.has-ui-bg-color th,
+body.has-ui-bg-color label,
+body.has-ui-bg-color .viewer,
 body.has-ui-bg-color input,
 body.has-ui-bg-color textarea,
 body.has-ui-bg-color select,

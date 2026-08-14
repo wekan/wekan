@@ -248,4 +248,46 @@ test('with no preset chosen, nothing renders differently (negative)', () => {
   assert.ok(/removeProperty\(varName\)/.test(j), 'and an unset preset removes it');
 });
 
+test('the text colour reaches all text, not the text that had none of its own', () => {
+  // Colour is inherited, so a colour on <body> only reached text with no colour
+  // of its own - and WeKan gives most of its text one: the header bar's
+  // buttons, the left menu's rows, a minicard's title, a list header. Choosing
+  // green recoloured the heading and the menu and left the rest as it was.
+  const css = read('client/components/main/uiFont.css');
+  assert.ok(/body\.has-ui-text-color \*:not\(\.fa\) \{/.test(css),
+    'every element takes it');
+  const at = css.indexOf('body.has-ui-text-color,');
+  assert.ok(/color: var\(--wekan-ui-text-color\) !important/.test(css.slice(at, css.indexOf('}', at))),
+    'from the validated variable');
+});
+
+test('an icon keeps meaning what it means (negative)', () => {
+  // `.fa` is a Font Awesome GLYPH, drawn with `color` because that is how an
+  // icon font works - a red alert and a green tick are not text to recolour.
+  // The icons that are meant to follow their label say `color: inherit` and
+  // follow this anyway.
+  const css = read('client/components/main/uiFont.css');
+  assert.ok(/\*:not\(\.fa\)/.test(css), 'icons are excluded by class');
+  const header = read('client/components/main/header.css');
+  assert.ok(/#header-quick-access ul li \.fa,?[\s\S]{0,80}color: inherit/.test(header),
+    'and the ones that follow their label still say so');
+});
+
+test('the text BACKGROUND goes behind text, not behind the page (negative)', () => {
+  // It was on <body>, so choosing orange painted the whole window - the board
+  // canvas, the empty space under the lists - which is a page background.
+  const css = read('client/components/main/uiFont.css');
+  const at = css.indexOf('body.has-ui-bg-color span,');
+  assert.ok(at > 0, 'the rule lists the elements that carry text');
+  const selectors = css.slice(at, css.indexOf('{', at));
+  assert.ok(!/^body\.has-ui-bg-color,$/m.test(css), 'the body itself is not one of them');
+  for (const el of ['span', 'a', 'p', 'li', 'td', 'label', '.viewer', 'input', 'textarea']) {
+    assert.ok(selectors.includes(`body.has-ui-bg-color ${el},`), `${el} carries text`);
+  }
+  for (const box of ['div', 'section', '.board-canvas', '.minicard']) {
+    assert.ok(!selectors.includes(`body.has-ui-bg-color ${box}`),
+      `${box} is a box that carries elements, not text`);
+  }
+});
+
 console.log(`\nAll ${passed} ui-font tests passed`);
