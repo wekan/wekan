@@ -1236,24 +1236,40 @@ Template.boardBackgroundUpload.events({
     // Attachments' namingFunction reads the stored file's NAME out of there.
     // Written by hand here, without it, every background upload was stored
     // under `undefined` and never arrived. client/lib/attachmentUploadConfig.js
-    const uploader = await Attachments.insertAsync(
-      buildAttachmentUploadConfig({
-        file,
-        meta: { boardId: tpl.boardId, source: 'board-background' },
-      }),
-      false,
-    );
-    uploader.on('end', (err) => {
+    // allow re-selecting the same file later - done FIRST, so a failure below
+    // does not also leave the picker refusing to offer the same file again.
+    const input = event.currentTarget;
+    try {
+      const uploader = await Attachments.insertAsync(
+        buildAttachmentUploadConfig({
+          file,
+          meta: { boardId: tpl.boardId, source: 'board-background' },
+        }),
+        false,
+      );
+      uploader.on('end', (err) => {
+        tpl.uploading.set(false);
+        if (err) {
+          console.error('board background upload failed', err);
+          tpl.error.set(err.reason || err.message || 'upload-failed');
+        }
+      });
+      uploader.on('error', (err) => {
+        tpl.uploading.set(false);
+        console.error('board background upload failed', err);
+        tpl.error.set((err && (err.reason || err.message)) || 'upload-failed');
+      });
+      uploader.start();
+    } catch (error) {
+      // An upload can fail BEFORE there is an uploader to listen to - a config
+      // the collection refuses, a name its namingFunction cannot build. That
+      // used to reject into nothing: the spinner stopped, no message appeared,
+      // and the picture simply never showed up in the list. Say so instead.
       tpl.uploading.set(false);
-      if (err) tpl.error.set(err.reason || 'upload-failed');
-    });
-    uploader.on('error', (err) => {
-      tpl.uploading.set(false);
-      tpl.error.set((err && err.reason) || 'upload-failed');
-    });
-    uploader.start();
-    // allow re-selecting the same file later
-    event.currentTarget.value = '';
+      console.error('board background upload failed', error);
+      tpl.error.set((error && (error.reason || error.message)) || 'upload-failed');
+    }
+    input.value = '';
   },
 });
 

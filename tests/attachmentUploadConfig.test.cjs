@@ -84,4 +84,24 @@ test('the board background is still filed as one', () => {
     'which is what the publication looks for');
 });
 
+test('a failed background upload SAYS so (negative)', () => {
+  // It can fail before there is an uploader to listen to - a config the
+  // collection refuses, a name its namingFunction cannot build. That rejected
+  // into nothing: the spinner stopped, no message appeared, and the picture
+  // just never turned up in the list, which is how this bug hid.
+  const handler = sidebar.slice(sidebar.indexOf("'change .js-bg-upload-input'"));
+  const body = handler.slice(0, handler.indexOf('\n  },'));
+  assert.ok(/try \{/.test(body) && /\} catch \(error\) \{/.test(body),
+    'the insert is inside a try');
+  assert.ok(/tpl\.error\.set\(\(error && \(error\.reason \|\| error\.message\)\) \|\| 'upload-failed'\)/
+    .test(body), 'and what went wrong is shown in the popup');
+  assert.ok(/tpl\.uploading\.set\(false\);\n\s+console\.error/.test(body),
+    'the spinner stops and the console says why');
+  assert.ok(/input\.value = '';/.test(body),
+    'and the same file can be picked again after a failure');
+  const jade = read('client/components/sidebar/sidebar.jade');
+  assert.ok(/if error\.get\n\s+\.warning \{\{_ error\.get\}\}/.test(jade),
+    'which the template draws');
+});
+
 console.log(`\nattachmentUploadConfig: ${passed} tests passed`);
