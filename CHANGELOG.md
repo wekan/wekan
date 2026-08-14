@@ -1145,7 +1145,7 @@ class each caller carried is passed in rather than baked into the shared markup.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH12">Three forms that were written ten times over are written once</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/53c3123de5dc82f9c010792989adf55cc15bffb6">Three forms that were written ten times over are written once</a>. Thanks to xet7.</summary>
 
 Three more shapes were copied, and in each of them the JavaScript was already
 one piece while the markup was not - so a behaviour change was one edit and a
