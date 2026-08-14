@@ -94,6 +94,12 @@ export async function countCollectionFsRecords(coll) {
 }
 
 // Read the binary for a normalized CollectionFS record into a Buffer.
+//
+// #6596: a filerecord can point at a GridFS file that is not there - a restore
+// that brought `cfs.<coll>.filerecord` without `cfs_gridfs.<coll>.chunks`, a
+// binary deleted by hand, or a record whose twin already took the binary with
+// it. GridFS answers that with `FileNotFound: file <id> was not found`, which
+// says nothing about WHICH attachment is affected or what to do. Say both.
 export async function readCollectionFsBuffer(item) {
   const db = getDb();
   const bucket = getBucket(db, item.coll);
@@ -103,8 +109,26 @@ export async function readCollectionFsBuffer(item) {
     const stream = bucket.openDownloadStream(gridFsId);
     stream.on('data', c => chunks.push(c));
     stream.on('end', () => resolve(Buffer.concat(chunks)));
-    stream.on('error', reject);
+    stream.on('error', error => {
+      if (isFileNotFound(error)) {
+        reject(new Meteor.Error(
+          'collectionfs-binary-missing',
+          `${item.name || item.sourceId}: its file is not in cfs_gridfs.${item.coll} ` +
+          `(record ${item.sourceId}, key ${item.gridFsKey}). The metadata was ` +
+          'restored without the binary, or the binary was removed. Nothing to move.',
+        ));
+        return;
+      }
+      reject(error);
+    });
   });
+}
+
+// GridFS reports a missing file as an error with this code/message shape.
+export function isFileNotFound(error) {
+  if (!error) return false;
+  if (error.code === 'ENOENT' || error.code === 232) return true;
+  return /FileNotFound/i.test(error.message || '');
 }
 
 // Write a buffer into the CollectionFS layout (GridFS bucket + filerecord),
@@ -163,12 +187,33 @@ export async function deleteCollectionFsRecord(coll, sourceId, gridFsKey) {
   } catch (error) {
     console.error('[collectionFsStore] Failed to delete filerecord', sourceId, error);
   }
-  if (gridFsKey) {
-    try {
-      const bucket = getBucket(db, coll);
-      await bucket.delete(toObjectId(gridFsKey));
-    } catch (error) {
-      // file/chunks may already be gone
+  if (!gridFsKey) {
+    return;
+  }
+  // #6596: two filerecords can carry the SAME `copies.<coll>.key` - the same
+  // file attached twice, or a board copied with its attachments. Deleting the
+  // binary with the first of them left the second pointing at nothing, and the
+  // migration failed on it with "FileNotFound: file <id> was not found". So the
+  // binary goes only when no OTHER record still names it. This is asked AFTER
+  // the filerecord above is deleted, so a record never counts itself.
+  try {
+    const stillUsed = await db.collection(filerecordCollName(coll)).countDocuments(
+      { [`copies.${coll}.key`]: gridFsKey },
+      { limit: 1 },
+    );
+    if (stillUsed > 0) {
+      return;
     }
+  } catch (error) {
+    // If the question cannot be asked, keep the binary: a file left behind is
+    // recoverable, an attachment deleted out from under another record is not.
+    console.error('[collectionFsStore] Could not check for shared binary', gridFsKey, error);
+    return;
+  }
+  try {
+    const bucket = getBucket(db, coll);
+    await bucket.delete(toObjectId(gridFsKey));
+  } catch (error) {
+    // file/chunks may already be gone
   }
 }

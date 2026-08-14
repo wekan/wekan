@@ -1347,8 +1347,16 @@ Template.moveAttachments.helpers({
     const lm = getLastMove();
     if (!lm) return '';
     const cancelled = lm.cancelled ? ` (${TAPi18n.__('move-progress-cancel')})` : '';
+    // #6596: how many of the total actually moved. A record whose binary is not
+    // in the bucket has nothing to move and is SKIPPED, which is not the same
+    // as a failure and must not be silent either - a run that says only "done"
+    // while a dozen attachments stayed behind is how that bug went unnoticed.
+    const counts = [];
+    if (lm.skipped) counts.push(`${lm.skipped} skipped`);
+    if (lm.failed) counts.push(`${lm.failed} failed`);
+    const detail = counts.length ? ` - ${counts.join(', ')}` : '';
     return `${storageLabel(lm.source)} → ${storageLabel(lm.dest)} ` +
-      `(${scopeLabel(lm.scope)}) ${formatDateTime(lm.at)}${cancelled}`;
+      `(${scopeLabel(lm.scope)}) ${formatDateTime(lm.at)}${cancelled}${detail}`;
   },
   repairLoading() {
     return Template.instance().repairLoading.get();

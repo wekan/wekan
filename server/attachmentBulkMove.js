@@ -353,6 +353,10 @@ async function moveItem(item, dest) {
 
 async function runMigration(items, dest, source, scope) {
   const total = items.length;
+  // Counted so the summary can say how many of the total actually moved, and
+  // how many had nothing to move (#6596).
+  let skipped = 0;
+  let failed = 0;
   try {
     for (let i = 0; i < total; i++) {
       if (controller.cancelled) break;
@@ -375,7 +379,17 @@ async function runMigration(items, dest, source, scope) {
       try {
         await moveItem(item, dest);
       } catch (error) {
-        console.error('[attachmentMigration] Failed to move item', name, error);
+        // #6596: a record whose binary is not in the bucket is not a failure of
+        // the move - there is nothing to move. It is worth ONE clear line
+        // naming the attachment, not a MongoDB stack trace that names only a
+        // GridFS id. models/lib/collectionFsStore.js
+        if (error && error.error === 'collectionfs-binary-missing') {
+          skipped += 1;
+          console.warn('[attachmentMigration] Skipped', error.reason || error.message);
+        } else {
+          failed += 1;
+          console.error('[attachmentMigration] Failed to move item', name, error);
+        }
       }
     }
   } finally {
@@ -396,6 +410,8 @@ async function runMigration(items, dest, source, scope) {
         dest,
         scope,
         total,
+        skipped,
+        failed,
         cancelled,
         at: finishedAt,
       },
