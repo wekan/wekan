@@ -558,6 +558,12 @@ body.sidebar-resizing-active {
 .board-bg-item.is-active {
   border-color: #3cb500;
 }
+/* The picture is the button that applies it, so it says so. */
+.board-bg-thumb,
+.board-bg-name {
+  cursor: pointer;
+}
+
 .board-bg-thumb {
   height: 80px;
   background-size: cover;

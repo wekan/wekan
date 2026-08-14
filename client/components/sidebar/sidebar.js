@@ -510,7 +510,6 @@ Template.boardMenuPopup.events({
   },
   'click .js-change-board-color': Popup.open('boardChangeColor'),
   'click .js-change-background-image': Popup.open('boardChangeBackgroundImage'),
-  'click .js-manage-board-backgrounds': Popup.open('boardBackgrounds'),
   'click .js-board-info-on-my-boards': Popup.open('boardInfoOnMyBoards'),
   'click .js-change-language': Popup.open('changeLanguage'),
   'click .js-delete-duplicate-lists': Popup.afterConfirm('deleteDuplicateLists', function() {
@@ -1318,8 +1317,13 @@ Template.boardBackgroundList.helpers({
 });
 
 Template.boardBackgroundList.events({
-  async 'click .js-set-board-background'() {
+  // Clicking a picture - the thumbnail or its name - puts that one behind the
+  // board, and the URL field above the list follows, because setBackgroundImage
+  // writes both the id and the address it resolves to.
+  async 'click .js-set-board-background'(event) {
+    event.preventDefault();
     const board = Utils.getCurrentBoard();
+    if (!board || !this._id) return;
     await board.setBackgroundImage(this._id);
     Utils.setBackgroundImage();
   },

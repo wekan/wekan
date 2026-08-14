@@ -177,29 +177,28 @@ template(name="boardBackgroundUpload")
 
 //- The pictures uploaded to this board, with their NAMES: an upload that shows
   nothing afterwards is indistinguishable from one that failed, which is what
-  uploading from Change Background Image looked like before this list was there
-  too. Its own template, so both popups draw the same list from the same
-  subscription rather than one of them being the only place to look.
+  uploading looked like while this list lived behind a menu entry of its own.
+  It is drawn inside Change Background Image, under the upload that adds to it,
+  and that entry - "Board backgrounds" - is gone with the popup it opened.
 template(name="boardBackgroundList")
   .board-backgrounds-manage
     .board-backgrounds-grid.clearfix
       each backgrounds
+        //- The PICTURE is the button: clicking a thumbnail, or its name, puts
+          that one behind the board. It used to be a small check icon in the row
+          below, which is a 14px target beside an 80px picture of the thing it
+          applies - so the obvious click did nothing. The row keeps what the
+          picture cannot say: download it, or delete it.
         .board-bg-item(class="{{#if isActiveBackground}}is-active{{/if}}")
-          .board-bg-thumb(style="background-image: url('{{link}}');")
+          .board-bg-thumb.js-set-board-background(style="background-image: url('{{link}}');" title="{{_ 'set-as-active'}}")
             if isActiveBackground
               i.fa.fa-check.board-bg-active-check
-          .board-bg-name(title="{{name}}")= name
+          .board-bg-name.js-set-board-background(title="{{_ 'set-as-active'}}")= name
           .board-bg-actions
-            unless isActiveBackground
-              a.js-set-board-background(title="{{_ 'set-as-active'}}")
-                i.fa.fa-check-circle-o
             a.js-download-board-background(href="{{link}}?download=true" download="{{name}}" title="{{_ 'download'}}")
               i.fa.fa-arrow-down
             a.js-delete-board-background(title="{{_ 'delete'}}")
               i.fa.fa-trash-o
-
-template(name="boardBackgroundsPopup")
-  +boardBackgroundList
 
 template(name="deleteBoardBackgroundPopup")
   p {{_ 'board-background-delete-pop'}}
@@ -746,10 +745,10 @@ template(name="boardMenuPopup")
         a.js-change-background-image
           i.fa.fa-picture-o
           | {{_ 'board-change-background-image'}}
-      li
-        a.js-manage-board-backgrounds
-          i.fa.fa-image
-          | {{_ 'board-backgrounds'}}
+      //- "Board backgrounds" was here. It was the list of pictures uploaded to
+        this board, and that list is drawn inside Change Background Image now -
+        under the upload that adds to it - so a second entry to the same list
+        was a second place to look for one thing.
     //Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
     //if currentUser.isBoardAdmin
     //

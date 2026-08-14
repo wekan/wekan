@@ -9,8 +9,10 @@
 // machine - were in two different popups of the same menu, and the one that
 // reads as the place to set a background had only half of it.
 //
-// The upload is with the URL now. What stays in "Board backgrounds" is what it
-// is named for: the images already uploaded, to set active, download or delete.
+// One popup answers it now: the URL, the upload, and the list of what has been
+// uploaded. "Board backgrounds" is gone from Board Settings with the popup it
+// opened - a second entry to a list that is already on screen is a second place
+// to look for one thing.
 //
 // The same popup also had its Unset five blank lines and a rule below the Save
 // it belongs beside. They are one row now, Save first.
@@ -30,6 +32,8 @@ const imagePopup = jade.slice(jade.indexOf('template(name="boardChangeBackground
   jade.indexOf('template(name="boardInfoOnMyBoardsPopup")'));
 const list = jade.slice(jade.indexOf('template(name="boardBackgroundList")'),
   jade.indexOf('template(name="deleteBoardBackgroundPopup")'));
+const boardMenu = jade.slice(jade.indexOf('template(name="boardMenuPopup")'),
+  jade.indexOf('template(name="exportBoardPopup")'));
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -71,15 +75,13 @@ test('Unset does not submit the form (negative)', () => {
   assert.ok(/'click \.js-remove-background-image'/.test(js), 'and does its work on click');
 });
 
-test('both popups draw the same list of what is uploaded', () => {
+test('one popup holds the URL, the upload and the list', () => {
   // An upload that shows nothing afterwards is indistinguishable from one that
-  // failed - which is what uploading from Change Background Image looked like
-  // while the list lived only behind the other entry.
+  // failed - which is what this looked like while the list was behind a menu
+  // entry of its own.
   assert.ok(/template\(name="boardBackgroundList"\)/.test(jade), 'the list is its own template');
-  assert.ok(/template\(name="boardBackgroundsPopup"\)\n\s*\+boardBackgroundList/.test(jade),
-    'Board backgrounds is that list');
   assert.ok(/\+boardBackgroundUpload\n\s*\+boardBackgroundList/.test(imagePopup),
-    'and Change Background Image has it under the upload');
+    'Change Background Image has it under the upload');
   assert.ok(/board-backgrounds-grid/.test(list), 'the images uploaded so far');
   for (const action of ['js-set-board-background', 'js-download-board-background',
     'js-delete-board-background']) {
@@ -88,14 +90,47 @@ test('both popups draw the same list of what is uploaded', () => {
   // One subscription, in the template that draws the list.
   assert.ok(/Template\.boardBackgroundList\.onCreated[\s\S]{0,300}subscribe\('boardBackgrounds'/.test(js),
     'which is where the subscription is');
-  assert.ok(!/Template\.boardBackgroundsPopup\./.test(js),
-    'and the popup that only includes it needs no code of its own');
+});
+
+test('Board Settings has no second entry to the same list (negative)', () => {
+  assert.ok(!/js-manage-board-backgrounds/.test(jade), 'the menu row is gone');
+  assert.ok(!/js-manage-board-backgrounds/.test(js), 'and the handler with it');
+  assert.ok(!/template\(name="boardBackgroundsPopup"\)/.test(jade),
+    'and the popup it opened, which had become one line');
+  // The entry it was next to still opens the popup that now holds everything.
+  assert.ok(/js-change-background-image/.test(boardMenu),
+    'Change Background Image is still in Board Settings');
+  assert.ok(/'click \.js-change-background-image': Popup\.open\('boardChangeBackgroundImage'\)/.test(js),
+    'and still opens it');
+  // Deleting one is still possible - from the list, where the picture is.
+  assert.ok(/template\(name="deleteBoardBackgroundPopup"\)/.test(jade),
+    'the delete confirmation is still there');
+});
+
+test('clicking a picture puts it behind the board', () => {
+  // It used to be a 14px check icon in the row below an 80px picture of the
+  // thing it applies, so the obvious click - on the picture - did nothing.
+  assert.ok(/\.board-bg-thumb\.js-set-board-background/.test(list), 'the thumbnail applies it');
+  assert.ok(/\.board-bg-name\.js-set-board-background/.test(list), 'and so does its name');
+  assert.ok(!/a\.js-set-board-background/.test(list),
+    'the separate check icon is gone - the picture is the button');
+  assert.ok(/\.board-bg-thumb,\n\.board-bg-name \{[^}]*cursor: pointer/.test(css),
+    'and it says so under the pointer');
+  const handler = js.slice(js.indexOf("'click .js-set-board-background'"));
+  const body = handler.slice(0, handler.indexOf('\n  },'));
+  assert.ok(/if \(!board \|\| !this\._id\) return;/.test(body), 'a click with nothing behind it does nothing');
+  assert.ok(/setBackgroundImage\(this\._id\)/.test(body) && /Utils\.setBackgroundImage\(\)/.test(body),
+    'it is stored and painted');
+  // Download and delete stay in the row: neither is something a picture can say.
+  assert.ok(/js-download-board-background/.test(list) && /js-delete-board-background/.test(list),
+    'the row keeps what the picture cannot say');
 });
 
 test('a picture is shown with its NAME', () => {
   // A grid of 80px thumbnails cannot be read: two photos of the same holiday
   // look the same, and after an upload nothing said which one arrived.
-  assert.ok(/\.board-bg-name\(title="\{\{name\}\}"\)= name/.test(list), 'the name is drawn');
+  assert.ok(/\.board-bg-name\.js-set-board-background\(title="[^"]+"\)= name/.test(list),
+    'the name is drawn');
   assert.ok(/\.board-bg-name \{[^}]*text-overflow: ellipsis/.test(css),
     'and a long one is cut rather than breaking the tile');
 });

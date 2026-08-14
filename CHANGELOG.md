@@ -1120,8 +1120,17 @@ card's file picker, the card's pasted image and the board background alike - so
 the next uploader gets them by asking for a config rather than by knowing two
 things nothing would have told it.
 
-Three things around it made the failure impossible to read, and are fixed with
-it. `insertAsync` can reject BEFORE there is an uploader to listen to, and that
+One popup answers the whole question now - the URL, the upload, and the
+pictures uploaded to this board - and **Board Settings / Board backgrounds is
+gone** with the popup it opened: a second entry to a list that is already on
+screen is a second place to look for one thing. Clicking a PICTURE, or its
+name, puts that one behind the board; it used to be a 14px check icon in the
+row under an 80px picture of the thing it applies, so the obvious click did
+nothing. Download and delete stay in that row, being the two things a picture
+cannot say.
+
+Three things around the upload made the failure impossible to read, and are
+fixed with it. `insertAsync` can reject BEFORE there is an uploader to listen to, and that
 rejection went nowhere: the spinner stopped, no message appeared, and the
 picture simply never turned up. It is caught and shown now. The list of what
 has been uploaded is drawn in BOTH popups, so an upload is seen to have
