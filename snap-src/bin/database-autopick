@@ -102,7 +102,42 @@ have_ferret_data() { bash "$SNAP/bin/ferretdb-has-data" "$SQLITE_DIR" 2>/dev/nul
 # Read one database's evidence, starting it on a temporary port first. Prints the
 # JSON, or nothing when the database cannot be read - which the caller treats as
 # "no evidence", never as "empty".
+# The database a SERVICE is already running, if one is: reading it needs no
+# second copy started at all.
+#
+# #6583 (comment 5291730920): "Unfortunately, both databases could not be read"
+# on an instance whose `wekan.sqlite` is 85 MB and whose site was up at the time.
+# FerretDB was unreadable BECAUSE it was up: SQLite is one writer, so a second
+# FerretDB opened against the same directory does not get the data, and the
+# comparison then reported the running database as `<unreadable>` and refused to
+# choose. The live one answers the same questions, faster and without touching
+# anything - `db-eval evidence` only reads.
+LIVE_PORT="${MONGODB_PORT:-27019}"
+LIVE_URL="mongodb://127.0.0.1:$LIVE_PORT/wekan"
+
+live_is() {
+  # Which database is answering on the service port - 'ferretdb', 'mongodb', or
+  # nothing. Both speak the MongoDB wire protocol on the same port (one at a
+  # time), so the port alone does not say which, and reading the wrong one's
+  # evidence as the other's would be worse than reading neither.
+  bash "$SNAP/bin/db-eval" ping "$LIVE_URL" >/dev/null 2>&1 || return 1
+  local kind
+  kind="$(bash "$SNAP/bin/db-eval" kind "$LIVE_URL" 2>/dev/null | tr -d '[:space:]')"
+  [ -n "$kind" ] || return 1
+  printf '%s' "$kind"
+}
+
+evidence_from_live() {
+  local want="$1"
+  local kind
+  kind="$(live_is)" || return 1
+  [ "$kind" = "$want" ] || return 1
+  log "$want is running; reading the live one instead of starting a second copy."
+  bash "$SNAP/bin/db-eval" evidence "$LIVE_URL" 2>/dev/null
+}
+
 evidence_from_mongodb() {
+  evidence_from_live mongodb && return 0
   have_mongo_data || return 1
   rm -f "$PIDFILE"
   # The same cpu-exec + fork + pidfile shape migration-control uses, so a mongod
@@ -126,6 +161,7 @@ evidence_from_mongodb() {
 }
 
 evidence_from_ferretdb() {
+  evidence_from_live ferretdb && return 0
   have_ferret_data || return 1
   DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable "$FERRETDB" --handler=sqlite \
     --sqlite-url="file:$SQLITE_DIR/" --listen-addr="127.0.0.1:$FERRET_PORT" \

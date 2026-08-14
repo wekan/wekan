@@ -79,6 +79,22 @@ try {
       code = r.ok === 1 ? 0 : 1;
       break;
     }
+    case 'kind': {
+      // WHICH database is answering here - 'ferretdb' or 'mongodb'. Both speak
+      // the MongoDB wire protocol on the same port (the snap runs one at a
+      // time), so the port cannot say, and #6583's comparison has to know: it
+      // reads whichever one is already RUNNING rather than starting a second
+      // copy of it, and reading FerretDB's evidence as MongoDB's would be worse
+      // than reading neither.
+      //
+      // `buildInfo` is the answer both give: FerretDB names itself there (and
+      // in the `ferretdb` field it adds), a real mongod does not.
+      const info = await admin.command({ buildInfo: 1 });
+      const text = JSON.stringify(info || {}).toLowerCase();
+      process.stdout.write(text.includes('ferretdb') ? 'ferretdb' : 'mongodb');
+      code = 0;
+      break;
+    }
     case 'primary': {
       // Equivalent of the old `rs.status().ok === 1 && rs.isMaster().ismaster`.
       const s = await admin.command({ replSetGetStatus: 1 });
