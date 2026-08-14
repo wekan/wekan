@@ -877,8 +877,16 @@
   transition: all 0.2s ease;
 }
 
-/* List name display on minicard */
+/* The name of the LIST this card is in, under the badges - "Show on Minicard /
+   List title", for reading a card away from the column it lives in (a
+   swimlane, search results, My Cards).
+
+   `clear` is the whole rule: `.minicard .badges` is `float: inline-start`, so
+   without it this block shares the badges' line and reads as one more badge
+   rather than as the line it is. Logical `inline-start`, so it clears the
+   floats on whichever side the page starts. */
 .minicard-list-name {
+  clear: inline-start;
   font-size: 0.75em;
   color: #8c8c8c;
   margin-top: 2px;

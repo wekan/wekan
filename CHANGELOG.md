@@ -993,6 +993,10 @@ The card is passed into the popup and re-read from the collection when it is
 toggled: a minicard's menu is opened from the board, where there is no "current
 card" to fall back on.
 
+On the minicard itself the name sits on its own line under the badges. It was
+landing BESIDE them: the badge row is `float: inline-start`, so the line after
+it shared its row and read as one more badge rather than as the line it is.
+
 </details>
 
 <details>
