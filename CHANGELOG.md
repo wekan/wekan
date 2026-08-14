@@ -847,7 +847,7 @@ and fixes the following bugs:
 **Card details** - the card as it is opened and edited.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">A card's fields fold in GROUPS, from one caret each, and Members reads Members, Assignee, Creator</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/83147dcc3e357ccfce9a1702568484f2d70bcb3d">A card's fields fold in GROUPS, from one caret each, and Members reads Members, Assignee, Creator</a>. Thanks to xet7.</summary>
 
 The caret beside **Labels** folded the Labels field and left Stickers and
 Location sitting under it, and every field had a caret of its own on the right -
