@@ -4133,6 +4133,35 @@ an hour ago - and pins that ambiguity can never reach the deletion.
 and improves the translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/da022efe627fc3298e21db7ecc4f3a37a5b40ce3">Frisian, Igbo, Yoruba, Wolof, Breton, Walloon, Volapük and Tamazight, from their own words</a>. Thanks to xet7.</summary>
+
+Eight languages nobody has volunteered for. Five of their files were not
+untranslated at all - `wo`, `wa`, `br`, `vo` and `zgh` were written in
+**French** (*Tableau*, *Carte*, *Liste*, *Supprimer*), with Esperanto in the
+Volapük file and Arabic in the Tamazight one, seeded from whatever was to hand.
+As with Klingon, that is not a translation to protect: the core vocabulary is
+replaced with each language's own words - Breton *Taolenn*, *Kartenn*, *Roll*;
+Walloon *Tåvlea*, *Cåte*, *Djivêye*; Wolof *Tablo*, *Karta*, *Limu*; Volapük
+*Bod*, *Kad*, *Lised*; Tamazight *Tafelwit*, *Takarḍa*, *Tabdart*.
+
+On top of that each got the strings a board actually shows: the export and
+import menus, the roles table, the board status pane, the starred pages, and the
+sentence that explains what dragging a board onto Home does.
+
+They are **imperfect**, and that is the point: `CLAUDE.md` now says so outright
+- a wrong string is readable, obviously improvable and an invitation to the
+person who speaks the language, which an English placeholder never is. When that
+person sends a correction through Transifex it REPLACES the filled one, because
+the merge always prefers a human translation.
+
+What is left in the big files is mostly not translatable at all: German
+*Filter*, *Team*, *Text*, *Details*, French *Actions*, *Date*, *Description*,
+*Notifications* and Dutch *Filter*, *Type* are the words those languages use,
+and they are counted as "untranslated" only because the tool's test for it is
+"still equal to English".
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3b5f2b24cc16547c50e36fd5308b0c7fde5c67a3">Klingon from its own lexicon, and every regional variant inherits its language</a>. Thanks to xet7.</summary>
 
 **Klingon.** `tlh.i18n.json` was not untranslated - it was written in FRENCH and
