@@ -143,8 +143,9 @@ test('the board list opens the sidebar view, not a second copy of it', () => {
 test('the two popups include the settings rather than repeating them', () => {
   assert.ok(/template\(name="showOnCardPopup"\)\n\s*\+boardCardSettingsPopup\(side="card"\)/
     .test(sidebarJade), 'Show on Card is the card column of it');
-  assert.ok(/\+boardCardSettingsPopup\(side="minicard"\)/.test(sidebarJade),
-    'Show on Minicard is the minicard column');
+  assert.ok(/\+boardCardSettingsPopup\(side="minicard" card=this\)/.test(sidebarJade),
+    'Show on Minicard is the minicard column - with the card, for the two rows '
+    + 'that belong to one');
   assert.ok(/form\.board-card-settings\(class=settingsSideClass\)/.test(sidebarJade),
     'and the side is a class on the one form');
 });
@@ -174,7 +175,7 @@ test('the hidden column is hidden by CSS, not by a second list (negative)', () =
 test('"Labels text" is a row of the table, right under Labels', () => {
   const table = sidebarJade.slice(sidebarJade.indexOf('template(name="boardCardSettingsPopup")'));
   const labels = table.indexOf('js-field-has-labels-on-minicard');
-  const personal = table.indexOf('card-settings-row-personal');
+  const personal = table.indexOf('js-toggle-minicard-label-text');
   const cardNumber = table.indexOf('js-field-has-card-number');
   assert.ok(labels < personal && personal < cardNumber,
     'after Labels and before the row that used to follow it');
@@ -194,23 +195,57 @@ test('checked means the text is SHOWN, which is the default (negative)', () => {
   // a broken checkbox.
   assert.ok(/showsMinicardLabelText\(\) \{\n\s+return !hiddenMinicardLabelText\(\);/.test(sidebarJs),
     'the row asks the opposite of the stored flag');
-  const table = sidebarJade.slice(sidebarJade.indexOf('card-settings-row-personal'));
+  const row = sidebarJade.slice(sidebarJade.indexOf('js-toggle-minicard-label-text'));
   assert.ok(/\{\{#if showsMinicardLabelText\}\}fa-check\{\{else\}\}fa-square-o/.test(
-    table.slice(0, 600)), 'and is ticked when the text is shown');
+    row.slice(0, 600)), 'and is ticked when the text is shown');
   const lib = read('client/lib/minicardLabelText.js');
   assert.ok(/return Boolean\(window\.localStorage\.getItem\('hiddenMinicardLabelText'\)\)/.test(lib),
     'nothing stored means nothing hidden, so a new board shows the text');
 });
 
-test('it is the only PERSONAL row, and shows in the minicard view only', () => {
+test('"List title" is the first row, above Received, and is the card\'s own', () => {
+  // It was a line in the card's menu reading "Show list on minicard"; it is a
+  // checkbox among the other things a minicard can show. The board-wide "Show
+  // lists" row further down does every card; this does one.
+  const table = sidebarJade.slice(sidebarJade.indexOf('template(name="boardCardSettingsPopup")'));
+  const listTitle = table.indexOf('js-toggle-show-list-on-minicard');
+  const received = table.indexOf('js-field-has-receiveddate');
+  assert.ok(listTitle !== -1 && listTitle < received, 'above Received');
+  assert.ok(/if canModifyCard\n\s+\.card-settings-row/.test(table.slice(listTitle - 200, received)),
+    'and only for somebody who may change the card - the menu entry\'s permission');
+  assert.ok(!/js-toggle-show-list-on-minicard/.test(cardJade),
+    'gone from the card menu, not offered in both places');
+
+  // Unchecked by default, which is what the field itself says.
+  const model = read('models/cards.js');
+  const field = model.slice(model.indexOf('showListOnMinicard: {'), model.indexOf('showChecklistAtMinicard: {'));
+  assert.ok(/defaultValue: false/.test(field), 'default unchecked');
+  assert.ok(/showsListOnMinicard\(\) \{[\s\S]{0,200}card\.showListOnMinicard/.test(sidebarJs),
+    'and the checkbox reads that field');
+});
+
+test('the card row acts on the card it was opened for (negative)', () => {
+  // A minicard's menu is opened from the BOARD, where there is no "current
+  // card" to fall back on - so the card is passed in and re-read from the
+  // collection, rather than looked up or used as a stale snapshot.
+  assert.ok(/function settingsCard\(\)/.test(sidebarJs), 'one place resolves it');
+  assert.ok(/ReactiveCache\.getCard\(passed\._id\)/.test(sidebarJs), 're-read, so a click sticks');
+  const handler = sidebarJs.slice(sidebarJs.indexOf("'click .js-toggle-show-list-on-minicard'"));
+  const body = handler.slice(0, handler.indexOf('\n  },'));
+  assert.ok(/if \(!card\) return;/.test(body),
+    'and Board Settings, which has no card, changes nothing');
+  assert.ok(/showListOnMinicard: !card\.showListOnMinicard/.test(body), 'it toggles');
+});
+
+test('the rows that are not the board\'s show in the minicard view only', () => {
   assert.ok(/\.board-card-settings \.card-settings-row-personal \{\n\s+display: none/.test(sidebarCss),
     'hidden by default - Board Settings and Show on Card are about the board and the card');
   assert.ok(/show-minicard-only \.card-settings-row-personal \{\n\s+display: grid/.test(sidebarCss),
     'and shown in the minicard view');
   const popup = sidebarJade.slice(sidebarJade.indexOf('template(name="showOnMinicardPopup")'),
     sidebarJade.indexOf('template(name="boardCardSettingsPopup")'));
-  assert.ok(/\+boardCardSettingsPopup\(side="minicard" personalOnly=true\)/.test(popup),
-    'a reader who is not a board admin gets that row alone');
+  assert.ok(/\+boardCardSettingsPopup\(side="minicard" personalOnly=true card=this\)/.test(popup),
+    'a reader who is not a board admin gets those rows alone');
   assert.ok(/show-personal-only \.card-settings-row:not\(\.card-settings-row-personal\)/
     .test(sidebarCss), 'because the board-wide rows are hidden, not disabled');
   // It is personal: a profile field, or this browser when there is nobody

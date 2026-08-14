@@ -253,9 +253,9 @@ template(name="showOnCardPopup")
 //- alone. client/lib/minicardLabelText.js
 template(name="showOnMinicardPopup")
   if currentUser.isBoardAdmin
-    +boardCardSettingsPopup(side="minicard")
+    +boardCardSettingsPopup(side="minicard" card=this)
   else
-    +boardCardSettingsPopup(side="minicard" personalOnly=true)
+    +boardCardSettingsPopup(side="minicard" personalOnly=true card=this)
 
 template(name="boardCardSettingsPopup")
   form.board-card-settings(class=settingsSideClass)
@@ -266,6 +266,28 @@ template(name="boardCardSettingsPopup")
         h4 {{_ 'show-on-minicard'}}
       .card-settings-column
         h4 {{_ 'description'}}
+    //- "List title": the name of the LIST this card is in, on its minicard.
+      A per-CARD setting, unchecked by default, and the first row of this
+      column because it is about the card as a whole rather than one of its
+      fields. It was a line in the card's menu reading "Show list on minicard";
+      it is a checkbox among the other things a minicard can show, which is
+      where somebody looking for it would look. Only for a user who may change
+      the card - the same permission the menu entry had.
+      The board-wide "Show lists" row further down turns it on for EVERY card;
+      this one is for a single card that needs it, which is what it is for on a
+      swimlane, in search results and in My Cards, where a card is read away
+      from the column it lives in. client/components/cards/minicard.jade
+    if canModifyCard
+      .card-settings-row.card-settings-row-personal
+        .card-settings-column
+        .card-settings-column
+          a.flex.js-toggle-show-list-on-minicard(title="{{_ 'list'}} {{_ 'title'}}" class="{{#if showsListOnMinicard}}is-checked{{/if}}")
+            i.fa(class="{{#if showsListOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+        .card-settings-column
+          span
+            i.fa.fa-list
+            | {{_ 'list'}}
+            | {{_ 'title'}}
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-receiveddate(title="{{_ 'card-received'}}" class="{{#if allowsReceivedDate}}is-checked{{/if}}")

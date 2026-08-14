@@ -906,14 +906,6 @@ template(name="cardDetailsActionsPopup")
             a.js-set-card-color
               i.fa.fa-paint-brush
               | {{_ 'setCardColorPopup-title'}}
-          li
-            a.js-toggle-show-list-on-minicard
-              if showListOnMinicard
-                i.fa.fa-eye
-                | {{_ 'hide-list-on-minicard'}}
-              else
-                i.fa.fa-eye
-                | {{_ 'show-list-on-minicard'}}
     if canModifyCard
       hr
     else

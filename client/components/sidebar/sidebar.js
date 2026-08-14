@@ -9,6 +9,7 @@ import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
 import { exportUrlFor, exportFilenameFor } from '/client/components/boards/exportScope';
 import AccessibilitySettings from '/models/accessibilitySettings';
 import Boards from '/models/boards';
+import Cards from '/models/cards';
 import Attachments from '/models/attachments';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
 import Integrations from '/models/integrations';
@@ -1521,6 +1522,15 @@ Template.boardCardSettingsPopup.onCreated(function() {
   });
 });
 
+// The card this popup was opened for, when it was opened for one. Board
+// Settings / Card Settings has no card - it is about every card of the board -
+// so the two rows that belong to a card are only ever drawn from the minicard's
+// own menu, which passes it in. client/components/sidebar/sidebar.jade
+function settingsCard() {
+  const passed = (Template.currentData() || {}).card;
+  return passed && passed._id ? ReactiveCache.getCard(passed._id) : null;
+}
+
 Template.boardCardSettingsPopup.helpers({
   // Board Settings / Card Settings shows both columns - "Show on Card" and
   // "Show on Minicard" beside each other. The card's own menu and the
@@ -1546,6 +1556,15 @@ Template.boardCardSettingsPopup.helpers({
   // default behaviour reads as broken. client/lib/minicardLabelText.js
   showsMinicardLabelText() {
     return !hiddenMinicardLabelText();
+  },
+
+  // "List title" is the CARD's own setting, not the board's, so the card is
+  // passed in with the side (showOnMinicardPopup) rather than looked up: a
+  // minicard's menu is opened from the board, where there is no "current card".
+  // Re-read from the collection so the checkbox follows its own click.
+  showsListOnMinicard() {
+    const card = settingsCard();
+    return Boolean(card && card.showListOnMinicard);
   },
   allowsReceivedDate() {
     const boardId = Session.get('currentBoard');
@@ -1837,6 +1856,16 @@ Template.boardCardSettingsPopup.events({
   'click .js-toggle-minicard-label-text'(evt) {
     evt.preventDefault();
     toggleMinicardLabelText();
+  },
+  // ...and the one that is this CARD's. The board-wide "Show lists" row further
+  // down turns the list name on for every card; this turns it on for one.
+  'click .js-toggle-show-list-on-minicard'(evt) {
+    evt.preventDefault();
+    const card = settingsCard();
+    if (!card) return;
+    Cards.update(card._id, {
+      $set: { showListOnMinicard: !card.showListOnMinicard },
+    });
   },
   'click .js-field-has-receiveddate'(evt, tpl) {
     evt.preventDefault();

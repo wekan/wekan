@@ -963,6 +963,30 @@ the menu behind it. A board admin's, the same as in Board Settings.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH4">Show list on minicard became the List title row of Show on Minicard</a>. Thanks to xet7.</summary>
+
+It was a line in the card's menu that read "Show list on minicard", or "Hide
+list on minicard" once it was on - a menu entry that changes its own name is
+the shape a checkbox has, drawn as a sentence. It is a checkbox now, the FIRST
+row of Show on Minicard, above Received, named **List title** and unchecked by
+default, which is what the field itself has always been.
+
+It shows the name of the LIST the card is in on its minicard, which is worth
+having where a card is read away from the column it lives in: a swimlane,
+search results, My Cards. The board-wide "Show lists" row further down the same
+table turns that on for EVERY card; this one is for a single card that needs it,
+and either is enough for the name to show.
+
+It belongs to the card rather than to the board, so it is drawn only in the
+minicard's own view - Board Settings has no card to act on - and only for
+somebody who may change that card, which is the permission the menu entry had.
+The card is passed into the popup and re-read from the collection when it is
+toggled: a minicard's menu is opened from the board, where there is no "current
+card" to fall back on.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f0204ae014d1b312355be89bba09717ffeb28d47">The board sidebar's Activities has a caret instead of an eye</a>. Thanks to xet7.</summary>
 
 The heading read "Activities" and beside it sat an eye and the words "Show
