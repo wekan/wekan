@@ -105,14 +105,11 @@ template(name="cardDetails")
 
       .card-details-items
         .card-details-group.card-details-group-labels
-          +cardSectionHeader(section="labels" icon="fa-tags" label="labels" noRule=true)
-          if isSectionOpen "labels"
-            .card-details-group-body
-              if currentBoard.allowsLabels
-                .card-details-item.card-details-item-labels
-                  h3.card-details-item-title
-                    i.fa.fa-tags
-                    | {{_ 'labels'}}
+          .card-details-group-body
+            if currentBoard.allowsLabels
+              .card-details-item.card-details-item-labels
+                +cardSectionHeader(section="labels" icon="fa-tags" label="labels" noRule=true)
+                if isSectionOpen "labels"
                   a(class="{{#if canModifyCard}}js-add-labels{{else}}is-disabled{{/if}}" title="{{_ 'card-labels-title'}}")
                     each labels
                       span.card-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}" title=name)
@@ -123,6 +120,7 @@ template(name="cardDetails")
                       a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
                         i.fa.fa-plus
 
+            if isSectionOpen "labels"
               .card-details-item.card-details-item-stickers
                 h3.card-details-item-title
                   i.fa.fa-sticky-note-o
@@ -165,20 +163,19 @@ template(name="cardDetails")
                       i.fa.fa-plus
 
         .card-details-group.card-details-group-date-format
-          +cardSectionHeader(section="date-format" icon="fa-calendar" label="date-format")
-          if isSectionOpen "date-format"
-            .card-details-group-body
-              if currentBoard.hasAnyAllowsDate
-                .card-details-item.card-details-item-date-format
-                  h3.card-details-item-title
-                    i.fa.fa-calendar
-                    | {{_ 'date-format'}}
+          hr.card-details-section-rule
+          .card-details-group-body
+            if currentBoard.hasAnyAllowsDate
+              .card-details-item.card-details-item-date-format
+                +cardSectionHeader(section="date-format" icon="fa-calendar" label="date-format" noRule=true)
+                if isSectionOpen "date-format"
                   .card-details-item-content
                     select.js-date-format-selector
                       option(value="YYYY-MM-DD" selected="{{#if isDateFormat 'YYYY-MM-DD'}}selected{{/if}}") {{_ 'date-format-yyyy-mm-dd'}}
                       option(value="DD-MM-YYYY" selected="{{#if isDateFormat 'DD-MM-YYYY'}}selected{{/if}}") {{_ 'date-format-dd-mm-yyyy'}}
                       option(value="MM-DD-YYYY" selected="{{#if isDateFormat 'MM-DD-YYYY'}}selected{{/if}}") {{_ 'date-format-mm-dd-yyyy'}}
 
+            if isSectionOpen "date-format"
               if currentBoard.allowsReceivedDate
                 .card-details-item.card-details-item-received
                   h3.card-details-item-title
@@ -237,14 +234,12 @@ template(name="cardDetails")
                       i.fa.fa-plus
 
         .card-details-group.card-details-group-members
-          +cardSectionHeader(section="members" icon="fa-users" label="members")
-          if isSectionOpen "members"
-            .card-details-group-body
-              if currentBoard.allowsMembers
-                .card-details-item.card-details-item-members
-                  h3.card-details-item-title
-                    i.fa.fa-users
-                    | {{_ 'members'}}
+          hr.card-details-section-rule
+          .card-details-group-body
+            if currentBoard.allowsMembers
+              .card-details-item.card-details-item-members
+                +cardSectionHeader(section="members" icon="fa-users" label="members" noRule=true)
+                if isSectionOpen "members"
                   each userId in getMembers
                     +userAvatar(userId=userId cardId=_id)
                     | {{! XXX Hack to hide syntaxic coloration /// }}
@@ -253,6 +248,7 @@ template(name="cardDetails")
                       a.member.add-member.card-details-item-add-button.js-add-members(title="{{_ 'card-members-title'}}")
                         i.fa.fa-plus
 
+            if isSectionOpen "members"
               if currentBoard.allowsAssignee
                 .card-details-item.card-details-item-assignees
                   h3.card-details-item-title
@@ -333,13 +329,11 @@ template(name="cardDetails")
                       = getAssignedBy
 
         .card-details-group.card-details-group-dependencies
-          +cardSectionHeader(section="dependencies" icon="fa-link" label="card-dependencies")
-          if isSectionOpen "dependencies"
-            .card-details-group-body
-              .card-details-item.card-details-item-dependencies
-                h3.card-details-item-title
-                  i.fa.fa-link
-                  | {{_ 'card-dependencies'}}
+          hr.card-details-section-rule
+          .card-details-group-body
+            .card-details-item.card-details-item-dependencies
+              +cardSectionHeader(section="dependencies" icon="fa-link" label="card-dependencies" noRule=true)
+              if isSectionOpen "dependencies"
                 .card-details-dependencies-list
                   each getDependencyCards
                     .card-dependency(data-target-id="{{card._id}}")
@@ -367,14 +361,12 @@ template(name="cardDetails")
                     | {{_ 'add-dependency'}}
 
         .card-details-group.card-details-group-sort
-          +cardSectionHeader(section="sort" icon="fa-sort" label="sort")
-          if isSectionOpen "sort"
-            .card-details-group-body
-              if currentBoard.allowsCardSortingByNumber
-                .card-details-item.card-details-sort-order
-                  h3.card-details-item-title
-                    i.fa.fa-sort-numeric-asc
-                    | {{_ 'sort'}}
+          hr.card-details-section-rule
+          .card-details-group-body
+            if currentBoard.allowsCardSortingByNumber
+              .card-details-item.card-details-sort-order
+                +cardSectionHeader(section="sort" icon="fa-sort-numeric-asc" label="sort" noRule=true)
+                if isSectionOpen "sort"
                   if canModifyCard
                     +inlinedForm(classNames="js-card-details-sort")
                       +editCardSortOrderForm
@@ -383,6 +375,7 @@ template(name="cardDetails")
                         +viewer
                           = sort
 
+            if isSectionOpen "sort"
               if currentBoard.allowsShowLists
                 .card-details-item.card-details-show-lists
                   h3.card-details-item-title
@@ -694,7 +687,7 @@ template(name="cardDetails")
       .card-checklist-attachmentGalleries
         .card-checklist-attachmentGallery.card-checklists
           if currentBoard.allowsChecklists
-            +cardSectionHeader(section="checklists" icon="fa-check-square-o" label="checklists")
+            +cardSectionHeader(section="checklists" icon="fa-check" label="checklists")
             if isSectionOpen "checklists"
               //- Total checklist item count (finished/total) shown above all
                 checklists. The board flag is a cheap boolean, so when it is off

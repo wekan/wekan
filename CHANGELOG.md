@@ -847,6 +847,26 @@ and fixes the following bugs:
 **Card details** - the card as it is opened and edited.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">A group's caret is on its first field's title, so the titles read as one row</a>. Thanks to xet7.</summary>
+
+Grouping the fields gave each group a header LINE of its own, and for a group
+named after its first field that line said the same word twice, one above the
+other: "Labels" and then "Labels, Stickers, Location".
+
+There is one row of titles now, with the caret at the start of it: **Labels
+Stickers Location**, **Members Assignee Creator**, and their **+** buttons on
+the row below. The caret belongs to the first field's title rather than to a
+header above it, and everything it folds - that field's own content and every
+field beside it - is behind the same switch, so a collapsed group is exactly one
+line.
+
+The rule moved with it, from inside a field to the group, where it spans the
+card. The **Checklists** icon is a plain check again rather than a check in a
+box, which is what it was before it became a section.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/050df89f06ab07a17899a4b032beeae04676c270">Requested By and Assigned By are set with a + like Members, and survive an import</a>. Thanks to xet7.</summary>
 
 **Requested By** and **Assigned By** were set by clicking the word "Add". They

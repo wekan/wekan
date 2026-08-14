@@ -156,91 +156,52 @@ test('the GROUP is the full-width row, and its fields share rows inside it', () 
     'no field is a full-width row of its own any more');
 });
 
-test('every field in a group keeps its own title, so its content is below it', () => {
-  // The + of Members, Assignee and Creator must line up on the SECOND line.
-  // A field whose title was taken away by the group header had its + on the
-  // first line instead, level with its neighbours' titles.
+test('the group caret sits ON the first field\'s title, not on a line of its own', () => {
+  // "Can there be at one line Labels Stickers Location" - the group header was a
+  // second line repeating the first field's name. It IS that field's title now:
+  // one row of titles, the caret at the start of it, the + buttons on the row
+  // below.
+  for (const [key, field] of Object.entries({
+    labels: 'card-details-item-labels',
+    'date-format': 'card-details-item-date-format',
+    members: 'card-details-item-members',
+    dependencies: 'card-details-item-dependencies',
+    sort: 'card-details-sort-order',
+  })) {
+    const at = jade.indexOf(field);
+    assert.ok(at !== -1, `${field} is there`);
+    const block = jade.slice(at, at + 260);
+    assert.ok(new RegExp(`\\+cardSectionHeader\\(section="${key}"[^)]*noRule=true`).test(block),
+      `${key}: the header is the field's own title`);
+    assert.ok(!/h3\.card-details-item-title/.test(block),
+      `${key}: and there is no second title under it`);
+  }
+});
+
+test('the other fields keep plain titles, on the same row', () => {
+  // Stickers and Location, Assignee and Creator: a title each, no caret, and
+  // their content on the line below - so the titles read as one row.
   const group = jade.slice(jade.indexOf('card-details-group-members'),
     jade.indexOf('card-details-group-dependencies'));
-  for (const field of ['card-details-item-members', 'card-details-item-assignees',
-    'card-details-item-creator']) {
+  for (const field of ['card-details-item-assignees', 'card-details-item-creator']) {
     const at = group.indexOf(field);
     assert.ok(at !== -1, `${field} is in the group`);
-    assert.ok(/h3\.card-details-item-title/.test(group.slice(at, at + 200)),
-      `${field} has a title of its own, so its + starts on the line under it`);
+    const block = group.slice(at, at + 200);
+    assert.ok(/h3\.card-details-item-title/.test(block), `${field} has a plain title`);
+    assert.ok(!/cardSectionHeader/.test(block), `${field} has no caret of its own`);
   }
 });
 
-test('the items that are NOT sections still share rows (negative)', () => {
-  // Stickers, Location, the four dates, Creator and Assignees were laid out
-  // side by side on purpose; making everything full width would be a different
-  // change from the one asked for.
-  for (const item of ['card-details-item-stickers', 'card-details-item-location',
-    'card-details-item-received', 'card-details-item-creator']) {
-    assert.ok(!new RegExp(`${item}\\.card-details-section`).test(jade),
-      `${item} is not turned into a full-width row`);
+test('the rule sits on the GROUP, above the row of titles', () => {
+  // It cannot be inside a field any more - that is what made it short.
+  for (const key of ['date-format', 'members', 'dependencies', 'sort']) {
+    const at = jade.indexOf(`card-details-group-${key}`);
+    const block = jade.slice(at, at + 200);
+    assert.ok(/hr\.card-details-section-rule/.test(block), `${key} has its rule at group level`);
   }
-});
-
-test('a section is named ONCE (negative)', () => {
-  // Checklists and Subtasks drew their own <h3> as well, so a card showed each
-  // of those two names twice, one above the other.
-  const checklists = read('client/components/cards/checklists.jade');
-  const subtasks = read('client/components/cards/subtasks.jade');
-  assert.ok(!/\| \{\{_ 'checklists'\}\}/.test(checklists),
-    'the checklists template no longer prints its own title');
-  assert.ok(!/\| \{\{_ 'subtasks'\}\}/.test(subtasks),
-    'nor does the subtasks template');
-  // What belongs to the LIST rather than to the section stays with the list.
-  assert.ok(/js-add-checklist/.test(checklists), 'adding a checklist is still there');
-  assert.ok(/js-add-subtask/.test(subtasks), 'and adding a subtask');
-});
-
-test('the first section has no rule above it, and Members none either', () => {
-  // Labels is first - there is nothing above it to separate it from - and
-  // Members already sits under the rule the layout draws above Creator, so a
-  // second one there is two lines with a heading between them.
-  // Labels is the first thing in the card body. Members had a rule of the
-  // layout's own directly above it - that one is gone with the grouping, so the
-  // group's own rule is the only line there and is the one that stays.
-  assert.ok(/section="labels"[^)]*noRule=true/.test(jade), 'labels asks for no rule');
-  assert.ok(!/if currentBoard\.hasAnyAllowsUser\n\s+hr/.test(jade),
-    'and the loose rule above the users block is gone, not doubled');
-  const header = jade.slice(jade.indexOf('template(name="cardSectionHeader")'));
-  assert.ok(/unless noRule\n\s+hr\.card-details-section-rule/.test(header),
-    'and the header honours it');
-  // Every other section still gets one.
-  for (const section of ['date-format', 'members', 'dependencies', 'sort',
-    'description', 'checklists', 'subtasks', 'attachments', 'comments', 'activities']) {
-    assert.ok(!new RegExp(`section="${section}"[^)]*noRule`).test(jade),
-      `${section} keeps its rule`);
-  }
-});
-
-test('the rule is the page\'s own hr, not a heavier one', () => {
-  // The lighter line that was already above Creator: `hr` in layouts.css. The
-  // section rule only sets its margin.
-  const rule = css.slice(css.indexOf('.card-details .card-details-section-rule'));
-  const block = rule.slice(0, rule.indexOf('}'));
-  assert.ok(!/border-top|background/.test(block),
-    'no border or background of its own - it inherits the page hr');
-  assert.ok(/margin:/.test(block), 'only the spacing is this rule\'s');
-});
-
-test('the Activities rule is above the heading, not beside it', () => {
-  // `.activity-title` is `display: flex`, so a rule inside it becomes a flex
-  // ITEM - which is how the line ended up to the left of "Activities".
-  const right = jade.slice(jade.indexOf('.card-details-right'));
-  const title = right.indexOf('.activity-title');
-  const header = right.indexOf('+cardSectionHeader(section="activities"');
-  assert.ok(header > title, 'the header comes after the .activity-title line');
-  const between = right.slice(title, header);
-  const headerIndent = right.slice(0, header).split('\n').pop().length;
-  const titleIndent = right.slice(0, title).split('\n').pop().length;
-  assert.ok(headerIndent <= titleIndent,
-    'and is NOT nested inside it - a flex child would be a line beside the heading');
-  assert.ok(/display: flex/.test(read('client/components/activities/activities.css')
-    .slice(0, 200)), 'which is what .activity-title is');
+  // Labels is first and has none, as before.
+  const labels = jade.slice(jade.indexOf('card-details-group-labels'), jade.indexOf('card-details-group-date-format'));
+  assert.ok(!/hr\.card-details-section-rule/.test(labels), 'the first group has no rule above it');
 });
 
 // ── groups ────────────────────────────────────────────────────────────────
@@ -286,16 +247,23 @@ test('Members comes first in its group, then Assignee, then Creator', () => {
 });
 
 test('a collapsed group shows its caret, its icon and its name, and nothing else', () => {
-  // Everything below the header is inside the fold, so a closed group is one
-  // line - which is what "only caret and icon and text Members" means.
+  // The header is the first field's title, and EVERYTHING after it folds: that
+  // field's own content, and every field beside it. So a closed group is one
+  // line - "only caret and icon and text Members".
   for (const key of ['labels', 'date-format', 'members', 'dependencies', 'sort']) {
     const at = jade.indexOf(`card-details-group-${key}`);
-    const block = jade.slice(at, at + 400);
+    const next = jade.indexOf('.card-details-group.card-details-group-', at + 10);
+    const block = jade.slice(at, next === -1 ? at + 3000 : next);
     const header = block.indexOf('+cardSectionHeader');
-    const guard = block.indexOf(`isSectionOpen "${key}"`);
-    const body = block.indexOf('.card-details-group-body');
-    assert.ok(header !== -1 && guard > header && body > guard,
-      `${key}: header, then the switch, then everything else`);
+    assert.ok(header !== -1, `${key} has its header`);
+    // The field's own content folds...
+    const firstGuard = block.indexOf(`isSectionOpen "${key}"`, header);
+    assert.ok(firstGuard > header, `${key}: the field's content is behind the switch`);
+    // ...and so does everything after it, when the group has more than one field.
+    const guards = (block.match(new RegExp(`isSectionOpen "${key}"`, 'g')) || []).length;
+    const fields = (block.match(/\.card-details-item\./g) || []).length;
+    assert.ok(fields === 1 || guards >= 2,
+      `${key}: ${fields} fields need the siblings behind the switch too`);
   }
 });
 
