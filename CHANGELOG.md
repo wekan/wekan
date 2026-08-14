@@ -1099,6 +1099,33 @@ and fixes the following bugs:
 **Card details** - the card as it is opened and edited.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH9">Ten popups had no header, and so no close button</a>. Thanks to xet7.</summary>
+
+A pop-over draws its header from its title, and with no title it renders as
+`no-title`: no header, no X, no back arrow - Escape or a click away are the only
+ways out. Noticed on the question "Are you sure you want to delete this
+background image?", which is the worst place for it.
+
+Ten of them were in that state, and each is titled the way the other 151
+already were: a `<name>Popup-title` key. Delete Background Image, Delete
+Duplicate Lists, Delete Account, Add Domain, Remove Domain, Map to existing
+user, Export swimlane, Export list, Export checklist, and the member popup.
+
+They were added to EVERY language file at the same position, as the English
+placeholder a pull would produce - the files are one key order, and a key
+inserted in some and appended in others makes every later diff unreadable.
+
+The other mechanism, `Popup.open(name, { titleKey })`, is not a second way but
+the same one pointed at a phrase the app HAS - "Custom Fields", "Sort Boards",
+"Show on Card" - so a word already translated 147 times is not copied into a
+new key that would start as English in all of them.
+[`tests/popupTitles.test.cjs`](tests/popupTitles.test.cjs) walks every popup
+template and fails if one resolves no title at all, so the next one cannot ship
+without a header.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ac201d4b5988bf314b4efcb0619ccdc36ab64595">Upload background image did nothing, and every attachment upload now shares one config</a>. Thanks to xet7.</summary>
 
 "Upload background image" picked a file and then nothing arrived. Two fields of
