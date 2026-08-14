@@ -34,6 +34,13 @@ export default {
     load: () => import('./data/bn.i18n.json'),
     rtl: false,
   },
+  "bs": {
+    code: "bs",
+    tag: "bs",
+    name: "Bosanski",
+    load: () => import('./data/bs.i18n.json'),
+    rtl: false,
+  },
   "en_AU": {
     code: "en",
     tag: "en_AU",
@@ -419,6 +426,13 @@ export default {
     load: () => import('./data/fy.i18n.json'),
     rtl: false,
   },
+  "ga": {
+    code: "ga",
+    tag: "ga",
+    name: "Gaeilge",
+    load: () => import('./data/ga.i18n.json'),
+    rtl: false,
+  },
   "gl-ES": {
     code: "gl",
     tag: "gl-ES",
@@ -510,6 +524,13 @@ export default {
     load: () => import('./data/ig.i18n.json'),
     rtl: false,
   },
+  "is": {
+    code: "is",
+    tag: "is",
+    name: "Íslenska",
+    load: () => import('./data/is.i18n.json'),
+    rtl: false,
+  },
   "it": {
     code: "it",
     tag: "it",
@@ -594,6 +615,27 @@ export default {
     load: () => import('./data/ko.i18n.json'),
     rtl: false,
   },
+  "ky": {
+    code: "ky",
+    tag: "ky",
+    name: "Кыргызча",
+    load: () => import('./data/ky.i18n.json'),
+    rtl: false,
+  },
+  "la": {
+    code: "la",
+    tag: "la",
+    name: "Latina",
+    load: () => import('./data/la.i18n.json'),
+    rtl: false,
+  },
+  "lb": {
+    code: "lb",
+    tag: "lb",
+    name: "Lëtzebuergesch",
+    load: () => import('./data/lb.i18n.json'),
+    rtl: false,
+  },
   "lt": {
     code: "lt",
     tag: "lt",
@@ -606,6 +648,13 @@ export default {
     tag: "lv",
     name: "Latviešu valoda",
     load: () => import('./data/lv.i18n.json'),
+    rtl: false,
+  },
+  "mi": {
+    code: "mi",
+    tag: "mi",
+    name: "Māori",
+    load: () => import('./data/mi.i18n.json'),
     rtl: false,
   },
   "mk": {
@@ -648,6 +697,13 @@ export default {
     tag: "ms-MY",
     name: "Bahasa Melayu (Malaysia)",
     load: () => import('./data/ms-MY.i18n.json'),
+    rtl: false,
+  },
+  "mt": {
+    code: "mt",
+    tag: "mt",
+    name: "Malti",
+    load: () => import('./data/mt.i18n.json'),
     rtl: false,
   },
   "my": {
@@ -811,6 +867,13 @@ export default {
     load: () => import('./data/so.i18n.json'),
     rtl: false,
   },
+  "sq": {
+    code: "sq",
+    tag: "sq",
+    name: "Shqip",
+    load: () => import('./data/sq.i18n.json'),
+    rtl: false,
+  },
   "sr": {
     code: "sr",
     tag: "sr",
@@ -844,6 +907,13 @@ export default {
     tag: "te_IN",
     name: "తెలుగు (భారతదేశం)",
     load: () => import('./data/te-IN.i18n.json'),
+    rtl: false,
+  },
+  "tg": {
+    code: "tg",
+    tag: "tg",
+    name: "Тоҷикӣ",
+    load: () => import('./data/tg.i18n.json'),
     rtl: false,
   },
   "th": {

@@ -298,7 +298,7 @@ Template.changeLanguagePopup.helpers({
       'bm': '🇲🇱', 'tw': '🇬🇭', 'ak': '🇬🇭', 'lg': '🇺🇬', 'rw': '🇷🇼', 'rn': '🇧🇮', 'ny': '🇲🇼',
       'sn': '🇿🇼', 'nd': '🇿🇼',
       'ace': '🇮🇩', 'ary': '🇲🇦', 'ast': '🇪🇸', 'br': '🇫🇷', 'cmn': '🇨🇳', 'fy': '🇳🇱', 'nb': '🇳🇴', 'oc': '🇫🇷', 'tk': '🇹🇲', 'vl': '🇧🇪', 'wa': '🇧🇪', 'wuu': '🇨🇳', 'yi': '🇮🇱', 'zgh': '🇲🇦',
-      'jv': '🇮🇩', 'ps': '🇦🇫'
+      'jv': '🇮🇩', 'ps': '🇦🇫', 'lb': '🇱🇺', 'tg': '🇹🇯', 'la': '🇻🇦'
     };
     return flagMap[this.tag] || '🌐';
   },
