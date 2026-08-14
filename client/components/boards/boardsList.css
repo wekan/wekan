@@ -766,6 +766,47 @@
   min-height: 45px;
 }
 
+/* THE CONTROLS THEMSELVES. Every page's controls template - Rules, My Cards,
+   Due Cards, Global Search - draws its entries as `.board-header-btn`, because
+   that is what they were when they lived in the page's own second header bar.
+   Every rule for that class is scoped to `#header-quick-access` (header.css),
+   so in here they had NO styling at all: three bare links jammed together on
+   one line, icons run into words, nothing to click but the text.
+
+   They are sidebar rows now - one per line, the width of the panel, with the
+   icon in a fixed column so every label starts at the same x. The board's own
+   sidebar rows are `.sidebar-list li > a` and `.sidebar-btn`; this gives the
+   same shape to the class these pages actually use. */
+.all-boards-sidebar .sidebar-content .board-header-btn,
+.page-sidebar .sidebar-content .board-header-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 0 4px;
+  padding: 8px 10px;
+  border-radius: 3px;
+  color: inherit;
+  cursor: pointer;
+}
+
+.all-boards-sidebar .sidebar-content .board-header-btn:hover,
+.page-sidebar .sidebar-content .board-header-btn:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* A fixed column for the icon, so a row with a caret and a row without one
+   still line their words up - the same reason the board sidebar gives its
+   checkbox glyphs a width. */
+.all-boards-sidebar .sidebar-content .board-header-btn i.fa,
+.page-sidebar .sidebar-content .board-header-btn i.fa {
+  width: 16px;
+  text-align: center;
+  flex-shrink: 0;
+  margin: 0;
+}
+
 /* The sidebar's own rows. `.sidebar-btn` and `.sidebar-list` come from the
    board sidebar's stylesheet, which is loaded on every page, so only what is
    particular to this one is here. */

@@ -1383,6 +1383,27 @@ which is worse than "unreadable".
 
 </details>
 
+**The page sidebar** - the controls of a page that has no sidebar of its own.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH21">The controls in the page sidebar are rows, not three links run together</a>. Thanks to xet7.</summary>
+
+Rules, My Cards, Due Cards and Global Search each keep their controls in the
+shared page sidebar, and each draws them as `.board-header-btn` - which is what
+they were when they lived in that page's own second header bar.
+
+Every rule for that class is scoped to `#header-quick-access`, so inside the
+sidebar they had NO styling at all. On the Rules page that is three bare links
+jammed onto one line - *"← Board 🔀 Workflow view ⇄ Import / export"* - with the
+icons run into the words and nothing to click but the text itself.
+
+They are rows now: one per line, the width of the panel, with the icon in a
+fixed column so every label starts at the same x, and a hover to click against -
+the shape the board sidebar's own rows have. Both sidebars built on that shell
+get it, All Boards' as well as the page one.
+
+</details>
+
 **Minicards** - what a click on one does.
 
 <details>
