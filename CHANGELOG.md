@@ -4133,6 +4133,30 @@ an hour ago - and pins that ambiguity can never reach the deletion.
 and improves the translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a3ee0262d68ce0d10d4466018a9c5d3b9b44c233">Eighteen more languages: the Americas, the Sahel, Siberia and the Celtic ones</a>. Thanks to xet7.</summary>
+
+**212 languages.** WeKan had 154 when this release started.
+
+This block: **Bamanankan**, **Akan**, **Eʋegbe**, **Ikirundi**, **isiNdebele**,
+**Sesotho sa Leboa**, **siSwati**, **Башҡортса**, **Чӑвашла**, **Саха тыла**,
+**Runasimi** (Quechua), **Avañe'ẽ** (Guaraní), **Aymar aru**, **Føroyskt**,
+**Davvisámegiella**, **Gàidhlig**, **Kernewek** and **Gaelg**.
+
+Three of them are indigenous languages of the Americas with millions of speakers
+between them and no project-management tool in any of them. Three are Siberian
+and Volga languages of the Russian Federation. Four are Celtic - and Cornish and
+Manx are revived languages, which is exactly the case where the wording being
+imperfect matters least and the language existing at all matters most.
+
+**Scottish Gaelic** and **Cornish** take the Scottish and English regional
+flags rather than the Union Jack - the emoji tag sequences, not the state's
+flag - and **Manx** takes the Isle of Man's own. A language gets the flag of
+where it is spoken, and for these three that is not the same thing as the flag
+of the state.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2395dfd0840b39f584c0338fc4683e560a9af0e8">Fifteen more languages, most of them African</a>. Thanks to xet7.</summary>
 
 **194 languages.** This block is the one WeKan was furthest from having:
