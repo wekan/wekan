@@ -7,6 +7,7 @@ import uploadProgressManager from '../../lib/uploadProgressManager';
 import { attachmentMigrationManager } from '/client/lib/attachmentMigrationManager';
 import Attachments from '/models/attachments';
 import { Utils } from '/client/lib/utils';
+import { buildAttachmentUploadConfig } from '/client/lib/attachmentUploadConfig';
 const { cleanFileName } = require('/imports/lib/fileNameDisplay');
 import { formatDateTime } from '/imports/lib/dateUtils';
 import { EscapeActions } from '/client/lib/escapeActions';
@@ -445,38 +446,16 @@ export async function handleFileUpload(card, files) {
       continue;
     }
 
-    const fileId = new ObjectId().toString();
-    let fileName = sanitizeText(file.name);
-
-    // If sanitized filename is not same as original filename,
-    // it could be XSS that is already fixed with sanitize,
-    // or just normal mistake, so it is not a problem.
-    // That is why here is no warning.
-    if (fileName !== file.name) {
-      // If filename is empty, only in that case add some filename
-      if (fileName.length === 0) {
-        fileName = 'Empty-filename-after-sanitize.txt';
-      }
-    }
-
-    const config = {
-      file: file,
-      fileId: fileId,
-      fileName: fileName,
+    // The id, the sanitized name, the chunk size and the transport all come
+    // from one builder - the file id has to be stamped into `meta` for
+    // Attachments' namingFunction to find it, and the transport has to be DDP
+    // on Sandstorm and HTTP everywhere else. Both are easy to leave out by hand
+    // and neither says so until an upload silently does not arrive.
+    // client/lib/attachmentUploadConfig.js
+    const config = buildAttachmentUploadConfig({
+      file,
       meta: Utils.getCommonAttachmentMetaFrom(card),
-      chunkSize: 'dynamic',
-      // Use HTTP transport (a dedicated fetch POST per chunk) rather than DDP,
-      // which floods the WebSocket channel and causes repeated reconnects in
-      // Safari (the "Loading, please wait" offline banner, stalling at ~95%).
-      // EXCEPT on Sandstorm: the grain's sandstorm-http-bridge strips Meteor-Files'
-      // custom upload headers — x-start/x-mtok/x-chunkid/x-fileid/x-eof are not on
-      // Sandstorm's request-header whitelist — so the server never sees x-start,
-      // treats every request as a chunk continuation, and fails with "Can't
-      // continue upload, session expired" [408]. DDP uploads go over method calls
-      // (no custom HTTP headers), so they work through the bridge.
-      transport: Meteor.settings?.public?.sandstorm ? 'ddp' : 'http',
-    };
-    config.meta.fileId = fileId;
+    });
 
     try {
       const uploader = await Attachments.insertAsync(
@@ -559,18 +538,12 @@ Template.previewClipboardImagePopup.events({
     if (pastedResults && pastedResults.file) {
       const file = pastedResults.file;
       window.oPasted = pastedResults;
-      const fileId = new ObjectId().toString();
-      const config = {
+      // Same builder as the file-picker upload above; a pasted image has no
+      // name of its own, which the builder answers with the image's type.
+      const config = buildAttachmentUploadConfig({
         file,
-        fileId: fileId,
         meta: Utils.getCommonAttachmentMetaFrom(card),
-        fileName: file.name || file.type.replace('image/', 'clipboard.'),
-        chunkSize: 'dynamic',
-        // DDP on Sandstorm (its bridge strips Meteor-Files' x-* upload headers),
-        // HTTP elsewhere — see the note in the other upload handler above.
-        transport: Meteor.settings?.public?.sandstorm ? 'ddp' : 'http',
-      };
-      config.meta.fileId = fileId;
+      });
       const uploader = await Attachments.insertAsync(
         config,
         false,

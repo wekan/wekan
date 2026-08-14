@@ -1736,19 +1736,30 @@ Users.helpers({
     return emailBuffer;
   },
 
+  // The letters an avatar falls back to when there is no picture. It must
+  // never throw: it is called while RENDERING, from two helpers of
+  // userAvatarInitials, and a throw there took out the avatar, the `viewBox`
+  // computed beside it ("0 0  15") and everything Blaze was drawing in the same
+  // pass. It threw whenever a user document arrived without a `username` -
+  // `this.username[0]` - which a publication that sends only the fields an
+  // avatar needs, or a user still syncing, can do. A word of a fullname can be
+  // empty too ("  Ann  " splits into empty strings), which used to put the
+  // literal text "undefined" in the circle.
   getInitials() {
     const profile = this.profile || {};
     if (profile.initials) return profile.initials;
-    else if (profile.fullname) {
-      return profile.fullname
+    if (profile.fullname) {
+      const initials = profile.fullname
         .split(/\s+/)
-        .reduce((memo, word) => {
-          return memo + word[0];
-        }, '')
+        .filter(word => word.length > 0)
+        .map(word => word[0])
+        .join('')
         .toUpperCase();
-    } else {
-      return this.username[0].toUpperCase();
+      if (initials) return initials;
     }
+    // No name of any kind: an empty string, so the avatar draws a blank circle
+    // rather than breaking the page around it.
+    return (this.username || '').slice(0, 1).toUpperCase();
   },
 
   getLimitToShowCardsCount() {

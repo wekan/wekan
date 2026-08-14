@@ -23,6 +23,7 @@ import {
 } from '/client/lib/exportDependencies';
 import { parseDependencyLines } from '/client/lib/importDependencies';
 import { caretClassFor } from '/client/lib/sectionCaret';
+import { buildAttachmentUploadConfig } from '/client/lib/attachmentUploadConfig';
 import { toggleFold } from '/client/lib/foldState';
 import {
   hiddenMinicardLabelText,
@@ -1230,12 +1231,16 @@ Template.boardBackgroundUpload.events({
     if (!file) return;
     tpl.error.set('');
     tpl.uploading.set(true);
+    // The config comes from the shared builder, which is the whole reason this
+    // upload works: it stamps the generated `fileId` into `meta.fileId`, and
+    // Attachments' namingFunction reads the stored file's NAME out of there.
+    // Written by hand here, without it, every background upload was stored
+    // under `undefined` and never arrived. client/lib/attachmentUploadConfig.js
     const uploader = await Attachments.insertAsync(
-      {
+      buildAttachmentUploadConfig({
         file,
-        chunkSize: 'dynamic',
         meta: { boardId: tpl.boardId, source: 'board-background' },
-      },
+      }),
       false,
     );
     uploader.on('end', (err) => {

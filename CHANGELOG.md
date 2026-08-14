@@ -1099,6 +1099,47 @@ and fixes the following bugs:
 **Card details** - the card as it is opened and edited.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH8">Upload background image did nothing, and every attachment upload now shares one config</a>. Thanks to xet7.</summary>
+
+"Upload background image" picked a file and then nothing arrived. Two fields of
+an upload's config are not optional in the way they look, and the board
+background's config - written by hand - had neither:
+
+- **`fileId`, and the same id copied into `meta.fileId`.** Attachments'
+  `namingFunction` is what decides the name a file is STORED under, and on the
+  client it reads that id out of `meta` and deletes it. Without it the name is
+  `undefined`.
+- **`transport`.** HTTP everywhere, because Meteor-Files' default DDP floods
+  the WebSocket and makes Safari reconnect at ~95%; DDP on Sandstorm, whose
+  http-bridge strips the `x-*` upload headers so every chunk comes back "Can't
+  continue upload, session expired" [408].
+
+Both come from one builder now, in
+[`attachmentUploadConfig.js`](client/lib/attachmentUploadConfig.js), used by the
+card's file picker, the card's pasted image and the board background alike - so
+the next uploader gets them by asking for a config rather than by knowing two
+things nothing would have told it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH8">An avatar with no name to draw broke the render around it</a>. Thanks to xet7.</summary>
+
+`getInitials()` ended with `this.username[0]`, so a user document that arrived
+without a username threw a TypeError - from a Blaze helper, mid-render. Two
+helpers call it, so each avatar threw twice, and the second throw left the SVG's
+`viewBox` half-written (`0 0  15`), which Firefox refuses outright: the avatar
+drew nothing and took the rest of that render pass with it.
+
+It is total now: initials, then a fullname, then the first letter of a username
+if there is one, then an empty string - a blank circle rather than a broken
+page. A fullname of only spaces used to spell the literal word "undefined" in
+the circle, because an empty word still contributed its missing first letter;
+empty words are skipped.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/443e65b6d0eb2f6b5131d56f4659a4510d1a3039">The Date Format menu is back: two collapse mechanisms were folding one field</a>. Thanks to xet7.</summary>
 
 The dropdown that chooses a card's date format disappeared, and nothing brought
