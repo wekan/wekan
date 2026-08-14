@@ -70,19 +70,25 @@ function computePopupOffset(params) {
     showOnCardPopup: 900,
     showOnMinicardPopup: 900,
   };
+  // The export popups are one popup with one scope each (#1173): same panes,
+  // same formats table, same panel.
+  const FULL_WIDTH_POPUPS = [
+    'exportBoardPopup', 'exportSwimlanePopup', 'exportListPopup', 'exportCardPopup',
+  ];
   const wide = WIDE_POPUP_WIDTHS[popupName];
   const popupWidth = wide
     ? Math.min(wide, viewportWidth * 0.9)
     : Math.min(380, viewportWidth * 0.55);
 
-  // Export board: a full-width PANEL, not a menu hanging off its button. It has
+  // Every export popup - board, swimlane, list, card: a full-width PANEL, not a
+  // menu hanging off its button. It has
   // two panes - what to include, and what to export to - and anchored to its
   // button its trailing edge went past the edge of the window, taking the
   // pop-over's own X with it: the only way to shut it was Escape or clicking
   // away. Pinned to the viewport's own padding at the top left, and given
   // `calc(100vw - 20px)` by popup.css - the same 10px on each side - so the
   // whole panel, header and X included, is always on screen.
-  if (popupName === 'exportBoardPopup') {
+  if (FULL_WIDTH_POPUPS.includes(popupName)) {
     return {
       left: viewportPadding + scrollLeft,
       top: viewportPadding + scrollTop,

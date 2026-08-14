@@ -17,6 +17,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { TAPi18n } from '/imports/i18n';
 import { Accounts } from 'meteor/accounts-base';
 import { BOARD_EXPORT_FIELDS } from '/models/lib/exportFields';
 import { exportLocaleParams } from '/client/lib/exportLocale';
@@ -195,7 +196,126 @@ async function uploadZipImport(file, target) {
   return answer.counts;
 }
 
-Template.exportScopeBody.helpers({
+// EVERY format this popup offers, in one table, for every scope.
+//
+// It was two markups: the board popup wrote its own list of nineteen formats in
+// sidebar.jade under four subheadings, and the swimlane / list / card popups
+// wrote five in exportScope.jade - so "the export popup" meant two different
+// menus with two different looks, and a format added to one was missing from
+// the other. One table, rendered by one template, is the answer to both.
+//
+// `scopes: ['board']` marks a format that only makes sense for a whole board -
+// the HTML archive, the dependency graph, the CSV columns, and the exports
+// written for another tool. Everything else is offered wherever the popup is,
+// because `exportUrl` already carries the scope: a swimlane, a list and a card
+// each differ from a board by a query parameter, not by a route.
+//
+// An entry is either a LINK (`path`, downloaded straight from the API) or an
+// ACTION (`action`, a class an event handler is bound to). Nothing else varies.
+const BOARD_ONLY = ['board'];
+const EXPORT_FORMAT_GROUPS = [
+  {
+    key: 'files',
+    entries: [
+      { key: 'pdf', icon: 'fa-file-pdf-o', label: 'PDF', path: 'exportPDF', ext: 'pdf' },
+      { key: 'excel', icon: 'fa-file-excel-o', label: 'Excel', path: 'exportExcel', ext: 'xlsx' },
+      { key: 'html', icon: 'fa-archive', label: 'HTML', action: 'html-export-board', scopes: BOARD_ONLY },
+    ],
+  },
+  {
+    key: 'dependencies',
+    headingKey: 'card-dependencies',
+    scopes: BOARD_ONLY,
+    entries: [
+      { key: 'dep-json', icon: 'fa-link', label: 'JSON', action: 'js-export-dependencies-json' },
+      { key: 'dep-svg', icon: 'fa-link', label: 'SVG', action: 'js-export-dependencies-svg' },
+    ],
+  },
+  {
+    key: 'csv',
+    heading: 'CSV',
+    scopes: BOARD_ONLY,
+    entries: [
+      { key: 'csv', icon: 'fa-upload', label: '(,)', path: 'export/csv', ext: 'csv', query: { delimiter: ',' } },
+      { key: 'scsv', icon: 'fa-upload', label: '(;)', path: 'export/csv', ext: 'csv', query: { delimiter: ';' } },
+      { key: 'tsv', icon: 'fa-upload', label: 'TSV', path: 'export/csv', ext: 'tsv', query: { delimiter: '\t' } },
+    ],
+  },
+  {
+    key: 'json',
+    heading: 'JSON',
+    entries: [
+      { key: 'json', icon: 'fa-file-code-o', label: 'JSON', path: 'export', ext: 'json' },
+      {
+        key: 'json-no-attachments',
+        icon: 'fa-file-code-o',
+        labelKey: 'export-board-without-attachments',
+        labelPrefix: 'JSON',
+        path: 'export',
+        ext: 'json',
+        query: { attachments: 'false' },
+      },
+      {
+        key: 'zip',
+        icon: 'fa-file-archive-o',
+        labelKey: 'attachments',
+        labelPrefix: '.zip',
+        path: 'exportZip',
+        ext: 'zip',
+      },
+      { key: 'kanboard', icon: 'fa-upload', label: 'Kanboard', path: 'export/kanboard', ext: 'json', scopes: BOARD_ONLY },
+      ...[
+        ['trello', 'Trello'], ['jira', 'Jira'], ['deck', 'NextCloud Deck'],
+        ['openproject', 'OpenProject'], ['github', 'GitHub'], ['gitlab', 'GitLab'],
+        ['gitea', 'Gitea'], ['forgejo', 'Forgejo'], ['asana', 'Asana'],
+        ['zenkit', 'Zenkit'],
+      ].map(([format, label]) => ({
+        key: format,
+        icon: 'fa-upload',
+        label,
+        path: `export/${format}`,
+        ext: 'json',
+        scopes: BOARD_ONLY,
+      })),
+    ],
+  },
+];
+
+// Is this popup a whole board, or a swimlane / list / card inside one?
+function isBoardScope() {
+  const data = Template.currentData() || {};
+  // checklistId too: the checklist popup is a scope of its own, and a scope
+  // that is not named here would be read as "a whole board" and offered the
+  // HTML archive, the dependency graph and the CSV columns of one.
+  return !data.swimlaneId && !data.listId && !data.cardId && !data.checklistId;
+}
+
+function entryApplies(entry) {
+  return !entry.scopes || entry.scopes.includes('board') === isBoardScope();
+}
+
+// The table above, resolved for the scope this popup was opened with: each entry
+// carries the URL and the filename it downloads, so the template only lays them
+// out. A group whose every entry is out of scope is dropped, heading and all.
+function resolvedFormatGroups() {
+  return EXPORT_FORMAT_GROUPS
+    .filter(group => !group.scopes || group.scopes.includes('board') === isBoardScope())
+    .map(group => ({
+      key: group.key,
+      heading: group.headingKey ? TAPi18n.__(group.headingKey) : group.heading || '',
+      entries: group.entries.filter(entryApplies).map(entry => ({
+        ...entry,
+        label: entry.labelKey
+          ? `${entry.labelPrefix} (${TAPi18n.__(entry.labelKey)})`
+          : entry.label,
+        url: entry.path ? exportUrl(`/api/boards/:boardId/${entry.path}`, entry.query || {}) : '',
+        filename: entry.ext ? exportFilename(entry.ext) : '',
+      })),
+    }))
+    .filter(group => group.entries.length);
+}
+
+const scopeHelpers = {
   // Import writes to the board, so unlike export it is offered only to somebody
   // who may change it.
   canImport() {
@@ -216,36 +336,18 @@ Template.exportScopeBody.helpers({
   cardDetailsChecked() {
     return selection.get('card-details');
   },
-  exportUrlPDF() {
-    return exportUrl('/api/boards/:boardId/exportPDF');
-  },
-  exportUrlExcel() {
-    return exportUrl('/api/boards/:boardId/exportExcel');
-  },
-  exportUrlJson() {
-    return exportUrl('/api/boards/:boardId/export');
-  },
-  // The same document without the base64 file data - #5870's option, offered
+  // Every format, resolved for this popup's scope - see EXPORT_FORMAT_GROUPS.
+  // #5870's "JSON without the base64 attachment data" is one of them, offered
   // wherever an export is offered rather than only on the board menu.
-  exportUrlJsonNoAttachments() {
-    return exportUrl('/api/boards/:boardId/export', { attachments: 'false' });
+  formatGroups() {
+    return resolvedFormatGroups();
   },
-  exportUrlZip() {
-    return exportUrl('/api/boards/:boardId/exportZip');
-  },
-  exportFilenameJson() {
-    return exportFilename('json');
-  },
-  exportFilenameZip() {
-    return exportFilename('zip');
-  },
-  exportFilenamePDF() {
-    return exportFilename('pdf');
-  },
-  exportFilenameExcel() {
-    return exportFilename('xlsx');
-  },
-});
+};
+
+// One helper object, registered on both halves: the checkbox list is its own
+// template so the layout can put it in a pane, and it asks the same questions.
+Template.exportScopeBody.helpers(scopeHelpers);
+Template.exportScopeSelect.helpers(scopeHelpers);
 
 Template.exportScopeBody.events({
   async 'change .js-import-file'(event) {

@@ -1,7 +1,11 @@
-//- The body of an export popup: what to include, then the two downloads that
-  include it. Used by the board, swimlane and list export popups with a
-  different scope each (#1173) - see exportScope.js.
-template(name="exportScopeBody")
+//- The checkbox list - WHAT an export includes, and what an import brings in.
+  Its own template so the board popup can borrow it into a pane of its own
+  layout while the swimlane, list and card popups get it inside the pane
+  exportScopeBody builds for them, with no copy of the markup in either place.
+  The helpers are registered on BOTH templates from one object (exportScope.js);
+  the click handlers stay on exportScopeBody, because an event from here bubbles
+  to the template that includes it.
+template(name="exportScopeSelect")
   p.quiet {{_ 'export-select-what-to-include'}}
   ul.pop-over-list
     li(class="{{#if cardDetailsChecked}}active{{/if}}")
@@ -13,50 +17,56 @@ template(name="exportScopeBody")
         a.js-export-field-toggle(data-field="{{field}}" href="#")
           i.fa.fa-check
           | {{_ label}}
-  //- The board popup lays its own formats out, grouped under subheadings, and
-    borrows only the checkboxes above - so the parts selection is written once
-    while each menu shows the formats that make sense for it.
-  unless hideFormats
-    hr
-    ul.pop-over-list
-      li
-        a(href="{{exportUrlPDF}}", download="{{exportFilenamePDF}}")
-          i.fa.fa-file-pdf-o
-          | {{_ 'export'}} / PDF
-      li
-        a(href="{{exportUrlExcel}}", download="{{exportFilenameExcel}}")
-          i.fa.fa-file-excel-o
-          | {{_ 'export'}} / Excel
-      li
-        a(href="{{exportUrlJson}}", download="{{exportFilenameJson}}")
-          i.fa.fa-file-code-o
-          | {{_ 'export'}} / JSON
-      li
-        a(href="{{exportUrlJsonNoAttachments}}", download="{{exportFilenameJson}}")
-          i.fa.fa-file-code-o
-          | {{_ 'export'}} / JSON ({{_ 'export-board-without-attachments'}})
-      li
-        a(href="{{exportUrlZip}}", download="{{exportFilenameZip}}")
-          i.fa.fa-file-archive-o
-          | {{_ 'export'}} / .zip ({{_ 'attachments'}})
-  //- #1173: the same popup, the other direction. The checkboxes above say what
-    goes OUT of an export and what comes IN from an import - one selection, so
-    "no comments" means the same thing whichever way the file is moving.
-  if canImport
-    hr
-    p.quiet {{_ 'import-here-instruction'}}
-    ul.pop-over-list
-      li
-        label.js-import-file-label
-          i.fa.fa-download
-          | {{_ 'import'}} / JSON, .zip
-          input.js-import-file(type="file" accept=".json,application/json,.zip,application/zip" hidden)
-    if importBusy
-      p.quiet {{_ 'importing'}}
-    if importError
-      .warning {{_ importError}}
-    if importDone
-      p.quiet {{_ 'import-done'}} {{importDone}}
+
+//- The body of an export popup - ALL of them (#1173). What to include in one
+  pane and what to export it to in the other, side by side when the window has
+  room and stacked when it does not.
+  It was two menus: the board popup wrote nineteen formats of its own in
+  sidebar.jade under four subheadings, and the swimlane, list and card popups
+  wrote five here in one narrow column - so "the export popup" looked like two
+  different features depending on which menu opened it, and a format added to
+  one was missing from the other. The formats are one table now
+  (EXPORT_FORMAT_GROUPS, exportScope.js); each entry says which scopes it
+  applies to and whether it is a link or an action, and this lays them out.
+template(name="exportScopeBody")
+  .export-board-panes
+    .export-board-pane.export-board-pane-select
+      +exportScopeSelect
+    .export-board-pane.export-board-pane-formats
+      each formatGroups
+        if heading
+          hr
+          h4.pop-over-list-subheading {{heading}}
+        ul.pop-over-list
+          each entries
+            li
+              if action
+                a(class="{{action}}")
+                  i.fa(class="{{icon}}")
+                  | {{label}}
+              else
+                a(href="{{url}}" download="{{filename}}")
+                  i.fa(class="{{icon}}")
+                  | {{label}}
+      //- #1173: the same popup, the other direction. The checkboxes in the
+        other pane say what goes OUT of an export and what comes IN from an
+        import - one selection, so "no comments" means the same thing whichever
+        way the file is moving.
+      if canImport
+        hr
+        p.quiet {{_ 'import-here-instruction'}}
+        ul.pop-over-list
+          li
+            label.js-import-file-label
+              i.fa.fa-download
+              | {{_ 'import'}} / JSON, .zip
+              input.js-import-file(type="file" accept=".json,application/json,.zip,application/zip" hidden)
+        if importBusy
+          p.quiet {{_ 'importing'}}
+        if importError
+          .warning {{_ importError}}
+        if importDone
+          p.quiet {{_ 'import-done'}} {{importDone}}
 
 template(name="exportSwimlanePopup")
   +exportScopeBody(swimlaneId=_id title=title)

@@ -6,7 +6,7 @@ import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 const { allBoardsPath, SECTION_ARCHIVE } = require('/models/lib/allBoardsUrls');
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
-import { exportUrlFor, exportFilenameFor } from '/client/components/boards/exportScope';
+import '/client/components/boards/exportScope';
 import AccessibilitySettings from '/models/accessibilitySettings';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
@@ -945,83 +945,18 @@ Template.outgoingWebhooksPopup.events({
   },
 });
 
-// The five formats that take the export SELECTION, built with the same helper
-// the shared popup body uses - so the board popup's own list cannot drift from
-// the one every other menu shows.
-function boardScopeUrl(pathSuffix, extra = {}) {
-  return exportUrlFor(`/api/boards/:boardId/${pathSuffix}`, extra);
-}
-
+// The board popup is the shared export body (client/components/boards/exportScope.js)
+// with the widest scope: every format, every filename and the URL builder behind
+// them live in that one table, so this popup has nothing of its own to compute
+// except the NAME of what is being exported. The nineteen helpers that used to
+// build those URLs here are gone with the markup that called them - two lists of
+// formats was how the board menu and the other three menus drifted apart.
 Template.exportBoardPopup.helpers({
-  exportUrlPDF() { return boardScopeUrl('exportPDF'); },
-  exportUrlExcel() { return boardScopeUrl('exportExcel'); },
-  exportUrlJsonSelected() { return boardScopeUrl('export'); },
-  exportUrlJsonNoAttachments() { return boardScopeUrl('export', { attachments: 'false' }); },
-  exportUrlZip() { return boardScopeUrl('exportZip'); },
-  exportFilenamePDF() { return exportFilenameFor('pdf'); },
-  exportFilenameExcelSelected() { return exportFilenameFor('xlsx'); },
-  exportFilenameZip() { return exportFilenameFor('zip'); },
-  withApi() {
-    return Template.instance().apiEnabled.get();
-  },
-  exportUrl() {
-    const params = {
-      boardId: Session.get('currentBoard'),
-    };
-    const queryParams = {
-      authToken: Accounts._storedLoginToken(),
-    };
-    return FlowRouter.path('/api/boards/:boardId/export', params, queryParams);
-  },
-  // #5870: JSON export omitting base64 attachment data, so very large boards
-  // (whose inlined attachments would otherwise overflow the JSON serializer)
-  // can still be exported.
-  exportUrlNoAttachments() {
-    const params = {
-      boardId: Session.get('currentBoard'),
-    };
-    const queryParams = {
-      authToken: Accounts._storedLoginToken(),
-      attachments: 'false',
-    };
-    return FlowRouter.path('/api/boards/:boardId/export', params, queryParams);
-  },
   // #1173: the shared export body names the file after what was exported, and
-  // for the board popup that is the board.
+  // for this popup that is the board.
   boardTitle() {
     const board = ReactiveCache.getBoard(Session.get('currentBoard'));
     return (board && board.title) || 'export-board';
-  },
-  // #1173: every board export goes through the one url builder, so the parts
-  // ticked in the popup ride along with ALL of them - not only the four that
-  // used to carry them. What a format can drop depends on what it has: a CSV
-  // loses columns, a Trello export loses the description, the labels or the due
-  // date, and a format that never had comments cannot lose them.
-  exportUrlKanboard() { return boardScopeUrl('export/kanboard'); },
-  exportFilenameKanboard() {
-    const boardId = Session.get('currentBoard');
-    return `export-board-kanboard-${boardId}.json`;
-  },
-  // Generalized export URL/filename for the external tools (Deck, OpenProject,
-  // GitHub, GitLab, Gitea, Forgejo).
-  exportUrlExternal(format) { return boardScopeUrl(`export/${format}`); },
-  exportFilenameExternal(format) {
-    return `export-board-${format}-${Session.get('currentBoard')}.json`;
-  },
-  exportCsvUrl() { return boardScopeUrl('export/csv', { delimiter: ',' }); },
-  exportScsvUrl() { return boardScopeUrl('export/csv', { delimiter: ';' }); },
-  exportTsvUrl() { return boardScopeUrl('export/csv', { delimiter: '\t' }); },
-  exportJsonFilename() {
-    const boardId = Session.get('currentBoard');
-    return `export-board-${boardId}.json`;
-  },
-  exportCsvFilename() {
-    const boardId = Session.get('currentBoard');
-    return `export-board-${boardId}.csv`;
-  },
-  exportTsvFilename() {
-    const boardId = Session.get('currentBoard');
-    return `export-board-${boardId}.tsv`;
   },
 });
 

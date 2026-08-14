@@ -1019,7 +1019,10 @@ body.mobile-mode .pop-over .content-wrapper {
   opacity: 0.6;
 }
 
-/* Export board: two panes when the window has room for them.
+/* EVERY export popup - board, swimlane, list, card - two panes when the window
+   has room for them. They are one popup with one scope each (#1173), so the
+   layout is written once, against the `.export-board-panes` the shared body
+   draws, rather than against the board popup's name.
    WHAT to include on one side, what to export TO on the other, so the whole
    menu is visible at once instead of being a column somebody scrolls past
    twenty entries of. The same idea as the language list - width buys layout -
@@ -1038,7 +1041,10 @@ body.mobile-mode .pop-over .content-wrapper {
    opened near the right edge lands most of the way off the screen. Change one
    and change the other. */
 @media screen and (min-width: 801px) {
-  .pop-over[data-popup='exportBoardPopup'] {
+  .pop-over[data-popup='exportBoardPopup'],
+  .pop-over[data-popup='exportSwimlanePopup'],
+  .pop-over[data-popup='exportListPopup'],
+  .pop-over[data-popup='exportCardPopup'] {
     /* The FULL width of the window, less the 10px gutter every popup is kept
        inside - not "up to 1100px". It is a panel with two panes, and anchored
        to its button at 1100 its trailing edge went past the edge of the window,
@@ -1049,7 +1055,7 @@ body.mobile-mode .pop-over .content-wrapper {
     width: calc(100vw - 20px) !important;
     max-width: calc(100vw - 20px) !important;
   }
-  .pop-over[data-popup='exportBoardPopup'] .export-board-panes {
+  .pop-over .export-board-panes {
     display: grid;
     /* The selection is a checkbox list and stays narrower than the formats,
        which are three groups under three headings. */
@@ -1060,20 +1066,20 @@ body.mobile-mode .pop-over .content-wrapper {
   /* A rule between the panes rather than under each section: the two sides are
      one menu, and the line says where one ends. `border-inline-start` mirrors
      itself, like everything else here. */
-  .pop-over[data-popup='exportBoardPopup'] .export-board-pane-formats {
+  .pop-over .export-board-pane-formats {
     border-inline-start: 1px solid rgba(0, 0, 0, 0.12);
     padding-inline-start: 18px;
   }
   /* Inside a pane, lists still fill their width with as many columns as fit -
      so a very wide window gives the formats two columns rather than one long
      one, and the checkboxes two or three. */
-  .pop-over[data-popup='exportBoardPopup'] .pop-over-list {
+  .pop-over .export-board-pane .pop-over-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
     align-content: start;
     column-gap: 4px;
   }
-  .pop-over[data-popup='exportBoardPopup'] .pop-over-list li {
+  .pop-over .export-board-pane .pop-over-list li {
     min-width: 0;
   }
 }
@@ -1081,7 +1087,7 @@ body.mobile-mode .pop-over .content-wrapper {
 /* The rule above each subheading in the Export board menu. Tighter than the
    default so a group's heading stays visually attached to the list under it
    rather than floating between two gaps. */
-.pop-over[data-popup='exportBoardPopup'] .export-board-pane hr {
+.pop-over .export-board-pane hr {
   margin: 10px 0 0 0;
   border: none;
   border-top: 1px solid rgba(0, 0, 0, 0.12);
