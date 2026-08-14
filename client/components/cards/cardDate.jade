@@ -1,289 +1,91 @@
-template(name="dateBadge")
+//- One date badge: the coloured date on a card or a minicard. Twelve templates
+  drew this, letter for letter - Received, Start, Due and End on the card and
+  again on the minicard, a vote's end, a poker's end and a custom field's date -
+  and each of them still has its own helpers and its own click, which is the
+  part that differs. The markup did not.
+//-
+//- It takes what it draws as ARGUMENTS: a helper is looked up on the template
+  it is written in, not on the one including it, so passing the values is what
+  lets one piece of markup serve twelve templates without moving any of their
+  state.
+//-
+//- `baseClass` is the class the caller's own markup carried - `card-date`, plus
+  `due-date` and friends on a minicard. A custom field's date passes NONE: it
+  was never a `.card-date` and must not become one now.
+//- `canModifyCard` decides whether the badge is a link that opens the date
+  editor; a custom field's date is never one, and passes nothing.
+template(name="dateBadgeBody")
   if canModifyCard
-    a.js-edit-date.card-date(title="{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
+    a.js-edit-date(title="{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{baseClass}} {{classes}}")
       time(datetime="{{showISODate}}")
         | {{showDate}}
         if showWeekOfYear
           b
             | {{showWeek}}
   else
-    a.card-date(title="{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
+    a(title="{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{baseClass}} {{classes}}")
       time(datetime="{{showISODate}}")
         | {{showDate}}
         if showWeekOfYear
           b
             | {{showWeek}}
+
+template(name="dateBadge")
+  +dateBadgeBody(canModifyCard=canModifyCard baseClass="card-date" showTitle=showTitle classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
 
 template(name="cardReceivedDate")
-  if canModifyCard
-    a.js-edit-date.card-date(title="{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
-      time(datetime="{{showISODate}}")
-        | {{showDate}}
-        if showWeekOfYear
-          b
-            | {{showWeek}}
-  else
-    a.card-date(title="{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
-      time(datetime="{{showISODate}}")
-        | {{showDate}}
-        if showWeekOfYear
-          b
-            | {{showWeek}}
+  +dateBadgeBody(canModifyCard=canModifyCard baseClass="card-date" showTitle=showTitle classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
 
 template(name="cardStartDate")
-  if canModifyCard
-    a.js-edit-date.card-date(title="{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
-      time(datetime="{{showISODate}}")
-        | {{showDate}}
-        if showWeekOfYear
-          b
-            | {{showWeek}}
-  else
-    a.card-date(title="{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
-      time(datetime="{{showISODate}}")
-        | {{showDate}}
-        if showWeekOfYear
-          b
-            | {{showWeek}}
+  +dateBadgeBody(canModifyCard=canModifyCard baseClass="card-date" showTitle=showTitle classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
 
 template(name="cardDueDate")
-  if canModifyCard
-    a.js-edit-date.card-date(title="{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
-      time(datetime="{{showISODate}}")
-        | {{showDate}}
-        if showWeekOfYear
-          b
-            | {{showWeek}}
-  else
-    a.card-date(title="{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
-      time(datetime="{{showISODate}}")
-        | {{showDate}}
-        if showWeekOfYear
-          b
-            | {{showWeek}}
+  +dateBadgeBody(canModifyCard=canModifyCard baseClass="card-date" showTitle=showTitle classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
 
 template(name="cardEndDate")
-  if canModifyCard
-    a.js-edit-date.card-date(title="{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
-      time(datetime="{{showISODate}}")
-        | {{showDate}}
-        if showWeekOfYear
-          b
-            | {{showWeek}}
-  else
-    a.card-date(title="{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
-      time(datetime="{{showISODate}}")
-        | {{showDate}}
-        if showWeekOfYear
-          b
-            | {{showWeek}}
+  +dateBadgeBody(canModifyCard=canModifyCard baseClass="card-date" showTitle=showTitle classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
 
 template(name="dateCustomField")
-  a(title="{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
-    time(datetime="{{showISODate}}")
-      | {{showDate}}
-      if showWeekOfYear
-        b
-          | {{showWeek}}
+  +dateBadgeBody(showTitle=showTitle classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
 
 template(name="cardCustomFieldDate")
-  a(title="{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
-    time(datetime="{{showISODate}}")
-      | {{showDate}}
-      if showWeekOfYear
-        b
-          | {{showWeek}}
+  +dateBadgeBody(showTitle=showTitle classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
 
 template(name="voteEndDate")
-  if canModifyCard
-    a.js-edit-date.card-date(title="{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
-      time(datetime="{{showISODate}}")
-        | {{showDate}}
-        if showWeekOfYear
-          b
-            | {{showWeek}}
-  else
-    a.card-date(title="{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
-      time(datetime="{{showISODate}}")
-        | {{showDate}}
-        if showWeekOfYear
-          b
-            | {{showWeek}}
+  +dateBadgeBody(canModifyCard=canModifyCard baseClass="card-date" showTitle=showTitle classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
 
 template(name="pokerEndDate")
-  if canModifyCard
-    a.js-edit-date.card-date(title="{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
-      time(datetime="{{showISODate}}")
-        | {{showDate}}
-        if showWeekOfYear
-          b
-            | {{showWeek}}
-  else
-    a.card-date(title="{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
-      time(datetime="{{showISODate}}")
-        | {{showDate}}
-        if showWeekOfYear
-          b
-            | {{showWeek}}
+  +dateBadgeBody(canModifyCard=canModifyCard baseClass="card-date" showTitle=showTitle classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
 
 template(name="minicardReceivedDate")
-  if canModifyCard
-    a.js-edit-date.card-date.received-date(title="{{_ 'card-received'}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
-      time(datetime="{{showISODate}}")
-        | {{showDate}}
-        if showWeekOfYear
-          b
-            | {{showWeek}}
-  else
-    a.card-date.received-date(title="{{_ 'card-received'}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
-      time(datetime="{{showISODate}}")
-        | {{showDate}}
-        if showWeekOfYear
-          b
-            | {{showWeek}}
+  +dateBadgeBody(canModifyCard=canModifyCard showTitle="{{_ 'card-received'}}" baseClass="card-date received-date" classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
 
 template(name="minicardStartDate")
-  if canModifyCard
-    a.js-edit-date.card-date.start-date(title="{{_ 'card-start'}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
-      time(datetime="{{showISODate}}")
-        | {{showDate}}
-        if showWeekOfYear
-          b
-            | {{showWeek}}
-  else
-    a.card-date.start-date(title="{{_ 'card-start'}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
-      time(datetime="{{showISODate}}")
-        | {{showDate}}
-        if showWeekOfYear
-          b
-            | {{showWeek}}
+  +dateBadgeBody(canModifyCard=canModifyCard showTitle="{{_ 'card-start'}}" baseClass="card-date start-date" classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
 
 template(name="minicardDueDate")
-  if canModifyCard
-    a.js-edit-date.card-date.due-date(title="{{_ 'card-due'}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
-      time(datetime="{{showISODate}}")
-        | {{showDate}}
-        if showWeekOfYear
-          b
-            | {{showWeek}}
-  else
-    a.card-date.due-date(title="{{_ 'card-due'}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
-      time(datetime="{{showISODate}}")
-        | {{showDate}}
-        if showWeekOfYear
-          b
-            | {{showWeek}}
+  +dateBadgeBody(canModifyCard=canModifyCard showTitle="{{_ 'card-due'}}" baseClass="card-date due-date" classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
 
 template(name="minicardEndDate")
-  if canModifyCard
-    a.js-edit-date.card-date.end-date(title="{{_ 'card-end'}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
-      time(datetime="{{showISODate}}")
-        | {{showDate}}
-        if showWeekOfYear
-          b
-            | {{showWeek}}
-  else
-    a.card-date.end-date(title="{{_ 'card-end'}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
-      time(datetime="{{showISODate}}")
-        | {{showDate}}
-        if showWeekOfYear
-          b
-            | {{showWeek}}
+  +dateBadgeBody(canModifyCard=canModifyCard showTitle="{{_ 'card-end'}}" baseClass="card-date end-date" classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
 
 template(name="minicardCustomFieldDate")
-  a(title="{{_ 'date'}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
-    time(datetime="{{showISODate}}")
-      | {{showDate}}
-      if showWeekOfYear
-        b
-          | {{showWeek}}
+  +dateBadgeBody(showTitle="{{_ 'date'}}" classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
 
 template(name="editCardReceivedDatePopup")
-  .datepicker-container
-    form.edit-date
-      .fields
-        .left
-          label(for="date") {{_ 'date'}}
-          input.js-date-field#date(type="date" name="date" value=showDate autofocus)
-        .right
-          label(for="time") {{_ 'time'}}
-          input.js-time-field#time(type="time" name="time" value=showTime)
-      if error.get
-        .warning {{_ error.get}}
-      button.primary.wide.left.js-submit-date(type="submit") {{_ 'save'}}
-      button.js-delete-date.negate.wide.right.js-delete-date {{_ 'delete'}}
+  +editDateForm(showDate=showDate showTime=showTime error=error)
 
 template(name="editCardStartDatePopup")
-  .datepicker-container
-    form.edit-date
-      .fields
-        .left
-          label(for="date") {{_ 'date'}}
-          input.js-date-field#date(type="date" name="date" value=showDate autofocus)
-        .right
-          label(for="time") {{_ 'time'}}
-          input.js-time-field#time(type="time" name="time" value=showTime)
-      if error.get
-        .warning {{_ error.get}}
-      button.primary.wide.left.js-submit-date(type="submit") {{_ 'save'}}
-      button.js-delete-date.negate.wide.right.js-delete-date {{_ 'delete'}}
+  +editDateForm(showDate=showDate showTime=showTime error=error)
 
 template(name="editCardDueDatePopup")
-  .datepicker-container
-    form.edit-date
-      .fields
-        .left
-          label(for="date") {{_ 'date'}}
-          input.js-date-field#date(type="date" name="date" value=showDate autofocus)
-        .right
-          label(for="time") {{_ 'time'}}
-          input.js-time-field#time(type="time" name="time" value=showTime)
-      if error.get
-        .warning {{_ error.get}}
-      button.primary.wide.left.js-submit-date(type="submit") {{_ 'save'}}
-      button.js-delete-date.negate.wide.right.js-delete-date {{_ 'delete'}}
+  +editDateForm(showDate=showDate showTime=showTime error=error)
 
 template(name="editCardEndDatePopup")
-  .datepicker-container
-    form.edit-date
-      .fields
-        .left
-          label(for="date") {{_ 'date'}}
-          input.js-date-field#date(type="date" name="date" value=showDate autofocus)
-        .right
-          label(for="time") {{_ 'time'}}
-          input.js-time-field#time(type="time" name="time" value=showTime)
-      if error.get
-        .warning {{_ error.get}}
-      button.primary.wide.left.js-submit-date(type="submit") {{_ 'save'}}
-      button.js-delete-date.negate.wide.right.js-delete-date {{_ 'delete'}}
+  +editDateForm(showDate=showDate showTime=showTime error=error)
 
 template(name="editVoteEndDatePopup")
-  .datepicker-container
-    form.edit-date
-      .fields
-        .left
-          label(for="date") {{_ 'date'}}
-          input.js-date-field#date(type="date" name="date" value=showDate autofocus)
-        .right
-          label(for="time") {{_ 'time'}}
-          input.js-time-field#time(type="time" name="time" value=showTime)
-      if error.get
-        .warning {{_ error.get}}
-      button.primary.wide.left.js-submit-date(type="submit") {{_ 'save'}}
-      button.js-delete-date.negate.wide.right.js-delete-date {{_ 'delete'}}
+  +editDateForm(showDate=showDate showTime=showTime error=error)
 
 template(name="editPokerEndDatePopup")
-  .datepicker-container
-    form.edit-date
-      .fields
-        .left
-          label(for="date") {{_ 'date'}}
-          input.js-date-field#date(type="date" name="date" value=showDate autofocus)
-        .right
-          label(for="time") {{_ 'time'}}
-          input.js-time-field#time(type="time" name="time" value=showTime)
-      if error.get
-        .warning {{_ error.get}}
-      button.primary.wide.left.js-submit-date(type="submit") {{_ 'save'}}
-      button.js-delete-date.negate.wide.right.js-delete-date {{_ 'delete'}}
+  +editDateForm(showDate=showDate showTime=showTime error=error)

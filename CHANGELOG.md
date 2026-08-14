@@ -1094,6 +1094,35 @@ so Enter and Space do what a click does.
 
 </details>
 
+and has the following developer-facing change:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH10">The date markup is written once instead of twenty-two times</a>. Thanks to xet7.</summary>
+
+Two shapes were copied across three files. The **edit-a-date form** - date,
+time, Save, Delete - existed **eight times**, letter for letter: the card's
+Received, Start, Due and End, a vote's end date, a planning poker's end date, a
+date custom field, and a ninth `datepicker` template that nothing included and
+no popup could open. The **date badge** - the coloured date on a card and on a
+minicard - existed **fourteen times**.
+
+The JavaScript was already shared: `client/lib/datepicker.js` holds the state
+and the handlers, and each popup differs only in the field it stores. It was
+only the markup, so a change to the form meant eight edits and a change to the
+badge meant fourteen, with nothing to say so.
+
+Each is one template now. They take what they draw as ARGUMENTS, because a
+helper is looked up on the template it is written in and not on the one
+including it - which is what lets one piece of markup serve them all while every
+popup keeps its own state, its own click and its own name. `cardDate.jade` went
+from 289 lines to 91.
+
+The badge's `baseClass` is the trap this had to avoid: three of the fourteen -
+the custom-field dates - were never `.card-date` and must not become one, so the
+class each caller carried is passed in rather than baked into the shared markup.
+
+</details>
+
 and fixes the following bugs:
 
 **Card details** - the card as it is opened and edited.

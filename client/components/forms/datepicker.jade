@@ -1,14 +1,29 @@
-template(name="datepicker")
-    .datepicker-container
-        form.edit-date
-            .fields
-                .left
-                    label(for="date") {{_ 'date'}}
-                    input.js-date-field#date(type="date" name="date" value=showDate autofocus)
-                .right
-                    label(for="time") {{_ 'time'}}
-                    input.js-time-field#time(type="time" name="time" value=showTime)
-            if error.get
-                .warning {{_ error.get}}
-            button.primary.wide.left.js-submit-date(type="submit") {{_ 'save'}}
-            button.js-delete-date.negate.wide.right.js-delete-date {{_ 'delete'}}
+//- The date-and-time form every "edit a date" popup is made of: the card's
+//- Received, Start, Due and End dates, a vote's and a planning poker's end
+//- date, and a date custom field. Eight popups drew this same form, letter for
+//- letter, in three different files.
+//-
+//- It takes what it shows as ARGUMENTS rather than reading helpers: a helper
+//- inside a template is looked up on that template, not on the one including
+//- it, and all eight popups keep their own state and handlers
+//- (client/lib/datepicker.js, which they already shared - it was only the
+//- markup that was copied). So this template has no code of its own at all;
+//- it renders three values and the buttons.
+//-
+//- The buttons are handled where the state is: `js-submit-date` and
+//- `js-delete-date` bubble to the popup that includes this, whose events come
+//- from datePickerEvents().
+template(name="editDateForm")
+  .datepicker-container
+    form.edit-date
+      .fields
+        .left
+          label(for="date") {{_ 'date'}}
+          input.js-date-field#date(type="date" name="date" value=showDate autofocus)
+        .right
+          label(for="time") {{_ 'time'}}
+          input.js-time-field#time(type="time" name="time" value=showTime)
+      if error.get
+        .warning {{_ error.get}}
+      button.primary.wide.left.js-submit-date(type="submit") {{_ 'save'}}
+      button.js-delete-date.negate.wide.right.js-delete-date {{_ 'delete'}}
