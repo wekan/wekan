@@ -1198,6 +1198,77 @@ cost more than the fifteen lines it saved.
 
 and fixes the following bugs:
 
+**Attachments and the snap's databases** - what can be read, and what cannot.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/146a5184d90028b3ccf917069b3007ef520fcb59">Moving attachments out of CollectionFS no longer deletes a binary two records share</a>. Thanks to sbruckmueller and xet7.</summary>
+
+Moving from MongoDB CollectionFS to File-System stopped on some attachments
+with `FileNotFound: file 66336fc372e64200010f4832 was not found`, and the
+reporter had it exactly: it is the identical files.
+
+A CollectionFS filerecord points at its binary by `copies.<coll>.key`, the id of
+a file in the `cfs_gridfs.<coll>` bucket, and TWO filerecords can carry the SAME
+key - the same file attached twice, or a board copied with its attachments. The
+migration deleted the binary as soon as it had moved the FIRST of them, so the
+second read a file that was no longer there. The binary now goes only when no
+other filerecord still names it, and when the question cannot be asked the
+binary stays: a file left behind can be removed later, an attachment deleted out
+from under another record cannot be brought back.
+
+A binary that really is missing - metadata restored without the chunks - is no
+longer a MongoDB stack trace naming a GridFS id. It names the attachment, says
+where it was looked for, and counts as SKIPPED rather than failed, because there
+was nothing to move. The Admin Panel's summary line shows how many were skipped
+and how many failed, so a run that leaves attachments behind cannot look like a
+run that moved everything.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2ff21ac962c671bb9cf18a3c07db9ccf7877d30c">A snap whose MongoDB files no reader can open stops comparing them with FerretDB</a>. Thanks to mueschel and xet7.</summary>
+
+An instance whose MongoDB data was written by a MongoDB older than any `mongod`
+the snap carries printed this at every start, before the site came up:
+`BOTH databases have been written to since the migration` and then `[autopick]
+reading both databases to see which one holds the work ...`.
+
+`mongodb_has_data` answers "are the files there", not "can anything here open
+them", and on that instance those are different answers - `mongod` 7, 5.0 and
+4.2 each refused the files in turn. So the comparison ran on a copy that cannot
+be served, and it is not a cheap question: it starts a mongod that cannot open
+the data, and then a SECOND FerretDB against the SQLite directory the running
+one already holds.
+
+`migration-control` has already tried every reader in the snap and left
+`.mongodb-data-too-old` behind when none could open the files. With that marker
+present the MongoDB copy is no longer a candidate, and WeKan serves the FerretDB
+that has the data. Nothing is deleted and the marker stays: it is true, and it
+is right again on a snap that can read those files.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/804004e9e88cf4d21c4f34e7201f532a7ae59cc8">Comparing the two databases reads the one that is already running</a>. Thanks to waltermhl and xet7.</summary>
+
+`snap run wekan.database-compare` answered `MongoDB: <unreadable>` and
+`FerretDB: <unreadable>` on a live instance whose `wekan.sqlite` was 85 MB and
+whose site was up.
+
+FerretDB was unreadable BECAUSE it was up: SQLite has one writer, so the second
+FerretDB the comparison started against the same directory did not get the data.
+The tool then reported the database it had been talking to all along as
+unreadable, and refused to choose.
+
+The live one is asked first now - `evidence` only counts and sorts - and a
+second copy is started only for a database that is not running. Both speak the
+MongoDB wire protocol on the same port, so which one is answering is asked
+rather than assumed: FerretDB names itself in `buildInfo` and a `mongod` does
+not. Reading one as the other would be a wrong answer given with confidence,
+which is worse than "unreadable".
+
+</details>
+
 **Card details** - the card as it is opened and edited.
 
 <details>
