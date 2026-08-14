@@ -4133,6 +4133,38 @@ an hour ago - and pins that ambiguity can never reach the deletion.
 and improves the translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1fedfb26256b2cace1d058d93931d94ad223c930">Six languages WeKan did not have: Bengali, Urdu, Marathi, Filipino, Hausa and Amharic</a>. Thanks to xet7.</summary>
+
+WeKan had 154 language files and not one of them was **Bengali** - about 270
+million speakers - or **Urdu**, or **Marathi**, **Filipino**, **Hausa** or
+**Amharic**. The list of languages WeKan supports was never a judgement about
+which languages matter; it is the list somebody happened to start.
+
+Each is three edits, and all three are needed or the language is invisible: the
+strings file, the entry in `languages.js` naming the language **in that
+language** - বাংলা, اردو, मराठी, አማርኛ - and the flag in the picker. Urdu is
+`rtl: true`, so the whole interface lays itself out right-to-left for it.
+
+A new file is a full copy of `en.i18n.json` with the translated values swapped
+in, which is what every other language file here is: the key-order guard reads
+absolute positions, so a file holding only the strings it has translated would
+put every later key at the wrong index. Each of the six starts with the words a
+board is made of - board, list, card, swimlane, label, member, the buttons, the
+menus, the dates - and grows from there.
+
+`tests/newLanguageWiring.test.cjs` holds the three edits together, and found two
+things while being written: **fourteen languages were showing a globe** instead
+of a flag (Acehnese, Moroccan Arabic, Asturian, Breton, Frisian, Norwegian
+Bokmål, Occitan, Turkmen, Walloon, Wu, Yiddish, Tamazight and two Chinese
+variants), which they no longer do; and **two files nobody loads** -
+`km_KH.i18n.json` and `ru_RU.i18n.json` are translated, committed, and imported
+by no entry, because the entries for those tags load the hyphenated files
+instead. They are pinned as a known state, so a third one is a failure rather
+than a shrug.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/240f8f2d4a1a62f17c90fe0f2b952e937df3d2ec">Uyghur, Belarusian, Catalan, Estonian, Malay, Turkmen, Xhosa and Igbo, and the sort letters</a>. Thanks to xet7.</summary>
 
 Another eight languages, from their own vocabulary: the export and import menus,
