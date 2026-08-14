@@ -1005,6 +1005,27 @@ it shared its row and read as one more badge rather than as the line it is.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH6">Members and Labels fold in the board sidebar, by their headings</a>. Thanks to xet7.</summary>
+
+The two sections at the top of the right sidebar could not be folded at all.
+The People / Organizations / Teams / Domains tabs with their avatars, and every
+label of the board, were always open and pushed everything under them down the
+panel.
+
+Both have a caret in front of their heading now, and the heading is the button
+- the same control an opened card's sections use, and the same one Activities
+got below them. Folding **Members** hides the tabs and the avatars in them;
+folding **Labels** hides the labels and the + that creates one. Enter and Space
+do what a click does.
+
+The choice is the reader's and lasts the session, not the board's: neither
+decides anything on the server, so folding them for yourself must not fold them
+for everybody. Activities is the exception and stays as it is - its caret
+writes `board.showActivities`, which also decides what the publication sends.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f0204ae014d1b312355be89bba09717ffeb28d47">The board sidebar's Activities has a caret instead of an eye</a>. Thanks to xet7.</summary>
 
 The heading read "Activities" and beside it sat an eye and the words "Show

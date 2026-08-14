@@ -73,10 +73,16 @@ template(name="membersWidget")
           i.fa.fa-cog
           | {{_ 'boardMenuPopup-title'}}
   hr
-  h3
+  //- The heading is the button, with a caret in front of it, like every
+    collapsible section of an opened card: folding Members hides the People /
+    Organizations / Teams / Domains tabs and the avatars in them.
+    client/lib/sidebarSectionState.js
+  h3.js-toggle-sidebar-section(data-section="members" role="button" tabindex="0")
+    i.fa(class="{{sidebarSectionCaret 'members'}}")
     i.fa.fa-users
     | {{_ 'members'}}
-  +basicTabs(tabs=tabs)
+  if isSidebarSectionOpen 'members'
+    +basicTabs(tabs=tabs)
       +tabContent(slug="people")
         unless currentUser.isWorker
           p.quiet
@@ -887,19 +893,22 @@ template(name="exportBoardPopup")
             | Zenkit
 template(name="labelsWidget")
   .board-widget.board-widget-labels
-    h3
+    //- Same caret as Members above: folding Labels hides the labels under it.
+    h3.js-toggle-sidebar-section(data-section="labels" role="button" tabindex="0")
+      i.fa(class="{{sidebarSectionCaret 'labels'}}")
       i.fa.fa-tag
       | {{_ 'labels'}}
-    .board-widget-content
-      each currentBoard.labels
-          a.card-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}"
-            class="{{#if currentUser.isNotCommentOnly}}{{#if currentUser.isNotWorker}}js-label{{/if}}{{/if}}")
-            span.card-label-name
-              +viewer
-                = name
-      if currentUser.isBoardAdmin
-        a.card-label.add-label.js-add-label(title="{{_ 'label-create'}}")
-          i.fa.fa-plus
+    if isSidebarSectionOpen 'labels'
+      .board-widget-content
+        each currentBoard.labels
+            a.card-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}"
+              class="{{#if currentUser.isNotCommentOnly}}{{#if currentUser.isNotWorker}}js-label{{/if}}{{/if}}")
+              span.card-label-name
+                +viewer
+                  = name
+        if currentUser.isBoardAdmin
+          a.card-label.add-label.js-add-label(title="{{_ 'label-create'}}")
+            i.fa.fa-plus
 
 template(name="memberPopup")
   .board-member-menu
