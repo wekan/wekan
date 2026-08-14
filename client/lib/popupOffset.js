@@ -63,15 +63,26 @@ function computePopupOffset(params) {
     // Select Color: the swatches are a grid, so width buys columns.
     changeColorPopup: 720,       // Member Settings / Change Color
     boardChangeColorPopup: 720,  // Board Settings / Change Color
-    // Export board: two panes - what to include, and what to export to -
-    // side by side when there is room, so the whole menu is visible at once.
-    // Same number as popup.css.
-    exportBoardPopup: 1100,      // Board Settings / Export board
   };
   const wide = WIDE_POPUP_WIDTHS[popupName];
   const popupWidth = wide
     ? Math.min(wide, viewportWidth * 0.9)
     : Math.min(380, viewportWidth * 0.55);
+
+  // Export board: a full-width PANEL, not a menu hanging off its button. It has
+  // two panes - what to include, and what to export to - and anchored to its
+  // button its trailing edge went past the edge of the window, taking the
+  // pop-over's own X with it: the only way to shut it was Escape or clicking
+  // away. Pinned to the viewport's own padding at the top left, and given
+  // `calc(100vw - 20px)` by popup.css - the same 10px on each side - so the
+  // whole panel, header and X included, is always on screen.
+  if (popupName === 'exportBoardPopup') {
+    return {
+      left: viewportPadding + scrollLeft,
+      top: viewportPadding + scrollTop,
+      maxHeight: viewportHeight - viewportPadding * 2,
+    };
+  }
 
   // Card details popup: docked to the top of the viewport (CSS also forces
   // top:0) so it overlays the header bars instead of opening from the minicard.

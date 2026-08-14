@@ -685,6 +685,15 @@ the two cannot drift apart. A **Trello, Jira or GitHub** export carries a title,
 a description, a due date and labels; those three parts are gated and nothing
 pretends to gate what is not there.
 
+**It is a full-width panel, and its X is always reachable.** It was anchored to
+the button that opens it and clamped into the window using an assumed width -
+and the assumption and the stylesheet disagreed by a few percent, so on a narrow
+window the panel's trailing edge, with the pop-over's own X on it, ended up past
+the edge of the screen: Escape or a click away were the only ways to shut it. It
+is pinned to the top of the viewport now, at the 10px gutter every popup keeps,
+and is `calc(100vw - 20px)` wide - the whole window, less that gutter on each
+side - so the header, the X and both panes are always on screen.
+
 **And the menu is a menu again.** Twenty-odd entries under three subheadings
 were a single column you scrolled past. On a window with room it is now TWO
 PANES - what to include on the left, what to export to on the right - each

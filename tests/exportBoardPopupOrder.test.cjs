@@ -189,8 +189,8 @@ test('a wide window puts the selection and the formats side by side', () => {
 
   const popupCss = read('client/components/main/popup.css');
   const rule = popupCss.slice(popupCss.indexOf("data-popup='exportBoardPopup'"));
-  assert.ok(/width: min\(96vw, 1100px\)/.test(rule.slice(0, 400)),
-    'wide enough for two panes');
+  assert.ok(/width: calc\(100vw - 20px\)/.test(rule.slice(0, 900)),
+    'the whole width of the window, less the gutter every popup keeps');
   assert.ok(/grid-template-columns: minmax\(260px, 0\.8fr\) minmax\(340px, 1\.2fr\)/.test(rule),
     'laid out as two grid columns');
   assert.ok(/grid-template-columns: repeat\(auto-fill, minmax\(190px, 1fr\)\)/.test(rule),
@@ -211,14 +211,23 @@ test('RTL mirrors the panes by itself (negative)', () => {
   assert.ok(!/\[dir="rtl"\]|:dir\(rtl\)/.test(rule), 'and no RTL branch at all');
 });
 
-test('the width is mirrored where the clamp reads it (negative)', () => {
-  // popupOffset.js places a popup using its width. Left at the default 380, a
-  // 1100px popup opened near the right edge lands most of the way off screen.
+test('it is placed as a panel, so its X is always reachable (negative)', () => {
+  // It used to be anchored to the button that opens it and clamped into the
+  // viewport using an assumed width. The assumption and the CSS disagreed by a
+  // few percent, so on a narrow window the panel's trailing edge - and the
+  // pop-over's own X with it - ended up past the edge of the screen, leaving
+  // Escape or a click away as the only ways to shut it.
   const offset = read('client/lib/popupOffset.js');
-  assert.ok(/exportBoardPopup: 1100/.test(offset),
-    'the clamp knows the real width');
-  assert.ok(/Same number as popup.css/.test(offset),
-    'and says where the other copy is');
+  const branch = offset.slice(offset.indexOf("if (popupName === 'exportBoardPopup')"));
+  const body = branch.slice(0, branch.indexOf('  }') + 3);
+  assert.ok(/left: viewportPadding \+ scrollLeft/.test(body), 'pinned to the gutter');
+  assert.ok(/top: viewportPadding \+ scrollTop/.test(body), 'at the top of the viewport');
+  assert.ok(/maxHeight: viewportHeight - viewportPadding \* 2/.test(body),
+    'and never taller than the window');
+  assert.ok(!/exportBoardPopup: 1100/.test(offset),
+    'no assumed width left to disagree with the stylesheet');
+  assert.ok(/keep it in step with `viewportPadding`/.test(read('client/components/main/popup.css')),
+    'and the stylesheet says where the other half of the pair is');
 });
 
 console.log(`\nexportBoardPopupOrder: ${passed} tests passed`);

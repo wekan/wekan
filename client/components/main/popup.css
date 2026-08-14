@@ -1024,8 +1024,15 @@ body.mobile-mode .pop-over .content-wrapper {
    and change the other. */
 @media screen and (min-width: 801px) {
   .pop-over[data-popup='exportBoardPopup'] {
-    width: min(96vw, 1100px) !important;
-    max-width: 96vw !important;
+    /* The FULL width of the window, less the 10px gutter every popup is kept
+       inside - not "up to 1100px". It is a panel with two panes, and anchored
+       to its button at 1100 its trailing edge went past the edge of the window,
+       taking the pop-over's own X with it. client/lib/popupOffset.js pins it to
+       that same gutter at the top of the viewport, so the whole panel - header,
+       X and both panes - is always on screen. The 20px is the 10px inset on
+       each side; keep it in step with `viewportPadding` there. */
+    width: calc(100vw - 20px) !important;
+    max-width: calc(100vw - 20px) !important;
   }
   .pop-over[data-popup='exportBoardPopup'] .export-board-panes {
     display: grid;
