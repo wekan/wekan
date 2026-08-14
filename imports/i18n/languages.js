@@ -20,6 +20,20 @@ export default {
     load: () => import('./data/af_ZA.i18n.json'),
     rtl: false,
   },
+  "am": {
+    code: "am",
+    tag: "am",
+    name: "አማርኛ",
+    load: () => import('./data/am.i18n.json'),
+    rtl: false,
+  },
+  "bn": {
+    code: "bn",
+    tag: "bn",
+    name: "বাংলা",
+    load: () => import('./data/bn.i18n.json'),
+    rtl: false,
+  },
   "en_AU": {
     code: "en",
     tag: "en_AU",
@@ -426,6 +440,13 @@ export default {
     load: () => import('./data/gu-IN.i18n.json'),
     rtl: false,
   },
+  "ha": {
+    code: "ha",
+    tag: "ha",
+    name: "Hausa",
+    load: () => import('./data/ha.i18n.json'),
+    rtl: false,
+  },
   "he-IL": {
     code: "he",
     tag: "he-IL",
@@ -578,6 +599,13 @@ export default {
     tag: "mn",
     name: "Монгол",
     load: () => import('./data/mn.i18n.json'),
+    rtl: false,
+  },
+  "mr": {
+    code: "mr",
+    tag: "mr",
+    name: "मराठी",
+    load: () => import('./data/mr.i18n.json'),
     rtl: false,
   },
   "ms": {
@@ -762,6 +790,13 @@ export default {
     load: () => import('./data/th.i18n.json'),
     rtl: false,
   },
+  "tl": {
+    code: "tl",
+    tag: "tl",
+    name: "Filipino",
+    load: () => import('./data/tl.i18n.json'),
+    rtl: false,
+  },
   "tlh": {
     code: "tlh",
     tag: "tlh",
@@ -796,6 +831,13 @@ export default {
     name: "Українська (Україна)",
     load: () => import('./data/uk-UA.i18n.json'),
     rtl: false,
+  },
+  "ur": {
+    code: "ur",
+    tag: "ur",
+    name: "اردو",
+    load: () => import('./data/ur.i18n.json'),
+    rtl: true,
   },
   "uz-AR": {
     code: "uz",
