@@ -987,6 +987,11 @@ Template.cardDetails.events({
     if ($(event.target).closest('.card-details-title-edit-zone').length > 0) {
       return;
     }
+    // The drag handle has its own handler; without this both would run and the
+    // window would be moved twice by one press.
+    if ($(event.target).closest('.js-card-drag-handle').length > 0) {
+      return;
+    }
 
     event.preventDefault();
     const $card = $(event.target).closest('.card-details');

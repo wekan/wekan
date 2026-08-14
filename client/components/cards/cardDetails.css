@@ -392,9 +392,21 @@ body.desktop-mode .card-details.card-details-collapsed {
   top: 0;
   bottom: 0;
   inset-inline-start: 0;
+  /* Half of the heading - and the heading is stretched to the row below, so
+     this is half of the BAR however long the title happens to be. */
   width: 50%;
   cursor: text;
   z-index: 1;
+}
+
+/* The heading fills the row rather than shrinking to its text, so "half the
+   title" and "half the bar" are the same half however long the title is. A
+   heading only as wide as its words leaves the empty space beside it belonging
+   to nothing - and that space is where anybody would grab to move the window.
+   It stays inline-block so the complete-toggle beside it keeps its place; the
+   buttons floating at the trailing edge take their room out of this width. */
+.card-details .card-details-header .card-details-title {
+  min-width: 60%;
 }
 
 /* With drag handles ON the handle is the only drag source, so the whole title
@@ -974,8 +986,15 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
 }
 
 /* Sticker picker + card-detail stickers + due-complete toggle */
+/* The picker fills the popup it is in rather than stopping at eight columns:
+   the popup is wide now (popup.css), and a fixed 320px there would have left
+   the extra width empty while the icons still ran off the bottom. A grid that
+   fits as many 40px cells as there is room for turns that width into rows the
+   reader does not have to scroll past. */
 .card-stickers-picker {
-  max-width: 320px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  justify-items: center;
 }
 .card-sticker-select {
   display: inline-flex;

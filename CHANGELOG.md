@@ -883,9 +883,16 @@ nowhere on that line to take hold of - a grab that moves a few pixels is a
 click, and the editor opens instead of the card moving. The edit target is the
 LEADING half (left in English, right in Arabic, from one logical edge) and the
 trailing half is there to drag from. With handles ON the handle is the only drag
-source, so nothing has to be reserved and the whole title edits. The opened
-card's own title splits the same way, and its drag handle now appears only when
-drag handles are on - with them off, the title bar is what moves the window.
+source, so nothing has to be reserved and the whole title edits.
+
+The opened card's title splits the same way, and its drag handle now appears
+only when drag handles are on - with them off, the title bar is what moves the
+window. The drag surface there is the header ROW rather than the heading: a
+heading is only as wide as its own text, so on a short title "the trailing half"
+was a few pixels and the empty space beside it - the obvious place to take hold
+of - belonged to nothing. The heading fills the row now, and the handler steps
+aside for the buttons in it, for the drag handle when there is one, and for the
+half that edits.
 
 </details>
 
@@ -1369,6 +1376,19 @@ which is worse than "unreadable".
 </details>
 
 **Minicards** - what a click on one does.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH20">The stickers popup is wide enough to see the stickers</a>. Thanks to xet7.</summary>
+
+A hundred and fifty icons, eight to a row, in a popup 380 pixels wide: a column
+taller than the screen, so choosing a sticker meant scrolling past most of them.
+
+It is as wide as the colour pickers now - `min(90vw, 720px)` - and the picker
+is a grid that fits as many columns as the width allows instead of stopping at
+eight. The clamp that places a popup knows the new width too, or a popup opened
+near the right edge would have landed half off screen.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH19">A label on a minicard opens the labels, and not the card as well</a>. Thanks to xet7.</summary>

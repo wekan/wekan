@@ -63,6 +63,8 @@ function computePopupOffset(params) {
     // Select Color: the swatches are a grid, so width buys columns.
     changeColorPopup: 720,       // Member Settings / Change Color
     boardChangeColorPopup: 720,  // Board Settings / Change Color
+    // Stickers: the same, and more of them - a hundred and fifty icons.
+    cardStickersPopup: 720,      // Card / Stickers
   };
   const wide = WIDE_POPUP_WIDTHS[popupName];
   const popupWidth = wide

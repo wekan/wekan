@@ -157,8 +157,13 @@ const cardJs = read('client/components/cards/cardDetails.js');
 const cardCss = read('client/components/cards/cardDetails.css');
 
 test('the opened card splits its title the same way', () => {
-  assert.ok(/h2\.card-details-title\.js-card-title\.js-card-title-drag-handle\(/.test(cardJade),
-    'the whole heading is the window\'s drag bar');
+  // The drag surface is the header ROW, not the heading: a heading is only as
+  // wide as its own text, so with a short title "the right half of the title"
+  // was a few pixels and the empty space beside it belonged to nothing.
+  assert.ok(/\.card-details-header\.js-card-title-drag-handle\(/.test(cardJade),
+    'the row is the window\'s drag bar');
+  assert.ok(/\.card-details-title \{[^}]*min-width: 60%/.test(cardCss),
+    'and the heading fills it, so half the title is half the bar');
   assert.ok(/span\.card-details-title-edit-zone\.js-open-inlined-form/.test(cardJade),
     'with a zone over the leading half that opens the editor');
   const zone = cardCss.slice(cardCss.indexOf('.card-details-title-edit-zone {'));
@@ -174,7 +179,11 @@ test('the drag handler steps aside for the half that edits (negative)', () => {
   const body = handler.slice(0, handler.indexOf('\n  },'));
   assert.ok(/closest\('\.card-details-title-edit-zone'\)\.length > 0/.test(body),
     'a press inside the zone is not a drag');
-  assert.ok(/closest\('a'\)\.length > 0/.test(body), 'and a link is still a link');
+  assert.ok(/closest\('a'\)\.length > 0/.test(body),
+    'and a link is still a link - which is what the close, maximise and menu '
+    + 'buttons in that row are');
+  assert.ok(/closest\('\.js-card-drag-handle'\)\.length > 0/.test(body),
+    'and the drag handle keeps its own handler, so one press moves the window once');
   assert.ok(/markCardDetailsUserMoved\(\$card\)/.test(body),
     'while a real drag still marks the window as user-placed');
 });
@@ -246,6 +255,24 @@ test('the tooltip on the title still carries the whole path', () => {
   // class was added beside that attribute, not instead of it.
   assert.ok(/span\.header-page-title\(title="\{\{headerTitleFullPath\}\}"/.test(headerJade),
     'the tooltip survived');
+});
+
+test('the stickers popup is wide enough to see them at once', () => {
+  // A hundred and fifty icons at eight per row is a column taller than the
+  // screen: choosing one meant scrolling past most of them.
+  const popupCss = read('client/components/main/popup.css');
+  assert.ok(/data-popup='cardStickersPopup'\] \{\n\s+width: min\(90vw, 720px\)/.test(popupCss),
+    'the popup is as wide as the colour pickers');
+  const offset = read('client/lib/popupOffset.js');
+  assert.ok(/cardStickersPopup: 720/.test(offset),
+    'and the clamp knows that width, or it would place it half off screen');
+  const details = read('client/components/cards/cardDetails.css');
+  const picker = details.slice(details.indexOf('.card-stickers-picker {'));
+  const body = picker.slice(0, picker.indexOf('}'));
+  assert.ok(/grid-template-columns: repeat\(auto-fill, minmax\(40px, 1fr\)\)/.test(body),
+    'and the picker fills it with as many columns as fit');
+  assert.ok(!/max-width: 320px/.test(body),
+    'rather than stopping at eight and leaving the new width empty');
 });
 
 console.log(`\ntitleClickToEdit: ${passed} tests passed`);

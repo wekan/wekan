@@ -272,7 +272,12 @@
  * Change one and change the other. */
 @media screen and (min-width: 801px) {
   .pop-over[data-popup='changeColorPopup'],
-  .pop-over[data-popup='boardChangeColorPopup'] {
+  .pop-over[data-popup='boardChangeColorPopup'],
+  /* Stickers, for the same reason as the colours: the picker is a GRID, and
+     width buys columns. At the default 380px it was eight icons per row and a
+     hundred and fifty stickers made a column taller than the screen, so
+     choosing one meant scrolling past most of them. */
+  .pop-over[data-popup='cardStickersPopup'] {
     width: min(90vw, 720px) !important;
     max-width: 90vw !important;
   }
