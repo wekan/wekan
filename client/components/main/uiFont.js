@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
-import { fontFamilyValue, fontSizeValue, colorValue } from '/models/lib/uiFonts';
+import { fontFamilyValue, fontSizeValue, fontScaleValue, colorValue } from '/models/lib/uiFonts';
 
 // #4759: apply the user's chosen UI font AND font-size preset to the whole UI by
 // setting CSS variables on :root and toggling marker classes on <body> (uiFont.css
@@ -27,10 +27,10 @@ Meteor.startup(() => {
       const el = ROOT_CLASSES.has(className) ? document.documentElement : document.body;
       if (value) {
         document.documentElement.style.setProperty(varName, value);
-        el.classList.add(className);
+        if (className) el.classList.add(className);
       } else {
         document.documentElement.style.removeProperty(varName);
-        el.classList.remove(className);
+        if (className) el.classList.remove(className);
       }
     } catch (_) {
       // document not ready in exotic embeddings; ignore.
@@ -42,6 +42,14 @@ Meteor.startup(() => {
     const profile = (user && user.profile) || {};
     toggle('--wekan-ui-font', 'has-ui-font', fontFamilyValue(profile.uiFont));
     toggle('--wekan-ui-font-size', 'has-ui-font-size', fontSizeValue(profile.uiFontSize));
+    // ...and the same preset as a number, which is what actually moves most of
+    // the UI: the percentage above only reaches text written in a relative unit,
+    // and WeKan writes most of its sizes in px. Every px font-size and
+    // line-height in the stylesheets is multiplied by this variable
+    // (uiFont.css), so one preset moves the whole interface instead of the part
+    // of it that happened to be written in rem. No class goes with it - a
+    // variable that is not set falls back to 1 in the calc itself.
+    toggle('--wekan-ui-font-scale', null, fontScaleValue(profile.uiFontSize));
     toggle('--wekan-ui-text-color', 'has-ui-text-color', colorValue(profile.uiTextColor));
     toggle('--wekan-ui-bg-color', 'has-ui-bg-color', colorValue(profile.uiTextBgColor));
   });

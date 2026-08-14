@@ -111,7 +111,7 @@
 .avatar-list .avatar-list-info {
   flex: 1 1 auto;
   min-width: 0;
-  line-height: 18px;
+  line-height: calc(18px * var(--wekan-ui-font-scale, 1));
   padding: 4px 0;
 }
 .avatar-list .avatar-list-name {
@@ -143,8 +143,8 @@
 }
 .avatar-upload-hints {
   color: #8c8c8c;
-  font-size: 12px;
-  line-height: 16px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
+  line-height: calc(16px * var(--wekan-ui-font-scale, 1));
   margin: 6px 0;
 }
 .atMention {
@@ -199,10 +199,10 @@
   inset-inline-end: -2px;
   min-width: 14px;
   height: 14px;
-  line-height: 13px;
+  line-height: calc(13px * var(--wekan-ui-font-scale, 1));
   padding: 0 1px;
   border-radius: 7px;
-  font-size: 10px;
+  font-size: calc(10px * var(--wekan-ui-font-scale, 1));
   font-weight: bold;
   text-align: center;
   color: #fff;

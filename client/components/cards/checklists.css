@@ -54,12 +54,12 @@ textarea.js-edit-checklist-item {
   float: inline-start;
   width: 30px;
   height: 30px;
-  font-size: 18px;
-  line-height: 30px;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1));
+  line-height: calc(30px * var(--wekan-ui-font-scale, 1));
 }
 .checklist-title .title {
-  font-size: 18px;
-  line-height: 25px;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1));
+  line-height: calc(25px * var(--wekan-ui-font-scale, 1));
 }
 .checklist-title .checklist-stat {
   margin: 0 0.5em;
@@ -93,7 +93,7 @@ textarea.js-edit-checklist-item {
 }
 .checklist-item {
   margin: 0 0 0 0.1em;
-  line-height: 18px;
+  line-height: calc(18px * var(--wekan-ui-font-scale, 1));
   font-size: 1.1em;
   margin-top: 3px;
   display: flex;
@@ -204,8 +204,8 @@ textarea.js-edit-checklist-item {
   margin-inline-end: 4px;
   padding: 2px 4px;
   color: #808080;
-  font-size: 14px;
-  line-height: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
+  line-height: calc(14px * var(--wekan-ui-font-scale, 1));
   cursor: pointer;
   text-decoration: none;
 }

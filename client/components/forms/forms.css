@@ -307,7 +307,7 @@ textarea::-moz-placeholder {
 }
 .edit-controls .fa-times-thin,
 .add-controls .fa-times-thin {
-  font-size: 20px;
+  font-size: calc(20px * var(--wekan-ui-font-scale, 1));
   margin: 5px 21px;
 }
 /* CJK (Japanese/Chinese/Korean) labels contain no spaces, so browsers may
@@ -388,10 +388,10 @@ textarea::-moz-placeholder {
   border-radius: 3px;
   color: #fff;
   display: none;
-  font-size: 12px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   font-weight: 700;
   height: 17px;
-  line-height: 17px;
+  line-height: calc(17px * var(--wekan-ui-font-scale, 1));
   margin: 0;
   padding: 2px 4px;
   position: absolute;
@@ -445,8 +445,8 @@ textarea::-moz-placeholder {
 .button-link.setting .label {
   color: #222;
   display: block;
-  font-size: 12px;
-  line-height: 14px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
+  line-height: calc(14px * var(--wekan-ui-font-scale, 1));
   margin-bottom: 0;
 }
 .button-link.setting:hover .label {
@@ -454,8 +454,8 @@ textarea::-moz-placeholder {
 }
 .button-link.setting .value {
   display: block;
-  font-size: 18px;
-  line-height: 24px;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1));
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -598,8 +598,8 @@ button.loud-text-button:hover {
   padding: 11px;
   position: relative;
   text-decoration: none;
-  font-size: 16px;
-  line-height: 20px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
+  line-height: calc(20px * var(--wekan-ui-font-scale, 1));
 }
 .big-link .text {
   text-decoration: underline;
@@ -641,9 +641,9 @@ button.loud-text-button:hover {
   width: 40px;
 }
 .big-link.avatar-changer .member .member-initials {
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   height: 40px;
-  line-height: 40px;
+  line-height: calc(40px * var(--wekan-ui-font-scale, 1));
   max-height: 40px;
 }
 .show-more {
@@ -675,24 +675,24 @@ button.loud-text-button:hover {
 .uploader .realfile {
   cursor: pointer;
   height: 34px;
-  line-height: 34px;
+  line-height: calc(34px * var(--wekan-ui-font-scale, 1));
   position: absolute;
   top: 0;
   inset-inline-start: 0;
   width: 100%;
   z-index: 2;
-  font-size: 23px;
+  font-size: calc(23px * var(--wekan-ui-font-scale, 1));
 }
 .uploader .realfile input[type="file"] {
   cursor: pointer;
   height: 34px;
-  line-height: 34px;
+  line-height: calc(34px * var(--wekan-ui-font-scale, 1));
   margin: 0;
   opacity: 0;
   padding: 0;
   width: 100%;
   z-index: 2;
-  font-size: 23px;
+  font-size: calc(23px * var(--wekan-ui-font-scale, 1));
 }
 .uploader:hover .fakefile {
   background: #318ec4;

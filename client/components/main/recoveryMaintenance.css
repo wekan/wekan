@@ -21,18 +21,18 @@
 }
 
 .recovery-maintenance-title {
-  font-size: 22px;
+  font-size: calc(22px * var(--wekan-ui-font-scale, 1));
   font-weight: bold;
   margin: 0 0 12px;
   color: #fff;
 }
 
 .recovery-maintenance-message {
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   margin: 0 0 12px;
 }
 
 .recovery-maintenance-note {
-  font-size: 13px;
+  font-size: calc(13px * var(--wekan-ui-font-scale, 1));
   opacity: 0.8;
 }

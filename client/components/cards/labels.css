@@ -17,7 +17,7 @@
   background: #fff;
   color: #333;
   cursor: pointer;
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
   line-height: 1.4;
   text-decoration: none;
 }
@@ -41,7 +41,7 @@
   background: #fff;
   color: #333;
   cursor: pointer;
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
   line-height: 1.4;
   text-decoration: none;
 }
@@ -82,7 +82,7 @@
   color: #fff;
   display: inline-block;
   font-weight: 700;
-  font-size: 13px;
+  font-size: calc(13px * var(--wekan-ui-font-scale, 1));
   margin-inline-end: 4px;
   margin-bottom: 5px;
   padding: 3px 8px;
@@ -238,7 +238,7 @@
   width: 24px;
 }
 .edit-labels .labels-static .card-label {
-  line-height: 30px;
+  line-height: calc(30px * var(--wekan-ui-font-scale, 1));
   margin-bottom: 4px;
   position: relative;
   top: auto;

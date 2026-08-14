@@ -47,13 +47,13 @@
 
 .migration-progress-title {
   margin: 0;
-  font-size: 18px;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1));
   font-weight: 600;
 }
 
 .migration-progress-close {
   cursor: pointer;
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   opacity: 0.8;
   transition: opacity 0.2s ease;
 }
@@ -74,7 +74,7 @@
   font-weight: 600;
   color: #333;
   margin-bottom: 8px;
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
 }
 
 .migration-progress-overall-bar {
@@ -112,7 +112,7 @@
 
 .migration-progress-overall-percentage {
   text-align: end;
-  font-size: 12px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   color: #666;
   font-weight: 600;
 }
@@ -125,7 +125,7 @@
   font-weight: 600;
   color: #333;
   margin-bottom: 8px;
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
 }
 
 .migration-progress-step-bar {
@@ -146,7 +146,7 @@
 
 .migration-progress-step-percentage {
   text-align: end;
-  font-size: 12px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   color: #666;
   font-weight: 600;
 }
@@ -163,12 +163,12 @@
   font-weight: 600;
   color: #333;
   margin-bottom: 5px;
-  font-size: 13px;
+  font-size: calc(13px * var(--wekan-ui-font-scale, 1));
 }
 
 .migration-progress-status-text {
   color: #555;
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
   line-height: 1.4;
 }
 
@@ -184,12 +184,12 @@
   font-weight: 600;
   color: #1976d2;
   margin-bottom: 5px;
-  font-size: 13px;
+  font-size: calc(13px * var(--wekan-ui-font-scale, 1));
 }
 
 .migration-progress-details-text {
   color: #1565c0;
-  font-size: 13px;
+  font-size: calc(13px * var(--wekan-ui-font-scale, 1));
   line-height: 1.4;
 }
 
@@ -202,7 +202,7 @@
 .migration-progress-note {
   text-align: center;
   color: #666;
-  font-size: 13px;
+  font-size: calc(13px * var(--wekan-ui-font-scale, 1));
   font-style: italic;
 }
 
@@ -222,7 +222,7 @@
   }
 
   .migration-progress-title {
-    font-size: 16px;
+    font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   }
 }
 
@@ -292,13 +292,13 @@
 }
 
 .migration-spinner {
-  font-size: 24px;
+  font-size: calc(24px * var(--wekan-ui-font-scale, 1));
   color: #007cba;
   margin-bottom: 8px;
 }
 
 .migration-text {
-  font-size: 12px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   color: #666;
   text-align: center;
 }

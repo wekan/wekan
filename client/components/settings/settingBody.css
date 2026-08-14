@@ -134,7 +134,7 @@
 .setting-content .content-body .side-menu ul li.left-menu-heading {
   padding-block: 8px 4px;
   padding-inline-start: 18px;
-  font-size: 12px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -156,7 +156,7 @@
   width: 95%;
 }
 .setting-content .content-body .side-menu ul li a span {
-  font-size: 13px;
+  font-size: calc(13px * var(--wekan-ui-font-scale, 1));
 }
 .setting-content .content-body .side-menu ul li a i {
   margin-inline-end: 20px;

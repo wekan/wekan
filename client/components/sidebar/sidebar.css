@@ -13,7 +13,7 @@
   position: absolute;
   inset-inline-end: 0px;
   top: 0px;
-  font-size: 25px;
+  font-size: calc(25px * var(--wekan-ui-font-scale, 1));
   padding: 10px;
 }
 .sidebar-xmark:hover {
@@ -210,7 +210,7 @@
 
 .card-settings-column h4 {
   margin: 0;
-  font-size: 12px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   font-weight: bold;
   text-align: center;
 }
@@ -353,7 +353,7 @@ body.sidebar-resizing-active {
 }
 .sidebar-tongue i.fa {
   padding: 3px 9px;
-  font-size: 24px;
+  font-size: calc(24px * var(--wekan-ui-font-scale, 1));
   transition: transform 0.5s;
 }
 .sidebar-accessibility {
@@ -455,18 +455,18 @@ body.sidebar-resizing-active {
      small text is not tiny — keep them close to the board's text size so board
      and sidebar read at one consistent size. */
   .board-sidebar.sidebar .sidebar-content {
-    font-size: 14px;
+    font-size: calc(14px * var(--wekan-ui-font-scale, 1));
   }
   .board-sidebar.sidebar .sidebar-content h2,
   .board-sidebar.sidebar .sidebar-content h3 {
-    font-size: 16px;
+    font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   }
   .board-sidebar.sidebar .sidebar-content ul.sidebar-list li > a,
   .board-sidebar.sidebar .sidebar-content .card-label,
   .board-sidebar.sidebar .sidebar-content .card-label .card-label-name,
   .board-sidebar.sidebar .sidebar-content p,
   .board-sidebar.sidebar .sidebar-content span {
-    font-size: 14px;
+    font-size: calc(14px * var(--wekan-ui-font-scale, 1));
   }
   .board-sidebar .sidebar-content .hide-btn {
     width: 40px;
@@ -486,7 +486,7 @@ body.sidebar-resizing-active {
   }
   .board-sidebar .sidebar-content .hide-btn i.fa {
     padding: 8px 16px;
-    font-size: 24px;
+    font-size: calc(24px * var(--wekan-ui-font-scale, 1));
     font-weight: bold;
   }
   .sidebar-tongue {
@@ -612,7 +612,7 @@ body.sidebar-resizing-active {
    after an upload there was nothing that said WHICH of them just arrived. */
 .board-bg-name {
   padding: 2px 2px 0;
-  font-size: 12px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   color: #4d4d4d;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -643,7 +643,7 @@ body.sidebar-resizing-active {
 .pop-over-list-subheading {
   margin: 10px 0 2px 0;
   padding: 0 12px;
-  font-size: 12px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;

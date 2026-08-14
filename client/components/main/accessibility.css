@@ -81,7 +81,7 @@
 }
 
 .accessibility-page h2 {
-  font-size: 24px;
+  font-size: calc(24px * var(--wekan-ui-font-scale, 1));
   margin-bottom: 20px;
   color: #4d4d4d;
 }

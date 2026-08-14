@@ -110,7 +110,7 @@
 }
 .comments .comment .comment-desc .reactions .open-comment-reaction-popup span {
   display: inline-block;
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
   font-weight: 500;
   line-height: 1;
   margin-inline-start: 4px;
@@ -129,7 +129,7 @@
   background-color: #b0c4de;
 }
 .comments .comment .comment-desc .reactions .reaction .reaction-count {
-  font-size: 12px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
 }
 .comments .comment .comment-desc .comment-meta {
   font-size: 0.8em;

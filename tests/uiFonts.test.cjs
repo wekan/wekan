@@ -17,6 +17,7 @@ const {
   fontSizeValue,
   isHexColor6,
   colorValue,
+  fontScaleValue,
 } = require('../models/lib/uiFonts.js');
 
 let passed = 0;
@@ -185,6 +186,66 @@ test('font + size applied via CSS variables, gated by body classes, wired into b
   assert.ok(/var\(--wekan-ui-font\)/.test(css) && /var\(--wekan-ui-font-size\)/.test(css), 'css consumes both variables');
   assert.ok(/uiFont\.js/.test(read('client/features/main.js')), 'js wired into build');
   assert.ok(/uiFont\.css/.test(read('client/styles.js')), 'css wired into build');
+});
+
+test('the size preset reaches text written in px, which is most of it', () => {
+  // The preset was a PERCENTAGE on the root element, and a root percentage only
+  // reaches text sized in a relative unit: `rem` is measured against the root,
+  // `em` against its parent. WeKan writes most of its sizes in px, so the
+  // setting moved the minicards and the page headings - the parts written in
+  // rem - and left the header bar, the left menu, the lists and every popup
+  // exactly as they were. Worse, `html, body, input, select, textarea, button`
+  // re-stated `14px`, so the body took the stock size straight back.
+  assert.strictEqual(fontScaleValue('largest'), '1.5', 'the preset as a number');
+  assert.strictEqual(fontScaleValue('smaller'), '0.8');
+  assert.strictEqual(fontScaleValue('default'), '', 'and nothing at all by default');
+  assert.strictEqual(fontScaleValue('nonsense'), '', 'or for a value that is not a preset');
+
+  const j = read('client/components/main/uiFont.js');
+  assert.ok(/toggle\('--wekan-ui-font-scale', null, fontScaleValue/.test(j),
+    'the variable is published from the same preset');
+
+  const layouts = read('client/components/main/layouts.css');
+  assert.ok(/font-size: calc\(14px \* var\(--wekan-ui-font-scale, 1\)\)/.test(layouts),
+    'the base size follows it, instead of pinning the body back to 14px');
+  assert.ok(!/font: 14px Roboto/.test(layouts),
+    'and it is no longer inside the `font` shorthand, where nothing could move it');
+});
+
+test('every px text size in the client CSS scales with it (negative)', () => {
+  // The point of the fix: not "the ones somebody remembered", all of them. A
+  // bare `font-size: 14px` added later would be a line of text the setting
+  // silently does not reach, so it fails here.
+  const dir = path.join(repoRoot, 'client');
+  const files = [];
+  (function walk(d) {
+    for (const entry of fs.readdirSync(d, { withFileTypes: true })) {
+      const full = path.join(d, entry.name);
+      if (entry.isDirectory()) walk(full);
+      else if (entry.name.endsWith('.css')) files.push(full);
+    }
+  })(dir);
+  assert.ok(files.length > 20, `expected the client stylesheets, found ${files.length}`);
+
+  const bare = [];
+  for (const file of files) {
+    const css = fs.readFileSync(file, 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+    for (const m of css.matchAll(/(?<![-\w])(font-size|line-height)\s*:\s*(\d*\.?\d+)px/g)) {
+      bare.push(`${path.relative(repoRoot, file)}: ${m[1]}: ${m[2]}px`);
+    }
+  }
+  assert.deepStrictEqual(bare, [],
+    'write it as calc(Npx * var(--wekan-ui-font-scale, 1)) so the preset moves it');
+});
+
+test('with no preset chosen, nothing renders differently (negative)', () => {
+  // `var(--wekan-ui-font-scale, 1)` - the fallback is 1, and uiFont.js REMOVES
+  // the variable for 'default', so an instance where nobody touched the setting
+  // computes exactly the sizes it computed before.
+  const css = read('client/components/main/layouts.css');
+  assert.ok(/var\(--wekan-ui-font-scale, 1\)/.test(css), 'the fallback is 1');
+  const j = read('client/components/main/uiFont.js');
+  assert.ok(/removeProperty\(varName\)/.test(j), 'and an unset preset removes it');
 });
 
 console.log(`\nAll ${passed} ui-font tests passed`);

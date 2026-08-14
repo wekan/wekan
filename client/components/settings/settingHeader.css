@@ -4,10 +4,10 @@
   margin-inline-start: 20px;
   padding-inline-end: 10px;
   height: 28px;
-  font-size: 13px;
+  font-size: calc(13px * var(--wekan-ui-font-scale, 1));
   float: inline-start;
   overflow: hidden;
-  line-height: 28px;
+  line-height: calc(28px * var(--wekan-ui-font-scale, 1));
   margin: 0 2px;
 }
 #header #header-main-bar .setting-header-btn.active,
@@ -17,7 +17,7 @@
 #header #header-main-bar .setting-header-btn i.fa {
   float: inline-start;
   display: block;
-  line-height: 28px;
+  line-height: calc(28px * var(--wekan-ui-font-scale, 1));
   color: #f2f2f2;
   margin: 0 10px;
 }
@@ -62,19 +62,19 @@
   #header #header-main-bar .setting-header-btns .setting-header-btn,
   #header-quick-access .setting-header-btns .setting-header-btn span,
   #header #header-main-bar .setting-header-btns .setting-header-btn span {
-    font-size: 15px !important;
+    font-size: calc(15px * var(--wekan-ui-font-scale, 1)) !important;
   }
   #header-quick-access .setting-header-btns .setting-header-btn i.fa,
   #header #header-main-bar .setting-header-btns .setting-header-btn i.fa {
-    font-size: 18px !important;
+    font-size: calc(18px * var(--wekan-ui-font-scale, 1)) !important;
   }
 }
 .iphone-device #header-quick-access .setting-header-btns .setting-header-btn,
 .iphone-device #header-quick-access .setting-header-btns .setting-header-btn span {
-  font-size: 15px !important;
+  font-size: calc(15px * var(--wekan-ui-font-scale, 1)) !important;
 }
 .iphone-device #header-quick-access .setting-header-btns .setting-header-btn i.fa {
-  font-size: 18px !important;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1)) !important;
 }
 
 /* Admin Panel problem banner (Reports → Security/Speed/Tests new-problem info).

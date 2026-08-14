@@ -134,7 +134,7 @@ a.show-mapping {
 }
 .trello-progress-percent {
   text-align: end;
-  font-size: 12px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   color: #666;
   font-weight: 600;
   margin-bottom: 8px;

@@ -4,7 +4,7 @@
 }
 
 .card-details-item-date-format .card-details-item-title {
-  font-size: 15px;
+  font-size: calc(15px * var(--wekan-ui-font-scale, 1));
   font-weight: bold;
   margin-bottom: 6px;
   color: #333;
@@ -17,7 +17,7 @@
   border: 1px solid #ddd;
   border-radius: 5px;
   background-color: #fff;
-  font-size: 15px;
+  font-size: calc(15px * var(--wekan-ui-font-scale, 1));
   cursor: pointer;
   transition: border-color 0.15s, box-shadow 0.15s;
 }
@@ -267,7 +267,7 @@ body.desktop-mode .card-details.card-details-collapsed {
 /* Collapse toggle triangle */
 .card-details .card-details-header .card-collapse-toggle {
   float: inline-start;
-  font-size: 20px;
+  font-size: calc(20px * var(--wekan-ui-font-scale, 1));
   padding: 7px 10px;
   margin-inline-start: -10px;
   margin-inline-end: 5px;
@@ -279,7 +279,7 @@ body.desktop-mode .card-details.card-details-collapsed {
 }
 
 .card-details .card-details-header .card-drag-handle {
-  font-size: 20px;
+  font-size: calc(20px * var(--wekan-ui-font-scale, 1));
   padding: 8px 10px;
   margin-inline-end: 10px;
   cursor: move;
@@ -304,7 +304,7 @@ body.desktop-mode .card-details.card-details-collapsed {
 .card-details .card-details-header .close-card-details,
 .card-details .card-details-header .maximize-card-details,
 .card-details .card-details-header .minimize-card-details {
-  font-size: 24px;
+  font-size: calc(24px * var(--wekan-ui-font-scale, 1));
   padding: 5px 10px 5px 10px;
   margin-inline-end: -8px;
   cursor: pointer;
@@ -315,37 +315,37 @@ body.desktop-mode .card-details.card-details-collapsed {
 }
 .card-details .card-details-header .close-card-details-mobile-web,
 .card-details .card-details-header .card-mobile-desktop-toggle {
-  font-size: 24px;
+  font-size: calc(24px * var(--wekan-ui-font-scale, 1));
   padding: 5px;
   margin-inline-end: 5px;
   cursor: pointer;
   user-select: none;
 }
 .card-details .card-details-header .card-copy-button {
-  font-size: 17px;
+  font-size: calc(17px * var(--wekan-ui-font-scale, 1));
   padding: 10px;
   margin-inline-end: 10px;
 }
 .card-details .card-details-header .card-copy-mobile-button {
-  font-size: 17px;
+  font-size: calc(17px * var(--wekan-ui-font-scale, 1));
   padding: 10px;
   margin-inline-end: 10px;
 }
 .card-details .card-details-header .card-details-menu {
-  font-size: 17px;
+  font-size: calc(17px * var(--wekan-ui-font-scale, 1));
   padding: 10px;
   vertical-align: middle;
   line-height: 1.2;
 }
 .card-details .card-details-header .card-details-menu-mobile-web {
-  font-size: 17px;
+  font-size: calc(17px * var(--wekan-ui-font-scale, 1));
   padding: 10px;
   margin-inline-end: 30px;
 }
 .card-details .card-details-header .card-mobile-desktop-toggle,
 .card-details .card-details-header .card-zoom-in,
 .card-details .card-details-header .card-zoom-out {
-  font-size: 24px;
+  font-size: calc(24px * var(--wekan-ui-font-scale, 1));
   padding: 5px 10px 5px 10px;
   margin-inline-end: 5px;
   cursor: pointer;
@@ -362,7 +362,7 @@ body.desktop-mode .card-details.card-details-collapsed {
   font-size: 1em;
 }
 .card-details .card-details-header .card-details-watch {
-  font-size: 17px;
+  font-size: calc(17px * var(--wekan-ui-font-scale, 1));
   padding-inline-start: 7px;
   color: #a6a6a6;
 }
@@ -494,7 +494,7 @@ body.desktop-mode .card-details.card-details-collapsed {
   padding-inline-start: 10px;
 }
 .card-details .card-details-item-title {
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: bold;
   color: #4d4d4d;
 }
@@ -960,7 +960,7 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
   box-sizing: border-box;
   padding: 5px;
   margin: 3px;
-  font-size: 20px;
+  font-size: calc(20px * var(--wekan-ui-font-scale, 1));
   font-weight: bold;
   text-shadow: #2d2d2d 1px 1px 0;
   box-shadow: 0 0 5px #aaa;
@@ -1004,7 +1004,7 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
   height: 36px;
   margin: 2px;
   border-radius: 3px;
-  font-size: 18px;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1));
   color: #4d4d4d;
   cursor: pointer;
   position: relative;
@@ -1020,18 +1020,18 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
   position: absolute;
   bottom: 1px;
   inset-inline-end: 2px;
-  font-size: 10px;
+  font-size: calc(10px * var(--wekan-ui-font-scale, 1));
   color: #3cb500;
 }
 .card-stickers .card-sticker {
   display: inline-flex;
   align-items: center;
   margin: 0 8px 4px 0;
-  font-size: 18px;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1));
 }
 .card-sticker .card-sticker-remove {
   margin-inline-start: 3px;
-  font-size: 11px;
+  font-size: calc(11px * var(--wekan-ui-font-scale, 1));
   color: #999;
   cursor: pointer;
 }
@@ -1256,7 +1256,7 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
    heading: a subtitle, so it is not read as another section. */
 .card-details .card-details-item-subtitle {
   margin: 0 0 4px 0;
-  font-size: 13px;
+  font-size: calc(13px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
   opacity: 0.8;
 }

@@ -23,7 +23,7 @@
   margin: 8px 0 0;
   width: 1.2em;
   height: 1.2em;
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
   display: block;
   color: #000;
 }

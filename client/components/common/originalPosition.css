@@ -3,7 +3,7 @@
   margin: 5px 0;
   padding: 8px;
   border-radius: 4px;
-  font-size: 12px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   line-height: 1.4;
 }
 
@@ -57,7 +57,7 @@
 
 .original-title {
   color: #6c757d;
-  font-size: 11px;
+  font-size: calc(11px * var(--wekan-ui-font-scale, 1));
   margin-top: 4px;
   padding-top: 4px;
   border-top: 1px solid #e9ecef;
@@ -78,7 +78,7 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .original-position-info {
-    font-size: 11px;
+    font-size: calc(11px * var(--wekan-ui-font-scale, 1));
     padding: 6px;
   }
 

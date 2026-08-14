@@ -22,7 +22,14 @@ const fs = require('fs');
 const path = require('path');
 
 const repoRoot = path.resolve(__dirname, '..');
-const read = rel => fs.readFileSync(path.join(repoRoot, rel), 'utf8');
+// Sizes are written `calc(Npx * var(--wekan-ui-font-scale, 1))` so Member
+// Settings / Font / Size can move all of them (client/components/main/uiFont.css).
+// This guard is about the N - the density WeKan draws at with no preset chosen -
+// so the wrapper is unwrapped as the file is read, and every assertion below
+// still names the size it means.
+const unscale = css => css.replace(
+  /calc\((\d*\.?\d+px) \* var\(--wekan-ui-font-scale, 1\)\)/g, '$1');
+const read = rel => unscale(fs.readFileSync(path.join(repoRoot, rel), 'utf8'));
 const squish = s => s.replace(/\s+/g, ' ');
 
 const layouts = read('client/components/main/layouts.css');
@@ -45,10 +52,13 @@ function test(name, fn) {
 test('base font is the 6.09 fixed 14px/18px', () => {
   const base = layouts.match(/html,\s*\nbody,\s*\ninput,[\s\S]*?\{[\s\S]*?\}/);
   assert.ok(base, 'base font rule found');
-  assert.ok(base[0].includes('font: 14px Roboto'));
+  // Family and size are separate declarations, not the `font` shorthand: the
+  // shorthand's size is the one the font-size preset has to be able to move.
+  assert.ok(base[0].includes('font-family: Roboto'));
+  assert.ok(base[0].includes('font-size: 14px'));
   assert.ok(base[0].includes('line-height: 18px'));
   // negative: the desktop-inflating clamp must not come back
-  assert.ok(!/font:\s*clamp\(/.test(base[0]));
+  assert.ok(!/font(-size)?:\s*clamp\(/.test(base[0]));
 });
 
 test('headings are the 6.09 sizes 22/18/16px', () => {

@@ -20,7 +20,14 @@ const path = require('path');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
-const read = rel => fs.readFileSync(path.join(__dirname, '..', rel), 'utf8');
+// Sizes are written `calc(Npx * var(--wekan-ui-font-scale, 1))` so Member
+// Settings / Font / Size can move all of them (client/components/main/uiFont.css).
+// This guard is about the N, so the wrapper is unwrapped before it is read - and
+// unwrapping it here rather than loosening every assertion keeps each one saying
+// the size it means.
+const unscale = css => css.replace(
+  /calc\((\d*\.?\d+px) \* var\(--wekan-ui-font-scale, 1\)\)/g, '$1');
+const read = rel => unscale(fs.readFileSync(path.join(__dirname, '..', rel), 'utf8'));
 
 const css = read('client/components/boards/boardsList.css');
 

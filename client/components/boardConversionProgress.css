@@ -47,7 +47,7 @@
 .board-conversion-header h3 {
   margin: 0 0 8px 0;
   color: #333;
-  font-size: 20px;
+  font-size: calc(20px * var(--wekan-ui-font-scale, 1));
   font-weight: 500;
 }
 
@@ -59,7 +59,7 @@
 .board-conversion-header p {
   margin: 0;
   color: #666;
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
 }
 
 .board-conversion-content {
@@ -116,14 +116,14 @@
   text-align: center;
   font-weight: 600;
   color: #2196F3;
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
 }
 
 .conversion-status {
   text-align: center;
   margin-bottom: 16px;
   color: #333;
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
 }
 
 .conversion-status i {
@@ -134,7 +134,7 @@
 .conversion-time {
   text-align: center;
   color: #666;
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
   background-color: #f5f5f5;
   padding: 8px 12px;
   border-radius: 4px;
@@ -155,7 +155,7 @@
 .conversion-info {
   text-align: center;
   color: #666;
-  font-size: 13px;
+  font-size: calc(13px * var(--wekan-ui-font-scale, 1));
   line-height: 1.4;
 }
 
@@ -179,6 +179,6 @@
   }
 
   .board-conversion-header h3 {
-    font-size: 18px;
+    font-size: calc(18px * var(--wekan-ui-font-scale, 1));
   }
 }

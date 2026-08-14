@@ -189,8 +189,15 @@ button {
      6.09's 14px — which is the "everything is way too big" regression. Mobile
      readability is handled by the mobile media queries, not by inflating the
      desktop base font. */
-  font: 14px Roboto, Poppins, "Helvetica Neue", Arial, Helvetica, sans-serif;
-  line-height: 18px;
+  /* Family and SIZE separately, not the `font` shorthand. The shorthand's size
+     is what Member Settings / Font / Size has to be able to move, and it moves
+     it the same way every other size in the app moves: through the scale
+     variable (client/components/main/uiFont.css). As a shorthand it also reset
+     `line-height` to normal and the line below set it again, so splitting it
+     changes nothing else. */
+  font-family: Roboto, Poppins, "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
+  line-height: calc(18px * var(--wekan-ui-font-scale, 1));
   color: #4d4d4d;
   /* Improve text rendering */
   -webkit-font-smoothing: antialiased;
@@ -308,7 +315,7 @@ body.mobile-mode #content {
 #modal .modal-content .modal-close-btn {
   display: block;
   float: inline-end;
-  font-size: 18px;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1));
 }
 #modal .modal-content-wide {
   width: min(800px, 95vw);
@@ -325,7 +332,7 @@ body.mobile-mode #content {
 #modal .modal-content-wide .modal-close-btn {
   display: block;
   float: inline-end;
-  font-size: 18px;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1));
 }
 /* Archived boards modal: full-width panel that extends to the bottom of the browser
    window (so archived boards show full width with maximum vertical space). It is the
@@ -351,12 +358,12 @@ body.mobile-mode #content {
 /* #6465: heading sizes back to the 6.09 values (22/18/16px) — the vw clamps
    resolved to 24/20/18px on desktop and compounded the density regression. */
 h1 {
-  font-size: 22px;
+  font-size: calc(22px * var(--wekan-ui-font-scale, 1));
   line-height: 1.2em;
   margin: 0 0 9px;
 }
 h2 {
-  font-size: 18px;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1));
   line-height: 1.2em;
   margin: 0 0 7px;
 }
@@ -364,7 +371,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   line-height: 1.25em;
   margin: 0 0 5px;
 }
@@ -624,11 +631,11 @@ a:not(.disabled).is-active i.fa {
   max-width: min(600px, 90vw);
 }
 .big-message h1 {
-  font-size: 20px;
+  font-size: calc(20px * var(--wekan-ui-font-scale, 1));
   margin-bottom: 27px;
 }
 .big-message p {
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   line-height: 1.3;
 }
 .gutter {
@@ -677,7 +684,7 @@ a:not(.disabled).is-active i.fa {
 }
 .basicTabs-container .tabs-list .tab-item {
   font-weight: 600;
-  font-size: 13px;
+  font-size: calc(13px * var(--wekan-ui-font-scale, 1));
   display: inline-block;
   padding: 13px 15px;
   margin: 0;
@@ -745,13 +752,13 @@ a:not(.disabled).is-active i.fa {
     min-height: 44px;
     min-width: 44px;
     padding: 12px 16px;
-    font-size: 16px; /* Prevent zoom on iOS */
+    font-size: calc(16px * var(--wekan-ui-font-scale, 1)); /* Prevent zoom on iOS */
     touch-action: manipulation;
   }
 
   /* Form elements */
   input, select, textarea {
-    font-size: 16px; /* Prevent zoom on iOS */
+    font-size: calc(16px * var(--wekan-ui-font-scale, 1)); /* Prevent zoom on iOS */
     padding: 12px;
     min-height: 44px;
     touch-action: manipulation;
@@ -839,7 +846,7 @@ a:not(.disabled).is-active i.fa {
     padding: 4px 6px;
   }
   #header-quick-access .home-icon a .fa-home {
-    font-size: 16px;
+    font-size: calc(16px * var(--wekan-ui-font-scale, 1));
     margin-inline-end: 0;
   }
   /* `.allBoards` is the same element as `.home-icon`, and it carries no inline
@@ -898,7 +905,7 @@ a:not(.disabled).is-active i.fa {
 
   /* Table mobile optimization */
   table {
-    font-size: 14px;
+    font-size: calc(14px * var(--wekan-ui-font-scale, 1));
     width: 100%;
     display: block;
     overflow-x: auto;
@@ -997,20 +1004,20 @@ a:not(.disabled).is-active i.fa {
 /* Large displays and digital signage (1920px+) */
 @media screen and (min-width: 1920px) {
   body {
-    font-size: 18px;
+    font-size: calc(18px * var(--wekan-ui-font-scale, 1));
   }
 
   button, .btn, .js-toggle, .js-color-choice, .js-reaction, .close {
     min-height: 56px;
     min-width: 56px;
     padding: 16px 20px;
-    font-size: 18px;
+    font-size: calc(18px * var(--wekan-ui-font-scale, 1));
   }
 
   .minicard {
     min-height: 56px;
     padding: 16px;
-    font-size: 18px;
+    font-size: calc(18px * var(--wekan-ui-font-scale, 1));
   }
 
   .list {

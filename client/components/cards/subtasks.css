@@ -33,12 +33,12 @@ textarea.js-edit-subtask-item {
   flex-shrink: 0;
   width: 30px;
   height: 30px;
-  font-size: 18px;
-  line-height: 30px;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1));
+  line-height: calc(30px * var(--wekan-ui-font-scale, 1));
 }
 .subtask-title .title {
-  font-size: 18px;
-  line-height: 25px;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1));
+  line-height: calc(25px * var(--wekan-ui-font-scale, 1));
   flex: 1;
   order: 1;
 }
@@ -121,7 +121,7 @@ textarea.js-edit-subtask-item {
 }
 .subtasks-item {
   margin: 0 0 0 0.1em;
-  line-height: 18px;
+  line-height: calc(18px * var(--wekan-ui-font-scale, 1));
   font-size: 1.1em;
   margin-top: 3px;
   display: flex;

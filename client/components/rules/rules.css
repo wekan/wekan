@@ -62,23 +62,23 @@
 }
 .rules-workflow .workflow-node-label {
   display: block;
-  font-size: 11px;
+  font-size: calc(11px * var(--wekan-ui-font-scale, 1));
   text-transform: uppercase;
   color: #888;
 }
 .rules-workflow .workflow-node-text {
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
 }
 .rules-workflow .workflow-arrow {
   display: flex;
   align-items: center;
-  font-size: 20px;
+  font-size: calc(20px * var(--wekan-ui-font-scale, 1));
   color: #888;
 }
 /* Drag-and-drop workflow editor */
 .rules-workflow .workflow-help {
   color: #727479;
-  font-size: 13px;
+  font-size: calc(13px * var(--wekan-ui-font-scale, 1));
   margin-bottom: 9px;
 }
 .rules-workflow .workflow-builder {
@@ -254,7 +254,7 @@
   width: 50px;
   height: 50px;
   text-align: center;
-  font-size: 25px;
+  font-size: calc(25px * var(--wekan-ui-font-scale, 1));
   position: relative;
 }
 .triggers-content .triggers-body .triggers-side-menu ul li i {
@@ -277,7 +277,7 @@
   width: 95%;
 }
 .triggers-content .triggers-body .triggers-side-menu ul li a span {
-  font-size: 13px;
+  font-size: calc(13px * var(--wekan-ui-font-scale, 1));
 }
 .triggers-content .triggers-body .triggers-main-body {
   padding: 0.1em 1em;
@@ -299,11 +299,11 @@
   inset-inline-start: 10px;
 }
 .triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-content .trigger-text {
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   display: inline-block;
 }
 .triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-content .trigger-inline-button {
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   display: inline;
   padding: 6px;
   border: 1px solid #eee;
@@ -347,7 +347,7 @@
   border-radius: 4px;
   box-shadow: inset -1px -1px 3px rgba(0,0,0,0.05);
   text-align: center;
-  font-size: 20px;
+  font-size: calc(20px * var(--wekan-ui-font-scale, 1));
   inset-inline-end: 10px;
 }
 .triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-button i {
@@ -371,7 +371,7 @@
   top: unset;
   position: unset;
   transform: unset;
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   width: auto;
   padding-inline-start: 10px;
   padding-inline-end: 10px;
@@ -383,10 +383,10 @@
 /* Rules import/export popup */
 .rules-import-export h3 {
   margin: 0.6em 0 0.3em;
-  font-size: 15px;
+  font-size: calc(15px * var(--wekan-ui-font-scale, 1));
 }
 .rules-import-export .rules-ie-hint {
-  font-size: 12px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   color: #727479;
   margin-bottom: 0.3em;
 }
@@ -407,5 +407,5 @@
   padding: 6px 8px;
   background: #e8f0fe;
   border-radius: 4px;
-  font-size: 13px;
+  font-size: calc(13px * var(--wekan-ui-font-scale, 1));
 }

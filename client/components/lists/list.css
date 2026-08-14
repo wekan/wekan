@@ -346,7 +346,7 @@ body.mobile-mode [id^="swimlane-"] .list[style*="--list-width"]:not(.list-collap
   margin: 5px auto;
   z-index: 30;
   padding: 5px;
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   white-space: nowrap;
   display: block;
   width: auto;
@@ -403,7 +403,7 @@ body.mobile-mode [id^="swimlane-"] .list[style*="--list-width"]:not(.list-collap
   overflow: hidden;
   white-space: normal;
   display: block !important;
-  font-size: 12px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   line-height: 1.2;
   color: #333;
   padding: 0;
@@ -501,7 +501,7 @@ form.inlined-form .list-composer {
   background: transparent;
   color: #8c8c8c;
   font-weight: bold;
-  font-size: 12px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   vertical-align: middle;
 }
 .list-rotated {
@@ -554,7 +554,7 @@ form.inlined-form .list-composer {
   border-radius: 0;
   background-color: transparent;
   cursor: pointer;
-  font-size: 18px;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1));
   line-height: 1.2;
   min-width: 30px;
   text-align: center;
@@ -625,7 +625,7 @@ form.inlined-form .list-composer {
   }
   .list.list-collapsed .list-header .list-rotated h2.list-header-name {
     width: 100%;
-    font-size: 12px;
+    font-size: calc(12px * var(--wekan-ui-font-scale, 1));
     height: 100%;
     line-height: 1.2;
     padding: 0;
@@ -676,7 +676,7 @@ form.inlined-form .list-composer {
   }
   .list.list-collapsed .list-header .list-rotated h2.list-header-name {
     width: 100%;
-    font-size: 12px;
+    font-size: calc(12px * var(--wekan-ui-font-scale, 1));
     height: 100%;
     line-height: 1.2;
     padding: 0;
@@ -727,7 +727,7 @@ form.inlined-form .list-composer {
   }
   .list.list-collapsed .list-header .list-rotated h2.list-header-name {
     width: 100%;
-    font-size: 12px;
+    font-size: calc(12px * var(--wekan-ui-font-scale, 1));
     height: 100%;
     line-height: 1.2;
     padding: 0;
@@ -778,7 +778,7 @@ form.inlined-form .list-composer {
 
 .list-header .cardCount {
   color: #8c8c8c;
-  font-size: 12px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   font-weight: bold;
 }
 .list-header .list-header-plus-top,
@@ -788,7 +788,7 @@ form.inlined-form .list-composer {
   padding-inline-start: 4px;
 }
 .js-open-list-menu {
-  font-size: 18px;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1));
   vertical-align: middle;
   line-height: 1.2;
 }
@@ -832,7 +832,7 @@ form.inlined-form .list-composer {
      "Add" button was the biggest thing on the board while typing. 34px is a
      comfortable touch target that still reads as a control rather than a slab. */
   min-height: 34px;
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
 }
 .list-body .open-minicard-composer {
   border-radius: 2px;
@@ -960,7 +960,7 @@ form.inlined-form .list-composer {
 }
 .list.mobile-view .list-header .list-header-menu-icon {
   padding: 14px;
-  font-size: 40px !important;
+  font-size: calc(40px * var(--wekan-ui-font-scale, 1)) !important;
   text-align: center;
   /* Force positioning for iPhone */
   position: absolute !important;
@@ -971,7 +971,7 @@ form.inlined-form .list-composer {
 }
 .list.mobile-view .list-header .list-header-handle {
   padding: 14px;
-  font-size: 48px !important;
+  font-size: calc(48px * var(--wekan-ui-font-scale, 1)) !important;
   text-align: center;
   /* Force positioning for iPhone */
   position: absolute !important;
@@ -989,7 +989,7 @@ form.inlined-form .list-composer {
   grid-row: 1;
   grid-column: 2;
   align-self: end;
-  font-size: 20px !important;
+  font-size: calc(20px * var(--wekan-ui-font-scale, 1)) !important;
   font-weight: bold;
   line-height: 1.2;
   padding-bottom: 2px;
@@ -1001,7 +1001,7 @@ form.inlined-form .list-composer {
   text-align: start;
   padding-inline-start: 0;
   margin-inline-start: 0;
-  font-size: 16px !important;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1)) !important;
   line-height: 1.2;
 }
 .list.mobile-view .list-header .list-header-menu {
@@ -1101,7 +1101,7 @@ form.inlined-form .list-composer {
   }
   .list-header .list-header-menu-icon {
     padding: 14px;
-    font-size: 40px;
+    font-size: calc(40px * var(--wekan-ui-font-scale, 1));
     text-align: center;
     /* iOS Safari fallback positioning */
     position: absolute;
@@ -1111,7 +1111,7 @@ form.inlined-form .list-composer {
   }
   .list-header .list-header-handle {
     padding: 14px;
-    font-size: 48px;
+    font-size: calc(48px * var(--wekan-ui-font-scale, 1));
     text-align: center;
     /* iOS Safari fallback positioning */
     position: absolute;
@@ -1133,7 +1133,7 @@ form.inlined-form .list-composer {
     grid-row: 1;
     grid-column: 2;
     align-self: end;
-    font-size: 20px;
+    font-size: calc(20px * var(--wekan-ui-font-scale, 1));
     font-weight: bold;
     line-height: 1.2;
     padding-bottom: 2px;
@@ -1142,7 +1142,7 @@ form.inlined-form .list-composer {
     grid-row: 2;
     grid-column: 2;
     align-self: start;
-    font-size: 16px;
+    font-size: calc(16px * var(--wekan-ui-font-scale, 1));
     line-height: 1.2;
   }
   .list-header .list-header-menu {
@@ -1188,7 +1188,7 @@ form.inlined-form .list-composer {
     grid-row: 1/3 !important;
     grid-column: 3 !important;
     padding: 14px !important;
-    font-size: 40px !important;
+    font-size: calc(40px * var(--wekan-ui-font-scale, 1)) !important;
     text-align: center !important;
   }
 
@@ -1202,7 +1202,7 @@ form.inlined-form .list-composer {
     grid-row: 1/3 !important;
     grid-column: 4 !important;
     padding: 14px !important;
-    font-size: 48px !important;
+    font-size: calc(48px * var(--wekan-ui-font-scale, 1)) !important;
     text-align: center !important;
   }
 
@@ -1210,7 +1210,7 @@ form.inlined-form .list-composer {
     grid-row: 1 !important;
     grid-column: 2 !important;
     align-self: end !important;
-    font-size: 20px !important;
+    font-size: calc(20px * var(--wekan-ui-font-scale, 1)) !important;
     font-weight: bold !important;
     line-height: 1.2 !important;
     padding-bottom: 2px !important;
@@ -1223,7 +1223,7 @@ form.inlined-form .list-composer {
     text-align: start !important;
     padding-inline-start: 0 !important;
     margin-inline-start: 0 !important;
-    font-size: 16px !important;
+    font-size: calc(16px * var(--wekan-ui-font-scale, 1)) !important;
     line-height: 1.2 !important;
   }
 
@@ -1253,7 +1253,7 @@ form.inlined-form .list-composer {
   grid-row: 1/3 !important;
   grid-column: 3 !important;
   padding: 14px !important;
-  font-size: 40px !important;
+  font-size: calc(40px * var(--wekan-ui-font-scale, 1)) !important;
   text-align: center !important;
 }
 
@@ -1267,7 +1267,7 @@ form.inlined-form .list-composer {
   grid-row: 1/3 !important;
   grid-column: 4 !important;
   padding: 14px !important;
-  font-size: 48px !important;
+  font-size: calc(48px * var(--wekan-ui-font-scale, 1)) !important;
   text-align: center !important;
 }
 
@@ -1275,7 +1275,7 @@ form.inlined-form .list-composer {
   grid-row: 1 !important;
   grid-column: 2 !important;
   align-self: end !important;
-  font-size: 20px !important;
+  font-size: calc(20px * var(--wekan-ui-font-scale, 1)) !important;
   font-weight: bold !important;
   line-height: 1.2 !important;
   padding-bottom: 2px !important;
@@ -1285,7 +1285,7 @@ form.inlined-form .list-composer {
   grid-row: 2 !important;
   grid-column: 2 !important;
   align-self: start !important;
-  font-size: 16px !important;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1)) !important;
   line-height: 1.2 !important;
 }
 
@@ -1622,7 +1622,7 @@ form.inlined-form .list-composer {
 .list.list-collapsed .list-header-name-collapsed {
   writing-mode: vertical-rl;
   text-align: center;
-  font-size: 12px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   color: #333;
   margin: 0;
   padding: 0;
@@ -1646,7 +1646,7 @@ form.inlined-form .list-composer {
   display: block !important;
   align-items: initial;
   justify-content: initial;
-  font-size: 16px !important;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1)) !important;
   box-shadow: none;
   margin: 5px auto;
   z-index: 10;

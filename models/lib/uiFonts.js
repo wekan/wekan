@@ -95,6 +95,22 @@ function fontSizeValue(key) {
   return `${s.percent}%`;
 }
 
+// The same preset as a plain NUMBER, for `--wekan-ui-font-scale`.
+//
+// The percentage above only reaches text whose size is written in a relative
+// unit - `rem` is measured against the root, `em` against its parent - and
+// WeKan writes most of its sizes in px, which no root percentage can move. That
+// is why the setting reached the minicards and the page headings and left the
+// header bar, the left menu, the lists and every popup exactly as they were.
+// Every px font-size and line-height in the stylesheets is written
+// `calc(Npx * var(--wekan-ui-font-scale, 1))` instead, so this number moves
+// them all; unset, the fallback 1 renders precisely what it rendered before.
+function fontScaleValue(key) {
+  const s = UI_FONT_SIZES.find(x => x.key === key);
+  if (!s || s.key === 'default') return '';
+  return String(s.percent / 100);
+}
+
 // Member Settings / Font / Color (#4759): the text color and text background color
 // are free choices from a color wheel, so they are validated as #rrggbb hex (not a
 // whitelist). Only a strict hex passes, so there is no CSS-injection surface.
@@ -119,6 +135,7 @@ export {
   UI_FONT_SIZE_KEYS,
   isKnownFontSize,
   fontSizeValue,
+  fontScaleValue,
   isHexColor6,
   colorValue,
 };

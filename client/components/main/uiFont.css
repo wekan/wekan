@@ -26,6 +26,26 @@ html.has-ui-font-size {
   font-size: var(--wekan-ui-font-size) !important;
 }
 
+/* ...and that percentage is only half of it, because it can only reach text
+ * whose size is written in a RELATIVE unit. WeKan writes most of its sizes in
+ * px, and px is absolute: no root percentage moves it. So the setting scaled the
+ * minicards and the page headings - the parts written in rem - and left the
+ * header bar, the left menu, the lists and every popup exactly as they were.
+ * `html, body, input, select, textarea, button` even re-stated 14px, so the body
+ * took the stock size straight back off the scaled root.
+ *
+ * Every px `font-size` and `line-height` in the client stylesheets is therefore
+ * written
+ *
+ *     font-size: calc(14px * var(--wekan-ui-font-scale, 1));
+ *
+ * and uiFont.js publishes the preset as that number. The fallback is 1 and the
+ * variable is REMOVED for 'default', so an instance where nobody touched the
+ * setting computes exactly the sizes it always did. line-height is scaled with
+ * the size on purpose: 21px of type in an 18px line box is the same setting
+ * half-applied. tests/uiFonts.test.cjs fails on any bare px text size, so a new
+ * one cannot quietly opt out of the setting. */
+
 /* Text color (#4759): the variable is a validated hex set by uiFont.js. Icon fonts
  * keep their own color rules; this recolors ordinary UI text + form controls. */
 body.has-ui-text-color,

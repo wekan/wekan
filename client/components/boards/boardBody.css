@@ -578,7 +578,7 @@ body.desktop-mode .board-wrapper .board-canvas .board-overlay {
   justify-content: center;
   align-items: center;
   margin: 0;
-  font-size: 18px;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1));
 }
 .modal-footer {
   display: flex;
@@ -594,7 +594,7 @@ body.desktop-mode .board-wrapper .board-canvas .board-overlay {
   position: absolute;
   top: 5px;
   inset-inline-end: 5px;
-  font-size: 25px;
+  font-size: calc(25px * var(--wekan-ui-font-scale, 1));
   cursor: pointer;
 }
 

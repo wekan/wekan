@@ -119,7 +119,7 @@ table:not(.table-page-table) td:first-child {
 .divLockedUsersFilter .people-filter {
   margin-bottom: 0;
   color: #777;
-  line-height: 34px;
+  line-height: calc(34px * var(--wekan-ui-font-scale, 1));
 }
 
 .divLockedUsersFilter .user-filter {
@@ -225,7 +225,7 @@ table:not(.table-page-table) td:first-child {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   font-weight: 500;
 }
 

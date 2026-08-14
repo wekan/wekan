@@ -16,7 +16,7 @@
 
 .stats-view-title {
   margin: 0 0 16px;
-  font-size: 22px;
+  font-size: calc(22px * var(--wekan-ui-font-scale, 1));
   font-weight: bold;
 }
 
@@ -26,7 +26,7 @@
 
 .stats-view-heading {
   margin: 0 0 8px;
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: bold;
   border-bottom: 2px solid #dbdbdb;
   padding-bottom: 4px;

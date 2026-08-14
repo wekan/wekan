@@ -41,18 +41,18 @@
 }
 
 .mobile-mode .minicard {
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   padding: 11px 21px 5px;
   min-height: 24px;
 }
 
 .mobile-mode .list-header-name {
-  font-size: 18px;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1));
 }
 
 .mobile-mode .board-header-btn {
   padding: 9px 21px;
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
 }
 
 /* Comprehensive Mobile Mode Styles - Works on all screen sizes */
@@ -111,7 +111,7 @@
   width: 100% !important;
   min-width: 100% !important;
   max-width: 100% !important;
-  font-size: 18px !important;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1)) !important;
   padding: 1rem !important;
   /* No margin under the header bar: it is a fixed band of the swimlane's lighter
      grey between the bar and the first list, with nothing in it. */
@@ -150,7 +150,7 @@
   min-width: 100% !important;
   max-width: 100% !important;
   padding: 1rem !important;
-  font-size: 18px !important;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1)) !important;
   display: grid !important;
   /* title | caret | add-list + | drag handle. The grid follows the INLINE axis, so
      under dir="rtl" column 1 is on the right and the whole row mirrors by itself. */
@@ -174,7 +174,7 @@
 }
 
 .mobile-mode .list-header .list-header-name {
-  font-size: 18px !important;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1)) !important;
   font-weight: bold !important;
   grid-row: 1 !important;
   grid-column: 2 !important;
@@ -185,7 +185,7 @@
 }
 
 .mobile-mode .list-header .cardCount {
-  font-size: 14px !important;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1)) !important;
   grid-row: 2 !important;
   grid-column: 2 !important;
   align-self: center !important;
@@ -202,7 +202,7 @@
   grid-row: 1/3 !important;
   grid-column: 3 !important;
   padding: 14px !important;
-  font-size: 24px !important;
+  font-size: calc(24px * var(--wekan-ui-font-scale, 1)) !important;
   text-align: center !important;
   display: block !important;
   visibility: visible !important;
@@ -215,7 +215,7 @@
   grid-row: 1/3 !important;
   grid-column: 4 !important;
   padding: 14px !important;
-  font-size: 24px !important;
+  font-size: calc(24px * var(--wekan-ui-font-scale, 1)) !important;
   text-align: center !important;
   display: block !important;
 }
@@ -228,7 +228,7 @@
   grid-row: 1/3 !important;
   grid-column: 5 !important;
   padding: 14px !important;
-  font-size: 28px !important;
+  font-size: calc(28px * var(--wekan-ui-font-scale, 1)) !important;
   text-align: center !important;
   display: block !important;
   visibility: visible !important;
@@ -247,7 +247,7 @@
   width: 100% !important;
   min-width: 100% !important;
   max-width: 100% !important;
-  font-size: 16px !important;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1)) !important;
   padding: 11px 21px 5px !important;
   min-height: 24px !important;
   margin-bottom: 0.5rem !important;
@@ -256,16 +256,16 @@
 }
 
 .mobile-mode .minicard .minicard-title {
-  font-size: 16px !important;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1)) !important;
   font-weight: bold !important;
 }
 
 .mobile-mode .minicard .minicard-members {
-  font-size: 12px !important;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1)) !important;
 }
 
 .mobile-mode .minicard .minicard-lists {
-  font-size: 12px !important;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1)) !important;
 }
 
 /* Desktop Mode Styles */
@@ -293,12 +293,12 @@
   width: auto !important;
   min-width: auto !important;
   padding: 23px 21px 5px !important;
-  font-size: 14px !important;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1)) !important;
   display: block !important;
 }
 
 .desktop-mode .list-header .list-header-name {
-  font-size: 14px !important;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1)) !important;
   display: inline !important;
   grid-row: auto !important;
   grid-column: auto !important;
@@ -306,7 +306,7 @@
 }
 
 .desktop-mode .list-header .cardCount {
-  font-size: 12px !important;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1)) !important;
   grid-row: auto !important;
   grid-column: auto !important;
   align-self: auto !important;
@@ -320,7 +320,7 @@
   grid-row: auto !important;
   grid-column: auto !important;
   padding: 14px !important;
-  font-size: 40px !important;
+  font-size: calc(40px * var(--wekan-ui-font-scale, 1)) !important;
 }
 
 .desktop-mode .list-header .list-header-handle {
@@ -331,7 +331,7 @@
   grid-row: auto !important;
   grid-column: auto !important;
   padding: 7px !important;
-  font-size: 16px !important;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1)) !important;
 }
 
 .desktop-mode .list-body {
@@ -343,27 +343,27 @@
 .desktop-mode .minicard {
   width: auto !important;
   min-width: auto !important;
-  font-size: 12px !important;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1)) !important;
   padding: 5px 11px !important;
   min-height: auto !important;
   margin-bottom: 9px !important;
 }
 
 .desktop-mode .minicard .minicard-title {
-  font-size: 12px !important;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1)) !important;
 }
 
 .desktop-mode .minicard .minicard-members {
-  font-size: 10px !important;
+  font-size: calc(10px * var(--wekan-ui-font-scale, 1)) !important;
 }
 
 .desktop-mode .minicard .minicard-lists {
-  font-size: 10px !important;
+  font-size: calc(10px * var(--wekan-ui-font-scale, 1)) !important;
 }
 
 /* Additional Mobile Mode Styles for Other Elements - Works on all screen sizes */
 .mobile-mode .swimlane-header .swimlane-title {
-  font-size: 18px !important;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1)) !important;
   font-weight: bold !important;
   display: block !important;
   visibility: visible !important;
@@ -371,21 +371,21 @@
 }
 
 .mobile-mode .swimlane-header .swimlane-description {
-  font-size: 14px !important;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1)) !important;
   display: block !important;
   visibility: visible !important;
   opacity: 1 !important;
 }
 
 .mobile-mode .board-header {
-  font-size: 18px !important;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1)) !important;
   padding: 1rem !important;
   width: 100% !important;
   max-width: 100% !important;
 }
 
 .mobile-mode .board-header .board-header-title {
-  font-size: 18px !important;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1)) !important;
   font-weight: bold !important;
   display: block !important;
   visibility: visible !important;
@@ -393,14 +393,14 @@
 }
 
 .mobile-mode .board-header .board-header-description {
-  font-size: 14px !important;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1)) !important;
   display: block !important;
   visibility: visible !important;
   opacity: 1 !important;
 }
 
 .mobile-mode .board-header .board-header-btn {
-  font-size: 14px !important;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1)) !important;
   padding: 9px 21px !important;
   display: inline-block !important;
   visibility: visible !important;
@@ -408,7 +408,7 @@
 }
 
 .mobile-mode .board-header .board-header-btn i {
-  font-size: 14px !important;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1)) !important;
   display: inline !important;
   visibility: visible !important;
   opacity: 1 !important;
@@ -430,7 +430,7 @@
   grid-row: 1/3 !important;
   grid-column: 3 !important;
   padding: 14px !important;
-  font-size: 24px !important;
+  font-size: calc(24px * var(--wekan-ui-font-scale, 1)) !important;
   text-align: center !important;
 }
 
@@ -438,7 +438,7 @@
   grid-row: 1/3 !important;
   grid-column: 4 !important;
   padding: 14px !important;
-  font-size: 28px !important;
+  font-size: calc(28px * var(--wekan-ui-font-scale, 1)) !important;
   text-align: center !important;
 }
 
@@ -513,7 +513,7 @@
     min-width: 100% !important;
     margin: 0 !important;
     padding: 1rem !important;
-    font-size: 18px !important;
+    font-size: calc(18px * var(--wekan-ui-font-scale, 1)) !important;
     font-weight: bold !important;
     border-bottom: 2px solid #ccc !important;
   }
@@ -819,12 +819,12 @@
 
 .mobile-mode .board-header .board-header-btn {
   height: 32px !important;
-  line-height: 32px !important;
-  font-size: 15px !important;
+  line-height: calc(32px * var(--wekan-ui-font-scale, 1)) !important;
+  font-size: calc(15px * var(--wekan-ui-font-scale, 1)) !important;
 }
 
 .mobile-mode .board-header .board-header-btn i.fa {
-  line-height: 32px !important;
+  line-height: calc(32px * var(--wekan-ui-font-scale, 1)) !important;
 }
 
 /* Copy mobile media query styles to mobile mode for consistent appearance */
@@ -844,8 +844,8 @@
 
 .mobile-mode .board-header .board-header-btn {
   height: 32px !important;
-  line-height: 32px !important;
-  font-size: 15px !important;
+  line-height: calc(32px * var(--wekan-ui-font-scale, 1)) !important;
+  font-size: calc(15px * var(--wekan-ui-font-scale, 1)) !important;
   margin: 0 2px !important;
   padding: 4px 8px !important;
   border-radius: 4px !important;
@@ -866,8 +866,8 @@
 }
 
 .mobile-mode .board-header .board-header-btn i.fa {
-  line-height: 32px !important;
-  font-size: 15px !important;
+  line-height: calc(32px * var(--wekan-ui-font-scale, 1)) !important;
+  font-size: calc(15px * var(--wekan-ui-font-scale, 1)) !important;
   margin: 0 !important;
   padding: 0 !important;
 }
@@ -978,7 +978,7 @@ body.board-view.mobile-mode #header #header-main-bar .board-header-sidebar-toggl
     margin: 0 2px;
     min-width: 44px;
     height: 44px;
-    line-height: 44px;
+    line-height: calc(44px * var(--wekan-ui-font-scale, 1));
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1003,33 +1003,33 @@ body.board-view.mobile-mode #header #header-main-bar .board-header-sidebar-toggl
 
 /* Additional Desktop Mode Styles for Other Elements */
 .desktop-mode .swimlane-header .swimlane-title {
-  font-size: 14px !important;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1)) !important;
 }
 
 .desktop-mode .swimlane-header .swimlane-description {
-  font-size: 12px !important;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1)) !important;
 }
 
 .desktop-mode .board-header {
-  font-size: 14px !important;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1)) !important;
   padding: 23px 21px 5px !important;
 }
 
 .desktop-mode .board-header .board-header-title {
-  font-size: 14px !important;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1)) !important;
 }
 
 .desktop-mode .board-header .board-header-description {
-  font-size: 12px !important;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1)) !important;
 }
 
 .desktop-mode .board-header .board-header-btn {
-  font-size: 12px !important;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1)) !important;
   padding: 5px 11px !important;
 }
 
 .desktop-mode .board-header .board-header-btn i {
-  font-size: 12px !important;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1)) !important;
 }
 
 /* #6419: make the board-header action buttons touch-friendly by VIEWPORT WIDTH,
@@ -1042,9 +1042,9 @@ body.board-view.mobile-mode #header #header-main-bar .board-header-sidebar-toggl
     min-height: 40px;
     padding-top: 8px;
     padding-bottom: 8px;
-    font-size: 15px;
+    font-size: calc(15px * var(--wekan-ui-font-scale, 1));
   }
   .board-header-btns .board-header-btn i.fa {
-    font-size: 16px;
+    font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   }
 }

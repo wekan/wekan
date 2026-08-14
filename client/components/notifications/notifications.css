@@ -3,7 +3,7 @@
 }
 #notifications .notifications-drawer-toggle {
   display: block;
-  line-height: 28px;
+  line-height: calc(28px * var(--wekan-ui-font-scale, 1));
   color: #f2f2f2;
   margin: 0 10px;
   width: 28px;

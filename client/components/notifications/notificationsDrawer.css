@@ -41,10 +41,10 @@ section#notifications-drawer .header {
   align-items: center;
 }
 section#notifications-drawer .header .notification-menu-toggle {
-  font-size: 20px;
+  font-size: calc(20px * var(--wekan-ui-font-scale, 1));
   cursor: pointer;
   color: #000 !important; /* black hamburger menu (override themed white link colour) */
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
 }
 section#notifications-drawer .header .notification-menu-toggle:hover {
   color: #2980b9;
@@ -95,7 +95,7 @@ section#notifications-drawer .header .notification-menu .menu-item .check-icon {
 }
 section#notifications-drawer .header .notification-menu .menu-item .menu-icon {
   margin-inline-end: 8px;
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
 }
 /* Menu-item icons (envelope / copy / trash / check) black. */
 section#notifications-drawer .header .notification-menu .menu-item .menu-icon,
@@ -115,9 +115,9 @@ section#notifications-drawer .header .close {
      otherwise pulls the X out of the header row and drops it below the title. */
   position: static;
   margin-inline-start: 8px;
-  font-size: 24px;
+  font-size: calc(24px * var(--wekan-ui-font-scale, 1));
   height: 24px;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   opacity: 1;
   color: #000 !important; /* black X (override themed white link colour) */
 }

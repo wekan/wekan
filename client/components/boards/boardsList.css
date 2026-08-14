@@ -154,7 +154,7 @@
   background: #ddd;
   padding: 2px 8px;
   border-radius: 12px;
-  font-size: 12px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   font-weight: bold;
   margin-inline-start: 8px;
 }
@@ -235,9 +235,9 @@
 .board-list .board-list-item-bookmark .bookmark-url {
   display: block;
   margin-top: 4px;
-  font-size: 12px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 16px;
+  line-height: calc(16px * var(--wekan-ui-font-scale, 1));
   opacity: 0.85;
   /* An address is one string and must not be hyphenated into something that
      reads like a different address. */
@@ -291,13 +291,13 @@
   border: 2px dashed #d0d0d0;
   border-radius: 4px;
   color: #808080;
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
   /* Nothing to grab: this is where a drag ENDS. */
   cursor: default;
   transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 .home-remove-target .fa {
-  font-size: 18px;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1));
 }
 /* Under the icon. The colour is the answer to "what happens if I let go", so it
    is the destructive one - and it is only ever shown while something is over
@@ -321,7 +321,7 @@
   border: 2px dashed #b3b3b3;
   border-radius: 4px;
   color: #808080;
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
   line-height: 1.4;
   text-align: center;
 }
@@ -381,7 +381,7 @@
   padding-block: 8px 4px;
   padding-inline-start: 18px;
   padding-inline-end: 10px;
-  font-size: 12px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -435,7 +435,7 @@
   text-decoration: none;
   cursor: pointer;
   opacity: 0.7;
-  font-size: 12px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
 }
 .workspace-collapse-indicator:hover {
   opacity: 1;
@@ -512,7 +512,7 @@
 .workspace-drag-handle {
   cursor: grab;
   color: #999;
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
   padding: 0 4px;
   user-select: none;
 }
@@ -537,7 +537,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   line-height: 1;
   vertical-align: middle;
 }
@@ -597,7 +597,7 @@
   background: #ddd;
   padding: 2px 6px;
   border-radius: 10px;
-  font-size: 11px;
+  font-size: calc(11px * var(--wekan-ui-font-scale, 1));
   font-weight: bold;
   min-width: 20px;
   text-align: center;
@@ -613,7 +613,7 @@
   border-radius: 3px;
   cursor: pointer;
   text-decoration: none;
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
   opacity: 0.6;
   transition: opacity 0.2s;
 }
@@ -629,7 +629,7 @@
   border-radius: 3px;
   cursor: pointer;
   text-decoration: none;
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
   opacity: 0.7;
   transition: opacity 0.2s;
 }
@@ -812,7 +812,7 @@
    particular to this one is here. */
 .all-boards-sidebar .sidebar-multiselection-hint {
   color: #666;
-  font-size: 13px;
+  font-size: calc(13px * var(--wekan-ui-font-scale, 1));
   margin: 8px 0;
 }
 
@@ -941,8 +941,8 @@
      nothing moves except the bordered tiles, which now match. */
   box-sizing: border-box;
   min-height: 114px;
-  font-size: 16px;
-  line-height: 22px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
+  line-height: calc(22px * var(--wekan-ui-font-scale, 1));
   border-radius: 0; /* No border-radius - parent .js-board has it */
   display: block;
   font-weight: 700;
@@ -961,7 +961,7 @@
   transform: translateX(-50%);
   z-index: 3;
   color: #fff;
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
   line-height: 1;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
   pointer-events: none;
@@ -982,16 +982,16 @@
 .board-list .board-list-item-sub-name {
   color: rgba(255,255,255,0.5);
   display: block;
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 22px;
+  line-height: calc(22px * var(--wekan-ui-font-scale, 1));
 }
 .board-list .board-list-item-desc {
   color: #fff;
   display: block;
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 18px;
+  line-height: calc(18px * var(--wekan-ui-font-scale, 1));
 }
 .board-list .js-add-board {
   text-align: center;
@@ -1001,7 +1001,7 @@
   /* Match the board tiles (#6465 thinner tiles) so the grey "+ Add Board" /
      "+ Add Template Container" box is the same height as a board icon:
      same min-height, padding and line-height as .board-list-item above. */
-  line-height: 22px;
+  line-height: calc(22px * var(--wekan-ui-font-scale, 1));
   /* Border-box and the full height, like .board-list-item above: the two are
      compared by eye on the same row, so they are stated the same way. */
   box-sizing: border-box;
@@ -1034,9 +1034,9 @@
 .board-list .is-star-active,
 .board-list .is-not-star-active {
   top: 0;
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
   height: 18px;
-  line-height: 18px;
+  line-height: calc(18px * var(--wekan-ui-font-scale, 1));
   opacity: 0;
   padding: 9px 9px;
   position: absolute;
@@ -1046,9 +1046,9 @@
 }
 .board-list .fa-circle {
   bottom: 0;
-  font-size: 10px;
+  font-size: calc(10px * var(--wekan-ui-font-scale, 1));
   height: 10px;
-  line-height: 10px;
+  line-height: calc(10px * var(--wekan-ui-font-scale, 1));
   padding: 9px 9px;
   position: absolute;
   inset-inline-end: 0;
@@ -1067,9 +1067,9 @@
 .board-list .fa-clone {
   position: absolute;
   bottom: 0;
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
   height: 18px;
-  line-height: 18px;
+  line-height: calc(18px * var(--wekan-ui-font-scale, 1));
   opacity: 0;
   inset-inline-end: 0;
   padding: 9px 9px;
@@ -1079,9 +1079,9 @@
 .board-list .fa-archive {
   position: absolute;
   bottom: 0;
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
   height: 18px;
-  line-height: 18px;
+  line-height: calc(18px * var(--wekan-ui-font-scale, 1));
   opacity: 0;
   inset-inline-start: 0;
   padding: 9px 9px;
@@ -1105,7 +1105,7 @@
 .board-list li:hover a .fa-clone:hover,
 .board-list li:hover a .fa-archive:hover,
 .board-list li:hover a .is-not-star-active:hover {
-  font-size: 18px;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1));
   opacity: 1;
 }
 .board-list li:hover a .is-star-active,
@@ -1123,7 +1123,7 @@
   top: 50%;
   inset-inline-end: 6px;
   transform: translateY(-50%);
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
   color: #fff;
   /* Transparent background so only the drag-handle icon shows (not a box). */
   background: transparent;
@@ -1192,7 +1192,7 @@
   font-family: FontAwesome;
   content: "\f00c";
   color: #fff;
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: bold;
 }
 
@@ -1239,7 +1239,7 @@
   justify-content: center;
 }
 .board-backgrounds-list .board-background-select .background-box i.fa-check {
-  font-size: 25px;
+  font-size: calc(25px * var(--wekan-ui-font-scale, 1));
   color: #3cb500;
 }
 /* Mobile view styles - applied when isMiniScreen is true (iPhone, etc.) */
@@ -1304,7 +1304,7 @@
   top: 50%;
   transform: translateY(-50%);
   inset-inline-end: 6px;
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   color: #fff;
   background: rgba(0,0,0,0.3);
   border-radius: 50%;
@@ -1508,7 +1508,7 @@
     top: 50%;
     transform: translateY(-50%);
     inset-inline-end: 6px;
-    font-size: 16px;
+    font-size: calc(16px * var(--wekan-ui-font-scale, 1));
     color: #fff;
     background: rgba(0,0,0,0.3);
     border-radius: 50%;
@@ -1544,7 +1544,7 @@
     top: 50%;
     transform: translateY(-50%);
     inset-inline-end: 6px;
-    font-size: 16px;
+    font-size: calc(16px * var(--wekan-ui-font-scale, 1));
     color: #fff;
     background: rgba(0,0,0,0.3);
     border-radius: 50%;
@@ -1605,7 +1605,7 @@
   border-radius: 4px;
   padding: 6px 12px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -1617,7 +1617,7 @@
 }
 
 #resetBtn.filter-reset-btn .reset-icon {
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
 }
 
 .js-board {
@@ -2130,10 +2130,10 @@ body.has-theme-board-tiles .board-list > li.js-board .board-list-card-count {
   }
   .workspace-node .workspace-drag-handle {
     padding: 0 2px;
-    font-size: 12px;
+    font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   }
   .workspace-node .workspace-icon {
-    font-size: 14px;
+    font-size: calc(14px * var(--wekan-ui-font-scale, 1));
   }
   .workspace-node .js-open-workspace-menu {
     padding: 2px 4px;
@@ -2141,7 +2141,7 @@ body.has-theme-board-tiles .board-list > li.js-board .board-list-card-count {
   .workspace-node .workspace-count {
     min-width: 16px;
     padding: 2px 4px;
-    font-size: 10px;
+    font-size: calc(10px * var(--wekan-ui-font-scale, 1));
   }
 }
 
@@ -2158,7 +2158,7 @@ body.has-theme-board-tiles .board-list > li.js-board .board-list-card-count {
     min-width: 44px;
     min-height: 44px;
     padding: 8px;
-    font-size: 20px;
+    font-size: calc(20px * var(--wekan-ui-font-scale, 1));
     line-height: 1;
   }
 }

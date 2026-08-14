@@ -2432,12 +2432,12 @@ THEME - Modern
   color: #fff;
 }
 .board-color-modern .card-date {
-  font-size: 12px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   padding: 3px 5px;
 }
 .board-color-modern .header-title {
   /* font-family: Poppins; */
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   color: #333;
 }
 .board-color-modern .pop-over {
@@ -2453,11 +2453,11 @@ THEME - Modern
 }
 .board-color-modern .pop-over .header .header-title {
   /* font-family: Poppins; */
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   color: #333;
 }
 .board-color-modern .pop-over .header .close-btn {
-  font-size: 20px;
+  font-size: calc(20px * var(--wekan-ui-font-scale, 1));
   top: 6px;
   inset-inline-end: 8px;
 }
@@ -2497,7 +2497,7 @@ THEME - Modern
   font-weight: bold;
 }
 .board-color-modern .board-color-modern section#notifications-drawer .header .close {
-  font-size: 20px;
+  font-size: calc(20px * var(--wekan-ui-font-scale, 1));
   top: 14px;
 }
 .board-color-modern section#notifications-drawer .header .toggle-read {
@@ -2658,7 +2658,7 @@ THEME - Modern Dark
 }
 .board-color-moderndark#header-quick-access {
   padding: 4px;
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
 }
 @media screen and (max-width: 800px) {
   .board-color-moderndark#header-quick-access {
@@ -2713,14 +2713,14 @@ THEME - Modern Dark
 }
 .board-color-moderndark .swimlane .swimlane-header-wrap .swimlane-header-menu {
   padding: 6px;
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
 }
 .board-color-moderndark .swimlane .swimlane-header-wrap .swimlane-header-plus-icon {
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
 }
 .board-color-moderndark .swimlane {
   background: #2a2a2a;
-  line-height: 18px;
+  line-height: calc(18px * var(--wekan-ui-font-scale, 1));
   max-height: 100%;
 }
 .board-color-moderndark .swimlane .list {
@@ -2757,7 +2757,7 @@ THEME - Modern Dark
 }
 .board-color-moderndark .list-header .list-header-name,
 .board-color-moderndark .minicard {
-  line-height: 14px;
+  line-height: calc(14px * var(--wekan-ui-font-scale, 1));
   color: #eee;
 }
 @media screen and (max-width: 800px) {
@@ -2837,18 +2837,18 @@ THEME - Modern Dark
   margin: 8px 0 4px;
 }
 .board-color-moderndark .minicard .card-label {
-  font-size: 11px;
+  font-size: calc(11px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
   padding: 1px 6px 0;
   border-radius: 2px;
-  line-height: 18px;
+  line-height: calc(18px * var(--wekan-ui-font-scale, 1));
 }
 .board-color-moderndark .minicard .badges {
   color: #bbb;
 }
 .board-color-moderndark .minicard .date {
   margin-bottom: 10px;
-  font-size: 11px;
+  font-size: calc(11px * var(--wekan-ui-font-scale, 1));
 }
 .board-color-moderndark .card-date {
   color: #444;
@@ -2937,7 +2937,7 @@ THEME - Modern Dark
   background-color: rgba(255,255,255,0.1);
   padding: 4px 8px;
   border-radius: 2px;
-  font-size: 13px;
+  font-size: calc(13px * var(--wekan-ui-font-scale, 1));
   margin-top: 5px;
 }
 .board-color-moderndark .card-details .checklist-item:hover {
@@ -2996,7 +2996,7 @@ THEME - Modern Dark
 }
 .pop-over.board-color-moderndark .header-title {
   /* font-family: Poppins; */
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   color: #ccc;
 }
 .pop-over.board-color-moderndark .pop-over-list li > a:hover {
@@ -3294,15 +3294,15 @@ THEME - Clean Dark
 .board-color-cleandark#header ul li,
 .board-color-cleandark#header-quick-access ul li {
   color: rgba(255, 255, 255, 50%);
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
 }
 
 .board-color-cleandark#header-main-bar h1 {
-  font-size:  16px;
+  font-size:  calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 500;
-  line-height: 24px !important;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1)) !important;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -3312,9 +3312,9 @@ THEME - Clean Dark
 }
 
 .board-color-cleandark .swimlane-header {
-  font-size:  16px;
+  font-size:  calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 500;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   color: rgba(255, 255, 255, 1);
 }
 
@@ -3334,9 +3334,9 @@ THEME - Clean Dark
 .board-color-cleandark .sidebar .tab-item {
   border-radius: 16px;
   padding: 4px 12px 4px 12px;
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   color: rgba(255, 255, 255, 0.85);
   background: rgba(57, 57, 71, 1);
 }
@@ -3360,9 +3360,9 @@ THEME - Clean Dark
 }
 
 .board-color-cleandark .card-details-item a {
-  font-size:  16px;
+  font-size:  calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   color: rgba(255, 255, 255, 0.5);
 }
 
@@ -3412,9 +3412,9 @@ THEME - Clean Dark
 }
 
 .board-color-cleandark .card-details-canvas {
-  font-size:  16px;
+  font-size:  calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   color: rgba(255, 255, 255, 0.85);
 }
 
@@ -3426,9 +3426,9 @@ THEME - Clean Dark
 
 .board-color-cleandark.pop-over .pop-over-list,
 .board-color-cleandark.pop-over .content {
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   color: rgba(255, 255, 255, 1);
 }
 
@@ -3467,17 +3467,17 @@ THEME - Clean Dark
 }
 
 .board-color-cleandark .full-name {
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 500;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
 
   color: rgba(255, 255, 255, 0.85);
 }
 
 .board-color-cleandark .username {
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
 
   color: rgba(255, 255, 255, 0.7);
 }
@@ -3527,9 +3527,9 @@ THEME - Clean Dark
 }
 
 .board-color-cleandark .activity-desc {
-  font-size:  16px;
+  font-size:  calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   color: rgba(255, 255, 255, 0.5);
 }
 
@@ -3551,9 +3551,9 @@ THEME - Clean Dark
 
 .board-color-cleandark button[type=submit].primary,
 .board-color-cleandark input[type=submit].primary {
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   border-radius: 12px;
   padding: 6px 12px 6px 12px;
   background: #FFFFFF;
@@ -3561,9 +3561,9 @@ THEME - Clean Dark
 }
 
 .board-color-cleandark textarea {
-  font-size:  16px;
+  font-size:  calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   color: rgba(255, 255, 255, 1);
   background: rgba(57, 57, 71, 1) !important;
   border: none !important;
@@ -3575,9 +3575,9 @@ THEME - Clean Dark
 }
 
 .board-color-cleandark input {
-  font-size:  16px;
+  font-size:  calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   color: rgba(255, 255, 255, 0.85) !important;
   background: rgba(57, 57, 71, 1) !important;
   border-radius: 12px !important;
@@ -3589,9 +3589,9 @@ THEME - Clean Dark
 }
 
 .board-color-cleandark select {
-  font-size:  16px;
+  font-size:  calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   color: rgba(255, 255, 255, 0.85);
   background: rgba(57, 57, 71, 1);
   border-radius: 12px;
@@ -3603,9 +3603,9 @@ THEME - Clean Dark
   border-radius: 12px;
   border: none;
   background: #FFFFFF;
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   color: rgba(10, 10, 20, 0.85);
 }
 
@@ -3618,9 +3618,9 @@ THEME - Clean Dark
   border-radius: 12px;
   border: none;
   background: #cc003a;
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   color: #FFFFFF;
 }
 
@@ -3768,9 +3768,9 @@ THEME - Clean Light
      `ul li` - the house and the bell - at another, and left the labels paler
      than the board title beside them. One bar, one shade. */
   color: rgba(10, 10, 20, 0.85) !important;
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
 }
 
 .board-color-cleanlight#header ul li:hover,
@@ -3781,9 +3781,9 @@ THEME - Clean Light
 }
 
 .board-color-cleanlight #header-main-bar h1 {
-  font-size:  16px;
+  font-size:  calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 500;
-  line-height: 24px !important;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1)) !important;
   color: rgba(10, 10, 20, 1) !important;
 }
 
@@ -3798,9 +3798,9 @@ THEME - Clean Light
 }
 
 .board-color-cleanlight .swimlane-header {
-  font-size:  16px;
+  font-size:  calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 500;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   color: rgba(10, 10, 20, 1);
 }
 
@@ -3830,7 +3830,7 @@ THEME - Clean Light
   display: flex !important;
   justify-content: space-between;
   align-items: center;
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   background: none !important;
   background-color: transparent !important;
 }
@@ -3857,7 +3857,7 @@ THEME - Clean Light
 
 .board-color-cleanlight .list .list-header .list-header-menu .js-open-list-menu ,
 .board-color-cleandark .list .list-header .list-header-menu .js-open-list-menu {
-  font-size: 16px !important;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1)) !important;
 }
 
 .board-color-cleanlight .list .list-header .list-header-menu a,
@@ -3871,7 +3871,7 @@ THEME - Clean Light
   background: #FF6D00;
   padding: 8px;
   border-radius: 12px;
-  font-size: 16px !important;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1)) !important;
 }
 
 .board-color-cleanlight .list .list-header .list-header-menu .list-header-plus-top:hover,
@@ -3966,7 +3966,7 @@ THEME - Clean Light
 .board-color-cleandark .swimlane .swimlane-header-wrap .swimlane-header,
 .board-color-cleanlight .swimlane .swimlane-header-wrap .swimlane-header-menu .fa,
 .board-color-cleandark .swimlane .swimlane-header-wrap .swimlane-header-menu .fa {
-  font-size: 16px !important;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1)) !important;
 }
 
 .board-color-cleanlight .swimlane .swimlane-header-wrap {
@@ -4011,9 +4011,9 @@ THEME - Clean Light
 .board-color-cleanlight .sidebar .tab-item {
   border-radius: 16px;
   padding: 4px 12px 4px 12px;
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   color: rgba(10, 10, 20, 0.85);
   background: rgba(234, 234, 237, 1);
 }
@@ -4036,17 +4036,17 @@ THEME - Clean Light
 }
 
 .board-color-cleanlight .card-details-item a {
-  font-size:  16px;
+  font-size:  calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   color: rgba(10, 10, 20, 0.5);
 }
 
 .board-color-cleanlight .card-details-header,
 .board-color-cleandark .card-details-header {
-  font-size: 24px !important;
+  font-size: calc(24px * var(--wekan-ui-font-scale, 1)) !important;
   font-weight: 600;
-  line-height: 28px;
+  line-height: calc(28px * var(--wekan-ui-font-scale, 1));
   border-bottom: none !important;
   padding: 12px 20px !important;
 }
@@ -4063,7 +4063,7 @@ THEME - Clean Light
 
 .board-color-cleanlight .card-details-header .card-details-title,
 .board-color-cleandark .card-details-header .card-details-title {
-  font-size: 24px !important;
+  font-size: calc(24px * var(--wekan-ui-font-scale, 1)) !important;
 }
 
 .board-color-cleanlight .card-details .card-details-item-title,
@@ -4072,9 +4072,9 @@ THEME - Clean Light
   gap: 8px;
   align-items: center;
 
-  font-size:  16px;
+  font-size:  calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 500;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
 }
 
 .board-color-cleanlight .card-details .card-details-item-title {
@@ -4131,9 +4131,9 @@ THEME - Clean Light
 }
 
 .board-color-cleanlight .card-details-canvas {
-  font-size:  16px;
+  font-size:  calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   color: rgba(10, 10, 20, 0.5);
 }
 
@@ -4149,9 +4149,9 @@ THEME - Clean Light
   border-bottom: none;
   background: inherit;
 
-  font-size:  16px;
+  font-size:  calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 500;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
 }
 
 .board-color-cleanlight.pop-over .header {
@@ -4165,9 +4165,9 @@ THEME - Clean Light
 
 .board-color-cleanlight.pop-over .pop-over-list,
 .board-color-cleanlight.pop-over .content {
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   color: rgba(10, 10, 20, 0.8);
 }
 
@@ -4207,17 +4207,17 @@ THEME - Clean Light
 }
 
 .board-color-cleanlight .full-name {
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 500;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
 
   color: rgba(10, 10, 20, 0.85) !important;
 }
 
 .board-color-cleanlight .username {
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
 
   color: rgba(10, 10, 20, 0.5) !important;
 }
@@ -4273,9 +4273,9 @@ THEME - Clean Light
 }
 
 .board-color-cleanlight .activity-desc {
-  font-size:  16px;
+  font-size:  calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   color: rgba(10, 10, 20, 0.5);
 }
 
@@ -4293,9 +4293,9 @@ THEME - Clean Light
 
 .board-color-cleanlight button[type=submit].primary,
 .board-color-cleanlight input[type=submit].primary {
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   border-radius: 12px;
   padding: 6px 12px 6px 12px;
   background: rgba(23, 23, 28, 1);
@@ -4303,9 +4303,9 @@ THEME - Clean Light
 }
 
 .board-color-cleanlight input.primary {
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   border-radius: 12px;
   padding: 6px 12px 6px 12px;
   background: rgba(23, 23, 28, 1) !important;
@@ -4317,9 +4317,9 @@ THEME - Clean Light
 }
 
 .board-color-cleanlight textarea {
-  font-size:  16px;
+  font-size:  calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   color: rgba(10, 10, 20, 0.85);
   background: rgba(234, 234, 237, 1);
   border: none !important;
@@ -4337,9 +4337,9 @@ THEME - Clean Light
 }
 
 .board-color-cleanlight input {
-  font-size:  16px;
+  font-size:  calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   color: rgba(10, 10, 20, 0.85) !important;
   background: rgba(234, 234, 237, 1) !important;
   border-radius: 12px !important;
@@ -4357,9 +4357,9 @@ THEME - Clean Light
 }
 
 .board-color-cleanlight select {
-  font-size:  16px;
+  font-size:  calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   color: rgba(10, 10, 20, 0.85);
   background: rgba(234, 234, 237, 1);
   border-radius: 12px;
@@ -4371,9 +4371,9 @@ THEME - Clean Light
   border-radius: 12px;
   border: none;
   background: rgba(23, 23, 28, 1);
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   color: rgba(255, 255, 255, 0.85);
 }
 
@@ -4386,9 +4386,9 @@ THEME - Clean Light
   border-radius: 12px;
   border: none;
   background: #cc003a;
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   color: #FFFFFF;
 }
 
@@ -4620,9 +4620,9 @@ THEME - Clean Light
 .board-color-cleanlight .minicard,
 .board-color-cleandark .minicard {
   border-radius: 12px;
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   padding: 12px;
 }
 
@@ -4638,16 +4638,16 @@ THEME - Clean Light
 
 .board-color-cleanlight .minicard .minicard-details-menu,
 .board-color-cleandark .minicard .minicard-details-menu {
-  font-size: 16px !important;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1)) !important;
 }
 
 .board-color-cleanlight .minicard .date,
 .board-color-cleandark .minicard .date,
 .board-color-cleanlight .minicard .end-date,
 .board-color-cleandark .minicard .end-date {
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   margin-bottom: 10px;
 }
 
@@ -4658,9 +4658,9 @@ THEME - Clean Light
 .board-color-cleanlight .card-details .card-date,
 .board-color-cleandark .card-details .card-date {
   padding: 4px 8px 4px 8px;
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 24px;
+  line-height: calc(24px * var(--wekan-ui-font-scale, 1));
   color: rgba(255, 255, 255, 1);
 }
 

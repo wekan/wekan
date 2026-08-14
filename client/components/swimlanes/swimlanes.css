@@ -63,7 +63,7 @@
   margin: 0;
 }
 .swimlane .swimlane-header-wrap .swimlane-header {
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
   padding: 0;
   font-weight: bold;
   min-height: 33px;
@@ -101,7 +101,7 @@
   align-items: center;
   padding: 0;
   margin: 0;
-  font-size: 22px;
+  font-size: calc(22px * var(--wekan-ui-font-scale, 1));
   line-height: 1;
   z-index: 20;
   pointer-events: auto;
@@ -122,16 +122,16 @@
 .swimlane .swimlane-header-wrap .swimlane-header-plus-icon {
   padding: 5px;
   margin-inline-start: 20px;
-  font-size: 22px;
+  font-size: calc(22px * var(--wekan-ui-font-scale, 1));
   color: #a6a6a6;
 }
 .swimlane .swimlane-header-wrap .swimlane-header-menu-icon {
   padding-inline-start: 5px;
-  font-size: 22px;
+  font-size: calc(22px * var(--wekan-ui-font-scale, 1));
 }
 .swimlane .swimlane-header-wrap .swimlane-header-handle {
   padding: 2px 5px;
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   display: inline-block;
   vertical-align: middle;
   margin-inline-start: 30px;
@@ -142,7 +142,7 @@
 }
 .swimlane .swimlane-header-wrap .swimlane-header-miniscreen-handle {
   padding: 2px 5px;
-  font-size: 24px;
+  font-size: calc(24px * var(--wekan-ui-font-scale, 1));
   display: inline-block;
   vertical-align: middle;
   margin-inline-start: 30px;
@@ -161,7 +161,7 @@
   border-radius: 0;
   background-color: transparent;
   cursor: pointer;
-  font-size: 18px;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1));
   line-height: 1.2;
   text-align: center;
   text-decoration: none;

@@ -40,7 +40,7 @@
   row-gap: 4px;
 }
 #header #header-main-bar h1 {
-  font-size: 20px;
+  font-size: calc(20px * var(--wekan-ui-font-scale, 1));
   /* A flex box with its own centred line, so the title sits on the bar's middle with
      everything else instead of on the middle of a line box far taller than its text. */
   display: flex;
@@ -127,11 +127,11 @@
   color: #f2f2f2;
   padding: 0 6px;
   height: 28px;
-  font-size: 13px;
+  font-size: calc(13px * var(--wekan-ui-font-scale, 1));
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  line-height: 28px;
+  line-height: calc(28px * var(--wekan-ui-font-scale, 1));
   margin: 0 4px;
   white-space: nowrap;
 }
@@ -209,10 +209,10 @@
   color: #f2f2f2;
   padding: 0;
   height: 28px;
-  font-size: 13px;
+  font-size: calc(13px * var(--wekan-ui-font-scale, 1));
   float: inline-start;
   overflow: hidden;
-  line-height: 28px;
+  line-height: calc(28px * var(--wekan-ui-font-scale, 1));
   margin: 0 12px;
 }
 /* The sidebar hamburger sits at the far right; drop its wide 12px side margins so
@@ -228,7 +228,7 @@
 #header #header-main-bar .board-header-btn i.fa {
   float: inline-start;
   display: block;
-  line-height: 28px;
+  line-height: calc(28px * var(--wekan-ui-font-scale, 1));
   color: #f2f2f2;
   margin: 0 10px;
 }
@@ -246,7 +246,7 @@
 #header #header-main-bar .board-header-btn .board-header-btn-icon {
   float: inline-start;
   display: block;
-  line-height: 28px;
+  line-height: calc(28px * var(--wekan-ui-font-scale, 1));
   color: #27ae60;
   margin: 0 10px;
   cursor: pointer;
@@ -299,7 +299,7 @@ body:not(.board-view) #header #header-main-bar h1 {
      the same, by naming this bar in the selector list the main bar already has
      (boardColors.css) rather than by restating each hex a second time. */
   background: #2980b9;
-  font-size: 12px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   display: flex;
   z-index: 1000;
   padding: 10px var(--wekan-header-gutter);
@@ -405,7 +405,7 @@ body:not(.board-view) #header #header-main-bar h1 {
 }
 
 #header-quick-access .home-icon .fa-home {
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   margin-inline-end: 4px;
 }
 
@@ -420,7 +420,7 @@ body:not(.board-view) #header #header-main-bar h1 {
    The gap to the logo beside it is the 4 + 4 of the two margins, like every
    other pair of neighbours in this bar. docs/Design/Page/Header.md */
 #header-quick-access .allBoards {
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
   padding-block: 4px;
   padding-inline: 0;
 }
@@ -444,7 +444,7 @@ body.mobile-mode #header-quick-access .home-icon .header-home-link {
 
 body.mobile-mode #header-quick-access .home-icon .header-home-link .fa-home,
 body.mobile-mode #header-quick-access .home-icon .fa-home {
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   margin-inline-end: 0;
 }
 
@@ -672,7 +672,7 @@ body.mobile-mode #header-quick-access .allBoards {
   line-height: normal !important;
   margin: 0 !important;
   transition: all 0.2s ease !important;
-  font-size: 14px !important;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1)) !important;
 }
 
 #header-quick-access .mobile-mode-toggle .board-header-btn i.active {
@@ -785,11 +785,11 @@ body.mobile-mode #header-quick-access .allBoards {
        readable-font minimum (~44px / 16px). Enlarged vertically + bigger font;
        width is unchanged so this does not worsen the horizontal icon crowding. */
     height: 44px;
-    line-height: 44px;
-    font-size: 16px;
+    line-height: calc(44px * var(--wekan-ui-font-scale, 1));
+    font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   }
   #header #header-main-bar .board-header-btn i.fa {
-    line-height: 32px;
+    line-height: calc(32px * var(--wekan-ui-font-scale, 1));
   }
   #header #header-main-bar .board-header-btn i.fa + span {
     display: none;
@@ -809,7 +809,7 @@ body.mobile-mode #header-quick-access .allBoards {
   }
 
   #header-quick-access .home-icon .fa-home {
-    font-size: 16px;
+    font-size: calc(16px * var(--wekan-ui-font-scale, 1));
     margin-inline-end: 4px;
   }
 
@@ -819,7 +819,7 @@ body.mobile-mode #header-quick-access .allBoards {
      two things, not the inset. docs/Design/Page/Header.md */
   #header-quick-access .home-icon .header-home-link {
     padding: 4px 8px 4px 6px;
-    font-size: 12px;
+    font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   }
 
   /* Ensure All Boards text is visible on mobile */
@@ -831,12 +831,12 @@ body.mobile-mode #header-quick-access .allBoards {
   /* Adjust for very small screens */
   @media screen and (max-width: 480px) {
     #header-quick-access .home-icon .header-home-link {
-      font-size: 11px;
+      font-size: calc(11px * var(--wekan-ui-font-scale, 1));
       padding: 3px 6px;
     }
 
     #header-quick-access .home-icon .fa-home {
-      font-size: 14px;
+      font-size: calc(14px * var(--wekan-ui-font-scale, 1));
       margin-inline-end: 3px;
     }
   }
@@ -1102,7 +1102,7 @@ body.mobile-mode #header-quick-access .allBoards {
     }
 
     #header-quick-access .home-icon .header-home-link {
-      font-size: 16px !important; /* Much larger text */
+      font-size: calc(16px * var(--wekan-ui-font-scale, 1)) !important; /* Much larger text */
       /* 6px at the START here too - the tap target grows, the INSET does not.
          At 12px the house began 6px further in on a small phone than at every
          other width. docs/Design/Page/Header.md */
@@ -1110,7 +1110,7 @@ body.mobile-mode #header-quick-access .allBoards {
     }
 
     #header-quick-access .home-icon .fa-home {
-      font-size: 20px !important; /* Much larger icon */
+      font-size: calc(20px * var(--wekan-ui-font-scale, 1)) !important; /* Much larger icon */
       margin-inline-end: 6px !important;
     }
 
@@ -1121,11 +1121,11 @@ body.mobile-mode #header-quick-access .allBoards {
     /* Make mobile mode toggle larger */
     #header-quick-access .mobile-mode-toggle .board-header-btn {
       padding: 7px 17px !important;
-      font-size: 16px !important;
+      font-size: calc(16px * var(--wekan-ui-font-scale, 1)) !important;
     }
 
     #header-quick-access .mobile-mode-toggle .board-header-btn i {
-      font-size: 18px !important;
+      font-size: calc(18px * var(--wekan-ui-font-scale, 1)) !important;
     }
   }
 
@@ -1442,7 +1442,7 @@ body.mobile-mode #header-quick-access .allBoards {
   }
   .iphone-device #header-quick-access .home-icon .header-home-link .fa-home,
   .iphone-device #header-quick-access .home-icon .fa-home {
-    font-size: 16px !important;
+    font-size: calc(16px * var(--wekan-ui-font-scale, 1)) !important;
     margin-inline-end: 0 !important;
   }
   /* No auto margin: everything in this bar packs from the START and wraps
@@ -1577,7 +1577,7 @@ body.mobile-mode #header-quick-access .allBoards {
   .iphone-device #header-quick-access .home-icon .fa-home,
   .iphone-device .wrapper ~ #header-quick-access .home-icon .fa-home,
   .iphone-device body:not(.board-view) #header-quick-access .home-icon .fa-home {
-    font-size: 16px !important;
+    font-size: calc(16px * var(--wekan-ui-font-scale, 1)) !important;
     margin-inline-end: 0 !important;
     padding: 0 !important;
   }
@@ -1754,7 +1754,7 @@ body.mobile-mode #header-quick-access .allBoards {
     padding: 0 !important;
     min-width: 44px !important;
     height: 44px !important;
-    line-height: 44px !important;
+    line-height: calc(44px * var(--wekan-ui-font-scale, 1)) !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;

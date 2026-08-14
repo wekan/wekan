@@ -125,7 +125,7 @@
   border-radius: 4px;
   padding: 12px;
   margin: 8px 0;
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
 }
 
 .upload-progress-header {
@@ -187,7 +187,7 @@
 .upload-progress-success {
   display: flex;
   align-items: center;
-  font-size: 12px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   font-weight: 500;
 }
 
@@ -208,7 +208,7 @@
 .minicard-upload-progress {
   margin: 4px 0;
   padding: 8px;
-  font-size: 12px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
 }
 
 .minicard-upload-progress .upload-progress-item {
@@ -217,7 +217,7 @@
 }
 
 .minicard-upload-progress .upload-progress-filename {
-  font-size: 11px;
+  font-size: calc(11px * var(--wekan-ui-font-scale, 1));
 }
 
 /* Card details specific styles */
@@ -227,7 +227,7 @@
 }
 
 .card-details-upload-progress .upload-progress-header {
-  font-size: 16px;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   margin-bottom: 12px;
 }
 
@@ -237,7 +237,7 @@
 }
 
 .card-details-upload-progress .upload-progress-filename {
-  font-size: 14px;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
 }
 
 /* Drag over state for minicards */

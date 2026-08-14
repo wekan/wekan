@@ -2,25 +2,25 @@
 .ganttview-received {
   background-color: #dbdbdb !important;
   color: #000 !important;
-  font-size: 18px !important;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1)) !important;
   font-weight: bold !important;
 }
 .ganttview-start {
   background-color: #90ee90 !important;
   color: #000 !important;
-  font-size: 18px !important;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1)) !important;
   font-weight: bold !important;
 }
 .ganttview-due {
   background-color: #ffd700 !important;
   color: #000 !important;
-  font-size: 18px !important;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1)) !important;
   font-weight: bold !important;
 }
 .ganttview-end {
   background-color: #ffb3b3 !important;
   color: #000 !important;
-  font-size: 18px !important;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1)) !important;
   font-weight: bold !important;
 }
 /* Gantt View Styles */
@@ -52,7 +52,7 @@
   min-width: 800px;
   border: 2px solid #666;
   font-family: sans-serif;
-  font-size: 13px;
+  font-size: calc(13px * var(--wekan-ui-font-scale, 1));
   background-color: #fff;
 }
 
@@ -81,7 +81,7 @@
   padding: 2px 1px; /* half */
   text-align: center;
   background-color: #f5f5f5;
-  font-size: 11px;
+  font-size: calc(11px * var(--wekan-ui-font-scale, 1));
   min-width: 15px; /* half of 30px */
   font-weight: bold;
   height: auto;
@@ -110,9 +110,9 @@
   min-width: 15px; /* half of 30px */
   height: 32px;
   vertical-align: middle;
-  line-height: 28px;
+  line-height: calc(28px * var(--wekan-ui-font-scale, 1));
   background-color: #ffffff;
-  font-size: 18px;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1));
   font-weight: bold;
 }
 
@@ -162,7 +162,7 @@
 .gantt-container tbody td.ganttview-block {
   background-color: #4CAF50 !important;
   color: #fff !important;
-  font-size: 18px !important;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1)) !important;
   font-weight: bold !important;
   padding: 2px !important;
   border-radius: 2px;
@@ -171,7 +171,7 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .gantt-container table {
-    font-size: 11px;
+    font-size: calc(11px * var(--wekan-ui-font-scale, 1));
   }
 
   .gantt-container thead td {
@@ -187,7 +187,7 @@
 
   .gantt-container tbody td:first-child {
     width: 100px;
-    font-size: 12px;
+    font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   }
 }
 

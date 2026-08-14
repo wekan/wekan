@@ -48,7 +48,7 @@
 }
 .pop-over .header .header-title {
   display: block;
-  line-height: 36px;
+  line-height: calc(36px * var(--wekan-ui-font-scale, 1));
   padding-top: 5px;
   margin: 0 18px;
   font-weight: bold;
@@ -402,7 +402,7 @@
   padding: 8px !important;
   border: 1px solid #ccc !important;
   border-radius: 4px !important;
-  font-size: 14px !important;
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1)) !important;
   box-sizing: border-box !important;
 }
 
@@ -641,7 +641,7 @@
   margin: 0;
   text-decoration: none;
   overflow: hidden;
-  line-height: 33px;
+  line-height: calc(33px * var(--wekan-ui-font-scale, 1));
   display: flex;
   /*  flex-wrap:wrap;*/
   gap: 5px;
@@ -685,9 +685,9 @@
 .pop-over-list li > a .sub-name {
   color: #8c8c8c;
   display: block;
-  font-size: 12px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
-  line-height: 15px;
+  line-height: calc(15px * var(--wekan-ui-font-scale, 1));
 }
 
 /* A menu whose rows are "icon - name - description" (Change Visibility, Change
@@ -842,7 +842,7 @@
     top: 0px;
   }
   .pop-over .header .header-title {
-    font-size: 20px;
+    font-size: calc(20px * var(--wekan-ui-font-scale, 1));
     font-weight: normal;
     padding-top: 8px;
   }
@@ -857,7 +857,7 @@
     padding: 10px 12px;
   }
   .pop-over .header .close-btn i.fa {
-    font-size: 24px;
+    font-size: calc(24px * var(--wekan-ui-font-scale, 1));
     color: #fff;
   }
   .pop-over .content-wrapper {
@@ -1012,7 +1012,7 @@ body.mobile-mode .pop-over .content-wrapper {
    not a row you can click. docs/Features/Board/Starred.md */
 .pop-over .pop-over-list-title {
   padding: 4px 12px;
-  font-size: 12px;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
