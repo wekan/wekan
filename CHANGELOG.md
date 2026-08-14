@@ -1016,7 +1016,7 @@ and fixes the following bugs:
 **Card details** - the card as it is opened and edited.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH5">The Date Format menu is back: two collapse mechanisms were folding one field</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/443e65b6d0eb2f6b5131d56f4659a4510d1a3039">The Date Format menu is back: two collapse mechanisms were folding one field</a>. Thanks to xet7.</summary>
 
 The dropdown that chooses a card's date format disappeared, and nothing brought
 it back - the Received, Start, Due and End dates under the same heading were
