@@ -4133,6 +4133,32 @@ an hour ago - and pins that ambiguity can never reach the deletion.
 and improves the translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/240f8f2d4a1a62f17c90fe0f2b952e937df3d2ec">Uyghur, Belarusian, Catalan, Estonian, Malay, Turkmen, Xhosa and Igbo, and the sort letters</a>. Thanks to xet7.</summary>
+
+Another eight languages, from their own vocabulary: the export and import menus,
+the roles table, the board-status pane, the starred pages, the search operators,
+and for Igbo the last of its report and recovery strings.
+
+**The list sort letters** are translated too. A list header shows `(N)`, `(M)`
+or `(L)` for whether it is sorted by NAME, by your MANUAL order or by LAST
+access - initials of the ENGLISH words, so on any other language they were three
+letters that stand for nothing. They are that language's own initials now:
+German `(N)`/`(R)`/`(Z)` for *Name*, *Reihenfolge*, *Zugriff*; Finnish
+`(N)`/`(J)`/`(K)` for *Nimi*, *Järjestys*, *Käyttö*; Russian `(И)`/`(П)`/`(Д)` -
+twenty-five languages, and their regional variants after them.
+
+**What is left is mostly not translatable.** Of the strings still flagged in
+German, French and Dutch, three quarters are a word of one or two syllables that
+those languages spell exactly as English does - *Filter*, *Team*, *Text*,
+*Details*, *Layout*, *Person*, *Pause*, *Actions*, *Date*, *Description*,
+*Notifications*, *Type*, *Database*, *Help*, *Repository*. They are counted as
+untranslated because the only test available is "is this still equal to the
+English source", and by that test a correct translation that happens to be
+identical can never pass.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/da022efe627fc3298e21db7ecc4f3a37a5b40ce3">Frisian, Igbo, Yoruba, Wolof, Breton, Walloon, Volapük and Tamazight, from their own words</a>. Thanks to xet7.</summary>
 
 Eight languages nobody has volunteered for. Five of their files were not
