@@ -847,7 +847,7 @@ and fixes the following bugs:
 **Card details** - the card as it is opened and edited.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">The rules between card sections are the page's own line, and there is one where there should be</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/365cfdc4df5187e9cbfc8f83acab39df755a19c7">The rules between card sections are the page's own line, and there is one where there should be</a>. Thanks to xet7.</summary>
 
 Four small things about those separators, all of them visible at a glance and
 none of them visible in the source.
