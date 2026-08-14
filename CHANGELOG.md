@@ -1386,7 +1386,7 @@ which is worse than "unreadable".
 **The page sidebar** - the controls of a page that has no sidebar of its own.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH21">The controls in the page sidebar are rows, not three links run together</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9ef05970d3cb20f9babbcb03dd31cc58f598fe11">The controls in the page sidebar are rows, not three links run together</a>. Thanks to xet7.</summary>
 
 Rules, My Cards, Due Cards and Global Search each keep their controls in the
 shared page sidebar, and each draws them as `.board-header-btn` - which is what
