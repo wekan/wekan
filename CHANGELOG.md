@@ -4133,6 +4133,27 @@ an hour ago - and pins that ambiguity can never reach the deletion.
 and improves the translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0cca649b7dd37ea5bc59c5afa2659950f0e1c543">Fourteen more: the Pacific, the Caribbean, and the languages of Italy</a>. Thanks to xet7.</summary>
+
+**226 languages**, from 154 at the start of this release.
+
+**Kreyòl ayisyen**, **Papiamentu**, **Tok Pisin**, **Bislama**, **Gagana
+Sāmoa**, **Lea faka-Tonga**, **Na Vosa Vakaviti**, **Corsu**, **Sardu**,
+**Sicilianu**, **Napulitano**, **Furlan**, **Rumantsch** and **Hornjoserbsce**.
+
+Four are creoles - Haitian, Papiamentu, Tok Pisin and Bislama - which between
+them are the everyday language of about fifteen million people and are almost
+never what software is written in. Five are languages of Italy that Italian does
+not cover: Sardinian and Sicilian each have more than a million speakers.
+**Rumantsch** is one of Switzerland's four national languages, and
+**Hornjoserbsce** is one of Germany's.
+
+Each is the same shape as the rest: the words a board is made of, the buttons,
+the menus, the dates - and English underneath until somebody corrects it.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a3ee0262d68ce0d10d4466018a9c5d3b9b44c233">Eighteen more languages: the Americas, the Sahel, Siberia and the Celtic ones</a>. Thanks to xet7.</summary>
 
 **212 languages.** WeKan had 154 when this release started.
