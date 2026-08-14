@@ -1,0 +1,285 @@
+/* Apple Glass Pastel v2 — All Boards, Admin and Kanban surfaces. */
+
+body.board-color-appleglasspastel #content,
+body.board-color-appleglasspastel #content > .wrapper,
+body.board-color-appleglasspastel .boards-layout,
+body.board-color-appleglasspastel .boards-right-grid {
+  background: transparent;
+}
+
+/* All Boards follows the Motions overview: one floating navigation island and
+ * a grid of quiet neutral cards over the wallpaper. */
+body.board-color-appleglasspastel .boards-left-menu {
+  margin-block: 10px;
+  margin-inline-start: 10px;
+  max-height: calc(100vh - var(--wekan-header-height, 0px) - 20px);
+  background: var(--agp-glass);
+  border: 1px solid var(--agp-glass-border);
+  border-radius: var(--agp-radius-island);
+  box-shadow: var(--agp-shadow-island);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+}
+
+body.board-color-appleglasspastel .boards-left-menu .menu-item a,
+body.board-color-appleglasspastel .workspace-node-content .js-select-space {
+  border-radius: var(--agp-radius-card);
+  color: var(--agp-muted);
+  transition: background-color 0.16s ease, box-shadow 0.16s ease,
+    color 0.16s ease;
+}
+
+body.board-color-appleglasspastel .boards-left-menu .menu-item a:hover,
+body.board-color-appleglasspastel .workspace-node > .workspace-node-content:hover .js-select-space {
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: var(--agp-shadow-card);
+  color: var(--agp-heading);
+}
+
+body.board-color-appleglasspastel .boards-left-menu .menu-item.active a,
+body.board-color-appleglasspastel .boards-left-menu .menu-item.active a:hover,
+body.board-color-appleglasspastel .workspace-node.active > .workspace-node-content .js-select-space,
+body.board-color-appleglasspastel .workspace-node.active > .workspace-node-content:hover .js-select-space {
+  background: var(--agp-primary) !important;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.14);
+  color: #fff;
+}
+
+body.board-color-appleglasspastel .boards-right-grid {
+  padding: 18px;
+}
+
+body.board-color-appleglasspastel .boards-right-grid > .admin-pane-title {
+  background: linear-gradient(to right, var(--agp-heading), var(--agp-primary));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+body.board-color-appleglasspastel .board-list {
+  gap: 12px;
+}
+
+body.board-color-appleglasspastel .board-list > li.js-board,
+body.board-color-appleglasspastel .board-list > li.js-board > .board-list-item,
+body.board-color-appleglasspastel .board-list > li.js-board > .board-list-item > .js-open-board,
+body.board-color-appleglasspastel .board-list .js-add-board .label {
+  background: rgba(255, 255, 255, 0.78) !important;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: var(--agp-radius-panel);
+  box-shadow: var(--agp-shadow-card);
+  color: var(--agp-heading);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease,
+    transform 0.2s var(--agp-spring);
+}
+
+body.board-color-appleglasspastel .board-list > li.js-board:hover,
+body.board-color-appleglasspastel .board-list > li.js-board:hover > .board-list-item,
+body.board-color-appleglasspastel .board-list .js-add-board .label:hover {
+  background: rgba(255, 255, 255, 0.96) !important;
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.1);
+  transform: translateY(-2px);
+}
+
+body.board-color-appleglasspastel .board-list > li.js-board .board-list-item-name,
+body.board-color-appleglasspastel .board-list > li.js-board .board-list-item-desc,
+body.board-color-appleglasspastel .board-list > li.js-board .board-list-card-count,
+body.board-color-appleglasspastel .board-list .js-add-board .label,
+body.board-color-appleglasspastel .board-list .js-add-board .label i {
+  color: var(--agp-heading) !important;
+  text-shadow: none;
+}
+
+body.board-color-appleglasspastel .board-list > li.js-board .board-list-item-desc,
+body.board-color-appleglasspastel .board-list > li.js-board .board-list-card-count i {
+  color: var(--agp-muted) !important;
+}
+
+body.board-color-appleglasspastel .board-list > li.js-board .board-list-card-count,
+body.board-color-appleglasspastel .boards-left-menu .menu-count {
+  background: var(--agp-primary-faint);
+  border-radius: 999px;
+  color: var(--agp-primary-dark);
+}
+
+body.board-color-appleglasspastel .boards-pagination,
+body.board-color-appleglasspastel .table-page-controls {
+  background: var(--agp-glass);
+  border: 1px solid var(--agp-glass-border);
+  border-radius: var(--agp-radius-panel);
+  box-shadow: var(--agp-shadow-card);
+  padding: 10px 12px;
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+}
+
+/* Admin pages become two glass islands. Tables remain dense and nearly solid;
+ * decorative blur on every row would make long reports expensive to scroll. */
+body.board-color-appleglasspastel .setting-content .content-body {
+  gap: 16px;
+  padding: 10px;
+}
+
+body.board-color-appleglasspastel .setting-content .content-body .side-menu {
+  background: var(--agp-glass);
+  border: 1px solid var(--agp-glass-border);
+  border-radius: var(--agp-radius-island);
+  box-shadow: var(--agp-shadow-island);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+}
+
+body.board-color-appleglasspastel .setting-content .content-body .side-menu ul li,
+body.board-color-appleglasspastel .setting-content .content-body .side-menu ul li a {
+  border-radius: var(--agp-radius-card);
+}
+
+body.board-color-appleglasspastel .setting-content .content-body .side-menu ul li:hover {
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: var(--agp-shadow-card);
+}
+
+body.board-color-appleglasspastel .setting-content .content-body .side-menu ul li.active,
+body.board-color-appleglasspastel .setting-content .content-body .side-menu ul li.active:hover {
+  background: var(--agp-primary) !important;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.14);
+}
+
+body.board-color-appleglasspastel .setting-content .content-body .main-body {
+  background: rgba(255, 255, 255, 0.76);
+  border: 1px solid var(--agp-glass-border);
+  border-radius: var(--agp-radius-island);
+  box-shadow: var(--agp-shadow-island);
+  padding: 20px;
+}
+
+body.board-color-appleglasspastel .admin-pane-title,
+body.board-color-appleglasspastel .table-page-title {
+  color: var(--agp-heading);
+  font-weight: 800;
+}
+
+body.board-color-appleglasspastel .setting-detail,
+body.board-color-appleglasspastel .table-page-table-wrap,
+body.board-color-appleglasspastel .setting-content .content-body .main-body table:not(.table-page-table) {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(229, 231, 235, 0.82);
+  border-radius: var(--agp-radius-panel);
+  box-shadow: var(--agp-shadow-card);
+}
+
+body.board-color-appleglasspastel .table-page-table th,
+body.board-color-appleglasspastel .setting-content .content-body .main-body table:not(.table-page-table) th {
+  background: var(--agp-primary-faint);
+  color: var(--agp-primary-dark);
+}
+
+/* Kanban structural glass. Minicards are deliberately solid-ish and do not use
+ * backdrop-filter: hundreds of per-card filters hurt drag and scroll latency. */
+.board-color-appleglasspastel.board-wrapper .list {
+  border-radius: var(--agp-radius-panel);
+  box-shadow: var(--agp-shadow-island);
+}
+
+.board-color-appleglasspastel.board-wrapper .list-header {
+  border-radius: var(--agp-radius-panel) var(--agp-radius-panel) 0 0;
+}
+
+.board-color-appleglasspastel.board-wrapper .minicard {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(229, 231, 235, 0.72);
+  border-radius: var(--agp-radius-card);
+  box-shadow: var(--agp-shadow-card);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition: background-color 0.18s ease, border-color 0.18s ease,
+    box-shadow 0.18s ease, transform 0.18s var(--agp-spring);
+}
+
+.board-color-appleglasspastel.board-wrapper .minicard:hover:not(.minicard-composer),
+.board-color-appleglasspastel.board-wrapper .draggable-hover-card .minicard {
+  background: #fff;
+  border-color: rgba(37, 99, 235, 0.24);
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.1);
+  transform: translateY(-1px);
+}
+
+.board-color-appleglasspastel.board-wrapper .is-selected .minicard {
+  background: var(--agp-primary-faint);
+  border: 2px solid var(--agp-primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+  transform: none;
+}
+
+.board-color-appleglasspastel.board-wrapper .list-body .open-minicard-composer,
+.board-color-appleglasspastel.board-wrapper .list.list-composer .open-list-composer {
+  border: 1px dashed rgba(37, 99, 235, 0.28);
+  border-radius: var(--agp-radius-control);
+  color: var(--agp-muted);
+}
+
+.board-color-appleglasspastel.board-wrapper .list-body .open-minicard-composer:hover,
+.board-color-appleglasspastel.board-wrapper .list.list-composer .open-list-composer:hover {
+  background: var(--agp-primary-soft);
+  border-color: var(--agp-primary);
+  color: var(--agp-primary-dark);
+}
+
+.board-color-appleglasspastel.board-wrapper .card-details,
+.board-color-appleglasspastel.board-wrapper .sidebar,
+body:has(.board-wrapper.board-color-appleglasspastel) .card-details,
+body:has(.board-wrapper.board-color-appleglasspastel) .board-sidebar.sidebar,
+body.board-color-appleglasspastel .board-sidebar.sidebar,
+body.board-color-appleglasspastel .page-sidebar.sidebar {
+  background: var(--agp-glass-solid);
+  border: 1px solid var(--agp-glass-border);
+  border-radius: var(--agp-radius-panel);
+  box-shadow: var(--agp-shadow-flyout);
+  color: var(--agp-foreground);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+}
+
+@media screen and (max-width: 800px) {
+  body.board-color-appleglasspastel .boards-layout {
+    column-gap: 8px;
+  }
+
+  body.board-color-appleglasspastel .boards-left-menu {
+    width: auto;
+    margin-block: 6px;
+    margin-inline-start: 6px;
+    border-radius: 18px;
+  }
+
+  body.board-color-appleglasspastel .boards-right-grid {
+    padding: 8px;
+  }
+
+  body.board-color-appleglasspastel .board-list {
+    gap: 8px;
+    margin: 0;
+  }
+
+  body.board-color-appleglasspastel .setting-content .content-body {
+    gap: 8px;
+    padding: 6px;
+  }
+
+  body.board-color-appleglasspastel .setting-content .content-body .main-body {
+    border-radius: 18px;
+    padding: 12px;
+  }
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  body.board-color-appleglasspastel .boards-left-menu,
+  body.board-color-appleglasspastel .setting-content .content-body .side-menu,
+  body.board-color-appleglasspastel .setting-content .content-body .main-body,
+  body.board-color-appleglasspastel .board-sidebar.sidebar,
+  body.board-color-appleglasspastel .page-sidebar.sidebar {
+    background: #fff;
+  }
+}

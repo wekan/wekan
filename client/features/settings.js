@@ -48,3 +48,7 @@ import '/client/components/settings/settingBody.css';
 import '/client/components/settings/settingHeader.css';
 import '/client/components/settings/tablePage.css';
 import '/client/components/settings/translationBody.css';
+
+// Admin glass surfaces follow the feature's table and panel styles.
+import '/client/components/main/appleGlassPastel.css';
+import '/client/components/boards/appleGlassPastelPages.css';

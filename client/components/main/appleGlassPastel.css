@@ -1,0 +1,331 @@
+/* Apple Glass Pastel v2
+ *
+ * Shared design tokens and application chrome. Every rule is scoped to the
+ * existing appleglasspastel theme class so selecting another WeKan theme keeps
+ * its current appearance. Board-specific and auth-specific rules live beside
+ * their components instead of growing boardColors.css further.
+ */
+
+.board-color-appleglasspastel,
+body:has(.board-wrapper.board-color-appleglasspastel) {
+  --agp-primary: #2563eb;
+  --agp-primary-hover: #1d4ed8;
+  --agp-primary-dark: #1e3a8a;
+  --agp-primary-soft: #dbeafe;
+  --agp-primary-faint: #eff6ff;
+  --agp-foreground: #111827;
+  --agp-heading: #0f172a;
+  --agp-muted: #6b7280;
+  --agp-border: #e5e7eb;
+  --agp-glass: rgba(255, 255, 255, 0.65);
+  --agp-glass-soft: rgba(255, 255, 255, 0.45);
+  --agp-glass-solid: rgba(255, 255, 255, 0.95);
+  --agp-glass-border: rgba(255, 255, 255, 0.55);
+  --agp-shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --agp-shadow-island: 0 8px 30px rgba(0, 0, 0, 0.06);
+  --agp-shadow-flyout: 0 20px 60px rgba(0, 0, 0, 0.12);
+  --agp-radius-control: 12px;
+  --agp-radius-card: 14px;
+  --agp-radius-panel: 18px;
+  --agp-radius-island: 24px;
+  --agp-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --theme-accent: #2563eb;
+  --theme-accent-fill: #2563eb;
+  color: var(--agp-foreground);
+}
+
+body.board-color-appleglasspastel,
+.board-color-appleglasspastel.board-wrapper,
+.board-color-appleglasspastel .setting-content {
+  background:
+    radial-gradient(60% 50% at 85% 5%, rgba(255, 200, 220, 0.55), transparent 60%),
+    radial-gradient(55% 50% at 5% 25%, rgba(180, 215, 255, 0.55), transparent 65%),
+    radial-gradient(55% 50% at 95% 95%, rgba(200, 230, 255, 0.5), transparent 60%),
+    radial-gradient(70% 60% at 0% 100%, rgba(230, 215, 255, 0.5), transparent 65%),
+    linear-gradient(180deg, #f6f7fb 0%, #eef0f7 100%);
+  background-attachment: fixed;
+}
+
+body.board-color-appleglasspastel {
+  color: var(--agp-foreground);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body.board-color-appleglasspastel h1,
+body.board-color-appleglasspastel h2,
+body.board-color-appleglasspastel h3,
+body.board-color-appleglasspastel h4,
+body.board-color-appleglasspastel h5,
+body.board-color-appleglasspastel h6 {
+  color: var(--agp-heading);
+  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Arial, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+body.board-color-appleglasspastel ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+body.board-color-appleglasspastel ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body.board-color-appleglasspastel ::-webkit-scrollbar-thumb {
+  background: rgba(37, 99, 235, 0.28);
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background-clip: padding-box;
+}
+
+body.board-color-appleglasspastel ::-webkit-scrollbar-thumb:hover {
+  background: rgba(37, 99, 235, 0.5);
+  background-clip: padding-box;
+}
+
+/* The Motions shell reserves solid blue for actions. Both WeKan bars become
+ * neutral glass islands, while the active item and emphasis button stay blue. */
+.board-color-appleglasspastel#header,
+.board-color-appleglasspastel#header-quick-access,
+body.board-color-appleglasspastel #header,
+body.board-color-appleglasspastel #header-quick-access {
+  background: var(--agp-glass) !important;
+  border-color: var(--agp-glass-border);
+  box-shadow: var(--agp-shadow-card);
+  color: var(--agp-heading) !important;
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+}
+
+body.board-color-appleglasspastel #header-quick-access {
+  border-bottom: 1px solid var(--agp-glass-border);
+}
+
+.board-color-appleglasspastel#header #header-main-bar,
+body.board-color-appleglasspastel #header #header-main-bar {
+  background: transparent !important;
+}
+
+.board-color-appleglasspastel#header a,
+.board-color-appleglasspastel#header i,
+.board-color-appleglasspastel#header span,
+.board-color-appleglasspastel#header .board-header-btn,
+.board-color-appleglasspastel#header .board-header-btn i,
+.board-color-appleglasspastel#header-quick-access a,
+.board-color-appleglasspastel#header-quick-access i,
+.board-color-appleglasspastel#header-quick-access span,
+.board-color-appleglasspastel#header-quick-access .board-header-btn,
+.board-color-appleglasspastel#header-quick-access .board-header-btn i,
+body.board-color-appleglasspastel #header a,
+body.board-color-appleglasspastel #header i,
+body.board-color-appleglasspastel #header span,
+body.board-color-appleglasspastel #header-quick-access a,
+body.board-color-appleglasspastel #header-quick-access i,
+body.board-color-appleglasspastel #header-quick-access span {
+  color: var(--agp-heading);
+  text-shadow: none;
+}
+
+.board-color-appleglasspastel#header-quick-access .header-page-title,
+.board-color-appleglasspastel#header-quick-access .header-user-bar-name,
+.board-color-appleglasspastel#header-quick-access .header-user-bar-name .viewer p,
+body.board-color-appleglasspastel #header-quick-access .header-page-title,
+body.board-color-appleglasspastel #header-quick-access .header-user-bar-name,
+body.board-color-appleglasspastel #header-quick-access .header-user-bar-name .viewer p {
+  color: var(--agp-heading) !important;
+  opacity: 1;
+}
+
+.board-color-appleglasspastel#header-quick-access .header-logo,
+body.board-color-appleglasspastel #header-quick-access .header-logo {
+  box-sizing: border-box;
+  padding: 4px 8px;
+  background: rgba(15, 23, 42, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 10px;
+  box-shadow: var(--agp-shadow-card);
+}
+
+.board-color-appleglasspastel#header-quick-access .header-logo img,
+body.board-color-appleglasspastel #header-quick-access .header-logo img {
+  display: block;
+  max-height: 22px;
+  width: auto;
+}
+
+body.board-color-appleglasspastel #header .board-header-btn,
+body.board-color-appleglasspastel #header-quick-access .board-header-btn,
+body.board-color-appleglasspastel #header-quick-access .header-user-bar,
+body.board-color-appleglasspastel #header-quick-access .header-quick-access-dropdown {
+  border-radius: var(--agp-radius-control);
+  transition: background-color 0.18s ease, box-shadow 0.18s ease,
+    transform 0.15s ease-out;
+}
+
+body.board-color-appleglasspastel #header .board-header-btn:hover,
+body.board-color-appleglasspastel #header-quick-access .board-header-btn:hover,
+body.board-color-appleglasspastel #header-quick-access li:hover {
+  background: rgba(255, 255, 255, 0.78) !important;
+  box-shadow: var(--agp-shadow-card);
+}
+
+body.board-color-appleglasspastel #header .board-header-btn.active,
+body.board-color-appleglasspastel #header .setting-header-btn.active,
+body.board-color-appleglasspastel #header #header-main-bar .board-header-btn.emphasis,
+body.board-color-appleglasspastel #header-quick-access li.current {
+  background: var(--agp-primary) !important;
+  border-color: var(--agp-primary);
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.16);
+  color: #fff !important;
+}
+
+body.board-color-appleglasspastel #header .board-header-btn.active *,
+body.board-color-appleglasspastel #header .setting-header-btn.active *,
+body.board-color-appleglasspastel #header #header-main-bar .board-header-btn.emphasis *,
+body.board-color-appleglasspastel #header-quick-access li.current * {
+  color: #fff !important;
+}
+
+.board-color-appleglasspastel#header .board-header-btn.active,
+.board-color-appleglasspastel#header .setting-header-btn.active,
+.board-color-appleglasspastel#header #header-main-bar .board-header-btn.emphasis,
+.board-color-appleglasspastel#header-quick-access li.current {
+  background: var(--agp-primary) !important;
+  border-color: var(--agp-primary);
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.16);
+  color: #fff !important;
+}
+
+.board-color-appleglasspastel#header .board-header-btn.active *,
+.board-color-appleglasspastel#header .setting-header-btn.active *,
+.board-color-appleglasspastel#header #header-main-bar .board-header-btn.emphasis *,
+.board-color-appleglasspastel#header-quick-access li.current * {
+  color: #fff !important;
+}
+
+/* Floating surfaces use a more opaque glass than structural panels so text and
+ * form controls stay readable over every point of the pastel mesh. */
+.board-color-appleglasspastel.pop-over,
+body.board-color-appleglasspastel .pop-over,
+body.board-color-appleglasspastel #modal .modal-container,
+body.board-color-appleglasspastel .notifications-drawer,
+body.board-color-appleglasspastel .global-search-results {
+  background: var(--agp-glass-solid) !important;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: var(--agp-radius-panel);
+  box-shadow: var(--agp-shadow-flyout);
+  color: var(--agp-foreground);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+}
+
+.board-color-appleglasspastel.pop-over .header,
+body.board-color-appleglasspastel .pop-over .header,
+body.board-color-appleglasspastel #modal .modal-container > h2,
+body.board-color-appleglasspastel #modal .modal-container > h3 {
+  background: rgba(239, 246, 255, 0.72) !important;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.72);
+  color: var(--agp-heading) !important;
+}
+
+.board-color-appleglasspastel.pop-over .pop-over-list li > a,
+body.board-color-appleglasspastel .pop-over .pop-over-list li > a {
+  border-radius: 10px;
+  color: var(--agp-foreground);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.board-color-appleglasspastel.pop-over .pop-over-list li > a:not(.disabled):hover,
+.board-color-appleglasspastel.pop-over .pop-over-list li > a.current,
+body.board-color-appleglasspastel .pop-over .pop-over-list li > a:not(.disabled):hover,
+body.board-color-appleglasspastel .pop-over .pop-over-list li > a.current {
+  background: var(--agp-primary-soft);
+  color: var(--agp-primary-dark);
+}
+
+body.board-color-appleglasspastel input:not([type="checkbox"]):not([type="radio"]):not([type="color"]),
+body.board-color-appleglasspastel textarea,
+body.board-color-appleglasspastel select,
+body.board-color-appleglasspastel .wekan-form-control {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(229, 231, 235, 0.92);
+  border-radius: var(--agp-radius-control);
+  box-shadow: none;
+  color: var(--agp-foreground);
+  transition: background-color 0.18s ease, border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+body.board-color-appleglasspastel input:not([type="checkbox"]):not([type="radio"]):not([type="color"]):focus,
+body.board-color-appleglasspastel textarea:focus,
+body.board-color-appleglasspastel select:focus,
+body.board-color-appleglasspastel .wekan-form-control:focus {
+  background: #fff;
+  border-color: var(--agp-primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
+  outline: none;
+}
+
+body.board-color-appleglasspastel button.primary,
+body.board-color-appleglasspastel input.primary,
+body.board-color-appleglasspastel input[type="submit"].primary,
+body.board-color-appleglasspastel .sidebar .sidebar-content .sidebar-btn {
+  background: var(--agp-primary) !important;
+  border: 1px solid var(--agp-primary) !important;
+  border-radius: 999px !important;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.14);
+  color: #fff !important;
+  transition: background-color 0.18s ease, box-shadow 0.18s ease,
+    transform 0.15s ease-out;
+}
+
+body.board-color-appleglasspastel button.primary:hover,
+body.board-color-appleglasspastel input.primary:hover,
+body.board-color-appleglasspastel input[type="submit"].primary:hover,
+body.board-color-appleglasspastel .sidebar .sidebar-content .sidebar-btn:hover {
+  background: var(--agp-primary-hover) !important;
+  border-color: var(--agp-primary-hover) !important;
+}
+
+body.board-color-appleglasspastel button:active,
+body.board-color-appleglasspastel .board-header-btn:active,
+body.board-color-appleglasspastel .pop-over-list a:active {
+  transform: scale(0.96);
+}
+
+body.board-color-appleglasspastel :focus-visible {
+  outline: 2px solid var(--agp-primary);
+  outline-offset: 2px;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .board-color-appleglasspastel#header,
+  .board-color-appleglasspastel#header-quick-access,
+  .board-color-appleglasspastel.pop-over,
+  body.board-color-appleglasspastel .pop-over,
+  body.board-color-appleglasspastel #modal .modal-container,
+  body.board-color-appleglasspastel .notifications-drawer {
+    background: #fff !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.board-color-appleglasspastel *,
+  body.board-color-appleglasspastel *::before,
+  body.board-color-appleglasspastel *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  body.board-color-appleglasspastel button:active,
+  body.board-color-appleglasspastel .board-header-btn:active,
+  body.board-color-appleglasspastel .pop-over-list a:active {
+    transform: none;
+  }
+}

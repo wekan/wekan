@@ -1,0 +1,230 @@
+/* Apple Glass Pastel v2 — login and registration.
+ *
+ * Desktop uses the same split composition as the reference application. No
+ * external brand artwork or copy is introduced: the configured WeKan logo and
+ * existing authentication content remain the source of truth.
+ */
+
+body.board-color-appleglasspastel.userform-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+body.board-color-appleglasspastel.userform-layout > .auth-layout:has(.at-form-landing-logo) {
+  position: relative;
+  min-height: 100vh;
+  background:
+    radial-gradient(70% 60% at 5% 95%, rgba(96, 165, 250, 0.55), transparent 62%),
+    radial-gradient(55% 45% at 90% 10%, rgba(59, 130, 246, 0.35), transparent 65%),
+    linear-gradient(135deg, var(--agp-primary) 0%, var(--agp-primary-dark) 100%);
+  overflow: hidden;
+}
+
+body.board-color-appleglasspastel.userform-layout > .auth-layout:has(.at-form-landing-logo)::before,
+body.board-color-appleglasspastel.userform-layout > .auth-layout:has(.at-form-landing-logo)::after {
+  content: "";
+  position: absolute;
+  width: 55%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  filter: blur(50px);
+  pointer-events: none;
+}
+
+body.board-color-appleglasspastel.userform-layout > .auth-layout:has(.at-form-landing-logo)::before {
+  top: -25%;
+  inset-inline-end: -20%;
+}
+
+body.board-color-appleglasspastel.userform-layout > .auth-layout:has(.at-form-landing-logo)::after {
+  bottom: -25%;
+  inset-inline-start: -20%;
+}
+
+body.board-color-appleglasspastel.userform-layout .auth-layout .at-form-landing-logo:empty {
+  display: none;
+}
+
+body.board-color-appleglasspastel.userform-layout > .auth-layout:has(.at-form-landing-logo) > img,
+body.board-color-appleglasspastel.userform-layout > .auth-layout:has(.at-form-landing-logo) > a {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  display: block;
+  width: min(340px, 62%);
+  margin: auto;
+  padding: 18px 22px;
+  background: rgba(15, 23, 42, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--agp-radius-panel);
+  box-shadow: var(--agp-shadow-island);
+}
+
+body.board-color-appleglasspastel.userform-layout > .auth-layout:has(.at-form-landing-logo) > a img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+body.board-color-appleglasspastel.userform-layout > .auth-layout:has(.auth-dialog) {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100vh;
+  padding: 48px 24px;
+}
+
+body.board-color-appleglasspastel.userform-layout .auth-dialog {
+  box-sizing: border-box;
+  width: min(420px, calc(100vw - 48px));
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: var(--agp-radius-island);
+  box-shadow: var(--agp-shadow-island);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+}
+
+body.board-color-appleglasspastel.userform-layout .auth-dialog .at-form .at-title {
+  margin: -30px -30px 24px;
+  padding: 26px 30px 14px;
+  background: transparent;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.72);
+  color: var(--agp-heading);
+}
+
+body.board-color-appleglasspastel.userform-layout .auth-dialog .at-form .at-title h3 {
+  color: var(--agp-heading);
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+body.board-color-appleglasspastel.userform-layout .auth-dialog .at-form label {
+  color: var(--agp-heading);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+body.board-color-appleglasspastel.userform-layout .auth-dialog .at-form input {
+  min-height: 44px;
+  padding-inline: 14px;
+}
+
+body.board-color-appleglasspastel.userform-layout .password-input-container {
+  flex-direction: row;
+  align-items: stretch;
+}
+
+body.board-color-appleglasspastel.userform-layout .auth-dialog .at-form .password-input-container .password-toggle-btn {
+  flex: 0 0 44px;
+  width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border-radius: 12px;
+}
+
+body.board-color-appleglasspastel.userform-layout .auth-dialog .at-form button {
+  min-height: 44px;
+  background: var(--agp-primary);
+  border: 0;
+  border-radius: 999px;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.14);
+  color: #fff;
+  font-weight: 700;
+}
+
+body.board-color-appleglasspastel.userform-layout .auth-dialog .at-form button:hover {
+  background: var(--agp-primary-hover);
+}
+
+body.board-color-appleglasspastel.userform-layout .auth-dialog .at-form .at-link,
+body.board-color-appleglasspastel.userform-layout .auth-dialog a {
+  color: var(--agp-primary-dark);
+}
+
+body.board-color-appleglasspastel.userform-layout .auth-dialog .at-form-lang {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(229, 231, 235, 0.72);
+}
+
+body.board-color-appleglasspastel.userform-layout .auth-bottom-space {
+  display: none;
+}
+
+@media screen and (max-width: 800px) {
+  body.board-color-appleglasspastel.userform-layout {
+    display: block;
+    min-height: 100vh;
+    padding: 24px 0 56px;
+  }
+
+  body.board-color-appleglasspastel.userform-layout > .auth-layout:has(.at-form-landing-logo) {
+    min-height: 0;
+    height: auto;
+    padding: 12px 24px 6px;
+    background: transparent;
+  }
+
+  body.board-color-appleglasspastel.userform-layout > .auth-layout:has(.at-form-landing-logo) > img,
+  body.board-color-appleglasspastel.userform-layout > .auth-layout:has(.at-form-landing-logo) > a {
+    position: static;
+    width: 150px;
+    margin: 0 auto;
+    padding: 10px 12px;
+    border-radius: 14px;
+  }
+
+  body.board-color-appleglasspastel.userform-layout > .auth-layout:has(.at-form-landing-logo) > a img {
+    width: 100%;
+  }
+
+  body.board-color-appleglasspastel.userform-layout > .auth-layout:has(.auth-dialog) {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 0;
+    height: auto;
+    padding: 12px 20px;
+  }
+
+  body.board-color-appleglasspastel.userform-layout .auth-dialog {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 440px;
+    height: auto;
+    min-height: 0;
+    margin: 0 auto !important;
+    padding: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    border-radius: 20px;
+  }
+
+  body.mobile-mode.board-color-appleglasspastel.userform-layout .password-input-container {
+    flex-direction: row;
+  }
+
+  body.mobile-mode.board-color-appleglasspastel.userform-layout .auth-dialog .at-form .password-input-container .password-toggle-btn {
+    flex: 0 0 44px;
+    width: 44px;
+  }
+
+  body.board-color-appleglasspastel.userform-layout .auth-dialog .at-form .at-title {
+    margin: -24px -24px 20px;
+    padding: 22px 24px 12px;
+  }
+
+  body.board-color-appleglasspastel.userform-layout .auth-dialog .at-form .at-title h3 {
+    width: 100%;
+    font-size: 22px;
+  }
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  body.board-color-appleglasspastel.userform-layout .auth-dialog {
+    background: #fff;
+  }
+}

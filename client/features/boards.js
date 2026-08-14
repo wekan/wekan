@@ -34,3 +34,6 @@ import '/client/components/boards/originalPositionsView.css';
 import '/client/components/boards/tableView.css';
 import '/client/components/boards/statsView.css';
 
+// Theme overrides follow the board feature's legacy styles in this lazy bundle.
+import '/client/components/main/appleGlassPastel.css';
+import '/client/components/boards/appleGlassPastelPages.css';

@@ -66,3 +66,9 @@ import '/client/components/sidebar/sidebarSearches.css';
 import '/client/components/swimlanes/swimlanes.css';
 import '/client/components/users/userAvatar.css';
 import '/client/components/users/userForm.css';
+
+// Apple Glass Pastel v2 is intentionally last. It is an opt-in theme and its
+// scoped rules adapt the legacy component styles without changing other themes.
+import '/client/components/main/appleGlassPastel.css';
+import '/client/components/boards/appleGlassPastelPages.css';
+import '/client/components/users/appleGlassPastelAuth.css';

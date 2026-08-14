@@ -67,3 +67,6 @@ import '/client/components/main/spinner_double_bounce.css';
 import '/client/components/main/spinner_rotateplane.css';
 import '/client/components/main/spinner_scaleout.css';
 import '/client/components/main/spinner_wave.css';
+
+// Keep the opt-in chrome override after every legacy main style.
+import '/client/components/main/appleGlassPastel.css';

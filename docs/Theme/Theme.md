@@ -138,3 +138,39 @@ injection surface.
    stays equal to `ALLOWED_BOARD_COLORS`).
 3. Add its `.board-color-<name>` CSS. If it is a **flat**/**clear** theme, drive its accent(s) with
    the `--theme-accent[-1/-2]` variables so it supports custom colors for free.
+
+## 8. Apple Glass Pastel v2
+
+`appleglasspastel` is a fixed special theme modelled as an application-wide
+visual system, not only a board background. It keeps WeKan's information
+architecture and behaviour while applying the same palette and component
+language to the first header bar, All Boards, Admin Panel, board, pop-overs,
+forms and authentication pages.
+
+The implementation is split by responsibility:
+
+- `client/components/main/appleGlassPastel.css` owns the palette tokens, pastel
+  mesh, application chrome, common form controls, pop-overs, focus treatment,
+  reduced motion and the no-`backdrop-filter` fallback;
+- `client/components/boards/appleGlassPastelPages.css` owns All Boards, Admin
+  Panel and Kanban surfaces;
+- `client/components/users/appleGlassPastelAuth.css` owns the split desktop
+  authentication layout and its single-column mobile form.
+
+All selectors remain under `board-color-appleglasspastel`, including portal
+surfaces selected through a body `:has()` check while a board with that class is
+open. Other themes therefore keep their existing cascade. The override files
+are loaded after the legacy styles in both the eager stylesheet entry point and
+the relevant lazy feature bundles.
+
+The solid `#2563eb` blue is reserved for primary and active controls. Structural
+surfaces use translucent white, a thin white border, 18-24px radii and low
+intensity shadows over the pastel mesh. Minicards intentionally use a nearly
+solid white surface with **no per-card backdrop filter**: a board can contain
+hundreds of cards, and hundreds of blur layers would make scrolling and dragging
+needlessly expensive. Blur stays on structural islands such as headers, lists,
+menus and fly-outs.
+
+`tests/appleGlassPastelV2.test.cjs` guards the scoped source contract and
+`tests/playwright/specs/45-apple-glass-theme.e2e.js` verifies computed styles and
+layout on the running app for global, board-only, Admin and login contexts.

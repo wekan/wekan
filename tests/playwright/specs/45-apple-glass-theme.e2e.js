@@ -1,0 +1,204 @@
+'use strict';
+
+// Apple Glass Pastel v2 — runtime visual contract.
+//
+// These assertions intentionally use computed styles and layout geometry rather
+// than pixel snapshots. Browser blur rasterisation differs, while the user-facing
+// contract (glass shell, neutral cards, responsive auth and no overflow) does not.
+
+const { test, expect } = require('../fixtures');
+const db = require('../helpers/db');
+const { loginWithToken, openBoard } = require('../helpers/auth');
+const fs = require('fs');
+const path = require('path');
+
+const THEME = 'appleglasspastel';
+const EVIDENCE_DIR = process.env.WEKAN_APPLE_GLASS_EVIDENCE_DIR;
+
+async function evidence(page, name) {
+  if (!EVIDENCE_DIR) return;
+  fs.mkdirSync(EVIDENCE_DIR, { recursive: true });
+  await page.screenshot({ path: path.join(EVIDENCE_DIR, `${name}.png`), fullPage: true });
+}
+
+async function useGlobalTheme(userId) {
+  db.updateOne('users', { _id: userId }, {
+    $set: { 'profile.globalThemeColor': THEME, 'profile.globalThemeCustomColors': [] },
+  });
+}
+
+async function computed(locator, properties) {
+  return locator.evaluate((element, names) => {
+    const style = getComputedStyle(element);
+    return Object.fromEntries(names.map(name => [name, style[name]]));
+  }, properties);
+}
+
+test.describe('Apple Glass Pastel v2', () => {
+  test('global theme styles All Boards as glass islands and neutral cards', async ({
+    page, user, board,
+  }) => {
+    await useGlobalTheme(user.id);
+    await loginWithToken(page, user.id, user.token);
+    await page.goto('/remaining', { waitUntil: 'commit' });
+
+    await expect(page.locator('body')).toHaveClass(new RegExp(`board-color-${THEME}`));
+    await expect(page.locator('.board-list-item-name', { hasText: /E2E Board/ }).first())
+      .toBeVisible();
+
+    const header = await computed(page.locator('#header-quick-access'), [
+      'backgroundColor', 'backdropFilter', 'color',
+    ]);
+    expect(header.backgroundColor).toContain('rgba(255, 255, 255');
+    expect(header.backdropFilter).toContain('blur(24px)');
+    expect(header.color).not.toBe('rgb(255, 255, 255)');
+    const logo = await computed(page.locator('#header-quick-access .header-logo').first(), [
+      'backgroundColor', 'borderRadius',
+    ]);
+    expect(logo.backgroundColor).toBe('rgba(15, 23, 42, 0.82)');
+    expect(logo.borderRadius).toBe('10px');
+
+    const menu = await computed(page.locator('.boards-left-menu'), [
+      'backgroundColor', 'borderRadius', 'backdropFilter',
+    ]);
+    expect(menu.backgroundColor).toContain('rgba(255, 255, 255');
+    expect(menu.borderRadius).toBe('24px');
+    expect(menu.backdropFilter).toContain('blur(24px)');
+
+    const tile = await computed(page.locator('.board-list > li.js-board').first(), [
+      'backgroundColor', 'borderRadius', 'boxShadow',
+    ]);
+    expect(tile.backgroundColor).toContain('rgba(255, 255, 255');
+    expect(tile.borderRadius).toBe('18px');
+    expect(tile.boxShadow).not.toBe('none');
+
+    const geometry = await page.evaluate(() => ({
+      viewport: document.documentElement.clientWidth,
+      document: document.documentElement.scrollWidth,
+    }));
+    expect(geometry.document).toBeLessThanOrEqual(geometry.viewport + 1);
+    await evidence(page, '01-all-boards-desktop');
+
+    // Keep board fixture referenced so its cleanup remains part of this test.
+    expect(board.boardId).toBeTruthy();
+  });
+
+  test('a board-only theme styles header, lists, cards, card details and popup', async ({
+    page, user, board,
+  }) => {
+    db.updateOne('boards', { _id: board.boardId }, { $set: { color: THEME } });
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+
+    await expect(page.locator('#header-quick-access'))
+      .toHaveClass(new RegExp(`board-color-${THEME}`));
+    await expect(page.locator('.board-wrapper')).toHaveClass(new RegExp(`board-color-${THEME}`));
+
+    const boardHeader = page.locator('#header-quick-access');
+    await expect.poll(async () => (
+      await computed(boardHeader, ['backgroundColor'])
+    ).backgroundColor).toContain('rgba(255, 255, 255');
+    const header = await computed(boardHeader, ['color']);
+    expect(header.color).toBe('rgb(15, 23, 42)');
+
+    const list = await computed(page.locator('.js-list:not(.js-list-composer)').first(), [
+      'backgroundColor', 'borderRadius', 'backdropFilter',
+    ]);
+    expect(list.backgroundColor).toContain('rgba(255, 255, 255');
+    expect(list.borderRadius).toBe('18px');
+    expect(list.backdropFilter).toContain('blur(24px)');
+
+    const card = page.locator('.minicard').first();
+    const cardStyle = await computed(card, ['backgroundColor', 'borderRadius', 'backdropFilter']);
+    expect(cardStyle.backgroundColor).toBe('rgba(255, 255, 255, 0.9)');
+    expect(cardStyle.borderRadius).toBe('14px');
+    expect(cardStyle.backdropFilter).toBe('none');
+
+    await card.click();
+    await expect(page.locator('.card-details')).toBeVisible();
+    const details = await computed(page.locator('.card-details'), [
+      'backgroundColor', 'borderRadius', 'backdropFilter',
+    ]);
+    expect(details.backgroundColor).toContain('rgba(255, 255, 255');
+    expect(details.borderRadius).toBe('18px');
+    expect(details.backdropFilter).toContain('blur(24px)');
+
+    const popupTrigger = page.locator('.js-open-card-details-menu').first();
+    if (await popupTrigger.count()) {
+      await popupTrigger.click();
+      const popup = page.locator('.pop-over').last();
+      await expect(popup).toBeVisible();
+      const popupStyle = await computed(popup, ['backgroundColor', 'borderRadius']);
+      expect(popupStyle.backgroundColor).toBe('rgba(255, 255, 255, 0.95)');
+      expect(popupStyle.borderRadius).toBe('18px');
+    }
+    await evidence(page, '02-board-card-details-desktop');
+  });
+
+  test('Admin Panel keeps dense content inside two glass islands', async ({ page, adminUser }) => {
+    await useGlobalTheme(adminUser.id);
+    await loginWithToken(page, adminUser.id, adminUser.token);
+    await page.goto('/admin/settings/visibility', { waitUntil: 'commit' });
+
+    const menu = page.locator('.setting-content .content-body .side-menu');
+    const main = page.locator('.setting-content .content-body .main-body');
+    await expect(menu).toBeVisible();
+    await expect(main).toBeVisible();
+
+    for (const surface of [menu, main]) {
+      const style = await computed(surface, ['backgroundColor', 'borderRadius', 'boxShadow']);
+      expect(style.backgroundColor).toContain('rgba(255, 255, 255');
+      expect(style.borderRadius).toBe('24px');
+      expect(style.boxShadow).not.toBe('none');
+    }
+    await evidence(page, '03-admin-desktop');
+  });
+
+  test('login is split on desktop and collapses without overflow on mobile', async ({ page }) => {
+    const setting = db.findOne('settings', {});
+    test.skip(!setting, 'No settings document is available in this test database');
+    const oldTheme = setting.themeColor;
+    const oldCustom = setting.themeCustomColors;
+    db.updateOne('settings', { _id: setting._id }, {
+      $set: { themeColor: THEME, themeCustomColors: [] },
+    });
+
+    try {
+      await page.goto('/sign-in', { waitUntil: 'commit' });
+      await expect(page.locator('body')).toHaveClass(new RegExp(`board-color-${THEME}`));
+      await expect(page.locator('.auth-dialog')).toBeVisible();
+      await expect(page.locator('.at-form-landing-logo:empty')).toBeHidden();
+      await expect(page.locator('.auth-layout:has(.at-form-landing-logo) > img').first())
+        .toBeVisible();
+
+      const desktop = await computed(page.locator('body'), ['display', 'gridTemplateColumns']);
+      expect(desktop.display).toBe('grid');
+      expect(desktop.gridTemplateColumns.split(' ')).toHaveLength(2);
+      await evidence(page, '04-login-desktop');
+
+      await page.setViewportSize({ width: 390, height: 844 });
+      const mobile = await computed(page.locator('body'), ['display', 'gridTemplateColumns']);
+      expect(mobile.display).toBe('block');
+
+      const geometry = await page.evaluate(() => ({
+        viewport: document.documentElement.clientWidth,
+        document: document.documentElement.scrollWidth,
+        dialog: document.querySelector('.auth-dialog')?.getBoundingClientRect().width,
+      }));
+      expect(geometry.document).toBeLessThanOrEqual(geometry.viewport + 1);
+      expect(geometry.dialog).toBeLessThanOrEqual(geometry.viewport - 32);
+      await evidence(page, '05-login-mobile');
+    } finally {
+      const update = {};
+      const unset = {};
+      if (oldTheme === undefined) unset.themeColor = '';
+      else update.themeColor = oldTheme;
+      if (oldCustom === undefined) unset.themeCustomColors = '';
+      else update.themeCustomColors = oldCustom;
+      const modifier = {};
+      if (Object.keys(update).length) modifier.$set = update;
+      if (Object.keys(unset).length) modifier.$unset = unset;
+      db.updateOne('settings', { _id: setting._id }, modifier);
+    }
+  });
+});
