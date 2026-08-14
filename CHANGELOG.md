@@ -1201,7 +1201,7 @@ and fixes the following bugs:
 **The release workflow** - what reaches the Release page.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH18">Three snaps built, published, and then fell off the Release: one file listed twice</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/38c6ee29fd7487630ed18afe001e59ae5b8440f2">Three snaps built, published, and then fell off the Release: one file listed twice</a>. Thanks to xet7.</summary>
 
 v10.91's release run failed in four jobs, and three of them - **s390x**,
 **ppc64el** and **riscv64** - had done all the work: each snap BUILT on
