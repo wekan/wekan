@@ -175,7 +175,12 @@ template(name="boardBackgroundUpload")
     if error.get
       .warning {{_ error.get}}
 
-template(name="boardBackgroundsPopup")
+//- The pictures uploaded to this board, with their NAMES: an upload that shows
+  nothing afterwards is indistinguishable from one that failed, which is what
+  uploading from Change Background Image looked like before this list was there
+  too. Its own template, so both popups draw the same list from the same
+  subscription rather than one of them being the only place to look.
+template(name="boardBackgroundList")
   .board-backgrounds-manage
     .board-backgrounds-grid.clearfix
       each backgrounds
@@ -183,6 +188,7 @@ template(name="boardBackgroundsPopup")
           .board-bg-thumb(style="background-image: url('{{link}}');")
             if isActiveBackground
               i.fa.fa-check.board-bg-active-check
+          .board-bg-name(title="{{name}}")= name
           .board-bg-actions
             unless isActiveBackground
               a.js-set-board-background(title="{{_ 'set-as-active'}}")
@@ -191,6 +197,9 @@ template(name="boardBackgroundsPopup")
               i.fa.fa-arrow-down
             a.js-delete-board-background(title="{{_ 'delete'}}")
               i.fa.fa-trash-o
+
+template(name="boardBackgroundsPopup")
+  +boardBackgroundList
 
 template(name="deleteBoardBackgroundPopup")
   p {{_ 'board-background-delete-pop'}}
@@ -211,9 +220,11 @@ template(name="boardChangeBackgroundImagePopup")
       button.js-remove-background-image.negate.card-details-red(type="button") {{_ 'unset-color'}}
     hr
     //- ...and the same question answered from this machine instead of from a
-      URL, which is why the upload is here and not in the list of images
-      already uploaded.
+      URL, with what has been uploaded to this board under it - so an upload is
+      seen to have arrived, and can be applied, without going to another popup
+      to find out.
     +boardBackgroundUpload
+  +boardBackgroundList
 
 template(name="boardInfoOnMyBoardsPopup")
   form.board-info-on-my-boards

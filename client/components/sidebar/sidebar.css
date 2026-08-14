@@ -574,6 +574,18 @@ body.sidebar-resizing-active {
   border-radius: 50%;
   padding: 2px;
 }
+/* The picture's name under its thumbnail. A grid of thumbnails with no names
+   cannot be read: two photos of the same holiday look the same at 80px, and
+   after an upload there was nothing that said WHICH of them just arrived. */
+.board-bg-name {
+  padding: 2px 2px 0;
+  font-size: 12px;
+  color: #4d4d4d;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .board-bg-actions {
   display: flex;
   justify-content: space-around;

@@ -1247,6 +1247,18 @@ Template.boardBackgroundUpload.events({
         }),
         false,
       );
+      // A finished upload puts itself BEHIND THE BOARD. "Add background image"
+      // is asked for by somebody who wants that picture there; an upload that
+      // only lands in a list, with the board unchanged, reads as one that did
+      // not work - which is exactly how this looked. The list under it still
+      // has the check that switches between the pictures already uploaded.
+      uploader.on('uploaded', async (err, fileRef) => {
+        if (err || !fileRef || !fileRef._id) return;
+        const board = Utils.getCurrentBoard();
+        if (!board) return;
+        await board.setBackgroundImage(fileRef._id);
+        Utils.setBackgroundImage();
+      });
       uploader.on('end', (err) => {
         tpl.uploading.set(false);
         if (err) {
@@ -1273,8 +1285,10 @@ Template.boardBackgroundUpload.events({
   },
 });
 
-// The board's stored background images: set active, download, delete.
-Template.boardBackgroundsPopup.onCreated(function () {
+// The board's stored background images: set active, download, delete. Drawn in
+// BOTH the Change Background Image popup (under the upload that adds to it) and
+// the Board backgrounds popup, from this one template and one subscription.
+Template.boardBackgroundList.onCreated(function () {
   const board = Utils.getCurrentBoard();
   this.boardId = board && board._id;
   if (this.boardId) {
@@ -1282,7 +1296,7 @@ Template.boardBackgroundsPopup.onCreated(function () {
   }
 });
 
-Template.boardBackgroundsPopup.helpers({
+Template.boardBackgroundList.helpers({
   backgrounds() {
     // Raw collection docs don't carry the .link() helper, so compute the URL.
     return Attachments.collection
@@ -1303,7 +1317,7 @@ Template.boardBackgroundsPopup.helpers({
   },
 });
 
-Template.boardBackgroundsPopup.events({
+Template.boardBackgroundList.events({
   async 'click .js-set-board-background'() {
     const board = Utils.getCurrentBoard();
     await board.setBackgroundImage(this._id);

@@ -1120,6 +1120,17 @@ card's file picker, the card's pasted image and the board background alike - so
 the next uploader gets them by asking for a config rather than by knowing two
 things nothing would have told it.
 
+Three things around it made the failure impossible to read, and are fixed with
+it. `insertAsync` can reject BEFORE there is an uploader to listen to, and that
+rejection went nowhere: the spinner stopped, no message appeared, and the
+picture simply never turned up. It is caught and shown now. The list of what
+has been uploaded is drawn in BOTH popups, so an upload is seen to have
+arrived without opening another entry to find out - and each picture is shown
+with its NAME, because two photos are the same picture at 80 pixels. And a
+finished upload puts itself behind the board: "add background image" is asked
+for by somebody who wants that picture there, and an upload that only lands in
+a list, with the board unchanged, reads as one that did not work.
+
 </details>
 
 <details>
