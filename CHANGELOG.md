@@ -4133,6 +4133,28 @@ an hour ago - and pins that ambiguity can never reach the deletion.
 and improves the translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/244710e91ec29a30093428ee6fbf64c5791aee26">Nine more languages: Kannada, Malayalam, Burmese, Sinhala, Nepali, Javanese, Somali, Pashto and Kazakh</a>. Thanks to xet7.</summary>
+
+WeKan is at **169 languages**. These nine were missing entirely, and between
+them they are spoken by something like 250 million people: **ಕನ್ನಡ**,
+**മലയാളം**, **မြန်မာ**, **සිංහල**, **नेपाली**, **Basa Jawa**, **Soomaali**,
+**پښتو** and **Қазақша**.
+
+Each arrives the same way as the last six: the strings file, the entry naming
+the language in its own script, and the flag. **Pashto** is `rtl: true`, and the
+RTL guard's list grew with it - that list is the one place the direction of a
+script is written down, so a new right-to-left language that is not added to it
+fails rather than laying itself out backwards in silence.
+
+Each starts with the words a board is made of - board, list, card, swimlane,
+label, member, the buttons, the menus, the dates - about eighty strings, and the
+rest falls back to English until somebody who speaks it says otherwise. That is
+the point of the policy: a language that is 3% translated is a language somebody
+can start using and correcting, and 0% is not.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1fedfb26256b2cace1d058d93931d94ad223c930">Six languages WeKan did not have: Bengali, Urdu, Marathi, Filipino, Hausa and Amharic</a>. Thanks to xet7.</summary>
 
 WeKan had 154 language files and not one of them was **Bengali** - about 270
