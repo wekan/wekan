@@ -1097,7 +1097,7 @@ so Enter and Space do what a click does.
 and has the following developer-facing change:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH10">The date markup is written once instead of twenty-two times</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9c288c3d4d8045cdd1d76b68b64fc91c414288c9">The date markup is written once instead of twenty-two times</a>. Thanks to xet7.</summary>
 
 Two shapes were copied across three files. The **edit-a-date form** - date,
 time, Save, Delete - existed **eight times**, letter for letter: the card's
