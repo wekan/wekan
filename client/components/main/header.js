@@ -136,6 +136,14 @@ Template.header.helpers({
   isBoardPage() {
     return Boolean(Utils.getCurrentBoardId());
   },
+  // True when the title in this bar is a BOARD's title and the user may rename
+  // it: the title text itself is then the rename button. The pencil that used
+  // to sit beside it is gone - one thing to click, not two that did the same.
+  canEditBoardTitle() {
+    return Boolean(
+      Utils.getCurrentBoardId() && ReactiveCache.getCurrentUser()?.isBoardAdmin(),
+    );
+  },
   isAllBoardsPage() {
     return ALL_BOARDS_VIEW_ROUTES.includes(FlowRouter.getRouteName());
   },
@@ -341,6 +349,18 @@ Template.header.events({
   // header, and with it the close button - without one it renders as a
   // `no-title` pop-over with nothing to shut it but clicking away.
   'click .js-open-starred-boards': Popup.open('starredBoards', { titleKey: 'allboards.starred' }),
+
+  // Rename the board by clicking its name. The popup is the EXISTING
+  // `boardChangeTitlePopup` - the same form the pencil opened, with the title
+  // and the description in it - so this changes only what you click to get
+  // there. It is opened with the board as its data context, because this bar's
+  // context is the page and not the board, and the form fills its fields from
+  // `title` and `description`.
+  'click .js-edit-board-title'(evt) {
+    const board = Utils.getCurrentBoard();
+    if (!board || !ReactiveCache.getCurrentUser()?.isBoardAdmin()) return;
+    Popup.open('boardChangeTitle').call(board, evt);
+  },
 
   // Star the page you are on, or unstar it. The title stored with it is the
   // one in the browser tab - "Product name - All Boards / Remaining" - because

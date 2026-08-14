@@ -263,6 +263,28 @@
      reverts on refresh). Isolation makes each title a self-contained run. */
   unicode-bidi: isolate;
 }
+/* #4990: the title text is the edit target, so it says so - a text cursor on
+   hover, exactly like a list's editable heading. It is a block so that the
+   whole line, not only the words, opens the editor: a click on the empty space
+   after a short title is still a click on the title. */
+.minicard .minicard-title .minicard-title-text {
+  display: block;
+}
+.minicard .minicard-title .minicard-title-text.is-editable {
+  cursor: text;
+}
+/* The editor replaces the title in place and is the width of the card. */
+.minicard .js-minicard-title-form textarea.minicard-title-editor {
+  font-size: 0.875rem;
+  width: 100%;
+  min-height: 40px;
+  max-height: 200px;
+  margin-bottom: 4px;
+  overflow-y: auto;
+  resize: none;
+  /* Same bidi isolation as the title it stands in for. */
+  unicode-bidi: isolate;
+}
 .minicard .minicard-title .card-number {
   color: #b3b3b3;
   display: inline-block;

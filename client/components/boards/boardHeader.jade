@@ -1,13 +1,7 @@
-//- The pencil that renames the board, beside the board's name in the FIRST
-//- header bar. The name is there, so the thing that edits it belongs next to it
-//- rather than in a bar of its own. Board admins only; everybody else sees the
-//- name without a pencil. docs/Design/Page/Header.md
-template(name="boardEditTitleButton")
-  if currentUser.isBoardAdmin
-    with currentBoard
-      a.board-header-btn.js-edit-board-title(title="{{_ 'edit'}}" value=title)
-        i.fa.fa-pencil-square-o
-
+//- There is no pencil beside the board's name any more: the NAME renames the
+//- board. It is one target instead of a word and an icon that did the same
+//- thing, and the icon was the smaller of the two. client/components/main/header.jade
+//-
 //- Everything else the board's second header bar held, as icons in the FIRST
 //- bar, to the left of the notification bell.
 //-

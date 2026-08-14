@@ -291,6 +291,21 @@ Template.listBody.onCreated(function () {
       return;
     }
 
+    // #4990: clicking the title TEXT edits it on the board, the way a list's
+    // title is edited. The minicard's own inlinedForm has already opened by the
+    // time this runs (it is delegated deeper in the DOM), so all that is left
+    // here is to not open the card on top of the editor - and to stop the
+    // wrapper link navigating away from the card being renamed. The rest of the
+    // minicard still opens it, and so does a middle-click or Ctrl-click on the
+    // link, which never reaches this handler.
+    const clickedEditableTitle =
+      clickedTitle && $target.closest('.js-open-inlined-form').length > 0;
+    if (clickedEditableTitle || $target.closest('.js-minicard-title-form').length > 0) {
+      evt.stopImmediatePropagation();
+      evt.preventDefault();
+      return;
+    }
+
     // Title clicks should open the regular board card details view.
     if (clickedTitle && !clickedLinkedReference) {
       evt.stopImmediatePropagation();

@@ -27,14 +27,18 @@ template(name="header")
           strip always on screen and already short of width. The root names the
           place and the tooltip carries the rest.
           client/components/main/header.js
-        span.header-page-title(title="{{headerTitleFullPath}}")
+        //- The board's NAME is the button that renames it: clicking the title
+          text opens the same "Change title" popup the pencil beside it used to
+          open, so there is one thing to click instead of a word and an icon
+          that do the same job. Board admins only - everybody else gets the
+          plain title. The `is-editable` class also gives the element a minimum
+          width, so a board whose title is EMPTY still has an area to click.
+        span.header-page-title(title="{{headerTitleFullPath}}"
+          class="{{#if canEditBoardTitle}}js-edit-board-title is-editable{{/if}}")
           if headerTitleKey
             | {{_ headerTitleKey}}
           else
             = headerTitleText
-        //- The pencil that renames the board, immediately right of its name.
-        if isBoardPage
-          +boardEditTitleButton
 
       // Logo - visible; on mobile constrained by CSS
       unless currentSetting.hideLogo

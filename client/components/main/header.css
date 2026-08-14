@@ -348,6 +348,29 @@ body:not(.board-view) #header #header-main-bar h1 {
   margin-block: 0;
 }
 
+/* The page title beside the house. On a board, and for a board admin, it is
+   also the rename button (client/components/main/header.js) - so it says so on
+   hover, the way a list's heading does.
+
+   `min-width` is the part that is easy to miss: a board whose title is EMPTY
+   renders no text at all, and an element with no content is zero pixels wide
+   and cannot be clicked. The minimum keeps a strip of the bar clickable, so an
+   empty title can still be given one. `min-height` does the same for the other
+   axis, and the padding makes the target bigger than the glyphs. */
+#header-quick-access .header-page-title.is-editable {
+  cursor: text;
+  display: inline-block;
+  min-width: 4em;
+  min-height: 1.3em;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+#header-quick-access .header-page-title.is-editable:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
 #header-quick-access .home-icon {
   display: flex;
   align-items: center;

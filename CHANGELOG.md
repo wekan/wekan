@@ -327,7 +327,9 @@ reader's own **time zone** and in the **date format the opened card shows**, and
 a description's markdown drawn as **bold** and *italic* rather than stripped.
 On top of that, **#1173** after eight years: a **board**, a **swimlane** or a
 **list** exports to PDF and Excel in that same card layout, from one selection
-popup that says what to include.
+popup that says what to include. And **titles are edited where they are
+written**: a card's title on the **board** (#4990, asked in 2022), a board's by
+clicking its **name** in the header bar instead of a pencil beside it.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -839,6 +841,51 @@ checkboxes used to be labelled "fields to include in Excel export" and did
 nothing to the PDF, so one popup meant two things. A section a request does not
 name is not rendered and, where the export is the only reason to read it, not
 even fetched.
+
+</details>
+
+**Titles** - renaming a thing where its name is written.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH">Clicking a card's title on the board edits it there</a>. Thanks to bonnebulle and xet7.</summary>
+
+A list's title has always been edited in place: click the heading, type, save.
+A card's title could only be changed by opening the card, so correcting a typo
+on a board of forty cards was open, edit, close, forty times - which is what
+[#4990](https://github.com/wekan/wekan/issues/4990) asked about, in 2022.
+
+The minicard's title text is now an `inlinedForm`, the same component the list
+heading uses, with the same textarea, Save button and X. Only the TEXT opens it,
+and only for somebody who may write: the complete checkbox, the linked-card
+icons and the card number beside it keep doing what they did, and everything
+else on the card still opens the card. A title nobody may edit still opens it
+too.
+
+The minicard sits inside the link to the card, so a click in the open editor
+would have navigated away mid-rename. That default is cancelled - except on the
+Save button, whose own default IS the submit, and which the browser picks over
+the link around it because the innermost element with an activation behaviour is
+the one that runs. An empty save is a no-op rather than a way to end up with a
+card that has nothing to click.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH">A board is renamed by clicking its name, and the pencil beside it is gone</a>. Thanks to xet7.</summary>
+
+The board's name in the first header bar had a pencil next to it. Two targets
+for one job, and the smaller of the two was the one that did it.
+
+The name itself now opens the rename popup - the SAME `boardChangeTitlePopup`
+that the pencil opened, with the title and the description in it, so only what
+you click to get there changed. It is opened with the board as its data context,
+because that bar's context is the page rather than the board. Board admins only;
+everybody else sees a plain title, as before.
+
+A board whose title is EMPTY renders no text at all, and an element with no
+content is zero pixels wide - so there would be nothing to aim at, and an empty
+title could never be given one. The clickable title carries a minimum width and
+height for exactly that.
 
 </details>
 

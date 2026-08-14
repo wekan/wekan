@@ -195,7 +195,11 @@ test('the board has no second header bar to lay out', () => {
   // Where they went.
   const header = fs.readFileSync(path.join(root, 'client/components/main/header.jade'), 'utf8');
   assert.ok(/span\.header-page-title/.test(header), 'the name is in the first bar');
-  assert.ok(/if isBoardPage\n\s+\+boardEditTitleButton/.test(header), 'the pencil beside it');
+  // The pencil that used to sit beside the name is gone: the NAME renames the
+  // board now, so there is one target rather than a word and an icon doing the
+  // same thing. tests/titleClickToEdit.test.cjs is where that lives.
+  assert.ok(!/\+boardEditTitleButton/.test(header), 'and no pencil beside it');
+  assert.ok(/js-edit-board-title/.test(header), 'the name itself opens the rename popup');
   assert.ok(/if isBoardPage\n\s+\+boardHeaderButtons/.test(header), 'the controls beside those');
 });
 

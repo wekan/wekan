@@ -173,7 +173,6 @@ function toggleSidebarView(view, mustStayOpen) {
 }
 
 Template.boardHeaderButtons.events({
-  'click .js-edit-board-title': Popup.open('boardChangeTitle'),
   'click .js-change-visibility': Popup.open('boardChangeVisibility'),
   'click .js-watch-board': Popup.open('boardChangeWatch'),
   // Boards in Archive is a SECTION of All Boards, not a page of its own: the
@@ -654,8 +653,6 @@ Template.boardViewMenu.helpers({
   },
 });
 
-// The pencil is its own template in the first header bar, beside the board's
-// name, so its click is handled here. docs/Design/Page/Header.md
-Template.boardEditTitleButton.events({
-  'click .js-edit-board-title': Popup.open('boardChangeTitle'),
-});
+// The board is renamed by clicking its NAME in the first header bar, which is
+// handled where that bar is: client/components/main/header.js. The pencil that
+// used to be here is gone with the template it lived in.

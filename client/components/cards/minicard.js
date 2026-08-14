@@ -270,6 +270,31 @@ function moveCardBy(card, delta) {
 }
 
 Template.minicard.events({
+  // #4990: the title is edited in place. The minicard sits inside the wrapper
+  // LINK to the card, so every click inside the open form would otherwise
+  // navigate away mid-edit. Cancelling the click's default stops that - except
+  // on the save button, whose own default IS the submit (the innermost element
+  // with an activation behaviour is the one that runs, so the link does not
+  // follow when the button is clicked).
+  'click .js-minicard-title-form'(event) {
+    event.stopPropagation();
+    if (!$(event.target).closest('button[type=submit]').length) {
+      event.preventDefault();
+    }
+  },
+  async 'submit .js-minicard-title-form'(event, templateInstance) {
+    event.preventDefault();
+    event.stopPropagation();
+    const title = templateInstance
+      .$('.js-edit-minicard-title')
+      .val()
+      ?.trim();
+    // An empty title would leave a card with nothing to click, so an empty
+    // save is a no-op rather than a way to lose the card - same as a list.
+    if (title && title !== this.getTitle()) {
+      await this.setTitle(title);
+    }
+  },
   'click .js-linked-link'() {
     if (this.isLinkedCard()) Utils.goCardId(this.linkedId);
     else if (this.isLinkedBoard())

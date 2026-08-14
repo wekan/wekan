@@ -75,9 +75,16 @@ early.
 
 ## What the bar holds
 
-In source order: the house and the page title (plus the pencil that renames a
-board), the logo, the phone/desktop toggle, the drag-handles toggle, and then
-everything else.
+In source order: the house and the page title, the logo, the phone/desktop
+toggle, the drag-handles toggle, and then everything else.
+
+On a board, and for a board admin, **the title is also the rename button**:
+clicking it opens the same `boardChangeTitlePopup` that a pencil beside it used
+to open. One target instead of a word and an icon that did the same thing — and
+the icon was the smaller of the two. A board whose title is empty renders no
+text, so `.header-page-title.is-editable` carries a minimum width: without it
+the element would be zero pixels wide and an empty title could never be given
+one.
 
 The groups that hold many buttons are `display: contents` — the board's ten
 controls, the Admin Panel's four tabs, and the end group itself. A wrapper div is

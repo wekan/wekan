@@ -319,7 +319,10 @@ test('the title bar names the pane, in the menu row\'s own words', () => {
   // a workspace nests as deep as its tree does - and this bar is the one strip
   // always on screen and already short of width.
   const jade = read('client/components/main/header.jade');
-  assert.ok(/span\.header-page-title\(title="\{\{headerTitleFullPath\}\}"\)/.test(jade),
+  // The element carries a class as well now - on a board it is also the rename
+  // button (#4990) - so this pins the tooltip, which is what the test is about,
+  // and not the whole attribute list.
+  assert.ok(/span\.header-page-title\(title="\{\{headerTitleFullPath\}\}"/.test(jade),
     'and the bar carries it in the title tooltip');
   assert.ok(!/each headerTitleTrail/.test(jade), 'and does not draw it inline any more');
   assert.ok(/headerTitleFullPath\(\) \{/.test(js), 'the tooltip helper exists');

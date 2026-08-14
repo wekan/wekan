@@ -377,13 +377,19 @@ test('its columns are Edit, Board title, Board description', () => {
 test('Edit opens the SAME popup the Swimlanes view opens', () => {
   assert.ok(/'click \.js-edit-board-title-row': Popup\.open\('boardChangeTitle'\)/.test(js),
     'the row opens boardChangeTitle');
-  const header = read('client/components/boards/boardHeader.js');
-  assert.ok(/'click \.js-edit-board-title': Popup\.open\('boardChangeTitle'\)/.test(header),
+  // The board's own end of it moved: the board is renamed by clicking its NAME
+  // in the first header bar, so the handler is where that bar is.
+  const header = read('client/components/main/header.js');
+  assert.ok(/'click \.js-edit-board-title'\(evt\) \{/.test(header)
+    && /Popup\.open\('boardChangeTitle'\)\.call\(board, evt\)/.test(header),
     'which is the one the board header opens');
 
   // It took one change to make that true: the submit read Utils.getCurrentBoard(),
   // and on All Boards there is no current board.
-  const submit = header.slice(header.indexOf('Template.boardChangeTitlePopup.events({'));
+  // The popup itself stayed where it always was, in the board header module.
+  const boardHeader = read('client/components/boards/boardHeader.js');
+  const submit = boardHeader.slice(
+    boardHeader.indexOf('Template.boardChangeTitlePopup.events({'));
   const body = submit.slice(0, submit.indexOf('\n});'));
   assert.ok(/Template\.currentData\(\)/.test(body),
     'the popup must take the board from its data context when it has one');
