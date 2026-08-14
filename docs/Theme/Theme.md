@@ -181,6 +181,9 @@ edges that are easy to miss in a visual-only review:
 - Mobile All Boards tiles use a `4rem` minimum rather than a fixed height. Long
   names wrap inside the tile, and both cells in a grid row stretch to the same
   content height.
+- Each All Boards board paints one surface only: `.board-list-item` is the glass
+  card, while its outer drag item and inner navigation link remain transparent
+  structural wrappers. This avoids a three-layer stack around every board.
 - The mobile quick-access header and Admin Panel glass island use
   `box-sizing: border-box`, `max-width: 100%` and `min-width: 0` where needed, so
   gutters and flex content cannot create horizontal overflow.

@@ -100,6 +100,10 @@ test('all major WeKan surfaces are represented', () => {
     'Admin mobile padding is included inside the viewport width');
   assert.ok(/\.content-body \.main-body \{[\s\S]*?box-sizing: border-box;[\s\S]*?min-width: 0;/.test(pages),
     'the Admin main glass island may shrink without spilling past the phone');
+  assert.ok(/li\.js-board > \.board-list-item[\s\S]*?background: rgba\(255, 255, 255, 0\.78\) !important;/.test(pages),
+    'the board-list-item is the single painted board tile');
+  assert.ok(/li\.js-board,[\s\S]*?\.board-list-item > \.js-open-board \{[\s\S]*?background: transparent !important;[\s\S]*?border: 0;[\s\S]*?box-shadow: none;/.test(pages),
+    'the outer drag item and inner navigation link stay structural, not two extra cards');
 });
 
 test('minicards avoid per-card backdrop filters', () => {

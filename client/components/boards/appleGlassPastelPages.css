@@ -62,9 +62,7 @@ body.board-color-appleglasspastel .board-list {
   gap: 12px;
 }
 
-body.board-color-appleglasspastel .board-list > li.js-board,
 body.board-color-appleglasspastel .board-list > li.js-board > .board-list-item,
-body.board-color-appleglasspastel .board-list > li.js-board > .board-list-item > .js-open-board,
 body.board-color-appleglasspastel .board-list .js-add-board .label {
   background: rgba(255, 255, 255, 0.78) !important;
   border: 1px solid rgba(255, 255, 255, 0.72);
@@ -75,7 +73,20 @@ body.board-color-appleglasspastel .board-list .js-add-board .label {
     transform 0.2s var(--agp-spring);
 }
 
-body.board-color-appleglasspastel .board-list > li.js-board:hover,
+/* A board has three nested elements for drag, tile and navigation behaviour.
+ * Only the middle `.board-list-item` is a visual card. Painting the parent and
+ * link as cards too produced the three stacked white layers visible around
+ * every board tile. Keep those two wrappers structural and transparent. */
+body.board-color-appleglasspastel .board-list > li.js-board,
+body.board-color-appleglasspastel .board-list > li.js-board > .board-list-item > .js-open-board {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
 body.board-color-appleglasspastel .board-list > li.js-board:hover > .board-list-item,
 body.board-color-appleglasspastel .board-list .js-add-board .label:hover {
   background: rgba(255, 255, 255, 0.96) !important;

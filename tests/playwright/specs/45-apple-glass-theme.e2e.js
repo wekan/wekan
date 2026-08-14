@@ -126,12 +126,33 @@ test.describe('Apple Glass Pastel v2', () => {
     expect(menu.borderRadius).toBe('24px');
     expect(menu.backdropFilter).toContain('blur(24px)');
 
-    const tile = await computed(page.locator('.board-list > li.js-board').first(), [
+    const boardTile = page.locator('.board-list > li.js-board').first();
+    const tile = await computed(boardTile.locator(':scope > .board-list-item'), [
       'backgroundColor', 'borderRadius', 'boxShadow',
     ]);
     expect(tile.backgroundColor).toContain('rgba(255, 255, 255');
     expect(tile.borderRadius).toBe('18px');
     expect(tile.boxShadow).not.toBe('none');
+
+    const structuralLayers = await boardTile.evaluate(element => {
+      const item = element.querySelector(':scope > .board-list-item');
+      const link = item.querySelector(':scope > .js-open-board');
+      const styles = node => {
+        const style = getComputedStyle(node);
+        return {
+          backgroundColor: style.backgroundColor,
+          borderTopWidth: style.borderTopWidth,
+          boxShadow: style.boxShadow,
+        };
+      };
+      return { outer: styles(element), link: styles(link) };
+    });
+    for (const [name, layer] of Object.entries(structuralLayers)) {
+      expect(layer.backgroundColor, `${name} wrapper is transparent`)
+        .toBe('rgba(0, 0, 0, 0)');
+      expect(layer.borderTopWidth, `${name} wrapper has no border`).toBe('0px');
+      expect(layer.boxShadow, `${name} wrapper has no shadow`).toBe('none');
+    }
 
     const geometry = await page.evaluate(() => ({
       viewport: document.documentElement.clientWidth,
