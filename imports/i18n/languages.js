@@ -27,6 +27,13 @@ export default {
     load: () => import('./data/am.i18n.json'),
     rtl: false,
   },
+  "as": {
+    code: "as",
+    tag: "as",
+    name: "অসমীয়া",
+    load: () => import('./data/as.i18n.json'),
+    rtl: false,
+  },
   "bn": {
     code: "bn",
     tag: "bn",
@@ -461,6 +468,13 @@ export default {
     load: () => import('./data/ha.i18n.json'),
     rtl: false,
   },
+  "haw": {
+    code: "haw",
+    tag: "haw",
+    name: "ʻŌlelo Hawaiʻi",
+    load: () => import('./data/haw.i18n.json'),
+    rtl: false,
+  },
   "he-IL": {
     code: "he",
     tag: "he-IL",
@@ -615,6 +629,13 @@ export default {
     load: () => import('./data/ko.i18n.json'),
     rtl: false,
   },
+  "ku": {
+    code: "ku",
+    tag: "ku",
+    name: "Kurdî",
+    load: () => import('./data/ku.i18n.json'),
+    rtl: false,
+  },
   "ky": {
     code: "ky",
     tag: "ky",
@@ -636,6 +657,13 @@ export default {
     load: () => import('./data/lb.i18n.json'),
     rtl: false,
   },
+  "lg": {
+    code: "lg",
+    tag: "lg",
+    name: "Luganda",
+    load: () => import('./data/lg.i18n.json'),
+    rtl: false,
+  },
   "lt": {
     code: "lt",
     tag: "lt",
@@ -648,6 +676,13 @@ export default {
     tag: "lv",
     name: "Latviešu valoda",
     load: () => import('./data/lv.i18n.json'),
+    rtl: false,
+  },
+  "mg": {
+    code: "mg",
+    tag: "mg",
+    name: "Malagasy",
+    load: () => import('./data/mg.i18n.json'),
     rtl: false,
   },
   "mi": {
@@ -741,11 +776,25 @@ export default {
     load: () => import('./data/nl.i18n.json'),
     rtl: false,
   },
+  "ny": {
+    code: "ny",
+    tag: "ny",
+    name: "Chichewa",
+    load: () => import('./data/ny.i18n.json'),
+    rtl: false,
+  },
   "oc": {
     code: "oc",
     tag: "oc",
     name: "Occitan",
     load: () => import('./data/oc.i18n.json'),
+    rtl: false,
+  },
+  "om": {
+    code: "om",
+    tag: "om",
+    name: "Afaan Oromoo",
+    load: () => import('./data/om.i18n.json'),
     rtl: false,
   },
   "or-IN": {
@@ -832,6 +881,20 @@ export default {
     load: () => import('./data/ru-RU.i18n.json'),
     rtl: false,
   },
+  "rw": {
+    code: "rw",
+    tag: "rw",
+    name: "Ikinyarwanda",
+    load: () => import('./data/rw.i18n.json'),
+    rtl: false,
+  },
+  "sd": {
+    code: "sd",
+    tag: "sd",
+    name: "سنڌي",
+    load: () => import('./data/sd.i18n.json'),
+    rtl: true,
+  },
   "si": {
     code: "si",
     tag: "si",
@@ -860,6 +923,13 @@ export default {
     load: () => import('./data/sl_SI.i18n.json'),
     rtl: false,
   },
+  "sn": {
+    code: "sn",
+    tag: "sn",
+    name: "chiShona",
+    load: () => import('./data/sn.i18n.json'),
+    rtl: false,
+  },
   "so": {
     code: "so",
     tag: "so",
@@ -879,6 +949,13 @@ export default {
     tag: "sr",
     name: "Српски језик",
     load: () => import('./data/sr.i18n.json'),
+    rtl: false,
+  },
+  "st": {
+    code: "st",
+    tag: "st",
+    name: "Sesotho",
+    load: () => import('./data/st.i18n.json'),
     rtl: false,
   },
   "sv": {
@@ -923,6 +1000,13 @@ export default {
     load: () => import('./data/th.i18n.json'),
     rtl: false,
   },
+  "ti": {
+    code: "ti",
+    tag: "ti",
+    name: "ትግርኛ",
+    load: () => import('./data/ti.i18n.json'),
+    rtl: false,
+  },
   "tl": {
     code: "tl",
     tag: "tl",
@@ -937,11 +1021,32 @@ export default {
     load: () => import('./data/tlh.i18n.json'),
     rtl: false,
   },
+  "tn": {
+    code: "tn",
+    tag: "tn",
+    name: "Setswana",
+    load: () => import('./data/tn.i18n.json'),
+    rtl: false,
+  },
   "tr": {
     code: "tr",
     tag: "tr",
     name: "Türkçe",
     load: () => import('./data/tr.i18n.json'),
+    rtl: false,
+  },
+  "ts": {
+    code: "ts",
+    tag: "ts",
+    name: "Xitsonga",
+    load: () => import('./data/ts.i18n.json'),
+    rtl: false,
+  },
+  "tt": {
+    code: "tt",
+    tag: "tt",
+    name: "Татарча",
+    load: () => import('./data/tt.i18n.json'),
     rtl: false,
   },
   "ug": {
