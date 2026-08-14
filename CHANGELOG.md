@@ -847,7 +847,7 @@ and fixes the following bugs:
 **Card details** - the card as it is opened and edited.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">What the card restructuring nearly took with it, and a Copy card link button that can be read</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/7a75779b2cba58de149b99f308360b9944a50dd3">What the card restructuring nearly took with it, and a Copy card link button that can be read</a>. Thanks to xet7.</summary>
 
 Moving eleven sections with a script is how markup disappears without anything
 failing: the file still compiles, the tests still pass, and a card is quietly
