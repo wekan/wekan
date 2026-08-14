@@ -1005,7 +1005,7 @@ it shared its row and read as one more badge rather than as the line it is.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH6">Members and Labels fold in the board sidebar, by their headings</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/48cf269870c087f36137f1b4960712c0df1b6f39">Members and Labels fold in the board sidebar, by their headings</a>. Thanks to xet7.</summary>
 
 The two sections at the top of the right sidebar could not be folded at all.
 The People / Organizations / Teams / Domains tabs with their avatars, and every
