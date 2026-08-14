@@ -496,12 +496,6 @@ Template.boardMenuPopup.events({
       });
     }
   },
-  'click .js-custom-fields'() {
-    if (Sidebar) {
-      Sidebar.setView('customFields');
-    }
-    Popup.back();
-  },
   'click .js-open-archives'() {
     if (Sidebar) {
       Sidebar.setView('archives');

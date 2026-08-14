@@ -1608,15 +1608,12 @@ Template.cardDetailsActionsPopup.events({
   // already has for that column - so no `showOnCardPopup-title` has to be added
   // to 147 language files to say a phrase they have already translated.
   'click .js-show-on-card': Popup.open('showOnCard', { titleKey: 'show-on-card' }),
-  // Board Settings / Custom Fields: the board's list of fields, where one is
-  // created, renamed or deleted. It opens IN the menu - the same list the right
-  // sidebar shows, as a popup - so it appears where the menu was and the
-  // pop-over's back arrow returns to the card menu. Sending the reader to the
-  // sidebar instead closed the menu and the card pane behind it and moved the
-  // answer to the other side of the screen. The entry under it, "Edit custom
-  // fields", picks which of those fields are on THIS card.
-  // client/components/sidebar/sidebarCustomFields.jade
-  'click .js-board-custom-fields': Popup.open('boardCustomFields', { titleKey: 'custom-fields' }),
+  // "Custom Fields" is ONE entry: it opens the picker for which of the board's
+  // fields are on THIS card, and that popup's own Settings cog opens the
+  // board's list of fields, where one is created, renamed or deleted. Two
+  // entries for the two halves put the general one above the particular one and
+  // made the menu ask which you wanted before you had seen either.
+  // client/components/cards/cardCustomFields.jade
   'click .js-show-on-minicard': Popup.open('showOnMinicard', { titleKey: 'show-on-minicard' }),
   'click .js-export-card': Popup.open('exportCard'),
   'click .js-members': Popup.open('cardMembers'),

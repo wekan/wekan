@@ -30,8 +30,6 @@ import {
 import { CustomFieldStringTemplate } from '/client/lib/customFields'
 import { getCurrentCardFromContext } from '/client/lib/currentCard';
 import { formatNumberValue } from '/imports/lib/customNumberFormat';
-import { EscapeActions } from '/client/lib/escapeActions';
-import { getSidebarInstance } from '/client/features/sidebar/service';
 
 Template.cardCustomFieldsPopup.helpers({
   hasCustomField() {
@@ -50,12 +48,14 @@ Template.cardCustomFieldsPopup.events({
     card.toggleCustomField(customFieldId);
     event.preventDefault();
   },
+  // The board's list of custom fields - where one is created, renamed or
+  // deleted - as a pop-over on top of this one, so the back arrow returns here
+  // and the card stays open behind it. It used to send the reader to the right
+  // sidebar, closing this menu and the card pane on the way and putting the
+  // answer on the other side of the screen.
+  // client/components/sidebar/sidebarCustomFields.jade
   'click .js-settings'(event) {
-    EscapeActions.executeUpTo('detailsPane');
-    const sidebar = getSidebarInstance();
-    if (sidebar) {
-      sidebar.setView('customFields');
-    }
+    Popup.open('boardCustomFields', { titleKey: 'custom-fields' })(event);
     event.preventDefault();
   },
 });

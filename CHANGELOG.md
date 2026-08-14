@@ -994,15 +994,23 @@ in the menu of the thing it is about now, so a board-wide entry as well would
 be a third way to one list - and the way that is furthest from what it changes.
 The table itself is unchanged; the two menus include it.
 
-**Custom Fields** opens IN the menu. It first opened the right sidebar, which
-is a different part of the screen: the menu was gone, the card pane was closed
-behind it, and the answer to "what fields does this board have" appeared on the
-other side. It is a pop-over now, in the place the menu was, and the pop-over's
-own back arrow returns to the card menu - while Create and Edit, which were
-popups already, stack on top of it and come back to the list. It is the SAME
-template the sidebar view uses, included rather than copied, so the two lists
-cannot drift; what it needed was styles of its own, because every rule that
-list has is written for the sidebar and none of them reach inside a pop-over.
+**Custom Fields is one entry, and it opens IN the menu.** It was two - the
+board's LIST of fields and the picker for which of them are on this card, one
+above the other - which put the general question above the particular one and
+made the menu ask which you wanted before you had seen either. There is one
+entry now, the picker, and the board's list is behind that popup's own Settings
+cog: where you look once you have seen the fields and want to add one.
+
+That list first opened the right sidebar, which is a different part of the
+screen: the menu was gone, the card pane was closed behind it, and the answer to
+"what fields does this board have" appeared on the other side. It is a pop-over
+now, on top of the picker, so the back arrow returns to the fields you were
+looking at - while Create and Edit, which were popups already, stack on top of
+it and come back to the list. It is the SAME template the sidebar view uses,
+included rather than copied, so the two cannot drift; what it needed was styles
+of its own, because every rule that list has is written for the sidebar and none
+of them reach inside a pop-over. **Board Settings no longer has a Custom Fields
+row**: the fields are where the cards are.
 
 </details>
 

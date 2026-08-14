@@ -735,11 +735,10 @@ template(name="boardMenuPopup")
         a.js-open-rules-view(title="{{_ 'rules'}}")
           i.fa.fa-magic
           | {{_ 'rules'}}
-    if currentUser.isBoardAdmin
-      li
-        a.js-custom-fields
-          i.fa.fa-file-text-o
-          | {{_ 'custom-fields'}}
+    //- "Custom Fields" was here. The board's list of them is in the card's own
+      menu now - Card menu / Custom Fields, whose Settings cog opens it - which
+      is where somebody looking at a card's fields already is.
+      client/components/cards/cardDetails.jade
     li
       a.js-open-archives
         i.fa.fa-archive

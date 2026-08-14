@@ -872,13 +872,9 @@ template(name="cardDetailsActionsPopup")
     if currentUser.isBoardAdmin
       ul.pop-over-list
         li
-          a.js-board-custom-fields
-            i.fa.fa-file-text-o
-            |  {{_ 'custom-fields'}}
-        li
           a.js-custom-fields
             i.fa.fa-list
-            |  {{_ 'card-edit-custom-fields'}}
+            |  {{_ 'custom-fields'}}
       hr
     if canModifyCard
       unless currentUser.isWorker
