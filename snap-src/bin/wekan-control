@@ -96,6 +96,33 @@ mongodb_has_data=false
 if [ -f "$SNAP_COMMON/WiredTiger" ] || ls "$SNAP_COMMON"/collection-*.wt >/dev/null 2>&1; then mongodb_has_data=true; fi
 echo "Database selection: setting='${DATABASE:-mongodb}' ferretdb_has_data=${ferretdb_has_data} mongodb_has_data=${mongodb_has_data}"
 
+# #6585 (comment 5290402146): `mongodb_has_data` above answers "are the files
+# there", not "can anything here open them". On an instance whose MongoDB data
+# was written by a MongoDB older than any mongod in this snap, those two are
+# different answers - and every comparison below treats the older files as a
+# candidate for holding the newest work:
+#
+#   Database selection: setting='ferretdb' ferretdb_has_data=true mongodb_has_data=true
+#   WeKan: BOTH databases have been written to since the migration.
+#   [autopick] reading both databases to see which one holds the work ...
+#
+# ...at every single start, before the site comes up. And it cannot end well:
+# autopick starts a mongod that cannot open the data (slowly, under emulation on
+# some CPUs), then a SECOND FerretDB against the same SQLite directory the
+# running one already holds.
+#
+# A copy nothing can read is not the copy holding your work. `migration-control`
+# has already tried every reader in the snap and left .mongodb-data-too-old
+# behind when none of them could open the files, so that marker is the answer -
+# and the comparisons below use THIS variable instead.
+mongodb_readable="$mongodb_has_data"
+if [ "$mongodb_has_data" = "true" ] && [ -f "$SNAP_COMMON/.mongodb-data-too-old" ]; then
+    mongodb_readable=false
+    echo "The MongoDB files in $SNAP_COMMON cannot be opened by any mongod in this snap (.mongodb-data-too-old),"
+    echo "so they are not compared with FerretDB: a copy nothing can read is not the one holding your work."
+    echo "They are left untouched, and the explanation stands if you move back to a snap that can read them."
+fi
+
 # SAFETY: never start an EMPTY FerretDB while real data still lives in MongoDB - that would
 # look like all data was lost. Revert to MongoDB (which still has the data) and tell the admin
 # to migrate first. Only fires when database=ferretdb AND no SQLite exists AND MongoDB has data.
@@ -142,7 +169,7 @@ migration_stale_why="$(bash "$SNAP/bin/ferretdb-migration-stale" "$SNAP_COMMON" 
 # the wrong copy right now, and saying nothing would leave it there forever. The
 # admin has to hear that the other database holds writes of its own whichever one
 # is currently selected.
-if [ "$mongodb_has_data" = "true" ] && [ "$migration_stale_rc" -eq 2 ]; then
+if [ "$mongodb_readable" = "true" ] && [ "$migration_stale_rc" -eq 2 ]; then
     echo "========================================================================"
     echo "WeKan: BOTH databases have been written to since the migration."
     echo "$migration_stale_why"
@@ -180,7 +207,7 @@ if [ "$mongodb_has_data" = "true" ] && [ "$migration_stale_rc" -eq 2 ]; then
     fi
     echo "========================================================================"
 fi
-if [ "ferretdb" = "$DATABASE" ] && [ "$mongodb_has_data" = "true" ] && [ "$migration_stale_rc" -eq 0 ]; then
+if [ "ferretdb" = "$DATABASE" ] && [ "$mongodb_readable" = "true" ] && [ "$migration_stale_rc" -eq 0 ]; then
     echo "========================================================================"
     echo "WeKan: the FerretDB database in $FERRETDB_SQLITE_DIR was migrated from MongoDB,"
     echo "but the MongoDB data has been written to SINCE that migration - so the migrated"
