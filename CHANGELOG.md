@@ -850,6 +850,39 @@ offering", so the wheel, the preview and what gets saved cannot disagree.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/df2913744e382eaeaa36b3cdc407998895124c27">Every export popup is one popup with one scope, and looks like it</a>. Thanks to xet7.</summary>
+
+There were two export menus. The **board** popup wrote nineteen formats of its
+own under four subheadings, in two panes across the width of the window; the
+**swimlane**, **list**, **card** and **checklist** popups wrote five in one
+narrow column with no panes. So "the export popup" looked like two different
+features depending on which menu opened it, and a format added to one was
+missing from the other.
+
+They are one template now, drawing one TABLE of formats. Each entry says what it
+is - an icon, a label, and either a path to download or a class to click - and
+which scopes it belongs to: `BOARD_ONLY` for the ones that only make sense for a
+whole board (the HTML archive, the dependency graph, the CSV columns and the
+exports written for Trello, Jira, Kanboard and the rest), and nothing at all for
+the ones that work anywhere, because `exportUrl` already carries the scope - a
+swimlane, a list and a card differ from a board by a query parameter, not by a
+route. The board popup is now the same one-line include the other four are, with
+no markup and no URL builders of its own; the nineteen helpers that built those
+URLs are gone with the list that called them.
+
+All five get the board's **panel**: what to include in one pane and what to
+export it to in the other, side by side when the window has room and stacked
+when it does not, pinned to the viewport so the header and its X are always
+reachable. The layout is written against the panes' own class rather than
+against one popup's name, so it cannot be true of one menu and not another.
+
+Which scope a popup is, is asked in ONE place - and every scope is named there,
+because a scope left out would be read as "a whole board" and offered a board's
+formats.
+
+</details>
+
 **Search** - finding a card by what people call it.
 
 <details>
