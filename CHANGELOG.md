@@ -901,6 +901,27 @@ height for exactly that.
 **Card and minicard menus** - the settings about a thing, in that thing's menu.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH11">Subtasks Settings is in the menu of the subtask it is about</a>. Thanks to xet7.</summary>
+
+What subtasks DO on a board - whether they are shown at all, which board and
+list a new one is deposited in, and how a parent is named on a minicard - was
+in Board Settings only: open the sidebar, open the board menu, find Subtasks
+Settings. Somebody who wants to change it is usually looking at a subtask on an
+opened card at that moment.
+
+It is at the bottom of that subtask's own menu now, under a rule, below the
+things the menu does to the subtask itself - View it, Go to board, Delete. A
+board admin's, as it is in Board Settings, which keeps its entry unchanged.
+
+It is the SAME template in both places, with its own state, helpers and
+handlers, so neither place needs code of its own and the two lists cannot
+drift. That is what the move needed: a template included in two places cannot
+reach its parent's helpers, because a helper is looked up on the template it is
+written in.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f0204ae014d1b312355be89bba09717ffeb28d47">Show on Card and Show on Minicard lead the card's and the minicard's menus</a>. Thanks to xet7.</summary>
 
 Board Settings / Card Settings is a table of twenty-four settings with two

@@ -602,7 +602,12 @@ template(name="boardCardSettingsPopup")
     //
           | {{_ 'activities'}}
 
-template(name="boardSubtaskSettingsPopup")
+//- The board's Subtasks Settings. Its own template, because the same settings
+  are read from two places: Board Settings, and the menu of a subtask on an
+  opened card - which is where somebody looking at a subtask is when they want
+  to change what subtasks do. One list, one set of handlers.
+  client/components/cards/subtasks.jade
+template(name="boardSubtaskSettingsBody")
   form.board-subtask-settings
     h3 {{_ 'show-parent-in-minicard'}}
       a#prefix-with-full-path.flex.js-field-show-parent-in-minicard(title="{{_ 'prefix-with-full-path'}}" class="{{#if $eq presentParentTask 'prefix-with-full-path'}}is-checked{{/if}}")
@@ -651,6 +656,9 @@ template(name="boardSubtaskSettingsPopup")
               option(value=_id selected="selected") {{title}}
             else
               option(value=_id) {{title}}
+
+template(name="boardSubtaskSettingsPopup")
+  +boardSubtaskSettingsBody
 
 //- #1173: the fourteen per-source links that were here are the import PAGE now
   - one full-width page that lists every source, offers the same "what to

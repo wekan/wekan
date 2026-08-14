@@ -106,4 +106,13 @@ template(name="subtaskActionsPopup")
         a.js-delete-subtask.delete-subtask
           i.fa.fa-trash
           | {{_ "delete"}} ...
+  //- What subtasks DO on this board - whether they are shown, which board and
+    list they are deposited in, and how a parent is named on a minicard - under
+    a rule, below the things this menu does to the subtask itself. It is the
+    same settings Board Settings has, from the same template, reached from the
+    subtask they are about instead of from a menu three clicks away. A board
+    admin's, as it is there. client/components/sidebar/sidebar.jade
+  if currentUser.isBoardAdmin
+    hr
+    +boardSubtaskSettingsBody
 

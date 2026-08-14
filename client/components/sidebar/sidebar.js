@@ -1438,7 +1438,11 @@ Template.boardInfoOnMyBoardsPopup.events({
   },
 });
 
-Template.boardSubtaskSettingsPopup.onCreated(function() {
+// The settings themselves - drawn by Board Settings and by the menu of a
+// subtask on an opened card, from this one template with its own state and
+// handlers, so neither place needs code of its own.
+// client/components/sidebar/sidebar.jade
+Template.boardSubtaskSettingsBody.onCreated(function() {
   // Same reactive-snapshot fix as boardCardSettingsPopup (#6385): the
   // allowsSubtasks toggle reads tpl.currentBoard, so keep it current in an
   // autorun so the setting can be reversed without a page refresh.
@@ -1447,7 +1451,7 @@ Template.boardSubtaskSettingsPopup.onCreated(function() {
   });
 });
 
-Template.boardSubtaskSettingsPopup.helpers({
+Template.boardSubtaskSettingsBody.helpers({
   allowsSubtasks() {
     // Get the current board reactively using board ID from Session
     const boardId = Session.get('currentBoard');
@@ -1533,7 +1537,7 @@ Template.boardSubtaskSettingsPopup.helpers({
   },
 });
 
-Template.boardSubtaskSettingsPopup.events({
+Template.boardSubtaskSettingsBody.events({
   'click .js-field-has-subtasks'(evt, tpl) {
     evt.preventDefault();
     const newValue = !tpl.currentBoard.allowsSubtasks;
