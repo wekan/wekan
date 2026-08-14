@@ -20,6 +20,13 @@ export default {
     load: () => import('./data/af_ZA.i18n.json'),
     rtl: false,
   },
+  "ak": {
+    code: "ak",
+    tag: "ak",
+    name: "Akan",
+    load: () => import('./data/ak.i18n.json'),
+    rtl: false,
+  },
   "am": {
     code: "am",
     tag: "am",
@@ -34,6 +41,27 @@ export default {
     load: () => import('./data/as.i18n.json'),
     rtl: false,
   },
+  "ay": {
+    code: "ay",
+    tag: "ay",
+    name: "Aymar aru",
+    load: () => import('./data/ay.i18n.json'),
+    rtl: false,
+  },
+  "ba": {
+    code: "ba",
+    tag: "ba",
+    name: "Башҡортса",
+    load: () => import('./data/ba.i18n.json'),
+    rtl: false,
+  },
+  "bm": {
+    code: "bm",
+    tag: "bm",
+    name: "Bamanankan",
+    load: () => import('./data/bm.i18n.json'),
+    rtl: false,
+  },
   "bn": {
     code: "bn",
     tag: "bn",
@@ -46,6 +74,20 @@ export default {
     tag: "bs",
     name: "Bosanski",
     load: () => import('./data/bs.i18n.json'),
+    rtl: false,
+  },
+  "cv": {
+    code: "cv",
+    tag: "cv",
+    name: "Чӑвашла",
+    load: () => import('./data/cv.i18n.json'),
+    rtl: false,
+  },
+  "ee": {
+    code: "ee",
+    tag: "ee",
+    name: "Eʋegbe",
+    load: () => import('./data/ee.i18n.json'),
     rtl: false,
   },
   "en_AU": {
@@ -391,6 +433,13 @@ export default {
     load: () => import('./data/fi.i18n.json'),
     rtl: false,
   },
+  "fo": {
+    code: "fo",
+    tag: "fo",
+    name: "Føroyskt",
+    load: () => import('./data/fo.i18n.json'),
+    rtl: false,
+  },
   "fr-BE": {
     code: "fr",
     tag: "fr-BE",
@@ -440,6 +489,13 @@ export default {
     load: () => import('./data/ga.i18n.json'),
     rtl: false,
   },
+  "gd": {
+    code: "gd",
+    tag: "gd",
+    name: "Gàidhlig",
+    load: () => import('./data/gd.i18n.json'),
+    rtl: false,
+  },
   "gl-ES": {
     code: "gl",
     tag: "gl-ES",
@@ -454,11 +510,25 @@ export default {
     load: () => import('./data/gl.i18n.json'),
     rtl: false,
   },
+  "gn": {
+    code: "gn",
+    tag: "gn",
+    name: "Avañe'ẽ",
+    load: () => import('./data/gn.i18n.json'),
+    rtl: false,
+  },
   "gu-IN": {
     code: "gu",
     tag: "gu-IN",
     name: "ગુજરાતી",
     load: () => import('./data/gu-IN.i18n.json'),
+    rtl: false,
+  },
+  "gv": {
+    code: "gv",
+    tag: "gv",
+    name: "Gaelg",
+    load: () => import('./data/gv.i18n.json'),
     rtl: false,
   },
   "ha": {
@@ -636,6 +706,13 @@ export default {
     load: () => import('./data/ku.i18n.json'),
     rtl: false,
   },
+  "kw": {
+    code: "kw",
+    tag: "kw",
+    name: "Kernewek",
+    load: () => import('./data/kw.i18n.json'),
+    rtl: false,
+  },
   "ky": {
     code: "ky",
     tag: "ky",
@@ -755,6 +832,13 @@ export default {
     load: () => import('./data/nb.i18n.json'),
     rtl: false,
   },
+  "nd": {
+    code: "nd",
+    tag: "nd",
+    name: "isiNdebele",
+    load: () => import('./data/nd.i18n.json'),
+    rtl: false,
+  },
   "ne": {
     code: "ne",
     tag: "ne",
@@ -774,6 +858,13 @@ export default {
     tag: "nl",
     name: "Nederlands",
     load: () => import('./data/nl.i18n.json'),
+    rtl: false,
+  },
+  "nso": {
+    code: "nso",
+    tag: "nso",
+    name: "Sesotho sa Leboa",
+    load: () => import('./data/nso.i18n.json'),
     rtl: false,
   },
   "ny": {
@@ -853,6 +944,20 @@ export default {
     load: () => import('./data/pt-PT.i18n.json'),
     rtl: false,
   },
+  "qu": {
+    code: "qu",
+    tag: "qu",
+    name: "Runasimi",
+    load: () => import('./data/qu.i18n.json'),
+    rtl: false,
+  },
+  "rn": {
+    code: "rn",
+    tag: "rn",
+    name: "Ikirundi",
+    load: () => import('./data/rn.i18n.json'),
+    rtl: false,
+  },
   "ro": {
     code: "ro",
     tag: "ro",
@@ -888,12 +993,26 @@ export default {
     load: () => import('./data/rw.i18n.json'),
     rtl: false,
   },
+  "sah": {
+    code: "sah",
+    tag: "sah",
+    name: "Саха тыла",
+    load: () => import('./data/sah.i18n.json'),
+    rtl: false,
+  },
   "sd": {
     code: "sd",
     tag: "sd",
     name: "سنڌي",
     load: () => import('./data/sd.i18n.json'),
     rtl: true,
+  },
+  "se": {
+    code: "se",
+    tag: "se",
+    name: "Davvisámegiella",
+    load: () => import('./data/se.i18n.json'),
+    rtl: false,
   },
   "si": {
     code: "si",
@@ -949,6 +1068,13 @@ export default {
     tag: "sr",
     name: "Српски језик",
     load: () => import('./data/sr.i18n.json'),
+    rtl: false,
+  },
+  "ss": {
+    code: "ss",
+    tag: "ss",
+    name: "siSwati",
+    load: () => import('./data/ss.i18n.json'),
     rtl: false,
   },
   "st": {
