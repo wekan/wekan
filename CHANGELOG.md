@@ -786,6 +786,30 @@ cannot quietly opt out of the setting.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c56b556538045e0ead870ad09ede2de334a167db">Text colour reaches all the text, and text background stops painting the page</a>. Thanks to xet7.</summary>
+
+The two colour choices under **Member Settings / Font** had the opposite faults.
+
+**Text colour** reached too little. Colour is inherited, and it was set on
+`<body>` and the form controls, so it only ever reached text that had no colour
+of its own - and WeKan gives most of its text one: the header bar's buttons, the
+left menu's rows, a minicard's title, a list header. Choosing green recoloured
+the page heading and the menu and left the rest exactly as it was. It is set on
+every element now. `.fa` is left out, because those are Font Awesome GLYPHS
+rather than text - a red alert and a green tick mean something by being that
+colour - and the icons that are meant to follow their label already say
+`color: inherit`, so they follow this anyway.
+
+**Text background** reached too much. It was on `<body>`, so choosing orange
+painted the whole window orange - the board canvas, the empty space under the
+lists, everything - which is a page background and not a text background. It is
+a marker pen now: it goes on the elements that carry text (`span`, `a`, `p`, a
+heading, a list item, a table cell, a label, a viewer, and the form controls)
+and never on the boxes that carry elements.
+
+</details>
+
 **Search** - finding a card by what people call it.
 
 <details>
