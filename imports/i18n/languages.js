@@ -538,11 +538,25 @@ export default {
     load: () => import('./data/ja-JP.i18n.json'),
     rtl: false,
   },
+  "jv": {
+    code: "jv",
+    tag: "jv",
+    name: "Basa Jawa",
+    load: () => import('./data/jv.i18n.json'),
+    rtl: false,
+  },
   "ka": {
     code: "ka",
     tag: "ka",
     name: "ქართული",
     load: () => import('./data/ka.i18n.json'),
+    rtl: false,
+  },
+  "kk": {
+    code: "kk",
+    tag: "kk",
+    name: "Қазақша",
+    load: () => import('./data/kk.i18n.json'),
     rtl: false,
   },
   "km": {
@@ -559,6 +573,13 @@ export default {
     load: () => import('./data/km-KH.i18n.json'),
     rtl: false,
   },  
+  "kn": {
+    code: "kn",
+    tag: "kn",
+    name: "ಕನ್ನಡ",
+    load: () => import('./data/kn.i18n.json'),
+    rtl: false,
+  },
   "ko-KR": {
     code: "ko",
     tag: "ko-KR",
@@ -594,6 +615,13 @@ export default {
     load: () => import('./data/mk.i18n.json'),
     rtl: false,
   },
+  "ml": {
+    code: "ml",
+    tag: "ml",
+    name: "മലയാളം",
+    load: () => import('./data/ml.i18n.json'),
+    rtl: false,
+  },
   "mn": {
     code: "mn",
     tag: "mn",
@@ -622,11 +650,25 @@ export default {
     load: () => import('./data/ms-MY.i18n.json'),
     rtl: false,
   },
+  "my": {
+    code: "my",
+    tag: "my",
+    name: "မြန်မာ",
+    load: () => import('./data/my.i18n.json'),
+    rtl: false,
+  },
   "nb": {
     code: "nb",
     tag: "nb",
     name: "Norsk bokmål",
     load: () => import('./data/nb.i18n.json'),
+    rtl: false,
+  },
+  "ne": {
+    code: "ne",
+    tag: "ne",
+    name: "नेपाली",
+    load: () => import('./data/ne.i18n.json'),
     rtl: false,
   },
   "nl-NL": {
@@ -678,6 +720,13 @@ export default {
     load: () => import('./data/pl.i18n.json'),
     rtl: false,
   },
+  "ps": {
+    code: "ps",
+    tag: "ps",
+    name: "پښتو",
+    load: () => import('./data/ps.i18n.json'),
+    rtl: true,
+  },
   "pt-BR": {
     code: "pt",
     tag: "pt-BR",
@@ -727,6 +776,13 @@ export default {
     load: () => import('./data/ru-RU.i18n.json'),
     rtl: false,
   },
+  "si": {
+    code: "si",
+    tag: "si",
+    name: "සිංහල",
+    load: () => import('./data/si.i18n.json'),
+    rtl: false,
+  },
   "sk": {
     code: "sk",
     tag: "sk",
@@ -746,6 +802,13 @@ export default {
     tag: "sl_SI",
     name: "Slovenščina (slovenija)",
     load: () => import('./data/sl_SI.i18n.json'),
+    rtl: false,
+  },
+  "so": {
+    code: "so",
+    tag: "so",
+    name: "Soomaali",
+    load: () => import('./data/so.i18n.json'),
     rtl: false,
   },
   "sr": {
