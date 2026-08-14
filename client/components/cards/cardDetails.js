@@ -1646,6 +1646,7 @@ Template.cardDetailsActionsPopup.events({
   // client/components/cards/cardCustomFields.jade
   'click .js-show-on-minicard': Popup.open('showOnMinicard', { titleKey: 'show-on-minicard' }),
   'click .js-export-card': Popup.open('exportCard'),
+  'click .js-import-card': Popup.open('importCard'),
   'click .js-members': Popup.open('cardMembers'),
   'click .js-assignees': Popup.open('cardAssignees'),
   'click .js-attachments': Popup.open('cardAttachments'),

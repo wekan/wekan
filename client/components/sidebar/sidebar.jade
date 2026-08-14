@@ -783,7 +783,12 @@ template(name="boardMenuPopup")
         li
           a.js-export-board
             i.fa.fa-upload
-            | {{_ 'export-board'}}
+            | {{_ 'export'}}
+        if canImportIntoBoard
+          li
+            a.js-import-into-board
+              i.fa.fa-download
+              | {{_ 'import'}}
     if currentUser.isBoardAdmin
       li
         a.js-outgoing-webhooks
@@ -821,6 +826,12 @@ template(name="exportBoardPopup")
     exports written for another tool) appear here and nowhere else.
     client/components/boards/exportScope.js
   +exportScopeBody(title=boardTitle)
+
+template(name="importBoardIntoPopup")
+  //- Import INTO this board - the same body in its import mode. (All Boards has
+    an "Import board" of its own, which makes a NEW board from a file; this one
+    adds to the board you are looking at.)
+  +exportScopeBody(title=boardTitle mode="import")
 
 template(name="labelsWidget")
   .board-widget.board-widget-labels

@@ -315,6 +315,7 @@ Template.listActionPopup.events({
     Popup.back();
   },
   'click .js-export-list': Popup.open('exportList'),
+  'click .js-import-list': Popup.open('importList'),
   'click .js-add-list': Popup.open('addList'),
   'click .js-set-list-width': Popup.open('setListWidth'),
   'click .js-set-color-list': Popup.open('setListColor'),

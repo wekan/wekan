@@ -33,40 +33,45 @@ template(name="exportScopeBody")
     .export-board-pane.export-board-pane-select
       +exportScopeSelect
     .export-board-pane.export-board-pane-formats
-      each formatGroups
-        if heading
-          hr
-          h4.pop-over-list-subheading {{heading}}
-        ul.pop-over-list
-          each entries
+      if isImportMode
+        //- #1173: the same popup, the other direction. The checkboxes in the
+          other pane say what goes OUT of an export and what comes IN from an
+          import - one selection, so "no comments" means the same thing
+          whichever way the file is moving.
+          Asked HERE as well as on the menu row that opens it: the row is hidden
+          from a reader who may not write, and a popup that trusts its caller is
+          a popup that offers the file chooser the first time somebody reaches
+          it another way.
+        if canImport
+          p.quiet {{_ 'import-here-instruction'}}
+          ul.pop-over-list
             li
-              if action
-                a(class="{{action}}")
-                  i.fa(class="{{icon}}")
-                  | {{label}}
-              else
-                a(href="{{url}}" download="{{filename}}")
-                  i.fa(class="{{icon}}")
-                  | {{label}}
-      //- #1173: the same popup, the other direction. The checkboxes in the
-        other pane say what goes OUT of an export and what comes IN from an
-        import - one selection, so "no comments" means the same thing whichever
-        way the file is moving.
-      if canImport
-        hr
-        p.quiet {{_ 'import-here-instruction'}}
-        ul.pop-over-list
-          li
-            label.js-import-file-label
-              i.fa.fa-download
-              | {{_ 'import'}} / JSON, .zip
-              input.js-import-file(type="file" accept=".json,application/json,.zip,application/zip" hidden)
-        if importBusy
-          p.quiet {{_ 'importing'}}
-        if importError
-          .warning {{_ importError}}
-        if importDone
-          p.quiet {{_ 'import-done'}} {{importDone}}
+              label.js-import-file-label
+                i.fa.fa-download
+                | {{_ 'import'}} / JSON, .zip
+                input.js-import-file(type="file" accept=".json,application/json,.zip,application/zip" hidden)
+          if importBusy
+            p.quiet {{_ 'importing'}}
+          if importError
+            .warning {{_ importError}}
+          if importDone
+            p.quiet {{_ 'import-done'}} {{importDone}}
+      else
+        each formatGroups
+          if heading
+            hr
+            h4.pop-over-list-subheading {{heading}}
+          ul.pop-over-list
+            each entries
+              li
+                if action
+                  a(class="{{action}}")
+                    i.fa(class="{{icon}}")
+                    | {{label}}
+                else
+                  a(href="{{url}}" download="{{filename}}")
+                    i.fa(class="{{icon}}")
+                    | {{label}}
 
 template(name="exportSwimlanePopup")
   +exportScopeBody(swimlaneId=_id title=title)
@@ -76,3 +81,16 @@ template(name="exportListPopup")
 
 template(name="exportChecklistPopup")
   +exportScopeBody(checklistId=_id title=title)
+
+//- The IMPORT half of each menu. Same body, same table, same selection - the
+  mode decides whether the second pane offers the formats to write out or the
+  file to read in. A menu says what it is about, so its two rows are named
+  "Export" and "Import" and nothing more.
+template(name="importSwimlanePopup")
+  +exportScopeBody(swimlaneId=_id title=title mode="import")
+
+template(name="importListPopup")
+  +exportScopeBody(listId=_id title=title mode="import")
+
+template(name="importCardPopup")
+  +exportScopeBody(cardId=_id listId=listId title=title mode="import")

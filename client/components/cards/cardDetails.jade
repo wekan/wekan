@@ -938,11 +938,19 @@ template(name="cardDetailsActionsPopup")
       unless currentUser.isReadOnly
         unless currentUser.isReadAssignedOnly
           hr
+  //- #1173: the same two rows every other menu has - the menu says what it is
+    about, so they are "Export" and "Import". Import writes, so it is asked for
+    with the same permission question the popup itself asks.
   ul.pop-over-list
     li
       a.js-export-card
         i.fa.fa-upload
-        | {{_ 'export-card'}}
+        | {{_ 'export'}}
+    if canImportIntoBoard
+      li
+        a.js-import-card
+          i.fa.fa-download
+          | {{_ 'import'}}
   if currentUser
     unless canModifyCard
       unless currentUser.isReadOnly

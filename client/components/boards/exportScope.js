@@ -315,13 +315,29 @@ function resolvedFormatGroups() {
     .filter(group => group.entries.length);
 }
 
+// Import writes to the board, so unlike export it is offered only to somebody
+// who may change it. A named function rather than a helper body, because the
+// menus that offer the Import row have to ask the same question - four copies of
+// four permission checks is how one of them ends up offering a row that then
+// refuses to do anything.
+function canImportIntoBoard() {
+  const user = ReactiveCache.getCurrentUser();
+  return Boolean(user && !user.isWorker && !user.isCommentOnly
+    && !user.isReadOnly && !user.isReadAssignedOnly);
+}
+Template.registerHelper('canImportIntoBoard', canImportIntoBoard);
+
 const scopeHelpers = {
-  // Import writes to the board, so unlike export it is offered only to somebody
-  // who may change it.
   canImport() {
-    const user = ReactiveCache.getCurrentUser();
-    return Boolean(user && !user.isWorker && !user.isCommentOnly
-      && !user.isReadOnly && !user.isReadAssignedOnly);
+    return canImportIntoBoard();
+  },
+  // Which half of the popup this is. One body, two modes: EXPORT shows the
+  // formats to download, IMPORT shows the file to read - and both keep the
+  // "what to include" pane, because that selection means the same thing in
+  // both directions (#1173).
+  isImportMode() {
+    const data = Template.currentData() || {};
+    return data.mode === 'import';
   },
   importBusy() { return importState.get('busy'); },
   importError() { return importState.get('error'); },

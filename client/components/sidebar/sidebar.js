@@ -563,6 +563,10 @@ Template.boardMenuPopup.events({
   'click .js-outgoing-webhooks': Popup.open('outgoingWebhooks'),
   'click .js-import-board': Popup.open('chooseBoardSource'),
   'click .js-export-board': Popup.open('exportBoard'),
+  // Import INTO this board. `js-import-board` above is All Boards' own row,
+  // which makes a NEW board from a file - a different question with a nearly
+  // identical name, so the classes are kept apart.
+  'click .js-import-into-board': Popup.open('importBoardInto'),
 });
 
 Template.boardMenuPopup.onCreated(function() {

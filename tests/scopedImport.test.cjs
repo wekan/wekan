@@ -128,9 +128,65 @@ test('importing is a WRITE, and is checked as one', () => {
 });
 
 test('the popup offers import only to somebody who may write', () => {
-  assert.ok(/canImport\(\)/.test(scopeJs) && /isReadOnly/.test(scopeJs),
+  assert.ok(/function canImportIntoBoard\(\)/.test(scopeJs) && /isReadOnly/.test(scopeJs),
     'a read-only member sees the exports and not the import');
   assert.ok(/if canImport/.test(scopeJade), 'and the template asks');
+  // The MENU rows ask the same question, from the same function registered as a
+  // global helper - four copies of four permission checks is how one menu ends
+  // up offering a row that then refuses to do anything.
+  assert.ok(/Template\.registerHelper\('canImportIntoBoard', canImportIntoBoard\)/.test(scopeJs),
+    'and the menus ask it too, from one place');
+  for (const menu of ['client/components/lists/listHeader.jade',
+    'client/components/swimlanes/swimlaneHeader.jade',
+    'client/components/cards/cardDetails.jade',
+    'client/components/sidebar/sidebar.jade']) {
+    assert.ok(/if canImportIntoBoard/.test(read(menu)), `${menu} gates its Import row`);
+  }
+});
+
+test('every menu offers Export and Import, named for what they do', () => {
+  // A menu already says what it is about, so "Export list" inside the list menu
+  // said "list" twice; the rows are "Export" and "Import".
+  const menus = [
+    ['client/components/lists/listHeader.jade', 'js-export-list', 'js-import-list'],
+    ['client/components/swimlanes/swimlaneHeader.jade', 'js-export-swimlane', 'js-import-swimlane'],
+    ['client/components/cards/cardDetails.jade', 'js-export-card', 'js-import-card'],
+    ['client/components/sidebar/sidebar.jade', 'js-export-board', 'js-import-into-board'],
+  ];
+  for (const [file, exportClass, importClass] of menus) {
+    const jade = read(file);
+    for (const [cls, label] of [[exportClass, "{{_ 'export'}}"], [importClass, "{{_ 'import'}}"]]) {
+      const at = jade.indexOf(cls);
+      assert.ok(at !== -1, `${file} has ${cls}`);
+      assert.ok(jade.slice(at, at + 200).includes(label),
+        `${cls} is labelled ${label}, not with the noun its menu already carries`);
+    }
+  }
+
+  // Each row opens the shared body - the import ones in its import MODE, which
+  // is the only difference between the two popups.
+  const opens = [
+    ['client/components/lists/listHeader.js', "'click .js-import-list': Popup.open('importList')"],
+    ['client/components/swimlanes/swimlaneHeader.js', "'click .js-import-swimlane': Popup.open('importSwimlane')"],
+    ['client/components/cards/cardDetails.js', "'click .js-import-card': Popup.open('importCard')"],
+    ['client/components/sidebar/sidebar.js', "'click .js-import-into-board': Popup.open('importBoardInto')"],
+  ];
+  for (const [file, open] of opens) {
+    assert.ok(read(file).includes(open), `${file}: ${open}`);
+  }
+  for (const popup of ['importSwimlanePopup', 'importListPopup', 'importCardPopup']) {
+    assert.ok(new RegExp(`template\\(name="${popup}"\\)[\\s\\S]{0,200}mode="import"`).test(scopeJade),
+      `${popup} is the shared body in import mode`);
+  }
+  assert.ok(/template\(name="importBoardIntoPopup"\)[\s\S]{0,400}mode="import"/
+    .test(read('client/components/sidebar/sidebar.jade')), 'and so is the board one');
+
+  // Every one of them has a title, or a pop-over opens with no header and no X.
+  const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
+  for (const key of ['importSwimlanePopup-title', 'importListPopup-title',
+    'importCardPopup-title', 'importBoardIntoPopup-title']) {
+    assert.ok(en[key], `${key} is translated`);
+  }
 });
 
 test('the files come back too, from a .json and from a .zip', () => {

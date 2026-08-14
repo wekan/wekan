@@ -139,12 +139,20 @@ template(name="listActionPopup")
   span.copied-tooltip {{_ 'copied'}}
   hr
   //- #1173: exporting a list is the board export restricted to it. Reading, like
-    the link above it, so it is not behind the edit permissions below.
+    the link above it, so it is not behind the edit permissions below. The menu
+    already says what it is about, so the rows are named "Export" and "Import"
+    and not "Export list" - the noun was in the heading above them either way.
+    Import WRITES, so it is offered only to somebody who may change the board;
+    `canImportIntoBoard` is the same question the popup itself asks
+    (client/components/boards/exportScope.js).
   ul.pop-over-list
     li: a.js-export-list
-      i.fa.fa-exchange
-      span
-        | {{_ 'export-list'}} / {{_ 'import'}}
+      i.fa.fa-upload
+      span {{_ 'export'}}
+    if canImportIntoBoard
+      li: a.js-import-list
+        i.fa.fa-download
+        span {{_ 'import'}}
   hr
   unless currentUser.isReadOnly
     unless currentUser.isReadAssignedOnly
