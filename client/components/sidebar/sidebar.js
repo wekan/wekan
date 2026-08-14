@@ -1199,47 +1199,28 @@ Template.boardChangeBackgroundImagePopup.helpers({
   },
 });
 
-// Manage the board's stored background images (upload / set active / download /
-// delete). Backgrounds are board-level Attachments (meta.boardId, no cardId,
+// Uploading one. It sits with the Background Image URL field
+// (boardChangeBackgroundImagePopup) rather than with the list of images already
+// uploaded: a URL and a file are the same question answered two ways.
+// Backgrounds are board-level Attachments (meta.boardId, no cardId,
 // meta.source === 'board-background') in the default attachments storage.
-Template.boardBackgroundsPopup.onCreated(function () {
+Template.boardBackgroundUpload.onCreated(function () {
   this.uploading = new ReactiveVar(false);
   this.error = new ReactiveVar('');
   const board = Utils.getCurrentBoard();
   this.boardId = board && board._id;
-  if (this.boardId) {
-    this.subscribe('boardBackgrounds', this.boardId);
-  }
 });
 
-Template.boardBackgroundsPopup.helpers({
+Template.boardBackgroundUpload.helpers({
   uploading() {
     return Template.instance().uploading;
   },
   error() {
     return Template.instance().error;
   },
-  backgrounds() {
-    // Raw collection docs don't carry the .link() helper, so compute the URL.
-    return Attachments.collection
-      .find({
-        'meta.boardId': Template.instance().boardId,
-        'meta.source': 'board-background',
-      })
-      .fetch()
-      .map(att => ({
-        _id: att._id,
-        name: att.name,
-        link: generateUniversalAttachmentUrl(att._id),
-      }));
-  },
-  isActiveBackground() {
-    const board = Utils.getCurrentBoard();
-    return board && board.backgroundImageId === this._id;
-  },
 });
 
-Template.boardBackgroundsPopup.events({
+Template.boardBackgroundUpload.events({
   'click .js-bg-upload-button'(event, tpl) {
     event.preventDefault();
     tpl.find('.js-bg-upload-input').click();
@@ -1269,6 +1250,39 @@ Template.boardBackgroundsPopup.events({
     // allow re-selecting the same file later
     event.currentTarget.value = '';
   },
+});
+
+// The board's stored background images: set active, download, delete.
+Template.boardBackgroundsPopup.onCreated(function () {
+  const board = Utils.getCurrentBoard();
+  this.boardId = board && board._id;
+  if (this.boardId) {
+    this.subscribe('boardBackgrounds', this.boardId);
+  }
+});
+
+Template.boardBackgroundsPopup.helpers({
+  backgrounds() {
+    // Raw collection docs don't carry the .link() helper, so compute the URL.
+    return Attachments.collection
+      .find({
+        'meta.boardId': Template.instance().boardId,
+        'meta.source': 'board-background',
+      })
+      .fetch()
+      .map(att => ({
+        _id: att._id,
+        name: att.name,
+        link: generateUniversalAttachmentUrl(att._id),
+      }));
+  },
+  isActiveBackground() {
+    const board = Utils.getCurrentBoard();
+    return board && board.backgroundImageId === this._id;
+  },
+});
+
+Template.boardBackgroundsPopup.events({
   async 'click .js-set-board-background'() {
     const board = Utils.getCurrentBoard();
     await board.setBackgroundImage(this._id);

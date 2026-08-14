@@ -158,8 +158,13 @@ template(name="boardChangeColorPopup")
     the flat/clear categories, shared with Member Settings / Change Color.
   +themeColorPicker(scope="board")
 
-template(name="boardBackgroundsPopup")
-  .board-backgrounds-manage
+//- Uploading a background image. It is its own template because it belongs
+  with the URL field rather than with the list of images already uploaded:
+  both put a picture behind the board, one from the web and one from this
+  machine, so they are the two halves of one question and are read together.
+  The grid below is what you have; this is how you add to it.
+template(name="boardBackgroundUpload")
+  .board-background-upload
     input.js-bg-upload-input.hide(type="file" name="file" accept="image/*")
     a.primary.wide.js-bg-upload-button
       i.fa.fa-plus
@@ -169,6 +174,9 @@ template(name="boardBackgroundsPopup")
       +spinner
     if error.get
       .warning {{_ error.get}}
+
+template(name="boardBackgroundsPopup")
+  .board-backgrounds-manage
     .board-backgrounds-grid.clearfix
       each backgrounds
         .board-bg-item(class="{{#if isActiveBackground}}is-active{{/if}}")
@@ -195,16 +203,17 @@ template(name="boardChangeBackgroundImagePopup")
     label
       | {{_ 'board-background-image-url'}}
       input.js-board-background-image-url(type="text" value="{{backgroundImageURL}}" autofocus)
-    div.buttonsContainer
-      input.primary.wide(type="submit" value="{{_ 'save'}}")
-    br
-    br
-    br
-    br
-    br
+    //- Save and Unset side by side, in that order: they are the two things to
+      do with the address above them, and Unset was five blank lines below the
+      Save it belongs beside.
+    .buttonsContainer.board-background-image-buttons
+      input.primary(type="submit" value="{{_ 'save'}}")
+      button.js-remove-background-image.negate.card-details-red(type="button") {{_ 'unset-color'}}
     hr
-    div
-      button.js-remove-background-image.negate.wide.card-details-red.right {{_ 'unset-color'}}
+    //- ...and the same question answered from this machine instead of from a
+      URL, which is why the upload is here and not in the list of images
+      already uploaded.
+    +boardBackgroundUpload
 
 template(name="boardInfoOnMyBoardsPopup")
   form.board-info-on-my-boards

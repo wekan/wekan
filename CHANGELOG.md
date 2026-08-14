@@ -1005,6 +1005,27 @@ it shared its row and read as one more badge rather than as the line it is.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH7">Change Background Image holds both ways of setting one, and Unset sits beside Save</a>. Thanks to xet7.</summary>
+
+Two popups of the same menu answered one question. **Change Background Image**
+asked for a URL; **Board backgrounds** listed the images uploaded to this board
+and carried the upload button. So the popup that reads as the place to set a
+background had half of the ways to set one, and the other half was behind a
+different entry.
+
+The upload is under the URL field now - a picture from the web and a picture
+from this machine, read together. Board backgrounds keeps what it is named for:
+the images already there, to set active, download or delete. The uploader moved
+as its own template, once, rather than being copied.
+
+In the same popup, **Unset** was five blank lines and a rule below the **Save**
+it belongs beside. They are one row, Save first, sharing the width. Unset is
+`type="button"`: inside that form a button with no type is a SUBMIT button, so
+beside Save it would have saved the URL it is meant to clear.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/48cf269870c087f36137f1b4960712c0df1b6f39">Members and Labels fold in the board sidebar, by their headings</a>. Thanks to xet7.</summary>
 
 The two sections at the top of the right sidebar could not be folded at all.

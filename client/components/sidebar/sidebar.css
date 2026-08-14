@@ -519,6 +519,30 @@ body.sidebar-resizing-active {
   margin-inline-start: 40px;
 }
 
+/* Save and Unset, side by side under the Background Image URL - the two things
+   to do with the address above them. Unset used to be five <br>s and a rule
+   below its Save. `.buttonsContainer` is already `display: flex` (peopleBody.css
+   styles it for every popup that uses it); this gives the pair a gap and lets
+   them share the width instead of one of them being `.wide`. */
+.board-background-image-buttons {
+  gap: 8px;
+  align-items: stretch;
+  margin-bottom: 8px;
+}
+
+.board-background-image-buttons input[type="submit"],
+.board-background-image-buttons button {
+  flex: 1 1 0;
+  margin: 0;
+}
+
+/* The upload button under them, full width: it is the same question - what
+   picture goes behind this board - answered from this machine rather than from
+   a URL. client/components/sidebar/sidebar.jade */
+.board-background-upload {
+  margin-top: 8px;
+}
+
 /* Board backgrounds management popup */
 .board-backgrounds-manage .board-backgrounds-grid {
   display: flex;
