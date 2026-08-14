@@ -1178,6 +1178,21 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
   align-items: center;
   gap: 6px;
 }
+/* The hamburger that opens a section's settings, at the FAR end of its heading
+   - `margin-inline-start: auto` in a flex row, so it mirrors itself in a
+   right-to-left page. It is inside a heading that folds the section when
+   clicked, so its own handler stops the click there. */
+.card-details h3.card-details-item-title .card-details-section-menu {
+  margin-inline-start: auto;
+  padding: 0 4px;
+  color: #808080;
+  cursor: pointer;
+}
+
+.card-details h3.card-details-item-title .card-details-section-menu:hover {
+  color: #000;
+}
+
 /* The caret is the widest part of the heading that must not move as the label
    changes length, so it gets a fixed box. `text-align: center` rather than a
    side, because the glyph itself differs between the open and closed states

@@ -909,9 +909,14 @@ in Board Settings only: open the sidebar, open the board menu, find Subtasks
 Settings. Somebody who wants to change it is usually looking at a subtask on an
 opened card at that moment.
 
-It is at the bottom of that subtask's own menu now, under a rule, below the
-things the menu does to the subtask itself - View it, Go to board, Delete. A
-board admin's, as it is in Board Settings, which keeps its entry unchanged.
+It is behind a hamburger at the end of the **Subtasks heading** on an opened
+card - where the card and the minicard already keep theirs - and clicking it
+opens the same popup Board Settings did. **Board Settings no longer has the
+entry**: the settings are where subtasks are.
+
+The heading IS the control that folds the section, so the hamburger's click has
+to stop there. Without that, opening the menu would close the thing it was
+opened from.
 
 It is the SAME template in both places, with its own state, helpers and
 handlers, so neither place needs code of its own and the two lists cannot

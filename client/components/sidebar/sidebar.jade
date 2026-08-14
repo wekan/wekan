@@ -788,10 +788,10 @@ template(name="boardMenuPopup")
         minicard's has "Show on Minicard", each with that column of the same
         table. A board-wide entry as well would be a third way to the same list.
         client/components/cards/cardDetails.jade
-      li
-        a.js-subtask-settings
-          i.fa.fa-globe
-          | {{_ 'subtask-settings'}}
+      //- "Subtasks Settings" was here. What subtasks do on this board is behind
+        the hamburger at the end of the Subtasks heading on an opened card,
+        which is where somebody looking at subtasks already is.
+        client/components/cards/cardDetails.jade
   unless currentBoard.isTemplatesBoard
     if currentUser.isBoardAdmin
       hr

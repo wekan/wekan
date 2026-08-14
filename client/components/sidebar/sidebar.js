@@ -562,7 +562,6 @@ Template.boardMenuPopup.events({
   }),
   'click .js-outgoing-webhooks': Popup.open('outgoingWebhooks'),
   'click .js-import-board': Popup.open('chooseBoardSource'),
-  'click .js-subtask-settings': Popup.open('boardSubtaskSettings'),
   'click .js-export-board': Popup.open('exportBoard'),
 });
 

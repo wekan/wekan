@@ -707,7 +707,8 @@ template(name="cardDetails")
                     |  {{checklistFinishedCount}}/{{checklistItemCount}}
               +checklists(cardId = _id card = this)
           if currentBoard.allowsSubtasks
-            +cardSectionHeader(section="subtasks" icon="fa-sitemap" label="subtasks")
+            +cardSectionHeader(section="subtasks" icon="fa-sitemap" label="subtasks"
+              menuClass="js-open-subtasks-settings" menuTitle="subtask-settings")
             if isSectionOpen "subtasks"
               +subtasks(cardId = _id)
         if currentBoard.allowsAttachments
@@ -779,6 +780,13 @@ template(name="cardSectionHeader")
       whose size is worth knowing before it is opened.
     if count
       |  ({{count}})
+    //- A section whose settings live somewhere gets a hamburger at the far end
+      of its heading, like the card's own and the minicard's. `menuClass` is the
+      handler that opens them; the click must not reach the heading, or opening
+      the menu would fold the section under it.
+    if menuClass
+      a.card-details-section-menu(class="{{menuClass}}" title="{{_ menuTitle}}")
+        i.fa.fa-navicon
 
 template(name="editCardTitleForm")
   //- The X that closes the editor, where the card's own X is when the title is

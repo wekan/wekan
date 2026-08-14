@@ -882,6 +882,15 @@ Template.registerHelper('sectionCaret', section =>
   caretClassFor(isCardSectionOpen(section)));
 
 Template.cardSectionHeader.events({
+  // The hamburger at the end of a heading opens that section's settings. It
+  // must not reach the heading itself: a click there folds the section, so
+  // opening the menu would close what you opened it from.
+  'click .js-open-subtasks-settings'(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    Popup.open('boardSubtaskSettings')(event);
+  },
+
   'click .js-toggle-card-section'(event) {
     event.preventDefault();
     const section = event.currentTarget.dataset.section;

@@ -85,8 +85,8 @@ test('the same permission Board Settings asked, and it is the only way in now', 
   assert.ok(/else if currentUser\.isBoardAdmin/.test(menu),
     'the card entry is a board admin\'s');
   const boardMenu = sidebarJade.slice(sidebarJade.indexOf('template(name="boardMenuPopup")'));
-  assert.ok(/if currentUser\.isBoardAdmin[\s\S]{0,900}js-subtask-settings/.test(boardMenu),
-    'which is the gate that menu uses for settings like it');
+  assert.ok(/if currentUser\.isBoardAdmin[\s\S]{0,900}js-outgoing-webhooks/.test(boardMenu),
+    'which is the gate that menu uses for what is left in it');
   // And the board-wide entry is gone: every setting in that table is now in the
   // menu of the thing it is about, and a third way to one list is a way for two
   // of them to be forgotten.
