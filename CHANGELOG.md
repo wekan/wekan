@@ -847,7 +847,7 @@ even fetched.
 **Titles** - renaming a thing where its name is written.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH">Clicking a card's title on the board edits it there</a>. Thanks to bonnebulle and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c6ad79562955d1993d703e9d57885ae5db20088f">Clicking a card's title on the board edits it there</a>. Thanks to bonnebulle and xet7.</summary>
 
 A list's title has always been edited in place: click the heading, type, save.
 A card's title could only be changed by opening the card, so correcting a typo
@@ -871,7 +871,7 @@ card that has nothing to click.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH">A board is renamed by clicking its name, and the pencil beside it is gone</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c6ad79562955d1993d703e9d57885ae5db20088f">A board is renamed by clicking its name, and the pencil beside it is gone</a>. Thanks to xet7.</summary>
 
 The board's name in the first header bar had a pencil next to it. Two targets
 for one job, and the smaller of the two was the one that did it.
