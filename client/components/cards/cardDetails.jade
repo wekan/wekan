@@ -106,7 +106,7 @@ template(name="cardDetails")
       .card-details-items
         if currentBoard.allowsLabels
           .card-details-item.card-details-item-labels.card-details-section
-            +cardSectionHeader(section="labels" icon="fa-tags" label="labels")
+            +cardSectionHeader(section="labels" icon="fa-tags" label="labels" noRule=true)
             if isSectionOpen "labels"
               a(class="{{#if canModifyCard}}js-add-labels{{else}}is-disabled{{/if}}" title="{{_ 'card-labels-title'}}")
                 each labels
@@ -241,7 +241,7 @@ template(name="cardDetails")
         //.card-details-items
         if currentBoard.allowsMembers
           .card-details-item.card-details-item-members.card-details-section
-            +cardSectionHeader(section="members" icon="fa-users" label="members")
+            +cardSectionHeader(section="members" icon="fa-users" label="members" noRule=true)
             if isSectionOpen "members"
               each userId in getMembers
                 +userAvatar(userId=userId cardId=_id)
@@ -699,13 +699,15 @@ template(name="cardDetails")
     .card-details-right
 
       if currentUser.isBoardAdmin
-        .activity-title
-          //- The eye that used to sit here showed and hid exactly what the
-            caret shows and hides, so there were two controls for one thing and
-            they could disagree. The caret is the one that stayed, and this
-            section is the one that starts CLOSED - a card is opened to read the
-            card, not its history.
-          +cardSectionHeader(section="activities" icon="fa-history" label="activities")
+        //- OUTSIDE .activity-title, which is `display: flex`: a rule inside it
+          becomes a flex item and renders as a short line beside the heading
+          instead of a separator above it.
+          The eye that used to sit here showed and hid exactly what the caret
+          shows and hides, so there were two controls for one thing and they
+          could disagree. The caret is the one that stayed, and this section is
+          the one that starts CLOSED - a card is opened to read the card, not
+          its history.
+        +cardSectionHeader(section="activities" icon="fa-history" label="activities")
 
       if currentUser.isBoardAdmin
         if isSectionOpen "activities"
@@ -724,7 +726,11 @@ template(name="cardDetails")
   direction's end when it is closed (right in English, left in Arabic), which
   is what `sectionCaret` works out.
 template(name="cardSectionHeader")
-  hr.card-details-section-rule
+  //- `noRule` for a section that must not have a separator above it: the FIRST
+    one, which has nothing above it to be separated from, and one that already
+    sits under a rule of the layout's own.
+  unless noRule
+    hr.card-details-section-rule
   h3.card-details-item-title.js-toggle-card-section(data-section="{{section}}" role="button" tabindex="0")
     i.fa(class="{{sectionCaret section}}")
     if icon

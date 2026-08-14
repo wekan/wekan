@@ -1199,11 +1199,13 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
   width: 100%;
   margin-inline-end: 0;
 }
+/* The rule between sections is the page's OWN hr - the lighter line that was
+   already above Creator - not a heavier border of its own. Only the margin is
+   this rule's: `hr` in layouts.css is 18px top and bottom, which is a lot of air
+   above a heading that belongs to the list under it. */
 .card-details .card-details-section-rule {
   width: 100%;
-  margin: 10px 0 6px 0;
-  border: none;
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  margin: 14px 0 6px 0;
 }
 .card-details h3.card-details-item-title.js-toggle-card-section {
   cursor: pointer;

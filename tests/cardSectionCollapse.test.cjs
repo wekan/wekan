@@ -179,4 +179,49 @@ test('a section is named ONCE (negative)', () => {
   assert.ok(/js-add-subtask/.test(subtasks), 'and adding a subtask');
 });
 
+test('the first section has no rule above it, and Members none either', () => {
+  // Labels is first - there is nothing above it to separate it from - and
+  // Members already sits under the rule the layout draws above Creator, so a
+  // second one there is two lines with a heading between them.
+  for (const section of ['labels', 'members']) {
+    assert.ok(new RegExp(`section="${section}"[^)]*noRule=true`).test(jade),
+      `${section} asks for no rule`);
+  }
+  const header = jade.slice(jade.indexOf('template(name="cardSectionHeader")'));
+  assert.ok(/unless noRule\n\s+hr\.card-details-section-rule/.test(header),
+    'and the header honours it');
+  // Every other section still gets one.
+  for (const section of ['date-format', 'dependencies', 'sort', 'description',
+    'checklists', 'subtasks', 'attachments', 'comments', 'activities']) {
+    assert.ok(!new RegExp(`section="${section}"[^)]*noRule`).test(jade),
+      `${section} keeps its rule`);
+  }
+});
+
+test('the rule is the page\'s own hr, not a heavier one', () => {
+  // The lighter line that was already above Creator: `hr` in layouts.css. The
+  // section rule only sets its margin.
+  const rule = css.slice(css.indexOf('.card-details .card-details-section-rule'));
+  const block = rule.slice(0, rule.indexOf('}'));
+  assert.ok(!/border-top|background/.test(block),
+    'no border or background of its own - it inherits the page hr');
+  assert.ok(/margin:/.test(block), 'only the spacing is this rule\'s');
+});
+
+test('the Activities rule is above the heading, not beside it', () => {
+  // `.activity-title` is `display: flex`, so a rule inside it becomes a flex
+  // ITEM - which is how the line ended up to the left of "Activities".
+  const right = jade.slice(jade.indexOf('.card-details-right'));
+  const title = right.indexOf('.activity-title');
+  const header = right.indexOf('+cardSectionHeader(section="activities"');
+  assert.ok(header > title, 'the header comes after the .activity-title line');
+  const between = right.slice(title, header);
+  const headerIndent = right.slice(0, header).split('\n').pop().length;
+  const titleIndent = right.slice(0, title).split('\n').pop().length;
+  assert.ok(headerIndent <= titleIndent,
+    'and is NOT nested inside it - a flex child would be a line beside the heading');
+  assert.ok(/display: flex/.test(read('client/components/activities/activities.css')
+    .slice(0, 200)), 'which is what .activity-title is');
+});
+
 console.log(`\ncardSectionCollapse: ${passed} tests passed`);

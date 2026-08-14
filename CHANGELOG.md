@@ -847,6 +847,27 @@ and fixes the following bugs:
 **Card details** - the card as it is opened and edited.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">The rules between card sections are the page's own line, and there is one where there should be</a>. Thanks to xet7.</summary>
+
+Four small things about those separators, all of them visible at a glance and
+none of them visible in the source.
+
+The rule drew a **border of its own**, darker than the line the card already had
+above Creator. It is that same lighter `hr` now - the section rule sets only its
+spacing, so there is one line style on the card rather than two.
+
+**Labels** had a rule above it. It is the first section: there is nothing above
+it to be separated from. **Members** had one too, immediately under the rule the
+layout already draws above Creator - two lines with a heading between them.
+Neither draws one now, and every other section still does.
+
+And the rule above **Activities** was to the LEFT of the heading rather than
+above it, because `.activity-title` is `display: flex` and a rule inside it is a
+flex item. The heading sits outside that row now.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c4d1801022c1c2ce021c2bb759208b820d128c9d">A section is one full-width row with one rule, and is named once</a>. Thanks to xet7.</summary>
 
 Two things the collapsible sections got wrong the first time, both visible the
