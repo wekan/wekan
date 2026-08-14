@@ -901,7 +901,7 @@ height for exactly that.
 **Card and minicard menus** - the settings about a thing, in that thing's menu.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH11">Subtasks Settings is in the menu of the subtask it is about</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ec8ba5875357860ab65d00efc350b713c490c747">Subtasks Settings is in the menu of the subtask it is about</a>. Thanks to xet7.</summary>
 
 What subtasks DO on a board - whether they are shown at all, which board and
 list a new one is deposited in, and how a parent is named on a minicard - was
