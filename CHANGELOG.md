@@ -4133,6 +4133,40 @@ an hour ago - and pins that ambiguity can never reach the deletion.
 and improves the translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3b5f2b24cc16547c50e36fd5308b0c7fde5c67a3">Klingon from its own lexicon, and every regional variant inherits its language</a>. Thanks to xet7.</summary>
+
+**Klingon.** `tlh.i18n.json` was not untranslated - it was written in FRENCH and
+GERMAN: *Tableau*, *Karte*, *Liste*, *Löschen*, *Board exportieren*. Somebody
+had seeded it from whatever file was to hand. The words are looked up now, in
+the [boQwI' lexicon](https://github.com/De7vID/klingon-assistant-data) - the Klingon
+Language Institute's own data, ~5800 entries - and Klingon has words for most of
+what a kanban board is: `'echlet` is a **board**, `'echletHom` a **card**,
+`tetlh` a **list**, `per` a **label**, `chuD` a **member**, `mI'` a **number**,
+`Dotlh` a **status**, `yer` a **domain**, `mIllogh` a **picture**. The actions
+are imperatives, which is what a menu entry is in Klingon: `yISuq` (acquire it)
+for import, `yIngeH` (send it) for export, `yIQaw'` (destroy it) for delete,
+`yIchel` (add it), `yIteq` (remove it). So *Export list* is `tetlh yIngeH` and
+*Import card* is `'echletHom yISuq`.
+
+**Regional variants.** A variant file that had not translated a string carried
+the English source while its base language had a perfectly good translation two
+directories away - `de-AT` in English beside German, `es-MX` beside Spanish,
+`zh-Hant` beside Traditional Chinese. Each variant now inherits its base for the
+strings it has not translated itself, and only for those: a variant's OWN
+wording always wins, which is the same rule that protects a human translation
+from a filled one.
+
+**Three files were in another language entirely**, and are completed in the
+language they are actually written in rather than left half-English: `vl-SS` is
+Dutch throughout, `ace` is Malay, `ve` is Zulu.
+
+Two of the languages that had nothing - Igbo and Yoruba - had real translations
+under the English placeholders, so they are filled from their own vocabulary
+rather than from a neighbour's.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f12095efab438128b73a9cf01bec4e769289ec65">The 31 strings this release adds, in 127 languages</a>. Thanks to xet7.</summary>
 
 Everything added to `en.i18n.json` since 10.91 - the new popup titles, the
