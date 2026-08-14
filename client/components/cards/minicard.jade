@@ -103,7 +103,19 @@ template(name="minicard")
         //- Only the TEXT is the edit target, and only for somebody who may
           write: the checkbox, the linked-card icons and the card number keep
           doing what they did.
-        span.minicard-title-text(class="{{#if canModifyCard}}js-open-inlined-form is-editable{{/if}}")
+        //-
+          And only HALF of the text, when there are no drag handles. With handles
+          off the card is dragged by its own body, so a title that is entirely an
+          edit target leaves nowhere on that line to take hold of: a grab that
+          moves a few pixels is a click, and the editor opens instead of the card
+          moving. The edit target is the LEADING half - left in English, right in
+          Arabic, because it is an inline edge - and the trailing half is there to
+          drag from. With handles ON the handle is the only drag source, so
+          nothing has to be reserved and the whole title edits.
+          client/components/cards/minicard.css
+        span.minicard-title-text(class="{{#if canModifyCard}}is-editable{{/if}}")
+          if canModifyCard
+            span.minicard-title-edit-zone.js-open-inlined-form(title="{{_ 'edit'}}")
           +viewer
             if showCardNumber
               span.card-number

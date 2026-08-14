@@ -877,6 +877,16 @@ the link around it because the innermost element with an activation behaviour is
 the one that runs. An empty save is a no-op rather than a way to end up with a
 card that has nothing to click.
 
+**Half of the title edits; the other half drags.** With drag handles OFF a card
+is dragged by its own body, so a title that is entirely an edit target leaves
+nowhere on that line to take hold of - a grab that moves a few pixels is a
+click, and the editor opens instead of the card moving. The edit target is the
+LEADING half (left in English, right in Arabic, from one logical edge) and the
+trailing half is there to drag from. With handles ON the handle is the only drag
+source, so nothing has to be reserved and the whole title edits. The opened
+card's own title splits the same way, and its drag handle now appears only when
+drag handles are on - with them off, the title bar is what moves the window.
+
 </details>
 
 <details>
@@ -1355,6 +1365,22 @@ MongoDB wire protocol on the same port, so which one is answering is asked
 rather than assumed: FerretDB names itself in `buildInfo` and a `mongod` does
 not. Reading one as the other would be a wrong answer given with confidence,
 which is worse than "unreadable".
+
+</details>
+
+**Minicards** - what a click on one does.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH19">A label on a minicard opens the labels, and not the card as well</a>. Thanks to xet7.</summary>
+
+Clicking a label opened the card's labels popup AND the card details behind it:
+the click reached the minicard too, so one click did two things and the one
+nobody asked for was underneath the one they did.
+
+It stops at the label now. A click in the labels AREA that is not on a label is
+still the card's, as before - and which label was clicked is read from the
+EVENT rather than from `:hover`, which answers about the pointer and on a touch
+screen can still be true for whatever was tapped last.
 
 </details>
 

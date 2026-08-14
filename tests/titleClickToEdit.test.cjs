@@ -42,8 +42,10 @@ test('the minicard title text opens an editor in its place', () => {
   assert.ok(/\+editMinicardTitleForm/.test(minicardJade), 'holding the card title form');
   assert.ok(/template\(name="editMinicardTitleForm"\)/.test(minicardJade),
     'which exists');
-  assert.ok(/span\.minicard-title-text\(class="\{\{#if canModifyCard\}\}js-open-inlined-form is-editable\{\{\/if\}\}"\)/
-    .test(minicardJade), 'and the title TEXT is what opens it');
+  assert.ok(/span\.minicard-title-text\(class="\{\{#if canModifyCard\}\}is-editable\{\{\/if\}\}"\)/
+    .test(minicardJade), 'the title TEXT is where it happens');
+  assert.ok(/span\.minicard-title-edit-zone\.js-open-inlined-form/.test(minicardJade),
+    'and a zone over it is what opens it');
 });
 
 test('the editor is a textarea, a Save and a way out', () => {
@@ -101,8 +103,93 @@ test('the wrapper link does not navigate mid-edit, but Save still submits (negat
 test('the title text is a block, so the line is the target', () => {
   assert.ok(/\.minicard \.minicard-title \.minicard-title-text \{[^}]*display: block/.test(minicardCss),
     'a click after a short title is still a click on the title');
-  assert.ok(/\.minicard-title-text\.is-editable \{[^}]*cursor: text/.test(minicardCss),
+  assert.ok(/\.minicard-title-edit-zone \{[^}]*cursor: text/.test(minicardCss),
     'and the cursor says it can be typed in');
+});
+
+test('with no drag handles the edit target is the LEADING half', () => {
+  // The card is then dragged by its own body, so a title that is entirely an
+  // edit target leaves nowhere on that line to take hold of: a grab that moves a
+  // few pixels is a click, and the editor opens instead of the card moving.
+  const zone = minicardCss.slice(minicardCss.indexOf('.minicard-title-edit-zone {'));
+  const body = zone.slice(0, zone.indexOf('}'));
+  assert.ok(/width: 50%/.test(body), 'half of the title');
+  assert.ok(/inset-inline-start: 0/.test(body),
+    'the LEADING half - left in English, right in Arabic, from one logical edge');
+  assert.ok(!/left: 0|right: 0/.test(body), 'nothing physical to mirror by hand');
+  assert.ok(/position: absolute/.test(body) && /z-index: 1/.test(body),
+    'an overlay, so the sentence under it is not cut in two');
+});
+
+test('with drag handles on, the whole title edits again (negative)', () => {
+  // The handle is then the only drag source, so no part of the title has to be
+  // reserved for dragging.
+  assert.ok(/\.minicard\.minicard-with-handle \.minicard-title \.minicard-title-edit-zone \{[^}]*width: 100%/
+    .test(minicardCss), 'the zone covers the title');
+  assert.ok(/minicard-with-handle/.test(minicardJade), 'and that class is set by the handle');
+  const handle = minicardJs.slice(minicardJs.indexOf('showMinicardHandle()'));
+  assert.ok(/Utils\.canMoveCard\(\) && Utils\.showDragHandles\(\)/.test(handle.slice(0, 200)),
+    'which is exactly "may move it AND handles are on"');
+});
+
+test('a label on a minicard opens the labels, and only that (negative)', () => {
+  // It opened the card details as well: the click reached the minicard behind
+  // the popup, so one click did two things and the one you did not ask for was
+  // underneath the one you did.
+  const handler = minicardJs.slice(minicardJs.indexOf("'click .minicard-labels'"));
+  const body = handler.slice(0, handler.indexOf('\n  },'));
+  assert.ok(/event\.stopPropagation\(\)/.test(body), 'the click stops at the label');
+  assert.ok(/event\.preventDefault\(\)/.test(body),
+    'and does not follow the wrapper link to the card either');
+  assert.ok(/Popup\.open\("cardLabels"\)/.test(body), 'the labels popup still opens');
+  // A click in the labels AREA that is not on a label is still the card's.
+  assert.ok(/if \(!\$\(event\.target\)\.closest\('\.js-card-label'\)\.length\) \{\n\s+return;/.test(body),
+    'only a label is a label');
+  assert.ok(!/:hover/.test(body),
+    'asked of the event, not of `:hover` - which on a touch screen answers about '
+    + 'whatever was tapped last');
+});
+
+// ── the opened card's title: edit one half, drag the other ─────────────────
+
+const cardJade = read('client/components/cards/cardDetails.jade');
+const cardJs = read('client/components/cards/cardDetails.js');
+const cardCss = read('client/components/cards/cardDetails.css');
+
+test('the opened card splits its title the same way', () => {
+  assert.ok(/h2\.card-details-title\.js-card-title\.js-card-title-drag-handle\(/.test(cardJade),
+    'the whole heading is the window\'s drag bar');
+  assert.ok(/span\.card-details-title-edit-zone\.js-open-inlined-form/.test(cardJade),
+    'with a zone over the leading half that opens the editor');
+  const zone = cardCss.slice(cardCss.indexOf('.card-details-title-edit-zone {'));
+  const body = zone.slice(0, zone.indexOf('}'));
+  assert.ok(/width: 50%/.test(body) && /inset-inline-start: 0/.test(body),
+    'half of it, on the leading side, mirrored by a logical edge');
+  assert.ok(/position: absolute/.test(body), 'as an overlay, so the sentence is not cut in two');
+});
+
+test('the drag handler steps aside for the half that edits (negative)', () => {
+  // Both live on the same heading, so the one that must NOT fire has to say so.
+  const handler = cardJs.slice(cardJs.indexOf("'mousedown .js-card-title-drag-handle'"));
+  const body = handler.slice(0, handler.indexOf('\n  },'));
+  assert.ok(/closest\('\.card-details-title-edit-zone'\)\.length > 0/.test(body),
+    'a press inside the zone is not a drag');
+  assert.ok(/closest\('a'\)\.length > 0/.test(body), 'and a link is still a link');
+  assert.ok(/markCardDetailsUserMoved\(\$card\)/.test(body),
+    'while a real drag still marks the window as user-placed');
+});
+
+test('the handle appears only when drag handles are on', () => {
+  const header = cardJade.slice(cardJade.indexOf('template(name="cardDetails")'),
+    cardJade.indexOf('.card-details-path'));
+  assert.ok(/if canModifyCard\n\s+if isTouchScreenOrShowDesktopDragHandles\n\s+span\.card-drag-handle/
+    .test(header), 'the handle is behind that question');
+  // ...and then it is the only drag source, because the zone covers the title.
+  assert.ok(/\.card-details\.card-details-with-handle[^{]*\.card-details-title-edit-zone \{[^}]*width: 100%/
+    .test(cardCss), 'with handles on, the whole title edits');
+  assert.ok(/card-details-with-handle\{\{\/if\}\}/.test(cardJade)
+    || /\{\{#if isTouchScreenOrShowDesktopDragHandles\}\}card-details-with-handle/.test(cardJade),
+    'and the class is set from the same question the handle asks');
 });
 
 // ── the board, in the header bar ───────────────────────────────────────────

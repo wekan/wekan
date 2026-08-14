@@ -375,6 +375,34 @@ body.desktop-mode .card-details.card-details-collapsed {
   vertical-align: middle;
   line-height: 1.3;
   letter-spacing: 0.01em;
+  position: relative;
+}
+
+/* The title is two things at once, split like a minicard's: the LEADING half
+   opens the editor, the trailing half drags the window. With drag handles OFF
+   there is no handle, so the title bar is what the window is moved by - and a
+   heading that is entirely an edit target leaves nothing to take hold of.
+
+   An overlay rather than a split of the text, because the text is a `.viewer`
+   and cutting it in two would cut the sentence in two. `inset-inline-start`, so
+   the edit half is the left in English and the right in Arabic from one rule.
+   The drag handler steps aside for this zone (cardDetails.js). */
+.card-details .card-details-header .card-details-title .card-details-title-edit-zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  inset-inline-start: 0;
+  width: 50%;
+  cursor: text;
+  z-index: 1;
+}
+
+/* With drag handles ON the handle is the only drag source, so the whole title
+   is the edit target - the same rule the minicard follows, from the same
+   question: `card-details-with-handle` is set by the template from
+   isTouchScreenOrShowDesktopDragHandles, which is Utils.showDragHandles(). */
+.card-details.card-details-with-handle .card-details-header .card-details-title .card-details-title-edit-zone {
+  width: 100%;
 }
 .card-details .card-details-header .linked-card-location {
   font-style: italic;

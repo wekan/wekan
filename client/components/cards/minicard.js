@@ -325,10 +325,22 @@ Template.minicard.events({
     toggleMinicardLabelText();
   },
   'click span.badge-icon.fa.fa-sort, click span.badge-text.check-list-sort' : Popup.open("editCardSortOrder"),
-  'click .minicard-labels'(event, tpl) {
-    if (tpl.find('.js-card-label:hover')) {
-      Popup.open("cardLabels")(event, {dataContextIfCurrentDataIsUndefined: Template.currentData()});
+  // A label on a minicard opens the card's labels, and ONLY that. The click used
+  // to reach the minicard as well, so the card details opened behind the popup:
+  // two things for one click, and the one you asked for on top of the one you
+  // did not.
+  //
+  // Which label was clicked is read from the EVENT rather than from `:hover`.
+  // `:hover` answers about the pointer, and on a touch screen it can still be
+  // true for whatever was tapped last - so a tap anywhere in the labels area
+  // could open the labels of a label nobody touched.
+  'click .minicard-labels'(event) {
+    if (!$(event.target).closest('.js-card-label').length) {
+      return; // not a label - let the click be the card's, as before
     }
+    event.preventDefault();
+    event.stopPropagation();
+    Popup.open("cardLabels")(event, {dataContextIfCurrentDataIsUndefined: Template.currentData()});
   },
   'click .js-open-minicard-details-menu'(event, tpl) {
     event.preventDefault();

@@ -213,7 +213,12 @@ test('a window the user dragged keeps its place, and is only kept on screen', ()
   const handles = [...js.matchAll(/'mousedown \.js-card-(?:title-)?drag-handle'\(event\) \{/g)];
   assert.strictEqual(handles.length, 2, 'both drag handles exist');
   for (const handle of handles) {
-    const body = js.slice(handle.index, handle.index + 500);
+    // The whole handler, not a byte window: each of them starts with guards -
+    // the title one steps aside for links and for the half of the title that
+    // edits - and a fixed slice silently stops covering the thing being checked
+    // the first time one of those grows.
+    const end = js.indexOf('\n  },', handle.index);
+    const body = js.slice(handle.index, end === -1 ? js.length : end);
     assert.ok(/markCardDetailsUserMoved\(\$card\)/.test(body),
       'dragging must mark the window as user-placed');
   }

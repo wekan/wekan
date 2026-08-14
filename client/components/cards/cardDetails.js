@@ -975,10 +975,17 @@ Template.cardDetails.events({
     $(document).on('mouseup', onMouseUp);
   },
   'mousedown .js-card-title-drag-handle'(event) {
-    // Allow dragging from title for ReadOnly users
-    // Don't interfere with text selection
+    // The title bar drags the window. Don't interfere with text selection.
     if (event.target.tagName === 'A' || $(event.target).closest('a').length > 0) {
       return; // Don't drag if clicking on links
+    }
+    // ...and don't drag from the half that EDITS. The title is split like a
+    // minicard's: the leading half opens the editor, the trailing half is what
+    // you take hold of. With drag handles ON the zone covers the whole title
+    // (cardDetails.css), so the window is dragged by its handle alone - which is
+    // what turning handles on means.
+    if ($(event.target).closest('.card-details-title-edit-zone').length > 0) {
+      return;
     }
 
     event.preventDefault();

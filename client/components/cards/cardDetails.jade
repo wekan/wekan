@@ -5,7 +5,11 @@ template(name="cardDetails")
 
   +attachmentViewer
 
-  section.card-details.js-card-details.nodragscroll(class='{{#if cardMaximized}}card-details-maximized{{/if}}' class='{{#if isPopup}}card-details-popup{{/if}}' class='{{#unless isVerticalScrollbars}}no-scrollbars{{/unless}}' class='{{#if cardCollapsed}}card-details-collapsed{{/if}}'): .card-details-canvas
+  //- `card-details-with-handle` when drag handles are on, the same class the
+    minicard carries for the same reason: with a handle, the title is all edit
+    target; without one, half of it is what the window is dragged by.
+    client/components/cards/cardDetails.css
+  section.card-details.js-card-details.nodragscroll(class='{{#if cardMaximized}}card-details-maximized{{/if}}' class='{{#if isPopup}}card-details-popup{{/if}}' class='{{#unless isVerticalScrollbars}}no-scrollbars{{/unless}}' class='{{#if cardCollapsed}}card-details-collapsed{{/if}}' class='{{#if isTouchScreenOrShowDesktopDragHandles}}card-details-with-handle{{/if}}'): .card-details-canvas
     .card-details-header(class='{{#if colorClass}}card-details-{{colorClass}}{{/if}}' style='{{colorStyle}}')
       +inlinedForm(classNames="js-card-details-title")
         +editCardTitleForm
@@ -24,9 +28,16 @@ template(name="cardDetails")
             a.fa.fa-window-maximize.maximize-card-details.js-maximize-card-details(title="{{_ 'maximize-card'}}")
           a.card-details-menu.js-open-card-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
             i.fa.fa-bars
+          //- The handle appears only when drag handles are ON, like the
+            minicard's. With them off the window is dragged by its own title bar
+            - the trailing half of the title - so a handle would be a second way
+            to do what the bar already does; with them on it is the ONLY way, and
+            the title is all edit target.
+            client/components/cards/minicard.jade
           if canModifyCard
-            span.card-drag-handle.js-card-drag-handle(title="Drag card")
-              i.fa.fa-arrows
+            if isTouchScreenOrShowDesktopDragHandles
+              span.card-drag-handle.js-card-drag-handle(title="Drag card")
+                i.fa.fa-arrows
         else
           a.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
             i.fa.fa-times-thin
@@ -49,8 +60,16 @@ template(name="cardDetails")
           if currentBoard.allowsDueComplete
             a.card-details-complete-toggle.js-toggle-due-complete(title="{{#if getDueComplete}}{{_ 'card-mark-incomplete'}}{{else}}{{_ 'card-mark-complete'}}{{/if}}")
               .materialCheckBox(class="{{#if getDueComplete}}is-checked{{/if}}")
-        h2.card-details-title.js-card-title(
-          class="{{#if canModifyCard}}js-open-inlined-form is-editable{{else}}js-card-title-drag-handle{{/if}}")
+        //- The title is BOTH: the leading half opens the editor and the
+          trailing half drags the window, exactly as a minicard's title splits
+          between editing and dragging the card. `js-card-title-drag-handle`
+          stays on the whole heading - the drag handler is what steps aside for
+          the edit zone - so a reader who may not write can still drag the
+          window by any part of it, which is what that class was for.
+        h2.card-details-title.js-card-title.js-card-title-drag-handle(
+          class="{{#if canModifyCard}}is-editable{{/if}}")
+            if canModifyCard
+              span.card-details-title-edit-zone.js-open-inlined-form(title="{{_ 'edit'}}")
             +viewer
               if currentBoard.allowsCardNumber
                 span.card-number
