@@ -22,12 +22,52 @@ test.describe('All Boards – phone viewport (#6488)', () => {
 
   test('board icons show at least 2 per row and the list scrolls', async ({ page, adminUser }) => {
     const boards = [];
+    const longTitle = 'Mobile Board With A Very Long Distinguishing Name';
     for (let i = 0; i < 12; i++) {
-      boards.push(await db.seedBoard({ ownerId: adminUser.id, title: `MobileBoard ${i}` }));
+      boards.push(await db.seedBoard({
+        ownerId: adminUser.id,
+        title: i === 0 ? longTitle : `MobileBoard ${i}`,
+      }));
     }
     try {
       await loginWithToken(page, adminUser.id, adminUser.token);
       await page.goto(BASE_URL, { waitUntil: 'networkidle' });
+
+      // The padded header itself and every visible control must stay inside the
+      // viewport. `width:100%` with content-box sizing used to add both gutters
+      // after the 100%, painting the last account/sidebar controls off-screen.
+      const headerGeometry = await page.locator('#header-quick-access').evaluate(header => {
+        const rect = header.getBoundingClientRect();
+        const controls = [...header.querySelectorAll('a, button')]
+          .filter(element => {
+            const box = element.getBoundingClientRect();
+            const style = getComputedStyle(element);
+            return style.display !== 'none' && style.visibility !== 'hidden'
+              && box.width > 0 && box.height > 0;
+          })
+          .map(element => {
+            const box = element.getBoundingClientRect();
+            return {
+              name: element.getAttribute('aria-label') || element.getAttribute('title')
+                || element.textContent.trim(),
+              left: box.left,
+              right: box.right,
+            };
+          });
+        return {
+          viewport: document.documentElement.clientWidth,
+          left: rect.left,
+          right: rect.right,
+          controls,
+        };
+      });
+      expect(headerGeometry.left).toBeGreaterThanOrEqual(-1);
+      expect(headerGeometry.right).toBeLessThanOrEqual(headerGeometry.viewport + 1);
+      for (const control of headerGeometry.controls) {
+        expect(control.left, `${control.name} starts inside the phone`).toBeGreaterThanOrEqual(-1);
+        expect(control.right, `${control.name} ends inside the phone`)
+          .toBeLessThanOrEqual(headerGeometry.viewport + 1);
+      }
 
       // Boards not dragged into a workspace appear under "Remaining".
       const remaining = page.locator('.menu-item').filter({ hasText: /remaining/i });
@@ -37,6 +77,26 @@ test.describe('All Boards – phone viewport (#6488)', () => {
       const tiles = page.locator('ul.board-list li.js-board');
       await expect(tiles.first()).toBeVisible({ timeout: 15_000 });
       expect(await tiles.count()).toBeGreaterThanOrEqual(4);
+
+      // A long, distinguishing name must expand its row. Keeping every tile at
+      // 4rem made the two-column requirement technically pass while cutting the
+      // part of the name a person needs to tell similar boards apart.
+      const longName = page.locator('.board-list-item-name', { hasText: longTitle });
+      await expect(longName).toHaveText(longTitle);
+      const longNameGeometry = await longName.evaluate(element => {
+        const text = element.getBoundingClientRect();
+        const tile = element.closest('.board-list-item').getBoundingClientRect();
+        return {
+          textBottom: text.bottom,
+          tileBottom: tile.bottom,
+          tileHeight: tile.height,
+          clientHeight: element.clientHeight,
+          scrollHeight: element.scrollHeight,
+        };
+      });
+      expect(longNameGeometry.scrollHeight).toBeLessThanOrEqual(longNameGeometry.clientHeight + 1);
+      expect(longNameGeometry.textBottom).toBeLessThanOrEqual(longNameGeometry.tileBottom + 1);
+      expect(longNameGeometry.tileHeight).toBeGreaterThan(64);
 
       // At least 2 per row. Measure EVERY tile in the list (including the leading
       // "+ Add board" tile, which occupies the first grid cell and offsets the

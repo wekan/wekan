@@ -1366,7 +1366,10 @@
        matches this media query, becomes a grid here, and never got the fix. It
        belongs on the rule that creates the grid. */
     align-content: start;
-    align-items: start;
+    /* Rows stay packed at the top, but the two cells IN one row share the
+       height its longest board title needs. This does not stretch rows into
+       spare viewport height because align-content remains start. */
+    align-items: stretch;
   }
   .board-list li {
     width: auto; /* the grid controls the column width */
@@ -1376,7 +1379,7 @@
        and only downwards. */
     margin-bottom: 0;
     /* ...and the tile is its own height, not the height of a stretched cell. */
-    align-self: start;
+    align-self: stretch;
     height: auto;
     /* Same as `.board-list.mobile-view li` above: the tile keeps its own text
        clear of the handle, so reserving the width a second time out here only
@@ -1402,13 +1405,18 @@
      several times the height of "+ Add Board" instead of equal to it. Both
      `.mobile-view` shapes are therefore spelled out here. */
   .board-list .board-list-item,
-  .board-list.mobile-view .board-list-item,
+  .board-list.mobile-view .board-list-item {
+    box-sizing: border-box;
+    height: auto;
+    min-height: 4rem;
+  }
+
   .board-list .js-add-board .label,
   .board-list.mobile-view .js-add-board .label,
   .board-list .js-add-board .label.is-template-container,
   .board-list.mobile-view .js-add-board .label.is-template-container {
     box-sizing: border-box;
-    height: 4rem;
+    height: 100%;
     min-height: 4rem;
   }
 
@@ -1418,6 +1426,11 @@
     width: 100%;
     margin: 0;
     padding: 6px 30px 6px 8px; /* was 24px/18px vertical: too tall for a 4rem tile */
+  }
+
+  .board-list .board-list-item-name {
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   /* The add tile centres its label, so it only needs enough padding not to touch
@@ -1920,20 +1933,25 @@ body.board-color-exodark .board-list > li.js-board .board-list-card-count {
   z-index: 0;
 }
 
-/* ── Equal, short tiles whenever the list renders in mobile view ─────────────
+/* ── Compact, readable tiles whenever the list renders in mobile view ───────
    `.mobile-view` is put on the <ul> by the template from Utils.isMiniScreen(),
    which also weighs mobile MODE and the device - so it can be set on a wide
-   screen, where a `max-width: 800px` media query does not apply. The 8rem rule
-   this overrides (`.board-list.mobile-view .board-list-item`, further up) is
-   itself outside any media query, so the override has to be too, or a board tile
-   stays 8rem while "+ Add Board" is 4rem and the two do not match.
+   screen, where a `max-width: 800px` media query does not apply. The old 8rem
+   rule this overrides (`.board-list.mobile-view .board-list-item`, further up)
+   is itself outside any media query, so the override has to be too. Four rem is
+   now a minimum rather than a hard ceiling: long board names remain complete.
 
    Last in the file so that, at equal specificity, source order decides. */
-.board-list.mobile-view .board-list-item,
+.board-list.mobile-view .board-list-item {
+  box-sizing: border-box;
+  height: auto;
+  min-height: 4rem;
+}
+
 .board-list.mobile-view .js-add-board .label,
 .board-list.mobile-view .js-add-board .label.is-template-container {
   box-sizing: border-box;
-  height: 4rem;
+  height: 100%;
   min-height: 4rem;
 }
 
@@ -1957,18 +1975,21 @@ body.board-color-exodark .board-list > li.js-board .board-list-card-count {
    4rem.
 
    `align-content: start` keeps rows at their content height instead of dividing
-   the leftover space between them, and `align-items: start` stops each tile from
-   stretching to its row. The list still scrolls: its height comes from the flex
-   column it sits in, and `overflow-y: auto` makes it the scroll container. */
+   the leftover space between them. Items stretch only WITHIN that content-sized
+   row, so the Add tile matches a board whose long name makes the row taller. The
+   list still scrolls: its height comes from the flex column it sits in, and
+   `overflow-y: auto` makes it the scroll container. */
 .board-list.mobile-view {
   align-content: start;
-  align-items: start;
+  align-items: stretch;
 }
 
-/* The tile fills its grid cell horizontally but not vertically. */
+/* Both cells fill the content-sized row; no row stretches into spare viewport
+   height because align-content above is start. A long board name therefore
+   grows its row without clipping the tile or leaving the companion cell short. */
 .board-list.mobile-view li,
 .board-list.mobile-view li.js-board {
-  align-self: start;
+  align-self: stretch;
   height: auto;
 }
 
@@ -1998,8 +2019,8 @@ body.board-color-exodark .board-list > li.js-board .board-list-card-count {
    into a vertical stack. `break-word` only splits a word that cannot fit, which
    is what a starved container made of every character. */
 .board-list.mobile-view .board-list-item-name {
-  overflow-wrap: break-word;
-  word-break: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
   hyphens: none;
 }
 
@@ -2020,8 +2041,8 @@ body.board-color-exodark .board-list > li.js-board .board-list-card-count {
   margin: 0 !important;
 }
 
-/* Every tile - board or add - is one cell wide and 4rem tall, with nothing
-   inside it able to change that. */
+/* Every tile is one cell wide. Its 4rem value is a compact minimum: a long
+   distinguishing board name is allowed to make that one grid row taller. */
 .board-list.mobile-view li,
 .board-list.mobile-view li.js-board,
 .board-list.mobile-view li.js-add-board {
@@ -2030,12 +2051,18 @@ body.board-color-exodark .board-list > li.js-board .board-list-card-count {
   max-width: none;
 }
 
-.board-list.mobile-view li.js-add-board .board-list-item,
-.board-list.mobile-view li.js-add-board .label,
 .board-list.mobile-view li.js-board .board-list-item {
   width: 100%;
   box-sizing: border-box;
-  height: 4rem;
+  height: auto;
+  min-height: 4rem;
+}
+
+.board-list.mobile-view li.js-add-board .board-list-item,
+.board-list.mobile-view li.js-add-board .label {
+  width: 100%;
+  box-sizing: border-box;
+  height: 100%;
   min-height: 4rem;
 }
 

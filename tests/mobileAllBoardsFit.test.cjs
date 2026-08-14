@@ -99,6 +99,22 @@ test('the phone board column is a grid that cannot be pushed wider', () => {
     'and its two columns may as well');
 });
 
+test('long phone board names grow their row instead of being clipped', () => {
+  for (const selector of [
+    '.board-list .board-list-item',
+    '.board-list.mobile-view .board-list-item',
+  ]) {
+    assert.strictEqual(lastDeclaration(boards, selector, 'height'), 'auto',
+      `${selector}: a fixed tile height cuts a wrapped board name`);
+    assert.strictEqual(lastDeclaration(boards, selector, 'min-height'), '4rem',
+      `${selector}: short tiles keep the compact 4rem floor`);
+  }
+  assert.strictEqual(lastDeclaration(boards, '.board-list .board-list-item-name',
+    'overflow-wrap'), 'anywhere', 'an unbroken board name must wrap inside its tile');
+  assert.strictEqual(lastDeclaration(boards, '.board-list li', 'align-self'), 'stretch',
+    'both cells in a grid row share the height required by its longest title');
+});
+
 test('the quick-access bar gives way instead of spilling off the phone', () => {
   const at = header.indexOf('The quick-access bar must FIT the phone');
   assert.ok(at !== -1, 'the rules that make it fit must be there');
@@ -109,6 +125,8 @@ test('the quick-access bar gives way instead of spilling off the phone', () => {
   // checked now is that nothing has put it back to eat the width again.
   assert.ok(!/zoom-(controls|level|display|input)/.test(header),
     'the removed zoom pill must not be back in the quick-access bar');
+  assert.ok(/#header-quick-access \{[\s\S]*?box-sizing: border-box;[\s\S]*?max-width: 100%;/.test(block),
+    'width:100% includes the header gutters instead of adding them past the viewport');
   // The two the user actually came for stay put, at the end of the row. They are
   // two rules now, each with the `.iphone-device` / `.wrapper ~` variants that
   // have to be named to win, so what is asserted is that EACH of them declares

@@ -8,12 +8,23 @@
 body.board-color-appleglasspastel.userform-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  /* Keep grid line numbers physical and deterministic. Chromium can otherwise
+     report the two RTL auto-flow rectangles correctly while painting both
+     panels into the same half. Child content gets its language direction back
+     below, and RTL swaps the two explicit physical columns. */
+  direction: ltr;
   min-height: 100vh;
   overflow-y: auto;
 }
 
+html[dir="rtl"] body.board-color-appleglasspastel.userform-layout > * {
+  direction: rtl;
+}
+
 body.board-color-appleglasspastel.userform-layout > .auth-layout:has(.at-form-landing-logo) {
   position: relative;
+  grid-column: 1;
+  grid-row: 1;
   min-height: 100vh;
   background:
     radial-gradient(70% 60% at 5% 95%, rgba(96, 165, 250, 0.55), transparent 62%),
@@ -71,9 +82,23 @@ body.board-color-appleglasspastel.userform-layout > .auth-layout:has(.at-form-la
 
 body.board-color-appleglasspastel.userform-layout > .auth-layout:has(.auth-dialog) {
   box-sizing: border-box;
+  grid-column: 2;
+  grid-row: 1;
   width: 100%;
   min-height: 100vh;
   padding: 48px 24px;
+}
+
+html[dir="rtl"] body.board-color-appleglasspastel.userform-layout > .auth-layout:has(.at-form-landing-logo) {
+  grid-column: 2;
+  /* This panel contains only brand artwork. Keeping its own paint direction
+     physical avoids Chromium compositing its background into the opposite RTL
+     grid track; the form panel below remains RTL. */
+  direction: ltr;
+}
+
+html[dir="rtl"] body.board-color-appleglasspastel.userform-layout > .auth-layout:has(.auth-dialog) {
+  grid-column: 1;
 }
 
 body.board-color-appleglasspastel.userform-layout .auth-dialog {
@@ -164,6 +189,9 @@ body.board-color-appleglasspastel.userform-layout .auth-bottom-space {
   }
 
   body.board-color-appleglasspastel.userform-layout > .auth-layout:has(.at-form-landing-logo) {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
     min-height: 0;
     height: auto;
     padding: 12px 24px 6px;

@@ -118,11 +118,18 @@ body.board-color-appleglasspastel .table-page-controls {
 /* Admin pages become two glass islands. Tables remain dense and nearly solid;
  * decorative blur on every row would make long reports expensive to scroll. */
 body.board-color-appleglasspastel .setting-content .content-body {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   gap: 16px;
   padding: 10px;
 }
 
 body.board-color-appleglasspastel .setting-content .content-body .side-menu {
+  box-sizing: border-box;
+  max-width: 100%;
+  min-width: 0;
   background: var(--agp-glass);
   border: 1px solid var(--agp-glass-border);
   border-radius: var(--agp-radius-island);
@@ -148,6 +155,9 @@ body.board-color-appleglasspastel .setting-content .content-body .side-menu ul l
 }
 
 body.board-color-appleglasspastel .setting-content .content-body .main-body {
+  box-sizing: border-box;
+  max-width: 100%;
+  min-width: 0;
   background: rgba(255, 255, 255, 0.76);
   border: 1px solid var(--agp-glass-border);
   border-radius: var(--agp-radius-island);

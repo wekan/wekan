@@ -174,3 +174,21 @@ menus and fly-outs.
 `tests/appleGlassPastelV2.test.cjs` guards the scoped source contract and
 `tests/playwright/specs/45-apple-glass-theme.e2e.js` verifies computed styles and
 layout on the running app for global, board-only, Admin and login contexts.
+
+The v2 release hardening also covers the small-screen and bidirectional layout
+edges that are easy to miss in a visual-only review:
+
+- Mobile All Boards tiles use a `4rem` minimum rather than a fixed height. Long
+  names wrap inside the tile, and both cells in a grid row stretch to the same
+  content height.
+- The mobile quick-access header and Admin Panel glass island use
+  `box-sizing: border-box`, `max-width: 100%` and `min-width: 0` where needed, so
+  gutters and flex content cannot create horizontal overflow.
+- Authentication keeps a physical left-to-right split grid for reliable
+  Chromium painting; RTL swaps the logo and form to explicit columns, while the
+  logo artwork remains LTR internally. The mobile form stays a single contained
+  column in both directions.
+- Runtime checks assert viewport containment, title visibility, paint-order
+  overlap and responsive Admin/login geometry in Chromium and Firefox. The
+  static suite continues to guard selector scope, theme isolation and reduced
+  motion/fallback behaviour.

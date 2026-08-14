@@ -34,6 +34,67 @@ async function computed(locator, properties) {
   }, properties);
 }
 
+async function authGeometry(page) {
+  return page.evaluate(() => {
+    const logoPanel = document.querySelector('body > .auth-layout:has(.at-form-landing-logo)');
+    const formPanel = document.querySelector('body > .auth-layout:has(.auth-dialog)');
+    const logo = logoPanel?.getBoundingClientRect();
+    const form = formPanel?.getBoundingClientRect();
+    const at = (rect) => document.elementsFromPoint(
+      rect.left + rect.width / 2,
+      rect.top + Math.min(rect.height / 2, 200),
+    );
+    return {
+      viewport: document.documentElement.clientWidth,
+      document: document.documentElement.scrollWidth,
+      logo: logo && { left: logo.left, right: logo.right, width: logo.width, top: logo.top, bottom: logo.bottom },
+      form: form && { left: form.left, right: form.right, width: form.width, top: form.top, bottom: form.bottom },
+      logoPaintsUnderForm: Boolean(logoPanel && form && at(form).includes(logoPanel)),
+      formPaintsUnderLogo: Boolean(formPanel && logo && at(logo).includes(formPanel)),
+    };
+  });
+}
+
+async function viewportGeometry(page, selector) {
+  return page.locator(selector).evaluate(root => {
+    const rootBox = root.getBoundingClientRect();
+    const controls = [...root.querySelectorAll('a, button, input, select')]
+      .filter(element => {
+        const box = element.getBoundingClientRect();
+        const style = getComputedStyle(element);
+        return style.display !== 'none' && style.visibility !== 'hidden'
+          && box.width > 0 && box.height > 0;
+      })
+      .map(element => {
+        const box = element.getBoundingClientRect();
+        return {
+          name: element.getAttribute('aria-label') || element.getAttribute('title')
+            || element.textContent.trim(),
+          left: box.left,
+          right: box.right,
+        };
+      });
+    return {
+      viewport: document.documentElement.clientWidth,
+      document: document.documentElement.scrollWidth,
+      left: rootBox.left,
+      right: rootBox.right,
+      controls,
+    };
+  });
+}
+
+function expectInsideViewport(geometry) {
+  expect(geometry.document).toBeLessThanOrEqual(geometry.viewport + 1);
+  expect(geometry.left).toBeGreaterThanOrEqual(-1);
+  expect(geometry.right).toBeLessThanOrEqual(geometry.viewport + 1);
+  for (const control of geometry.controls) {
+    expect(control.left, `${control.name} starts inside the viewport`).toBeGreaterThanOrEqual(-1);
+    expect(control.right, `${control.name} ends inside the viewport`)
+      .toBeLessThanOrEqual(geometry.viewport + 1);
+  }
+}
+
 test.describe('Apple Glass Pastel v2', () => {
   test('global theme styles All Boards as glass islands and neutral cards', async ({
     page, user, board,
@@ -133,6 +194,12 @@ test.describe('Apple Glass Pastel v2', () => {
       expect(popupStyle.borderRadius).toBe('18px');
     }
     await evidence(page, '02-board-card-details-desktop');
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    await expect.poll(async () => (
+      await viewportGeometry(page, '#header-quick-access')
+    ).right).toBeLessThanOrEqual(391);
+    expectInsideViewport(await viewportGeometry(page, '#header-quick-access'));
   });
 
   test('Admin Panel keeps dense content inside two glass islands', async ({ page, adminUser }) => {
@@ -152,6 +219,27 @@ test.describe('Apple Glass Pastel v2', () => {
       expect(style.boxShadow).not.toBe('none');
     }
     await evidence(page, '03-admin-desktop');
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    const mobile = await page.evaluate(() => {
+      const rect = selector => {
+        const box = document.querySelector(selector)?.getBoundingClientRect();
+        return box && { left: box.left, right: box.right, width: box.width };
+      };
+      return {
+        viewport: document.documentElement.clientWidth,
+        document: document.documentElement.scrollWidth,
+        menu: rect('.setting-content .content-body .side-menu'),
+        main: rect('.setting-content .content-body .main-body'),
+      };
+    });
+    expect(mobile.document).toBeLessThanOrEqual(mobile.viewport + 1);
+    for (const surface of [mobile.menu, mobile.main]) {
+      expect(surface.left).toBeGreaterThanOrEqual(-1);
+      expect(surface.right).toBeLessThanOrEqual(mobile.viewport + 1);
+    }
+    expect(mobile.main.width).toBeGreaterThan(160);
+    await evidence(page, '03b-admin-mobile');
   });
 
   test('login is split on desktop and collapses without overflow on mobile', async ({ page }) => {
@@ -174,7 +262,20 @@ test.describe('Apple Glass Pastel v2', () => {
       const desktop = await computed(page.locator('body'), ['display', 'gridTemplateColumns']);
       expect(desktop.display).toBe('grid');
       expect(desktop.gridTemplateColumns.split(' ')).toHaveLength(2);
+      const ltr = await authGeometry(page);
+      expect(ltr.logo.right).toBeLessThanOrEqual(ltr.form.left + 1);
+      expect(ltr.logoPaintsUnderForm).toBe(false);
+      expect(ltr.formPaintsUnderLogo).toBe(false);
       await evidence(page, '04-login-desktop');
+
+      const langSelect = page.locator('.js-userform-set-language');
+      await langSelect.selectOption('ar');
+      await expect.poll(() => page.evaluate(() => document.documentElement.dir)).toBe('rtl');
+      const rtl = await authGeometry(page);
+      expect(rtl.form.right).toBeLessThanOrEqual(rtl.logo.left + 1);
+      expect(rtl.logoPaintsUnderForm, JSON.stringify(rtl)).toBe(false);
+      expect(rtl.formPaintsUnderLogo).toBe(false);
+      await evidence(page, '04b-login-desktop-rtl');
 
       await page.setViewportSize({ width: 390, height: 844 });
       const mobile = await computed(page.locator('body'), ['display', 'gridTemplateColumns']);
@@ -187,6 +288,22 @@ test.describe('Apple Glass Pastel v2', () => {
       }));
       expect(geometry.document).toBeLessThanOrEqual(geometry.viewport + 1);
       expect(geometry.dialog).toBeLessThanOrEqual(geometry.viewport - 32);
+      const rtlMobile = await authGeometry(page);
+      for (const panel of [rtlMobile.logo, rtlMobile.form]) {
+        expect(panel.left).toBeGreaterThanOrEqual(-1);
+        expect(panel.right).toBeLessThanOrEqual(rtlMobile.viewport + 1);
+      }
+      expect(rtlMobile.logo.bottom).toBeLessThanOrEqual(rtlMobile.form.top + 1);
+      await evidence(page, '05b-login-mobile-rtl');
+
+      await langSelect.selectOption('en');
+      await expect.poll(() => page.evaluate(() => document.documentElement.dir)).toBe('ltr');
+      const ltrMobile = await authGeometry(page);
+      for (const panel of [ltrMobile.logo, ltrMobile.form]) {
+        expect(panel.left).toBeGreaterThanOrEqual(-1);
+        expect(panel.right).toBeLessThanOrEqual(ltrMobile.viewport + 1);
+      }
+      expect(ltrMobile.logo.bottom).toBeLessThanOrEqual(ltrMobile.form.top + 1);
       await evidence(page, '05-login-mobile');
     } finally {
       const update = {};

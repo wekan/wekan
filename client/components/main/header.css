@@ -1625,6 +1625,14 @@ body.mobile-mode #header-quick-access .allBoards {
        screen and (max-device-width: 800px),
        screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
 
+  #header-quick-access {
+    /* `width: 100%` is declared in the earlier phone block. Include both
+       gutters in that width; content-box sizing made the rendered bar 24px
+       wider than the viewport and clipped the account/sidebar controls. */
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+
   #header-quick-access .mobile-mode-toggle {
     margin: 0 4px !important;
   }
@@ -1860,5 +1868,4 @@ body.mobile-mode #header-quick-access .allBoards {
 #header-quick-access .board-header-btn-label {
   white-space: nowrap;
 }
-
 

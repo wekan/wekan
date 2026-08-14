@@ -96,6 +96,10 @@ test('all major WeKan surfaces are represented', () => {
   ]) {
     assert.ok(pages.includes(selector), `${selector} is covered`);
   }
+  assert.ok(/\.setting-content \.content-body \{[\s\S]*?box-sizing: border-box;[\s\S]*?max-width: 100%;/.test(pages),
+    'Admin mobile padding is included inside the viewport width');
+  assert.ok(/\.content-body \.main-body \{[\s\S]*?box-sizing: border-box;[\s\S]*?min-width: 0;/.test(pages),
+    'the Admin main glass island may shrink without spilling past the phone');
 });
 
 test('minicards avoid per-card backdrop filters', () => {
@@ -110,12 +114,24 @@ test('minicards avoid per-card backdrop filters', () => {
 test('auth uses a responsive split layout without importing external branding', () => {
   assert.ok(auth.includes('grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)'),
     'desktop login is split evenly');
+  assert.ok(/:has\(\.at-form-landing-logo\) \{[\s\S]*?grid-column: 1;/.test(auth),
+    'the logo panel owns the first logical grid column instead of relying on auto-placement');
+  assert.ok(/:has\(\.auth-dialog\) \{[\s\S]*?grid-column: 2;/.test(auth),
+    'the form panel owns the second logical grid column so RTL mirrors without overlap');
+  assert.ok(/userform-layout \{[\s\S]*?direction: ltr;/.test(auth),
+    'the physical split grid is isolated from the document writing direction');
+  assert.ok(/html\[dir="rtl"\][\s\S]*?:has\(\.at-form-landing-logo\) \{[\s\S]*?grid-column: 2;/.test(auth)
+    && /html\[dir="rtl"\][\s\S]*?:has\(\.auth-dialog\) \{[\s\S]*?grid-column: 1;/.test(auth),
+  'RTL explicitly swaps the panels while their content remains RTL');
   assert.ok(auth.includes(':has(.at-form-landing-logo)'), 'configured logo panel is reused');
   assert.ok(auth.includes(':has(.auth-dialog)'), 'existing auth dialog is reused');
   assert.ok(auth.includes('.at-form-landing-logo:empty'),
     'the legacy empty logo heading is not rendered as a decorative block');
   assert.ok(auth.includes('@media screen and (max-width: 800px)'),
     'mobile collapses to one column');
+  const mobile = auth.slice(auth.indexOf('@media screen and (max-width: 800px)'));
+  assert.ok(/:has\(\.at-form-landing-logo\) \{[\s\S]*?box-sizing: border-box;[\s\S]*?width: 100%;[\s\S]*?max-width: 100%;/.test(mobile),
+    'the padded mobile logo panel stays inside the viewport in both directions');
   assert.ok(!/(motions|pebsteel|https?:\/\/)/i.test(auth),
     'no reference brand or external asset is copied');
 });
