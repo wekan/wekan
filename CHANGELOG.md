@@ -999,23 +999,19 @@ in the menu of the thing it is about now, so a board-wide entry as well would
 be a third way to one list - and the way that is furthest from what it changes.
 The table itself is unchanged; the two menus include it.
 
-**Custom Fields is one entry, and it opens IN the menu.** It was two - the
-board's LIST of fields and the picker for which of them are on this card, one
-above the other - which put the general question above the particular one and
-made the menu ask which you wanted before you had seen either. There is one
-entry now, the picker, and the board's list is behind that popup's own Settings
-cog: where you look once you have seen the fields and want to add one.
+**Everything about custom fields is on the section that shows them.** It was
+spread over three places: Board Settings had the board's LIST of fields behind a
+right-sidebar view, the card menu had an entry for that list and another for the
+picker of which fields are on this card, and the picker had a cog that jumped
+back to the sidebar - closing the menu and the card pane on the way.
 
-That list first opened the right sidebar, which is a different part of the
-screen: the menu was gone, the card pane was closed behind it, and the answer to
-"what fields does this board have" appeared on the other side. It is a pop-over
-now, on top of the picker, so the back arrow returns to the fields you were
-looking at - while Create and Edit, which were popups already, stack on top of
-it and come back to the list. It is the SAME template the sidebar view uses,
-included rather than copied, so the two cannot drift; what it needed was styles
-of its own, because every rule that list has is written for the sidebar and none
-of them reach inside a pop-over. **Board Settings no longer has a Custom Fields
-row**: the fields are where the cards are.
+One place now: the **hamburger at the end of the card's own Custom Fields
+heading**. It opens every field the board has, ticked when it is on THIS card,
+with a pencil each and, under a rule, **Add custom field**. Edit and Add open in
+the same pop-over on top of that list, so the back arrow returns to it and the
+card stays open behind; they are the board's own forms, not second copies of
+them. The card menu's entry and the Board Settings row are both gone, and so is
+the wrapper popup that nothing opened any more.
 
 </details>
 

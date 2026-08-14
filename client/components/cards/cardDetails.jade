@@ -406,7 +406,8 @@ template(name="cardDetails")
             happen to share a caret and draw six rules. A group like the others,
             so its rule spans the card and its fields share rows inside it.
           .card-details-group.card-details-group-custom-fields
-            +cardSectionHeader(section="custom-fields" icon="fa-list-alt" label="custom-fields")
+            +cardSectionHeader(section="custom-fields" icon="fa-list-alt" label="custom-fields"
+              menuClass="js-open-custom-fields-settings" menuTitle="custom-fields")
             if isSectionOpen "custom-fields"
               .card-details-group-body
                 each customFieldsWD
@@ -877,13 +878,8 @@ template(name="cardDetailsActionsPopup")
       they are one group now, the board's list first because a field has to
       exist before a card can be given it. A board admin's, the same as in
       Board Settings. client/components/sidebar/sidebarCustomFields.jade
-    if currentUser.isBoardAdmin
-      ul.pop-over-list
-        li
-          a.js-custom-fields
-            i.fa.fa-list
-            |  {{_ 'custom-fields'}}
-      hr
+    //- "Custom Fields" was here. It is the hamburger at the end of the Custom
+      Fields heading of the card itself now - which is where the fields are.
     if canModifyCard
       unless currentUser.isWorker
         ul.pop-over-list

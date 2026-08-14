@@ -111,43 +111,17 @@ test('both entries open the popup that already existed', () => {
 
 // ── the two halves of custom fields, together ──────────────────────────────
 
-test('Custom Fields is ONE entry, under Watch', () => {
-  // It was two: the board's LIST of fields and the picker for which of them are
-  // on this card, one above the other. Two entries for the two halves put the
-  // general one first and made the menu ask which you wanted before you had
-  // seen either. It is one entry now - the picker - and the board's list is
-  // behind that popup's own Settings cog, which is where you look once you have
-  // seen the fields and want to add one.
-  const watch = menu.indexOf('js-toggle-watch-card');
-  const fields = menu.indexOf('js-custom-fields');
-  assert.ok(watch < fields, 'below Watch');
-  assert.ok(!/js-board-custom-fields/.test(menu), 'the second entry is gone');
-  assert.ok(!/card-edit-custom-fields/.test(menu),
-    'and so is the wording that distinguished them');
-  const entry = menu.slice(fields - 200, fields + 120);
-  assert.ok(/i\.fa\.fa-list/.test(entry), "with the picker's own icon");
-  assert.ok(/\{\{_ 'custom-fields'\}\}/.test(entry), 'named Custom Fields');
-  const lines = menu.split('\n');
-  const at = lines.findIndex(line => /a\.js-custom-fields$/.test(line.trim()));
-  assert.ok(lines.slice(at, at + 5).map(line => line.trim()).includes('hr'),
-    'and a rule closes the group, the same one the rest of the menu uses');
-});
-
-test('the board list opens IN the menu, from the picker (negative)', () => {
-  // It opened the right sidebar: a different part of the screen, with the menu
-  // gone and the card pane closed behind it. It is a pop-over now, on top of
-  // the picker, so its back arrow returns to the fields you were looking at.
-  const picker = read('client/components/cards/cardCustomFields.js');
-  assert.ok(/Popup\.open\('boardCustomFields', \{ titleKey: 'custom-fields' \}\)\(event\)/
-    .test(picker), 'the Settings cog opens the popup');
-  assert.ok(!/setView\('customFields'\)/.test(picker), 'and no longer the sidebar view');
-  const sidebarFields = read('client/components/sidebar/sidebarCustomFields.jade');
-  assert.ok(/template\(name="boardCustomFieldsPopup"\)[\s\S]{0,300}\+customFieldsSidebar/
-    .test(sidebarFields),
-    'which INCLUDES the list rather than repeating it, so the two cannot drift');
-  // Board Settings no longer offers it: the fields are where the cards are.
-  assert.ok(!/js-custom-fields/.test(sidebarJade), 'the board menu row is gone');
-  assert.ok(!/Sidebar\.setView\('customFields'\)/.test(sidebarJs), 'and its handler with it');
+test('the card menu has no Custom Fields entry any more (negative)', () => {
+  // It had two, then one, and now none: every custom field of the board is
+  // listed by the hamburger at the end of the card's own Custom Fields heading,
+  // with a tick when it is on this card, a pencil each, and Add custom field.
+  // That is where the fields are shown, so it is where they are managed.
+  assert.ok(!/js-board-custom-fields/.test(menu), 'no board list entry');
+  assert.ok(!/js-custom-fields/.test(menu), 'no picker entry either');
+  assert.ok(!/card-edit-custom-fields/.test(menu), 'and none of the old wording');
+  const cardJade = read('client/components/cards/cardDetails.jade');
+  assert.ok(/menuClass="js-open-custom-fields-settings"/.test(cardJade),
+    'the section heading carries it instead');
 });
 
 // ── one table, one column at a time ────────────────────────────────────────

@@ -1,16 +1,25 @@
+//- The card's custom fields, from the hamburger at the end of the Custom Fields
+  heading: every field the BOARD has, with a tick when it is on this card, a
+  pencil to edit the field itself, and - under a rule - the one that makes a new
+  one. Everything about custom fields, in the place they are shown.
+//-
+//- Edit and Add open in this same pop-over, on top of this list, so the back
+  arrow returns to it. They are the board's own forms
+  (client/components/sidebar/sidebarCustomFields.jade), not second copies.
 template(name="cardCustomFieldsPopup")
     ul.pop-over-list
         each board.customFields
-            li.item(class="")
-                a.name.js-select-field(href="#")
+            li.item
+                a.name.js-select-field(href="#" title="{{_ 'show-field-on-card'}}")
+                    i.fa(class="{{#if hasCustomField}}fa-check-square-o{{else}}fa-square-o{{/if}}")
                     span.full-name
                       = name
-                    if hasCustomField
-                      i.fa.fa-check
+                a.js-edit-custom-field(title="{{_ 'edit'}}")
+                    i.fa.fa-pencil
     hr
-    a.quiet-button.full.js-settings
-        i.fa.fa-cog
-        span {{_ 'settings'}}
+    a.quiet-button.full.js-open-create-custom-field
+        i.fa.fa-plus
+        span {{_ 'createCustomField'}}
 
 template(name="cardCustomField")
     +Template.dynamic(template=getTemplate)

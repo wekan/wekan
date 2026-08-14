@@ -112,7 +112,7 @@ test('a title key is only added where the app has no words already (negative)', 
   // `showOnCardPopup-title` etc. would put a second copy of one phrase into 147
   // language files, English in every one of them until somebody translates it
   // again.
-  for (const name of ['showOnCard', 'showOnMinicard', 'boardCustomFields', 'boardsSort']) {
+  for (const name of ['showOnCard', 'showOnMinicard', 'boardsSort']) {
     assert.ok(!en[`${name}Popup-title`], `${name} has no key of its own`);
     assert.ok(explicitTitleKeys.has(name), `${name} points at one the app has`);
   }

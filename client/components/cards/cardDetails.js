@@ -882,13 +882,22 @@ Template.registerHelper('sectionCaret', section =>
   caretClassFor(isCardSectionOpen(section)));
 
 Template.cardSectionHeader.events({
-  // The hamburger at the end of a heading opens that section's settings. It
-  // must not reach the heading itself: a click there folds the section, so
-  // opening the menu would close what you opened it from.
+  // A hamburger at the end of a heading opens that section's settings. Neither
+  // may reach the heading itself: a click there folds the section, so opening
+  // the menu would close what you opened it from.
   'click .js-open-subtasks-settings'(event) {
     event.preventDefault();
     event.stopPropagation();
     Popup.open('boardSubtaskSettings')(event);
+  },
+  // Every custom field the board has, ticked when it is on this card, with a
+  // pencil each and "Add custom field" under a rule. The card is its data
+  // context, which is what the ticks and the toggle read.
+  // client/components/cards/cardCustomFields.jade
+  'click .js-open-custom-fields-settings'(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    Popup.open('cardCustomFields').call(Utils.getCurrentCard(), event);
   },
 
   'click .js-toggle-card-section'(event) {

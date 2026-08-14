@@ -48,16 +48,13 @@ Template.cardCustomFieldsPopup.events({
     card.toggleCustomField(customFieldId);
     event.preventDefault();
   },
-  // The board's list of custom fields - where one is created, renamed or
-  // deleted - as a pop-over on top of this one, so the back arrow returns here
-  // and the card stays open behind it. It used to send the reader to the right
-  // sidebar, closing this menu and the card pane on the way and putting the
-  // answer on the other side of the screen.
+  // Editing a field, and making one, open in this same pop-over on top of the
+  // list, so the back arrow returns to it and the card stays open behind. They
+  // are the board's own forms - the same templates the sidebar list opens - so
+  // there is one create form and one edit form, not a second pair for cards.
   // client/components/sidebar/sidebarCustomFields.jade
-  'click .js-settings'(event) {
-    Popup.open('boardCustomFields', { titleKey: 'custom-fields' })(event);
-    event.preventDefault();
-  },
+  'click .js-edit-custom-field': Popup.open('editCustomField'),
+  'click .js-open-create-custom-field': Popup.open('createCustomField'),
 });
 
 // cardCustomField

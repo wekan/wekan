@@ -44,8 +44,10 @@ test('the Subtasks heading carries a hamburger', () => {
   assert.ok(/i\.fa\.fa-navicon/.test(header), 'and it is the hamburger the rest of the card uses');
   assert.ok(/menuClass="js-open-subtasks-settings" menuTitle="subtask-settings"/.test(cardJade),
     'Subtasks asks for one');
-  const others = (cardJade.match(/menuClass=/g) || []).length;
-  assert.strictEqual(others, 1, 'and it is the only section that does, for now');
+  // Custom Fields asks for one too, for the same reason: its settings belong to
+  // the section that shows them. tests/customFieldsSectionMenu.test.cjs.
+  assert.ok(/menuClass="js-open-custom-fields-settings"/.test(cardJade),
+    'and so does Custom Fields');
 });
 
 test('it opens the settings, and does not fold the section (negative)', () => {
