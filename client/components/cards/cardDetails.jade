@@ -162,6 +162,11 @@ template(name="cardDetails")
                     a.card-label.add-label.js-add-location(title="{{_ 'add-location'}}")
                       i.fa.fa-plus
 
+        //- The card's button row - it sat here before the fields were grouped,
+          between the Labels group and the dates, and belongs to the card rather
+          than to any group.
+        +cardButtons(_id=_id boardId=boardId)
+
         .card-details-group.card-details-group-date-format
           hr.card-details-section-rule
           .card-details-group-body
@@ -230,8 +235,6 @@ template(name="cardDetails")
                       unless currentUser.isWorker
                         a.card-label.add-label.js-end-date
                           i.fa.fa-plus
-
-                      i.fa.fa-plus
 
         .card-details-group.card-details-group-members
           hr.card-details-section-rule
@@ -408,6 +411,12 @@ template(name="cardDetails")
               .card-details-group-body
                 each customFieldsWD
                   .card-details-item.card-details-item-customfield
+                    //- The field's NAME: +cardCustomField renders the value and
+                      nothing else, so without this a card shows values with
+                      nothing to say what they are.
+                    h3.card-details-item-title
+                      i.fa.fa-list
+                      = definition.name
                     +cardCustomField
 
           if $gt customFieldsWD.length 1
@@ -702,7 +711,8 @@ template(name="cardDetails")
             if isSectionOpen "subtasks"
               +subtasks(cardId = _id)
         if currentBoard.allowsAttachments
-          +cardSectionHeader(section="attachments" icon="fa-paperclip" label="attachments")
+          +cardSectionHeader(section="attachments" icon="fa-paperclip" label="attachments"
+            count=attachmentCount)
           if isSectionOpen "attachments"
             if Meteor.settings.public.attachmentsUploadMaxSize
               | {{_ 'max-upload-filesize'}} {{Meteor.settings.public.attachmentsUploadMaxSize}}
@@ -765,6 +775,10 @@ template(name="cardSectionHeader")
     if icon
       i.fa(class="{{icon}}")
     | {{_ label}}
+    //- An optional count after the name - "Attachments (3)" - for a section
+      whose size is worth knowing before it is opened.
+    if count
+      |  ({{count}})
 
 template(name="editCardTitleForm")
   //- The X that closes the editor, where the card's own X is when the title is
@@ -1175,7 +1189,12 @@ template(name="cardMorePopup")
       = ' '
       i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
       input.inline-input(type="text" id="cardURL" readonly value="{{ originRelativeUrl }}" autofocus="autofocus")
-      button.js-copy-card-link-to-clipboard(class="btn" id="clipboard") {{_ 'copy-card-link-to-clipboard'}}
+      //- `.primary` is the themed button - the board's accent with white text -
+        and is named in forms.css beside the other buttons that wear it, so the
+        accent and the hover and active states have one home. Without it this
+        one fell back to the plain grey button, whose dark label is nearly
+        invisible on a dark theme.
+      button.primary.js-copy-card-link-to-clipboard(class="btn" id="clipboard") {{_ 'copy-card-link-to-clipboard'}}
       .copied-tooltip {{_ 'copied'}}
     span.clearfix
     br

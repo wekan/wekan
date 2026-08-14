@@ -288,4 +288,58 @@ test('Requested By and Assigned By have the + Members and Assignee have', () => 
     'which is the button Members uses');
 });
 
+// ── what the restructuring must not have taken with it ─────────────────────
+//
+// Moving eleven sections around with a script is how markup disappears without
+// anything failing: the file still compiles, the tests still pass, and a card is
+// missing a row nobody looks at until they need it. These are the pieces that
+// were lost once and put back.
+
+test('the card button row is still there', () => {
+  assert.ok(/\+cardButtons\(_id=_id boardId=boardId\)/.test(jade),
+    'the whole button row was dropped by a slice that used it as a boundary');
+});
+
+test('a custom field still shows its NAME', () => {
+  // +cardCustomField renders the value and nothing else, so a card with three
+  // custom fields showed three values with nothing to say what they were.
+  const at = jade.indexOf('.card-details-item.card-details-item-customfield');
+  const block = jade.slice(at, at + 600);
+  assert.ok(/= definition\.name/.test(block), 'the field name is rendered');
+  // The INCLUDE, at the start of its own line - the comment above it mentions
+  // +cardCustomField too, and matching that would compare against prose.
+  assert.ok(block.indexOf('= definition.name') < block.search(/\n\s+\+cardCustomField/),
+    'above its value');
+});
+
+test('the Attachments heading can still show its count', () => {
+  assert.ok(/count=attachmentCount/.test(jade), 'the header takes a count');
+  assert.ok(/if count\n\s+\|  \(\{\{count\}\}\)/.test(jade), 'and shows it when there is one');
+  assert.ok(/allowsAttachmentCountOnCard/.test(js),
+    'only when the board asks for it, which is the setting that governed it');
+});
+
+test('the End date has ONE add button (negative)', () => {
+  // A stray second `i.fa.fa-plus` appeared beside it - a bare icon, not a
+  // button, from a slice that duplicated a line.
+  const at = jade.indexOf('card-details-item-end');
+  const block = jade.slice(at, at + 500);
+  const pluses = (block.match(/i\.fa\.fa-plus/g) || []).length;
+  assert.strictEqual(pluses, 1, 'one plus in the End date item');
+});
+
+test('the Copy card link button wears the theme', () => {
+  // It had `.btn` only, so it fell back to the plain grey button whose dark
+  // label is nearly invisible on a dark theme. `.primary` is the themed one -
+  // the board accent with white text - and it is NAMED in forms.css beside the
+  // other buttons that wear it rather than given a copy of those rules.
+  assert.ok(/button\.primary\.js-copy-card-link-to-clipboard/.test(jade),
+    'the button is a themed one');
+  const forms = read('client/components/forms/forms.css');
+  const rule = forms.slice(forms.indexOf('button.primary,'));
+  assert.ok(/background: var\(--theme-accent/.test(rule.slice(0, 200)),
+    'which paints it with the theme accent');
+  assert.ok(/color: #fff/.test(rule.slice(0, 260)), 'and writes on it in white');
+});
+
 console.log(`\ncardSectionCollapse: ${passed} tests passed`);

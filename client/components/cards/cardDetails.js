@@ -913,6 +913,16 @@ function isCardSectionOpen(section) {
 
 Template.registerHelper('isSectionOpen', isCardSectionOpen);
 
+// "Attachments (3)" - the count the heading carried before it became a section,
+// and only when the board asks for it.
+Template.registerHelper('attachmentCount', function attachmentCount() {
+  const card = Utils.getCurrentCard();
+  const board = card && card.board && card.board();
+  if (!board || !board.allowsAttachmentCountOnCard) return '';
+  const attachments = card.attachments && card.attachments();
+  return attachments && attachments.length ? attachments.length : '';
+});
+
 // Down when open. When closed it points the way the reader's eye travels - to
 // the RIGHT in English and to the LEFT in Arabic, Hebrew and Persian - because
 // a caret is an arrow saying "there is more this way", and in a mirrored page

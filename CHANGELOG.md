@@ -847,6 +847,34 @@ and fixes the following bugs:
 **Card details** - the card as it is opened and edited.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">What the card restructuring nearly took with it, and a Copy card link button that can be read</a>. Thanks to xet7.</summary>
+
+Moving eleven sections with a script is how markup disappears without anything
+failing: the file still compiles, the tests still pass, and a card is quietly
+missing a row. Comparing the card against its state before the section work
+turned up four things, three of them lost:
+
+- the **card button row** (`+cardButtons`) - a slice used it as a boundary and
+  swallowed it;
+- a custom field's **name**: `+cardCustomField` renders the value and nothing
+  else, so a card with three custom fields showed three values with nothing to
+  say what they were;
+- the **attachment count** beside the Attachments heading, which the board
+  setting for it still governs;
+- and one thing GAINED that should not have been: a second, bare **+** beside
+  the End date's add button.
+
+All four now have a test of their own, because each was invisible to everything
+else.
+
+The **Copy card link to clipboard** button carried only `.btn`, so it fell back
+to the plain grey button whose dark label is nearly unreadable on a dark theme.
+It is a `.primary` now - the board's accent with white text - named in the same
+rules as the other themed buttons rather than given a copy of them.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c747d51bafd7f7ac09c618be8ea9e00aa37b9762">A group's caret is on its first field's title, so the titles read as one row</a>. Thanks to xet7.</summary>
 
 Grouping the fields gave each group a header LINE of its own, and for a group
