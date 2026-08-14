@@ -892,7 +892,7 @@ height for exactly that.
 **Card and minicard menus** - the settings about a thing, in that thing's menu.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH2">Show on Card and Show on Minicard lead the card's and the minicard's menus</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f0204ae014d1b312355be89bba09717ffeb28d47">Show on Card and Show on Minicard lead the card's and the minicard's menus</a>. Thanks to xet7.</summary>
 
 Board Settings / Card Settings is a table of twenty-four settings with two
 columns - what a card shows, and what a MINICARD shows - and it lived in one
@@ -917,7 +917,7 @@ next time Blaze re-renders the popup with a fresh copy of it.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH2">Hide minicard label text became the Labels text row, and now works when logged in</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f0204ae014d1b312355be89bba09717ffeb28d47">Hide minicard label text became the Labels text row, and now works when logged in</a>. Thanks to xet7.</summary>
 
 It was in the right sidebar under the People and Organizations tabs, which is
 not where anything else about a minicard is. It is a row of the same table now,
@@ -947,7 +947,7 @@ two halves cannot disagree again.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH2">The board sidebar's Activities has a caret instead of an eye</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f0204ae014d1b312355be89bba09717ffeb28d47">The board sidebar's Activities has a caret instead of an eye</a>. Thanks to xet7.</summary>
 
 The heading read "Activities" and beside it sat an eye and the words "Show
 activities" - one setting with two controls and its own name said twice. It is a
