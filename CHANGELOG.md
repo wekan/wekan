@@ -1099,7 +1099,7 @@ and fixes the following bugs:
 **Card details** - the card as it is opened and edited.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH8">Upload background image did nothing, and every attachment upload now shares one config</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ac201d4b5988bf314b4efcb0619ccdc36ab64595">Upload background image did nothing, and every attachment upload now shares one config</a>. Thanks to xet7.</summary>
 
 "Upload background image" picked a file and then nothing arrived. Two fields of
 an upload's config are not optional in the way they look, and the board
@@ -1123,7 +1123,7 @@ things nothing would have told it.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH8">An avatar with no name to draw broke the render around it</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ac201d4b5988bf314b4efcb0619ccdc36ab64595">An avatar with no name to draw broke the render around it</a>. Thanks to xet7.</summary>
 
 `getInitials()` ended with `this.username[0]`, so a user document that arrived
 without a username threw a TypeError - from a Blaze helper, mid-render. Two
