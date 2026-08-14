@@ -65,6 +65,10 @@ function computePopupOffset(params) {
     boardChangeColorPopup: 720,  // Board Settings / Change Color
     // Stickers: the same, and more of them - a hundred and fifty icons.
     cardStickersPopup: 720,      // Card / Stickers
+    // Show on Card / Show on Minicard: two dozen settings laid out in columns
+    // instead of one long list. Same numbers as popup.css.
+    showOnCardPopup: 900,
+    showOnMinicardPopup: 900,
   };
   const wide = WIDE_POPUP_WIDTHS[popupName];
   const popupWidth = wide

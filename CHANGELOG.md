@@ -959,6 +959,14 @@ there is still one list of settings and one set of handlers: a setting added to
 the table appears in all three places by itself, and none of them can drift from
 the others.
 
+**Both are wide, and lay their rows out in columns.** Two dozen settings in one
+column is a list nobody sees the end of - "is Description on?" was somewhere
+below the fold. With one of the two checkbox columns hidden each row is half as
+wide as it was, so the popup is `min(90vw, 900px)` and the rows flow into as
+many columns as fit: one on a narrow window, three or four on a wide one, with
+the headings still spanning the width because they name the columns of a ROW
+rather than of the grid.
+
 The permission is the one Board Settings already used - a board admin - asked
 in the menu and again where it acts. The one menu is opened from two places and
 its data context is the card either way, so the opener says which hamburger it

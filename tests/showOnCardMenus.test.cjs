@@ -290,4 +290,39 @@ test('the heading works by keyboard as well as by mouse (negative)', () => {
     'while a mouse sees a button');
 });
 
+test('the two popups are wide, and lay their rows out in columns', () => {
+  // Two dozen settings in one column is a list nobody sees the end of: the
+  // answer to "is Description on?" was below the fold. With one checkbox column
+  // hidden each row is half as wide as it was, so the width buys columns of
+  // rows - which is what turns a list you scroll into a table you read.
+  const popupCss = read('client/components/main/popup.css');
+  for (const popup of ['showOnCardPopup', 'showOnMinicardPopup']) {
+    assert.ok(popupCss.includes(`data-popup='${popup}'`), `${popup} has a width rule`);
+  }
+  assert.ok(/data-popup='showOnMinicardPopup'\] \{\n\s+width: min\(90vw, 900px\)/.test(popupCss),
+    'as wide as the window allows, up to 900px');
+  const offset = read('client/lib/popupOffset.js');
+  assert.ok(/showOnCardPopup: 900/.test(offset) && /showOnMinicardPopup: 900/.test(offset),
+    'and the clamp that places them knows the same width');
+
+  const columns = sidebarCss.slice(sidebarCss.indexOf('.board-card-settings.show-card-only,'));
+  const body = columns.slice(0, columns.indexOf('}'));
+  assert.ok(/display: grid/.test(body), 'the form itself is the grid');
+  assert.ok(/repeat\(auto-fill, minmax\(240px, 1fr\)\)/.test(body),
+    'as many columns as fit - one on a narrow window, four on a wide one');
+  assert.ok(/align-items: start/.test(body), 'and the rows sit at the top of their cells');
+});
+
+test('the headings stay one row across the columns (negative)', () => {
+  // They name the columns of a ROW - "Show on Card", "Description" - not of the
+  // outer grid, so a heading in the second column would label nothing.
+  assert.ok(/show-minicard-only \.card-settings-grid \{\n\s+grid-column: 1 \/ -1/
+    .test(sidebarCss), 'the heading row spans the whole width');
+  // Desktop only: below 800px every popup is a full-screen sheet and one column
+  // is the right answer.
+  const at = sidebarCss.lastIndexOf('@media', sidebarCss.indexOf('.board-card-settings.show-card-only,'));
+  assert.ok(/min-width: 801px/.test(sidebarCss.slice(at, at + 60)),
+    'and the columns are a desktop rule');
+});
+
 console.log(`\nshowOnCardMenus: ${passed} tests passed`);

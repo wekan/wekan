@@ -281,6 +281,16 @@
     width: min(90vw, 720px) !important;
     max-width: 90vw !important;
   }
+
+  /* Show on Card / Show on Minicard: two dozen settings, and with one of the
+     two checkbox columns hidden each row is half as wide as it was. Width here
+     buys COLUMNS of rows (sidebar.css), which is what turns a list you scroll
+     into a table you read. */
+  .pop-over[data-popup='showOnCardPopup'],
+  .pop-over[data-popup='showOnMinicardPopup'] {
+    width: min(90vw, 900px) !important;
+    max-width: 90vw !important;
+  }
 }
 
 /* Make language popup extend to bottom of browser window */

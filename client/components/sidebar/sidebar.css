@@ -147,6 +147,33 @@
   grid-template-columns: 1fr 2fr;
 }
 
+/* Two dozen settings in one column is a list nobody sees the end of: "Show on
+   Card" opened, and the answer to "is Description on?" was somewhere below the
+   fold. With one column of checkboxes hidden the rows are half as wide as they
+   were, so the width the popup already has is enough for two or three of them
+   side by side - and popup.css gives these two popups more of it.
+
+   The FORM becomes the grid and each ROW is one of its cells; the row keeps its
+   own "checkbox | name" grid inside that cell. `auto-fill` rather than a fixed
+   count, so a narrow window still gets one column and a wide one gets four
+   without a media query per size. */
+@media screen and (min-width: 801px) {
+  .board-card-settings.show-card-only,
+  .board-card-settings.show-minicard-only {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    column-gap: 18px;
+    align-items: start;
+  }
+
+  /* The headings stay one row across the whole width: they name the columns of
+     a ROW ("Show on Card", "Description"), not of this outer grid. */
+  .board-card-settings.show-card-only .card-settings-grid,
+  .board-card-settings.show-minicard-only .card-settings-grid {
+    grid-column: 1 / -1;
+  }
+}
+
 /* "Labels text" is the user's own setting, not the board's: it shows in the
    minicard's own view and nowhere else - not in Board Settings / Card Settings,
    where every other row is board-wide, and not in Show on Card, which is about
