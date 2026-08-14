@@ -1023,14 +1023,28 @@ decides anything on the server, so folding them for yourself must not fold them
 for everybody. Activities is the exception and stays as it is - its caret
 writes `board.showActivities`, which also decides what the publication sends.
 
-The first header bar's board controls fold the same way, from a caret at the
-leading edge of the group - left of the lock in a left-to-right page, right of
-it in Arabic. Folded, **Private**, **Muted**, **Sort Cards**, **Filter**,
-**Search**, **Show dependencies** and **Multi-Selection** are gone and the bar
-is the logo, the board's name and the caret. The buttons a board's own Rules
-put in that bar are NOT folded with them: somebody added those to this board on
-purpose. It is named by the words the app already has - Collapse and Uncollapse
-- so no key was added to 147 language files to say them again.
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7d0396ebec899e0ade36d78cf6a19ad8f6fba4ff">The board's controls in the header bar fold into one caret</a>. Thanks to xet7.</summary>
+
+A caret leads the group, at its leading edge - left of the lock in a
+left-to-right page, right of it in Arabic, because its direction comes from the
+same rule every other caret uses. Folded, the seven controls after it are gone
+- **Private**, **Muted**, **Sort Cards**, **Filter**, **Search**, **Show
+dependencies** and **Multi-Selection** - and the bar is the logo, the board's
+name and the caret.
+
+The buttons a board's own Rules put in that bar are NOT folded with them:
+somebody added those to this board on purpose, so the standard controls fold
+around them. It is named by the words the app already has - Collapse and
+Uncollapse - so no key was added to 147 language files to say them again, and
+it answers Enter and Space like the button it says it is.
+
+All three folds share one store, one helper and one class
+([`client/lib/foldState.js`](client/lib/foldState.js)): a caret in the header
+and a caret in the sidebar pointing different ways in one language is the bug
+that avoids.
 
 </details>
 
