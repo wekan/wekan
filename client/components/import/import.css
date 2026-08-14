@@ -165,3 +165,71 @@ a.show-mapping {
   font-size: 0.85em;
   margin: 2px 0 4px;
 }
+
+/* ── The import page's two questions ────────────────────────────────────────
+   WHICH SOURCE, and WHAT TO TAKE FROM IT. They are asked in that order and
+   answered in either, so on a wide page they are two columns: fourteen sources
+   in one and two dozen parts in the other, both on screen at once instead of
+   the parts living below a list you scroll past. `auto-fit` with a minimum, so
+   a narrow window stacks them without a second rule. */
+.import-page .import-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+
+.import-page .import-columns h2 {
+  font-size: 1.1em;
+  margin: 0 0 8px;
+}
+
+.import-page .import-source-list,
+.import-page .import-part-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* A row is EXACTLY the row Admin Panel / Announcement draws:
+   `a.flex > .materialCheckBox + span`, and no geometry of its own. That matters
+   more than it looks: `.materialCheckBox.is-checked` becomes the tick by
+   turning two borders transparent, rotating 40deg and shifting itself
+   (`top: -4px; inset-inline-start: -3px; margin-inline-end: 6px`) - offsets
+   written for the plain flow `.flex` gives it. An `align-items: center` and a
+   `gap` on top of that fight those offsets, and the tick lands on the first
+   word of the label, which is what this page did before.
+
+   So only the things that move nothing: something to click against, and a
+   pointer. forms.css does the rest, the same way it does on the Announcement
+   page. */
+.import-page .import-source-list a.flex,
+.import-page .import-part-list a.flex {
+  padding: 4px 4px;
+  border-radius: 3px;
+  color: inherit;
+  cursor: pointer;
+}
+
+.import-page .import-source-list a.flex:hover,
+.import-page .import-part-list a.flex:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* A space between the box and its label, in BOTH states.
+   `.materialCheckBox` is 13px plus a 2px border on each side, and carries no
+   margin, so an unchecked row's text starts right against the box. Checked, it
+   is a different shape entirely - 7px wide, shifted `inset-inline-start: -3px`,
+   with `margin-inline-end: 6px` - so its text starts 8px + 6px in.
+   Lining the two up is arithmetic: 17 + 8 = 25 for the unchecked box, and
+   8 + 17 = 25 for the checked one, so a row's label sits in the same place
+   whether it is ticked or not and ticking one no longer nudges its text. */
+.import-page .import-source-list a.flex .materialCheckBox,
+.import-page .import-part-list a.flex .materialCheckBox {
+  margin-inline-end: 8px;
+}
+
+.import-page .import-source-list a.flex .materialCheckBox.is-checked,
+.import-page .import-part-list a.flex .materialCheckBox.is-checked {
+  margin-inline-end: 17px;
+}

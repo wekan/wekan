@@ -10,25 +10,35 @@ template(name="import")
       menu somewhere else. The source is picked HERE, the parts are picked with
       the same checkboxes every export uses, and the boards inside a file that
       holds several are picked below that.
-    .import-sources
-      h2 {{_ 'import-source-heading'}}
-      ul.import-source-list
-        each importSources
-          li(class="{{#if selected}}active{{/if}}")
-            a.js-select-import-source(data-source="{{key}}" href="#")
-              i.fa.fa-check
-              | {{name}}
+    //- The two questions side by side when the page is wide enough: which
+      source, and what to take from it. They are asked in that order and
+      answered in either, so reading them as two columns beats scrolling past
+      fourteen sources to reach the parts. client/components/import/import.css
+    .import-columns
+      .import-sources
+        h2 {{_ 'import-source-heading'}}
+        ul.import-source-list
+          each importSources
+            li
+              //- The same green tick every checkbox in the app uses
+                (`.materialCheckBox`, forms.css) - the one Admin Panel /
+                Announcement has. Nothing is chosen to begin with, and choosing
+                one un-chooses the last: an import reads ONE file in one format,
+                so this is a radio wearing the app's own checkbox.
+              a.flex.js-select-import-source(data-source="{{key}}" href="#")
+                .materialCheckBox(class="{{#if selected}}is-checked{{/if}}")
+                span {{name}}
+      if hasImportSource
+        .import-parts
+          h2 {{_ 'export-select-what-to-include'}}
+          p.quiet {{_ 'import-parts-instruction'}}
+          ul.import-part-list
+            each importParts
+              li
+                a.flex.js-import-part-toggle(data-field="{{field}}" href="#")
+                  .materialCheckBox(class="{{#if checked}}is-checked{{/if}}")
+                  span {{_ label}}
     if hasImportSource
-      hr
-      .import-parts
-        h2 {{_ 'export-select-what-to-include'}}
-        p.quiet {{_ 'import-parts-instruction'}}
-        ul.import-part-list
-          each importParts
-            li(class="{{#if checked}}active{{/if}}")
-              a.js-import-part-toggle(data-field="{{field}}" href="#")
-                i.fa.fa-check
-                | {{_ label}}
       hr
       +Template.dynamic(template=currentTemplate)
 
@@ -63,7 +73,7 @@ template(name="importTextarea")
         label(for='import-workspace-name') {{_ 'import-trello-workspace'}}
         input.js-import-workspace-name(id='import-workspace-name' type="text" placeholder="{{_ 'import-trello-workspace-placeholder'}}")
     input.primary.wide(type="submit" value="{{_ 'import'}}")
-    button.wide.js-import-without-mapping(type="button") {{_ 'import-without-mapping-members'}}
+    button.primary.wide.js-import-without-mapping(type="button") {{_ 'import-without-mapping-members'}}
   if isTrelloImport
     hr
     +importTrelloApi
@@ -192,7 +202,7 @@ template(name="importMapMembers")
         .mapping-item.ghost-item
       form
         input.primary.wide(type="submit" value="{{_ 'done'}}")
-        button.wide.js-import-skip-mapping(type="button") {{_ 'import-without-mapping-members'}}
+        button.primary.wide.js-import-skip-mapping(type="button") {{_ 'import-without-mapping-members'}}
   else
     +spinner
 

@@ -668,9 +668,15 @@ template(name="boardSubtaskSettingsPopup")
 template(name="chooseBoardSourcePopup")
   ul.pop-over-list
     li
+      //- "Import board", and nothing else. It used to read "Import board
+        (Trello, Jira, WeKan export, CSV, Excel, ...)" - the whole list of
+        sources, in a menu row, above a page that asks which source it is and
+        lists every one of them with room to. Naming them twice makes the menu
+        the thing to read and the page the thing to confirm.
+        client/components/import/import.jade
       a.js-open-import-page(href="{{pathFor '/import'}}")
         i.fa.fa-download
-        |  {{_ 'import-board-source'}}
+        |  {{_ 'import-board-c'}}
     li
       a.js-import-dependencies {{_ 'import'}} / {{_ 'card-dependencies'}} (JSON/SVG)
 

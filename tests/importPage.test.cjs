@@ -142,4 +142,118 @@ test('the strings it needs exist in English', () => {
   }
 });
 
+test('the popup says "Import board", and nothing more', () => {
+  // It read "Import board (Trello, Jira, WeKan export, CSV, Excel, ...)" - the
+  // whole list of sources, in a menu row, above a page that asks which source
+  // it is and lists every one of them with room to. Naming them twice makes the
+  // menu the thing to read and the page the thing to confirm.
+  const sidebar = read('client/components/sidebar/sidebar.jade');
+  const popup = sidebar.slice(sidebar.indexOf('template(name="chooseBoardSourcePopup")'),
+    sidebar.indexOf('template(name="importDependenciesPopup")'));
+  assert.ok(/\{\{_ 'import-board-c'\}\}/.test(popup), 'the row is "Import board"');
+  assert.ok(!/import-board-source/.test(popup), 'not the list of sources');
+  const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
+  assert.strictEqual(en['import-board-c'], 'Import board');
+});
+
+test('both lists are the app\'s own green checkbox', () => {
+  // The same `.materialCheckBox` Admin Panel / Announcement uses, rather than a
+  // tick icon that is always drawn and only sometimes meant.
+  const jade = read('client/components/import/import.jade');
+  const sources = jade.slice(jade.indexOf('ul.import-source-list'), jade.indexOf('if hasImportSource'));
+  assert.ok(/a\.flex\.js-select-import-source/.test(sources), 'a checkbox row');
+  assert.ok(/\.materialCheckBox\(class="\{\{#if selected\}\}is-checked\{\{\/if\}\}"\)/.test(sources),
+    'ticked when it is the chosen source');
+  const parts = jade.slice(jade.indexOf('ul.import-part-list'));
+  assert.ok(/\.materialCheckBox\(class="\{\{#if checked\}\}is-checked\{\{\/if\}\}"\)/
+    .test(parts.slice(0, 400)), 'and the parts the same');
+  assert.ok(!/i\.fa\.fa-check/.test(sources + parts.slice(0, 400)),
+    'no icon pretending to be a checkbox');
+});
+
+test('no source to begin with, and choosing one un-chooses the last (negative)', () => {
+  // An import reads ONE file in one format, so this is a radio wearing the
+  // app's checkbox - and the URL is what holds the answer, so there is only
+  // ever one.
+  const router = read('config/router.js');
+  assert.ok(/Session\.set\('importSource', null\);/.test(router),
+    '/import starts with nothing chosen');
+  assert.ok(/Session\.set\('importSource', params\.source\);/.test(router),
+    'and /import/<source> is what chooses one');
+  const js = read('client/components/import/import.js');
+  const handler = js.slice(js.indexOf("'click .js-select-import-source'"));
+  assert.ok(/FlowRouter\.go\(`\/import\/\$\{source\}`\)/.test(handler.slice(0, 400)),
+    'clicking a source goes there, so the previous one cannot stay chosen');
+  const helper = js.slice(js.indexOf('importSources() {'));
+  assert.ok(/selected: source\.key === current/.test(helper.slice(0, 600)),
+    'and exactly one row is ticked');
+});
+
+test('the parts start ticked, all of them (negative)', () => {
+  // "What to include" starts as everything: an import that silently left parts
+  // out would be worse than one that asks.
+  const scope = read('client/components/boards/exportScope.js');
+  assert.ok(/BOARD_EXPORT_FIELDS\.forEach\(\(\{ field \}\) => selection\.set\(field, true\)\)/.test(scope),
+    'every part is on to begin with');
+  const js = read('client/components/import/import.js');
+  assert.ok(/checked: importSelection\.get\(field\)/.test(js),
+    'and the page draws that same selection');
+});
+
+test('the two questions sit side by side when there is room', () => {
+  const jade = read('client/components/import/import.jade');
+  assert.ok(/\.import-columns/.test(jade), 'they share a container');
+  assert.ok(jade.indexOf('.import-sources') < jade.indexOf('.import-parts'),
+    'the source first, which is the question that comes first');
+  const css = read('client/components/import/import.css');
+  const rule = css.slice(css.indexOf('.import-page .import-columns {'));
+  const body = rule.slice(0, rule.indexOf('}'));
+  assert.ok(/grid-template-columns: repeat\(auto-fit, minmax\(280px, 1fr\)\)/.test(body),
+    'two columns when the page is wide, one when it is not');
+  assert.ok(/align-items: start/.test(body), 'and a short column does not stretch');
+});
+
+test('a row is the Announcement row, and nothing on top of it', () => {
+  // The Admin Panel's Announcement toggle is `a.flex > .materialCheckBox +
+  // span` with no CSS of its own, and that is the whole style: the tick's
+  // rotate and its negative offsets are written for the plain flow `.flex`
+  // gives it. An `align-items: center` or a `gap` on the row fights them and
+  // the tick lands on the first word of the label, which is what this page did.
+  const jade = read('client/components/import/import.jade');
+  assert.ok(/a\.flex\.js-select-import-source[\s\S]{0,200}\.materialCheckBox/.test(jade),
+    'the source row is that row');
+  assert.ok(/a\.flex\.js-import-part-toggle[\s\S]{0,200}\.materialCheckBox/.test(jade),
+    'and so is the part row');
+  const css = read('client/components/import/import.css');
+  const rows = css.slice(css.indexOf('.import-page .import-source-list a.flex,'));
+  const body = rows.slice(0, rows.indexOf('}'));
+  assert.ok(!/align-items|gap:|flex: 0 0/.test(body),
+    'and the row itself moves nothing');
+});
+
+test('there is a space between the box and its label, ticked or not', () => {
+  const css = read('client/components/import/import.css');
+  const plain = css.slice(css.indexOf('.import-page .import-source-list a.flex .materialCheckBox,'));
+  assert.ok(/margin-inline-end: 8px/.test(plain.slice(0, plain.indexOf('}'))),
+    'an unchecked box no longer touches its text');
+  const checked = css.slice(css.indexOf('.materialCheckBox.is-checked,'));
+  assert.ok(/margin-inline-end: 17px/.test(checked.slice(0, checked.indexOf('}'))),
+    'and the tick, which is a narrower shape shifted left, keeps the label in the same place');
+  assert.ok(/margin-inline-end/.test(css) && !/margin-right/.test(css),
+    'logical, so right-to-left languages get the space on their side');
+});
+
+test('both import buttons look like the import they do', () => {
+  // "Import without mapping members (map later)" is an import, not a cancel:
+  // it was the only unstyled button on the page, which read as disabled.
+  const jade = read('client/components/import/import.jade');
+  for (const cls of ['js-import-without-mapping', 'js-import-skip-mapping']) {
+    const line = jade.split('\n').find(l => l.includes(cls));
+    assert.ok(line, `${cls} is still there`);
+    assert.ok(/button\.primary\.wide/.test(line), `${cls} is a primary button, like Import beside it`);
+  }
+  assert.ok(/input\.primary\.wide\(type="submit" value="\{\{_ 'import'\}\}"\)/.test(jade),
+    'which is what Import is');
+});
+
 console.log(`\nimportPage: ${passed} tests passed`);
