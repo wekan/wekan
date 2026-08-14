@@ -889,6 +889,79 @@ height for exactly that.
 
 </details>
 
+**Card and minicard menus** - the settings about a thing, in that thing's menu.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH2">Show on Card and Show on Minicard lead the card's and the minicard's menus</a>. Thanks to xet7.</summary>
+
+Board Settings / Card Settings is a table of twenty-four settings with two
+columns - what a card shows, and what a MINICARD shows - and it lived in one
+place only: the right sidebar, four clicks from the card whose fields it
+decides.
+
+It is now also the first entry of the two menus it is about. The hamburger on an
+opened card offers **Show on Card**, the hamburger on a card on the board offers
+**Show on Minicard**, each followed by a rule like every other group in those
+menus. Both open the SAME popup with the other column hidden by a class, so
+there is still one list of settings and one set of handlers: a setting added to
+the table appears in all three places by itself, and none of them can drift from
+the others.
+
+The permission is the one Board Settings already used - a board admin - asked
+in the menu and again where it acts. The one menu is opened from two places and
+its data context is the card either way, so the opener says which hamburger it
+was in [`client/lib/cardMenuSource.js`](client/lib/cardMenuSource.js): a
+module-level reactive value, not a field on the card document, which is gone the
+next time Blaze re-renders the popup with a fresh copy of it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH2">Hide minicard label text became the Labels text row, and now works when logged in</a>. Thanks to xet7.</summary>
+
+It was in the right sidebar under the People and Organizations tabs, which is
+not where anything else about a minicard is. It is a row of the same table now,
+directly under **Labels**, named "Labels text" with the Labels icon and the
+Description Text icon in front of it - because it is about what those labels
+look like on a minicard: coloured words, or coloured bars with the words left
+out.
+
+It is ticked when the text is SHOWN, which is what a board does out of the box.
+The stored flag is a "hidden" one, so reading it straight through would have
+left the box unticked for the default behaviour, which reads as a broken
+checkbox.
+
+It is the one PERSONAL row of a board-wide table - the user's own profile, or
+this browser when nobody is logged in - so it appears in the minicard's view
+and nowhere else, and it is offered to EVERYBODY. A reader who is not a board
+admin gets that row alone rather than a table of checkboxes the server would
+refuse.
+
+The move found a bug. The setting was written out three times, and the
+minicard's own copy only ever wrote `localStorage`: a logged-in user toggling it
+set something nothing reads, because for a user the value is read from the
+profile. One module reads and writes it now
+([`client/lib/minicardLabelText.js`](client/lib/minicardLabelText.js)), so the
+two halves cannot disagree again.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH2">The board sidebar's Activities has a caret instead of an eye</a>. Thanks to xet7.</summary>
+
+The heading read "Activities" and beside it sat an eye and the words "Show
+activities" - one setting with two controls and its own name said twice. It is a
+caret in front of the heading now, and the heading is the button: click it and
+the activities appear under it, click it again and they are gone. That is the
+same control every collapsible section of an opened card has, from the same
+function ([`client/lib/sectionCaret.js`](client/lib/sectionCaret.js)), so the
+caret cannot point one way on a card and another in the sidebar of the same
+language - it points down when open, and toward the text when closed, which is
+right in English and left in Arabic. It carries `role="button"` and a tabindex,
+so Enter and Space do what a click does.
+
+</details>
+
 and fixes the following bugs:
 
 **Card details** - the card as it is opened and edited.

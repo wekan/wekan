@@ -40,10 +40,9 @@ template(name='homeSidebar')
   hr
   +labelsWidget
   hr
-  ul#cards.label-text-hidden
-    a.flex.js-toggle-minicard-label-text(title="{{_ 'hide-minicard-label-text'}}")
-      i.fa(class="{{#if hiddenMinicardLabelText}}fa-check{{else}}fa-square-o{{/if}}")
-      span {{_ 'hide-minicard-label-text'}}
+  //- "Hide minicard label text" was here, under the People/Organizations tabs.
+    It is a setting about the MINICARD, so it is in the minicard's own menu now:
+    Minicard menu / Show on Minicard. See showOnMinicardPopup below.
   if currentUser
     ul#cards.vertical-scrollbars-toggle
       a.flex.js-vertical-scrollbars-toggle(title="{{_ 'enable-vertical-scrollbars'}}")
@@ -55,18 +54,15 @@ template(name='homeSidebar')
       span {{_ 'show-week-of-year'}}
   hr
   if currentUser.isBoardAdmin
-    h3.activity-title
+    //- A caret in front of the heading, like every collapsible section of an
+      opened card: clicking the heading shows the activities under it, clicking
+      it again hides them. The eye and the words "Show activities" beside it
+      said the same thing a second time, which is one control too many for one
+      setting. client/lib/sectionCaret.js
+    h3.activity-title.js-toggle-show-activities(role="button" tabindex="0" title="{{_ 'activities'}}")
+      i.fa(class="{{activitiesCaret}}")
       i.fa.fa-comment-o
       | {{_ 'activities'}}
-
-      if showActivities
-        a.flex.activities-eye-toggle.js-toggle-show-activities(title="{{_ 'hide-activities'}}" aria-label="{{_ 'hide-activities'}}")
-          i.fa.fa-eye.eye-icon
-          span {{_ 'hide-activities'}}
-      else
-        a.flex.activities-eye-toggle.js-toggle-show-activities(title="{{_ 'show-activities'}}" aria-label="{{_ 'show-activities'}}")
-          i.fa.fa-eye-slash.eye-slash-icon
-          span {{_ 'show-activities'}}
     +activities(mode="board")
 
 template(name="membersWidget")
@@ -240,8 +236,29 @@ template(name="boardInfoOnMyBoardsPopup")
           i.fa.fa-arrows-h
           | {{_ 'personal-list-width'}}
 
+//- The Card Settings, from the CARD's own menu: the same popup with the
+  "Show on Minicard" column hidden, because the card menu is opened while
+  looking at a card. One list of settings, one set of handlers, one place a new
+  setting has to be added. client/components/cards/cardDetails.jade
+template(name="showOnCardPopup")
+  +boardCardSettingsPopup(side="card")
+
+//- ...and from the MINICARD's menu, the other column.
+//-
+//- "Labels text" - the one PERSONAL setting in that column - is a row of the
+//- same table, under Labels, so it is read where the rest of the minicard's
+//- settings are. It is offered to everybody, because it is stored on the user's
+//- profile (or in this browser when there is nobody logged in) and changes
+//- nothing for anyone else; a user who is not a board admin sees that row
+//- alone. client/lib/minicardLabelText.js
+template(name="showOnMinicardPopup")
+  if currentUser.isBoardAdmin
+    +boardCardSettingsPopup(side="minicard")
+  else
+    +boardCardSettingsPopup(side="minicard" personalOnly=true)
+
 template(name="boardCardSettingsPopup")
-  form.board-card-settings
+  form.board-card-settings(class=settingsSideClass)
     .card-settings-grid
       .card-settings-column
         h4 {{_ 'show-on-card'}}
@@ -393,6 +410,26 @@ template(name="boardCardSettingsPopup")
         span
           i.fa.fa-tag
           | {{_ 'labels'}}
+    //- "Labels text": the labels on a minicard as coloured WORDS, or as
+      coloured bars with the words left out. Directly under Labels, because it
+      is about what those labels look like.
+      It is the one PERSONAL row of this table - the user's own profile, or this
+      browser when nobody is logged in - so it is shown only in the minicard's
+      own view (Minicard menu / Show on Minicard) and not in the board-wide
+      Card Settings, where every other row belongs to the board. Checked by
+      default: the text is what a minicard shows unless somebody turns it off.
+      client/lib/minicardLabelText.js
+    .card-settings-row.card-settings-row-personal
+      .card-settings-column
+      .card-settings-column
+        a.flex.js-toggle-minicard-label-text(title="{{_ 'labels'}} {{_ 'custom-field-text'}}" class="{{#if showsMinicardLabelText}}is-checked{{/if}}")
+          i.fa(class="{{#if showsMinicardLabelText}}fa-check{{else}}fa-square-o{{/if}}")
+      .card-settings-column
+        span
+          i.fa.fa-tag
+          i.fa.fa-file-text-o
+          | {{_ 'labels'}}
+          | {{_ 'custom-field-text'}}
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-card-number(title="{{_ 'card'}} {{_ 'number'}}" class="{{#if allowsCardNumber}}is-checked{{/if}}")

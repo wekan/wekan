@@ -49,6 +49,9 @@ Cover image
 - You can enable it for minicard and card at:
   Right Sidebar/Board Settings/Card Settings/Cover Image
   (at bottom of Card Settings list).
+- The same settings are in the menus of the things they are about, one column
+  at a time: Card menu (☰ on an opened card) / Show on Card, and Minicard menu
+  (☰ on a card on the board) / Show on Minicard.
 
 Download Official Version
 

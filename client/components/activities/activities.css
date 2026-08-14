@@ -1,7 +1,13 @@
+/* The board sidebar's Activities heading. It is the section's own control now -
+   a caret, the icon and the name, clicked to show the activities under it - so
+   it is a row of three things beside each other rather than a heading with a
+   toggle pushed to the far end. client/components/sidebar/sidebar.jade */
 .activity-title {
   margin: 0 10px 9px;
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  gap: 0.4em;
+  cursor: pointer;
 }
 .reactions-popup .add-comment-reaction {
   display: inline-block;
@@ -14,20 +20,6 @@
 }
 .reactions-popup .add-comment-reaction:hover {
   background-color: #b0c4de;
-}
-/* Eye / eye-slash icon toggle for showing/hiding activities. Open eye
-   (.eye-icon) = activities shown; crossed eye (.eye-slash-icon) = hidden.
-   Matches the password-visibility toggle used on the login/register pages. */
-.activities-eye-toggle {
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4em;
-  text-decoration: none;
-}
-.activities-eye-toggle .eye-icon,
-.activities-eye-toggle .eye-slash-icon {
-  line-height: 1;
 }
 .activities {
   clear: both;

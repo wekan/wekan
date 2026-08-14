@@ -13,6 +13,11 @@ import {
   buildChecklistItemPayload,
 } from '/models/lib/checklistItemTitles';
 import { normalizeDependencies } from '/models/metadata/dependencies';
+import { setCardMenuSource } from '/client/lib/cardMenuSource';
+import {
+  hiddenMinicardLabelText,
+  toggleMinicardLabelText,
+} from '/client/lib/minicardLabelText';
 
 function getMinicardFlag(board, onMinicardField, legacyField, defaultValue) {
   if (!board) return false;
@@ -167,16 +172,7 @@ Template.minicard.helpers({
     return !!(board && board.allowsChecklistCountBadgeOnMinicard);
   },
 
-  hiddenMinicardLabelText() {
-    const currentUser = ReactiveCache.getCurrentUser();
-    if (currentUser) {
-      return (currentUser.profile || {}).hiddenMinicardLabelText;
-    } else if (window.localStorage.getItem('hiddenMinicardLabelText')) {
-      return true;
-    } else {
-      return false;
-    }
-  },
+  hiddenMinicardLabelText,
   cover() {
     // #5666: for a linked card the cover lives on the real card it points at, so
     // resolve the cover id through it (mirroring getTitle/getDue/...); a plain
@@ -322,12 +318,11 @@ Template.minicard.events({
     }
     this.setDueComplete(!this.getDueComplete());
   },
+  // The minicard's own copy of this only ever wrote localStorage, so a
+  // logged-in user toggling it here set something nothing reads. One module
+  // now, for reading and for writing. client/lib/minicardLabelText.js
   'click .js-toggle-minicard-label-text'() {
-    if (window.localStorage.getItem('hiddenMinicardLabelText')) {
-      window.localStorage.removeItem('hiddenMinicardLabelText'); //true
-    } else {
-      window.localStorage.setItem('hiddenMinicardLabelText', 'true'); //true
-    }
+    toggleMinicardLabelText();
   },
   'click span.badge-icon.fa.fa-sort, click span.badge-text.check-list-sort' : Popup.open("editCardSortOrder"),
   'click .minicard-labels'(event, tpl) {
@@ -339,6 +334,7 @@ Template.minicard.events({
     event.preventDefault();
     event.stopPropagation();
     const card = Template.currentData();
+    setCardMenuSource('minicard');
     Popup.open('cardDetailsActions').call({currentData: () => card}, event);
   },
   // Drag and drop file upload handlers

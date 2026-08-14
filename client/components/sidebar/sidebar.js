@@ -21,6 +21,11 @@ import {
   exportDependenciesSvg,
 } from '/client/lib/exportDependencies';
 import { parseDependencyLines } from '/client/lib/importDependencies';
+import { caretClassFor } from '/client/lib/sectionCaret';
+import {
+  hiddenMinicardLabelText,
+  toggleMinicardLabelText,
+} from '/client/lib/minicardLabelText';
 import {
   clearSidebarInstance,
   setSidebarInstance,
@@ -315,18 +320,6 @@ Template.sidebar.events({
   'click .js-back-home'(event, tpl) {
     tpl.setView();
   },
-  'click .js-toggle-minicard-label-text'() {
-    const currentUser = ReactiveCache.getCurrentUser();
-    if (currentUser) {
-      Meteor.call('toggleMinicardLabelText');
-    } else if (window.localStorage.getItem('hiddenMinicardLabelText')) {
-      window.localStorage.removeItem('hiddenMinicardLabelText');
-      location.reload();
-    } else {
-      window.localStorage.setItem('hiddenMinicardLabelText', 'true');
-      location.reload();
-    }
-  },
   'click .js-shortcuts'() {
     FlowRouter.go('shortcuts');
   },
@@ -363,16 +356,6 @@ Template.sidebar.events({
 Blaze.registerHelper('Sidebar', () => Sidebar);
 
 Template.homeSidebar.helpers({
-  hiddenMinicardLabelText() {
-    const currentUser = ReactiveCache.getCurrentUser();
-    if (currentUser) {
-      return (currentUser.profile || {}).hiddenMinicardLabelText;
-    } else if (window.localStorage.getItem('hiddenMinicardLabelText')) {
-      return true;
-    } else {
-      return false;
-    }
-  },
   isVerticalScrollbars() {
     const user = ReactiveCache.getCurrentUser();
     return user && user.isVerticalScrollbars();
@@ -386,10 +369,25 @@ Template.homeSidebar.helpers({
     let ret = Utils.getCurrentBoard().showActivities ?? false;
     return ret;
   },
+  // The caret in front of the Activities heading - the same one an opened
+  // card's sections carry, from the same function, so the two cannot point
+  // different ways in one language. client/lib/sectionCaret.js
+  activitiesCaret() {
+    return caretClassFor(Utils.getCurrentBoard()?.showActivities ?? false);
+  },
 });
 
 Template.homeSidebar.events({
-  async 'click .js-toggle-show-activities'() {
+  async 'click .js-toggle-show-activities'(event) {
+    event.preventDefault();
+    await Utils.getCurrentBoard().toggleShowActivities();
+  },
+  // A heading that can be operated with the mouse can be operated with the
+  // keyboard: it carries role="button" and a tabindex, so Enter and Space have
+  // to do what a click does.
+  async 'keydown .js-toggle-show-activities'(event) {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
     await Utils.getCurrentBoard().toggleShowActivities();
   },
 });
@@ -1524,6 +1522,31 @@ Template.boardCardSettingsPopup.onCreated(function() {
 });
 
 Template.boardCardSettingsPopup.helpers({
+  // Board Settings / Card Settings shows both columns - "Show on Card" and
+  // "Show on Minicard" beside each other. The card's own menu and the
+  // minicard's menu open the SAME popup asking for one of them, and the other
+  // column is hidden by this class rather than by a second copy of the list:
+  // twenty-four settings written out twice would drift the first time one is
+  // added. client/components/sidebar/sidebar.css
+  settingsSideClass() {
+    const data = Template.currentData() || {};
+    const classes = [];
+    if (data.side === 'card') classes.push('show-card-only');
+    if (data.side === 'minicard') classes.push('show-minicard-only');
+    // A user who is not a board admin may still set the one PERSONAL row of
+    // this table - "Labels text" - and none of the board's own. They get that
+    // row alone rather than a table of checkboxes the server would refuse.
+    if (data.personalOnly) classes.push('show-personal-only');
+    return classes.join(' ');
+  },
+
+  // Checked means the labels on a minicard show their TEXT, which is what they
+  // do unless somebody turns it off - so the stored "hidden" flag is read the
+  // other way round here. A checkbox that is unticked by default for the
+  // default behaviour reads as broken. client/lib/minicardLabelText.js
+  showsMinicardLabelText() {
+    return !hiddenMinicardLabelText();
+  },
   allowsReceivedDate() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
@@ -1810,6 +1833,11 @@ Template.boardCardSettingsPopup.helpers({
 });
 
 Template.boardCardSettingsPopup.events({
+  // The one row of this table that is the user's own, not the board's.
+  'click .js-toggle-minicard-label-text'(evt) {
+    evt.preventDefault();
+    toggleMinicardLabelText();
+  },
   'click .js-field-has-receiveddate'(evt, tpl) {
     evt.preventDefault();
     const newValue = !tpl.currentBoard.allowsReceivedDate;

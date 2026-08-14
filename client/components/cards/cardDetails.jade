@@ -819,6 +819,27 @@ template(name="editCardSortOrderForm")
 
 template(name="cardDetailsActionsPopup")
   if currentUser
+    //- What is shown on the thing you are looking at, first. This one menu is
+      opened from two places, and the entry differs with the place: from the
+      opened CARD it offers "Show on Card", from a MINICARD on the board it
+      offers "Show on Minicard". Both open the board's existing Card Settings
+      with that one column - it is the same list of settings, reached from
+      where the setting is visible instead of from Board Settings four clicks
+      away. client/lib/cardMenuSource.js
+    if isMinicardMenu
+      ul.pop-over-list
+        li
+          a.js-show-on-minicard
+            i.fa.fa-id-card
+            |  {{_ 'show-on-minicard'}}
+      hr
+    else if currentUser.isBoardAdmin
+      ul.pop-over-list
+        li
+          a.js-show-on-card
+            i.fa.fa-id-card
+            |  {{_ 'show-on-card'}}
+      hr
     //- Copy link, first, and named - the card's header carried this as an icon
       with only a tooltip, which is the one place a name cannot be read without
       hovering. It is here now, beside the swimlane's and the list's, so all

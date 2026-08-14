@@ -123,6 +123,42 @@
   border-bottom: 1px solid #eee;
 }
 
+/* One side of the same table. Card menu / Show on Card and Minicard menu /
+   Show on Minicard open this popup asking for one column; the other one is
+   hidden here, so there is still ONE list of settings and one set of handlers.
+   A hidden grid item takes no track, so the two that remain fill the two
+   columns declared below. client/components/sidebar/sidebar.jade */
+.board-card-settings.show-card-only .card-settings-grid,
+.board-card-settings.show-card-only .card-settings-row,
+.board-card-settings.show-minicard-only .card-settings-grid,
+.board-card-settings.show-minicard-only .card-settings-row {
+  grid-template-columns: 1fr 2fr;
+}
+
+/* "Labels text" is the user's own setting, not the board's: it shows in the
+   minicard's own view and nowhere else - not in Board Settings / Card Settings,
+   where every other row is board-wide, and not in Show on Card, which is about
+   the opened card. And when the reader is not a board admin, it is the only row
+   they may change, so it is the only row they get. */
+.board-card-settings .card-settings-row-personal {
+  display: none;
+}
+
+.board-card-settings.show-minicard-only .card-settings-row-personal {
+  display: grid;
+}
+
+.board-card-settings.show-personal-only .card-settings-row:not(.card-settings-row-personal) {
+  display: none;
+}
+
+.board-card-settings.show-card-only .card-settings-grid > .card-settings-column:nth-child(2),
+.board-card-settings.show-card-only .card-settings-row > .card-settings-column:nth-child(2),
+.board-card-settings.show-minicard-only .card-settings-grid > .card-settings-column:nth-child(1),
+.board-card-settings.show-minicard-only .card-settings-row > .card-settings-column:nth-child(1) {
+  display: none;
+}
+
 .card-settings-column {
   display: flex;
   align-items: center;

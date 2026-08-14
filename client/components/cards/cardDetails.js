@@ -73,6 +73,8 @@ import { EscapeActions } from '/client/lib/escapeActions';
 import { MultiSelection } from '/client/lib/multiSelection';
 import { Utils } from '/client/lib/utils';
 import autosize from 'autosize';
+import { cardMenuSource, setCardMenuSource } from '/client/lib/cardMenuSource';
+import { caretClassFor } from '/client/lib/sectionCaret';
 
 // Id of the location currently being edited in the cardLocationsPopup; null
 // when adding a new location.
@@ -923,15 +925,11 @@ Template.registerHelper('attachmentCount', function attachmentCount() {
   return attachments && attachments.length ? attachments.length : '';
 });
 
-// Down when open. When closed it points the way the reader's eye travels - to
-// the RIGHT in English and to the LEFT in Arabic, Hebrew and Persian - because
-// a caret is an arrow saying "there is more this way", and in a mirrored page
-// "this way" is the other way.
-Template.registerHelper('sectionCaret', section => {
-  if (isCardSectionOpen(section)) return 'fa-caret-down';
-  const rtl = (TAPi18n.getLanguageDirection && TAPi18n.getLanguageDirection()) === 'rtl';
-  return rtl ? 'fa-caret-left' : 'fa-caret-right';
-});
+// Which way the caret points. The rule - and the reason - is in
+// client/lib/sectionCaret.js, shared with the board sidebar's Activities, which
+// is the same control and must not point the other way in the same language.
+Template.registerHelper('sectionCaret', section =>
+  caretClassFor(isCardSectionOpen(section)));
 
 Template.cardSectionHeader.events({
   'click .js-toggle-card-section'(event) {
@@ -1104,7 +1102,12 @@ Template.cardDetails.events({
       window.localStorage.setItem('dateFormat', dateFormat);
     }
   },
-  'click .js-open-card-details-menu': Popup.open('cardDetailsActions'),
+  // The opened card's own hamburger. It says so, so the menu's first entry is
+  // "Show on Card" rather than the minicard's "Show on Minicard".
+  'click .js-open-card-details-menu'(event) {
+    setCardMenuSource('card');
+    Popup.open('cardDetailsActions').call(this, event);
+  },
   // Mobile: switch to desktop popup view (maximize)
   'click .js-mobile-switch-to-desktop'(event) {
     event.preventDefault();
@@ -1630,6 +1633,12 @@ Template.cardDetailsActionsPopup.helpers({
     return ReactiveCache.getCurrentUser()?.isBoardAdmin();
   },
 
+  // Which of the two hamburgers opened this menu, so its first entry can be
+  // about the thing the user is looking at. client/lib/cardMenuSource.js
+  isMinicardMenu() {
+    return cardMenuSource() === 'minicard';
+  },
+
   showListOnMinicard() {
     return this.showListOnMinicard;
   },
@@ -1649,6 +1658,11 @@ Template.cardDetailsActionsPopup.events({
     if (!url) return;
     Utils.showCopied(Utils.copyTextToClipboard(url), tpl.$('.copied-tooltip'));
   },
+  // The board's Card Settings, one column of them, titled by the key the app
+  // already has for that column - so no `showOnCardPopup-title` has to be added
+  // to 147 language files to say a phrase they have already translated.
+  'click .js-show-on-card': Popup.open('showOnCard', { titleKey: 'show-on-card' }),
+  'click .js-show-on-minicard': Popup.open('showOnMinicard', { titleKey: 'show-on-minicard' }),
   'click .js-export-card': Popup.open('exportCard'),
   'click .js-members': Popup.open('cardMembers'),
   'click .js-assignees': Popup.open('cardAssignees'),

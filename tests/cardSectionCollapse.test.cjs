@@ -79,11 +79,17 @@ test('Activities starts collapsed, everything else open', () => {
 });
 
 test('the caret mirrors in RTL, and only when closed', () => {
-  assert.ok(/isCardSectionOpen\(section\)\) return 'fa-caret-down'/.test(js),
+  // The rule lives in one module, shared with the board sidebar's Activities
+  // heading: the same control must not point different ways in one language.
+  assert.ok(/caretClassFor\(isCardSectionOpen\(section\)\)/.test(js),
+    'the card asks the shared rule');
+  const caret = fs.readFileSync(
+    path.join(ROOT, 'client/lib/sectionCaret.js'), 'utf8');
+  assert.ok(/if \(isOpen\) return 'fa-caret-down'/.test(caret),
     'open is always down');
-  assert.ok(/rtl \? 'fa-caret-left' : 'fa-caret-right'/.test(js),
+  assert.ok(/rtl \? 'fa-caret-left' : 'fa-caret-right'/.test(caret),
     'closed points the way the reader reads');
-  assert.ok(/getLanguageDirection/.test(js), 'read from the language, not guessed');
+  assert.ok(/getLanguageDirection/.test(caret), 'read from the language, not guessed');
 });
 
 test('the heading is operable by keyboard, not only by mouse', () => {
