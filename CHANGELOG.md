@@ -847,7 +847,7 @@ and fixes the following bugs:
 **Card details** - the card as it is opened and edited.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">Requested By and Assigned By are set with a + like Members, and survive an import</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/050df89f06ab07a17899a4b032beeae04676c270">Requested By and Assigned By are set with a + like Members, and survive an import</a>. Thanks to xet7.</summary>
 
 **Requested By** and **Assigned By** were set by clicking the word "Add". They
 have the round **+** the two fields beside them use now, opening the same editor
@@ -874,7 +874,7 @@ negative test pins.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">Assignee and Creator sit beside Members, with their + buttons on one line</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/050df89f06ab07a17899a4b032beeae04676c270">Assignee and Creator sit beside Members, with their + buttons on one line</a>. Thanks to xet7.</summary>
 
 Grouping the fields left two things crooked. Members, Assignee and Creator were
 each a full-width row, so Assignee and Creator fell to the line below Members -
