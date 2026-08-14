@@ -17,6 +17,18 @@ template(name="customFieldsSidebar")
             i.fa.fa-plus
             span {{_ 'createCustomField'}}
 
+//- The same list as a POPUP, for the card's menu. "Custom Fields" there used
+  to send the reader to the right sidebar - a different part of the screen, with
+  the menu gone and the card pane closed behind it. As a popup it opens where
+  the menu was, and the pop-over's own back arrow returns to the card menu; the
+  Create and Edit forms are popups already, so they stack on top of it and their
+  back arrow returns HERE. It is the same template as the sidebar view, included
+  rather than copied, so the two lists cannot drift.
+  client/components/cards/cardDetails.js
+template(name="boardCustomFieldsPopup")
+  .board-custom-fields-popup
+    +customFieldsSidebar
+
 template(name="createCustomFieldPopup")
     form
         label

@@ -124,15 +124,26 @@ test('Custom Fields and Edit custom fields are one group under Watch', () => {
   assert.ok(cardFields < voting, 'it is not down among Voting any more');
 });
 
-test('the board list opens the sidebar view, not a second copy of it', () => {
-  assert.ok(/'click \.js-board-custom-fields'\(event\)/.test(cardJs), 'the handler exists');
-  const handler = cardJs.slice(cardJs.indexOf("'click .js-board-custom-fields'"));
-  const body = handler.slice(0, handler.indexOf('\n  },'));
-  assert.ok(/setView\('customFields'\)/.test(body),
-    'the same view the board menu opens');
-  assert.ok(/getSidebarInstance\(\)/.test(body) && /if \(!sidebar\)/.test(body),
-    'asked for, and not assumed to be there');
-  assert.ok(/Popup\.back\(\)/.test(body), 'and the menu closes behind it');
+test('the board list opens IN the menu, and is not a second copy of it', () => {
+  // It opened the right sidebar: a different part of the screen, with the menu
+  // gone and the card pane closed behind it. It is a pop-over now, so it
+  // appears where the menu was and the pop-over's own back arrow returns to the
+  // card menu - and the Create and Edit forms, which were popups already, stack
+  // on top of it and come back HERE.
+  assert.ok(/'click \.js-board-custom-fields': Popup\.open\('boardCustomFields', \{ titleKey: 'custom-fields' \}\)/
+    .test(cardJs), 'the entry opens the popup');
+  const sidebarFields = read('client/components/sidebar/sidebarCustomFields.jade');
+  assert.ok(/template\(name="boardCustomFieldsPopup"\)[\s\S]{0,200}\+customFieldsSidebar/
+    .test(sidebarFields),
+    'which INCLUDES the sidebar list rather than repeating it, so the two cannot drift');
+  assert.ok(/template\(name="customFieldsSidebar"\)/.test(sidebarFields),
+    'and the sidebar view is still there, for the board menu');
+  assert.ok(!/getSidebarInstance/.test(cardJs),
+    'the card menu no longer reaches into the sidebar at all');
+  // Its own styles, because every rule the list has is written for
+  // `.sidebar .sidebar-content` and none of them reach inside a pop-over.
+  assert.ok(/\.board-custom-fields-popup ul\.sidebar-list \{/.test(sidebarCss),
+    'the list is given the shape a pop-over list has');
   // A board admin's, the same as in Board Settings.
   const group = menu.slice(menu.indexOf('js-toggle-watch-card'), menu.indexOf('js-board-custom-fields'));
   assert.ok(/if currentUser\.isBoardAdmin/.test(group), 'board admins only');

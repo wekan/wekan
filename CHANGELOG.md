@@ -956,9 +956,18 @@ halves of one subject, three groups apart.
 
 They are one group now, under Watch and its rule: **Custom Fields** first,
 because a field has to exist before a card can be given it, then **Edit custom
-fields**, then a rule like every other group in that menu. The first opens the
-same sidebar view the board menu opens - not a second copy of it - and closes
-the menu behind it. A board admin's, the same as in Board Settings.
+fields**, then a rule like every other group in that menu. A board admin's, the
+same as in Board Settings.
+
+**Custom Fields** opens IN the menu. It first opened the right sidebar, which
+is a different part of the screen: the menu was gone, the card pane was closed
+behind it, and the answer to "what fields does this board have" appeared on the
+other side. It is a pop-over now, in the place the menu was, and the pop-over's
+own back arrow returns to the card menu - while Create and Edit, which were
+popups already, stack on top of it and come back to the list. It is the SAME
+template the sidebar view uses, included rather than copied, so the two lists
+cannot drift; what it needed was styles of its own, because every rule that
+list has is written for the sidebar and none of them reach inside a pop-over.
 
 </details>
 
