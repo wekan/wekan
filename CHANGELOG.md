@@ -826,6 +826,30 @@ The **text colour** beside it stays.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/024036f4ee4b976f51bf6a032aa9b5d8c3916138">A custom colour can be chosen in Member Settings and the Admin Panel, not only on a board</a>. Thanks to xet7.</summary>
+
+All three places render the same picker, so the **Custom color** wheel was
+already written for all three - it was just never reachable in two of them. It
+appeared only once a named theme had been SELECTED, and a board always has a
+colour whose first entry is flat, so **Board Settings / Change Color** always
+showed it; **Member Settings / Change Color** and **Admin Panel / Settings /
+Visibility** open on *Default (no override)* with nothing selected, so both
+looked as though they had no custom colour at all.
+
+The wheel is offered from that state too, as the **flat** category's single
+colour - which is what a custom colour means with no theme under it - and
+choosing one applies it over the first flat theme. That fallback was already in
+the code that saves; it is now written into the picker's own selection as well,
+because otherwise the wheel would store a theme the page did not show as chosen
+and the next click would read the selection back as *none*.
+
+Picking a **clear** theme first still gives the two wheels its colour slide
+needs. One helper answers "which category's custom colours is this picker
+offering", so the wheel, the preview and what gets saved cannot disagree.
+
+</details>
+
 **Search** - finding a card by what people call it.
 
 <details>
