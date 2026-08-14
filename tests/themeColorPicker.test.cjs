@@ -43,11 +43,13 @@ test('picker applies IMMEDIATELY on click (no Save button), per scope', () => {
   assert.ok(/'click \.js-select-theme'/.test(js) && /tpl\.color\.set\(color\)/.test(js), 'swatch click sets color');
   assert.ok(/'click \.js-select-theme'[\s\S]{0,200}applySelection\(tpl\)/.test(js), 'swatch click applies immediately');
   // custom colors apply when the wheel is committed (change), not on every input.
-  assert.ok(/'change \.js-theme-wheel'[\s\S]{0,120}applySelection\(tpl\)/.test(js), 'wheel change applies');
+  assert.ok(/'change \.js-theme-wheel'[\s\S]{0,700}applySelection\(tpl\)/.test(js), 'wheel change applies');
   // apply helper writes per scope: board.setColor vs the global method.
   assert.ok(/b\.setColor\(color, custom\)/.test(js), 'board apply');
   assert.ok(/Meteor\.call\('setGlobalThemeColor', color, custom/.test(js), 'global apply');
-  assert.ok(/allowsCustomColor\(categoryOf\(cur\)\)/.test(js), 'custom gate uses the selected color');
+  assert.ok(/allowsCustomColor\(customCategory\(/.test(js), 'custom gate asks one helper');
+  assert.ok(/return cur \? categoryOf\(cur\) : THEME_CATEGORY_ORDER\[0\];/.test(js),
+    'which is the selected theme\'s category, or the flat one when nothing is selected');
   assert.ok(/isHexColor\(val\)/.test(js), 'wheel input validated as hex');
 });
 
@@ -142,6 +144,44 @@ test('the swatches take as many columns as the width allows', () => {
   const undoRule = undo.slice(0, undo.indexOf('}'));
   assert.ok(/float: none/.test(undoRule) && /width: auto/.test(undoRule),
     'the shared float/50% rules must be undone inside the grid');
+});
+
+test('a custom colour is offered in all three places, not only on a board', () => {
+  // The wheel was gated on a theme being SELECTED. A board always has a colour,
+  // and the first one is flat, so Board Settings always showed it - while Member
+  // Settings and Admin Panel / Visibility open on "Default (no override)" with
+  // nothing selected, so both looked as though they had no custom colour at all.
+  const js = read('client/components/main/themeColorPicker.js');
+  assert.ok(/function customCategory\(tpl\)/.test(js), 'one helper answers it');
+  assert.ok(/const cur = tpl\.color\.get\(\);\s*\n\s*return cur \? categoryOf\(cur\) : THEME_CATEGORY_ORDER\[0\];/.test(js),
+    'the selected theme\'s category, or the flat one when nothing is selected');
+  assert.ok(/showCustom\(\) \{\s*\n\s*return allowsCustomColor\(customCategory\(Template\.instance\(\)\)\);/.test(js),
+    'and the wheel is shown from it');
+
+  // Every scope renders the SAME picker, so this reaches all three at once.
+  const scopes = ['board', 'global', 'admin'];
+  const jades = {
+    board: read('client/components/sidebar/sidebar.jade'),
+    global: read('client/components/users/userHeader.jade'),
+    admin: read('client/components/settings/settingBody.jade'),
+  };
+  for (const scope of scopes) {
+    assert.ok(jades[scope].includes(`+themeColorPicker(scope="${scope}")`),
+      `${scope} renders the shared picker`);
+  }
+});
+
+test('committing the wheel from "Default" names the theme it lands on (negative)', () => {
+  // applySelection() already falls back to the first flat theme. If the picker's
+  // own state did not, the wheel would save a theme the page does not show as
+  // chosen, and the next click would read the selection back as "none".
+  const js = read('client/components/main/themeColorPicker.js');
+  const at = js.indexOf("'change .js-theme-wheel'");
+  const handler = js.slice(at, js.indexOf('},', at));
+  assert.ok(/if \(!tpl\.color\.get\(\)\) tpl\.color\.set\(colorsInCategory\(THEME_CATEGORY_ORDER\[0\]\)\[0\]\);/
+    .test(handler), 'the base theme is selected first');
+  assert.ok(/const color = tpl\.color\.get\(\) \|\| colorsInCategory\(THEME_CATEGORY_ORDER\[0\]\)\[0\];/.test(js),
+    'which is the same fallback the apply already used');
 });
 
 console.log(`\nAll ${passed} theme-color-picker tests passed`);
