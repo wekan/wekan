@@ -54,8 +54,8 @@
 /* A sidebar heading that folds its section - Members, Labels - is a button:
    the caret in front of it says which way it is, and it looks and behaves like
    something to click. The same control an opened card's sections have.
-   client/lib/sidebarSectionState.js */
-.sidebar .sidebar-content h3.js-toggle-sidebar-section {
+   client/lib/foldState.js */
+.sidebar .sidebar-content h3.js-toggle-fold {
   display: flex;
   align-items: center;
   gap: 0.3em;

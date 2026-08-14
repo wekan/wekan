@@ -17,6 +17,7 @@ import {
 import { MultiSelection } from '/client/lib/multiSelection';
 import { getSidebarInstance } from '/client/features/sidebar/service';
 import { Utils } from '/client/lib/utils';
+import { toggleFold } from '/client/lib/foldState';
 
 /*
 const DOWNCLS = 'fa-sort-down';
@@ -173,6 +174,18 @@ function toggleSidebarView(view, mustStayOpen) {
 }
 
 Template.boardHeaderButtons.events({
+  // The board's controls fold into the caret at the start of the group. Named
+  // by the words the app already has for it - Collapse and Uncollapse - rather
+  // than a key of its own in 147 language files. client/lib/foldState.js
+  'click .js-toggle-fold'(event) {
+    event.preventDefault();
+    toggleFold(event.currentTarget.dataset.fold);
+  },
+  'keydown .js-toggle-fold'(event) {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    toggleFold(event.currentTarget.dataset.fold);
+  },
   'click .js-change-visibility': Popup.open('boardChangeVisibility'),
   'click .js-watch-board': Popup.open('boardChangeWatch'),
   // Boards in Archive is a SECTION of All Boards, not a page of its own: the

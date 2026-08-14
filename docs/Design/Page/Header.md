@@ -78,6 +78,15 @@ early.
 In source order: the house and the page title, the logo, the phone/desktop
 toggle, the drag-handles toggle, and then everything else.
 
+**The board's controls fold.** A caret leads the group, at its leading edge —
+left of the lock in a left-to-right page, right of it in Arabic. Folded, the
+seven controls after it (Private, Muted, Sort Cards, Filter, Search, Show
+dependencies, Multi-Selection) are gone and the bar is the logo, the board's
+name and the caret. The buttons a board's own Rules put in this bar are not
+folded with them: somebody added those to this board on purpose. The choice is
+the reader's and lasts the session — `client/lib/foldState.js`, the same store
+the right sidebar's Members and Labels use.
+
 On a board, and for a board admin, **the title is also the rename button**:
 clicking it opens the same `boardChangeTitlePopup` that a pencil beside it used
 to open. One target instead of a word and an icon that did the same thing — and

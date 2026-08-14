@@ -23,7 +23,7 @@ import {
 } from '/client/lib/exportDependencies';
 import { parseDependencyLines } from '/client/lib/importDependencies';
 import { caretClassFor } from '/client/lib/sectionCaret';
-import { toggleSidebarSection } from '/client/lib/sidebarSectionState';
+import { toggleFold } from '/client/lib/foldState';
 import {
   hiddenMinicardLabelText,
   toggleMinicardLabelText,
@@ -319,17 +319,17 @@ Template.sidebar.events({
   // Members and Labels fold by their headings, the way an opened card's
   // sections do. Delegated here, on the sidebar, because the two headings live
   // in two child templates and the rule is one rule.
-  // client/lib/sidebarSectionState.js
-  'click .js-toggle-sidebar-section'(event) {
+  // client/lib/foldState.js
+  'click .js-toggle-fold'(event) {
     event.preventDefault();
-    toggleSidebarSection(event.currentTarget.dataset.section);
+    toggleFold(event.currentTarget.dataset.fold);
   },
   // A heading with role="button" and a tabindex has to answer the keys a button
   // answers, or it cannot be folded without a mouse.
-  'keydown .js-toggle-sidebar-section'(event) {
+  'keydown .js-toggle-fold'(event) {
     if (event.key !== 'Enter' && event.key !== ' ') return;
     event.preventDefault();
-    toggleSidebarSection(event.currentTarget.dataset.section);
+    toggleFold(event.currentTarget.dataset.fold);
   },
   'click .js-hide-sidebar'(event, tpl) {
     tpl.hide();

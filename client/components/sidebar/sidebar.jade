@@ -76,12 +76,12 @@ template(name="membersWidget")
   //- The heading is the button, with a caret in front of it, like every
     collapsible section of an opened card: folding Members hides the People /
     Organizations / Teams / Domains tabs and the avatars in them.
-    client/lib/sidebarSectionState.js
-  h3.js-toggle-sidebar-section(data-section="members" role="button" tabindex="0")
-    i.fa(class="{{sidebarSectionCaret 'members'}}")
+    client/lib/foldState.js
+  h3.js-toggle-fold(data-fold="members" role="button" tabindex="0")
+    i.fa(class="{{foldCaret 'members'}}")
     i.fa.fa-users
     | {{_ 'members'}}
-  if isSidebarSectionOpen 'members'
+  if isFoldOpen 'members'
     +basicTabs(tabs=tabs)
       +tabContent(slug="people")
         unless currentUser.isWorker
@@ -894,11 +894,11 @@ template(name="exportBoardPopup")
 template(name="labelsWidget")
   .board-widget.board-widget-labels
     //- Same caret as Members above: folding Labels hides the labels under it.
-    h3.js-toggle-sidebar-section(data-section="labels" role="button" tabindex="0")
-      i.fa(class="{{sidebarSectionCaret 'labels'}}")
+    h3.js-toggle-fold(data-fold="labels" role="button" tabindex="0")
+      i.fa(class="{{foldCaret 'labels'}}")
       i.fa.fa-tag
       | {{_ 'labels'}}
-    if isSidebarSectionOpen 'labels'
+    if isFoldOpen 'labels'
       .board-widget-content
         each currentBoard.labels
             a.card-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}"

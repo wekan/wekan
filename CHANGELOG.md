@@ -1023,6 +1023,15 @@ decides anything on the server, so folding them for yourself must not fold them
 for everybody. Activities is the exception and stays as it is - its caret
 writes `board.showActivities`, which also decides what the publication sends.
 
+The first header bar's board controls fold the same way, from a caret at the
+leading edge of the group - left of the lock in a left-to-right page, right of
+it in Arabic. Folded, **Private**, **Muted**, **Sort Cards**, **Filter**,
+**Search**, **Show dependencies** and **Multi-Selection** are gone and the bar
+is the logo, the board's name and the caret. The buttons a board's own Rules
+put in that bar are NOT folded with them: somebody added those to this board on
+purpose. It is named by the words the app already has - Collapse and Uncollapse
+- so no key was added to 147 language files to say them again.
+
 </details>
 
 <details>
