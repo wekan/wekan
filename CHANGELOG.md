@@ -1201,7 +1201,7 @@ and fixes the following bugs:
 **Performance** - what the database is asked, and what it has to walk.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH16">Cards, activities, comments and checklists are indexed at last</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/569dd4af541b797c8df763aef38cf0db820bf9ea">Cards, activities, comments and checklists are indexed at last</a>. Thanks to xet7.</summary>
 
 Reported by email against 10.91: *"Still slow on loading cards. Test server with
 me as only user."* One user is the part that says what it is NOT - with nobody
