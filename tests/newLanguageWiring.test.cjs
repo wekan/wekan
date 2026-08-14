@@ -23,23 +23,30 @@ console.log('newLanguageWiring:');
 
 const registry = read('imports/i18n/languages.js');
 const header = read('client/components/users/userHeader.js');
-const files = fs.readdirSync(path.join(ROOT, 'imports/i18n/data'))
+const dataDir = path.join(ROOT, 'imports/i18n/data');
+const files = fs.readdirSync(dataDir)
   .filter(f => f.endsWith('.i18n.json'))
   .map(f => f.replace('.i18n.json', ''));
+// Some tags are a SYMLINK to the file Transifex writes: `km-KH.i18n.json` ->
+// `km_KH.i18n.json`, because the tx lang_map does not rename those two. The
+// entry loads the link, the link resolves to the file, and both are reachable -
+// so a file is "registered" if an entry names IT or names a link to it.
+const linkTargets = new Map();
+for (const f of fs.readdirSync(dataDir)) {
+  const full = path.join(dataDir, f);
+  if (!fs.lstatSync(full).isSymbolicLink()) continue;
+  linkTargets.set(f.replace('.i18n.json', ''),
+    fs.readlinkSync(full).replace('.i18n.json', ''));
+}
 // The registry's KEY is the locale tag; the file it loads can be spelled with
 // an underscore where the tag has a hyphen (`ca-ES` loads `ca_ES.i18n.json`),
 // so what ties an entry to a file is the import path, not the key.
 const loaded = [...registry.matchAll(/import\('\.\/data\/([^']+)\.i18n\.json'\)/g)].map(m => m[1]);
 
-// Two files on disk that NO entry loads. `km-KH` and `ru-RU` are registered
-// under the tags `km_KH` and `ru_RU`, but they import the hyphenated file - so
-// the underscored ones are translations nobody can ever see. They are kept
-// because Transifex writes them, and pinned here rather than passed over: a
-// THIRD unreachable file is a mistake, these two are a known state.
-const UNREACHABLE = ['km_KH', 'ru_RU'];
-
 test('every strings file is registered, and every entry has a file', () => {
-  const unregistered = files.filter(t => !loaded.includes(t) && !UNREACHABLE.includes(t));
+  const reachable = new Set(loaded);
+  for (const [link, target] of linkTargets) if (reachable.has(link)) reachable.add(target);
+  const unregistered = files.filter(t => !reachable.has(t));
   assert.deepStrictEqual(unregistered, [],
     'a file nobody registered is a language WeKan never loads');
   const fileless = loaded.filter(t => !files.includes(t));
@@ -89,6 +96,24 @@ test('a right-to-left language says so (negative)', () => {
   }
   assert.ok(!rtlTrue.includes('bn') && !rtlTrue.includes('am'),
     'and a left-to-right script is not flagged as one');
+});
+
+test('a tag can be a symlink to the file Transifex writes (negative)', () => {
+  // `.tx/config`'s lang_map renames most of Transifex's underscored locales to
+  // WeKan's hyphenated files (`cs_CZ: cs-CZ`). Two are not renamed - `km_KH`
+  // and `ru_RU` - and for those the hyphenated name is a SYMLINK to the file
+  // Transifex writes. That is a working arrangement, not a stranded file: the
+  // entry loads the link and the link resolves to the translations.
+  assert.ok(linkTargets.get('km-KH') === 'km_KH', 'km-KH links to km_KH');
+  assert.ok(linkTargets.get('ru-RU') === 'ru_RU', 'ru-RU links to ru_RU');
+  for (const [link, target] of linkTargets) {
+    assert.ok(files.includes(target), `${link} points at ${target}, which must exist`);
+    assert.ok(loaded.includes(link) || loaded.includes(target),
+      `neither ${link} nor ${target} is loaded by any entry`);
+  }
+  const tx = read('.tx/config');
+  assert.ok(/lang_map/.test(tx) && /cs_CZ: cs-CZ/.test(tx),
+    'and the map that makes the other pairs unnecessary is still there');
 });
 
 console.log(`\nnewLanguageWiring: ${passed} tests passed`);

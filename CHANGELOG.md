@@ -4152,15 +4152,20 @@ put every later key at the wrong index. Each of the six starts with the words a
 board is made of - board, list, card, swimlane, label, member, the buttons, the
 menus, the dates - and grows from there.
 
-`tests/newLanguageWiring.test.cjs` holds the three edits together, and found two
-things while being written: **fourteen languages were showing a globe** instead
-of a flag (Acehnese, Moroccan Arabic, Asturian, Breton, Frisian, Norwegian
-Bokmål, Occitan, Turkmen, Walloon, Wu, Yiddish, Tamazight and two Chinese
-variants), which they no longer do; and **two files nobody loads** -
-`km_KH.i18n.json` and `ru_RU.i18n.json` are translated, committed, and imported
-by no entry, because the entries for those tags load the hyphenated files
-instead. They are pinned as a known state, so a third one is a failure rather
-than a shrug.
+`tests/newLanguageWiring.test.cjs` holds the three edits together, and found
+that **fourteen languages were showing a globe** instead of a flag (Acehnese,
+Moroccan Arabic, Asturian, Breton, Frisian, Norwegian Bokmål, Occitan, Turkmen,
+Walloon, Wu, Yiddish, Tamazight and two Chinese variants), which they no longer
+do. Constructed languages - Esperanto, Klingon, Volapük - keep the globe on
+purpose rather than borrowing somebody's country.
+
+It also learned what a **symlinked** language file is. `km-KH.i18n.json` and
+`ru-RU.i18n.json` are symlinks to `km_KH.i18n.json` and `ru_RU.i18n.json`: those
+two locales are the ones `.tx/config`'s `lang_map` does not rename, so Transifex
+writes the underscored name and the hyphenated link is what `languages.js`
+loads. A guard that reads only the import paths sees the target as an orphan and
+is wrong about it; this one resolves the link, and checks that every link points
+at a file that exists and that one end of each pair is loaded.
 
 </details>
 
