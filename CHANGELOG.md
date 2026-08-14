@@ -377,15 +377,16 @@ turn off decorative movement, and browsers without `backdrop-filter` receive
 solid readable surfaces. Minicards deliberately avoid a blur layer of their own
 so large boards remain practical to scroll and drag. Source-contract tests and
 browser coverage pin the global, board-only, Admin, desktop-login and
-mobile-login states. A final responsive pass also hardens RTL authentication,
-long mobile board names, quick-access gutters and Admin glass-island sizing.
+mobile-login states. A final polish pass also hardens RTL authentication, long
+mobile board names, quick-access gutters and Admin glass-island sizing, and
+reduces every All Boards tile from three stacked surfaces to one card.
 
 </details>
 
 and fixes the following bugs:
 
-**Apple Glass responsive surfaces** - keeping the redesigned UI inside its
-viewport at the edges of RTL and small-screen layouts.
+**Apple Glass responsive surfaces** - keeping the redesigned UI contained and
+its visual hierarchy clear.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e5c32ca30">Apple Glass stays contained in RTL and on small screens</a>. Thanks to xet7.</summary>
@@ -397,6 +398,18 @@ wrap and grow their row instead of being clipped, the quick-access header counts
 its gutters inside the viewport, and Admin Panel glass islands can shrink below
 long content without horizontal overflow. Browser checks cover Chromium and
 Firefox desktop/mobile geometry, viewport containment and visible paint order.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a2e6874d3">All Boards shows each board as one card instead of three stacked layers</a>. Thanks to xet7.</summary>
+
+The board tile DOM has an outer drag item, a visual tile and an inner navigation
+link. Apple Glass painted all three with the same white surface, border, radius
+and shadow, so every board looked like three cards stacked together. Only the
+middle `.board-list-item` is painted now; the two behavioural wrappers remain
+transparent. Browser coverage pins all three computed layers so the duplicate
+surfaces cannot return unnoticed.
 
 </details>
 
