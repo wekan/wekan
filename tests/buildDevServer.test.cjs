@@ -93,4 +93,31 @@ test('raising the limit never aborts the script (negative)', () => {
     'prints manual instructions when it cannot use sudo');
 });
 
+test('the test server reuses a database only when it ANSWERS', () => {
+  // 2026-08-14: a run took the "reuse" branch, started no mongod of its own, and
+  // the test server died on its first query with "Topology is closed" - there
+  // was no wekan-test-mongod.log, because none was started. A TCP connect proves
+  // only that something accepted the socket, and a mongod that is shutting down
+  // (this same script kills one a few lines earlier) accepts for a moment longer.
+  assert.ok(/if \(exec 3<>\/dev\/tcp\/127\.0\.0\.1\/3001\) 2>\/dev\/null && mongo_answers 3001; then/.test(sh),
+    'the reuse branch asks the database, not just the port');
+  assert.ok(/mongo_answers\(\) \{/.test(sh), 'and the probe exists');
+  const probe = sh.slice(sh.indexOf('mongo_answers() {'), sh.indexOf('function run_all_tests('));
+  assert.ok(/command\(\{ ping: 1 \}\)/.test(probe), 'it pings');
+  assert.ok(/serverSelectionTimeoutMS: 3000/.test(probe), 'and gives up in seconds, not minutes');
+  assert.ok(/BUNDLE_DIR\/programs\/server\/node_modules/.test(probe),
+    'with the driver already in the built bundle, so nothing is installed for it');
+});
+
+test('a port held by something else is an error, not a silent reuse (negative)', () => {
+  // We cannot start our own mongod on a taken port, so this has to stop and say
+  // so - the alternative is the server starting against nothing, which is the
+  // failure this came from.
+  const branch = sh.slice(sh.indexOf('elif (exec 3<>/dev/tcp/127.0.0.1/3001)'));
+  const body = branch.slice(0, branch.indexOf('\telse'));
+  assert.ok(/does not answer a MongoDB ping/.test(body), 'it says what is wrong');
+  assert.ok(/fuser -k 3001\/tcp/.test(body), 'and how to free the port');
+  assert.ok(/return 1/.test(body), 'and stops rather than starting the server anyway');
+});
+
 console.log(`\n${passed} tests passed`);

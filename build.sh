@@ -744,6 +744,26 @@ function run_playwright_single(){
 #                         Fast, but memory-hungry (fine on a 32 GB machine).
 #   $1 = "sequential"  -> run one job at a time to keep RAM/swap usage low on
 #                         smaller machines.
+# Does a real MongoDB answer on this port? A TCP connect proves only that
+# something accepted the socket; this asks the database itself. Uses the driver
+# already in the built bundle, so it needs nothing installed.
+mongo_answers() {
+	local port="$1"
+	local modules="$BUNDLE_DIR/programs/server/node_modules"
+	[ -d "$modules" ] || return 1
+	[ -x "$NODE_BIN" ] || return 1
+	NODE_PATH="$modules" "$NODE_BIN" -e '
+		const { MongoClient } = require("mongodb");
+		const url = "mongodb://127.0.0.1:" + process.argv[1] + "/meteor";
+		const client = new MongoClient(url, { serverSelectionTimeoutMS: 3000, connectTimeoutMS: 3000 });
+		client.connect()
+			.then(() => client.db("admin").command({ ping: 1 }))
+			.then(() => client.close(true))
+			.then(() => process.exit(0))
+			.catch(() => process.exit(1));
+	' "$port" >/dev/null 2>&1
+}
+
 function run_all_tests(){
 	local RUN_MODE="${1:-parallel}"
 	local modeword; [ "$RUN_MODE" = parallel ] && modeword="in parallel (concurrently)" || modeword="one at a time (sequential)"
@@ -990,8 +1010,28 @@ function run_all_tests(){
 
 	# MongoDB on :3001. Reuse one that is already listening (e.g. a dev server's mongo);
 	# otherwise start Meteor's bundled mongod with a persistent test dbpath.
-	if (exec 3<>/dev/tcp/127.0.0.1/3001) 2>/dev/null; then
+	#
+	# "Listening" is not the same as "working". A TCP connect only proves that
+	# SOMETHING accepted, and a mongod that is shutting down - the one this script
+	# kills a few lines earlier, on its way out - accepts for a moment longer.
+	# The 2026-08-14 run took this branch, started no mongod of its own, and the
+	# test server died on its first query:
+	#
+	#   MongoTopologyClosedError: Topology is closed
+	#   [An error occurred when creating an index for collection "users: Topology is closed]
+	#
+	# ...with no wekan-test-mongod.log to say otherwise, because none was started.
+	# So ASK it: a `ping` through the bundle's own driver. Only an answer counts as
+	# a database to reuse.
+	if (exec 3<>/dev/tcp/127.0.0.1/3001) 2>/dev/null && mongo_answers 3001; then
 		echo "==> Reusing the MongoDB already listening on :3001 (not started or stopped by this run)."
+	elif (exec 3<>/dev/tcp/127.0.0.1/3001) 2>/dev/null; then
+		echo "ERROR: something is listening on :3001 but does not answer a MongoDB ping."
+		echo "       That is usually a mongod that is still shutting down, or another"
+		echo "       program on the port. Nothing was started, because the port is taken."
+		echo "       Wait a few seconds and run this again, or free the port:"
+		echo "         fuser -k 3001/tcp    # or: lsof -ti :3001 | xargs kill"
+		rm -rf "$STATDIR"; return 1
 	else
 		if [ -z "$MONGOD_BIN" ] || [ ! -x "$MONGOD_BIN" ]; then
 			echo "ERROR: nothing is listening on :3001 and no mongod was found (Meteor dev_bundle or PATH)."
