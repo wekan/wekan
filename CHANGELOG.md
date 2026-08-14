@@ -1201,7 +1201,7 @@ and fixes the following bugs:
 **Starting up** - what a browser sees while WeKan cannot yet serve.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH17">A container waiting for its database says so, instead of timing out</a>. Thanks to Alishara and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b4499b0ddc5d8059b8feac1802e1417d3ee1c8ef">A container waiting for its database says so, instead of timing out</a>. Thanks to Alishara and xet7.</summary>
 
 *"We upgraded to 10.91 ... Gateway timeout appears"* -
 [#6595](https://github.com/wekan/wekan/issues/6595), from the same reporter as
