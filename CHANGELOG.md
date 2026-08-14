@@ -1005,7 +1005,7 @@ it shared its row and read as one more badge rather than as the line it is.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH7">Change Background Image holds both ways of setting one, and Unset sits beside Save</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6a6fc252929cb98b8bd6116dcd45d1cf68837d35">Change Background Image holds both ways of setting one, and Unset sits beside Save</a>. Thanks to xet7.</summary>
 
 Two popups of the same menu answered one question. **Change Background Image**
 asked for a URL; **Board backgrounds** listed the images uploaded to this board
