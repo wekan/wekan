@@ -1144,6 +1144,35 @@ class each caller carried is passed in rather than baked into the shared markup.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH12">Three forms that were written ten times over are written once</a>. Thanks to xet7.</summary>
+
+Three more shapes were copied, and in each of them the JavaScript was already
+one piece while the markup was not - so a behaviour change was one edit and a
+markup change was four:
+
+- **where a card goes** - board, swimlane, list, above or below which card, and
+  Done - drawn four times, by Move card, Copy card, Copy checklist to many
+  cards and Convert checklist item to card;
+- **where a list goes** - drawn twice, by Copy list and Move list;
+- **the Create Board form** - drawn four times, by the one on All Boards and
+  three popups, one of which creates a TEMPLATE board and says so with a
+  Session flag rather than with different markup.
+
+Each is one template now, and what it shows is passed in. The two pickers are
+handed the `dialog` and read it from the template INSTANCE: inside `each
+boards` the data context is a board, so a helper reaching into the context for
+it would find nothing there.
+
+The events stay with the popups. An event inside an included template bubbles
+to the one that includes it, which is the one holding the state - that is what
+lets four popups do four different things with one form.
+
+`cardDetails.jade` lost 71 lines, `boardHeader.jade` 58 and `listHeader.jade`
+10, and a scan for near-duplicate templates went from **74 pairs to 9**.
+
+</details>
+
 and fixes the following bugs:
 
 **Card details** - the card as it is opened and edited.

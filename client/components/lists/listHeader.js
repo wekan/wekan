@@ -443,28 +443,50 @@ Template.listMorePopup.events({
   }),
 });
 
+
+// The three selects of the copy/move list dialogs, in one template. The dialog
+// is kept on THIS instance: inside `each boards` the data context is a board,
+// so a helper reaching into the context for it would find nothing.
+Template.listDestinationPicker.onCreated(function () {
+  this.autorun(() => {
+    const data = Template.currentData();
+    this.dialog = data && data.dialog;
+  });
+});
+
+Template.listDestinationPicker.helpers({
+  boards() {
+    return Template.instance().dialog.boards();
+  },
+  swimlanes() {
+    return Template.instance().dialog.swimlanes();
+  },
+  lists() {
+    return Template.instance().dialog.lists();
+  },
+  isDialogOptionBoardId(boardId) {
+    return Template.instance().dialog.isDialogOptionBoardId(boardId);
+  },
+  isDialogOptionSwimlaneId(swimlaneId) {
+    return Template.instance().dialog.isDialogOptionSwimlaneId(swimlaneId);
+  },
+  isDialogOptionListId(listId) {
+    return Template.instance().dialog.isDialogOptionListId(listId);
+  },
+  isTitleDefault(title) {
+    return Template.instance().dialog.isTitleDefault(title);
+  },
+});
+
 function registerListDialogTemplate(templateName) {
+  // The markup those helpers feed is one template - `listDestinationPicker` in
+  // listHeader.jade, included by both popups - so the helpers are registered on
+  // it, once, below. Each popup provides the `dialog` and keeps the events: a
+  // change or a click inside the picker bubbles up to the popup that includes
+  // it, which is the one holding the dialog.
   Template[templateName].helpers({
-    boards() {
-      return Template.instance().dialog.boards();
-    },
-    swimlanes() {
-      return Template.instance().dialog.swimlanes();
-    },
-    lists() {
-      return Template.instance().dialog.lists();
-    },
-    isDialogOptionBoardId(boardId) {
-      return Template.instance().dialog.isDialogOptionBoardId(boardId);
-    },
-    isDialogOptionSwimlaneId(swimlaneId) {
-      return Template.instance().dialog.isDialogOptionSwimlaneId(swimlaneId);
-    },
-    isDialogOptionListId(listId) {
-      return Template.instance().dialog.isDialogOptionListId(listId);
-    },
-    isTitleDefault(title) {
-      return Template.instance().dialog.isTitleDefault(title);
+    dialog() {
+      return Template.instance().dialog;
     },
   });
 

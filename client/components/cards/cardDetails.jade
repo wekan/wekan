@@ -1014,9 +1014,20 @@ template(name="cardDetailsActionsPopup")
 template(name="exportCardPopup")
   +exportScopeBody(cardId=_id listId=listId title=title)
 
-template(name="moveCardPopup")
-  label(for='move-card-title') {{_ 'title'}}:
-  input#move-card-title.full-line(type="text" value="{{getTitle}}" autofocus)
+//- WHERE a card goes: the board, the swimlane, the list, which card to put it
+  above or below, and Done. Four popups asked that same question and drew this
+  same form to ask it - Move card, Copy card, Copy checklist to many cards, and
+  Convert a checklist item to a card - differing only in the title field above
+  it, which is why that stays with each of them.
+//-
+//- The JavaScript was already one piece: BoardSwimlaneListCardDialog holds the
+  four selects' state and registerCardDialogTemplate wires each popup to it. The
+  `dialog` is passed in and read from the template INSTANCE rather than from the
+  data context, because inside `each boards` the context is a board - a helper
+  that reached for it there would find nothing. The selects' own change handlers
+  stay on the popups: an event from here bubbles to the one that includes it,
+  which is the one holding the dialog. client/components/cards/cardDetails.js
+template(name="cardDestinationPicker")
   unless currentUser.isWorker
     label {{_ 'boards'}}:
     select.js-select-boards(autofocus)
@@ -1047,111 +1058,29 @@ template(name="moveCardPopup")
 
   .edit-controls.clearfix
     button.primary.confirm.js-done {{_ 'done'}}
+
+template(name="moveCardPopup")
+  label(for='move-card-title') {{_ 'title'}}:
+  input#move-card-title.full-line(type="text" value="{{getTitle}}" autofocus)
+  +cardDestinationPicker(dialog=dialog)
 
 template(name="copyCardPopup")
   label(for='copy-card-title') {{_ 'title'}}:
   textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
     = getTitle
-  unless currentUser.isWorker
-    label {{_ 'boards'}}:
-    select.js-select-boards(autofocus)
-      each boards
-        option(value="{{_id}}" selected="{{#if isSelectedBoardId _id}}selected{{/if}}") {{title}}
-
-  label {{_ 'swimlanes'}}:
-  select.js-select-swimlanes
-    each swimlanes
-      option(value="{{_id}}" selected="{{#if isSelectedSwimlaneId _id}}selected{{/if}}") {{isTitleDefault title}}
-
-  label {{_ 'lists'}}:
-  select.js-select-lists
-    each lists
-      option(value="{{_id}}" selected="{{#if isSelectedListId _id}}selected{{/if}}") {{title}}
-
-  label {{_ 'cards'}}:
-  select.js-select-cards
-    each cards
-      option(value="{{_id}}" selected="{{#if isDialogOptionCardId _id}}selected{{/if}}") {{title}}
-
-  div
-    input(type="radio" name="position" value="above" checked id="position-above" style="display: inline")
-    label(for="position-above") {{_ 'above-selected-card'}}
-  div
-    input(type="radio" name="position" value="below" id="position-below" style="display: inline")
-    label(for="position-below") {{_ 'below-selected-card'}}
-
-  .edit-controls.clearfix
-    button.primary.confirm.js-done {{_ 'done'}}
+  +cardDestinationPicker(dialog=dialog)
 
 template(name="copyManyCardsPopup")
   label(for='copy-checklist-cards-title') {{_ 'copyManyCardsPopup-instructions'}}:
   textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
     | {{_ 'copyManyCardsPopup-format'}}
-  unless currentUser.isWorker
-    label {{_ 'boards'}}:
-    select.js-select-boards(autofocus)
-      each boards
-        option(value="{{_id}}" selected="{{#if isSelectedBoardId _id}}selected{{/if}}") {{title}}
-
-  label {{_ 'swimlanes'}}:
-  select.js-select-swimlanes
-    each swimlanes
-      option(value="{{_id}}" selected="{{#if isSelectedSwimlaneId _id}}selected{{/if}}") {{isTitleDefault title}}
-
-  label {{_ 'lists'}}:
-  select.js-select-lists
-    each lists
-      option(value="{{_id}}" selected="{{#if isSelectedListId _id}}selected{{/if}}") {{title}}
-
-  label {{_ 'cards'}}:
-  select.js-select-cards
-    each cards
-      option(value="{{_id}}" selected="{{#if isDialogOptionCardId _id}}selected{{/if}}") {{title}}
-
-  div
-    input(type="radio" name="position" value="above" checked id="position-above" style="display: inline")
-    label(for="position-above") {{_ 'above-selected-card'}}
-  div
-    input(type="radio" name="position" value="below" id="position-below" style="display: inline")
-    label(for="position-below") {{_ 'below-selected-card'}}
-
-  .edit-controls.clearfix
-    button.primary.confirm.js-done {{_ 'done'}}
+  +cardDestinationPicker(dialog=dialog)
 
 template(name="convertChecklistItemToCardPopup")
   label(for='convert-checklist-item-to-card-title') {{_ 'title'}}:
   textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
     = item.title
-  unless currentUser.isWorker
-    label {{_ 'boards'}}:
-    select.js-select-boards(autofocus)
-      each boards
-        option(value="{{_id}}" selected="{{#if isSelectedBoardId _id}}selected{{/if}}") {{title}}
-
-  label {{_ 'swimlanes'}}:
-  select.js-select-swimlanes
-    each swimlanes
-      option(value="{{_id}}" selected="{{#if isSelectedSwimlaneId _id}}selected{{/if}}") {{isTitleDefault title}}
-
-  label {{_ 'lists'}}:
-  select.js-select-lists
-    each lists
-      option(value="{{_id}}" selected="{{#if isSelectedListId _id}}selected{{/if}}") {{title}}
-
-  label {{_ 'cards'}}:
-  select.js-select-cards
-    each cards
-      option(value="{{_id}}" selected="{{#if isDialogOptionCardId _id}}selected{{/if}}") {{title}}
-
-  div
-    input(type="radio" name="position" value="above" checked id="position-above" style="display: inline")
-    label(for="position-above") {{_ 'above-selected-card'}}
-  div
-    input(type="radio" name="position" value="below" id="position-below" style="display: inline")
-    label(for="position-below") {{_ 'below-selected-card'}}
-
-  .edit-controls.clearfix
-    button.primary.confirm.js-done {{_ 'done'}}
+  +cardDestinationPicker(dialog=dialog)
 
 template(name="cardMembersPopup")
   input.card-members-filter(type="text" placeholder="{{_ 'search'}}")

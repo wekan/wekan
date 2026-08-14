@@ -1930,47 +1930,75 @@ Template.editCardAssignerForm.events({
   },
 });
 
+
+// The four selects of the move/copy dialogs, in one template. The dialog comes
+// from the popup that includes it and is kept on THIS instance: inside
+// `each boards` the data context is a board, so a helper reaching into the
+// context for it would find nothing there.
+Template.cardDestinationPicker.onCreated(function () {
+  this.autorun(() => {
+    const data = Template.currentData();
+    this.dialog = data && data.dialog;
+  });
+});
+
+Template.cardDestinationPicker.helpers({
+  boards() {
+    return Template.instance().dialog.boards();
+  },
+  swimlanes() {
+    return Template.instance().dialog.swimlanes();
+  },
+  lists() {
+    return Template.instance().dialog.lists();
+  },
+  cards() {
+    return Template.instance().dialog.cards();
+  },
+  isDialogOptionBoardId(boardId) {
+    return Template.instance().dialog.isDialogOptionBoardId(boardId);
+  },
+  isDialogOptionSwimlaneId(swimlaneId) {
+    return Template.instance().dialog.isDialogOptionSwimlaneId(swimlaneId);
+  },
+  isDialogOptionListId(listId) {
+    return Template.instance().dialog.isDialogOptionListId(listId);
+  },
+  isSelectedBoardId(boardId) {
+    return Template.instance().dialog.isSelectedBoardId(boardId);
+  },
+  isSelectedSwimlaneId(swimlaneId) {
+    return Template.instance().dialog.isSelectedSwimlaneId(swimlaneId);
+  },
+  isSelectedListId(listId) {
+    return Template.instance().dialog.isSelectedListId(listId);
+  },
+  isDialogOptionCardId(cardId) {
+    return Template.instance().dialog.isDialogOptionCardId(cardId);
+  },
+  isTitleDefault(title) {
+    return Template.instance().dialog.isTitleDefault(title);
+  },
+});
+
 /**
  * Helper: register standard board/swimlane/list/card dialog helpers and events
  * for a template that uses BoardSwimlaneListCardDialog.
  */
+/**
+ * Helper: register standard board/swimlane/list/card dialog helpers and events
+ * for a template that uses BoardSwimlaneListCardDialog.
+ *
+ * The MARKUP those helpers feed is one template - `cardDestinationPicker` in
+ * cardDetails.jade, included by all four popups - so the helpers are registered
+ * on it, once, below. What each popup needs of its own is the `dialog` to hand
+ * that template, and the events: a change or a click inside the picker bubbles
+ * up to the popup that includes it, which is the one holding the dialog.
+ */
 function registerCardDialogTemplate(templateName) {
   Template[templateName].helpers({
-    boards() {
-      return Template.instance().dialog.boards();
-    },
-    swimlanes() {
-      return Template.instance().dialog.swimlanes();
-    },
-    lists() {
-      return Template.instance().dialog.lists();
-    },
-    cards() {
-      return Template.instance().dialog.cards();
-    },
-    isDialogOptionBoardId(boardId) {
-      return Template.instance().dialog.isDialogOptionBoardId(boardId);
-    },
-    isDialogOptionSwimlaneId(swimlaneId) {
-      return Template.instance().dialog.isDialogOptionSwimlaneId(swimlaneId);
-    },
-    isDialogOptionListId(listId) {
-      return Template.instance().dialog.isDialogOptionListId(listId);
-    },
-    isSelectedBoardId(boardId) {
-      return Template.instance().dialog.isSelectedBoardId(boardId);
-    },
-    isSelectedSwimlaneId(swimlaneId) {
-      return Template.instance().dialog.isSelectedSwimlaneId(swimlaneId);
-    },
-    isSelectedListId(listId) {
-      return Template.instance().dialog.isSelectedListId(listId);
-    },
-    isDialogOptionCardId(cardId) {
-      return Template.instance().dialog.isDialogOptionCardId(cardId);
-    },
-    isTitleDefault(title) {
-      return Template.instance().dialog.isTitleDefault(title);
+    dialog() {
+      return Template.instance().dialog;
     },
   });
 

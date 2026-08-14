@@ -193,7 +193,18 @@ template(name="boardChangeViewPopup")
           if $eq Utils.boardView "board-view-stats"
             i.fa.fa-check
 
-template(name="createBoard")
+//- The Create Board form: a title, what the board is visible to, and Create.
+  Four templates drew it letter for letter - the one on the All Boards page and
+  three popups, one of which creates a TEMPLATE board and says so with a Session
+  flag rather than with different markup.
+//-
+//- The two things it shows about visibility are passed IN. The state itself
+  (setupCreateBoardState) and the handlers stay with each of the four: an event
+  in here bubbles to whichever one included it, which is the one holding the
+  state, and that is what keeps `createTemplateContainerPopup` creating a
+  template board and the others an ordinary one.
+  client/components/boards/boardHeader.js
+template(name="createBoardForm")
   form
     label
       | {{_ 'title'}}
@@ -219,88 +230,19 @@ template(name="createBoard")
     span.quiet
       | /
       a.js-board-template {{_ 'template'}}
+
+template(name="createBoard")
+  +createBoardForm(visibility=visibility visibilityMenuIsOpen=visibilityMenuIsOpen)
 
 template(name="createBoardPopup")
-  form
-    label
-      | {{_ 'title'}}
-      input.js-new-board-title(type="text" placeholder="{{_ 'bucket-example'}}" autofocus required)
-    if visibilityMenuIsOpen
-      +boardVisibilityList
-    else
-      p.quiet
-        if $eq visibility 'public'
-          span.fa.fa-globe.colorful
-          = " "
-          | {{{_ 'board-public-info'}}}
-        else
-          span.fa.fa-lock.colorful
-          = " "
-          | {{{_ 'board-private-info'}}}
-        a.js-change-visibility {{_ 'change'}}.
-    input.primary.wide(type="submit" value="{{_ 'create'}}")
-    unless importDisabled
-      span.quiet
-        | {{_ 'or'}}
-        a.js-import-board {{_ 'import'}}
-    span.quiet
-      | /
-      a.js-board-template {{_ 'template'}}
+  +createBoardForm(visibility=visibility visibilityMenuIsOpen=visibilityMenuIsOpen)
 
 template(name="headerBarCreateBoardPopup")
-  form
-    label
-      | {{_ 'title'}}
-      input.js-new-board-title(type="text" placeholder="{{_ 'bucket-example'}}" autofocus required)
-    if visibilityMenuIsOpen
-      +boardVisibilityList
-    else
-      p.quiet
-        if $eq visibility 'public'
-          span.fa.fa-globe.colorful
-          = " "
-          | {{{_ 'board-public-info'}}}
-        else
-          span.fa.fa-lock.colorful
-          = " "
-          | {{{_ 'board-private-info'}}}
-        a.js-change-visibility {{_ 'change'}}.
-    input.primary.wide(type="submit" value="{{_ 'create'}}")
-    unless importDisabled
-      span.quiet
-        | {{_ 'or'}}
-        a.js-import-board {{_ 'import'}}
-    span.quiet
-      | /
-      a.js-board-template {{_ 'template'}}
+  +createBoardForm(visibility=visibility visibilityMenuIsOpen=visibilityMenuIsOpen)
 
 // New popup for Template Container creation; shares the same form content
 template(name="createTemplateContainerPopup")
-  form
-    label
-      | {{_ 'title'}}
-      input.js-new-board-title(type="text" placeholder="{{_ 'bucket-example'}}" autofocus required)
-    if visibilityMenuIsOpen
-      +boardVisibilityList
-    else
-      p.quiet
-        if $eq visibility 'public'
-          span.fa.fa-globe.colorful
-          = " "
-          | {{{_ 'board-public-info'}}}
-        else
-          span.fa.fa-lock.colorful
-          = " "
-          | {{{_ 'board-private-info'}}}
-        a.js-change-visibility {{_ 'change'}}.
-    input.primary.wide(type="submit" value="{{_ 'create'}}")
-    unless importDisabled
-      span.quiet
-        | {{_ 'or'}}
-        a.js-import-board {{_ 'import'}}
-    span.quiet
-      | /
-      a.js-board-template {{_ 'template'}}
+  +createBoardForm(visibility=visibility visibilityMenuIsOpen=visibilityMenuIsOpen)
 
 //template(name="listsortPopup")
 //

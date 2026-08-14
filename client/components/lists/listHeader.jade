@@ -327,9 +327,13 @@ template(name="setListColorPopup")
     button.primary.confirm.js-submit {{_ 'save'}}
     button.js-remove-color.negate.wide.right {{_ 'unset-color'}}
 
-template(name="copyListPopup")
-  label(for='copy-list-title') {{_ 'title'}}:
-  input#copy-list-title.full-line(type="text" value="{{title}}" autofocus)
+//- WHERE a list goes: the board, the swimlane, which list to put it left or
+  right of, and Done. Copy list and Move list asked the same question with the
+  same form; only the title field above it differs, so that stays with each.
+  The dialog comes from the popup that includes this and is read from the
+  template INSTANCE, because inside `each boards` the data context is a board.
+  client/components/lists/listHeader.js
+template(name="listDestinationPicker")
   label {{_ 'boards'}}:
   select.js-select-boards
     each boards
@@ -351,29 +355,15 @@ template(name="copyListPopup")
   .edit-controls.clearfix
     button.primary.confirm.js-done {{_ 'done'}}
 
+template(name="copyListPopup")
+  label(for='copy-list-title') {{_ 'title'}}:
+  input#copy-list-title.full-line(type="text" value="{{title}}" autofocus)
+  +listDestinationPicker(dialog=dialog)
+
 template(name="moveListPopup")
   label(for='move-list-title') {{_ 'title'}}:
   input#move-list-title.full-line(type="text" value="{{title}}" autofocus)
-  label {{_ 'boards'}}:
-  select.js-select-boards
-    each boards
-      option(value="{{_id}}" selected="{{#if isDialogOptionBoardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
-  label {{_ 'swimlanes'}}:
-  select.js-select-swimlanes
-    each swimlanes
-      option(value="{{_id}}" selected="{{#if isDialogOptionSwimlaneId _id}}selected{{/if}}") {{add @index 1}}. {{isTitleDefault title}}
-  label {{_ 'lists'}}:
-  select.js-select-lists
-    each lists
-      option(value="{{_id}}" selected="{{#if isDialogOptionListId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
-  div
-    input(type="radio" name="list-position" value="left" checked id="list-position-left" style="display: inline")
-    label(for="list-position-left") {{_ 'left-of-list'}}
-  div
-    input(type="radio" name="list-position" value="right" id="list-position-right" style="display: inline")
-    label(for="list-position-right") {{_ 'right-of-list'}}
-  .edit-controls.clearfix
-    button.primary.confirm.js-done {{_ 'done'}}
+  +listDestinationPicker(dialog=dialog)
 
 template(name="addListPopup")
   form.js-add-list-form
