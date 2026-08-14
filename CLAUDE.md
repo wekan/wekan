@@ -133,6 +133,22 @@ translations** and general **kanban terminology** for the language as the refere
 earlier `machine-translate.mjs` that called LibreTranslate/DeepL is removed on purpose
 (it did not work and needed a password). There is **no `WEKAN_MT*` env var** anymore.
 
+- **EVERY language gets translated — including the ones nobody has volunteered for.**
+  Klingon, Volapük, Wolof, Venda, Tamazight, Acehnese and the rest are not exceptions:
+  WeKan cannot find a speaker for every language, and a file left in English stays in
+  English for years. **Look the words up.** Any dictionary, word list, grammar or
+  Wiktionary page on the Internet is a legitimate source — read it, take the terms it
+  gives, and write the translation from them. Where a file is already written in ANOTHER
+  language (several are seeded from French, German, Malay or Zulu), complete it in the
+  language that file is actually in rather than leaving half of it English.
+- **A bad translation beats no translation.** An imperfect string is readable, it is
+  obviously improvable, and it is an *invitation*: somebody who speaks the language sees
+  it is wrong and fixes it, which an English placeholder never provokes. So: do not skip
+  a language because the result would be imperfect. Translate it, say in the commit which
+  ones were done with low confidence, and let a human correct it — the merge rules below
+  guarantee that when that human translation arrives on Transifex, it REPLACES the filled
+  one and is never overwritten by it.
+
 - `node releases/translations/fill-translations.mjs --missing` — per-language count of
   strings still needing translation (English + `en-*` variants are skipped: English by
   design). Also printed at the end of `pull-translations.sh`.
