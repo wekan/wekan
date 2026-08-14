@@ -65,30 +65,11 @@ body.has-ui-text-color *:not(.fa) {
   color: var(--wekan-ui-text-color) !important;
 }
 
-/* Text background color (#4759): behind the TEXT, not behind the page.
- *
- * This was on <body>, so choosing orange painted the whole window orange - the
- * board canvas, the empty space under the lists, everything - which is a page
- * background, not a text background. It is a marker pen: it goes on the
- * elements that carry text, and never on the boxes that carry elements (body,
- * div, section, the board canvas, a minicard). */
-body.has-ui-bg-color span,
-body.has-ui-bg-color a,
-body.has-ui-bg-color p,
-body.has-ui-bg-color h1,
-body.has-ui-bg-color h2,
-body.has-ui-bg-color h3,
-body.has-ui-bg-color h4,
-body.has-ui-bg-color h5,
-body.has-ui-bg-color h6,
-body.has-ui-bg-color li,
-body.has-ui-bg-color td,
-body.has-ui-bg-color th,
-body.has-ui-bg-color label,
-body.has-ui-bg-color .viewer,
-body.has-ui-bg-color input,
-body.has-ui-bg-color textarea,
-body.has-ui-bg-color select,
-body.has-ui-bg-color .wekan-form-control {
-  background-color: var(--wekan-ui-bg-color) !important;
-}
+/* There was a "text background color" here (#4759), a colour painted behind the
+ * text. It is REMOVED. A background needs elements to sit on, and neither choice
+ * of them looks right: on the boxes (its first form, `body`) it painted the whole
+ * window - the board canvas, the space under the lists - which is a page
+ * background and not a text one; on the elements that carry text it striped every
+ * heading, menu row and paragraph with a full-width band. A setting that cannot be
+ * made to look good is worse than no setting, so it is gone rather than tuned
+ * again. The text COLOUR above stays. */

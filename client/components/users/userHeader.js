@@ -452,7 +452,6 @@ Template.changeFontPopup.onCreated(function () {
   this.selectedSize = new ReactiveVar((user && user.getUiFontSize && user.getUiFontSize()) || 'default');
   // null = use default (unset); a hex string = custom color.
   this.textColor = new ReactiveVar((user && user.getUiTextColor && user.getUiTextColor()) || null);
-  this.bgColor = new ReactiveVar((user && user.getUiTextBgColor && user.getUiTextBgColor()) || null);
 });
 
 Template.changeFontPopup.helpers({
@@ -482,34 +481,29 @@ Template.changeFontPopup.helpers({
   textColorHex() {
     return Template.instance().textColor.get() || '#000000';
   },
-  bgColorHex() {
-    return Template.instance().bgColor.get() || '#ffffff';
-  },
   hasTextColor() {
     return !!Template.instance().textColor.get();
   },
-  hasBgColor() {
-    return !!Template.instance().bgColor.get();
-  },
-  // Preview reflects the chosen font, size, text color and background color.
+  // Preview reflects the chosen font, size and text color.
   previewStyle() {
     const tpl = Template.instance();
     const family = fontFamilyValue(tpl.selected.get());
     const size = fontSizeValue(tpl.selectedSize.get());
     const color = colorValue(tpl.textColor.get());
-    const bg = colorValue(tpl.bgColor.get());
     return [
       family && `font-family: ${family};`,
       size && `font-size: ${size};`,
       color && `color: ${color};`,
-      bg && `background-color: ${bg};`,
     ].filter(Boolean).join('');
   },
 });
 
-// Apply the current text/background colors immediately (no Save button).
+// Apply the chosen text colour immediately (no Save button). The second
+// argument is the removed text-background colour: the method still takes it so
+// an older client cannot fail, and it UNSETS it whatever is passed, so a value
+// stored before the feature was removed is cleared the next time this runs.
 function applyUiColors(tpl) {
-  Meteor.call('setUiColors', tpl.textColor.get(), tpl.bgColor.get(), err => {
+  Meteor.call('setUiColors', tpl.textColor.get(), null, err => {
     if (err && process.env.DEBUG === 'true') console.error('setUiColors error', err);
   });
 }
@@ -538,29 +532,15 @@ Template.changeFontPopup.events({
     const v = event.currentTarget.value;
     if (isHexColor6(v)) tpl.textColor.set(v);
   },
-  'input .js-ui-bg-color'(event, tpl) {
-    const v = event.currentTarget.value;
-    if (isHexColor6(v)) tpl.bgColor.set(v);
-  },
   // ...and apply the color when the wheel is committed.
   'change .js-ui-text-color'(event, tpl) {
     const v = event.currentTarget.value;
     if (isHexColor6(v)) tpl.textColor.set(v);
     applyUiColors(tpl);
   },
-  'change .js-ui-bg-color'(event, tpl) {
-    const v = event.currentTarget.value;
-    if (isHexColor6(v)) tpl.bgColor.set(v);
-    applyUiColors(tpl);
-  },
   'click .js-reset-text-color'(event, tpl) {
     event.preventDefault();
     tpl.textColor.set(null); // back to default
-    applyUiColors(tpl);
-  },
-  'click .js-reset-bg-color'(event, tpl) {
-    event.preventDefault();
-    tpl.bgColor.set(null);
     applyUiColors(tpl);
   },
 });

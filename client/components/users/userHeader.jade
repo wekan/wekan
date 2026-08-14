@@ -215,16 +215,17 @@ template(name="changeFontPopup")
     .ui-font-size-buttons
       each fontSizes
         a.ui-font-size-btn.js-ui-font-size-btn(data-size="{{key}}" class="{{#if selected}}active{{/if}}") {{label}}
-    //- #4759: text + text-background color from a color wheel, each unsettable.
-    //- Applied immediately when the wheel is committed / reset.
+    //- #4759: the text colour, from a colour wheel, unsettable. Applied
+      immediately when the wheel is committed / reset.
+      There was a "text background color" beside it. It painted a colour behind
+      the text of every element that carries text, and there is no choice of
+      elements that looks right: on the boxes it painted the page, and on the
+      text carriers it striped headings and menu rows with bands. It is removed
+      rather than left in as a setting nobody can make look good.
     label {{_ 'text-color'}}
     .color-wheel-wrap
       input.js-ui-text-color(type="color" value=textColorHex title="{{_ 'text-color'}}")
       a.js-reset-text-color(class="{{#unless hasTextColor}}disabled{{/unless}}") {{_ 'unset-color'}}
-    label {{_ 'text-background-color'}}
-    .color-wheel-wrap
-      input.js-ui-bg-color(type="color" value=bgColorHex title="{{_ 'text-background-color'}}")
-      a.js-reset-bg-color(class="{{#unless hasBgColor}}disabled{{/unless}}") {{_ 'unset-color'}}
 
 template(name="changeSettingsPopup")
   ul.pop-over-list

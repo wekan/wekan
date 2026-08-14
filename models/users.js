@@ -462,8 +462,12 @@ Users.attachSchema(
     },
     'profile.uiTextBgColor': {
       /**
-       * Member Settings / Font / Color (#4759): custom UI text background color.
-       * A validated #rrggbb hex; absent = default (transparent) background.
+       * REMOVED feature (#4759 "text background color"): nothing sets or reads
+       * this any more, and `setUiColors` unsets it on every call. The key stays
+       * in the schema ONLY so that $unset validates against it for the users who
+       * stored a colour before it was removed - a modifier touching a key the
+       * schema does not know is rejected, which would leave exactly those
+       * profiles unable to be cleaned.
        */
       type: String,
       optional: true,
@@ -2284,12 +2288,10 @@ Users.helpers({
     return (this.profile && this.profile.uiFontSize) || null;
   },
 
-  // #4759: custom UI text color / text background color (hex), or null when unset.
+  // #4759: custom UI text color (hex), or null when unset. There was a
+  // getUiTextBgColor() beside it, for the removed "text background color".
   getUiTextColor() {
     return (this.profile && this.profile.uiTextColor) || null;
-  },
-  getUiTextBgColor() {
-    return (this.profile && this.profile.uiTextBgColor) || null;
   },
 
   // The CSS class the global override maps to, or '' when unset. Used by the header

@@ -586,9 +586,16 @@ Meteor.methods({
     return null;
   },
 
-  // #4759: set (or clear) the caller's custom UI text color and text background
-  // color. Each is validated as #rrggbb hex; a null/empty/invalid value unsets that
-  // color (back to default). Only strict hex ever reaches a CSS value.
+  // #4759: set (or clear) the caller's custom UI text color. Validated as
+  // #rrggbb hex; a null/empty/invalid value unsets it (back to default). Only
+  // strict hex ever reaches a CSS value.
+  //
+  // `bgColor` was the "text background color", which is REMOVED - no choice of
+  // elements to paint it on looked good. The parameter is still accepted, so an
+  // older client calling this cannot fail, and it is IGNORED: the field is
+  // unset on every call whatever is passed, so a colour stored before the
+  // removal is cleared the next time somebody touches this popup rather than
+  // sitting in the profile for ever.
   async setUiColors(textColor, bgColor) {
     if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
     check(textColor, Match.OneOf(String, null, undefined));
@@ -601,8 +608,7 @@ Meteor.methods({
     const $unset = {};
     if (isHexColor6(textColor)) $set['profile.uiTextColor'] = textColor;
     else $unset['profile.uiTextColor'] = '';
-    if (isHexColor6(bgColor)) $set['profile.uiTextBgColor'] = bgColor;
-    else $unset['profile.uiTextBgColor'] = '';
+    $unset['profile.uiTextBgColor'] = '';
 
     const modifier = {};
     if (Object.keys($set).length) modifier.$set = $set;
@@ -610,7 +616,7 @@ Meteor.methods({
     await Users.updateAsync(this.userId, modifier);
     return {
       textColor: $set['profile.uiTextColor'] || null,
-      bgColor: $set['profile.uiTextBgColor'] || null,
+      bgColor: null,
     };
   },
 

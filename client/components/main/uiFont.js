@@ -51,6 +51,11 @@ Meteor.startup(() => {
     // variable that is not set falls back to 1 in the calc itself.
     toggle('--wekan-ui-font-scale', null, fontScaleValue(profile.uiFontSize));
     toggle('--wekan-ui-text-color', 'has-ui-text-color', colorValue(profile.uiTextColor));
-    toggle('--wekan-ui-bg-color', 'has-ui-bg-color', colorValue(profile.uiTextBgColor));
+    // There was a `--wekan-ui-bg-color` here, for "text background color". It is
+    // removed: a colour behind the text needs elements to sit on, and there is no
+    // set of them that looks right - on the boxes it painted the page, on the text
+    // carriers it striped headings and menu rows with bands. Nothing reads
+    // `profile.uiTextBgColor` any more, and setUiColors unsets it, so a value
+    // stored before this is gone rather than dormant.
   });
 });

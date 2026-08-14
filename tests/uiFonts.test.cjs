@@ -140,34 +140,64 @@ test('server setUiFontSize validates presets + supports unset', () => {
   assert.ok(/\$unset:\s*{\s*'profile\.uiFontSize'/.test(body), "default/null unsets size");
 });
 
-test('text/bg color schema custom() skips unset values (regression: user insert)', () => {
+test('color schema custom() skips unset values (regression: user insert)', () => {
   // The optional-field custom() runs on EVERY user insert; without an unset guard,
   // /regex/.test(undefined) rejects every user with no color set (SyncedCron fatal
-  // ValidationError). Both validators must short-circuit when the value is absent.
+  // ValidationError). It must short-circuit when the value is absent.
   const users = read('models/users.js');
   const guards = users.match(/custom\(\)\s*{\s*\n\s*(?:\/\/[^\n]*\n\s*)*if \(this\.value === undefined \|\| this\.value === null \|\| this\.value === ''\) return undefined;/g) || [];
-  assert.ok(guards.length >= 2, 'uiTextColor + uiTextBgColor custom() both guard the unset case');
+  assert.ok(guards.length >= 2, 'the colour validators guard the unset case');
 });
 
-test('text/bg color: schema, wheels+reset, validated setter, applied as CSS vars', () => {
+test('text color: schema, wheel+reset, validated setter, applied as a CSS var', () => {
   const users = read('models/users.js');
-  assert.ok(/'profile\.uiTextColor'/.test(users) && /'profile\.uiTextBgColor'/.test(users), 'schema fields');
-  assert.ok(/getUiTextColor\(\)/.test(users) && /getUiTextBgColor\(\)/.test(users), 'getters');
+  assert.ok(/'profile\.uiTextColor'/.test(users), 'schema field');
+  assert.ok(/getUiTextColor\(\)/.test(users), 'getter');
   const jade = read('client/components/users/userHeader.jade');
-  assert.ok(/js-ui-text-color\(type="color"/.test(jade) && /js-ui-bg-color\(type="color"/.test(jade), 'color wheels');
-  assert.ok(/js-reset-text-color/.test(jade) && /js-reset-bg-color/.test(jade), 'unset buttons');
+  assert.ok(/js-ui-text-color\(type="color"/.test(jade), 'colour wheel');
+  assert.ok(/js-reset-text-color/.test(jade), 'unset button');
   const js = read('client/components/users/userHeader.js');
-  assert.ok(/Meteor\.call\('setUiColors', tpl\.textColor\.get\(\), tpl\.bgColor\.get\(\)/.test(js), 'saves both colors');
-  assert.ok(/textColor\.set\(null\)/.test(js) && /bgColor\.set\(null\)/.test(js), 'reset unsets');
+  assert.ok(/Meteor\.call\('setUiColors', tpl\.textColor\.get\(\), null/.test(js), 'saves it');
+  assert.ok(/textColor\.set\(null\)/.test(js), 'reset unsets');
   const s = read('server/models/users.js');
   const i = s.indexOf('setUiColors(textColor, bgColor)');
   assert.ok(i !== -1, 'server method');
-  assert.ok(/isHexColor6\(textColor\)/.test(s.slice(i, i + 700)), 'validates hex');
+  assert.ok(/isHexColor6\(textColor\)/.test(s.slice(i, i + 900)), 'validates hex');
   const jj = read('client/components/main/uiFont.js');
-  assert.ok(/--wekan-ui-text-color/.test(jj) && /--wekan-ui-bg-color/.test(jj), 'applies color vars');
+  assert.ok(/--wekan-ui-text-color/.test(jj), 'applies the colour var');
   const css = read('client/components/main/uiFont.css');
-  assert.ok(/color: var\(--wekan-ui-text-color\)/.test(css) && /background-color: var\(--wekan-ui-bg-color\)/.test(css),
-    'css consumes color vars');
+  assert.ok(/color: var\(--wekan-ui-text-color\)/.test(css), 'css consumes it');
+});
+
+test('"text background color" is gone, and a stored one is cleared (negative)', () => {
+  // Removed on purpose: a colour behind the text needs elements to sit on, and
+  // neither choice looked good - on the boxes it painted the whole window, on
+  // the elements that carry text it striped headings and menu rows with bands.
+  const css = read('client/components/main/uiFont.css');
+  assert.ok(!/--wekan-ui-bg-color/.test(css.replace(/\/\*[\s\S]*?\*\//g, '')),
+    'no stylesheet rule paints it');
+  const jj = read('client/components/main/uiFont.js');
+  assert.ok(!/toggle\('--wekan-ui-bg-color'/.test(jj), 'nothing publishes the variable');
+  assert.ok(!/uiTextBgColor/.test(jj.replace(/\/\/[^\n]*/g, '')), 'and nothing reads the profile field');
+  const jade = read('client/components/users/userHeader.jade');
+  assert.ok(!/js-ui-bg-color/.test(jade) && !/js-reset-bg-color/.test(jade),
+    'the popup does not offer it');
+  const js = read('client/components/users/userHeader.js');
+  assert.ok(!/bgColor/.test(js.replace(/\/\/[^\n]*/g, '')), 'and the popup keeps no state for it');
+
+  // A profile that HAS one is cleaned rather than left dormant: the setter
+  // unsets the field on every call, whatever it is passed.
+  const s = read('server/models/users.js');
+  const i = s.indexOf('setUiColors(textColor, bgColor)');
+  assert.ok(/\$unset\['profile\.uiTextBgColor'\] = '';/.test(s.slice(i, i + 900)),
+    'the setter always unsets it');
+  assert.ok(!/\$set\['profile\.uiTextBgColor'\]/.test(s), 'and never sets it');
+  // The schema key stays: a modifier touching a key SimpleSchema does not know
+  // is rejected, which would leave exactly those profiles uncleanable.
+  const users = read('models/users.js');
+  assert.ok(/'profile\.uiTextBgColor'/.test(users), 'the key is still declared');
+  assert.ok(/REMOVED feature/.test(users), 'and says why it is only still declared');
+  assert.ok(!/getUiTextBgColor\(\) \{/.test(users), 'with no getter left');
 });
 
 test('font detector uses the whitelist + canvas width comparison', () => {
@@ -271,23 +301,6 @@ test('an icon keeps meaning what it means (negative)', () => {
   const header = read('client/components/main/header.css');
   assert.ok(/#header-quick-access ul li \.fa,?[\s\S]{0,80}color: inherit/.test(header),
     'and the ones that follow their label still say so');
-});
-
-test('the text BACKGROUND goes behind text, not behind the page (negative)', () => {
-  // It was on <body>, so choosing orange painted the whole window - the board
-  // canvas, the empty space under the lists - which is a page background.
-  const css = read('client/components/main/uiFont.css');
-  const at = css.indexOf('body.has-ui-bg-color span,');
-  assert.ok(at > 0, 'the rule lists the elements that carry text');
-  const selectors = css.slice(at, css.indexOf('{', at));
-  assert.ok(!/^body\.has-ui-bg-color,$/m.test(css), 'the body itself is not one of them');
-  for (const el of ['span', 'a', 'p', 'li', 'td', 'label', '.viewer', 'input', 'textarea']) {
-    assert.ok(selectors.includes(`body.has-ui-bg-color ${el},`), `${el} carries text`);
-  }
-  for (const box of ['div', 'section', '.board-canvas', '.minicard']) {
-    assert.ok(!selectors.includes(`body.has-ui-bg-color ${box}`),
-      `${box} is a box that carries elements, not text`);
-  }
 });
 
 console.log(`\nAll ${passed} ui-font tests passed`);
