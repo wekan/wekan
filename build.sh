@@ -1008,8 +1008,38 @@ function run_all_tests(){
 		fi
 	fi
 
-	# MongoDB on :3001. Reuse one that is already listening (e.g. a dev server's mongo);
-	# otherwise start Meteor's bundled mongod with a persistent test dbpath.
+	# WHICH PORT the test database is on. 3001 by default - that is what Meteor's
+	# own dev mongo used and what the E2E helpers default to - but it is not ours
+	# to insist on: on this machine 3001 turned out to belong to an "Omi Server"
+	# speaking HTTP, and every run either died on "Topology is closed" or stopped
+	# at the check below. So the port is a variable, the run moves to a free one
+	# when the default is taken by something that is not a database, and it tells
+	# the tests where it went (they already read WEKAN_MONGO_URL:
+	# tests/playwright/helpers/db.js).
+	local TEST_DB_PORT="${WEKAN_TEST_DB_PORT:-3001}"
+	if (exec 3<>/dev/tcp/127.0.0.1/"$TEST_DB_PORT") 2>/dev/null && ! mongo_answers "$TEST_DB_PORT"; then
+		local taken="$TEST_DB_PORT"
+		local candidate
+		for candidate in 3011 3021 3031 3041 3051; do
+			if ! (exec 3<>/dev/tcp/127.0.0.1/"$candidate") 2>/dev/null; then
+				TEST_DB_PORT="$candidate"; break
+			fi
+		done
+		if [ "$TEST_DB_PORT" = "$taken" ]; then
+			echo "ERROR: :$taken is held by something that is not MongoDB, and none of the"
+			echo "       fallback ports (3011 3021 3031 3041 3051) is free either."
+			echo "       Free one of them, or set WEKAN_TEST_DB_PORT to a port that is."
+			rm -rf "$STATDIR"; return 1
+		fi
+		echo "==> :$taken is held by something that is not MongoDB (it did not answer a ping)."
+		echo "    Using :$TEST_DB_PORT for the test database instead; the tests are told where it is."
+	fi
+	local TEST_MONGO_URL="mongodb://127.0.0.1:$TEST_DB_PORT/meteor"
+	export WEKAN_MONGO_URL="$TEST_MONGO_URL"
+
+	# MongoDB on $TEST_DB_PORT. Reuse one that is already listening (e.g. a dev
+	# server's mongo); otherwise start Meteor's bundled mongod with a persistent
+	# test dbpath.
 	#
 	# "Listening" is not the same as "working". A TCP connect only proves that
 	# SOMETHING accepted, and a mongod that is shutting down - the one this script
@@ -1023,32 +1053,33 @@ function run_all_tests(){
 	# ...with no wekan-test-mongod.log to say otherwise, because none was started.
 	# So ASK it: a `ping` through the bundle's own driver. Only an answer counts as
 	# a database to reuse.
-	if (exec 3<>/dev/tcp/127.0.0.1/3001) 2>/dev/null && mongo_answers 3001; then
-		echo "==> Reusing the MongoDB already listening on :3001 (not started or stopped by this run)."
-	elif (exec 3<>/dev/tcp/127.0.0.1/3001) 2>/dev/null; then
-		echo "ERROR: something is listening on :3001 but does not answer a MongoDB ping."
-		echo "       That is usually a mongod that is still shutting down, or another"
-		echo "       program on the port. Nothing was started, because the port is taken."
-		echo "       Wait a few seconds and run this again, or free the port:"
-		echo "         fuser -k 3001/tcp    # or: lsof -ti :3001 | xargs kill"
+	if (exec 3<>/dev/tcp/127.0.0.1/"$TEST_DB_PORT") 2>/dev/null && mongo_answers "$TEST_DB_PORT"; then
+		echo "==> Reusing the MongoDB already listening on :$TEST_DB_PORT (not started or stopped by this run)."
+	elif (exec 3<>/dev/tcp/127.0.0.1/"$TEST_DB_PORT") 2>/dev/null; then
+		# Only reachable when the port was taken between the check above and here.
+		echo "ERROR: something is listening on :$TEST_DB_PORT but does not answer a MongoDB ping."
+		echo "       That is usually a mongod still shutting down, or another program that"
+		echo "       took the port just now. Nothing was started, because the port is taken."
+		echo "       Wait a few seconds and run this again, or free it:"
+		echo "         fuser -k $TEST_DB_PORT/tcp    # or: lsof -ti :$TEST_DB_PORT | xargs kill"
 		rm -rf "$STATDIR"; return 1
 	else
 		if [ -z "$MONGOD_BIN" ] || [ ! -x "$MONGOD_BIN" ]; then
-			echo "ERROR: nothing is listening on :3001 and no mongod was found (Meteor dev_bundle or PATH)."
+			echo "ERROR: nothing is listening on :$TEST_DB_PORT and no mongod was found (Meteor dev_bundle or PATH)."
 			echo "       Meteor's bundled mongod is normally at <dev_bundle>/mongodb/bin/mongod."; rm -rf "$STATDIR"; return 1
 		fi
-		local DBPATH="../mongodb-test-3001"
+		local DBPATH="../mongodb-test-$TEST_DB_PORT"
 		mkdir -p "$DBPATH"
-		echo "==> Starting MongoDB (Meteor's mongod) on :3001, dbpath $DBPATH."
-		{ echo "===== mongod :3001 - started $(date '+%Y-%m-%d %H:%M:%S %Z') ====="; "$MONGOD_BIN" --port 3001 --dbpath "$DBPATH" --bind_ip 127.0.0.1 --nounixsocket; } > "$RUN_LOGDIR/wekan-test-mongod.log" 2>&1 &
+		echo "==> Starting MongoDB (Meteor's mongod) on :$TEST_DB_PORT, dbpath $DBPATH."
+		{ echo "===== mongod :$TEST_DB_PORT - started $(date '+%Y-%m-%d %H:%M:%S %Z') ====="; "$MONGOD_BIN" --port "$TEST_DB_PORT" --dbpath "$DBPATH" --bind_ip 127.0.0.1 --nounixsocket; } > "$RUN_LOGDIR/wekan-test-mongod.log" 2>&1 &
 		MONGOD_PID=$!
 		local db_ready=0
 		for i in $(seq 1 60); do
-			if (exec 3<>/dev/tcp/127.0.0.1/3001) 2>/dev/null; then db_ready=1; break; fi
+			if (exec 3<>/dev/tcp/127.0.0.1/"$TEST_DB_PORT") 2>/dev/null && mongo_answers "$TEST_DB_PORT"; then db_ready=1; break; fi
 			sleep 1
 		done
 		if [ "$db_ready" -ne 1 ]; then
-			echo "ERROR: MongoDB did not become ready on :3001 (see $RUN_LOGDIR/wekan-test-mongod.log)."
+			echo "ERROR: MongoDB did not become ready on :$TEST_DB_PORT (see $RUN_LOGDIR/wekan-test-mongod.log)."
 			kill "$MONGOD_PID" >/dev/null 2>&1 || true; MONGOD_PID=""; rm -rf "$STATDIR"; return 1
 		fi
 	fi
@@ -1072,8 +1103,8 @@ function run_all_tests(){
 	# mongodb://127.0.0.1:3001/meteor (tests/playwright/helpers/db.js). Using any other
 	# db name (e.g. /wekan) makes the app read an empty database while the tests seed a
 	# different one, so every test that needs seeded data fails.
-	{ echo "===== WeKan test server [bundle node :3000 db :3001/meteor] - started $(date '+%Y-%m-%d %H:%M:%S %Z') ====="; echo; \
-	  MONGO_URL="mongodb://127.0.0.1:3001/meteor" ROOT_URL="http://localhost:3000" PORT=3000 \
+	{ echo "===== WeKan test server [bundle node :3000 db :$TEST_DB_PORT/meteor] - started $(date '+%Y-%m-%d %H:%M:%S %Z') ====="; echo; \
+	  MONGO_URL="$TEST_MONGO_URL" ROOT_URL="http://localhost:3000" PORT=3000 \
 	  WRITABLE_PATH="$WRITABLE_ABS" WITH_API=true RICHER_CARD_COMMENT_EDITOR=false \
 	  DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" \
 	  "$NODE_BIN" "$BUNDLE_DIR/main.js"; } >> "$RUN_LOGDIR/wekan-test-server.log" 2>&1 &
@@ -1179,7 +1210,7 @@ function run_all_tests(){
 	# Stop the mongod we started (leave a pre-existing/reused one alone: MONGOD_PID
 	# is only set when this run launched it).
 	if [ -n "$MONGOD_PID" ]; then
-		echo "Stopping test MongoDB (mongod :3001)."
+		echo "Stopping test MongoDB (mongod :${TEST_DB_PORT:-3001})."
 		kill "$MONGOD_PID" >/dev/null 2>&1 || true
 		wait "$MONGOD_PID" >/dev/null 2>&1 || true
 	fi

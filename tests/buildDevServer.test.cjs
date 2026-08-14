@@ -97,9 +97,9 @@ test('the test server reuses a database only when it ANSWERS', () => {
   // 2026-08-14: a run took the "reuse" branch, started no mongod of its own, and
   // the test server died on its first query with "Topology is closed" - there
   // was no wekan-test-mongod.log, because none was started. A TCP connect proves
-  // only that something accepted the socket, and a mongod that is shutting down
-  // (this same script kills one a few lines earlier) accepts for a moment longer.
-  assert.ok(/if \(exec 3<>\/dev\/tcp\/127\.0\.0\.1\/3001\) 2>\/dev\/null && mongo_answers 3001; then/.test(sh),
+  // only that something accepted the socket. Here it was an "Omi Server"
+  // answering HTTP on 3001; a mongod that is shutting down would do the same.
+  assert.ok(/&& mongo_answers "\$TEST_DB_PORT"; then/.test(sh),
     'the reuse branch asks the database, not just the port');
   assert.ok(/mongo_answers\(\) \{/.test(sh), 'and the probe exists');
   const probe = sh.slice(sh.indexOf('mongo_answers() {'), sh.indexOf('function run_all_tests('));
@@ -107,17 +107,36 @@ test('the test server reuses a database only when it ANSWERS', () => {
   assert.ok(/serverSelectionTimeoutMS: 3000/.test(probe), 'and gives up in seconds, not minutes');
   assert.ok(/BUNDLE_DIR\/programs\/server\/node_modules/.test(probe),
     'with the driver already in the built bundle, so nothing is installed for it');
+  // The readiness wait asks the same question: a port that opens is not a
+  // database that answers, and waiting for the first is how the run got here.
+  assert.ok(/db_ready=1; break; fi/.test(sh) && /mongo_answers "\$TEST_DB_PORT"\) 2>\/dev\/null;? ?then db_ready=1|&& mongo_answers "\$TEST_DB_PORT"; then db_ready=1/.test(sh),
+    'and so does the wait for the mongod it started');
 });
 
-test('a port held by something else is an error, not a silent reuse (negative)', () => {
-  // We cannot start our own mongod on a taken port, so this has to stop and say
-  // so - the alternative is the server starting against nothing, which is the
-  // failure this came from.
-  const branch = sh.slice(sh.indexOf('elif (exec 3<>/dev/tcp/127.0.0.1/3001)'));
-  const body = branch.slice(0, branch.indexOf('\telse'));
-  assert.ok(/does not answer a MongoDB ping/.test(body), 'it says what is wrong');
-  assert.ok(/fuser -k 3001\/tcp/.test(body), 'and how to free the port');
-  assert.ok(/return 1/.test(body), 'and stops rather than starting the server anyway');
+test('a default port owned by another program moves the database (negative)', () => {
+  // 3001 is Meteor's convention, not ours to insist on: on this machine it
+  // belongs to something else entirely. The run moves to a free port and TELLS
+  // the tests, which already read WEKAN_MONGO_URL.
+  assert.ok(/local TEST_DB_PORT="\$\{WEKAN_TEST_DB_PORT:-3001\}"/.test(sh),
+    'the port is a variable with the old default');
+  assert.ok(/for candidate in 3011 3021 3031 3041 3051/.test(sh), 'with fallbacks');
+  assert.ok(/export WEKAN_MONGO_URL="\$TEST_MONGO_URL"/.test(sh),
+    'and the tests are told where the database went');
+  const helper = fs.readFileSync(
+    path.join(__dirname, 'playwright', 'helpers', 'db.js'), 'utf8');
+  assert.ok(/process\.env\.WEKAN_MONGO_URL/.test(helper), 'which is what they read');
+  // And the server is started against the same URL, not a hard-coded one.
+  assert.ok(/MONGO_URL="\$TEST_MONGO_URL"/.test(sh), 'the server uses it too');
+  assert.ok(!/MONGO_URL="mongodb:\/\/127\.0\.0\.1:3001\/meteor" ROOT_URL/.test(sh),
+    'and nothing hard-codes 3001 for it any more');
+});
+
+test('every port is exhausted before the run gives up (negative)', () => {
+  const branch = sh.slice(sh.indexOf('if [ "$TEST_DB_PORT" = "$taken" ]; then'));
+  const body = branch.slice(0, branch.indexOf('\tfi'));
+  assert.ok(/none of the/.test(body) && /fallback ports/.test(body), 'it says what it tried');
+  assert.ok(/WEKAN_TEST_DB_PORT/.test(body), 'and how to choose one by hand');
+  assert.ok(/return 1/.test(body), 'and stops rather than starting the server against nothing');
 });
 
 console.log(`\n${passed} tests passed`);
