@@ -660,6 +660,99 @@ question skipped.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/05ddc83cb786f7ca3baede3e80bf925a72e0e696">A board tile in All Boards is the board's whole theme, and light themes are readable on it</a>. Thanks to xet7.</summary>
+
+A board on the **clearpink** theme was a pink rectangle floating inside a grey
+tile, while the flat-coloured board beside it filled its tile edge to edge.
+
+Two lists decided what a tile is coloured with. `boardColors.css` painted
+`.board-list .board-color-<name> a` - the LINK inside the tile, which sits
+inside the tile's own 24px/18px padding and so can never reach its edges - and
+`boardsList.css` carried a hand-copied list of seventeen flat background
+colours on the tile itself, which is what made the flat themes look right. The
+five colour SLIDE themes added later were never copied into that list, so their
+tiles kept the default grey and only the inset link showed the slide.
+**clearblue** was in the list, flattened to one hex, so it did not show its
+slide either, and **Clean Dark** and **Clean Light** were in neither list.
+
+There is one list now. Each theme paints `.board-list li.board-color-<name>`
+where it paints its header bar and its Public Boards row, the copy in
+`boardsList.css` is gone, and a tile is the whole tile at every theme.
+
+The other half of a theme is the text on it. A tile writes its title in
+`#f6f6f6`, which is right on the fifteen dark themes and invisible on a light
+one: **Apple Glass Pastel**'s tile is a pastel wash from `#f6f7fb`, so its name
+and description were white on near-white and only the tile's shape said a board
+was there. Both light themes now write their title, description and archive
+line in their own dark ink, and darken the card-count pill and the unstarred
+star that sit on the same tile - in ONE block, named as the place a third light
+theme goes, because a per-theme copy is what caused the first half of this.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/05ddc83cb786f7ca3baede3e80bf925a72e0e696">Clean Light's top bar is one shade of dark, icons included</a>. Thanks to xet7.</summary>
+
+The **Clean Light** theme's top bar is `#F1F1F3`, and `header.css` paints every
+icon in that bar white by id (`#header-quick-access i.fa`). The buttons inside a
+`ul li` escaped that through a more specific `color: inherit` and took the
+theme's own text colour; the **house** and the **notification bell** are in no
+`ul li`, so they stayed white on near-white - the bell's LABEL was readable
+beside a bell that was not there, which is how it was noticed.
+
+Both are dark now, and so is everything beside them: the bar's labels were
+`rgba(10, 10, 20, 0.5)` and its board title full black, so fixing the two icons
+alone would have left the bar at three darknesses. There is ONE shade in it now.
+The **current** entry used to be the dark one among pale ones - a difference
+that no longer exists - so it is the full-black, heavier one instead. A bell
+with something to report keeps its white glyph, because it is on the red circle
+then and not on the bar.
+
+The **dividers** between the bar's groups - the seam that separates the page's
+own controls from your account - are white too, a background in the first bar
+and a border in the second, so on this theme they were not there at all. They
+are in ink now, at the divider's own weight rather than the text's: a hairline
+as dark as the label beside it stops reading as a seam and becomes a stroke.
+The **starred group**'s outline - the box around the caret, the count and the
+star - was white for the same reason, so the three sat loose on this theme; it
+is the same 0.7 in ink now, which is the dark outline the phone/desktop toggle
+beside it already draws for itself and why that one looked right and this one
+did not.
+
+**Hovering** an icon lightens it - `#header-quick-access i.fa:hover` goes to
+`#ccc` - which on a dark bar reads as "brighter, so you know you are on it" and
+on this one made the house fade towards the bar it sits on. On this theme it
+goes the other way, to full black, which is the same message read the right way
+round for a light bar.
+
+And with **Member Settings / Change color / All Boards** on, a tile is the
+theme's own fill rather than the accent under a flat white veil. The veil made
+every tile one shade lighter than the selected row in the left menu beside it,
+which reads as two colours rather than as one page. It reads
+`--theme-accent-fill` now, not `--theme-accent`: the accent is ONE colour - the
+solid end of a colour-slide theme - so on **clearorange** the tiles came out
+flat beside a menu row that slid. The fill is the theme's slide where it has
+one and its accent where it does not, which is what every other themed control
+already reads. The popup's own **All Boards** button is filled from the same
+variable, because the button and the tiles it turns on are one decision and
+were two looks.
+
+On the **Modern** theme the popup that asks all this was a single narrow column
+of swatches. That theme set `width: 260px` on every popup's content, so any
+popup that asks for width by name - Change Color, Export board, Show on Card,
+Show on Minicard - was pinned to 260px whatever it had asked for. A theme
+decides what a popup looks like; how wide it is belongs to the popup, and the
+declaration is gone.
+
+And on the **Dark** theme that popup had no title bar at all. That theme hid
+every popup's header outright, and the header is not decoration: it carries the
+popup's title, the back arrow into the popup it came from, and the X - so
+"Change Color" was an untitled panel that could only be left with Escape or a
+click outside. No other theme does that, and Dark no longer does either.
+
+</details>
+
 **Search** - finding a card by what people call it.
 
 <details>
