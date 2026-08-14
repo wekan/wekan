@@ -4133,6 +4133,28 @@ an hour ago - and pins that ambiguity can never reach the deletion.
 and improves the translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0d3bb3ee75cc07b2787353d17ba157c910c4e59d">Ten more languages, and Latin among them</a>. Thanks to xet7.</summary>
+
+**179 languages.** This block adds **Íslenska**, **Gaeilge**, **Shqip**,
+**Bosanski**, **Malti**, **Lëtzebuergesch**, **Кыргызча**, **Тоҷикӣ**, **Māori**
+and **Latina** - the same three edits each, the name written in its own
+language, and a flag.
+
+Two of them say something about the policy. **Māori** and **Latin** have nobody
+waiting to translate a kanban board, and Latin has no country at all; it takes
+the Vatican's flag because that is the state that still uses it, which is the
+same reasoning that gives a language spoken across a border the flag of where it
+is spoken. A constructed language keeps the globe instead - Esperanto, Klingon
+and Volapük are nobody's country, and borrowing one would be a claim rather than
+a hint.
+
+Latin is a real translation and not a joke: *tabula*, *charta*, *index*,
+*semita*, *titelli*, *sodales*, and the imperatives a menu is written in -
+*Adde*, *Dele*, *Serva*, *Quaere*.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/244710e91ec29a30093428ee6fbf64c5791aee26">Nine more languages: Kannada, Malayalam, Burmese, Sinhala, Nepali, Javanese, Somali, Pashto and Kazakh</a>. Thanks to xet7.</summary>
 
 WeKan is at **169 languages**. These nine were missing entirely, and between
