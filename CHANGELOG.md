@@ -4133,6 +4133,43 @@ an hour ago - and pins that ambiguity can never reach the deletion.
 and improves the translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f12095efab438128b73a9cf01bec4e769289ec65">The 31 strings this release adds, in 127 languages</a>. Thanks to xet7.</summary>
+
+Everything added to `en.i18n.json` since 10.91 - the new popup titles, the
+export and import wording, the card-number search operator, the filesystem
+integrity report - shipped as English placeholders in every other language file.
+Translated directly, as `CLAUDE.md` requires: no external translation service,
+API or key, and each language's OWN existing strings as the reference, so the
+new wording matches what that file already says rather than being invented
+beside it.
+
+The vocabulary each file already had is what decided the wording: its word for
+a swimlane, a list, a card and a board, and whether it says *export* with a
+verb or a noun. The four import titles are the four export titles with that
+language's own word for importing, because in a menu that already says what it
+is about they are the same sentence pointed the other way.
+
+`operator-number` is a special case: it is not a label but a word somebody
+TYPES into the search box, beside `operator-board` and `operator-list` - so it
+is that language's plain word for a number, in the form those two are already
+in.
+
+Nothing overwrote a human translation. The fill step writes only into keys that
+are still the English source, and a translation already committed for a key was
+kept - Finnish's own *Poista ylimääräiset lista kopiot* stayed exactly as it
+was. `verify-human-preference.mjs` proves that property rather than asserting
+it, and none of this is pushed to Transifex, so a filled string can never
+masquerade there as a human one.
+
+Fifteen languages are deliberately left as English placeholders rather than
+guessed at: Klingon, Volapük, Acehnese, Breton, Igbo, Uyghur, Venda and its two
+variants, Walloon and its variant, Wolof, Yoruba, Tamazight, and vl-SS. A wrong
+translation reads as though somebody meant it; an English placeholder says
+plainly that nobody has translated it yet.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/639214574">The three new Version-pane and checklist strings, in 133 languages</a>. Thanks to xet7.</summary>
 
 `invalid-year`, `collapse-checklist` and `expand-checklist` shipped in
