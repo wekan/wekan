@@ -226,6 +226,11 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     'bump-bundle-npm-deps.mjs': 'release-workflow + Dockerfile: the same shape -\n'
       + '      it raises the npm packages inside a BUILT bundle to the minimums in\n'
       + '      bundle-npm-security-bumps.json, and is run by the build jobs',
+    'translations/add-language.mjs': 'adds a NEW language - takes two JSON files\n'
+      + '      (the strings, and the name/rtl/flag of each language) and makes the\n'
+      + '      three edits CLAUDE.md requires: the data file, the languages.js entry\n'
+      + '      and the flag. Run when a language is being added, with arguments a\n'
+      + '      menu cannot supply',
   };
 
   const missing = { sh: [], bat: [] };

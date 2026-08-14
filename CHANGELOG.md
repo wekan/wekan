@@ -4133,6 +4133,28 @@ an hour ago - and pins that ambiguity can never reach the deletion.
 and improves the translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2395dfd0840b39f584c0338fc4683e560a9af0e8">Fifteen more languages, most of them African</a>. Thanks to xet7.</summary>
+
+**194 languages.** This block is the one WeKan was furthest from having:
+**Татарча**, **ʻŌlelo Hawaiʻi**, **chiShona**, **Ikinyarwanda**, **Chichewa**,
+**Sesotho**, **Setswana**, **Xitsonga**, **Luganda**, **Afaan Oromoo**,
+**ትግርኛ**, **Kurdî**, **سنڌي**, **অসমীয়া** and **Malagasy**.
+
+Nine of the fifteen are African languages with tens of millions of speakers
+each and no kanban tool in them at all. **Sindhi** is `rtl: true`; **Kurdish**
+takes the Iraqi flag, because Kurdistan has no emoji and that is where most of
+its speakers are - the same rule as any language spoken across a border.
+
+The three edits are one script now - `releases/translations/add-language.mjs`.
+It writes the strings file as a full copy of the
+English one with the translations swapped in, inserts the registry entry in
+alphabetical order with the name in the language's own script, and adds the flag
+only if the map does not already anticipate it. That is why this block took
+three commands rather than thirty, and why nothing was left half-wired.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0d3bb3ee75cc07b2787353d17ba157c910c4e59d">Ten more languages, and Latin among them</a>. Thanks to xet7.</summary>
 
 **179 languages.** This block adds **Íslenska**, **Gaeilge**, **Shqip**,
