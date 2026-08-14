@@ -128,52 +128,42 @@ template(name="addListInline")
                 | {{_ 'or'}}
                 a.js-list-template {{_ 'template'}}
 
+//- WHERE A SWIMLANE GOES: its title, the board, which swimlane to go above or
+  below, and Done. Move swimlane and Copy swimlane asked it with the same form -
+  only the method called on Done differs, and that stays in swimlanes.js.
+//-
+//- `titleId` is what the two copies really differed in: the id the title input
+  and its label share, so a label clicks its own field. It is an `id=` attribute
+  rather than `input#...`, because a literal id cannot hold a mustache.
+template(name="swimlaneDestinationPicker")
+  label(for="{{titleId}}") {{_ 'title'}}:
+  input.full-line(id="{{titleId}}" type="text" value="{{title}}" autofocus)
+  label {{_ 'boards'}}:
+  select.js-select-boards(autofocus)
+    each toBoard in toBoards
+      option(value="{{toBoard._id}}" selected="{{#if isSelectedBoard toBoard._id}}selected{{/if}}") {{toBoard.title}}
+
+  label {{_ 'swimlanes'}}:
+  select.js-select-swimlanes
+    each swimlane in toSwimlanes
+      option(value="{{swimlane._id}}" selected="{{#if isSelectedSwimlane swimlane._id}}selected{{/if}}") {{swimlane.title}}
+
+  div
+    input(type="radio" name="swimlane-position" value="above" checked id="swimlane-position-above" style="display: inline")
+    label(for="swimlane-position-above") {{_ 'above-selected-swimlane'}}
+  div
+    input(type="radio" name="swimlane-position" value="below" id="swimlane-position-below" style="display: inline")
+    label(for="swimlane-position-below") {{_ 'below-selected-swimlane'}}
+
+  .edit-controls.clearfix
+    button.primary.confirm.js-done {{_ 'done'}}
+
 template(name="moveSwimlanePopup")
   if currentUser
     unless currentUser.isWorker
-      label(for='move-swimlane-title') {{_ 'title'}}:
-      input#move-swimlane-title.full-line(type="text" value="{{title}}" autofocus)
-      label {{_ 'boards'}}:
-      select.js-select-boards(autofocus)
-        each toBoard in toBoards
-          option(value="{{toBoard._id}}" selected="{{#if isSelectedBoard toBoard._id}}selected{{/if}}") {{toBoard.title}}
-
-      label {{_ 'swimlanes'}}:
-      select.js-select-swimlanes
-        each swimlane in toSwimlanes
-          option(value="{{swimlane._id}}" selected="{{#if isSelectedSwimlane swimlane._id}}selected{{/if}}") {{swimlane.title}}
-
-      div
-        input(type="radio" name="swimlane-position" value="above" checked id="swimlane-position-above" style="display: inline")
-        label(for="swimlane-position-above") {{_ 'above-selected-swimlane'}}
-      div
-        input(type="radio" name="swimlane-position" value="below" id="swimlane-position-below" style="display: inline")
-        label(for="swimlane-position-below") {{_ 'below-selected-swimlane'}}
-
-      .edit-controls.clearfix
-        button.primary.confirm.js-done {{_ 'done'}}
+      +swimlaneDestinationPicker(dialog=dialog titleId="move-swimlane-title")
 
 template(name="copySwimlanePopup")
   if currentUser
     unless currentUser.isWorker
-      label(for='copy-swimlane-title') {{_ 'title'}}:
-      input#copy-swimlane-title.full-line(type="text" value="{{title}}" autofocus)
-      label {{_ 'boards'}}:
-      select.js-select-boards(autofocus)
-        each toBoard in toBoards
-          option(value="{{toBoard._id}}" selected="{{#if isSelectedBoard toBoard._id}}selected{{/if}}") {{toBoard.title}}
-
-      label {{_ 'swimlanes'}}:
-      select.js-select-swimlanes
-        each swimlane in toSwimlanes
-          option(value="{{swimlane._id}}" selected="{{#if isSelectedSwimlane swimlane._id}}selected{{/if}}") {{swimlane.title}}
-
-      div
-        input(type="radio" name="swimlane-position" value="above" checked id="swimlane-position-above" style="display: inline")
-        label(for="swimlane-position-above") {{_ 'above-selected-swimlane'}}
-      div
-        input(type="radio" name="swimlane-position" value="below" id="swimlane-position-below" style="display: inline")
-        label(for="swimlane-position-below") {{_ 'below-selected-swimlane'}}
-
-      .edit-controls.clearfix
-        button.primary.confirm.js-done {{_ 'done'}}
+      +swimlaneDestinationPicker(dialog=dialog titleId="copy-swimlane-title")

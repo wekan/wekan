@@ -1176,8 +1176,22 @@ The events stay with the popups. An event inside an included template bubbles
 to the one that includes it, which is the one holding the state - that is what
 lets four popups do four different things with one form.
 
-`cardDetails.jade` lost 71 lines, `boardHeader.jade` 58 and `listHeader.jade`
-10, and a scan for near-duplicate templates went from **74 pairs to 9**.
+Two more went the same way, and those had their whole COMPONENT duplicated as
+well: **Move selection / Copy selection** - 145 of the dialog's 152 lines were
+identical, the other seven being what each does to a card once the destination
+is known - and **Move swimlane / Copy swimlane**, where the only difference is
+the method called on Done. Both are one registration now, taking that
+difference as an argument, and `sidebarFilters.js` lost 106 lines.
+
+`cardDetails.jade` lost 71 lines, `boardHeader.jade` 58, `sidebarFilters.jade`
+17, `listHeader.jade` 10 and `swimlanes.jade` 10, and a scan for near-duplicate
+templates went from **74 pairs to 7**.
+
+What is left of that scan is deliberately left: `attachmentSettings` and
+`storageSettings` share a shape but only a third of their code, the two
+Change Avatar popups differ in who they act on, and the three `mini*` templates
+are eight lines each in the three folders they belong to - indirection would
+cost more than the fifteen lines it saved.
 
 </details>
 

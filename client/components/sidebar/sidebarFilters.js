@@ -343,53 +343,19 @@ Template.disambiguateMultiMemberPopup.events({
   },
 });
 
-Template.moveSelectionPopup.onCreated(function() {
-  this.selectedBoardId = new ReactiveVar(Session.get('currentBoard'));
-  this.selectedSwimlaneId = new ReactiveVar('');
-  this.selectedListId = new ReactiveVar('');
-  this.selectedCardId = new ReactiveVar('');
-  this.position = new ReactiveVar('above');
 
-  this.getBoardData = function(boardId) {
-    const self = this;
-    Meteor.subscribe('board', boardId, false, {
-      onReady() {
-        const sameBoardId = self.selectedBoardId.get() === boardId;
-        self.selectedBoardId.set(boardId);
-
-        if (!sameBoardId) {
-          self.setFirstSwimlaneId();
-          self.setFirstListId();
-        }
-      },
-    });
-  };
-
-  this.setFirstSwimlaneId = function() {
-    try {
-      const board = ReactiveCache.getBoard(this.selectedBoardId.get());
-      const swimlaneId = board.swimlanes()[0]._id;
-      this.selectedSwimlaneId.set(swimlaneId);
-    } catch (e) {}
-  };
-
-  this.setFirstListId = function() {
-    try {
-      const boardId = this.selectedBoardId.get();
-      const swimlaneId = this.selectedSwimlaneId.get();
-      const lists = getListsForBoardSwimlane(boardId, swimlaneId);
-      const listId = lists[0] ? lists[0]._id : '';
-      this.selectedListId.set(listId);
-      this.selectedCardId.set('');
-    } catch (e) {}
-  };
-
-  this.getBoardData(Session.get('currentBoard'));
-  this.setFirstSwimlaneId();
-  this.setFirstListId();
+// The four selects of the move/copy selection dialogs, in one template. The
+// dialog - the popup's own template instance - is kept on THIS instance,
+// because inside `each boards` the data context is a board and a helper
+// reaching into the context for it would find nothing there.
+Template.selectionDestinationPicker.onCreated(function() {
+  this.autorun(() => {
+    const data = Template.currentData();
+    this.dialog = data && data.dialog;
+  });
 });
 
-Template.moveSelectionPopup.helpers({
+Template.selectionDestinationPicker.helpers({
   boards() {
     return ReactiveCache.getBoards(
       {
@@ -403,30 +369,30 @@ Template.moveSelectionPopup.helpers({
     );
   },
   swimlanes() {
-    const board = ReactiveCache.getBoard(Template.instance().selectedBoardId.get());
+    const board = ReactiveCache.getBoard(Template.instance().dialog.selectedBoardId.get());
     return board ? board.swimlanes() : [];
   },
   lists() {
-    const instance = Template.instance();
+    const instance = Template.instance().dialog;
     return getListsForBoardSwimlane(
       instance.selectedBoardId.get(),
       instance.selectedSwimlaneId.get(),
     );
   },
   cards() {
-    const instance = Template.instance();
+    const instance = Template.instance().dialog;
     const list = ReactiveCache.getList(instance.selectedListId.get());
     if (!list) return [];
     return list.cards(instance.selectedSwimlaneId.get()).sort((a, b) => a.sort - b.sort);
   },
   isDialogOptionBoardId(boardId) {
-    return Template.instance().selectedBoardId.get() === boardId;
+    return Template.instance().dialog.selectedBoardId.get() === boardId;
   },
   isDialogOptionSwimlaneId(swimlaneId) {
-    return Template.instance().selectedSwimlaneId.get() === swimlaneId;
+    return Template.instance().dialog.selectedSwimlaneId.get() === swimlaneId;
   },
   isDialogOptionListId(listId) {
-    return Template.instance().selectedListId.get() === listId;
+    return Template.instance().dialog.selectedListId.get() === listId;
   },
   isTitleDefault(title) {
     if (
@@ -449,215 +415,143 @@ Template.moveSelectionPopup.helpers({
   },
 });
 
-Template.moveSelectionPopup.events({
-  'change .js-select-boards'(event) {
-    const boardId = $(event.currentTarget).val();
-    Template.instance().getBoardData(boardId);
-  },
-  'change .js-select-swimlanes'(event) {
-    const instance = Template.instance();
-    instance.selectedSwimlaneId.set($(event.currentTarget).val());
-    instance.setFirstListId();
-  },
-  'change .js-select-lists'(event) {
-    const instance = Template.instance();
-    instance.selectedListId.set($(event.currentTarget).val());
-    instance.selectedCardId.set('');
-  },
-  'change .js-select-cards'(event) {
-    Template.instance().selectedCardId.set($(event.currentTarget).val());
-  },
-  'change input[name="position"]'(event) {
-    Template.instance().position.set($(event.currentTarget).val());
-  },
-  async 'click .js-done'() {
-    const instance = Template.instance();
-    const boardId = instance.selectedBoardId.get();
-    const swimlaneId = instance.selectedSwimlaneId.get();
-    const listId = instance.selectedListId.get();
-    const cardId = instance.selectedCardId.get();
-    const position = instance.position.get();
+/**
+ * Move selection and Copy selection: the same dialog, twice.
+ *
+ * Both ask where the selected cards should go - board, swimlane, list, above or
+ * below which card - keep the same four reactive selections while you answer,
+ * and end by walking the selection in order. 145 of the 152 lines were the same
+ * in both; what differs is the seven in the middle, which is what each does to
+ * a card once the destination is known. That is `applyToCard`.
+ *
+ * The MARKUP is one template too - `selectionDestinationPicker` in
+ * sidebarFilters.jade - and its events bubble up to whichever popup includes
+ * it, which is the one holding these selections.
+ */
+function registerSelectionDialogTemplate(templateName, applyToCard) {
+  Template[templateName].onCreated(function() {
+    this.selectedBoardId = new ReactiveVar(Session.get('currentBoard'));
+    this.selectedSwimlaneId = new ReactiveVar('');
+    this.selectedListId = new ReactiveVar('');
+    this.selectedCardId = new ReactiveVar('');
+    this.position = new ReactiveVar('above');
 
-    const selectedCards = getSelectedCardsSorted();
-    const targetCard = cardId ? ReactiveCache.getCard(cardId) : null;
-    const sortIndexes = buildInsertionSortIndexes(
-      selectedCards.length,
-      targetCard,
-      position,
-      listId,
-      swimlaneId,
-    );
+    this.getBoardData = function(boardId) {
+      const self = this;
+      Meteor.subscribe('board', boardId, false, {
+        onReady() {
+          const sameBoardId = self.selectedBoardId.get() === boardId;
+          self.selectedBoardId.set(boardId);
 
-    for (let i = 0; i < selectedCards.length; i += 1) {
-      await selectedCards[i].move(boardId, swimlaneId, listId, sortIndexes[i]);
-    }
-    EscapeActions.executeUpTo('multiselection');
-  },
-});
+          if (!sameBoardId) {
+            self.setFirstSwimlaneId();
+            self.setFirstListId();
+          }
+        },
+      });
+    };
 
-Template.copySelectionPopup.onCreated(function() {
-  this.selectedBoardId = new ReactiveVar(Session.get('currentBoard'));
-  this.selectedSwimlaneId = new ReactiveVar('');
-  this.selectedListId = new ReactiveVar('');
-  this.selectedCardId = new ReactiveVar('');
-  this.position = new ReactiveVar('above');
+    this.setFirstSwimlaneId = function() {
+      try {
+        const board = ReactiveCache.getBoard(this.selectedBoardId.get());
+        const swimlaneId = board.swimlanes()[0]._id;
+        this.selectedSwimlaneId.set(swimlaneId);
+      } catch (e) {}
+    };
 
-  this.getBoardData = function(boardId) {
-    const self = this;
-    Meteor.subscribe('board', boardId, false, {
-      onReady() {
-        const sameBoardId = self.selectedBoardId.get() === boardId;
-        self.selectedBoardId.set(boardId);
+    this.setFirstListId = function() {
+      try {
+        const boardId = this.selectedBoardId.get();
+        const swimlaneId = this.selectedSwimlaneId.get();
+        const lists = getListsForBoardSwimlane(boardId, swimlaneId);
+        const listId = lists[0] ? lists[0]._id : '';
+        this.selectedListId.set(listId);
+        this.selectedCardId.set('');
+      } catch (e) {}
+    };
 
-        if (!sameBoardId) {
-          self.setFirstSwimlaneId();
-          self.setFirstListId();
-        }
-      },
-    });
-  };
+    this.getBoardData(Session.get('currentBoard'));
+    this.setFirstSwimlaneId();
+    this.setFirstListId();
+  });
 
-  this.setFirstSwimlaneId = function() {
-    try {
-      const board = ReactiveCache.getBoard(this.selectedBoardId.get());
-      const swimlaneId = board.swimlanes()[0]._id;
-      this.selectedSwimlaneId.set(swimlaneId);
-    } catch (e) {}
-  };
+  // The picker is a template of its own, and a helper is looked up on the
+  // template it is written in - so what it needs is this instance, handed to it
+  // as `dialog`. Everything it draws is read from there.
+  Template[templateName].helpers({
+    dialog() {
+      return Template.instance();
+    },
+  });
 
-  this.setFirstListId = function() {
-    try {
-      const boardId = this.selectedBoardId.get();
-      const swimlaneId = this.selectedSwimlaneId.get();
-      const lists = getListsForBoardSwimlane(boardId, swimlaneId);
-      const listId = lists[0] ? lists[0]._id : '';
-      this.selectedListId.set(listId);
-      this.selectedCardId.set('');
-    } catch (e) {}
-  };
+  Template[templateName].events({
+    'change .js-select-boards'(event) {
+      const boardId = $(event.currentTarget).val();
+      Template.instance().getBoardData(boardId);
+    },
+    'change .js-select-swimlanes'(event) {
+      const instance = Template.instance();
+      instance.selectedSwimlaneId.set($(event.currentTarget).val());
+      instance.setFirstListId();
+    },
+    'change .js-select-lists'(event) {
+      const instance = Template.instance();
+      instance.selectedListId.set($(event.currentTarget).val());
+      instance.selectedCardId.set('');
+    },
+    'change .js-select-cards'(event) {
+      Template.instance().selectedCardId.set($(event.currentTarget).val());
+    },
+    'change input[name="position"]'(event) {
+      Template.instance().position.set($(event.currentTarget).val());
+    },
+    async 'click .js-done'() {
+      const instance = Template.instance();
+      const boardId = instance.selectedBoardId.get();
+      const swimlaneId = instance.selectedSwimlaneId.get();
+      const listId = instance.selectedListId.get();
+      const cardId = instance.selectedCardId.get();
+      const position = instance.position.get();
 
-  this.getBoardData(Session.get('currentBoard'));
-  this.setFirstSwimlaneId();
-  this.setFirstListId();
-});
-
-Template.copySelectionPopup.helpers({
-  boards() {
-    return ReactiveCache.getBoards(
-      {
-        archived: false,
-        'members.userId': Meteor.userId(),
-        _id: { $ne: ReactiveCache.getCurrentUser().getTemplatesBoardId() },
-      },
-      {
-        sort: { sort: 1 },
-      },
-    );
-  },
-  swimlanes() {
-    const board = ReactiveCache.getBoard(Template.instance().selectedBoardId.get());
-    return board ? board.swimlanes() : [];
-  },
-  lists() {
-    const instance = Template.instance();
-    return getListsForBoardSwimlane(
-      instance.selectedBoardId.get(),
-      instance.selectedSwimlaneId.get(),
-    );
-  },
-  cards() {
-    const instance = Template.instance();
-    const list = ReactiveCache.getList(instance.selectedListId.get());
-    if (!list) return [];
-    return list.cards(instance.selectedSwimlaneId.get()).sort((a, b) => a.sort - b.sort);
-  },
-  isDialogOptionBoardId(boardId) {
-    return Template.instance().selectedBoardId.get() === boardId;
-  },
-  isDialogOptionSwimlaneId(swimlaneId) {
-    return Template.instance().selectedSwimlaneId.get() === swimlaneId;
-  },
-  isDialogOptionListId(listId) {
-    return Template.instance().selectedListId.get() === listId;
-  },
-  isTitleDefault(title) {
-    if (
-      title.startsWith("key 'default") &&
-      title.endsWith('returned an object instead of string.')
-    ) {
-      const translated = `${TAPi18n.__('defaultdefault')}`;
-      if (
-        translated.startsWith("key 'default") &&
-        translated.endsWith('returned an object instead of string.')
-      ) {
-        return 'Default';
-      }
-      return translated;
-    }
-    if (title === 'Default') {
-      return `${TAPi18n.__('defaultdefault')}`;
-    }
-    return title;
-  },
-});
-
-Template.copySelectionPopup.events({
-  'change .js-select-boards'(event) {
-    const boardId = $(event.currentTarget).val();
-    Template.instance().getBoardData(boardId);
-  },
-  'change .js-select-swimlanes'(event) {
-    const instance = Template.instance();
-    instance.selectedSwimlaneId.set($(event.currentTarget).val());
-    instance.setFirstListId();
-  },
-  'change .js-select-lists'(event) {
-    const instance = Template.instance();
-    instance.selectedListId.set($(event.currentTarget).val());
-    instance.selectedCardId.set('');
-  },
-  'change .js-select-cards'(event) {
-    Template.instance().selectedCardId.set($(event.currentTarget).val());
-  },
-  'change input[name="position"]'(event) {
-    Template.instance().position.set($(event.currentTarget).val());
-  },
-  async 'click .js-done'() {
-    const instance = Template.instance();
-    const boardId = instance.selectedBoardId.get();
-    const swimlaneId = instance.selectedSwimlaneId.get();
-    const listId = instance.selectedListId.get();
-    const cardId = instance.selectedCardId.get();
-    const position = instance.position.get();
-
-    const selectedCards = getSelectedCardsSorted();
-    const targetCard = cardId ? ReactiveCache.getCard(cardId) : null;
-    const sortIndexes = buildInsertionSortIndexes(
-      selectedCards.length,
-      targetCard,
-      position,
-      listId,
-      swimlaneId,
-    );
-
-    for (let i = 0; i < selectedCards.length; i += 1) {
-      const card = selectedCards[i];
-      const newCardId = await Meteor.callAsync(
-        'copyCard',
-        card._id,
-        boardId,
-        swimlaneId,
+      const selectedCards = getSelectedCardsSorted();
+      const targetCard = cardId ? ReactiveCache.getCard(cardId) : null;
+      const sortIndexes = buildInsertionSortIndexes(
+        selectedCards.length,
+        targetCard,
+        position,
         listId,
-        true,
-        { title: card.title },
+        swimlaneId,
       );
-      if (!newCardId) continue;
 
-      const newCard = ReactiveCache.getCard(newCardId);
-      if (!newCard) continue;
+      for (let i = 0; i < selectedCards.length; i += 1) {
+        await applyToCard(selectedCards[i], {
+          boardId, swimlaneId, listId, sortIndex: sortIndexes[i],
+        });
+      }
+      EscapeActions.executeUpTo('multiselection');
+    },
+  });
+}
 
-      await newCard.move(boardId, swimlaneId, listId, sortIndexes[i]);
-    }
-    EscapeActions.executeUpTo('multiselection');
-  },
+// Move: the card itself goes to the destination.
+registerSelectionDialogTemplate('moveSelectionPopup', async (card, to) => {
+  await card.move(to.boardId, to.swimlaneId, to.listId, to.sortIndex);
+});
+
+// Copy: a new card is made there, and then put in its place. A copy that could
+// not be made is skipped rather than stopping the rest of the selection.
+registerSelectionDialogTemplate('copySelectionPopup', async (card, to) => {
+  const newCardId = await Meteor.callAsync(
+    'copyCard',
+    card._id,
+    to.boardId,
+    to.swimlaneId,
+    to.listId,
+    true,
+    { title: card.title },
+  );
+  if (!newCardId) return;
+  const newCard = ReactiveCache.getCard(newCardId);
+  if (!newCard) return;
+  await newCard.move(to.boardId, to.swimlaneId, to.listId, to.sortIndex);
 });

@@ -1136,78 +1136,73 @@ function swimlaneDoneEvent(serverMethod, tpl) {
   );
 }
 
-Template.moveSwimlanePopup.onCreated(function () {
-  this.currentSwimlane = Template.currentData();
-  this.selectedBoardId = new ReactiveVar(Utils.getCurrentBoard()._id);
-  this.selectedSwimlaneId = new ReactiveVar('');
-  setFirstSelectedSwimlane(this);
+/**
+ * Move swimlane and Copy swimlane: the same dialog, twice. Both ask which board
+ * and which swimlane to go above or below, keep the same two selections while
+ * you answer, and end by calling a method - and the METHOD is the only thing
+ * that differs, which is what `method` is.
+ *
+ * The markup is one template as well (`swimlaneDestinationPicker` in
+ * swimlanes.jade); its events bubble up to the popup that includes it, which is
+ * the one holding these selections.
+ */
+function registerSwimlaneDialogTemplate(templateName, method) {
+  Template[templateName].onCreated(function () {
+    this.currentSwimlane = Template.currentData();
+    this.selectedBoardId = new ReactiveVar(Utils.getCurrentBoard()._id);
+    this.selectedSwimlaneId = new ReactiveVar('');
+    setFirstSelectedSwimlane(this);
+  });
+
+  // The picker is a template of its own, so what it needs is this instance,
+  // handed to it as `dialog`.
+  Template[templateName].helpers({
+    board() {
+      return Utils.getCurrentBoard();
+    },
+    dialog() {
+      return Template.instance();
+    },
+  });
+
+  Template[templateName].events({
+    'click .js-done'(event, tpl) {
+      swimlaneDoneEvent(method, tpl);
+    },
+    'change .js-select-boards'(event, tpl) {
+      tpl.selectedBoardId.set($(event.currentTarget).val());
+      setFirstSelectedSwimlane(tpl);
+    },
+    'change .js-select-swimlanes'(event, tpl) {
+      tpl.selectedSwimlaneId.set($(event.currentTarget).val());
+    },
+  });
+}
+
+registerSwimlaneDialogTemplate('moveSwimlanePopup', 'moveSwimlane');
+registerSwimlaneDialogTemplate('copySwimlanePopup', 'copySwimlane');
+
+// The two selects of those dialogs, in one template. The dialog - the popup's
+// own instance - is kept here, because inside `each toBoard in toBoards` the
+// data context is a board.
+Template.swimlaneDestinationPicker.onCreated(function () {
+  this.autorun(() => {
+    const data = Template.currentData();
+    this.dialog = data && data.dialog;
+  });
 });
 
-Template.moveSwimlanePopup.helpers({
-  board() {
-    return Utils.getCurrentBoard();
-  },
+Template.swimlaneDestinationPicker.helpers({
   toBoards() {
     return swimlaneToBoards(false);
   },
   toSwimlanes() {
-    return getSwimlanesForBoard(Template.instance().selectedBoardId.get());
+    return getSwimlanesForBoard(Template.instance().dialog.selectedBoardId.get());
   },
   isSelectedBoard(boardId) {
-    return Template.instance().selectedBoardId.get() === boardId;
+    return Template.instance().dialog.selectedBoardId.get() === boardId;
   },
   isSelectedSwimlane(swimlaneId) {
-    return Template.instance().selectedSwimlaneId.get() === swimlaneId;
-  },
-});
-
-Template.moveSwimlanePopup.events({
-  'click .js-done'(event, tpl) {
-    swimlaneDoneEvent('moveSwimlane', tpl);
-  },
-  'change .js-select-boards'(event, tpl) {
-    tpl.selectedBoardId.set($(event.currentTarget).val());
-    setFirstSelectedSwimlane(tpl);
-  },
-  'change .js-select-swimlanes'(event, tpl) {
-    tpl.selectedSwimlaneId.set($(event.currentTarget).val());
-  },
-});
-
-Template.copySwimlanePopup.onCreated(function () {
-  this.currentSwimlane = Template.currentData();
-  this.selectedBoardId = new ReactiveVar(Utils.getCurrentBoard()._id);
-  this.selectedSwimlaneId = new ReactiveVar('');
-  setFirstSelectedSwimlane(this);
-});
-
-Template.copySwimlanePopup.helpers({
-  board() {
-    return Utils.getCurrentBoard();
-  },
-  toBoards() {
-    return swimlaneToBoards(false);
-  },
-  toSwimlanes() {
-    return getSwimlanesForBoard(Template.instance().selectedBoardId.get());
-  },
-  isSelectedBoard(boardId) {
-    return Template.instance().selectedBoardId.get() === boardId;
-  },
-  isSelectedSwimlane(swimlaneId) {
-    return Template.instance().selectedSwimlaneId.get() === swimlaneId;
-  },
-});
-
-Template.copySwimlanePopup.events({
-  'click .js-done'(event, tpl) {
-    swimlaneDoneEvent('copySwimlane', tpl);
-  },
-  'change .js-select-boards'(event, tpl) {
-    tpl.selectedBoardId.set($(event.currentTarget).val());
-    setFirstSelectedSwimlane(tpl);
-  },
-  'change .js-select-swimlanes'(event, tpl) {
-    tpl.selectedSwimlaneId.set($(event.currentTarget).val());
+    return Template.instance().dialog.selectedSwimlaneId.get() === swimlaneId;
   },
 });

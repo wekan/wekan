@@ -240,8 +240,15 @@ template(name="disambiguateMultiMemberPopup")
   button.wide.js-unassign-member {{_ 'unassign-member'}}
   button.wide.js-assign-member {{_ 'assign-member'}}
 
-template(name="moveSelectionPopup")
-  h3 {{_ 'moveSelectionPopup-title'}}
+//- WHERE THE SELECTED CARDS GO: board, swimlane, list, above or below which
+  card, and Done. Move selection and Copy selection asked it with the same
+  form; only the heading above it and what happens on Done differ, and both of
+  those stay with the popups (sidebarFilters.js).
+//-
+//- `idSuffix` is the one thing the two copies really did differ in: the radio
+  buttons' ids, so a label clicks its OWN radio. The name stays `position` in
+  both, which is what the handler reads.
+template(name="selectionDestinationPicker")
   label {{_ 'boards'}}:
   select.js-select-boards
     each boards
@@ -263,46 +270,22 @@ template(name="moveSelectionPopup")
       option(value="{{_id}}") {{add @index 1}}. {{title}}
 
   div
-    input(type="radio" name="position" value="above" checked id="position-above-move" style="display: inline")
-    label(for="position-above-move") {{_ 'above-selected-card'}}
+    input(type="radio" name="position" value="above" checked id="position-above-{{idSuffix}}" style="display: inline")
+    label(for="position-above-{{idSuffix}}") {{_ 'above-selected-card'}}
   div
-    input(type="radio" name="position" value="below" id="position-below-move" style="display: inline")
-    label(for="position-below-move") {{_ 'below-selected-card'}}
+    input(type="radio" name="position" value="below" id="position-below-{{idSuffix}}" style="display: inline")
+    label(for="position-below-{{idSuffix}}") {{_ 'below-selected-card'}}
 
   .edit-controls.clearfix
     button.primary.confirm.js-done {{_ 'done'}}
+
+template(name="moveSelectionPopup")
+  h3 {{_ 'moveSelectionPopup-title'}}
+  +selectionDestinationPicker(dialog=dialog idSuffix="move")
 
 template(name="copySelectionPopup")
   h3 {{_ 'copySelectionPopup-title'}}
-  label {{_ 'boards'}}:
-  select.js-select-boards
-    each boards
-      option(value="{{_id}}" selected="{{#if isDialogOptionBoardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
-
-  label {{_ 'swimlanes'}}:
-  select.js-select-swimlanes
-    each swimlanes
-      option(value="{{_id}}" selected="{{#if isDialogOptionSwimlaneId _id}}selected{{/if}}") {{add @index 1}}. {{isTitleDefault title}}
-
-  label {{_ 'lists'}}:
-  select.js-select-lists
-    each lists
-      option(value="{{_id}}" selected="{{#if isDialogOptionListId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
-
-  label {{_ 'cards'}}:
-  select.js-select-cards
-    each cards
-      option(value="{{_id}}") {{add @index 1}}. {{title}}
-
-  div
-    input(type="radio" name="position" value="above" checked id="position-above-copy" style="display: inline")
-    label(for="position-above-copy") {{_ 'above-selected-card'}}
-  div
-    input(type="radio" name="position" value="below" id="position-below-copy" style="display: inline")
-    label(for="position-below-copy") {{_ 'below-selected-card'}}
-
-  .edit-controls.clearfix
-    button.primary.confirm.js-done {{_ 'done'}}
+  +selectionDestinationPicker(dialog=dialog idSuffix="copy")
 
 template(name="setSelectionColorPopup")
   h3 {{_ 'setSelectionColorPopup-title'}}

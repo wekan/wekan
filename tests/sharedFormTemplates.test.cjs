@@ -11,6 +11,11 @@
 //   * THE CREATE BOARD FORM - drawn four times: the one on All Boards and three
 //     popups, one of which creates a template board (and says so with a Session
 //     flag, not with different markup).
+//   * WHERE THE SELECTED CARDS GO, and WHERE A SWIMLANE GOES - drawn twice
+//     each, by Move and by Copy. Those two also had their whole COMPONENT
+//     duplicated: 145 of the selection dialog's 152 lines were identical, and
+//     the seven that were not are what each does to a card once the destination
+//     is known.
 //
 // In all three the JavaScript was already one piece - BoardSwimlaneListCardDialog
 // with registerCardDialogTemplate, registerListDialogTemplate, and
@@ -40,6 +45,10 @@ const listJade = read('client/components/lists/listHeader.jade');
 const listJs = read('client/components/lists/listHeader.js');
 const boardJade = read('client/components/boards/boardHeader.jade');
 const boardJs = read('client/components/boards/boardHeader.js');
+const filtersJade = read('client/components/sidebar/sidebarFilters.jade');
+const filtersJs = read('client/components/sidebar/sidebarFilters.js');
+const swimlanesJade = read('client/components/swimlanes/swimlanes.jade');
+const swimlanesJs = read('client/components/swimlanes/swimlanes.js');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -112,6 +121,60 @@ test('the popups keep their own state and handlers (negative)', () => {
   assert.ok(/Template\.createTemplateContainerPopup\.onRendered[\s\S]{0,300}createBoardAsTemplate/
     .test(boardJs),
     'and the template-board one still says so - a Session flag, not other markup');
+});
+
+test('the selection dialog is one component and one form', () => {
+  assert.ok(/template\(name="selectionDestinationPicker"\)/.test(filtersJade), 'one template');
+  assert.strictEqual((filtersJade.match(/select\.js-select-cards/g) || []).length, 1,
+    'the cards select exists in exactly one place');
+  for (const popup of ['moveSelectionPopup', 'copySelectionPopup']) {
+    const at = filtersJade.indexOf(`template(name="${popup}")`);
+    assert.ok(/\+selectionDestinationPicker\(dialog=dialog idSuffix="/.test(
+      filtersJade.slice(at, at + 200)), `${popup} includes it`);
+  }
+  // ...and one component, with the ACTION passed in.
+  assert.ok(/function registerSelectionDialogTemplate\(templateName, applyToCard\)/.test(filtersJs),
+    'one registration');
+  assert.ok(/registerSelectionDialogTemplate\('moveSelectionPopup'/.test(filtersJs), 'move');
+  assert.ok(/registerSelectionDialogTemplate\('copySelectionPopup'/.test(filtersJs), 'copy');
+  // Defined once and called once - it used to be called from both dialogs.
+  assert.strictEqual((filtersJs.match(/buildInsertionSortIndexes\(/g) || []).length, 2,
+    'the sort-index maths is defined once and used once');
+});
+
+test('move and copy still do different things (negative)', () => {
+  // The point of `applyToCard`: one dialog, two outcomes.
+  assert.ok(/await card\.move\(to\.boardId, to\.swimlaneId, to\.listId, to\.sortIndex\)/
+    .test(filtersJs), 'move moves the card');
+  assert.ok(/Meteor\.callAsync\(\n\s+'copyCard',/.test(filtersJs), 'copy makes a new one');
+  assert.ok(/if \(!newCardId\) return;/.test(filtersJs),
+    'and a copy that could not be made is skipped, not fatal to the rest');
+});
+
+test('the swimlane dialog is one component and one form', () => {
+  assert.ok(/template\(name="swimlaneDestinationPicker"\)/.test(swimlanesJade), 'one template');
+  for (const popup of ['moveSwimlanePopup', 'copySwimlanePopup']) {
+    const at = swimlanesJade.indexOf(`template(name="${popup}")`);
+    assert.ok(/\+swimlaneDestinationPicker\(dialog=dialog titleId="/.test(
+      swimlanesJade.slice(at, at + 300)), `${popup} includes it`);
+  }
+  assert.ok(/function registerSwimlaneDialogTemplate\(templateName, method\)/.test(swimlanesJs),
+    'one registration, with the method as the difference');
+  assert.ok(/registerSwimlaneDialogTemplate\('moveSwimlanePopup', 'moveSwimlane'\)/.test(swimlanesJs));
+  assert.ok(/registerSwimlaneDialogTemplate\('copySwimlanePopup', 'copySwimlane'\)/.test(swimlanesJs));
+});
+
+test('a label still clicks its own control (negative)', () => {
+  // The two copies of each form really did differ in one thing: the ids their
+  // labels point at. Sharing the markup without keeping them apart would give
+  // two controls one id.
+  const picker = filtersJade.slice(filtersJade.indexOf('template(name="selectionDestinationPicker")'));
+  assert.ok(/id="position-above-\{\{idSuffix\}\}"/.test(picker), 'the radios take a suffix');
+  assert.ok(/label\(for="position-above-\{\{idSuffix\}\}"\)/.test(picker), 'and the label follows it');
+  const swimlane = swimlanesJade.slice(swimlanesJade.indexOf('template(name="swimlaneDestinationPicker")'));
+  assert.ok(/input\.full-line\(id="\{\{titleId\}\}"/.test(swimlane),
+    'the title field takes its id as an attribute - a literal id cannot hold a mustache');
+  assert.ok(/label\(for="\{\{titleId\}\}"\)/.test(swimlane), 'and its label points at it');
 });
 
 console.log(`\nsharedFormTemplates: ${passed} tests passed`);
