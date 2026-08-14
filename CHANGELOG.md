@@ -847,6 +847,36 @@ and fixes the following bugs:
 **Card details** - the card as it is opened and edited.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">A card's fields fold in GROUPS, from one caret each, and Members reads Members, Assignee, Creator</a>. Thanks to xet7.</summary>
+
+The caret beside **Labels** folded the Labels field and left Stickers and
+Location sitting under it, and every field had a caret of its own on the right -
+[#1591](https://github.com/wekan/wekan/issues/1591) draws one on each
+`.card-details-item` - so a row could have two handles saying the same thing in
+two sizes.
+
+The fields belong to FAMILIES, and the families are what fold now:
+
+- **Labels** - Labels, Stickers, Location
+- **Date Format** - the format, Received, Start, Due, End
+- **Members** - Members, Assignee, Creator, Requested By, Assigned By
+- **Dependencies**
+- **Sort** - Sort, List, Spent time
+
+One caret per group, on its title, at the reading direction's start. The fields
+inside a group have none: #1591's per-item caret is turned off there, and its
+title is no longer a handle. Outside a group it is untouched, so nothing that
+folded before stopped folding. A collapsed group is one line - the caret, the
+icon and the name - because everything else is inside the fold.
+
+**Members** reads Members, Assignee, Creator, which is the order it was asked
+for. The loose rule the layout drew above the users block is gone with it: the
+group's own rule is above the whole group, so there is one line there instead of
+two.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/365cfdc4df5187e9cbfc8f83acab39df755a19c7">The rules between card sections are the page's own line, and there is one where there should be</a>. Thanks to xet7.</summary>
 
 Four small things about those separators, all of them visible at a glance and

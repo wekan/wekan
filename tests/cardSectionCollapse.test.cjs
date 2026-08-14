@@ -183,16 +183,18 @@ test('the first section has no rule above it, and Members none either', () => {
   // Labels is first - there is nothing above it to separate it from - and
   // Members already sits under the rule the layout draws above Creator, so a
   // second one there is two lines with a heading between them.
-  for (const section of ['labels', 'members']) {
-    assert.ok(new RegExp(`section="${section}"[^)]*noRule=true`).test(jade),
-      `${section} asks for no rule`);
-  }
+  // Labels is the first thing in the card body. Members had a rule of the
+  // layout's own directly above it - that one is gone with the grouping, so the
+  // group's own rule is the only line there and is the one that stays.
+  assert.ok(/section="labels"[^)]*noRule=true/.test(jade), 'labels asks for no rule');
+  assert.ok(!/if currentBoard\.hasAnyAllowsUser\n\s+hr/.test(jade),
+    'and the loose rule above the users block is gone, not doubled');
   const header = jade.slice(jade.indexOf('template(name="cardSectionHeader")'));
   assert.ok(/unless noRule\n\s+hr\.card-details-section-rule/.test(header),
     'and the header honours it');
   // Every other section still gets one.
-  for (const section of ['date-format', 'dependencies', 'sort', 'description',
-    'checklists', 'subtasks', 'attachments', 'comments', 'activities']) {
+  for (const section of ['date-format', 'members', 'dependencies', 'sort',
+    'description', 'checklists', 'subtasks', 'attachments', 'comments', 'activities']) {
     assert.ok(!new RegExp(`section="${section}"[^)]*noRule`).test(jade),
       `${section} keeps its rule`);
   }
@@ -222,6 +224,62 @@ test('the Activities rule is above the heading, not beside it', () => {
     'and is NOT nested inside it - a flex child would be a line beside the heading');
   assert.ok(/display: flex/.test(read('client/components/activities/activities.css')
     .slice(0, 200)), 'which is what .activity-title is');
+});
+
+// ── groups ────────────────────────────────────────────────────────────────
+
+test('a group folds its whole family, from ONE caret', () => {
+  // "the caret at left side of Labels should hide what is below of text labels,
+  // like labels +, stickers, location". Labels, Stickers and Location are one
+  // group; the caret belongs to the group, not to each field in it.
+  for (const key of ['labels', 'date-format', 'members', 'dependencies', 'sort']) {
+    assert.ok(new RegExp(`\\.card-details-group\\.card-details-group-${key}`).test(jade),
+      `${key} is a group`);
+  }
+  const labels = jade.slice(jade.indexOf('card-details-group-labels'),
+    jade.indexOf('card-details-group-date-format'));
+  for (const member of ['card-details-item-stickers', 'card-details-item-location']) {
+    assert.ok(labels.includes(member), `${member} folds with Labels`);
+  }
+  assert.ok(labels.indexOf('isSectionOpen "labels"') < labels.indexOf('card-details-item-stickers'),
+    'and they are inside the fold, not beside it');
+});
+
+test('the fields inside a group have no caret of their own (negative)', () => {
+  // #1591 draws a caret on every .card-details-item title. Inside a group that
+  // is a second handle on every row saying the same thing as the group's.
+  assert.ok(/\.card-details-group-body \.card-details-item > \.card-details-item-title::after \{\s*content: none/.test(css),
+    'the per-item caret is turned off inside a group');
+  assert.ok(/\.card-details-group-body \.card-details-item > \.card-details-item-title \{\s*cursor: default/.test(css),
+    'and the title is not a handle either');
+  // Outside a group the per-item fold is untouched.
+  assert.ok(/\.card-details-item > \.card-details-item-title::after \{\s*content: "\\f0d7"/.test(css),
+    '#1591 still folds the items that are not in a group');
+});
+
+test('Members comes first in its group, then Assignee, then Creator', () => {
+  const group = jade.slice(jade.indexOf('card-details-group-members'),
+    jade.indexOf('card-details-group-dependencies'));
+  const members = group.indexOf('allowsMembers');
+  const assignee = group.indexOf('allowsAssignee');
+  const creator = group.indexOf('allowsCreator');
+  assert.ok(members !== -1 && assignee !== -1 && creator !== -1, 'all three are there');
+  assert.ok(members < assignee && assignee < creator,
+    'Members, Assignee, Creator - in that order');
+});
+
+test('a collapsed group shows its caret, its icon and its name, and nothing else', () => {
+  // Everything below the header is inside the fold, so a closed group is one
+  // line - which is what "only caret and icon and text Members" means.
+  for (const key of ['labels', 'date-format', 'members', 'dependencies', 'sort']) {
+    const at = jade.indexOf(`card-details-group-${key}`);
+    const block = jade.slice(at, at + 400);
+    const header = block.indexOf('+cardSectionHeader');
+    const guard = block.indexOf(`isSectionOpen "${key}"`);
+    const body = block.indexOf('.card-details-group-body');
+    assert.ok(header !== -1 && guard > header && body > guard,
+      `${key}: header, then the switch, then everything else`);
+  }
 });
 
 console.log(`\ncardSectionCollapse: ${passed} tests passed`);

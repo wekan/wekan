@@ -104,273 +104,281 @@ template(name="cardDetails")
     .card-details-left
 
       .card-details-items
-        if currentBoard.allowsLabels
-          .card-details-item.card-details-item-labels.card-details-section
-            +cardSectionHeader(section="labels" icon="fa-tags" label="labels" noRule=true)
-            if isSectionOpen "labels"
-              a(class="{{#if canModifyCard}}js-add-labels{{else}}is-disabled{{/if}}" title="{{_ 'card-labels-title'}}")
-                each labels
-                  span.card-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}" title=name)
+        .card-details-group.card-details-group-labels
+          +cardSectionHeader(section="labels" icon="fa-tags" label="labels" noRule=true)
+          if isSectionOpen "labels"
+            .card-details-group-body
+              if currentBoard.allowsLabels
+                .card-details-item.card-details-item-labels.card-details-section
+                  a(class="{{#if canModifyCard}}js-add-labels{{else}}is-disabled{{/if}}" title="{{_ 'card-labels-title'}}")
+                    each labels
+                      span.card-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}" title=name)
+                        +viewer
+                          = name
+                  if canModifyCard
+                    unless currentUser.isWorker
+                      a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
+                        i.fa.fa-plus
+
+              .card-details-item.card-details-item-stickers
+                h3.card-details-item-title
+                  i.fa.fa-sticky-note-o
+                  | {{_ 'stickers'}}
+                .card-details-item-content.card-stickers
+                  each stickers
+                    span.card-sticker(title="{{#if name}}{{name}}{{else}}{{icon}}{{/if}}")
+                      i.fa(class="fa-{{icon}} {{#if highlight}}sticker-{{highlight}}{{/if}}")
+                      if canModifyCard
+                        a.card-sticker-remove.js-remove-sticker(data-index="{{@index}}" title="{{_ 'remove-sticker'}}")
+                          i.fa.fa-times
+                  if canModifyCard
+                    unless currentUser.isWorker
+                      a.card-label.add-label.js-add-stickers(title="{{_ 'add-sticker'}}")
+                        i.fa.fa-plus
+
+              .card-details-item.card-details-item-location
+                h3.card-details-item-title
+                  i.fa.fa-map-marker
+                  | {{_ 'location'}}
+                .card-details-item-content.card-locations
+                  each getLocations
+                    .card-location
+                      .card-location-info(class="{{#if canModifyCard}}js-edit-location{{/if}}" data-location-id="{{_id}}")
+                        if name
+                          .card-location-name= name
+                        if address
+                          .card-location-address= address
+                        if hasCoordinates
+                          a.card-location-map(href=mapUrl target="_blank" rel="noopener noreferrer")
+                            i.fa.fa-map-o
+                            = ' '
+                            | {{_ 'location-open-map'}}
+                      if canModifyCard
+                        a.card-location-remove.js-remove-location(data-location-id="{{_id}}" title="{{_ 'delete'}}")
+                          i.fa.fa-times
+                if canModifyCard
+                  unless currentUser.isWorker
+                    a.card-label.add-label.js-add-location(title="{{_ 'add-location'}}")
+                      i.fa.fa-plus
+
+        .card-details-group.card-details-group-date-format
+          +cardSectionHeader(section="date-format" icon="fa-calendar" label="date-format")
+          if isSectionOpen "date-format"
+            .card-details-group-body
+              if currentBoard.hasAnyAllowsDate
+                .card-details-item.card-details-item-date-format.card-details-section
+                  .card-details-item-content
+                    select.js-date-format-selector
+                      option(value="YYYY-MM-DD" selected="{{#if isDateFormat 'YYYY-MM-DD'}}selected{{/if}}") {{_ 'date-format-yyyy-mm-dd'}}
+                      option(value="DD-MM-YYYY" selected="{{#if isDateFormat 'DD-MM-YYYY'}}selected{{/if}}") {{_ 'date-format-dd-mm-yyyy'}}
+                      option(value="MM-DD-YYYY" selected="{{#if isDateFormat 'MM-DD-YYYY'}}selected{{/if}}") {{_ 'date-format-mm-dd-yyyy'}}
+
+              if currentBoard.allowsReceivedDate
+                .card-details-item.card-details-item-received
+                  h3.card-details-item-title
+                    i.fa.fa-sign-out
+                    | {{_ 'card-received'}}
+                  if getReceived
+                    +cardReceivedDate
+                  else
+                    if canModifyCard
+                      unless currentUser.isWorker
+                        a.card-label.add-label.js-received-date
+                          i.fa.fa-plus
+
+              if currentBoard.allowsStartDate
+                .card-details-item.card-details-item-start
+                  h3.card-details-item-title
+                    i.fa.fa-hourglass-start
+                    | {{_ 'card-start'}}
+                  if getStart
+                    +cardStartDate
+                  else
+                    if canModifyCard
+                      unless currentUser.isWorker
+                        a.card-label.add-label.js-start-date
+                          i.fa.fa-plus
+
+              if currentBoard.allowsDueDate
+                .card-details-item.card-details-item-due
+                  h3.card-details-item-title
+                    i.fa.fa-clock-o
+                    | {{_ 'card-due'}}
+                  if getDue
+                    +cardDueDate
+                  else
+                    if canModifyCard
+                      unless currentUser.isWorker
+                        a.card-label.add-label.js-due-date
+                          i.fa.fa-plus
+                  if dueDateChangeCount
+                    .card-details-due-date-changes(title="{{_ 'due-date-changes'}}")
+                      | {{_ 'due-date-changed-times' dueDateChangeCount}}
+
+              if currentBoard.allowsEndDate
+                .card-details-item.card-details-item-end
+                  h3.card-details-item-title
+                    i.fa.fa-hourglass-end
+                    | {{_ 'card-end'}}
+                  if getEnd
+                    +cardEndDate
+                  else
+                    if canModifyCard
+                      unless currentUser.isWorker
+                        a.card-label.add-label.js-end-date
+                          i.fa.fa-plus
+
+                      i.fa.fa-plus
+
+        .card-details-group.card-details-group-members
+          +cardSectionHeader(section="members" icon="fa-users" label="members")
+          if isSectionOpen "members"
+            .card-details-group-body
+              if currentBoard.allowsMembers
+                .card-details-item.card-details-item-members.card-details-section
+                  each userId in getMembers
+                    +userAvatar(userId=userId cardId=_id)
+                    | {{! XXX Hack to hide syntaxic coloration /// }}
+                  if canModifyCard
+                    unless currentUser.isWorker
+                      a.member.add-member.card-details-item-add-button.js-add-members(title="{{_ 'card-members-title'}}")
+                        i.fa.fa-plus
+
+              if currentBoard.allowsAssignee
+                .card-details-item.card-details-item-assignees
+                  h3.card-details-item-title
+                    i.fa.fa-user
+                    | {{_ 'assignee'}}
+                  each userId in getAssignees
+                    +userAvatar(userId=userId cardId=_id assignee=true)
+                    | {{! XXX Hack to hide syntaxic coloration /// }}
+                  if canModifyCard
+                    a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
+                      i.fa.fa-plus
+                  if currentUser.isWorker
+                    unless assigneeSelected
+                      a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
+                        i.fa.fa-plus
+
+              if currentBoard.allowsCreator
+                .card-details-item.card-details-item-creator
+                  h3.card-details-item-title
+                    i.fa.fa-user
+                    | {{_ 'creator'}}
+
+                  +userAvatar(userId=userId noRemove=true)
+                  | {{! XXX Hack to hide syntaxic coloration /// }}
+
+
+              //.card-details-items
+              //if assigneeSelected
+              //.card-details-items
+              if currentBoard.allowsRequestedBy
+                .card-details-item.card-details-item-name
+                  h3.card-details-item-title
+                    i.fa.fa-shopping-cart
+                    | {{_ 'requested-by'}}
+                  if canModifyCard
+                    unless currentUser.isWorker
+                      +inlinedForm(classNames="js-card-details-requester")
+                        +editCardRequesterForm
+                      else
+                        a.js-open-inlined-form
+                          if getRequestedBy
+                            +viewer
+                              = getRequestedBy
+                          else
+                            | {{_ 'add'}}
+                  else if getRequestedBy
                     +viewer
-                      = name
-              if canModifyCard
-                unless currentUser.isWorker
-                  a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
-                    i.fa.fa-plus
+                      = getRequestedBy
 
-        .card-details-item.card-details-item-stickers
-          h3.card-details-item-title
-            i.fa.fa-sticky-note-o
-            | {{_ 'stickers'}}
-          .card-details-item-content.card-stickers
-            each stickers
-              span.card-sticker(title="{{#if name}}{{name}}{{else}}{{icon}}{{/if}}")
-                i.fa(class="fa-{{icon}} {{#if highlight}}sticker-{{highlight}}{{/if}}")
-                if canModifyCard
-                  a.card-sticker-remove.js-remove-sticker(data-index="{{@index}}" title="{{_ 'remove-sticker'}}")
-                    i.fa.fa-times
-            if canModifyCard
-              unless currentUser.isWorker
-                a.card-label.add-label.js-add-stickers(title="{{_ 'add-sticker'}}")
-                  i.fa.fa-plus
+              if currentBoard.allowsAssignedBy
+                .card-details-item.card-details-item-name
+                  h3.card-details-item-title
+                    i.fa.fa-user-plus
+                    | {{_ 'assigned-by'}}
+                  if canModifyCard
+                    unless currentUser.isWorker
+                      +inlinedForm(classNames="js-card-details-assigner")
+                        +editCardAssignerForm
+                      else
+                        a.js-open-inlined-form
+                          if getAssignedBy
+                            +viewer
+                              = getAssignedBy
+                          else
+                            | {{_ 'add'}}
+                  else if getRequestedBy
+                    +viewer
+                      = getAssignedBy
 
-        .card-details-item.card-details-item-location
-          h3.card-details-item-title
-            i.fa.fa-map-marker
-            | {{_ 'location'}}
-          .card-details-item-content.card-locations
-            each getLocations
-              .card-location
-                .card-location-info(class="{{#if canModifyCard}}js-edit-location{{/if}}" data-location-id="{{_id}}")
-                  if name
-                    .card-location-name= name
-                  if address
-                    .card-location-address= address
-                  if hasCoordinates
-                    a.card-location-map(href=mapUrl target="_blank" rel="noopener noreferrer")
-                      i.fa.fa-map-o
-                      = ' '
-                      | {{_ 'location-open-map'}}
-                if canModifyCard
-                  a.card-location-remove.js-remove-location(data-location-id="{{_id}}" title="{{_ 'delete'}}")
-                    i.fa.fa-times
-          if canModifyCard
-            unless currentUser.isWorker
-              a.card-label.add-label.js-add-location(title="{{_ 'add-location'}}")
-                i.fa.fa-plus
-
-        +cardButtons(_id=_id boardId=boardId)
-
-        if currentBoard.hasAnyAllowsDate
-          .card-details-item.card-details-item-date-format.card-details-section
-            +cardSectionHeader(section="date-format" icon="fa-calendar" label="date-format")
-            if isSectionOpen "date-format"
-              .card-details-item-content
-                select.js-date-format-selector
-                  option(value="YYYY-MM-DD" selected="{{#if isDateFormat 'YYYY-MM-DD'}}selected{{/if}}") {{_ 'date-format-yyyy-mm-dd'}}
-                  option(value="DD-MM-YYYY" selected="{{#if isDateFormat 'DD-MM-YYYY'}}selected{{/if}}") {{_ 'date-format-dd-mm-yyyy'}}
-                  option(value="MM-DD-YYYY" selected="{{#if isDateFormat 'MM-DD-YYYY'}}selected{{/if}}") {{_ 'date-format-mm-dd-yyyy'}}
-
-        if currentBoard.allowsReceivedDate
-          .card-details-item.card-details-item-received
-            h3.card-details-item-title
-              i.fa.fa-sign-out
-              | {{_ 'card-received'}}
-            if getReceived
-              +cardReceivedDate
-            else
-              if canModifyCard
-                unless currentUser.isWorker
-                  a.card-label.add-label.js-received-date
-                    i.fa.fa-plus
-
-        if currentBoard.allowsStartDate
-          .card-details-item.card-details-item-start
-            h3.card-details-item-title
-              i.fa.fa-hourglass-start
-              | {{_ 'card-start'}}
-            if getStart
-              +cardStartDate
-            else
-              if canModifyCard
-                unless currentUser.isWorker
-                  a.card-label.add-label.js-start-date
-                    i.fa.fa-plus
-
-        if currentBoard.allowsDueDate
-          .card-details-item.card-details-item-due
-            h3.card-details-item-title
-              i.fa.fa-clock-o
-              | {{_ 'card-due'}}
-            if getDue
-              +cardDueDate
-            else
-              if canModifyCard
-                unless currentUser.isWorker
-                  a.card-label.add-label.js-due-date
-                    i.fa.fa-plus
-            if dueDateChangeCount
-              .card-details-due-date-changes(title="{{_ 'due-date-changes'}}")
-                | {{_ 'due-date-changed-times' dueDateChangeCount}}
-
-        if currentBoard.allowsEndDate
-          .card-details-item.card-details-item-end
-            h3.card-details-item-title
-              i.fa.fa-hourglass-end
-              | {{_ 'card-end'}}
-            if getEnd
-              +cardEndDate
-            else
-              if canModifyCard
-                unless currentUser.isWorker
-                  a.card-label.add-label.js-end-date
-                    i.fa.fa-plus
-
-        if currentBoard.hasAnyAllowsUser
-          hr
-
-        if currentBoard.allowsCreator
-          .card-details-item.card-details-item-creator
-            h3.card-details-item-title
-              i.fa.fa-user
-              | {{_ 'creator'}}
-
-            +userAvatar(userId=userId noRemove=true)
-            | {{! XXX Hack to hide syntaxic coloration /// }}
-
-        //.card-details-items
-        if currentBoard.allowsMembers
-          .card-details-item.card-details-item-members.card-details-section
-            +cardSectionHeader(section="members" icon="fa-users" label="members" noRule=true)
-            if isSectionOpen "members"
-              each userId in getMembers
-                +userAvatar(userId=userId cardId=_id)
-                | {{! XXX Hack to hide syntaxic coloration /// }}
-              if canModifyCard
-                unless currentUser.isWorker
-                  a.member.add-member.card-details-item-add-button.js-add-members(title="{{_ 'card-members-title'}}")
-                    i.fa.fa-plus
-
-        //if assigneeSelected
-        if currentBoard.allowsAssignee
-          .card-details-item.card-details-item-assignees
-            h3.card-details-item-title
-              i.fa.fa-user
-              | {{_ 'assignee'}}
-            each userId in getAssignees
-              +userAvatar(userId=userId cardId=_id assignee=true)
-              | {{! XXX Hack to hide syntaxic coloration /// }}
-            if canModifyCard
-              a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
-                i.fa.fa-plus
-            if currentUser.isWorker
-              unless assigneeSelected
-                a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
-                  i.fa.fa-plus
-
-        //.card-details-items
-        if currentBoard.allowsRequestedBy
-          .card-details-item.card-details-item-name
-            h3.card-details-item-title
-              i.fa.fa-shopping-cart
-              | {{_ 'requested-by'}}
-            if canModifyCard
-              unless currentUser.isWorker
-                +inlinedForm(classNames="js-card-details-requester")
-                  +editCardRequesterForm
-                else
-                  a.js-open-inlined-form
-                    if getRequestedBy
-                      +viewer
-                        = getRequestedBy
-                    else
-                      | {{_ 'add'}}
-            else if getRequestedBy
-              +viewer
-                = getRequestedBy
-
-        if currentBoard.allowsAssignedBy
-          .card-details-item.card-details-item-name
-            h3.card-details-item-title
-              i.fa.fa-user-plus
-              | {{_ 'assigned-by'}}
-            if canModifyCard
-              unless currentUser.isWorker
-                +inlinedForm(classNames="js-card-details-assigner")
-                  +editCardAssignerForm
-                else
-                  a.js-open-inlined-form
-                    if getAssignedBy
-                      +viewer
-                        = getAssignedBy
-                    else
-                      | {{_ 'add'}}
-            else if getRequestedBy
-              +viewer
-                = getAssignedBy
-
-        .card-details-item.card-details-item-dependencies.card-details-section
+        .card-details-group.card-details-group-dependencies
           +cardSectionHeader(section="dependencies" icon="fa-link" label="card-dependencies")
           if isSectionOpen "dependencies"
-            .card-details-dependencies-list
-              each getDependencyCards
-                .card-dependency(data-target-id="{{card._id}}")
-                  i.fa(class="fa-{{icon}}" style="color:{{color}}")
-                  a.card-dependency-link(href="{{linkUrl}}")
-                    +viewer
-                      = card.title
+            .card-details-group-body
+              .card-details-item.card-details-item-dependencies.card-details-section
+                .card-details-dependencies-list
+                  each getDependencyCards
+                    .card-dependency(data-target-id="{{card._id}}")
+                      i.fa(class="fa-{{icon}}" style="color:{{color}}")
+                      a.card-dependency-link(href="{{linkUrl}}")
+                        +viewer
+                          = card.title
+                      if canModifyCard
+                        select.js-dependency-type(data-target-id="{{card._id}}")
+                          each typeOption
+                            if selected
+                              option(value="{{id}}" selected="selected") {{_ label}}
+                            else
+                              option(value="{{id}}") {{_ label}}
+                        input.js-dependency-color(type="color" value="{{color}}" data-target-id="{{card._id}}" title="{{_ 'dependency-color'}}")
+                        a.js-dependency-icon(data-target-id="{{card._id}}" title="{{_ 'dependency-icon'}}")
+                          i.fa.fa-pencil
+                        a.card-dependency-remove.js-remove-dependency(data-target-id="{{card._id}}" title="{{_ 'remove-dependency'}}")
+                          i.fa.fa-times
+                      else
+                        span.card-dependency-type {{_ typeLabel}}
+                if canModifyCard
+                  a.js-add-dependency(title="{{_ 'add-dependency'}}")
+                    i.fa.fa-plus
+                    | {{_ 'add-dependency'}}
+
+        .card-details-group.card-details-group-sort
+          +cardSectionHeader(section="sort" icon="fa-sort" label="sort")
+          if isSectionOpen "sort"
+            .card-details-group-body
+              if currentBoard.allowsCardSortingByNumber
+                .card-details-item.card-details-sort-order.card-details-section
                   if canModifyCard
-                    select.js-dependency-type(data-target-id="{{card._id}}")
-                      each typeOption
-                        if selected
-                          option(value="{{id}}" selected="selected") {{_ label}}
-                        else
-                          option(value="{{id}}") {{_ label}}
-                    input.js-dependency-color(type="color" value="{{color}}" data-target-id="{{card._id}}" title="{{_ 'dependency-color'}}")
-                    a.js-dependency-icon(data-target-id="{{card._id}}" title="{{_ 'dependency-icon'}}")
-                      i.fa.fa-pencil
-                    a.card-dependency-remove.js-remove-dependency(data-target-id="{{card._id}}" title="{{_ 'remove-dependency'}}")
-                      i.fa.fa-times
+                    +inlinedForm(classNames="js-card-details-sort")
+                      +editCardSortOrderForm
+                    else
+                      a.js-open-inlined-form
+                        +viewer
+                          = sort
+
+              if currentBoard.allowsShowLists
+                .card-details-item.card-details-show-lists
+                  h3.card-details-item-title
+                    i.fa.fa-list
+                    | {{_ 'list'}}
+                  select.js-select-card-details-lists(disabled="{{#unless canModifyCard}}disabled{{/unless}}")
+                    each currentSwimlaneListsSorted
+                      option(value="{{_id}}" selected="{{#if isCurrentListId _id}}selected{{/if}}") {{title}}
+
+              //.card-details-items
+              if getSpentTime
+                .card-details-item.card-details-item-spent
+                  if getIsOvertime
+                    h3.card-details-item-title
+                      | {{_ 'overtime-hours'}}
                   else
-                    span.card-dependency-type {{_ typeLabel}}
-            if canModifyCard
-              a.js-add-dependency(title="{{_ 'add-dependency'}}")
-                i.fa.fa-plus
-                | {{_ 'add-dependency'}}
+                    h3.card-details-item-title
+                      | {{_ 'spent-time-hours'}}
+                  +cardSpentTime
 
-        if currentBoard.allowsCardSortingByNumber
-          .card-details-item.card-details-sort-order.card-details-section
-            +cardSectionHeader(section="sort" icon="fa-sort" label="sort")
-            if isSectionOpen "sort"
-              if canModifyCard
-                +inlinedForm(classNames="js-card-details-sort")
-                  +editCardSortOrderForm
-                else
-                  a.js-open-inlined-form
-                    +viewer
-                      = sort
-
-        if currentBoard.allowsShowLists
-          .card-details-item.card-details-show-lists
-            h3.card-details-item-title
-              i.fa.fa-list
-              | {{_ 'list'}}
-            select.js-select-card-details-lists(disabled="{{#unless canModifyCard}}disabled{{/unless}}")
-              each currentSwimlaneListsSorted
-                option(value="{{_id}}" selected="{{#if isCurrentListId _id}}selected{{/if}}") {{title}}
-
-        //.card-details-items
-        if getSpentTime
-          .card-details-item.card-details-item-spent
-            if getIsOvertime
-              h3.card-details-item-title
-                | {{_ 'overtime-hours'}}
-            else
-              h3.card-details-item-title
-                | {{_ 'spent-time-hours'}}
-            +cardSpentTime
-
-        //.card-details-items
+              //.card-details-items
         if customFieldsWD
           //- ONE header for the whole group, outside the loop: a card with six
             custom fields is one Custom Fields section, not six sections that

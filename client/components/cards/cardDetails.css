@@ -1234,3 +1234,33 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
   font-weight: 400;
   opacity: 0.8;
 }
+
+/* A GROUP of card fields - Labels with Stickers and Location, Date Format with
+   the four dates, Members with Assignee and Creator, and so on.
+   The group's own title carries the caret that folds it, and the fields inside
+   it do NOT: #1591 gives every .card-details-item a caret of its own, drawn on
+   the title by the rule further up this file, and inside a group that is a
+   second caret on every row saying the same thing in a smaller way. One handle
+   per group is what was asked for, and it is the group's.
+   The fields keep sharing rows inside the group, which is how they were laid
+   out - the group is a full-width row, the fields inside it wrap within it. */
+.card-details .card-details-items .card-details-group {
+  flex: 0 0 100%;
+  width: 100%;
+}
+.card-details .card-details-group-body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+.card-details .card-details-group-body .card-details-item {
+  flex-grow: 1;
+}
+/* No second caret inside a group, and no pointer on a title that folds
+   nothing. */
+.card-details .card-details-group-body .card-details-item > .card-details-item-title::after {
+  content: none;
+}
+.card-details .card-details-group-body .card-details-item > .card-details-item-title {
+  cursor: default;
+}
