@@ -55,6 +55,13 @@ export default {
     load: () => import('./data/ba.i18n.json'),
     rtl: false,
   },
+  "bi": {
+    code: "bi",
+    tag: "bi",
+    name: "Bislama",
+    load: () => import('./data/bi.i18n.json'),
+    rtl: false,
+  },
   "bm": {
     code: "bm",
     tag: "bm",
@@ -74,6 +81,13 @@ export default {
     tag: "bs",
     name: "Bosanski",
     load: () => import('./data/bs.i18n.json'),
+    rtl: false,
+  },
+  "co": {
+    code: "co",
+    tag: "co",
+    name: "Corsu",
+    load: () => import('./data/co.i18n.json'),
     rtl: false,
   },
   "cv": {
@@ -433,6 +447,13 @@ export default {
     load: () => import('./data/fi.i18n.json'),
     rtl: false,
   },
+  "fj": {
+    code: "fj",
+    tag: "fj",
+    name: "Na Vosa Vakaviti",
+    load: () => import('./data/fj.i18n.json'),
+    rtl: false,
+  },
   "fo": {
     code: "fo",
     tag: "fo",
@@ -466,6 +487,13 @@ export default {
     tag: "fr",
     name: "Français",
     load: () => import('./data/fr.i18n.json'),
+    rtl: false,
+  },
+  "fur": {
+    code: "fur",
+    tag: "fur",
+    name: "Furlan",
+    load: () => import('./data/fur.i18n.json'),
     rtl: false,
   },
   "fy-NL": {
@@ -578,6 +606,20 @@ export default {
     tag: "hr",
     name: "Hrvatski",
     load: () => import('./data/hr.i18n.json'),
+    rtl: false,
+  },
+  "hsb": {
+    code: "hsb",
+    tag: "hsb",
+    name: "Hornjoserbsce",
+    load: () => import('./data/hsb.i18n.json'),
+    rtl: false,
+  },
+  "ht": {
+    code: "ht",
+    tag: "ht",
+    name: "Kreyòl ayisyen",
+    load: () => import('./data/ht.i18n.json'),
     rtl: false,
   },
   "hu": {
@@ -825,6 +867,13 @@ export default {
     load: () => import('./data/my.i18n.json'),
     rtl: false,
   },
+  "nap": {
+    code: "nap",
+    tag: "nap",
+    name: "Napulitano",
+    load: () => import('./data/nap.i18n.json'),
+    rtl: false,
+  },
   "nb": {
     code: "nb",
     tag: "nb",
@@ -902,6 +951,13 @@ export default {
     load: () => import('./data/pa.i18n.json'),
     rtl: false,
   },
+  "pap": {
+    code: "pap",
+    tag: "pap",
+    name: "Papiamentu",
+    load: () => import('./data/pap.i18n.json'),
+    rtl: false,
+  },
   "pl-PL": {
     code: "pl",
     tag: "pl-PL",
@@ -949,6 +1005,13 @@ export default {
     tag: "qu",
     name: "Runasimi",
     load: () => import('./data/qu.i18n.json'),
+    rtl: false,
+  },
+  "rm": {
+    code: "rm",
+    tag: "rm",
+    name: "Rumantsch",
+    load: () => import('./data/rm.i18n.json'),
     rtl: false,
   },
   "rn": {
@@ -1000,6 +1063,20 @@ export default {
     load: () => import('./data/sah.i18n.json'),
     rtl: false,
   },
+  "sc": {
+    code: "sc",
+    tag: "sc",
+    name: "Sardu",
+    load: () => import('./data/sc.i18n.json'),
+    rtl: false,
+  },
+  "scn": {
+    code: "scn",
+    tag: "scn",
+    name: "Sicilianu",
+    load: () => import('./data/scn.i18n.json'),
+    rtl: false,
+  },
   "sd": {
     code: "sd",
     tag: "sd",
@@ -1040,6 +1117,13 @@ export default {
     tag: "sl_SI",
     name: "Slovenščina (slovenija)",
     load: () => import('./data/sl_SI.i18n.json'),
+    rtl: false,
+  },
+  "sm": {
+    code: "sm",
+    tag: "sm",
+    name: "Gagana Sāmoa",
+    load: () => import('./data/sm.i18n.json'),
     rtl: false,
   },
   "sn": {
@@ -1152,6 +1236,20 @@ export default {
     tag: "tn",
     name: "Setswana",
     load: () => import('./data/tn.i18n.json'),
+    rtl: false,
+  },
+  "to": {
+    code: "to",
+    tag: "to",
+    name: "Lea faka-Tonga",
+    load: () => import('./data/to.i18n.json'),
+    rtl: false,
+  },
+  "tpi": {
+    code: "tpi",
+    tag: "tpi",
+    name: "Tok Pisin",
+    load: () => import('./data/tpi.i18n.json'),
     rtl: false,
   },
   "tr": {
