@@ -75,6 +75,7 @@ import { Utils } from '/client/lib/utils';
 import autosize from 'autosize';
 import { cardMenuSource, setCardMenuSource } from '/client/lib/cardMenuSource';
 import { caretClassFor } from '/client/lib/sectionCaret';
+import { getSidebarInstance } from '/client/features/sidebar/service';
 
 // Id of the location currently being edited in the cardLocationsPopup; null
 // when adding a new location.
@@ -1662,6 +1663,22 @@ Template.cardDetailsActionsPopup.events({
   // already has for that column - so no `showOnCardPopup-title` has to be added
   // to 147 language files to say a phrase they have already translated.
   'click .js-show-on-card': Popup.open('showOnCard', { titleKey: 'show-on-card' }),
+  // Board Settings / Custom Fields: the board's list of fields, where one is
+  // created, renamed or deleted. It is a sidebar VIEW rather than a popup - the
+  // same one the board menu opens - so the menu closes behind it, and the
+  // sidebar's own `setView` steps out of the details pane on the way, exactly
+  // as it does when the board menu opens it. The entry under it, "Edit custom
+  // fields", picks which of those fields are on THIS card.
+  'click .js-board-custom-fields'(event) {
+    event.preventDefault();
+    const sidebar = getSidebarInstance();
+    if (!sidebar) {
+      console.warn('Sidebar not available for setView');
+      return;
+    }
+    sidebar.setView('customFields');
+    Popup.back();
+  },
   'click .js-show-on-minicard': Popup.open('showOnMinicard', { titleKey: 'show-on-minicard' }),
   'click .js-export-card': Popup.open('exportCard'),
   'click .js-members': Popup.open('cardMembers'),

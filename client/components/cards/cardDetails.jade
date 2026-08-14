@@ -862,6 +862,24 @@ template(name="cardDetailsActionsPopup")
             i.fa.fa-eye
             |  {{_ 'watch'}}
     hr
+    //- The board's custom fields, and this card's. The first is Board Settings
+      / Custom Fields - the list of fields the board HAS, which is where one is
+      created, renamed or deleted; the second picks which of them are on THIS
+      card. They are two halves of one subject and were three groups apart, so
+      they are one group now, the board's list first because a field has to
+      exist before a card can be given it. A board admin's, the same as in
+      Board Settings. client/components/sidebar/sidebarCustomFields.jade
+    if currentUser.isBoardAdmin
+      ul.pop-over-list
+        li
+          a.js-board-custom-fields
+            i.fa.fa-file-text-o
+            |  {{_ 'custom-fields'}}
+        li
+          a.js-custom-fields
+            i.fa.fa-list
+            |  {{_ 'card-edit-custom-fields'}}
+      hr
     if canModifyCard
       unless currentUser.isWorker
         ul.pop-over-list
@@ -876,11 +894,6 @@ template(name="cardDetailsActionsPopup")
             a.js-start-planning-poker
               i.fa.fa-thumbs-up
               | {{_ 'card-edit-planning-poker'}}
-          if currentUser.isBoardAdmin
-            li
-              a.js-custom-fields
-                i.fa.fa-list
-                | {{_ 'card-edit-custom-fields'}}
           //li: a.js-received-date {{_ 'editCardReceivedDatePopup-title'}}
           //li: a.js-start-date {{_ 'editCardStartDatePopup-title'}}
           //li: a.js-due-date {{_ 'editCardDueDatePopup-title'}}

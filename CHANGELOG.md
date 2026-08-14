@@ -947,6 +947,22 @@ two halves cannot disagree again.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH3">Custom Fields and Edit custom fields are one group in the card's menu</a>. Thanks to xet7.</summary>
+
+The board's LIST of custom fields - where a field is created, renamed or
+deleted - was in Board Settings only, and the picker for which of those fields
+are on THIS card was down among Voting, Planning Poker and Spent time. Two
+halves of one subject, three groups apart.
+
+They are one group now, under Watch and its rule: **Custom Fields** first,
+because a field has to exist before a card can be given it, then **Edit custom
+fields**, then a rule like every other group in that menu. The first opens the
+same sidebar view the board menu opens - not a second copy of it - and closes
+the menu behind it. A board admin's, the same as in Board Settings.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f0204ae014d1b312355be89bba09717ffeb28d47">The board sidebar's Activities has a caret instead of an eye</a>. Thanks to xet7.</summary>
 
 The heading read "Activities" and beside it sat an eye and the words "Show

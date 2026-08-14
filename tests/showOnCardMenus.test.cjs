@@ -45,8 +45,9 @@ console.log('showOnCardMenus:');
 
 // ── the two menu entries ───────────────────────────────────────────────────
 
-const menu = cardJade.slice(cardJade.indexOf('template(name="cardDetailsActionsPopup")'),
-  cardJade.indexOf('template(name="cardDetailsActionsPopup")') + 1600);
+const menuStart = cardJade.indexOf('template(name="cardDetailsActionsPopup")');
+const menu = cardJade.slice(menuStart,
+  cardJade.indexOf('\ntemplate(name=', menuStart + 1));
 
 test('the entry is the first thing in the menu, with a rule under it', () => {
   const showOn = menu.indexOf('js-show-on-minicard');
@@ -99,6 +100,42 @@ test('both entries open the popup that already existed', () => {
   assert.ok(en['show-on-card'] && en['show-on-minicard'], 'both keys exist');
   assert.ok(!en['showOnCardPopup-title'] && !en['showOnMinicardPopup-title'],
     'and no second copy of them was added');
+});
+
+// ── the two halves of custom fields, together ──────────────────────────────
+
+test('Custom Fields and Edit custom fields are one group under Watch', () => {
+  // The board's LIST of fields - where one is created, renamed or deleted - and
+  // the picker for which of them are on THIS card are two halves of one
+  // subject, and they were three groups apart: the first was only in Board
+  // Settings, the second was down among Voting and Spent time.
+  const watch = menu.indexOf('js-toggle-watch-card');
+  const boardFields = menu.indexOf('js-board-custom-fields');
+  const cardFields = menu.indexOf('js-custom-fields');
+  assert.ok(watch < boardFields, 'below Watch');
+  assert.ok(boardFields < cardFields,
+    'the board list first - a field has to exist before a card can be given it');
+  const lines = menu.split('\n');
+  const at = lines.findIndex(line => /a\.js-custom-fields$/.test(line.trim()));
+  assert.ok(lines.slice(at, at + 5).map(line => line.trim()).includes('hr'),
+    'and a rule closes the group, the same one the rest of the menu uses');
+  // Gone from the group it used to sit in.
+  const voting = menu.indexOf('js-start-planning-poker');
+  assert.ok(cardFields < voting, 'it is not down among Voting any more');
+});
+
+test('the board list opens the sidebar view, not a second copy of it', () => {
+  assert.ok(/'click \.js-board-custom-fields'\(event\)/.test(cardJs), 'the handler exists');
+  const handler = cardJs.slice(cardJs.indexOf("'click .js-board-custom-fields'"));
+  const body = handler.slice(0, handler.indexOf('\n  },'));
+  assert.ok(/setView\('customFields'\)/.test(body),
+    'the same view the board menu opens');
+  assert.ok(/getSidebarInstance\(\)/.test(body) && /if \(!sidebar\)/.test(body),
+    'asked for, and not assumed to be there');
+  assert.ok(/Popup\.back\(\)/.test(body), 'and the menu closes behind it');
+  // A board admin's, the same as in Board Settings.
+  const group = menu.slice(menu.indexOf('js-toggle-watch-card'), menu.indexOf('js-board-custom-fields'));
+  assert.ok(/if currentUser\.isBoardAdmin/.test(group), 'board admins only');
 });
 
 // ── one table, one column at a time ────────────────────────────────────────
