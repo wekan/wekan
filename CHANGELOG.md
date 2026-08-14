@@ -883,6 +883,33 @@ formats.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e948acfdd31e48d2544b81268a8309352581d1f0">Every menu on a board has an Export row and an Import row</a>. Thanks to xet7.</summary>
+
+The card, list, swimlane and board menus each had ONE row, and each named itself
+differently: *Export card*, *Export list / Import*, *Export swimlane / Import*,
+*Export board*. Two of them mentioned an import that was a section inside the
+popup rather than a thing you could go to, and the card and board menus did not
+mention it at all - so importing into a list was discoverable and importing into
+a card was not.
+
+Each of the four now has **Export** and **Import**, in that order. The rows are
+named for what they do and not for what they act on: the menu already says
+whether it is a card, a list, a swimlane or the board, so *Export card* inside
+the card menu said "card" twice.
+
+Both rows open the same popup - the same panes, the same table of formats, the
+same *what to include* selection - with one difference: the second pane offers
+the formats to write out, or the file to read in. The selection means the same
+thing in both directions, which is why it is the pane they share.
+
+**Import** writes, so it is offered only to somebody who may change the board.
+That question is asked once, in one function, registered as a helper the four
+menus use - and asked AGAIN inside the popup, because a row that is merely
+hidden is not a permission check.
+
+</details>
+
 **Search** - finding a card by what people call it.
 
 <details>
