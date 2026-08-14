@@ -963,7 +963,7 @@ the menu behind it. A board admin's, the same as in Board Settings.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH4">Show list on minicard became the List title row of Show on Minicard</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9d9b8ae93b3876845510d28c8905e1ae63c6c03f">Show list on minicard became the List title row of Show on Minicard</a>. Thanks to xet7.</summary>
 
 It was a line in the card's menu that read "Show list on minicard", or "Hide
 list on minicard" once it was on - a menu entry that changes its own name is
