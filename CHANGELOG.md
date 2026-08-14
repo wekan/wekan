@@ -847,7 +847,7 @@ and fixes the following bugs:
 **Card details** - the card as it is opened and edited.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH">A group's caret is on its first field's title, so the titles read as one row</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c747d51bafd7f7ac09c618be8ea9e00aa37b9762">A group's caret is on its first field's title, so the titles read as one row</a>. Thanks to xet7.</summary>
 
 Grouping the fields gave each group a header LINE of its own, and for a group
 named after its first field that line said the same word twice, one above the
