@@ -1099,7 +1099,7 @@ and fixes the following bugs:
 **Card details** - the card as it is opened and edited.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH9">Ten popups had no header, and so no close button</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/47099b8baadc0bdfcefe5006bf16ed8e7e7ca565">Ten popups had no header, and so no close button</a>. Thanks to xet7.</summary>
 
 A pop-over draws its header from its title, and with no title it renders as
 `no-title`: no header, no X, no back arrow - Escape or a click away are the only
