@@ -189,32 +189,31 @@ test('the minicard has the same caret, under the same key', () => {
     'a minicard is a link to the card; folding must not open it');
 });
 
-test('every feature group on the opened card folds, by its title', () => {
-  assert.ok(/'click \.card-details-item > \.card-details-item-title'/.test(detailsJs),
-    'one delegated handler rather than an edit to each of the sixteen sections');
-  assert.ok(/setCollapsedCardSection\(card\._id, key, !collapsed\)/.test(detailsJs),
-    'stored under the same per-user map as the checklists');
-  assert.ok(/card-details-item-\$\{|replace\('card-details-item-', ''\)/.test(detailsJs),
-    "the section's own class is its key; there is no separate id to invent");
+test('the card\'s own fields are folded by their SECTION, not one by one', () => {
+  // #1591 folded each field by its own title and stored a class per card in
+  // this same map. The section carets replaced it - one handle per section, on
+  // the heading - and for a while both ran: clicking a section's caret also
+  // fired the old per-field handler, so the field the heading was drawn on was
+  // left `is-collapsed` with no caret of its own left to open it again. That is
+  // where the Date Format select went. The old half is gone.
+  assert.ok(!/'click \.card-details-item > \.card-details-item-title'/.test(detailsJs),
+    'no per-field handler');
+  assert.ok(!/\.card-details-item\.is-collapsed/.test(detailsCss),
+    'and nothing hides a field on its own');
+  assert.ok(/js-toggle-card-section/.test(detailsJs),
+    'the section heading is the handle now');
 });
 
-test('a folded section hides what follows the title, whatever that is', () => {
-  assert.ok(/\.card-details-item\.is-collapsed > \*:not\(\.card-details-item-title\) \{\s*\n\s*display: none;/.test(detailsCss),
-    'the sections are NOT uniform inside - all sixteen open with a title, only ' +
-    'three wrap the rest in a content element - so hiding the siblings is what ' +
-    'works for all of them');
-  assert.ok(/\.card-details-item\.is-collapsed > \.card-details-item-title::after/.test(detailsCss),
-    'and the caret has to flip, or a folded section looks like an empty one');
-});
-
-test('a fold survives reopening the card', () => {
-  assert.ok(/collapsedCardSections/.test(detailsJs) && /is-collapsed/.test(detailsJs),
-    'the click toggles a class, but a fresh render only has the stored state - ' +
-    'without re-applying it, folding would last until the card was closed');
-  const at = detailsJs.indexOf('Template.cardDetails.onRendered');
-  const body = detailsJs.slice(at, at + 1800);
-  assert.ok(/classList\.toggle\('is-collapsed'/.test(body),
-    'applied on render, from the profile');
+test('the checklists still have this store to themselves (negative)', () => {
+  // Removing the card half must not take the checklists' fold with it: they
+  // key their own entries by `checklist-<id>` in the same map, which is what
+  // makes a checklist folded on the card folded on its minicard too.
+  assert.ok(/getCollapsedCardSection/.test(js) && /setCollapsedCardSection/.test(js),
+    'the opened card\'s checklists read and write it');
+  assert.ok(/checklistSectionKey/.test(minicardJs), 'and so does the minicard');
+  assert.ok(/'profile\.collapsedCardSections'/.test(usersModel), 'the store is still there');
+  assert.ok(/checklistSectionKey\(checklistId\)/.test(usersModel),
+    'with the key that names one');
 });
 
 test('the caret CSS is direction-agnostic', () => {

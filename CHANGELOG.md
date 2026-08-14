@@ -1016,6 +1016,32 @@ and fixes the following bugs:
 **Card details** - the card as it is opened and edited.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH5">The Date Format menu is back: two collapse mechanisms were folding one field</a>. Thanks to xet7.</summary>
+
+The dropdown that chooses a card's date format disappeared, and nothing brought
+it back - the Received, Start, Due and End dates under the same heading were
+there, but the selector above them was gone.
+
+Two things were folding it. [#1591](https://github.com/wekan/wekan/issues/1591)
+gave every FIELD of an opened card a caret on its own title and hid everything
+after that title when it was clicked, storing the fold per card in the user's
+profile. The section carets that replaced it put ONE handle on each section's
+heading - and that heading is drawn on the first field of the section, so a
+click on it was also a click on a field title. The old handler ran too, folded
+that field, and stored it. Reopening the section brought the dates back but not
+the field the heading sits on, and the per-field caret had been suppressed
+inside a group, so there was nothing left to open it: the Date Format select
+was hidden for good.
+
+The #1591 half is gone - the handler, the caret it drew, the rule that hid the
+siblings, and the per-card state it re-applied on render. Every field lives in
+a section now, and the section's heading is the only handle. The same per-user
+store still belongs to the CHECKLISTS, which key their own entries by checklist
+id and are untouched; that is why the store itself stays.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7a75779b2cba58de149b99f308360b9944a50dd3">What the card restructuring nearly took with it, and a Copy card link button that can be read</a>. Thanks to xet7.</summary>
 
 Moving eleven sections with a script is how markup disappears without anything

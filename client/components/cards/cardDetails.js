@@ -516,31 +516,6 @@ Template.cardDetails.onRendered(function () {
   // below throws "Can't select in removed DomRange", so bail out early.
   if (this.view && this.view.isDestroyed) return;
 
-  // #1591: re-apply the sections this user folded. The click handler toggles the
-  // class as well as storing it, but on a fresh render - reopening the card, a
-  // reload - only the stored state exists, and the title is plain markup that
-  // nothing re-renders from the profile.
-  this.autorun(() => {
-    const user = ReactiveCache.getCurrentUser();
-    const card = Template.currentData();
-    if (!user || !card || !card._id) return;
-    // Read inside the autorun so a fold made in another tab arrives here too.
-    const stored = (user.profile && user.profile.collapsedCardSections) || {};
-    const forCard = stored[card._id] || {};
-    Meteor.defer(() => {
-      if (this.view && this.view.isDestroyed) return;
-      this.$('.card-details-item').each((index, item) => {
-        const named = Array.from(item.classList).find(
-          c => c.startsWith('card-details-item-') &&
-               c !== 'card-details-item-title' &&
-               c !== 'card-details-item-content');
-        if (!named) return;
-        const key = named.replace('card-details-item-', '');
-        item.classList.toggle('is-collapsed', forCard[key] === true);
-      });
-    });
-  });
-
   // #6465: place the window beside its minicard (X only) once it has been laid
   // out, so the width measured here is the one the stylesheet gave it.
   const $cardDetails = this.$('.card-details').first();
@@ -856,31 +831,6 @@ Template.cardDetails.helpers({
   },
 });
 
-// #1591: fold any feature group on the opened card - Labels, Members, Dates,
-// Custom Fields, and the rest.
-//
-// Done here, once, rather than by editing sixteen sections in cardDetails.jade,
-// because the sections are NOT uniform inside: they all begin with an
-// `h3.card-details-item-title`, but only three of them wrap what follows in a
-// `.card-details-item-content`. So the title is the handle, and "collapsed"
-// hides every sibling after it (the CSS rule) - which works whatever the section
-// puts there.
-//
-// The state is the same per-user map the checklists use
-// (profile.collapsedCardSections), keyed by the section's own name, so it
-// survives a reload and belongs to the reader rather than to the card.
-function cardSectionKeyOf(element) {
-  const item = element.closest('.card-details-item');
-  if (!item) return null;
-  // 'card-details-item-labels' -> 'labels'. The class that is not the generic
-  // one IS the section's name; there is no separate id to invent.
-  const named = Array.from(item.classList).find(
-    c => c.startsWith('card-details-item-') &&
-         c !== 'card-details-item-title' &&
-         c !== 'card-details-item-content');
-  return named ? named.replace('card-details-item-', '') : null;
-}
-
 // WHICH SECTIONS OF A CARD ARE OPEN.
 //
 // Every section of an opened card - Labels, Date Format, Members, Dependencies,
@@ -950,18 +900,14 @@ Template.cardSectionHeader.events({
 });
 
 Template.cardDetails.events({
-  'click .card-details-item > .card-details-item-title'(event) {
-    const key = cardSectionKeyOf(event.currentTarget);
-    const user = ReactiveCache.getCurrentUser();
-    const card = Template.currentData();
-    if (!key || !user || !card || !card._id) return;
-    const collapsed = user.getCollapsedCardSection(card._id, key) === true;
-    user.setCollapsedCardSection(card._id, key, !collapsed);
-    // Applied straight away as well as stored: the title is plain markup, so
-    // nothing re-renders on its own when the profile changes.
-    event.currentTarget.closest('.card-details-item')
-      .classList.toggle('is-collapsed', !collapsed);
-  },
+  // #1591 folded each FIELD by its own title, storing a class per card in the
+  // profile. The section carets replaced it: one handle per section, on the
+  // heading, and every field lives in a section now. Both were still running,
+  // and they fought - clicking a section's caret also ran the old handler, so
+  // the field it was drawn on was left `is-collapsed` with nothing to open it
+  // again, and the Date Format select vanished for good. The old half is gone;
+  // the same store is still the CHECKLISTS' (client/components/cards/checklists.js),
+  // which is why it is not.
   [`${CSSEvents.transitionend} .js-card-details`](event, tpl) {
     tpl.isLoaded.set(true);
   },

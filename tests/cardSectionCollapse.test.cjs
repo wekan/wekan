@@ -229,16 +229,34 @@ test('a group folds its whole family, from ONE caret', () => {
     'and they are inside the fold, not beside it');
 });
 
-test('the fields inside a group have no caret of their own (negative)', () => {
-  // #1591 draws a caret on every .card-details-item title. Inside a group that
-  // is a second handle on every row saying the same thing as the group's.
-  assert.ok(/\.card-details-group-body \.card-details-item > \.card-details-item-title::after \{\s*content: none/.test(css),
-    'the per-item caret is turned off inside a group');
-  assert.ok(/\.card-details-group-body \.card-details-item > \.card-details-item-title \{\s*cursor: default/.test(css),
-    'and the title is not a handle either');
-  // Outside a group the per-item fold is untouched.
-  assert.ok(/\.card-details-item > \.card-details-item-title::after \{\s*content: "\\f0d7"/.test(css),
-    '#1591 still folds the items that are not in a group');
+test('a field has no caret and no fold of its own (negative)', () => {
+  // #1591 drew a caret on every .card-details-item title and hid everything
+  // after that title when it was clicked. The section carets replaced it, and
+  // for a while BOTH ran: a click on a section's heading is also a click on a
+  // field title, so the field the heading is drawn on was folded by the old
+  // handler and left that way - its own caret having been suppressed inside a
+  // group, there was nothing left to open it. The Date Format select is the one
+  // that showed it: it sits under that heading, so it disappeared for good.
+  assert.ok(!/\.card-details-item > \.card-details-item-title::after/.test(css),
+    'no per-field caret');
+  assert.ok(!/\.card-details-item\.is-collapsed/.test(css), 'and no per-field fold');
+  assert.ok(!/'click \.card-details-item > \.card-details-item-title'/.test(js),
+    'nor a handler to set one');
+  // What folds a field is its SECTION, and only the heading carries a handle.
+  assert.ok(/js-toggle-card-section/.test(js), 'the section heading is the handle');
+});
+
+test('the Date Format selector is inside its open section', () => {
+  // The regression this replaced: the select is a sibling of the heading the
+  // group's caret is drawn on, which is exactly what the old fold hid.
+  const group = jade.slice(jade.indexOf('card-details-group-date-format'),
+    jade.indexOf('card-details-group-members'));
+  assert.ok(/select\.js-date-format-selector/.test(group), 'the select is there');
+  assert.ok(group.indexOf('cardSectionHeader(section="date-format"')
+    < group.indexOf('select.js-date-format-selector'),
+    'under the section heading');
+  assert.ok(/if isSectionOpen "date-format"\n\s+\.card-details-item-content/.test(group),
+    'and shown whenever that section is open - the only thing that hides it');
 });
 
 test('Members comes first in its group, then Assignee, then Creator', () => {
