@@ -87,6 +87,12 @@ function parseIssuesArray(data, system) {
       date_due: (issue.milestone && (issue.milestone.due_on || issue.milestone.due_date)) || issue.due_date,
       owner_username:
         (issue.assignee && (issue.assignee.login || issue.assignee.username)) || undefined,
+      // Who OPENED the issue is who asked for the work - WeKan's "Requested
+      // By", as opposed to the assignee who does it. Free text, so it survives
+      // an import from a tracker nobody on this board has an account on.
+      requested_by: (issue.user && (issue.user.login || issue.user.name))
+        || (issue.author && (issue.author.login || issue.author.username || issue.author.name))
+        || undefined,
       tags: (issue.labels || []).map(l => (typeof l === 'string' ? l : l.name)),
     }));
   return {
@@ -118,6 +124,7 @@ export function parseGitlab(data) {
     swimlane_name: 'Default',
     date_due: issue.due_date || (issue.milestone && issue.milestone.due_date),
     owner_username: issue.assignee && issue.assignee.username,
+    requested_by: issue.author && (issue.author.username || issue.author.name),
     tags: (issue.labels || []).map(l => (typeof l === 'string' ? l : l.name)),
   }));
   return {

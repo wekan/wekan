@@ -226,6 +226,12 @@ class ScopedImporter {
       if (this.hasField('description') && card.description) {
         toCreate.description = card.description;
       }
+      // Who asked for the card and who assigned it: exported with it, so
+      // imported with it. `people` is the section they belong to.
+      if (this.hasField('people')) {
+        if (card.requestedBy) toCreate.requestedBy = card.requestedBy;
+        if (card.assignedBy) toCreate.assignedBy = card.assignedBy;
+      }
       if (this.hasField('dates')) {
         for (const key of ['receivedAt', 'startAt', 'dueAt', 'endAt']) {
           if (card[key]) toCreate[key] = new Date(card[key]);

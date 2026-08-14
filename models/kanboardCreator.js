@@ -170,6 +170,9 @@ export class KanboardCreator {
         userId: this._user(),
         labelIds: [],
       };
+      // The Kanboard shape every external parser normalises to carries it now.
+      if (task.requested_by) cardToCreate.requestedBy = String(task.requested_by);
+      if (task.assigned_by) cardToCreate.assignedBy = String(task.assigned_by);
       if (task.date_due) cardToCreate.dueAt = this._now(task.date_due);
       if (task.date_creation) cardToCreate.createdAt = this._now(task.date_creation);
       for (const t of task.tags || []) {

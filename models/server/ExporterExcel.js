@@ -458,6 +458,11 @@ class ExporterExcel {
       TAPi18n.__('swimlane','',this.userLanguage),
       TAPi18n.__('assignee','',this.userLanguage),
       TAPi18n.__('members','',this.userLanguage),
+      // The two free-text "by" fields. They are on every card, the card export
+      // and the CSV both carry them, and this table did not - so a board
+      // exported here lost who had asked for a card and who had assigned it.
+      TAPi18n.__('requested-by','',this.userLanguage),
+      TAPi18n.__('assigned-by','',this.userLanguage),
       TAPi18n.__('labels','',this.userLanguage),
       TAPi18n.__('overtime-hours','',this.userLanguage),
       TAPi18n.__('spent-time-hours','',this.userLanguage),
@@ -556,6 +561,8 @@ class ExporterExcel {
           jswimlane[jcard.swimlaneId],
           jcassig,
           jcmem,
+          jcard.requestedBy || '',
+          jcard.assignedBy || '',
           jclabel,
           jcard.isOvertime ? 'true' : 'false',
           jcard.spentTime,

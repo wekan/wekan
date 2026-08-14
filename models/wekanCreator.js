@@ -467,6 +467,13 @@ export class WekanCreator {
         dueAt: cardDates.dueAt,
         endAt: cardDates.endAt,
         spentTime: card.spentTime || null,
+        // The two free-text "by" fields. They are exported - the JSON, the
+        // .zip, the CSV and both card exports all carry them - and were not
+        // imported, so a card came back having forgotten who asked for it and
+        // who assigned it. A round trip that loses a field is worse than one
+        // that never had it: the export looks complete.
+        requestedBy: card.requestedBy || '',
+        assignedBy: card.assignedBy || '',
       };
       // add labels
       if (card.labelIds) {

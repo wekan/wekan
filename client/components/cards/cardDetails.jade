@@ -109,7 +109,10 @@ template(name="cardDetails")
           if isSectionOpen "labels"
             .card-details-group-body
               if currentBoard.allowsLabels
-                .card-details-item.card-details-item-labels.card-details-section
+                .card-details-item.card-details-item-labels
+                  h3.card-details-item-title
+                    i.fa.fa-tags
+                    | {{_ 'labels'}}
                   a(class="{{#if canModifyCard}}js-add-labels{{else}}is-disabled{{/if}}" title="{{_ 'card-labels-title'}}")
                     each labels
                       span.card-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}" title=name)
@@ -166,7 +169,10 @@ template(name="cardDetails")
           if isSectionOpen "date-format"
             .card-details-group-body
               if currentBoard.hasAnyAllowsDate
-                .card-details-item.card-details-item-date-format.card-details-section
+                .card-details-item.card-details-item-date-format
+                  h3.card-details-item-title
+                    i.fa.fa-calendar
+                    | {{_ 'date-format'}}
                   .card-details-item-content
                     select.js-date-format-selector
                       option(value="YYYY-MM-DD" selected="{{#if isDateFormat 'YYYY-MM-DD'}}selected{{/if}}") {{_ 'date-format-yyyy-mm-dd'}}
@@ -235,7 +241,10 @@ template(name="cardDetails")
           if isSectionOpen "members"
             .card-details-group-body
               if currentBoard.allowsMembers
-                .card-details-item.card-details-item-members.card-details-section
+                .card-details-item.card-details-item-members
+                  h3.card-details-item-title
+                    i.fa.fa-users
+                    | {{_ 'members'}}
                   each userId in getMembers
                     +userAvatar(userId=userId cardId=_id)
                     | {{! XXX Hack to hide syntaxic coloration /// }}
@@ -283,6 +292,11 @@ template(name="cardDetails")
                       +inlinedForm(classNames="js-card-details-requester")
                         +editCardRequesterForm
                       else
+                        //- The same round + Members and Assignee use, opening the
+                          same editor the text below it opens - a name field is
+                          set the way a person is added.
+                        a.member.add-member.card-details-item-add-button.js-open-inlined-form(title="{{_ 'requested-by'}}")
+                          i.fa.fa-plus
                         a.js-open-inlined-form
                           if getRequestedBy
                             +viewer
@@ -303,6 +317,11 @@ template(name="cardDetails")
                       +inlinedForm(classNames="js-card-details-assigner")
                         +editCardAssignerForm
                       else
+                        //- The same round + Members and Assignee use, opening the
+                          same editor the text below it opens - a name field is
+                          set the way a person is added.
+                        a.member.add-member.card-details-item-add-button.js-open-inlined-form(title="{{_ 'assigned-by'}}")
+                          i.fa.fa-plus
                         a.js-open-inlined-form
                           if getAssignedBy
                             +viewer
@@ -317,7 +336,10 @@ template(name="cardDetails")
           +cardSectionHeader(section="dependencies" icon="fa-link" label="card-dependencies")
           if isSectionOpen "dependencies"
             .card-details-group-body
-              .card-details-item.card-details-item-dependencies.card-details-section
+              .card-details-item.card-details-item-dependencies
+                h3.card-details-item-title
+                  i.fa.fa-link
+                  | {{_ 'card-dependencies'}}
                 .card-details-dependencies-list
                   each getDependencyCards
                     .card-dependency(data-target-id="{{card._id}}")
@@ -349,7 +371,10 @@ template(name="cardDetails")
           if isSectionOpen "sort"
             .card-details-group-body
               if currentBoard.allowsCardSortingByNumber
-                .card-details-item.card-details-sort-order.card-details-section
+                .card-details-item.card-details-sort-order
+                  h3.card-details-item-title
+                    i.fa.fa-sort-numeric-asc
+                    | {{_ 'sort'}}
                   if canModifyCard
                     +inlinedForm(classNames="js-card-details-sort")
                       +editCardSortOrderForm
@@ -382,12 +407,15 @@ template(name="cardDetails")
         if customFieldsWD
           //- ONE header for the whole group, outside the loop: a card with six
             custom fields is one Custom Fields section, not six sections that
-            happen to share a caret and draw six rules.
-          +cardSectionHeader(section="custom-fields" icon="fa-list-alt" label="custom-fields")
-          if isSectionOpen "custom-fields"
-            each customFieldsWD
-              .card-details-item.card-details-item-customfield.card-details-section
-                +cardCustomField
+            happen to share a caret and draw six rules. A group like the others,
+            so its rule spans the card and its fields share rows inside it.
+          .card-details-group.card-details-group-custom-fields
+            +cardSectionHeader(section="custom-fields" icon="fa-list-alt" label="custom-fields")
+            if isSectionOpen "custom-fields"
+              .card-details-group-body
+                each customFieldsWD
+                  .card-details-item.card-details-item-customfield
+                    +cardCustomField
 
           if $gt customFieldsWD.length 1
             .material-toggle-switch(title="{{_ 'change'}} {{_ 'custom-fields'}} {{_ 'layout'}}")

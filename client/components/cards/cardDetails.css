@@ -1185,24 +1185,10 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
    sections cannot end up with ten separators.
    The heading is a button: it says so to a screen reader (role/tabindex in the
    template) and it looks like one to a mouse. */
-/* A section is a FULL-WIDTH ROW of the card.
-   `.card-details-items` is a wrapping flex row, so a rule inside one of its
-   items is as wide as that item - which is how eleven sections came to be
-   separated by short lines beside their headings instead of one line across the
-   card. A collapsible section is its own row now, and the rule in it spans the
-   card because the row does.
-   The items that are NOT sections - Stickers, Location, the four dates, Creator,
-   Assignees, Spent time - keep sharing rows, which is what they were laid out
-   to do. */
-.card-details .card-details-items .card-details-item.card-details-section {
-  flex: 0 0 100%;
-  width: 100%;
-  margin-inline-end: 0;
-}
-/* The rule between sections is the page's OWN hr - the lighter line that was
-   already above Creator - not a heavier border of its own. Only the margin is
-   this rule's: `hr` in layouts.css is 18px top and bottom, which is a lot of air
-   above a heading that belongs to the list under it. */
+/* The GROUP is the full-width row of the card, and the fields inside it share
+   rows within it - which is what puts Assignee and Creator beside Members
+   rather than under it. The class that made an individual field full width is
+   gone with the grouping; a field that is its own section is a group of one. */
 .card-details .card-details-section-rule {
   width: 100%;
   margin: 14px 0 6px 0;

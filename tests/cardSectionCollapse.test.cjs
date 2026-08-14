@@ -137,21 +137,38 @@ test('the sections not in the list are left alone (negative)', () => {
   }
 });
 
-test('a section is a full-width row, so its rule spans the card', () => {
-  // `.card-details-items` is a wrapping flex row. A rule inside one of its
-  // items is as wide as that item, which is how eleven sections came to be
-  // separated by SHORT lines beside their headings instead of one line across
-  // the card.
-  for (const item of ['card-details-item-labels', 'card-details-item-date-format',
-    'card-details-item-members', 'card-details-item-dependencies',
-    'card-details-sort-order', 'card-details-item-customfield']) {
-    assert.ok(new RegExp(`${item}\\.card-details-section`).test(jade),
-      `${item} is marked as a full-width section`);
-  }
-  assert.ok(/\.card-details-item\.card-details-section \{[\s\S]{0,120}flex: 0 0 100%/.test(css),
-    'and the class makes it a row of its own');
+test('the GROUP is the full-width row, and its fields share rows inside it', () => {
+  // `.card-details-items` is a wrapping flex row. The group is what takes a
+  // whole row now, so its rule spans the card - and the fields inside it sit
+  // side by side, which is what puts Assignee and Creator beside Members
+  // rather than under them.
+  assert.ok(/\.card-details-items \.card-details-group \{[\s\S]{0,120}flex: 0 0 100%/.test(css),
+    'a group is a full-width row');
+  assert.ok(/\.card-details-group-body \{[\s\S]{0,140}display: flex[\s\S]{0,60}flex-wrap: wrap/.test(css),
+    'and its body wraps its fields');
+  assert.ok(/\.card-details-group-body \.card-details-item \{[\s\S]{0,60}flex-grow: 1/.test(css),
+    'which share the width between them');
   assert.ok(/\.card-details-section-rule \{[\s\S]{0,80}width: 100%/.test(css),
-    'so the rule in it spans the card');
+    'so the rule in a group spans the card');
+  // The class that made an individual FIELD full width is gone with the
+  // grouping - it is what put Assignee and Creator on the next line.
+  assert.ok(!/card-details-item-members\.card-details-section/.test(jade),
+    'no field is a full-width row of its own any more');
+});
+
+test('every field in a group keeps its own title, so its content is below it', () => {
+  // The + of Members, Assignee and Creator must line up on the SECOND line.
+  // A field whose title was taken away by the group header had its + on the
+  // first line instead, level with its neighbours' titles.
+  const group = jade.slice(jade.indexOf('card-details-group-members'),
+    jade.indexOf('card-details-group-dependencies'));
+  for (const field of ['card-details-item-members', 'card-details-item-assignees',
+    'card-details-item-creator']) {
+    const at = group.indexOf(field);
+    assert.ok(at !== -1, `${field} is in the group`);
+    assert.ok(/h3\.card-details-item-title/.test(group.slice(at, at + 200)),
+      `${field} has a title of its own, so its + starts on the line under it`);
+  }
 });
 
 test('the items that are NOT sections still share rows (negative)', () => {
@@ -280,6 +297,27 @@ test('a collapsed group shows its caret, its icon and its name, and nothing else
     assert.ok(header !== -1 && guard > header && body > guard,
       `${key}: header, then the switch, then everything else`);
   }
+});
+
+test('Requested By and Assigned By have the + Members and Assignee have', () => {
+  // They were a bare "Add" link; the two fields beside them in the same group
+  // are set with a round +, and these are set the same way now.
+  for (const field of ['requester', 'assigner']) {
+    const at = jade.indexOf(`js-card-details-${field}`);
+    assert.ok(at !== -1, `${field} is there`);
+    const block = jade.slice(at, at + 700);
+    assert.ok(/a\.member\.add-member\.card-details-item-add-button\.js-open-inlined-form/.test(block),
+      `${field} has the + button`);
+    assert.ok(/i\.fa\.fa-plus/.test(block), 'with the plus in it');
+    // The SAME class the "Add" text uses, so both open the one editor rather
+    // than the + growing a handler of its own.
+    const opens = (block.match(/js-open-inlined-form/g) || []).length;
+    assert.ok(opens >= 2, `${field}: the + and the text both open the form`);
+  }
+  // And it is the class Members' button is styled by, not a new look.
+  const members = jade.slice(jade.indexOf('allowsMembers'), jade.indexOf('allowsAssignee'));
+  assert.ok(/\.member\.add-member\.card-details-item-add-button/.test(members),
+    'which is the button Members uses');
 });
 
 console.log(`\ncardSectionCollapse: ${passed} tests passed`);

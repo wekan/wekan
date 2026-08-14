@@ -847,6 +847,49 @@ and fixes the following bugs:
 **Card details** - the card as it is opened and edited.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">Requested By and Assigned By are set with a + like Members, and survive an import</a>. Thanks to xet7.</summary>
+
+**Requested By** and **Assigned By** were set by clicking the word "Add". They
+have the round **+** the two fields beside them use now, opening the same editor
+the text does.
+
+Checking where else those two live turned up a round trip that lost them, which
+is the worst shape this kind of bug takes - the export file looks complete and
+the import reports success. They were exported by the card PDF, the card Excel
+and the board CSV, and imported by NOTHING: a card exported and imported back
+came home having forgotten who asked for it and who assigned it. Both importers
+put them back now, our own JSON and .zip and the per-menu one.
+
+The board's Excel TABLE did not export them at all, so that one gained two
+columns - header and value together, since a header without its value shifts
+every column after it.
+
+And from other trackers, where the same idea has another name: **Jira's
+Reporter** is who asked for the work, and an issue's **author** on GitHub,
+Gitea, Forgejo and GitLab is the same thing. Both arrive as Requested By, as
+free text, so they survive an import from a tracker nobody on this board has an
+account on. A source with no such field - Trello, CSV - gains nothing, which a
+negative test pins.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH">Assignee and Creator sit beside Members, with their + buttons on one line</a>. Thanks to xet7.</summary>
+
+Grouping the fields left two things crooked. Members, Assignee and Creator were
+each a full-width row, so Assignee and Creator fell to the line below Members -
+the class that made a FIELD full width was from before the groups, and the group
+is the full-width row now. And a field whose title had been taken over by the
+group header had its **+** on the first line, level with its neighbours'
+titles, instead of on the second line with theirs.
+
+Every field in a group keeps its own title again. The group's header names the
+family and folds it; the field's title names the field, and its content - the +,
+the avatars - starts on the line under it, level all the way across.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/83147dcc3e357ccfce9a1702568484f2d70bcb3d">A card's fields fold in GROUPS, from one caret each, and Members reads Members, Assignee, Creator</a>. Thanks to xet7.</summary>
 
 The caret beside **Labels** folded the Labels field and left Stickers and

@@ -161,6 +161,16 @@ export class JiraCreator {
         userId: this._user(),
         labelIds: [],
       };
+      // Jira's REPORTER is WeKan's "Requested By": the person who asked for the
+      // work, as opposed to the assignee who does it. It is a free-text field
+      // here, so it takes the display name rather than needing a mapped user -
+      // which is what makes it survive an import from a Jira nobody on this
+      // board has an account on.
+      const reporter = fields.reporter;
+      if (reporter) {
+        cardToCreate.requestedBy = reporter.displayName || reporter.name
+          || reporter.emailAddress || reporter.accountId || '';
+      }
       if (fields.created) cardToCreate.createdAt = this._now(fields.created);
       if (fields.duedate) cardToCreate.dueAt = this._now(fields.duedate);
       if (fields.updated) cardToCreate.modifiedAt = this._now(fields.updated);
