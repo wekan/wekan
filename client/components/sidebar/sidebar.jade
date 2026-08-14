@@ -751,10 +751,11 @@ template(name="boardMenuPopup")
         a.js-outgoing-webhooks
           i.fa.fa-globe
           | {{_ 'outgoing-webhooks'}}
-      li
-        a.js-card-settings
-          i.fa.fa-id-card
-          | {{_ 'card-settings'}}
+      //- "Card Settings" was here. Every setting in it is now in the menu of
+        the thing it is about: the card's menu has "Show on Card" and a
+        minicard's has "Show on Minicard", each with that column of the same
+        table. A board-wide entry as well would be a third way to the same list.
+        client/components/cards/cardDetails.jade
       li
         a.js-subtask-settings
           i.fa.fa-globe

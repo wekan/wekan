@@ -959,6 +959,11 @@ because a field has to exist before a card can be given it, then **Edit custom
 fields**, then a rule like every other group in that menu. A board admin's, the
 same as in Board Settings.
 
+**Card Settings is gone from Board Settings.** Every setting in that table is
+in the menu of the thing it is about now, so a board-wide entry as well would
+be a third way to one list - and the way that is furthest from what it changes.
+The table itself is unchanged; the two menus include it.
+
 **Custom Fields** opens IN the menu. It first opened the right sidebar, which
 is a different part of the screen: the menu was gone, the card pane was closed
 behind it, and the answer to "what fields does this board have" appeared on the

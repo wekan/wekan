@@ -79,14 +79,21 @@ test('the source is not stashed on the card document (negative)', () => {
   assert.ok(/#6479/.test(lib), 'and the reason is written down');
 });
 
-test('the same permission as Board Settings / Card Settings', () => {
-  // The board menu offers Card Settings to board admins; the card menu offers
+test('the same permission Board Settings asked, and it is the only way in now', () => {
+  // Board Settings offered Card Settings to board admins; the card menu offers
   // the same settings, so it asks the same question.
   assert.ok(/else if currentUser\.isBoardAdmin/.test(menu),
     'the card entry is a board admin\'s');
   const boardMenu = sidebarJade.slice(sidebarJade.indexOf('template(name="boardMenuPopup")'));
-  assert.ok(/if currentUser\.isBoardAdmin[\s\S]{0,400}js-card-settings/.test(boardMenu),
-    'which is the gate the board menu uses for it');
+  assert.ok(/if currentUser\.isBoardAdmin[\s\S]{0,900}js-subtask-settings/.test(boardMenu),
+    'which is the gate that menu uses for settings like it');
+  // And the board-wide entry is gone: every setting in that table is now in the
+  // menu of the thing it is about, and a third way to one list is a way for two
+  // of them to be forgotten.
+  assert.ok(!/js-card-settings/.test(sidebarJade), 'no Card Settings row in the board menu');
+  assert.ok(!/Popup\.open\('boardCardSettings'\)/.test(sidebarJs), 'and nothing opens it');
+  assert.ok(/template\(name="boardCardSettingsPopup"\)/.test(sidebarJade),
+    'the table itself stays - the two menus include it');
 });
 
 test('both entries open the popup that already existed', () => {
