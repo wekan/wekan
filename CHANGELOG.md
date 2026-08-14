@@ -1130,15 +1130,14 @@ nothing. Download and delete stay in that row, being the two things a picture
 cannot say.
 
 Three things around the upload made the failure impossible to read, and are
-fixed with it. `insertAsync` can reject BEFORE there is an uploader to listen to, and that
-rejection went nowhere: the spinner stopped, no message appeared, and the
-picture simply never turned up. It is caught and shown now. The list of what
-has been uploaded is drawn in BOTH popups, so an upload is seen to have
-arrived without opening another entry to find out - and each picture is shown
-with its NAME, because two photos are the same picture at 80 pixels. And a
-finished upload puts itself behind the board: "add background image" is asked
-for by somebody who wants that picture there, and an upload that only lands in
-a list, with the board unchanged, reads as one that did not work.
+fixed with it. `insertAsync` can reject BEFORE there is an uploader to listen
+to, and that rejection went nowhere: the spinner stopped, no message appeared,
+and the picture simply never turned up. It is caught and shown now. Each
+picture is listed with its NAME, because two photos are the same picture at 80
+pixels and nothing said which one had arrived. And a finished upload puts
+itself behind the board: "add background image" is asked for by somebody who
+wants that picture there, and an upload that only lands in a list, with the
+board unchanged, reads as one that did not work.
 
 </details>
 
