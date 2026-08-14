@@ -66,10 +66,14 @@
 /* The chosen one is filled, not merely ticked: the tick alone is easy to miss on
    a row that is otherwise identical to the one beside it. Same fill as the
    selected row of the All Boards left menu and of the Admin Panel - one
-   selected-thing look everywhere. */
+   selected-thing look everywhere.
+   `--theme-accent-fill`, not `--theme-accent`: the accent is one colour - the
+   solid end of a colour-slide theme - so on clearorange this button was flat
+   orange while the menu row behind the popup slid, which is two looks for one
+   selected thing. The fill is the slide where the theme has one. */
 .theme-color-picker ul.pop-over-list.theme-scope-row > li.active > a,
 .theme-color-picker ul.pop-over-list.theme-scope-row > li.active > a:hover {
-  background: var(--theme-accent, #2980b9);
+  background: var(--theme-accent-fill, var(--theme-accent, #2980b9));
   color: #fff !important;
 }
 .theme-color-picker ul.pop-over-list.theme-scope-row > li.active > a i {

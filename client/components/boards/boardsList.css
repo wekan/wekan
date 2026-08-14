@@ -1641,24 +1641,19 @@
   margin: 0 !important; /* grid gap spaces the tiles now (#6523) */
 }
 
-/* Apply board colors to li.js-board parent instead of just the link */
-.board-list .board-color-nephritis { background-color: #27ae60; }
-.board-list .board-color-pomegranate { background-color: #c0392b; }
-.board-list .board-color-belize { background-color: #2980b9; }
-.board-list .board-color-wisteria { background-color: #8e44ad; }
-.board-list .board-color-midnight { background-color: #2c3e50; }
-.board-list .board-color-pumpkin { background-color: #e67e22; }
-.board-list .board-color-moderatepink { background-color: #cd5a91; }
-.board-list .board-color-strongcyan { background-color: #00aecc; }
-.board-list .board-color-limegreen { background-color: #4bbf6b; }
-.board-list .board-color-dark { background-color: #2c3e51; }
-.board-list .board-color-relax { background-color: #27ae61; }
-.board-list .board-color-corteza { background-color: #568ba2; }
-.board-list .board-color-clearblue { background-color: #3498db; }
-.board-list .board-color-natural { background-color: #596557; }
-.board-list .board-color-modern { background-color: #2a80b8; }
-.board-list .board-color-moderndark { background-color: #2a2a2a; }
-.board-list .board-color-exodark { background-color: #222; }
+/* The board colour of a tile is painted by the THEME, not from here.
+   This used to be a hand-copied list of seventeen `.board-list
+   .board-color-<name> { background-color: ... }` lines, and a copied list is a
+   list that goes stale: the five colour SLIDE themes added later - clearpink,
+   cleargreen, clearorange, clearpurple, clearred - were never added to it, so
+   their tiles stayed the default #999 grey while the slide was drawn on the
+   inner link, which is inset by the tile's own padding. That is what a
+   clearpink board looked like in All Boards: a pink rectangle floating in a
+   grey tile. clearblue WAS in the list, as a flat #3498db, so it did not show
+   its slide either.
+   Each theme now paints `.board-list li.board-color-<name>` in
+   boardColors.css, beside everything else that theme colours, and a tile is
+   the whole tile. tests/boardTileTheme.test.cjs holds every theme to it. */
 
 /* Member Settings / Change color, beside "Default (no override)": "All Boards".
    Every tile in the overview takes the THEME's lighter colour instead of the
@@ -1668,17 +1663,27 @@
    colours are noise" and "the tile colours are how I find my board" are both
    true, of different people.
 
-   LIGHTER, not another colour: a flat white veil over the accent is one shade up
-   from whatever the theme is, at any theme and with no second variable to keep
-   in step (and no color-mix(), which is newer than the browsers WeKan supports).
-   White text on it, the same treatment the selected row in the left menu gets.
+   THE ACCENT ITSELF, the same colour and the same white text as the selected row
+   in the left menu beside it - `.boards-left-menu .menu-item.active a` reads the
+   same variable. It was the accent under a flat white veil, one shade up, which
+   made the tiles a lighter version of the highlight they sit beside rather than
+   the same colour as it; two shades of one accent on one page read as two
+   colours, not as one page.
+   `--theme-accent-fill` rather than `--theme-accent`, and that is the whole
+   difference on a colour-SLIDE theme: the accent is ONE colour - the solid end
+   of the slide - so a tile painted from it came out flat beside a left-menu row
+   that slid. The fill is the theme's slide where it has one and its accent
+   where it does not (models/lib/themeAccents.js), which is what every other
+   themed control here reads.
+   It is the `background` SHORTHAND on purpose: a slide theme paints the tile
+   with a shorthand of its own, and setting only the colour would leave that
+   gradient sitting on top of the accent.
 
    A board with a background IMAGE keeps its image: that is a picture somebody
    chose, not a colour, and painting over it would be losing something rather
    than calming it down. */
 body.has-theme-board-tiles .board-list > li.js-board {
-  background-color: var(--theme-accent, #2980b9);
-  background-image: linear-gradient(rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.22));
+  background: var(--theme-accent-fill, var(--theme-accent, #2980b9));
 }
 body.has-theme-board-tiles .board-list > li.js-board .board-list-item:not(.has-background-image) {
   background-color: transparent;

@@ -128,7 +128,9 @@ test('picker, public boards, All Boards and board canvas all have selectors', ()
   for (const selector of [
     `.board-backgrounds-list .${CLASS}.background-box`,
     `.public-board-row.${CLASS}`,
-    `.board-list .${CLASS} a`,
+    // The All Boards tile is the `li` itself, so a slide fills the whole tile
+    // rather than the padding-inset link inside it.
+    `.board-list li.${CLASS}`,
     `.${CLASS}.board-wrapper`,
     `.${CLASS} .setting-content .content-body .side-menu ul li.active`,
     `.${CLASS} .boards-left-menu .menu-item.active a`,

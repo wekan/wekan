@@ -99,16 +99,36 @@ test('the preference reaches the page as a body class', () => {
   assert.ok(/profile\.allBoardsThemeTiles/.test(themeApply), 'read from the profile');
 });
 
-test('tiles take the THEME accent, lighter - not a hard-coded colour', () => {
+test('tiles take the THEME accent itself - not a hard-coded colour', () => {
   const rule = boardsCss.slice(boardsCss.indexOf('body.has-theme-board-tiles .board-list > li.js-board {'));
   const block = rule.slice(0, rule.indexOf('}'));
-  assert.ok(/var\(--theme-accent, #2980b9\)/.test(block),
-    'the user\'s own theme accent, falling back to the WeKan header blue');
-  assert.ok(/linear-gradient\(rgba\(255, 255, 255, 0\.22\), rgba\(255, 255, 255, 0\.22\)\)/.test(block),
-    'a white veil is one shade lighter at ANY theme, with no second variable to '
-    + 'keep in step and no color-mix()');
+  assert.ok(/var\(--theme-accent-fill, var\(--theme-accent, #2980b9\)\)/.test(block),
+    'the theme\'s own FILL - its slide where it has one, its accent where it does '
+    + 'not - falling back to the WeKan header blue');
+  // It used to be that accent under a flat white veil, one shade up. That made
+  // the tiles a LIGHTER version of the highlight they sit beside in the left
+  // menu, and two shades of one accent on one page read as two colours.
+  assert.ok(!/rgba\(255, 255, 255, 0\.22\)/.test(block), 'with no veil over it');
+  const menu = boardsCss.slice(boardsCss.indexOf('.boards-left-menu .menu-item.active a,'));
+  assert.ok(/background: var\(--theme-accent, #2980b9\)/.test(menu.slice(0, menu.indexOf('}'))),
+    'so a tile is the same colour as the selected row in the left menu');
+  assert.ok(/^\s*background: var/m.test(block),
+    'set with the shorthand, so a slide theme\'s own gradient on the tile is '
+    + 'replaced rather than left on top of it');
   assert.ok(/color: #fff/.test(boardsCss.slice(boardsCss.indexOf('body.has-theme-board-tiles'))),
-    'with white text on it');
+    'with white text on it, the same as that row');
+});
+
+test("the popup's own \"All Boards\" button is filled the same way", () => {
+  // The button that turns this on and the tiles it turns on are the same
+  // decision, so they are the same fill. It read `--theme-accent` alone, so on
+  // clearorange the button was flat orange while the left-menu row behind the
+  // popup slid - two looks for one selected thing.
+  const custom = read('client/components/main/customTheme.css');
+  const at = custom.indexOf('.theme-color-picker ul.pop-over-list.theme-scope-row > li.active > a,');
+  assert.ok(at > 0, 'the active scope button is styled');
+  assert.ok(/background: var\(--theme-accent-fill, var\(--theme-accent, #2980b9\)\)/
+    .test(custom.slice(at, custom.indexOf('}', at))), 'from the theme fill');
 });
 
 test('a board background IMAGE is left alone (negative)', () => {

@@ -205,8 +205,11 @@ test('a row carries its board colours, like the All Boards tile', () => {
   // The colours come from boardColors.css - the same declaration, one more
   // selector - so no hex value is repeated here and the rows follow the theme.
   const colors = read('client/components/boards/boardColors.css');
-  const rowSelectors = (colors.match(/^\.public-board-row\.board-color-[a-z0-9]+,$/gm) || []).length;
-  const listSelectors = (colors.match(/^\.board-list \.board-color-[a-z0-9]+ a(,| \{)$/gm) || []).length;
+  const rowSelectors = (colors.match(/^\.public-board-row\.board-color-[a-z0-9]+(,| \{)$/gm) || []).length;
+  // The tile selector is `li.board-color-<name>`, not the link inside it: the
+  // tile is the whole tile, and a colour slide drawn on the inner link is
+  // inset by the tile's padding (client/components/boards/boardsList.css).
+  const listSelectors = (colors.match(/^\.board-list li\.board-color-[a-z0-9]+(,| \{)$/gm) || []).length;
   assert.strictEqual(rowSelectors, listSelectors,
     'every board colour the All Boards tile has must also reach the /public row');
   assert.ok(rowSelectors > 10, `expected the board colours, found ${rowSelectors}`);
