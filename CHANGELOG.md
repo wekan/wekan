@@ -626,6 +626,40 @@ A `.json` still travels as a document over DDP, which is what it is.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5d68d94bb7d3d765215f4d3725dd05800d55bf2d">The import page asks with the app's own checkboxes, in two columns</a>. Thanks to xet7.</summary>
+
+Three things about the page that lists the sources. The pop-over that opens it
+said "Import board (Trello, Jira, WeKan export, CSV, Excel, ...)" - a list of
+five of the fourteen sources, in a menu whose only job is to get to the page
+that lists all of them - and now says **Import board** and nothing else.
+
+**Import from:** and **Select what to include:** were rows of grey ticks that
+were never anything else: a `fa-check` drawn once per row, the same shape
+whether that row was chosen or not, so the answer to "which one did I pick" was
+a shade of grey. Both are the app's own animated checkbox now
+(`.materialCheckBox`, the one Admin Panel / Announcement uses), which grows its
+green tick out of the empty square over 0.2s, so a click is visible as it
+happens. The box and its label are spaced apart by the same amount ticked or
+unticked - the checked box is a narrower shape shifted left, so the two margins
+differ by exactly that shift - and the row itself declares no alignment of its
+own, because the tick's rotation is written for the plain flow and an
+`align-items: center` on top of it lands the tick on the first word.
+
+The two questions sit **side by side** when the window has room for two 280px
+columns and stack when it does not, so the second one is not below the fold on
+a page whose first list is fourteen rows long. No source is chosen to begin
+with, and choosing one un-chooses the last, because an import reads one file in
+one format; every part is ticked to begin with, because an import that silently
+left things out would be worse than one that asks.
+
+And **Import without mapping members (map later)** is a primary button like the
+**Import** it sits beside. It was the one unstyled button on the page, which
+reads as disabled - and it is not a cancel, it is the same import with one
+question skipped.
+
+</details>
+
 **Search** - finding a card by what people call it.
 
 <details>
