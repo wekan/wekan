@@ -179,6 +179,33 @@ test('a remote build that produced no .snap is a failure, not a silent success',
   // And the count alone is not enough: an empty file passes it.
   assert.ok(/\[ -s "\$\{snaps\[0\]\}" \]/.test(code(launchpad)),
     'the file must also be non-empty before it is uploaded or attached');
+
+  // ...and every one of those lists is DEDUPLICATED. The two patterns match the
+  // same file - `wekan_10.91_s390x.snap` matches both - so the array held one
+  // path twice, and `gh release upload --clobber` was asked to attach one name
+  // twice: it deleted the asset it had just uploaded and 404'd on it.
+  //
+  //   HTTP 404: Not Found (https://uploads.github.com/repos/wekan/wekan/
+  //   releases/370103352/assets?label=&name=wekan_10.91_s390x.snap)
+  //
+  // v10.91 lost s390x, ppc64el and riscv64 from the GitHub Release that way,
+  // having built all three and published all three to the Snap Store.
+  for (const a of arrays) {
+    assert.ok(/sort -u/.test(a),
+      `"snaps=( ${a} )" is not deduplicated: the two patterns match the same file, `
+      + 'and uploading one name twice deletes the asset and then 404s on it');
+  }
+
+  // ...and the attach is confirmed from the OTHER side, the way the native snap
+  // job already did. An upload that reports success and leaves no asset behind
+  // is the failure nobody notices until a download 404s - and the three v10.91
+  // architectures that went missing had each said "built" and "published to the
+  // Snap Store" in the same job.
+  const attach = launchpad.slice(launchpad.indexOf('Attach the ${{ matrix.arch }} snap'));
+  assert.ok(/gh release view[\s\S]{0,200}--json assets/.test(attach),
+    'the attach step reads back the release assets');
+  assert.ok(/is not listed in release v\$\{VERSION\} although the upload reported success/.test(attach),
+    'and fails when its own snap is not among them');
 });
 
 test('the Launchpad build log is printed whenever there is no snap', () => {

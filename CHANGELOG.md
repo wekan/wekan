@@ -1198,6 +1198,40 @@ cost more than the fifteen lines it saved.
 
 and fixes the following bugs:
 
+**The release workflow** - what reaches the Release page.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH18">Three snaps built, published, and then fell off the Release: one file listed twice</a>. Thanks to xet7.</summary>
+
+v10.91's release run failed in four jobs, and three of them - **s390x**,
+**ppc64el** and **riscv64** - had done all the work: each snap BUILT on
+Launchpad and each was published to the Snap Store. What failed was attaching it
+to the GitHub Release:
+
+```
+HTTP 404: Not Found (https://uploads.github.com/repos/wekan/wekan/releases/370103352/assets?label=&name=wekan_10.91_s390x.snap)
+```
+
+The step collected the file with two patterns - `wekan_${VERSION}_<arch>*.snap`
+and `*_<arch>.snap` - and a snap called `wekan_10.91_s390x.snap` matches BOTH,
+so the same path was passed to `gh release upload --clobber` twice. Asked to
+attach one name twice, it deletes the asset it has just uploaded and then 404s
+on it. The two other places in the same job that build this list were already
+deduplicated; this one was missed.
+
+It is deduplicated now, and the attach is confirmed from the other side the way
+the native snap job already did it: read the release's assets back and fail if
+this snap is not among them. An upload that reports success and leaves nothing
+behind is the failure nobody notices until somebody's download 404s - and here
+every job that lost an architecture had already said the snap was built and
+published.
+
+The fourth failure, **armhf**, is not this: `snapcraft` died with
+`SSLEOFError` while downloading the build log from Launchpad, on all three
+attempts, and produced no snap. That one is Launchpad's side of the wire.
+
+</details>
+
 **Starting up** - what a browser sees while WeKan cannot yet serve.
 
 <details>

@@ -4473,9 +4473,39 @@ jobs:
         run: |
           set -euo pipefail
           shopt -s nullglob
-          snaps=( wekan_${VERSION}_${{ matrix.arch }}*.snap *_${{ matrix.arch }}.snap )
+          # DEDUPLICATED, like the two places above that build this same list. The
+          # two patterns match the SAME file - `wekan_10.91_s390x.snap` matches
+          # both - so the array held one path twice, and `gh release upload
+          # --clobber` was asked to attach one name twice: it deleted the asset it
+          # had just uploaded and then 404'd on it.
+          #
+          #   HTTP 404: Not Found (https://uploads.github.com/repos/wekan/wekan/
+          #   releases/370103352/assets?label=&name=wekan_10.91_s390x.snap)
+          #
+          # v10.91 lost s390x, ppc64el and riscv64 from the GitHub Release that
+          # way. All three had BUILT, and all three were already published to the
+          # Snap Store by the step above - so the failure was only ever in the
+          # attaching, which is the half people download from.
+          snaps=( $(printf '%s\n' wekan_${VERSION}_${{ matrix.arch }}*.snap *_${{ matrix.arch }}.snap | sort -u) )
           if [ "${#snaps[@]}" -gt 0 ] && [ -s "${snaps[0]}" ]; then
-            gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${snaps[@]}" --clobber
+            if ! gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${snaps[@]}" --clobber; then
+              echo "::error::Could not attach ${snaps[*]} to release v${VERSION}. The snap BUILT and was published to the Snap Store by the step above, so this is the attaching alone - the half people download from."
+              exit 1
+            fi
+            # Confirm from the OTHER side, the way the native snap job does: an
+            # upload that reports success but leaves no asset behind is the
+            # failure nobody notices until a download 404s. v10.91 lost three
+            # architectures from the Release while every job that lost one had
+            # already said the snap was built and published.
+            gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" \
+              --json assets --jq '.assets[].name' > release-assets.txt
+            for snap in "${snaps[@]}"; do
+              if ! grep -qxF "$(basename "$snap")" release-assets.txt; then
+                echo "::error::$(basename "$snap") is not listed in release v${VERSION} although the upload reported success. Re-run this job."
+                exit 1
+              fi
+            done
+            echo "OK: ${snaps[*]} attached to release v${VERSION}."
           else
             echo "No ${{ matrix.arch }} snap to attach - the build produced none."
           fi
