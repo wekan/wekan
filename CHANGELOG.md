@@ -1209,9 +1209,9 @@ and fixes the following bugs:
 It could not reach them: that fix is the SNAP's, and this is a container.
 
 WeKan does not open its web port until the database answers, and in a container
-nothing else was listening while it waited - so a reverse proxy in front returned
-a gateway timeout, and that is the same symptom for two completely different
-faults: WeKan is broken, or the database has simply not come up yet.
+nothing else was listening while it waited - so a reverse proxy in front
+returned a gateway timeout, and that is the same symptom for two completely
+different faults: WeKan is broken, or the database has not come up yet.
 
 The entrypoint now asks whether the database answers (one `ping`, with the
 driver already in the bundle), and while it does not it serves the same bridge
