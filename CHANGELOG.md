@@ -1378,7 +1378,7 @@ which is worse than "unreadable".
 **Minicards** - what a click on one does.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH20">The stickers popup is wide enough to see the stickers</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f525b391a649e7b9cb2c683a3d3f622ec9a385be">The stickers popup is wide enough to see the stickers</a>. Thanks to xet7.</summary>
 
 A hundred and fifty icons, eight to a row, in a popup 380 pixels wide: a column
 taller than the screen, so choosing a sticker meant scrolling past most of them.
@@ -1391,7 +1391,7 @@ near the right edge would have landed half off screen.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH19">A label on a minicard opens the labels, and not the card as well</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f525b391a649e7b9cb2c683a3d3f622ec9a385be">A label on a minicard opens the labels, and not the card as well</a>. Thanks to xet7.</summary>
 
 Clicking a label opened the card's labels popup AND the card details behind it:
 the click reached the minicard too, so one click did two things and the one
