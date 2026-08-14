@@ -93,4 +93,18 @@ Activities.before.insert((userId, doc) => {
   doc.modifiedAt = doc.createdAt;
 });
 
+if (Meteor.isServer) {
+  // The card's Activities feed and the board's sidebar both ask for one scope
+  // sorted by createdAt descending, with a limit - the publication says so in
+  // its own comment about pushing the selector down to an index. There was no
+  // index to push it down to, so every poll walked the whole collection, which
+  // on a board with a year of history is the slowest thing a card does.
+  const { ensureIndex } = require('/server/lib/mongoStartup');
+  Meteor.startup(async () => {
+    await ensureIndex(Activities, { cardId: 1, createdAt: -1 });
+    await ensureIndex(Activities, { boardId: 1, createdAt: -1 });
+    await ensureIndex(Activities, { checklistId: 1 });
+  });
+}
+
 export default Activities;

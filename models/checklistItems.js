@@ -238,4 +238,14 @@ export async function publishChekListUncompleted(userId, doc) {
   }
 }
 
+if (Meteor.isServer) {
+  // The items of one checklist in their order, and the per-card queries the
+  // minicard's checklist badge and the card's own list make.
+  const { ensureIndex } = require('/server/lib/mongoStartup');
+  Meteor.startup(async () => {
+    await ensureIndex(ChecklistItems, { checklistId: 1, sort: 1 });
+    await ensureIndex(ChecklistItems, { cardId: 1 });
+  });
+}
+
 export default ChecklistItems;

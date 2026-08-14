@@ -3634,4 +3634,28 @@ Cards.helpers({
   },
 });
 
+if (Meteor.isServer) {
+  // #6595-adjacent, and the "still slow on loading cards" reports: the cards
+  // collection had NO index at all, so every query the board and the card make
+  // was a collection scan. That is invisible on a demo board and expensive
+  // everywhere else - and worse on FerretDB, whose SQLite backend has to walk
+  // the same documents. One user on a test server is enough to feel it, because
+  // it is not contention: it is the scan.
+  //
+  // Each of these is a selector the app really uses, with the sort it uses:
+  //   boardId + archived   the board and every window publication
+  //   listId + sort        a list's cards, in the order they are drawn
+  //   swimlaneId + sort    the swimlane view's rows
+  //   parentId             subtasks of a card
+  //   boardId + cardNumber searching by card number (#5006)
+  const { ensureIndex } = require('/server/lib/mongoStartup');
+  Meteor.startup(async () => {
+    await ensureIndex(Cards, { boardId: 1, archived: 1 });
+    await ensureIndex(Cards, { listId: 1, sort: 1 });
+    await ensureIndex(Cards, { swimlaneId: 1, sort: 1 });
+    await ensureIndex(Cards, { parentId: 1 });
+    await ensureIndex(Cards, { boardId: 1, cardNumber: 1 });
+  });
+}
+
 export default Cards;

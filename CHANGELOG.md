@@ -1198,6 +1198,36 @@ cost more than the fifteen lines it saved.
 
 and fixes the following bugs:
 
+**Performance** - what the database is asked, and what it has to walk.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH16">Cards, activities, comments and checklists are indexed at last</a>. Thanks to xet7.</summary>
+
+Reported by email against 10.91: *"Still slow on loading cards. Test server with
+me as only user."* One user is the part that says what it is NOT - with nobody
+else on the server there is no contention, no queue and no lock, so the time is
+going into the queries themselves.
+
+It was. **`cards`, `activities`, `cardComments`, `checklists` and
+`checklistItems` had no index at all** - everything a board draws and everything
+an opened card pulls in. "The cards of this list", "the comments of this card",
+"the newest activities of this board" each walked the whole collection. That is
+invisible on a demo board and expensive on a real one, and worse on FerretDB,
+whose SQLite backend has to walk the same documents.
+
+The activities publication even explains that it keeps its selector flat *"so
+both push down to FerretDB v1 (SQLite)'s index instead of forcing a
+full-collection scan"* - and there was no index for it to push down to.
+
+Each new index matches a selector the app really makes WITH the sort it really
+uses, so it serves both the filter and the order: a filter-only index still
+leaves an in-memory sort of everything it matched, which on a board with a year
+of history is the slow half. They are created through the same idempotent
+`ensureIndex` every other index here uses, so a restart does not rebuild them
+and a backend that refuses one logs it instead of stopping the server.
+
+</details>
+
 **Attachments and the snap's databases** - what can be read, and what cannot.
 
 <details>

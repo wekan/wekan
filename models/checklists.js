@@ -263,4 +263,14 @@ Checklists.before.insert((userId, doc) => {
     doc.userId = userId;
   }
 });
+if (Meteor.isServer) {
+  // A card's checklists in their own order, and the board-wide queries the
+  // export and the minicard badges make.
+  const { ensureIndex } = require('/server/lib/mongoStartup');
+  Meteor.startup(async () => {
+    await ensureIndex(Checklists, { cardId: 1, sort: 1 });
+    await ensureIndex(Checklists, { boardId: 1 });
+  });
+}
+
 export default Checklists;

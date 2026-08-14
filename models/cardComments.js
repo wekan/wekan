@@ -307,4 +307,14 @@ CardComments.textSearch = async (userId, textArray) => {
   return comments;
 };
 
+if (Meteor.isServer) {
+  // A card's comments, newest first - one selector, one sort, every time a card
+  // is opened.
+  const { ensureIndex } = require('/server/lib/mongoStartup');
+  Meteor.startup(async () => {
+    await ensureIndex(CardComments, { cardId: 1, createdAt: -1 });
+    await ensureIndex(CardComments, { boardId: 1 });
+  });
+}
+
 export default CardComments;
