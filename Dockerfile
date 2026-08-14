@@ -384,6 +384,10 @@ COPY --chmod=755 releases/ferretdb/wekan-entrypoint.sh /build/wekan-entrypoint.s
 # #6492: standalone "recovering data" page the entrypoint serves as a brief bridge on
 # the web port while a just-restored FerretDB comes back up during a data recovery.
 COPY --chmod=644 releases/ferretdb/recovery-bridge.mjs /build/recovery-bridge.mjs
+# #6595: the entrypoint asks this whether the database answers yet, so it can
+# serve the "waiting for database" page instead of leaving the web port unbound
+# for a reverse proxy to time out on.
+COPY --chmod=644 releases/ferretdb/db-ready.mjs /build/db-ready.mjs
 
 USER wekan
 ENV PORT=8080

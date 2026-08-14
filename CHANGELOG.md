@@ -1198,6 +1198,31 @@ cost more than the fifteen lines it saved.
 
 and fixes the following bugs:
 
+**Starting up** - what a browser sees while WeKan cannot yet serve.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH17">A container waiting for its database says so, instead of timing out</a>. Thanks to Alishara and xet7.</summary>
+
+*"We upgraded to 10.91 ... Gateway timeout appears"* -
+[#6595](https://github.com/wekan/wekan/issues/6595), from the same reporter as
+[#6592](https://github.com/wekan/wekan/issues/6592), whose fix shipped in 10.91.
+It could not reach them: that fix is the SNAP's, and this is a container.
+
+WeKan does not open its web port until the database answers, and in a container
+nothing else was listening while it waited - so a reverse proxy in front returned
+a gateway timeout, and that is the same symptom for two completely different
+faults: WeKan is broken, or the database has simply not come up yet.
+
+The entrypoint now asks whether the database answers (one `ping`, with the
+driver already in the bundle), and while it does not it serves the same bridge
+page the recovery case uses, saying **WeKan is waiting for its database** and
+where to look. What is bounded is the PAGE, not the wait: a database can take
+minutes to come up after an update, and giving up on it would be worse than
+waiting - so when the window ends the page stops, WeKan starts, and WeKan keeps
+waiting exactly as it did before. `WEKAN_DB_WAIT_PAGE=false` turns it off.
+
+</details>
+
 **Performance** - what the database is asked, and what it has to walk.
 
 <details>

@@ -191,6 +191,9 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     'ferretdb/start-wekan.sh': 'runs INSIDE the built snap/bundle, not here',
     'ferretdb/wekan-entrypoint.sh': 'the Docker image entrypoint',
     'ferretdb/recovery-bridge.mjs': 'runs inside the running server',
+    'ferretdb/db-ready.mjs': 'runs inside the container, from the entrypoint: it '
+      + 'asks whether the database answers yet so the wait can be a page rather '
+      + 'than an unbound port (#6595)',
     'ferretdb/start-wekan.bat': 'shipped INSIDE the Windows bundle, to start it',
     'build-bundle-win64.bat': 'a Windows batch script - bash cannot run it, so it '
       + 'is not a menu entry; build.bat\'s Bundles menu says to run it directly',

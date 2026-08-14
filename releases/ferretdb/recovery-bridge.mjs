@@ -13,10 +13,33 @@ import http from 'node:http';
 const PORT = parseInt(process.env.PORT || '80', 10);
 const PRODUCT = (process.env.PRODUCT_NAME || 'WeKan').replace(/[<>&]/g, '').slice(0, 80);
 
+// #6595: the same bridge answers the other reason a container has nothing on its
+// web port - WeKan is waiting for its database. A reverse proxy in front of it
+// returned "Gateway timeout", which says nothing about which of the two faults
+// it is: WeKan is broken, or the database has not come up yet. The snap already
+// serves a page for this (snap-src/bin/wekan-control); this is the container's.
+const REASON = process.env.WEKAN_BRIDGE_REASON === 'database' ? 'database' : 'recovery';
+const TEXT = REASON === 'database'
+  ? {
+    title: `${PRODUCT} is waiting for its database`,
+    lead: 'WeKan cannot serve anything until the database answers, and it is not '
+      + 'answering yet. Nothing is lost; this page is here so the wait is visible '
+      + 'instead of a timeout.',
+    muted: 'If it stays here, look at the database container\'s log - '
+      + '`docker logs` on the database, or `docker compose logs`. '
+      + 'This page refreshes automatically.',
+  }
+  : {
+    title: `${PRODUCT} is recovering your data`,
+    lead: 'Your data is being restored. The service will return automatically when '
+      + 'recovery finishes.',
+    muted: 'This page refreshes automatically. Please try again shortly.',
+  };
+
 const HTML = `<!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="refresh" content="10">
-<title>${PRODUCT} — Recovering data</title>
+<title>${TEXT.title}</title>
 <style>
   :root{color-scheme:light dark}
   body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;
@@ -34,9 +57,9 @@ const HTML = `<!DOCTYPE html><html lang="en"><head>
   @keyframes s{to{transform:rotate(360deg)}}
 </style></head><body>
 <div class="card">
-  <h1><span class="spin"></span>${PRODUCT} is recovering your data</h1>
-  <p>Your data is being restored. The service will return automatically when recovery finishes.</p>
-  <p class="muted">This page refreshes automatically. Please try again shortly.</p>
+  <h1><span class="spin"></span>${TEXT.title}</h1>
+  <p>${TEXT.lead}</p>
+  <p class="muted">${TEXT.muted}</p>
 </div></body></html>`;
 
 http.createServer((req, res) => {
@@ -46,4 +69,5 @@ http.createServer((req, res) => {
     'Cache-Control': 'no-store',
   });
   res.end(HTML);
-}).listen(PORT, () => console.log(`[recovery] serving the recovery page on port ${PORT} for all URLs`));
+}).listen(PORT, () => console.log(
+  `[${REASON}] serving the ${REASON === 'database' ? 'waiting for database' : 'recovery'} page on port ${PORT} for all URLs`));

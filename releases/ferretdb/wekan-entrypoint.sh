@@ -189,6 +189,47 @@ if [ -f "$FERRETDB_SQLITE_DIR/RECOVERY_IN_PROGRESS" ] && [ -f /build/recovery-br
   wait "$_rpid" 2>/dev/null || true
 fi
 
+# #6595: WAIT FOR THE DATABASE BEHIND A PAGE, not behind a closed port.
+#
+# WeKan does not open its web port until the database answers. In a container
+# nothing else was listening while it waited, so a reverse proxy in front
+# returned "Gateway timeout" - and that is the same symptom for two completely
+# different faults: WeKan is broken, or the database has simply not come up yet.
+# "We upgraded to 10.91 ... Gateway timeout appears" is that report. The snap
+# has served a page for this since 10.91 (snap-src/bin/wekan-control); this is
+# the container's half of it.
+#
+# The wait is NOT a timeout on the database: a database can take minutes to come
+# up after an update, and giving up on it would be worse than waiting. What is
+# bounded is the PAGE - once WeKan starts it needs the port - so after
+# WEKAN_DB_WAIT_MAX_SECONDS the page stops and WeKan starts anyway and keeps
+# waiting itself, exactly as before this. Set WEKAN_DB_WAIT_PAGE=false to keep
+# the old behaviour.
+if [ "${WEKAN_DB_WAIT_PAGE:-true}" = "true" ] && [ -f /build/db-ready.mjs ] \
+   && [ -f /build/recovery-bridge.mjs ] && [ -n "${MONGO_URL:-}" ]; then
+  _db_node_path="/build/programs/server/node_modules"
+  if ! NODE_PATH="$_db_node_path" node /build/db-ready.mjs "$MONGO_URL" 2>/dev/null; then
+    _wait_max="${WEKAN_DB_WAIT_MAX_SECONDS:-600}"
+    echo "The database is not answering yet; serving the 'waiting for database' page on port ${PORT:-8080} while it comes up."
+    WEKAN_BRIDGE_REASON=database PORT="${PORT:-8080}" PRODUCT_NAME="${PRODUCT_NAME:-WeKan}" \
+      node /build/recovery-bridge.mjs &
+    _dbpid=$!
+    _dbw=0
+    while [ "$_dbw" -lt "$_wait_max" ]; do
+      sleep 3; _dbw=$((_dbw + 3))
+      if NODE_PATH="$_db_node_path" node /build/db-ready.mjs "$MONGO_URL" 2>/dev/null; then
+        echo "The database is answering; starting WeKan."
+        break
+      fi
+    done
+    [ "$_dbw" -ge "$_wait_max" ] && \
+      echo "The database has not answered in ${_wait_max}s; starting WeKan anyway, which will keep waiting for it."
+    # The page holds the web port, so it has to be gone before WeKan binds it.
+    kill "$_dbpid" 2>/dev/null || true
+    wait "$_dbpid" 2>/dev/null || true
+  fi
+fi
+
 ulimit -s 65500
 if [ -x /build/cpu-exec ]; then
   exec /build/cpu-exec node /build/main.js
