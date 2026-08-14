@@ -377,11 +377,28 @@ turn off decorative movement, and browsers without `backdrop-filter` receive
 solid readable surfaces. Minicards deliberately avoid a blur layer of their own
 so large boards remain practical to scroll and drag. Source-contract tests and
 browser coverage pin the global, board-only, Admin, desktop-login and
-mobile-login states.
+mobile-login states. A final responsive pass also hardens RTL authentication,
+long mobile board names, quick-access gutters and Admin glass-island sizing.
 
 </details>
 
 and fixes the following bugs:
+
+**Apple Glass responsive surfaces** - keeping the redesigned UI inside its
+viewport at the edges of RTL and small-screen layouts.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e5c32ca30">Apple Glass stays contained in RTL and on small screens</a>. Thanks to xet7.</summary>
+
+The authentication split now uses explicit physical grid columns and swaps the
+logo and form tracks deliberately in RTL, avoiding Chromium paint overlap while
+keeping the form's language direction correct. On phones, long All Boards names
+wrap and grow their row instead of being clipped, the quick-access header counts
+its gutters inside the viewport, and Admin Panel glass islands can shrink below
+long content without horizontal overflow. Browser checks cover Chromium and
+Firefox desktop/mobile geometry, viewport containment and visible paint order.
+
+</details>
 
 **Cards on the board** - opening one, and closing it again.
 
