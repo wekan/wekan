@@ -947,7 +947,7 @@ two halves cannot disagree again.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/COMMITHASH3">Custom Fields and Edit custom fields are one group in the card's menu</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8d0a457e6893756c4cddf58ec776e728005e01c8">Custom Fields and Edit custom fields are one group in the card's menu</a>. Thanks to xet7.</summary>
 
 The board's LIST of custom fields - where a field is created, renamed or
 deleted - was in Board Settings only, and the picker for which of those fields
