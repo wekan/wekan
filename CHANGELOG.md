@@ -753,6 +753,39 @@ click outside. No other theme does that, and Dark no longer does either.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d5b69137cc3090e5b0ca503d1a516b6518d401c7">Member Settings / Font / Size moves all of the text, not the part written in rem</a>. Thanks to xet7.</summary>
+
+Picking **Largest** grew the page heading and the minicards and left the header
+bar, the left menu, the lists, the swimlane header and every popup exactly as
+they were - a setting that half-works, which is harder to use than one that does
+nothing.
+
+The preset was a **percentage on the root element**, and a root percentage only
+reaches text whose size is written in a RELATIVE unit: `rem` is measured against
+the root, `em` against its parent. WeKan writes most of its sizes in **px**, and
+px is absolute - no root percentage moves it. So exactly the rem-sized parts
+scaled. The base rule made it worse: `html, body, input, select, textarea,
+button` re-stated `font: 14px …`, so the body took the stock size straight back
+off the scaled root, and everything inheriting from the body with it.
+
+The preset is now published as a NUMBER as well
+(`--wekan-ui-font-scale`), and every px `font-size` and `line-height` in the
+client stylesheets - 433 declarations across 37 files - is written
+`calc(14px * var(--wekan-ui-font-scale, 1))`. One preset moves the whole
+interface. `line-height` scales with the size on purpose: 21px of type in an
+18px line box is the same setting half-applied.
+
+Nothing renders differently until a preset is chosen: the fallback in every one
+of those declarations is `1`, and the variable is REMOVED for **Default**, so an
+instance where nobody touched the setting computes exactly the sizes it always
+did. The base font rule is split into `font-family` and `font-size` because the
+shorthand's size was the one thing the setting had to be able to move. A guard
+fails on any bare px `font-size` or `line-height` added later, so a new one
+cannot quietly opt out of the setting.
+
+</details>
+
 **Search** - finding a card by what people call it.
 
 <details>
