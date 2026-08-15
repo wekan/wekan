@@ -387,6 +387,85 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** one **CRITICAL** fix. With registration turned OFF in the Admin
+Panel, `POST /users/register` created accounts anyway — for anybody who asked,
+on an instance whose administrator had decided nobody else may join. The guard
+that was supposed to stop it read a Meteor option WeKan never sets, so it was
+always false and the endpoint had never refused anyone. It was found while
+reviewing a pull request about the opposite symptom.
+
+| Platform | Binary | From | Version | SHA256 |
+| --- | --- | --- | --- | --- |
+| amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
+| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-amd64) | v1.53.0 | `eae1f0a8f73bfc979738bfff7284d40fd1bc55de2cc56514721fc155c3624f7d` |
+| arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
+| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-arm64) | v1.53.0 | `bdc50caee3ac28495b42d2130b94a042a9dd6d3a38f732cac02b648f36c891da` |
+| mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-arm64.tar.xz) | v24.19.0 | `3f1cf157479c1480352083105e13faf9d008ede98e7e157746b6df940d197b94` |
+| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
+| mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
+| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release fixes the following CRITICAL SECURITY ISSUE of [SignupBleed](https://wekan.fi/hall-of-fame/signupbleed/):
+
+**Account creation** - who may make an account, and who decides.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dfab7be916318086d035d8ae8d149013e2b8fa0f">SignupBleed: registration disabled, and the REST API created accounts anyway</a>. Thanks to AhmedLukman and xet7.</summary>
+
+Turning **Registration** off in the Admin Panel closes the sign-up form. It did
+not close `POST /users/register`, which went on creating accounts and handing
+back login tokens to anyone who asked. A closed instance was open.
+
+The endpoint did have a guard. It asked
+`Accounts._options.forbidClientAccountCreation` — and **nothing in WeKan ever
+sets that**:
+
+- the only `Accounts.config()` call, in `server/accounts-common.js`, sets
+  `loginExpirationInDays` and nothing else;
+- `forbidClientAccountCreation: disableRegistration` in `config/accounts.js` is
+  passed to `AccountsTemplates.configure()`, which is the useraccounts package's
+  own options object, not Meteor's `Accounts`;
+- and that `disableRegistration` is only assigned inside an async
+  `Meteor.call('isDisableRegistration', …)` callback that fires AFTER
+  `configure()` has already run — something the file's own comment records, for
+  a different reason, a few lines above.
+
+Three near-misses, and the condition was always falsy. The guard read as though
+it worked, which is why it lasted: the name says exactly what it ought to do.
+
+It reads the setting from where the setting lives now - the same
+`getCurrentSetting().disableRegistration === true` that the
+`isDisableRegistration` Meteor method behind the sign-up form uses, so the form
+and the API can no longer disagree about whether the door is open. An instance
+with no Settings document yet still allows registration rather than locking
+itself out.
+
+Every call that reaches the refusal is recorded and shows in **Admin Panel /
+Problems** under `authz.register`. That is safe to log without drowning the page
+precisely because there is no legitimate caller: the administrator has turned
+registration off.
+
+**How it was found.** [#6598](https://github.com/wekan/wekan/pull/6598) by
+AhmedLukman changed this guard to read WeKan's setting, filed against
+[#4774](https://github.com/wekan/wekan/issues/4774) — a *403 Forbidden* from
+this endpoint that nobody had been able to reproduce, and which this line cannot
+produce, since it never returned 403 at all. The pull request was closed and the
+fix written here with a security log entry and the tests the route had never
+had; the finding is the reporter's.
+
+Nine tests, four of them negative, on an endpoint that had none: that the
+setting is read where the Meteor method reads it, that the dead option is not
+consulted again AND is still set nowhere — so a later change cannot quietly
+reintroduce two sources of truth that disagree — that an enabled instance still
+creates the user and answers with its token, and that a missing Settings
+document does not refuse everybody.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.95 2026-08-16 WeKan ® release
 
 **In short:** the Sandstorm `.spk` still will not pack - Sandstorm refuses an
