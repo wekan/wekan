@@ -412,7 +412,7 @@ This release fixes the following CRITICAL SECURITY ISSUE of [SignupBleed](https:
 **Account creation** - who may make an account, and who decides.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/dfab7be916318086d035d8ae8d149013e2b8fa0f">SignupBleed: registration disabled, and the REST API created accounts anyway</a>. Thanks to AhmedLukman and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a3f1b626292cc8cb16d3cfd71ba30009cfc5f935">SignupBleed: registration disabled, and the REST API created accounts anyway</a>. Thanks to AhmedLukman and xet7.</summary>
 
 Turning **Registration** off in the Admin Panel closes the sign-up form. It did
 not close `POST /users/register`, which went on creating accounts and handing
