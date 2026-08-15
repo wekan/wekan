@@ -479,10 +479,25 @@ All publishing / release steps below are maintainer-only. Contributors never run
 - WeKan: run `./releases/release-all.sh` (no arguments). It renames
   `# Upcoming WeKan ® release` to the next version (same increment as the last release;
   9.99 → 10.00) dated today, commits + pushes, and triggers
-  `.github/workflows/release-all.yml` (its `bump` job bumps `package.json` and every
-  version reference, then the release jobs tag `v<new>` and publish the GitHub Release).
-  An explicit `oldversion newversion` pair still overrides. Adding entries under Upcoming
-  is the only hand step.
+  `.github/workflows/release-all.yml` — whose `bump` job bumps `package.json` and every
+  version reference and rebuilds the API docs, whose `prepare` job then pushes the tag
+  `v<new>` and checks the notes exist, and whose `release` job publishes the GitHub
+  Release the bundle jobs attach to. An explicit `oldversion newversion` pair still
+  overrides. Adding entries under Upcoming is the only hand step.
+- **A release that FAILED and one that shipped BROKEN are handled differently, and
+  the difference is whether anything was PUBLISHED.** Both happened with v10.92, so
+  neither is hypothetical:
+  - **Nothing published** (the workflow died before the GitHub Release existed): there
+    is no release for that number, so `# v<new> …` must not claim there is one. Rename
+    the heading back to `# Upcoming WeKan ® release`, add the fix under it, and run
+    `release-all.sh` again — it will take the same number, since the newest release is
+    still the previous one.
+  - **It published, and something in it is broken**: the release exists and people can
+    download it, so its section STAYS as it is — a released section is a record, not a
+    draft. Add a NEW `# Upcoming WeKan ® release` above it with the fix, exactly as
+    during ordinary development, and the next run takes the next number.
+  What decides it is the GitHub Release, not the tag: `prepare` pushes the tag early,
+  so a tag can exist for a release that never published.
 - FerretDB: run `./build.sh release-ferretdb` from `.tools/FerretDB` (no
   version). It renames `## Upcoming FerretDB release` to the next version with the
   correct git-tag link, commits + tags + pushes, then triggers `release-all.yml` (which

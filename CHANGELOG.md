@@ -362,6 +362,108 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **Docker did not work in v10.92**, and this is that fixed. The
+"waiting for database" page added in that release stood in front of a database
+that was answering everyone else: the probe behind it looked for the MongoDB
+driver where a production bundle does not keep one, so it never asked the
+database anything, and the login page did not load for the ten minutes the page
+was allowed to hold the web port. The snap was never affected - it serves its
+own page and never runs that probe. Two further faults found while proving it
+are fixed with it: the probe forced a connection option a replica-set URL
+refuses, and it said nothing at all about why it had failed, which is now
+printed and put on the page itself.
+
+| Platform | Binary | From | Version | SHA256 |
+| --- | --- | --- | --- | --- |
+| amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
+| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-amd64) | v1.53.0 | `eae1f0a8f73bfc979738bfff7284d40fd1bc55de2cc56514721fc155c3624f7d` |
+| arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
+| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-arm64) | v1.53.0 | `bdc50caee3ac28495b42d2130b94a042a9dd6d3a38f732cac02b648f36c891da` |
+| armhf | Node.js | [wekan/node-patches](https://github.com/wekan/node-patches/releases/download/v24.19.0/node-armhf) | v24.19.0 | `b55350f3071b765a98ed66fdc410657ff168a937935057077fd7ab33cb30b9aa` |
+| armhf | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-armhf) | v1.49.0 | `144404fb9793dc8e039874812f4e2cb3e6d8b1df0ffdbe50254e7790a342a2f4` |
+| armv6 | Node.js | [wekan/node-patches](https://github.com/wekan/node-patches/releases/download/v24.19.0/node-armv6) | v24.19.0 | `128ded0cda638c1f144eadb23ad249889515df017d298fd49c8faf3db110f0f1` |
+| armv6 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-armv6) | v1.49.0 | `7c27b2c15448709a24eace9b3c951c62fbe33413f7d20d56cb5520f4436efe2d` |
+| armv7 | Node.js | [wekan/node-patches](https://github.com/wekan/node-patches/releases/download/v24.19.0/node-armv7) | v24.19.0 | `8dbe0a9aa8550ad5275c5538ebf868eb2037f0c4d9cccbe319f63b7e5854cd45` |
+| armv7 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-armhf) | v1.49.0 | `144404fb9793dc8e039874812f4e2cb3e6d8b1df0ffdbe50254e7790a342a2f4` |
+| i386 | Node.js | [wekan/node-patches](https://github.com/wekan/node-patches/releases/download/v24.19.0/node-i386) | v24.19.0 | `3b0b3bbfe27daf583b3a0f432efacc508407a012cdd9e8847250e7c015565bac` |
+| i386 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-i386) | v1.49.0 | `1f70cb1687411b2a0fa9ac3b5bfc8c4ed9ce25ec2ddfa17e6fd3efb38136a39c` |
+| mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-arm64.tar.xz) | v24.19.0 | `3f1cf157479c1480352083105e13faf9d008ede98e7e157746b6df940d197b94` |
+| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-mac-arm64) | v1.49.0 | `576364db59dfce3ba564b9a3e484496eb57f95d76d2007b9f83241acdbd2f4fa` |
+| mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
+| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-mac-amd64) | v1.49.0 | `37d70cd90aad6d3867b6686507ff1888f1edf6791818c31d014d130e8f39fc14` |
+| ppc64le | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-ppc64le.tar.xz) | v24.19.0 | `c510c6ce12f07010f771e6edb22a3fe23f4f2e6f40b1ffd4941aed0646a0d8b3` |
+| ppc64le | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-ppc64le) | v1.49.0 | `7c61d4853d5163ad8761449d693fd458ebbb8611a2351c718014876242c5b1fb` |
+| riscv64 | Node.js | [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-riscv64.tar.xz) | v24.19.0 | `cd1f14af2812148002f58b58a5f9af512a50e3b8e8c148e0db44019dcb68edfd` |
+| riscv64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-riscv64) | v1.49.0 | `bd4912da70f5e6c1475ab989668c76b4ab7db4ee06c44357693df64f5e1d0e0b` |
+| s390x | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-s390x.tar.xz) | v24.19.0 | `a4792e65962ffa0af42627aacf1122a60c3c88dbf4e4184f06820d66f9da8ba4` |
+| s390x | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-s390x) | v1.49.0 | *no checksum published* |
+| win-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-arm64.zip) | v24.19.0 | `8502f4a50b458d4cc38ed8f2001556c2cd239d464920f74017926ccb1e1c157f` |
+| win-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-win-arm64.exe) | v1.49.0 | `792166623e774b0af2aced31ed3ae39f545ca5268dc4c2b8d1a329228ff52cbc` |
+| win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
+| win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-win64.exe) | v1.49.0 | `f42c50aa84095a9616b00f27a584c66b7bf79e3b109450c62a5f146ba3c85478` |
+
+This release fixes the following bugs:
+
+**Starting up** - what a browser sees while WeKan cannot yet serve.
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/df41f61c2600bcbe52dca3b260f7219992946228">The waiting page hid a healthy WeKan: the probe never found a driver to ask with</a>. Thanks to Alishara and xet7.</summary>
+
+Reported against this release, with a screenshot: the login page never loads,
+the container logs *The database is not answering yet* and serves the waiting
+page, while `mongosh` on the host talks to the same MongoDB without complaint -
+a Meteor 3 production setup from
+[docs/Platforms/FOSS/Container/Docker/Meteor3](https://github.com/wekan/wekan/tree/main/docs/Platforms/FOSS/Container/Docker/Meteor3),
+MongoDB 7.0.40, replica set `rs0`, `network_mode: host`, `MONGO_URL` a single
+host with `authSource`. **10.91 worked and this did not**, which is the whole
+story: the page is new here, and it is what broke.
+
+The database was never the problem. `db-ready.mjs` asked for the driver at
+`programs/server/node_modules` only - and `mongodb` is a **devDependency, not a
+dependency**, so a production bundle has NOTHING there. Meteor's own driver
+lives under `programs/server/npm/node_modules/meteor/npm-mongo`. `require` threw
+`MODULE_NOT_FOUND` on every ask, in every container, whatever the database was
+doing; the `catch` turned that into "not ready", the entrypoint sent the reason
+to `/dev/null`, and WeKan sat behind the page for the whole ten-minute window
+before starting.
+
+The snap already carries this scar. Its `db-eval.mjs` says so in a comment -
+*"made WeKan loop 'MongoDB not ready' forever"* - and resolves the driver from a
+list of bundle paths; `db-ready.mjs` now uses the same list. That is also why
+the snap was unaffected by any of this: it serves its own page from
+`wekan-control` and never runs `db-ready.mjs` at all.
+
+**No driver no longer means a page.** It exits 2, distinct from 1, and the
+entrypoint starts WeKan without the page: "I could not ask" is not evidence that
+anything is wrong, and a page shown on that basis hides a WeKan that would have
+served fine. Docker with an external MongoDB needs no waiting screen, and it no
+longer gets one it has not earned.
+
+Two more faults were found while proving it, both of which could hold the page
+in front of a working database on their own:
+
+- The probe forced `directConnection: true`. For one host that is harmless; a
+  replica set is normally a SEED LIST, and the driver refuses that outright -
+  *MongoParseError: directConnection option requires exactly one host*. The
+  throw happened while the client was being CONSTRUCTED, outside the `try`, so
+  the probe died with an unhandled error. The options come from the URL now,
+  which is also the more correct question: WeKan connects with the URL as
+  written, so a probe that quietly connects DIFFERENTLY can report ready for a
+  database WeKan cannot reach - dropping the page and leaving the port closed,
+  which is the exact fault the page exists to prevent.
+- Nothing said why. The first probe's reason is printed now, the three-second
+  poll stays quiet, the last one reports again if the window expires - and the
+  reason is put **on the page**, because whoever is waiting is looking at a
+  browser, not at `docker logs`. *MongoServerSelectionError: connect
+  ECONNREFUSED wekan-db:27017* names the host that could not be reached.
+
+`WEKAN_DB_WAIT_PAGE=false` still turns the whole thing off.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.92 2026-08-15 WeKan ® release
 
 **In short:** this was tagged **v10.92** and never published: its release job
@@ -1780,60 +1882,6 @@ waiting exactly as it did before. `WEKAN_DB_WAIT_PAGE=false` turns it off.
 
 </details>
 
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/df41f61c2600bcbe52dca3b260f7219992946228">The waiting page hid a healthy WeKan: the probe never found a driver to ask with</a>. Thanks to Alishara and xet7.</summary>
-
-Reported against this release, with a screenshot: the login page never loads,
-the container logs *The database is not answering yet* and serves the waiting
-page, while `mongosh` on the host talks to the same MongoDB without complaint -
-a Meteor 3 production setup from
-[docs/Platforms/FOSS/Container/Docker/Meteor3](https://github.com/wekan/wekan/tree/main/docs/Platforms/FOSS/Container/Docker/Meteor3),
-MongoDB 7.0.40, replica set `rs0`, `network_mode: host`, `MONGO_URL` a single
-host with `authSource`. **10.91 worked and this did not**, which is the whole
-story: the page is new here, and it is what broke.
-
-The database was never the problem. `db-ready.mjs` asked for the driver at
-`programs/server/node_modules` only - and `mongodb` is a **devDependency, not a
-dependency**, so a production bundle has NOTHING there. Meteor's own driver
-lives under `programs/server/npm/node_modules/meteor/npm-mongo`. `require` threw
-`MODULE_NOT_FOUND` on every ask, in every container, whatever the database was
-doing; the `catch` turned that into "not ready", the entrypoint sent the reason
-to `/dev/null`, and WeKan sat behind the page for the whole ten-minute window
-before starting.
-
-The snap already carries this scar. Its `db-eval.mjs` says so in a comment -
-*"made WeKan loop 'MongoDB not ready' forever"* - and resolves the driver from a
-list of bundle paths; `db-ready.mjs` now uses the same list. That is also why
-the snap was unaffected by any of this: it serves its own page from
-`wekan-control` and never runs `db-ready.mjs` at all.
-
-**No driver no longer means a page.** It exits 2, distinct from 1, and the
-entrypoint starts WeKan without the page: "I could not ask" is not evidence that
-anything is wrong, and a page shown on that basis hides a WeKan that would have
-served fine. Docker with an external MongoDB needs no waiting screen, and it no
-longer gets one it has not earned.
-
-Two more faults were found while proving it, both of which could hold the page
-in front of a working database on their own:
-
-- The probe forced `directConnection: true`. For one host that is harmless; a
-  replica set is normally a SEED LIST, and the driver refuses that outright -
-  *MongoParseError: directConnection option requires exactly one host*. The
-  throw happened while the client was being CONSTRUCTED, outside the `try`, so
-  the probe died with an unhandled error. The options come from the URL now,
-  which is also the more correct question: WeKan connects with the URL as
-  written, so a probe that quietly connects DIFFERENTLY can report ready for a
-  database WeKan cannot reach - dropping the page and leaving the port closed,
-  which is the exact fault the page exists to prevent.
-- Nothing said why. The first probe's reason is printed now, the three-second
-  poll stays quiet, the last one reports again if the window expires - and the
-  reason is put **on the page**, because whoever is waiting is looking at a
-  browser, not at `docker logs`. *MongoServerSelectionError: connect
-  ECONNREFUSED wekan-db:27017* names the host that could not be reached.
-
-`WEKAN_DB_WAIT_PAGE=false` still turns the whole thing off.
-
-</details>
 
 **Performance** - what the database is asked, and what it has to walk.
 
