@@ -378,8 +378,7 @@ bundle, to fixed versions in the same major, by a manifest the release jobs and
 the `Dockerfile` share. Below that: the guard suites that keep both from coming
 back, and what could NOT be fixed and why. Then **card export**: the PDF and
 Excel exports of a card were two different answers to "what is on this card",
-and
-are now one - the same fields under the same translated labels, dates in the
+and are now one - the same fields under the same translated labels, dates in the
 reader's own **time zone** and in the **date format the opened card shows**, and
 a description's markdown drawn as **bold** and *italic* rather than stripped.
 On top of that, **#1173** after eight years: a **board**, a **swimlane** or a
@@ -396,11 +395,20 @@ needed, and a field made from a card that was silently never created - a test
 that pins that a browser downloads **one** language file and not all 246 of
 them, and **81 languages** taken past the words on the board into the menus and
 the login page, beside the **Export** row that read as the lowercase key
-`export` in every one of them because that key had never existed. Four files
-turned out not to be in the language on the tin at all - **Korean** in Japanese
-kana, **Georgian** in Russian, **Hindi** in Gujarati and **Tamil** in Telugu,
-3,984 strings between them - and all four are now written in their own script,
-found by a scan that stays as the guard.
+`export` in every one of them because that key had never existed. And then the
+translations turned out to have a much older problem than any missing string:
+**8,716 values were written in the wrong language entirely**, which no count had
+ever reported because nothing was looking. **Korean** held Japanese,
+**Georgian** Russian, **Hindi** Gujarati, **Tamil** Telugu — and, once a second
+check asked about the Latin alphabet inside a language that is not written in
+it, **Greek** held Italian, **Thai** Vietnamese and **Algerian Arabic** French.
+All of it is translated now, and the scan that found it stays as the guard,
+reporting zero for both of its checks across all 246 files. Below that: the
+search operators a user TYPES, in the language they read; the one-letter
+shorthands beside them, each derived from that language's own word; and the
+panels a file never had because they were added after it was last touched. Then
+dependency updates, thirty-odd bug fixes, the developer-facing changes, and the
+rest of the translation work.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1203,7 +1211,7 @@ it ended - one rule per heading and no stray separators, which a test counts.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b77299c8063859f11855467bbfd59e0a6097c7bc">A component that other components import now loads its own template, so the client bundle cannot die at startup</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b77299c8063859f11855467bbfd59e0a6097c7bc">A component that others import loads its own template, so the client bundle cannot die at startup</a>. Thanks to xet7.</summary>
 
 `Template.exportScopeBody.helpers(...)` runs at module scope, and it throws when
 that template is not defined YET. That does not break one popup - it stops the
@@ -1657,202 +1665,6 @@ caret cannot point one way on a card and another in the sidebar of the same
 language - it points down when open, and toward the text when closed, which is
 right in English and left in Arabic. It carries `role="button"` and a tabindex,
 so Enter and Space do what a click does.
-
-</details>
-
-and has the following developer-facing changes:
-
-**Language loading** - which of the 246 language files a visitor is sent.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/59c742e6c95b42529b53ec33d2f2d075108e78d9">The browser downloads one language, and a test says so</a>. Thanks to xet7.</summary>
-
-`imports/i18n/data/` is 37 MB across 246 files, every one of them reachable from
-the client. The only thing keeping them out of the initial bundle is that each
-entry in `imports/i18n/languages.js` loads its file through
-`() => import('./data/<tag>.i18n.json')` - a call Meteor's `dynamic-import`
-package code-splits into a module fetched on demand - and that `tap.js` imports
-exactly ONE of them statically, English, so the interface stays readable when
-dynamic import is broken ([#6503](https://github.com/wekan/wekan/issues/6503)).
-
-That was true when checked and nothing pinned it. A single
-`import data from './data/xx.i18n.json'` added anywhere on the client would
-quietly ship that language to every visitor, and nothing about the app would
-look wrong - it would just be a heavier download, which no other test measures.
-
-`tests/i18nLazyLoading.test.cjs` checks the six things that have to hold
-together: every registered language has a dynamic loader, `languages.js` pulls
-in no data itself, `tap.js` statically imports English and nothing else, the
-loader is called once for the single resolved tag rather than mapped over the
-registry, no client file bundles a language file, and `dynamic-import` is still
-in `.meteor/packages`. A negative test proves the detector really sees a static
-import, so the other checks cannot pass by failing to look.
-
-</details>
-
-**Browser tests** - the guards that drive a real browser, and what they say.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/acaaa3c03fa67e1130f694ac2dbbba3802daad3d">Three page objects still described the markup as it was before it moved</a>. Thanks to xet7.</summary>
-
-A run failed the same four tests in Chromium and in Firefox, and three of the
-four were the guard describing the OLD markup rather than the app being wrong.
-
-`editTitle` waited for both `js-card-title` and `js-open-inlined-form` on ONE
-element. The title splits now - the leading half opens the editor and the rest
-of the heading drags the window - so the class is a DESCENDANT of the title, and
-the old selector matched nothing and waited out its timeout.
-
-The Activities heading in the board sidebar carries TWO icons since the caret
-became shared with the card sections: the caret that says whether the section is
-open, and the section’s own comment icon. A bare `i.fa` matches both, which
-Playwright fails as a strict-mode violation rather than picking one. The spec
-asks for the caret specifically now - the three directions `caretClassFor` can
-produce - which is also a stronger assertion, since the caret is the part that
-indicates state.
-
-The fourth was not a guard at all: see the Custom Fields fix above.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/7a08f081241336aedcd7a57da1678e8d104d8f53">Wait for the client bundle before calling a Meteor method</a>. Thanks to xet7.</summary>
-
-Four Firefox-only failures, all the same cause: *Meteor is not defined*, and in
-the fourth a count that came back as the string *error: can’t access property
-"callAsync", window.Meteor is undefined*. Chromium and WebKit passed all four.
-
-Waiting for `networkidle` says the NETWORK went quiet, not that the client
-bundle has finished executing. Under the three-browser parallel run against one
-shared server, Firefox reached the evaluate with `Meteor` still undefined - the
-bundle is large and had been fetched but not yet run.
-
-`helpers/auth.js` has had `waitForMeteor` for exactly this since WebKit needed
-it; these two specs simply never called it. It is idempotent and returns at once
-when Meteor is already up, so it costs the browsers that were passing nothing.
-
-</details>
-
-**Shared templates** - one piece of markup, or one component, not many copies.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/9c288c3d4d8045cdd1d76b68b64fc91c414288c9">The date markup is written once instead of twenty-two times</a>. Thanks to xet7.</summary>
-
-Two shapes were copied across three files. The **edit-a-date form** - date,
-time, Save, Delete - existed **eight times**, letter for letter: the card's
-Received, Start, Due and End, a vote's end date, a planning poker's end date, a
-date custom field, and a ninth `datepicker` template that nothing included and
-no popup could open. The **date badge** - the coloured date on a card and on a
-minicard - existed **fourteen times**.
-
-The JavaScript was already shared: `client/lib/datepicker.js` holds the state
-and the handlers, and each popup differs only in the field it stores. It was
-only the markup, so a change to the form meant eight edits and a change to the
-badge meant fourteen, with nothing to say so.
-
-Each is one template now. They take what they draw as ARGUMENTS, because a
-helper is looked up on the template it is written in and not on the one
-including it - which is what lets one piece of markup serve them all while every
-popup keeps its own state, its own click and its own name. `cardDate.jade` went
-from 289 lines to 91.
-
-The badge's `baseClass` is the trap this had to avoid: three of the fourteen -
-the custom-field dates - were never `.card-date` and must not become one, so the
-class each caller carried is passed in rather than baked into the shared markup.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/82db0800ef6cda8adae06ac3e4f34d3517309a37">Move/Copy selection and Move/Copy swimlane are one dialog each, not two</a>. Thanks to xet7.</summary>
-
-Both pairs duplicated their whole component, not only their markup. The
-selection dialog was 152 lines twice over and 145 of them were the same: the
-four reactive selections, the four selects' helpers, the change handlers and the
-sort-index maths. The seven lines that differed are what each does to a card
-once the destination is known - move it, or copy it and move the copy - which is
-one `applyToCard` passed to one registration now. The swimlane pair is the same
-story with one difference instead of seven: the method called on Done.
-
-The markup is one template each too, handed the popup's own instance as
-`dialog`, because a helper is looked up on the template it is written in. What
-the two copies really differed in was the ids their labels point at, so those
-are passed in - and the title's id has to arrive as an `id=` attribute, since a
-literal id cannot hold a mustache.
-
-`sidebarFilters.js` lost 106 lines, `sidebarFilters.jade` 17 and
-`swimlanes.jade` 10, and the scan for near-duplicate templates is at 7 pairs
-from the 74 it started at. `tests/sharedFormTemplates.test.cjs` covers both.
-
-</details>
-
-**The test harness** - what a test run does before the tests.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/92650b782ec4ea427dc39f783b5e1a26869e395f">Reuse the test database only when it answers, not when the port is open</a>. Thanks to xet7.</summary>
-
-A run reported "WeKan tests FAILED" while the node suites, mocha and the import
-regression had all passed. What failed was the test server, on its first query -
-`MongoTopologyClosedError: Topology is closed` - because the harness had decided
-to reuse a database that was not there: it asked whether the port was open, and
-something else was holding it.
-
-An open port is not a database. The check is a query now, so a port held by
-anything else means the harness starts its own rather than handing the server a
-socket that answers and then closes.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/590ccf3e81d173516281c86b12dc97bface9afcc">The test database moves off a port another program owns</a>. Thanks to xet7.</summary>
-
-The next run stopped where the previous one had died, and the port said why:
-127.0.0.1:3001 on that machine is an "Omi Server" answering HTTP. A test
-database that cannot have the port it wants now takes the next free one and
-tells the rest of the run which it took, instead of failing at the first query
-against whatever was already listening.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/53c3123de5dc82f9c010792989adf55cc15bffb6">Three forms that were written ten times over are written once</a>. Thanks to xet7.</summary>
-
-Three more shapes were copied, and in each of them the JavaScript was already
-one piece while the markup was not - so a behaviour change was one edit and a
-markup change was four:
-
-- **where a card goes** - board, swimlane, list, above or below which card, and
-  Done - drawn four times, by Move card, Copy card, Copy checklist to many
-  cards and Convert checklist item to card;
-- **where a list goes** - drawn twice, by Copy list and Move list;
-- **the Create Board form** - drawn four times, by the one on All Boards and
-  three popups, one of which creates a TEMPLATE board and says so with a
-  Session flag rather than with different markup.
-
-Each is one template now, and what it shows is passed in. The two pickers are
-handed the `dialog` and read it from the template INSTANCE: inside `each
-boards` the data context is a board, so a helper reaching into the context for
-it would find nothing there.
-
-The events stay with the popups. An event inside an included template bubbles
-to the one that includes it, which is the one holding the state - that is what
-lets four popups do four different things with one form.
-
-Two more went the same way, and those had their whole COMPONENT duplicated as
-well: **Move selection / Copy selection** - 145 of the dialog's 152 lines were
-identical, the other seven being what each does to a card once the destination
-is known - and **Move swimlane / Copy swimlane**, where the only difference is
-the method called on Done. Both are one registration now, taking that
-difference as an argument, and `sidebarFilters.js` lost 106 lines.
-
-`cardDetails.jade` lost 71 lines, `boardHeader.jade` 58, `sidebarFilters.jade`
-17, `listHeader.jade` 10 and `swimlanes.jade` 10, and a scan for near-duplicate
-templates went from **74 pairs to 7**.
-
-What is left of that scan is deliberately left: `attachmentSettings` and
-`storageSettings` share a shape but only a third of their code, the two
-Change Avatar popups differ in who they act on, and the three `mini*` templates
-are eight lines each in the three folders they belong to - indirection would
-cost more than the fifteen lines it saved.
 
 </details>
 
@@ -2582,6 +2394,202 @@ shape, a fence keeps its code. An underscore inside a word stays an underscore:
 
 </details>
 
+and has the following developer-facing changes:
+
+**Language loading** - which of the 246 language files a visitor is sent.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/59c742e6c95b42529b53ec33d2f2d075108e78d9">The browser downloads one language, and a test says so</a>. Thanks to xet7.</summary>
+
+`imports/i18n/data/` is 37 MB across 246 files, every one of them reachable from
+the client. The only thing keeping them out of the initial bundle is that each
+entry in `imports/i18n/languages.js` loads its file through
+`() => import('./data/<tag>.i18n.json')` - a call Meteor's `dynamic-import`
+package code-splits into a module fetched on demand - and that `tap.js` imports
+exactly ONE of them statically, English, so the interface stays readable when
+dynamic import is broken ([#6503](https://github.com/wekan/wekan/issues/6503)).
+
+That was true when checked and nothing pinned it. A single
+`import data from './data/xx.i18n.json'` added anywhere on the client would
+quietly ship that language to every visitor, and nothing about the app would
+look wrong - it would just be a heavier download, which no other test measures.
+
+`tests/i18nLazyLoading.test.cjs` checks the six things that have to hold
+together: every registered language has a dynamic loader, `languages.js` pulls
+in no data itself, `tap.js` statically imports English and nothing else, the
+loader is called once for the single resolved tag rather than mapped over the
+registry, no client file bundles a language file, and `dynamic-import` is still
+in `.meteor/packages`. A negative test proves the detector really sees a static
+import, so the other checks cannot pass by failing to look.
+
+</details>
+
+**Browser tests** - the guards that drive a real browser, and what they say.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/acaaa3c03fa67e1130f694ac2dbbba3802daad3d">Three page objects still described the markup as it was before it moved</a>. Thanks to xet7.</summary>
+
+A run failed the same four tests in Chromium and in Firefox, and three of the
+four were the guard describing the OLD markup rather than the app being wrong.
+
+`editTitle` waited for both `js-card-title` and `js-open-inlined-form` on ONE
+element. The title splits now - the leading half opens the editor and the rest
+of the heading drags the window - so the class is a DESCENDANT of the title, and
+the old selector matched nothing and waited out its timeout.
+
+The Activities heading in the board sidebar carries TWO icons since the caret
+became shared with the card sections: the caret that says whether the section is
+open, and the section’s own comment icon. A bare `i.fa` matches both, which
+Playwright fails as a strict-mode violation rather than picking one. The spec
+asks for the caret specifically now - the three directions `caretClassFor` can
+produce - which is also a stronger assertion, since the caret is the part that
+indicates state.
+
+The fourth was not a guard at all: see the Custom Fields fix above.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7a08f081241336aedcd7a57da1678e8d104d8f53">Wait for the client bundle before calling a Meteor method</a>. Thanks to xet7.</summary>
+
+Four Firefox-only failures, all the same cause: *Meteor is not defined*, and in
+the fourth a count that came back as the string *error: can’t access property
+"callAsync", window.Meteor is undefined*. Chromium and WebKit passed all four.
+
+Waiting for `networkidle` says the NETWORK went quiet, not that the client
+bundle has finished executing. Under the three-browser parallel run against one
+shared server, Firefox reached the evaluate with `Meteor` still undefined - the
+bundle is large and had been fetched but not yet run.
+
+`helpers/auth.js` has had `waitForMeteor` for exactly this since WebKit needed
+it; these two specs simply never called it. It is idempotent and returns at once
+when Meteor is already up, so it costs the browsers that were passing nothing.
+
+</details>
+
+**Shared templates** - one piece of markup, or one component, not many copies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9c288c3d4d8045cdd1d76b68b64fc91c414288c9">The date markup is written once instead of twenty-two times</a>. Thanks to xet7.</summary>
+
+Two shapes were copied across three files. The **edit-a-date form** - date,
+time, Save, Delete - existed **eight times**, letter for letter: the card's
+Received, Start, Due and End, a vote's end date, a planning poker's end date, a
+date custom field, and a ninth `datepicker` template that nothing included and
+no popup could open. The **date badge** - the coloured date on a card and on a
+minicard - existed **fourteen times**.
+
+The JavaScript was already shared: `client/lib/datepicker.js` holds the state
+and the handlers, and each popup differs only in the field it stores. It was
+only the markup, so a change to the form meant eight edits and a change to the
+badge meant fourteen, with nothing to say so.
+
+Each is one template now. They take what they draw as ARGUMENTS, because a
+helper is looked up on the template it is written in and not on the one
+including it - which is what lets one piece of markup serve them all while every
+popup keeps its own state, its own click and its own name. `cardDate.jade` went
+from 289 lines to 91.
+
+The badge's `baseClass` is the trap this had to avoid: three of the fourteen -
+the custom-field dates - were never `.card-date` and must not become one, so the
+class each caller carried is passed in rather than baked into the shared markup.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/82db0800ef6cda8adae06ac3e4f34d3517309a37">Move/Copy selection and Move/Copy swimlane are one dialog each, not two</a>. Thanks to xet7.</summary>
+
+Both pairs duplicated their whole component, not only their markup. The
+selection dialog was 152 lines twice over and 145 of them were the same: the
+four reactive selections, the four selects' helpers, the change handlers and the
+sort-index maths. The seven lines that differed are what each does to a card
+once the destination is known - move it, or copy it and move the copy - which is
+one `applyToCard` passed to one registration now. The swimlane pair is the same
+story with one difference instead of seven: the method called on Done.
+
+The markup is one template each too, handed the popup's own instance as
+`dialog`, because a helper is looked up on the template it is written in. What
+the two copies really differed in was the ids their labels point at, so those
+are passed in - and the title's id has to arrive as an `id=` attribute, since a
+literal id cannot hold a mustache.
+
+`sidebarFilters.js` lost 106 lines, `sidebarFilters.jade` 17 and
+`swimlanes.jade` 10, and the scan for near-duplicate templates is at 7 pairs
+from the 74 it started at. `tests/sharedFormTemplates.test.cjs` covers both.
+
+</details>
+
+**The test harness** - what a test run does before the tests.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/92650b782ec4ea427dc39f783b5e1a26869e395f">Reuse the test database only when it answers, not when the port is open</a>. Thanks to xet7.</summary>
+
+A run reported "WeKan tests FAILED" while the node suites, mocha and the import
+regression had all passed. What failed was the test server, on its first query -
+`MongoTopologyClosedError: Topology is closed` - because the harness had decided
+to reuse a database that was not there: it asked whether the port was open, and
+something else was holding it.
+
+An open port is not a database. The check is a query now, so a port held by
+anything else means the harness starts its own rather than handing the server a
+socket that answers and then closes.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/590ccf3e81d173516281c86b12dc97bface9afcc">The test database moves off a port another program owns</a>. Thanks to xet7.</summary>
+
+The next run stopped where the previous one had died, and the port said why:
+127.0.0.1:3001 on that machine is an "Omi Server" answering HTTP. A test
+database that cannot have the port it wants now takes the next free one and
+tells the rest of the run which it took, instead of failing at the first query
+against whatever was already listening.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/53c3123de5dc82f9c010792989adf55cc15bffb6">Three forms that were written ten times over are written once</a>. Thanks to xet7.</summary>
+
+Three more shapes were copied, and in each of them the JavaScript was already
+one piece while the markup was not - so a behaviour change was one edit and a
+markup change was four:
+
+- **where a card goes** - board, swimlane, list, above or below which card, and
+  Done - drawn four times, by Move card, Copy card, Copy checklist to many
+  cards and Convert checklist item to card;
+- **where a list goes** - drawn twice, by Copy list and Move list;
+- **the Create Board form** - drawn four times, by the one on All Boards and
+  three popups, one of which creates a TEMPLATE board and says so with a
+  Session flag rather than with different markup.
+
+Each is one template now, and what it shows is passed in. The two pickers are
+handed the `dialog` and read it from the template INSTANCE: inside `each
+boards` the data context is a board, so a helper reaching into the context for
+it would find nothing there.
+
+The events stay with the popups. An event inside an included template bubbles
+to the one that includes it, which is the one holding the state - that is what
+lets four popups do four different things with one form.
+
+Two more went the same way, and those had their whole COMPONENT duplicated as
+well: **Move selection / Copy selection** - 145 of the dialog's 152 lines were
+identical, the other seven being what each does to a card once the destination
+is known - and **Move swimlane / Copy swimlane**, where the only difference is
+the method called on Done. Both are one registration now, taking that
+difference as an argument, and `sidebarFilters.js` lost 106 lines.
+
+`cardDetails.jade` lost 71 lines, `boardHeader.jade` 58, `sidebarFilters.jade`
+17, `listHeader.jade` 10 and `swimlanes.jade` 10, and a scan for near-duplicate
+templates went from **74 pairs to 7**.
+
+What is left of that scan is deliberately left: `attachmentSettings` and
+`storageSettings` share a shape but only a third of their code, the two
+Change Avatar popups differ in who they act on, and the three `mini*` templates
+are eight lines each in the three folders they belong to - indirection would
+cost more than the fifteen lines it saved.
+
+</details>
+
 and improves the translations:
 
 **Files written in another language** - and the scan that found them.
@@ -2667,53 +2675,6 @@ search operators a user types, 담당자, 마감 and 조직.
 
 </details>
 
-**Panels added since a file was last touched** - strings a language never had.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/3eb1631d5429fa8d7dd7c894dc61e15a6747e28f">The Home page and starred pages, in the 33 languages that still showed English</a>. Thanks to xet7.</summary>
-
-A key added last month is missing everywhere that has not been visited since,
-which is not the same problem as a language nobody has worked on. The All Boards
-Home strings - *Remove from Home*, its confirmation, *Click to star this page*,
-*Click to unstar this page*, *Starred Pages* and the empty-Home hint - were the
-newest in the file, so 33 otherwise-complete languages showed six English rows
-in the middle of their own page. 197 values are filled.
-
-Four of those files are not written in the language their name claims, and are
-completed in the language they are ACTUALLY in rather than left half English:
-`ace` is Malay, `ast-ES` is Spanish, `ve` is Zulu, and every `uz` variant
-including `uz-AR` is Latin Uzbek.
-
-`km_KH` already had human translations for all six and kept them, and `sr` kept
-the one it had. That is the fill rule doing its job rather than a special case:
-it writes only where the value is still the English source, so it reports
-*skipped 6* instead of overwriting them.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/330b6421908495a818f431d08abf4c3e0421148d">Board status and Board roles, in the 47 files that still showed English</a>. Thanks to xet7.</summary>
-
-The same shape, two panels wider: the **board status** summary (card loading,
-time spent, total, cards with time, overtime cards) and the **roles status**
-table - what each board role may do, under its *Invite* / *Sees cards* / *Create
-and edit* / *Board settings* columns. 307 values across 47 files.
-
-Five of them are written in a different language from their name and are
-completed in that one: `ro` is Italian, `ast-ES` Spanish, `ve` Zulu, `wo`
-French, and `sr` uses case-file vocabulary throughout - a board there is
-*Списи*, so its board status is *Стање списа* rather than a literal translation
-of the English. Two are low confidence and want a speaker: **Klingon**, whose
-lexicon has `patlh` for a rank but no idiom for a board role, and **Volapük**.
-
-`roles-status-role` is deliberately left alone in Czech, Spanish and Walloon.
-*Role* and *Rol* are those languages' own words, and the fill step ignores a
-value equal to the English source rather than pretending a translation happened.
-The same is true of far more of the backlog than it first looked: `magenta` and
-`indigo` are `magenta` and `indigo` in nearly every language that "misses" them.
-
-</details>
-
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ae3686d67ca7bde36338a6907744a2696a6204de">Latin in a non-Latin file, and English that stopped looking untranslated</a>. Thanks to xet7.</summary>
 
@@ -2789,6 +2750,53 @@ language that is not written in it.
 
 </details>
 
+**Panels added since a file was last touched** - strings a language never had.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3eb1631d5429fa8d7dd7c894dc61e15a6747e28f">The Home page and starred pages, in the 33 languages that still showed English</a>. Thanks to xet7.</summary>
+
+A key added last month is missing everywhere that has not been visited since,
+which is not the same problem as a language nobody has worked on. The All Boards
+Home strings - *Remove from Home*, its confirmation, *Click to star this page*,
+*Click to unstar this page*, *Starred Pages* and the empty-Home hint - were the
+newest in the file, so 33 otherwise-complete languages showed six English rows
+in the middle of their own page. 197 values are filled.
+
+Four of those files are not written in the language their name claims, and are
+completed in the language they are ACTUALLY in rather than left half English:
+`ace` is Malay, `ast-ES` is Spanish, `ve` is Zulu, and every `uz` variant
+including `uz-AR` is Latin Uzbek.
+
+`km_KH` already had human translations for all six and kept them, and `sr` kept
+the one it had. That is the fill rule doing its job rather than a special case:
+it writes only where the value is still the English source, so it reports
+*skipped 6* instead of overwriting them.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/330b6421908495a818f431d08abf4c3e0421148d">Board status and Board roles, in the 47 files that still showed English</a>. Thanks to xet7.</summary>
+
+The same shape, two panels wider: the **board status** summary (card loading,
+time spent, total, cards with time, overtime cards) and the **roles status**
+table - what each board role may do, under its *Invite* / *Sees cards* / *Create
+and edit* / *Board settings* columns. 307 values across 47 files.
+
+Five of them are written in a different language from their name and are
+completed in that one: `ro` is Italian, `ast-ES` Spanish, `ve` Zulu, `wo`
+French, and `sr` uses case-file vocabulary throughout - a board there is
+*Списи*, so its board status is *Стање списа* rather than a literal translation
+of the English. Two are low confidence and want a speaker: **Klingon**, whose
+lexicon has `patlh` for a rank but no idiom for a board role, and **Volapük**.
+
+`roles-status-role` is deliberately left alone in Czech, Spanish and Walloon.
+*Role* and *Rol* are those languages' own words, and the fill step ignores a
+value equal to the English source rather than pretending a translation happened.
+The same is true of far more of the backlog than it first looked: `magenta` and
+`indigo` are `magenta` and `indigo` in nearly every language that "misses" them.
+
+</details>
+
 **The search operators** - the words a user types, rather than reads.
 
 <details>
@@ -2811,6 +2819,40 @@ the same in Thai and Vietnamese.
 Dutch, Swedish, Spanish, French, Catalan, Czech, Polish, Turkish and Malay.
 
 </details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/774d7a032b1bd17a3ee721ff4611317b6b8f7efe">Each one-letter shorthand is the language's own letter, in 89 files</a>. Thanks to xet7.</summary>
+
+Each search operator has a one-letter shorthand beside it, and the shorthand is
+the first letter of THAT LANGUAGE'S word: French *couloir* is `c`, Russian
+*доска* is `д`, Georgian *დაფა* is `დ`. A file that translated the word but kept
+the English letter contradicts itself - `board:` works, and `b:` stands for
+nothing the reader can see.
+
+277 shorthands, derived rather than guessed: the first grapheme of the file's
+own word, extended while it collides with another shorthand in the same file,
+and written only where it differs from the English letter. Portuguese *lista*
+and German *Liste* both begin with an l, so `l` is already correct and is left
+alone. Every file ends with five distinct shorthands - Welsh *aelod* and
+*aseinai* are `a` and `as`, Hungarian *Tábla* and *tag* are `t` and `ta`.
+
+Three orderings had to be right or the result was worse than what it replaced:
+case-fold BEFORE the collision test (*Tábla* and *tag* are both a T), seed the
+taken set from the shorthands that are NOT being changed (Frisian kept `l` for
+*lijst* while *lid* was handed the same `l`), and test the English letter AFTER
+the collision loop rather than before it, or Welsh keeps `a` twice on the
+grounds that `a` is what English uses.
+
+Skipped where the operator WORD is itself in another language, because a
+shorthand derived from it carries that one step further and the word is what
+wants fixing: `tlh` is German, `th` is Vietnamese, `br` is French, `ve-PP` is
+Finnish, and one key each in `mn`, `sk`, `lv`, `vo` and `zgh`. Latin-script
+contamination like that is invisible to `wrong-script.mjs`, which can only
+compare Unicode blocks.
+
+</details>
+
+**Words filled by key** - one key across many files, not one at a time.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/da8d02315a806e9e8a5f5ff4f92e950f6181be61">Statistics, package and the region names, where the word is not the English one</a>. Thanks to xet7.</summary>
@@ -2896,38 +2938,6 @@ The 202 are the result worth recording. They count as untranslated only because
 the tool's test for it is "still equal to English", no amount of work will ever
 reduce them, and they are why the backlog number is several times the size of
 the backlog.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/774d7a032b1bd17a3ee721ff4611317b6b8f7efe">Each one-letter shorthand is the language's own letter, in 89 files</a>. Thanks to xet7.</summary>
-
-Each search operator has a one-letter shorthand beside it, and the shorthand is
-the first letter of THAT LANGUAGE'S word: French *couloir* is `c`, Russian
-*доска* is `д`, Georgian *დაფა* is `დ`. A file that translated the word but kept
-the English letter contradicts itself - `board:` works, and `b:` stands for
-nothing the reader can see.
-
-277 shorthands, derived rather than guessed: the first grapheme of the file's
-own word, extended while it collides with another shorthand in the same file,
-and written only where it differs from the English letter. Portuguese *lista*
-and German *Liste* both begin with an l, so `l` is already correct and is left
-alone. Every file ends with five distinct shorthands - Welsh *aelod* and
-*aseinai* are `a` and `as`, Hungarian *Tábla* and *tag* are `t` and `ta`.
-
-Three orderings had to be right or the result was worse than what it replaced:
-case-fold BEFORE the collision test (*Tábla* and *tag* are both a T), seed the
-taken set from the shorthands that are NOT being changed (Frisian kept `l` for
-*lijst* while *lid* was handed the same `l`), and test the English letter AFTER
-the collision loop rather than before it, or Welsh keeps `a` twice on the
-grounds that `a` is what English uses.
-
-Skipped where the operator WORD is itself in another language, because a
-shorthand derived from it carries that one step further and the word is what
-wants fixing: `tlh` is German, `th` is Vietnamese, `br` is French, `ve-PP` is
-Finnish, and one key each in `mn`, `sk`, `lv`, `vo` and `zgh`. Latin-script
-contamination like that is invisible to `wrong-script.mjs`, which can only
-compare Unicode blocks.
 
 </details>
 
@@ -3341,6 +3351,8 @@ that did not match: Czech gets **Importovat** beside *Exportovat*, Turkmen
 variants keep *Import*, which is the word those languages use.
 
 </details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v10.91 2026-08-13 WeKan ® release
 
