@@ -178,19 +178,24 @@ selectivity), verifiable only with live `EXPLAIN` on each engine.
 Not an issue, and deferred because bug fixes are more important than
 translations (recorded so the next session can resume): the translation tooling
 is safe and ready, but most of the strings are not yet filled. As of
-**2026-08-15** the 234 language files hold **218,148** strings still equal to
+**2026-08-15** the 234 language files hold **217,379** strings still equal to
 the English source, out of 2,384 keys each, and they fall into two very
 different halves:
 
-- **142 languages are nearly complete** — 8,808 strings between them, but that
+- **142 languages are nearly complete** — 8,303 strings between them, but that
   number badly overstates the work. About **4,700 of them are values that are
   the same in every language**: product names (*Meteor*, *MongoDB*, *S3/MinIO*,
   *OAuth2*), bare numbers (the Planning Poker values), symbols (`/`, `#`, `@`),
   unit abbreviations and one empty string. They count as untranslated only
   because the value equals the English source, which for a proper noun is the
-  correct translation, and they will never stop counting. The **real prose
-  backlog is about 3,400 values over 251 keys, median 23 per language**, worst
-  Zeelandic `vl-SS` at 66, then Dutch at 63 and German at 53.
+  correct translation, and they will never stop counting. A second, larger group
+  of them turns out to be the same thing one step less obvious: **the colour
+  names, and the loanwords**. `magenta` and `indigo` are `magenta` and `indigo`
+  in almost every language that still "misses" them, and so are *Format*,
+  *Ticket*, *Normal*, *Admin* and *Status* in most European ones. The **real
+  prose backlog is roughly 2,200 values**, and the way to work it is by KEY
+  rather than by language: one key is missing in 10 to 100 files at once, so
+  translating it is one table, not a hundred visits.
 - **The four files that carried text in ANOTHER LANGUAGE are DONE** and are no
   longer part of this backlog: `ko` (354 values in Japanese kana), `ka` (789 in
   Russian), `hi` (1,204 in Gujarati) and `ta` (1,637 in Telugu and Devanagari)
@@ -2558,8 +2563,7 @@ shape, a fence keeps its code. An underscore inside a word stays an underscore:
 
 and improves the translations:
 
-**Files written in another language** - four that were not the language on the
-tin, and the scan that found them.
+**Files written in another language** - and the scan that found them.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f225b3245df2d29d77fb49f9744628f4d405c9de">Korean was Japanese and Georgian was Russian, in 1,143 strings between them</a>. Thanks to xet7.</summary>
@@ -2606,6 +2610,53 @@ transliterations they carried were wrong in a way no reader could act on.
 `node releases/translations/wrong-script.mjs --count` now reports **zero**
 across all 246 files, and stays as the guard that catches the next file seeded
 from a neighbour before it ships.
+
+</details>
+
+**Panels added since a file was last touched** - strings a language never had.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3eb1631d5429fa8d7dd7c894dc61e15a6747e28f">The Home page and starred pages, in the 33 languages that still showed English</a>. Thanks to xet7.</summary>
+
+A key added last month is missing everywhere that has not been visited since,
+which is not the same problem as a language nobody has worked on. The All Boards
+Home strings - *Remove from Home*, its confirmation, *Click to star this page*,
+*Click to unstar this page*, *Starred Pages* and the empty-Home hint - were the
+newest in the file, so 33 otherwise-complete languages showed six English rows
+in the middle of their own page. 197 values are filled.
+
+Four of those files are not written in the language their name claims, and are
+completed in the language they are ACTUALLY in rather than left half English:
+`ace` is Malay, `ast-ES` is Spanish, `ve` is Zulu, and every `uz` variant
+including `uz-AR` is Latin Uzbek.
+
+`km_KH` already had human translations for all six and kept them, and `sr` kept
+the one it had. That is the fill rule doing its job rather than a special case:
+it writes only where the value is still the English source, so it reports
+*skipped 6* instead of overwriting them.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/330b6421908495a818f431d08abf4c3e0421148d">Board status and Board roles, in the 47 files that still showed English</a>. Thanks to xet7.</summary>
+
+The same shape, two panels wider: the **board status** summary (card loading,
+time spent, total, cards with time, overtime cards) and the **roles status**
+table - what each board role may do, under its *Invite* / *Sees cards* / *Create
+and edit* / *Board settings* columns. 307 values across 47 files.
+
+Five of them are written in a different language from their name and are
+completed in that one: `ro` is Italian, `ast-ES` Spanish, `ve` Zulu, `wo`
+French, and `sr` uses case-file vocabulary throughout - a board there is
+*Списи*, so its board status is *Стање списа* rather than a literal translation
+of the English. Two are low confidence and want a speaker: **Klingon**, whose
+lexicon has `patlh` for a rank but no idiom for a board role, and **Volapük**.
+
+`roles-status-role` is deliberately left alone in Czech, Spanish and Walloon.
+*Role* and *Rol* are those languages' own words, and the fill step ignores a
+value equal to the English source rather than pretending a translation happened.
+The same is true of far more of the backlog than it first looked: `magenta` and
+`indigo` are `magenta` and `indigo` in nearly every language that "misses" them.
 
 </details>
 
