@@ -43,6 +43,55 @@ const manifest = JSON.parse(
 const args = process.argv.slice(2);
 const dryRun = args.includes('--dry-run');
 const bundle = args.find(a => !a.startsWith('--')) || 'bundle';
+
+// HOW TO RUN npm FROM NODE, ON WINDOWS TOO.
+//
+// `execFileSync('npm', …)` is fine on Linux and macOS, where npm is a real
+// executable on PATH. On Windows npm is `npm.cmd`, a batch script - and Node
+// does not apply PATHEXT when it spawns, so the bare name resolves to nothing:
+//
+//   Error: spawnSync npm ENOENT
+//
+// which is what failed build-win64 and build-win-arm64 in v10.93, AFTER the
+// bundle had been built and its native modules compiled. (win32 was skipped
+// that run for want of a Node.js build, so it never reached this and looked
+// fine - the fault is not architecture-specific.)
+//
+// `shell: true` would find the .cmd, and is the wrong fix: with a shell, Node
+// joins the arguments with spaces and quotes NOTHING, so the first Windows temp
+// path containing a space would break the install in a new way.
+//
+// Run npm's own CLI with the Node already running instead. That needs no shell,
+// no PATH lookup and no quoting, and it is the same npm either way.
+const npmCli = (() => {
+  const dir = path.dirname(process.execPath);
+  const candidates = [
+    process.env.npm_execpath,                                            // run under npm
+    path.join(dir, 'node_modules', 'npm', 'bin', 'npm-cli.js'),          // Windows layout
+    path.join(dir, '..', 'lib', 'node_modules', 'npm', 'bin', 'npm-cli.js'), // POSIX layout
+  ];
+  for (const c of candidates) {
+    if (c && c.endsWith('.js') && fs.existsSync(c)) return c;
+  }
+  return null;
+})();
+
+function npm(argv) {
+  if (npmCli) return execFileSync(process.execPath, [npmCli, ...argv], { stdio: 'inherit' });
+  // No npm-cli.js beside this Node: fall back to the PATH lookup, which works
+  // everywhere except the case above. On Windows, say which one this is rather
+  // than letting ENOENT speak for itself.
+  try {
+    return execFileSync('npm', argv, { stdio: 'inherit' });
+  } catch (err) {
+    if (err.code === 'ENOENT' && process.platform === 'win32') {
+      throw new Error('npm could not be run: no npm-cli.js beside this Node, and Windows '
+        + 'does not resolve `npm` (npm.cmd) from a bare spawn. Run this with a Node whose '
+        + 'npm is installed alongside it.');
+    }
+    throw err;
+  }
+}
 const serverDir = path.join(bundle, 'programs', 'server');
 
 if (!fs.existsSync(serverDir)) {
@@ -117,11 +166,11 @@ for (const [name, minimum] of Object.entries(manifest.minimums)) {
     fs.mkdirSync(prefix, { recursive: true });
     // A prefix with no package.json is what we want: npm installs the one
     // package and its dependencies, and nothing of the bundle's is consulted.
-    execFileSync('npm', [
+    npm([
       'install', `${name}@${minimum}`,
       '--prefix', prefix,
       '--ignore-scripts', '--no-audit', '--no-fund', '--loglevel', 'error',
-    ], { stdio: 'inherit' });
+    ]);
   }
 
   for (const copy of outdated) {

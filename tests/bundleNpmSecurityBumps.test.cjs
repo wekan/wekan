@@ -115,4 +115,32 @@ test('the Dockerfile copies the manifest beside the script', () => {
     'the manifest is copied in too');
 });
 
+test('npm is run in a way that works on Windows too', () => {
+  // v10.93: build-win64 and build-win-arm64 died AFTER building the bundle and
+  // compiling its native modules, with
+  //
+  //   Error: spawnSync npm ENOENT
+  //
+  // because npm on Windows is npm.cmd, a batch script, and Node applies no
+  // PATHEXT when it spawns - so `execFileSync('npm', …)` resolves to nothing.
+  // (build-win32 was skipped that run for want of a Node.js build, so it never
+  // reached this and looked fine; the fault is not architecture-specific.)
+  const script = read('releases/bump-bundle-npm-deps.mjs');
+  const code = script.split('\n').filter(l => !/^\s*\/\//.test(l)).join('\n');
+  // The INSTALL goes through the helper, not straight at the PATH.
+  assert.ok(/^\s*npm\(\[\s*$/m.test(code) && /'install', `\$\{name\}@\$\{minimum\}`/.test(code),
+    'the install call goes through the npm() helper');
+  assert.ok(/npm-cli\.js/.test(code) && /execFileSync\(process\.execPath/.test(code),
+    "whose first route runs npm's own CLI with this Node - no PATH lookup, no PATHEXT");
+  // A bare execFileSync('npm', …) may remain only as the LAST resort inside that
+  // helper, where npm really is an executable on PATH.
+  assert.ok((code.match(/execFileSync\(\s*'npm'/g) || []).length <= 1,
+    "execFileSync('npm', …) is ENOENT on Windows; it may only be the helper's fallback");
+  // shell: true would find the .cmd and break differently: with a shell Node
+  // joins the arguments and quotes nothing, so a Windows temp path with a space
+  // would corrupt the install.
+  assert.ok(!/shell:\s*true/.test(code),
+    'and not through a shell, which would not quote the arguments');
+});
+
 console.log(`\nbundleNpmSecurityBumps: ${passed} tests passed`);

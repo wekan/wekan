@@ -3162,6 +3162,24 @@ jobs:
           # Version-named (not timestamped like sandstorm.yml): the release re-runs
           # idempotently with --clobber replacing the same asset.
           SPK="wekan-${VERSION}-sandstorm.spk"
+          # WHERE THE GIGABYTE IS, before spk refuses to pack it.
+          #
+          # v10.93 failed here with "App exceeds uncompressed size limit of 1 GiB"
+          # and nothing else: no list, no sizes, and the .spk that would have said
+          # so was never written. sandstorm-pkgdef.capnp packs `alwaysInclude =
+          # ["."]` from .meteor-spk/deps and .meteor-spk/bundle, so everything in
+          # both trees counts towards that limit - the Node 24 and FerretDB and
+          # Mongo 3.x CLIs build-deps.sh assembles, and every package the built
+          # bundle carries. This prints the total and the twenty biggest
+          # directories of each, so the next run says what to trim rather than
+          # only that trimming is needed. `|| true`: a size report must never be
+          # the thing that fails the build.
+          for tree in .meteor-spk/deps .meteor-spk/bundle; do
+            [ -d "$tree" ] || continue
+            echo "--- $tree: $(du -sh "$tree" 2>/dev/null | cut -f1) total"
+            du -sh "$tree"/* 2>/dev/null | sort -rh | head -20 || true
+          done
+          echo "--- packing (Sandstorm refuses over 1 GiB uncompressed)"
           meteor-spk pack "$SPK"
           # Report the packed size and warn if it exceeds Cloudflare's 100 MB upload
           # cap (a proxied browser upload to a Cloudflare-fronted Sandstorm 413s above
