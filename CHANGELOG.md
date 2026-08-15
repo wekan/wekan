@@ -178,11 +178,20 @@ selectivity), verifiable only with live `EXPLAIN` on each engine.
 Not an issue, and deferred because bug fixes are more important than
 translations (recorded so the next session can resume): the translation tooling
 is safe and ready, but most of the strings are not yet filled. As of
-**2026-08-15** the 234 language files hold **217,379** strings still equal to
+**2026-08-15** the 234 language files hold **216,929** strings still equal to
 the English source, out of 2,384 keys each, and they fall into two very
 different halves:
 
-- **142 languages are nearly complete** — 8,303 strings between them, but that
+- **The most useful way to read the count is by SCRIPT**, because an
+  untranslated string is not equally visible everywhere. In a Latin-script
+  language *Status* reads as a word; in a Greek, Arabic, Thai or Devanagari
+  interface an English paragraph is a different alphabet in the middle of the
+  page. Measured that way the 52 non-Latin files hold **133 real words** still
+  in English, against 1,927 product names and symbols that will never stop
+  counting — and 71 of those 133 are the two `act-with*Title` keys, which are
+  pure `__board__` placeholders and have no translation to give. That half is
+  effectively done.
+- **142 languages are nearly complete** — 7,853 strings between them, but that
   number badly overstates the work. About **4,700 of them are values that are
   the same in every language**: product names (*Meteor*, *MongoDB*, *S3/MinIO*,
   *OAuth2*), bare numbers (the Planning Poker values), symbols (`/`, `#`, `@`),
@@ -2774,6 +2783,65 @@ language that is not written in it.
 </details>
 
 **The search operators** - the words a user types, rather than reads.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d62c15aedc4b260b54340e7de3c2f073b679e059">The rest of the operators, in the 107 files that had done the others</a>. Thanks to xet7.</summary>
+
+A file that translated `board:`, `list:` and `member:` and left `org:`, `title:`
+and `customfield:` in English contradicts itself: half the search syntax is in
+the reader's language and half is not, and nothing on screen says which half is
+which. 217 operator words, filled only in files that had already
+translated at least two of the core three - so this never invents a search
+vocabulary for a language that has not chosen one.
+
+An operator NAME is matched before the colon, so it can never contain a space.
+Languages that write these as two words run them together, the way Greek already
+writes *προσαρμοσμένοπεδίο*: Slovak *vlastnépole*, Hungarian *egyénimező*, and
+the same in Thai and Vietnamese.
+
+72 are deliberately left alone. *status*, *limit*, *team*, *selector*,
+*projection*, *description*, *week* and *open* are those languages' OWN words in
+Dutch, Swedish, Spanish, French, Catalan, Czech, Polish, Turkish and Malay.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/da8d02315a806e9e8a5f5ff4f92e950f6181be61">Statistics, package and the region names, where the word is not the English one</a>. Thanks to xet7.</summary>
+
+128 values across 67 files, chosen by asking of each key whether the language
+actually has a different word - because most of what the count calls a prose
+backlog is not one. *Status* is Status in Danish, German, Dutch, Swedish and
+Polish; *Server* is Server almost everywhere; *Normal*, *Ticket*, *Menu* and
+*Logo* are themselves in most of Europe. Those are correct as they stand.
+
+What is filled is where the English word is visibly foreign or the language
+plainly has its own: the non-Latin scripts (Κάδος and Στατιστικά, דלי, سطل,
+Кофа, Корпа, Багц, and *America* in seven Indic and East Asian files), the
+African languages that had been handed English (*IMelika*, *Umlawuli*,
+*Iphakethe*, *Iphakheji*, *Ngwugwu*, *Idì*, *Marekani*), and *Statistics* in the
+twelve European languages that had not translated it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4a950b80bbfafc5d1a9a3bb107ad8b7b472cc6d4">The import-mapping dialogue, in the 48 files where English is a foreign alphabet</a>. Thanks to xet7.</summary>
+
+An untranslated string is not equally visible everywhere, and counting them as
+if it were is what makes the backlog look shapeless. In a Latin-script language
+*Status* reads as a word; in a Greek, Arabic, Thai or Devanagari interface an
+English paragraph is a different alphabet in the middle of the page. Measured
+that way the non-Latin files are nearly done - **235 real words** still in
+English across 52 of them, against 1,927 product names and symbols that will
+never stop counting - and 102 of those 235 were two keys.
+
+They are the strings the import dialogue shows when it asks which real user an
+imported member is: the pair whose English source was reworded, so every file
+kept the old English. 96 values, in 24 languages from Arabic to Chinese in both
+scripts. Serbian gets the case-file vocabulary the rest of that file uses - a
+board is *списи* and a member a *сарадник* - so the sentence reads as the same
+document the rest of the interface describes.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/774d7a032b1bd17a3ee721ff4611317b6b8f7efe">Each one-letter shorthand is the language's own letter, in 89 files</a>. Thanks to xet7.</summary>
