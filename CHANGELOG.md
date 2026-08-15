@@ -1530,7 +1530,7 @@ when Meteor is already up, so it costs the browsers that were passing nothing.
 
 </details>
 
-**Shared templates** - one piece of markup where there were many copies.
+**Shared templates** - one piece of markup, or one component, not many copies.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9c288c3d4d8045cdd1d76b68b64fc91c414288c9">The date markup is written once instead of twenty-two times</a>. Thanks to xet7.</summary>
@@ -1556,6 +1556,57 @@ from 289 lines to 91.
 The badge's `baseClass` is the trap this had to avoid: three of the fourteen -
 the custom-field dates - were never `.card-date` and must not become one, so the
 class each caller carried is passed in rather than baked into the shared markup.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/82db0800ef6cda8adae06ac3e4f34d3517309a37">Move/Copy selection and Move/Copy swimlane are one dialog each, not two</a>. Thanks to xet7.</summary>
+
+Both pairs duplicated their whole component, not only their markup. The
+selection dialog was 152 lines twice over and 145 of them were the same: the
+four reactive selections, the four selects' helpers, the change handlers and the
+sort-index maths. The seven lines that differed are what each does to a card
+once the destination is known - move it, or copy it and move the copy - which is
+one `applyToCard` passed to one registration now. The swimlane pair is the same
+story with one difference instead of seven: the method called on Done.
+
+The markup is one template each too, handed the popup's own instance as
+`dialog`, because a helper is looked up on the template it is written in. What
+the two copies really differed in was the ids their labels point at, so those
+are passed in - and the title's id has to arrive as an `id=` attribute, since a
+literal id cannot hold a mustache.
+
+`sidebarFilters.js` lost 106 lines, `sidebarFilters.jade` 17 and
+`swimlanes.jade` 10, and the scan for near-duplicate templates is at 7 pairs
+from the 74 it started at. `tests/sharedFormTemplates.test.cjs` covers both.
+
+</details>
+
+**The test harness** - what a test run does before the tests.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/92650b782ec4ea427dc39f783b5e1a26869e395f">Reuse the test database only when it answers, not when the port is open</a>. Thanks to xet7.</summary>
+
+A run reported "WeKan tests FAILED" while the node suites, mocha and the import
+regression had all passed. What failed was the test server, on its first query -
+`MongoTopologyClosedError: Topology is closed` - because the harness had decided
+to reuse a database that was not there: it asked whether the port was open, and
+something else was holding it.
+
+An open port is not a database. The check is a query now, so a port held by
+anything else means the harness starts its own rather than handing the server a
+socket that answers and then closes.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/590ccf3e81d173516281c86b12dc97bface9afcc">The test database moves off a port another program owns</a>. Thanks to xet7.</summary>
+
+The next run stopped where the previous one had died, and the port said why:
+127.0.0.1:3001 on that machine is an "Omi Server" answering HTTP. A test
+database that cannot have the port it wants now takes the next free one and
+tells the rest of the run which it took, instead of failing at the first query
+against whatever was already listening.
 
 </details>
 
