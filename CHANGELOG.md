@@ -4133,6 +4133,33 @@ an hour ago - and pins that ambiguity can never reach the deletion.
 and improves the translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a7332f233637fa9716d276eac967fed300a0017d">Twenty more, including the ones I was least sure of - and which those are</a>. Thanks to xet7.</summary>
+
+**246 languages**, from 154 when this release started.
+
+**Confident enough to write without hedging:** བོད་སྐད་ (Tibetan), རྫོང་ཁ
+(Dzongkha), **Kalaallisut**, ᐃᓄᒃᑎᑐᑦ (Inuktitut), ᏣᎳᎩ (Cherokee), **Nāhuatl**,
+**Буряад хэлэн**, **Kaszëbsczi**, **Ślōnskŏ gŏdka**, **Aragonés**, **Ladin**,
+**Armãneashti**, **मैथिली**, **भोजपुरी**, **कोंकणी** and **کوردیی ناوەندی**
+(Sorani Kurdish, right-to-left).
+
+**Written with less to go on, and said so here rather than quietly:** **کٲشُر**
+(Kashmiri, right-to-left), **Pulaar**, **ትግረ** (Tigre) and **Wolaytta**. For
+these four the sources are thin - a wordlist and a grammar sketch rather than a
+dictionary with a UI vocabulary in it - so the terms for *board*, *swimlane* and
+*checklist* are built from the ordinary words for a writing-board, a path and a
+list of things to check. They are the strings most likely to be wrong, and the
+most likely to be corrected by the first speaker who opens the language picker
+and finds their language in it at all.
+
+That is the whole argument for doing them: the alternative was not a better
+translation, it was no language. Cherokee has around 2,000 fluent speakers;
+Tigre, Wolaytta and Pulaar have millions between them and almost no software.
+A wrong word invites a correction. An English placeholder invites nothing.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0cca649b7dd37ea5bc59c5afa2659950f0e1c543">Fourteen more: the Pacific, the Caribbean, and the languages of Italy</a>. Thanks to xet7.</summary>
 
 **226 languages**, from 154 at the start of this release.
