@@ -91,10 +91,30 @@
   flex-shrink: 0;
 }
 
+/* The Custom Fields form is a POP-OVER, and a pop-over renders in the global
+   popup container - not inside `.sidebar`. So its checkbox rows never got the
+   `align-items: center` above, and sat exactly as #6465 described before that
+   fix: the box on one line and its label on another, because `.flex` on its own
+   is only `display: flex`. Beside the Admin Panel / Announcement checkbox, which
+   is the same `a.flex > .materialCheckBox + span` markup inside a page that does
+   align it, this is what "not the animated one" looks like - the morph is there,
+   but it plays on a box that is not next to its own label.
+
+   The rows are aligned here, and the box's own states are spelled out below, so
+   the square, the green tick and the `transition: 0.2s` between them are the
+   announcement's - whichever stylesheet a pop-over happens to inherit.
+   client/components/sidebar/sidebarCustomFields.jade */
+.pop-over[data-popup='createCustomFieldPopup'] a.flex,
+.pop-over[data-popup='editCustomFieldPopup'] a.flex {
+  align-items: center;
+}
+
 /* Use checklist-style green checkboxes for all sidebar checkboxes */
 .sidebar .materialCheckBox.is-checked,
 .boardCardSettingsPopup .materialCheckBox.is-checked,
-.boardSubtaskSettingsPopup .materialCheckBox.is-checked {
+.boardSubtaskSettingsPopup .materialCheckBox.is-checked,
+.pop-over[data-popup='createCustomFieldPopup'] .materialCheckBox.is-checked,
+.pop-over[data-popup='editCustomFieldPopup'] .materialCheckBox.is-checked {
   top: -4px !important;
   inset-inline-start: -3px !important;
   width: 7px !important;
@@ -108,6 +128,23 @@
   -webkit-backface-visibility: hidden !important;
   backface-visibility: hidden !important;
   transform-origin: 100% 100% !important;
+}
+
+/* …and the square it morphs FROM. The checked half above is spelled out for
+   these popups; without the unchecked half the transition would run between a
+   box some other rule sized and the tick, which is the animation looking wrong
+   rather than missing. Same 13px square, same 0.2s, as forms.css draws it. */
+.pop-over[data-popup='createCustomFieldPopup'] .materialCheckBox,
+.pop-over[data-popup='editCustomFieldPopup'] .materialCheckBox {
+  position: relative;
+  width: 13px;
+  height: 13px;
+  border: 2px solid #5a5a5a;
+  border-radius: 1px;
+  transition: 0.2s;
+  margin: 0;
+  flex-shrink: 0;
+  cursor: pointer;
 }
 
 /* Card Settings 3-column row layout. There is no heading row above these: see

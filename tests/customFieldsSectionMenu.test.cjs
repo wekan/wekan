@@ -168,4 +168,32 @@ test('the list is a checkbox, a name and a pencil, per field', () => {
     'the name takes the space the pencil does not');
 });
 
+test('the form\'s checkboxes are the animated one, aligned with their labels', () => {
+  // The same `a.flex > .materialCheckBox + span` the Admin Panel / Announcement
+  // checkbox is - a grey square that morphs into a green tick over 0.2s. The
+  // markup was already that; what it lacked is that a POP-OVER renders in the
+  // global popup container, not inside `.sidebar`, so it never got the
+  // `align-items: center` #6465 added and the box sat on a different line from
+  // its own label.
+  const form = sidebarFields.slice(sidebarFields.indexOf('template(name="createCustomFieldPopup")'));
+  const boxes = (form.match(/\.materialCheckBox\(class="\{\{#if /g) || []).length;
+  assert.ok(boxes >= 6, `expected the form's checkboxes, found ${boxes}`);
+  assert.ok(!/input\(type="checkbox"/.test(form),
+    'and none of them is a native checkbox the browser would draw (negative)');
+
+  const css = read('client/components/sidebar/sidebar.css');
+  for (const popup of ['createCustomFieldPopup', 'editCustomFieldPopup']) {
+    assert.ok(new RegExp(`\\[data-popup='${popup}'\\] a\\.flex`).test(css),
+      `${popup}: the rows are aligned`);
+    assert.ok(new RegExp(`\\[data-popup='${popup}'\\] \\.materialCheckBox\\.is-checked`).test(css),
+      `${popup}: the tick is the green one`);
+    assert.ok(new RegExp(`\\[data-popup='${popup}'\\] \\.materialCheckBox,`).test(css)
+      || new RegExp(`\\[data-popup='${popup}'\\] \\.materialCheckBox \\{`).test(css),
+      `${popup}: and the square it morphs from`);
+  }
+  const unchecked = css.slice(css.indexOf("[data-popup='createCustomFieldPopup'] .materialCheckBox,"));
+  assert.ok(/transition: 0\.2s/.test(unchecked.slice(0, 400)),
+    'which is what makes it animate rather than jump');
+});
+
 console.log(`\ncustomFieldsSectionMenu: ${passed} tests passed`);
