@@ -191,27 +191,14 @@ different halves:
   correct translation, and they will never stop counting. The **real prose
   backlog is about 3,400 values over 251 keys, median 23 per language**, worst
   Zeelandic `vl-SS` at 66, then Dutch at 63 and German at 53.
-- **Four language files carry text in ANOTHER LANGUAGE**, which is worse than an
-  untranslated string and is the first thing to fix here. A missing string shows
-  English and invites a correction; these show confident text the reader may not
-  be able to read at all, and the merge rules protect them forever because they
-  are not equal to English:
-
-  | File | Expected | Wrong-language values |
-  | --- | --- | --- |
-  | `ta` Tamil | Tamil | **1,637** — 1,174 Telugu, 463 Devanagari |
-  | `hi` Hindi | Devanagari | **1,204** — Gujarati |
-  | `ka` Georgian | Georgian | **789** — Russian |
-  | `ko` Korean | Hangul | **354** — Japanese kana |
-
-  Each file is MIXED, not wholly wrong: Tamil has `save` right and `board` in
-  Telugu; Georgian has `save` right and `board` as *Доска*; Korean has `save`
-  right and `board` as *ボード*. Found by comparing each value's Unicode script
-  against the one the language is written in (the shared Indic danda `।` is not
-  evidence, and Korean hanja is legitimate, so both are excluded). Whether to
-  blank them back to English — which makes them visibly unfinished and
-  fixable — or to retranslate them in place is a maintainer decision, because
-  blanking is thousands of strings.
+- **The four files that carried text in ANOTHER LANGUAGE are DONE** and are no
+  longer part of this backlog: `ko` (354 values in Japanese kana), `ka` (789 in
+  Russian), `hi` (1,204 in Gujarati) and `ta` (1,637 in Telugu and Devanagari)
+  are written in their own script now. `node
+  releases/translations/wrong-script.mjs --count` reports zero and stays as the
+  guard for the next file seeded from a neighbour. `hi` and `ta` were done by
+  looking the words up rather than by native speakers, so a review of either is
+  welcome — and a Transifex translation replaces a filled string permanently.
 - **92 languages carry only the first two tiers** — about 112 strings each,
   2,273 missing each, 209,076 in total. They are the ones added recently: the
   board words, the menus, the popup titles and the login page are translated,
@@ -383,7 +370,11 @@ needed, and a field made from a card that was silently never created - a test
 that pins that a browser downloads **one** language file and not all 246 of
 them, and **81 languages** taken past the words on the board into the menus and
 the login page, beside the **Export** row that read as the lowercase key
-`export` in every one of them because that key had never existed.
+`export` in every one of them because that key had never existed. Four files
+turned out not to be in the language on the tin at all - **Korean** in Japanese
+kana, **Georgian** in Russian, **Hindi** in Gujarati and **Tamil** in Telugu,
+3,984 strings between them - and all four are now written in their own script,
+found by a scan that stays as the guard.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2566,6 +2557,57 @@ shape, a fence keeps its code. An underscore inside a word stays an underscore:
 </details>
 
 and improves the translations:
+
+**Files written in another language** - four that were not the language on the
+tin, and the scan that found them.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f225b3245df2d29d77fb49f9744628f4d405c9de">Korean was Japanese and Georgian was Russian, in 1,143 strings between them</a>. Thanks to xet7.</summary>
+
+A missing translation shows English, which says plainly that nobody has done it
+yet and invites the person who can. These files said something else: `ko` opened
+a board labelled *ボード* and `ka` one labelled *Доска* - confident text in a
+script the reader may not read at all, and the merge rules protect it forever,
+because a Japanese word is not equal to the English source and so is never
+treated as a placeholder.
+
+Neither file was wholly wrong, which is why nobody had noticed: both had `save`
+right and `board` in the wrong language. `ko` had **354** kana values and `ka`
+**789** Cyrillic ones, and they are Korean and Georgian now - the card details
+pane, the Admin Panel, the rules engine, global search and the error strings.
+
+Found by [comparing each value's Unicode script](https://github.com/wekan/wekan/commit/3673177dab0e9b67dfbe32d7db5a160506704743)
+against the one the language is written in, which needs two exclusions to be
+usable: the danda `।` is shared across the Indic scripts and so is not evidence,
+and hanja in a Korean string is legitimate Korean.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7a3cd208c70562c2496751f7e830f5a33db95ab9">Hindi was Gujarati and Tamil was Telugu, in 2,841 strings between them</a>. Thanks to xet7.</summary>
+
+The same fault, larger: `hi` held **1,204** values in Gujarati script and `ta`
+held **1,637** in Telugu and Devanagari - two thirds of the whole Tamil file.
+Both are [translated in place](https://github.com/wekan/wekan/commit/9ca57a816654a27ea140130c697383b4d47634fd)
+rather than blanked back to English, because blanking three thousand strings
+trades one unreadable file for one empty one.
+
+The search operators needed a decision, because they are the words a user TYPES
+rather than labels a user reads. They are native words - `operator-board` is
+`बोर्ड` in Hindi and `பலகை` in Tamil - and the instruction text names those same
+words through its `__operator_*__` placeholders, so the two can never drift
+apart. Georgian was done the same way, and the choice is reversible in one file
+if search syntax should stay ASCII.
+
+Three values stay in Latin on purpose. `excel-font` is the font family handed to
+the spreadsheet writer, `ldap` is a protocol and `gridfs-storage` a product; the
+transliterations they carried were wrong in a way no reader could act on.
+
+`node releases/translations/wrong-script.mjs --count` now reports **zero**
+across all 246 files, and stays as the guard that catches the next file seeded
+from a neighbour before it ships.
+
+</details>
 
 **Deeper translation** - languages taken past the words on the board.
 
