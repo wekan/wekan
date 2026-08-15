@@ -196,14 +196,19 @@ different halves:
   prose backlog is roughly 2,200 values**, and the way to work it is by KEY
   rather than by language: one key is missing in 10 to 100 files at once, so
   translating it is one table, not a hundred visits.
-- **The four files that carried text in ANOTHER LANGUAGE are DONE** and are no
-  longer part of this backlog: `ko` (354 values in Japanese kana), `ka` (789 in
-  Russian), `hi` (1,204 in Gujarati) and `ta` (1,637 in Telugu and Devanagari)
-  are written in their own script now. `node
-  releases/translations/wrong-script.mjs --count` reports zero and stays as the
-  guard for the next file seeded from a neighbour. `hi` and `ta` were done by
-  looking the words up rather than by native speakers, so a review of either is
-  welcome — and a Transifex translation replaces a filled string permanently.
+- **Every file that carried text in ANOTHER LANGUAGE is DONE** and is no longer
+  part of this backlog. It turned out to be two problems, not one. Values in
+  another SCRIPT: `ko` and `ko-KR` (Japanese kana, then 80 more of pure CJK
+  each), `ka` (Russian), `hi` and `hi-IN` (Gujarati), `ta` (Telugu and
+  Devanagari) — 5,542 values. And values in the LATIN alphabet inside a language
+  that is not written in it, which no Unicode-block comparison can see: `el` and
+  `el-GR` (Italian), `th` (Vietnamese), `ar-DZ` (French), `ka` again (Turkish),
+  `mn` and a tail of small ones — 3,174 more. `node
+  releases/translations/wrong-script.mjs --count` reports **zero for both
+  checks** and stays as the guard for the next file seeded from a neighbour.
+  `hi`, `ta`, `th` and `el` were done by looking the words up rather than by
+  native speakers, so a review of any of them is welcome — and a Transifex
+  translation replaces a filled string permanently.
 - **92 languages carry only the first two tiers** — about 112 strings each,
   2,273 missing each, 209,076 in total. They are the ones added recently: the
   board words, the menus, the popup titles and the login page are translated,
@@ -2690,6 +2695,81 @@ lexicon has `patlh` for a rank but no idiom for a board role, and **Volapük**.
 value equal to the English source rather than pretending a translation happened.
 The same is true of far more of the backlog than it first looked: `magenta` and
 `indigo` are `magenta` and `indigo` in nearly every language that "misses" them.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ae3686d67ca7bde36338a6907744a2696a6204de">Latin in a non-Latin file, and English that stopped looking untranslated</a>. Thanks to xet7.</summary>
+
+Two more blind spots, both found by asking the scan a question it could not
+answer before.
+
+**A value written entirely in the LATIN alphabet, inside a language that is
+not.** The Unicode-block comparison could never see it, because Latin is not one
+of the blocks it compares against - so `el` and `el-GR` held **926 values of
+Italian** each, `th` **685 of Vietnamese**, `ar-DZ` **510 of French** and `ka`
+**45 of Turkish**, and the count read zero throughout. Product names are Latin
+too, so a value is only suspect when it says something: five letters or more,
+and not the English source wearing different punctuation.
+
+**English that stopped looking untranslated.** The two keys
+`map-to-existing-user-desc` and `-none` were REWORDED in `en.i18n.json`, and
+every other file kept the old English. Old English is not equal to the new
+source, so the fill tooling counted it as a translation and stopped offering the
+key - in 145 files. The current source is written back, which changes nothing a
+reader sees and makes 290 values countable again.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b65518dca99550cbd27b9932170879ecd36ec185">Georgian was Turkish, Algerian Arabic was French, Mongolian was English</a>. Thanks to xet7.</summary>
+
+The detector's first harvest, smallest first: 43 values of Turkish in `ka`, 508
+of French in `ar-DZ`, and 44 in `mn` that were never translated at all but had
+drifted far enough from the English source that the fill tooling no longer
+offered them. Plus the tail - six in `ug`, two in `fa`, one each in `or_IN`,
+`pa` and `uk`. `ar-DZ` is fixed from `ar`, key by key and only where `ar` has a
+translation, so the variant is never ahead of its base.
+
+The script map also grew the languages it had never listed: `ary`, the nine
+Turkic and Mongolic languages written in Cyrillic, and Chinese under every tag
+it ships as. Of those only `mn` had anything to report, which is the answer
+worth having.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/482065d8fb67dc91547a6f3da4f1aefe39904051">Thai: 683 values that were Vietnamese</a>. Thanks to xet7.</summary>
+
+A third of `th.i18n.json` was written in Vietnamese - *Bảng* for a board, *Thẻ*
+for a card, *Danh sách* for a list - beside 1,594 values of real Thai. All 683
+are Thai now, under terms fixed once and used throughout: บอร์ด, การ์ด, รายการ,
+สวิมเลน, เช็คลิสต์, คลังเก็บ.
+
+One value was not a translation at all: `act-withCardTitle` read
+`__kartu__[__Panel__]`, two Indonesian words in placeholder syntax, so the
+notification it formats could never substitute a board or a card. It is
+`[__board__] __card__` again.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8df7376600b378c5d58842683f347c3d74d64e1e">Greek: 924 values that were Italian, and the Latin-only backlog is empty</a>. Thanks to xet7.</summary>
+
+`el` and `el-GR` are the same file twice, and 924 of their values were Italian -
+*lista rinominata in*, *si è unito a*, *Bacheca* for a board, and *Couloir*,
+French, for a swimlane. All of it is Greek now: the activity feed, the archive
+dialogues, Planning Poker, the export fields, the rules engine, the Admin Panel,
+the migrations and the whole of global search.
+
+The terms follow what the file already had right - Πίνακας, Κάρτα, Λίστα,
+Ετικέτα, Μέλος, Λίστα ελέγχου, Αρχείο - and fill the two it did not: Διάδρομος
+for a swimlane and Υπεύθυνος for an assignee.
+
+That empties the backlog the detector found: 3,174 values across six files and a
+tail of small ones. `wrong-script.mjs --count` now reports zero for BOTH of its
+checks - no value in another script, and none in the Latin alphabet inside a
+language that is not written in it.
 
 </details>
 
