@@ -394,7 +394,8 @@ Panel, `POST /users/register` created accounts anyway — for anybody who asked,
 on an instance whose administrator had decided nobody else may join. The guard
 that was supposed to stop it read a Meteor option WeKan never sets, so it was
 always false and the endpoint had never refused anyone. It was found while
-reviewing a pull request about the opposite symptom.
+reviewing a pull request about the opposite symptom. Below that: two AWS SDK
+updates for the S3 attachment path.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -463,6 +464,15 @@ creates the user and answers with its token, and that a missing Settings
 document does not refuse everybody.
 
 </details>
+
+and updates the following dependencies:
+
+- **@aws-sdk/client-s3 3.1108.0 → 3.1109.0** — the S3 client WeKan stores
+  attachments through when S3 storage is configured.
+- **@aws-sdk/lib-storage 3.1104.0 → 3.1109.0** — the multipart upload helper
+  beside it, which is what actually streams a large attachment to S3.
+
+Thanks to dependabot.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
