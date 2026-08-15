@@ -87,4 +87,35 @@ test('the three places it used to live are gone (negative)', () => {
   assert.ok(!/js-settings/.test(popup), 'nor a cog that jumped to the sidebar');
 });
 
+test('the section is there for every card its reader may write to', () => {
+  // Because that hamburger is the ONLY way in, gating the heading on the card's
+  // own values made custom fields unreachable on a card that had none - and on
+  // a board that had never used them, unreachable anywhere, since the same move
+  // removed the card menu's entry and the Board Settings row and left the
+  // sidebar view opened by nothing. Playwright caught it in all three browsers:
+  // `.js-custom-fields` waited out its timeout on a seeded board.
+  const group = cardJade.slice(
+    cardJade.lastIndexOf('\n', cardJade.indexOf('.card-details-group-custom-fields')),
+    cardJade.indexOf('if getVoteQuestion'),
+  );
+  const gate = cardJade
+    .slice(0, cardJade.indexOf('.card-details-group-custom-fields'))
+    .split('\n')
+    .reverse()
+    .find(l => /^\s*if /.test(l));
+  assert.strictEqual(gate.trim(), 'if canModifyCard',
+    'the heading is gated on who may write, not on what the card already has');
+  // The FIELDS still come from the card's values, so an empty section stays
+  // empty rather than drawing a phantom row per board definition.
+  assert.ok(/each customFieldsWD/.test(group), 'the rows are still the card\'s own fields');
+});
+
+test('the anchor that lost its label went with it (negative)', () => {
+  // `a.js-custom-fields` kept its tag when the move took its text away: an empty
+  // anchor that rendered nothing and could never be clicked. Gone, and so are
+  // the two handlers that were bound to it.
+  assert.ok(!/js-custom-fields/.test(cardJade), 'no empty anchor left in the card');
+  assert.ok(!/'click \.js-custom-fields'/.test(cardJs), 'and no handler for one');
+});
+
 console.log(`\ncustomFieldsSectionMenu: ${passed} tests passed`);

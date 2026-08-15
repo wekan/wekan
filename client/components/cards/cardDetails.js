@@ -1279,7 +1279,6 @@ Template.cardDetails.events({
   'click .js-end-date': Popup.open('editCardEndDate'),
   'click .js-show-positive-votes': Popup.open('positiveVoteMembers'),
   'click .js-show-negative-votes': Popup.open('negativeVoteMembers'),
-  'click .js-custom-fields': Popup.open('cardCustomFields'),
   'mouseenter .js-card-details'(event, tpl) {
     const boardBody = getBoardBodyInstance(tpl);
     if (boardBody === null) return;
@@ -1652,7 +1651,6 @@ Template.cardDetailsActionsPopup.events({
   'click .js-attachments': Popup.open('cardAttachments'),
   'click .js-start-voting': Popup.open('cardStartVoting'),
   'click .js-start-planning-poker': Popup.open('cardStartPlanningPoker'),
-  'click .js-custom-fields': Popup.open('cardCustomFields'),
   'click .js-received-date': Popup.open('editCardReceivedDate'),
   'click .js-start-date': Popup.open('editCardStartDate'),
   'click .js-due-date': Popup.open('editCardDueDate'),

@@ -306,12 +306,16 @@ class CardPage {
   // --- Custom fields ---
 
   async openCustomFields() {
-    // `.js-custom-fields` used to be a row of cardDetailsActionsPopup and had to
-    // be reached through the hamburger. It is now on the Custom Fields SECTION
-    // of the card itself (`a.js-custom-fields.card-details-item`), because the
-    // settings about a thing belong on the thing that shows it - so the popup
-    // opens with one click and the hamburger no longer carries the entry.
-    await this.root.locator('.js-custom-fields').first().click();
+    // The single home for custom fields is the hamburger at the end of the
+    // card's own Custom Fields heading: the picker of which fields are on this
+    // card, a pencil each, and "Add custom field". The card menu's entry and the
+    // Board Settings row were removed when it moved there, and the old
+    // `a.js-custom-fields` anchor lost its label and then the tag - so this is
+    // the only way in, and it is what the test has to click.
+    await this.root
+      .locator('.js-open-custom-fields-settings')
+      .first()
+      .click({ timeout: 10_000 });
     await this.page.locator('.js-pop-over').waitFor({ timeout: 5_000 });
   }
 

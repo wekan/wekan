@@ -426,7 +426,17 @@ template(name="cardDetails")
                   +cardSpentTime
 
               //.card-details-items
-        if customFieldsWD
+        //- The heading is here for EVERY card the reader may write to, not only
+          for one that already has a custom field on it. The hamburger at the end
+          of it is the single place custom fields live - the picker of which
+          fields are on this card, a pencil each, and "Add custom field" - so
+          gating the heading on `customFieldsWD`, the card's VALUES, meant a card
+          with none had no way to get one, and a board that had never used them
+          had no way anywhere: the card menu's entry and the Board Settings row
+          were removed with the move, and the sidebar view is opened by nothing.
+          The FIELDS below still come from `customFieldsWD`, so an empty section
+          is an empty section, not a phantom row.
+        if canModifyCard
           //- ONE header for the whole group, outside the loop: a card with six
             custom fields is one Custom Fields section, not six sections that
             happen to share a caret and draw six rules. A group like the others,
@@ -453,7 +463,6 @@ template(name="cardDetails")
               else
                 input.toggle-switch(type="checkbox" id="toggleCustomFieldsGridButton")
               label.toggle-label(for="toggleCustomFieldsGridButton")
-          a.js-custom-fields.card-details-item.custom-fields(title="{{_ 'custom-fields'}}")
 
       if getVoteQuestion
         hr
