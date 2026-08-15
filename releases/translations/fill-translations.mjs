@@ -31,6 +31,14 @@
  *   node releases/translations/fill-translations.mjs --missing
  *       Print a per-language count of placeholder strings still needing translation
  *       (English + en-* variants are skipped — they are English by design). No writes.
+ *
+ *   node releases/translations/fill-translations.mjs --status
+ *       Where the backlog actually is. Splits the count two ways — strings that HAVE a
+ *       translation to give against product names, numbers, symbols and bare
+ *       `__placeholders__` that never will, and languages written in a non-Latin script
+ *       (where an English string is a foreign alphabet mid-sentence) against Latin-script
+ *       ones — then ranks the remaining keys by how many files share each. That ranking
+ *       is the work order: one key missing in fifty files is one table, not fifty visits.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -114,5 +122,61 @@ if (mode === '--apply') {
   process.exit(0);
 }
 
-console.error('Usage: fill-translations.mjs --missing | --list <lang> [--limit N] | --apply <lang> <file.json>');
+if (mode === '--status') {
+  // A flat count of "strings still equal to the English source" is several times
+  // the size of the actual backlog, and it says nothing about where the work is.
+  // Two distinctions make it useful, and both are cheap to compute:
+  //
+  //   1. WHAT the string is. A product name, a bare number, a symbol or a bare
+  //      `__placeholder__` has no translation to give; it equals the English
+  //      source because that IS the translation, and it will never stop
+  //      counting.
+  //   2. WHICH SCRIPT the language is written in. In a Latin-script language an
+  //      untranslated "Status" reads as a word; in a Greek, Arabic, Thai or
+  //      Devanagari interface it is a different alphabet mid-sentence.
+  const NONLATIN = /[Ͱ-᳿Ⲁ-퟿]/;
+  const UNTRANSLATABLE = v =>
+    !/\p{Letter}/u.test(v) ||                       // numbers, symbols, empty
+    v.replace(/[^\p{Letter}]/gu, '').length < 3 ||  // GB, MB, OS, #, @
+    /__[a-zA-Z]+__/.test(v) ||                      // "[__board__] __card__"
+    /^(Meteor|Node|MongoDB.*|OAuth2|LDAP|CAS|GridFS|Arial|Gantt|S3.*|CollectionFS|Google Cloud Storage\.?|Azure Blob.*|Meteor-Files|Microsoft Azure Blob Storage\.|MongoDB Compact|Bytes|URL|Logo|Cron|OS|Platform|USA|Asia|OK|Planning Poker)$/.test(v);
+
+  const bucket = {
+    'non-Latin, near-complete': [0, 0, 0],
+    'Latin, near-complete': [0, 0, 0],
+    'second tier (over 400 missing)': [0, 0, 0],
+  };
+  const perKey = {};
+  for (const f of fs.readdirSync(DATA_DIR)) {
+    if (!f.endsWith('.i18n.json')) continue;
+    const code = path.basename(f, '.i18n.json');
+    if (isEnglishVariant(code)) continue;
+    const j = readJson(path.join(DATA_DIR, f)) || {};
+    const miss = enKeys.filter(k => isPlaceholder(j, k));
+    const sample = [j.board, j.card, j.list, j.save, j.settings].filter(Boolean).join('');
+    const name = miss.length >= 400 ? 'second tier (over 400 missing)'
+      : NONLATIN.test(sample) ? 'non-Latin, near-complete' : 'Latin, near-complete';
+    const b = bucket[name];
+    b[0]++;
+    for (const k of miss) {
+      if (UNTRANSLATABLE(en[k])) { b[2]++; continue; }
+      b[1]++;
+      if (name !== 'second tier (over 400 missing)') perKey[k] = (perKey[k] || 0) + 1;
+    }
+  }
+  for (const [name, [files, real, junk]] of Object.entries(bucket)) {
+    console.log(`${String(files).padStart(4)} files  ${String(real).padStart(7)} to translate  ` +
+      `${String(junk).padStart(7)} nothing to translate  ${name}`);
+  }
+  const rows = Object.entries(perKey).sort((a, b) => b[1] - a[1]).slice(0, 20);
+  if (rows.length) {
+    console.log('\nnear-complete files, by key — one key is one table, not one visit per file:');
+    for (const [k, n] of rows) {
+      console.log(`${String(n).padStart(4)}  ${k}  ${JSON.stringify(en[k]).slice(0, 56)}`);
+    }
+  }
+  process.exit(0);
+}
+
+console.error('Usage: fill-translations.mjs --status | --missing | --list <lang> [--limit N] | --apply <lang> <file.json>');
 process.exit(1);

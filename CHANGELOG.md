@@ -175,83 +175,84 @@ selectivity), verifiable only with live `EXPLAIN` on each engine.
 <details>
 <summary>Fill the remaining untranslated strings directly, no external service</summary>
 
-Not an issue, and deferred because bug fixes are more important than
-translations (recorded so the next session can resume): the translation tooling
-is safe and ready, but most of the strings are not yet filled. As of
-**2026-08-15** the 234 language files hold **216,698** strings still equal to
-the English source, out of 2,384 keys each, and they fall into two very
-different halves:
+Not an issue, and recorded so the next session can pick it up without measuring
+the ground again. Run this first — it is the status, and it is always current:
 
-- **The most useful way to read the count is by SCRIPT**, because an
-  untranslated string is not equally visible everywhere. In a Latin-script
-  language *Status* reads as a word; in a Greek, Arabic, Thai or Devanagari
-  interface an English paragraph is a different alphabet in the middle of the
-  page. Measured that way the 52 non-Latin files hold **133 real words** still
-  in English, against 1,927 product names and symbols that will never stop
-  counting — and 71 of those 133 are the two `act-with*Title` keys, which are
-  pure `__board__` placeholders and have no translation to give. That half is
-  effectively done.
-- **And the 86 Latin-script near-complete files hold 1,371 real words**, against
-  3,981 product names and symbols — the same split, one script over. What that
-  half has left is genuinely small, and the way to find out how small is to
-  OFFER a key its translation and see how often the offer is refused: the last
-  batch of twenty everyday words was filled 48 times and ignored 202, because
-  *Filter*, *Container*, *Version*, *Pause*, *Type* and *Latitude* are those
-  languages' own words already.
-- **142 languages are nearly complete** — 7,622 strings between them, but that
-  number badly overstates the work. About **4,700 of them are values that are
-  the same in every language**: product names (*Meteor*, *MongoDB*, *S3/MinIO*,
-  *OAuth2*), bare numbers (the Planning Poker values), symbols (`/`, `#`, `@`),
-  unit abbreviations and one empty string. They count as untranslated only
-  because the value equals the English source, which for a proper noun is the
-  correct translation, and they will never stop counting. A second, larger group
-  of them turns out to be the same thing one step less obvious: **the colour
-  names, and the loanwords**. `magenta` and `indigo` are `magenta` and `indigo`
-  in almost every language that still "misses" them, and so are *Format*,
-  *Ticket*, *Normal*, *Admin* and *Status* in most European ones. The **real
-  prose backlog is roughly 2,200 values**, and the way to work it is by KEY
-  rather than by language: one key is missing in 10 to 100 files at once, so
-  translating it is one table, not a hundred visits.
-- **Every file that carried text in ANOTHER LANGUAGE is DONE** and is no longer
-  part of this backlog. It turned out to be two problems, not one. Values in
-  another SCRIPT: `ko` and `ko-KR` (Japanese kana, then 80 more of pure CJK
-  each), `ka` (Russian), `hi` and `hi-IN` (Gujarati), `ta` (Telugu and
-  Devanagari) — 5,542 values. And values in the LATIN alphabet inside a language
-  that is not written in it, which no Unicode-block comparison can see: `el` and
-  `el-GR` (Italian), `th` (Vietnamese), `ar-DZ` (French), `ka` again (Turkish),
-  `mn` and a tail of small ones — 3,174 more. `node
-  releases/translations/wrong-script.mjs --count` reports **zero for both
-  checks** and stays as the guard for the next file seeded from a neighbour.
-  `hi`, `ta`, `th` and `el` were done by looking the words up rather than by
-  native speakers, so a review of any of them is welcome — and a Transifex
-  translation replaces a filled string permanently.
-- **92 languages carry only the first two tiers** — about 112 strings each,
-  2,273 missing each, 209,076 in total. They are the ones added recently: the
-  board words, the menus, the popup titles and the login page are translated,
-  and everything past that falls back to English. This half is not finishable
-  in one pass; the natural next tiers are the **card details pane**, the
-  **Admin Panel**, the **filter and search sidebars**, then the settings and
-  error strings.
+```
+node releases/translations/fill-translations.mjs --status
+```
 
-A release can go out at any point in either half — an untranslated key renders
-its English source, never the key — so this is a backlog, not a blocker. What
-IS worth doing before a release is the first half, because those languages are
-advertised as complete.
+**What is DONE.** Every file that carried text in ANOTHER LANGUAGE is fixed, and
+it turned out to be two problems rather than one. Values written in another
+SCRIPT — `ko`/`ko-KR` (Japanese kana, then 80 more of pure CJK each), `ka`
+(Russian), `hi`/`hi-IN` (Gujarati), `ta` (Telugu and Devanagari): **5,542
+values**. And values written in the LATIN alphabet inside a language that is not
+written in it, which no Unicode-block comparison can see — `el`/`el-GR`
+(Italian), `th` (Vietnamese), `ar-DZ` (French), `ka` again (Turkish), `mn`, and
+a tail of small ones: **3,174 more**. `node
+releases/translations/wrong-script.mjs --count` reports **zero for both checks**
+across all 246 files and stays as the guard for the next file seeded from a
+neighbour. `hi`, `ta`, `th` and `el` were written by looking the words up rather
+than by native speakers, so a review of any of them is welcome — and a Transifex
+translation replaces a filled string permanently.
 
-These must be translated DIRECTLY — the
-maintainer/assistant (an LLM) writes each translation using that language's
-existing translations and general kanban terminology as the reference, with NO
-external translation service, API, endpoint, key or password (the old
-`machine-translate.mjs` service was removed on purpose). Use `node
-releases/translations/fill-translations.mjs --missing` to list what remains,
-`--list <lang>` to dump a language's placeholder keys, translate them
-(preserving every interpolation placeholder such as `__count__` / `{{var}}` /
-`%s` and any HTML verbatim), and `--apply <lang> <file.json>` to merge them back
-— it writes ONLY into English-placeholder keys, so it can never overwrite a
-human translation, and filled strings stay LOCAL (never pushed to Transifex).
-`node releases/translations/verify-human-preference.mjs` proves the safety of
-both directions. Best done as a per-language batch (one language at a time, or
-one agent per language) once the bug backlog is clear.
+**What is left, in the order worth doing it.** As of **2026-08-15**:
+
+| Files | To translate | Nothing to translate | Which |
+| --- | --- | --- | --- |
+| 56 | **99** | 2,171 | non-Latin, near-complete |
+| 86 | **1,371** | 3,981 | Latin-script, near-complete |
+| 92 | **193,247** | 15,829 | second tier |
+
+The second column is the backlog; the third is strings that equal the English
+source because that IS the translation — product names (*Meteor*, *MongoDB*,
+*S3/MinIO*, *OAuth2*), bare numbers, symbols, unit abbreviations, and bare
+`__board__` placeholders. They will never stop counting, and they are why a flat
+count reads several times larger than the work.
+
+1. **The 56 non-Latin near-complete files are effectively finished** — 99 words,
+   and an English string is most glaring there.
+2. **The 86 Latin-script near-complete files: 1,371.** Smaller than it looks,
+   for a reason worth knowing before starting. Much of what remains is a
+   LOANWORD: *magenta* and *indigo* are magenta and indigo nearly everywhere,
+   and so are *Filter*, *Container*, *Version*, *Pause*, *Type*, *Status*,
+   *Server*, *Normal*, *Ticket*, *Menu* and *Format* across most of Europe.
+   The way to find out which is which is to OFFER a key its translation and
+   count the refusals: the last batch of twenty everyday words was filled 48
+   times and ignored 202.
+3. **The 92 second-tier files: 193,247.** Not finishable in one pass. They have
+   the board words, the menus, the popup titles and the login page; the natural
+   next tiers are the **card details pane**, the **Admin Panel**, the **filter
+   and search sidebars**, then the settings and error strings.
+
+**Work by KEY, not by language.** `--status` ends with the remaining keys ranked
+by how many files share each, because that ranking is the work order: one key
+missing in fifty files is one table, not fifty visits. Everything since the
+wrong-language pass was done that way — the search operators in 107 files, the
+one-letter shorthands in 89, the import-mapping dialogue in 133.
+
+**Two rules that must not bend.** These are translated DIRECTLY — the maintainer
+or the assistant (an LLM) writes each translation from that language's existing
+strings and general kanban terminology, with NO external translation service,
+API, endpoint, key or password (the old `machine-translate.mjs` was removed on
+purpose). And a fill can never overwrite a human translation: `--apply` writes
+only where the value is still the English source, reports the rest as skipped,
+and filled strings stay LOCAL — they are never pushed to Transifex. `node
+releases/translations/verify-human-preference.mjs` proves both directions rather
+than asserting them.
+
+**Three things that bit, and will again.** A file whose name says one language
+and whose contents are another must be completed in the language it is ACTUALLY
+in — `ace` is Malay, `ast-ES` Spanish, `ro` Italian, `ve` Zulu, `vl-SS` Dutch,
+and `vo`, `wo`, `zgh` and `wa-RR` are French. A search operator NAME is matched
+before the colon and can never contain a space, so a language that writes one as
+two words runs them together. And when the ENGLISH source of a key is reworded,
+every other file keeps the old English, which is no longer equal to the source
+and so stops being offered — 290 values were hiding that way and were reset.
+
+A release can go out at any point: an untranslated key renders its English
+source, never the key. What is worth doing before one is the near-complete half,
+because those languages are advertised as complete.
 
 </details>
 
