@@ -736,6 +736,28 @@ WebApp.handlers.get('/api/users/:userId/boards', async function(req, res) {
         sort: { sort: 1 },
       },
     );
+    // A caller whose membership was REVOKED still has an entry, so the boards
+    // this listing now withholds are countable - and a removed member coming
+    // back to look is the attempt worth showing in Admin Panel / Problems.
+    // Counted, not named: the point is that somebody is still asking, and the
+    // board titles are the thing being withheld.
+    try {
+      const revoked = await ReactiveCache.getBoards(
+        {
+          archived: false,
+          members: { $elemMatch: { userId: paramUserId, isActive: false } },
+        },
+        { fields: { _id: 1 } },
+      );
+      if (revoked && revoked.length) {
+        require('/server/lib/securityLog').record({
+          key: 'authz.board-list', action: 'blocked',
+          source: 'GET /api/users/:userId/boards',
+          userId: req.userId,
+          detail: `withheld ${revoked.length} board(s) whose membership is revoked`,
+        });
+      }
+    } catch (e) { /* logging must never break the guard */ }
     // #5582: hide internal helper boards (caret-wrapped titles like `^Subtasks^`
     // and non-`board` types such as `list`/`template`) from the REST API, the
     // same way the UI board list does.

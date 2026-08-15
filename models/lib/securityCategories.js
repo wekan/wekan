@@ -47,6 +47,16 @@ const CATALOG = {
   'authz.share':     { category: 'authz', bleed: 'RevokeBleed', severity: 'high', cwe: 'CWE-863' },
   'authz.readonly':  { category: 'authz', bleed: 'ReadOnlyBleed', severity: 'medium', cwe: 'CWE-863' },
   'authz.database':  { category: 'authz', bleed: 'DatabaseBleed', severity: 'high', cwe: 'CWE-863' },
+  // The five ybsun0215 REST API findings. Four of them have an ATTEMPT that can
+  // be told apart from ordinary use, so the refusal is recorded and shows in
+  // Admin Panel / Problems. HashBleed (GHSA-6qpx-x7vr-p9w6) deliberately has no
+  // key: every call to that endpoint is a legitimate admin call, the fault was
+  // in what the answer CARRIED, so a log line there would fire on normal use and
+  // say nothing about an attacker.
+  'authz.card-delete': { category: 'authz', bleed: 'PurgeBleed', severity: 'critical', cwe: 'CWE-639' },
+  'authz.card-member': { category: 'authz', bleed: 'GuestBleed', severity: 'high', cwe: 'CWE-639' },
+  'authz.board-list':  { category: 'authz', bleed: 'StaleBleed', severity: 'medium', cwe: 'CWE-863' },
+  'spoofing.author':   { category: 'spoofing', bleed: 'AuthorBleed', severity: 'medium', cwe: 'CWE-345' },
   'injection.nosql': { category: 'injection', bleed: 'SelectorBleed', severity: 'high', cwe: 'CWE-943' },
   'injection.sql':   { category: 'injection', bleed: 'EscapeBleed', severity: 'critical', cwe: 'CWE-89' },
 };

@@ -909,6 +909,7 @@ WebApp.handlers.post('/api/boards/:boardId/lists/:listId/cards', async function(
     sendJsonResult(res, { code: 200, data: { _id: linkedNewId } });
     const linkedCard = await ReactiveCache.getCard(linkedNewId);
     // GHSA-6jr3-42jf-vhm5: attribution comes from the session, not the body.
+    noteAuthorSpoof(req, 'POST cards (linked)');
     await cardCreation(req.userId, linkedCard);
     return;
   }
@@ -985,6 +986,7 @@ WebApp.handlers.post('/api/boards/:boardId/lists/:listId/cards', async function(
     sendJsonResult(res, { code: 200, data: { _id: id } });
 
     const card = await ReactiveCache.getCard(id);
+    noteAuthorSpoof(req, 'POST cards');
     await cardCreation(req.userId, card);
   } else {
     sendJsonResult(res, { code: 401 });
@@ -1043,6 +1045,7 @@ WebApp.handlers.post(
       const input = cardsInput[i] || {};
       // GHSA-6jr3-42jf-vhm5: the session identity, not the body's - per card,
       // because the bulk form let each entry name its own author too.
+      noteAuthorSpoof(req, 'POST cards/bulk');
       const authorId = req.userId;
       const swimlaneId = input.swimlaneId || req.body.swimlaneId;
       const checkUser = await ReactiveCache.getUser(authorId);
@@ -1530,12 +1533,29 @@ WebApp.handlers.delete(
       _id: paramCardId,
       boardId: paramBoardId,
     });
+    // An id that names a card, but not one on the board the caller was
+    // authorised for, is the attempt this fix refuses - so it is recorded and
+    // shows in Admin Panel / Problems. A card id that names nothing at all is
+    // an ordinary 404 and is not logged.
+    if (!card) {
+      const elsewhere = await ReactiveCache.getCard(paramCardId);
+      if (elsewhere) {
+        try {
+          require('/server/lib/securityLog').record({
+            key: 'authz.card-delete', action: 'blocked', source: 'DELETE /api/boards/:boardId/lists/:listId/cards/:cardId',
+            userId: req.userId,
+            detail: `refused delete of card ${paramCardId} on board ${elsewhere.boardId} via board ${paramBoardId}`,
+          });
+        } catch (e) { /* logging must never break the guard */ }
+      }
+    }
     // Remove the card's checklists, checklist items, comments and attachments
     // BEFORE removing the card itself, so their before.remove hooks still find
     // the parent card (otherwise they dereference an undefined card and crash
     // SyncedCron with an unhandled rejection). `Cards.direct.removeAsync`
     // bypasses Cards.before.remove, so cardRemover is not run twice.
     if (card) {
+      noteAuthorSpoof(req, 'DELETE card');
       await cardRemover(req.userId, card);
     }
     await Cards.direct.removeAsync({
@@ -1592,6 +1612,7 @@ WebApp.handlers.delete('/api/boards/:boardId/cards/bulk', async function(req, re
     }
     // Remove sub-items (checklists, items, comments, attachments) before the
     // card itself so their before.remove hooks still find the parent card.
+    noteAuthorSpoof(req, 'DELETE cards/bulk');
     await cardRemover(req.userId, card);
     await Cards.direct.removeAsync({ _id: cardId, boardId: paramBoardId });
     // Issue #1587: Cards.direct.removeAsync bypasses Cards.before.remove, so log
@@ -1915,6 +1936,22 @@ WebApp.handlers.post(
   },
 );
 
+// GHSA-6jr3-42jf-vhm5: a request body that still carries `authorId` naming
+// somebody OTHER than the session is the attempt this fix refuses - the value is
+// ignored either way now, and naming yourself is what an old client does, so only
+// the mismatch is recorded. Shows in Admin Panel / Problems.
+function noteAuthorSpoof(req, source) {
+  try {
+    const claimed = req.body && req.body.authorId;
+    if (!claimed || String(claimed) === String(req.userId)) return;
+    require('/server/lib/securityLog').record({
+      key: 'spoofing.author', action: 'ignored', source,
+      userId: req.userId,
+      detail: `ignored authorId "${claimed}" from the body; recorded the session instead`,
+    });
+  } catch (e) { /* logging must never break the guard */ }
+}
+
 // GHSA-whxm-pxgj-7wqv: who may be put on a card, in the ARRAY form.
 //
 // `POST .../cards` and `PUT .../cards/{cardId}` take `members` and `assignees`
@@ -1929,10 +1966,22 @@ WebApp.handlers.post(
 // One rule for every shape. An id that may not be assigned is dropped rather
 // than refused, so a bulk edit does not fail over one stale id, and the caller
 // sees what was kept in the answer.
-async function assignableOnBoard(board, ids) {
+async function assignableOnBoard(board, ids, source) {
   const out = [];
+  const refused = [];
   for (const id of Array.isArray(ids) ? ids : []) {
     if (canAssignCardMember(board, id)) out.push(id);
+    else if (id) refused.push(id);
+  }
+  // Naming somebody who is not on this board is the attempt, so it is recorded
+  // and shows in Admin Panel / Problems rather than being dropped in silence.
+  if (refused.length) {
+    try {
+      require('/server/lib/securityLog').record({
+        key: 'authz.card-member', action: 'blocked', source: source || 'card members/assignees',
+        detail: `refused ${refused.length} id(s) not active on board ${board && board._id}: ${refused.join(' ')}`,
+      });
+    } catch (e) { /* logging must never break the guard */ }
   }
   return out;
 }

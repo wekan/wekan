@@ -62,8 +62,20 @@ test('the single-card DELETE fetches the card WITH the board it authorised', () 
   const body = handler(cards, 'delete', '/api/boards/:boardId/lists/:listId/cards/:cardId');
   assert.ok(/getCard\(\{\s*_id: paramCardId,\s*boardId: paramBoardId,\s*\}\)/.test(body),
     'the lookup is constrained to the authorised board');
-  assert.ok(!/getCard\(paramCardId\)/.test(body),
-    'and never a bare primary-key lookup again (negative)');
+  // A bare lookup does appear once more, but only AFTER the constrained one
+  // found nothing, and only to tell an attempt apart from an ordinary 404 for
+  // the Problems log. What matters is that its result never reaches the
+  // destruction: `card` is what cardRemover is given, never `elsewhere`.
+  const bare = body.match(/getCard\(paramCardId\)/g) || [];
+  assert.ok(bare.length <= 1, `the bare lookup appears ${bare.length} times`);
+  if (bare.length) {
+    assert.ok(/const elsewhere = await ReactiveCache\.getCard\(paramCardId\)/.test(body),
+      'and it is the classification lookup, named for what it is');
+    assert.ok(body.indexOf('if (!card) {') < body.indexOf('const elsewhere'),
+      'reached only when the constrained lookup found nothing');
+    assert.ok(!/cardRemover\(req\.userId, elsewhere\)/.test(body),
+      'and never handed to cardRemover (negative)');
+  }
 });
 
 test('cardRemover only ever runs on a card that lookup returned', () => {
@@ -72,8 +84,12 @@ test('cardRemover only ever runs on a card that lookup returned', () => {
   const body = handler(cards, 'delete', '/api/boards/:boardId/lists/:listId/cards/:cardId');
   const at = body.indexOf('cardRemover(');
   assert.ok(at !== -1, 'it is still called');
-  assert.ok(/if \(card\) \{\s*\n\s*(\/\/[^\n]*\n\s*)*await cardRemover\(/.test(body),
-    'guarded by the constrained lookup having found something');
+  // Guarded by the constrained lookup having found something: everything between
+  // `if (card) {` and the call is comment or the attempt note, never another
+  // lookup that could reintroduce a foreign card.
+  const guard = body.slice(body.indexOf('if (card) {'), body.indexOf('await cardRemover('));
+  assert.ok(guard.length > 0 && guard.length < 400, 'cardRemover sits inside the if (card) guard');
+  assert.ok(!/getCard\(/.test(guard), 'with no lookup between the guard and the call (negative)');
 });
 
 test('the bulk delete, which was always right, still constrains its lookup', () => {
@@ -110,7 +126,7 @@ test('the self view and the list endpoint are unchanged (negative)', () => {
 
 // ── GHSA-whxm-pxgj-7wqv ─────────────────────────────────────────────────────
 test('members and assignees are checked against the board, in every shape', () => {
-  assert.ok(/async function assignableOnBoard\(board, ids\)/.test(cards),
+  assert.ok(/async function assignableOnBoard\(board, ids, source\)/.test(cards),
     'one rule, used by all of them');
   const fn = cards.slice(cards.indexOf('async function assignableOnBoard'));
   assert.ok(/canAssignCardMember\(board, id\)/.test(fn.slice(0, 400)),
@@ -144,10 +160,21 @@ test('a revoked member is not listed as a member of the board', () => {
 
 // ── GHSA-6jr3-42jf-vhm5 ─────────────────────────────────────────────────────
 test('who did it comes from the session, not from the request body', () => {
-  assert.ok(!/req\.body\.authorId(?!\s*here)/.test(cards.replace(/\/\/[^\n]*/g, '')),
-    'no card path reads authorId from the body any more (negative)');
-  assert.ok(!/req\.body\.authorId/.test(customFields.replace(/\/\/[^\n]*/g, '')),
-    'nor does the custom-field create');
+  // `req.body.authorId` is still READ - that is how the spoof is noticed and
+  // reported - but it is never USED as an identity. It may appear only where the
+  // attempt is detected, never as a value that is stored or attributed.
+  const codeOnly = src => src.replace(/\/\/[^\n]*/g, '');
+  for (const [name, src] of [['cards', cards], ['customFields', customFields]]) {
+    const code = codeOnly(src);
+    assert.ok(!/userId: req\.body\.authorId/.test(code), `${name}: not stored as an identity`);
+    assert.ok(!/cardCreation\(req\.body\.authorId/.test(code), `${name}: not attributed on create`);
+    assert.ok(!/cardRemover\(req\.body\.authorId/.test(code), `${name}: not attributed on delete`);
+    assert.ok(!/customFieldCreation\(req\.body\.authorId/.test(code), `${name}: nor on a custom field`);
+    assert.ok(!/const authorId = input\.authorId/.test(code), `${name}: nor per entry in bulk`);
+  }
+  // And every remaining read sits beside the log line that reports it.
+  const reads = (codeOnly(cards).match(/req\.body\.authorId/g) || []).length;
+  assert.strictEqual(reads, 1, 'cards.js reads it once, in noteAuthorSpoof');
 
   // The six paths the advisory named, by what each one records.
   assert.ok(/await cardCreation\(req\.userId, linkedCard\)/.test(cards), 'linked-card create');
@@ -159,6 +186,96 @@ test('who did it comes from the session, not from the request body', () => {
     'both deletes - single and bulk');
   assert.ok(/await customFieldCreation\(req\.userId, customField\)/.test(customFields),
     'custom-field create');
+});
+
+// ── every attempt is visible in Admin Panel / Problems ──────────────────────
+//
+// A guard that refuses in silence tells the operator nothing. Four of the five
+// have an ATTEMPT that can be told apart from ordinary use, so each refusal is
+// recorded through server/lib/securityLog into the `security` stream, which is
+// what Admin Panel / Problems counts and lists.
+const categories = require('../models/lib/securityCategories.js');
+
+test('the four attempts have catalog entries, named after their Bleed', () => {
+  const want = {
+    'authz.card-delete': ['PurgeBleed', 'critical', 'CWE-639'],
+    'authz.card-member': ['GuestBleed', 'high', 'CWE-639'],
+    'authz.board-list': ['StaleBleed', 'medium', 'CWE-863'],
+    'spoofing.author': ['AuthorBleed', 'medium', 'CWE-345'],
+  };
+  for (const [key, [bleed, severity, cwe]] of Object.entries(want)) {
+    const c = categories.categoryFor(key);
+    assert.strictEqual(c.bleed, bleed, key);
+    assert.strictEqual(c.severity, severity, key);
+    assert.strictEqual(c.cwe, cwe, key);
+    assert.notStrictEqual(c.category, 'unknown', `${key} must not fall back to the generic entry`);
+  }
+});
+
+test('each refusal records its attempt', () => {
+  const del = handler(cards, 'delete', '/api/boards/:boardId/lists/:listId/cards/:cardId');
+  assert.ok(/key: 'authz\.card-delete', action: 'blocked'/.test(del), 'PurgeBleed');
+
+  const fn = cards.slice(cards.indexOf('async function assignableOnBoard'));
+  assert.ok(/key: 'authz\.card-member', action: 'blocked'/.test(fn.slice(0, 1200)), 'GuestBleed');
+
+  const list = handler(boards, 'get', '/api/users/:userId/boards');
+  assert.ok(/key: 'authz\.board-list', action: 'blocked'/.test(list), 'StaleBleed');
+
+  assert.ok(/key: 'spoofing\.author', action: 'ignored'/.test(cards), 'AuthorBleed, on the card paths');
+  assert.ok(/key: 'spoofing\.author', action: 'ignored'/.test(customFields), 'and on custom-field create');
+});
+
+test('logging can never break the guard it sits in (negative)', () => {
+  // The log is best-effort by design: an insert that throws must not turn a
+  // refusal into a 500, or the logging becomes its own denial of service.
+  for (const [name, src] of [['cards', cards], ['boards', boards], ['customFields', customFields]]) {
+    let at = -1;
+    while ((at = src.indexOf("require('/server/lib/securityLog')", at + 1)) !== -1) {
+      const around = src.slice(Math.max(0, at - 600), at + 600);
+      assert.ok(/try \{/.test(around) && /catch \(e\) \{/.test(around),
+        `${name}: a securityLog call outside a try/catch`);
+    }
+  }
+});
+
+test('ordinary use is NOT logged (negative)', () => {
+  // The point of a Problems entry is that somebody TRIED something. Three of the
+  // four therefore have a condition around the record call, so a normal request
+  // writes nothing:
+  const del = handler(cards, 'delete', '/api/boards/:boardId/lists/:listId/cards/:cardId');
+  assert.ok(/if \(elsewhere\) \{/.test(del),
+    'a card id that names nothing at all is an ordinary 404, not an attempt');
+
+  const fn = cards.slice(cards.indexOf('async function assignableOnBoard'));
+  assert.ok(/if \(refused\.length\) \{/.test(fn.slice(0, 1200)),
+    'a members array whose ids are all fine records nothing');
+
+  const list = handler(boards, 'get', '/api/users/:userId/boards');
+  assert.ok(/if \(revoked && revoked\.length\) \{/.test(list),
+    'a caller with no revoked membership records nothing');
+
+  // And the fourth: naming YOURSELF in authorId is what an old client does, so
+  // only a mismatch is recorded.
+  const note = cards.slice(cards.indexOf('function noteAuthorSpoof'));
+  assert.ok(/if \(!claimed \|\| String\(claimed\) === String\(req\.userId\)\) return;/.test(note.slice(0, 900)),
+    'an authorId equal to the session is not an attempt');
+});
+
+test('HashBleed deliberately has no catalog key (negative)', () => {
+  // Every call to GET/PUT /api/users/{userId} is a legitimate admin call - the
+  // fault was in what the answer CARRIED, not in who asked. A log line there
+  // would fire on ordinary use and say nothing about an attacker, so there is
+  // none, and the catalog says why.
+  const cat = read('models/lib/securityCategories.js');
+  assert.ok(/HashBleed/.test(cat), 'the reason is written down');
+  assert.ok(!/bleed: 'HashBleed'/.test(cat), 'but it is not a key (negative)');
+  // users.js does log elsewhere (the avatar-url guard), so the check is on the
+  // two endpoints themselves, not on the file.
+  const get = handler(users, 'get', '/api/users/:userId');
+  const put = handler(users, 'put', '/api/users/:userId');
+  assert.ok(!/securityLog/.test(get) && !/securityLog/.test(put),
+    'and neither endpoint logs (negative)');
 });
 
 console.log(`\nrestApiIdorBatch: ${passed} tests passed`);

@@ -147,7 +147,19 @@ WebApp.handlers.post('/api/boards/:boardId/custom-fields', async function(req, r
     boardIds: { $in: [paramBoardId] },
   });
   // GHSA-6jr3-42jf-vhm5: the createCustomField activity records the session
-  // identity, not an `authorId` the caller chose for itself.
+  // identity, not an `authorId` the caller chose for itself. A body that still
+  // names somebody else is the attempt, and is recorded for Admin Panel /
+  // Problems the same way the card paths record it.
+  try {
+    const claimed = req.body && req.body.authorId;
+    if (claimed && String(claimed) !== String(req.userId)) {
+      require('/server/lib/securityLog').record({
+        key: 'spoofing.author', action: 'ignored', source: 'POST custom-fields',
+        userId: req.userId,
+        detail: `ignored authorId "${claimed}" from the body; recorded the session instead`,
+      });
+    }
+  } catch (e) { /* logging must never break the guard */ }
   await customFieldCreation(req.userId, customField);
 
   sendJsonResult(res, {
