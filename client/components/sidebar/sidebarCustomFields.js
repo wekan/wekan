@@ -244,8 +244,16 @@ Template.createCustomFieldPopup.events({
     };
 
     const currentData = Template.currentData();
-    // insert or update
-    if (!currentData._id) {
+    // Insert or update, decided by whether this form was opened ON a custom
+    // field - not by whether its context merely HAS an `_id`. Opened from the
+    // card's Custom Fields popup the context was the card, whose `_id` is a
+    // card's, and the update below then wrote to a custom field that does not
+    // exist: the new field was silently never created. An id that names no
+    // custom field is a new field.
+    const editing =
+      currentData._id && ReactiveCache.getCustomField(currentData._id);
+
+    if (!editing) {
       data.boardIds = [Session.get('currentBoard')];
       CustomFields.insert(data);
     } else {

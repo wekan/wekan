@@ -657,6 +657,27 @@
   width: auto;
   padding-inline-end: 22px;
 }
+/* Custom Fields, from the card's own section: a row is the field's name with the
+   checkbox that puts it on this card, and the pencil that edits the field at the
+   far end of the same line. Every other pop-over list has ONE anchor per row, so
+   `li` is a block and the anchor fills it; two anchors in a block stack, which
+   put the pencil on a line of its own under the name. The row is the flex
+   container here, and the name takes the space the pencil does not.
+   client/components/cards/cardCustomFields.jade */
+.pop-over[data-popup='cardCustomFieldsPopup'] .pop-over-list li.item {
+  display: flex;
+  align-items: center;
+}
+
+.pop-over[data-popup='cardCustomFieldsPopup'] .pop-over-list li.item > a.name {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.pop-over[data-popup='cardCustomFieldsPopup'] .pop-over-list li.item > a.js-edit-custom-field {
+  flex: 0 0 auto;
+}
+
 /* The highlighted row is the SAME highlight the All Boards left menu gives its
    selected entry, and the Admin Panel gives its own: the theme accent, with the
    label AND the icon in white. It was a fixed dark navy (#005377), so Member

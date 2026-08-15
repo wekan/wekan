@@ -27,6 +27,8 @@ const fieldsJade = read('client/components/cards/cardCustomFields.jade');
 const fieldsJs = read('client/components/cards/cardCustomFields.js');
 const sidebarJade = read('client/components/sidebar/sidebar.jade');
 const sidebarFields = read('client/components/sidebar/sidebarCustomFields.jade');
+const sidebarFieldsJs = read('client/components/sidebar/sidebarCustomFields.js');
+const popupCss = read('client/components/main/popup.css');
 
 const popup = fieldsJade.slice(fieldsJade.indexOf('template(name="cardCustomFieldsPopup")'),
   fieldsJade.indexOf('template(name="cardCustomField")'));
@@ -70,8 +72,10 @@ test('each field has a pencil, and Add sits under a rule', () => {
 test('Edit and Add are the board\'s own forms, not copies (negative)', () => {
   assert.ok(/'click \.js-edit-custom-field': Popup\.open\('editCustomField'\)/.test(fieldsJs),
     'edit opens the board form');
-  assert.ok(/'click \.js-open-create-custom-field': Popup\.open\('createCustomField'\)/.test(fieldsJs),
-    'and so does add');
+  // Add opens the same form, but through a handler rather than the bare
+  // `Popup.open`, because it has to hand it an empty context - see the test
+  // below on making a field from the card.
+  assert.ok(/Popup\.open\('createCustomField'\)/.test(fieldsJs), 'and so does add');
   assert.ok(/template\(name="createCustomFieldPopup"\)/.test(sidebarFields),
     'which are defined once, where they always were');
   assert.ok(/template\(name="editCustomFieldPopup"\)/.test(sidebarFields), 'both of them');
@@ -116,6 +120,52 @@ test('the anchor that lost its label went with it (negative)', () => {
   // the two handlers that were bound to it.
   assert.ok(!/js-custom-fields/.test(cardJade), 'no empty anchor left in the card');
   assert.ok(!/'click \.js-custom-fields'/.test(cardJs), 'and no handler for one');
+});
+
+test('a new field is made from nothing, not from the card the popup was opened on', () => {
+  // "Add custom field" sits OUTSIDE the list of fields, so its data context is
+  // the popup's own - the CARD. The shared form reads its context as the field
+  // being edited and decided insert-vs-update on whether that context had an
+  // `_id`; a card has one, so creating a field from the card ran the UPDATE
+  // branch against a custom field that does not exist. Nothing was inserted and
+  // nothing said so - the new field simply never appeared in the list.
+  const openCreate = fieldsJs.slice(fieldsJs.indexOf("'click .js-open-create-custom-field'"));
+  assert.ok(/Popup\.open\('createCustomField'\)\.call\(\{\}, event\)/.test(openCreate.slice(0, 300)),
+    'the create form is handed an empty context, not the card');
+
+  // And the form itself no longer trusts a bare `_id`: it asks whether that id
+  // names a custom field, so a context from anywhere cannot make it update one
+  // that is not there.
+  const submit = sidebarFieldsJs.slice(sidebarFieldsJs.indexOf("'click .primary'"));
+  const body = submit.slice(0, submit.indexOf('Popup.back()'));
+  assert.ok(/ReactiveCache\.getCustomField\(currentData\._id\)/.test(body),
+    'insert or update is decided by whether the id names a custom field');
+  assert.ok(!/if \(!currentData\._id\)/.test(body),
+    'and not by whether the context merely has an id (negative)');
+  assert.ok(/CustomFields\.insert\(data\)/.test(body) && /CustomFields\.update\(/.test(body),
+    'both branches are still there');
+});
+
+test('the list is a checkbox, a name and a pencil, per field', () => {
+  // What the popup is for: every field the BOARD has, ticked when it is on this
+  // card, so one click puts it on the card - and a pencil at the other end to
+  // edit the field itself.
+  const item = popup.slice(popup.indexOf('each board.customFields'));
+  const li = item.slice(0, item.indexOf('\n    hr'));
+  assert.ok(li.indexOf('js-select-field') < li.indexOf('js-edit-custom-field'),
+    'the checkbox and name come first, the pencil last');
+  assert.ok(/fa-check-square-o\{\{else\}\}fa-square-o/.test(li.replace(/\s/g, '')),
+    'the tick says whether the field is on this card');
+  assert.ok(/span\.full-name/.test(li), 'and the name is between them');
+
+  // ...on ONE line. Every other pop-over list has one anchor per row, so `li` is
+  // a block and the anchor fills it - two anchors in a block stack, which put the
+  // pencil on a line of its own under the name. The row is the flex container.
+  const rows = popupCss.slice(popupCss.indexOf("data-popup='cardCustomFieldsPopup'"));
+  assert.ok(/li\.item \{\n\s+display: flex/.test(rows.slice(0, 200)),
+    'the row lays its two anchors out side by side');
+  assert.ok(/a\.name \{\n\s+flex: 1 1 auto/.test(rows.slice(0, 500)),
+    'the name takes the space the pencil does not');
 });
 
 console.log(`\ncustomFieldsSectionMenu: ${passed} tests passed`);

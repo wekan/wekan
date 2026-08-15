@@ -54,7 +54,14 @@ Template.cardCustomFieldsPopup.events({
   // there is one create form and one edit form, not a second pair for cards.
   // client/components/sidebar/sidebarCustomFields.jade
   'click .js-edit-custom-field': Popup.open('editCustomField'),
-  'click .js-open-create-custom-field': Popup.open('createCustomField'),
+  // "Add custom field" sits OUTSIDE the list, so its data context is this
+  // popup's own - which is the CARD. The form reads its context as the field
+  // being edited, and a card has an `_id`, so it was read as an edit of a
+  // custom field that does not exist and the new field was never inserted.
+  // A new field is made from nothing, so it is handed nothing.
+  'click .js-open-create-custom-field'(event) {
+    Popup.open('createCustomField').call({}, event);
+  },
 });
 
 // cardCustomField
