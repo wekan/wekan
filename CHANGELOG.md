@@ -348,8 +348,11 @@ On top of that, **#1173** after eight years: a **board**, a **swimlane** or a
 **list** exports to PDF and Excel in that same card layout, from one selection
 popup that says what to include. And **titles are edited where they are
 written**: a card's title on the **board** (#4990, asked in 2022), a board's by
-clicking its **name** in the header bar instead of a pencil beside it. Below
-that: twelve bug fixes - among them **Custom Fields**, which the browser tests
+clicking its **name** in the header bar instead of a pencil beside it. Above all
+of it, though: five **CRITICAL** REST API fixes reported by ybsun0215, the worst
+of which let any user with write access to one board destroy the comments,
+checklists and history of every card on every board in the instance. Below that:
+twelve bug fixes - among them **Custom Fields**, which the browser tests
 caught being unreachable on a card that had none, which is exactly where it is
 needed, and a field made from a card that was silently never created - a test
 that pins that a browser downloads **one** language file and not all 246 of
@@ -386,7 +389,141 @@ the login page, beside the **Export** row that read as the lowercase key
 | win64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip) | v24.19.0 | `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73` |
 | win64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-win64.exe) | v1.49.0 | `f42c50aa84095a9616b00f27a584c66b7bf79e3b109450c62a5f146ba3c85478` |
 
-This release fixes the following SECURITY ISSUES found by container scanning:
+This release fixes the following CRITICAL SECURITY ISSUES:
+
+**The REST API** - what an endpoint authorises, and what it then acts on.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9cc4139699ef8d6b6e51efb45b9a06f66e4340b4">PurgeBleed: the single-card DELETE destroyed the contents of any card in the instance</a>. Thanks to ybsun0215 and xet7.</summary>
+
+[PurgeBleed](https://wekan.fi/hall-of-fame/purgebleed/) is the severe one of the
+five. `DELETE /api/boards/{boardId}/lists/{listId}/cards/{cardId}` authorised
+the caller on the board in the URL, and then fetched the card by its id ALONE.
+
+The order is what makes it destructive. `cardRemover` runs BEFORE the card is
+removed - it has to, so the children's `before.remove` hooks still find their
+parent - and it removes strictly by card id: checklists, checklist items,
+comments, the activity history and the whole subcard tree. So it erased those
+for whatever card the bare lookup returned, which was any card in the instance,
+on boards the caller cannot read, irreversibly.
+
+The removal that follows uses a triple key, `{_id, listId, boardId}`, which a
+foreign card never matches. The card SHELL therefore survived and the endpoint
+answered 200 with the card id - so nothing in the response said that the
+contents of somebody else's card had just been destroyed, and the attack is
+repeatable for every card id an attacker learns.
+
+Any authenticated user with write access to ONE board - their own is enough -
+could reach every board on the instance. All deployments with `WITH_API=true`
+are affected.
+
+The bulk endpoint had always constrained its lookup with `{_id, boardId}`; the
+single-card path is the sibling that was missed, the same shape as
+[PassBleed](https://wekan.fi/hall-of-fame/passbleed/). It uses the constrained
+lookup now, so a card outside the authorised board does not resolve, and
+`cardRemover` is never reached.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9cc4139699ef8d6b6e51efb45b9a06f66e4340b4">HashBleed: the admin user endpoints answered with password and session-token hashes</a>. Thanks to ybsun0215 and xet7.</summary>
+
+[HashBleed](https://wekan.fi/hall-of-fame/hashbleed/): `GET /api/users/{userId}`
+and `PUT /api/users/{userId}` serialised the whole Meteor user document with no
+projection, so every answer carried `services.password.bcrypt` - an
+offline-crackable password hash - and `services.resume.loginTokens`, the hash of
+every live session with the time it began.
+
+The authorisation was never the problem: both endpoints are admin-only and stay
+that way. The payload was. Walking the ids that `GET /api/users` returns
+harvested the credential material of the whole instance, and a password hash is
+an attack that continues offline long after the export.
+
+The two sibling endpoints in the same file show what was intended: the list
+projects down to `_id` and `username`, and the self view runs `delete
+data.services` before answering. Nothing in the code, the CHANGELOG or the
+documentation ever said the subtree was meant to be exposed. One helper strips
+`services` and `sessionData` now, and both endpoints answer through it - the PUT
+as well, which returned the same unprojected document after every action.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9cc4139699ef8d6b6e51efb45b9a06f66e4340b4">GuestBleed: an outsider named on a card could read a private board's cards</a>. Thanks to ybsun0215 and xet7.</summary>
+
+[GuestBleed](https://wekan.fi/hall-of-fame/guestbleed/) is two paths that are
+each defensible alone. The `members` and `assignees` ARRAYS on card create and
+card update were stored exactly as given, with nothing checking that those ids
+belong to the card's board. And `GET /api/user/cards` answered by CARD
+membership, without re-checking the caller's access to the card's BOARD.
+
+Together they are a channel: a member of a private board writes an outsider's id
+onto a card, and the outsider's own *my cards* feed then returns that card's
+title, its board, list and swimlane ids, its dates and its co-members - for as
+long as the id stays on the card. Their direct read of the board stayed
+Forbidden the whole time, which is what made it quiet.
+
+The invariant already existed, documented on the merge endpoint `POST
+.../cards/{cardId}/members/{memberId}`, which has refused a non-member with 400
+since [#5998](https://github.com/wekan/wekan/issues/5998). It covers the array
+shapes now - single create, bulk create and update - and an id that may not be
+assigned is dropped rather than the request refused, so a bulk edit does not
+fail over one stale id. The listing is filtered by board visibility as well,
+because fixing only the write path would leave every card placed before this
+release still answering.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9cc4139699ef8d6b6e51efb45b9a06f66e4340b4">StaleBleed: a removed board member kept seeing the board's id and title</a>. Thanks to ybsun0215 and xet7.</summary>
+
+[StaleBleed](https://wekan.fi/hall-of-fame/stalebleed/): `GET
+/api/users/{userId}/boards` selected boards with a dotted `'members.userId'`
+match, which ignores the membership's `isActive` flag. Removing a board member
+does not delete their entry - it sets `isActive: false` and `isAdmin: false` and
+keeps it - so a removed member's own board listing went on showing that board's
+id and title, indefinitely.
+
+Reading the board itself was already refused, which bounds this to the id and
+the title. The id is the part that matters, because it is what every other
+endpoint in the API is addressed by, and a private board's title is often the
+thing it is private about.
+
+A dotted path cannot express this: in Mongo, `'members.userId'` and
+`'members.isActive'` may be satisfied by DIFFERENT entries of the array.
+`$elemMatch` is what ties them to the same entry, and it is what the rest of
+WeKan uses - the single builder introduced by the fix for
+[GHSA-gwc4-fw7p-gw58](https://github.com/wekan/wekan/security/advisories/GHSA-gwc4-fw7p-gw58),
+whose header note reads *"A share entry counts only while it is active,
+everywhere"*. This listing predates that consolidation and was never converted.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9cc4139699ef8d6b6e51efb45b9a06f66e4340b4">AuthorBleed: six paths let the caller choose whose name went into the board's history</a>. Thanks to ybsun0215 and xet7.</summary>
+
+[AuthorBleed](https://wekan.fi/hall-of-fame/authorbleed/): six server paths took
+the actor's identity from the request body's `authorId` field, checking only
+that such a user exists. An existence check is not an authentication check - it
+confirms that the name in the envelope belongs to somebody, and says nothing
+about who wrote the letter.
+
+So a board member could record *"victim created this card"* and *"victim deleted
+this card"* on any board they may write to, and the card document itself
+recorded the forged `userId` as its creator. The six are single card create,
+bulk card create, the linked-card form, single card delete, bulk card delete and
+custom-field create.
+
+WeKan had already accepted this exact class as a vulnerability and fixed it for
+card comments in 8.19, and again for the card PUT handler - whose inline note
+still reads *"use req.userId consistently (it previously read req.body.authorId
+here)"*. These six were missed, which makes it an incomplete fix rather than a
+decision. All six read `req.userId` now, the session the request authenticated
+as, which is the only identity the server can vouch for.
+
+</details>
+
+and fixes the following SECURITY ISSUES found by container scanning:
 
 **The published image** - what it carries that it never runs.
 

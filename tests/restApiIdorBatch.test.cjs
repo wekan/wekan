@@ -5,24 +5,24 @@
 // something the caller was never authorised for.
 // Run: node tests/restApiIdorBatch.test.cjs
 //
-//   GHSA-8cqr-x6m5-v4w6  the single-card DELETE authorised the URL's board and
+//   GHSA-8cqr-x6m5-v4w6  PurgeBleed - the single-card DELETE authorised the URL's board and
 //                        then fetched the card by id ALONE, so cardRemover
 //                        destroyed the checklists, comments, activities and
 //                        subcards of any card in the instance - irreversibly,
 //                        on boards the caller could not read - while the
 //                        triple-key removal after it matched nothing and the
 //                        endpoint still answered 200.
-//   GHSA-6qpx-x7vr-p9w6  GET/PUT /api/users/{userId} serialised the whole user
+//   GHSA-6qpx-x7vr-p9w6  HashBleed - GET/PUT /api/users/{userId} serialised the whole user
 //                        document: services.password.bcrypt and every live
 //                        session's hashedToken, for any user, to any admin.
-//   GHSA-whxm-pxgj-7wqv  members/assignees arrays were stored unchecked, so a
+//   GHSA-whxm-pxgj-7wqv  GuestBleed - members/assignees arrays were stored unchecked, so a
 //                        private board's member could put an outsider on a card
 //                        and /api/user/cards then fed that outsider the board's
 //                        card titles, ids and dates.
-//   GHSA-r8r3-23vr-8jh6  the board listing matched 'members.userId' with a
+//   GHSA-r8r3-23vr-8jh6  StaleBleed - the board listing matched 'members.userId' with a
 //                        dotted path, which ignores isActive - so a removed
 //                        member kept seeing the board's id and title.
-//   GHSA-6jr3-42jf-vhm5  six paths recorded req.body.authorId as the actor, so
+//   GHSA-6jr3-42jf-vhm5  AuthorBleed - six paths recorded req.body.authorId as the actor, so
 //                        a board member could write somebody else's name into
 //                        the board's history.
 //
