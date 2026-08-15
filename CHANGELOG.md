@@ -182,11 +182,36 @@ is safe and ready, but most of the strings are not yet filled. As of
 the English source, out of 2,384 keys each, and they fall into two very
 different halves:
 
-- **142 languages are nearly complete** — 9,072 strings between them, avg ~64
-  per language, the worst being Zeelandic `vl-SS` at 114, then Dutch at 110 and
-  German at 99. These are the ones a release notices: a language that is 97%
-  done shows its gaps in the newest features. Finishing this half is roughly a
-  day of work and would put every long-standing language at 100%.
+- **142 languages are nearly complete** — 8,808 strings between them, but that
+  number badly overstates the work. About **4,700 of them are values that are
+  the same in every language**: product names (*Meteor*, *MongoDB*, *S3/MinIO*,
+  *OAuth2*), bare numbers (the Planning Poker values), symbols (`/`, `#`, `@`),
+  unit abbreviations and one empty string. They count as untranslated only
+  because the value equals the English source, which for a proper noun is the
+  correct translation, and they will never stop counting. The **real prose
+  backlog is about 3,400 values over 251 keys, median 23 per language**, worst
+  Zeelandic `vl-SS` at 66, then Dutch at 63 and German at 53.
+- **Four language files carry text in ANOTHER LANGUAGE**, which is worse than an
+  untranslated string and is the first thing to fix here. A missing string shows
+  English and invites a correction; these show confident text the reader may not
+  be able to read at all, and the merge rules protect them forever because they
+  are not equal to English:
+
+  | File | Expected | Wrong-language values |
+  | --- | --- | --- |
+  | `ta` Tamil | Tamil | **1,637** — 1,174 Telugu, 463 Devanagari |
+  | `hi` Hindi | Devanagari | **1,204** — Gujarati |
+  | `ka` Georgian | Georgian | **789** — Russian |
+  | `ko` Korean | Hangul | **354** — Japanese kana |
+
+  Each file is MIXED, not wholly wrong: Tamil has `save` right and `board` in
+  Telugu; Georgian has `save` right and `board` as *Доска*; Korean has `save`
+  right and `board` as *ボード*. Found by comparing each value's Unicode script
+  against the one the language is written in (the shared Indic danda `।` is not
+  evidence, and Korean hanja is legitimate, so both are excluded). Whether to
+  blank them back to English — which makes them visibly unfinished and
+  fixable — or to retranslate them in place is a maintainer decision, because
+  blanking is thousands of strings.
 - **92 languages carry only the first two tiers** — about 112 strings each,
   2,273 missing each, 209,076 in total. They are the ones added recently: the
   board words, the menus, the popup titles and the login page are translated,
