@@ -387,6 +387,96 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **the Windows bundles are back.** v10.93 built them, compiled
+their native modules, and then threw both away on one line: npm on Windows is
+`npm.cmd`, a batch script, and Node applies no PATHEXT when it spawns, so
+`execFileSync('npm', …)` in the bundle's security-bump step resolved to nothing
+and `build-win64` and `build-win-arm64` died with *spawnSync npm ENOENT* after
+all the work was done. npm's own CLI is run with the Node already running now,
+which needs no PATH lookup and no shell. The Sandstorm `.spk` also failed, on
+Sandstorm's 1 GiB uncompressed limit, and it failed silently - no list, no
+sizes, no .spk to inspect - so the pack step now says where the gigabyte is
+before it packs.
+
+The table below carries only the four platforms this run recorded a complete,
+verified provenance for; the release job regenerates it from every build job's
+`provenance.tsv`.
+
+| Platform | Binary | From | Version | SHA256 |
+| --- | --- | --- | --- | --- |
+| amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
+| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-amd64) | v1.53.0 | `eae1f0a8f73bfc979738bfff7284d40fd1bc55de2cc56514721fc155c3624f7d` |
+| arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
+| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-arm64) | v1.53.0 | `bdc50caee3ac28495b42d2130b94a042a9dd6d3a38f732cac02b648f36c891da` |
+| mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-arm64.tar.xz) | v24.19.0 | `3f1cf157479c1480352083105e13faf9d008ede98e7e157746b6df940d197b94` |
+| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
+| mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
+| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release fixes the following build failures:
+
+**The release workflow** - the bundles a release is supposed to carry.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/21363baf6d4e80760073388a29763d03b3025480">Windows builds died on spawnSync npm ENOENT, after all the work was done</a>. Thanks to xet7.</summary>
+
+`build-win64` and `build-win-arm64` both failed in v10.93, and both had already
+built the bundle and compiled its native modules. What killed them was one line
+of `releases/bump-bundle-npm-deps.mjs`:
+
+```
+  Error: spawnSync npm ENOENT
+```
+
+npm on Windows is `npm.cmd`, a batch script, and Node applies no PATHEXT when it
+spawns - so `execFileSync('npm', …)` resolves to nothing. `build-win32` was
+skipped that run for want of a published Node.js build, so it never reached this
+and looked fine; the fault was never architecture-specific.
+
+npm's own CLI is run with the Node already running instead:
+`execFileSync(process.execPath, [npm-cli.js, …])`. No PATH lookup, no PATHEXT,
+no shell - and the same npm either way. `shell: true` would have found the
+`.cmd` and broken differently, because with a shell Node joins the arguments and
+quotes NOTHING, so the first Windows temp path containing a space would corrupt
+the install. A bare `npm` on PATH remains as the last resort, for a Node with no
+npm beside it, and on Windows it now says which case that is rather than letting
+`ENOENT` speak for itself.
+
+Verified end to end: a bundle-shaped tree holding `qs` 6.0.0 is bumped to 6.15.3
+through the new path, with the dependencies the new version needs copied in
+beside it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/be0965611e15e56586b7d2081b1ac86697c97166">The Sandstorm .spk failed on a size limit and said nothing about what was big</a>. Thanks to xet7.</summary>
+
+`build-sandstorm` failed with *App exceeds uncompressed size limit of 1 GiB* and
+nothing else. Because Sandstorm refuses to pack, no `.spk` is written, so there
+is no artifact to open and no list of what filled it.
+
+`sandstorm-pkgdef.capnp` packs `alwaysInclude = ["."]` from `.meteor-spk/deps`
+AND `.meteor-spk/bundle`, so both count towards that limit: the Node 24,
+FerretDB v1, mongod 3.0, niscud and Mongo 3.x CLIs that
+`sandstorm-src/build-deps.sh` assembles, and every package the built bundle
+carries. The pack step now prints the total and the twenty biggest directories
+of each BEFORE packing, so the next run names the offender instead of only
+saying that one exists. It cannot fail the build: a size report that breaks a
+release would be worse than the silence it replaces.
+
+What to trim is recorded in `# TODO Later` rather than guessed at, with the two
+candidates worth measuring first - the Sandstorm leg is the only one that never
+runs `prune-build-only-modules.mjs`, which drops 83 of 120 packages everywhere
+else, and the deps tree carries two database engines because the
+Mongo-to-FerretDB migration needs both. Which of those can go needs a run to
+answer, and this is what makes that run informative.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.93 2026-08-15 WeKan ® release
 
 **In short:** **Docker did not work in v10.92**, and this is that fixed. The
