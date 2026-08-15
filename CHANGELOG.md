@@ -362,7 +362,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.92 2026-08-15 WeKan ® release
 
 **In short:** what the published Docker image SHIPS, cleaned up against a
 container scan of `ghcr.io/wekan/wekan:v10.91`. That scan reported 80 findings
