@@ -176,12 +176,31 @@ selectivity), verifiable only with live `EXPLAIN` on each engine.
 <summary>Fill the remaining untranslated strings directly, no external service</summary>
 
 Not an issue, and deferred because bug fixes are more important than
-translations (recorded so the next session can resume): after the #6494 fix the
-translation tooling is safe and ready, but the strings themselves are not yet
-filled. As of this writing 142 languages have 12,254 strings still equal to the
-English source (avg ~86 per language, max 305 for Walloon `wa-RR`; 141 of 142
-languages have ≤200 missing), dominated by ~65 recently-added English keys
-shared across almost every language. These must be translated DIRECTLY — the
+translations (recorded so the next session can resume): the translation tooling
+is safe and ready, but most of the strings are not yet filled. As of
+**2026-08-15** the 234 language files hold **218,148** strings still equal to
+the English source, out of 2,384 keys each, and they fall into two very
+different halves:
+
+- **142 languages are nearly complete** — 9,072 strings between them, avg ~64
+  per language, the worst being Zeelandic `vl-SS` at 114, then Dutch at 110 and
+  German at 99. These are the ones a release notices: a language that is 97%
+  done shows its gaps in the newest features. Finishing this half is roughly a
+  day of work and would put every long-standing language at 100%.
+- **92 languages carry only the first two tiers** — about 112 strings each,
+  2,273 missing each, 209,076 in total. They are the ones added recently: the
+  board words, the menus, the popup titles and the login page are translated,
+  and everything past that falls back to English. This half is not finishable
+  in one pass; the natural next tiers are the **card details pane**, the
+  **Admin Panel**, the **filter and search sidebars**, then the settings and
+  error strings.
+
+A release can go out at any point in either half — an untranslated key renders
+its English source, never the key — so this is a backlog, not a blocker. What
+IS worth doing before a release is the first half, because those languages are
+advertised as complete.
+
+These must be translated DIRECTLY — the
 maintainer/assistant (an LLM) writes each translation using that language's
 existing translations and general kanban terminology as the reference, with NO
 external translation service, API, endpoint, key or password (the old
@@ -2207,6 +2226,8 @@ shape, a fence keeps its code. An underscore inside a word stays an underscore:
 
 and improves the translations:
 
+**Deeper translation** - languages taken past the words on the board.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/72fd4aa1278ba3a827ca6193d6a358e22fe9f63c">Eighty-one languages go past the board, into the menus and the login page</a>. Thanks to xet7.</summary>
 
@@ -2251,6 +2272,333 @@ still English: `releases/translations/verify-human-preference.mjs` passes, and
 nothing here is pushed to Transifex as if it were human. Every file is still a
 small fraction of 2,384 keys, deliberately - the rest falls back to English
 exactly as before.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cd13f56c685ae615edb9036140d698964d4360b7">The newest languages go past the words on the board, into the menus</a>. Thanks to xet7.</summary>
+
+A new language file started with the words a board is made of - board, list,
+card, swimlane, member, the buttons. Enough to recognise the app, not enough to
+use it: the menus, the popup titles and the login page were still English.
+
+Eleven of the largest new ones - **Bengali**, **Urdu**, **Filipino**,
+**Hausa**, **Amharic**, **Kannada**, **Malayalam**, **Nepali**, **Somali**,
+**Kazakh** and **Burmese** - now carry the second tier as well: *Log Out*,
+*Forgot password*, *Email Address*, *Create Board*, *Move to Archive*,
+*Restore*, *Copy Card*, *Move Card*, *Delete Card?*, *List Actions*, *Board
+Settings*, *Member Settings*, *Search All Boards*, *Custom Fields*, *Add
+Attachment*, *Accounts*, *People*, *Organizations*, *Teams* - the strings
+somebody meets in the first minute rather than the first second.
+
+They are at about 112 strings each now, from 77. That is still a small fraction
+of 2,384, and deliberately so: these are the ones where being in English is most
+visible, and the rest falls back to English exactly as before.
+
+</details>
+
+**New languages** - the ones WeKan had no file for at all.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a7332f233637fa9716d276eac967fed300a0017d">Twenty more, including the ones I was least sure of - and which those are</a>. Thanks to xet7.</summary>
+
+**246 languages**, from 154 when this release started.
+
+**Confident enough to write without hedging:** བོད་སྐད་ (Tibetan), རྫོང་ཁ
+(Dzongkha), **Kalaallisut**, ᐃᓄᒃᑎᑐᑦ (Inuktitut), ᏣᎳᎩ (Cherokee), **Nāhuatl**,
+**Буряад хэлэн**, **Kaszëbsczi**, **Ślōnskŏ gŏdka**, **Aragonés**, **Ladin**,
+**Armãneashti**, **मैथिली**, **भोजपुरी**, **कोंकणी** and **کوردیی ناوەندی**
+(Sorani Kurdish, right-to-left).
+
+**Written with less to go on, and said so here rather than quietly:** **کٲشُر**
+(Kashmiri, right-to-left), **Pulaar**, **ትግረ** (Tigre) and **Wolaytta**. For
+these four the sources are thin - a wordlist and a grammar sketch rather than a
+dictionary with a UI vocabulary in it - so the terms for *board*, *swimlane* and
+*checklist* are built from the ordinary words for a writing-board, a path and a
+list of things to check. They are the strings most likely to be wrong, and the
+most likely to be corrected by the first speaker who opens the language picker
+and finds their language in it at all.
+
+That is the whole argument for doing them: the alternative was not a better
+translation, it was no language. Cherokee has around 2,000 fluent speakers;
+Tigre, Wolaytta and Pulaar have millions between them and almost no software.
+A wrong word invites a correction. An English placeholder invites nothing.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0cca649b7dd37ea5bc59c5afa2659950f0e1c543">Fourteen more: the Pacific, the Caribbean, and the languages of Italy</a>. Thanks to xet7.</summary>
+
+**226 languages**, from 154 at the start of this release.
+
+**Kreyòl ayisyen**, **Papiamentu**, **Tok Pisin**, **Bislama**, **Gagana
+Sāmoa**, **Lea faka-Tonga**, **Na Vosa Vakaviti**, **Corsu**, **Sardu**,
+**Sicilianu**, **Napulitano**, **Furlan**, **Rumantsch** and **Hornjoserbsce**.
+
+Four are creoles - Haitian, Papiamentu, Tok Pisin and Bislama - which between
+them are the everyday language of about fifteen million people and are almost
+never what software is written in. Five are languages of Italy that Italian does
+not cover: Sardinian and Sicilian each have more than a million speakers.
+**Rumantsch** is one of Switzerland's four national languages, and
+**Hornjoserbsce** is one of Germany's.
+
+Each is the same shape as the rest: the words a board is made of, the buttons,
+the menus, the dates - and English underneath until somebody corrects it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a3ee0262d68ce0d10d4466018a9c5d3b9b44c233">Eighteen more languages: the Americas, the Sahel, Siberia and the Celtic ones</a>. Thanks to xet7.</summary>
+
+**212 languages.** WeKan had 154 when this release started.
+
+This block: **Bamanankan**, **Akan**, **Eʋegbe**, **Ikirundi**, **isiNdebele**,
+**Sesotho sa Leboa**, **siSwati**, **Башҡортса**, **Чӑвашла**, **Саха тыла**,
+**Runasimi** (Quechua), **Avañe'ẽ** (Guaraní), **Aymar aru**, **Føroyskt**,
+**Davvisámegiella**, **Gàidhlig**, **Kernewek** and **Gaelg**.
+
+Three of them are indigenous languages of the Americas with millions of speakers
+between them and no project-management tool in any of them. Three are Siberian
+and Volga languages of the Russian Federation. Four are Celtic - and Cornish and
+Manx are revived languages, which is exactly the case where the wording being
+imperfect matters least and the language existing at all matters most.
+
+**Scottish Gaelic** and **Cornish** take the Scottish and English regional
+flags rather than the Union Jack - the emoji tag sequences, not the state's
+flag - and **Manx** takes the Isle of Man's own. A language gets the flag of
+where it is spoken, and for these three that is not the same thing as the flag
+of the state.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2395dfd0840b39f584c0338fc4683e560a9af0e8">Fifteen more languages, most of them African</a>. Thanks to xet7.</summary>
+
+**194 languages.** This block is the one WeKan was furthest from having:
+**Татарча**, **ʻŌlelo Hawaiʻi**, **chiShona**, **Ikinyarwanda**, **Chichewa**,
+**Sesotho**, **Setswana**, **Xitsonga**, **Luganda**, **Afaan Oromoo**,
+**ትግርኛ**, **Kurdî**, **سنڌي**, **অসমীয়া** and **Malagasy**.
+
+Nine of the fifteen are African languages with tens of millions of speakers
+each and no kanban tool in them at all. **Sindhi** is `rtl: true`; **Kurdish**
+takes the Iraqi flag, because Kurdistan has no emoji and that is where most of
+its speakers are - the same rule as any language spoken across a border.
+
+The three edits are one script now - `releases/translations/add-language.mjs`.
+It writes the strings file as a full copy of the
+English one with the translations swapped in, inserts the registry entry in
+alphabetical order with the name in the language's own script, and adds the flag
+only if the map does not already anticipate it. That is why this block took
+three commands rather than thirty, and why nothing was left half-wired.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0d3bb3ee75cc07b2787353d17ba157c910c4e59d">Ten more languages, and Latin among them</a>. Thanks to xet7.</summary>
+
+**179 languages.** This block adds **Íslenska**, **Gaeilge**, **Shqip**,
+**Bosanski**, **Malti**, **Lëtzebuergesch**, **Кыргызча**, **Тоҷикӣ**, **Māori**
+and **Latina** - the same three edits each, the name written in its own
+language, and a flag.
+
+Two of them say something about the policy. **Māori** and **Latin** have nobody
+waiting to translate a kanban board, and Latin has no country at all; it takes
+the Vatican's flag because that is the state that still uses it, which is the
+same reasoning that gives a language spoken across a border the flag of where it
+is spoken. A constructed language keeps the globe instead - Esperanto, Klingon
+and Volapük are nobody's country, and borrowing one would be a claim rather than
+a hint.
+
+Latin is a real translation and not a joke: *tabula*, *charta*, *index*,
+*semita*, *titelli*, *sodales*, and the imperatives a menu is written in -
+*Adde*, *Dele*, *Serva*, *Quaere*.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/244710e91ec29a30093428ee6fbf64c5791aee26">Nine more languages: Kannada, Malayalam, Burmese, Sinhala, Nepali, Javanese, Somali, Pashto and Kazakh</a>. Thanks to xet7.</summary>
+
+WeKan is at **169 languages**. These nine were missing entirely, and between
+them they are spoken by something like 250 million people: **ಕನ್ನಡ**,
+**മലയാളം**, **မြန်မာ**, **සිංහල**, **नेपाली**, **Basa Jawa**, **Soomaali**,
+**پښتو** and **Қазақша**.
+
+Each arrives the same way as the last six: the strings file, the entry naming
+the language in its own script, and the flag. **Pashto** is `rtl: true`, and the
+RTL guard's list grew with it - that list is the one place the direction of a
+script is written down, so a new right-to-left language that is not added to it
+fails rather than laying itself out backwards in silence.
+
+Each starts with the words a board is made of - board, list, card, swimlane,
+label, member, the buttons, the menus, the dates - about eighty strings, and the
+rest falls back to English until somebody who speaks it says otherwise. That is
+the point of the policy: a language that is 3% translated is a language somebody
+can start using and correcting, and 0% is not.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1fedfb26256b2cace1d058d93931d94ad223c930">Six languages WeKan did not have: Bengali, Urdu, Marathi, Filipino, Hausa and Amharic</a>. Thanks to xet7.</summary>
+
+WeKan had 154 language files and not one of them was **Bengali** - about 270
+million speakers - or **Urdu**, or **Marathi**, **Filipino**, **Hausa** or
+**Amharic**. The list of languages WeKan supports was never a judgement about
+which languages matter; it is the list somebody happened to start.
+
+Each is three edits, and all three are needed or the language is invisible: the
+strings file, the entry in `languages.js` naming the language **in that
+language** - বাংলা, اردو, मराठी, አማርኛ - and the flag in the picker. Urdu is
+`rtl: true`, so the whole interface lays itself out right-to-left for it.
+
+A new file is a full copy of `en.i18n.json` with the translated values swapped
+in, which is what every other language file here is: the key-order guard reads
+absolute positions, so a file holding only the strings it has translated would
+put every later key at the wrong index. Each of the six starts with the words a
+board is made of - board, list, card, swimlane, label, member, the buttons, the
+menus, the dates - and grows from there.
+
+`tests/newLanguageWiring.test.cjs` holds the three edits together, and found
+that **fourteen languages were showing a globe** instead of a flag (Acehnese,
+Moroccan Arabic, Asturian, Breton, Frisian, Norwegian Bokmål, Occitan, Turkmen,
+Walloon, Wu, Yiddish, Tamazight and two Chinese variants), which they no longer
+do. Constructed languages - Esperanto, Klingon, Volapük - keep the globe on
+purpose rather than borrowing somebody's country.
+
+It also learned what a **symlinked** language file is. `km-KH.i18n.json` and
+`ru-RU.i18n.json` are symlinks to `km_KH.i18n.json` and `ru_RU.i18n.json`: those
+two locales are the ones `.tx/config`'s `lang_map` does not rename, so Transifex
+writes the underscored name and the hyphenated link is what `languages.js`
+loads. A guard that reads only the import paths sees the target as an orphan and
+is wrong about it; this one resolves the link, and checks that every link points
+at a file that exists and that one end of each pair is loaded.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/240f8f2d4a1a62f17c90fe0f2b952e937df3d2ec">Uyghur, Belarusian, Catalan, Estonian, Malay, Turkmen, Xhosa and Igbo, and the sort letters</a>. Thanks to xet7.</summary>
+
+Another eight languages, from their own vocabulary: the export and import menus,
+the roles table, the board-status pane, the starred pages, the search operators,
+and for Igbo the last of its report and recovery strings.
+
+**The list sort letters** are translated too. A list header shows `(N)`, `(M)`
+or `(L)` for whether it is sorted by NAME, by your MANUAL order or by LAST
+access - initials of the ENGLISH words, so on any other language they were three
+letters that stand for nothing. They are that language's own initials now:
+German `(N)`/`(R)`/`(Z)` for *Name*, *Reihenfolge*, *Zugriff*; Finnish
+`(N)`/`(J)`/`(K)` for *Nimi*, *Järjestys*, *Käyttö*; Russian `(И)`/`(П)`/`(Д)` -
+twenty-five languages, and their regional variants after them.
+
+**What is left is mostly not translatable.** Of the strings still flagged in
+German, French and Dutch, three quarters are a word of one or two syllables that
+those languages spell exactly as English does - *Filter*, *Team*, *Text*,
+*Details*, *Layout*, *Person*, *Pause*, *Actions*, *Date*, *Description*,
+*Notifications*, *Type*, *Database*, *Help*, *Repository*. They are counted as
+untranslated because the only test available is "is this still equal to the
+English source", and by that test a correct translation that happens to be
+identical can never pass.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/da022efe627fc3298e21db7ecc4f3a37a5b40ce3">Frisian, Igbo, Yoruba, Wolof, Breton, Walloon, Volapük and Tamazight, from their own words</a>. Thanks to xet7.</summary>
+
+Eight languages nobody has volunteered for. Five of their files were not
+untranslated at all - `wo`, `wa`, `br`, `vo` and `zgh` were written in
+**French** (*Tableau*, *Carte*, *Liste*, *Supprimer*), with Esperanto in the
+Volapük file and Arabic in the Tamazight one, seeded from whatever was to hand.
+As with Klingon, that is not a translation to protect: the core vocabulary is
+replaced with each language's own words - Breton *Taolenn*, *Kartenn*, *Roll*;
+Walloon *Tåvlea*, *Cåte*, *Djivêye*; Wolof *Tablo*, *Karta*, *Limu*; Volapük
+*Bod*, *Kad*, *Lised*; Tamazight *Tafelwit*, *Takarḍa*, *Tabdart*.
+
+On top of that each got the strings a board actually shows: the export and
+import menus, the roles table, the board status pane, the starred pages, and the
+sentence that explains what dragging a board onto Home does.
+
+They are **imperfect**, and that is the point: `CLAUDE.md` now says so outright
+- a wrong string is readable, obviously improvable and an invitation to the
+person who speaks the language, which an English placeholder never is. When that
+person sends a correction through Transifex it REPLACES the filled one, because
+the merge always prefers a human translation.
+
+What is left in the big files is mostly not translatable at all: German
+*Filter*, *Team*, *Text*, *Details*, French *Actions*, *Date*, *Description*,
+*Notifications* and Dutch *Filter*, *Type* are the words those languages use,
+and they are counted as "untranslated" only because the tool's test for it is
+"still equal to English".
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3b5f2b24cc16547c50e36fd5308b0c7fde5c67a3">Klingon from its own lexicon, and every regional variant inherits its language</a>. Thanks to xet7.</summary>
+
+**Klingon.** `tlh.i18n.json` was not untranslated - it was written in FRENCH and
+GERMAN: *Tableau*, *Karte*, *Liste*, *Löschen*, *Board exportieren*. Somebody
+had seeded it from whatever file was to hand. The words are looked up now, in
+the [boQwI' lexicon](https://github.com/De7vID/klingon-assistant-data) - the Klingon
+Language Institute's own data, ~5800 entries - and Klingon has words for most of
+what a kanban board is: `'echlet` is a **board**, `'echletHom` a **card**,
+`tetlh` a **list**, `per` a **label**, `chuD` a **member**, `mI'` a **number**,
+`Dotlh` a **status**, `yer` a **domain**, `mIllogh` a **picture**. The actions
+are imperatives, which is what a menu entry is in Klingon: `yISuq` (acquire it)
+for import, `yIngeH` (send it) for export, `yIQaw'` (destroy it) for delete,
+`yIchel` (add it), `yIteq` (remove it). So *Export list* is `tetlh yIngeH` and
+*Import card* is `'echletHom yISuq`.
+
+**Regional variants.** A variant file that had not translated a string carried
+the English source while its base language had a perfectly good translation two
+directories away - `de-AT` in English beside German, `es-MX` beside Spanish,
+`zh-Hant` beside Traditional Chinese. Each variant now inherits its base for the
+strings it has not translated itself, and only for those: a variant's OWN
+wording always wins, which is the same rule that protects a human translation
+from a filled one.
+
+**Three files were in another language entirely**, and are completed in the
+language they are actually written in rather than left half-English: `vl-SS` is
+Dutch throughout, `ace` is Malay, `ve` is Zulu.
+
+Two of the languages that had nothing - Igbo and Yoruba - had real translations
+under the English placeholders, so they are filled from their own vocabulary
+rather than from a neighbour's.
+
+</details>
+
+**New strings** - what this release added, in every language.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f12095efab438128b73a9cf01bec4e769289ec65">The 31 strings this release adds, in 127 languages</a>. Thanks to xet7.</summary>
+
+Everything added to `en.i18n.json` since 10.91 - the new popup titles, the
+export and import wording, the card-number search operator, the filesystem
+integrity report - shipped as English placeholders in every other language file.
+Translated directly, as `CLAUDE.md` requires: no external translation service,
+API or key, and each language's OWN existing strings as the reference, so the
+new wording matches what that file already says rather than being invented
+beside it.
+
+The vocabulary each file already had is what decided the wording: its word for
+a swimlane, a list, a card and a board, and whether it says *export* with a
+verb or a noun. The four import titles are the four export titles with that
+language's own word for importing, because in a menu that already says what it
+is about they are the same sentence pointed the other way.
+
+`operator-number` is a special case: it is not a label but a word somebody
+TYPES into the search box, beside `operator-board` and `operator-list` - so it
+is that language's plain word for a number, in the form those two are already
+in.
+
+Nothing overwrote a human translation. The fill step writes only into keys that
+are still the English source, and a translation already committed for a key was
+kept - Finnish's own *Poista ylimääräiset lista kopiot* stayed exactly as it
+was. `verify-human-preference.mjs` proves that property rather than asserting
+it, and none of this is pushed to Transifex, so a filled string can never
+masquerade there as a human one.
+
+Fifteen languages are deliberately left as English placeholders rather than
+guessed at: Klingon, Volapük, Acehnese, Breton, Igbo, Uyghur, Venda and its two
+variants, Walloon and its variant, Wolof, Yoruba, Tamazight, and vl-SS. A wrong
+translation reads as though somebody meant it; an English placeholder says
+plainly that nobody has translated it yet.
 
 </details>
 
@@ -4213,329 +4561,6 @@ an hour ago - and pins that ambiguity can never reach the deletion.
 </details>
 
 and improves the translations:
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/cd13f56c685ae615edb9036140d698964d4360b7">The newest languages go past the words on the board, into the menus</a>. Thanks to xet7.</summary>
-
-A new language file started with the words a board is made of - board, list,
-card, swimlane, member, the buttons. Enough to recognise the app, not enough to
-use it: the menus, the popup titles and the login page were still English.
-
-Eleven of the largest new ones - **Bengali**, **Urdu**, **Filipino**,
-**Hausa**, **Amharic**, **Kannada**, **Malayalam**, **Nepali**, **Somali**,
-**Kazakh** and **Burmese** - now carry the second tier as well: *Log Out*,
-*Forgot password*, *Email Address*, *Create Board*, *Move to Archive*,
-*Restore*, *Copy Card*, *Move Card*, *Delete Card?*, *List Actions*, *Board
-Settings*, *Member Settings*, *Search All Boards*, *Custom Fields*, *Add
-Attachment*, *Accounts*, *People*, *Organizations*, *Teams* - the strings
-somebody meets in the first minute rather than the first second.
-
-They are at about 112 strings each now, from 77. That is still a small fraction
-of 2,384, and deliberately so: these are the ones where being in English is most
-visible, and the rest falls back to English exactly as before.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/a7332f233637fa9716d276eac967fed300a0017d">Twenty more, including the ones I was least sure of - and which those are</a>. Thanks to xet7.</summary>
-
-**246 languages**, from 154 when this release started.
-
-**Confident enough to write without hedging:** བོད་སྐད་ (Tibetan), རྫོང་ཁ
-(Dzongkha), **Kalaallisut**, ᐃᓄᒃᑎᑐᑦ (Inuktitut), ᏣᎳᎩ (Cherokee), **Nāhuatl**,
-**Буряад хэлэн**, **Kaszëbsczi**, **Ślōnskŏ gŏdka**, **Aragonés**, **Ladin**,
-**Armãneashti**, **मैथिली**, **भोजपुरी**, **कोंकणी** and **کوردیی ناوەندی**
-(Sorani Kurdish, right-to-left).
-
-**Written with less to go on, and said so here rather than quietly:** **کٲشُر**
-(Kashmiri, right-to-left), **Pulaar**, **ትግረ** (Tigre) and **Wolaytta**. For
-these four the sources are thin - a wordlist and a grammar sketch rather than a
-dictionary with a UI vocabulary in it - so the terms for *board*, *swimlane* and
-*checklist* are built from the ordinary words for a writing-board, a path and a
-list of things to check. They are the strings most likely to be wrong, and the
-most likely to be corrected by the first speaker who opens the language picker
-and finds their language in it at all.
-
-That is the whole argument for doing them: the alternative was not a better
-translation, it was no language. Cherokee has around 2,000 fluent speakers;
-Tigre, Wolaytta and Pulaar have millions between them and almost no software.
-A wrong word invites a correction. An English placeholder invites nothing.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/0cca649b7dd37ea5bc59c5afa2659950f0e1c543">Fourteen more: the Pacific, the Caribbean, and the languages of Italy</a>. Thanks to xet7.</summary>
-
-**226 languages**, from 154 at the start of this release.
-
-**Kreyòl ayisyen**, **Papiamentu**, **Tok Pisin**, **Bislama**, **Gagana
-Sāmoa**, **Lea faka-Tonga**, **Na Vosa Vakaviti**, **Corsu**, **Sardu**,
-**Sicilianu**, **Napulitano**, **Furlan**, **Rumantsch** and **Hornjoserbsce**.
-
-Four are creoles - Haitian, Papiamentu, Tok Pisin and Bislama - which between
-them are the everyday language of about fifteen million people and are almost
-never what software is written in. Five are languages of Italy that Italian does
-not cover: Sardinian and Sicilian each have more than a million speakers.
-**Rumantsch** is one of Switzerland's four national languages, and
-**Hornjoserbsce** is one of Germany's.
-
-Each is the same shape as the rest: the words a board is made of, the buttons,
-the menus, the dates - and English underneath until somebody corrects it.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/a3ee0262d68ce0d10d4466018a9c5d3b9b44c233">Eighteen more languages: the Americas, the Sahel, Siberia and the Celtic ones</a>. Thanks to xet7.</summary>
-
-**212 languages.** WeKan had 154 when this release started.
-
-This block: **Bamanankan**, **Akan**, **Eʋegbe**, **Ikirundi**, **isiNdebele**,
-**Sesotho sa Leboa**, **siSwati**, **Башҡортса**, **Чӑвашла**, **Саха тыла**,
-**Runasimi** (Quechua), **Avañe'ẽ** (Guaraní), **Aymar aru**, **Føroyskt**,
-**Davvisámegiella**, **Gàidhlig**, **Kernewek** and **Gaelg**.
-
-Three of them are indigenous languages of the Americas with millions of speakers
-between them and no project-management tool in any of them. Three are Siberian
-and Volga languages of the Russian Federation. Four are Celtic - and Cornish and
-Manx are revived languages, which is exactly the case where the wording being
-imperfect matters least and the language existing at all matters most.
-
-**Scottish Gaelic** and **Cornish** take the Scottish and English regional
-flags rather than the Union Jack - the emoji tag sequences, not the state's
-flag - and **Manx** takes the Isle of Man's own. A language gets the flag of
-where it is spoken, and for these three that is not the same thing as the flag
-of the state.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/2395dfd0840b39f584c0338fc4683e560a9af0e8">Fifteen more languages, most of them African</a>. Thanks to xet7.</summary>
-
-**194 languages.** This block is the one WeKan was furthest from having:
-**Татарча**, **ʻŌlelo Hawaiʻi**, **chiShona**, **Ikinyarwanda**, **Chichewa**,
-**Sesotho**, **Setswana**, **Xitsonga**, **Luganda**, **Afaan Oromoo**,
-**ትግርኛ**, **Kurdî**, **سنڌي**, **অসমীয়া** and **Malagasy**.
-
-Nine of the fifteen are African languages with tens of millions of speakers
-each and no kanban tool in them at all. **Sindhi** is `rtl: true`; **Kurdish**
-takes the Iraqi flag, because Kurdistan has no emoji and that is where most of
-its speakers are - the same rule as any language spoken across a border.
-
-The three edits are one script now - `releases/translations/add-language.mjs`.
-It writes the strings file as a full copy of the
-English one with the translations swapped in, inserts the registry entry in
-alphabetical order with the name in the language's own script, and adds the flag
-only if the map does not already anticipate it. That is why this block took
-three commands rather than thirty, and why nothing was left half-wired.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/0d3bb3ee75cc07b2787353d17ba157c910c4e59d">Ten more languages, and Latin among them</a>. Thanks to xet7.</summary>
-
-**179 languages.** This block adds **Íslenska**, **Gaeilge**, **Shqip**,
-**Bosanski**, **Malti**, **Lëtzebuergesch**, **Кыргызча**, **Тоҷикӣ**, **Māori**
-and **Latina** - the same three edits each, the name written in its own
-language, and a flag.
-
-Two of them say something about the policy. **Māori** and **Latin** have nobody
-waiting to translate a kanban board, and Latin has no country at all; it takes
-the Vatican's flag because that is the state that still uses it, which is the
-same reasoning that gives a language spoken across a border the flag of where it
-is spoken. A constructed language keeps the globe instead - Esperanto, Klingon
-and Volapük are nobody's country, and borrowing one would be a claim rather than
-a hint.
-
-Latin is a real translation and not a joke: *tabula*, *charta*, *index*,
-*semita*, *titelli*, *sodales*, and the imperatives a menu is written in -
-*Adde*, *Dele*, *Serva*, *Quaere*.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/244710e91ec29a30093428ee6fbf64c5791aee26">Nine more languages: Kannada, Malayalam, Burmese, Sinhala, Nepali, Javanese, Somali, Pashto and Kazakh</a>. Thanks to xet7.</summary>
-
-WeKan is at **169 languages**. These nine were missing entirely, and between
-them they are spoken by something like 250 million people: **ಕನ್ನಡ**,
-**മലയാളം**, **မြန်မာ**, **සිංහල**, **नेपाली**, **Basa Jawa**, **Soomaali**,
-**پښتو** and **Қазақша**.
-
-Each arrives the same way as the last six: the strings file, the entry naming
-the language in its own script, and the flag. **Pashto** is `rtl: true`, and the
-RTL guard's list grew with it - that list is the one place the direction of a
-script is written down, so a new right-to-left language that is not added to it
-fails rather than laying itself out backwards in silence.
-
-Each starts with the words a board is made of - board, list, card, swimlane,
-label, member, the buttons, the menus, the dates - about eighty strings, and the
-rest falls back to English until somebody who speaks it says otherwise. That is
-the point of the policy: a language that is 3% translated is a language somebody
-can start using and correcting, and 0% is not.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/1fedfb26256b2cace1d058d93931d94ad223c930">Six languages WeKan did not have: Bengali, Urdu, Marathi, Filipino, Hausa and Amharic</a>. Thanks to xet7.</summary>
-
-WeKan had 154 language files and not one of them was **Bengali** - about 270
-million speakers - or **Urdu**, or **Marathi**, **Filipino**, **Hausa** or
-**Amharic**. The list of languages WeKan supports was never a judgement about
-which languages matter; it is the list somebody happened to start.
-
-Each is three edits, and all three are needed or the language is invisible: the
-strings file, the entry in `languages.js` naming the language **in that
-language** - বাংলা, اردو, मराठी, አማርኛ - and the flag in the picker. Urdu is
-`rtl: true`, so the whole interface lays itself out right-to-left for it.
-
-A new file is a full copy of `en.i18n.json` with the translated values swapped
-in, which is what every other language file here is: the key-order guard reads
-absolute positions, so a file holding only the strings it has translated would
-put every later key at the wrong index. Each of the six starts with the words a
-board is made of - board, list, card, swimlane, label, member, the buttons, the
-menus, the dates - and grows from there.
-
-`tests/newLanguageWiring.test.cjs` holds the three edits together, and found
-that **fourteen languages were showing a globe** instead of a flag (Acehnese,
-Moroccan Arabic, Asturian, Breton, Frisian, Norwegian Bokmål, Occitan, Turkmen,
-Walloon, Wu, Yiddish, Tamazight and two Chinese variants), which they no longer
-do. Constructed languages - Esperanto, Klingon, Volapük - keep the globe on
-purpose rather than borrowing somebody's country.
-
-It also learned what a **symlinked** language file is. `km-KH.i18n.json` and
-`ru-RU.i18n.json` are symlinks to `km_KH.i18n.json` and `ru_RU.i18n.json`: those
-two locales are the ones `.tx/config`'s `lang_map` does not rename, so Transifex
-writes the underscored name and the hyphenated link is what `languages.js`
-loads. A guard that reads only the import paths sees the target as an orphan and
-is wrong about it; this one resolves the link, and checks that every link points
-at a file that exists and that one end of each pair is loaded.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/240f8f2d4a1a62f17c90fe0f2b952e937df3d2ec">Uyghur, Belarusian, Catalan, Estonian, Malay, Turkmen, Xhosa and Igbo, and the sort letters</a>. Thanks to xet7.</summary>
-
-Another eight languages, from their own vocabulary: the export and import menus,
-the roles table, the board-status pane, the starred pages, the search operators,
-and for Igbo the last of its report and recovery strings.
-
-**The list sort letters** are translated too. A list header shows `(N)`, `(M)`
-or `(L)` for whether it is sorted by NAME, by your MANUAL order or by LAST
-access - initials of the ENGLISH words, so on any other language they were three
-letters that stand for nothing. They are that language's own initials now:
-German `(N)`/`(R)`/`(Z)` for *Name*, *Reihenfolge*, *Zugriff*; Finnish
-`(N)`/`(J)`/`(K)` for *Nimi*, *Järjestys*, *Käyttö*; Russian `(И)`/`(П)`/`(Д)` -
-twenty-five languages, and their regional variants after them.
-
-**What is left is mostly not translatable.** Of the strings still flagged in
-German, French and Dutch, three quarters are a word of one or two syllables that
-those languages spell exactly as English does - *Filter*, *Team*, *Text*,
-*Details*, *Layout*, *Person*, *Pause*, *Actions*, *Date*, *Description*,
-*Notifications*, *Type*, *Database*, *Help*, *Repository*. They are counted as
-untranslated because the only test available is "is this still equal to the
-English source", and by that test a correct translation that happens to be
-identical can never pass.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/da022efe627fc3298e21db7ecc4f3a37a5b40ce3">Frisian, Igbo, Yoruba, Wolof, Breton, Walloon, Volapük and Tamazight, from their own words</a>. Thanks to xet7.</summary>
-
-Eight languages nobody has volunteered for. Five of their files were not
-untranslated at all - `wo`, `wa`, `br`, `vo` and `zgh` were written in
-**French** (*Tableau*, *Carte*, *Liste*, *Supprimer*), with Esperanto in the
-Volapük file and Arabic in the Tamazight one, seeded from whatever was to hand.
-As with Klingon, that is not a translation to protect: the core vocabulary is
-replaced with each language's own words - Breton *Taolenn*, *Kartenn*, *Roll*;
-Walloon *Tåvlea*, *Cåte*, *Djivêye*; Wolof *Tablo*, *Karta*, *Limu*; Volapük
-*Bod*, *Kad*, *Lised*; Tamazight *Tafelwit*, *Takarḍa*, *Tabdart*.
-
-On top of that each got the strings a board actually shows: the export and
-import menus, the roles table, the board status pane, the starred pages, and the
-sentence that explains what dragging a board onto Home does.
-
-They are **imperfect**, and that is the point: `CLAUDE.md` now says so outright
-- a wrong string is readable, obviously improvable and an invitation to the
-person who speaks the language, which an English placeholder never is. When that
-person sends a correction through Transifex it REPLACES the filled one, because
-the merge always prefers a human translation.
-
-What is left in the big files is mostly not translatable at all: German
-*Filter*, *Team*, *Text*, *Details*, French *Actions*, *Date*, *Description*,
-*Notifications* and Dutch *Filter*, *Type* are the words those languages use,
-and they are counted as "untranslated" only because the tool's test for it is
-"still equal to English".
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/3b5f2b24cc16547c50e36fd5308b0c7fde5c67a3">Klingon from its own lexicon, and every regional variant inherits its language</a>. Thanks to xet7.</summary>
-
-**Klingon.** `tlh.i18n.json` was not untranslated - it was written in FRENCH and
-GERMAN: *Tableau*, *Karte*, *Liste*, *Löschen*, *Board exportieren*. Somebody
-had seeded it from whatever file was to hand. The words are looked up now, in
-the [boQwI' lexicon](https://github.com/De7vID/klingon-assistant-data) - the Klingon
-Language Institute's own data, ~5800 entries - and Klingon has words for most of
-what a kanban board is: `'echlet` is a **board**, `'echletHom` a **card**,
-`tetlh` a **list**, `per` a **label**, `chuD` a **member**, `mI'` a **number**,
-`Dotlh` a **status**, `yer` a **domain**, `mIllogh` a **picture**. The actions
-are imperatives, which is what a menu entry is in Klingon: `yISuq` (acquire it)
-for import, `yIngeH` (send it) for export, `yIQaw'` (destroy it) for delete,
-`yIchel` (add it), `yIteq` (remove it). So *Export list* is `tetlh yIngeH` and
-*Import card* is `'echletHom yISuq`.
-
-**Regional variants.** A variant file that had not translated a string carried
-the English source while its base language had a perfectly good translation two
-directories away - `de-AT` in English beside German, `es-MX` beside Spanish,
-`zh-Hant` beside Traditional Chinese. Each variant now inherits its base for the
-strings it has not translated itself, and only for those: a variant's OWN
-wording always wins, which is the same rule that protects a human translation
-from a filled one.
-
-**Three files were in another language entirely**, and are completed in the
-language they are actually written in rather than left half-English: `vl-SS` is
-Dutch throughout, `ace` is Malay, `ve` is Zulu.
-
-Two of the languages that had nothing - Igbo and Yoruba - had real translations
-under the English placeholders, so they are filled from their own vocabulary
-rather than from a neighbour's.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/f12095efab438128b73a9cf01bec4e769289ec65">The 31 strings this release adds, in 127 languages</a>. Thanks to xet7.</summary>
-
-Everything added to `en.i18n.json` since 10.91 - the new popup titles, the
-export and import wording, the card-number search operator, the filesystem
-integrity report - shipped as English placeholders in every other language file.
-Translated directly, as `CLAUDE.md` requires: no external translation service,
-API or key, and each language's OWN existing strings as the reference, so the
-new wording matches what that file already says rather than being invented
-beside it.
-
-The vocabulary each file already had is what decided the wording: its word for
-a swimlane, a list, a card and a board, and whether it says *export* with a
-verb or a noun. The four import titles are the four export titles with that
-language's own word for importing, because in a menu that already says what it
-is about they are the same sentence pointed the other way.
-
-`operator-number` is a special case: it is not a label but a word somebody
-TYPES into the search box, beside `operator-board` and `operator-list` - so it
-is that language's plain word for a number, in the form those two are already
-in.
-
-Nothing overwrote a human translation. The fill step writes only into keys that
-are still the English source, and a translation already committed for a key was
-kept - Finnish's own *Poista ylimääräiset lista kopiot* stayed exactly as it
-was. `verify-human-preference.mjs` proves that property rather than asserting
-it, and none of this is pushed to Transifex, so a filled string can never
-masquerade there as a human one.
-
-Fifteen languages are deliberately left as English placeholders rather than
-guessed at: Klingon, Volapük, Acehnese, Breton, Igbo, Uyghur, Venda and its two
-variants, Walloon and its variant, Wolof, Yoruba, Tamazight, and vl-SS. A wrong
-translation reads as though somebody meant it; an English placeholder says
-plainly that nobody has translated it yet.
-
-</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/639214574">The three new Version-pane and checklist strings, in 133 languages</a>. Thanks to xet7.</summary>
