@@ -579,6 +579,7 @@
   "error-orgname-taken": "આ સંસ્થાનું નામ પહેલેથી જ લેવામાં આવ્યું છે",
   "error-teamname-taken": "આ ટીમનું નામ પહેલેથી જ લેવામાં આવ્યું છે",
   "error-email-taken": "ઈમેલ પહેલેથી જ લેવામાં આવ્યો છે",
+  "export": "निर्यात करें",
   "export-board": "Export बोर्ड",
   "export-board-without-attachments": "संलग्नकों के बिना",
   "user-can-not-export-excel": "વપરાશકર્તા Excel નિકાસ કરી શકતા નથી",

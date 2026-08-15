@@ -579,6 +579,7 @@
   "error-orgname-taken": "Il nome di questa organizzazione è già stato scelto",
   "error-teamname-taken": "Il nome di questo team è già stato preso",
   "error-email-taken": "L'email è già stata presa",
+  "export": "Exportă",
   "export-board": "Esporta bacheca",
   "export-board-without-attachments": "fără atașamente",
   "user-can-not-export-excel": "L'utente non può effettuare l'esportazione in Excel",

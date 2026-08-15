@@ -579,6 +579,7 @@
   "error-orgname-taken": "Dieser Organisationsname ist schon vergeben",
   "error-teamname-taken": "Dieser Teamname ist schon vergeben",
   "error-email-taken": "E-Mail wird schon verwendet",
+  "export": "Exportieren",
   "export-board": "Board exportieren",
   "export-board-without-attachments": "ohne Anhänge",
   "user-can-not-export-excel": "Benutzer kann nicht nach Excel exportieren",

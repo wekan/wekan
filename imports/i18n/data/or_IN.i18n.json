@@ -579,6 +579,7 @@
   "error-orgname-taken": "ଏହି ସଂସ୍ଥାର ନାମ ପୂର୍ବରୁ ନିଆଯାଇଛି |",
   "error-teamname-taken": "ଏହି ଦଳର ନାମ ପୂର୍ବରୁ ନିଆଯାଇଛି |",
   "error-email-taken": "ଇମେଲ୍ ନିଆଯାଇଛି |",
+  "export": "ରପ୍ତାନି କରନ୍ତୁ",
   "export-board": "ରପ୍ତାନି ବୋର୍ଡ |",
   "export-board-without-attachments": "ସଂଲଗ୍ନକ ବିନା",
   "user-can-not-export-excel": "ଉପଭୋକ୍ତା Excel ରପ୍ତାନି କରିପାରିବେ ନାହିଁ |",

@@ -579,6 +579,7 @@
   "error-orgname-taken": "ឈ្មោះស្ថាប័ននេះត្រូវបានយករួចហើយ",
   "error-teamname-taken": "ឈ្មោះក្រុមនេះត្រូវបានយករួចហើយ",
   "error-email-taken": "អ៊ីមែលត្រូវបានយករួចហើយ",
+  "export": "នាំចេញ",
   "export-board": "បន្ទះនាំចេញ",
   "export-board-without-attachments": "គ្មានឯកសារភ្ជាប់",
   "user-can-not-export-excel": "អ្នកប្រើប្រាស់មិនអាចនាំចេញ Excel បានទេ។",

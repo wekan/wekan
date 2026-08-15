@@ -579,6 +579,7 @@
   "error-orgname-taken": "نام سازمان پیشتر ثبت شده است",
   "error-teamname-taken": "نام تیم پیشتر ثبت شده است",
   "error-email-taken": "رایانامه توسط گیرنده دریافت شده است",
+  "export": "برون‌بری",
   "export-board": "انتقال به بیرون برد",
   "export-board-without-attachments": "بدون ضمیمه‌ها",
   "user-can-not-export-excel": "کاربر قادر به گرفتن خروجی اکسلب نیست",

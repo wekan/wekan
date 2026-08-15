@@ -579,6 +579,7 @@
   "error-orgname-taken": "ఈ సంస్థ పేరు ఇప్పటికే తీసుకోబడింది",
   "error-teamname-taken": "ఈ జట్టు పేరు ఇప్పటికే తీసుకోబడింది",
   "error-email-taken": "ఇమెయిల్ ఇప్పటికే తీసుకోబడింది",
+  "export": "ஏற்றுமதி செய்",
   "export-board": "Export बोर्ड",
   "export-board-without-attachments": "இணைப்புகள் இல்லாமல்",
   "user-can-not-export-excel": "వినియోగదారు Excelని ఎగుమతి చేయలేరు",

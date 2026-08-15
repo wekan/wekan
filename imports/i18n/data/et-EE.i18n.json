@@ -579,6 +579,7 @@
   "error-orgname-taken": "See organisatsiooni nimi on juba hõivatud",
   "error-teamname-taken": "See meeskonna nimi on juba võetud",
   "error-email-taken": "E-post on juba võetud",
+  "export": "Ekspordi",
   "export-board": "Ekspordilaudtee",
   "export-board-without-attachments": "ilma manusteta",
   "user-can-not-export-excel": "Kasutaja ei saa eksportida Exceli",

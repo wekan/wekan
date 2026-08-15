@@ -579,6 +579,7 @@
   "error-orgname-taken": "Tämä organisaation nimi on jo käytössä",
   "error-teamname-taken": "Tämä tiimin nimi on jo käytössä",
   "error-email-taken": "Sähköpostiosoite on jo käytössä",
+  "export": "Vie",
   "export-board": "Vie taulu",
   "export-board-without-attachments": "ilman liitetiedostoja",
   "user-can-not-export-excel": "Käyttäjä ei voi viedä Excel tiedostoon",

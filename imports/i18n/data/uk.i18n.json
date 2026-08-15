@@ -579,6 +579,7 @@
   "error-orgname-taken": "Ця назва організації вже зайнята",
   "error-teamname-taken": "Ця назва команди вже зайнята",
   "error-email-taken": "Email вже зайнятий",
+  "export": "Експортувати",
   "export-board": "Експортувати дошку",
   "export-board-without-attachments": "без вкладень",
   "user-can-not-export-excel": "Користувач не може експортувати Excel",

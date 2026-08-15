@@ -579,6 +579,7 @@
   "error-orgname-taken": "Dieser Organisationsname ist schon vergeben",
   "error-teamname-taken": "Dieser Teamname ist schon vergeben",
   "error-email-taken": "E-Mail wird schon verwendet",
+  "export": "yIngeH",
   "export-board": "'echlet yIngeH",
   "export-board-without-attachments": "rarDochmey Hutlh",
   "user-can-not-export-excel": "Benutzer kann nicht nach Excel exportieren",

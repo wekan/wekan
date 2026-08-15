@@ -579,6 +579,7 @@
   "error-orgname-taken": "Jméno organizace již existuje",
   "error-teamname-taken": "Jméno týmu již existuje",
   "error-email-taken": "Tento email byl již použit",
+  "export": "Exportovať",
   "export-board": "Exportovat tablo",
   "export-board-without-attachments": "bez príloh",
   "user-can-not-export-excel": "Uživatel nemůže exportovat do Excelu",

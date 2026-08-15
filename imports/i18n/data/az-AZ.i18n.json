@@ -579,6 +579,7 @@
   "error-orgname-taken": "Bu təşkilatın adı artıq götürülüb",
   "error-teamname-taken": "Bu komandanın adı artıq götürülüb",
   "error-email-taken": "E-poçt artıq götürülüb",
+  "export": "Ixrac et",
   "export-board": "İxrac lövhəsi",
   "export-board-without-attachments": "qoşmalar olmadan",
   "user-can-not-export-excel": "İstifadəçi Excel-i ixrac edə bilməz",

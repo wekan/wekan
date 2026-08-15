@@ -579,6 +579,7 @@
   "error-orgname-taken": "Ini nga ngaran han organisasyon ginagamit na",
   "error-teamname-taken": "Ini nga ngaran han team ginagamit na",
   "error-email-taken": "Ginagamit na an email",
+  "export": "Ebaguer",
   "export-board": "I-export an board",
   "export-board-without-attachments": "waray mga attachment",
   "user-can-not-export-excel": "Diri makaka-export hin Excel an tagagamit",

@@ -579,6 +579,7 @@
   "error-orgname-taken": "Erakunde izen hori dagoeneko erabiltzen ari da",
   "error-teamname-taken": "Talde izen hori dagoeneko erabiltzen ari da",
   "error-email-taken": "E-mail hori hartuta dago",
+  "export": "Esportatu",
   "export-board": "Esportatu arbela",
   "export-board-without-attachments": "eranskinik gabe",
   "user-can-not-export-excel": "Erabiltzaileak ezin du esportatu Excel gisa",

@@ -579,6 +579,7 @@
   "error-orgname-taken": "Ово (пословно) име странке је већ у употреби",
   "error-teamname-taken": "Ово име правног тима је већ у употреби",
   "error-email-taken": "Имейлът е вече зает",
+  "export": "Експортиране",
   "export-board": "Експортиране на Табло",
   "export-board-without-attachments": "без прикачени файлове",
   "user-can-not-export-excel": "Корисник не може да претвори списе у Excel облик",

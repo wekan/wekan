@@ -579,6 +579,7 @@
   "error-orgname-taken": "Il nome di questa organizzazione è già stato scelto",
   "error-teamname-taken": "Il nome di questo team è già stato preso",
   "error-email-taken": "Το email είναι ήδη κατειλημμένο",
+  "export": "Εξαγωγή",
   "export-board": "Εξαγωγή πίνακα",
   "export-board-without-attachments": "χωρίς συνημμένα",
   "user-can-not-export-excel": "Ο χρήστης δε μπορεί να εξάγει σε Excel",

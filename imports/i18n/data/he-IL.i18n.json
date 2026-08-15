@@ -579,6 +579,7 @@
   "error-orgname-taken": "שם הארגון הזה כבר תפוס",
   "error-teamname-taken": "שם הצוות הזה כבר תפוס",
   "error-email-taken": "כתובת הדוא״ל כבר נמצאת בשימוש",
+  "export": "ייצוא",
   "export-board": "ייצוא לוח",
   "export-board-without-attachments": "ללא צרופות",
   "user-can-not-export-excel": "המשתמש לא יכול לייצא ל־Excel",

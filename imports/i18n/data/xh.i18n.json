@@ -579,6 +579,7 @@
   "error-orgname-taken": "Eli gama lombutho sele lithathiwe",
   "error-teamname-taken": "Eli gama leqela sele lithathiwe",
   "error-email-taken": "I-imeyile sele ithathiwe",
+  "export": "Thumela ngaphandle",
   "export-board": "Ibhodi yokuthumela ngaphandle",
   "export-board-without-attachments": "ngaphandle kweziqhoboshelo",
   "user-can-not-export-excel": "Umsebenzisi akakwazi ukuthumela ngaphandle i-Excel",

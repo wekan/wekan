@@ -579,6 +579,7 @@
   "error-orgname-taken": "Aquest nom d'organització ja està pres",
   "error-teamname-taken": "El nom d'aquest equip ja està pres",
   "error-email-taken": "L'adreça de correu electrònic ja és en ús",
+  "export": "Exporta",
   "export-board": "Exporta tauler",
   "export-board-without-attachments": "sense adjunts",
   "user-can-not-export-excel": "L'usuari no pot exportar Excel",

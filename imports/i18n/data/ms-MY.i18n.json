@@ -579,6 +579,7 @@
   "error-orgname-taken": "Nama organisasi itu sudah wujud",
   "error-teamname-taken": "Nama kumpulan itu sudah wujud",
   "error-email-taken": "Emel sudah wujud",
+  "export": "Eksport",
   "export-board": "Ekport Papan",
   "export-board-without-attachments": "tanpa lampiran",
   "user-can-not-export-excel": "Pengguna tidak boleh eksport Exce",

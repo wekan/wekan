@@ -579,6 +579,7 @@
   "error-orgname-taken": "Mae enw'r sefydliad hwn eisoes wedi'i gymryd",
   "error-teamname-taken": "Cymerwyd yr enw tîm hwn eisoes",
   "error-email-taken": "Mae e-bost eisoes wedi'i gymryd",
+  "export": "Allforio",
   "export-board": "Bwrdd allforio",
   "export-board-without-attachments": "heb ymlyniadau",
   "user-can-not-export-excel": "Ni all y defnyddiwr allforio Excel",

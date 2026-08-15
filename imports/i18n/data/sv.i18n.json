@@ -579,6 +579,7 @@
   "error-orgname-taken": "Organisations namnet är upptaget.",
   "error-teamname-taken": "Detta team namn är redan taget.",
   "error-email-taken": "E-post har redan tagits",
+  "export": "Exportera",
   "export-board": "Exportera tavla",
   "export-board-without-attachments": "utan bilagor",
   "user-can-not-export-excel": "Användare kan inte exportera till Excel",

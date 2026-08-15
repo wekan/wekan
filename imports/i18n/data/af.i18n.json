@@ -579,6 +579,7 @@
   "error-orgname-taken": "Hierdie organisasie se naam is reeds geneem",
   "error-teamname-taken": "Hierdie spannaam is reeds geneem",
   "error-email-taken": "E-pos is reeds geneem",
+  "export": "Voer uit",
   "export-board": "Uitvoerbord",
   "export-board-without-attachments": "sonder aanhangsels",
   "user-can-not-export-excel": "Gebruiker kan nie Excel uitvoer nie",

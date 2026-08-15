@@ -579,6 +579,7 @@
   "error-orgname-taken": "중복된 조직 이름입니다.",
   "error-teamname-taken": "중복된 팀 이름입니다.",
   "error-email-taken": "メールは既に受け取られています",
+  "export": "내보내기",
   "export-board": "보드 내보내기",
   "export-board-without-attachments": "첨부 파일 제외",
   "user-can-not-export-excel": "엑셀로 내보낼 수 없습니다.",

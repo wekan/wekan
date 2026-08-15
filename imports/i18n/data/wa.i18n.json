@@ -579,6 +579,7 @@
   "error-orgname-taken": "Ce nom d'organisation est déjà utilisé",
   "error-teamname-taken": "Ce nom d'équipe est déjà utilisé",
   "error-email-taken": "Cette adresse mail est déjà utilisée",
+  "export": "Ebaguer",
   "export-board": "Ebaguer li tåvlea",
   "export-board-without-attachments": "sins pîces djondowes",
   "user-can-not-export-excel": "L'utilisateur ne peut pas exporter vers Excel",

@@ -579,6 +579,7 @@
   "error-orgname-taken": "This organization name is already taken",
   "error-teamname-taken": "This team name is already taken",
   "error-email-taken": "Email has already been taken",
+  "export": "Xicquixti",
   "export-board": "Xicquixti huapalli",
   "export-board-without-attachments": "without attachments",
   "user-can-not-export-excel": "User can not export Excel",
