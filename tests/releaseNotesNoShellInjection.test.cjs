@@ -1,21 +1,33 @@
 'use strict';
 
-// Plain-Node guard against shell injection when composing release notes.
+// Plain-Node guard on HOW the release notes reach the release job.
 // Run: node tests/releaseNotesNoShellInjection.test.cjs
 //
 // release-all.yml builds the GitHub Release body from the newest CHANGELOG.md
-// section (`needs.prepare.outputs.changelog`). That text is arbitrary markdown —
-// every `code` span is a backtick. If it is interpolated into a `run:` script as
-// inline `${{ needs.prepare.outputs.changelog }}`, GitHub substitutes it into the
-// shell SOURCE before bash parses it, so a backtick runs as a command: the v10.59
-// release job died with "Incorrect: command not found",
-// "loginFailureDecision.js: Permission denied", … and published nothing. The
-// value must instead reach the script through the ENVIRONMENT (`env: CHANGELOG:
-// ${{ … }}` then `"$CHANGELOG"`), where the shell treats it as data and never
-// parses its backticks, `$( )`, or quotes.
+// section. That text is arbitrary markdown, it is enormous, and each of the two
+// obvious ways to hand it to a shell step has already broken a release:
 //
-// This pins that `outputs.changelog` is only ever consumed as an `env:`
-// assignment, never inline inside a run: script.
+//   1. INLINE `${{ needs.prepare.outputs.changelog }}` in a `run:` block.
+//      GitHub substitutes it into the shell SOURCE before bash parses it, so
+//      every `code` span's backtick runs as a command. v10.59 died with
+//      "Incorrect: command not found", "loginFailureDecision.js: Permission
+//      denied", … and published nothing.
+//
+//   2. THROUGH THE ENVIRONMENT - `env: CHANGELOG: ${{ … }}` then "$CHANGELOG".
+//      That fixed the backticks and hit a harder wall: Linux caps a SINGLE
+//      argv/envp string at MAX_ARG_STRLEN, 128 KiB, and the v10.92 notes were
+//      172,458 characters. execve refused to start bash at all - "An error
+//      occurred trying to start process '/usr/bin/bash' … Argument list too
+//      long" - before a line of the step ran.
+//
+// The shape that has neither problem is FILE TO FILE: each job that needs the
+// notes extracts them from its own checkout of CHANGELOG.md with
+// releases/release-notes.sh, straight into release-notes.md. Only file paths are
+// passed around, so there is no size limit and no shell ever parses the text.
+//
+// This pins that shape: no changelog job output, no changelog in an env:, no
+// changelog interpolated into a script, and the extraction script is the thing
+// every consumer uses.
 
 const assert = require('assert');
 const fs = require('fs');
@@ -36,11 +48,7 @@ const files = fs
   .filter((f) => /\.ya?ml$/.test(f))
   .map((f) => path.join('.github/workflows', f));
 
-// The only safe shape for consuming the changelog output: an env assignment,
-// e.g. `          CHANGELOG: ${{ needs.prepare.outputs.changelog }}`. Anything
-// else - printf, echo, a bare line inside a run: block - is the injection.
-const ENV_ASSIGN = /^\s*[A-Za-z_][A-Za-z0-9_]*:\s*\$\{\{[^}]*\.outputs\.changelog[^}]*\}\}\s*$/;
-const USES_CHANGELOG = /\.outputs\.changelog/;
+const read = (rel) => fs.readFileSync(path.join(repoRoot, rel), 'utf8');
 
 test('a release workflow exists to check', () => {
   assert.ok(
@@ -49,35 +57,84 @@ test('a release workflow exists to check', () => {
   );
 });
 
-test('outputs.changelog is only ever consumed through env:, never inline in a script', () => {
+test('the notes are never carried as a job output', () => {
+  // 128 KiB is the ceiling for one environment string, and the notes are past
+  // it, so an output nobody can safely consume is a trap for the next person.
   const offenders = [];
   for (const rel of files) {
-    const lines = fs.readFileSync(path.join(repoRoot, rel), 'utf8').split('\n');
-    lines.forEach((line, i) => {
-      if (!USES_CHANGELOG.test(line)) return;
-      if (ENV_ASSIGN.test(line)) return; // the safe form
-      offenders.push(`${rel}:${i + 1}: ${line.trim()}`);
+    read(rel).split('\n').forEach((line, i) => {
+      if (/\.outputs\.changelog/.test(line)) offenders.push(`${rel}:${i + 1}: ${line.trim()}`);
+      if (/^\s*changelog:\s*\$\{\{/.test(line)) offenders.push(`${rel}:${i + 1}: ${line.trim()}`);
     });
   }
   assert.deepStrictEqual(
     offenders,
     [],
-    `changelog interpolated where a backtick would run as a command:\n${offenders.join('\n')}`,
+    `the release notes are passed as a job output again:\n${offenders.join('\n')}`,
   );
 });
 
-test('every step that reads the changelog into a script uses "$CHANGELOG", not ${{ }}', () => {
-  // Wherever a script writes the changelog into release-notes.md, it must
-  // reference the environment variable, so the safe env: path is actually used.
+test('no step puts a whole CHANGELOG section into an environment variable', () => {
+  // env: CHANGELOG: ${{ … }} is what made execve fail with E2BIG in v10.92.
+  const offenders = [];
   for (const rel of files) {
-    const text = fs.readFileSync(path.join(repoRoot, rel), 'utf8');
-    // A printf/echo that pipes the changelog into the notes must use "$CHANGELOG".
-    const badPrintf = /printf[^\n]*\$\{\{[^}]*\.outputs\.changelog/;
-    assert.ok(
-      !badPrintf.test(text),
-      `${rel}: a printf feeds \${{ …changelog }} straight into the shell; use "$CHANGELOG" from env instead`,
-    );
+    read(rel).split('\n').forEach((line, i) => {
+      if (/^\s*CHANGELOG:\s*\$\{\{/.test(line)) offenders.push(`${rel}:${i + 1}: ${line.trim()}`);
+    });
   }
+  assert.deepStrictEqual(
+    offenders,
+    [],
+    `a whole CHANGELOG section is back in env:, which execve refuses over 128 KiB:\n${offenders.join('\n')}`,
+  );
+});
+
+test('the extraction script exists, and is what every consumer runs', () => {
+  const script = path.join(repoRoot, 'releases/release-notes.sh');
+  assert.ok(fs.existsSync(script), 'expected releases/release-notes.sh');
+  const text = read('.github/workflows/release-all.yml');
+  const uses = text.match(/releases\/release-notes\.sh/g) || [];
+  // prepare validates, the release job composes, the rewrite job recomposes.
+  assert.ok(
+    uses.length >= 3,
+    `expected release-notes.sh to be used by prepare, release and the notes rewrite; found ${uses.length}`,
+  );
+});
+
+test('every step that writes the notes into release-notes.md reads them from the file', () => {
+  const text = read('.github/workflows/release-all.yml');
+  // The old shapes, in the exact forms that broke: a printf of the variable, and
+  // an inline interpolation into the script.
+  assert.ok(
+    !/printf[^\n]*"\$CHANGELOG"/.test(text),
+    'a step still pipes "$CHANGELOG" into the notes; read CHANGELOG.md with release-notes.sh instead',
+  );
+  assert.ok(
+    !/>>\s*release-notes\.md[^\n]*\$\{\{/.test(text),
+    'a step interpolates ${{ }} into the notes, where a backtick runs as a command',
+  );
+  // and what must be there instead
+  assert.ok(
+    /release-notes\.sh "\$VERSION" >> release-notes\.md/.test(text),
+    'expected the notes to be appended from releases/release-notes.sh',
+  );
+});
+
+test('release-notes.sh keeps the text out of the shell and fails loudly when there is none', () => {
+  const sh = fs.readFileSync(path.join(repoRoot, 'releases/release-notes.sh'), 'utf8');
+  assert.ok(/set -euo pipefail/.test(sh), 'expected set -euo pipefail');
+  // The python must read the file itself and take its arguments from the
+  // environment; a `version = "$VERSION"` substitution would put CHANGELOG-
+  // adjacent text back into the heredoc the shell expands.
+  assert.ok(/<<'PYEOF'/.test(sh), "expected a QUOTED heredoc, so the shell does not expand it");
+  assert.ok(
+    /os\.environ\["VERSION"\]/.test(sh) && /os\.environ\["CHANGELOG_FILE"\]/.test(sh),
+    'expected the python to read VERSION and CHANGELOG_FILE from the environment',
+  );
+  assert.ok(
+    /::error::release-notes:/.test(sh),
+    'expected an ::error:: when the CHANGELOG has no section for this release',
+  );
 });
 
 console.log(`\nreleaseNotesNoShellInjection: all ${passed} tests passed`);

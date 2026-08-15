@@ -222,6 +222,11 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     'fetch.sh': 'release-workflow: the downloader every build job, and the\n      preflight, and the Dockerfile use - it waits out a 503 and tells that\n      apart from a 404, and has no release step of its own',
     'npm-retry.sh': 'release-workflow: the wrapper the build jobs run their\n      npm installs through, inside the container as well as on the runner -\n      it retries a 503 and runs no release step of its own',
     'provenance-table.sh': 'release-workflow: called by the release job',
+    'release-notes.sh': 'release-workflow: prints the CHANGELOG section that is\n'
+      + '      a release\'s notes, called by prepare, the release job and the notes\n'
+      + '      rewrite. It exists so the text goes file-to-file and never becomes an\n'
+      + '      argument or an environment variable - 172 KB of notes is past the\n'
+      + '      128 KiB MAX_ARG_STRLEN, and v10.92 failed to start bash at all',
     'ferretdb-latest-tag.sh': 'release-workflow: a lookup the build jobs call so\n      the provenance table can name the version `latest` resolved to - it prints\n      a tag and downloads nothing',
     'repack-bundle-for-arch.sh': 'release-workflow: needs ./bundle, docker and '
       + 'QEMU already set up by the build job around it',

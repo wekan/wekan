@@ -226,7 +226,11 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.version.outputs.version }}
-      changelog: ${{ steps.changelog.outputs.content }}
+      # No `changelog:` output. The notes are 170 KB and more, which is past the
+      # 128 KiB MAX_ARG_STRLEN a single environment variable may hold, so any job
+      # consuming them through `env:` fails to start its shell. Jobs read
+      # CHANGELOG.md from their own checkout instead - see
+      # "Check the release notes exist in CHANGELOG.md" below.
     steps:
       - uses: actions/checkout@v7
         with:
@@ -252,47 +256,20 @@ jobs:
             git push origin "v$VERSION"
           fi
 
-      - name: Extract release notes from CHANGELOG.md
-        id: changelog
+      # The notes are validated HERE, where a missing CHANGELOG section is still
+      # cheap to fix, but they are NOT carried to the release job as a job
+      # output. They were, and it broke v10.92: 172,458 characters reached the
+      # release step as `env: CHANGELOG:`, and Linux caps a single argv/envp
+      # string at MAX_ARG_STRLEN - 128 KiB - so execve refused to start bash at
+      # all ("Argument list too long") before a line of the step ran. Each job
+      # that needs the notes now extracts them from its own checkout of
+      # CHANGELOG.md with the same script, straight into a file.
+      - name: Check the release notes exist in CHANGELOG.md
         run: |
+          set -euo pipefail
           VERSION="${{ steps.version.outputs.version }}"
-          # Prefer a version-specific "# v<version> ..." section, otherwise fall
-          # back to the topmost "# Upcoming/Upcomig WeKan ® release" section.
-          NOTES=$(python3 - <<PYEOF
-          import re, sys
-          version = "$VERSION"
-          with open("CHANGELOG.md", encoding="utf-8") as f:
-              content = f.read()
-          patterns = [
-              rf"(# v{re.escape(version)} .*?)(?=\n# v[0-9]|\Z)",
-              r"(# Upcom\w* WeKan.*?)(?=\n# v[0-9]|\Z)",
-          ]
-          for pat in patterns:
-              m = re.search(pat, content, re.DOTALL)
-              if m:
-                  print(m.group(1).strip())
-                  sys.exit(0)
-          print(f"WeKan v{version}")
-          PYEOF
-          )
-          # "WeKan v<version>" is the fallback the script above prints when it finds
-          # NEITHER a "# v<version>" section nor an "# Upcoming" one - i.e. the
-          # release would be published with no notes at all. Say so here, where the
-          # cause is still obvious, instead of shipping an empty release page.
-          if [ -z "${NOTES//[[:space:]]/}" ]; then
-            echo "::error::prepare: the release notes came out EMPTY. CHANGELOG.md must have a '# v$VERSION ...' section, or an '# Upcoming WeKan (R) release' section to use."
-            exit 1
-          fi
-          if [ "$NOTES" = "WeKan v$VERSION" ]; then
-            echo "::error::prepare: CHANGELOG.md has no section for v$VERSION and no '# Upcoming WeKan (R) release' section, so the release would have no notes. Add the section and re-run."
-            exit 1
-          fi
-          echo "OK: release notes are $(printf '%s' "$NOTES" | wc -l) lines / $(printf '%s' "$NOTES" | wc -c) characters."
-          {
-            echo "content<<GHEOF"
-            echo "$NOTES"
-            echo "GHEOF"
-          } >> "$GITHUB_OUTPUT"
+          bash releases/release-notes.sh "$VERSION" > release-notes-body.md
+          echo "OK: release notes are $(wc -l < release-notes-body.md) lines / $(wc -c < release-notes-body.md) characters."
 
       # Always, as the last step: the run summary then answers "what worked and what
       # did not" for the whole release at a glance, instead of eighteen job logs. A
@@ -990,7 +967,12 @@ jobs:
       # 404'd on wekan-<version>-amd64.zip - v10.63 and v10.64 both. Checking out
       # first, then downloading on top, keeps the bundles. (The checkout is here
       # for the provenance script under releases/.)
+      # ref: main, the same ref `prepare` read CHANGELOG.md from, so the notes
+      # composed below are the ones prepare validated. (bump pushes to main and
+      # prepare tags it; nothing else pushes during a release.)
       - uses: actions/checkout@v7
+        with:
+          ref: main
 
       - name: Download all bundles
         uses: actions/download-artifact@v8
@@ -1007,19 +989,17 @@ jobs:
           merge-multiple: true
 
       - name: Compose the release notes, provenance first
-        # CHANGELOG goes through the environment, NOT inline `${{ }}` in the
-        # script. Interpolated into the run: text it becomes part of the shell
-        # source, so a backtick in an entry (every `code` span - and this release
-        # is full of them) runs as a command: the v10.59 notes turned into
-        # "Incorrect: command not found", "loginFailureDecision.js: Permission
-        # denied", and the release job failed. As "$CHANGELOG", the value is
-        # data the shell never parses, so backticks, $(), quotes stay literal.
-        env:
-          CHANGELOG: ${{ needs.prepare.outputs.changelog }}
+        # The notes go from FILE to FILE and never become a shell value. Two
+        # earlier shapes each broke a release: inline `${{ … }}` put them in the
+        # shell SOURCE, so a backtick in any `code` span ran as a command (v10.59
+        # published nothing, "Incorrect: command not found"); and `env:` put a
+        # 172 KB string in envp, past the 128 KiB MAX_ARG_STRLEN, so execve
+        # refused to start bash at all (v10.92, "Argument list too long"). Read
+        # from CHANGELOG.md, appended with cat, the text is data all the way.
         run: |
           set -euo pipefail
           bash releases/provenance-table.sh > release-notes.md || true
-          printf '%s\n' "$CHANGELOG" >> release-notes.md
+          bash releases/release-notes.sh "$VERSION" >> release-notes.md
           echo "----- release notes -----"
           head -40 release-notes.md
 
@@ -5020,7 +5000,10 @@ jobs:
     if: ${{ always() && needs.release.result == 'success' }}
     runs-on: ubuntu-24.04
     steps:
+      # ref: main, so this job reads the same CHANGELOG.md the release job did.
       - uses: actions/checkout@v7
+        with:
+          ref: main
 
       - uses: actions/download-artifact@v8
         continue-on-error: true
@@ -5030,19 +5013,17 @@ jobs:
           merge-multiple: true
 
       - name: Rewrite the notes with every bundle in the table
-        # CHANGELOG through the environment, not inline `${{ }}`: interpolated
-        # into the script a backtick in an entry runs as a command. See the
-        # "Compose the release notes" step for the full story.
+        # File to file, never a shell value: see the "Compose the release notes"
+        # step for the two ways that broke a release.
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERSION: ${{ needs.prepare.outputs.version }}
-          CHANGELOG: ${{ needs.prepare.outputs.changelog }}
         run: |
           set -euo pipefail
           rows=$(find provenance -name '*.tsv' 2>/dev/null | wc -l)
           echo "Provenance files collected: $rows"
           bash releases/provenance-table.sh > release-notes.md || true
-          printf '%s\n' "$CHANGELOG" >> release-notes.md
+          bash releases/release-notes.sh "$VERSION" >> release-notes.md
           gh release edit --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" --notes-file release-notes.md
           echo "Release notes updated with the provenance of every bundle built."
           head -40 release-notes.md
