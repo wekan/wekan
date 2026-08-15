@@ -362,27 +362,35 @@ browser build to verify).
 
 </details>
 
-# v10.92 2026-08-15 WeKan ® release
+# Upcoming WeKan ® release
 
-**In short:** what the published Docker image SHIPS, cleaned up against a
-container scan of `ghcr.io/wekan/wekan:v10.91`. That scan reported 80 findings
-against "Node.js", three of them CRITICAL, and not one of them was in code WeKan
-runs: **npm** and **node-gyp** are build tools that were left in the finished
-image, and their trees are where `tar` 6.2.1, `sigstore`, `ip-address` and the
-rest came from. Both go now, after the install that needs them - 83 of the 120
-packages in `programs/server`, and npm itself. The rest of that list is the npm
-packages **Meteor's own packages bundle**, which no `package.json` here can
-reach: **nodemailer**, **openpgp**, **svgo**, **postcss**, **nanoid**,
-**lodash**, **qs**, **body-parser**, **cookie**, **on-headers**, **tmp**,
-**diff**, **@babel/runtime** and **underscore** are raised inside the built
-bundle, to fixed versions in the same major, by a manifest the release jobs and
-the `Dockerfile` share. Below that: the guard suites that keep both from coming
+**In short:** this was tagged **v10.92** and never published: its release job
+died before running a line of its own script, with *Argument list too long*,
+because the release notes had outgrown the size a single environment variable
+may hold — so the release, and every job that needs it, never happened. The
+amd64 and arm64 bundles built and verified; only the publishing failed. The
+notes now travel from file to file and never become a shell value, which is the
+one shape that neither runs a backtick as a command nor has a size limit at all.
+Everything below was written for v10.92 and ships here instead. It begins with
+what the published Docker image SHIPS, cleaned up against a container scan of
+`ghcr.io/wekan/wekan:v10.91`. That scan reported 80 findings against "Node.js",
+three of them CRITICAL, and not one of them was in code WeKan runs: **npm** and
+**node-gyp** are build tools that were left in the finished image, and their
+trees are where `tar` 6.2.1, `sigstore`, `ip-address` and the rest came from.
+Both go now, after the install that needs them - 83 of the 120 packages in
+`programs/server`, and npm itself. The rest of that list is the npm packages
+**Meteor's own packages bundle**, which no `package.json` here can reach:
+**nodemailer**, **openpgp**, **svgo**, **postcss**, **nanoid**, **lodash**,
+**qs**, **body-parser**, **cookie**, **on-headers**, **tmp**, **diff**,
+**@babel/runtime** and **underscore** are raised inside the built bundle, to
+fixed versions in the same major, by a manifest the release jobs and the
+`Dockerfile` share. Below that: the guard suites that keep both from coming
 back, and what could NOT be fixed and why. Then **card export**: the PDF and
 Excel exports of a card were two different answers to "what is on this card",
 and are now one - the same fields under the same translated labels, dates in the
 reader's own **time zone** and in the **date format the opened card shows**, and
-a description's markdown drawn as **bold** and *italic* rather than stripped.
-On top of that, **#1173** after eight years: a **board**, a **swimlane** or a
+a description's markdown drawn as **bold** and *italic* rather than stripped. On
+top of that, **#1173** after eight years: a **board**, a **swimlane** or a
 **list** exports to PDF and Excel in that same card layout, from one selection
 popup that says what to include. And **titles are edited where they are
 written**: a card's title on the **board** (#4990, asked in 2022), a board's by
@@ -390,33 +398,33 @@ clicking its **name** in the header bar instead of a pencil beside it. Above all
 of it, though: five **CRITICAL** REST API fixes reported by ybsun0215, the worst
 of which let any user with write access to one board destroy the comments,
 checklists and history of every card on every board in the instance. Below that:
-twelve bug fixes - among them **Custom Fields**, which the browser tests
-caught being unreachable on a card that had none, which is exactly where it is
-needed, and a field made from a card that was silently never created - a test
-that pins that a browser downloads **one** language file and not all 246 of
-them, and **81 languages** taken past the words on the board into the menus and
-the login page, beside the **Export** row that read as the lowercase key
-`export` in every one of them because that key had never existed. And then the
-translations turned out to have a much older problem than any missing string:
-**8,716 values were written in the wrong language entirely**, which no count had
-ever reported because nothing was looking. **Korean** held Japanese,
-**Georgian** Russian, **Hindi** Gujarati, **Tamil** Telugu — and, once a second
-check asked about the Latin alphabet inside a language that is not written in
-it, **Greek** held Italian, **Thai** Vietnamese and **Algerian Arabic** French.
-All of it is translated now, and the scan that found it stays as the guard,
-reporting zero for both of its checks across all 246 files. Below that: the
-search operators a user TYPES, in the language they read; the one-letter
-shorthands beside them, each derived from that language's own word; and the
-panels a file never had because they were added after it was last touched. Then
-dependency updates, thirty-odd bug fixes, the developer-facing changes, and the
-rest of the translation work.
+twelve bug fixes - among them **Custom Fields**, which the browser tests caught
+being unreachable on a card that had none, which is exactly where it is needed,
+and a field made from a card that was silently never created - a test that pins
+that a browser downloads **one** language file and not all 246 of them, and **81
+languages** taken past the words on the board into the menus and the login page,
+beside the **Export** row that read as the lowercase key `export` in every one
+of them because that key had never existed. And then the translations turned out
+to have a much older problem than any missing string: **8,716 values were
+written in the wrong language entirely**, which no count had ever reported
+because nothing was looking. **Korean** held Japanese, **Georgian** Russian,
+**Hindi** Gujarati, **Tamil** Telugu — and, once a second check asked about the
+Latin alphabet inside a language that is not written in it, **Greek** held
+Italian, **Thai** Vietnamese and **Algerian Arabic** French. All of it is
+translated now, and the scan that found it stays as the guard, reporting zero
+for both of its checks across all 246 files. Below that: the search operators a
+user TYPES, in the language they read; the one-letter shorthands beside them,
+each derived from that language's own word; and the panels a file never had
+because they were added after it was last touched. Then dependency updates,
+thirty-odd bug fixes, the developer-facing changes, and the rest of the
+translation work.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
 | amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
-| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-amd64) | v1.49.0 | `7c74941ff043f26aa4411ef5065d6b2d0766e369fc2a4458364c2f5571c12762` |
+| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-amd64) | v1.53.0 | `eae1f0a8f73bfc979738bfff7284d40fd1bc55de2cc56514721fc155c3624f7d` |
 | arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
-| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-arm64) | v1.49.0 | `092132531555a39eac12566240a5f1ed02f62148b2dca0540a74c68e5957f6b5` |
+| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-arm64) | v1.53.0 | `bdc50caee3ac28495b42d2130b94a042a9dd6d3a38f732cac02b648f36c891da` |
 | armhf | Node.js | [wekan/node-patches](https://github.com/wekan/node-patches/releases/download/v24.19.0/node-armhf) | v24.19.0 | `b55350f3071b765a98ed66fdc410657ff168a937935057077fd7ab33cb30b9aa` |
 | armhf | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.49.0/ferretdb-armhf) | v1.49.0 | `144404fb9793dc8e039874812f4e2cb3e6d8b1df0ffdbe50254e7790a342a2f4` |
 | armv6 | Node.js | [wekan/node-patches](https://github.com/wekan/node-patches/releases/download/v24.19.0/node-armv6) | v24.19.0 | `128ded0cda638c1f144eadb23ad249889515df017d298fd49c8faf3db110f0f1` |
@@ -1702,6 +1710,48 @@ published.
 The fourth failure, **armhf**, is not this: `snapcraft` died with
 `SSLEOFError` while downloading the build log from Launchpad, on all three
 attempts, and produced no snap. That one is Launchpad's side of the wire.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f5ed913a6cf9dfe7d9dd96efa316a6bd8fdce1fe">v10.92 could not start bash: the release notes outgrew an environment variable</a>. Thanks to xet7.</summary>
+
+v10.92's release job failed before running a line of its script, and with it
+every job that needs the release - snap, docker, AppImage, the Windows and
+macOS bundles - so **nothing published at all**:
+
+```
+  ##[error]An error occurred trying to start process '/usr/bin/bash' with
+  working directory '/home/runner/work/wekan/wekan'. Argument list too long
+```
+
+Nothing in the step was wrong. The notes are the whole newest CHANGELOG
+section - `prepare` measured them at **172,458 characters** - and they reached
+the step as `env: CHANGELOG:`. Linux caps a SINGLE argv/envp string at
+`MAX_ARG_STRLEN`, **128 KiB**, so `execve` refused to start the shell. The amd64
+and arm64 bundles had already built and verified; only the publishing died.
+
+The environment was itself the fix for the PREVIOUS failure. Interpolated
+inline as `${{ }}`, the notes become part of the shell SOURCE, so a backtick in
+any `code` span runs as a command: that is how v10.59 published nothing and
+printed *Incorrect: command not found*. One shape is unsafe and the other does
+not scale, and this release was the first big enough to find the second wall.
+
+So the notes stop being a shell value at all. `releases/release-notes.sh` prints
+the CHANGELOG section for a version, reading the file itself and taking its
+arguments from the environment inside a QUOTED heredoc, and each job appends its
+stdout to `release-notes.md`. Only file PATHS are passed around, which has no
+size limit and leaves the text as data that no shell ever parses.
+
+`prepare` keeps the validation - a missing section is still cheap to fix there -
+but no longer publishes the text as a job output, because an output nobody can
+safely consume is a trap for the next person to find. The release job and the
+notes-rewrite job check out `ref: main`, the same ref `prepare` read.
+
+The guard test is rewritten around the new shape: no changelog job output, no
+CHANGELOG in an `env:`, no interpolation into a script, and the extraction
+script is what all three consumers run. It passed throughout this failure,
+because it only knew about the injection.
 
 </details>
 
