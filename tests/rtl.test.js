@@ -91,6 +91,8 @@ const EXPECTED_RTL = [
   'ar-DZ', 'ar-EG', 'ar', 'ary', // Arabic + variants
   'fa-IR', 'fa', // Persian / Farsi
   'he-IL', 'he', // Hebrew
+  'ckb', // Kurdish (Sorani)
+  'ks', // Kashmiri
   'ps', // Pashto
   'sd', // Sindhi
   'ug', // Uyghur

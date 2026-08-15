@@ -34,6 +34,13 @@ export default {
     load: () => import('./data/am.i18n.json'),
     rtl: false,
   },
+  "an": {
+    code: "an",
+    tag: "an",
+    name: "Aragonés",
+    load: () => import('./data/an.i18n.json'),
+    rtl: false,
+  },
   "as": {
     code: "as",
     tag: "as",
@@ -53,6 +60,13 @@ export default {
     tag: "ba",
     name: "Башҡортса",
     load: () => import('./data/ba.i18n.json'),
+    rtl: false,
+  },
+  "bho": {
+    code: "bho",
+    tag: "bho",
+    name: "भोजपुरी",
+    load: () => import('./data/bho.i18n.json'),
     rtl: false,
   },
   "bi": {
@@ -76,12 +90,40 @@ export default {
     load: () => import('./data/bn.i18n.json'),
     rtl: false,
   },
+  "bo": {
+    code: "bo",
+    tag: "bo",
+    name: "བོད་སྐད་",
+    load: () => import('./data/bo.i18n.json'),
+    rtl: false,
+  },
   "bs": {
     code: "bs",
     tag: "bs",
     name: "Bosanski",
     load: () => import('./data/bs.i18n.json'),
     rtl: false,
+  },
+  "bua": {
+    code: "bua",
+    tag: "bua",
+    name: "Буряад хэлэн",
+    load: () => import('./data/bua.i18n.json'),
+    rtl: false,
+  },
+  "chr": {
+    code: "chr",
+    tag: "chr",
+    name: "ᏣᎳᎩ",
+    load: () => import('./data/chr.i18n.json'),
+    rtl: false,
+  },
+  "ckb": {
+    code: "ckb",
+    tag: "ckb",
+    name: "کوردیی ناوەندی",
+    load: () => import('./data/ckb.i18n.json'),
+    rtl: true,
   },
   "co": {
     code: "co",
@@ -90,11 +132,25 @@ export default {
     load: () => import('./data/co.i18n.json'),
     rtl: false,
   },
+  "csb": {
+    code: "csb",
+    tag: "csb",
+    name: "Kaszëbsczi",
+    load: () => import('./data/csb.i18n.json'),
+    rtl: false,
+  },
   "cv": {
     code: "cv",
     tag: "cv",
     name: "Чӑвашла",
     load: () => import('./data/cv.i18n.json'),
+    rtl: false,
+  },
+  "dz": {
+    code: "dz",
+    tag: "dz",
+    name: "རྫོང་ཁ",
+    load: () => import('./data/dz.i18n.json'),
     rtl: false,
   },
   "ee": {
@@ -440,6 +496,13 @@ export default {
     load: () => import('./data/fa.i18n.json'),
     rtl: true,
   },
+  "ff": {
+    code: "ff",
+    tag: "ff",
+    name: "Pulaar",
+    load: () => import('./data/ff.i18n.json'),
+    rtl: false,
+  },
   "fi": {
     code: "fi",
     tag: "fi",
@@ -664,6 +727,13 @@ export default {
     load: () => import('./data/it.i18n.json'),
     rtl: false,
   },
+  "iu": {
+    code: "iu",
+    tag: "iu",
+    name: "ᐃᓄᒃᑎᑐᑦ",
+    load: () => import('./data/iu.i18n.json'),
+    rtl: false,
+  },
   "ja": {
     code: "ja",
     tag: "ja",
@@ -706,6 +776,13 @@ export default {
     load: () => import('./data/kk.i18n.json'),
     rtl: false,
   },
+  "kl": {
+    code: "kl",
+    tag: "kl",
+    name: "Kalaallisut",
+    load: () => import('./data/kl.i18n.json'),
+    rtl: false,
+  },
   "km": {
     code: "km",
     tag: "km",
@@ -740,6 +817,20 @@ export default {
     name: "한국어",
     load: () => import('./data/ko.i18n.json'),
     rtl: false,
+  },
+  "kok": {
+    code: "kok",
+    tag: "kok",
+    name: "कोंकणी",
+    load: () => import('./data/kok.i18n.json'),
+    rtl: false,
+  },
+  "ks": {
+    code: "ks",
+    tag: "ks",
+    name: "کٲشُر",
+    load: () => import('./data/ks.i18n.json'),
+    rtl: true,
   },
   "ku": {
     code: "ku",
@@ -783,6 +874,13 @@ export default {
     load: () => import('./data/lg.i18n.json'),
     rtl: false,
   },
+  "lld": {
+    code: "lld",
+    tag: "lld",
+    name: "Ladin",
+    load: () => import('./data/lld.i18n.json'),
+    rtl: false,
+  },
   "lt": {
     code: "lt",
     tag: "lt",
@@ -795,6 +893,13 @@ export default {
     tag: "lv",
     name: "Latviešu valoda",
     load: () => import('./data/lv.i18n.json'),
+    rtl: false,
+  },
+  "mai": {
+    code: "mai",
+    tag: "mai",
+    name: "मैथिली",
+    load: () => import('./data/mai.i18n.json'),
     rtl: false,
   },
   "mg": {
@@ -865,6 +970,13 @@ export default {
     tag: "my",
     name: "မြန်မာ",
     load: () => import('./data/my.i18n.json'),
+    rtl: false,
+  },
+  "nah": {
+    code: "nah",
+    tag: "nah",
+    name: "Nāhuatl",
+    load: () => import('./data/nah.i18n.json'),
     rtl: false,
   },
   "nap": {
@@ -1049,6 +1161,13 @@ export default {
     load: () => import('./data/ru-RU.i18n.json'),
     rtl: false,
   },
+  "rup": {
+    code: "rup",
+    tag: "rup",
+    name: "Armãneashti",
+    load: () => import('./data/rup.i18n.json'),
+    rtl: false,
+  },
   "rw": {
     code: "rw",
     tag: "rw",
@@ -1182,6 +1301,13 @@ export default {
     load: () => import('./data/sw.i18n.json'),
     rtl: false,
   },
+  "szl": {
+    code: "szl",
+    tag: "szl",
+    name: "Ślōnskŏ gŏdka",
+    load: () => import('./data/szl.i18n.json'),
+    rtl: false,
+  },
   "ta": {
     code: "ta",
     tag: "ta",
@@ -1215,6 +1341,13 @@ export default {
     tag: "ti",
     name: "ትግርኛ",
     load: () => import('./data/ti.i18n.json'),
+    rtl: false,
+  },
+  "tig": {
+    code: "tig",
+    tag: "tig",
+    name: "ትግረ",
+    load: () => import('./data/tig.i18n.json'),
     rtl: false,
   },
   "tl": {
@@ -1390,6 +1523,13 @@ export default {
     tag: "wa",
     name: "Walon",
     load: () => import('./data/wa.i18n.json'),
+    rtl: false,
+  },
+  "wal": {
+    code: "wal",
+    tag: "wal",
+    name: "Wolaytta",
+    load: () => import('./data/wal.i18n.json'),
     rtl: false,
   },
   "wo": {
