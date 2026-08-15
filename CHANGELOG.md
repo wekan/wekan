@@ -1714,7 +1714,7 @@ attempts, and produced no snap. That one is Launchpad's side of the wire.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f5ed913a6cf9dfe7d9dd96efa316a6bd8fdce1fe">v10.92 could not start bash: the release notes outgrew an environment variable</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ac02941663a1a9917896f790a6ab83b8ba9cd15a">v10.92 could not start bash: the release notes outgrew an environment variable</a>. Thanks to xet7.</summary>
 
 v10.92's release job failed before running a line of its script, and with it
 every job that needs the release - snap, docker, AppImage, the Windows and
