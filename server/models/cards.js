@@ -908,7 +908,8 @@ WebApp.handlers.post('/api/boards/:boardId/lists/:listId/cards', async function(
     );
     sendJsonResult(res, { code: 200, data: { _id: linkedNewId } });
     const linkedCard = await ReactiveCache.getCard(linkedNewId);
-    await cardCreation(req.body.authorId, linkedCard);
+    // GHSA-6jr3-42jf-vhm5: attribution comes from the session, not the body.
+    await cardCreation(req.userId, linkedCard);
     return;
   }
 
@@ -932,13 +933,26 @@ WebApp.handlers.post('/api/boards/:boardId/lists/:listId/cards', async function(
     { listId: paramListId, archived: false },
     { sort: ['sort'] },
   );
-  const checkUser = await ReactiveCache.getUser(req.body.authorId);
+  // GHSA-6jr3-42jf-vhm5: attribution comes from the SESSION, not from the
+  // request body. `authorId` was taken as given after checking only that such a
+  // user exists, so any board member could record a card creation, a card
+  // deletion or a custom field as somebody else's - the board's own history,
+  // written by whoever called the endpoint. The same spoofing was fixed for
+  // comments in 8.19 and for the card PUT handler, and these paths were missed.
+  const checkUser = await ReactiveCache.getUser(req.userId);
   // #2875: normalize members/assignees so a card can be created with none, and so
   // a `null`/`""` payload never persists as null (which breaks UI editing — see
   // #3697). Omit the field entirely when not provided so the schema default ([])
   // applies. Same coercion the card PUT handler uses.
-  const members = req.body.members !== undefined ? coerceRestArrayParam(req.body.members) : undefined;
-  const assignees = req.body.assignees !== undefined ? coerceRestArrayParam(req.body.assignees) : undefined;
+  // GHSA-whxm-pxgj-7wqv: only ACTIVE members of this board may be named, the
+  // same rule the merge endpoint has enforced since #5998.
+  const postBoard = await ReactiveCache.getBoard(paramBoardId);
+  const members = req.body.members !== undefined
+    ? await assignableOnBoard(postBoard, coerceRestArrayParam(req.body.members))
+    : undefined;
+  const assignees = req.body.assignees !== undefined
+    ? await assignableOnBoard(postBoard, coerceRestArrayParam(req.body.assignees))
+    : undefined;
   if (typeof checkUser !== 'undefined') {
     // Issue #5537: accept card dates on create. These schema fields are typed
     // as Date, so a raw request string is stripped by schema cleaning and the
@@ -959,7 +973,7 @@ WebApp.handlers.post('/api/boards/:boardId/lists/:listId/cards', async function(
       listId: paramListId,
       parentId: paramParentId,
       description: req.body.description,
-      userId: req.body.authorId,
+      userId: req.userId,
       swimlaneId: req.body.swimlaneId,
       sort: currentCards.length,
       cardNumber: nextCardNumber,
@@ -971,7 +985,7 @@ WebApp.handlers.post('/api/boards/:boardId/lists/:listId/cards', async function(
     sendJsonResult(res, { code: 200, data: { _id: id } });
 
     const card = await ReactiveCache.getCard(id);
-    await cardCreation(req.body.authorId, card);
+    await cardCreation(req.userId, card);
   } else {
     sendJsonResult(res, { code: 401 });
   }
@@ -1027,7 +1041,9 @@ WebApp.handlers.post(
     const results = [];
     for (let i = 0; i < cardsInput.length; i++) {
       const input = cardsInput[i] || {};
-      const authorId = input.authorId || req.body.authorId;
+      // GHSA-6jr3-42jf-vhm5: the session identity, not the body's - per card,
+      // because the bulk form let each entry name its own author too.
+      const authorId = req.userId;
       const swimlaneId = input.swimlaneId || req.body.swimlaneId;
       const checkUser = await ReactiveCache.getUser(authorId);
       if (typeof checkUser === 'undefined') {
@@ -1049,8 +1065,13 @@ WebApp.handlers.post(
         cardNumber: nextCardNumber,
         customFields: customFieldsArr,
         // #2875: same normalization as the single-card create above.
-        members: input.members !== undefined ? coerceRestArrayParam(input.members) : undefined,
-        assignees: input.assignees !== undefined ? coerceRestArrayParam(input.assignees) : undefined,
+        // GHSA-whxm-pxgj-7wqv: and the same board-membership rule.
+        members: input.members !== undefined
+          ? await assignableOnBoard(board, coerceRestArrayParam(input.members))
+          : undefined,
+        assignees: input.assignees !== undefined
+          ? await assignableOnBoard(board, coerceRestArrayParam(input.assignees))
+          : undefined,
       });
       const card = await ReactiveCache.getCard(id);
       await cardCreation(authorId, card);
@@ -1275,7 +1296,12 @@ WebApp.handlers.put(
     // REST works and never leaves a value the UI cannot edit. Use `!== undefined`
     // so an explicit null/"" clears instead of being skipped by a truthiness guard.
     if (req.body.members !== undefined) {
-      const newmembers = coerceRestArrayParam(req.body.members);
+      // GHSA-whxm-pxgj-7wqv: only active members of this board may be named.
+      const putBoard = await ReactiveCache.getBoard(paramBoardId);
+      const newmembers = await assignableOnBoard(
+        putBoard,
+        coerceRestArrayParam(req.body.members),
+      );
       await Cards.direct.updateAsync(
         { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
         { $set: { members: newmembers } },
@@ -1283,7 +1309,12 @@ WebApp.handlers.put(
       updated = true;
     }
     if (req.body.assignees !== undefined) {
-      const newassignees = coerceRestArrayParam(req.body.assignees);
+      // GHSA-whxm-pxgj-7wqv: same rule for assignees.
+      const putAssignBoard = await ReactiveCache.getBoard(paramBoardId);
+      const newassignees = await assignableOnBoard(
+        putAssignBoard,
+        coerceRestArrayParam(req.body.assignees),
+      );
       await Cards.direct.updateAsync(
         { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
         { $set: { assignees: newassignees } },
@@ -1487,14 +1518,25 @@ WebApp.handlers.delete(
     const paramCardId = req.params.cardId;
     await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
 
-    const card = await ReactiveCache.getCard(paramCardId);
+    // GHSA-8cqr-x6m5-v4w6: the card is fetched with the BOARD the caller was
+    // authorised on, not by its id alone. A bare primary-key lookup answered
+    // with any board's card, and cardRemover below then destroyed that card's
+    // checklists, comments, activities and subcard tree - irreversibly, on a
+    // board the caller could not even read - while the triple-key removal that
+    // follows quietly matched nothing and the endpoint still answered 200. The
+    // bulk endpoint has always constrained its lookup this way; this one did
+    // not. A card that is not on this board is now simply not found.
+    const card = await ReactiveCache.getCard({
+      _id: paramCardId,
+      boardId: paramBoardId,
+    });
     // Remove the card's checklists, checklist items, comments and attachments
     // BEFORE removing the card itself, so their before.remove hooks still find
     // the parent card (otherwise they dereference an undefined card and crash
     // SyncedCron with an unhandled rejection). `Cards.direct.removeAsync`
     // bypasses Cards.before.remove, so cardRemover is not run twice.
     if (card) {
-      await cardRemover(req.body.authorId, card);
+      await cardRemover(req.userId, card);
     }
     await Cards.direct.removeAsync({
       _id: paramCardId,
@@ -1506,7 +1548,7 @@ WebApp.handlers.delete(
     if (card) {
       await Activities.insertAsync(
         buildDeleteCardActivity({
-          userId: req.body.authorId,
+          userId: req.userId,
           cardId: card._id,
           boardId: card.boardId,
           listId: card.listId,
@@ -1550,13 +1592,13 @@ WebApp.handlers.delete('/api/boards/:boardId/cards/bulk', async function(req, re
     }
     // Remove sub-items (checklists, items, comments, attachments) before the
     // card itself so their before.remove hooks still find the parent card.
-    await cardRemover(req.body.authorId, card);
+    await cardRemover(req.userId, card);
     await Cards.direct.removeAsync({ _id: cardId, boardId: paramBoardId });
     // Issue #1587: Cards.direct.removeAsync bypasses Cards.before.remove, so log
     // the deleteCard activity here too (outgoing-webhook fires on delete).
     await Activities.insertAsync(
       buildDeleteCardActivity({
-        userId: req.body.authorId,
+        userId: req.userId,
         cardId: card._id,
         boardId: card.boardId,
         listId: card.listId,
@@ -1873,6 +1915,28 @@ WebApp.handlers.post(
   },
 );
 
+// GHSA-whxm-pxgj-7wqv: who may be put on a card, in the ARRAY form.
+//
+// `POST .../cards` and `PUT .../cards/{cardId}` take `members` and `assignees`
+// as arrays and stored them exactly as given. The merge endpoint
+// `POST .../cards/{cardId}/members/{memberId}` has enforced since #5998 that the
+// user must be an ACTIVE member of the card's board; the array form bypassed
+// that, so a member of a private board could put any user id on a card - and
+// `GET /api/user/cards`, which lists by card membership, then handed that
+// outsider the private board's card titles, ids and dates, while their direct
+// read of the board stayed Forbidden.
+//
+// One rule for every shape. An id that may not be assigned is dropped rather
+// than refused, so a bulk edit does not fail over one stale id, and the caller
+// sees what was kept in the answer.
+async function assignableOnBoard(board, ids) {
+  const out = [];
+  for (const id of Array.isArray(ids) ? ids : []) {
+    if (canAssignCardMember(board, id)) out.push(id);
+  }
+  return out;
+}
+
 // Issue #4815: get the current user's cards (cards where they are a member or
 // assignee). ?due=true returns only cards that have a due date; ?from= and ?to=
 // (ISO 8601) restrict due cards to a date range. Returns a compact field set.
@@ -1907,9 +1971,29 @@ WebApp.handlers.get('/api/user/cards', async function(req, res) {
   }
 
   const cards = await ReactiveCache.getCards(selector, { sort: { dueAt: 1 } });
+
+  // GHSA-whxm-pxgj-7wqv: card membership is not board access. This listed every
+  // card naming the caller, so being placed on a card of a board they cannot
+  // read - which the array form above used to allow - disclosed that private
+  // board's card titles, ids and dates. Both halves are fixed: nobody outside a
+  // board can be put on its cards any more, and the answer is filtered here as
+  // well, so a card placed before this release stops leaking too.
+  const boardIds = [...new Set((cards || []).map(card => card.boardId).filter(Boolean))];
+  const visible = boardIds.length
+    ? await ReactiveCache.getBoards(
+        {
+          _id: { $in: boardIds },
+          members: { $elemMatch: { userId, isActive: true } },
+        },
+        { fields: { _id: 1 } },
+      )
+    : [];
+  const allowed = new Set((visible || []).map(board => board._id));
+  const readable = (cards || []).filter(card => allowed.has(card.boardId));
+
   sendJsonResult(res, {
     code: 200,
-    data: (cards || []).map(card => ({
+    data: readable.map(card => ({
       _id: card._id,
       title: card.title,
       boardId: card.boardId,

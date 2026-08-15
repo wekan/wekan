@@ -718,10 +718,19 @@ WebApp.handlers.get('/api/users/:userId/boards', async function(req, res) {
     const paramUserId = req.params.userId;
     await Authentication.checkAdminOrCondition(req.userId, req.userId === paramUserId);
 
+    // GHSA-r8r3-23vr-8jh6: a membership counts only while it is ACTIVE. The
+    // dotted `'members.userId'` match ignored `isActive`, and removing a member
+    // does not delete their entry - it sets `isActive: false` and `isAdmin:
+    // false` and keeps it - so a removed member's own board listing went on
+    // showing the board's id and title for as long as the board existed.
+    // Reading the board itself was already refused, which bounded this to the
+    // id and the title; the id is the part that matters, since it is what the
+    // rest of the API is addressed by. `$elemMatch` is what the same revoke
+    // means everywhere else (models/lib/boardVisibilitySelectors.js).
     const boards = await ReactiveCache.getBoards(
       {
         archived: false,
-        'members.userId': paramUserId,
+        members: { $elemMatch: { userId: paramUserId, isActive: true } },
       },
       {
         sort: { sort: 1 },

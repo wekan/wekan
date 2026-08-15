@@ -2014,6 +2014,27 @@ WebApp.handlers.get('/api/users', async function(req, res) {
   }
 });
 
+// GHSA-6qpx-x7vr-p9w6: what an admin API answer may carry about a user.
+//
+// `GET /api/users/:userId` and `PUT /api/users/:userId` serialised the whole
+// Meteor user document, which means `services.password.bcrypt` - an offline
+// crackable password hash - and `services.resume.loginTokens`, the hashes of
+// every live session with the time each began. Both endpoints are admin-only
+// and that was never the problem: the payload was. Walking the ids that
+// `GET /api/users` returns handed an admin, or anyone holding an admin token,
+// the credential material of the whole instance.
+//
+// `GET /api/user` (the self view) has always done `delete data.services`; the
+// list endpoint has always projected down to `_id` and `username`. These two
+// were the inconsistency, so they strip the same subtree - and `sessionData`
+// with it, which is server-side state no API answer needs.
+function withoutSecrets(user) {
+  if (!user || typeof user !== 'object') return user;
+  delete user.services;
+  delete user.sessionData;
+  return user;
+}
+
 WebApp.handlers.get('/api/users/:userId', async function(req, res) {
   try {
     await Authentication.checkUserId(req.userId);
@@ -2036,7 +2057,7 @@ WebApp.handlers.get('/api/users/:userId', async function(req, res) {
     });
 
     user.boards = boards;
-    sendJsonResult(res, { code: 200, data: user });
+    sendJsonResult(res, { code: 200, data: withoutSecrets(user) });
   } catch (error) {
     sendJsonResult(res, { code: 200, data: error });
   }
@@ -2068,7 +2089,7 @@ WebApp.handlers.put('/api/users/:userId', async function(req, res) {
         } else if (action === 'enableLogin') {
           await Users.updateAsync({ _id: id }, { $set: { loginDisabled: '' } });
         }
-        data = await ReactiveCache.getUser(id);
+        data = withoutSecrets(await ReactiveCache.getUser(id));
       }
     }
     sendJsonResult(res, { code: 200, data });

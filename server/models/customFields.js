@@ -146,7 +146,9 @@ WebApp.handlers.post('/api/boards/:boardId/custom-fields', async function(req, r
     _id: id,
     boardIds: { $in: [paramBoardId] },
   });
-  await customFieldCreation(req.body.authorId, customField);
+  // GHSA-6jr3-42jf-vhm5: the createCustomField activity records the session
+  // identity, not an `authorId` the caller chose for itself.
+  await customFieldCreation(req.userId, customField);
 
   sendJsonResult(res, {
     code: 200,
