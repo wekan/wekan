@@ -250,7 +250,9 @@ WebApp.handlers.options('/users/register', function (req, res) {
 
 WebApp.handlers.post('/users/register', async function (req, res) {
   try {
-    if (Accounts._options.forbidClientAccountCreation) {
+    const { ReactiveCache } = require('/imports/reactiveCache');
+    const setting = await ReactiveCache.getCurrentSetting();
+    if (setting?.disableRegistration === true) {
       sendJsonResult(res, { code: 403 });
       return;
     }
