@@ -387,6 +387,78 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** the Sandstorm `.spk` still will not pack - Sandstorm refuses an
+app over 1 GiB uncompressed - and v10.94 was supposed to say what filled it.
+It said nothing, because the size report ran BEFORE `meteor-spk pack`, and pack
+is what builds the trees it was trying to measure. The sizes are taken after
+pack now, on failure and on success, dereferencing the symlink that hid most of
+them; and the bundle is pruned of its build-only toolchain and packed once more
+before the job gives up, which is the same pruning every other bundle already
+gets and the one reduction available without guessing.
+
+| Platform | Binary | From | Version | SHA256 |
+| --- | --- | --- | --- | --- |
+| amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
+| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-amd64) | v1.53.0 | `eae1f0a8f73bfc979738bfff7284d40fd1bc55de2cc56514721fc155c3624f7d` |
+| arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
+| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-arm64) | v1.53.0 | `bdc50caee3ac28495b42d2130b94a042a9dd6d3a38f732cac02b648f36c891da` |
+| mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-arm64.tar.xz) | v24.19.0 | `3f1cf157479c1480352083105e13faf9d008ede98e7e157746b6df940d197b94` |
+| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
+| mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
+| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release fixes the following build failures:
+
+**The release workflow** - the bundles a release is supposed to carry.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3baffe389f0775aa4ab04a582c056ef19cdb5cbb">The Sandstorm .spk fails on a size limit, and now says what filled it</a>. Thanks to xet7.</summary>
+
+`build-sandstorm` fails with *App exceeds uncompressed size limit of 1 GiB* and
+nothing else. Because Sandstorm refuses to pack, no `.spk` is written, so there
+is no artifact to open and no list of what filled it.
+
+The first attempt at that added a size report **before** `meteor-spk pack`, and
+the next run showed it printing nothing at all:
+
+```
+  --- packing (Sandstorm refuses over 1 GiB uncompressed)
+  Building Meteor app...
+```
+
+`meteor-spk pack` is what BUILDS the Meteor app - *Building Meteor app...* comes
+after it starts - so `.meteor-spk/deps` and `.meteor-spk/bundle` do not exist
+until it has run. The report was measuring two directories that were not there,
+found neither, and skipped both silently. A diagnostic that runs before the
+thing it diagnoses says nothing at all.
+
+The sizes are taken AFTER pack now: on failure, where they are the whole point,
+and on success, where the headroom against 1 GiB is worth knowing before the
+next thing is added. `du -shL` DEREFERENCES, because `deps` is a symlink to the
+tree `sandstorm-src/build-deps.sh` assembles and a plain `du -sh` on a symlink
+reports the link rather than the gigabyte behind it. The bundle's server
+packages are listed separately, because they are the part every other bundle
+prunes.
+
+And one bounded RETRY, which is an attempt at the fix rather than more looking.
+`meteor-spk pack` runs `npm install` inside the bundle's `programs/server` -
+that is where `tar@6.2.1` and node-gyp's tree come from in the log - and the
+Sandstorm leg is the only one that never removes them afterwards.
+`prune-build-only-modules.mjs` drops 83 of 120 packages everywhere else, and
+nothing in a packed app runs any of them. Whether it is enough turns on
+something no log has answered yet: does a second pack REUSE
+`.meteor-spk/bundle`, or rebuild it and undo the prune? Both answers are useful
+and neither is worse than the hard failure that is there now - if it rebuilds,
+the second failure is identical and the log says the prune was undone; if it
+reuses, the `.spk` packs. It runs once, only after a failure, and only if the
+bundle is actually there.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.94 2026-08-16 WeKan ® release
 
 **In short:** **the Windows bundles are back.** v10.93 built them, compiled
@@ -447,31 +519,6 @@ npm beside it, and on Windows it now says which case that is rather than letting
 Verified end to end: a bundle-shaped tree holding `qs` 6.0.0 is bumped to 6.15.3
 through the new path, with the dependencies the new version needs copied in
 beside it.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/be0965611e15e56586b7d2081b1ac86697c97166">The Sandstorm .spk failed on a size limit and said nothing about what was big</a>. Thanks to xet7.</summary>
-
-`build-sandstorm` failed with *App exceeds uncompressed size limit of 1 GiB* and
-nothing else. Because Sandstorm refuses to pack, no `.spk` is written, so there
-is no artifact to open and no list of what filled it.
-
-`sandstorm-pkgdef.capnp` packs `alwaysInclude = ["."]` from `.meteor-spk/deps`
-AND `.meteor-spk/bundle`, so both count towards that limit: the Node 24,
-FerretDB v1, mongod 3.0, niscud and Mongo 3.x CLIs that
-`sandstorm-src/build-deps.sh` assembles, and every package the built bundle
-carries. The pack step now prints the total and the twenty biggest directories
-of each BEFORE packing, so the next run names the offender instead of only
-saying that one exists. It cannot fail the build: a size report that breaks a
-release would be worse than the silence it replaces.
-
-What to trim is recorded in `# TODO Later` rather than guessed at, with the two
-candidates worth measuring first - the Sandstorm leg is the only one that never
-runs `prune-build-only-modules.mjs`, which drops 83 of 120 packages everywhere
-else, and the deps tree carries two database engines because the
-Mongo-to-FerretDB migration needs both. Which of those can go needs a run to
-answer, and this is what makes that run informative.
 
 </details>
 
