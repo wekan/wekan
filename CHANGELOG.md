@@ -329,7 +329,10 @@ On top of that, **#1173** after eight years: a **board**, a **swimlane** or a
 **list** exports to PDF and Excel in that same card layout, from one selection
 popup that says what to include. And **titles are edited where they are
 written**: a card's title on the **board** (#4990, asked in 2022), a board's by
-clicking its **name** in the header bar instead of a pencil beside it.
+clicking its **name** in the header bar instead of a pencil beside it. Below
+that: nine bug fixes, a test that pins that a browser downloads **one** language
+file and not all 246 of them, and **81 languages** taken past the words on the
+board into the menus and the login page.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1433,7 +1436,37 @@ so Enter and Space do what a click does.
 
 </details>
 
-and has the following developer-facing change:
+and has the following developer-facing changes:
+
+**Language loading** - which of the 246 language files a visitor is sent.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/59c742e6c95b42529b53ec33d2f2d075108e78d9">The browser downloads one language, and a test says so</a>. Thanks to xet7.</summary>
+
+`imports/i18n/data/` is 37 MB across 246 files, every one of them reachable from
+the client. The only thing keeping them out of the initial bundle is that each
+entry in `imports/i18n/languages.js` loads its file through
+`() => import('./data/<tag>.i18n.json')` - a call Meteor's `dynamic-import`
+package code-splits into a module fetched on demand - and that `tap.js` imports
+exactly ONE of them statically, English, so the interface stays readable when
+dynamic import is broken ([#6503](https://github.com/wekan/wekan/issues/6503)).
+
+That was true when checked and nothing pinned it. A single
+`import data from './data/xx.i18n.json'` added anywhere on the client would
+quietly ship that language to every visitor, and nothing about the app would
+look wrong - it would just be a heavier download, which no other test measures.
+
+`tests/i18nLazyLoading.test.cjs` checks the six things that have to hold
+together: every registered language has a dynamic loader, `languages.js` pulls
+in no data itself, `tap.js` statically imports English and nothing else, the
+loader is called once for the single resolved tag rather than mapped over the
+registry, no client file bundles a language file, and `dynamic-import` is still
+in `.meteor/packages`. A negative test proves the detector really sees a static
+import, so the other checks cannot pass by failing to look.
+
+</details>
+
+**Shared templates** - one piece of markup where there were many copies.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9c288c3d4d8045cdd1d76b68b64fc91c414288c9">The date markup is written once instead of twenty-two times</a>. Thanks to xet7.</summary>
@@ -2169,6 +2202,55 @@ there is no fifth Courier to give code. Block markdown is still flattened either
 way - a heading loses its `#` and is drawn in the bold font, a bullet keeps one
 shape, a fence keeps its code. An underscore inside a word stays an underscore:
 `file_name_here` is an identifier, not three-quarters of an italic.
+
+</details>
+
+and improves the translations:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/72fd4aa1278ba3a827ca6193d6a358e22fe9f63c">Eighty-one languages go past the board, into the menus and the login page</a>. Thanks to xet7.</summary>
+
+A language file starts here with the words a board is made of - board, list,
+card, swimlane, member, the buttons - about 50 to 77 strings. Eleven of the
+largest new ones went further already, to roughly 112, and the difference is
+what somebody meets in the first minute rather than the first second: *Log Out*,
+*Forgot password*, *Email Address*, *Create Board*, *Move to Archive*,
+*Restore*, *Copy Card*, *Move Card*, *Delete Card?*, *List Actions*, *Board
+Settings*, *Member Settings*, *Search All Boards*, *Custom Fields*, *Add
+Attachment*, *Accounts*, *People*, *Organizations*, *Teams* - and, for the ones
+that had not reached it yet, *Activities*, *Attachments*, *Checklists*,
+*Assignee*, *Due Date*, *Register*, *Change Password*, *Admin Panel*, *Profile*,
+*Watch* and *Export list*.
+
+Every other language still at that first tier now carries the second one too:
+**Maltese**, **Luxembourgish**, **Shona**, **Albanian**, **Bosnian**,
+**Hawaiian**, **Latin**, **Luganda**, **Assamese**, **Irish**, **Icelandic**,
+**Javanese**, **Kurmanji**, **Kyrgyz**, **Malagasy**, **Maori**, **Marathi**,
+**Chichewa**, **Oromo**, **Pashto**, **Kinyarwanda**, **Sindhi**, **Sinhala**,
+**Sesotho**, **Tajik**, **Tigrinya**, **Setswana**, **Xitsonga**, **Tatar**,
+**Friulian**, **Ladin**, **Neapolitan**, **Romansh**, **Aragonese**,
+**Corsican**, **Sardinian**, **Sicilian**, **Aromanian**, **Kashubian**, **Upper
+Sorbian**, **Silesian**, **Faroese**, **Greenlandic**, **Northern Sami**,
+**Bislama**, **Tok Pisin**, **Fijian**, **Samoan**, **Tongan**, **Haitian
+Creole**, **Papiamento**, **Inuktitut**, **Aymara**, **Quechua**, **Nahuatl**,
+**Cherokee**, **Manx**, **Cornish**, **Scottish Gaelic**, **Guarani**,
+**Bashkir**, **Buryat**, **Chuvash**, **Sakha**, **Tibetan**, **Dzongkha**,
+**Bhojpuri**, **Maithili**, **Konkani**, **Kashmiri**, **Sorani**, **Akan**,
+**Bambara**, **Ewe**, **Fula**, **Northern Ndebele**, **Northern Sotho**,
+**Kirundi**, **Swati**, **Tigre** and **Wolaytta**.
+
+Each string was written from that file's own existing vocabulary, so the new
+menu rows use the same word for board, list and card that the board already
+uses. The ones written with least confidence are Cherokee, Inuktitut, Nahuatl,
+Wolaytta, Tigre and Kashmiri - a speaker who sees an error there should correct
+it, and the merge rules guarantee that a human translation arriving on Transifex
+REPLACES a filled one and is never overwritten by it.
+
+That is 4,082 strings across 81 files, all of them into placeholders that were
+still English: `releases/translations/verify-human-preference.mjs` passes, and
+nothing here is pushed to Transifex as if it were human. Every file is still a
+small fraction of 2,384 keys, deliberately - the rest falls back to English
+exactly as before.
 
 </details>
 
