@@ -387,7 +387,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.95 2026-08-16 WeKan ® release
 
 **In short:** the Sandstorm `.spk` still will not pack - Sandstorm refuses an
 app over 1 GiB uncompressed - and v10.94 was supposed to say what filled it.
