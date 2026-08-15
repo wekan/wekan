@@ -362,7 +362,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.93 2026-08-15 WeKan ® release
 
 **In short:** **Docker did not work in v10.92**, and this is that fixed. The
 "waiting for database" page added in that release stood in front of a database
