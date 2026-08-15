@@ -73,7 +73,7 @@
   "activity-on": "@@ PH0 @@ ରେ",
   "activity-removed": "@@ PH1 @@ ​​ରୁ @@ PH0 @@ ଅପସାରଣ କରାଯାଇଛି |",
   "activity-sent": "@@ PH0 @@ କୁ @@ PH1 @@ ​​କୁ ପଠାଇଲେ |",
-  "activity-unjoined": "unjoined @@ PH0 @@",
+  "activity-unjoined": "%s ଛାଡ଼ିଲେ",
   "activity-subtask-added": "@@ PH0 @@ ରେ ସବଟାସ୍କ ଯୋଡିଛି |",
   "activity-checked-item": "ଚେକ୍ ଲିଷ୍ଟରେ @@ PH0 @@ ଯାଞ୍ଚ କରାଯାଇଛି @@ PH2 @@ ର @ PH2 @@",
   "activity-unchecked-item": "ଚେକ୍ ଲିଷ୍ଟରେ @@ PH0 @@ ଯାଞ୍ଚ କରାଯାଇ ନାହିଁ @@ PH2 @@ ର @ PH2 @@",

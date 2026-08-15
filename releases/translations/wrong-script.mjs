@@ -37,7 +37,13 @@ const SCRIPT_OF = {
   ko: 'hangul', chr: 'cherokee', iu: 'syllabics', ti: 'ethiopic', tig: 'ethiopic',
   ru: 'cyrillic', uk: 'cyrillic', bg: 'cyrillic', sr: 'cyrillic', mk: 'cyrillic',
   be: 'cyrillic', ar: 'arabic', fa: 'arabic', ur: 'arabic', ps: 'arabic',
-  sd: 'arabic', ug: 'arabic', ckb: 'arabic', ks: 'arabic',
+  sd: 'arabic', ug: 'arabic', ckb: 'arabic', ks: 'arabic', ary: 'arabic',
+  // Turkic and Mongolic languages written in Cyrillic, and Tajik.
+  ba: 'cyrillic', bua: 'cyrillic', cv: 'cyrillic', kk: 'cyrillic',
+  ky: 'cyrillic', mn: 'cyrillic', sah: 'cyrillic', tg: 'cyrillic',
+  tt: 'cyrillic',
+  // Chinese, in every tag it ships under.
+  zh: 'cjk', cmn: 'cjk', 'wuu-Hans': 'cjk', yue_CN: 'cjk',
 };
 
 // A REGIONAL VARIANT is written in the same script as its base language, and

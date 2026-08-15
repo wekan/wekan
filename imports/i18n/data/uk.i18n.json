@@ -86,7 +86,7 @@
   "add": "Додати",
   "activity-checked-item-card": "позначено виконаним %s у контрольному списку %s",
   "activity-unchecked-item-card": "позначено як невиконане %s у контрольному списку %s",
-  "activity-checklist-completed-card": "completed checklist %s at card %s at list %s at swimlane %s at board %s",
+  "activity-checklist-completed-card": "завершив контрольний список __checklist__ у картці __card__ у списку __list__ у доріжці __swimlane__ на дошці __board__",
   "activity-checklist-uncompleted-card": "скасовано завершення контрольного списку %s",
   "activity-editComment": "відредаговано коментар %s",
   "activity-deleteComment": "видалено коментар %s",
