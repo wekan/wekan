@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v10.91
+  version: v10.92
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -1296,6 +1296,11 @@ paths:
         - multipart/form-data
         - application/json
       parameters:
+        - name: authorId
+          in: formData
+          description: the authorId value
+          type: string
+          required: true
         - name: board
           in: path
           description: the board value
@@ -1789,6 +1794,33 @@ paths:
           in: path
           description: |
             the ID of the board to export
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/exportZip:
+    get:
+      operationId: exportZip
+      summary: Export as a .zip - the JSON document, and the attachments as files.
+      description: |
+        The same export the JSON route produces, with the attachments
+         beside it as the files they are instead of base64 inside the document, so a
+         board whose attachments are too large for one JSON string still exports.
+         Takes the same `fields`, `swimlaneId`, `listId`, `cardId` and `checklistId`
+         parameters as every other export.
+      tags:
+        - Boards
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the ID of the board we are exporting
           type: string
           required: true
       produces:
@@ -3528,6 +3560,29 @@ paths:
           description: the token value
           type: string
           required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/import/zip:
+    post:
+      operationId: importZip
+      summary: Import a .zip export - the document and its attachment files.
+      description: |
+        POST the .zip as the request body. Takes the same `fields`,
+         `swimlaneId`, `listId`, `cardId` and `checklistId` parameters as the
+         exports: with one of those ids it imports beside that thing, without one it
+         imports the whole document into the board named by `boardId`.
+      tags:
+        - Boards
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
       produces:
         - application/json
       security:
@@ -6585,8 +6640,12 @@ definitions:
         type: string
       uiTextBgColor:
         description: |
-           Member Settings / Font / Color (#4759): custom UI text background color.
-           A validated #rrggbb hex; absent = default (transparent) background.
+           REMOVED feature (#4759 "text background color"): nothing sets or reads
+           this any more, and `setUiColors` unsets it on every call. The key stays
+           in the schema ONLY so that $unset validates against it for the users who
+           stored a colour before it was removed - a modifier touching a key the
+           schema does not know is rejected, which would leave exactly those
+           profiles unable to be cleaned.
         type: string
       dismissedAnnouncementVersion:
         description: |
