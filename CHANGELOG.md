@@ -387,7 +387,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.94 2026-08-16 WeKan ® release
 
 **In short:** **the Windows bundles are back.** v10.93 built them, compiled
 their native modules, and then threw both away on one line: npm on Windows is
