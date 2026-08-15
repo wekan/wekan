@@ -66,6 +66,17 @@ const RANGES = {
   cherokee: /[Ꭰ-᏿]/, syllabics: /[᐀-ᙿ]/,
 };
 
+// Every script this file knows about is a non-Latin one, so the set is empty
+// today; it is named rather than assumed so that adding a Latin-script language
+// to SCRIPT_OF (to catch something else) cannot silently turn the Latin-only
+// test below into "flag every string in the file".
+const LATIN_SCRIPTS = new Set();
+const LETTER = /\p{Letter}/u;
+// Japanese and Korean write with CJK characters, which are not Latin: a value
+// full of them is not what the Latin-only test is looking for.
+const CJK_OK = (script, value) =>
+  (script === 'kana' || script === 'hangul') && RANGES.cjk.test(value);
+
 // The danda `।` and double danda `॥` sit in the Devanagari block but are shared
 // punctuation across Indic scripts, so they are not evidence of anything. Kept
 // out of the Devanagari range above rather than stripped here, so a genuinely
@@ -78,9 +89,29 @@ function wrongScriptKeys(lang) {
   const doc = JSON.parse(readFileSync(`${DIR}${lang}.i18n.json`, 'utf8'));
   const out = [];
 
+  // Letters only, case-folded: a value that differs from the English source
+  // only in its punctuation IS the English source, and belongs to the fill
+  // tool rather than to this one.
+  const bare = s => s.replace(/[^\p{Letter}]/gu, '').toLowerCase();
+
   for (const [key, value] of Object.entries(doc)) {
     if (typeof value !== 'string' || !value.trim()) continue;
     if (value === en[key]) continue;                 // untranslated, not wrong
+
+    // A value written ENTIRELY in the Latin alphabet, inside a language that is
+    // not, is the other half of this check - and the half that stayed invisible
+    // longest, because Latin is not one of the blocks compared below. Greek
+    // held 934 values of Italian, Thai 688 of Vietnamese and ar-DZ 514 of
+    // French while the count read zero. Product names are Latin too, so a value
+    // is only suspect when it says something: five letters or more, and not the
+    // English source wearing different punctuation.
+    if (!LATIN_SCRIPTS.has(script) && !RANGES[script].test(value)
+        && LETTER.test(value) && bare(value).length >= 5
+        && bare(value) !== bare(en[key] || '')
+        && !CJK_OK(script, value)) {
+      out.push({ key, value, en: en[key], found: 'latin' });
+      continue;
+    }
 
     for (const [name, re] of Object.entries(RANGES)) {
       if (name === script) continue;
