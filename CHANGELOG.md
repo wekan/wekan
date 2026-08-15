@@ -349,11 +349,13 @@ On top of that, **#1173** after eight years: a **board**, a **swimlane** or a
 popup that says what to include. And **titles are edited where they are
 written**: a card's title on the **board** (#4990, asked in 2022), a board's by
 clicking its **name** in the header bar instead of a pencil beside it. Below
-that: ten bug fixes - among them **Custom Fields**, which the browser tests
+that: twelve bug fixes - among them **Custom Fields**, which the browser tests
 caught being unreachable on a card that had none, which is exactly where it is
-needed - a test that pins that a browser downloads **one** language file and not
-all 246 of them, and **81 languages** taken past the words on the board into the
-menus and the login page.
+needed, and a field made from a card that was silently never created - a test
+that pins that a browser downloads **one** language file and not all 246 of
+them, and **81 languages** taken past the words on the board into the menus and
+the login page, beside the **Export** row that read as the lowercase key
+`export` in every one of them because that key had never existed.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1921,6 +1923,34 @@ orphaned handler is left behind.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/67b91c850433ed04569734ff749c759ac557ac81">A custom field made from a card is actually created, and its pencil is beside its name</a>. Thanks to xet7.</summary>
+
+Two things wrong with the popup the Custom Fields heading opens.
+
+A new field made from it never appeared. *Add custom field* sits OUTSIDE the
+list of fields, so its data context is the popup's own - which is the CARD - and
+the create and edit forms are one form that decided which it was doing by
+whether its context had an `_id`. A card has one, so creating a field from a
+card ran the UPDATE branch against a custom field whose id was a card's: no such
+document, nothing written, and nothing said so. The same form works from the
+board sidebar, where the context has no `_id`, which is why this only ever
+happened from a card.
+
+Both halves are fixed. The popup hands the form an empty context, because a new
+field is made from nothing. And the form no longer trusts a bare `_id`: it asks
+whether that id NAMES a custom field, so a context arriving from anywhere cannot
+make it update one that is not there.
+
+The pencil that edits a field sat on a line of its own under the field's name.
+Every other pop-over list has ONE anchor per row, so the row is a block and the
+anchor fills it - and two anchors in a block stack. This list has two by design,
+the name with the checkbox that puts the field on this card and the pencil that
+edits the field itself, so the row is the flex container now and the name takes
+the space the pencil does not. Scoped to this popup, so no other list moves.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/47099b8baadc0bdfcefe5006bf16ed8e7e7ca565">Ten popups had no header, and so no close button</a>. Thanks to xet7.</summary>
 
 A pop-over draws its header from its title, and with no title it renders as
@@ -2748,6 +2778,41 @@ guessed at: Klingon, Volapük, Acehnese, Breton, Igbo, Uyghur, Venda and its two
 variants, Walloon and its variant, Wolof, Yoruba, Tamazight, and vl-SS. A wrong
 translation reads as though somebody meant it; an English placeholder says
 plainly that nobody has translated it yet.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9417e35d0b2f5c9925df514f33b9fbd17a989e5c">Export is a word in every language, not the key "export" in lowercase</a>. Thanks to xet7.</summary>
+
+Every menu on a board grew an Export row and an Import row, and the Export one
+was written `{{_ 'export'}}` - a key that had never existed in `en.i18n.json`,
+or in any of the other 245 files. i18next answers a key it does not know with
+the key itself, so the row read *export*: lowercase, untranslated, in every
+language including English. It was reported from Finnish, where every other word
+in that menu is Finnish and this one was not.
+
+It is a key now, and translated into all 245 other files. For 225 of them the
+word is the shared part of that file's own *Export list* and *Export swimlane* -
+the word the language already uses, **Vie** in Finnish, **Exportieren** in
+German, **Экспортировать** in Russian.
+
+The rest are written out, because a shared prefix is the wrong answer for them.
+Where it took an article along - Portuguese *Exportar a*, Irish *Easpórtáil an*,
+Welsh *Allforio'r* - the article is dropped. Where the verb is a circumfix that
+only appears with its object between the halves, both halves are written:
+**Voer uit** in Afrikaans, **Flytja út** in Icelandic, **Yi adi** in Akan,
+**Salim i go aut** in Tok Pisin. Hungarian takes the nominative **Exportálás**
+rather than the possessive, and Klingon keeps its own capitalisation, **yIngeH**
+with the lowercase y, which a capital-first rule got wrong. The twenty-one
+languages that put no spaces between words had nothing to derive from at all and
+are written from their own phrases - the two Chinese forms by script, and
+Japanese, Khmer, Thai, Burmese, Tibetan and Dzongkha.
+
+`import` already existed and was translated everywhere. In seven files it was
+still the bare English noun while their Export was a verb, which read as a pair
+that did not match: Czech gets **Importovat** beside *Exportovat*, Turkmen
+**Import et**, and the four Uzbek files **Import qilish**. Malay and the English
+variants keep *Import*, which is the word those languages use.
 
 </details>
 
