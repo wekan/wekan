@@ -1490,7 +1490,7 @@
   "operator-member": "Mitglied",
   "operator-member-abbrev": "m",
   "operator-assignee": "Zugewiesener",
-  "operator-assignee-abbrev": "a",
+  "operator-assignee-abbrev": "z",
   "operator-creator": "Ersteller",
   "operator-status": "Status",
   "operator-due": "fällig",
