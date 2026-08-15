@@ -3162,25 +3162,74 @@ jobs:
           # Version-named (not timestamped like sandstorm.yml): the release re-runs
           # idempotently with --clobber replacing the same asset.
           SPK="wekan-${VERSION}-sandstorm.spk"
-          # WHERE THE GIGABYTE IS, before spk refuses to pack it.
+
+          # WHERE THE GIGABYTE IS — reported AFTER pack, because pack is what creates
+          # the trees to measure.
           #
-          # v10.93 failed here with "App exceeds uncompressed size limit of 1 GiB"
-          # and nothing else: no list, no sizes, and the .spk that would have said
-          # so was never written. sandstorm-pkgdef.capnp packs `alwaysInclude =
-          # ["."]` from .meteor-spk/deps and .meteor-spk/bundle, so everything in
-          # both trees counts towards that limit - the Node 24 and FerretDB and
-          # Mongo 3.x CLIs build-deps.sh assembles, and every package the built
-          # bundle carries. This prints the total and the twenty biggest
-          # directories of each, so the next run says what to trim rather than
-          # only that trimming is needed. `|| true`: a size report must never be
-          # the thing that fails the build.
-          for tree in .meteor-spk/deps .meteor-spk/bundle; do
-            [ -d "$tree" ] || continue
-            echo "--- $tree: $(du -sh "$tree" 2>/dev/null | cut -f1) total"
-            du -sh "$tree"/* 2>/dev/null | sort -rh | head -20 || true
-          done
+          # v10.93 failed here with "App exceeds uncompressed size limit of 1 GiB" and
+          # nothing else, so v10.94 added a size report BEFORE `meteor-spk pack`. It
+          # printed nothing at all: `meteor-spk pack` BUILDS the Meteor app itself
+          # ("Building Meteor app..." comes after it starts), so .meteor-spk/deps and
+          # .meteor-spk/bundle do not exist until it has run. The report was measuring
+          # two directories that were not there yet.
+          #
+          # So the sizes are taken afterwards — on failure, which is when they are the
+          # whole point, and on success, where the headroom against 1 GiB is worth
+          # knowing before the next thing is added. `du -shL` DEREFERENCES: deps is a
+          # symlink to the meteor-spk.deps tree build-deps.sh assembles, and plain
+          # `du -sh` on a symlink reports the link, not the gigabyte behind it.
+          sizes() {
+            for tree in .meteor-spk/deps .meteor-spk/bundle; do
+              [ -e "$tree" ] || { echo "--- $tree: not present"; continue; }
+              echo "--- $tree: $(du -shL "$tree" 2>/dev/null | cut -f1) total"
+              du -shL "$tree"/* 2>/dev/null | sort -rh | head -20 || true
+            done
+            # The bundle's server packages are the part every OTHER bundle prunes, so
+            # name the biggest of them too.
+            if [ -d .meteor-spk/bundle/programs/server/node_modules ]; then
+              echo "--- .meteor-spk/bundle/programs/server/node_modules, biggest 20:"
+              du -shL .meteor-spk/bundle/programs/server/node_modules/* 2>/dev/null \
+                | sort -rh | head -20 || true
+            fi
+          }
+
           echo "--- packing (Sandstorm refuses over 1 GiB uncompressed)"
+          set +e
           meteor-spk pack "$SPK"
+          pack_rc=$?
+          set -e
+          sizes || true
+          if [ "$pack_rc" -ne 0 ]; then
+            # ONE bounded retry, with the bundle pruned the way every other bundle is.
+            #
+            # `meteor-spk pack` runs `npm install` inside the bundle's programs/server -
+            # that is where tar@6.2.1 and node-gyp's tree come from in the log above - and
+            # the Sandstorm leg is the ONLY one that never removes them afterwards.
+            # prune-build-only-modules.mjs drops 83 of 120 packages everywhere else, and
+            # those packages are pure build toolchain: nothing in a packed app runs them.
+            #
+            # Whether this helps depends on something the log has never answered: does a
+            # second `meteor-spk pack` REUSE .meteor-spk/bundle, or rebuild it and undo
+            # the prune? Both outcomes are useful and neither is worse than the hard
+            # failure we already have - if it rebuilds, the second failure is identical
+            # and the log says the prune was undone; if it reuses, the .spk packs. The
+            # retry runs once, only after a failure, and only if the bundle is there.
+            if [ -d .meteor-spk/bundle/programs/server/node_modules ] \
+               && [ -f releases/prune-build-only-modules.mjs ]; then
+              echo "--- pack failed; pruning the build-only toolchain from the bundle and packing once more"
+              node releases/prune-build-only-modules.mjs .meteor-spk/bundle || true
+              sizes || true
+              set +e
+              meteor-spk pack "$SPK"
+              pack_rc=$?
+              set -e
+              [ "$pack_rc" -eq 0 ] && echo "--- the pruned bundle packed; the toolchain was the difference"
+            fi
+          fi
+          if [ "$pack_rc" -ne 0 ]; then
+            echo "::error::meteor-spk pack failed (exit $pack_rc). The sizes above are what it tried to pack; Sandstorm's limit is 1 GiB uncompressed across .meteor-spk/deps and .meteor-spk/bundle together."
+            exit "$pack_rc"
+          fi
           # Report the packed size and warn if it exceeds Cloudflare's 100 MB upload
           # cap (a proxied browser upload to a Cloudflare-fronted Sandstorm 413s above
           # this; install via a DNS-only host / SSH tunnel, or trim further).
@@ -3191,7 +3240,6 @@ jobs:
           fi
           ls -la "$SPK"
           echo "spk=$SPK" >> "$GITHUB_OUTPUT"
-
       - uses: actions/upload-artifact@v7
         with:
           name: ${{ steps.build.outputs.spk }}
