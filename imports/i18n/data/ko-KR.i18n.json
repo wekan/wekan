@@ -1635,7 +1635,7 @@
   "location-detect-none": "이 링크에서 위치를 감지할 수 없습니다.",
   "location-detect-done": "감지된 위치 정보를 아래에 입력했습니다.",
   "location-open-map-at": "지도 링크를 열 위치",
-  "map-region-usa": "USA",
+  "map-region-usa": "미국",
   "map-region-europe": "유럽",
   "map-region-asia": "아시아",
   "map-provider-saved": "기본 지도 서비스가 저장되었습니다.",
