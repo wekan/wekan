@@ -15,7 +15,7 @@
 
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
-const { loginWithToken } = require('../helpers/auth');
+const { loginWithToken, waitForMeteor } = require('../helpers/auth');
 
 const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
 const ZW = '\u200b'; // zero-width space (escape sequence — no literal invisible char in source)
@@ -51,6 +51,10 @@ test.describe('Admin – newest features', () => {
     // `/admin-reports` and the menu rendering.
     // docs/Design/Page/Admin-Panel-URLs.md
     await page.goto(`${BASE_URL}/admin/problems/files`, { waitUntil: 'networkidle' });
+    // The evaluate below reaches for `window.Meteor.callAsync`; `networkidle`
+    // only means the network went quiet, so Firefox got here with Meteor still
+    // undefined and the count came back as an error string.
+    await waitForMeteor(page);
 
     // Localize any failure: ask the SERVER directly whether it counts the seeded
     // attachments (this method runs the SAME accessibleCardIds + meta.cardId query the

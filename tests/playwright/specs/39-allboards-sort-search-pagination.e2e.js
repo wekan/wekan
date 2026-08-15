@@ -15,11 +15,16 @@
 
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
-const { loginWithToken } = require('../helpers/auth');
+const { loginWithToken, waitForMeteor } = require('../helpers/auth');
 
 const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
 
-function callMethod(page, name, ...args) {
+async function callMethod(page, name, ...args) {
+  // `networkidle` says the network went quiet, NOT that the client bundle has
+  // finished executing - under the three-browser parallel run Firefox reached
+  // here with `Meteor` still undefined and failed with "Meteor is not defined".
+  // waitForMeteor is idempotent and returns immediately once it is up.
+  await waitForMeteor(page);
   return page.evaluate(
     ({ name, args }) =>
       new Promise(resolve => {
