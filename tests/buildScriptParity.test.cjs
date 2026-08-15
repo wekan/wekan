@@ -473,4 +473,36 @@ test('both scripts write ONE LOG PER BROWSER, not one for all three', () => {
     'build.sh does the same');
 });
 
+test('a test run stops the databases it started, on every way out', () => {
+  // The cleanup at the end of a run is reached when the run FINISHES. It is not
+  // reached when the run is interrupted - Ctrl-C is the usual one - or when an
+  // early failure returns, and then the test mongod on :3001 and the bundle
+  // server on :3000 outlive it. The cost is the NEXT run: the harness reuses a
+  // database that ANSWERS, so a leftover mongod is silently reused holding data
+  // this run never seeded, and the failures land somewhere else entirely.
+  assert.ok(/stop_test_databases\(\) \{/.test(sh), 'build.sh has one place that stops them');
+  assert.ok(/trap 'stop_test_databases' EXIT INT TERM/.test(sh),
+    'and it runs on every way out, not only the happy path');
+  const fn = sh.slice(sh.indexOf('stop_test_databases() {'));
+  const body = fn.slice(0, fn.indexOf("trap 'stop_test_databases'"));
+  assert.ok(/TEST_SERVER_PID=""/.test(body) && /MONGOD_PID=""/.test(body),
+    'idempotent: each half clears its PID, so the trap firing after the normal '
+    + 'call stops nothing twice');
+  assert.ok(/wekan-conformance-/.test(body),
+    'and the conformance containers go too - one holding 5432 or 3306 fails the '
+    + 'next run before it starts');
+
+  // cmd has no trap, so the .bat does the same clearing on the way IN.
+  assert.ok(/^:stop_test_databases$/m.test(bat), 'build.bat has the same label');
+  const calls = (bat.match(/call :stop_test_databases/g) || []).length;
+  assert.strictEqual(calls, 4,
+    'called at the start AND the end of both all-tests flows: starting from a '
+    + 'clean slate is the batch answer to a trap it cannot have');
+  const label = bat.slice(bat.indexOf('\n:stop_test_databases'));
+  const labelBody = label.slice(0, label.indexOf('exit /b 0'));
+  assert.ok(/WekanTestServer/.test(labelBody) && /WekanTestMongo/.test(labelBody),
+    'stopping the same two things build.sh stops');
+  assert.ok(/wekan-conformance-db-/.test(labelBody), 'and the conformance containers');
+});
+
 console.log(`\n${passed} tests passed`);

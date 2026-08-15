@@ -876,6 +876,51 @@ function run_all_tests(){
 	MONGOD_PID=""
 	STATDIR="$(mktemp -d)"
 	BPIDS=""
+
+	# STOP WHAT THIS RUN STARTED, on EVERY way out - not only the happy path.
+	#
+	# The cleanup at the end of this function is reached when the run finishes.
+	# It is not reached when the run is interrupted (Ctrl-C is the usual one) or
+	# when one of the early `return 1`s above fires, and then the test mongod on
+	# :3001 and the bundle server on :3000 outlive the run. That is not tidy but
+	# harmless in itself; what it costs is the NEXT run, which finds the port
+	# taken. The harness reuses a database only when it ANSWERS - a port held by
+	# something else moves it aside - so a leftover mongod is silently reused
+	# instead, holding a database this run did not seed, and the failures land
+	# somewhere else entirely.
+	#
+	# So the stopping is a trap, and the function's own cleanup calls the same
+	# code. It is idempotent: each half clears its PID, so running twice stops
+	# nothing twice, and a database this run did NOT start (a reused one, whose
+	# PID was never recorded) is still left alone.
+	stop_test_databases() {
+		if [ -n "$TEST_SERVER_PID" ]; then
+			echo
+			echo "Stopping WeKan test server (bundle node :3000)."
+			kill "$TEST_SERVER_PID" >/dev/null 2>&1 || true
+			wait "$TEST_SERVER_PID" >/dev/null 2>&1 || true
+			TEST_SERVER_PID=""
+		fi
+		if [ -n "$MONGOD_PID" ]; then
+			echo "Stopping test MongoDB (mongod :${TEST_DB_PORT:-3001})."
+			kill "$MONGOD_PID" >/dev/null 2>&1 || true
+			wait "$MONGOD_PID" >/dev/null 2>&1 || true
+			MONGOD_PID=""
+		fi
+		# The database-conformance stage runs each engine in a container named
+		# wekan-conformance-<engine> and removes it when that engine is done. An
+		# interrupted run leaves the one it was on, and a container holding port
+		# 5432 or 3306 fails the NEXT run's engine before it starts.
+		if command -v docker >/dev/null 2>&1; then
+			local leftovers
+			leftovers=$(docker ps -aq --filter "name=^wekan-conformance-" 2>/dev/null)
+			if [ -n "$leftovers" ]; then
+				echo "Stopping database-conformance container(s)."
+				docker rm -f $leftovers >/dev/null 2>&1 || true
+			fi
+		fi
+	}
+	trap 'stop_test_databases' EXIT INT TERM
 	# Start one test job in the background: record its exit code in STATDIR/<key>
 	# and send all of its output to $RUN_LOGDIR/wekan-alltests-<key>.log. In "parallel"
 	# mode every job runs at once; in "sequential" mode we wait for each job to
@@ -1201,19 +1246,11 @@ function run_all_tests(){
 	done
 	rm -rf "$STATDIR"
 
-	if [ -n "$TEST_SERVER_PID" ]; then
-		echo
-		echo "Stopping WeKan test server (bundle node :3000)."
-		kill "$TEST_SERVER_PID" >/dev/null 2>&1 || true
-		wait "$TEST_SERVER_PID" >/dev/null 2>&1 || true
-	fi
-	# Stop the mongod we started (leave a pre-existing/reused one alone: MONGOD_PID
-	# is only set when this run launched it).
-	if [ -n "$MONGOD_PID" ]; then
-		echo "Stopping test MongoDB (mongod :${TEST_DB_PORT:-3001})."
-		kill "$MONGOD_PID" >/dev/null 2>&1 || true
-		wait "$MONGOD_PID" >/dev/null 2>&1 || true
-	fi
+	# The same stopping the trap does, here on the normal path so the summary
+	# below is printed with the databases already down. Idempotent, so the trap
+	# firing afterwards on EXIT does nothing. A pre-existing/reused database is
+	# left alone either way: its PID was never recorded.
+	stop_test_databases
 
 	echo
 	echo "==================== TEST SUMMARY ===================="

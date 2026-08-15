@@ -928,6 +928,12 @@ goto end
 
 REM ===========================================================================
 :test_all_parallel
+REM Clear anything a previous run left listening before starting: cmd cannot
+REM trap Ctrl-C, so an interrupted run's database outlives it, and the harness
+REM would REUSE it (it reuses a database that answers) with data this run never
+REM seeded. build.sh does this with a trap on the way out; here it is done on
+REM the way in, which covers the same gap.
+call :stop_test_databases
 echo Running ALL tests against ONE WeKan server on http://localhost:3000 - all jobs run IN PARALLEL (concurrently). Needs plenty of RAM (fine on 32 GB).
 echo Two WeKan servers are involved:
 echo   :3000  - the PRECOMPILED .build\bundle run as a plain Node server (Meteor's mongod on :3001, db "meteor")
@@ -1036,9 +1042,7 @@ if "!ALLDONE!"=="0" (
 )
 
 echo.
-echo Stopping WeKan test server (bundle node :3000).
-taskkill /FI "WINDOWTITLE eq WekanTestServer*" /T /F >nul 2>&1
-if "!MONGOD_STARTED!"=="1" ( echo Stopping test MongoDB ^(mongod :3001^). & taskkill /FI "WINDOWTITLE eq WekanTestMongo*" /T /F >nul 2>&1 )
+call :stop_test_databases
 
 REM Final pass/fail per job (RUN means it never wrote a flag = treat as FAIL).
 if "!S_mocha!"=="FAIL" set "FAILED=1"
@@ -1066,6 +1070,12 @@ goto end
 
 REM ===========================================================================
 :test_all_sequential
+REM Clear anything a previous run left listening before starting: cmd cannot
+REM trap Ctrl-C, so an interrupted run's database outlives it, and the harness
+REM would REUSE it (it reuses a database that answers) with data this run never
+REM seeded. build.sh does this with a trap on the way out; here it is done on
+REM the way in, which covers the same gap.
+call :stop_test_databases
 echo Running ALL tests against ONE WeKan server on http://localhost:3000 - all jobs run SEQUENTIALLY (one at a time).
 echo Two WeKan servers are involved (they do NOT run tests in parallel; the suites run one at a time):
 echo   :3000  - the PRECOMPILED .build\bundle run as a plain Node server (Meteor's mongod on :3001, db "meteor")
@@ -1159,9 +1169,7 @@ set "S_e2e=SKIP" & set "S_chromium=SKIP" & set "S_firefox=SKIP" & set "S_webkit=
 :server_jobs_done
 
 echo.
-echo Stopping WeKan test server (bundle node :3000).
-taskkill /FI "WINDOWTITLE eq WekanTestServer*" /T /F >nul 2>&1
-if "!MONGOD_STARTED!"=="1" ( echo Stopping test MongoDB ^(mongod :3001^). & taskkill /FI "WINDOWTITLE eq WekanTestMongo*" /T /F >nul 2>&1 )
+call :stop_test_databases
 
 REM Final pass/fail per job (RUN means it never wrote a flag = treat as FAIL).
 if "!S_mocha!"=="FAIL" set "FAILED=1"
@@ -1566,6 +1574,33 @@ exit /b %ERRORLEVEL%
 :free_port
 REM %1 = port. Kill whatever is LISTENING on that TCP port (and its process tree).
 for /f "tokens=5" %%p in ('netstat -ano ^| findstr /r /c:":%~1 .*LISTENING"') do taskkill /F /T /PID %%p >nul 2>&1
+exit /b 0
+
+:stop_test_databases
+REM Stop what a test run started: the bundle server on :3000, the test mongod on
+REM :3001 when THIS run launched it, and any database-conformance container.
+REM
+REM Called at the end of both all-tests flows, and again before a run starts,
+REM which is the batch answer to build.sh's trap. cmd cannot trap Ctrl-C, so an
+REM interrupted run leaves its database behind; clearing before starting means
+REM the next run does not inherit it. That matters because the harness reuses a
+REM database only when it ANSWERS - a leftover mongod answers, so it would be
+REM reused, holding a database this run never seeded, and the failures would
+REM land somewhere else entirely.
+echo Stopping WeKan test server (bundle node :3000).
+taskkill /FI "WINDOWTITLE eq WekanTestServer*" /T /F >nul 2>&1
+if "!MONGOD_STARTED!"=="1" ( echo Stopping test MongoDB ^(mongod :3001^). & taskkill /FI "WINDOWTITLE eq WekanTestMongo*" /T /F >nul 2>&1 )
+REM The conformance stage runs each engine in a container named
+REM wekan-conformance-db-<timestamp> and removes it when that engine is done. An
+REM interrupted run leaves the one it was on, and a container still holding 5432
+REM or 3306 fails the next run's engine before it starts.
+where docker >nul 2>&1
+if not errorlevel 1 (
+	for /f %%c in ('docker ps -aq --filter "name=wekan-conformance-db-" 2^>nul') do (
+		echo Stopping database-conformance container %%c.
+		docker rm -f %%c >nul 2>&1
+	)
+)
 exit /b 0
 
 :kill_all_dev_servers
