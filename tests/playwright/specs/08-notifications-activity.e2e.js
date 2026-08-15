@@ -31,9 +31,16 @@ test.describe('Notifications & activity log', () => {
       // Click to toggle show activities (and verify no JS error)
       await activityToggle.click();
       await boardPage.waitForTimeout(500);
-      // The toggle has a checkmark icon indicating state
-      const icon = activityToggle.locator('i.fa');
-      await expect(icon).toBeVisible({ timeout: 5_000 });
+      // The heading carries TWO icons now: the caret that says whether the
+      // section is open (client/lib/sectionCaret.js, shared with the card's
+      // eleven sections) and the section's own comment icon. A bare `i.fa`
+      // matches both and is a strict-mode violation, so ask for the one that
+      // actually indicates state - and assert it points a legal way, which is
+      // what the caret is for.
+      const caret = activityToggle.locator(
+        'i.fa-caret-down, i.fa-caret-right, i.fa-caret-left',
+      );
+      await expect(caret).toBeVisible({ timeout: 5_000 });
     } else {
       // Activity log may not be available for this board config — just ensure sidebar is open
       await expect(boardPage.locator('.board-sidebar.sidebar.is-open')).toBeVisible({ timeout: 5_000 });

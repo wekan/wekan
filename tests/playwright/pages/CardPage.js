@@ -39,7 +39,14 @@ class CardPage {
   }
 
   async editTitle(newTitle) {
-    await this.root.locator('.js-card-title.js-open-inlined-form').click();
+    // The title splits: `span.card-details-title-edit-zone.js-open-inlined-form`
+    // is the leading half that opens the editor, and the rest of the `h2` drags
+    // the window. Both classes used to be on the `h2` itself, so a selector that
+    // wants them on ONE element matches nothing now - it has to be a descendant.
+    await this.root
+      .locator('.js-card-title .js-open-inlined-form, .card-details-title-edit-zone')
+      .first()
+      .click();
     const input = this.root.locator('.js-card-details-title textarea, .js-card-details-title input');
     await input.fill(newTitle);
     // #4236: plain Enter now inserts a newline in the card title (consistent
@@ -299,10 +306,13 @@ class CardPage {
   // --- Custom fields ---
 
   async openCustomFields() {
-    // .js-custom-fields is inside cardDetailsActionsPopup, not directly in the card panel.
-    await this.openActionsMenu();
-    await this.clickAction('.js-custom-fields');
-    await this.page.locator('.js-pop-over').waitFor();
+    // `.js-custom-fields` used to be a row of cardDetailsActionsPopup and had to
+    // be reached through the hamburger. It is now on the Custom Fields SECTION
+    // of the card itself (`a.js-custom-fields.card-details-item`), because the
+    // settings about a thing belong on the thing that shows it - so the popup
+    // opens with one click and the hamburger no longer carries the entry.
+    await this.root.locator('.js-custom-fields').first().click();
+    await this.page.locator('.js-pop-over').waitFor({ timeout: 5_000 });
   }
 
   // --- Attachments ---
