@@ -13,20 +13,56 @@
 // The driver comes from the bundle, so this runs with no extra dependency:
 //   NODE_PATH=/build/programs/server/node_modules node /build/db-ready.mjs "$MONGO_URL"
 import { createRequire } from 'node:module';
+import { pathToFileURL } from 'node:url';
 
 const url = process.argv[2] || process.env.MONGO_URL || '';
 if (!url) process.exit(1);
 
-const require = createRequire(import.meta.url);
+// WHERE THE DRIVER ACTUALLY IS IN A BUNDLE.
+//
+// `mongodb` is a devDependency, not a dependency, so a production bundle has
+// NOTHING at programs/server/node_modules/mongodb - the driver Meteor uses lives
+// under npm-mongo. This asked for it at the top level only, so `require` threw
+// MODULE_NOT_FOUND on every ask, in every container, whatever the database was
+// doing: the probe could never answer "ready", and WeKan sat behind the
+// "waiting for database" page for the whole ten-minute window before starting.
+// The snap's db-eval.mjs already carries this scar - "made WeKan loop 'MongoDB
+// not ready' forever" - and the same candidate list is used here.
+const roots = [];
+const push = u => { if (u) { try { roots.push(new URL(u)); } catch { /* not a URL */ } } };
+if (process.env.NODE_PATH) {
+  push(pathToFileURL(process.env.NODE_PATH.split(':')[0]
+    .replace(/\/programs\/server\/node_modules\/?$/, '') + '/'));
+}
+push(new URL('../', import.meta.url));      // /build/, if this is /build/db-ready.mjs
+const subPaths = [
+  'programs/server/npm/node_modules/meteor/npm-mongo/node_modules/_.cjs',
+  'programs/server/npm/node_modules/_.cjs',
+  'programs/server/node_modules/_.cjs',
+  '_.cjs',
+];
+const requires = [];
+for (const r of roots) {
+  for (const sp of subPaths) {
+    try { requires.push(createRequire(new URL(sp, r))); } catch { /* unreachable root */ }
+  }
+}
+// CommonJS resolution from this file honours NODE_PATH and walks up node_modules.
+requires.push(createRequire(import.meta.url));
+
 let MongoClient;
-try {
-  ({ MongoClient } = require('mongodb'));
-} catch {
-  // No driver to ask with. Say "not ready" rather than pretending: the caller
-  // then serves the waiting page for its bounded window and starts WeKan, which
-  // is what would have happened anyway.
-  console.error('db-ready: no mongodb driver to ask with.');
-  process.exit(1);
+for (const req of requires) {
+  try {
+    const m = req('mongodb');
+    if (m && typeof m.MongoClient === 'function') { MongoClient = m.MongoClient; break; }
+  } catch { /* try the next candidate */ }
+}
+if (typeof MongoClient !== 'function') {
+  // NO DRIVER IS NOT A SLOW DATABASE. Exit 2, distinct from 1, so the caller can
+  // tell "the database said no" from "I could not ask" - and start WeKan instead
+  // of holding a page in front of a database that may be perfectly healthy.
+  console.error('db-ready: could not resolve the mongodb driver from the bundle; not asking.');
+  process.exit(2);
 }
 
 // The connection options come from the URL and nowhere else.

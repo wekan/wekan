@@ -215,7 +215,17 @@ if [ "${WEKAN_DB_WAIT_PAGE:-true}" = "true" ] && [ -f /build/db-ready.mjs ] \
   # The poll below stays quiet; one reason is a diagnosis, one every three
   # seconds is a wall of text.
   _db_why="$(NODE_PATH="$_db_node_path" node /build/db-ready.mjs "$MONGO_URL" 2>&1 >/dev/null)"
-  if ! NODE_PATH="$_db_node_path" node /build/db-ready.mjs "$MONGO_URL"; then
+  NODE_PATH="$_db_node_path" node /build/db-ready.mjs "$MONGO_URL"
+  _db_rc=$?
+  # 0 = answering, 1 = not answering, 2 = the probe could not ask at all.
+  #
+  # 2 MUST NOT put a page in front of the database. "I could not ask" is not
+  # evidence that anything is wrong, and a page shown on that basis hides a
+  # perfectly healthy WeKan for ten minutes - which is exactly what a missing
+  # driver did. Start WeKan; it waits for its own database as it always did.
+  if [ "$_db_rc" = "2" ]; then
+    echo "Cannot check whether the database is answering (${_db_why:-no reason given}); starting WeKan without the waiting page."
+  elif [ "$_db_rc" != "0" ]; then
     _wait_max="${WEKAN_DB_WAIT_MAX_SECONDS:-600}"
     echo "The database is not answering yet; serving the 'waiting for database' page on port ${PORT:-8080} while it comes up."
     # The reason goes on the PAGE too. Whoever is waiting is looking at a

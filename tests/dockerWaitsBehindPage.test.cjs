@@ -80,9 +80,12 @@ test('the wait is not a timeout on the database (negative)', () => {
 
 test('a database that is already up is not waited for at all (negative)', () => {
   // The common case: the probe answers on the first ask and nothing is started.
+  // The test used to pin `if ! …`, which could not tell the three answers apart
+  // once "I could not ask" became one of them; it pins the exit code instead.
   const tail = entrypoint.slice(entrypoint.indexOf('#6595: WAIT FOR THE DATABASE'));
-  assert.ok(/if ! NODE_PATH="\$_db_node_path" node \/build\/db-ready\.mjs/.test(tail),
-    'the page is only for the case where it does not answer');
+  assert.ok(/_db_rc=\$\?/.test(tail), 'the probe\'s answer is kept');
+  assert.ok(/elif \[ "\$_db_rc" != "0" \]/.test(tail),
+    'and the page is only for the case where it does not answer');
 });
 
 test('the probe only asks, and is shipped', () => {
@@ -130,6 +133,33 @@ test('a URL the driver refuses is reported, not thrown (negative)', () => {
     'new MongoClient() is inside a try');
   assert.ok(/rejected by the driver/.test(ready),
     'and says so, in the driver\'s own words');
+});
+
+test('the probe looks for the driver where a bundle actually keeps it', () => {
+  // THE fault behind "Docker WeKan did not load the login page". `mongodb` is a
+  // devDependency, so a production bundle has NOTHING at
+  // programs/server/node_modules/mongodb - Meteor's driver lives under
+  // npm-mongo. Asking at the top level only, require threw MODULE_NOT_FOUND on
+  // every ask, in every container, whatever the database was doing: the probe
+  // could never say "ready" and the waiting page stood in front of a healthy
+  // WeKan for the whole ten-minute window. The snap's db-eval.mjs carries the
+  // same scar; this is the same candidate list.
+  assert.ok(/npm\/node_modules\/meteor\/npm-mongo\/node_modules/.test(ready),
+    'npm-mongo first - that is where the bundle keeps the driver');
+  assert.ok(/programs\/server\/node_modules\/_\.cjs/.test(ready),
+    'the top level too, for a bundle that does have it');
+  assert.ok(/createRequire\(import\.meta\.url\)/.test(ready),
+    'and CommonJS resolution from this file as the fallback');
+});
+
+test('"I could not ask" never puts a page in front of the database (negative)', () => {
+  // Not finding a driver is not evidence that anything is wrong, and a page
+  // shown on that basis hides a healthy WeKan. Exit 2 is distinct from 1 so the
+  // caller can tell the two apart.
+  assert.ok(/process\.exit\(2\)/.test(ready), 'no driver exits 2, not 1');
+  assert.ok(/_db_rc" = "2"/.test(entrypoint), 'and the entrypoint checks for it');
+  assert.ok(/starting WeKan without the waiting page/.test(entrypoint),
+    'and starts WeKan instead of serving the page');
 });
 
 test('the reason reaches the log and the page', () => {
