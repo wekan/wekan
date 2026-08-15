@@ -2613,6 +2613,39 @@ from a neighbour before it ships.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fb969b27459a6286c46418d053566c1f0beb9bdf">The scan said zero and meant zero of the tags it happened to name</a>. Thanks to xet7.</summary>
+
+A guard that reports zero is only worth what it looked at. `wrong-script.mjs`
+listed the script for a BASE tag - `hi`, `ko`, `ja`, `el`, `ru` - so `hi-IN` and
+`ko-KR` were never checked at all, and both are full copies of what `hi` and
+`ko` used to be: 1,204 values in Gujarati and 354 in Japanese kana, sitting
+behind a green count for the whole time their parents were being fixed.
+
+Every file whose tag reduces to a known base is now checked under that base's
+script, so a variant cannot hide behind its parent again. The two that surfaced
+are fixed from their corrected base, key by key, and only where the base
+actually has a translation.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4be57c2ad5756807b36a77fab16b38756e809cd3">Korean: 80 values per file that were Chinese or Japanese, not hanja</a>. Thanks to xet7.</summary>
+
+The scan excluded CJK entirely for a Korean file, on the correct grounds that
+hanja beside hangul is legitimate Korean. That exclusion was too wide: it also
+passed a value with NO hangul in it at all, which is not Korean under any
+reading - it is whatever the file was seeded from. 看板 for a board, 拡大 and
+縮小 for zoom, 担当者 for an assignee, 賛成 and 反対 for the two sides of a
+vote, and the three date formats written 年-月-日.
+
+The rule is now the narrower one it should always have been: hanja is fine WITH
+hangul, and a hangul-script value carrying CJK and no hangul is flagged. That is
+80 values in `ko` and the same 80 in `ko-KR`, translated here - including the
+search operators a user types, 담당자, 마감 and 조직.
+
+</details>
+
 **Panels added since a file was last touched** - strings a language never had.
 
 <details>
@@ -2657,6 +2690,40 @@ lexicon has `patlh` for a rank but no idiom for a board role, and **Volapük**.
 value equal to the English source rather than pretending a translation happened.
 The same is true of far more of the backlog than it first looked: `magenta` and
 `indigo` are `magenta` and `indigo` in nearly every language that "misses" them.
+
+</details>
+
+**The search operators** - the words a user types, rather than reads.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/774d7a032b1bd17a3ee721ff4611317b6b8f7efe">Each one-letter shorthand is the language's own letter, in 89 files</a>. Thanks to xet7.</summary>
+
+Each search operator has a one-letter shorthand beside it, and the shorthand is
+the first letter of THAT LANGUAGE'S word: French *couloir* is `c`, Russian
+*доска* is `д`, Georgian *დაფა* is `დ`. A file that translated the word but kept
+the English letter contradicts itself - `board:` works, and `b:` stands for
+nothing the reader can see.
+
+277 shorthands, derived rather than guessed: the first grapheme of the file's
+own word, extended while it collides with another shorthand in the same file,
+and written only where it differs from the English letter. Portuguese *lista*
+and German *Liste* both begin with an l, so `l` is already correct and is left
+alone. Every file ends with five distinct shorthands - Welsh *aelod* and
+*aseinai* are `a` and `as`, Hungarian *Tábla* and *tag* are `t` and `ta`.
+
+Three orderings had to be right or the result was worse than what it replaced:
+case-fold BEFORE the collision test (*Tábla* and *tag* are both a T), seed the
+taken set from the shorthands that are NOT being changed (Frisian kept `l` for
+*lijst* while *lid* was handed the same `l`), and test the English letter AFTER
+the collision loop rather than before it, or Welsh keeps `a` twice on the
+grounds that `a` is what English uses.
+
+Skipped where the operator WORD is itself in another language, because a
+shorthand derived from it carries that one step further and the word is what
+wants fixing: `tlh` is German, `th` is Vietnamese, `br` is French, `ve-PP` is
+Finnish, and one key each in `mn`, `sk`, `lv`, `vo` and `zgh`. Latin-script
+contamination like that is invisible to `wrong-script.mjs`, which can only
+compare Unicode blocks.
 
 </details>
 
