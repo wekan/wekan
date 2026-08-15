@@ -1780,6 +1780,61 @@ waiting exactly as it did before. `WEKAN_DB_WAIT_PAGE=false` turns it off.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/df41f61c2600bcbe52dca3b260f7219992946228">The waiting page hid a healthy WeKan: the probe never found a driver to ask with</a>. Thanks to Alishara and xet7.</summary>
+
+Reported against this release, with a screenshot: the login page never loads,
+the container logs *The database is not answering yet* and serves the waiting
+page, while `mongosh` on the host talks to the same MongoDB without complaint -
+a Meteor 3 production setup from
+[docs/Platforms/FOSS/Container/Docker/Meteor3](https://github.com/wekan/wekan/tree/main/docs/Platforms/FOSS/Container/Docker/Meteor3),
+MongoDB 7.0.40, replica set `rs0`, `network_mode: host`, `MONGO_URL` a single
+host with `authSource`. **10.91 worked and this did not**, which is the whole
+story: the page is new here, and it is what broke.
+
+The database was never the problem. `db-ready.mjs` asked for the driver at
+`programs/server/node_modules` only - and `mongodb` is a **devDependency, not a
+dependency**, so a production bundle has NOTHING there. Meteor's own driver
+lives under `programs/server/npm/node_modules/meteor/npm-mongo`. `require` threw
+`MODULE_NOT_FOUND` on every ask, in every container, whatever the database was
+doing; the `catch` turned that into "not ready", the entrypoint sent the reason
+to `/dev/null`, and WeKan sat behind the page for the whole ten-minute window
+before starting.
+
+The snap already carries this scar. Its `db-eval.mjs` says so in a comment -
+*"made WeKan loop 'MongoDB not ready' forever"* - and resolves the driver from a
+list of bundle paths; `db-ready.mjs` now uses the same list. That is also why
+the snap was unaffected by any of this: it serves its own page from
+`wekan-control` and never runs `db-ready.mjs` at all.
+
+**No driver no longer means a page.** It exits 2, distinct from 1, and the
+entrypoint starts WeKan without the page: "I could not ask" is not evidence that
+anything is wrong, and a page shown on that basis hides a WeKan that would have
+served fine. Docker with an external MongoDB needs no waiting screen, and it no
+longer gets one it has not earned.
+
+Two more faults were found while proving it, both of which could hold the page
+in front of a working database on their own:
+
+- The probe forced `directConnection: true`. For one host that is harmless; a
+  replica set is normally a SEED LIST, and the driver refuses that outright -
+  *MongoParseError: directConnection option requires exactly one host*. The
+  throw happened while the client was being CONSTRUCTED, outside the `try`, so
+  the probe died with an unhandled error. The options come from the URL now,
+  which is also the more correct question: WeKan connects with the URL as
+  written, so a probe that quietly connects DIFFERENTLY can report ready for a
+  database WeKan cannot reach - dropping the page and leaving the port closed,
+  which is the exact fault the page exists to prevent.
+- Nothing said why. The first probe's reason is printed now, the three-second
+  poll stays quiet, the last one reports again if the window expires - and the
+  reason is put **on the page**, because whoever is waiting is looking at a
+  browser, not at `docker logs`. *MongoServerSelectionError: connect
+  ECONNREFUSED wekan-db:27017* names the host that could not be reached.
+
+`WEKAN_DB_WAIT_PAGE=false` still turns the whole thing off.
+
+</details>
+
 **Performance** - what the database is asked, and what it has to walk.
 
 <details>
