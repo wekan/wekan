@@ -414,7 +414,7 @@ This release fixes the following build failures:
 **The release workflow** - the bundles a release is supposed to carry.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3baffe389f0775aa4ab04a582c056ef19cdb5cbb">The Sandstorm .spk fails on a size limit, and now says what filled it</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/671da7c1666c2a0dd1e1089333dcc3f8bc949487">The Sandstorm .spk fails on a size limit, and now says what filled it</a>. Thanks to xet7.</summary>
 
 `build-sandstorm` fails with *App exceeds uncompressed size limit of 1 GiB* and
 nothing else. Because Sandstorm refuses to pack, no `.spk` is written, so there
