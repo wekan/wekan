@@ -188,6 +188,10 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     'db-conformance.sh': 'the Tests menu runs it (all databases)',
     'fix-changelog-hashes.sh': 'Setup -> git pull and git push both run it',
     'ensure-tools.sh': 'a helper the other scripts source, not an action',
+    'translations/wrong-script.mjs': 'finds and replaces values written in a script '
+      + 'that is not the language\'s own - a fault no menu option can act on in bulk, '
+      + 'because each replacement is a translation somebody has to write. Run with '
+      + '--count / --list / --apply while working through a language',
     'translations/sync-transifex-languages.mjs': 'push-all-translations.sh runs it '
       + 'as its first step, to add the languages the project does not have yet - '
       + 'without which `tx push -t` silently skips them. Runnable on its own with '

@@ -116,4 +116,33 @@ test('a tag can be a symlink to the file Transifex writes (negative)', () => {
     'and the map that makes the other pairs unnecessary is still there');
 });
 
+test('the README\'s language count is the count', () => {
+  // A number in the README is a claim, and this one had been 154 since before
+  // ninety more languages were added. It is checked against the files rather
+  // than remembered: the count of non-English data files, and how many of them
+  // are essentially complete.
+  const readme = read('README.md');
+  const m = readme.match(/translated\]\([^)]*\) to (\d+) languages,\s*\n\s*(\d+) of them essentially complete/);
+  assert.ok(m, 'the README states both numbers in one sentence');
+
+  const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
+  const total = Object.keys(en).length;
+  const langs = fs.readdirSync(dataDir)
+    .filter(f => f.endsWith('.i18n.json'))
+    .map(f => f.replace('.i18n.json', ''))
+    .filter(l => l !== 'en' && !l.startsWith('en-') && !l.startsWith('en_'));
+
+  let complete = 0;
+  for (const lang of langs) {
+    const doc = JSON.parse(read(`imports/i18n/data/${lang}.i18n.json`));
+    const done = Object.keys(en).filter(k => doc[k] && doc[k] !== en[k]).length;
+    if (done / total > 0.9) complete += 1;
+  }
+
+  assert.strictEqual(Number(m[1]), langs.length,
+    `README says ${m[1]} languages, there are ${langs.length}`);
+  assert.strictEqual(Number(m[2]), complete,
+    `README says ${m[2]} essentially complete, there are ${complete}`);
+});
+
 console.log(`\nnewLanguageWiring: ${passed} tests passed`);
