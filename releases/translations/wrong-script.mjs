@@ -40,6 +40,19 @@ const SCRIPT_OF = {
   sd: 'arabic', ug: 'arabic', ckb: 'arabic', ks: 'arabic',
 };
 
+// A REGIONAL VARIANT is written in the same script as its base language, and
+// listing only the bases hid two files for a whole release: `hi-IN` held
+// Gujarati and `ko-KR` held Japanese while `hi` and `ko` were already clean, so
+// the count said zero and meant "zero of the tags I happened to name". Every
+// file whose tag reduces to a known base is checked under that base's script.
+for (const file of readdirSync(DIR)) {
+  if (!file.endsWith('.i18n.json')) continue;
+  const lang = file.replace('.i18n.json', '');
+  if (SCRIPT_OF[lang]) continue;
+  const base = lang.split(/[-_@]/)[0];
+  if (SCRIPT_OF[base]) SCRIPT_OF[lang] = SCRIPT_OF[base];
+}
+
 const RANGES = {
   devanagari: /[ऀ-ॣ०-ॿ]/, gujarati: /[઀-૿]/,
   gurmukhi: /[਀-੿]/, odia: /[଀-୿]/, bengali: /[ঀ-৿]/,
