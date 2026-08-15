@@ -1252,6 +1252,28 @@ written in.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/02025aa6c6dd504869595dc0ff7065579b24fa23">Show on Card and Show on Minicard do not print their own title again</a>. Thanks to xet7.</summary>
+
+The heading row named the columns of a ROW - *Show on Card* over the checkbox
+and *Description* over the setting's name - which is what they labelled, but not
+what they looked like. The rows flow into as many columns as the window fits, so
+the two headings sat above the FIRST of three or four columns and read as if
+they named those: *Show on Card* over one column of settings and *Description*
+over another, when both columns hold the same kind of row.
+
+The first heading also said what the popup's own title says. Show on Card opened
+a popup titled *Show on Card* and repeated it a line below, and the same for
+Show on Minicard.
+
+Both are gone, and the two-pixel rule under them with them - one more line
+across a popup that is a list of lines. A row is a checkbox and the name of a
+setting, which needs no heading over it. One template serves both popups, so
+both lose it together, and the sticky positioning that existed only to keep
+those headings in view while the rows scrolled goes with it.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f0204ae014d1b312355be89bba09717ffeb28d47">Show on Card and Show on Minicard lead the card's and the minicard's menus</a>. Thanks to xet7.</summary>
 
 Board Settings / Card Settings is a table of twenty-four settings with two
