@@ -84,8 +84,13 @@ function wrongScriptKeys(lang) {
 
     for (const [name, re] of Object.entries(RANGES)) {
       if (name === script) continue;
-      // Japanese writes kanji; Korean may write hanja. Neither is a fault.
-      if (name === 'cjk' && (script === 'kana' || script === 'hangul')) continue;
+      // Japanese writes kanji, so a kanji run in a Japanese string proves
+      // nothing. Korean is different: hanja beside hangul is legitimate, but a
+      // Korean interface string with NO hangul in it at all is not Korean - it
+      // is the Chinese or Japanese it was seeded from. Blanket-excluding CJK
+      // for hangul hid 80 such values in each Korean file (看板, 拡大, 担当者).
+      if (name === 'cjk' && script === 'kana') continue;
+      if (name === 'cjk' && script === 'hangul' && RANGES.hangul.test(value)) continue;
       if (!re.test(value)) continue;
       out.push({ key, value, en: en[key], found: name });
       break;
