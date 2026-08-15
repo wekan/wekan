@@ -110,22 +110,8 @@
   transform-origin: 100% 100% !important;
 }
 
-/* Card Settings 3-column grid layout */
-.card-settings-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 2fr;
-  gap: 10px;
-  margin-bottom: 10px;
-  /* Keep the "Show on Card / Show on Minicard / Description" titles visible
-     while the rows below scroll (the popup scrolls in .pop-over .content-wrapper). */
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  background: #fff;
-  padding: 5px 0;
-  border-bottom: 2px solid #ddd;
-}
-
+/* Card Settings 3-column row layout. There is no heading row above these: see
+   the note on boardCardSettingsPopup in sidebar.jade. */
 .card-settings-row {
   display: grid;
   grid-template-columns: 1fr 1fr 2fr;
@@ -140,9 +126,7 @@
    hidden here, so there is still ONE list of settings and one set of handlers.
    A hidden grid item takes no track, so the two that remain fill the two
    columns declared below. client/components/sidebar/sidebar.jade */
-.board-card-settings.show-card-only .card-settings-grid,
 .board-card-settings.show-card-only .card-settings-row,
-.board-card-settings.show-minicard-only .card-settings-grid,
 .board-card-settings.show-minicard-only .card-settings-row {
   grid-template-columns: 1fr 2fr;
 }
@@ -165,13 +149,6 @@
     column-gap: 18px;
     align-items: start;
   }
-
-  /* The headings stay one row across the whole width: they name the columns of
-     a ROW ("Show on Card", "Description"), not of this outer grid. */
-  .board-card-settings.show-card-only .card-settings-grid,
-  .board-card-settings.show-minicard-only .card-settings-grid {
-    grid-column: 1 / -1;
-  }
 }
 
 /* "Labels text" is the user's own setting, not the board's: it shows in the
@@ -191,9 +168,7 @@
   display: none;
 }
 
-.board-card-settings.show-card-only .card-settings-grid > .card-settings-column:nth-child(2),
 .board-card-settings.show-card-only .card-settings-row > .card-settings-column:nth-child(2),
-.board-card-settings.show-minicard-only .card-settings-grid > .card-settings-column:nth-child(1),
 .board-card-settings.show-minicard-only .card-settings-row > .card-settings-column:nth-child(1) {
   display: none;
 }

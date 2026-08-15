@@ -313,11 +313,19 @@ test('the two popups are wide, and lay their rows out in columns', () => {
   assert.ok(/align-items: start/.test(body), 'and the rows sit at the top of their cells');
 });
 
-test('the headings stay one row across the columns (negative)', () => {
-  // They name the columns of a ROW - "Show on Card", "Description" - not of the
-  // outer grid, so a heading in the second column would label nothing.
-  assert.ok(/show-minicard-only \.card-settings-grid \{\n\s+grid-column: 1 \/ -1/
-    .test(sidebarCss), 'the heading row spans the whole width');
+test('there is no heading row over the columns (negative)', () => {
+  // There used to be one, naming the columns of a ROW: "Show on Card" over the
+  // checkbox and "Description" over the name. That is what they labelled, but
+  // not what they looked like - the rows flow into as many columns as the window
+  // fits, so the two headings sat above the FIRST of three or four columns and
+  // read as if they named those. The first also repeated the popup's own title,
+  // which is "Show on Card" or "Show on Minicard" already. A row is a checkbox
+  // and the name of a setting; it needs no heading, and the rule under one is
+  // one more line across a popup that is a list of lines.
+  assert.ok(!/card-settings-grid/.test(sidebarCss), 'no heading-row CSS is left');
+  assert.ok(!/card-settings-grid/.test(sidebarJade), 'and no heading row in the markup');
+  assert.ok(!/h4 \{\{_ 'show-on-card'\}\}/.test(sidebarJade),
+    'so the popup does not say its own title twice');
   // Desktop only: below 800px every popup is a full-screen sheet and one column
   // is the right answer.
   const at = sidebarCss.lastIndexOf('@media', sidebarCss.indexOf('.board-card-settings.show-card-only,'));

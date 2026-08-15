@@ -282,15 +282,15 @@ template(name="showOnMinicardPopup")
   else
     +boardCardSettingsPopup(side="minicard" personalOnly=true card=this)
 
+//- No heading row. It used to name the columns of a ROW - "Show on Card" over
+  the checkbox and "Description" over the name - which is what they label, but
+  not what they LOOK like: the rows flow into as many columns as the window
+  fits, so two headings sat above the first of three or four columns and read as
+  if they named those. The first of them also repeated the popup's own title,
+  which is "Show on Card" or "Show on Minicard" already. A row is a checkbox and
+  the name of a setting, and needs neither.
 template(name="boardCardSettingsPopup")
   form.board-card-settings(class=settingsSideClass)
-    .card-settings-grid
-      .card-settings-column
-        h4 {{_ 'show-on-card'}}
-      .card-settings-column
-        h4 {{_ 'show-on-minicard'}}
-      .card-settings-column
-        h4 {{_ 'description'}}
     //- "List title": the name of the LIST this card is in, on its minicard.
       A per-CARD setting, unchecked by default, and the first row of this
       column because it is about the card as a whole rather than one of its
