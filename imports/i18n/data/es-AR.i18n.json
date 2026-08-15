@@ -1374,7 +1374,7 @@
   "remove-all-read": "Eliminar todos los leídos",
   "allow-rename": "Permitir renombrar",
   "allowRenamePopup-title": "Permitir renombrar",
-  "roles": "Roles",
+  "roles": "Funciones",
   "roles-info": "Elige qué roles del tablero pueden realizar cada acción. Los usuarios del Panel de administración (administradores globales) siempre tienen todos los permisos y no pueden ser restringidos aquí.",
   "allow-invite-to-board": "Permitir invitar al tablero",
   "all-board-members": "Todos los miembros del tablero",

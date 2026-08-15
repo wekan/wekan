@@ -1968,7 +1968,7 @@
   "azure-account-key": "Khóa tài khoản",
   "azure-connection-string": "Chuỗi kết nối",
   "azure-connection-string-description": "Tùy chọn: dùng một chuỗi kết nối đầy đủ thay vì tên tài khoản và khóa.",
-  "azure-container": "Container",
+  "azure-container": "Vùng chứa",
   "gcs-storage": "Google Cloud Storage",
   "gcs-storage-description": "Google Cloud Storage.",
   "database-migration": "Di trú cơ sở dữ liệu",

@@ -2095,7 +2095,7 @@
   "all-migrations": "Tutte le migrazioni",
   "select-migration": "Seleziona migrazione",
   "start": "Inizio",
-  "pause": "Pause",
+  "pause": "Pausa",
   "stop": "Ferma",
   "migration-starting": "Avvio delle migrazioni...",
   "migration-pausing": "Messa in pausa delle migrazioni...",
