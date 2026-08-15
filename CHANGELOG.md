@@ -362,7 +362,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.92 2026-08-15 WeKan ® release
 
 **In short:** this was tagged **v10.92** and never published: its release job
 died before running a line of its own script, with *Argument list too long*,
