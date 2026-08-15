@@ -57,6 +57,11 @@ const CATALOG = {
   'authz.card-member': { category: 'authz', bleed: 'GuestBleed', severity: 'high', cwe: 'CWE-639' },
   'authz.board-list':  { category: 'authz', bleed: 'StaleBleed', severity: 'medium', cwe: 'CWE-863' },
   'spoofing.author':   { category: 'spoofing', bleed: 'AuthorBleed', severity: 'medium', cwe: 'CWE-345' },
+  // Registration disabled in the Admin Panel, and POST /users/register created
+  // accounts anyway, because its guard read a Meteor option WeKan never sets.
+  // Every call that reaches the refusal is an attempt: the admin has turned
+  // registration off, so there is no legitimate caller.
+  'authz.register':    { category: 'authz', bleed: 'SignupBleed', severity: 'critical', cwe: 'CWE-862' },
   'injection.nosql': { category: 'injection', bleed: 'SelectorBleed', severity: 'high', cwe: 'CWE-943' },
   'injection.sql':   { category: 'injection', bleed: 'EscapeBleed', severity: 'critical', cwe: 'CWE-89' },
 };

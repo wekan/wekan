@@ -16,6 +16,7 @@ const {
   hasLocalPassword,
   equalizeMissingUserTiming,
 } = require('/server/lib/loginTimingDefense');
+const { ReactiveCache } = require('/imports/reactiveCache');
 
 const NonEmptyString = Match.Where(function (x) {
   check(x, String);
@@ -250,7 +251,31 @@ WebApp.handlers.options('/users/register', function (req, res) {
 
 WebApp.handlers.post('/users/register', async function (req, res) {
   try {
-    if (Accounts._options.forbidClientAccountCreation) {
+    // SignupBleed: this asked `Accounts._options.forbidClientAccountCreation`,
+    // which NOTHING IN WEKAN EVER SETS. The only `Accounts.config()` call
+    // (server/accounts-common.js) sets loginExpirationInDays and nothing else;
+    // `forbidClientAccountCreation: disableRegistration` goes to
+    // `AccountsTemplates.configure()` in config/accounts.js, which is the
+    // useraccounts package's own options object, not Meteor's. And that value is
+    // read from an async `Meteor.call('isDisableRegistration')` callback that
+    // fires AFTER configure() has already run - the file says so in a comment.
+    //
+    // So the guard was always falsy and this endpoint NEVER refused anyone.
+    // "Registration disabled" in the Admin Panel closed the sign-up form and
+    // left POST /users/register creating accounts for anybody who asked. The
+    // setting is read from where it actually lives, the same way the
+    // `isDisableRegistration` Meteor method does.
+    const setting = await ReactiveCache.getCurrentSetting();
+    if (setting?.disableRegistration === true) {
+      // The refusal is recorded, so an attempt to register while registration is
+      // off shows in Admin Panel / Problems. Every call that gets here is one:
+      // the admin has turned registration off, so there is no legitimate caller.
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'authz.register', action: 'blocked', source: 'POST /users/register',
+          detail: 'refused account creation while registration is disabled',
+        });
+      } catch (e) { /* logging must never break the guard */ }
       sendJsonResult(res, { code: 403 });
       return;
     }
