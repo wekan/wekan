@@ -349,9 +349,11 @@ On top of that, **#1173** after eight years: a **board**, a **swimlane** or a
 popup that says what to include. And **titles are edited where they are
 written**: a card's title on the **board** (#4990, asked in 2022), a board's by
 clicking its **name** in the header bar instead of a pencil beside it. Below
-that: nine bug fixes, a test that pins that a browser downloads **one** language
-file and not all 246 of them, and **81 languages** taken past the words on the
-board into the menus and the login page.
+that: ten bug fixes - among them **Custom Fields**, which the browser tests
+caught being unreachable on a card that had none, which is exactly where it is
+needed - a test that pins that a browser downloads **one** language file and not
+all 246 of them, and **81 languages** taken past the words on the board into the
+menus and the login page.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1485,6 +1487,49 @@ import, so the other checks cannot pass by failing to look.
 
 </details>
 
+**Browser tests** - the guards that drive a real browser, and what they say.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/acaaa3c03fa67e1130f694ac2dbbba3802daad3d">Three page objects still described the markup as it was before it moved</a>. Thanks to xet7.</summary>
+
+A run failed the same four tests in Chromium and in Firefox, and three of the
+four were the guard describing the OLD markup rather than the app being wrong.
+
+`editTitle` waited for both `js-card-title` and `js-open-inlined-form` on ONE
+element. The title splits now - the leading half opens the editor and the rest
+of the heading drags the window - so the class is a DESCENDANT of the title, and
+the old selector matched nothing and waited out its timeout.
+
+The Activities heading in the board sidebar carries TWO icons since the caret
+became shared with the card sections: the caret that says whether the section is
+open, and the section’s own comment icon. A bare `i.fa` matches both, which
+Playwright fails as a strict-mode violation rather than picking one. The spec
+asks for the caret specifically now - the three directions `caretClassFor` can
+produce - which is also a stronger assertion, since the caret is the part that
+indicates state.
+
+The fourth was not a guard at all: see the Custom Fields fix above.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7a08f081241336aedcd7a57da1678e8d104d8f53">Wait for the client bundle before calling a Meteor method</a>. Thanks to xet7.</summary>
+
+Four Firefox-only failures, all the same cause: *Meteor is not defined*, and in
+the fourth a count that came back as the string *error: can’t access property
+"callAsync", window.Meteor is undefined*. Chromium and WebKit passed all four.
+
+Waiting for `networkidle` says the NETWORK went quiet, not that the client
+bundle has finished executing. Under the three-browser parallel run against one
+shared server, Firefox reached the evaluate with `Meteor` still undefined - the
+bundle is large and had been fetched but not yet run.
+
+`helpers/auth.js` has had `waitForMeteor` for exactly this since WebKit needed
+it; these two specs simply never called it. It is idempotent and returns at once
+when Meteor is already up, so it costs the browsers that were passing nothing.
+
+</details>
+
 **Shared templates** - one piece of markup where there were many copies.
 
 <details>
@@ -1770,6 +1815,37 @@ screen can still be true for whatever was tapped last.
 </details>
 
 **Card details** - the card as it is opened and edited.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/aba09a087935423d8ec209cb67ff5d956b3e336d">Custom Fields is reachable on a card that has none, which is where it is needed</a>. Thanks to xet7.</summary>
+
+Everything about custom fields moved to the hamburger at the end of the card's
+own Custom Fields heading - the picker of which fields are on this card, a
+pencil each, and *Add custom field* - and the card menu's entry, the Board
+Settings row and the wrapper popup went with it. But the heading itself was
+drawn only when the card already HAD a custom field on it.
+
+So the one way in existed only once you were already through it. A card with no
+custom field had no heading and therefore no hamburger; a board that had never
+used them had no way in anywhere, because the sidebar view that still holds the
+create and edit forms is opened by nothing. It is invisible on any board that
+already has a field - which is every board a developer tests on - and the
+browser tests found it on a seeded board that had none.
+
+The heading is drawn for every card its reader may write to now, the same
+condition the rest of the editable card uses. The FIELDS below it still come
+from the card's own values, so a card with none shows an empty section rather
+than a phantom row per board definition, and a reader who may not write sees no
+heading at all.
+
+The anchor that used to open the old popup went too: the move took away its
+label text and left the tag, so it rendered nothing, could not be clicked, and
+still had two handlers bound to it. `tests/customFieldsSectionMenu.test.cjs`
+gains the two checks that would have caught this - the heading is gated on who
+may write rather than on what the card already has, and no empty anchor or
+orphaned handler is left behind.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/47099b8baadc0bdfcefe5006bf16ed8e7e7ca565">Ten popups had no header, and so no close button</a>. Thanks to xet7.</summary>
