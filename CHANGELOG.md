@@ -76,6 +76,31 @@ it needs that whole chain), [#6552](https://github.com/wekan/wekan/issues/6552)
 per-app ulimit key and snapd owns the systemd unit, so this needs a snapd
 feature or a wrapper change verified on a real snap install).
 
+**Release builds that need a run to verify** (v10.93, from the job logs). The
+Windows one was a code fault and is fixed; these two are not answerable from a
+reading of the tree:
+
+- **build-sandstorm: `App exceeds uncompressed size limit of 1 GiB`.** Sandstorm
+  refuses to pack, so no .spk is written and nothing says what is big.
+  `sandstorm-pkgdef.capnp` packs `alwaysInclude = ["."]` from `.meteor-spk/deps`
+  and `.meteor-spk/bundle`, so BOTH count: the Node 24, FerretDB v1, mongod 3.0,
+  niscud and Mongo 3.x CLIs that `sandstorm-src/build-deps.sh` assembles, and
+  every package in the built bundle. The pack step now prints the total and the
+  twenty biggest directories of each before packing, so the next run names the
+  offender. Two candidates worth measuring first: the built bundle keeps the
+  build-only npm tree that every other bundle drops
+  (`prune-build-only-modules.mjs` removes 83 of 120 packages, and the Sandstorm
+  leg is the only one that never runs it), and the deps tree carries two
+  database engines because the Mongo-to-FerretDB migration needs both. Which of
+  those can go, and whether `meteor-spk pack` can be made to reuse a pruned
+  `.meteor-spk/bundle` rather than rebuilding it, needs a run to answer.
+- **snap-launchpad (riscv64) was CANCELLED waiting in Launchpad's build queue**,
+  printing `Pending: riscv64` until the job timed out. The other three Launchpad
+  architectures - s390x, ppc64el and armhf - built and published in the same
+  run, so this is queue time on Launchpad rather than anything in the recipe.
+  Worth watching: if it keeps timing out, the wait wants to be longer, or the
+  job wants to hand off and check back later.
+
 </details>
 
 <details>
