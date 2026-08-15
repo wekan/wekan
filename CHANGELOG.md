@@ -4133,6 +4133,28 @@ an hour ago - and pins that ambiguity can never reach the deletion.
 and improves the translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/cd13f56c685ae615edb9036140d698964d4360b7">The newest languages go past the words on the board, into the menus</a>. Thanks to xet7.</summary>
+
+A new language file started with the words a board is made of - board, list,
+card, swimlane, member, the buttons. Enough to recognise the app, not enough to
+use it: the menus, the popup titles and the login page were still English.
+
+Eleven of the largest new ones - **Bengali**, **Urdu**, **Filipino**,
+**Hausa**, **Amharic**, **Kannada**, **Malayalam**, **Nepali**, **Somali**,
+**Kazakh** and **Burmese** - now carry the second tier as well: *Log Out*,
+*Forgot password*, *Email Address*, *Create Board*, *Move to Archive*,
+*Restore*, *Copy Card*, *Move Card*, *Delete Card?*, *List Actions*, *Board
+Settings*, *Member Settings*, *Search All Boards*, *Custom Fields*, *Add
+Attachment*, *Accounts*, *People*, *Organizations*, *Teams* - the strings
+somebody meets in the first minute rather than the first second.
+
+They are at about 112 strings each now, from 77. That is still a small fraction
+of 2,384, and deliberately so: these are the ones where being in English is most
+visible, and the rest falls back to English exactly as before.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a7332f233637fa9716d276eac967fed300a0017d">Twenty more, including the ones I was least sure of - and which those are</a>. Thanks to xet7.</summary>
 
 **246 languages**, from 154 when this release started.
