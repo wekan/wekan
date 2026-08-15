@@ -178,7 +178,7 @@ selectivity), verifiable only with live `EXPLAIN` on each engine.
 Not an issue, and deferred because bug fixes are more important than
 translations (recorded so the next session can resume): the translation tooling
 is safe and ready, but most of the strings are not yet filled. As of
-**2026-08-15** the 234 language files hold **216,929** strings still equal to
+**2026-08-15** the 234 language files hold **216,698** strings still equal to
 the English source, out of 2,384 keys each, and they fall into two very
 different halves:
 
@@ -191,7 +191,14 @@ different halves:
   counting — and 71 of those 133 are the two `act-with*Title` keys, which are
   pure `__board__` placeholders and have no translation to give. That half is
   effectively done.
-- **142 languages are nearly complete** — 7,853 strings between them, but that
+- **And the 86 Latin-script near-complete files hold 1,371 real words**, against
+  3,981 product names and symbols — the same split, one script over. What that
+  half has left is genuinely small, and the way to find out how small is to
+  OFFER a key its translation and see how often the offer is refused: the last
+  batch of twenty everyday words was filled 48 times and ignored 202, because
+  *Filter*, *Container*, *Version*, *Pause*, *Type* and *Latitude* are those
+  languages' own words already.
+- **142 languages are nearly complete** — 7,622 strings between them, but that
   number badly overstates the work. About **4,700 of them are values that are
   the same in every language**: product names (*Meteor*, *MongoDB*, *S3/MinIO*,
   *OAuth2*), bare numbers (the Planning Poker values), symbols (`/`, `#`, `@`),
@@ -2840,6 +2847,55 @@ kept the old English. 96 values, in 24 languages from Arabic to Chinese in both
 scripts. Serbian gets the case-file vocabulary the rest of that file uses - a
 board is *списи* and a member a *сарадник* - so the sentence reads as the same
 document the rest of the interface describes.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e53e895f6ba0e875dc14524ba58317fddeff8575">The import-mapping dialogue, in the other 85 files</a>. Thanks to xet7.</summary>
+
+Finishes the pair the non-Latin files got: 170 more values, from Afrikaans to
+Zulu. These are the two longest strings in the file - a paragraph explaining
+that mapping an imported member onto a real user moves that member's cards,
+comments and activity, and that the user is added with the imported member's
+OWN role, so mapping can never grant more permission than the import did. That
+last clause is the one worth getting right in every language, because it is the
+answer to "what am I about to give this person".
+
+Seven files are written in a language other than the one their name claims and
+get that one: `ace` is Malay, `ast-ES` Spanish, `ro` Italian, `ve` Zulu, `vl-SS`
+Dutch, and `vo`, `wo`, `zgh` and `wa-RR` are French.
+
+`tlh` is deliberately left in English. Klingon has words for a board, a card and
+a rank, and this paragraph needs none of those - it needs three subordinate
+clauses about permission, and inventing them would produce something that reads
+as though somebody meant it. An English placeholder says plainly that nobody has
+translated it yet, which is the more useful thing for the one reader who could.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8e62dd157aae8cf0b0f403a2d125c8b30864d7ef">Twenty everyday words, and the 202 that were already right</a>. Thanks to xet7.</summary>
+
+The next twenty keys by how many files share them - *Dialog*, *Container*,
+*Tests*, *Filter*, *Version*, *Pause*, *Repository*, *Detail*, *Type*, *Color*,
+*Error*, *Roles*, *Latitude*, *Longitude*, *orange*, *Admin* - were offered to
+the 56 Latin-script files that still had them in English. **48 were filled and
+202 were ignored**, because the value offered was the English word and the
+English word is what that language uses: *Filter* is Filter in German, Dutch,
+Danish, Frisian and Estonian, and *Container*, *Tests*, *Version*, *Pause*,
+*Repository*, *Detail*, *Type* and *Latitude* are themselves across most of
+western Europe.
+
+What did change is where a language really has its own: Spanish *Funciones* for
+roles, *Administrator* / *Administrateur* / Frisian *Behearder* for admin,
+Slovak *Podrobnosť* and *Dialóg*, Italian *Contenitore* and *Finestra di
+dialogo*, Vietnamese *Vùng chứa*, Portuguese *Pausa*, and Yoruba *Ìwọ̀n ìhà* and
+*Ìwọ̀n gígùn* for latitude and longitude.
+
+The 202 are the result worth recording. They count as untranslated only because
+the tool's test for it is "still equal to English", no amount of work will ever
+reduce them, and they are why the backlog number is several times the size of
+the backlog.
 
 </details>
 
