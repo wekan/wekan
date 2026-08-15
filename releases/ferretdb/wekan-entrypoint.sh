@@ -208,10 +208,21 @@ fi
 if [ "${WEKAN_DB_WAIT_PAGE:-true}" = "true" ] && [ -f /build/db-ready.mjs ] \
    && [ -f /build/recovery-bridge.mjs ] && [ -n "${MONGO_URL:-}" ]; then
   _db_node_path="/build/programs/server/node_modules"
-  if ! NODE_PATH="$_db_node_path" node /build/db-ready.mjs "$MONGO_URL" 2>/dev/null; then
+  # The FIRST probe's reason is printed, not discarded. It used to go to
+  # /dev/null, so a MONGO_URL the driver refuses outright - a replica-set seed
+  # list, say - looked exactly like a database that had not started yet, and the
+  # log said "not answering" about a database that was answering everyone else.
+  # The poll below stays quiet; one reason is a diagnosis, one every three
+  # seconds is a wall of text.
+  _db_why="$(NODE_PATH="$_db_node_path" node /build/db-ready.mjs "$MONGO_URL" 2>&1 >/dev/null)"
+  if ! NODE_PATH="$_db_node_path" node /build/db-ready.mjs "$MONGO_URL"; then
     _wait_max="${WEKAN_DB_WAIT_MAX_SECONDS:-600}"
     echo "The database is not answering yet; serving the 'waiting for database' page on port ${PORT:-8080} while it comes up."
-    WEKAN_BRIDGE_REASON=database PORT="${PORT:-8080}" PRODUCT_NAME="${PRODUCT_NAME:-WeKan}" \
+    # The reason goes on the PAGE too. Whoever is waiting is looking at a
+    # browser, not at `docker logs`, and the driver's own message names the host
+    # it could not reach.
+    WEKAN_BRIDGE_REASON=database WEKAN_BRIDGE_DETAIL="$_db_why" \
+      PORT="${PORT:-8080}" PRODUCT_NAME="${PRODUCT_NAME:-WeKan}" \
       node /build/recovery-bridge.mjs &
     _dbpid=$!
     _dbw=0
@@ -222,8 +233,12 @@ if [ "${WEKAN_DB_WAIT_PAGE:-true}" = "true" ] && [ -f /build/db-ready.mjs ] \
         break
       fi
     done
-    [ "$_dbw" -ge "$_wait_max" ] && \
+    if [ "$_dbw" -ge "$_wait_max" ]; then
       echo "The database has not answered in ${_wait_max}s; starting WeKan anyway, which will keep waiting for it."
+      # The last reason, printed: after ten minutes of a page, "why" is the only
+      # useful thing left to say.
+      NODE_PATH="$_db_node_path" node /build/db-ready.mjs "$MONGO_URL" || true
+    fi
     # The page holds the web port, so it has to be gone before WeKan binds it.
     kill "$_dbpid" 2>/dev/null || true
     wait "$_dbpid" 2>/dev/null || true

@@ -36,6 +36,17 @@ const TEXT = REASON === 'database'
     muted: 'This page refreshes automatically. Please try again shortly.',
   };
 
+// What the readiness probe last said, if the caller passed it on. The person
+// looking at this page is looking at a browser, not at `docker logs`, and
+// "MongoServerSelectionError: connect ECONNREFUSED wekan-db:27017" names the
+// fault where they are. Escaped: it is a driver message, not markup.
+const esc = s => String(s).replace(/[&<>"]/g, c =>
+  ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const DETAIL = (process.env.WEKAN_BRIDGE_DETAIL || '').trim();
+const DETAIL_HTML = DETAIL
+  ? `\n  <p class="detail">${esc(DETAIL.slice(0, 400))}</p>`
+  : '';
+
 const HTML = `<!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="refresh" content="10">
@@ -52,6 +63,10 @@ const HTML = `<!DOCTYPE html><html lang="en"><head>
   h1{color:#2980b9;font-size:1.6em;margin:.2em 0 .4em}
   p{font-size:1.1em;line-height:1.5;margin:.6em 0}
   .muted{color:#7f8c9a;font-size:.95em}
+  .detail{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.85em;
+    text-align:left;color:#7f8c9a;background:#f4f6f8;border-radius:6px;padding:.6em .8em;
+    overflow-wrap:anywhere}
+  @media (prefers-color-scheme:dark){.detail{background:#1b1f23;color:#9aa7b2}}
   .spin{display:inline-block;width:1.1em;height:1.1em;margin-right:.4em;vertical-align:-.15em;
     border:3px solid #d6e4ef;border-top-color:#2980b9;border-radius:50%;animation:s .9s linear infinite}
   @keyframes s{to{transform:rotate(360deg)}}
@@ -59,7 +74,7 @@ const HTML = `<!DOCTYPE html><html lang="en"><head>
 <div class="card">
   <h1><span class="spin"></span>${TEXT.title}</h1>
   <p>${TEXT.lead}</p>
-  <p class="muted">${TEXT.muted}</p>
+  <p class="muted">${TEXT.muted}</p>${DETAIL_HTML}
 </div></body></html>`;
 
 http.createServer((req, res) => {

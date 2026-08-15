@@ -45,8 +45,13 @@ test('the entrypoint asks whether the database answers', () => {
 });
 
 test('while it does not, the page holds the web port', () => {
-  assert.ok(/WEKAN_BRIDGE_REASON=database PORT="\$\{PORT:-8080\}"/.test(entrypoint),
-    'the bridge serves the database reason on the web port');
+  // Both facts, not one literal line: the bridge is told this is the database
+  // reason, and it is given the web port. They were on one line until the
+  // failure detail was added beside them.
+  assert.ok(/WEKAN_BRIDGE_REASON=database/.test(entrypoint),
+    'the bridge serves the database reason');
+  assert.ok(/PORT="\$\{PORT:-8080\}" PRODUCT_NAME=/.test(entrypoint),
+    'on the web port');
   assert.ok(/WEKAN_BRIDGE_REASON === 'database'/.test(bridge), 'which the bridge knows');
   assert.ok(/is waiting for its database/.test(bridge), 'and says so');
   assert.ok(/503/.test(bridge), 'as a 503, so a proxy and a crawler read it right');
@@ -94,6 +99,51 @@ test('the recovery page it shares still says recovery (negative)', () => {
   assert.ok(/RECOVERY_IN_PROGRESS/.test(entrypoint), 'and its own trigger still stands');
   assert.ok(/REASON = process\.env\.WEKAN_BRIDGE_REASON === 'database' \? 'database' : 'recovery'/
     .test(bridge), 'recovery is what an unset reason means');
+});
+
+test('the probe takes its connection options from the URL, not from itself', () => {
+  // #6599. The probe forced `directConnection: true`. For one host that is
+  // harmless; for a replica set - which is a SEED LIST - the driver refuses:
+  // "MongoParseError: directConnection option requires exactly one host". The
+  // throw happened while the client was being CONSTRUCTED, outside the try, so
+  // the probe died with an unhandled error on every ask, its exit code said
+  // "not ready", and the container served "waiting for database" forever at a
+  // database that was answering everyone else.
+  //
+  // It must also ask the question WeKan will ask: WeKan connects with the URL
+  // as written, so a probe that quietly connects differently can report ready
+  // for a database WeKan cannot reach - dropping the page and leaving the port
+  // closed, which is the fault this whole feature exists to prevent.
+  // The CODE, not the comment above it that explains why this is here.
+  const code = ready.split('\n').filter(l => !/^\s*\/\//.test(l)).join('\n');
+  assert.ok(!/directConnection:\s*true/.test(code),
+    'the probe must not force directConnection - a replica-set URL is a seed list and the driver refuses');
+});
+
+test('a URL the driver refuses is reported, not thrown (negative)', () => {
+  // The construction is inside a try, so a bad URL is "not ready with a reason"
+  // rather than a stack trace nobody sees.
+  const ctor = ready.indexOf('new MongoClient(');
+  const tryBefore = ready.lastIndexOf('try {', ctor);
+  const catchAfter = ready.indexOf('} catch', ctor);
+  assert.ok(tryBefore !== -1 && catchAfter !== -1 && tryBefore < ctor && ctor < catchAfter,
+    'new MongoClient() is inside a try');
+  assert.ok(/rejected by the driver/.test(ready),
+    'and says so, in the driver\'s own words');
+});
+
+test('the reason reaches the log and the page', () => {
+  // A probe that fails silently is why this took a bug report to find.
+  assert.ok(/console\.error\(`db-ready: \$\{err\.name\}/.test(ready),
+    'the probe prints why it failed');
+  assert.ok(!/node \/build\/db-ready\.mjs "\$MONGO_URL" 2>\/dev\/null$/m.test(entrypoint),
+    'and the entrypoint no longer throws that reason away');
+  assert.ok(/WEKAN_BRIDGE_DETAIL="\$_db_why"/.test(entrypoint),
+    'the page is given it too - whoever waits is looking at a browser, not at docker logs');
+  assert.ok(/WEKAN_BRIDGE_DETAIL/.test(bridge) && /class="detail"/.test(bridge),
+    'and the page renders it');
+  assert.ok(/replace\(\/\[&<>"\]\/g/.test(bridge),
+    'escaped: it is a driver message, not markup');
 });
 
 console.log(`\ndockerWaitsBehindPage: ${passed} tests passed`);
