@@ -160,6 +160,27 @@ fi
 # did not, because this ran again at every start. The detector now answers about
 # both copies and says AMBIGUOUS (2) when both have been written to, which is not
 # something to resolve by guessing - so that case switches nothing and says so.
+# THE WEB PORT IS THE FIRST THING SOMEBODY LOOKS AT, so anything that can hold up
+# the start has to be able to say so THERE, not only in `snap logs`. These are
+# defined here rather than beside the database wait further down because the
+# database comparison below runs earlier and can take longer.
+WEKAN_DB_WAIT_PAGE_SECONDS="${WEKAN_DB_WAIT_PAGE_SECONDS:-30}"
+_db_wait_page_pid=""
+start_db_wait_page() {
+    [ -n "$_db_wait_page_pid" ] && return 0
+    [ -r "$SNAP/bin/wekan-maintenance-page.mjs" ] || return 0
+    echo "WeKan: still waiting for ${1}; serving the \"waiting for its database\" page on port ${PORT:-80} until it answers."
+    WEKAN_MAINTENANCE_REASON=waiting-for-database WEKAN_WAITING_DB="$1" PORT="${PORT:-80}" \
+        ${CPU_EXEC:+bash "$CPU_EXEC"} "$SNAP/bin/node" "$SNAP/bin/wekan-maintenance-page.mjs" &
+    _db_wait_page_pid=$!
+}
+stop_db_wait_page() {
+    [ -n "$_db_wait_page_pid" ] || return 0
+    kill "$_db_wait_page_pid" 2>/dev/null || true
+    wait "$_db_wait_page_pid" 2>/dev/null || true
+    _db_wait_page_pid=""
+}
+
 migration_stale_rc=0
 migration_stale_why="$(bash "$SNAP/bin/ferretdb-migration-stale" "$SNAP_COMMON" 2>&1)" \
     || migration_stale_rc=$?
@@ -188,9 +209,60 @@ if [ "$mongodb_readable" = "true" ] && [ "$migration_stale_rc" -eq 2 ]; then
     # two cannot be told apart from their contents either, autopick changes nothing
     # and the explanation below stands - that case is a decision about somebody's
     # work, and #6583 is what guessing at it costs.
+    #
+    # THE COMPARISON HOLDS UP THE START, so it gets a page and a bound.
+    #
+    # It reads both copies, which means starting each database on a temporary
+    # port; on a large instance that is minutes, and until it returns NOTHING is
+    # listening on the web port. That is #6592 again, one step earlier: the
+    # browser gets a timeout and the reason is in `snap logs`, which is the last
+    # place somebody whose site is down thinks to look. Worse, before the mtime
+    # fix in bin/database-autopick this ran at EVERY start, so every restart took
+    # the site down for the length of a comparison that could never conclude.
+    #
+    # So: the same waiting page the database wait uses, and a timeout after which
+    # WeKan starts on the database already selected. Stopping the comparison is
+    # safe - it never deletes anything on either side, and the merge it may be in
+    # the middle of only INSERTS what is missing, so a partial one is simply
+    # fewer documents copied and the next start finishes the job. Serving the
+    # site beats finishing the comparison.
     autopick_rc=1
     if [ -x "$SNAP/bin/database-autopick" ] || [ -f "$SNAP/bin/database-autopick" ]; then
-        bash "$SNAP/bin/database-autopick" && autopick_rc=0
+        _autopick_timeout="${WEKAN_AUTOPICK_TIMEOUT:-900}"
+        _autopick_rc=0
+        if command -v timeout >/dev/null 2>&1; then
+            timeout "$_autopick_timeout" bash "$SNAP/bin/database-autopick" &
+        else
+            bash "$SNAP/bin/database-autopick" &
+        fi
+        _autopick_pid=$!
+        # The page only after a grace period, the same way the database wait does
+        # it: a comparison that finishes in a few seconds should not flash a page
+        # up, and a page that appears on every restart would make proxies cache a
+        # 503 for a healthy site.
+        _autopick_waited=0
+        while kill -0 "$_autopick_pid" 2>/dev/null; do
+            if [ "$_autopick_waited" -ge "${WEKAN_DB_WAIT_PAGE_SECONDS:-30}" ]; then
+                start_db_wait_page "the two copies of the database to be compared"
+                break
+            fi
+            sleep 1
+            _autopick_waited=$((_autopick_waited + 1))
+        done
+        wait "$_autopick_pid" || _autopick_rc=$?
+        # BEFORE anything else binds the port: the page is a child process
+        # holding $PORT.
+        stop_db_wait_page
+        if [ "$_autopick_rc" -eq 0 ]; then
+            autopick_rc=0
+        elif [ "$_autopick_rc" -eq 124 ]; then
+            echo "WeKan: the comparison of the two database copies did not finish within"
+            echo "${_autopick_timeout}s and was stopped. NOTHING was changed or switched, and WeKan"
+            echo "starts on the database already selected. Compare them by hand with"
+            echo "'snap run ${WEKAN_SNAP_SVC:-wekan}.database-compare', or raise the limit with"
+            echo "'snap set ${WEKAN_SNAP_SVC:-wekan} autopick-timeout=1800', or turn the"
+            echo "comparison off with 'snap set ${WEKAN_SNAP_SVC:-wekan} autopick=false'."
+        fi
     fi
     if [ "$autopick_rc" -eq 0 ]; then
         # The setting has just changed underneath us; re-read it so this start
@@ -407,22 +479,6 @@ DB_URL="mongodb://${MONGO_HOST}:${MONGO_PORT}/?directConnection=true"
 #
 # The page is a child process holding $PORT, so it MUST be stopped before WeKan -
 # or another wekan-control after an exec - tries to bind that port.
-WEKAN_DB_WAIT_PAGE_SECONDS="${WEKAN_DB_WAIT_PAGE_SECONDS:-30}"
-_db_wait_page_pid=""
-start_db_wait_page() {
-    [ -n "$_db_wait_page_pid" ] && return 0
-    [ -r "$SNAP/bin/wekan-maintenance-page.mjs" ] || return 0
-    echo "WeKan: still waiting for ${1}; serving the \"waiting for its database\" page on port ${PORT:-80} until it answers."
-    WEKAN_MAINTENANCE_REASON=waiting-for-database WEKAN_WAITING_DB="$1" PORT="${PORT:-80}" \
-        ${CPU_EXEC:+bash "$CPU_EXEC"} "$SNAP/bin/node" "$SNAP/bin/wekan-maintenance-page.mjs" &
-    _db_wait_page_pid=$!
-}
-stop_db_wait_page() {
-    [ -n "$_db_wait_page_pid" ] || return 0
-    kill "$_db_wait_page_pid" 2>/dev/null || true
-    wait "$_db_wait_page_pid" 2>/dev/null || true
-    _db_wait_page_pid=""
-}
 
 if [ "ferretdb" = "${DATABASE}" ]; then
     # FerretDB v1 has no replica set / oplog — just wait until it accepts

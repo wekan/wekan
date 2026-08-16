@@ -57,13 +57,30 @@ test('the page waits for a grace period first (negative)', () => {
   // would flash on each one and teach proxies to cache a 503 for a healthy site.
   assert.ok(/WEKAN_DB_WAIT_PAGE_SECONDS="\$\{WEKAN_DB_WAIT_PAGE_SECONDS:-30\}"/.test(control),
     'there is a grace period, and it is overridable');
-  const starts = control.split('\n').filter(l => /start_db_wait_page /.test(l) && !/^\s*#/.test(l));
-  assert.strictEqual(starts.length, 2, 'exactly the two waits start it');
-  for (const line of starts) {
-    const idx = control.indexOf(line);
-    const before = control.slice(idx - 200, idx);
-    assert.ok(/db_waited" -ge "\$WEKAN_DB_WAIT_PAGE_SECONDS/.test(before),
-      'each start is guarded by the grace period');
+  // THREE users now, not two. The database comparison at startup
+  // (bin/database-autopick) took the site down for as long as it ran - it reads
+  // both copies, which means starting each on a temporary port - and it had no
+  // page at all, because these helpers used to be defined 200 lines below it.
+  // Named rather than counted, so a FOURTH caller that nobody explained still
+  // fails here.
+  const starts = control.split('\n')
+    .filter(l => /start_db_wait_page /.test(l) && !/^\s*#/.test(l))
+    .map(l => l.trim().replace(/^start_db_wait_page /, ''));
+  assert.deepStrictEqual(starts.sort(), [
+    '"the two copies of the database to be compared"',
+    'ferretdb',
+    'mongodb',
+  ], 'these are the waits that can hold up the start, and each must say which it is');
+  // Each start must sit behind a "have we waited long enough yet" comparison.
+  // The two database waits count seconds in $db_waited; the comparison watches a
+  // child process in $_autopick_waited, because it has something to watch rather
+  // than a condition to poll. Both are the same grace period.
+  const lines = control.split('\n');
+  for (const [i, line] of lines.entries()) {
+    if (!/start_db_wait_page /.test(line) || /^\s*#/.test(line)) continue;
+    const before = lines.slice(Math.max(0, i - 6), i).join('\n');
+    assert.ok(/-ge "\$?\{?WEKAN_DB_WAIT_PAGE_SECONDS/.test(before),
+      `this start is not guarded by the grace period: ${line.trim()}`);
   }
 });
 
