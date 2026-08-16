@@ -260,11 +260,37 @@ pushed to Transifex as if it were human.
   the newest release (FerretDB uses `## Upcoming FerretDB release`; the patch repos use
   `# Upcoming <repo> release`). Do **not** hand-edit
   `package.json` or any other version reference — the release workflow bumps those.
+- **CHANGELOG.md holds the CURRENT MONTH only.** It reached 2.6 MB and 51,365
+  lines over 1,100 releases back to 2015 (#6580), which is slow to open and
+  slower to read. Moving whole years out left 1.9 MB, still too large, because
+  releases here are frequent: 2026 alone is 272 releases over eight months and
+  July was 80 on its own. So:
+
+  | | |
+  | --- | --- |
+  | `CHANGELOG.md` | the current month, plus `# Platforms`, `# TODO Later`, `# Upcoming` |
+  | `old-CHANGELOG/<year>/<MM>.md` | earlier months of the current year |
+  | `old-CHANGELOG/<year>.md` | years that are over, whole |
+
+  Past years stay one file each because they are already small (30–107 KB);
+  splitting them further would trade a size problem nobody has for a hundred
+  more files. Each archive opens with a **release count** — per month in a year
+  file, per day in a month file — and a bullet in `# Platforms` links every one.
+  That `git blame` is less useful on the split file is accepted: the history is
+  still in git (`gitk`, `git-gui`, `git log --follow`), and being small enough
+  to open is worth more.
+
+  Run `node releases/changelog-archive.mjs` at the start of a month. It is
+  idempotent — a run with nothing to move only refreshes the tables — and it
+  takes the month to keep from the FILE rather than the clock, so two people
+  running it on the same day agree. An archived section is never edited, for the
+  same reason a released one is not.
 - **The file's shape, top to bottom** — keep it exactly as it is now:
   1. `# Platforms` — the line `Newest WeKan at these platforms:` and the Install /
-     Upgrade / Docs / Mac ChangeLog bullets, then a `<details>` whose `<summary>` is
-     `Version` holding "which WeKan version uses what". There is no `# Version`
-     heading of its own.
+     Upgrade / Docs / Mac ChangeLog bullets, the `Older releases:` bullet linking
+     the per-year archives, then a `<details>` whose `<summary>` is `Version`
+     holding "which WeKan version uses what". There is no `# Version` heading of
+     its own.
   2. `# TODO Later` — a `<details>` whose `<summary>` is `Carried to a future
      release.` explaining the list, then one `<details>` per category (below).
   3. The releases, newest first, each `# v<MAJOR>.<MINOR> YYYY-MM-DD WeKan ® release`.
@@ -476,13 +502,62 @@ Fixes #1235.
 
 All publishing / release steps below are maintainer-only. Contributors never run them.
 
+**Releases are FREQUENT, and that is the normal state of this repository — not an
+interruption to it.** The maintenance loop is:
+
+1. `./build.sh` (or `build.bat` on Windows) → **option 1, "git pull and git
+   push"**. Both directions do the whole job: a pull rebases and then repairs the
+   CHANGELOG commit links the rebase made stale, and a push repairs them again
+   BEFORE publishing, because a stale link that reaches GitHub 404s for everyone
+   who reads the release notes.
+2. `./releases/release-all.sh`, **with no arguments**, whenever there is something
+   worth shipping — which is often, several times a day when a fault is being
+   chased. It takes the version from the CHANGELOG and needs nothing typed.
+
+So a release happening "in the middle" of a piece of work is not a special case
+to reason about; it is what always happens, and anything that only works when
+releases are rare is broken here. Two consequences worth stating, because both
+have cost a released section its accuracy:
+
+- **Work continues immediately after a release**, so `release-all.sh` renames
+  `# Upcoming WeKan ® release` to `# v<NEW> …` and then OPENS A NEW EMPTY
+  `# Upcoming` (`releases/changelog-open-next.mjs`), so the next entry has
+  somewhere correct to go. Without it an entry appended above the closing
+  `Thanks to above GitHub users …` line lands INSIDE the release just published.
+  The new section carries an `**In short:** nothing here yet.` placeholder and
+  the binaries table, so the file stays valid; replace the placeholder as entries
+  are added. `tests/changelogEntriesBelongToTheirRelease.test.cjs` checks the
+  newest few releases against git and fails when a section links a commit that
+  release does not contain.
+- **A released section is a RECORD, not a draft.** When a release turns out to be
+  broken, its section keeps saying what it shipped — including the part that was
+  wrong — and the fix goes in a new `# Upcoming` above it. Do NOT edit a
+  published entry to describe the smaller, tidier change you wish had shipped;
+  add to it that it was wrong and where the fix is. Somebody reading v10.97's
+  notes is most likely somebody whose v10.97 just died.
+
 - WeKan: run `./releases/release-all.sh` (no arguments). It renames
   `# Upcoming WeKan ® release` to the next version (same increment as the last release;
   9.99 → 10.00) dated today, commits + pushes, and triggers
-  `.github/workflows/release-all.yml` (its `bump` job bumps `package.json` and every
-  version reference, then the release jobs tag `v<new>` and publish the GitHub Release).
-  An explicit `oldversion newversion` pair still overrides. Adding entries under Upcoming
-  is the only hand step.
+  `.github/workflows/release-all.yml` — whose `bump` job bumps `package.json` and every
+  version reference and rebuilds the API docs, whose `prepare` job then pushes the tag
+  `v<new>` and checks the notes exist, and whose `release` job publishes the GitHub
+  Release the bundle jobs attach to. An explicit `oldversion newversion` pair still
+  overrides. Adding entries under Upcoming is the only hand step.
+- **A release that FAILED and one that shipped BROKEN are handled differently, and
+  the difference is whether anything was PUBLISHED.** Both happened with v10.92, so
+  neither is hypothetical:
+  - **Nothing published** (the workflow died before the GitHub Release existed): there
+    is no release for that number, so `# v<new> …` must not claim there is one. Rename
+    the heading back to `# Upcoming WeKan ® release`, add the fix under it, and run
+    `release-all.sh` again — it will take the same number, since the newest release is
+    still the previous one.
+  - **It published, and something in it is broken**: the release exists and people can
+    download it, so its section STAYS as it is — a released section is a record, not a
+    draft. Add a NEW `# Upcoming WeKan ® release` above it with the fix, exactly as
+    during ordinary development, and the next run takes the next number.
+  What decides it is the GitHub Release, not the tag: `prepare` pushes the tag early,
+  so a tag can exist for a release that never published.
 - FerretDB: run `./build.sh release-ferretdb` from `.tools/FerretDB` (no
   version). It renames `## Upcoming FerretDB release` to the next version with the
   correct git-tag link, commits + tags + pushes, then triggers `release-all.yml` (which
@@ -494,6 +569,82 @@ All publishing / release steps below are maintainer-only. Contributors never run
 - Fix the vulnerability, add a CRITICAL section to the WeKan CHANGELOG like previous
   entries, and update `../w/wekan.fi/hall-of-fame/index.html` and the vuln-name
   subdirectory `index.html` like previous security issues.
+- **Every security fix gets a TEST and a NEGATIVE TEST, and they are written so the
+  fault cannot exist ANYWHERE in the codebase — not just at the place it was
+  reported.** A test that pins one call site leaves the same mistake free to live in
+  the other five, and that is how most of these arrive: SignupBleed's guard read an
+  option nothing sets, and the same shape sat in a second endpoint; the source-map
+  trim was safe on the client and fatal on the server. So:
+  - the **test** proves the fix does what it claims, driving the decision itself
+    where that is possible. A pure module — `loginFailureDecision.js`,
+    `lockoutDecision.js` — can be tested as arithmetic, without a server or a
+    database, and reproduces the reporter's attack exactly rather than approximately;
+  - the **negative test** proves the fault is gone rather than moved. Search the
+    whole tree for the SHAPE of it and assert nothing matches: no other endpoint
+    reads the dead option, no other counter is global, no other caller skips the
+    check. When the shape is a pattern, pin the pattern.
+  - and a test that reads the source is a real test here. `tests/*.test.cjs` may
+    parse a file and fail on a construct — that is what makes "and nowhere else"
+    checkable at all.
+- **If somebody ATTEMPTS the attack, that has to be visible in Admin Panel →
+  Problems** — in every case where the fix DENIES an operation and the denial can be
+  attributed. That is the difference between a hole that is closed and a hole that is
+  closed and watched: an administrator should be able to see that somebody tried.
+  - Add a key to the catalog in `models/lib/securityCategories.js` (category, the
+    hall-of-fame `bleed` name, severity, CWE), and call
+    `require('/server/lib/securityLog').record({ key, action: 'blocked', source, detail })`
+    on the refusal path. `action` is `'blocked'` when the fix stopped it and
+    `'detected'` when it was only noticed.
+  - **Wrap the call so logging can never break the guard**:
+    `try { ... } catch (e) { /* logging must never break the guard */ }`. The refusal
+    matters more than the record of it.
+  - **Only log an ATTEMPT, never ordinary use.** The test to apply is whether a
+    legitimate user can reach that line. Registration refused while registration is
+    off has no legitimate caller, so it is logged; an admin endpoint whose fault was
+    in what its answer CARRIED fires on every normal call, so it is NOT — that is why
+    HashBleed (GHSA-6qpx-x7vr-p9w6) deliberately has no key. A log that fills with
+    normal traffic hides the one line that mattered.
+  - Where the denial cannot be attributed to an attempt — a fix that changes what a
+    response contains, or one that only takes effect at build time — there is nothing
+    to record, and that is a decision to state in the entry rather than an omission.
+- **Admin Panel → Problems is a SUMMARY, never a row per event.** A guard on a path
+  an attacker controls fires as fast as they can send, so a document per occurrence
+  grows the database with the attack, turns the page into a scroll of near-identical
+  lines, and buries the one event that mattered under ten thousand that did not. The
+  admin's question is never *list every attempt* — it is *what is happening, how
+  much, since when, and who*. So each problem is ONE row that accumulates
+  (`models/lib/eventLogSummary.js`, written through `server/lib/eventLogFold.js`,
+  shared by the security, speed and test loggers):
+
+  | field | what it holds |
+  | --- | --- |
+  | `count` | how many times this problem has happened |
+  | `firstAt` … `at` | the window it happened in |
+  | `actors` | who, each with their own count — `username1 25, 100.100.100.100 30` |
+  | `username` / `ip` / `detail` | the MOST RECENT occurrence |
+
+  - **Identity is the KIND of thing that happened** — stream, `bleed`, category,
+    action, source, severity, CWE (and `type`/`db`/`kind` for the database stream).
+    The actor is NOT part of it: putting a username or an address in the key gives a
+    row per attacker per attempt, which is the cost being removed.
+  - **A username and an address are tallied SEPARATELY**, not as a pair. They answer
+    different questions — which account, and where from — and an unauthenticated
+    attempt has an address and no name.
+  - **The tally is CAPPED** (`MAX_ACTORS`), with the remainder counted in
+    `actorsOverflow`. Otherwise an attacker rotating addresses grows the row with the
+    attack and reintroduces the same bug one level down — and *"and 9,412 others"* is
+    itself the signal that the source is spread rather than single.
+  - **A logger that writes per event is a bug to fix, not a style.** If one is added
+    or found, route it through the shared fold and migrate what it already wrote
+    (`server/lib/eventLogSummaryMigration.js` folds legacy rows in place, in batches,
+    idempotently).
+- **Every hall-of-fame vulnerability that CAN be detected at runtime should have a
+  catalog key**, so Admin Panel → Problems groups attempts under the same name the
+  Hall of Fame uses and an admin can go from one to the other.
+  `tests/hallOfFameProblemsCoverage.test.cjs` lists the names that have no key and
+  requires each to be accounted for — a *Bleed with nothing to detect (a fix that
+  changed what a response carried, or one that only applies at build time) is
+  recorded there as a deliberate omission with its reason, not left silent.
 - **A Hall of Fame row has EIGHT cells**, in this order: CVE, Icon, Vulnerability
   name, Date, Responsible Security Disclosure by, Stars, Process, Vulnerabilities.
   One thing per cell — the name without its icons, the Font Awesome icons alone in
