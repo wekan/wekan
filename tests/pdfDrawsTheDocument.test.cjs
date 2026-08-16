@@ -54,7 +54,11 @@ function runMapping() {
     checklists: [{ _id: 'k1', title: 'Checklist 1' }],
     checklistItemsByChecklistId: { k1: [{ title: 'do **this**', isFinished: true }] },
     comments: [{ createdAt: new Date(0), userId: 'u1', text: 'a *comment*' }],
-    subtasks: [], attachments: [{ name: 'a.png', size: 1234 }],
+    subtasks: [], attachments: [
+      { _id: 'image-1', name: 'a.png', size: 1234 },
+      { _id: 'file-1', name: 'notes.txt', size: 321 },
+    ],
+    images: [{ attachmentId: 'image-1', name: 'a.png', size: '1234 B', data: Buffer.from('x') }],
     customFieldsById: { c1: { name: 'Size' } }, usersById: { u1: { username: 'xet7' } },
   };
   return fn.call(self, buildCardDocument, u => (u && u.username) || '',
@@ -151,6 +155,16 @@ test('PNG and JPEG attachments become image XObjects', () => {
   assert.strictEqual((bytes.match(/\/Subtype \/Image/g) || []).length, 2);
   assert.ok(bytes.includes('/FlateDecode') && bytes.includes('/DCTDecode'));
   assert.ok(/\/XObject << \/Im1 \d+ 0 R/.test(bytes), 'the page can draw its images');
+});
+
+test('a previewed image is not repeated in the attachment bullet list', () => {
+  const lines = documentToLines(runMapping());
+  const text = lines.map(item => (item && item.runs
+    ? item.runs.map(run => run.text).join('') : (item && item.text) || '')).join('\n');
+  assert.ok(text.includes('notes.txt (321 B)'), 'a non-image attachment remains listed');
+  assert.strictEqual((text.match(/a\.png/g) || []).length, 1,
+    'the image name appears only in its preview caption');
+  assert.ok(!text.includes('- a.png'), 'the previewed image has no duplicate bullet');
 });
 
 test('a corrupt or unsupported image never breaks the PDF (negative)', () => {

@@ -119,6 +119,7 @@ async function attachmentImages(attachments) {
       if (!stream) continue;
       const data = await streamToBuffer(stream);
       if (data.length) images.push({
+        attachmentId: attachment._id,
         name: attachment.name || (attachment.meta && attachment.meta.name) || attachment._id,
         size: formatFileSize(attachment.size),
         type,
@@ -242,9 +243,7 @@ class PDFExporterBase {
     // Meteor documents, user ids, dates - into the plain names and strings the
     // document takes. That is this file's own business, and it is the only part
     // that knows a Mongo document from a string.
-    return documentToLines(this.cardDocumentFrom(data), {
-      imageLabel: this.__('attachment-image', 'image'),
-    });
+    return documentToLines(this.cardDocumentFrom(data));
   }
 
   // The card, and the rows that belong to it, as the shared document's `data`.
@@ -262,6 +261,9 @@ class PDFExporterBase {
 
     const vote = card.vote || {};
     const poker = card.poker || {};
+    const previewedAttachmentIds = new Set(
+      (data.images || []).map(image => image.attachmentId).filter(Boolean),
+    );
     return buildCardDocument(card, {
       boardTitle: (board && board.title) || '',
       listTitle: (list && list.title) || '',
@@ -304,6 +306,7 @@ class PDFExporterBase {
       attachments: (attachments || []).map(attachment => ({
         name: attachment.name || (attachment.meta && attachment.meta.name) || attachment._id,
         size: formatFileSize(attachment.size),
+        previewed: previewedAttachmentIds.has(attachment._id),
       })),
       images: data.images || [],
       voting: vote.question ? [

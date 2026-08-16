@@ -152,7 +152,9 @@ class ExporterExcelCard {
         if (!stream) continue;
         const image = await streamToBuffer(stream);
         if (image.length) imageAttachments.push({
+          attachmentId: attachment._id,
           name: attachment.name || (attachment.meta && attachment.meta.name) || attachment._id,
+          size: formatFileSize(attachment.size),
           ext,
           data: image,
         });
@@ -214,6 +216,7 @@ class ExporterExcelCard {
         uploaded: this.fmtDate(attachment.uploadedAt || attachment.uploadedAtOstrio
           || attachment.createdAt),
         uploader: userMap[attachment.userId || (attachment.meta && attachment.meta.userId)] || '',
+        previewed: imageAttachments.some(image => image.attachmentId === attachment._id),
       })),
       images: imageAttachments,
       voting: vote.question ? [

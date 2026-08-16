@@ -44,6 +44,11 @@ The whole preview row moves to the next page when it does not fit. A corrupt,
 unavailable or unsupported image remains named in the attachment list and
 cannot make the PDF export fail.
 
+The attachment bullet list contains only files without a displayed preview.
+An image with a successfully loaded preview is named once, in the caption above
+that image. Non-image attachments and images whose preview could not be read
+remain in the list with their filename and size.
+
 Metadata uses three columns like the printable Excel card. A translated label
 and its value wrap onto additional lines inside that column instead of being
 shortened with an ellipsis, so complete date and time values remain visible.
