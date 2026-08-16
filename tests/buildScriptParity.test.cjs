@@ -239,6 +239,11 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     'bump-bundle-npm-deps.mjs': 'release-workflow + Dockerfile: the same shape -\n'
       + '      it raises the npm packages inside a BUILT bundle to the minimums in\n'
       + '      bundle-npm-security-bumps.json, and is run by the build jobs',
+    'bundle-trim.mjs': 'release-workflow: the same shape again - it takes a BUILT\n'
+      + '      bundle and removes what the target platform cannot run (uWebSockets.js\n'
+      + '      prebuilds for other OS/CPU/ABI, and every source map), which is how the\n'
+      + '      Sandstorm .spk gets under its 1 GiB limit. Nothing to point it at until\n'
+      + '      a build has produced a bundle',
     'translations/add-language.mjs': 'adds a NEW language - takes two JSON files\n'
       + '      (the strings, and the name/rtl/flag of each language) and makes the\n'
       + '      three edits CLAUDE.md requires: the data file, the languages.js entry\n'
