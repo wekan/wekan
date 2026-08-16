@@ -411,10 +411,11 @@ browser build to verify).
 shows its selection with the Admin Panel's own checkbox, and passes that
 selection to every export format. **PDF and Excel exports** now share one card
 document, use the saved user language or browser fallback, keep the opened
-card's date format, and preserve multilingual text; PDF also embeds JPEG and PNG
+card's date format, preserve multilingual text, and name downloads for the
+localized board, swimlane, list or card exported; PDF also embeds JPEG and PNG
 attachment previews plus Unicode-plane fonts. **Admin Panel / Problems** keeps
 avatars at avatar size, and **All Boards** keeps its Add Board and Home
-placeholder tiles as tall as the boards beside them. Below that: ten export
+placeholder tiles as tall as the boards beside them. Below that: eleven export
 fixes, two shared-checkbox fixes, two UI sizing fixes, and the documentation move
 into its feature and platform hierarchy with every local link checked.
 
@@ -432,6 +433,24 @@ into its feature and platform hierarchy with every local link checked.
 This release fixes the following bugs:
 
 **Exporting** - choosing what goes in the file.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4b27f4fc4">PDF and Excel downloads are named for the object exported</a>. Thanks to xet7.</summary>
+
+A swimlane export no longer arrives with the board title in PDF or Excel's
+generic default filename. Download names now use the localized object type and
+its number: for example, the first English swimlane is `Swimlane-1.pdf` or
+`Swimlane-1.xlsx`. Lists and cards follow the same convention, while a whole
+board pairs the localized board label with its title.
+
+The saved profile language wins; when it is absent, the browser language sent
+with the export request supplies the label. The response includes the UTF-8
+content-disposition filename, so scripts outside ASCII remain intact, and the
+browser no longer overrides it with a title-derived `download` attribute. The
+low-memory Excel table exporter also keeps list and swimlane scope while naming
+its result.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ea8bd12a9">The export popup's checkboxes can be changed, and they say what they are</a>. Thanks to Heart1010 and xet7.</summary>
