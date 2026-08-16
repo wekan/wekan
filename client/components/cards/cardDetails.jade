@@ -353,7 +353,7 @@ template(name="cardDetails")
                               = getAssignedBy
                           else
                             | {{_ 'add'}}
-                  else if getRequestedBy
+                  else if getAssignedBy
                     +viewer
                       = getAssignedBy
 
