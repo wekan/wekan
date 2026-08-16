@@ -420,8 +420,9 @@ That fix had a cost nobody saw for a day: its package loaded on the CLIENT
 too, so `require('crypto')` reached the browser bundle and **every page died
 on load** with `Cannot find module 'stream'` — fixed here, and the whole class
 is now guarded. **CHANGELOG.md** is 2.5 MB lighter of history, keeping the
-current MONTH while older months and years move to `old-CHANGELOG/`. And **Build WeKan release
-bundle** is a menu entry now, building what a release would publish rather than
+current MONTH while older months and years move to `old-CHANGELOG/`. And
+**Build WeKan release bundle** is a menu entry now, building what a release
+would publish rather than
 a plain `meteor build` — so "does it start at all" no longer takes a release to
 answer. Below that: the Sandstorm pack that was throwing its own trim away,
 Admin Panel / People showing who is locked again, a location in an admin table
