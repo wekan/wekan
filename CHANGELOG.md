@@ -635,20 +635,64 @@ platform drops them now: **152 MiB** per bundle, measured. That is 188 MiB
 across 4766 files, less the 36 MiB inside `web.browser.legacy` that the entry
 above already takes with it.
 
-Nothing on any loading path reads one. A source map translates a position in
-built code back to the source that produced it — this bundle's server side is
-one 117 MiB `programs/server/app/app.js`, and its 58 MiB `app.js.map` is what
-turns `app.js:1284531` into a file and a line. The two things that read it are
-browser devtools, which fetch the `.map` only while they are open, and Node
-stack traces through `source-map-support`. A released bundle has neither
-attached to it.
+A source map translates a position in built code back to the source that
+produced it — this bundle's server side is one 117 MiB
+`programs/server/app/app.js`, and its 58 MiB `app.js.map` is what turns
+`app.js:1284531` into a file and a line. It is read by browser devtools, which
+fetch the `.map` only while they are open, and by Node stack traces through
+`source-map-support`. A released bundle has neither attached to it.
 
-The `//# sourceMappingURL` comments stay behind, and are comments: a missing
-target means devtools show compiled positions and a server stack trace prints
-bundle offsets. Debugging a production crash goes back to reproducing it against
-a development build, which is where the maps still are. The guard pins that no
-call site keeps them, so one platform cannot quietly drift back to carrying
-them.
+**A map the server manifest NAMES is not optional, and that took a crash to
+learn** — see the entry below. `boot.js` reads every map listed in
+`programs/server/program.json` at boot, unconditionally, so the names have to go
+with the files. The client is unaffected: its manifest names no maps at all, and
+a client `.map` is found through the `//# sourceMappingURL` comment, which is a
+comment — a missing target means devtools show compiled positions and a server
+stack trace prints bundle offsets. Debugging a production crash goes back to
+reproducing it against a development build, which is where the maps still are.
+The guard pins that no call site keeps them, so one platform cannot quietly
+drift back to carrying them.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bf115e91c">Dropping a source map must un-name it too, or the server will not boot</a>. Thanks to xet7.</summary>
+
+The entry above removed the source maps from every platform. A released image
+then crash-looped:
+
+```
+  Error: ENOENT: no such file or directory,
+    open '/build/programs/server/packages/ecmascript.js.map'
+    at /build/programs/server/boot.js:101:29
+```
+
+*"Nothing on any loading path reads a `.map`"* was true of the client and false
+of the server. `boot.js` reads every map NAMED in
+`programs/server/program.json`, at boot, unconditionally:
+
+```
+  serverJson.load.forEach(function (fileInfo) {
+    if (fileInfo.sourceMap) {
+      var rawSourceMap = fs.readFileSync(
+        path.resolve(serverDir, fileInfo.sourceMap), 'utf8');
+```
+
+63 of the 102 load entries name one — 60 MiB — so deleting the files left 63
+dangling names and the server died before it opened its port.
+
+The names now go with the files: the same pass deletes `sourceMap` and
+`sourceMapRoot` from every load entry. The client was never affected and still
+is not — its `program.json` names no maps at all (678 manifest entries, zero
+`sourceMap` fields) and `webapp` reads only `program.json` itself at startup.
+
+Verified by BOOTING a trimmed bundle rather than by reading the code again: with
+uWebSockets.js, the legacy client and all 4766 maps removed, `node main.js`
+loads the whole server and reaches `AccountsServer.init`, failing only on the
+deliberately unreachable `MONGO_URL` it was given. That is the check that was
+missing the first time, and `tests/bundleTrim.test.cjs` now pins the invariant
+`boot.js` actually requires — every map the manifest names exists on disk — for
+both settings of `--keep-maps`.
 
 </details>
 
