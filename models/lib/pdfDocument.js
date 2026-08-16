@@ -411,12 +411,60 @@ function columns(pairs, width = TEXT_WIDTH) {
   return { runs };
 }
 
+// A metadata row may contain a long translated label and a full date/time. It
+// must grow vertically rather than replace the end with an ellipsis.
+function columnRows(pairs, width = TEXT_WIDTH) {
+  const cells = (pairs || []).filter(pair => pair && pair.length);
+  if (!cells.length) return [line('')];
+  const cellWidth = Math.max(12, Math.floor(width / cells.length));
+  const wrapped = cells.map(([label, value]) => {
+    const head = `${String(label ?? '')}: `;
+    const body = String(value ?? '');
+    const room = cellWidth - 1;
+    const chunks = [];
+    if (head.length + body.length <= room) {
+      chunks.push({ text: `${head}${body}`, headLength: head.length });
+    } else {
+      for (let offset = 0; offset < head.length; offset += room) {
+        const text = head.slice(offset, offset + room);
+        chunks.push({ text, headLength: text.length });
+      }
+      for (let offset = 0; offset < body.length; offset += room) {
+        chunks.push({ text: body.slice(offset, offset + room), headLength: 0 });
+      }
+    }
+    return chunks.length ? chunks : [{ text: '', headLength: 0 }];
+  });
+  const height = Math.max(...wrapped.map(cell => cell.length));
+  return Array.from({ length: height }, (_, rowIndex) => {
+    const runs = [];
+    wrapped.forEach((cell, index) => {
+      const chunk = cell[rowIndex] || { text: '', headLength: 0 };
+      const { text, headLength } = chunk;
+      if (headLength) runs.push({ text: text.slice(0, headLength), bold: true, italic: false });
+      runs.push({ text: text.slice(headLength), bold: false, italic: false });
+      if (index < wrapped.length - 1) {
+        runs.push({ text: ' '.repeat(cellWidth - text.length), bold: false, italic: false });
+      }
+    });
+    return { runs };
+  });
+}
+
 function paginateLines(lines) {
   const linesPerPage = Math.floor((PAGE_HEIGHT - PAGE_MARGIN * 2) / LINE_HEIGHT);
   const pages = [];
-  for (let index = 0; index < lines.length; index += linesPerPage) {
-    pages.push(lines.slice(index, index + linesPerPage));
+  let page = [];
+  for (const item of lines) {
+    const span = Math.max(1, Number(item && item.span) || 1);
+    if (page.length && page.length + span > linesPerPage) {
+      pages.push(page);
+      page = [];
+    }
+    page.push(item);
+    for (let reserve = 1; reserve < span; reserve += 1) page.push(line(''));
   }
+  if (page.length) pages.push(page);
   return pages.length > 0 ? pages : [[line('No data')]];
 }
 
@@ -566,15 +614,17 @@ function buildPdfBuffer(rawLines) {
   for (const pageLines of pages) {
     const pageImages = [];
     pageLines.forEach((item, index) => {
-      if (!item || !item.image) return;
-      const prepared = preparePdfImage(item.image);
-      if (!prepared) return;
-      const imageId = addObject(
-        `<< /Type /XObject /Subtype /Image /Width ${prepared.width} /Height ${prepared.height} `
-        + `/ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter ${prepared.filter} `
-        + `/Length ${prepared.data.length} >>\nstream\n${prepared.data.toString('latin1')}\nendstream`,
-      );
-      pageImages.push({ index, imageId, prepared, name: `Im${pageImages.length + 1}` });
+      const images = item && item.imageRow ? item.imageRow : (item && item.image ? [item.image] : []);
+      images.forEach((image, column) => {
+        const prepared = preparePdfImage(image);
+        if (!prepared) return;
+        const imageId = addObject(
+          `<< /Type /XObject /Subtype /Image /Width ${prepared.width} /Height ${prepared.height} `
+          + `/ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter ${prepared.filter} `
+          + `/Length ${prepared.data.length} >>\nstream\n${prepared.data.toString('latin1')}\nendstream`,
+        );
+        pageImages.push({ index, column, imageId, prepared, name: `Im${pageImages.length + 1}` });
+      });
     });
     // Rectangles are drawn OUTSIDE BT/ET - a PDF text object may not contain a
     // path - so every bar on the page is filled first and the text is written
@@ -593,13 +643,17 @@ function buildPdfBuffer(rawLines) {
     });
 
     const imageCommands = pageImages.flatMap(entry => {
-      const maxWidth = PAGE_WIDTH - PAGE_MARGIN * 2;
-      const maxHeight = LINE_HEIGHT * 8;
+      const gap = 10;
+      const maxWidth = entry.column === undefined
+        ? PAGE_WIDTH - PAGE_MARGIN * 2
+        : (PAGE_WIDTH - PAGE_MARGIN * 2 - gap * 2) / 3;
+      const maxHeight = LINE_HEIGHT * 7;
       const scale = Math.min(maxWidth / entry.prepared.width, maxHeight / entry.prepared.height, 1);
       const width = Math.max(1, Math.round(entry.prepared.width * scale));
       const height = Math.max(1, Math.round(entry.prepared.height * scale));
-      const y = PAGE_HEIGHT - PAGE_MARGIN - FONT_SIZE - entry.index * LINE_HEIGHT - height + LINE_HEIGHT;
-      return ['q', `${width} 0 0 ${height} ${PAGE_MARGIN} ${y} cm`, `/${entry.name} Do`, 'Q'];
+      const x = PAGE_MARGIN + (entry.column || 0) * (maxWidth + gap);
+      const y = PAGE_HEIGHT - PAGE_MARGIN - FONT_SIZE - (entry.index + 1) * LINE_HEIGHT - height + LINE_HEIGHT;
+      return ['q', `${width} 0 0 ${height} ${x} ${y} cm`, `/${entry.name} Do`, 'Q'];
     });
     const textCommands = ['BT', `/F1 ${FONT_SIZE} Tf`, `${LINE_HEIGHT} TL`];
     textCommands.push(`1 0 0 1 ${PAGE_MARGIN} ${PAGE_HEIGHT - PAGE_MARGIN - FONT_SIZE} Tm`);
@@ -734,7 +788,7 @@ function documentToLines(document, options = {}) {
         push('', bar(block.title || ''));
         break;
       case 'meta':
-        push(columns(block.pairs));
+        push(...columnRows(block.pairs));
         break;
       case 'text':
         markdownLines(block.blocks);
@@ -770,12 +824,15 @@ function documentToLines(document, options = {}) {
         }
         break;
       case 'images':
-        for (const image of block.images || []) {
-          push(line(`[${options.imageLabel || 'image'}: ${image.name || ''}]`));
-          push({ image });
-          // The writer places an image in eight line-heights. Reserve those
-          // slots so following text cannot be painted over it.
-          for (let reserve = 1; reserve < 8; reserve += 1) push('');
+        for (let index = 0; index < (block.images || []).length; index += 3) {
+          const imageRow = block.images.slice(index, index + 3);
+          push({
+            imageRow,
+            span: 9,
+            runs: columns(imageRow.map(image => [
+              image.name || '', image.size ? `(${image.size})` : '',
+            ])).runs,
+          });
         }
         break;
       default:
@@ -805,6 +862,7 @@ export {
   line,
   bar,
   columns,
+  columnRows,
   richLine,
   paginateLines,
   preparePdfImage,

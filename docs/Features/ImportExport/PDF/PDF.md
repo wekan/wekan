@@ -38,9 +38,15 @@ structure instead of printing their Markdown punctuation.
 JPEG attachments are embedded using their original `/DCTDecode` stream. PNG
 scanlines are decoded, PNG filters are removed, transparency is composited onto
 white, and the RGB pixels are embedded with `/FlateDecode`. Images are scaled
-down to the printable width without being enlarged. A corrupt, unavailable or
-unsupported image remains named in the attachment list and cannot make the PDF
-export fail.
+down without being enlarged. Up to three previews share a row; each has its
+filename and human-readable size above it, without a synthetic `image:` label.
+The whole preview row moves to the next page when it does not fit. A corrupt,
+unavailable or unsupported image remains named in the attachment list and
+cannot make the PDF export fail.
+
+Metadata uses three columns like the printable Excel card. A translated label
+and its value wrap onto additional lines inside that column instead of being
+shortened with an ellipsis, so complete date and time values remain visible.
 
 ## Current progress
 
@@ -55,6 +61,8 @@ Completed:
 - card metadata, custom fields, checklists, subtasks, comments, attachments,
   voting and planning poker;
 - JPEG and PNG attachment previews in card and detailed board PDFs;
+- three previews per row with filename and size captions and atomic pagination;
+- wrapped metadata columns that preserve complete date/time values;
 - binary-safe object offsets and regression tests that inspect the resulting
   image XObjects and PDF cross-reference table;
 - embedded Unicode-plane fonts, their OFL license, font subsetting and tests

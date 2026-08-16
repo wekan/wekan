@@ -120,6 +120,7 @@ async function attachmentImages(attachments) {
       const data = await streamToBuffer(stream);
       if (data.length) images.push({
         name: attachment.name || (attachment.meta && attachment.meta.name) || attachment._id,
+        size: formatFileSize(attachment.size),
         type,
         data,
       });

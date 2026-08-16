@@ -46,19 +46,6 @@ function buildUnicodePdf(rawLines, fonts) {
             .rect(PAGE_MARGIN - 4, y - 3, PAGE_WIDTH - (PAGE_MARGIN - 4) * 2, LINE_HEIGHT)
             .fill().restore();
         }
-        if (item && item.image && Buffer.isBuffer(item.image.data)) {
-          try {
-            pdf.image(item.image.data, PAGE_MARGIN, y, {
-              fit: [PAGE_WIDTH - PAGE_MARGIN * 2, LINE_HEIGHT * 8],
-              align: 'left', valign: 'top',
-            });
-          } catch (error) {
-            // Its name remains in the preceding attachment line. An unsupported
-            // or corrupt preview must not abort the rest of the export.
-          }
-          return;
-        }
-
         const sourceRuns = item && item.runs
           ? item.runs
           : [{ text: item && item.text !== undefined ? item.text : String(item || ''),
@@ -71,6 +58,20 @@ function buildUnicodePdf(rawLines, fonts) {
             pdf.text(run.text, x, y, { lineBreak: false });
             x += pdf.widthOfString(run.text);
           }
+        }
+        if (item && item.imageRow) {
+          const gap = 10;
+          const width = (PAGE_WIDTH - PAGE_MARGIN * 2 - gap * 2) / 3;
+          item.imageRow.forEach((image, column) => {
+            if (!Buffer.isBuffer(image.data)) return;
+            try {
+              pdf.image(image.data, PAGE_MARGIN + column * (width + gap), y + LINE_HEIGHT, {
+                fit: [width, LINE_HEIGHT * 7], align: 'left', valign: 'top',
+              });
+            } catch (error) {
+              // Its filename and size remain above the preview row.
+            }
+          });
         }
       });
     }

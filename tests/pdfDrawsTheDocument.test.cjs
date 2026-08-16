@@ -20,7 +20,7 @@ const fs = require('fs');
 const path = require('path');
 const { buildCardDocument } = require('../models/lib/cardDocument');
 const {
-  documentToLines, buildPdfBuffer, preparePdfImage,
+  documentToLines, buildPdfBuffer, preparePdfImage, columnRows, paginateLines,
 } = require('../models/lib/pdfDocument');
 
 const ROOT = path.join(__dirname, '..');
@@ -80,6 +80,18 @@ test('and the page has the Excel layout\'s parts', () => {
   assert.ok(columnLine.runs.some(r => r.bold), 'with the labels emphasised');
 });
 
+test('long translated dates wrap instead of ending in an ellipsis', () => {
+  const rows = columnRows([
+    ['Luotu', '2026-08-17 01:09'],
+    ['Vastaanotettu', '2026-08-20 01:09'],
+    ['Viimeisin toiminta', '2026-08-21 23:59'],
+  ]);
+  const text = rows.map(row => row.runs.map(run => run.text).join('')).join('\n');
+  assert.ok(text.includes('2026-08-20 01:09'));
+  assert.ok(text.includes('2026-08-21 23:59'));
+  assert.ok(!text.includes('…'));
+});
+
 test('markdown is rendered, not flattened with its markers', () => {
   const text = documentToLines(runMapping())
     .map(l => (typeof l === 'string' ? l : (l.text ?? (l.runs || []).map(r => r.text).join(''))))
@@ -122,10 +134,19 @@ test('PNG and JPEG attachments become image XObjects', () => {
 
   const lines = documentToLines([{
     type: 'images', images: [
-      { name: 'pixel.png', type: 'image/png', data: png },
-      { name: 'pixel.jpg', type: 'image/jpeg', data: jpeg },
+      { name: 'pixel.png', size: '1 KB', type: 'image/png', data: png },
+      { name: 'pixel.jpg', size: '2 KB', type: 'image/jpeg', data: jpeg },
     ],
   }]);
+  assert.strictEqual(lines.length, 1, 'one image row is one atomic layout item');
+  assert.strictEqual(lines[0].imageRow.length, 2, 'several previews share the row');
+  const caption = lines[0].runs.map(run => run.text).join('');
+  assert.ok(caption.includes('pixel.png') && caption.includes('(1 KB)'));
+  assert.ok(caption.includes('pixel.jpg') && caption.includes('(2 KB)'));
+  assert.ok(!caption.includes('image:'), 'captions contain no synthetic image label');
+  const page = paginateLines([...Array(48).fill('line'), ...lines]);
+  assert.strictEqual(page.length, 2, 'an image row moves intact to the next page');
+  assert.strictEqual(page[1][0].imageRow.length, 2);
   const bytes = buildPdfBuffer(lines).toString('latin1');
   assert.strictEqual((bytes.match(/\/Subtype \/Image/g) || []).length, 2);
   assert.ok(bytes.includes('/FlateDecode') && bytes.includes('/DCTDecode'));
