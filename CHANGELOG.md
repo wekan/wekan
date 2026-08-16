@@ -375,7 +375,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.96 2026-08-16 WeKan ® release
 
 **In short:** one **CRITICAL** fix. With registration turned OFF in the Admin
 Panel, `POST /users/register` created accounts anyway — for anybody who asked,
