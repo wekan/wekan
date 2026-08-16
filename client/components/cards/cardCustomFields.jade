@@ -11,7 +11,10 @@ template(name="cardCustomFieldsPopup")
         each board.customFields
             li.item
                 a.name.js-select-field(href="#" title="{{_ 'show-field-on-card'}}")
-                    i.fa(class="{{#if hasCustomField}}fa-check-square-o{{else}}fa-square-o{{/if}}")
+                    //- The same animated checkbox used by Admin Panel /
+                      Settings / Announcement: the square itself morphs into
+                      the green tick through forms.css.
+                    .materialCheckBox(class="{{#if hasCustomField}}is-checked{{/if}}")
                     span.full-name
                       = name
                 a.js-edit-custom-field(title="{{_ 'edit'}}")

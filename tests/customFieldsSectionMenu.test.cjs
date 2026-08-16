@@ -29,6 +29,7 @@ const sidebarJade = read('client/components/sidebar/sidebar.jade');
 const sidebarFields = read('client/components/sidebar/sidebarCustomFields.jade');
 const sidebarFieldsJs = read('client/components/sidebar/sidebarCustomFields.js');
 const popupCss = read('client/components/main/popup.css');
+const formsCss = read('client/components/forms/forms.css');
 
 const popup = fieldsJade.slice(fieldsJade.indexOf('template(name="cardCustomFieldsPopup")'),
   fieldsJade.indexOf('template(name="cardCustomField")'));
@@ -51,12 +52,25 @@ test('the Custom Fields heading carries the hamburger', () => {
 
 test('the popup shows every board field, ticked when it is on the card', () => {
   assert.ok(/each board\.customFields/.test(popup), 'every field the board has');
-  assert.ok(/\{\{#if hasCustomField\}\}fa-check-square-o\{\{else\}\}fa-square-o\{\{\/if\}\}/.test(popup),
-    'as a checkbox, ticked when the field is on this card');
+  assert.ok(/\.materialCheckBox\(class="\{\{#if hasCustomField\}\}is-checked\{\{\/if\}\}"\)/.test(popup),
+    'as the shared animated checkbox, ticked when the field is on this card');
+  assert.ok(!/fa-check-square-o|fa-square-o/.test(popup),
+    'not a separate Font Awesome imitation');
   assert.ok(/js-select-field/.test(popup), 'and clicking the row toggles it');
   const toggle = fieldsJs.slice(fieldsJs.indexOf("'click .js-select-field'"));
   assert.ok(/card\.toggleCustomField\(customFieldId\)/.test(toggle.slice(0, 400)),
     'which is what it did before');
+});
+
+test('the field picker uses the Admin Settings and Announcement animation', () => {
+  const base = /\.materialCheckBox \{([\s\S]*?)\n\}/.exec(formsCss);
+  const checked = /\.materialCheckBox\.is-checked \{([\s\S]*?)\n\}/.exec(formsCss);
+  assert.ok(base && /transition: 0\.2s/.test(base[1]), 'the shared square animates');
+  assert.ok(checked && /transform: rotate\(40deg\)/.test(checked[1]),
+    'the shared checked state morphs into the green tick');
+  assert.ok(/border-bottom: 2px solid #3cb500/.test(checked[1])
+    && /border-inline-end: 2px solid #3cb500/.test(checked[1]),
+  'using the same green borders');
 });
 
 test('each field has a pencil, and Add sits under a rule', () => {
@@ -154,7 +168,8 @@ test('the list is a checkbox, a name and a pencil, per field', () => {
   const li = item.slice(0, item.indexOf('\n    hr'));
   assert.ok(li.indexOf('js-select-field') < li.indexOf('js-edit-custom-field'),
     'the checkbox and name come first, the pencil last');
-  assert.ok(/fa-check-square-o\{\{else\}\}fa-square-o/.test(li.replace(/\s/g, '')),
+  assert.ok(/materialCheckBox\(class="\{\{#ifhasCustomField\}\}is-checked\{\{\/if\}\}"\)/
+    .test(li.replace(/\s/g, '')),
     'the tick says whether the field is on this card');
   assert.ok(/span\.full-name/.test(li), 'and the name is between them');
 
