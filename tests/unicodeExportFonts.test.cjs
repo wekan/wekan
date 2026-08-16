@@ -31,6 +31,24 @@ await test('PDF export loads and embeds the bundled fonts', () => {
   assert.match(pdfRenderer, /registerFont\(MAIN_FONT/);
   assert.match(pdfRenderer, /registerFont\(UPPER_FONT/);
   assert.match(pdfRenderer, /codePointAt\(0\) > 0xffff/);
+  assert.match(pdfRenderer, /new PDFDocument\([\s\S]*font: mainFont/,
+    'the constructor must not initialize Helvetica from an external AFM file');
+});
+
+await test('PDFKit starts directly with the bundled font, without Helvetica', async () => {
+  const chunks = [];
+  const doc = new PDFDocument({ font: fs.readFileSync(mainFont) });
+  doc.on('data', chunk => chunks.push(chunk));
+  const ended = new Promise((resolve, reject) => {
+    doc.on('end', resolve);
+    doc.on('error', reject);
+  });
+  doc.text('Suomi Ελληνικά العربية 中文');
+  doc.end();
+  await ended;
+  const bytes = Buffer.concat(chunks).toString('latin1');
+  assert.match(bytes, /\/ToUnicode/);
+  assert.doesNotMatch(bytes, /Helvetica/);
 });
 
 await test('PDFKit can parse and subset both shipped fonts', async () => {

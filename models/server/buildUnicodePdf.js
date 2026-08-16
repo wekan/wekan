@@ -29,13 +29,19 @@ function unicodeRuns(text) {
 function buildUnicodePdf(rawLines, fonts) {
   return new Promise((resolve, reject) => {
     const chunks = [];
+    const mainFont = Buffer.from(fonts.main);
+    const upperFont = Buffer.from(fonts.upper);
+    // PDFKit otherwise initializes Helvetica immediately and reads its AFM from
+    // `__dirname/data`. Meteor rewrites that path inside a production bundle,
+    // where the AFM is not an application asset. Starting with the already
+    // loaded Unicode font avoids any filesystem lookup for a base-14 font.
     const pdf = new PDFDocument({ autoFirstPage: false, compress: true,
-      margin: PAGE_MARGIN, size: [PAGE_WIDTH, PAGE_HEIGHT] });
+      font: mainFont, margin: PAGE_MARGIN, size: [PAGE_WIDTH, PAGE_HEIGHT] });
     pdf.on('data', chunk => chunks.push(chunk));
     pdf.on('error', reject);
     pdf.on('end', () => resolve(Buffer.concat(chunks)));
-    pdf.registerFont(MAIN_FONT, Buffer.from(fonts.main));
-    pdf.registerFont(UPPER_FONT, Buffer.from(fonts.upper));
+    pdf.registerFont(MAIN_FONT, mainFont);
+    pdf.registerFont(UPPER_FONT, upperFont);
 
     for (const lines of paginateLines(rawLines || [])) {
       pdf.addPage({ margin: PAGE_MARGIN, size: [PAGE_WIDTH, PAGE_HEIGHT] });
