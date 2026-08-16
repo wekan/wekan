@@ -423,7 +423,11 @@ Templates and the workspaces were checked and were already right. The
 **documentation** now follows the feature and platform hierarchy, with every
 local link checked after the move. And **PDF exports embed attachment images**
 now: JPEG and PNG previews are part of both card and detailed board documents,
-while a missing or malformed stored image cannot break the export.
+while a missing or malformed stored image cannot break the export. **PDF and
+Excel exports are multilingual end to end**: PDFs embed Unicode-plane fonts,
+Excel and PDF draw the same card document, the saved user language takes
+precedence over the browser fallback, and dates keep the format shown by the
+opened card.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -523,6 +527,37 @@ path. The format design and current progress moved from TODO Later to reciprocal
 [Excel](docs/Features/ImportExport/Excel/Excel.md) and
 [PDF](docs/Features/ImportExport/PDF/PDF.md) documentation pages; the remaining
 Excel shared-renderer migration is specified there beside its implementation.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c796fc6c6">PDF and Excel exports preserve every language and share one card layout</a>. Thanks to xet7.</summary>
+
+PDF exports now subset and embed the OFL-licensed GNU Unifont BMP and
+supplementary-plane fonts. Finnish, Greek, Cyrillic, Hebrew, Arabic, Indic and
+CJK text, plus supplementary characters such as emoji, therefore remain
+visible, searchable and portable without fonts installed on the reader's
+device. The former WinAnsi writer remains as a failure-safe fallback.
+
+Printable Excel cards now render every block from the same medium-independent
+card document as PDF while retaining their six-column metadata, colored labels,
+checklist progress, attachment table and image placement. Excel cells already
+store real Unicode text; `.xlsx` cannot portably embed an OpenType font, so the
+spreadsheet application chooses an installed font or fallback rather than
+turning editable cells into pictures.
+
+Both formats now resolve locale in one explicit order: a logged-in user's saved
+language first, the current browser language when none is saved, then English.
+Public card Excel no longer hard-codes English. Their export links continue to
+carry the date format displayed by the opened card and the browser's timezone,
+and the routes validate that format before rendering it.
+
+Tests parse and subset both shipped font files with multilingual text, pin the
+locale precedence and opened-card date-format handoff, and exercise the shared
+Excel renderer with ordinary metadata and enough colored labels to wrap onto a
+second row. The reciprocal [Excel](docs/Features/ImportExport/Excel/Excel.md)
+and [PDF](docs/Features/ImportExport/PDF/PDF.md) pages record the implementation
+and the `.xlsx` portability boundary.
 
 </details>
 
