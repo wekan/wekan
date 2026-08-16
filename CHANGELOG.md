@@ -415,7 +415,7 @@ card's date format, preserve multilingual text, and name downloads for the
 localized board, swimlane, list or card exported; PDF also embeds JPEG and PNG
 attachment previews plus Unicode-plane fonts. **Admin Panel / Problems** keeps
 avatars at avatar size, and **All Boards** keeps its Add Board and Home
-placeholder tiles as tall as the boards beside them. Below that: eleven export
+placeholder tiles as tall as the boards beside them. Below that: twelve export
 fixes, two shared-checkbox fixes, two UI sizing fixes, and the documentation move
 into its feature and platform hierarchy with every local link checked.
 
@@ -433,6 +433,22 @@ into its feature and platform hierarchy with every local link checked.
 This release fixes the following bugs:
 
 **Exporting** - choosing what goes in the file.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/57c806705">Detailed PDF and Excel exports follow the board hierarchy</a>. Thanks to xet7.</summary>
+
+A board export now reads in the same order as the board: board name, members,
+creation and modification times, then each swimlane, each list within it, and
+each card within that list. Even the only visible swimlane is named instead of
+being silently flattened away.
+
+Smaller exports start at the level selected rather than repeating unrelated
+ancestors. A swimlane export begins with its swimlane and continues through its
+lists and cards; a list export begins with that list and its cards; a card
+export remains the card. PDF and detailed Excel use the same ordering, and the
+format documentation records it.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4b27f4fc4">PDF and Excel downloads are named for the object exported</a>. Thanks to xet7.</summary>
