@@ -659,7 +659,7 @@ drift back to carrying them.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/bf115e91c">Dropping a source map must un-name it too, or the server will not boot</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/dc19f0661">Dropping a source map must un-name it too, or the server will not boot</a>. Thanks to xet7.</summary>
 
 The entry above removed the source maps from every platform. A released image
 then crash-looped:
@@ -703,7 +703,7 @@ both settings of `--keep-maps`.
 and starting is where that gets decided.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/af4b5f054">Reading MongoDB to compare the copies must not look like writing to it</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/da221c549">Reading MongoDB to compare the copies must not look like writing to it</a>. Thanks to xet7.</summary>
 
 An instance serving FerretDB printed this at every restart:
 
@@ -739,7 +739,7 @@ survives it: the point is to hide WeKan's own read, never somebody's work.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a66d12955">The database comparison at startup cannot take the site down any more</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/062d4fede">The database comparison at startup cannot take the site down any more</a>. Thanks to xet7.</summary>
 
 The same instance went OFFLINE at every restart. `wekan-control` ran the
 comparison synchronously and unbounded before anything opened the web port — and
