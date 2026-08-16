@@ -86,3 +86,25 @@ the app boots — see
 
 - [Attachments (cards)](../../Cards/Attachments/Attachments.md) — what a user sees.
 - [Attachment migration system](../../../ImportExport/Attachment-Migration-System.md)
+
+## The panes, in menu order
+
+Every pane of this tab, in the order the menu shows them. The slug is what
+the address uses: `/admin/attachments/<slug>`.
+
+| Menu path | URL slug | Page |
+| --- | --- | --- |
+| Attachments / Backup | `backup` | — |
+| Attachments / Move Attachment | `move` | — |
+| Attachments / Default Save Storage | `default-save-storage` | — |
+| Attachments / Limits | `limits` | — |
+| Attachments / MongoDB GridFS Storage | `gridfs` | — |
+| Attachments / Filesystem Storage | `filesystem` | — |
+| Attachments / S3/MinIO Storage | `s3` | — |
+| Attachments / Azure Blob Storage | `azure` | — |
+| Attachments / Google Cloud Storage | `gcs` | — |
+| Attachments / Database migration | `database-migration` | — |
+
+10 of these 10 panes has no page of its own yet. A dash is a
+gap to fill, not a pane that does nothing - what the pane shows is described in
+this README until somebody writes it up.

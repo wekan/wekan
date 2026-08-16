@@ -75,3 +75,40 @@ Problems → Status and `snap run wekan.problems` make that visible: an admin ca
 see at a glance *"a migration/repair is in progress; that is why logins are slow"*,
 or *"nothing is running; the backend itself is saturated — consider MongoDB"*, both
 from the browser and from the server command line.
+
+## How this pane records what it sees
+
+[Design.md](Design.md) is the design behind the panes below: one summary row per
+problem rather than a row per event, the per-actor tally inside it, the IPv4 and
+IPv6 columns, and the API report, per-address login tally and blocking that are
+still being built. Read it if you are changing how Problems records things
+rather than what it shows.
+
+## The panes, in menu order
+
+Every pane of this tab, in the order the menu shows them. The slug is what
+the address uses: `/admin/problems/<slug>`.
+
+| Menu path | URL slug | Page |
+| --- | --- | --- |
+| Problems / Summary | `summary` | — |
+| Problems / Security | `security` | — |
+| Problems / Notifications | `notifications` | — |
+| Problems / Security Report | `security-report` | — |
+| Problems / Impersonation Report | `impersonation` | — |
+| Problems / Performance | `performance` | — |
+| Problems / Speed | `speed` | — |
+| Problems / Tests | `tests` | — |
+| Problems / CPU usage | `cpu` | [CPU-usage.md](CPU-usage.md) |
+| Problems / Broken Cards | `broken-cards` | — |
+| Problems / Files Report | `files` | — |
+| Problems / Rules Report | `rules` | — |
+| Problems / Boards Report | `boards` | — |
+| Problems / Cards Report | `cards` | — |
+| Problems / Recovery | `recovery` | [Recovery.md](Recovery.md) |
+| Problems / Database problems | `database` | — |
+| Problems / Filesystem integrity | `integrity` | — |
+
+15 of these 17 panes has no page of its own yet. A dash is a
+gap to fill, not a pane that does nothing - what the pane shows is described in
+this README until somebody writes it up.
