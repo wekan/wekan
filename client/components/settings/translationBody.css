@@ -1,5 +1,5 @@
 /* The pane's own Search button is gone: Translation renders through the shared
-   table page (docs/Design/Page/Table.md), where you type in the search field and
+   table page (docs/Features/Page/Table.md), where you type in the search field and
    press Enter, like every other table page. Its themed-button rules went with it.
 
    Scrollbar styles are handled by settingBody.css for all admin pages.

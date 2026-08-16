@@ -12386,7 +12386,7 @@ What a drag does to the tree is a pure module with its own tests - which third
 of a row the pointer is in, and the tree a move produces, guards included - so
 the rules are proved without a browser, and the page is pinned to calling them
 rather than working them out a second time. It is written up as
-[Workspaces](https://github.com/wekan/wekan/blob/main/docs/Design/Page/Workspaces.md).
+[Workspaces](https://github.com/wekan/wekan/blob/main/docs/Features/Page/Workspaces.md).
 
 </details>
 
@@ -12601,7 +12601,7 @@ The view choice is remembered per browser, not on the user document: it is a
 preference for one page and changes nothing anybody else can see. A board's
 view IS on the profile, because it follows the user between devices; this
 deliberately does not. The design is written down in
-`docs/Design/Page/All-Boards.md`.
+`docs/Features/Page/All-Boards.md`.
 
 </details>
 
@@ -12859,10 +12859,10 @@ clock answers by looking for cards, which this page does not publish, so it
 would read false for every board on every instance.
 
 The design is
-[docs/Design/Page/Public.md](https://github.com/wekan/wekan/blob/main/docs/Design/Page/Public.md),
+[docs/Features/Page/Public.md](https://github.com/wekan/wekan/blob/main/docs/Features/Page/Public.md),
 which describes only what is different about this page and links back to the
 shared [Table page
-design](https://github.com/wekan/wekan/blob/main/docs/Design/Page/Table.md) for
+design](https://github.com/wekan/wekan/blob/main/docs/Features/Page/Table.md) for
 everything else.
 
 Two things it got wrong on the way, both reported by xet7: the page drew [its
@@ -13073,9 +13073,9 @@ a view name gave `allBoardsMultiselectionSidebar` for
 the name — so the names are an explicit map the guard can check.
 
 The designs are
-[Search](https://github.com/wekan/wekan/blob/main/docs/Design/Page/Search.md)
+[Search](https://github.com/wekan/wekan/blob/main/docs/Features/Page/Search.md)
 and
-[Multi-Selection](https://github.com/wekan/wekan/blob/main/docs/Design/Page/Multi-Selection.md),
+[Multi-Selection](https://github.com/wekan/wekan/blob/main/docs/Features/Page/Multi-Selection.md),
 one per shared control, each covering both pages.
 
 </details>

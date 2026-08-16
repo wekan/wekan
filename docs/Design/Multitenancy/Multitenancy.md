@@ -38,7 +38,7 @@ Everything the question touches. Paths are from the repository root.
 | `models/lib/tenantBackup.js` | `.js` module | **(D)** Pure per-tenant backup scope: which collections, the selector for each, the restore-side ownership guard, where a tenant's archives live. |
 | `server/lib/tenantResolver.js` | `.js` server | **(D)** The Meteor glue: the host → org cache, the resolver for HTTP requests and DDP connections, the per-host runtime config hook. |
 | `server/methods/tenant.js` | `.js` methods | **(D)** `currentTenant`, the org tenant/branding fields, the site theme (`getAdminThemeColor` / `setAdminThemeColor`), appointing per-tenant Global Admins, listing an org's members. |
-| `docs/Design/Page/Theme.md` | `.md` design | **(D)** The shared "Change color" picker and the order of themes: default → site/Organization → user. |
+| `docs/Features/Page/Theme.md` | `.md` design | **(D)** The shared "Change color" picker and the order of themes: default → site/Organization → user. |
 | `server/methods/backup.js` | `.js` methods | **(D)** Per-tenant backup and restore, scoped by `models/lib/tenantBackup.js`. |
 | `tests/tenants.test.cjs`, `tests/tenantAdmin.test.cjs`, `tests/tenantBackup.test.cjs`, `tests/tenantWiring.test.cjs` | `.cjs` tests | **(D)** The separation suite: host spoofing, scope, escalation, cross-tenant restore, and that the wiring really calls the rules. |
 

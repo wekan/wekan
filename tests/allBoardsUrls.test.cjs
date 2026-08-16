@@ -235,7 +235,7 @@ test('the old section URLs still work, as redirects', () => {
 });
 
 test('the design doc says what the URLs are', () => {
-  const doc = read('docs/Design/Page/All-Boards-URLs.md');
+  const doc = read('docs/Features/Page/All-Boards-URLs.md');
   for (const section of ALL_BOARDS_SECTIONS) {
     assert.ok(doc.includes(`/allboards/${section}`), `/allboards/${section} must be documented`);
   }

@@ -8,7 +8,7 @@ template(name="adminReports")
 
         .main-body
           //- Every Admin Panel pane opens with the same heading, and it is the
-          //- open menu entry's own label (docs/Design/Page/Left-Menu.md).
+          //- open menu entry's own label (docs/Features/Page/Left-Menu.md).
           +paneTitle(paneTitleData)
           if loading.get
             +spinner
@@ -37,7 +37,7 @@ template(name="adminReports")
 
 template(name="eventStreamReport")
   //- Security / Speed / Tests / CPU usage all render through the shared table
-  //- page (docs/Design/Page/Table.md). CPU usage additionally passes the live
+  //- page (docs/Features/Page/Table.md). CPU usage additionally passes the live
   //- figure as the status row between the title and the controls.
   +tablePage(tablePageData)
 

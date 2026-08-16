@@ -14,6 +14,6 @@ Who may sign in, who they belong to, and what they may do — in menu order.
 | People / Roles | [Roles.md](Roles.md) | Which board roles may invite people to a board. |
 | People / Shared templates | [Shared-Templates.md](Shared-Templates.md) | Which scopes may share template boards. |
 
-Domains, Organizations, Teams and People are [table pages](../../../Design/Page/Table.md):
+Domains, Organizations, Teams and People are [table pages](../../../Features/Page/Table.md):
 search on Enter, a total, `page X / N`, prev/next, and one page of rows fetched at a
 time. Locked users, Roles and Shared templates are forms, not tables.

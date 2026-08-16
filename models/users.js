@@ -58,7 +58,7 @@ if (Meteor.isClient) {
   // cookie mechanism the public list and swimlane collapse states above use, so
   // there is one way this app remembers a fold for a signed-out reader.
   // One value, not a map: it is one menu, drawn on two pages.
-  // docs/Design/Page/Left-Menu.md
+  // docs/Features/Page/Left-Menu.md
   Users.getPublicLeftMenuCollapsed = () => {
     const data = readCookieMap('wekan-left-menu-collapsed');
     return typeof data.collapsed === 'boolean' ? data.collapsed : null;
@@ -71,7 +71,7 @@ if (Meteor.isClient) {
 
   // Which WORKSPACES are folded, for somebody who is not signed in. One cookie
   // holding a map of workspace id -> true, the same shape and the same helpers
-  // as the collapsed lists above. docs/Design/Page/Workspaces.md
+  // as the collapsed lists above. docs/Features/Page/Workspaces.md
   Users.getPublicCollapsedWorkspaces = () => {
     const data = readCookieMap('wekan-collapsed-workspaces');
     return data && typeof data === 'object' ? data : {};
@@ -90,7 +90,7 @@ if (Meteor.isClient) {
   // reason. A COOKIE rather than the localStorage the right sidebar's width
   // uses: this menu already keeps its fold in one, and one reader's menu should
   // not be remembered in two different places.
-  // docs/Design/Page/Left-Menu.md
+  // docs/Features/Page/Left-Menu.md
   Users.getPublicLeftMenuWidth = () => {
     const data = readCookieMap('wekan-left-menu-width');
     return typeof data.width === 'number' ? data.width : null;
@@ -341,7 +341,7 @@ Users.attachSchema(
       /**
        * is the left menu of All Boards and the Admin Panel collapsed? One
        * setting for both: they are one menu drawn on two pages.
-       * docs/Design/Page/Left-Menu.md
+       * docs/Features/Page/Left-Menu.md
        */
       type: Boolean,
       optional: true,
@@ -351,7 +351,7 @@ Users.attachSchema(
        * which workspaces of the All Boards left menu are folded, as a map of
        * workspace id -> true. Only the folded ones are stored, so a tree of
        * fifty workspaces with two folded is two keys.
-       * docs/Design/Page/Workspaces.md
+       * docs/Features/Page/Workspaces.md
        */
       type: Object,
       optional: true,
@@ -362,7 +362,7 @@ Users.attachSchema(
        * user-chosen width (px) of that same left menu, set by dragging its inner
        * edge - the right one while reading left to right, the left one under a
        * right-to-left language. One width for both pages, like the fold above.
-       * Unset = the CSS default. docs/Design/Page/Left-Menu.md
+       * Unset = the CSS default. docs/Features/Page/Left-Menu.md
        */
       type: Number,
       optional: true,
@@ -1656,7 +1656,7 @@ Users.helpers({
 
   // Is the left menu collapsed? Open is the default: a menu that remembered
   // itself collapsed for a user who has never collapsed one would be a page
-  // with no visible way to navigate. docs/Design/Page/Left-Menu.md
+  // with no visible way to navigate. docs/Features/Page/Left-Menu.md
   isLeftMenuCollapsed() {
     const profile = this.profile || {};
     return profile.leftMenuCollapsed || false;
@@ -1664,7 +1664,7 @@ Users.helpers({
 
   // Is this workspace folded? Only the folded ones are in the map, so a missing
   // key is an OPEN workspace - which is the right default for one you have
-  // never touched. docs/Design/Page/Workspaces.md
+  // never touched. docs/Features/Page/Workspaces.md
   isWorkspaceCollapsed(workspaceId) {
     if (!workspaceId) return false;
     const map = (this.profile || {}).collapsedWorkspaces || {};
@@ -1673,7 +1673,7 @@ Users.helpers({
 
   // How wide the left menu was dragged to, or undefined for the CSS default -
   // NOT a number of its own, so the default lives in one place, the stylesheet.
-  // docs/Design/Page/Left-Menu.md
+  // docs/Features/Page/Left-Menu.md
   getLeftMenuWidth() {
     const width = (this.profile || {}).leftMenuWidth;
     return typeof width === 'number' ? width : undefined;

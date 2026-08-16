@@ -15,4 +15,4 @@ that opens with the Admin Panel.
 
 Every pane opens with a heading that is its menu entry's own label, so the pane and
 the row that opened it always say the same thing — see
-[Left Menu](../../../Design/Page/Left-Menu.md).
+[Left Menu](../../../Features/Page/Left-Menu.md).

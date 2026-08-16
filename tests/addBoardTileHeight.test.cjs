@@ -136,7 +136,7 @@ test('All Boards has no header bar left to hold controls', () => {
   // `.path-right` (the page's own row above the board icons), then their order
   // in the second header bar, and now nowhere - the bar is gone. Sort and the
   // view menu are rows of the right sidebar; Search and Multi-Selection are rows
-  // it already had. docs/Design/Page/All-Boards.md
+  // it already had. docs/Features/Page/All-Boards.md
   const jade = fs.readFileSync(
     path.join(path.resolve(__dirname, '..'), 'client/components/boards/boardsList.jade'), 'utf8');
   assert.ok(!/template\(name="boardListHeaderBar"\)/.test(jade), 'the bar is gone');
@@ -156,7 +156,7 @@ test('All Boards has no header bar left to hold controls', () => {
   // They are in the FIRST top header bar, as icons, left of the bell - one
   // click, and nothing covering the boards. They were rows of the sidebar's
   // home view before that, and that home view was the only thing All Boards'
-  // hamburger opened. docs/Design/Page/All-Boards.md
+  // hamburger opened. docs/Features/Page/All-Boards.md
   const buttons = jade.slice(jade.indexOf('template(name="allBoardsHeaderButtons")'));
   for (const control of ['js-open-boards-sort', 'js-all-boards-sidebar-search',
     'js-all-boards-sidebar-multiselection']) {

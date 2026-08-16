@@ -17,7 +17,7 @@
 // against the markup that draws it.
 //
 // Pure: an id in, an element id out. No DOM, no Meteor, no jQuery.
-// docs/Design/Page/Board-Item-Links.md
+// docs/Features/Page/Board-Item-Links.md
 
 const REVEAL_KINDS = ['swimlane', 'list'];
 

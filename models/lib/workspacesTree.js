@@ -30,7 +30,7 @@
 // compare, discard, or hand it to the server without having already changed
 // what is on screen.
 //
-// Design: docs/Design/Page/Workspaces.md
+// Design: docs/Features/Page/Workspaces.md
 
 const BEFORE = 'before';
 const AFTER = 'after';

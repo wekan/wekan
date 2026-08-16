@@ -16,7 +16,7 @@ import { Utils } from '/client/lib/utils';
 // The Admin Panel's per-pane URLs: /admin/settings/version,
 // /admin/people/login, /admin/problems/database and so on - the panel, the
 // page and the pane, all three named in the address.
-// docs/Design/Page/Admin-Panel-URLs.md
+// docs/Features/Page/Admin-Panel-URLs.md
 import {
   ADMIN_PAGES,
   resolvePaneId,
@@ -25,7 +25,7 @@ import {
 } from '/models/lib/adminUrls';
 // The All Boards page's URLs: /allboards/starred, /allboards/templates,
 // /allboards/remaining, /allboards/workspaces/<name>/<sub-name>.
-// docs/Design/Page/All-Boards-URLs.md
+// docs/Features/Page/All-Boards-URLs.md
 import {
   SECTION_WORKSPACES,
   resolveSection,
@@ -194,7 +194,7 @@ FlowRouter.route('/', {
 });
 
 // The old section URLs. They keep working, as redirects to the new structure -
-// the same move /setting made. docs/Design/Page/All-Boards-URLs.md
+// the same move /setting made. docs/Features/Page/All-Boards-URLs.md
 FlowRouter.route('/templates', {
   name: 'allboards-templates',
   triggersEnter: [
@@ -218,7 +218,7 @@ FlowRouter.route('/remaining', {
 // All Boards, with a URL per left-menu entry - including the workspaces tree,
 // which had none at all. `:path*` captures the whole rest of the address, so a
 // workspace nests as deep as its tree does:
-// /allboards/workspaces/engineering/backend. docs/Design/Page/All-Boards-URLs.md
+// /allboards/workspaces/engineering/backend. docs/Features/Page/All-Boards-URLs.md
 //
 // The WORKSPACE is resolved by the page, not here: the tree lives on the user
 // document, which the router cannot read before the page has it. The router
@@ -287,7 +287,7 @@ FlowRouter.route('/public', {
     Utils.manageMatomo();
 
     // /public is its own page now, not All Boards with a different query
-    // (docs/Design/Page/Public.md): a read-only, paginated table of the boards
+    // (docs/Features/Page/Public.md): a read-only, paginated table of the boards
     // anybody may open. Rendering `boardList` here brought the Starred /
     // Templates / Remaining menu, the workspaces tree, Multi-Selection with its
     // archive and duplicate actions and an "Add board" tile with it — none of
@@ -409,7 +409,7 @@ function maybeRedirectMovedCard(urlBoardId, cardId) {
 // The route cannot scroll anything: it runs before the board has rendered, and
 // on a board that is already open it runs without re-creating anything. So it
 // names what to REVEAL in a Session value, and the board body reveals it once
-// the element exists. docs/Design/Page/Board-Item-Links.md
+// the element exists. docs/Features/Page/Board-Item-Links.md
 FlowRouter.route(SWIMLANE_ROUTE_PATH, {
   name: 'swimlane',
   action(params) {
@@ -743,7 +743,7 @@ FlowRouter.route('/import/:source', {
 // /admin/settings/global-webhooks - so a pane can be linked, bookmarked,
 // opened in a second tab and reached with the back button, and the address
 // says which pane it is showing rather than leaving the first one unnamed.
-// docs/Design/Page/Admin-Panel-URLs.md
+// docs/Features/Page/Admin-Panel-URLs.md
 //
 // The pane is REQUIRED in the path. A bare page address is a redirect to its
 // default pane's own address (below), not a second address for the same view.
@@ -849,7 +849,7 @@ FlowRouter.route(adminRoutePath('people'), {
   ],
   action(params) {
     // Which left-menu pane this URL means. An unknown slug falls back to the
-    // page's default. docs/Design/Page/Admin-Panel-URLs.md
+    // page's default. docs/Features/Page/Admin-Panel-URLs.md
     Session.set('peopleOpenPane', resolvePaneId('people', params && params.pane));
     this.render('defaultLayout', {
       content: 'people',
@@ -875,7 +875,7 @@ FlowRouter.route(adminRoutePath('problems'), {
   ],
   action(params) {
     // Which left-menu pane this URL means. An unknown slug falls back to the
-    // page's default. docs/Design/Page/Admin-Panel-URLs.md
+    // page's default. docs/Features/Page/Admin-Panel-URLs.md
     Session.set('problemsOpenPane', resolvePaneId('problems', params && params.pane));
     this.render('defaultLayout', {
       content: 'adminReports',
@@ -901,7 +901,7 @@ FlowRouter.route(adminRoutePath('attachments'), {
   ],
   action(params) {
     // Which left-menu pane this URL means. An unknown slug falls back to the
-    // page's default. docs/Design/Page/Admin-Panel-URLs.md
+    // page's default. docs/Features/Page/Admin-Panel-URLs.md
     Session.set('attachmentsOpenPane', resolvePaneId('attachments', params && params.pane));
     this.render('defaultLayout', {
       content: 'attachments',

@@ -74,7 +74,7 @@ Template.memberMenuPopup.events({
   // not a page of its own. This sent the reader to `/archive`, the full-width
   // page that section replaced: the same list, but with no menu beside it and
   // no way to step across to Starred or Remaining without going back first.
-  // docs/Design/Page/Archive.md
+  // docs/Features/Page/Archive.md
   'click .js-open-archived-board'() {
     FlowRouter.go(allBoardsPath(SECTION_ARCHIVE, []));
     Popup.back();

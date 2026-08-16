@@ -3,7 +3,7 @@
 // with a dynamic import - the same way tests/cardUrl.test.cjs loads its module.
 (async () => {
 
-// Every named theme publishes its own accent colour (docs/Design/Page/Theme.md).
+// Every named theme publishes its own accent colour (docs/Features/Page/Theme.md).
 //
 // The chrome outside a board - the Admin Panel's selected left-menu row, its
 // buttons, every Save button, the table-page controls - reads ONE CSS variable,

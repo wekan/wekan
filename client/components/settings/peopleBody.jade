@@ -14,7 +14,7 @@ template(name="people")
         +leftMenu(menuItems)
         .main-body
           //- Every Admin Panel pane opens with the same heading, and it is the
-          //- open menu entry's own label (docs/Design/Page/Left-Menu.md).
+          //- open menu entry's own label (docs/Features/Page/Left-Menu.md).
           +paneTitle(paneTitleData)
           //- Login and E-mail moved here from Admin Panel / Settings. Their templates
           //- still live in settingBody.jade beside the other settings panes - Blaze
@@ -761,7 +761,7 @@ template(name="rolesGeneral")
     button.js-roles-save.primary {{_ 'save'}}
 
     //- Roles Status: what each board role may do, READ-ONLY, below the Save
-    //- button. It is the shared table page (docs/Design/Page/Table.md), so it
+    //- button. It is the shared table page (docs/Features/Page/Table.md), so it
     //- looks and behaves like every other Admin Panel table, and it follows the
     //- checkboxes ABOVE the Save button - the working copy, not the saved
     //- document - so an admin can see the effect of a change before saving it.

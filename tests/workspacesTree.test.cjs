@@ -8,7 +8,7 @@
 // other workspace should actually make it sub workspace of workspace it was
 // dropped to ... there can be unlimited tree hierarchy of workspaces."
 //
-// Design: docs/Design/Page/Workspaces.md
+// Design: docs/Features/Page/Workspaces.md
 // Run: node tests/workspacesTree.test.cjs
 
 const assert = require('assert');
@@ -332,7 +332,7 @@ test('the fold is remembered per user, and in a cookie when there is none', () =
 });
 
 test('the design doc exists, and every file it lists does too', () => {
-  const doc = read('docs/Design/Page/Workspaces.md');
+  const doc = read('docs/Features/Page/Workspaces.md');
   for (const section of [
     '## Folding a workspace',
     '## Dragging one workspace onto another',
@@ -350,7 +350,7 @@ test('the design doc exists, and every file it lists does too', () => {
     assert.ok(fs.existsSync(path.join(__dirname, '..', rel)), `related file missing: ${rel}`);
   }
   // ...and the page it belongs to links to it, or nobody finds it.
-  assert.ok(/\(Workspaces\.md\)/.test(read('docs/Design/Page/All-Boards.md')),
+  assert.ok(/\(Workspaces\.md\)/.test(read('docs/Features/Page/All-Boards.md')),
     'All Boards links to it');
 });
 

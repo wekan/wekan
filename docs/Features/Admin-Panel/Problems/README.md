@@ -42,7 +42,7 @@ unsafe or noisy:
 
 **Reports** — Security Report, Impersonation Report, Performance, Speed, Tests, CPU
 usage, Broken Cards, Files Report, Rules Report, Boards Report, Cards Report and
-Recovery. Every one is the same shared [table page](../../../Design/Page/Table.md):
+Recovery. Every one is the same shared [table page](../../../Features/Page/Table.md):
 a search box, the total, `page X / N`, prev/next, and one page of rows fetched from
 the server at a time. **Performance** sits with the Speed / Tests / CPU usage streams
 it configures: card loading is automatic per board size, with

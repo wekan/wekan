@@ -1624,7 +1624,7 @@ Template.cardDetailsActionsPopup.events({
   // tooltip to name it - the one place a name cannot be read without hovering -
   // and it is here now beside the swimlane's and the list's, so all three are
   // copied the same way from the same kind of menu.
-  // docs/Design/Page/Board-Item-Links.md
+  // docs/Features/Page/Board-Item-Links.md
   'click .js-copy-card-link'(event, tpl) {
     event.preventDefault();
     const card = Template.currentData();

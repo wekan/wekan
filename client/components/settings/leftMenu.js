@@ -24,7 +24,7 @@ import { Utils } from '/client/lib/utils';
 // different one in a different template on each page - `.side-menu` here,
 // `.boards-left-menu` in boardsList.jade - and a helper registered on one of
 // them cannot be read by the other.
-// docs/Design/Page/Left-Menu.md
+// docs/Features/Page/Left-Menu.md
 
 Template.registerHelper('isLeftMenuCollapsed', () => Utils.getLeftMenuCollapseState());
 
@@ -79,7 +79,7 @@ Template.leftMenuCollapse.events({
 //
 // Not on a phone: there the menu is full width above the content (the ≤800px
 // rules), so there is no inner edge to drag and nothing a width would mean.
-// docs/Design/Page/Left-Menu.md
+// docs/Features/Page/Left-Menu.md
 
 const LEFT_MENU_WIDTH_PROPERTY = '--wekan-left-menu-width';
 // A menu narrower than this cannot show its longest label, and one wider than

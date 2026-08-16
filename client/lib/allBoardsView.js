@@ -7,7 +7,7 @@ const {
 } = require('/models/lib/allBoardsView');
 
 // The state the All Boards controls share, and where the view choice is kept.
-// Design: docs/Design/Page/All-Boards.md
+// Design: docs/Features/Page/All-Boards.md
 //
 // The controls live in `boardListHeaderBar` and the boards live in `boardList`.
 // Those are two SEPARATE Blaze template instances - the header bar is rendered

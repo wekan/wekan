@@ -2,7 +2,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { Session } from 'meteor/session';
 import { Tracker } from 'meteor/tracker';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
-// The per-pane URLs of the Admin Panel. docs/Design/Page/Admin-Panel-URLs.md
+// The per-pane URLs of the Admin Panel. docs/Features/Page/Admin-Panel-URLs.md
 import { adminPath } from '/models/lib/adminUrls';
 import { TAPi18n } from '/imports/i18n';
 import Attachments, { AttachmentStorage } from '/models/attachments';
@@ -78,7 +78,7 @@ function collectionResultsCount(collection) {
 // --- adminReports template ---
 
 // Rows per page for the paginated reports (files, rules, boards, cards). The one
-// rows-per-page of the whole app (docs/Design/Page/Table.md), so every list pages
+// rows-per-page of the whole app (docs/Features/Page/Table.md), so every list pages
 // alike - a report is not a different kind of page than People or Translation.
 const REPORTS_PER_PAGE = TABLE_PAGE_ROWS_PER_PAGE;
 
@@ -214,7 +214,7 @@ Template.adminReports.onCreated(function () {
   // pane id; a bare /admin-reports opens Summary. Reactive, so following a link
   // to another report while this page is open switches to it - the route action
   // runs again without re-creating the template.
-  // docs/Design/Page/Admin-Panel-URLs.md
+  // docs/Features/Page/Admin-Panel-URLs.md
   //
   // It depends on Meteor.userId() as well, and that is not decoration. Opening
   // a report BY ITS ADDRESS - /admin/problems/files typed, bookmarked, or just
@@ -280,14 +280,14 @@ Template.adminReports.onDestroyed(function () {
   }
 });
 
-// The Problems side menu, as data (docs/Design/Page/Left-Menu.md). Every entry
+// The Problems side menu, as data (docs/Features/Page/Left-Menu.md). Every entry
 // used to be six lines of markup plus its own click handler; the twelve handlers
 // are now the single .js-left-menu-item one below.
 const PROBLEMS_MENU = [
   { id: 'report-summary', icon: 'fa-list', labelKey: 'summary' },
   { separator: true },
   // Two groups, each named by a heading rather than by another entry: there is
-  // nothing to click on a group title (docs/Design/Page/Left-Menu.md). Both use an
+  // nothing to click on a group title (docs/Features/Page/Left-Menu.md). Both use an
   // i18n key the app already has.
   { heading: true, labelKey: 'settings' },
   // Moved here from Admin Panel / Features. They are settings rather than reports -
@@ -329,7 +329,7 @@ Template.adminReports.helpers({
       Template.instance().activeReport.get() || 'report-summary');
   },
   // The heading above the pane: the open menu entry's own label
-  // (docs/Design/Page/Left-Menu.md). The report tables and the event streams
+  // (docs/Features/Page/Left-Menu.md). The report tables and the event streams
   // stopped passing a title to the shared table page when this arrived - the menu
   // entry and the report title were the same i18n key, and both would have printed.
   paneTitleData() {
@@ -432,7 +432,7 @@ Template.adminReports.events({
   },
 
   // --- Controls: ONE handler each, for every table page ---
-  // The shared table page (docs/Design/Page/Table.md) emits the same three
+  // The shared table page (docs/Features/Page/Table.md) emits the same three
   // controls for every report, so the report is identified by activeReport
   // rather than by a per-report js- class. Twelve prev/next handlers and six
   // search handlers collapsed to these.
@@ -494,7 +494,7 @@ function switchMenu(event, tmpl) {
 
 // Open a pane BY ID. Split out of switchMenu so the URL can open one too - every
 // left-menu entry has an address now (/admin/problems/cpu, /admin/problems/rules).
-// docs/Design/Page/Admin-Panel-URLs.md
+// docs/Features/Page/Admin-Panel-URLs.md
 function openReportPane(tmpl, targetID) {
   // Re-opening the open pane must do nothing. The active row is rendered from
   // activeReport now, so compare ids instead of reading a DOM class.
@@ -589,7 +589,7 @@ function openReportPane(tmpl, targetID) {
 // currentPage/totalPages helpers, and the same click/keydown handlers, retyped
 // with a different js- prefix each time. They now differ only in the COLUMN
 // SPEC below; everything else - markup, layout, paging, search - comes from the
-// shared table page. See docs/Design/Page/Table.md.
+// shared table page. See docs/Features/Page/Table.md.
 //
 // A column is { label | labelKey, value(doc), align, nowrap, cls, userId(doc) }.
 
@@ -622,7 +622,7 @@ function formatDate(date) {
 // page that is already in minimongo - the publication sent only that page.
 //
 // No titleKey here: the pane heading is rendered once for every Admin Panel pane
-// from the open menu entry (docs/Design/Page/Left-Menu.md), and PROBLEMS_MENU
+// from the open menu entry (docs/Features/Page/Left-Menu.md), and PROBLEMS_MENU
 // carries these reports' i18n keys already - the same keys this table used to
 // repeat.
 const REPORT_TABLES = {
@@ -764,7 +764,7 @@ function reportTablePageData(tmpl) {
   const info = pageInfo(cfg.count.get(), cfg.page.get(), REPORTS_PER_PAGE);
   return {
     // No title: the pane heading comes from the open menu entry, once, for every
-    // Admin Panel pane (docs/Design/Page/Left-Menu.md) - and this report's menu
+    // Admin Panel pane (docs/Features/Page/Left-Menu.md) - and this report's menu
     // entry carries the very same i18n key, so both would have printed it.
     descKey: spec.descKey,
     emptyKey: spec.emptyKey,
@@ -793,7 +793,7 @@ const EVENTS_PER_PAGE = TABLE_PAGE_ROWS_PER_PAGE;
 
 // The stream's title is not needed here any more: the pane heading is rendered
 // once for every Admin Panel pane from the open menu entry
-// (docs/Design/Page/Left-Menu.md), and PROBLEMS_MENU already carries these exact
+// (docs/Features/Page/Left-Menu.md), and PROBLEMS_MENU already carries these exact
 // i18n keys - securityReportTitle, speedReportTitle, testsReportTitle,
 // cpuReportTitle - so the words are unchanged and there is only one of them.
 
@@ -895,7 +895,7 @@ Template.eventStreamReport.helpers({
     const cpu = t.cpu.get();
     return {
       // No title: the pane heading comes from the open menu entry, once, for
-      // every Admin Panel pane (docs/Design/Page/Left-Menu.md).
+      // every Admin Panel pane (docs/Features/Page/Left-Menu.md).
       emptyKey: 'no-new-problems',
       searchTerm: t.search.get(),
       header: buildHeader(EVENT_STREAM_COLUMNS),

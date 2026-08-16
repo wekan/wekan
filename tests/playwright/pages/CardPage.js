@@ -351,7 +351,7 @@ class CardPage {
    * The card's title header used to carry this as an `<a href>` named only by a
    * tooltip. It is a named row of the hamburger menu now, beside the swimlane's
    * and the list's, and it copies with JavaScript rather than being a link -
-   * so there is no `href` to read. docs/Design/Page/Board-Item-Links.md
+   * so there is no `href` to read. docs/Features/Page/Board-Item-Links.md
    */
   copyLinkRow() {
     return this.page.locator('.js-pop-over .js-copy-card-link').first();

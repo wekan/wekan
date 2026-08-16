@@ -1,5 +1,5 @@
 // The accent colour of every named theme — the colour that theme paints its header
-// bar with (docs/Design/Page/Theme.md).
+// bar with (docs/Features/Page/Theme.md).
 //
 // WeKan's chrome outside a board reads ONE CSS variable, `--theme-accent`: the
 // Admin Panel's selected left-menu row, its buttons, every Save button, the table

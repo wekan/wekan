@@ -28,7 +28,7 @@ import { activeAccent, activeFill } from '/models/lib/themeAccents';
 // The class the CHROME (the two top bars, the board wrapper) must carry, from the
 // same order of themes the <body> autorun below applies:
 //   the user's own override, then the board's own colour on a board page, then the
-// site theme (docs/Design/Page/Theme.md). Registered as a Blaze helper so the
+// site theme (docs/Features/Page/Theme.md). Registered as a Blaze helper so the
 // templates read ONE answer instead of each re-deriving part of the order - which is
 // what left the top bars on the default colour while the buttons took the site theme.
 Template.registerHelper('themeColorClass', () => {

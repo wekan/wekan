@@ -87,7 +87,7 @@ test('non-array / empty input is handled without throwing', () => {
 
 test('perPage is clamped to a sane range (>=1, <=200)', () => {
   // The default is the app's ONE rows-per-page (10, TABLE_PAGE_ROWS_PER_PAGE in
-  // models/lib/tablePage.js and docs/Design/Page/Table.md) - it used to be 25
+  // models/lib/tablePage.js and docs/Features/Page/Table.md) - it used to be 25
   // here alone, which is exactly the drift that setting exists to stop.
   // models/lib/tablePage.js is an ES module, so read the constant out of it
   // rather than require() it - the same thing tests/tablePage.test.cjs does.

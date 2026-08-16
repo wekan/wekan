@@ -25,7 +25,7 @@ test.describe('Board-level actions', () => {
     if (!(await boardMenuBtn.isVisible().catch(() => false))) {
       // The hamburger moved to the first top header bar and was renamed with
       // it: one control now opens whichever sidebar the page has.
-      // docs/Design/Page/Header.md
+      // docs/Features/Page/Header.md
       await boardPage.locator('.js-toggle-page-sidebar').first().click();
     }
     await boardMenuBtn.waitFor();

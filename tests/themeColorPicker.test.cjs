@@ -72,7 +72,7 @@ test('Member Settings Change Color popup has a title', () => {
 });
 
 test('every place that chooses a theme renders the shared picker with a scope', () => {
-  // One template, three places (docs/Design/Page/Theme.md) - the way one table page
+  // One template, three places (docs/Features/Page/Theme.md) - the way one table page
   // serves every table. `scope` is the only difference between them.
   assert.ok(/\+themeColorPicker\(scope="global"\)/.test(read('client/components/users/userHeader.jade')),
     'member popup -> global scope');

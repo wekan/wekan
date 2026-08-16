@@ -23,7 +23,7 @@ export class CardSearchPaged {
     this.resultsCount = 0;
     this.totalHits = 0;
     this.queryErrors = null;
-    // The one rows-per-page of the app (docs/Design/Page/Table.md): a search page
+    // The one rows-per-page of the app (docs/Features/Page/Table.md): a search page
     // is a paginated page too, so it loads the same 10 rows at a time.
     this.resultsPerPage = TABLE_PAGE_ROWS_PER_PAGE;
     this.sessionId = SessionData.getSessionId();

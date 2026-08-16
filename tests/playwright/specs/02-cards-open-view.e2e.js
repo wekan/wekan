@@ -74,7 +74,7 @@ test.describe('Cards – open & view modes', () => {
     // card's title header, named only by a tooltip; it is a named row of the
     // hamburger menu now and copies with JavaScript, so there is no href to
     // read - what it puts in the clipboard is the absolute url.
-    // docs/Design/Page/Board-Item-Links.md
+    // docs/Features/Page/Board-Item-Links.md
     const copied = await cp.copyLink();
     expect(copied).toBeTruthy();
     expect(copied).toMatch(/\/b\/[^/]+\/[^/]+\/[^/]+$/);

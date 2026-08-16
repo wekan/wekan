@@ -22,7 +22,7 @@ import '/client/components/settings/invitationCode.js';
 // folded live here, and package.json sets meteor.mainModule, so a file nobody
 // imports is simply not in the bundle. Without this line the caret rendered and
 // did nothing - an unregistered helper is undefined, so the panel never took
-// the `collapsed` class either. docs/Design/Page/Left-Menu.md
+// the `collapsed` class either. docs/Features/Page/Left-Menu.md
 import '/client/components/settings/leftMenu.js';
 import '/client/components/settings/lockedUsersBody.js';
 import '/client/components/settings/migrationProgress.js';

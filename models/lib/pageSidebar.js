@@ -13,7 +13,7 @@
 // than none.
 //
 // Pure: a route name in, a Blaze template name out. No Meteor, no router.
-// docs/Design/Page/Header.md
+// docs/Features/Page/Header.md
 
 // routeName -> the template that draws that page's controls.
 const PAGE_SIDEBAR_TEMPLATES = {

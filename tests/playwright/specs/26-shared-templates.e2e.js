@@ -71,7 +71,7 @@ test.describe('Admin – shared templates', () => {
   async function openTemplatesTab(page) {
     await page.goto(`${BASE_URL}/people`, { waitUntil: 'networkidle' });
     // The shared left menu addresses an entry by data-id, not by a per-page class
-    // (docs/Design/Page/Left-Menu.md).
+    // (docs/Features/Page/Left-Menu.md).
     const templatesEntry = page.locator('.js-left-menu-item[data-id="templates-setting"]');
     await templatesEntry.waitFor({ timeout: 15_000 });
     await templatesEntry.click();

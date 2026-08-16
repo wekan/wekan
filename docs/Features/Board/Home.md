@@ -37,7 +37,7 @@ start. The row is there whether or not a board is at it, because the place to
 drop a board onto has to exist before there is anything in it.
 
 Its address is `/allboards/home`, the same shape as the other sections
-([All Boards URLs](../../Design/Page/All-Boards-URLs.md)).
+([All Boards URLs](../../Features/Page/All-Boards-URLs.md)).
 
 There is no **Add Board** tile in Home. A board created here would not be the
 board that opens after login, so the tile would promise something it cannot do.
@@ -131,7 +131,7 @@ must not thereby decide which board that user starts in
 
 ## Related
 
-- [All Boards](../../Design/Page/All-Boards.md) — the page this is a section of
-- [All Boards URLs](../../Design/Page/All-Boards-URLs.md) — `/allboards/home`
-- [Archive](../../Design/Page/Archive.md) — the other section a board is dragged onto
+- [All Boards](../../Features/Page/All-Boards.md) — the page this is a section of
+- [All Boards URLs](../../Features/Page/All-Boards-URLs.md) — `/allboards/home`
+- [Archive](../../Features/Page/Archive.md) — the other section a board is dragged onto
 - [Archive and Delete](Archive-and-Delete.md) — what archiving a board does

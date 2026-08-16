@@ -629,7 +629,7 @@ Meteor.methods({
   // Collapse or expand the left menu. One setting for both pages: All Boards
   // and the Admin Panel draw one menu, and a reader who folds it away on one of
   // them has said what they want on the other.
-  // docs/Design/Page/Left-Menu.md
+  // docs/Features/Page/Left-Menu.md
   async setLeftMenuCollapsed(collapsed) {
     check(collapsed, Boolean);
     if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
@@ -642,7 +642,7 @@ Meteor.methods({
   // ones are stored, so unfolding REMOVES the key rather than writing false: a
   // reader who folds two workspaces out of fifty has two keys, and a workspace
   // that is deleted takes its key with it the next time it is unfolded.
-  // docs/Design/Page/Workspaces.md
+  // docs/Features/Page/Workspaces.md
   async setWorkspaceCollapsed(workspaceId, collapsed) {
     check(workspaceId, String);
     check(collapsed, Boolean);
@@ -664,7 +664,7 @@ Meteor.methods({
   // a call with 20000 - or with NaN, which passes `check(width, Number)` and
   // would store a width no page could recover from - cannot leave a user with a
   // menu that fills the window and no way to get at what it covers.
-  // docs/Design/Page/Left-Menu.md
+  // docs/Features/Page/Left-Menu.md
   async setLeftMenuWidth(width) {
     check(width, Number);
     if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');

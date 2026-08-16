@@ -118,7 +118,7 @@
    0.85 keeps the colour recognisable, rgb(68,142,191), while still being
    visibly flatter than an enabled button beside it, which is the only thing
    this rule is for. The `pointer-events: none` below is what actually makes it
-   unusable; the dimming only has to SAY so. docs/Design/Page/Theme.md */
+   unusable; the dimming only has to SAY so. docs/Features/Page/Theme.md */
 .table-page-pagination button.disabled,
 .boards-pagination button.disabled,
 .table-view-pagination button.disabled {
@@ -129,7 +129,7 @@
   pointer-events: none;
 }
 
-/* The ACTION buttons of the shared controls row (docs/Design/Page/Table.md):
+/* The ACTION buttons of the shared controls row (docs/Features/Page/Table.md):
    Admin Panel / People's "Unlock all users" and "Teams". They sit in the same row
    as the pager and are bare <button>s too, so without a rule here they fell
    through to the forms.css fallbacks above and came out BLACK - then dark grey

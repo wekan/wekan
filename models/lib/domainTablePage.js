@@ -13,7 +13,7 @@
 // only that page plus the total so the client can render pagination controls.
 
 // The app's one rows-per-page (TABLE_PAGE_ROWS_PER_PAGE in models/lib/tablePage.js,
-// docs/Design/Page/Table.md). Written out rather than imported because this module
+// docs/Features/Page/Table.md). Written out rather than imported because this module
 // is loaded by a plain-node test with require(), which cannot parse ESM imports;
 // tests/tablePage.test.cjs pins the two to the same number.
 const PER_PAGE_DEFAULT = 10;

@@ -1,7 +1,7 @@
 /* Admin Panel → Problems: the few styles that are NOT part of the shared table
    page. Everything the reports have in common - title, status row, search +
    pagination controls, and the table itself - now lives in tablePage.css and is
-   defined once. See docs/Design/Page/Table.md. */
+   defined once. See docs/Features/Page/Table.md. */
 
 /* The menu separator and the "Reports" group title are styled with the menu itself
    (settingBody.css): the shared left menu renders `li.left-menu-separator` and

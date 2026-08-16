@@ -8,7 +8,7 @@ import getSlug from 'limax';
 // The archived-at line on a tile in the Archive, in the reader's own format.
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 // The All Boards URLs, and the slug path of a workspace in the tree.
-// docs/Design/Page/All-Boards-URLs.md
+// docs/Features/Page/All-Boards-URLs.md
 import {
   ALL_BOARDS_SECTIONS,
   defaultSection,
@@ -38,7 +38,7 @@ import { Utils } from '/client/lib/utils';
 import '/client/lib/dragDropTouch'; // touch -> HTML5 DnD so board icons drag by finger
 // What a drag does to the workspaces tree - move before, after, or INTO another
 // workspace - as pure functions, so the rules are testable without a browser.
-// docs/Design/Page/Workspaces.md
+// docs/Features/Page/Workspaces.md
 const {
   BEFORE: DROP_BEFORE,
   AFTER: DROP_AFTER,
@@ -54,7 +54,7 @@ import {
 } from '/models/lib/boardSortReorder';
 // The sidebar the Search and Multi-Selection controls open. Its state is module
 // scope, not a template instance: this bar and the sidebar are separate Blaze
-// instances. docs/Design/Page/Search.md, docs/Design/Page/Multi-Selection.md
+// instances. docs/Features/Page/Search.md, docs/Features/Page/Multi-Selection.md
 import {
   openAllBoardsSidebar,
   closeAllBoardsSidebar,
@@ -321,7 +321,7 @@ Template.boardList.helpers({
   },
   // Whether to move the boards left, out from under the right sidebar. The
   // sidebar is a separate Blaze instance, so the state is module scope - the
-  // page cannot read a ReactiveVar on it. docs/Design/Page/Search.md
+  // page cannot read a ReactiveVar on it. docs/Features/Page/Search.md
   isSidebarOpen() {
     return isAllBoardsSidebarOpen();
   },
@@ -342,11 +342,11 @@ Template.boardList.helpers({
 // map catches events from the templates rendered inside it, so these fire for
 // this bar's copy and the board header's map fires for its own. That is what
 // lets one piece of markup mean "search cards" on a board and "search boards"
-// here. docs/Design/Page/Search.md, docs/Design/Page/Multi-Selection.md
+// here. docs/Features/Page/Search.md, docs/Features/Page/Multi-Selection.md
 // Sort and the view menu, which were buttons in this page's second header bar
 // and are rows of the sidebar's home view now. A Blaze event map only sees
 // events inside its OWN template, so they had to move with their markup.
-// docs/Design/Page/All-Boards.md
+// docs/Features/Page/All-Boards.md
 Template.allBoardsHomeSidebar.events({
   // Titled "Sort Boards", from the key the app already has for that phrase -
   // the same reasoning as the starred-boards popup: a `boardsSortPopup-title`
@@ -379,7 +379,7 @@ Template.allBoardsHomeSidebar.helpers({
 // A Blaze event map only sees events inside its OWN template, so these are
 // their own map rather than shared with the sidebar's: the same
 // `js-all-boards-sidebar-search` markup exists in both places and each map
-// fires for its own copy. docs/Design/Page/All-Boards.md
+// fires for its own copy. docs/Features/Page/All-Boards.md
 Template.allBoardsHeaderButtons.helpers({
   // Every template registers the helpers IT uses. `BoardMultiSelection` is also
   // a helper of boardList, but a Blaze template cannot see a sibling's helpers -
@@ -439,7 +439,7 @@ Template.boardList.events({});
 // Put the selected menu entry in the address bar. A section is its own name; a
 // workspace is the slugs of its names down the tree, so the URL says where you
 // are rather than carrying a random id. `go`, not `replace`, so Back returns to
-// the previous entry. docs/Design/Page/All-Boards-URLs.md
+// the previous entry. docs/Features/Page/All-Boards-URLs.md
 function goToAllBoards(tpl, menuValue) {
   const path = allBoardsPathForMenu(menuValue, tpl.workspacesTreeVar.get(), getSlug);
   if (path && FlowRouter.current().path !== path) FlowRouter.go(path);
@@ -448,7 +448,7 @@ function goToAllBoards(tpl, menuValue) {
 // The boards the page shows: the selected section, filtered by the search
 // field, sorted and paged. Extracted from the `boards` helper so the Table
 // view draws the SAME set - two copies of this would be two answers to
-// "which boards am I looking at". docs/Design/Page/All-Boards.md
+// "which boards am I looking at". docs/Features/Page/All-Boards.md
 // How many archived boards the section shows at once. The publication is
 // paginated and this is the page size it is asked for; the Archive is a place
 // you go to find one board, not a list to scroll for ever.
@@ -456,7 +456,7 @@ const ARCHIVED_BOARDS_LIMIT = 60;
 
 function boardsForView(tpl) {
   // The Archive shows ARCHIVED boards - the one section whose query is the
-  // opposite of every other one's. docs/Design/Page/Archive.md
+  // opposite of every other one's. docs/Features/Page/Archive.md
   const showsArchive = tpl.selectedMenu.get() === 'archive';
   let query = {
     $and: [
@@ -659,7 +659,7 @@ Template.boardList.onCreated(function () {
   // Shared with the right sidebar, which is a SEPARATE Blaze instance (it is
   // rendered beside the page, not inside it) and carries this page's controls. Assigned onto the instance so every `tpl.selectedMenu` /
   // `tpl.boardSearchVar` already written here keeps working unchanged.
-  // docs/Design/Page/All-Boards.md
+  // docs/Features/Page/All-Boards.md
   this.selectedMenu = allBoardsMenuVar;
   // Whatever the address named, else the section this user should land on:
   // Starred when anything is starred, Remaining when nothing is - opening on an
@@ -687,7 +687,7 @@ Template.boardList.onCreated(function () {
   // It runs whenever either changes, so a link followed while the page is
   // already open switches workspace, and a slug path that names nothing leaves
   // the Workspaces section selected rather than an empty board list.
-  // docs/Design/Page/All-Boards-URLs.md
+  // docs/Features/Page/All-Boards-URLs.md
   this.autorun(() => {
     const slugPath = Session.get('boardListWorkspacePath') || [];
     const tree = this.workspacesTreeVar.get();
@@ -754,7 +754,7 @@ Template.boardList.onCreated(function () {
   // A workspace was dropped: before, after, or INTO another one. The tree it
   // becomes is worked out by the pure module - the guards that keep a subtree
   // attached to the root live there, with their own tests - and this only saves
-  // the answer. docs/Design/Page/Workspaces.md
+  // the answer. docs/Features/Page/Workspaces.md
   this.moveWorkspaceInTree = (draggedId, targetId, position) => {
     const tree = this.workspacesTreeVar.get();
     // A drop that puts a workspace back where it already is writes the same tree
@@ -944,7 +944,7 @@ Template.boardList.helpers({
   // The Table view of the same boards the Lists view draws. Ten per page, the
   // shared TABLE_PAGE_ROWS_PER_PAGE, and a rowTemplate because the Edit cell is a
   // control and the row carries the board's colours.
-  // docs/Design/Page/All-Boards.md
+  // docs/Features/Page/All-Boards.md
   tablePageData() {
     const tpl = Template.instance();
     const all = boardsForView(tpl);
@@ -1099,7 +1099,7 @@ Template.boardList.helpers({
   // colour rather than two that drift apart. Its words are the section's own
   // title key - the same key the first header bar names the page with, and the
   // same one the highlighted menu row carries - so all three say the same
-  // thing. docs/Design/Page/All-Boards.md
+  // thing. docs/Features/Page/All-Boards.md
   //
   // `{ titleKey }` for a section, `{ label }` for a workspace: a workspace's
   // name is what somebody typed, and a workspace called "starred" is not the
@@ -1258,7 +1258,7 @@ Template.boardList.helpers({
 // it, or light the row up to say "into this one". The class is also what the
 // drop reads back: the pointer's position is worked out once, while the row is
 // showing it, rather than a second time from a drop event that may land a pixel
-// away from where the slot was drawn. docs/Design/Page/Workspaces.md
+// away from where the slot was drawn. docs/Features/Page/Workspaces.md
 const WORKSPACE_DROP_CLASSES = {
   [DROP_BEFORE]: 'drop-before',
   [DROP_INSIDE]: 'drop-inside',
@@ -1316,7 +1316,7 @@ Template.workspaceTree.helpers({
   // The caret, and what it says. `Template.currentData()` is the NODE inside the
   // `each`, which is what makes these read the row they are drawn on rather than
   // needing the id passed to each of them.
-  // docs/Design/Page/Workspaces.md
+  // docs/Features/Page/Workspaces.md
   workspaceHasChildren() {
     return hasChildren(Template.currentData());
   },
@@ -1907,7 +1907,7 @@ Template.boardList.events({
     // the drop handler below reads as "a board was dropped here", so the drop
     // did nothing and the row snapped back. Handles ON started the drag from a
     // span, which carries no text, which is why the same drop worked there.
-    // docs/Design/Page/Workspaces.md
+    // docs/Features/Page/Workspaces.md
     if (typeof dt.clearData === 'function') dt.clearData();
     dt.setData('application/x-workspace-id', workspaceId);
 
@@ -2409,7 +2409,7 @@ Template.workspaceActionsPopup.onRendered(function() {
 
 
 // The All Boards view menu, in the FIRST header bar. Its handler and the helper
-// that draws it follow it out of the sidebar. docs/Design/Page/Header.md
+// that draws it follow it out of the sidebar. docs/Features/Page/Header.md
 Template.allBoardsViewMenu.events({
   // Titled, so it has a header with the close ✕ in it - the same popup the
   // BOARD's view menu opens, and it is the same question: which view of this

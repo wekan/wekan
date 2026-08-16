@@ -116,7 +116,7 @@ test('desktop card window uses a small 3px radius', () => {
 test('org/team feature column headers use compact icon links', () => {
   // The org headers are one shared template now, parameterised by feature and
   // rendered through the table page's headerTemplate slot
-  // (docs/Design/Page/Table.md) - three copies of the same select-all pair became
+  // (docs/Features/Page/Table.md) - three copies of the same select-all pair became
   // one. Same compact icon links, one definition.
   assert.ok(/a\.js-org-feature-all\(href="#", data-feature="\{\{feature\}\}", data-value="true", title="\{\{_ 'select-all'\}\}"\)\s*\n\s*i\.fa\.fa-check-square-o/.test(peopleBody));
   const js = fs.readFileSync(path.join(__dirname, '..', 'client/components/settings/peopleBody.js'), 'utf8');

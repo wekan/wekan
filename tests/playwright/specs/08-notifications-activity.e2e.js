@@ -145,7 +145,7 @@ test.describe('Notifications & activity log', () => {
     // any more - the bar is `#header-quick-access[role=navigation]`, which is
     // what specs 18 and 19 already address it by. The old locator matched
     // nothing, so this asserted that a non-existent element was visible.
-    // docs/Design/Page/Header.md
+    // docs/Features/Page/Header.md
     const headerBar = page2.locator('#header-quick-access');
     await expect(headerBar).toBeVisible({ timeout: 10_000 });
     // The bell itself rather than a count: the count arrives asynchronously and

@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
-// The per-pane URLs of the Admin Panel. docs/Design/Page/Admin-Panel-URLs.md
+// The per-pane URLs of the Admin Panel. docs/Features/Page/Admin-Panel-URLs.md
 import { adminPath } from '/models/lib/adminUrls';
 import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
 import AttachmentBulkMoveStatus from '/models/attachmentBulkMoveStatus';
@@ -490,7 +490,7 @@ const BACKUP_DAYS = [
 // 31st would skip February, or a whole quarter of the year.
 const BACKUP_MONTH_DAYS = Array.from({ length: 28 }, (_, i) => i + 1);
 
-// The Attachments side menu, as data (docs/Design/Page/Left-Menu.md).
+// The Attachments side menu, as data (docs/Features/Page/Left-Menu.md).
 // emoji:true reproduces the empty span.emoji-icon this page always rendered.
 function attachmentsMenu(user) {
   const items = [
@@ -529,7 +529,7 @@ Template.attachments.helpers({
       Template.instance().activeSection.get(), 'js-attachments-menu');
   },
   // The heading above the pane: the open menu entry's own label
-  // (docs/Design/Page/Left-Menu.md).
+  // (docs/Features/Page/Left-Menu.md).
   paneTitleData() {
     return paneTitle(attachmentsMenu(ReactiveCache.getCurrentUser()),
       Template.instance().activeSection.get());
@@ -931,7 +931,7 @@ Template.attachments.events({
 
     tpl.activeSection.set(targetID);
     // ...and into the address bar, so the pane can be linked and bookmarked.
-    // docs/Design/Page/Admin-Panel-URLs.md
+    // docs/Features/Page/Admin-Panel-URLs.md
     const path = adminPath('attachments', targetID);
     if (path && FlowRouter.current().path !== path) FlowRouter.go(path);
   },

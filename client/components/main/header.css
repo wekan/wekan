@@ -418,7 +418,7 @@ body:not(.board-view) #header #header-main-bar h1 {
    - the same 22px the left menu's rows below it are indented by (4px of margin
    plus 18px of padding), so the two line up down the page.
    The gap to the logo beside it is the 4 + 4 of the two margins, like every
-   other pair of neighbours in this bar. docs/Design/Page/Header.md */
+   other pair of neighbours in this bar. docs/Features/Page/Header.md */
 #header-quick-access .allBoards {
   font-size: calc(14px * var(--wekan-ui-font-scale, 1));
   padding-block: 4px;
@@ -451,7 +451,7 @@ body.mobile-mode #header-quick-access .home-icon .fa-home {
 /* No inline padding in mobile mode either. This rule existed to cut the 15px
    the desktop `.allBoards` carried down to 6px; that padding is gone, so
    matching it here would only put the house back off the line every other width
-   starts on. docs/Design/Page/Header.md */
+   starts on. docs/Features/Page/Header.md */
 body.mobile-mode #header-quick-access .allBoards {
   padding-block: 4px;
   padding-inline: 0;
@@ -816,7 +816,7 @@ body.mobile-mode #header-quick-access .allBoards {
   /* 6px at the START, the same as at every other width, so the house begins on
      one line down the page no matter how wide the window is. It was 8px, which
      moved it 2px in on a phone alone. The end stays 8px - that is a gap between
-     two things, not the inset. docs/Design/Page/Header.md */
+     two things, not the inset. docs/Features/Page/Header.md */
   #header-quick-access .home-icon .header-home-link {
     padding: 4px 8px 4px 6px;
     font-size: calc(12px * var(--wekan-ui-font-scale, 1));
@@ -1105,7 +1105,7 @@ body.mobile-mode #header-quick-access .allBoards {
       font-size: calc(16px * var(--wekan-ui-font-scale, 1)) !important; /* Much larger text */
       /* 6px at the START here too - the tap target grows, the INSET does not.
          At 12px the house began 6px further in on a small phone than at every
-         other width. docs/Design/Page/Header.md */
+         other width. docs/Features/Page/Header.md */
       padding: 8px 12px 8px 6px !important;
     }
 

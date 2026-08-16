@@ -1,4 +1,4 @@
-// Pure helpers behind the shared left menu (docs/Design/Page/Left-Menu.md).
+// Pure helpers behind the shared left menu (docs/Features/Page/Left-Menu.md).
 //
 // Every Admin Panel page — Settings, People, Features, Attachments, Problems,
 // Translation, Info — has the same menu beside its content: a list of entries,

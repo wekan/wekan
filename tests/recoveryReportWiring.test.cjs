@@ -53,7 +53,7 @@ test('recordRecoveryEvent method is admin-gated', () => {
 
 test('client report is wired: config, columns, menu, rendering', () => {
   // The report no longer has a template of its own: it renders through the
-  // shared table page (docs/Design/Page/Table.md) and differs from the other
+  // shared table page (docs/Features/Page/Table.md) and differs from the other
   // reports only in its column list. Same wiring, one implementation.
   const js = read('client/components/settings/adminReports.js');
   assert.ok(/'report-recovery':/.test(js), 'reportConfig has report-recovery');
@@ -61,7 +61,7 @@ test('client report is wired: config, columns, menu, rendering', () => {
   assert.ok(/REPORT_TABLES = \{[\s\S]*'report-recovery': \{[\s\S]*columns:/.test(js),
     'report-recovery has a column spec in REPORT_TABLES');
   // No titleKey any more: every Admin Panel pane's heading is rendered once, from
-  // the open menu entry (docs/Design/Page/Left-Menu.md), and PROBLEMS_MENU carries
+  // the open menu entry (docs/Features/Page/Left-Menu.md), and PROBLEMS_MENU carries
   // this report's i18n key - a titleKey here would print the same words twice.
   assert.ok(/labelKey: 'recoveryReportTitle'/.test(js),
     'the menu entry carries the title');
@@ -72,7 +72,7 @@ test('client report is wired: config, columns, menu, rendering', () => {
     'severity row class');
 
   const jade = read('client/components/settings/adminReports.jade');
-  // The side menu is data now (docs/Design/Page/Left-Menu.md).
+  // The side menu is data now (docs/Features/Page/Left-Menu.md).
   assert.ok(/'report-recovery'/.test(js), 'menu entry');
   assert.ok(/\+tablePage\(tablePageData\)/.test(jade), 'rendered through the shared table page');
 });

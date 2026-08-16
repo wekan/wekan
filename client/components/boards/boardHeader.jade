@@ -11,7 +11,7 @@
 //-
 //- There is no desktop/mobile split any more either. The second bar wrote the
 //- whole set out TWICE, once for each, because a labelled row does not fit on a
-//- phone; icons do, so one set serves both. docs/Design/Page/Header.md
+//- phone; icons do, so one set serves both. docs/Features/Page/Header.md
 template(name="boardHeaderButtons")
   if currentBoard
     if currentUser
@@ -50,7 +50,7 @@ template(name="boardHeaderButtons")
             //- The name beside the icon where the bar has room for it, dropped
               when it does not - one rule in header.css hides every label of this
               bar below the width they stop fitting at.
-              docs/Design/Page/Header.md
+              docs/Features/Page/Header.md
             a.board-header-btn(title="{{#if isSortActive}}{{_ 'sort-is-on'}}{{else}}{{_ 'sort-cards'}}{{/if}}" class="js-sort-cards {{#if isSortActive }}emphasis{{/if}}")
               i.fa.fa-sort
               span.board-header-btn-label {{#if isSortActive}}{{_ 'sort-is-on'}}{{else}}{{_ 'sort-cards'}}{{/if}}
@@ -314,7 +314,7 @@ template(name="cardsSortPopup")
 //- always on screen - the same place the All Boards Lists/Table menu is.
 //-
 //- `unless currentBoard.isTemplatesBoard`: there is nothing to look at six
-//- ways on a templates board. docs/Design/Page/Header.md
+//- ways on a templates board. docs/Features/Page/Header.md
 //- Whether THIS board is starred, and the button that changes it. Its own
 //- template because the first header bar places it beside the starred-boards
 //- dropdown rather than among the board's other controls: the two are one pair -
@@ -322,7 +322,7 @@ template(name="cardsSortPopup")
 //-
 //- The outline star means not starred and the solid one means starred, so the
 //- button shows its state rather than the action - the tooltip says the action.
-//- docs/Design/Page/Header.md
+//- docs/Features/Page/Header.md
 template(name="boardStarButton")
   if currentBoard
     a.board-header-btn.js-star-board(class="{{#if isStarred}}is-active{{/if}}"
@@ -337,7 +337,7 @@ template(name="boardViewMenu")
       icons are six glyphs to learn, and a tooltip is the one place a name
       cannot be read without hovering - so the button says which view is on.
       The bar wraps to a second row when it runs out of width, which is what
-      makes a word beside the icon affordable. docs/Design/Page/Header.md
+      makes a word beside the icon affordable. docs/Features/Page/Header.md
     a.board-header-btn.js-toggle-board-view(title="{{boardViewName}}")
       i.fa.fa-caret-down
       if $eq boardView 'board-view-swimlanes'

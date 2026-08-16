@@ -112,7 +112,7 @@ injection surface.
     (`boardChangeColorPopup`), Member Settings (`changeColorPopup`) and Admin Panel /
     Settings / Visibility via `scope="board"|"global"|"admin"`. Its design — the scopes, the
     order of themes and how to add another place — is
-    [docs/Design/Page/Theme.md](../Design/Page/Theme.md).
+    [docs/Features/Page/Theme.md](../Features/Page/Theme.md).
   - **The order of themes**, weakest first: 1) WeKan's default theme, 2) the **site theme**
     set in Admin Panel / Settings / Visibility / Change color (on a multitenancy host, the
     Organization's own value replaces the instance's — see

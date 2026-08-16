@@ -15,7 +15,7 @@ import AccessibilitySettings from '/models/accessibilitySettings';
 // the rest went missing at the same time.
 //
 // This module registers no template and touches no DOM, so it is safe to load
-// at any point. models/lib/pageTitles.js, docs/Design/Page/Header.md
+// at any point. models/lib/pageTitles.js, docs/Features/Page/Header.md
 
 export function supportPageTitle() {
   const setting = ReactiveCache.getCurrentSetting();

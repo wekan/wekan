@@ -23,7 +23,7 @@ async function openRulesPage(page, board) {
  *
  * They were a group in the page's second header bar; that bar is gone and they
  * are a view of the shared right sidebar now, opened by the hamburger in the
- * first top header bar. models/lib/pageSidebar.js, docs/Design/Page/Header.md
+ * first top header bar. models/lib/pageSidebar.js, docs/Features/Page/Header.md
  */
 async function openRulesControls(page) {
   const controls = page.locator('.js-rules-import-export');

@@ -3,7 +3,7 @@
 Custom translation strings: a language, the source text, and what it should say
 instead. They override the built-in translations for this instance.
 
-The pane is one shared [table page](../../../Design/Page/Table.md): type in the
+The pane is one shared [table page](../../../Features/Page/Table.md): type in the
 search box and press Enter, `page X / N` with prev/next, and the total. The **New**
 link is the last column's header, and each row has **Edit** and a ⋯ menu that
 deletes. One page of 25 rows is fetched at a time, server-side.

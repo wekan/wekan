@@ -3,7 +3,7 @@
 // Admin Panel / Settings / Translation — what is specific to THIS pane.
 //
 // The pane renders through the shared table page now
-// (docs/Design/Page/Table.md): the title, the search box, the pager, the total and
+// (docs/Features/Page/Table.md): the title, the search box, the pager, the total and
 // the table itself are that design's, and tests/tablePage.test.cjs owns them —
 // including that this pane subscribes to ONE page server-side and gets its total
 // from a count method. Nothing here may restate those.

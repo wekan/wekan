@@ -1,5 +1,5 @@
 /* /public — the Public Boards table.
- * Design: docs/Design/Page/Public.md, which is docs/Design/Page/Table.md.
+ * Design: docs/Features/Page/Public.md, which is docs/Features/Page/Table.md.
  *
  * ONLY the row's board colouring lives here. The table itself — its width, its
  * columns, its cells, its controls row and its stacking below 800px — is

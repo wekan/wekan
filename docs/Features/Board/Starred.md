@@ -149,6 +149,6 @@ the same pure rules the client used.
 ## Related
 
 - [Home](Home.md) — the other mark on a board, and the other drag with a type of its own
-- [All Boards](../../Design/Page/All-Boards.md) — the page the tiles are on
-- [All Boards URLs](../../Design/Page/All-Boards-URLs.md) — the addresses that made bookmarking possible
-- [The header](../../Design/Page/Header.md) — the bar the group sits in
+- [All Boards](../../Features/Page/All-Boards.md) — the page the tiles are on
+- [All Boards URLs](../../Features/Page/All-Boards-URLs.md) — the addresses that made bookmarking possible
+- [The header](../../Features/Page/Header.md) — the bar the group sits in

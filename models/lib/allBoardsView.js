@@ -1,7 +1,7 @@
 'use strict';
 
 // Which views the All Boards page has, and which one an account that has never
-// chosen sees. Design: docs/Design/Page/All-Boards.md
+// chosen sees. Design: docs/Features/Page/All-Boards.md
 //
 // Pure — no Meteor, no DOM, no storage — so the answer to "is this a view?" and
 // "what is the default?" is unit-testable. The ReactiveVars and the localStorage

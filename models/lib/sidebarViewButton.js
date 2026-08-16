@@ -15,7 +15,7 @@
 // so it passes false and always toggles.
 //
 // Pure: two booleans in, one word out, so the guard can check every combination
-// without a DOM. docs/Design/Page/Header.md
+// without a DOM. docs/Features/Page/Header.md
 
 const SIDEBAR_VIEW_OPEN = 'open';
 const SIDEBAR_VIEW_CLOSE = 'close';

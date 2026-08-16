@@ -103,7 +103,7 @@ test('Settings opens on a pane it still has', () => {
   // generalSetting was the var that started true. Removing it without promoting
   // another pane leaves the page opening on nothing at all. Visibility took that
   // role when Login moved out; Version has it now that Version is a pane of this
-  // page and its first entry (docs/Design/Page/Left-Menu.md).
+  // page and its first entry (docs/Features/Page/Left-Menu.md).
   assert.ok(/this\.versionSetting = new ReactiveVar\(true\)/.test(settingsJs),
     'Version is the first pane now, so it is the one that opens');
   const others = settingsJs.match(/this\.\w+Setting\w* = new ReactiveVar\(true\)/g) || [];

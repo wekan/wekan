@@ -1,5 +1,5 @@
 //- The ONE table page used by every paginated admin table.
-//- Design + the list of pages that use it: docs/Design/Page/Table.md
+//- Design + the list of pages that use it: docs/Features/Page/Table.md
 //-
 //- Rows, top to bottom: title, status, controls (search + pagination), table.
 //- That order is the design; it is defined here once instead of being retyped in
@@ -16,7 +16,7 @@ template(name="tablePage")
     //- have the same title at the same size.
     //-
     //- Rendered only when the page supplies one: inside the Admin Panel the pane
-    //- title comes from the ACTIVE LEFT MENU ENTRY (docs/Design/Page/Left-Menu.md),
+    //- title comes from the ACTIVE LEFT MENU ENTRY (docs/Features/Page/Left-Menu.md),
     //- rendered once for every pane by the section around it, so a table page that
     //- also printed its own title would show the same heading twice.
     if titleKey

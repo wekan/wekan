@@ -6562,21 +6562,21 @@ definitions:
         description: |
            is the left menu of All Boards and the Admin Panel collapsed? One
            setting for both: they are one menu drawn on two pages.
-           docs/Design/Page/Left-Menu.md
+           docs/Features/Page/Left-Menu.md
         type: boolean
       collapsedWorkspaces:
         description: |
            which workspaces of the All Boards left menu are folded, as a map of
            workspace id -> true. Only the folded ones are stored, so a tree of
            fifty workspaces with two folded is two keys.
-           docs/Design/Page/Workspaces.md
+           docs/Features/Page/Workspaces.md
         type: object
       leftMenuWidth:
         description: |
            user-chosen width (px) of that same left menu, set by dragging its inner
            edge - the right one while reading left to right, the left one under a
            right-to-left language. One width for both pages, like the fold above.
-           Unset = the CSS default. docs/Design/Page/Left-Menu.md
+           Unset = the CSS default. docs/Features/Page/Left-Menu.md
         type: number
       submitOnEnter:
         description: |

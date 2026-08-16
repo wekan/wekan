@@ -29,7 +29,7 @@ const SECTION_REMAINING = 'remaining';
 const SECTION_WORKSPACES = 'workspaces';
 // Boards in Archive is a section of this page, not a page of its own: it is
 // selected from the left menu and drawn beside it, so it needs an address in
-// the same shape as the other four. docs/Design/Page/Archive.md
+// the same shape as the other four. docs/Features/Page/Archive.md
 const SECTION_ARCHIVE = 'archive';
 // The Home board - the one board that opens after login - shown as a section of
 // its own so there is a PLACE that says which board that is. It holds exactly

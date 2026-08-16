@@ -13,7 +13,7 @@ template(name="header")
         Boards; the TEXT beside it is the page you are on, which on a board is
         the board's title. It used to say "All Boards" on every page, so the one
         bar that is always on screen named a place you were not.
-        models/lib/pageTitles.js, docs/Design/Page/Header.md
+        models/lib/pageTitles.js, docs/Features/Page/Header.md
       span.home-icon.allBoards
         //- `header-home-link`: the rules that collapse this link's LABEL on a
           narrow screen were written as `.home-icon a`, which also matched the
@@ -51,7 +51,7 @@ template(name="header")
         unless currentSetting.customTopLeftCornerLogoImageUrl
           //- `header-logo` on all three branches - a custom logo that links, one
             that does not, and the stock one - so the bar can space the logo the
-            same way whichever is drawn. docs/Design/Page/Header.md
+            same way whichever is drawn. docs/Features/Page/Header.md
           div#headerIsSettingDatabaseCallDone.header-logo
             img(src="{{pathFor '/logo-header.png'}}" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
 
@@ -167,7 +167,7 @@ template(name="header")
           / Gantt / Table / Stats on a board, Lists / Table on All Boards. A view
           menu says what you are looking AT, so it belongs beside the page's name
           in the bar that is always on screen, not in a second bar or behind a
-          panel. docs/Design/Page/Header.md
+          panel. docs/Features/Page/Header.md
         if isBoardPage
           +boardViewMenu
         else if isAllBoardsPage
@@ -192,7 +192,7 @@ template(name="header")
           It is a box rather than `display: contents`, unlike the page's own
           button groups, and deliberately: these five belong together, and an
           avatar left on the first row with its hamburger on the second is worse
-          than the whole cluster moving down at once. docs/Design/Page/Header.md
+          than the whole cluster moving down at once. docs/Features/Page/Header.md
         .header-account-group
           //- The divider is the seam. Everything before it belongs to the PAGE -
             its controls, its view menu, the panel's tabs. The bar runs them
@@ -222,7 +222,7 @@ template(name="header")
     none now - their title is in the bar above and their controls are in a
     sidebar - and `#header` is a coloured block with a height of its own, so
     without this it painted a tall empty strip under the first bar on every one
-    of them. docs/Design/Page/Header.md
+    of them. docs/Features/Page/Header.md
   //- See the note above: dragging this bar is owned by headerDragscroll.js.
   if headerBar
     #header.nodragscroll(class="{{themeColorClass}}")
@@ -265,7 +265,7 @@ template(name="offlineWarning")
 //- Shaped like boardChangeViewPopup - a `ul.pop-over-list` of links, with a
 //- check on the one you are looking at - because it is the same kind of menu
 //- and opens from the same kind of button. On a phone it is full width, which
-//- body.mobile-mode does for every pop-over. docs/Design/Page/Header.md
+//- body.mobile-mode does for every pop-over. docs/Features/Page/Header.md
 template(name="starredBoardsPopup")
   ul.pop-over-list
     each currentUser.starredBoards

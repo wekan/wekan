@@ -5,7 +5,7 @@ import {
 } from '/client/lib/pageSidebar';
 import { pageSidebarTemplate, hasPageSidebar } from '/models/lib/pageSidebar';
 
-// The shared page sidebar. docs/Design/Page/Header.md
+// The shared page sidebar. docs/Features/Page/Header.md
 
 Template.pageSidebar.helpers({
   // Drawn at all only where there is something to put in it: a panel that opens

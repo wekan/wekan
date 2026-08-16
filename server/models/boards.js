@@ -337,7 +337,7 @@ Meteor.methods({
   // Archive, one board or a whole multi-selection at a time; the archive page's
   // own button called `board.restore()` straight from the client, which the
   // allow rules permit for a board admin but which cannot answer for a list of
-  // boards or say why it refused. docs/Design/Page/Archive.md
+  // boards or say why it refused. docs/Features/Page/Archive.md
   async restoreBoard(boardId) {
     check(boardId, String);
     const board = await ReactiveCache.getBoard(boardId);

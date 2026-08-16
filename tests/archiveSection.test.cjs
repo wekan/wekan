@@ -3,7 +3,7 @@
 //
 // It had a table of its own, which meant the one place you go to bring a board
 // back was the one place multi-selection, dragging and the tile layout did not
-// work. docs/Design/Page/Archive.md
+// work. docs/Features/Page/Archive.md
 //
 // Run: node tests/archiveSection.test.cjs
 

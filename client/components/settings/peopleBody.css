@@ -9,7 +9,7 @@
    !important` with nowrap cells, to force a horizontal scrollbar. With
    `!important` that beat even the shared table page's own layout, which is
    width:100% + table-layout:fixed with equal, wrapping columns precisely so it
-   CANNOT grow past the panel (docs/Design/Page/Table.md): every table page in the
+   CANNOT grow past the panel (docs/Features/Page/Table.md): every table page in the
    Admin Panel - Domains, Organizations, Teams, People, the Problems reports - had
    its right-hand columns outside the window until you scrolled. The geometry is
    gone; a table fits its panel and wraps (settingBody.css), and the People panes
@@ -130,7 +130,7 @@ table:not(.table-page-table) td:first-child {
 }
 
 /* `.unlock-all-btn` is gone. "Unlock all users" is an action of the shared
-   controls row now (docs/Design/Page/Table.md), and this rule was written for the
+   controls row now (docs/Features/Page/Table.md), and this rule was written for the
    old hand-written page header: a 20px top margin and a 28px height, next to a
    "Teams" button that takes the shared 34px. In one flex row that put the two
    buttons at visibly different heights AND on different baselines. The shared row
@@ -261,7 +261,7 @@ table:not(.table-page-table) td:first-child {
 }
 
 /* Admin Panel > People > Domains renders through the shared table page
-   (docs/Design/Page/Table.md), so its controls row, pagination and table are
+   (docs/Features/Page/Table.md), so its controls row, pagination and table are
    styled there - and its pager is themed by paginationControls.css like every
    other pager. Nothing pane-specific is needed here any more. */
 

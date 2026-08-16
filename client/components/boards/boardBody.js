@@ -455,7 +455,7 @@ Template.boardBody.onRendered(function () {
         outline: none;
       }
       /* Sidebar hamburger menu button in header. Renamed with the button when
-         it moved to the first top header bar: docs/Design/Page/Header.md */
+         it moved to the first top header bar: docs/Features/Page/Header.md */
       .js-toggle-page-sidebar .fa-bars {
         color: #fff !important;
       }

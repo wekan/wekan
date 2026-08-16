@@ -40,7 +40,7 @@
 // Slugs are lowercase, words separated by `-`, and say what the pane IS rather
 // than what it is called internally.
 //
-// Pure: no Meteor, no FlowRouter. docs/Design/Page/Admin-Panel-URLs.md
+// Pure: no Meteor, no FlowRouter. docs/Features/Page/Admin-Panel-URLs.md
 
 // slug -> pane id, per page. The pane id is what the page's own click handler
 // and its `activeXId()` already use, so nothing inside a page has to change.

@@ -54,7 +54,7 @@ Template.boardChangeTitlePopup.events({
     if (newTitle) {
       // The board this popup was opened FOR, when it was opened for one: the
       // All Boards Table view opens this same popup from a row whose data
-      // context is that row's board (docs/Design/Page/All-Boards.md), and on
+      // context is that row's board (docs/Features/Page/All-Boards.md), and on
       // that page there is no "current board" at all. The board header opens it
       // with the current board as its context, so that side is unchanged.
       const context = Template.currentData();
@@ -190,7 +190,7 @@ Template.boardHeaderButtons.events({
   'click .js-watch-board': Popup.open('boardChangeWatch'),
   // Boards in Archive is a SECTION of All Boards, not a page of its own: the
   // row in its left menu. `/archive` is the full-width page that section
-  // replaced. docs/Design/Page/Archive.md
+  // replaced. docs/Features/Page/Archive.md
   'click .js-open-archived-board'() {
     FlowRouter.go(allBoardsPath(SECTION_ARCHIVE, []));
   },
@@ -642,7 +642,7 @@ Template.cardsSortPopup.events({
 
 // The board's view menu is its own template in the FIRST header bar now, so its
 // handler is here rather than on the second bar that used to draw it.
-// docs/Design/Page/Header.md
+// docs/Features/Page/Header.md
 Template.boardViewMenu.events({
   'click .js-toggle-board-view': Popup.open('boardChangeView'),
 });
@@ -652,7 +652,7 @@ Template.boardViewMenu.helpers({
     return Utils.boardView();
   },
   // The tooltip: the name of the view that is ON. The button is icon only, so
-  // this is the only place the name appears. docs/Design/Page/Header.md
+  // this is the only place the name appears. docs/Features/Page/Header.md
   boardViewName() {
     const names = {
       'board-view-swimlanes': 'swimlanes',

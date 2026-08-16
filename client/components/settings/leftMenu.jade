@@ -1,5 +1,5 @@
 //- The ONE left menu used by every Admin Panel page.
-//- Design + the list of pages that use it: docs/Design/Page/Left-Menu.md
+//- Design + the list of pages that use it: docs/Features/Page/Left-Menu.md
 //-
 //- "Left" is the reading order, not a side: under a right-to-left language the
 //- whole panel mirrors and this menu sits on the RIGHT. That comes from logical
@@ -20,7 +20,7 @@ template(name="leftMenu")
     its own scroll area and a handle inside it would scroll away with the
     entries. Here rather than in each page's template, so a new Admin Panel page
     cannot draw the menu and forget the handle.
-    docs/Design/Page/Left-Menu.md
+    docs/Features/Page/Left-Menu.md
   .side-menu(class="{{#if isLeftMenuCollapsed}}collapsed{{/if}}")
     +leftMenuCollapse
     ul
@@ -65,7 +65,7 @@ template(name="leftMenu")
 //- It is positioned against the ROW around the menu rather than against the
 //- menu, so it does not scroll with a long list of entries, and it follows the
 //- menu because both read the same `--wekan-left-menu-width`.
-//- client/components/settings/leftMenu.js, docs/Design/Page/Left-Menu.md
+//- client/components/settings/leftMenu.js, docs/Features/Page/Left-Menu.md
 template(name="leftMenuResize")
   .left-menu-resize-handle.js-left-menu-resize.nodragscroll(
     title="{{_ 'drag-to-resize-left-menu'}}"

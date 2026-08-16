@@ -21,7 +21,7 @@ class AdminPage {
    * Navigate to /people and switch to the "People" pane (the page opens on Login).
    *
    * Every Admin Panel page renders the ONE shared left menu now
-   * (docs/Design/Page/Left-Menu.md): `a.js-left-menu-item(data-id="...")`, where
+   * (docs/Features/Page/Left-Menu.md): `a.js-left-menu-item(data-id="...")`, where
    * data-id is the menu entry's id and is what the page's click handler reads. So
    * the entry is addressed by data-id, not by a per-page class — the old
    * `.js-people-menu` was exactly such a class, and it went away with the
@@ -126,7 +126,7 @@ class AdminPage {
 
   // --- Pagination ---
   //
-  // People is a shared table page now (docs/Design/Page/Table.md), so its pager is
+  // People is a shared table page now (docs/Features/Page/Table.md), so its pager is
   // the shared one: the same `.js-table-page-prev` / `.js-table-page-next` every
   // table page in the Admin Panel uses. The old per-pane `.js-people-*-page`
   // buttons went away with that pane's own markup.

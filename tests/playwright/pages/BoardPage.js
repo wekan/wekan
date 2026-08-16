@@ -135,7 +135,7 @@ class BoardPage {
       // `.js-toggle-page-sidebar` (client/components/main/header.jade): the
       // second header bar it used to live in is gone, and one control opens
       // whichever sidebar the page has - a board's own, All Boards', or the
-      // shared one. docs/Design/Page/Header.md
+      // shared one. docs/Features/Page/Header.md
       // .js-open-board-menu lives *inside* the sidebar — don't use it here.
       await this.page.locator('.js-toggle-page-sidebar').click();
       await sidebar.waitFor({ state: 'visible' });

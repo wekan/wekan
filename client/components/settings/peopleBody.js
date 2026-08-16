@@ -13,7 +13,7 @@ import { avatarUpdateCounter } from '/client/components/users/avatarUpdateCounte
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
 import LockoutSettings from '/models/lockoutSettings';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
-// The per-pane URLs of the Admin Panel. docs/Design/Page/Admin-Panel-URLs.md
+// The per-pane URLs of the Admin Panel. docs/Features/Page/Admin-Panel-URLs.md
 import { adminPath } from '/models/lib/adminUrls';
 import Org from '/models/org';
 import Settings from '/models/settings';
@@ -53,7 +53,7 @@ const TENANT_ORG_FIELDS = [
   'orgLegalNotice',
 ];
 
-// One rows-per-page for the whole app (docs/Design/Page/Table.md): these four
+// One rows-per-page for the whole app (docs/Features/Page/Table.md): these four
 // panes page exactly like every other paginated page in WeKan.
 const orgsPerPage = TABLE_PAGE_ROWS_PER_PAGE;
 const teamsPerPage = TABLE_PAGE_ROWS_PER_PAGE;
@@ -289,7 +289,7 @@ Template.people.onCreated(function () {
   };
 
   // Which pane is open. The seven booleans below are derived from it; the shared
-  // left menu (docs/Design/Page/Left-Menu.md) renders the active row from it, so
+  // left menu (docs/Features/Page/Left-Menu.md) renders the active row from it, so
   // the menu no longer has to be highlighted by hand.
   this.activeMenuId = new ReactiveVar('registration-setting');
 
@@ -314,7 +314,7 @@ Template.people.onCreated(function () {
 
   // Open a pane BY ID. Split out of switchMenu so the URL can open one too -
   // every left-menu entry has an address now (/people/roles, /people/domains).
-  // docs/Design/Page/Admin-Panel-URLs.md
+  // docs/Features/Page/Admin-Panel-URLs.md
   this.openPane = (targetID) => {
     // Re-opening the open pane must do nothing. The active row is rendered from
     // activeMenuId now, so compare ids instead of reading a DOM class.
@@ -418,7 +418,7 @@ Template.people.onCreated(function () {
   });
 });
 
-// The People side menu, as data (docs/Design/Page/Left-Menu.md). Locked users
+// The People side menu, as data (docs/Features/Page/Left-Menu.md). Locked users
 // keeps the red lock it always had, via the coloured icon wrapper.
 // A function, not a bare array: the E-mail entry depends on whether this is a
 // Sandstorm deployment, which has to be read at call time from Meteor.settings.
@@ -461,15 +461,15 @@ function firstPeoplePaneId(user) {
   return items.length ? items[0].id : 'people-setting';
 }
 
-// Organizations through the shared table page (docs/Design/Page/Table.md). Its
+// Organizations through the shared table page (docs/Features/Page/Table.md). Its
 // rows are interactive - inline checkboxes and edit links - so it supplies a
 // rowTemplate instead of a text-cell spec, and three of its headers carry a
 // select-all pair, supplied as headerTemplate. Everything else - the layout, the
 // pager, the search, the total - comes from the shared page.
 // Teams: same shape as Organizations - interactive rows, three headers carrying
-// a select-all pair. Same two slots (docs/Design/Page/Table.md).
+// a select-all pair. Same two slots (docs/Features/Page/Table.md).
 // People: interactive rows again, and two of its headers are templates - the
-// new-user row and the select-all checkbox (docs/Design/Page/Table.md).
+// new-user row and the select-all checkbox (docs/Features/Page/Table.md).
 // One page of users: the ones the server put on this page, in its order.
 //
 // The 'people' publication applies limit/skip sorted createdAt:-1 server-side, so
@@ -551,7 +551,7 @@ Template.people.helpers({
     const totalPages = Math.max(1, Math.ceil(total / usersPerPage));
     return {
       // No titleKey: the pane heading is rendered once for every Admin Panel pane
-      // from the open menu entry (docs/Design/Page/Left-Menu.md), so a title here
+      // from the open menu entry (docs/Features/Page/Left-Menu.md), so a title here
       // would print the same words a second time.
       emptyKey: 'no-items-message',
       searchTerm: tpl.peopleSearchTerm.get(),
@@ -598,7 +598,7 @@ Template.people.helpers({
     const totalPages = Math.max(1, Math.ceil(total / teamsPerPage));
     return {
       // No titleKey: the pane heading is rendered once for every Admin Panel pane
-      // from the open menu entry (docs/Design/Page/Left-Menu.md), so a title here
+      // from the open menu entry (docs/Features/Page/Left-Menu.md), so a title here
       // would print the same words a second time.
       searchTerm: tpl.teamSearchTerm.get(),
       emptyKey: 'no-items-message',
@@ -625,7 +625,7 @@ Template.people.helpers({
     const totalPages = Math.max(1, Math.ceil(total / orgsPerPage));
     return {
       // No titleKey: the pane heading is rendered once for every Admin Panel pane
-      // from the open menu entry (docs/Design/Page/Left-Menu.md), so a title here
+      // from the open menu entry (docs/Features/Page/Left-Menu.md), so a title here
       // would print the same words a second time.
       searchTerm: tpl.orgSearchTerm.get(),
       emptyKey: 'no-items-message',
@@ -647,7 +647,7 @@ Template.people.helpers({
       Template.instance().activeMenuId.get());
   },
   // The heading above the pane: the open menu entry's own label
-  // (docs/Design/Page/Left-Menu.md). Every Admin Panel page renders one, so no pane
+  // (docs/Features/Page/Left-Menu.md). Every Admin Panel page renders one, so no pane
   // has to write a title of its own - and the table panes stopped passing a
   // titleKey to the shared table page, which would have printed it a second time.
   paneTitleData() {
@@ -993,7 +993,7 @@ function yesNo(value) {
 }
 
 Template.rolesGeneral.helpers({
-  // The shared table page's data context (docs/Design/Page/Table.md).
+  // The shared table page's data context (docs/Features/Page/Table.md).
   rolesStatusTable() {
     const tpl = Template.instance();
     const working = tpl.workingRoles.get() || [];
@@ -2463,7 +2463,7 @@ Template.domainGeneral.onCreated(function () {
   });
 });
 
-// Domains renders through the shared table page (docs/Design/Page/Table.md):
+// Domains renders through the shared table page (docs/Features/Page/Table.md):
 // one column spec instead of its own controls row, pagination markup and table.
 const DOMAIN_COLUMNS = [
   { labelKey: "domain", value: d => d.domain },
@@ -2480,7 +2480,7 @@ Template.domainGeneral.helpers({
     const info = pageInfo(data.total || 0, tpl.page.get());
     return {
       // No titleKey: the pane heading is rendered once for every Admin Panel pane
-      // from the open menu entry (docs/Design/Page/Left-Menu.md), so a title here
+      // from the open menu entry (docs/Features/Page/Left-Menu.md), so a title here
       // would print the same words a second time.
       emptyKey: "no-items-message",
       searchTerm: tpl.searchQuery.get(),

@@ -10,7 +10,7 @@ import {
 } from '/models/lib/tablePage';
 
 // /public — the boards anybody may open, as a table page.
-// Design: docs/Design/Page/Public.md (which is docs/Design/Page/Table.md).
+// Design: docs/Features/Page/Public.md (which is docs/Features/Page/Table.md).
 //
 // The page is ONLY the table. It used to render `boardList`, the All Boards page,
 // with its query swapped for `{ permission: 'public' }` — which brought the
@@ -88,7 +88,7 @@ Template.publicBoards.helpers({
       // `boardListHeaderBar`, whose `h1` says "Public". The shared table page
       // prints a title only when one is supplied, precisely so a page that
       // already has a heading does not show two - the same reason the Admin
-      // Panel panes supply none (docs/Design/Page/Table.md).
+      // Panel panes supply none (docs/Features/Page/Table.md).
       header: buildHeader(COLUMNS),
       // A row template, not `rows`: see COLUMNS above.
       rowTemplate: 'publicBoardRow',

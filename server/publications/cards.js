@@ -1091,7 +1091,7 @@ function brokenCardsQuery(searchTerm) {
 
 // Broken cards, as a REPORT: one page, server-side, searchable and counted - the
 // same shape as the Files / Rules / Boards / Cards reports beside it in Admin Panel
-// / Problems (docs/Design/Page/Table.md). It used to run on the global-search
+// / Problems (docs/Features/Page/Table.md). It used to run on the global-search
 // machinery instead (a session document, nextPage/previousPage publications), which
 // is why it was the one report there with a different set of controls.
 Meteor.publish('brokenCardsReport', async function(searchTerm = '', limit, skip = 0) {

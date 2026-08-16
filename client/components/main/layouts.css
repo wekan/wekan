@@ -791,7 +791,7 @@ a:not(.disabled).is-active i.fa {
        is added on top of it. It used to be 8px here, 16px on a tablet and 8px on
        a large display, so the All Boards house started at a different X on every
        screen size - and on none of them on the line the left menu's rows start
-       on. docs/Design/Page/Header.md */
+       on. docs/Features/Page/Header.md */
     padding: 8px 0;
     /* Keep top bar on a single row on small screens */
     flex-wrap: nowrap;
@@ -852,7 +852,7 @@ a:not(.disabled).is-active i.fa {
   /* `.allBoards` is the same element as `.home-icon`, and it carries no inline
      padding at any width now (header.css). This rule cut a 15px desktop padding
      down to 6px on a phone, which is half of why the All Boards house started at
-     a different X on every screen size. docs/Design/Page/Header.md */
+     a different X on every screen size. docs/Features/Page/Header.md */
   #header-quick-access .allBoards {
     padding-block: 4px;
     padding-inline: 0;
@@ -865,7 +865,7 @@ a:not(.disabled).is-active i.fa {
   /* No auto margin: the bar packs from the START and wraps forward at every
      width, so nothing is pushed to the far end. This one survived the sweep
      that removed the others because it lives in layouts.css rather than
-     header.css. docs/Design/Page/Header.md */
+     header.css. docs/Features/Page/Header.md */
   #header-user-bar {
     margin-inline-start: 0;
   }
@@ -968,7 +968,7 @@ a:not(.disabled).is-active i.fa {
   /* Vertical only. The 16px it used to carry sideways pushed the whole first bar
      - the All Boards house first of all - 16px further in than at any other
      width. The inset is the bar's own gutter, once, at every width.
-     docs/Design/Page/Header.md */
+     docs/Features/Page/Header.md */
   #header {
     padding: 12px 0;
   }
@@ -990,7 +990,7 @@ a:not(.disabled).is-active i.fa {
   /* The DEFAULT width of the left menu on a tablet. The variable, not the
      `width` of the menu: a width dragged by the reader arrives as an inline
      property on <html>, and a rule naming `.side-menu` here would override it
-     at exactly this one screen size. docs/Design/Page/Left-Menu.md */
+     at exactly this one screen size. docs/Features/Page/Left-Menu.md */
   :root {
     --wekan-left-menu-width: 250px;
   }
@@ -1030,7 +1030,7 @@ a:not(.disabled).is-active i.fa {
   }
 
   /* ...and on a large display the same: no side padding of its own.
-     docs/Design/Page/Header.md */
+     docs/Features/Page/Header.md */
   #header {
     padding: 0;
   }
@@ -1052,7 +1052,7 @@ a:not(.disabled).is-active i.fa {
   }
 
   /* ...and on a large display, for the same reason as the tablet default above.
-     docs/Design/Page/Left-Menu.md */
+     docs/Features/Page/Left-Menu.md */
   :root {
     --wekan-left-menu-width: 320px;
   }

@@ -177,7 +177,7 @@ button:active:active {
    it in the same menu was the themed one. Two buttons, one menu, two looks.
    It is named in the SAME rules rather than given a copy of them, so the theme
    accent and the hover and active states have one home.
-   docs/Design/Page/Theme.md */
+   docs/Features/Page/Theme.md */
 input[type="submit"].primary,
 button.primary,
 .pop-over .at-form button.at-btn {

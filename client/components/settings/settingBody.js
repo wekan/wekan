@@ -13,7 +13,7 @@ import Settings from '/models/settings';
 import * as tenantAdmin from '/models/lib/tenantAdmin';
 import { resolveDefaultAuthenticationMethod } from '/models/lib/authenticationMethod';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
-// The per-pane URLs of the Admin Panel. docs/Design/Page/Admin-Panel-URLs.md
+// The per-pane URLs of the Admin Panel. docs/Features/Page/Admin-Panel-URLs.md
 import { adminPath } from '/models/lib/adminUrls';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { format } from '/imports/lib/dateUtils';
@@ -373,7 +373,7 @@ Template.setting.onRendered(function () {
 
 // Open exactly one pane. The URL and the menu click both come through here, so
 // "which ReactiveVar is this pane" is answered once instead of in two places
-// that can disagree. docs/Design/Page/Admin-Panel-URLs.md
+// that can disagree. docs/Features/Page/Admin-Panel-URLs.md
 const SETTINGS_PANE_VARS = {
   'version-setting': 'versionSetting',
   'tableVisibilityMode-setting': 'tableVisibilityModeSetting',
@@ -399,7 +399,7 @@ function openSettingsPane(tpl, paneId) {
   return !!varName;
 }
 
-// The Settings side menu, as data (docs/Design/Page/Left-Menu.md). Each entry
+// The Settings side menu, as data (docs/Features/Page/Left-Menu.md). Each entry
 // used to be six lines of markup; the pane it opens is its `id`.
 // `emoji: true` reproduces the empty span.emoji-icon this page always rendered
 // before the icon, so the conversion changes no pixel.
@@ -455,7 +455,7 @@ Template.setting.helpers({
       activeSettingId(inst), 'js-setting-menu');
   },
   // The heading above the pane: the open menu entry's own label
-  // (docs/Design/Page/Left-Menu.md), so every pane on this page has a title, and
+  // (docs/Features/Page/Left-Menu.md), so every pane on this page has a title, and
   // the same one the menu row that opened it carries.
   paneTitleData() {
     const inst = Template.instance();
@@ -608,7 +608,7 @@ Template.setting.events({
     // ...and put it in the address bar, so the pane can be linked, bookmarked
     // and reached with the back button. Replacing rather than pushing would
     // make Back leave the Admin Panel instead of returning to the previous
-    // pane. docs/Design/Page/Admin-Panel-URLs.md
+    // pane. docs/Features/Page/Admin-Panel-URLs.md
     const path = adminPath('settings', targetID);
     if (path && FlowRouter.current().path !== path) FlowRouter.go(path);
   },

@@ -839,7 +839,7 @@ Template.membersWidget.events({
   'click .js-import-board': Popup.open('chooseBoardSource'),
   // Boards in Archive is a SECTION of All Boards, not a page of its own: the
   // row in its left menu. `/archive` is the full-width page that section
-  // replaced. docs/Design/Page/Archive.md
+  // replaced. docs/Features/Page/Archive.md
   'click .js-open-archived-board'() {
     FlowRouter.go(allBoardsPath(SECTION_ARCHIVE, []));
   },

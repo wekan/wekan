@@ -48,6 +48,10 @@
 // is spread rather than single.
 
 // The fields that make two events the same problem.
+// Relative, not '/models/…': this module is loaded by plain-node tests as well
+// as by Meteor, and only the relative form resolves in both.
+const { classifyAddress } = require('./ipAddress');
+
 const IDENTITY_FIELDS = [
   'stream',    // security | speed | tests | cpu | database
   'bleed',     // the hall-of-fame name, so Problems groups the way the site does
@@ -64,7 +68,10 @@ const IDENTITY_FIELDS = [
 ];
 
 // The fields that describe the LATEST occurrence rather than the problem.
-const LATEST_FIELDS = ['userId', 'username', 'ip', 'detail', 'message'];
+// `ipv4`/`ipv6` are the address split into its family, so every report can show
+// the two in their own columns - see models/lib/ipAddress.js for why a
+// dual-stack `::ffff:` address has to be unwrapped first.
+const LATEST_FIELDS = ['userId', 'username', 'ip', 'ipv4', 'ipv6', 'detail', 'message'];
 
 // How many distinct actors one row will name before it starts counting the rest
 // in `actorsOverflow`. Enough to see a pattern, few enough that a row stays a
@@ -74,10 +81,19 @@ const MAX_ACTORS = 50;
 
 // The actors one attempt is attributed to: the account it was aimed at or made
 // by, and the address it came from - each on its own.
+//
+// The address is NORMALISED first: a dual-stack socket reports an IPv4 client as
+// `::ffff:203.0.113.9`, and counting that separately from `203.0.113.9` would
+// make one client look like two actors depending on which listener it reached.
+// The family is carried on the entry so a report can put it in the right column.
 function actorsOf(evt = {}) {
   const out = [];
   if (evt.username) out.push({ kind: 'user', value: String(evt.username) });
-  if (evt.ip) out.push({ kind: 'ip', value: String(evt.ip) });
+  if (evt.ip) {
+    const { ipv4, ipv6 } = classifyAddress(evt.ip);
+    const value = ipv4 || ipv6;
+    if (value) out.push({ kind: 'ip', value, family: ipv4 ? 'ipv4' : 'ipv6' });
+  }
   return out;
 }
 
@@ -116,6 +132,7 @@ function actorUpdate(evt = {}, now = new Date(), times = 1, known = new Set()) {
     $set[`actors.${key}.at`] = now;
     $set[`actors.${key}.kind`] = actor.kind;
     $set[`actors.${key}.value`] = actor.value;
+    if (actor.family) $set[`actors.${key}.family`] = actor.family;
     $inc[`actors.${key}.count`] = times;
   }
   return { $set, $inc };
@@ -164,6 +181,14 @@ function summaryUpdate(evt = {}, now = new Date(), times = 1) {
     const value = evt[field];
     if (value !== undefined && value !== null && value !== '') set[field] = value;
   }
+  // The latest address, in its own column. Written even when the caller passed
+  // only `ip`, so every report gains the two columns without every caller
+  // having to know about them.
+  if (evt.ip) {
+    const { ipv4, ipv6 } = classifyAddress(evt.ip);
+    if (ipv4) { set.ipv4 = ipv4; set.ip = ipv4; delete set.ipv6; }
+    if (ipv6) { set.ipv6 = ipv6; set.ip = ipv6; delete set.ipv4; }
+  }
   return { $set: set, $setOnInsert: setOnInsert, $inc: { count: times } };
 }
 
@@ -196,6 +221,7 @@ function addActor(summary, doc, at, times) {
       if (at > summary.actors[key].at) summary.actors[key].at = at;
     } else if (Object.keys(summary.actors).length < MAX_ACTORS) {
       summary.actors[key] = { kind: actor.kind, value: actor.value, count: times, at };
+      if (actor.family) summary.actors[key].family = actor.family;
     } else {
       summary.actorsOverflow += times;
     }
@@ -240,6 +266,7 @@ module.exports = {
   summaryIdentity,
   summaryUpdate,
   actorsOf,
+  classifyAddress,
   actorKeyFor,
   actorUpdate,
   actorList,

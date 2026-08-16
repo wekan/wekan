@@ -5,7 +5,7 @@
    it, sat on top of this header beside the ✕ that closes it.
    `--wekan-header-height` is what the header MEASURES itself to be, kept current
    by a ResizeObserver (client/lib/utils.js), and it is what everything else laid
-   out against the viewport already uses. docs/Design/Page/Header.md */
+   out against the viewport already uses. docs/Features/Page/Header.md */
 section#notifications-drawer {
   position: fixed;
   top: var(--wekan-header-height, 48px);

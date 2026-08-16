@@ -45,7 +45,7 @@
   /* `auto`, not a fixed 260px: the menu carries its own width (below), so the
      track is whatever the menu is - and folded, when the grid drops to a single
      column, there is no second track left holding a gap open.
-     docs/Design/Page/Left-Menu.md */
+     docs/Features/Page/Left-Menu.md */
   grid-template-columns: auto 1fr;
   /* Between the columns only. A `gap` is between tracks, not around them, so
      this never insets the menu from the window edge - the padding that used to
@@ -64,12 +64,12 @@
   min-height: calc(100vh - var(--wekan-header-height, 0px));
   /* The width grip is positioned against the GRID: absolutely, so it is no grid
      item and adds no track, and outside the menu, which scrolls its own
-     entries. docs/Design/Page/Left-Menu.md */
+     entries. docs/Features/Page/Left-Menu.md */
   position: relative;
 }
 
 /* The left menu is styled like the Admin Panel's (settingBody.css,
-   docs/Design/Page/Left-Menu.md): a PANEL with its own background, border and
+   docs/Features/Page/Left-Menu.md): a PANEL with its own background, border and
    rounded corners, not a column separated from the page by a hairline. WeKan
    has one kind of left menu and it should look like one kind of left menu.
 
@@ -101,7 +101,7 @@
   /* Flush on three sides, like the Admin Panel's: it starts at the window's
      left edge, directly under the header, and runs to the bottom - so it has a
      border and a corner only on the side that faces the page. A rounded corner
-     on a flush edge shows the grey behind it. docs/Design/Page/Left-Menu.md */
+     on a flush edge shows the grey behind it. docs/Features/Page/Left-Menu.md */
   border: 1px solid #f0f0f0;
   border-inline-start: 0;
   border-top: 0;
@@ -366,7 +366,7 @@
   background: #888;
   /* The rows' own inline margin, so the rule lines up with them instead of
      running past their ends - the same `4px` the Admin Panel's separator uses.
-     docs/Design/Page/Left-Menu.md */
+     docs/Features/Page/Left-Menu.md */
   margin: 8px 4px;
 }
 
@@ -406,7 +406,7 @@
    whatever has been dragged into whatever.
    `padding-inline-start`, so a right-to-left language indents from the right by
    itself rather than needing a second rule kept in step.
-   docs/Design/Page/Workspaces.md */
+   docs/Features/Page/Workspaces.md */
 .workspace-tree {
   list-style: none;
   padding-inline-start: 10px;
@@ -455,7 +455,7 @@
      drop-inside - the row lights up and the slot opens INDENTED under it, which
        is where the workspace will appear: as its child.
 
-   docs/Design/Page/Workspaces.md */
+   docs/Features/Page/Workspaces.md */
 .workspace-node.drop-before > .workspace-node-content,
 .workspace-node.drop-after > .workspace-node-content,
 .workspace-node.drop-inside > .workspace-node-content {
@@ -556,7 +556,7 @@
    The cursor stays `pointer`, not `grab`: clicking this row is what opens the
    workspace, and that is what a reader does with it nearly every time. Dragging
    is the second gesture on the same element, exactly as it is on a board tile
-   with handles off. docs/Design/Page/All-Boards.md */
+   with handles off. docs/Features/Page/All-Boards.md */
 .workspace-node .js-select-space[draggable="true"] {
   user-select: none;
   -webkit-user-select: none;
@@ -592,7 +592,7 @@
    `flex: 1`, and without this a long workspace name shrinks its two neighbours
    instead of ellipsing itself, which pushes the count off the row that is
    supposed to be showing it. The phone rules said this already; the desktop
-   ones had not. docs/Design/Page/All-Boards.md */
+   ones had not. docs/Features/Page/All-Boards.md */
 .workspace-node .workspace-count {
   background: #ddd;
   padding: 2px 6px;
@@ -703,7 +703,7 @@
    which boards are in it.
    So it keeps the same grey pill every other row has, and the rule that made it
    white is gone rather than re-tinted: there is no accent behind it to contrast
-   with. docs/Design/Page/All-Boards.md */
+   with. docs/Features/Page/All-Boards.md */
 
 .boards-right-grid {
   min-height: 200px;
@@ -724,7 +724,7 @@
    out of the grid, but the TRACK it was placed in stays, so the boards would
    have been left in the `auto` column with the 1fr one empty beside them. One
    column, and the menu hidden by the same rule.
-   docs/Design/Page/Left-Menu.md */
+   docs/Features/Page/Left-Menu.md */
 .boards-layout.collapsed {
   /* `!important` because the phone rules below set the two tracks with an
      `!important` of their own (#6488/#6523, so a narrow screen keeps the menu
@@ -747,7 +747,7 @@
    this the title would sit directly on top of the first row of board tiles.
    The board tiles carry a 7px margin of their own, so 12px of margin here plus
    that 7px is the same gap the Admin Panel's 12px gives above a flush pane.
-   docs/Design/Page/All-Boards.md */
+   docs/Features/Page/All-Boards.md */
 .boards-right-grid > .admin-pane-title {
   margin-bottom: 12px;
   /* The pager and the tiles below start at the tiles' own 7px inset, so the
@@ -2195,7 +2195,7 @@ body.has-theme-board-tiles .board-list > li.js-board .board-list-card-count {
 }
 
 /* All Boards: the Table view.
- * Design: docs/Design/Page/All-Boards.md, which is docs/Design/Page/Table.md.
+ * Design: docs/Features/Page/All-Boards.md, which is docs/Features/Page/Table.md.
  * Only what is particular to these rows; the table itself is tablePage.css. */
 .all-boards-row {
   cursor: default;

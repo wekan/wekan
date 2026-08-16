@@ -130,7 +130,7 @@ test.describe('Attachments & links', () => {
     // It is a row of the card's actions MENU now, not an `<a href>` in the
     // title header, and it copies with JavaScript - so the clipboard is where
     // the answer is, and it holds the ABSOLUTE url because that is what gets
-    // pasted into a chat. docs/Design/Page/Board-Item-Links.md
+    // pasted into a chat. docs/Features/Page/Board-Item-Links.md
     //
     // Asserted rather than tolerated: the old test accepted "no href, so just
     // click it and check nothing threw", which would have passed even if the

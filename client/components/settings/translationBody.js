@@ -2,7 +2,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { buildHeader, pageInfo, TABLE_PAGE_ROWS_PER_PAGE } from '/models/lib/tablePage';
 
 // Admin Panel / Settings / Translation, through the shared table page
-// (docs/Design/Page/Table.md). The pane differs from every other table page only
+// (docs/Features/Page/Table.md). The pane differs from every other table page only
 // in this column list: its rows are interactive - an Edit link and the ⋯ menu -
 // so it supplies a rowTemplate, and the "New" link is the header of the FIRST
 // column, supplied as a headerTemplate. First, because that is where every other
@@ -92,7 +92,7 @@ Template.translationSettings.helpers({
       TABLE_PAGE_ROWS_PER_PAGE);
     return {
       // No titleKey: the pane heading is rendered once for every Admin Panel pane
-      // from the open menu entry (docs/Design/Page/Left-Menu.md), so a title here
+      // from the open menu entry (docs/Features/Page/Left-Menu.md), so a title here
       // would print the same words a second time.
       emptyKey: 'no-items-message',
       searchTerm: tpl.searchTerm.get(),

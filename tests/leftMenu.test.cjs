@@ -1,6 +1,6 @@
 'use strict';
 
-// The shared left menu — docs/Design/Page/Left-Menu.md.
+// The shared left menu — docs/Features/Page/Left-Menu.md.
 //
 // This is the COMBINED suite for that design: the pure helpers, the template, the
 // side it appears on (and its mirroring under a right-to-left language), the
@@ -31,7 +31,7 @@ const libSrc = read('models/lib/leftMenu.js');
 const jade = read('client/components/settings/leftMenu.jade');
 const css = read('client/components/settings/settingBody.css');
 const tableCss = read('client/components/settings/tablePage.css');
-const doc = read('docs/Design/Page/Left-Menu.md');
+const doc = read('docs/Features/Page/Left-Menu.md');
 
 const lib = {};
 new Function('exports', libSrc.replace(/export function/g, 'function') +
@@ -588,7 +588,7 @@ test('the related-files table lists files that exist', () => {
 test('the two page designs cross-link', () => {
   assert.ok(/\[Table\]\(Table\.md\)/.test(doc),
     'Left-Menu.md must link to Table.md - the two compose on the same page');
-  assert.ok(fs.existsSync(path.join(root, 'docs/Design/Page/Table.md')));
+  assert.ok(fs.existsSync(path.join(root, 'docs/Features/Page/Table.md')));
 });
 
 // ── the template and the pages must agree on the data shape ─────────────────

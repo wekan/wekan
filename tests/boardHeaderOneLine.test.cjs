@@ -179,7 +179,7 @@ test('the tablet rules come after the base rules they override', () => {
 // pencil is beside the name, its controls are icons beside those, and there is
 // one hamburger for the whole app. tests/headerBars.test.cjs pins where each of
 // those sits; what is left to check here is that the bar really is gone, so
-// nothing quietly brings it back. docs/Design/Page/Header.md
+// nothing quietly brings it back. docs/Features/Page/Header.md
 
 test('the board has no second header bar to lay out', () => {
   assert.ok(!/template\(name="boardHeaderBar"\)/.test(jade), 'the bar is gone');

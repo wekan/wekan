@@ -1,7 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { safeSelector } from '/server/lib/selectorGuard';
 
-// ONE page of custom translation strings (docs/Design/Page/Table.md): the limit and
+// ONE page of custom translation strings (docs/Features/Page/Table.md): the limit and
 // the skip are applied server-side, so only the rows that are displayed ever reach
 // minimongo. `skip` was added when Admin Panel / Settings / Translation became a
 // shared table page - it used to grow one window at a time by infinite scroll, so

@@ -265,7 +265,7 @@ test('the old singular /setting still works', () => {
 });
 
 test('the design doc says what the URLs are', () => {
-  const doc = read('docs/Design/Page/Admin-Panel-URLs.md');
+  const doc = read('docs/Features/Page/Admin-Panel-URLs.md');
   for (const page of ADMIN_PAGE_KEYS) {
     for (const slug of Object.keys(ADMIN_PAGES[page].panes)) {
       const url = adminPath(page, slug);

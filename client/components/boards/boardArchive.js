@@ -4,7 +4,7 @@ import Boards from '/models/boards';
 import { Utils } from '/client/lib/utils';
 import { TABLE_PAGE_ROWS_PER_PAGE } from '/models/lib/tablePage';
 
-// The app's one rows-per-page (docs/Design/Page/Table.md): the archive pages
+// The app's one rows-per-page (docs/Features/Page/Table.md): the archive pages
 // like every other paginated page, whatever pager it draws.
 const ARCHIVED_BOARDS_PER_PAGE = TABLE_PAGE_ROWS_PER_PAGE;
 

@@ -1,6 +1,6 @@
 # Design: Universal change History (view + restore) — the basis for Undo/Redo
 
-> **This page uses the shared [Table Page](../../../Design/Page/Table.md) design.**
+> **This page uses the shared [Table Page](../../../Features/Page/Table.md) design.**
 > Layout, search, pagination, column spec, per-page data loading and RTL rules are
 > defined there and are not repeated here. Below is only what is specific to
 > History: its store, its scopes, and restore/undo.
@@ -210,13 +210,13 @@ The server turns `{scope, scopeId}` into the id-column filter (`board`→`boardI
 - **contributors** powers the card view's left-column avatar list (distinct `userId` + counts);
   unused when the view is already pinned to one `userId`.
 - Paging uses the shared `pageInfo()` from `models/lib/tablePage.js` (see
-  [Table Page](../../../Design/Page/Table.md)) — do not add a second paginator. The History-specific
+  [Table Page](../../../Features/Page/Table.md)) — do not add a second paginator. The History-specific
   pure helpers are `matchesSearch(row, term)` and `selectionToIds(selected)`, in `models/lib/…`
   with tests, mirroring `models/lib/undoRedoSelection.js`.
 
 ## 7. UI
 
-A [table page](../../../Design/Page/Table.md) inside one popup opened from the group menu's
+A [table page](../../../Features/Page/Table.md) inside one popup opened from the group menu's
 **History** item. Only the History-specific parts are listed here:
 
 - **Left pane** (`historyNav`) — a **History** button (default view = newest, all users) plus a

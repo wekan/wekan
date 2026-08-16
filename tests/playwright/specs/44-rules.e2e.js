@@ -101,7 +101,7 @@ test.describe('Board Rules', () => {
 
       // Switch to the Workflow view.
       // The view toggle is in the page's right sidebar now, not in a second
-      // header bar. docs/Design/Page/Header.md
+      // header bar. docs/Features/Page/Header.md
       const toggle = page.locator('.js-rules-toggle-view');
       if (!(await toggle.isVisible().catch(() => false))) {
         await page.locator('.js-toggle-page-sidebar').first().click();

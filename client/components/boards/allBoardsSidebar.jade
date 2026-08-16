@@ -7,7 +7,7 @@
 //- the same `.sidebar-content` with a title and a back arrow above the view. So
 //- it looks and behaves like the one on a board without pretending to be it.
 //-
-//- docs/Design/Page/Search.md, docs/Design/Page/Multi-Selection.md
+//- docs/Features/Page/Search.md, docs/Features/Page/Multi-Selection.md
 
 template(name="allBoardsSidebar")
   //- The theme class goes on an ANCESTOR of `.sidebar`, never on it: every
@@ -42,7 +42,7 @@ template(name="allBoardsHomeSidebar")
     what you are looking at, which belongs beside the page's name rather than
     behind a panel you have to open. Search and Multi-Selection were in that bar
     as well and are NOT repeated here: this view has offered both as rows since
-    it was written. docs/Design/Page/All-Boards.md
+    it was written. docs/Features/Page/All-Boards.md
   a.sidebar-btn.js-open-boards-sort(class="{{#unless isBoardsSort 'custom'}}emphasis{{/unless}}")
     i.fa.fa-sort
     span {{_ 'sort-boards'}}

@@ -25,7 +25,7 @@ import {
 // it is a one-shot instruction about the address you followed, not a standing
 // order that re-scrolls the board every time something re-renders.
 //
-// docs/Design/Page/Board-Item-Links.md
+// docs/Features/Page/Board-Item-Links.md
 
 const RETRY_MS = 100;
 const GIVE_UP_MS = 8000;

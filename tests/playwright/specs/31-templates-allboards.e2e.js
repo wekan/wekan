@@ -156,7 +156,7 @@ test.describe('#2339 #5850 All Boards / Templates redesign', () => {
 
     // `/templates` redirects: every All Boards section has an address of its
     // own now and Templates is `/allboards/templates`, so the old bare path
-    // lands there rather than staying put. docs/Design/Page/All-Boards-URLs.md
+    // lands there rather than staying put. docs/Features/Page/All-Boards-URLs.md
     await expect.poll(() => new URL(page.url()).pathname, { timeout: 15000 })
       .toBe('/allboards/templates');
   });

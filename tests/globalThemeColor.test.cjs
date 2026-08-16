@@ -89,7 +89,7 @@ test('body autorun applies the global override EVERYWHERE (wins over board color
 
 test('header + board-wrapper take the theme class from ONE helper', () => {
   // They used to spell the order out in the template - global override, else board
-  // colour - which is why the SITE theme (docs/Design/Page/Theme.md, layer 2)
+  // colour - which is why the SITE theme (docs/Features/Page/Theme.md, layer 2)
   // coloured the buttons but left both top bars on the default: nothing there read
   // it. One helper now answers for all of them, so the order cannot drift apart.
   const h = read('client/components/main/header.jade');

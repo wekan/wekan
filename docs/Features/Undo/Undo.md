@@ -234,7 +234,7 @@ audited:
 > **Features** tab no longer exists — its last three panes moved to
 > [Admin Panel / Problems](../Admin-Panel/Admin-Panel.md), whose left menu is two
 > groups, *Settings* and *Reports*. A Delete pane would be a new entry in one of
-> those (its table is a [table page](../../Design/Page/Table.md)); which one is a
+> those (its table is a [table page](../../Features/Page/Table.md)); which one is a
 > maintainer decision, and the rest of this section is unchanged by it.
 
 Permanent delete of user content is **off by default**. A new toggle lives at **Admin Panel /

@@ -131,7 +131,7 @@ publishComposite('boards', function() {
 
 // ─────────────────────────────────────────────────────────────────────────────
 // /public — one page of the boards anybody may open.
-// Design: docs/Design/Page/Public.md, which is the Table page design.
+// Design: docs/Features/Page/Public.md, which is the Table page design.
 //
 // The selector is built HERE and takes nothing from the client: a public board is
 // public, so this needs no login, and a page that needs no login must not let the
@@ -555,7 +555,7 @@ Meteor.publish('archivedBoards', async function(searchTerm = '', limit = 30, ski
         // kind of board it is, its description, and its members - the last for
         // the star and the multi-selection checkbox. Sending seven fields to a
         // template that reads twelve renders grey, nameless tiles.
-        // docs/Design/Page/Archive.md
+        // docs/Features/Page/Archive.md
         color: 1,
         type: 1,
         description: 1,
@@ -765,7 +765,7 @@ publishComposite('board', async function(boardId, isArchived) {
           // `isArchived` still governs the CONTENTS - the lists, swimlanes and
           // cards fetched by the children below - so an archived board opens
           // showing its live lists, exactly as it did before it was archived.
-          // docs/Design/Page/Archive.md
+          // docs/Features/Page/Archive.md
           $or,
         },
         { limit: 1, sort: { sort: 1 /* boards default sorting */ } },

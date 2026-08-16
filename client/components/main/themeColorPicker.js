@@ -12,11 +12,11 @@ import {
   customColorCount,
 } from '/models/lib/themeCategories';
 
-// Shared "Select Color" picker (docs/Design/Page/Theme.md): VISIBLE color swatches grouped
+// Shared "Select Color" picker (docs/Features/Page/Theme.md): VISIBLE color swatches grouped
 // by category (with the category name above each group) + native color wheel(s) for
 // the flat/clear categories once such a color is selected.
 //
-// ONE template, rendered wherever a theme is chosen - the way docs/Design/Page/Table.md
+// ONE template, rendered wherever a theme is chosen - the way docs/Features/Page/Table.md
 // is one table page for every table. `data.scope` says whose theme is being set, and
 // that is the only difference between the three places:
 //   'board'  — Board Settings / Change Color   -> board.color
@@ -31,7 +31,7 @@ import {
 //   2. the site theme set here in the Admin Panel (an Organization's own value
 //      replaces the instance's on that Organization's hosts)
 //   3. the user's own override
-// See docs/Design/Page/Theme.md for the whole design.
+// See docs/Features/Page/Theme.md for the whole design.
 
 const DEFAULT_WHEEL = ['#2980b9', '#6dd5fa']; // stock flat accent / second slide stop
 

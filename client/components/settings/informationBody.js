@@ -11,7 +11,7 @@ Template.statistics.onCreated(function () {
 });
 
 // No page template and no menu of its own any more: Version is the first pane of
-// Admin Panel / Settings, whose menu (docs/Design/Page/Left-Menu.md) carries the
+// Admin Panel / Settings, whose menu (docs/Features/Page/Left-Menu.md) carries the
 // entry that opens it. This file is just the statistics pane now.
 
 Template.statistics.helpers({

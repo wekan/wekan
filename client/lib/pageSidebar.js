@@ -8,7 +8,7 @@ import { EscapeActions } from '/client/lib/escapeActions';
 // layout, the sidebar into the page - so an instance ReactiveVar on either is
 // invisible to the other. Same reason as client/lib/allBoardsSidebar.js.
 //
-// docs/Design/Page/Header.md
+// docs/Features/Page/Header.md
 
 const openVar = new ReactiveVar(false);
 

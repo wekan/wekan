@@ -301,7 +301,7 @@ test('the Roles Status table is READ-ONLY', () => {
 
 test('it is the shared table page, not a hand-written table', () => {
   assert.ok(/\+tablePage\(rolesStatusTable\)/.test(peopleJade),
-    'the pane must render the shared template (docs/Design/Page/Table.md)');
+    'the pane must render the shared template (docs/Features/Page/Table.md)');
   assert.ok(!/table\.roles-status|<table/.test(peopleJade.slice(
     peopleJade.indexOf('template(name="rolesGeneral")'),
     peopleJade.indexOf('template(name="templatesGeneral")'))),
@@ -348,9 +348,9 @@ test('every string in it is translatable', () => {
 });
 
 test('the table design doc no longer calls Roles a non-table pane', () => {
-  // docs/Design/Page/Table.md lists the pages that do NOT use the shared design,
+  // docs/Features/Page/Table.md lists the pages that do NOT use the shared design,
   // "so the gap is visible rather than forgotten". Roles has one now.
-  const design = read('docs/Design/Page/Table.md');
+  const design = read('docs/Features/Page/Table.md');
   const notUsing = design.slice(
     design.indexOf('## Pages that do not use this design'),
     design.indexOf('## Pages that use this design'));

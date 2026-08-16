@@ -248,7 +248,7 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
     // The client side of the DDP-only index collection, from the shared name.
     // It USED to be declared here; it moved to client/lib/reportPages.js because
     // `new Mongo.Collection(name)` throws if the name is taken, so the second page
-    // to need it (/public, docs/Design/Page/Public.md) could not have one. What
+    // to need it (/public, docs/Features/Page/Public.md) could not have one. What
     // this guards is unchanged: declared once, from the shared constant, never
     // from a typed string.
     const shared = read('client/lib/reportPages.js');

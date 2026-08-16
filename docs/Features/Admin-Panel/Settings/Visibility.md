@@ -42,7 +42,7 @@ page and the progress dashboards.
 The theme of this site: the same picker as Board Settings / Change Color and Member
 Settings / Change color — the categories of swatches, the "Default theme" row and the
 custom-colour wheels — described in
-[Design / Change color](../../../Design/Page/Theme.md). It applies as soon as you
+[Design / Change color](../../../Features/Page/Theme.md). It applies as soon as you
 click a colour; there is no Save button.
 
 **The order of themes**, weakest first:

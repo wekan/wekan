@@ -11,7 +11,7 @@ import { buildCardAttachmentMeta } from '/models/lib/attachmentMeta';
 import { resolveShowDragHandles, readDragHandlesPreference } from '/models/lib/dragHandles';
 const { memberCan } = require('/models/lib/boardRoleCapabilities');
 
-// One key for both pages: they draw one menu. docs/Design/Page/Left-Menu.md
+// One key for both pages: they draw one menu. docs/Features/Page/Left-Menu.md
 const LEFT_MENU_COLLAPSED_KEY = 'leftMenuCollapsed';
 const LEFT_MENU_WIDTH_KEY = 'leftMenuWidth';
 
@@ -369,7 +369,7 @@ export const Utils = {
   //
   // ONE state for both pages. All Boards and the Admin Panel draw one menu, and
   // a reader who folds it away on one of them has said what they want on the
-  // other. docs/Design/Page/Left-Menu.md
+  // other. docs/Features/Page/Left-Menu.md
   getLeftMenuCollapseState() {
     const sessionVal = Session.get(LEFT_MENU_COLLAPSED_KEY);
     if (typeof sessionVal === 'boolean') return sessionVal;
@@ -405,7 +405,7 @@ export const Utils = {
   // `undefined` when nobody has ever dragged it, and that is deliberate: the
   // DEFAULT width is a number in the stylesheet, and returning one here too
   // would be a second copy of it to keep in step.
-  // docs/Design/Page/Left-Menu.md
+  // docs/Features/Page/Left-Menu.md
   getLeftMenuWidth() {
     const sessionVal = Session.get(LEFT_MENU_WIDTH_KEY);
     if (typeof sessionVal === 'number') return sessionVal;
@@ -444,7 +444,7 @@ export const Utils = {
   // the user's profile behind it, and a cookie for a reader who is not signed
   // in. OPEN is the default - a tree that opened folded would hide the
   // workspaces a reader has never touched.
-  // docs/Design/Page/Workspaces.md
+  // docs/Features/Page/Workspaces.md
   getWorkspaceCollapseState(workspaceId) {
     if (!workspaceId) return false;
     const key = `collapsedWorkspace-${workspaceId}`;

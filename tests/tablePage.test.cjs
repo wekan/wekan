@@ -1,6 +1,6 @@
 'use strict';
 
-// The shared table page — docs/Design/Page/Table.md.
+// The shared table page — docs/Features/Page/Table.md.
 //
 // Files, Rules, Boards, Cards, Impersonation, Recovery and the four event streams
 // (Security, Speed, Tests, CPU usage) used to be ten copies of the same page: the
@@ -22,7 +22,7 @@
 // removed from the app code.
 //
 // Files under test are the ones listed in the Related files table of
-// docs/Design/Page/Table.md.
+// docs/Features/Page/Table.md.
 //
 // Run: node tests/tablePage.test.cjs
 
@@ -45,7 +45,7 @@ const jade = read('client/components/settings/tablePage.jade');
 const css = read('client/components/settings/tablePage.css');
 const reportsJade = read('client/components/settings/adminReports.jade');
 const reportsJs = read('client/components/settings/adminReports.js');
-const doc = read('docs/Design/Page/Table.md');
+const doc = read('docs/Features/Page/Table.md');
 
 // Load the ES module helpers without a bundler: strip the export keywords.
 const lib = {};
@@ -265,7 +265,7 @@ test('every paginated page loads the SAME ten rows at a time', () => {
   // page, the Admin Panel reports and event streams, the People panes, the search
   // pages and the archive. A page that writes its own is the bug this pins.
   assert.strictEqual(lib.TABLE_PAGE_ROWS_PER_PAGE, 10,
-    'the app pages ten rows at a time (docs/Design/Page/Table.md)');
+    'the app pages ten rows at a time (docs/Features/Page/Table.md)');
   const sources = {
     'client/components/settings/adminReports.js':
       ['const REPORTS_PER_PAGE = TABLE_PAGE_ROWS_PER_PAGE;',
@@ -310,7 +310,7 @@ test('the design doc lists the pages and they exist in code', () => {
   for (const id of ['report-security', 'report-speed', 'report-tests', 'report-cpu',
     'report-files', 'report-rules', 'report-boards', 'report-cards',
     'report-impersonation', 'report-recovery']) {
-    // The menu is DATA now (PROBLEMS_MENU, docs/Design/Page/Left-Menu.md),
+    // The menu is DATA now (PROBLEMS_MENU, docs/Features/Page/Left-Menu.md),
     // not markup, so it lives in the .js.
     assert.ok(reportsJs.includes(`'${id}'`), `${id} must exist in the Problems side menu`);
   }
@@ -321,9 +321,9 @@ test('pages that use the design link back to it', () => {
     'docs/Features/Admin-Panel/Problems/CPU-usage.md',
     'docs/Features/Admin-Panel/Problems/Recovery.md']) {
     const src = read(p);
-    assert.ok(/\[Table Page\]\((\.\.\/)+Design\/Page\/Table\.md\)/.test(src),
+    assert.ok(/\[Table Page\]\((\.\.\/)+Features\/Page\/Table\.md\)/.test(src),
       `${p} must link to the shared design with a relative path`);
-    const rel = /\[Table Page\]\(((?:\.\.\/)+Design\/Page\/Table\.md)\)/.exec(src)[1];
+    const rel = /\[Table Page\]\(((?:\.\.\/)+Features\/Page\/Table\.md)\)/.exec(src)[1];
     const target = path.resolve(path.dirname(path.join(root, p)), rel);
     assert.ok(fs.existsSync(target), `${p}: link target ${rel} must exist`);
   }
@@ -406,7 +406,7 @@ test('the design doc explains the theming', () => {
 // is the split this whole change removed. The last three cover the OTHER pagers
 // (People/Org/Team/Domain, the board Table view, Translation): those are not
 // table pages, but they share the themed pager stylesheet listed in
-// docs/Design/Page/Table.md, so a change there reaches them too.
+// docs/Features/Page/Table.md, so a change there reaches them too.
 // ═══════════════════════════════════════════════════════════════════════════
 
 // ── performance: paginated + index-backed sorts ─────────────────────────────
@@ -445,7 +445,7 @@ test('eventlog has a {stream,at} index so Security/Speed/Tests pages stay fast',
 // ── one controls row, defined once for every report ──
 test('report tables have no Search button (Enter searches) and ONE shared controls row', () => {
   // The six reports used to carry six copies of this row. They now render
-  // through the shared table page (docs/Design/Page/Table.md), so the row exists
+  // through the shared table page (docs/Features/Page/Table.md), so the row exists
   // once, in one template, with one set of handlers.
   const jade = read('client/components/settings/tablePage.jade');
   assert.ok(!/-search-button/.test(jade), 'the Search button must be gone (typing + Enter searches)');

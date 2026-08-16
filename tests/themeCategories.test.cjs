@@ -24,7 +24,7 @@ test('categories partition into flat/clear/dark/special in order', () => {
   // The colour slides. clearblue was alone until the five derived from the flat
   // colours joined it - cleargreen from limegreen, clearorange from pumpkin,
   // and so on - so the clear category covers the same colour families the flat
-  // one does. docs/Design/Page/Theme.md
+  // one does. docs/Features/Page/Theme.md
   assert.deepStrictEqual(TC.colorsInCategory('clear'),
     ['clearblue', 'cleargreen', 'clearorange', 'clearpink', 'clearpurple', 'clearred']);
   // Every one of them takes TWO custom colours, because a slide has two ends.

@@ -26,13 +26,13 @@
      side menu, and the menu is meant to run from directly under the header to
      the bottom of the window. The main body keeps its breathing room below -
      see `.main-body` - because that IS content and content is not flush to a
-     bar. docs/Design/Page/Left-Menu.md */
+     bar. docs/Features/Page/Left-Menu.md */
   padding-top: 0;
   height: 100%;
   gap: 18px;
   /* The width grip is positioned against this ROW rather than against the menu:
      the menu is its own scroll area, and a handle inside it would scroll away
-     with the entries. docs/Design/Page/Left-Menu.md */
+     with the entries. docs/Features/Page/Left-Menu.md */
   position: relative;
 }
 
@@ -44,7 +44,7 @@
    beats every rule here - so the declarations below are DEFAULTS, and the
    breakpoints that want a different default (layouts.css) override the variable
    instead of the width, or a dragged width would be overridden right back.
-   docs/Design/Page/Left-Menu.md */
+   docs/Features/Page/Left-Menu.md */
 :root {
   --wekan-left-menu-width: 260px;
 }
@@ -68,7 +68,7 @@
   flex: 0 0 auto;
   /* No X offset: an inset shadow offset sideways is a PHYSICAL direction and does
      not mirror under dir=rtl, so it shaded the wrong inner edge once the menu moved
-     to the right. See docs/Design/Page/Left-Menu.md. */
+     to the right. See docs/Features/Page/Left-Menu.md. */
   box-shadow: inset 0 -2px 4px rgba(0,0,0,0.05);
   /* A long menu SCROLLS inside the panel instead of spilling out of it.
      The menu is a flex item stretched to the row's height, so its box - and with it
@@ -93,7 +93,7 @@
    colour). One selected-thing look in both places.
    The colour is the per-user theme accent (Member Settings -> Change color sets
    --theme-accent on :root); the fallback is the WeKan header blue, so with no chosen
-   colour the menu matches the bar exactly. See docs/Design/Page/Left-Menu.md.
+   colour the menu matches the bar exactly. See docs/Features/Page/Left-Menu.md.
    `:hover` is listed too: `li:hover` below sets a white background at the SAME
    specificity as `li.active`, and being later in the file it would otherwise wash the
    selected entry back to white as soon as the pointer crossed it. */
@@ -232,7 +232,7 @@
 
    So: fit the panel, wrap the text, and let a genuinely wide table scroll inside
    `.main-body`, which keeps `overflow-x: auto` for exactly that. The shared table
-   page (docs/Design/Page/Table.md) already does this for itself - width:100% +
+   page (docs/Features/Page/Table.md) already does this for itself - width:100% +
    table-layout:fixed with equal, wrapping columns - and is excluded so its equal
    columns are not turned back into content-sized ones. */
 .setting-content .content-body .main-body table:not(.table-page-table) {
@@ -276,7 +276,7 @@
    there is nothing new to learn.
    It is styled here rather than beside one page's menu because it appears on
    both pages and, folded, in a third place: the pane title.
-   docs/Design/Page/Left-Menu.md */
+   docs/Features/Page/Left-Menu.md */
 .left-menu-collapse-indicator {
   display: flex;
   align-items: center;
@@ -327,7 +327,7 @@
    menu, because the menu scrolls its own entries and a handle within it would
    scroll away with them. Being absolutely positioned, it is neither a flex item
    nor a grid item: it adds no column and no gap.
-   docs/Design/Page/Left-Menu.md */
+   docs/Features/Page/Left-Menu.md */
 .left-menu-resize-handle {
   position: absolute;
   top: 0;
