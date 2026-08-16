@@ -375,7 +375,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v10.97 2026-08-16 WeKan ® release
 
 **In short:** v10.96 shipped a bundle that could not start. Trimming what a
 bundle carries went one file too far: `boot.js` reads every source map NAMED in
