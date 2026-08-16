@@ -1,3 +1,41 @@
+# Where everything is
+
+The sections below walk through the directories in detail. This table is the
+whole tree at a glance, because the detail is easy to get lost in - and because
+for years this page described four directories out of twenty and did not say so.
+
+| Directory | What is in it |
+| --- | --- |
+| [client/](../../client) | everything the browser runs: Blaze components, their styles, the client-side libraries |
+| [server/](../../server) | everything only the server runs: startup, publications, methods, the REST routes, `lib/` |
+| [models/](../../models) | the collections, their schemas, helpers and mutations - shared by both, so a model must never import from `server/` |
+| [imports/](../../imports) | shared code that is neither a model nor a component: i18n, the reactive cache, the shared SimpleSchema, startup |
+| [packages/](../../packages) | the Meteor packages WeKan maintains itself - the accounts integrations (CAS, LDAP, OIDC, Sandstorm), the lockout, markdown |
+| [config/](../../config) | the router and the accounts configuration |
+| [migrations/](../../migrations) | one file per database migration, run in order at startup |
+| [public/](../../public) | files served as-is: icons, fonts, the web app manifest |
+| [private/](../../private) | files the SERVER can read and the client cannot |
+| [tests/](../../tests) | the suites - `*.test.cjs` run by `tests/run-node-suites.cjs`, plus the Playwright and e2e directories |
+| [docs/](../../docs) | this documentation |
+| [releases/](../../releases) | how a release is built and published - the bundle steps, the translations tooling, the CHANGELOG tooling |
+| [snap/](../../snap), [snap-src/](../../snap-src), [snap-base-debian/](../../snap-base-debian) | the snap package |
+| [sandstorm-src/](../../sandstorm-src) | the Sandstorm package |
+| [openapi/](../../openapi) | the REST API description, generated from the routes |
+| [meta/](../../meta) | signatures, icons, screenshots, project description |
+| [old-CHANGELOG/](../../old-CHANGELOG) | the CHANGELOG's history, by year and by month (`CHANGELOG.md` holds the current month) |
+| `.tools/` | NOT part of this repository: the companion repos and toolchains a build needs, ignored by git and by Meteor |
+| `node_modules/`, `.meteor/`, `.build/` | generated; never edited, never committed |
+
+Two rules that the layout only implies:
+
+- **`models/` is shared code.** It is loaded on the client too, so a model that
+  imports from `server/` breaks the client build. Server-only logic that a model
+  needs lives behind `Meteor.isServer` or in `server/lib/`.
+- **A `.jade` file is not picked up by being on disk.** Every template is
+  imported by name from `client/features/*.js`, and a component `.js` that other
+  components import must import its own `.jade` - see
+  `tests/clientBundleImports.test.cjs` and `tests/templateRegistration.test.cjs`.
+
 # Routing
 
 We're using [FlowRouter](https://github.com/kadirahq/flow-router) client side router inside **[config/router.js](../../config/router.js)**.
@@ -8,7 +46,7 @@ For accounts there is [AccountsTemplates](https://github.com/meteor-useraccounts
 ## public
 
 Files in this directory are served by meteor as-is to the client. It hosts some (fav)icons and fonts.
-**[wekan-manifest.json](https://github.com/wekan/wekan/tree/main/wekan-manifest.json)**: goes into `link rel="manifest"` in the header of the generated page and is a [Web App Manifest](https://developer.mozilla.org/en-US/docs/Web/Manifest).
+**[svg-etc/manifest.json](../../public/svg-etc/manifest.json)**: goes into `link rel="manifest"` in the header of the generated page and is a [Web App Manifest](https://developer.mozilla.org/en-US/docs/Web/Manifest).
 
 ## components
 
@@ -41,7 +79,6 @@ Files in this directory are served by meteor as-is to the client. It hosts some 
   * **[keyboardShortcuts.jade](../../client/components/main/keyboardShortcuts.jade)**: `shortcutsHeaderBar`, `shortcutsModalTitle`, `keyboardShortcuts` - all for the shortcuts that are presented when you press `?`re implemented inhere;
   * **[layouts.jade](../../client/components/main/layouts.jade)**: has the template for head portion of the html page and other general purpose templates: `userFormsLayout`, `defaultLayout`, `notFound`, `message`;
   * **[popup.tpl.jade](../../client/components/main/popup.tpl.jade)**: tpl files only define a single template so there's no need to wrap content in a template tag; the name of the template is the base name of the file (`popup` in this case);
-  * **[spinner.tpl.jade](https://github.com/wekan/wekan/tree/main/client/components/main/spinner.tpl.jade)**: is the template for a "waiting" dialog;
 * **[settings](../../client/components/settings)**:
   * **[informationBody.jade](../../client/components/settings/informationBody.jade)**: the `statistics` template — the Version pane of Admin Panel / Settings, five tables (Platform, OS, Meteor, Database, Node). There is no `information` template any more: it is a pane rendered by `settingBody.jade`, not a page;
   * **[invitationCode.jade](../../client/components/settings/invitationCode.jade)**: `invitationCode` template;
@@ -55,21 +92,26 @@ Files in this directory are served by meteor as-is to the client. It hosts some 
 * **[users](../../client/components/users)**:
   * **[userAvatar.jade](../../client/components/users/userAvatar.jade)**: `userAvatar`, `userAvatarInitials`, `userPopup`, `memberName`, `changeAvatarPopup`, `cardMemberPopup`
   * **[userHeader.jade](../../client/components/users/userHeader.jade)**: `headerUserBar`, `memberMenuPopup`, `editProfilePopup`, `editNotificationPopup`, `changePasswordPopup`, `changeLanguagePopup`, `changeSettingsPopup`;
-* **[mixins](https://github.com/wekan/wekan/tree/main/client/components/mixins)**: [extends](http://www.meteorpedia.com/read/Infinite_Scrolling) **[infiniteScrolling.js](https://github.com/wekan/wekan/tree/main/client/components/mixins/infiniteScrolling.js)** for card details, sidebar and also extends **[perfectScrollbar.js](https://github.com/wekan/wekan/tree/main/client/components/mixins/perfectScrollbar.js)**;
+
+## features
+
+**[client/features](../../client/features)** is the list of what the client
+LOADS. One file per area - `boards.js`, `cards.js`, `settings.js`, `main.js` and
+so on - each importing that area's `.jade`, then its `.js`, then its `.css`, and
+`client/imports.js` imports them all. A component that is not named here is not
+in the bundle, however finished it is: `tests/templateRegistration.test.cjs`
+fails when a template is included by name and never imported.
 
 ## config
 
 * **[blazeHelpers.js](../../client/config/blazeHelpers.js)**: following [Blaze](http://blazejs.org/) helpers are registered here:`currentBoard()`, `currentCard()`, `getUser()` and `concat()`;
 * **[gecko-fix.js](../../client/config/gecko-fix.js)**: removes [deprecated](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/watch)`watch` and `unwatch` from Firefox prior to version 58;
-* **[presence.js](https://github.com/wekan/wekan/tree/main/client/config/presence.js)**: custom state function for [Presence](https://github.com/dburles/meteor-presence) that keeps track of current board;
-* **[reactiveTabs.js](https://github.com/wekan/wekan/tree/main/client/config/reactiveTabs.js)**: [ReactiveTabs](https://github.com/meteortemplates/tabs) are configured to use `basicTabs` template.
 
 ## lib
 
 * **[accessibility.js](../../client/lib/accessibility.js)**: define a set of DOM transformations that are specifically intended for blind screen readers;
 * **[cssEvents.js](../../client/lib/cssEvents.js)**: the `CSSEvents`object has methods that select the name of the event based on the specific transitions and animations;
 * **[pasteImage.js](../../client/lib/pasteImage.js)** and **[dropImage.js](../../client/lib/dropImage.js)**: utility for pasting and dropping images on a web app; <span style="color:red">*XXX: add comments; not same style as the rest of the code*</span>
-* **[emoji-values.js](https://github.com/wekan/wekan/tree/main/client/lib/emoji-values.js)**: sets Emoji.values;
 * **[escapeActions.js](../../client/lib/escapeActions.js)**: defines the behavior (mostly canceling current edit) for escape keyboard key;
 * **[i18n.js](../../client/lib/i18n.js)**: at startup we choose the language for the ui based on user profile or browser language;
 * **[inlinedform.js](../../client/lib/inlinedform.js)**: forms for editing a single field (like adding a card); <span style="color:red">*XXX: comments in code suggest that a form that is not submitted will retain its value to prevent data loss using [unsavedEdits.js](../../client/lib/unsavedEdits.js);bug?*</span>; <span style="color:red">*XXX: edit button to save and open*</span>;
@@ -77,7 +119,6 @@ Files in this directory are served by meteor as-is to the client. It hosts some 
 * **[minicardLabelText.js](../../client/lib/minicardLabelText.js)**: reads and writes the personal `Hide minicard label text` setting (the user's profile, or this browser when nobody is logged in), used by the minicard and by `Minicard menu / Show on Minicard`;
 * **[sectionCaret.js](../../client/lib/sectionCaret.js)**: which way a collapsible section's caret points — down when open, and toward the text when closed, mirrored in right-to-left languages — shared by the card's sections and the board sidebar's `Activities`;
 * **[keyboard.js](../../client/lib/keyboard.js)**: the shortcuts that are presented when you press `?`re implemented inhere;
-* **[mixins.js](https://github.com/wekan/wekan/tree/main/client/lib/mixins.js)**: stub; no `Mixins` at this point; <span style="color:red">*XXX: what does `new class` do? exlint: missing () invoking a constructor*</span>
 * **[popup.js](../../client/lib/popup.js)**: defines `Popup` class for things likes electing a date; <span style="color:red">*XXX: not a Blaze helper?*</span>
 * **[textComplete.js](../../client/lib/textComplete.js)**: extends [jquery-textcomplete](https://yuku-t.com/jquery-textcomplete/) to integrate with the rest of the system (like escape actions, tab and enter key handling); <span style="color:red">*XXX: deprecated?*</span>
 * **[utils.js](../../client/lib/utils.js)**: various methods all over the place (resize, screen size, sort, capitalize, navigate to board and card);
@@ -91,8 +132,28 @@ Files in this directory are served by meteor as-is to the client. It hosts some 
 
 .js files in this directory are not available to the client.
 
+The four directories that hold most of it:
+
+* **[server/lib](../../server/lib)** - the server-only libraries the rest of it
+  calls. The security log and the event-log fold that Admin Panel / Problems is
+  built on, the login throttle and timing defence, the database problem
+  classifier, the API usage counter, the recovery and migration helpers.
+* **[server/methods](../../server/methods)** - Meteor methods that are not part
+  of a model: the backups, the repairs, the reports the Admin Panel calls.
+* **[server/publications](../../server/publications)** - what the client may
+  subscribe to, and with which fields.
+* **[server/routes](../../server/routes)** - the HTTP routes that are not the
+  REST API: the avatar server, the attachment routes, the custom head assets.
+  The REST API itself is registered by the models, in front of
+  **[server/apiMiddleware.js](../../server/apiMiddleware.js)** - body parsing,
+  the `WITH_API` gate, bearer-token authentication, and the usage counting
+  behind Admin Panel / Problems / API.
+* **[server/startup](../../server/startup)** and the `00*.js` files at the top -
+  what runs before anything else, in name order: the startup checks, waiting for
+  the database, the retry-on-busy wrapper, the error handlers.
+
 * **[statistics.js](../../server/statistics.js)** implements a Meteor server-only [method](https://guide.meteor.com/methods.html) for general-purpose information such as OS, memory, CPUs, PID of the process and so on.
-* **[migrations.js](https://github.com/wekan/wekan/tree/main/server/migrations.js)** is where code that update sold databases to new schema is located. Anytime the schema of one of the collection changes in a non-backward compatible way a migration needs to be written in this file.
+* **[migrations.js](../../migrations)** is where code that update sold databases to new schema is located. Anytime the schema of one of the collection changes in a non-backward compatible way a migration needs to be written in this file.
 * **[authentication.js](../../server/authentication.js)** add the `Authentication`object to Meteor that provides methods for checking access rights.
 * **[lib/utils.js](../../server/lib/utils.js)** defines some checks used by [checklists.js](../../models/checklists.js)** model. <span style="color:red">*XXX: these methods are defined in server-only code by are used in models, which are visible by the client (in Checklists.allow)?*</span>
 * **[notifications](../../server/notifications)**
@@ -108,7 +169,6 @@ Files in this directory are served by meteor as-is to the client. It hosts some 
   * **[avatars.js](../../server/publications/avatars.js)**: [Avatars](../../models/avatars.js) collection for current user;
   * **[boards.js](../../server/publications/boards.js)**: [Boards](../../models/boards.js) collection for current user, archived boards collection and individual board as a [relation](https://atmospherejs.com/cottz/publish-relations);
   * **[cards.js](../../server/publications/cards.js)**: a [Card](../../models/cards.js) by its id;
-  * **[fast-render.js](https://github.com/wekan/wekan/tree/main/server/publications/fast-render.js)**: configures [FastRender](https://github.com/kadirahq/fast-render) to use the board data; <span style="color:red">*XXX: FastRender docs say "Make sure you're using Meteor.subscribe and not this.subscribe"*</span>
   * **[people.js](../../server/publications/people.js)**: [Users](../../models/users.js) collection;
   * **[settings.js](../../server/publications/settings.js)**: [Settings](../../models/settings.js) collection and, separately, the mail server;
   * **[unsavedEdits.js](../../server/publications/unsavedEdits.js)**: [UnsavedEdits](../../models/unsavedEdits.js) collection;
@@ -117,6 +177,14 @@ Files in this directory are served by meteor as-is to the client. It hosts some 
 # Models
 
 The files in **[models](../../models)** directory mainly define collections; most of them have [aldeed SimpleSchema](https://atmospherejs.com/aldeed/simple-schema) for automatic validation of insert and update of collections. This is also where helpers, mutations, methods, hooks and bootstrap code is to be found. [Server side code](https://docs.meteor.com/api/core.html#Meteor-isServer) also implements json REST API.
+
+**[models/lib](../../models/lib)** is the other half of this directory, and by
+file count the larger one: the PURE modules a model, the server and the client
+all share - the event-log summary shape, the address classifier, the admin URLs
+and menus, the shared table page, the lockout state, the map links. They are
+plain CommonJS with no Meteor in them, which is what lets
+`tests/*.test.cjs` run them under bare node and test a decision as arithmetic
+rather than through a server.
 
 Collections (mostly `Mongo.Collection` except as noted) are defined in:
 * **[accountSettings.js](../../models/accountSettings.js)**;
@@ -163,7 +231,7 @@ Other files:
 * Meteor: is a full-stack JavaScript platform for developing modern web and mobile applications.
   * **[.meteor](../../.meteor)**;
 * Translation:
-  * **[i18n](https://github.com/wekan/wekan/tree/main/i18n)** directory has one .json file for each supported language
+  * **[i18n](../../imports/i18n/data)** directory has one .json file for each supported language
   * **[.tx](../../.tx)**: configuration for [Transifex](https://app.transifex.com/wekan/) tool used to manage translation;
 * Text editors:
   * **[.vscode](../../.vscode)**: [Visual Studio Code Editor](https://code.visualstudio.com/docs/getstarted/settings);
@@ -172,13 +240,41 @@ Other files:
 * **[.eslintrc.json](../../.eslintrc.json)**: [ESLint](https://eslint.org/docs/user-guide/configuring) configuration;
 * **[.travis.yml](../../.travis.yml)**: configuration for [Travis CI](https://travis-ci.org/);
 * **[scalingo.json](../../scalingo.json)**: [Scalingo](https://scalingo.com/) is a deploy solution;
-* **[fix-download-unicode](https://github.com/wekan/wekan/tree/main/fix-download-unicode)**: `cfs_access-point.txt` from this folder is copied to `bundle/programs/server/packages/cfs_access-point.js` in Docker build and in snapcraft build; this is a monkey patch fix for [downloading files that have unicode in filename](https://github.com/wekan/wekan/issues/784).
+
+# Building, releasing and testing
+
+* **[build.sh](../../build.sh)** / **[build.bat](../../build.bat)** - the menu
+  that installs dependencies, builds WeKan and runs the tests. Its Setup menu
+  builds either the **release bundle** (what a release publishes, minus the
+  .zip) or the **development bundle** (plain `meteor build`).
+* **[releases/](../../releases)** - one script per step of a release, and the
+  same scripts the GitHub workflow runs, so a release can be reproduced locally:
+  * **[release-all.sh](../../releases/release-all.sh)** - the whole release, from
+    the CHANGELOG's `# Upcoming` section; takes no version number.
+  * **[build-release-bundle.sh](../../releases/build-release-bundle.sh)** - the
+    bundle a release publishes, for the machine it is run on.
+  * **[bundle-trim.mjs](../../releases/bundle-trim.mjs)**,
+    **[prune-unreachable-npm.mjs](../../releases/prune-unreachable-npm.mjs)**,
+    **[bundle-smoke-boot.sh](../../releases/bundle-smoke-boot.sh)** - what a
+    bundle carries, what it does not, and whether it starts at all.
+  * **[translations/](../../releases/translations)** - the Transifex pull and the
+    per-key merge that never overwrites a human translation.
+  * **[changelog-archive.mjs](../../releases/changelog-archive.mjs)** - moves
+    finished months out of `CHANGELOG.md` into `old-CHANGELOG/`.
+* **[tests/](../../tests)** - `*.test.cjs` suites run by
+  **[run-node-suites.cjs](../../tests/run-node-suites.cjs)** (all of them, with
+  every failure listed at the end), plus the Playwright browser tests and the
+  e2e/import suites. Many of them READ THE SOURCE and pin a behaviour, which is
+  what makes "and this mistake is nowhere else in the tree" checkable.
+* **[.github/workflows](../../.github/workflows)** - `release-all.yml` is the
+  release: the bundles for every platform, the Docker images, the snaps, and the
+  GitHub Release they attach to.
 
 # Info
 
 * **[meta](../../meta)**: binary signatures, project description, icons, screenshots and, oui, a French change-log;
 * **[CHANGELOG.md](../../CHANGELOG.md)**;
-* **[Contributing.md](https://github.com/wekan/wekan/tree/main/Contributing.md)**;
+* **[Contributing.md](../../CONTRIBUTING.md)**;
 * **[LICENSE](../../LICENSE)**;
 * **[README.md](../../README.md)**.
 
@@ -186,5 +282,17 @@ Other files:
 
 # Contributions to this page
 
-This documentation was contributed by [TNick](https://github.com/TNick) and [xet7](https://github.com/xet7) while Wekan was at commit [e2f768c](https://github.com/wekan/wekan/tree/e2f768c6a0f913b7c5f07695dce8cec692037255). 
-Please add new files, fixes, updates, etc directly to this page.
+This page was contributed by [TNick](https://github.com/TNick) and
+[xet7](https://github.com/xet7) when WeKan was at commit
+[e2f768c](https://github.com/wekan/wekan/tree/e2f768c6a0f913b7c5f07695dce8cec692037255),
+and it described the tree as it was then for a long time afterwards: fourteen of
+its links pointed at files that had moved or been deleted, and two thirds of the
+repository - `imports/`, `packages/`, `releases/`, `tests/`, `docs/`,
+`migrations/`, `server/lib`, `server/methods`, `server/routes`, `models/lib`,
+`client/features` - was not mentioned at all.
+
+Please add new files, fixes and updates directly to this page.
+`tests/docsLinksResolve.test.cjs` fails when a link here points at something that
+is not in the tree, which is what let the fourteen rot unnoticed: a
+`https://github.com/wekan/wekan/tree/main/...` link looks fine in an editor and
+404s only for the reader.
