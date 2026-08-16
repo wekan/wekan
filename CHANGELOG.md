@@ -57,6 +57,34 @@ held only issues \#4774 and \#4055, and both are closed now.
 </details>
 
 <details>
+<summary>Designed and written down, not built - one feature across several places, where half of it would be worse than none.</summary>
+
+**Requested By and Assigned By become people.** They are free TEXT today, and
+should keep that field AND gain member fields of the same kind Assignees has - a
+user picked from a popup, shown as an avatar or initials - on the card, in both
+exports and through every import. The shape is written down in
+[Requested-Assigned-By.md](docs/Features/Cards/Requested-Assigned-By.md):
+mirror `assignees` exactly (`requesters`, `assigners` as `[String]`, named after
+what WeKan already calls them internally), keep the two strings beside them, and
+give Members, Assignees, Requested By and Assigned By ONE template - they are
+the same control written four times. The avatar itself needs nothing new: it is
+`+userAvatar` in a `.member` box, which is what the board sidebar, the cards,
+Admin Panel / People and Admin Panel / Problems all already use. Not started
+because it is one feature across five places - schema, the card, the picker
+popups, both exports and the import round trip - and half of it landed is worse
+than none of it: a card would show a person that an export drops.
+
+**Two export steps of the same batch.** The card layout is one document both
+formats draw ([One-Card-Layout.md](docs/Features/ImportExport/One-Card-Layout.md)),
+and the PDF draws it now. What is left is moving the EXCEL renderer onto it -
+its output must not change, which is what makes that step verifiable - and
+embedding images in the PDF, where JPEG is `/DCTDecode` with the file's own
+bytes and PNG is `/FlateDecode` with `/DecodeParms`. Until then a PDF lists an
+attachment by name where Excel embeds the picture.
+
+</details>
+
+<details>
 <summary>Need specific infrastructure / a running server stack we cannot reproduce here (left for environment owners).</summary>
 
 [#5707](https://github.com/wekan/wekan/issues/5707) (board invitation email
