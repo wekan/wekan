@@ -417,7 +417,7 @@ This release fixes the following bugs:
 **Exporting** - choosing what goes in the file.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ed8f972b5">The export popup's checkboxes can be changed, and they say what they are</a>. Thanks to Heart1010 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ea8bd12a9">The export popup's checkboxes can be changed, and they say what they are</a>. Thanks to Heart1010 and xet7.</summary>
 
 Reported as [#6586](https://github.com/wekan/wekan/issues/6586): *"with v10.98
 we have that unified export dialog 👍 But I can't select/deselect those arrows
@@ -452,7 +452,7 @@ covered without editing it.
 **Admin Panel / Problems** - how a person is shown.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/90299b58a">A user's avatar is avatar-sized, in every pane that names one</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/580b03e17">A user's avatar is avatar-sized, in every pane that names one</a>. Thanks to xet7.</summary>
 
 Offices and the Impersonation Report drew a user's photograph at its NATURAL
 size — a 300px portrait in a table row, a screen tall, with the login counts
@@ -472,7 +472,7 @@ carries turned off for a table.
 **All Boards** - the size of a tile.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/90299b58a">Two tiles that were shorter than the boards beside them</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/580b03e17">Two tiles that were shorter than the boards beside them</a>. Thanks to xet7.</summary>
 
 On **Starred**, the grey "+ Add Board" tile hung short. `min-height: 114px` is a
 FLOOR, and a board whose title wraps to three lines grows past it; the grid
