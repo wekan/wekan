@@ -414,7 +414,7 @@ document, use the saved user language or browser fallback, keep the opened
 card's date format, and preserve multilingual text; PDF also embeds JPEG and PNG
 attachment previews plus Unicode-plane fonts. **Admin Panel / Problems** keeps
 avatars at avatar size, and **All Boards** keeps its Add Board and Home
-placeholder tiles as tall as the boards beside them. Below that: eight export
+placeholder tiles as tall as the boards beside them. Below that: nine export
 fixes, one shared-checkbox fix, two UI sizing fixes, and the documentation move
 into its feature and platform hierarchy with every local link checked.
 
@@ -615,6 +615,34 @@ declared type. Non-image files and images whose stored object is missing,
 unreadable or corrupt therefore remain listed with filename and size instead of
 disappearing from the export. A regression card contains one previewed image
 and one ordinary file and pins that each is named in exactly its proper place.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fb52149e9">PDF and Excel cards share their visual attachment layout</a>. Thanks to xet7.</summary>
+
+Excel stacked every preview vertically despite having six worksheet columns.
+It now uses three two-column preview cells per row and starts the fourth image
+on the next row. PDF uses the same three-column arrangement. In both formats,
+only the filename appears below each image.
+
+The attachment details above those previews include EVERY file, images
+included, in the same six fields: row number, filename, human-readable size,
+media type, upload date/time and uploader. PDF now resolves attachment uploaders
+alongside card members and comment authors, and the Excel headings use their
+real translated attachment keys instead of displaying `uploaded-at` and
+`uploaded-by` when those generic keys do not exist.
+
+PDF also consumes the presentation data the shared card document already gives
+Excel: labels use their actual background and contrasting text colors, metadata
+keeps the same positions, and checklist completion is a six-part blue progress
+bar with its completed/total count. Tests exercise a real ExcelJS worksheet
+with four images and pin the corresponding PDF label, progress, detail-table,
+preview-caption and pagination objects.
+
+This intentionally follows the preceding duplicate-name fix with the complete
+details requested here: an image is present in the all-attachments details
+table, while its filename-only preview caption identifies the image below.
 
 </details>
 
