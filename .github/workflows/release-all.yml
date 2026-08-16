@@ -3353,9 +3353,42 @@ jobs:
               node releases/prune-unreachable-npm.mjs .meteor-spk/bundle
               node releases/prune-build-only-modules.mjs .meteor-spk/bundle || true
               sizes || true
+              # PACK AGAIN WITHOUT REBUILDING. `meteor-spk pack` runs the Meteor
+              # build first - the "Building Meteor app..." line - which
+              # regenerates .meteor-spk/bundle and throws the trim away. v10.98's
+              # log is the proof: the trim took the bundle 856M -> 424M, which
+              # with the 336M deps tree is 760M, comfortably under the limit, and
+              # then pack rebuilt it and failed at the same size as before.
+              #
+              # An earlier note here claimed pack REUSES the bundle. It does not.
+              # That was inferred from a size reading taken right after the prune
+              # - this same point in the sequence - and never checked against what
+              # the second pack actually did.
+              #
+              # Sandstorm's own `spk pack` does only the packing: it reads
+              # sandstorm-pkgdef.capnp, whose sourceMap searchPath is exactly the
+              # two trees that have just been trimmed, and signs with
+              # ~/.sandstorm-keyring. So the retry uses that where it exists.
+              SPK_BIN=""
+              for candidate in /opt/sandstorm/latest/bin/spk /opt/sandstorm/spk \
+                               "$(command -v spk 2>/dev/null)"; do
+                if [ -n "$candidate" ] && [ -x "$candidate" ]; then SPK_BIN="$candidate"; break; fi
+              done
               set +e
-              meteor-spk pack "$SPK"
-              pack_rc=$?
+              if [ -n "$SPK_BIN" ]; then
+                echo "--- packing the TRIMMED trees with $SPK_BIN (no rebuild)"
+                "$SPK_BIN" pack "$SPK"
+                pack_rc=$?
+                if [ "$pack_rc" -ne 0 ]; then
+                  echo "--- spk pack failed (exit $pack_rc); falling back to meteor-spk, which rebuilds"
+                  meteor-spk pack "$SPK"
+                  pack_rc=$?
+                fi
+              else
+                echo "::warning::no sandstorm spk binary found, so this retry uses meteor-spk, which REBUILDS the bundle and undoes the trim above."
+                meteor-spk pack "$SPK"
+                pack_rc=$?
+              fi
               set -e
               [ "$pack_rc" -eq 0 ] && echo "--- the trimmed bundle packed"
             fi
