@@ -137,4 +137,29 @@ test('both exporters ask THIS module (negative)', () => {
   }
 });
 
+test('Excel renders every card text through it, not just the description', () => {
+  // A description that renders and a comment that does not is worse than
+  // neither, because the file then disagrees with itself about what markdown is.
+  const fs = require('fs');
+  const path = require('path');
+  const excel = fs.readFileSync(
+    path.join(__dirname, '..', 'models/server/ExporterExcelCard.js'), 'utf8');
+  const rendered = [...excel.matchAll(/markdownCell\(/g)].length;
+  assert.ok(rendered >= 4,
+    `the description, comments, checklist items and custom fields all render `
+    + `markdown - found ${rendered} call(s)`);
+});
+
+test('a rich-text cell is still measured by its TEXT (negative)', () => {
+  // The row height is estimated from the value's length. A rich-text value is an
+  // object whose `.length` is undefined, so measuring the value itself would
+  // give every formatted comment the minimum height and clip it.
+  const fs = require('fs');
+  const path = require('path');
+  const excel = fs.readFileSync(
+    path.join(__dirname, '..', 'models/server/ExporterExcelCard.js'), 'utf8');
+  assert.ok(/richText \|\| \[\]\)\.reduce\(/.test(excel),
+    'splitRow must add up the runs of a rich-text value to measure it');
+});
+
 console.log(`\nexportMarkdown: ${passed} tests passed`);

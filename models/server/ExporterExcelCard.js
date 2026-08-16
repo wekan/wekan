@@ -377,9 +377,14 @@ class ExporterExcelCard {
       rc.font      = Object.assign({ name: fontName, size: 10 }, rightFont);
       rc.alignment = { vertical: 'top', horizontal: 'left', wrapText: true };
       rc.border    = thinBdr;
-      // Row height: estimate lines from text length
+      // Row height: estimate lines from the TEXT. A rich-text value is an object
+      // whose `.length` is undefined, so measuring the value itself would give
+      // every formatted comment the minimum height and clip it.
+      const rightLength = typeof rightText === 'string'
+        ? rightText.length
+        : (rightText && rightText.richText || []).reduce((n, r) => n + (r.text || '').length, 0);
       ws.getRow(row).height = Math.min(
-        Math.max(20, Math.ceil((rightText || '').length / 80) * 14),
+        Math.max(20, Math.ceil(rightLength / 80) * 14),
         120,
       );
       row++;
@@ -565,7 +570,14 @@ class ExporterExcelCard {
           setLabel(`A${row}`, `${(definition && definition.name) || field._id}:`);
           ws.mergeCells(`B${row}:F${row}`);
           const cv = ws.getCell(`B${row}`);
-          cv.value     = this.customFieldValueText(definition, field.value);
+          // A text custom field holds whatever somebody typed, and WeKan shows
+          // it as markdown like every other card text. The other kinds - a date,
+          // a number, a dropdown, a checkbox - are turned into words by
+          // customFieldValueText and have no markdown in them, which markdownCell
+          // returns unchanged as a plain string.
+          cv.value     = markdownCell(
+            this.customFieldValueText(definition, field.value), fontName,
+          );
           cv.font      = { name: fontName, size: 10 };
           cv.alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
           cv.border    = thinBdr;
@@ -626,7 +638,22 @@ class ExporterExcelCard {
           for (const item of items) {
             ws.mergeCells(`A${row}:F${row}`);
             const ic = ws.getCell(`A${row}`);
-            ic.value     = `  ${item.isFinished ? '[x]' : '[ ]'} ${item.title || ''}`;
+            // The item's title is markdown; the box in front of it is this
+            // export's own mark. A finished item is struck through, so the
+            // strike is applied to every run rather than to a plain string.
+            const marker = `  ${item.isFinished ? '[x]' : '[ ]'} `;
+            const title = markdownCell(item.title || '', fontName);
+            ic.value = typeof title === 'string'
+              ? `${marker}${title}`
+              : {
+                richText: [
+                  { font: { name: fontName, size: 10, strike: !!item.isFinished }, text: marker },
+                  ...title.richText.map(r => ({
+                    ...r,
+                    font: { ...r.font, strike: !!item.isFinished || !!r.font.strike },
+                  })),
+                ],
+              };
             ic.font      = { name: fontName, size: 10, strike: !!item.isFinished };
             ic.alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
             ic.border    = thinBdr;
@@ -682,8 +709,19 @@ class ExporterExcelCard {
       if (comments.length > 0) {
         for (const c of comments) {
           const author = userMap[c.userId] || '';
-          const text   = normalizeText(c.text || '');
-          splitRow(this.fmtDate(c.createdAt), author ? `${author}: ${text}` : text);
+          // The comment is markdown, like everywhere else it is shown. The
+          // author's name is not - it is this export's own label, so it is
+          // written plainly in front of the rendered comment.
+          const rendered = markdownCell(c.text || '', fontName);
+          const runs = typeof rendered === 'string'
+            ? [{ font: { name: fontName, size: 10 }, text: rendered }]
+            : rendered.richText;
+          splitRow(
+            this.fmtDate(c.createdAt),
+            author
+              ? { richText: [{ font: { name: fontName, size: 10, bold: true }, text: `${author}: ` }, ...runs] }
+              : rendered,
+          );
         }
       } else {
         ws.mergeCells(`A${row}:F${row}`);
