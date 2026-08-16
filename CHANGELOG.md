@@ -77,23 +77,11 @@ per-app ulimit key and snapd owns the systemd unit, so this needs a snapd
 feature or a wrapper change verified on a real snap install).
 
 **Release builds that need a run to verify** (v10.93, from the job logs). The
-Windows one was a code fault and is fixed; these two are not answerable from a
-reading of the tree:
+Windows one was a code fault and is fixed, and so now is the Sandstorm size
+limit — v10.95's size report named what filled the gigabyte, and the trim that
+followed is in the upcoming release. This one is not answerable from a reading
+of the tree:
 
-- **build-sandstorm: `App exceeds uncompressed size limit of 1 GiB`.** Sandstorm
-  refuses to pack, so no .spk is written and nothing says what is big.
-  `sandstorm-pkgdef.capnp` packs `alwaysInclude = ["."]` from `.meteor-spk/deps`
-  and `.meteor-spk/bundle`, so BOTH count: the Node 24, FerretDB v1, mongod 3.0,
-  niscud and Mongo 3.x CLIs that `sandstorm-src/build-deps.sh` assembles, and
-  every package in the built bundle. The pack step now prints the total and the
-  twenty biggest directories of each before packing, so the next run names the
-  offender. Two candidates worth measuring first: the built bundle keeps the
-  build-only npm tree that every other bundle drops
-  (`prune-build-only-modules.mjs` removes 83 of 120 packages, and the Sandstorm
-  leg is the only one that never runs it), and the deps tree carries two
-  database engines because the Mongo-to-FerretDB migration needs both. Which of
-  those can go, and whether `meteor-spk pack` can be made to reuse a pruned
-  `.meteor-spk/bundle` rather than rebuilding it, needs a run to answer.
 - **snap-launchpad (riscv64) was CANCELLED waiting in Launchpad's build queue**,
   printing `Pending: riscv64` until the job timed out. The other three Launchpad
   architectures - s390x, ppc64el and armhf - built and published in the same
@@ -394,8 +382,12 @@ Panel, `POST /users/register` created accounts anyway — for anybody who asked,
 on an instance whose administrator had decided nobody else may join. The guard
 that was supposed to stop it read a Meteor option WeKan never sets, so it was
 always false and the endpoint had never refused anyone. It was found while
-reviewing a pull request about the opposite symptom. Below that: two AWS SDK
-updates for the S3 attachment path.
+reviewing a pull request about the opposite symptom. Two build failures go with
+it: **Cancel** did not stop a release run, so `docker` kept building an image
+for a release being abandoned, and the **Sandstorm** `.spk` finally gets under
+its 1 GiB limit now that the size report says what filled it — twenty
+uWebSockets.js prebuilds for platforms a grain is not, and 188M of source maps.
+Below that: two AWS SDK updates for the S3 attachment path.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -473,6 +465,77 @@ and updates the following dependencies:
   beside it, which is what actually streams a large attachment to S3.
 
 Thanks to dependabot.
+
+and fixes the following build failures:
+
+**The release workflow** - what a release builds, and who can stop it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0f374a0d4">Cancelling a release run stops it, and a stuck job no longer needs a human</a>. Thanks to xet7.</summary>
+
+Pressing Cancel on a release-all run did not stop the `docker` job. It kept
+going for another twenty minutes and would have pushed a multi-arch image for a
+release that was being abandoned.
+
+The cause is `always()`. It is true while a run is CANCELLING, which is exactly
+why it was chosen in v10.80: a `build-mac-x64` queued on a runner label GitHub
+had retired sat for two hours, was cancelled by hand, and that cancellation
+SKIPPED `charts`, `ucs` and `nextcloud` — so the Helm chart for an already
+published WeKan was never pushed, and no error anywhere said why. `always()`
+fixed that by ignoring cancellation entirely, and ignoring cancellation is also
+what disabled the Cancel button on a job that takes hours.
+
+`!cancelled()` keeps the half that matters — *do not skip me because a SIBLING
+failed* — and drops the half that overrides a person. Nine job-level conditions
+change, across `release-all.yml`, `release-all-missing.yml`, `Flatpak.yml` and
+`AppImage.yml`. The 22 step-level `if: always()` reporting steps do not: those
+correctly print CANCELLED.
+
+That alone would reopen v10.80, so the other half of the fix is that no job
+needs a hand cancellation any more. The eight jobs that had no `timeout-minutes`
+now have one, and every job in the release workflow is bounded. A stuck job
+FAILS on its own, and a failure satisfies `!cancelled()` the same way `always()`
+let it through — Cancel is left meaning only what a person meant by it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/14e8ca4a1">The Sandstorm .spk gets under 1 GiB, by dropping what a grain cannot run</a>. Thanks to xet7.</summary>
+
+v10.93, v10.94 and v10.95 all failed to pack with *App exceeds uncompressed size
+limit of 1 GiB*. v10.95 was the first run whose size report worked, and it named
+the gigabyte: `.meteor-spk/bundle` 852M plus `.meteor-spk/deps` 336M, so 1188M
+against a 1024M ceiling. It also answered the question that report was written
+to ask — a second `meteor-spk pack` REUSES the bundle rather than rebuilding it,
+since the pruned tree stayed pruned across the retry (852M to 833M). So trimming
+between the two attempts works. 19M was simply never going to close a 165M gap.
+
+Measuring the bundle rather than guessing at it turned up two passengers that
+are large, unreachable at runtime, and safe to drop:
+
+- **uWebSockets.js ships twenty prebuilt binaries** — Linux/macOS/Windows times
+  x64/arm64 times four Node ABIs, 121M — and its loader is one line:
+  `require('./uws_' + process.platform + '_' + process.arch + '_' +
+  process.versions.modules + '.node')`. A grain is one platform running one
+  Node, so the other sixteen files can never be opened by it. Keeping every ABI
+  of the target platform and CPU, so a Node major bump still finds its binary,
+  still frees ~93M.
+- **Source maps** — 4766 files, 188M, over a fifth of the bundle. They exist for
+  a debugger attached to the process. A packed app has none, and a missing
+  `.map` degrades a stack trace at worst.
+
+`releases/bundle-trim.mjs` does both, measured at 281 MiB on a real bundle, and
+the Sandstorm leg runs it beside the existing prune before the retry pack:
+1188M becomes ~888M, with 136M of headroom.
+
+An architecture with NO uWebSockets.js prebuild at all — ppc64le, s390x,
+riscv64, where ddp-server falls back to sockjs — is left completely alone, since
+deleting the other platforms' files there would free nothing that matters and
+could only break the fallback. `tests/bundleTrim.test.cjs` pins that, the kept
+ABIs, that a directory merely ending in `.map` is not a source map, and that the
+trim runs before the retry pack rather than after it.
+
+</details>
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
