@@ -476,7 +476,7 @@ test('the design doc says what is different and links to the shared one', () => 
   // field is a view of the sidebar. docs/Features/Page/Search.md.)
   for (const shared of ['Search.md', 'Multi-Selection.md']) {
     assert.ok(design.includes(shared), `it links to ${shared}`);
-    assert.ok(fs.existsSync(path.join(ROOT, 'docs/Design/Page', shared)), `${shared} must exist`);
+    assert.ok(fs.existsSync(path.join(ROOT, 'docs/Features/Page', shared)), `${shared} must exist`);
   }
   assert.ok(!/Search is a field/i.test(design), 'and does not still call Search a field');
 
