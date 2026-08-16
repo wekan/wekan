@@ -424,12 +424,18 @@ we have that unified export dialog 👍 But I can't select/deselect those arrows
 here"*, and confirmed as *"clicking a checked option, like labels, does not
 uncheck it"*. Two faults, and either one alone makes the list useless.
 
-**It could not be changed.** The two toggle handlers were registered on
-`exportScopeBody`, while the checkboxes they act on are drawn by
-`exportScopeSelect`. Blaze resolves a helper, and delivers an event, against the
-template the element is IN — never an enclosing one — so nothing happened when a
-row was clicked. The toggles are one object now, registered on both templates
-like the helpers already were.
+**It could not be changed**, and the first fix was not enough. The handlers were
+a template event map, and a click on a row did nothing; moving them onto
+`exportScopeSelect` — the template that actually draws the rows — did not help
+either, and that was built and shipped in both bundles before the answer came
+back that the list still could not be changed. What the built bundle shows is
+that the templates are registered, their helpers run and both event maps are
+attached; the click simply never arrives. This list is drawn inside FIVE popups,
+each rendered into its own Blaze view tree, so [the toggle is now bound where
+nothing in that chain can drop it](https://github.com/wekan/wekan/commit/6053d3227): **one native listener on the
+document, in the capture phase** — capture so a `stopPropagation()` between the
+row and the document cannot eat it, native so an absent `window.jQuery` cannot
+fail silently, and exactly one so it cannot toggle twice and cancel out.
 
 **And no row said whether it was ticked.** Each drew an unconditional
 `i.fa.fa-check` on a `li.active`, which is the OTHER convention in `popup.css`:
