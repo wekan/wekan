@@ -158,7 +158,9 @@ test('the problems reach Admin Panel / Problems', () => {
 
   const menu = fs.readFileSync(path.join(ROOT, 'client/components/settings/adminProblems.js'), 'utf8');
   assert.ok(/'report-database'/.test(menu), 'the Problems menu has the pane');
-  assert.ok(/showDatabase/.test(menu), 'and the pane is rendered');
+  const paneJade = fs.readFileSync(
+    path.join(ROOT, 'client/components/settings/adminProblems.jade'), 'utf8');
+  assert.ok(/isPane 'report-database'/.test(paneJade), 'and the pane is rendered');
   assert.ok(/r\.db \|\| r\.category/.test(menu),
     'and its first column names the database that said it');
 

@@ -108,23 +108,43 @@ test('Performance sits with the streams it is about, below Impersonation Report'
     'the four sit together, above the remaining reports');
 });
 
-test('Problems renders all three right-hand pages', () => {
-  for (const [flag, tpl] of [['showFeaturesPerformance', 'featuresPerformance'],
-    ['showFeaturesSecurity', 'featuresSecurity'],
-    ['showFeaturesNotifications', 'featuresNotifications']]) {
-    assert.ok(new RegExp(`else if ${flag}\\.get\\s*\\n\\s*\\+${tpl}`).test(reportsJade),
-      `${tpl} must be rendered`);
-    // With the state behind it, or the branch is never true.
-    assert.ok(reportsJs.includes(`this.${flag} = new ReactiveVar(false)`), `${flag} must exist`);
-    assert.ok(reportsJs.includes(`tmpl.${flag}.set(false)`), `${flag} must be reset on a switch`);
-    assert.ok(reportsJs.includes(`tmpl.${flag}.set(true)`), `${flag} must be set by its entry`);
-    assert.ok(new RegExp(`  ${flag}\\(\\) \\{`).test(reportsJs), `${flag} needs a helper`);
-  }
-  // And the templates they render must exist.
-  for (const tpl of ['featuresPerformance', 'featuresSecurity', 'featuresNotifications']) {
-    assert.ok(featuresJade.includes(`template(name="${tpl}")`), `template ${tpl} must exist`);
-  }
+test('EVERY pane in the menu is rendered, and has something behind it', () => {
+  // This replaced a check on three named panes and their ReactiveVars. The state
+  // is one `activeReport` id now, so the invariant can be stated for ALL of them:
+  // a menu entry must be rendered by the template, and must either load itself
+  // or have a report config. Missing either is what made a pane render blank -
+  // the menu set a variable, the template asked for a helper that did not exist,
+  // and an undefined helper is simply falsy.
+  const ids = [...reportsJs.matchAll(/^\s*\{ id: '([\w-]+)'/gm)].map(m => m[1]);
+  assert.ok(ids.length > 10, `expected the menu, found ${ids.length} entries`);
+
+  const selfLoading = /const SELF_LOADING_PANES = \[([\s\S]*?)\];/.exec(reportsJs);
+  assert.ok(selfLoading, 'the self-loading pane list must exist');
+  const selfLoadingIds = [...selfLoading[1].matchAll(/'([\w-]+)'/g)].map(m => m[1]);
+  const configured = [...reportsJs.matchAll(/^\s*'([\w-]+)': \{ page: /gm)].map(m => m[1]);
+
+  const unrendered = ids.filter(id => !reportsJade.includes(`isPane '${id}'`)
+    && !configured.includes(id));
+  assert.deepStrictEqual(unrendered, [],
+    `these menu entries render nothing: ${unrendered.join(', ')}`);
+
+  const unloaded = ids.filter(id => !selfLoadingIds.includes(id) && !configured.includes(id));
+  assert.deepStrictEqual(unloaded, [],
+    'these panes neither load themselves nor have a report config, so opening one '
+    + `spins for ever: ${unloaded.join(', ')}`);
 });
+
+test('no pane keeps its own ReactiveVar any more (negative)', () => {
+  // Eleven booleans said what one id already said, and each pane needed seven
+  // edits to add. A new `this.showX = new ReactiveVar` is that pattern coming
+  // back.
+  // The CODE, not the comment above it that records why the pattern went.
+  const code = reportsJs.split('\n').filter(l => !/^\s*(\/\/|\*)/.test(l)).join('\n');
+  const flags = [...code.matchAll(/this\.(show[A-Z]\w*) = new ReactiveVar/g)].map(m => m[1]);
+  assert.deepStrictEqual(flags, [],
+    `these duplicate activeReport: ${flags.join(', ')}`);
+});
+
 
 test('each pane took its helpers and handlers with it', () => {
   // The half that fails silently: the pane renders, every checkbox reads as unchecked

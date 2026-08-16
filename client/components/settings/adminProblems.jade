@@ -12,27 +12,27 @@ template(name="adminProblems")
           +paneTitle(paneTitleData)
           if loading.get
             +spinner
-          else if showSummary.get
+          else if isPane 'report-summary'
             +problemsSummary
-          else if showFeaturesPerformance.get
+          else if isPane 'features-performance'
             +featuresPerformance
-          else if showFeaturesSecurity.get
+          else if isPane 'features-security'
             +featuresSecurity
-          else if showFeaturesNotifications.get
+          else if isPane 'features-notifications'
             +featuresNotifications
-          else if showSecurity.get
+          else if isPane 'report-security'
             +eventStreamReport(stream="security")
-          else if showSpeed.get
+          else if isPane 'report-speed'
             +eventStreamReport(stream="speed")
-          else if showTests.get
+          else if isPane 'report-tests'
             +eventStreamReport(stream="tests")
-          else if showCpu.get
+          else if isPane 'report-cpu'
             +eventStreamReport(stream="cpu")
-          else if showDatabase.get
+          else if isPane 'report-database'
             +eventStreamReport(stream="database")
-          else if showIntegrity.get
+          else if isPane 'report-integrity'
             +eventStreamReport(stream="integrity")
-          else if showOffice.get
+          else if isPane 'report-office'
             +officeReport
           else if tablePageData
             +tablePage(tablePageData)

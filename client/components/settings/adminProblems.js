@@ -101,20 +101,6 @@ function reportConfig(tmpl) {
 
 Template.adminProblems.onCreated(function () {
   this.subscription = null;
-  // Problems page opens on the Summary tab (the acknowledge checkbox list).
-  this.showSummary = new ReactiveVar(true);
-  // The three panes moved here from Admin Panel / Features.
-  this.showFeaturesPerformance = new ReactiveVar(false);
-  this.showFeaturesSecurity = new ReactiveVar(false);
-  this.showFeaturesNotifications = new ReactiveVar(false);
-  this.showSecurity = new ReactiveVar(false);
-  this.showSpeed = new ReactiveVar(false);
-  this.showTests = new ReactiveVar(false);
-  this.showCpu = new ReactiveVar(false);
-  this.showDatabase = new ReactiveVar(false);
-  this.showIntegrity = new ReactiveVar(false);
-  // Where people log in from, grouped by address.
-  this.showOffice = new ReactiveVar(false);
   this.error = new ReactiveVar('');
   this.loading = new ReactiveVar(false);
 
@@ -348,45 +334,22 @@ Template.adminProblems.helpers({
   tablePageData() {
     return reportTablePageData(Template.instance());
   },
-  showSummary() {
-    return Template.instance().showSummary;
-  },
-  showFeaturesPerformance() {
-    return Template.instance().showFeaturesPerformance;
-  },
-  showFeaturesSecurity() {
-    return Template.instance().showFeaturesSecurity;
-  },
-  showFeaturesNotifications() {
-    return Template.instance().showFeaturesNotifications;
-  },
-  showSecurity() {
-    return Template.instance().showSecurity;
-  },
-  showSpeed() {
-    return Template.instance().showSpeed;
-  },
-  showTests() {
-    return Template.instance().showTests;
-  },
-  showDatabase() {
-    return Template.instance().showDatabase;
-  },
-  // Filesystem integrity. Without this helper the pane rendered NOTHING: the
-  // menu entry set tmpl.showIntegrity, the template asked for `showIntegrity.get`,
-  // and an undefined helper is simply falsy - so the branch never ran, the page
-  // was blank, and Summary went on counting the problems it could not show.
-  showIntegrity() {
-    return Template.instance().showIntegrity;
-  },
-  showCpu() {
-    return Template.instance().showCpu;
-  },
-  showOffice() {
-    return Template.instance().showOffice;
-  },
   loading() {
     return Template.instance().loading;
+  },
+  // WHICH PANE IS OPEN, asked once - `else if isPane 'report-cpu'` in the
+  // template, instead of a ReactiveVar, a reset, a setter and a helper per pane.
+  //
+  // Eleven booleans used to restate what `activeReport` already held, and each
+  // new pane needed all four edits to appear. Filesystem integrity got three of
+  // them: the menu entry set `tmpl.showIntegrity`, the template asked for
+  // `showIntegrity.get`, and the helper was never written - which in Blaze is
+  // not an error but a falsy value, so the pane drew a blank page while Summary
+  // went on counting the problems it could not show. There is one helper to
+  // forget now, and forgetting it is not subtle: every pane goes blank at once.
+  // tests/adminPaneHelpers.test.cjs pins both halves.
+  isPane(id) {
+    return Template.instance().activeReport.get() === id;
   },
 
   // --- Pagination helpers, passed down into each report sub-template ---
@@ -505,62 +468,41 @@ function switchMenu(event, tmpl) {
 // Open a pane BY ID. Split out of switchMenu so the URL can open one too - every
 // left-menu entry has an address now (/admin/problems/cpu, /admin/problems/rules).
 // docs/Features/Page/Admin-Panel-URLs.md
+// The panes that need no subscription: they fetch through methods or have
+// nothing to fetch. Everything else falls through to loadReport().
+const SELF_LOADING_PANES = [
+  'report-summary',
+  'features-performance', 'features-security', 'features-notifications',
+  'report-security', 'report-speed', 'report-tests', 'report-cpu',
+  'report-database', 'report-integrity', 'report-office',
+];
+
 function openReportPane(tmpl, targetID) {
   // Re-opening the open pane must do nothing. The active row is rendered from
   // activeReport now, so compare ids instead of reading a DOM class.
   if (targetID && targetID !== tmpl.activeReport.get()) {
     tmpl.loading.set(true);
-    tmpl.showSummary.set(false);
-    tmpl.showFeaturesPerformance.set(false);
-    tmpl.showFeaturesSecurity.set(false);
-    tmpl.showFeaturesNotifications.set(false);
-    tmpl.showSecurity.set(false);
-    tmpl.showSpeed.set(false);
-    tmpl.showTests.set(false);
-    tmpl.showCpu.set(false);
-    tmpl.showDatabase.set(false);
-    tmpl.showOffice.set(false);
-    tmpl.showIntegrity.set(false);
     if (tmpl.subscription) {
       tmpl.subscription.stop();
     }
 
     tmpl.activeReport.set(targetID);
 
-    // Summary + the Security/Speed/Tests streams load their own data (via methods,
-    // not a subscription), so just show them and clear the spinner.
-    if ('report-summary' === targetID) {
-      tmpl.showSummary.set(true);
-      tmpl.loading.set(false);
-    } else if ('features-performance' === targetID) {
-      // Settings panes: nothing to fetch, so show and clear the spinner.
-      tmpl.showFeaturesPerformance.set(true);
-      tmpl.loading.set(false);
-    } else if ('features-security' === targetID) {
-      tmpl.showFeaturesSecurity.set(true);
-      tmpl.loading.set(false);
-    } else if ('features-notifications' === targetID) {
-      tmpl.showFeaturesNotifications.set(true);
-      tmpl.loading.set(false);
-    } else if ('report-security' === targetID) {
-      tmpl.showSecurity.set(true);
-      tmpl.loading.set(false);
-    } else if ('report-speed' === targetID) {
-      tmpl.showSpeed.set(true);
-      tmpl.loading.set(false);
-    } else if ('report-tests' === targetID) {
-      tmpl.showTests.set(true);
-      tmpl.loading.set(false);
-    } else if ('report-cpu' === targetID) {
-      tmpl.showCpu.set(true);
-      tmpl.loading.set(false);
-    } else if ('report-office' === targetID) {
-      tmpl.showOffice.set(true);
-    } else if ('report-database' === targetID) {
-      tmpl.showDatabase.set(true);
-      tmpl.loading.set(false);
-    } else if ('report-integrity' === targetID) {
-      tmpl.showIntegrity.set(true);
+    // PANES THAT LOAD THEMSELVES. Summary, the Features panes and every
+    // event-stream report fetch through methods rather than a subscription, or
+    // have nothing to fetch at all: setting activeReport above is the whole of
+    // opening them, so there is only the spinner to clear.
+    //
+    // This list replaces eleven `this.showX = new ReactiveVar(false)`, eleven
+    // `tmpl.showX.set(false)` resets, eleven `tmpl.showX.set(true)` branches and
+    // eleven `showX()` helpers - forty-four lines that all said the same thing
+    // activeReport already said. Adding a pane took seven edits and missing one
+    // of them rendered the pane BLANK: the menu set a variable, the template
+    // asked for a helper that did not exist, and an undefined helper is simply
+    // falsy. Both faults had happened - see the note that used to sit on the
+    // integrity helper, and the Offices pane below, which shipped without its
+    // `loading.set(false)` and would have spun for ever.
+    if (SELF_LOADING_PANES.includes(targetID)) {
       tmpl.loading.set(false);
     } else if ('report-broken' === targetID) {
       // A report like the others now: same controls, same paging, same loader.

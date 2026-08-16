@@ -17,6 +17,14 @@
 // four, failing silently in the fourth. Nothing throws, nothing logs, and the
 // only symptom is a blank page that looks like "no data".
 //
+// THE MECHANISM CHANGED, THE FAILURE DID NOT. Problems no longer keeps a
+// ReactiveVar per pane - eleven booleans that each restated the one `activeReport`
+// id - so there are four places fewer to get wrong, and the template asks
+// `isPane 'report-integrity'` instead. An undefined helper is still falsy, and a
+// pane id that no branch matches still draws nothing, so both idioms are checked
+// here: the `show*.get` one for any template that still uses it, and the
+// `isPane` one for the templates that have moved.
+//
 // Run: node tests/adminPaneHelpers.test.cjs
 
 const assert = require('assert');
@@ -51,7 +59,9 @@ const varsIn = js =>
 console.log('adminPaneHelpers:');
 
 test('every show*.get branch has a helper, or the pane renders nothing', () => {
-  assert.ok(PAIRS.length > 0, 'at least one settings template switches on show*.get');
+  // PAIRS may legitimately be empty: adminProblems.jade was the last template
+  // using the idiom and it switches on `isPane` now. The scan stays because it
+  // costs nothing and covers a template that adopts show* later.
   for (const [jadeFile, jsFile] of PAIRS) {
     const used = usedIn(read(jadeFile));
     const helpers = helpersIn(read(jsFile));
@@ -72,16 +82,50 @@ test('and a ReactiveVar behind it, or the helper returns undefined forever', () 
   }
 });
 
-test('Filesystem integrity in particular: menu entry, branch, setter and helper', () => {
-  // The four places that pane needs to exist in, named one by one, because
-  // this is the one that was three-quarters wired and blank.
+// The templates that switch panes on the shared active-pane id.
+const PANE_PAIRS = fs.readdirSync(path.join(repoRoot, SETTINGS_DIR))
+  .filter(f => f.endsWith('.jade'))
+  .map(f => [`${SETTINGS_DIR}/${f}`, `${SETTINGS_DIR}/${f.replace(/\.jade$/, '.js')}`])
+  .filter(([jade, js]) =>
+    /\bisPane '/.test(read(jade)) && fs.existsSync(path.join(repoRoot, js)));
+
+test('every isPane branch has the helper behind it', () => {
+  // One helper covers every pane now, so this can only fail one way - the
+  // helper is missing entirely - but that way takes EVERY pane down at once
+  // rather than one, which is worth a line of test.
+  assert.ok(PANE_PAIRS.length > 0, 'Problems switches panes on isPane');
+  for (const [jadeFile, jsFile] of PANE_PAIRS) {
+    assert.ok(/^\s{2}isPane\(\w*\)\s*\{/m.test(read(jsFile)),
+      `${jsFile} has no isPane helper, so every one of its panes is blank`);
+  }
+});
+
+test('and every id it branches on is a real menu entry (negative)', () => {
+  // The other half: a branch on an id the menu never sets is dead template, and
+  // a menu id no branch matches is a blank pane. Both are typos of the same
+  // kind - `report-intergity` - and neither says anything at runtime.
+  for (const [jadeFile, jsFile] of PANE_PAIRS) {
+    const js = read(jsFile);
+    const ids = new Set([...js.matchAll(/^\s*\{ id: '([\w-]+)'/gm)].map(m => m[1]));
+    if (!ids.size) continue;
+    const branched = [...new Set([...read(jadeFile).matchAll(/\bisPane '([\w-]+)'/g)]
+      .map(m => m[1]))];
+    const unknown = branched.filter(id => !ids.has(id));
+    assert.deepStrictEqual(unknown, [],
+      `${jadeFile} branches on ids no menu entry sets: ${unknown.join(', ')}`);
+  }
+});
+
+test('Filesystem integrity in particular: menu entry, click, branch, report', () => {
+  // The places that pane needs to exist in, named one by one, because this is
+  // the one that was three-quarters wired and blank. It is one place shorter
+  // than it was: the ReactiveVar and its setter are gone, and the id the menu
+  // entry already carries is what the template matches.
   const js = read('client/components/settings/adminProblems.js');
   const jade = read('client/components/settings/adminProblems.jade');
   assert.ok(/id: 'report-integrity'/.test(js), 'the menu has a report-integrity entry');
-  assert.ok(/'report-integrity' === targetID/.test(js), 'clicking it is handled');
-  assert.ok(/tmpl\.showIntegrity\.set\(true\)/.test(js), 'and it sets showIntegrity');
-  assert.ok(/^\s{2}showIntegrity\(\)\s*\{/m.test(js), 'showIntegrity is a helper');
-  assert.ok(/else if showIntegrity\.get/.test(jade), 'the template branches on it');
+  assert.ok(/'report-integrity'/.test(js), 'clicking it is handled');
+  assert.ok(/else if isPane 'report-integrity'/.test(jade), 'the template branches on it');
   assert.ok(/\+eventStreamReport\(stream="integrity"\)/.test(jade),
     'and renders the integrity event stream');
 });

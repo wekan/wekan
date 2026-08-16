@@ -113,7 +113,12 @@ check('CPU usage report is wired into Admin Panel / Problems', () => {
   // The side menu is data now (docs/Features/Page/Left-Menu.md).
   assert.ok(/'report-cpu'/.test(read('client/components/settings/adminProblems.js')), 'menu item');
   const js = read('client/components/settings/adminProblems.js');
-  assert.ok(/showCpu/.test(js) && /cpuReportTitle/.test(js), 'show state + title');
+  // The pane's state is the shared activeReport id now, not a ReactiveVar of its
+  // own, so what there is to check is that the menu entry and the template agree
+  // on the id.
+  const paneJade = read('client/components/settings/adminProblems.jade');
+  assert.ok(/isPane 'report-cpu'/.test(paneJade) && /cpuReportTitle/.test(js),
+    'the pane is rendered, and the menu entry has its title');
   assert.ok(/"cpuReportTitle": "CPU usage"/.test(read('imports/i18n/data/en.i18n.json')), 'title string');
 });
 
