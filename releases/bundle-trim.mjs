@@ -3,7 +3,8 @@
 
 // Trim a built Meteor bundle down to what the target platform actually runs.
 //
-// Usage: node releases/bundle-trim.mjs <bundle-dir> [--platform linux] [--arch x64] [--keep-maps]
+// Usage: node releases/bundle-trim.mjs <bundle-dir> [--platform linux] [--arch x64]
+//                                      [--transport sockjs] [--keep-maps]
 //
 // WHY THIS EXISTS
 //
@@ -19,9 +20,20 @@
 //       require('./uws_' + process.platform + '_' + process.arch + '_' +
 //               process.versions.modules + '.node')
 //
-//     A grain is one platform running one Node. The other sixteen files can
+//     A machine is one platform running one Node. The other sixteen files can
 //     never be opened by it. Keeping every ABI of the target platform+arch (so
-//     a Node major bump still finds its binary) still drops ~93 MB.
+//     a Node major bump still finds its binary) drops ~93 MB.
+//
+//     `--transport sockjs` drops all 121 MB instead, module and all. The uws
+//     transport is OPTIONAL in Meteor 3: ddp-server resolves its transport from
+//     Meteor.settings, then DDP_TRANSPORT, then DISABLE_SOCKJS, and DEFAULTS to
+//     sockjs - and `Npm.require('uWebSockets.js')` sits INSIDE that transport's
+//     setup(), which runs only for the transport that was chosen. A server on
+//     sockjs therefore never loads the module at all. WeKan asks for uws nearly
+//     everywhere (docker-compose, start-wekan.sh, build.sh), which is why this
+//     is a flag and not the default; the Sandstorm grain is the exception, and
+//     sandstorm-pkgdef.capnp pins DDP_TRANSPORT=sockjs so that the removal
+//     rests on a stated fact rather than on an upstream default staying put.
 //
 //  2. Source maps - 4766 files, 188 MB, over a fifth of the bundle. They exist
 //     for a debugger attached to the process. A packed app has none, and a
@@ -30,7 +42,7 @@
 // This does NOT prune node_modules - releases/prune-build-only-modules.mjs is
 // what removes the build-only toolchain, and the two run together.
 
-import { readdirSync, statSync, unlinkSync, existsSync } from 'fs';
+import { readdirSync, statSync, unlinkSync, existsSync, rmSync } from 'fs';
 import { join, basename } from 'path';
 
 const argv = process.argv.slice(2);
@@ -83,9 +95,24 @@ function drop(file) {
   removed += 1;
 }
 
-// 1. uWebSockets.js prebuilds for platforms this bundle will never run on.
+// 1. uWebSockets.js: the whole module when this bundle runs sockjs, otherwise
+//    the prebuilds for platforms it will never run on.
+const transport = value('transport', '');
+if (transport && transport !== 'sockjs' && transport !== 'uws') {
+  console.error(`bundle-trim: unknown --transport '${transport}' (sockjs or uws)`);
+  process.exit(2);
+}
 let uwsKept = 0;
 for (const dir of uwsDirs) {
+  if (transport === 'sockjs') {
+    // Nothing in a sockjs server reaches this module - see the header. Remove
+    // it whole rather than keeping a loader for a transport that is not on.
+    for (const f of readdirSync(dir, { withFileTypes: true })) {
+      if (f.isFile()) drop(join(dir, f.name));
+    }
+    try { rmSync(dir, { recursive: true, force: true }); } catch { /* leftovers are harmless */ }
+    continue;
+  }
   const prebuilds = readdirSync(dir).filter(f => /^uws_.+\.node$/.test(f));
   const keep = prebuilds.filter(f => f.startsWith(`uws_${platform}_${arch}_`));
   // If nothing matches, this architecture has no prebuild at all (ppc64le,
@@ -104,8 +131,11 @@ for (const dir of uwsDirs) {
 if (!flag('keep-maps')) for (const m of maps) drop(m);
 
 const mib = n => (n / 1048576).toFixed(0);
+const uwsNote = transport === 'sockjs'
+  ? `removed uWebSockets.js entirely (transport is sockjs)`
+  : `kept ${uwsKept} uws prebuild(s) for ${platform}/${arch}`;
 console.log(
   `bundle-trim: removed ${removed} files, ${mib(freed)} MiB from ${bundle} ` +
-  `(kept ${uwsKept} uws prebuild(s) for ${platform}/${arch}` +
+  `(${uwsNote}` +
   `${flag('keep-maps') ? ', kept source maps' : `, dropped ${maps.length} source maps`})`,
 );

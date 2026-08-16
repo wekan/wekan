@@ -147,6 +147,57 @@ test('it reports how much it freed, so a build log answers "did it help"', dir =
   assert.ok(/dropped 1 source maps/.test(out), 'and the map count');
 });
 
+test('--transport sockjs removes uWebSockets.js entirely', dir => {
+  // The uws transport is OPTIONAL. ddp-server resolves its transport from
+  // Meteor.settings, then DDP_TRANSPORT, then DISABLE_SOCKJS, and defaults to
+  // sockjs; `Npm.require('uWebSockets.js')` sits INSIDE the uws transport's
+  // setup(), which runs only for the transport that was chosen. A sockjs server
+  // never loads the module, so a sockjs bundle need not carry any of its 121 MB.
+  const bundle = uwsBundle(dir);
+  const out = trim(bundle, ['--transport', 'sockjs']);
+  assert.ok(!fs.existsSync(path.join(bundle, UWS)),
+    'the whole uWebSockets.js directory goes, loader included');
+  assert.ok(/removed uWebSockets\.js entirely \(transport is sockjs\)/.test(out),
+    `the summary must say what it did, got: ${out}`);
+});
+
+test('a bad --transport is refused rather than guessed at (negative)', dir => {
+  const bundle = uwsBundle(dir);
+  assert.throws(() => trim(bundle, ['--transport', 'websocket']),
+    /Command failed/, 'an unknown transport must not silently fall through');
+  assert.ok(fs.existsSync(path.join(bundle, UWS)), 'and must delete nothing');
+});
+
+test('without --transport the module stays, because most WeKan runs on uws', dir => {
+  // docker-compose, start-wekan.sh and build.sh all set DDP_TRANSPORT=uws.
+  // Dropping the module by default would break every one of them.
+  const bundle = uwsBundle(dir);
+  trim(bundle, ['--platform', 'linux', '--arch', 'x64']);
+  assert.ok(fs.existsSync(path.join(bundle, `${UWS}/uws.js`)),
+    'the module survives a platform-only trim');
+  assert.ok(exists(bundle, `${UWS}/uws_linux_x64_137.node`),
+    'and so does the prebuild this platform would load');
+});
+
+test('the grain PINS the transport the .spk was trimmed for', () => {
+  // These two must agree or the grain fails to boot: the .spk is packed without
+  // uWebSockets.js, so if the grain asked for uws it would require a module that
+  // is not there. The pkgdef environ is the app's ENTIRE environment, so this is
+  // the only place the value can come from.
+  const pkgdef = fs.readFileSync(path.join(ROOT, 'sandstorm-pkgdef.capnp'), 'utf8');
+  const m = /\(key\s*=\s*"DDP_TRANSPORT",\s*value\s*=\s*"([a-z]+)"\)/.exec(pkgdef);
+  assert.ok(m, 'sandstorm-pkgdef.capnp must set DDP_TRANSPORT explicitly, not rely on a default');
+  assert.strictEqual(m[1], 'sockjs',
+    'the grain must ask for sockjs - the .spk ships no uWebSockets.js to serve uws with');
+
+  const wf = fs.readFileSync(path.join(ROOT, '.github/workflows/release-all.yml'), 'utf8');
+  const trimArgs = /bundle-trim\.mjs [^\n]*--transport (\w+)/.exec(wf);
+  assert.ok(trimArgs, 'the Sandstorm leg must pass --transport to bundle-trim.mjs');
+  assert.strictEqual(trimArgs[1], m[1],
+    `the transport the bundle is trimmed for (${trimArgs[1]}) must be the one the grain ` +
+    `asks for (${m[1]})`);
+});
+
 test('the Sandstorm leg runs it before its retry pack, for linux/x64', () => {
   const wf = fs.readFileSync(path.join(ROOT, '.github/workflows/release-all.yml'), 'utf8');
   const start = wf.indexOf('\n  build-sandstorm:\n');

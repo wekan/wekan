@@ -271,6 +271,20 @@ const myCommand :Spk.Manifest.Command = (
     (key = "LDAP_ENABLE", value="false"),
     (key = "PASSWORD_LOGIN_ENABLED", value="true"),
     (key = "SANDSTORM", value="1"),
+    # A grain talks DDP over sockjs, and SAYS so rather than relying on
+    # ddp-server's default. That default IS sockjs today (Meteor.settings, then
+    # DDP_TRANSPORT, then DISABLE_SOCKJS, then sockjs), and the uws transport's
+    # `Npm.require('uWebSockets.js')` runs only inside the setup() of whichever
+    # transport was chosen - so a sockjs grain never loads that module. The .spk
+    # therefore does not SHIP it: releases/bundle-trim.mjs drops all 121 MB of
+    # it, twenty prebuilt binaries for OS/CPU/ABI combinations a grain is not,
+    # which is a large part of how the package fits Sandstorm's 1 GiB limit.
+    # Pinning the value here is what makes that safe - if this said uws, or if
+    # upstream changed its default, the grain would ask for a module that was
+    # left out and fail to boot. tests/bundleTrim.test.cjs ties the two together
+    # so they cannot drift apart. This environ is the app's ENTIRE environment,
+    # so there is nowhere else it could come from.
+    (key = "DDP_TRANSPORT", value="sockjs"),
     (key = "METEOR_SETTINGS", value = "{\"public\": {\"sandstorm\": true}}")
   ]
 );

@@ -3241,19 +3241,22 @@ jobs:
             # 165M gap. bundle-trim.mjs drops the two big passengers the size report
             # finally identified (its own header has the numbers):
             #
-            #   * uWebSockets.js's 20 prebuilt binaries, one per OS x CPU x Node ABI,
-            #     121M of which a grain can load exactly one - keeping every ABI of
-            #     linux/x64 still frees ~93M;
+            #   * uWebSockets.js, all 121M of it. A grain talks DDP over sockjs -
+            #     sandstorm-pkgdef.capnp pins DDP_TRANSPORT=sockjs, and that environ
+            #     is the app's ENTIRE environment - and ddp-server's
+            #     `Npm.require('uWebSockets.js')` sits inside the uws transport's
+            #     setup(), which a sockjs server never calls. So the module is not
+            #     merely trimmed to this platform's prebuild, it is not shipped;
             #   * every source map, 4766 files and 188M, which only a debugger reads.
             #
-            # Measured on a real bundle: 281 MiB, and the pruned toolchain on top.
-            # 1188M -> ~888M, comfortably under the 1 GiB limit.
+            # Measured on a real bundle, and the pruned toolchain on top:
+            # 1188M -> ~860M, comfortably under the 1 GiB limit.
             if [ -d .meteor-spk/bundle/programs/server/node_modules ] \
                && [ -f releases/prune-build-only-modules.mjs ]; then
               echo "--- pack failed; trimming the bundle to what a grain runs, then packing once more"
               # A Sandstorm grain is linux/x64, always - it is what the deps tree above
               # bundles a node and a mongod for.
-              node releases/bundle-trim.mjs .meteor-spk/bundle --platform linux --arch x64 || true
+              node releases/bundle-trim.mjs .meteor-spk/bundle --platform linux --arch x64 --transport sockjs || true
               node releases/prune-build-only-modules.mjs .meteor-spk/bundle || true
               sizes || true
               set +e
