@@ -6,6 +6,13 @@ import { Accounts } from 'meteor/accounts-base';
 // GHSA-2g94-9x3m-hv37: decide from the attempt's structural fields, not the
 // (ambiguous, Meteor-rewritten) reason string. See loginFailureDecision.js.
 const { shouldProcessKnownUser } = require('./loginFailureDecision');
+// GHSA-rf3w-rj48-jxcc: which counter an attempt belongs to, and what to do
+// about it. Both are pure modules so the decision can be tested without a
+// server - see lockoutScope.js and lockoutDecision.js for what went wrong.
+const {
+  clientAddressOf, scopeFieldFor, scopeStateOf, SCOPE_ROOT,
+} = require('./lockoutScope');
+const { decideKnownUserAttempt } = require('./lockoutDecision');
 
 class KnownUser {
   constructor(settings) {
@@ -53,6 +60,13 @@ class KnownUser {
     }
   }
 
+  // The two sweeps below read the PRE-FIX flat fields
+  // (services.accounts-lockout.unlockTime), which nothing writes any more. They
+  // are kept as the upgrade path: an account left locked by the old global
+  // counter is freed at the next startup rather than waiting out a lock whose
+  // owner cannot see the end of. Per-address locks need no sweep - each carries
+  // its own unlockTime and decideKnownUserAttempt treats an expired one as not
+  // locked, so a stale entry is inert and is overwritten by the next failure.
   async scheduleUnlocksForLockedAccounts() {
     const lockedAccountsCursor = Meteor.users.find(
       {
@@ -103,7 +117,6 @@ class KnownUser {
     Accounts.onLogin(KnownUser.onLogin);
   }
 
-
   async validateLoginAttempt(loginInfo) {
     // GHSA-2g94-9x3m-hv37: this used to early-return whenever
     // `loginInfo.error.reason !== 'Incorrect password'`, but with Meteor's
@@ -116,9 +129,16 @@ class KnownUser {
       return loginInfo.allowed;
     }
 
-    // If there was no login error and the account is NOT locked, don't interrupt
-    const unlockTime = KnownUser.unlockTime(loginInfo.user);
-    if (loginInfo.error === undefined && unlockTime === 0) {
+    const userId = loginInfo.user._id;
+    const hadError = loginInfo.error !== undefined;
+
+    // GHSA-rf3w-rj48-jxcc, fault 2: a correct password is allowed even while
+    // this address is locked, and clears the lock. Checked before anything else
+    // reads the counter, and before the settings callback, so there is no path
+    // by which a proven login can be refused. Somebody who did not have to guess
+    // is not who the lockout is for.
+    if (!hadError) {
+      await KnownUser.clearLockout(userId);
       return loginInfo.allowed;
     }
 
@@ -127,110 +147,70 @@ class KnownUser {
       this.validateSettings();
     }
 
-    const userId = loginInfo.user._id;
-    let failedAttempts = 1 + KnownUser.failedAttempts(loginInfo.user);
-    const firstFailedAttempt = KnownUser.firstFailedAttempt(loginInfo.user);
-    const currentTime = Number(new Date());
+    // GHSA-rf3w-rj48-jxcc, fault 1: the counter is per (user, source address).
+    const address = clientAddressOf(loginInfo.connection, process.env.HTTP_FORWARDED_COUNT);
+    const field = scopeFieldFor(address);
+    const decision = decideKnownUserAttempt({
+      hadError,
+      now: Number(new Date()),
+      settings: this.settings,
+      scope: scopeStateOf(loginInfo.user, address),
+    });
 
-    const canReset = (currentTime - firstFailedAttempt) > (1000 * this.settings.failureWindow);
-    if (canReset) {
-      failedAttempts = 1;
-      await KnownUser.resetAttempts(failedAttempts, userId);
+    if (decision.action === 'locked') {
+      return KnownUser.tooManyAttempts(decision.secondsRemaining);
     }
 
-    const canIncrement = failedAttempts < this.settings.failuresBeforeLockout;
-    if (canIncrement) {
-      await KnownUser.incrementAttempts(failedAttempts, userId);
-    }
+    const now = Number(new Date());
+    const set = {
+      [`${field}.failedAttempts`]: decision.failedAttempts,
+      [`${field}.lastFailedAttempt`]: now,
+    };
+    if (decision.startsWindow) set[`${field}.firstFailedAttempt`] = now;
+    if (decision.action === 'lock') set[`${field}.unlockTime`] = decision.unlockTime;
+    await Meteor.users.updateAsync({ _id: userId }, { $set: set });
 
-    const maxAttemptsAllowed = this.settings.failuresBeforeLockout;
-    const attemptsRemaining = maxAttemptsAllowed - failedAttempts;
-    if (unlockTime > currentTime) {
-      let duration = unlockTime - currentTime;
-      duration = Math.ceil(duration / 1000);
-      duration = duration > 1 ? duration : 1;
-      KnownUser.tooManyAttempts(duration);
-    }
-    if (failedAttempts === maxAttemptsAllowed) {
-      await this.setNewUnlockTime(failedAttempts, userId);
-
-      let duration = this.settings.lockoutPeriod;
-      duration = Math.ceil(duration);
-      duration = duration > 1 ? duration : 1;
-      return KnownUser.tooManyAttempts(duration);
+    if (decision.action === 'lock') {
+      Meteor.setTimeout(
+        KnownUser.unlockAddress.bind(null, userId, field),
+        this.settings.lockoutPeriod * 1000,
+      );
+      return KnownUser.tooManyAttempts(decision.secondsRemaining);
     }
     return KnownUser.incorrectPassword(
-      failedAttempts,
-      maxAttemptsAllowed,
-      attemptsRemaining,
+      decision.failedAttempts,
+      decision.maxAttemptsAllowed,
+      decision.attemptsRemaining,
     );
   }
 
-  static async resetAttempts(
-    failedAttempts,
-    userId,
-  ) {
-    const currentTime = Number(new Date());
-    const query = { _id: userId };
-    const data = {
-      $set: {
-        'services.accounts-lockout.failedAttempts': failedAttempts,
-        'services.accounts-lockout.lastFailedAttempt': currentTime,
-        'services.accounts-lockout.firstFailedAttempt': currentTime,
+  // Everything this user has accumulated, from every address, plus the flat
+  // fields written by versions before this fix - so an account left locked by
+  // the old global counter is freed by its owner's next correct password
+  // instead of waiting out a lock nobody can see the end of.
+  static async clearLockout(userId) {
+    await Meteor.users.updateAsync({ _id: userId }, {
+      $unset: {
+        [SCOPE_ROOT]: '',
+        'services.accounts-lockout.unlockTime': '',
+        'services.accounts-lockout.failedAttempts': '',
+        'services.accounts-lockout.firstFailedAttempt': '',
+        'services.accounts-lockout.lastFailedAttempt': '',
       },
-    };
-    await Meteor.users.updateAsync(query, data);
+    });
   }
 
-  static async incrementAttempts(
-    failedAttempts,
-    userId,
-  ) {
-    const currentTime = Number(new Date());
-    const query = { _id: userId };
-    const data = {
-      $set: {
-        'services.accounts-lockout.failedAttempts': failedAttempts,
-        'services.accounts-lockout.lastFailedAttempt': currentTime,
-      },
-    };
-    await Meteor.users.updateAsync(query, data);
-  }
-
-  async setNewUnlockTime(
-    failedAttempts,
-    userId,
-  ) {
-    const currentTime = Number(new Date());
-    const newUnlockTime = (1000 * this.settings.lockoutPeriod) + currentTime;
-    const query = { _id: userId };
-    const data = {
-      $set: {
-        'services.accounts-lockout.failedAttempts': failedAttempts,
-        'services.accounts-lockout.lastFailedAttempt': currentTime,
-        'services.accounts-lockout.unlockTime': newUnlockTime,
-      },
-    };
-    await Meteor.users.updateAsync(query, data);
-    Meteor.setTimeout(
-      KnownUser.unlockAccount.bind(null, userId),
-      this.settings.lockoutPeriod * 1000,
-    );
+  static async unlockAddress(userId, field) {
+    await Meteor.users.updateAsync({ _id: userId }, { $unset: { [field]: '' } });
   }
 
   static async onLogin(loginInfo) {
     if (loginInfo.type !== 'password') {
       return;
     }
-    const userId = loginInfo.user._id;
-    const query = { _id: userId };
-    const data = {
-      $unset: {
-        'services.accounts-lockout.unlockTime': 0,
-        'services.accounts-lockout.failedAttempts': 0,
-      },
-    };
-    await Meteor.users.updateAsync(query, data);
+    // Same clearing as the success path in validateLoginAttempt, so a login can
+    // never leave state behind that would count against the next one.
+    await KnownUser.clearLockout(loginInfo.user._id);
   }
 
   static incorrectPassword(
@@ -279,36 +259,6 @@ class KnownUser {
       unlockTime = 0;
     }
     return unlockTime || 0;
-  }
-
-  static failedAttempts(user) {
-    let failedAttempts;
-    try {
-      failedAttempts = user.services['accounts-lockout'].failedAttempts;
-    } catch (e) {
-      failedAttempts = 0;
-    }
-    return failedAttempts || 0;
-  }
-
-  static lastFailedAttempt(user) {
-    let lastFailedAttempt;
-    try {
-      lastFailedAttempt = user.services['accounts-lockout'].lastFailedAttempt;
-    } catch (e) {
-      lastFailedAttempt = 0;
-    }
-    return lastFailedAttempt || 0;
-  }
-
-  static firstFailedAttempt(user) {
-    let firstFailedAttempt;
-    try {
-      firstFailedAttempt = user.services['accounts-lockout'].firstFailedAttempt;
-    } catch (e) {
-      firstFailedAttempt = 0;
-    }
-    return firstFailedAttempt || 0;
   }
 
   static async unlockAccount(userId) {

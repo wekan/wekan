@@ -139,4 +139,22 @@ test('opening it twice does not give the file two Upcoming sections', () => {
     'a re-run must be a no-op: release-all.sh can be run again after a failure');
 });
 
+test('the version is never built into a regular expression (negative)', () => {
+  // GitHub CodeQL flagged one line of changelog-open-next.mjs twice:
+  // js/incomplete-sanitization (#433), because `.replace(/\./g, '\\.')` escapes
+  // dots and not backslashes, and js/regex-injection (#432), because the version
+  // is an argv value reaching `new RegExp` as a pattern. Neither is exploitable
+  // with a version release-all.sh computed - but a matcher built by string
+  // concatenation is the thing to not have, so there is none.
+  const src = fs.readFileSync(path.join(ROOT, 'releases', 'changelog-open-next.mjs'), 'utf8');
+  const code = src.split('\n').filter(l => !/^\s*\/\//.test(l)).join('\n');
+  assert.ok(!/new RegExp\(/.test(code),
+    'changelog-open-next.mjs builds a RegExp again. Match the heading with '
+    + 'startsWith on the exact text instead - it needs no escaping and cannot be '
+    + 'injected into.');
+  assert.ok(/startsWith\(needle\)/.test(code),
+    'the heading is found by a literal prefix, which is what makes the escaping '
+    + 'question go away rather than answering it');
+});
+
 console.log(`\nchangelogEntriesBelongToTheirRelease: ${passed} tests passed`);

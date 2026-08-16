@@ -50,14 +50,34 @@ if (/^# Upcoming WeKan ® release\s*$/m.test(text)) {
   process.exit(0);
 }
 
-const heading = new RegExp(`^# v${version.replace(/\./g, '\\.')} .*$`, 'm');
-const m = heading.exec(text);
-if (!m) {
+// NO REGEX BUILT FROM THE VERSION. It used to be
+//
+//   new RegExp(`^# v${version.replace(/\./g, '\\.')} .*$`, 'm')
+//
+// which GitHub CodeQL flagged TWICE on one line - js/incomplete-sanitization
+// (#433) and js/regex-injection (#432) - and it was right on both counts:
+//
+//   * escaping `.` and not `\` is the classic half-escape. A version containing
+//     a backslash would have escaped the backslash and left the next character
+//     bare;
+//   * the version is an argv value, so it reaches `new RegExp` as a pattern.
+//
+// A version number is not attacker-controlled here - release-all.sh computes it
+// from the CHANGELOG - so neither is exploitable in this script. But the fix
+// worth making is the one that removes the question rather than answering it,
+// which is CodeQL's own first recommendation: design so that sanitization is not
+// needed. There is no regex now, so there is nothing to escape and nothing to
+// inject. A line either starts with this exact text or it does not.
+const needle = `# v${version} `;
+const lines = text.split('\n');
+const lineNo = lines.findIndex(line => line.startsWith(needle));
+if (lineNo === -1) {
   console.error(`changelog-open-next: no "# v${version} ..." heading in ${file}, so there is `
     + 'nothing to open a section above. Was the release renamed?');
   process.exit(1);
 }
-const at = m.index;
+// Where that line begins, in characters: every earlier line plus its newline.
+const at = lines.slice(0, lineNo).reduce((n, line) => n + line.length + 1, 0);
 
 // The binaries table of the release just named, carried up as the starting point.
 const tableMatch = /^\| Platform \| Binary \| From \| Version \| SHA256 \|[\s\S]*?(?=\n\n)/m

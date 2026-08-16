@@ -23,6 +23,13 @@ const CATALOG = {
   'auth-race.oidc':  { category: 'auth-race', bleed: 'OidcBleed', severity: 'high', cwe: 'CWE-362' },
   'brute.invite':    { category: 'brute-force', bleed: 'InviteBleed', severity: 'high', cwe: 'CWE-307' },
   'brute.login':     { category: 'brute-force', bleed: 'BruteBleed', severity: 'medium', cwe: 'CWE-307' },
+  // GHSA-rf3w-rj48-jxcc: the known-user lockout counted every failure against
+  // the USER, so anyone who knew a username could lock its owner out from every
+  // address - and a correct password was refused while the lock held. The
+  // counter is per (user, source address) now. What is worth recording is a
+  // lockout FIRING: on a per-address counter that means somebody guessed three
+  // passwords wrong from one place, which is the attempt this is meant to see.
+  'brute.lockout':   { category: 'brute-force', bleed: 'JamBleed', severity: 'high', cwe: 'CWE-307' },
   'injection.shell': { category: 'injection', bleed: 'ScannerBleed', severity: 'high', cwe: 'CWE-78' },
   'file.mime':       { category: 'file', bleed: 'MimeBleed', severity: 'high', cwe: 'CWE-434' },
   'file.name':       { category: 'file', bleed: 'FileBleed', severity: 'medium', cwe: 'CWE-73' },
