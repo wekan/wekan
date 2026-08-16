@@ -417,12 +417,15 @@ and the category it justified is withdrawn: **61.3 MiB becomes 40.0 MiB**. What
 changes beyond that one fault is the check: a release now has to **start the
 bundle it built** and see it reach its database before it may carry it.
 **CHANGELOG.md** is 2.5 MB lighter of history, keeping the current MONTH while
-older months and years move to `old-CHANGELOG/`. Below that: the Sandstorm pack
-that was throwing its own trim away, Admin Panel / People showing who is locked
-again, the Problems route and template finally called what the menu calls them,
-the Admin Panel documentation refiled to match the menu, and `build.sh` option 2
-building the bundle a RELEASE would publish rather than a plain `meteor build`,
-so "does it start at all" no longer takes a release to answer.
+older months and years move to `old-CHANGELOG/`. And **Build WeKan release
+bundle** is a menu entry now, building what a release would publish rather than
+a plain `meteor build` — so "does it start at all" no longer takes a release to
+answer. Below that: the Sandstorm pack that was throwing its own trim away,
+Admin Panel / People showing who is locked again, a location in an admin table
+opening a map through the card's own chooser, the Problems route and template
+finally called what the menu calls them, and the documentation refiled to match
+the menu — including `Directory-Structure.md`, which had been describing the
+tree as it was in 2017.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -670,7 +673,8 @@ serving its API would otherwise report thousands of new problems.
 
 Also fixed while there: the summary rows have had `ipv4` and `ipv6` fields since
 the summaries were written, and **not one of the four loggers ever filled
-them**, so the two columns the design asked for could not have worked. The fold splits
+them**, so the two columns the design asked for could not have
+worked. The fold splits
 the address now, once, for every stream, and both reports use one shared pair of
 columns that falls back to classifying the stored `ip` - so rows written before
 today display correctly instead of showing two empty columns for all of history.
@@ -1015,9 +1019,9 @@ a published artifact and this one is a directory to start:
 
 Verified by running it on Linux arm64: an 850M bundle, trim −349 MiB, prune
 −40.0 MiB, the boot check passed, Node.js v24.19.0 verified against nodejs.org's
-`SHASUMS256.txt`, FerretDB and the eight tools fetched per-arch, 686M with all of
-it embedded — then started, with FerretDB on SQLite and WeKan answering HTTP 200
-fifteen seconds later.
+`SHASUMS256.txt`, FerretDB and the eight tools fetched per-arch, 686M with all
+of it embedded — then started, with FerretDB on SQLite and WeKan answering
+HTTP 200 fifteen seconds later.
 
 The Setup menu offers it as **Build WeKan release bundle**, beside **Build WeKan
 development bundle** — the plain `meteor build` that entry used to be, kept
