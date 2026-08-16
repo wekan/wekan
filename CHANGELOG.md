@@ -514,34 +514,59 @@ between the two attempts works. 19M was simply never going to close a 165M gap.
 Measuring the bundle rather than guessing at it turned up two passengers that
 are large, unreachable at runtime, and safe to drop:
 
-- **uWebSockets.js, all 121M of it** — twenty prebuilt binaries, Linux/macOS/
-  Windows times x64/arm64 times four Node ABIs. A grain could load exactly one
-  of them, and in fact loads none: the uws transport is OPTIONAL in Meteor 3.
-  `ddp-server` resolves its transport from `Meteor.settings`, then
-  `DDP_TRANSPORT`, then `DISABLE_SOCKJS`, and DEFAULTS to sockjs — and
-  `Npm.require('uWebSockets.js')` sits inside the uws transport's `setup()`,
-  which runs only for the transport that was chosen. A sockjs server never
-  touches the module. `sandstorm-pkgdef.capnp` now PINS `DDP_TRANSPORT=sockjs`
-  rather than leaning on that default, and its `environ` is the app's entire
-  environment, so the grain cannot ask for uws from anywhere else.
+- **uWebSockets.js ships twenty prebuilt binaries** — Linux/macOS/Windows times
+  x64/arm64 times four Node ABIs, 121M — and its loader is one line:
+  `require('./uws_' + process.platform + '_' + process.arch + '_' +
+  process.versions.modules + '.node')`. A machine is one platform running one
+  Node, so the other sixteen files can never be opened by it. Keeping every ABI
+  of the target platform and CPU, so a Node major bump still finds its binary,
+  frees ~93M. The entry below drops the remaining 28M as well.
 - **Source maps** — 4766 files, 188M, over a fifth of the bundle. They exist for
   a debugger attached to the process. A packed app has none, and a missing
   `.map` degrades a stack trace at worst.
 
-`releases/bundle-trim.mjs` does both, measured on a real bundle, and the
-Sandstorm leg runs it beside the existing prune before the retry pack: 1188M
-becomes ~860M, with over 160M of headroom.
+`releases/bundle-trim.mjs` does both, measured at 281 MiB on a real bundle, and
+the Sandstorm leg runs it beside the existing prune before the retry pack.
 
-Dropping the module is behind a `--transport sockjs` flag rather than being the
-default, because WeKan asks for uws nearly everywhere else — `docker-compose`,
-`start-wekan.sh`, `build.sh` — and a bundle for those keeps it, trimmed to the
-prebuilds its own platform can open (~93M). An architecture with NO prebuild at
-all — ppc64le, s390x, riscv64 — is left completely alone, since deleting the
-other platforms' files there would free nothing that matters and could only
-break the fallback. `tests/bundleTrim.test.cjs` pins all of that, and ties the
-grain's pinned transport to the flag the `.spk` is trimmed with: if those two
-ever disagreed, the grain would require a module that was left out and fail to
-boot.
+An architecture with NO uWebSockets.js prebuild at all — ppc64le, s390x,
+riscv64, where ddp-server falls back to sockjs — is left completely alone, since
+deleting the other platforms' files there would free nothing that matters and
+could only break the fallback. `tests/bundleTrim.test.cjs` pins that, the kept
+ABIs, that a directory merely ending in `.map` is not a source map, and that the
+trim runs before the retry pack rather than after it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cdbd33b59">The Sandstorm .spk ships no uWebSockets.js at all, because a grain talks sockjs</a>. Thanks to xet7.</summary>
+
+Trimming uWebSockets.js down to the prebuilds a grain's own platform can open
+freed 93M of its 121M. All of it can go, because a grain loads NONE of it.
+
+The uws transport is OPTIONAL in Meteor 3. `ddp-server`'s `transports/index.js`
+resolves the transport from `Meteor.settings.packages['ddp-server'].transport`,
+then `DDP_TRANSPORT`, then `DISABLE_SOCKJS`, and DEFAULTS to sockjs — and
+`Npm.require('uWebSockets.js')` sits inside the uws transport's `setup()`, which
+runs only for the transport that was actually chosen. `sandstorm-pkgdef.capnp`
+sets none of those, and its `environ` is, by its own comment, the app's ENTIRE
+environment. So a grain has been running sockjs all along while carrying 121M of
+a module it never required.
+
+The pkgdef now PINS `DDP_TRANSPORT=sockjs`, because the removal should rest on a
+stated fact rather than on an upstream default staying put, and
+`bundle-trim.mjs` takes `--transport sockjs`, which removes the module whole
+instead of thinning its prebuilds. 120 MiB measured, 27 MiB more than the
+platform trim: 1188M becomes ~860M, with over 160M of headroom against the
+1 GiB limit.
+
+It is a flag rather than the default because WeKan asks for uws nearly
+everywhere else — `docker-compose`, `start-wekan.sh`, `build.sh` — and those
+bundles keep the module, trimmed to the prebuilds their own platform can open.
+
+`tests/bundleTrim.test.cjs` ties the grain's pinned transport to the flag the
+`.spk` is trimmed with. If those two ever disagreed, the grain would require a
+module that was left out and fail to boot, which is the one way this can go
+wrong.
 
 </details>
 
