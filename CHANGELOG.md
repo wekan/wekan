@@ -387,32 +387,38 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** one **CRITICAL** fix. WeKan's brute-force lockout counted an
-attacker's failed logins against the **victim's account** rather than against
-the address they came from, so anyone who knew a username could lock its owner
-out from every address, repeatably — and a **correct password was refused**
-while the lock held, and counted as another failure. Usernames are public, so
-any account was a target and an administrator was as easy to lock out as anyone
-else. Reported by daniais as **JamBleed**. Two GitHub CodeQL alerts on one line
-of release tooling go with it. Then: v10.97 shipped a bundle that could not
-start — the third release
-in a row stopped by the same habit. Trimming what a bundle carries is measured
-by a graph of what the server can reach, and that graph read `require()` only.
-Meteor compiles an ESM import to `module.link()`, so **every ESM import in every
-Meteor package was invisible to it**: it called live code dead, and the bundle
-shipped without `nodemailer-openpgp`, which `packages/email.js` links on its
-first tick. The reachable count goes from 211 to 450 with the fix, so the
-measurement behind that trim was wrong rather than merely optimistic, and the
-category it justified is withdrawn — **61.3 MiB becomes 40.0 MiB**. What
-changes beyond this one fault is the check: a release now has to **start the
-bundle it built** and see it reach its database before it may carry it, which
-is what would have caught this and the source-map crash before v10.96 in
-seconds each. **CHANGELOG.md** is also 2.6 MB lighter of history: it keeps the
-current year, and 798 older releases move to `old-CHANGELOG/<year>.md`. The
-**release tooling** changes with it: releases here are
-frequent, so `release-all.sh` now opens the next `# Upcoming` section the moment
-it names one, and a guard checks that entries sit in the release that actually
-contains them.
+**In short:** one **CRITICAL** fix, and the whole of **logging in** reworked
+around it. WeKan's brute-force lockout counted an attacker's failed logins
+against the **victim's account** rather than against the address they came from,
+so anyone who knew a username could lock its owner out from every address,
+repeatably — and a **correct password was refused** while the lock held, and
+counted as another failure. Usernames are public, so any account was a target
+and an administrator was as easy to lock out as anyone else. Reported by daniais
+as **JamBleed**. Two GitHub CodeQL alerts on one line of release tooling go with
+it. Around that fix: **increasing delays** after a wrong password, per source
+address rather than per account; a record of **who logs in from where**, both
+directions, which is what the new **Problems / Offices** pane groups into the
+offices an admin recognises — "London", with the flag, rather than
+`100.100.100.100`; and the reason it exists, which is that blocking an ADDRESS
+would take a whole office off WeKan at once, so WeKan blocks the account.
+**Admin Panel / Problems** now keeps ONE summary row per problem — a count, a
+window, and who tried it how often — instead of a document per event that grew
+with the attack it was recording. Then: v10.97 shipped a bundle that could not
+start, the third release in a row stopped by the same habit. Trimming what a
+bundle carries is measured by a graph of what the server can reach, and that
+graph read `require()` only. Meteor compiles an ESM import to `module.link()`,
+so **every ESM import in every Meteor package was invisible to it**: it called
+live code dead, and the bundle shipped without `nodemailer-openpgp`, which
+`packages/email.js` links on its first tick. The reachable count goes from 211
+to 450 with the fix — the measurement was wrong rather than merely optimistic —
+and the category it justified is withdrawn: **61.3 MiB becomes 40.0 MiB**. What
+changes beyond that one fault is the check: a release now has to **start the
+bundle it built** and see it reach its database before it may carry it.
+**CHANGELOG.md** is 2.5 MB lighter of history, keeping the current MONTH while
+older months and years move to `old-CHANGELOG/`. Below that: the Sandstorm pack
+that was throwing its own trim away, Admin Panel / People showing who is locked
+again, the Problems route and template finally called what the menu calls them,
+and the Admin Panel documentation refiled to match the menu.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -459,7 +465,7 @@ mechanism inherits whatever that mechanism gets wrong.
 - the counter was global, so an attacker's failures were charged to the victim's
   account rather than to the attacker's address;
 - a **correct password was refused** while the lock held, and counted as a
-  further failure on the way. The old code allowed an attempt only when there was
+further failure on the way. The old code allowed an attempt only when there was
   no error AND no lock, so the owner typing the right password fell through to
   the same throw as the attacker.
 
@@ -520,7 +526,113 @@ Shipped in the same commit as the JamBleed fix above.
 
 </details>
 
+and adds the following new features:
+
+**Logging in** - what happens between a wrong password and the next attempt.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9476cdc0f">Increasing delays after a wrong password, per source address</a>. Thanks to xet7.</summary>
+
+Checked before any of it was written, because a second mechanism beside an
+existing one is worse than no mechanism: the DDP login already has
+`wekan-accounts-lockout`, the REST login has
+`server/lib/loginAttemptThrottle.js` per address, and
+`server/lib/loginTimingDefense.js` equalises timing so a missing user cannot be
+told from a wrong password. Nothing anywhere did increasing delays. So this
+extends the lockout decision rather than adding a rival to it.
+
+The lockout on its own is a STEP FUNCTION: two failures cost nothing, the third
+costs sixty seconds. A guesser spends the free attempts of every window and
+waits, and somebody who mistyped their password gets no sign they are one
+attempt from being locked out. A delay that GROWS - 1s, 2s, 4s, 8s, capped -
+costs a guesser far more than it costs a person, and it degrades instead of
+slamming shut: the account is never unavailable, only slower to try again.
+
+It is per (user, source address), like the counter it sits beside and for the
+same reason - an attacker must not be able to slow down the account's owner -
+and a **correct password is still allowed immediately**, delay or no delay.
+Somebody who did not have to guess has proved they are not who this is for. An
+attempt refused as too early is not counted, either: letting it count would let
+an attacker lock an address out FASTER by trying faster.
+
+</details>
+
+**Admin Panel / Problems** - what the page records, and what it shows.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3d08c65bb">One summary row per problem, with who tried it and how often</a>. Thanks to xet7.</summary>
+
+A guard on a path an attacker controls fires as fast as they can send. One
+document per event meant the database grew WITH the attack, the Problems page
+became a scroll of near-identical lines, and the one event that mattered was
+buried under ten thousand that did not. The admin's question is never "list
+every attempt" - it is what is happening, how much, since when, and who.
+
+So each problem is ONE row that accumulates: a `count`, the `firstAt … at`
+window it covers, and the actors, each with a count of their own — `username1
+25, 100.100.100.100 30`. The actor list is capped with an overflow count, so an
+attacker rotating addresses cannot turn the summary back into the log it
+replaced.
+
+Existing per-event rows are folded into their summary on read, so an instance
+upgrading does not lose what it recorded, and does not keep paying for it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d8d1863db">Who logs in from where, with each account as its initials or avatar</a>. Thanks to xet7.</summary>
+
+Checked first, and reused rather than rewritten: the REST throttle and the
+lockout each already resolve a client address, `models/users.js` has
+`getInitials()` and `profile.avatarUrl`, the board sidebar and cards show
+members through `+userAvatar` / `+userAvatarInitials`, `cardDetails.js` builds
+"open in map" links for a dozen providers, and the Admin Panel tables already
+had an edit-user handler and a `userId` column. Only reading a location from CDN
+headers is new.
+
+One successful login writes a tally in BOTH directions - which addresses this
+account uses, and which accounts use this address - because the second is what
+says an address is an office, a VPN or a carrier's NAT rather than one person.
+Both are capped with an overflow count.
+
+The location comes from a header something in front of WeKan already set
+(Cloudflare, Fastly, CloudFront, Vercel, Google Cloud, or a hand-configured
+proxy). WeKan geolocates nothing itself: no database to ship, no lookup of a
+user's address against a third party. And because anything a client can send it
+can forge, a location is **display only** - a name beside an address and a map
+link, never a decision. Nothing blocks, allows or rate-limits on the strength of
+one.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/961ff6cb4">Problems / Offices groups those logins into the places they come from</a>. Thanks to xet7.</summary>
+
+A pane at `/admin/problems/office`, through the shared table page every other
+report here uses ([Table.md](docs/Features/Page/Table.md)) - same layout, same
+search, same paginator - so it needed no design of its own.
+
+The columns are what an admin actually asks. **Location**: the country flag and
+the city, "London" rather than `100.100.100.100`, so somebody recognises their
+own offices at a glance and the flag says WHICH London; empty when nothing
+resolved it. **Address**: the IPv4 or IPv6 it really is. **People**: each
+account as its initials, or its avatar where it has one, with its own login
+count beside it - the same way the board sidebar shows members, and clicking one
+opens the same edit-user popup as everywhere else. **Logins** and the window
+they fall in.
+
+WHY IT EXISTS AT ALL: an address that many accounts log in from is an office,
+and anything that reacted to a security event by blocking the ADDRESS would take
+all of them off WeKan at once - the admin would see "one address blocked" rather
+than "eighty people locked out". WeKan blocks the ACCOUNT that caused the event.
+This pane is what lets an admin see the shape of their own users, and what would
+make an address-level action visibly reckless if one were ever proposed.
+
+</details>
+
 and fixes the following bugs:
+
+**Bundles and images** - what a build carries, and what it can start without.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/71ff74c6d">The reachability graph must read Meteor's module.link, not only require()</a>. Thanks to Heart1010 and xet7.</summary>
@@ -569,6 +681,33 @@ quietly or hangs is not a pass either: a smoke test whose failure mode is
 passing when it learned nothing is worth less than none.
 
 </details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/efa25f78d">Sandstorm packs the trimmed trees, instead of rebuilding them first</a>. Thanks to xet7.</summary>
+
+v10.98's log shows the trim doing exactly what it was meant to, and then being
+thrown away:
+
+```
+  --- .meteor-spk/bundle: 856M total        (first pack, fails)
+  bundle-trim: removed 5236 files, 355 MiB
+  prune-unreachable-npm: removed 28 package(s), 49.9 MiB
+  --- .meteor-spk/bundle: 424M total        (424M + 336M deps = 760M, under 1 GiB)
+  Building Meteor app...                    <- pack rebuilds it
+  App exceeds uncompressed size limit of 1 GiB
+```
+
+`meteor-spk pack` runs the Meteor build first, so the retry regenerated the
+bundle and packed the untrimmed one - 405 MiB of trimming discarded between the
+measurement and the pack. Sandstorm's own `spk pack` only packs what is there,
+so the retry prefers it and falls back to `meteor-spk` when it is not installed.
+
+A comment in the retry claimed pack REUSED the bundle. It did not, and the log
+above is what disproved it.
+
+</details>
+
+**The CHANGELOG and its tooling** - a file that grew faster than it was read.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/43341fc75">Releases are frequent, so the CHANGELOG tooling stops assuming they are rare</a>. Thanks to xet7.</summary>
@@ -651,7 +790,169 @@ none duplicated.
 
 </details>
 
-Thanks to above GitHub users for their contributions and translators for their translations.
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cc3201292">And then the current MONTH, because a year of these releases is still 1.9 MB</a>. Thanks to mimZD and xet7.</summary>
+
+Moving whole years out left 1.9 MB, which was still too large, because releases
+here are FREQUENT: 2026 alone is 272 releases over eight months, and July was 80
+on its own. A year is not a small enough unit when a year is that busy.
+
+So the cut is by month. `CHANGELOG.md` holds the current month plus the
+Platforms, TODO Later and Upcoming sections; earlier months of the current year
+go to `old-CHANGELOG/<year>/<MM>.md`; years that are over stay one file each,
+because at 30 to 107 KB they are already small and splitting them further would
+trade a size problem for a "which of thirty files is it in" problem.
+
+**2.5 MB becomes 822 KB.** Each archive opens with a table of how many releases
+it holds, per month, so the file says what is in it before a reader scrolls.
+
+</details>
+
+**Admin Panel / People** - who is locked out, and who can undo it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6e208c615">People shows who is locked again, and why</a>. Thanks to xet7.</summary>
+
+Moving the lockout counter to one per (user, source address) - the JamBleed fix
+above - broke three readers still looking at the flat field it replaced: the
+People table's lock icon, its unlock click handler, and the `lockedUsers`
+methods behind them. Every account would have shown as unlocked, and no admin
+could have unlocked one.
+
+That is the "and nowhere else" half of the rule this release adds to CLAUDE.md,
+missed on the very next fix. `models/lib/accountLockout.js` is now the one place
+that knows the shape - locked or not, since when, how many addresses and how
+many failures between them - so the client helper, the click handler and the
+server methods cannot drift apart again, and the negative test fails if anything
+reads the flat field.
+
+The People row says which ADDRESSES are locked and until when, rather than a
+bare padlock, because "locked" now means something narrower than it used to and
+an admin should not have to guess how much narrower.
+
+</details>
+
+and has the following developer-facing changes:
+
+**Admin Panel / Problems** - how a pane knows it is the open one.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/760bd0904">One active pane, instead of eleven booleans saying the same thing</a>. Thanks to xet7.</summary>
+
+Every pane on the Problems page had a `ReactiveVar` of its own -
+`showSummary`, `showSecurity`, `showIntegrity` and eight more - on top of
+`activeReport`, which already held the id of the open pane. Each one could only
+ever mean "activeReport equals my id", so they were forty-four lines restating
+one value, kept in step by hand: opening a pane reset all eleven and set one.
+
+That made a pane four wiring points instead of one, and missing any of them
+failed SILENTLY. Filesystem integrity got three of the four - menu entry, setter
+and template branch - and no helper, and in Blaze an undefined helper is not an
+error but a falsy value, so [the pane drew a blank
+page](https://github.com/wekan/wekan/commit/01c36852d) while Summary went on
+counting the problems it could not show. The Offices pane added in this release
+had the same hole somewhere else: it set no `loading.set(false)`, so opening it
+would have spun for ever.
+
+The template asks `else if isPane 'report-integrity'` now, against one helper.
+Panes that fetch through a method rather than a subscription are a list, and
+that list is also what fixes Offices. Adding a pane is a menu entry, a branch,
+and one line saying how it loads.
+
+The guards moved with it. `tests/adminPaneHelpers.test.cjs`, written when the
+integrity pane was blank, pins both halves of the new mechanism: the helper must
+exist, and every id the template branches on must be an id the menu sets - a
+typo either way is dead template or a blank pane, and neither says anything at
+runtime. `tests/problemsMenuOrder.test.cjs` now checks EVERY pane rather than
+three named ones: each menu entry must be rendered, and must either load itself
+or have a report config, so a pane that spins for ever cannot ship again. A
+negative test fails if a per-pane `ReactiveVar` comes back.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fa289e4a4">The route and the template say what the menu says</a>. Thanks to xet7.</summary>
+
+The pane is called Problems in the menu, its address is `/admin/problems`, and
+`docs/Features/Admin-Panel/Problems` is where it is documented. Two things still
+called it Reports, from before it was renamed: the route NAME was
+`admin-reports`, where its three siblings are the bare page key `setting`,
+`people` and `attachments` - so the one route whose name did not match its own
+address - and the template and its three files were `adminReports`. Both are
+`problems` / `adminProblems` now, across 41 files.
+
+What did NOT change is `legacyBase: '/admin-reports'`. That is an address people
+have in bookmarks, and it still redirects.
+
+</details>
+
+**Security fixes** - what one is required to come with.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c3299c490">A test, a negative test, and the attempt visible in Problems</a>. Thanks to xet7.</summary>
+
+Two rules added to [CLAUDE.md](CLAUDE.md), both learned from fixes in this
+repository rather than proposed in the abstract.
+
+**A test AND a negative test**, written so the fault cannot exist ANYWHERE in
+the codebase rather than only where it was reported. A test that pins one call
+site leaves the same mistake free to live in the other five, and that is how
+most of these arrive: SignupBleed's guard read an option nothing sets and the
+same shape sat in a second endpoint; the source-map trim was safe on the client
+and fatal on the server. So the test proves the fix does what it claims -
+driving the decision itself, as arithmetic, where it can - and the negative test
+proves the fault is GONE rather than moved, by searching the tree for the shape
+of it.
+
+**And the attempt is visible in Admin Panel / Problems**, whenever the fix is
+one that DENIES an operation. A vulnerability that is fixed silently tells an
+admin nothing about being attacked through it, and "nobody is trying" and
+"somebody tries every four seconds" are not the same instance to run. Recorded
+as a summary, never per event.
+
+</details>
+
+and improves the documentation:
+
+**docs/** - where a page lives, and how a reader finds it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/daaf56391">Implemented designs move to docs/Features, filed the way the menu is</a>. Thanks to xet7.</summary>
+
+A design that describes what WeKan already DOES belongs with the feature it
+describes, not in the folder for things being proposed. Fifteen docs move -
+`Accessibility`, `Original-Positions`, the thirteen `Page/*` designs that exist,
+and the Admin Panel Problems design.
+
+What stays in `docs/Design` is what the folder is for: the principles
+(Design-Principles, Monkey-Proof-Software), the comparisons, the roadmap, and
+the proposals not yet built.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9fbfb26d2">Admin Panel docs are filed the way the Admin Panel menu is</a>. Thanks to xet7.</summary>
+
+The menu is the structure a reader already has in their head, so the docs match
+it: one directory per tab, one page per pane, and a README in each listing the
+panes IN MENU ORDER with the URL slug beside them - so somebody with
+`/admin/problems/integrity` in the address bar can search for `integrity` and
+find the page.
+
+Settings (7 panes) and People (9) already had a page each and were already in
+order; they gain the slug column. Problems (17) and Attachments (10) listed
+almost none of theirs, so their READMEs now index every pane.
+
+WHAT IS NOT DONE is now visible instead of invisible: 15 of the 17 Problems
+panes and all 10 Attachments panes have no page of their own. They are dashes in
+the table, and `tests/adminPanelDocsMatchMenu.test.cjs` counts the dashes
+against the sentence that states how many there are - so the gap cannot grow
+quietly, and a pane added to the menu and not to the docs fails the suite.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
 
 # v10.97 2026-08-16 WeKan ® release
 
