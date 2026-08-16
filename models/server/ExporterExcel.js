@@ -2,6 +2,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { createWorkbook, createWorkbookWriter } from './createWorkbook';
+import { attachmentDisposition, exportFilename } from '/models/lib/exportFilename';
 import { 
   formatDateTime, 
   formatDate, 
@@ -26,9 +27,11 @@ import {
 // exporter maybe is broken since Gridfs introduced, add fs and path
 
 class ExporterExcel {
-  constructor(boardId, userLanguage) {
+  constructor(boardId, userLanguage, scope = {}) {
     this._boardId = boardId;
     this.userLanguage = userLanguage;
+    this._listId = scope.listId || '';
+    this._swimlaneId = scope.swimlaneId || '';
   }
 
   async build(res) {
@@ -51,6 +54,8 @@ class ExporterExcel {
     const cardsRaw = require('/models/cards').default.rawCollection();
     const cardCommentsRaw = require('/models/cardComments').default.rawCollection();
     const cardSelector = { boardId: this._boardId, linkedId: { $in: ['', null] } };
+    if (this._listId) cardSelector.listId = this._listId;
+    if (this._swimlaneId) cardSelector.swimlaneId = this._swimlaneId;
 
     const board = await ReactiveCache.getBoard(this._boardId, { fields: { stars: 0 } });
     const result = {
@@ -105,6 +110,20 @@ class ExporterExcel {
     users.forEach(u => { jmeml[u._id] = u.username; jmem += `${u.username},`; });
     jmem = jmem.substr(0, jmem.length - 1);
 
+    const listNumber = this._listId
+      ? lists.findIndex(list => String(list._id) === String(this._listId)) + 1 : 0;
+    const swimlaneNumber = this._swimlaneId
+      ? swimlanes.filter(swimlane => swimlane.type !== 'template-swimlane')
+        .findIndex(swimlane => String(swimlane._id) === String(this._swimlaneId)) + 1 : 0;
+    const type = this._listId ? 'list' : (this._swimlaneId ? 'swimlane' : 'board');
+    const identity = this._listId ? listNumber
+      : (this._swimlaneId ? swimlaneNumber : result.title);
+    const filename = exportFilename(
+      type, key => TAPi18n.__(key, '', this.userLanguage), identity || 1, 'xlsx');
+    res.setHeader('Content-Type',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', attachmentDisposition(filename));
+
     //init exceljs streaming workbook (writes rows straight to res)
     const workbook = createWorkbookWriter(res);
     workbook.creator = TAPi18n.__('export-board','',this.userLanguage);
@@ -112,7 +131,6 @@ class ExporterExcel {
     workbook.created = new Date();
     workbook.modified = new Date();
     workbook.lastPrinted = new Date();
-    const filename = `${result.title}.xlsx`;
     //init worksheet
     let worksheetTitle = result.title;
     if (worksheetTitle.length > 31) {

@@ -59,11 +59,6 @@ function currentScope() {
   return scope;
 }
 
-function scopeTitle() {
-  const data = Template.currentData() || {};
-  return data.title || 'export';
-}
-
 // ONE url builder for every format and every scope. A second one would be a
 // second place for a query parameter to go missing from - which is how the card
 // popup's checkboxes ended up driving the Excel download and not the PDF.
@@ -98,14 +93,6 @@ function exportUrl(path, extra = {}) {
     ...exportLocaleParams(),
     ...extra,
   });
-}
-
-function exportFilename(extension) {
-  const name = String(scopeTitle())
-    .replace(/[^a-z0-9._-]+/gi, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '') || 'export';
-  return `${name}.${extension}`;
 }
 
 // The import half's state. Module-level like the selection, because the popup is
@@ -295,8 +282,8 @@ function entryApplies(entry) {
 }
 
 // The table above, resolved for the scope this popup was opened with: each entry
-// carries the URL and the filename it downloads, so the template only lays them
-// out. A group whose every entry is out of scope is dropped, heading and all.
+// carries its URL; the response supplies its localized, scope-aware filename.
+// A group whose every entry is out of scope is dropped, heading and all.
 function resolvedFormatGroups() {
   return EXPORT_FORMAT_GROUPS
     .filter(group => !group.scopes || group.scopes.includes('board') === isBoardScope())
@@ -309,7 +296,6 @@ function resolvedFormatGroups() {
           ? `${entry.labelPrefix} (${TAPi18n.__(entry.labelKey)})`
           : entry.label,
         url: entry.path ? exportUrl(`/api/boards/:boardId/${entry.path}`, entry.query || {}) : '',
-        filename: entry.ext ? exportFilename(entry.ext) : '',
       })),
     }))
     .filter(group => group.entries.length);
@@ -468,5 +454,4 @@ export {
   selection,
   readExportFile,
   exportUrl as exportUrlFor,
-  exportFilename as exportFilenameFor,
 };

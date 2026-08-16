@@ -83,7 +83,8 @@ template(name="exportScopeBody")
                     i.fa(class="{{icon}}")
                     | {{label}}
                 else
-                  a(href="{{url}}" download="{{filename}}")
+                  //- The server supplies the localized, scope-aware filename.
+                  a(href="{{url}}" download)
                     i.fa(class="{{icon}}")
                     | {{label}}
 

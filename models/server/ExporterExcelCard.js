@@ -7,6 +7,7 @@ import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 import { buildCardDocument } from '/models/lib/cardDocument';
 import { renderCardDocumentExcel } from './renderCardDocumentExcel';
 import { accentOf } from '/models/lib/themeAccents';
+import { attachmentDisposition, exportFilename } from '/models/lib/exportFilename';
 
 // ── Constants ────────────────────────────────────────────────────────────────
 
@@ -29,16 +30,6 @@ const EMBEDDABLE_IMAGE_MIME = new Map([
 
 function sanitizeSheetName(value) {
   return String(value || 'Card').replace(/[\\/*?:[\]]/g, '-').slice(0, 31);
-}
-
-function sanitizeFilename(value) {
-  return (
-    String(value || 'export-card')
-      .replace(/[^a-z0-9._-]+/gi, '-')
-      .replace(/-+/g, '-')
-      .replace(/^-|-$/g, '')
-      .slice(0, 80) || 'export-card'
-  );
 }
 
 function formatFileSize(bytes) {
@@ -414,9 +405,9 @@ class ExporterExcelCard {
     }
 
     // ── Stream workbook directly to HTTP response (no temp file) ────────
-    const filename = `${sanitizeFilename(card.title)}.xlsx`;
+    const filename = exportFilename('card', key => this.__(key), card.cardNumber || 1, 'xlsx');
     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+    res.setHeader('Content-Disposition', attachmentDisposition(filename));
     await workbook.xlsx.write(res);
     res.end();
   }

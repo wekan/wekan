@@ -3,6 +3,7 @@ import { TAPi18n } from '/imports/i18n';
 import { createWorkbook } from './createWorkbook';
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 import { ExporterExcelCard } from './ExporterExcelCard';
+import { attachmentDisposition, exportFilename } from '/models/lib/exportFilename';
 
 // A BOARD in the CARD export's layout (#1173).
 //
@@ -27,14 +28,6 @@ import { ExporterExcelCard } from './ExporterExcelCard';
 // and the streaming table is what you get when `card-details` is not selected.
 // That is not a fallback nobody can see: it is a checkbox in the popup, and a
 // board too big for the card layout is exported as the table by unticking it.
-
-function sanitizeFilename(value) {
-  return String(value || 'export-board')
-    .replace(/[^a-z0-9._-]+/gi, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '')
-    .slice(0, 80) || 'export-board';
-}
 
 // Excel refuses a sheet name over 31 characters, and one containing : \ / ? * [ ]
 function sanitizeSheetName(value) {
@@ -150,6 +143,11 @@ class ExporterExcelBoard {
 
     return {
       board,
+      listNumber: this._listId
+        ? lists.findIndex(list => String(list._id) === String(this._listId)) + 1 : 0,
+      swimlaneNumber: this._swimlaneId
+        ? swimlanes.filter(swimlane => swimlane.type !== 'template-swimlane')
+          .findIndex(swimlane => String(swimlane._id) === String(this._swimlaneId)) + 1 : 0,
       lists: this._listId ? lists.filter(list => list._id === this._listId) : lists,
       swimlanes: this._swimlaneId
         ? swimlanes.filter(swimlane => swimlane._id === this._swimlaneId)
@@ -336,10 +334,13 @@ class ExporterExcelBoard {
       ws.pageSetup.rowBreaks = [...new Set(pageBreaks)].map(r => ({ man: 1, id: r }));
     }
 
-    const filename = `${sanitizeFilename(scopeTitle)}.xlsx`;
+    const type = this._listId ? 'list' : (this._swimlaneId ? 'swimlane' : 'board');
+    const identity = this._listId ? data.listNumber
+      : (this._swimlaneId ? data.swimlaneNumber : board.title);
+    const filename = exportFilename(type, key => this.__(key), identity || 1, 'xlsx');
     res.setHeader('Content-Type',
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+    res.setHeader('Content-Disposition', attachmentDisposition(filename));
     await workbook.xlsx.write(res);
     res.end();
   }

@@ -13,6 +13,7 @@ import {
   buildPdfBuffer,
 } from '/models/lib/pdfDocument';
 import { buildUnicodePdf } from '/models/server/buildUnicodePdf';
+import { attachmentDisposition, exportFilename } from '/models/lib/exportFilename';
 
 async function unicodeFonts() {
   return {
@@ -37,14 +38,6 @@ async function unicodeFonts() {
 // board export's "due" become "Due:" like the card export's, rather than being
 // fixed twice and drifting again - dates are formatted in the browser's own time
 // zone, and the card export carries the rest of what a card holds.
-
-function sanitizeFilename(value) {
-  return String(value || 'export-card')
-    .replace(/[^a-z0-9._-]+/gi, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '')
-    .slice(0, 80) || 'export-card';
-}
 
 // A card's dates are stored in UTC, and printing them in the SERVER's zone is
 // what "-2h wrong for Europe/Berlin" was: 14:00 in Berlin left the server as
@@ -446,7 +439,8 @@ class ExporterCardPDF extends PDFExporterBase {
     }
 
     const lines = this.cardBlockLines(data);
-    const filename = `${sanitizeFilename(data.card.title)}.pdf`;
+    const filename = exportFilename(
+      'card', key => this.__(key, key), data.card.cardNumber || 1, 'pdf');
     let pdf;
     try {
       pdf = await buildUnicodePdf(lines, await unicodeFonts());
@@ -457,7 +451,7 @@ class ExporterCardPDF extends PDFExporterBase {
 
     res.writeHead(200, {
       'Content-Type': 'application/pdf',
-      'Content-Disposition': `attachment; filename="${filename}"`,
+      'Content-Disposition': attachmentDisposition(filename),
       'Content-Length': pdf.length,
     });
     res.end(pdf);
@@ -587,6 +581,11 @@ class ExporterBoardPDF extends PDFExporterBase {
 
     return {
       board,
+      listNumber: this._listId
+        ? lists.findIndex(list => String(list._id) === String(this._listId)) + 1 : 0,
+      swimlaneNumber: this._swimlaneId
+        ? swimlanes.filter(swimlane => swimlane.type !== 'template-swimlane')
+          .findIndex(swimlane => String(swimlane._id) === String(this._swimlaneId)) + 1 : 0,
       lists: this._listId ? lists.filter(list => list._id === this._listId) : lists,
       swimlanes: this._swimlaneId
         ? swimlanes.filter(swimlane => swimlane._id === this._swimlaneId)
@@ -712,7 +711,13 @@ class ExporterBoardPDF extends PDFExporterBase {
     }
     res.writeHead(200, {
       'Content-Type': 'application/pdf',
-      'Content-Disposition': `attachment; filename="${sanitizeFilename(this._scopeTitle || board.title)}.pdf"`,
+      'Content-Disposition': attachmentDisposition(exportFilename(
+        this._listId ? 'list' : (this._swimlaneId ? 'swimlane' : 'board'),
+        key => this.__(key, key),
+        this._listId ? (data.listNumber || 1)
+          : (this._swimlaneId ? (data.swimlaneNumber || 1) : board.title),
+        'pdf',
+      )),
       'Content-Length': pdf.length,
     });
     res.end(pdf);

@@ -35,6 +35,10 @@ const pdfRoute = read('models/exportPDF.js');
 const excelRoute = read('models/exportExcel.js');
 const scopeJs = read('client/components/boards/exportScope.js');
 const scopeJade = read('client/components/boards/exportScope.jade');
+const exportNames = read('models/lib/exportFilename.js');
+const exportNameHelpers = new Function(
+  `${exportNames.replace(/export \{[^}]+\};/, '')}\nreturn { attachmentDisposition, exportFilename };`,
+)();
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -168,6 +172,40 @@ test('every export route reads the scope through ONE parser', () => {
     'a query parameter is validated as an id, not trusted as one');
 });
 
+test('PDF and Excel use one localized, scope-aware download-name helper', () => {
+  for (const [name, source] of [
+    ['PDF', pdf], ['Excel board', excelBoard], ['Excel card', excelCard],
+    ['streaming Excel board', read('models/server/ExporterExcel.js')],
+  ]) {
+    assert.ok(/exportFilename/.test(source), `${name} names the exported object`);
+    assert.ok(/attachmentDisposition/.test(source), `${name} sends its UTF-8 name`);
+  }
+  assert.ok(/filename\*=UTF-8''/.test(exportNames),
+    'localized scripts are carried in the standards-based filename parameter');
+  assert.ok(/listNumber/.test(pdf) && /swimlaneNumber/.test(pdf), 'PDF numbers its scope');
+  assert.ok(/listNumber/.test(excelBoard) && /swimlaneNumber/.test(excelBoard),
+    'Excel numbers the same scope');
+  assert.ok(/card\.cardNumber \|\| 1/.test(pdf) && /card\.cardNumber \|\| 1/.test(excelCard),
+    'a card is named Card-number in both formats');
+  assert.ok(/a\(href="\{\{url\}\}" download\)/.test(scopeJade),
+    'the browser accepts the localized server filename instead of overriding it');
+  assert.strictEqual(exportNameHelpers.exportFilename(
+    'swimlane', key => ({ swimlane: 'Swimlane' })[key], 1, 'pdf'), 'Swimlane-1.pdf');
+  assert.strictEqual(exportNameHelpers.exportFilename(
+    'swimlane', key => ({ swimlane: 'Uimarata' })[key], 1, 'xlsx'), 'Uimarata-1.xlsx');
+  assert.match(exportNameHelpers.attachmentDisposition('游泳道-1.pdf'),
+    /filename\*=UTF-8''%E6%B8%B8%E6%B3%B3%E9%81%93-1\.pdf/);
+});
+
+test('saved profile language wins and browser language is the fallback', () => {
+  for (const route of [pdfRoute, excelRoute, read('models/exportExcelCard.js')]) {
+    assert.ok(/user[^\n]*profile[^\n]*language|profile\.language/.test(route),
+      'the route reads the saved profile language');
+    assert.ok(/req\.query[^\n]*lang/.test(route),
+      'and accepts the browser language when the profile has none');
+  }
+});
+
 test('JSON and .zip are the same export in two shapes', () => {
   const zip = read('models/server/ExporterZip.js');
   const exporter = read('models/exporter.js');
@@ -203,7 +241,7 @@ test('a board too big for the card layout can still be exported', () => {
   // and that is a checkbox rather than a silent fallback.
   assert.ok(/if \(fields && !fields\.includes\('card-details'\)\) \{/.test(excelRoute),
     'the route picks the streaming exporter when card details are not wanted');
-  assert.ok(/new ExporterExcel\(boardId, language\)/.test(excelRoute),
+  assert.ok(/new ExporterExcel\(boardId, language, scope\)/.test(excelRoute),
     'and that exporter is still the streaming one');
   assert.ok(/card-details/.test(scopeJade), 'the popup offers the choice');
   assert.ok(/WHY THIS IS A SEPARATE EXPORTER/.test(excelBoard),

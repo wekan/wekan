@@ -35,7 +35,7 @@ runOnServer(function() {
     const scope = parseExportScope(req.query);
 
     if (fields && !fields.includes('card-details')) {
-      return new ExporterExcel(boardId, language);
+      return new ExporterExcel(boardId, language, scope);
     }
     return new ExporterExcelBoard(boardId, language, fields, dateFormat, timezone, scope);
   };
