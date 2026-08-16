@@ -414,7 +414,7 @@ document, use the saved user language or browser fallback, keep the opened
 card's date format, and preserve multilingual text; PDF also embeds JPEG and PNG
 attachment previews plus Unicode-plane fonts. **Admin Panel / Problems** keeps
 avatars at avatar size, and **All Boards** keeps its Add Board and Home
-placeholder tiles as tall as the boards beside them. Below that: nine export
+placeholder tiles as tall as the boards beside them. Below that: ten export
 fixes, one shared-checkbox fix, two UI sizing fixes, and the documentation move
 into its feature and platform hierarchy with every local link checked.
 
@@ -643,6 +643,24 @@ preview-caption and pagination objects.
 This intentionally follows the preceding duplicate-name fix with the complete
 details requested here: an image is present in the all-attachments details
 table, while its filename-only preview caption identifies the image below.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ef66347f0">Six attachment previews fit across an Excel row</a>. Thanks to xet7.</summary>
+
+The first shared attachment layout put three Excel previews in two-column
+cells, but the worksheet has six usable columns and the screenshots showed the
+images still consuming far more vertical space than necessary. Each preview
+now occupies one column: images one through six share an image row, their
+filenames sit in cells A through F directly below, and image seven begins the
+next image row followed by its filename row.
+
+An actual ExcelJS worksheet test places seven PNGs, checks that the first six
+have the same row coordinate, the seventh has the next image-row coordinate,
+and verifies the filename cells below both rows. PDF keeps three previews on an
+A4 row because six would make them too small to read; the shared details,
+colors, field positions and progress styling remain the same.
 
 </details>
 
