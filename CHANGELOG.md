@@ -414,7 +414,7 @@ document, use the saved user language or browser fallback, keep the opened
 card's date format, and preserve multilingual text; PDF also embeds JPEG and PNG
 attachment previews plus Unicode-plane fonts. **Admin Panel / Problems** keeps
 avatars at avatar size, and **All Boards** keeps its Add Board and Home
-placeholder tiles as tall as the boards beside them. Below that: four export
+placeholder tiles as tall as the boards beside them. Below that: five export
 fixes, one shared-checkbox fix, two UI sizing fixes, and the documentation move
 into its feature and platform hierarchy with every local link checked.
 
@@ -548,6 +548,21 @@ Excel renderer with ordinary metadata and enough colored labels to wrap onto a
 second row. The reciprocal [Excel](docs/Features/ImportExport/Excel/Excel.md)
 and [PDF](docs/Features/ImportExport/PDF/PDF.md) pages record the implementation
 and the `.xlsx` portability boundary.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3b47e10ee">Loading the export routes no longer stops a production bundle at startup</a>. Thanks to xet7.</summary>
+
+The production bundle resolved `markdown-it` as an ES-module namespace, while
+bare Node resolved the same package as its constructor. The shared PDF and
+Excel Markdown parser constructed the value directly, so unit tests passed but
+the bundled server stopped during module initialization with `is not a
+constructor`, restarted, and repeated the same failure.
+
+The parser now normalizes both module shapes before constructing MarkdownIt. A
+regression test supplies the CommonJS and Meteor production-bundle shapes and
+requires both to resolve to the same constructor.
 
 </details>
 
