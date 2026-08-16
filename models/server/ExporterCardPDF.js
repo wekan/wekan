@@ -85,6 +85,11 @@ function formatFileSize(bytes) {
 // Shared by both exporters, so a label cannot say one thing on a card and another
 // on the board it is in. The English text is the fallback for every key, so a
 // language that has not translated one shows the word rather than the key.
+// "Only those fields that have data should be added". The judgement of what is
+// empty lives in models/lib/cardDocument.js and the Excel export asks the same
+// function, so a PDF and a spreadsheet of one card contain the same sections.
+const { hasSectionData } = require('/models/lib/cardDocument');
+
 class PDFExporterBase {
   constructor(userLanguage, timezone, dateFormat, fields) {
     this.userLanguage = userLanguage || 'en';
@@ -230,14 +235,15 @@ class PDFExporterBase {
       );
     }
 
-    if (this.hasField('description')) {
+    if (this.hasField('description') && hasSectionData('description', card)) {
       lines.push('', line(`${this.__('description', 'Description')}:`, true));
       // The one place the card's own markdown is RENDERED rather than flattened:
       // "so it gets transformed correct in the pdf output with bold, ...".
       lines.push(...wrapRichTextBlock(card.description || '-'));
     }
 
-    if (this.hasField('custom-fields')) {
+    if (this.hasField('custom-fields')
+        && hasSectionData('custom-fields', card, { customFields: card.customFields })) {
       lines.push('', line(`${this.__('custom-fields', 'Custom Fields')}:`, true));
       const customFields = (card.customFields || []).filter(field => field && field._id);
       if (!customFields.length) {
@@ -259,7 +265,7 @@ class PDFExporterBase {
       }
     }
 
-    if (this.hasField('checklists')) {
+    if (this.hasField('checklists') && hasSectionData('checklists', card, { checklists })) {
       lines.push('', line(`${this.__('checklists', 'Checklists')}:`, true));
       if (!checklists.length) {
         lines.push('-');
@@ -281,7 +287,7 @@ class PDFExporterBase {
       }
     }
 
-    if (this.hasField('subtasks')) {
+    if (this.hasField('subtasks') && hasSectionData('subtasks', card, { subtasks })) {
       lines.push('', line(`${this.__('export-card-subtasks', 'Subtasks')}:`, true));
       if (!subtasks.length) {
         lines.push('-');
@@ -292,7 +298,7 @@ class PDFExporterBase {
       }
     }
 
-    if (this.hasField('comments')) {
+    if (this.hasField('comments') && hasSectionData('comments', card, { comments })) {
       lines.push('', line(`${this.__('comments', 'Comments')}:`, true));
       if (!comments.length) {
         lines.push('-');
@@ -308,7 +314,7 @@ class PDFExporterBase {
       }
     }
 
-    if (this.hasField('attachments')) {
+    if (this.hasField('attachments') && hasSectionData('attachments', card, { attachments })) {
       lines.push('', line(`${this.__('attachments', 'Attachments')}:`, true));
       if (!attachments.length) {
         lines.push('-');

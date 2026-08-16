@@ -21,7 +21,9 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
-const { buildCardDocument, documentSections, wanted } = require('../models/lib/cardDocument');
+const {
+  buildCardDocument, documentSections, hasSectionData, sectionsWithData, wanted,
+} = require('../models/lib/cardDocument');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -41,11 +43,40 @@ console.log('cardDocument:');
 test('the sections are the Excel layout\'s sections, in its order', () => {
   // Not a new layout - the one that exists, described. If these ever stop
   // matching what the Excel exporter draws, the two have started to drift,
-  // which is the thing being removed.
+  // which is the thing being removed. The fixture has no custom fields and no
+  // subtasks, and those sections are therefore absent: only fields that have
+  // data are added.
   assert.deepStrictEqual(documentSections(buildCardDocument(CARD, DATA, [], k => k)), [
-    'description', 'custom-fields', 'checklists', 'subtasks',
-    'comments', 'attachments',
+    'description', 'checklists', 'comments', 'attachments',
   ]);
+});
+
+test('ONLY the fields that have data are added', () => {
+  // An export should not carry a Comments heading with nothing under it, or a
+  // Custom fields section for a card that has none. "Empty" is a judgement - a
+  // checklist with no items is empty, a checklist whose items are all unticked
+  // is not - so it is answered once, here, and both exporters ask this function.
+  assert.deepStrictEqual(documentSections(buildCardDocument({}, {}, [], k => k)), [],
+    'a card with nothing in it exports no sections at all');
+
+  assert.strictEqual(hasSectionData('description', { description: '   ' }), false,
+    'whitespace is not a description');
+  assert.strictEqual(hasSectionData('comments', {}, { comments: [{ text: '' }] }), false,
+    'a comment with no text is not a comment');
+  assert.strictEqual(hasSectionData('custom-fields', {},
+    { customFields: [{ name: 'Size', value: '' }] }), false,
+    'a field with no value is not data - most cards carry definitions with nothing in them');
+  assert.strictEqual(hasSectionData('custom-fields', {},
+    { customFields: [{ name: 'Size', value: 'L' }] }), true);
+  assert.strictEqual(hasSectionData('checklists', {},
+    { checklists: [{ title: 'Steps', items: [] }] }), true,
+    'a named checklist with no items yet is still something the card says');
+  assert.strictEqual(hasSectionData('attachments', {}, { attachments: [], images: [] }), false);
+
+  // And the two questions stay separate: the popup's selection says what the
+  // reader ASKED for, the data says what there is to give them.
+  assert.deepStrictEqual(sectionsWithData(CARD, DATA, ['comments']), ['comments'],
+    'a selection narrows it further, and never widens it');
 });
 
 test('a title and its meta pairs come first, three to a row', () => {

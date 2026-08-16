@@ -73,6 +73,11 @@ function labelTextArgb(bgArgb) {
 // still on. models/lib/exportMarkdown.js parses it exactly as the reader's
 // renderer does, and the PDF export asks the same module the same question.
 const { markdownRuns } = require('/models/lib/exportMarkdown');
+// "Only those fields that have data should be added". What counts as empty is a
+// judgement - a checklist with no items is empty, a checklist whose items are
+// all unticked is not - so it is answered in ONE place, and the PDF export asks
+// the same function. models/lib/cardDocument.js
+const { hasSectionData } = require('/models/lib/cardDocument');
 
 // Markdown as a cell's value. ExcelJS takes either a string or
 // `{ richText: [{ font, text }] }`; a single unstyled run is written as a plain
@@ -540,7 +545,7 @@ class ExporterExcelCard {
     // ════════════════════════════════════════════════════════════════════
     // DESCRIPTION
     // ════════════════════════════════════════════════════════════════════
-    if (needsDescription) {
+    if (needsDescription && hasSectionData('description', card)) {
       sectionHeader(this.__('description'));
       const descText = normalizeText(card.description || '');
       ws.mergeCells(`A${row}:F${row}`);
@@ -559,7 +564,8 @@ class ExporterExcelCard {
     // ════════════════════════════════════════════════════════════════════
     // CUSTOM FIELDS — name and value, one row each (#6586)
     // ════════════════════════════════════════════════════════════════════
-    if (needsCustomFields) {
+    if (needsCustomFields
+        && hasSectionData('custom-fields', card, { customFields: card.customFields })) {
       sectionHeader(this.__('custom-fields'));
       const cardCustomFields = (card.customFields || []).filter(f => f && f._id);
       if (cardCustomFields.length === 0) {
@@ -591,7 +597,7 @@ class ExporterExcelCard {
     // ════════════════════════════════════════════════════════════════════
     // CHECKLISTS
     // ════════════════════════════════════════════════════════════════════
-    if (needsChecklists) {
+    if (needsChecklists && hasSectionData('checklists', card, { checklists })) {
       sectionHeader(this.__('checklists'), true);
       if (checklists && checklists.length > 0) {
         const fillProgressDone  = { type: 'pattern', pattern: 'solid', fgColor: { argb: progressColorArgb(board && board.color) } };
@@ -691,7 +697,7 @@ class ExporterExcelCard {
     // ════════════════════════════════════════════════════════════════════
     // COMMENTS
     // ════════════════════════════════════════════════════════════════════
-    if (needsComments) {
+    if (needsComments && hasSectionData('comments', card, { comments })) {
       sectionHeader(this.__('comments'), true);
       // Sub-header
       ws.mergeCells(`A${row}:B${row}`);
@@ -735,7 +741,7 @@ class ExporterExcelCard {
     // ════════════════════════════════════════════════════════════════════
     // ATTACHMENTS
     // ════════════════════════════════════════════════════════════════════
-    if (needsAttachments) {
+    if (needsAttachments && hasSectionData('attachments', card, { attachments })) {
       sectionHeader(this.__('attachments'), true);
 
       if (attachments && attachments.length > 0) {

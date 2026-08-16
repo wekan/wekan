@@ -85,6 +85,56 @@ function cardHeaderBlocks(card, data, fields, t) {
   return blocks;
 }
 
+// WHAT COUNTS AS EMPTY, in one place.
+//
+// "Only those fields that have data should be added": an export should not carry
+// a Comments heading with nothing under it, or a Custom fields section for a
+// card that has none. The rule belongs HERE rather than in each exporter,
+// because "empty" is a judgement - a checklist with no items is empty, a
+// checklist whose items are all unticked is not - and two exporters answering it
+// separately is how a PDF and a spreadsheet of the same card come to contain
+// different sections.
+//
+// `data` is the loose shape the exporters already gather. A section nobody has
+// data for is simply absent from the document, so neither renderer needs to know
+// this rule at all.
+function hasSectionData(key, card = {}, data = {}) {
+  const some = list => Array.isArray(list) && list.length > 0;
+  switch (key) {
+    case 'description':
+      return !!String((card && card.description) || '').trim();
+    case 'custom-fields':
+      // A field with no value is not data. A card usually has definitions
+      // attached with nothing filled in, and a section of empty labels is the
+      // noise this removes.
+      return (data.customFields || []).some(f => f && f.value !== undefined
+        && f.value !== null && String(f.value).trim() !== '');
+    case 'checklists':
+      return (data.checklists || []).some(c => c && (String(c.title || '').trim()
+        || some(c.items)));
+    case 'subtasks':
+      return some(data.subtasks);
+    case 'comments':
+      return (data.comments || []).some(c => c && String(c.text || '').trim());
+    case 'attachments':
+      return some(data.attachments) || some(data.images);
+    case 'voting':
+      return !!data.voting && some(data.voting);
+    case 'poker':
+      return !!data.poker && some(data.poker);
+    default:
+      return true;
+  }
+}
+
+// The sections this card actually has something to say - what a renderer draws,
+// and what a test can compare between the two formats.
+function sectionsWithData(card, data, fields) {
+  return ['description', 'custom-fields', 'checklists', 'subtasks', 'comments',
+    'attachments', 'voting', 'poker']
+    .filter(key => wanted(fields, key) && hasSectionData(key, card, data));
+}
+
 // The whole card. `data` is what the exporters already gather - titles, names,
 // dates as strings, and the rows of each collection - so this adds no queries
 // and knows nothing about where any of it came from.
@@ -98,21 +148,22 @@ function buildCardDocument(card, data, fields, translate) {
   const blocks = cardHeaderBlocks(card || {}, rows, selection, t);
   const section = (key, titleKey) => blocks.push({ type: 'section', key, title: t(titleKey) });
 
-  if (wanted(selection, 'description')) {
+  if (wanted(selection, 'description') && hasSectionData('description', card, rows)) {
     section('description', 'description');
     blocks.push({ type: 'text', blocks: markdownBlocks((card && card.description) || '') });
   }
 
-  if (wanted(selection, 'custom-fields')) {
+  if (wanted(selection, 'custom-fields') && hasSectionData('custom-fields', card, rows)) {
     section('custom-fields', 'custom-fields');
-    const pairs = (rows.customFields || []).map(f => [f.name, f.value]);
-    if (!pairs.length) blocks.push({ type: 'note', runs: [] });
+    const pairs = (rows.customFields || [])
+      .filter(f => f && f.value !== undefined && f.value !== null && String(f.value).trim() !== '')
+      .map(f => [f.name, f.value]);
     for (let i = 0; i < pairs.length; i += 3) {
       blocks.push({ type: 'meta', pairs: pairs.slice(i, i + 3) });
     }
   }
 
-  if (wanted(selection, 'checklists')) {
+  if (wanted(selection, 'checklists') && hasSectionData('checklists', card, rows)) {
     section('checklists', 'checklists');
     for (const checklist of rows.checklists || []) {
       blocks.push({ type: 'note', runs: [{ text: checklist.title || '', ...EMPTY_STYLE, bold: true }] });
@@ -130,7 +181,7 @@ function buildCardDocument(card, data, fields, translate) {
     }
   }
 
-  if (wanted(selection, 'subtasks')) {
+  if (wanted(selection, 'subtasks') && hasSectionData('subtasks', card, rows)) {
     section('subtasks', 'export-card-subtasks');
     blocks.push({
       type: 'list',
@@ -143,7 +194,7 @@ function buildCardDocument(card, data, fields, translate) {
     });
   }
 
-  if (wanted(selection, 'comments')) {
+  if (wanted(selection, 'comments') && hasSectionData('comments', card, rows)) {
     section('comments', 'comments');
     blocks.push({
       type: 'rows',
@@ -158,7 +209,7 @@ function buildCardDocument(card, data, fields, translate) {
     });
   }
 
-  if (wanted(selection, 'attachments')) {
+  if (wanted(selection, 'attachments') && hasSectionData('attachments', card, rows)) {
     section('attachments', 'attachments');
     blocks.push({
       type: 'list',
@@ -178,12 +229,12 @@ function buildCardDocument(card, data, fields, translate) {
     if (images.length) blocks.push({ type: 'images', images });
   }
 
-  if (wanted(selection, 'voting') && rows.voting) {
+  if (wanted(selection, 'voting') && hasSectionData('voting', card, rows)) {
     section('voting', 'voting');
     blocks.push({ type: 'meta', pairs: rows.voting });
   }
 
-  if (wanted(selection, 'poker') && rows.poker) {
+  if (wanted(selection, 'poker') && hasSectionData('poker', card, rows)) {
     section('poker', 'poker-question');
     blocks.push({ type: 'meta', pairs: rows.poker });
   }
@@ -201,5 +252,7 @@ module.exports = {
   buildCardDocument,
   cardHeaderBlocks,
   documentSections,
+  hasSectionData,
+  sectionsWithData,
   wanted,
 };
