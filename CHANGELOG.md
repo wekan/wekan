@@ -415,7 +415,7 @@ card's date format, and preserve multilingual text; PDF also embeds JPEG and PNG
 attachment previews plus Unicode-plane fonts. **Admin Panel / Problems** keeps
 avatars at avatar size, and **All Boards** keeps its Add Board and Home
 placeholder tiles as tall as the boards beside them. Below that: ten export
-fixes, one shared-checkbox fix, two UI sizing fixes, and the documentation move
+fixes, two shared-checkbox fixes, two UI sizing fixes, and the documentation move
 into its feature and platform hierarchy with every local link checked.
 
 | Platform | Binary | From | Version | SHA256 |
@@ -686,6 +686,22 @@ The rest was audited rather than assumed: every rule in the client that sizes a
 checkbox gives it equal width and height, including the two "clean" board themes
 that deliberately draw theirs at 24px and 18px. A test now pins that for every
 rule, so the fourth one fails a suite instead of a screenshot.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5723b5692">The custom-field picker uses WeKan's shared animated checkbox</a>. Thanks to xet7.</summary>
+
+The checkbox beside each custom-field name was two Font Awesome square icons,
+switched according to state. It looked like the browser's tiny native checkbox
+and had none of the behavior used by Admin Panel / Settings / Announcement.
+
+The picker now uses the same `.materialCheckBox` element and `is-checked` state
+as those settings: a 13px grey square whose shared 0.2-second CSS transition
+morphs it into the rotated green tick. No local copy of its dimensions, colors
+or animation was added, so future changes to the common checkbox reach this
+picker too. Tests pin the shared markup and its transition, rotation and green
+checked-state borders, and reject the old icon imitation.
 
 </details>
 
