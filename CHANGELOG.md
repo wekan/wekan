@@ -405,9 +405,11 @@ seconds each.
 This release fixes the following bugs:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/71ff74c6d">The reachability graph must read Meteor's module.link, not only require()</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/71ff74c6d">The reachability graph must read Meteor's module.link, not only require()</a>. Thanks to Heart1010 and xet7.</summary>
 
-The entry above shipped in a bundle that crash-looped:
+Reported as [#6602](https://github.com/wekan/wekan/issues/6602): a Docker
+instance upgraded from v10.91 to v10.97 would not come up at all. The entry
+above shipped in a bundle that crash-looped:
 
 ```
   Error: Cannot find module ".../nodemailer-openpgp/lib/nodemailer-openpgp.js"
