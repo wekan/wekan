@@ -375,6 +375,83 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** v10.97 shipped a bundle that could not start — the third release
+in a row stopped by the same habit. Trimming what a bundle carries is measured
+by a graph of what the server can reach, and that graph read `require()` only.
+Meteor compiles an ESM import to `module.link()`, so **every ESM import in every
+Meteor package was invisible to it**: it called live code dead, and the bundle
+shipped without `nodemailer-openpgp`, which `packages/email.js` links on its
+first tick. The reachable count goes from 211 to 450 with the fix, so the
+measurement behind that trim was wrong rather than merely optimistic, and the
+category it justified is withdrawn — **61.3 MiB becomes 40.0 MiB**. What
+changes beyond this one fault is the check: a release now has to **start the
+bundle it built** and see it reach its database before it may carry it, which
+is what would have caught this and the source-map crash before v10.96 in
+seconds each.
+
+| Platform | Binary | From | Version | SHA256 |
+| --- | --- | --- | --- | --- |
+| amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
+| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-amd64) | v1.53.0 | `eae1f0a8f73bfc979738bfff7284d40fd1bc55de2cc56514721fc155c3624f7d` |
+| arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
+| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-arm64) | v1.53.0 | `bdc50caee3ac28495b42d2130b94a042a9dd6d3a38f732cac02b648f36c891da` |
+| mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-arm64.tar.xz) | v24.19.0 | `3f1cf157479c1480352083105e13faf9d008ede98e7e157746b6df940d197b94` |
+| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
+| mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
+| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release fixes the following bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/71ff74c6d">The reachability graph must read Meteor's module.link, not only require()</a>. Thanks to xet7.</summary>
+
+The entry above shipped in a bundle that crash-looped:
+
+```
+  Error: Cannot find module ".../nodemailer-openpgp/lib/nodemailer-openpgp.js"
+    at packages/email.js:347
+```
+
+`packages/email.js` does not `require()` that package. Meteor compiles an ESM
+import to its own linker call:
+
+```
+  module.link('nodemailer-openpgp',{openpgpEncrypt(v){openpgpEncrypt=v}},6);
+```
+
+and the scanner only ever looked for `require()`. So it missed every ESM import
+in every Meteor package — which is most of them — and reported live code as
+dead. The reachable count goes from 211 to 450 with the fix: the measurement was
+badly wrong, not marginally. Four forms count now: `require()`, `module.link()`,
+`module.watch(require())` and `module.dynamicImport()`.
+
+**The safety worked, which is the one good part.** With the corrected graph the
+policy still named `openpgp`, the graph VETOED it, and the tool refused and said
+so rather than deleting it. That entry is removed outright now rather than left
+to be vetoed every run — the reason is what grants the permission, and this
+reason was never true.
+
+**And the check that was missing both times.** v10.96 died on a source map
+deleted but not un-named; this died on a linked module. Both were reasoned about
+by reading the code, and reading the code is how both mistakes were made. So
+`releases/bundle-smoke-boot.sh` starts the bundle with a database address that
+cannot answer and requires it to get as far as trying to reach it — which proves
+the whole server image loaded, because the database is the first thing WeKan
+needs that the check does not provide. The amd64 build runs it after the trim
+and the prunes, and every other architecture's bundle derives from that one.
+
+It is verified against both real failures — a bundle with `nodemailer-openpgp`
+removed, and a manifest naming maps that are not there — and each fails with its
+own diagnosis, because the fix for each is a different one. A bundle that exits
+quietly or hangs is not a pass either: a smoke test whose failure mode is
+passing when it learned nothing is worth less than none.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.97 2026-08-16 WeKan ® release
 
 **In short:** v10.96 shipped a bundle that could not start. Trimming what a
@@ -385,13 +462,9 @@ the files now, and the fix was checked by BOOTING a trimmed bundle rather than
 by reading the code again. Then the **snap**, which had been taking itself
 offline at every restart: the startup comparison of the two database copies ran
 unbounded with nothing on the web port, on an ambiguity that its own reading of
-MongoDB kept recreating. A third fix is the same shape: the bundle
-shipped without a package `packages/email.js` links on its first tick, because
-the graph that decided it was unreachable read `require()` and not Meteor's
-`module.link()`. All three now have to survive **actually starting the bundle**
-before a release can carry it. Below that: **40 MiB** off every bundle from
-packages nothing can reach, and a guard that keeps all 246 translations loading
-one at a time.
+MongoDB kept recreating. Below that: **61 MiB** off every bundle
+from packages nothing can reach, and a guard that keeps all 246 translations
+loading one at a time.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -548,13 +621,19 @@ Duplication is the smaller half: 586 distinct packages exist as 815 copies, but
 the redundant copies are only ~28 MB, because Meteor keeps per-package
 `node_modules` on purpose so packages can pin conflicting versions.
 
-`releases/prune-unreachable-npm.mjs` removes 40.0 MiB, in three categories whose
+`releases/prune-unreachable-npm.mjs` removes 61.3 MiB, in four categories whose
 reason is PROVABLE rather than merely plausible — the standard the
 uWebSockets.js removal met: `typescript` (23.2 MiB, a devDependency of 196
-packages here and a runtime dependency of none), `@types/*` (9.6 MiB across 24
-copies, verified to contain no `.js` at all) and `sinon` (7.2 MiB, a test
-framework). A fourth category was proposed, shipped and withdrawn — see the
-entry below.
+packages here and a runtime dependency of none), `openpgp` with
+`nodemailer-openpgp` (21.3 MiB, reachable only through an optional nodemailer
+plugin nothing requires), `@types/*` (9.6 MiB across 24 copies, verified to
+contain no `.js` at all) and `sinon` (7.2 MiB, a test framework).
+
+**One of those four was wrong, and this release cannot start because of it.**
+`packages/email.js` links `nodemailer-openpgp` on its first tick through
+`module.link()`, which the graph did not read as a reference — so the bundle
+ships without a package it needs and dies with *Cannot find module*. Withdrawn
+and fixed in the release above, where the whole story is.
 
 The remaining 145 MB of unreachable packages STAYS. `jquery`, `hotkeys-js` and
 the `@azure` storage adapters are almost certainly dead too, but *almost
@@ -603,52 +682,6 @@ files; for the two it does not — `km_KH` and `ru_RU` — the hyphenated name i
 SYMLINK to the file Transifex writes. Two names for one file, not two copies.
 Reading it the other way costs a language its real translations, so both checks
 compare through `realpath` and say so.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/71ff74c6d">The reachability graph must read Meteor's module.link, not only require()</a>. Thanks to xet7.</summary>
-
-The entry above shipped in a bundle that crash-looped:
-
-```
-  Error: Cannot find module ".../nodemailer-openpgp/lib/nodemailer-openpgp.js"
-    at packages/email.js:347
-```
-
-`packages/email.js` does not `require()` that package. Meteor compiles an ESM
-import to its own linker call:
-
-```
-  module.link('nodemailer-openpgp',{openpgpEncrypt(v){openpgpEncrypt=v}},6);
-```
-
-and the scanner only ever looked for `require()`. So it missed every ESM import
-in every Meteor package — which is most of them — and reported live code as
-dead. The reachable count goes from 211 to 450 with the fix: the measurement was
-badly wrong, not marginally. Four forms count now: `require()`, `module.link()`,
-`module.watch(require())` and `module.dynamicImport()`.
-
-**The safety worked, which is the one good part.** With the corrected graph the
-policy still named `openpgp`, the graph VETOED it, and the tool refused and said
-so rather than deleting it. That entry is removed outright now rather than left
-to be vetoed every run — the reason is what grants the permission, and this
-reason was never true.
-
-**And the check that was missing both times.** v10.96 died on a source map
-deleted but not un-named; this died on a linked module. Both were reasoned about
-by reading the code, and reading the code is how both mistakes were made. So
-`releases/bundle-smoke-boot.sh` starts the bundle with a database address that
-cannot answer and requires it to get as far as trying to reach it — which proves
-the whole server image loaded, because the database is the first thing WeKan
-needs that the check does not provide. The amd64 build runs it after the trim
-and the prunes, and every other architecture's bundle derives from that one.
-
-It is verified against both real failures — a bundle with `nodemailer-openpgp`
-removed, and a manifest naming maps that are not there — and each fails with its
-own diagnosis, because the fix for each is a different one. A bundle that exits
-quietly or hangs is not a pass either: a smoke test whose failure mode is
-passing when it learned nothing is worth less than none.
 
 </details>
 
