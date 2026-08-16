@@ -411,6 +411,28 @@ function build_wekan(){
 		fi
 		return 1
 	fi
+
+	# THE REST OF WHAT A RELEASE BUNDLE IS.
+	#
+	# `meteor build` produces a bundle nobody downloads. What a release ships is
+	# that bundle plus the server's npm modules, three prunes, the sockjs/legacy
+	# client/source-map trim, a verified Node.js, FerretDB, the MongoDB tools and
+	# a launcher - and everything WeKan has shipped broken lately broke in that
+	# difference, where nothing local could reach it.
+	#
+	# Menu option 2 sets this, so "Build WeKan" answers "does the bundle a
+	# release would publish start on this machine". The test path does not: it
+	# runs the bundle under its own node and its own mongod, and downloading a
+	# hundred megabytes of binaries it will not use to test WeKan's source is
+	# the wrong trade.
+	if [ "${WEKAN_BUILD_RELEASE_BUNDLE:-0}" = "1" ]; then
+		bash releases/build-release-bundle.sh .build/bundle 2>&1 | tee -a "$buildlog"
+		local rrc="${PIPESTATUS[0]}"
+		if [ "$rrc" -ne 0 ]; then
+			echo "ERROR: the bundle built, but the release post-processing failed. Its output is in $buildlog"
+			return 1
+		fi
+	fi
 	echo Done.
 }
 
@@ -2371,7 +2393,12 @@ for _once in 1; do
 		# reporting success to its caller is worse than one that just fails -
 		# anything driving this non-interactively (`printf '1\n2\n' | ./build.sh`,
 		# or CI) sees a green run and a missing bundle.
-		build_wekan || exit 1
+		# The RELEASE bundle, not just `meteor build`: the same steps as the
+		# Release All workflow for this platform, minus the .zip, so
+		# `cd .build/bundle && ./start-wekan.sh` starts WeKan on its own
+		# bundled Node.js and FerretDB - which is how to find out whether the
+		# thing a release would publish runs at all.
+		WEKAN_BUILD_RELEASE_BUNDLE=1 build_wekan || exit 1
 		break
 		;;
 

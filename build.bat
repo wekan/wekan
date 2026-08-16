@@ -813,6 +813,29 @@ if exist "%REPO%\_build"              rmdir /s /q "%REPO%\_build"
 call meteor update --npm
 call meteor npm install
 call meteor build .build --directory
+if not exist "%REPO%\.build\bundle\main.js" (
+  echo ERROR: the build produced no .build\bundle\main.js.
+  goto end
+)
+REM THE REST OF WHAT A RELEASE BUNDLE IS - the same steps as the Release All
+REM workflow for this platform, minus the .zip: the server's npm modules, the
+REM three prunes, the sockjs / legacy-client / source-map trim, a verified
+REM Node.js, FerretDB, the MongoDB Database Tools and start-wekan.bat. So
+REM "Build WeKan" answers whether the bundle a release would publish starts
+REM here, which `meteor build` on its own never could.
+REM
+REM Through bash, like the git actions above and for the same reason: this is
+REM releases/build-release-bundle.sh, the script the release itself runs, not a
+REM batch copy of it that would drift from it.
+where bash >nul 2>&1
+if errorlevel 1 (
+  echo.
+  echo WARNING: bash was not found, so .build\bundle is a plain `meteor build`
+  echo          bundle - no Node.js, no FerretDB, no launcher, nothing trimmed.
+  echo          bash comes with Git for Windows ^(Git Bash^) and with WSL.
+  goto end
+)
+bash releases/build-release-bundle.sh .build/bundle
 echo Done.
 goto end
 
