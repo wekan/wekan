@@ -375,6 +375,235 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** v10.96 shipped a bundle that could not start. Trimming what a
+bundle carries went one file too far: `boot.js` reads every source map NAMED in
+`programs/server/program.json`, unconditionally, so removing the maps left 63
+dangling names and the server died before opening its port. The names go with
+the files now, and the fix was checked by BOOTING a trimmed bundle rather than
+by reading the code again. Then the **snap**, which had been taking itself
+offline at every restart: the startup comparison of the two database copies ran
+unbounded with nothing on the web port, on an ambiguity that its own reading of
+MongoDB kept recreating. Below that: another **61 MiB** off every bundle, from
+packages no `require()` can reach, and a guard that keeps all 246 translations
+loading one at a time.
+
+| Platform | Binary | From | Version | SHA256 |
+| --- | --- | --- | --- | --- |
+| amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
+| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-amd64) | v1.53.0 | `eae1f0a8f73bfc979738bfff7284d40fd1bc55de2cc56514721fc155c3624f7d` |
+| arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
+| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-arm64) | v1.53.0 | `bdc50caee3ac28495b42d2130b94a042a9dd6d3a38f732cac02b648f36c891da` |
+| mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-arm64.tar.xz) | v24.19.0 | `3f1cf157479c1480352083105e13faf9d008ede98e7e157746b6df940d197b94` |
+| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
+| mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
+| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release fixes the following bugs:
+
+**Bundles and images** - what a build carries, and what it no longer does.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dc19f0661">Dropping a source map must un-name it too, or the server will not boot</a>. Thanks to xet7.</summary>
+
+The entry above removed the source maps from every platform. A released image
+then crash-looped:
+
+```
+  Error: ENOENT: no such file or directory,
+    open '/build/programs/server/packages/ecmascript.js.map'
+    at /build/programs/server/boot.js:101:29
+```
+
+*"Nothing on any loading path reads a `.map`"* was true of the client and false
+of the server. `boot.js` reads every map NAMED in
+`programs/server/program.json`, at boot, unconditionally:
+
+```
+  serverJson.load.forEach(function (fileInfo) {
+    if (fileInfo.sourceMap) {
+      var rawSourceMap = fs.readFileSync(
+        path.resolve(serverDir, fileInfo.sourceMap), 'utf8');
+```
+
+63 of the 102 load entries name one — 60 MiB — so deleting the files left 63
+dangling names and the server died before it opened its port.
+
+The names now go with the files: the same pass deletes `sourceMap` and
+`sourceMapRoot` from every load entry. The client was never affected and still
+is not — its `program.json` names no maps at all (678 manifest entries, zero
+`sourceMap` fields) and `webapp` reads only `program.json` itself at startup.
+
+Verified by BOOTING a trimmed bundle rather than by reading the code again: with
+uWebSockets.js, the legacy client and all 4766 maps removed, `node main.js`
+loads the whole server and reaches `AccountsServer.init`, failing only on the
+deliberately unreachable `MONGO_URL` it was given. That is the check that was
+missing the first time, and `tests/bundleTrim.test.cjs` now pins the invariant
+`boot.js` actually requires — every map the manifest names exists on disk — for
+both settings of `--keep-maps`.
+
+</details>
+
+**The snap's two copies of the database** - after a migration both stay on disk,
+and starting is where that gets decided.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/da221c549">Reading MongoDB to compare the copies must not look like writing to it</a>. Thanks to xet7.</summary>
+
+An instance serving FerretDB printed this at every restart:
+
+```
+  WeKan: BOTH databases have been written to since the migration.
+    MongoDB  last written 2026-08-16 01:41 (WiredTiger.wt)
+    FerretDB last written 2026-08-16 01:38
+```
+
+Nothing had opened that MongoDB in a month. The giveaway is in the report
+itself: the MongoDB timestamp is the minute the snap started, three minutes
+AFTER the FerretDB it is being compared against.
+
+`bin/ferretdb-migration-stale` decides *MongoDB has been written to* from the
+mtimes of the WiredTiger data files, and its own header admits an mtime cannot
+tell "somebody used this database" from "this database was started".
+`bin/database-autopick` is the answer to that — it reads both copies and
+compares their contents. But to read MongoDB it STARTS mongod, and starting
+mongod does recovery and a checkpoint, which stamps exactly the files the
+staleness check reads. So the diagnostic manufactured its own evidence: after
+one run, MongoDB looked freshly written forever and the ambiguity could never
+resolve, however long nobody touched it.
+
+The read now notes the newest data-file mtime before mongod starts and puts
+anything newer back afterwards — files mongod CREATED during the read included,
+since a new journal file is the newest thing in the directory and reports as a
+write on its own. mongod does not use mtimes, and what it checkpointed is not
+user data, so the metadata is made to say what is true. Every way out of the
+read restores, including the failures, because a failing read is exactly when
+the ambiguity gets reported. A write that happened BEFORE the read still
+survives it: the point is to hide WeKan's own read, never somebody's work.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/062d4fede">The database comparison at startup cannot take the site down any more</a>. Thanks to xet7.</summary>
+
+The same instance went OFFLINE at every restart. `wekan-control` ran the
+comparison synchronously and unbounded before anything opened the web port — and
+it starts each database on a temporary port to read it, which on a real instance
+is minutes. Until it returned a browser got a connection timeout, and the reason
+was in `snap logs`, the last place somebody whose site is down thinks to look.
+
+That is [#6592](https://github.com/wekan/wekan/issues/6592) one step earlier than
+where it was fixed. The database WAIT already serves a *waiting for its
+database* page; the helpers for it were defined 200 lines BELOW the comparison
+that needed them. They move up, and the comparison uses them — after the same
+grace period, so a comparison that finishes in seconds does not flash a page up
+and teach proxies to cache a 503 for a healthy site.
+
+And a bound. `WEKAN_AUTOPICK_TIMEOUT` is 900 seconds by default; when it runs
+out WeKan says so, changes nothing, and starts on the database already selected.
+Stopping the comparison is safe — it never deletes anything on either side, and
+the merge it may be in the middle of only INSERTS what is missing, so a partial
+one is fewer documents copied and the next start finishes the job. Serving the
+site beats finishing the comparison.
+
+`WEKAN_AUTOPICK` was an env var and nothing else, so an admin whose site was
+down had no supported way to skip the comparison. It is a snap config key now,
+with the bound beside it, and the timeout message names both — somebody reading
+it is somebody whose site just came up late:
+
+```
+  snap set wekan autopick=false
+  snap set wekan autopick-timeout=1800
+```
+
+This is the other half of the entry above. Before that fix the comparison ran at
+EVERY start, so every restart took the site down for a comparison that could
+never conclude. One stops it recurring; this one makes it survivable.
+
+</details>
+
+and changes what every platform ships:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d6e21202f">Prune what no require() in the server bundle can reach</a>. Thanks to xet7.</summary>
+
+`programs/server/npm/node_modules` is 347 MB of an ~850 MB bundle, and measuring
+its require graph says 206 MB of that is unreachable from any server entry
+point. Two things cause it, neither a bug in Meteor:
+
+- **The tree is outside the bundler's graph.** Meteor 3.5 compiles through
+  rspack — the server output is minified, and `programs/server/app/app.js`
+  requires only 76 bare specifiers because rspack inlined the app's real
+  dependencies into it. But this tree is what Atmosphere packages declare with
+  `Npm.depends()` and load through `Npm.require()`, which rspack cannot follow.
+  It is largely the INPUT to a build whose OUTPUT ships beside it.
+- **It is a full `npm install`, devDependencies included.**
+
+Duplication is the smaller half: 586 distinct packages exist as 815 copies, but
+the redundant copies are only ~28 MB, because Meteor keeps per-package
+`node_modules` on purpose so packages can pin conflicting versions.
+
+`releases/prune-unreachable-npm.mjs` removes 61.3 MiB, in four categories whose
+reason is PROVABLE rather than merely plausible — the standard the
+uWebSockets.js removal met: `typescript` (23.2 MiB, a devDependency of 196
+packages here and a runtime dependency of none), `openpgp` with
+`nodemailer-openpgp` (21.3 MiB, reachable only through an optional nodemailer
+plugin nothing requires), `@types/*` (9.6 MiB across 24 copies, verified to
+contain no `.js` at all) and `sinon` (7.2 MiB, a test framework).
+
+The remaining 145 MB of unreachable packages STAYS. `jquery`, `hotkeys-js` and
+the `@azure` storage adapters are almost certainly dead too, but *almost
+certainly* is not the standard, and the tail of 590 packages is where a static
+scan is most likely to be wrong.
+
+Two independent safeties, because this is riskier than the uws removal was. The
+reachable set is recomputed from the bundle every run and deliberately
+OVER-approximated — once a package is reached, every file in it is scanned and
+every `require()` string literal counts. The policy then only proposes; the
+graph has a VETO, so an entry whose package is actually required is refused and
+said out loud rather than applied. And after deleting, every path in the
+reachable set must still exist or the run fails. Verified on a real bundle:
+473M to 410M, with the reachable count 211 before and after.
+
+</details>
+
+and adds the following guard:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1619a6c37">Every language stays lazily loaded, and a guard keeps it that way</a>. Thanks to xet7.</summary>
+
+WeKan ships 246 languages, 37 MB of JSON. What makes that affordable is one
+character in each of 246 near-identical blocks in `imports/i18n/languages.js`:
+
+```
+  load: () => import('./data/ace.i18n.json'),
+```
+
+A dynamic `import()` is a SPLIT POINT. rspack emits each language as its own
+chunk — measured on a built bundle, 238 chunks and 34 MiB of JS — and a browser
+fetches exactly one, about 145 KB for the language in use. Written instead as
+`import data from './data/ace.i18n.json'`, or with `require()`, the same line
+stops splitting and 34 MiB joins the main bundle for every user, in every
+language. That edit is made by hand each time a language is added, which is why
+it wants a guard rather than a convention.
+
+Seven checks: every entry has a `load:`, every `load:` is the dynamic form, none
+uses `require()`, no static import of a data file, nothing outside
+`languages.js` imports one, every file is claimed and every claim has a file,
+and a Transifex pull writes the file the app actually loads.
+
+The last two are symlink-aware, and that is the point of them. `.tx/config`'s
+`lang_map` renames most of Transifex's underscored locales to WeKan's hyphenated
+files; for the two it does not — `km_KH` and `ru_RU` — the hyphenated name is a
+SYMLINK to the file Transifex writes. Two names for one file, not two copies.
+Reading it the other way costs a language its real translations, so both checks
+compare through `realpath` and say so.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.96 2026-08-16 WeKan ® release
 
 **In short:** one **CRITICAL** fix. With registration turned OFF in the Admin
@@ -389,11 +618,8 @@ its 1 GiB limit at last, now that its size report says what filled the gigabyte.
 What that measurement found ended up changing every platform, not just
 Sandstorm: **uws is not reliable enough yet**, so every default is now
 **sockjs**, and no bundle carries uWebSockets.js (121M), the legacy client
-(81M) or source maps (152M) — around **354M** a bundle. And the **snap** stopped
-taking itself offline at every restart: the startup comparison of the two
-database copies ran unbounded with nothing on the web port, on an ambiguity its
-own reading of MongoDB kept recreating. Below that: two AWS SDK updates for the
-S3 attachment path.
+(81M) or source maps (152M) — around **354M** a bundle. Below that: two AWS SDK
+updates for the S3 attachment path.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -645,135 +871,17 @@ produced it — this bundle's server side is one 117 MiB
 fetch the `.map` only while they are open, and by Node stack traces through
 `source-map-support`. A released bundle has neither attached to it.
 
-**A map the server manifest NAMES is not optional, and that took a crash to
-learn** — see the entry below. `boot.js` reads every map listed in
-`programs/server/program.json` at boot, unconditionally, so the names have to go
-with the files. The client is unaffected: its manifest names no maps at all, and
+**A map the server manifest NAMES is not optional, and this release did not
+know it.** `boot.js` reads every map listed in `programs/server/program.json`
+at boot, unconditionally, so removing the files without removing the names left
+the server unable to start — fixed in the release above, where the whole story
+is. The client is unaffected: its manifest names no maps at all, and
 a client `.map` is found through the `//# sourceMappingURL` comment, which is a
 comment — a missing target means devtools show compiled positions and a server
 stack trace prints bundle offsets. Debugging a production crash goes back to
 reproducing it against a development build, which is where the maps still are.
 The guard pins that no call site keeps them, so one platform cannot quietly
 drift back to carrying them.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/dc19f0661">Dropping a source map must un-name it too, or the server will not boot</a>. Thanks to xet7.</summary>
-
-The entry above removed the source maps from every platform. A released image
-then crash-looped:
-
-```
-  Error: ENOENT: no such file or directory,
-    open '/build/programs/server/packages/ecmascript.js.map'
-    at /build/programs/server/boot.js:101:29
-```
-
-*"Nothing on any loading path reads a `.map`"* was true of the client and false
-of the server. `boot.js` reads every map NAMED in
-`programs/server/program.json`, at boot, unconditionally:
-
-```
-  serverJson.load.forEach(function (fileInfo) {
-    if (fileInfo.sourceMap) {
-      var rawSourceMap = fs.readFileSync(
-        path.resolve(serverDir, fileInfo.sourceMap), 'utf8');
-```
-
-63 of the 102 load entries name one — 60 MiB — so deleting the files left 63
-dangling names and the server died before it opened its port.
-
-The names now go with the files: the same pass deletes `sourceMap` and
-`sourceMapRoot` from every load entry. The client was never affected and still
-is not — its `program.json` names no maps at all (678 manifest entries, zero
-`sourceMap` fields) and `webapp` reads only `program.json` itself at startup.
-
-Verified by BOOTING a trimmed bundle rather than by reading the code again: with
-uWebSockets.js, the legacy client and all 4766 maps removed, `node main.js`
-loads the whole server and reaches `AccountsServer.init`, failing only on the
-deliberately unreachable `MONGO_URL` it was given. That is the check that was
-missing the first time, and `tests/bundleTrim.test.cjs` now pins the invariant
-`boot.js` actually requires — every map the manifest names exists on disk — for
-both settings of `--keep-maps`.
-
-</details>
-
-**The snap's two copies of the database** - after a migration both stay on disk,
-and starting is where that gets decided.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/da221c549">Reading MongoDB to compare the copies must not look like writing to it</a>. Thanks to xet7.</summary>
-
-An instance serving FerretDB printed this at every restart:
-
-```
-  WeKan: BOTH databases have been written to since the migration.
-    MongoDB  last written 2026-08-16 01:41 (WiredTiger.wt)
-    FerretDB last written 2026-08-16 01:38
-```
-
-Nothing had opened that MongoDB in a month. The giveaway is in the report
-itself: the MongoDB timestamp is the minute the snap started, three minutes
-AFTER the FerretDB it is being compared against.
-
-`bin/ferretdb-migration-stale` decides *MongoDB has been written to* from the
-mtimes of the WiredTiger data files, and its own header admits an mtime cannot
-tell "somebody used this database" from "this database was started".
-`bin/database-autopick` is the answer to that — it reads both copies and
-compares their contents. But to read MongoDB it STARTS mongod, and starting
-mongod does recovery and a checkpoint, which stamps exactly the files the
-staleness check reads. So the diagnostic manufactured its own evidence: after
-one run, MongoDB looked freshly written forever and the ambiguity could never
-resolve, however long nobody touched it.
-
-The read now notes the newest data-file mtime before mongod starts and puts
-anything newer back afterwards — files mongod CREATED during the read included,
-since a new journal file is the newest thing in the directory and reports as a
-write on its own. mongod does not use mtimes, and what it checkpointed is not
-user data, so the metadata is made to say what is true. Every way out of the
-read restores, including the failures, because a failing read is exactly when
-the ambiguity gets reported. A write that happened BEFORE the read still
-survives it: the point is to hide WeKan's own read, never somebody's work.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/062d4fede">The database comparison at startup cannot take the site down any more</a>. Thanks to xet7.</summary>
-
-The same instance went OFFLINE at every restart. `wekan-control` ran the
-comparison synchronously and unbounded before anything opened the web port — and
-it starts each database on a temporary port to read it, which on a real instance
-is minutes. Until it returned a browser got a connection timeout, and the reason
-was in `snap logs`, the last place somebody whose site is down thinks to look.
-
-That is [#6592](https://github.com/wekan/wekan/issues/6592) one step earlier than
-where it was fixed. The database WAIT already serves a *waiting for its
-database* page; the helpers for it were defined 200 lines BELOW the comparison
-that needed them. They move up, and the comparison uses them — after the same
-grace period, so a comparison that finishes in seconds does not flash a page up
-and teach proxies to cache a 503 for a healthy site.
-
-And a bound. `WEKAN_AUTOPICK_TIMEOUT` is 900 seconds by default; when it runs
-out WeKan says so, changes nothing, and starts on the database already selected.
-Stopping the comparison is safe — it never deletes anything on either side, and
-the merge it may be in the middle of only INSERTS what is missing, so a partial
-one is fewer documents copied and the next start finishes the job. Serving the
-site beats finishing the comparison.
-
-`WEKAN_AUTOPICK` was an env var and nothing else, so an admin whose site was
-down had no supported way to skip the comparison. It is a snap config key now,
-with the bound beside it, and the timeout message names both — somebody reading
-it is somebody whose site just came up late:
-
-```
-  snap set wekan autopick=false
-  snap set wekan autopick-timeout=1800
-```
-
-This is the other half of the entry above. Before that fix the comparison ran at
-EVERY start, so every restart took the site down for a comparison that could
-never conclude. One stops it recurring; this one makes it survivable.
 
 </details>
 
