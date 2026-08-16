@@ -109,7 +109,13 @@ function cardHeaderBlocks(card, data, fields, translate) {
 
   // Three to a row, which is what the Excel layout does with A–F.
   for (let i = 0; i < pairs.length; i += 3) {
-    blocks.push({ type: 'meta', pairs: pairs.slice(i, i + 3) });
+    const slice = pairs.slice(i, i + 3);
+    const block = { type: 'meta', pairs: slice };
+    if (slice.some(pair => pair[0] === t('labels')) && (data.labelDetails || []).length) {
+      block.labelTitle = t('labels');
+      block.labelDetails = data.labelDetails;
+    }
+    blocks.push(block);
   }
   return blocks;
 }
@@ -196,10 +202,15 @@ function buildCardDocument(card, data, fields, translate) {
   if (wanted(selection, 'checklists') && hasSectionData('checklists', card, rows)) {
     section('checklists', 'checklists');
     for (const checklist of rows.checklists || []) {
-      blocks.push({ type: 'note', runs: [{ text: checklist.title || '', ...EMPTY_STYLE, bold: true }] });
+      const items = checklist.items || [];
+      blocks.push({
+        type: 'note',
+        runs: [{ text: checklist.title || '', ...EMPTY_STYLE, bold: true }],
+        progress: { done: items.filter(item => item && item.isFinished).length, total: items.length },
+      });
       blocks.push({
         type: 'list',
-        items: (checklist.items || []).map(item => ({
+        items: items.map(item => ({
           // The item's title is markdown; the box in front of it is the
           // export's own mark, which is why the two are separate.
           runs: markdownBlocks(item.title || '').flatMap(b => b.runs || []),
@@ -250,6 +261,7 @@ function buildCardDocument(card, data, fields, translate) {
         done: false,
         marker: '-',
         level: 0,
+        attachment,
       })),
     });
     // The pictures themselves, when the exporter could read them. Both formats

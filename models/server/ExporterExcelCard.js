@@ -4,6 +4,9 @@ import { CARD_EXPORT_FIELD_KEYS } from '/models/lib/exportFields';
 import { createWorkbook } from './createWorkbook';
 import { fileStoreStrategyFactory } from '/models/attachments.server';
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
+import { buildCardDocument } from '/models/lib/cardDocument';
+import { renderCardDocumentExcel } from './renderCardDocumentExcel';
+import { accentOf } from '/models/lib/themeAccents';
 
 // ── Constants ────────────────────────────────────────────────────────────────
 
@@ -13,101 +16,6 @@ import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 // for why a "must match" comment is not a mechanism.
 const ALL_FIELDS = CARD_EXPORT_FIELD_KEYS;
 
-/**
- * Map WeKan label color names to opaque ARGB hex strings for ExcelJS.
- * Colours not in this map fall back to a neutral silver.
- */
-const LABEL_COLOR_ARGB = {
-  white:         'FFFFFFFF',
-  green:         'FF008000',
-  yellow:        'FFFFFF00',
-  orange:        'FFFFA500',
-  red:           'FFFF0000',
-  purple:        'FF800080',
-  blue:          'FF0000FF',
-  sky:           'FF87CEEB',
-  lime:          'FF00FF00',
-  pink:          'FFFFC0CB',
-  black:         'FF000000',
-  silver:        'FFC0C0C0',
-  peachpuff:     'FFFFDAB9',
-  crimson:       'FFDC143C',
-  plum:          'FFDDA0DD',
-  darkgreen:     'FF006400',
-  slateblue:     'FF6A5ACD',
-  magenta:       'FFFF00FF',
-  gold:          'FFFFD700',
-  navy:          'FF000080',
-  gray:          'FF808080',
-  saddlebrown:   'FF8B4513',
-  paleturquoise: 'FFAFEEEE',
-  mistyrose:     'FFFFE4E1',
-  indigo:        'FF4B0082',
-};
-
-/** Convert a WeKan color name to ARGB, falling back to silver. */
-function labelColorToArgb(colorName) {
-  return LABEL_COLOR_ARGB[colorName] || 'FFC0C0C0';
-}
-
-/**
- * Return FFFFFFFF (white) or FF000000 (black) text colour based on the
- * relative luminance of the background ARGB string.
- */
-function labelTextArgb(bgArgb) {
-  const hex = bgArgb.slice(2); // strip leading AA byte
-  const r = parseInt(hex.slice(0, 2), 16);
-  const g = parseInt(hex.slice(2, 4), 16);
-  const b = parseInt(hex.slice(4, 6), 16);
-  const toLinear = c => {
-    const s = c / 255;
-    return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
-  };
-  const lum = 0.2126 * toLinear(r) + 0.7152 * toLinear(g) + 0.0722 * toLinear(b);
-  return lum > 0.179 ? 'FF000000' : 'FFFFFFFF';
-}
-
-// A card's text is MARKDOWN, and WeKan draws it as markdown everywhere it shows
-// it. A cell can carry styled runs (ExcelJS `richText`), so it can too: bold is
-// bold, a list is a list, and `**bold**` no longer arrives with its asterisks
-// still on. models/lib/exportMarkdown.js parses it exactly as the reader's
-// renderer does, and the PDF export asks the same module the same question.
-const { markdownRuns } = require('/models/lib/exportMarkdown');
-// "Only those fields that have data should be added". What counts as empty is a
-// judgement - a checklist with no items is empty, a checklist whose items are
-// all unticked is not - so it is answered in ONE place, and the PDF export asks
-// the same function. models/lib/cardDocument.js
-const { hasSectionData } = require('/models/lib/cardDocument');
-
-// Markdown as a cell's value. ExcelJS takes either a string or
-// `{ richText: [{ font, text }] }`; a single unstyled run is written as a plain
-// string, so text with no markdown in it is stored exactly as before.
-function markdownCell(text, fontName, size = 10) {
-  const runs = markdownRuns(text);
-  if (!runs.length) return '';
-  if (runs.length === 1 && !runs[0].bold && !runs[0].italic
-      && !runs[0].strike && !runs[0].code) {
-    return runs[0].text;
-  }
-  return {
-    richText: runs.map(run => ({
-      font: {
-        name: run.code ? 'Courier New' : fontName,
-        size,
-        bold: !!run.bold,
-        italic: !!run.italic,
-        strike: !!run.strike,
-        // A link is underlined and blue, the way a reader expects one - ExcelJS
-        // cannot make a run itself clickable, and the address stays in the text
-        // so it is not lost.
-        underline: run.link ? true : undefined,
-        color: run.link ? { argb: 'FF0563C1' } : undefined,
-      },
-      text: run.text,
-    })),
-  };
-}
-
 /** MIME types that ExcelJS can embed as inline images. */
 const EMBEDDABLE_IMAGE_MIME = new Map([
   ['image/jpeg', 'jpeg'],
@@ -116,44 +24,6 @@ const EMBEDDABLE_IMAGE_MIME = new Map([
   ['image/gif',  'gif'],
   ['image/bmp',  'bmp'],
 ]);
-
-/**
- * Checklist progress-bar colour per board theme, matching boardColors.css.
- * Values are opaque ARGB strings for ExcelJS (FF + 6-digit hex).
- */
-const THEME_PROGRESS_COLOR = {
-  nephritis:   'FF27AE60',
-  pomegranate: 'FFC0392B',
-  belize:      'FF2980B9',
-  wisteria:    'FF8E44AD',
-  midnight:    'FF2C3E50',
-  pumpkin:     'FFE67E22',
-  moderatepink:'FFCD5A91',
-  strongcyan:  'FF00AECC',
-  limegreen:   'FF4BBF6B',
-  dark:        'FF2C3E51',
-  relax:       'FF27AE61',
-  corteza:     'FF568BA2',
-  appleglasspastel: 'FF2563EB',
-  clearblue:   'FF499BEA',
-  natural:     'FF596557',
-  modern:      'FF2A80B8',
-  moderndark:  'FF2A2A2A',
-  exodark:     'FF222222',
-  cleandark:   'FF23232B',
-  cleanlight:  'FFC0C0C0',
-};
-
-/** Return the progress-bar ARGB colour for a given board colour/theme name. */
-function progressColorArgb(boardColor) {
-  return THEME_PROGRESS_COLOR[boardColor] || 'FF2980B9'; // default: belize blue
-}
-
-const IMG_WIDTH_PX       = 150;   // embedded image width in pixels
-const IMG_HEIGHT_PX      = 115;   // embedded image height in pixels
-const IMG_ROW_HEIGHT     = 95;    // row height (pt) for image rows
-const IMAGES_PER_ROW     = 4;     // maximum images side-by-side
-const IMG_COLS_PER_IMAGE = 1.5;   // fractional column units each image occupies (cols: 0, 1.5, 3.0, 4.5)
 
 // ── Pure helper functions ────────────────────────────────────────────────────
 
@@ -169,13 +39,6 @@ function sanitizeFilename(value) {
       .replace(/^-|-$/g, '')
       .slice(0, 80) || 'export-card'
   );
-}
-
-function normalizeText(value) {
-  return String(value ?? '')
-    .replace(/<[^>]*>/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
 }
 
 function formatFileSize(bytes) {
@@ -273,665 +136,107 @@ class ExporterExcelCard {
    */
   async renderCardBlock(ws, workbook, startRow, data) {
     const {
-      card, board, list, swimlane, userMap = {},
-      creatorName = '', ownerName = '', memberNames = '', assigneeNames = '',
-      checklists = [], checklistItems = [], subtasks = [], comments = [],
-      attachments = [], customFieldsById = {},
+      card, board, list, swimlane, userMap = {}, checklists = [],
+      checklistItems = [], subtasks = [], comments = [], attachments = [],
+      customFieldsById = {},
     } = data;
 
-    const needsLabels       = this.hasField('labels');
-    const needsPeople       = this.hasField('people');
-    const needsBoardInfo    = this.hasField('board-info');
-    const needsDates        = this.hasField('dates');
-    const needsDescription  = this.hasField('description');
-    const needsChecklists   = this.hasField('checklists');
-    const needsSubtasks     = this.hasField('subtasks');
-    const needsComments     = this.hasField('comments');
-    const needsAttachments  = this.hasField('attachments');
-    const needsCustomFields = this.hasField('custom-fields');
-    const needsVoting       = this.hasField('voting');
-    const needsPoker        = this.hasField('poker');
+    const imageAttachments = [];
+    for (const attachment of attachments) {
+      const type = String(attachment.type || '').toLowerCase();
+      const ext = EMBEDDABLE_IMAGE_MIME.get(type);
+      if (!ext) continue;
+      try {
+        const strategy = fileStoreStrategyFactory.getFileStrategy(attachment, 'original');
+        const stream = strategy && strategy.getReadStream();
+        if (!stream) continue;
+        const image = await streamToBuffer(stream);
+        if (image.length) imageAttachments.push({
+          name: attachment.name || (attachment.meta && attachment.meta.name) || attachment._id,
+          ext,
+          data: image,
+        });
+      } catch (error) {
+        console.warn(`ExporterExcelCard: could not read image ${attachment._id}: ${error.message}`);
+      }
+    }
 
-    const fontName = this.__('excel-font');
-
-    // ── Style constants ──────────────────────────────────────────────────
-    const fillGray   = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFD9D9D9' } };
-    const fillLight  = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFEFEFEF' } };
-    const thickBdr   = { top: { style: 'medium' }, left: { style: 'medium' }, bottom: { style: 'medium' }, right: { style: 'medium' } };
-    const thinBdr    = { top: { style: 'thin'   }, left: { style: 'thin'   }, bottom: { style: 'thin'   }, right: { style: 'thin'   } };
-
-    let row = startRow;
-    const pageBreakRows = []; // collect rows where we want explicit page breaks
-
-    // ── Style helpers (closures capturing ws / fontName / row) ───────────
-
-    /**
-     * Merge A–F on current row, set cell properties, advance row counter.
-     */
-    const mergeRow = (value, opts = {}) => {
-      ws.mergeCells(`A${row}:F${row}`);
-      const cell = ws.getCell(`A${row}`);
-      cell.value     = value;
-      cell.font      = Object.assign({ name: fontName, size: 10 }, opts.font      || {});
-      cell.alignment = Object.assign(
-        { vertical: 'middle', horizontal: 'left', wrapText: true },
-        opts.alignment || {},
-      );
-      if (opts.fill)   cell.fill   = opts.fill;
-      if (opts.border) cell.border = opts.border;
-      ws.getRow(row).height = opts.height || 20;
-      return row++;
+    const labelsById = Object.fromEntries(((board && board.labels) || [])
+      .filter(label => label && label._id).map(label => [label._id, label]));
+    const names = ids => (ids || []).map(id => userMap[id] || id).filter(Boolean);
+    const formatCustomField = field => {
+      const definition = customFieldsById[field._id];
+      return {
+        name: (definition && definition.name) || field._id,
+        value: this.customFieldValueText(definition, field.value),
+      };
     };
+    const vote = card.vote || {};
+    const poker = card.poker || {};
+    const document = buildCardDocument(card, {
+      boardTitle: (board && board.title) || '',
+      listTitle: (list && list.title) || '',
+      swimlaneTitle: (swimlane && swimlane.title) || '',
+      cardNumber: card.cardNumber,
+      labels: (card.labelIds || []).map(id => labelsById[id])
+        .filter(Boolean).map(label => label.name || label.color || label._id),
+      labelDetails: (card.labelIds || []).map(id => labelsById[id]).filter(Boolean),
+      createdBy: userMap[card.userId] || '',
+      members: names(card.members),
+      assignees: names(card.assignees),
+      requestedBy: card.requestedBy || '',
+      assignedBy: card.assignedBy || '',
+      createdAt: this.fmtDate(card.createdAt),
+      modifiedAt: this.fmtDate(card.dateLastActivity || card.modifiedAt),
+      receivedAt: this.fmtDate(card.receivedAt),
+      startAt: this.fmtDate(card.startAt),
+      dueAt: this.fmtDate(card.dueAt),
+      endAt: this.fmtDate(card.endAt),
+      spentTime: card.spentTime === undefined || card.spentTime === null
+        ? '' : String(card.spentTime),
+      overtime: card.spentTime ? (card.isOvertime ? this.__('yes') : this.__('no')) : '',
+      customFields: (card.customFields || []).filter(field => field && field._id)
+        .map(formatCustomField),
+      checklists: checklists.map(checklist => ({
+        title: checklist.title || '',
+        items: checklistItems.filter(item => item.checklistId === checklist._id),
+      })),
+      subtasks,
+      comments: comments.map(comment => ({
+        date: this.fmtDate(comment.createdAt),
+        author: userMap[comment.userId] || comment.userId || '',
+        text: comment.text || '',
+      })),
+      attachments: attachments.map(attachment => ({
+        name: attachment.name || (attachment.meta && attachment.meta.name) || attachment._id,
+        size: formatFileSize(attachment.size),
+        type: attachment.type || '',
+        uploaded: this.fmtDate(attachment.uploadedAt || attachment.uploadedAtOstrio
+          || attachment.createdAt),
+        uploader: userMap[attachment.userId || (attachment.meta && attachment.meta.userId)] || '',
+      })),
+      images: imageAttachments,
+      voting: vote.question ? [
+        [this.__('vote-question'), vote.question],
+        [this.__('vote-for-it'), String((vote.positive || []).length)],
+        [this.__('vote-against'), String((vote.negative || []).length)],
+      ] : null,
+      poker: (poker.question || poker.estimation !== undefined) ? [
+        [this.__('poker-question'), poker.question ? this.__('yes') : ''],
+        [this.__('poker-estimation'),
+          poker.estimation === undefined ? '' : String(poker.estimation)],
+      ] : null,
+    }, [...this._fields], (key, fallback) => this.__(key) || fallback);
 
-    /** Full-width section header with gray background and thick border. */
-    const sectionHeader = (text, withPageBreak = false) => {
-      if (withPageBreak && row > 15) pageBreakRows.push(row - 1);
-      return mergeRow(text, {
-        font:      { name: fontName, size: 11, bold: true },
-        fill:      fillGray,
-        border:    thickBdr,
-        alignment: { vertical: 'middle', horizontal: 'left', wrapText: false },
-        height:    22,
-      });
-    };
-
-    const setLabel = (cellRef, text) => {
-      const c = ws.getCell(cellRef);
-      c.value     = text;
-      c.font      = { name: fontName, size: 10, bold: true };
-      c.alignment = { vertical: 'middle', horizontal: 'right', wrapText: false };
-      c.border    = thinBdr;
-    };
-
-    const setValue = (cellRef, text) => {
-      const c = ws.getCell(cellRef);
-      c.value     = text;
-      c.font      = { name: fontName, size: 10 };
-      c.alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
-      c.border    = thinBdr;
-    };
-
-    /** Three label–value pairs across A–F on one row. */
-    const metaRow = (pairs) => {
-      const cols = [['A','B'], ['C','D'], ['E','F']];
-      pairs.forEach(([labelKey, value], i) => {
-        if (!cols[i]) return;
-        setLabel(`${cols[i][0]}${row}`, `${this.__(labelKey)}:`);
-        setValue(`${cols[i][1]}${row}`, value || '');
-      });
-      ws.getRow(row).height = 20;
-      row++;
-    };
-
-    const blankRow = (h = 8) => { ws.getRow(row).height = h; row++; };
-
-    /**
-     * Single data row: value is placed in A:B (merged), rest in C:F (merged).
-     * Used for comments.
-     */
-    const splitRow = (leftText, rightText, leftFont = {}, rightFont = {}) => {
-      ws.mergeCells(`A${row}:B${row}`);
-      ws.mergeCells(`C${row}:F${row}`);
-      const lc = ws.getCell(`A${row}`);
-      lc.value     = leftText;
-      lc.font      = Object.assign({ name: fontName, size: 9, italic: true }, leftFont);
-      lc.alignment = { vertical: 'top', horizontal: 'left', wrapText: false };
-      lc.border    = thinBdr;
-      const rc = ws.getCell(`C${row}`);
-      rc.value     = rightText;
-      rc.font      = Object.assign({ name: fontName, size: 10 }, rightFont);
-      rc.alignment = { vertical: 'top', horizontal: 'left', wrapText: true };
-      rc.border    = thinBdr;
-      // Row height: estimate lines from the TEXT. A rich-text value is an object
-      // whose `.length` is undefined, so measuring the value itself would give
-      // every formatted comment the minimum height and clip it.
-      const rightLength = typeof rightText === 'string'
-        ? rightText.length
-        : (rightText && rightText.richText || []).reduce((n, r) => n + (r.text || '').length, 0);
-      ws.getRow(row).height = Math.min(
-        Math.max(20, Math.ceil(rightLength / 80) * 14),
-        120,
-      );
-      row++;
-    };
-
-    /**
-     * Estimate a good row height for word-wrapped text in a merged A:F cell
-     * (6 columns ≈ 114 characters at default column widths / typical font).
-     */
-    const estimateHeight = (text, minH = 20, maxH = 300) =>
-      Math.min(Math.max(minH, Math.ceil((text || '').length / 114) * 14), maxH);
-
-    // ════════════════════════════════════════════════════════════════════
-    // ROW 1 — Card Title (always included)
-    // ════════════════════════════════════════════════════════════════════
-    mergeRow(card.title || '', {
-      font:      { name: fontName, size: 16, bold: true },
-      alignment: { vertical: 'middle', horizontal: 'left', wrapText: true },
-      height:    40,
+    return renderCardDocumentExcel(ws, workbook, startRow, document, {
+      fontName: this.__('excel-font'),
+      progressColor: accentOf((board && board.color) || '').replace('#', '').toUpperCase(),
+      attachmentHeadings: [
+        '#', this.__('name'), this.__('size'), this.__('type'),
+        this.__('uploaded-at'), this.__('uploaded-by'),
+      ],
     });
-
-    // ════════════════════════════════════════════════════════════════════
-    // LABELS — coloured label badges
-    // ════════════════════════════════════════════════════════════════════
-    if (needsLabels) {
-      const cardLabels = board
-        ? (board.labels || []).filter(l => (card.labelIds || []).includes(l._id))
-        : [];
-
-      // Up to 5 label cells per row (columns B–F); column A holds the key.
-      const labelValueCols = ['B', 'C', 'D', 'E', 'F'];
-      const batchSize = labelValueCols.length;
-
-      if (cardLabels.length === 0) {
-        // Always render the row so the section is visible even with no labels.
-        setLabel(`A${row}`, `${this.__('labels')}:`);
-        ws.mergeCells(`B${row}:F${row}`);
-        ws.getCell(`B${row}`).border = thinBdr;
-        ws.getRow(row).height = 20;
-        row++;
-      } else {
-        for (let batchStart = 0; batchStart < cardLabels.length; batchStart += batchSize) {
-          const batch = cardLabels.slice(batchStart, batchStart + batchSize);
-
-          if (batchStart === 0) {
-            setLabel(`A${row}`, `${this.__('labels')}:`);
-          } else {
-            // Continuation row – leave A empty but bordered.
-            const ac = ws.getCell(`A${row}`);
-            ac.border = thinBdr;
-          }
-
-          for (let i = 0; i < batch.length; i++) {
-            const label  = batch[i];
-            const bgArgb = labelColorToArgb(label.color);
-            const fgArgb = labelTextArgb(bgArgb);
-            const c = ws.getCell(`${labelValueCols[i]}${row}`);
-            c.value     = label.name || '';
-            c.font      = { name: fontName, size: 10, bold: true, color: { argb: fgArgb } };
-            c.alignment = { vertical: 'middle', horizontal: 'center', wrapText: false };
-            c.fill      = { type: 'pattern', pattern: 'solid', fgColor: { argb: bgArgb } };
-            c.border    = thinBdr;
-          }
-
-          // Fill any remaining cells in the row with a plain border.
-          for (let i = batch.length; i < batchSize; i++) {
-            ws.getCell(`${labelValueCols[i]}${row}`).border = thinBdr;
-          }
-
-          ws.getRow(row).height = 20;
-          row++;
-        }
-      }
-    }
-
-    // ════════════════════════════════════════════════════════════════════
-    // PEOPLE — Creator | Owner  /  Assignees  /  Members
-    // ════════════════════════════════════════════════════════════════════
-    if (needsPeople) {
-      // Row 1: Creator (A:B) | Owner (C:D) | E:F merged and empty
-      metaRow([
-        ['creator', creatorName],
-        ['owner',   ownerName],
-      ]);
-      // metaRow only fills pairs provided — border the unused E:F cells
-      ws.mergeCells(`E${row - 1}:F${row - 1}`);
-      ws.getCell(`E${row - 1}`).border = thinBdr;
-
-      // Row 2: Assignees spanning B:F
-      setLabel(`A${row}`, `${this.__('assignees')}:`);
-      ws.mergeCells(`B${row}:F${row}`);
-      const ac = ws.getCell(`B${row}`);
-      ac.value     = assigneeNames;
-      ac.font      = { name: fontName, size: 10 };
-      ac.alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
-      ac.border    = thinBdr;
-      ws.getRow(row).height = 20;
-      row++;
-
-      // Row 3: Members spanning B:F
-      setLabel(`A${row}`, `${this.__('members')}:`);
-      ws.mergeCells(`B${row}:F${row}`);
-      const mc = ws.getCell(`B${row}`);
-      mc.value     = memberNames;
-      mc.font      = { name: fontName, size: 10 };
-      mc.alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
-      mc.border    = thinBdr;
-      ws.getRow(row).height = 20;
-      row++;
-    }
-
-    // ════════════════════════════════════════════════════════════════════
-    // BOARD INFO — Board | Swimlane | List
-    // ════════════════════════════════════════════════════════════════════
-    if (needsBoardInfo) {
-      metaRow([
-        ['board',    (board    && board.title)    || ''],
-        ['swimlane', (swimlane && swimlane.title) || ''],
-        ['list',     (list     && list.title)     || ''],
-      ]);
-      // #6586: the card's own identity, which neither export carried - the
-      // number a board refers to it by, and the two "by" fields beside it.
-      metaRow([
-        ['card-number',  card.cardNumber === undefined ? '' : String(card.cardNumber)],
-        ['requested-by', card.requestedBy || ''],
-        ['assigned-by',  card.assignedBy  || ''],
-      ]);
-    }
-
-    // ════════════════════════════════════════════════════════════════════
-    // DATES — Created at | Received | Start  +  Created by | Due | End
-    // ════════════════════════════════════════════════════════════════════
-    if (needsDates) {
-      metaRow([
-        ['createdAt',     this.fmtDate(card.createdAt)],
-        ['card-received', this.fmtDate(card.receivedAt)],
-        ['card-start',    this.fmtDate(card.startAt)],
-      ]);
-      metaRow([
-        ['creator', creatorName],
-        ['card-due',   this.fmtDate(card.dueAt)],
-        ['card-end',   this.fmtDate(card.endAt)],
-      ]);
-      metaRow([
-        ['last-activity', this.fmtDate(card.dateLastActivity)],
-        ['card-spent',    card.spentTime === undefined || card.spentTime === null ? '' : String(card.spentTime)],
-        ['overtime', card.isOvertime ? this.__('yes') : this.__('no')],
-      ]);
-    }
-
-    blankRow();
-
-    // ════════════════════════════════════════════════════════════════════
-    // DESCRIPTION
-    // ════════════════════════════════════════════════════════════════════
-    if (needsDescription && hasSectionData('description', card)) {
-      sectionHeader(this.__('description'));
-      const descText = normalizeText(card.description || '');
-      ws.mergeCells(`A${row}:F${row}`);
-      const dc = ws.getCell(`A${row}`);
-      // Rendered, not raw: this is the card's own description, and it is
-      // markdown wherever else WeKan shows it.
-      dc.value     = markdownCell(card.description || '', fontName);
-      dc.font      = { name: fontName, size: 10 };
-      dc.alignment = { vertical: 'top', horizontal: 'left', wrapText: true };
-      dc.border    = thinBdr;
-      ws.getRow(row).height = estimateHeight(descText, 30, 300);
-      row++;
-      blankRow();
-    }
-
-    // ════════════════════════════════════════════════════════════════════
-    // CUSTOM FIELDS — name and value, one row each (#6586)
-    // ════════════════════════════════════════════════════════════════════
-    if (needsCustomFields
-        && hasSectionData('custom-fields', card, { customFields: card.customFields })) {
-      sectionHeader(this.__('custom-fields'));
-      const cardCustomFields = (card.customFields || []).filter(f => f && f._id);
-      if (cardCustomFields.length === 0) {
-        mergeRow('', { border: thinBdr });
-      } else {
-        for (const field of cardCustomFields) {
-          const definition = customFieldsById[field._id];
-          setLabel(`A${row}`, `${(definition && definition.name) || field._id}:`);
-          ws.mergeCells(`B${row}:F${row}`);
-          const cv = ws.getCell(`B${row}`);
-          // A text custom field holds whatever somebody typed, and WeKan shows
-          // it as markdown like every other card text. The other kinds - a date,
-          // a number, a dropdown, a checkbox - are turned into words by
-          // customFieldValueText and have no markdown in them, which markdownCell
-          // returns unchanged as a plain string.
-          cv.value     = markdownCell(
-            this.customFieldValueText(definition, field.value), fontName,
-          );
-          cv.font      = { name: fontName, size: 10 };
-          cv.alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
-          cv.border    = thinBdr;
-          ws.getRow(row).height = 20;
-          row++;
-        }
-      }
-      blankRow();
-    }
-
-    // ════════════════════════════════════════════════════════════════════
-    // CHECKLISTS
-    // ════════════════════════════════════════════════════════════════════
-    if (needsChecklists && hasSectionData('checklists', card, { checklists })) {
-      sectionHeader(this.__('checklists'), true);
-      if (checklists && checklists.length > 0) {
-        const fillProgressDone  = { type: 'pattern', pattern: 'solid', fgColor: { argb: progressColorArgb(board && board.color) } };
-        const fillProgressEmpty = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFD9D9D9' } }; // gray
-
-        const sorted = [...checklists].sort((a, b) => (a.sort || 0) - (b.sort || 0));
-        for (const cl of sorted) {
-          // Items (needed for progress calculation before rendering title)
-          const items = (checklistItems || [])
-            .filter(i => i.checklistId === cl._id)
-            .sort((a, b) => (a.sort || 0) - (b.sort || 0));
-
-          const total    = items.length;
-          const finished = items.filter(i => i.isFinished).length;
-          const percent  = total > 0 ? Math.round(finished / total * 100) : 0;
-
-          // Checklist name
-          ws.mergeCells(`A${row}:F${row}`);
-          const clc = ws.getCell(`A${row}`);
-          clc.value     = cl.title || '';
-          clc.font      = { name: fontName, size: 10, bold: true, underline: true };
-          clc.alignment = { vertical: 'middle', horizontal: 'left', wrapText: false };
-          clc.border    = thinBdr;
-          ws.getRow(row).height = 18;
-          row++;
-
-          // Progress row: A = "X/Y (N%)", B–F = 5-segment visual bar (each segment = 20%)
-          const pc = ws.getCell(`A${row}`);
-          pc.value     = `${finished}/${total} (${percent}%)`;
-          pc.font      = { name: fontName, size: 9, italic: true };
-          pc.alignment = { vertical: 'middle', horizontal: 'right', wrapText: false };
-          pc.border    = thinBdr;
-          const barCols  = ['B', 'C', 'D', 'E', 'F'];
-          const filledSegs = Math.round(percent / 100 * barCols.length);
-          barCols.forEach((col, idx) => {
-            const bc  = ws.getCell(`${col}${row}`);
-            bc.fill   = idx < filledSegs ? fillProgressDone : fillProgressEmpty;
-            bc.border = thinBdr;
-          });
-          ws.getRow(row).height = 10;
-          row++;
-
-          // Items
-          for (const item of items) {
-            ws.mergeCells(`A${row}:F${row}`);
-            const ic = ws.getCell(`A${row}`);
-            // The item's title is markdown; the box in front of it is this
-            // export's own mark. A finished item is struck through, so the
-            // strike is applied to every run rather than to a plain string.
-            const marker = `  ${item.isFinished ? '[x]' : '[ ]'} `;
-            const title = markdownCell(item.title || '', fontName);
-            ic.value = typeof title === 'string'
-              ? `${marker}${title}`
-              : {
-                richText: [
-                  { font: { name: fontName, size: 10, strike: !!item.isFinished }, text: marker },
-                  ...title.richText.map(r => ({
-                    ...r,
-                    font: { ...r.font, strike: !!item.isFinished || !!r.font.strike },
-                  })),
-                ],
-              };
-            ic.font      = { name: fontName, size: 10, strike: !!item.isFinished };
-            ic.alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
-            ic.border    = thinBdr;
-            ws.getRow(row).height = 18;
-            row++;
-          }
-        }
-      } else {
-        ws.mergeCells(`A${row}:F${row}`);
-        ws.getCell(`A${row}`).border = thinBdr;
-        ws.getRow(row).height = 18;
-        row++;
-      }
-      blankRow();
-    }
-
-    // ════════════════════════════════════════════════════════════════════
-    // SUBTASKS
-    // ════════════════════════════════════════════════════════════════════
-    if (needsSubtasks && subtasks && subtasks.length > 0) {
-      sectionHeader(this.__('export-card-subtasks'), true);
-      for (const sub of subtasks) {
-        ws.mergeCells(`A${row}:F${row}`);
-        const sc = ws.getCell(`A${row}`);
-        sc.value     = `  \u2022 ${sub.title || ''}`;
-        sc.font      = { name: fontName, size: 10 };
-        sc.alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
-        sc.border    = thinBdr;
-        ws.getRow(row).height = 18;
-        row++;
-      }
-      blankRow();
-    }
-
-    // ════════════════════════════════════════════════════════════════════
-    // COMMENTS
-    // ════════════════════════════════════════════════════════════════════
-    if (needsComments && hasSectionData('comments', card, { comments })) {
-      sectionHeader(this.__('comments'), true);
-      // Sub-header
-      ws.mergeCells(`A${row}:B${row}`);
-      ws.mergeCells(`C${row}:F${row}`);
-      const chL = ws.getCell(`A${row}`);
-      chL.value = this.__('createdAt'); chL.font = { name: fontName, size: 9, bold: true };
-      chL.alignment = { vertical: 'middle', horizontal: 'left', wrapText: false };
-      chL.border = thinBdr; chL.fill = fillLight;
-      const chR = ws.getCell(`C${row}`);
-      chR.value = this.__('comment'); chR.font = { name: fontName, size: 9, bold: true };
-      chR.alignment = { vertical: 'middle', horizontal: 'left', wrapText: false };
-      chR.border = thinBdr; chR.fill = fillLight;
-      ws.getRow(row).height = 18;
-      row++;
-      if (comments.length > 0) {
-        for (const c of comments) {
-          const author = userMap[c.userId] || '';
-          // The comment is markdown, like everywhere else it is shown. The
-          // author's name is not - it is this export's own label, so it is
-          // written plainly in front of the rendered comment.
-          const rendered = markdownCell(c.text || '', fontName);
-          const runs = typeof rendered === 'string'
-            ? [{ font: { name: fontName, size: 10 }, text: rendered }]
-            : rendered.richText;
-          splitRow(
-            this.fmtDate(c.createdAt),
-            author
-              ? { richText: [{ font: { name: fontName, size: 10, bold: true }, text: `${author}: ` }, ...runs] }
-              : rendered,
-          );
-        }
-      } else {
-        ws.mergeCells(`A${row}:F${row}`);
-        ws.getCell(`A${row}`).border = thinBdr;
-        ws.getRow(row).height = 18;
-        row++;
-      }
-      blankRow();
-    }
-
-    // ════════════════════════════════════════════════════════════════════
-    // ATTACHMENTS
-    // ════════════════════════════════════════════════════════════════════
-    if (needsAttachments && hasSectionData('attachments', card, { attachments })) {
-      sectionHeader(this.__('attachments'), true);
-
-      if (attachments && attachments.length > 0) {
-        // ── Metadata table header ──────────────────────────────────────
-        const attHdrCols = [
-          ['A', '#'],
-          ['B', this.__('export-card-attachment-filename')],
-          ['C', this.__('export-card-attachment-size')],
-          ['D', this.__('export-card-attachment-type')],
-          ['E', this.__('export-card-attachment-uploaded-at')],
-          ['F', this.__('export-card-attachment-uploaded-by')],
-        ];
-        for (const [col, label] of attHdrCols) {
-          const hc = ws.getCell(`${col}${row}`);
-          hc.value     = label;
-          hc.font      = { name: fontName, size: 9, bold: true };
-          hc.alignment = { vertical: 'middle', horizontal: 'center', wrapText: false };
-          hc.border    = thinBdr;
-          hc.fill      = fillLight;
-        }
-        ws.getRow(row).height = 18;
-        row++;
-
-        // ── One metadata row per attachment ────────────────────────────
-        const imageAttachments = [];
-        const usedFilenames    = new Set();
-
-        for (let ai = 0; ai < attachments.length; ai++) {
-          const att     = attachments[ai];
-          const uploader = userMap[att.userId || (att.meta && att.meta.userId)] || '';
-          const uploadedAt = this.fmtDate(att.uploadedAt || att.uploadedAtOstrio || att.createdAt);
-          const mimeType = att.type || '';
-
-          // Build display filename (unique per export, in-memory dedup)
-          const ext      = att.extensionWithDot || (att.extension ? `.${att.extension}` : '');
-          const baseName = (att.name || 'file').replace(new RegExp(`${ext.replace('.', '\\.')}$`, 'i'), '') || 'file';
-          let dispName   = `${baseName}${ext}`;
-          if (usedFilenames.has(dispName)) {
-            let i = 1;
-            while (usedFilenames.has(`${baseName}_${i}${ext}`)) i++;
-            dispName = `${baseName}_${i}${ext}`;
-          }
-          usedFilenames.add(dispName);
-
-          const cells = [
-            [`A${row}`, String(ai + 1)],
-            [`B${row}`, dispName],
-            [`C${row}`, formatFileSize(att.size)],
-            [`D${row}`, mimeType],
-            [`E${row}`, uploadedAt],
-            [`F${row}`, uploader],
-          ];
-          for (const [ref, val] of cells) {
-            const c = ws.getCell(ref);
-            c.value     = val;
-            c.font      = { name: fontName, size: 9 };
-            c.alignment = { vertical: 'middle', horizontal: ref.startsWith('A') ? 'center' : 'left', wrapText: true };
-            c.border    = thinBdr;
-          }
-          ws.getRow(row).height = 18;
-          row++;
-
-          // Collect embeddable image attachments
-          if (EMBEDDABLE_IMAGE_MIME.has(mimeType.toLowerCase())) {
-            imageAttachments.push({ att, dispName, ext: EMBEDDABLE_IMAGE_MIME.get(mimeType.toLowerCase()) });
-          }
-        }
-
-        // ── Embedded image previews ────────────────────────────────────
-        if (imageAttachments.length > 0) {
-          blankRow();
-          // Sub-header: "Image Previews"
-          ws.mergeCells(`A${row}:F${row}`);
-          const imgHdr = ws.getCell(`A${row}`);
-          imgHdr.value     = this.__('export-card-attachment-image-previews');
-          imgHdr.font      = { name: fontName, size: 10, bold: true, italic: true };
-          imgHdr.alignment = { vertical: 'middle', horizontal: 'left', wrapText: false };
-          imgHdr.fill      = fillLight;
-          ws.getRow(row).height = 18;
-          row++;
-
-          // Process in batches of IMAGES_PER_ROW
-          for (let batchStart = 0; batchStart < imageAttachments.length; batchStart += IMAGES_PER_ROW) {
-            const batch       = imageAttachments.slice(batchStart, batchStart + IMAGES_PER_ROW);
-            const imageRow    = row;     // The tall row where images are anchored
-            const labelRow    = row + 1; // Row below for filename labels
-
-            ws.getRow(imageRow).height = IMG_ROW_HEIGHT;
-            ws.getRow(labelRow).height = 30; // allow text wrap for filename
-
-            for (let i = 0; i < batch.length; i++) {
-              const { att, dispName, ext: imgExt } = batch[i];
-              const colPos = i * IMG_COLS_PER_IMAGE; // 0, 1.5, 3.0, 4.5
-
-              // Load image as buffer
-              let imageBuffer = null;
-              try {
-                const strategy = fileStoreStrategyFactory.getFileStrategy(att, 'original');
-                if (strategy) {
-                  const stream = strategy.getReadStream();
-                  if (stream) {
-                    imageBuffer = await streamToBuffer(stream);
-                  }
-                }
-              } catch (imgErr) {
-                console.warn(`ExporterExcelCard: could not read image ${att._id}: ${imgErr.message}`);
-              }
-
-              if (imageBuffer && imageBuffer.length > 0) {
-                try {
-                  const imageId = workbook.addImage({ buffer: imageBuffer, extension: imgExt });
-                  ws.addImage(imageId, {
-                    tl: { col: colPos, row: imageRow - 1 },           // 0-based
-                    ext: { width: IMG_WIDTH_PX, height: IMG_HEIGHT_PX },
-                  });
-                } catch (embedErr) {
-                  console.warn(`ExporterExcelCard: could not embed image ${att._id}: ${embedErr.message}`);
-                }
-              }
-
-              // Filename label below the image
-              // Each image occupies ~1.5 columns; map to nearest single cell
-              const labelColLetters = ['A', 'B', 'C', 'D'][i] || 'A';
-              const lc = ws.getCell(`${labelColLetters}${labelRow}`);
-              lc.value     = dispName;
-              lc.font      = { name: fontName, size: 8 };
-              lc.alignment = { vertical: 'top', horizontal: 'center', wrapText: true };
-            }
-
-            row += 2; // advance past image row + label row
-          }
-        }
-
-      } else {
-        // No attachments
-        ws.mergeCells(`A${row}:F${row}`);
-        ws.getCell(`A${row}`).border = thinBdr;
-        ws.getRow(row).height = 18;
-        row++;
-      }
-    }
-
-    // ════════════════════════════════════════════════════════════════════
-    // VOTING — the question, who was for and against, and when it closes (#6586)
-    // ════════════════════════════════════════════════════════════════════
-    if (needsVoting && card.vote && (card.vote.question
-        || (card.vote.positive || []).length || (card.vote.negative || []).length)) {
-      sectionHeader(this.__('voting'));
-      const voterNames = ids => (ids || []).map(id => userMap[id] || id).join(', ');
-      metaRow([
-        ['vote-question', card.vote.question || ''],
-        ['vote-public',   card.vote.public ? this.__('yes') : this.__('no')],
-        ['card-end',      this.fmtDate(card.vote.end)],
-      ]);
-      setLabel(`A${row}`, `${this.__('vote-for-it')}:`);
-      setValue(`B${row}`, `${(card.vote.positive || []).length}`);
-      setLabel(`C${row}`, `${this.__('vote-against')}:`);
-      ws.mergeCells(`D${row}:F${row}`);
-      setValue(`D${row}`, `${(card.vote.negative || []).length}`);
-      ws.getRow(row).height = 20;
-      row++;
-      setLabel(`A${row}`, `${this.__('positiveVoteMembersPopup-title')}:`);
-      ws.mergeCells(`B${row}:F${row}`);
-      setValue(`B${row}`, voterNames(card.vote.positive));
-      ws.getRow(row).height = 20;
-      row++;
-      setLabel(`A${row}`, `${this.__('negativeVoteMembersPopup-title')}:`);
-      ws.mergeCells(`B${row}:F${row}`);
-      setValue(`B${row}`, voterNames(card.vote.negative));
-      ws.getRow(row).height = 20;
-      row++;
-      blankRow();
-    }
-
-    // ════════════════════════════════════════════════════════════════════
-    // PLANNING POKER — the estimation and its deadline (#6586)
-    // ════════════════════════════════════════════════════════════════════
-    if (needsPoker && card.poker && (card.poker.estimation !== undefined || card.poker.end)) {
-      sectionHeader(this.__('poker-question'));
-      metaRow([
-        ['set-estimation', card.poker.estimation === undefined || card.poker.estimation === null
-          ? '' : String(card.poker.estimation)],
-        ['card-end', this.fmtDate(card.poker.end)],
-      ]);
-      blankRow();
-    }
-
-    return { row, pageBreakRows };
   }
-
   // ── Build ────────────────────────────────────────────────────────────────
 
   async build(res) {

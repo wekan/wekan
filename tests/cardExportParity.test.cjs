@@ -36,6 +36,7 @@ const pdf = read('models/server/ExporterCardPDF.js');
 const excel = read('models/server/ExporterExcelCard.js');
 const pdfRoute = read('models/exportPDF.js');
 const excelRoute = read('models/exportExcelCard.js');
+const boardExcelRoute = read('models/exportExcel.js');
 const cardDetails = read('client/components/cards/cardDetails.js');
 const exportLocale = read('client/lib/exportLocale.js');
 const dateUtils = read('imports/lib/dateUtils.js');
@@ -75,12 +76,18 @@ test('the PDF card export carries every field', () => {
 });
 
 test('the Excel card export carries every field', () => {
+  const document = read('models/lib/cardDocument.js');
+  const renderer = read('models/server/renderCardDocumentExcel.js');
+  const carried = `${excel}\n${document}\n${renderer}`;
   for (const key of SECTIONS) {
-    assert.ok(excel.includes(`'${key}'`), `the Excel export has no ${key}`);
+    assert.ok(carried.includes(`'${key}'`), `the Excel export has no ${key}`);
   }
-  assert.ok(/needsVoting/.test(excel) && /'voting'/.test(excel), 'and the vote');
-  assert.ok(/needsPoker/.test(excel) && /'poker-question'/.test(excel), 'and the poker');
-  assert.ok(/needsCustomFields/.test(excel), 'and the custom fields');
+  assert.ok(/voting: vote\.question/.test(excel) && /'voting'/.test(document), 'and the vote');
+  assert.ok(/poker: \(poker\.question/.test(excel) && /'poker-question'/.test(document),
+    'and the poker');
+  assert.ok(/customFields:/.test(excel) && /'custom-fields'/.test(document),
+    'and the custom fields');
+  assert.ok(/renderCardDocumentExcel\(/.test(excel), 'the shared document is what Excel draws');
 });
 
 test('the new sections are selectable, and the client offers them', () => {
@@ -184,7 +191,24 @@ test('the client sends zone, language and the card\'s own date format', () => {
     && /localStorage\.getItem\('dateFormat'\)/.test(exportLocale),
     'the date format the opened card is showing - including the localStorage '
     + 'fallback a logged-out reader has, which no server-side lookup can reach');
-  assert.ok(/TAPi18n\.getLanguage\(\)/.test(exportLocale), 'and the language');
+  assert.ok(/TAPi18n\.getLanguage\(\)/.test(exportLocale), 'and the active UI language');
+  assert.ok(/navigator\.languages/.test(exportLocale) && /navigator\.language/.test(exportLocale),
+    'falling back to the browser language when the UI has not selected one');
+});
+
+test('a saved user language wins, otherwise the browser language wins', () => {
+  for (const [name, source] of [
+    ['PDF', pdfRoute], ['card Excel', excelRoute], ['board Excel', boardExcelRoute],
+  ]) {
+    const compact = source.replace(/\s+/g, ' ');
+    const profile = compact.indexOf('user && user.profile && user.profile.language');
+    const query = compact.indexOf('req.query && req.query.lang', profile);
+    assert.ok(profile >= 0 && query > profile,
+      `${name} must prefer profile.language to the browser's ?lang=`);
+  }
+  assert.ok(/publicLanguage = \(req\.query && req\.query\.lang\) \|\| 'en'/.test(
+    excelRoute.replace(/\s+/g, ' ')),
+  'a logged-out public card Excel export still uses the browser language');
 });
 
 test('every export link carries them - card, board, swimlane and list', () => {

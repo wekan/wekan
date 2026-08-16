@@ -14,14 +14,26 @@ build their content from the layout in
 - `models/lib/cardDocument.js` decides which blocks exist and omits empty or
   unselected sections.
 - `models/lib/pdfDocument.js` renders those blocks, paginates them, writes the
-  PDF objects and cross-reference table, and embeds images without a separate
-  PDF dependency.
+  fallback PDF objects and embeds images.
+- `models/server/buildUnicodePdf.js` uses PDFKit to subset and embed the bundled
+  GNU Unifont fonts for the normal export path.
 
-Text uses the PDF base-14 Courier family with WinAnsi encoding. Western
-European text is preserved, other Latin characters are transliterated where
-possible, and scripts unavailable in that font fall back to `?`. Markdown
-headings, lists, emphasis, quotes and code are rendered as document structure
-instead of printing their Markdown punctuation.
+The distributable includes GNU Unifont 17.0.05 and Unifont Upper under the SIL
+Open Font License 1.1 in `private/fonts/unifont`. PDFKit subsets and embeds both
+fonts, so readers do not have to install them. The main font covers the Basic
+Multilingual Plane and the upper font supplies glyphs from supplementary
+Unicode planes. This gives every WeKan language a visible glyph and also covers
+supplementary characters such as emoji. GNU Unifont is deliberately a
+last-resort coverage font: complex-script shaping and color emoji can be less
+polished than a platform's script-specific fonts, but text remains present,
+searchable and portable.
+
+If loading or rendering the embedded fonts fails, the dependency-free writer
+in `models/lib/pdfDocument.js` is retained as a safe fallback. It uses base-14
+Courier with WinAnsi encoding, preserves Western European text, transliterates
+some other Latin characters, and replaces unsupported scripts with `?`.
+Markdown headings, lists, emphasis, quotes and code are rendered as document
+structure instead of printing their Markdown punctuation.
 
 JPEG attachments are embedded using their original `/DCTDecode` stream. PNG
 scanlines are decoded, PNG filters are removed, transparency is composited onto
@@ -37,17 +49,19 @@ Completed:
 - board, list, swimlane and single-card PDF routes;
 - the same field selection and card-document layout as Excel;
 - localized labels, user-timezone dates and rendered Markdown;
+- the logged-in user's saved language, falling back to the current browser
+  language when no language is saved;
+- the date format displayed by the opened card;
 - card metadata, custom fields, checklists, subtasks, comments, attachments,
   voting and planning poker;
 - JPEG and PNG attachment previews in card and detailed board PDFs;
 - binary-safe object offsets and regression tests that inspect the resulting
-  image XObjects and PDF cross-reference table.
+  image XObjects and PDF cross-reference table;
+- embedded Unicode-plane fonts, their OFL license, font subsetting and tests
+  that verify PDFKit can parse and embed both shipped fonts.
 
-Remaining:
-
-- embed a Unicode font so Cyrillic, Greek, Hebrew, Arabic, CJK and emoji can be
-  drawn rather than falling back to `?`;
-- add GIF and BMP decoding if parity with Excel's preview formats is needed.
+Remaining: add GIF and BMP decoding if parity with Excel's preview formats is
+needed.
 
 The former TODO item said PDF still listed images only by name. That step is now
 implemented and guarded by positive and negative tests.

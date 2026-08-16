@@ -37,8 +37,8 @@ runOnServer(function() {
   // reported "-2h wrong". The browser sends its IANA name; an export URL
   // without it prints UTC and says UTC.
   const exportLocale = async (req, user) => {
-    let language = (req.query && req.query.lang)
-      || (user && user.profile && user.profile.language)
+    let language = (user && user.profile && user.profile.language)
+      || (req.query && req.query.lang)
       || 'en';
     try {
       await TAPi18n.loadLanguage(language);

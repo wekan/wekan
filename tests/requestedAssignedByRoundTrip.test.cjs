@@ -54,7 +54,7 @@ test('every export carries them', () => {
     // them; models/lib/cardDocument.js is what puts them on the page.
     'the card PDF': ['models/server/ExporterCardPDF.js', /requestedBy: card\.requestedBy/],
     'the shared card document': ['models/lib/cardDocument.js', /add\('requested-by', data\.requestedBy\)/],
-    'the card Excel': ['models/server/ExporterExcelCard.js', /\['requested-by', card\.requestedBy/],
+    'the card Excel': ['models/server/ExporterExcelCard.js', /requestedBy: card\.requestedBy/],
     'the board CSV': ['models/exporter.js', /'requested-by','assigned-by'/],
     'the board Excel table': ['models/server/ExporterExcel.js', /jcard\.requestedBy/],
   };

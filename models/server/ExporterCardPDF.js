@@ -12,6 +12,14 @@ import {
   line,
   buildPdfBuffer,
 } from '/models/lib/pdfDocument';
+import { buildUnicodePdf } from '/models/server/buildUnicodePdf';
+
+async function unicodeFonts() {
+  return {
+    main: await Assets.getBinaryAsync('fonts/unifont/unifont-17.0.05.otf'),
+    upper: await Assets.getBinaryAsync('fonts/unifont/unifont_upper-17.0.05.otf'),
+  };
+}
 
 // #6586: the PDF itself - encoding, markdown, wrapping, pagination - lives in
 // models/lib/pdfDocument.js, where it can be tested against the bytes a reader's
@@ -425,7 +433,13 @@ class ExporterCardPDF extends PDFExporterBase {
 
     const lines = this.cardBlockLines(data);
     const filename = `${sanitizeFilename(data.card.title)}.pdf`;
-    const pdf = buildPdfBuffer(lines);
+    let pdf;
+    try {
+      pdf = await buildUnicodePdf(lines, await unicodeFonts());
+    } catch (error) {
+      console.error(`ExporterCardPDF: Unicode PDF failed, using base-font fallback: ${error.message}`);
+      pdf = buildPdfBuffer(lines);
+    }
 
     res.writeHead(200, {
       'Content-Type': 'application/pdf',
@@ -671,7 +685,13 @@ class ExporterBoardPDF extends PDFExporterBase {
       }
     }
 
-    const pdf = buildPdfBuffer(lines);
+    let pdf;
+    try {
+      pdf = await buildUnicodePdf(lines, await unicodeFonts());
+    } catch (error) {
+      console.error(`ExporterBoardPDF: Unicode PDF failed, using base-font fallback: ${error.message}`);
+      pdf = buildPdfBuffer(lines);
+    }
     res.writeHead(200, {
       'Content-Type': 'application/pdf',
       'Content-Disposition': `attachment; filename="${sanitizeFilename(this._scopeTitle || board.title)}.pdf"`,

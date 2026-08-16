@@ -23,7 +23,7 @@ const config = read('config/const.js');
 const categories = read('models/lib/themeCategories.js');
 const accents = read('models/lib/themeAccents.js');
 const exporter = read('models/server/ExporterExcelCard.js');
-const docs = read('docs/Theme/Theme.md');
+const docs = read('docs/Features/Theme/Theme.md');
 const preview = read('tests/fixtures/appleGlassPastelThemePreview.html');
 
 const THEME = 'appleglasspastel';
@@ -67,8 +67,8 @@ test('the theme is registered as a fixed special theme', () => {
 test('the shared accent and export progress colour use the palette primary', () => {
   assert.ok(new RegExp(`${THEME}: '#2563eb'`).test(accents),
     'theme accent is the Apple glass primary blue');
-  assert.ok(new RegExp(`${THEME}: 'FF2563EB'`).test(exporter),
-    'Excel progress colour mirrors the same primary blue');
+  assert.ok(/accentOf\(\(board && board\.color\)/.test(exporter),
+    'Excel progress colour reads the same shared accent map');
 });
 
 test('the theme block carries the pastel mesh background from the reference', () => {

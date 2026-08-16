@@ -55,7 +55,10 @@ export function cardDateFormat() {
 
 export function currentLanguage() {
   try {
-    return TAPi18n.getLanguage() || '';
+    return TAPi18n.getLanguage()
+      || (navigator.languages && navigator.languages[0])
+      || navigator.language
+      || '';
   } catch (error) {
     return '';
   }

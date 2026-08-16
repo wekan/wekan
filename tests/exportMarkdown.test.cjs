@@ -127,8 +127,10 @@ test('both exporters ask THIS module (negative)', () => {
   const path = require('path');
   const ROOT = path.join(__dirname, '..');
   const excel = fs.readFileSync(path.join(ROOT, 'models/server/ExporterExcelCard.js'), 'utf8');
-  assert.ok(/require\('\/models\/lib\/exportMarkdown'\)/.test(excel),
-    'the Excel card exporter must render markdown through the shared module');
+  const document = fs.readFileSync(path.join(ROOT, 'models/lib/cardDocument.js'), 'utf8');
+  assert.ok(/buildCardDocument\(/.test(excel)
+    && /require\('\.\/exportMarkdown'\)/.test(document),
+  'the Excel card exporter must render markdown through the shared document');
   for (const file of ['models/server/ExporterExcelCard.js']) {
     const code = fs.readFileSync(path.join(ROOT, file), 'utf8')
       .split('\n').filter(l => !/^\s*(\/\/|\*)/.test(l)).join('\n');
@@ -142,12 +144,11 @@ test('Excel renders every card text through it, not just the description', () =>
   // neither, because the file then disagrees with itself about what markdown is.
   const fs = require('fs');
   const path = require('path');
-  const excel = fs.readFileSync(
-    path.join(__dirname, '..', 'models/server/ExporterExcelCard.js'), 'utf8');
-  const rendered = [...excel.matchAll(/markdownCell\(/g)].length;
-  assert.ok(rendered >= 4,
-    `the description, comments, checklist items and custom fields all render `
-    + `markdown - found ${rendered} call(s)`);
+  const document = fs.readFileSync(
+    path.join(__dirname, '..', 'models/lib/cardDocument.js'), 'utf8');
+  assert.ok(/markdownBlocks\(\(card && card\.description\)/.test(document));
+  assert.ok(/markdownBlocks\(item\.title/.test(document));
+  assert.ok(/markdownBlocks\(comment\.text/.test(document));
 });
 
 test('a rich-text cell is still measured by its TEXT (negative)', () => {
@@ -156,10 +157,10 @@ test('a rich-text cell is still measured by its TEXT (negative)', () => {
   // give every formatted comment the minimum height and clip it.
   const fs = require('fs');
   const path = require('path');
-  const excel = fs.readFileSync(
-    path.join(__dirname, '..', 'models/server/ExporterExcelCard.js'), 'utf8');
-  assert.ok(/richText \|\| \[\]\)\.reduce\(/.test(excel),
-    'splitRow must add up the runs of a rich-text value to measure it');
+  const renderer = fs.readFileSync(
+    path.join(__dirname, '..', 'models/server/renderCardDocumentExcel.js'), 'utf8');
+  assert.ok(/richText: values\.map/.test(renderer),
+    'the renderer carries every styled run into ExcelJS rich text');
 });
 
 console.log(`\nexportMarkdown: ${passed} tests passed`);

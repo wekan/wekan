@@ -29,9 +29,9 @@ import zlib from 'zlib';
 // letters with other marks lose the mark (ā -> a, ő -> o, ł -> l), and a few
 // letters that decompose to nothing useful are spelled out (đ -> d, ß stays, æ
 // stays - it is in the set). Only text in a script the base-14 fonts cannot draw at
-// all - Cyrillic, Greek, Hebrew, Arabic, CJK, emoji - falls back to '?', because
-// the fix for that is an embedded Unicode font, which is a font binary this
-// repository does not carry.
+// all - Cyrillic, Greek, Hebrew, Arabic, CJK, emoji - falls back to '?'. This
+// writer is now the emergency fallback; the normal server path embeds the GNU
+// Unifont BMP and supplementary-plane fonts in buildUnicodePdf.js.
 //
 // MARKDOWN IS RENDERED, not printed and not thrown away. The same report: "all the
 // text in this PDF file is markdown formatted - this doesn't make sense in a pdf

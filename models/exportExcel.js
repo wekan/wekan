@@ -24,8 +24,8 @@ runOnServer(function() {
   // too large to hold in memory. Both are real exports; the checkbox chooses.
   const boardExcelExporter = (req, boardId, user) => {
     const fields = parseExportFields(req.query && req.query.fields, BOARD_EXPORT_FIELD_KEYS);
-    const language = (req.query && req.query.lang)
-      || (user && user.profile && user.profile.language) || 'en';
+    const language = (user && user.profile && user.profile.language)
+      || (req.query && req.query.lang) || 'en';
     const requested = req.query && req.query.dateFormat;
     const dateFormat = DATE_FORMATS.includes(requested)
       ? requested

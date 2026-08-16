@@ -74,7 +74,15 @@ runOnServer(function() {
         const fields = fieldsParam
           ? fieldsParam.split(',').map(f => f.trim()).filter(f => ALL_FIELDS.includes(f))
           : null;
-        const exporter = new ExporterExcelCard(boardId, paramListId, paramCardId, 'en', fields);
+        let publicLanguage = (req.query && req.query.lang) || 'en';
+        try {
+          await TAPi18n.loadLanguage(publicLanguage);
+        } catch (_) {
+          publicLanguage = 'en';
+        }
+        const exporter = new ExporterExcelCard(
+          boardId, paramListId, paramCardId, publicLanguage, fields,
+        );
         await exporter.build(res);
         return;
       }
@@ -113,13 +121,11 @@ runOnServer(function() {
         });
       }
 
-      // Determine language: prefer the active UI language sent by the client
-      // (?lang=fi), then the profile setting, then English.  The client-side
-      // param is necessary because WeKan may use the browser locale without
-      // ever writing it to profile.language.
+      // A saved profile language is authoritative. The browser language sent
+      // in ?lang= is used only when the account has no saved language.
       let userLanguage =
-        req.query.lang ||
         (user && user.profile && user.profile.language) ||
+        (req.query && req.query.lang) ||
         'en';
 
       // Ensure the chosen language bundle is loaded into i18next.

@@ -1,0 +1,84 @@
+'use strict';
+
+const assert = require('assert');
+const fs = require('fs');
+const path = require('path');
+const PDFDocument = require('pdfkit');
+
+const root = path.resolve(__dirname, '..');
+const mainFont = path.join(root, 'private/fonts/unifont/unifont-17.0.05.otf');
+const upperFont = path.join(root, 'private/fonts/unifont/unifont_upper-17.0.05.otf');
+const pdfExporter = fs.readFileSync(path.join(root, 'models/server/ExporterCardPDF.js'), 'utf8');
+const pdfRenderer = fs.readFileSync(path.join(root, 'models/server/buildUnicodePdf.js'), 'utf8');
+const excelRoute = fs.readFileSync(path.join(root, 'models/exportExcelCard.js'), 'utf8');
+
+let passed = 0;
+async function test(name, fn) { await fn(); passed += 1; console.log('  ok -', name); }
+
+(async () => {
+console.log('unicodeExportFonts:');
+
+await test('the distributable carries both Unicode-plane fonts and their license', () => {
+  assert.ok(fs.statSync(mainFont).size > 5_000_000, 'the BMP font is present');
+  assert.ok(fs.statSync(upperFont).size > 5_000_000, 'the supplementary-plane font is present');
+  const license = fs.readFileSync(path.join(root, 'private/fonts/unifont/LICENSE.txt'), 'utf8');
+  assert.match(license, /SIL OPEN FONT LICENSE/i);
+});
+
+await test('PDF export loads and embeds the bundled fonts', () => {
+  assert.match(pdfExporter, /Assets\.getBinaryAsync\('fonts\/unifont\/unifont-17\.0\.05\.otf'\)/);
+  assert.match(pdfExporter, /await buildUnicodePdf/);
+  assert.match(pdfRenderer, /registerFont\(MAIN_FONT/);
+  assert.match(pdfRenderer, /registerFont\(UPPER_FONT/);
+  assert.match(pdfRenderer, /codePointAt\(0\) > 0xffff/);
+});
+
+await test('PDFKit can parse and subset both shipped fonts', async () => {
+  const chunks = [];
+  const doc = new PDFDocument();
+  doc.on('data', chunk => chunks.push(chunk));
+  const ended = new Promise((resolve, reject) => {
+    doc.on('end', resolve);
+    doc.on('error', reject);
+  });
+  doc.registerFont('bmp', mainFont).registerFont('upper', upperFont);
+  doc.font('bmp').text('Suomi Ελληνικά Кириллица العربية 中文 हिन्दी');
+  doc.font('upper').text('😀');
+  doc.end();
+  await ended;
+  const bytes = Buffer.concat(chunks).toString('latin1');
+  assert.match(bytes, /\/ToUnicode/);
+  assert.match(bytes, /\/FontFile3/);
+});
+
+await test('Excel preserves Unicode but does not claim to embed a font', () => {
+  assert.doesNotMatch(excelRoute, /embedFont|fontData|fontBuffer/);
+});
+
+await test('the shared Excel renderer retains metadata and wraps colored labels', async () => {
+  const { Workbook } = require('@wekanteam/exceljs');
+  const { renderCardDocumentExcel } = await import(
+    '../models/server/renderCardDocumentExcel.js'
+  );
+  const workbook = new Workbook();
+  const sheet = workbook.addWorksheet('Card');
+  const labels = Array.from({ length: 7 }, (_, index) => ({
+    name: `Label ${index + 1}`, color: 'blue',
+  }));
+  const result = await renderCardDocumentExcel(sheet, workbook, 1, [{
+    type: 'meta',
+    pairs: [['Board', 'Unicode board'], ['Labels', labels.map(label => label.name).join(', ')]],
+    labelTitle: 'Labels',
+    labelDetails: labels,
+  }]);
+  assert.strictEqual(sheet.getCell('B1').value, 'Unicode board');
+  assert.strictEqual(sheet.getCell('B2').value, 'Label 1');
+  assert.strictEqual(sheet.getCell('B3').value, 'Label 6');
+  assert.strictEqual(result.row, 4);
+});
+
+console.log(`\nunicodeExportFonts: ${passed} tests passed`);
+})().catch(error => {
+  console.error(error);
+  process.exitCode = 1;
+});
