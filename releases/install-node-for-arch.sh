@@ -183,6 +183,8 @@ node "$(dirname "$0")/bump-bundle-npm-deps.mjs" /bundle
 # of prebuilt binaries for other OS/CPU/ABI combinations), the legacy client
 # build, and the source maps only a debugger reads.
 node "$(dirname "$0")/bundle-trim.mjs" /bundle --transport sockjs --drop-legacy-client
+# And the npm tree rspack cannot tree-shake: only what it can prove is unreachable.
+node "$(dirname "$0")/prune-unreachable-npm.mjs" /bundle
 
 # Bundle the target-arch Node.js for the self-contained launcher. /bundle is the
 # host's bundle/ directory, mounted by the workflow.

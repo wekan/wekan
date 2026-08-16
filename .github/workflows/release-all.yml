@@ -595,6 +595,12 @@ jobs:
           # nothing on the loading path touches.
           node "$GITHUB_WORKSPACE/releases/bundle-trim.mjs" \
             "$GITHUB_WORKSPACE/.build/bundle" --transport sockjs --drop-legacy-client
+          # And the third tree: programs/server/npm/node_modules is a full `npm install`,
+          # devDependencies included, that rspack cannot tree-shake because Atmosphere
+          # packages load it through Npm.require(). This removes only what it can prove
+          # nothing requires, and refuses any policy entry the graph says IS reached.
+          node "$GITHUB_WORKSPACE/releases/prune-unreachable-npm.mjs" \
+            "$GITHUB_WORKSPACE/.build/bundle"
 
       - name: Check the binaries the amd64 bundle needs exist
         run: |
@@ -841,7 +847,7 @@ jobs:
             -v "$(pwd)/releases:/releases:ro" \
             -w /bundle/programs/server \
             node:${NODE_VERSION}-slim \
-            sh -c "bash /releases/apt-install.sh build-essential python3 && bash /releases/npm-retry.sh npm install && node /releases/prune-build-only-modules.mjs /bundle && node /releases/bump-bundle-npm-deps.mjs /bundle && node /releases/bundle-trim.mjs /bundle --transport sockjs --drop-legacy-client"
+            sh -c "bash /releases/apt-install.sh build-essential python3 && bash /releases/npm-retry.sh npm install && node /releases/prune-build-only-modules.mjs /bundle && node /releases/bump-bundle-npm-deps.mjs /bundle && node /releases/bundle-trim.mjs /bundle --transport sockjs --drop-legacy-client && node /releases/prune-unreachable-npm.mjs /bundle"
 
       - name: Check the binaries the arm64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -1232,6 +1238,11 @@ jobs:
           # manifests that list it. Source maps go too: 4766 files a debugger reads and
           # nothing on the loading path touches.
           node "$SRC/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client
+          # And the third tree: programs/server/npm/node_modules is a full `npm install`,
+          # devDependencies included, that rspack cannot tree-shake because Atmosphere
+          # packages load it through Npm.require(). This removes only what it can prove
+          # nothing requires, and refuses any policy entry the graph says IS reached.
+          node "$SRC/releases/prune-unreachable-npm.mjs" ../..
 
       - name: Check the binaries the win64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -1596,6 +1607,11 @@ jobs:
           # manifests that list it. Source maps go too: 4766 files a debugger reads and
           # nothing on the loading path touches.
           node "$SRC/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client
+          # And the third tree: programs/server/npm/node_modules is a full `npm install`,
+          # devDependencies included, that rspack cannot tree-shake because Atmosphere
+          # packages load it through Npm.require(). This removes only what it can prove
+          # nothing requires, and refuses any policy entry the graph says IS reached.
+          node "$SRC/releases/prune-unreachable-npm.mjs" ../..
 
       - name: Check the binaries the win-arm64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -1979,6 +1995,11 @@ jobs:
           # manifests that list it. Source maps go too: 4766 files a debugger reads and
           # nothing on the loading path touches.
           node "$SRC/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client
+          # And the third tree: programs/server/npm/node_modules is a full `npm install`,
+          # devDependencies included, that rspack cannot tree-shake because Atmosphere
+          # packages load it through Npm.require(). This removes only what it can prove
+          # nothing requires, and refuses any policy entry the graph says IS reached.
+          node "$SRC/releases/prune-unreachable-npm.mjs" ../..
 
       - name: Check the binaries the win32 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -2246,6 +2267,11 @@ jobs:
           # manifests that list it. Source maps go too: 4766 files a debugger reads and
           # nothing on the loading path touches.
           node "$GITHUB_WORKSPACE/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client
+          # And the third tree: programs/server/npm/node_modules is a full `npm install`,
+          # devDependencies included, that rspack cannot tree-shake because Atmosphere
+          # packages load it through Npm.require(). This removes only what it can prove
+          # nothing requires, and refuses any policy entry the graph says IS reached.
+          node "$GITHUB_WORKSPACE/releases/prune-unreachable-npm.mjs" ../..
           cd ../../..
 
       - name: Check the binaries the mac-arm64 bundle needs exist
@@ -2526,6 +2552,11 @@ jobs:
           # manifests that list it. Source maps go too: 4766 files a debugger reads and
           # nothing on the loading path touches.
           node "$GITHUB_WORKSPACE/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client
+          # And the third tree: programs/server/npm/node_modules is a full `npm install`,
+          # devDependencies included, that rspack cannot tree-shake because Atmosphere
+          # packages load it through Npm.require(). This removes only what it can prove
+          # nothing requires, and refuses any policy entry the graph says IS reached.
+          node "$GITHUB_WORKSPACE/releases/prune-unreachable-npm.mjs" ../..
           cd ../../..
 
       - name: Check the binaries the mac-x64 bundle needs exist
@@ -3306,6 +3337,11 @@ jobs:
               # A Sandstorm grain is linux/x64, always - it is what the deps tree above
               # bundles a node and a mongod for.
               node releases/bundle-trim.mjs .meteor-spk/bundle --platform linux --arch x64 --transport sockjs --drop-legacy-client || true
+              # And the third tree: programs/server/npm/node_modules is a full `npm install`,
+              # devDependencies included, that rspack cannot tree-shake because Atmosphere
+              # packages load it through Npm.require(). This removes only what it can prove
+              # nothing requires, and refuses any policy entry the graph says IS reached.
+              node releases/prune-unreachable-npm.mjs .meteor-spk/bundle
               node releases/prune-build-only-modules.mjs .meteor-spk/bundle || true
               sizes || true
               set +e

@@ -239,6 +239,12 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     'bump-bundle-npm-deps.mjs': 'release-workflow + Dockerfile: the same shape -\n'
       + '      it raises the npm packages inside a BUILT bundle to the minimums in\n'
       + '      bundle-npm-security-bumps.json, and is run by the build jobs',
+    'prune-unreachable-npm.mjs': 'release-workflow: the same shape again - it walks\n'
+      + '      a BUILT bundle\'s require graph and removes from\n'
+      + '      programs/server/npm/node_modules only what it can prove nothing\n'
+      + '      reaches. There is no graph to walk until a build has produced a\n'
+      + '      bundle, and a menu entry would need one to point at. Run it by hand\n'
+      + '      with --dry-run against .build/bundle to see what it would take',
     'bundle-trim.mjs': 'release-workflow: the same shape again - it takes a BUILT\n'
       + '      bundle and removes what the target platform cannot run (uWebSockets.js\n'
       + '      prebuilds for other OS/CPU/ABI, and every source map), which is how the\n'

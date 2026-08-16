@@ -212,6 +212,8 @@ COPY --chmod=644 releases/bundle-npm-security-bumps.json /tmp/bundle-npm-securit
 # use. The entrypoint coerces DDP_TRANSPORT=uws to sockjs, so an existing
 # compose file that asks for uws keeps working rather than crash-looping.
 COPY --chmod=755 releases/bundle-trim.mjs /tmp/bundle-trim.mjs
+# Its companion: the same idea applied to programs/server/npm/node_modules.
+COPY --chmod=755 releases/prune-unreachable-npm.mjs /tmp/prune-unreachable-npm.mjs
 
 RUN <<EOR
 set -o xtrace
@@ -351,6 +353,9 @@ node /tmp/bump-bundle-npm-deps.mjs ./bundle
 # No uWebSockets.js, no legacy client, no source maps: this image runs sockjs,
 # serves web.browser to every browser, and has no debugger attached to it.
 node /tmp/bundle-trim.mjs ./bundle --transport sockjs --drop-legacy-client
+# And the npm tree rspack cannot tree-shake, because Atmosphere packages load it
+# through Npm.require(). Only what it can prove nothing requires.
+node /tmp/prune-unreachable-npm.mjs ./bundle
 mv /home/wekan/app/bundle /build
 
 # The .zip bundle now ships a self-contained launcher + its own Node.js for the

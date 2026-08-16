@@ -145,12 +145,29 @@ test('every trim call drops uws, the legacy client and the source maps', () => {
   }
 });
 
-test('the Dockerfile copies the script it runs (negative)', () => {
+test('the Dockerfile copies the scripts it runs (negative)', () => {
   const s = read('Dockerfile');
-  assert.ok(/COPY --chmod=755 releases\/bundle-trim\.mjs \/tmp\/bundle-trim\.mjs/.test(s),
-    'a RUN that calls /tmp/bundle-trim.mjs needs the COPY that puts it there');
-  assert.ok(s.indexOf('COPY --chmod=755 releases/bundle-trim.mjs') < s.indexOf('node /tmp/bundle-trim.mjs'),
-    'and the COPY has to come first');
+  for (const script of ['bundle-trim.mjs', 'prune-unreachable-npm.mjs']) {
+    assert.ok(s.includes(`COPY --chmod=755 releases/${script} /tmp/${script}`),
+      `a RUN that calls /tmp/${script} needs the COPY that puts it there`);
+    assert.ok(s.indexOf(`COPY --chmod=755 releases/${script}`) < s.indexOf(`node /tmp/${script}`),
+      `and the COPY of ${script} has to come first`);
+  }
+});
+
+test('every bundle that is trimmed is also npm-pruned', () => {
+  // The two run together everywhere: bundle-trim.mjs takes uWebSockets.js, the
+  // legacy client and the source maps; prune-unreachable-npm.mjs takes what it
+  // can prove is unreachable in programs/server/npm/node_modules. A site that
+  // does one and not the other is a platform quietly shipping ~61 MiB more.
+  for (const f of ['.github/workflows/release-all.yml', 'Dockerfile',
+    'releases/install-node-for-arch.sh']) {
+    const s = read(f);
+    const trims = (s.match(/node [^\n]*bundle-trim\.mjs/g) || []).length;
+    const prunes = (s.match(/node [^\n]*prune-unreachable-npm\.mjs/g) || []).length;
+    assert.strictEqual(prunes, trims,
+      `${f} trims ${trims} bundle(s) but npm-prunes ${prunes}`);
+  }
 });
 
 console.log(`\nsockjsEverywhere: ${passed} tests passed`);
