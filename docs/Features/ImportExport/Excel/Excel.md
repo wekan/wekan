@@ -33,8 +33,9 @@ into the HTTP response and does not use a temporary export file.
 
 The attachment section lists every file in a six-column details table: row
 number, filename, human-readable size, media type, upload date/time and
-uploader. Preview images use the available worksheet width three at a time in
-two-column cells, with only the filename below each image.
+uploader. Preview images use one worksheet column each, up to six on the same
+row, with the filename in the cell directly below each image. The seventh image
+starts the next image row, followed by its own filename row.
 
 Excel stores text as Unicode, so the export preserves every language. The
 `.xlsx` format used by ExcelJS cannot portably embed an OpenType font: it records

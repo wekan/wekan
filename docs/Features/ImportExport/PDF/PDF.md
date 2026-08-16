@@ -38,10 +38,11 @@ structure instead of printing their Markdown punctuation.
 JPEG attachments are embedded using their original `/DCTDecode` stream. PNG
 scanlines are decoded, PNG filters are removed, transparency is composited onto
 white, and the RGB pixels are embedded with `/FlateDecode`. Images are scaled
-down without being enlarged. Up to three previews share a row, matching the
-three two-column preview cells in Excel, and only the filename appears below
-each image. The whole preview row moves to the next page when it does not fit.
-A corrupt, unavailable or unsupported image cannot make the PDF export fail.
+down without being enlarged. Up to three previews share an A4 PDF row, and only
+the filename appears below each image. Excel can fit six previews across its
+six worksheet columns. The whole PDF preview row moves to the next page when it
+does not fit. A corrupt, unavailable or unsupported image cannot make the PDF
+export fail.
 
 Before the previews, the attachment detail table includes every attachment and
 the same six fields as Excel: row number, filename, human-readable size, media

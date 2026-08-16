@@ -95,7 +95,7 @@ await test('the shared Excel renderer retains metadata and wraps colored labels'
   assert.strictEqual(result.row, 4);
 });
 
-await test('Excel places three image previews per row with filenames below', async () => {
+await test('Excel places six image previews per row with filenames below', async () => {
   const { Workbook } = require('@wekanteam/exceljs');
   const { renderCardDocumentExcel } = await import(
     '../models/server/renderCardDocumentExcel.js'
@@ -106,18 +106,20 @@ await test('Excel places three image previews per row with filenames below', asy
   );
   const workbook = new Workbook();
   const sheet = workbook.addWorksheet('Images');
-  const images = Array.from({ length: 4 }, (_, index) => ({
+  const images = Array.from({ length: 7 }, (_, index) => ({
     name: `image-${index + 1}.png`, ext: 'png', data: png,
   }));
   const result = await renderCardDocumentExcel(sheet, workbook, 1,
     [{ type: 'images', images }]);
   const placements = sheet.getImages();
-  assert.strictEqual(placements.length, 4);
-  assert.deepStrictEqual(placements.slice(0, 3).map(image => image.range.tl.row), [0, 0, 0]);
-  assert.strictEqual(placements[3].range.tl.row, 2, 'the fourth image starts the next row');
+  assert.strictEqual(placements.length, 7);
+  assert.deepStrictEqual(placements.slice(0, 6).map(image => image.range.tl.row),
+    [0, 0, 0, 0, 0, 0]);
+  assert.strictEqual(placements[6].range.tl.row, 2, 'the seventh image starts the next row');
   assert.strictEqual(sheet.getCell('A2').value, 'image-1.png');
-  assert.strictEqual(sheet.getCell('C2').value, 'image-2.png');
-  assert.strictEqual(sheet.getCell('E2').value, 'image-3.png');
+  assert.strictEqual(sheet.getCell('B2').value, 'image-2.png');
+  assert.strictEqual(sheet.getCell('F2').value, 'image-6.png');
+  assert.strictEqual(sheet.getCell('A4').value, 'image-7.png');
   assert.strictEqual(result.row, 5);
 });
 
