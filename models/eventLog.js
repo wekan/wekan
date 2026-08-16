@@ -39,11 +39,27 @@ EventLog.attachSchema(
     // rewrite, and a deleted account must not erase.
     username: { type: String, optional: true },
     ip:       { type: String, optional: true },
-    // How many attempts this one row stands for. A canary sits on a path an
-    // attacker controls in a loop, so repeats inside a window are counted rather
-    // than each written (models/lib/canaryTokens.js): 1 for an ordinary event, N
-    // for a summary flush.
+    // ONE ROW PER PROBLEM. `count` is how many times this problem has happened,
+    // `firstAt` when it was first seen and `at` when it was last seen - so a row
+    // answers "what, how much, and between when and when" on its own. See
+    // models/lib/eventLogSummary.js for what makes two events the same problem
+    // (the kind of thing that happened) and what does not (who did it - those
+    // fields describe the most recent occurrence).
+    //
+    // A row per EVENT is what this replaced: a guard on a path an attacker
+    // controls fires as fast as they can send, so the collection grew with the
+    // attack and the Problems page became a scroll of identical lines.
     count:    { type: Number, optional: true },
+    firstAt:  { type: Date, optional: true },
+    // WHO, and how many times each - read out as `username1 25,
+    // 100.100.100.100 30`. A username and an address are counted separately:
+    // they answer different questions, and an unauthenticated attempt has an
+    // address and no name. Capped (models/lib/eventLogSummary.js MAX_ACTORS) so
+    // an attacker rotating addresses cannot grow the row with the attack, with
+    // the remainder counted in actorsOverflow - which is itself the signal that
+    // the source is spread rather than single.
+    actors:   { type: Object, optional: true, blackbox: true },
+    actorsOverflow: { type: Number, optional: true },
     detail:   { type: String, optional: true },
     // The 'database' stream's own four fields (server/lib/databaseProblems.js).
     // They MUST be declared here: collection2 cleans every insert against this

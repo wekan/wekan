@@ -68,9 +68,25 @@ check('loggers insert into EventLog via Meteor JS query (fire-and-forget)', () =
   for (const [f, stream] of [['securityLog.js', 'security'], ['speedLog.js', 'speed'], ['testLog.js', 'tests']]) {
     const src = read('server/lib/' + f);
     assert.ok(/from '\/models\/eventLog'/.test(src), `${f} must import EventLog`);
-    assert.ok(/EventLog\.insertAsync\(/.test(src), `${f} must insert via Meteor query`);
+    // ONE ROW PER PROBLEM, not per event. All three write through the shared
+    // fold in server/lib/eventLogFold.js, which upserts the problem's row and
+    // increments its count instead of inserting a document per occurrence - a
+    // logger on a path that repeats otherwise grows the database with whatever
+    // is causing it. Still a normal Meteor JS query into the same collection,
+    // which is what this check is really about.
+    assert.ok(/foldEventFireAndForget\(/.test(src),
+      `${f} must fold into the problem's row via the shared folder`);
+    assert.ok(!/EventLog\.insertAsync\(/.test(src),
+      `${f} must not insert a document per event any more`);
     assert.ok(new RegExp(`stream:\\s*'${stream}'`).test(src), `${f} must set stream '${stream}'`);
-    assert.ok(/\.catch\(\(\) => \{\}\)/.test(src), `${f} insert must be fire-and-forget`);
+  }
+  // Fire-and-forget lives in the shared folder now, so it is checked once there
+  // rather than three times over: a rejected promise from the fold must never
+  // reach the guard, the timer or the test run that called it.
+  const fold = read('server/lib/eventLogFold.js');
+  assert.ok(/p\.catch\(/.test(fold), 'the fold must swallow a rejected write');
+  assert.ok(/catch \(e\) \{/.test(fold), 'and a throw from the call itself');
+  if (false) {
   }
 });
 check('no new files/DBs are created under WRITABLE_PATH', () => {

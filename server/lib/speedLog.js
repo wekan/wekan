@@ -9,6 +9,8 @@
 // ============================================================================
 
 import EventLog from '/models/eventLog';
+// One row per problem, not per event - see server/lib/eventLogFold.js.
+import { foldEventFireAndForget } from '/server/lib/eventLogFold';
 const { sanitizeDetail } = require('/models/lib/securityLogFormat');
 
 // Record one performance event. Never throws.
@@ -29,8 +31,7 @@ export function record(evt = {}) {
       detail: sanitizeDetail(evt.detail),
     };
     if (evt.userId || evt.userid) doc.userId = String(evt.userId || evt.userid);
-    const p = EventLog.insertAsync(doc);
-    if (p && typeof p.catch === 'function') p.catch(() => {});
+    foldEventFireAndForget(doc, 'speedLog');
   } catch (e) {
     if (process.env.DEBUG === 'true') console.warn('speedLog.record failed:', e && e.message);
   }

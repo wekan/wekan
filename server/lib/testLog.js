@@ -9,6 +9,8 @@
 // ============================================================================
 
 import EventLog from '/models/eventLog';
+// One row per problem, not per event - see server/lib/eventLogFold.js.
+import { foldEventFireAndForget } from '/server/lib/eventLogFold';
 const { sanitizeDetail } = require('/models/lib/securityLogFormat');
 
 // Record one FAILING test. Never throws.
@@ -27,8 +29,7 @@ export function recordFailure(evt = {}) {
       cwe: '',
       detail: sanitizeDetail(evt.message || evt.detail),
     };
-    const p = EventLog.insertAsync(doc);
-    if (p && typeof p.catch === 'function') p.catch(() => {});
+    foldEventFireAndForget(doc, 'testLog');
   } catch (e) {
     if (process.env.DEBUG === 'true') console.warn('testLog.recordFailure failed:', e && e.message);
   }

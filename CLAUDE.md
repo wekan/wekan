@@ -607,6 +607,44 @@ have cost a released section its accuracy:
   - Where the denial cannot be attributed to an attempt — a fix that changes what a
     response contains, or one that only takes effect at build time — there is nothing
     to record, and that is a decision to state in the entry rather than an omission.
+- **Admin Panel → Problems is a SUMMARY, never a row per event.** A guard on a path
+  an attacker controls fires as fast as they can send, so a document per occurrence
+  grows the database with the attack, turns the page into a scroll of near-identical
+  lines, and buries the one event that mattered under ten thousand that did not. The
+  admin's question is never *list every attempt* — it is *what is happening, how
+  much, since when, and who*. So each problem is ONE row that accumulates
+  (`models/lib/eventLogSummary.js`, written through `server/lib/eventLogFold.js`,
+  shared by the security, speed and test loggers):
+
+  | field | what it holds |
+  | --- | --- |
+  | `count` | how many times this problem has happened |
+  | `firstAt` … `at` | the window it happened in |
+  | `actors` | who, each with their own count — `username1 25, 100.100.100.100 30` |
+  | `username` / `ip` / `detail` | the MOST RECENT occurrence |
+
+  - **Identity is the KIND of thing that happened** — stream, `bleed`, category,
+    action, source, severity, CWE (and `type`/`db`/`kind` for the database stream).
+    The actor is NOT part of it: putting a username or an address in the key gives a
+    row per attacker per attempt, which is the cost being removed.
+  - **A username and an address are tallied SEPARATELY**, not as a pair. They answer
+    different questions — which account, and where from — and an unauthenticated
+    attempt has an address and no name.
+  - **The tally is CAPPED** (`MAX_ACTORS`), with the remainder counted in
+    `actorsOverflow`. Otherwise an attacker rotating addresses grows the row with the
+    attack and reintroduces the same bug one level down — and *"and 9,412 others"* is
+    itself the signal that the source is spread rather than single.
+  - **A logger that writes per event is a bug to fix, not a style.** If one is added
+    or found, route it through the shared fold and migrate what it already wrote
+    (`server/lib/eventLogSummaryMigration.js` folds legacy rows in place, in batches,
+    idempotently).
+- **Every hall-of-fame vulnerability that CAN be detected at runtime should have a
+  catalog key**, so Admin Panel → Problems groups attempts under the same name the
+  Hall of Fame uses and an admin can go from one to the other.
+  `tests/hallOfFameProblemsCoverage.test.cjs` lists the names that have no key and
+  requires each to be accounted for — a *Bleed with nothing to detect (a fix that
+  changed what a response carried, or one that only applies at build time) is
+  recorded there as a deliberate omission with its reason, not left silent.
 - **A Hall of Fame row has EIGHT cells**, in this order: CVE, Icon, Vulnerability
   name, Date, Responsible Security Disclosure by, Stars, Process, Vulnerabilities.
   One thing per cell — the name without its icons, the Font Awesome icons alone in

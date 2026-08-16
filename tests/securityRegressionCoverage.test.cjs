@@ -43,6 +43,10 @@ const SUITE_DIRS = ['tests', 'server/lib/tests', 'client/lib/tests'];
 const NOT_COVERAGE = new Set([
   'securityRegressionCoverage.test.cjs',   // this file
   'testsAreRegistered.test.cjs',           // checks registration, not behaviour
+  // Names every vulnerability that has NO Admin Panel -> Problems key yet, which
+  // is the opposite of testing it. Counting those as guarded would mark 35
+  // untested vulnerabilities as covered, which is worse than the gap it tracks.
+  'hallOfFameProblemsCoverage.test.cjs',
   'index.js',
   'index.test.js',
 ]);

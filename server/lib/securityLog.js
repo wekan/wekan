@@ -15,14 +15,26 @@
 import EventLog from '/models/eventLog';
 const { categoryFor } = require('/models/lib/securityCategories');
 const { sanitizeDetail } = require('/models/lib/securityLogFormat');
+import { foldEventFireAndForget } from '/server/lib/eventLogFold';
 
+// ONE ROW PER PROBLEM, not per event (models/lib/eventLogSummary.js).
+//
+// A guard on a path an attacker controls fires as fast as they can send, so a
+// row per event grows the database with the attack and buries the one line that
+// mattered under ten thousand identical ones. The row carries `count` and the
+// window `firstAt` … `at` instead, and the actor fields describe the most recent
+// occurrence.
+//
+// Still fire-and-forget and still never throws into the caller: recording that a
+// guard fired must never be able to stop it firing.
+// ONE ROW PER PROBLEM, not per event: server/lib/eventLogFold.js does the
+// folding, shared with the speed and test loggers. A guard on a path an attacker
+// controls fires as fast as they can send, so a row per event grows the database
+// with the attack and buries the one line that mattered under ten thousand
+// identical ones. The row carries `count`, the window `firstAt` … `at`, and a
+// per-actor tally read out as `username1 25, 100.100.100.100 30`.
 function insert(doc) {
-  try {
-    const p = EventLog.insertAsync(doc);
-    if (p && typeof p.catch === 'function') p.catch(() => {});
-  } catch (e) {
-    if (process.env.DEBUG === 'true') console.warn('securityLog insert failed:', e && e.message);
-  }
+  foldEventFireAndForget(doc, 'securityLog');
 }
 
 // Record one security event. Never throws. Pass a catalog `key` (see
