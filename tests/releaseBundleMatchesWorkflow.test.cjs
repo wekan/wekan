@@ -1,6 +1,6 @@
 'use strict';
 
-// Guard: `build.sh` option 2 builds what the Release All workflow builds.
+// Guard: "Build WeKan release bundle" builds what the Release All workflow does.
 // Run: node tests/releaseBundleMatchesWorkflow.test.cjs
 //
 // WHY THIS EXISTS. `meteor build .build --directory` produces a bundle nobody
@@ -122,11 +122,16 @@ test('it makes no .zip, and claims no release (negative)', () => {
   }
 });
 
-test('build.sh option 2 runs it, and the test path does not', () => {
-  // The menu entry is the whole request: "Build WeKan" should build what a
-  // release builds. The TEST path deliberately does not - it runs the bundle
+test('the release menu entry runs it, and the test path does not', () => {
+  // Two entries: "Build WeKan release bundle" builds what a release builds, and
+  // "Build WeKan development bundle" is the plain `meteor build` that entry used
+  // to be. The TEST path deliberately takes the plain one - it runs the bundle
   // under its own node and its own mongod, and downloading a hundred megabytes
   // of binaries it will not use to test WeKan's source is the wrong trade.
+  for (const label of ['Build WeKan release bundle', 'Build WeKan development bundle']) {
+    assert.ok(buildSh.includes(`"${label}"`), `build.sh must offer ${label}`);
+    assert.ok(buildBat.includes(label), `build.bat must offer ${label}`);
+  }
   assert.ok(/WEKAN_BUILD_RELEASE_BUNDLE=1 build_wekan/.test(buildSh),
     'the "Build WeKan" menu entry must ask for the release bundle');
   assert.ok(/WEKAN_BUILD_RELEASE_BUNDLE:-0/.test(buildSh),

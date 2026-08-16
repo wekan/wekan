@@ -2253,7 +2253,8 @@ while [ -z "$opt" ]; do
 			"Setup")
 				choose "Setup" \
 					"Install dependencies|Install WeKan dependencies" \
-					"Build WeKan|Build WeKan" \
+					"Build WeKan release bundle|Build WeKan release bundle" \
+					"Build WeKan development bundle|Build WeKan development bundle" \
 					"git pull|git pull: fetch, fast-forward or rebase onto origin, repoint the CHANGELOG commit links the rebase moved, and leave the repo unchanged if anything conflicts" \
 					"git push|git push: check the CHANGELOG commit links resolve before publishing them, push this branch to origin, and pull-then-retry once if origin moved meanwhile" ;;
 			"Dev server")
@@ -2386,19 +2387,37 @@ for _once in 1; do
 		break
 		;;
 
-    "Build WeKan")
+    "Build WeKan release bundle")
+		# WHAT A RELEASE PUBLISHES: `meteor build` plus the server's npm modules,
+		# the three prunes, the sockjs / legacy-client / source-map trim, a
+		# verified Node.js, FerretDB, the MongoDB Database Tools and a launcher -
+		# the same steps as the Release All workflow for this platform, minus the
+		# .zip. So `cd .build/bundle && ./start-wekan.sh` starts WeKan on its own
+		# bundled Node.js and FerretDB, and "does the thing a release would
+		# publish run at all" is answerable here rather than after a release.
+		#
 		# || exit 1, because build_wekan returns 1 on failure and a bare call
 		# throws that away: the menu breaks, the script falls off the end and
 		# exits 0. A build that printed "ERROR: the WeKan build failed" while
 		# reporting success to its caller is worse than one that just fails -
 		# anything driving this non-interactively (`printf '1\n2\n' | ./build.sh`,
 		# or CI) sees a green run and a missing bundle.
-		# The RELEASE bundle, not just `meteor build`: the same steps as the
-		# Release All workflow for this platform, minus the .zip, so
-		# `cd .build/bundle && ./start-wekan.sh` starts WeKan on its own
-		# bundled Node.js and FerretDB - which is how to find out whether the
-		# thing a release would publish runs at all.
 		WEKAN_BUILD_RELEASE_BUNDLE=1 build_wekan || exit 1
+		break
+		;;
+
+    "Build WeKan development bundle")
+		# PLAIN `meteor build .build --directory`, which is what "Build WeKan"
+		# did before the release bundle existed. Kept as its own entry because
+		# the two answer different questions and cost different amounts: this one
+		# downloads nothing, embeds nothing and trims nothing, so it is the fast
+		# way to get a bundle to poke at - and it is what the test path builds,
+		# so it is also the bundle the test server runs.
+		#
+		# It is NOT what a release ships. A bundle from here still has the legacy
+		# client, the source maps, uWebSockets.js and no Node.js, FerretDB or
+		# launcher of its own, so it cannot answer whether a release would start.
+		build_wekan || exit 1
 		break
 		;;
 

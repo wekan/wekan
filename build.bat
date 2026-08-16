@@ -99,15 +99,17 @@ REM ===========================================================================
 echo.
 echo -- Setup --   ^(0 = Back^)
 echo   1^) Install dependencies
-echo   2^) Build WeKan
-echo   3^) git pull ^(fetch, fast-forward or rebase, repoint moved CHANGELOG links^)
-echo   4^) git push ^(check the CHANGELOG links, push, pull-and-retry once if rejected^)
+echo   2^) Build WeKan release bundle
+echo   3^) Build WeKan development bundle
+echo   4^) git pull ^(fetch, fast-forward or rebase, repoint moved CHANGELOG links^)
+echo   5^) git push ^(check the CHANGELOG links, push, pull-and-retry once if rejected^)
 set "choice="
 set /p "choice=Choose: "
 if "%choice%"=="1" goto install
 if "%choice%"=="2" goto build
-if "%choice%"=="3" goto gitpull
-if "%choice%"=="4" goto gitpush
+if "%choice%"=="3" goto builddev
+if "%choice%"=="4" goto gitpull
+if "%choice%"=="5" goto gitpush
 if "%choice%"=="0" goto menu
 goto menu_setup
 
@@ -801,28 +803,30 @@ echo Done. Open a new terminal so PATH changes take effect, then re-run this scr
 goto end
 
 REM ===========================================================================
+REM Two entries, one build. :build adds what a RELEASE bundle is on top of
+REM :builddev, and both share :buildcommon - so the plain build cannot drift
+REM from the one the release steps run on.
+:builddev
+echo Building the WeKan DEVELOPMENT bundle ^(plain meteor build^).
+call :buildcommon
+if errorlevel 1 goto end
+echo.
+echo Done. This is NOT what a release ships: it still has the legacy client, the
+echo source maps and uWebSockets.js, and no Node.js, FerretDB or launcher of its
+echo own. Use "Build WeKan release bundle" to find out whether a release starts.
+goto end
+
+REM ===========================================================================
 :build
-echo Building WeKan.
-REM Also clears the rspack dev-build caches (_build and node_modules\.cache) so the
-REM next `meteor run` recompiles from scratch instead of serving stale modules.
-if exist "%REPO%\node_modules"        rmdir /s /q "%REPO%\node_modules"
-if exist "%REPO%\node_modules\.cache" rmdir /s /q "%REPO%\node_modules\.cache"
-if exist "%REPO%\.meteor\local"       rmdir /s /q "%REPO%\.meteor\local"
-if exist "%REPO%\.build"              rmdir /s /q "%REPO%\.build"
-if exist "%REPO%\_build"              rmdir /s /q "%REPO%\_build"
-call meteor update --npm
-call meteor npm install
-call meteor build .build --directory
-if not exist "%REPO%\.build\bundle\main.js" (
-  echo ERROR: the build produced no .build\bundle\main.js.
-  goto end
-)
+echo Building the WeKan RELEASE bundle.
+call :buildcommon
+if errorlevel 1 goto end
 REM THE REST OF WHAT A RELEASE BUNDLE IS - the same steps as the Release All
 REM workflow for this platform, minus the .zip: the server's npm modules, the
 REM three prunes, the sockjs / legacy-client / source-map trim, a verified
-REM Node.js, FerretDB, the MongoDB Database Tools and start-wekan.bat. So
-REM "Build WeKan" answers whether the bundle a release would publish starts
-REM here, which `meteor build` on its own never could.
+REM Node.js, FerretDB, the MongoDB Database Tools and start-wekan.bat. So this
+REM entry answers whether the bundle a release would publish starts here, which
+REM `meteor build` on its own never could.
 REM
 REM Through bash, like the git actions above and for the same reason: this is
 REM releases/build-release-bundle.sh, the script the release itself runs, not a
@@ -838,6 +842,25 @@ if errorlevel 1 (
 bash releases/build-release-bundle.sh .build/bundle
 echo Done.
 goto end
+
+REM ===========================================================================
+REM The part both build entries do: clear the rspack dev-build caches (_build and
+REM node_modules\.cache) so the next `meteor run` recompiles from scratch instead
+REM of serving stale modules, then build the bundle.
+:buildcommon
+if exist "%REPO%\node_modules"        rmdir /s /q "%REPO%\node_modules"
+if exist "%REPO%\node_modules\.cache" rmdir /s /q "%REPO%\node_modules\.cache"
+if exist "%REPO%\.meteor\local"       rmdir /s /q "%REPO%\.meteor\local"
+if exist "%REPO%\.build"              rmdir /s /q "%REPO%\.build"
+if exist "%REPO%\_build"              rmdir /s /q "%REPO%\_build"
+call meteor update --npm
+call meteor npm install
+call meteor build .build --directory
+if not exist "%REPO%\.build\bundle\main.js" (
+  echo ERROR: the build produced no .build\bundle\main.js.
+  exit /b 1
+)
+exit /b 0
 
 REM ===========================================================================
 :gitpull
@@ -1732,7 +1755,7 @@ if "!SERVER_READY!"=="1" echo ==^> WeKan test server is ready on http://localhos
 exit /b 0
 
 :rebuild_for_tests
-REM Delete .build (and the rspack dev-build caches, as :build does) and build the
+REM Delete .build (and the rspack dev-build caches, as :buildcommon does) and build the
 REM WeKan bundle the test server runs. Same steps as Setup -> "Build WeKan", so the
 REM two can never drift apart.
 echo ==^> Deleting .build and building WeKan before running the tests ^(always, so the tests run against the current source^).
