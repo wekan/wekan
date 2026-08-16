@@ -455,6 +455,58 @@ covered without editing it.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/58bf9774a">A card sent to PDF came back as an HTML file</a>. Thanks to Heart1010 and xet7.</summary>
+
+Not a broken PDF — WeKan's own page, saved as `<card>.pdf`. Every export in the
+interface is a download from an `/api/…` address, and the server refuses every
+`/api` request unless `WITH_API` is exactly `true`. It refused by answering
+**`301 Location: /`**, so the browser followed it to the front page and the
+download link's `download="<card>.pdf"` wrote the HTML it got there to that
+name. Reproduced against a running instance: `GET /api/boards/x/exportPDF`
+answered 301.
+
+Two faults, either one enough on its own. **The bundle launchers did not set
+`WITH_API`** — the snap has defaulted it to true for years and every
+`docker-compose*.yml` here sets it, so the bundle was the one platform where
+exporting was off by default, and therefore the one platform where an export
+came back as HTML. Both launchers now default it to true, overridable, and say
+why: the name reads like a developer feature, and somebody switching it off to
+harden an instance should know they are turning off every export in the
+interface.
+
+**And the refusal was a redirect.** Whatever the setting, "the API is off" must
+not arrive as a page. It is now a **403 in plain text**, saying that exports use
+the API too and naming the variable to set — an answer that cannot be mistaken
+for the file that was asked for.
+
+</details>
+
+**Checkboxes** - the one square WeKan draws everywhere.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/58bf9774a">A checkbox keeps its shape, wherever it is put and whatever is beside it</a>. Thanks to xet7.</summary>
+
+In the export popup an unchecked box drew a thin vertical sliver beside a long
+label and a proper square beside a short one: the row is a flex container, the
+box is a flex item, and a flex item shrinks.
+
+That is the **third** time this shape has broken — `settingBody.css` already
+carries a fix for a 41px min-height that *"turns a 13px box into a tall
+rectangle"*, and another for a `height: 100%` that stretched it — so the fix
+goes in the rule that DEFINES the checkbox: `flex: none`, for all 90 of them
+across 19 templates, rather than one more local patch. The local patch went with
+it: it had set `box-sizing: border-box`, which would have made that one popup's
+boxes 13px including their border while every other checkbox in WeKan is 13px
+plus 2px.
+
+The rest was audited rather than assumed: every rule in the client that sizes a
+checkbox gives it equal width and height, including the two "clean" board themes
+that deliberately draw theirs at 24px and 18px. A test now pins that for every
+rule, so the fourth one fails a suite instead of a screenshot.
+
+</details>
+
 **Admin Panel / Problems** - how a person is shown.
 
 <details>
