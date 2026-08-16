@@ -16,6 +16,7 @@ import EventLog from '/models/eventLog';
 const { categoryFor } = require('/models/lib/securityCategories');
 const { sanitizeDetail } = require('/models/lib/securityLogFormat');
 import { foldEventFireAndForget } from '/server/lib/eventLogFold';
+import { blockAccountForSecurityEvent } from '/server/lib/blockOnSecurityEvent';
 
 // ONE ROW PER PROBLEM, not per event (models/lib/eventLogSummary.js).
 //
@@ -35,6 +36,14 @@ import { foldEventFireAndForget } from '/server/lib/eventLogFold';
 // per-actor tally read out as `username1 25, 100.100.100.100 30`.
 function insert(doc) {
   foldEventFireAndForget(doc, 'securityLog');
+  // A logged-in account that attempted a vulnerability loses that account - see
+  // server/lib/blockOnSecurityEvent.js for why the ACCOUNT and never the
+  // address. Fire-and-forget like the fold: the guard already refused the
+  // operation, and the consequence must not be able to break the refusal.
+  try {
+    const p = blockAccountForSecurityEvent(doc);
+    if (p && typeof p.catch === 'function') p.catch(() => {});
+  } catch (e) { /* blocking must never break the guard */ }
 }
 
 // Record one security event. Never throws. Pass a catalog `key` (see

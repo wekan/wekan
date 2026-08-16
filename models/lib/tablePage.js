@@ -89,6 +89,21 @@ export function docsByIds(ids, docs) {
 // Build the rows the shared template iterates. One cell per column, in column
 // order, so a row can never be shorter than the header (which is how a
 // hand-written table ends up with its columns shifted by one).
+// The avatar of an account, or '' when it has none or is not loaded here. Looked
+// up through ReactiveCache like every other user lookup on the client; on the
+// server, where this module is also loaded, there is no cache and no avatar to
+// draw, and the initials fall back cleanly.
+function avatarUrlFor(userId) {
+  try {
+    // eslint-disable-next-line global-require
+    const { ReactiveCache } = require('/imports/reactiveCache');
+    const user = ReactiveCache.getUser(userId);
+    return (user && user.profile && user.profile.avatarUrl) || '';
+  } catch (e) {
+    return '';
+  }
+}
+
 export function buildRows(docs, columns, options = {}) {
   const cols = Array.isArray(columns) ? columns : [];
   const list = Array.isArray(docs) ? docs : [];
@@ -104,6 +119,12 @@ export function buildRows(docs, columns, options = {}) {
         cls: [column.cls || '', column.align === 'end' ? 'table-page-end' : '',
               column.nowrap ? 'table-page-nowrap' : ''].filter(Boolean).join(' '),
         userId: userId || '',
+        // The account's avatar, when it has one. A user cell shows INITIALS or
+        // the avatar rather than the name - the same way the board sidebar and
+        // a card show a member, and for the same reason: it takes a fraction of
+        // the width, and these tables are wide. The name is the cell's title,
+        // so hovering still identifies the account.
+        userAvatarUrl: userId ? avatarUrlFor(userId) : '',
         // Only used by the severity cell; a plain string, rendered as an
         // attribute value by Blaze (which escapes it).
         data: typeof column.data === 'function' ? (column.data(doc) || '') : '',

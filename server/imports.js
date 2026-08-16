@@ -361,6 +361,10 @@ import '/server/permissions/users';
 // reconciliation Meteor methods. In mainModule mode a file that is not imported here is
 // never loaded, so its hooks/methods would silently never register.
 import '/server/avatarLocalizationOnLogin';
+// Where each account logs in from, and who logs in from each address - the
+// office groupings in Admin Panel (server/lib/loginTally.js).
+import '/server/loginTallyOnLogin';
+import '/server/methods/loginOffices';
 import '/server/importedUserReconciliation';
 
 // ----------------------------------------------------------------------------
