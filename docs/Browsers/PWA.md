@@ -95,7 +95,7 @@ Related, for creating apps to other appstores: [Browser compatibility matrix](Br
 
 4. Run bundle at server like [Offline](../Platforms/Propietary/OS/Windows/Offline.md) or [Raspberry Pi](../Platforms/FOSS/HW/RaspberryPi/Raspberry-Pi.md)
 
-5. Install Caddy like [Caddy Webserver Config](../Webserver/Caddy.md) , with this config for PWA at https://boards.example.com , there add assetlinks.json details you got when you downloaded Android .zip file from https://pwabuilder.com , see assetlinks issue about where at Play Console those 2 SHA256 keys https://github.com/pwa-builder/PWABuilder/issues/3867#issuecomment-1450826565
+5. Install Caddy like [Caddy Webserver Config](../Platforms/Webserver/Caddy.md) , with this config for PWA at https://boards.example.com , there add assetlinks.json details you got when you downloaded Android .zip file from https://pwabuilder.com , see assetlinks issue about where at Play Console those 2 SHA256 keys https://github.com/pwa-builder/PWABuilder/issues/3867#issuecomment-1450826565
 
 6. At Play Console https://play.google.com/console/ there is `App Integrity` button in the sidemenu (highlighted blue in the screenshot) where you find required 2 SHA256 keys for Caddyfile:
 

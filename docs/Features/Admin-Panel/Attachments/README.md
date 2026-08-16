@@ -85,7 +85,7 @@ the app boots — see
 ## Related
 
 - [Attachments (cards)](../../Cards/Attachments/Attachments.md) — what a user sees.
-- [Attachment migration system](../../../ImportExport/Attachment-Migration-System.md)
+- [Attachment migration system](../../ImportExport/Attachment/Attachment-Migration-System.md)
 
 ## The panes, in menu order
 

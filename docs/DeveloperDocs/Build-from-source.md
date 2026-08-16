@@ -111,7 +111,7 @@ If a dev server is already running, the **Dev server** options now stop it autom
 
 The other **Dev server** options run WeKan the same way on different addresses/ports: `localhost:3000 + trace warnings`, `localhost:3000 + bundle visualizer`, `CURRENT-IP:3000`, `CURRENT-IP:3000 + MONGO_URL 27019`, and `CUSTOM-IP:PORT` (which asks you for the IP and port). There is also a **Kill all dev servers** option that frees every dev/test port the script uses at once (3000/3001, 3100/3101, 4000/4001 and 8080) — handy if a previous run left something behind.
 
-And then [register and login](../Login/Adding-users.md) at http://localhost:3000
+And then [register and login](../Features/Login/Adding-users.md) at http://localhost:3000
 
 ### OPTIONAL, NOT NEEDED: 5. Add new plugin package
 ```

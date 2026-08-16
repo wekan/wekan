@@ -45,5 +45,5 @@ There is also a DDP method pair (`api.board.uploadBackground` /
 
 - [Boards](../Boards/Boards.md)
 - [Attachments and File Storage](../../Cards/Attachments/Attachments.md)
-- [Themes / Custom CSS](../../../Theme/Custom-CSS-themes.md)
-- [Migrating from Trello](../../../ImportExport/trello/Migrating-from-Trello.md)
+- [Themes / Custom CSS](../../Theme/Custom-CSS-themes.md)
+- [Migrating from Trello](../../ImportExport/Trello/trello/Migrating-from-Trello.md)

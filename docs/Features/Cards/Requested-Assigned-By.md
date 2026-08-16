@@ -2,7 +2,7 @@
 
 Status: **designed, not built** · Owner: xet7 · Related:
 [#6586](https://github.com/wekan/wekan/issues/6586),
-[One-Card-Layout.md](../ImportExport/One-Card-Layout.md).
+[One-Card-Layout.md](../ImportExport/Excel/One-Card-Layout.md).
 
 ## What is asked for
 

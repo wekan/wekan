@@ -21,7 +21,7 @@ that by providing one-click installation on various platforms.
 - [Features](../Features/Features.md): Wekan has real-time user interface.
 - [Platforms](../Platforms): Wekan supports many platforms.
   Wekan is critical part of new platforms Wekan is currently being integrated to.
-- [Integrations](../ImportExport/Integrations.md): Current possible integrations and future plans.
+- [Integrations](../Features/ImportExport/Integrations/Integrations.md): Current possible integrations and future plans.
 
 ## About niche of WeKan
 

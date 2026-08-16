@@ -28,7 +28,7 @@ https://www.youtube.com/watch?v=ke-mbnZM3zE
 - Javascript enabled Desktop and Mobile Safari/Chromium/Firefox based browsers
 - Apps at Play Store, Windows Microsoft Store, Ubuntu Touch OpenStore [Browser compatibility matrix](../Browsers/Browser-compatibility-matrix.md)
 - Alternatively, for self-hosted WeKan, create PWA icon [PWA](../Browsers/PWA.md)
-- Using WeKan with big touchscreen [Touch Screen support](../DragDrop/Touch-Screen-support.md)
+- Using WeKan with big touchscreen [Touch Screen support](../Features/DragDrop/Touch-Screen-support.md)
 
 ## Meteor WeKan Server
 
@@ -46,7 +46,7 @@ https://www.youtube.com/watch?v=ke-mbnZM3zE
 - Whitelabel: Change product name and product image at login screen and board left top corner. Not changing favicon, because there are 100+ favicons for different devices.
 - Drag Drop at Desktop and Mobile:
   - Board Icons, Swimlanes, Lists, Cards, Checklists, Checklist Items
-  - Drag handles, per screen [Drag Drop](../DragDrop/Drag-Drop.md)
+  - Drag handles, per screen [Drag Drop](../Features/DragDrop/Drag-Drop.md)
 - Some features similar to Trello and Jira. Some features not in Trello and Jira.
 - IFTTT Rules like Trello Butler [IFTTT](../Features/Automation/IFTTT/IFTTT.md) , translated to all supported languages. Trello Butler is only In English.
 - Many Assignees like in Jira.
@@ -72,7 +72,7 @@ https://www.youtube.com/watch?v=ke-mbnZM3zE
 - Python and PHP based additional features [Python](../Features/Editor/Python.md)
 - Admin Panel:
   - Organizations/Teams/People. Impersonate User, logged to database when someone uses that feature.
-  - Customize Translations [Customize Translations](../Translations/Customize-Translations.md)
+  - Customize Translations [Customize Translations](../Features/Translations/Customize-Translations.md)
 
 ## Technical details
 
@@ -87,27 +87,27 @@ https://www.youtube.com/watch?v=ke-mbnZM3zE
   - Repo [wekan-oidc](../../packages/wekan-oidc)
   - Features:
     - At Admin Panel, you can change text of login page button `Login with OIDC`
-    - Auth0 [OAuth2](../Login/OAuth2.md#auth0) . This did take about half year to implement by xet7, was not available anywhere else for Meteor.
-    - Oracle OIM. [Oracle OIM](../Login/Oracle-OIM.md) . For this, customer provided some code. xet7 added fix to make login work even when some login field was missing data, by taking data from other field, all this while xet7 did not have access to customers Oracle OIM, just guessing about what code to add, and it worked. 
-    - GitLab [OAuth2](../Login/OAuth2.md#gitlab-providing-oauth2-login-to-wekan)
-    - RocketChat [OAuth2](../Login/OAuth2.md#rocketchat-providing-oauth2-login-to-wekan)
-    - Nextcloud [Nextcloud](../Login/Nextcloud.md)
-    - ADFS 4.0 using OAuth2 and OpenID [ADFS](../Login/ADFS.md)
-    - Azure [Azure](../Login/Azure/Azure.md)
-    - Keycloak [Keycloak](../Login/Keycloak/Keycloak.md)
-    - Google login [Google login](../Login/Google-login.md)
+    - Auth0 [OAuth2](../Features/Login/OAuth2.md#auth0) . This did take about half year to implement by xet7, was not available anywhere else for Meteor.
+    - Oracle OIM. [Oracle OIM](../Features/Login/Oracle-OIM.md) . For this, customer provided some code. xet7 added fix to make login work even when some login field was missing data, by taking data from other field, all this while xet7 did not have access to customers Oracle OIM, just guessing about what code to add, and it worked.
+    - GitLab [OAuth2](../Features/Login/OAuth2.md#gitlab-providing-oauth2-login-to-wekan)
+    - RocketChat [OAuth2](../Features/Login/OAuth2.md#rocketchat-providing-oauth2-login-to-wekan)
+    - Nextcloud [Nextcloud](../Features/Login/Nextcloud.md)
+    - ADFS 4.0 using OAuth2 and OpenID [ADFS](../Features/Login/ADFS.md)
+    - Azure [Azure](../Features/Login/Azure/Azure.md)
+    - Keycloak [Keycloak](../Features/Login/Keycloak/Keycloak.md)
+    - Google login [Google login](../Features/Login/Google-login.md)
 - Custom LDAP
-  - LDAP [LDAP](../Login/LDAP.md)
-  - LDAP AD Simple Auth [LDAP AD Simple Auth](../Login/LDAP-AD-Simple-Auth.md)
+  - LDAP [LDAP](../Features/Login/LDAP.md)
+  - LDAP AD Simple Auth [LDAP AD Simple Auth](../Features/Login/LDAP-AD-Simple-Auth.md)
 - Default board for users https://github.com/wekan/wekan/pull/5098
-- Brute Force Accounts Lockout [Accounts Lockout](../Login/Accounts-Lockout.md)
+- Brute Force Accounts Lockout [Accounts Lockout](../Features/Login/Accounts-Lockout.md)
 - Markdown, Emoji, MathML, sanitizing [template-integration.js](../../packages/markdown/src/template-integration.js)
 - Many security fixes from Responsible Disclosure https://wekan.fi/hall-of-fame/
 
 ## Upcoming Features
 
-- CAS [CAS](../Login/CAS.md)
-- SAML [SAML](../Login/SAML.md)
+- CAS [CAS](../Features/Login/CAS.md)
+- SAML [SAML](../Features/Login/SAML.md)
 
 ## Video
 
@@ -133,4 +133,3 @@ https://www.youtube.com/watch?v=ke-mbnZM3zE
     - https://github.com/bratelefant/Meteor-Files
     - https://github.com/bratelefant/meteor-roles
     - https://github.com/bratelefant/meteor-multitenancy
-

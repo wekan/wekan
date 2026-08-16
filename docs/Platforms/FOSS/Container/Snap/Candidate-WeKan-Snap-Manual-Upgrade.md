@@ -197,7 +197,7 @@ mongorestore --drop --port 27019 --noIndexRestore
 ```
 #### 16. Add back settings
 
-Recommended is to use [Caddy 2](../../../../Webserver/Caddy.md) instead of Caddy1 that is included in WeKan Snap currently at 2022-12-21. Caddy 2 maybe will be included to WeKan Snap later.
+Recommended is to use [Caddy 2](../../../Webserver/Caddy.md) instead of Caddy1 that is included in WeKan Snap currently at 2022-12-21. Caddy 2 maybe will be included to WeKan Snap later.
 
 See if in your `snap-settings.sh` is this kind of command, are you using Caddy1 ?
 ```
@@ -222,7 +222,7 @@ sudo snap start wekan
 ```
 #### 18. Test are WeKan attachments visible
 
-#### 19. If you are using WeKan Snap Caddy1, if it does not work, change to Caddy2 [Caddy Webserver Config](../../../../Webserver/Caddy.md)
+#### 19. If you are using WeKan Snap Caddy1, if it does not work, change to Caddy2 [Caddy Webserver Config](../../../Webserver/Caddy.md)
 
 #### 20. Backup and cleanup
 

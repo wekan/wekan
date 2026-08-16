@@ -7,7 +7,7 @@ members to a board, and optionally assign them to individual cards.
 
 Click your username/avatar in the top right corner to open your member settings.
 
-![Wekan member settings screenshot](../screenshot-member-settings.png)
+![Wekan member settings screenshot](../Login/screenshot-member-settings.png)
 
 > NOTE: The duplicate "Edit Notification" entry was removed from this menu in
 > [PR #1948](https://github.com/wekan/wekan/pull/1948), so Edit Notification is only
@@ -15,18 +15,18 @@ Click your username/avatar in the top right corner to open your member settings.
 
 ### Edit Notification
 
-![Wekan edit notification screenshot](../screenshot-member-settings-edit-notification.png)
+![Wekan edit notification screenshot](../Login/screenshot-member-settings-edit-notification.png)
 
 ### Change settings (for example hide system messages)
 
-![Wekan hide system messages screenshot](../screenshot-member-settings-hide-system-messages.png)
+![Wekan hide system messages screenshot](../Login/screenshot-member-settings-hide-system-messages.png)
 
 ## Board members
 
 Click a member's initials or avatar to filter the board by that member, or to open
 the member's permission settings.
 
-![Wekan member filter screenshot](../screenshot-member-filter.png)
+![Wekan member filter screenshot](../Filter/screenshot-member-filter.png)
 
 ## Permissions: the board roles
 
@@ -47,7 +47,7 @@ nine, and the short version is:
 comparison table, column by column, written from the code — including the places
 where a role does not yet do what its name says.
 
-![Wekan permissions screenshot](../screenshot-member-comment-only.png)
+![Wekan permissions screenshot](../Login/screenshot-member-comment-only.png)
 
 ## Share a board with an email Domain
 
@@ -78,6 +78,6 @@ kind with the inviter or with an active board member (site admins bypass this). 
 
 ## Related
 
-- [Adding Users](../../Login/Adding-users.md)
-- [Admin: Impersonate user](../../Login/Impersonate-user.md)
+- [Adding Users](../Login/Adding-users.md)
+- [Admin: Impersonate user](../Login/Impersonate-user.md)
 - [Admin Panel](../Admin-Panel/Admin-Panel.md)

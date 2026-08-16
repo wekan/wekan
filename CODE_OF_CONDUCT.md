@@ -10,7 +10,7 @@ For all code at WeKan GitHub Organization https://github.com/wekan
 - All known vulnerabilities have been fixed at newest WeKan, please upgrade https://wekan.fi/upgrade/
 - There is no known backdoors. If WeKan is installed by someone else, first registered user is Admin and has Admin Panel access.
 - Maintainer of WeKan has no access to someone elses installed WeKan.
-- For someone elses installed WeKan, see [Forgot Password](https://github.com/wekan/wekan/blob/main/docs/Login/Forgot-Password.md)
+- For someone elses installed WeKan, see [Forgot Password](https://github.com/wekan/wekan/blob/main/docs/Features/Login/Forgot-Password.md)
 
 # Reporting about violations or something else
 

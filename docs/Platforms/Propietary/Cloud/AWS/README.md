@@ -74,7 +74,7 @@ sudo systemctl start nginx
 sudo systemctl enable nginx
 ```
 
-[Example nginx config](../../../../Webserver/Nginx.md)
+[Example nginx config](../../../Webserver/Nginx.md)
 
 Test nginx config with:
 
@@ -98,7 +98,7 @@ For example Wekan v0.70, use in docker-compose.yml file:
 image: quay.io/wekan/wekan:v0.70
 Only use release version tags, because latest tag can be broken sometimes.
 
-12) For email, in AWS SES add email address to domain, verify SPF and DKIM with Route53 wizard if you have domain at Route53 as I recommend. At SES create new SMTP credentials and [add them to docker-compose.yml SMTP settings](../../../../Email/Troubleshooting-Mail.md)
+12) For email, in AWS SES add email address to domain, verify SPF and DKIM with Route53 wizard if you have domain at Route53 as I recommend. At SES create new SMTP credentials and [add them to docker-compose.yml SMTP settings](../../../../Features/Email/Troubleshooting-Mail.md)
 
 13) Start wekan and mongodb database containers with command:
 

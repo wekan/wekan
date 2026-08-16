@@ -163,7 +163,7 @@ top -p $(pgrep node)
 
 - [Oplog-Configuration.md](Oplog-Configuration.md) - Full setup guide
 - [AWS.md](../../Platforms/Propietary/Cloud/AWS) - AWS oplog configuration
-- [LDAP.md](../../Login/LDAP.md) - LDAP with oplog setup
+- [LDAP.md](../../Features/Login/LDAP.md) - LDAP with oplog setup
 - [ToroDB-PostgreSQL](../ToroDB/PostgreSQL/docker-compose.yml) - ToroDB oplog config
 
 ## Files Modified This Session

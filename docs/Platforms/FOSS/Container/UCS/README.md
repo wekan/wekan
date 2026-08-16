@@ -40,7 +40,7 @@ UCS WeKan v5.71 and newer is using WeKan Gantt GPL version. [Source](https://git
 
 ### 3) Mail Settings
 
-[Troubleshooting Mail](../../../../Email/Troubleshooting-Mail.md)
+[Troubleshooting Mail](../../../../Features/Email/Troubleshooting-Mail.md)
 
 ![ucs-mail-3](https://user-images.githubusercontent.com/15545/78279359-129e7800-7520-11ea-9e22-a911826285ba.png)
 

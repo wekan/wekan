@@ -143,7 +143,7 @@ the table as a softer word.
   flags individually, so it is the one way to produce a combination the UI cannot
   (see gap 3).
 - **LDAP / OIDC** — group sync can set board membership; see
-  [LDAP](../../Login/LDAP.md).
+  [LDAP](../Login/LDAP.md).
 
 ## Keeping this page honest
 

@@ -145,7 +145,7 @@ SMTP_LISTEN_PORT=25
 ```
 Some related info at:
 
-[Caddy Webserver Config](../../../../Webserver/Caddy.md)
+[Caddy Webserver Config](../../../Webserver/Caddy.md)
 
 I also had to wait that Origin certificate becomes active.
 
@@ -198,7 +198,7 @@ Install to your own server. Automatic updates, tested before release. Sandstorm 
 - Import from Trello does not import attachments, because Sandstorm-compatible HTTP-access from Wekan to outside of Wekan grain sandbox is not implemented yet 
 - [Copying/Moving card to another board](https://github.com/wekan/wekan/issues/1729).
 - [REST API](https://github.com/wekan/wekan/issues/1279) 
-- [Outgoing Webhooks](../../../../Webhooks/Discord/Outgoing-Webhook-to-Discord.md)
+- [Outgoing Webhooks](../../../../Features/Webhooks/Discord/Outgoing-Webhook-to-Discord.md)
 - [Email from Wekan](https://github.com/wekan/wekan/issues/2208#issuecomment-469290305)
 
 ## Demo

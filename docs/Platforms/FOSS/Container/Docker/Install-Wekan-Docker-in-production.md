@@ -22,13 +22,13 @@ https://github.com/wekan/wekan-mongodb
 
 ## 3. Email
 
-[Troubleshooting Email](../../../../Email/Troubleshooting-Mail.md)
+[Troubleshooting Email](../../../../Features/Email/Troubleshooting-Mail.md)
 
 ## 4. Configure webserver as a front-end proxy
 
-* [Caddy](../../../../Webserver/Caddy.md)
-* [Nginx](../../../../Webserver/Nginx.md)
-* [Apache](../../../../Webserver/Apache.md)
+* [Caddy](../../../Webserver/Caddy.md)
+* [Nginx](../../../Webserver/Nginx.md)
+* [Apache](../../../Webserver/Apache.md)
 
 ## 5. Launch Wekan
 

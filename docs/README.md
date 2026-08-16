@@ -28,8 +28,8 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * WeKan Features: [Deep Dive Into WeKan](Design/Deep-Dive-Into-WeKan.md) (WeKan now runs on Meteor 3.x and Node.js 24.x)
 * [WeKan Roadmap kanban board](https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license) - board at Wekan demo
 * Future WeKan prototypes: [Multiverse WeKan Roadmap](Design/Multiverse/WeKan-Multiverse-Roadmap.md)
-* [Change Language](Translations/Change-Language.md)
-* [Forgot Password](Login/Forgot-Password.md)
+* [Change Language](./Features/Translations/Change-Language.md)
+* [Forgot Password](./Features/Login/Forgot-Password.md)
 * [WeKan Design Principles](Design/Design-Principles.md)
 * [FAQ](FAQ/FAQ.md)
 * [IRC FAQ](FAQ/IRC-FAQ.md) - answers to questions asked at IRC
@@ -48,14 +48,14 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 
 * [Allow private boards only: Disable Public Boards](Features/Admin-Panel/Settings/Visibility.md)
 * [Security Disclosure and details of Security in Wekan](../SECURITY.md)
-* [Password Hashing](Login/Password-Hashing.md)
+* [Password Hashing](./Features/Login/Password-Hashing.md)
 
 # <a name="Scaling"></a>Scaling
 
-* [Cron: Hourly restart WeKan, because of memory leaks](Webserver/Cron.md)
+* [Cron: Hourly restart WeKan, because of memory leaks](./Platforms/Webserver/Cron.md)
 * [Maybe: Add more RAM to Node.js to prevent crash](https://github.com/wekan/wekan/issues/3585)
 * [Clustering AWS etc](Platforms/Propietary/Cloud/AWS)
-* [Scaling](Webserver/Scaling.md)
+* [Scaling](./Platforms/Webserver/Scaling.md)
 * [Multitenancy: one server per tenant, and the alternatives](Design/Multitenancy/Multitenancy.md)
 * Kubernetes
   * Helm Chart https://artifacthub.io/packages/helm/wekan/wekan
@@ -66,17 +66,17 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 
 # <a name="Migrating"></a>Migrating
 
-* [From Previous Export, paste big WeKan JSON](ImportExport/From-Previous-Export.md)
-* [Progress: Import/Export/Sync](ImportExport/Sync.md)
-* [From CSV/TSV](ImportExport/CSV/CSV.md)
-* [From Excel (.xlsx)](ImportExport/Excel-and-VBA.md)
-* [From Trello](ImportExport/trello/Migrating-from-Trello.md)
-* [From Jira](ImportExport/Jira.md)
-* [From / To Kanboard](ImportExport/Kanboard.md)
-* [From / To NextCloud Deck, OpenProject, GitHub, GitLab, Gitea, Forgejo](ImportExport/External-Tools.md)
-* [From Asana](ImportExport/asana/Asana.md)
-* [From Zenkit](ImportExport/ZenKit.md)
-* [From old Wekan manually](ImportExport/Migrating-from-old-Wekan-manually.md)
+* [From Previous Export, paste big WeKan JSON](./Features/ImportExport/WeKan/From-Previous-Export.md)
+* [Progress: Import/Export/Sync](./Features/ImportExport/Sync.md)
+* [From CSV/TSV](./Features/ImportExport/CSV/CSV.md)
+* [From Excel (.xlsx)](./Features/ImportExport/Excel/Excel-and-VBA.md)
+* [From Trello](./Features/ImportExport/Trello/trello/Migrating-from-Trello.md)
+* [From Jira](./Features/ImportExport/Jira/Jira.md)
+* [From / To Kanboard](./Features/ImportExport/Kanboard/Kanboard.md)
+* [From / To NextCloud Deck, OpenProject, GitHub, GitLab, Gitea, Forgejo](./Features/ImportExport/External-Tools.md)
+* [From Asana](./Features/ImportExport/Asana/Asana.md)
+* [From Zenkit](./Features/ImportExport/ZenKit/ZenKit.md)
+* [From old Wekan manually](./Features/ImportExport/WeKan/Migrating-from-old-Wekan-manually.md)
 
 # Backup
 
@@ -92,9 +92,9 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 
 # <a name="Themes"></a> Themes
 
-* [Themes](Theme/Custom-CSS-themes.md)
-* [Dark Mode](Theme/Dark-Mode.md)
-* [Converting Meteor Stylus to CSS](Theme/Converting-Meteor-Stylus-to-CSS.md)
+* [Themes](./Features/Theme/Custom-CSS-themes.md)
+* [Dark Mode](./Features/Theme/Dark-Mode.md)
+* [Converting Meteor Stylus to CSS](./Features/Theme/Converting-Meteor-Stylus-to-CSS.md)
 
 # <a name="MarkdownSyntax"></a>Markdown Syntax
 
@@ -105,26 +105,26 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 
 # <a name="LoginAuth"></a>Login Auth
 
-* [Automatic login](Login/autologin.md)
-* [Disable Password Login](Login/Disable-Password-Login.md)
-* [Forgot Password](Login/Forgot-Password.md)
-* [Admin: Impersonate user](Login/Impersonate-user.md)
-* [Adding Users](Login/Adding-users.md)
+* [Automatic login](./Features/Login/autologin.md)
+* [Disable Password Login](./Features/Login/Disable-Password-Login.md)
+* [Forgot Password](./Features/Login/Forgot-Password.md)
+* [Admin: Impersonate user](./Features/Login/Impersonate-user.md)
+* [Adding Users](./Features/Login/Adding-users.md)
 * [Active users Presence](https://github.com/wekan/wekan/issues/3734)
-* [Accounts Lockout: Brute force login protection](Login/Accounts-Lockout.md)
-* [LDAP](Login/LDAP.md)
-* [LDAP AD Simple Auth](Login/LDAP-AD-Simple-Auth.md)
-* [Keycloak](Login/Keycloak/Keycloak.md)
-* [Google login](Login/Google-login.md)
-* [Azure](Login/Azure/Azure.md)
-* [OAuth2](Login/OAuth2.md), Auth0, GitLab, RocketChat
-* [Oracle OIM on premise using OAuth2](Login/Oracle-OIM.md)
-* [ADFS 4.0 using OAuth2 and OpenID](Login/ADFS.md)
-* [Azure AD B2C using OAuth2](Login/B2C.md)
-* [Nextcloud](Login/Nextcloud.md)
-* [CAS](Login/CAS.md) Please test
-* [SAML](Login/SAML.md) Please test
-* [Zitadel](Login/Zitadel.md)
+* [Accounts Lockout: Brute force login protection](./Features/Login/Accounts-Lockout.md)
+* [LDAP](./Features/Login/LDAP.md)
+* [LDAP AD Simple Auth](./Features/Login/LDAP-AD-Simple-Auth.md)
+* [Keycloak](./Features/Login/Keycloak/Keycloak.md)
+* [Google login](./Features/Login/Google-login.md)
+* [Azure](./Features/Login/Azure/Azure.md)
+* [OAuth2](./Features/Login/OAuth2.md), Auth0, GitLab, RocketChat
+* [Oracle OIM on premise using OAuth2](./Features/Login/Oracle-OIM.md)
+* [ADFS 4.0 using OAuth2 and OpenID](./Features/Login/ADFS.md)
+* [Azure AD B2C using OAuth2](./Features/Login/B2C.md)
+* [Nextcloud](./Features/Login/Nextcloud.md)
+* [CAS](./Features/Login/CAS.md) Please test
+* [SAML](./Features/Login/SAML.md) Please test
+* [Zitadel](./Features/Login/Zitadel.md)
 
 # <a name="Logs"></a>Metrics, Logs, Stats
 
@@ -137,16 +137,16 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 
 * [IFTTT](Features/Automation/IFTTT/IFTTT.md)
 * [n8n Wekan docs](https://docs.n8n.io/nodes/n8n-nodes-base.wekan/#example-usage) - [n8n GitHub](https://github.com/n8n-io/n8n)
-* [Integrations](ImportExport/Integrations.md)
+* [Integrations](./Features/ImportExport/Integrations/Integrations.md)
 * [Gogs](https://github.com/wekan/wekan-gogs)
 
 # <a name="Time"></a>Time
 
-* [Time Tracking](Date/Time-Tracking.md)
+* [Time Tracking](./Features/Date/Time-Tracking.md)
 * [Gantt Chart](Features/Reports/Gantt.md)
-* [Due Date](Date/Due-Date.md)
-* [Day of week start](Date/Day-of-week-start.md)
-* [Calendar](Date/Calendar.md)
+* [Due Date](./Features/Date/Due-Date.md)
+* [Day of week start](./Features/Date/Day-of-week-start.md)
+* [Calendar](./Features/Date/Calendar.md)
 
 # <a name="Features"></a>Features
 
@@ -164,15 +164,15 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Admin Panel](Features/Admin-Panel/Admin-Panel.md) — every pane, one page per menu entry
 * [Multiline](Features/Editor/Multiline.md)
 * [Linked Cards](Features/Cards/Linked-Cards.md)
-* [Drag Drop](DragDrop/Drag-Drop.md) on Mobile and Desktop
+* [Drag Drop](./Features/DragDrop/Drag-Drop.md) on Mobile and Desktop
 * [Python based features](Features/Editor/Python.md)
 * [Burndown and Velocity Chart](Features/Reports/Burndown-and-Velocity-Chart.md)
 * [Wait Spinners](Features/Troubleshooting/Wait-Spinners.md)
-* [Translations](Translations/Translations.md)
-* [Customize Translations](Translations/Customize-Translations.md)
+* [Translations](./Features/Translations/Translations.md)
+* [Customize Translations](./Features/Translations/Customize-Translations.md)
 * [Default Language for All Users](https://github.com/wekan/wekan/issues/3927)
 * [Planning Poker](Features/Cards/Planning-Poker.md)
-* [Scaling](Webserver/Scaling.md)
+* [Scaling](./Platforms/Webserver/Scaling.md)
 * [Custom Logo](Features/Admin-Panel/Settings/Visibility.md)
 * [Subtasks](Features/Cards/Subtasks.md)
 * [Templates](Features/Board/Templates.md)
@@ -191,24 +191,24 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 
 # <a name="Email"></a>Email
 
-* [Email](Email/Troubleshooting-Mail.md)
+* [Email](./Features/Email/Troubleshooting-Mail.md)
 
 # <a name="Settings"></a>Required Settings
 
 * [Requirements](FAQ/Requirements.md)
 * [Ports, hostsfile, how Internet works](https://gitub.com/wekan/wekan/issues/2896)
-* [ROOT_URL Settings](Webserver/Settings.md)
+* [ROOT_URL Settings](./Platforms/Webserver/Settings.md)
 
 # <a name="Webservers"></a>Webservers
 
-* [Caddy](Webserver/Caddy.md)
-* [Nginx](Webserver/Nginx.md)
-* [Apache](Webserver/Apache.md)
+* [Caddy](./Platforms/Webserver/Caddy.md)
+* [Nginx](./Platforms/Webserver/Nginx.md)
+* [Apache](./Platforms/Webserver/Apache.md)
 * [OpenLiteSpeed](https://github.com/wekan/wekan/issues/3334#issuecomment-723651328)
-* [Local self signed TLS](Webserver/Local-self-signed-TLS.md)
-* [Let's Encrypt and Google Auth](Webserver/Lets-Encrypt-and-Google-Auth.md)
+* [Local self signed TLS](./Platforms/Webserver/Local-self-signed-TLS.md)
+* [Let's Encrypt and Google Auth](./Platforms/Webserver/Lets-Encrypt-and-Google-Auth.md)
 * [TLS with Node.js](https://github.com/wekan/wekan/issues/916)
-* [Traefik and self-signed SSL certs](Webserver/Traefik-and-self-signed-SSL-certs.md)
+* [Traefik and self-signed SSL certs](./Platforms/Webserver/Traefik-and-self-signed-SSL-certs.md)
 
 # <a name="API"></a>REST API Docs
 
@@ -244,7 +244,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Python client to REST API](https://github.com/wekan/wekan-python-api-client)
 * [Go client to REST API](https://github.com/wekan/wego)
 * [Wekan Sandstorm cards to CSV using Python](Platforms/FOSS/Container/Sandstorm/Wekan-Sandstorm-cards-to-CSV-using-Python.md)
-* [Excel and VBA](ImportExport/Excel-and-VBA.md)
+* [Excel and VBA](./Features/ImportExport/Excel/Excel-and-VBA.md)
 
 # <a name="Webhooks"></a>Webhooks
 
@@ -253,13 +253,13 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Global Webhook](https://github.com/wekan/wekan/pull/2665)
 * PHP Webhook receiver to WeKan API Python https://github.com/wekan/webhook/blob/main/public/index.php#L46
 * [Limiting Webhook data](https://github.com/wekan/wekan/issues/2830)
-* [Receiving Webhooks](Webhooks/Receiving-Webhooks.md)
-* [Java Webhooks](Webhooks/Java.md)
-* [Outgoing Webhook to Discord/Slack/RocketChat/Riot](Webhooks/Discord/Outgoing-Webhook-to-Discord.md)
+* [Receiving Webhooks](./Features/Webhooks/Receiving-Webhooks.md)
+* [Java Webhooks](./Features/Webhooks/Java.md)
+* [Outgoing Webhook to Discord/Slack/RocketChat/Riot](./Features/Webhooks/Discord/Outgoing-Webhook-to-Discord.md)
 * [Outgoing Webhook to NodeRed](https://github.com/wekan/wekan/issues/2017)
 * [Outgoing Webhook to PowerShell](https://github.com/wekan/wekan/issues/2518)
-* [Outgoing Webhooks, CA and Let's Encrypt](Webhooks/WebHook-And-CA.md)
-* [Outgoing Webhooks Data](Webhooks/Webhook-data.md)
+* [Outgoing Webhooks, CA and Let's Encrypt](./Features/Webhooks/WebHook-And-CA.md)
+* [Outgoing Webhooks Data](./Features/Webhooks/Webhook-data.md)
 * Outgoing Webhooks [Original Pull Request](https://github.com/wekan/wekan/pull/1119), [multiple Webhooks](https://github.com/wekan/wekan/pull/1199), [more parameters and response order](https://github.com/wekan/wekan/pull/1263)
 
 # <a name="Development"></a>Development

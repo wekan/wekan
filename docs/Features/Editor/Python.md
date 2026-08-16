@@ -1,5 +1,5 @@
 Some Python etc code in WeKan, that is not yet added directly to WeKan:
-- [LDAP sync script, that also correctly removes users](../../Login/ldap-sync/ldap-sync.py)
+- [LDAP sync script, that also correctly removes users](../Login/ldap-sync/ldap-sync.py)
 - [Email notifications to AWS SES](https://github.com/wekan/wekan/issues/3543#issuecomment-1199897164)
 - [Prometheus Exporter](https://github.com/wekan/wekan-prometheus-exporter)
 - [Burndown Chart](../Reports/Burndown-and-Velocity-Chart.md)
@@ -12,4 +12,4 @@ Some Python etc code in WeKan, that is not yet added directly to WeKan:
 - [Logstash and ElasticSearch](https://github.com/wekan/wekan-logstash)
 - iCal server in [Python](https://github.com/wekan/wekan-ical-server)
 - [Sandstorm CSV related Python code](../../Platforms/FOSS/Container/Sandstorm/Wekan-Sandstorm-cards-to-CSV-using-Python.md)
-- [Trello API test code](../../ImportExport/trello)
+- [Trello API test code](../ImportExport/Trello/trello)

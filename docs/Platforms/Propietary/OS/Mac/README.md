@@ -91,7 +91,7 @@ export ROOT_URL=http://localhost:2000
 export PORT=2000
 export MONGO_URL=mongodb://127.0.0.1:27017/wekan
 ```
-[More info about ROOT_URL](../../../../Webserver/Settings.md)
+[More info about ROOT_URL](../../../Webserver/Settings.md)
 
 8. Edit `start-wekan.sh` so that it starts in bundle directory command `node main.js`
 

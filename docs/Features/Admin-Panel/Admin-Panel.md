@@ -88,6 +88,6 @@ Renames to know when following an older link: **Layout** is
 - [Login / Authentication methods](../../README.md#LoginAuth) — LDAP, OAuth2,
   SAML, Keycloak, Google, Azure, and more.
 - [Members and Permissions](../Members/Members.md)
-- [E-mail troubleshooting](../../Email/Troubleshooting-Mail.md)
+- [E-mail troubleshooting](../Email/Troubleshooting-Mail.md)
 - [Comment replies and editing restriction](../Cards/Comment-Replies-And-Editing-Restriction.md)
   — a board setting rather than an Admin Panel one, but often looked for here.

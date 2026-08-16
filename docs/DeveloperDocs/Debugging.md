@@ -29,12 +29,12 @@ meteor run --exclude-archs web.browser.legacy,web.cordova --port 4000 --extra-pa
   - https://github.com/RocketChat/Rocket.Chat/issues
   - https://github.com/RocketChat/Rocket.Chat/issues?q=is%3Aissue+is%3Aclosed
 6. If you have some webserver providing SSL/TLS, check that you have websockets enabled:
-  - [Caddy Webserver Config](../Webserver/Caddy.md)
-  - [Nginx Webserver Config](../Webserver/Nginx.md)
-  - [Apache](../Webserver/Apache.md)
+  - [Caddy Webserver Config](../Platforms/Webserver/Caddy.md)
+  - [Nginx Webserver Config](../Platforms/Webserver/Nginx.md)
+  - [Apache](../Platforms/Webserver/Apache.md)
   - OpenLiteSpeed https://github.com/wekan/wekan/issues/3334#issuecomment-723651328
-  - [Local self signed TLS](../Webserver/Local-self-signed-TLS.md)
-  - [Traefik and self signed SSL certs](../Webserver/Traefik-and-self-signed-SSL-certs.md)
+  - [Local self signed TLS](../Platforms/Webserver/Local-self-signed-TLS.md)
+  - [Traefik and self signed SSL certs](../Platforms/Webserver/Traefik-and-self-signed-SSL-certs.md)
 
 ## OLD: TODO
 

@@ -13,8 +13,8 @@ snap set wekan root-url='http://YOUR-IP-ADDRESS'
 snap set wekan port='80'
 ```
 
-4. For additional server options, see [Settings](../../../../Webserver/Settings.md)
+4. For additional server options, see [Settings](../../../Webserver/Settings.md)
 
-5. For adding users, see [Adding users](../../../../Login/Adding-users.md)
+5. For adding users, see [Adding users](../../../../Features/Login/Adding-users.md)
 
 6. For other login option, see right menu at [Wekan documentation](../../../../README.md)

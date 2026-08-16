@@ -36,14 +36,14 @@ is documented yet — contributions are welcome.
 - [Linked Cards](Cards/Linked-Cards.md)
 - [Markdown](Editor/Markdown/Markdown.md), [Emoji](Editor/Emoji.md), [Multiline](Editor/Multiline.md),
   [Numbered text](Editor/Numbered-text.md), [LaTeX](Editor/LaTeX.md)
-- [Drag and Drop on Mobile and Desktop](../DragDrop/Drag-Drop.md)
+- [Drag and Drop on Mobile and Desktop](./DragDrop/Drag-Drop.md)
 - [Right-to-Left (RTL) UI](Editor/RTL/RTL.md)
 
 ## Planning and time
 
-- [Due Date](../Date/Due-Date.md)
-- [Time Tracking](../Date/Time-Tracking.md)
-- [Calendar](../Date/Calendar.md)
+- [Due Date](./Date/Due-Date.md)
+- [Time Tracking](./Date/Time-Tracking.md)
+- [Calendar](./Date/Calendar.md)
 - [Gantt Chart](Reports/Gantt.md)
 - [Planning Poker](Cards/Planning-Poker.md)
 - [Burndown and Velocity Chart](Reports/Burndown-and-Velocity-Chart.md)
@@ -61,10 +61,10 @@ is documented yet — contributions are welcome.
 
 ## Import and Export
 
-- [Import / Export / Sync](../ImportExport/Sync.md)
-- [From Trello](../ImportExport/trello/Migrating-from-Trello.md),
-  [Jira](../ImportExport/Jira.md), [Asana](../ImportExport/asana/Asana.md),
-  [Zenkit](../ImportExport/ZenKit.md), [CSV/TSV](../ImportExport/CSV/CSV.md)
+- [Import / Export / Sync](./ImportExport/Sync.md)
+- [From Trello](./ImportExport/Trello/trello/Migrating-from-Trello.md),
+  [Jira](./ImportExport/Jira/Jira.md), [Asana](./ImportExport/Asana/Asana.md),
+  [Zenkit](./ImportExport/ZenKit/ZenKit.md), [CSV/TSV](./ImportExport/CSV/CSV.md)
 - [Export board](https://github.com/wekan/wekan/pull/1059). If the Export menu is
   not visible, [set yourself as board admin](https://github.com/wekan/wekan/issues/1060).
 - Working with big boards: [JSON tools, copying files to clipboard](https://github.com/wekan/wekan/issues/610#issuecomment-310862951)
@@ -72,20 +72,20 @@ is documented yet — contributions are welcome.
 ## Integrations
 
 - [REST API](../API/REST-API.md) and [API docs](https://wekan.fi/docs/)
-- [Webhooks](../Webhooks/Receiving-Webhooks.md) — per-board events; configure at the
+- [Webhooks](./Webhooks/Receiving-Webhooks.md) — per-board events; configure at the
   board right sidebar / Board Settings / Webhooks. See also
-  [Outgoing Webhook to Discord/Slack/Rocket.Chat](../Webhooks/Discord/Outgoing-Webhook-to-Discord.md).
+  [Outgoing Webhook to Discord/Slack/Rocket.Chat](./Webhooks/Discord/Outgoing-Webhook-to-Discord.md).
 - [IFTTT](Automation/IFTTT/IFTTT.md)
-- [Integrations](../ImportExport/Integrations.md)
+- [Integrations](./ImportExport/Integrations/Integrations.md)
 
 ## Translations
 
 - [Translate WeKan at Transifex](https://app.transifex.com/wekan/)
-- [Translations](../Translations/Translations.md),
-  [Customize Translations](../Translations/Customize-Translations.md),
-  [Change Language](../Translations/Change-Language.md)
+- [Translations](./Translations/Translations.md),
+  [Customize Translations](./Translations/Customize-Translations.md),
+  [Change Language](./Translations/Change-Language.md)
 
-![Wekan translations screenshot](screenshot-change-language.png)
+![Wekan translations screenshot](./Translations/screenshot-change-language.png)
 
 ## Versions of Meteor and Node
 
@@ -108,4 +108,4 @@ are now implemented (see the topic pages above).
 ## More
 
 - [Platforms](../Platforms)
-- [Integrations](../ImportExport/Integrations.md)
+- [Integrations](./ImportExport/Integrations/Integrations.md)

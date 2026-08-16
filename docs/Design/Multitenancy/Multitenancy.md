@@ -384,7 +384,7 @@ host.
 **The site theme** is the one branding field an Organization's own admin sets from
 the Admin Panel rather than from the org row: Admin Panel / Settings / Visibility /
 **Change color**, the same shared picker as Board Settings and Member Settings
-([Change color](../Page/Theme.md)). The site admin's pane says under the title that
+([Change color](../../Features/Page/Theme.md)). The site admin's pane says under the title that
 their colour is the one every Organization without one of its own inherits; an
 Organization's admin sees only that section of the pane, and their colour reaches
 only their own hosts. Where the write lands is decided server-side by

@@ -20,11 +20,11 @@ is selected.
 ## Changing the language
 
 Use the language selector on the login page, or your member settings, to switch
-languages. See [Change Language](../../../Translations/Change-Language.md).
+languages. See [Change Language](../../Translations/Change-Language.md).
 
 ## Related
 
 - [Accessibility](../../Accessibility/Accessibility.md)
-- [Translations](../../../Translations/Translations.md)
+- [Translations](../../Translations/Translations.md)
 - RTL tests: `tests/rtl.test.js` (fast, server-less) and the Playwright
   `tests/playwright/specs/18-rtl-layout.e2e.js`.

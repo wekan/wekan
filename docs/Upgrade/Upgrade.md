@@ -10,14 +10,13 @@
 
 - [Backup/Restore Snap/Docker](../Backup/Backup.md)
   - also copy files at `/var/snap/wekan/common/files/` to environment variable `WRITABLE_PATH` files subdirectory
-  - If you use WeKan included Caddy v1, also copy `/var/snap/wekan/common/files/Caddyfile`, but recommended is to use [newer webserver like Caddy 2 etc](../Webserver)
-  - About Caddy: Caddy v1 Caddyfile is NOT compatible with Caddy v2 Caddyfile !! It is different syntax. Look at Caddy v2 syntax at [Caddy docs](../Webserver/Caddy.md) or [MultiSnap docs](../Platforms/FOSS/Container/Snap/Many-Snaps-on-LXC.md)
+  - If you use WeKan included Caddy v1, also copy `/var/snap/wekan/common/files/Caddyfile`, but recommended is to use [newer webserver like Caddy 2 etc](../Platforms/Webserver)
+  - About Caddy: Caddy v1 Caddyfile is NOT compatible with Caddy v2 Caddyfile !! It is different syntax. Look at Caddy v2 syntax at [Caddy docs](../Platforms/Webserver/Caddy.md) or [MultiSnap docs](../Platforms/FOSS/Container/Snap/Many-Snaps-on-LXC.md)
 - [Automatically updating multi Snap](../Platforms/FOSS/Container/Snap/Many-Snaps-on-LXC.md)
   - at multisnap also copy other snapnames like t `/var/snap/wekan_OTHERSNAPNAME/common/files/` to environment variable `WRITABLE_PATH` files subdirectory
 - [Migrate Sandstorm](../Platforms/FOSS/Container/Sandstorm/Export-from-Wekan-Sandstorm-grain-.zip-file.md) that also has [exporting to JSON textfiles](../Platforms/FOSS/Container/Sandstorm/Export-from-Wekan-Sandstorm-grain-.zip-file.md#11b-dump-database-to-json-text-files)
 - [Migrate text to SQLite and attachments to separate files](https://github.com/wekan/minio-metadata) that will be later used with future WeKan versions like [WeKan Studio](https://github.com/wekan/wekanstudio) or [wami](https://github.com/wekan/wami)
 - [Trello Attachments Downloader](https://github.com/wekan/trello-attachments-downloader), also save JSON of each board. There will later be import to WeKan.
-- [ImportExport](../ImportExport), some may work, some may need improvements. These will later be features directly at WeKan.
-
+- [ImportExport](../Features/ImportExport), some may work, some may need improvements. These will later be features directly at WeKan.
 
 

@@ -58,7 +58,7 @@ Layer 2 is one setting with two possible homes, and the server picks the home
 
 The client never decides that. It calls `getAdminThemeColor` / `setAdminThemeColor`,
 and the server answers for whoever is asking — see
-[Multitenancy](../Multitenancy/Multitenancy.md) (D.9) for how an Organization's
+[Multitenancy](../../Design/Multitenancy/Multitenancy.md) (D.9) for how an Organization's
 value gets published in the instance's place.
 
 ## Places that use this design

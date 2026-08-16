@@ -62,4 +62,4 @@ Databases and other settings live under:
 /snap/wekan/current is read only mount of squashfs wekan's image.
 ```
 
-[Troubleshooting Email](../../../../Email/Troubleshooting-Mail.md)
+[Troubleshooting Email](../../../../Features/Email/Troubleshooting-Mail.md)

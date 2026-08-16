@@ -73,32 +73,32 @@ You can drag and drop images onto a card, or paste images with **Ctrl-V**.
 
 ### 1) First attachment: open the card's 3-lines "hamburger" menu / Edit Attachments
 
-![Add attachment step 1](../screenshot-drag1.png)
+![Add attachment step 1](../Login/screenshot-drag1.png)
 
 ### 2) Select: Clipboard or drag and drop
 
-![Add attachment step 2](../screenshot-drag4.png)
+![Add attachment step 2](../DragDrop/screenshot-drag4.png)
 
 ### 3) Drag and drop the image, or press Ctrl-V
 
-![Add attachment step 3](../screenshot-drag2.png)
+![Add attachment step 3](../DragDrop/screenshot-drag2.png)
 
 ### 4) Add more images from the "Add Attachment" button near the first attachment
 
-![Add attachment step 4](../screenshot-drag3.png)
+![Add attachment step 4](../DragDrop/screenshot-drag3.png)
 
 ## Multi-selection
 
 Use multi-selection to checkmark several cards, then drag and drop all of the
 selected cards to another list at once.
 
-![Wekan multi-selection screenshot](../screenshot-multi-selection.png)
+![Wekan multi-selection screenshot](../DragDrop/screenshot-multi-selection.png)
 
 ## Filtered views
 
 Filter the board by member, label, due date, and more to focus on a subset of cards.
 
-![Wekan filter screenshot](../screenshot-filter.png)
+![Wekan filter screenshot](../Filter/screenshot-filter.png)
 
 ## Related
 
@@ -111,5 +111,5 @@ Filter the board by member, label, due date, and more to focus on a subset of ca
 - [Subtasks](Subtasks.md)
 - [Templates](../Board/Templates.md)
 - [Markdown](../Editor/Markdown/Markdown.md), [Emoji](../Editor/Emoji.md), [Multiline](../Editor/Multiline.md), [Numbered text](../Editor/Numbered-text.md), [LaTeX](../Editor/LaTeX.md)
-- [Due Date](../../Date/Due-Date.md), [Time Tracking](../../Date/Time-Tracking.md)
-- [Drag and Drop on Mobile and Desktop](../../DragDrop/Drag-Drop.md)
+- [Due Date](../Date/Due-Date.md), [Time Tracking](../Date/Time-Tracking.md)
+- [Drag and Drop on Mobile and Desktop](../DragDrop/Drag-Drop.md)

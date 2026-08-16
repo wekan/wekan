@@ -7,5 +7,5 @@ Each webhook has a URL, a type, and the token used to sign the request.
 
 ## Related
 
-- [Outgoing webhooks](../../../Webhooks/) — the payload, the types, and per-board
+- [Outgoing webhooks](../../Webhooks/) — the payload, the types, and per-board
   webhooks.

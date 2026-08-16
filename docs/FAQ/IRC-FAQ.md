@@ -312,7 +312,7 @@ Without that info it's kind of hard to debug.
 You could try export that board to Wekan JSON, and then import that Wekan JSON.
 
 I do have server at AWS LightSail that has 4 GB RAM and 60 GB SSD,
-running [Snap versions of Wekan and RocketChat installed this way](../Login/OAuth2.md)
+running [Snap versions of Wekan and RocketChat installed this way](../Features/Login/OAuth2.md)
 on same server, and it does not crash.
 
 BTW, I did yesterday release [Wekan v2.95 with these new features](../../CHANGELOG.md#v295-2019-07-01-wekan-release).
@@ -405,7 +405,7 @@ from one card to another.
 
 ### Q: LDAP?
 
-A: [LDAP for Standalone is now available](../Login/LDAP.md).
+A: [LDAP for Standalone is now available](../Features/Login/LDAP.md).
 
 ```
 [17:56:10] <regdude> Hi! I'm trying to setup Wekan with LDAP,
@@ -442,7 +442,7 @@ A: Yes. Click right top your username / My Cards.
 [20:49:35] <Rojola> but, in reality I can not access it
 ```
 
-A: See 4) at [Adding users](../Login/Adding-users.md) . This is Stanalone Wekan (Snap, Docker, Source) email setting. This has nothing to do with Sandstorm.
+A: See 4) at [Adding users](../Features/Login/Adding-users.md) . This is Stanalone Wekan (Snap, Docker, Source) email setting. This has nothing to do with Sandstorm.
 
 ***
 
@@ -476,7 +476,7 @@ from Snap on Ubuntu 18.04.
 [17:38:51] <k_sze> Like, I get 502 Bad Gateway from my nginx reverse proxy
 ```
 
-A: Did you set your domain SPF records (as TXT records) and DKIM records on your domain that your SMTP server uses? Problem is not in Wekan, it's your SMTP server. For example AWS SES works. Also see [Troubleshooting Email](../Email/Troubleshooting-Mail.md).
+A: Did you set your domain SPF records (as TXT records) and DKIM records on your domain that your SMTP server uses? Problem is not in Wekan, it's your SMTP server. For example AWS SES works. Also see [Troubleshooting Email](../Features/Email/Troubleshooting-Mail.md).
 
 ***
 
@@ -487,7 +487,7 @@ other applications
 [03:32:50] <ajay> i am want to integrate it in QGIS for task management
 [03:33:01] <ajay> *i want
 ```
-A: Use [Wekan REST API](../API/REST-API.md). For example, see [Wekan Gogs integration](https://github.com/wekan/wekan-gogs). You can also use [Outgoing Webhooks](../Webhooks/Discord/Outgoing-Webhook-to-Discord.md) to send data to some Incoming Webhook. There is also [IFTTT Rules](../Features/Automation/IFTTT/IFTTT.md) for some automations.
+A: Use [Wekan REST API](../API/REST-API.md). For example, see [Wekan Gogs integration](https://github.com/wekan/wekan-gogs). You can also use [Outgoing Webhooks](../Features/Webhooks/Discord/Outgoing-Webhook-to-Discord.md) to send data to some Incoming Webhook. There is also [IFTTT Rules](../Features/Automation/IFTTT/IFTTT.md) for some automations.
 
 ***
 
@@ -602,7 +602,7 @@ yogab> Hi! How are you today ? Can i ask
 a docker x reverse proxy x wekan question here ?
 ```
 
-A: Hmm, it seems you did not ask. Just guessing, maybe it's about [Traefik reverse proxy and Docker](../Webserver/Traefik-and-self-signed-SSL-certs.md).
+A: Hmm, it seems you did not ask. Just guessing, maybe it's about [Traefik reverse proxy and Docker](../Platforms/Webserver/Traefik-and-self-signed-SSL-certs.md).
 
 ***
 

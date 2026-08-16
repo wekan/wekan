@@ -49,7 +49,7 @@ choco install -y mongodb
 
 5. Unzip wekan-x.xx.zip, it has directory name `bundle`
 
-6. Download [start-wekan.bat](https://raw.githubusercontent.com/wekan/wekan/master/start-wekan.bat) to your bundle directory. Default settins are: `ROOT_URL=http://localhost` and `PORT=80`, so it works only in local [compatible browser](../../../../Browsers/Browser-compatibility-matrix.md). You can edit [ROOT_URL](../../../../Webserver/Settings.md) to be or `http://YOUR-IP-ADDRESS` so it works on local network with `http://YOUR-IP-ADDRESS` .
+6. Download [start-wekan.bat](https://raw.githubusercontent.com/wekan/wekan/master/start-wekan.bat) to your bundle directory. Default settins are: `ROOT_URL=http://localhost` and `PORT=80`, so it works only in local [compatible browser](../../../../Browsers/Browser-compatibility-matrix.md). You can edit [ROOT_URL](../../../Webserver/Settings.md) to be or `http://YOUR-IP-ADDRESS` so it works on local network with `http://YOUR-IP-ADDRESS` .
 
 7. Start Wekan in cmd.exe as Administrator:
 ```
@@ -107,7 +107,7 @@ List databases again to show that database testing is not there anymore:
 ```
 show dbs
 ```
-Also see [Forgot Password](../../../../Login/Forgot-Password.md)
+Also see [Forgot Password](../../../../Features/Login/Forgot-Password.md)
 
 Exit MongoDB CLI:
 ```
@@ -119,7 +119,7 @@ C:\ProgramData\MongoDB\data\db
 ```
 [More info about MongoDB](../../../FOSS/Container/Sandstorm/Export-from-Wekan-Sandstorm-grain-.zip-file.md)
 
-9. [Add users](../../../../Login/Adding-users.md).
+9. [Add users](../../../../Features/Login/Adding-users.md).
 
 
 ***

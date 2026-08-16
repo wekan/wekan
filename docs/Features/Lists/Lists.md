@@ -19,7 +19,7 @@ across all swimlanes — see
 - **Delete** a list permanently (deleting cannot be undone — this requires extra
   clicks by design, see the tip below).
 
-![Wekan list archive screenshot](../screenshot-member-settings-archive.png)
+![Wekan list archive screenshot](../Login/screenshot-member-settings-archive.png)
 
 > **Tip:** Normally you archive a card so you can restore it later. If you want to
 > delete many cards faster, drag them to a new list and delete that list. Deleting

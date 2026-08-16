@@ -124,7 +124,7 @@ sudo snap refresh wekan --channel=latest/candidate --amend
    The old database directory is only ever put back as a WHOLE, onto a STOPPED snap,
    with the current contents removed first — that is the "going back to 6.09"
    procedure below, and it is a different operation from this step.
-7. If you use [Caddy](../Webserver/Caddy.md), that is included in WeKan, edit /var/snap/wekan/Caddyfile to new syntax:
+7. If you use [Caddy](../Platforms/Webserver/Caddy.md), that is included in WeKan, edit /var/snap/wekan/Caddyfile to new syntax:
 ```
 wekan.yourcompany.com {
         tls {
@@ -231,7 +231,7 @@ https://nosqlbooster.com/downloads
 
 For below scheduled backup scripts, no info from above of this wiki page is required. Backup scripts below have the required settings.
 
-This does backup of [Wekan+RocketChat snap databases](../Login/OAuth2.md) and php website etc.
+This does backup of [Wekan+RocketChat snap databases](../Features/Login/OAuth2.md) and php website etc.
 
 If you need to backup some remote server or cloud, you can use scp, or read [rclone docs](https://rclone.org/docs/) about how to configure saving to some other remote server or cloud.
 

@@ -59,7 +59,7 @@ Then edit Windows Internet network settings. There:
 
 6. For mobile devices, make PWA icon like [PWA](../../../../Browsers/PWA.md)
 
-7. Optional: For SSL/TLS, look at Caddy/Apache/Nginx configs at [Wekan documentation](../../../../README.md) right menu, and [Settings](../../../../Webserver/Settings.md)
+7. Optional: For SSL/TLS, look at Caddy/Apache/Nginx configs at [Wekan documentation](../../../../README.md) right menu, and [Settings](../../../Webserver/Settings.md)
 
 ## Related
 

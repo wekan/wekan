@@ -41,7 +41,7 @@ Features | Wekan | Trello | Restyaboard
 ------------ | ------------- | ------------- | -------------
 Price | Free and Open Source, [MIT license](../../LICENSE). Free for Commercial Use. | Free with limitations, Monthly payment, Annual Subscription, Quote-based | Open Core
 Whitelabeling | Yes. Admin Panel/Layout: Hide Logo, Custom Product Name. | No | $ Yes
-Theming | [Yes](../Theme/Custom-CSS-themes.md) | No | $ Yes
+Theming | [Yes](../Features/Theme/Custom-CSS-themes.md) | No | $ Yes
 Redistributing | Yes | No | $ Yes
 Hosting | [Self-host or SaaS provider](../Platforms) | SaaS | Self-host
 
@@ -225,10 +225,10 @@ Permanently delete your entire account forever?	| No | Yes | Yes (Admin can dele
 Features | Wekan | Trello | Restyaboard
 ------------ | ------------- | ------------- | -------------
 Login with username or email | Yes | Yes | Yes
-LDAP login | Standalone: [Yes](../Login/LDAP.md). Sandstorm: Yes. | No | $ Yes
+LDAP login | Standalone: [Yes](../Features/Login/LDAP.md). Sandstorm: Yes. | No | $ Yes
 SAML login | Standalone: [Not yet](https://github.com/wekan/wekan/issues/708). Sandstorm: Yes | No | No
-Google login | Not yet, needs fixes to [OAuth2](../Login/OAuth2.md) | Yes | No
-GitHub login | Standalone: Not yet, needs fixes to [OAuth2](../Login/OAuth2.md). Sandstorm: Yes. | No | No
+Google login | Not yet, needs fixes to [OAuth2](../Features/Login/OAuth2.md) | Yes | No
+GitHub login | Standalone: Not yet, needs fixes to [OAuth2](../Features/Login/OAuth2.md). Sandstorm: Yes. | No | No
 Passwordless email login | Standalone: No. Sandstorm: Yes. | No | No
 
 ## Apps for productivity: Import / Export
@@ -270,7 +270,7 @@ Introduction video | No | No | Yes
 List sorting by due date | No | No | Yes
 Home screen | No | No | Yes
 Apps Integration | All integrated in | Yes | Yes
-Chat | No. You could use [Rocket.Chat](../Login/OAuth2.md) | No | $ Yes
+Chat | No. You could use [Rocket.Chat](../Features/Login/OAuth2.md) | No | $ Yes
 Dashboard Charts | [Not yet](https://github.com/wekan/wekan-dashing-go) | No | $ Yes
 Hide Card Created Date App | No | No | Yes
 Hide Card ID App | No | No | Yes
@@ -278,7 +278,7 @@ Canned Response App | No | No | $ Yes
 Auto Archive Expired Cards App | No | No | $ Yes
 Support Desk | No | No | $ Yes
 Card Template App | Copy Checklist Template to Multiple Cards | Yes | $ Yes
-Slack | [Yes](../Webhooks/Discord/Outgoing-Webhook-to-Discord.md) | Yes |  $ Yes
+Slack | [Yes](../Features/Webhooks/Discord/Outgoing-Webhook-to-Discord.md) | Yes |  $ Yes
 Amazon Echo | No | No | $ Yes
 Collaborate/TogetherJS | [Not yet](../Platforms/FOSS/Container/Friend) | No | Yes
 Gmail Add-on | No | Yes | Yes

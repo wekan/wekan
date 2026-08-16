@@ -49,4 +49,4 @@ python3 api.py setcardlocations BOARDID LISTID CARDID \
 ## Related
 
 - [Cards](../Cards.md)
-- [Migrating from Trello](../../../ImportExport/trello/Migrating-from-Trello.md)
+- [Migrating from Trello](../../ImportExport/Trello/trello/Migrating-from-Trello.md)

@@ -4,7 +4,7 @@ https://github.com/wekan/wekan-snap/wiki/Many-Snaps-on-LXC#lxd-init-cidr
 
 Note: This presumes that your laptop runs newest Ubuntu or Kubuntu, and that server is Ubuntu.
 
-1) Install Caddy2 [Caddy Webserver Config](../../../../Webserver/Caddy.md)
+1) Install Caddy2 [Caddy Webserver Config](../../../Webserver/Caddy.md)
 
 2) Optional, recommended: Encrypted VM. Idea: Bare Metal Caddy => Proxy to encrypted VM ports => Each customer separate Snap WeKan port. Snap sandbox files at /common, snap code can not access files outside of it's /common directories. Newest WeKan is Snap Candidate. Snap has automatic updates.
 
@@ -126,7 +126,7 @@ mv /var/snap/wekan_customer1/common/* old_customer1_common/
 snap start wekan_customer1
 ```
 
-5) Add some settings, for example Google login and [AWS SES email sending](../../../../Email/Troubleshooting-Mail.md#example-aws-ses):
+5) Add some settings, for example Google login and [AWS SES email sending](../../../../Features/Email/Troubleshooting-Mail.md#example-aws-ses):
 
 For each customer, node and mongodb needs to be in different ports, for example:
 ```
@@ -265,7 +265,7 @@ function websync {
 (websync) >> /home/wekan/backup/backup-log.txt 2>&1
 ```
 
-7. At bare metal server is installed [Caddy2](../../../../Webserver/Caddy.md).
+7. At bare metal server is installed [Caddy2](../../../Webserver/Caddy.md).
 
 Each customer has set in their nameserver to WeKan hosting server IP address:
 ```
@@ -429,7 +429,7 @@ boards.example.com {
 	}
 }
 ```
-For [CloudFlare SSL](../../../../Webserver/Caddy.md), like this to `/var/snap/wekan/common/Caddyfile`:
+For [CloudFlare SSL](../../../Webserver/Caddy.md), like this to `/var/snap/wekan/common/Caddyfile`:
 ```
 http://boards.example.com https://boards.example.com {
 	tls {

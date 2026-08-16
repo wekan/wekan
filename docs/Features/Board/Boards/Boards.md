@@ -8,21 +8,21 @@ have any number of public and private boards.
 The **All Boards** page lists all of your public and private boards. Your starred
 boards are also shown as shortcuts at the top of every page.
 
-![Wekan boards screenshot](../../screenshot-boards.png)
+![Wekan boards screenshot](../screenshot-boards.png)
 
 ## Star a board
 
 Click the star icon on a board to add it to your favorites. Starred boards appear
 as quick-access shortcuts at the top of the page.
 
-![Wekan star board screenshot](../../screenshot-star-board.png)
+![Wekan star board screenshot](../screenshot-star-board.png)
 
 ## Watch a board
 
 Watching a board (or list/card) controls which activities create notifications for
 you. You can set watch / track / mute per board.
 
-![Wekan watch board screenshot](../../screenshot-muted-watch.png)
+![Wekan watch board screenshot](../screenshot-muted-watch.png)
 
 ## Board menu (hamburger)
 
@@ -30,13 +30,13 @@ Click the 3-lines "hamburger" menu on the right to open the board menu, where yo
 can change board settings, add/remove members, configure webhooks, import/export,
 archive, and more.
 
-![Wekan board menu screenshot](../../screenshot-board-menu.png)
+![Wekan board menu screenshot](../screenshot-board-menu.png)
 
 ## Restore an archived board
 
 Archived boards are not deleted — you can restore them from the archive.
 
-![Wekan restore board screenshot](../../screenshot-restore-board.png)
+![Wekan restore board screenshot](../screenshot-restore-board.png)
 
 ## Full screen / standalone app mode
 

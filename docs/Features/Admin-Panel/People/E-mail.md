@@ -17,5 +17,5 @@ SMTP and two account settings. One **Save**, below everything it writes.
 
 ## Related
 
-- [E-mail troubleshooting](../../../Email/Troubleshooting-Mail.md)
+- [E-mail troubleshooting](../../Email/Troubleshooting-Mail.md)
 - [Domains](Domains.md) — which domains are actually in use.

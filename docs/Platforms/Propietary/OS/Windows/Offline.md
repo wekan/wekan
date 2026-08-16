@@ -126,7 +126,7 @@ Look at similar settings below.
 
 ## SSL/TLS with Caddy webserver, accessible at Internet
 
-- [Other unrelated Caddy info](../../../../Webserver/Caddy.md)
+- [Other unrelated Caddy info](../../../Webserver/Caddy.md)
 
 This will start Caddy, like this:
 

@@ -15,7 +15,7 @@ Kin 2.0 Meta OS:
 
 WeKan:
 - integration to Friend TODO list https://github.com/FriendUPCloud/friendup/issues/114
-- timezone [Timezone](../../../../Date/Timezone.md)
+- timezone [Timezone](../../../../Features/Date/Timezone.md)
 
 Friend Desktop Cloud OS:
 - Secure encrypted skinnable fast Open Source desktop in webbrowser/mobile/desktop app
@@ -161,7 +161,7 @@ ln -s ~/repos/mysupermodule mysupermodule
 sudo apt-get -y install snapd
 sudo snap install wekan --channel=latest/candidate
 ```
-### 13. [ROOT_URL settings](../../../../Webserver/Settings.md) to your server IP address
+### 13. [ROOT_URL settings](../../../Webserver/Settings.md) to your server IP address
 ```
 sudo snap set wekan root-url='http://192.168.0.100:5000'
 sudo snap set wekan port='5000'

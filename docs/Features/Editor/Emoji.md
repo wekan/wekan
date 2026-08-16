@@ -100,7 +100,7 @@ cd wekan
 ```
 That does: **Setup -> Install dependencies** installs dependencies, **Setup -> Build WeKan** builds wekan, **Dev server -> localhost:3000** starts wekan in development mode with command `meteor`, so it can detect if some file changes and try to rebuild automatically and reload the web browser. But, still sometimes, it may need stopping with Ctrl-c and a full **Setup -> Build WeKan** again. If a dev server is already running on that port, the Dev server options stop it first and start a fresh one on the same port.
 
-And then [register and login](../../Login/Adding-users.md) at http://localhost:3000
+And then [register and login](../Login/Adding-users.md) at http://localhost:3000
 
 ### OPTIONAL, NOT NEEDED: 5. Add new plugin package
 ```

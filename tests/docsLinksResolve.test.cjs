@@ -21,23 +21,38 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
-const DOCS = path.join(ROOT, 'docs/DeveloperDocs');
+const DOCS = path.join(ROOT, 'docs');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
 console.log('docsLinksResolve:');
 
-const pages = fs.readdirSync(DOCS).filter(f => f.endsWith('.md'))
-  .map(f => path.join(DOCS, f));
+function markdownPages(directory) {
+  return fs.readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
+    const file = path.join(directory, entry.name);
+    if (entry.isDirectory()) return markdownPages(file);
+    return entry.isFile() && entry.name.endsWith('.md') ? [file] : [];
+  });
+}
+
+const pages = markdownPages(DOCS);
 
 // A link target that names a path in this repository, in either form. Anything
 // else - an issue, another project, a specification - is somebody else's to
 // keep working.
 function repoTargets(source, page) {
   const out = [];
-  for (const m of source.matchAll(/\]\((\.\.\/[^)\s#]+)/g)) {
-    out.push({ raw: m[1], file: path.normalize(path.join(path.dirname(page), m[1])) });
+  for (const m of source.matchAll(/\]\(([^)\s#]+)(?:#[^)]*)?\)/g)) {
+    const raw = m[1].replace(/^<|>$/g, '');
+    if (/^(?:[a-z][a-z0-9+.-]*:|\/\/|#)/i.test(raw)) continue;
+    let decoded;
+    try {
+      decoded = decodeURIComponent(raw);
+    } catch {
+      decoded = raw;
+    }
+    out.push({ raw, file: path.normalize(path.join(path.dirname(page), decoded)) });
   }
   for (const m of source.matchAll(/\]\(https:\/\/github\.com\/wekan\/wekan\/(?:tree|blob)\/main\/([^)\s#]+)/g)) {
     out.push({ raw: m[0].slice(2), file: path.join(ROOT, m[1]) });
@@ -45,11 +60,11 @@ function repoTargets(source, page) {
   return out;
 }
 
-test('there are developer docs to check', () => {
-  assert.ok(pages.length > 0, 'docs/DeveloperDocs has no .md pages');
+test('there are docs to check', () => {
+  assert.ok(pages.length > 0, 'docs has no .md pages');
 });
 
-test('every path a developer doc links to exists', () => {
+test('every local path in the docs exists', () => {
   const dead = [];
   for (const page of pages) {
     const source = fs.readFileSync(page, 'utf8');
@@ -67,7 +82,10 @@ test('and Directory-Structure.md still describes the whole repository', () => {
   // The failure this page had was not a broken link - it was SILENCE: two
   // thirds of the repository was not mentioned, and nothing said so. Every
   // top-level directory that holds source has to appear somewhere on the page.
-  const source = fs.readFileSync(path.join(DOCS, 'Directory-Structure.md'), 'utf8');
+  const source = fs.readFileSync(
+    path.join(DOCS, 'DeveloperDocs', 'Directory-Structure.md'),
+    'utf8',
+  );
   const skip = new Set([
     'node_modules', 'public', 'private', 'meta', 'stacksmith', 'secrets',
     'npm-packages', 'scripts', 'tools', 'snap', 'snap-src', 'snap-base-debian',

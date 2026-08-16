@@ -80,7 +80,7 @@ That does:
 - **Setup -> Build WeKan** builds wekan,
 - **Dev server -> localhost:3000** starts wekan in development mode with command `meteor`, so it can detect if some file changes and try to rebuild automatically. If a dev server is already running on that port, it is stopped first and a fresh one started on the same port.
 
-And then [register and login](../Login/Adding-users.md) with webbrowser at http://localhost:3000
+And then [register and login](../Features/Login/Adding-users.md) with webbrowser at http://localhost:3000
 
 ### 4. Make and test your changes
 

@@ -42,7 +42,7 @@ After your above modifications, text should look like this:
     #-------------------------------------------------------------------------------------
 ```
 
-Then modify ROOT_URL, etc settings as needed, see [Settings](../../../../Webserver/Settings.md)
+Then modify ROOT_URL, etc settings as needed, see [Settings](../../../Webserver/Settings.md)
 
 Start WeKan with custom built Dockerfile with this command:
 ```
@@ -73,7 +73,7 @@ Then start WeKan with:
 docker compose up -d
 ```
 
-SSL/TLS info at [Settings](../../../../Webserver/Settings.md)
+SSL/TLS info at [Settings](../../../Webserver/Settings.md)
 
 ## Please only use Docker release tags
 
@@ -295,6 +295,6 @@ sudo docker compose up -d --build
 
 ## Webserver Config
 
-* [Caddy Webserver Config](../../../../Webserver/Caddy.md)
-* [Nginx Webserver Config](../../../../Webserver/Nginx.md)
-* [Apache Webserver Config](../../../../Webserver/Apache.md)
+* [Caddy Webserver Config](../../../Webserver/Caddy.md)
+* [Nginx Webserver Config](../../../Webserver/Nginx.md)
+* [Apache Webserver Config](../../../Webserver/Apache.md)

@@ -90,7 +90,7 @@ These apply to all pages and require no configuration.
 ## Keyboard shortcuts
 
 WeKan also has many keyboard shortcuts. Press **`?`** inside WeKan to see the full
-list (screenshot: [screenshot-keyboard-shortcuts.png](../screenshot-keyboard-shortcuts.png)),
+list (screenshot: [screenshot-keyboard-shortcuts.png](../Keyboard-Shortcuts/screenshot-keyboard-shortcuts.png)),
 and toggle keyboard shortcuts on or off from the board sidebar.
 
 ## Testing
