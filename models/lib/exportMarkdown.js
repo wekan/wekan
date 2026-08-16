@@ -31,7 +31,16 @@
 // should put those characters in the file rather than act on them. Inline HTML
 // is therefore kept as text, which is also what a reader of a PDF can check.
 
-const MarkdownIt = require('markdown-it');
+// Bare Node resolves markdown-it's CommonJS export to the constructor itself.
+// Meteor's production webpack bundle resolves the same package through its ESM
+// condition and returns `{ default: constructor }`. Constructing that namespace
+// crashes the whole server at startup with "is not a constructor", so normalize
+// both resolver shapes before creating the parser.
+function markdownItConstructor(moduleValue) {
+  return moduleValue && moduleValue.default ? moduleValue.default : moduleValue;
+}
+
+const MarkdownIt = markdownItConstructor(require('markdown-it'));
 
 // The reader's options, minus the plugins that only make sense on screen (emoji
 // images, rendered maths). Their SOURCE still arrives as text, so nothing is
@@ -275,4 +284,5 @@ module.exports = {
   markdownRuns,
   markdownPlainText,
   runsOf,
+  markdownItConstructor,
 };

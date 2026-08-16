@@ -20,7 +20,7 @@
 
 const assert = require('assert');
 const {
-  markdownBlocks, markdownRuns, markdownPlainText,
+  markdownBlocks, markdownRuns, markdownPlainText, markdownItConstructor,
 } = require('../models/lib/exportMarkdown');
 
 let passed = 0;
@@ -32,6 +32,14 @@ const styled = runs => runs.map(r => r.text
   + (r.link ? `->${r.link}` : '')).join('');
 
 console.log('exportMarkdown:');
+
+test('the parser constructor works through CommonJS and Meteor ESM interop', () => {
+  function Constructor() {}
+  assert.strictEqual(markdownItConstructor(Constructor), Constructor,
+    'bare Node returns the constructor itself');
+  assert.strictEqual(markdownItConstructor({ default: Constructor }), Constructor,
+    'the production bundle returns the constructor as the default export');
+});
 
 test('emphasis is emphasis, not asterisks', () => {
   const [para] = markdownBlocks('Some **bold** and *italic* text.');
