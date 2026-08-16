@@ -74,14 +74,6 @@ because it is one feature across five places - schema, the card, the picker
 popups, both exports and the import round trip - and half of it landed is worse
 than none of it: a card would show a person that an export drops.
 
-**Two export steps of the same batch.** The card layout is one document both
-formats draw ([One-Card-Layout.md](./docs/Features/ImportExport/Excel/One-Card-Layout.md)),
-and the PDF draws it now. What is left is moving the EXCEL renderer onto it -
-its output must not change, which is what makes that step verifiable - and
-embedding images in the PDF, where JPEG is `/DCTDecode` with the file's own
-bytes and PNG is `/FlateDecode` with `/DecodeParms`. Until then a PDF lists an
-attachment by name where Excel embeds the picture.
-
 </details>
 
 <details>

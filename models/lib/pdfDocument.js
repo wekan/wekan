@@ -1,5 +1,7 @@
 'use strict';
 
+import zlib from 'zlib';
+
 // The PDF the board and card exports are written with: text encoding, markdown
 // flattening, wrapping and the file itself. Pure and dependency-free, so the bytes
 // that reach a reader's PDF viewer can be tested (tests/pdfExport.test.cjs).
@@ -418,6 +420,109 @@ function paginateLines(lines) {
   return pages.length > 0 ? pages : [[line('No data')]];
 }
 
+// An attachment image as a PDF image XObject. JPEG's compressed bytes are
+// already a PDF-native DCT stream. PNG stores scanlines in IDAT chunks; those
+// are inflated, their PNG filters are undone, alpha is composited onto white,
+// and the RGB bytes are deflated again. Keeping this pure makes malformed image
+// input testable without a file store or Meteor.
+function jpegSize(data) {
+  if (!Buffer.isBuffer(data) || data.length < 4 || data[0] !== 0xFF || data[1] !== 0xD8) return null;
+  let offset = 2;
+  while (offset + 8 < data.length) {
+    if (data[offset] !== 0xFF) { offset += 1; continue; }
+    const marker = data[offset + 1];
+    offset += 2;
+    if (marker === 0xD8 || marker === 0xD9) continue;
+    const length = data.readUInt16BE(offset);
+    if (length < 2 || offset + length > data.length) return null;
+    if ((marker >= 0xC0 && marker <= 0xC3) || (marker >= 0xC5 && marker <= 0xC7)
+        || (marker >= 0xC9 && marker <= 0xCB) || (marker >= 0xCD && marker <= 0xCF)) {
+      return { height: data.readUInt16BE(offset + 3), width: data.readUInt16BE(offset + 5) };
+    }
+    offset += length;
+  }
+  return null;
+}
+
+function paeth(a, b, c) {
+  const p = a + b - c;
+  const pa = Math.abs(p - a), pb = Math.abs(p - b), pc = Math.abs(p - c);
+  return pa <= pb && pa <= pc ? a : (pb <= pc ? b : c);
+}
+
+function pngImage(data) {
+  const signature = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
+  if (!Buffer.isBuffer(data) || data.length < 33 || !data.subarray(0, 8).equals(signature)) return null;
+  let offset = 8, width = 0, height = 0, bitDepth = 0, colorType = -1;
+  const idat = [];
+  let palette = null;
+  while (offset + 12 <= data.length) {
+    const length = data.readUInt32BE(offset);
+    const type = data.toString('ascii', offset + 4, offset + 8);
+    const chunk = data.subarray(offset + 8, offset + 8 + length);
+    if (chunk.length !== length) return null;
+    if (type === 'IHDR') {
+      width = chunk.readUInt32BE(0); height = chunk.readUInt32BE(4);
+      bitDepth = chunk[8]; colorType = chunk[9];
+      if (chunk[12] !== 0) return null; // interlaced PNG needs a different pass layout
+    } else if (type === 'PLTE') palette = chunk;
+    else if (type === 'IDAT') idat.push(chunk);
+    else if (type === 'IEND') break;
+    offset += length + 12;
+  }
+  if (!width || !height || bitDepth !== 8 || !idat.length) return null;
+  const channels = { 0: 1, 2: 3, 3: 1, 4: 2, 6: 4 }[colorType];
+  if (!channels || (colorType === 3 && !palette)) return null;
+  const packed = zlib.inflateSync(Buffer.concat(idat));
+  const stride = width * channels;
+  if (packed.length < (stride + 1) * height) return null;
+  const rows = [];
+  let previous = Buffer.alloc(stride), at = 0;
+  for (let y = 0; y < height; y += 1) {
+    const filter = packed[at++];
+    const raw = packed.subarray(at, at + stride); at += stride;
+    const row = Buffer.alloc(stride);
+    for (let x = 0; x < stride; x += 1) {
+      const left = x >= channels ? row[x - channels] : 0;
+      const up = previous[x] || 0;
+      const upperLeft = x >= channels ? previous[x - channels] : 0;
+      const predictor = filter === 0 ? 0 : filter === 1 ? left : filter === 2 ? up
+        : filter === 3 ? Math.floor((left + up) / 2) : filter === 4 ? paeth(left, up, upperLeft) : null;
+      if (predictor === null) return null;
+      row[x] = (raw[x] + predictor) & 255;
+    }
+    rows.push(row); previous = row;
+  }
+  const rgb = Buffer.alloc(width * height * 3);
+  let out = 0;
+  for (const row of rows) {
+    for (let x = 0; x < width; x += 1) {
+      let r, g, b, alpha = 255;
+      if (colorType === 0 || colorType === 4) r = g = b = row[x * channels];
+      else if (colorType === 3) {
+        const p = row[x] * 3; r = palette[p] || 0; g = palette[p + 1] || 0; b = palette[p + 2] || 0;
+      } else { r = row[x * channels]; g = row[x * channels + 1]; b = row[x * channels + 2]; }
+      if (colorType === 4) alpha = row[x * channels + 1];
+      if (colorType === 6) alpha = row[x * channels + 3];
+      rgb[out++] = Math.round((r * alpha + 255 * (255 - alpha)) / 255);
+      rgb[out++] = Math.round((g * alpha + 255 * (255 - alpha)) / 255);
+      rgb[out++] = Math.round((b * alpha + 255 * (255 - alpha)) / 255);
+    }
+  }
+  return { width, height, data: zlib.deflateSync(rgb), filter: '/FlateDecode' };
+}
+
+function preparePdfImage(image) {
+  if (!image || !Buffer.isBuffer(image.data)) return null;
+  const kind = String(image.type || image.ext || '').toLowerCase();
+  if (kind.includes('jpeg') || kind.includes('jpg')) {
+    const size = jpegSize(image.data);
+    return size && { ...size, data: image.data, filter: '/DCTDecode' };
+  }
+  if (kind.includes('png')) return pngImage(image.data);
+  return null;
+}
+
 // Accepts plain strings as well as {text, bold} lines, so a caller that has
 // nothing to emphasise stays readable.
 function toLine(item) {
@@ -459,6 +564,18 @@ function buildPdfBuffer(rawLines) {
 
   const pageIds = [];
   for (const pageLines of pages) {
+    const pageImages = [];
+    pageLines.forEach((item, index) => {
+      if (!item || !item.image) return;
+      const prepared = preparePdfImage(item.image);
+      if (!prepared) return;
+      const imageId = addObject(
+        `<< /Type /XObject /Subtype /Image /Width ${prepared.width} /Height ${prepared.height} `
+        + `/ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter ${prepared.filter} `
+        + `/Length ${prepared.data.length} >>\nstream\n${prepared.data.toString('latin1')}\nendstream`,
+      );
+      pageImages.push({ index, imageId, prepared, name: `Im${pageImages.length + 1}` });
+    });
     // Rectangles are drawn OUTSIDE BT/ET - a PDF text object may not contain a
     // path - so every bar on the page is filled first and the text is written
     // over it. The y of a line is known from its index, which is what makes this
@@ -475,6 +592,15 @@ function buildPdfBuffer(rawLines) {
       );
     });
 
+    const imageCommands = pageImages.flatMap(entry => {
+      const maxWidth = PAGE_WIDTH - PAGE_MARGIN * 2;
+      const maxHeight = LINE_HEIGHT * 8;
+      const scale = Math.min(maxWidth / entry.prepared.width, maxHeight / entry.prepared.height, 1);
+      const width = Math.max(1, Math.round(entry.prepared.width * scale));
+      const height = Math.max(1, Math.round(entry.prepared.height * scale));
+      const y = PAGE_HEIGHT - PAGE_MARGIN - FONT_SIZE - entry.index * LINE_HEIGHT - height + LINE_HEIGHT;
+      return ['q', `${width} 0 0 ${height} ${PAGE_MARGIN} ${y} cm`, `/${entry.name} Do`, 'Q'];
+    });
     const textCommands = ['BT', `/F1 ${FONT_SIZE} Tf`, `${LINE_HEIGHT} TL`];
     textCommands.push(`1 0 0 1 ${PAGE_MARGIN} ${PAGE_HEIGHT - PAGE_MARGIN - FONT_SIZE} Tm`);
 
@@ -491,6 +617,7 @@ function buildPdfBuffer(rawLines) {
 
     pageLines.forEach((item, index) => {
       if (index > 0) textCommands.push('T*');
+      if (item.image) return;
       // A line is either one style, or a list of runs. Consecutive Tj operators
       // continue where the previous one ended, so the runs need no measuring.
       if (item.runs) {
@@ -502,14 +629,15 @@ function buildPdfBuffer(rawLines) {
     });
 
     textCommands.push('ET');
-    const stream = barCommands.concat(textCommands).join('\n');
+    const stream = barCommands.concat(imageCommands, textCommands).join('\n');
     const contentId = addObject(
       `<< /Length ${Buffer.byteLength(stream, 'latin1')} >>\nstream\n${stream}\nendstream`,
     );
     const pageId = addObject(
       `<< /Type /Page /Parent ${pagesId} 0 R /MediaBox [0 0 ${PAGE_WIDTH} ${PAGE_HEIGHT}] `
       + `/Resources << /Font << /F1 ${fontId} 0 R /F2 ${boldFontId} 0 R `
-      + `/F3 ${italicFontId} 0 R /F4 ${boldItalicFontId} 0 R >> >> `
+      + `/F3 ${italicFontId} 0 R /F4 ${boldItalicFontId} 0 R >> `
+      + `/XObject << ${pageImages.map(entry => `/${entry.name} ${entry.imageId} 0 R`).join(' ')} >> >> `
       + `/Contents ${contentId} 0 R >>`,
     );
     pageIds.push(pageId);
@@ -642,11 +770,12 @@ function documentToLines(document, options = {}) {
         }
         break;
       case 'images':
-        // Step 5 embeds these. Until then a page says what it is holding rather
-        // than dropping it: the name is already in the attachments list above,
-        // so this line is the picture's place in the document.
         for (const image of block.images || []) {
           push(line(`[${options.imageLabel || 'image'}: ${image.name || ''}]`));
+          push({ image });
+          // The writer places an image in eight line-heights. Reserve those
+          // slots so following text cannot be painted over it.
+          for (let reserve = 1; reserve < 8; reserve += 1) push('');
         }
         break;
       default:
@@ -678,5 +807,6 @@ export {
   columns,
   richLine,
   paginateLines,
+  preparePdfImage,
   buildPdfBuffer,
 };

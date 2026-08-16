@@ -2,6 +2,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 import { BOARD_EXPORT_FIELD_KEYS } from '/models/lib/exportFields';
+import { fileStoreStrategyFactory } from '/models/attachments.server';
 // The layout, described once for both formats, and what a page makes of it.
 import { buildCardDocument } from '/models/lib/cardDocument';
 import {
@@ -83,6 +84,42 @@ function formatFileSize(bytes) {
   if (size < 1024) return `${size} B`;
   if (size < 1024 * 1024) return `${Math.round(size / 1024)} KB`;
   return `${(size / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+const PDF_IMAGE_TYPES = new Set(['image/jpeg', 'image/jpg', 'image/png']);
+
+function streamToBuffer(stream) {
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    stream.on('data', chunk => chunks.push(Buffer.from(chunk)));
+    stream.on('error', reject);
+    stream.on('end', () => resolve(Buffer.concat(chunks)));
+  });
+}
+
+// Read only image formats the dependency-free PDF writer can embed. A missing,
+// remote or corrupt object remains in the attachment list; it must never make
+// the rest of the card unexportable.
+async function attachmentImages(attachments) {
+  const images = [];
+  for (const attachment of attachments || []) {
+    const type = String(attachment.type || '').toLowerCase();
+    if (!PDF_IMAGE_TYPES.has(type)) continue;
+    try {
+      const strategy = fileStoreStrategyFactory.getFileStrategy(attachment, 'original');
+      const stream = strategy && strategy.getReadStream();
+      if (!stream) continue;
+      const data = await streamToBuffer(stream);
+      if (data.length) images.push({
+        name: attachment.name || (attachment.meta && attachment.meta.name) || attachment._id,
+        type,
+        data,
+      });
+    } catch (error) {
+      console.warn(`ExporterCardPDF: could not read image ${attachment._id}: ${error.message}`);
+    }
+  }
+  return images;
 }
 
 // Shared by both exporters, so a label cannot say one thing on a card and another
@@ -259,9 +296,7 @@ class PDFExporterBase {
         name: attachment.name || (attachment.meta && attachment.meta.name) || attachment._id,
         size: formatFileSize(attachment.size),
       })),
-      // Step 5 fills these in; until then the document carries none and the
-      // page lists the attachments by name, as it always did.
-      images: [],
+      images: data.images || [],
       voting: vote.question ? [
         [this.__('vote-question', 'Vote question'), vote.question],
         [this.__('vote-for-it', 'For'), String((vote.positive || []).length)],
@@ -332,6 +367,7 @@ class ExporterCardPDF extends PDFExporterBase {
       { 'meta.cardId': this._cardId },
       { sort: { uploadedAt: 1 } },
     );
+    const images = await attachmentImages(attachments);
     const customFieldIds = (card.customFields || [])
       .map(field => field && field._id)
       .filter(Boolean);
@@ -373,6 +409,7 @@ class ExporterCardPDF extends PDFExporterBase {
       comments,
       subtasks,
       attachments,
+      images,
       customFieldsById,
       usersById,
     };
@@ -479,6 +516,15 @@ class ExporterBoardPDF extends PDFExporterBase {
     const attachments = this.hasField('attachments')
       ? await ReactiveCache.getAttachments({ 'meta.cardId': { $in: cardIds } }, { sort: { uploadedAt: 1 } })
       : [];
+    const imagesByCard = {};
+    if (this.hasField('attachments')) {
+      for (const attachment of attachments) {
+        const cardId = attachment.meta && attachment.meta.cardId;
+        if (!cardId) continue;
+        const images = await attachmentImages([attachment]);
+        if (images.length) (imagesByCard[cardId] = imagesByCard[cardId] || []).push(...images);
+      }
+    }
 
     const customFieldsById = {};
     if (this.hasField('custom-fields')) {
@@ -529,6 +575,7 @@ class ExporterBoardPDF extends PDFExporterBase {
         }
         return map;
       })(),
+      imagesByCard,
     };
   }
 
@@ -612,6 +659,7 @@ class ExporterBoardPDF extends PDFExporterBase {
             comments: data.commentsByCard[card._id] || [],
             subtasks: data.subtasksByCard[card._id] || [],
             attachments: data.attachmentsByCard[card._id] || [],
+            images: data.imagesByCard[card._id] || [],
             customFieldsById: data.customFieldsById,
             usersById: data.usersById,
           }));

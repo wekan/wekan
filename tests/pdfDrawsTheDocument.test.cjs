@@ -19,7 +19,9 @@ const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
 const { buildCardDocument } = require('../models/lib/cardDocument');
-const { documentToLines, buildPdfBuffer } = require('../models/lib/pdfDocument');
+const {
+  documentToLines, buildPdfBuffer, preparePdfImage,
+} = require('../models/lib/pdfDocument');
 
 const ROOT = path.join(__dirname, '..');
 const src = fs.readFileSync(path.join(ROOT, 'models/server/ExporterCardPDF.js'), 'utf8');
@@ -99,6 +101,52 @@ test('the result is a PDF a reader can open', () => {
   // kind, measured in the wrong encoding.
   const xrefAt = parseInt(/startxref\n(\d+)/.exec(bytes)[1], 10);
   assert.strictEqual(bytes.slice(xrefAt, xrefAt + 4), 'xref', 'startxref points at the table');
+});
+
+test('PNG and JPEG attachments become image XObjects', () => {
+  const png = Buffer.from(
+    'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGNgYGD4DwABBAEAHnOcQAAAAABJRU5ErkJggg==',
+    'base64',
+  );
+  // The size reader needs the JPEG markers and SOF dimensions; the original
+  // DCT bytes remain untouched when they are embedded.
+  const jpeg = Buffer.from([
+    0xFF, 0xD8, 0xFF, 0xC0, 0, 11, 8, 0, 1, 0, 1, 3, 1, 0x11, 0, 0xFF, 0xD9,
+  ]);
+  assert.deepStrictEqual(
+    { width: preparePdfImage({ type: 'image/png', data: png }).width,
+      height: preparePdfImage({ type: 'image/png', data: png }).height },
+    { width: 1, height: 1 },
+  );
+  assert.strictEqual(preparePdfImage({ type: 'image/jpeg', data: jpeg }).filter, '/DCTDecode');
+
+  const lines = documentToLines([{
+    type: 'images', images: [
+      { name: 'pixel.png', type: 'image/png', data: png },
+      { name: 'pixel.jpg', type: 'image/jpeg', data: jpeg },
+    ],
+  }]);
+  const bytes = buildPdfBuffer(lines).toString('latin1');
+  assert.strictEqual((bytes.match(/\/Subtype \/Image/g) || []).length, 2);
+  assert.ok(bytes.includes('/FlateDecode') && bytes.includes('/DCTDecode'));
+  assert.ok(/\/XObject << \/Im1 \d+ 0 R/.test(bytes), 'the page can draw its images');
+});
+
+test('a corrupt or unsupported image never breaks the PDF (negative)', () => {
+  assert.strictEqual(preparePdfImage({ type: 'image/png', data: Buffer.from('bad') }), null);
+  assert.strictEqual(preparePdfImage({ type: 'image/gif', data: Buffer.from('GIF89a') }), null);
+  assert.doesNotThrow(() => buildPdfBuffer([
+    { image: { type: 'image/png', data: Buffer.from('bad') } },
+    'the attachment name still follows',
+  ]));
+});
+
+test('the exporter reads attachment bytes into the shared document', () => {
+  assert.ok(/fileStoreStrategyFactory\.getFileStrategy\(attachment, 'original'\)/.test(src));
+  assert.ok(/PDF_IMAGE_TYPES\.has\(type\)/.test(src), 'only supported formats are read');
+  assert.ok(/images: data\.images \|\| \[\]/.test(src), 'the bytes reach the document');
+  assert.ok(/catch \(error\)[\s\S]*could not read image/.test(src),
+    'a storage failure cannot fail the export');
 });
 
 test('the exporter no longer lays a card out itself (negative)', () => {
