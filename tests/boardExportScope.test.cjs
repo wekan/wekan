@@ -86,9 +86,14 @@ test('there is ONE field list, and everything imports it', () => {
 
 test('both formats gate the same sections by the same keys', () => {
   const base = pdf.slice(pdf.indexOf('class PDFExporterBase'), pdf.indexOf('class ExporterCardPDF'));
+  // The PDF gates them in the SHARED document now - `wanted(selection, key)` in
+  // models/lib/cardDocument.js - which is what makes a popup checkbox mean the
+  // same thing in both formats instead of being two lists that can differ.
+  const document = read('models/lib/cardDocument.js');
   for (const key of ['labels', 'people', 'board-info', 'dates', 'description',
     'custom-fields', 'checklists', 'subtasks', 'comments', 'attachments', 'voting', 'poker']) {
-    assert.ok(new RegExp(`hasField\\('${key}'\\)`).test(base),
+    assert.ok(new RegExp(`hasField\\('${key}'\\)`).test(base)
+      || new RegExp(`wanted\\(fields, '${key}'\\)|wanted\\(selection, '${key}'\\)`).test(document),
       `the PDF block gates ${key}`);
     assert.ok(new RegExp(`hasField\\('${key}'\\)`).test(excelCard),
       `the Excel block gates ${key}`);

@@ -59,13 +59,19 @@ const SECTIONS = [
 ];
 
 test('the PDF card export carries every field', () => {
+  // The PDF draws the SHARED card document now (models/lib/cardDocument.js), so
+  // a field is carried by the pair: the exporter maps it, the document places
+  // it. Reading only the exporter would say a field was lost when it had merely
+  // moved to where BOTH formats read it from.
+  const document = read('models/lib/cardDocument.js');
+  const carried = `${pdf}\n${document}`;
   for (const key of SECTIONS) {
-    assert.ok(pdf.includes(`'${key}'`), `the PDF export has no ${key}`);
+    assert.ok(carried.includes(`'${key}'`), `the PDF export has no ${key}`);
   }
   // The two the report named that neither export had a section for at all.
-  assert.ok(/_voteLines/.test(pdf) && /'voting'/.test(pdf), 'and the vote');
-  assert.ok(/_pokerLines/.test(pdf) && /'poker-question'/.test(pdf), 'and the poker');
-  assert.ok(/export-card-subtasks/.test(pdf), 'and the subtasks');
+  assert.ok(/voting: /.test(pdf) && /'voting'/.test(carried), 'and the vote');
+  assert.ok(/poker: /.test(pdf) && /'poker-question'/.test(carried), 'and the poker');
+  assert.ok(/export-card-subtasks/.test(carried), 'and the subtasks');
 });
 
 test('the Excel card export carries every field', () => {
@@ -127,7 +133,12 @@ test('both exports translate their labels, from the same keys', () => {
 
 test('every label has an English fallback, so a key is never printed', () => {
   // A missing translation must show the word, not "card-due".
-  const fields = [...pdf.matchAll(/this\.field\('([a-z-]+)', '([^']+)'/g)];
+  // The labels live in the shared document now, with an English fallback each -
+  // one table, so a PDF cannot say "Due" where a spreadsheet says "Due date".
+  const document = read('models/lib/cardDocument.js');
+  const table = /const FALLBACKS = \{([\s\S]*?)\n\};/.exec(document);
+  assert.ok(table, 'the document must carry the English words');
+  const fields = [...table[1].matchAll(/'?([\w-]+)'?:\s*'([^']+)'/g)];
   assert.ok(fields.length > 15, `expected the card's fields, found ${fields.length}`);
   for (const [, key, fallback] of fields) {
     assert.notStrictEqual(key, fallback, `${key} falls back to its own key`);

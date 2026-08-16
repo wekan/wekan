@@ -1,0 +1,114 @@
+'use strict';
+
+// The PDF export draws the SHARED card document.
+// Run: node tests/pdfDrawsTheDocument.test.cjs
+//
+// "PDF export layout should be like Excel layout." It was not: the Excel export
+// drew sections under filled headers with label/value columns, and the PDF drew
+// a flat list of monospaced lines - because each knew its own layout.
+//
+// Both now ask models/lib/cardDocument.js for the layout and only the drawing
+// differs. What is left in the PDF exporter is the MAPPING - Meteor documents,
+// user ids and dates turned into the plain names and strings the document takes
+// - and that mapping is the part with nothing to catch it: this sandbox has no
+// Meteor, so the exporter cannot be imported. So the mapping is EXTRACTED from
+// the file and run against a stand-in, which is as close to executing the real
+// thing as can be got here, and far closer than reading it.
+
+const assert = require('assert');
+const fs = require('fs');
+const path = require('path');
+const { buildCardDocument } = require('../models/lib/cardDocument');
+const { documentToLines, buildPdfBuffer } = require('../models/lib/pdfDocument');
+
+const ROOT = path.join(__dirname, '..');
+const src = fs.readFileSync(path.join(ROOT, 'models/server/ExporterCardPDF.js'), 'utf8');
+
+let passed = 0;
+function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
+
+console.log('pdfDrawsTheDocument:');
+
+// The mapping, lifted out of the class and given a stand-in for `this`.
+function runMapping() {
+  const start = src.indexOf('cardDocumentFrom(data) {');
+  assert.ok(start > 0, 'the exporter must have a cardDocumentFrom');
+  const body = src.slice(start, src.indexOf('\n  }\n', start));
+  const fn = new Function('buildCardDocument', 'formatUser', 'formatFileSize',
+    'formatCustomFieldValue', 'data',
+    `const self=this;${body.replace('cardDocumentFrom(data) {', '').replace(/this\./g, 'self.')}`);
+  const self = {
+    date: d => (d ? '2026-08-16' : ''), fields: [], __: (k, f) => f || k,
+    timezone: '', dateFormat: 'YYYY-MM-DD', customFieldValue: (d, v) => String(v ?? ''),
+  };
+  const data = {
+    board: { title: 'Taulu', labels: [{ _id: 'l1', name: 'Keltainen' }] },
+    list: { title: 'Lista' }, swimlane: { title: 'Uimarata' },
+    card: {
+      title: 'Kortti 1', description: 'Some **bold**\n\n- one', labelIds: ['l1'],
+      userId: 'u1', members: ['u1'], customFields: [{ _id: 'c1', value: 'L' }],
+      vote: { question: 'Q?', positive: ['u1'], negative: [] },
+    },
+    checklists: [{ _id: 'k1', title: 'Checklist 1' }],
+    checklistItemsByChecklistId: { k1: [{ title: 'do **this**', isFinished: true }] },
+    comments: [{ createdAt: new Date(0), userId: 'u1', text: 'a *comment*' }],
+    subtasks: [], attachments: [{ name: 'a.png', size: 1234 }],
+    customFieldsById: { c1: { name: 'Size' } }, usersById: { u1: { username: 'xet7' } },
+  };
+  return fn.call(self, buildCardDocument, u => (u && u.username) || '',
+    b => `${b} B`, v => String(v ?? ''), data);
+}
+
+test('the exporter maps its rows onto the shared document', () => {
+  const doc = runMapping();
+  assert.deepStrictEqual(doc.filter(b => b.type === 'section').map(b => b.key),
+    ['description', 'custom-fields', 'checklists', 'comments', 'attachments', 'voting'],
+    'and a section with no data is absent - subtasks here');
+  assert.strictEqual(doc[0].runs[0].text, 'Kortti 1', 'the title leads');
+});
+
+test('and the page has the Excel layout\'s parts', () => {
+  const lines = documentToLines(runMapping());
+  const kinds = lines.map(l => (l && l.bar ? 'bar' : (l && l.runs ? 'runs' : 'text')));
+  assert.ok(kinds.includes('bar'), 'filled section headers');
+  // "Board: ", not "board: " - the label is the WORD, from the document's own
+  // fallback table, so a missing translation never prints a key.
+  const columnLine = lines.find(l => l && l.runs && l.runs.some(r => /^Board: /.test(r.text)));
+  assert.ok(columnLine, 'label/value columns');
+  assert.ok(columnLine.runs.some(r => r.bold), 'with the labels emphasised');
+});
+
+test('markdown is rendered, not flattened with its markers', () => {
+  const text = documentToLines(runMapping())
+    .map(l => (typeof l === 'string' ? l : (l.text ?? (l.runs || []).map(r => r.text).join(''))))
+    .join('\n');
+  assert.ok(text.includes('Some bold'), 'the emphasis is applied');
+  assert.ok(!text.includes('**'), 'and its asterisks are gone');
+  assert.ok(text.includes('- one'), 'a list is still a list');
+  assert.ok(text.includes('[x] do this'), 'and a checklist item keeps its box');
+});
+
+test('the result is a PDF a reader can open', () => {
+  const pdf = buildPdfBuffer(documentToLines(runMapping()));
+  const bytes = pdf.toString('latin1');
+  assert.ok(bytes.startsWith('%PDF-1.'), 'a header');
+  assert.ok(/startxref\n\d+\n%%EOF$/.test(bytes), 'an xref offset and a trailer');
+  assert.ok(/re f/.test(bytes), 'and the section bars are actually filled');
+  // The offsets in the table must point at the objects, or a viewer refuses the
+  // file outright - the fault that made v10.96's bundle unopenable was of this
+  // kind, measured in the wrong encoding.
+  const xrefAt = parseInt(/startxref\n(\d+)/.exec(bytes)[1], 10);
+  assert.strictEqual(bytes.slice(xrefAt, xrefAt + 4), 'xref', 'startxref points at the table');
+});
+
+test('the exporter no longer lays a card out itself (negative)', () => {
+  // The duplication being removed: a hundred and sixty lines that had to be kept
+  // in step with the Excel layout by hand, and were not.
+  const code = src.split('\n').filter(l => !/^\s*(\/\/|\*)/.test(l)).join('\n');
+  const block = code.slice(code.indexOf('cardBlockLines(data)'), code.indexOf('cardDocumentFrom'));
+  assert.ok(!/wrapTextBlock|wrapRichTextBlock/.test(block),
+    'cardBlockLines must not wrap text itself - it asks the document');
+  assert.ok(/documentToLines\(/.test(block), 'it draws the document');
+});
+
+console.log(`\npdfDrawsTheDocument: ${passed} tests passed`);

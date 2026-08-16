@@ -37,6 +37,22 @@
 
 const { markdownBlocks } = require('./exportMarkdown');
 
+// The English word for each label, so a missing translation shows a word rather
+// than the key. Both formats take their labels from here, which is also what
+// stops a PDF saying "Due" where a spreadsheet says "Due date".
+const FALLBACKS = {
+  board: 'Board', list: 'List', swimlane: 'Swimlane', 'card-number': 'Card number',
+  creator: 'Created by', members: 'Members', assignees: 'Assignees',
+  'requested-by': 'Requested by', 'assigned-by': 'Assigned by',
+  createdAt: 'Created at', 'card-received': 'Received', 'card-start': 'Start',
+  'card-due': 'Due', 'card-end': 'End', 'last-activity': 'Last activity',
+  'card-spent': 'Spent time', overtime: 'Overtime', labels: 'Labels',
+  description: 'Description', 'custom-fields': 'Custom fields',
+  checklists: 'Checklists', 'export-card-subtasks': 'Subtasks',
+  comments: 'Comments', attachments: 'Attachments', voting: 'Voting',
+  'poker-question': 'Poker', date: 'Date', comment: 'Comment',
+};
+
 const EMPTY_STYLE = { bold: false, italic: false, code: false, strike: false, link: '' };
 const plainRuns = text => (text ? [{ text: String(text), ...EMPTY_STYLE }] : []);
 
@@ -51,7 +67,11 @@ function wanted(fields, key) {
 
 // The card's own header: the title, then the meta pairs the Excel layout puts
 // under it. `labels` are prepared strings - a colour name means nothing here.
-function cardHeaderBlocks(card, data, fields, t) {
+function cardHeaderBlocks(card, data, fields, translate) {
+  const t = key => {
+    const out = typeof translate === 'function' ? translate(key, FALLBACKS[key] || key) : key;
+    return out || FALLBACKS[key] || key;
+  };
   const blocks = [{ type: 'title', runs: plainRuns(card.title || '') }];
   const pairs = [];
   const add = (labelKey, value) => {
@@ -63,18 +83,27 @@ function cardHeaderBlocks(card, data, fields, t) {
     add('board', data.boardTitle);
     add('list', data.listTitle);
     add('swimlane', data.swimlaneTitle);
+    add('card-number', data.cardNumber);
   }
   if (wanted(fields, 'people')) {
-    add('createdBy', data.createdBy);
+    add('creator', data.createdBy);
     add('members', (data.members || []).join(', '));
     add('assignees', (data.assignees || []).join(', '));
+    // Requested by / assigned by are people too, and they are a card's own
+    // record of who asked for it - tests/requestedAssignedByRoundTrip.test.cjs
+    // exists because they have been lost from an export before.
+    add('requested-by', data.requestedBy);
+    add('assigned-by', data.assignedBy);
   }
   if (wanted(fields, 'dates')) {
     add('createdAt', data.createdAt);
-    add('receivedAt', data.receivedAt);
-    add('startAt', data.startAt);
-    add('dueAt', data.dueAt);
-    add('endAt', data.endAt);
+    add('card-received', data.receivedAt);
+    add('card-start', data.startAt);
+    add('card-due', data.dueAt);
+    add('card-end', data.endAt);
+    add('last-activity', data.modifiedAt);
+    add('card-spent', data.spentTime);
+    add('overtime', data.overtime);
   }
   if (wanted(fields, 'labels')) add('labels', (data.labels || []).join(', '));
 
@@ -144,7 +173,8 @@ function buildCardDocument(card, data, fields, translate) {
   // nothing for it, and a document with an empty section is still a document.
   const rows = data || {};
   const selection = Array.isArray(fields) ? fields : [];
-  const t = typeof translate === 'function' ? translate : key => key;
+  const translator = typeof translate === 'function' ? translate : key => key;
+  const t = key => translator(key, FALLBACKS[key] || key) || FALLBACKS[key] || key;
   const blocks = cardHeaderBlocks(card || {}, rows, selection, t);
   const section = (key, titleKey) => blocks.push({ type: 'section', key, title: t(titleKey) });
 
@@ -249,6 +279,7 @@ const documentSections = document => (document || [])
   .map(block => block.key);
 
 module.exports = {
+  FALLBACKS,
   buildCardDocument,
   cardHeaderBlocks,
   documentSections,

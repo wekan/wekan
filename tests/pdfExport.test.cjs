@@ -216,10 +216,17 @@ test('the board export draws its cards with the CARD export\'s own block', () =>
     'every card is drawn by the card export block');
   const shared = exporter.slice(exporter.indexOf('class PDFExporterBase'),
     exporter.indexOf('class ExporterCardPDF'));
-  assert.ok(/this\.field\('labels'/.test(shared) && /labelsById/.test(shared),
-    'and "no tags" - the block names a card\'s labels');
-  assert.ok(/this\.field\('card-due', 'Due', this\.date\(card\.dueAt\)\)/.test(shared),
-    'and the dates, with the same label the card export gives them');
+  // The block draws the SHARED document now (models/lib/cardDocument.js), so
+  // the labels and the dates are pinned where they went: the exporter maps
+  // them, and the document puts them in the header. The reported symptoms are
+  // unchanged - "no tags" and a card whose swimlane cannot be seen.
+  assert.ok(/labelsById/.test(shared) && /labels: \(card\.labelIds/.test(shared),
+    'and "no tags" - the exporter maps a card\'s labels onto the document');
+  const document = read('models/lib/cardDocument.js');
+  assert.ok(/add\('labels'/.test(document), 'which puts them in the header');
+  assert.ok(/dueAt: this\.date\(card\.dueAt\)/.test(shared)
+    && /add\('card-due', data\.dueAt\)/.test(document),
+    'and the dates, under the same i18n keys the card export gives them');
   assert.ok(!/dates\.push\(`due /.test(exporter),
     'the lowercase colon-less "due" is what was reported; it must not come back');
   assert.ok(!/`## \$\{/.test(board) && !/'## '/.test(board),

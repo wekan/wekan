@@ -376,6 +376,39 @@ function line(text, bold = false) {
   return { text: String(text ?? ''), bold: !!bold };
 }
 
+// A SECTION BAR: the filled header the Excel layout puts above each section.
+// It is a line like any other as far as pagination is concerned - one line high,
+// with a grey rectangle drawn behind it - so nothing else has to know about it.
+function bar(text) {
+  return { text: String(text ?? ''), bold: true, bar: true };
+}
+
+// A ROW OF LABEL/VALUE PAIRS, in columns. The font is monospaced, so a column is
+// a character count and the alignment needs no measuring: three pairs across the
+// page is what the worksheet does with A-F.
+function columns(pairs, width = TEXT_WIDTH) {
+  const cells = (pairs || []).filter(pair => pair && pair.length);
+  if (!cells.length) return line('');
+  const cellWidth = Math.max(12, Math.floor(width / cells.length));
+  const runs = [];
+  cells.forEach(([label, value], index) => {
+    const room = cellWidth - 1;
+    const head = `${String(label ?? '')}: `;
+    const text = `${head}${String(value ?? '')}`;
+    const clipped = text.length > room ? `${text.slice(0, room - 1)}…` : text;
+    // The label is bold and the value is not, which is what makes a column of
+    // them readable - the same reason the worksheet right-aligns its labels.
+    const headLength = Math.min(head.length, clipped.length);
+    runs.push({ text: clipped.slice(0, headLength), bold: true, italic: false });
+    runs.push({ text: clipped.slice(headLength), bold: false, italic: false });
+    const pad = cellWidth - clipped.length;
+    if (pad > 0 && index < cells.length - 1) {
+      runs.push({ text: ' '.repeat(pad), bold: false, italic: false });
+    }
+  });
+  return { runs };
+}
+
 function paginateLines(lines) {
   const linesPerPage = Math.floor((PAGE_HEIGHT - PAGE_MARGIN * 2) / LINE_HEIGHT);
   const pages = [];
@@ -426,6 +459,22 @@ function buildPdfBuffer(rawLines) {
 
   const pageIds = [];
   for (const pageLines of pages) {
+    // Rectangles are drawn OUTSIDE BT/ET - a PDF text object may not contain a
+    // path - so every bar on the page is filled first and the text is written
+    // over it. The y of a line is known from its index, which is what makes this
+    // possible without a layout pass.
+    const barCommands = [];
+    pageLines.forEach((item, index) => {
+      if (!item || !item.bar) return;
+      const baseline = PAGE_HEIGHT - PAGE_MARGIN - FONT_SIZE - index * LINE_HEIGHT;
+      const top = baseline - 3;
+      barCommands.push(
+        '0.85 g',
+        `${PAGE_MARGIN - 4} ${top} ${PAGE_WIDTH - (PAGE_MARGIN - 4) * 2} ${LINE_HEIGHT} re f`,
+        '0 g',
+      );
+    });
+
     const textCommands = ['BT', `/F1 ${FONT_SIZE} Tf`, `${LINE_HEIGHT} TL`];
     textCommands.push(`1 0 0 1 ${PAGE_MARGIN} ${PAGE_HEIGHT - PAGE_MARGIN - FONT_SIZE} Tm`);
 
@@ -453,7 +502,7 @@ function buildPdfBuffer(rawLines) {
     });
 
     textCommands.push('ET');
-    const stream = textCommands.join('\n');
+    const stream = barCommands.concat(textCommands).join('\n');
     const contentId = addObject(
       `<< /Length ${Buffer.byteLength(stream, 'latin1')} >>\nstream\n${stream}\nendstream`,
     );
@@ -489,7 +538,126 @@ function buildPdfBuffer(rawLines) {
   return Buffer.from(pdf, 'latin1');
 }
 
+// ── the card document, drawn as a page ──────────────────────────────────────
+//
+// models/lib/cardDocument.js describes the layout ONCE, in blocks that name no
+// medium; this is what a page makes of them, and ExporterExcelCard makes a
+// worksheet of the same blocks. A block type added there is added here, and the
+// two formats cannot drift into two layouts.
+//
+//   section -> a filled bar          meta  -> a row of label/value columns
+//   title   -> bold, then a rule     text  -> markdown blocks, wrapped
+//   list    -> a marker per item     rows  -> a small grid
+//   images  -> the pictures, or their names when this page cannot embed one
+//   note    -> one quiet line
+function documentToLines(document, options = {}) {
+  const out = [];
+  const push = (...items) => out.push(...items);
+  const runsOfBlock = block => (block.runs || []).map(run => ({
+    text: run.text, bold: !!run.bold, italic: !!run.italic,
+  }));
+
+  // A markdown block, as wrapped lines. The list marker and the indent are the
+  // document's, and the emphasis is the author's.
+  const markdownLines = (blocks, indent = '') => {
+    for (const block of blocks || []) {
+      const pad = `${indent}${'  '.repeat(block.level || 0)}`;
+      if (block.type === 'rule') { push(line(`${pad}${'-'.repeat(20)}`)); continue; }
+      if (block.type === 'code') {
+        for (const codeLine of String(block.text || '').split('\n')) {
+          push(line(`${pad}    ${codeLine}`));
+        }
+        continue;
+      }
+      const marker = block.type === 'bullet' ? '- '
+        : block.type === 'ordered' ? `${block.index}. `
+          : block.quote ? '> ' : '';
+      const runs = runsOfBlock(block);
+      if (block.type === 'heading') runs.forEach(run => { run.bold = true; });
+      const text = runs.map(run => run.text).join('');
+      // One style for the whole block is the common case and wraps properly;
+      // a mixed block is emitted as its runs on one line, which the writer
+      // continues where the previous run ended.
+      const uniform = runs.every(run => run.bold === runs[0].bold && run.italic === runs[0].italic);
+      if (uniform) {
+        // wrapTextBlock returns STRINGS. Wrapping one in a styled run needs the
+        // string itself; reading a `.text` off it gives undefined, and the line
+        // comes out blank - which is what happened to every bullet the first
+        // time this was written.
+        const styled = runs.length > 0 && (runs[0].bold || runs[0].italic);
+        push(...wrapTextBlock(`${marker}${text}`, pad).map(item => (
+          styled
+            ? { runs: [{ text: String(item), bold: runs[0].bold, italic: runs[0].italic }] }
+            : String(item)
+        )));
+      } else {
+        push({ runs: [{ text: `${pad}${marker}`, bold: false, italic: false }, ...runs] });
+      }
+    }
+  };
+
+  for (const block of document || []) {
+    switch (block.type) {
+      case 'title':
+        push(line((block.runs || []).map(run => run.text).join(''), true));
+        push(line('='.repeat(TEXT_WIDTH)));
+        break;
+      case 'section':
+        push('', bar(block.title || ''));
+        break;
+      case 'meta':
+        push(columns(block.pairs));
+        break;
+      case 'text':
+        markdownLines(block.blocks);
+        break;
+      case 'note':
+        if ((block.runs || []).length) push({ runs: runsOfBlock(block) });
+        break;
+      case 'list':
+        for (const item of block.items || []) {
+          const indent = '  '.repeat(item.level || 0);
+          const runs = (item.runs || []).map(run => ({
+            text: run.text, bold: !!run.bold, italic: !!run.italic,
+          }));
+          push({
+            runs: [
+              { text: `${indent}${item.marker || '-'} `, bold: false, italic: false },
+              ...(runs.length ? runs : [{ text: '', bold: false, italic: false }]),
+            ],
+          });
+        }
+        break;
+      case 'rows':
+        for (const row of block.rows || []) {
+          const cells = row.map(cell => (cell || []).map(run => run.text).join(''));
+          push({
+            runs: [
+              { text: `${cells[0] || ''}  `, bold: false, italic: true },
+              ...(row[1] || []).map(run => ({
+                text: run.text, bold: !!run.bold, italic: !!run.italic,
+              })),
+            ],
+          });
+        }
+        break;
+      case 'images':
+        // Step 5 embeds these. Until then a page says what it is holding rather
+        // than dropping it: the name is already in the attachments list above,
+        // so this line is the picture's place in the document.
+        for (const image of block.images || []) {
+          push(line(`[${options.imageLabel || 'image'}: ${image.name || ''}]`));
+        }
+        break;
+      default:
+        break;
+    }
+  }
+  return out;
+}
+
 export {
+  documentToLines,
   PAGE_WIDTH,
   PAGE_HEIGHT,
   PAGE_MARGIN,
@@ -506,6 +674,8 @@ export {
   wrapTextBlock,
   wrapRichTextBlock,
   line,
+  bar,
+  columns,
   richLine,
   paginateLines,
   buildPdfBuffer,

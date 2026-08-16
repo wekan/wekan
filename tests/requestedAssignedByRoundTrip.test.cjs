@@ -50,7 +50,10 @@ test('Board Settings can turn each of them off', () => {
 
 test('every export carries them', () => {
   const places = {
-    'the card PDF': ['models/server/ExporterCardPDF.js', /field\('requested-by'/],
+    // The card PDF draws the shared document now, so what it must do is MAP
+    // them; models/lib/cardDocument.js is what puts them on the page.
+    'the card PDF': ['models/server/ExporterCardPDF.js', /requestedBy: card\.requestedBy/],
+    'the shared card document': ['models/lib/cardDocument.js', /add\('requested-by', data\.requestedBy\)/],
     'the card Excel': ['models/server/ExporterExcelCard.js', /\['requested-by', card\.requestedBy/],
     'the board CSV': ['models/exporter.js', /'requested-by','assigned-by'/],
     'the board Excel table': ['models/server/ExporterExcel.js', /jcard\.requestedBy/],
