@@ -414,7 +414,7 @@ document, use the saved user language or browser fallback, keep the opened
 card's date format, and preserve multilingual text; PDF also embeds JPEG and PNG
 attachment previews plus Unicode-plane fonts. **Admin Panel / Problems** keeps
 avatars at avatar size, and **All Boards** keeps its Add Board and Home
-placeholder tiles as tall as the boards beside them. Below that: seven export
+placeholder tiles as tall as the boards beside them. Below that: eight export
 fixes, one shared-checkbox fix, two UI sizing fixes, and the documentation move
 into its feature and platform hierarchy with every local link checked.
 
@@ -599,6 +599,22 @@ font, so initialization performs no Helvetica AFM filesystem lookup. A
 regression PDF begins from that buffer, embeds its Unicode map and contains no
 Helvetica reference; the normal named BMP and supplementary-plane fonts remain
 available for all subsequent text runs.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7eb0d5ac5">An image attachment is named once in PDF and Excel exports</a>. Thanks to xet7.</summary>
+
+An attachment image with a displayed preview was named in the bullet list and
+again in the caption above its image. Successfully loaded previews are now
+removed from that list and keep their filename and human-readable size in the
+caption.
+
+The decision follows the preview that was actually loaded, not only the file's
+declared type. Non-image files and images whose stored object is missing,
+unreadable or corrupt therefore remain listed with filename and size instead of
+disappearing from the export. A regression card contains one previewed image
+and one ordinary file and pins that each is named in exactly its proper place.
 
 </details>
 
