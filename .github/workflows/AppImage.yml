@@ -355,7 +355,7 @@ jobs:
   publish:
     name: attach to the release
     needs: [release, build]
-    if: ${{ always() && inputs.publish != false }}
+    if: ${{ !cancelled() && inputs.publish != false }}
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/download-artifact@v8

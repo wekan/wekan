@@ -55,9 +55,14 @@ const reqPlats = req.map(p => p.plat);
 const optPlats = opt.map(p => p.plat);
 const allPlats = [...reqPlats, ...optPlats];
 
-test('docker runs on always() + release success, so a failed extra-arch cannot skip it', () => {
-  assert.ok(/if:\s*\$\{\{\s*always\(\)\s*&&\s*needs\.release\.result\s*==\s*'success'\s*\}\}/.test(body),
-    "docker job must be `if: ${{ always() && needs.release.result == 'success' }}` "
+test('docker runs on !cancelled() + release success, so a failed extra-arch cannot skip it', () => {
+  // It was always() until v10.95, when Cancel stopped working on this job: always()
+  // is true while a run is CANCELLING, so a build that pushes an image kept going
+  // after the maintainer asked it to stop. !cancelled() keeps the half that matters
+  // here - a failed ppc64le leg must not skip the image - and honours Cancel.
+  // See tests/releaseCancelSafeJobs.test.cjs for both incidents.
+  assert.ok(/if:\s*\$\{\{\s*!cancelled\(\)\s*&&\s*needs\.release\.result\s*==\s*'success'\s*\}\}/.test(body),
+    "docker job must be `if: ${{ !cancelled() && needs.release.result == 'success' }}` "
     + '- otherwise a failed build-extra-arches matrix leg skips the whole image');
 });
 

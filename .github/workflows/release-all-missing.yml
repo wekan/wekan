@@ -303,7 +303,7 @@ jobs:
   charts:
     name: Helm chart
     needs: plan
-    if: ${{ always() && needs.plan.outputs.version != '' }}
+    if: ${{ !cancelled() && needs.plan.outputs.version != '' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout wekan (for releases/release-charts.sh)
@@ -386,7 +386,7 @@ jobs:
   done:
     name: what is still missing
     needs: [plan, extra-arches, appimage, flatpak, charts]
-    if: ${{ always() }}
+    if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7

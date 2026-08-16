@@ -155,6 +155,11 @@ jobs:
   # tag, builds, website and charts jobs all see the bumped sources.
   bump:
     runs-on: ubuntu-latest
+    # A hung job must FAIL on its own rather than wait for somebody to cancel it:
+    # cancelling is what skipped the post-release jobs in v10.80, and the jobs below
+    # run on !cancelled(), which a timeout satisfies and a cancellation does not.
+    # rewrites version references and rebuilds the docs; minutes, not tens of them.
+    timeout-minutes: 30
     permissions:
       contents: write
     steps:
@@ -224,6 +229,11 @@ jobs:
   prepare:
     needs: bump
     runs-on: ubuntu-latest
+    # A hung job must FAIL on its own rather than wait for somebody to cancel it:
+    # cancelling is what skipped the post-release jobs in v10.80, and the jobs below
+    # run on !cancelled(), which a timeout satisfies and a cancellation does not.
+    # tags and reads one CHANGELOG section.
+    timeout-minutes: 15
     outputs:
       version: ${{ steps.version.outputs.version }}
       # No `changelog:` output. The notes are 170 KB and more, which is past the
@@ -300,6 +310,11 @@ jobs:
   website:
     needs: bump
     runs-on: ubuntu-latest
+    # A hung job must FAIL on its own rather than wait for somebody to cancel it:
+    # cancelling is what skipped the post-release jobs in v10.80, and the jobs below
+    # run on !cancelled(), which a timeout satisfies and a cancellation does not.
+    # regenerates and pushes wekan.fi pages.
+    timeout-minutes: 20
     steps:
       # First step on purpose: a missing secret is then ONE named line at the top of
       # the log, instead of a failure deep inside a tool that only says the login
@@ -398,8 +413,13 @@ jobs:
     # chart is published for a release that IS on the registries. The guard is
     # then explicit about the only condition that ever mattered: docker SUCCEEDED
     # - the chart points at the image that job pushes, so it must exist first.
-    if: ${{ always() && needs.docker.result == 'success' }}
+    if: ${{ !cancelled() && needs.docker.result == 'success' }}
     runs-on: ubuntu-latest
+    # A hung job must FAIL on its own rather than wait for somebody to cancel it:
+    # cancelling is what skipped the post-release jobs in v10.80, and the jobs below
+    # run on !cancelled(), which a timeout satisfies and a cancellation does not.
+    # packages and pushes one Helm chart.
+    timeout-minutes: 20
     steps:
       # First step on purpose: a missing secret is then ONE named line at the top of
       # the log, instead of a failure deep inside a tool that only says the login
@@ -953,6 +973,11 @@ jobs:
       - build-amd64
       - build-arm64
     runs-on: ubuntu-latest
+    # A hung job must FAIL on its own rather than wait for somebody to cancel it:
+    # cancelling is what skipped the post-release jobs in v10.80, and the jobs below
+    # run on !cancelled(), which a timeout satisfies and a cancellation does not.
+    # collects every bundle artifact and publishes the GitHub Release.
+    timeout-minutes: 90
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
@@ -3208,22 +3233,34 @@ jobs:
             # prune-build-only-modules.mjs drops 83 of 120 packages everywhere else, and
             # those packages are pure build toolchain: nothing in a packed app runs them.
             #
-            # Whether this helps depends on something the log has never answered: does a
-            # second `meteor-spk pack` REUSE .meteor-spk/bundle, or rebuild it and undo
-            # the prune? Both outcomes are useful and neither is worse than the hard
-            # failure we already have - if it rebuilds, the second failure is identical
-            # and the log says the prune was undone; if it reuses, the .spk packs. The
-            # retry runs once, only after a failure, and only if the bundle is there.
+            # v10.95 ANSWERED the question this comment used to ask - does a second
+            # `meteor-spk pack` reuse .meteor-spk/bundle or rebuild it and undo the
+            # prune? It REUSES it: the bundle went 852M -> 833M across the retry and
+            # stayed pruned. So trimming here works, and the retry now does the whole
+            # trim rather than the prune alone, because 19M was never going to close a
+            # 165M gap. bundle-trim.mjs drops the two big passengers the size report
+            # finally identified (its own header has the numbers):
+            #
+            #   * uWebSockets.js's 20 prebuilt binaries, one per OS x CPU x Node ABI,
+            #     121M of which a grain can load exactly one - keeping every ABI of
+            #     linux/x64 still frees ~93M;
+            #   * every source map, 4766 files and 188M, which only a debugger reads.
+            #
+            # Measured on a real bundle: 281 MiB, and the pruned toolchain on top.
+            # 1188M -> ~888M, comfortably under the 1 GiB limit.
             if [ -d .meteor-spk/bundle/programs/server/node_modules ] \
                && [ -f releases/prune-build-only-modules.mjs ]; then
-              echo "--- pack failed; pruning the build-only toolchain from the bundle and packing once more"
+              echo "--- pack failed; trimming the bundle to what a grain runs, then packing once more"
+              # A Sandstorm grain is linux/x64, always - it is what the deps tree above
+              # bundles a node and a mongod for.
+              node releases/bundle-trim.mjs .meteor-spk/bundle --platform linux --arch x64 || true
               node releases/prune-build-only-modules.mjs .meteor-spk/bundle || true
               sizes || true
               set +e
               meteor-spk pack "$SPK"
               pack_rc=$?
               set -e
-              [ "$pack_rc" -eq 0 ] && echo "--- the pruned bundle packed; the toolchain was the difference"
+              [ "$pack_rc" -eq 0 ] && echo "--- the trimmed bundle packed"
             fi
           fi
           if [ "$pack_rc" -ne 0 ]; then
@@ -3314,8 +3351,13 @@ jobs:
     # rather than taking the whole image down with it. (It still lists
     # build-extra-arches in needs, so it waits for the successful legs to upload
     # their bundles first.)
-    if: ${{ always() && needs.release.result == 'success' }}
+    if: ${{ !cancelled() && needs.release.result == 'success' }}
     runs-on: ubuntu-latest
+    # A hung job must FAIL on its own rather than wait for somebody to cancel it:
+    # cancelling is what skipped the post-release jobs in v10.80, and the jobs below
+    # run on !cancelled(), which a timeout satisfies and a cancellation does not.
+    # eight platforms under QEMU, each downloading its own ~311 MB bundle.
+    timeout-minutes: 300
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
@@ -3969,6 +4011,11 @@ jobs:
           - arch: arm64
             runner: ubuntu-24.04-arm
     runs-on: ${{ matrix.runner }}
+    # A hung job must FAIL on its own rather than wait for somebody to cancel it:
+    # cancelling is what skipped the post-release jobs in v10.80, and the jobs below
+    # run on !cancelled(), which a timeout satisfies and a cancellation does not.
+    # two natively built snaps.
+    timeout-minutes: 120
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
@@ -4831,7 +4878,7 @@ jobs:
     # always(), for the same reason as the charts job above: a cancellation
     # elsewhere in the run skips every job that has not started yet, and in
     # v10.80 that silently dropped this one along with charts.
-    if: ${{ always() && needs.prepare.result == 'success' && needs.release.result == 'success' && needs.docker.result == 'success' }}
+    if: ${{ !cancelled() && needs.prepare.result == 'success' && needs.release.result == 'success' && needs.docker.result == 'success' }}
     continue-on-error: true
     timeout-minutes: 45
     runs-on: ubuntu-latest
@@ -4932,7 +4979,7 @@ jobs:
     # always(), for the same reason as the charts job above: a cancellation
     # elsewhere in the run skips every job that has not started yet, and in
     # v10.80 that silently dropped this one along with charts.
-    if: ${{ always() && needs.prepare.result == 'success' && needs.release.result == 'success' && needs.docker.result == 'success' }}
+    if: ${{ !cancelled() && needs.prepare.result == 'success' && needs.release.result == 'success' && needs.docker.result == 'success' }}
     continue-on-error: true
     timeout-minutes: 60
     runs-on: ubuntu-latest
@@ -5063,8 +5110,13 @@ jobs:
       - build-mac-arm64
       - build-mac-x64
       - build-extra-arches
-    if: ${{ always() && needs.release.result == 'success' }}
+    if: ${{ !cancelled() && needs.release.result == 'success' }}
     runs-on: ubuntu-24.04
+    # A hung job must FAIL on its own rather than wait for somebody to cancel it:
+    # cancelling is what skipped the post-release jobs in v10.80, and the jobs below
+    # run on !cancelled(), which a timeout satisfies and a cancellation does not.
+    # rewrites the notes of a release that is already published.
+    timeout-minutes: 15
     steps:
       # ref: main, so this job reads the same CHANGELOG.md the release job did.
       - uses: actions/checkout@v7

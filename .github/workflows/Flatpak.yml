@@ -303,7 +303,7 @@ jobs:
   publish:
     name: attach to the release, and build the repository
     needs: [release, build]
-    if: ${{ always() }}
+    if: ${{ !cancelled() }}
     runs-on: ubuntu-24.04
     steps:
       # FIRST: this job runs releases/apt-install.sh, and actions/checkout cleans
