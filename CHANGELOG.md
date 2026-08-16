@@ -387,12 +387,19 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** what v10.98 shipped, made usable. Its **unified export dialog**
+could not be changed: clicking a section did nothing, because the toggles were
+registered on the template around the checkboxes rather than the one that draws
+them, and no row said whether it was ticked, because the tick was drawn
+unconditionally. Every row carries the **Admin Panel's own checkbox** now, and
+what is ticked is verified to reach the file — for Excel, PDF, the JSON and
+.zip, the CSV and all ten external-tool exports. **Admin Panel / Problems** drew
+a user's photograph at its natural size, a 300px portrait in a table row, in
+every pane that names a user: the avatar rules are scoped to the board's own
+`.member` box, and the shared table page had copied the image without the box it
+belongs in. And two **All Boards** tiles were short — the grey "+ Add Board"
+next to a board whose title wraps, and Home's dashed placeholder — while
+Templates and the workspaces were checked and were already right.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -404,6 +411,90 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release fixes the following bugs:
+
+**Exporting** - choosing what goes in the file.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ed8f972b5">The export popup's checkboxes can be changed, and they say what they are</a>. Thanks to Heart1010 and xet7.</summary>
+
+Reported as [#6586](https://github.com/wekan/wekan/issues/6586): *"with v10.98
+we have that unified export dialog 👍 But I can't select/deselect those arrows
+here"*, and confirmed as *"clicking a checked option, like labels, does not
+uncheck it"*. Two faults, and either one alone makes the list useless.
+
+**It could not be changed.** The two toggle handlers were registered on
+`exportScopeBody`, while the checkboxes they act on are drawn by
+`exportScopeSelect`. Blaze resolves a helper, and delivers an event, against the
+template the element is IN — never an enclosing one — so nothing happened when a
+row was clicked. The toggles are one object now, registered on both templates
+like the helpers already were.
+
+**And no row said whether it was ticked.** Each drew an unconditional
+`i.fa.fa-check` on a `li.active`, which is the OTHER convention in `popup.css`:
+that tick is hidden and shown only for an active row by a selector needing a
+nested list carrying `checkable`, and this list was neither. So the tick was
+never hidden and `active` was never styled — every row looked ticked whatever it
+was. Each row now carries `.materialCheckBox`, the checkbox Admin Panel /
+Settings / Announcement uses, which needs no ancestor to be right, and the box
+aligns with the first line of a label that wraps.
+
+**What is ticked is what the file contains** — checked rather than assumed.
+Every format builds its URL through one function that appends the selection, and
+every route parses it: the JSON, .zip and Kanboard exports, Excel, PDF, the CSV
+(where the selection lands on columns), and the ten external-tool exports, which
+share one handler. A test reads the format table, so a format added later is
+covered without editing it.
+
+</details>
+
+**Admin Panel / Problems** - how a person is shown.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/90299b58a">A user's avatar is avatar-sized, in every pane that names one</a>. Thanks to xet7.</summary>
+
+Offices and the Impersonation Report drew a user's photograph at its NATURAL
+size — a 300px portrait in a table row, a screen tall, with the login counts
+scattered around it — and it was every pane that names a user, because they all
+draw one the same way.
+
+Every avatar rule in `userAvatar.css` is scoped to `.member`, which is what
+makes an avatar 24px and round and crops the image to fill it. The shared table
+page's cells had no such box: the image and the initials had been copied, and
+the thing they belong in had not. The cells use `.member` now rather than a
+fourth private copy of "how big is an avatar" — there were already three, which
+is how the three came to disagree — with the two board-specific declarations it
+carries turned off for a table.
+
+</details>
+
+**All Boards** - the size of a tile.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/90299b58a">Two tiles that were shorter than the boards beside them</a>. Thanks to xet7.</summary>
+
+On **Starred**, the grey "+ Add Board" tile hung short. `min-height: 114px` is a
+FLOOR, and a board whose title wraps to three lines grows past it; the grid
+stretches every other tile in that row to match, but the grey comes from the
+label INSIDE the list item rather than from the item itself, so it kept its
+114px while its row grew. The item is a flex box now and the label grows into
+it.
+
+On **Home**, "Drag a board here to open it after login" was padding around a
+line of text, about 85px, on a page whose entire content is that box. It stands
+where a board tile will be, so it is a board tile's height.
+
+**Templates and the workspaces were checked and were already right.** Every view
+— Starred, Remaining, Home, Templates, Archive and each workspace — is the same
+list with a different set of boards in it, so they share one rule, and every
+tile variant computes to the same 114px border-box floor. A test pins that there
+is one list and that no variant sets a height of its own, so that question keeps
+having one answer instead of six.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v10.98 2026-08-16 WeKan ® release
 
