@@ -387,7 +387,15 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** v10.97 shipped a bundle that could not start — the third release
+**In short:** one **CRITICAL** fix. WeKan's brute-force lockout counted an
+attacker's failed logins against the **victim's account** rather than against
+the address they came from, so anyone who knew a username could lock its owner
+out from every address, repeatably — and a **correct password was refused**
+while the lock held, and counted as another failure. Usernames are public, so
+any account was a target and an administrator was as easy to lock out as anyone
+else. Reported by daniais as **JamBleed**. Two GitHub CodeQL alerts on one line
+of release tooling go with it. Then: v10.97 shipped a bundle that could not
+start — the third release
 in a row stopped by the same habit. Trimming what a bundle carries is measured
 by a graph of what the server can reach, and that graph read `require()` only.
 Meteor compiles an ESM import to `module.link()`, so **every ESM import in every
@@ -417,7 +425,102 @@ contains them.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release fixes the following bugs:
+This release fixes the following CRITICAL SECURITY ISSUE of [JamBleed](https://wekan.fi/hall-of-fame/jambleed/):
+
+**Logging in** - who the brute-force lockout is protecting, and from whom.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/78478c39d">JamBleed: the account lockout counted an attacker's failures against the victim</a>. Thanks to daniais and xet7.</summary>
+
+`wekan-accounts-lockout` kept ONE counter per user —
+`services.accounts-lockout.failedAttempts` — with no notion of where the
+attempts came from. Any unauthenticated attacker who knew a username could spend
+three wrong passwords and lock that account out **from every address**,
+repeatably, for as long as they cared to keep going. Usernames are public in
+normal WeKan use — board and card members are listed — so choosing a target was
+trivial, and an administrator was as easy to lock out as anyone else. Reproduced
+on v10.91:
+
+```
+  attacker, address A : Incorrect / Incorrect / Too many attempts
+  victim,   address B : (correct password) Too many attempts
+```
+
+Affected from **v10.59**, and not before, for a reason worth keeping in view.
+The flat counter is much older, but until the LockoutBleed fix
+([GHSA-2g94-9x3m-hv37](https://github.com/wekan/wekan/security/advisories/GHSA-2g94-9x3m-hv37))
+the hooks gated on English error strings that Meteor's `ambiguousErrorMessages`
+had already rewritten, so the counter never moved and no account ever locked.
+Making the lockout WORK is what made this reachable — a fix that turns on a
+mechanism inherits whatever that mechanism gets wrong.
+
+**Two faults, and the second is the one that hurts:**
+
+- the counter was global, so an attacker's failures were charged to the victim's
+  account rather than to the attacker's address;
+- a **correct password was refused** while the lock held, and counted as a
+  further failure on the way. The old code allowed an attempt only when there was
+  no error AND no lock, so the owner typing the right password fell through to
+  the same throw as the attacker.
+
+Both are fixed in the decision itself, now a pure module. The counter is per
+(user, source address): the address comes from `X-Forwarded-For` under
+`HTTP_FORWARDED_COUNT`, the same rule `server/lib/loginAttemptThrottle.js` uses
+so a lockout and a throttle cannot disagree about who somebody is, and only the
+position `hops` from the right is read, so a forged header cannot pick its own
+bucket. The key is a SHA-256 prefix — an IPv4 address is all dots and cannot be
+a Mongo field name, and a locked account should not carry a list of the
+addresses that attacked it.
+
+A correct password is allowed FIRST, before anything reads the lock, and clears
+the state behind it — including the pre-fix flat fields, so an account left
+locked by the old counter is freed by its owner's next correct login rather than
+by a wait with no visible end. Hammering during a lock no longer extends it
+either, or the denial of service returns inside the mechanism meant to stop it.
+
+The three methods that wrote the flat counter are removed rather than left
+unreachable. A lockout firing is now recorded and shows in **Admin Panel →
+Problems** — on the lock only, not on every refused attempt during one, or an
+attacker could fill that page by holding down a key.
+`tests/lockoutPerSourceAddress.test.cjs` is 19 tests, driving the decision as
+arithmetic rather than through a server: the reported attack, the correct
+password during a lock, that the lock still fires and still expires, the
+forwarded-header rules, that malformed state reads as *nothing yet* rather than
+throwing — a lockout that threw on an unexpected document would lock everybody
+out of a database that had one — and that **every** construction of
+`AccountsLockout` passes the reporter, since there are two and a reload that
+dropped it would stop recording attempts while the guard kept working.
+
+</details>
+
+and fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/78478c39d">The release version is no longer built into a regular expression</a>. Thanks to xet7.</summary>
+
+Two alerts on one line of `releases/changelog-open-next.mjs`, and both were
+right:
+
+- **#433, `js/incomplete-sanitization`** — `version.replace(/\./g, '\\.')`
+  escapes dots and not backslashes, which is the classic half-escape: a version
+  containing a backslash would have escaped the backslash and left the next
+  character bare.
+- **#432, `js/regex-injection`** — the version is an argv value, so it reached
+  `new RegExp` as a pattern.
+
+Neither is exploitable with a version `release-all.sh` computed from the
+CHANGELOG, and the script is release tooling rather than anything a user
+reaches. But the fix worth making is the one that removes the question instead
+of answering it, which is CodeQL's own first recommendation: design so that
+sanitization is not needed. The heading is found with `startsWith` on the exact
+text now, so there is no pattern to escape and nothing to inject into, and a
+guard fails if a `RegExp` is built there again.
+
+Shipped in the same commit as the JamBleed fix above.
+
+</details>
+
+and fixes the following bugs:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/71ff74c6d">The reachability graph must read Meteor's module.link, not only require()</a>. Thanks to Heart1010 and xet7.</summary>
