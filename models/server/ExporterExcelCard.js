@@ -67,6 +67,42 @@ function labelTextArgb(bgArgb) {
   return lum > 0.179 ? 'FF000000' : 'FFFFFFFF';
 }
 
+// A card's text is MARKDOWN, and WeKan draws it as markdown everywhere it shows
+// it. A cell can carry styled runs (ExcelJS `richText`), so it can too: bold is
+// bold, a list is a list, and `**bold**` no longer arrives with its asterisks
+// still on. models/lib/exportMarkdown.js parses it exactly as the reader's
+// renderer does, and the PDF export asks the same module the same question.
+const { markdownRuns } = require('/models/lib/exportMarkdown');
+
+// Markdown as a cell's value. ExcelJS takes either a string or
+// `{ richText: [{ font, text }] }`; a single unstyled run is written as a plain
+// string, so text with no markdown in it is stored exactly as before.
+function markdownCell(text, fontName, size = 10) {
+  const runs = markdownRuns(text);
+  if (!runs.length) return '';
+  if (runs.length === 1 && !runs[0].bold && !runs[0].italic
+      && !runs[0].strike && !runs[0].code) {
+    return runs[0].text;
+  }
+  return {
+    richText: runs.map(run => ({
+      font: {
+        name: run.code ? 'Courier New' : fontName,
+        size,
+        bold: !!run.bold,
+        italic: !!run.italic,
+        strike: !!run.strike,
+        // A link is underlined and blue, the way a reader expects one - ExcelJS
+        // cannot make a run itself clickable, and the address stays in the text
+        // so it is not lost.
+        underline: run.link ? true : undefined,
+        color: run.link ? { argb: 'FF0563C1' } : undefined,
+      },
+      text: run.text,
+    })),
+  };
+}
+
 /** MIME types that ExcelJS can embed as inline images. */
 const EMBEDDABLE_IMAGE_MIME = new Map([
   ['image/jpeg', 'jpeg'],
@@ -504,7 +540,9 @@ class ExporterExcelCard {
       const descText = normalizeText(card.description || '');
       ws.mergeCells(`A${row}:F${row}`);
       const dc = ws.getCell(`A${row}`);
-      dc.value     = descText;
+      // Rendered, not raw: this is the card's own description, and it is
+      // markdown wherever else WeKan shows it.
+      dc.value     = markdownCell(card.description || '', fontName);
       dc.font      = { name: fontName, size: 10 };
       dc.alignment = { vertical: 'top', horizontal: 'left', wrapText: true };
       dc.border    = thinBdr;
