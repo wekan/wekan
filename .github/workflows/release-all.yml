@@ -602,6 +602,15 @@ jobs:
           node "$GITHUB_WORKSPACE/releases/prune-unreachable-npm.mjs" \
             "$GITHUB_WORKSPACE/.build/bundle"
 
+      - name: Does the bundle actually start?
+        # THE CHECK THAT WAS MISSING. v10.96 shipped a bundle whose boot.js died
+        # on a source map that had been deleted but not un-named; v10.97 shipped
+        # one missing nodemailer-openpgp, which packages/email.js links on its
+        # first tick. Both were reasoned about by reading the code, and both
+        # would have taken seconds to catch by starting the thing. Every other
+        # architecture's bundle is derived from this one, so this is the place.
+        run: bash "$GITHUB_WORKSPACE/releases/bundle-smoke-boot.sh" "$GITHUB_WORKSPACE/.build/bundle"
+
       - name: Check the binaries the amd64 bundle needs exist
         run: |
           set -euo pipefail

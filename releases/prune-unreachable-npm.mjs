@@ -82,11 +82,13 @@ const POLICY = [
       + 'no require() can resolve into one.',
     test: dir => dirname(dir).endsWith('/@types') && !hasJs(dir),
   },
-  {
-    why: 'OpenPGP mail encryption, reachable only through nodemailer-openpgp - an '
-      + 'optional nodemailer plugin nothing in meteor/email requires.',
-    test: dir => ['openpgp', 'nodemailer-openpgp'].includes(basename(dir)),
-  },
+  // REMOVED: openpgp + nodemailer-openpgp, 21.3 MiB. The claim was "reachable
+  // only through an optional nodemailer plugin nothing requires", and it was
+  // wrong: packages/email.js links it on its first tick with
+  // `module.link('nodemailer-openpgp', ...)`, which the scanner did not read as a
+  // reference until it learned Meteor's linker calls. A bundle shipped without it
+  // crash-looped. The entry is gone rather than left to be vetoed every run - the
+  // reason is what grants the permission, and this reason was never true.
   {
     why: 'a test framework, shipped inside meteor/ostrio_files.',
     test: dir => basename(dir) === 'sinon',
@@ -105,7 +107,24 @@ function hasJs(dir) {
 
 // ── The reachability graph ───────────────────────────────────────────────────
 const CODE = /\.(js|cjs|mjs)$/;
-const REQ = /(?:^|[^.\w])(?:Npm\.)?require\s*\(\s*['"]([^'"\n]+)['"]\s*\)/g;
+// EVERY WAY A METEOR BUNDLE NAMES A PACKAGE, not just require().
+//
+// A bundle that shipped without nodemailer-openpgp crash-looped on
+// `Cannot find module ".../nodemailer-openpgp/lib/nodemailer-openpgp.js"`,
+// because packages/email.js does not require() it - Meteor compiles an ESM
+// import to its own linker call:
+//
+//   module.link('nodemailer-openpgp',{openpgpEncrypt(v){openpgpEncrypt=v}},6);
+//
+// Scanning only for require() therefore missed every ESM import in every Meteor
+// package, which is most of them, and reported packages as unreachable that the
+// server links on its first tick. All four forms below are counted now.
+const REQ = new RegExp([
+  /(?:^|[^.\w])(?:Npm\.)?require\s*\(\s*['"]([^'"\n]+)['"]\s*\)/,   // require('x')
+  /module\.link\s*\(\s*['"]([^'"\n]+)['"]/,                          // ESM import
+  /module\.watch\s*\(\s*require\s*\(\s*['"]([^'"\n]+)['"]/,          // watched require
+  /module\.dynamicImport\s*\(\s*['"]([^'"\n]+)['"]/,                  // await import()
+].map(r => r.source).join('|'), 'g');
 
 function filesOf(dir, out = []) {
   let ents;
@@ -153,7 +172,7 @@ function scanFile(file, from) {
   let src;
   try { src = readFileSync(file, 'utf8'); } catch { return; }
   for (const m of src.matchAll(REQ)) {
-    const name = packageOf(m[1]);
+    const name = packageOf(m[1] || m[2] || m[3] || m[4]);
     if (!name) continue;
     const dir = resolvePackage(name, from);
     if (dir && !reached.has(dir)) { reached.add(dir); queue.push(dir); }

@@ -245,6 +245,11 @@ test('every script in releases/ is reachable from BOTH menus', () => {
       + '      reaches. There is no graph to walk until a build has produced a\n'
       + '      bundle, and a menu entry would need one to point at. Run it by hand\n'
       + '      with --dry-run against .build/bundle to see what it would take',
+    'bundle-smoke-boot.sh': 'release-workflow: starts a BUILT bundle with a\n'
+      + '      database address that cannot answer and requires it to get as far as\n'
+      + '      trying to reach it - which proves the whole server image loaded.\n'
+      + '      Nothing to start until a build has produced a bundle. Run it by hand\n'
+      + '      against .build/bundle after building',
     'bundle-trim.mjs': 'release-workflow: the same shape again - it takes a BUILT\n'
       + '      bundle and removes what the target platform cannot run (uWebSockets.js\n'
       + '      prebuilds for other OS/CPU/ABI, and every source map), which is how the\n'

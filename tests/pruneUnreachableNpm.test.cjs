@@ -130,16 +130,64 @@ test('Npm.require from a Meteor package resolves into that package\'s own tree',
   // packages/<name>.js is a Meteor package, and its Npm.require() looks first in
   // npm/node_modules/meteor/<name>/node_modules. Getting this wrong is how
   // uWebSockets.js would look unreachable while ddp-server requires it.
+  //
+  // Uses sinon, which the policy DOES name, so the veto is exercised at the same
+  // time: found by the graph, proposed by the policy, refused.
   const bundle = makeBundle(dir, Object.assign(
     { 'programs/server/app/app.js': '// nothing',
-      'programs/server/packages/email.js': "Npm.require('openpgp');" },
-    { [`${NM}/meteor/email/node_modules/openpgp/package.json`]: '{"name":"openpgp"}',
-      [`${NM}/meteor/email/node_modules/openpgp/index.js`]: '// pgp' },
+      'programs/server/packages/ostrio_files.js': "Npm.require('sinon');" },
+    { [`${NM}/meteor/ostrio_files/node_modules/sinon/package.json`]: '{"name":"sinon"}',
+      [`${NM}/meteor/ostrio_files/node_modules/sinon/index.js`]: '// test lib' },
   ));
   const out = prune(bundle);
-  assert.ok(has(bundle, `${NM}/meteor/email/node_modules/openpgp`),
+  assert.ok(has(bundle, `${NM}/meteor/ostrio_files/node_modules/sinon`),
     'a package a Meteor package Npm.requires must be seen as reachable');
-  assert.ok(/KEEPING meteor\/email\/node_modules\/openpgp/.test(out), `got: ${out}`);
+  assert.ok(/KEEPING meteor\/ostrio_files\/node_modules\/sinon/.test(out), `got: ${out}`);
+});
+
+test('a package linked the METEOR way counts as reached', dir => {
+  // v10.97 shipped without nodemailer-openpgp and crash-looped on
+  // `Cannot find module ".../nodemailer-openpgp/lib/nodemailer-openpgp.js"`,
+  // because packages/email.js does not require() it - Meteor compiles an ESM
+  // import to its own linker call:
+  //
+  //   module.link('nodemailer-openpgp',{openpgpEncrypt(v){openpgpEncrypt=v}},6);
+  //
+  // A scan for require() alone missed every ESM import in every Meteor package,
+  // which is most of them: the reachable count went from 211 to 450 when this
+  // was fixed. Each form below has to count, or the graph declares live code dead.
+  for (const [label, source] of [
+    ['module.link', "module.link('left-pad',{default(v){lp=v}},0);"],
+    ['module.watch(require(...))', "module.watch(require('left-pad'));"],
+    ['module.dynamicImport', "module.dynamicImport('left-pad').then(m => m);"],
+    ['plain require', "require('left-pad');"],
+  ]) {
+    const sub = fs.mkdtempSync(path.join(dir, 'link-'));
+    const bundle = makeBundle(sub, Object.assign(
+      { 'programs/server/app/app.js': source },
+      pkg('left-pad', 'module.exports = 1;'),
+      pkg('typescript', '// removable, so the run does something'),
+    ));
+    prune(bundle);
+    assert.ok(has(bundle, `${NM}/left-pad`),
+      `a package referenced with ${label} must be seen as reachable`);
+  }
+});
+
+test('the scanner reads all four forms, and says so where it is written', () => {
+  // The regex is the whole safety of this tool: whatever it cannot see, it calls
+  // dead. Pinned by name so a future edit that drops one is a failing test rather
+  // than a crash-looping release.
+  // Matched as literal text, not as a pattern: what is in the file IS a regex,
+  // so `module\\.link` there carries a backslash, and testing it as a pattern
+  // asks the wrong question and passes for the wrong reason.
+  const src = fs.readFileSync(PRUNE, 'utf8');
+  const req = src.slice(src.indexOf('const REQ = new RegExp('),
+    src.indexOf('].map(r => r.source)'));
+  assert.ok(req.length > 100, 'could not find the scanner regex to check');
+  for (const form of ['require', 'module\\.link', 'module\\.watch', 'module\\.dynamicImport']) {
+    assert.ok(req.includes(form), `the scanner no longer looks for ${form}`);
+  }
 });
 
 test('--dry-run removes nothing but reports what it would', dir => {
@@ -182,7 +230,13 @@ test('every policy entry states WHY, because the why is what gets re-checked', (
   assert.strictEqual(whys.length, tests.length,
     'each policy entry needs a why beside its test - an entry nobody can re-check is one '
     + 'nobody can safely extend');
-  assert.ok(whys.length >= 4, `expected the four proven categories, found ${whys.length}`);
+  // Three, not four: openpgp + nodemailer-openpgp was removed when v10.97 proved
+  // its reason false. An entry is only as good as the sentence beside it, and
+  // that sentence said "nothing requires it" about something packages/email.js
+  // links on its first tick.
+  assert.ok(whys.length >= 3, `expected the proven categories, found ${whys.length}`);
+  assert.ok(!/openpgp/.test(policy.replace(/^\s*\/\/.*$/gm, '')),
+    'openpgp must not come back into the policy without a reason that survives a boot');
 });
 
 console.log(`\npruneUnreachableNpm: ${passed} tests passed`);
