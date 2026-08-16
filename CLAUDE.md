@@ -476,6 +476,40 @@ Fixes #1235.
 
 All publishing / release steps below are maintainer-only. Contributors never run them.
 
+**Releases are FREQUENT, and that is the normal state of this repository — not an
+interruption to it.** The maintenance loop is:
+
+1. `./build.sh` (or `build.bat` on Windows) → **option 1, "git pull and git
+   push"**. Both directions do the whole job: a pull rebases and then repairs the
+   CHANGELOG commit links the rebase made stale, and a push repairs them again
+   BEFORE publishing, because a stale link that reaches GitHub 404s for everyone
+   who reads the release notes.
+2. `./releases/release-all.sh`, **with no arguments**, whenever there is something
+   worth shipping — which is often, several times a day when a fault is being
+   chased. It takes the version from the CHANGELOG and needs nothing typed.
+
+So a release happening "in the middle" of a piece of work is not a special case
+to reason about; it is what always happens, and anything that only works when
+releases are rare is broken here. Two consequences worth stating, because both
+have cost a released section its accuracy:
+
+- **Work continues immediately after a release**, so `release-all.sh` renames
+  `# Upcoming WeKan ® release` to `# v<NEW> …` and then OPENS A NEW EMPTY
+  `# Upcoming` (`releases/changelog-open-next.mjs`), so the next entry has
+  somewhere correct to go. Without it an entry appended above the closing
+  `Thanks to above GitHub users …` line lands INSIDE the release just published.
+  The new section carries an `**In short:** nothing here yet.` placeholder and
+  the binaries table, so the file stays valid; replace the placeholder as entries
+  are added. `tests/changelogEntriesBelongToTheirRelease.test.cjs` checks the
+  newest few releases against git and fails when a section links a commit that
+  release does not contain.
+- **A released section is a RECORD, not a draft.** When a release turns out to be
+  broken, its section keeps saying what it shipped — including the part that was
+  wrong — and the fix goes in a new `# Upcoming` above it. Do NOT edit a
+  published entry to describe the smaller, tidier change you wish had shipped;
+  add to it that it was wrong and where the fix is. Somebody reading v10.97's
+  notes is most likely somebody whose v10.97 just died.
+
 - WeKan: run `./releases/release-all.sh` (no arguments). It renames
   `# Upcoming WeKan ® release` to the next version (same increment as the last release;
   9.99 → 10.00) dated today, commits + pushes, and triggers

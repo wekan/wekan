@@ -228,8 +228,24 @@ test('the Upcoming section, when there is one, follows the same rules', () => {
   // bump into a <details> whose body repeats its summary would be noise added
   // to satisfy a guard.
   const bullets = lines.slice(start, end).filter(l => /^- \*\*/.test(l));
-  assert.ok(inSection.length + bullets.length >= 1,
-    'and it has at least one entry or bullet');
+  // EMPTY IS ALLOWED, but only when it says so. releases/release-all.sh opens the
+  // next Upcoming as soon as it names a release, because releases here are
+  // frequent and the work that follows one needs somewhere to go the moment it
+  // starts - without that, entries land in the section just published and a
+  // released record has to be repaired from memory (v10.96 and v10.97 both did).
+  // So a section carrying the placeholder paragraph is a section nobody has
+  // written in yet; a section with real prose and no entries is one somebody
+  // meant to write in and did not.
+  const placeholder = lines.slice(start, end)
+    .some(l => l.startsWith('**In short:** nothing here yet.'));
+  if (placeholder) {
+    assert.strictEqual(inSection.length + bullets.length, 0,
+      'this Upcoming still carries the "nothing here yet" placeholder, but it HAS '
+      + 'entries - replace the placeholder with a summary of what they amount to');
+  } else {
+    assert.ok(inSection.length + bullets.length >= 1,
+      'and it has at least one entry or bullet');
+  }
 
   for (const b of inSection) {
     assert.ok(summaryText(b.summary).length <= 120,

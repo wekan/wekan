@@ -245,6 +245,11 @@ test('every script in releases/ is reachable from BOTH menus', () => {
       + '      reaches. There is no graph to walk until a build has produced a\n'
       + '      bundle, and a menu entry would need one to point at. Run it by hand\n'
       + '      with --dry-run against .build/bundle to see what it would take',
+    'changelog-open-next.mjs': 'release-workflow: releases/release-all.sh runs it\n'
+      + '      as its second step, opening the "# Upcoming WeKan ® release" section\n'
+      + '      the NEXT release\'s entries belong in as soon as this one is named.\n'
+      + '      Not a menu action of its own: on its own it would open a section for\n'
+      + '      a release nobody is making',
     'bundle-smoke-boot.sh': 'release-workflow: starts a BUILT bundle with a\n'
       + '      database address that cannot answer and requires it to get as far as\n'
       + '      trying to reach it - which proves the whole server image loaded.\n'

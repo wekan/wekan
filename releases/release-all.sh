@@ -102,6 +102,14 @@ elif grep -qE '^# Upcoming WeKan' CHANGELOG.md; then
   echo "--- Renaming '# Upcoming WeKan ® release' -> '# v$NEW $DATE WeKan ® release' ---"
   _tmp="$(mktemp)"
   sed "s|^# Upcoming WeKan ® release.*|# v$NEW $DATE WeKan ® release|" CHANGELOG.md > "$_tmp" && mv "$_tmp" CHANGELOG.md
+
+  # AND OPEN THE NEXT ONE, while it is still unambiguous which release is which.
+  # Releases here are frequent and work continues straight after one, so the
+  # rename above has just taken away the section that work belongs in. Twice that
+  # has put entries inside a section that was already published; see the script's
+  # own header for what repairing that costs.
+  echo "--- Opening the next '# Upcoming WeKan ® release' ---"
+  node "$(dirname "$0")/changelog-open-next.mjs" "$NEW" CHANGELOG.md
 else
   NEW="${RELEASED[0]:-}"
   OLD="${RELEASED[1]:-}"
