@@ -1695,11 +1695,6 @@ Template.cardLocationsPopup.helpers({
   detectMessage() {
     return Template.instance().detectMsg.get();
   },
-  isMapProvider(provider) {
-    const user = ReactiveCache.getCurrentUser();
-    const current = user ? user.getMapProvider() : 'openstreetmap';
-    return current === provider;
-  },
   mapSavedMessage() {
     return Template.instance().mapSavedMsg.get();
   },

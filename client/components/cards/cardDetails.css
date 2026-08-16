@@ -1112,19 +1112,6 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
   box-sizing: border-box;
 }
 
-/* "Open map links at" provider selector in the location popup */
-.js-card-location-form .map-provider-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 6px;
-}
-.js-card-location-form .map-provider-row .js-map-provider {
-  flex: 0 0 auto;
-  width: auto;
-}
-
 /* Opened card (card details popup) docks to the very top of the window and
    overlays the global + board header bars instead of opening below them. The
    base .pop-over is position:absolute with a small margin/top offset, which left

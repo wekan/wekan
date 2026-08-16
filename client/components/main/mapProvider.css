@@ -1,0 +1,18 @@
+/* The "Open map links at" chooser, wherever it is included.
+
+   These rules were scoped to .js-card-location-form, which was true while the
+   only chooser was a card's. Admin Panel / Problems / Offices opens the same
+   template now, so the styles belong to the template rather than to one of its
+   two callers - a second copy under a second scope is how the two would come to
+   look different. */
+.map-provider-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.map-provider-row .js-map-provider {
+  flex: 0 0 auto;
+  width: auto;
+}

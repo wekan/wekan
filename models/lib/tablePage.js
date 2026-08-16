@@ -143,6 +143,23 @@ export function buildRows(docs, columns, options = {}) {
         // A leading emoji for the cell - the country flag on an office row. Kept
         // apart from `text` so the flag is not searched or sorted as text.
         flag: typeof column.flag === 'function' ? (column.flag(doc) || '') : '',
+        // A PLACE this cell stands for, when something in front of WeKan
+        // resolved one: { latitude, longitude, label }. It makes the cell open
+        // the map-provider popup, so an office row's "London" leads to London
+        // on whichever map the admin uses - the same chooser, and the same
+        // eleven providers, as a card's location.
+        //
+        // Only with COORDINATES. A city name is not a position, and putting one
+        // into a map URL would either search for the word or invent a place; a
+        // CDN that sends a country and no lat/lon gives a label to read, not a
+        // pin to open.
+        location: (() => {
+          const loc = typeof column.location === 'function' ? column.location(doc) : null;
+          if (!loc) return null;
+          const { latitude, longitude } = loc;
+          if (typeof latitude !== 'number' || typeof longitude !== 'number') return null;
+          return { latitude, longitude, label: loc.label || cellText(column, doc) || '' };
+        })(),
         // Only used by the severity cell; a plain string, rendered as an
         // attribute value by Blaze (which escapes it).
         data: typeof column.data === 'function' ? (column.data(doc) || '') : '',

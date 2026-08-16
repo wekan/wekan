@@ -108,6 +108,15 @@ template(name="tablePage")
                     //- Several people in one cell: an office row's People
                       column. Each is the same avatar-or-initials link as a
                       single user cell, with the number of logins beside it.
+                    //- A PLACE - an office row's Location: the country's flag
+                      and the city, and clicking it asks which map to open it
+                      at, from the same eleven providers as a card's location
+                      because it is the same chooser. Only when the row HAS
+                      coordinates: a city name is not a position, so a cell with
+                      a label and no lat/lon stays plain text.
+                    //- These comments sit ABOVE the chain, all of them. One
+                      between an `if` and its `else if` breaks the nesting -
+                      see the negative test in tests/jadeCompiles.test.cjs.
                     if users.length
                       .table-page-people
                         each users
@@ -124,9 +133,36 @@ template(name="tablePage")
                           img.avatar.avatar-image(src="{{userAvatarUrl}}" alt="{{text}}")
                         else
                           +userAvatarInitials(userId=userId)
+                    else if location
+                      a.js-table-page-map(href="#" data-latitude="{{location.latitude}}" data-longitude="{{location.longitude}}" data-label="{{location.label}}" title="{{_ 'location-open-map-at'}}")
+                        if flag
+                          span.table-page-flag(aria-hidden="true") {{flag}}
+                        | {{text}}
                     else
                       if flag
                         span.table-page-flag(aria-hidden="true") {{flag}}
                       | {{text}}
     unless rowCount
       .table-page-empty {{_ emptyKey}}
+
+//- Where a location cell leads: this place, and which map to open it at.
+//-
+//- The MAP HALF of the card's location popup and nothing else. A card's popup
+//- also edits the location - name, address, coordinates, delete - and none of
+//- that applies to an office: its location arrived in a CDN header, WeKan did
+//- not ask for it and cannot correct it. What the two share is the chooser
+//- itself, +mapProviderSelect, so a provider added for one is offered by both.
+template(name="tablePageMapPopup")
+  .table-page-map-popup
+    if label
+      p.table-page-map-label {{label}}
+    if coordinates
+      p.quiet.table-page-map-coordinates {{coordinates}}
+    if mapUrl
+      a.js-open-map(href="{{mapUrl}}" target="_blank" rel="noopener noreferrer")
+        i.fa.fa-map-marker
+        | &nbsp;{{_ 'location-open-map'}}
+    +mapProviderSelect
+    button.primary.js-save-map-provider(type="button") {{_ 'save'}}
+    if savedMessage
+      p.quiet.js-map-saved {{savedMessage}}

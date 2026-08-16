@@ -220,3 +220,60 @@
     overflow-x: auto !important;
   }
 }
+
+/* ── Cells that are not text ───────────────────────────────────────────────
+   A table page's rows carry three things that are not words: the people who
+   share an office, the country a location is in, and the location itself as a
+   link to a map. All three exist to keep a row SHORT - these tables are wide,
+   and a column of full names or coordinates is what made them so. */
+
+/* People, as initials or avatars, several to a cell. Wrapping rather than
+   overflowing: an office with thirty accounts is a taller row, not a row with
+   twenty-two of them off the side of the screen. */
+.table-page-people {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+.table-page-people .edit-user {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+/* How many times that person logged in from here. Small and quiet: it is the
+   second question, after who. */
+.table-page-people-count {
+  font-size: 0.75em;
+  opacity: 0.7;
+}
+
+/* The country's flag, at the start of a location cell. Sized like text rather
+   than like an icon - it is read as part of "🇬🇧 London", one phrase. */
+.table-page-flag {
+  margin-inline-end: 4px;
+  font-size: 1.1em;
+  line-height: 1;
+}
+
+/* A location cell leads to the map popup, so it looks like what it is. */
+a.js-table-page-map {
+  text-decoration: none;
+}
+a.js-table-page-map:hover {
+  text-decoration: underline;
+}
+
+/* The popup itself: a place, its coordinates, the link, the chooser. */
+.table-page-map-popup .table-page-map-label {
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+.table-page-map-popup .table-page-map-coordinates {
+  font-size: 0.85em;
+  margin-bottom: 8px;
+}
+.table-page-map-popup .js-open-map {
+  display: inline-block;
+  margin-bottom: 10px;
+}

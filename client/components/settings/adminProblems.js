@@ -409,20 +409,17 @@ Template.adminProblems.events({
   // controls for every report, so the report is identified by activeReport
   // rather than by a per-report js- class. Twelve prev/next handlers and six
   // search handlers collapsed to these.
+  //
+  // Clicking a user, and clicking a location, are NOT here: they are the same
+  // on every table, so they live on the shared table page itself
+  // (client/components/settings/tablePage.js) and reach every report through
+  // the template hierarchy. Three identical copies of the edit-user handler is
+  // what that replaced.
   'click .js-table-page-prev'(event, tmpl) { goPrevPage(event, tmpl, tmpl.activeReport.get()); },
   'click .js-table-page-next'(event, tmpl) { goNextPage(event, tmpl, tmpl.activeReport.get()); },
   'keydown .js-table-page-search'(event, tmpl) {
     if (event.keyCode === 13 && !event.shiftKey) {
       runSearch(tmpl, tmpl.activeReport.get(), '.js-table-page-search');
-    }
-  },
-  // Clicking a username in any table opens the same "Edit user" popup as
-  // Admin Panel / People.
-  'click .js-table-page-edit-user'(event) {
-    event.preventDefault();
-    const userId = event.currentTarget.getAttribute('data-user-id');
-    if (userId) {
-      Popup.open('editUser').call({ userId }, event);
     }
   },
 });
@@ -881,14 +878,6 @@ Template.eventStreamReport.helpers({
 });
 
 Template.eventStreamReport.events({
-  // Same three controls as every other table page, so the same class names.
-  'click .js-table-page-edit-user'(event) {
-    event.preventDefault();
-    const userId = event.currentTarget.getAttribute('data-user-id');
-    if (userId) {
-      Popup.open('editUser').call({ userId }, event);
-    }
-  },
   'input .js-table-page-search'(event, tmpl) {
     tmpl.search.set(event.currentTarget.value.trim());
     tmpl.page.set(1);
@@ -1009,6 +998,15 @@ const OFFICE_COLUMNS = [
     labelKey: 'office-location', nowrap: true,
     value: d => (d.locationLabel ? officeLabel(d.location).text : ''),
     flag: d => (d.location ? officeLabel(d.location).flag : ''),
+    // And clicking it asks which map to open it at - the same chooser a card's
+    // location uses. Only when the CDN sent coordinates: buildRows drops a
+    // location without them, so a row that has a country and no lat/lon is a
+    // label to read rather than a link that would search for the word.
+    location: d => (d.location && {
+      latitude: d.location.latitude,
+      longitude: d.location.longitude,
+      label: d.locationLabel || d.address || '',
+    }),
   },
   { labelKey: 'office-address', nowrap: true, value: d => d.address },
   // Initials or avatar per person, with their own login count beside them.
@@ -1083,11 +1081,5 @@ Template.officeReport.events({
       tmpl.page.set(1);
       tmpl.load();
     }
-  },
-  // The same Edit user popup the People table opens - the one that exists.
-  'click .js-table-page-edit-user'(event) {
-    event.preventDefault();
-    const userId = event.currentTarget.getAttribute('data-user-id');
-    if (userId) Popup.open('editUser').call({ userId }, event);
   },
 });

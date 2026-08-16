@@ -10,6 +10,7 @@ import '/client/components/settings/settingBody.jade';
 import '/client/components/settings/settingHeader.jade';
 import '/client/components/settings/leftMenu.jade';
 import '/client/components/settings/tablePage.jade';
+import '/client/components/settings/tablePage.js';
 import '/client/components/settings/translationBody.jade';
 
 import '/client/components/settings/adminProblems.js';
