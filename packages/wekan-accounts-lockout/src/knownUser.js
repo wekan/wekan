@@ -13,8 +13,6 @@ const {
   clientAddressOf, scopeFieldFor, scopeStateOf, SCOPE_ROOT,
 } = require('./lockoutScope');
 const { decideKnownUserAttempt } = require('./lockoutDecision');
-// The shape Admin Panel -> People reads; one place knows it.
-const { isUserLocked } = require('/models/lib/accountLockout');
 
 class KnownUser {
   constructor(settings, onLockout = null) {
@@ -164,12 +162,20 @@ class KnownUser {
       return KnownUser.tooManyAttempts(decision.secondsRemaining);
     }
 
+    // Refused for being too soon after the last failure, and NOT counted - see
+    // lockoutDecision.js. Nothing is written, so trying faster cannot make the
+    // address reach the lockout sooner.
+    if (decision.action === 'too-soon') {
+      return KnownUser.tooSoon(decision.secondsRemaining);
+    }
+
     const now = Number(new Date());
     const set = {
       [`${field}.failedAttempts`]: decision.failedAttempts,
       [`${field}.lastFailedAttempt`]: now,
     };
     if (decision.startsWindow) set[`${field}.firstFailedAttempt`] = now;
+    if (decision.nextAttemptAt) set[`${field}.nextAttemptAt`] = decision.nextAttemptAt;
     if (decision.action === 'lock') {
       set[`${field}.unlockTime`] = decision.unlockTime;
       // A DISPLAY field, for Admin Panel -> People only: Mongo cannot ask "which
@@ -235,7 +241,22 @@ class KnownUser {
       { _id: userId },
       { fields: { 'services.accounts-lockout': 1 } },
     );
-    if (user && !isUserLocked(user)) {
+    // Is any OTHER address still locked out of this account? Asked here rather
+    // than through models/lib/accountLockout.js, which is app code: a Meteor
+    // package is compiled separately and cannot import from the app. The shape
+    // is the one that file documents, and tests/lockoutPerSourceAddress.test.cjs
+    // checks the two agree.
+    const stillLocked = (() => {
+      let byAddress;
+      try { byAddress = user.services['accounts-lockout'].byAddress; } catch (e) { return false; }
+      if (!byAddress || typeof byAddress !== 'object') return false;
+      const now = Number(new Date());
+      return Object.keys(byAddress).some(k => {
+        const entry = byAddress[k];
+        return entry && typeof entry.unlockTime === 'number' && entry.unlockTime > now;
+      });
+    })();
+    if (user && !stillLocked) {
       await Meteor.users.updateAsync(
         { _id: userId },
         { $unset: { 'services.accounts-lockout.lockedUntil': '' } },
@@ -265,6 +286,20 @@ class KnownUser {
         failedAttempts,
         maxAttemptsAllowed,
         attemptsRemaining,
+      }),
+    );
+  }
+
+  // Not a lockout: the address may try again in `duration` seconds. Said with
+  // its own message so somebody who mistyped can see that they are being slowed
+  // down rather than shut out, and how long for.
+  static tooSoon(duration) {
+    throw new Meteor.Error(
+      403,
+      'Too soon',
+      JSON.stringify({
+        message: 'Wait a moment before trying again.',
+        duration,
       }),
     );
   }

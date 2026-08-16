@@ -79,6 +79,10 @@ function scopeStateOf(user, address) {
     firstFailedAttempt: num(state && state.firstFailedAttempt),
     lastFailedAttempt: num(state && state.lastFailedAttempt),
     unlockTime: num(state && state.unlockTime),
+    // When this address may try again after its last failure - the increasing
+    // delay (lockoutDecision.js). Absent on state written before delays existed,
+    // which reads as 0: no wait, rather than a wait nobody can explain.
+    nextAttemptAt: num(state && state.nextAttemptAt),
   };
 }
 

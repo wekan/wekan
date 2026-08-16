@@ -40,7 +40,9 @@ const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
 const PKG = path.join(ROOT, 'packages', 'wekan-accounts-lockout', 'src');
-const { decideKnownUserAttempt } = require(path.join(PKG, 'lockoutDecision'));
+const {
+  decideKnownUserAttempt, delayAfterFailures,
+} = require(path.join(PKG, 'lockoutDecision'));
 const {
   clientAddressOf, scopeKeyFor, scopeFieldFor, scopeStateOf,
 } = require(path.join(PKG, 'lockoutScope'));
@@ -49,9 +51,16 @@ let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
 // WeKan's defaults: three failures, sixty seconds, counted over a minute.
-const SETTINGS = { failuresBeforeLockout: 3, lockoutPeriod: 60, failureWindow: 60 };
+// Delays are switched off here (loginDelayBase 0) so these tests describe the
+// LOCKOUT on its own, the way they did before delays existed. The delay has its
+// own tests at the end, with its own settings.
+const SETTINGS = {
+  failuresBeforeLockout: 3, lockoutPeriod: 60, failureWindow: 60, loginDelayBase: 0,
+};
 const EMPTY = {
   failedAttempts: 0, firstFailedAttempt: 0, lastFailedAttempt: 0, unlockTime: 0,
+  // The increasing delay's "may try again at", 0 when there is none.
+  nextAttemptAt: 0,
 };
 
 // A user document, as Mongo would hold it after `n` failures from `address`.
@@ -443,8 +452,14 @@ test('locking writes the display field and clearing removes it', () => {
   const clear = src.slice(src.indexOf('static async clearLockout('));
   assert.ok(/'services\.accounts-lockout\.lockedUntil': ''/.test(clear),
     'and clearing the lockout must clear it, or the account looks locked for ever');
-  assert.ok(/if \(user && !isUserLocked\(user\)\)/.test(src),
+  assert.ok(/const stillLocked = \(\(\) => \{/.test(src) && /if \(user && !stillLocked\)/.test(src),
     'unlocking ONE address must only clear it when no address is still locked');
+  // A Meteor package is compiled separately from the app and cannot import app
+  // modules, so that check is inlined here rather than taken from
+  // models/lib/accountLockout.js. No other package in this repository reaches
+  // across that boundary, and this one must not either.
+  assert.ok(!/require\('\/models\//.test(src) && !/from '\/models\//.test(src),
+    'the package must not import app code - it does not compile with the app');
 });
 
 test('the summary answers WHY, not just whether', () => {
@@ -476,6 +491,107 @@ test('an account with no lockout state is not locked (negative)', () => {
     assert.strictEqual(isUserLocked(user), false, `should not be locked: ${JSON.stringify(user)}`);
   }
   assert.deepStrictEqual(lockSummary({}), { locked: false, addresses: 0 });
+});
+
+// ── The increasing delay after a wrong password ─────────────────────────────
+// The lockout on its own is a step function: two failures cost nothing, the
+// third costs sixty seconds. A delay that GROWS costs a guesser far more than
+// somebody who mistyped, and it degrades instead of slamming shut.
+
+const DELAYED = {
+  failuresBeforeLockout: 5, lockoutPeriod: 60, failureWindow: 600,
+  loginDelayBase: 1, loginDelayMax: 30,
+};
+
+test('each wrong password costs more than the one before it', () => {
+  const now = 8_000_000;
+  let scope = EMPTY;
+  const waits = [];
+  let clock = now;
+  for (let i = 0; i < 4; i += 1) {
+    const d = decideKnownUserAttempt({ hadError: true, now: clock, settings: DELAYED, scope });
+    waits.push(d.delayMs / 1000);
+    scope = {
+      failedAttempts: d.failedAttempts,
+      firstFailedAttempt: scope.firstFailedAttempt || clock,
+      lastFailedAttempt: clock,
+      unlockTime: 0,
+      nextAttemptAt: d.nextAttemptAt,
+    };
+    clock = d.nextAttemptAt + 1;      // wait it out, then try again
+  }
+  assert.deepStrictEqual(waits, [1, 2, 4, 8], 'doubling from the base');
+});
+
+test('the delay is capped, so it cannot run away into hours', () => {
+  assert.strictEqual(delayAfterFailures(20, DELAYED), 30_000,
+    'the cap is what a support desk has to live with');
+  assert.strictEqual(delayAfterFailures(1, DELAYED), 1_000);
+});
+
+test('trying again too soon is refused WITHOUT counting (negative)', () => {
+  // Otherwise an attacker reaches the lockout faster by trying faster, which is
+  // the wrong way round: impatience would become a weapon against the address.
+  const now = 9_000_000;
+  const scope = {
+    failedAttempts: 2, firstFailedAttempt: now, lastFailedAttempt: now,
+    unlockTime: 0, nextAttemptAt: now + 4_000,
+  };
+  const d = decideKnownUserAttempt({ hadError: true, now: now + 1_000, settings: DELAYED, scope });
+  assert.strictEqual(d.action, 'too-soon');
+  assert.strictEqual(d.secondsRemaining, 3);
+  assert.ok(!('failedAttempts' in d), 'a refused-too-early attempt must not count');
+  assert.ok(!('nextAttemptAt' in d), 'nor may it push the wait further out');
+});
+
+test('a CORRECT password ignores the delay entirely', () => {
+  // The whole point: the delay slows a guesser down. Somebody who did not have
+  // to guess has proved they are not who it is for.
+  const now = 10_000_000;
+  const scope = {
+    failedAttempts: 3, firstFailedAttempt: now, lastFailedAttempt: now,
+    unlockTime: 0, nextAttemptAt: now + 30_000,
+  };
+  const d = decideKnownUserAttempt({ hadError: false, now: now + 1, settings: DELAYED, scope });
+  assert.strictEqual(d.action, 'allow', 'no wait for a password that is right');
+  assert.strictEqual(d.clearScope, true, 'and the delay is cleared behind it');
+});
+
+test('the delay is per ADDRESS, so an attacker cannot slow the owner down', () => {
+  // Same rule as the counter itself. The scope IS the per-address state, so this
+  // is really a check that nothing account-wide leaks into the decision.
+  const now = 11_000_000;
+  const attackerScope = {
+    failedAttempts: 4, firstFailedAttempt: now, lastFailedAttempt: now,
+    unlockTime: 0, nextAttemptAt: now + 8_000,
+  };
+  const ownerScope = EMPTY;
+  assert.strictEqual(
+    decideKnownUserAttempt({ hadError: true, now, settings: DELAYED, scope: attackerScope }).action,
+    'too-soon');
+  assert.strictEqual(
+    decideKnownUserAttempt({ hadError: true, now, settings: DELAYED, scope: ownerScope }).action,
+    'count', 'the owner, elsewhere, waits for nothing');
+});
+
+test('delays can be switched off, and then nothing changes (negative)', () => {
+  // loginDelayBase 0 leaves the lockout behaving exactly as it did before, so an
+  // instance that does not want this is not forced into it.
+  const off = { ...DELAYED, loginDelayBase: 0 };
+  const d = decideKnownUserAttempt({ hadError: true, now: 12_000_000, settings: off, scope: EMPTY });
+  assert.strictEqual(d.delayMs, 0);
+  assert.strictEqual(d.nextAttemptAt, 0, 'and no wait is written at all');
+});
+
+test('the write path stores the wait, and the settings carry defaults', () => {
+  const fs = require('fs');
+  const src = fs.readFileSync(path.join(PKG, 'knownUser.js'), 'utf8');
+  assert.ok(/decision\.action === 'too-soon'/.test(src), 'the refusal must be handled');
+  assert.ok(/nextAttemptAt`\] = decision\.nextAttemptAt/.test(src), 'and the wait recorded');
+  const settings = fs.readFileSync(path.join(ROOT, 'models/lockoutSettings.js'), 'utf8');
+  for (const key of ['known-loginDelayBase', 'known-loginDelayMax']) {
+    assert.ok(settings.includes(key), `${key} must be a setting, not a constant`);
+  }
 });
 
 console.log(`\nlockoutPerSourceAddress: ${passed} tests passed`);

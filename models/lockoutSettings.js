@@ -50,7 +50,8 @@ LockoutSettings.helpers({
   getKnownConfig() {
     // Fetch all settings in one query instead of 3 separate queries
     const settings = LockoutSettings.find({
-      _id: { $in: ['known-failuresBeforeLockout', 'known-lockoutPeriod', 'known-failureWindow'] }
+      _id: { $in: ['known-failuresBeforeLockout', 'known-lockoutPeriod', 'known-failureWindow',
+        'known-loginDelayBase', 'known-loginDelayMax'] }
     }, { fields: { _id: 1, value: 1 } }).fetch();
 
     const settingsMap = {};
@@ -59,7 +60,15 @@ LockoutSettings.helpers({
     return {
       failuresBeforeLockout: settingsMap['known-failuresBeforeLockout'] || 3,
       lockoutPeriod: settingsMap['known-lockoutPeriod'] || 60,
-      failureWindow: settingsMap['known-failureWindow'] || 15
+      failureWindow: settingsMap['known-failureWindow'] || 15,
+      // The increasing delay after a wrong password (lockoutDecision.js), in
+      // seconds: the first failure costs `loginDelayBase`, and each one after
+      // doubles it up to `loginDelayMax`. 0 for the base switches delays off
+      // entirely and leaves the lockout behaving as it did before.
+      loginDelayBase: settingsMap['known-loginDelayBase'] === undefined
+        ? 1 : settingsMap['known-loginDelayBase'],
+      loginDelayMax: settingsMap['known-loginDelayMax'] === undefined
+        ? 30 : settingsMap['known-loginDelayMax']
     };
   },
   getUnknownConfig() {

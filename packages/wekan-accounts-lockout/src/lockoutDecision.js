@@ -24,6 +24,31 @@
 //
 // The result says what to do and never how: the caller writes to Mongo, throws
 // the Meteor errors and sets the timers.
+//
+// INCREASING DELAYS. The lockout on its own is a step function - two failures
+// cost nothing, the third costs sixty seconds. A guesser spends the two free
+// attempts of every window and waits; somebody who mistyped their password gets
+// no warning that they are close to being locked out. A delay that GROWS with
+// each failure costs a guesser far more than it costs a person, and it degrades
+// instead of slamming shut: the account is never unavailable, it is only slower
+// to try again.
+//
+// The delay is per (user, source address), like the counter, and for the same
+// reason - an attacker must not be able to slow down the account's owner. And a
+// correct password is still allowed immediately, delay or no delay: somebody who
+// did not have to guess has proved they are not who this is for.
+
+// How long to wait after the nth failure, in milliseconds. Doubling from a base,
+// capped - so it becomes expensive quickly and then stops growing rather than
+// running away into hours nobody wants to support.
+function delayAfterFailures(n, settings = {}) {
+  const base = Number(settings.loginDelayBase) || 0;
+  if (base <= 0 || n < 1) return 0;
+  const max = Number(settings.loginDelayMax) || 0;
+  const grown = base * (2 ** (n - 1));
+  const capped = max > 0 ? Math.min(grown, max) : grown;
+  return Math.round(capped * 1000);
+}
 
 // `attempt` is { hadError, now, settings, scope } where scope is the state from
 // lockoutScope.scopeStateOf and settings has failuresBeforeLockout,
@@ -49,6 +74,18 @@ function decideKnownUserAttempt({ hadError, now, settings, scope }) {
     };
   }
 
+  // Too soon after the last failure. Refused WITHOUT counting: the delay is
+  // there to slow a guesser down, and letting a refused-too-early attempt add
+  // to the counter would let an attacker lock the address out faster by trying
+  // faster - which is the wrong way round. Like the lock above, it is not
+  // extended by hammering.
+  if (scope.nextAttemptAt > now) {
+    return {
+      action: 'too-soon',
+      secondsRemaining: Math.max(1, Math.ceil((scope.nextAttemptAt - now) / 1000)),
+    };
+  }
+
   // The failure window has passed since the first failure in this run, so this
   // attempt starts a new one.
   const windowExpired = scope.firstFailedAttempt > 0
@@ -66,13 +103,18 @@ function decideKnownUserAttempt({ hadError, now, settings, scope }) {
     };
   }
 
+  const delayMs = delayAfterFailures(failedAttempts, settings);
   return {
     action: 'count',
     failedAttempts,
     startsWindow,
     maxAttemptsAllowed: failuresBeforeLockout,
     attemptsRemaining: failuresBeforeLockout - failedAttempts,
+    // When this address may try again. Zero when delays are switched off, and
+    // the caller then writes no nextAttemptAt at all.
+    delayMs,
+    nextAttemptAt: delayMs > 0 ? now + delayMs : 0,
   };
 }
 
-module.exports = { decideKnownUserAttempt };
+module.exports = { decideKnownUserAttempt, delayAfterFailures };
