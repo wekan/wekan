@@ -389,7 +389,10 @@ category it justified is withdrawn — **61.3 MiB becomes 40.0 MiB**. What
 changes beyond this one fault is the check: a release now has to **start the
 bundle it built** and see it reach its database before it may carry it, which
 is what would have caught this and the source-map crash before v10.96 in
-seconds each.
+seconds each. The **release tooling** changes with it: releases here are
+frequent, so `release-all.sh` now opens the next `# Upcoming` section the moment
+it names one, and a guard checks that entries sit in the release that actually
+contains them.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -449,6 +452,43 @@ removed, and a manifest naming maps that are not there — and each fails with i
 own diagnosis, because the fix for each is a different one. A bundle that exits
 quietly or hangs is not a pass either: a smoke test whose failure mode is
 passing when it learned nothing is worth less than none.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/43341fc75">Releases are frequent, so the CHANGELOG tooling stops assuming they are rare</a>. Thanks to xet7.</summary>
+
+The maintenance loop here is `build.sh` option 1 (git pull + git push) and
+`releases/release-all.sh` with no arguments, several times a day when a fault is
+being chased. A release landing in the middle of a piece of work is the normal
+case, not a special one — and `release-all.sh` renamed
+`# Upcoming WeKan ® release` to `# v<NEW> …` and left nothing behind, so the
+next entry written had nowhere correct to go. It landed above the closing
+`Thanks to above GitHub users …` line, which is now INSIDE the release just
+published.
+
+v10.96 and v10.97 both ended up that way. The second was worse than misplaced:
+an entry already published was EDITED afterwards, so the notes described a
+smaller, tidier change than the one that shipped — and the one that shipped was
+the one that stopped the bundle starting.
+
+`releases/changelog-open-next.mjs` opens the next section as soon as a release
+is named, carrying the `**In short:**` placeholder and the binaries table the
+format guard requires, so the file is valid the moment `release-all.sh`
+finishes. Re-running it is a no-op, since `release-all.sh` can be run again
+after a failure. The format guard now allows an Upcoming that is empty AND still
+carries the placeholder — and fails one that has entries and still carries it,
+because that is a summary nobody replaced.
+
+`tests/changelogEntriesBelongToTheirRelease.test.cjs` is the check that the home
+was used: git knows which commits a release contains, so an entry linking a
+commit that is not an ancestor of its release is in the wrong section. Scoped to
+the newest three releases on purpose — over the whole file it flags 83 entries
+back to v2.99, from old release practices and history rewrites, and a guard
+reporting 83 things nobody will act on is a guard people learn to skip.
+
+`CLAUDE.md` says all of this where the release instructions are, including the
+rule the second mistake broke: a released section is a record, not a draft.
 
 </details>
 
