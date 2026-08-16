@@ -500,7 +500,7 @@ rule the second mistake broke: a released section is a record, not a draft.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/2ecbdcafb">CHANGELOG.md keeps the current year, and older years move to old-CHANGELOG/</a>. Thanks to mimZD and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/7fa8ba12e">CHANGELOG.md keeps the current year, and older years move to old-CHANGELOG/</a>. Thanks to mimZD and xet7.</summary>
 
 Reported as [#6580](https://github.com/wekan/wekan/issues/6580): the file had
 reached **2.6 MB and 51,365 lines across 1,070 releases** going back to 2015,
