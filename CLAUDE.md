@@ -260,11 +260,22 @@ pushed to Transifex as if it were human.
   the newest release (FerretDB uses `## Upcoming FerretDB release`; the patch repos use
   `# Upcoming <repo> release`). Do **not** hand-edit
   `package.json` or any other version reference — the release workflow bumps those.
+- **CHANGELOG.md holds the CURRENT YEAR only.** It reached 2.6 MB and 51,365
+  lines over 1,099 releases back to 2015 (#6580), which is slow to open and
+  slower to read. Older years live in `old-CHANGELOG/<year>.md`, moved there
+  whole and unchanged, with a bullet in `# Platforms` linking each one. That
+  `git blame` is less useful on the split file is accepted: the history is still
+  in git for anyone who wants it (`gitk`, `git-gui`, `git log --follow`), and
+  being small enough to open is worth more. **This is a January job** — run
+  `node releases/changelog-archive-years.mjs` once when a year turns over; it is
+  idempotent, so a stray run does nothing. An archived section is never edited,
+  for the same reason a released one is not.
 - **The file's shape, top to bottom** — keep it exactly as it is now:
   1. `# Platforms` — the line `Newest WeKan at these platforms:` and the Install /
-     Upgrade / Docs / Mac ChangeLog bullets, then a `<details>` whose `<summary>` is
-     `Version` holding "which WeKan version uses what". There is no `# Version`
-     heading of its own.
+     Upgrade / Docs / Mac ChangeLog bullets, the `Older releases:` bullet linking
+     the per-year archives, then a `<details>` whose `<summary>` is `Version`
+     holding "which WeKan version uses what". There is no `# Version` heading of
+     its own.
   2. `# TODO Later` — a `<details>` whose `<summary>` is `Carried to a future
      release.` explaining the list, then one `<details>` per category (below).
   3. The releases, newest first, each `# v<MAJOR>.<MINOR> YYYY-MM-DD WeKan ® release`.

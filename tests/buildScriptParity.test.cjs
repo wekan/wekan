@@ -245,6 +245,11 @@ test('every script in releases/ is reachable from BOTH menus', () => {
       + '      reaches. There is no graph to walk until a build has produced a\n'
       + '      bundle, and a menu entry would need one to point at. Run it by hand\n'
       + '      with --dry-run against .build/bundle to see what it would take',
+    'changelog-archive-years.mjs': 'a JANUARY job, run once when a year turns\n'
+      + '      over: it keeps the current year in CHANGELOG.md and moves older years\n'
+      + '      to old-CHANGELOG/<year>.md, so the file stays small enough to open\n'
+      + '      (#6580). Not a menu action - it belongs to the calendar rather than\n'
+      + '      to a build, and it is idempotent, so a stray run does nothing',
     'changelog-open-next.mjs': 'release-workflow: releases/release-all.sh runs it\n'
       + '      as its second step, opening the "# Upcoming WeKan ® release" section\n'
       + '      the NEXT release\'s entries belong in as soon as this one is named.\n'
