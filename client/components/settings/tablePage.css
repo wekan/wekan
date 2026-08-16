@@ -236,6 +236,29 @@
   align-items: center;
   gap: 4px;
 }
+/* The avatar box is the BOARD SIDEBAR'S, `.member` from userAvatar.css - 24px,
+   round, the image cropped to fill it and the initials centred in it. Reused
+   rather than copied: every avatar rule in that file is scoped to `.member`, so
+   a cell without the class drew the image at its natural size (a 300px
+   photograph in a table row, with the login counts scattered around it), and a
+   fourth private copy of "how big is an avatar" is how the three that already
+   exist came to disagree.
+
+   Two of its board-specific declarations do not belong in a table: it floats,
+   and it carries a 3px margin for the sidebar's grid. */
+.table-page .member,
+.table-page-people .member {
+  float: none;
+  margin: 0;
+  flex: 0 0 auto;
+}
+/* One person: the avatar and their login count, side by side and never split
+   across a line break. */
+.table-page-person {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
 .table-page-people .edit-user {
   display: inline-flex;
   align-items: center;

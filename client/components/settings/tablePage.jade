@@ -108,6 +108,12 @@ template(name="tablePage")
                     //- Several people in one cell: an office row's People
                       column. Each is the same avatar-or-initials link as a
                       single user cell, with the number of logins beside it.
+                    //- `.member` is the board sidebar's own avatar box - 24px,
+                      round, with the image cropped to fill it and the initials
+                      centred in it. EVERY avatar rule in userAvatar.css is
+                      scoped to it, so a cell without it drew the image at its
+                      natural size: a 300px photograph in a table row, with the
+                      login counts scattered around it.
                     //- A PLACE - an office row's Location: the country's flag
                       and the city, and clicking it asks which map to open it
                       at, from the same eleven providers as a card's location
@@ -120,15 +126,16 @@ template(name="tablePage")
                     if users.length
                       .table-page-people
                         each users
-                          a.edit-user.js-table-page-edit-user(data-user-id="{{userId}}" title="{{text}}")
-                            if avatarUrl
-                              img.avatar.avatar-image(src="{{avatarUrl}}" alt="{{text}}")
-                            else
-                              +userAvatarInitials(userId=userId)
+                          span.table-page-person
+                            a.member.edit-user.js-table-page-edit-user(data-user-id="{{userId}}" title="{{text}}")
+                              if avatarUrl
+                                img.avatar.avatar-image(src="{{avatarUrl}}" alt="{{text}}")
+                              else
+                                +userAvatarInitials(userId=userId)
                             if count
                               span.table-page-people-count {{count}}
                     else if userId
-                      a.edit-user.js-table-page-edit-user(data-user-id="{{userId}}" title="{{text}}")
+                      a.member.edit-user.js-table-page-edit-user(data-user-id="{{userId}}" title="{{text}}")
                         if userAvatarUrl
                           img.avatar.avatar-image(src="{{userAvatarUrl}}" alt="{{text}}")
                         else

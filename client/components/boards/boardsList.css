@@ -313,8 +313,19 @@
    pane says what to drag rather than showing nothing at all. Sized and spaced
    like a board tile so it sits where the first tile would.
    docs/Features/Board/Home.md */
+/* Home's "Drag a board here to open it after login" placeholder.
+   It stands where a board tile will be, so it is the SIZE of a board tile:
+   114px like `.board-list .board-list-item` and `.js-add-board .label`, with
+   the dashed border folded into that height rather than added outside it. It
+   was 20px of padding around one line of text, which came to about 85px - a
+   short dashed box on a page whose whole content is that box, next to nothing
+   to compare it with except the tiles it is a placeholder FOR. */
 .board-list-item-empty {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: 114px;
   width: 270px;
   padding: 20px;
   margin: 7px;
@@ -993,8 +1004,22 @@
   font-weight: 400;
   line-height: calc(18px * var(--wekan-ui-font-scale, 1));
 }
+/* The "+ Add Board" tile is as tall as the boards beside it.
+   `min-height: 114px` is a FLOOR, not a height, and a board whose title wraps to
+   three lines - "WeKan ® Open Source Kanban board with MIT license" - grows past
+   it. The list is a grid, so every other tile in that row stretches to match;
+   the grey tile did not, because the colour of a board tile comes from the `li`
+   (which the grid stretches) while the grey comes from the `.label` INSIDE it,
+   which kept its own 114px. So the row was 146px of board and 114px of grey,
+   with the "+ Add Board" box hanging short at the bottom.
+   A flex `li` with a growing child gives the label the row's height, whatever
+   the tallest title in that row turns out to be. */
 .board-list .js-add-board {
   text-align: center;
+  display: flex;
+}
+.board-list .js-add-board > .label {
+  flex: 1 1 auto;
 }
 .board-list .js-add-board .label {
   font-weight: normal;

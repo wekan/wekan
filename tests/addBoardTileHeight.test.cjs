@@ -194,4 +194,65 @@ test('All Boards board tile drag handle is at the right middle', () => {
   assert.ok(/background:\s*transparent/.test(blk), 'transparent background — only the drag icon shows');
 });
 
+test('the "+ Add Board" tile stretches to the row, not just to the floor', () => {
+  // `min-height: 114px` is a FLOOR. A board whose title wraps to three lines
+  // grows past it, and the grid stretches every other tile in that row to match
+  // - but the grey comes from the `.label` INSIDE the li, which kept its own
+  // 114px while the li grew. The row was 146px of board and 114px of grey.
+  const li = block('.board-list .js-add-board');
+  assert.ok(/display:\s*flex/.test(li),
+    'the add-board li must be a flex box, so its label can fill the row height');
+  const label = block('.board-list .js-add-board > .label');
+  assert.ok(/flex:\s*1 1 auto/.test(label),
+    'and the label must grow into it');
+});
+
+test('the Home placeholder is a board tile\'s height too', () => {
+  // "Drag a board here to open it after login" stands where a board tile will
+  // be, so it is the size of one. It was padding around a line of text, about
+  // 85px, on a page whose entire content is that box.
+  const empty = block('.board-list-item-empty');
+  assert.ok(/box-sizing:\s*border-box/.test(empty),
+    'the dashed border must be folded into the height, not added outside it');
+  assert.strictEqual(parseInt(prop(empty, 'min-height'), 10), 114,
+    'the same 114px as a board tile and as "+ Add Board"');
+});
+
+test('one list renders every view, so no page can have its own tile height', () => {
+  // Starred, Remaining, Home, Templates, Archive and the workspaces are the
+  // SAME `ul.board-list` with a different set of boards in it - which is why
+  // "do the workspace tiles match the others" has one answer and not six. A
+  // second list would be a second set of tile rules to keep in step.
+  const jade = fs.readFileSync(
+    path.join(path.resolve(__dirname, '..'), 'client/components/boards/boardsList.jade'), 'utf8');
+  const lists = [...jade.matchAll(/^\s*ul\.board-list[\w.-]*/gm)];
+  assert.strictEqual(lists.length, 1,
+    `board tiles must come from ONE list; found ${lists.length}`);
+  assert.ok([...jade.matchAll(/board-list-item/g)].length > 3,
+    'and every tile variant is inside it');
+});
+
+test('every tile variant shares the 114px floor, bordered or not', () => {
+  // Named one by one, because each is a different page and they are compared by
+  // eye across pages rather than side by side: an ordinary board, a template
+  // container (4px white border), the two grey add tiles and Home's dashed
+  // placeholder.
+  for (const [sel, what] of [
+    ['.board-list .board-list-item', 'a board'],
+    ['.board-list .js-add-board .label', '"+ Add Board"'],
+    ['.board-list-item-empty', "Home's placeholder"],
+  ]) {
+    const blk = block(sel);
+    assert.ok(blk, `${sel} must exist`);
+    assert.strictEqual(parseInt(prop(blk, 'min-height'), 10), 114, `${what} is 114px`);
+    assert.ok(/box-sizing:\s*border-box/.test(blk),
+      `${what} folds its border into that height`);
+  }
+  // The template container adds only a border, on top of the base rule - it
+  // must NOT restate a height of its own, or the two would drift.
+  const tpl = block('.board-list .board-list-item.template-container');
+  assert.ok(!/min-height/.test(tpl),
+    'the template container inherits the height rather than setting one');
+});
+
 console.log(`\nAll ${passed} add-board tile-height tests passed`);
