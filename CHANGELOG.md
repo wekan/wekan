@@ -387,8 +387,8 @@ it: **Cancel** did not stop a release run, so `docker` kept building an image
 for a release being abandoned, and the **Sandstorm** `.spk` finally gets under
 its 1 GiB limit now that the size report says what filled it. That last one
 grew: **uws is not reliable enough yet**, so every platform now defaults to
-**sockjs**, and no bundle ships uWebSockets.js (121M) or the legacy client
-(81M) at all.
+**sockjs**, and no bundle ships uWebSockets.js (121M), the legacy client (81M)
+or source maps (152M) at all.
 Below that: two AWS SDK updates for the S3 attachment path.
 
 | Platform | Binary | From | Version | SHA256 |
@@ -572,7 +572,7 @@ wrong.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/33c867f4d">Every platform talks sockjs, and no bundle ships uws or the legacy client</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/33c867f4d">Every platform talks sockjs, and drops uws, the legacy client and the source maps</a>. Thanks to xet7.</summary>
 
 uws is not reliable enough yet to be what a default points at, so nothing WeKan
 ships selects it any more, and nothing carries the module. Three halves, and
@@ -615,9 +615,22 @@ crash-loop on the require. So the Docker entrypoint and the bundle's own
 `start-wekan.sh` coerce `uws` back to `sockjs` before starting anything, and
 print why — a setting silently ignored is worse than one that fails.
 
-`tests/sockjsEverywhere.test.cjs` pins the three together: a default without the
-coercion is an upgrade trap, a coercion without the trim is dead weight, and a
-trim without both is a crash.
+- **Source maps**, 152 MiB — 188 MiB across 4766 files, less the 36 MiB inside
+  the legacy client that goes with it. A source map translates a position in
+  built code back to the source that produced it: this bundle's server side is
+  one 117 MiB `programs/server/app/app.js`, and its 58 MiB `app.js.map` is what
+  turns `app.js:1284531` into a file and a line. Two things read it — browser
+  devtools, which fetch the `.map` only while they are open, and Node stack
+  traces through `source-map-support` — and a released bundle has neither
+  attached. The `//# sourceMappingURL` comments stay behind and are comments; a
+  missing target means devtools show compiled positions and a server stack trace
+  prints bundle offsets. Debugging a production crash goes back to reproducing
+  it against a development build, which is where the maps still are.
+
+`tests/sockjsEverywhere.test.cjs` pins the three halves together: a default
+without the coercion is an upgrade trap, a coercion without the trim is dead
+weight, and a trim without both is a crash. It also pins that no call site keeps
+source maps, so one platform cannot quietly drift back to carrying them.
 
 </details>
 
