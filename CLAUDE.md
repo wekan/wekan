@@ -260,16 +260,31 @@ pushed to Transifex as if it were human.
   the newest release (FerretDB uses `## Upcoming FerretDB release`; the patch repos use
   `# Upcoming <repo> release`). Do **not** hand-edit
   `package.json` or any other version reference — the release workflow bumps those.
-- **CHANGELOG.md holds the CURRENT YEAR only.** It reached 2.6 MB and 51,365
-  lines over 1,099 releases back to 2015 (#6580), which is slow to open and
-  slower to read. Older years live in `old-CHANGELOG/<year>.md`, moved there
-  whole and unchanged, with a bullet in `# Platforms` linking each one. That
-  `git blame` is less useful on the split file is accepted: the history is still
-  in git for anyone who wants it (`gitk`, `git-gui`, `git log --follow`), and
-  being small enough to open is worth more. **This is a January job** — run
-  `node releases/changelog-archive-years.mjs` once when a year turns over; it is
-  idempotent, so a stray run does nothing. An archived section is never edited,
-  for the same reason a released one is not.
+- **CHANGELOG.md holds the CURRENT MONTH only.** It reached 2.6 MB and 51,365
+  lines over 1,100 releases back to 2015 (#6580), which is slow to open and
+  slower to read. Moving whole years out left 1.9 MB, still too large, because
+  releases here are frequent: 2026 alone is 272 releases over eight months and
+  July was 80 on its own. So:
+
+  | | |
+  | --- | --- |
+  | `CHANGELOG.md` | the current month, plus `# Platforms`, `# TODO Later`, `# Upcoming` |
+  | `old-CHANGELOG/<year>/<MM>.md` | earlier months of the current year |
+  | `old-CHANGELOG/<year>.md` | years that are over, whole |
+
+  Past years stay one file each because they are already small (30–107 KB);
+  splitting them further would trade a size problem nobody has for a hundred
+  more files. Each archive opens with a **release count** — per month in a year
+  file, per day in a month file — and a bullet in `# Platforms` links every one.
+  That `git blame` is less useful on the split file is accepted: the history is
+  still in git (`gitk`, `git-gui`, `git log --follow`), and being small enough
+  to open is worth more.
+
+  Run `node releases/changelog-archive.mjs` at the start of a month. It is
+  idempotent — a run with nothing to move only refreshes the tables — and it
+  takes the month to keep from the FILE rather than the clock, so two people
+  running it on the same day agree. An archived section is never edited, for the
+  same reason a released one is not.
 - **The file's shape, top to bottom** — keep it exactly as it is now:
   1. `# Platforms` — the line `Newest WeKan at these platforms:` and the Install /
      Upgrade / Docs / Mac ChangeLog bullets, the `Older releases:` bullet linking

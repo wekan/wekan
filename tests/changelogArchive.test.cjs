@@ -1,19 +1,25 @@
 'use strict';
 
-// Guard: the per-year CHANGELOG archives, and the month table at the top of each.
+// Guard: the CHANGELOG archives, and the count table at the top of each.
 // Run: node tests/changelogArchive.test.cjs
 //
-// CHANGELOG.md had reached 2.6 MB and 51,365 lines across 1,070 releases going
-// back to 2015 (#6580), so the current year stays there and older years move to
-// old-CHANGELOG/<year>.md whole and unchanged. Each archive opens with a count of
-// releases per month, because "how busy was 2019" is the first thing a year file
-// is asked and the last thing 159 collapsed sections answer.
+// CHANGELOG.md had reached 2.6 MB and 51,365 lines across 1,100 releases going
+// back to 2015 (#6580). It now holds ONE MONTH; earlier months of this year are
+// old-CHANGELOG/<year>/<MM>.md and finished years are old-CHANGELOG/<year>.md,
+// moved whole and unchanged. Each archive opens with a release count - per month
+// in a year file, per day in a month file - because "how busy was 2019", or
+// July, is the first thing an archive is asked and the last thing 159 collapsed
+// sections answer.
 //
 // Two things can quietly go wrong and both are checked here: a release lost or
 // duplicated by the move, and a table that stops matching the sections under it.
-// The table is regenerated from the file's own headings on every run of
-// releases/changelog-archive-years.mjs, so a mismatch means something edited one
-// half and not the other.
+// The table is regenerated from each file's own headings on every run of
+// releases/changelog-archive.mjs, so a mismatch means something edited one half
+// and not the other.
+//
+// The version in a heading is one or more dotted numbers - v1.49.1 and v6.99.5
+// exist. Requiring exactly MAJOR.MINOR skipped 28 sections when the archive was
+// first built, and they were then filed under whatever month preceded them.
 
 const assert = require('assert');
 const fs = require('fs');
@@ -25,51 +31,69 @@ const ARCHIVE = path.join(ROOT, 'old-CHANGELOG');
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
-const files = fs.existsSync(ARCHIVE)
-  ? fs.readdirSync(ARCHIVE).filter(f => /^\d{4}\.md$/.test(f)).sort().reverse()
-  : [];
+// Every archive, at both levels: old-CHANGELOG/<year>.md for a year that is
+// over, old-CHANGELOG/<year>/<MM>.md for an earlier month of the current year.
+function archives(dir = ARCHIVE, out = []) {
+  if (!fs.existsSync(dir)) return out;
+  for (const name of fs.readdirSync(dir).sort().reverse()) {
+    const full = path.join(dir, name);
+    if (fs.statSync(full).isDirectory()) archives(full, out);
+    else if (/^(\d{4}|\d{2})\.md$/.test(name)) out.push(path.relative(ARCHIVE, full));
+  }
+  return out;
+}
+const files = archives();
 const read = f => fs.readFileSync(path.join(ARCHIVE, f), 'utf8');
+// The label an archive covers: "2019" for a year file, "2026-07" for a month.
+const labelOf = f => (f.includes(path.sep)
+  ? `${path.dirname(f)}-${path.basename(f, '.md')}`
+  : path.basename(f, '.md'));
 const changelog = fs.readFileSync(path.join(ROOT, 'CHANGELOG.md'), 'utf8');
 
 // A release heading, in any of the wordings eleven years have used: 539 say
 // "Wekan release", 524 "WeKan ® release", and the rest are one-offs.
-const HEADING = /^# v(\d+\.\d+) (\d{4})-(\d{2})-\d{2}\b/gm;
+const HEADING = /^# v(\d+(?:\.\d+)+) (\d{4})-(\d{2})-(\d{2})\b/gm;
 
-test('there are archives, and each names its own year', () => {
-  assert.ok(files.length > 0, 'expected old-CHANGELOG/<year>.md files');
+test('there are archives, and each names the period it covers', () => {
+  assert.ok(files.length > 0, 'expected archives under old-CHANGELOG/');
   for (const f of files) {
-    const year = f.replace('.md', '');
-    assert.ok(new RegExp(`^# WeKan ® ${year} releases$`, 'm').test(read(f)),
-      `${f} must open with its own year heading`);
+    assert.ok(new RegExp(`^# WeKan ® ${labelOf(f)} releases$`, 'm').test(read(f)),
+      `${f} must open with a heading naming ${labelOf(f)}`);
   }
 });
 
-test('the month table matches the releases under it, in every archive', () => {
+test('the count table matches the releases under it, in every archive', () => {
+  // A year file counts per month, a month file per day. Both are the same shape,
+  // one level apart, so one check covers them by asking the label which it is.
   for (const f of files) {
     const body = read(f);
-    const year = f.replace('.md', '');
+    const label = labelOf(f);
+    const isMonth = label.includes('-');
     const table = [...body.matchAll(/^\| (\d{2}) \| (\d+) \|$/gm)]
       .reduce((acc, m) => acc.set(m[1], Number(m[2])), new Map());
-    assert.ok(table.size > 0, `${f} has no month table`);
+    assert.ok(table.size > 0, `${f} has no count table`);
 
     const actual = new Map();
     for (const m of body.matchAll(HEADING)) {
-      if (m[2] !== year) continue;
-      actual.set(m[3], (actual.get(m[3]) || 0) + 1);
+      const key = isMonth
+        ? (`${m[2]}-${m[3]}` === label ? m[4] : null)
+        : (m[2] === label ? m[3] : null);
+      if (key === null) continue;
+      actual.set(key, (actual.get(key) || 0) + 1);
     }
     assert.deepStrictEqual([...table.entries()].sort(), [...actual.entries()].sort(),
-      `${f}: the month table and the release sections disagree. It is regenerated `
-      + 'from the headings by releases/changelog-archive-years.mjs, so run that rather '
-      + 'than editing the table by hand.');
+      `${f}: the count table and the release sections disagree. It is regenerated `
+      + 'from the headings by releases/changelog-archive.mjs, so run that rather than '
+      + 'editing the table by hand.');
   }
 });
 
-test('the table header is the year and Releases, and months are two digits', () => {
+test('the table header names the period, and rows are two digits', () => {
   for (const f of files) {
-    const year = f.replace('.md', '');
+    const label = labelOf(f);
     const body = read(f);
-    assert.ok(body.includes(`| ${year} | Releases |\n| --- | --- |\n`),
-      `${f} must head its table with the year and "Releases"`);
+    assert.ok(body.includes(`| ${label} | Releases |\n| --- | --- |\n`),
+      `${f} must head its table with ${label} and "Releases"`);
     // 01..12, never 1..9 - so the rows sort as text and line up as a column.
     for (const m of body.matchAll(/^\| (\d+) \| \d+ \|$/gm)) {
       assert.strictEqual(m[1].length, 2, `${f} has a month written as "${m[1]}"`);
@@ -81,7 +105,7 @@ test('the table sits above the first release, not among them', () => {
   for (const f of files) {
     const body = read(f);
     const tableAt = body.indexOf('| Releases |');
-    const firstRelease = body.search(/^# v\d+\.\d+ /m);
+    const firstRelease = body.search(/^# v\d+(?:\.\d+)+ /m);
     assert.ok(tableAt !== -1 && firstRelease !== -1, `${f} needs both a table and releases`);
     assert.ok(tableAt < firstRelease,
       `${f}: the table has to be at the TOP, or it is not what the file opens with`);
@@ -100,14 +124,15 @@ test('no release is in both CHANGELOG.md and an archive (negative)', () => {
   }
 });
 
-test('CHANGELOG.md holds one year, and links every archive', () => {
-  const years = new Set([...changelog.matchAll(HEADING)].map(m => m[2]));
-  assert.strictEqual(years.size, 1,
-    `CHANGELOG.md should hold the current year only, found ${[...years].sort().join(', ')}`);
+test('CHANGELOG.md holds ONE MONTH, and links every archive', () => {
+  const months = new Set([...changelog.matchAll(HEADING)].map(m => `${m[2]}-${m[3]}`));
+  assert.strictEqual(months.size, 1,
+    `CHANGELOG.md should hold the current month only, found ${[...months].sort().join(', ')}`);
   for (const f of files) {
-    const year = f.replace('.md', '');
-    assert.ok(changelog.includes(`[${year}](old-CHANGELOG/${year}.md)`),
-      `# Platforms must link the ${year} archive, or a reader cannot find it`);
+    const label = labelOf(f);
+    const href = `old-CHANGELOG/${f.split(path.sep).join('/')}`;
+    assert.ok(changelog.includes(`[${label}](${href})`),
+      `# Platforms must link ${href}, or a reader cannot find it`);
   }
 });
 

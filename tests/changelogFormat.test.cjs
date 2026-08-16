@@ -76,7 +76,10 @@ test('TODO Later opens by saying what the list is', () => {
 });
 
 test('a change is a short description, with the long one behind it', () => {
-  assert.ok(ALL.length > 500, `expected hundreds of entries, found ${ALL.length}`);
+  // Not "hundreds" any more: CHANGELOG.md holds ONE MONTH since #6580, and the
+  // rest is under old-CHANGELOG/. A month of WeKan is 7 to 80 releases, so the
+  // floor here is only asking that the file was parsed at all.
+  assert.ok(ALL.length > 20, `expected the month's entries, found ${ALL.length}`);
   const long = ALL.filter(b => summaryText(b.summary).length > 130);
   assert.deepStrictEqual(long.map(b => `line ${b.line}: ${summaryText(b.summary).slice(0, 50)}…`),
     [], 'a summary is a title - the story goes in the body below it');
