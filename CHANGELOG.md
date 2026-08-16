@@ -389,8 +389,11 @@ its 1 GiB limit at last, now that its size report says what filled the gigabyte.
 What that measurement found ended up changing every platform, not just
 Sandstorm: **uws is not reliable enough yet**, so every default is now
 **sockjs**, and no bundle carries uWebSockets.js (121M), the legacy client
-(81M) or source maps (152M) — around **354M** a bundle, none of it on any
-loading path. Below that: two AWS SDK updates for the S3 attachment path.
+(81M) or source maps (152M) — around **354M** a bundle. And the **snap** stopped
+taking itself offline at every restart: the startup comparison of the two
+database copies ran unbounded with nothing on the web port, on an ambiguity its
+own reading of MongoDB kept recreating. Below that: two AWS SDK updates for the
+S3 attachment path.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -693,6 +696,84 @@ deliberately unreachable `MONGO_URL` it was given. That is the check that was
 missing the first time, and `tests/bundleTrim.test.cjs` now pins the invariant
 `boot.js` actually requires — every map the manifest names exists on disk — for
 both settings of `--keep-maps`.
+
+</details>
+
+**The snap's two copies of the database** - after a migration both stay on disk,
+and starting is where that gets decided.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/af4b5f054">Reading MongoDB to compare the copies must not look like writing to it</a>. Thanks to xet7.</summary>
+
+An instance serving FerretDB printed this at every restart:
+
+```
+  WeKan: BOTH databases have been written to since the migration.
+    MongoDB  last written 2026-08-16 01:41 (WiredTiger.wt)
+    FerretDB last written 2026-08-16 01:38
+```
+
+Nothing had opened that MongoDB in a month. The giveaway is in the report
+itself: the MongoDB timestamp is the minute the snap started, three minutes
+AFTER the FerretDB it is being compared against.
+
+`bin/ferretdb-migration-stale` decides *MongoDB has been written to* from the
+mtimes of the WiredTiger data files, and its own header admits an mtime cannot
+tell "somebody used this database" from "this database was started".
+`bin/database-autopick` is the answer to that — it reads both copies and
+compares their contents. But to read MongoDB it STARTS mongod, and starting
+mongod does recovery and a checkpoint, which stamps exactly the files the
+staleness check reads. So the diagnostic manufactured its own evidence: after
+one run, MongoDB looked freshly written forever and the ambiguity could never
+resolve, however long nobody touched it.
+
+The read now notes the newest data-file mtime before mongod starts and puts
+anything newer back afterwards — files mongod CREATED during the read included,
+since a new journal file is the newest thing in the directory and reports as a
+write on its own. mongod does not use mtimes, and what it checkpointed is not
+user data, so the metadata is made to say what is true. Every way out of the
+read restores, including the failures, because a failing read is exactly when
+the ambiguity gets reported. A write that happened BEFORE the read still
+survives it: the point is to hide WeKan's own read, never somebody's work.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a66d12955">The database comparison at startup cannot take the site down any more</a>. Thanks to xet7.</summary>
+
+The same instance went OFFLINE at every restart. `wekan-control` ran the
+comparison synchronously and unbounded before anything opened the web port — and
+it starts each database on a temporary port to read it, which on a real instance
+is minutes. Until it returned a browser got a connection timeout, and the reason
+was in `snap logs`, the last place somebody whose site is down thinks to look.
+
+That is [#6592](https://github.com/wekan/wekan/issues/6592) one step earlier than
+where it was fixed. The database WAIT already serves a *waiting for its
+database* page; the helpers for it were defined 200 lines BELOW the comparison
+that needed them. They move up, and the comparison uses them — after the same
+grace period, so a comparison that finishes in seconds does not flash a page up
+and teach proxies to cache a 503 for a healthy site.
+
+And a bound. `WEKAN_AUTOPICK_TIMEOUT` is 900 seconds by default; when it runs
+out WeKan says so, changes nothing, and starts on the database already selected.
+Stopping the comparison is safe — it never deletes anything on either side, and
+the merge it may be in the middle of only INSERTS what is missing, so a partial
+one is fewer documents copied and the next start finishes the job. Serving the
+site beats finishing the comparison.
+
+`WEKAN_AUTOPICK` was an env var and nothing else, so an admin whose site was
+down had no supported way to skip the comparison. It is a snap config key now,
+with the bound beside it, and the timeout message names both — somebody reading
+it is somebody whose site just came up late:
+
+```
+  snap set wekan autopick=false
+  snap set wekan autopick-timeout=1800
+```
+
+This is the other half of the entry above. Before that fix the comparison ran at
+EVERY start, so every restart took the site down for a comparison that could
+never conclude. One stops it recurring; this one makes it survivable.
 
 </details>
 
