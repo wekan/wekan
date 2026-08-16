@@ -52,6 +52,23 @@ FERRETDB_LISTEN_ADDR="${FERRETDB_LISTEN_ADDR:-127.0.0.1:27017}"
 export PORT="${PORT:-8080}"
 export ROOT_URL="${ROOT_URL:-http://localhost:$PORT}"
 export MONGO_URL="${MONGO_URL:-mongodb://$FERRETDB_LISTEN_ADDR/wekan}"
+# EXPORTING NEEDS THE API, and that is not obvious from the name.
+#
+# Every export in the interface - a board or a card to PDF, Excel, JSON, .zip,
+# CSV, or any of the "export for another tool" formats - is a download from an
+# `/api/...` address, and server/apiMiddleware.js refuses every one of those
+# unless WITH_API is exactly "true". So on a bundle started without it, clicking
+# "PDF" saved WeKan's own HTML page under the name `<card>.pdf`: the request was
+# redirected to `/`, and the browser wrote whatever came back to the file the
+# download link had named.
+#
+# The snap has defaulted this to true for years (snap-src/bin/config), and every
+# docker-compose*.yml in this repository sets it. This launcher was the one
+# platform that did not, which is why the bundle was the one platform where
+# exporting produced an HTML file. Set WITH_API=false to turn the REST API - and
+# with it the exports - off.
+export WITH_API="${WITH_API:-true}"
+
 # Card loading: 'all' (default, every card into the browser) or 'lazy' (each list
 # loads only the visible cards on demand — for boards with thousands of cards).
 # Also changeable at runtime in Admin Panel / Features.

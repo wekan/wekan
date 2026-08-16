@@ -244,6 +244,32 @@ test('the toggle is bound ONCE, on the document', () => {
     'and the template event maps for these two are gone, or a click toggles twice');
 });
 
+test('an unchecked box is square, whatever the label beside it', () => {
+  // "Kortin tiedot (jokainen kortti kuten kortin viennissa)" squeezed the
+  // unchecked square into a thin vertical sliver while "Taulu" beside it stayed
+  // square: the row is a flex container and a flex item shrinks.
+  //
+  // The fix is NOT here. It is in the rule that defines the checkbox, so that
+  // no flex row anywhere can do it to any of the 90 of them -
+  // tests/checkboxesAreSquare.test.cjs owns that invariant. What this popup
+  // adds is alignment only, and it must add nothing else: a local `box-sizing`
+  // here once made these boxes 13px including their border while every other
+  // checkbox in WeKan is 13px plus 2px.
+  const forms = read('client/components/forms/forms.css');
+  const base = /\n\.materialCheckBox \{([\s\S]*?)\n\}/.exec(forms);
+  assert.ok(base && /flex:\s*none/.test(base[1]),
+    'forms.css must make the checkbox unshrinkable, for every row that holds one');
+
+  const css = read('client/components/main/popup.css');
+  const rule = /\.export-scope-select a > \.materialCheckBox \{([\s\S]*?)\}/.exec(css);
+  assert.ok(rule, 'the export row aligns the box to the first line of its label');
+  // The declarations, not the comment above them explaining what must not be
+  // here - which of course names the very properties this is looking for.
+  const declarations = rule[1].replace(/\/\*[\s\S]*?\*\//g, '');
+  assert.ok(!/box-sizing|width:|height:/.test(declarations),
+    'and sizes nothing itself - that belongs to forms.css, for all of them');
+});
+
 test('a row shows whether it is ticked, in the Admin Panel\'s own checkbox', () => {
   // The list used an unconditional `i.fa.fa-check` on a `li.active`, which is
   // popup.css's OTHER convention: that tick is hidden by

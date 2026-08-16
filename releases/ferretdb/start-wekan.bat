@@ -22,6 +22,14 @@ set "FILES=%WRITABLE_PATH%\files"
 set "FERRETDB_SQLITE_DIR=%FILES%\db"
 if not defined PORT set "PORT=8080"
 if not defined ROOT_URL set "ROOT_URL=http://localhost:%PORT%"
+REM EXPORTING NEEDS THE API, and that is not obvious from the name. Every export
+REM in the interface - a board or a card to PDF, Excel, JSON, .zip, CSV - is a
+REM download from an /api/... address, and the server refuses those unless
+REM WITH_API is exactly "true". Without it, clicking "PDF" saved WeKan's own HTML
+REM page under the name of the file the download link had asked for. The snap and
+REM every docker-compose set this; the two bundle launchers were the only
+REM platforms that did not. Set WITH_API=false to turn the REST API off.
+if not defined WITH_API set "WITH_API=true"
 if not defined MONGO_URL set "MONGO_URL=mongodb://127.0.0.1:27017/wekan"
 REM  #6503/#6480/#6481: FerretDB v1 CAN tail an OpLog (started below with
 REM  --repl-set-name), but on the SQLite backend the tail keeps FerretDB CPU

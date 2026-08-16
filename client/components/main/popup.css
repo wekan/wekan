@@ -1119,10 +1119,22 @@ body.mobile-mode .pop-over .content-wrapper {
   align-items: flex-start;
   gap: 6px;
 }
-.pop-over .export-board-pane .pop-over-list.export-scope-select a > .fa {
-  /* The optical nudge that puts a 14px box on the baseline of a 16px line. */
-  margin-top: 2px;
-  flex: 0 0 auto;
+/* THE BOX KEEPS ITS SHAPE next to a long label.
+   `.materialCheckBox` is 13x13, but as a flex item it may be SHRUNK, and these
+   labels are long enough to do it - "Kortin tiedot (jokainen kortti kuten kortin
+   viennissä)" squeezed the unchecked square into a thin vertical sliver while
+   "Taulu" beside it stayed square. `flex: 0 0 auto` takes it out of the
+   shrinking, and the explicit box-sizing keeps the 2px border inside the 13px
+   rather than adding to it.
+   The CHECKED state is deliberately a different shape - forms.css turns the
+   square into a rotated tick - so this fixes the size of the box, not of the
+   mark inside it. */
+.pop-over .export-board-pane .pop-over-list.export-scope-select a > .materialCheckBox {
+  /* Only the optical nudge that puts the box on the FIRST line of a label that
+     wraps - the shape is forms.css's business (`flex: none` there), and a
+     `box-sizing` here would have made these boxes smaller than every other
+     checkbox in WeKan, since box-sizing is not global in this app. */
+  margin-top: 3px;
 }
 
 /* The rule above each subheading in the Export board menu. Tighter than the

@@ -75,9 +75,12 @@ test('an Admin Panel checkbox IS the material checkbox, declaration for declarat
   // tick AND the `transition: 0.2s` that animates between them are the same. Drawing
   // only a tick with a pseudo-element gets the checked state right and loses the
   // other two - which is exactly what was wrong before.
-  const decls = block => new Set(block.split('\n')
+  // COMMENTS FIRST, then declarations. A `/* … */` explaining why a rule is
+  // what it is can easily contain a colon, and a line of one was read as a
+  // declaration the other rule was then missing.
+  const decls = block => new Set(block.replace(/\/\*[\s\S]*?\*\//g, '').split('\n')
     .map(line => line.trim().replace(/;$/, ''))
-    .filter(line => line.includes(':') && !line.startsWith('/*') && !line.startsWith('*')));
+    .filter(line => line.includes(':')));
   const missing = (from, to) => [...decls(from)].filter(d => !decls(to).has(d));
 
   const unchecked = rule(admin, '.setting-content input[type="checkbox"] {');

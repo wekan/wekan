@@ -346,6 +346,16 @@ textarea::-moz-placeholder {
   transition: 0.2s;
   margin: 0;
   cursor: pointer;
+  /* A CHECKBOX IS SQUARE, WHEREVER IT IS PUT.
+     Several of the rows that carry one are flex containers - the export popup's
+     "select what to include", Admin Panel's setting rows, the sidebar's filters
+     - and a flex item shrinks by default. Next to a long label that squeezed the
+     13px box into a thin vertical sliver: "Kortin tiedot (jokainen kortti kuten
+     kortin viennissä)" drew a sliver while "Taulu" beside it stayed square.
+     `flex: none` here rather than in each of those places, because the shape of
+     a checkbox is this rule's business and there are 92 of them across 19
+     templates. */
+  flex: none;
 }
 .materialCheckBox.is-checked {
   top: -4px;

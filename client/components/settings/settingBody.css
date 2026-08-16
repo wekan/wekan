@@ -449,7 +449,11 @@ body.left-menu-resizing-active {
   margin: 0;
   padding: 0;
   background: transparent;
-  flex-shrink: 0;
+  /* Written as forms.css writes it: `flex-shrink: 0` and `flex: none` mean the
+     same thing here, and tests/adminCheckboxStyle.test.cjs compares the two
+     rules declaration by declaration - so saying it differently would read as a
+     difference between the Admin Panel's checkbox and everybody else's. */
+  flex: none;
   vertical-align: middle;
   cursor: pointer;
 }
