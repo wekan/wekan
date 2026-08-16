@@ -416,8 +416,11 @@ to 450 with the fix — the measurement was wrong rather than merely optimistic 
 and the category it justified is withdrawn: **61.3 MiB becomes 40.0 MiB**. What
 changes beyond that one fault is the check: a release now has to **start the
 bundle it built** and see it reach its database before it may carry it.
-**CHANGELOG.md** is 2.5 MB lighter of history, keeping the current MONTH while
-older months and years move to `old-CHANGELOG/`. And **Build WeKan release
+That fix had a cost nobody saw for a day: its package loaded on the CLIENT
+too, so `require('crypto')` reached the browser bundle and **every page died
+on load** with `Cannot find module 'stream'` — fixed here, and the whole class
+is now guarded. **CHANGELOG.md** is 2.5 MB lighter of history, keeping the
+current MONTH while older months and years move to `old-CHANGELOG/`. And **Build WeKan release
 bundle** is a menu entry now, building what a release would publish rather than
 a plain `meteor build` — so "does it start at all" no longer takes a release to
 answer. Below that: the Sandstorm pack that was throwing its own trim away,
@@ -710,6 +713,46 @@ identical copies each report had written for itself.
 </details>
 
 and fixes the following bugs:
+
+**Logging in** - and what the lockout was costing everybody else.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5ce9f181c">The lockout package is server-only: it was breaking every page in the browser</a>. Thanks to xet7.</summary>
+
+The JamBleed fix above hashes the source address of a login attempt with
+`require('crypto')`, and its package declared
+`api.mainModule('accounts-lockout.js')` with **no architecture** — which loads
+it into the CLIENT as well as the server.
+So the browser bundle pulled in crypto-browserify, which pulls in cipher-base,
+which does `require('stream')`, and the page died on load:
+
+```
+  Uncaught Error: Cannot find module 'stream'
+```
+
+before WeKan drew anything at all. The server started perfectly and answered
+HTTP 200 with a page that could not run.
+
+It is server-only now, which it always should have been: nothing in `client/`
+imports it, and shipping a brute-force lockout's decision to the browser would
+hand an attacker the rules even if it cost nothing. A rebuilt client bundle is
+**758 KB smaller** and contains neither crypto-browserify nor cipher-base.
+
+**Why nothing caught it.** `bundle-smoke-boot.sh` starts the bundle and waits
+for it to reach its database, which proves the SERVER image loads — every
+package linked, every map read. This was the client, and no check looked there.
+Both crashes that check was written for were server-side, so it answered the
+question it was asked and the question next door went unasked.
+
+`tests/packagesLoadOnTheRightArch.test.cjs` pins the class rather than the one
+package: it reads each `package.js` for the entry files NOT restricted to the
+server, follows their imports, and fails when any requires a Node builtin — and
+does the same for every file under `client/`. Verified to fail on the real
+fault. Meteor's default being *both* architectures is what makes this silent:
+the code works, the tests pass, and the cost lands in a browser bundle nobody
+reads.
+
+</details>
 
 **Bundles and images** - what a build carries, and what it can start without.
 
