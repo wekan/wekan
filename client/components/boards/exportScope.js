@@ -365,33 +365,57 @@ const scopeHelpers = {
 Template.exportScopeBody.helpers(scopeHelpers);
 Template.exportScopeSelect.helpers(scopeHelpers);
 
-// The toggles, on the template the checkboxes are IN.
+// THE TOGGLES, BOUND ON THE DOCUMENT - and deliberately not as a template event
+// map.
 //
-// Blaze resolves a helper, and delivers an event, against the template the
-// element is in - never an enclosing one. The two toggles were registered on
-// exportScopeBody only, on the theory that a click in exportScopeSelect bubbles
-// up to it, and the result was a checkbox list that could not be changed:
-// #6586 comment 5308548585, "I can't select/deselect those arrows here".
-// The same rule is written out in adminProblems.js, where three panes needed
-// their own copy of a shared pair for exactly this reason.
+// #6586 comment 5308548585: "I can't select/deselect those arrows here", and
+// then "clicking a checked option, like labels, does not uncheck it". The
+// handlers were a `Template.exportScopeBody.events({...})` map, and a click on a
+// row did nothing. Registering the same map on `exportScopeSelect` as well - the
+// template that actually draws the rows - did not help either: the fix was
+// built, shipped in both the release and the development bundle, and the list
+// still could not be changed.
 //
-// Registered on BOTH, from one object, like the helpers: a handler whose
-// element is not in a given template simply never fires there, so this costs
-// nothing and cannot go out of step.
-const selectToggles = {
-  'click .js-export-field-toggle'(event) {
+// What IS known, from the built bundle: the templates are registered, their
+// helpers run (the rows render, with their labels and their state), and both
+// event maps are attached. The click simply never arrives. This list is drawn
+// inside five different popups, each rendered by Popup into its own Blaze view
+// tree, so rather than keep guessing which link in that chain drops the event,
+// the toggle is bound where nothing can: one delegated handler on the document,
+// the same mechanism client/lib/escapeActions.js uses to catch clicks inside
+// popups.
+//
+// ONE binding, not one per template - two would toggle twice and cancel out,
+// which is the same "nothing happens" from a different direction.
+//
+// The display stays reactive through `selection`, which is what draws the
+// checkbox, so nothing here touches the DOM by hand.
+function toggleSelection(field) {
+  if (!field) return;
+  selection.set(field, !selection.get(field));
+}
+
+// A NATIVE listener, in the CAPTURE phase, and no jQuery.
+//
+// Capture, because it runs on the way DOWN to the row: a `stopPropagation()`
+// anywhere between the row and the document - which is one of the things that
+// could have been eating this click - cannot prevent it. And native, because a
+// `window.jQuery` that turned out to be undefined would fail silently, which is
+// indistinguishable from the bug being fixed.
+Meteor.startup(() => {
+  if (typeof document === 'undefined') return;
+  document.addEventListener('click', event => {
+    const target = event.target && event.target.closest
+      ? event.target.closest('.js-export-field-toggle, .js-export-card-details-toggle')
+      : null;
+    if (!target) return;
     // The popup stays open: choosing five sections should not be five reopens.
     event.preventDefault();
-    const field = event.currentTarget.dataset.field;
-    if (field) selection.set(field, !selection.get(field));
-  },
-  'click .js-export-card-details-toggle'(event) {
-    event.preventDefault();
-    selection.set('card-details', !selection.get('card-details'));
-  },
-};
-Template.exportScopeBody.events(selectToggles);
-Template.exportScopeSelect.events(selectToggles);
+    toggleSelection(target.classList.contains('js-export-card-details-toggle')
+      ? 'card-details'
+      : (target.dataset && target.dataset.field));
+  }, true);
+});
 
 Template.exportScopeBody.events({
   async 'change .js-import-file'(event) {

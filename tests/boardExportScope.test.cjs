@@ -207,28 +207,41 @@ test('a board too big for the card layout can still be exported', () => {
 
 // ── the checkbox list can actually be changed (#6586) ──────────────────────
 
-test('the toggles are registered on the template the checkboxes are IN', () => {
-  // #6586 comment 5308548585: "I can't select/deselect those arrows here".
-  // Blaze resolves a helper, and delivers an event, against the template the
-  // element is in - never an enclosing one. The two toggles were on
-  // exportScopeBody only, while the checkboxes they act on are drawn by
-  // exportScopeSelect, so nothing happened when one was clicked. The same rule
-  // is written out in adminProblems.js, where three panes each needed their own
-  // copy of a shared pair.
+test('the toggle is bound ONCE, on the document', () => {
+  // #6586 comment 5308548585: "I can't select/deselect those arrows here", then
+  // "clicking a checked option, like labels, does not uncheck it".
+  //
+  // A `Template.exportScopeBody.events` map did not deliver the click, and
+  // adding the same map to `exportScopeSelect` - the template that draws the
+  // rows - did not either: that fix was built and shipped in both bundles and
+  // the list still could not be changed. The list is drawn inside five popups,
+  // each rendered into its own Blaze view tree, so the toggle is bound where
+  // nothing in that chain can drop it - one delegated handler on the document,
+  // the mechanism escapeActions.js already uses for clicks inside popups.
   const js = read('client/components/boards/exportScope.js');
   const jade = read('client/components/boards/exportScope.jade');
 
-  // The checkboxes are drawn by exportScopeSelect...
   const selectTpl = /template\(name="exportScopeSelect"\)([\s\S]*?)\n\ntemplate/.exec(jade);
   assert.ok(selectTpl, 'exportScopeSelect must exist');
   for (const cls of ['js-export-field-toggle', 'js-export-card-details-toggle']) {
     assert.ok(selectTpl[1].includes(cls), `${cls} is drawn by exportScopeSelect`);
+    // ONE binding each. Two would toggle twice and cancel out, which is the
+    // same "nothing happens" arriving from the other direction.
+    const bindings = [...js.matchAll(new RegExp(`\\.${cls}[,'"]`, 'g'))].length;
+    assert.strictEqual(bindings, 1, `${cls} must be bound exactly once, found ${bindings}`);
   }
-  // ...so exportScopeSelect must be given the handlers.
-  assert.ok(/Template\.exportScopeSelect\.events\(selectToggles\)/.test(js),
-    'exportScopeSelect must have the toggle handlers, or the list cannot be changed');
-  assert.ok(/Template\.exportScopeBody\.events\(selectToggles\)/.test(js),
-    'and the body keeps them too, from the same object, so the two cannot drift');
+  // Native, and in the CAPTURE phase: it runs on the way DOWN to the row, so a
+  // stopPropagation() between the row and the document cannot eat it - and a
+  // `window.jQuery` that turned out to be undefined would fail silently, which
+  // is indistinguishable from the bug.
+  assert.ok(/document\.addEventListener\('click'/.test(js),
+    'the toggle must be a native document listener');
+  assert.ok(/\}, true\);/.test(js), 'and it must listen in the capture phase');
+  // The CODE, not the comment that explains why jQuery is not used.
+  const code = js.split('\n').filter(l => !/^\s*(\/\/|\*)/.test(l)).join('\n');
+  assert.ok(!/window\.jQuery/.test(code), 'without depending on jQuery being there');
+  assert.ok(!/Template\.\w+\.events\(selectToggles\)/.test(js),
+    'and the template event maps for these two are gone, or a click toggles twice');
 });
 
 test('a row shows whether it is ticked, in the Admin Panel\'s own checkbox', () => {
