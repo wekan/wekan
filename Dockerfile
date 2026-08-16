@@ -348,8 +348,9 @@ node /tmp/prune-build-only-modules.mjs ./bundle
 # meteor-dev-bundle's own underscore 1.13.7 pin (CVE-2026-27601) over it, so the
 # same pass runs here.
 node /tmp/bump-bundle-npm-deps.mjs ./bundle
-# No uWebSockets.js: this image runs sockjs (see the COPY above).
-node /tmp/bundle-trim.mjs ./bundle --transport sockjs --drop-legacy-client --keep-maps
+# No uWebSockets.js, no legacy client, no source maps: this image runs sockjs,
+# serves web.browser to every browser, and has no debugger attached to it.
+node /tmp/bundle-trim.mjs ./bundle --transport sockjs --drop-legacy-client
 mv /home/wekan/app/bundle /build
 
 # The .zip bundle now ships a self-contained launcher + its own Node.js for the

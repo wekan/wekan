@@ -1,7 +1,7 @@
 'use strict';
 
-// Guard: WeKan talks DDP over sockjs on every platform, and no bundle ships
-// uWebSockets.js or the legacy client.
+// Guard: WeKan talks DDP over sockjs on every platform, and no bundle carries
+// uWebSockets.js, the legacy client, or source maps.
 // Run: node tests/sockjsEverywhere.test.cjs
 //
 // uws is not reliable enough yet to be what a default points at, so nothing
@@ -19,6 +19,12 @@
 //
 // A default without the coercion is an upgrade trap; a coercion without the
 // trim is dead weight; and a trim without both is a crash. Hence one suite.
+//
+// The same trim drops two other passengers on every platform - the legacy client
+// build (81 MiB) and the source maps (152 MiB once the legacy client's own are
+// gone with it). Neither is on any loading path: Meteor serves web.browser to
+// every browser when the legacy arch is absent, and a .map is read only by an
+// attached debugger, which a released bundle does not have.
 
 const assert = require('assert');
 const fs = require('fs');
@@ -117,7 +123,7 @@ test('every bundle assembly site trims the bundle', () => {
   }
 });
 
-test('every trim call asks for sockjs and drops the legacy client', () => {
+test('every trim call drops uws, the legacy client and the source maps', () => {
   for (const f of ['.github/workflows/release-all.yml', 'Dockerfile',
     'releases/install-node-for-arch.sh']) {
     // Join shell line continuations first: the amd64 site wraps its arguments
@@ -130,6 +136,11 @@ test('every trim call asks for sockjs and drops the legacy client', () => {
         `a trim call in ${f} does not pass --transport sockjs: ${call.trim()}`);
       assert.ok(/--drop-legacy-client/.test(call),
         `a trim call in ${f} does not pass --drop-legacy-client: ${call.trim()}`);
+      // Source maps are dropped on every platform too, so no call keeps them.
+      // They are read by an attached debugger and by nothing on the loading
+      // path; a released bundle has neither.
+      assert.ok(!/--keep-maps/.test(call),
+        `a trim call in ${f} still keeps source maps: ${call.trim()}`);
     }
   }
 });

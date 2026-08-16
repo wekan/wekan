@@ -589,12 +589,12 @@ jobs:
           # WeKan runs sockjs on every platform, so no bundle ships uWebSockets.js:
           # ddp-server requires it only inside the uws transport setup(), which sockjs
           # never calls, and the module is 121M of prebuilt binaries for OS/CPU/ABI
-          # combinations one machine cannot use anyway. --drop-legacy-client removes
-          # the second client build for browsers without modern JS. --keep-maps: the
-          # Sandstorm .spk drops source maps too, for its 1 GiB limit; a .zip keeps
-          # them.
+          # combinations one machine cannot use anyway. --drop-legacy-client removes the
+          # second client build, for browsers without modern JS, and its name in the two
+          # manifests that list it. Source maps go too: 4766 files a debugger reads and
+          # nothing on the loading path touches.
           node "$GITHUB_WORKSPACE/releases/bundle-trim.mjs" \
-            "$GITHUB_WORKSPACE/.build/bundle" --transport sockjs --drop-legacy-client --keep-maps
+            "$GITHUB_WORKSPACE/.build/bundle" --transport sockjs --drop-legacy-client
 
       - name: Check the binaries the amd64 bundle needs exist
         run: |
@@ -841,7 +841,7 @@ jobs:
             -v "$(pwd)/releases:/releases:ro" \
             -w /bundle/programs/server \
             node:${NODE_VERSION}-slim \
-            sh -c "bash /releases/apt-install.sh build-essential python3 && bash /releases/npm-retry.sh npm install && node /releases/prune-build-only-modules.mjs /bundle && node /releases/bump-bundle-npm-deps.mjs /bundle && node /releases/bundle-trim.mjs /bundle --transport sockjs --drop-legacy-client --keep-maps"
+            sh -c "bash /releases/apt-install.sh build-essential python3 && bash /releases/npm-retry.sh npm install && node /releases/prune-build-only-modules.mjs /bundle && node /releases/bump-bundle-npm-deps.mjs /bundle && node /releases/bundle-trim.mjs /bundle --transport sockjs --drop-legacy-client"
 
       - name: Check the binaries the arm64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -1227,10 +1227,11 @@ jobs:
           # WeKan runs sockjs on every platform, so no bundle ships uWebSockets.js:
           # ddp-server requires it only inside the uws transport setup(), which sockjs
           # never calls, and the module is 121M of prebuilt binaries for OS/CPU/ABI
-          # combinations one machine cannot use anyway. --keep-maps: only the uws
-          # removal applies here; the Sandstorm .spk drops source maps too, for its
-          # 1 GiB limit.
-          node "$SRC/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client --keep-maps
+          # combinations one machine cannot use anyway. --drop-legacy-client removes the
+          # second client build, for browsers without modern JS, and its name in the two
+          # manifests that list it. Source maps go too: 4766 files a debugger reads and
+          # nothing on the loading path touches.
+          node "$SRC/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client
 
       - name: Check the binaries the win64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -1590,10 +1591,11 @@ jobs:
           # WeKan runs sockjs on every platform, so no bundle ships uWebSockets.js:
           # ddp-server requires it only inside the uws transport setup(), which sockjs
           # never calls, and the module is 121M of prebuilt binaries for OS/CPU/ABI
-          # combinations one machine cannot use anyway. --keep-maps: only the uws
-          # removal applies here; the Sandstorm .spk drops source maps too, for its
-          # 1 GiB limit.
-          node "$SRC/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client --keep-maps
+          # combinations one machine cannot use anyway. --drop-legacy-client removes the
+          # second client build, for browsers without modern JS, and its name in the two
+          # manifests that list it. Source maps go too: 4766 files a debugger reads and
+          # nothing on the loading path touches.
+          node "$SRC/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client
 
       - name: Check the binaries the win-arm64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -1972,10 +1974,11 @@ jobs:
           # WeKan runs sockjs on every platform, so no bundle ships uWebSockets.js:
           # ddp-server requires it only inside the uws transport setup(), which sockjs
           # never calls, and the module is 121M of prebuilt binaries for OS/CPU/ABI
-          # combinations one machine cannot use anyway. --keep-maps: only the uws
-          # removal applies here; the Sandstorm .spk drops source maps too, for its
-          # 1 GiB limit.
-          node "$SRC/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client --keep-maps
+          # combinations one machine cannot use anyway. --drop-legacy-client removes the
+          # second client build, for browsers without modern JS, and its name in the two
+          # manifests that list it. Source maps go too: 4766 files a debugger reads and
+          # nothing on the loading path touches.
+          node "$SRC/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client
 
       - name: Check the binaries the win32 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -2238,10 +2241,11 @@ jobs:
           # WeKan runs sockjs on every platform, so no bundle ships uWebSockets.js:
           # ddp-server requires it only inside the uws transport setup(), which sockjs
           # never calls, and the module is 121M of prebuilt binaries for OS/CPU/ABI
-          # combinations one machine cannot use anyway. --keep-maps: only the uws
-          # removal applies here; the Sandstorm .spk drops source maps too, for its
-          # 1 GiB limit.
-          node "$GITHUB_WORKSPACE/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client --keep-maps
+          # combinations one machine cannot use anyway. --drop-legacy-client removes the
+          # second client build, for browsers without modern JS, and its name in the two
+          # manifests that list it. Source maps go too: 4766 files a debugger reads and
+          # nothing on the loading path touches.
+          node "$GITHUB_WORKSPACE/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client
           cd ../../..
 
       - name: Check the binaries the mac-arm64 bundle needs exist
@@ -2517,10 +2521,11 @@ jobs:
           # WeKan runs sockjs on every platform, so no bundle ships uWebSockets.js:
           # ddp-server requires it only inside the uws transport setup(), which sockjs
           # never calls, and the module is 121M of prebuilt binaries for OS/CPU/ABI
-          # combinations one machine cannot use anyway. --keep-maps: only the uws
-          # removal applies here; the Sandstorm .spk drops source maps too, for its
-          # 1 GiB limit.
-          node "$GITHUB_WORKSPACE/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client --keep-maps
+          # combinations one machine cannot use anyway. --drop-legacy-client removes the
+          # second client build, for browsers without modern JS, and its name in the two
+          # manifests that list it. Source maps go too: 4766 files a debugger reads and
+          # nothing on the loading path touches.
+          node "$GITHUB_WORKSPACE/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client
           cd ../../..
 
       - name: Check the binaries the mac-x64 bundle needs exist
