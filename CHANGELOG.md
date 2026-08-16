@@ -385,9 +385,10 @@ always false and the endpoint had never refused anyone. It was found while
 reviewing a pull request about the opposite symptom. Two build failures go with
 it: **Cancel** did not stop a release run, so `docker` kept building an image
 for a release being abandoned, and the **Sandstorm** `.spk` finally gets under
-its 1 GiB limit now that the size report says what filled it — twenty
-uWebSockets.js prebuilds for a transport the grain does not use, and 188M of
-source maps.
+its 1 GiB limit now that the size report says what filled it. That last one
+grew: **uws is not reliable enough yet**, so every platform now defaults to
+**sockjs**, and no bundle ships uWebSockets.js (121M) or the legacy client
+(81M) at all.
 Below that: two AWS SDK updates for the S3 attachment path.
 
 | Platform | Binary | From | Version | SHA256 |
@@ -567,6 +568,56 @@ bundles keep the module, trimmed to the prebuilds their own platform can open.
 `.spk` is trimmed with. If those two ever disagreed, the grain would require a
 module that was left out and fail to boot, which is the one way this can go
 wrong.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/33c867f4d">Every platform talks sockjs, and no bundle ships uws or the legacy client</a>. Thanks to xet7.</summary>
+
+uws is not reliable enough yet to be what a default points at, so nothing WeKan
+ships selects it any more, and nothing carries the module. Three halves, and
+each is useless or harmful without the others.
+
+**The defaults.** Every `docker-compose*.yml`, `start-wekan.sh`,
+`start-wekan.bat`, `build.sh`, `build.bat`, the image's own `ENV` block, the
+snap config and the Sandstorm grain now say `sockjs`. The commented-out
+`#- DDP_TRANSPORT=uws` alternatives beside them are replaced by a note saying
+why there is no alternative, rather than advertising a value that no longer
+works.
+
+**The bundles.** Every place a built bundle is post-processed — the amd64
+build, each per-arch rebuild, the repack container,
+`releases/install-node-for-arch.sh` and the `Dockerfile` — now runs
+`bundle-trim.mjs` beside the prune it already ran, dropping two things:
+
+- **uWebSockets.js**, 121 MiB, for the reason in the entry above: a sockjs
+  server never requires the module at all.
+- **`programs/web.browser.legacy`**, a whole second copy of the client built
+  for browsers without modern JS. 81 MiB measured. Meteor supports running with
+  architectures excluded and says so in webapp's `categorizeRequest()`: *"If our
+  preferred arch is not available, it's better to use another client arch that
+  is available than to guarantee the site won't work"*. An old browser is served
+  `web.browser`; the 404 branch below that is reached only when NO arch matches,
+  which cannot happen while `web.browser` is there, and autoupdate iterates the
+  programs that actually loaded rather than a fixed list.
+
+  The files are only half of it. The arch is NAMED in
+  `programs/server/config.json` and `star.json`, and `boot.js` builds a
+  dynamic-import root for every name in the first — so the name is removed with
+  the files. Those manifests are mode 444 as Meteor writes them, so they are
+  made writable, rewritten, and set back: failing there would leave the one
+  state that actually breaks a server, files gone and manifests still naming the
+  arch.
+
+**The upgrade.** An existing `docker-compose.yml` that says
+`DDP_TRANSPORT=uws` would ask the new image for a module it does not have and
+crash-loop on the require. So the Docker entrypoint and the bundle's own
+`start-wekan.sh` coerce `uws` back to `sockjs` before starting anything, and
+print why — a setting silently ignored is worse than one that fails.
+
+`tests/sockjsEverywhere.test.cjs` pins the three together: a default without the
+coercion is an upgrade trap, a coercion without the trim is dead weight, and a
+trim without both is a crash.
 
 </details>
 
