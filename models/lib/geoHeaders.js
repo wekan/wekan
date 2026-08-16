@@ -111,4 +111,29 @@ const hasCoordinates = location => !!location
   && typeof location.latitude === 'number'
   && typeof location.longitude === 'number';
 
-module.exports = { SOURCES, locationFromHeaders, locationLabel, hasCoordinates };
+// The country's flag, from its ISO 3166-1 alpha-2 code. Regional indicator
+// symbols: 'GB' is U+1F1EC U+1F1E7. No image, no table of 250 files to ship and
+// keep - the font draws it, and a font that cannot falls back to the two
+// letters, which is still the country.
+function countryFlag(code) {
+  const cc = String(code || '').trim().toUpperCase();
+  if (!/^[A-Z]{2}$/.test(cc)) return '';
+  // Cloudflare's XX (unknown) and T1 (Tor) are not countries and have no flag.
+  if (cc === 'XX' || cc === 'T1') return '';
+  return String.fromCodePoint(...[...cc].map(c => 0x1F1E6 + c.charCodeAt(0) - 65));
+}
+
+// What the leftmost cell of an office row shows: the flag, then the city.
+//   { flag: '🇬🇧', text: 'London' }
+// The city alone is the name an admin recognises; the flag says which London.
+function officeLabel(location) {
+  if (!location) return { flag: '', text: '' };
+  return {
+    flag: countryFlag(location.country),
+    text: location.city || location.region || location.country || '',
+  };
+}
+
+module.exports = {
+  SOURCES, locationFromHeaders, locationLabel, hasCoordinates, countryFlag, officeLabel,
+};

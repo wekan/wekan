@@ -125,6 +125,24 @@ export function buildRows(docs, columns, options = {}) {
         // the width, and these tables are wide. The name is the cell's title,
         // so hovering still identifies the account.
         userAvatarUrl: userId ? avatarUrlFor(userId) : '',
+        // SEVERAL people in one cell - the accounts that log in from an office.
+        // Same rendering as a single user cell, repeated: initials or avatar,
+        // the name as the title, and clicking one opens the Edit user popup.
+        // Each entry is { userId, text, avatarUrl }.
+        users: typeof column.users === 'function'
+          ? (column.users(doc) || []).map(u => ({
+            userId: u.userId || '',
+            text: u.text || u.value || '',
+            avatarUrl: u.avatarUrl || (u.userId ? avatarUrlFor(u.userId) : ''),
+            // How many times this person logged in from here. Shown beside the
+            // avatar, because "who" without "how much" does not tell an office
+            // from somebody who visited once.
+            count: typeof u.count === 'number' ? u.count : null,
+          }))
+          : [],
+        // A leading emoji for the cell - the country flag on an office row. Kept
+        // apart from `text` so the flag is not searched or sorted as text.
+        flag: typeof column.flag === 'function' ? (column.flag(doc) || '') : '',
         // Only used by the severity cell; a plain string, rendered as an
         // attribute value by Blaze (which escapes it).
         data: typeof column.data === 'function' ? (column.data(doc) || '') : '',

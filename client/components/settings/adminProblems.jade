@@ -32,8 +32,15 @@ template(name="adminProblems")
             +eventStreamReport(stream="database")
           else if showIntegrity.get
             +eventStreamReport(stream="integrity")
+          else if showOffice.get
+            +officeReport
           else if tablePageData
             +tablePage(tablePageData)
+
+template(name="officeReport")
+  //- Where people log in from, grouped. Through the shared table page like every
+  //- other report here (docs/Features/Page/Table.md).
+  +tablePage(tablePageData)
 
 template(name="eventStreamReport")
   //- Security / Speed / Tests / CPU usage all render through the shared table

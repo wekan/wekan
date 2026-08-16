@@ -13,6 +13,8 @@ import ImpersonatedUsers from '/models/impersonatedUsers';
 import RecoveryEvents from '/models/recoveryEvents';
 import { Mongo } from 'meteor/mongo';
 import { buildHeader, buildRows, docsByIds, pageInfo, TABLE_PAGE_ROWS_PER_PAGE } from '/models/lib/tablePage';
+// The flag and city an office row leads with (models/lib/geoHeaders.js).
+const { officeLabel } = require('/models/lib/geoHeaders');
 import { ReportPages } from '/client/lib/reportPages';
 import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
 import Settings from '/models/settings';
@@ -111,6 +113,8 @@ Template.adminProblems.onCreated(function () {
   this.showCpu = new ReactiveVar(false);
   this.showDatabase = new ReactiveVar(false);
   this.showIntegrity = new ReactiveVar(false);
+  // Where people log in from, grouped by address.
+  this.showOffice = new ReactiveVar(false);
   this.error = new ReactiveVar('');
   this.loading = new ReactiveVar(false);
 
@@ -313,6 +317,9 @@ const PROBLEMS_MENU = [
   { id: 'report-boards', icon: 'fa-columns', labelKey: 'boardsReportTitle' },
   { id: 'report-cards', icon: 'fa-id-card-o', labelKey: 'cardsReportTitle' },
   { id: 'report-recovery', icon: 'fa-medkit', labelKey: 'recoveryReportTitle' },
+  // Where people log in from, grouped by address: the offices, VPNs and NATs
+  // several accounts share (models/lib/loginTally.js).
+  { id: 'report-office', icon: 'fa-building', labelKey: 'officeReportTitle' },
   // What the database itself said, classified: which database type, what it
   // means and what to do (server/lib/databaseProblems.js).
   { id: 'report-database', icon: 'fa-database', labelKey: 'databaseReportTitle' },
@@ -374,6 +381,9 @@ Template.adminProblems.helpers({
   },
   showCpu() {
     return Template.instance().showCpu;
+  },
+  showOffice() {
+    return Template.instance().showOffice;
   },
   loading() {
     return Template.instance().loading;
@@ -509,6 +519,7 @@ function openReportPane(tmpl, targetID) {
     tmpl.showTests.set(false);
     tmpl.showCpu.set(false);
     tmpl.showDatabase.set(false);
+    tmpl.showOffice.set(false);
     tmpl.showIntegrity.set(false);
     if (tmpl.subscription) {
       tmpl.subscription.stop();
@@ -543,6 +554,8 @@ function openReportPane(tmpl, targetID) {
     } else if ('report-cpu' === targetID) {
       tmpl.showCpu.set(true);
       tmpl.loading.set(false);
+    } else if ('report-office' === targetID) {
+      tmpl.showOffice.set(true);
     } else if ('report-database' === targetID) {
       tmpl.showDatabase.set(true);
       tmpl.loading.set(false);
@@ -1036,3 +1049,103 @@ for (const tpl of [Template.featuresPerformance, Template.featuresSecurity,
   tpl.helpers(featurePaneHelpers);
   tpl.events(featurePaneEvents);
 }
+
+// ── Admin Panel / Problems / Offices ────────────────────────────────────────
+// Where people log in from, grouped by address. An address several accounts use
+// is an office, a VPN, a university or a carrier's NAT - and seeing that shape
+// is what stops anybody reacting to an address as though it were a person
+// (models/lib/loginTally.js, server/lib/blockOnSecurityEvent.js).
+//
+// Through the shared table page like every other report here
+// (docs/Features/Page/Table.md): same layout, same controls, same paginator.
+const OFFICES_PER_PAGE = 25;
+
+const OFFICE_COLUMNS = [
+  // The flag and the city, leftmost: an admin recognises "London" instantly and
+  // an address never. The flag says WHICH London.
+  {
+    labelKey: 'office-location', nowrap: true,
+    value: d => (d.locationLabel ? officeLabel(d.location).text : ''),
+    flag: d => (d.location ? officeLabel(d.location).flag : ''),
+  },
+  { labelKey: 'office-address', nowrap: true, value: d => d.address },
+  // Initials or avatar per person, with their own login count beside them.
+  {
+    labelKey: 'office-people',
+    users: d => (d.users || []).map(u => ({
+      userId: u.userId, text: u.fullname ? `${u.fullname} (${u.value})` : u.value,
+      avatarUrl: u.avatarUrl, count: u.count,
+    })),
+    value: d => (d.moreUsers ? `+${d.moreUsers}` : ''),
+  },
+  { labelKey: 'office-logins', align: 'end', value: d => d.logins },
+  { labelKey: 'office-first-seen', nowrap: true, value: d => formatDate(d.firstAt) },
+  { labelKey: 'office-last-seen', nowrap: true, value: d => formatDate(d.at) },
+];
+
+Template.officeReport.onCreated(function () {
+  this.rows = new ReactiveVar([]);
+  this.total = new ReactiveVar(0);
+  this.page = new ReactiveVar(1);
+  this.search = new ReactiveVar('');
+  this.load = () => {
+    Meteor.call('loginOffices', {
+      limit: OFFICES_PER_PAGE,
+      skip: (this.page.get() - 1) * OFFICES_PER_PAGE,
+      search: this.search.get() || undefined,
+    }, (err, res) => {
+      if (err) return;
+      this.rows.set((res && res.offices) || []);
+      this.total.set((res && res.total) || 0);
+    });
+  };
+  this.load();
+});
+
+Template.officeReport.helpers({
+  tablePageData() {
+    const t = Template.instance();
+    const rows = t.rows.get() || [];
+    const info = pageInfo(t.total.get(), t.page.get(), OFFICES_PER_PAGE);
+    return {
+      // No title: the pane heading is the open menu entry's own label, once, for
+      // every Admin Panel pane (docs/Features/Page/Left-Menu.md).
+      descKey: 'office-report-desc',
+      emptyKey: 'office-no-results',
+      searchTerm: t.search.get(),
+      header: buildHeader(OFFICE_COLUMNS),
+      rows: buildRows(rows, OFFICE_COLUMNS),
+      rowCount: rows.length,
+      page: info.page,
+      totalPages: info.totalPages,
+      hasPrev: info.hasPrev,
+      hasNext: info.hasNext,
+    };
+  },
+});
+
+Template.officeReport.events({
+  'click .js-table-page-prev'(event, tmpl) {
+    event.preventDefault();
+    if (tmpl.page.get() > 1) { tmpl.page.set(tmpl.page.get() - 1); tmpl.load(); }
+  },
+  'click .js-table-page-next'(event, tmpl) {
+    event.preventDefault();
+    tmpl.page.set(tmpl.page.get() + 1);
+    tmpl.load();
+  },
+  'keydown .js-table-page-search'(event, tmpl) {
+    if (event.keyCode === 13 && !event.shiftKey) {
+      event.preventDefault();
+      tmpl.search.set(event.currentTarget.value || '');
+      tmpl.page.set(1);
+      tmpl.load();
+    }
+  },
+  // The same Edit user popup the People table opens - the one that exists.
+  'click .js-table-page-edit-user'(event) {
+    event.preventDefault();
+    const userId = event.currentTarget.getAttribute('data-user-id');
+    if (userId) Popup.open('editUser').call({ userId }, event);
+  },
+});

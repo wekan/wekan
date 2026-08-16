@@ -108,6 +108,9 @@ const ADMIN_PAGES = {
       boards: 'report-boards',
       cards: 'report-cards',
       recovery: 'report-recovery',
+      // Where people log in from, grouped: an address several accounts use is an
+      // office, a VPN or a NAT (models/lib/loginTally.js).
+      office: 'report-office',
       database: 'report-database',
       integrity: 'report-integrity',
     },
@@ -181,6 +184,7 @@ const ADMIN_PANE_TITLES = {
     boards: { titleKey: 'boardsReportTitle' },
     cards: { titleKey: 'cardsReportTitle' },
     recovery: { titleKey: 'recoveryReportTitle' },
+  office: { titleKey: 'officeReportTitle' },
     database: { titleKey: 'databaseReportTitle' },
     integrity: { titleKey: 'integrityReportTitle' },
   },

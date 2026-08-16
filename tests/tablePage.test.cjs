@@ -242,8 +242,12 @@ test('no report re-implements the controls or the table', () => {
 test('the controls have one handler each, not one per report', () => {
   for (const cls of ['js-table-page-prev', 'js-table-page-next']) {
     const count = (reportsJs.match(new RegExp(`'click \\.${cls}'`, 'g')) || []).length;
-    // One on the reports parent + one on the event-stream template.
-    assert.ok(count <= 2, `${cls} should have at most 2 handlers, found ${count}`);
+    // One on the reports parent, plus one per METHOD-BACKED report template -
+    // eventStreamReport and officeReport. Those two do not go through the
+    // parent's reportConfig(), which is built around publications, so they carry
+    // their own paginator. What this guards against is a handler per REPORT,
+    // which is what the parent's single pair exists to avoid.
+    assert.ok(count <= 3, `${cls} should have at most 3 handlers, found ${count}`);
   }
   // The six per-report page/total helper pairs are gone.
   for (const helper of ['filesCurrentPage', 'rulesTotalPages', 'boardsCurrentPage',

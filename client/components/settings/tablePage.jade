@@ -105,13 +105,28 @@ template(name="tablePage")
                       Admin Panel / People. Not +userAvatar, which renders its own
                       anchor for the board's member popup: an anchor inside this
                       one is invalid and would swallow the click.
-                    if userId
+                    //- Several people in one cell: an office row's People
+                      column. Each is the same avatar-or-initials link as a
+                      single user cell, with the number of logins beside it.
+                    if users.length
+                      .table-page-people
+                        each users
+                          a.edit-user.js-table-page-edit-user(data-user-id="{{userId}}" title="{{text}}")
+                            if avatarUrl
+                              img.avatar.avatar-image(src="{{avatarUrl}}" alt="{{text}}")
+                            else
+                              +userAvatarInitials(userId=userId)
+                            if count
+                              span.table-page-people-count {{count}}
+                    else if userId
                       a.edit-user.js-table-page-edit-user(data-user-id="{{userId}}" title="{{text}}")
                         if userAvatarUrl
                           img.avatar.avatar-image(src="{{userAvatarUrl}}" alt="{{text}}")
                         else
                           +userAvatarInitials(userId=userId)
                     else
+                      if flag
+                        span.table-page-flag(aria-hidden="true") {{flag}}
                       | {{text}}
     unless rowCount
       .table-page-empty {{_ emptyKey}}
