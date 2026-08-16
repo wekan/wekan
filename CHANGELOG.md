@@ -518,6 +518,15 @@ accepted rather than worked around — the history is still in git for anyone wh
 wants it, through `gitk`, `git-gui` or `git log --follow`, and being small
 enough to open is worth more.
 
+Each archive opens with a **count of releases per month**: a
+`| 2025 | Releases |` table over rows of `01`, `02` and so on. *How busy was
+2019* is the first thing a year file is asked and the last thing 159 collapsed
+sections answer.
+Only months that had releases get a row: a fixed twelve rows would put ten
+zeroes in 2015's table. The table is regenerated from each file's own headings
+on every run, so it cannot drift from the sections beneath it, and
+`tests/changelogArchive.test.cjs` checks the two against each other.
+
 `releases/changelog-archive-years.mjs` does it, and it is a **January job**: run
 it once when a year turns over. It is idempotent, so a stray run does nothing.
 Cutting by YEAR rather than by a count of releases is what makes a link into the

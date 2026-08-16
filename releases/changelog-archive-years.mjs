@@ -82,7 +82,10 @@ const staying = sections.filter(s => s.year >= keep);
 const leaving = sections.filter(s => s.year < keep);
 
 if (!leaving.length) {
-  console.log(`changelog-archive-years: nothing older than ${keep} is left in ${file}; nothing to do.`);
+  console.log(`changelog-archive-years: nothing older than ${keep} is left in ${file}.`);
+  // Still worth a pass over the archives: a table added or changed later belongs
+  // in every file, not only the ones a move happens to touch.
+  refreshArchiveTables();
   process.exit(0);
 }
 
@@ -92,6 +95,57 @@ const byYear = new Map();
 for (const s of leaving) {
   if (!byYear.has(s.year)) byYear.set(s.year, []);
   byYear.get(s.year).push(s);
+}
+
+// A month-by-month count for the year, at the top of its archive file: a year of
+// WeKan is 40-160 releases, and "how busy was 2019" is the first thing the file
+// is asked and the last thing 159 collapsed sections answer.
+//
+// Only months that HAD releases get a row. A fixed twelve rows would put ten
+// zeroes in 2015's table, which is noise standing in for a fact the reader can
+// already see.
+function monthTable(year, body) {
+  const months = new Map();
+  for (const m of body.matchAll(/^# v\d+\.\d+ (\d{4})-(\d{2})-\d{2}\b/gm)) {
+    if (Number(m[1]) !== year) continue;
+    months.set(m[2], (months.get(m[2]) || 0) + 1);
+  }
+  if (!months.size) return '';
+  const rows = [...months.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+  return `| ${year} | Releases |\n| --- | --- |\n`
+    + rows.map(([month, n]) => `| ${month} | ${n} |`).join('\n')
+    + '\n';
+}
+
+// Put that table into an archive file, or refresh the one already there. Run
+// over every file each time, so a table cannot drift from the releases under it.
+function refreshTable(path) {
+  const body = readFileSync(path, 'utf8');
+  const year = Number(/^# WeKan ® (\d{4}) releases/m.exec(body)?.[1]);
+  if (!year) return false;
+  const table = monthTable(year, body);
+  if (!table) return false;
+  // Between the file's own intro paragraph and the first release section.
+  const firstRelease = body.search(/^# v\d+\.\d+ /m);
+  if (firstRelease === -1) return false;
+  const head = body.slice(0, firstRelease);
+  const withoutOld = head.replace(/^\| \d{4} \| Releases \|\n\| --- \| --- \|\n(?:\| \d{2} \| \d+ \|\n)*\n?/m, '');
+  const rebuilt = `${withoutOld.trimEnd()}\n\n${table}\n${body.slice(firstRelease)}`;
+  if (rebuilt === body) return false;
+  writeFileSync(path, rebuilt);
+  return true;
+}
+
+function refreshArchiveTables() {
+  if (!existsSync(ARCHIVE)) return;
+  const touched = [];
+  for (const f of readdirSync(ARCHIVE).sort().reverse()) {
+    if (!/^\d{4}\.md$/.test(f)) continue;
+    if (!dryRun && refreshTable(join(ARCHIVE, f))) touched.push(f);
+  }
+  if (touched.length) {
+    console.log(`changelog-archive-years: refreshed the month table in ${touched.join(', ')}.`);
+  }
 }
 
 const kb = n => `${(n / 1024).toFixed(0)} KB`;
@@ -144,6 +198,7 @@ const rebuilt = `${header.join('\n').trimEnd()}\n\n`
   + `${staying.map(s => s.text.trimEnd()).join('\n\n')}\n`;
 
 if (!dryRun) writeFileSync(file, rebuilt);
+refreshArchiveTables();
 console.log(`changelog-archive-years: ${dryRun ? 'would keep' : 'kept'} ${staying.length} release(s) `
   + `from ${keep} onwards in ${file} (${kb(Buffer.byteLength(text))} -> ${kb(Buffer.byteLength(rebuilt))}), `
   + `moved ${leaving.length} to ${ARCHIVE}/ (${kb(movedBytes)}).`);
