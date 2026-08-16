@@ -403,7 +403,9 @@ offices an admin recognises — "London", with the flag, rather than
 would take a whole office off WeKan at once, so WeKan blocks the account.
 **Admin Panel / Problems** now keeps ONE summary row per problem — a count, a
 window, and who tried it how often — instead of a document per event that grew
-with the attack it was recording. Then: v10.97 shipped a bundle that could not
+with the attack it was recording, and gains an **API** pane answering the
+opposite question: not what went wrong, but who called which REST endpoint and
+how often. Then: v10.97 shipped a bundle that could not
 start, the third release in a row stopped by the same habit. Trimming what a
 bundle carries is measured by a graph of what the server can reach, and that
 graph read `require()` only. Meteor compiles an ESM import to `module.link()`,
@@ -629,6 +631,77 @@ all of them off WeKan at once - the admin would see "one address blocked" rather
 than "eighty people locked out". WeKan blocks the ACCOUNT that caused the event.
 This pane is what lets an admin see the shape of their own users, and what would
 make an address-level action visibly reckless if one were ever proposed.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6dc2651b4">Problems / API: who called which endpoint, and how often</a>. Thanks to xet7.</summary>
+
+Every other pane under Problems answers what went WRONG. This one answers what
+is being DONE: `POST /api/boards` called 34 times by alice last month, 812 times
+yesterday by nobody with an account. Without it the only record of REST API use
+is whatever the reverse proxy happens to keep, and most instances keep none. The
+table is username, endpoint, calls, the window they fall in and the addresses,
+sorted by calls - a usage report's question is *what is used most*, where a
+problem report's is *what happened last*.
+
+**The name is the route pattern, not the path.** `/api/boards/:boardId/lists` is
+one endpoint; `/api/boards/abc123/lists` and ten thousand of its siblings are
+that one endpoint being used. Naming rows after paths would put a row per board
+in the collection - the one-row-per-event cost this page exists to remove - and
+a request that matched NO route is counted under a single `(no route)` name
+rather than under the path it invented, because a 404 sweep is an attacker
+walking a wordlist and a row per guess would let them fill the database.
+
+**One row per account and endpoint**, which makes the account part of a row's
+identity - the one deliberate exception to the rule every other stream follows.
+There the question is "what is happening" and the caller would multiply the
+rows; here "who called what" IS the report, and the cardinality is bounded by
+real accounts times real endpoints. The account is stored by ID, so a rename
+does not split its history in two.
+
+**Nothing per request.** Ordinary API traffic is not rare the way a guard firing
+is rare, so calls are counted in memory and folded on a timer - a thousand
+requests become one write. Counting hooks the middleware chain rather than the
+routes, so a route cannot be added without being counted. The pane is the shared
+event-stream report with a different column list, not a second table page, and
+the api stream is deliberately not one of the "problem" streams: an instance
+serving its API would otherwise report thousands of new problems.
+
+Also fixed while there: the summary rows have had `ipv4` and `ipv6` fields since
+the summaries were written, and **not one of the four loggers ever filled
+them**, so the two columns the design asked for could not have worked. The fold splits
+the address now, once, for every stream, and both reports use one shared pair of
+columns that falls back to classifying the stored `ip` - so rows written before
+today display correctly instead of showing two empty columns for all of history.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ebe985d45">A location in an Admin Panel table opens a map, through the card's own chooser</a>. Thanks to xet7.</summary>
+
+Offices names the places accounts log in from - "London", with the country's
+flag - and a name is only useful if it leads somewhere. Clicking one now asks
+which map to open it at, from the same eleven providers a card's location
+offers.
+
+**The same chooser, not a second one.** The provider list was eleven options
+inside `cardDetails.jade`; it is one template both callers include now, with its
+helper and its styles, because two lists would be eleven places to add a
+provider to instead of one and they would disagree the first time only one was
+edited. What the two do NOT share is the rest: a card's popup EDITS a location,
+and an office's arrived in a CDN header - WeKan did not ask for it and cannot
+correct it.
+
+A cell is a link only when the row HAS coordinates: a city name is not a
+position, and a map URL built from one would either search for the word or
+invent a place. The link follows the selection before it is saved, because
+choosing a provider and finding the link still pointing at the old one reads as
+broken.
+
+The handler lives on the shared table page rather than on the report - which is
+also where "clicking a user opens the Edit user popup" went, from the three
+identical copies each report had written for itself.
 
 </details>
 
@@ -976,6 +1049,30 @@ and the Admin Panel Problems design.
 What stays in `docs/Design` is what the folder is for: the principles
 (Design-Principles, Monkey-Proof-Software), the comparisons, the roadmap, and
 the proposals not yet built.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e9963e8b8">Directory-Structure.md describes the tree WeKan has now</a>. Thanks to TNick and xet7.</summary>
+
+It described the tree at commit `e2f768c` and had gone on describing it for
+years. **Fourteen links pointed at nothing** - five files that had moved, seven
+that no longer exist anywhere - and every one of the fourteen was written as a
+full `https://github.com/wekan/wekan/tree/main/…` URL rather than a relative
+path, which is exactly why none was noticed: a broken relative link is visibly
+broken in an editor and on GitHub, while an absolute one looks like a link and
+404s only for the reader who follows it. All 144 relative links were fine.
+
+**And two thirds of the repository was not mentioned at all** — `imports/`,
+`packages/`, `releases/`, `tests/`, `docs/`, `migrations/`, `server/lib`,
+`server/methods`, `server/routes`, `models/lib`, `client/features`. The page
+walked through four directories out of twenty and did not say so, which left a
+reader unable to tell "not here" from "does not exist". It opens with a table of
+the whole tree now, and gains the sections those directories should have had.
+
+`tests/docsLinksResolve.test.cjs` checks both link forms against the tree, and
+fails when the page stops mentioning a top-level source directory - the silence
+being the failure that lasted longest.
 
 </details>
 
