@@ -136,27 +136,82 @@ evidence_from_live() {
   bash "$SNAP/bin/db-eval" evidence "$LIVE_URL" 2>/dev/null
 }
 
+# READING MONGODB MUST NOT LOOK LIKE WRITING TO IT.
+#
+# bin/ferretdb-migration-stale decides "MongoDB has been written to since the
+# migration" from the mtimes of the WiredTiger data files. Starting mongod does
+# recovery and a checkpoint, so the mongod THIS SCRIPT starts to read the
+# evidence stamps exactly those files with "now" - and the next start therefore
+# reports MongoDB as freshly written, on an instance where nothing has touched it
+# for months. The ambiguity becomes self-perpetuating: the diagnostic's own
+# evidence-gathering manufactures the evidence, and a live site prints "BOTH
+# databases have been written to" at every restart forever.
+#
+# So the newest mtime is noted BEFORE mongod starts and anything newer is put
+# back afterwards. mongod does not use mtimes for anything - the catalog and the
+# journal are what it reads - and the content it checkpointed is not user data,
+# so the file metadata is made to say what is true: nobody wrote to this
+# database. The list is the one ferretdb-migration-stale reads, kept in step with
+# it by tests/autopickReadLeavesNoTrace.test.cjs.
+mongo_data_files() {
+  ls -1 "$DBPATH"/WiredTiger "$DBPATH"/WiredTiger.wt "$DBPATH"/WiredTiger.turtle \
+        "$DBPATH"/_mdb_catalog.wt "$DBPATH"/sizeStorer.wt \
+        "$DBPATH"/collection-*.wt "$DBPATH"/index-*.wt \
+        "$DBPATH"/journal/WiredTigerLog.* 2>/dev/null
+}
+
+MONGO_MTIME_BEFORE=0
+note_mongo_mtime() {
+  local newest=0 m f
+  while IFS= read -r f; do
+    [ -f "$f" ] || continue
+    m="$(stat -c %Y "$f" 2>/dev/null)" || continue
+    case "$m" in ''|*[!0-9]*) continue ;; esac
+    if [ "$m" -gt "$newest" ]; then newest="$m"; fi
+  done < <(mongo_data_files)
+  MONGO_MTIME_BEFORE="$newest"
+}
+
+restore_mongo_mtime() {
+  [ "${MONGO_MTIME_BEFORE:-0}" -gt 0 ] || return 0
+  local m f
+  while IFS= read -r f; do
+    [ -f "$f" ] || continue
+    m="$(stat -c %Y "$f" 2>/dev/null)" || continue
+    case "$m" in ''|*[!0-9]*) continue ;; esac
+    if [ "$m" -gt "$MONGO_MTIME_BEFORE" ]; then
+      touch -d "@$MONGO_MTIME_BEFORE" "$f" 2>/dev/null || true
+    fi
+  done < <(mongo_data_files)
+}
+
 evidence_from_mongodb() {
   evidence_from_live mongodb && return 0
   have_mongo_data || return 1
+  # Before mongod touches anything - see restore_mongo_mtime above.
+  note_mongo_mtime
   rm -f "$PIDFILE"
   # The same cpu-exec + fork + pidfile shape migration-control uses, so a mongod
   # that cannot run on this CPU is emulated rather than SIGILL, and a mongod left
   # behind cannot hold the dbpath lock against the real service.
   bash "$SNAP/bin/cpu-exec" --features "x86_64=avx,aarch64=atomics" "$SNAP/bin/mongod" \
     --dbpath "$DBPATH" --bind_ip 127.0.0.1 --port "$MONGO_PORT" \
-    --logpath "$LOGF" --logappend --fork --pidfilepath "$PIDFILE" >/dev/null 2>&1 || return 1
+    --logpath "$LOGF" --logappend --fork --pidfilepath "$PIDFILE" >/dev/null 2>&1 \
+    || { restore_mongo_mtime; return 1; }
   local i=0
   while [ $i -lt 30 ]; do
     bash "$SNAP/bin/db-eval" ping "$MONGO_URL" >/dev/null 2>&1 && break
     i=$((i + 1)); sleep 1
   done
-  [ $i -lt 30 ] || return 1
+  [ $i -lt 30 ] || { cleanup; restore_mongo_mtime; return 1; }
   bash "$SNAP/bin/db-eval" evidence "$MONGO_URL" 2>/dev/null
   local rc=$?
   bash "$SNAP/bin/db-eval" shutdown "$MONGO_URL" >/dev/null 2>&1 || true
   sleep 1
   cleanup
+  # The read is over: leave the data files' mtimes as they were found, so this
+  # read cannot be mistaken for somebody's work at the next start.
+  restore_mongo_mtime
   return $rc
 }
 
