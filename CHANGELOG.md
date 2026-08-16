@@ -946,6 +946,11 @@ Verified by running it on Linux arm64: an 850M bundle, trim −349 MiB, prune
 it embedded — then started, with FerretDB on SQLite and WeKan answering HTTP 200
 fifteen seconds later.
 
+The Setup menu offers it as **Build WeKan release bundle**, beside **Build WeKan
+development bundle** — the plain `meteor build` that entry used to be, kept
+because the two answer different questions at very different cost, and the
+development one now says what it is NOT when it finishes.
+
 Downloads are cached under `.tools/bundle-binaries/`, and a cache HIT re-checks
 the published SHA256 rather than trusting a file for having been there before.
 The test path is deliberately unchanged: it runs the bundle under its own node
