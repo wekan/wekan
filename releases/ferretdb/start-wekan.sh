@@ -20,6 +20,20 @@
 # ─────────────────────────────────────────────────────────────────────────────
 set -eu
 
+# ── DDP transport ────────────────────────────────────────────────────────────
+# WeKan ships NO uWebSockets.js on any platform: ddp-server requires that module
+# only inside the uws transport's setup(), which a sockjs server never calls,
+# and it is 121M of prebuilt binaries for OS/CPU/ABI combinations one machine
+# cannot use. uws is also not reliable enough yet to be what a default points
+# at. A deployment whose compose file or config still says uws would otherwise
+# die on a missing module, so it is coerced here - loudly, so the log says why
+# the setting did not take - rather than left to crash-loop.
+if [ "${DDP_TRANSPORT:-}" = "uws" ]; then
+  echo "WeKan: DDP_TRANSPORT=uws is not available in this build - it ships no uWebSockets.js. Using sockjs."
+  DDP_TRANSPORT=sockjs
+fi
+export DDP_TRANSPORT="${DDP_TRANSPORT:-sockjs}"
+
 DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # Bundled Node.js, falling back to a node on PATH if the bundled one is absent.

@@ -27,6 +27,7 @@ ENV BUILD_DEPS="apt-utils gnupg wget bzip2 g++ curl libarchive-tools build-essen
 
 ENV \
     DEBUG=false \
+    DDP_TRANSPORT=sockjs \
     NODE_VERSION=v24.19.0 \
     METEOR_RELEASE=METEOR@3.5-rc.2 \
     USE_EDGE=false \
@@ -204,6 +205,13 @@ COPY --chmod=755 releases/prune-build-only-modules.mjs /tmp/prune-build-only-mod
 # applied; what this run has to redo is the part `npm install` puts back.
 COPY --chmod=755 releases/bump-bundle-npm-deps.mjs /tmp/bump-bundle-npm-deps.mjs
 COPY --chmod=644 releases/bundle-npm-security-bumps.json /tmp/bundle-npm-security-bumps.json
+# And the third of the same kind: WeKan talks DDP over sockjs on every platform,
+# so no bundle carries uWebSockets.js. ddp-server requires that module only
+# inside the uws transport's setup(), which a sockjs server never calls, and it
+# is 121M of prebuilt binaries for OS/CPU/ABI combinations one machine cannot
+# use. The entrypoint coerces DDP_TRANSPORT=uws to sockjs, so an existing
+# compose file that asks for uws keeps working rather than crash-looping.
+COPY --chmod=755 releases/bundle-trim.mjs /tmp/bundle-trim.mjs
 
 RUN <<EOR
 set -o xtrace
@@ -340,6 +348,8 @@ node /tmp/prune-build-only-modules.mjs ./bundle
 # meteor-dev-bundle's own underscore 1.13.7 pin (CVE-2026-27601) over it, so the
 # same pass runs here.
 node /tmp/bump-bundle-npm-deps.mjs ./bundle
+# No uWebSockets.js: this image runs sockjs (see the COPY above).
+node /tmp/bundle-trim.mjs ./bundle --transport sockjs --drop-legacy-client --keep-maps
 mv /home/wekan/app/bundle /build
 
 # The .zip bundle now ships a self-contained launcher + its own Node.js for the

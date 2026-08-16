@@ -586,6 +586,15 @@ jobs:
           # meteor/ tree travels to every other arch untouched.
           node "$GITHUB_WORKSPACE/releases/bump-bundle-npm-deps.mjs" \
             "$GITHUB_WORKSPACE/.build/bundle"
+          # WeKan runs sockjs on every platform, so no bundle ships uWebSockets.js:
+          # ddp-server requires it only inside the uws transport setup(), which sockjs
+          # never calls, and the module is 121M of prebuilt binaries for OS/CPU/ABI
+          # combinations one machine cannot use anyway. --drop-legacy-client removes
+          # the second client build for browsers without modern JS. --keep-maps: the
+          # Sandstorm .spk drops source maps too, for its 1 GiB limit; a .zip keeps
+          # them.
+          node "$GITHUB_WORKSPACE/releases/bundle-trim.mjs" \
+            "$GITHUB_WORKSPACE/.build/bundle" --transport sockjs --drop-legacy-client --keep-maps
 
       - name: Check the binaries the amd64 bundle needs exist
         run: |
@@ -832,7 +841,7 @@ jobs:
             -v "$(pwd)/releases:/releases:ro" \
             -w /bundle/programs/server \
             node:${NODE_VERSION}-slim \
-            sh -c "bash /releases/apt-install.sh build-essential python3 && bash /releases/npm-retry.sh npm install && node /releases/prune-build-only-modules.mjs /bundle && node /releases/bump-bundle-npm-deps.mjs /bundle"
+            sh -c "bash /releases/apt-install.sh build-essential python3 && bash /releases/npm-retry.sh npm install && node /releases/prune-build-only-modules.mjs /bundle && node /releases/bump-bundle-npm-deps.mjs /bundle && node /releases/bundle-trim.mjs /bundle --transport sockjs --drop-legacy-client --keep-maps"
 
       - name: Check the binaries the arm64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -1215,6 +1224,13 @@ jobs:
           # ../.. is the bundle root: this step is inside programs/server.
           node "$SRC/releases/prune-build-only-modules.mjs" ../..
           node "$SRC/releases/bump-bundle-npm-deps.mjs" ../..
+          # WeKan runs sockjs on every platform, so no bundle ships uWebSockets.js:
+          # ddp-server requires it only inside the uws transport setup(), which sockjs
+          # never calls, and the module is 121M of prebuilt binaries for OS/CPU/ABI
+          # combinations one machine cannot use anyway. --keep-maps: only the uws
+          # removal applies here; the Sandstorm .spk drops source maps too, for its
+          # 1 GiB limit.
+          node "$SRC/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client --keep-maps
 
       - name: Check the binaries the win64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -1571,6 +1587,13 @@ jobs:
           # ../.. is the bundle root: this step is inside programs/server.
           node "$SRC/releases/prune-build-only-modules.mjs" ../..
           node "$SRC/releases/bump-bundle-npm-deps.mjs" ../..
+          # WeKan runs sockjs on every platform, so no bundle ships uWebSockets.js:
+          # ddp-server requires it only inside the uws transport setup(), which sockjs
+          # never calls, and the module is 121M of prebuilt binaries for OS/CPU/ABI
+          # combinations one machine cannot use anyway. --keep-maps: only the uws
+          # removal applies here; the Sandstorm .spk drops source maps too, for its
+          # 1 GiB limit.
+          node "$SRC/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client --keep-maps
 
       - name: Check the binaries the win-arm64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -1946,6 +1969,13 @@ jobs:
           # ../.. is the bundle root: this step is inside programs/server.
           node "$SRC/releases/prune-build-only-modules.mjs" ../..
           node "$SRC/releases/bump-bundle-npm-deps.mjs" ../..
+          # WeKan runs sockjs on every platform, so no bundle ships uWebSockets.js:
+          # ddp-server requires it only inside the uws transport setup(), which sockjs
+          # never calls, and the module is 121M of prebuilt binaries for OS/CPU/ABI
+          # combinations one machine cannot use anyway. --keep-maps: only the uws
+          # removal applies here; the Sandstorm .spk drops source maps too, for its
+          # 1 GiB limit.
+          node "$SRC/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client --keep-maps
 
       - name: Check the binaries the win32 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -2205,6 +2235,13 @@ jobs:
           # ../.. is the bundle root: this is still inside programs/server.
           node "$GITHUB_WORKSPACE/releases/prune-build-only-modules.mjs" ../..
           node "$GITHUB_WORKSPACE/releases/bump-bundle-npm-deps.mjs" ../..
+          # WeKan runs sockjs on every platform, so no bundle ships uWebSockets.js:
+          # ddp-server requires it only inside the uws transport setup(), which sockjs
+          # never calls, and the module is 121M of prebuilt binaries for OS/CPU/ABI
+          # combinations one machine cannot use anyway. --keep-maps: only the uws
+          # removal applies here; the Sandstorm .spk drops source maps too, for its
+          # 1 GiB limit.
+          node "$GITHUB_WORKSPACE/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client --keep-maps
           cd ../../..
 
       - name: Check the binaries the mac-arm64 bundle needs exist
@@ -2477,6 +2514,13 @@ jobs:
           # ../.. is the bundle root: this is still inside programs/server.
           node "$GITHUB_WORKSPACE/releases/prune-build-only-modules.mjs" ../..
           node "$GITHUB_WORKSPACE/releases/bump-bundle-npm-deps.mjs" ../..
+          # WeKan runs sockjs on every platform, so no bundle ships uWebSockets.js:
+          # ddp-server requires it only inside the uws transport setup(), which sockjs
+          # never calls, and the module is 121M of prebuilt binaries for OS/CPU/ABI
+          # combinations one machine cannot use anyway. --keep-maps: only the uws
+          # removal applies here; the Sandstorm .spk drops source maps too, for its
+          # 1 GiB limit.
+          node "$GITHUB_WORKSPACE/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client --keep-maps
           cd ../../..
 
       - name: Check the binaries the mac-x64 bundle needs exist
@@ -3256,7 +3300,7 @@ jobs:
               echo "--- pack failed; trimming the bundle to what a grain runs, then packing once more"
               # A Sandstorm grain is linux/x64, always - it is what the deps tree above
               # bundles a node and a mongod for.
-              node releases/bundle-trim.mjs .meteor-spk/bundle --platform linux --arch x64 --transport sockjs || true
+              node releases/bundle-trim.mjs .meteor-spk/bundle --platform linux --arch x64 --transport sockjs --drop-legacy-client || true
               node releases/prune-build-only-modules.mjs .meteor-spk/bundle || true
               sizes || true
               set +e

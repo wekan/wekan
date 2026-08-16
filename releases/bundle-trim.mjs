@@ -4,7 +4,8 @@
 // Trim a built Meteor bundle down to what the target platform actually runs.
 //
 // Usage: node releases/bundle-trim.mjs <bundle-dir> [--platform linux] [--arch x64]
-//                                      [--transport sockjs] [--keep-maps]
+//                                      [--transport sockjs] [--drop-legacy-client]
+//                                      [--keep-maps]
 //
 // WHY THIS EXISTS
 //
@@ -42,7 +43,10 @@
 // This does NOT prune node_modules - releases/prune-build-only-modules.mjs is
 // what removes the build-only toolchain, and the two run together.
 
-import { readdirSync, statSync, unlinkSync, existsSync, rmSync } from 'fs';
+import {
+  readdirSync, statSync, unlinkSync, existsSync, rmSync, readFileSync, writeFileSync,
+  chmodSync,
+} from 'fs';
 import { join, basename } from 'path';
 
 const argv = process.argv.slice(2);
@@ -130,6 +134,74 @@ for (const dir of uwsDirs) {
 // 2. Source maps.
 if (!flag('keep-maps')) for (const m of maps) drop(m);
 
+// 3. The legacy client bundle - a whole second copy of the client, built for
+//    browsers without modern JS. 83 MiB.
+//
+//    Meteor supports running with architectures excluded, and says so in its own
+//    code. webapp's categorizeRequest() walks a preferred order and comments "If
+//    our preferred arch is not available, it's better to use another client arch
+//    that is available than to guarantee the site won't work", so an old browser
+//    is served web.browser instead; the 404 branch below it is reached only when
+//    NO arch matches, which cannot happen while web.browser is there. autoupdate
+//    iterates Object.keys(WebApp.clientPrograms) - the programs that actually
+//    loaded - so it never asks for the one that was removed.
+//
+//    The directory is only half of it: the arch is also NAMED in two manifests,
+//    and boot.js builds a dynamic-import root for every name it finds there. So
+//    the name goes with the files, or the server registers a path that is not on
+//    disk.
+// A Meteor bundle's manifests are written READ-ONLY (mode 444), so a plain
+// writeFileSync on one fails with EACCES and takes the whole trim down after it
+// has already deleted files. Make it writable, rewrite it, put the mode back.
+function rewriteJson(file, edit) {
+  const mode = statSync(file).mode;
+  const data = JSON.parse(readFileSync(file, 'utf8'));
+  edit(data);
+  chmodSync(file, mode | 0o200);
+  writeFileSync(file, `${JSON.stringify(data, null, 2)}\n`);
+  chmodSync(file, mode);
+}
+
+let legacyNote = '';
+if (flag('drop-legacy-client')) {
+  const legacyDir = join(bundle, 'programs', 'web.browser.legacy');
+  const before = removed;
+  const dropTree = dir => {
+    let entries;
+    try { entries = readdirSync(dir, { withFileTypes: true }); } catch { return; }
+    for (const e of entries) {
+      if (e.isDirectory() && !e.isSymbolicLink()) dropTree(join(dir, e.name));
+      else drop(join(dir, e.name));
+    }
+  };
+  if (existsSync(legacyDir)) {
+    dropTree(legacyDir);
+    try { rmSync(legacyDir, { recursive: true, force: true }); } catch { /* leftovers are harmless */ }
+  }
+
+  // programs/server/config.json - clientArchs (and clientPaths in older bundles).
+  const configPath = join(bundle, 'programs', 'server', 'config.json');
+  if (existsSync(configPath)) {
+    rewriteJson(configPath, config => {
+      if (Array.isArray(config.clientArchs)) {
+        config.clientArchs = config.clientArchs.filter(a => a !== 'web.browser.legacy');
+      }
+      if (config.clientPaths) delete config.clientPaths['web.browser.legacy'];
+    });
+  }
+
+  // star.json - the program list the bundle ships with.
+  const starPath = join(bundle, 'star.json');
+  if (existsSync(starPath)) {
+    rewriteJson(starPath, star => {
+      if (Array.isArray(star.programs)) {
+        star.programs = star.programs.filter(p => p.arch !== 'web.browser.legacy');
+      }
+    });
+  }
+  legacyNote = `, dropped the legacy client (${removed - before} files)`;
+}
+
 const mib = n => (n / 1048576).toFixed(0);
 const uwsNote = transport === 'sockjs'
   ? `removed uWebSockets.js entirely (transport is sockjs)`
@@ -137,5 +209,6 @@ const uwsNote = transport === 'sockjs'
 console.log(
   `bundle-trim: removed ${removed} files, ${mib(freed)} MiB from ${bundle} ` +
   `(${uwsNote}` +
-  `${flag('keep-maps') ? ', kept source maps' : `, dropped ${maps.length} source maps`})`,
+  `${flag('keep-maps') ? ', kept source maps' : `, dropped ${maps.length} source maps`}` +
+  `${legacyNote})`,
 );

@@ -21,7 +21,7 @@ Highest DDP throughput and lowest reactive latency.
 
 Configure each instance with:
 
-- `DDP_TRANSPORT=uws`
+- `DDP_TRANSPORT=sockjs`
 - `METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling`
 - A **distinct** `Meteor.settings.packages['ddp-server'].uws.port`
   per instance (`5001`, `5002`, `5003`, … in the example below)
@@ -46,7 +46,7 @@ environment:
   - PORT=8081                                                # public HTTP port
   - ROOT_URL=https://tenant1.example.com
   - MONGO_URL=mongodb://127.0.0.1:27017/wekan_tenant1?replicaSet=rs0
-  - DDP_TRANSPORT=uws
+  - DDP_TRANSPORT=sockjs
   - METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
   - METEOR_SETTINGS={"packages":{"ddp-server":{"uws":{"port":5001,"host":"127.0.0.1"}}}}
 ```

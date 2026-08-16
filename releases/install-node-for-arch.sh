@@ -178,6 +178,10 @@ node "$(dirname "$0")/prune-build-only-modules.mjs" /bundle
 # underscore 1.13.7, which npm reinstalls over the bumped copy the amd64 bundle
 # came with. The meteor/ tree it does not touch, so this pass is a small one.
 node "$(dirname "$0")/bump-bundle-npm-deps.mjs" /bundle
+# And drop uWebSockets.js: WeKan runs sockjs on every platform, and ddp-server
+# requires that module only inside the uws transport's setup(). 121M of prebuilt
+# binaries for OS/CPU/ABI combinations this bundle cannot use.
+node "$(dirname "$0")/bundle-trim.mjs" /bundle --transport sockjs --drop-legacy-client --keep-maps
 
 # Bundle the target-arch Node.js for the self-contained launcher. /bundle is the
 # host's bundle/ directory, mounted by the workflow.

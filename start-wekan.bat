@@ -75,8 +75,9 @@ IF /I "%USE_CHANGE_STREAMS%"=="true" (
 ) ELSE (
    SET METEOR_REACTIVITY_ORDER=polling
 )
-SET DDP_TRANSPORT=uws
-REM #   REM # SET DDP_TRANSPORT=sockjs
+REM # sockjs is the only transport WeKan ships: no bundle carries
+REM # uWebSockets.js, and uws is coerced to sockjs at startup.
+SET DDP_TRANSPORT=sockjs
 
 REM # Writable path required to exist and be writable for attachments to migrate and work correctly
 SET WRITABLE_PATH=..

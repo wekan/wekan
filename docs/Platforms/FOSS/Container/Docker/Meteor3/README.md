@@ -50,7 +50,7 @@ To this Docker setup:
 caddy proxy: Let's Encrypt and CloudFlare TLS to localhost http ports
   |
   |==> Many Docker Meteor 3 WeKan Node.js Containers,
-  |    Uses changeStreams and DDP_TRANSPORT=uws
+  |    Uses changeStreams and DDP_TRANSPORT=sockjs
   |     |
   |     |=> One MongoDB without container,
   |         always requires password to login,

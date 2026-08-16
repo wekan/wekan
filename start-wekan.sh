@@ -96,8 +96,9 @@
       # Later change to: METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
       if [ "$USE_CHANGE_STREAMS" = "true" ]; then
           export METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
-          export DDP_TRANSPORT=uws
-          #export DDP_TRANSPORT=sockjs
+          # sockjs is the only transport WeKan ships: no bundle carries
+          # uWebSockets.js, and uws is coerced to sockjs at startup.
+          export DDP_TRANSPORT=sockjs
       else
           export METEOR_REACTIVITY_ORDER=polling
       fi

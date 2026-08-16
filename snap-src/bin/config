@@ -15,7 +15,7 @@ KEY_METEOR_REACTIVITY_ORDER='meteor-reactivity-order'
 # For multi-process / multi-tenant deployments on one host with network_mode: host,
 # also set a distinct Meteor.settings.packages['ddp-server'].uws.port per process.
 # See docs/Platforms/FOSS/Container/Docker/Meteor3/multitenancy.md
-DESCRIPTION_DDP_TRANSPORT="DDP_TRANSPORT. Default: 'sockjs' (maximum proxy compatibility). Alternative: 'uws'."
+DESCRIPTION_DDP_TRANSPORT="DDP_TRANSPORT. Only 'sockjs': the snap ships no uWebSockets.js, so 'uws' is coerced to sockjs at startup."
 DEFAULT_DDP_TRANSPORT="sockjs"
 KEY_DDP_TRANSPORT='ddp-transport'
 #-----------------------------------------------------------------

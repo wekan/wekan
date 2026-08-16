@@ -1,8 +1,9 @@
       # ========== CUSTOM END =====
       ## See ../multitenancy.md about commented out settings:
       #- METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
-      #- DDP_TRANSPORT=uws
       - METEOR_REACTIVITY_ORDER=oplog,polling
+      # sockjs is the only transport WeKan ships: no bundle or image carries
+      # uWebSockets.js, and DDP_TRANSPORT=uws is coerced to sockjs at startup.
       - DDP_TRANSPORT=sockjs
       - WRITABLE_PATH=/data
       - WITH_API=true

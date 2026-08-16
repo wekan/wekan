@@ -336,8 +336,9 @@ services:
       # Keep oplog/polling fallback available for deployments that cannot use Change Streams:
       # https://github.com/wekan/wekan/issues/6307#issuecomment-4299349231
       - METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
-      - DDP_TRANSPORT=uws
-      #- DDP_TRANSPORT=sockjs
+      # sockjs is the only transport WeKan ships: no bundle or image carries
+      # uWebSockets.js, and DDP_TRANSPORT=uws is coerced to sockjs at startup.
+      - DDP_TRANSPORT=sockjs
       #-----------------------------------------------------------------
       # ==== WRITEABLE PATH FOR FILE UPLOADS ====
       - WRITABLE_PATH=/data

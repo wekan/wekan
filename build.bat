@@ -1477,7 +1477,7 @@ exit /b 0
 :set_dev_env
 REM Common dev-server environment (caller sets ROOT_URL afterwards).
 set "DEFAULT_METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling"
-set "DDP_TRANSPORT=uws"
+set "DDP_TRANSPORT=sockjs"
 set "DEBUG=true"
 set "WRITABLE_PATH=.."
 set "WITH_API=true"

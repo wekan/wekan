@@ -204,7 +204,8 @@ services:
       - DEFAULT_METEOR_REACTIVITY_ORDER=polling
       - METEOR_REACTIVITY_ORDER=polling
       # uws does not work at s390x. sockjs works.
-      #- DDP_TRANSPORT=uws
+      # sockjs is the only transport WeKan ships: no bundle or image carries
+      # uWebSockets.js, and DDP_TRANSPORT=uws is coerced to sockjs at startup.
       - DDP_TRANSPORT=sockjs
       #-----------------------------------------------------------------
       # ==== WRITEABLE PATH FOR FILE UPLOADS ====

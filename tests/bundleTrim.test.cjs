@@ -168,9 +168,9 @@ test('a bad --transport is refused rather than guessed at (negative)', dir => {
   assert.ok(fs.existsSync(path.join(bundle, UWS)), 'and must delete nothing');
 });
 
-test('without --transport the module stays, because most WeKan runs on uws', dir => {
-  // docker-compose, start-wekan.sh and build.sh all set DDP_TRANSPORT=uws.
-  // Dropping the module by default would break every one of them.
+test('without --transport the module stays (negative)', dir => {
+  // The flag is what removes it. A caller that does not ask keeps the module,
+  // trimmed to the prebuilds its own platform can open.
   const bundle = uwsBundle(dir);
   trim(bundle, ['--platform', 'linux', '--arch', 'x64']);
   assert.ok(fs.existsSync(path.join(bundle, `${UWS}/uws.js`)),
@@ -196,6 +196,80 @@ test('the grain PINS the transport the .spk was trimmed for', () => {
   assert.strictEqual(trimArgs[1], m[1],
     `the transport the bundle is trimmed for (${trimArgs[1]}) must be the one the grain ` +
     `asks for (${m[1]})`);
+});
+
+// ── The legacy client ───────────────────────────────────────────────────────
+// Meteor builds a SECOND copy of the client for browsers without modern JS.
+// 83 MiB, and Meteor supports running with architectures excluded: webapp's
+// categorizeRequest() walks a preferred order and comments "If our preferred
+// arch is not available, it's better to use another client arch that is
+// available than to guarantee the site won't work". Removing the files is only
+// half of it - the arch is NAMED in two manifests, and boot.js builds a
+// dynamic-import root for every name it finds in config.json.
+
+function legacyBundle(dir) {
+  return makeBundle(dir, {
+    'programs/web.browser.legacy/program.json': '{"format":"web-program-pre1"}',
+    'programs/web.browser.legacy/app/app.js': 'x'.repeat(4096),
+    'programs/web.browser.legacy/dynamic/meteor/x.js': 'x'.repeat(1024),
+    'programs/web.browser/program.json': '{"format":"web-program-pre1"}',
+    'programs/web.browser/app/app.js': 'modern',
+    'programs/server/config.json': JSON.stringify(
+      { meteorRelease: 'METEOR@3.5.1', clientArchs: ['web.browser', 'web.browser.legacy'] }, null, 2),
+    'star.json': JSON.stringify(
+      { programs: [{ arch: 'web.browser' }, { arch: 'web.browser.legacy' }, { arch: 'os' }] }, null, 2),
+  });
+}
+
+test('--drop-legacy-client removes the directory AND deregisters the arch', dir => {
+  const bundle = legacyBundle(dir);
+  trim(bundle, ['--drop-legacy-client', '--keep-maps']);
+  assert.ok(!fs.existsSync(path.join(bundle, 'programs/web.browser.legacy')),
+    'the whole legacy client tree goes, dynamic/ included');
+  const config = JSON.parse(fs.readFileSync(path.join(bundle, 'programs/server/config.json'), 'utf8'));
+  assert.deepStrictEqual(config.clientArchs, ['web.browser'],
+    'config.json must not name an arch whose directory is gone - boot.js builds a '
+    + 'dynamicRoot for every name in this list');
+  const star = JSON.parse(fs.readFileSync(path.join(bundle, 'star.json'), 'utf8'));
+  assert.deepStrictEqual(star.programs.map(p => p.arch), ['web.browser', 'os'],
+    'and neither must star.json');
+});
+
+test('the modern client is never touched (negative)', dir => {
+  const bundle = legacyBundle(dir);
+  trim(bundle, ['--drop-legacy-client', '--keep-maps']);
+  assert.ok(exists(bundle, 'programs/web.browser/app/app.js'),
+    'web.browser is what every browser is served now; removing it would end the app');
+  assert.ok(exists(bundle, 'programs/web.browser/program.json'), 'and its manifest');
+});
+
+test('it rewrites read-only manifests instead of dying on them', dir => {
+  // Meteor writes a bundle's files mode 444. A plain writeFileSync on one fails
+  // with EACCES - and it would fail AFTER the deletions, leaving a bundle whose
+  // files are gone but whose manifests still name the arch: the one state that
+  // actually breaks a server. The mode is restored, so the bundle stays as
+  // Meteor made it.
+  const bundle = legacyBundle(dir);
+  for (const f of ['programs/server/config.json', 'star.json']) {
+    fs.chmodSync(path.join(bundle, f), 0o444);
+  }
+  trim(bundle, ['--drop-legacy-client', '--keep-maps']);
+  for (const f of ['programs/server/config.json', 'star.json']) {
+    const mode = fs.statSync(path.join(bundle, f)).mode & 0o777;
+    assert.strictEqual(mode, 0o444, `${f} must be left read-only, as Meteor wrote it`);
+  }
+  const config = JSON.parse(fs.readFileSync(path.join(bundle, 'programs/server/config.json'), 'utf8'));
+  assert.deepStrictEqual(config.clientArchs, ['web.browser'], 'and still rewritten');
+});
+
+test('without the flag the legacy client stays (negative)', dir => {
+  const bundle = legacyBundle(dir);
+  trim(bundle, ['--keep-maps']);
+  assert.ok(exists(bundle, 'programs/web.browser.legacy/app/app.js'),
+    'nothing is removed unless it was asked for');
+  const config = JSON.parse(fs.readFileSync(path.join(bundle, 'programs/server/config.json'), 'utf8'));
+  assert.deepStrictEqual(config.clientArchs, ['web.browser', 'web.browser.legacy'],
+    'and the manifests are left exactly as they were');
 });
 
 test('the Sandstorm leg runs it before its retry pack, for linux/x64', () => {
