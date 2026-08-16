@@ -126,6 +126,71 @@ test('source maps go, and only source maps', dir => {
   }
 });
 
+test('dropping maps also un-names them in programs/server/program.json', dir => {
+  // THE BUG THIS EXISTS FOR. boot.js reads every map named in program.json at
+  // boot, unconditionally:
+  //
+  //   serverJson.load.forEach(function (fileInfo) {
+  //     if (fileInfo.sourceMap) {
+  //       var rawSourceMap = fs.readFileSync(path.resolve(serverDir, fileInfo.sourceMap), ...)
+  //
+  // so deleting the files without deleting the names is ENOENT before the server
+  // opens its port - a crash-loop, which is what a released image did:
+  //
+  //   Error: ENOENT: no such file or directory,
+  //     open '/build/programs/server/packages/ecmascript.js.map'
+  //     at /build/programs/server/boot.js:101:29
+  //
+  // 63 of the 102 load entries name a map. "Nothing reads a .map at runtime" was
+  // true of the client and false of the server, and this list is the difference.
+  const bundle = makeBundle(dir, {
+    'programs/server/app/app.js': 'code',
+    'programs/server/app/app.js.map': 'x'.repeat(2048),
+    'programs/server/packages/ecmascript.js': 'code',
+    'programs/server/packages/ecmascript.js.map': 'x'.repeat(2048),
+    'programs/server/program.json': JSON.stringify({
+      format: 'javascript-image-pre1',
+      load: [
+        { path: 'app/app.js', sourceMap: 'app/app.js.map', sourceMapRoot: '.' },
+        { path: 'packages/ecmascript.js', sourceMap: 'packages/ecmascript.js.map' },
+        { path: 'packages/global-imports.js' },
+      ],
+    }, null, 2),
+  });
+  trim(bundle, ['--platform', 'linux', '--arch', 'x64']);
+  const program = JSON.parse(fs.readFileSync(path.join(bundle, 'programs/server/program.json'), 'utf8'));
+  for (const entry of program.load) {
+    assert.ok(!('sourceMap' in entry),
+      `${entry.path} still names a sourceMap whose file was deleted - boot.js ENOENTs on it`);
+    assert.ok(!('sourceMapRoot' in entry), `${entry.path} still has a sourceMapRoot`);
+  }
+  assert.strictEqual(program.load.length, 3, 'and the load list itself is untouched');
+  assert.strictEqual(program.load[0].path, 'app/app.js', 'including the order and the paths');
+});
+
+test('THE INVARIANT: every map the manifest names exists on disk', dir => {
+  // Whatever the trim does, this must hold afterwards, because it is exactly what
+  // boot.js requires. Checked for both settings of --keep-maps, so neither branch
+  // can drift into the crash.
+  for (const args of [['--platform', 'linux', '--arch', 'x64'], ['--keep-maps']]) {
+    const sub = fs.mkdtempSync(path.join(dir, 'inv-'));
+    const bundle = makeBundle(sub, {
+      'programs/server/app/app.js': 'code',
+      'programs/server/app/app.js.map': 'x'.repeat(1024),
+      'programs/server/program.json': JSON.stringify({
+        load: [{ path: 'app/app.js', sourceMap: 'app/app.js.map' }],
+      }, null, 2),
+    });
+    trim(bundle, args);
+    const program = JSON.parse(fs.readFileSync(path.join(bundle, 'programs/server/program.json'), 'utf8'));
+    for (const entry of program.load) {
+      if (!entry.sourceMap) continue;
+      assert.ok(fs.existsSync(path.join(bundle, 'programs/server', entry.sourceMap)),
+        `with ${args.join(' ')}: program.json names ${entry.sourceMap} and it is not there`);
+    }
+  }
+});
+
 test('--keep-maps keeps them, for a build that wants a debuggable bundle', dir => {
   const bundle = makeBundle(dir, { 'programs/server/app/app.js.map': 'x'.repeat(4096) });
   const out = trim(bundle, ['--platform', 'linux', '--arch', 'x64', '--keep-maps']);

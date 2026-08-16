@@ -132,7 +132,33 @@ for (const dir of uwsDirs) {
 }
 
 // 2. Source maps.
-if (!flag('keep-maps')) for (const m of maps) drop(m);
+//
+// A NAMED map is not optional. boot.js reads every map listed in
+// programs/server/program.json at boot, unconditionally:
+//
+//   serverJson.load.forEach(function (fileInfo) {
+//     if (fileInfo.sourceMap) {
+//       var rawSourceMap = fs.readFileSync(path.resolve(serverDir, fileInfo.sourceMap), ...)
+//
+// and a missing one is ENOENT before the server ever opens its port - a
+// crash-loop, not a degraded stack trace. 63 of the 102 load entries name a map,
+// 60 MiB of them. So the NAMES go with the files: the field is removed from the
+// manifest in the same pass. The client is not affected - its program.json names
+// no maps at all (678 manifest entries, zero sourceMap fields) and webapp reads
+// only program.json itself at startup, so a client map is found through the
+// //# sourceMappingURL comment and simply 404s when it is not there.
+if (!flag('keep-maps')) {
+  for (const m of maps) drop(m);
+  const programJson = join(bundle, 'programs', 'server', 'program.json');
+  if (existsSync(programJson)) {
+    rewriteJson(programJson, program => {
+      for (const entry of program.load || []) {
+        delete entry.sourceMap;
+        delete entry.sourceMapRoot;
+      }
+    });
+  }
+}
 
 // 3. The legacy client bundle - a whole second copy of the client, built for
 //    browsers without modern JS. 83 MiB.
