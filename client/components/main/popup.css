@@ -1105,6 +1105,26 @@ body.mobile-mode .pop-over .content-wrapper {
   }
 }
 
+/* A row in "select what to include": the box, then the label, with the box
+   against the FIRST line when the label wraps.
+
+   These labels are long and several of them wrap in any language with compound
+   words - "Board-Informationen (Board, Liste, Swimlane)", "Daten (Erstellt,
+   Empfangen, Start, Fällig, Ende)" - and a box that centres itself against two
+   lines of text reads as belonging to neither of them. Aligning to the start
+   puts it where a checkbox belongs, beside the first line, and `fa-fw` keeps
+   every box the same width so the labels line up down the column. */
+.pop-over .export-board-pane .pop-over-list.export-scope-select a {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+.pop-over .export-board-pane .pop-over-list.export-scope-select a > .fa {
+  /* The optical nudge that puts a 14px box on the baseline of a 16px line. */
+  margin-top: 2px;
+  flex: 0 0 auto;
+}
+
 /* The rule above each subheading in the Export board menu. Tighter than the
    default so a group's heading stays visually attached to the list under it
    rather than floating between two gaps. */

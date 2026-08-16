@@ -5,18 +5,32 @@
   The helpers are registered on BOTH templates from one object (exportScope.js);
   the click handlers stay on exportScopeBody, because an event from here bubbles
   to the template that includes it.
+//- EACH ROW CARRIES ITS OWN CHECKBOX - `.materialCheckBox`, the one Admin
+  Panel / Settings / Announcement uses for "Active System-Wide Announcement",
+  and the one every checkbox in the Admin Panel uses. A reader has seen it
+  before, and it says "on" and "off" at a glance.
+  It used to be an unconditional `i.fa.fa-check` on a `li.active`, which is a
+  DIFFERENT convention: popup.css hides that tick and shows it only for an
+  active row - but its selector is `.pop-over-list .pop-over-list.checkable
+  .fa-check`, so it needs a NESTED list carrying `checkable`, and this list was
+  neither. The tick was therefore never hidden and `active` was never styled, so
+  every row looked ticked whatever it was and clicking one changed nothing on
+  screen. Reported as \#6586 comment 5308548585, "I can't select/deselect those
+  arrows here".
+  A checkbox that carries its own state needs no ancestor to be right, which is
+  why it is this rather than the missing class.
 template(name="exportScopeSelect")
   p.quiet {{_ 'export-select-what-to-include'}}
-  ul.pop-over-list
-    li(class="{{#if cardDetailsChecked}}active{{/if}}")
-      a.js-export-card-details-toggle(href="#")
-        i.fa.fa-check
-        | {{_ 'export-card-details'}}
+  ul.pop-over-list.export-scope-select
+    li
+      a.flex.js-export-card-details-toggle(href="#" role="checkbox" aria-checked="{{#if cardDetailsChecked}}true{{else}}false{{/if}}")
+        .materialCheckBox(class="{{#if cardDetailsChecked}}is-checked{{/if}}")
+        span {{_ 'export-card-details'}}
     each exportFields
-      li(class="{{#if checked}}active{{/if}}")
-        a.js-export-field-toggle(data-field="{{field}}" href="#")
-          i.fa.fa-check
-          | {{_ label}}
+      li
+        a.flex.js-export-field-toggle(data-field="{{field}}" href="#" role="checkbox" aria-checked="{{#if checked}}true{{else}}false{{/if}}")
+          .materialCheckBox(class="{{#if checked}}is-checked{{/if}}")
+          span {{_ label}}
 
 //- The body of an export popup - ALL of them (#1173). What to include in one
   pane and what to export it to in the other, side by side when the window has

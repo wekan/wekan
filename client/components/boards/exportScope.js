@@ -365,6 +365,34 @@ const scopeHelpers = {
 Template.exportScopeBody.helpers(scopeHelpers);
 Template.exportScopeSelect.helpers(scopeHelpers);
 
+// The toggles, on the template the checkboxes are IN.
+//
+// Blaze resolves a helper, and delivers an event, against the template the
+// element is in - never an enclosing one. The two toggles were registered on
+// exportScopeBody only, on the theory that a click in exportScopeSelect bubbles
+// up to it, and the result was a checkbox list that could not be changed:
+// #6586 comment 5308548585, "I can't select/deselect those arrows here".
+// The same rule is written out in adminProblems.js, where three panes needed
+// their own copy of a shared pair for exactly this reason.
+//
+// Registered on BOTH, from one object, like the helpers: a handler whose
+// element is not in a given template simply never fires there, so this costs
+// nothing and cannot go out of step.
+const selectToggles = {
+  'click .js-export-field-toggle'(event) {
+    // The popup stays open: choosing five sections should not be five reopens.
+    event.preventDefault();
+    const field = event.currentTarget.dataset.field;
+    if (field) selection.set(field, !selection.get(field));
+  },
+  'click .js-export-card-details-toggle'(event) {
+    event.preventDefault();
+    selection.set('card-details', !selection.get('card-details'));
+  },
+};
+Template.exportScopeBody.events(selectToggles);
+Template.exportScopeSelect.events(selectToggles);
+
 Template.exportScopeBody.events({
   async 'change .js-import-file'(event) {
     const file = event.currentTarget.files && event.currentTarget.files[0];
@@ -406,16 +434,6 @@ Template.exportScopeBody.events({
       importState.set('busy', false);
       event.currentTarget.value = '';
     }
-  },
-  'click .js-export-field-toggle'(event) {
-    // The popup stays open: choosing five sections should not be five reopens.
-    event.preventDefault();
-    const field = event.currentTarget.dataset.field;
-    selection.set(field, !selection.get(field));
-  },
-  'click .js-export-card-details-toggle'(event) {
-    event.preventDefault();
-    selection.set('card-details', !selection.get('card-details'));
   },
 });
 

@@ -205,4 +205,119 @@ test('a board too big for the card layout can still be exported', () => {
     'and the reason is written where the two meet');
 });
 
+// ── the checkbox list can actually be changed (#6586) ──────────────────────
+
+test('the toggles are registered on the template the checkboxes are IN', () => {
+  // #6586 comment 5308548585: "I can't select/deselect those arrows here".
+  // Blaze resolves a helper, and delivers an event, against the template the
+  // element is in - never an enclosing one. The two toggles were on
+  // exportScopeBody only, while the checkboxes they act on are drawn by
+  // exportScopeSelect, so nothing happened when one was clicked. The same rule
+  // is written out in adminProblems.js, where three panes each needed their own
+  // copy of a shared pair.
+  const js = read('client/components/boards/exportScope.js');
+  const jade = read('client/components/boards/exportScope.jade');
+
+  // The checkboxes are drawn by exportScopeSelect...
+  const selectTpl = /template\(name="exportScopeSelect"\)([\s\S]*?)\n\ntemplate/.exec(jade);
+  assert.ok(selectTpl, 'exportScopeSelect must exist');
+  for (const cls of ['js-export-field-toggle', 'js-export-card-details-toggle']) {
+    assert.ok(selectTpl[1].includes(cls), `${cls} is drawn by exportScopeSelect`);
+  }
+  // ...so exportScopeSelect must be given the handlers.
+  assert.ok(/Template\.exportScopeSelect\.events\(selectToggles\)/.test(js),
+    'exportScopeSelect must have the toggle handlers, or the list cannot be changed');
+  assert.ok(/Template\.exportScopeBody\.events\(selectToggles\)/.test(js),
+    'and the body keeps them too, from the same object, so the two cannot drift');
+});
+
+test('a row shows whether it is ticked, in the Admin Panel\'s own checkbox', () => {
+  // The list used an unconditional `i.fa.fa-check` on a `li.active`, which is
+  // popup.css's OTHER convention: that tick is hidden by
+  // `.pop-over-list .pop-over-list.checkable .fa-check` and shown only for an
+  // active row - so it needs a NESTED list carrying `checkable`, and this list
+  // was neither. Every row therefore looked ticked whatever it was.
+  const jade = read('client/components/boards/exportScope.jade');
+  const selectTpl = /template\(name="exportScopeSelect"\)([\s\S]*?)\n\ntemplate/.exec(jade)[1];
+  assert.ok(/\.materialCheckBox\(class="\{\{#if cardDetailsChecked\}\}is-checked/.test(selectTpl),
+    'card details must draw a materialCheckBox that reflects its state');
+  assert.ok(/\.materialCheckBox\(class="\{\{#if checked\}\}is-checked/.test(selectTpl),
+    'and so must every field row');
+  assert.ok(!/^\s*i\.fa\.fa-check\s*$/m.test(selectTpl),
+    'no unconditional tick: it is the same mark whether the row is on or off');
+});
+
+test('and no list anywhere ticks unconditionally on an li.active (negative)', () => {
+  // The shape, not the one file: `li.active` + a bare `i.fa.fa-check` only
+  // works inside a NESTED `ul.pop-over-list.checkable`, and anywhere else it
+  // draws a permanent tick that means nothing.
+  const walk = (dir, out = []) => {
+    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, e.name);
+      if (e.isDirectory()) walk(full, out);
+      else if (e.name.endsWith('.jade')) out.push(full);
+    }
+    return out;
+  };
+  const offenders = [];
+  for (const file of walk(path.join(repoRoot, 'client'))) {
+    const lines = fs.readFileSync(file, 'utf8').split('\n');
+    lines.forEach((line, i) => {
+      if (!/class="\{\{#if [\w\s']+\}\}active\{\{\/if\}\}"/.test(line)) return;
+      if (!/^\s*i\.fa\.fa-check\s*$/m.test(lines.slice(i, i + 4).join('\n'))) return;
+      const ul = [...lines.slice(0, i + 1)].reverse().find(l => /^\s*ul[.#\w-]*/.test(l)) || '';
+      if (!ul.includes('checkable')) {
+        offenders.push(`${path.relative(repoRoot, file)}:${i + 1}`);
+      }
+    });
+  }
+  assert.deepStrictEqual(offenders, [],
+    `these draw a tick that is always visible: ${offenders.join(', ')}`);
+});
+
+// ── what is ticked is what the file contains ───────────────────────────────
+
+test('every downloadable format carries the selection, and the server reads it', () => {
+  // The whole point of the checkbox list: an unticked section must be missing
+  // from the Excel, the JSON, the CSV, the PDF and every other file the popup
+  // offers. Two halves, and either one silently drops the choice.
+  const js = read('client/components/boards/exportScope.js');
+
+  // 1. The URL. Every entry with a `path` is turned into a link by one line,
+  //    and that line goes through exportUrl - which always appends
+  //    `fields=<the ticked ones>`.
+  assert.ok(/fields: selectedFields\(\)\.join\(','\)/.test(js),
+    'exportUrl must put the selection in the query string');
+  assert.ok(/url: entry\.path \? exportUrl\(`\/api\/boards\/:boardId\/\$\{entry\.path\}`/.test(js),
+    'and every format entry must build its URL with it - not one of them by hand');
+
+  // 2. The routes. Read the paths the popup offers straight out of the format
+  //    table, so a format added later is checked without editing this test.
+  const paths = [...js.matchAll(/path: '([\w/]+)'/g)].map(m => m[1]);
+  assert.ok(paths.length >= 8, `expected the format table, found ${paths.length} paths`);
+  const server = ['models/export.js', 'models/exportExcel.js', 'models/exportPDF.js']
+    .map(read).join('\n');
+  const unread = [...new Set(paths)].filter(p => {
+    // The route that serves this path must parse `fields`. The external-tool
+    // exports share one handler (serveExternalExport), which does.
+    const route = new RegExp(`'/api/boards/:boardId/${p.replace(/\//g, '\\/')}'`);
+    if (!route.test(server) && !/^export\/(trello|jira|deck|openproject|github|gitlab|gitea|forgejo|asana|zenkit)$/.test(p)) {
+      return true;
+    }
+    return false;
+  });
+  assert.deepStrictEqual(unread, [],
+    `the popup offers these formats and no route serves them: ${unread.join(', ')}`);
+
+  // Each exporter entry point parses the selection rather than exporting
+  // everything: parseExportFields is the one place that reads the parameter.
+  for (const file of ['models/export.js', 'models/exportExcel.js', 'models/exportPDF.js']) {
+    assert.ok(/parseExportFields\(req\.query && req\.query\.fields/.test(read(file)),
+      `${file} must read the selection from the query`);
+  }
+  assert.ok(/parseExportFields\(req\.query && req\.query\.fields, BOARD_EXPORT_FIELD_KEYS\)\) \}\)/
+    .test(read('models/export.js')),
+    'and the external-tool exports (Trello, Jira, GitHub, ...) must read it too');
+});
+
 console.log(`\nboardExportScope: ${passed} tests passed`);
