@@ -414,7 +414,7 @@ document, use the saved user language or browser fallback, keep the opened
 card's date format, and preserve multilingual text; PDF also embeds JPEG and PNG
 attachment previews plus Unicode-plane fonts. **Admin Panel / Problems** keeps
 avatars at avatar size, and **All Boards** keeps its Add Board and Home
-placeholder tiles as tall as the boards beside them. Below that: six export
+placeholder tiles as tall as the boards beside them. Below that: seven export
 fixes, one shared-checkbox fix, two UI sizing fixes, and the documentation move
 into its feature and platform hierarchy with every local link checked.
 
@@ -581,6 +581,24 @@ fit, all of them move together to the next page.
 
 Tests pin the complete translated dates, three-column captions, absence of the
 old prefix, multiple images in one row, image XObjects and atomic page break.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4deff691e">The production bundle uses its embedded Unicode PDF font</a>. Thanks to xet7.</summary>
+
+PDFKit initialized its built-in Helvetica before WeKan selected the bundled
+Unicode fonts. That reads `data/Helvetica.afm` relative to PDFKit's own module,
+but Meteor's production bundle rewrote the lookup to
+`/_build/main-prod/data/Helvetica.afm`, where no such application asset exists.
+Every Unicode export therefore logged the missing file and fell back to the
+WinAnsi writer.
+
+PDFKit now starts with the already-loaded GNU Unifont buffer as its default
+font, so initialization performs no Helvetica AFM filesystem lookup. A
+regression PDF begins from that buffer, embeds its Unicode map and contains no
+Helvetica reference; the normal named BMP and supplementary-plane fonts remain
+available for all subsequent text runs.
 
 </details>
 
