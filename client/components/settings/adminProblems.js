@@ -306,6 +306,10 @@ const PROBLEMS_MENU = [
   // Where people log in from, grouped by address: the offices, VPNs and NATs
   // several accounts share (models/lib/loginTally.js).
   { id: 'report-office', icon: 'fa-building', labelKey: 'officeReportTitle' },
+  // What the REST API is being USED for - who called what, how often. Not a
+  // problem report: it sits here because this is where an admin looks at what
+  // the server is being asked to do (models/lib/apiUsage.js).
+  { id: 'report-api', icon: 'fa-plug', labelKey: 'apiReportTitle' },
   // What the database itself said, classified: which database type, what it
   // means and what to do (server/lib/databaseProblems.js).
   { id: 'report-database', icon: 'fa-database', labelKey: 'databaseReportTitle' },
@@ -471,7 +475,7 @@ const SELF_LOADING_PANES = [
   'report-summary',
   'features-performance', 'features-security', 'features-notifications',
   'report-security', 'report-speed', 'report-tests', 'report-cpu',
-  'report-database', 'report-integrity', 'report-office',
+  'report-database', 'report-integrity', 'report-office', 'report-api',
 ];
 
 function openReportPane(tmpl, targetID) {
@@ -792,6 +796,43 @@ Template.eventStreamReport.onDestroyed(function () {
 // The event streams (Security, Speed, Tests, CPU usage) use the SAME shared
 // table page as the six reports - same markup, same controls, same layout - so
 // their only difference is these columns and the CPU status row.
+// FROM WHERE, in two columns rather than one. An instance reached over IPv6 and
+// one reached over IPv4 are different situations, and a single column that
+// sometimes holds one and sometimes the other cannot be scanned down.
+//
+// The fold writes `ipv4`/`ipv6` on every row now, but rows written BEFORE it did
+// have only `ip` - so the address is classified here as the fallback, and the
+// history displays correctly instead of showing two empty columns for everything
+// older than this change.
+const { classifyAddress } = require('/models/lib/ipAddress');
+const addressColumns = () => [
+  { labelKey: 'event-ipv4', nowrap: true, value: r => r.ipv4 || classifyAddress(r.ip).ipv4 || '' },
+  { labelKey: 'event-ipv6', nowrap: true, value: r => r.ipv6 || classifyAddress(r.ip).ipv6 || '' },
+];
+
+// The API stream is a USAGE report, not a problem report, so its columns are the
+// question it answers - who called what, how often, between when and when, from
+// which address - and not one of the problem columns applies. Everything else
+// about the pane is the shared event-stream report: the same template, the same
+// controls, the same paginator, the same loader.
+const API_COLUMNS = [
+  // WHO. The stored username, like every other report: it is what the account
+  // was called when the calls happened, so a later rename does not rewrite
+  // history. Empty for an unauthenticated call, which is not a gap - it is the
+  // row for "somebody with no account", and the addresses beside it are what
+  // identify them.
+  { labelKey: 'username', value: r => r.username || '', userId: r => r.userId },
+  // WHAT. The route PATTERN - `POST /api/boards/:boardId/lists` - so one row is
+  // one endpoint rather than one board (models/lib/apiUsage.js).
+  { labelKey: 'api-endpoint', nowrap: true, value: r => r.api || '' },
+  // HOW OFTEN, and BETWEEN WHEN AND WHEN. The count and the window are the
+  // report: "34 calls" means nothing without the period it covers.
+  { labelKey: 'api-calls', align: 'end', value: r => r.count || 0 },
+  { labelKey: 'api-first-called', nowrap: true, value: r => formatEventAt(r.firstAt) },
+  { labelKey: 'api-last-called', nowrap: true, value: r => formatEventAt(r.at) },
+  ...addressColumns(),
+];
+
 const EVENT_STREAM_COLUMNS = [
   { labelKey: 'event-datetime', nowrap: true, value: r => formatEventAt(r.at) },
   // The `database` stream answers "which database said this" in this column -
@@ -812,10 +853,11 @@ const EVENT_STREAM_COLUMNS = [
     value: r => r.username || userName(r.userId),
     userId: r => r.userId,
   },
-  // FROM WHERE. Resolved with the same spoofing-safe rule as the login throttle -
-  // X-Forwarded-For only as far as HTTP_FORWARDED_COUNT says to trust it - so this
-  // column cannot be written by sending a header.
-  { labelKey: 'event-ip', nowrap: true, value: r => r.ip || '' },
+  // FROM WHERE, in the same two columns every report uses. Resolved with the
+  // same spoofing-safe rule as the login throttle - X-Forwarded-For only as far
+  // as HTTP_FORWARDED_COUNT says to trust it - so neither can be written by
+  // sending a header.
+  ...addressColumns(),
   // HOW MANY attempts this row stands for. A canary counts repeats inside its
   // window rather than writing one row each, so "1" is an ordinary event and a
   // larger number is a burst that was deliberately not written out in full
@@ -833,6 +875,12 @@ const EVENT_STREAM_COLUMNS = [
   { labelKey: 'event-detail', value: r => [r.detail, r.message].filter(Boolean).join(' — ') },
 ];
 
+// Which columns a stream's table has. One line rather than a template of its
+// own: the panes differ in their columns and in nothing else.
+function columnsFor(stream) {
+  return stream === 'api' ? API_COLUMNS : EVENT_STREAM_COLUMNS;
+}
+
 function formatEventAt(at) {
   if (!at) return '';
   try { return new Date(at).toISOString().replace('T', ' ').slice(0, 19); }
@@ -848,10 +896,13 @@ Template.eventStreamReport.helpers({
     return {
       // No title: the pane heading comes from the open menu entry, once, for
       // every Admin Panel pane (docs/Features/Page/Left-Menu.md).
-      emptyKey: 'no-new-problems',
+      // The API stream is usage, not problems, so an empty one is not "no new
+      // problems" - it is "nothing has called the API", which on most instances
+      // means WITH_API is off.
+      emptyKey: t.stream === 'api' ? 'api-no-calls' : 'no-new-problems',
       searchTerm: t.search.get(),
-      header: buildHeader(EVENT_STREAM_COLUMNS),
-      rows: buildRows(rows, EVENT_STREAM_COLUMNS),
+      header: buildHeader(columnsFor(t.stream)),
+      rows: buildRows(rows, columnsFor(t.stream)),
       rowCount: rows.length,
       page: info.page,
       totalPages: info.totalPages,

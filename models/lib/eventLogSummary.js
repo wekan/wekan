@@ -65,6 +65,14 @@ const IDENTITY_FIELDS = [
   'type',
   'db',
   'kind',
+  // The `api` stream: which endpoint, and whose call. This is the ONE place the
+  // actor is part of a problem's identity, and it is deliberate - see
+  // models/lib/apiUsage.js. "Who called what, how often" IS that report, and its
+  // cardinality is bounded by real accounts times real endpoints rather than by
+  // whoever is sending. The ACCOUNT ID, not the name: a rename must not split
+  // one account's history into two rows.
+  'api',
+  'apiUserId',
 ];
 
 // The fields that describe the LATEST occurrence rather than the problem.

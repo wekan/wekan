@@ -13,6 +13,7 @@ import EventLog from '/models/eventLog';
 const {
   summaryIdentity, summaryUpdate, actorUpdate,
 } = require('/models/lib/eventLogSummary');
+const { classifyAddress } = require('/models/lib/ipAddress');
 
 // Which actor keys each problem row already names, so the per-actor cap can be
 // applied without reading the row on every attempt. Under attack - exactly when
@@ -25,6 +26,21 @@ const MAX_CACHED_ROWS = 500;
 export async function foldEvent(doc = {}) {
   const { at, ...evt } = doc;
   const when = at instanceof Date ? at : new Date();
+  // THE ADDRESS, SPLIT BY FAMILY, here rather than in each logger.
+  //
+  // Every report shows IPv4 and IPv6 in columns of their own, because an
+  // instance reached over IPv6 and one reached over IPv4 are different
+  // situations and a single column that sometimes holds one and sometimes the
+  // other cannot be scanned. Doing it in the fold means a logger cannot forget
+  // to - and none of the four did it, so the fields existed and were always
+  // empty. `::ffff:203.0.113.9` is unwrapped to the IPv4 it is
+  // (models/lib/ipAddress.js), or one client would be two addresses depending
+  // which listener it reached.
+  if (evt.ip && !evt.ipv4 && !evt.ipv6) {
+    const { ipv4, ipv6 } = classifyAddress(evt.ip);
+    if (ipv4) evt.ipv4 = ipv4;
+    if (ipv6) evt.ipv6 = ipv6;
+  }
   const identity = summaryIdentity(evt);
   const cacheKey = JSON.stringify(identity);
 

@@ -107,9 +107,10 @@ the address uses: `/admin/problems/<slug>`.
 | Problems / Cards Report | `cards` | — |
 | Problems / Recovery | `recovery` | [Recovery.md](Recovery.md) |
 | Problems / Offices | `office` | — |
+| Problems / API | `api` | [API.md](API.md) |
 | Problems / Database problems | `database` | — |
 | Problems / Filesystem integrity | `integrity` | — |
 
-16 of these 18 panes has no page of its own yet. A dash is a
+16 of these 19 panes has no page of its own yet. A dash is a
 gap to fill, not a pane that does nothing - what the pane shows is described in
 this README until somebody writes it up.

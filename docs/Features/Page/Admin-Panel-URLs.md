@@ -77,6 +77,7 @@ The bare `/admin/settings` still resolves; it *redirects* to
 | `/admin/problems/cards` | Cards Report | `report-cards` |
 | `/admin/problems/recovery` | Recovery | `report-recovery` |
 | `/admin/problems/office` | Offices | `report-office` |
+| `/admin/problems/api` | API | `report-api` |
 | `/admin/problems/database` | Database problems | `report-database` |
 | `/admin/problems/integrity` | Filesystem integrity | `report-integrity` |
 

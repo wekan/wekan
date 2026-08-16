@@ -244,7 +244,11 @@ test('ATTRIBUTED: the schema and the logger both know the new fields', () => {
 
 test('ATTRIBUTED: the Admin Panel shows them, and they are searchable', () => {
   const reports = read('client/components/settings/adminProblems.js');
-  assert.ok(/labelKey: 'event-ip'/.test(reports), 'an IP column');
+  // Two address columns, not one: an instance reached over IPv6 and one reached
+  // over IPv4 are different situations, and a column that sometimes holds one
+  // and sometimes the other cannot be scanned down.
+  assert.ok(/labelKey: 'event-ipv4'/.test(reports), 'an IPv4 column');
+  assert.ok(/labelKey: 'event-ipv6'/.test(reports), 'an IPv6 column');
   assert.ok(/labelKey: 'event-attempts'/.test(reports), 'an attempts column');
   assert.ok(/r\.username \|\| userName\(r\.userId\)/.test(reports),
     'the stored username wins over a lookup, so a rename does not rewrite history');

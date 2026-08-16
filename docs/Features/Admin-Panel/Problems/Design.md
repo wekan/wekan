@@ -7,10 +7,11 @@ Status: **partly shipped** · Owner: xet7 · Related:
 `eventlog` collection and the Reports UI this builds on),
 [hall-of-fame](https://wekan.fi/hall-of-fame/).
 
-It lives here rather than under `docs/Design/` because the first three changes
-are shipped: a design that describes what WeKan already does belongs with the
-feature it describes, filed the way the menu is. The last three are marked
-planned below, and become plain description as each lands.
+It lives here rather than under `docs/Design/` because it describes what WeKan
+already does: a design that has been built belongs with the feature it
+describes, filed the way the menu is. All six are shipped now, so what follows
+is description rather than proposal - kept in one document because the six
+decisions only make sense together.
 
 This document covers six changes to Admin Panel → Problems, written before they
 are built so the shape can be argued with rather than discovered afterwards.
@@ -21,10 +22,10 @@ tests.
 | --- | --- | --- |
 | 1 | Summaries: one row per problem, not per event | **done** |
 | 2 | Per-actor tally inside the row: `username1 25, 100.100.100.100 30` | **done** |
-| 3 | IPv4 and IPv6 in their own columns, in every report | in progress |
-| 4 | An **API report**: username, API name, count, window, IPv4, IPv6 | planned |
-| 5 | Per-address login tally on the user, shown in People | planned |
-| 6 | Blocking an address, and increasing delays after a wrong password | planned |
+| 3 | IPv4 and IPv6 in their own columns, in every report | **done** |
+| 4 | An **API report**: username, API name, count, window, IPv4, IPv6 | **done** |
+| 5 | Per-address login tally on the user, shown in People | **done** |
+| 6 | Blocking the ACCOUNT, and increasing delays after a wrong password | **done** |
 
 ---
 
@@ -107,15 +108,23 @@ counted, and only a genuine IPv6 address is recorded as one. This applies to
 **every** report, not only the new one — the security, speed, test, CPU and
 database streams all record addresses through the same fold.
 
-## 4. The API report  *(planned)*
+## 4. The API report  *(done)*
+
+[API.md](API.md) is the page; what follows is why it is shaped this way.
 
 A new `api` stream and a table with columns:
 
 | Username | API | Count | Window | IPv4 | IPv6 |
 | --- | --- | --- | --- | --- | --- |
-| alice | `register-user` | 20 | 2026-02-02 … 2026-05-05 | 100.100.100.100 | |
-| alice | `add-board` | 34 | 2026-02-02 … 2026-05-05 | 100.100.100.100 | |
-| | `register-user` | 812 | 2026-05-04 … 2026-05-05 | | 2001:db8::1 |
+| alice | `POST /api/boards` | 34 | 2026-02-02 … 2026-05-05 | 100.100.100.100 | |
+| alice | `GET /api/boards/:boardId` | 210 | 2026-02-02 … 2026-05-05 | 100.100.100.100 | |
+| | `POST /api/users` | 812 | 2026-05-04 … 2026-05-05 | | 2001:db8::1 |
+
+The API name is the **route pattern**, which this document originally sketched
+as an operation name (`add-board`). The pattern is what the router already
+knows, so it needs no second list of names to keep in step, and it is what makes
+the row count bounded: `/api/boards/:boardId` is one endpoint however many
+boards exist.
 
 **Identity here DOES include the username**, which is a deliberate exception to
 §1. For every other stream the question is "what is happening"; for this one it
@@ -128,9 +137,12 @@ The window is the row's `firstAt … at`, the same field pair as every other
 summary.
 
 Recording hooks into the REST API's existing middleware, so a route cannot be
-added without being counted.
+added without being counted. Calls are accumulated in memory and folded on a
+timer rather than written one by one - the one place on this page where that is
+right, because ordinary API traffic is not the rare event every other stream
+records.
 
-## 5. Per-address login tally on the user  *(planned)*
+## 5. Per-address login tally on the user  *(done)*
 
 `100.100.100.100 25, 122.122.122.122 50` on the user document, shown as a column
 in Admin Panel → People → People. Successful logins only — failures are the
@@ -139,7 +151,7 @@ lockout's business (§6) and are already counted there.
 Capped the same way as §2 and for the same reason: an account attacked from a
 botnet must not grow its own document without bound.
 
-## 6. Blocking, and increasing delays  *(planned)*
+## 6. Blocking, and increasing delays  *(done)*
 
 Two mechanisms, deliberately separate:
 
@@ -149,11 +161,18 @@ Two mechanisms, deliberately separate:
   mistyped, and it degrades gracefully rather than slamming shut. Per (user,
   source address), like the lockout itself — an attacker must not be able to
   slow down the account's owner.
-- **Blocking an address that attempts a vulnerability while logged in.** A
+- **Blocking the ACCOUNT that attempts a vulnerability while logged in.** A
   security event that names both a user and an address is a much stronger signal
   than a failed password: it is somebody who is already authenticated reaching
-  for something the guards refuse. That address is blocked, the block is visible
-  in Admin Panel → People with the reason, and an admin can lift it.
+  for something the guards refuse. The **account** is blocked, the block is
+  visible in Admin Panel → People with the reason, and an admin can lift it.
+
+  This is a correction to what this document first said, which was to block the
+  ADDRESS. An address that several accounts log in from is an office, a VPN or a
+  carrier's NAT, so blocking it would take everybody behind it off WeKan at once
+  and the admin would see *"one address blocked"* rather than *"eighty people
+  locked out"*. §5's tally is what shows the shape of an instance's own users,
+  and Problems → Offices is where an admin reads it.
 
 Both must satisfy the rule that broke the lockout in the first place
 ([JamBleed](https://wekan.fi/hall-of-fame/jambleed/)): **nothing an attacker can
@@ -167,7 +186,8 @@ correct password always wins over a delay or a lock.
 - **A summary, never a row per event.** A logger that writes per event is a bug
   to fix, not a style.
 - **The actor is never part of a problem's identity** — except §4, where the
-  report *is* per actor, and the cardinality is bounded by real use.
+  report *is* per actor, and the cardinality is bounded by real use. There the
+  account is stored by its **id**, so a rename does not split its history.
 - **Every cap has an overflow counter.** A cap that silently drops data answers
   "how many" wrongly; `actorsOverflow` is itself a signal.
 - **A display field is never a decision field.** `lockedUntil` exists so an

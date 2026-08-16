@@ -134,6 +134,10 @@ if (Meteor.isServer) {
         // every other event from this account. Searching the table for either
         // has to find the rows that DISPLAY it, so both columns are searched.
         { username: rx }, { ip: rx },
+        // The `api` stream's own column: an admin looking at API use searches
+        // for the endpoint - "boards", "export", "POST" - and has to find the
+        // rows that display it.
+        { api: rx },
       ];
     }
     return selector;
@@ -199,7 +203,11 @@ if (Meteor.isServer) {
       check(search, Match.Optional(String));
       await requireAdmin(this);
       return EventLog.find(streamSelector(stream, search), {
-        sort: { at: -1 },
+        // Newest first for the problem streams, because a problem is news. The
+        // `api` stream is not news - it is a usage report, and its question is
+        // "what is used MOST", so it sorts by count and keeps `at` as the
+        // tie-break.
+        sort: stream === 'api' ? { count: -1, at: -1 } : { at: -1 },
         limit: Math.max(1, Math.min(200, limit)),
         skip: Math.max(0, skip),
       }).fetchAsync();

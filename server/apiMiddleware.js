@@ -69,6 +69,15 @@ WebApp.handlers.use(async function authenticateByToken(req, res, next) {
 });
 
 // ---------------------------------------------------------------------------
+// 4b. API usage counting (Admin Panel -> Problems -> API)
+// ---------------------------------------------------------------------------
+// After authentication, so a call has an account, and in front of the routes, so
+// a route cannot be added without being counted. It counts on the response's
+// `finish` event - by then Express has filled req.route.path, which is the route
+// PATTERN and therefore one row per endpoint rather than one per board id.
+WebApp.handlers.use(require('/server/lib/apiUsageLog').apiUsageMiddleware);
+
+// ---------------------------------------------------------------------------
 // 5. sendJsonResult — drop-in replacement for JsonRoutes.sendResult
 // ---------------------------------------------------------------------------
 function sendJsonResult(res, options) {

@@ -32,6 +32,8 @@ template(name="adminProblems")
             +eventStreamReport(stream="database")
           else if isPane 'report-integrity'
             +eventStreamReport(stream="integrity")
+          else if isPane 'report-api'
+            +eventStreamReport(stream="api")
           else if isPane 'report-office'
             +officeReport
           else if tablePageData
