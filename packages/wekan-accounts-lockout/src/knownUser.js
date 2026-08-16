@@ -15,9 +15,10 @@ const {
 const { decideKnownUserAttempt } = require('./lockoutDecision');
 
 class KnownUser {
-  constructor(settings) {
+  constructor(settings, onLockout = null) {
     this.unchangedSettings = settings;
     this.settings = settings;
+    this.onLockout = onLockout;
   }
 
   async startup() {
@@ -175,6 +176,22 @@ class KnownUser {
         KnownUser.unlockAddress.bind(null, userId, field),
         this.settings.lockoutPeriod * 1000,
       );
+      // An administrator should be able to SEE that somebody tried. A lock
+      // firing means this many wrong passwords in a row from ONE address - not
+      // something ordinary use produces, which is what makes it worth a line in
+      // Admin Panel -> Problems rather than noise that buries one.
+      //
+      // The lock is what matters; the record of it is not. So the reporter is
+      // optional, is never awaited, and cannot throw into this path.
+      try {
+        if (this.onLockout) {
+          this.onLockout({
+            userId,
+            failedAttempts: decision.failedAttempts,
+            lockoutSeconds: decision.secondsRemaining,
+          });
+        }
+      } catch (e) { /* reporting must never break the lockout */ }
       return KnownUser.tooManyAttempts(decision.secondsRemaining);
     }
     return KnownUser.incorrectPassword(

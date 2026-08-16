@@ -329,4 +329,77 @@ test('a correct password clears the OLD flat state too', () => {
     'clearLockout must unset the pre-fix flat fields as well as the new subtree');
 });
 
+// ── An attempt has to be VISIBLE ────────────────────────────────────────────
+// CLAUDE.md: where a security fix DENIES an operation and the denial can be
+// attributed, an administrator must be able to see that somebody tried.
+
+test('a lockout is reported, and the report cannot break the lockout', () => {
+  const fs = require('fs');
+  const src = fs.readFileSync(path.join(PKG, 'knownUser.js'), 'utf8');
+  const fn = src.slice(src.indexOf('async validateLoginAttempt('));
+  const body = fn.slice(0, fn.indexOf('\n  }\n'));
+  assert.ok(/this\.onLockout\(/.test(body), 'a lock firing must call the reporter');
+  assert.ok(/catch \(e\) \{ \/\* reporting must never break the lockout \*\/ \}/.test(body),
+    'and it must be wrapped: the lock matters, the record of it does not');
+  // Only when it FIRES. Logging every refused attempt during a lock would let an
+  // attacker fill Admin Panel -> Problems by holding down a key.
+  const lockBranch = body.slice(body.indexOf("decision.action === 'lock'"));
+  assert.ok(lockBranch.includes('this.onLockout'),
+    'the report belongs on the lock branch, not on every blocked attempt');
+});
+
+test('the catalog names it, so the log and the hall of fame cannot drift', () => {
+  const fs = require('fs');
+  const cat = fs.readFileSync(path.join(ROOT, 'models/lib/securityCategories.js'), 'utf8');
+  assert.ok(/'brute\.lockout':\s*\{[^}]*bleed: 'JamBleed'/.test(cat),
+    'brute.lockout must resolve to JamBleed');
+  assert.ok(/'brute\.lockout':\s*\{[^}]*cwe: 'CWE-307'/.test(cat), 'CWE-307');
+});
+
+test('EVERY construction of AccountsLockout passes the reporter (negative)', () => {
+  // The "and nowhere else" half. There are two construction sites - startup and
+  // the Admin Panel settings reload - and a reload that dropped the reporter
+  // would silently stop recording attempts on a running server, which is the
+  // worst version of this: the guard still works and nobody can see it working.
+  const fs = require('fs');
+  const walk = (dir, out = []) => {
+    for (const name of fs.readdirSync(dir)) {
+      const full = path.join(dir, name);
+      if (fs.statSync(full).isDirectory()) { if (name !== 'node_modules') walk(full, out); }
+      else if (name.endsWith('.js')) out.push(full);
+    }
+    return out;
+  };
+  const sites = [];
+  for (const f of walk(path.join(ROOT, 'server'))) {
+    const src = fs.readFileSync(f, 'utf8');
+    for (const m of src.matchAll(/new AccountsLockout\(\{[\s\S]*?\}\)/g)) {
+      sites.push([path.relative(ROOT, f), m[0]]);
+    }
+  }
+  assert.ok(sites.length >= 2, `expected the construction sites, found ${sites.length}`);
+  for (const [file, call] of sites) {
+    assert.ok(/onLockout:/.test(call),
+      `${file} constructs AccountsLockout without onLockout, so lockouts there are `
+      + 'invisible in Admin Panel -> Problems');
+  }
+});
+
+test('the reporter logs an attempt, not ordinary use (negative)', () => {
+  // A log that fills with normal traffic hides the one line that mattered. A
+  // lock fires only after N wrong passwords in a row from ONE address, so it is
+  // an attempt by construction - but the record must say `blocked`, since the
+  // fix refused something, rather than `detected`.
+  const fs = require('fs');
+  for (const f of ['server/accounts-lockout-config.js', 'server/methods/lockoutSettings.js']) {
+    const src = fs.readFileSync(path.join(ROOT, f), 'utf8');
+    const fn = src.slice(src.indexOf('function reportLockout('));
+    const body = fn.slice(0, fn.indexOf('\n}\n'));
+    assert.ok(/key: 'brute\.lockout'/.test(body), `${f}: the catalog key`);
+    assert.ok(/action: 'blocked'/.test(body), `${f}: blocked, not detected`);
+    assert.ok(/catch \(e\) \{ \/\* logging must never break the guard \*\/ \}/.test(body),
+      `${f}: logging must never break the guard`);
+  }
+});
+
 console.log(`\nlockoutPerSourceAddress: ${passed} tests passed`);

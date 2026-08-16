@@ -569,6 +569,44 @@ have cost a released section its accuracy:
 - Fix the vulnerability, add a CRITICAL section to the WeKan CHANGELOG like previous
   entries, and update `../w/wekan.fi/hall-of-fame/index.html` and the vuln-name
   subdirectory `index.html` like previous security issues.
+- **Every security fix gets a TEST and a NEGATIVE TEST, and they are written so the
+  fault cannot exist ANYWHERE in the codebase — not just at the place it was
+  reported.** A test that pins one call site leaves the same mistake free to live in
+  the other five, and that is how most of these arrive: SignupBleed's guard read an
+  option nothing sets, and the same shape sat in a second endpoint; the source-map
+  trim was safe on the client and fatal on the server. So:
+  - the **test** proves the fix does what it claims, driving the decision itself
+    where that is possible. A pure module — `loginFailureDecision.js`,
+    `lockoutDecision.js` — can be tested as arithmetic, without a server or a
+    database, and reproduces the reporter's attack exactly rather than approximately;
+  - the **negative test** proves the fault is gone rather than moved. Search the
+    whole tree for the SHAPE of it and assert nothing matches: no other endpoint
+    reads the dead option, no other counter is global, no other caller skips the
+    check. When the shape is a pattern, pin the pattern.
+  - and a test that reads the source is a real test here. `tests/*.test.cjs` may
+    parse a file and fail on a construct — that is what makes "and nowhere else"
+    checkable at all.
+- **If somebody ATTEMPTS the attack, that has to be visible in Admin Panel →
+  Problems** — in every case where the fix DENIES an operation and the denial can be
+  attributed. That is the difference between a hole that is closed and a hole that is
+  closed and watched: an administrator should be able to see that somebody tried.
+  - Add a key to the catalog in `models/lib/securityCategories.js` (category, the
+    hall-of-fame `bleed` name, severity, CWE), and call
+    `require('/server/lib/securityLog').record({ key, action: 'blocked', source, detail })`
+    on the refusal path. `action` is `'blocked'` when the fix stopped it and
+    `'detected'` when it was only noticed.
+  - **Wrap the call so logging can never break the guard**:
+    `try { ... } catch (e) { /* logging must never break the guard */ }`. The refusal
+    matters more than the record of it.
+  - **Only log an ATTEMPT, never ordinary use.** The test to apply is whether a
+    legitimate user can reach that line. Registration refused while registration is
+    off has no legitimate caller, so it is logged; an admin endpoint whose fault was
+    in what its answer CARRIED fires on every normal call, so it is NOT — that is why
+    HashBleed (GHSA-6qpx-x7vr-p9w6) deliberately has no key. A log that fills with
+    normal traffic hides the one line that mattered.
+  - Where the denial cannot be attributed to an attempt — a fix that changes what a
+    response contains, or one that only takes effect at build time — there is nothing
+    to record, and that is a decision to state in the entry rather than an omission.
 - **A Hall of Fame row has EIGHT cells**, in this order: CVE, Icon, Vulnerability
   name, Date, Responsible Security Disclosure by, Stars, Process, Vulnerabilities.
   One thing per cell — the name without its icons, the Font Awesome icons alone in
