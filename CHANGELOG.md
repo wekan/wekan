@@ -421,7 +421,9 @@ belongs in. And two **All Boards** tiles were short — the grey "+ Add Board"
 next to a board whose title wraps, and Home's dashed placeholder — while
 Templates and the workspaces were checked and were already right. The
 **documentation** now follows the feature and platform hierarchy, with every
-local link checked after the move.
+local link checked after the move. And **PDF exports embed attachment images**
+now: JPEG and PNG previews are part of both card and detailed board documents,
+while a missing or malformed stored image cannot break the export.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -501,6 +503,26 @@ interface.
 not arrive as a page. It is now a **403 in plain text**, saying that exports use
 the API too and naming the variable to set — an answer that cannot be mistaken
 for the file that was asked for.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/74888f1ed">PDF exports carry their JPEG and PNG attachment previews</a>. Thanks to xet7.</summary>
+
+PDF listed image attachments by name while Excel embedded their previews. Card
+and detailed board PDFs now read JPEG and PNG attachments from the configured
+file store and put real image XObjects into the document. JPEG keeps its
+original DCT-compressed bytes; PNG scanlines are decoded, their filters removed
+and their transparency composited onto white before the RGB pixels are deflated
+into the PDF. Images keep their aspect ratio and are only scaled down.
+
+A missing object, unsupported format or corrupt image is still listed by name
+and cannot fail the rest of the export. Tests inspect both filters and the page's
+XObject references, exercise transparent PNG pixels, and pin that failure-safe
+path. The format design and current progress moved from TODO Later to reciprocal
+[Excel](docs/Features/ImportExport/Excel/Excel.md) and
+[PDF](docs/Features/ImportExport/PDF/PDF.md) documentation pages; the remaining
+Excel shared-renderer migration is specified there beside its implementation.
 
 </details>
 
