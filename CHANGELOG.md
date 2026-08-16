@@ -418,7 +418,9 @@ bundle it built** and see it reach its database before it may carry it.
 older months and years move to `old-CHANGELOG/`. Below that: the Sandstorm pack
 that was throwing its own trim away, Admin Panel / People showing who is locked
 again, the Problems route and template finally called what the menu calls them,
-and the Admin Panel documentation refiled to match the menu.
+the Admin Panel documentation refiled to match the menu, and `build.sh` option 2
+building the bundle a RELEASE would publish rather than a plain `meteor build`,
+so "does it start at all" no longer takes a release to answer.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -909,6 +911,48 @@ one that DENIES an operation. A vulnerability that is fixed silently tells an
 admin nothing about being attacked through it, and "nobody is trying" and
 "somebody tries every four seconds" are not the same instance to run. Recorded
 as a summary, never per event.
+
+</details>
+
+**The local build** - what `build.sh` produces, and what a release produces.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ccb2d818a">build.sh and build.bat option 2 build the RELEASE bundle, minus the .zip</a>. Thanks to xet7.</summary>
+
+"Build WeKan" ran `meteor build .build --directory` and stopped there, and that
+bundle is not the one a release publishes. A release adds the server's npm
+modules, three prunes, the sockjs / legacy-client / source-map trim, a verified
+Node.js, FerretDB, the eight MongoDB Database Tools and a launcher — and three
+releases running broke in exactly that difference: v10.96 on a source map the
+trim deleted and left named, v10.97 on a package the prune's graph could not
+see, v10.98 on a Sandstorm pack that rebuilt the bundle and threw the trim away.
+None of it was reproducible locally, because locally there was only `meteor
+build`, so "does the bundle a release would publish start at all" took a
+release, a workflow run and a download.
+
+`releases/build-release-bundle.sh` runs the workflow's OWN steps, in its order,
+with its arguments, for whichever platform it is run on. Not a second
+implementation of the release — the same scripts, so a fix to one is a fix to
+both. It makes no zip, no checksum and no provenance row, because those describe
+a published artifact and this one is a directory to start:
+
+```
+  cd .build/bundle && ./start-wekan.sh
+```
+
+Verified by running it on Linux arm64: an 850M bundle, trim −349 MiB, prune
+−40.0 MiB, the boot check passed, Node.js v24.19.0 verified against nodejs.org's
+`SHASUMS256.txt`, FerretDB and the eight tools fetched per-arch, 686M with all of
+it embedded — then started, with FerretDB on SQLite and WeKan answering HTTP 200
+fifteen seconds later.
+
+Downloads are cached under `.tools/bundle-binaries/`, and a cache HIT re-checks
+the published SHA256 rather than trusting a file for having been there before.
+The test path is deliberately unchanged: it runs the bundle under its own node
+and mongod, so a hundred megabytes of binaries it will not use is the wrong
+trade. `tests/releaseBundleMatchesWorkflow.test.cjs` FINDS the release scripts
+the workflow runs rather than listing them, so a step added there and not here
+fails the suite instead of quietly putting the difference back.
 
 </details>
 
