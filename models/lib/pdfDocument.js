@@ -734,6 +734,7 @@ function buildPdfBuffer(rawLines) {
 //   note    -> one quiet line
 function documentToLines(document, options = {}) {
   const out = [];
+  let currentSection = '';
   const push = (...items) => out.push(...items);
   const runsOfBlock = block => (block.runs || []).map(run => ({
     text: run.text, bold: !!run.bold, italic: !!run.italic,
@@ -785,18 +786,46 @@ function documentToLines(document, options = {}) {
         push(line('='.repeat(TEXT_WIDTH)));
         break;
       case 'section':
+        currentSection = block.key || '';
         push('', bar(block.title || ''));
         break;
       case 'meta':
-        push(...columnRows(block.pairs));
+        if (block.labelDetails && block.labelDetails.length) {
+          const ordinary = (block.pairs || []).filter(pair => pair[0] !== block.labelTitle);
+          if (ordinary.length) push(...columnRows(ordinary));
+          for (let index = 0; index < block.labelDetails.length; index += 5) {
+            const labels = block.labelDetails.slice(index, index + 5);
+            push({
+              labelRow: labels,
+              labelTitle: index === 0 ? (block.labelTitle || 'Labels') : '',
+              runs: columns([[index === 0 ? (block.labelTitle || 'Labels') : '',
+                labels.map(label => label.name || '').join(', ')]]).runs,
+            });
+          }
+        } else push(...columnRows(block.pairs));
         break;
       case 'text':
         markdownLines(block.blocks);
         break;
       case 'note':
         if ((block.runs || []).length) push({ runs: runsOfBlock(block) });
+        if (block.progress) push({ progress: block.progress,
+          text: `${block.progress.done || 0}/${block.progress.total || 0}` });
         break;
       case 'list':
+        if (currentSection === 'attachments' && (block.items || []).some(item => item.attachment)) {
+          const headings = options.attachmentHeadings
+            || ['#', 'Name', 'Size', 'Type', 'Uploaded', 'Uploader'];
+          push({ attachmentCells: headings, attachmentHeader: true,
+            text: headings.join(' | ') });
+          (block.items || []).forEach((item, index) => {
+            const attachment = item.attachment || {};
+            const cells = [index + 1, attachment.name || '', attachment.size || '',
+              attachment.type || '', attachment.uploaded || '', attachment.uploader || ''];
+            push({ attachmentCells: cells, text: cells.join(' | ') });
+          });
+          break;
+        }
         for (const item of block.items || []) {
           const indent = '  '.repeat(item.level || 0);
           const runs = (item.runs || []).map(run => ({
@@ -829,9 +858,8 @@ function documentToLines(document, options = {}) {
           push({
             imageRow,
             span: 9,
-            runs: columns(imageRow.map(image => [
-              image.name || '', image.size ? `(${image.size})` : '',
-            ])).runs,
+            imageCaptions: imageRow.map(image => image.name || ''),
+            text: '',
           });
         }
         break;

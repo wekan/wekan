@@ -152,7 +152,6 @@ class ExporterExcelCard {
         if (!stream) continue;
         const image = await streamToBuffer(stream);
         if (image.length) imageAttachments.push({
-          attachmentId: attachment._id,
           name: attachment.name || (attachment.meta && attachment.meta.name) || attachment._id,
           size: formatFileSize(attachment.size),
           ext,
@@ -216,7 +215,6 @@ class ExporterExcelCard {
         uploaded: this.fmtDate(attachment.uploadedAt || attachment.uploadedAtOstrio
           || attachment.createdAt),
         uploader: userMap[attachment.userId || (attachment.meta && attachment.meta.userId)] || '',
-        previewed: imageAttachments.some(image => image.attachmentId === attachment._id),
       })),
       images: imageAttachments,
       voting: vote.question ? [
@@ -236,7 +234,8 @@ class ExporterExcelCard {
       progressColor: accentOf((board && board.color) || '').replace('#', '').toUpperCase(),
       attachmentHeadings: [
         '#', this.__('name'), this.__('size'), this.__('type'),
-        this.__('uploaded-at'), this.__('uploaded-by'),
+        this.__('export-card-attachment-uploaded-at'),
+        this.__('export-card-attachment-uploaded-by'),
       ],
     });
   }

@@ -254,7 +254,7 @@ function buildCardDocument(card, data, fields, translate) {
     section('attachments', 'attachments');
     blocks.push({
       type: 'list',
-      items: (rows.attachments || []).filter(attachment => !attachment.previewed).map(attachment => ({
+      items: (rows.attachments || []).map(attachment => ({
         runs: plainRuns(attachment.size
           ? `${attachment.name} (${attachment.size})`
           : attachment.name || ''),

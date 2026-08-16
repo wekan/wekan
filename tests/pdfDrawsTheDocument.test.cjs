@@ -25,6 +25,8 @@ const {
 
 const ROOT = path.join(__dirname, '..');
 const src = fs.readFileSync(path.join(ROOT, 'models/server/ExporterCardPDF.js'), 'utf8');
+const unicodeRenderer = fs.readFileSync(
+  path.join(ROOT, 'models/server/buildUnicodePdf.js'), 'utf8');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -144,9 +146,9 @@ test('PNG and JPEG attachments become image XObjects', () => {
   }]);
   assert.strictEqual(lines.length, 1, 'one image row is one atomic layout item');
   assert.strictEqual(lines[0].imageRow.length, 2, 'several previews share the row');
-  const caption = lines[0].runs.map(run => run.text).join('');
-  assert.ok(caption.includes('pixel.png') && caption.includes('(1 KB)'));
-  assert.ok(caption.includes('pixel.jpg') && caption.includes('(2 KB)'));
+  const caption = lines[0].imageCaptions.join(' | ');
+  assert.ok(caption.includes('pixel.png') && caption.includes('pixel.jpg'));
+  assert.ok(!caption.includes('KB'), 'only the filename is below each preview');
   assert.ok(!caption.includes('image:'), 'captions contain no synthetic image label');
   const page = paginateLines([...Array(48).fill('line'), ...lines]);
   assert.strictEqual(page.length, 2, 'an image row moves intact to the next page');
@@ -157,14 +159,23 @@ test('PNG and JPEG attachments become image XObjects', () => {
   assert.ok(/\/XObject << \/Im1 \d+ 0 R/.test(bytes), 'the page can draw its images');
 });
 
-test('a previewed image is not repeated in the attachment bullet list', () => {
+test('all attachment details precede previews whose captions contain only filenames', () => {
   const lines = documentToLines(runMapping());
-  const text = lines.map(item => (item && item.runs
-    ? item.runs.map(run => run.text).join('') : (item && item.text) || '')).join('\n');
-  assert.ok(text.includes('notes.txt (321 B)'), 'a non-image attachment remains listed');
-  assert.strictEqual((text.match(/a\.png/g) || []).length, 1,
-    'the image name appears only in its preview caption');
-  assert.ok(!text.includes('- a.png'), 'the previewed image has no duplicate bullet');
+  const detailRows = lines.filter(item => item && item.attachmentCells);
+  assert.strictEqual(detailRows.length, 3, 'one header plus every attachment');
+  assert.ok(detailRows[1].attachmentCells.includes('a.png'));
+  assert.ok(detailRows[2].attachmentCells.includes('notes.txt'));
+  const preview = lines.find(item => item && item.imageRow);
+  assert.deepStrictEqual(preview.imageCaptions, ['a.png']);
+});
+
+test('the Unicode PDF renderer draws the same visual details as Excel', () => {
+  assert.ok(/item\.labelRow/.test(unicodeRenderer) && /LABEL_COLORS/.test(unicodeRenderer),
+    'colored labels');
+  assert.ok(/item\.progress/.test(unicodeRenderer) && /fillAndStroke\('#2980b9'/.test(unicodeRenderer),
+    'segmented checklist progress');
+  assert.ok(/item\.attachmentCells/.test(unicodeRenderer), 'the six attachment detail cells');
+  assert.ok(/item\.imageCaptions/.test(unicodeRenderer), 'filenames below preview rows');
 });
 
 test('a corrupt or unsupported image never breaks the PDF (negative)', () => {

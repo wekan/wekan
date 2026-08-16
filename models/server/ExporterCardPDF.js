@@ -119,7 +119,6 @@ async function attachmentImages(attachments) {
       if (!stream) continue;
       const data = await streamToBuffer(stream);
       if (data.length) images.push({
-        attachmentId: attachment._id,
         name: attachment.name || (attachment.meta && attachment.meta.name) || attachment._id,
         size: formatFileSize(attachment.size),
         type,
@@ -243,7 +242,13 @@ class PDFExporterBase {
     // Meteor documents, user ids, dates - into the plain names and strings the
     // document takes. That is this file's own business, and it is the only part
     // that knows a Mongo document from a string.
-    return documentToLines(this.cardDocumentFrom(data));
+    return documentToLines(this.cardDocumentFrom(data), {
+      attachmentHeadings: [
+        '#', this.__('name', 'Name'), this.__('size', 'Size'), this.__('type', 'Type'),
+        this.__('export-card-attachment-uploaded-at', 'Uploaded At'),
+        this.__('export-card-attachment-uploaded-by', 'Uploaded By'),
+      ],
+    });
   }
 
   // The card, and the rows that belong to it, as the shared document's `data`.
@@ -255,20 +260,19 @@ class PDFExporterBase {
     const labelsById = Object.fromEntries(
       ((board && board.labels) || [])
         .filter(label => label && label._id)
-        .map(label => [label._id, label.name || label.color || label._id]),
+        .map(label => [label._id, label]),
     );
     const names = ids => (ids || []).map(userId => formatUser(usersById[userId])).filter(Boolean);
 
     const vote = card.vote || {};
     const poker = card.poker || {};
-    const previewedAttachmentIds = new Set(
-      (data.images || []).map(image => image.attachmentId).filter(Boolean),
-    );
     return buildCardDocument(card, {
       boardTitle: (board && board.title) || '',
       listTitle: (list && list.title) || '',
       swimlaneTitle: (swimlane && swimlane.title) || '',
-      labels: (card.labelIds || []).map(id => labelsById[id]).filter(Boolean),
+      labels: (card.labelIds || []).map(id => labelsById[id]).filter(Boolean)
+        .map(label => label.name || label.color || label._id),
+      labelDetails: (card.labelIds || []).map(id => labelsById[id]).filter(Boolean),
       createdBy: formatUser(usersById[card.userId]),
       members: names(card.members),
       assignees: names(card.assignees),
@@ -306,7 +310,11 @@ class PDFExporterBase {
       attachments: (attachments || []).map(attachment => ({
         name: attachment.name || (attachment.meta && attachment.meta.name) || attachment._id,
         size: formatFileSize(attachment.size),
-        previewed: previewedAttachmentIds.has(attachment._id),
+        type: attachment.type || '',
+        uploaded: this.date(attachment.uploadedAt || attachment.uploadedAtOstrio
+          || attachment.createdAt),
+        uploader: formatUser(usersById[attachment.userId
+          || (attachment.meta && attachment.meta.userId)]),
       })),
       images: data.images || [],
       voting: vote.question ? [
@@ -398,6 +406,8 @@ class ExporterCardPDF extends PDFExporterBase {
       ...(card.members || []),
       ...(card.assignees || []),
       ...comments.map(comment => comment.userId),
+      ...attachments.map(attachment => attachment.userId
+        || (attachment.meta && attachment.meta.userId)),
       ...((card.vote && card.vote.positive) || []),
       ...((card.vote && card.vote.negative) || []),
     ]);
@@ -564,6 +574,10 @@ class ExporterBoardPDF extends PDFExporterBase {
       ((card.vote && card.vote.negative) || []).forEach(id => userIds.add(id));
     }
     comments.forEach(comment => comment.userId && userIds.add(comment.userId));
+    attachments.forEach(attachment => {
+      const userId = attachment.userId || (attachment.meta && attachment.meta.userId);
+      if (userId) userIds.add(userId);
+    });
     const usersById = {};
     await Promise.all([...userIds].filter(Boolean).map(async userId => {
       usersById[userId] = await ReactiveCache.getUser({ _id: userId });

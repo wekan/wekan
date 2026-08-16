@@ -31,6 +31,11 @@ previews, formats dates in the requesting browser's timezone, and prints only
 the sections selected in the export dialog. The workbook is generated directly
 into the HTTP response and does not use a temporary export file.
 
+The attachment section lists every file in a six-column details table: row
+number, filename, human-readable size, media type, upload date/time and
+uploader. Preview images use the available worksheet width three at a time in
+two-column cells, with only the filename below each image.
+
 Excel stores text as Unicode, so the export preserves every language. The
 `.xlsx` format used by ExcelJS cannot portably embed an OpenType font: it records
 a font family name and the spreadsheet application selects an installed font or

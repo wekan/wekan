@@ -215,17 +215,33 @@ async function renderCardDocumentExcel(ws, workbook, startRow, document, options
       continue;
     }
     if (block.type === 'images') {
-      for (const image of block.images || []) {
-        if (!image.data || !['jpeg', 'png', 'gif', 'bmp'].includes(image.ext)) continue;
-        try {
-          const imageId = workbook.addImage({ buffer: image.data, extension: image.ext });
-          ws.getRow(row).height = 95;
-          ws.addImage(imageId, { tl: { col: 0, row: row - 1 }, ext: { width: 150, height: 115 } });
-          row += 1;
-          merge(image.name || '', { font: { size: 8 }, alignment: { horizontal: 'center' } });
-        } catch (error) {
-          merge(image.name || '', { font: { size: 8, italic: true } });
-        }
+      const images = (block.images || [])
+        .filter(image => image.data && ['jpeg', 'png', 'gif', 'bmp'].includes(image.ext));
+      for (let offset = 0; offset < images.length; offset += 3) {
+        const imageRow = images.slice(offset, offset + 3);
+        ws.getRow(row).height = 95;
+        imageRow.forEach((image, index) => {
+          try {
+            const imageId = workbook.addImage({ buffer: image.data, extension: image.ext });
+            ws.addImage(imageId, {
+              tl: { col: index * 2, row: row - 1 }, ext: { width: 150, height: 115 },
+            });
+          } catch (error) {
+            ws.getCell(`${String.fromCharCode(65 + index * 2)}${row}`).value = image.name || '';
+          }
+        });
+        row += 1;
+        imageRow.forEach((image, index) => {
+          const first = String.fromCharCode(65 + index * 2);
+          const last = String.fromCharCode(66 + index * 2);
+          ws.mergeCells(`${first}${row}:${last}${row}`);
+          const cell = ws.getCell(`${first}${row}`);
+          cell.value = image.name || '';
+          cell.font = { name: fontName, size: 8 };
+          cell.alignment = { horizontal: 'center', vertical: 'middle' };
+        });
+        ws.getRow(row).height = 16;
+        row += 1;
       }
     }
   }
