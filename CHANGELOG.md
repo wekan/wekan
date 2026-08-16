@@ -414,7 +414,7 @@ document, use the saved user language or browser fallback, keep the opened
 card's date format, and preserve multilingual text; PDF also embeds JPEG and PNG
 attachment previews plus Unicode-plane fonts. **Admin Panel / Problems** keeps
 avatars at avatar size, and **All Boards** keeps its Add Board and Home
-placeholder tiles as tall as the boards beside them. Below that: five export
+placeholder tiles as tall as the boards beside them. Below that: six export
 fixes, one shared-checkbox fix, two UI sizing fixes, and the documentation move
 into its feature and platform hierarchy with every local link checked.
 
@@ -563,6 +563,24 @@ constructor`, restarted, and repeated the same failure.
 The parser now normalizes both module shapes before constructing MarkdownIt. A
 regression test supplies the CommonJS and Meteor production-bundle shapes and
 requires both to resolve to the same constructor.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9ff542b9b">PDF dates remain complete, and attachment previews share rows</a>. Thanks to xet7.</summary>
+
+Three metadata cells fit across the printable PDF width, but long translated
+labels and full date/time values were shortened with an ellipsis. Each cell now
+grows onto additional lines, keeping the complete value visible.
+
+Attachment previews formerly occupied one full-width row each and carried a
+synthetic `[image: filename]` line. Up to three previews now share a row, with
+the real filename and human-readable file size above each image and no `image:`
+prefix. The row is one pagination unit: when its caption and previews do not
+fit, all of them move together to the next page.
+
+Tests pin the complete translated dates, three-column captions, absence of the
+old prefix, multiple images in one row, image XObjects and atomic page break.
 
 </details>
 
