@@ -382,14 +382,15 @@ Panel, `POST /users/register` created accounts anyway — for anybody who asked,
 on an instance whose administrator had decided nobody else may join. The guard
 that was supposed to stop it read a Meteor option WeKan never sets, so it was
 always false and the endpoint had never refused anyone. It was found while
-reviewing a pull request about the opposite symptom. Two build failures go with
-it: **Cancel** did not stop a release run, so `docker` kept building an image
-for a release being abandoned, and the **Sandstorm** `.spk` finally gets under
-its 1 GiB limit now that the size report says what filled it. That last one
-grew: **uws is not reliable enough yet**, so every platform now defaults to
-**sockjs**, and no bundle ships uWebSockets.js (121M), the legacy client (81M)
-or source maps (152M) at all.
-Below that: two AWS SDK updates for the S3 attachment path.
+reviewing a pull request about the opposite symptom. Then the **release
+workflow**: pressing **Cancel** did not stop a run, so `docker` went on building
+an image for a release being abandoned, and the **Sandstorm** `.spk` gets under
+its 1 GiB limit at last, now that its size report says what filled the gigabyte.
+What that measurement found ended up changing every platform, not just
+Sandstorm: **uws is not reliable enough yet**, so every default is now
+**sockjs**, and no bundle carries uWebSockets.js (121M), the legacy client
+(81M) or source maps (152M) — around **354M** a bundle, none of it on any
+loading path. Below that: two AWS SDK updates for the S3 attachment path.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -571,8 +572,12 @@ wrong.
 
 </details>
 
+and changes what every platform ships:
+
+**Bundles and images** - what a build carries, and what it no longer does.
+
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/33c867f4d">Every platform talks sockjs, and drops uws, the legacy client and the source maps</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/33c867f4d">Every platform talks sockjs, and no bundle carries uws or the legacy client</a>. Thanks to xet7.</summary>
 
 uws is not reliable enough yet to be what a default points at, so nothing WeKan
 ships selects it any more, and nothing carries the module. Three halves, and
@@ -615,22 +620,35 @@ crash-loop on the require. So the Docker entrypoint and the bundle's own
 `start-wekan.sh` coerce `uws` back to `sockjs` before starting anything, and
 print why — a setting silently ignored is worse than one that fails.
 
-- **Source maps**, 152 MiB — 188 MiB across 4766 files, less the 36 MiB inside
-  the legacy client that goes with it. A source map translates a position in
-  built code back to the source that produced it: this bundle's server side is
-  one 117 MiB `programs/server/app/app.js`, and its 58 MiB `app.js.map` is what
-  turns `app.js:1284531` into a file and a line. Two things read it — browser
-  devtools, which fetch the `.map` only while they are open, and Node stack
-  traces through `source-map-support` — and a released bundle has neither
-  attached. The `//# sourceMappingURL` comments stay behind and are comments; a
-  missing target means devtools show compiled positions and a server stack trace
-  prints bundle offsets. Debugging a production crash goes back to reproducing
-  it against a development build, which is where the maps still are.
-
 `tests/sockjsEverywhere.test.cjs` pins the three halves together: a default
 without the coercion is an upgrade trap, a coercion without the trim is dead
-weight, and a trim without both is a crash. It also pins that no call site keeps
-source maps, so one platform cannot quietly drift back to carrying them.
+weight, and a trim without both is a crash.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c1e0f0297">Source maps go from every platform, not only the Sandstorm .spk</a>. Thanks to xet7.</summary>
+
+The `.zip` bundles and the Docker image were trimmed with `--keep-maps`, so only
+Sandstorm — which had a 1 GiB ceiling to get under — dropped them. Every
+platform drops them now: **152 MiB** per bundle, measured. That is 188 MiB
+across 4766 files, less the 36 MiB inside `web.browser.legacy` that the entry
+above already takes with it.
+
+Nothing on any loading path reads one. A source map translates a position in
+built code back to the source that produced it — this bundle's server side is
+one 117 MiB `programs/server/app/app.js`, and its 58 MiB `app.js.map` is what
+turns `app.js:1284531` into a file and a line. The two things that read it are
+browser devtools, which fetch the `.map` only while they are open, and Node
+stack traces through `source-map-support`. A released bundle has neither
+attached to it.
+
+The `//# sourceMappingURL` comments stay behind, and are comments: a missing
+target means devtools show compiled positions and a server stack trace prints
+bundle offsets. Debugging a production crash goes back to reproducing it against
+a development build, which is where the maps still are. The guard pins that no
+call site keeps them, so one platform cannot quietly drift back to carrying
+them.
 
 </details>
 
