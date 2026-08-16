@@ -607,7 +607,7 @@ compare through `realpath` and say so.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e30965f09">The reachability graph must read Meteor's module.link, not only require()</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/71ff74c6d">The reachability graph must read Meteor's module.link, not only require()</a>. Thanks to xet7.</summary>
 
 The entry above shipped in a bundle that crash-looped:
 
