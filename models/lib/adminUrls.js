@@ -82,7 +82,15 @@ const ADMIN_PAGES = {
   problems: {
     base: '/admin/problems',
     legacyBase: '/admin-reports',
-    routeName: 'admin-reports',
+    // 'problems', like its siblings' 'setting' / 'people' / 'attachments' - the
+    // page key, which is what the menu, the URL and docs/Features all call it.
+    // It was 'admin-reports' from when this pane was called Reports: the one
+    // route whose name did not match its own address, and the same pane whose
+    // template was still called adminReports. Both say problems now.
+    //
+    // `legacyBase` above is NOT part of that rename and must stay: /admin-reports
+    // is an address people have bookmarked, and it still redirects here.
+    routeName: 'problems',
     defaultSlug: 'summary',
     panes: {
       summary: 'report-summary',

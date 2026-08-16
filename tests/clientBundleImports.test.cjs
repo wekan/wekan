@@ -9,7 +9,7 @@
 // the caret's click handler and the `isLeftMenuCollapsed` helper, nobody
 // imported it, so the caret rendered and clicking it did nothing (an
 // unregistered Blaze helper is simply undefined). The same thing had happened
-// to adminReports.css, which is why the Admin Panel reports lost their styling.
+// to adminProblems.css, which is why the Admin Panel reports lost their styling.
 //
 // So this walks the import graph from the entry point and pins that every
 // client component file which REGISTERS something with Blaze - a template's

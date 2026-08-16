@@ -21,7 +21,7 @@ Template.adminPanelTabs.onDestroyed(function () {
 
 Template.adminPanelTabs.helpers({
   isProblemsActive() {
-    return FlowRouter.getRouteName() === 'admin-reports' ? 'active' : '';
+    return FlowRouter.getRouteName() === 'problems' ? 'active' : '';
   },
   // 'has-problems' → red background (see settingHeader.css) when there are new problems.
   problemsClass() {

@@ -75,7 +75,7 @@ function collectionResultsCount(collection) {
   return collection.find().count();
 }
 
-// --- adminReports template ---
+// --- adminProblems template ---
 
 // Rows per page for the paginated reports (files, rules, boards, cards). The one
 // rows-per-page of the whole app (docs/Features/Page/Table.md), so every list pages
@@ -97,7 +97,7 @@ function reportConfig(tmpl) {
   };
 }
 
-Template.adminReports.onCreated(function () {
+Template.adminProblems.onCreated(function () {
   this.subscription = null;
   // Problems page opens on the Summary tab (the acknowledge checkbox list).
   this.showSummary = new ReactiveVar(true);
@@ -274,7 +274,7 @@ Template.adminReports.onCreated(function () {
 // The report subscription is created OUTSIDE a reactive computation now (see the
 // autorun above), so the autorun no longer tears it down - this does, when the
 // panel is left.
-Template.adminReports.onDestroyed(function () {
+Template.adminProblems.onDestroyed(function () {
   if (this.subscription) {
     this.subscription.stop();
   }
@@ -322,7 +322,7 @@ const PROBLEMS_MENU = [
   { id: 'report-integrity', icon: 'fa-fingerprint', labelKey: 'integrityReportTitle' },
 ];
 
-Template.adminReports.helpers({
+Template.adminProblems.helpers({
   menuItems() {
     // The pane opens on Summary, before any menu click has set activeReport.
     return leftMenuData(PROBLEMS_MENU,
@@ -417,7 +417,7 @@ Template.adminReports.helpers({
   },
 });
 
-Template.adminReports.events({
+Template.adminProblems.events({
   // One handler for the whole menu: the shared left menu gives every entry the
   // same class and puts the pane id in data-id, so the twelve identical
   // 'click a.js-report-<name>' handlers collapsed to this.

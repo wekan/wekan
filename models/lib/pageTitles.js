@@ -25,7 +25,7 @@ const PAGE_TITLE_KEYS = {
   archive: 'archived-boards',
   setting: 'admin-panel',
   people: 'admin-panel',
-  'admin-reports': 'admin-panel',
+  'problems': 'admin-panel',
   attachments: 'admin-panel',
   support: 'support',
   shortcuts: 'keyboard-shortcuts',
@@ -53,7 +53,7 @@ const PAGE_TITLE_SUBKEYS = {
   setting: 'settings',
   people: 'people',
   attachments: 'attachments',
-  'admin-reports': 'problems',
+  'problems': 'problems',
 };
 
 // The route names that ARE a board. On those the title is the board's own, so

@@ -7,7 +7,7 @@
 Status: **Implemented** · Owner: xet7 · Related (#6492):
 `models/lib/recoveryPlan.js`, `models/lib/recoveryEventsJsonl.js`,
 `models/recoveryEvents.js`, `server/recovery.js`,
-`server/publications/recoveryReport.js`, `client/components/settings/adminReports.*`,
+`server/publications/recoveryReport.js`, `client/components/settings/adminProblems.*`,
 `snap-src/bin/ferretdb-control`, `releases/ferretdb/*`, and the FerretDB fork
 (`internal/backends/sqlite/metadata/pool/opendb.go`,
 `internal/handler/handler.go`).

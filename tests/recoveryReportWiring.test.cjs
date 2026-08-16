@@ -55,7 +55,7 @@ test('client report is wired: config, columns, menu, rendering', () => {
   // The report no longer has a template of its own: it renders through the
   // shared table page (docs/Features/Page/Table.md) and differs from the other
   // reports only in its column list. Same wiring, one implementation.
-  const js = read('client/components/settings/adminReports.js');
+  const js = read('client/components/settings/adminProblems.js');
   assert.ok(/'report-recovery':/.test(js), 'reportConfig has report-recovery');
   assert.ok(/pub: 'recoveryReport'/.test(js) && /getRecoveryReportCount/.test(js), 'points at pub + count');
   assert.ok(/REPORT_TABLES = \{[\s\S]*'report-recovery': \{[\s\S]*columns:/.test(js),
@@ -71,7 +71,7 @@ test('client report is wired: config, columns, menu, rendering', () => {
   assert.ok(/rowClass: d => `recovery-severity-\$\{d\.severity \|\| 'info'\}`/.test(js),
     'severity row class');
 
-  const jade = read('client/components/settings/adminReports.jade');
+  const jade = read('client/components/settings/adminProblems.jade');
   // The side menu is data now (docs/Features/Page/Left-Menu.md).
   assert.ok(/'report-recovery'/.test(js), 'menu entry');
   assert.ok(/\+tablePage\(tablePageData\)/.test(jade), 'rendered through the shared table page');

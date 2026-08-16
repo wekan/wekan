@@ -78,7 +78,7 @@ function menuIdsOf(file, marker) {
 const MENU_SOURCE = {
   settings: ['client/components/settings/settingBody.js', 'function settingsMenu('],
   people: ['client/components/settings/peopleBody.js', 'function peopleMenu('],
-  problems: ['client/components/settings/adminReports.js', 'const PROBLEMS_MENU = ['],
+  problems: ['client/components/settings/adminProblems.js', 'const PROBLEMS_MENU = ['],
   attachments: ['client/components/settings/attachments.js', 'function attachmentsMenu('],
 };
 
@@ -211,7 +211,7 @@ test('and the pages open it, and put a clicked pane back in the URL', () => {
   const pages = [
     ['settings', 'client/components/settings/settingBody.js', 'settingsOpenPane'],
     ['people', 'client/components/settings/peopleBody.js', 'peopleOpenPane'],
-    ['problems', 'client/components/settings/adminReports.js', 'problemsOpenPane'],
+    ['problems', 'client/components/settings/adminProblems.js', 'problemsOpenPane'],
     ['attachments', 'client/components/settings/attachments.js', 'attachmentsOpenPane'],
   ];
   for (const [page, file, sessionKey] of pages) {

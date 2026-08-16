@@ -33,12 +33,12 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 const root = path.join(__dirname, '..');
 const read = rel => fs.readFileSync(path.join(root, rel), 'utf8');
 
-const reportsJs = read('client/components/settings/adminReports.js');
-const reportsJade = read('client/components/settings/adminReports.jade');
+const reportsJs = read('client/components/settings/adminProblems.js');
+const reportsJade = read('client/components/settings/adminProblems.jade');
 // Admin Panel / Features was removed once its last three panes moved here, so the
 // panes and their handlers live with the page that renders them.
-const featuresJs = read('client/components/settings/adminReports.js');
-const featuresJade = read('client/components/settings/adminReports.jade');
+const featuresJs = read('client/components/settings/adminProblems.js');
+const featuresJade = read('client/components/settings/adminProblems.jade');
 const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
 
 const menu = reportsJs.slice(reportsJs.indexOf('const PROBLEMS_MENU'),

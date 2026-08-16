@@ -10850,7 +10850,7 @@ computation, so the subscribe was never auto-managed; only the URL path hit it.
 The autorun now reads only the pane id and the user reactively and runs its body
 inside `Tracker.nonreactive`, so a count re-render no longer cancels the
 subscription, whose lifetime is managed explicitly (a new `onDestroyed` stops
-the last one). `tests/adminReportsSubscriptionLifetime.test.cjs` pins it.
+the last one). `tests/adminProblemsSubscriptionLifetime.test.cjs` pins it.
 
 </details>
 

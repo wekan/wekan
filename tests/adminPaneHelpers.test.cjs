@@ -75,8 +75,8 @@ test('and a ReactiveVar behind it, or the helper returns undefined forever', () 
 test('Filesystem integrity in particular: menu entry, branch, setter and helper', () => {
   // The four places that pane needs to exist in, named one by one, because
   // this is the one that was three-quarters wired and blank.
-  const js = read('client/components/settings/adminReports.js');
-  const jade = read('client/components/settings/adminReports.jade');
+  const js = read('client/components/settings/adminProblems.js');
+  const jade = read('client/components/settings/adminProblems.jade');
   assert.ok(/id: 'report-integrity'/.test(js), 'the menu has a report-integrity entry');
   assert.ok(/'report-integrity' === targetID/.test(js), 'clicking it is handled');
   assert.ok(/tmpl\.showIntegrity\.set\(true\)/.test(js), 'and it sets showIntegrity');

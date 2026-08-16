@@ -190,7 +190,7 @@ test('the Admin Panel tabs are icons, in the first bar, left of the bell', () =>
   // ...which is its four routes, from the one place that lists them.
   const { ADMIN_PANEL_ROUTES } = require('../models/lib/adminUrls');
   assert.deepStrictEqual(ADMIN_PANEL_ROUTES,
-    ['setting', 'people', 'admin-reports', 'attachments']);
+    ['setting', 'people', 'problems', 'attachments']);
   const { PAGE_TITLE_KEYS } = require('../models/lib/pageTitles');
   for (const route of ADMIN_PANEL_ROUTES) {
     assert.strictEqual(PAGE_TITLE_KEYS[route], 'admin-panel',

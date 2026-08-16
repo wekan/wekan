@@ -19,9 +19,9 @@ Everything that makes a table page work. Paths are from the repository root.
 | `client/components/main/paginationControls.css` | `.css` stylesheet | The **colours** of every prev/next pager in WeKan, table pages included: the per-user theme accent, falling back to the WeKan default blue. |
 | `client/components/forms/forms.css` | `.css` stylesheet | The global `button` rules the pager stylesheet has to out-specify. Read the note in `paginationControls.css` before touching either. |
 | `models/lib/tablePage.js` | `.js` module, pure helpers | `pageInfo()`, `buildRows()`, `buildHeader()`, `columnWidthPercent()`. No DOM and no database, so they are unit-testable. |
-| `client/components/settings/adminReports.js` | `.js` Blaze template logic | The column spec for each Admin Panel table, the paging state, the subscriptions, and the shared control handlers. |
-| `client/components/settings/adminReports.jade` | `.jade` template | Admin Panel / Problems: the side menu, and which page it renders. |
-| `client/components/settings/adminReports.css` | `.css` stylesheet | Only what is **not** shared: the CPU status card and the side-menu separator. |
+| `client/components/settings/adminProblems.js` | `.js` Blaze template logic | The column spec for each Admin Panel table, the paging state, the subscriptions, and the shared control handlers. |
+| `client/components/settings/adminProblems.jade` | `.jade` template | Admin Panel / Problems: the side menu, and which page it renders. |
+| `client/components/settings/adminProblems.css` | `.css` stylesheet | Only what is **not** shared: the CPU status card and the side-menu separator. |
 | `client/components/settings/translationBody.jade` | `.jade` template | Admin Panel / Settings / Translation: the pane, its interactive row and its "New" header. |
 | `client/components/settings/translationBody.js` | `.js` Blaze template logic | The Translation column spec, its paging state and its share of the shared control handlers. |
 | `server/publications/translation.js` | `.js` publication | Translation: one page of custom translation strings (`limit`/`skip`). |

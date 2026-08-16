@@ -150,7 +150,7 @@ check('global filename helpers registered and used across the UI', () => {
   // The Files report renders through the shared table page, so its filename
   // cell is a column spec calling cleanFileName() rather than markup calling the
   // {{cleanFilename}} helper. Same function, same guarantee.
-  assert.ok(/cleanFileName\(d\.name\)/.test(read('client/components/settings/adminReports.js')),
+  assert.ok(/cleanFileName\(d\.name\)/.test(read('client/components/settings/adminProblems.js')),
     'Files report uses cleanFileName');
 });
 
@@ -163,12 +163,12 @@ check('download routes sanitize the Content-Disposition filename', () => {
 // ── the removed invisible-filter feature must be gone ────────────────────────
 check('the old invisible-character filter / warning / legend are fully removed', () => {
   // The Files report's markup now lives in the shared table page
-  // (docs/Features/Page/Table.md), so check BOTH files - against adminReports.jade
+  // (docs/Features/Page/Table.md), so check BOTH files - against adminProblems.jade
   // alone this guard would pass no matter what, because that file no longer holds
   // any report markup at all.
-  const jade = read('client/components/settings/adminReports.jade')
+  const jade = read('client/components/settings/adminProblems.jade')
     + read('client/components/settings/tablePage.jade');
-  const js = read('client/components/settings/adminReports.js');
+  const js = read('client/components/settings/adminProblems.js');
   const pub = read('server/publications/attachments.js');
   assert.ok(!/js-files-invisible-filter/.test(jade) && !/admin-report-legend/.test(jade), 'no filter button / legend');
   assert.ok(!/filesInvisibleOnly|filesInvisibleActive/.test(js), 'no invisible-only client state');

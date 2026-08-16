@@ -239,7 +239,7 @@ are any new (unacknowledged) problems it is shown with a **red background**
 **Reports** button is **removed** — its page is reused as the Problems page. Opening the Admin
 Panel still starts on **Settings** (unchanged), not Problems.
 
-The Problems page is the existing `client/components/settings/adminReports.{jade,js,css}` with a
+The Problems page is the existing `client/components/settings/adminProblems.{jade,js,css}` with a
 left menu whose **top** entries are the event streams and whose **lower** entries are the moved
 former-Reports items:
 

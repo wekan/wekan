@@ -8,7 +8,7 @@ import { REPORT_PAGE_COLLECTION } from '/models/lib/reportPageIndex';
 // Client-only — there is no `report_pages` collection on the server, the
 // publications just address documents to that name over DDP — and declared HERE,
 // once, because `new Mongo.Collection(name)` throws if the name is taken. It used
-// to live inside adminReports.js, so the second page to need it (/public) could
+// to live inside adminProblems.js, so the second page to need it (/public) could
 // not have one.
 export const ReportPages = new Mongo.Collection(REPORT_PAGE_COLLECTION);
 

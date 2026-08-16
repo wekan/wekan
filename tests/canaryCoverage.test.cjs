@@ -243,7 +243,7 @@ test('ATTRIBUTED: the schema and the logger both know the new fields', () => {
 });
 
 test('ATTRIBUTED: the Admin Panel shows them, and they are searchable', () => {
-  const reports = read('client/components/settings/adminReports.js');
+  const reports = read('client/components/settings/adminProblems.js');
   assert.ok(/labelKey: 'event-ip'/.test(reports), 'an IP column');
   assert.ok(/labelKey: 'event-attempts'/.test(reports), 'an attempts column');
   assert.ok(/r\.username \|\| userName\(r\.userId\)/.test(reports),

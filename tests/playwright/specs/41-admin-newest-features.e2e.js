@@ -80,7 +80,7 @@ test.describe('Admin – newest features', () => {
     // index document naming the ids of that page, in order; the pane renders
     // that index and nothing else, because minimongo holds far more than the
     // page (models/lib/reportPageIndex.js, reportPageResults in
-    // adminReports.js). So an empty table means the rows did not arrive, or the
+    // adminProblems.js). So an empty table means the rows did not arrive, or the
     // index did not, or they disagree - three different bugs that all look like
     // "element(s) not found".
     //

@@ -181,7 +181,7 @@ instead of in two places that can disagree.
 | `config/router.js` | `.js` routes | The four `/admin/<page>/:pane` routes and the old-URL redirects, built from the same map. |
 | `client/components/settings/settingBody.js` | `.js` Blaze template logic | Settings: `openSettingsPane`, the URL autorun, the menu click. |
 | `client/components/settings/peopleBody.js` | `.js` Blaze template logic | People: `openPane`, the URL autorun, the menu click. |
-| `client/components/settings/adminReports.js` | `.js` Blaze template logic | Problems: `openReportPane`, the URL autorun, the menu click. |
+| `client/components/settings/adminProblems.js` | `.js` Blaze template logic | Problems: `openReportPane`, the URL autorun, the menu click. |
 | `client/components/settings/attachments.js` | `.js` Blaze template logic | Attachments: `activeSection`, the URL autorun, the menu click. |
 | `tests/adminUrls.test.cjs` | `.cjs` Node test | The map against the real menus, both directions; the fallback; the routes; and that a click updates the URL. |
 | `tests/adminOldUrlRedirect.test.cjs` | `.cjs` Node test | That the old page URLs redirect to the pane they used to be. |

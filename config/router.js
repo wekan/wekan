@@ -858,7 +858,7 @@ FlowRouter.route(adminRoutePath('people'), {
 });
 
 FlowRouter.route(adminRoutePath('problems'), {
-  name: 'admin-reports',
+  name: 'problems',
   triggersEnter: [
     ensureSignedInUnlessSandstorm,
     () => {
@@ -878,7 +878,7 @@ FlowRouter.route(adminRoutePath('problems'), {
     // page's default. docs/Features/Page/Admin-Panel-URLs.md
     Session.set('problemsOpenPane', resolvePaneId('problems', params && params.pane));
     this.render('defaultLayout', {
-      content: 'adminReports',
+      content: 'adminProblems',
     });
   },
 });

@@ -88,7 +88,7 @@ test('the panes that moved off the removed Features page still resolve', () => {
     assert.ok(defined.has(name), `${name} must still be defined somewhere`);
   }
   const reports = fs.readFileSync(
-    path.join(root, 'client/components/settings/adminReports.jade'), 'utf8');
+    path.join(root, 'client/components/settings/adminProblems.jade'), 'utf8');
   for (const name of ['featuresPerformance', 'featuresSecurity', 'featuresNotifications']) {
     assert.ok(reports.includes(`template(name="${name}")`),
       `${name} belongs with the page that renders it`);

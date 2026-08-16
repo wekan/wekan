@@ -121,7 +121,7 @@
    group. Neither is clickable, so both opt out of the hover treatment below -
    `li:hover` would otherwise light them up like a row you can open. The heading
    is quieter and smaller than an entry: it names the group, it is not one of them.
-   (The Problems page used to style its separator from adminReports.css with a
+   (The Problems page used to style its separator from adminProblems.css with a
    class the shared menu does not render, so the rule never applied at all.) */
 .setting-content .content-body .side-menu ul li.left-menu-separator {
   margin: 6px 4px;

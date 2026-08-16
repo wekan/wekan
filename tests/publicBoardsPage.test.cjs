@@ -229,12 +229,12 @@ test('a row carries its board colours, like the All Boards tile', () => {
 
 test('the report-page collection is declared once, so two pages can use it', () => {
   // `new Mongo.Collection(name)` throws if the name is taken, and it used to be
-  // declared inside adminReports.js - so the second page to need it could not
+  // declared inside adminProblems.js - so the second page to need it could not
   // have one.
   assert.ok(exists('client/lib/reportPages.js'), 'the shared declaration must exist');
-  const admin = read('client/components/settings/adminReports.js');
+  const admin = read('client/components/settings/adminProblems.js');
   assert.ok(/import \{ ReportPages \} from '\/client\/lib\/reportPages'/.test(admin),
-    'adminReports must import it');
+    'adminProblems must import it');
   assert.ok(!/new Mongo\.Collection\(REPORT_PAGE_COLLECTION\)/.test(admin),
     'and must not declare its own');
   assert.ok(/import \{ ReportPages \} from '\/client\/lib\/reportPages'/.test(js),

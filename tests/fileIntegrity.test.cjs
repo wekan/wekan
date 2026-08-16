@@ -334,8 +334,8 @@ test('an operator-supplied key is never written to the database', () => {
 
 test('the integrity stream is registered everywhere it has to be', () => {
   assert.ok(/'integrity'\]/.test(read('models/eventLog.js')), 'the stream list');
-  assert.ok(/report-integrity/.test(read('client/components/settings/adminReports.js')), 'the menu');
-  assert.ok(/showIntegrity/.test(read('client/components/settings/adminReports.jade')), 'the pane');
+  assert.ok(/report-integrity/.test(read('client/components/settings/adminProblems.js')), 'the menu');
+  assert.ok(/showIntegrity/.test(read('client/components/settings/adminProblems.jade')), 'the pane');
   assert.ok(require('../imports/i18n/data/en.i18n.json').integrityReportTitle, 'a label');
   const imports = read('server/imports.js');
   assert.ok(/fileIntegrityScan/.test(imports) && /uptimeWatch/.test(imports),

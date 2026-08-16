@@ -146,8 +146,8 @@ check('Admin Panel has a Problems button (right of Info) and no Reports button',
   assert.ok(/eventLogProblemAreas/.test(hjs) && /has-problems/.test(hjs), 'header polls problems + red class');
 });
 check('Problems page: Summary/Security/Speed/Tests menu + read-only stream table', () => {
-  const rj = read('client/components/settings/adminReports.jade');
-  const rjsMenu = read('client/components/settings/adminReports.js');
+  const rj = read('client/components/settings/adminProblems.jade');
+  const rjsMenu = read('client/components/settings/adminProblems.js');
   // The menu is DATA now (PROBLEMS_MENU + the shared +leftMenu, see
   // docs/Features/Page/Left-Menu.md): every entry used to be six lines of markup and
   // its own click handler, so the ids are asserted where they now live.
@@ -156,7 +156,7 @@ check('Problems page: Summary/Security/Speed/Tests menu + read-only stream table
     assert.ok(new RegExp(`id: '${id}'`).test(rjsMenu), id + ' menu entry');
   }
   assert.ok(/\+problemsSummary/.test(rj) && /\+eventStreamReport/.test(rj), 'summary + stream views');
-  const rjs = read('client/components/settings/adminReports.js');
+  const rjs = read('client/components/settings/adminProblems.js');
   assert.ok(/eventLogPage/.test(rjs) && /eventLogCount/.test(rjs), 'stream table reads via methods');
   assert.ok(!/js-ack/.test(rj), 'no acknowledge control on the report pages (read-only)');
 });

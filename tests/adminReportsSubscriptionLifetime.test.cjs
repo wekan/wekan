@@ -1,9 +1,9 @@
 'use strict';
 
-// Guard for client/components/settings/adminReports.js: the report subscription
+// Guard for client/components/settings/adminProblems.js: the report subscription
 // must NOT be created inside a reactive computation that also depends on the
 // count/page/search that loadReport itself sets. Run:
-//   node tests/adminReportsSubscriptionLifetime.test.cjs
+//   node tests/adminProblemsSubscriptionLifetime.test.cjs
 //
 // The Files (and every) admin report opened BY ITS URL drew its headers, "No
 // results" and a "1 / 1" pager over data that was plainly there - while the
@@ -30,7 +30,7 @@ const path = require('path');
 
 const repoRoot = path.resolve(__dirname, '..');
 const src = fs.readFileSync(
-  path.join(repoRoot, 'client/components/settings/adminReports.js'), 'utf8',
+  path.join(repoRoot, 'client/components/settings/adminProblems.js'), 'utf8',
 );
 
 let passed = 0;
@@ -40,7 +40,7 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 function paneAutorunBody() {
   const marker = "Session.get('problemsOpenPane')";
   const at = src.indexOf(marker);
-  assert.notStrictEqual(at, -1, 'adminReports must have the problemsOpenPane autorun');
+  assert.notStrictEqual(at, -1, 'adminProblems must have the problemsOpenPane autorun');
   // Walk back to the enclosing this.autorun( and forward far enough to cover it.
   const start = src.lastIndexOf('this.autorun(', at);
   assert.notStrictEqual(start, -1, 'the problemsOpenPane read must be inside this.autorun(...)');
@@ -49,7 +49,7 @@ function paneAutorunBody() {
 
 test('Tracker is imported', () => {
   assert.ok(/import\s*\{\s*Tracker\s*\}\s*from\s*'meteor\/tracker'/.test(src),
-    "adminReports must import Tracker from 'meteor/tracker'");
+    "adminProblems must import Tracker from 'meteor/tracker'");
 });
 
 test('the pane/user autorun runs its body inside Tracker.nonreactive', () => {
@@ -71,12 +71,12 @@ test('the pane/user autorun runs its body inside Tracker.nonreactive', () => {
 });
 
 test('the subscription is stopped in onDestroyed (nonreactive no longer tears it down)', () => {
-  assert.ok(/Template\.adminReports\.onDestroyed\(/.test(src),
-    'adminReports must have an onDestroyed');
-  const at = src.indexOf('Template.adminReports.onDestroyed(');
+  assert.ok(/Template\.adminProblems\.onDestroyed\(/.test(src),
+    'adminProblems must have an onDestroyed');
+  const at = src.indexOf('Template.adminProblems.onDestroyed(');
   const block = src.slice(at, at + 200);
   assert.ok(/this\.subscription\s*\)?\s*[\s\S]{0,40}\.stop\(\)/.test(block),
     'onDestroyed must stop this.subscription');
 });
 
-console.log(`\nadminReportsSubscriptionLifetime: all ${passed} tests passed`);
+console.log(`\nadminProblemsSubscriptionLifetime: all ${passed} tests passed`);

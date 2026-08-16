@@ -17,7 +17,7 @@
 // This is the COMBINED suite for the table page design: the shared helpers, the
 // shared template and stylesheet, the shared themed pager, the server-side paging
 // behind it, and the design doc that describes all of it. The former
-// tests/adminReportsPagination.test.cjs was merged in here - it asserted against
+// tests/adminProblemsPagination.test.cjs was merged in here - it asserted against
 // the same pages from a second file, which is exactly the split this change
 // removed from the app code.
 //
@@ -43,8 +43,8 @@ const read = p => fs.readFileSync(path.join(root, p), 'utf8');
 const libSrc = read('models/lib/tablePage.js');
 const jade = read('client/components/settings/tablePage.jade');
 const css = read('client/components/settings/tablePage.css');
-const reportsJade = read('client/components/settings/adminReports.jade');
-const reportsJs = read('client/components/settings/adminReports.js');
+const reportsJade = read('client/components/settings/adminProblems.jade');
+const reportsJs = read('client/components/settings/adminProblems.js');
 const doc = read('docs/Features/Page/Table.md');
 
 // Load the ES module helpers without a bundler: strip the export keywords.
@@ -233,7 +233,7 @@ test('no report re-implements the controls or the table', () => {
     assert.ok(!reportsJade.includes(gone),
       `${gone} is the old per-report copy; the shared table page replaces it`);
     assert.ok(!reportsJs.includes(gone),
-      `${gone} still referenced in adminReports.js`);
+      `${gone} still referenced in adminProblems.js`);
   }
   // Every table renders through the one template.
   assert.ok(/\+tablePage\(tablePageData\)/.test(reportsJade));
@@ -267,7 +267,7 @@ test('every paginated page loads the SAME ten rows at a time', () => {
   assert.strictEqual(lib.TABLE_PAGE_ROWS_PER_PAGE, 10,
     'the app pages ten rows at a time (docs/Features/Page/Table.md)');
   const sources = {
-    'client/components/settings/adminReports.js':
+    'client/components/settings/adminProblems.js':
       ['const REPORTS_PER_PAGE = TABLE_PAGE_ROWS_PER_PAGE;',
        'const EVENTS_PER_PAGE = TABLE_PAGE_ROWS_PER_PAGE;'],
     'client/components/settings/peopleBody.js':
@@ -397,7 +397,7 @@ test('the design doc explains the theming', () => {
 });
 
 // ═══════════════════════════════════════════════════════════════════════════
-// Merged in from the former tests/adminReportsPagination.test.cjs.
+// Merged in from the former tests/adminProblemsPagination.test.cjs.
 //
 // Those guards were written when each report had its own markup, its own
 // controls row and its own stylesheet. Every one of them is about a paginated
@@ -428,7 +428,7 @@ test('Cards report sorts by an INDEXED field (boardId,createdAt), not the uninde
   // publication's sort - two places to keep in step, and a page that showed rows
   // the publication had not sent (an open card, the boards the All Boards page
   // had already loaded).
-  const client = read('client/components/settings/adminReports.js');
+  const client = read('client/components/settings/adminProblems.js');
   assert.ok(/reportPageResults\(Cards, 'report-cards'\)/.test(client),
     'client must render the page the server named');
   assert.ok(!/collectionResults\(Cards,/.test(client),
@@ -451,9 +451,9 @@ test('report tables have no Search button (Enter searches) and ONE shared contro
   assert.ok(!/-search-button/.test(jade), 'the Search button must be gone (typing + Enter searches)');
   assert.strictEqual((jade.match(/table-page-controls/g) || []).length, 1,
     'exactly one controls row, in the one shared template');
-  const reports = read('client/components/settings/adminReports.jade');
+  const reports = read('client/components/settings/adminProblems.jade');
   assert.ok(!/admin-report-controls/.test(reports), 'no per-report copy may come back');
-  const js = read('client/components/settings/adminReports.js');
+  const js = read('client/components/settings/adminProblems.js');
   assert.ok(!/-search-button'\(event, tmpl\)/.test(js), 'dead search-button handlers removed');
   assert.ok(/keydown \.js-table-page-search/.test(js), 'Enter-to-search kept');
 });
@@ -872,7 +872,7 @@ test('Broken cards is a report like the ones beside it', () => {
   // It was the one entry in the Problems menu with a different set of controls: no
   // search box, no total, no "page X / N", just its own prev/next - because it ran
   // on the global-search machinery instead of a column spec.
-  const js = read('client/components/settings/adminReports.js');
+  const js = read('client/components/settings/adminProblems.js');
   assert.ok(/'report-broken': \{ page: tmpl\.brokenPage[\s\S]*?pub: 'brokenCardsReport'[\s\S]*?countMethod: 'getBrokenCardsReportCount' \}/.test(js),
     'it must be driven by the same loadReport() config as the other reports');
   assert.ok(/'report-broken': \{\n\s+emptyKey/.test(js), 'and have a column spec');
@@ -883,7 +883,7 @@ test('Broken cards is a report like the ones beside it', () => {
   const code = js.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
   assert.ok(!/CardSearchPaged/.test(code) && !/Template\.brokenCardsReport/.test(code),
     'the global-search machinery must be gone from the Problems page');
-  const jadeSrc = read('client/components/settings/adminReports.jade');
+  const jadeSrc = read('client/components/settings/adminProblems.jade');
   assert.ok(!/brokenCardsReport/.test(jadeSrc), 'and its template with it');
   // Server: one page, searchable, admin-only, with a count method beside it.
   const pub = read('server/publications/cards.js');

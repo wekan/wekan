@@ -110,7 +110,7 @@ test('no pane re-enables or re-sizes checkboxes on its own any more', () => {
   for (const file of ['client/components/settings/attachments.css',
     'client/components/settings/peopleBody.css',
     'client/components/settings/tablePage.css',
-    'client/components/settings/adminReports.css']) {
+    'client/components/settings/adminProblems.css']) {
     const css = read(file);
     for (const m of css.matchAll(/([^{}]*input\[type="checkbox"\][^{}]*)\{([^{}]*)\}/g)) {
       const [, selector, body] = m;

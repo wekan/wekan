@@ -107,7 +107,7 @@ check('filename/content sanitization is logged to Admin Panel / Problems with co
   // The report shows the uploader column. It is now a column in the shared
   // table page's event-stream spec (docs/Features/Page/Table.md), rendered as a
   // link via the shared .js-table-page-edit-user handler.
-  const reportsJs = read('client/components/settings/adminReports.js');
+  const reportsJs = read('client/components/settings/adminProblems.js');
   assert.ok(/EVENT_STREAM_COLUMNS[\s\S]*labelKey: 'username'[\s\S]*userId: r => r.userId/.test(reportsJs), 'uploader column in report');
   assert.ok(/js-table-page-edit-user/.test(reportsJs), 'uploader cell opens the edit-user popup');
 });

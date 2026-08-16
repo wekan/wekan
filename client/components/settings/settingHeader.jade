@@ -16,6 +16,6 @@ template(name="adminPanelTabs")
         i.fa.fa-paperclip
         span.board-header-btn-label {{_ 'attachments'}}
       if currentUser.isAdmin
-        a.board-header-btn.problems(class="{{isProblemsActive}} {{problemsClass}}" href="{{pathFor 'admin-reports'}}" title="{{_ 'problems'}}")
+        a.board-header-btn.problems(class="{{isProblemsActive}} {{problemsClass}}" href="{{pathFor 'problems'}}" title="{{_ 'problems'}}")
           i.fa.fa-exclamation-triangle
           span.board-header-btn-label {{_ 'problems'}}

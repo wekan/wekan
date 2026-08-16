@@ -156,13 +156,13 @@ test('the problems reach Admin Panel / Problems', () => {
   const streams = fs.readFileSync(path.join(ROOT, 'models/eventLog.js'), 'utf8');
   assert.ok(/'database'/.test(streams), "the 'database' stream exists");
 
-  const menu = fs.readFileSync(path.join(ROOT, 'client/components/settings/adminReports.js'), 'utf8');
+  const menu = fs.readFileSync(path.join(ROOT, 'client/components/settings/adminProblems.js'), 'utf8');
   assert.ok(/'report-database'/.test(menu), 'the Problems menu has the pane');
   assert.ok(/showDatabase/.test(menu), 'and the pane is rendered');
   assert.ok(/r\.db \|\| r\.category/.test(menu),
     'and its first column names the database that said it');
 
-  const jade = fs.readFileSync(path.join(ROOT, 'client/components/settings/adminReports.jade'), 'utf8');
+  const jade = fs.readFileSync(path.join(ROOT, 'client/components/settings/adminProblems.jade'), 'utf8');
   assert.ok(/stream="database"/.test(jade));
 
   const en = JSON.parse(fs.readFileSync(path.join(ROOT, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -210,7 +210,7 @@ test('every field an event logger writes is declared in the EventLog schema', ()
 });
 
 test('the page shows what the database said, not only what WeKan makes of it', () => {
-  const menu = fs.readFileSync(path.join(ROOT, 'client/components/settings/adminReports.js'), 'utf8');
+  const menu = fs.readFileSync(path.join(ROOT, 'client/components/settings/adminProblems.js'), 'utf8');
   assert.ok(/r\.detail.*r\.message|r\.message.*r\.detail/.test(menu),
     'the Detail column carries the database\'s own message beside the advice');
 

@@ -287,7 +287,7 @@ test('the caret that folds it is actually in the bundle', () => {
   // nobody imports is not in the bundle at all. An unregistered helper is
   // undefined, so the panel never took the `collapsed` class either: a caret
   // with no handler and a menu that could not fold.
-  // Same class of bug as the missing adminReports.css import beside it.
+  // Same class of bug as the missing adminProblems.css import beside it.
   const feature = read('client/features/settings.js');
   assert.ok(/import '\/client\/components\/settings\/leftMenu\.jade'/.test(feature),
     'the template is loaded');
@@ -403,7 +403,7 @@ test('folded, the way back is the caret on the pane title', () => {
     'client/components/settings/settingBody.jade',
     'client/components/settings/peopleBody.jade',
     'client/components/settings/attachments.jade',
-    'client/components/settings/adminReports.jade',
+    'client/components/settings/adminProblems.jade',
   ]) {
     assert.ok(/\+paneTitle\(/.test(read(page)), `${page} draws the pane title`);
   }
@@ -614,7 +614,7 @@ test('what the pages pass is what the template iterates', () => {
 test('every page builds its context through that one helper', () => {
   // Six pages, one shape. Calling buildMenuItems directly returns the array again and
   // silently empties that page's menu, so no page may do it.
-  const pages = ['settingBody', 'peopleBody', 'attachments', 'adminReports'];
+  const pages = ['settingBody', 'peopleBody', 'attachments', 'adminProblems'];
   for (const page of pages) {
     const src = read(`client/components/settings/${page}.js`);
     const helper = /menuItems\(\) \{[\s\S]*?\n  \},/.exec(src);
@@ -629,9 +629,9 @@ test('every page builds its context through that one helper', () => {
 // ── pages converted to the shared menu ──────────────────────────────────────
 
 test('Admin Panel / Problems renders the shared menu from data', () => {
-  const jade = read('client/components/settings/adminReports.jade');
+  const jade = read('client/components/settings/adminProblems.jade');
   // Strip line comments: the collapsed handlers are DESCRIBED in a comment there.
-  const js = read('client/components/settings/adminReports.js').replace(/^\s*\/\/.*$/gm, '');
+  const js = read('client/components/settings/adminProblems.js').replace(/^\s*\/\/.*$/gm, '');
   assert.ok(/\+leftMenu\(menuItems\)/.test(jade), 'renders the shared menu');
   assert.ok(!/\.side-menu/.test(jade), 'no hand-written .side-menu markup left');
   assert.ok(/PROBLEMS_MENU = \[/.test(js), 'its entries are a data list');
@@ -757,7 +757,7 @@ test('EVERY Admin Panel page renders the shared menu', () => {
   // The design is only worth having if nothing is left outside it.
   // Translation and Version moved INTO Settings as panes, so neither has a menu of
   // its own any more - they are entries in the Settings menu.
-  const pages = ['settingBody', 'peopleBody', 'attachments', 'adminReports'];
+  const pages = ['settingBody', 'peopleBody', 'attachments', 'adminProblems'];
   for (const page of pages) {
     const pageJade = read(`client/components/settings/${page}.jade`);
     assert.ok(/\+leftMenu\(menuItems\)/.test(pageJade), `${page}: renders the shared menu`);
@@ -804,11 +804,11 @@ test('no pane repeats the title the section already rendered', () => {
   // Limits' "Attachment And API File Size Limits", Locked users' "Brute Force
   // Protection Settings" - is not a repeat, and stays.
   const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
-  const pages = ['settingBody', 'peopleBody', 'attachments', 'adminReports',
+  const pages = ['settingBody', 'peopleBody', 'attachments', 'adminProblems',
     'informationBody', 'translationBody'];
   // Every menu label rendered anywhere in the Admin Panel.
   const labels = new Set();
-  for (const page of ['settingBody', 'peopleBody', 'attachments', 'adminReports']) {
+  for (const page of ['settingBody', 'peopleBody', 'attachments', 'adminProblems']) {
     const src = read(`client/components/settings/${page}.js`);
     for (const m of src.matchAll(/labelKey: '([\w-]+)'/g)) labels.add(m[1]);
     for (const m of src.matchAll(/label: '([^']+)'/g)) labels.add(m[1]);
@@ -953,7 +953,7 @@ test('the title template renders the active label, and only when there is one', 
 test('EVERY Admin Panel page renders the shared pane title', () => {
   // The point of deriving it from the menu: no pane can end up without a heading,
   // or with one of its own size. Before this only the table pages had a title.
-  const pages = ['settingBody', 'peopleBody', 'attachments', 'adminReports'];
+  const pages = ['settingBody', 'peopleBody', 'attachments', 'adminProblems'];
   for (const page of pages) {
     const pageJade = read(`client/components/settings/${page}.jade`);
     const pageJs = read(`client/components/settings/${page}.js`);
@@ -995,7 +995,7 @@ test('a table page inside the Admin Panel does not print the title twice', () =>
     'the table page title is conditional, not unconditional markup');
   for (const [file, panes] of [
     ['peopleBody', ["titleKey: 'people'", "titleKey: 'teams'", "titleKey: 'organizations'", 'titleKey: "domains"']],
-    ['adminReports', ['titleKey: spec.titleKey', 'title: TAPi18n.__(eventStreamTitleKey']],
+    ['adminProblems', ['titleKey: spec.titleKey', 'title: TAPi18n.__(eventStreamTitleKey']],
     ['translationBody', ["titleKey: 'translation'"]],
   ]) {
     const src = read(`client/components/settings/${file}.js`);

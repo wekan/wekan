@@ -233,7 +233,7 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
   });
 
   test('Problems: and the pane renders the named page', () => {
-    const client = read('client/components/settings/adminReports.js');
+    const client = read('client/components/settings/adminProblems.js');
     // From REPORT_TABLES on: each report id appears earlier in reportConfig too.
     const tables = client.slice(client.indexOf('const REPORT_TABLES = {'));
     for (const reportId of ['report-broken', 'report-cards', 'report-boards']) {

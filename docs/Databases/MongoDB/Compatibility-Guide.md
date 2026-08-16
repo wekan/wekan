@@ -21,7 +21,7 @@ This guide documents MongoDB compatibility issues and fixes for Wekan across Mon
 - `models/users.js` - Line 1839
 - `server/migrations.js` - Line 209  
 - `server/publications/cards.js` - Lines 709, 711, 713
-- `client/components/settings/adminReports.js` - Line 115
+- `client/components/settings/adminProblems.js` - Line 115
 
 **Fix Applied**:
 ```javascript

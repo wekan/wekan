@@ -23,7 +23,7 @@ table beside it.
 | `client/components/settings/settingBody.jade` | `.jade` template | Admin Panel / Settings. |
 | `client/components/settings/peopleBody.jade` | `.jade` template | Admin Panel / People (People, Organizations, Teams, Domains, Locked users, Roles, Templates). |
 | `client/components/settings/attachments.jade` | `.jade` template | Admin Panel / Attachments. |
-| `client/components/settings/adminReports.jade` | `.jade` template | Admin Panel / Problems. |
+| `client/components/settings/adminProblems.jade` | `.jade` template | Admin Panel / Problems. |
 | `client/components/settings/translationBody.jade` | `.jade` template | The Translation pane of Admin Panel / Settings — a pane, not a page: the menu beside it is the Settings one. |
 | `client/components/settings/informationBody.jade` | `.jade` template | The Version pane of Admin Panel / Settings — likewise a pane, rendered by `settingBody.jade`. |
 | `client/components/settings/leftMenu.js` | `.js` client code | The caret's click handler and the global `isLeftMenuCollapsed` helper. Imported by `client/features/settings.js` — see [Collapsing it](#collapsing-it). |
