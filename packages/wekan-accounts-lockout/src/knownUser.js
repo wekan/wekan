@@ -13,6 +13,8 @@ const {
   clientAddressOf, scopeFieldFor, scopeStateOf, SCOPE_ROOT,
 } = require('./lockoutScope');
 const { decideKnownUserAttempt } = require('./lockoutDecision');
+// The shape Admin Panel -> People reads; one place knows it.
+const { isUserLocked } = require('/models/lib/accountLockout');
 
 class KnownUser {
   constructor(settings, onLockout = null) {
@@ -168,7 +170,14 @@ class KnownUser {
       [`${field}.lastFailedAttempt`]: now,
     };
     if (decision.startsWindow) set[`${field}.firstFailedAttempt`] = now;
-    if (decision.action === 'lock') set[`${field}.unlockTime`] = decision.unlockTime;
+    if (decision.action === 'lock') {
+      set[`${field}.unlockTime`] = decision.unlockTime;
+      // A DISPLAY field, for Admin Panel -> People only: Mongo cannot ask "which
+      // accounts are locked" over dynamically-named subdocuments without an
+      // aggregation. Never read by the decision above - a field that says "this
+      // ACCOUNT is locked" is the vulnerability this fix removed.
+      set['services.accounts-lockout.lockedUntil'] = decision.unlockTime;
+    }
     await Meteor.users.updateAsync({ _id: userId }, { $set: set });
 
     if (decision.action === 'lock') {
@@ -213,12 +222,25 @@ class KnownUser {
         'services.accounts-lockout.failedAttempts': '',
         'services.accounts-lockout.firstFailedAttempt': '',
         'services.accounts-lockout.lastFailedAttempt': '',
+        'services.accounts-lockout.lockedUntil': '',
       },
     });
   }
 
   static async unlockAddress(userId, field) {
     await Meteor.users.updateAsync({ _id: userId }, { $unset: { [field]: '' } });
+    // If that was the last address still locked, the account is not locked, and
+    // the display field must stop saying it is.
+    const user = await Meteor.users.findOneAsync(
+      { _id: userId },
+      { fields: { 'services.accounts-lockout': 1 } },
+    );
+    if (user && !isUserLocked(user)) {
+      await Meteor.users.updateAsync(
+        { _id: userId },
+        { $unset: { 'services.accounts-lockout.lockedUntil': '' } },
+      );
+    }
   }
 
   static async onLogin(loginInfo) {

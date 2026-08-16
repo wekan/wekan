@@ -402,4 +402,80 @@ test('the reporter logs an attempt, not ordinary use (negative)', () => {
   }
 });
 
+// ── Admin Panel → People still shows who is locked ──────────────────────────
+// Moving the counter broke three readers that were still looking at the flat
+// field, so every account showed as unlocked and could not be unlocked. This is
+// the "and nowhere else" half of the rule, applied to the fix itself.
+
+test('nothing reads the flat lockout field any more (negative)', () => {
+  const fs = require('fs');
+  const files = [
+    'client/components/settings/peopleBody.js',
+    'server/methods/lockedUsers.js',
+  ];
+  for (const f of files) {
+    const src = fs.readFileSync(path.join(ROOT, f), 'utf8');
+    const code = src.split('\n').filter(l => !/^\s*(\/\/|\*)/.test(l)).join('\n');
+    assert.ok(!/accounts-lockout'\]\.unlockTime/.test(code)
+      && !/accounts-lockout\.unlockTime/.test(code),
+      `${f} still reads the flat unlockTime, which the per-address fix removed - `
+      + 'it will report every account as unlocked');
+  }
+});
+
+test('the display field is never read by the DECISION (negative)', () => {
+  // lockedUntil exists so an admin screen can ask "which accounts are locked".
+  // A field that says "this ACCOUNT is locked" is exactly the vulnerability that
+  // was fixed, so the decision must never consult it.
+  const fs = require('fs');
+  const decision = fs.readFileSync(path.join(PKG, 'lockoutDecision.js'), 'utf8');
+  assert.ok(!/lockedUntil/.test(decision),
+    'the per-address decision must not read an account-wide lock field');
+  const scope = fs.readFileSync(path.join(PKG, 'lockoutScope.js'), 'utf8');
+  assert.ok(!/lockedUntil/.test(scope), 'nor may the scope that reads the counter');
+});
+
+test('locking writes the display field and clearing removes it', () => {
+  const fs = require('fs');
+  const src = fs.readFileSync(path.join(PKG, 'knownUser.js'), 'utf8');
+  assert.ok(/set\['services\.accounts-lockout\.lockedUntil'\] = decision\.unlockTime/.test(src),
+    'a lock must be visible to Admin Panel -> People');
+  const clear = src.slice(src.indexOf('static async clearLockout('));
+  assert.ok(/'services\.accounts-lockout\.lockedUntil': ''/.test(clear),
+    'and clearing the lockout must clear it, or the account looks locked for ever');
+  assert.ok(/if \(user && !isUserLocked\(user\)\)/.test(src),
+    'unlocking ONE address must only clear it when no address is still locked');
+});
+
+test('the summary answers WHY, not just whether', () => {
+  const { lockSummary, isUserLocked } = require(path.join(ROOT, 'models/lib/accountLockout'));
+  const now = 7_000_000;
+  const user = {
+    services: {
+      'accounts-lockout': {
+        byAddress: {
+          a: { unlockTime: now + 30_000, failedAttempts: 3, lastFailedAttempt: now },
+          b: { unlockTime: now + 60_000, failedAttempts: 5, lastFailedAttempt: now },
+          c: { unlockTime: now - 1, failedAttempts: 3 },   // expired
+        },
+      },
+    },
+  };
+  assert.strictEqual(isUserLocked(user, now), true);
+  const summary = lockSummary(user, now);
+  assert.strictEqual(summary.addresses, 2, 'the expired one is not a lock');
+  assert.strictEqual(summary.failedAttempts, 8, 'across the addresses still locked');
+  assert.strictEqual(summary.unlockTime, now + 60_000, 'free when the longest one ends');
+  assert.strictEqual(summary.secondsRemaining, 60);
+});
+
+test('an account with no lockout state is not locked (negative)', () => {
+  const { isUserLocked, lockSummary } = require(path.join(ROOT, 'models/lib/accountLockout'));
+  for (const user of [null, {}, { services: {} }, { services: { 'accounts-lockout': {} } },
+    { services: { 'accounts-lockout': { byAddress: 'nonsense' } } }]) {
+    assert.strictEqual(isUserLocked(user), false, `should not be locked: ${JSON.stringify(user)}`);
+  }
+  assert.deepStrictEqual(lockSummary({}), { locked: false, addresses: 0 });
+});
+
 console.log(`\nlockoutPerSourceAddress: ${passed} tests passed`);

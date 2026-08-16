@@ -22,6 +22,9 @@ import Users from '/models/users';
 // Multitenancy option D: the per-tenant Global Admin rules, the same module the
 // publications and methods use (docs/Design/Multitenancy/Multitenancy.md).
 import * as tenantAdmin from '/models/lib/tenantAdmin';
+// Is this account locked, and why. The lockout is per source address
+// (GHSA-rf3w-rj48-jxcc), so one place knows the shape.
+const { isUserLocked: lockoutIsUserLocked } = require('/models/lib/accountLockout');
 import InviteToBoardRolesSettings, {
   INVITE_TO_BOARD_ROLES,
   INVITE_TO_BOARD_ROLES_ID,
@@ -261,7 +264,7 @@ Template.people.onCreated(function () {
     switch (filterType) {
       case 'locked':
         // Show only locked users
-        query['services.accounts-lockout.unlockTime'] = { $gt: currentTime };
+        query['services.accounts-lockout.lockedUntil'] = { $gt: currentTime };
         break;
       case 'active':
         // Show only active users (loginDisabled is false or undefined)
@@ -1281,18 +1284,10 @@ Template.peopleRow.helpers({
   isUserLocked() {
     const user = this.user || ReactiveCache.getUser(this.userId);
     if (!user) return false;
-
-    // Check if user has accounts-lockout with unlockTime property
-    if (user.services &&
-        user.services['accounts-lockout'] &&
-        user.services['accounts-lockout'].unlockTime) {
-
-      // Check if unlockTime is in the future
-      const currentTime = Number(new Date());
-      return user.services['accounts-lockout'].unlockTime > currentTime;
-    }
-
-    return false;
+    // GHSA-rf3w-rj48-jxcc moved the lockout to one counter per (user, source
+    // address). This read the flat field that fix removed, so every account
+    // showed as unlocked; models/lib/accountLockout.js knows the shape now.
+    return lockoutIsUserLocked(user);
   }
 });
 
@@ -1565,10 +1560,7 @@ Template.peopleRow.events({
       if (!user) return;
 
       // Check if user is currently locked
-      const isLocked = user.services &&
-          user.services['accounts-lockout'] &&
-          user.services['accounts-lockout'].unlockTime &&
-          user.services['accounts-lockout'].unlockTime > Number(new Date());
+      const isLocked = lockoutIsUserLocked(user);
 
       if (isLocked) {
         // Unlock the user

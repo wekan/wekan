@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { ReactiveCache } from '/imports/reactiveCache';
+const { lockSummary } = require('/models/lib/accountLockout');
 
 // Method to find locked users and release them if needed
 Meteor.methods({
@@ -21,7 +22,7 @@ Meteor.methods({
     // Find users that are locked (known users)
     const lockedUsers = await Meteor.users.find(
       {
-        'services.accounts-lockout.unlockTime': {
+        'services.accounts-lockout.lockedUntil': {
           $gt: currentTime,
         }
       },
@@ -30,8 +31,7 @@ Meteor.methods({
           _id: 1,
           username: 1,
           emails: 1,
-          'services.accounts-lockout.unlockTime': 1,
-          'services.accounts-lockout.failedAttempts': 1
+          'services.accounts-lockout': 1
         }
       }
     ).fetchAsync();
@@ -39,14 +39,20 @@ Meteor.methods({
     // Format the results for the UI
     return lockedUsers.map(user => {
       const email = user.emails && user.emails.length > 0 ? user.emails[0].address : 'No email';
-      const remainingLockTime = Math.round((user.services['accounts-lockout'].unlockTime - currentTime) / 1000);
+      const summary = lockSummary(user, currentTime);
+      const remainingLockTime = summary.secondsRemaining || 0;
 
       return {
         _id: user._id,
         username: user.username || 'No username',
         email,
-        failedAttempts: user.services['accounts-lockout'].failedAttempts || 0,
-        unlockTime: user.services['accounts-lockout'].unlockTime,
+        failedAttempts: summary.failedAttempts || 0,
+        // WHY it is locked: how many addresses were locked out of this account
+        // and how many failures they made between them. Which addresses is in
+        // Admin Panel -> Problems, where it is a tally rather than a field on
+        // every user document.
+        lockedAddresses: summary.addresses || 0,
+        unlockTime: summary.unlockTime,
         remainingLockTime // in seconds
       };
     });
@@ -96,7 +102,7 @@ Meteor.methods({
 
     // Unlock all users
     await Meteor.users.updateAsync(
-      { 'services.accounts-lockout.unlockTime': { $exists: true } },
+      { 'services.accounts-lockout.lockedUntil': { $exists: true } },
       {
         $unset: {
           'services.accounts-lockout': 1
