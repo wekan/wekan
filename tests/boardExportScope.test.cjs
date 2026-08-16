@@ -76,6 +76,23 @@ test('the card block is given its data, never left to fetch per card', () => {
   }
 });
 
+test('detailed exports keep Board -> Swimlane -> List -> Card order', () => {
+  for (const [name, source] of [['PDF', pdf], ['Excel', excelBoard]]) {
+    const boardHeader = source.indexOf("hasField('board-header')");
+    const swimlane = source.indexOf("this.__('swimlane'", boardHeader);
+    const list = source.indexOf("this.__('list'", swimlane);
+    const card = name === 'PDF'
+      ? source.indexOf('this.cardBlockLines(', list)
+      : source.indexOf('renderer.renderCardBlock(', list);
+    assert.ok(boardHeader !== -1 && swimlane > boardHeader && list > swimlane && card > list,
+      `${name} renders each hierarchy level before its children`);
+  }
+  assert.ok(/this\._listId \|\| this\._swimlaneId/.test(pdf),
+    'a scoped PDF starts at its selected level instead of repeating board metadata');
+  assert.ok(/!this\._listId && !this\._swimlaneId/.test(excelBoard),
+    'and detailed Excel follows the same scoped-header rule');
+});
+
 // ── one selection ───────────────────────────────────────────────────────────
 
 test('there is ONE field list, and everything imports it', () => {

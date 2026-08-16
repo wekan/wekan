@@ -623,8 +623,13 @@ class ExporterBoardPDF extends PDFExporterBase {
         ? `${board.title} - ${(swimlanes[0] && swimlanes[0].title) || this.__('swimlane', 'Swimlane')}`
         : (board.title || 'Board'));
     this._scopeTitle = scopeTitle;
-    const lines = [line(scopeTitle, true), ''];
-    if (!this.hasField('board-header')) return lines;
+    const scopeHeading = this._listId
+      ? this.field('list', 'List', (lists[0] && lists[0].title) || '-')
+      : (this._swimlaneId
+        ? this.field('swimlane', 'Swimlane', (swimlanes[0] && swimlanes[0].title) || '-')
+        : scopeTitle);
+    const lines = [line(scopeHeading, true), ''];
+    if (this._listId || this._swimlaneId || !this.hasField('board-header')) return lines;
 
     const memberNames = (board.members || [])
       .map(member => formatUser(usersById[member.userId]))
@@ -654,26 +659,34 @@ class ExporterBoardPDF extends PDFExporterBase {
     const { board, lists, swimlanes, cards } = data;
     const lines = this._boardHeaderLines(data);
 
-    // A board created normally has exactly one swimlane and nobody thinks in terms
-    // of it; only name the swimlanes when there is a choice to be made.
     const named = swimlanes.filter(swimlane => swimlane && swimlane.type !== 'template-swimlane');
-    const groups = named.length > 1
-      ? named.map(swimlane => ({ swimlane, title: swimlane.title || 'Swimlane' }))
-      : [{ swimlane: null, title: null }];
+    // Start at the selected level. A board keeps Swimlane -> List -> Card, a
+    // swimlane keeps List -> Card, and a list contains its Card blocks.
+    const groups = this._listId
+      ? [{ swimlane: null, title: null }]
+      : (named.length
+        ? named.map(swimlane => ({
+          swimlane, title: swimlane.title || this.__('swimlane', 'Swimlane'),
+        }))
+        : [{ swimlane: null, title: this.__('swimlane', 'Swimlane') }]);
 
     const listById = Object.fromEntries(lists.map(list => [list._id, list]));
     const swimlaneById = Object.fromEntries(swimlanes.map(swimlane => [swimlane._id, swimlane]));
 
     for (const group of groups) {
-      if (group.title) {
+      if (group.title && !this._swimlaneId) {
         lines.push(line(this.field('swimlane', 'Swimlane', group.title), true), '');
       }
       for (const list of lists) {
         const listCards = cards.filter(card =>
           String(card.listId) === String(list._id)
           && (!group.swimlane || String(card.swimlaneId) === String(group.swimlane._id)));
-        if (group.title && listCards.length === 0) continue;
-        lines.push(line(`${list.title || 'List'} (${listCards.length})`, true), '');
+        if (!this._listId) {
+          lines.push(line(
+            this.field('list', 'List', `${list.title || this.__('list', 'List')} (${listCards.length})`),
+            true,
+          ), '');
+        }
 
         // #1173: every card in the CARD export's own layout, drawn by the card
         // export's own code - a board export used to be a thinner rendering of

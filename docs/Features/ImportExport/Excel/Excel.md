@@ -31,6 +31,14 @@ previews, formats dates in the requesting browser's timezone, and prints only
 the sections selected in the export dialog. The workbook is generated directly
 into the HTTP response and does not use a temporary export file.
 
+Detailed exports follow the visible hierarchy. A board workbook starts with the
+board name, members, creation time and modification time, then writes each
+swimlane, each list in that swimlane, and each card in that list. A swimlane
+export starts with that swimlane and continues with its lists and cards; a list
+export starts with that list and its cards; a card export contains that card.
+Even a board with one visible swimlane names it explicitly. PDF uses this same
+ordering.
+
 The attachment section lists every file in a six-column details table: row
 number, filename, human-readable size, media type, upload date/time and
 uploader. Preview images use one worksheet column each, up to six on the same

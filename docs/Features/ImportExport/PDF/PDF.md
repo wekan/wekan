@@ -53,6 +53,13 @@ Metadata uses three columns like the printable Excel card. A translated label
 and its value wrap onto additional lines inside that column instead of being
 shortened with an ellipsis, so complete date and time values remain visible.
 
+Board PDFs are ordered as board name, members, created and modified metadata,
+then each swimlane, each list within that swimlane, and each card within that
+list. Smaller exports begin at their selected level: swimlane then lists and
+cards, list then cards, or the single card. The only visible swimlane is still
+named, so the hierarchy does not change merely because a board currently has
+one. Detailed Excel exports use the same order.
+
 ## Current progress
 
 Completed:

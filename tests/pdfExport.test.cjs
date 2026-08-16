@@ -231,16 +231,15 @@ test('the board export draws its cards with the CARD export\'s own block', () =>
     'the lowercase colon-less "due" is what was reported; it must not come back');
   assert.ok(!/`## \$\{/.test(board) && !/'## '/.test(board),
     'a "##" in a PDF is two hash marks - the structure is drawn with the bold font');
-  assert.ok(/line\(`\$\{list\.title \|\| 'List'\} \(\$\{listCards\.length\}\)`, true\)/.test(board),
+  assert.ok(/this\.field\('list', 'List', `\$\{list\.title/.test(board),
     'so a list heading is a heading rather than a markdown line');
 });
 
-test('a board with one swimlane does not talk about swimlanes (negative)', () => {
+test('a board names even its only swimlane before its lists', () => {
   const exporter = read('models/server/ExporterCardPDF.js');
   const board = exporter.slice(exporter.indexOf('class ExporterBoardPDF'));
-  assert.ok(/named\.length > 1/.test(board),
-    'every board has a Default swimlane nobody thinks about; naming it in every '
-    + 'export is noise, not information');
+  assert.ok(/named\.map\(swimlane/.test(board),
+    'the hierarchy does not erase a single swimlane');
   assert.ok(/type !== 'template-swimlane'/.test(board),
     'and a template swimlane is not a place a card lives');
 });

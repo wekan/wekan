@@ -256,11 +256,17 @@ class ExporterExcelBoard {
       row += 1;
     };
 
-    // ── The board's own header ───────────────────────────────────────────
-    mergedRow(scopeTitle || '', {
+    // Start at the level requested: Board -> Swimlane -> List -> Card. A
+    // smaller export does not repeat ancestors that are outside its scope.
+    const scopeHeading = this._listId
+      ? `${this.__('list')}: ${(lists[0] && lists[0].title) || this.__('list')}`
+      : (this._swimlaneId
+        ? `${this.__('swimlane')}: ${(swimlanes[0] && swimlanes[0].title) || this.__('swimlane')}`
+        : board.title);
+    mergedRow(scopeHeading || '', {
       font: { name: fontName, size: 16, bold: true }, height: 40,
     });
-    if (this.hasField('board-header')) {
+    if (!this._listId && !this._swimlaneId && this.hasField('board-header')) {
       const memberNames = (board.members || [])
         .map(member => userMap[member.userId] || member.userId)
         .filter(Boolean).join(', ');
@@ -282,12 +288,17 @@ class ExporterExcelBoard {
         this._fields ? [...this._fields] : null, this.dateFormat, this.timezone);
 
       const named = swimlanes.filter(sl => sl && sl.type !== 'template-swimlane');
-      const groups = named.length > 1
-        ? named.map(sl => ({ swimlane: sl, title: sl.title || 'Swimlane' }))
-        : [{ swimlane: null, title: null }];
+      // A list export starts at List and contains its cards. Board and swimlane
+      // exports retain the visible Swimlane -> List -> Card hierarchy even when
+      // the board has only one swimlane.
+      const groups = this._listId
+        ? [{ swimlane: null, title: null }]
+        : (named.length
+          ? named.map(sl => ({ swimlane: sl, title: sl.title || this.__('swimlane') }))
+          : [{ swimlane: null, title: this.__('swimlane') }]);
 
       for (const group of groups) {
-        if (group.title) {
+        if (group.title && !this._swimlaneId) {
           mergedRow(`${this.__('swimlane')}: ${group.title}`, {
             font: { name: fontName, size: 12, bold: true }, fill: fillGray, height: 22,
           });
@@ -296,10 +307,11 @@ class ExporterExcelBoard {
           const listCards = cards.filter(card =>
             String(card.listId) === String(list._id)
             && (!group.swimlane || String(card.swimlaneId) === String(group.swimlane._id)));
-          if (group.title && listCards.length === 0) continue;
-          mergedRow(`${list.title || 'List'} (${listCards.length})`, {
-            font: { name: fontName, size: 11, bold: true }, fill: fillGray, height: 20,
-          });
+          if (!this._listId) {
+            mergedRow(`${this.__('list')}: ${list.title || this.__('list')} (${listCards.length})`, {
+              font: { name: fontName, size: 11, bold: true }, fill: fillGray, height: 20,
+            });
+          }
 
           for (const card of listCards) {
             // Each card starts on its own page: a printed board is read a card
