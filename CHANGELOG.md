@@ -427,7 +427,9 @@ every pane that names a user: the avatar rules are scoped to the board's own
 `.member` box, and the shared table page had copied the image without the box it
 belongs in. And two **All Boards** tiles were short — the grey "+ Add Board"
 next to a board whose title wraps, and Home's dashed placeholder — while
-Templates and the workspaces were checked and were already right.
+Templates and the workspaces were checked and were already right. The
+**documentation** now follows the feature and platform hierarchy, with every
+local link checked after the move.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -577,6 +579,25 @@ list with a different set of boards in it, so they share one rule, and every
 tile variant computes to the same 114px border-box floor. A test pins that there
 is one list and that no variant sets a height of its own, so that question keeps
 having one answer instead of six.
+
+</details>
+
+and reorganizes the following documentation:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c4cb87345">Documentation follows its feature and platform hierarchy, and its links resolve</a>. Thanks to xet7.</summary>
+
+Feature documentation that had grown into separate top-level Date, DragDrop,
+Email, ImportExport, Login, Theme, Translations and Webhooks trees now lives
+under `docs/Features`; webserver documentation lives under `docs/Platforms`.
+The move also puts related pages and images beside their subject instead of in
+the broad Features directory.
+
+All references were recalculated from their source page's old and new location,
+including links from pages that moved themselves. The documentation link test
+now walks every Markdown page recursively instead of checking only the flat
+DeveloperDocs directory, so a future move cannot silently leave links or images
+pointing at paths that no longer exist.
 
 </details>
 
