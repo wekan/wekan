@@ -407,27 +407,16 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** what v10.98 shipped, made usable. Its **unified export dialog**
-could not be changed: clicking a section did nothing, because the toggles were
-registered on the template around the checkboxes rather than the one that draws
-them, and no row said whether it was ticked, because the tick was drawn
-unconditionally. Every row carries the **Admin Panel's own checkbox** now, and
-what is ticked is verified to reach the file — for Excel, PDF, the JSON and
-.zip, the CSV and all ten external-tool exports. **Admin Panel / Problems** drew
-a user's photograph at its natural size, a 300px portrait in a table row, in
-every pane that names a user: the avatar rules are scoped to the board's own
-`.member` box, and the shared table page had copied the image without the box it
-belongs in. And two **All Boards** tiles were short — the grey "+ Add Board"
-next to a board whose title wraps, and Home's dashed placeholder — while
-Templates and the workspaces were checked and were already right. The
-**documentation** now follows the feature and platform hierarchy, with every
-local link checked after the move. And **PDF exports embed attachment images**
-now: JPEG and PNG previews are part of both card and detailed board documents,
-while a missing or malformed stored image cannot break the export. **PDF and
-Excel exports are multilingual end to end**: PDFs embed Unicode-plane fonts,
-Excel and PDF draw the same card document, the saved user language takes
-precedence over the browser fallback, and dates keep the format shown by the
-opened card.
+**In short:** the **unified export dialog** can finally be changed, visibly
+shows its selection with the Admin Panel's own checkbox, and passes that
+selection to every export format. **PDF and Excel exports** now share one card
+document, use the saved user language or browser fallback, keep the opened
+card's date format, and preserve multilingual text; PDF also embeds JPEG and PNG
+attachment previews plus Unicode-plane fonts. **Admin Panel / Problems** keeps
+avatars at avatar size, and **All Boards** keeps its Add Board and Home
+placeholder tiles as tall as the boards beside them. Below that: four export
+fixes, one shared-checkbox fix, two UI sizing fixes, and the documentation move
+into its feature and platform hierarchy with every local link checked.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -525,8 +514,9 @@ and cannot fail the rest of the export. Tests inspect both filters and the page'
 XObject references, exercise transparent PNG pixels, and pin that failure-safe
 path. The format design and current progress moved from TODO Later to reciprocal
 [Excel](docs/Features/ImportExport/Excel/Excel.md) and
-[PDF](docs/Features/ImportExport/PDF/PDF.md) documentation pages; the remaining
-Excel shared-renderer migration is specified there beside its implementation.
+[PDF](docs/Features/ImportExport/PDF/PDF.md) documentation pages. The shared
+Excel renderer described there is completed by the multilingual export entry
+below.
 
 </details>
 
