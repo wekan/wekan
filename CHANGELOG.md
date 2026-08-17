@@ -477,6 +477,15 @@ compact layout and both selection operations.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9db74d849">Select None uses the same theme colour as Select All</a>. Thanks to xet7.</summary>
+
+Both Archive multi-selection controls now use the primary themed button style.
+The regression test requires the same class on both buttons, so one cannot fall
+back to the browser's unthemed grey while the other follows the site theme.
+
+</details>
+
 and fixes the following Admin Panel bug:
 
 <details>
