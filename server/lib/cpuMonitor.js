@@ -76,6 +76,7 @@ let ferretCapWarned = false;     // the "max delay not enough" line was written 
 let lastFerretAskAt = 0;         // epoch ms of the last call to FerretDB (rate-limit)
 let ferretUnavailableLogged = false; // "not responding, backing off" written once
 let ferretUnavailableSince = null;   // Date when FerretDB became unresponsive
+let lastFerretProcessCpu = 0;         // latest status response (100% = one core)
 
 // FerretDB process-CPU watch bookkeeping (independent of the system-wide high period).
 let ferretProcHigh = false;          // FerretDB process CPU is currently over the bar
@@ -128,6 +129,7 @@ function handleFerretResponse(resp, pct, record) {
     }
     return false;
   }
+  lastFerretProcessCpu = Number(resp.processCpuPercent) || 0;
   if (ferretUnavailableLogged) {
     // Recovered: report the full unresponsive span (start → end) and what FerretDB
     // had been doing while we could not reach it.
@@ -149,26 +151,34 @@ function handleFerretResponse(resp, pct, record) {
   return true;
 }
 
-// Ask FerretDB what it is doing and to slow down (the FIRST, smallest delay), and
-// log its response on its own 'cpu' row. Fire-and-forget (async, best-effort); does
-// nothing on plain MongoDB or an older FerretDB without the throttle command.
+// First read FerretDB's status without delaying it. Only apply the smallest delay
+// when it is not itself the CPU source, or WeKan has a labelled busy operation.
+// A zero cap is a clean monitoring-only mode.
 function governFerretStart(pct) {
   try {
     const { slowDownFerretDb } = require('/server/lib/ferretdbGovernor');
     const { record } = require('/server/lib/cpuLog');
-    ferretSlowdownMs = FERRET_SLOWDOWN_MS;
+    ferretSlowdownMs = 0;
     lastFerretAskAt = Date.now();
-    Promise.resolve(slowDownFerretDb(ferretSlowdownMs, FERRET_ASK_DURATION_MS)).then(resp => {
+    Promise.resolve(slowDownFerretDb(0, 0)).then(resp => {
       if (!handleFerretResponse(resp, pct, record)) return;
       ferretGovernActive = true;
-      record({
-        action: 'rate-limited',
-        severity: 'info',
-        detail: `high CPU (${pct}%): asked FerretDB to slow down (${resp.slowDownMs}ms before each command ` +
-          `to yield CPU). FerretDB activity: ${resp.commandsProcessed} commands processed (higher = busier); ` +
-          `FerretDB process CPU ${resp.processCpuPercent || 0}% (100% = one core); self-regulating at ` +
-          `${resp.autoSlowDownMs || 0}ms/op (its own host CPU reading ${resp.hostCpuPercent || 0}%).`,
-      });
+      const maySlow = FERRET_SLOWDOWN_MAX_MS > 0 &&
+        (lastFerretProcessCpu < FERRET_PROC_HIGH_PCT || Boolean(currentActivity));
+      if (!maySlow) return;
+      ferretSlowdownMs = Math.min(FERRET_SLOWDOWN_MS, FERRET_SLOWDOWN_MAX_MS);
+      if (ferretSlowdownMs <= 0) return;
+      Promise.resolve(slowDownFerretDb(ferretSlowdownMs, FERRET_ASK_DURATION_MS)).then(slowResp => {
+        if (!handleFerretResponse(slowResp, pct, record)) return;
+        record({
+          action: 'rate-limited',
+          severity: 'info',
+          detail: `high CPU (${pct}%): asked FerretDB to slow down (${slowResp.slowDownMs}ms before each command ` +
+            `to yield CPU). FerretDB activity: ${slowResp.commandsProcessed} commands processed (higher = busier); ` +
+            `FerretDB process CPU ${slowResp.processCpuPercent || 0}% (100% = one core); self-regulating at ` +
+            `${slowResp.autoSlowDownMs || 0}ms/op (its own host CPU reading ${slowResp.hostCpuPercent || 0}%).`,
+        });
+      }).catch(() => {});
     }).catch(() => {});
   } catch (e) { /* best effort */ }
 }
@@ -180,6 +190,8 @@ function governFerretStart(pct) {
 // free enough CPU, that is logged too (FerretDB was not the cause).
 function governFerretAdjust(pct) {
   if (!ferretGovernActive) return;
+  if (FERRET_SLOWDOWN_MAX_MS === 0) return;
+  if (lastFerretProcessCpu >= FERRET_PROC_HIGH_PCT && !currentActivity) return;
   try {
     const gov = require('/server/lib/ferretdbGovernor');
     const { record } = require('/server/lib/cpuLog');

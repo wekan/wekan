@@ -46,16 +46,25 @@ check('logs the automatic mitigation taken and whether it lowered CPU', () => {
   assert.ok(/noticeably lower/.test(m), 'states whether pausing helped');
 });
 
-check('on high CPU, WeKan asks FerretDB what it is doing and to slow down, and logs it', () => {
+check('on high CPU, WeKan reads FerretDB status before conditionally slowing it down', () => {
   const g = read('server/lib/ferretdbGovernor.js');
   assert.ok(/throttle: 1/.test(g), 'calls the general FerretDB throttle command');
   assert.ok(/export function slowDownFerretDb/.test(g) && /export function resumeFerretDb/.test(g),
     'slow-down + resume');
   const m = read('server/lib/cpuMonitor.js');
   assert.ok(/governFerretStart/.test(m) && /governFerretEnd/.test(m), 'wired into start/end');
+  assert.ok(/slowDownFerretDb\(0, 0\)/.test(m), 'starts with a status-only read');
   assert.ok(/asked FerretDB to slow down/.test(m), 'logs what FerretDB was asked');
   assert.ok(/commandsProcessed/.test(m), 'logs FerretDB activity');
   assert.ok(/asked FerretDB to resume/.test(m), 'FerretDB resumes when CPU drops');
+});
+
+check('FerretDB CPU and the zero cap prevent read-path throttling', () => {
+  const m = read('server/lib/cpuMonitor.js');
+  assert.ok(/FERRET_SLOWDOWN_MAX_MS > 0/.test(m), 'zero cap prevents the initial delay');
+  assert.ok(/FERRET_SLOWDOWN_MAX_MS === 0\) return/.test(m), 'zero cap prevents adjustment');
+  assert.ok(/lastFerretProcessCpu >= FERRET_PROC_HIGH_PCT && !currentActivity/.test(m),
+    'idle WeKan does not throttle FerretDB when FerretDB is the CPU source');
 });
 
 check('the FerretDB slow-down escalates until CPU has headroom, then holds', () => {
