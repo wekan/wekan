@@ -412,12 +412,13 @@ shows its selection with the Admin Panel's own checkbox, and passes that
 selection to every export format. **PDF and Excel exports** now share one card
 document, use the saved user language or browser fallback, keep the opened
 card's date format, preserve multilingual text, and name downloads for the
-localized board, swimlane, list or card exported; PDF also embeds JPEG and PNG
-attachment previews plus Unicode-plane fonts. **Admin Panel / Problems** keeps
+localized board, swimlane, list or card exported. Their shared card layout now
+includes locations, stickers, dependencies and sort position; PDF also embeds
+JPEG and PNG attachment previews plus Unicode-plane fonts. **Admin Panel / Problems** keeps
 avatars at avatar size, and **All Boards** keeps its Add Board and Home
 placeholder tiles as tall as the boards beside them. **Requested By and Assigned
 By** can select board members while retaining their free-text fields. Below
-that: twelve export fixes, one people-picker fix, two shared-checkbox fixes, two
+that: thirteen export fixes, one people-picker fix, two shared-checkbox fixes, two
 UI sizing fixes, and the documentation move into its feature and platform
 hierarchy with every local link checked.
 
@@ -475,6 +476,23 @@ body and styling.
 </details>
 
 **Exporting** - choosing what goes in the file.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1b0f2075e">Every PDF and detailed Excel scope carries the complete card fields</a>. Thanks to xet7.</summary>
+
+The shared card layout omitted locations, stickers, dependencies and numeric
+sort position. Locations now include place name, address, latitude and
+longitude for every current location entry, and retain the legacy single-
+location fields used by older and Trello-imported cards. The other missing
+fields have their own selectable sections or metadata row.
+
+Because card, list, swimlane and board exports all draw this one document, the
+fix applies to both PDF and detailed Excel at every scope. The hierarchy is
+pinned as Board → Swimlane → List → Card, Swimlane → List → Card, and List →
+Card, without repeating an ancestor above a smaller export. The Excel and PDF
+format documentation now lists the complete shared card data.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/57c806705">Detailed PDF and Excel exports follow the board hierarchy</a>. Thanks to xet7.</summary>
