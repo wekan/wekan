@@ -47,15 +47,18 @@ function boardVisibilitySelectors({
     Array.isArray(values) ? values.filter((v) => typeof v === 'string' && v) : [];
 
   selectors.push({ members: { $elemMatch: { userId, isActive: true } } });
-  selectors.push({
-    orgs: { $elemMatch: { orgId: { $in: clean(orgIds) }, isActive: true } },
+  const cleanOrgIds = clean(orgIds);
+  if (cleanOrgIds.length) selectors.push({
+    orgs: { $elemMatch: { orgId: { $in: cleanOrgIds }, isActive: true } },
   });
-  selectors.push({
-    teams: { $elemMatch: { teamId: { $in: clean(teamIds) }, isActive: true } },
+  const cleanTeamIds = clean(teamIds);
+  if (cleanTeamIds.length) selectors.push({
+    teams: { $elemMatch: { teamId: { $in: cleanTeamIds }, isActive: true } },
   });
   // #5850: domain-based board sharing — board shared with the user's email domain.
-  selectors.push({
-    domains: { $elemMatch: { domain: { $in: clean(emailDomains) }, isActive: true } },
+  const cleanDomains = clean(emailDomains);
+  if (cleanDomains.length) selectors.push({
+    domains: { $elemMatch: { domain: { $in: cleanDomains }, isActive: true } },
   });
 
   return selectors;

@@ -109,8 +109,18 @@ test('negative: junk in the id lists is dropped, not passed to Mongo', () => {
     emailDomains: null,
   });
   assert.deepStrictEqual(findClause(selectors, 'orgs').orgs.$elemMatch.orgId, { $in: ['ok'] });
-  assert.deepStrictEqual(findClause(selectors, 'teams').teams.$elemMatch.teamId, { $in: [] });
-  assert.deepStrictEqual(findClause(selectors, 'domains').domains.$elemMatch.domain, { $in: [] });
+  assert.strictEqual(findClause(selectors, 'teams'), undefined);
+  assert.strictEqual(findClause(selectors, 'domains'), undefined);
+});
+
+test('empty share lists produce only the active direct-member clause', () => {
+  assert.deepStrictEqual(boardVisibilitySelectors({
+    userId: USER,
+    orgIds: [],
+    teamIds: [],
+    emailDomains: [],
+    includePublic: false,
+  }), [{ members: { $elemMatch: { userId: USER, isActive: true } } }]);
 });
 
 // -------------------------------------------------------------- the sources
