@@ -414,7 +414,9 @@ that enabling the gate does not delete content by itself. Its checkbox also stay
 checked after saving because the reactive settings publication returns the stored
 value. Below that: regression coverage keeps the menu order, pane rendering, URL,
 setting handler and publication together, with the corresponding Admin Panel
-documentation and English source strings. Permanent-delete setting changes and
+documentation and English source strings. The newest All Boards and
+permanent-delete controls are also translated into ten widely used languages.
+Permanent-delete setting changes and
 board-purge attempts, including unauthorized and failed ones, are audited in
 **Recovery** with Boolean status, acting user, proxy-aware IP address, board IDs
 and titles; coloured icons distinguish success, failure and deleted data, and a
@@ -822,6 +824,20 @@ FerretDB's polling observer could repeatedly scan and diff that moving window,
 including while a board was otherwise idle. On FerretDB the bounded card batch
 is now fetched once and published as a snapshot; MongoDB keeps its live cursor,
 and the other child publications remain reactive on both databases.
+
+</details>
+
+and improves translations:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/34f8b000f">Recent board controls are translated into ten major languages</a>. Thanks to xet7.</summary>
+
+Seven new All Boards and permanent-delete strings are translated directly into
+Arabic, Chinese, Finnish, French, German, Italian, Japanese, Brazilian
+Portuguese, Russian and Spanish. They cover the permanent-delete setting and
+disabled hint, empty and one-board selection errors, unsetting Home, and Select
+None. The guarded fill writes only English placeholders, so it preserved each
+language's existing human translation of the Home-board drag instruction.
 
 </details>
 
