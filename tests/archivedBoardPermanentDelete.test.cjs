@@ -84,6 +84,8 @@ test('the server independently enforces admin, flag, archive and bounded input',
   assert.notStrictEqual(at, -1, 'the method exists');
   const body = server.slice(at, server.indexOf('\n  },', at));
   assert.ok(/check\(boardIds, \[String\]\)/.test(body), 'ids have a shape');
+  assert.ok(body.indexOf('check(boardIds, [String])') < body.indexOf('await ReactiveCache.getUser'),
+    'Meteor audits the argument before the first asynchronous boundary');
   assert.ok(/!ids\.length \|\| ids\.length > 200/.test(body), 'the batch is bounded');
   assert.ok(/user\?\.isAdmin !== true \|\| !getFeatureFlags\(\)\.enablePermanentDelete/.test(body),
     'a forged call, board admin, or truthy non-Boolean flag cannot bypass either gate');

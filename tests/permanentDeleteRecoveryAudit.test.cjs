@@ -78,6 +78,9 @@ test('unauthorized and failed attempts are logged with actor, address, and reque
 
   const boardAt = boardsServer.indexOf('async permanentlyDeleteArchivedBoards(boardIds)');
   const boardBody = boardsServer.slice(boardAt, boardsServer.indexOf('\n  },', boardAt));
+  assert.ok(boardBody.indexOf('check(boardIds, [String])')
+    < boardBody.indexOf('await ReactiveCache.getUser'),
+  'argument validation precedes the async actor lookup');
   assert.match(boardBody, /catch \(error\)[\s\S]*?done: false[\s\S]*?boards: attemptedBoards/);
 
   const settingAt = settingsServer.indexOf('async setPermanentDeleteEnabled(enabled)');

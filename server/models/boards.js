@@ -364,15 +364,21 @@ Meteor.methods({
   // Validate the whole selection before deleting the first board so one bad id
   // cannot leave a partially applied bulk action.
   async permanentlyDeleteArchivedBoards(boardIds) {
-    const user = this.userId && await ReactiveCache.getUser(this.userId);
-    const username = user?.username || user?._id || 'unknown';
     const attemptedIds = Array.isArray(boardIds)
       ? [...new Set(boardIds.filter(id => typeof id === 'string'))].slice(0, 200)
       : [];
     let attemptedBoards = attemptedIds.map(_id => ({ _id, title: '' }));
+    let user;
+    let username = 'unknown';
 
     try {
+      // audit-argument-checks must see the method argument before the first
+      // await. Otherwise the asynchronous user lookup can leave the audit
+      // context believing boardIds was never checked and mask the real result
+      // with "Did not check() all arguments".
       check(boardIds, [String]);
+      user = this.userId && await ReactiveCache.getUser(this.userId);
+      username = user?.username || user?._id || 'unknown';
       const ids = [...new Set(boardIds)];
       if (!ids.length || ids.length > 200) {
         throw new Meteor.Error('invalid-board-selection');
@@ -408,6 +414,16 @@ Meteor.methods({
       }
       return { deleted: foundBoards.length };
     } catch (error) {
+      // A malformed argument still belongs in Recovery. Resolve the actor here
+      // only when validation failed before the ordinary lookup above.
+      if (!user && this.userId) {
+        try {
+          user = await ReactiveCache.getUser(this.userId);
+          username = user?.username || user?._id || 'unknown';
+        } catch {
+          // Best effort: the original deletion error is the one returned.
+        }
+      }
       await recordRecoveryAudit({
         type: RecoveryEvents.types.BOARD_PERMANENTLY_DELETED,
         user,
