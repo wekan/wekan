@@ -368,7 +368,7 @@ Meteor.methods({
       throw new Meteor.Error('invalid-board-selection');
     }
     const user = this.userId && await ReactiveCache.getUser(this.userId);
-    if (!user || !user.isAdmin || !getFeatureFlags().enablePermanentDelete) {
+    if (user?.isAdmin !== true || !getFeatureFlags().enablePermanentDelete) {
       throw new Meteor.Error('not-authorized', 'Permanent delete is disabled.');
     }
     const boards = await Boards.find({ _id: { $in: ids } }).fetchAsync();

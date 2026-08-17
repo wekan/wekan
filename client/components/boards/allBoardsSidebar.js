@@ -154,7 +154,7 @@ Template.allBoardsMultiSelectionSidebar.helpers({
     const user = ReactiveCache.getCurrentUser();
     const setting = ReactiveCache.getCurrentSetting();
     return allBoardsMenuVar.get() === SECTION_ARCHIVE
-      && !!(user && user.isAdmin)
+      && user?.isAdmin === true
       && !!(setting && setting.enablePermanentDelete);
   },
 });

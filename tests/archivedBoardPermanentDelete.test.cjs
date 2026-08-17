@@ -46,9 +46,9 @@ test('Archive multi-selection shows one red Delete button behind both UI gates',
     'Delete belongs only to an Archive selection with permanent delete enabled');
   assert.ok(/button\.sidebar-btn\.negate\.wide\.js-delete-selected-boards/.test(sidebar),
     'the action is a red sidebar button');
-  assert.ok(/user && user\.isAdmin/.test(sidebarJs)
+  assert.ok(/user\?\.isAdmin === true/.test(sidebarJs)
     && /setting && setting\.enablePermanentDelete/.test(sidebarJs),
-  'the client offers it only to a Global Admin while the setting is enabled');
+  'the client requires the site-wide Boolean Global Admin flag and the setting');
 });
 
 test('disabled permanent delete replaces the selection hint and Delete button', () => {
@@ -85,8 +85,8 @@ test('the server independently enforces admin, flag, archive and bounded input',
   const body = server.slice(at, server.indexOf('\n  },', at));
   assert.ok(/check\(boardIds, \[String\]\)/.test(body), 'ids have a shape');
   assert.ok(/!ids\.length \|\| ids\.length > 200/.test(body), 'the batch is bounded');
-  assert.ok(/!user \|\| !user\.isAdmin \|\| !getFeatureFlags\(\)\.enablePermanentDelete/.test(body),
-    'a forged call cannot bypass either authorization gate');
+  assert.ok(/user\?\.isAdmin !== true \|\| !getFeatureFlags\(\)\.enablePermanentDelete/.test(body),
+    'a forged call, board admin, or truthy non-Boolean flag cannot bypass either gate');
   assert.ok(/boards\.some\(board => !board\.archived\)/.test(body),
     'a live board cannot be permanently deleted through this method');
   assert.ok(body.indexOf('boards.some') < body.indexOf('Boards.removeAsync'),
