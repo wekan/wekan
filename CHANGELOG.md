@@ -419,8 +419,8 @@ avatars at avatar size, and **All Boards** keeps its Add Board and Home
 placeholder tiles as tall as the boards beside them. **Requested By and Assigned
 By** can select board members while retaining their free-text fields. Below
 that: thirteen export fixes, one people-picker fix, two shared-checkbox fixes, two
-UI sizing fixes, and the documentation move into its feature and platform
-hierarchy with every local link checked.
+UI sizing fixes, restored subtask creation, and the documentation move into its
+feature and platform hierarchy with every local link checked.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -472,6 +472,23 @@ space. That made Assigned By jump above the card while Members and Assignee
 happened to open below. All four card-people pickers now anchor directly below
 their `+` button, use the remaining space there, and retain the same member-list
 body and styling.
+
+</details>
+
+**Subtasks** - creating their hidden helper-board records.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f3ca168e2">A new subtask is created even before its helper-board cache refreshes</a>. Thanks to xet7.</summary>
+
+Creating the first subtask also creates its hidden helper board and default
+swimlane. The server immediately looked for that swimlane through a reactive
+cache which could still hold the earlier empty result, so it returned without
+inserting the subtask and the form appeared to do nothing.
+
+The async server lookup now reads the authoritative collection, and its
+default-swimlane self-heal falls back to that collection after inserting. The
+form retains the entered title and reports the actual error when creation
+really fails instead of silently clearing it.
 
 </details>
 
