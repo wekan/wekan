@@ -433,7 +433,8 @@ one-board limit before dragging begins. **All Boards and board loading** now
 publish only dashboard board fields, keep templates separate, omit empty share
 branches, paginate in the database and snapshot lazy card windows on FerretDB.
 Workspace boards can also be dragged additively to Starred or, after
-confirmation, moved to Archive.
+confirmation, moved to Archive, and existing Workspace views now show Select
+All and Select None while Multi-Selection is active.
 The CPU governor also observes FerretDB before acting and never slows its read
 path when its configured cap is zero or an idle WeKan sees FerretDB itself busy.
 
@@ -538,6 +539,18 @@ it cannot silently include a hidden board; Select None clears the shared board
 selection. Home deliberately keeps Multi-Selection too: Select All simply checks
 its one visible Home board when present. Tests cover all five sections, both
 entry points, both operations, placement and matching theme classes.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7974c3e66">Existing Workspaces show Select All and Select None</a>. Thanks to xet7.</summary>
+
+An existing Workspace now shows the same themed Select All and Select None
+buttons as Remaining, Starred, Home, Templates and Archive whenever
+Multi-Selection is active. Select All uses the exact Workspace/search result
+currently rendered by `boardsForView`, so hidden boards are not selected;
+Select None clears the shared selection. Positive tests cover visibility,
+rendered-board scope and clearing.
 
 </details>
 
