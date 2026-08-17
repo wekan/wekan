@@ -419,7 +419,8 @@ delete from individual board icons and offers it as one confirmed red action on
 a multi-selection, with the same gate enforced again on the server. Select All
 and Select None above the icons make that selection explicit and quick.
 The same themed controls now cover **Remaining, Starred, Home and Templates**,
-always following the visible section and search result.
+always following the visible section and search result. While that mode is on,
+its action sidebar now stays visible until Multi-Selection is turned off.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -500,6 +501,17 @@ it cannot silently include a hidden board; Select None clears the shared board
 selection. Home deliberately keeps Multi-Selection too: Select All simply checks
 its one visible Home board when present. Tests cover all five sections, both
 entry points, both operations, placement and matching theme classes.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f1934fb3f">The Multi-Selection sidebar stays visible while selection is on</a>. Thanks to xet7.</summary>
+
+Close, toggle, Escape, Search and Home actions can no longer hide or replace
+the pane that operates selected boards. Every sidebar state change resolves
+back to the visible Multi-Selection view until the mode is turned off; its off
+controls then unlock and close the pane in that order. Positive and negative
+tests cover both sides of the transition.
 
 </details>
 
