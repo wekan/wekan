@@ -416,8 +416,10 @@ value. Below that: regression coverage keeps the menu order, pane rendering, URL
 setting handler and publication together, with the corresponding Admin Panel
 documentation and English source strings. **Board Archive** removes permanent
 delete from individual board icons and offers it as one confirmed red action on
-a multi-selection, with the same gate enforced again on the server. Select All
-and Select None above the icons make that selection explicit and quick.
+a multi-selection, with the same gate enforced again on the server. When that
+gate is disabled, the sidebar explains where to enable it instead of showing an
+inapplicable selection instruction. Select All and Select None above the icons
+make that selection explicit and quick.
 Dragging that archived selection now highlights only Remaining and existing
 Workspaces as valid restore targets. Archived tiles no longer show an
 action-looking archive glyph at their lower-left corner.
@@ -481,6 +483,19 @@ archived boards. It validates every selected board before deleting the first, so
 an invalid or live-board id cannot leave a half-applied batch. Positive and
 negative tests cover the missing per-board control, both UI gates, confirmation,
 successful reset, retained selection on failure and every server-side gate.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/76e429493">The disabled Delete gate explains how to enable it</a>. Thanks to xet7.</summary>
+
+When permanent delete is disabled, Archive's Multi-Selection sidebar no longer
+shows "Click checkboxes to select boards" without an action beneath it. It
+instead explains that enabling Admin Panel → Problems → Delete makes the Delete
+button visible. When enabled for a Global Admin, the normal selection
+instruction and red Delete action return together. Positive and negative tests
+pin both branches, and the new ordered translation key is available in every
+language file without replacing human translations.
 
 </details>
 
