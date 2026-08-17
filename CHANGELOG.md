@@ -410,9 +410,11 @@ browser build to verify).
 **In short:** **Admin Panel / Problems** gains the missing Delete settings pane,
 where a Global Admin can enable the existing, default-off permanent-delete gate.
 The pane sits above Notifications, has a stable address of its own, and explains
-that enabling the gate does not delete content by itself. Below that: regression
-coverage keeps the menu order, pane rendering, URL and setting handler together,
-with the corresponding Admin Panel documentation and English source strings.
+that enabling the gate does not delete content by itself. Its checkbox also stays
+checked after saving because the reactive settings publication returns the stored
+value. Below that: regression coverage keeps the menu order, pane rendering, URL,
+setting handler and publication together, with the corresponding Admin Panel
+documentation and English source strings.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -435,6 +437,19 @@ The removed Features page left no place to operate the existing
 whose checkbox exposes that default-off setting to Global Admins. Turning the
 gate on does not delete anything by itself; it only permits an explicit purge.
 Menu-order, pane-rendering, URL and setting-handler tests cover the addition.
+
+</details>
+
+and fixes the following Admin Panel bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/43d592590">The permanent-delete checkbox stays checked after saving</a>. Thanks to xet7.</summary>
+
+The server accepted and stored `enablePermanentDelete`, but the settings
+publication omitted the field. The next reactive render therefore read
+`undefined` and immediately replaced the optimistic checkmark with an unchecked
+box. The publication now returns the stored value, with a negative regression
+test that ties the checkbox helper, update handler and published field together.
 
 </details>
 
